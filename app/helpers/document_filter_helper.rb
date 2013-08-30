@@ -56,19 +56,23 @@ module DocumentFilterHelper
     people.map{ |a| [a.name, a.slug] }, [selected_value])
   end
 
-  def locations_options(locations, selected_locations)
+  def locations_options(document_type, selected_locations)
     selected_value = selected_locations.any? ? selected_locations.map(&:slug) : ["all"]
-    options_for_select([[t("document_filters.world_locations.all"), "all"]] +
-    locations.map { |a| [a.name, a.slug] }, selected_value)
-  end
+    locations = Rails.cache.fetch("locations_options/locations/#{document_type}/#{I18n.locale}", expires_in: 30.minutes) do
+      edition_constraint = case document_type
+      when :announcement then :with_announcements
+      when :publication then :with_publications
+      else
+        raise "unsupported document type for WorldLocation filter options"
+      end
 
-  def all_locations_with(type)
-    case type
-    when :announcement
-      WorldLocation.with_announcements.ordered_by_name
-    when :publication
-      WorldLocation.with_publications.ordered_by_name
+      [[t("document_filters.world_locations.all"), "all"]] +
+        WorldLocation.send(edition_constraint)
+          .includes(:translations)
+          .ordered_by_name
+          .map { |a| [a.name, a.slug] }
     end
+    options_for_select(locations, selected_value)
   end
 
   def publication_types_for_filter
