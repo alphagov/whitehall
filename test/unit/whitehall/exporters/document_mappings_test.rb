@@ -138,6 +138,21 @@ Old Url,New Url,Status,Slug,Admin Url,State
       assert_extraction expected, ->(row) { row.any? {|cell| cell =~ /organisation/ } }
     end
 
+    test "attachment sources are included" do
+      attachment_source = create(:attachment_source)
+      assert_extraction <<-EOT
+Old Url,New Url,Status,Slug,Admin Url,State
+#{attachment_source.url},www.preview.alphagov.co.uk#{attachment_source.attachment.url},301,"","","",Closed
+      EOT
+    end
+
+    test "attachment sources are not included if they lack an attachment" do
+      attachment_source = create(:attachment_source, attachment: nil)
+      assert_extraction <<-EOT
+Old Url,New Url,Status,Slug,Admin Url,State
+      EOT
+    end
+
     private
 
     def news_article_url(article)
