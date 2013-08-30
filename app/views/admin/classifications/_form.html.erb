@@ -20,7 +20,7 @@
 
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
-    <%= classification_form.fields_for :classification_memberships, classification.classification_memberships.for_type(Policy).published do |classification_membership_form| %>
+    <%= classification_form.fields_for :classification_memberships, classification.classification_memberships.order("ordering asc").for_type(Policy).published do |classification_membership_form| %>
       <% policy = classification_membership_form.object.policy %>
       <div id="<%= dom_id(policy) %>" class="well">
         <%= classification_membership_form.text_field :ordering, label_text: link_to(policy.title, admin_edition_path(policy)), class: "ordering" %>

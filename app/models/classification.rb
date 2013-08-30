@@ -12,7 +12,7 @@ class Classification < ActiveRecord::Base
 
   has_many :classification_memberships
   has_many :editions, through: :classification_memberships
-  has_many :policies, through: :classification_memberships
+  has_many :policies, through: :classification_memberships, :order => 'classification_memberships.ordering ASC'
   has_many :detailed_guides, through: :classification_memberships
   has_many :published_detailed_guides,
             through: :classification_memberships,
@@ -27,7 +27,8 @@ class Classification < ActiveRecord::Base
             through: :classification_memberships,
             class_name: "Policy",
             conditions: { "editions.state" => "published" },
-            source: :policy
+            source: :policy,
+            order: 'classification_memberships.ordering ASC'
   has_many :archived_policies,
             through: :classification_memberships,
             class_name: "Policy",
