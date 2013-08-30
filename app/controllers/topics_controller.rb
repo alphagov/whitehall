@@ -1,13 +1,13 @@
 class TopicsController < ClassificationsController
   def show
     @classification = Topic.find(params[:id])
-    @policies = @classification.published_policies
-    @publications = latest_presenters(Publicationesque.published_in_topic([@classification]))
-    @announcements = latest_presenters(Announcement.published_in_topic([@classification]))
-    @detailed_guides = @classification.detailed_guides.published.limit(5)
+    @policies = @classification.published_policies.includes(:translations, :document)
+    @publications = latest_presenters(Publicationesque.published_in_topic(@classification))
+    @announcements = latest_presenters(Announcement.published_in_topic(@classification))
+    @detailed_guides = @classification.detailed_guides.published.includes(:translations, :document).limit(5)
     @related_classifications = @classification.related_classifications
-    set_slimmer_organisations_header(@classification.organisations)
-    set_slimmer_page_owner_header(@classification.lead_organisations.first)
+    set_slimmer_organisations_header(@classification.organisations.includes(:translations))
+    set_slimmer_page_owner_header(@classification.lead_organisations.includes(:translations).first)
     set_meta_description(@classification.description)
 
     expire_on_next_scheduled_publication(@classification.scheduled_editions)
