@@ -22,7 +22,7 @@ module Edition::Topics
 
   module ClassMethods
     def in_topic(topic)
-      joins(:topics).where('classifications.id' => topic)
+      joins(:classification_memberships).where("classification_memberships.classification_id" => topic)
     end
 
     def published_in_topic(topic)
