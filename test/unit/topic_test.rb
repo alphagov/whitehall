@@ -48,66 +48,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 1, second_association.reload.ordering
   end
 
-  test "return published editions relating to policies in the topic" do
-    policy = create(:published_policy)
-    publication_1 = create(:published_publication, related_editions: [policy])
-    topic = create(:topic, policies: [policy])
-
-    assert_equal [publication_1], topic.published_related_editions
-  end
-
-  test "return published editions relating to policies in the topic without duplicates" do
-    policy_1 = create(:published_policy)
-    policy_2 = create(:published_policy)
-    publication_1 = create(:published_publication, related_editions: [policy_1])
-    publication_2 = create(:published_publication, related_editions: [policy_1, policy_2])
-    topic = create(:topic, policies: [policy_1, policy_2])
-
-    assert_equal [publication_1, publication_2], topic.published_related_editions
-  end
-
-  test "return only *published* editions relating to policies in the topic" do
-    published_policy = create(:published_policy)
-    create(:draft_publication, related_editions: [published_policy])
-    topic = create(:topic, policies: [published_policy])
-
-    assert_equal [], topic.published_related_editions
-  end
-
-  test "return editions relating to only *published* policies in the topic" do
-    draft_policy = create(:draft_policy)
-    create(:published_publication, related_editions: [draft_policy])
-    topic = create(:topic, policies: [draft_policy])
-
-    assert_equal [], topic.published_related_editions
-  end
-
-  test "return published editions relating from policies in the topic without duplicates" do
-    policy_1 = create(:published_policy)
-    policy_2 = create(:published_policy)
-    publication_1 = create(:published_publication, related_editions: [policy_1, policy_2])
-    publication_2 = create(:published_publication, related_editions: [policy_1])
-    topic = create(:topic, policies: [policy_1, policy_2])
-
-    assert_equal [publication_1, publication_2], topic.published_related_editions
-  end
-
-  test "return only *published* editions relating from policies in the topic" do
-    published_policy = create(:published_policy)
-    draft_publication = create(:draft_publication, related_editions: [published_policy])
-    topic = create(:topic, policies: [published_policy])
-
-    assert_equal [], topic.published_related_editions
-  end
-
-  test "return editions relating from only *published* policies in the topic" do
-    draft_policy = create(:draft_policy)
-    published_publication = create(:published_publication, related_editions: [draft_policy])
-    topic = create(:topic, policies: [draft_policy])
-
-    assert_equal [], topic.published_related_editions
-  end
-
   test "should be deletable if all the associated policies are archived" do
     topic = create(:topic, policies: [create(:archived_policy)])
     assert topic.destroyable?
@@ -348,16 +288,5 @@ class TopicTest < ActiveSupport::TestCase
 
     classification_membership.reload.destroy
     assert_equal 0, topic.reload.published_policies_count
-  end
-
-  test "should return all published policies and their published related editions in reverse chronological order" do
-    topic = create(:topic)
-    old_published_policy = create(:published_policy, topics: [topic], first_published_at: 1.month.ago)
-    new_published_policy = create(:published_policy, topics: [topic], first_published_at: 1.day.ago)
-    news_article = create(:published_news_article, related_editions: [old_published_policy], first_published_at: 1.week.ago)
-    publication = create(:published_publication, related_editions: [new_published_policy], first_published_at: 2.weeks.ago)
-    speech = create(:published_speech, related_editions: [new_published_policy], first_published_at: 3.weeks.ago)
-
-    assert_equal [new_published_policy, news_article, publication, speech, old_published_policy], topic.recently_changed_documents
   end
 end

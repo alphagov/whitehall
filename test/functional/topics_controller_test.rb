@@ -219,13 +219,11 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "#related-topics ul", count: 0
   end
 
-  view_test "show displays recently changed documents relating to policies in the topic" do
-    policy_1 = create(:published_policy)
-    news_article = create(:published_news_article, related_editions: [policy_1])
-
-    policy_2 = create(:published_policy)
-
-    topic = create(:topic, policies: [policy_1, policy_2])
+  view_test "show displays recently changed documents relating to the topic" do
+    topic = create(:topic)
+    policy_1 = create(:published_policy, topics: [topic])
+    news_article = create(:published_news_article, topics: [topic])
+    policy_2 = create(:published_policy, topics: [topic])
 
     get :show, id: topic
 
@@ -237,9 +235,9 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "show displays a maximum of 3 recently changed documents" do
-    policy = create(:published_policy)
-    4.times { create(:published_news_article, related_editions: [policy]) }
-    topic = create(:topic, policies: [policy])
+    topic = create(:topic)
+    policy = create(:published_policy, topics: [topic])
+    4.times { create(:published_news_article, topics: [topic], related_editions: [policy]) }
 
     get :show, id: topic
 
@@ -253,10 +251,9 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "show displays metadata about the recently changed documents" do
-    policy = create(:published_policy)
-    speech = create(:published_speech, related_editions: [policy])
-
-    topic = create(:topic, policies: [policy])
+    topic = create(:topic)
+    policy = create(:published_policy, topics: [topic])
+    speech = create(:published_speech, topics: [topic], related_editions: [policy])
 
     get :show, id: topic
 
@@ -269,11 +266,10 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test "show displays recently changed documents including the policy in reverse chronological order" do
-    policy_1 = create(:published_policy, first_published_at: 2.weeks.ago)
-    publication_1 = create(:published_publication, first_published_at: 6.weeks.ago, related_editions: [policy_1])
-    policy_2 = create(:published_policy, first_published_at: 5.weeks.ago)
-
-    topic = create(:topic, policies: [policy_1, policy_2])
+    topic = create(:topic)
+    policy_1 = create(:published_policy, first_published_at: 2.weeks.ago, topics: [topic])
+    publication_1 = create(:published_publication, first_published_at: 6.weeks.ago, topics: [topic], related_documents: [policy_1.document])
+    policy_2 = create(:published_policy, first_published_at: 5.weeks.ago, topics: [topic])
 
     get :show, id: topic
 
@@ -349,7 +345,7 @@ class TopicsControllerTest < ActionController::TestCase
   view_test 'atom feed has the right elements' do
     topic = build(:topic, id: 1)
     policy = create(:published_policy)
-    topic.stubs(:recently_changed_documents).returns([policy])
+    topic.stubs(:latest).returns([policy])
     Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
@@ -373,7 +369,7 @@ class TopicsControllerTest < ActionController::TestCase
       older_edition = create(:archived_policy, document: document, first_published_at: 1.month.ago)
     ]
     topic = build(:topic, id: 1)
-    topic.stubs(:recently_changed_documents).returns(recent_documents)
+    topic.stubs(:latest).returns(recent_documents)
     Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
@@ -385,21 +381,16 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test 'atom feed only shows the last 10 recently changed documents' do
-    recent_documents = Array.new(11) { create(:published_policy) }
     topic = build(:topic, id: 1)
-    topic.stubs(:recently_changed_documents).returns(recent_documents)
+    topic.expects(:latest).with(10).returns([])
     Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom
-
-    assert_select_atom_feed do
-      assert_select 'feed > entry', 10
-    end
   end
 
   view_test 'atom feed shows topic creation time if no recent publications' do
     topic = build(:topic, id: 1, created_at: 1.day.ago)
-    topic.stubs(:recently_changed_documents).returns([])
+    topic.stubs(:latest).returns([])
     Topic.stubs(:find).returns(topic)
 
     get :show, id: topic, format: :atom

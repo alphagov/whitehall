@@ -14,8 +14,6 @@ class ClassificationMembership < ActiveRecord::Base
 
   validates :edition, :classification, presence: true
 
-  default_scope order("classification_memberships.ordering ASC")
-
   after_create :update_classification_counts
   after_destroy :update_classification_counts
 
