@@ -5,6 +5,8 @@
     <% if edition.approvable_retrospectively_by?(current_user) %>
       <p><%= link_to "View this on the website", preview_document_path(@edition), target: '_blank' %> and check everything thoroughly.</p>
       <p><%= approve_retrospectively_edition_button(edition) %></p>
+    <% else %>
+      <p> Please have an editor other than the original publisher review the document to clear this warning.</p>
     <% end %>
   </div>
 <% end %>
