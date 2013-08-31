@@ -72,7 +72,7 @@
             <div class="filter-inner">
               <div class="publication-type">
                 <%= label_tag "world_locations", t('document_filters.world_locations.label'), class: "title" %>
-                <%= select_tag "world_locations[]", locations_options(all_locations_with(document_type), @filter.selected_locations), class: "single-row-select", id: "world_locations" %>
+                <%= select_tag "world_locations[]", locations_options(document_type, @filter.selected_locations), class: "single-row-select", id: "world_locations" %>
               </div>
             </div>
           </div>
