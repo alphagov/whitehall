@@ -85,10 +85,6 @@ class TopicalEvent < Classification
     last ? last.ordering + 1 : 1
   end
 
-  def recently_changed_documents
-    (published_announcements + published_publications).sort_by(&:public_timestamp).reverse
-  end
-
   def search_link
     Whitehall.url_maker.topical_event_path(slug)
   end
