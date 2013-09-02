@@ -109,6 +109,11 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal 'office-title', @presenter.as_json[:offices][:main][:title]
   end
 
+  test 'json includes public office url in offices as web_url' do
+    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
+    assert_equal worldwide_organisation_worldwide_office_url(@world_org, @office, host: 'govuk.example.com'), @presenter.as_json[:offices][:main][:web_url]
+  end
+
   test 'json includes office contact comments in offices as decscription' do
     @office.contact.stubs(:comments).returns('office-comments')
     assert_equal 'office-comments', @presenter.as_json[:offices][:main][:details][:description]
