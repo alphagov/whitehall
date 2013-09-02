@@ -53,7 +53,15 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   end
 
   test "indexes the description without markup" do
-    series = create(:document_series, name: "A doc series", description: "This is a *description*")
+    series = create(:document_series,
+                    name: "A doc series", description: "This is a *description*")
     assert_equal "This is a description", series.search_index["indexable_content"]
+  end
+
+  test 'indexes the group headings and body copy, without markup' do
+    group = create(:document_series_group, heading: 'Heading', body: '*Body*')
+    series = create(:document_series, groups: [group])
+    assert_match /^Heading$/, series.search_index['indexable_content']
+    assert_match /^Body$/, series.search_index['indexable_content']
   end
 end

@@ -18,7 +18,7 @@ class DocumentSeries < ActiveRecord::Base
 
   searchable title: :name,
              link: :search_link,
-             content: :description_without_markup,
+             content: :indexable_content,
              description: :summary,
              slug: :slug
 
@@ -37,8 +37,13 @@ class DocumentSeries < ActiveRecord::Base
     Whitehall.url_maker.organisation_document_series_path(organisation, slug)
   end
 
-  def description_without_markup
-    Govspeak::Document.new(description).to_text
+  def indexable_content
+    [
+      Govspeak::Document.new(description).to_text,
+      groups.map do |group|
+        [group.heading, Govspeak::Document.new(group.body).to_text]
+      end
+    ].flatten.join("\n")
   end
 
   def destroyable?
