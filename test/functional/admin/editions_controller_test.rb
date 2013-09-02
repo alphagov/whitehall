@@ -158,7 +158,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     editor = login_as create(:departmental_editor, organisation: organisation)
     get :index
-    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation.id)
   end
 
   test "index should render a list of drafts I have written if a writer has no remembered filters" do
