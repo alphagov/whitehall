@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: attachment_data
+#
+#  id               :integer          not null, primary key
+#  carrierwave_file :string(255)
+#  content_type     :string(255)
+#  file_size        :integer
+#  number_of_pages  :integer
+#  created_at       :datetime
+#  updated_at       :datetime
+#  replaced_by_id   :integer
+#
+
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 

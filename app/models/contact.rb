@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: contacts
+#
+#  id               :integer          not null, primary key
+#  latitude         :decimal(15, 10)
+#  longitude        :decimal(15, 10)
+#  email            :string(255)
+#  contact_form_url :string(255)
+#  contactable_id   :integer
+#  contactable_type :string(255)
+#  title            :string(255)
+#  comments         :text
+#  recipient        :string(255)
+#  street_address   :text
+#  locality         :string(255)
+#  region           :string(255)
+#  postal_code      :string(255)
+#  country_id       :integer
+#  contact_type_id  :integer          not null
+#
+
 class Contact < ActiveRecord::Base
   belongs_to :contactable, polymorphic: true
   has_many :contact_numbers, dependent: :destroy

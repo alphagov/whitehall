@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id              :integer          not null, primary key
+#  organisation_id :integer
+#  name            :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  slug            :string(255)
+#  description     :text
+#
+
 class Group < ActiveRecord::Base
   belongs_to :organisation
   has_many :group_memberships

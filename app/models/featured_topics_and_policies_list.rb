@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: featured_topics_and_policies_lists
+#
+#  id                        :integer          not null, primary key
+#  organisation_id           :integer          not null
+#  summary                   :text
+#  link_to_filtered_policies :boolean          default(TRUE), not null
+#  created_at                :datetime
+#  updated_at                :datetime
+#
+
 class FeaturedTopicsAndPoliciesList < ActiveRecord::Base
   belongs_to :organisation
 

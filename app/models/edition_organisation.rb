@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: edition_organisations
+#
+#  id                                 :integer          not null, primary key
+#  edition_id                         :integer
+#  organisation_id                    :integer
+#  created_at                         :datetime
+#  updated_at                         :datetime
+#  featured                           :boolean          default(FALSE)
+#  ordering                           :integer
+#  edition_organisation_image_data_id :integer
+#  alt_text                           :string(255)
+#  lead                               :boolean          default(FALSE), not null
+#  lead_ordering                      :integer
+#
+
 class EditionOrganisation < ActiveRecord::Base
   belongs_to :edition
   belongs_to :organisation

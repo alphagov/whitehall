@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: take_part_pages
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)      not null
+#  slug              :string(255)      not null
+#  summary           :string(255)      not null
+#  body              :text(16777215)   default(""), not null
+#  carrierwave_image :string(255)
+#  image_alt_text    :string(255)
+#  ordering          :integer          not null
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class TakePartPage < ActiveRecord::Base
 
   validates_with SafeHtmlValidator

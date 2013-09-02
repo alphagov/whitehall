@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: worldwide_services
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)      not null
+#  service_type_id :integer          not null
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class WorldwideService < ActiveRecord::Base
 
   validates :name, :service_type_id, presence: true

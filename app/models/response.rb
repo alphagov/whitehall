@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: responses
+#
+#  id           :integer          not null, primary key
+#  edition_id   :integer
+#  summary      :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  published_on :date
+#  type         :string(255)
+#
+
 class Response < ActiveRecord::Base
   include Attachable
 

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: corporate_information_pages
+#
+#  id                :integer          not null, primary key
+#  lock_version      :integer
+#  organisation_id   :integer
+#  type_id           :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  organisation_type :string(255)
+#
+
 class CorporateInformationPage < ActiveRecord::Base
   include ::Attachable
   include Searchable

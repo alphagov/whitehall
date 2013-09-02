@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: featured_items
+#
+#  id                                   :integer          not null, primary key
+#  item_id                              :integer          not null
+#  item_type                            :string(255)      not null
+#  featured_topics_and_policies_list_id :integer
+#  ordering                             :integer
+#  started_at                           :datetime
+#  ended_at                             :datetime
+#
+
 class FeaturedItem < ActiveRecord::Base
   belongs_to :item, polymorphic: true
   belongs_to :featured_topics_and_policies_list

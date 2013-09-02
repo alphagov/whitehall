@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: about_pages
+#
+#  id                  :integer          not null, primary key
+#  topical_event_id    :integer
+#  name                :string(255)
+#  summary             :text
+#  body                :text
+#  read_more_link_text :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
 class AboutPage < ActiveRecord::Base
   include Searchable
 

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: html_versions
+#
+#  id         :integer          not null, primary key
+#  edition_id :integer
+#  title      :string(255)
+#  body       :text(2147483647)
+#  slug       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class HtmlVersion < ActiveRecord::Base
   belongs_to :edition
 

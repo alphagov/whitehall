@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: email_curation_queue_items
+#
+#  id                :integer          not null, primary key
+#  edition_id        :integer          not null
+#  title             :string(255)
+#  summary           :text
+#  notification_date :datetime
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class EmailCurationQueueItem < ActiveRecord::Base
   belongs_to :edition
 

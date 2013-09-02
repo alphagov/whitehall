@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: features
+#
+#  id                :integer          not null, primary key
+#  document_id       :integer
+#  feature_list_id   :integer
+#  carrierwave_image :string(255)
+#  alt_text          :string(255)
+#  ordering          :integer
+#  started_at        :datetime
+#  ended_at          :datetime
+#  topical_event_id  :integer
+#
+
 class Feature < ActiveRecord::Base
   belongs_to :document
   belongs_to :topical_event

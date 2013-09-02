@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: organisations
+#
+#  id                                      :integer          not null, primary key
+#  created_at                              :datetime
+#  updated_at                              :datetime
+#  slug                                    :string(255)
+#  organisation_type_id                    :integer
+#  url                                     :string(255)
+#  alternative_format_contact_email        :string(255)
+#  govuk_status                            :string(255)      default("live"), not null
+#  organisation_logo_type_id               :integer          default(2)
+#  analytics_identifier                    :string(255)
+#  handles_fatalities                      :boolean          default(FALSE)
+#  important_board_members                 :integer          default(1)
+#  default_news_organisation_image_data_id :integer
+#  closed_at                               :datetime
+#  organisation_brand_colour_id            :integer
+#  ocpa_regulated                          :boolean
+#  public_meetings                         :boolean
+#  public_minutes                          :boolean
+#  register_of_interests                   :boolean
+#  regulatory_function                     :boolean
+#
+
 class Organisation < ActiveRecord::Base
   include Searchable
 

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: classification_featurings
+#
+#  id                                     :integer          not null, primary key
+#  edition_id                             :integer
+#  classification_id                      :integer
+#  created_at                             :datetime
+#  updated_at                             :datetime
+#  ordering                               :integer
+#  classification_featuring_image_data_id :integer
+#  alt_text                               :string(255)
+#
+
 class ClassificationFeaturing < ActiveRecord::Base
   belongs_to :edition
   belongs_to :classification

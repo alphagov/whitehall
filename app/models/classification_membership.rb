@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: classification_memberships
+#
+#  classification_id :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  edition_id        :integer
+#  id                :integer          not null, primary key
+#  ordering          :integer
+#
+
 class ClassificationMembership < ActiveRecord::Base
   belongs_to :edition
   belongs_to :classification, foreign_key: :classification_id

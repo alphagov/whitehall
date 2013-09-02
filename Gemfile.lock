@@ -55,6 +55,8 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.4)
+    annotate (2.5.0)
+      rake
     arel (3.0.2)
     aws-ses (0.5.0)
       builder
@@ -329,6 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
+  annotate
   aws-ses
   babosa
   bootstrap-kaminari-views

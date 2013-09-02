@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: classification_relations
+#
+#  id                        :integer          not null, primary key
+#  classification_id         :integer          not null
+#  related_classification_id :integer          not null
+#  created_at                :datetime
+#  updated_at                :datetime
+#
+
 class ClassificationRelation < ActiveRecord::Base
   belongs_to :classification
   belongs_to :related_classification, foreign_key: :related_classification_id, class_name: "Classification"

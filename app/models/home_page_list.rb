@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: home_page_lists
+#
+#  id         :integer          not null, primary key
+#  owner_id   :integer          not null
+#  owner_type :string(255)      not null
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class HomePageList < ActiveRecord::Base
   belongs_to :owner,
              polymorphic: true

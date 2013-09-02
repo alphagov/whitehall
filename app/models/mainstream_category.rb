@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: mainstream_categories
+#
+#  id           :integer          not null, primary key
+#  slug         :string(255)
+#  title        :string(255)
+#  parent_title :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  parent_tag   :string(255)
+#  description  :text
+#
+
 require 'cgi'
 
 class MainstreamCategory < ActiveRecord::Base

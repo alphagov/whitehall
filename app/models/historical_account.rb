@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: historical_accounts
+#
+#  id                  :integer          not null, primary key
+#  person_id           :integer
+#  summary             :text
+#  body                :text
+#  born                :string(255)
+#  died                :string(255)
+#  major_acts          :text
+#  interesting_facts   :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  political_party_ids :string(255)
+#
+
 class HistoricalAccount < ActiveRecord::Base
   belongs_to :person, inverse_of: :historical_accounts
   has_many   :historical_account_roles

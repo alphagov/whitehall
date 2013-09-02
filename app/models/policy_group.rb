@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: policy_groups
+#
+#  id          :integer          not null, primary key
+#  email       :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  name        :string(255)
+#  description :text
+#  type        :string(255)
+#  summary     :text
+#  slug        :string(255)
+#
+
 # @abstract
 class PolicyGroup < ActiveRecord::Base
   include Searchable

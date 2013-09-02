@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: edition_relations
+#
+#  id          :integer          not null, primary key
+#  edition_id  :integer          not null
+#  created_at  :datetime
+#  updated_at  :datetime
+#  document_id :integer
+#
+
 class EditionRelation < ActiveRecord::Base
   belongs_to :edition
   belongs_to :document

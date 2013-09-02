@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: promotional_feature_items
+#
+#  id                     :integer          not null, primary key
+#  promotional_feature_id :integer
+#  summary                :text
+#  image                  :string(255)
+#  image_alt_text         :string(255)
+#  title                  :string(255)
+#  title_url              :string(255)
+#  double_width           :boolean          default(FALSE)
+#  created_at             :datetime
+#  updated_at             :datetime
+#
+
 class PromotionalFeatureItem < ActiveRecord::Base
   LINK_LIMIT = 6
 

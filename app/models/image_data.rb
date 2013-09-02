@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: image_data
+#
+#  id                :integer          not null, primary key
+#  carrierwave_image :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 require 'mini_magick'
 
 class ImageData < ActiveRecord::Base

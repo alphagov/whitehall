@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: recent_edition_openings
+#
+#  id         :integer          not null, primary key
+#  edition_id :integer          not null
+#  editor_id  :integer          not null
+#  created_at :datetime         not null
+#
+
 class RecentEditionOpening < ActiveRecord::Base
   belongs_to :edition
   belongs_to :editor, class_name: "User"

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: nation_inapplicabilities
+#
+#  id              :integer          not null, primary key
+#  nation_id       :integer
+#  edition_id      :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  alternative_url :string(255)
+#
+
 class NationInapplicability < ActiveRecord::Base
   delegate :name, to: :nation
 

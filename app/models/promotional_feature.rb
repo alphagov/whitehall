@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: promotional_features
+#
+#  id              :integer          not null, primary key
+#  organisation_id :integer
+#  title           :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class PromotionalFeature < ActiveRecord::Base
   belongs_to :organisation
   has_many :promotional_feature_items, inverse_of: :promotional_feature, dependent: :destroy

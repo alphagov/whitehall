@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: supporting_pages
+#
+#  id           :integer          not null, primary key
+#  edition_id   :integer
+#  title        :string(255)
+#  body         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  lock_version :integer          default(0)
+#  slug         :string(255)
+#
+
 class SupportingPage < ActiveRecord::Base
   include Searchable
   include ::Attachable

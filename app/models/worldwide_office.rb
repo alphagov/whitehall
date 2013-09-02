@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: worldwide_offices
+#
+#  id                        :integer          not null, primary key
+#  worldwide_organisation_id :integer
+#  created_at                :datetime
+#  updated_at                :datetime
+#  worldwide_office_type_id  :integer          not null
+#  slug                      :string(255)
+#
+
 class WorldwideOffice < ActiveRecord::Base
   has_one :contact, as: :contactable, dependent: :destroy
   belongs_to :worldwide_organisation
