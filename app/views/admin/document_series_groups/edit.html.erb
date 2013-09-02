@@ -5,6 +5,8 @@
   <section>
     <h1>Edit group</h1>
 
+    <%= render partial: 'changes_go_live' %>
+
     <%= render partial: 'form', locals: { url: admin_document_series_group_path(@series, @group) } %>
   </section>
 </div>

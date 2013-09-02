@@ -34,6 +34,15 @@
           top: 1px;
           right: 4.3em;
         }
+
+        p.tip {
+          position: absolute;
+          left: 0.7em;
+          top: 2.5em;
+
+          color: #999;
+          font-size: 10px;
+        }
       }
 
       input.btn-mini {
