@@ -3,22 +3,6 @@ require 'test_helper'
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
 
-  test "#all_locations_with :publication returns all world locations with publications, alphabetically" do
-    final_scope = stub('final scope')
-    final_scope.expects(:ordered_by_name)
-    WorldLocation.expects(:with_publications).returns(final_scope)
-
-    all_locations_with(:publication)
-  end
-
-  test "#all_locations_with :announcement returns all world locations with announcements, alphabetically" do
-    final_scope = stub('final scope')
-    final_scope.expects(:ordered_by_name)
-    WorldLocation.expects(:with_announcements).returns(final_scope)
-
-    all_locations_with(:announcement)
-  end
-
   test "#publication_types_for_filter returns all publication filter option types" do
     assert_equal Whitehall::PublicationFilterOption.all, publication_types_for_filter
   end
