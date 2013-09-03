@@ -252,7 +252,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def default_filters
     if current_user.departmental_editor?
-      {organisation: current_user.organisation.id, state: :submitted}
+      {organisation: current_user.organisation.try(:id), state: :submitted}
     else
       {state: :draft, author: current_user}
     end
