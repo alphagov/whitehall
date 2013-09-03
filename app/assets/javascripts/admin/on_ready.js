@@ -89,8 +89,10 @@ jQuery(document).ready(function($) {
   });
 
   // Admin UI for document series
-  GOVUK.documentSeriesDocFinder.init();
-  GOVUK.documentSeriesCheckboxSelector.init();
+  if ($('div.document-series-groups.index').length > 0) {
+    GOVUK.documentSeriesDocFinder.init();
+    GOVUK.documentSeriesCheckboxSelector.init();
+  }
 
   // Inbound links on edition show page
   $('#inbound-links').hideExtraRows({rows: 10});
