@@ -11,15 +11,6 @@ module ConsultationsHelper
     (((consultation.closing_on < Date.today) ? "Closed on " : "Closes on ") + date).html_safe
   end
 
-  def consultation_outcome_published_phrase(outcome)
-    if outcome.published_on
-      date = render_datetime_microformat(outcome, :published_on) { outcome.published_on.to_s(:long_ordinal) }
-      "Published outcome on #{date}".html_safe
-    else
-      'Not yet published'
-    end
-  end
-
   def consultation_css_class(consultation)
     consultation_class = ''
     if consultation.outcome_published?
