@@ -58,6 +58,7 @@ end
 
 group :development do
   gem 'newrelic_rpm'
+  gem 'rack-mini-profiler'
 end
 
 group :test do
