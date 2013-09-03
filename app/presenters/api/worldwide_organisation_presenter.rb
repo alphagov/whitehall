@@ -57,6 +57,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       title: office_worldwide_organisation.contact.title,
       format: 'World Office',
       updated_at: office_worldwide_organisation.updated_at,
+      web_url: context.worldwide_organisation_worldwide_office_url(model, office_worldwide_organisation, host: context.public_host),
       details: {
         email: office_worldwide_organisation.contact.email || '',
         description: office_worldwide_organisation.contact.comments || '',
