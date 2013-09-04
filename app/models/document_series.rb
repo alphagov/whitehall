@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: document_series
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  organisation_id :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  slug            :string(255)
+#  description     :text
+#  state           :string(255)      default("current")
+#  summary         :string(255)
+#
+
 class DocumentSeries < ActiveRecord::Base
   include Searchable
   include SimpleWorkflow

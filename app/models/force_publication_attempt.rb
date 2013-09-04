@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: force_publication_attempts
+#
+#  id                   :integer          not null, primary key
+#  import_id            :integer
+#  total_documents      :integer
+#  successful_documents :integer
+#  enqueued_at          :datetime
+#  started_at           :datetime
+#  finished_at          :datetime
+#  log                  :text(2147483647)
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+
 class ForcePublicationAttempt < ActiveRecord::Base
   belongs_to :import
 

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: people
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)
+#  forename          :string(255)
+#  surname           :string(255)
+#  letters           :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  carrierwave_image :string(255)
+#  slug              :string(255)
+#  privy_counsellor  :boolean          default(FALSE)
+#
+
 class Person < ActiveRecord::Base
 
   def self.columns

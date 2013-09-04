@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id            :integer          not null, primary key
+#  image_data_id :integer
+#  edition_id    :integer
+#  alt_text      :string(255)
+#  caption       :text
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class Image < ActiveRecord::Base
   belongs_to :image_data
   belongs_to :edition

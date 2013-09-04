@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: attachments
+#
+#  id                       :integer          not null, primary key
+#  created_at               :datetime
+#  updated_at               :datetime
+#  title                    :string(255)
+#  accessible               :boolean
+#  isbn                     :string(255)
+#  unique_reference         :string(255)
+#  command_paper_number     :string(255)
+#  order_url                :string(255)
+#  price_in_pence           :integer
+#  attachment_data_id       :integer
+#  ordering                 :integer
+#  hoc_paper_number         :string(255)
+#  parliamentary_session    :string(255)
+#  unnumbered_command_paper :boolean
+#  unnumbered_hoc_paper     :boolean
+#
+
 class Attachment < ActiveRecord::Base
   has_many :edition_attachments
   has_many :editions, through: :edition_attachments

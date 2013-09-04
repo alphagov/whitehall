@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: consultation_participations
+#
+#  id                            :integer          not null, primary key
+#  edition_id                    :integer
+#  link_url                      :string(255)
+#  created_at                    :datetime
+#  updated_at                    :datetime
+#  email                         :string(255)
+#  consultation_response_form_id :integer
+#  postal_address                :text
+#
+
 class ConsultationParticipation < ActiveRecord::Base
   belongs_to :consultation, foreign_key: 'edition_id'
   belongs_to :consultation_response_form

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: social_media_accounts
+#
+#  id                      :integer          not null, primary key
+#  socialable_id           :integer
+#  social_media_service_id :integer
+#  url                     :string(255)
+#  created_at              :datetime
+#  updated_at              :datetime
+#  socialable_type         :string(255)
+#  title                   :string(255)
+#
+
 class SocialMediaAccount < ActiveRecord::Base
   belongs_to :socialable, polymorphic: true
   belongs_to :social_media_service

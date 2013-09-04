@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: worldwide_organisations
+#
+#  id                                      :integer          not null, primary key
+#  url                                     :string(255)
+#  slug                                    :string(255)
+#  logo_formatted_name                     :string(255)
+#  created_at                              :datetime
+#  updated_at                              :datetime
+#  main_office_id                          :integer
+#  default_news_organisation_image_data_id :integer
+#
+
 class WorldwideOrganisation < ActiveRecord::Base
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole]
 

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: versions
+#
+#  id         :integer          not null, primary key
+#  item_type  :string(255)      not null
+#  item_id    :integer          not null
+#  event      :string(255)      not null
+#  whodunnit  :string(255)
+#  object     :text
+#  created_at :datetime
+#  state      :text
+#
+
 class Version < ActiveRecord::Base
   belongs_to :item, polymorphic: true
   validates_presence_of :event

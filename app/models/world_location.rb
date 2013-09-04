@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: world_locations
+#
+#  id                     :integer          not null, primary key
+#  created_at             :datetime
+#  updated_at             :datetime
+#  slug                   :string(255)
+#  active                 :boolean          default(FALSE), not null
+#  world_location_type_id :integer          not null
+#  iso2                   :string(2)
+#
+
 class WorldLocation < ActiveRecord::Base
   has_many :edition_world_locations
   has_many :editions,

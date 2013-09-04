@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: edition_world_locations
+#
+#  id                :integer          not null, primary key
+#  edition_id        :integer
+#  world_location_id :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class EditionWorldLocation < ActiveRecord::Base
   extend DeprecatedColumns
 

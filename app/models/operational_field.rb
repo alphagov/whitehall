@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: operational_fields
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  description :text
+#  slug        :string(255)
+#
+
 class OperationalField < ActiveRecord::Base
   include Searchable
 

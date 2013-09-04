@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: consultation_response_forms
+#
+#  id                                 :integer          not null, primary key
+#  title                              :string(255)
+#  created_at                         :datetime
+#  updated_at                         :datetime
+#  consultation_response_form_data_id :integer
+#
+
 class ConsultationResponseForm < ActiveRecord::Base
   has_one :consultation_participation
   belongs_to :consultation_response_form_data

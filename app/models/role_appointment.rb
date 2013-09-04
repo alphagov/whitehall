@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: role_appointments
+#
+#  id         :integer          not null, primary key
+#  role_id    :integer
+#  person_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  started_at :datetime
+#  ended_at   :datetime
+#
+
 class RoleAppointment < ActiveRecord::Base
   CURRENT_CONDITION = {ended_at: nil}
 

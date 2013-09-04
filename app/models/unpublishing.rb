@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: unpublishings
+#
+#  id                     :integer          not null, primary key
+#  edition_id             :integer
+#  unpublishing_reason_id :integer
+#  explanation            :text
+#  alternative_url        :text
+#  created_at             :datetime
+#  updated_at             :datetime
+#  document_type          :string(255)
+#  slug                   :string(255)
+#  redirect               :boolean          default(FALSE)
+#
+
 class Unpublishing < ActiveRecord::Base
   belongs_to :edition
 

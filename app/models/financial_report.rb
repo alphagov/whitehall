@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: financial_reports
+#
+#  id              :integer          not null, primary key
+#  organisation_id :integer
+#  funding         :integer
+#  spending        :integer
+#  year            :integer
+#
+
 class FinancialReport < ActiveRecord::Base
   belongs_to :organisation
   validates_associated :organisation

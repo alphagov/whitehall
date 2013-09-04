@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: fact_check_requests
+#
+#  id            :integer          not null, primary key
+#  edition_id    :integer
+#  key           :string(255)
+#  created_at    :datetime
+#  updated_at    :datetime
+#  email_address :string(255)
+#  comments      :text
+#  instructions  :text
+#  requestor_id  :integer
+#
+
 class FactCheckRequest < ActiveRecord::Base
   include Whitehall::RandomKey
   self.random_key_length = 16

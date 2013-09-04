@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: imports
+#
+#  id                 :integer          not null, primary key
+#  original_filename  :string(255)
+#  data_type          :string(255)
+#  csv_data           :text(2147483647)
+#  already_imported   :text
+#  successful_rows    :text
+#  creator_id         :integer
+#  import_started_at  :datetime
+#  import_finished_at :datetime
+#  total_rows         :integer
+#  current_row        :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  import_enqueued_at :datetime
+#  organisation_id    :integer
+#
+
 require 'csv'
 
 class Import < ActiveRecord::Base

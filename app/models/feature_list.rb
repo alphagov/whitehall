@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: feature_lists
+#
+#  id              :integer          not null, primary key
+#  featurable_id   :integer
+#  featurable_type :string(255)
+#  locale          :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class FeatureList < ActiveRecord::Base
   has_many :features, dependent: :destroy, order: :ordering, before_add: :ensure_ordering!
   belongs_to :featurable, polymorphic: true

@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: documents
+#
+#  id            :integer          not null, primary key
+#  created_at    :datetime
+#  updated_at    :datetime
+#  slug          :string(255)
+#  document_type :string(255)
+#
+
 # All {Edition}s have one document, this model contains the slug and
 # handles the logic for slug regeneration.
 class Document < ActiveRecord::Base

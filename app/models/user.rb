@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  email               :string(255)
+#  organisation_id     :integer
+#  uid                 :string(255)
+#  version             :integer
+#  permissions         :text
+#  remotely_signed_out :boolean          default(FALSE)
+#
+
 class User < ActiveRecord::Base
   include GDS::SSO::User
 
