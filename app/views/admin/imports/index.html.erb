@@ -28,7 +28,7 @@
       <% @imports.each do |import| %>
         <%= content_tag_for(:tr, import) do %>
           <td class="started_at">
-            <%= import.import_started_at && render_datetime_microformat(import, :import_started_at) { import.import_started_at.to_s(:long)} %>
+            <%= import.import_started_at && absolute_time(import.import_started_at) %>
           </td>
           <td class="creator"><%= linked_author import.creator %></td>
           <td class="type"><%= import.data_type %></td>
@@ -44,7 +44,7 @@
             <td class="already_imported_count"><%= link_to import.already_imported && import.already_imported.size, admin_import_path(import, anchor: "already_imported") %></td>
             <td class="error_count"><%= link_to import.number_of_rows_with_errors, admin_import_path(import, anchor: "errors") %></td>
             <td class="finished_at">
-              <%= import.import_finished_at && render_datetime_microformat(import, :import_finished_at) { import.import_finished_at.to_s(:long)} %>
+              <%= import.import_finished_at && absolute_time(import.import_finished_at) %>
             </td>
             <td class="force_publish">
               <% unless import.status == :failed %>
