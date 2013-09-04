@@ -88,8 +88,11 @@ jQuery(document).ready(function($) {
     }
   });
 
-  // Document series document finder
-  GOVUK.documentFinder.init('.document-finder');
+  // Admin UI for document series
+  if ($('div.document-series-groups.index').length > 0) {
+    GOVUK.documentSeriesDocFinder.init();
+    GOVUK.documentSeriesCheckboxSelector.init();
+  }
 
   // Inbound links on edition show page
   $('#inbound-links').hideExtraRows({rows: 10});

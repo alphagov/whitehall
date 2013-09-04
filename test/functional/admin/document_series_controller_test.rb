@@ -18,7 +18,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     end
   end
 
-  test "POST #create saves a the document series to the organisation" do
+  test "POST #create saves the document series to the organisation" do
     post :create, organisation_id: @organisation, document_series: {
           name: "series-name",
           summary: "series-summary",
@@ -29,6 +29,7 @@ class Admin::DocumentSeriesControllerTest < ActionController::TestCase
     document_series = @organisation.document_series.first
     assert_equal "series-name", document_series.name
     assert_equal "series-description", document_series.description
+    assert document_series.groups.present?, 'should have a group'
     assert_response :redirect
   end
 

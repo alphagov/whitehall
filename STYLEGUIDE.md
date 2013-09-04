@@ -43,11 +43,11 @@ These are blocks of Sass which usually match a rails partial. They are used to s
 
 ### `./views`
 
-These are where you style the layout of a page and any elements which will only appear in that one view. There should be one file in this file for each controller. They should be named after the controller. The view for the controller should set the `page_class` in the form `{controller}-{action}`. For example for the views from `people_controller.rb`
+These are where you style the layout of a page and any elements which will only appear in that one view. There should be one file in this directory for each controller. They should be named after the controller. The view for the controller should set the `page_class` in the form `{controller}-{action}`. For example for the views from `people_controller.rb`
 
 `people/index.html.erb`:
 
-    <% content_for :page_class 'people-index' %>
+    <% content_for :page_class, 'people-index' %>
     ...
 
 `./views/_people.scss`:

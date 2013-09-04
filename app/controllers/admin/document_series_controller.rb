@@ -8,6 +8,7 @@ class Admin::DocumentSeriesController < Admin::BaseController
 
   def create
     @document_series = @organisation.document_series.build(params[:document_series])
+    @document_series.groups.build(DocumentSeriesGroup.default_attributes)
     if @document_series.save
       redirect_to admin_organisation_document_series_path(@organisation, @document_series)
     else

@@ -43,7 +43,7 @@ begin
   end
 
   desc 'Alias for cucumber:ok'
-  task :cucumber => ['shared_mustache:compile', 'cucumber:ok', 'shared_mustache:clean']
+  task :cucumber => ['cucumber:ok']
 
   task :default => :cucumber
 

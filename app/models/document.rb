@@ -38,8 +38,9 @@ class Document < ActiveRecord::Base
                AND e2.state <> 'deleted'))
 
   has_many :document_sources, dependent: :destroy
-  has_many :document_series_membership
-  has_many :document_series, through: :document_series_membership
+  has_many :document_series_group_memberships
+  has_many :document_series_groups, through: :document_series_group_memberships
+  has_many :document_series, through: :document_series_groups
 
   after_create :ensure_document_has_a_slug
 
