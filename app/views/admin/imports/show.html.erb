@@ -2,7 +2,7 @@
 
 <%= content_tag_for :div, @import do %>
   <h1>Import of <%= @import.original_filename %></h1>
-  <p>Created: <%= render_datetime_microformat(@import, :created_at) { @import.created_at.to_s(:long)} %></p>
+  <p>Created: <%= absolute_time(@import.created_at) %></p>
   <p>Imported by <%= linked_author @import.creator %></p>
 
   <% if @import.status == :new %>
@@ -11,20 +11,20 @@
     <%= button_to "Run", run_admin_import_path(@import), class: "btn btn-large btn-primary" %>
   <% elsif @import.status == :queued %>
     <h2 class="summary">Queued</h2>
-    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
+    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
 
   <% elsif @import.status == :running %>
-    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
-    <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
+    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
+    <p>Started: <%= absolute_time(@import.import_started_at) %></p>
 
     <p class="summary">Import running (row <%= @import.current_row %>/<%= @import.total_rows %>)</p>
 
     <%= render partial: "errors", locals: {import: @import} %>
 
   <% elsif @import.status == :failed %>
-    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
-    <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
-    <p>Finished: <%= render_datetime_microformat(@import, :import_finished_at) { @import.import_finished_at.to_s(:long)} %></p>
+    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
+    <p>Started: <%= absolute_time(@import.import_started_at) %></p>
+    <p>Finished: <%= absolute_time(@import.import_finished_at) %></p>
 
     <h2 class="summary">Import failed with <%= pluralize(@import.import_errors.count, "error") %></h2>
     <%= link_to "Download annotated CSV", annotated_admin_import_path(@import), class:"download" %>
@@ -32,9 +32,9 @@
     <%= render partial: "errors", locals: {import: @import} %>
   <% else %>
     <h2 class="summary">Imported successfully</h2>
-    <p>Queued: <%= render_datetime_microformat(@import, :import_enqueued_at) { @import.import_enqueued_at.to_s(:long)} %></p>
-    <p>Started: <%= render_datetime_microformat(@import, :import_started_at) { @import.import_started_at.to_s(:long)} %></p>
-    <p>Finished: <%= render_datetime_microformat(@import, :import_finished_at) { @import.import_finished_at.to_s(:long)} %></p>
+    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
+    <p>Started: <%= absolute_time(@import.import_started_at) %></p>
+    <p>Finished: <%= absolute_time(@import.import_finished_at) %></p>
 
     <h2 id="success">Documents added</h2>
     <% if @import.document_sources.any? %>

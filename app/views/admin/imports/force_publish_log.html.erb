@@ -2,41 +2,43 @@
 
 <%= content_tag_for :div, @import do %>
   <h1>Import of <%= @import.original_filename %></h1>
-  <p>Created: <%= render_datetime_microformat(@import, :created_at) { @import.created_at.to_s(:long)} %></p>
+  <p>Created: <%= absolute_time(@import.created_at) %></p>
   <p>Imported by <%= linked_author @import.creator %></p>
 
   <% if @most_recent_attempt.status == :new %>
+
     <h2 class="summary">New attempt</h2>
     <p><%= @most_recent_attempt.total_documents %> documents</p>
+
   <% elsif @most_recent_attempt.status == :queued %>
+
     <h2 class="summary">Queued</h2>
-    <p>Queued: <%= render_datetime_microformat(@most_recent_attempt, :enqueued_at) { @most_recent_attempt.enqueued_at.to_s(:long)} %></p>
+    <p>Queued: <%= absolute_time(@most_recent_attempt.enqueued_at) %></p>
 
   <% elsif @most_recent_attempt.status == :running %>
-    <h2 class="summary">Running</h2>
-    <p>Queued: <%= render_datetime_microformat(@most_recent_attempt, :enqueued_at) { @most_recent_attempt.enqueued_at.to_s(:long)} %></p>
-    <p>Started: <%= render_datetime_microformat(@most_recent_attempt, :started_at) { @most_recent_attempt.started_at.to_s(:long)} %></p>
 
+    <h2 class="summary">Running</h2>
+    <p>Queued: <%= absolute_time(@most_recent_attempt.enqueued_at) %></p>
+    <p>Started: <%= absolute_time(@most_recent_attempt.started_at) %></p>
     <h2>Log</h2>
     <div class="log"><pre><%= @most_recent_attempt.log %></pre></div>
 
   <% elsif @most_recent_attempt.status == :failures %>
+
     <h2 class="summary">Failures</h2>
-    <p>Queued: <%= render_datetime_microformat(@most_recent_attempt, :enqueued_at) { @most_recent_attempt.enqueued_at.to_s(:long)} %></p>
-    <p>Started: <%= render_datetime_microformat(@most_recent_attempt, :started_at) { @most_recent_attempt.started_at.to_s(:long)} %></p>
-    <p>Finished: <%= render_datetime_microformat(@most_recent_attempt, :finished_at) { @most_recent_attempt.finished_at.to_s(:long)} %></p>
-
+    <p>Queued: <%= absolute_time(@most_recent_attempt.enqueued_at) %></p>
+    <p>Started: <%= absolute_time(@most_recent_attempt.started_at) %></p>
+    <p>Finished: <%= absolute_time(@most_recent_attempt.finished_at) %></p>
     <p>Force publishing failed for <%= @most_recent_attempt.failed_documents %> out of <%= @most_recent_attempt.total_documents %>.</p>
-
     <h2>Log</h2>
     <div class="log"><pre><%= @most_recent_attempt.log %></pre></div>
 
   <% else %>
-    <h2 class="summary">Successful</h2>
-    <p>Queued: <%= render_datetime_microformat(@most_recent_attempt, :enqueued_at) { @most_recent_attempt.enqueued_at.to_s(:long)} %></p>
-    <p>Started: <%= render_datetime_microformat(@most_recent_attempt, :started_at) { @most_recent_attempt.started_at.to_s(:long)} %></p>
-    <p>Finished: <%= render_datetime_microformat(@most_recent_attempt, :finished_at) { @most_recent_attempt.finished_at.to_s(:long)} %></p>
 
+    <h2 class="summary">Successful</h2>
+    <p>Queued: <%= absolute_time(@most_recent_attempt.enqueued_at) %></p>
+    <p>Started: <%= absolute_time(@most_recent_attempt.started_at) %></p>
+    <p>Finished: <%= absolute_time(@most_recent_attempt.finished_at) %></p>
     <h2 id="log">Log</h2>
     <div class="log"><pre><%= @most_recent_attempt.log %></pre></div>
 

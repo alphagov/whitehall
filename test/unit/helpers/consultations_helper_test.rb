@@ -33,11 +33,6 @@ class ConsultationsHelperTest < ActionView::TestCase
     assert_match Regexp.new(Regexp.escape("9 October 2011")), consultation_closing_phrase(consultation)
   end
 
-  test "#consultation_outcome_published_phrase includes long form date" do
-    outcome = ConsultationOutcome.new(published_on: Date.new(2012, 12, 12))
-    assert_match Regexp.new(Regexp.escape("12 December 2012")), consultation_outcome_published_phrase(outcome)
-  end
-
   test "#consultation_css_class when an outcome exists" do
     consultation = Consultation.new
     consultation.build_outcome
