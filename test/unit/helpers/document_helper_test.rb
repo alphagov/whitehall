@@ -325,7 +325,7 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal 'Worldwide priorities', metadata[:title]
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
-                              worldwide_priority_path(priority),
+                              public_document_path(priority),
                               text: priority.title
   end
 end
