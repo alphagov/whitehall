@@ -6,52 +6,70 @@
 <%= form_for [:admin, organisation], as: :organisation do |organisation_form| %>
   <%= organisation_form.errors %>
   <fieldset>
-    <%= organisation_form.text_field :name %>
-    <%= organisation_form.text_field :acronym %>
-    <%= organisation_form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %>
-    <%= organisation_form.label :organisation_logo_type_id, 'Logo crest' %>
-    <%= organisation_form.select :organisation_logo_type_id, options_from_collection_for_select(OrganisationLogoType.all, "id", "title", organisation.organisation_logo_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose logo crest..."} %>
-    <%= organisation_form.label :organisation_brand_colour_id, 'Brand colour' %>
-    <%= organisation_form.select :organisation_brand_colour_id, options_from_collection_for_select(OrganisationBrandColour.all, "id", "title", organisation.organisation_brand_colour_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose brand colour..."} %>
+    <p><%= organisation_form.text_field :name %></p>
+    <p><%= organisation_form.text_field :acronym %></p>
+    <p><%= organisation_form.text_area :logo_formatted_name, rows: "4", style: "width: auto" %></p>
+    <p>
+      <%= organisation_form.label :organisation_logo_type_id, 'Logo crest' %>
+      <%= organisation_form.select :organisation_logo_type_id, options_from_collection_for_select(OrganisationLogoType.all, "id", "title", organisation.organisation_logo_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose logo crest..."} %>
+    </p>
+    <p>
+      <%= organisation_form.label :organisation_brand_colour_id, 'Brand colour' %>
+      <%= organisation_form.select :organisation_brand_colour_id, options_from_collection_for_select(OrganisationBrandColour.all, "id", "title", organisation.organisation_brand_colour_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose brand colour..."} %>
+    </p>
     <%= organisation_form.fields_for :default_news_image do |image_fields| %>
       <%= render partial: "admin/shared/default_news_image_fields", locals: {image_fields: image_fields} %>
     <% end %>
-    <%= organisation_form.text_area :description, class: "previewable" %>
-    <%= organisation_form.text_field :url %>
-    <%= organisation_form.label :organisation_type_id, "Organisation type" %>
-    <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.in_listing_order, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
-    <%= organisation_form.text_field :alternative_format_contact_email, label_text: "Email address for ordering attached files in an alternative format" %>
-    <%= organisation_form.label :govuk_status, "Status on gov.uk" %>
-    <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"], ["Closed", "closed"]], {}, class: 'chzn-select' %>
-    <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
-    <div id="organisation_closed_at_group">
+    <p>
+      <%= organisation_form.text_area :description, class: "previewable" %>
+      <%= organisation_form.text_field :url %>
+    </p>
+    <p>
+      <%= organisation_form.label :organisation_type_id, "Organisation type" %>
+      <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.in_listing_order, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
+    </p>
+    <p>
+      <%= organisation_form.text_field :alternative_format_contact_email, label_text: "Email address for ordering attached files in an alternative format" %>
+    </p>
+    <p>
+      <%= organisation_form.label :govuk_status, "Status on gov.uk" %>
+      <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"], ["Closed", "closed"]], {}, class: 'chzn-select' %>
+    </p>
+    <p id="js-organisation-closed-at-group">
+      <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
       <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
-    </div>
+    </p>
   </fieldset>
   <fieldset>
     <legend>Associations</legend>
     <%= hidden_field_tag "organisation[parent_organisation_ids][]", "", id: "organisation_parent_organisation_ids_default" %>
-    <%= organisation_form.label :parent_organisation_ids, 'Sponsoring organisations' %>
-    <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
+    <p>
+      <%= organisation_form.label :parent_organisation_ids, 'Sponsoring organisations' %>
+      <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
+    </p>
 
     <h3>Topics</h3>
     <% organisation_form.object.organisation_classifications.each do |ot| %>
-      <%= label_tag "organisation_topic_ids_#{ot.ordering}" do %>
-        Topic <%= ot.ordering + 1 %>
-        <%= select_tag "organisation[organisation_classifications_attributes][][classification_id]", options_from_collection_for_select(Classification.all, 'id', 'name', ot.classification_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose topics..."}, id: "organisation_topic_ids_#{ot.ordering}" %>
-        <%= hidden_field_tag "organisation[organisation_classifications_attributes][][ordering]", ot.ordering %>
-        <%= hidden_field_tag "organisation[organisation_classifications_attributes][][id]", ot.id %>
-      <% end %>
+      <p>
+        <%= label_tag "organisation_topic_ids_#{ot.ordering}" do %>
+          Topic <%= ot.ordering + 1 %>
+          <%= select_tag "organisation[organisation_classifications_attributes][][classification_id]", options_from_collection_for_select(Classification.all, 'id', 'name', ot.classification_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose topics..."}, id: "organisation_topic_ids_#{ot.ordering}" %>
+          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][ordering]", ot.ordering %>
+          <%= hidden_field_tag "organisation[organisation_classifications_attributes][][id]", ot.id %>
+        <% end %>
+      </p>
     <% end %>
 
     <h3>Detailed guidance categories</h3>
     <% organisation_form.object.organisation_mainstream_categories.each do |omc| %>
-      <%= label_tag "organisation_mainstream_categories_ids_#{omc.ordering}" do %>
-        Detailed guidance category <%= omc.ordering + 1 %>
-        <%= select_tag "organisation[organisation_mainstream_categories_attributes][][mainstream_category_id]", options_from_collection_for_select(MainstreamCategory.all, 'id', 'title', omc.mainstream_category_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose detailed guidance category..."}, id: "organisation_mainstream_category_ids_#{omc.ordering}" %>
-        <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][ordering]", omc.ordering %>
-        <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][id]", omc.id %>
-      <% end %>
+      <p>
+        <%= label_tag "organisation_mainstream_categories_ids_#{omc.ordering}" do %>
+          Detailed guidance category <%= omc.ordering + 1 %>
+          <%= select_tag "organisation[organisation_mainstream_categories_attributes][][mainstream_category_id]", options_from_collection_for_select(MainstreamCategory.all, 'id', 'title', omc.mainstream_category_id), include_blank: true, multiple: false, class: 'chzn-select', data: { placeholder: "Choose detailed guidance category..."}, id: "organisation_mainstream_category_ids_#{omc.ordering}" %>
+          <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][ordering]", omc.ordering %>
+          <%= hidden_field_tag "organisation[organisation_mainstream_categories_attributes][][id]", omc.id %>
+        <% end %>
+      </p>
     <% end %>
   </fieldset>
 
@@ -62,26 +80,33 @@
   </fieldset>
 
   <% if current_user.gds_editor? && @organisation.management_roles.any? %>
-    <fieldset id="board_member_count">
-      <legend>Number of important members of the management team</legend>
-      <%= organisation_form.select :important_board_members, (1..@organisation.management_roles.count) %>
+    <fieldset>
+      <p>
+        <%= organisation_form.label :important_board_members, 'Number of important members of the management team' %>
+        <%= organisation_form.select :important_board_members, (1..@organisation.management_roles.count) %>
+      </p>
     </fieldset>
   <% end %>
 
   <% if organisation.non_departmental_public_body? %>
     <fieldset>
       <legend>Non-Departmental Public Body Information</legend>
-      <%= organisation_form.label :ocpa_regulated, 'OCPA Regulated' %>
-      <%= organisation_form.select :ocpa_regulated, [["OCPA Regulated", true], ["Not OCPA Regulated", false]], include_blank: true %>
-
-      <%= organisation_form.label :public_meetings, 'Public Meetings' %>
-      <%= organisation_form.select :public_meetings, [["Public Meetings", true], ["No Public Meetings", false]], include_blank: true %>
-      
-      <%= organisation_form.label :public_minutes, 'Public Minutes' %>
-      <%= organisation_form.select :public_minutes, [["Public Minutes", true], ["No Public Minutes", false]], include_blank: true %>
-
-      <%= organisation_form.label :regulatory_function, 'Regulatory Function' %>
-      <%= organisation_form.select :regulatory_function, [["Regulatory Function", true], ["No Regulatory Function", false]], include_blank: true %>
+      <p>
+        <%= organisation_form.label :ocpa_regulated, 'OCPA Regulated' %>
+        <%= organisation_form.select :ocpa_regulated, [["OCPA Regulated", true], ["Not OCPA Regulated", false]], include_blank: true %>
+      </p>
+      <p>
+        <%= organisation_form.label :public_meetings, 'Public Meetings' %>
+        <%= organisation_form.select :public_meetings, [["Public Meetings", true], ["No Public Meetings", false]], include_blank: true %>
+      </p>
+      <p>
+        <%= organisation_form.label :public_minutes, 'Public Minutes' %>
+        <%= organisation_form.select :public_minutes, [["Public Minutes", true], ["No Public Minutes", false]], include_blank: true %>
+      </p>
+      <p>
+        <%= organisation_form.label :regulatory_function, 'Regulatory Function' %>
+        <%= organisation_form.select :regulatory_function, [["Regulatory Function", true], ["No Regulatory Function", false]], include_blank: true %>
+      </p>
     </fieldset>
   <% end %>
 

@@ -10,7 +10,7 @@
       GOVUK = root.GOVUK || {};
 
   GOVUK.hideClosedAtDates = function() {
-    var $closedAtGroup = $('#organisation_closed_at_group'),
+    var $closedAtGroup = $('#js-organisation-closed-at-group'),
         $closedAtLabel = $closedAtGroup.prev('label[for=organisation_closed_at]'),
         $govUkStatus = $('#organisation_govuk_status');
 
