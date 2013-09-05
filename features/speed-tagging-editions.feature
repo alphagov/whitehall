@@ -67,7 +67,7 @@ Feature: Speed tagging editions
   Scenario: Speed tagging shows document series when relevant
     Given a document series "Beard statistics"
     When I go to speed tag a newly imported publication "Beard length statistics 2012"
-    Then I should be able to select the document series "Beard statistics"
+    Then I should be able to select the first group for the document series "Beard statistics"
 
   Scenario: Speed tagging news articles allows first published at to be set
     When I go to speed tag a newly imported news article "Beards are more costly this year"

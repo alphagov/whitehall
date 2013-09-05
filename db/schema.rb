@@ -274,6 +274,28 @@ ActiveRecord::Schema.define(:version => 20130823095707) do
   add_index "document_series", ["organisation_id"], :name => "index_document_series_on_organisation_id"
   add_index "document_series", ["slug"], :name => "index_document_series_on_slug"
 
+  create_table "document_series_group_memberships", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "document_series_group_id"
+    t.integer  "ordering"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "document_series_group_memberships", ["document_id"], :name => "index_document_series_group_memberships_on_document_id"
+  add_index "document_series_group_memberships", ["document_series_group_id", "ordering"], :name => "index_document_series_memberships_on_group_id_and_ordering"
+
+  create_table "document_series_groups", :force => true do |t|
+    t.integer  "document_series_id"
+    t.string   "heading"
+    t.text     "body"
+    t.integer  "ordering"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "document_series_groups", ["document_series_id", "ordering"], :name => "index_document_series_groups_on_document_series_id_and_ordering"
+
   create_table "document_series_memberships", :force => true do |t|
     t.integer  "document_series_id"
     t.integer  "document_id"

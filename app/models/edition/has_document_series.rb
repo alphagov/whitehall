@@ -3,6 +3,7 @@ module Edition::HasDocumentSeries
 
   included do
     has_many :document_series, through: :document
+    has_many :document_series_groups, through: :document
   end
 
   def can_be_grouped_in_series?
@@ -17,9 +18,12 @@ module Edition::HasDocumentSeries
     super.merge("document_series" => document_series.map(&:slug))
   end
 
-  # We allow document series to be assigned directly on an edition for speed tagging
-  def document_series_ids=(ids)
-    raise(StandardError, 'cannot assign document series to an unsaved edition') unless persisted?
-    document.document_series_ids = ids
+  # We allow document series groups to be assigned directly on an
+  # edition for speed tagging
+  def document_series_group_ids=(ids)
+    if new_record?
+      raise(StandardError, 'cannot assign document series to an unsaved edition')
+    end
+    document.document_series_group_ids = ids
   end
 end

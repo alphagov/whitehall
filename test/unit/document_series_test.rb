@@ -3,37 +3,31 @@ require "test_helper"
 class DocumentSeriesTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :name, :description
 
-  test '#published_editions returns published editions in reverse chronological order' do
-    series = create(:document_series)
-    draft_publication = create(:draft_publication)
-    old_publication = create(:published_publication, first_published_at: 2.days.ago)
-    new_publication = create(:published_publication, first_published_at: 1.day.ago)
-    series.documents = [draft_publication.document, old_publication.document, new_publication.document]
+  test 'returns published editions from series in reverse chronological order' do
+    series = create(:document_series, :with_group)
+    draft = create(:draft_publication)
+    old = create(:published_publication, first_published_at: 2.days.ago)
+    new = create(:published_publication, first_published_at: 1.day.ago)
+    group = series.groups.first
+    group.documents = [draft.document, old.document, new.document]
 
-    assert_equal [new_publication, old_publication], series.published_editions
+    assert_equal [new, old], series.published_editions
   end
 
-  test '#latest_editions returns all the latest editions of associated documents in reverse chronological order' do
-    series = create(:document_series)
-    old_publication = create(:published_publication, first_published_at: 2.days.ago)
-    draft_publication = create(:draft_publication)
-    new_publication = create(:published_publication, first_published_at: 1.day.ago)
-    series.documents = [draft_publication.document, old_publication.document, new_publication.document]
-
-    assert_equal [new_publication, old_publication, draft_publication], series.latest_editions
-  end
-
-  test '#scheduled_editions returns any editions that are scheduled for publishing' do
-    series = create(:document_series)
+  test 'returns editions that are scheduled for publishing in the series' do
+    series = create(:document_series, :with_group)
     publication = create(:published_publication, first_published_at: 2.days.ago)
     scheduled_publication = create(:scheduled_publication)
-    series.documents = [scheduled_publication.document, publication.document]
+    group = series.groups.first
+    group.documents = [scheduled_publication.document, publication.document]
 
     assert_equal [scheduled_publication], series.scheduled_editions
   end
 
   test 'is not deletable if published documents are associated with it' do
-    series = create(:document_series, documents: [create(:published_publication).document])
+    series = create(:document_series, :with_group)
+    group = series.groups.first
+    group.documents = [create(:published_publication).document]
     refute series.destroyable?
     series.delete!
     assert DocumentSeries.find(series.id)
@@ -59,7 +53,15 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   end
 
   test "indexes the description without markup" do
-    series = create(:document_series, name: "A doc series", description: "This is a *description*")
+    series = create(:document_series,
+                    name: "A doc series", description: "This is a *description*")
     assert_equal "This is a description", series.search_index["indexable_content"]
+  end
+
+  test 'indexes the group headings and body copy, without markup' do
+    group = create(:document_series_group, heading: 'Heading', body: '*Body*')
+    series = create(:document_series, groups: [group])
+    assert_match /^Heading$/, series.search_index['indexable_content']
+    assert_match /^Body$/, series.search_index['indexable_content']
   end
 end

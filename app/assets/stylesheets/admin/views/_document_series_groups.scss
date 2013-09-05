@@ -1,0 +1,193 @@
+.document-series-groups {
+  &.index {
+    form.document-finder {
+      margin: $gutter 0;
+
+      h2 {
+        margin-bottom: $gutter-one-third;
+      }
+
+      label {
+        display: inline;
+      }
+
+      $spacing: 0.5em;
+
+      input#title,
+      select {
+        margin: 0 $spacing;
+      }
+
+      input#title {
+        width: 25%;
+        margin-right: 0.1em;
+      }
+
+      div.document-finder {
+        position: relative;
+        display: inline;
+
+        img.js-loader {
+          display: none;
+
+          position: absolute;
+          top: 1px;
+          right: 4.3em;
+        }
+
+        p.tip {
+          position: absolute;
+          left: 0.7em;
+          top: 2.5em;
+
+          color: #999;
+          font-size: 10px;
+        }
+      }
+
+      input.btn-mini {
+        margin-right: $spacing;
+      }
+      input.btn-info {
+        margin-left: $spacing;
+      }
+    }
+
+    section.group {
+      $doc-group-base: #333;
+
+      hgroup {
+        position: relative;
+      }
+
+      ul.actions {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        margin: 0 0 5px 0;
+
+        li:last-child {
+          margin-right: 0;
+          &:after {
+            content: '';
+            margin-left: 0;
+          }
+        }
+      }
+
+      $controls-background: #f3f3f3;
+
+      input.checkbox {
+        position: absolute;
+        top: $gutter-one-third - 1px;
+        left: $gutter-one-third;
+      }
+
+      p.alert,
+      ul.controls {
+        margin: $gutter-one-third 0 0;
+      }
+
+      p.alert {
+        margin-bottom: $gutter;
+        padding: $gutter-half $gutter-one-third;
+
+        text-align: center;
+      }
+
+      ul.controls {
+        position: relative;
+        clear: both;
+
+        padding: $gutter-one-third 0;
+        border-bottom: 2px solid #333;
+
+        background: $controls-background;
+
+        list-style: none;
+
+        input.checkbox {
+          top: $gutter-one-third + 3px;
+        }
+
+        li {
+          display: inline;
+
+          &.remove {
+            margin-left: $gutter;
+          }
+
+          &.move {
+            margin-left: $gutter-half;
+            padding-left: $gutter-half;
+            border-left: 1px solid darken($controls-background, 20%);
+
+            &, select {
+              font-size: 12px;
+            }
+
+            select {
+              margin: 0 0.2em;
+            }
+          }
+        }
+      }
+
+      ol.document-list {
+        li.document-row {
+          position: relative;
+          padding-top: $gutter-one-third;
+        }
+
+        label,
+        ul.metadata {
+          margin-left: $gutter;
+        }
+
+        label {
+          display: inline;
+          font-weight: bold;
+        }
+
+        ul.metadata {
+          clear: left;
+
+          li {
+            display: inline;
+            margin: 0;
+            padding: 0;
+
+            color: lighten($doc-group-base, 25%);
+
+            &:after {
+              content: '/';
+              margin: 0 0.4em;
+
+              color: lighten($doc-group-base, 60%);
+            }
+            &:last-child:after {
+              content: '';
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+
+    p.add-group {
+      margin: $gutter $gutter-one-third 0;
+    }
+  }
+
+  &.new,
+  &.edit {
+    form {
+      margin-top: $gutter;
+    }
+  }
+
+  &.delete form p {
+    margin-bottom: $gutter;
+  }
+}

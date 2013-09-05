@@ -1,38 +1,41 @@
 Given(/^a document series "([^"]*)" exists$/) do |name|
-  @document_series = create(:document_series, name: name)
+  @document_series = create(:document_series, :with_group, name: name)
 end
 
 Given(/^a published publication called "(.*?)" in the series "(.*?)"$/) do |publication_name, series_name|
   @publication = create(:published_publication, title: publication_name)
-  @document_series = create(:document_series, name: series_name, documents: [@publication.document])
+  @document_series = create(:document_series, :with_group, name: series_name)
+  @group = @document_series.groups.first
+  @group.documents = [@publication.document]
 end
 
 Then(/^I should be able to search for "(.*?)" and add the document to the series$/) do |search_text|
   visit admin_organisation_document_series_path(@document_series.organisation, @document_series)
   click_on 'Series documents'
   fill_in 'title', with: search_text
-  click_button "Search"
+  click_button 'Find'
+  screenshot('find-clicked')
+  find('li.ui-menu-item').click
+  screenshot('menu-clicked')
+
   edition = Edition.last
+  click_button 'Add'
+  screenshot('add-clicked')
 
-  within record_css_selector(edition, 'search') do
-    click_on "Add to this series"
-  end
-
-  within ('#series-documents') do
+  within ('section.group') do
     assert page.has_content? edition.title
   end
 
-  assert @document_series.documents.include?(edition.document), "Document has not been added to the series"
+  assert @document_series.groups.first.documents.include?(edition.document), 'Document has not been added to the series'
 end
 
 Then(/^I should be able to remove the publication from the series$/) do
   visit admin_organisation_document_series_path(@document_series.organisation, @document_series)
   click_on 'Series documents'
-  within record_css_selector(@publication) do
-    click_on 'Remove'
-  end
+  find('ol.document-list li:first-child input[type="checkbox"]').click
+  click_on 'Remove'
 
-  page.has_content?('removed from series')
+  page.has_content?('document removed')
   refute @document_series.reload.documents.include?(@publication.document), "Document has not been removed from the series"
 end
 
