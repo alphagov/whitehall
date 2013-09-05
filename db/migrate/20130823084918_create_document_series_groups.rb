@@ -35,7 +35,7 @@ class CreateDocumentSeriesGroups < ActiveRecord::Migration
 
     DocumentSeries.includes(:document_series_memberships).find_each do |series|
       series.document_series_memberships.each do |membership|
-        group = series.groups.first_or_create!(DocumentSeriesGroup.default_attributes)
+        group = series.groups.first_or_create!(heading: 'Documents')
         group.documents << membership.document
       end
     end
