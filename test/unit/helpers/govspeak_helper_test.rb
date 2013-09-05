@@ -262,6 +262,12 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_equal expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, ' ')
   end
 
+  test "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
+    input = "## Number 8"
+    result =  Nokogiri::HTML::DocumentFragment.parse(govspeak_to_html(input, [], heading_numbering: :manual))
+    assert_equal "Number 8", result.css('h2').first.text
+  end
+
   test "should not corrupt character encoding of numbered headings" do
     input = '# café'
     actual_output = govspeak_to_html(input, [], heading_numbering: :auto)
