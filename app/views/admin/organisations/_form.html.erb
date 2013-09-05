@@ -68,7 +68,7 @@
     </fieldset>
   <% end %>
 
-  <% if organisation.is_ndpb? %>
+  <% if organisation.non_departmental_public_body? %>
     <fieldset>
       <legend>Non-Departmental Public Body Information</legend>
       <%= organisation_form.label :ocpa_regulated, 'OCPA Regulated' %>
