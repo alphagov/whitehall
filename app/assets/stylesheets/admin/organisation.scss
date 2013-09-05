@@ -12,6 +12,16 @@
   }
 }
 
+.organisation-custom-logo {
+  .js-enabled &.hidden {
+    display: none;
+  }
+
+  img {
+    margin: 0 10px 20px 0;
+  }
+}
+
 .organisations {
   .user_organisation td {
     font-weight: bold;

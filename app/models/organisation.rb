@@ -202,11 +202,14 @@ class Organisation < ActiveRecord::Base
   validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
   validates :organisation_logo_type_id, presence: true
   validate :sub_organisations_must_have_a_parent
+  validates :logo, presence: true, if: :custom_logo_selected?
 
   include TranslatableModel
   translates :name, :logo_formatted_name, :acronym, :description, :about_us
 
   include Featurable
+
+  mount_uploader :logo, LogoUploader
 
   searchable title: :name,
              acronym: :acronym,
@@ -221,6 +224,10 @@ class Organisation < ActiveRecord::Base
 
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
+
+  def custom_logo_selected?
+    organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
+  end
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?

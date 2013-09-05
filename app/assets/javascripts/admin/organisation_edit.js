@@ -43,4 +43,17 @@
     }
   };
 
+  GOVUK.toggleCustomLogoField = function() {
+    var $logo_selector = $('#organisation_organisation_logo_type_id');
+    var value_for_custom_logo = 14;
+    $logo_selector.chosen().change(function(event) {
+      if ($(this).val() == value_for_custom_logo) {
+        $('.organisation-custom-logo').slideDown();
+      }
+      else {
+        $('.organisation-custom-logo').slideUp();
+      }
+    });
+  };
+
 }).call(this);

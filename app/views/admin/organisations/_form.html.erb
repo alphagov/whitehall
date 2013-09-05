@@ -13,6 +13,12 @@
       <%= organisation_form.label :organisation_logo_type_id, 'Logo crest' %>
       <%= organisation_form.select :organisation_logo_type_id, options_from_collection_for_select(OrganisationLogoType.all, "id", "title", organisation.organisation_logo_type_id), {}, class: 'chzn-select', data: { placeholder: "Choose logo crest..."} %>
     </p>
+    <p class="organisation-custom-logo <%= logo_visibility_css(organisation) %>">
+      <%= organisation_form.label :logo, 'Custom logo' %>
+      <%= image_tag(organisation.logo.url) if organisation.logo? %>
+      <%= organisation_form.file_field :logo %>
+      <%= organisation_form.hidden_field :logo_cache %>
+    </p>
     <p>
       <%= organisation_form.label :organisation_brand_colour_id, 'Brand colour' %>
       <%= organisation_form.select :organisation_brand_colour_id, options_from_collection_for_select(OrganisationBrandColour.all, "id", "title", organisation.organisation_brand_colour_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose brand colour..."} %>
