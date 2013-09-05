@@ -22,3 +22,4 @@
 .test_queue_stats
 .yardoc/
 /doc/
+/failures
