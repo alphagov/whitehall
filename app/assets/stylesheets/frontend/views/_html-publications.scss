@@ -268,25 +268,26 @@
         }
       }
       .call-to-action {
-        margin: $gutter 0;
-        border-left: 10px #dee0e2 solid;
-        padding: $gutter-half;
+        margin: $gutter 0 $gutter;
+        background: $panel-colour none no-repeat 98% $gutter-two-thirds;
+        padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
+        position: relative;
         p {
           margin: 0;
           padding: 0;
         }
-        ol {
-          @include media(desktop) {
-            list-style-position: inside;
-          }
+        ul, ol {
+          margin-left: $gutter-two-thirds;
+          list-style-position: outside;
         }
         h3 {
+          padding: $gutter-one-sixth 0;
           margin-top: 0px;
           .number {
             background: none;
             @include media(tablet){
-              width: $gutter-one-third*10;
-              margin-left: $gutter-one-third*-10;
+              width: $gutter-one-third*9;
+              margin-left: $gutter-one-third*-9;
             }
           }
         }
