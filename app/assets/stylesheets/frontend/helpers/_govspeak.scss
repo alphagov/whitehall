@@ -201,7 +201,7 @@
 
   .information-block,
   .call-to-action {
-    margin: $gutter 0 $gutter $gutter-half*-1;
+    margin: $gutter 0;
     background: $panel-colour none no-repeat 98% $gutter-two-thirds;
     padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
     position: relative;
@@ -211,7 +211,7 @@
     }
     ol {
       @include media(desktop) {
-        list-style-position: inside;
+        list-style-position: outside;
       }
     }
   }
@@ -291,7 +291,7 @@
     background: $panel-colour;
     margin: $gutter $gutter-half*-1;
     padding: $gutter-one-third $gutter-half;
-    position: relative;      
+    position: relative;
     .content {
       float: none;
       width: 100%;
