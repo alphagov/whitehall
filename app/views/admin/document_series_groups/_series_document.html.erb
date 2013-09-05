@@ -6,12 +6,7 @@
   (<%= link_to 'view page', admin_edition_path(edition) %>)
   <ul class="metadata">
     <li>
-      Last changed:
-      <% if edition.public_timestamp %>
-        <%= render_datetime_microformat(edition, :public_timestamp) { edition.public_timestamp.to_date.to_s(:long_ordinal) } %>
-      <% else %>
-        Not yet published
-      <% end %>
+      Last changed: <%= public_time_for_edition(edition) %>
     </li>
     <li>
       <%= edition.organisations.map { |o| organisation_display_name(o) }.to_sentence.html_safe %>
