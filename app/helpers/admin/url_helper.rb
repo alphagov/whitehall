@@ -1,7 +1,7 @@
 module Admin::UrlHelper
   def admin_user_organisation_header_link
     if user_signed_in? && organisation = current_user.organisation
-      admin_header_link 'Manage corporate information', admin_organisation_corporate_information_pages_path(organisation), nil, class: 'user-org'
+      admin_header_link 'Corporate information', admin_organisation_corporate_information_pages_path(organisation), nil, class: 'user-org'
     end
   end
 
@@ -11,7 +11,7 @@ module Admin::UrlHelper
 
   def admin_featured_header_link
     if user_signed_in? && organisation = current_user.organisation
-      admin_header_link "Feature documents", features_admin_organisation_path(organisation, locale: nil)
+      admin_header_link "Featured documents", features_admin_organisation_path(organisation, locale: nil)
     end
   end
 
@@ -64,7 +64,7 @@ module Admin::UrlHelper
   end
 
   def admin_cabinet_ministers_link
-    admin_header_link "Sort Cabinet ministers", admin_cabinet_ministers_path
+    admin_header_link "Cabinet ministers order", admin_cabinet_ministers_path
   end
 
   def admin_get_involved_link
