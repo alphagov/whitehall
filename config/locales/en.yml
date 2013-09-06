@@ -101,6 +101,7 @@ en:
          format: ! '%n%u'
   document:
     published: published
+    contents: Contents
     headings:
       field_of_operation: Field of operation
       applies_to_nations: Applies to
@@ -411,12 +412,35 @@ en:
       step3_html: "Make a new request by contacting us at:"
   announcements:
     heading: Announcements
+    view_all: View all announcements
   policies:
     heading: Policies
+    view_all: View all policies
   publications:
     heading: Publications
     headings:
       detail: Detail
+  people:
+    heading:
+      one: Person
+      many: People
+    biography: Biography
+    read_more: More about this person
+    previous_roles: Previous roles
+    previous_roles_in_government: Previous roles in government
+  roles:
+    heading:
+      one: Role
+      other: Roles
+    ministerial: Ministerial role
+    read_more: More about this role
+    previous_holders: Previous holders of this role
+    policies_reponsible: under the responsibility of %{person} as %{role}
+    headings:
+      responsibilities: Responsibilities
+      current_holder: Current role holder
+      previous_holders: Previous holders
+
   document_filters:
     description: You can use the filters to show only results that match your interests
     world_locations:
