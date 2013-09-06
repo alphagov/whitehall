@@ -155,6 +155,7 @@ es:
       written_statement:
         one: Declaración escrita
         other: Declaraciones escritas
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -246,6 +247,18 @@ es:
       step1_html:
       step2_html:
       step3_html:
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -332,6 +345,7 @@ es:
       unnumbered_hoc_paper:
   announcements:
     heading: Anuncios
+    view_all:
   attachment:
     accessibility:
       full_help_html: Para solicitar este documento en un formato diferente como braille,
@@ -389,8 +403,17 @@ es:
     human:
       storage_units:
         format: ! '%n%u'
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Politicas
+    view_all:
   publications:
     heading: Publicaciones
     headings:

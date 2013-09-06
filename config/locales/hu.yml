@@ -66,6 +66,7 @@ hu:
       unnumbered_hoc_paper:
   announcements:
     heading: Közlemények
+    view_all:
   attachment:
     accessibility:
       full_help_html: ! 'Ha ezt a dokumentumot más formátumban szeretné igényelni
@@ -99,6 +100,7 @@ hu:
       default: ! '%Y %B %d'
       long_ordinal: ! '%Y %B %e'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -371,13 +373,34 @@ hu:
       Tribunal non-departmental public body:
         one: Nem minisztériumi bírósági szervezet
         other: Nem minisztériumi bírósági szervezetek
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Szakpolitikák
+    view_all:
   publications:
     heading: Kiadványok
     headings:
       detail: Részletek
   read_more: Tovább...
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: ! ' %{type} - mindegyik megtekintése'
   social_media:

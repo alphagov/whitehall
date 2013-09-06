@@ -26,9 +26,7 @@
         <td class="role_type"><%= role_type_option_value_for(role, role.type).humanize %></td>
         <td class="person"><%= role.current_person_name %></td>
         <td class="translations">
-          <% if role.worldwide? %>
             <%= link_to "Manage translations", admin_role_translations_path(role), title: "Manage translations of #{role.name}" %>
-          <% end %>
         </td>
         <td class="delete">
           <% if role.destroyable? %>

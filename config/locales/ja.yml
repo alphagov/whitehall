@@ -66,6 +66,7 @@ ja:
       unnumbered_hoc_paper:
   announcements:
     heading: ニュース
+    view_all:
   attachment:
     accessibility:
       full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
@@ -97,6 +98,7 @@ ja:
       default: ! '%Y %B %d'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -368,13 +370,34 @@ ja:
       Tribunal non-departmental public body:
         one: 非政府法務・調停公的機関
         other: 非政府法務・調停公的機関
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: 政策
+    view_all:
   publications:
     heading: 出版物
     headings:
       detail: 詳細
   read_more: 続き
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: ! '%{type} を全て見る'
   social_media:

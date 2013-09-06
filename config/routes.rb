@@ -111,7 +111,7 @@ Whitehall::Application.routes.draw do
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
 
-    resources :ministerial_roles, path: 'ministers', only: [:index, :show]
+    resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true
     # match "world/organisations" => 'worldwide_organisations#index', as: :worldwide_organisations
 

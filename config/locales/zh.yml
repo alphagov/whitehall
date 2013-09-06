@@ -66,6 +66,7 @@ zh:
       unnumbered_hoc_paper:
   announcements:
     heading: 公告
+    view_all:
   attachment:
     accessibility:
       full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。
@@ -96,6 +97,7 @@ zh:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -367,13 +369,34 @@ zh:
       Tribunal non-departmental public body:
         one: 非政府公共特别法庭
         other: 非政府公共特别法庭
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: 政策
+    view_all:
   publications:
     heading: 发布的报告
     headings:
       detail: 详情
   read_more: 阅读更多
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: 查阅我们所有的%{type}
   social_media:

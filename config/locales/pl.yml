@@ -253,6 +253,7 @@ pl:
         few:
         many:
         other: Pisemne oświadczenia przed parlamentem
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -368,6 +369,30 @@ pl:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      few:
+      many:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      one:
+      few:
+      many:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -458,6 +483,7 @@ pl:
       unnumbered_hoc_paper:
   announcements:
     heading: Ogłoszenia
+    view_all:
   attachment:
     accessibility:
       full_help_html: Aby otrzymać ten dokument w innym formacie, np. w alfabecie
@@ -519,6 +545,7 @@ pl:
         format: ! '%n%u'
   policies:
     heading: Polityki
+    view_all:
   publications:
     heading: Publikacje
     headings:
