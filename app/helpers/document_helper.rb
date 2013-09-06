@@ -28,7 +28,7 @@ module DocumentHelper
   def national_statistics_logo(edition)
     if edition.national_statistic?
       content_tag :div, class: 'national-statistic' do
-        image_tag '/government/assets/national-statistics.png', alt: 'National Statistics', class: 'national-statistics-logo'
+        image_tag '/government/assets/national-statistics.png', alt: t('national_statistics.heading'), class: 'national-statistics-logo'
       end
     end
   end

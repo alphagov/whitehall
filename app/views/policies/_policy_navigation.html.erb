@@ -1,15 +1,15 @@
 <nav class="activity-navigation">
   <ul>
-    <li><%= link_to_with_current "Policy", public_document_path(@policy) %></li>
+    <li><%= link_to_with_current t('document.headings.policies', count: 1), public_document_path(@policy) %></li>
     <% if @policy.supporting_pages.any? %>
       <li>
-        <%= link_to_with_current "Detail",
+        <%= link_to_with_current t('publications.headings.detail'),
               policy_supporting_pages_path(@policy.document),
               current_path: /supporting-pages/ %>
       </li>
     <% end %>
     <% if @recently_changed_documents.present? %>
-      <li><%= link_to_with_current "Latest", activity_policy_path(@policy.document) %></li>
+      <li><%= link_to_with_current t('latest_feed.title'), activity_policy_path(@policy.document) %></li>
     <% end %>
   </ul>
 </nav>

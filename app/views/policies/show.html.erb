@@ -1,11 +1,11 @@
-<% page_title @policy.title, "Policies" %>
+<% page_title @policy.title, t('policies.heading') %>
 
 <div class="document_page <%= @document.type.downcase %>">
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render  partial: "documents/header", locals: {
                   document: @document,
-                  header_title: 'Policy',
+                  header_title: t('policies.heading'),
                   topics: @document.topics } %>
     </div>
   </header>

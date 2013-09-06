@@ -1,5 +1,5 @@
 <section class="contextual-info policy-parts js-stick-at-top-when-scrolling">
-  <h1>Contents</h1>
+  <h1><%= t('document.contents') %></h1>
   <nav role="navigation">
     <% if govspeak_headers(@policy.body).any? or @policy.case_studies.any? %>
       <ol id="document_sections">
@@ -7,7 +7,7 @@
           <li><%= link_to header.text, public_document_path(@policy, anchor: header.id) %></li>
         <% end %>
         <% if @policy.case_studies.any? %>
-          <li><a href="#case-studies">Case studies</a></li>
+          <li><a href="#case-studies"><%= t('document.type.case_study', count: 100) %></a></li>
         <% end %>
       </ol>
     <% end %>

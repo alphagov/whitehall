@@ -57,8 +57,7 @@ Whitehall::Application.routes.draw do
     get '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements', localised: true
-    resources :policies, only: [:index], localised: true
-    resources :policies, only: [:show] do
+    resources :policies, only: [:index, :show], localised: true do
       member do
         get :activity
       end

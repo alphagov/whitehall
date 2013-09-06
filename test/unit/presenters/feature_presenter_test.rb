@@ -31,13 +31,13 @@ class FeaturePresenterTest < PresenterTestCase
 
   test '#public_path generates an unlocalized link to the edition if it\'s not a localizable type' do
     d = stub_record(:document)
-    p = stub_record(:policy, document: d, create_default_organisation: false, alternative_format_provider: nil)
+    p = stub_record(:consultation, document: d, create_default_organisation: false, alternative_format_provider: nil)
     d.stubs(:published_edition).returns(p)
     f = stub_record(:feature, topical_event: nil, document: d)
     f.stubs(:locale).returns('ar')
     fp = FeaturePresenter.new(f)
 
-    assert_equal policy_path(d.slug), fp.public_path
+    assert_equal consultation_path(d.slug), fp.public_path
   end
 
   test '#public_path respects the locale of the feature when generating localized edition links' do
@@ -55,14 +55,14 @@ class FeaturePresenterTest < PresenterTestCase
 
   test '#public_path forces the global locale to english when generating edition links for a non localizable types' do
     d = stub_record(:document)
-    p = stub_record(:policy, document: d, create_default_organisation: false, alternative_format_provider: nil)
+    p = stub_record(:consultation, document: d, create_default_organisation: false, alternative_format_provider: nil)
     d.stubs(:published_edition).returns(p)
     f = stub_record(:feature, topical_event: nil, document: d)
     f.stubs(:locale).returns('ar')
     fp = FeaturePresenter.new(f)
 
     ::I18n.with_locale 'fr' do
-      assert_equal policy_path(d.slug), fp.public_path
+      assert_equal consultation_path(d.slug), fp.public_path
       refute_match(/locale=fr/, fp.public_path)
       refute_match(/\.fr/, fp.public_path)
     end
