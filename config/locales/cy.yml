@@ -671,12 +671,12 @@ cy:
   latest_feed:
     no_updates: Nid oes dim diweddariadau eto.
     title: Crynodeb diweddaraf
+  national_statistics:
+    heading: Ystadegau Gwladol
   number:
     human:
       storage_units:
         format: ! '%n%u'
-  national_statistics:
-    heading: Ystadegau Gwladol
   policies:
     heading: Polisïau
     view_all:

@@ -294,6 +294,8 @@ ko:
   latest_feed:
     no_updates: 관련 내용이 아직 없습니다.
     title: 최신
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
@@ -373,8 +375,8 @@ ko:
   people:
     biography:
     heading:
-      many:
       one:
+      other:
     previous_roles:
     previous_roles_in_government:
     read_more:

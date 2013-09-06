@@ -247,6 +247,14 @@ ta:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   roles:
     heading:
       one:
@@ -401,18 +409,12 @@ ta:
   latest_feed:
     no_updates: இதுவரை இற்றைப்படுத்தல்கள் இல்லை
     title: சமீபத்தையது
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
         format: ! '%n%u'
-  people:
-    biography:
-    heading:
-      many:
-      one:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: கொள்கைகள்
     view_all:

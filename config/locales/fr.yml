@@ -247,6 +247,14 @@ fr:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   roles:
     heading:
       one:
@@ -404,18 +412,12 @@ fr:
   latest_feed:
     no_updates: Il n'y a pas de mise à jour.
     title: Actualités
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
         format: ! '%n%u'
-  people:
-    biography:
-    heading:
-      many:
-      one:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: Politiques
     view_all:

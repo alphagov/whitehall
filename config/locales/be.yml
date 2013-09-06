@@ -538,6 +538,8 @@ be:
   latest_feed:
     no_updates: Ніякіх абнаўленняў пакуль няма.
     title: Апошняе
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

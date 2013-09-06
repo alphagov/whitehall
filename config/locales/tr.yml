@@ -296,6 +296,8 @@ tr:
   latest_feed:
     no_updates: Henüz güncelleme yok
     title: En son haberler
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
@@ -375,8 +377,8 @@ tr:
   people:
     biography:
     heading:
-      many:
       one:
+      other:
     previous_roles:
     previous_roles_in_government:
     read_more:
