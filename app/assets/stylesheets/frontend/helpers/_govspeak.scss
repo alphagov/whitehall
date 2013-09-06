@@ -286,6 +286,13 @@
     padding-left: $gutter-half;
   }
 
+  .fraction {
+    sup,
+    sub {
+      @include core-14;
+    }
+  }
+
   .contact {
     @extend %contain-floats;
     background: $panel-colour;
