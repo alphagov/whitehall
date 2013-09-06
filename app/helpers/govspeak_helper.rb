@@ -132,7 +132,7 @@ module GovspeakHelper
     return govspeak if govspeak.blank?
     govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |match|
       if $1.present? && $2.present?
-        "<span class=\"fraction\"><sup>#{$1}</sup>&frasl;<sub>#{$2}</sub></span>"
+        render(partial: 'shared/govspeak_fractions', locals: { numerator: $1, denominator: $2 })
       else
         ''
       end
