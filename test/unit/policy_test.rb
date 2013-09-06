@@ -12,6 +12,10 @@ class PolicyTest < ActiveSupport::TestCase
     refute build(:policy, alternative_format_provider: nil).valid?
   end
 
+  test "is translatable" do
+    assert Policy.new.translatable?
+  end
+
   test "should build a draft copy of the existing policy with inapplicable nations" do
     published_policy = create(:published_policy, nation_inapplicabilities_attributes: [
       {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},

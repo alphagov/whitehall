@@ -84,7 +84,7 @@ class PublicationsControllerTest < ActionController::TestCase
     publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
     get :show, id: publication.document
 
-    assert_match /National Statistic/, response.body
+    assert_match /National statistics/, response.body
   end
 
   view_test "show not link policies to national statistics publications" do

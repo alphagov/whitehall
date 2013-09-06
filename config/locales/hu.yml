@@ -297,6 +297,8 @@ hu:
   latest_feed:
     no_updates: Még nincs frissebb változat.
     title: Legfrissebb
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
@@ -376,8 +378,8 @@ hu:
   people:
     biography:
     heading:
-      many:
       one:
+      other:
     previous_roles:
     previous_roles_in_government:
     read_more:

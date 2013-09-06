@@ -539,6 +539,8 @@ pl:
   latest_feed:
     no_updates: Aktualizacje nie są jeszcze dostępne
     title: Najnowsze
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

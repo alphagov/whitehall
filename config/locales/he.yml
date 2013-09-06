@@ -540,6 +540,8 @@ he:
   latest_feed:
     no_updates: אין עדכונים נוספים
     title: אחרון
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

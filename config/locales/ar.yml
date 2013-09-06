@@ -667,6 +667,8 @@ ar:
   latest_feed:
     no_updates: لا يوجد تحديثات بعد
     title: آخر التحديثات
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

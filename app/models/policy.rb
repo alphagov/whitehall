@@ -70,6 +70,10 @@ class Policy < Edition
     policy_teams.first
   end
 
+  def translatable?
+    true
+  end
+
   private
 
   def remove_edition_relations
