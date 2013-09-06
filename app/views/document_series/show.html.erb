@@ -37,7 +37,12 @@
 <div class="block-2 ">
   <div class="inner-block">
     <div class="contextual-info js-stick-at-top-when-scrolling">
-      <% content_headers = govspeak_headers(@document_series.description) %>
+      <h1>Contents</h1>
+      <ol class="dash-list">
+        <% @groups.each do |group, editions| %>
+          <li><%= link_to group.heading, "#group_#{group.id}" %></li>
+        <% end %>
+      </ol>
     </div>
   </div>
 </div>
@@ -54,7 +59,7 @@
 
       <% @groups.each do |group, editions| %>
         <div class="editions">
-          <h2><%= group.heading %></h2>
+          <%= content_tag :h2, group.heading, id: "group_#{group.id}" %>
           <% unless group.body.blank? %>
             <div class="group-body">
               <%= govspeak_to_html group.body %>

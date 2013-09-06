@@ -2,6 +2,7 @@
 
   h2 {
     @include core-27;
+    padding-top: $gutter;
   }
 
   .page_title {
