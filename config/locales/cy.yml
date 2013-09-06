@@ -351,7 +351,7 @@ cy:
         few:
         many:
         other: Datganiadau ysgrifenedig i'r Senedd
-    contents:
+    contents: Cynnwys
     footer_meta:
       full_page_history:
       page_history:
@@ -675,6 +675,8 @@ cy:
     human:
       storage_units:
         format: ! '%n%u'
+  national_statistics:
+    heading: Ystadegau Gwladol
   policies:
     heading: Polisïau
     view_all:
