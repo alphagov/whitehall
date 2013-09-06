@@ -66,6 +66,7 @@ az:
       unnumbered_hoc_paper:
   announcements:
     heading: Elanlar
+    view_all:
   attachment:
     accessibility:
       full_help_html:
@@ -96,6 +97,7 @@ az:
       default:
       long_ordinal:
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -367,13 +369,34 @@ az:
       Tribunal non-departmental public body:
         one: İcraedici ictimai qrumlar
         other: İcraedici ictimai qrumlar
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Siyasət
+    view_all:
   publications:
     heading: Nəşrlər
     headings:
       detail:
   read_more: Ətraflı oxu
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: Bax bütün növ
   social_media:

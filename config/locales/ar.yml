@@ -351,6 +351,7 @@ ar:
         few:
         many:
         other: تصريحات خطية
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -490,6 +491,34 @@ ar:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      zero:
+      one:
+      two:
+      few:
+      many:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      zero:
+      one:
+      two:
+      few:
+      many:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -584,6 +613,7 @@ ar:
       unnumbered_hoc_paper:
   announcements:
     heading: إعلانات
+    view_all:
   attachment:
     accessibility:
       full_help_html: لاستلام وثيقة مكتوبة بشكل آخر، كلغة بريل أو وثيقة صوتية أو أي
@@ -643,6 +673,7 @@ ar:
         format: ! '%n%u'
   policies:
     heading: سياسات
+    view_all:
   publications:
     heading: مطبوعات
     headings:

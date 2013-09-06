@@ -66,6 +66,7 @@ zh-tw:
       unnumbered_hoc_paper:
   announcements:
     heading: 公告
+    view_all:
   attachment:
     accessibility:
       full_help_html: 尋求另一種檔案格式：點字或音檔
@@ -96,6 +97,7 @@ zh-tw:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -367,13 +369,34 @@ zh-tw:
       Tribunal non-departmental public body:
         one: 非政府特別法庭公共機構
         other: 其他非政府特別法庭公共機構
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: 政策
+    view_all:
   publications:
     heading: 出版物
     headings:
       detail: 詳情
   read_more: 閱讀更多
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: 查閱我們所有的%{type}
   social_media:

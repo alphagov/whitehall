@@ -204,6 +204,7 @@ sk:
         one:
         few:
         other:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -307,6 +308,19 @@ sk:
       step1_html:
       step2_html:
       step3_html:
+  roles:
+    heading:
+      one:
+      few:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -395,6 +409,7 @@ sk:
       unnumbered_hoc_paper:
   announcements:
     heading:
+    view_all:
   attachment:
     accessibility:
       full_help_html:
@@ -449,8 +464,17 @@ sk:
     human:
       storage_units:
         format:
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading:
+    view_all:
   publications:
     heading:
     headings:

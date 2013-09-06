@@ -66,6 +66,7 @@ ko:
       unnumbered_hoc_paper:
   announcements:
     heading: 공지사항
+    view_all:
   attachment:
     accessibility:
       full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,
@@ -97,6 +98,7 @@ ko:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -368,13 +370,34 @@ ko:
       Tribunal non-departmental public body:
         one: 트리뷰널 공공기관
         other: 트리뷰널 공공기관
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: 정책사안
+    view_all:
   publications:
     heading: 출판물
     headings:
       detail: 디테일
   read_more: 더 자세한 정보 알아보기
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: ! '%{type} 모두 둘러보기'
   social_media:

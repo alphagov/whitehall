@@ -155,6 +155,7 @@ hi:
       written_statement:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -246,6 +247,18 @@ hi:
       step1_html:
       step2_html:
       step3_html:
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -332,6 +345,7 @@ hi:
       unnumbered_hoc_paper:
   announcements:
     heading: घोषणाएं
+    view_all:
   attachment:
     accessibility:
       full_help_html: ! 'इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो
@@ -391,8 +405,17 @@ hi:
     human:
       storage_units:
         format: ! '%n%u'
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: नीतियां
+    view_all:
   publications:
     heading: प्रकाशन
     headings:
