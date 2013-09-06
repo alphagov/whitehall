@@ -339,7 +339,7 @@ class GovspeakHelperTest < ActionView::TestCase
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.js-barchart-table"
   end
-  
+
   test 'will add a stacked, compact, negative barchart class to a marked table' do
         input = '
 |col|
@@ -372,6 +372,13 @@ class GovspeakHelperTest < ActionView::TestCase
     '
     html = govspeak_to_html(input)
     assert_select_within_html html, "table.sortable.js-barchart-table"
+  end
+
+  test 'will create fractions' do
+    input = "Some text [Fraction:1/4] and some text"
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "span.fraction > sup", text: 1
+    assert_select_within_html html, "span.fraction > sub", text: 4
   end
 
 
