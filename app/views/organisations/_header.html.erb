@@ -20,18 +20,12 @@
           <% end %>
         <% end %>
       </ul>
-      <h1><%= link_to_organisation ? link_to(organisation.name, organisation_path(organisation)) : organisation.name %></h1>
+      <h1><%= link_to_if link_to_organisation, organisation.name, organisation_path(organisation) %></h1>
     </div>
   <% else %>
     <h1>
-      <% if link_to_organisation %>
-        <%= link_to content_tag(:span, organisation_logo_name(organisation)),
-                    organisation_path(organisation),
-                    class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>
-      <% else %>
-        <span class="<%= logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true) %>">
-          <span><%= organisation_logo_name(organisation) %></span>
-        </span>
+      <%= content_tag(:span, class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: logo_size, stacked: true)) do %>
+        <%= link_to_if(link_to_organisation, organisation_logo_name(organisation), organisation_path(organisation)) %>
       <% end %>
     </h1>
   <% end %>
