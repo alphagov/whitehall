@@ -292,6 +292,13 @@
           }
         }
       }
+
+      .fraction {
+        sup,
+        sub {
+          @include core-14;
+        }
+      }
     }
   }
   .back-to-content {
