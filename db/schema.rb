@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823095707) do
+ActiveRecord::Schema.define(:version => 20130906093144) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -487,7 +487,6 @@ ActiveRecord::Schema.define(:version => 20130823095707) do
     t.date     "closing_on"
     t.datetime "major_change_published_at"
     t.datetime "first_published_at"
-    t.datetime "publication_date"
     t.integer  "speech_type_id"
     t.boolean  "stub",                                        :default => false
     t.text     "change_note"
@@ -525,7 +524,6 @@ ActiveRecord::Schema.define(:version => 20130823095707) do
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
   add_index "editions", ["public_timestamp", "document_id"], :name => "index_editions_on_public_timestamp_and_document_id"
   add_index "editions", ["public_timestamp"], :name => "index_editions_on_public_timestamp"
-  add_index "editions", ["publication_date"], :name => "index_editions_on_publication_date"
   add_index "editions", ["publication_type_id"], :name => "index_editions_on_publication_type_id"
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
