@@ -21,7 +21,7 @@ class HomeController < PublicFacingController
     @closed_consultation_count = Consultation.published.closed_since(1.year.ago).count
     @next_closing_consultations = decorate_collection(Consultation.published.open.order("closing_on asc").limit(1), PublicationesquePresenter)
     @recently_opened_consultations = decorate_collection(Consultation.published.open.order("opening_on desc").limit(3), PublicationesquePresenter)
-    @recent_consultation_outcomes = decorate_collection(Consultation.published.responded.order("closing_on desc").limit(3), PublicationesquePresenter)
+    @recent_consultation_outcomes = decorate_collection(Consultation.published.closed.responded.order("closing_on desc").limit(3), PublicationesquePresenter)
     @take_part_pages = TakePartPage.in_order
   end
 
