@@ -542,6 +542,8 @@ sr:
   latest_feed:
     no_updates: Nema novih podataka
     title: najnovije
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

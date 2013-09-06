@@ -247,6 +247,14 @@ hy:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   roles:
     heading:
       one:
@@ -400,18 +408,12 @@ hy:
   latest_feed:
     no_updates: Դեռևս թարմացումներ չկան
     title: Վերջին գործողություն
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
         format: ! '%n%u'
-  people:
-    biography:
-    heading:
-      many:
-      one:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: Քաղաքականություն
     view_all:

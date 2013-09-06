@@ -294,6 +294,8 @@ ja:
   latest_feed:
     no_updates: 更新情報はありません
     title: Latest
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
@@ -373,8 +375,8 @@ ja:
   people:
     biography:
     heading:
-      many:
       one:
+      other:
     previous_roles:
     previous_roles_in_government:
     read_more:

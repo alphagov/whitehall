@@ -294,6 +294,8 @@ th:
   latest_feed:
     no_updates: ยังไม่มีการปรับปรุงข้อมูล
     title: ล่าสุด
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
@@ -373,8 +375,8 @@ th:
   people:
     biography:
     heading:
-      many:
       one:
+      other:
     previous_roles:
     previous_roles_in_government:
     read_more:

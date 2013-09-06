@@ -351,7 +351,7 @@ cy:
         few:
         many:
         other: Datganiadau ysgrifenedig i'r Senedd
-    contents:
+    contents: Cynnwys
     footer_meta:
       full_page_history:
       page_history:
@@ -671,6 +671,8 @@ cy:
   latest_feed:
     no_updates: Nid oes dim diweddariadau eto.
     title: Crynodeb diweddaraf
+  national_statistics:
+    heading: Ystadegau Gwladol
   number:
     human:
       storage_units:

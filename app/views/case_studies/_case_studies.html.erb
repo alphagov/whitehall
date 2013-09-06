@@ -1,5 +1,5 @@
 <aside id="case-studies">
-  <h1>Case studies</h1>
+  <h1><%= t('document.type.case_study', count: 100) %></h1>
   <ul>
     <% case_studies.each do |case_study| %>
       <%= content_tag_for(:li, case_study) do %>

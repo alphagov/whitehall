@@ -309,6 +309,15 @@ ro:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      few:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   roles:
     heading:
       one:
@@ -467,18 +476,12 @@ ro:
   latest_feed:
     no_updates: Nu sunt actualizări
     title: Cele mai recente
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
         format:
-  people:
-    biography:
-    heading:
-      many:
-      one:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
   policies:
     heading: Obiectiv strategic
     view_all:

@@ -536,6 +536,8 @@ ru:
   latest_feed:
     no_updates: Обновлений нет
     title: Последние новости
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

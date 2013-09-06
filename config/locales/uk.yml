@@ -537,6 +537,8 @@ uk:
   latest_feed:
     no_updates: Оновлень поки що немає.
     title: Останні новини
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:

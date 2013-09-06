@@ -413,6 +413,8 @@ en:
   announcements:
     heading: Announcements
     view_all: View all announcements
+  national_statistics:
+    heading: National statistics
   policies:
     heading: Policies
     view_all: View all policies
@@ -423,7 +425,7 @@ en:
   people:
     heading:
       one: Person
-      many: People
+      other: People
     biography: Biography
     read_more: More about this person
     previous_roles: Previous roles

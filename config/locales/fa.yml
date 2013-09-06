@@ -296,6 +296,8 @@ fa:
   latest_feed:
     no_updates: اطلاعات جدیدی در دست نیست
     title: آخرین
+  national_statistics:
+    heading:
   number:
     human:
       storage_units:
@@ -375,8 +377,8 @@ fa:
   people:
     biography:
     heading:
-      many:
       one:
+      other:
     previous_roles:
     previous_roles_in_government:
     read_more:
