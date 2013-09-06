@@ -48,6 +48,16 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     refute_select 'h2', text: not_shown.heading
   end
 
+  view_test "GET #show includes contents linking to groups" do
+    series = create(:document_series, description: 'Description', summary: 'Summary')
+    group_1 = create_group_from_editions(series, 'Group 1', create(:published_publication))
+    group_2 = create_group_from_editions(series, 'Group 2', create(:published_publication))
+    get :show, organisation_id: series.organisation, id: series
+
+    assert_select "ol li a[href=#group_#{group_1.id}]", text: 'Group 1'
+    assert_select "ol li a[href=#group_#{group_2.id}]", text: 'Group 2'
+  end
+
   test "GET #show sets Cache-Control: max-age to the time of the next scheduled publication in the series" do
     user = login_as(:departmental_editor)
     organisation = create(:organisation)
