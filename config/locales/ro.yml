@@ -204,6 +204,7 @@ ro:
         one: ! 'Declarație scrisă către Parlament '
         few:
         other: ! 'Declarații scrise către Parlament '
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -308,6 +309,19 @@ ro:
       step1_html:
       step2_html:
       step3_html:
+  roles:
+    heading:
+      one:
+      few:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -396,6 +410,7 @@ ro:
       unnumbered_hoc_paper:
   announcements:
     heading: Știri
+    view_all:
   attachment:
     accessibility:
       full_help_html: ! 'Pentru a solicita acest document într-un format alternativ
@@ -456,8 +471,17 @@ ro:
     human:
       storage_units:
         format:
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Obiectiv strategic
+    view_all:
   publications:
     heading: Obiective strategic
     headings:

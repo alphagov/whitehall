@@ -66,6 +66,7 @@ fa:
       unnumbered_hoc_paper:
   announcements:
     heading: اطلاعیه ها
+    view_all:
   attachment:
     accessibility:
       full_help_html: برای درخواست این مقاله در ساختاری متفاوت مانند بریل، شنیداری
@@ -98,6 +99,7 @@ fa:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -370,13 +372,34 @@ fa:
       Tribunal non-departmental public body:
         one: بدنه عمومی غیر دپارتمانی دادگاه
         other: بدنه های عمومی غیر دپارتمانی دادگاه
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: سیاست ها
+    view_all:
   publications:
     heading: انتشارات
     headings:
       detail: جزئیات
   read_more: اطلاعات بیشتر
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: تمامی %{type} ما را مشاهده کنید
   social_media:

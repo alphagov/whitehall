@@ -1,11 +1,11 @@
-<% atom_discovery_link_tag polymorphic_url(person, format: :atom), "Announcements" %>
+<% atom_discovery_link_tag polymorphic_url(person, format: :atom), t('announcements.heading') %>
 
 <% if person.announcements.any? %>
   <section class="announcements" id="announcements">
     <div class="filter-feed">
       <%= link_to_feed polymorphic_url(person, format: :atom) %>
     </div>
-    <h1>Announcements</h1>
+    <h1><%= t('announcements.heading') %></h1>
     <p>by <%= person.name %></p>
 
     <ol class="document-list">
@@ -21,7 +21,7 @@
     </ol>
 
     <div class="read-more">
-      <%= link_to "View all announcements", :announcements %>
+      <%= link_to t('announcements.view_all'), :announcements %>
     </div>
   </section>
 <% end %>

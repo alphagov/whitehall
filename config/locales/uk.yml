@@ -253,6 +253,7 @@ uk:
         few:
         many:
         other: Письмові заяви у парламенті
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -368,6 +369,30 @@ uk:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      few:
+      many:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      one:
+      few:
+      many:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -458,6 +483,7 @@ uk:
       unnumbered_hoc_paper:
   announcements:
     heading: Оголошення
+    view_all:
   attachment:
     accessibility:
       full_help_html: Щоб запросити цей документ в іншому форматі, наприклад, шрифтом
@@ -517,6 +543,7 @@ uk:
         format:
   policies:
     heading: Політика
+    view_all:
   publications:
     heading: Публікації
     headings:

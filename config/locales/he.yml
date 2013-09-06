@@ -253,6 +253,7 @@ he:
         two:
         many:
         other: הצהרות בכתב לפרלמנט
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -368,6 +369,30 @@ he:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      two:
+      many:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      one:
+      two:
+      many:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -458,6 +483,7 @@ he:
       unnumbered_hoc_paper:
   announcements:
     heading: הודעות
+    view_all:
   attachment:
     accessibility:
       full_help_html: ! 'כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
@@ -520,6 +546,7 @@ he:
         format: ! '%n%u'
   policies:
     heading: מדיניות
+    view_all:
   publications:
     heading: פרסומים
     headings:

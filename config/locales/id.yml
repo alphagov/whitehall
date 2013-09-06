@@ -66,6 +66,7 @@ id:
       unnumbered_hoc_paper:
   announcements:
     heading: Pengumuman
+    view_all:
   attachment:
     accessibility:
       full_help_html: Untuk mendapatkan dokumen ini dalam format lain seperti braille,
@@ -98,6 +99,7 @@ id:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -370,13 +372,34 @@ id:
       Tribunal non-departmental public body:
         one: Badan hukum non-departemen umum
         other: Badan-badan hukum non-departemen umum
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Kebijakan-kebijakan
+    view_all:
   publications:
     heading: Publikasi-publikasi
     headings:
       detail: Detail
   read_more: Baca lebih lanjut
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: Lihat semua %{type}
   social_media:

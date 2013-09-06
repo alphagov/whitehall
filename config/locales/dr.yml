@@ -155,6 +155,7 @@ dr:
       written_statement:
         one: بیانیه تحریری به پارلمان
         other: بیانیه های تحریری به پارلمان
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -246,6 +247,18 @@ dr:
       step1_html:
       step2_html:
       step3_html:
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -332,6 +345,7 @@ dr:
       unnumbered_hoc_paper:
   announcements:
     heading: اعلانات
+    view_all:
   attachment:
     accessibility:
       full_help_html: جهت درخواست سند در فارمت بدیل مانند بریل، صوتی و یا هم در فارمت
@@ -389,8 +403,17 @@ dr:
     human:
       storage_units:
         format: ! '%n%u'
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: پالیسی ها
+    view_all:
   publications:
     heading: نشریات
     headings:

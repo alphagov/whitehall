@@ -66,6 +66,7 @@ tr:
       unnumbered_hoc_paper:
   announcements:
     heading: Duyurular
+    view_all:
   attachment:
     accessibility:
       full_help_html: ! 'Bu dosyaya farklı formatta erişim için lütfen bize adresiniz,
@@ -99,6 +100,7 @@ tr:
       default: ! '%d %B %Y'
       long_ordinal: ! '%e %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -370,13 +372,34 @@ tr:
       Tribunal non-departmental public body:
         one: Bakanlık dışı adli kamu kurumu
         other: Bakanlık dışı adli kamu kurumları
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Politikalar
+    view_all:
   publications:
     heading: Yayınlar
     headings:
       detail: Detay
   read_more: Daha fazlası için
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: Tamamını görüntüle
   social_media:

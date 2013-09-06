@@ -66,6 +66,7 @@ vi:
       unnumbered_hoc_paper:
   announcements:
     heading: Thông báo
+    view_all:
   attachment:
     accessibility:
       full_help_html: ! 'Để yêu cầu tài liệu này dưới định dạng khác như tài liệu
@@ -99,6 +100,7 @@ vi:
       default: ! '%d %B %Y'
       long_ordinal: ! '%d %B %Y'
   document:
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -371,13 +373,34 @@ vi:
       Tribunal non-departmental public body:
         one: Cơ quan xét xử không thuộc cơ chế công
         other: Các cơ quan xét xử không thuộc cơ chế công
+  people:
+    biography:
+    heading:
+      many:
+      one:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
   policies:
     heading: Các chính sách
+    view_all:
   publications:
     heading: Tài liệu truyền thông
     headings:
       detail: Chi tiết
   read_more: Đọc thêm
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   shared:
     see_all: Xem tất cả %{type} của chúng tôi
   social_media:

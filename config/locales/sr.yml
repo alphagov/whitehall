@@ -257,6 +257,7 @@ sr:
         few:
         many:
         other: Pisane predstavke Parlamentu
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -372,6 +373,30 @@ sr:
       step1_html:
       step2_html:
       step3_html:
+  people:
+    heading:
+      one:
+      few:
+      many:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      one:
+      few:
+      many:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -462,6 +487,7 @@ sr:
       unnumbered_hoc_paper:
   announcements:
     heading: Najave
+    view_all:
   attachment:
     accessibility:
       full_help_html: Zahtev za dobijanje ovog dokumenta u alternativnom formatu (Brajevo
@@ -522,6 +548,7 @@ sr:
         format:
   policies:
     heading: Politike
+    view_all:
   publications:
     heading: Publikacije
     headings:

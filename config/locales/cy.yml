@@ -351,6 +351,7 @@ cy:
         few:
         many:
         other: Datganiadau ysgrifenedig i'r Senedd
+    contents:
     footer_meta:
       full_page_history:
       page_history:
@@ -487,9 +488,39 @@ cy:
       traffic_commissioners: Comisiynwyr traffig
       what_we_do: Yr hyn rydym ni'n ei wneud
     making_foi_requests:
-      step1_html: Darllenwch am y Ddeddf Rhyddid Gwybodaeth (DRhG) a <a href="%{how_to_path}">sut i wneud cais</a>
-      step2_html: Ymchwiliwch <a href="%{our_releases_path}">ein datganiadau blaenorol</a> i weld os ydym eisioes wedi ateb eich cwestiwn
-      step3_html: "Gwnewch cais newydd drwy gysylltu a ni ar:"
+      step1_html: Darllenwch am y Ddeddf Rhyddid Gwybodaeth (DRhG) a <a href="%{how_to_path}">sut
+        i wneud cais</a>
+      step2_html: Ymchwiliwch <a href="%{our_releases_path}">ein datganiadau blaenorol</a>
+        i weld os ydym eisioes wedi ateb eich cwestiwn
+      step3_html: ! 'Gwnewch cais newydd drwy gysylltu a ni ar:'
+  people:
+    heading:
+      zero:
+      one:
+      two:
+      few:
+      many:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      zero:
+      one:
+      two:
+      few:
+      many:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_reponsible:
+    previous_holders:
+    read_more:
   world_location:
     type:
       international_delegation:
@@ -584,6 +615,7 @@ cy:
       unnumbered_hoc_paper:
   announcements:
     heading: Cyhoeddiadau
+    view_all:
   attachment:
     accessibility:
       full_help_html: I ofyn am y ddogfen hon  mewn fformat arall, fel braille, sain
@@ -645,6 +677,7 @@ cy:
         format: ! '%n%u'
   policies:
     heading: Polisïau
+    view_all:
   publications:
     heading: Cyhoeddiadau
     headings:

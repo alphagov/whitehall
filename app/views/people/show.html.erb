@@ -5,7 +5,7 @@
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
-                locals: { type: "Person",
+                locals: { type: t('people.heading', count: 1),
                           heading: @person.name,
                           big: true, extra: true } %>
       <div class="heading-extra">
@@ -18,7 +18,7 @@
         <aside class="meta">
           <div class="inner-heading">
             <dl>
-              <dt>Roles:</dt>
+              <dt><%= t('roles.heading', count: @person.current_role_appointments.count) %>:</dt>
               <dd><%= @person.current_role_appointments.map { |a| a.role.ministerial? ? a.role_link : a.role.name }.to_sentence.html_safe %></dd>
             </dl>
           </div>
@@ -35,19 +35,19 @@
             <%= @person.image %>
           </figure>
         </div>
-        <h1>Contents</h1>
+        <h1><%= t('document.contents') %></h1>
         <nav role="navigation">
           <ul>
-            <li><%= link_to "Biography", '#biography' %></li>
-            <li><%= link_to (@person.current_role_appointments.count == 1 ? "Role" : "Roles"), "#current-roles" %></li>
+            <li><%= link_to t('people.biography'), '#biography' %></li>
+            <li><%= link_to t('roles.heading', count: @person.current_role_appointments.count), "#current-roles" %></li>
             <% if @person.previous_role_appointments.any? %>
-              <li><%= link_to "Previous roles", "#previous-roles" %></li>
+              <li><%= link_to t('people.previous_roles'), "#previous-roles" %></li>
             <% end %>
             <% if @person.has_policy_responsibilities? %>
-              <li><%= link_to "Policy", "#policy" %></li>
+              <li><%= link_to t('policies.heading'), "#policy" %></li>
             <% end %>
             <% if @person.announcements.any? %>
-              <li><%= link_to "Announcements", "#announcements" %></li>
+              <li><%= link_to t('announcements.heading'), "#announcements" %></li>
             <% end %>
           </ul>
         </nav>
@@ -58,7 +58,7 @@
   <div class="block-3">
     <div class="inner-block">
       <section class="biography" id="biography">
-        <h1 class="label">Biography</h1>
+        <h1 class="label"><%= t('people.biography') %></h1>
         <%= @person.biography %>
       </section>
 
@@ -76,7 +76,7 @@
             <%= appointment.role.responsibilities %>
             <% if appointment.role.ministerial? %>
               <div class="read-more">
-                <%= link_to "More about this role", appointment.role %>
+                <%= link_to t('roles.read_more'), appointment.role %>
               </div>
             <% end %>
           <% end %>
@@ -85,7 +85,7 @@
 
       <% if @person.previous_role_appointments.any? %>
         <section class="previous-roles" id="previous-roles">
-          <h1>Previous roles in government</h1>
+          <h1><%= t('people.previous_roles_in_government') %></h1>
 
           <ol class="document-list">
             <% @person.previous_role_appointments.each do |appointment| %>
@@ -105,8 +105,8 @@
           <% @person.current_ministerial_roles.each do |role| %>
             <% if role.published_policies.any? %>
               <section class="policy">
-                <h1>Policy</h1>
-                <p>under the responsibility of <%= @person.name %> as <%= role.name %></p>
+                <h1><%= t('policies.heading') %></h1>
+                <p><%= t('roles.policies_reponsible', person: @person.name, role: role.name) %></p>
 
                 <%= render partial: 'ministerial_roles/policies',
                            locals: { role: role } %>
