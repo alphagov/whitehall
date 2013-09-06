@@ -225,6 +225,17 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".organisation-logo-stacked-no-identity"
   end
 
+  view_test "#show uses a custom logo in the h1 tag, instead of usual branding" do
+    organisation = create(
+      :organisation,
+      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      logo: fixture_file_upload('logo.png')
+    )
+    VirusScanHelpers.simulate_virus_scan(organisation.logo)
+    get :show, id: organisation
+    assert_select %Q{img[alt="#{organisation.name}"][src*="logo.png"]}
+  end
+
   view_test "#show includes the parent organisation branding on a sub-organisation" do
     organisation = create(:organisation, logo_formatted_name: "Ministry of Jam")
     sub_organisation = create(:sub_organisation, name: "Marmalade Inspection Board", parent_organisations: [organisation])

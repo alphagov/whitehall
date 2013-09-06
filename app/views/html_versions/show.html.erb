@@ -7,7 +7,7 @@
       <% @document.sorted_organisations.each do |organisation| %>
         <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
           <%= link_to organisation_path(organisation),
-                      class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium', stacked: true) do %>
+                      class: logo_classes(organisation: organisation, size: 'medium', stacked: true) do %>
             <span><%= organisation_logo_name(organisation) %></span>
           <% end %>
         <% end %>

@@ -5,7 +5,8 @@ module LogoHelper
     if options[:use_identity] == false
       logo_class << 'no-identity'
     else
-      logo_class << options[:class_name]
+      class_name = options[:class_name] || options.fetch(:organisation).organisation_logo_type.class_name
+      logo_class << class_name
     end
     logo_class = logo_class.join('-')
 
