@@ -423,7 +423,7 @@ en:
   people:
     heading:
       one: Person
-      many: People
+      other: People
     biography: Biography
     read_more: More about this person
     previous_roles: Previous roles
