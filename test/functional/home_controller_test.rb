@@ -119,6 +119,9 @@ class HomeControllerTest < ActionController::TestCase
       create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 5.day),
     ]
 
+    # Add a response ahead of the closing date
+    create(:consultation_outcome, consultation: next_closing)
+
     get :get_involved
 
     assert_equal recently_opened_consultations.size, assigns[:open_consultation_count]
