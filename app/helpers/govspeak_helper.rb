@@ -5,6 +5,7 @@ module GovspeakHelper
   EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
   BARCHART_REGEXP = /{barchart(.*?)}/
   SORTABLE_REGEXP = /{sortable}/
+  FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
 
   def govspeak_to_html(govspeak, images=[], options={})
     wrapped_in_govspeak_div(bare_govspeak_to_html(govspeak, images, options))
@@ -99,6 +100,7 @@ module GovspeakHelper
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
+    govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
     govspeak = set_classes_for_sortable_tables(govspeak)
 
@@ -120,6 +122,17 @@ module GovspeakHelper
     govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
       if contact = Contact.find_by_id($1)
         render(partial: 'contacts/contact', locals: { contact: contact, heading_tag: heading_tag }, formats: ["html"])
+      else
+        ''
+      end
+    end
+  end
+
+  def render_embedded_fractions(govspeak)
+    return govspeak if govspeak.blank?
+    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |match|
+      if $1.present? && $2.present?
+        "<span class=\"fraction\"><sup>#{$1}</sup>&frasl;<sub>#{$2}</sub></span>"
       else
         ''
       end
