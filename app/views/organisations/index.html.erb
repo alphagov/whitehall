@@ -16,7 +16,7 @@
       <div class="heading-block executive-offices js-filter-block" id="executive-offices">
         <div class="content">
           <ol>
-            <% @executive_offices.each do |executive_office| %>
+            <% @organisations.executive_offices.each do |executive_office| %>
               <%= content_tag_for :li, executive_office,
                                   class: 'department js-filter-item',
                                     "data-filter-terms" => filter_terms(executive_office) do %>
@@ -34,11 +34,11 @@
       <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
         <header id="departments" class="type-heading">
           <h1>Ministerial departments</h1>
-          <%= organisation_count_paragraph(@ministerial_departments) %>
+          <%= organisation_count_paragraph(@organisations.ministerial_departments) %>
         </header>
         <div class="content">
           <ol>
-            <% @ministerial_departments.each do |ministerial_department| %>
+            <% @organisations.ministerial_departments.each do |ministerial_department| %>
               <%= content_tag_for :li, ministerial_department,
                                   class: 'department js-filter-item',
                                     "data-filter-terms" => filter_terms(ministerial_department) do %>
@@ -53,14 +53,15 @@
           </ol>
         </div>
       </div>
+
       <div class="heading-block other-departments js-filter-block js-hide-department-children">
         <header id="non-ministerial-departments" class="type-heading">
           <h1>Non ministerial departments</h1>
-          <%= organisation_count_paragraph(@non_ministerial_departments) %>
+          <%= organisation_count_paragraph(@organisations.non_ministerial_departments) %>
         </header>
         <div class="content">
           <ol class="index-list">
-            <% @non_ministerial_departments.each do |organisation| %>
+            <% @organisations.non_ministerial_departments.each do |organisation| %>
               <%= content_tag_for :li, organisation, class: 'js-filter-item department',
                             "data-filter-terms" => filter_terms(organisation) do %>
                 <%= link_to organisation.name, organisation_path(organisation), id: organisation.slug, class: 'department-link' %>
@@ -74,11 +75,11 @@
       <div class="heading-block other-departments js-filter-block">
         <header id="agencies-and-public-bodies" class="type-heading">
           <h1>Agencies &amp; other public bodies</h1>
-          <%= organisation_count_paragraph(@agencies_and_government_bodies) %>
+          <%= organisation_count_paragraph(@organisations.agencies_and_government_bodies) %>
         </header>
         <div class="content">
           <ol class="index-list">
-            <% @agencies_and_government_bodies.each do |organisation| %>
+            <% @organisations.agencies_and_government_bodies.each do |organisation| %>
               <%= content_tag_for :li, organisation, class: 'js-filter-item',
                             "data-filter-terms" => filter_terms(organisation) do %>
                 <%= link_to organisation.name, organisation_path(organisation) %>
@@ -91,11 +92,11 @@
       <div class="heading-block other-departments js-filter-block">
         <header id="public-corporations" class="type-heading">
           <h1>Public corporations</h1>
-          <%= organisation_count_paragraph(@public_corporations, with_live_on_govuk: false) %>
+          <%= organisation_count_paragraph(@organisations.public_corporations, with_live_on_govuk: false) %>
         </header>
         <div class="content">
           <ol class="index-list">
-            <% @public_corporations.each do |organisation| %>
+            <% @organisations.public_corporations.each do |organisation| %>
               <%= content_tag_for :li, organisation, class: 'js-filter-item',
                             "data-filter-terms" => filter_terms(organisation) do %>
                 <%= link_to organisation.name, organisation_path(organisation) %>

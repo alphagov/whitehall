@@ -1,0 +1,43 @@
+module Organisation::OrganisationTypeConcern
+  extend ActiveSupport::Concern
+
+  included do
+    validates :organisation_type_key, inclusion: { in: OrganisationType.valid_keys }
+    validates :parent_organisations, 
+              length: { minimum: 1, message: "must not be empty for sub-organisations" },
+              if: lambda { organisation_type_key == :sub_organisation }
+
+    # Creates a scope for each department type. (eg. Organisation.ministerial_departments)
+    OrganisationType.valid_keys.each do |type_key|
+      scope type_key.to_s.pluralize, where(organisation_type_key: type_key)
+    end
+
+    scope :listable, lambda {
+      excluding_govuk_status_closed.where("organisation_type_key != 'sub_organisation'")
+    }
+  end
+
+  def organisation_type_key
+    read_attribute(:organisation_type_key).nil? ? nil : read_attribute(:organisation_type_key).to_sym
+  end
+
+  def organisation_type
+    organisation_type_key.present? ? OrganisationType.get(organisation_type_key) : nil
+  end
+  alias_method :type, :organisation_type
+
+  def organisation_type=(organisation_type)
+    self.organisation_type_key = organisation_type.key
+  end
+  alias_method :type=, :organisation_type=
+
+  def child_organisations_excluding_sub_organisations
+    @child_organisations_excluding_sub_organisations ||= 
+      child_organisations.with_translations.where("organisation_type_key != 'sub_organisation'")
+  end
+
+  def child_organisations_excluding_sub_organisations_grouped_by_type
+    @child_organisations_excluding_sub_organisations_grouped_by_type ||= 
+      child_organisations_excluding_sub_organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
+  end
+end

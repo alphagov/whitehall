@@ -42,11 +42,9 @@ class EmailSignup
   end
 
   def self.valid_organisations_by_type
-    ministerial_department_type = OrganisationType.find_by_name('Ministerial department')
-    sub_organisation_type = OrganisationType.find_by_name('Sub-organisation')
     {
-      ministerial: Organisation.with_translations.where("organisation_type_id = ? AND govuk_status ='live'", ministerial_department_type),
-      other: Organisation.with_translations.where("organisation_type_id NOT IN (?,?) AND govuk_status='live'", ministerial_department_type, sub_organisation_type)
+      ministerial: Organisation.with_translations.where("organisation_type_key = ? AND govuk_status ='live'", :ministerial_department),
+      other: Organisation.with_translations.where("organisation_type_key NOT IN (?) AND govuk_status='live'", [:ministerial_department, :sub_organisation])
     }
   end
 

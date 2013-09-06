@@ -183,6 +183,9 @@ uz:
       Advisory non-departmental public body:
         one: Hukumatga qarashli bo'lmagan maslahatchi organ
         other: Hukumatga qarashli bo'lmagan maslahatchi organlar
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Ijro etuvchi agentlik
         other: Ijro etuvchi agentliklar

@@ -9,7 +9,7 @@ class HomeController < PublicFacingController
 
   def how_government_works
     @policy_count = Policy.published.count
-    @non_ministerial_department_count = Organisation.where(organisation_type_id: OrganisationType.find_by_name('Non-ministerial department')).count
+    @non_ministerial_department_count = Organisation.non_ministerial_departments.count
     sorter = MinisterSorter.new
     @cabinet_minister_count = sorter.cabinet_ministers.count - 1 # subtract one to discount PM
     @other_minister_count = sorter.other_ministers.count

@@ -183,6 +183,9 @@ sq:
       Advisory non-departmental public body:
         one: Organ keshillues publik jo-dikasterial
         other: Organe keshillues publik jo-dikasterial
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Agjensi Ekzekutive
         other: Agjensi Ekzekutive

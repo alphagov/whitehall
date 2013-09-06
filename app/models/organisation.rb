@@ -1,7 +1,7 @@
 class Organisation < ActiveRecord::Base
   include Searchable
+  include Organisation::OrganisationTypeConcern
 
-  belongs_to :organisation_type
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   has_many :child_organisational_relationships,
@@ -192,7 +192,6 @@ class Organisation < ActiveRecord::Base
 
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true
-  validates :organisation_type_id, presence: true
   validates :logo_formatted_name, presence: true
   validates :url, uri: true, allow_blank: true
   validates :alternative_format_contact_email, email_format: {allow_blank: true}
@@ -201,7 +200,6 @@ class Organisation < ActiveRecord::Base
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
   validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
   validates :organisation_logo_type_id, presence: true
-  validate :sub_organisations_must_have_a_parent
   validates :logo, presence: true, if: :custom_logo_selected?
 
   include TranslatableModel
@@ -225,9 +223,13 @@ class Organisation < ActiveRecord::Base
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
 
+<<<<<<< HEAD
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
   end
+=======
+  scope :excluding_govuk_status_closed, where("govuk_status != 'closed'")
+>>>>>>> Monolithic commit re-factors OrganisationType and adds a Devolved Administration type.
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?
@@ -259,18 +261,6 @@ class Organisation < ActiveRecord::Base
     all.sort_by { |o| o.name_without_prefix }
   end
 
-  def self.in_listing_order
-    joins(:organisation_type).all.sort_by { |o| o.organisation_type.listing_order }
-  end
-
-  def self.ministerial_departments
-    where("organisation_type_id = ?" , OrganisationType.ministerial_department)
-  end
-
-  def self.non_ministerial_departments
-    where("organisation_type_id != ?" , OrganisationType.ministerial_department)
-  end
-
   def self.with_published_editions(type=nil)
     if type
       klass = type.to_s.classify.constantize
@@ -288,16 +278,8 @@ class Organisation < ActiveRecord::Base
     where("exists (#{published_editions_conditions})")
   end
 
-  def agencies_and_public_bodies
-    @agencies_and_public_bodies ||= child_organisations.with_translations.includes(:organisation_type).merge(OrganisationType.agency_or_public_body).all
-  end
-
-  def agencies_and_public_bodies_by_type
-    agencies_and_public_bodies.group_by(&:organisation_type).sort_by { |type, department| type.listing_order }
-  end
-
   def sub_organisations
-    child_organisations.joins(:organisation_type).merge(OrganisationType.sub_organisation)
+    child_organisations.where(organisation_type_key: :sub_organisation)
   end
 
   def live?
@@ -347,22 +329,6 @@ class Organisation < ActiveRecord::Base
     ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
   end
 
-  def department?
-    organisation_type.department?
-  end
-
-  def executive_office?
-    organisation_type.executive_office?
-  end
-
-  def self.departments
-    where(organisation_type_id: OrganisationType.departmental_types).includes(:translations)
-  end
-
-  def self.executive_offices
-    where(organisation_type_id: OrganisationType.executive_office)
-  end
-
   def self.parent_organisations
     where("not exists (" +
       "select * from organisational_relationships " +
@@ -388,6 +354,7 @@ class Organisation < ActiveRecord::Base
   def has_published_publications_of_type?(publication_type)
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
+<<<<<<< HEAD
 
   def non_departmental_public_body?
     [3, 4, 5].include?(organisation_type_id)
@@ -402,4 +369,6 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+=======
+>>>>>>> Monolithic commit re-factors OrganisationType and adds a Devolved Administration type.
 end

@@ -183,6 +183,9 @@ lv:
       Advisory non-departmental public body:
         one: Konsultatīva kvazi autonoma sabiedriska organizācija
         other: Konsultatīvas kvazi autonomas sabiedriskas organizācijas
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Izpildaģentūra
         other: Izpildaģentūras

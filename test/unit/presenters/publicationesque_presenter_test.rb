@@ -35,7 +35,7 @@ class PublicationesquePresenterTest < PresenterTestCase
   test 'should add publication series link to hash' do
     document = stub_record(:document)
     document.stubs(:to_param).returns('some-doc')
-    organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type: stub_record(:organisation_type))
+    organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type_key: :ministerial_department)
     operational_field = stub_record(:operational_field, name: "Name")
     series = stub_record(:document_series, name: 'SeriesName', organisation: organisation)
     publication = stub_record(:publication,

@@ -53,10 +53,10 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   test "translations for organisation types are present" do
-    OrganisationType::LISTING_ORDER.each do |organisation_type_name|
-      assert_nothing_raised("No translation for #{organisation_type_name})") do
-        I18n.t("organisation.type.#{organisation_type_name}", count: 1)
-        I18n.t("organisation.type.#{organisation_type_name}", count: 2)
+    OrganisationType.all.each do |organisation_type|
+      assert_nothing_raised("No translation for #{organisation_type.name})") do
+        I18n.t("organisation.type.#{organisation_type.name}", count: 1)
+        I18n.t("organisation.type.#{organisation_type.name}", count: 2)
       end
     end
   end

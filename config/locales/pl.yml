@@ -285,6 +285,11 @@ pl:
         few:
         many:
         other: Nieministerialne publiczne organy doradczy
+      Devolved administration:
+        one:
+        few:
+        many:
+        other:
       Executive agency:
         one: Agencja wykonawcza
         few:

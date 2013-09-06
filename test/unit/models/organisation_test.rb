@@ -132,28 +132,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [parent.id], Organisation.parent_organisations.map(&:id)
   end
 
-  test 'sub-organisations are not valid without a parent organisation' do
-    sub_organisation = build(:sub_organisation, parent_organisations: [])
-    refute sub_organisation.valid?, "Sub-organisations should not be valid without a parent"
-    assert sub_organisation.errors.full_messages.include?("Parent organisations must not be empty for sub-organisations")
-  end
-
-  test 'can list its agencies and public bodies, i.e. all child organisations except sub-organisations' do
-    parent_org_1 = create(:organisation)
-    parent_org_2 = create(:organisation)
-    child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
-    child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
-    child_org_3 = create(:organisation, parent_organisations: [parent_org_1])
-
-    assert_equal [child_org_1, child_org_3], parent_org_1.agencies_and_public_bodies
-  end
-
-  test 'can list its sub-organisations' do
-    parent = create(:organisation)
-    sub_organisation = create(:sub_organisation, parent_organisations: [parent])
-    assert_equal [sub_organisation], parent.sub_organisations
-  end
-
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     organisation = create(:organisation, roles:  [minister])
@@ -265,26 +243,6 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should not include apostrophes in slug" do
     organisation = create(:organisation, name: "Bob's bike")
     assert_equal 'bobs-bike', organisation.slug
-  end
-
-  test "should be returnable in an ordering suitable for organisational listing" do
-    type_names = [
-      "Ministerial department",
-      "Non-ministerial department",
-      "Executive agency",
-      "Executive non-departmental public body",
-      "Advisory non-departmental public body",
-      "Tribunal non-departmental public body",
-      "Public corporation",
-      "Independent monitoring body",
-      "Ad-hoc advisory group",
-      "Other"
-    ]
-    types = type_names.shuffle.map { |t| create(:organisation_type, name: t) }
-    organisations = types.shuffle.each { |t| create(:organisation, organisation_type: t) }
-
-    orgs_in_order = Organisation.in_listing_order
-    assert_equal type_names, orgs_in_order.map(&:organisation_type).map(&:name)
   end
 
   test 'should return search index data suitable for Rummageable' do
@@ -596,14 +554,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal 0, organisation.sponsorships.count
   end
 
-  test "Organisation.executive_offices returns executive offices" do
-    organisation = create(:ministerial_department)
-    no10 = create(:executive_office, name: 'No 10')
-    dpms_office = create(:executive_office, name: "Deputy Prime Minister's office")
-
-    assert_same_elements [no10, dpms_office], Organisation.executive_offices
-  end
-
   test 'can provide a list of all its FOI contacts' do
     organisation = create(:organisation)
     contact_1 = create(:contact, contactable: organisation, contact_type: ContactType::FOI)
@@ -748,4 +698,10 @@ class OrganisationTest < ActiveSupport::TestCase
     org.organisation_brand_colour = OrganisationBrandColour::AttorneyGeneralsOffice
     assert_equal org.organisation_brand_colour_id, 1
   end
+
+  test "excluding_govuk_status_closed scopes to all organisations which don't have a govuk_state of 'closed'" do
+    open_org = create(:organisation, govuk_status: 'live')
+    closed_org = create(:organisation, govuk_status: 'closed')
+    assert_equal [open_org], Organisation.excluding_govuk_status_closed
+  end  
 end

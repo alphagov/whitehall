@@ -183,6 +183,9 @@ pt:
       Advisory non-departmental public body:
         one: Organização Pública Consultiva não-governamental
         other: Organizações Públicas Consultivas não governamentais
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Agência Executiva
         other: Agências Executivas

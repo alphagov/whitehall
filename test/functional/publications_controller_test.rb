@@ -189,13 +189,12 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "index highlights selected organisation filter options" do
     given_two_documents_in_two_organisations
-    create(:ministerial_department) # needed so you can select ministerial and non-ministerial orgs
 
     get :index, departments: [@organisation_1, @organisation_2]
 
     assert_select "select#departments[name='departments[]']" do
-      assert_select "option[selected='selected']", text: @organisation_1.name
-      assert_select "option[selected='selected']", text: @organisation_2.name
+      assert_select "option[selected]", text: @organisation_1.name
+      assert_select "option[selected]", text: @organisation_2.name
     end
   end
 
@@ -671,7 +670,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   def given_two_documents_in_two_organisations
-    @organisation_1, @organisation_2 = create(:organisation), create(:organisation)
+    @organisation_1, @organisation_2 = create(:organisation, type: OrganisationType.ministerial_department), create(:organisation, type: OrganisationType.ministerial_department)
     create(:published_publication, organisations: [@organisation_1])
     create(:published_consultation, organisations: [@organisation_2])
   end

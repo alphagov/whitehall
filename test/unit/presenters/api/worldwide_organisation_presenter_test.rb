@@ -3,7 +3,7 @@ require 'test_helper'
 class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   setup do
     @access_times = stub_record(:access_and_opening_times, body: 'never')
-    @main_sponsor = stub_record(:organisation, organisation_type: stub_record(:organisation_type))
+    @main_sponsor = stub_record(:organisation)
     @office = stub_record(:worldwide_office, contact: stub_record(:contact, contact_numbers: []),
                                              services: [],
                                              worldwide_organisation: nil,

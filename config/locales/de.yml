@@ -183,6 +183,9 @@ de:
       Advisory non-departmental public body:
         one: Keinem Ministerium unterstelltes öffentliches Beratungsorgan
         other: Keinem Ministerium unterstellte öffentliche Beratungsorgane
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Exekutivagentur
         other: Exekutivagenturen

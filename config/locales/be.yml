@@ -285,6 +285,11 @@ be:
         few:
         many:
         other: ! 'Пазаведамасныя кансультатыўныя дзяржаўныя органы '
+      Devolved administration:
+        one:
+        few:
+        many:
+        other:
       Executive agency:
         one: Выканаўчая ўстанова
         few:

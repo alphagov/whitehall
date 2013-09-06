@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Api::DetailedGuidePresenterTest < PresenterTestCase
   setup do
-    @organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    @organisation = stub_record(:organisation, organisation_type: OrganisationType.ministerial_department)
     @guide = stub_edition(:detailed_guide, organisations: [@organisation])
     @guide.stubs(:images).returns([])
     @guide.stubs(:published_related_detailed_guides).returns([])

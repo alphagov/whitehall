@@ -341,6 +341,9 @@ zh-hk:
       Advisory non-departmental public body:
         one: 非政府諮詢公共機構
         other: 其他非政府諮詢公共機構
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: 執行機構
         other: 其他執行機構

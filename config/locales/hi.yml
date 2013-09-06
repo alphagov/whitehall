@@ -183,6 +183,9 @@ hi:
       Advisory non-departmental public body:
         one: परामर्शी गैर-विभागीय सार्वजनिक निकाय
         other: परामर्शी गैर-विभागीय सार्वजनिक निकाय
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: कार्यकारी एजेंसी
         other: कार्यकारी एजेंसियां

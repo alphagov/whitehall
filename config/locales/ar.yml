@@ -387,6 +387,13 @@ ar:
         few:
         many:
         other: هيئات استشارية عامة غير حكومية
+      Devolved administration:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       Executive agency:
         zero:
         one: جهاز تنفيذي

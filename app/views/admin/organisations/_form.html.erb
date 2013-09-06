@@ -31,8 +31,8 @@
       <%= organisation_form.text_field :url %>
     </p>
     <p>
-      <%= organisation_form.label :organisation_type_id, "Organisation type" %>
-      <%= organisation_form.select :organisation_type_id, options_from_collection_for_select(OrganisationType.in_listing_order, "id", "name", organisation.organisation_type_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
+      <%= organisation_form.label :organisation_type_key, "Organisation type" %>
+      <%= organisation_form.select :organisation_type_key, options_from_collection_for_select(OrganisationType.in_listing_order, "key", "name", organisation.organisation_type_key), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the organisation type..." } %>
     </p>
     <p>
       <%= organisation_form.text_field :alternative_format_contact_email, label_text: "Email address for ordering attached files in an alternative format" %>
@@ -94,7 +94,11 @@
     </fieldset>
   <% end %>
 
+<<<<<<< HEAD
   <% if organisation.non_departmental_public_body? %>
+=======
+  <% if organisation.type && organisation.type.is_non_departmental_public_body? %>
+>>>>>>> Monolithic commit re-factors OrganisationType and adds a Devolved Administration type.
     <fieldset>
       <legend>Non-Departmental Public Body Information</legend>
       <p>

@@ -341,6 +341,9 @@ zh:
       Advisory non-departmental public body:
         one: 非政府公共咨询机构
         other: 非政府公共咨询机构
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: 执行机构
         other: 执行机构

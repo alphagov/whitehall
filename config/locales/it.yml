@@ -183,6 +183,9 @@ it:
       Advisory non-departmental public body:
         one: Ente pubblico di consulenza non ministeriale
         other: Enti pubblici di consulenza non ministeriali
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Agenzia esecutiva
         other: Agenzie esecutive

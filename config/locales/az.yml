@@ -341,6 +341,9 @@ az:
       Advisory non-departmental public body:
         one: İctimai qrum
         other: İctimai qrumlar
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: İcraedici orqan
         other: İcraedici orqanlar
