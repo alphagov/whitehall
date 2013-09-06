@@ -97,7 +97,7 @@ class PeopleControllerTest < ActionController::TestCase
 
     get :show, id: @person
 
-    assert_select ".in-page-navigation li a", text: "Policy"
+    assert_select ".in-page-navigation li a", text: "Policies"
   end
 
   view_test "policy shown if person has policy associated with ministerial role" do
