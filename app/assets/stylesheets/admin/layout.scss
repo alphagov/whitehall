@@ -37,11 +37,6 @@ body {
       margin-left: $gutter-one-sixth;
       content: " \25BC";
     }
-    @include media(desktop) {
-      span {
-        display: block;
-      }
-    }
   }
   .open {
     .toggler {
