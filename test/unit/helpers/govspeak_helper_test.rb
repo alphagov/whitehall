@@ -380,13 +380,18 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "table.sortable.js-barchart-table"
   end
 
-  test 'will create fractions' do
-    input = "Some text [Fraction:1/4] and some text"
+  test 'will create bespoke fractions' do
+    input = "Some text [Fraction:1/72] and some text"
     html = govspeak_to_html(input)
     assert_select_within_html html, "span.fraction > sup", text: 1
-    assert_select_within_html html, "span.fraction > sub", text: 4
+    assert_select_within_html html, "span.fraction > sub", text: 72
   end
 
+  test 'will create fractions using images for a known set' do
+    input = "Some text [Fraction:1/4] and some text"
+    html = govspeak_to_html(input)
+    assert_select_within_html html, "span.fraction > img[alt=1⁄4]"
+  end
 
   private
 

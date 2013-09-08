@@ -81,6 +81,12 @@ module GovspeakHelper
     content_tag(:code, "[InlineAttachment:#{number}]")
   end
 
+  def fraction_image(numerator, denominator)
+    if numerator.present? && denominator.present? && Rails.application.assets.find_asset("fractions/#{numerator}_#{denominator}.png")
+      "fractions/#{numerator}_#{denominator}.png"
+    end
+  end
+
   def govspeak_options_for_html_version(html_version)
     numbering_method = html_version.manually_numbered? ? :manual : :auto
     { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
@@ -132,7 +138,7 @@ module GovspeakHelper
     return govspeak if govspeak.blank?
     govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |match|
       if $1.present? && $2.present?
-        "<span class=\"fraction\"><sup>#{$1}</sup>&frasl;<sub>#{$2}</sub></span>"
+        render(partial: 'shared/govspeak_fractions', locals: { numerator: $1, denominator: $2 })
       else
         ''
       end
