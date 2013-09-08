@@ -1,1 +1,7 @@
-<span class="fraction"><sup><%= numerator %></sup>&frasl;<sub><%= denominator %></sub></span>
+<span class="fraction">
+  <% if image_path = fraction_image(numerator, denominator) %>
+    <%= image_tag image_path, alt: "#{numerator}⁄#{denominator}", height: 27 %>
+  <% else %>
+    <sup><%= numerator %></sup>&frasl;<sub><%= denominator %></sub>
+  <% end %>
+</span>

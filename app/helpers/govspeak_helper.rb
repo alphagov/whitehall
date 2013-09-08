@@ -81,6 +81,12 @@ module GovspeakHelper
     content_tag(:code, "[InlineAttachment:#{number}]")
   end
 
+  def fraction_image(numerator, denominator)
+    if numerator.present? && denominator.present? && Rails.application.assets.find_asset("fractions/#{numerator}_#{denominator}.png")
+      "fractions/#{numerator}_#{denominator}.png"
+    end
+  end
+
   def govspeak_options_for_html_version(html_version)
     numbering_method = html_version.manually_numbered? ? :manual : :auto
     { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
