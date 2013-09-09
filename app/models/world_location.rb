@@ -83,6 +83,10 @@ class WorldLocation < ActiveRecord::Base
     world_location_type.key
   end
 
+  def name_without_prefix
+    name.gsub(/^The/, "").strip
+  end
+
   def self.all_by_type
     ordered_by_name.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
   end
