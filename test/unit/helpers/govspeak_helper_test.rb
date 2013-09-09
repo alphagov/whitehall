@@ -390,7 +390,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test 'will create fractions using images for a known set' do
     input = "Some text [Fraction:1/4] and some text"
     html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt=1⁄4]"
+    assert_select_within_html html, "span.fraction > img[alt=1/4]"
   end
 
   private
