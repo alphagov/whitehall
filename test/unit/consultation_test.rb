@@ -254,7 +254,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "display_type when outcome published" do
     consultation = build(:consultation, opening_on: Date.new(2011, 5, 1), closing_on: Date.new(2011, 7, 1))
     outcome = create(:consultation_outcome, consultation: consultation)
-    outcome.attachments << build(:attachment)
+    outcome.attachments << build(:file_attachment)
     assert_equal "Consultation outcome", consultation.display_type
   end
 

@@ -6,7 +6,7 @@ module DataHygiene
     # Published editions #####
 
     test 're-editions a published document with a new (renamed) attachment that replaces the previous one' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication, :published,
@@ -39,8 +39,8 @@ module DataHygiene
     end
 
     test 'repairs multiple attachments for published documents' do
-      bad_attachment1 = create(:attachment, file: double_extension_file, title: 'attachment 1')
-      bad_attachment2 = create(:attachment, file: double_extension_file, title: 'attachment 2')
+      bad_attachment1 = create(:file_attachment, file: double_extension_file, title: 'attachment 1')
+      bad_attachment2 = create(:file_attachment, file: double_extension_file, title: 'attachment 2')
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication, :published,
@@ -65,11 +65,11 @@ module DataHygiene
     end
 
     test  'only replaces attachments that need replacing' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment 1')
-      good_attachment = create(:attachment, file: File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf')),title: 'attachment 2')
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment 1')
+      good_attachment = create(:file_attachment, file: File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf')),title: 'attachment 2')
       good_attachment_data = good_attachment.attachment_data
-      replaced_attachment = create(:attachment, file: double_extension_file)
-      replaced_attachment.attachment_data.replaced_by = create(:attachment).attachment_data
+      replaced_attachment = create(:file_attachment, file: double_extension_file)
+      replaced_attachment.attachment_data.replaced_by = create(:file_attachment).attachment_data
       replaced_attachment_data = replaced_attachment.attachment_data
       VirusScanHelpers.simulate_virus_scan
 
@@ -98,8 +98,8 @@ module DataHygiene
     end
 
     test 'does not replace attachment if it has already been replaced' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
-      bad_attachment.attachment_data.replaced_by = create(:attachment).attachment_data
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment title')
+      bad_attachment.attachment_data.replaced_by = create(:file_attachment).attachment_data
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication, :published,
@@ -116,7 +116,7 @@ module DataHygiene
     # # Draft editions #####
 
     test 'updates the attachment data of the latest edition with a renamed attachment file when the document is draft' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication,
@@ -146,7 +146,7 @@ module DataHygiene
     # # Published editions with a newer draft #####
 
     test 'replaces the attachment data of the latest edition when the document is published with a newer draft' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication, :published,
@@ -172,7 +172,7 @@ module DataHygiene
     end
 
     test 'does not replace newer draft edition attachment data if they have already been repaired' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication, :published,
@@ -202,7 +202,7 @@ module DataHygiene
     # edge cases
 
     test 'documents in a collection successfully get repaired' do
-      bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
+      bad_attachment = create(:file_attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
       edition = create( :publication, :published,

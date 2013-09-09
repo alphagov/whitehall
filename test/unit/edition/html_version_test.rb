@@ -55,7 +55,7 @@ class Edition::HtmlVersionTest < ActiveSupport::TestCase
 
   test "slugs are saved on new html versions for editions that previously didn't have one" do
     editor = create(:gds_editor)
-    pub = create(:draft_publication, :without_html_version, :with_attachment)
+    pub = create(:draft_publication, :without_html_version, :with_file_attachment)
     pub.perform_force_publish
     draft = pub.create_draft(editor)
     draft.change_note = 'Added html version'

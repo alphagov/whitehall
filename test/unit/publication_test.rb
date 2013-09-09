@@ -74,7 +74,7 @@ class PublicationTest < ActiveSupport::TestCase
 
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,
-      :with_attachment,
+      :with_file_attachment,
       first_published_at: Date.parse("2010-01-01"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
     )
