@@ -45,8 +45,11 @@ class Attachment < ActiveRecord::Base
   end
 
   def price
-    return @price if @price
-    return price_in_pence / 100.0 if price_in_pence
+    if @price
+      @price
+    elsif price_in_pence
+      price_in_pence / 100.0
+    end
   end
 
   def price=(price_in_pounds)
