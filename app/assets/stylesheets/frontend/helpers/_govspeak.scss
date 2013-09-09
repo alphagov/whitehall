@@ -291,6 +291,11 @@
     sub {
       @include core-14;
     }
+    img {
+      display: inline-block;
+      width: auto;
+      margin: 0 0 -5px 0;
+    }
   }
 
   .contact {
