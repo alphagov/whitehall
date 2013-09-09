@@ -14,6 +14,7 @@ user-friendly manner. Documention can be found on [rdoc](http://rdoc.info/github
 * Mysql
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded
   PDFs)
+* xpdf
 * PhantomJS (for running the Javascript tests)
 
 ### Creating the mysql user
@@ -44,7 +45,7 @@ Otherwise set up an empty database with:
 
 ### Running tests locally
 
-Three environment variables must be set up, typically:
+Two environment variables can be (optionally) set up, typically:
 
     GOVUK_APP_DOMAIN=dev.gov.uk
     GOVUK_ASSET_ROOT=http://static.dev.gov.uk
@@ -59,6 +60,14 @@ Alternatively run
 
 Note that using `bowler` or `foreman` will automatically use the
 `govuk_setenv` method for you.
+
+### Running tests in parallel
+
+The test suite can be run in parallel like so:
+
+    rake test:in_parallel
+
+This will automatically prepare your test database for parallel work.
 
 ### Running the server locally
 
