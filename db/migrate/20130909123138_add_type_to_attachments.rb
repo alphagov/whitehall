@@ -2,7 +2,7 @@ class AddTypeToAttachments < ActiveRecord::Migration
   def up
     add_column :attachments, :type, :string
 
-    execute "UPDATE attachments SET type = 'Attachment' WHERE type IS NULL"
+    execute "UPDATE attachments SET type = 'FileAttachment' WHERE type IS NULL"
   end
 
   def down
