@@ -20,7 +20,7 @@
         </header>
         <div class="content">
           <% if type === WorldLocationType::WorldLocation %>
-            <% locations.group_by {|location| location.name.first.upcase }.sort.each do |letter, locations| %>
+            <% group_and_sort(locations).each do |letter, locations| %>
               <div class="js-filter-block">
                 <h2 class="letter"><%= letter %></h2>
                 <ol class="location-list">
