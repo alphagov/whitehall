@@ -23,7 +23,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :index lists the attachments for the edition" do
-    @edition.attachments << build(:attachment)
+    @edition.attachments << build(:file_attachment)
     get :index, edition_id: @edition
 
     assert_response :success
@@ -31,14 +31,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :index shows metadata on each attachment" do
-    @edition.attachments << build(:attachment, isbn: '817525766-0')
+    @edition.attachments << build(:file_attachment, isbn: '817525766-0')
     get :index, edition_id: @edition
     assert_select 'p', text: /ISBN: 817525766-0/
   end
 
   test "PUT :order saves the new order of attachments" do
-    attachment1 = build(:attachment)
-    attachment2 = build(:attachment)
+    attachment1 = build(:file_attachment)
+    attachment2 = build(:file_attachment)
     attachment3 = build(:attachment)
     @edition.attachments << [attachment1, attachment2, attachment3]
 
@@ -102,13 +102,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :edit renders the edit form" do
-    attachment = create(:attachment, attachable: @edition)
+    attachment = create(:file_attachment, attachable: @edition)
     get :edit, edition_id: @edition, id: attachment
     assert_select "input[value=#{attachment.title}]"
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do
-    attachment = create(:attachment, attachable: @edition)
+    attachment = create(:file_attachment, attachable: @edition)
     attachment_data = attachment.attachment_data
     put :update, edition_id: @edition, id: attachment, attachment: {
       title: 'New title',
@@ -119,7 +119,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "PUT :update with a file creates a replacement attachment data whilst leaving the original alone" do
-    attachment = create(:attachment, attachable: @edition)
+    attachment = create(:file_attachment, attachable: @edition)
     old_data = attachment.attachment_data
     put :update, edition_id: @edition, id: attachment, attachment: {
       attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload('whitepaper.pdf') }
@@ -133,7 +133,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy deletes an attachment" do
-    attachment = create(:attachment, attachable: @edition)
+    attachment = create(:file_attachment, attachable: @edition)
     delete :destroy, edition_id: @edition, id: attachment
 
     refute Attachment.exists?(attachment), 'attachment should have been deleted'
@@ -142,7 +142,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "DELETE :destroy deletes attachments from other 'attachable' things" do
     response = @edition.outcome = create(:consultation_outcome)
-    attachment = create(:attachment, attachable: response)
+    attachment = create(:file_attachment, attachable: response)
     delete :destroy, response_id: response, id: attachment
 
     refute Attachment.exists?(attachment), 'attachment should have been deleted'

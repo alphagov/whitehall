@@ -128,7 +128,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should add block attachments inline" do
     text = "#Heading\n\n!@1\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_attachment, body: text)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     assert_select_within_html html, ".attachment.embedded"
@@ -137,7 +137,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should add inline attachments inline" do
     text = "#Heading\n\nText about my [InlineAttachment:1]."
-    document = build(:published_detailed_guide, :with_attachment, body: text)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     assert_select_within_html html, ".attachment.inline"
@@ -145,7 +145,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should ignore missing block attachments" do
     text = "#Heading\n\n!@2\n\n##Subheading"
-    document = build(:published_detailed_guide, :with_attachment, body: text)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     refute_select_within_html html, ".attachment.embedded"
@@ -154,7 +154,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should ignore missing inline attachments" do
     text = "#Heading\n\nText about my [InlineAttachment:2]."
-    document = build(:published_detailed_guide, :with_attachment, body: text)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "h1"
     refute_select_within_html html, ".attachment.inline"
@@ -176,9 +176,9 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should convert multiple block attachments" do
     text = "#heading\n\n!@1\n\n!@2"
-    attachment_1 = create(:attachment)
-    attachment_2 = create(:attachment)
-    document = build(:published_detailed_guide, :with_attachment, body: text, attachments: [attachment_1, attachment_2])
+    attachment_1 = create(:file_attachment)
+    attachment_2 = create(:file_attachment)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text, attachments: [attachment_1, attachment_2])
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
@@ -186,9 +186,9 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should convert multiple inline attachments" do
     text = "#Heading\n\nText about my [InlineAttachment:2] and [InlineAttachment:1]."
-    attachment_1 = create(:attachment)
-    attachment_2 = create(:attachment)
-    document = build(:published_detailed_guide, :with_attachment, body: text, attachments: [attachment_1, attachment_2])
+    attachment_1 = create(:file_attachment)
+    attachment_2 = create(:file_attachment)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text, attachments: [attachment_1, attachment_2])
     html = govspeak_edition_to_html(document)
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
@@ -196,7 +196,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not escape embedded attachment when attachment embed code only separated by one newline from a previous paragraph" do
     text = "para\n!@1"
-    document = build(:published_detailed_guide, :with_attachment, body: text)
+    document = build(:published_detailed_guide, :with_file_attachment, body: text)
     html = govspeak_edition_to_html(document)
     refute html.include?("&lt;div"), "should not escape embedded attachment"
     assert_select_within_html html, ".attachment.embedded"
@@ -218,7 +218,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "does not prefix embedded attachment urls with asset host so that access to them can be authenticated when previewing draft documents" do
     Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
-    edition = build(:published_publication, :with_attachment, body: "!@1")
+    edition = build(:published_publication, :with_file_attachment, body: "!@1")
     html = govspeak_edition_to_html(edition)
     assert_select_within_html html, ".govspeak .attachment.embedded a[href^='/'][href$='greenpaper.pdf']"
   end

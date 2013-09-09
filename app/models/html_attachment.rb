@@ -1,0 +1,2 @@
+class HtmlAttachment < Attachment
+end

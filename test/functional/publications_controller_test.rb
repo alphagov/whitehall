@@ -549,7 +549,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index atom feed should include links to download attachments' do
     without_delay! do
-      publication = create(:published_publication, :with_attachment, title: "publication-title",
+      publication = create(:published_publication, :with_file_attachment, title: "publication-title",
                            body: "include the attachment:\n\n!@1")
 
       get :index, format: :atom
@@ -665,8 +665,8 @@ class PublicationsControllerTest < ActionController::TestCase
   private
 
   def publication_with_attachment(params = {})
-    attachment = create(:attachment, params)
-    create(:published_publication, :with_attachment, body: "!@1", attachments: [attachment])
+    attachment = create(:file_attachment, params)
+    create(:published_publication, :with_file_attachment, body: "!@1", attachments: [attachment])
   end
 
   def given_two_documents_in_two_organisations

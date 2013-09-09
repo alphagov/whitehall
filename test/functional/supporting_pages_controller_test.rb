@@ -250,7 +250,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "shows inline attachments when viewing supporting details" do
     policy = create(:published_policy)
-    attachment = create(:attachment)
+    attachment = create(:file_attachment)
     supporting_page = create(:supporting_page, edition: policy, body: "!@1", attachments: [attachment])
 
     get :show, policy_id: policy.document, id: supporting_page
