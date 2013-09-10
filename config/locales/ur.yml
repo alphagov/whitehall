@@ -30,6 +30,7 @@ ur:
       document_series: سلسلہ
       field_of_operation: کارروائی کا میدان
       live_data: لائیو ڈیٹا
+      location:
       policy_team: پالیسی ٹیم
     type:
       announcement:
@@ -171,7 +172,6 @@ ur:
       delivery_title:
         minister: وزیر
         speaker: مقرر
-      originally_given_at: پہلی بار%{location} میں کی گئی
       written_on: ! 'تحریر کی  تاریخ:'
     updated: تجدید شدہ
     view: ! '''%{title}'' دیکھئیے'

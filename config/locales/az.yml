@@ -112,6 +112,7 @@ az:
       document_series: növlər
       field_of_operation: əməliyyat sahəsi
       live_data: canlı məlumat
+      location:
       ministers:
         one: nazir
         other: nazirlər
@@ -144,7 +145,6 @@ az:
       delivery_title:
         minister: Nazir
         speaker: Spiker
-      originally_given_at:
       written_on:
     type:
       announcement:

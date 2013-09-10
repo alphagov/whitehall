@@ -30,6 +30,7 @@ uz:
       document_series: Bir talay
       field_of_operation: Faoliyat sohasi
       live_data: Mavjud ma'lumot
+      location:
       policy_team: Dastur guruhi
     type:
       announcement:
@@ -171,7 +172,6 @@ uz:
       delivery_title:
         minister: Vazir
         speaker: Spiker
-      originally_given_at: Aslida %{location} berilgan
       written_on: ! 'Yozildi:'
     updated: yangilandi
     view: Nazorat '%{title}'

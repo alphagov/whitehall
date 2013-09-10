@@ -30,6 +30,7 @@ si:
       document_series: කාණ්ඩය
       field_of_operation: ක්‍රියාත්මකවන ක්ෂස්ත්‍රය
       live_data: සජීව තොරතුරු
+      location:
       policy_team: ප්‍රතිපත්ති කණ්ඩායම
     type:
       announcement:
@@ -171,7 +172,6 @@ si:
       delivery_title:
         minister: අමාත්‍යවරයා
         speaker: කතානායකවරයා
-      originally_given_at: මුල් පිටපත ලබාදුන්නේ %{location}.
       written_on: ! 'ලියන ලද දිනය:'
     updated: යාවත්කාලීන කල
     view: බලන්න  '%{title}'

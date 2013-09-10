@@ -38,6 +38,7 @@ ro:
       document_series: Seria
       field_of_operation: Domeniu de activitate
       live_data: Informaţii în timp real
+      location:
       policy_team: ! 'Echipa '
     type:
       announcement:
@@ -220,7 +221,6 @@ ro:
       delivery_title:
         minister: Ministru
         speaker: Vorbitor
-      originally_given_at: ! 'Declarații oferite în cadrul '
       written_on: ! 'Publicat pe: '
     updated: Actualizat
     view: Vizualizare '%{title}'

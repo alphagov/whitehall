@@ -30,6 +30,7 @@ hi:
       document_series: श्रृंखला
       field_of_operation: प्रचालन क्षेत्र
       live_data: सजीव आँकड़ा
+      location:
       policy_team: नीति टीम
     type:
       announcement:
@@ -171,7 +172,6 @@ hi:
       delivery_title:
         minister: मंत्री
         speaker: वक्ता
-      originally_given_at: ! 'मूलत: %{location} पर दिया जाता है।'
       written_on: लिखा गया
     updated: अद्यतन
     view: देखें '%{title}'

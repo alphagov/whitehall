@@ -38,6 +38,7 @@ cs:
       document_series: Edice
       field_of_operation: Oblast působnosti
       live_data: Aktuální data
+      location:
       policy_team: Odpovědný tým
     type:
       announcement:
@@ -220,7 +221,6 @@ cs:
       delivery_title:
         minister: Ministr
         speaker: Řečník
-      originally_given_at: Poprvé předneseno
       written_on: Napsáno
     updated: Aktualizováno
     view: Náhled '%{title}'

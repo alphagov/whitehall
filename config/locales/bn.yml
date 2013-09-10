@@ -30,6 +30,7 @@ bn:
       document_series:
       field_of_operation:
       live_data:
+      location:
       policy_team:
     type:
       announcement:
@@ -171,7 +172,6 @@ bn:
       delivery_title:
         minister:
         speaker:
-      originally_given_at:
       written_on:
     updated:
     view:

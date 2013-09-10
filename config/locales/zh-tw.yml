@@ -112,6 +112,7 @@ zh-tw:
       document_series: 系列
       field_of_operation: 運用領域
       live_data: 即時資料
+      location:
       ministers:
         one: 部長
         other: 其他部長
@@ -144,7 +145,6 @@ zh-tw:
       delivery_title:
         minister: 部長
         speaker: 發言人
-      originally_given_at: 出自於%{location}.
       written_on: ! '撰寫於:'
     type:
       announcement:
