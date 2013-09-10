@@ -15,4 +15,19 @@ module LogoHelper
     classes << "#{logo_class}-#{options[:size]}" if options[:size]
     classes.join(" ")
   end
+
+  def organisation_logo(organisation, options = {})
+    logo = if organisation.logo?
+      image_tag(organisation.logo.url, alt: organisation.name, class: 'organisation-logo-custom')
+    else
+      organisation_logo_name(organisation)
+    end
+    linked_logo = link_to_if(options[:linked], logo, organisation_path(organisation))
+    if organisation.logo?
+      linked_logo
+    else
+      css_classes = logo_classes(organisation: organisation, size: options[:size], stacked: true)
+      content_tag(:span, class: css_classes) { linked_logo }
+    end
+  end
 end

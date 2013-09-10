@@ -23,15 +23,7 @@
       <h1><%= link_to_if link_to_organisation, organisation.name, organisation_path(organisation) %></h1>
     </div>
   <% else %>
-    <h1>
-      <% if organisation.logo? %>
-        <%= image_tag(organisation.logo.url, alt: organisation.name, class: 'organisation-logo-custom') %>
-      <% else %>
-        <%= content_tag(:span, class: logo_classes(organisation: organisation, size: logo_size, stacked: true)) do %>
-          <%= link_to_if(link_to_organisation, organisation_logo_name(organisation), organisation_path(organisation)) %>
-        <% end %>
-      <% end %>
-    </h1>
+    <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
   <% end %>
 
   <%= content_tag_if_not_empty :aside, class: "organisation-mainstream-links" do %>
