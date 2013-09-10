@@ -22,6 +22,13 @@ namespace :rummager do
       index.add_batch(Whitehall.detailed_guidance_search_index)
       index.commit
     end
+
+    desc "reindex consultations which close today"
+    task :closed_consultations => [:environment, :warn_about_no_op] do
+      index = Whitehall::SearchIndex.for(:government)
+      index.add_batch(Consultation.published.closed_since(Date.today).map(&:search_index))
+      index.commit
+    end
   end
 
   desc "Remove all documents from the search index and then add all published documents"
