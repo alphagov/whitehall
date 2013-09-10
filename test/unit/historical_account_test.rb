@@ -45,6 +45,16 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     assert_equal [PoliticalParty::Whigs], historical_account.political_parties
   end
 
+  test "fails validation on invalid (non-blank) political party" do
+    historical_account = build(:historical_account, roles: [create(:historic_role)])
+
+    historical_account.political_party_ids = [PoliticalParty::Conservative.id]
+    assert historical_account.valid?
+
+    historical_account.political_party_ids = [9999]
+    refute historical_account.valid?, "HistoricalAccount should not be valid with a non-existant political party"
+  end
+
   test "returns political membership" do
     assert_equal '', HistoricalAccount.new.political_membership
     historical_account = build(:historical_account, political_parties: [PoliticalParty::Whigs])
