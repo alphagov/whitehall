@@ -26,7 +26,7 @@ class DocumentSeriesGroup < ActiveRecord::Base
   end
 
   def published_editions
-    editions.published
+    editions.published.in_reverse_chronological_order
   end
 
   def latest_editions
