@@ -74,6 +74,14 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 'exempt', organisation.govuk_status
   end
 
+  test 'POST :create can set a custom logo' do
+    post :create, organisation: attributes_for(:organisation).merge(
+      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      logo: fixture_file_upload('logo.png')
+    )
+    assert_match /logo.png/, Organisation.last.logo.file.filename
+  end
+
   test "POST on :create with invalid data re-renders the new form" do
     attributes = attributes_for(:organisation)
 
@@ -262,6 +270,15 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     }}
 
     assert_equal 2, organisation_role.reload.ordering
+  end
+
+  test 'PUT :update can set a custom logo' do
+    organisation = create(:organisation)
+    put :update, id: organisation, organisation: {
+      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
+      logo: fixture_file_upload('logo.png')
+    }
+    assert_match /logo.png/, organisation.reload.logo.file.filename
   end
 
   test "PUT on :update with bad params does not update the organisation and renders the edit page" do

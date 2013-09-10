@@ -52,4 +52,11 @@ module Admin::OrganisationHelper
     end
   end
 
+  def logo_visibility_css(organisation)
+    if organisation.organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
+      nil
+    else
+      'hidden'
+    end
+  end
 end

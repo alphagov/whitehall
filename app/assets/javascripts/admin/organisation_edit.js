@@ -10,7 +10,7 @@
       GOVUK = root.GOVUK || {};
 
   GOVUK.hideClosedAtDates = function() {
-    var $closedAtGroup = $('#organisation_closed_at_group'),
+    var $closedAtGroup = $('#js-organisation-closed-at-group'),
         $closedAtLabel = $closedAtGroup.prev('label[for=organisation_closed_at]'),
         $govUkStatus = $('#organisation_govuk_status');
 
@@ -41,6 +41,19 @@
         toggleShown($(this).val());
       });
     }
+  };
+
+  GOVUK.toggleCustomLogoField = function() {
+    var $logo_selector = $('#organisation_organisation_logo_type_id');
+    var value_for_custom_logo = 14;
+    $logo_selector.chosen().change(function(event) {
+      if ($(this).val() == value_for_custom_logo) {
+        $('.organisation-custom-logo').slideDown();
+      }
+      else {
+        $('.organisation-custom-logo').slideUp();
+      }
+    });
   };
 
 }).call(this);

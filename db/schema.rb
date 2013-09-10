@@ -923,6 +923,7 @@ ActiveRecord::Schema.define(:version => 20130906093144) do
     t.boolean  "public_minutes"
     t.boolean  "register_of_interests"
     t.boolean  "regulatory_function"
+    t.string   "logo"
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"

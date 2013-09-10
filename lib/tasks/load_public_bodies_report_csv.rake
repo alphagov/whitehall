@@ -28,7 +28,7 @@ namespace :public_bodies do
       .map{ |body| body}
 
     Organisation.all.each do |organisation|
-      if organisation.is_ndpb?
+      if organisation.non_departmental_public_body?
         csv_body = csv.find { |body| body["Name"] == organisation.name }
         unless csv_body.nil?
           raw_spending = csv_body["Total Gross Expenditure"]
