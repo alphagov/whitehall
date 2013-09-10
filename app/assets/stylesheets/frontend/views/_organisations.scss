@@ -162,10 +162,10 @@
       padding-bottom: $gutter*2;
     }
 
-    img {
-      width: 100%;
-      height: auto;
-    }
+  }
+  .block-2 img {
+    width: 100%;
+    height: auto;
   }
 
   @include media(tablet) {

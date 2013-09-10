@@ -123,11 +123,11 @@
 
   &:link,
   &:visited {
-    color: #000;
+    color: $black;
   }
 
-  span {
-    color: #000;
+  a, span {
+    color: $black;
   }
 
   @include right-to-left {
@@ -140,6 +140,10 @@
 }
 .organisation-logo-identity {
   border-left: 2px solid;
+}
+
+img.organisation-logo-custom {
+  width: auto;
 }
 
 
@@ -489,6 +493,11 @@
   .organisation-logo-stacked-ukaea {
     background-image: image-url("crests/ukaea_crest_13px_x2.png");
   }
+}
+
+// Custom logos
+.organisation-logo-custom {
+  border-left: none;
 }
 
 // Non-cornforming Medium
@@ -900,6 +909,12 @@
       background-image: image-url("crests/ukaea_crest_18px_x2.png");
     }
   }
+}
+
+// Custom logos Medium
+.organisation-logo-custom-medium {
+  @extend .organisation-logo-identity-medium;
+  border-left: none;
 }
 
 // Non-conforming Large

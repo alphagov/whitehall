@@ -59,7 +59,7 @@
       <%= content_tag_for :section, organisation do %>
         <div class="heading">
           <h3>
-            <%= link_to organisation_path(organisation), class: logo_classes(class_name: organisation.organisation_logo_type.class_name,  size: 'medium', stacked: true) do %>
+            <%= link_to organisation_path(organisation), class: logo_classes(organisation: organisation,  size: 'medium', stacked: true) do %>
               <span><%= format_with_html_line_breaks(organisation.logo_formatted_name) %></span>
             <% end %>
           </h3>

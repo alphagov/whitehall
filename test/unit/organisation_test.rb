@@ -83,6 +83,15 @@ class OrganisationTest < ActiveSupport::TestCase
     refute organisation.valid?
   end
 
+  test 'should be invalid if custom logo type selected but no logo present' do
+    organisation = build(
+      :organisation,
+      organisation_logo_type_id: OrganisationLogoType::CustomLogo.id
+    )
+    refute organisation.valid?
+    assert organisation.errors[:logo].present?
+  end
+
   test 'can have a default news article image' do
     image = build(:default_news_organisation_image_data)
     organisation = build(:organisation, default_news_image: image)
