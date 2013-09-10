@@ -18,3 +18,7 @@ end
 every :day, at: ['2am', '11:45am'], roles: [:admin] do
   rake "export:redirector_mappings"
 end
+
+every :day, at: ['1:30am'], roles: [:backend] do
+  rake "rummager:index:closed_consultation"
+end
