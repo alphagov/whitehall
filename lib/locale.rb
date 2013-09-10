@@ -4,36 +4,34 @@ class Locale < Struct.new(:code)
 
   extend ActiveModel::Naming
 
-  class << self
-    def model_name
-      ActiveModel::Name.new(Translations)
-    end
+  def self.model_name
+    ActiveModel::Name.new(Translations)
+  end
 
-    def current
-      new(I18n.locale)
-    end
+  def self.current
+    new(I18n.locale)
+  end
 
-    def all
-      I18n.available_locales.map do |l|
-        new(l)
-      end
+  def self.all
+    I18n.available_locales.map do |l|
+      new(l)
     end
+  end
 
-    def non_english
-      all.reject(&:english?)
-    end
+  def self.non_english
+    all.reject(&:english?)
+  end
 
-    def right_to_left
-      all.select(&:rtl?)
-    end
+  def self.right_to_left
+    all.select(&:rtl?)
+  end
 
-    def find_by_language_name(native_language_name)
-      all.detect { |l| l.native_language_name == native_language_name }
-    end
+  def self.find_by_language_name(native_language_name)
+    all.detect { |l| l.native_language_name == native_language_name }
+  end
 
-    def find_by_code(code)
-      all.detect { |l| l.code == code.to_sym }
-    end
+  def self.find_by_code(code)
+    all.detect { |l| l.code == code.to_sym }
   end
 
   def english?

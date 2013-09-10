@@ -49,161 +49,161 @@ module Whitehall
       news: "news",
       detailed_guidance: "detailed_guidance"
     }
+  end
 
-    def available_locales
-      [
-        :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el,
-        :es, 'es-419', :fa, :fr, :he, :hi, :hu, :hy, :id, :it,
-        :ja, :ka, :ko, :lt, :lv, :ms, :pl, :ps, :pt, :ro, :ru,
-        :si, :sk, :so, :sq, :sr, :sw, :ta, :th, :tk, :tr, :uk,
-        :ur, :uz, :vi, :zh, 'zh-hk', 'zh-tw'
-      ]
-    end
+  def self.available_locales
+    [
+      :en, :ar, :az, :be, :bg, :bn, :cs, :cy, :de, :dr, :el,
+      :es, 'es-419', :fa, :fr, :he, :hi, :hu, :hy, :id, :it,
+      :ja, :ka, :ko, :lt, :lv, :ms, :pl, :ps, :pt, :ro, :ru,
+      :si, :sk, :so, :sq, :sr, :sw, :ta, :th, :tk, :tr, :uk,
+      :ur, :uz, :vi, :zh, 'zh-hk', 'zh-tw'
+    ]
+  end
 
-    def system_binaries
-      {
-        zipinfo: "/usr/bin/zipinfo",
-        unzip: "/usr/bin/unzip"
-      }
-    end
+  def self.system_binaries
+    {
+      zipinfo: "/usr/bin/zipinfo",
+      unzip: "/usr/bin/unzip"
+    }
+  end
 
-    def asset_host
-      ENV['GOVUK_ASSET_ROOT'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_ROOT to be set. Perhaps you should run your task through govuk_setenv <appname>?')
-    end
+  def self.asset_host
+    ENV['GOVUK_ASSET_ROOT'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_ROOT to be set. Perhaps you should run your task through govuk_setenv <appname>?')
+  end
 
-    def router_prefix
-      "/government"
-    end
+  def self.router_prefix
+    "/government"
+  end
 
-    def admin_hosts
-      ADMIN_HOSTS
-    end
+  def self.admin_hosts
+    ADMIN_HOSTS
+  end
 
-    def public_hosts
-      PUBLIC_HOSTS.values.uniq
-    end
+  def self.public_hosts
+    PUBLIC_HOSTS.values.uniq
+  end
 
-    def government_single_domain?(request)
-      PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
-    end
+  def self.government_single_domain?(request)
+    PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
+  end
 
-    def admin_whitelist?(request)
-      !Rails.env.production? || ADMIN_HOSTS.include?(request.host)
-    end
+  def self.admin_whitelist?(request)
+    !Rails.env.production? || ADMIN_HOSTS.include?(request.host)
+  end
 
-    def platform
-      ENV["FACTER_govuk_platform"] || Rails.env
-    end
+  def self.platform
+    ENV["FACTER_govuk_platform"] || Rails.env
+  end
 
-    def public_host_for(request_host)
-      PUBLIC_HOSTS[request_host] || request_host
-    end
+  def self.public_host_for(request_host)
+    PUBLIC_HOSTS[request_host] || request_host
+  end
 
-    def public_protocol
-      ENV['FACTER_govuk_platform'] == 'development' ? 'http': 'https'
-    end
+  def self.public_protocol
+    ENV['FACTER_govuk_platform'] == 'development' ? 'http': 'https'
+  end
 
-    def secrets
-      @secrets ||= load_secrets
-    end
+  def self.secrets
+    @secrets ||= load_secrets
+  end
 
-    def aws_access_key_id
-      secrets["aws_access_key_id"]
-    end
+  def self.aws_access_key_id
+    secrets["aws_access_key_id"]
+  end
 
-    def aws_secret_access_key
-      secrets["aws_secret_access_key"]
-    end
+  def self.aws_secret_access_key
+    secrets["aws_secret_access_key"]
+  end
 
-    # The base folder where incoming-uploads and clean-uploads live.
-    def uploads_root
-      (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
-    end
+  # The base folder where incoming-uploads and clean-uploads live.
+  def self.uploads_root
+    (Rails.env.test? ? uploads_root_for_test_env : Rails.root).to_s
+  end
 
-    def uploads_root_for_test_env
-      env_number = ENV['TEST_ENV_NUMBER'].blank? ? '1' : ENV['TEST_ENV_NUMBER']
-      Rails.root.join("tmp/test/env_#{env_number}")
-    end
+  def self.uploads_root_for_test_env
+    env_number = ENV['TEST_ENV_NUMBER'].blank? ? '1' : ENV['TEST_ENV_NUMBER']
+    Rails.root.join("tmp/test/env_#{env_number}")
+  end
 
-    def incoming_uploads_root
-      File.join(uploads_root, 'incoming-uploads')
-    end
+  def self.incoming_uploads_root
+    File.join(uploads_root, 'incoming-uploads')
+  end
 
-    def clean_uploads_root
-      File.join(uploads_root, 'clean-uploads')
-    end
+  def self.clean_uploads_root
+    File.join(uploads_root, 'clean-uploads')
+  end
 
-    def infected_uploads_root
-      File.join(uploads_root, 'infected-uploads')
-    end
+  def self.infected_uploads_root
+    File.join(uploads_root, 'infected-uploads')
+  end
 
-    def government_search_index_path
-      '/government'
-    end
+  def self.government_search_index_path
+    '/government'
+  end
 
-    def detailed_guidance_search_index_path
-      '/detailed'
-    end
+  def self.detailed_guidance_search_index_path
+    '/detailed'
+  end
 
-    def government_search_index
-      Enumerator.new do |y|
-        government_edition_classes.each do |klass|
-          klass.search_index.each do |search_index_entry|
-            y << search_index_entry
-          end
+  def self.government_search_index
+    Enumerator.new do |y|
+      government_edition_classes.each do |klass|
+        klass.search_index.each do |search_index_entry|
+          y << search_index_entry
         end
       end
     end
+  end
 
-    def detailed_guidance_search_index
-      DetailedGuide.search_index
-    end
+  def self.detailed_guidance_search_index
+    DetailedGuide.search_index
+  end
 
-    def edition_classes
-      [
-        CaseStudy,
-        FatalityNotice,
-        WorldwidePriority,
-        StatisticalDataSet,
-        Policy,
-        Consultation,
+  def self.edition_classes
+    [
+      CaseStudy,
+      FatalityNotice,
+      WorldwidePriority,
+      StatisticalDataSet,
+      Policy,
+      Consultation,
+      WorldLocationNewsArticle,
+      Speech,
+      DetailedGuide,
+      NewsArticle,
+      Publication
+    ]
+  end
+
+  def self.searchable_classes
+    additional_classes = [
+      Organisation,
+      MinisterialRole,
+      Person,
+      Topic,
+      TopicalEvent,
+      DocumentSeries,
+      CorporateInformationPage,
+      OperationalField,
+      PolicyAdvisoryGroup,
+      PolicyTeam,
+      SupportingPage,
+      TakePartPage
+    ]
+    not_yet_searchable_classes = []
+    if world_feature?
+      additional_classes += [
+        WorldLocation,
+        WorldwideOrganisation
+      ]
+    else
+      not_yet_searchable_classes += [
         WorldLocationNewsArticle,
-        Speech,
-        DetailedGuide,
-        NewsArticle,
-        Publication
+        WorldwidePriority
       ]
     end
-
-    def searchable_classes
-      additional_classes = [
-        Organisation,
-        MinisterialRole,
-        Person,
-        Topic,
-        TopicalEvent,
-        DocumentSeries,
-        CorporateInformationPage,
-        OperationalField,
-        PolicyAdvisoryGroup,
-        PolicyTeam,
-        SupportingPage,
-        TakePartPage
-      ]
-      not_yet_searchable_classes = []
-      if world_feature?
-        additional_classes += [
-          WorldLocation,
-          WorldwideOrganisation
-        ]
-      else
-        not_yet_searchable_classes += [
-          WorldLocationNewsArticle,
-          WorldwidePriority
-        ]
-      end
-      additional_classes + edition_classes - not_yet_searchable_classes
-    end
+    additional_classes + edition_classes - not_yet_searchable_classes
 
     def edition_route_path_segments
       %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities world-location-news)
