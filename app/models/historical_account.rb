@@ -14,13 +14,18 @@ class HistoricalAccount < ActiveRecord::Base
     includes(:historical_account_roles).where('historical_account_roles.role_id' => role)
   end
 
-  def political_parties=(political_parties)
-    political_parties ||= []
-    self.political_party_ids = political_parties.collect(&:id)
+  def political_party_ids=(ids)
+    ids ||= []
+    super(ids.reject(&:blank?))
   end
 
   def political_parties
     political_party_ids.collect { |id| PoliticalParty.find_by_id(id.to_i) }
+  end
+
+  def political_parties=(political_parties)
+    political_parties ||= []
+    self.political_party_ids = political_parties.map(&:id)
   end
 
   def political_membership

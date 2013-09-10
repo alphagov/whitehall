@@ -30,11 +30,19 @@ class HistoricalAccountTest < ActiveSupport::TestCase
     assert_equal [], historical_account.political_parties
     historical_account.political_parties = [PoliticalParty::Whigs]
     assert_equal [PoliticalParty::Whigs], historical_account.political_parties
+    historical_account.political_party_ids = [PoliticalParty::Tories.id]
+    assert_equal [PoliticalParty::Tories], historical_account.political_parties
   end
 
   test "#political_parties reader does not mind when ids are strings" do
     historical_account = HistoricalAccount.new(political_party_ids: %w(1 2))
     assert_equal [PoliticalParty::Conservative, PoliticalParty::Labour], historical_account.political_parties
+  end
+
+  test "strips blank political party ids" do
+    historical_account = HistoricalAccount.new
+    historical_account.political_party_ids = ['', PoliticalParty::Whigs.id]
+    assert_equal [PoliticalParty::Whigs], historical_account.political_parties
   end
 
   test "returns political membership" do
