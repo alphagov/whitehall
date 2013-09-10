@@ -17,7 +17,6 @@ class HistoricalAccountTest < ActiveSupport::TestCase
   end
 
   test "is not valid unless its role supports historic accounts" do
-
     historical_account = build(:historical_account, roles: [create(:historic_role)])
     assert historical_account.valid?
 
