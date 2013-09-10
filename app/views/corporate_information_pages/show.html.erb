@@ -10,8 +10,13 @@
       </div>
     </div>
     <div class="block-2">
-      <%= render partial: 'shared/available_languages', locals: {object: @corporate_information_page } %>
       <div class="inner-block">
+        <%= content_tag :p, class: 'homepage-link' do %>
+          <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
+        <% end %>
+        <aside class="organisation-mainstream-links">
+          <%= render partial: 'shared/available_languages', locals: {object: @corporate_information_page } %>
+        </aside>
         <h1 class="main"><%= @corporate_information_page.title %></h1>
         <p class="description">
           <%= @corporate_information_page.summary %>
