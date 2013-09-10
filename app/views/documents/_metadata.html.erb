@@ -25,6 +25,11 @@
         </dd>
       <% end %>
 
+      <% if document.location && document.location.present? %>
+        <dt><%= t('document.headings.location') %>:</dt>
+        <dd><%= document.location %></dd>
+      <% end %>
+
     </dl>
   </div>
 </aside>
