@@ -7,12 +7,10 @@
           locals: { type: header_title,
                     heading: document.title,
                     extra: true } %>
-<% if @available_languages.present? %>
-  <div class="heading-extra">
-    <div class="inner-heading">
-      <%= render partial: 'shared/available_languages', locals: {object: document} %>
-      <%= national_statistics_logo(document) %>
-    </div>
+<div class="heading-extra">
+  <div class="inner-heading">
+    <%= render partial: 'shared/available_languages', locals: {object: document} %>
+    <%= national_statistics_logo(document) %>
   </div>
-<% end %>
+</div>
 <%= render partial: 'documents/metadata', locals: { document: document, policies: policies, topics: topics } %>
