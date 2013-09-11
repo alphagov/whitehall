@@ -66,15 +66,13 @@ class Import < ActiveRecord::Base
       :queued
     elsif import_finished_at.nil?
       :running
-    elsif import_errors.any?
-      :failed
     else
-      :succeeded
+      :finished
     end
   end
 
   def success_count
-    status == :succeeded ? documents.count(distinct: true) : 0
+    status == :finished ? documents.count(distinct: true) : 0
   end
 
   def most_recent_force_publication_attempt
@@ -87,7 +85,7 @@ class Import < ActiveRecord::Base
 
   def reason_for_not_being_force_publishable
     case status
-    when :succeeded
+    when :finished
       most_recent = most_recent_force_publication_attempt
       if most_recent.nil? || (most_recent.present?) && most_recent.repeatable?
         if imported_editions.empty?

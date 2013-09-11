@@ -7,15 +7,15 @@
     <dd><%= absolute_time(@import.created_at) %></dd>
     <dt>Imported by</dt>
     <dd><%= linked_author(@import.creator) %></dd>
-    <% if [:queued, :running, :success, :failed, :finished].include?(@import.status) %>
+    <% if [:queued, :running, :finished].include?(@import.status) %>
       <dt>Queued at</dt>
       <dd><%= absolute_time(@import.import_enqueued_at) %></dd>
     <% end %>
-    <% if [:running, :success, :failed, :finished].include?(@import.status) %>
+    <% if [:running, :finished].include?(@import.status) %>
       <dt>Started at</dt>
       <dd><%= absolute_time(@import.import_started_at) %></dd>
     <% end %>
-    <% if [:success, :failed, :finished].include?(@import.status) %>
+    <% if [:finished].include?(@import.status) %>
       <dt>Finished at</dt>
       <dd><%= absolute_time(@import.import_finished_at) %></dd>
     <% end %>
