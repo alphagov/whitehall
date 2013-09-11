@@ -23,4 +23,9 @@ FactoryGirl.define do
   factory :executive_office, parent: :organisation do
     organisation_type_key :executive_office
   end
+
+  factory :devolved_administration, parent: :organisation do
+    organisation_type_key :devolved_administration
+    govuk_status 'exempt'
+  end  
 end

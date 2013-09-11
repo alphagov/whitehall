@@ -67,8 +67,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display a list of devolved administrations" do
-    organisation_1 = create(:organisation, organisation_type: OrganisationType.devolved_administration)
-    organisation_2 = create(:organisation, organisation_type: OrganisationType.devolved_administration)
+    organisation_1 = create(:devolved_administration)
+    organisation_2 = create(:devolved_administration)
 
     get :index
 
