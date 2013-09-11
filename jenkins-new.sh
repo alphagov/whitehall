@@ -1,4 +1,5 @@
-#!/bin/bash -xe
+#!/bin/bash
+set -x
 export DISPLAY=:99
 export GOVUK_APP_DOMAIN=test.gov.uk
 export GOVUK_ASSET_ROOT=http://static.test.gov.uk
@@ -12,6 +13,21 @@ function github_status {
   fi
 }
 
+function error_handler {
+  trap - ERR # disable error trap to avoid recursion
+  local parent_lineno="$1"
+  local message="$2"
+  local code="${3:-1}"
+  if [[ -n "$message" ]] ; then
+    echo "Error on or near line ${parent_lineno}: ${message}; exiting with status ${code}"
+  else
+    echo "Error on or near line ${parent_lineno}; exiting with status ${code}"
+  fi
+  github_status failure "failed on Jenkins"
+  exit "${code}"
+}
+
+trap "error_handler ${LINENO}" ERR
 github_status pending "is running on Jenkins"
 
 # Generate directories for upload tests
