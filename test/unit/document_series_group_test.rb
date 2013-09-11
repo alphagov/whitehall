@@ -8,12 +8,13 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
 
-  test 'should list published editions' do
+  test 'should list published editions in reverse chronological order' do
     group = create(:document_series_group)
-    published = create(:published_publication)
+    published_1 = create(:published_publication, first_published_at: 2.days.ago)
+    published_2 = create(:published_publication, first_published_at: 1.day.ago)
     draft = create(:draft_publication)
-    group.documents << [published.document, draft.document]
-    assert_equal [published], group.published_editions
+    group.documents << [published_1.document, published_2.document, draft.document]
+    assert_equal [published_2, published_1], group.published_editions
   end
 
   test 'should list latest editions in reverse chronological order, with drafts at the end' do
