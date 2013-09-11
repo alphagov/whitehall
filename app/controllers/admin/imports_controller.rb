@@ -50,7 +50,9 @@ class Admin::ImportsController < Admin::BaseController
         when :succeeded
           next if errors.any?
         end
-        error_messages = errors.join("\n")
+        error_messages = errors.map do |error|
+          error.split("\n", 2).first
+        end.join("\n")
         yielder << ([error_messages] + row.fields).to_csv
       end
     end
