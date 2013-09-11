@@ -1,8 +1,6 @@
 class Api::Paginator < Struct.new(:collection, :params)
-  class << self
-    def paginate(collection, params)
-      new(collection, params).page
-    end
+  def self.paginate(collection, params)
+    new(collection, params).page
   end
 
   def current_page

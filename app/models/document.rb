@@ -65,6 +65,14 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def self.published
+    joins(:published_edition)
+  end
+
+  def self.at_slug(document_types, slug)
+    where(document_type: document_types, slug: slug).first
+  end
+
   def published?
     published_edition(true).present?
   end
@@ -83,16 +91,6 @@ class Document < ActiveRecord::Base
     editions.map { |e|
       Change.new(e.public_timestamp, e.change_note)
     }.push(oldest_change)
-  end
-
-  class << self
-    def published
-      joins(:published_edition)
-    end
-
-    def at_slug(document_types, slug)
-      where(document_type: document_types, slug: slug).first
-    end
   end
 
   private

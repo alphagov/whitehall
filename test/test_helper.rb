@@ -74,34 +74,32 @@ class ActiveSupport::TestCase
     @routes_helper ||= Whitehall::UrlMaker.new
   end
 
-  class << self
-    def disable_database_queries
-      self.use_transactional_fixtures = false
-      setup do
-        ActiveRecord::Base.connection.expects(:select).never
-      end
+  def self.disable_database_queries
+    self.use_transactional_fixtures = false
+    setup do
+      ActiveRecord::Base.connection.expects(:select).never
+    end
+  end
+
+  def self.class_for(document_type)
+    document_type.to_s.classify.constantize
+  end
+
+  def self.class_from_test_name
+    name.sub(/Test$/, '').constantize
+  end
+
+  def self.factory_name_from_test
+    name.sub(/Test$/, '').underscore.to_sym
+  end
+
+  def self.with_not_quite_as_fake_search
+    setup do
+      Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
     end
 
-    def class_for(document_type)
-      document_type.to_s.classify.constantize
-    end
-
-    def class_from_test_name
-      name.sub(/Test$/, '').constantize
-    end
-
-    def factory_name_from_test
-      name.sub(/Test$/, '').underscore.to_sym
-    end
-
-    def with_not_quite_as_fake_search
-      setup do
-        Whitehall::NotQuiteAsFakeSearch.stop_faking_it_quite_so_much!
-      end
-
-      teardown do
-        Whitehall::NotQuiteAsFakeSearch.start_faking_it_again!
-      end
+    teardown do
+      Whitehall::NotQuiteAsFakeSearch.start_faking_it_again!
     end
   end
 
