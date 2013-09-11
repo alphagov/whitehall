@@ -1,4 +1,4 @@
-<%= content_tag_for(:span, attachment, class: "inline") do %>
+<%= content_tag_for(:span, attachment.becomes(Attachment), class: "inline") do %>
   <%= link_to attachment.title, attachment.url %>
   [<%= attachment_attributes(attachment) %>]
 <% end %>

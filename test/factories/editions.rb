@@ -101,6 +101,11 @@ FactoryGirl.define do
       end
     end
 
+    trait(:with_html_attachment) do
+      association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
+      attachments { FactoryGirl.build_list :html_attachment, 1 }
+    end
+
     trait(:with_file_attachment_not_scanned) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :file_attachment, 1 }

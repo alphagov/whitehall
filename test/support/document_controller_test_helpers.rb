@@ -3,7 +3,7 @@ module DocumentControllerTestHelpers
 
   module ClassMethods
     def should_display_attachments_for(document_type)
-      view_test "show displays document attachments" do
+      view_test "show displays file attachments" do
         attachment_1 = create(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
         attachment_2 = create(:file_attachment, file: fixture_file_upload('sample.rtf', 'text/rtf'))
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
@@ -17,6 +17,16 @@ module DocumentControllerTestHelpers
         assert_select_object(attachment_2) do
           assert_select '.title', text: attachment_2.title
           assert_select 'img[src$=?]', 'pub-cover.png', message: 'should use default image for non-PDF attachments'
+        end
+      end
+
+      view_test 'show displays HTML attachments' do
+        edition = create("published_#{document_type}", :with_alternative_format_provider, :with_html_attachment, body: '!@1')
+        attachment = edition.attachments.first
+        get :show, id: edition.document
+        assert_select_object(attachment) do
+          assert_select '.title', text: attachment.title
+          assert_select 'img[src$=?]', 'pub-cover-html.png', message: 'should use HTML thumbnail for HTML attachments'
         end
       end
 
