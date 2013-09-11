@@ -194,10 +194,8 @@ class Import < ActiveRecord::Base
           DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
         end
         progress_logger.success(model)
-        true
       else
         record_errors_for(model)
-        false
       end
     end
   end
