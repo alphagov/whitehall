@@ -223,13 +223,11 @@ class Organisation < ActiveRecord::Base
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
 
-<<<<<<< HEAD
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
   end
-=======
+
   scope :excluding_govuk_status_closed, where("govuk_status != 'closed'")
->>>>>>> Monolithic commit re-factors OrganisationType and adds a Devolved Administration type.
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?
@@ -354,11 +352,6 @@ class Organisation < ActiveRecord::Base
   def has_published_publications_of_type?(publication_type)
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
-<<<<<<< HEAD
-
-  def non_departmental_public_body?
-    [3, 4, 5].include?(organisation_type_id)
-  end
   
   private
 
@@ -369,6 +362,4 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
-=======
->>>>>>> Monolithic commit re-factors OrganisationType and adds a Devolved Administration type.
 end
