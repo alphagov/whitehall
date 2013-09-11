@@ -13,99 +13,36 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <div class="heading-block executive-offices js-filter-block" id="executive-offices">
-        <div class="content">
-          <ol>
-            <% @organisations.executive_offices.each do |executive_office| %>
-              <%= content_tag_for :li, executive_office,
-                                  class: 'department js-filter-item',
-                                    "data-filter-terms" => filter_terms(executive_office) do %>
-                <h2 id="<%= executive_office.slug %>" class="<%= organisation_brand_colour_class(executive_office) %>">
-                  <%= link_to organisation_path(executive_office), class: logo_classes(organisation: executive_office, size: 'medium') do %>
-                    <span><%= organisation_logo_name(executive_office, false) %></span>
-                  <% end %>
-                </h2>
-              <% end %>
-            <% end %>
-          </ol>
-        </div>
-      </div>
 
-      <div class="heading-block ministerial-departments js-hide-department-children js-filter-block">
-        <header id="departments" class="type-heading">
-          <h1>Ministerial departments</h1>
-          <%= organisation_count_paragraph(@organisations.ministerial_departments) %>
-        </header>
-        <div class="content">
-          <ol>
-            <% @organisations.ministerial_departments.each do |ministerial_department| %>
-              <%= content_tag_for :li, ministerial_department,
-                                  class: 'department js-filter-item',
-                                    "data-filter-terms" => filter_terms(ministerial_department) do %>
-                <h2 id="<%= ministerial_department.slug %>" class="<%= organisation_brand_colour_class(ministerial_department) %>">
-                  <%= link_to organisation_path(ministerial_department), class: logo_classes(organisation: ministerial_department, size: 'medium') do %>
-                    <span><%= organisation_logo_name(ministerial_department, false) %></span>
-                  <% end %>
-                </h2>
-                <%= render partial: 'works_with', locals: { organisation: ministerial_department, link_to_homepage: true } %>
-              <% end %>
-            <% end %>
-          </ol>
-        </div>
-      </div>
+      <%= render 'index_section', organisations:      @organisations.executive_offices,
+                                  block_class:        'executive-offices',
+                                  block_id:           'executive-offices',
+                                  list_item_partial:  'index_item_with_branding',
+                                  show_govuk_status:  true  %>
 
-      <div class="heading-block other-departments js-filter-block js-hide-department-children">
-        <header id="non-ministerial-departments" class="type-heading">
-          <h1>Non ministerial departments</h1>
-          <%= organisation_count_paragraph(@organisations.non_ministerial_departments) %>
-        </header>
-        <div class="content">
-          <ol class="index-list">
-            <% @organisations.non_ministerial_departments.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item department',
-                            "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation), id: organisation.slug, class: 'department-link' %>
-                <%= render partial: 'works_with', locals: { organisation: organisation } %>
-              <% end %>
-            <% end %>
-          </ol>
-        </div>
-      </div>
+      <%= render 'index_section', organisations:      @organisations.ministerial_departments,
+                                  block_class:        'ministerial-departments',
+                                  block_id:           'ministerial-departments',
+                                  header_text:        'Ministerial departments',
+                                  include_works_with: true,
+                                  list_item_partial:  'index_item_with_branding',
+                                  show_govuk_status:  true  %>
 
-      <div class="heading-block other-departments js-filter-block">
-        <header id="agencies-and-public-bodies" class="type-heading">
-          <h1>Agencies &amp; other public bodies</h1>
-          <%= organisation_count_paragraph(@organisations.agencies_and_government_bodies) %>
-        </header>
-        <div class="content">
-          <ol class="index-list">
-            <% @organisations.agencies_and_government_bodies.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item',
-                            "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation) %>
-              <% end %>
-            <% end %>
-          </ol>
-        </div>
-      </div>
+      <%= render 'index_section', organisations:      @organisations.non_ministerial_departments,
+                                  header_text:        'Non ministerial departments',
+                                  include_works_with: true,
+                                  list_item_partial:  'index_item_plain',
+                                  show_govuk_status:  true %>
 
-      <div class="heading-block other-departments js-filter-block">
-        <header id="public-corporations" class="type-heading">
-          <h1>Public corporations</h1>
-          <%= organisation_count_paragraph(@organisations.public_corporations, with_live_on_govuk: false) %>
-        </header>
-        <div class="content">
-          <ol class="index-list">
-            <% @organisations.public_corporations.each do |organisation| %>
-              <%= content_tag_for :li, organisation, class: 'js-filter-item',
-                            "data-filter-terms" => filter_terms(organisation) do %>
-                <%= link_to organisation.name, organisation_path(organisation) %>
-              <% end %>
-            <% end %>
-          </ol>
-        </div>
-      </div>
+      <%= render 'index_section', organisations:      @organisations.agencies_and_government_bodies,
+                                  header_text:        'Agencies &amp; other public bodies',
+                                  list_item_partial:  'index_item_plain',
+                                  show_govuk_status:  true %>
 
+      <%= render 'index_section', organisations:      @organisations.public_corporations,
+                                  header_text:        'Public corporations',
+                                  list_item_partial:  'index_item_plain',
+                                  show_govuk_status:  false %>
     </div>
     <div class="js-filter-no-results">
       <p>No departments match that filter.</p>

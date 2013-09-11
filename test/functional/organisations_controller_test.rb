@@ -19,6 +19,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal :some_presented_organisations, assigns(:organisations)
   end
 
+  view_test "should display a list of executive offices" do
+    organisation = create(:organisation, organisation_type: OrganisationType.executive_office)
+
+    get :index
+
+    assert_select '#executive-offices' do
+      assert_select_object(organisation)
+    end
+  end
+  
   view_test "should display a list of ministerial departments" do
     organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
     organisation_2 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
@@ -26,20 +36,9 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select '.ministerial-departments' do
+    assert_select '#ministerial-departments' do
       assert_select '.js-filter-count', text: '3'
       assert_select_object(organisation_1)
-    end
-  end
-
-  view_test "should display a list of executive offices" do
-    organisation = create(:organisation, organisation_type: OrganisationType.executive_office)
-
-    get :index
-
-    assert_select '#executive-offices'
-    assert_select '.executive-offices' do
-      assert_select_object(organisation)
     end
   end
 
@@ -49,8 +48,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select '#agencies-and-public-bodies'
-    assert_select '.other-departments' do
+    assert_select '#non-ministerial-departments' do
       assert_select '.js-filter-count', text: '2'
       assert_select_object(organisation_1)
     end
@@ -62,8 +60,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select '#public-corporations'
-    assert_select '.other-departments' do
+    assert_select '#public-corporations' do
       assert_select '.js-filter-count', text: '2'
       assert_select_object(organisation_1)
     end

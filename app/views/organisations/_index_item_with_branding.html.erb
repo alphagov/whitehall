@@ -1,0 +1,12 @@
+<%= content_tag_for :li, organisation,
+                    class: 'department js-filter-item',
+                      "data-filter-terms" => filter_terms(organisation) do %>
+  <h2 id="<%= organisation.slug %>" class="<%= organisation_brand_colour_class(organisation) %>">
+    <%= link_to organisation_path(organisation), class: logo_classes(class_name: organisation.organisation_logo_type.class_name, size: 'medium') do %>
+      <span><%= organisation_logo_name(organisation, false) %></span>
+    <% end %>
+  </h2>
+  <% if include_works_with %>
+    <%= render partial: 'works_with', locals: { organisation: organisation, link_to_homepage: true } %>
+  <% end %>
+<% end %>

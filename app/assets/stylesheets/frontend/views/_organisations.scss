@@ -107,14 +107,13 @@
       @include core-16;
     }
   }
-  .index-list {
-    li {
-      list-style: none;
-      border-bottom: 1px solid $border-colour;
-      @include ig-core-19;
-    }
+
+  li.index-item-plain {
+    list-style: none;
+    border-bottom: 1px solid $border-colour;
+    @include ig-core-19;
   }
-  
+
   .type-heading {
     h1 {
       width: 100%;
