@@ -1,4 +1,4 @@
-<%= form_for [:admin, typecast_for_attachable_routing(attachable), attachment] do |form| %>
+<%= form_for [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)] do |form| %>
 
   <%= form.errors %>
 

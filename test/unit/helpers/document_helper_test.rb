@@ -72,9 +72,8 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "should return HTML specific thumbnail for HTML attachments" do
-    publication = create(:published_publication)
-    attachments = AttachmentsPresenter.new(publication)
-    assert_match /pub-cover-html\.png/, attachment_thumbnail(attachments.first)
+    publication = create(:published_publication, :with_html_attachment)
+    assert_match /pub-cover-html\.png/, attachment_thumbnail(publication.attachments.first)
   end
 
   test "should return PDF Document for humanized content type" do
