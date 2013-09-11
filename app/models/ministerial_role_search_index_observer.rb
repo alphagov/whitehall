@@ -3,15 +3,15 @@ class MinisterialRoleSearchIndexObserver < ActiveRecord::Observer
 
   class << self
     attr_accessor :disabled
+  end
 
-    def while_disabled
-      original_disabled = disabled
-      begin
-        self.disabled = true
-        yield
-      ensure
-        self.disabled = original_disabled
-      end
+  def self.while_disabled
+    original_disabled = disabled
+    begin
+      self.disabled = true
+      yield
+    ensure
+      self.disabled = original_disabled
     end
   end
 

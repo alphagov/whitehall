@@ -94,9 +94,7 @@ class DetailedGuide < Edition
     end
   end
 
-  class << self
-    def format_name
-      'detailed guidance'
-    end
+  def self.format_name
+    'detailed guidance'
   end
 end

@@ -3,13 +3,13 @@ module Edition::AuditTrail
 
   class << self
     attr_accessor :whodunnit
+  end
 
-    def acting_as(actor)
-      original_actor, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, actor
-      yield
-    ensure
-      Edition::AuditTrail.whodunnit = original_actor
-    end
+  def self.acting_as(actor)
+    original_actor, Edition::AuditTrail.whodunnit = Edition::AuditTrail.whodunnit, actor
+    yield
+  ensure
+    Edition::AuditTrail.whodunnit = original_actor
   end
 
   included do
@@ -117,10 +117,8 @@ module Edition::AuditTrail
   end
 
   class VersionAuditEntry < AuditEntry
-    class << self
-      def model_name
-        ActiveModel::Name.new(Version, nil)
-      end
+    def self.model_name
+      ActiveModel::Name.new(Version, nil)
     end
 
     alias_method :version, :object
@@ -143,10 +141,8 @@ module Edition::AuditTrail
   end
 
   class EditorialRemarkAuditEntry < AuditEntry
-    class << self
-      def model_name
-        ActiveModel::Name.new(EditorialRemark, nil)
-      end
+    def self.model_name
+      ActiveModel::Name.new(EditorialRemark, nil)
     end
 
     alias_method :editorial_remark, :object

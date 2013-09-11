@@ -17,14 +17,12 @@ class ClassificationMembership < ActiveRecord::Base
   after_create :update_classification_counts
   after_destroy :update_classification_counts
 
-  class << self
-    def published
-      joins(:edition).where("editions.state" => "published")
-    end
+  def self.published
+    joins(:edition).where("editions.state" => "published")
+  end
 
-    def for_type(type)
-      joins(:edition).where("editions.type" => type)
-    end
+  def self.for_type(type)
+    joins(:edition).where("editions.type" => type)
   end
 
   private

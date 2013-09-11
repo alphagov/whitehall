@@ -21,10 +21,8 @@ class ClassificationRelation < ActiveRecord::Base
   after_create :create_inverse_relation
   after_destroy :destroy_inverse_relation
 
-  class << self
-    def relation_for(classification_id, related_classification_id)
-      where(classification_id: classification_id, related_classification_id: related_classification_id).first
-    end
+  def self.relation_for(classification_id, related_classification_id)
+    where(classification_id: classification_id, related_classification_id: related_classification_id).first
   end
 
   def inverse_relation

@@ -141,6 +141,87 @@ class Edition < ActiveRecord::Base
     with_translations(:en).published
   end
 
+  def self.format_name
+    @format_name ||= model_name.human.downcase
+  end
+
+  def self.authored_by(user)
+    if user && user.id
+      where("EXISTS (
+        SELECT * FROM edition_authors ea_authorship_check
+        WHERE
+          ea_authorship_check.edition_id=editions.id
+          AND ea_authorship_check.user_id=?
+        )", user.id)
+    end
+  end
+
+  # used by Admin::EditionFilter
+  def self.by_type(type)
+    where(type: type)
+  end
+
+  # used by Admin::EditionFilter
+  def self.by_subtype(type, sub_type)
+    type.by_subtype(sub_type)
+  end
+
+  # used by Admin::EditionFilter
+  def self.in_world_location(world_location)
+    joins(:world_locations).where('world_locations.id' => world_location)
+  end
+
+  def self.from_date(date)
+    where("editions.updated_at >= ?", date)
+  end
+
+  def self.to_date(date)
+    where("editions.updated_at <= ?", date)
+  end
+
+  def self.related_to(edition)
+    related = if edition.is_a?(Policy)
+      edition.related_editions
+    else
+      edition.related_policies
+    end
+
+    # This works around a wierd bug in ActiveRecord where an outer scope applied
+    # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
+    all_after_forcing_query_execution = related.all
+    where(id: all_after_forcing_query_execution.map(&:id))
+  end
+
+  def self.latest_edition
+    where("NOT EXISTS (
+      SELECT 1
+        FROM editions e2
+       WHERE e2.document_id = editions.document_id
+         AND e2.id > editions.id
+         AND e2.state <> 'deleted')")
+  end
+
+  def self.latest_published_edition
+    published.where("NOT EXISTS (
+      SELECT 1
+        FROM editions e2
+       WHERE e2.document_id = editions.document_id
+         AND e2.id > editions.id
+         AND e2.state = 'published')")
+  end
+
+  def self.search_format_type
+    self.name.underscore.gsub('_', '-')
+  end
+
+  def self.concrete_descendants
+    descendants.reject { |model| model.descendants.any? }.sort_by { |model| model.name }
+  end
+
+  def self.concrete_descendant_search_format_types
+    concrete_descendants.map { |model| model.search_format_type }
+  end
+
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end
@@ -184,18 +265,6 @@ class Edition < ActiveRecord::Base
 
   def search_format_types
     [Edition.search_format_type]
-  end
-
-  def self.search_format_type
-    self.name.underscore.gsub('_', '-')
-  end
-
-  def self.concrete_descendants
-    descendants.reject { |model| model.descendants.any? }.sort_by { |model| model.name }
-  end
-
-  def self.concrete_descendant_search_format_types
-    concrete_descendants.map { |model| model.search_format_type }
   end
 
   def refresh_index_if_required
@@ -447,77 +516,6 @@ class Edition < ActiveRecord::Base
 
   def reset_force_published_flag
     update_column(:force_published, false)
-  end
-
-  class << self
-    def format_name
-      @format_name ||= model_name.human.downcase
-    end
-
-    def authored_by(user)
-      if user && user.id
-        where("EXISTS (
-          SELECT * FROM edition_authors ea_authorship_check
-          WHERE
-            ea_authorship_check.edition_id=editions.id
-            AND ea_authorship_check.user_id=?
-          )", user.id)
-      end
-    end
-
-    # used by Admin::EditionFilter
-    def by_type(type)
-      where(type: type)
-    end
-
-    # used by Admin::EditionFilter
-    def by_subtype(type, sub_type)
-      type.by_subtype(sub_type)
-    end
-
-    # used by Admin::EditionFilter
-    def in_world_location(world_location)
-      joins(:world_locations).where('world_locations.id' => world_location)
-    end
-
-    def from_date(date)
-      where("editions.updated_at >= ?", date)
-    end
-
-    def to_date(date)
-      where("editions.updated_at <= ?", date)
-    end
-
-    def related_to(edition)
-      related = if edition.is_a?(Policy)
-        edition.related_editions
-      else
-        edition.related_policies
-      end
-
-      # This works around a wierd bug in ActiveRecord where an outer scope applied
-      # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
-      all_after_forcing_query_execution = related.all
-      where(id: all_after_forcing_query_execution.map(&:id))
-    end
-
-    def latest_edition
-      where("NOT EXISTS (
-        SELECT 1
-          FROM editions e2
-         WHERE e2.document_id = editions.document_id
-           AND e2.id > editions.id
-           AND e2.state <> 'deleted')")
-    end
-
-    def latest_published_edition
-      published.where("NOT EXISTS (
-        SELECT 1
-          FROM editions e2
-         WHERE e2.document_id = editions.document_id
-           AND e2.id > editions.id
-           AND e2.state = 'published')")
-    end
   end
 
   def valid_as_draft?
