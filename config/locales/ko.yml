@@ -113,6 +113,7 @@ ko:
       document_series: 시리즈
       field_of_operation: 오퍼레이션 필드
       live_data: 라이브 데이터
+      location:
       ministers:
         one: 장관
         other: 장관
@@ -145,7 +146,6 @@ ko:
       delivery_title:
         minister: 장관
         speaker: 스피커
-      originally_given_at: 장소 %{location}
       written_on: ! '작성일시:'
     type:
       announcement:

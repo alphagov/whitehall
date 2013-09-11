@@ -114,6 +114,7 @@ id:
       document_series: Serial
       field_of_operation: Area operasi
       live_data: Data Live
+      location:
       ministers:
         one: Menteri
         other: Menteri-menteri
@@ -146,7 +147,6 @@ id:
       delivery_title:
         minister: Menteri
         speaker: Pembicara
-      originally_given_at: Disampaikan di %{location}
       written_on: ! 'Dituliskan pada:'
     type:
       announcement:

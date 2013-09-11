@@ -38,6 +38,7 @@ lt:
       document_series: Serijos
       field_of_operation: Veiklos laukas
       live_data: Naujausi duomenys
+      location:
       policy_team: Politikos komanda
     type:
       announcement:
@@ -220,7 +221,6 @@ lt:
       delivery_title:
         minister: Ministras
         speaker: Pranešėjas
-      originally_given_at: ! 'Vieta: %{location}.'
       written_on: Parašyta
     updated: atnaujinta
     view: Žiūrėkite '%{title}'

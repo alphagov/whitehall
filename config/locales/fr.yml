@@ -30,6 +30,7 @@ fr:
       document_series: Série
       field_of_operation: Domaine d'activité
       live_data: Données
+      location:
       policy_team: Equipe d'experts
     type:
       announcement:
@@ -171,7 +172,6 @@ fr:
       delivery_title:
         minister: Ministre
         speaker: Orateur
-      originally_given_at: ! 'Prononcé pour la première fois à : %{location}.'
       written_on: ! 'Ecrit le : '
     updated: mise à  jour
     view: Voir '%{title}'

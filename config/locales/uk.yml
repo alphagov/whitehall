@@ -46,6 +46,7 @@ uk:
       document_series: Серія
       field_of_operation: Сфера діяльності
       live_data: В реальному часі
+      location:
       policy_team: Політичний відділ
     type:
       announcement:
@@ -269,7 +270,6 @@ uk:
       delivery_title:
         minister: Міністр
         speaker: Промовець
-      originally_given_at: Уперше виголошено в %{location}.
       written_on: Написано
     updated: оновлено
     view: Переглянути

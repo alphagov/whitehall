@@ -46,6 +46,7 @@ pl:
       document_series: Seria
       field_of_operation: Obszar działania
       live_data: Dane pobierane na żywo
+      location:
       policy_team: Dział polityczny
     type:
       announcement:
@@ -269,7 +270,6 @@ pl:
       delivery_title:
         minister: Minister
         speaker: Mówca
-      originally_given_at: Wygłoszony w %{location}
       written_on: Napisany w dniu
     updated: Zaktualizowany
     view: Zobacz '%{title}'

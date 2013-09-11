@@ -46,6 +46,7 @@ ru:
       document_series: Серии
       field_of_operation: Сфера деятельности
       live_data: Обновленная информация
+      location:
       policy_team: Команда стратегического планирования
     type:
       announcement:
@@ -269,7 +270,6 @@ ru:
       delivery_title:
         minister: Министр
         speaker: Докладчик
-      originally_given_at: Источник %{location}
       written_on: ! 'Написано: '
     updated: обновлено
     view: Просмотреть '%{title}'

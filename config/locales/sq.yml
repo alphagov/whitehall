@@ -30,6 +30,7 @@ sq:
       document_series: Seri
       field_of_operation: Fusha e veprimit
       live_data: Te dhena direkte
+      location:
       policy_team: Skuadra e politikave
     type:
       announcement:
@@ -171,7 +172,6 @@ sq:
       delivery_title:
         minister: Minister
         speaker: Foles
-      originally_given_at: Origjinali dhene ne %{location}.
       written_on: ! 'Shkruar më:'
     updated: rifreskuar
     view: Shiko '%{title}'

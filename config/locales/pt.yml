@@ -30,6 +30,7 @@ pt:
       document_series: Séries
       field_of_operation: Campo de Operação
       live_data: Dados Ativos
+      location:
       policy_team: Equipe de Políticas
     type:
       announcement:
@@ -171,7 +172,6 @@ pt:
       delivery_title:
         minister: Ministro
         speaker: Orador
-      originally_given_at: Originalmente falado em %{location}.
       written_on: ! 'Escrito em:'
     updated: Atualizado
     view: Veja '%{title}'

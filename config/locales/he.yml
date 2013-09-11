@@ -46,6 +46,7 @@ he:
       document_series: סדרות
       field_of_operation: שדה פעולה
       live_data: מידע פעיל
+      location:
       policy_team: צוות מדיניות
     type:
       announcement:
@@ -269,7 +270,6 @@ he:
       delivery_title:
         minister: שר
         speaker: דובר
-      originally_given_at: ניתן במקור ב %{location}
       written_on: ! 'נכתב על:'
     updated: מעודכן
     view: ראה '%{title}'
