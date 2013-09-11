@@ -99,7 +99,6 @@ Then /^the import succeeds, creating (\d+) imported consultations? for "([^"]*)"
 end
 
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
-  assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Organisation named 'weird organisation'")
   assert page.has_content?("Unable to find Publication type with slug 'weird type'")
 
@@ -107,7 +106,6 @@ Then /^the import should fail with errors about organisation and sub type and no
 end
 
 Then /^the import should fail with errors about an unrecognised policy$/ do
-  assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Policy with slug 'non-existent-policy'")
 
   assert_equal 0, Edition.count

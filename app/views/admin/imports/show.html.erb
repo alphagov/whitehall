@@ -2,8 +2,24 @@
 
 <%= content_tag_for :div, @import do %>
   <h1>Import of <%= @import.original_filename %></h1>
-  <p>Created: <%= absolute_time(@import.created_at) %></p>
-  <p>Imported by <%= linked_author @import.creator %></p>
+  <dl>
+    <dt>Created</dt>
+    <dd><%= absolute_time(@import.created_at) %></dd>
+    <dt>Imported by</dt>
+    <dd><%= linked_author(@import.creator) %></dd>
+    <% if [:queued, :running, :success, :failed, :finished].include?(@import.status) %>
+      <dt>Queued at</dt>
+      <dd><%= absolute_time(@import.import_enqueued_at) %></dd>
+    <% end %>
+    <% if [:running, :success, :failed, :finished].include?(@import.status) %>
+      <dt>Started at</dt>
+      <dd><%= absolute_time(@import.import_started_at) %></dd>
+    <% end %>
+    <% if [:success, :failed, :finished].include?(@import.status) %>
+      <dt>Finished at</dt>
+      <dd><%= absolute_time(@import.import_finished_at) %></dd>
+    <% end %>
+  </dl>
 
   <% if @import.status == :new %>
     <h2 class="summary">New import</h2>
@@ -11,33 +27,20 @@
     <%= button_to "Run", run_admin_import_path(@import), class: "btn btn-large btn-primary" %>
   <% elsif @import.status == :queued %>
     <h2 class="summary">Queued</h2>
-    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
-
   <% elsif @import.status == :running %>
-    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
-    <p>Started: <%= absolute_time(@import.import_started_at) %></p>
-
-    <p class="summary">Import running (row <%= @import.current_row %>/<%= @import.total_rows %>)</p>
-
-    <%= render partial: "errors", locals: {import: @import} %>
-
-  <% elsif @import.status == :failed %>
-    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
-    <p>Started: <%= absolute_time(@import.import_started_at) %></p>
-    <p>Finished: <%= absolute_time(@import.import_finished_at) %></p>
-
-    <h2 class="summary">Import failed with <%= pluralize(@import.import_errors.count, "error") %></h2>
-    <%= link_to "Download annotated CSV", annotated_admin_import_path(@import), class:"download" %>
+    <h2 class="summary">Import running (row <%= @import.current_row %>/<%= @import.total_rows %>)</h2>
 
     <%= render partial: "errors", locals: {import: @import} %>
   <% else %>
-    <h2 class="summary">Imported successfully</h2>
-    <p>Queued: <%= absolute_time(@import.import_enqueued_at) %></p>
-    <p>Started: <%= absolute_time(@import.import_started_at) %></p>
-    <p>Finished: <%= absolute_time(@import.import_finished_at) %></p>
+    <h2 class="summary">
+      Imported finished:
+      <%= link_to pluralize(@import.rows.count, 'row'), annotated_admin_import_path(@import), class:"download", title: "Download CSV" %>,
+      <%= link_to "#{@import.documents.count} passed", annotated_admin_import_path(@import, filter: :succeeded), class:"download", title: "Download CSV" %>,
+      <%= link_to "#{@import.number_of_rows_with_errors} failed", annotated_admin_import_path(@import, filter: :failed), class:"download", title: "Download CSV" %>
+    </h2>
 
-    <h2 id="success">Documents added</h2>
     <% if @import.document_sources.any? %>
+      <h2 id="success">Documents added:</h2>
       <ul class="added">
         <% @import.documents.each do |document| %>
           <li>
@@ -51,8 +54,6 @@
           </li>
         <% end %>
       </ul>
-    <% else %>
-      <p class="added">None</p>
     <% end %>
 
     <h2 id="already_imported">Already imported</h2>

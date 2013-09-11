@@ -33,7 +33,7 @@ class Admin::ImportsController < Admin::BaseController
 
   def annotated
     filename = File.basename(@import.original_filename, ".csv")
-    filename << "-errors-"
+    filename << "-#{annotation_filter}-"
     filename << @import.import_started_at.strftime("%Y-%m-%d-%H%M%S")
     filename << ".csv"
     headers["Content-Type"] ||= 'text/csv'
@@ -43,8 +43,15 @@ class Admin::ImportsController < Admin::BaseController
       yielder << (["Errors"] + @import.rows.headers).to_csv
       @import.rows.each_with_index do |row, ix|
         row_number = ix + 2
-        errors = @import.import_errors_for_row(row_number).join(", ")
-        yielder << ([errors] + row.fields).to_csv
+        errors = @import.import_errors_for_row(row_number)
+        case annotation_filter
+        when :failed
+          next if errors.empty?
+        when :succeeded
+          next if errors.any?
+        end
+        error_messages = errors.join("\n")
+        yielder << ([error_messages] + row.fields).to_csv
       end
     end
   end
@@ -66,6 +73,17 @@ class Admin::ImportsController < Admin::BaseController
   end
 
 private
+
+  def annotation_filter
+    case params[:filter]
+    when "failed", "succeeded"
+      params[:filter].to_sym
+    when nil, ""
+      :all
+    else
+      raise "Illegal filter parameter"
+    end
+  end
 
   def find_import
     @import = Import.find(params[:id])
