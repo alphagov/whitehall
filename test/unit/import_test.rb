@@ -171,6 +171,12 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal [series], edition.document.document_series
   end
 
+  test '#perform rolls back if exception raised during the row import' do
+    series = create(:document_series, name: 'series-name')
+    import = perform_import(csv_data: publication_with_dud_series_csv, data_type: "publication", organisation_id: create(:organisation).id)
+    assert_equal [], import.imported_editions
+  end
+
   test "#peform creates editions in the imported state" do
     perform_import
     assert_equal Edition.count, Edition.imported.count
@@ -547,6 +553,13 @@ class ImportTest < ActiveSupport::TestCase
     <<-EOF.strip_heredoc
     old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
     http://example.com/3,Title,Summary,Body,correspondence,,,series-name,,19-Oct-2012,2012-10-19,,,,175
+    EOF
+  end
+
+  def publication_with_dud_series_csv
+    <<-EOF.strip_heredoc
+    old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,,,series-name-dud,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 end
