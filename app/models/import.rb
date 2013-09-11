@@ -147,28 +147,25 @@ class Import < ActiveRecord::Base
     attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, progress_logger)
 
     progress_logger.start(rows)
-    ActiveRecord::Base.transaction do
-      rows.each_with_index do |data_row, ix|
-        row_number = ix + 2
-        progress_logger.at_row(row_number) do
-          if blank_row?(data_row)
-            progress_logger.info("blank, skipped")
-            next
+    rows.each_with_index do |data_row, ix|
+      row_number = ix + 2
+      progress_logger.at_row(row_number) do
+        if blank_row?(data_row)
+          progress_logger.info("blank, skipped")
+          next
+        end
+        row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
+        document_sources = DocumentSource.where(url: row.legacy_urls)
+        if document_sources.any?
+          document_sources.each do |document_source|
+            progress_logger.already_imported(document_source)
           end
-          row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
-          document_sources = DocumentSource.where(url: row.legacy_urls)
-          if document_sources.any?
-            document_sources.each do |document_source|
-              progress_logger.already_imported(document_source)
-            end
-          else
-            Edition::AuditTrail.acting_as(import_user) do
-              import_row(row, row_number, import_user, progress_logger)
-            end
+        else
+          Edition::AuditTrail.acting_as(import_user) do
+            import_row(row, row_number, import_user, progress_logger)
           end
         end
       end
-      raise ActiveRecord::Rollback if import_errors.any?
     end
 
     progress_logger.finish
@@ -187,23 +184,22 @@ class Import < ActiveRecord::Base
   end
 
   def import_row(row, row_number, creator, progress_logger)
-    attributes = row.attributes.merge(creator: creator, state: 'imported')
-    model = model_class.new(attributes)
-    if model.save
-      save_translation!(model, row, row_number) if row.translation_present?
-      assign_document_series!(model, row.document_series)
-      row.legacy_urls.each do |legacy_url|
-        DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
+    progress_logger.transaction do
+      attributes = row.attributes.merge(creator: creator, state: 'imported')
+      model = model_class.new(attributes)
+      if model.save
+        save_translation!(model, row, row_number) if row.translation_present?
+        assign_document_series!(model, row.document_series)
+        row.legacy_urls.each do |legacy_url|
+          DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
+        end
+        progress_logger.success(model)
+        true
+      else
+        record_errors_for(model)
+        false
       end
-      progress_logger.success(model)
-      true
-    else
-      record_errors_for(model)
-      false
     end
-  rescue => e
-    progress_logger.error(e.to_s + "\n" + e.backtrace.join("\n"))
-    false
   end
 
   def headers
@@ -329,12 +325,25 @@ class Import < ActiveRecord::Base
     def initialize(import)
       @import = import
       @current_row = nil
+      @errors_during = []
     end
 
     def at_row(row_number, &block)
       @current_row = row_number
       yield
       @current_row = nil
+    end
+
+    def transaction(&block)
+      ActiveRecord::Base.transaction do
+        begin
+          @errors_during = []
+          yield
+        rescue => e
+          self.error(e.to_s + "\n" + e.backtrace.join("\n"))
+        end
+        raise ActiveRecord::Rollback if @errors_during.any?
+      end
     end
 
     def start(rows)
@@ -355,7 +364,7 @@ class Import < ActiveRecord::Base
     end
 
     def error(error_message)
-      @import.import_errors.create!(row_number: @current_row, message: error_message)
+      @errors_during << @import.import_errors.create!(row_number: @current_row, message: error_message)
     end
 
     def success(model_object)

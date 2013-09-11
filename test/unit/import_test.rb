@@ -282,15 +282,19 @@ class ImportTest < ActiveSupport::TestCase
     assert_match /Something awful happened/, i.import_errors[0][:message]
   end
 
-  test 'bad data is rolled back, but import is saved' do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    data = consultation_csv_sample({}, [{'title' => '', 'old_url' => 'http://example.com/invalid'}])
+  test 'successful rows are imported and failed rows are skipped' do
+    two_rows = consultation_csv_sample(
+      {"old_url" => "http://example.com/valid"},
+      [
+        {'title' => '', 'old_url' => 'http://example.com/invalid'}
+      ]
+    )
     perform_import_cleanup do
-      i = perform_import(csv_data: data)
+      i = perform_import(csv_data: two_rows)
       assert_equal 1, Import.count, "Import wasn't saved correctly"
-      assert_equal 0, Consultation.count, "Imported rows weren't rolled back correctly"
+
+      assert_includes Consultation.all.map {|c| c.document.document_sources.map(&:url) }.flatten, "http://example.com/valid"
+      refute_includes Consultation.all.map {|c| c.document.document_sources.map(&:url) }.flatten, "http://example.com/invalid"
     end
   end
 
