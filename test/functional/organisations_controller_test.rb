@@ -66,6 +66,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "should display a list of devolved administrations" do
+    organisation_1 = create(:organisation, organisation_type: OrganisationType.devolved_administration)
+    organisation_2 = create(:organisation, organisation_type: OrganisationType.devolved_administration)
+
+    get :index
+
+    assert_select '#devolved-administrations' do
+      assert_select '.js-filter-count', text: '2'
+      assert_select_object(organisation_1)
+    end
+  end  
+
   view_test "index shouldn't include sub-organisations" do
     sub_organisation = create(:sub_organisation)
 

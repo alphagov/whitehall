@@ -10,7 +10,7 @@ class OrganisationsIndexPresenter
   def executive_offices
     # Organisations are returned in alphabetical order.
     # Inverting it to put the deputy PM's office after the PM's.
-    grouped_organisations[:executive_office].present? ? grouped_organisations[:executive_office].reverse : [] 
+    (grouped_organisations[:executive_office] || []).reverse
   end
 
   def ministerial_departments
@@ -29,14 +29,18 @@ class OrganisationsIndexPresenter
     grouped_organisations[:agencies_and_government_bodies] || []
   end  
 
+  def devolved_administrations
+    grouped_organisations[:devolved_administration] || []
+  end
+
   private
 
   def grouped_organisations
     @grouped_organisations ||= @organisations.group_by { |org|
-      if [:executive_office, :ministerial_department, :non_ministerial_department, :public_corporation].include?(org.organisation_type_key)
-        org.organisation_type_key
-      else
+      if org.type.agency_or_public_body?
         :agencies_and_government_bodies
+      else
+        org.type.key
       end
     }
   end

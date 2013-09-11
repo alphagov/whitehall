@@ -30,17 +30,26 @@
 
       <%= render 'index_section', organisations:      @organisations.non_ministerial_departments,
                                   header_text:        'Non ministerial departments',
+                                  block_id:           'non-ministerial-departments',
                                   include_works_with: true,
                                   list_item_partial:  'index_item_plain',
                                   show_govuk_status:  true %>
 
       <%= render 'index_section', organisations:      @organisations.agencies_and_government_bodies,
                                   header_text:        'Agencies &amp; other public bodies',
+                                  block_id:           'agencies-and-government-bodies',
                                   list_item_partial:  'index_item_plain',
                                   show_govuk_status:  true %>
 
       <%= render 'index_section', organisations:      @organisations.public_corporations,
                                   header_text:        'Public corporations',
+                                  block_id:           'public-corporations',
+                                  list_item_partial:  'index_item_plain',
+                                  show_govuk_status:  false %>
+
+      <%= render 'index_section', organisations:      @organisations.devolved_administrations,
+                                  header_text:        'Devolved administrations',
+                                  block_id:           'devolved-administrations',
                                   list_item_partial:  'index_item_plain',
                                   show_govuk_status:  false %>
     </div>

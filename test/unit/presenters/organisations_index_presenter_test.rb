@@ -42,20 +42,18 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
     assert_equal [orgs[:public_corporation]], OrganisationsIndexPresenter.new(orgs.values).public_corporations
   end
 
-  test "agencies_and_government_bodies should return all excluding executive_offices, ministerial_departments, non_ministerial_departments and public_corporations" do
+  test "devolved_administrations should return all devolved_administrations" do
     orgs = organisation_variety_pack
-    subject = OrganisationsIndexPresenter.new(orgs.values)
-    refute subject.agencies_and_government_bodies.include?(orgs[:executive_office])
-    refute subject.agencies_and_government_bodies.include?(orgs[:ministerial_department])
-    refute subject.agencies_and_government_bodies.include?(orgs[:non_ministerial_department])
-    assert subject.agencies_and_government_bodies.include?(orgs[:executive_agency])
-    assert subject.agencies_and_government_bodies.include?(orgs[:executive_ndpb])
-    assert subject.agencies_and_government_bodies.include?(orgs[:advisory_ndpb])
-    assert subject.agencies_and_government_bodies.include?(orgs[:tribunal_ndpb])
-    refute subject.agencies_and_government_bodies.include?(orgs[:public_corporation])
-    assert subject.agencies_and_government_bodies.include?(orgs[:independent_monitoring_body])
-    assert subject.agencies_and_government_bodies.include?(orgs[:adhoc_advisory_group])
-    assert subject.agencies_and_government_bodies.include?(orgs[:devolved_administration])
-    assert subject.agencies_and_government_bodies.include?(orgs[:other])
+    assert_equal [orgs[:devolved_administration]], OrganisationsIndexPresenter.new(orgs.values).devolved_administrations
+  end
+
+  test "agencies_and_government_bodies should return all organisations whose type is an agency_or_public_body" do
+    aagb_org = build(:organisation, organisation_type: OrganisationType.executive_agency)
+    non_aagb_org = build(:organisation, organisation_type: OrganisationType.executive_office)
+
+    subject = OrganisationsIndexPresenter.new([aagb_org, non_aagb_org])
+
+    assert subject.agencies_and_government_bodies.include?(aagb_org)
+    refute subject.agencies_and_government_bodies.include?(non_aagb_org)
   end  
 end
