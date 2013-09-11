@@ -46,10 +46,11 @@ Whitehall::Application.routes.draw do
     get "history/past-chancellors" => 'historic_appointments#past_chancellors'
     get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointments'
     get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)/ }, as: 'historic_appointment'
+
+    # Past foreign secretaries are currently hard-coded, so this
+    # resource falls straight through to views.
     resources :past_foreign_secretaries, path: "/history/past-foreign-secretaries", only: [:index, :show]
-    get "history/past-chancellors" => 'historic_appointments#past_chancellors'
-    get "/history/:role" => "historic_appointments#index", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointments'
-    get "/history/:role/:person_id" => "historic_appointments#show", constraints: { role: /(past-prime-ministers)|(past-chancellors)|(past-foreign-secretaries)/ }, as: 'historic_appointment'
+
     resources :histories, path: "history", only: [:index, :show]
 
     resource :email_signups, path: 'email-signup', only: [:show, :create]
