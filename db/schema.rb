@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906093144) do
+ActiveRecord::Schema.define(:version => 20130911140104) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -768,7 +768,6 @@ ActiveRecord::Schema.define(:version => 20130906093144) do
     t.string   "original_filename"
     t.string   "data_type"
     t.text     "csv_data",           :limit => 2147483647
-    t.text     "already_imported"
     t.text     "successful_rows"
     t.integer  "creator_id"
     t.datetime "import_started_at"

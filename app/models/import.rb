@@ -1,7 +1,6 @@
 require 'csv'
 
 class Import < ActiveRecord::Base
-  serialize :already_imported
   serialize :successful_rows
   has_many :document_sources
   has_many :documents, through: :document_sources, uniq: true
@@ -51,7 +50,6 @@ class Import < ActiveRecord::Base
       csv_data: read_file(csv_file),
       creator_id: current_user.id,
       original_filename: csv_file && csv_file.original_filename,
-      already_imported: [],
       successful_rows: []
     )
   end

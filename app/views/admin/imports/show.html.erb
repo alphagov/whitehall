@@ -56,37 +56,6 @@
       </ul>
     <% end %>
 
-    <h2 id="already_imported">Already imported</h2>
-    <% if @import.already_imported.any? %>
-      <ul class="already_imported">
-        <% @import.already_imported.each do |already_imported| %>
-          <% document_source = DocumentSource.find_by_url(already_imported[:url]) %>
-          <% edition = document_source && document_source.document.latest_edition %>
-          <li>
-            <% if edition %>
-              <%= link_to edition.title, admin_edition_path(edition) %>
-              imported from
-              <%= link_to document_source.url, document_source.url %>
-              (
-                <% if document_source.import_id %>
-                  <%= link_to "Import ##{document_source.import_id}", admin_import_path(document_source.import_id) %>
-                <% else %>
-                  orginal import job not recorded
-                <% end %>
-              )
-            <% elsif document_source %>
-              <em>imported edition has been deleted</em>
-            <% else %>
-              <em>edition not found: <code><%= already_imported[:url] %></code></em>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="already_imported">None</p>
-    <% end %>
-
-    <h2 id="log">Log</h2>
-    <div class="log"><pre><%= @import.log %></pre></div>
+    <%= render partial: "errors", locals: {import: @import} %>
   <% end %>
 <% end %>
