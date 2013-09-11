@@ -30,6 +30,7 @@ ps:
       document_series: سلسله
       field_of_operation: د کړنو څانګه
       live_data: ژوندې اطلاعات
+      location:
       policy_team: د پالیسی ټیم
     type:
       announcement:
@@ -171,7 +172,6 @@ ps:
       delivery_title:
         minister: وزیر
         speaker: ویونکی
-      originally_given_at: اصلاْ ورکړل شو په ${location}.
       written_on: لیکلی دی په
     updated: تازه شوي
     view: لید '%{title}'

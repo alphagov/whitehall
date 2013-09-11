@@ -112,6 +112,7 @@ zh:
       document_series: 系列
       field_of_operation: 操作区域
       live_data: 实时数据
+      location:
       ministers:
         one: 首相/大臣/秘书
         other: 首相/大臣/秘书
@@ -144,7 +145,6 @@ zh:
       delivery_title:
         minister: 首相/大臣/秘书
         speaker: 演讲者
-      originally_given_at: 最初发表于%{location}。
       written_on: 撰写于：
     type:
       announcement:

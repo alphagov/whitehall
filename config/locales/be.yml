@@ -46,6 +46,7 @@ be:
       document_series: Серыя
       field_of_operation: Сфера дзейнасці
       live_data: Бягучая інфармацыя
+      location:
       policy_team: ! 'Палітычны аддзел '
     type:
       announcement:
@@ -269,7 +270,6 @@ be:
       delivery_title:
         minister: Міністр
         speaker: Прамоўца
-      originally_given_at: Упершыню прагучала ў %{location}.
       written_on: Напісана
     updated: Адноўлена
     view: Паглядзець '%{title}'

@@ -30,6 +30,7 @@ dr:
       document_series: سلسله
       field_of_operation: بخش عملیاتی
       live_data: معلومات زنده
+      location:
       policy_team: تیم پالیسی
     type:
       announcement:
@@ -171,7 +172,6 @@ dr:
       delivery_title:
         minister: وزیر
         speaker: سخنگوی
-      originally_given_at: اساساً داده شد در %{location}.
       written_on: نوشته شد به
     updated: به روز شده
     view: ببینید'%{title}'

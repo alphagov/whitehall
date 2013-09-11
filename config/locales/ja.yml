@@ -113,6 +113,7 @@ ja:
       document_series: シリーズ
       field_of_operation: 担当分野
       live_data: 実データ
+      location:
       ministers:
         one: 大臣
         other: 大臣
@@ -145,7 +146,6 @@ ja:
       delivery_title:
         minister: 大臣
         speaker: スピーカー
-      originally_given_at: ! '%{location} で実施'
       written_on:
     type:
       announcement:

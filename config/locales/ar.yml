@@ -62,6 +62,7 @@ ar:
       document_series: سلسة
       field_of_operation: مجال العمل
       live_data: بيانات حية
+      location:
       policy_team: فريق السياسات
     type:
       announcement:
@@ -367,7 +368,6 @@ ar:
       delivery_title:
         minister: وزير
         speaker: متحدث
-      originally_given_at: ألقيت في %{location}
       written_on: ! 'كتبت في:'
     updated: تحديث
     view: اطلع على ’%{title}‘

@@ -30,6 +30,7 @@ el:
       document_series: Σειρά
       field_of_operation: Πεδίο δράσης
       live_data: Ροή δεδομένων
+      location:
       policy_team: Ομάδα πολιτικής
     type:
       announcement:
@@ -171,7 +172,6 @@ el:
       delivery_title:
         minister: Υπουργός
         speaker: Ομιλητής
-      originally_given_at: Δόθηκε αρχικά στο %{location}
       written_on: ! 'Γραφτηκε τη: '
     updated: ! 'ανανεωμένο '
     view: Δείτε '%{title}'

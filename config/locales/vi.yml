@@ -115,6 +115,7 @@ vi:
       document_series: Chuỗi
       field_of_operation: Lĩnh vực hoạt động
       live_data: Dữ liệu cập nhật
+      location:
       ministers:
         one: Thứ trưởng
         other: Các thứ trưởng
@@ -147,7 +148,6 @@ vi:
       delivery_title:
         minister: Thứ trưởng
         speaker: Người phát biểu
-      originally_given_at: Được đưa ra đầu tiên tại %{location}
       written_on: ! 'Viết vào:'
     type:
       announcement:

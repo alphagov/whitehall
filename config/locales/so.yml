@@ -30,6 +30,7 @@ so:
       document_series: Taxane
       field_of_operation: Nooca hawlgalka
       live_data: Xog cusub
+      location:
       policy_team: Koox siyaad-dejin
     type:
       announcement:
@@ -171,7 +172,6 @@ so:
       delivery_title:
         minister: Wasiir
         speaker: Af-hayeen
-      originally_given_at: Asalkii hore waxaa laga jeediyey
       written_on: ! 'Waxaa la qorey:'
     updated: Wax lagu kordhiyey
     view: Eeg '%{title}'

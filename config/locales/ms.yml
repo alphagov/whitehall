@@ -112,6 +112,7 @@ ms:
       document_series:
       field_of_operation:
       live_data:
+      location:
       ministers:
         one:
         other:
@@ -144,7 +145,6 @@ ms:
       delivery_title:
         minister:
         speaker:
-      originally_given_at:
       written_on:
     type:
       announcement:
