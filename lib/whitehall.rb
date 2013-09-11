@@ -27,29 +27,16 @@ module Whitehall
 
   class NoConfigurationError < StandardError; end
 
-  class << self
-    PUBLIC_HOSTS = {
-      'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
-      'whitehall.production.alphagov.co.uk' => 'www.gov.uk',
-      'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-      'whitehall-admin.production.alphagov.co.uk' => 'www.gov.uk',
-      'whitehall-frontend.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-      'whitehall-frontend.production.alphagov.co.uk' => 'www.gov.uk',
-      'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-      'public-api.production.alphagov.co.uk' => 'www.gov.uk'
-    }
-
-    ADMIN_HOSTS = [
-      'whitehall-admin.preview.alphagov.co.uk',
-      'whitehall-admin.production.alphagov.co.uk'
-    ]
-
-    ANALYTICS_FORMAT = {
-      policy: "policy",
-      news: "news",
-      detailed_guidance: "detailed_guidance"
-    }
-  end
+  PUBLIC_HOSTS = {
+    'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
+    'whitehall.production.alphagov.co.uk' => 'www.gov.uk',
+    'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
+    'whitehall-admin.production.alphagov.co.uk' => 'www.gov.uk',
+    'whitehall-frontend.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
+    'whitehall-frontend.production.alphagov.co.uk' => 'www.gov.uk',
+    'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
+    'public-api.production.alphagov.co.uk' => 'www.gov.uk'
+  }
 
   def self.available_locales
     [
@@ -77,7 +64,10 @@ module Whitehall
   end
 
   def self.admin_hosts
-    ADMIN_HOSTS
+    [
+      'whitehall-admin.preview.alphagov.co.uk',
+      'whitehall-admin.production.alphagov.co.uk'
+    ]
   end
 
   def self.public_hosts
@@ -89,7 +79,7 @@ module Whitehall
   end
 
   def self.admin_whitelist?(request)
-    !Rails.env.production? || ADMIN_HOSTS.include?(request.host)
+    (! Rails.env.production?) || admin_hosts.include?(request.host)
   end
 
   def self.platform
@@ -204,51 +194,55 @@ module Whitehall
       ]
     end
     additional_classes + edition_classes - not_yet_searchable_classes
+  end
 
-    def edition_route_path_segments
-      %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities world-location-news)
-    end
+  def self.edition_route_path_segments
+    %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities world-location-news)
+  end
 
-    def government_edition_classes
-      searchable_classes - [DetailedGuide] - DetailedGuide.descendants
-    end
+  def self.government_edition_classes
+    searchable_classes - [DetailedGuide] - DetailedGuide.descendants
+  end
 
-    def analytics_format(format)
-      ANALYTICS_FORMAT[format]
-    end
+  def self.analytics_format(format)
+    {
+      policy: "policy",
+      news: "news",
+      detailed_guidance: "detailed_guidance"
+    }[format]
+  end
 
-    def local_government_features?
-      true
-    end
+  def self.local_government_features?
+    true
+  end
 
-    def world_feature?
-      true
-    end
+  def self.world_feature?
+    true
+  end
 
-    def extract_text_feature?
-      true
-    end
+  def self.extract_text_feature?
+    true
+  end
 
-    def rummager_work_queue_name
-      'rummager-delayed-indexing'
-    end
+  def self.rummager_work_queue_name
+    'rummager-delayed-indexing'
+  end
 
-    def url_maker
-      @url_maker ||= Whitehall::UrlMaker.new
-    end
+  def self.url_maker
+    @url_maker ||= Whitehall::UrlMaker.new
+  end
 
-    private
-
-    def load_secrets
-      if File.exists?(secrets_path)
-        YAML.load_file(secrets_path)
-      else
-        {}
-      end
-    end
-
-    def secrets_path
-      Rails.root + 'config' + 'whitehall_secrets.yml'
+  def self.load_secrets
+    if File.exists?(secrets_path)
+      YAML.load_file(secrets_path)
+    else
+      {}
     end
   end
+  private_class_method :load_secrets
+
+  def self.secrets_path
+    Rails.root + 'config' + 'whitehall_secrets.yml'
+  end
+  private_class_method :secrets_path
 end
