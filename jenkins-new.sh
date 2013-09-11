@@ -25,7 +25,7 @@ time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 time bundle exec rake db:drop db:create db:schema:load --trace
 time bundle exec rake db:test:prepare --trace
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:clean --trace
-RAILS_ENV=test CUCUMBER_FORMAT=progress time bundle exec rake ci:setup:minitest default test:cleanup --trace
+RAILS_ENV=test CUCUMBER_FORMAT=progress time bundle exec rake ci:setup:minitest parallel:create parallel:prepare test_queue shared_mustache:compile parallel:features test:javascript test:cleanup --trace
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:precompile --trace
 
 EXIT_STATUS=$?
