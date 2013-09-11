@@ -1,19 +1,18 @@
 class OrganisationType
-  private
   DATA = {
-    executive_office:            ["Executive office",                       "EO"],
-    ministerial_department:      ["Ministerial department",                 "D"],
-    non_ministerial_department:  ["Non-ministerial department",             "D"],
-    executive_agency:            ["Executive agency",                       "EA"],
-    executive_ndpb:              ["Executive non-departmental public body", "PB"],
-    advisory_ndpb:               ["Advisory non-departmental public body",  "PB"],
-    tribunal_ndpb:               ["Tribunal non-departmental public body",  "PB"],
-    public_corporation:          ["Public corporation",                     "PC"],
-    independent_monitoring_body: ["Independent monitoring body",            "IM"],
-    adhoc_advisory_group:        ["Ad-hoc advisory group",                  "AG"],
-    devolved_administration:     ["Devolved administration",                "DA"],
-    sub_organisation:            ["Sub-organisation",                       "OT"],
-    other:                       ["Other",                                  "OT"]
+    executive_office:            { name: "Executive office",                       analytics_prefix: "EO", agency_or_public_body: false, non_departmental_public_body: false },
+    ministerial_department:      { name: "Ministerial department",                 analytics_prefix: "D" , agency_or_public_body: false, non_departmental_public_body: false },
+    non_ministerial_department:  { name: "Non-ministerial department",             analytics_prefix: "D" , agency_or_public_body: false, non_departmental_public_body: false },
+    executive_agency:            { name: "Executive agency",                       analytics_prefix: "EA", agency_or_public_body: true,  non_departmental_public_body: false },
+    executive_ndpb:              { name: "Executive non-departmental public body", analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true  },
+    advisory_ndpb:               { name: "Advisory non-departmental public body",  analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true  },
+    tribunal_ndpb:               { name: "Tribunal non-departmental public body",  analytics_prefix: "PB", agency_or_public_body: true,  non_departmental_public_body: true  },
+    public_corporation:          { name: "Public corporation",                     analytics_prefix: "PC", agency_or_public_body: false, non_departmental_public_body: false },
+    independent_monitoring_body: { name: "Independent monitoring body",            analytics_prefix: "IM", agency_or_public_body: true,  non_departmental_public_body: false },
+    adhoc_advisory_group:        { name: "Ad-hoc advisory group",                  analytics_prefix: "AG", agency_or_public_body: true,  non_departmental_public_body: false },
+    devolved_administration:     { name: "Devolved administration",                analytics_prefix: "DA", agency_or_public_body: false, non_departmental_public_body: false },
+    sub_organisation:            { name: "Sub-organisation",                       analytics_prefix: "OT", agency_or_public_body: false, non_departmental_public_body: false },
+    other:                       { name: "Other",                                  analytics_prefix: "OT", agency_or_public_body: true,  non_departmental_public_body: false }
   }
 
   LISTING_ORDER = [
@@ -32,30 +31,14 @@ class OrganisationType
     :other
   ]
 
-  AGENCY_OR_PUBLIC_BODY_TYPES = [
-    :executive_agency,
-    :executive_ndpb,
-    :advisory_ndpb,
-    :tribunal_ndpb,
-    :independent_monitoring_body,
-    :adhoc_advisory_group,
-    :other
-  ]
-
-  NON_DEPARTMENTAL_PUBLIC_BODY_TYPES = [
-    :executive_ndpb,
-    :advisory_ndpb,
-    :tribunal_ndpb
-  ]
 
   @@instances = {}
 
-  public
   def self.get(key)
     key = key.to_sym
     raise KeyError, "#{key} is not a known organisation type." if DATA[key].nil?
 
-    @@instances[key] ||= new(key, *DATA[key])
+    @@instances[key] ||= new(key, DATA[key])
   end
 
   def self.all
@@ -111,12 +94,16 @@ class OrganisationType
   end
 
 
-  attr_reader :key, :name, :analytics_prefix
+  attr_reader :key, :name, :analytics_prefix, :agency_or_public_body, :non_departmental_public_body
+  alias_method :agency_or_public_body?,        :agency_or_public_body
+  alias_method :non_departmental_public_body?, :non_departmental_public_body
 
-  def initialize(key, name, analytics_prefix)
-    @key = key
-    @name = name
-    @analytics_prefix = analytics_prefix
+  def initialize(key, data)
+    @key                          = key
+    @name                         = data[:name]
+    @analytics_prefix             = data[:analytics_prefix]
+    @agency_or_public_body        = data[:agency_or_public_body]
+    @non_departmental_public_body = data[:non_departmental_public_body]
   end
 
   def listing_position
@@ -161,13 +148,5 @@ class OrganisationType
   end
   def other?
     key == :other
-  end
-
-  def is_non_departmental_public_body?
-    NON_DEPARTMENTAL_PUBLIC_BODY_TYPES.include?(key)
-  end
-
-  def agency_or_public_body?
-    AGENCY_OR_PUBLIC_BODY_TYPES.include? key
   end
 end

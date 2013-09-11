@@ -4,11 +4,17 @@ require './app/models/organisation_type'
 
 class OrganisationTypeTest < ActiveSupport::TestCase
   test "it should take key, name and analytics_prefix as initialize arguments and expose them as properties" do
-    instance = OrganisationType.new(:some_type_key, "A Name", "A prefix")
+    instance = OrganisationType.new(:some_type_key, 
+                                    name: "A Name", 
+                                    analytics_prefix: "A prefix",
+                                    agency_or_public_body: true,
+                                    non_departmental_public_body: false)
 
     assert_equal :some_type_key, instance.key
     assert_equal "A Name",       instance.name
     assert_equal "A prefix",     instance.analytics_prefix
+    assert_equal true,           instance.agency_or_public_body?
+    assert_equal false,          instance.non_departmental_public_body?
   end
 
   test "get should return an instance populated with the correct attributes" do
@@ -37,76 +43,19 @@ class OrganisationTypeTest < ActiveSupport::TestCase
   end
 
   test "OrganisationType should have getters for each organisation type" do
-    assert_equal OrganisationType.get(:executive_office), OrganisationType.executive_office
-    assert_equal OrganisationType.get(:ministerial_department), OrganisationType.ministerial_department
-    assert_equal OrganisationType.get(:non_ministerial_department), OrganisationType.non_ministerial_department
-    assert_equal OrganisationType.get(:executive_agency), OrganisationType.executive_agency
-    assert_equal OrganisationType.get(:executive_ndpb), OrganisationType.executive_ndpb
-    assert_equal OrganisationType.get(:advisory_ndpb), OrganisationType.advisory_ndpb
-    assert_equal OrganisationType.get(:tribunal_ndpb), OrganisationType.tribunal_ndpb
-    assert_equal OrganisationType.get(:public_corporation), OrganisationType.public_corporation
-    assert_equal OrganisationType.get(:independent_monitoring_body), OrganisationType.independent_monitoring_body
-    assert_equal OrganisationType.get(:adhoc_advisory_group), OrganisationType.adhoc_advisory_group
-    assert_equal OrganisationType.get(:other), OrganisationType.other
-    assert_equal OrganisationType.get(:sub_organisation), OrganisationType.sub_organisation
-    assert_equal OrganisationType.get(:devolved_administration), OrganisationType.devolved_administration
+    OrganisationType::DATA.keys.each do |key|
+      assert_equal OrganisationType.get(key), OrganisationType.send(key)
+    end
   end
 
   test "OrganisationType should have boolean flags for each organisation type" do
-    assert OrganisationType.get(:executive_office).executive_office?
-    assert OrganisationType.get(:ministerial_department).ministerial_department?
-    assert OrganisationType.get(:non_ministerial_department).non_ministerial_department?
-    assert OrganisationType.get(:executive_agency).executive_agency?
-    assert OrganisationType.get(:executive_ndpb).executive_ndpb?
-    assert OrganisationType.get(:advisory_ndpb).advisory_ndpb?
-    assert OrganisationType.get(:tribunal_ndpb).tribunal_ndpb?
-    assert OrganisationType.get(:public_corporation).public_corporation?
-    assert OrganisationType.get(:independent_monitoring_body).independent_monitoring_body?
-    assert OrganisationType.get(:adhoc_advisory_group).adhoc_advisory_group?
-    assert OrganisationType.get(:other).other?
-    assert OrganisationType.get(:sub_organisation).sub_organisation?
-    assert OrganisationType.get(:devolved_administration).devolved_administration?
-  end
-
-  test "is_non_departmental_public_body? should return true if key is :executive_ndpb, :advisory_ndpb or :tribunal_ndpb" do
-    assert OrganisationType.new(:executive_ndpb, '', '').is_non_departmental_public_body?
-    assert OrganisationType.new(:advisory_ndpb, '', '').is_non_departmental_public_body?
-    assert OrganisationType.new(:tribunal_ndpb, '', '').is_non_departmental_public_body?
-    refute OrganisationType.new(:executive_office, '', '').is_non_departmental_public_body?
-  end
-
-  test "agency_or_public_body? should return true if key is not :executive_office, :ministerial_department, :non_ministerial_department, :public_corporation or :sub_organisation" do
-    refute OrganisationType.get(:executive_office).agency_or_public_body?
-    refute OrganisationType.get(:ministerial_department).agency_or_public_body?
-    refute OrganisationType.get(:non_ministerial_department).agency_or_public_body?
-    assert OrganisationType.get(:executive_agency).agency_or_public_body?
-    assert OrganisationType.get(:executive_ndpb).agency_or_public_body?
-    assert OrganisationType.get(:advisory_ndpb).agency_or_public_body?
-    assert OrganisationType.get(:tribunal_ndpb).agency_or_public_body?
-    refute OrganisationType.get(:public_corporation).agency_or_public_body?
-    assert OrganisationType.get(:independent_monitoring_body).agency_or_public_body?
-    assert OrganisationType.get(:adhoc_advisory_group).agency_or_public_body?
-    assert OrganisationType.get(:other).agency_or_public_body?
-    refute OrganisationType.get(:sub_organisation).agency_or_public_body?
-    refute OrganisationType.get(:devolved_administration).agency_or_public_body?
+    OrganisationType::DATA.keys.each do |key|
+      assert OrganisationType.get(key).send("#{key}?")
+    end
   end
 
   test "valid_keys should return all keys on DATA" do
-    assert_equal [
-      :executive_office,
-      :ministerial_department,
-      :non_ministerial_department,
-      :executive_agency,
-      :executive_ndpb,
-      :advisory_ndpb,
-      :tribunal_ndpb,
-      :public_corporation,
-      :independent_monitoring_body,
-      :adhoc_advisory_group,
-      :devolved_administration,
-      :sub_organisation,
-      :other
-    ], OrganisationType.valid_keys
+    assert_equal OrganisationType::DATA.keys, OrganisationType.valid_keys
   end
 
   test "in_listing_order should return all types in the appropriate order" do

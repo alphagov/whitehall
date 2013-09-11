@@ -94,11 +94,7 @@
     </fieldset>
   <% end %>
 
-<<<<<<< HEAD
-  <% if organisation.non_departmental_public_body? %>
-=======
-  <% if organisation.type && organisation.type.is_non_departmental_public_body? %>
->>>>>>> Monolithic commit re-factors OrganisationType and adds a Devolved Administration type.
+  <% if organisation.type && organisation.type.non_departmental_public_body? %>
     <fieldset>
       <legend>Non-Departmental Public Body Information</legend>
       <p>
