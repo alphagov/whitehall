@@ -1,10 +1,10 @@
-<% page_title @html_version.title %>
+<% page_title @attachment.title %>
 <% page_class "html-publications-show" %>
 
 <div class="block publication-external">
   <div class="inner-block floated-children">
     <ul class="organisations-icon-list organisations">
-      <% @document.sorted_organisations.each do |organisation| %>
+      <% @edition.sorted_organisations.each do |organisation| %>
         <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
           <%= link_to organisation_path(organisation),
                       class: logo_classes(organisation: organisation, size: 'medium', stacked: true) do %>
@@ -14,21 +14,21 @@
       <% end %>
     </ul>
     <div class="return">
-      <p><%= link_to "See more information about this #{html_version_see_more_display_type(@document)}", public_document_path(@document) %></p>
+      <p><%= link_to "See more information about this #{html_version_see_more_display_type(@edition)}", public_document_path(@edition) %></p>
     </div>
   </div>
 </div>
 <header class="publication-header" id="contents">
   <div class="inner-block floated-children">
     <div class="headings">
-      <%= content_tag(:p, @document.display_type, class: 'document-type') %>
-      <h1><%= @html_version.title %></h1>
-      <p><%= published_or_updated(@document).titlecase %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
+      <%= content_tag(:p, @edition.display_type, class: 'document-type') %>
+      <h1><%= @attachment.title %></h1>
+      <p><%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %></p>
     </div>
     <nav class="in-page-navigation">
       <h2>Contents</h2>
-      <%= content_tag :ol, class: ('unnumbered' if @html_version.manually_numbered?) do %>
-        <% html_version_govspeak_headers(@html_version).each do |header| %>
+      <%= content_tag :ol, class: ('unnumbered' if @attachment.manually_numbered?) do %>
+        <% html_version_govspeak_headers(@attachment).each do |header| %>
           <li><%= link_to header.text, "##{header.id}" %></li>
         <% end %>
       <% end %>
@@ -37,7 +37,7 @@
 </header>
 <div class="block publication-content">
   <div class="inner-block floated-children">
-    <%= govspeak_to_html @html_version.body, @document.images, govspeak_options_for_html_version(@html_version) %>
+    <%= govspeak_to_html @attachment.body, @edition.images, govspeak_options_for_html_version(@attachment) %>
   </div>
 </div>
 <div class="js-back-to-content back-to-content">

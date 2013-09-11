@@ -1,9 +1,10 @@
 require "test_helper"
 
 class AttachmentsControllerTest < ActionController::TestCase
-
   def get_show(attachment_data)
-    get :show, id: attachment_data.to_param, file: File.basename(attachment_data.filename, ".#{attachment_data.file_extension}"), extension: attachment_data.file_extension
+    extension = attachment_data.file_extension
+    basename = File.basename(attachment_data.filename, '.' + extension)
+    get :show, id: attachment_data.to_param, file: basename, extension: extension
   end
 
   test "attachment documents that aren't visible and haven't been replaced are redirected to the placeholder url" do
@@ -112,8 +113,70 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   private
+  def get_show_html(publication, attachment, params = {})
+    defaults = {
+      publication_id: publication.document,
+      id: attachment.slug
+    }
+    get :show_html, defaults.merge(params)
+  end
 
-  def create_thumbnail_for_upload(uploader)
-    FileUtils.touch("#{uploader.clean_path}.png")
+  def create_edition_and_attachment(type = :publication, state = :published)
+    publication = create([state, type].join('_'))
+    attachment = create(:html_attachment)
+    publication.attachments << attachment
+    [publication, attachment]
+  end
+
+  view_test '#show_html displays HTML attachment on publication' do
+    publication, attachment = create_edition_and_attachment
+    get_show_html(publication, attachment)
+    assert_select 'header h1', attachment.title
+  end
+
+  view_test '#show_html displays HTML attachment on consultation' do
+    consultation, attachment = create_edition_and_attachment(:consultation)
+    get :show_html, consultation_id: consultation.document, id: attachment.slug
+    assert_select 'header h1', attachment.title
+  end
+
+  view_test '#show_html displays version of attachment from published edition' do
+    publication, attachment = create_edition_and_attachment
+    draft = publication.create_draft(create(:user))
+    draft.attachments.first.update_attribute(:title, 'New title')
+    get_show_html(publication, attachment)
+    assert_select 'h1', attachment.title
+  end
+
+  test '#show_html renders 404 page if the slug is wrong' do
+    publication = create(:published_publication)
+    assert_raise ActiveRecord::RecordNotFound do
+      get :show_html, publication_id: publication.document, id: 'not-the-real-slug'
+    end
+  end
+
+  test "#show_html renders 404 page if publication hasn't been published" do
+    publication, attachment = create_edition_and_attachment(:publication, :draft)
+    assert_raise ActiveRecord::RecordNotFound do
+      get_show_html(publication, attachment)
+    end
+  end
+
+  view_test "#show_html allows previewing of a draft edition's HTML attachments" do
+    publication, attachment = create_edition_and_attachment(:publication, :draft)
+    login_as create(:departmental_editor)
+    get_show_html(publication, attachment, preview: attachment.id)
+    assert_select 'h1', attachment.title
+  end
+
+  view_test '#show_html allows previewing draft HTML version for logged in users' do
+    user = create(:departmental_editor)
+    publication, attachment = create_edition_and_attachment
+    draft = publication.create_draft(user)
+    draft_attachment = draft.attachments.first
+    draft_attachment.update_attribute(:title, 'New title')
+    login_as user
+    get_show_html(publication, attachment, preview: draft_attachment.id)
+    assert_select 'h1', 'New title'
   end
 end

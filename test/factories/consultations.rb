@@ -13,15 +13,6 @@ FactoryGirl.define do
         object.related_policy_ids = [FactoryGirl.create(:published_policy, relevant_to_local_government: true)].map(&:id)
       end
     end
-
-    trait(:with_html_version) do
-      html_version_attributes do
-        {
-          title: "title",
-          body: "body"
-        }
-      end
-    end
   end
 
   factory :imported_consultation, parent: :consultation, traits: [:imported]
