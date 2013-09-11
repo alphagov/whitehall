@@ -41,12 +41,19 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert sub_organisation.errors.full_messages.include?("Parent organisations must not be empty for sub-organisations")
   end
 
+  test "should validate that an organisation is govuk_status exempt if it's a devolved administration" do
+    assert_invalid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: 'live')
+    assert_valid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: 'exempt')
+  end
+
 
   ### Describing Scopes ###
   test "It should have a scope for each valid OrganisationType" do
     OrganisationType.valid_keys.each do |key|
       if key == :sub_organisation
         org = create(:sub_organisation)
+      elsif key == :devolved_administration
+        org = create(:organisation, organisation_type_key: key, govuk_status: 'exempt')
       else
         org = create(:organisation, organisation_type_key: key)
       end

@@ -2,10 +2,14 @@ module Organisation::OrganisationTypeConcern
   extend ActiveSupport::Concern
 
   included do
-    validates :organisation_type_key, inclusion: { in: OrganisationType.valid_keys }
+    validates :organisation_type_key, 
+              inclusion: { in: OrganisationType.valid_keys }
     validates :parent_organisations, 
               length: { minimum: 1, message: "must not be empty for sub-organisations" },
               if: lambda { organisation_type_key == :sub_organisation }
+    validates :govuk_status, 
+              inclusion: {in: ['exempt'], message: "must be 'exempt' for devolved administrations"}, 
+              if: lambda { organisation_type_key == :devolved_administration }
 
     # Creates a scope for each department type. (eg. Organisation.ministerial_departments)
     OrganisationType.valid_keys.each do |type_key|
