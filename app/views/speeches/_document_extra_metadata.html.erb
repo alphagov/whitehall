@@ -1,2 +1,3 @@
 <dt><%= t_delivered_on(document.speech_type) %></dt>
-<dd class="delivered-on"><%= absolute_date(document.delivered_on) %> (<%= document.speech_type.name %>)</dd>
+<dd class="delivered-on"><%= absolute_date(document.delivered_on) %> <% if document.explanation %>(<%= document.explanation %>) <% end %>
+</dd>

@@ -114,6 +114,9 @@
         @include right-to-left {
           float: right;
         }
+        &::first-letter {
+          text-transform: uppercase;
+        }
       }
 
       a[rel="external"] {

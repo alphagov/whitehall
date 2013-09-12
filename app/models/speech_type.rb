@@ -51,19 +51,19 @@ class SpeechType
 
   Transcript = create(
     id: 1, name: "Transcript", genus_key: "speech", key: "transcript",
-    explanation: "This is a transcript of the speech, exactly as it was delivered.",
+    explanation: "Transcript of the speech, exactly as it was delivered",
     plural_name: "Transcripts"
   )
 
   DraftText = create(
     id: 2, name: "Draft text", genus_key: "speech", key: "draft_text",
-    explanation: "This is the text of the speech as drafted, which may differ slightly from the delivered version.",
+    explanation: "Original script, may differ from delivered version",
     plural_name: "Draft texts"
   )
 
   SpeakingNotes = create(
     id: 3, name: "Speaking notes", genus_key: "speech", key: "speaking_notes",
-    explanation: "These are the speaker's notes, not a transcript of the speech as it was delivered.",
+    explanation: "Speaker's notes, may differ from delivered version",
     plural_name: "Speaking notes"
   )
 
