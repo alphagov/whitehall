@@ -154,17 +154,11 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
   end
 
-  test "index should redirect to submitted in my department if logged an editor has no remembered filters" do
+  test "index should redirect to department if logged in with no remembered filters" do
     organisation = create(:organisation)
     editor = login_as create(:departmental_editor, organisation: organisation)
     get :index
-    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation.id)
-  end
-
-  test "index should render a list of drafts I have written if a writer has no remembered filters" do
-    writer = login_as create(:policy_writer)
-    get :index
-    assert_redirected_to admin_editions_path(state: :draft, author: writer)
+    assert_redirected_to admin_editions_path(organisation: organisation.id)
   end
 
   view_test "should not show published editions as force published" do
