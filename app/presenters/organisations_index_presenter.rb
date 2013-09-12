@@ -27,7 +27,7 @@ class OrganisationsIndexPresenter
 
   def agencies_and_government_bodies
     grouped_organisations[:agencies_and_government_bodies] || []
-  end  
+  end
 
   def devolved_administrations
     grouped_organisations[:devolved_administration] || []
