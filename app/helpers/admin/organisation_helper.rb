@@ -21,7 +21,7 @@ module Admin::OrganisationHelper
       "Contacts" => admin_organisation_contacts_path(organisation),
       "Document series" => document_series_admin_organisation_path(organisation),
     }
-    if organisation.executive_office?
+    if organisation.type.executive_office?
       tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation)
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
     end

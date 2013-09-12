@@ -36,11 +36,9 @@ class EmailSignupTest < ActiveSupport::TestCase
   end
 
   test 'the ministerial valid_organisations_by_type only includes live orgs of type "Ministerial department"' do
-    ministerial_dept_type = create(:organisation_type, name: "Ministerial department")
-    other_dept_type = create(:organisation_type, name: "Non-ministerial department")
-    live_ministerial_dept = create(:organisation, govuk_status: 'live', organisation_type: ministerial_dept_type)
-    live_other_dept = create(:organisation, govuk_status: 'live', organisation_type: other_dept_type)
-    not_live_ministerial_dept = create(:organisation, govuk_status: 'joining', organisation_type: ministerial_dept_type)
+    live_ministerial_dept = create(:organisation, govuk_status: 'live', organisation_type: OrganisationType.ministerial_department)
+    live_other_dept = create(:organisation, govuk_status: 'live', organisation_type: OrganisationType.other)
+    not_live_ministerial_dept = create(:organisation, govuk_status: 'joining', organisation_type: OrganisationType.ministerial_department)
 
     valid_ministerial_orgs = EmailSignup.valid_organisations_by_type[:ministerial]
     assert valid_ministerial_orgs.include?(live_ministerial_dept)
@@ -49,13 +47,10 @@ class EmailSignupTest < ActiveSupport::TestCase
   end
 
   test 'the ministerial valid_organisations_by_type includes live orgs that are not of type "Ministerial department" or "Sub-organisation"' do
-    ministerial_dept_type = create(:organisation_type, name: "Ministerial department")
-    other_dept_type = create(:organisation_type, name: "Non-ministerial department")
-    sub_org_type = create(:organisation_type, name: "Sub-organisation")
-    live_ministerial_dept = create(:organisation, govuk_status: 'live', organisation_type: ministerial_dept_type)
-    live_other_dept = create(:organisation, govuk_status: 'live', organisation_type: other_dept_type)
-    not_live_other_dept = create(:organisation, govuk_status: 'joining', organisation_type: other_dept_type)
-    live_sub_org = create(:organisation, govuk_status: 'joining', organisation_type: sub_org_type, parent_organisations: [live_ministerial_dept])
+    live_ministerial_dept = create(:organisation, govuk_status: 'live', organisation_type: OrganisationType.ministerial_department)
+    live_other_dept = create(:organisation, govuk_status: 'live', organisation_type: OrganisationType.other)
+    not_live_other_dept = create(:organisation, govuk_status: 'joining', organisation_type: OrganisationType.other)
+    live_sub_org = create(:organisation, govuk_status: 'joining', organisation_type: OrganisationType.sub_organisation, parent_organisations: [live_ministerial_dept])
 
     valid_other_orgs = EmailSignup.valid_organisations_by_type[:other]
     refute valid_other_orgs.include?(live_ministerial_dept)

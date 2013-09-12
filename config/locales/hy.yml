@@ -183,6 +183,9 @@ hy:
       Advisory non-departmental public body:
         one: Ոչ գերատեսչական խորհրդատվական հանրային մարմին
         other: Ոչ գերատեսչական խորհրդատվական հանրային մարմիններ
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Գլխավոր գործակալություն
         other: Գլխավոր գործակալություններ

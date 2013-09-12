@@ -285,6 +285,11 @@ ru:
         few:
         many:
         other: Консультативные вневедомственные государственные органы
+      Devolved administration:
+        one:
+        few:
+        many:
+        other:
       Executive agency:
         one: Исполнительный орган
         few:

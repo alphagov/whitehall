@@ -11,7 +11,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
     @stub_publication ||= begin
       stub_document = stub_record(:document)
       stub_document.stubs(:to_param).returns('some-doc')
-      organisation = stub_record(:organisation, name: "Ministry of Silly", organisation_type: stub_record(:organisation_type))
+      organisation = stub_record(:organisation, name: "Ministry of Silly")
       publication = stub_record("publication", document: stub_document, organisations: [organisation], public_timestamp: 3.days.ago)
       # TODO: perhaps rethink edition factory, so this apparent duplication
       # isn't neccessary

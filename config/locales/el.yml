@@ -183,6 +183,9 @@ el:
       Advisory non-departmental public body:
         one: Δημόσιο μη-κυβερνητικό συμβουλευτικό όργανο
         other: Δημόσια μη-κυβερνητικά συμβουλευτικά όργανα
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Εκτελεστική αρχή
         other: Εκτελεστικές αρχές

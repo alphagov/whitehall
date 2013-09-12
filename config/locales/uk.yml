@@ -285,6 +285,11 @@ uk:
         few:
         many:
         other: Державні позавідомчі дорадчі органи
+      Devolved administration:
+        one:
+        few:
+        many:
+        other:
       Executive agency:
         one: Орган виконавчої влади
         few:

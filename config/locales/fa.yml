@@ -344,6 +344,9 @@ fa:
       Advisory non-departmental public body:
         one: بدنه عمومی غیر دپارتمانی مشاوره ای
         other: بدنه های عمومی غیر دپارتمانی مشاوره ای
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: سازمان اجرایی
         other: سازمان های اجرایی

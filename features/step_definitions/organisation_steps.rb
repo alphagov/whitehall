@@ -83,8 +83,7 @@ end
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
   create(:mainstream_category, title: 'Jazzy Bizzle')
-  OrganisationType.find_or_create_by_name('Ministerial department', analytics_prefix: 'J')
-
+ 
   visit new_admin_organisation_path
 
   fill_in 'Name', with: organisation_name

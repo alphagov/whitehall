@@ -234,6 +234,10 @@ lt:
         one: Patariamoji nevyriausybinė organizacija
         few:
         other: Patariamosios nevyriausybinės organizacijos
+      Devolved administration:
+        one:
+        few:
+        other:
       Executive agency:
         one: Vykdomoji agentūra
         few:

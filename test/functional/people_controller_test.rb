@@ -6,7 +6,7 @@ class PeopleControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   def stub_role_appointment(role_type, options = {})
-    organisation = stub_translatable_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    organisation = stub_translatable_record(:organisation, organisation_type: OrganisationType.ministerial_department)
     stub_record(:role_appointment,
       {
         role: stub_translatable_record(role_type, organisations: [organisation]),
@@ -85,7 +85,7 @@ class PeopleControllerTest < ActionController::TestCase
   end
 
   def person_has_published_policy!
-    @organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    @organisation = stub_record(:organisation, organisation_type: OrganisationType.ministerial_department)
     @policy = stub_edition(:published_policy, alternative_format_provider_id: next_record_id, organisations: [@organisation])
     @role = stub_record(:ministerial_role, organisations: [@organisation])
     @role.stubs(:published_policies).returns([@policy])

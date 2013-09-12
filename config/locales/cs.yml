@@ -234,6 +234,10 @@ cs:
         one: Poradní nevládní organizace
         few:
         other: Poradní nevládní organizace
+      Devolved administration:
+        one:
+        few:
+        other:
       Executive agency:
         one: Výkonná agentura
         few:

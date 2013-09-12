@@ -344,6 +344,9 @@ tr:
       Advisory non-departmental public body:
         one: Bakanlık dışı bağımsız kamu danışma kurumu
         other: Bakanlık dışı bağımsız kamu danışma kurumları
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Yürütme organı
         other: Yürütme organları

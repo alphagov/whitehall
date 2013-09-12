@@ -387,6 +387,13 @@ cy:
         few:
         many:
         other: Cyrff cyhoeddus anadrannol sy'n cynghori
+      Devolved administration:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       Executive agency:
         zero:
         one: Asiantaeth weithredol
