@@ -3,10 +3,16 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test 'should only allow PDF, CSV, RTF, PNG, JPG, DOC, DOCX, XLS, XLSX, PPT, PPTX, ZIP, RDF, TXT, KML, ODS, ODT, XML attachments' do
-    uploader = AttachmentUploader.new
-    allowed = %w(pdf csv rtf png jpg doc docx xls xlsx ppt pptx zip rdf txt kml odt ods xml)
-    assert_equal allowed.sort, uploader.extension_white_list.sort
+  test 'should only allow whitelisted attachments' do
+    images = %w(png jpg eps ps)
+    documents = %w(pdf rtf doc docx ppt pptx rdf txt odt)
+    spreadsheets = %w(csv xls xlsx xlsm ods)
+    markup = %w(kml xml xld)
+    containers = %w(zip)
+    templates = %w(dot xlt)
+
+    allowed_attachments = images + documents + spreadsheets + markup + containers + templates
+    assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_white_list.sort
   end
 
   test "should store uploads in a directory that persists across deploys" do
