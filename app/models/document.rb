@@ -42,6 +42,8 @@ class Document < ActiveRecord::Base
   has_many :document_series_groups, through: :document_series_group_memberships
   has_many :document_series, through: :document_series_groups
 
+  delegate :topics, :to => :latest_edition
+
   after_create :ensure_document_has_a_slug
 
   attr_accessor :sluggable_string

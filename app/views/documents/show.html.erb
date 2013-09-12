@@ -1,5 +1,6 @@
 <%
   header_title ||= ""
+  topics ||= []
 %>
 <% page_title @document.title, "Documents" if page_title.blank? %>
 
@@ -10,7 +11,8 @@
                   locals: {
                     header_title: header_title,
                     document: @document,
-                    policies: @related_policies
+                    policies: @related_policies,
+                    topics: topics
                   } %>
     </div>
   </header>
