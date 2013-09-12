@@ -296,17 +296,6 @@ ActiveRecord::Schema.define(:version => 20130911094439) do
 
   add_index "document_series_groups", ["document_series_id", "ordering"], :name => "index_document_series_groups_on_document_series_id_and_ordering"
 
-  create_table "document_series_memberships", :force => true do |t|
-    t.integer  "document_series_id"
-    t.integer  "document_id"
-    t.integer  "ordering"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "document_series_memberships", ["document_id", "document_series_id"], :name => "index_document_series_memberships_on_document_and_series_id"
-  add_index "document_series_memberships", ["document_series_id", "ordering"], :name => "index_document_series_memberships_on_series_id_and_ordering"
-
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
     t.string  "url",                           :null => false
@@ -346,13 +335,6 @@ ActiveRecord::Schema.define(:version => 20130911094439) do
 
   add_index "edition_authors", ["edition_id"], :name => "index_edition_authors_on_edition_id"
   add_index "edition_authors", ["user_id"], :name => "index_edition_authors_on_user_id"
-
-  create_table "edition_document_series", :force => true do |t|
-    t.integer "edition_id",         :null => false
-    t.integer "document_series_id", :null => false
-  end
-
-  add_index "edition_document_series", ["edition_id", "document_series_id"], :name => "index_edition_document_series", :unique => true
 
   create_table "edition_mainstream_categories", :force => true do |t|
     t.integer  "edition_id"
