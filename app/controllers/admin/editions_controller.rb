@@ -1,4 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
+  include PublicDocumentRoutesHelper
+
   before_filter :remove_blank_parameters
   before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
@@ -115,7 +117,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = Unpublishing.new(document_type: @edition.type, slug: @edition.slug)
+    @unpublishing = Unpublishing.new(document_type: @edition.type, slug: @edition.slug, edition_url: public_document_url(@edition))
   end
 
   def destroy

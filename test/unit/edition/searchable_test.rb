@@ -84,7 +84,15 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(edition)
 
-    edition.unpublish_as(create(:gds_editor))
+    unpublish_params = {
+      'unpublishing_reason_id' => '1',
+      'explanation' => 'Was classified',
+      'alternative_url' => 'http://website.com/alt',
+      'document_type' => 'Policy',
+      'slug' => 'some-slug'
+    }
+
+    edition.unpublish_as(create(:gds_editor), unpublish_params)
   end
 
   test "should remove published edition from search index when it's archived" do

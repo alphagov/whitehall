@@ -362,14 +362,15 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'unpublish unpublishes the edition' do
     controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.expects(:unpublish_as).with(@user)
-    @edition.stubs(:create_unpublishing!)
+
+    @edition.expects(:unpublishable_by?).with(@user).returns(true)
+    @edition.expects(:unpublish_edition!)
+
     post :unpublish, id: @edition, lock_version: 1
   end
 
   test 'unpublish records the unpublishing reasons' do
     controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).returns(true)
     unpublish_params = {
       'unpublishing_reason_id' => '1',
       'explanation' => 'Was classified',
@@ -377,14 +378,18 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
       'document_type' => 'Policy',
       'document_slug' => 'some-slug'
     }
-    @edition.expects(:create_unpublishing!).with(unpublish_params)
+
+    @edition.expects(:unpublishable_by?).with(@user).returns(true)
+    @edition.expects(:build_unpublishing).with(unpublish_params)
+    @edition.stubs(:unpublish_edition!)
+
     post :unpublish, id: @edition.to_param, lock_version: 1, unpublishing: unpublish_params
   end
 
   test 'unpublish redirects back to the edition with a message' do
     controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).returns(true)
-    @edition.stubs(:create_unpublishing!)
+    @edition.expects(:unpublish_as).returns(true)
+
     post :unpublish, id: @edition, lock_version: 1
 
     assert_redirected_to admin_policy_path(@edition)
