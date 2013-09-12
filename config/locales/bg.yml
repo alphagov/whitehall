@@ -185,6 +185,9 @@ bg:
       Advisory non-departmental public body:
         one: Консултативен неведомствен публичен орган
         other: Консултативни неведомствени публични органи
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Изпълнителна агенция
         other: Изпълнителни агенции

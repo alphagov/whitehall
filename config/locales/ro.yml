@@ -234,6 +234,10 @@ ro:
         one: ! 'Instituție publică non - guvernamentală cu rol consultativ '
         few:
         other: ! 'Instituții publice non - guvernamentale cu rol consultativ '
+      Devolved administration:
+        one:
+        few:
+        other:
       Executive agency:
         one: ! 'Agenție '
         few:

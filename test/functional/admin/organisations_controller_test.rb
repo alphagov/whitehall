@@ -33,7 +33,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   test "POST on :create saves the organisation and its associations" do
     attributes = attributes_for(:organisation)
 
-    organisation_type = create(:organisation_type)
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
     topic_ids = [create(:topic), create(:topic)].map(&:id)
@@ -49,7 +48,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
         {mainstream_category_id: mainstream_category_ids[1], ordering: 1 }
       ],
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
-      organisation_type_id: organisation_type.id,
+      organisation_type_key: :executive_agency,
       govuk_status: 'exempt',
       mainstream_links_attributes: {
         "0" =>{
@@ -70,7 +69,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal "http://www.gov.uk/mainstream/something", organisation_mainstream_link.url
     assert_equal "Something on mainstream", organisation_mainstream_link.title
     assert_same_elements [parent_org_1, parent_org_2], organisation.parent_organisations
-    assert_equal organisation_type, organisation.organisation_type
+    assert_equal OrganisationType.executive_agency, organisation.organisation_type
     assert_equal 'exempt', organisation.govuk_status
   end
 

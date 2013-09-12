@@ -2,7 +2,7 @@ class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_organisation, except: [:index, :new, :create]
 
   def index
-    @organisations = Organisation.includes(:organisation_type).alphabetical
+    @organisations = Organisation.alphabetical
     @user_organisation = current_user.organisation
   end
 

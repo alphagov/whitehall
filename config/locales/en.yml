@@ -370,6 +370,9 @@ en:
       Sub-organisation:
         one: Sub-organisation
         other: Sub-organisations
+      Devolved administration:
+        one: Devolved administration
+        other: Devolved administrations
       Other:
         one: Other
         other: Others

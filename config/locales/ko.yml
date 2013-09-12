@@ -342,6 +342,9 @@ ko:
       Advisory non-departmental public body:
         one: 자문 공공기관
         other: 자문 공공기관
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: 행정기관
         other: 행정기관

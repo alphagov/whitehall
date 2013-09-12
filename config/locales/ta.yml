@@ -183,6 +183,9 @@ ta:
       Advisory non-departmental public body:
         one: ஆலோசனை திணைக்களமல்லாத அரச அமைப்பு
         other: ஆலோசனை திணைக்களமல்லாத அரச அமைப்புகள்
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: நிறைவேற்று முகவரமைப்பு
         other: நிறைவேற்று முகவரமைப்புகள்

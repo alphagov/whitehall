@@ -183,6 +183,9 @@ si:
       Advisory non-departmental public body:
         one: දෙපාර්තමේන්තු නොවන මහජන උපදේශන ආයතනය
         other: දෙපාර්තමේන්තු නොවන මහජන උපදේශන ආයතන
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: විධායක ආයතනය
         other: විධායක ආයතන

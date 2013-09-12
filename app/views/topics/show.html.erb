@@ -13,8 +13,8 @@
       <div class="heading-extra">
         <div class="heading-inner">
           <%= render partial: 'organisations/organisations_logo_list',
-                      locals: { organisations: @classification.organisations.includes(:translations, :organisation_type),
-                                lead_organisations: @classification.lead_organisations.includes(:translations, :organisation_type) } %>
+                      locals: { organisations: @classification.organisations.includes(:translations),
+                                lead_organisations: @classification.lead_organisations.includes(:translations) } %>
         </div>
       </div>
     </div>

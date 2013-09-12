@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906093144) do
+ActiveRecord::Schema.define(:version => 20130911094439) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -884,15 +884,6 @@ ActiveRecord::Schema.define(:version => 20130906093144) do
   add_index "organisation_translations", ["name"], :name => "index_organisation_translations_on_name"
   add_index "organisation_translations", ["organisation_id"], :name => "index_organisation_translations_on_organisation_id"
 
-  create_table "organisation_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "analytics_prefix"
-  end
-
-  add_index "organisation_types", ["name"], :name => "index_organisation_types_on_name"
-
   create_table "organisational_relationships", :force => true do |t|
     t.integer  "parent_organisation_id"
     t.integer  "child_organisation_id"
@@ -907,7 +898,6 @@ ActiveRecord::Schema.define(:version => 20130906093144) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
-    t.integer  "organisation_type_id"
     t.string   "url"
     t.string   "alternative_format_contact_email"
     t.string   "govuk_status",                            :default => "live", :null => false
@@ -924,12 +914,12 @@ ActiveRecord::Schema.define(:version => 20130906093144) do
     t.boolean  "register_of_interests"
     t.boolean  "regulatory_function"
     t.string   "logo"
+    t.string   "organisation_type_key"
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
-  add_index "organisations", ["id", "organisation_type_id"], :name => "index_organisations_on_id_and_organisation_type_id"
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"
-  add_index "organisations", ["organisation_type_id"], :name => "index_organisations_on_organisation_type_id"
+  add_index "organisations", ["organisation_type_key"], :name => "index_organisations_on_organisation_type_key"
   add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
 
   create_table "people", :force => true do |t|

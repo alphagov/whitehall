@@ -44,7 +44,7 @@ class RolePresenterTest < PresenterTestCase
   end
 
   test "#announcements returns 10 published speeches and news articles sorted by descending date" do
-    organisation = stub_record(:organisation, organisation_type: stub_record(:ministerial_organisation_type))
+    organisation = stub_record(:organisation, organisation_type_key: :ministerial_department)
     @role = stub_record(:ministerial_role, organisations: [organisation])
     @presenter = RolePresenter.new(@role, @view_context)
 

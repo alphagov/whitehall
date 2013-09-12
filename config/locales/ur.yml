@@ -183,6 +183,9 @@ ur:
       Advisory non-departmental public body:
         one: مشاورتی غیر شعبہ جاتی عوامی ادارہ
         other: مشاورتی غیر شعبہ جاتی عوامی ادارے
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: انتظامی ایجنسی
         other: انتظامی ایجنسیاں
