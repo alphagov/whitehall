@@ -11,45 +11,19 @@ class MigrateOrganisationsToNewOrganisationType < ActiveRecord::Migration
         WHEN "Executive non-departmental public body" THEN "executive_ndpb"
         WHEN "Advisory non-departmental public body"  THEN "advisory_ndpb"
         WHEN "Tribunal non-departmental public body"  THEN "tribunal_ndpb"
-        WHEN "Public corporation"                     THEN "public_corporation"     
-        WHEN "Independent monitoring body"            THEN "independent_monitoring_body"  
-        WHEN "Ad-hoc advisory group"                  THEN "adhoc_advisory_group"        
-        WHEN "Other"                                  THEN "other"                        
-        WHEN "Sub-organisation"                       THEN "sub_organisation"             
+        WHEN "Public corporation"                     THEN "public_corporation"
+        WHEN "Independent monitoring body"            THEN "independent_monitoring_body"
+        WHEN "Ad-hoc advisory group"                  THEN "adhoc_advisory_group"
+        WHEN "Other"                                  THEN "other"
+        WHEN "Sub-organisation"                       THEN "sub_organisation"
         WHEN "Executive office"                       THEN "executive_office"
         WHEN "Devolved administration"                THEN "devolved_administration"
       END
     }
-    remove_column :organisations, :organisation_type_id
-    drop_table :organisation_types
   end
 
   def down
-    create_table :organisation_types do |t|
-      t.string :name
-      t.string :analytics_prefix
-      t.timestamps
-    end
-    execute %Q{
-      INSERT INTO organisation_types 
-        (id, name, analytics_prefix, created_at, updated_at)
-      VALUES
-        (1,  "Ministerial department",                 "D", NOW(), NOW()), 
-        (2,  "Non-ministerial department",             "D", NOW(), NOW()), 
-        (3,  "Executive agency",                       "EA", NOW(), NOW()),
-        (4,  "Executive non-departmental public body", "PB", NOW(), NOW()),
-        (5,  "Advisory non-departmental public body",  "PB", NOW(), NOW()),
-        (6,  "Tribunal non-departmental public body",  "PB", NOW(), NOW()),
-        (7,  "Public corporation",                     "PC", NOW(), NOW()),
-        (8,  "Independent monitoring body",            "IM", NOW(), NOW()),
-        (9,  "Ad-hoc advisory group",                  "AG", NOW(), NOW()),
-        (10, "Other",                                  "OT", NOW(), NOW()),
-        (11, "Sub-organisation",                       "OT", NOW(), NOW()),
-        (12, "Executive office",                       "EO", NOW(), NOW())
-    }
-
-    add_column :organisations, :organisation_type_id, :int
-
+    # Magic ids come from 20130912150137_cleanup_organisation_type.rb.
     execute %Q{
       UPDATE organisations
       SET organisation_type_id = CASE organisation_type_key
