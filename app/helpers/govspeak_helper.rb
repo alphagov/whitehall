@@ -202,10 +202,11 @@ module GovspeakHelper
   def add_heading_numbers(nokogiri_doc)
     h2_depth, h3_depth = 0, 0
     nokogiri_doc.css('h2, h3').each do |el|
-      number = if el.name == 'h2'
-        "#{h2_depth+=1}."
+      if el.name == 'h2'
+        h3_depth = 0
+        number = "#{h2_depth+=1}."
       else
-        "#{h2_depth}.#{h3_depth+=1}"
+        number = "#{h2_depth}.#{h3_depth+=1}"
       end
       el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{el.inner_html}})
     end
