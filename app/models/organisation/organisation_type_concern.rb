@@ -36,12 +36,12 @@ module Organisation::OrganisationTypeConcern
   alias_method :type=, :organisation_type=
 
   def child_organisations_excluding_sub_organisations
-    @child_organisations_excluding_sub_organisations ||= 
-      child_organisations.with_translations.where("organisation_type_key != 'sub_organisation'")
+    @child_organisations_excluding_sub_organisations ||=
+      child_organisations.where("organisation_type_key != 'sub_organisation'")
   end
 
   def child_organisations_excluding_sub_organisations_grouped_by_type
-    @child_organisations_excluding_sub_organisations_grouped_by_type ||= 
+    @child_organisations_excluding_sub_organisations_grouped_by_type ||=
       child_organisations_excluding_sub_organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
   end
 end
