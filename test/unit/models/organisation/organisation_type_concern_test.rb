@@ -75,17 +75,18 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     refute Organisation.listable.include?(closed_org)
   end
 
-  test "child_organisations_excluding_sub_organisations should live up to it's name" do
+  test "active_child_organisations_excluding_sub_organisations should live up to it's name" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
     child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
     child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
     child_org_3 = create(:organisation, parent_organisations: [parent_org_1])
+    child_org_4 = create(:organisation, parent_organisations: [parent_org_1], govuk_status: 'closed')
 
-    assert_equal [child_org_1, child_org_3], parent_org_1.child_organisations_excluding_sub_organisations
+    assert_equal [child_org_1, child_org_3], parent_org_1.active_child_organisations_excluding_sub_organisations
   end
 
-  test "child_organisations_excluding_sub_organisations_grouped_by_type should return a 2D array with each 1st level member being a OrganisationType and a collection of organisations" do
+  test "active_child_organisations_excluding_sub_organisations_grouped_by_type should return a 2D array with each 1st level member being a OrganisationType and a collection of organisations" do
     parent_org = create(:organisation)
     child_org_1 = create(:organisation, parent_organisations: [parent_org], organisation_type_key: :executive_agency)
     child_org_2 = create(:sub_organisation, parent_organisations: [parent_org], organisation_type_key: :advisory_ndpb)
@@ -93,7 +94,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_equal [
       [OrganisationType.executive_agency, [child_org_1]],
       [OrganisationType.advisory_ndpb,    [child_org_2]]
-    ], parent_org.child_organisations_excluding_sub_organisations_grouped_by_type
+    ], parent_org.active_child_organisations_excluding_sub_organisations_grouped_by_type
   end
 
   test 'can list its sub-organisations' do
