@@ -203,6 +203,10 @@ module Admin::EditionsHelper
         end
         tabs[text] = admin_edition_attachments_path(edition)
       end
+
+      if edition.is_a?(DocumentSeries) && !edition.new_record?
+        tabs["Series documents"] = admin_document_series_groups_path(edition)
+      end
     end
   end
 

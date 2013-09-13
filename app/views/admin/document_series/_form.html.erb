@@ -1,12 +1,13 @@
-<%= form_for [:admin, @document_series.organisation, @document_series] do |form| %>
-  <%= form.errors %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <%= form.text_field :name %>
-  <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' } %>
-  <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
+    </fieldset>
 
-  <%= form.text_area :description, class: "previewable" %>
-
-  <p class="warning">Warning: changes to document series appear instantly on the live site.</p>
-  <%= form.save_or_cancel cancel: [:admin, @document_series.organisation, DocumentSeries] %>
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+  <% end %>
 <% end %>
