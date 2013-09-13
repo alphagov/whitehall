@@ -9,7 +9,7 @@ class AttachmentUploader < WhitehallUploader
   INDEXABLE_TYPES = %w(csv doc docx ods odt pdf ppt pptx rdf rtf txt xls xlsx xml)
 
   FALLBACK_THUMBNAIL_PDF = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
-  EXTENSION_WHITE_LIST = %w(csv doc docx dot jpg kml ods odt pdf png eps ps ppt pptx rdf rtf txt xls xlsx xlt xlsm xml xld zip)
+  EXTENSION_WHITE_LIST = %w(csv doc docx dot jpg kml ods odt pdf png eps ps ppt pptx rdf rtf txt xls xlsx xlt xlsm xml xsd zip)
 
   process :set_content_type
   after :retrieve_from_cache, :set_content_type

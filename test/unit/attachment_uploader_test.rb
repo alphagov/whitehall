@@ -7,7 +7,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
     images = %w(png jpg eps ps)
     documents = %w(pdf rtf doc docx ppt pptx rdf txt odt)
     spreadsheets = %w(csv xls xlsx xlsm ods)
-    markup = %w(kml xml xld)
+    markup = %w(kml xml xsd)
     containers = %w(zip)
     templates = %w(dot xlt)
 
