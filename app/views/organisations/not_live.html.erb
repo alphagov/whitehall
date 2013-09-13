@@ -16,18 +16,18 @@
         <p>
           <% if @organisation.closed? %>
             <% if @organisation.closed_at.present? %>
-              The <%= @organisation.name %> closed on <%= absolute_date(@organisation.closed_at, class: 'closed-at') %>
+              <%= @organisation.name %> closed on <%= absolute_date(@organisation.closed_at, class: 'closed-at') %>
             <% else %>
-              The <%= @organisation.name %> has closed
+              <%= @organisation.name %> has closed
             <% end %>
           <% elsif @organisation.transitioning? %>
-            The <%= @organisation.name %> is in the process of joining GOV.UK. In the meantime, <%= link_to @organisation.url, @organisation.url, class: 'url-link' %> remains the official source.
+            <%= @organisation.name %> is in the process of joining GOV.UK. In the meantime, <%= link_to @organisation.url, @organisation.url, class: 'url-link' %> remains the official source.
           <% elsif @organisation.joining? %>
-            The <%= @organisation.name %> currently has a <%= link_to 'separate website', @organisation.url %> but will soon be incorporated into GOV.UK
+            <%= @organisation.name %> currently has a <%= link_to 'separate website', @organisation.url %> but will soon be incorporated into GOV.UK
           <% elsif @organisation.url.present? %>
-            The <%= @organisation.name %> has a <%= link_to 'separate website', @organisation.url %>
+            <%= @organisation.name %> has a <%= link_to 'separate website', @organisation.url %>
           <% else %>
-            The <%= @organisation.name %> has no website
+            <%= @organisation.name %> has no website
           <% end %>
         </p>
       </aside>
