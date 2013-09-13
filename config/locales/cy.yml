@@ -389,11 +389,11 @@ cy:
         other: Cyrff cyhoeddus anadrannol sy'n cynghori
       Devolved administration:
         zero:
-        one:
+        one: Gweinyddiaeth ddatganoledig
         two:
         few:
         many:
-        other:
+        other: Gweinyddiaethau datganoledig
       Executive agency:
         zero:
         one: Asiantaeth weithredol
