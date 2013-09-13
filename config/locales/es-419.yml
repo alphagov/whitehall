@@ -30,6 +30,7 @@ es-419:
       document_series: Series
       field_of_operation: Terreno de operaciones
       live_data: Datos activos
+      location:
       policy_team: Equipo de política
     type:
       announcement:
@@ -171,7 +172,6 @@ es-419:
       delivery_title:
         minister: Ministro
         speaker: Orador
-      originally_given_at: Presentado originalmente en %{location}
       written_on: ! 'Escrito en:'
     updated: actualizado
     view: Ver '%{title}'
@@ -183,6 +183,9 @@ es-419:
       Advisory non-departmental public body:
         one: Organismo público consultivo no ministerial
         other: Organismos públicos consultivos no ministeriales
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Agencia ejecutiva
         other: Agencias ejecutivas

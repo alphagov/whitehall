@@ -38,6 +38,7 @@ sk:
       document_series:
       field_of_operation:
       live_data:
+      location:
       policy_team:
     type:
       announcement:
@@ -220,7 +221,6 @@ sk:
       delivery_title:
         minister:
         speaker:
-      originally_given_at:
       written_on:
     updated:
     view:
@@ -231,6 +231,10 @@ sk:
         few:
         other:
       Advisory non-departmental public body:
+        one:
+        few:
+        other:
+      Devolved administration:
         one:
         few:
         other:

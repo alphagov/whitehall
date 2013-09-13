@@ -115,6 +115,7 @@ hu:
       document_series: Sorozatok
       field_of_operation: Működési terület
       live_data: Élő adatok
+      location:
       ministers:
         one: Miniszter
         other: Miniszterek
@@ -147,7 +148,6 @@ hu:
       delivery_title:
         minister: Miniszter
         speaker: Beszélő
-      originally_given_at: ! 'A beszéd helyszíne: %{location}'
       written_on: ! 'A beszéd megírásának időpontja:'
     type:
       announcement:
@@ -345,6 +345,9 @@ hu:
       Advisory non-departmental public body:
         one: Nem kormányzati szervként működő tanácsadó testület
         other: Nem kormányzati szervként működő tanácsadó testületek
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Végrehajtó testület
         other: Végrehajtó testületek

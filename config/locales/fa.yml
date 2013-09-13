@@ -114,6 +114,7 @@ fa:
       document_series: ردیف
       field_of_operation: میدان عمل
       live_data: ! 'داده های لحظه ای '
+      location:
       ministers:
         one: معاون وزیر
         other: معاونین وزیر
@@ -146,7 +147,6 @@ fa:
       delivery_title:
         minister: معاون وزیر
         speaker: سخنگو
-      originally_given_at: ارائه شده در %{location}.
       written_on: ! 'نوشته شده در:'
     type:
       announcement:
@@ -344,6 +344,9 @@ fa:
       Advisory non-departmental public body:
         one: بدنه عمومی غیر دپارتمانی مشاوره ای
         other: بدنه های عمومی غیر دپارتمانی مشاوره ای
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: سازمان اجرایی
         other: سازمان های اجرایی

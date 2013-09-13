@@ -30,6 +30,7 @@ ta:
       document_series: தொடர்
       field_of_operation: செயற்பாட்டுத் துறை
       live_data: நேரடித் தரவு
+      location:
       policy_team: கொள்கை அணி
     type:
       announcement:
@@ -171,7 +172,6 @@ ta:
       delivery_title:
         minister: அமைச்சர்
         speaker: சபாநாயகர்
-      originally_given_at: ! '%{location} இல் ஆரம்பத்தில் வழங்கப்பட்டது'
       written_on: ! 'அன்று எழுதப்பட்டது:'
     updated: இற்றைப்படுத்தப்பட்டது
     view: பார்வையிடுக '%{title}'
@@ -183,6 +183,9 @@ ta:
       Advisory non-departmental public body:
         one: ஆலோசனை திணைக்களமல்லாத அரச அமைப்பு
         other: ஆலோசனை திணைக்களமல்லாத அரச அமைப்புகள்
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: நிறைவேற்று முகவரமைப்பு
         other: நிறைவேற்று முகவரமைப்புகள்

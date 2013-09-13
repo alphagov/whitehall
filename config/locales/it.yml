@@ -30,6 +30,7 @@ it:
       document_series: Serie
       field_of_operation: Settore di lavoro
       live_data: Live data
+      location:
       policy_team: Personale politico
     type:
       announcement:
@@ -171,7 +172,6 @@ it:
       delivery_title:
         minister: Ministro
         speaker: Relatore
-      originally_given_at: Tenuto originariamente a %{location}.
       written_on: ! 'Scritto su:'
     updated: aggiornato
     view: Visualizza '%{title}'
@@ -183,6 +183,9 @@ it:
       Advisory non-departmental public body:
         one: Ente pubblico di consulenza non ministeriale
         other: Enti pubblici di consulenza non ministeriali
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Agenzia esecutiva
         other: Agenzie esecutive

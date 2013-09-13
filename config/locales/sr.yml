@@ -46,6 +46,7 @@ sr:
       document_series: serija
       field_of_operation: polje delovanja
       live_data: aktivni podaci
+      location:
       policy_team: politički tim
     type:
       announcement:
@@ -273,7 +274,6 @@ sr:
       delivery_title:
         minister: Ministar
         speaker: govornik
-      originally_given_at: Originalno objavljeno na %{location}.
       written_on: ! 'Napisano na:'
     updated: ažurirano
     view: Pogledajte '%{title}'
@@ -289,6 +289,11 @@ sr:
         few:
         many:
         other: savetodavna nevladina javna tela
+      Devolved administration:
+        one:
+        few:
+        many:
+        other:
       Executive agency:
         one: izvršna agencija
         few:

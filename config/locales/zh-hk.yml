@@ -112,6 +112,7 @@ zh-hk:
       document_series: 系列
       field_of_operation: 運用領域
       live_data: 即時資料
+      location:
       ministers:
         one: 大臣
         other: 其他大臣
@@ -144,7 +145,6 @@ zh-hk:
       delivery_title:
         minister: 大臣
         speaker: 講者
-      originally_given_at: 最初發表於%{location}。
       written_on: 撰寫於：
     type:
       announcement:
@@ -341,6 +341,9 @@ zh-hk:
       Advisory non-departmental public body:
         one: 非政府諮詢公共機構
         other: 其他非政府諮詢公共機構
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: 執行機構
         other: 其他執行機構

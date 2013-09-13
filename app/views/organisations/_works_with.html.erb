@@ -1,10 +1,10 @@
 <%
   link_to_homepage ||= false
 %>
-<% if organisation.agencies_and_public_bodies.any? %>
+<% if organisation.active_child_organisations_excluding_sub_organisations.any? %>
   <p class="works-with">
-    Works with <%= organisation.agencies_and_public_bodies.count %>
-    <% if organisation.agencies_and_public_bodies.count == 1 %>
+    Works with <%= organisation.active_child_organisations_excluding_sub_organisations.count %>
+    <% if organisation.active_child_organisations_excluding_sub_organisations.count == 1 %>
       public body
     <% else %>
       agencies and public bodies
@@ -14,7 +14,7 @@
     <% if link_to_homepage %>
       <p><%= link_to "#{organisation.name} homepage", organisation_path(organisation) %></p>
     <% end %>
-    <% organisation.agencies_and_public_bodies_by_type.each do |type,departments| %>
+    <% organisation.active_child_organisations_excluding_sub_organisations_grouped_by_type.each do |type,departments| %>
       <% unless type.executive_office? %>
         <h3><%= type.name %></h3>
       <% end %>

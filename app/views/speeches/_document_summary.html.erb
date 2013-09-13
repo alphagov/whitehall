@@ -1,9 +1,6 @@
 <div class="summary">
   <p>
     <%= document.summary %>
-    <% if document.location && !document.location.empty? %>
-      <span class="location"><%= t('document.speech.originally_given_at', location: document.location) %></span>
-    <% end %>
     <% if document.explanation %>
       <span class="explanation"><%= document.explanation %></span>
     <% end %>

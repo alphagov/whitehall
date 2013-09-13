@@ -30,6 +30,7 @@ es:
       document_series: Series
       field_of_operation: Ãmbito de actuación
       live_data: Datos activos
+      location:
       policy_team: Equipo de política
     type:
       announcement:
@@ -171,7 +172,6 @@ es:
       delivery_title:
         minister: Ministro
         speaker: Orador
-      originally_given_at: Originalmente dado en %{location}
       written_on: ! 'Escrito en:'
     updated: Actualizado
     view: Mirar '%{title}'
@@ -183,6 +183,9 @@ es:
       Advisory non-departmental public body:
         one: Organismo públicoco consultivo no ministerial
         other: Organismos públicos consultivos no ministeriales
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Agencia ejecutiva
         other: Agencias ejecutivas

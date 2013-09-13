@@ -128,15 +128,6 @@ nav.consultations_scope {
         }
       }
     }
-    .summary {
-      margin-top: $gutter-half;
-      padding-bottom: $gutter-half;
-      @include media(tablet) {
-        float: left;
-        margin-top: 0;
-        width: 66.66%;
-      }
-    }
 
     .consultation-summary {
       @include media(tablet) {

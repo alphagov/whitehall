@@ -10,59 +10,73 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_display_organisation_page_elements_for(:organisation)
   should_display_organisation_page_elements_for(:executive_office)
 
-  view_test "should display a list of ministerial departments" do
-    ministerial_org_type = create(:ministerial_organisation_type)
-    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
-    organisation_2 = create(:organisation, organisation_type_id: ministerial_org_type.id)
-    organisation_3 = create(:organisation, organisation_type_id: ministerial_org_type.id)
+
+  ### Describing :index ###
+  test "index should instanciate an OrganisationsIndexPresenter with all organisations which are listable ordered by name" do
+    Organisation.stubs(:listable).returns(stub(ordered_by_name_ignoring_prefix: :some_listable_ordered_orgs))
+    OrganisationsIndexPresenter.expects(:new).with(:some_listable_ordered_orgs).returns(:some_presented_organisations)
+    get :index
+    assert_equal :some_presented_organisations, assigns(:organisations)
+  end
+
+  view_test "should display a list of executive offices" do
+    organisation = create(:organisation, organisation_type: OrganisationType.executive_office)
 
     get :index
 
-    assert_select '.ministerial-departments' do
+    assert_select '#executive-offices' do
+      assert_select_object(organisation)
+    end
+  end
+  
+  view_test "should display a list of ministerial departments" do
+    organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
+    organisation_2 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
+    organisation_3 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
+
+    get :index
+
+    assert_select '#ministerial-departments' do
       assert_select '.js-filter-count', text: '3'
       assert_select_object(organisation_1)
     end
   end
 
-  view_test "should display a list of executive offices" do
-    executive_office_type = create(:executive_office_organisation_type)
-    organisation = create(:organisation, organisation_type_id: executive_office_type.id)
-
-    get :index
-
-    assert_select '#executive-offices'
-    assert_select '.executive-offices' do
-      assert_select_object(organisation)
-    end
-  end
-
   view_test "should display a list of non-ministerial departments" do
-    non_ministerial_org_type = create(:non_ministerial_organisation_type)
-    organisation_1 = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
-    organisation_2 = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
+    organisation_1 = create(:organisation, organisation_type: OrganisationType.non_ministerial_department)
+    organisation_2 = create(:organisation, organisation_type: OrganisationType.non_ministerial_department)
 
     get :index
 
-    assert_select '#agencies-and-public-bodies'
-    assert_select '.other-departments' do
+    assert_select '#non-ministerial-departments' do
       assert_select '.js-filter-count', text: '2'
       assert_select_object(organisation_1)
     end
   end
 
   view_test "should display a list of public corporation organisations" do
-    public_corporation_org_type = create(:public_corporation_organisation_type)
-    organisation_1 = create(:organisation, organisation_type_id: public_corporation_org_type.id)
-    organisation_2 = create(:organisation, organisation_type_id: public_corporation_org_type.id)
+    organisation_1 = create(:organisation, organisation_type: OrganisationType.public_corporation)
+    organisation_2 = create(:organisation, organisation_type: OrganisationType.public_corporation)
 
     get :index
 
-    assert_select '#public-corporations'
-    assert_select '.other-departments' do
+    assert_select '#public-corporations' do
       assert_select '.js-filter-count', text: '2'
       assert_select_object(organisation_1)
     end
   end
+
+  view_test "should display a list of devolved administrations" do
+    organisation_1 = create(:devolved_administration)
+    organisation_2 = create(:devolved_administration)
+
+    get :index
+
+    assert_select '#devolved-administrations' do
+      assert_select '.js-filter-count', text: '2'
+      assert_select_object(organisation_1)
+    end
+  end  
 
   view_test "index shouldn't include sub-organisations" do
     sub_organisation = create(:sub_organisation)
@@ -73,10 +87,8 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test 'should show sub-organisations nested under parent' do
-    ministerial_org_type = create(:ministerial_organisation_type)
-    non_ministerial_org_type = create(:non_ministerial_organisation_type)
-    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
-    organisation_2 = create(:organisation, organisation_type_id: non_ministerial_org_type.id)
+    organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
+    organisation_2 = create(:organisation, organisation_type: OrganisationType.non_ministerial_department)
     child_organisation_1 = create(:organisation, parent_organisations: [organisation_1])
     child_organisation_2 = create(:organisation, parent_organisations: [organisation_2])
 
@@ -90,31 +102,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'should not use the term executive office on the frontend' do
-    ministerial_org_type = create(:ministerial_organisation_type)
-    executive_office_type = create(:executive_office_organisation_type)
 
-    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
-    child_organisation_1 = create(:organisation, organisation_type_id: executive_office_type.id, parent_organisations: [organisation_1])
 
-    get :index
-
-    assert_select_object(organisation_1) do |sub_orgs|
-      refute sub_orgs.first.match /executive office/i
-      assert_select_object(child_organisation_1)
-    end
-  end
-
-  test 'should exclude closed orgs from frontend list' do
-    ministerial_org_type = create(:ministerial_organisation_type)
-
-    organisation_1 = create(:organisation, organisation_type_id: ministerial_org_type.id)
-    organisation_2 = create(:organisation, organisation_type_id: ministerial_org_type.id, govuk_status: 'closed')
-
-    get :index
-
-    assert_equal assigns(:ministerial_departments), [organisation_1]
-  end
+  ### Describing :show ###  
 
   view_test "shows organisation description" do
     organisation = create(:organisation,
@@ -204,7 +194,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "#show doesn't present expanded navigation for non-department organisations" do
-    organisation = create(:organisation, organisation_type: create(:organisation_type, name: "Other"))
+    organisation = create(:organisation, organisation_type: OrganisationType.other)
     get :show, id: organisation
     assert_select "nav" do
       refute_select "a[href=?]", announcements_path(departments: [organisation])
@@ -593,80 +583,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should show description on organisation about subpage" do
-    organisation = create(:organisation, description: "organisation-description")
-    get :about, id: organisation
-    assert_select ".description", text: "organisation-description"
-  end
-
-  view_test "should show links to the alternate languages for a translated organisation" do
-    organisation = create(:organisation, description: "organisation-description", translated_into: [:fr])
-    get :about, id: organisation
-    expected_url = about_organisation_path(organisation, locale: :fr)
-    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
-  end
-
-  view_test "should render the about-us content using govspeak markup" do
-    organisation = create(:organisation,
-      name: "organisation-name",
-      about_us: "body-in-govspeak"
-    )
-
-    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :about, id: organisation
-    end
-
-    assert_select ".body", text: "body-in-html"
-  end
-
-  view_test "should display published corporate publications on about-us page" do
-    published_corporate_publication = create(:published_corporate_publication)
-    draft_corporate_publication = create(:draft_corporate_publication)
-
-    organisation = create(:organisation, editions: [
-      published_corporate_publication,
-      draft_corporate_publication
-    ])
-
-    get :about, id: organisation
-
-    assert_select_object(published_corporate_publication)
-    refute_select_object(draft_corporate_publication)
-  end
-
-  test "should display published corporate publications on about-us page in order published" do
-    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-01'))
-    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-03'))
-    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-02'))
-
-    organisation = create(:organisation, editions: [
-      old_published_corporate_publication,
-      new_published_corporate_publication,
-      middle_published_corporate_publication,
-    ])
-
-    get :about, id: organisation
-
-    assert_equal [
-      new_published_corporate_publication,
-      middle_published_corporate_publication,
-      old_published_corporate_publication
-    ], assigns(:corporate_publications)
-  end
-
-  view_test "should display link to corporate information pages on about-us page" do
-    organisation = create(:organisation)
-    corporate_information_page = create(:corporate_information_page, organisation: organisation)
-    get :about, id: organisation
-    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page)}']"
-  end
-
-  view_test "should not display corporate information section on about-us page if there are no corporate publications" do
-    organisation = create(:organisation)
-    get :about, id: organisation
-    refute_select "#corporate-information"
-  end
-
   test "shows ministerial roles in the specified order" do
     junior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
@@ -835,8 +751,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should place organisation brand colour css class on every organisation sub page" do
-    ministerial_department = create(:organisation_type, name: "Ministerial Department")
-    organisation = create(:organisation, organisation_type: ministerial_department, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
+    organisation = create(:organisation, organisation_type: OrganisationType.ministerial_department, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
 
     [:show, :about].each do |page|
       get page, id: organisation
@@ -862,6 +777,84 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: sub_organisation
 
     refute_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
+  end
+
+
+
+  ### Describing :about ###  
+
+  view_test "should show description on organisation about subpage" do
+    organisation = create(:organisation, description: "organisation-description")
+    get :about, id: organisation
+    assert_select ".description", text: "organisation-description"
+  end
+
+  view_test "should show links to the alternate languages for a translated organisation" do
+    organisation = create(:organisation, description: "organisation-description", translated_into: [:fr])
+    get :about, id: organisation
+    expected_url = about_organisation_path(organisation, locale: :fr)
+    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
+  end
+
+  view_test "should render the about-us content using govspeak markup" do
+    organisation = create(:organisation,
+      name: "organisation-name",
+      about_us: "body-in-govspeak"
+    )
+
+    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
+      get :about, id: organisation
+    end
+
+    assert_select ".body", text: "body-in-html"
+  end
+
+  view_test "should display published corporate publications on about-us page" do
+    published_corporate_publication = create(:published_corporate_publication)
+    draft_corporate_publication = create(:draft_corporate_publication)
+
+    organisation = create(:organisation, editions: [
+      published_corporate_publication,
+      draft_corporate_publication
+    ])
+
+    get :about, id: organisation
+
+    assert_select_object(published_corporate_publication)
+    refute_select_object(draft_corporate_publication)
+  end
+
+  test "should display published corporate publications on about-us page in order published" do
+    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-01'))
+    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-03'))
+    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-02'))
+
+    organisation = create(:organisation, editions: [
+      old_published_corporate_publication,
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+    ])
+
+    get :about, id: organisation
+
+    assert_equal [
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+      old_published_corporate_publication
+    ], assigns(:corporate_publications)
+  end
+
+  view_test "should display link to corporate information pages on about-us page" do
+    organisation = create(:organisation)
+    corporate_information_page = create(:corporate_information_page, organisation: organisation)
+    get :about, id: organisation
+    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page)}']"
+  end
+
+  view_test "should not display corporate information section on about-us page if there are no corporate publications" do
+    organisation = create(:organisation)
+    get :about, id: organisation
+    refute_select "#corporate-information"
   end
 
   private

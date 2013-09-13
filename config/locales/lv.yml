@@ -30,6 +30,7 @@ lv:
       document_series: Sērija
       field_of_operation: Darbības lauks
       live_data: Tiešie dati
+      location:
       policy_team: Politikas darba grupa
     type:
       announcement:
@@ -171,7 +172,6 @@ lv:
       delivery_title:
         minister: Ministrs
         speaker: Runas autors
-      originally_given_at: Noturēta %{location}.
       written_on: ! 'Sarakstīts:'
     updated: atjaunināts
     view: Skatīt '%{title}'
@@ -183,6 +183,9 @@ lv:
       Advisory non-departmental public body:
         one: Konsultatīva kvazi autonoma sabiedriska organizācija
         other: Konsultatīvas kvazi autonomas sabiedriskas organizācijas
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Izpildaģentūra
         other: Izpildaģentūras

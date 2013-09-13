@@ -109,6 +109,7 @@ en:
       advisory_groups: Advisory groups
       document_series: Series
       live_data: Live data
+      location: Location
       world_locations:
         one: World location
         other: World locations
@@ -263,7 +264,6 @@ en:
     speech:
       delivered_on: "Delivered on:"
       written_on: "Written on:"
-      originally_given_at: "Originally given at %{location}."
       delivery_title:
         minister: Minister
         speaker: Speaker
@@ -370,6 +370,9 @@ en:
       Sub-organisation:
         one: Sub-organisation
         other: Sub-organisations
+      Devolved administration:
+        one: Devolved administration
+        other: Devolved administrations
       Other:
         one: Other
         other: Others

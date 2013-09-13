@@ -31,13 +31,13 @@
             <div class="overview">
               <p class="description"><%= @organisation.description %></p>
               <p class="parent_organisations">
-                <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.agencies_and_public_bodies.any? %>,
+                <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.active_child_organisations_excluding_sub_organisations.any? %>,
                   supported by
-                  <% agencies_and_public_bodies_count = @organisation.agencies_and_public_bodies.count %>
-                  <% if agencies_and_public_bodies_count == 1 %>
-                    <%= link_to "#{agencies_and_public_bodies_count} public body", organisations_path(anchor: @organisation.slug) %>.
+                  <% active_child_organisations_excluding_sub_organisations_count = @organisation.active_child_organisations_excluding_sub_organisations.count %>
+                  <% if active_child_organisations_excluding_sub_organisations_count == 1 %>
+                    <%= link_to "#{active_child_organisations_excluding_sub_organisations_count} public body", organisations_path(anchor: @organisation.slug) %>.
                   <% else %>
-                    <%= link_to "#{agencies_and_public_bodies_count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.
+                    <%= link_to "#{active_child_organisations_excluding_sub_organisations_count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.
                   <% end %><% end %>
               </p>
               <p><%= link_to t('organisation.about.read_more'), about_organisation_path(@organisation), id: 'read_more_link' %></p>

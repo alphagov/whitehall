@@ -23,9 +23,9 @@
           <% elsif @organisation.transitioning? %>
             The <%= @organisation.name %> is in the process of joining GOV.UK. In the meantime, <%= link_to @organisation.url, @organisation.url, class: 'url-link' %> remains the official source.
           <% elsif @organisation.joining? %>
-            The <%= @organisation.name %> currently has a separate website but will soon be incorporated into GOV.UK
+            The <%= @organisation.name %> currently has a <%= link_to 'separate website', @organisation.url %> but will soon be incorporated into GOV.UK
           <% elsif @organisation.url.present? %>
-            The <%= @organisation.name %> has a separate website
+            The <%= @organisation.name %> has a <%= link_to 'separate website', @organisation.url %>
           <% else %>
             The <%= @organisation.name %> has no website
           <% end %>

@@ -30,6 +30,7 @@ hy:
       document_series: Մի շարք
       field_of_operation: Գործունեության ոլորտ
       live_data: առկա տեղեկատվություն
+      location:
       policy_team: Քաղաքական թիմ
     type:
       announcement:
@@ -171,7 +172,6 @@ hy:
       delivery_title:
         minister: Նախարար
         speaker: Խոսնակ
-      originally_given_at: Սկզբնապես տրվել է %{location} ում
       written_on: Գրված է՝
     updated: Թարմացված
     view: Տես '%{title}'-ը
@@ -183,6 +183,9 @@ hy:
       Advisory non-departmental public body:
         one: Ոչ գերատեսչական խորհրդատվական հանրային մարմին
         other: Ոչ գերատեսչական խորհրդատվական հանրային մարմիններ
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Գլխավոր գործակալություն
         other: Գլխավոր գործակալություններ

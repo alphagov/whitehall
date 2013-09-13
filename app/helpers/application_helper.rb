@@ -221,7 +221,7 @@ module ApplicationHelper
       else
         how_government_works_path
       end
-    when "histories", "past_foreign_secretaries"
+    when "histories", "past_foreign_secretaries", "historic_appointments"
       how_government_works_path
     when "site"
       root_path

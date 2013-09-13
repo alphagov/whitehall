@@ -115,6 +115,7 @@ tr:
       document_series: Seriler
       field_of_operation: Faaliyet Alanı
       live_data: Canlı veri
+      location:
       ministers:
         one: Bakan
         other: Bakanlar
@@ -147,7 +148,6 @@ tr:
       delivery_title:
         minister: Bakan
         speaker: Konuşmacı
-      originally_given_at: Orjinal olarak %{location}'de/da verildi
       written_on: Yazıldı
     type:
       announcement:
@@ -344,6 +344,9 @@ tr:
       Advisory non-departmental public body:
         one: Bakanlık dışı bağımsız kamu danışma kurumu
         other: Bakanlık dışı bağımsız kamu danışma kurumları
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Yürütme organı
         other: Yürütme organları

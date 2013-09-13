@@ -114,6 +114,7 @@ id:
       document_series: Serial
       field_of_operation: Area operasi
       live_data: Data Live
+      location:
       ministers:
         one: Menteri
         other: Menteri-menteri
@@ -146,7 +147,6 @@ id:
       delivery_title:
         minister: Menteri
         speaker: Pembicara
-      originally_given_at: Disampaikan di %{location}
       written_on: ! 'Dituliskan pada:'
     type:
       announcement:
@@ -344,6 +344,9 @@ id:
       Advisory non-departmental public body:
         one: Badan penasehat non-departemen umum
         other: Badan-badan penasehat non-departemen umum
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Badan eksekutif
         other: Badan-badan eksekutif

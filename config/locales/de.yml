@@ -30,6 +30,7 @@ de:
       document_series: Reihe
       field_of_operation: Einsatzbereich
       live_data: Live-Daten
+      location:
       policy_team: Ressort
     type:
       announcement:
@@ -171,7 +172,6 @@ de:
       delivery_title:
         minister: Minister
         speaker: Redner
-      originally_given_at: Ursprünglich gehalten in %{location}.
       written_on: Geschrieben am
     updated: Aktualisiert
     view: Schauen Sie sich '%{title}' an
@@ -183,6 +183,9 @@ de:
       Advisory non-departmental public body:
         one: Keinem Ministerium unterstelltes öffentliches Beratungsorgan
         other: Keinem Ministerium unterstellte öffentliche Beratungsorgane
+      Devolved administration:
+        one:
+        other:
       Executive agency:
         one: Exekutivagentur
         other: Exekutivagenturen

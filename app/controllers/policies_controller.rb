@@ -10,7 +10,7 @@ class PoliciesController < DocumentsController
   def index
     clean_search_filter_params
 
-    @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'alphabetical' }))
+    @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'before' }))
 
     respond_to do |format|
       format.html do

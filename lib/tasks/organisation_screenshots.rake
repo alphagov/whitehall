@@ -1,9 +1,12 @@
-desc "Generate organisation thumbnails. Set ORGANISATION to the slug of a specific organisation; Set OVERWRITE to replace existing screenshots"
+desc "Generate organisation thumbnails. Set ORGANISATION to the slug of a specific organisation; Set ORGANISATION_FILE to a file of slugs; Set OVERWRITE to replace existing screenshots"
 task :organisation_screenshots => :environment do
   FileUtils.mkdir_p(screenshot_root)
 
   organisations = if ENV["ORGANISATION"]
     Organisation.where(slug: ENV["ORGANISATION"])
+  elsif ENV["ORGANISATION_FILE"] and File.exist? ENV["ORGANISATION_FILE"]
+    slugs = File.open(ENV["ORGANISATION_FILE"]).readlines.map(&:chomp)
+    Organisation.where(slug: slugs)
   else
     Organisation.where("govuk_status <> 'live'").where("url <> ''")
   end

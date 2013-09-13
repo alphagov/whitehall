@@ -1,6 +1,14 @@
 module ModelHelpers
   extend ActiveSupport::Concern
 
+  def assert_valid(model)
+    assert model.valid?, "Expected #{model} to be valid."
+  end
+
+  def assert_invalid(model)
+    refute model.valid?, "Expected #{model} not to be valid."
+  end
+
   module ClassMethods
     def should_allow_image_attachments
       test "should include the Images behaviour module" do

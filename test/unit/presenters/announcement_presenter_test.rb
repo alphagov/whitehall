@@ -32,7 +32,7 @@ class AnnouncementPresenterTest < PresenterTestCase
   test "adds field of operations to the as_hash if exists" do
     document = stub_record(:document)
     document.stubs(:to_param).returns('some-doc')
-    organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type: stub_record(:organisation_type))
+    organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type: OrganisationType.other)
     operational_field = stub_record(:operational_field, name: "Name")
     fatality_notice = stub_record(:fatality_notice,
       document: document,

@@ -135,7 +135,6 @@ end
 
 Given /^the worldwide organisation "([^"]*)" exists$/ do |worldwide_organisation_name|
   create(:worldwide_organisation, name: worldwide_organisation_name, logo_formatted_name: worldwide_organisation_name)
-  create(:organisation_type, name: "Other") #Needed for sorting
 end
 
 Given /^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$/ do |worldwide_organisation_name, contact1_title, contact2_title|
