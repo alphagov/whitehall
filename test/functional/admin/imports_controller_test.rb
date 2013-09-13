@@ -63,20 +63,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "show shows declares success on success" do
-    import = stub_record(:import, creator: current_user, document_sources: [], already_imported: [],
-      import_enqueued_at: Time.zone.now, import_started_at: Time.zone.now, import_finished_at: Time.zone.now)
-    import.stubs(:status).returns(:success)
-    Import.stubs(:find).with(import.id.to_s).returns(import)
-
-    get :show, id: import
-
-    assert_select record_css_selector(import) do
-      assert_select ".summary", /Imported successfully/
-    end
-  end
-
-  view_test "show shows errors if any" do
+  view_test "shows errors if any" do
     import = create(:import, creator: current_user,
       import_enqueued_at: Time.zone.now,
       import_started_at: Time.zone.now,
@@ -86,7 +73,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     get :show, id: import
 
     assert_select record_css_selector(import) do
-      assert_select ".summary", /Import failed with 1 error/
+      assert_select ".summary", /1 failed/
       assert_select ".import_error" do
         assert_select ".row_number", "2"
         assert_select ".message", "Policy &#x27;blah&#x27; does not exist"
@@ -94,7 +81,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     end
   end
 
-  test "can export annotated version of file with errors" do
+  test "can export annotated version of all rows" do
     import = create(:import, creator: current_user,
       original_filename: "consultations.csv",
       csv_data: consultation_csv_sample,
@@ -106,7 +93,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     get :annotated, id: import
 
     assert_equal "text/csv", response.headers["Content-Type"]
-    assert_equal %{attachment; filename="consultations-errors-2011-01-01-121314.csv"}, response.headers["Content-Disposition"]
+    assert_equal %{attachment; filename="consultations-all-2011-01-01-121314.csv"}, response.headers["Content-Disposition"]
     original_upload = CSV.parse(import.csv_data)
     parsed_response = CSV.parse(response.body)
     assert_equal original_upload.size, parsed_response.size

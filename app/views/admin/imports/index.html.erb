@@ -18,7 +18,6 @@
         <th>Filename</th>
         <th>Status</th>
         <th># success</th>
-        <th># already imported</th>
         <th># errors</th>
         <th>Finished</th>
         <th>Force publish</th>
@@ -41,7 +40,6 @@
           </td>
           <% if import.import_started_at %>
             <td class="success_count"><%= link_to import.success_count, admin_import_path(import, anchor: "success") %></td>
-            <td class="already_imported_count"><%= link_to import.already_imported && import.already_imported.size, admin_import_path(import, anchor: "already_imported") %></td>
             <td class="error_count"><%= link_to import.number_of_rows_with_errors, admin_import_path(import, anchor: "errors") %></td>
             <td class="finished_at">
               <%= import.import_finished_at && absolute_time(import.import_finished_at) %>
