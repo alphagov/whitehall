@@ -171,6 +171,12 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal [series], edition.document.document_series
   end
 
+  test '#perform rolls back if exception raised during the row import' do
+    series = create(:document_series, name: 'series-name')
+    import = perform_import(csv_data: publication_with_dud_series_csv, data_type: "publication", organisation_id: create(:organisation).id)
+    assert_equal [], import.imported_editions
+  end
+
   test "#peform creates editions in the imported state" do
     perform_import
     assert_equal Edition.count, Edition.imported.count
@@ -282,15 +288,19 @@ class ImportTest < ActiveSupport::TestCase
     assert_match /Something awful happened/, i.import_errors[0][:message]
   end
 
-  test 'bad data is rolled back, but import is saved' do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    data = consultation_csv_sample({}, [{'title' => '', 'old_url' => 'http://example.com/invalid'}])
+  test 'successful rows are imported and failed rows are skipped' do
+    two_rows = consultation_csv_sample(
+      {"old_url" => "http://example.com/valid"},
+      [
+        {'title' => '', 'old_url' => 'http://example.com/invalid'}
+      ]
+    )
     perform_import_cleanup do
-      i = perform_import(csv_data: data)
+      i = perform_import(csv_data: two_rows)
       assert_equal 1, Import.count, "Import wasn't saved correctly"
-      assert_equal 0, Consultation.count, "Imported rows weren't rolled back correctly"
+
+      assert_includes Consultation.all.map {|c| c.document.document_sources.map(&:url) }.flatten, "http://example.com/valid"
+      refute_includes Consultation.all.map {|c| c.document.document_sources.map(&:url) }.flatten, "http://example.com/invalid"
     end
   end
 
@@ -543,6 +553,13 @@ class ImportTest < ActiveSupport::TestCase
     <<-EOF.strip_heredoc
     old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
     http://example.com/3,Title,Summary,Body,correspondence,,,series-name,,19-Oct-2012,2012-10-19,,,,175
+    EOF
+  end
+
+  def publication_with_dud_series_csv
+    <<-EOF.strip_heredoc
+    old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,,,series-name-dud,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 end

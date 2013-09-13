@@ -31,7 +31,8 @@ end
 
 Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)"$/ do |edition_count, organisation_name|
   import = Import.last
-  assert_equal :succeeded, import.status
+  assert_equal :finished, import.status
+  assert_equal [], Import.last.import_errors
   assert_equal edition_count.to_i, import.documents.count
 
   organisation = Organisation.find_by_name(organisation_name)
@@ -99,7 +100,6 @@ Then /^the import succeeds, creating (\d+) imported consultations? for "([^"]*)"
 end
 
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do
-  assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Organisation named 'weird organisation'")
   assert page.has_content?("Unable to find Publication type with slug 'weird type'")
 
@@ -107,7 +107,6 @@ Then /^the import should fail with errors about organisation and sub type and no
 end
 
 Then /^the import should fail with errors about an unrecognised policy$/ do
-  assert page.has_content?("Import failed")
   assert page.has_content?("Unable to find Policy with slug 'non-existent-policy'")
 
   assert_equal 0, Edition.count
@@ -206,8 +205,8 @@ Then /^I can delete the imported edition if I choose to$/ do
 end
 
 Then /^the import succeeds creating (\d+) detailed guidance document$/ do |n|
+  assert_equal :finished, Import.last.status
   assert_equal [], Import.last.import_errors
-  assert_equal :succeeded, Import.last.status
   assert_equal n.to_i, Import.last.documents.where(document_type: DetailedGuide.name).to_a.size
 end
 
@@ -220,8 +219,8 @@ Then /^the imported detailed guidance document has the following associations:$/
 end
 
 Then /^the import succeeds creating (\d+) case stud(?:y|ies)$/ do |n|
+  assert_equal :finished, Import.last.status
   assert_equal [], Import.last.import_errors
-  assert_equal :succeeded, Import.last.status
   assert_equal n.to_i, Import.last.documents.where(document_type: CaseStudy.name).to_a.size
 end
 
