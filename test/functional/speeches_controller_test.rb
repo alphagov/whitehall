@@ -51,7 +51,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".explanation", "This is a transcript of the speech, exactly as it was delivered."
+    assert_select ".explanation", "(Transcript of the speech, exactly as it was delivered)"
     assert_select ".type", "Speech"
   end
 
@@ -60,7 +60,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".explanation", "This is the text of the speech as drafted, which may differ slightly from the delivered version."
+    assert_select ".explanation", "(Original script, may differ from delivered version)"
     assert_select ".type", "Speech"
   end
 
@@ -69,7 +69,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".explanation", "These are the speaker&#x27;s notes, not a transcript of the speech as it was delivered."
+    assert_select ".explanation", "(Speaker&#x27;s notes, may differ from delivered version)"
     assert_select ".type", "Speech"
   end
 
