@@ -36,9 +36,9 @@ module GovspeakHelper
     end
   end
 
-  def html_version_govspeak_headers(html_version)
-    govspeak_headers(html_version.body).tap do |headers|
-      if html_version.manually_numbered?
+  def html_attachment_govspeak_headers(attachment)
+    govspeak_headers(attachment.body).tap do |headers|
+      if attachment.manually_numbered?
         headers.each { |header| header.text = header.text.gsub(/^(\d+.?\d*\s*)/, '') }
       end
     end
@@ -87,8 +87,8 @@ module GovspeakHelper
     end
   end
 
-  def govspeak_options_for_html_version(html_version)
-    numbering_method = html_version.manually_numbered? ? :manual : :auto
+  def govspeak_options_for_html_attachment(attachment)
+    numbering_method = attachment.manually_numbered? ? :manual : :auto
     { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
   end
 

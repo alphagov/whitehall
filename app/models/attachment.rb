@@ -36,6 +36,8 @@ class Attachment < ActiveRecord::Base
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
+  scope :files, where('type = ?', 'FileAttachment')
+
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
       starts = Date.new(year).strftime('%Y')

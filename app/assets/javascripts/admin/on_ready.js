@@ -99,7 +99,7 @@ jQuery(document).ready(function($) {
   $('#inbound-links').hideExtraRows({rows: 10});
 
   // show/hide unnumbered HTML headings markdown help
-  $('#edition_html_version_attributes_manually_numbered').change(function () {
+  $('#edition_html_attachment_attributes_manually_numbered').change(function () {
     if($(this).is(':checked')) {
       $('.js-manual-numbering-help').show();
     } else {
