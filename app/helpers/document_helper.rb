@@ -14,7 +14,7 @@ module DocumentHelper
     @block_count += 1
   end
 
-  def html_version_see_more_display_type(edition)
+  def consultation_or_publication(edition)
     edition.is_a?(Consultation) ? 'consultation' : 'publication'
   end
 

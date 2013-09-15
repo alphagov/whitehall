@@ -156,14 +156,14 @@ Feature: Importing new editions
     When I set the imported publication's publication date to "14-Dec-2011"
     Then I can make the imported publication into a draft edition
 
-  Scenario: Importing publications with an html version
+  Scenario: Importing publications with an html attachment
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
       old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,html_title,html_body,html_body_1
-      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,,HTML version title,Body part one, plus body part two
+      http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,,HTML attachment title,Body part one, plus body part two
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport"
-    And the imported publication has an html version with the title "HTML version title" and body "Body part one plus body part two"
+    And the imported publication has an html attachment with the title "HTML attachment title" and body "Body part one plus body part two"
 
   Scenario: Importing news article sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "News article" for "Department for Transport":

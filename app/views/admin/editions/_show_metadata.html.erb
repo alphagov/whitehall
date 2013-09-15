@@ -22,9 +22,6 @@
     <%= link_to "View on website", public_document_url(@edition), class: 'btn btn-large btn-primary public_version', target: '_blank' %>
   <% else %>
     <%= link_to "Preview on website", preview_document_path(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
-    <% if @edition.respond_to?(:html_version) && @edition.html_version %>
-      <%= link_to "Preview HTML version", preview_html_version_path(@edition, @edition.html_version), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
-    <% end %>
   <% end %>
 
   <% if @edition.editable? %>

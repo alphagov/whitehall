@@ -9,7 +9,7 @@ module Edition::AlternativeFormatProvider
   end
 
   def alternative_format_provider_required?
-    attachments.any?
+    attachments.any? { |a| a.kind_of?(FileAttachment) }
   end
 
   def alternative_format_contact_email

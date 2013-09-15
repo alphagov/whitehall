@@ -6,45 +6,14 @@ class PublicationTest < ActiveSupport::TestCase
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-  should_allow_html_version
   should_support_linking_to_external_version
 
-  def draft_with_new_title(edition, new_title)
-    edition.create_draft(create(:author)).tap do |draft|
-      draft.html_version.title = new_title
-      draft.minor_change = true
-      draft.perform_force_publish
-    end
-  end
-
-  test 'slug of html version does not change when we republish several times' do
-    publication = create(:published_publication)
-    initial_slug = publication.html_version.slug
-
-    new_draft = draft_with_new_title(publication, 'Title changed once')
-    assert_equal initial_slug, new_draft.reload.html_version.slug
-
-    further_draft = draft_with_new_title(new_draft, "Title changed again")
-    assert_equal initial_slug, further_draft.reload.html_version.slug
-  end
-
-  test 'slug of html version changes whilst in draft' do
-    publication = build(:draft_publication)
-    publication.html_version.title = "title"
-    publication.save!
-    assert_equal 'title', publication.html_version.slug
-
-    publication.html_version.title = 'new title'
-    publication.save!
-    assert_equal 'new-title', publication.reload.html_version.slug
-  end
-
-  test 'imported publications are valid when the publication_type is \'imported-awaiting-type\'' do
+  test 'imported publications are valid when the publication_type is imported-awaiting-type' do
     publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
     assert publication.valid?
   end
 
-  test 'imported publications are not valid_as_draft? when the publcation_type is \'imported-awaiting-type\'' do
+  test 'imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type' do
     publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
     refute publication.valid_as_draft?
   end
@@ -56,7 +25,7 @@ class PublicationTest < ActiveSupport::TestCase
 
   %w(submitted scheduled published).each do |state|
     test "A #{state} publication is not valid without an attachment" do
-      publication = build("#{state}_publication", html_version: nil, attachments: [])
+      publication = build("#{state}_publication", attachments: [])
       refute publication.valid?
       assert_match /an attachment or HTML version before being #{state}/, publication.errors[:base].first
     end

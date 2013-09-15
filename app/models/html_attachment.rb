@@ -2,7 +2,7 @@ class HtmlAttachment < Attachment
   extend FriendlyId
   friendly_id :title
 
-  validates body: { presence: true }
+  validates :body, presence: true
   validates_with SafeHtmlValidator
 
   def accessible?
@@ -24,9 +24,9 @@ class HtmlAttachment < Attachment
   def url
     path_helper = case attachable
                   when Consultation
-                    :consultation_html_version_path
+                    :consultation_html_attachment_path
                   else
-                    :publication_html_version_path
+                    :publication_html_attachment_path
                   end
     Rails.application.routes.url_helpers.send(path_helper, attachable.slug, self)
   end

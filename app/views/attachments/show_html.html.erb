@@ -14,7 +14,7 @@
       <% end %>
     </ul>
     <div class="return">
-      <p><%= link_to "See more information about this #{html_version_see_more_display_type(@edition)}", public_document_path(@edition) %></p>
+      <p><%= link_to "See more information about this #{consultation_or_publication(@edition)}", public_document_path(@edition) %></p>
     </div>
   </div>
 </div>
@@ -27,8 +27,8 @@
     </div>
     <nav class="in-page-navigation">
       <h2>Contents</h2>
-      <%= content_tag :ol, class: ('unnumbered' if @attachment.manually_numbered?) do %>
-        <% html_version_govspeak_headers(@attachment).each do |header| %>
+      <%= content_tag :ol, class: ('unnumbered' if @attachment.manually_numbered_headings?) do %>
+        <% html_attachment_govspeak_headers(@attachment).each do |header| %>
           <li><%= link_to header.text, "##{header.id}" %></li>
         <% end %>
       <% end %>
@@ -37,7 +37,7 @@
 </header>
 <div class="block publication-content">
   <div class="inner-block floated-children">
-    <%= govspeak_to_html @attachment.body, @edition.images, govspeak_options_for_html_version(@attachment) %>
+    <%= govspeak_to_html @attachment.body, @edition.images, govspeak_options_for_html_attachment(@attachment) %>
   </div>
 </div>
 <div class="js-back-to-content back-to-content">
