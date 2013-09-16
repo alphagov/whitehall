@@ -41,7 +41,7 @@ module ApplicationHelper
 
   def link_to_attachment(attachment)
     return unless attachment
-    link_to attachment.filename, attachment.url
+    link_to (attachment.html? ? 'Web page' : attachment.filename), attachment.url
   end
 
   def role_appointment(appointment, link = false)

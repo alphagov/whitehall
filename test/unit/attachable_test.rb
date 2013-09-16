@@ -43,12 +43,15 @@ class AttachableTest < ActiveSupport::TestCase
   test "should be invalid if an edition has an attachment but not yet passed virus scanning" do
     attachment = build(:file_attachment)
     attachment.stubs(:virus_status).returns :infected
-    publication = create(:publication, :with_file_attachment, attachments: [attachment])
+    publication = create(:publication, :with_alternative_format_provider, attachments: [attachment])
     publication.skip_virus_status_check = false
     assert publication.valid?
     user = create(:departmental_editor)
     publication.change_note = "change-note"
-    assert_raise(ActiveRecord::RecordInvalid, "Validation failed: Attachments must have passed virus scanning") { publication.perform_force_publish }
+    error = assert_raise ActiveRecord::RecordInvalid do
+      publication.perform_force_publish
+    end
+    assert_match /must have passed virus scanning/, error.message
     refute publication.published?
   end
 
@@ -122,11 +125,13 @@ class AttachableTest < ActiveSupport::TestCase
     edition = create(:publication)
     edition.attachments << attachment
 
-    assert_equal "The title of the attachment", edition.search_index['attachments'][0][:title]
-    assert_equal "\nThis is a test pdf.\n\n\n", edition.search_index['attachments'][0][:content]
-    assert_equal attachment.isbn, edition.search_index['attachments'][0][:isbn]
-    assert_equal attachment.unique_reference, edition.search_index['attachments'][0][:unique_reference]
-    assert_equal attachment.command_paper_number, edition.search_index['attachments'][0][:command_paper_number]
-    assert_equal attachment.hoc_paper_number, edition.search_index['attachments'][0][:hoc_paper_number]
+    index = edition.attachments.to_a.index { |attachment| attachment.kind_of?(FileAttachment) }
+
+    assert_equal "The title of the attachment", edition.search_index['attachments'][index][:title]
+    assert_equal "\nThis is a test pdf.\n\n\n", edition.search_index['attachments'][index][:content]
+    assert_equal attachment.isbn, edition.search_index['attachments'][index][:isbn]
+    assert_equal attachment.unique_reference, edition.search_index['attachments'][index][:unique_reference]
+    assert_equal attachment.command_paper_number, edition.search_index['attachments'][index][:command_paper_number]
+    assert_equal attachment.hoc_paper_number, edition.search_index['attachments'][index][:hoc_paper_number]
   end
 end

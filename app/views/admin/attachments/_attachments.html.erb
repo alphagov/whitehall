@@ -11,7 +11,7 @@
       <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
         <span class="title"><%= attachment.title %></span>
         <span class="file">
-          File: <%= link_to attachment.filename, attachment.url %>
+          File: <%= link_to_attachment(attachment) %>
         </span>
         <%= attachment_virus_status(attachment) %>
         <%= attachment_metadata_tag(attachment) %>

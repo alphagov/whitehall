@@ -139,7 +139,7 @@
         <% @edition.attachments.each do |attachment| %>
           <tr>
             <td><%= attachment.title %></td>
-            <td><%= link_to (attachment.html? ? 'Web page' : attachment.filename), attachment.url %></td>
+            <td><%= link_to_attachment(attachment) %></td>
             <td class="virus-status"><%= attachment_virus_status(attachment) %></td>
             <!--<td><%= attachment_metadata_tag(attachment) %></td>-->
           </tr>
