@@ -13,11 +13,12 @@ module Edition::StatisticalDataSets
     has_many :statistical_data_sets, through: :statistical_data_set_documents, source: :latest_edition
     has_many :published_statistical_data_sets, through: :statistical_data_set_documents, source: :published_edition, class_name: 'StatisticalDataSet'
 
-    define_method(:statistical_data_sets=) do |data_sets|
-      self.statistical_data_set_documents = data_sets.map(&:document)
-    end
 
     add_trait Trait
+  end
+
+  def statistical_data_sets=(data_sets)
+    self.statistical_data_set_documents = data_sets.map(&:document)
   end
 
   def can_be_associated_with_statistical_data_sets?

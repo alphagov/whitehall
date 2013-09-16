@@ -12,15 +12,15 @@ module Edition::WorldwidePriorities
       through: :related_documents,
       class_name: "WorldwidePriority",
       source: :published_edition
+  end
 
-    # Ensure that when we set priority ids we don't remove other types of edition from the array
-    define_method(:worldwide_priority_ids=) do |priority_ids|
-      priority_ids = Array.wrap(priority_ids).reject(&:blank?)
-      new_priorities = priority_ids.map { |id| WorldwidePriority.find(id).document }
-      other_related_documents = self.related_documents.reject { |document| document.latest_edition.is_a?(WorldwidePriority) }
+  # Ensure that when we set priority ids we don't remove other types of edition from the array
+  def worldwide_priority_ids=(priority_ids)
+    priority_ids = Array.wrap(priority_ids).reject(&:blank?)
+    new_priorities = priority_ids.map { |id| WorldwidePriority.find(id).document }
+    other_related_documents = self.related_documents.reject { |document| document.latest_edition.is_a?(WorldwidePriority) }
 
-      self.related_documents = other_related_documents + new_priorities
-    end
+    self.related_documents = other_related_documents + new_priorities
   end
 
   def can_be_associated_with_worldwide_priorities?
