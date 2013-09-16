@@ -196,7 +196,9 @@ class Import < ActiveRecord::Base
   def import_row(row, row_number, creator, progress_logger)
     progress_logger.with_transaction(row_number) do
       attributes = row.attributes.merge(creator: creator, state: 'imported')
+      attachment = HtmlAttachment.new(attributes.delete(:html_attachment_attributes))
       model = model_class.new(attributes)
+      model.attachments = [attachment] if attachment.valid?
       if model.save
         save_translation!(model, row) if row.translation_present?
         assign_document_series!(model, row.document_series)

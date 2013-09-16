@@ -21,6 +21,10 @@ class HtmlAttachment < Attachment
     false
   end
 
+  def content_type
+    'text/html'
+  end
+
   def url
     path_helper = case attachable
                   when Consultation
@@ -29,5 +33,8 @@ class HtmlAttachment < Attachment
                     :publication_html_attachment_path
                   end
     Rails.application.routes.url_helpers.send(path_helper, attachable.slug, self)
+  end
+
+  def extracted_text
   end
 end

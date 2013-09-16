@@ -82,7 +82,7 @@ module Whitehall::Uploader
       assert_equal 'HTML title', row.attributes[:html_attachment_attributes][:title]
     end
 
-    test "sets nested attributes for an HTML version if present" do
+    test "sets title and body for an HTML attachment if present" do
       row_with_html_attachment = new_publication_row({'html_title' => 'HTML title', 'html_body' => 'HTML body'})
       assert_equal 'HTML title', row_with_html_attachment.attributes[:html_attachment_attributes][:title]
       assert_equal 'HTML body', row_with_html_attachment.attributes[:html_attachment_attributes][:body]

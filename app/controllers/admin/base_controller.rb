@@ -46,6 +46,18 @@ class Admin::BaseController < ApplicationController
     end
   end
 
+  def attachable_attachments_path(attachable)
+    case attachable
+    when Edition
+      admin_edition_attachments_path(attachable)
+    when Response
+      [:admin, attachable.consultation, attachable.singular_routing_symbol]
+    else
+      [:admin, attachable, Attachment]
+    end
+  end
+  helper_method :attachable_attachments_path
+
   private
 
   def enforcer_for(subject)

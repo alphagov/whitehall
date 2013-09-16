@@ -12,7 +12,13 @@ class DocumentFilterPresenterTest < PresenterTestCase
       stub_document = stub_record(:document)
       stub_document.stubs(:to_param).returns('some-doc')
       organisation = stub_record(:organisation, name: "Ministry of Silly")
-      publication = stub_record("publication", document: stub_document, organisations: [organisation], public_timestamp: 3.days.ago)
+      publication = stub_record(
+        "publication",
+        document: stub_document,
+        attachments: [],
+        organisations: [organisation],
+        public_timestamp: 3.days.ago
+      )
       # TODO: perhaps rethink edition factory, so this apparent duplication
       # isn't neccessary
       publication.stubs(:organisations).returns([organisation])
@@ -55,20 +61,22 @@ class DocumentFilterPresenterTest < PresenterTestCase
   end
 
   test 'json provides a list of documents' do
-    @filter.stubs(:documents).returns(Kaminari.paginate_array([PublicationesquePresenter.new(stub_publication, @view_context)]).page(1))
+    presenters = [PublicationesquePresenter.new(stub_publication, @view_context)]
+    @filter.stubs(:documents).returns(Kaminari.paginate_array(presenters).page(1))
     json = JSON.parse(DocumentFilterPresenter.new(@filter, @view_context).to_json)
     assert_equal 1, json['results'].size
-    assert_equal({
-      "id" => stub_publication.id,
-      "type" => "publication",
-      "display_type" => "Policy paper",
-      "title" => stub_publication.title,
-      "url" => "/government/publications/some-doc",
-      "organisations" => "Ministry of Silly",
-      "display_date_microformat" => "<abbr class=\"public_timestamp\" title=\"2011-11-08T11:11:11+00:00\"> 8 November 2011</abbr>",
-      "public_timestamp" => 3.days.ago.iso8601,
-      "publication_series" => nil
-      }, json['results'].first)
+    expected = {
+      'id' => stub_publication.id,
+      'type' => 'publication',
+      'display_type' => 'Policy paper',
+      'title' => stub_publication.title,
+      'url' => '/government/publications/some-doc',
+      'organisations' => 'Ministry of Silly',
+      'display_date_microformat' => '<abbr class="public_timestamp" title="2011-11-08T11:11:11+00:00"> 8 November 2011</abbr>',
+      'public_timestamp' => 3.days.ago.iso8601,
+      'publication_series' => nil
+    }
+    assert_equal expected, json['results'].first
   end
 
   test 'decorates each documents with the given decorator class' do

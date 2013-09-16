@@ -168,7 +168,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_select 'h1', attachment.title
   end
 
-  view_test '#show_html allows previewing draft HTML version for logged in users' do
+  view_test '#show_html allows previewing draft HTML attachment for logged in users' do
     user = create(:departmental_editor)
     publication, attachment = create_edition_and_attachment
     draft = publication.create_draft(user)

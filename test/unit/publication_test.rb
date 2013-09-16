@@ -31,19 +31,19 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing publication" do
-    published_publication = create(:published_publication,
-      :with_file_attachment,
+    published = create(:published_publication, :with_file_attachment, {
       first_published_at: Date.parse("2010-01-01"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
-    )
+    })
 
-    draft_publication = published_publication.create_draft(create(:policy_writer))
+    draft = published.create_draft(create(:policy_writer))
 
-    assert_kind_of Attachment, published_publication.attachments.first
-    assert_not_equal published_publication.attachments, draft_publication.attachments
-    assert_equal published_publication.attachments.first.attachment_data, draft_publication.attachments.first.attachment_data
-    assert_equal published_publication.first_published_at, draft_publication.first_published_at
-    assert_equal published_publication.publication_type, draft_publication.publication_type
+    assert_kind_of Attachment, published.attachments.first
+    assert_not_equal published.attachments, draft.attachments
+    assert_equal published.attachments.first.attachment_data,
+        draft.attachments.first.attachment_data
+    assert_equal published.first_published_at, draft.first_published_at
+    assert_equal published.publication_type, draft.publication_type
   end
 
   test "should allow setting of publication type" do
