@@ -158,7 +158,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     editor = login_as create(:departmental_editor, organisation: organisation)
     get :index
-    assert_redirected_to admin_editions_path(organisation: organisation.id)
+    assert_redirected_to admin_editions_path(organisation: organisation.id, state: :active)
   end
 
   view_test "should not show published editions as force published" do
