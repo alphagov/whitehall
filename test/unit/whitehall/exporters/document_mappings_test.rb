@@ -105,6 +105,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       user = create(:gds_editor)
       publication = create(:published_publication)
       old_slug = publication.document.slug
+      publication.unpublishing = create(:unpublishing)
       publication.unpublish_as(user)
       unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
       publication.title = "This is a new title"

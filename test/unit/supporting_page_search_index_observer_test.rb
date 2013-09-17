@@ -19,7 +19,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     ignore_removal_of_policy_from_search_index(policy)
 
     Searchable::Delete.expects(:later).with(supporting_page)
-
+    policy.unpublishing = build(:unpublishing)
     policy.unpublish_as(create(:gds_editor))
   end
 
