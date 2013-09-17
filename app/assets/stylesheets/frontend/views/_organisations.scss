@@ -1,8 +1,10 @@
 .organisations-index {
 
   .other-departments .type-heading {
-    margin-top: 0;
-    width: 25%;
+    @include media(tablet) {
+      margin-top: 0;
+      width: 25%;
+    }
   }
 
   .omissions {
@@ -123,15 +125,24 @@
       float: left
     }
 
+    p {
+      .count {
+        @include core-36;
+        font-weight: bold;
+        margin-right: $gutter-two-thirds;
+      }      
+    }
+    
     @include media(tablet){
       p {
         clear: both;
-        span.count {
+        .count {
           @include core-80;
           display: block;
           font-weight: bold;
+          width: 100%;
         }
-        span.on-govuk {
+        .on-govuk {
           @include core-24;
           display: block;
           color: $secondary-text-colour;
