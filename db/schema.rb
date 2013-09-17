@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916105832) do
+ActiveRecord::Schema.define(:version => 20130917130058) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -68,8 +68,11 @@ ActiveRecord::Schema.define(:version => 20130916105832) do
     t.string   "parliamentary_session"
     t.boolean  "unnumbered_command_paper"
     t.boolean  "unnumbered_hoc_paper"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
   end
 
+  add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
   add_index "attachments", ["ordering"], :name => "index_attachments_on_ordering"
 
