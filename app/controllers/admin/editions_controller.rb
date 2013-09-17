@@ -251,7 +251,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def default_filters
-    {organisation: current_user.organisation.try(:id)}
+    {organisation: current_user.organisation.try(:id), state: :active}
   end
 
   def session_filters
