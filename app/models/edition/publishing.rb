@@ -129,7 +129,7 @@ module Edition::Publishing
     end
   end
 
-  def unpublish_as(user)
+  def unpublish_as(user, unpublish_params = {})
     if unpublishable_by?(user)
       if minor_change?
         self.published_minor_version = self.published_minor_version - 1
@@ -140,14 +140,29 @@ module Edition::Publishing
         self.published_major_version = self.published_major_version - 1
         self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
       end
-      unpublish!
-      editorial_remarks.create!(author: user, body: "Reset to draft")
+      self.build_unpublishing(unpublish_params)
+      unpublish_edition!(user)
     else
       reasons_to_prevent_unpublication_by(user).each do |reason|
         errors.add(:base, reason)
       end
       false
     end
+  end
+
+  def unpublish_edition!(user)
+    if unpublishing_valid?
+      unpublish!
+      self.unpublishing.save
+      editorial_remarks.create!(author: user, body: "Reset to draft")
+    else
+      errors.add(:base, self.unpublishing.errors.full_messages.join)
+      false
+    end
+  end
+
+  def unpublishing_valid?
+    self.unpublishing.valid?
   end
 
   def approve_retrospectively_as(user)

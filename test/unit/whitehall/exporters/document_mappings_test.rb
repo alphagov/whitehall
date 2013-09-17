@@ -105,7 +105,16 @@ Old Url,New Url,Status,Slug,Admin Url,State
       user = create(:gds_editor)
       publication = create(:published_publication)
       old_slug = publication.document.slug
-      publication.unpublish_as(user)
+
+      unpublish_params = {
+        'unpublishing_reason_id' => '1',
+        'explanation' => 'Was classified',
+        'alternative_url' => 'http://website.com/alt',
+        'document_type' => 'Policy',
+        'slug' => 'some-slug'
+      }
+
+      publication.unpublish_as(user, unpublish_params)
       unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
       publication.title = "This is a new title"
       publication.save!

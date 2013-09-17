@@ -495,7 +495,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(policy)
 
-    policy.unpublish_as(create(:gds_editor))
+    policy.unpublish_as(create(:gds_editor), unpublish_params)
   end
 
   test "swallows errors from search index when it's unpublished" do
@@ -503,7 +503,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
 
-    assert_nothing_raised { policy.unpublish_as(create(:gds_editor)) }
+    assert_nothing_raised { policy.unpublish_as(create(:gds_editor), unpublish_params) }
   end
 
   test "should remove published edition from search index when it's archived" do
@@ -789,5 +789,15 @@ class EditionTest < ActiveSupport::TestCase
 
     refute non_local_gov_editions.include? local_gov_policy
     refute non_local_gov_editions.include? local_gov_publication
+  end
+
+  def unpublish_params
+    {
+      'unpublishing_reason_id' => '1',
+      'explanation' => 'Was classified',
+      'alternative_url' => 'http://website.com/alt',
+      'document_type' => 'Policy',
+      'slug' => 'some-slug'
+    }
   end
 end

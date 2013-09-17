@@ -143,35 +143,33 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
 
   test "sets the state back to draft if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
-    edition.unpublish_as(user)
+    edition.unpublish_as(user, unpublish_params)
     assert edition.draft?
   end
 
   test "adds an editorial remark stating that this edition has been set back to draft if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
-
-    edition.unpublish_as(user)
-
+    edition.unpublish_as(user, unpublish_params)
     assert_equal "Reset to draft", edition.editorial_remarks.last.body
     assert_equal user, edition.editorial_remarks.last.author
   end
 
   test "returns true if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
-    assert edition.unpublish_as(user)
+    assert edition.unpublish_as(user, unpublish_params)
   end
 
   test "does not set the state back to draft if the edition is not unpublishable by the user" do
     user = build(:user)
     edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(false)
-    edition.unpublish_as(user)
+    edition.unpublish_as(user, unpublish_params)
     refute edition.draft?
   end
 
@@ -179,20 +177,30 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     user = build(:user)
     edition = build(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(false)
-    refute edition.unpublish_as(user)
+    refute edition.unpublish_as(user, unpublish_params)
   end
 
   test "adds a suitable error message if the edition is not published" do
     edition = build(:edition, :with_document)
-    edition.unpublish_as(build(:user))
+    edition.unpublish_as(build(:user), unpublish_params)
     assert edition.errors[:base].include?("This edition has not been published")
   end
 
   test "adds a suitable error message if the user is not a GDS editor" do
     non_gds_editor = build(:user)
     edition = build(:edition, :with_document)
-    edition.unpublish_as(non_gds_editor)
+    edition.unpublish_as(non_gds_editor, unpublish_params)
     assert edition.errors[:base].include?("Only GDS editors can unpublish")
+  end
+
+  def unpublish_params
+    {
+      'unpublishing_reason_id' => '1',
+      'explanation' => 'Was classified',
+      'alternative_url' => 'http://website.com/alt',
+      'document_type' => 'Policy',
+      'slug' => 'some-slug'
+    }
   end
 end
 
@@ -366,7 +374,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   test "unpublishing first edition sets published version to nil" do
     edition = create(:submitted_edition)
     edition.publish_as(create(:departmental_editor))
-    edition.unpublish_as(create(:gds_editor))
+    edition.unpublish_as(create(:gds_editor), unpublish_params)
     assert_nil edition.reload.published_version
   end
 
@@ -376,7 +384,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(editor)
     new_draft.minor_change = true
     new_draft.publish_as(editor, force: true)
-    new_draft.unpublish_as(create(:gds_editor))
+    new_draft.unpublish_as(create(:gds_editor), unpublish_params)
     assert_equal '1.0', new_draft.reload.published_version
   end
 
@@ -386,7 +394,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(editor)
     new_draft.change_note = 'My new version'
     new_draft.publish_as(editor, force: true)
-    new_draft.unpublish_as(create(:gds_editor))
+    new_draft.unpublish_as(create(:gds_editor), unpublish_params)
     assert_equal '1.0', new_draft.reload.published_version
   end
 
@@ -399,7 +407,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = minor_change_edition.create_draft(editor)
     new_draft.change_note = 'My new version'
     new_draft.publish_as(editor, force: true)
-    new_draft.unpublish_as(create(:gds_editor))
+    new_draft.unpublish_as(create(:gds_editor), unpublish_params)
     assert_equal '1.1', new_draft.reload.published_version
   end
 
@@ -439,5 +447,15 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     refute edition.approve_retrospectively_as(editor)
     assert edition.force_published?
     assert edition.errors[:base].include?('You are not allowed to retrospectively approve this document, since you force-published it')
+  end
+
+  def unpublish_params
+    {
+      'unpublishing_reason_id' => '1',
+      'explanation' => 'Was classified',
+      'alternative_url' => 'http://website.com/alt',
+      'document_type' => 'Policy',
+      'slug' => 'some-slug'
+    }
   end
 end
