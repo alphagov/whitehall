@@ -102,13 +102,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET :edit renders the edit form" do
-    attachment = create(:attachment, editions: [@edition])
+    attachment = build(:attachment)
+    @edition.attachments << attachment
     get :edit, edition_id: @edition, id: attachment
     assert_select "input[value=#{attachment.title}]"
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do
-    attachment = create(:attachment, editions: [@edition])
+    attachment = build(:attachment)
+    @edition.attachments << attachment
     attachment_data = attachment.attachment_data
     put :update, edition_id: @edition, id: attachment, attachment: {
       title: 'New title',
@@ -119,7 +121,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "PUT :update with a file creates a replacement attachment data whilst leaving the original alone" do
-    attachment = create(:attachment, editions: [@edition])
+    attachment = build(:attachment)
+    @edition.attachments << attachment
     old_data = attachment.attachment_data
     put :update, edition_id: @edition, id: attachment, attachment: {
       attachment_data_attributes: { to_replace_id: old_data.id, file: fixture_file_upload('whitepaper.pdf') }
@@ -133,16 +136,17 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy deletes an attachment" do
-    attachment = create(:attachment, editions: [@edition])
+    attachment = build(:attachment)
+    @edition.attachments << attachment
     delete :destroy, edition_id: @edition, id: attachment
 
     refute Attachment.exists?(attachment), 'attachment should have been deleted'
-    assert_equal [], @edition.attachments.to_a
+    assert_equal [], @edition.attachments.reload.to_a
   end
 
   test "DELETE :destroy deletes attachments from other 'attachable' things" do
     response = @edition.outcome = create(:consultation_outcome)
-    attachment = create(:attachment)
+    attachment = build(:attachment)
     response.attachments << attachment
     delete :destroy, response_id: response, id: attachment
 

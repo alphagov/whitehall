@@ -71,10 +71,9 @@ class Admin::SupportingPagesController < Admin::BaseController
   end
 
   def cope_with_attachment_action_params
-    return unless params[:supporting_page] &&
-                  params[:supporting_page][:supporting_page_attachments_attributes]
-    params[:supporting_page][:supporting_page_attachments_attributes].each do |_, supporting_page_attachment_params|
-      Admin::AttachmentActionParamHandler.manipulate_params!(supporting_page_attachment_params)
+    attachments_attributes = params.fetch(:supporting_page, {}).fetch(:attachments_attributes, {})
+    attachments_attributes.each do |_, attachment_attributes|
+      Admin::AttachmentActionParamHandler.manipulate_params!(attachment_attributes)
     end
   end
 
