@@ -11,8 +11,11 @@ Mime::Type.register "text/rtf", :rtf
 Mime::Type.register "image/jpeg", :jpg, [], %w( jpeg )
 
 Mime::Type.register "application/msword", :doc
+Mime::Type.register "application/msword", :dot
 Mime::Type.register "application/vnd.openxmlformats-officedocument.wordprocessingml.document", :docx
 Mime::Type.register "application/vnd.ms-excel", :xls
+Mime::Type.register "application/vnd.ms-excel", :xlt
+Mime::Type.register "application/vnd.ms-excel.sheet.macroEnabled.12", :xlsm
 Mime::Type.register "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", :xlsx
 Mime::Type.register "application/vnd.ms-powerpoint", :ppt
 Mime::Type.register "application/vnd.openxmlformats-officedocument.presentationml.presentation", :pptx
