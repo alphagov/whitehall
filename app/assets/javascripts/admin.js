@@ -3,6 +3,7 @@
 //= require jquery_ujs
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/jquery/magna-charta.min
+//= require vendor/google-diff-match-patch.js
 //= require ./application/convert-html-pub-charts
 //= require bootstrap
 //= require_tree ./common

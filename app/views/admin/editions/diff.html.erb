@@ -1,17 +1,45 @@
 <% page_title @edition.title, @edition.format_name %>
-<%
-  diff = render_edition_diff(@edition, @audit_trail_entry)
-%>
 <div class="span12">
   <div class="page-header">
     <h1>Changes to &lsquo;<%= @edition.title %>&rsquo;</h1>
   </div>
   <p>This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
-  <% if diff.blank? %>
-    <p><strong>There have been no changes in this edition.</strong></p>
-  <% end %>
+  <div id="diff">
+    <div id="title-1" class="hide">
+      <%= @audit_trail_entry.title %>
+    </div>
+
+    <div id="title-2" class="hide">
+      <%= @edition.title %>
+    </div>
+
+    <h2>Title</h2>
+    <div id="title-output">
+    </div>
+
+    <div id="summary-1" class="hide">
+      <%= @audit_trail_entry.summary %>
+    </div>
+
+    <div id="summary-2" class="hide">
+      <%= @edition.summary %>
+    </div>
+
+    <h2>Summary</h2>
+    <div id="summary-output">
+    </div>
+
+    <div id="body-1" class="hide">
+      <%= @audit_trail_entry.body %>
+    </div>
+
+    <div id="body-2" class="hide">
+      <%= @edition.body %>
+    </div>
+
+    <h2>Body</h2>
+    <div id="body-output">
+    </div>
+  </div>
   <p><%= link_to "Back to edition", admin_edition_path(@edition), class: "btn" %></p>
-  <section>
-    <%= diff %>
-  </section>
 </div>

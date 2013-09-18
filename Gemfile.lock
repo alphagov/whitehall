@@ -100,7 +100,6 @@ GEM
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
     diff-lcs (1.2.4)
-    diffy (2.1.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
     exception_notification (3.0.1)
@@ -344,7 +343,6 @@ DEPENDENCIES
   cucumber-rails (~> 1.3.1)
   database_cleaner (= 1.0.1)
   delayed_job_active_record
-  diffy
   exception_notification
   factory_girl
   friendly_id (= 4.0.9)
