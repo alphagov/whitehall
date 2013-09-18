@@ -17,6 +17,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def update
+    params[:worldwide_office] = {service_ids: []}.merge(params[:worldwide_office])
     @worldwide_office.update_attributes(params[:worldwide_office])
     if @worldwide_office.save
       handle_show_on_home_page_param
