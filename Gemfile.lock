@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/alphagov/rack-test.git
-  revision: c98433f5f6a45842520913c31968cde5cd782d55
+  remote: git://github.com/brynary/rack-test.git
+  revision: 8cdb86e1d710194ce45f439915707db7fb2b27e5
   specs:
     rack-test (0.6.2)
       rack (>= 1.0)
