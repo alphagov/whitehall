@@ -195,6 +195,7 @@ class Import < ActiveRecord::Base
       end
     end
   end
+  handle_asynchronously :import_row
 
   def headers
     rows.headers
