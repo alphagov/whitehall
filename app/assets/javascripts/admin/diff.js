@@ -5,6 +5,7 @@
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
   var dmp = new diff_match_patch();
+  dmp.Diff_EditCost = 6;
 
   var diff = function(text1, text2, output) {
     var text1 = text1.text();
