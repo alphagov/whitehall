@@ -63,8 +63,7 @@ group :development do
 end
 
 group :test do
-  # NOTE: keep until https://github.com/brynary/rack-test/pull/69 is merged
-  gem 'rack-test', github: 'alphagov/rack-test'
+  gem 'rack-test', github: 'brynary/rack-test'
   gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.14.0', require: false
