@@ -12,7 +12,7 @@ class Whitehall::Uploader::Parsers::DateParser
         raise "unparsable"
       end
     rescue
-      logger.error "Unable to parse the date '#{date}', should be in form DD-MMM-YYYY"
+      logger.error "Unable to parse the date '#{date}', should be in form DD-MMM-YYYY", line_number
       nil
     end
   end

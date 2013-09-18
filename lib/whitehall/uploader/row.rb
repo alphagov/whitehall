@@ -1,7 +1,7 @@
 module Whitehall::Uploader
   class Row
     ATTACHMENT_LIMIT = 100
-    attr_reader :row
+    attr_reader :row, :line_number
 
     def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
       @row = row

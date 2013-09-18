@@ -1,9 +1,10 @@
 require 'test_helper'
+require_relative '../importer_test_logger'
 
 class Whitehall::Uploader::Finders::MinisterialRolesFinderTest < ActiveSupport::TestCase
   def setup
     @log_buffer = StringIO.new
-    @log = Logger.new(@log_buffer)
+    @log = ImporterTestLogger.new(@log_buffer)
     @line_number = 1
   end
 

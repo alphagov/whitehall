@@ -51,7 +51,7 @@ module Whitehall::Uploader
     end
 
     def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, logger).find([row['data_series']])
+      Finders::SluggedModelFinder.new(DocumentSeries, logger, line_number).find([row['data_series']])
     end
 
     def first_published_at

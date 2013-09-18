@@ -8,7 +8,7 @@ class Whitehall::Uploader::Finders::NewsArticleTypeFinder
     type = NewsArticleType.find_by_slug(slug) || SPECIAL_CASES[slug]
     logger.error "Unable to find News article type with slug '#{slug}'
     try one of (#{NewsArticleType.all_slugs})
-    " unless type
+    ", line_number unless type
     type
   end
 end

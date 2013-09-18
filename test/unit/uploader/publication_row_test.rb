@@ -5,10 +5,11 @@ module Whitehall::Uploader
     setup do
       @attachment_cache = stub('attachment cache')
       @default_organisation = stub('Organisation', url: 'url')
+      @line_number = 1
     end
 
     def new_publication_row(csv_data={}, logger = Logger.new($stdout))
-      Whitehall::Uploader::PublicationRow.new(csv_data, 1, @attachment_cache, @default_organisation, logger)
+      Whitehall::Uploader::PublicationRow.new(csv_data, @line_number, @attachment_cache, @default_organisation, logger)
     end
 
     def basic_headings
@@ -120,7 +121,7 @@ module Whitehall::Uploader
     end
 
     test "finds up to 42 attachments in columns attachment 1 title, attachement 1 url..." do
-      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf", @line_number).returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
         "attachment_1_title" => "first title",
@@ -133,7 +134,7 @@ module Whitehall::Uploader
     end
 
     test "records any meta data onto the first attachment" do
-      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf", @line_number).returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
         "attachment_1_title" => "first title",
@@ -155,7 +156,7 @@ module Whitehall::Uploader
     end
 
     test "records any parlimentary paper information to the first attachment" do
-      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf", @line_number).returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
         'attachment_1_title' =>'title',
@@ -179,7 +180,7 @@ module Whitehall::Uploader
     end
 
     test "finds any attachments specified in JSON in the json_attachments column" do
-      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf").returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
+      @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf", @line_number).returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
         "json_attachments" => ActiveSupport::JSON.encode([{"title" => "first title", "link" => "http://example.com/attachment.pdf"}])

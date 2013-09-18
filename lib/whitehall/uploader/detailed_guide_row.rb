@@ -14,23 +14,23 @@ module Whitehall::Uploader
     end
 
     def topics
-      Finders::SluggedModelFinder.new(Topic, @logger).find(fields(1..4, 'topic_#'))
+      Finders::SluggedModelFinder.new(Topic, @logger, @line_number).find(fields(1..4, 'topic_#'))
     end
 
     def primary_mainstream_category
-      Finders::SluggedModelFinder.new(MainstreamCategory, @logger).find([row['detailed_guidance_category_1']]).first
+      Finders::SluggedModelFinder.new(MainstreamCategory, @logger, @line_number).find([row['detailed_guidance_category_1']]).first
     end
 
     def other_mainstream_categories
-      Finders::SluggedModelFinder.new(MainstreamCategory, @logger).find(fields(2..4, 'detailed_guidance_category_#'))
+      Finders::SluggedModelFinder.new(MainstreamCategory, @logger, @line_number).find(fields(2..4, 'detailed_guidance_category_#'))
     end
 
     def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, @logger).find(fields(1..4, 'document_series_#'))
+      Finders::SluggedModelFinder.new(DocumentSeries, @logger, @line_number).find(fields(1..4, 'document_series_#'))
     end
 
     def outbound_related_documents
-      Finders::SluggedModelFinder.new(Document, @logger).find(fields(1..4, 'related_detailed_guide_#'))
+      Finders::SluggedModelFinder.new(Document, @logger, @line_number).find(fields(1..4, 'related_detailed_guide_#'))
     end
 
     def attachments
