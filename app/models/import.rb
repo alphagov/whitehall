@@ -71,6 +71,18 @@ class Import < ActiveRecord::Base
     end
   end
 
+  def row_numbers
+    (2..rows.count).to_a
+  end
+
+  def successful_row_numbers
+    document_sources.select(:row_number).map(&:row_number)
+  end
+
+  def failed_row_numbers
+    import_errors.select(:row_number).map(&:row_number)
+  end
+
   def success_count
     status == :finished ? documents.count(distinct: true) : 0
   end
