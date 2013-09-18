@@ -76,8 +76,10 @@ module DocumentHelper
     file_extension_vs_humanized_content_type = {
       "csv"  => file_abbr_tag('CSV', 'Comma-separated Values'),
       "doc"  => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+      "dot"  => file_abbr_tag('DOT', 'MS Word Document Template'),
       "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
       "html" => file_abbr_tag('HTML', 'Hypertext Markup Language'),
+      "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
       "jpg"  => "JPEG",
       "ods"  => file_abbr_tag('ODS', 'OpenDocument Spreadsheet'),
       "odt"  => file_abbr_tag('ODT', 'OpenDocument Text document'),
@@ -85,10 +87,15 @@ module DocumentHelper
       "png"  => file_abbr_tag('PNG', 'Portable Network Graphic'),
       "ppt"  => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
       "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
+      "ps"   => file_abbr_tag('PS', 'PostScript'),
       "rdf"  => file_abbr_tag('RDF', 'Resource Description Framework'),
       "rtf"  => file_abbr_tag('RTF', 'Rich Text Format'),
+      "txt"  => "Plain text",
       "xls"  => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+      "xlsm" => file_abbr_tag('XSLM', 'MS Excel Macro-Enabled Workbook'),
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+      "xlt"  => file_abbr_tag('XLT', 'MS Excel Spreadsheet Template'),
+      "xsd"  => file_abbr_tag('XSD', 'XML Schema'),
       "zip"  => file_abbr_tag('ZIP', 'Zip archive'),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
