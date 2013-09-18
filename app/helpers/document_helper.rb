@@ -68,24 +68,35 @@ module DocumentHelper
   MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE = "MS Excel Spreadsheet"
   MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE = "MS Powerpoint Presentation"
 
+  def file_abbr_tag(abbr, title)
+    content_tag(:abbr, abbr, title: title)
+  end
+
   def humanized_content_type(file_extension)
     file_extension_vs_humanized_content_type = {
-      "pdf" => content_tag(:abbr, 'PDF', title: 'Portable Document Format'),
-      "csv" => content_tag(:abbr, 'CSV', title: 'Comma-separated Values'),
-      "rtf" => content_tag(:abbr, 'RTF', title: 'Rich Text Format'),
-      "rdf" => content_tag(:abbr, 'RDF', title: 'Resource Description Framework'),
-      "png" => content_tag(:abbr, 'PNG', title: 'Portable Network Graphic'),
-      "jpg" => "JPEG",
-      "zip" => content_tag(:abbr, 'ZIP', title: 'Zip archive'),
-      "doc" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+      "csv"  => file_abbr_tag('CSV', 'Comma-separated Values'),
+      "doc"  => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
+      "dot"  => file_abbr_tag('DOT', 'MS Word Document Template'),
       "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
-      "xls" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
-      "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
-      "ppt" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
+      "html" => file_abbr_tag('HTML', 'Hypertext Markup Language'),
+      "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
+      "jpg"  => "JPEG",
+      "ods"  => file_abbr_tag('ODS', 'OpenDocument Spreadsheet'),
+      "odt"  => file_abbr_tag('ODT', 'OpenDocument Text document'),
+      "pdf"  => file_abbr_tag('PDF', 'Portable Document Format'),
+      "png"  => file_abbr_tag('PNG', 'Portable Network Graphic'),
+      "ppt"  => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
       "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
-      "odt" => content_tag(:abbr, 'ODT', title: 'OpenDocument Text document'),
-      "ods" => content_tag(:abbr, 'ODS', title: 'OpenDocument Spreadsheet'),
-      "html" => content_tag(:abbr, 'HTML', title: 'Hypertext Markup Language'),
+      "ps"   => file_abbr_tag('PS', 'PostScript'),
+      "rdf"  => file_abbr_tag('RDF', 'Resource Description Framework'),
+      "rtf"  => file_abbr_tag('RTF', 'Rich Text Format'),
+      "txt"  => "Plain text",
+      "xls"  => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+      "xlsm" => file_abbr_tag('XSLM', 'MS Excel Macro-Enabled Workbook'),
+      "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
+      "xlt"  => file_abbr_tag('XLT', 'MS Excel Spreadsheet Template'),
+      "xsd"  => file_abbr_tag('XSD', 'XML Schema'),
+      "zip"  => file_abbr_tag('ZIP', 'Zip archive'),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
   end
