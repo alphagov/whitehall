@@ -1,9 +1,4 @@
-# encoding: UTF-8
-# *NOTE* this file deliberately does not include test_helper
-# in order to attempt to speed up the tests
-
-require File.expand_path("../../../fast_test_helper", __FILE__)
-require 'whitehall/publication_filter_option'
+require 'test_helper'
 
 module Whitehall
   class PublicationFilterOptionTest < ActiveSupport::TestCase
@@ -17,8 +12,7 @@ module Whitehall
     end
 
     test "finding by slug returns the slugged version" do
-      option = PublicationFilterOption.create(label: "Test Filter Option")
-      assert_equal option, PublicationFilterOption.find_by_slug("test-filter-option")
+      assert_equal PublicationFilterOption::OpenConsultation, PublicationFilterOption.find_by_slug("open-consultations")
     end
 
     test "edition_types is an empty array by default" do
