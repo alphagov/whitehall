@@ -2,112 +2,123 @@ require "test_helper"
 
 class Admin::DocumentSeriesControllerTest < ActionController::TestCase
   setup do
-    @organisation = create(:organisation)
-    @user = create(:policy_writer, organisation: @organisation)
+    @organisation_1 = create(:organisation)
+
+    @user = create(:policy_writer)
     login_as @user
   end
 
   should_be_an_admin_controller
+  should_allow_related_policies_for :document_series
+  should_allow_organisations_for :document_series
 
-  view_test "GET #new renders document series form" do
-    get :new, organisation_id: @organisation
-
-    assert_select "form[action=?]", admin_organisation_document_series_index_path(@organisation) do
-      assert_select "input[type=text][name=?]", "document_series[name]"
-      assert_select "textarea[name=?]", "document_series[description]"
-    end
-  end
-
-  test "POST #create saves the document series to the organisation" do
-    post :create, organisation_id: @organisation, document_series: {
-          name: "series-name",
-          summary: "series-summary",
-          description: "series-description"
-        }
-
-    assert_equal 1, @organisation.document_series.count
-    document_series = @organisation.document_series.first
-    assert_equal "series-name", document_series.name
-    assert_equal "series-description", document_series.description
-    assert document_series.groups.present?, 'should have a group'
-    assert_response :redirect
-  end
-
-  view_test "POST #create with invalid params re-renders form the with errors" do
-    post :create, organisation_id: @organisation, document_series: { name: "" }
-
-    assert_response :success
-    assert_equal 0, @organisation.document_series.count
-
-    assert_select "form .field_with_errors input[name=?]", "document_series[name]"
-  end
+  ### Describing #show ###
 
   view_test 'GET #show displays the document series' do
     series = create(:document_series,
-      organisation: @organisation,
-      name: "series-name",
-      description: "description-in-govspeak"
+      title: "series-title",
+      summary: "the summary"
     )
 
-    govspeak_transformation_fixture "description-in-govspeak" => "description-in-html" do
-      get :show, organisation_id: @organisation, id: series
+    get :show, id: series
+
+    assert_select "h1", "series-title"
+    assert_select ".summary", "the summary"
+  end
+
+
+  ### Describing #new ###
+
+  view_test "GET #new renders document series form" do
+    get :new
+
+    assert_select "form[action=?]", admin_document_series_index_path do
+      assert_select "input[type=text][name=?]", "edition[title]"
+      assert_select "textarea[name=?]", "edition[summary]"
+      assert_select "textarea[name=?]", "edition[body]"
     end
-
-    assert_select "h1", "series-name"
-    assert_select ".govspeak", "description-in-html"
   end
 
-  test "GET #index redirects to the list of the user's organisation's document series" do
-    get :index
 
-    assert_redirected_to admin_organisation_document_series_index_path(@user.organisation)
+  ### Describing #create ###
+
+  test "POST #create saves the document series" do
+    post :create, edition: {
+          title: "series-title",
+          summary: "series-summary",
+          body: "series-body",
+          lead_organisation_ids: [@organisation_1.id]
+        }
+
+    assert_equal 1, DocumentSeries.count
+    document_series = DocumentSeries.first
+    assert_equal "series-title", document_series.title
+    assert_equal "series-summary", document_series.summary
+    assert_equal "series-body", document_series.body
+    assert document_series.groups.present?, 'should have a group'
   end
 
-  test "GET #index redirects to the organisation list page if the user has no organisation" do
-    @user.organisation = nil
-    @user.save
-    get :index
+  view_test "POST #create with invalid params re-renders form the with errors" do
+    post :create, edition: { title: "" }
 
-    assert_redirected_to admin_organisations_path
+    assert_response :success
+    assert_equal 0, DocumentSeries.count
+
+    assert_select "form .field_with_errors input[name=?]", "edition[title]"
   end
+
+
+
+  ### Describing #edit ###
 
   view_test "GET #edit renders the edit form for the document series" do
-    document_series = create(:document_series, organisation: @organisation)
+    document_series = create(:document_series)
 
-    get :edit, organisation_id: @organisation,
-               id: document_series
+    get :edit, id: document_series
 
-    assert_select "form[action=?]", admin_organisation_document_series_path(@organisation, document_series) do
-      assert_select "input[type=text][name=?]", "document_series[name]"
-      assert_select "textarea[name=?]", "document_series[description]"
+    assert_select "form[action=?]", admin_document_series_path(document_series) do
+      assert_select "input[name='edition[slug]'][value=?]", document_series.slug
+      assert_select "input[name='edition[title]'][value=?]", document_series.title
+      assert_select "textarea[name='edition[summary]']", text: document_series.summary
+      assert_select "textarea[name='edition[body]']", text: document_series.body
     end
   end
 
+
+  ### Describing #update ###
+
   test "PUT #update updates the document series" do
-    document_series = create(:document_series, organisation: @organisation, name: "old-name")
+    document_series = create(:document_series, title: "old-title")
 
-    put :update, organisation_id: @organisation, id: document_series, document_series: { name: "new-name" }
+    put :update, id: document_series, edition: { title: "new-title" }
 
-    assert_equal "new-name", document_series.reload.name
+    assert_equal "new-title", document_series.reload.title
     assert_response :redirect
   end
 
+  view_test "PUT #update with invalid params re-renders the form with errors" do
+    document_series = create(:document_series, title: "old-title")
+    put :update, id: document_series, edition: {title: ""}
+
+    assert_equal "old-title", document_series.reload.title
+
+    assert_select "form" do
+      assert_select ".field_with_errors input[name=?]", "edition[title]"
+    end
+  end
+
+
+  ### Describing #destroy ###
+  test "Delete does some funky stuff depending on publication state now, test it" do
+    assert false, "Pending"
+  end
+
   test "DELETE #destroy deletes the document series" do
-    document_series = create(:document_series, organisation: @organisation)
-    delete :destroy, organisation_id: @organisation, id: document_series
+    document_series = create(:document_series)
+    delete :destroy, id: document_series
 
     refute DocumentSeries.exists?(document_series)
     assert_response :redirect
   end
 
-  view_test "PUT #update with invalid params re-renders the form with errors" do
-    document_series = create(:document_series, organisation: @organisation, name: "old-name")
-    put :update, organisation_id: @organisation, id: document_series, document_series: {name: ""}
-
-    assert_equal "old-name", document_series.reload.name
-
-    assert_select "form" do
-      assert_select ".field_with_errors input[name=?]", "document_series[name]"
-    end
-  end
 end
