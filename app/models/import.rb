@@ -7,7 +7,7 @@ class Import < ActiveRecord::Base
   has_many :editions, through: :documents, uniq: true
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
-  has_many :import_logs, dependent: :destroy
+  has_many :import_logs, dependent: :destroy, order: 'row_number'
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation
@@ -194,7 +194,7 @@ class Import < ActiveRecord::Base
   end
 
   def import_row(row, row_number, creator, progress_logger)
-    progress_logger.transaction(row_number) do
+    progress_logger.with_transaction(row_number) do
       attributes = row.attributes.merge(creator: creator, state: 'imported')
       model = model_class.new(attributes)
       if model.save
@@ -335,7 +335,7 @@ class Import < ActiveRecord::Base
       @errors_during = []
     end
 
-    def transaction(row_number, &block)
+    def with_transaction(row_number, &block)
       ActiveRecord::Base.transaction do
         begin
           @errors_during = []

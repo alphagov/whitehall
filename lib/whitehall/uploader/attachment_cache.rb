@@ -64,7 +64,7 @@ class Whitehall::Uploader::AttachmentCache
     end
 
     def cache_path
-      File.join(@root_dir, Digest::MD5.hexdigest(@original_url))
+      File.join(root_dir, Digest::MD5.hexdigest(original_url))
     end
 
     def cached_file
