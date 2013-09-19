@@ -73,3 +73,12 @@ class DocumentSeriesControllerTest < ActionController::TestCase
     assert_equal series, assigns(:document_series).send(:document_series)
   end
 end
+
+class DocumentSeriesControllerRedirectsTest < ActionDispatch::IntegrationTest
+  test "old route (eg. /government/organisations/?/series/?) should redirect to this show action" do
+    get '/government/organisations/ministry-of-defence/series/firing-notice'
+
+    assert response.redirect?
+    assert response.location = document_series_url(id: 'firing-notice')
+  end
+end

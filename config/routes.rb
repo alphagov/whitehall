@@ -106,8 +106,8 @@ Whitehall::Application.routes.draw do
     resources :document_series, only: [:index, :show], path: 'series'
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
-      # TODO: need to redirect to new url
-      # resources :document_series, only: [:index, :show], path: 'series'
+      #redirects /gov/organisations/:org_id/series/:id => /gov/series/:id
+      match '/series/:series_id' => redirect("/series/%{series_id}")
       member do
         get :about, localised: true
         get :consultations
