@@ -8,10 +8,11 @@ class DocumentSeries < Edition
                     order: 'document_series_groups.ordering',
                     dependent: :destroy,
                     inverse_of: :document_series
-  # has_many :documents, through: :groups
-  # has_many :editions, through: :documents
 
-  validates_with SafeHtmlValidator
+  has_many :documents, through: :groups
+  has_many :editions, through: :documents
+
+  before_create :create_default_group
 
   # TODO
   # searchable title: :name,
@@ -44,4 +45,12 @@ class DocumentSeries < Edition
   # def destroyable?
   #   published_editions.empty?
   # end
+
+  private
+
+  def create_default_group
+    if groups.empty?
+      groups << DocumentSeriesGroup.new(DocumentSeriesGroup.default_attributes)
+    end
+  end
 end

@@ -12,7 +12,7 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   def publication_series
     if model.part_of_series?
       links = model.document_series.map do |ds|
-        context.link_to(ds.name, context.organisation_document_series_path(ds.organisation, ds))
+        context.link_to(ds.title, context.document_series_path(ds))
       end
       "Part of a series: #{links.to_sentence}"
     end

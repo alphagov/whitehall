@@ -5,13 +5,13 @@
 <% if edition.can_be_related_to_organisations? %>
   <fieldset class="named">
     <div class="row-fluid">
-      <fieldset class="named span4">
+      <fieldset class="named span4 lead-organisations">
         <legend>Lead organisations</legend>
 
         <%= form.lead_organisations_fields %>
       </fieldset>
 
-      <fieldset class="named span4">
+      <fieldset class="named span4 supporting-organisations">
         <legend>Supporting organisations</legend>
 
         <%= form.supporting_organisations_fields %>

@@ -20,11 +20,6 @@ class DocumentSeriesGroup < ActiveRecord::Base
     { heading: 'Documents' }
   end
 
-  def assign_ordering
-    peers = document_series.present? ? document_series.groups.size : 0
-    self.ordering = peers + 1
-  end
-
   def published_editions
     editions.published.in_reverse_chronological_order
   end
@@ -37,5 +32,12 @@ class DocumentSeriesGroup < ActiveRecord::Base
 
   def visible?
     published_editions.present?
+  end
+
+  private
+
+  def assign_ordering
+    peers = document_series.present? ? document_series.groups.size : 0
+    self.ordering = peers + 1
   end
 end

@@ -89,5 +89,13 @@ module ModelHelpers
         refute class_from_test_name.new.can_have_summary?
       end
     end
+
+    def should_validate_with_safe_html_validator
+      test "should validate with safe_html_validator" do
+        instance = class_from_test_name.new
+        SafeHtmlValidator.any_instance.expects(:validate).with(instance)
+        instance.valid?
+      end
+    end
   end
 end
