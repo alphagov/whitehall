@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative '../importer_test_logger'
+require 'support/importer_test_logger'
 
 class Whitehall::Uploader::Finders::OrganisationFinderTest < ActiveSupport::TestCase
   def setup
