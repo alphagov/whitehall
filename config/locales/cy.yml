@@ -503,31 +503,31 @@ cy:
   people:
     heading:
       zero:
-      one:
+      one: Person
       two:
       few:
-      many:
+      many: Pobl
       other:
-    biography:
-    previous_roles:
-    previous_roles_in_government:
-    read_more:
+    biography: Bywgraffiad
+    previous_roles: Rolau blaenorol
+    previous_roles_in_government: Rolau blaenorol mewn llywodraeth
+    read_more: Mwy am y person yma
   roles:
     heading:
       zero:
-      one:
+      one: Rôl
       two:
       few:
       many:
-      other:
+      other: Rolau
     headings:
-      current_holder:
-      previous_holders:
-      responsibilities:
-    ministerial:
-    policies_reponsible:
-    previous_holders:
-    read_more:
+      current_holder: ! 'Deiliad y rôl  '
+      previous_holders: ! 'Cyn-ddeiliaid '
+      responsibilities: Cyfrifoldebau
+    ministerial: Rôl Gweinidogol
+    policies_reponsible: dan gyfrifoldeb %{person} fel %{role}
+    previous_holders: Cyn-ddeiliaid y rôl yma
+    read_more: Mwy am y rôl yma
   world_location:
     type:
       international_delegation:
@@ -622,7 +622,7 @@ cy:
       unnumbered_hoc_paper:
   announcements:
     heading: Cyhoeddiadau
-    view_all:
+    view_all: Gwelir holl datganiadau
   attachment:
     accessibility:
       full_help_html: I ofyn am y ddogfen hon  mewn fformat arall, fel braille, sain
@@ -686,7 +686,7 @@ cy:
         format: ! '%n%u'
   policies:
     heading: Polisïau
-    view_all:
+    view_all: Gwelir holl polisiau
   publications:
     heading: Cyhoeddiadau
     headings:
