@@ -103,7 +103,7 @@ Whitehall::Application.routes.draw do
       resource :about_pages, path: "about", only: [:show]
     end
 
-    resources :document_series, only: [:index, :show], path: 'series'
+    resources :document_series, only: [:show], path: 'series'
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
       #redirects /gov/organisations/:org_id/series/:id => /gov/series/:id
