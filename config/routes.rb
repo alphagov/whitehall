@@ -40,7 +40,8 @@ Whitehall::Application.routes.draw do
     get "/how-government-works" => "home#how_government_works", as: 'how_government_works'
     scope '/get-involved' do
       root to: 'home#get_involved', as: :get_involved, via: :get
-      resources :take_part_pages, path: 'take-part', only: [:show, :index]
+      get 'take-part' => redirect('/get-involved#take-part')
+      get 'take-part/:id', to: 'take_part_pages#show', as: 'take_part_page'
     end
 
     # Past foreign secretaries are currently hard-coded, so this
