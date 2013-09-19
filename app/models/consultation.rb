@@ -7,11 +7,10 @@ class Consultation < Publicationesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::HasHtmlVersion
   include Edition::TopicalEvents
+  include Edition::CanBeExternal
 
   validates :opening_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
-  validates :external_url, presence: { if: :external? }
-  validates :external_url, uri: true, allow_blank: true
 
   validate :closing_on_must_be_after_opening_on
 
