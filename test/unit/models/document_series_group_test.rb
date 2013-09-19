@@ -2,9 +2,10 @@ require 'test_helper'
 
 class DocumentSeriesGroupTest < ActiveSupport::TestCase
   test 'new groups should set #ordering when assigned to a series' do
-    series = create(:document_series)
-    series.groups << build(:document_series_group)
-    series.groups << build(:document_series_group)
+    series = create(:document_series, groups: [
+      build(:document_series_group),
+      build(:document_series_group)
+    ])
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
 
@@ -24,5 +25,24 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     old = create(:published_publication, first_published_at: 2.days.ago)
     group.documents = [draft.document, new.document, old.document]
     assert_equal [new, old, draft], group.latest_editions
+  end
+
+  test 'dup should also clone document memberships' do
+    group = create(:document_series_group, documents: [
+      doc_1 = build(:document),
+      doc_2 = build(:document),
+      doc_3 = build(:document)
+    ])
+
+    group.memberships[0].ordering = 2
+    group.memberships[1].ordering = 1
+    group.memberships[2].ordering = 3
+
+    new_group = group.dup
+
+    assert_not_equal group.memberships[0],          new_group.memberships[0]
+    assert_equal     group.memberships[0].document, new_group.memberships[0].document
+    assert_equal     1,                             new_group.memberships[1].ordering
+    assert_equal     3,                             new_group.memberships[2].ordering
   end
 end

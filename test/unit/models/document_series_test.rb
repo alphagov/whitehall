@@ -37,15 +37,15 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   should_validate_with_safe_html_validator
 
   test "it should be invalid without a title" do
-    assert_invalid(build(:document_series, title: nil))
+    assert_invalid build(:document_series, title: nil)
   end
 
   test "it should be invalid without a summary" do
-    assert_invalid(build(:document_series, summary: nil))
+    assert_invalid build(:document_series, summary: nil)
   end
 
   test "it should be invalid without body text" do
-    assert_invalid(build(:document_series, body: nil))
+    assert_invalid build(:document_series, body: nil)
   end
 
 
@@ -61,6 +61,32 @@ class DocumentSeriesTest < ActiveSupport::TestCase
     assert_equal 1, doc_series.groups.length
     refute_equal "Documents", doc_series.groups[0].heading
   end
+
+
+  ### Describing re-drafting behaviour and association cloning ###
+
+  test "It should create new instances of associated DocumentSeriesGroups, with the groups retaining the original groups' member documents" do
+    doc_1 = create(:published_news_article).document
+    doc_2 = create(:draft_detailed_guide).document
+    doc_3 = create(:scheduled_publication).document
+
+    original_doc_series = create(:published_document_series, groups: [
+      build(:document_series_group, heading: "Cheese", body: "Differences between cheese types", documents: [doc_1, doc_2]),
+      build(:document_series_group, heading: "Famous Llamas", body: "Darth Vadar was infact a llama", documents: [doc_3])
+    ])
+
+    redrafted_doc_series = original_doc_series.create_draft(user = create(:gds_editor))
+
+    assert_not_equal original_doc_series.groups[0], redrafted_doc_series.groups[0]
+
+    assert_equal original_doc_series.groups[0].heading, redrafted_doc_series.groups[0].heading
+    assert_equal original_doc_series.groups[1].body,    redrafted_doc_series.groups[1].body
+
+    assert_equal [doc_1, doc_2], redrafted_doc_series.groups[0].documents
+    assert_equal [doc_3],        redrafted_doc_series.groups[1].documents
+  end
+
+
 
 
   # test 'published_editions returns published editions from series in reverse chronological order' do

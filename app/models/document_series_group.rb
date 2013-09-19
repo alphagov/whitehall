@@ -34,6 +34,12 @@ class DocumentSeriesGroup < ActiveRecord::Base
     published_editions.present?
   end
 
+  def dup
+    new_group = super
+    new_group.memberships = memberships.map &:dup
+    new_group
+  end
+
   private
 
   def assign_ordering

@@ -14,6 +14,14 @@ class DocumentSeries < Edition
 
   before_create :create_default_group
 
+  class ClonesGroupsTrait < Edition::Traits::Trait
+    def process_associations_before_save(new_edition)
+      new_edition.groups = @edition.groups.map(&:dup)
+    end
+  end
+
+  add_trait ClonesGroupsTrait
+
   # TODO
   # searchable title: :name,
   #            link: :search_link,
