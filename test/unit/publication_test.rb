@@ -53,18 +53,13 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid_as_draft?
   end
 
-  test "shouldn't be able to publish a publication without any attachments" do
-    publication = build(:published_publication, html_version: nil, attachments: [])
-    refute publication.valid?
-    assert_match /cannot be published without an attachment/, publication.errors[:base].first
+  %w(submitted scheduled published).each do |state|
+    test "A #{state} publication is not valid without an attachment" do
+      publication = build("#{state}_publication", html_version: nil, attachments: [])
+      refute publication.valid?
+      assert_match /cannot be #{state} without an attachment/, publication.errors[:base].first
+    end
   end
-
-  test "shouldn't be able to schedule a publication without any attachments" do
-    publication = build(:scheduled_publication, html_version: nil, attachments: [])
-    refute publication.valid?
-    assert_match /cannot be scheduled without an attachment/, publication.errors[:base].first
-  end
-
 
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,
