@@ -499,7 +499,10 @@ class ImportTest < ActiveSupport::TestCase
       import.save!
       yield(import) if block_given?
       import.update_column(:import_enqueued_at, Time.current)
-      import.perform
+
+      without_delay! do
+        import.perform
+      end
     end
   end
 

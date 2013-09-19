@@ -4,7 +4,7 @@ class Whitehall::Uploader::Finders::WorldLocationsFinder
 
     world_locations = slugs.map do |slug|
       world_location = WorldLocation.find_by_slug(slug)
-      logger.error "Unable to find WorldLocation with slug '#{slug}'" unless world_location
+      logger.error "Unable to find WorldLocation with slug '#{slug}'", line_number unless world_location
       world_location
     end.compact
   end

@@ -9,7 +9,7 @@ class Whitehall::Uploader::Finders::PoliciesFinder
           document.latest_edition
         end
       else
-        logger.error "Unable to find Policy with slug '#{slug}'"
+        logger.error "Unable to find Policy with slug '#{slug}'", line_number
         nil
       end
     end.compact

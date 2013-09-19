@@ -29,7 +29,7 @@ class Whitehall::Uploader::Parsers::DateParserTest < ActiveSupport::TestCase
   end
 
   test "logs an error if the date cannot be parsed" do
-    @log.expects(:error).with(includes(%q{Unable to parse the date '11/012012'}))
+    @log.expects(:error).with(includes(%q{Unable to parse the date '11/012012'}), @line_number)
     Whitehall::Uploader::Parsers::DateParser.parse('11/012012', @log, @line_number)
   end
 end

@@ -1,6 +1,8 @@
 module ImportHelpers
   def run_last_import
-    Import.last.perform
+    DelayedJobTestHelpers.without_delay! do
+      Import.last.perform
+    end
   end
 
   def with_import_csv_file(data)
