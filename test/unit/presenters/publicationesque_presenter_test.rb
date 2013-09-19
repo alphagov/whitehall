@@ -37,7 +37,7 @@ class PublicationesquePresenterTest < PresenterTestCase
     document.stubs(:to_param).returns('some-doc')
     organisation = stub_record(:organisation, name: "Ministry of Defence", organisation_type_key: :ministerial_department)
     operational_field = stub_record(:operational_field, name: "Name")
-    series = stub_record(:document_series, name: 'SeriesName', organisation: organisation)
+    series = stub_record(:document_series, title: 'SeriesTitle')
     publication = stub_record(:publication,
       document: document,
       public_timestamp: Time.zone.now,
@@ -48,6 +48,6 @@ class PublicationesquePresenterTest < PresenterTestCase
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
     hash = PublicationesquePresenter.new(publication, @view_context).as_hash
-    assert hash[:publication_series] =~ /#{series.name}/
+    assert hash[:publication_series] =~ /SeriesTitle/
   end
 end

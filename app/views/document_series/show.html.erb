@@ -1,26 +1,28 @@
-<% page_title @document_series.name, @organisation.name %>
+<% page_title @document_series.title %>
 <% page_class "document-series-page" %>
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
-              locals: { type: 'Series', heading: @document_series.name } %>
+              locals: { type: 'Series', heading: @document_series.title } %>
 
     <aside class="meta">
       <div class="inner-heading">
-        <dl>
-          <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
-          <dd>
-            <%= render  partial: 'organisations/organisations_name_list',
-                        locals: { lead_organisations: [@organisation] } %>
-          </dd>
-          <% unless @groups.empty? %>
-            <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
-            <dd class="change-notes">
-              <%= t('change_notes.published_at', date: absolute_date(@most_recent_change)).html_safe %>
+        <% if false #@document_series.organisation.present? %>
+          <dl>
+            <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
+            <dd>
+              <%= render  partial: 'organisations/organisations_name_list',
+                          locals: { lead_organisations: [@organisation] } %>
             </dd>
-          <% end %>
-        </dl>
+            <% unless @groups.empty? %>
+              <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
+              <dd class="change-notes">
+                <%= t('change_notes.published_at', date: absolute_date(@most_recent_change)).html_safe %>
+              </dd>
+            <% end %>
+          </dl>
+        <% end %>
       </div>
     </aside>
   </div>
@@ -39,7 +41,7 @@
     <div class="contextual-info js-stick-at-top-when-scrolling">
       <h1>Contents</h1>
       <ol class="dash-list">
-        <% @groups.each do |group, editions| %>
+        <% @document_series.groups.each do |group, editions| %>
           <li><%= link_to group.heading, "#group_#{group.id}" %></li>
         <% end %>
       </ol>
@@ -51,13 +53,13 @@
   <div class="inner-block">
     <section id="document_series" class="group">
 
-      <% unless @document_series.description.blank? %>
+      <% unless @document_series.body.blank? %>
         <div class="description" id="this-series">
-          <%= govspeak_to_html @document_series.description %>
+          <%= govspeak_to_html @document_series.body %>
         </div>
       <% end %>
 
-      <% @groups.each do |group, editions| %>
+      <% @document_series.groups.each do |group| %>
         <div class="editions">
           <%= content_tag :h2, group.heading, id: "group_#{group.id}" %>
           <% unless group.body.blank? %>
@@ -66,7 +68,7 @@
             </div>
           <% end %>
           <ol class="document-list">
-            <% editions.each do |edition| %>
+            <% group.editions.each do |edition| %>
               <%= content_tag_for :li, edition, class: "document-row" do %>
                 <h3><%= edition.link %></h3>
                 <ul class="attributes">

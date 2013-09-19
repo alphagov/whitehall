@@ -18,8 +18,7 @@ module Admin::OrganisationHelper
   def organisation_tabs(organisation)
     tabs = {
       "Details" => admin_organisation_path(organisation),
-      "Contacts" => admin_organisation_contacts_path(organisation),
-      "Document series" => document_series_admin_organisation_path(organisation),
+      "Contacts" => admin_organisation_contacts_path(organisation)
     }
     if organisation.type.executive_office?
       tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation)
