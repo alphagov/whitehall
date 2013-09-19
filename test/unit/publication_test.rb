@@ -54,10 +54,17 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "shouldn't be able to publish a publication without any attachments" do
-    published_publication = create(:published_publication)
-    published_publication.html_version = nil
-    refute published_publication.valid?
+    publication = build(:published_publication, html_version: nil, attachments: [])
+    refute publication.valid?
+    assert_match /cannot be published without an attachment/, publication.errors[:base].first
   end
+
+  test "shouldn't be able to schedule a publication without any attachments" do
+    publication = build(:scheduled_publication, html_version: nil, attachments: [])
+    refute publication.valid?
+    assert_match /cannot be scheduled without an attachment/, publication.errors[:base].first
+  end
+
 
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,
