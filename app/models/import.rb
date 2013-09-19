@@ -76,11 +76,15 @@ class Import < ActiveRecord::Base
   end
 
   def successful_row_numbers
-    document_sources.select(:row_number).map(&:row_number)
+    document_sources.pluck(:row_number)
   end
 
   def failed_row_numbers
-    import_errors.select(:row_number).map(&:row_number)
+    import_errors.pluck(:row_number)
+  end
+
+  def missing_row_numbers
+    @missing_row_numbers ||= row_numbers - successful_row_numbers - failed_row_numbers
   end
 
   def success_count

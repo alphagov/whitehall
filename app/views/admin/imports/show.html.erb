@@ -39,8 +39,8 @@
       <%= link_to "#{@import.number_of_rows_with_errors} failed", annotated_admin_import_path(@import, filter: :failed), class:"download", title: "Download CSV" %>
     </h2>
 
-    <% if awol_row_numbers(@import).any? %>
-      The following rows failed with no error message recorded: <%= awol_row_numbers(@import).join(', ') %>
+    <% if @import.missing_row_numbers.any? %>
+      The following rows failed with no error message recorded: <%= @import.missing_row_numbers.join(', ') %>
     <% end %>
 
     <% if @import.document_sources.any? %>
