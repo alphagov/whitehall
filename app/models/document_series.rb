@@ -49,10 +49,6 @@ class DocumentSeries < Edition
     ].flatten.join("\n")
   end
 
-  # def destroyable?
-  #   published_editions.empty?
-  # end
-
   private
 
   def create_default_group

@@ -144,32 +144,4 @@ class DocumentSeriesTest < ActiveSupport::TestCase
 
   #   assert_equal [scheduled_publication], series.scheduled_editions
   # end
-
-
-
-
-
-
-  # test 'is not deletable if published documents are associated with it' do
-  #   series = create(:document_series, :with_group)
-  #   group = series.groups.first
-  #   group.documents = [create(:published_publication).document]
-  #   refute series.destroyable?
-  #   series.delete!
-  #   assert DocumentSeries.find(series.id)
-  # end
-
-  # test 'is deletable if only archived editions are associated' do
-  #   series = create(:document_series, documents: [create(:archived_publication).document])
-  #   assert series.destroyable?
-  #   series.delete!
-  #   assert series.deleted?
-  # end
-
-  # test "is deletable when there are no associated editions" do
-  #   series = create(:document_series)
-  #   assert series.destroyable?
-  #   series.delete!
-  #   assert series.deleted?
-  # end
 end
