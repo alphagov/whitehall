@@ -87,6 +87,41 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   end
 
 
+  ### Describing search-related ###
+  test 'indexes the title as title' do
+    series = create(:document_series, title: 'a title')
+    assert_equal 'a title', series.search_index['title']
+  end
+
+  test "includes slug in search index data" do
+    series = create(:document_series, title: "Coffee for the win")
+    assert_equal 'coffee-for-the-win', series.search_index['slug']
+  end
+
+  test 'indexes the full URL to the series show page as link' do
+    series = create(:document_series)
+    assert_equal "/government/series/#{series.slug}", series.search_index['link']
+  end
+
+  test "indexes the body without markup as indexable_content" do
+    series = create(:document_series,
+                    title: "A doc series", body: "This is a *body*")
+    assert_match /^This is a body$/, series.search_index["indexable_content"]
+  end
+
+  test 'indexes the group headings and body copy without markup as indexable_content' do
+    group = create(:document_series_group, heading: 'The Heading', body: 'The *Body*')
+    series = create(:document_series, groups: [group])
+    assert_match /^The Heading$/, series.search_index['indexable_content']
+    assert_match /^The Body$/, series.search_index['indexable_content']
+  end
+
+  test 'indexes the summary as description' do
+    series = create(:document_series, summary: 'a summary')
+    assert_match 'a summary', series.search_index['description']
+  end
+
+
 
 
   # test 'published_editions returns published editions from series in reverse chronological order' do
@@ -110,26 +145,6 @@ class DocumentSeriesTest < ActiveSupport::TestCase
   #   assert_equal [scheduled_publication], series.scheduled_editions
   # end
 
-
-  ### Describing search-related ###
-
-  # test "includes slug in search index data" do
-  #   series = create(:document_series, name: "Coffee for the win")
-  #   assert_equal 'coffee-for-the-win', series.search_index['slug']
-  # end
-
-  # test "indexes the description without markup" do
-  #   series = create(:document_series,
-  #                   name: "A doc series", description: "This is a *description*")
-  #   assert_equal "This is a description", series.search_index["indexable_content"]
-  # end
-
-  # test 'indexes the group headings and body copy, without markup' do
-  #   group = create(:document_series_group, heading: 'Heading', body: '*Body*')
-  #   series = create(:document_series, groups: [group])
-  #   assert_match /^Heading$/, series.search_index['indexable_content']
-  #   assert_match /^Body$/, series.search_index['indexable_content']
-  # end
 
 
 

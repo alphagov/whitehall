@@ -22,12 +22,11 @@ class DocumentSeries < Edition
 
   add_trait ClonesGroupsTrait
 
-  # TODO
-  # searchable title: :name,
-  #            link: :search_link,
-  #            content: :indexable_content,
-  #            description: :summary,
-  #            slug: :slug
+  searchable title:       :title,
+             slug:        :slug,
+             link:        :search_link,
+             content:     :indexable_content,
+             description: :summary
 
   # def published_editions
   #   editions.published.in_reverse_chronological_order
@@ -37,18 +36,18 @@ class DocumentSeries < Edition
   #   editions.scheduled
   # end
 
-  # def search_link
-  #   Whitehall.url_maker.organisation_document_series_path(organisation, slug)
-  # end
+  def search_link
+    Whitehall.url_maker.document_series_path(slug)
+  end
 
-  # def indexable_content
-  #   [
-  #     Govspeak::Document.new(description).to_text,
-  #     groups.map do |group|
-  #       [group.heading, Govspeak::Document.new(group.body).to_text]
-  #     end
-  #   ].flatten.join("\n")
-  # end
+  def indexable_content
+    [
+      Govspeak::Document.new(body).to_text,
+      groups.map do |group|
+        [group.heading, Govspeak::Document.new(group.body).to_text]
+      end
+    ].flatten.join("\n")
+  end
 
   # def destroyable?
   #   published_editions.empty?
