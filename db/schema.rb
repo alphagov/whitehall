@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130911140104) do
+ActiveRecord::Schema.define(:version => 20130916105832) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -245,9 +245,9 @@ ActiveRecord::Schema.define(:version => 20130911140104) do
   end
 
   create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
+    t.integer  "priority",                       :default => 0
+    t.integer  "attempts",                       :default => 0
+    t.text     "handler",    :limit => 16777215
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"

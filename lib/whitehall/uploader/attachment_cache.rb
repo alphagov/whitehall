@@ -13,8 +13,8 @@ class Whitehall::Uploader::AttachmentCache
     @logger = logger
   end
 
-  def fetch(url)
-    Entry.new(@root_dir, @logger, url).fetch
+  def fetch(url, line_number)
+    Entry.new(@root_dir, @logger, url, line_number).fetch
   end
 
   class FileTypeDetector
@@ -48,10 +48,11 @@ class Whitehall::Uploader::AttachmentCache
   class Entry
     attr_accessor :root_dir, :logger, :original_url
 
-    def initialize(root_dir, logger, original_url)
+    def initialize(root_dir, logger, original_url, line_number)
       @root_dir = root_dir
       @logger = logger
       @original_url = original_url
+      @line_number = line_number
     end
 
     def fetch
@@ -63,7 +64,7 @@ class Whitehall::Uploader::AttachmentCache
     end
 
     def cache_path
-      File.join(@root_dir, Digest::MD5.hexdigest(original_url))
+      File.join(root_dir, Digest::MD5.hexdigest(original_url))
     end
 
     def cached_file
@@ -131,7 +132,7 @@ class Whitehall::Uploader::AttachmentCache
     def store(url, response)
       FileUtils.mkdir_p(cache_path)
       local_path = File.join(cache_path, filename(url, response))
-      @logger.info "Fetching #{url} to #{local_path}"
+      @logger.info "Fetching #{url} to #{local_path}", @line_number
       File.open(local_path, 'w', encoding: 'ASCII-8BIT') do |file|
         file.write(response.body)
       end
@@ -145,9 +146,9 @@ class Whitehall::Uploader::AttachmentCache
         if detected_type
           FileUtils.mv(local_path, local_path + ".#{detected_type}")
           local_path = local_path + ".#{detected_type}"
-          @logger.info "Detected file type: #{detected_type}; moved to #{local_path}"
+          @logger.info "Detected file type: #{detected_type}; moved to #{local_path}", @line_number
         else
-          @logger.warn "Unknown file type for #{local_path}"
+          @logger.warn "Unknown file type for #{local_path}", @line_number
         end
       end
       local_path

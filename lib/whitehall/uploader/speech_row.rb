@@ -16,7 +16,7 @@ module Whitehall::Uploader
 
     def role_appointment
       if delivered_on.blank?
-        @logger.warn(%{Discarding delivered_by information "#{row['delivered_by']}" because delivered_on is missing})
+        @logger.warn(%{Discarding delivered_by information "#{row['delivered_by']}" because delivered_on is missing}, @line_number)
         nil
       else
         Finders::RoleAppointmentsFinder.find(delivered_on, row['delivered_by'], @logger, @line_number).first

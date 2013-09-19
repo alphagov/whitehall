@@ -12,7 +12,10 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
     file = stub("uploaded file", read: File.read(filename), original_filename: filename)
     import = Import.create_from_file(creator, file, "publication", organisation.id)
     assert import.valid?, import.errors.full_messages.join(", ")
-    import.perform
+
+    without_delay! do
+      import.perform
+    end
 
     assert_equal [], import.import_errors
 

@@ -7,7 +7,8 @@ class Whitehall::Uploader::Finders::SluggedModelFinderTest < ActiveSupport::Test
     @model_class.stubs(:find_by_slug).returns(nil)
     @model_class.stubs(:find_by_slug).with(@model_instance_1.slug).returns(@model_instance_1)
     @log = stub_everything
-    @finder = Whitehall::Uploader::Finders::SluggedModelFinder.new(@model_class, @log)
+    @line_number = 1
+    @finder = Whitehall::Uploader::Finders::SluggedModelFinder.new(@model_class, @log, @line_number)
   end
 
   test "returns the topics by slug" do
@@ -27,7 +28,7 @@ class Whitehall::Uploader::Finders::SluggedModelFinderTest < ActiveSupport::Test
   end
 
   test "logs an error if a topic can't be found for the given slug" do
-    @log.expects(:error).with(%q{Unable to find Model Class with slug 'made-up-slug'})
+    @log.expects(:error).with(%q{Unable to find Model Class with slug 'made-up-slug'}, @line_number)
     @finder.find(['made-up-slug'])
   end
 

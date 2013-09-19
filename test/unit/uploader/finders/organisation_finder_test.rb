@@ -1,9 +1,10 @@
 require 'test_helper'
+require 'support/importer_test_logger'
 
 class Whitehall::Uploader::Finders::OrganisationFinderTest < ActiveSupport::TestCase
   def setup
     @log_buffer = StringIO.new
-    @log = Logger.new(@log_buffer)
+    @log = ImporterTestLogger.new(@log_buffer)
     @line_number = 1
     @default_organisation = create(:organisation)
   end
