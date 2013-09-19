@@ -89,5 +89,18 @@ module ModelHelpers
         refute class_from_test_name.new.can_have_summary?
       end
     end
+
+    def should_support_linking_to_external_version
+      test "external #{class_from_test_name.name.downcase.pluralize} must have a valid external URL" do
+        edition = class_from_test_name.new(external: true, external_url: nil)
+
+        refute edition.valid?
+        assert_equal "can't be blank", edition.errors[:external_url].first
+
+        edition.external_url = 'bad.url'
+        refute edition.valid?
+        assert_match /not valid/, edition.errors[:external_url].first
+      end
+    end
   end
 end
