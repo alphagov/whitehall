@@ -49,6 +49,7 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'debugger'
   gem 'rails-dev-boost'
   gem 'thin', '1.5.1'
   gem 'quiet_assets'
