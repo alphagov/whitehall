@@ -78,3 +78,7 @@ Scenario: The publication is about a country
   And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
   When I visit the publication "Penguins have rights too"
   Then I should see that the publication is about "British Antarctic Territory"
+
+Scenario: Creating an external publication
+  When I draft an external publication
+  Then I should see in the preview that the publication is external and there is a link to the external publication

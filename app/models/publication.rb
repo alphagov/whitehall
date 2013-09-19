@@ -9,11 +9,12 @@ class Publication < Publicationesque
   include Edition::HasHtmlVersion
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
+  include Edition::CanBeExternal
 
   validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
-  validate :must_have_attachment, if: :scheduled_or_published?
+  validate :must_have_attachment, if: :scheduled_or_published?, unless: :external?
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 

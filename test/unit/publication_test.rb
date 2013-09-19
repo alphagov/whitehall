@@ -7,6 +7,7 @@ class PublicationTest < ActiveSupport::TestCase
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
   should_allow_html_version
+  should_support_linking_to_external_version
 
   def draft_with_new_title(edition, new_title)
     edition.create_draft(create(:author)).tap do |draft|
@@ -65,6 +66,15 @@ class PublicationTest < ActiveSupport::TestCase
     assert_match /cannot be scheduled without an attachment/, publication.errors[:base].first
   end
 
+  test 'is valid for publishing without attachments or an html_version when it is external' do
+    publication = build(:published_publication, html_version: nil, attachments: [])
+    refute publication.valid?
+
+    publication.external = true
+    publication.external_url = 'http://www.somwhere.else'
+
+    assert publication.valid?
+  end
 
   test "should build a draft copy of the existing publication" do
     published_publication = create(:published_publication,

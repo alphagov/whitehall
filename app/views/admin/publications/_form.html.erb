@@ -1,8 +1,11 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
 
-    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
-    <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+    <%= render partial: 'external_fields', locals: { form: form, edition: edition } %>
+    <div class="js-external-url-set">
+      <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+      <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
+    </div>
 
     <fieldset>
       <legend>Associations</legend>
