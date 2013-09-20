@@ -64,6 +64,7 @@ group :development do
 end
 
 group :test do
+  gem 'debugger'
   gem 'rack-test', github: 'brynary/rack-test'
   gem 'factory_girl'
   gem 'hash_syntax'
