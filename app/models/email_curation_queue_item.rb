@@ -1,5 +1,5 @@
 class EmailCurationQueueItem < ActiveRecord::Base
-  belongs_to :edition
+  belongs_to :edition, inverse_of: :email_curation_queue_items
 
   validates :edition, :title, :summary, :notification_date, presence: true
 
