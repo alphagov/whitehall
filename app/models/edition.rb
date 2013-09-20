@@ -22,6 +22,7 @@ class Edition < ActiveRecord::Base
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
+  has_many :email_curation_queue_items, inverse_of: :edition, dependent: :destroy
 
   has_many :featurings, class_name: "Feature"
 
@@ -54,7 +55,7 @@ class Edition < ActiveRecord::Base
   before_save :set_public_timestamp
 
   after_unpublish :reset_force_published_flag
-  after_delete :clear_slug
+  after_delete :clear_slug, :destroy_email_curation_queue_items
 
   [:publish, :unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
@@ -232,6 +233,10 @@ class Edition < ActiveRecord::Base
 
   def clear_slug
     document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
+  end
+
+  def destroy_email_curation_queue_items
+    email_curation_queue_items.destroy_all
   end
 
   searchable(
