@@ -9,7 +9,7 @@ class Unpublishing < ActiveRecord::Base
     message: "must be entered if you want to redirect to it",
     if: -> unpublishing { unpublishing.redirect? }
   }
-  validates :alternative_url, uri: true, if: -> unpublishing { unpublishing.redirect? }
+  validates :alternative_url, uri: true, allow_blank: true
   validate :redirect_not_circular
 
   def self.from_slug(slug, type)
