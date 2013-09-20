@@ -1,5 +1,14 @@
 module Admin::AttachmentActionParamHandler
-  def self.manipulate_params!(attachment_params)
+  private
+  def cope_with_attachment_action_params
+    page_params_key = controller_name.singularize.to_sym
+    attachments_attributes = params.fetch(page_params_key, {}).fetch(:attachments_attributes, {})
+    attachments_attributes.each do |_, attachment_attributes|
+      manipulate_params_for_attachment!(attachment_attributes)
+    end
+  end
+
+  def manipulate_params_for_attachment!(attachment_params)
     # Investigates attachment_join params for those trying to update an
     # existing attachment instance (has id and attachment_attributes).
     # Based on the value of the attachment_action param, it manipulates

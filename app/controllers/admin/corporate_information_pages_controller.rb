@@ -1,4 +1,6 @@
 class Admin::CorporateInformationPagesController < Admin::BaseController
+  include Admin::AttachmentActionParamHandler
+
   before_filter :find_organisation
   before_filter :build_corporate_information_page, only: [:new, :create]
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
@@ -81,12 +83,5 @@ private
 
   def build_attachment
     @corporate_information_page.build_empty_attachment
-  end
-
-  def cope_with_attachment_action_params
-    attachments_attributes = params.fetch(:corporate_information_page, {}).fetch(:attachments_attributes, {})
-    attachments_attributes.each do |_, attachment_attributes|
-      Admin::AttachmentActionParamHandler.manipulate_params!(attachment_attributes)
-    end
   end
 end
