@@ -2,6 +2,7 @@ require "test_helper"
 
 class OrganisationHelperTest < ActionView::TestCase
   include ApplicationHelper
+
   test "returns acroynm in abbr tag if present" do
     organisation = build(:organisation, acronym: "BLAH", name: "Building Law and Hygiene")
     assert_equal %{<abbr title="Building Law and Hygiene">BLAH</abbr>}, organisation_display_name(organisation)
@@ -81,7 +82,7 @@ class OrganisationHelperTest < ActionView::TestCase
     list = build(:featured_topics_and_policies_list, link_to_filtered_policies: true)
     assert_equal link_to('See all our policies', policies_path(departments: [o])), link_to_all_featured_policies(o)
   end
-  
+
   test 'organisation_count_paragraph includes the number of orgs in a filterable container' do
     orgs = [build(:organisation), build(:organisation)]
     render text: organisation_count_paragraph(orgs)
@@ -105,6 +106,52 @@ class OrganisationHelperTest < ActionView::TestCase
     orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'live')]
     render text: organisation_count_paragraph(orgs, with_live_on_govuk: false)
     assert_select '.on-govuk', count: 0
+  end
+
+  test '#organisation_govuk_status_description describes a closed organisation' do
+    organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed')
+
+    assert_equal "Beard Ministry has closed", organisation_govuk_status_description(organisation)
+  end
+
+  test '#organisation_govuk_status_description includes the closed date if available' do
+    closed_time = 1.day.ago
+    organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time)
+
+    assert_equal "Beard Ministry closed on <abbr class=\"closed-at date\" title=\"2011-11-10T11:11:11+00:00\">10 November 2011</abbr>",
+     organisation_govuk_status_description(organisation)
+  end
+
+  test '#organisation_govuk_status_description links to transitioning organisations' do
+    organisation = build(:organisation, name: 'Taxidermy Commission', govuk_status: 'transitioning', url: 'http://taxidermy.uk')
+
+    assert_equal 'Taxidermy Commission is in the process of joining GOV.UK. In the meantime, <a href="http://taxidermy.uk">http://taxidermy.uk</a> remains the official source.',
+      organisation_govuk_status_description(organisation)
+  end
+
+  test '#organisation_govuk_status_description links to joining organisations when a url is available' do
+    organisation = build(:organisation, name: 'Parrot Office', govuk_status: 'joining', url: 'http://parrot.org')
+
+    assert_equal 'Parrot Office currently has a <a href="http://parrot.org">separate website</a> but will soon be incorporated into GOV.UK',
+      organisation_govuk_status_description(organisation)
+  end
+
+  test '#organisation_govuk_status_description describes a joining organisation without a website' do
+    organisation = build(:organisation, name: 'Parrot Office', govuk_status: 'joining')
+
+    assert_equal 'Parrot Office will soon be incorporated into GOV.UK', organisation_govuk_status_description(organisation)
+  end
+
+  test '#organisation_govuk_status_description describes exempt organisations without a website' do
+    organisation = build(:organisation, name: 'Potato Jazz Association', govuk_status: 'exempt')
+
+    assert_equal 'Potato Jazz Association has no website', organisation_govuk_status_description(organisation)
+  end
+
+  test '#organisation_govuk_status_description links to exempt organisations when a url is available' do
+    organisation = build(:organisation, name: 'Potato Jazz Association', govuk_status: 'exempt', url: 'http://pots-jazz.fm')
+
+    assert_equal 'Potato Jazz Association has a <a href="http://pots-jazz.fm">separate website</a>', organisation_govuk_status_description(organisation)
   end
 end
 
