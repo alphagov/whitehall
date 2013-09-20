@@ -116,17 +116,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
               if (field.value != "all") {
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
               }
-            } else if (field.id === 'date'){
-              var direction_value = 'before';
-              $.each(formStatus.checked, function(i, checkbox) {
-                if (checkbox.id.match(/^direction_/) !== null) {
-                  direction_value = checkbox.value;
-                }
-              });
-              context[field.id] = {
-                date: field.title[0],
-                direction: direction_value
-              }
             } else if (field.id === 'world_locations'){
               context.world_locations = [];
               for(j=0, _j=field.title.length; j<_j; j++){
@@ -196,7 +185,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     removeFilters: function(field, removed){
       var selects = ['topics', 'departments', 'world_locations'],
-          inputs = ['keywords'],
+          inputs = ['keywords', 'from_date', 'to_date'],
           checkboxes = ['relevant_to_local_government'];
 
       if($.inArray(field, selects) > -1){
@@ -281,9 +270,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         history.replaceState(documentFilter.currentPageState(), null);
         $form.submit(documentFilter.submitFilters);
-        $form.find('select, input[name=direction]:radio, input:checkbox').change(function(e){
-          $form.submit();
-        });
 
         var delay = (function(){
           var timer = 0;

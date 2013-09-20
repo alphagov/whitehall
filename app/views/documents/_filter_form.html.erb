@@ -91,17 +91,11 @@
       <% if filters.include? :date %>
         <div class="filter" id="date-range-filter">
           <div class="filter-inner">
-            <div class="date-range">
-              <h3>Published</h3>
-              <% ['before', 'after'].each do |direction| %>
-                <%= label_tag "direction_#{direction}", class: 'checkbox'  do %>
-                  <%= radio_button_tag :direction, direction, direction == @filter.direction %>
-                  <%= direction.humanize %>
-                <% end %>
-              <% end %>
-              <%= label_tag "date", "Date", class: "visuallyhidden" %>
-              <%= select_tag :date, options_for_select(month_filter_options(Date.parse("2010-05-01"), @filter.date)), include_blank: false, class: "single-row-select" %>
-            </div>
+            <h3>Published</h3>
+            <%= label_tag "from_date", "From" %>
+            <%= text_field_tag :from_date, @filter.from_date, placeholder: "e.g. 01/01/2013" %>
+            <%= label_tag "to_date", "To" %>
+            <%= text_field_tag :to_date, @filter.from_date, placeholder: "e.g. 30/02/2013" %>
           </div>
         </div>
       <% end %>

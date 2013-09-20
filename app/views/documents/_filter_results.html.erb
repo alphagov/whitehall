@@ -1,4 +1,6 @@
 <%
+  from_date = filter.from_date ? filter.from_date.to_s(:short_ordinal) : nil
+  to_date = filter.to_date ? filter.to_date.to_s(:short_ordinal) : nil
   context = {
     result_count: result_count(filter.documents.total_count),
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
@@ -7,10 +9,8 @@
     world_locations: filter_results_selections(filter.selected_locations, 'world_locations'),
     keywords_any?: filter.keywords.any?,
     keywords: filter_results_keywords(filter.keywords),
-    date: ({
-      direction: filter.direction,
-      date: filter.date.to_s(:short_ordinal)
-    } if filter.date),
+    from_date: from_date,
+    to_date: to_date,
     relevant_to_local_government: filter.relevant_to_local_government,
     include_world_location_news: filter.include_world_location_news
   }

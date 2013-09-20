@@ -1,6 +1,6 @@
 module Whitehall::DocumentFilter
   class Filterer
-    attr_reader :page, :per_page, :direction, :date, :keywords, :people_ids, :locale
+    attr_reader :page, :per_page, :from_date, :to_date, :keywords, :people_ids, :locale
     class << self
       attr_accessor :number_of_documents_per_page
     end
@@ -10,8 +10,8 @@ module Whitehall::DocumentFilter
       @params          = params
       @per_page        = params[:per_page] || Whitehall::DocumentFilter::Filterer.number_of_documents_per_page
       @page            = params[:page]
-      @direction       = params[:direction]
-      @date            = parse_date(@params[:date])
+      @from_date       = parse_date(@params[:from_date])
+      @to_date         = parse_date(@params[:to_date])
       @keywords        = params[:keywords]
       @locale          = params[:locale]
 
