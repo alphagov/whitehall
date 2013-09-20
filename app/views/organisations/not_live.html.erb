@@ -14,21 +14,7 @@
     <div class="inner-block">
       <aside class="govuk-status information-block">
         <p>
-          <% if @organisation.closed? %>
-            <% if @organisation.closed_at.present? %>
-              <%= @organisation.name %> closed on <%= absolute_date(@organisation.closed_at, class: 'closed-at') %>
-            <% else %>
-              <%= @organisation.name %> has closed
-            <% end %>
-          <% elsif @organisation.transitioning? %>
-            <%= @organisation.name %> is in the process of joining GOV.UK. In the meantime, <%= link_to @organisation.url, @organisation.url, class: 'url-link' %> remains the official source.
-          <% elsif @organisation.joining? %>
-            <%= @organisation.name %> currently has a <%= link_to 'separate website', @organisation.url %> but will soon be incorporated into GOV.UK
-          <% elsif @organisation.url.present? %>
-            <%= @organisation.name %> has a <%= link_to 'separate website', @organisation.url %>
-          <% else %>
-            <%= @organisation.name %> has no website
-          <% end %>
+          <%= organisation_govuk_status_description(@organisation) %>
         </p>
       </aside>
     </div>

@@ -296,6 +296,10 @@ class Organisation < ActiveRecord::Base
     govuk_status == 'closed'
   end
 
+  def exempt?
+    govuk_status == 'exempt'
+  end
+
   def name_without_prefix
     name.gsub(/^The/, "").strip
   end
