@@ -50,17 +50,17 @@ end
 
 group :development, :test do
   gem 'debugger'
-  gem 'rails-dev-boost'
-  gem 'thin', '1.5.1'
-  gem 'quiet_assets'
   gem 'parallel_tests'
-  gem 'bullet'
   gem 'test-queue'
 end
 
 group :development do
+  gem 'thin', '1.5.1'
+  gem 'bullet'
   gem 'newrelic_rpm'
   gem 'rack-mini-profiler'
+  gem 'rails-dev-boost'
+  gem 'quiet_assets'
 end
 
 group :test do
