@@ -1218,13 +1218,14 @@ module AdminEditionControllerTestHelpers
 
       test "create should record the access_limited flag" do
         controller.current_user.organisation = create(:organisation); controller.current_user.save!
-        post :create, edition: controller_attributes_for(edition_type,
+        post :create, edition: controller_attributes_for(edition_type).merge(
           first_published_at: Date.parse("2010-10-21"),
           access_limited: '1',
           lead_organisation_ids: [controller.current_user.organisation_id]
         )
 
-        assert created_publication = edition_class.last
+        created_publication = edition_class.last
+        refute created_publication.nil?
         assert created_publication.access_limited?
       end
 

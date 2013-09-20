@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130917130058) do
+ActiveRecord::Schema.define(:version => 20130919121241) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -425,6 +425,13 @@ ActiveRecord::Schema.define(:version => 20130917130058) do
 
   add_index "edition_translations", ["edition_id"], :name => "index_edition_translations_on_edition_id"
   add_index "edition_translations", ["locale"], :name => "index_edition_translations_on_locale"
+
+  create_table "edition_user_needs", :force => true do |t|
+    t.integer  "edition_id"
+    t.integer  "user_need_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "edition_world_location_image_data", :force => true do |t|
     t.string   "carrierwave_image"
@@ -1131,6 +1138,15 @@ ActiveRecord::Schema.define(:version => 20130917130058) do
 
   add_index "unpublishings", ["edition_id"], :name => "index_unpublishings_on_edition_id"
   add_index "unpublishings", ["unpublishing_reason_id"], :name => "index_unpublishings_on_unpublishing_reason_id"
+
+  create_table "user_needs", :force => true do |t|
+    t.string   "user"
+    t.string   "need"
+    t.string   "goal"
+    t.integer  "organisation_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "user_world_locations", :force => true do |t|
     t.integer "user_id"
