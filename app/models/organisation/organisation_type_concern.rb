@@ -16,6 +16,10 @@ module Organisation::OrganisationTypeConcern
       scope type_key.to_s.pluralize, where(organisation_type_key: type_key)
     end
 
+    scope :excluding_ministerial_departments, lambda {
+      where("organisation_type_key != 'ministerial_department'")
+    }
+
     scope :listable, lambda {
       excluding_govuk_status_closed.where("organisation_type_key != 'sub_organisation'")
     }

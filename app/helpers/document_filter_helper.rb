@@ -23,7 +23,7 @@ module DocumentFilterHelper
 
         'Other departments & public bodies' =>  Organisation.with_published_editions
                                                 .with_translations
-                                                .non_ministerial_departments
+                                                .excluding_ministerial_departments
                                                 .ordered_by_name_ignoring_prefix
                                                 .map { |o| [o.name, o.slug] }
       }
