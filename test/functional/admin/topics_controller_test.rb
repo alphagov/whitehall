@@ -36,6 +36,14 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
+  view_test "GET :show lists the topic's details" do
+    topic = create(:topic)
+    get :show, id: topic
+
+    assert_response :success
+    assert_select 'h1', topic.name
+  end
+
   view_test "GET :index lists the topical events in alphabetial order" do
     topic_c = create(:topic, name: "Topic C")
     topic_a = create(:topic, name: "Topic A")

@@ -11,6 +11,8 @@ module Admin::TabbedNavHelper
       tab_navigation(person_tabs(content_object), *extra_classes, &block)
     when TopicalEvent
       tab_navigation(topical_event_tabs(content_object), *extra_classes, &block)
+    when Topic
+      tab_navigation(topic_tabs(content_object), *extra_classes, &block)
     end
   end
 
@@ -25,6 +27,12 @@ module Admin::TabbedNavHelper
     { 'Details' => admin_person_path(person),
       'Translations' => admin_person_translations_path(person),
       'Historical accounts' => admin_person_historical_accounts_path(person) }
+  end
+
+  def topic_tabs(topic)
+    {
+      "Details" => url_for([:admin, topic])
+    }
   end
 
   def tab_navigation(tabs, *extra_classes, &block)

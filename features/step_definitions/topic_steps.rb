@@ -58,6 +58,7 @@ When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, desc
   visit admin_root_path
   click_link "Topics"
   click_link name
+  click_on "Edit"
   fill_in "Description", with: description
   click_button "Save"
 end
@@ -113,6 +114,7 @@ end
 Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
   visit admin_topics_path
   click_link name
+  click_on 'Edit'
   click_button 'Delete'
 end
 
