@@ -26,4 +26,20 @@ module VirusScanHelpers
       end
     end
   end
+
+  def self.erase_test_files
+    raise "Only use VirusScanHelpers.erase_test_files in test mode" unless Rails.env.test?
+    folders = [
+      Whitehall.incoming_uploads_root,
+      Whitehall.clean_uploads_root,
+      Whitehall.infected_uploads_root
+    ]
+
+    folders.each do |folder|
+      next unless Dir.exists?(folder)
+      Dir.glob("#{folder}/*").each do |path|
+        FileUtils.rm_rf(path)
+      end
+    end
+  end
 end
