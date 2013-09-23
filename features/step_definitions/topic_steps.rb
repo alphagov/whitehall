@@ -1,9 +1,9 @@
 Given /^a topic called "([^"]*)" exists$/ do |name|
-  create_topic(name: name)
+  create(:topic, name: name)
 end
 
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create_topic(name: name, description: description)
+  create(:topic, name: name, description: description)
 end
 
 Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
@@ -171,16 +171,4 @@ end
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by_name(related_name)
   assert page.has_css?("#related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
-end
-
-def create_topic(options = {})
-  visit admin_root_path
-  click_link "Topics"
-  click_link "Create topic"
-  fill_in "Name", with: options[:name] || "topic-name"
-  fill_in "Description", with: options[:description] || "topic-description"
-  (options[:related_classifications] || []).each do |related_name|
-    select related_name, from: "Related topics"
-  end
-  click_button "Save"
 end
