@@ -8,12 +8,12 @@
     </tr>
 
     <tr>
-      <th>Details</td>
+      <th>Details</th>
       <td class="details"><%= classification_contents_breakdown(@classification) %></td>
     </tr>
 
     <tr>
-      <th>Duration</td>
+      <th>Duration</th>
       <td class="duration">
         <% if @classification.start_date && @classification.end_date %>
           <%= @classification.start_date %> to <%= @classification.end_date %>
@@ -22,7 +22,7 @@
     </tr>
 
     <tr>
-      <th>Related</td>
+      <th>Related</th>
       <td class="related">
         <% if @classification.related_classifications.any? %>
           <ul>
