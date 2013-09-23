@@ -30,6 +30,9 @@ function error_handler {
 trap "error_handler ${LINENO}" ERR
 github_status pending "is running on Jenkins"
 
+# Empty and recreate carrierwave directory
+rm -rf ./carrierwave-tmp && mkdir -p ./carrierwave-tmp
+
 # Generate directories for upload tests
 mkdir -p ./incoming-uploads
 mkdir -p ./clean-uploads
