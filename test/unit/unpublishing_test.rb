@@ -34,7 +34,7 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test 'alternative_url cannot be the same url as the edition' do
     unpublishing = build(:unpublishing, redirect: true)
-    unpublishing.alternative_url = "http://#{Whitehall.public_host}/government/policies/#{unpublishing.edition.slug}"
+    unpublishing.alternative_url = Whitehall.url_maker.public_document_url(unpublishing.edition)
     assert_equal unpublishing.alternative_url, unpublishing.edition_url
     refute unpublishing.valid?
     assert_equal ["cannot redirect to itself"], unpublishing.errors[:alternative_url]

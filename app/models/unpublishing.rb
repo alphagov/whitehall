@@ -1,7 +1,4 @@
 class Unpublishing < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
-
   belongs_to :edition
 
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true
@@ -25,7 +22,7 @@ class Unpublishing < ActiveRecord::Base
   end
 
   def edition_url
-    public_document_url(edition)
+    Whitehall.url_maker.public_document_url(edition)
   end
 
   def redirect_not_circular
