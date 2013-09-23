@@ -19,4 +19,8 @@ module Edition::UserNeeds
 
     add_trait Trait
   end
+
+  def requires_user_needs?
+    true
+  end
 end
