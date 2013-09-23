@@ -2,23 +2,27 @@
   attachments = AttachmentsPresenter.new(document)
   title = t('document.headings.attachments', count: attachments.length) unless local_assigns.include?(:title)
   published_on = '' unless local_assigns.include?(:published_on)
+  external ||= false
 %>
 <section class="heading-block attachment-full-width">
-  <% if attachments.any? %>
-    <h1><%= title %></h1>
-    <div class="content">
-      <article>
-        <div class="govspeak">
-          <% attachments.attachments.each do |attachment| %>
-            <%= render partial: "documents/attachment",
-                      object: attachment,
-                      locals: {
-                        hide_thumbnail: false,
-                        alternative_format_contact_email: document.alternative_format_contact_email,
-                        published_on: published_on } %>
-          <% end %>
-        </div>
-      </article>
-    </div>
-  <% end %>
+  <h1><%= title %></h1>
+  <div class="content">
+    <article>
+      <div class="govspeak">
+        <% attachments.attachments.each do |attachment| %>
+          <%= render partial: "documents/attachment",
+                    object: attachment,
+                    locals: {
+                      hide_thumbnail: false,
+                      alternative_format_contact_email: document.alternative_format_contact_email,
+                      published_on: published_on } %>
+        <% end %>
+
+        <% if external %>
+          <h3>This <%= document.display_type %> is hosted on another website</h3>
+          <p><%= link_to "View details of the #{document.display_type} here", document.external_url, rel: "external" %></p>
+        <% end %>
+      </div>
+    </article>
+  </div>
 </section>
