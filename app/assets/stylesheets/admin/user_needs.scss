@@ -1,7 +1,26 @@
+#user-needs {
+  background-color:       $yellow-50;
+  padding:                0.5em 1em;
+
+  .notice {
+    font-size:            19px;
+  }
+}
+
 .add-user-need {
   span {
     display:              block;
     margin-bottom:        5px;
+  }
+
+  span label {
+    min-width:            4em;
+    display:              inline-block;
+    text-align:           right;
+  }
+
+  .choice {
+    margin-top:           1.2em;
   }
 
   label,

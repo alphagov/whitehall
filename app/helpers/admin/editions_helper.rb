@@ -175,6 +175,7 @@ module Admin::EditionsHelper
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
+      concat render('user_needs_fields', form: form, edition: edition)
       concat render(partial: "standard_fields",
                     locals: { form: form, edition: edition })
       yield(form)
