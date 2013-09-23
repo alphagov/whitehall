@@ -51,12 +51,25 @@ class Classification < ActiveRecord::Base
               ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
             }
 
+  has_many :classification_featurings,
+            foreign_key: :classification_id,
+            order: "classification_featurings.ordering asc",
+            include: :edition,
+            conditions: { editions: { state: "published" } }
+
+  has_many :featured_editions,
+            through: :classification_featurings,
+            source: :edition,
+            order: "classification_featurings.ordering ASC"
+
+
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 
   accepts_nested_attributes_for :classification_memberships
   accepts_nested_attributes_for :organisation_classifications
+  accepts_nested_attributes_for :classification_featurings
 
   scope :with_content, where("published_edition_count <> 0")
   scope :with_policies, where("published_policies_count <> 0")
@@ -124,6 +137,24 @@ class Classification < ActiveRecord::Base
 
   def description_without_markup
     Govspeak::Document.new(description).to_text
+  end
+
+  def featured?(edition)
+    return false unless edition.persisted?
+    featuring_of(edition).present?
+  end
+
+    def featuring_of(edition)
+    classification_featurings.where(edition_id: edition.id).first
+  end
+
+  def feature(featuring_params)
+    classification_featurings.create({ordering: next_ordering}.merge(featuring_params))
+  end
+
+  def next_ordering
+    last = classification_featurings.order("ordering desc").limit(1).last
+    last ? last.ordering + 1 : 1
   end
 
   def to_s
