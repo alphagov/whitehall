@@ -11,12 +11,12 @@
     <%= classification_form.text_area :description, class: 'previewable', required: true %>
   </fieldset>
 
-  <%= render partial: 'related_topics', locals: {classification_form: classification_form} %>
-  <%= render partial: 'logo', locals: {classification_form: classification_form} %>
+  <fieldset>
+    <%= classification_form.label :related_classification_ids, "Related topics" %>
+    <%= classification_form.select :related_classification_ids, options_from_collection_for_select(Topic.all - [classification_form.object], 'id', 'name', classification_form.object.related_classification_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
+  </fieldset>
 
-  <%= render partial: 'start_end_dates', locals: {classification_form: classification_form} %>
-
-  <%= render partial: 'social_media', locals: {classification_form: classification_form} %>
+  <%= render partial: 'custom_form_fields', locals: {classification_form: classification_form} %>
 
   <fieldset id="policy_order" class="named sortable">
     <legend>Policy ordering</legend>
