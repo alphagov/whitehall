@@ -67,11 +67,6 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_redirected_to_placeholder_image
   end
 
-  test 'redirects requests for other unknown content to the placeholder page' do
-    get_via_nginx 'government/uploads/any-missing-non-image-uploads.pdf'
-    assert_redirected_to_placeholder_page
-  end
-
   test 'allows everyone access to attachments of published editions' do
     attachment = create(:attachment)
     create(:published_publication, attachments: [attachment], alternative_format_provider: create(:organisation_with_alternative_format_contact_email))
@@ -100,7 +95,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_redirected_to_placeholder_page
+    assert_response :not_found
   end
 
   test 'allows everyone access to attachments of published consultation responses' do
@@ -120,7 +115,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_redirected_to_placeholder_page
+    assert_response :not_found
   end
 
   test 'allows everyone access to attachments of published supporting pages' do
@@ -140,7 +135,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_redirected_to_placeholder_page
+    assert_response :not_found
   end
 
   test 'allows authenticated users access to attachments of unpublished supporting pages' do
@@ -176,7 +171,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
     get_via_nginx attachment.url
 
-    assert_redirected_to_placeholder_page
+    assert_response :not_found
   end
 
   test 'allows authenticated users with permission to access attachments of limited access documents' do
