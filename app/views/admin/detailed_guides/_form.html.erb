@@ -20,15 +20,22 @@
     <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
 
     <fieldset>
-      <legend>User Need</legend>
+      <legend>User Needs</legend>
 
-      <%= form.fields_for :user_needs, UserNeed.new do |f| %>
-        <p class='new-user-need'>
-          <span><%= f.text_field :user, label_text: 'As a', size: 35, placeholder: "e.g. manufacturer of medical devices" %></span>
+      <p class='add-user-need'>
+        <%= form.select :user_need_ids,
+                        user_need_options(selected: edition.user_need_ids),
+                        {include_blank: true},
+                        {multiple: true, class: 'chzn-select', data: { placeholder: "Select one or more existing user needs..."}} %>
+
+        <span>or create a new one:</span>
+        <%= form.fields_for :user_needs, UserNeed.new do |f| %>
+          <span><%= f.text_field :user, label_text: 'As a(n)', size: 35, placeholder: "e.g. manufacturer of medical devices" %></span>
           <span><%= f.text_field :need, label_text: 'I need to', size: 50, placeholder: "e.g. know how to register my product" %></span>
           <span><%= f.text_field :goal, label_text: 'so that', size: 80, placeholder: "e.g. I can market it in-line with legislation" %></span>
-        </p>
-      <% end %>
+          <%= f.hidden_field :organisation_id, value: current_user.organisation.id %>
+        <% end %>
+      </p>
     </fieldset>
 
     <fieldset>
