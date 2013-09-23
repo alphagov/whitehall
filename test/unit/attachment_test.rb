@@ -199,29 +199,29 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_delegated attachment, :filename
   end
 
-  test "should be inaccessible to a given user if associated with any edition which is inaccessible to that user" do
+  test "should be inaccessible to a given user if associated with an edition that's inaccessible to that user" do
     user = stub("some user")
     accessible_edition = stub(:edition)
     accessible_edition.stubs(:accessible_by?).with(user).returns(true)
     inaccessible_edition = stub(:edition)
     inaccessible_edition.stubs(:accessible_by?).with(user).returns(false)
     attachment = build(:attachment)
-    attachment.stubs(:editions).returns([accessible_edition, inaccessible_edition])
+    attachment.stubs(:attachable).returns(inaccessible_edition)
     refute attachment.accessible_by?(user)
   end
 
-  test "should be accessible to a given user if all associated editions are accessbile to that user" do
+  test "should be accessible to a given user if the associated edition is accessible to that user" do
     user = stub("some user")
     accessible_edition = stub(:edition)
     accessible_edition.stubs(:accessible_by?).with(user).returns(true)
     attachment = build(:attachment)
-    attachment.stubs(:editions).returns([accessible_edition])
+    attachment.stubs(:attachable).returns(accessible_edition)
     assert attachment.accessible_by?(user)
   end
 
-  test "should be accessible to any user if not associated with any editions" do
+  test "should be accessible to any user if not associated with an edition" do
     attachment = build(:attachment)
-    attachment.stubs(:editions).returns([])
+    attachment.stubs(:attachable).returns(nil)
     assert attachment.accessible_by?(nil)
   end
 

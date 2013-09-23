@@ -40,8 +40,8 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'attachments on policy groups are always visible' do
-    pg_attachment = create(:policy_group_attachment)
-    attachment_data = pg_attachment.attachment.attachment_data
+    attachment = create(:attachment, attachable: create(:policy_advisory_group))
+    attachment_data = attachment.attachment_data
 
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     get_show attachment_data

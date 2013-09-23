@@ -1,5 +1,6 @@
 class Admin::SupportingPagesController < Admin::BaseController
   include PublicDocumentRoutesHelper
+  include Admin::AttachmentActionParamHandler
 
   before_filter :find_edition
   before_filter :limit_edition_access!
@@ -69,13 +70,4 @@ class Admin::SupportingPagesController < Admin::BaseController
   def build_attachment
     @supporting_page.build_empty_attachment
   end
-
-  def cope_with_attachment_action_params
-    return unless params[:supporting_page] &&
-                  params[:supporting_page][:supporting_page_attachments_attributes]
-    params[:supporting_page][:supporting_page_attachments_attributes].each do |_, supporting_page_attachment_params|
-      Admin::AttachmentActionParamHandler.manipulate_params!(supporting_page_attachment_params)
-    end
-  end
-
 end

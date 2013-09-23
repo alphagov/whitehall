@@ -63,31 +63,14 @@ class AttachableTest < ActiveSupport::TestCase
 
     publication = create(:publication, :with_attachment, attachments: [attachment_1, attachment_2])
 
-    edition_attachments_attributes = publication.edition_attachments.inject({}) do |h, da|
-      h[da.id] = da.attributes.merge("_destroy" => (da.attachment == attachment_1 ? "1" : "0"))
-      h
-    end
-    publication.update_attributes(edition_attachments_attributes: edition_attachments_attributes)
+    attributes = {
+      attachment_1.id => attachment_1.attributes.merge('_destroy' => '1'),
+      attachment_2.id => attachment_2.attributes.merge('_destroy' => '0'),
+    }
+    publication.update_attributes(attachments_attributes: attributes)
     publication.reload
 
     assert_equal [attachment_2], publication.attachments
-  end
-
-  test "should stop attachables from being updated if the attachments become invalid" do
-    attachment = create(:attachment)
-
-    publication = create(:publication, :with_attachment, attachments: [attachment])
-
-    invalid_attribute_combination = {"price" => "123", "order_url" => ""}
-
-    edition_attachments_attributes = publication.edition_attachments.inject({}) do |h, da|
-      h[da.id] = da.attributes.merge(
-        attachment_attributes: da.attachment.attributes.merge(invalid_attribute_combination)
-      )
-      h
-    end
-    publication.assign_attributes(edition_attachments_attributes: edition_attachments_attributes)
-    refute publication.save
   end
 
   test 'should say a edition does not have a thumbnail when it has no attachments' do

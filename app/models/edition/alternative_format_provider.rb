@@ -9,7 +9,7 @@ module Edition::AlternativeFormatProvider
   end
 
   def alternative_format_provider_required?
-    attachments.any? || send(attachment_join_table_name).any? { |ea| ea.attachment.present? }
+    attachments.any?
   end
 
   def alternative_format_contact_email
