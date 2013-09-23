@@ -3,6 +3,6 @@ FactoryGirl.define do
     user "Example User"
     need "Example Need"
     goal "Example Goal"
-    association :organisation
+    organisation { build(:organisation) }
   end
 end
