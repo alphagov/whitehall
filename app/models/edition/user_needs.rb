@@ -13,9 +13,9 @@ module Edition::UserNeeds
     has_many :edition_user_needs, foreign_key: :edition_id, dependent: :destroy, autosave: true
     has_many :user_needs, through: :edition_user_needs
 
-    accepts_nested_attributes_for :user_needs, :reject_if => :all_blank
+    accepts_nested_attributes_for :user_needs, reject_if: lambda { |attrs| attrs.values.any?(&:blank?) }
 
-    validates_presence_of :user_needs
+    validates_presence_of :user_needs, unless: lambda {|edition| edition.deleted? or edition.imported? }
 
     add_trait Trait
   end
