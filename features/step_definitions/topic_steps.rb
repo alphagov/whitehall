@@ -7,9 +7,9 @@ Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, descript
 end
 
 Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
-  topic = create(:topic, name: topic_name)
-  5.times do create(:published_policy, topics: [topic]); end
-  2.times do create(:draft_policy,     topics: [topic]); end
+  @topic = create(:topic, name: topic_name)
+  5.times do create(:published_policy, topics: [@topic]); end
+  2.times do create(:draft_policy,     topics: [@topic]); end
 end
 
 Given /^the topic "([^"]*)" is associated with organisation "([^"]*)"$/ do |topic_name, organisation_name|
@@ -171,4 +171,24 @@ end
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by_name(related_name)
   assert page.has_css?("#related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
+end
+
+When(/^I feature one of the policies on the topic$/) do
+  @policy = @topic.policies.published.last
+  visit admin_topic_path(@topic)
+  click_on 'Features'
+
+  within record_css_selector(@policy) do
+    click_link "Feature"
+  end
+  attach_file "Select an image to be shown when featuring", jpg_image
+  fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
+Then(/^I should see the policy featured on the public topic page$/) do
+  visit topic_path(@topic)
+  within('section.featured-news') do
+    assert page.has_content?(@policy.title)
+  end
 end

@@ -76,3 +76,8 @@ Scenario: Visiting a topic page
   And the topic "Science and Innovation" contains a published and a draft detailed guide
   When I visit the "Higher Education" topic
   Then I should only see published detailed guides belonging to the "Higher Education" topic
+
+Scenario: Featuring content on a topic page
+  Given the topic "Higher Education" contains some policies
+  When I feature one of the policies on the topic
+  Then I should see the policy featured on the public topic page
