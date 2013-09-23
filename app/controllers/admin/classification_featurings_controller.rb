@@ -21,7 +21,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def load_classification
-    @classification = Classification.find_by_slug(params[:topical_event_id])
+    @classification = Classification.find_by_slug(params[:topical_event_id] || params[:topic_id])
   end
 
   def build_featuring
