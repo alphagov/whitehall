@@ -31,17 +31,22 @@ class AttachmentVisibility
   end
 
   def visible_corporate_information_page?
-    CorporateInformationPage.joins(:attachments).where(attachments: {attachment_data_id: id}).exists?
+    CorporateInformationPage.joins(:attachments).where(attachments: { attachment_data_id: id }).exists?
   end
 
   def visible_policy_group?
-    PolicyAdvisoryGroup.joins(:attachments).where(attachments: {attachment_data_id: id}).exists?
+    PolicyAdvisoryGroup.joins(:attachments).where(attachments: { attachment_data_id: id }).exists?
+  end
+
+  def edition_ids_for_type(cls)
+    cls.joins(:attachments).where(attachments: { attachment_data_id: id }).pluck(:edition_id)
   end
 
   def edition_ids
-    @edition_ids ||= [ EditionAttachment.joins(:attachment).where(attachments: {attachment_data_id: id}).pluck(:edition_id),
-                       Response.joins(:attachments).where(attachments: {attachment_data_id: id}).pluck(:edition_id),
-                       SupportingPage.joins(:attachments).where(attachments: {attachment_data_id: id}).pluck(:edition_id)
-                     ].flatten.uniq
+    @edition_ids ||= [
+      Attachment.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id) +
+      edition_ids_for_type(Response),
+      edition_ids_for_type(SupportingPage)
+    ].flatten.uniq
   end
 end

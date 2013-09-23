@@ -5,15 +5,11 @@ module AdminEditionAttachableControllerTestHelpers
     def should_require_alternative_format_provider_for(edition_type)
       edition_class = class_for(edition_type)
       edition_base_class_name = edition_class.base_class.name.underscore
-      attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
-      attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
       test "creating an edition with an attachment but no alternative_format_provider will get a validation error" do
         post :create, edition_base_class_name => controller_attributes_for(edition_type,
           alternative_format_provider_id: "",
-          attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment) }
-          }
+          attachments_attributes: { "0" => attributes_for(:attachment) }
         )
 
         refute assigns(edition_base_class_name).errors[:alternative_format_provider].blank?
@@ -24,9 +20,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           alternative_format_provider_id: "",
-          attachment_join_attributes => {
-            "0" => { attachment_attributes: attributes_for(:attachment) }
-          }
+          attachments_attributes: { "0" => attributes_for(:attachment) }
         )
 
         refute assigns(edition_base_class_name).errors[:alternative_format_provider].blank?
@@ -36,13 +30,11 @@ module AdminEditionAttachableControllerTestHelpers
     def should_allow_attachments_for(edition_type)
       edition_class = class_for(edition_type)
       edition_base_class_name = edition_class.base_class.name.underscore
-      attachment_join_table = edition_class.reflect_on_association(:attachments).through_reflection.table_name
-      attachment_join_attributes = "#{attachment_join_table}_attributes".to_sym
 
       test "new puts an empty attachment on the edition" do
         get :new
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
         assert attachments.first.new_record?
       end
@@ -50,13 +42,9 @@ module AdminEditionAttachableControllerTestHelpers
       test 'creating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
-        attributes[attachment_join_attributes] = {
-          "0" => {
-            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
-              file: greenpaper_pdf
-            })
-          }
-        }
+        attachment_attributes = attributes_for(:attachment).merge(
+          attachment_data_attributes: { file: greenpaper_pdf })
+        attributes[:attachments_attributes] = { "0" => attachment_attributes }
 
         post :create, edition_base_class_name => attributes
 
@@ -64,7 +52,7 @@ module AdminEditionAttachableControllerTestHelpers
         assert edition = edition_class.last
         assert_equal 1, edition.attachments.length
         attachment = edition.attachments.first
-        assert_equal "attachment-title", attachment.title
+        assert_equal attachment_attributes[:title], attachment.title
         assert_equal "greenpaper.pdf", attachment.attachment_data.carrierwave_file
         assert_equal "application/pdf", attachment.content_type
         assert_equal greenpaper_pdf.size, attachment.file_size
@@ -72,24 +60,20 @@ module AdminEditionAttachableControllerTestHelpers
 
       test "creating an edition should result in a single instance of the uploaded file being cached" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-        attributes = controller_attributes_for(edition_type)
-        attributes[attachment_join_attributes] = {
-          "0" => {
-            attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
-              file: greenpaper_pdf
-            })
-          }
-        }
 
         AttachmentData.any_instance.expects(:file=).once
 
-        post :create, edition_base_class_name => attributes
+        post :create, edition_base_class_name => controller_attributes_for(
+          edition_type, attachments_attributes: {
+            "0" => attributes_for(:attachment).merge( attachment_data_attributes: { file: greenpaper_pdf })
+          }
+        )
       end
 
       test "creating an edition with invalid data should leave one unsaved attachment on the instance" do
         post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type))
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
         assert attachments.first.new_record?
       end
@@ -97,35 +81,31 @@ module AdminEditionAttachableControllerTestHelpers
       test "creating an edition with invalid data does not add an extra attachment and preserves the uploaded data" do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        post :create, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
-          attachment_join_attributes => {
-            "0" => {
-              attachment_attributes: attributes_for(:attachment).merge(
-                title: 'my attachment',
-                attachment_data_attributes: {
-                  file: greenpaper_pdf
-                }
-              )
-            }
-          }
-        ))
+        attributes = controller_attributes_for(
+          edition_type,
+          attachments_attributes: {
+            "0" => attributes_for(:attachment).merge(
+              title: 'my attachment',
+              attachment_data_attributes: { file: greenpaper_pdf })
+          })
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        post :create, edition_base_class_name => make_invalid(attributes)
+
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
-        assert attachments.first.new_record?
-        assert_equal 'my attachment', attachments.first.attachment.title
-        assert_match /greenpaper.pdf$/, attachments.first.attachment.attachment_data.file_cache
+        attachment = attachments.first
+        assert attachment.new_record?
+        assert_equal 'my attachment', attachment.title
+        assert_match /greenpaper.pdf$/, attachment.attachment_data.file_cache
       end
 
       view_test 'creating an edition with invalid data should not show any existing attachment info' do
         attributes = controller_attributes_for(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-        attributes[attachment_join_attributes] = {
-          "0" => {
-            attachment_attributes: attributes_for(:attachment).merge(attachment_data_attributes: {
+        attributes[:attachments_attributes] = {
+          "0" => attributes_for(:attachment).merge(attachment_data_attributes: {
               file: greenpaper_pdf
-            })
-          }
+          })
         }
 
         post :create, edition_base_class_name => make_invalid(attributes)
@@ -137,17 +117,11 @@ module AdminEditionAttachableControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(edition_type)
-        attributes[attachment_join_attributes] = {
-          "0" => {
-            attachment_attributes: attributes_for(:attachment, title: "attachment-1-title").merge(attachment_data_attributes: {
-              file: greenpaper_pdf
-            })
-          },
-          "1" => {
-            attachment_attributes: attributes_for(:attachment, title: "attachment-2-title").merge(attachment_data_attributes: {
-              file: csv_file
-            })
-          }
+        attributes[:attachments_attributes] = {
+          "0" => attributes_for(:attachment, title: "attachment-1-title").merge(
+                     attachment_data_attributes: { file: greenpaper_pdf }),
+          "1" => attributes_for(:attachment, title: "attachment-2-title").merge(
+                     attachment_data_attributes: { file: csv_file })
         }
 
         post :create, edition_base_class_name => attributes
@@ -173,9 +147,9 @@ module AdminEditionAttachableControllerTestHelpers
 
         get :edit, id: edition
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 2, attachments.size
-        assert_equal 'attachment-title', attachments.first.attachment.title
+        assert_equal 'attachment-title', attachments.first.title
         assert attachments.last.new_record?
       end
 
@@ -184,12 +158,9 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type, :with_alternative_format_provider)
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
-          attachment_join_attributes => {
-            "0" => {
-              attachment_attributes: attributes_for(:attachment, title: "attachment-title").merge(attachment_data_attributes: {
-                file: greenpaper_pdf
-              })
-            }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, title: "attachment-title").merge(
+                       attachment_data_attributes: { file: greenpaper_pdf })
           }
         )
 
@@ -208,17 +179,11 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type, :with_alternative_format_provider)
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
-          attachment_join_attributes => {
-            "0" => {
-              attachment_attributes: attributes_for(:attachment, title: "attachment-1-title").merge(attachment_data_attributes: {
-                file: greenpaper_pdf
-              })
-            },
-            "1" => {
-              attachment_attributes: attributes_for(:attachment, title: "attachment-2-title").merge(attachment_data_attributes: {
-                file: csv_file
-              })
-            }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment, title: "attachment-1-title").merge(
+                       attachment_data_attributes: { file: greenpaper_pdf }),
+            "1" => attributes_for(:attachment, title: "attachment-2-title").merge(
+                       attachment_data_attributes: { file: csv_file })
           }
         )
 
@@ -240,7 +205,7 @@ module AdminEditionAttachableControllerTestHelpers
         edition = create(edition_type)
         put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for_instance(edition))
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
         assert attachments.first.new_record?
       end
@@ -250,23 +215,20 @@ module AdminEditionAttachableControllerTestHelpers
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
         put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
-          attachment_join_attributes => {
-            "0" => {
-              attachment_attributes: attributes_for(:attachment).merge(
+          attachments_attributes: {
+            "0" => attributes_for(:attachment).merge(
                 title: 'my attachment',
-                attachment_data_attributes: {
-                  file: greenpaper_pdf
-                }
+                attachment_data_attributes: { file: greenpaper_pdf }
               )
-            }
           }
         ))
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
-        assert attachments.first.new_record?
-        assert_equal 'my attachment', attachments.first.attachment.title
-        assert_match /greenpaper.pdf$/, attachments.first.attachment.attachment_data.file_cache
+        attachment = attachments.first
+        assert attachment.new_record?
+        assert_equal 'my attachment', attachment.title
+        assert_match /greenpaper.pdf$/, attachment.attachment_data.file_cache
       end
 
       test "updating a stale edition should still add an unsaved attachment instance" do
@@ -276,7 +238,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition, lock_version: lock_version)
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
         assert attachments.first.new_record?
       end
@@ -289,43 +251,37 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           lock_version: lock_version,
-          attachment_join_attributes => {
-            "0" => {
-              attachment_attributes: attributes_for(:attachment).merge(
-                title: 'my attachment',
-                attachment_data_attributes: {
-                  file: greenpaper_pdf
-                }
-              )
-            }
+          attachments_attributes: {
+            "0" => attributes_for(:attachment).merge(
+              title: 'my attachment',
+              attachment_data_attributes: {
+                file: greenpaper_pdf
+              }
+            )
           }
         )
 
-        attachments = assigns(edition_base_class_name).send(edition_class.attachment_join_table_name)
+        attachments = assigns(edition_base_class_name).attachments
         assert_equal 1, attachments.size
-        assert attachments.first.new_record?
-        assert_equal 'my attachment', attachments.first.attachment.title
-        assert_match /greenpaper.pdf$/, attachments.first.attachment.attachment_data.file_cache
+        attachment = attachments.first
+        assert attachment.new_record?
+        assert_equal 'my attachment', attachment.title
+        assert_match /greenpaper.pdf$/, attachment.attachment_data.file_cache
       end
 
       test 'updating should allow removal of attachments' do
-        attachment_1 = create(:attachment)
-        attachment_2 = create(:attachment)
         edition = create(edition_type, :with_alternative_format_provider)
-        edition_attachment_1 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_1)
-        edition_attachment_2 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_2)
+        attachment_1 = create(:attachment, attachable: edition)
+        attachment_2 = create(:attachment, attachable: edition)
 
-        put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
-          attachment_join_attributes => {
-            "0" => { id: edition_attachment_1.id.to_s, _destroy: "1" },
-            "1" => { id: edition_attachment_2.id.to_s, _destroy: "0" },
-            "2" => {
-              attachment_attributes: {
-                attachment_data_attributes: { file_cache: "" }
-              }
-            }
+        edition_params = controller_attributes_for_instance(edition,
+          attachments_attributes: {
+            "0" => { id: attachment_1.id.to_s, _destroy: "1" },
+            "1" => { id: attachment_2.id.to_s, _destroy: "0" },
+            "2" => { attachment_data_attributes: { file_cache: "" } }
           }
         )
+        put :update, id: edition, edition_base_class_name => edition_params
 
         assert assigns(edition_base_class_name).errors.empty?
         edition.reload
@@ -336,38 +292,31 @@ module AdminEditionAttachableControllerTestHelpers
         two_pages_pdf = fixture_file_upload('two-pages.pdf')
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
 
-        attachment_1 = create(:attachment, file: File.open(File.join(Rails.root, 'test', 'fixtures', 'whitepaper.pdf')))
-        attachment_1_data = attachment_1.attachment_data
-        attachment_2 = create(:attachment, file: File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')))
-        attachment_3 = create(:attachment, file: File.open(File.join(Rails.root, 'test', 'fixtures', 'three-pages.pdf')))
-        attachment_3_data = attachment_3.attachment_data
+        whitepaper_file, greenpaper_file, three_pages_file = %w(whitepaper greenpaper three-pages).map do |basename|
+          File.open(File.join(Rails.root, 'test', 'fixtures', "#{basename}.pdf"))
+        end
 
         edition = create(edition_type, :with_alternative_format_provider)
-        edition_attachment_1 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_1)
-        edition_attachment_2 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_2)
-        edition_attachment_3 = create("#{edition_base_class_name}_attachment", edition_base_class_name => edition, attachment: attachment_3)
+
+        attachment_1 = create(:attachment, attachable: edition, file: whitepaper_file)
+        attachment_1_data = attachment_1.attachment_data
+        attachment_2 = create(:attachment, attachable: edition, file: greenpaper_file)
+        attachment_3 = create(:attachment, attachable: edition, file: three_pages_file)
+        attachment_3_data = attachment_3.attachment_data
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
-          attachment_join_attributes => {
-            "0" => { id: edition_attachment_1.id.to_s, attachment_attributes: {
-              id: attachment_1.id,
-              attachment_action: 'keep'
-            }},
-            "1" => { id: edition_attachment_2.id.to_s, attachment_attributes: {
-              id: attachment_2.id,
-              attachment_action: 'remove'
-            }},
-            "2" => { id: edition_attachment_3.id.to_s, attachment_attributes: {
-              id: attachment_3.id,
+          attachments_attributes: {
+            "0" => { id: attachment_1.id.to_s, attachment_action: 'keep' },
+            "1" => { id: attachment_2.id.to_s, attachment_action: 'remove' },
+            "2" => {
+              id: attachment_3.id.to_s,
               attachment_action: 'replace',
               attachment_data_attributes: {
                 file: two_pages_pdf,
                 to_replace_id: attachment_3.attachment_data.id
               }
-            }},
-            "3" => { attachment_attributes: attributes_for(:attachment).merge(
-              attachment_data_attributes: { file: greenpaper_pdf }
-            )}
+            },
+            "3" => attributes_for(:attachment).merge(attachment_data_attributes: { file: greenpaper_pdf })
           }
         )
 

@@ -7,8 +7,6 @@ class CorporateInformationPage < ActiveRecord::Base
 
   belongs_to :organisation, polymorphic: true
 
-  attachable :corporate_information_page
-
   validates :organisation, :body, :type, presence: true
   validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
 

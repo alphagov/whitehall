@@ -1,6 +1,5 @@
 class Attachment < ActiveRecord::Base
-  has_many :edition_attachments
-  has_many :editions, through: :edition_attachments
+  belongs_to :attachable, polymorphic: true
   has_one :attachment_source
 
   belongs_to :attachment_data
@@ -54,7 +53,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def accessible_by?(user)
-    editions.all? { |e| e.accessible_by?(user) }
+    attachable.nil? || attachable.accessible_by?(user)
   end
 
   def html?

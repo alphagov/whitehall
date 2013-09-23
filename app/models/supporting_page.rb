@@ -4,8 +4,6 @@ class SupportingPage < ActiveRecord::Base
 
   belongs_to :edition
 
-  attachable :supporting_page
-
   validates_with SafeHtmlValidator
   validates :title, :body, :edition, presence: true
 

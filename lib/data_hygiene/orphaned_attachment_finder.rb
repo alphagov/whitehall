@@ -50,7 +50,7 @@ module DataHygiene
     def find
       editions_with_orphaned_attachments = []
       [SupportingPage, StatisticalDataSet, CorporateInformationPage, DetailedGuide].each do |klass|
-        klass.includes(klass.attachment_join_table_name).each do |edition|
+        klass.includes(:attachments).each do |edition|
           if edition.respond_to?(:published?) && edition.respond_to?(:is_latest_edition?)
             next unless edition.published? || edition.is_latest_edition?
             state = edition.state
@@ -61,7 +61,7 @@ module DataHygiene
             state = "published"
           end
           next if state == 'archived'
-          num_attachments = edition.send(klass.attachment_join_table_name.to_sym).count
+          num_attachments = edition.attachments.count
           actual_placeholders = edition.body.scan(/!@[1-9][0-9]*/).sort
           expected_placeholders = 1.upto(num_attachments).map {|n| "!@#{n}"}
           missing = expected_placeholders - actual_placeholders
