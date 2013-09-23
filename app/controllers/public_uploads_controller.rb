@@ -2,7 +2,7 @@ class PublicUploadsController < ApplicationController
   include ActionView::Helpers::AssetTagHelper
 
   def show
-    if upload_exists? upload_path
+    if attachment_visible?
       expires_headers
       send_file_for_mime_type
     else
@@ -18,6 +18,10 @@ class PublicUploadsController < ApplicationController
     else
       redirect_to placeholder_url
     end
+  end
+
+  def redirect_to_placeholder
+    redirect_to placeholder_url
   end
 
   def send_file_for_mime_type
@@ -43,6 +47,10 @@ class PublicUploadsController < ApplicationController
   def upload_path
     basename = [params[:path], params[:extension]].join(".")
     File.join(Whitehall.clean_uploads_root, basename)
+  end
+
+  def attachment_visible?
+    upload_exists? upload_path
   end
 
   def upload_exists?(path)
