@@ -75,7 +75,6 @@ class ActiveSupport::TestCase
   end
 
   def self.disable_database_queries
-    self.use_transactional_fixtures = false
     setup do
       ActiveRecord::Base.connection.expects(:select).never
     end
