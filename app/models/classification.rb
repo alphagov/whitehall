@@ -54,7 +54,8 @@ class Classification < ActiveRecord::Base
   has_many :classification_featurings,
             foreign_key: :classification_id,
             order: "classification_featurings.ordering asc",
-            include: :edition,
+            include: { edition: :translations },
+            inverse_of: :classification,
             conditions: { editions: { state: "published" } }
 
   has_many :featured_editions,
@@ -145,7 +146,7 @@ class Classification < ActiveRecord::Base
   end
 
     def featuring_of(edition)
-    classification_featurings.where(edition_id: edition.id).first
+    classification_featurings.detect { |cf| cf.edition == edition }
   end
 
   def feature(featuring_params)

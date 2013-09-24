@@ -76,7 +76,7 @@ class ClassificationTest < ActiveSupport::TestCase
     topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image: image)
     news_article.archive!
 
-    featuring = topical_event.featuring_of(news_article)
+    featuring = topical_event.reload.featuring_of(news_article)
     refute featuring
     refute topical_event.featured?(news_article)
   end

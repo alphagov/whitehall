@@ -6,7 +6,7 @@
   <h2>Featured documents</h2>
   <p>A maximum of 5 featured documents will be displayed on the live site.</p>
 
-  <% if @classification.classification_featurings.many? %>
+  <% if @classification_featurings.many? %>
 
     <p class="alert alert-info">
     To change the order of your featured documents, drag them up or down and then click "Save features order".
@@ -23,9 +23,9 @@
       <%= form.submit "Save features order", class: "btn" %>
     <% end %>
 
-  <% elsif @classification.classification_featurings.any? %>
+  <% elsif @classification_featurings.any? %>
 
-    <% @classification.classification_featurings.each do |cf| %>
+    <% @classification_featurings.each do |cf| %>
       <div class="well">
         <%= link_to(cf.edition.title, admin_edition_path(cf.edition)) %>
       </div>
@@ -47,7 +47,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @classification.editions.published.each do |edition| %>
+      <% @tagged_editions.each do |edition| %>
         <%= content_tag_for :tr, edition do %>
           <td class="type"><%= edition.type.titleize %></td>
           <td><%= link_to edition.title, admin_edition_path(edition) %></td>
