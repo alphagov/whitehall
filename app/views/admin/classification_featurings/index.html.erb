@@ -1,8 +1,17 @@
 <% page_title "Featured items on " + @classification.name %>
 
 <% content_for :current_tab do %>
-  <h2>Featured items</h2>
-  <% if @classification.classification_featurings.any? %>
+  <p class="warning">Warning: changes to featured content appear instantly on the live site.</p>
+
+  <h2>Featured documents</h2>
+  <p>A maximum of 5 featured documents will be displayed on the live site.</p>
+
+  <% if @classification.classification_featurings.many? %>
+
+    <p class="alert alert-info">
+    To change the order of your featured documents, drag them up or down and then click "Save features order".
+    </p>
+
     <%= form_for [:admin, @classification] do |form| %>
       <fieldset class="sortable">
         <%= form.fields_for :classification_featurings do |cf_form| %>
@@ -11,8 +20,17 @@
           </div>
         <% end %>
       </fieldset>
-      <%= form.submit "Save", class: "btn" %>
+      <%= form.submit "Save features order", class: "btn" %>
     <% end %>
+
+  <% elsif @classification.classification_featurings.any? %>
+
+    <% @classification.classification_featurings.each do |cf| %>
+      <div class="well">
+        <%= link_to(cf.edition.title, admin_edition_path(cf.edition)) %>
+      </div>
+    <% end %>
+
   <% else %>
     None
   <% end %>
