@@ -14,4 +14,12 @@
       }).click();
   }
 
+  // Autocomplete fields to reduce duplicates
+  fieldset.find('.user-need-input').each(function(index, input) {
+    $(input).autocomplete({
+      source: $(input).data('source'),
+      autoFocus: true
+    });
+  });
+
 }(jQuery));
