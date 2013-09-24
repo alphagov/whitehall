@@ -16,7 +16,7 @@
       <fieldset class="sortable">
         <%= form.fields_for :classification_featurings do |cf_form| %>
           <div class="well">
-            <%= cf_form.text_field :ordering, label_text: link_to(cf_form.object.edition.title, admin_edition_path(cf_form.object.edition)), class: "ordering" %>
+            <%= cf_form.text_field :ordering, label_text: link_to(cf_form.object.edition.title, admin_edition_path(cf_form.object.edition)), class: "ordering js-hidden" %>
           </div>
         <% end %>
       </fieldset>
