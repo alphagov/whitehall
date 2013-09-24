@@ -4,6 +4,9 @@ export GOVUK_APP_DOMAIN=test.gov.uk
 export GOVUK_ASSET_ROOT=http://static.test.gov.uk
 env
 
+# Empty and recreate carrierwave directory
+rm -rf ./carrierwave-tmp && mkdir -p ./carrierwave-tmp
+
 # Generate directories for upload tests
 mkdir -p ./incoming-uploads
 mkdir -p ./clean-uploads
