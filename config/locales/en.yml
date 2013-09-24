@@ -421,6 +421,9 @@ en:
   policies:
     heading: Policies
     view_all: View all policies
+    see_all:
+      one: See all %{count} policy
+      other: See all %{count} policies
   publications:
     heading: Publications
     headings:

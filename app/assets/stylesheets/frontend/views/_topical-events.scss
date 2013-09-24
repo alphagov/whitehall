@@ -1,4 +1,7 @@
+@import "../utils/topic-features";
+
 .topical-events-show {
+  @include topic-features;
 
   .headings-block {
     .archived {
@@ -36,67 +39,6 @@
           clear: none;
           padding-right: $gutter-half;
         }
-      }
-    }
-  }
-
-  .featured-news {
-    @extend %contain-floats;
-    margin: 0 (-$gutter-half);
-    padding-bottom: $gutter*2;
-
-    article {
-      width: 100%;
-    }
-
-    &.items-1 {
-      article {
-        .img-holder {
-          @include media(tablet){
-            width: 50%;
-            float: left;
-          }
-        }
-        .text {
-          @include media(tablet){
-            width: 50%;
-            float: left;
-
-            h2, p {
-              padding-left: $gutter-half;
-            }
-          }
-        }
-      }
-    }
-
-    &.items-3,
-    &.items-4 {
-      article {
-        @include media(tablet) {
-          width: 33.33%;
-          &.item-0,
-          &.item-1 {
-            width: 50%;
-            float: left;
-          }
-        }
-      }
-      .item-2 {
-        clear: left;
-      }
-    }
-
-    &.item-2,
-    &.items-5 {
-      article {
-        @include media(tablet){
-          width: 33.33%;
-          float: left;
-        }
-      }
-      .item-3 {
-        clear: left;
       }
     }
   }

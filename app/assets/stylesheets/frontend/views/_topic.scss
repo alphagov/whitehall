@@ -1,4 +1,7 @@
+@import "../utils/topic-features";
+
 .topics-show {
+  @include topic-features;
   @include media(desktop){
     .block-2 {
       width: 66%;
@@ -13,11 +16,8 @@
       padding-top: $gutter;
       clear: both;
     }
-    .block-6 {
-      padding-top: $gutter;
-      @extend %contain-floats;
-    }
   }
+
   .block {
     margin-bottom: $gutter;
   }
@@ -29,7 +29,7 @@
       }
       .recently-updated {
         width: 100%;
-        
+
         .content {
           margin-top: $gutter-one-third;
         }
@@ -41,66 +41,35 @@
     h1 {
       @include ig-core-27;
       font-weight: bold;
+
+      .count {
+        display: block;
+        font-size: 80px;
+      }
     }
   }
 
-  .what {
+  .govspeak {
+    p {
+      @include core-27;
+      margin: 0;
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+  }
+
+  .detailed-guidance {
     h1 {
-      @include core-36;
-      margin-bottom: $gutter;
-      padding-bottom: $gutter-one-third;
-      border-bottom-width: 5px;
-      border-bottom-style: solid;
+      @include ig-core-27;
+      font-weight: bold;
     }
-    .govspeak {
-      p {
-        @include core-27;
-        margin: 0;
-        &:first-child {
-          padding-top: 0;
-        }
-      }
+    h2 {
+      font-weight: bold;
+    }
+
+    .collection-item {
+      @include ig-core-16;
     }
   }
-      
-  .collection-list {
-    padding-top: $gutter-two-thirds;
-    .collection-item h2 {
-      @include ig-core-24;
-      margin-bottom: $gutter-one-sixth;
-    }
-  }
-
-  .elsewhere {
-    clear: both;
-    margin: 0 (-$gutter-half);
-
-    h1 {
-      padding-left: $gutter-half;
-      margin-bottom: $gutter-one-third;
-    }
-
-    .title-block {
-      @include media(tablet) {
-        float: left;
-        width: 50%;
-      }
-
-      h1 {
-        padding-left: 0;
-        @include core-27;
-        font-weight: bold;
-      }
-
-      .content {
-        padding: 0 $gutter-half;
-
-        li {
-          list-style: none;
-          @include ig-core-19;
-        }
-      }
-    }
-  }
-
 }

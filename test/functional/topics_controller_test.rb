@@ -150,7 +150,7 @@ class TopicsControllerTest < ActionController::TestCase
 
     get :show, id: topic
 
-    assert_select "#detailed-guidance" do
+    assert_select ".detailed-guidance" do
       published_detailed_guides.take(5).each do |guide|
         assert_select_object(guide) do
           assert_select "li", text: guide.title
@@ -182,7 +182,7 @@ class TopicsControllerTest < ActionController::TestCase
     topic = create(:topic)
     get :show, id: topic
     refute_select "#detailed-guides"
-    refute_select "a[href=?]", "#detailed-guidance"
+    refute_select "a[href=?]", ".detailed-guidance"
   end
 
   view_test "should not display an empty published policies section" do
@@ -195,28 +195,14 @@ class TopicsControllerTest < ActionController::TestCase
   view_test "show displays links to related topics" do
     related_topic_1 = create(:topic)
     related_topic_2 = create(:topic)
-    unrelated_topic = create(:topic)
     topic = create(:topic, related_classifications: [related_topic_1, related_topic_2])
 
     get :show, id: topic
 
-    assert_select "#related-topics" do
-      assert_select_object related_topic_1 do
-        assert_select "a[href='#{topic_path(related_topic_1)}']"
-      end
-      assert_select_object related_topic_2 do
-        assert_select "a[href='#{topic_path(related_topic_2)}']"
-      end
-      assert_select_object unrelated_topic, count: 0
+    assert_select ".related-topics" do
+      assert_select "a[href='#{topic_path(related_topic_1)}']"
+      assert_select "a[href='#{topic_path(related_topic_2)}']"
     end
-  end
-
-  view_test "show does not display empty related topics section" do
-    topic = create(:topic, related_classifications: [])
-
-    get :show, id: topic
-
-    assert_select "#related-topics ul", count: 0
   end
 
   view_test "show displays recently changed documents relating to the topic" do
@@ -310,16 +296,10 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select_object first_organisation
-    assert_select_prefix_object second_organisation, 'by-type'
+    assert_select_object second_organisation
   end
 
-  view_test "should not display an empty organisation section" do
-    topic = create(:topic)
-    get :show, id: topic
-    assert_select "#organisations", count: 0
-  end
-
-  view_test 'show hass a link to govdelivery if one exists' do
+  view_test 'show has a link to govdelivery if one exists' do
     topic = create(:topic)
 
     get :show, id: topic
@@ -407,12 +387,6 @@ class TopicsControllerTest < ActionController::TestCase
     refute_select_object(topics[0])
     assert_select_object(topics[1])
     assert_select_object(topics[2])
-  end
-
-  view_test "should not display an empty list of topics" do
-    get :index
-
-    refute_select ".topics"
   end
 
   test "sets a meta description" do

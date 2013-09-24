@@ -172,7 +172,7 @@ end
 
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by_name(related_name)
-  assert page.has_css?("#related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
+  assert page.has_css?(".related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
 end
 
 When(/^I feature one of the policies on the topic$/) do
