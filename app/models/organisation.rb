@@ -159,6 +159,8 @@ class Organisation < ActiveRecord::Base
 
   has_many :financial_reports
 
+  has_many :user_needs
+
   has_one :featured_topics_and_policies_list
   def featured_topics_and_policies_list_summary
     featured_topics_and_policies_list.try(:summary)
@@ -356,7 +358,7 @@ class Organisation < ActiveRecord::Base
   def has_published_publications_of_type?(publication_type)
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
-  
+
   private
 
   def sub_organisations_must_have_a_parent
