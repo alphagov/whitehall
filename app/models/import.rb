@@ -56,7 +56,7 @@ class Import < ActiveRecord::Base
 
   def enqueue!
     update_column(:import_enqueued_at, Time.zone.now)
-    Delayed::Job.enqueue(Job.new(self.id))
+    ImportWorker.perform_async(self.id)
   end
 
   def status
@@ -376,25 +376,8 @@ class Import < ActiveRecord::Base
     end
   end
 
-  class Job < Struct.new(:id)
-    def perform(options = {})
-      import.perform options
-    end
-
-    def error(delayed_job, error)
-      import.progress_logger.error(error.to_s + error.backtrace.join("\n"), nil)
-    end
-
   private
-    def import
-      @import ||= begin
-                    Import.use_separate_connection
-                    Import.find(self.id)
-                  end
-    end
-  end
 
-  private
   def destroy_all_imported_documents
     Document.destroy_all(id: self.document_ids)
   end
