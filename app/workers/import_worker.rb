@@ -1,5 +1,6 @@
 class ImportWorker
   include Sidekiq::Worker
+  sidekiq_options :queue => :imports
 
   def perform(id, options={})
     import(id)
