@@ -70,7 +70,7 @@
             <%= render partial: "policies/list_description", locals: { policies: @policies.limit(5) } %>
             <% if @policies.count > 5 %>
               <p class="see-all">
-                <%= link_to(t('policies.see_all', count: @policies.count), policies_filter_path(@classification)) %>
+                <%= link_to "See all #{@policies.count} policies", policies_filter_path(@classification) %>
               </p>
             <% end %>
           </div>
