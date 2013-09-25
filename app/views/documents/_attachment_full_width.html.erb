@@ -19,7 +19,7 @@
         <% end %>
 
         <% if external %>
-          <h3 class="hosted-externally">This <%= document.display_type %> is hosted on <%= link_to "another website", document.external_url, rel: "external" %></h3>
+          <h3 class="hosted-externally">This <%= document.display_type.downcase %> is hosted on <%= link_to "another website", document.external_url, rel: "external" %></h3>
         <% end %>
       </div>
     </article>
