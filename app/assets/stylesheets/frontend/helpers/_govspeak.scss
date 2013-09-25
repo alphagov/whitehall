@@ -18,6 +18,17 @@
     @include ig-core-19;
     font-weight: bold;
     margin-top: $gutter + $gutter-one-sixth;
+    &.hosted-externally {
+      @include core-27;
+      font-weight: bold;
+      padding-top: 2px;
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
   h4 {
     @include ig-core-19;
