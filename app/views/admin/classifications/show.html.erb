@@ -12,6 +12,17 @@
       <td class="details"><%= classification_contents_breakdown(@classification) %></td>
     </tr>
 
+    <% if @classification.is_a?(TopicalEvent) %>
+      <tr>
+        <th>Duration</th>
+        <td class="duration">
+          <% if @classification.start_date && @classification.end_date %>
+            <%= @classification.start_date %> to <%= @classification.end_date %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
     <tr>
       <th>Related</th>
       <td class="related">
