@@ -20,10 +20,12 @@
                           locals: { organisations: @classification.organisations,
                                     lead_organisations: @classification.lead_organisations } %>
             </dd>
-            <dt>Related topics:</dt>
-            <dd class="js-hide-other-links related-topics">
-              <%= @related_classifications.map { |topic| link_to(topic.name, topic_path(topic)) }.to_sentence.html_safe %>
-            </dd>
+            <% if @related_classifications.any? %>
+              <dt>Related topics:</dt>
+              <dd class="js-hide-other-links related-topics">
+                <%= @related_classifications.map { |topic| link_to(topic.name, topic_path(topic)) }.to_sentence.html_safe %>
+              </dd>
+            <% end %>
           </dl>
         </div>
       </aside>
