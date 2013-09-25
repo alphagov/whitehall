@@ -1,0 +1,39 @@
+img {
+  float: left;
+  width: 25%;
+}
+
+.document-footer-meta {
+  display: none;
+}
+
+.contextual-info {
+  display: none;
+}
+
+.govspeak {
+  h2,
+  h3 {
+    padding-bottom: 0;
+  }
+  p {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.document-page {
+  .block-3 {
+    float: left;
+    padding: 0;
+    margin: 0 $gutter*2 $gutter 0;
+    width: 25%;
+    figure {
+      display: inline;
+      -webkit-margin-before: 0;
+      -webkit-margin-after: 0;
+      -webkit-margin-start: 0;
+      -webkit-margin-end: 0;
+    }
+  }
+}

@@ -1,3 +1,6 @@
+a {
+  text-decoration: none;
+}
 h1 {
   @include heading-27;
   margin: $gutter 0;
@@ -22,13 +25,15 @@ p {
   @include copy-14;
   margin: $gutter-half 0;
 }
-ol {
+ol,
+ul {
   list-style: decimal;
   list-style-position: outside;
+  margin-left: 0;
+  padding-left: 0;
 }
 ul {
   list-style: disc;
-  list-style-position: outside;
 }
 li {
   @include copy-14;
@@ -75,14 +80,3 @@ figure {
   display: none;
 }
 
-aside.meta {
-  dt {
-    float: left;
-    clear: both;
-    min-width: 100px;
-  }
-  dd p {
-    margin: 0;
-    padding: 0;
-  }
-}
