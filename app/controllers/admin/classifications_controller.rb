@@ -7,7 +7,6 @@ class Admin::ClassificationsController < Admin::BaseController
 
   def index
     @classifications = model_class.order(:name)
-    @new_classification = model_class.new
   end
 
   def new
