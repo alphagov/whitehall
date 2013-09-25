@@ -12,15 +12,16 @@
     To change the order of your featured documents, drag them up or down and then click "Save features order".
     </p>
 
-    <%= form_for [:admin, @classification] do |form| %>
+    <%= form_tag [:order, :admin, @classification, ClassificationFeaturing], method: :put do %>
       <fieldset class="sortable">
-        <%= form.fields_for :classification_featurings do |cf_form| %>
+        <% @classification.classification_featurings.each do |classification_featuring| %>
           <div class="well">
-            <%= cf_form.text_field :ordering, label_text: link_to(cf_form.object.edition.title, admin_edition_path(cf_form.object.edition)), class: "ordering js-hidden" %>
+            <%= label_tag "ordering[#{classification_featuring.id}]", link_to(classification_featuring.edition.title, admin_edition_path(classification_featuring.edition)) %>
+            <%= text_field_tag "ordering[#{classification_featuring.id}]", classification_featuring.ordering, class: "ordering js-hidden" %>
           </div>
         <% end %>
       </fieldset>
-      <%= form.submit "Save features order", class: "btn" %>
+      <%= submit_tag "Save features order", class: "btn" %>
     <% end %>
 
   <% elsif @classification_featurings.any? %>

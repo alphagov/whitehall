@@ -22,6 +22,13 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     end
   end
 
+  def order
+    params[:ordering].each do |classification_featuring_id, ordering|
+      @classification.classification_featurings.find(classification_featuring_id).update_column(:ordering, ordering)
+    end
+    redirect_to polymorphic_path([:admin, @classification, :classification_featurings]), notice: 'Featured documents re-ordered'
+  end
+
   def destroy
     edition = @classification_featuring.edition
     @classification_featuring.destroy
@@ -32,7 +39,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   private
 
   def load_classification
-    @classification = Classification.find_by_slug(params[:topical_event_id] || params[:topic_id])
+    @classification = Classification.find(params[:topical_event_id] || params[:topic_id])
   end
 
   def load_featuring
