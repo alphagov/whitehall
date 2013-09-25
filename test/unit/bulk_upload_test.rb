@@ -36,7 +36,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '.from_files loads attachments from the edition if filenames match' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
     paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
@@ -45,7 +45,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '.from_files always builds new AttachmentData instances' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
     paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
@@ -53,7 +53,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '.from_files sets replaced_by on existing AttachmentData when file re-attached' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
     paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
@@ -63,7 +63,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '#attachments_attributes= builds new AttachmentData when existing file re-attached' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.attachments_attributes = attachments_params(
@@ -74,7 +74,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '#attachments_attributes= sets replaced_by on existing AttachmentData when file re-attached' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
     params = attachments_params(
@@ -87,7 +87,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test "#save_attachments saves new attachments to the end of the edition's existing attachments" do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     attachment = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.attachments_attributes = new_attachments_params
@@ -101,7 +101,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '#save_attachments updates existing attachments' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
     new_title = 'New title for existing attachment'
     bulk_upload = BulkUpload.new(edition)

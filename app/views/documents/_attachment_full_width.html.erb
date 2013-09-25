@@ -1,21 +1,21 @@
 <%
-  attachments = AttachmentsPresenter.new(document)
-  title = t('document.headings.attachments', count: attachments.length) unless local_assigns.include?(:title)
+  title = t('document.headings.attachments', count: document.attachments.size) unless local_assigns.include?(:title)
   published_on = '' unless local_assigns.include?(:published_on)
 %>
 <section class="heading-block attachment-full-width">
-  <% if attachments.any? %>
+  <% if document.attachments.any? %>
     <h1><%= title %></h1>
     <div class="content">
       <article>
         <div class="govspeak">
-          <% attachments.attachments.each do |attachment| %>
+          <% document.attachments.each do |attachment| %>
             <%= render partial: "documents/attachment",
-                      object: attachment,
-                      locals: {
-                        hide_thumbnail: false,
-                        alternative_format_contact_email: document.alternative_format_contact_email,
-                        published_on: published_on } %>
+                       object: attachment,
+                       locals: {
+                         hide_thumbnail: false,
+                         alternative_format_contact_email: document.alternative_format_contact_email,
+                         published_on: published_on
+                       } %>
           <% end %>
         </div>
       </article>

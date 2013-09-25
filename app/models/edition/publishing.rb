@@ -51,7 +51,7 @@ module Edition::Publishing
   end
 
   def virus_check_required?
-    allows_attachments? && published? && !skip_virus_status_check
+    allows_attachments? && published? && (! skip_virus_status_check)
   end
 
   def attachment_passed_virus_scan!

@@ -5,8 +5,6 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
-  helper_method :attachable_attachments_path
-
   def index
   end
 
@@ -64,17 +62,6 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def find_attachment
     @attachment = @attachable.attachments.find(params[:id])
-  end
-
-  def attachable_attachments_path(attachable)
-    case attachable
-    when Edition
-      admin_edition_attachments_path(attachable)
-    when Response
-      [:admin, attachable.consultation, attachable.singular_routing_symbol]
-    else
-      [:admin, attachable, Attachment]
-    end
   end
 
   def attachment_params

@@ -1,4 +1,3 @@
-
 <% if attachable.can_order_attachments? && attachable.attachments.many? %>
   <p class="alert alert-info">
     To change the order of your attachments, drag them up or down and then click "Save attachment order" at
@@ -9,10 +8,10 @@
 <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
   <ol class="existing-attachments<%= ' js-sortable' if attachable.can_order_attachments? && attachable.attachments.many? %>">
     <% attachable.attachments.each do |attachment| %>
-      <%= content_tag_for(:li, attachment, class: "well") do %>
+      <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
         <span class="title"><%= attachment.title %></span>
         <span class="file">
-          File: <%= link_to attachment.filename, attachment.url %>
+          File: <%= link_to_attachment(attachment) %>
         </span>
         <%= attachment_virus_status(attachment) %>
         <%= attachment_metadata_tag(attachment) %>
@@ -24,10 +23,10 @@
 
         <ul class="actions">
           <li>
-            <%= link_to 'Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment] %>
+            <%= link_to 'Edit', [:edit, :admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)] %>
           </li>
           <li>
-            <%= link_to 'Delete', [:admin, typecast_for_attachable_routing(attachable), attachment], method: 'delete', confirm: 'Are you sure you want to delete this attachment?' %>
+            <%= link_to 'Delete', [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], method: 'delete', confirm: 'Are you sure you want to delete this attachment?' %>
           </li>
         </ul>
       <% end %>

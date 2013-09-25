@@ -5,7 +5,6 @@ class Consultation < Publicationesque
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
-  include Edition::HasHtmlVersion
   include Edition::TopicalEvents
 
   validates :opening_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }

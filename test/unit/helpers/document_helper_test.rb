@@ -62,19 +62,18 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "should return DOC specific thumbnail for DOC files" do
-    attachment = create(:attachment, file: fixture_file_upload('sample.docx', 'application/msword'))
+    attachment = create(:file_attachment, file: fixture_file_upload('sample.docx', 'application/msword'))
     assert_match /pub-cover-doc\.png/, attachment_thumbnail(attachment)
   end
 
   test "should return spreadsheet specific thumbnail for spreadsheet files" do
-    attachment = create(:attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+    attachment = create(:file_attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
     assert_match /pub-cover-spreadsheet\.png/, attachment_thumbnail(attachment)
   end
 
   test "should return HTML specific thumbnail for HTML attachments" do
-    publication = create(:published_publication)
-    attachments = AttachmentsPresenter.new(publication)
-    assert_match /pub-cover-html\.png/, attachment_thumbnail(attachments.first)
+    publication = create(:published_publication, :with_html_attachment)
+    assert_match /pub-cover-html\.png/, attachment_thumbnail(publication.attachments.first)
   end
 
   test "should return PDF Document for humanized content type" do

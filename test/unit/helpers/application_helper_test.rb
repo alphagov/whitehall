@@ -68,7 +68,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test '#link_to_attachment returns link to an attachment given attachment' do
-    attachment = create(:attachment)
+    attachment = create(:file_attachment)
     assert_equal %{<a href="#{attachment.url}">#{File.basename(attachment.filename)}</a>}, link_to_attachment(attachment)
   end
 

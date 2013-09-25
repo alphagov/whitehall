@@ -252,13 +252,15 @@ module Admin::EditionsHelper
   end
 
   def attachment_virus_status(attachment)
-    case attachment.virus_status
-    when :clean
-      nil
-    when :pending
-      content_tag(:p, "Scanning For Viruses", class: "virus-scanning")
-    else
-      content_tag(:p, "Virus Found", class: "virus")
+    if attachment.could_contain_viruses?
+      case attachment.virus_status
+      when :clean
+        nil
+      when :pending
+        content_tag(:p, "Scanning For Viruses", class: "virus-scanning")
+      else
+        content_tag(:p, "Virus Found", class: "virus")
+      end
     end
   end
 

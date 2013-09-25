@@ -6,7 +6,6 @@ class Publication < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::WorldLocations
   include Edition::StatisticalDataSets
-  include Edition::HasHtmlVersion
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
 
@@ -98,7 +97,7 @@ class Publication < Publicationesque
   end
 
   def has_attachments?
-    !attachments.empty? || html_version.present?
+    ! attachments.empty?
   end
 
   private

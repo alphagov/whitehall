@@ -153,7 +153,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "edit works when the supporting page has an attachment" do
-   supporting_page = create(:supporting_page, attachments: [create(:attachment)])
+   supporting_page = create(:supporting_page, attachments: [create(:file_attachment)])
 
     get :edit, edition_id: supporting_page.edition, id: supporting_page
 

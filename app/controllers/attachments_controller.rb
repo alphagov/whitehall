@@ -1,6 +1,11 @@
 class AttachmentsController < PublicUploadsController
   include PublicDocumentRoutesHelper
 
+  layout 'html-publication', only: [:show_html]
+
+  before_filter :find_edition, only: [:show_html]
+  before_filter :find_html_attachment, only: [:show_html]
+
   private
 
   def attachment_visible?
@@ -15,6 +20,41 @@ class AttachmentsController < PublicUploadsController
     else
       super
     end
+  end
+
+  def analytics_format
+    @edition.type.underscore.to_sym
+  end
+
+  def set_slimmer_template
+    slimmer_template('chromeless')
+  end
+
+  def previewing?
+    user_signed_in? && params[:preview]
+  end
+
+  def edition_slug
+    params[:publication_id] || params[:consultation_id]
+  end
+
+  def find_edition
+    cls = params[:publication_id] ? Publication : Consultation
+    @edition = if previewing?
+      Document.at_slug(cls, edition_slug).latest_edition
+    else
+      cls.published_as(edition_slug)
+    end
+    @edition.nil? && raise(ActiveRecord::RecordNotFound)
+  end
+
+  def find_html_attachment
+    @attachment = if previewing?
+      HtmlAttachment.find(params[:preview])
+    else
+      @edition.attachments.where(slug: params[:id]).first
+    end
+    @attachment.nil? && raise(ActiveRecord::RecordNotFound)
   end
 
   def attachment_data

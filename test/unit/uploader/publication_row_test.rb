@@ -72,20 +72,20 @@ module Whitehall::Uploader
       assert_nil new_publication_row.html_body
 
       row = new_publication_row({'html_body' => 'body', 'html_body_1' => ' part 1', 'html_body_2' => ' part 2'})
-      assert_equal 'body part 1 part 2', row.attributes[:html_version_attributes][:body]
+      assert_equal 'body part 1 part 2', row.attributes[:html_attachment_attributes][:body]
     end
 
     test "returns the HTML title if present" do
       assert_nil new_publication_row.html_title
 
       row = new_publication_row({'html_title' => 'HTML title'})
-      assert_equal 'HTML title', row.attributes[:html_version_attributes][:title]
+      assert_equal 'HTML title', row.attributes[:html_attachment_attributes][:title]
     end
 
-    test "sets nested attributes for an HTML version if present" do
-      row_with_html_version = new_publication_row({'html_title' => 'HTML title', 'html_body' => 'HTML body'})
-      assert_equal 'HTML title', row_with_html_version.attributes[:html_version_attributes][:title]
-      assert_equal 'HTML body', row_with_html_version.attributes[:html_version_attributes][:body]
+    test "sets title and body for an HTML attachment if present" do
+      row_with_html_attachment = new_publication_row({'html_title' => 'HTML title', 'html_body' => 'HTML body'})
+      assert_equal 'HTML title', row_with_html_attachment.attributes[:html_attachment_attributes][:title]
+      assert_equal 'HTML body', row_with_html_attachment.attributes[:html_attachment_attributes][:body]
     end
 
     test "finds ministers specified by slug in minister 1 and minister 2 columns" do

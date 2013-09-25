@@ -129,20 +129,4 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     policy = create(:policy, locale: 'fr')
     assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'fr'), public_document_url(policy)
   end
-
-  test 'generates a preview path for publication html versions' do
-    publication = create(:publication)
-    html_version = publication.html_version
-
-    expected_path = "/government/publications/#{publication.slug}/#{html_version.slug}?cachebust=1321009871&preview=#{html_version.id}"
-    assert_equal expected_path, preview_html_version_path(publication, html_version)
-  end
-
-    test 'generates a preview path for consultation html versions' do
-    consultation = create(:consultation, html_version: create(:html_version))
-    html_version = consultation.html_version
-
-    expected_path = "/government/consultations/#{consultation.slug}/#{html_version.slug}?cachebust=1321009871&preview=#{html_version.id}"
-    assert_equal expected_path, preview_html_version_path(consultation, html_version)
-  end
 end

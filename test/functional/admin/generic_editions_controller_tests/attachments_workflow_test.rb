@@ -28,7 +28,7 @@ class AttachableEditionsWithInlineSupportTest < ActionController::TestCase
   setup { login_as :policy_writer }
 
   view_test 'GET :edit lists the attachments with markdown hint for editions that support inline attachments' do
-    edition = create(:news_article, :with_attachment)
+    edition = create(:news_article, :with_file_attachment)
     get :edit, id: edition
     attachment = edition.attachments.first
 
@@ -44,7 +44,7 @@ class AttachableEditionWithoutInlineSupportTest < ActionController::TestCase
   setup { login_as :policy_writer }
 
   view_test 'GET :edit does not list the attachments for editions that do not support inline attachments' do
-    edition = create(:publication, :with_attachment)
+    edition = create(:publication, :with_file_attachment)
     get :edit, id: edition
     attachment = edition.attachments.first
 

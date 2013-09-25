@@ -36,15 +36,22 @@ class Attachment < ActiveRecord::Base
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
+  scope :files, where('type = ?', 'FileAttachment')
+
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
-      [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('-')
+      starts = Date.new(year).strftime('%Y')
+      ends = Date.new(year + 1).strftime('%y')  # %y gives last two digits of year
+      "#{starts}-#{ends}"
     end
   end
 
   def price
-    return @price if @price
-    return price_in_pence / 100.0 if price_in_pence
+    if @price
+      @price
+    elsif price_in_pence
+      price_in_pence / 100.0
+    end
   end
 
   def price=(price_in_pounds)

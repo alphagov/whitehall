@@ -1,20 +1,18 @@
 <fieldset id="html_version_fields">
   <legend>HTML version</legend>
 
-  <span class='help-block'>These fields are optional: if you don't require an HTML version, please leave them blank.</span>
+  <p>
+    HTML versions have been converted to attachments.
+  </p>
+  <p>
+    <% if @edition.persisted? %>
+      You can create and edit HTML attachments in the
+      <%= link_to 'same tab as the other attachments', admin_edition_attachments_path(@edition) %>.
+    <% else %>
+      If you'd like to add an HTML attachment to this document, please save
+      it first. You'll then find a new tab at the top of the page that you
+      can use to upload, edit and delete attachments.
+    <% end %>
+  </p>
 
-  <%= form.fields_for :html_version do |html_version_fields| %>
-    <%= html_version_fields.text_field :title, label_text: "HTML version title", required: false %>
-    <%= html_version_fields.text_area :body, label_text: "HTML version text", class: "previewable", required: false %>
-    <%= html_version_fields.check_box :manually_numbered, label_text: 'Manually number headings' %>
-    <div class="js-manual-numbering-help<%= ' js-hidden' unless html_version_fields.object.manually_numbered? %>">
-      <pre>
-## 1. First heading
-### 1.1 First sub-heading
-### 1.2 Second sub-heading
-### Unnumbered sub-heading
-
-Manually number your headings as appropriate using the above numbering scheme.</pre>
-    </div>
-  <% end %>
 </fieldset>

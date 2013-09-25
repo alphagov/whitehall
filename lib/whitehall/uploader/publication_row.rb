@@ -61,7 +61,7 @@ module Whitehall::Uploader
       end
     end
 
-    def html_version_attributes
+    def html_attachment_attributes
       { title: html_title, body: html_body }
     end
 
@@ -69,7 +69,7 @@ module Whitehall::Uploader
       [:title, :summary, :body, :first_published_at, :publication_type,
        :related_editions, :lead_organisations,
        :ministerial_roles, :attachments, :alternative_format_provider,
-       :world_locations, :html_version_attributes].map.with_object({}) do |name, result|
+       :world_locations, :html_attachment_attributes].map.with_object({}) do |name, result|
         result[name] = __send__(name)
       end
     end
