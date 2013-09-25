@@ -8,10 +8,8 @@ task :describe_filters, [:topic_list_csv] => :environment do |t, args|
   class FilterHelper < Struct.new(:params)
     include DocumentFilterHelper
     include Rails.application.routes.url_helpers
-
-    def default_url_options
-      {host: "www.gov.uk", protocol: "https"}
-    end
+    Rails.application.routes.default_url_options[:host] = "www.gov.uk"
+    Rails.application.routes.default_url_options[:protocol] = "https"
   end
 
   def parse_params(line)

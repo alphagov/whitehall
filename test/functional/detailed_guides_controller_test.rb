@@ -1,8 +1,6 @@
 require "test_helper"
 
 class DetailedGuidesControllerTest < ActionController::TestCase
-  include DocumentViewAssertions
-
   should_be_a_public_facing_controller
   should_display_attachments_for :detailed_guide
   should_show_inapplicable_nations :detailed_guide

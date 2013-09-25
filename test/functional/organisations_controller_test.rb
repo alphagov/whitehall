@@ -1,8 +1,6 @@
 require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
   include FilterRoutesHelper
   include OrganisationControllerTestHelpers
 

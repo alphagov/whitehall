@@ -1,4 +1,6 @@
 module PublicDocumentRoutesHelper
+  include ActionDispatch::Routing::UrlFor
+
   def public_host
     if defined?(request) && request
       Whitehall.public_host_for(request.host)

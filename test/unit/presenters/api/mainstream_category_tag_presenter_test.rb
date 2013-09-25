@@ -4,10 +4,7 @@ class Api::MainstreamCategoryTagPresenterTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
   include MainstreamCategoryRoutesHelper
-
-  def default_url_options
-    {host: "example.com"}
-  end
+  Rails.application.routes.default_url_options[:host] = "example.com"
 
   test "json includes list of results" do
     results = [create(:mainstream_category), create(:mainstream_category), create(:mainstream_category)]

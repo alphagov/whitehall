@@ -13,9 +13,8 @@ module Whitehall
       refute_equal with_defaults.get_involved_url, without_defaults.get_involved_url
     end
 
-    test 'default url options are blank by default, and so host must be set when using _url helpers' do
+    test 'host can be set when using _url helpers' do
       maker = Whitehall::UrlMaker.new
-      assert_raise(ArgumentError) { maker.take_part_page_url('woo') }
       assert_equal 'http://gov.uk/government/get-involved/take-part/woo', maker.take_part_page_url('woo', host: 'gov.uk')
     end
 

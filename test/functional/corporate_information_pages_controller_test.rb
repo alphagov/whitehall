@@ -1,8 +1,6 @@
 require "test_helper"
 
 class CorporateInformationPagesControllerTest < ActionController::TestCase
-  include DocumentViewAssertions
-
   should_be_a_public_facing_controller
 
   view_test "show renders the summary as plain text" do

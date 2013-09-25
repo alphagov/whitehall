@@ -3,10 +3,6 @@
 require "test_helper"
 
 class PublicationsControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
-  default_url_options[:host] = 'test.host'
-
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
