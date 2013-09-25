@@ -34,11 +34,6 @@ Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic
   create(:topic, name: second_topic)
 end
 
-Given /^other topics also have policies$/ do
-  create(:topic, policies: [build(:published_policy)])
-  create(:topic, policies: [build(:published_policy)])
-end
-
 Given /^the topic "([^"]*)" is related to the topic "([^"]*)"$/ do |name, related_name|
   related_topic = create(:topic, name: related_name)
   topic = Topic.find_by_name(name)
@@ -142,7 +137,7 @@ Then /^I should see the following organisations for the "([^"]*)" topic:$/ do |t
   expected_table.diff!(table)
 end
 
-Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
+Then /^I should see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
   actual_editions = records_from_elements(Edition, page.all(".policy")).sort_by(&:id)
   expected_editions = topic.policies.published.all.sort_by(&:id)

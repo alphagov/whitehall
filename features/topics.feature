@@ -57,7 +57,7 @@ Scenario: Choosing and ordering lead organisations within a topic
   And I should see the following organisations for the "Facial Hair" topic:
     |Ministry of War|
 
-Scenario: Viewing a list of topics
+Scenario: Viewing the list of topics
   Given the topic "Higher Education" contains some policies
   And the topic "Science and Innovation" contains some policies
   When I visit the list of topics
@@ -66,16 +66,9 @@ Scenario: Viewing a list of topics
 Scenario: Visiting a topic page
   Given the topic "Higher Education" contains some policies
   And the topic "Higher Education" is related to the topic "Scientific Research"
-  And other topics also have policies
   When I visit the "Higher Education" topic
-  Then I should only see published policies belonging to the "Higher Education" topic
+  Then I should see published policies belonging to the "Higher Education" topic
   And I should see a link to the related topic "Scientific Research"
-
-Scenario: Visiting a topic page
-  Given the topic "Higher Education" contains a published and a draft detailed guide
-  And the topic "Science and Innovation" contains a published and a draft detailed guide
-  When I visit the "Higher Education" topic
-  Then I should only see published detailed guides belonging to the "Higher Education" topic
 
 Scenario: Featuring content on a topic page
   Given the topic "Higher Education" contains some policies
