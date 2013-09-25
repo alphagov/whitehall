@@ -28,7 +28,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select_object(organisation)
     end
   end
-  
+
   view_test "should display a list of ministerial departments" do
     organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
     organisation_2 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
@@ -76,7 +76,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select '.js-filter-count', text: '2'
       assert_select_object(organisation_1)
     end
-  end  
+  end
 
   view_test "index shouldn't include sub-organisations" do
     sub_organisation = create(:sub_organisation)
@@ -104,7 +104,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
 
 
-  ### Describing :show ###  
+  ### Describing :show ###
 
   view_test "shows organisation description" do
     organisation = create(:organisation,
@@ -739,7 +739,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
 
 
-  ### Describing :about ###  
+  ### Describing :about ###
 
   view_test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")
