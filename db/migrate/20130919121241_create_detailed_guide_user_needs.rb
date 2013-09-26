@@ -13,6 +13,9 @@ class CreateDetailedGuideUserNeeds < ActiveRecord::Migration
       t.references :user_need
       t.timestamps
     end
+
+    add_index :edition_user_needs, :edition_id
+    add_index :user_needs, :organisation_id
   end
 
   def down

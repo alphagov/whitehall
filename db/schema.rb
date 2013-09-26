@@ -433,6 +433,8 @@ ActiveRecord::Schema.define(:version => 20130919121241) do
     t.datetime "updated_at",   :null => false
   end
 
+  add_index "edition_user_needs", ["edition_id"], :name => "index_edition_user_needs_on_edition_id"
+
   create_table "edition_world_location_image_data", :force => true do |t|
     t.string   "carrierwave_image"
     t.datetime "created_at"
@@ -1147,6 +1149,8 @@ ActiveRecord::Schema.define(:version => 20130919121241) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "user_needs", ["organisation_id"], :name => "index_user_needs_on_organisation_id"
 
   create_table "user_world_locations", :force => true do |t|
     t.integer "user_id"
