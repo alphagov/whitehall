@@ -3,8 +3,7 @@
     <h2>Summary</h2>
     <p><%= @document.summary %></p>
     <% if @document.external? %>
-      <h3>This consultation is being held on another website</h3>
-      <p><%= link_to "View details of the consultation here", @document.external_url, rel: "external" %></p>
+      <h3>This consultation is being held on <%= link_to "another website", @document.external_url, rel: "external" %></h3>
     <% end %>
   </div>
 </div>
