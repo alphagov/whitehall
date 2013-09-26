@@ -1,29 +1,35 @@
-class AttachmentsController < ApplicationController
-  include UploadsControllerHelper
+class AttachmentsController < PublicUploadsController
   include PublicDocumentRoutesHelper
 
-  def show
-    if attachment_visibility.visible?
-      send_upload file_path, public: current_user.nil?
-    elsif edition = attachment_visibility.unpublished_edition
-      redirect_to public_document_path(edition, id: edition.unpublishing.slug)
-    else
-      replacement = attachment_data.replaced_by
-      if replacement
-        redirect_to replacement.url, status: 301
-      else
-        redirect_to_placeholder file_path
-      end
-    end
+  private
+
+  def attachment_visible?
+    super && attachment_visibility.visible?
   end
 
-  private
+  def fail
+    if edition = attachment_visibility.unpublished_edition
+      redirect_to public_document_path(edition, id: edition.unpublishing.slug)
+    elsif replacement = attachment_data.replaced_by
+      redirect_to replacement.url, status: 301
+    else
+      super
+    end
+  end
 
   def attachment_data
     @attachment_data ||= AttachmentData.find(params[:id])
   end
 
-  def file_path
+  def expires_headers
+    if current_user.nil?
+      super
+    else
+      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+    end
+  end
+
+  def upload_path
     File.join(Whitehall.clean_uploads_root, path_to_attachment_or_thumbnail)
   end
 

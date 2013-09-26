@@ -14,7 +14,7 @@ class Publication < Publicationesque
   validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
-  validate :must_have_attachment, if: :scheduled_or_published?, unless: :external?
+  validate :attachment_required_before_moving_out_of_draft, unless: :external?
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
@@ -98,7 +98,7 @@ class Publication < Publicationesque
     !non_english_edition?
   end
 
-  def attachment_present?
+  def has_attachments?
     !attachments.empty? || html_version.present?
   end
 
@@ -108,8 +108,10 @@ class Publication < Publicationesque
     published? || scheduled?
   end
 
-  def must_have_attachment
-    errors.add(:base, "cannot be #{current_state} without an attachment or HTML version") unless attachment_present?
+  def attachment_required_before_moving_out_of_draft
+    if %w(submitted scheduled published).include?(state) && !has_attachments?
+      errors.add(:base, "cannot be #{current_state} without an attachment or HTML version")
+    end
   end
 
   def only_publications_allowed_invalid_data_can_be_awaiting_type

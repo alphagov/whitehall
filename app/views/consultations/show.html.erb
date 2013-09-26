@@ -88,10 +88,8 @@
         </div>
       <% end %>
 
-      <% if @document.attachments.any? %>
-        <%= render partial: "documents/attachment_full_width",
-                   locals: { document: @document, title: 'Documents' } %>
-     <% end %>
+      <%= render partial: "documents/attachment_full_width",
+                 locals: { document: @document, title: 'Documents' } %>
 
       <section class="heading-block">
         <h1>Consultation description</h1>

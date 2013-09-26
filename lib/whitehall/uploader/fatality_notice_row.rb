@@ -4,7 +4,7 @@ module Whitehall::Uploader
       @row = row
       @line_number = line_number
       @logger = logger
-      @image_cache = image_cache || FatalityNoticeImageCache.new(FatalityNoticeImageCache.default_root_directory, logger)
+      @image_cache = image_cache || FatalityNoticeImageCache.new(FatalityNoticeImageCache.default_root_directory, logger, line_number)
     end
 
     def self.validator

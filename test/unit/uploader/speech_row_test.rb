@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'support/importer_test_logger'
 
 module Whitehall::Uploader
   class SpeechRowTest < ActiveSupport::TestCase
@@ -6,7 +7,7 @@ module Whitehall::Uploader
       @attachment_cache = stub('attachment cache')
       @default_organisation = stub('organisation', url: 'url')
       @logged = StringIO.new
-      @logger = Logger.new(@logged)
+      @logger = ImporterTestLogger.new(@logged)
     end
 
     test "validates row headings" do

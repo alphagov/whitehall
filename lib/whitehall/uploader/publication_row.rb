@@ -28,7 +28,7 @@ module Whitehall::Uploader
     end
 
     def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, @logger).find(fields(1..4, 'document_series_#'))
+      Finders::SluggedModelFinder.new(DocumentSeries, @logger, @line_number).find(fields(1..4, 'document_series_#'))
     end
 
     def ministerial_roles

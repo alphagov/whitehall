@@ -26,7 +26,7 @@ class Whitehall::Uploader::Parsers::OldUrlParserTest < ActiveSupport::TestCase
   end
 
   test "logs an error if the old url json cannot be parsed" do
-    @log.expects(:error).with(includes(%q{Unable to parse the old url '[]bad json'}))
+    @log.expects(:error).with(includes(%q{Unable to parse the old url '[]bad json'}), @line_number)
     Whitehall::Uploader::Parsers::OldUrlParser.parse('[]bad json', @log, @line_number)
   end
 end

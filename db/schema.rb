@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130911140104) do
+ActiveRecord::Schema.define(:version => 20130919121241) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -68,8 +68,11 @@ ActiveRecord::Schema.define(:version => 20130911140104) do
     t.string   "parliamentary_session"
     t.boolean  "unnumbered_command_paper"
     t.boolean  "unnumbered_hoc_paper"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
   end
 
+  add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
   add_index "attachments", ["ordering"], :name => "index_attachments_on_ordering"
 
@@ -245,9 +248,9 @@ ActiveRecord::Schema.define(:version => 20130911140104) do
   end
 
   create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
+    t.integer  "priority",                       :default => 0
+    t.integer  "attempts",                       :default => 0
+    t.text     "handler",    :limit => 16777215
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"

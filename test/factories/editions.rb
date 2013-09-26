@@ -1,5 +1,3 @@
-require 'whitehall/virus_scan_helpers'
-
 class GenericEdition < Edition
   class << self
     attr_accessor :translatable

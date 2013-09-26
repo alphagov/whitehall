@@ -28,7 +28,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select_object(organisation)
     end
   end
-  
+
   view_test "should display a list of ministerial departments" do
     organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
     organisation_2 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
@@ -76,7 +76,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select '.js-filter-count', text: '2'
       assert_select_object(organisation_1)
     end
-  end  
+  end
 
   view_test "index shouldn't include sub-organisations" do
     sub_organisation = create(:sub_organisation)
@@ -104,7 +104,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
 
 
-  ### Describing :show ###  
+  ### Describing :show ###
 
   view_test "shows organisation description" do
     organisation = create(:organisation,
@@ -292,48 +292,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_template 'not_live'
-  end
-
-  view_test "showing a closed organisation tells the user its closed" do
-    organisation = create(:organisation, govuk_status: 'closed')
-
-    get :show, id: organisation
-
-    assert_select '.information-block p', text: /closed/
-  end
-
-  view_test "showing a closed organisation with a closed date renders the date" do
-    organisation = create(:organisation, govuk_status: 'closed', closed_at: Time.zone.parse("2001-10-21 00:00:00"))
-
-    get :show, id: organisation
-
-    assert_select '.closed-at', text: '21 October 2001'
-  end
-
-  view_test "shows a link and thumbnail link of the organisation site when joining" do
-    organisation = create(:organisation, govuk_status: 'joining', url: 'http://example.com')
-
-    get :show, id: organisation
-
-    assert_select ".description a[href=?]", organisation.url
-    assert_select ".thumbnail" do
-      assert_select "a[href=?]", organisation.url do
-        assert_select "img[src$=?]", "#{organisation.slug}.png"
-      end
-    end
-  end
-
-  view_test "shows a link and thumbnail link of the organisation site when exempt" do
-    organisation = create(:organisation, govuk_status: 'exempt', url: 'http://example.com')
-
-    get :show, id: organisation
-
-    assert_select ".description a[href=?]", organisation.url
-    assert_select ".thumbnail" do
-      assert_select "a[href=?]", organisation.url do
-        assert_select "img[src$=?]", "#{organisation.slug}.png"
-      end
-    end
   end
 
   view_test "doesn't show a thumbnail if the organisation has no url" do
@@ -781,7 +739,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
 
 
-  ### Describing :about ###  
+  ### Describing :about ###
 
   view_test "should show description on organisation about subpage" do
     organisation = create(:organisation, description: "organisation-description")

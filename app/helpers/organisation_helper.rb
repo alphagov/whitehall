@@ -19,6 +19,30 @@ module OrganisationHelper
     ActiveSupport::Inflector.singularize(organisation.organisation_type.name.downcase)
   end
 
+  def organisation_govuk_status_description(organisation)
+    if organisation.closed?
+      if organisation.closed_at.present?
+        "#{organisation.name} closed on #{absolute_date(organisation.closed_at, class: 'closed-at')}"
+      else
+        "#{organisation.name} has closed"
+      end
+    elsif organisation.transitioning?
+      "#{organisation.name} is in the process of joining GOV.UK. In the meantime, #{link_to(organisation.url, organisation.url)} remains the official source.".html_safe
+    elsif organisation.joining?
+      if organisation.url.present?
+        "#{organisation.name} currently has a #{link_to('separate website', organisation.url)} but will soon be incorporated into GOV.UK".html_safe
+      else
+        "#{organisation.name} will soon be incorporated into GOV.UK"
+      end
+    elsif organisation.exempt?
+      if organisation.url.present?
+        "#{organisation.name} has a #{link_to('separate website', organisation.url)}".html_safe
+      else
+        "#{organisation.name} has no website"
+      end
+    end
+  end
+
   def organisation_display_name_and_parental_relationship(organisation)
     name = ERB::Util.h(organisation_display_name(organisation))
     type_name = organisation_type_name(organisation)
@@ -83,9 +107,9 @@ module OrganisationHelper
   end
 
   def has_any_transparency_pages?(organisation)
-    @organisation.corporate_information_pages.any? ||
-      @organisation.has_published_publications_of_type?(PublicationType::FoiRelease) ||
-      @organisation.has_published_publications_of_type?(PublicationType::TransparencyData)
+    organisation.corporate_information_pages.any? ||
+      organisation.has_published_publications_of_type?(PublicationType::FoiRelease) ||
+      organisation.has_published_publications_of_type?(PublicationType::TransparencyData)
   end
 
   def filter_terms(organisation)

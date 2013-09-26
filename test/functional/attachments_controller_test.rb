@@ -40,8 +40,8 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'attachments on policy groups are always visible' do
-    pg_attachment = create(:policy_group_attachment)
-    attachment_data = pg_attachment.attachment.attachment_data
+    attachment = create(:attachment, attachable: create(:policy_advisory_group))
+    attachment_data = attachment.attachment_data
 
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     get_show attachment_data
@@ -90,6 +90,12 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
 
     assert_redirected_to publication_url(unpublished_edition.unpublishing.slug)
+  end
+
+  test "an invalid filename returns a 404" do
+    attachment_data = create(:attachment_data)
+    get :show, id: attachment_data.to_param, file: File.basename(attachment_data.filename, ".#{attachment_data.file_extension}"), extension: "#{attachment_data.file_extension}missing"
+    assert_response :not_found
   end
 
   private

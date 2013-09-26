@@ -49,7 +49,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   test '#unpublished_edition returns the edition, even if it is deleted' do
     unpublished_edition = create(:deleted_publication, :unpublished, :with_attachment)
     attachment_data = unpublished_edition.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 
     refute attachment_visibility.visible?
     assert_equal unpublished_edition, attachment_visibility.unpublished_edition

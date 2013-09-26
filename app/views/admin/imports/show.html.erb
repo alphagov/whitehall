@@ -39,6 +39,10 @@
       <%= link_to "#{@import.number_of_rows_with_errors} failed", annotated_admin_import_path(@import, filter: :failed), class:"download", title: "Download CSV" %>
     </h2>
 
+    <% if @import.missing_row_numbers.any? %>
+      The following rows failed with no error message recorded: <%= @import.missing_row_numbers.join(', ') %>
+    <% end %>
+
     <% if @import.document_sources.any? %>
       <h2 id="success">Documents added:</h2>
       <ul class="added">

@@ -10,8 +10,6 @@ class DetailedGuide < Edition
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
-  attachable :edition
-
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       edition.outbound_related_documents = @edition.outbound_related_documents

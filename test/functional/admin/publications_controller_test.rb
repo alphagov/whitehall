@@ -48,16 +48,15 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     upload_file = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     post :create, edition: controller_attributes_for(:publication).merge(
       alternative_format_provider_id: create(:alternative_format_provider).id,
-      edition_attachments_attributes: {
-        '0' => {
-          attachment_attributes: attributes_for(:attachment,
-            title: 'attachment-title',
-            order_url: 'http://example.com/publication',
-            price: '1.23',
-            hoc_paper_number: '0123',
-            parliamentary_session: '1951/52'
-          ).merge(attachment_data_attributes: { file: upload_file }),
-        }
+      attachments_attributes: {
+        '0' => attributes_for(
+          :attachment,
+          title: 'attachment-title',
+          order_url: 'http://example.com/publication',
+          price: '1.23',
+          hoc_paper_number: '0123',
+          parliamentary_session: '1951/52'
+        ).merge(attachment_data_attributes: { file: upload_file })
       }
     )
 

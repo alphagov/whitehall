@@ -38,14 +38,14 @@ class Consultation < Publicationesque
       if @edition.outcome.present?
         new_outcome = edition.create_outcome(@edition.outcome.attributes.except('edition_id'))
         @edition.outcome.attachments.each do |attachment|
-          new_outcome.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
+          new_outcome.attachments.create(attachment.attributes)
         end
       end
 
       if @edition.public_feedback.present?
         new_feedback = edition.create_public_feedback(@edition.public_feedback.attributes.except('edition_id'))
         @edition.public_feedback.attachments.each do |attachment|
-          new_feedback.consultation_response_attachments.create(attachment: Attachment.create(attachment.attributes))
+          new_feedback.attachments.create(attachment.attributes)
         end
       end
     end

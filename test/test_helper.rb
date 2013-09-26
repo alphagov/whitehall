@@ -14,7 +14,6 @@ require 'slimmer/test'
 require 'factories'
 require 'webmock/test_unit'
 require 'whitehall/not_quite_as_fake_search'
-require 'whitehall/virus_scan_helpers'
 
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
@@ -33,6 +32,7 @@ class ActiveSupport::TestCase
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     ImageSizeChecker.any_instance.stubs(:size_is?).returns true
+    VirusScanHelpers.erase_test_files
   end
 
   teardown do
@@ -75,7 +75,6 @@ class ActiveSupport::TestCase
   end
 
   def self.disable_database_queries
-    self.use_transactional_fixtures = false
     setup do
       ActiveRecord::Base.connection.expects(:select).never
     end

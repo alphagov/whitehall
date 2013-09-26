@@ -7,7 +7,7 @@ class Import < ActiveRecord::Base
   has_many :editions, through: :documents, uniq: true
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
-  has_many :import_logs, dependent: :destroy
+  has_many :import_logs, dependent: :destroy, order: 'row_number'
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation
@@ -69,6 +69,22 @@ class Import < ActiveRecord::Base
     else
       :finished
     end
+  end
+
+  def row_numbers
+    (2..rows.count).to_a
+  end
+
+  def successful_row_numbers
+    document_sources.pluck(:row_number)
+  end
+
+  def failed_row_numbers
+    import_errors.pluck(:row_number)
+  end
+
+  def missing_row_numbers
+    @missing_row_numbers ||= row_numbers - successful_row_numbers - failed_row_numbers
   end
 
   def success_count
@@ -145,21 +161,19 @@ class Import < ActiveRecord::Base
     progress_logger.start(rows)
     rows.each_with_index do |data_row, ix|
       row_number = ix + 2
-      progress_logger.at_row(row_number) do
-        if blank_row?(data_row)
-          progress_logger.info("blank, skipped")
-          next
+      if blank_row?(data_row)
+        progress_logger.info("blank, skipped", row_number)
+        next
+      end
+      row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
+      document_sources = DocumentSource.where(url: row.legacy_urls)
+      if document_sources.any?
+        document_sources.each do |document_source|
+          progress_logger.already_imported(document_source, row_number)
         end
-        row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
-        document_sources = DocumentSource.where(url: row.legacy_urls)
-        if document_sources.any?
-          document_sources.each do |document_source|
-            progress_logger.already_imported(document_source)
-          end
-        else
-          Edition::AuditTrail.acting_as(import_user) do
-            import_row(row, row_number, import_user, progress_logger)
-          end
+      else
+        Edition::AuditTrail.acting_as(import_user) do
+          import_row(row, row_number, import_user, progress_logger)
         end
       end
     end
@@ -180,21 +194,21 @@ class Import < ActiveRecord::Base
   end
 
   def import_row(row, row_number, creator, progress_logger)
-    progress_logger.transaction do
+    progress_logger.with_transaction(row_number) do
       attributes = row.attributes.merge(creator: creator, state: 'imported')
       model = model_class.new(attributes)
       if model.save
-        save_translation!(model, row, row_number) if row.translation_present?
+        save_translation!(model, row) if row.translation_present?
         assign_document_series!(model, row.document_series)
         row.legacy_urls.each do |legacy_url|
           DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
         end
-        progress_logger.success(model)
       else
-        record_errors_for(model)
+        record_errors_for(model, row_number)
       end
     end
   end
+  handle_asynchronously :import_row, priority: 10
 
   def headers
     rows.headers
@@ -258,36 +272,36 @@ class Import < ActiveRecord::Base
     end
   end
 
-  def record_errors_for(model, translated=false)
+  def record_errors_for(model, row_number, translated=false)
     error_prefix = translated ? 'Translated ' : ''
 
     model.errors.keys.each do |attribute|
       next if [:attachments, :images].include?(attribute)
-      progress_logger.error("#{error_prefix}#{attribute}: #{model.errors[attribute].join(", ")}")
+      progress_logger.error("#{error_prefix}#{attribute}: #{model.errors[attribute].join(", ")}", row_number)
     end
     if model.respond_to?(:attachments)
       model.attachments.reject(&:valid?).each do |a|
-        progress_logger.error("#{error_prefix}Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}")
+        progress_logger.error("#{error_prefix}Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}", row_number)
       end
     end
     if model.respond_to?(:images)
       model.images.reject(&:valid?).each do |i|
-        progress_logger.error("#{error_prefix}Image '#{i.caption}': #{i.errors.full_messages.to_s}")
+        progress_logger.error("#{error_prefix}Image '#{i.caption}': #{i.errors.full_messages.to_s}", row_number)
       end
     end
   end
 
-  def save_translation!(model, row, row_number)
+  def save_translation!(model, row)
     translation = LocalisedModel.new(model, row.translation_locale)
 
     if translation.update_attributes(row.translation_attributes)
       if locale = Locale.find_by_code(row.translation_locale.to_s)
-        DocumentSource.create!(document: model.document, url: row.translation_url, locale: locale.code, import: self, row_number: row_number)
+        DocumentSource.create!(document: model.document, url: row.translation_url, locale: locale.code, import: self, row_number: row.line_number)
       else
-        progress_logger.error("Locale not recognised")
+        progress_logger.error("Locale not recognised", row.line_number)
       end
     else
-      record_errors_for(translation, true)
+      record_errors_for(translation, row.line_number, true)
     end
   end
 
@@ -318,23 +332,16 @@ class Import < ActiveRecord::Base
   class ProgressLogger
     def initialize(import)
       @import = import
-      @current_row = nil
       @errors_during = []
     end
 
-    def at_row(row_number, &block)
-      @current_row = row_number
-      yield
-      @current_row = nil
-    end
-
-    def transaction(&block)
+    def with_transaction(row_number, &block)
       ActiveRecord::Base.transaction do
         begin
           @errors_during = []
           yield
         rescue => e
-          self.error(e.to_s + "\n" + e.backtrace.join("\n"))
+          self.error(e.to_s + "\n" + e.backtrace.join("\n"), row_number)
         end
         raise ActiveRecord::Rollback if @errors_during.any?
       end
@@ -349,28 +356,24 @@ class Import < ActiveRecord::Base
       @import.update_column(:import_finished_at, Time.zone.now)
     end
 
-    def info(message)
-      write_log(:info, message)
+    def info(message, row_number)
+      write_log(:info, message, row_number)
     end
 
-    def warn(message)
-      write_log(:warning, message)
+    def warn(message, row_number)
+      write_log(:warning, message, row_number)
     end
 
-    def error(error_message)
-      @errors_during << @import.import_errors.create!(row_number: @current_row, message: error_message)
+    def error(error_message, row_number)
+      @errors_during << @import.import_errors.create!(row_number: row_number, message: error_message)
     end
 
-    def success(model_object)
-      @import.update_column(:current_row, @current_row)
+    def already_imported(document_source, row_number)
+      error("#{document_source.url} already imported by import '#{document_source.import_id}' row '#{document_source.row_number}'", row_number)
     end
 
-    def already_imported(document_source)
-      error("#{document_source.url} already imported by import '#{document_source.import_id}' row '#{document_source.row_number}'")
-    end
-
-    def write_log(level, data)
-      @import.import_logs.create(row_number: @current_row, level: level, message: data)
+    def write_log(level, data, row_number)
+      @import.import_logs.create(row_number: row_number, level: level, message: data)
     end
   end
 
@@ -380,7 +383,7 @@ class Import < ActiveRecord::Base
     end
 
     def error(delayed_job, error)
-      import.progress_logger.error(error.to_s + error.backtrace.join("\n"))
+      import.progress_logger.error(error.to_s + error.backtrace.join("\n"), nil)
     end
 
   private

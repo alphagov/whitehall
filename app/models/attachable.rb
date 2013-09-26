@@ -1,43 +1,30 @@
 module Attachable
   extend ActiveSupport::Concern
 
-  module ClassMethods
-    def attachable(class_name)
-      self.attachment_join_table_name = "#{class_name}_attachments".to_sym
+  included do
+    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', before_add: :set_order
 
-      has_many attachment_join_table_name, foreign_key: "#{class_name}_id", dependent: :destroy
-      has_many :attachments, through: attachment_join_table_name, order: 'attachments.ordering, attachments.id', before_add: :set_order
+    no_substantive_attachment_attributes = ->(attrs) do
+      attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
+        attrs.fetch(:attachment_data_attributes, {}).values.all?(&:blank?)
+    end
+    accepts_nested_attributes_for :attachments, reject_if: no_substantive_attachment_attributes, allow_destroy: true
 
-      no_substantive_attachment_attributes = ->(attrs) do
-        att_attrs = attrs.fetch(:attachment_attributes, {})
-        att_attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
-          att_attrs.fetch(:attachment_data_attributes, {}).values.all?(&:blank?)
-      end
-      accepts_nested_attributes_for attachment_join_table_name, reject_if: no_substantive_attachment_attributes, allow_destroy: true
-
-      if respond_to?(:add_trait)
-        add_trait do
-          def process_associations_after_save(edition)
-            @edition.attachments.each do |a|
-              attachment = Attachment.create(a.attributes)
-              edition.send(edition.class.attachment_join_table_name).create(attachment: attachment)
-            end
+    if respond_to?(:add_trait)
+      add_trait do
+        def process_associations_after_save(edition)
+          @edition.attachments.each do |attachment|
+            edition.attachments << attachment.class.new(attachment.attributes)
           end
         end
       end
     end
   end
 
-  included do
-    class_attribute :attachment_join_table_name
-  end
-
   def build_empty_attachment
-    attachment_join_model_instances = send(self.class.attachment_join_table_name)
-    unless attachment_join_model_instances.any?(&:new_record?)
-      join_model_instance = attachment_join_model_instances.build
-      attachment_instance = join_model_instance.build_attachment
-      attachment_instance.build_attachment_data
+    unless attachments.any?(&:new_record?)
+      attachment = attachments.build
+      attachment.build_attachment_data
     end
   end
 
@@ -103,18 +90,5 @@ module Attachable
   def next_ordering
     max = attachments.maximum(:ordering)
     max ? max + 1 : 0
-  end
-
-  module JoinModel
-    extend ActiveSupport::Concern
-
-    module ClassMethods
-      def attachable_join_model_for(class_name)
-        belongs_to :attachment, dependent: :destroy
-        belongs_to class_name
-
-        accepts_nested_attributes_for :attachment, reject_if: :all_blank
-      end
-    end
   end
 end
