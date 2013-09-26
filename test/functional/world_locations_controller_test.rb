@@ -2,8 +2,6 @@
 require "test_helper"
 
 class WorldLocationsControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
   include FilterRoutesHelper
 
   should_be_a_public_facing_controller

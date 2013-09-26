@@ -2,8 +2,6 @@ require "test_helper"
 
 class AnnouncementsControllerTest < ActionController::TestCase
   include ActionView::Helpers::DateHelper
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
   include DocumentFilterHelpers
 
   with_not_quite_as_fake_search

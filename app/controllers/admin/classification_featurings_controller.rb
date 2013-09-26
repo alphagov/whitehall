@@ -1,7 +1,16 @@
 class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_filter :load_classification
   before_filter :load_featuring, only: [:edit, :destroy]
-  before_filter :build_featuring, only: [:new]
+
+  def index
+    @tagged_editions = @classification.editions.published.with_translations
+    @classification_featurings = @classification.classification_featurings
+  end
+
+  def new
+    @classification_featuring = @classification.classification_featurings.build(edition_id: params[:edition_id])
+    @classification_featuring.build_image
+  end
 
   def create
     @classification_featuring = @classification.feature(params[:classification_featuring])
@@ -13,6 +22,13 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     end
   end
 
+  def order
+    params[:ordering].each do |classification_featuring_id, ordering|
+      @classification.classification_featurings.find(classification_featuring_id).update_column(:ordering, ordering)
+    end
+    redirect_to polymorphic_path([:admin, @classification, :classification_featurings]), notice: 'Featured documents re-ordered'
+  end
+
   def destroy
     edition = @classification_featuring.edition
     @classification_featuring.destroy
@@ -20,13 +36,10 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
   end
 
-  def load_classification
-    @classification = Classification.find_by_slug(params[:topical_event_id])
-  end
+  private
 
-  def build_featuring
-    @classification_featuring = @classification.classification_featurings.build(edition_id: params[:edition_id])
-    @classification_featuring.build_image
+  def load_classification
+    @classification = Classification.find(params[:topical_event_id] || params[:topic_id])
   end
 
   def load_featuring

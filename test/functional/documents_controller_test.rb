@@ -1,11 +1,10 @@
 # encoding: utf-8
 
 require "test_helper"
+require 'support/generic_edition'
 
 class DocumentsControllerTest < ActionController::TestCase
-  include Rails.application.routes.url_helpers
   include PublicDocumentRoutesHelper
-  default_url_options[:host] = 'test.host'
 
   setup do
     DocumentsController.any_instance.stubs(document_class: GenericEdition)

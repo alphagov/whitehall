@@ -3,8 +3,7 @@ require 'test_helper'
 
 class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   include Admin::EditionRoutesHelper
-  include Rails.application.routes.url_helpers
-  default_url_options[:host] = 'test.host'
+  include PublicDocumentRoutesHelper
 
   setup do
     @policy_writer = login_as(:policy_writer)

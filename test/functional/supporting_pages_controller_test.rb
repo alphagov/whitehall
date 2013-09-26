@@ -1,9 +1,7 @@
 require "test_helper"
 
 class SupportingPagesControllerTest < ActionController::TestCase
-  include DocumentViewAssertions
-
-  should_be_a_public_facing_controller
+  include PublicDocumentRoutesHelper
 
   test "index redirects to the first supporting page" do
     policy = create(:published_policy)
