@@ -208,7 +208,6 @@ class Import < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :import_row, priority: 10
 
   def headers
     rows.headers
