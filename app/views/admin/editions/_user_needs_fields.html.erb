@@ -1,0 +1,26 @@
+<% if edition.respond_to?(:requires_user_needs?) and edition.requires_user_needs? %>
+  <fieldset id='user-needs'>
+    <h2>User Needs</h2>
+
+    <p class='notice'>All detailed guides now require one or more user needs</p>
+
+    <p class='add-user-need'>
+      <%= form.label :user_need_ids, "Select existing user needs:" %>
+      <%= form.select :user_need_ids,
+                      user_need_options(selected: edition.user_need_ids),
+                      {include_blank: true},
+                      {multiple: true, class: 'chzn-select', data: { placeholder: "Select one or more existing user needs..."}} %>
+
+      <span class='choice'>or create a new user need:</span>
+      <%= form.fields_for :user_needs, new_user_need do |f| %>
+        <span><%= f.text_field :user, class: 'user-need-input', label_text: 'As a(n)',
+                  size: 35, placeholder: "e.g. manufacturer of medical devices", :'data-source' => UserNeed.existing_content('user').to_json %></span>
+        <span><%= f.text_field :need, class: 'user-need-input', label_text: 'I need to',
+                  size: 50, placeholder: "e.g. know how to register my product", :'data-source' => UserNeed.existing_content('need').to_json %></span>
+        <span><%= f.text_field :goal, class: 'user-need-input', label_text: 'so that',
+                  size: 80, placeholder: "e.g. I can market it in-line with legislation", :'data-source' => UserNeed.existing_content('goal').to_json %></span>
+        <%= f.hidden_field :organisation_id, value: current_user.organisation.id %>
+      <% end %>
+    </p>
+  </fieldset>
+<% end %>

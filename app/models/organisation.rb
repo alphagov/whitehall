@@ -356,7 +356,7 @@ class Organisation < ActiveRecord::Base
   def has_published_publications_of_type?(publication_type)
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
-  
+
   private
 
   def sub_organisations_must_have_a_parent
