@@ -1,0 +1,23 @@
+.index-list-page {
+  .js-filter-form {
+    display: none!important; //using !important to override inline display: bold which is added by js
+  }
+
+  .type-heading {
+    display: none;
+  }
+
+  .letter,
+  .location-list {
+    float: left;
+    width: 10%;
+  }
+  .letter {
+    @include core-80;
+    clear: both;
+  }
+  .location-list {
+    list-style: none;
+    width: 90%;
+  }
+}
