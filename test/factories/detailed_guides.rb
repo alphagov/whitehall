@@ -3,6 +3,10 @@ FactoryGirl.define do
     title "detailed-guide-title"
     body  "detailed-guide-body"
     primary_mainstream_category { FactoryGirl.build(:mainstream_category) }
+
+    after(:build) do |detailed_guide|
+      detailed_guide.user_needs << FactoryGirl.build(:user_need)
+    end
   end
 
   factory :draft_detailed_guide, parent: :detailed_guide, traits: [:draft]

@@ -100,3 +100,14 @@ Then /^the change notes should appear in the history for the detailed guide "([^
     assert_equal history.note, note.text.strip
   end
 end
+
+When(/^I start drafting a new edition for the detailed guide "([^"]*)"$/) do |guide_title|
+  guide = DetailedGuide.latest_edition.find_by_title!(guide_title)
+  visit admin_edition_path(guide)
+  click_button "Create new edition"
+  fill_in "edition_change_note", with: "Example change note"
+end
+
+Then(/^there should be (\d+) detailed guide editions?$/) do |guide_count|
+  assert_equal guide_count.to_i, DetailedGuide.count
+end
