@@ -100,7 +100,7 @@ class AttachableTest < ActiveSupport::TestCase
     edition
   end
 
-  test 'should say a edition has a thumbnail when it has a thumbnailable attachment' do
+  test 'should say an edition has a thumbnail when it has a thumbnailable attachment' do
     edition = build_edition_with_three_attachments
 
     assert edition.has_thumbnail?
