@@ -12,7 +12,7 @@
                       {multiple: true, class: 'chzn-select', data: { placeholder: "Select one or more existing user needs..."}} %>
 
       <span class='choice'>or create a new user need:</span>
-      <%= form.fields_for :user_needs, UserNeed.new do |f| %>
+      <%= form.fields_for :user_needs, new_user_need do |f| %>
         <span><%= f.text_field :user, class: 'user-need-input', label_text: 'As a(n)',
                   size: 35, placeholder: "e.g. manufacturer of medical devices", :'data-source' => UserNeed.existing_content('user').to_json %></span>
         <span><%= f.text_field :need, class: 'user-need-input', label_text: 'I need to',
