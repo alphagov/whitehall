@@ -3,8 +3,19 @@
     display: none!important; //using !important to override inline display: bold which is added by js
   }
 
-  .type-heading {
+  #international-delegations {
+    clear: both;
+    padding-top: $gutter*2;
+  }
+
+  .js-filter-no-results {
     display: none;
+  }
+
+  .type-heading {
+    p {
+      display: none;
+    }
   }
 
   .letter,
@@ -19,5 +30,8 @@
   .location-list {
     list-style: none;
     width: 90%;
+    li {
+      margin-left: 0;
+    }
   }
 }
