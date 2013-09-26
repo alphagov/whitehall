@@ -143,17 +143,18 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
 
   test "sets the state back to draft if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
+    edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(user)
     assert edition.draft?
   end
 
   test "adds an editorial remark stating that this edition has been set back to draft if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
-
+    edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(user)
 
     assert_equal "Reset to draft", edition.editorial_remarks.last.body
@@ -162,35 +163,40 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
 
   test "returns true if the edition is unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(true)
+    edition.unpublishing = build(:unpublishing)
     assert edition.unpublish_as(user)
   end
 
   test "does not set the state back to draft if the edition is not unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(false)
+    edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(user)
     refute edition.draft?
   end
 
   test "returns false if the edition is not unpublishable by the user" do
     user = build(:user)
-    edition = build(:published_edition, :with_document)
+    edition = create(:published_edition, :with_document)
     edition.stubs(:unpublishable_by?).with(user).returns(false)
+    edition.unpublishing = build(:unpublishing)
     refute edition.unpublish_as(user)
   end
 
   test "adds a suitable error message if the edition is not published" do
-    edition = build(:edition, :with_document)
+    edition = create(:edition, :with_document)
     edition.unpublish_as(build(:user))
+    edition.unpublishing = build(:unpublishing)
     assert edition.errors[:base].include?("This edition has not been published")
   end
 
   test "adds a suitable error message if the user is not a GDS editor" do
     non_gds_editor = build(:user)
-    edition = build(:edition, :with_document)
+    edition = create(:edition, :with_document)
+    edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(non_gds_editor)
     assert edition.errors[:base].include?("Only GDS editors can unpublish")
   end
@@ -366,6 +372,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   test "unpublishing first edition sets published version to nil" do
     edition = create(:submitted_edition)
     edition.publish_as(create(:departmental_editor))
+    edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(create(:gds_editor))
     assert_nil edition.reload.published_version
   end
@@ -376,6 +383,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(editor)
     new_draft.minor_change = true
     new_draft.publish_as(editor, force: true)
+    new_draft.unpublishing = build(:unpublishing)
     new_draft.unpublish_as(create(:gds_editor))
     assert_equal '1.0', new_draft.reload.published_version
   end
@@ -386,6 +394,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(editor)
     new_draft.change_note = 'My new version'
     new_draft.publish_as(editor, force: true)
+    new_draft.unpublishing = build(:unpublishing)
     new_draft.unpublish_as(create(:gds_editor))
     assert_equal '1.0', new_draft.reload.published_version
   end
@@ -399,6 +408,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft = minor_change_edition.create_draft(editor)
     new_draft.change_note = 'My new version'
     new_draft.publish_as(editor, force: true)
+    new_draft.unpublishing = build(:unpublishing)
     new_draft.unpublish_as(create(:gds_editor))
     assert_equal '1.1', new_draft.reload.published_version
   end

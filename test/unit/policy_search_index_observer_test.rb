@@ -13,7 +13,7 @@ class PolicySearchIndexObserverTest < ActiveSupport::TestCase
     policy = create(:published_policy)
 
     PolicySearchIndexObserver::ReindexRelatedEditions.expects(:later).with(policy)
-
+    policy.unpublishing = build(:unpublishing)
     policy.unpublish_as(create(:gds_editor))
   end
 

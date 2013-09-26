@@ -83,7 +83,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     slug = edition.document.slug
 
     Searchable::Delete.expects(:later).with(edition)
-
+    edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(create(:gds_editor))
   end
 
