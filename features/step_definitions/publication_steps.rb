@@ -177,6 +177,6 @@ end
 Then(/^I should see in the preview that the publication is external and there is a link to the external publication$/) do
   ensure_path admin_publication_path(@publication)
   click_link "Preview on website"
-  assert has_content?('This research and analysis is hosted on another website')
+  assert has_content?('This document is hosted on another website')
   assert has_link?('another website', href: @publication.external_url)
 end
