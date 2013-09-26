@@ -140,8 +140,14 @@ module Edition::Publishing
         self.published_major_version = self.published_major_version - 1
         self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
       end
-      unpublish!
-      editorial_remarks.create!(author: user, body: "Reset to draft")
+      if unpublishing && unpublishing.valid?
+        unpublish!
+        editorial_remarks.create!(author: user, body: "Reset to draft")
+        unpublishing.save
+      else
+        errors.add(:base, unpublishing.errors.full_messages.join) if unpublishing
+        false
+      end
     else
       reasons_to_prevent_unpublication_by(user).each do |reason|
         errors.add(:base, reason)

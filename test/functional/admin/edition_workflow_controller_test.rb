@@ -377,7 +377,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
       'document_type' => 'Policy',
       'document_slug' => 'some-slug'
     }
-    @edition.expects(:create_unpublishing!).with(unpublish_params)
+    @edition.expects(:build_unpublishing).with(unpublish_params)
     post :unpublish, id: @edition.to_param, lock_version: 1, unpublishing: unpublish_params
   end
 

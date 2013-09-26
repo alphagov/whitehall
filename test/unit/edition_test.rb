@@ -494,7 +494,7 @@ class EditionTest < ActiveSupport::TestCase
     policy = create(:published_policy)
 
     Searchable::Delete.expects(:later).with(policy)
-
+    policy.unpublishing = build(:unpublishing)
     policy.unpublish_as(create(:gds_editor))
   end
 
@@ -502,7 +502,7 @@ class EditionTest < ActiveSupport::TestCase
     policy = create(:published_policy)
 
     Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
-
+    policy.unpublishing = build(:unpublishing)
     assert_nothing_raised { policy.unpublish_as(create(:gds_editor)) }
   end
 

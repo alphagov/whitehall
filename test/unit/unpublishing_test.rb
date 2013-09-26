@@ -32,6 +32,14 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.valid?
   end
 
+  test 'alternative_url cannot be the same url as the edition' do
+    unpublishing = build(:unpublishing, redirect: true)
+    unpublishing.alternative_url = Whitehall.url_maker.public_document_url(unpublishing.edition)
+    assert_equal unpublishing.alternative_url, unpublishing.edition_url
+    refute unpublishing.valid?
+    assert_equal ["cannot redirect to itself"], unpublishing.errors[:alternative_url]
+  end
+
   test 'returns an unpublishing reason' do
     unpublishing = build(:unpublishing, unpublishing_reason_id: reason.id)
     assert_equal reason, unpublishing.unpublishing_reason
