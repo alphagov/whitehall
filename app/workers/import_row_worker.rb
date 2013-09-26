@@ -1,6 +1,6 @@
 class ImportRowWorker < Struct.new(:import_id, :row_hash, :row_number)
   include Sidekiq::Worker
-  sidekiq_options :queue => :imports
+  sidekiq_options queue: :imports
 
   def perform(*args)
     ImportRowWorker.new(*args).run
