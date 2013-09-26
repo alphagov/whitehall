@@ -1,0 +1,31 @@
+<fieldset class="named logo">
+  <legend>Logo</legend>
+  <div class="control-group">
+    <%= image_tag classification_form.object.logo_url if classification_form.object.logo_url %>
+    <%= classification_form.text_field :logo_alt_text, label_text: 'Alt text' %>
+    <%= classification_form.upload :logo, label_text: 'File', allow_removal: classification_form.object.logo_url.present? %>
+  </div>
+</fieldset>
+
+<fieldset class="named duration">
+  <legend>Duration</legend>
+  <div class="control-group">
+    <%= classification_form.label :start_date, "Start Date" %>
+    <%= classification_form.date_select :start_date, { include_blank: true, start_year: 2013 }, { :class => "date" } %>
+    <%= classification_form.label :end_date, "End Date" %>
+    <%= classification_form.date_select :end_date, { include_blank: true, start_year: 2013 }, { :class => "date" } %>
+  </div>
+</fieldset>
+
+<fieldset class="named social_media_accounts form-horizontal">
+  <legend>Social media accounts</legend>
+  <%= classification_form.fields_for :social_media_accounts do |account_form| %>
+    <div class="control-group">
+      <%= account_form.label :social_media_service_id, 'Service', class: "control-label" %>
+      <div class="controls">
+        <%= account_form.select :social_media_service_id, options_from_collection_for_select(SocialMediaService.all, :id, :name, account_form.object.social_media_service_id), {include_blank: true}, class: 'chzn-select', data: { placeholder: "Choose the social media service..." } %>
+      </div>
+    </div>
+    <%= account_form.text_field :url, horizontal: true %>
+  <% end %>
+</fieldset>

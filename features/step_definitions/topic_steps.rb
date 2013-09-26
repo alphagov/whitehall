@@ -1,15 +1,15 @@
 Given /^a topic called "([^"]*)" exists$/ do |name|
-  create_topic(name: name)
+  create(:topic, name: name)
 end
 
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
-  create_topic(name: name, description: description)
+  create(:topic, name: name, description: description)
 end
 
 Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
-  topic = create(:topic, name: topic_name)
-  5.times do create(:published_policy, topics: [topic]); end
-  2.times do create(:draft_policy,     topics: [topic]); end
+  @topic = create(:topic, name: topic_name)
+  5.times do create(:published_policy, topics: [@topic]); end
+  2.times do create(:draft_policy,     topics: [@topic]); end
 end
 
 Given /^the topic "([^"]*)" is associated with organisation "([^"]*)"$/ do |topic_name, organisation_name|
@@ -34,11 +34,6 @@ Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic
   create(:topic, name: second_topic)
 end
 
-Given /^other topics also have policies$/ do
-  create(:topic, policies: [build(:published_policy)])
-  create(:topic, policies: [build(:published_policy)])
-end
-
 Given /^the topic "([^"]*)" is related to the topic "([^"]*)"$/ do |name, related_name|
   related_topic = create(:topic, name: related_name)
   topic = Topic.find_by_name(name)
@@ -58,6 +53,7 @@ When /^I edit the topic "([^"]*)" to have description "([^"]*)"$/ do |name, desc
   visit admin_root_path
   click_link "Topics"
   click_link name
+  click_on "Edit"
   fill_in "Description", with: description
   click_button "Save"
 end
@@ -113,6 +109,7 @@ end
 Then /^I should be able to delete the topic "([^"]*)"$/ do |name|
   visit admin_topics_path
   click_link name
+  click_on 'Edit'
   click_button 'Delete'
 end
 
@@ -140,7 +137,7 @@ Then /^I should see the following organisations for the "([^"]*)" topic:$/ do |t
   expected_table.diff!(table)
 end
 
-Then /^I should only see published policies belonging to the "([^"]*)" topic$/ do |name|
+Then /^I should see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
   actual_editions = records_from_elements(Edition, page.all(".policy")).sort_by(&:id)
   expected_editions = topic.policies.published.all.sort_by(&:id)
@@ -170,17 +167,25 @@ end
 
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by_name(related_name)
-  assert page.has_css?("#related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
+  assert page.has_css?(".related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
 end
 
-def create_topic(options = {})
-  visit admin_root_path
-  click_link "Topics"
-  click_link "Create topic"
-  fill_in "Name", with: options[:name] || "topic-name"
-  fill_in "Description", with: options[:description] || "topic-description"
-  (options[:related_classifications] || []).each do |related_name|
-    select related_name, from: "Related topics"
+When(/^I feature one of the policies on the topic$/) do
+  @policy = @topic.policies.published.last
+  visit admin_topic_path(@topic)
+  click_on 'Features'
+
+  within record_css_selector(@policy) do
+    click_link "Feature"
   end
+  attach_file "Select an image to be shown when featuring", jpg_image
+  fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
   click_button "Save"
+end
+
+Then(/^I should see the policy featured on the public topic page$/) do
+  visit topic_path(@topic)
+  within('section.featured-news') do
+    assert page.has_content?(@policy.title)
+  end
 end

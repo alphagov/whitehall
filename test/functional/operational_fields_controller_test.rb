@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class OperationalFieldsControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
   should_be_a_public_facing_controller
 
   setup do

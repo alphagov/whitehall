@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :classification_featuring do
-    edition
+    association :edition, factory: :published_edition
     classification
     sequence(:ordering) { |index| index }
     association :image, factory: :classification_featuring_image_data

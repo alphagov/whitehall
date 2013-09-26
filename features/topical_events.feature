@@ -18,36 +18,36 @@ Scenario: Archiving a new topical event
   And I should see the topical event "An Event" on the frontend is archived
 
 Scenario: Associating a speech with a topical event
-  When I create a new topical event "An Event" with description "A topical event"
-  And I draft a new speech "A speech" relating it to topical event "An Event"
+  Given a topical event called "An Event" with description "A topical event"
+  When I draft a new speech "A speech" relating it to topical event "An Event"
   And I force publish the speech "A speech"
   Then I should see the speech "A speech" in the announcements section of the topical event "An Event"
   And the speech "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a news article with a topical event
-  When I create a new topical event "An Event" with description "A topical event"
-  And I draft a new news article "A speech" relating it to topical event "An Event"
+  Given a topical event called "An Event" with description "A topical event"
+  When I draft a new news article "A speech" relating it to topical event "An Event"
   And I force publish the news article "A speech"
   Then I should see the news article "A speech" in the announcements section of the topical event "An Event"
   And the news article "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a publication with a topical event
-  When I create a new topical event "An Event" with description "A topical event"
-  And I draft a new publication "A speech" relating it to topical event "An Event"
+  Given a topical event called "An Event" with description "A topical event"
+  When I draft a new publication "A speech" relating it to topical event "An Event"
   And I force publish the publication "A speech"
   Then I should see the publication "A speech" in the publications section of the topical event "An Event"
   And the publication "A speech" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Associating a consultation with a topical event
-  When I create a new topical event "An Event" with description "A topical event"
-  And I draft a new consultation "A Consultation" relating it to topical event "An Event"
+  Given a topical event called "An Event" with description "A topical event"
+  When I draft a new consultation "A Consultation" relating it to topical event "An Event"
   And I force publish the consultation "A Consultation"
   Then I should see the consultation "A Consultation" in the consultations section of the topical event "An Event"
   And the consultation "A Consultation" shows it is related to the topical event "An Event" on its public page
 
 Scenario: Featuring news on an topical event page
-  When I create a new topical event "An Event" with description "A topical event"
-  And I draft a new news article "A speech" relating it to topical event "An Event"
+  Given a topical event called "An Event" with description "A topical event"
+  When I draft a new news article "A speech" relating it to topical event "An Event"
   And I force publish the news article "A speech"
   When I feature the news article "A speech" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured news articles in the "An Event" topical event are:

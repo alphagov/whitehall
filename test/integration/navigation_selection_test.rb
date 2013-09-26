@@ -3,9 +3,7 @@ require "test_helper"
 class NavigationSelectionTest < ActiveSupport::TestCase
   include ApplicationHelper
   include Rails.application.routes.url_helpers
-  define_method :default_url_options do
-    {host: "example.com"}
-  end
+  Rails.application.routes.default_url_options[:host] = "example.com"
 
   EXCLUDED_CONTROLLERS = %w(
     application

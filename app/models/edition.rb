@@ -25,6 +25,7 @@ class Edition < ActiveRecord::Base
   has_many :email_curation_queue_items, inverse_of: :edition, dependent: :destroy
 
   has_many :featurings, class_name: "Feature"
+  has_many :classification_featurings, inverse_of: :edition
 
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true

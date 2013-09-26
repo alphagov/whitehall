@@ -140,9 +140,6 @@ class PeopleControllerTest < ActionController::TestCase
 end
 
 class PeopleControllerAtomFeedTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
-
   tests PeopleController
 
   view_test "show generates an atom feed of news and speeches associated with the person" do

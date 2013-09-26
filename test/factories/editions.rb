@@ -1,21 +1,4 @@
-class GenericEdition < Edition
-  class << self
-    attr_accessor :translatable
-  end
-  def translatable?
-    self.class.translatable
-  end
-end
-
-Rails.application.routes.url_helpers.module_eval do
-  def generic_edition_path(options = {})
-    "/government/generic-editions/#{options[:id].to_param}"
-  end
-
-  def generic_edition_url(options = {})
-    options[:host] + generic_edition_path(options)
-  end
-end
+require_relative '../support/generic_edition'
 
 FactoryGirl.define do
   factory :edition, class: GenericEdition, traits: [:translated] do

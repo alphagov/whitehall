@@ -1,4 +1,0 @@
-<fieldset>
-  <%= classification_form.label :related_classification_ids, "Related topics" %>
-  <%= classification_form.select :related_classification_ids, options_from_collection_for_select(Topic.all - [classification_form.object], 'id', 'name', classification_form.object.related_classification_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related topics..."} %>
-</fieldset>

@@ -1,0 +1,15 @@
+<% page_title model_name.humanize %>
+<nav class="actions">
+  <%= link_to "Create #{model_name.humanize.downcase}", [:new, :admin, model_name], class: "btn new_resource", title: "Create a #{model_name.humanize.downcase}" %>
+  <p class="warning">Do not create <%= model_class.name.underscore.humanize.downcase %>s without consulting GDS.</p>
+</nav>
+
+<h1><%= model_name.humanize.pluralize %></h1>
+
+<table class="<%= model_name %> table table-striped">
+  <%= render 'table_header' %>
+
+  <tbody>
+    <%= render @classifications %>
+  </tbody>
+</table>
