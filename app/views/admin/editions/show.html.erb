@@ -22,7 +22,7 @@
         <%= schedule_edition_form(@edition, force: true) %>
       <% end %>
 
-      <%= submit_edition_button(@edition) if @edition.submittable? %>
+      <%= submit_edition_button(@edition) if @edition.can_submit? %>
 
       <% if @edition.publishable_by?(current_user, assuming_presence_of_change_note: true) %>
         <%= publish_edition_form(@edition) %>
@@ -32,7 +32,7 @@
       <% end %>
 
       <%= reject_edition_button(@edition) if @edition.rejectable_by?(current_user) %>
-      <%= delete_edition_button(@edition) if @edition.deletable? %>
+      <%= delete_edition_button(@edition) if @edition.can_delete? %>
       <%= unpublish_edition_button(@edition) if @edition.unpublishable_by?(current_user) %>
     </section>
 

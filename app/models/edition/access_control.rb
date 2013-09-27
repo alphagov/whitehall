@@ -1,16 +1,6 @@
 module Edition::AccessControl
-  extend ActiveSupport::Concern
-
-  def deletable?
-    imported? || draft? || submitted? || rejected?
-  end
-
   def editable?
     imported? || draft? || submitted? || rejected?
-  end
-
-  def submittable?
-    draft? || rejected?
   end
 
   def can_have_some_invalid_data?

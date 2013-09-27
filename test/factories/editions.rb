@@ -55,10 +55,7 @@ FactoryGirl.define do
       end
     end
     trait(:deleted) {
-      state "draft"
-      after :create do |edition|
-        edition.delete!
-      end
+      state "deleted"
     }
     trait(:archived) {
       state "archived"

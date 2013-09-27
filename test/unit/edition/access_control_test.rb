@@ -11,14 +11,14 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
 
   [:published, :archived, :deleted].each do |state|
     test "should not be editable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       refute edition.editable?
     end
   end
 
   [:imported, :deleted, :archived].each do |state|
     test "can have some invalid data if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       assert edition.can_have_some_invalid_data?
     end
   end
@@ -42,7 +42,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
 
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
-      edition = create("#{state}_edition")
+      edition = build("#{state}_edition")
       refute edition.rejectable_by?(build(:departmental_editor))
     end
   end
@@ -50,35 +50,29 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   [:draft, :rejected].each do |state|
     test "should be submittable if #{state}" do
       edition = build("#{state}_edition")
-      assert edition.submittable?
+      assert edition.can_submit?
     end
   end
 
   [:submitted, :published, :archived, :deleted].each do |state|
     test "should not be submittable if #{state}" do
-      edition = create("#{state}_edition")
-      refute edition.submittable?
+      edition = build("#{state}_edition")
+      refute edition.can_submit?
     end
   end
 
   [:imported, :draft, :submitted, :rejected].each do |state|
     test "should be deletable if #{state}" do
-      edition = create("#{state}_edition")
-      assert edition.deletable?
+      edition = build("#{state}_edition")
+      assert edition.can_delete?
     end
   end
 
   [:scheduled, :published, :archived].each do |state|
     test "should not be deletable if #{state}" do
-      document = create("#{state}_edition")
-      refute document.deletable?
+      edition = build("#{state}_edition")
+      refute edition.can_delete?
     end
-  end
-
-  test "should not be deletable if deleted" do
-    document = create("draft_edition")
-    document.delete!
-    refute document.deletable?
   end
 
   test "should allow another editor to retrospectively approve a force-published document" do
