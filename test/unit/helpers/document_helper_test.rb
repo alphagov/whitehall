@@ -276,7 +276,7 @@ class DocumentHelperTest < ActionView::TestCase
     policy_team = create(:policy_team)
     edition = create(:policy, policy_teams: [policy_team])
     metadata = document_metadata(edition)[0]
-    assert_equal metadata[:title], "Policy team"
+    assert_equal metadata[:title], "Team"
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
                               policy_team_path(policy_team),
