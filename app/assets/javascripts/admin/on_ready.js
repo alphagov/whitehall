@@ -108,9 +108,9 @@ jQuery(document).ready(function($) {
   });
 
   if ($('#diff').length > 0) {
-    GOVUK.diff($('#title-1'), $('#title-2'), $('#title-output'));
-    GOVUK.diff($('#summary-1'), $('#summary-2'), $('#summary-output'));
-    GOVUK.diff($('#body-1'), $('#body-2'), $('#body-output'));
+    GOVUK.diff('title');
+    GOVUK.diff('summary');
+    GOVUK.diff('body');
   }
 });
 

@@ -1,45 +1,27 @@
 <% page_title @edition.title, @edition.format_name %>
-<div class="span12">
-  <div class="page-header">
-    <h1>Changes to &lsquo;<%= @edition.title %>&rsquo;</h1>
-  </div>
-  <p>This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
-  <div id="diff">
-    <div id="title-1" class="hide">
-      <%= @audit_trail_entry.title %>
-    </div>
 
-    <div id="title-2" class="hide">
-      <%= @edition.title %>
-    </div>
+<h1>Changes to &lsquo;<%= @edition.title %>&rsquo;</h1>
 
+<p>This page shows changes to the title, summary and body in this edition. It does not show changes to attachments or associations.</p>
+
+<div id="diff">
+  <section id='title'>
     <h2>Title</h2>
-    <div id="title-output">
-    </div>
+    <p class='previous-version'><%= @audit_trail_entry.title %></p>
+    <p class='current-version'><%= @edition.title %></p>
+  </section>
 
-    <div id="summary-1" class="hide">
-      <%= @audit_trail_entry.summary %>
-    </div>
-
-    <div id="summary-2" class="hide">
-      <%= @edition.summary %>
-    </div>
-
+  <section id='summary'>
     <h2>Summary</h2>
-    <div id="summary-output">
-    </div>
+    <p class='previous-version'><%= @audit_trail_entry.summary %></p>
+    <p class='current-version'><%= @edition.summary %></p>
+  </section>
 
-    <div id="body-1" class="hide">
-      <%= @audit_trail_entry.body %>
-    </div>
-
-    <div id="body-2" class="hide">
-      <%= @edition.body %>
-    </div>
-
+  <section id='body'>
     <h2>Body</h2>
-    <div id="body-output">
-    </div>
-  </div>
-  <p><%= link_to "Back to edition", admin_edition_path(@edition), class: "btn" %></p>
+    <p class='previous-version'><%= @audit_trail_entry.body %></p>
+    <p class='current-version'><%= @edition.body %></p>
+  </section>
 </div>
+
+<%= link_to "Back to edition", admin_edition_path(@edition), class: "btn" %>
