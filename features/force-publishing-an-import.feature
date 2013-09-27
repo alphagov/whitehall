@@ -1,3 +1,4 @@
+@import
 Feature: Force publishing an import
   As an importer
   I want to be able to force publish an imported batch of documents when it's ready
