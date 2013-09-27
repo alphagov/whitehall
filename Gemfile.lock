@@ -23,7 +23,7 @@ GIT
       paper_trail (~> 2)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
   specs:
     PriorityQueue (0.1.2)
