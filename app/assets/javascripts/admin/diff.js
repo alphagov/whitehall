@@ -7,15 +7,18 @@
   var dmp = new diff_match_patch();
   dmp.Diff_EditCost = 6;
 
-  var diff = function(text1, text2, output) {
-    var text1 = text1.text();
-    var text2 = text2.text();
+  root.GOVUK.diff = function(section) {
+    var $section = $('#'+section);
 
-    var d = dmp.diff_main(text1, text2);
-    dmp.diff_cleanupEfficiency(d);
+    var $a = $section.find('.previous-version');
+    var $b = $section.find('.current-version');
 
-    var ds = dmp.diff_prettyHtml(d);
-    output.html(ds);
+    var rawDiff = dmp.diff_main($a.text(), $b.text());
+    dmp.diff_cleanupEfficiency(rawDiff);
+
+    var htmlDiff = dmp.diff_prettyHtml(rawDiff);
+
+    $a.remove();
+    $b.html(htmlDiff);
   };
-  root.GOVUK.diff = diff;
 }).call(this);
