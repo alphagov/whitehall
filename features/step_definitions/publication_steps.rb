@@ -169,7 +169,7 @@ end
 When(/^I draft an external publication$/) do
   begin_drafting_publication('An external publication')
   check 'This publication is held on another website'
-  fill_in 'External link URL', with: 'http://number10.gov.uk/some/publication'
+  fill_in 'External link URL', with: 'http://example.com/publication'
   click_button "Save"
   @publication = Publication.last
 end

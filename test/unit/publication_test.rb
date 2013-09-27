@@ -67,7 +67,7 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid?
 
     publication.external = true
-    publication.external_url = 'http://www.somwhere.else'
+    publication.external_url = 'http://example.com'
 
     assert publication.valid?
   end
