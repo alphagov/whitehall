@@ -1,3 +1,4 @@
+@import
 Feature: Importing new editions
   We want to be able to import editions into our database which don't have all the data filled in. The idea is to enable editors to 'speed tag' them with all the associations they need, and send them directly to draft state.
 
