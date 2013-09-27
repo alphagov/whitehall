@@ -160,8 +160,6 @@ class Import < ActiveRecord::Base
   end
 
   def perform(options = {})
-    attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, progress_logger)
-
     progress_logger.start(rows)
     rows.each_with_index do |data_row, ix|
       row_number = ix + 2

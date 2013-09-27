@@ -24,7 +24,7 @@ protected
   def import_row!
     progress_logger.with_transaction(row_number) do
       attributes = row.attributes.merge(creator: import_user, state: 'imported')
-      model = model_class.new(attributes)
+      model = import.model_class.new(attributes)
       if model.save
         save_translation!(model, row) if row.translation_present?
         assign_document_series!(model, row.document_series)
@@ -92,15 +92,7 @@ protected
   end
 
   def row
-    @row ||= row_class.new(row_hash, row_number, attachment_cache, organisation, progress_logger)
-  end
-
-  def row_class
-    import.row_class
-  end
-
-  def model_class
-    import.model_class
+    @row ||= import.row_class.new(row_hash, row_number, attachment_cache, organisation, progress_logger)
   end
 
   def attachment_cache
