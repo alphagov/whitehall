@@ -48,5 +48,14 @@
       width: 100%;
     }
   }
+}
 
+.publication-summary {
+  h3 {
+    @include heading-24;
+    font-weight: bold;
+  }
+  p {
+    @include core-19;
+  }
 }

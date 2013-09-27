@@ -165,3 +165,18 @@ end
 Then /^I should see "([^"]*)" in the result list$/ do |title|
   assert page.has_css?(".filter-results h3", text: %r{#{title}})
 end
+
+When(/^I draft an external publication$/) do
+  begin_drafting_publication('An external publication')
+  check 'This publication is held on another website'
+  fill_in 'External link URL', with: 'http://example.com/publication'
+  click_button "Save"
+  @publication = Publication.last
+end
+
+Then(/^I should see in the preview that the publication is external and there is a link to the external publication$/) do
+  ensure_path admin_publication_path(@publication)
+  click_link "Preview on website"
+  assert has_content?('This document is hosted on another website')
+  assert has_link?('another website', href: @publication.external_url)
+end
