@@ -1,7 +1,5 @@
-
 require 'test_helper'
 require 'support/consultation_csv_sample_helpers'
-require 'sidekiq/testing/inline'
 
 class ImportTest < ActiveSupport::TestCase
   include ConsultationCsvSampleHelpers
