@@ -17,7 +17,7 @@ class PublicUploadsController < ApplicationController
       redirect_to view_context.path_to_image('thumbnail-placeholder.png')
     else
       if incoming_upload_exists? upload_path
-        redirect_to placeholder_url
+        redirect_to_placeholder
       else
         render text: "Not found", status: :not_found
       end
@@ -25,6 +25,9 @@ class PublicUploadsController < ApplicationController
   end
 
   def redirect_to_placeholder
+    # Cache is explicitly 1 minute to prevent the virus redirect beng
+    # cached by CDNs.
+    expires_in(1.minute, public: true)
     redirect_to placeholder_url
   end
 

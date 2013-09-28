@@ -81,6 +81,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
 
     assert_redirected_to placeholder_url
+    assert_cache_control "max-age=#{1.minute}"
   end
 
   test "requesting an attachment on an unpublished edition redirects to the edition's unpublishing page" do
