@@ -173,7 +173,7 @@ end
 When(/^I feature one of the policies on the topic$/) do
   @policy = @topic.policies.published.last
   visit admin_topic_path(@topic)
-  click_on 'Features'
+  click_on 'Featured documents'
 
   within record_css_selector(@policy) do
     click_link "Feature"
