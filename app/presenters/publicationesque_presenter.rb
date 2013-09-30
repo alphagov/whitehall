@@ -11,8 +11,8 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
 
   def publication_collections
     if model.part_of_collection?
-      links = model.document_collections.map do |ds|
-        context.link_to(ds.title, context.document_collection_path(ds.slug))
+      links = model.document_collections.map do |dc|
+        context.link_to(ds.title, context.public_document_path(dc))
       end
       "Part of a collection: #{links.to_sentence}"
     end

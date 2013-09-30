@@ -302,7 +302,7 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal "Collections", metadata[:title]
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
-                              document_collection_path(collection),
+                              public_document_path(collection),
                               text: collection.title
   end
 

@@ -8,13 +8,13 @@ module DocumentCollectionHelper
 
   def array_of_links_to_document_collections(edition)
     edition.document_collections.map do |dc|
-      link_to dc.title, document_collection_path(dc)
+      link_to dc.title, public_document_path(dc)
     end
   end
 
   def list_of_li_links_to_document_collections(edition)
     edition.document_collections.map do |dc|
-      content_tag(:li, link_to(dc.title, document_collection_path(dc)))
+      content_tag(:li, link_to(dc.title, public_document_path(dc)))
     end.join("").html_safe
   end
 end

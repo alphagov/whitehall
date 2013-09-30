@@ -1,6 +1,7 @@
 require "test_helper"
 
 class StatisticalDataSetsControllerTest < ActionController::TestCase
+  include DocumentViewAssertions
   should_be_a_public_facing_controller
   should_display_attachments_for :statistical_data_set
   should_be_previewable :statistical_data_set
@@ -34,7 +35,7 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
     document_collection.groups.first.documents = [document]
     get :show, id: document
 
-    assert_select "a[href=?]", document_collection_path(document_collection)
+    assert_select "a[href=?]", public_document_path(document_collection)
   end
 
   view_test 'index should display a list of all published statistical data sets' do

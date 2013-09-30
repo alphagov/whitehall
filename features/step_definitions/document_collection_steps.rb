@@ -85,5 +85,5 @@ end
 
 Then(/^I should see links back to the collection$/) do
   @document_collection
-  assert page.has_css?("a[href='#{document_collection_path(@document_collection)}']")
+  assert page.has_css?("a[href='#{public_document_path(@document_collection)}']")
 end

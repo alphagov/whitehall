@@ -573,7 +573,7 @@ class PublicationsControllerTest < ActionController::TestCase
       get :index
 
       assert_select_object(publication) do
-        assert_select ".document-collections a[href=?]", document_collection_path(collection)
+        assert_select ".document-collections a[href=?]", public_document_path(collection)
       end
     end
   end
@@ -590,7 +590,7 @@ class PublicationsControllerTest < ActionController::TestCase
       json = ActiveSupport::JSON.decode(response.body)
       result = json['results'].first
 
-      path = document_collection_path(collection)
+      path = public_document_path(collection)
       link = %Q{<a href="#{path}">#{collection.title}</a>}
       assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
     end

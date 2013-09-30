@@ -19,7 +19,7 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
   def publication_collection
     if model.respond_to?(:part_of_collection?) && model.part_of_collection?
       links = model.document_collections.map do |dc|
-        context.link_to(dc.name, context.document_collection_path(dc))
+        context.link_to(dc.name, context.public_document_path(dc))
       end
       "Part of a collection: #{links.to_sentence}"
     end

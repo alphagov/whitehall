@@ -27,7 +27,7 @@ class DocumentCollection < Edition
              description: :summary
 
   def search_link
-    Whitehall.url_maker.document_collection_path(slug)
+    Whitehall.url_maker.public_document_path(self)
   end
 
   def indexable_content
