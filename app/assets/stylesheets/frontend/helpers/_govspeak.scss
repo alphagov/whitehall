@@ -292,11 +292,6 @@
     }
   }
 
-  .address {
-    border-left: 1px solid $border-colour;
-    padding-left: $gutter-half;
-  }
-
   .fraction {
     sup,
     sub {
@@ -309,11 +304,15 @@
     }
   }
 
+  .address,
+  .contact {
+    border-left: 1px solid $border-colour;
+    padding-left: $gutter-half;
+  }
+
   .contact {
     @extend %contain-floats;
-    background: $panel-colour;
-    margin: $gutter $gutter-half*-1;
-    padding: $gutter-one-third $gutter-half;
+    margin-bottom: $gutter;
     position: relative;
     .content {
       float: none;
@@ -321,6 +320,7 @@
       h3 {
         @include core-19;
         font-weight: bold;
+        margin-bottom: 5px;
       }
       .adr,
       .email-url-number,
