@@ -77,7 +77,7 @@ module Admin::EditionActionsHelper
   def document_creation_dropdown
     content_tag(:ul, class: "more-nav left js-hidden") do
       [Policy, Publication, NewsArticle, FatalityNotice,
-        Consultation, Speech, WorldwidePriority, CaseStudy,
+        Consultation, Speech, DetailedGuide, WorldwidePriority, CaseStudy,
         StatisticalDataSet, WorldLocationNewsArticle].map do |edition_type|
         content_tag(:li) do
           link_to edition_type.model_name.human, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
