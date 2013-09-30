@@ -81,7 +81,7 @@
 
 
   <% document_block_count = 0 %>
-  <div class="documents-grid <%= "grid-size-#{[@announcements, @publications].compact.select(&:any?).length}" %>">
+  <div class="documents-grid <%= "grid-size-#{[@announcements, @publications, @consultations, @statistical_data_sets].compact.select(&:any?).length}" %>">
     <div class="inner-block">
       <% if @announcements.any? %>
         <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
@@ -94,6 +94,17 @@
           </div>
         </section>
       <% end %>
+      <% if @consultations.any? %>
+        <section id="consultations" class="document-block documents-<%= document_block_count+=1 %>">
+          <h1 class="label">Consultations</h1>
+          <div class="content">
+            <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
+            <p class="see-all">
+              <%= link_to 'See all consultations', consultations_filter_path(@classification) %>
+            </p>
+          </div>
+        </section>
+      <% end %>
       <% if @publications.any? %>
         <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
           <h1 class="label">Publications</h1>
@@ -101,6 +112,17 @@
             <%= render partial: "publications/list_description", locals: {publications: @publications} %>
             <p class="see-all">
               <%= link_to 'See all publications', publications_filter_path(@classification) %>
+            </p>
+          </div>
+        </section>
+      <% end %>
+      <% if @statistical_data_sets.any? %>
+        <section id="statistical_data_sets" class="document-block documents-<%= document_block_count+=1 %>">
+          <h1 class="label">Statistics</h1>
+          <div class="content">
+            <%= render partial: "publications/list_description", locals: {publications: @statistical_data_sets} %>
+            <p class="see-all">
+              <%= link_to 'See all statistics', statistical_data_sets_filter_path(@classification) %>
             </p>
           </div>
         </section>
