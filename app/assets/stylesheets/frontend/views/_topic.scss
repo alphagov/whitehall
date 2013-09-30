@@ -49,9 +49,9 @@
     }
   }
 
-  .govspeak {
+  .what {
     p {
-      @include core-27;
+      @include ig-core-24;
       margin: 0;
       &:first-child {
         padding-top: 0;
