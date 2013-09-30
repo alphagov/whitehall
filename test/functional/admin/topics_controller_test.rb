@@ -76,17 +76,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_equal "new-description", topic.description
   end
 
-  test "PUT :update removes all related topics if none specified" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    topic = create(:topic, related_classification_ids: [first_topic.id, second_topic.id])
-
-    put :update, id: topic, topic: {}
-
-    assert_response :redirect
-    assert_equal [], topic.reload.related_classifications
-  end
-
   view_test "PUT :update with bad data renders errors" do
     topic = create(:topic, name: 'topic')
     put :update, id: topic.id, topic: {name: "Blah", description: ""}
