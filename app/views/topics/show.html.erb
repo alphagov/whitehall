@@ -40,10 +40,10 @@
     </div>
   </div>
 
-  <div class="block">
-    <div class="inner-block">
-      <section class="featured-news items-<%= @featured_editions.length %>">
-        <% if @featured_editions.any? %>
+  <% if @featured_editions.any? %>
+    <div class="block">
+      <div class="inner-block">
+        <section class="featured-news items-<%= @featured_editions.length %>">
           <%= render partial: 'shared/featured_news',
                      collection: @featured_editions,
                      as: :edition,
@@ -53,10 +53,10 @@
                                atom_url: classification_url(@classification, format: "atom"),
                                extra_class: 'panel',
                                govdelivery_url: filter_email_signup_url(topic: @classification.slug) } %>
-        <% end %>
-      </section>
+        </section>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block block-4">
     <div class="inner-block">
