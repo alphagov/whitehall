@@ -68,7 +68,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :new
 
     assert_select "form#new_edition" do
-      assert_select "select[name='edition[policy_team_ids]']"
+      assert_select "select[name='edition[policy_team_ids][]']"
     end
   end
 

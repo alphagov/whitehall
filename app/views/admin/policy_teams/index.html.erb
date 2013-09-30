@@ -1,10 +1,10 @@
-<% page_title "Policy teams" %>
+<% page_title "Teams" %>
 <section>
   <nav class="actions">
-    <%= link_to "Create policy team", new_admin_policy_team_path, class: "btn new_resource", title: "Create a policy team" %>
+    <%= link_to "Create a team", new_admin_policy_team_path, class: "btn new_resource", title: "Create a team" %>
   </nav>
 
-  <h1>Policy teams</h1>
+  <h1>Teams</h1>
 
   <table class="policy_teams table table-striped">
     <thead>
@@ -16,7 +16,7 @@
     <tbody>
       <% @policy_teams.each do |policy_team| %>
         <%= content_tag_for(:tr, policy_team) do %>
-          <td class="name"><%= link_to policy_team.name, edit_admin_policy_team_path(policy_team), title: "Edit policy team #{policy_team.name}" %></td>
+          <td class="name"><%= link_to policy_team.name, edit_admin_policy_team_path(policy_team), title: "Edit #{policy_team.name}" %></td>
           <td class="email"><%= policy_team.email %></td>
         <% end %>
       <% end %>
