@@ -26,8 +26,6 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def update
-    params[:role][:organisation_ids] ||= []
-    params[:role][:worldwide_organisation_ids] ||= []
     attributes = RoleTypePresenter.role_attributes_from(params[:role])
     if new_type = attributes.delete(:type)
       @role.type = new_type

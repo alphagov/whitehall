@@ -614,16 +614,6 @@ module AdminEditionControllerTestHelpers
         assert_equal [second_policy], document.related_policies
       end
 
-      test "updating should remove all related policies if none in params" do
-        policy = create(:policy)
-        document = create(document_type, related_editions: [policy])
-
-        put :update, id: document, edition: controller_attributes_for_instance(document, related_policy_ids: [])
-
-        document.reload
-        assert_equal [], document.related_policies
-      end
-
       view_test "updating a stale document should render edit page with conflicting document and its related policies" do
         policy = create(:policy)
         document = create(document_type, related_editions: [policy])
@@ -686,16 +676,6 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal [second_data_set], edition.statistical_data_sets
-      end
-
-      test "update should remove all statistical data sets if none specified" do
-        data_set = create(:statistical_data_set, document: create(:document))
-        edition = create(edition_type, statistical_data_sets: [data_set])
-
-        put :update, id: edition, edition: {}
-
-        edition.reload
-        assert_equal [], edition.statistical_data_sets
       end
     end
 
@@ -841,19 +821,6 @@ module AdminEditionControllerTestHelpers
         assert_equal [second_topic], edition.topics
       end
 
-      test "update should remove all topics if none specified" do
-        topic = create(:topic)
-
-        edition = create("draft_#{edition_type}", topics: [topic])
-
-        put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          topic_ids: []
-        )
-
-        edition.reload
-        assert_equal [], edition.topics
-      end
-
       view_test "updating a stale document should render edit page with conflicting document and its related topics" do
         topic = create(:topic)
         edition = create(edition_type, topics: [topic])
@@ -918,19 +885,6 @@ module AdminEditionControllerTestHelpers
         edition.reload
         assert_equal [second_appointment], edition.role_appointments
       end
-
-      test "update should remove all role appointments if none specified" do
-        appointment = create(:role_appointment)
-
-        edition = create(edition_type, role_appointments: [appointment])
-
-        put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          role_appointment_ids: []
-        )
-
-        edition.reload
-        assert_equal [], edition.role_appointments
-      end
     end
 
 
@@ -980,19 +934,6 @@ module AdminEditionControllerTestHelpers
 
         edition.reload
         assert_equal [second_minister], edition.ministerial_roles
-      end
-
-      test "update should remove all ministerial roles if none specified" do
-        minister = create(:ministerial_role)
-
-        edition = create(edition_type, ministerial_roles: [minister])
-
-        put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          ministerial_role_ids: []
-        )
-
-        edition.reload
-        assert_equal [], edition.ministerial_roles
       end
     end
 
@@ -1332,30 +1273,6 @@ module AdminEditionControllerTestHelpers
         edition.reload
         assert_equal [second_topical_event], edition.topical_events
       end
-
-      test "update should remove all topical_events if empty param specified" do
-        topical_event = create(:topical_event)
-
-        edition = create("draft_#{edition_type}", topical_events: [topical_event])
-
-        put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          topical_event_ids: []
-        )
-
-        edition.reload
-        assert_equal [], edition.topical_events
-      end
-
-      test "update should remove all topical_events if none specified at all" do
-        topical_event = create(:topical_event)
-
-        edition = create("draft_#{edition_type}", topical_events: [topical_event])
-
-        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:topical_event_ids)
-
-        edition.reload
-        assert_equal [], edition.topical_events
-      end
     end
 
     def should_allow_association_with_worldwide_organisations(edition_type)
@@ -1397,14 +1314,6 @@ module AdminEditionControllerTestHelpers
         assert edition = edition_class.last
         assert_equal [first_world_organisation, second_world_organisation], edition.worldwide_organisations
       end
-
-      test "update should remove all worldwide organisations if none specified at all" do
-        world_organisation = create(:worldwide_organisation)
-        edition = create("draft_#{edition_type}", worldwide_organisations: [world_organisation])
-        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_organisation_ids)
-
-        assert_equal [], edition.reload.worldwide_organisations
-      end
     end
 
     def should_allow_association_with_worldwide_priorities(edition_type)
@@ -1429,14 +1338,6 @@ module AdminEditionControllerTestHelpers
 
         assert edition = edition_class.last
         assert_equal [first_worldwide_priority, second_worldwide_priority], edition.worldwide_priorities
-      end
-
-      test "update should remove all worldwide priorities if none specified at all" do
-        worldwide_priority = create(:worldwide_priority)
-        edition = create("draft_#{edition_type}", worldwide_priority_ids: [worldwide_priority.id])
-        put :update, id: edition, edition: controller_attributes_for_instance(edition).except(:worldwide_priority_ids)
-
-        assert_equal [], edition.reload.worldwide_priorities
       end
     end
 
