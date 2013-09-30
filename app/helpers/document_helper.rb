@@ -271,10 +271,10 @@ Details of document required:
         classes: ['document-inapplicable-nations']
       }
     end
-    if document.respond_to?(:policy_team) && document.policy_team
+    if document.respond_to?(:policy_teams) && document.policy_teams.any?
       metadata << {
         title: t('document.headings.policy_team'),
-        data: [link_to(document.policy_team.name, document.policy_team)],
+        data: document.policy_teams.map { |policy_team| link_to(policy_team.name, policy_team) },
         classes: ["document-policy-team"]
       }
     end
