@@ -4,6 +4,9 @@ it:
       attachments:
         one: Documento
         other: Documenti
+      document_collection:
+        one:
+        other:
       ministers:
         one: Ministro
         other: Ministri
@@ -27,7 +30,6 @@ it:
         other: Organizzazioni internazionali
       advisory_groups: Gruppi di consulenza
       applies_to_nations: Valido per
-      document_series: Serie
       field_of_operation: Settore di lavoro
       live_data: Live data
       location:

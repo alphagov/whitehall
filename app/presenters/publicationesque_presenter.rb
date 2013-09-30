@@ -5,16 +5,16 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
 
   def as_hash
     super.merge({
-      publication_series: publication_series
+      publication_collections: publication_collections
     })
   end
 
-  def publication_series
-    if model.part_of_series?
-      links = model.document_series.map do |ds|
-        context.link_to(ds.title, context.document_series_path(ds))
+  def publication_collections
+    if model.part_of_collection?
+      links = model.document_collections.map do |ds|
+        context.link_to(ds.title, context.document_collection_path(ds.slug))
       end
-      "Part of a series: #{links.to_sentence}"
+      "Part of a collection: #{links.to_sentence}"
     end
   end
 

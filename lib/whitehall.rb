@@ -173,7 +173,7 @@ module Whitehall
       Person,
       Topic,
       TopicalEvent,
-      DocumentSeries,
+      DocumentCollection,
       CorporateInformationPage,
       OperationalField,
       PolicyAdvisoryGroup,

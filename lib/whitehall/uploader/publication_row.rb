@@ -3,7 +3,7 @@ module Whitehall::Uploader
     def self.validator
       super
         .multiple("policy_#", 0..4)
-        .multiple("document_series_#", 0..4)
+        .multiple("document_collection_#", 0..4)
         .required(%w{publication_type publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
         .optional(%w{hoc_paper_number parliamentary_session unnumbered_hoc_paper unnumbered_command_paper}) # First attachment
@@ -24,11 +24,11 @@ module Whitehall::Uploader
     end
 
     def related_editions
-      Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"], @logger, @line_number)
+      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"])
     end
 
-    def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, @logger, @line_number).find(fields(1..4, 'document_series_#'))
+    def document_collection
+      Finders::EditionFinder.new(DocumentCollection, @logger, @line_number).find(*fields(1..4, 'document_collection_#'))
     end
 
     def ministerial_roles

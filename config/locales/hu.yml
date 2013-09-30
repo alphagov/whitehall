@@ -112,7 +112,9 @@ hu:
       attachments:
         one: Dokumentum
         other: Dokumentumok
-      document_series: Sorozatok
+      document_collection:
+        one:
+        other:
       field_of_operation: Működési terület
       live_data: Élő adatok
       location:

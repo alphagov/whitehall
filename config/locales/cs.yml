@@ -5,6 +5,10 @@ cs:
         one: Dokument
         few:
         other: Dokumenty
+      document_collection:
+        one:
+        few:
+        other:
       ministers:
         one: Ministr
         few:
@@ -35,7 +39,6 @@ cs:
         other: Světové organizace
       advisory_groups: Poradní skupiny
       applies_to_nations: Týká se
-      document_series: Edice
       field_of_operation: Oblast působnosti
       live_data: Aktuální data
       location:

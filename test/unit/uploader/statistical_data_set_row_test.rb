@@ -13,7 +13,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url title summary body organisation data_series first_published}
+      %w{old_url title summary body organisation data_collection first_published}
     end
 
     test "validates row headings" do
@@ -104,10 +104,10 @@ module Whitehall::Uploader
       assert_equal ["http://example.com/legacy-url"], row.legacy_urls
     end
 
-    test "finds document series by slug in data_series column" do
-      document_series = create(:document_series)
-      row = statistical_data_set_row("data_series" => document_series.slug)
-      assert_equal [document_series], row.document_series
+    test "finds document collection by slug in data_collection column" do
+      document_collection = create(:document_collection)
+      row = statistical_data_set_row("data_collection" => document_collection.slug)
+      assert_equal [document_collection], row.document_collection
     end
 
     test "finds organisation by slug in org column" do

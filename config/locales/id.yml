@@ -111,7 +111,9 @@ id:
       attachments:
         one: Dokumen
         other: Dokumen-dokumen
-      document_series: Serial
+      document_collection:
+        one:
+        other:
       field_of_operation: Area operasi
       live_data: Data Live
       location:

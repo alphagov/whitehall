@@ -3,8 +3,8 @@ require "test_helper"
 class OfficialDocsImportTest < ActiveSupport::TestCase
   test "importer recognises attachments with hoc/command numbers and parliamentary sessions" do
     creator = User.create!(name: "Automatic Data Importer")
-    od_document_series = create(:document_series, name: "official-documents")
-    hoc_document_series = create(:document_series, name: "house-of-commons-papers")
+    od_document_collection = create(:document_collection, title: "official-documents")
+    hoc_document_collection = create(:document_collection, title: "house-of-commons-papers")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "the-national-archives")
 
     stub_request(:get, "http://www.official-documents.gov.uk/document/hc0708/hc10/1043/1043.pdf").to_return(body: "attachment-1-content")
@@ -23,7 +23,7 @@ class OfficialDocsImportTest < ActiveSupport::TestCase
     assert publication = import.editions.first
     assert_equal creator, publication.creator
     assert_equal [organisation], publication.organisations
-    assert_equal [od_document_series, hoc_document_series], publication.document_series
+    assert_equal [od_document_collection, hoc_document_collection], publication.document_collections
 
     assert_equal 1, publication.attachments.size
     attachment = publication.attachments.first

@@ -4,6 +4,9 @@ sq:
       attachments:
         one: Dokument
         other: Dokumente
+      document_collection:
+        one:
+        other:
       ministers:
         one: Minister
         other: Ministra
@@ -27,7 +30,6 @@ sq:
         other: Organizata boterore
       advisory_groups: Grupe keshillues
       applies_to_nations: Zbatohet mbi
-      document_series: Seri
       field_of_operation: Fusha e veprimit
       live_data: Te dhena direkte
       location:

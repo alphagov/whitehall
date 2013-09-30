@@ -20,7 +20,7 @@ module Whitehall::Uploader
         organisation
         topic_1 topic_2
         detailed_guidance_category_1 detailed_guidance_category_2
-        document_series_1 document_series_2
+        document_collection_1 document_collection_2
         related_detailed_guide_1 related_detailed_guide_2
         related_mainstream_content_url_1 related_mainstream_content_title_1
         related_mainstream_content_url_2 related_mainstream_content_title_2
@@ -44,10 +44,10 @@ module Whitehall::Uploader
         ], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(keys)
     end
 
-    test "finds document series by slug in document_series_n column" do
-      document_series = create(:document_series)
-      row = new_detailed_guide_row({"document_series_1" => document_series.slug})
-      assert_equal [document_series], row.document_series
+    test "finds document collections by slug in document_collection_n column" do
+      document_collection = create(:document_collection)
+      row = new_detailed_guide_row({"document_collection_1" => document_collection.slug})
+      assert_equal [document_collection], row.document_collections
     end
 
     test "finds topics by slug in topic_n column" do

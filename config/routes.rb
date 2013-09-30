@@ -103,11 +103,12 @@ Whitehall::Application.routes.draw do
       resource :about_pages, path: "about", only: [:show]
     end
 
-    resources :document_series, only: [:show], path: 'series'
+    resources :document_collections, only: [:show], path: 'collections'
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
-      #redirects /gov/organisations/:org_id/series/:id => /gov/series/:id
-      match '/series/:series_id' => redirect("/series/%{series_id}")
+      #redirects /gov/organisations/:org_id/series/:id => /gov/collections/:id
+      match '/series/:collection_id' => redirect("/collections/%{collection_id}")
+
       member do
         get :about, localised: true
         get :consultations
@@ -141,14 +142,14 @@ Whitehall::Application.routes.draw do
 
         resources :authors, only: [:show]
         resource :document_searches, only: [:show]
-        resources :document_series, except: [:index] do
-          resources :document_series_groups, as: :groups, path: 'groups' do
+        resources :document_collections, except: [:index] do
+          resources :document_collection_groups, as: :groups, path: 'groups' do
             member { get :delete }
-            resource :document_series_group_membership, as: :members,
+            resource :document_collection_group_membership, as: :members,
                                                         path: 'members',
                                                         only: [:destroy]
           end
-          resource :document_series_group_membership, as: :new_member,
+          resource :document_collection_group_membership, as: :new_member,
                                                       path: 'members',
                                                       only: [:create]
         end

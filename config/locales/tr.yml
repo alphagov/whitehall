@@ -112,7 +112,9 @@ tr:
       attachments:
         one: Belge
         other: Belgeler
-      document_series: Seriler
+      document_collection:
+        one:
+        other:
       field_of_operation: Faaliyet Alanı
       live_data: Canlı veri
       location:

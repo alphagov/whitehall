@@ -4,6 +4,9 @@ sw:
       attachments:
         one:
         other:
+      document_collection:
+        one:
+        other:
       ministers:
         one:
         other:
@@ -27,7 +30,6 @@ sw:
         other:
       advisory_groups:
       applies_to_nations:
-      document_series:
       field_of_operation:
       live_data:
       location:

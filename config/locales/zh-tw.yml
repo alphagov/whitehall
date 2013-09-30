@@ -109,7 +109,9 @@ zh-tw:
       attachments:
         one: 文件
         other: 其他文件
-      document_series: 系列
+      document_collection:
+        one:
+        other:
       field_of_operation: 運用領域
       live_data: 即時資料
       location:

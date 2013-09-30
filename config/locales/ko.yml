@@ -110,7 +110,9 @@ ko:
       attachments:
         one: 문서
         other: 문서
-      document_series: 시리즈
+      document_collection:
+        one:
+        other:
       field_of_operation: 오퍼레이션 필드
       live_data: 라이브 데이터
       location:

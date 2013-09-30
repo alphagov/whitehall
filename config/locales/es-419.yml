@@ -4,6 +4,9 @@ es-419:
       attachments:
         one: Documento
         other: Documentos
+      document_collection:
+        one:
+        other:
       ministers:
         one: Ministro
         other: Ministros
@@ -27,7 +30,6 @@ es-419:
         other: Organizaciones mundiales
       advisory_groups: Grupos de consulta
       applies_to_nations: Se aplica a
-      document_series: Series
       field_of_operation: Terreno de operaciones
       live_data: Datos activos
       location:

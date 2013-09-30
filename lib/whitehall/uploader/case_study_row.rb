@@ -6,15 +6,15 @@ module Whitehall::Uploader
         .required("first_published")
         .ignored("ignore_*")
         .multiple("policy_#", 0..4)
-        .multiple("document_series_#", 0..4)
+        .multiple("document_collection_#", 0..4)
     end
 
-    def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, @logger, @line_number).find(fields(1..4, 'document_series_#'))
+    def document_collections
+      Finders::EditionFinder.new(DocumentCollection, @logger, @line_number).find(*fields(1..4, 'document_collection_#'))
     end
 
     def related_editions
-      Finders::PoliciesFinder.find(*fields(1..4, 'policy_#'), @logger, @line_number)
+      Finders::EditionFinder.new(Policy, @logger, @line_number).find(*fields(1..4, 'policy_#'))
     end
 
     def first_published_at

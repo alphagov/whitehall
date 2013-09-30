@@ -4,6 +4,9 @@ lv:
       attachments:
         one: Dokuments
         other: Dokumenti
+      document_collection:
+        one:
+        other:
       ministers:
         one: Ministrs
         other: Ministri
@@ -27,7 +30,6 @@ lv:
         other: Vispasaules organizācijas
       advisory_groups: Padomdevēju grupas
       applies_to_nations: Attiecas uz
-      document_series: Sērija
       field_of_operation: Darbības lauks
       live_data: Tiešie dati
       location:

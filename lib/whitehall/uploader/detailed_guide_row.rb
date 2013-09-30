@@ -3,7 +3,7 @@ module Whitehall::Uploader
     def self.validator
       super
         .multiple("topic_#", 1..4)
-        .multiple("document_series_#", 1..4)
+        .multiple("document_collection_#", 1..4)
         .multiple("detailed_guidance_category_#", 1..4)
         .multiple("related_detailed_guide_#", 1..4)
         .multiple(%w{related_mainstream_content_url_# related_mainstream_content_title_#}, 1..2)
@@ -25,8 +25,8 @@ module Whitehall::Uploader
       Finders::SluggedModelFinder.new(MainstreamCategory, @logger, @line_number).find(fields(2..4, 'detailed_guidance_category_#'))
     end
 
-    def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, @logger, @line_number).find(fields(1..4, 'document_series_#'))
+    def document_collections
+      Finders::EditionFinder.new(DocumentCollection, @logger, @line_number).find(*fields(1..4, 'document_collection_#'))
     end
 
     def outbound_related_documents

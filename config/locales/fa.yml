@@ -111,7 +111,9 @@ fa:
       attachments:
         one: مدرک
         other: مدارک
-      document_series: ردیف
+      document_collection:
+        one:
+        other:
       field_of_operation: میدان عمل
       live_data: ! 'داده های لحظه ای '
       location:

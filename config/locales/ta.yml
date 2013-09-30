@@ -4,6 +4,9 @@ ta:
       attachments:
         one: ! ' ஆவணம்'
         other: ஆவணங்கள்
+      document_collection:
+        one:
+        other:
       ministers:
         one: அமைச்சர்
         other: அமைச்சர்கள்
@@ -27,7 +30,6 @@ ta:
         other: உலகளாவிய ஸ்தாபனங்கள்
       advisory_groups: ஆலோசனைக் குழுக்கள்
       applies_to_nations: பிரயோகமாகிறது
-      document_series: தொடர்
       field_of_operation: செயற்பாட்டுத் துறை
       live_data: நேரடித் தரவு
       location:

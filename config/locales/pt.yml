@@ -4,6 +4,9 @@ pt:
       attachments:
         one: Documento
         other: Documentos
+      document_collection:
+        one:
+        other:
       ministers:
         one: Ministro
         other: Ministros
@@ -27,7 +30,6 @@ pt:
         other: Organizações Globais
       advisory_groups: Grupos Consultivos
       applies_to_nations: Aplica-se a
-      document_series: Séries
       field_of_operation: Campo de Operação
       live_data: Dados Ativos
       location:

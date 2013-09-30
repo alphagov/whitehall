@@ -112,7 +112,9 @@ vi:
       attachments:
         one: Tài liệu
         other: Tài liệu
-      document_series: Chuỗi
+      document_collection:
+        one:
+        other:
       field_of_operation: Lĩnh vực hoạt động
       live_data: Dữ liệu cập nhật
       location:

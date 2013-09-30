@@ -1,7 +1,7 @@
 module DocumentHelper
   include ApplicationHelper
   include CountryHelper
-  include DocumentSeriesHelper
+  include DocumentCollectionHelper
   include MinisterialRolesHelper
   include PolicyHelper
   include PolicyAdvisoryGroupsHelper
@@ -285,11 +285,11 @@ Details of document required:
         classes: ["document-policy-advisory-groups"]
       }
     end
-    if document.respond_to?(:part_of_series?) && document.part_of_series?
+    if document.respond_to?(:part_of_collection?) && document.part_of_collection?
       metadata << {
-        title: t('document.headings.document_series'),
-        data: array_of_links_to_document_series(document),
-        classes: ["document-document-series"]
+        title: t('document.headings.document_collection.other'),
+        data: array_of_links_to_document_collections(document),
+        classes: ["document-document-collection"]
       }
     end
     if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any?

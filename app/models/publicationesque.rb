@@ -1,7 +1,7 @@
 # @abstract
 class Publicationesque < Edition
   include Edition::RelatedPolicies
-  include Edition::HasDocumentSeries
+  include Edition::HasDocumentCollections
   include Edition::Topics
   include Edition::WorldwidePriorities
   include Edition::GovUkDelivery

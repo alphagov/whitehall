@@ -564,25 +564,25 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test 'index should show relevant document series information' do
+  view_test 'index should show relevant document collection information' do
     without_delay! do
       publication = create(:draft_publication)
-      series = create(:document_series, :with_group)
-      series.groups.first.documents = [publication.document]
+      collection = create(:document_collection, :with_group)
+      collection.groups.first.documents = [publication.document]
       publication.publish_as(create(:departmental_editor), force: true)
       get :index
 
       assert_select_object(publication) do
-        assert_select ".document-series a[href=?]", organisation_document_series_path(series.organisation, series)
+        assert_select ".document-collections a[href=?]", document_collection_path(collection)
       end
     end
   end
 
-  view_test 'index requested as JSON includes document series information' do
+  view_test 'index requested as JSON includes document collection information' do
     without_delay! do
       publication = create(:draft_publication)
-      series = create(:document_series, :with_group)
-      series.groups.first.documents = [publication.document]
+      collection = create(:document_collection, :with_group)
+      collection.groups.first.documents = [publication.document]
       publication.publish_as(create(:departmental_editor), force: true)
 
       get :index, format: :json
@@ -590,9 +590,9 @@ class PublicationsControllerTest < ActionController::TestCase
       json = ActiveSupport::JSON.decode(response.body)
       result = json['results'].first
 
-      path = organisation_document_series_path(series.organisation, series)
-      link = %Q{<a href="#{path}">#{series.name}</a>}
-      assert_equal %Q{Part of a series: #{link}}, result['publication_series']
+      path = document_collection_path(collection)
+      link = %Q{<a href="#{path}">#{collection.title}</a>}
+      assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
     end
   end
 

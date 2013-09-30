@@ -1,0 +1,20 @@
+<% content_for :page_class, 'document-series-groups edit' %>
+<% page_title 'Edit group' %>
+
+<div class="span8">
+  <section>
+    <h1>Edit group</h1>
+
+    <%= render partial: 'changes_go_live' %>
+
+    <%= render partial: 'form', locals: { url: admin_document_collection_group_path(@collection, @group) } %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
+    <%= tabs.pane id: "govspeak_help" do %>
+      <%= render partial: "admin/editions/govspeak_help", locals: { hide_inline_attachments_help: true, show_attachments_tab_help: false } %>
+    <% end %>
+  <% end %>
+</div>

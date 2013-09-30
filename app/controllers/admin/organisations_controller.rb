@@ -43,10 +43,6 @@ class Admin::OrganisationsController < Admin::BaseController
                                         merge(Role.chief_professional_officer).order(:ordering)
   end
 
-  def document_series
-    @document_series = @organisation.document_series
-  end
-
   def features
     @feature_list = @organisation.load_or_create_feature_list(params[:locale])
 

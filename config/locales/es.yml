@@ -4,6 +4,9 @@ es:
       attachments:
         one: Documento
         other: Documentos
+      document_collection:
+        one:
+        other:
       ministers:
         one: Ministro
         other: Ministros
@@ -27,7 +30,6 @@ es:
         other: Organizaciones mundiales
       advisory_groups: Grupos de consulta
       applies_to_nations: Sirve para
-      document_series: Series
       field_of_operation: Ãmbito de actuación
       live_data: Datos activos
       location:

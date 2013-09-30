@@ -4,6 +4,9 @@ dr:
       attachments:
         one: سند
         other: اسناد
+      document_collection:
+        one:
+        other:
       ministers:
         one: وزیر
         other: وزرا
@@ -27,7 +30,6 @@ dr:
         other: سازمان های جهانی
       advisory_groups: گروپ های مشورتی
       applies_to_nations: اطلاق میشود به
-      document_series: سلسله
       field_of_operation: بخش عملیاتی
       live_data: معلومات زنده
       location:

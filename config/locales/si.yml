@@ -4,6 +4,9 @@ si:
       attachments:
         one: ලේඛණය
         other: ලේඛණ
+      document_collection:
+        one:
+        other:
       ministers:
         one: ඇමතිතුමා
         other: ඇමතිවරුන්
@@ -27,7 +30,6 @@ si:
         other: ලෝකයේ පිහීටි සංවිධාන
       advisory_groups: උපදේශන කණ්ඩායම
       applies_to_nations: අදාළ වන්නේ
-      document_series: කාණ්ඩය
       field_of_operation: ක්‍රියාත්මකවන ක්ෂස්ත්‍රය
       live_data: සජීව තොරතුරු
       location:

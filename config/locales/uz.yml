@@ -4,6 +4,9 @@ uz:
       attachments:
         one: Hujjat
         other: Hujjatlar
+      document_collection:
+        one:
+        other:
       ministers:
         one: Vazir
         other: Vazirlar
@@ -27,7 +30,6 @@ uz:
         other: Dunyoviy tashkilotlar
       advisory_groups: Maslahatchi guruh
       applies_to_nations: ! 'Tegishli '
-      document_series: Bir talay
       field_of_operation: Faoliyat sohasi
       live_data: Mavjud ma'lumot
       location:

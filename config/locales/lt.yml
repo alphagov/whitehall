@@ -5,6 +5,10 @@ lt:
         one: Dokumentas
         few:
         other: Dokumentai
+      document_collection:
+        one:
+        few:
+        other:
       ministers:
         one: Ministras
         few:
@@ -35,7 +39,6 @@ lt:
         other: Pasaulinės organizacijos
       advisory_groups: Patariamosios grupės
       applies_to_nations: Susiję su
-      document_series: Serijos
       field_of_operation: Veiklos laukas
       live_data: Naujausi duomenys
       location:

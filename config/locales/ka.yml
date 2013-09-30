@@ -109,7 +109,9 @@ ka:
       attachments:
         one:
         other:
-      document_series:
+      document_collection:
+        one:
+        other:
       field_of_operation:
       live_data:
       location:

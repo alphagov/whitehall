@@ -91,8 +91,10 @@ class Organisation < ActiveRecord::Base
             conditions: { state: "scheduled" },
             order: "scheduled_publication ASC",
             source: :edition
-
-  has_many :document_series
+  has_many :document_collections,
+            through: :edition_organisations,
+            class_name: "DocumentCollection",
+            source: :edition
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
@@ -356,7 +358,7 @@ class Organisation < ActiveRecord::Base
   def has_published_publications_of_type?(publication_type)
     published_publications.where("editions.publication_type_id" => publication_type.id).any?
   end
-  
+
   private
 
   def sub_organisations_must_have_a_parent

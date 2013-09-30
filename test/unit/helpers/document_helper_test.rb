@@ -293,17 +293,17 @@ class DocumentHelperTest < ActionView::TestCase
     assert_select_within_html html, 'a', policy_advisory_group.name
   end
 
-  test "document_metadata generates part_of_series metadata" do
+  test "document_metadata generates part_of_collection metadata" do
     organisation = create(:organisation)
     edition = create(:published_publication)
-    series = create(:document_series, :with_group, organisation: organisation)
-    series.groups.first.documents = [edition.document]
+    collection = create(:document_collection, :with_group)
+    collection.groups.first.documents = [edition.document]
     metadata = document_metadata(edition)[0]
-    assert_equal metadata[:title], "Series"
+    assert_equal "Collections", metadata[:title]
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
-                              organisation_document_series_path(organisation, series),
-                              text: series.name
+                              document_collection_path(collection),
+                              text: collection.title
   end
 
   test "document_metadata generates statistical_data_sets metadata" do

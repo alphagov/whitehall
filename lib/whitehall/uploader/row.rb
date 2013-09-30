@@ -93,7 +93,7 @@ module Whitehall::Uploader
       }
     end
 
-    def document_series
+    def document_collections
       []
     end
 

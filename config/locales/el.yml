@@ -4,6 +4,9 @@ el:
       attachments:
         one: Έγγραφο
         other: Έγγραφα
+      document_collection:
+        one:
+        other:
       ministers:
         one: Υπουργός
         other: Υπουργοί
@@ -27,7 +30,6 @@ el:
         other: Διεθνείς οργανισμοί
       advisory_groups: Συμβουλευτικές ομάδες
       applies_to_nations: Ισχύει
-      document_series: Σειρά
       field_of_operation: Πεδίο δράσης
       live_data: Ροή δεδομένων
       location:

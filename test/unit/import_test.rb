@@ -163,12 +163,12 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
-  test '#perform assigns document series to the document' do
-    series = create(:document_series, name: 'series-name')
-    import = perform_import(csv_data: publication_with_series_csv, data_type: "publication", organisation_id: create(:organisation).id)
+  test '#perform assigns document collection to the document' do
+    collection = create(:document_collection, name: 'collection-name')
+    import = perform_import(csv_data: publication_with_collections_csv, data_type: "publication", organisation_id: create(:organisation).id)
     edition = import.imported_editions.first
 
-    assert_equal [series], edition.document.document_series
+    assert_equal [collection], edition.document.document_collection
   end
 
   test '#perform rolls back if exception raised during the row import' do
@@ -512,7 +512,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   def stub_row_class(row_attribute_overrides = {})
-    @row = stub('row', {attributes: {row: :one}, legacy_urls: ['row-legacy-url'], valid?: true, translation_present?: false, document_series: []}.merge(row_attribute_overrides))
+    @row = stub('row', {attributes: {row: :one}, legacy_urls: ['row-legacy-url'], valid?: true, translation_present?: false, document_collection: []}.merge(row_attribute_overrides))
     @row_class = stub('row-class', new: @row, heading_validation_errors: [])
   end
 
@@ -552,10 +552,10 @@ class ImportTest < ActiveSupport::TestCase
     EOF
   end
 
-  def publication_with_series_csv
+  def publication_with_collection_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
-    http://example.com/3,Title,Summary,Body,correspondence,,,series-name,,19-Oct-2012,2012-10-19,,,,175
+    old_url,title,summary,body,publication_type,policy_1,policy_2,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,,,collection-name,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 

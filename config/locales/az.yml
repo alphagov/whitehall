@@ -109,7 +109,9 @@ az:
       attachments:
         one:
         other:
-      document_series: növlər
+      document_collection:
+        one:
+        other:
       field_of_operation: əməliyyat sahəsi
       live_data: canlı məlumat
       location:

@@ -27,10 +27,10 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     assert warn_about_lack_of_contacts_in_body?(NewsArticle.new(news_article_type: NewsArticleType::PressRelease))
   end
 
-  test 'default_edition_tabs includes document series tab for a persisted document series' do
-    document_series = build(:document_series)
-    refute_includes default_edition_tabs(document_series).keys, "Document series"
-    document_series = create(:document_series)
-    assert_includes default_edition_tabs(document_series).keys, "Document series"
+  test 'default_edition_tabs includes document collection tab for a persisted document collection' do
+    document_collection = build(:document_collection)
+    refute_includes default_edition_tabs(document_collection).keys, "Collection documents"
+    document_collection = create(:document_collection)
+    assert_includes default_edition_tabs(document_collection).keys, "Collection documents"
   end
 end

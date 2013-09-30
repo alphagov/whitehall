@@ -79,7 +79,7 @@ module Admin::EditionActionsHelper
       [Policy, Publication, NewsArticle, FatalityNotice,
         Consultation, Speech, WorldwidePriority, CaseStudy,
         StatisticalDataSet, WorldLocationNewsArticle,
-        DocumentSeries].map do |edition_type|
+        DocumentCollection].map do |edition_type|
         content_tag(:li) do
           link_to edition_type.model_name.human, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
         end if can?(:create, edition_type)

@@ -40,7 +40,7 @@ Feature: Importing new editions
   - publication_date: column required, data optional (required before draft)
   - publication_type: required, ideally default blank to ImportedAwaitingType, reject anything non-blank that can't be found
   - policy_1..4: 1 column required, data optional
-  - document_series_1: column required, data optional
+  - document_collection_1: column required, data optional
   - attachment_1..n_*: 1 column required, data required (should stay as is)
   - json_attachments: optional, leave as is
   - country_1..4: 1 column required, data optional
@@ -77,7 +77,7 @@ Feature: Importing new editions
 
   StatisticalDataSets:
 
-  - document_series_1: column required, data optional
+  - document_collection_1: column required, data optional
 
   FatalityNotices:
 
@@ -86,7 +86,7 @@ Feature: Importing new editions
   DetailedGuides:
 
   - topic_1..4: 1 column required, data optional
-  - document_series_1..4: 1 column required, data optional
+  - document_collection_1..4: 1 column required, data optional
   - detailed_guidance_category_1..4: 1 column required, data optional
   - related_detailed_guidance_1..4: 1 column required, data optional
   - related_mainstream_content_url_1..2: 1 column required, data optional
@@ -99,7 +99,7 @@ Feature: Importing new editions
   CaseStudies:
 
   - policy_1..4: 1 column required, data optional
-  - document_series_1..4: 1 column required, data optional
+  - document_collection_1..4: 1 column required, data optional
   - first_published: column required, data optional (required before draft)
 
   Background:
@@ -108,7 +108,7 @@ Feature: Importing new editions
   Scenario: Importing publications with unrecognised types will be rejected
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,weird organisation,,weird type,,14-Dec-2011,,,,,,,,,
       """
     Then the import should fail with errors about organisation and sub type and no editions are created
@@ -117,7 +117,7 @@ Feature: Importing new editions
     Given the organisation "Foreign Commonwealth Office" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,foreign-commonwealth-office,,,,14-Dec-2011,,,,,,,,,
       """
     Then the import succeeds, creating 1 imported publication for "Foreign Commonwealth Office" with "imported-awaiting-type" publication type
@@ -126,7 +126,7 @@ Feature: Importing new editions
     Given the organisation "Foreign Commonwealth Office" exists
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,foreign-commonwealth-office,non-existent-policy,,,14-Dec-2011,,,,,,,,,
       """
     Then the import should fail with errors about an unrecognised policy
@@ -134,7 +134,7 @@ Feature: Importing new editions
   Scenario: Importing publications sets imported state, ImportedAwaitingType type and default organisation, to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,,,,,14-Dec-2011,,,,,,,,,
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport" with "imported-awaiting-type" publication type
@@ -145,7 +145,7 @@ Feature: Importing new editions
   Scenario: Importing publications with blank publication dates allows them to be filled in later
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1
       http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport" with no publication date
@@ -156,7 +156,7 @@ Feature: Importing new editions
   Scenario: Importing publications with an html version
     When I import the following data as CSV as "Publication" for "Department for Transport":
       """
-      old_url,title,summary,body,organisation,policy_1,publication_type,document_series_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,html_title,html_body,html_body_1
+      old_url,title,summary,body,organisation,policy_1,publication_type,document_collection_1,publication_date,order_url,price,isbn,urn,command_paper_number,ignore_1,attachment_1_url,attachment_1_title,country_1,html_title,html_body,html_body_1
       http://example.com/1,title,summary,body,department-for-transport,,policy-papers,,,,,,,,,,,,HTML version title,Body part one, plus body part two
       """
     Then the import succeeds, creating 1 imported publication for "Department for Transport"
@@ -234,37 +234,37 @@ Feature: Importing new editions
       """
     Then I can delete the imported edition if I choose to
 
-  Scenario: Importing detailed guides with topic, document series, detailed guidance category, related detailed guide and related mainstream content
+  Scenario: Importing detailed guides with topic, document collection, detailed guidance category, related detailed guide and related mainstream content
     Given a topic with the slug "my-topic" exists
-    And a document series with the slug "my-document-series" exists
+    And a document collection with the slug "my-document-collection" exists
     And a mainstream category with the slug "my-detailed-guidance-category" exists
     And a published detailed guide "My related detailed guide" for the organisation "Foreign Commonwealth Office"
     When I import the following data as CSV as "Detailed guide" for "Home Office":
       """
-      old_url,title,summary,body,organisation,topic_1,document_series_1,detailed_guidance_category_1,related_detailed_guide_1,related_mainstream_content_url_1,related_mainstream_content_title_1
-      "[""http://example.com/1"",""http://example.com/2""]",title,summary,body,,my-topic,my-document-series,my-detailed-guidance-category,my-related-detailed-guide,,
+      old_url,title,summary,body,organisation,topic_1,document_collection_1,detailed_guidance_category_1,related_detailed_guide_1,related_mainstream_content_url_1,related_mainstream_content_title_1
+      "[""http://example.com/1"",""http://example.com/2""]",title,summary,body,,my-topic,my-document-collection,my-detailed-guidance-category,my-related-detailed-guide,,
       """
     Then the import succeeds creating 1 detailed guidance document
     And the imported detailed guidance document has the following associations:
       | Name                             | Slugs                         |
       | topics                           | my-topic                      |
-      | document_series                  | my-document-series            |
+      | document_collection              | my-document-collection        |
       | mainstream_categories            | my-detailed-guidance-category |
       | outbound_related_documents       | my-related-detailed-guide     |
 
-  Scenario: Importing case study with related policies and document series
-    Given a document series with the slug "my-document-series" exists
+  Scenario: Importing case study with related policies and document collection
+    Given a document collection with the slug "my-document-collection" exists
     And a published policy "policy-one"
     When I import the following data as CSV as "Case study" for "Department for Beards":
       """
-      old_url,title,summary,body,organisation,policy_1,document_series_1,first_published,ignore_this
-      http://example.com/1,title,summary,body,,policy-one,my-document-series,14-Dec-2011
+      old_url,title,summary,body,organisation,policy_1,document_collection_1,first_published,ignore_this
+      http://example.com/1,title,summary,body,,policy-one,my-document-collection,14-Dec-2011
       """
     Then the import succeeds creating 1 case study
     And the imported case study has the following associations:
       | Name                             | Slugs                         |
       | related_policies                 | policy-one                    |
-      | document_series                  | my-document-series            |
+      | document_collection              | my-document-collection        |
 
   Scenario: Importing a news article with a translated version present
     When I import the following data as CSV as "News article" for "Department for Transport":

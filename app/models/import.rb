@@ -199,7 +199,7 @@ class Import < ActiveRecord::Base
       model = model_class.new(attributes)
       if model.save
         save_translation!(model, row) if row.translation_present?
-        assign_document_series!(model, row.document_series)
+        assign_document_collection!(model, row.document_collection)
         row.legacy_urls.each do |legacy_url|
           DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
         end
@@ -305,12 +305,12 @@ class Import < ActiveRecord::Base
     end
   end
 
-  def assign_document_series!(model, document_series)
-    if document_series.any?
-      groups = document_series.map do |series|
-        series.groups.first_or_initialize(DocumentSeriesGroup.default_attributes)
+  def assign_document_collections!(model, document_collections)
+    if document_collections.any?
+      groups = document_collections.map do |collection|
+        collection.groups.first_or_initialize(DocumentCollectionGroup.default_attributes)
       end
-      model.document.document_series_groups << groups
+      model.document.document_collection_groups << groups
     end
   end
 

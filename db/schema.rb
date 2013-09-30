@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130917130058) do
+ActiveRecord::Schema.define(:version => 20130920094024) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -263,6 +263,28 @@ ActiveRecord::Schema.define(:version => 20130917130058) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "document_collection_group_memberships", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "document_collection_group_id"
+    t.integer  "ordering"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "document_collection_group_memberships", ["document_collection_group_id", "ordering"], :name => "index_dc_group_memberships_on_dc_group_id_and_ordering"
+  add_index "document_collection_group_memberships", ["document_id"], :name => "index_document_collection_group_memberships_on_document_id"
+
+  create_table "document_collection_groups", :force => true do |t|
+    t.integer  "document_collection_id"
+    t.string   "heading"
+    t.text     "body"
+    t.integer  "ordering"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "document_collection_groups", ["document_collection_id", "ordering"], :name => "index_dc_groups_on_dc_id_and_ordering"
+
   create_table "document_series", :force => true do |t|
     t.string   "name"
     t.integer  "organisation_id"
@@ -298,6 +320,17 @@ ActiveRecord::Schema.define(:version => 20130917130058) do
   end
 
   add_index "document_series_groups", ["document_series_id", "ordering"], :name => "index_document_series_groups_on_document_series_id_and_ordering"
+
+  create_table "document_series_memberships", :force => true do |t|
+    t.integer  "document_series_id"
+    t.integer  "document_id"
+    t.integer  "ordering"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "document_series_memberships", ["document_id", "document_series_id"], :name => "index_document_series_memberships_on_document_and_series_id"
+  add_index "document_series_memberships", ["document_series_id", "ordering"], :name => "index_document_series_memberships_on_series_id_and_ordering"
 
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"

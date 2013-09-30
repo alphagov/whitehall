@@ -365,7 +365,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_be_grouped_in_series?
+  def can_be_grouped_in_collections?
     false
   end
 

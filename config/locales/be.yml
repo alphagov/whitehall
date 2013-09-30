@@ -6,6 +6,11 @@ be:
         few:
         many:
         other: Дакументы
+      document_collection:
+        one:
+        few:
+        many:
+        other:
       ministers:
         one: Міністр
         few:
@@ -43,7 +48,6 @@ be:
         other: Сусветныя арганізацыі
       advisory_groups: Кансультацыйныя групы
       applies_to_nations: У адносінах да
-      document_series: Серыя
       field_of_operation: Сфера дзейнасці
       live_data: Бягучая інфармацыя
       location:

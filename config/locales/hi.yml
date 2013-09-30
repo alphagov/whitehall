@@ -4,6 +4,9 @@ hi:
       attachments:
         one: दस्तावेज़
         other: दस्तावेजों
+      document_collection:
+        one:
+        other:
       ministers:
         one: मंत्री
         other: मंत्रीगण
@@ -27,7 +30,6 @@ hi:
         other: विश्वव्यापी संगठन
       advisory_groups: सलाहकार समूह
       applies_to_nations: पर लागू
-      document_series: श्रृंखला
       field_of_operation: प्रचालन क्षेत्र
       live_data: सजीव आँकड़ा
       location:

@@ -7,7 +7,7 @@ Feature: HTML version of publications and consultations
   than just PDFs and file attachments.
 
   - The user experience will be seeing the HTML format presented as one of a
-  possible many formats alongside all the metadata, document series info etc on
+  possible many formats alongside all the metadata, document collection info etc on
   the publication record page. It will feel like a separate entity, a bit like
   this: http://publications.cabinetoffice.gov.uk/digital/strategy/
   - it should be possible to add markdown directly to two new fields

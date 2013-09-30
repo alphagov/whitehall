@@ -1,9 +1,9 @@
 module TranslationsForAssociations
   # This is to allow us to do eager loading on translations for
-  # associated objects (e.g. load all document series and their orgs
+  # associated objects (e.g. load all document collection and their orgs
   # including the translations for the orgs).
-  # Don't know why 
-  #   DocumentSeries.includes(organisation: :translations).
+  # Don't know why
+  #   DocumentCollection.includes(organisation: :translations).
   #     merge(Organisation.with_translations)
   # doesn't work; it gives:
   #   ActiveRecord::ConfigurationError: Association named 'translations' was not found; perhaps you misspelled it?

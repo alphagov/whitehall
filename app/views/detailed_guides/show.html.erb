@@ -86,12 +86,12 @@
           </section>
         <% end %>
 
-        <% if @document.part_of_series? %>
-          <section id="document-series" class="document-series">
+        <% if @document.part_of_collection? %>
+          <section id="document-collection" class="document-collection">
             <div class="inner">
-              <h2>This is part of a series</h2>
+              <h2>This is part of a collection</h2>
               <ul>
-                <%= list_of_li_links_to_document_series(@document) %>
+                <%= list_of_li_links_to_document_collections(@document) %>
               </ul>
             </div>
           </section>

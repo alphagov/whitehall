@@ -110,7 +110,9 @@ ja:
       attachments:
         one: お知らせ
         other: お知らせ
-      document_series: シリーズ
+      document_collection:
+        one:
+        other:
       field_of_operation: 担当分野
       live_data: 実データ
       location:

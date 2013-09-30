@@ -6,6 +6,11 @@ he:
         two:
         many:
         other: מסמכים
+      document_collection:
+        one:
+        two:
+        many:
+        other:
       ministers:
         one: שר
         two:
@@ -43,7 +48,6 @@ he:
         other: ארגונים גלובאליים
       advisory_groups: קבוצות ייעוץ
       applies_to_nations: מתייחס ל
-      document_series: סדרות
       field_of_operation: שדה פעולה
       live_data: מידע פעיל
       location:

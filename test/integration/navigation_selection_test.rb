@@ -12,7 +12,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     attachments
     case_studies
     detailed_guides
-    document_series
+    document_collections
     documents
     email_signups
     healthcheck
