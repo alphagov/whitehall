@@ -6,6 +6,6 @@ class UserNeed < ActiveRecord::Base
   end
 
   def to_s
-    "As a(n) #{user} I need to #{need} in order to #{goal}"
+    "As a(n) #{user} I need to #{need} so that #{goal}"
   end
 end
