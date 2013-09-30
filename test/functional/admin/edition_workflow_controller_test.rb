@@ -230,14 +230,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
-  test 'submit redirects back to the edition with an error message on validation error' do
-    @edition.errors.add(:change_note, "can't be blank")
-    @edition.stubs(:submit!).raises(ActiveRecord::RecordInvalid, @edition)
-    post :submit, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal "Unable to submit this edition because it is invalid (Change note can't be blank). Please edit it and try again.", flash[:alert]
-  end
-
   test 'submit responds with 422 if missing a lock version' do
     post :submit, id: @edition
     assert_equal 422, response.status
@@ -303,14 +295,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :reject, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
-  end
-
-  test 'reject redirects back to the edition with an error message on validation error' do
-    @edition.errors.add(:change_note, "can't be blank")
-    @edition.stubs(:reject!).raises(ActiveRecord::RecordInvalid, @edition)
-    post :reject, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal "Unable to reject this edition because it is invalid (Change note can't be blank). Please edit it and try again.", flash[:alert]
   end
 
   test 'reject responds with 422 if missing a lock version' do
