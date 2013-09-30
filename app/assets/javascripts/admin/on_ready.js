@@ -106,5 +106,11 @@ jQuery(document).ready(function($) {
       $('.js-manual-numbering-help').hide();
     }
   });
+
+  if ($('#diff').length > 0) {
+    GOVUK.diff('title');
+    GOVUK.diff('summary');
+    GOVUK.diff('body');
+  }
 });
 
