@@ -69,21 +69,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal [soul], DetailedGuide.first.other_mainstream_categories
   end
 
-  test "update allows removal of other mainstream categories" do
-    funk = create(:mainstream_category, title: "Funk")
-    soul = create(:mainstream_category, title: "Soul")
-    existing_edition = create(:detailed_guide, primary_mainstream_category: funk, other_mainstream_categories: [soul])
-
-    attributes = controller_attributes_for_instance(existing_edition)
-    attributes.delete(:other_mainstream_category_ids)
-
-    put :update,
-      id: existing_edition,
-      edition: attributes
-
-    assert_equal [], existing_edition.reload.other_mainstream_categories
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})

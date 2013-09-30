@@ -275,26 +275,6 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert_equal [org_two], role.organisations
   end
 
-  test "update should allow removal of all organisations" do
-    org = create(:organisation)
-    role = create(:role, organisations: [org])
-
-    put :update, id: role, role: attributes_for(:role).except(:organisation_ids)
-
-    role = Role.find(role.id)
-    assert_equal [], role.organisations
-  end
-
-  test "update should allow removal of all world organisations" do
-    worg = create(:worldwide_organisation)
-    role = create(:role, worldwide_organisations: [worg])
-
-    put :update, id: role, role: attributes_for(:role).except(:worldwide_organisation_ids)
-
-    role = Role.find(role.id)
-    assert_equal [], role.worldwide_organisations
-  end
-
   test "update redirects to the index on success" do
     role = create(:role)
 

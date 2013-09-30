@@ -169,36 +169,6 @@ class Admin::EditionsController < Admin::BaseController
       params[:edition][:lead_organisation_ids] ||= []
       params[:edition][:supporting_organisation_ids] ||= []
     end
-    if @edition.can_be_associated_with_topics?
-      params[:edition][:topic_ids] ||= []
-    end
-    if @edition.can_be_associated_with_ministers?
-      params[:edition][:ministerial_role_ids] ||= []
-    end
-    if @edition.can_be_associated_with_role_appointments?
-      params[:edition][:role_appointment_ids] ||= []
-    end
-    if @edition.can_be_associated_with_statistical_data_sets?
-      params[:edition][:statistical_data_set_document_ids] ||= []
-    end
-    if @edition.can_be_related_to_policies?
-      params[:edition][:related_policy_ids] ||= []
-    end
-    if @edition.can_be_associated_with_world_locations?
-      params[:edition][:world_location_ids] ||= []
-    end
-    if @edition.can_be_associated_with_mainstream_categories?
-      params[:edition][:other_mainstream_category_ids] ||= []
-    end
-    if @edition.can_be_associated_with_topical_events?
-      params[:edition][:topical_event_ids] ||= []
-    end
-    if @edition.can_be_associated_with_worldwide_organisations?
-      params[:edition][:worldwide_organisation_ids] ||= []
-    end
-    if @edition.can_be_associated_with_worldwide_priorities?
-      params[:edition][:worldwide_priority_ids] ||= []
-    end
   end
 
   def build_edition_dependencies
