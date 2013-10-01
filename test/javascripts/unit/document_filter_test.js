@@ -319,17 +319,6 @@ test("should update selections to match filters", function(){
             title: ['my-title'],
             id: 'topics',
             value: ['my-value']
-          },
-          {
-            title: ['my-date'],
-            id: 'date',
-            value: ['my-value']
-          }
-        ],
-        checked: [
-          {
-            id: 'direction_before',
-            value: 'before'
           }
         ]
       };
@@ -341,7 +330,6 @@ test("should update selections to match filters", function(){
 
   ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
   equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
-  equals(this.selections.text().match(/before my-date/).length, 1, 'not before my-date');
   stub.restore();
 });
 
