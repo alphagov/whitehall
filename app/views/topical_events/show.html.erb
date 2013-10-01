@@ -81,39 +81,11 @@
           </div>
         </section>
       <% end %>
-      <% if @publications.any? %>
-        <section id="publications" class="document-block documents-<%= document_block_counter %>">
-          <h1 class="label">Publications</h1>
-          <div class="content">
-            <%= render partial: "shared/list_description", locals: { editions: @publications } %>
-            <p class="see-all">
-              <%= link_to 'See all publications', publications_filter_path(@classification) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @consultations.any? %>
-        <section id="consultations" class="document-block documents-<%= document_block_counter %>">
-          <h1 class="label">Consultations</h1>
-          <div class="content">
-            <%= render partial: "shared/list_description", locals: { editions: @consultations } %>
-            <p class="see-all">
-              <%= link_to 'See all consultations', publications_filter_path(@classification, publication_filter_option: 'consultations') %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @announcements.any? %>
-        <section id="announcements" class="document-block documents-<%= document_block_counter %>">
-          <h1 class="label">Announcements</h1>
-          <div class="content">
-            <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
-            <p class="see-all">
-              <%= link_to "See all announcements", announcements_filter_path(@classification) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
+
+      <%= render(partial: 'document_list', locals: { documents: @publications, type: :publications }) if @publications.any? %>
+      <%= render(partial: 'document_list', locals: { documents: @consultations, type: :consultations }) if @consultations.any? %>
+      <%= render(partial: 'document_list', locals: { documents: @announcements, type: :announcements }) if @announcements.any? %>
+
       <% if @detailed_guides.any? %>
         <section id="detailed-guidance" class="document-block documents-<%= document_block_counter %>">
           <h1 class="label">Detailed guidance</h1>
