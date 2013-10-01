@@ -50,6 +50,12 @@
       width: 90%;
       li {
         margin-left: 0;
+        a {
+          font-weight: bold;
+          &:after {
+            font-weight: normal;
+          }
+        }
       }
     }
     .alphabetical-list-letter {

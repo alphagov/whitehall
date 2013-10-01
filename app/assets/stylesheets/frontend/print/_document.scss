@@ -39,3 +39,15 @@ img {
     }
   }
 }
+
+.meta {
+  padding: 0;
+  margin: 0;
+}
+.date:after {
+  content: "";
+}
+
+article {
+  width: 100%;
+}

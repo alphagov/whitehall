@@ -1,5 +1,6 @@
 .ministers-index {
-  .image-holder a, p a {
+  .image-holder a,
+  p a {
     &:after {
       content: "";
     }
@@ -27,7 +28,8 @@
     }
   }
   .ministers-by-organisation {
-    h3 a, .role {
+    h3 a,
+    .role {
       &:after {
         content: "";
       }

@@ -3,16 +3,19 @@ a {
 }
 h1 {
   @include heading-27;
+  font-weight: bold;
   margin: $gutter 0;
 }
 h2 {
   @include heading-24;
+  font-weight: bold;
   margin: $gutter 0 0;
 }
 h3,
 h4,
 h5 {
   @include copy-19;
+  font-weight: bold;
   margin: $gutter 0 0;
 }
 h4 {
@@ -20,6 +23,15 @@ h4 {
 }
 h5 {
   margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  a:after {
+    font-weight: normal;
+  }
 }
 p {
   @include copy-14;

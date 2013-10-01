@@ -1,0 +1,57 @@
+.organisations-show {
+  ol,
+  ul {
+    li {
+      list-style: none;
+      margin-left: 0;
+    }
+  }
+  .text,
+  .image-holder {
+    float: left;
+    width: 25%;
+  }
+  .text {
+    width: 75%;
+  }
+  .image-holder {
+    clear: both;
+     a {
+      display: block;
+      padding: 0 $gutter*3 $gutter*3 0;
+      img {
+        width: 100%;
+      }
+      &:after {
+        content: "";
+      }      
+    }
+  }
+  .recently-updated {
+    clear: both;
+    h1 {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    ol {
+      margin-top: 0;
+      li {
+        clear: both;
+        .attributes {
+          li {
+            clear: none;
+            float: left;
+            width: 25%;
+          }
+        }
+      }
+    }
+    .feeds {
+      display: none;
+    }
+  }
+  .what-we-do,
+  .block-10 {
+    clear: both;
+  }
+}
