@@ -88,15 +88,14 @@
     </div>
   <% end %>
   <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
-    <% document_block_count = 0 %>
     <div class="block documents-grid">
       <div class="inner-block">
         <h1 class="block-title"><%= t('world_location.headings.documents') %></h1>
         <% if @announcements.any? %>
-          <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
+          <section id="announcements" class="document-block documents-<%= document_block_counter %>">
             <h1><%= t('world_location.headings.announcements') %></h1>
             <div class="content">
-              <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+              <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
               <p class="see-all">
                 <%= link_to t_see_all_our(:announcement), announcements_filter_path(@world_location, include_world_location_news: '1') %>
               </p>
@@ -104,10 +103,10 @@
           </section>
         <% end %>
         <% if @non_statistics_publications.any? %>
-          <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
+          <section id="publications" class="document-block documents-<%= document_block_counter %>">
             <h1><%= t('world_location.headings.publications') %></h1>
             <div class="content">
-              <%= render partial: "publications/list_description", locals: {publications: @non_statistics_publications} %>
+              <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
               <p class="see-all">
                 <%= link_to t_see_all_our(:publication), publications_filter_path(@world_location) %>
               </p>
@@ -115,10 +114,10 @@
           </section>
         <% end %>
         <% if @statistics_publications.any? %>
-          <section id="statistics-publications" class="document-block documents-<%= document_block_count+=1 %>">
+          <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
             <h1><%= t('world_location.headings.statistics') %></h1>
             <div class="content">
-              <%= render partial: "publications/list_description", locals: {publications: @statistics_publications} %>
+              <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
               <p class="see-all">
                 <%= link_to t_see_all_our(:statistics), publications_filter_path(@world_location, publication_filter_option: 'statistics') %>
               </p>

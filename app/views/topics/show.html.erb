@@ -81,52 +81,12 @@
 
 
   <% document_block_count = 0 %>
-  <div class="documents-grid <%= "grid-size-#{[@announcements, @publications, @consultations, @statistical_data_sets].compact.select(&:any?).length}" %>">
+  <div class="documents-grid <%= topic_grid_size_class(@announcements, @consultations, @publications, @statistical_data_sets) %>">
     <div class="inner-block">
-      <% if @announcements.any? %>
-        <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
-          <h1 class="label">Announcements</h1>
-          <div class="content">
-            <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
-            <p class="see-all">
-              <%= link_to "See all announcements", announcements_filter_path(@classification) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @consultations.any? %>
-        <section id="consultations" class="document-block documents-<%= document_block_count+=1 %>">
-          <h1 class="label">Consultations</h1>
-          <div class="content">
-            <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
-            <p class="see-all">
-              <%= link_to 'See all consultations', consultations_filter_path(@classification) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @publications.any? %>
-        <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
-          <h1 class="label">Publications</h1>
-          <div class="content">
-            <%= render partial: "publications/list_description", locals: {publications: @publications} %>
-            <p class="see-all">
-              <%= link_to 'See all publications', publications_filter_path(@classification) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
-      <% if @statistical_data_sets.any? %>
-        <section id="statistical_data_sets" class="document-block documents-<%= document_block_count+=1 %>">
-          <h1 class="label">Statistics</h1>
-          <div class="content">
-            <%= render partial: "publications/list_description", locals: {publications: @statistical_data_sets} %>
-            <p class="see-all">
-              <%= link_to 'See all statistics', statistical_data_sets_filter_path(@classification) %>
-            </p>
-          </div>
-        </section>
-      <% end %>
+      <%= render(partial: 'document_list', locals: { documents: @announcements, type: :announcements, block_count: (document_block_count+=1) }) if @announcements.any? %>
+      <%= render(partial: 'document_list', locals: { documents: @consultations, type: :consultations, block_count: (document_block_count+=1) }) if @consultations.any? %>
+      <%= render(partial: 'document_list', locals: { documents: @publications, type: :publications, block_count: (document_block_count+=1) }) if @publications.any? %>
+      <%= render(partial: 'document_list', locals: { documents: @statistical_data_sets, type: :statistical_data_sets, block_count: (document_block_count+=1) }) if @statistical_data_sets.any? %>
     </div>
   </div>
 

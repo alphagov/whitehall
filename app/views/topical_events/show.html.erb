@@ -72,7 +72,7 @@
   </div>
 
   <% document_block_count = 0 %>
-  <div class="documents-grid <%= "grid-size-#{[@policies, @publications, @consultations, @announcements].compact.select(&:any?).length}" %>">
+  <div class="documents-grid <%= topic_grid_size_class(@policies, @publications, @consultations, @announcements, @detailed_guides, @related_classifications) %>">
     <div class="inner-block">
       <% if @policies.any? %>
         <section id="policies" class="policies document-block documents-<%= document_block_count+=1 %>">
@@ -86,7 +86,7 @@
         <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
           <h1 class="label">Publications</h1>
           <div class="content">
-            <%= render partial: "publications/list_description", locals: {publications: @publications} %>
+            <%= render partial: "shared/list_description", locals: { editions: @publications } %>
             <p class="see-all">
               <%= link_to 'See all publications', publications_filter_path(@classification) %>
             </p>
@@ -97,7 +97,7 @@
         <section id="consultations" class="document-block documents-<%= document_block_count+=1 %>">
           <h1 class="label">Consultations</h1>
           <div class="content">
-            <%= render partial: "publications/list_description", locals: {publications: @consultations} %>
+            <%= render partial: "shared/list_description", locals: { editions: @consultations } %>
             <p class="see-all">
               <%= link_to 'See all consultations', publications_filter_path(@classification, publication_filter_option: 'consultations') %>
             </p>
@@ -108,7 +108,7 @@
         <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
           <h1 class="label">Announcements</h1>
           <div class="content">
-            <%= render partial: "announcements/list_description", locals: {announcements: @announcements} %>
+            <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
             <p class="see-all">
               <%= link_to "See all announcements", announcements_filter_path(@classification) %>
             </p>
