@@ -97,7 +97,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           context = {},
           i, _i, j, _j, field;
 
-
       $selections.html('');
       $title.find('span').remove();
 
@@ -165,6 +164,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                   joining: (j < _j-1 ? 'or' : '')
                 });
               }
+            } else if (field.id === 'from_date'){
+              context['date_from'] = field.value
+            } else if (field.id === 'to_date'){
+              context['date_to'] = field.value
             }
           }
         }

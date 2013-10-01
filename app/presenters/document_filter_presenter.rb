@@ -39,6 +39,14 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
     context.url_for(context.params.merge(override_params).merge("_" => nil).except(:format))
   end
 
+  def date_from
+    from_date ? from_date.to_s(:short_ordinal) : nil
+  end
+
+  def date_to
+    to_date ? to_date.to_s(:short_ordinal) : nil
+  end
+
   def documents
     if document_decorator
       Whitehall::Decorators::CollectionDecorator.new(
