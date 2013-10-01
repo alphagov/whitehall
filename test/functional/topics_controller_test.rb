@@ -141,4 +141,22 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_atom_entries([policy])
     end
   end
+
+  test 'GET :show has a 5 minute expiry time' do
+    topic = build(:topic)
+    Topic.stubs(:find).returns(topic)
+
+    get :show, id: topic
+
+    assert_cache_control("max-age=#{5.minutes}")
+  end
+
+  test 'GET :show caps max expiry to 5 minute when there are future scheduled editions' do
+    topic = create(:topic)
+    create(:scheduled_publication, scheduled_publication: 1.day.from_now, topics: [topic])
+
+    get :show, id: topic
+
+    assert_cache_control("max-age=#{5.minutes}")
+  end
 end
