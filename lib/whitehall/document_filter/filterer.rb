@@ -104,13 +104,7 @@ module Whitehall::DocumentFilter
     end
 
     def parse_date(date)
-      Date.parse(date) if date.present?
-    rescue ArgumentError => e
-      if e.message[/invalid date/]
-        return nil
-      else
-        raise e
-      end
+      Chronic.parse(date, endian_precedence: :little) if date.present?
     end
   end
 end
