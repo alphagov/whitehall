@@ -2,9 +2,7 @@
   <% policies.each do |policy| %>
     <%= content_tag_for(:li, policy, class: "document-row") do %>
       <h2><%= link_to policy.title, public_document_path(policy) %></h2>
-      <% unless policy.summary.blank? %>
-        <p class="summary"><%= policy.summary %></p>
-      <% end %>
+      <p class="summary"><%= policy.summary %></p>
     <% end %>
   <% end %>
 </ol>

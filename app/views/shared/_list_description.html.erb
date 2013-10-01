@@ -1,0 +1,11 @@
+<ol class="document-list">
+  <% editions.each do |edition| %>
+    <%= content_tag_for(:li, edition, class: 'document-row') do %>
+      <h2><%= link_to edition.title, public_document_path(edition) %></h2>
+      <ul class="attributes">
+        <li class="publication-date"><%= edition.display_date_microformat %></li>
+        <li class="document-type"><%= t_display_type(edition) %></li>
+      </ul>
+    <% end %>
+  <% end %>
+</ol>
