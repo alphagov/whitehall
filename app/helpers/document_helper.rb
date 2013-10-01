@@ -9,6 +9,11 @@ module DocumentHelper
   include TopicsHelper
   include TranslationHelper
 
+  def document_block_counter
+    @block_count ||= 0
+    @block_count += 1
+  end
+
   def html_version_see_more_display_type(edition)
     edition.is_a?(Consultation) ? 'consultation' : 'publication'
   end

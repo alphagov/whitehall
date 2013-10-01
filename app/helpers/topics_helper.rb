@@ -17,4 +17,8 @@ module TopicsHelper
       concat content_tag(:span, pluralize(classification.detailed_guides.published.count, "published detailed guide"))
     end
   end
+
+  def topic_grid_size_class(*edition_scopes)
+    "grid-size-#{edition_scopes.compact.select(&:any?).length}"
+  end
 end

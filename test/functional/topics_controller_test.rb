@@ -64,6 +64,44 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "GET :show lists published consultations and links to more" do
+    topic = create(:topic)
+    published = []
+    4.times do |i|
+      published << create(:published_consultation, {
+        title: "title-#{i}", topics: [topic], opening_on: i.days.ago
+      })
+    end
+
+    get :show, id: topic
+
+    assert_select "#consultations" do
+      published.take(3).each do |edition|
+        assert_select "a", text: edition.title, href: public_document_path(edition)
+      end
+      refute_select "a", text: published[3].title
+    end
+  end
+
+  view_test "GET :show lists published statistic data sets and links to more" do
+    topic = create(:topic)
+    published = []
+    4.times do |i|
+      published << create(:published_statistical_data_set, {
+        title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
+      })
+    end
+
+    get :show, id: topic
+
+    assert_select "#statistical_data_sets" do
+      published.take(3).each do |edition|
+        assert_select "a", text: edition.title, href: public_document_path(edition)
+      end
+      refute_select "a", text: published[3].title
+    end
+  end
+
   view_test "GET :show lists published announcements and links to more" do
     topic = create(:topic)
     published = []
