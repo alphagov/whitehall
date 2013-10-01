@@ -1,8 +1,6 @@
 class TopicsController < ClassificationsController
   include CacheControlHelper
 
-  skip_before_filter :set_cache_control_headers, only: [:show], if: :is_html?
-
   def show
     @classification = Topic.find(params[:id])
 
@@ -35,9 +33,5 @@ class TopicsController < ClassificationsController
   def set_cache_max_age
     @cache_max_age = 5.minutes
     set_expiry @cache_max_age
-  end
-
-  def is_html?
-    request.format.html?
   end
 end

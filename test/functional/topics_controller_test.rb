@@ -150,4 +150,13 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_cache_control("max-age=#{5.minutes}")
   end
+
+  test 'GET :show caps max expiry to 5 minute when there are future scheduled editions' do
+    topic = create(:topic)
+    create(:scheduled_publication, scheduled_publication: 1.day.from_now, topics: [topic])
+
+    get :show, id: topic
+
+    assert_cache_control("max-age=#{5.minutes}")
+  end
 end
