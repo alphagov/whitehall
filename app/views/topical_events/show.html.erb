@@ -71,11 +71,10 @@
     </div>
   </div>
 
-  <% document_block_count = 0 %>
   <div class="documents-grid <%= topic_grid_size_class(@policies, @publications, @consultations, @announcements, @detailed_guides, @related_classifications) %>">
     <div class="inner-block">
       <% if @policies.any? %>
-        <section id="policies" class="policies document-block documents-<%= document_block_count+=1 %>">
+        <section id="policies" class="policies document-block documents-<%= document_block_counter %>">
           <h1 class="label">Policies</h1>
           <div class="content">
             <%= render partial: "policies/list_description", locals: {policies: @policies} %>
@@ -83,7 +82,7 @@
         </section>
       <% end %>
       <% if @publications.any? %>
-        <section id="publications" class="document-block documents-<%= document_block_count+=1 %>">
+        <section id="publications" class="document-block documents-<%= document_block_counter %>">
           <h1 class="label">Publications</h1>
           <div class="content">
             <%= render partial: "shared/list_description", locals: { editions: @publications } %>
@@ -94,7 +93,7 @@
         </section>
       <% end %>
       <% if @consultations.any? %>
-        <section id="consultations" class="document-block documents-<%= document_block_count+=1 %>">
+        <section id="consultations" class="document-block documents-<%= document_block_counter %>">
           <h1 class="label">Consultations</h1>
           <div class="content">
             <%= render partial: "shared/list_description", locals: { editions: @consultations } %>
@@ -105,7 +104,7 @@
         </section>
       <% end %>
       <% if @announcements.any? %>
-        <section id="announcements" class="document-block documents-<%= document_block_count+=1 %>">
+        <section id="announcements" class="document-block documents-<%= document_block_counter %>">
           <h1 class="label">Announcements</h1>
           <div class="content">
             <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
@@ -116,7 +115,7 @@
         </section>
       <% end %>
       <% if @detailed_guides.any? %>
-        <section id="detailed-guidance" class="document-block documents-<%= document_block_count+=1 %>">
+        <section id="detailed-guidance" class="document-block documents-<%= document_block_counter %>">
           <h1 class="label">Detailed guidance</h1>
           <div class="content">
             <ol class="document-list">
@@ -130,7 +129,7 @@
         </section>
       <% end %>
       <% if @related_classifications.any? %>
-        <section id="related-topics" class="document-block documents-<%= document_block_count+=1 %>">
+        <section id="related-topics" class="document-block documents-<%= document_block_counter %>">
           <h1 class="label">Related topics</h1>
           <div class="content">
             <ol class="document-list">
