@@ -43,37 +43,40 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_invalid build(:document_collection, body: nil)
   end
 
-  test "It should create a group called 'Documents' when created if groups are empty" do
+  test "it should create a group called 'Documents' when created if groups are empty" do
     doc_collection = create(:document_collection, groups: [])
     assert_equal 1, doc_collection.groups.length
     assert_equal "Documents", doc_collection.groups[0].heading
   end
 
-  test "It should not create a group if it's already been given one" do
+  test "it should not create a group if it's already been given one" do
     doc_collection = create(:document_collection, groups: [build(:document_collection_group, heading: 'not documents')])
     assert_equal 1, doc_collection.groups.length
     refute_equal "Documents", doc_collection.groups[0].heading
   end
 
-  test "It should create new instances of associated DocumentCollectionGroups, with the groups retaining the original groups' member documents" do
-    doc_1 = create(:published_news_article).document
-    doc_2 = create(:draft_detailed_guide).document
-    doc_3 = create(:scheduled_publication).document
+  def assert_collection_groups_are_the_same(original, draft)
+    relevant_attributes = ->(g) { g.attributes.slice('heading', 'body', 'ordering') }
+    original_attributes = original.groups.map(&relevant_attributes)
+    draft_attributes = draft.groups.map(&relevant_attributes)
 
-    original_doc_collection = create(:published_document_collection, groups: [
-      build(:document_collection_group, heading: "Cheese", body: "Differences between cheese types", documents: [doc_1, doc_2]),
-      build(:document_collection_group, heading: "Famous Llamas", body: "Darth Vadar was infact a llama", documents: [doc_3])
+    assert_equal original_attributes, draft_attributes
+  end
+
+  test "#create_draft should clone the document collection and its constituent objects" do
+    doc = create(:published_news_article).document
+
+    original = create(:published_document_collection, groups: [
+      build(:document_collection_group, documents: [doc])
     ])
 
-    redrafted_doc_collection = original_doc_collection.create_draft(user = create(:gds_editor))
+    draft = original.create_draft(create(:gds_editor))
 
-    assert_not_equal original_doc_collection.groups[0], redrafted_doc_collection.groups[0]
+    assert_not_equal original.groups, draft.groups
 
-    assert_equal original_doc_collection.groups[0].heading, redrafted_doc_collection.groups[0].heading
-    assert_equal original_doc_collection.groups[1].body,    redrafted_doc_collection.groups[1].body
+    assert_collection_groups_are_the_same(original, draft)
 
-    assert_equal [doc_1, doc_2], redrafted_doc_collection.groups[0].documents
-    assert_equal [doc_3],        redrafted_doc_collection.groups[1].documents
+    assert_equal original.groups.map(&:documents), draft.groups.map(&:documents)
   end
 
   test 'indexes the title as title' do
