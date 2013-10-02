@@ -5,8 +5,6 @@
 <p><%= link_to "View on public site", document_collection_path(@collection) %></p>
 
 <%= edition_editing_tabs(@collection) do %>
-  <%= render partial: 'changes_go_live' %>
-
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add a document</h2>
     <div>
