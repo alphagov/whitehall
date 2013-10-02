@@ -110,7 +110,7 @@ class Publication < Publicationesque
 
   def attachment_required_before_moving_out_of_draft
     if %w(submitted scheduled published).include?(state) && !has_attachments?
-      errors.add(:base, "cannot be #{current_state} without an attachment or HTML version")
+      errors.add(:base, "Publications must have either a URL for off-site documents, an attachment or HTML version before being #{current_state}")
     end
   end
 
