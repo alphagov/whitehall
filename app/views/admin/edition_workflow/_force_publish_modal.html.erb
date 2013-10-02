@@ -5,7 +5,7 @@
     <p>You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency.</p>
     <h3>Why are you force publishing this‽</h3>
   </div>
-  <%= form_tag publish_admin_edition_path(@edition, lock_version: @edition.lock_version, force: true) do %>
+  <%= form_tag force_publish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
     <div class="modal-body">
       <%= text_field_tag :reason %>
     </div>
@@ -14,4 +14,3 @@
     </div>
   <% end %>
 </div>
-

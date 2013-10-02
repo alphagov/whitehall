@@ -63,11 +63,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :publish, id: @edition, lock_version: 1
   end
 
-  test 'publish passes through the force flag' do
-    @edition.expects(:publish_as).with(@user, force: true).returns(true)
-    post :publish, id: @edition, force: true, lock_version: 1, reason: "Just because"
-  end
-
   test 'publish sets change note on edition' do
     @edition.stubs(:publish_as).returns(true)
     post :publish, id: @edition, lock_version: 1, edition: {
@@ -112,6 +107,28 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     post :publish, id: @edition
     assert_equal 422, response.status
     assert_equal 'All workflow actions require a lock version', response.body
+  end
+
+  test 'GET #confirm_force_publish renders force publishing form'do
+    get :confirm_force_publish, id: @edition, lock_version: 1
+
+    assert_response :success
+    assert_template :confirm_force_publish
+  end
+
+  test 'POST #force_publish force publishes the edition' do
+    @edition.expects(:publish_as).with(@user, force: true).returns(true)
+    post :force_publish, id: @edition, lock_version: 1, reason: 'Urgent change'
+
+    assert_redirected_to admin_editions_path(state: :published)
+  end
+
+  test 'POST #force_publish without a reason is not allowed' do
+    @edition.expects(:publish_as).never
+    post :force_publish, id: @edition, lock_version: 1
+
+    assert_redirected_to admin_policy_path(@edition)
+    assert_equal 'You cannot force publish a document without a reason', flash[:alert]
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
