@@ -164,11 +164,11 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test '#perform assigns document collection to the document' do
-    collection = create(:document_collection, name: 'collection-name')
-    import = perform_import(csv_data: publication_with_collections_csv, data_type: "publication", organisation_id: create(:organisation).id)
+    collection = create(:document_collection, title: 'collection-name')
+    import = perform_import(csv_data: publication_with_collection_csv, data_type: "publication", organisation_id: create(:organisation).id)
     edition = import.imported_editions.first
 
-    assert_equal [collection], edition.document.document_collection
+    assert_equal [collection], edition.document.document_collections
   end
 
   test '#perform rolls back if exception raised during the row import' do

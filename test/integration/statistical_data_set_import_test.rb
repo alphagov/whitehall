@@ -16,7 +16,6 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
       import.perform
     end
 
-    puts import.import_errors.first.message
     assert_equal [], import.import_errors
 
     statistical_data_set = StatisticalDataSet.first
@@ -24,7 +23,7 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
 
     assert_equal creator, statistical_data_set.creator
     assert_equal [organisation], statistical_data_set.organisations
-    assert_equal [statistical_data_collection], statistical_data_set.document_collection
+    assert_equal [statistical_data_collection], statistical_data_set.document_collections
     assert_equal "http://example.com/legacy-url", statistical_data_set.document.document_sources.first.url
 
     assert_equal "!@1 !@2", statistical_data_set.body

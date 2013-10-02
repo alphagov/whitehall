@@ -31,7 +31,9 @@ class DocumentCollectionPresenterTest < ActiveSupport::TestCase
   end
 
   test "groups should return visible groups wrapped in a presenter" do
-    @groups.stubs(:visible).returns([:group_1, :group_2])
+    Mocha::Configuration.allow(:stubbing_non_existent_method) do
+      @groups.stubs(:visible).returns([:group_1, :group_2])
+    end
 
     DummyGroupPresenter.expects(:new).with(:group_1, :the_view_context).returns(:presented_group_1)
     DummyGroupPresenter.expects(:new).with(:group_2, :the_view_context).returns(:presented_group_2)

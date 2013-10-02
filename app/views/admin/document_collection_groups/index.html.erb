@@ -1,4 +1,4 @@
-<% content_for :page_class, 'document-series-groups index' %>
+<% content_for :page_class, 'document-collection-groups index' %>
 <% page_title "#{@collection.title}", "Document series" %>
 
 <h1><%= @collection.title %></h1>
@@ -7,7 +7,7 @@
 <%= edition_editing_tabs(@collection) do %>
   <%= render partial: 'changes_go_live' %>
 
-  <%= form_tag admin_document_series_new_member_path(@collection), class: 'document-finder' do %>
+  <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add a document</h2>
     <div>
       <label for="title">Add</label>
@@ -47,7 +47,7 @@
             by searching for documents (above), or moving them here from another group.
           </p>
         <% else %>
-          <%= form_tag admin_document_series_group_members_path(@collection, group), method: 'delete' do %>
+          <%= form_tag admin_document_collection_group_members_path(@collection, group), method: 'delete' do %>
             <ul class="controls">
               <li>
                 <%= check_box_tag :select_all, group.id, false, id: nil, class: 'checkbox' %>
@@ -64,7 +64,7 @@
               <% end %>
             </ul>
             <ol class="document-list">
-              <%= render partial: 'series_document', collection: group.latest_editions, as: :edition, locals: { document_series: @collection } %>
+              <%= render partial: 'collection_document', collection: group.latest_editions, as: :edition, locals: { document_collection: @collection } %>
             </ol>
           <% end %>
         <% end %>

@@ -51,7 +51,7 @@ module Whitehall::DocumentFilter
         when :topic
           Classification.find_by_slug(slug)
         when :document_collection
-          Document.find_by_slug(slug).latest_edition
+          Document.find_by_slug(slug).published_edition
         when :operational_field
           OperationalField.find_by_slug(slug)
         else

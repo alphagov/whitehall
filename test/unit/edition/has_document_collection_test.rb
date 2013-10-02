@@ -6,7 +6,7 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
     edition = create(:published_statistical_data_set)
     collection = create(:document_collection, :with_group)
     collection.groups.first.documents = [edition.document]
-    assert_equal [collection.slug], edition.search_index["document_collection"]
+    assert_equal [collection.slug], edition.search_index["document_collections"]
   end
 
   test '#part_of_collection? returns true when its document is in a collection' do
@@ -22,7 +22,7 @@ class Edition::HasDocumentCollectionsTest < ActiveSupport::TestCase
     edition = create(:imported_publication)
     document_collection = create(:document_collection, :with_group)
     edition.document_collection_group_ids = [document_collection.groups.first.id]
-    assert_equal [document_collection], edition.document.document_collection
+    assert_equal [document_collection], edition.document.document_collections
   end
 
   test 'raises an exception if attempt is made to set document collection on a new edition' do

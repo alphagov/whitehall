@@ -44,13 +44,13 @@ class DocumentCollectionTest < ActiveSupport::TestCase
   end
 
   test "It should create a group called 'Documents' when created if groups are empty" do
-    doc_collection = create(:document_collection, :groups => [])
+    doc_collection = create(:document_collection, groups: [])
     assert_equal 1, doc_collection.groups.length
     assert_equal "Documents", doc_collection.groups[0].heading
   end
 
   test "It should not create a group if it's already been given one" do
-    doc_collection = create(:document_collection, :groups => [build(:document_collection_group, heading: 'not documents')])
+    doc_collection = create(:document_collection, groups: [build(:document_collection_group, heading: 'not documents')])
     assert_equal 1, doc_collection.groups.length
     refute_equal "Documents", doc_collection.groups[0].heading
   end

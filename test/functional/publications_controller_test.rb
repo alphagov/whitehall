@@ -566,10 +566,12 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index should show relevant document collection information' do
     without_delay! do
+      editor = create(:departmental_editor)
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
-      publication.publish_as(create(:departmental_editor), force: true)
+      collection.publish_as(editor, force: true)
+      publication.publish_as(editor, force: true)
       get :index
 
       assert_select_object(publication) do
@@ -580,10 +582,12 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test 'index requested as JSON includes document collection information' do
     without_delay! do
+      editor = create(:departmental_editor)
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
-      publication.publish_as(create(:departmental_editor), force: true)
+      collection.publish_as(editor, force: true)
+      publication.publish_as(editor, force: true)
 
       get :index, format: :json
 

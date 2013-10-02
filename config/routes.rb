@@ -104,10 +104,12 @@ Whitehall::Application.routes.draw do
     end
 
     resources :document_collections, only: [:show], path: 'collections'
+    get '/collections' => redirect("/publications")
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
       #redirects /gov/organisations/:org_id/series/:id => /gov/collections/:id
       match '/series/:collection_id' => redirect("/collections/%{collection_id}")
+      match '/series' => redirect("/publications")
 
       member do
         get :about, localised: true

@@ -4,15 +4,13 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   delegate_instance_methods_of *Publicationesque.concrete_descendants
 
   def as_hash
-    super.merge({
-      publication_collections: publication_collections
-    })
+    super.merge(publication_collections: publication_collections)
   end
 
   def publication_collections
     if model.part_of_collection?
       links = model.document_collections.map do |dc|
-        context.link_to(ds.title, context.public_document_path(dc))
+        context.link_to(dc.title, context.public_document_path(dc))
       end
       "Part of a collection: #{links.to_sentence}"
     end

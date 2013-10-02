@@ -199,7 +199,7 @@ class Import < ActiveRecord::Base
       model = model_class.new(attributes)
       if model.save
         save_translation!(model, row) if row.translation_present?
-        assign_document_collection!(model, row.document_collection)
+        assign_document_collections!(model, row.document_collections)
         row.legacy_urls.each do |legacy_url|
           DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
         end

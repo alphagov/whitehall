@@ -50,7 +50,7 @@ module Whitehall::Uploader
       organisations
     end
 
-    def document_collection
+    def document_collections
       Finders::EditionFinder.new(DocumentCollection, logger, line_number).find(row['data_collection'])
     end
 
