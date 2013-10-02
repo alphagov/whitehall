@@ -62,17 +62,17 @@ module Admin::EditionsHelper
     if current_user.organisation
         organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
-    organisations.map { |o| [o.name, o.id] }
+    [["All organisations", ""]] + organisations.map { |o| [o.name, o.id] }
   end
 
   def admin_author_filter_options(current_user)
     other_users = User.all - [current_user]
-    [["Me", current_user.id]] + other_users.map { |u| [u.name, u.id] }
+    [["All authors", ""], ["Me", current_user.id]] + other_users.map { |u| [u.name, u.id] }
   end
 
   def admin_state_filter_options
     [
-      [nil, 'active'],
+      ["All states", 'active'],
       ["Imported (pre-draft)", 'imported'],
       ["Draft", 'draft'],
       ["Submitted", 'submitted'],
@@ -84,7 +84,7 @@ module Admin::EditionsHelper
   end
 
   def admin_world_location_filter_options(current_user)
-    options = []
+    options = [["All locations", ""]]
     if current_user.world_locations.any?
       options << ["My locations", "user"]
     end

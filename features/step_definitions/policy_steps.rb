@@ -303,7 +303,7 @@ Then /^I should see that it was rejected by "([^"]*)"$/ do |rejected_by|
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
-  filter_editions_by :author, nil
+  filter_editions_by :author, "All authors"
   filter_editions_by :state, 'Submitted'
   policy = Policy.find_by_title!(policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
