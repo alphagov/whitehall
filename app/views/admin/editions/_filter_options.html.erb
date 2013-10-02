@@ -7,8 +7,11 @@
     <div class="filter-grouping">
       <%= form_tag("", method: :get, id: 'title_filter') do %>
         <%= label_tag :title, 'Title or slug' %>
-        <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
-        <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
+        <div class="btn-enter-wrapper">
+          <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :type, :state, :author, :world_location, :from_date, :to_date) %>
+          <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
+        </div>
       <% end %>
     </div>
   <% end %>
@@ -86,9 +89,15 @@
       <h3>Date (last updated)</h3>
       <%= form_tag("", method: :get, class: "date-filter") do  %>
         <%= label_tag :from_date, "From" %>
-        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date', placeholder: "e.g. 23/07/2013" %>
+        <div class="btn-enter-wrapper">
+          <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date', placeholder: "e.g. 23/07/2013" %>
+          <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
+        </div>
         <%= label_tag :to_date, "To" %>
-        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date', placeholder: "e.g. 23/08/2013" %>
+        <div class="btn-enter-wrapper">
+          <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date', placeholder: "e.g. 23/08/2013" %>
+          <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
+        </div>
         <%= pass_through_filter_options_as_hidden_fields(@filter, :organisation, :world_location_ids, :state, :author, :type) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
