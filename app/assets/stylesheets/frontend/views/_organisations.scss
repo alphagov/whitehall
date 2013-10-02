@@ -706,7 +706,11 @@
       }
       .adr {
         margin: 0 0 $gutter-one-third;
-
+        span {
+          display: block;
+          padding-right: $gutter-half;
+          margin-bottom: -($gutter-half+$gutter-one-third);
+        }
         p {
           margin: 0;
         }
