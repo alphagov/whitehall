@@ -1,21 +1,6 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
-
-  test "should allow association with policies" do
-    policy = create(:draft_policy)
-    topic = create(:topic, policies: [policy])
-
-    assert_equal [topic], policy.reload.topics
-  end
-
-  test "should allow association with detailed guides" do
-    detailed_guide = create(:draft_detailed_guide)
-    topic = create(:topic, detailed_guides: [detailed_guide])
-
-    assert_equal [topic], detailed_guide.reload.topics
-  end
-
   test "should set a slug from the topic name" do
     topic = create(:topic, name: 'Love all the people')
     assert_equal 'love-all-the-people', topic.slug
@@ -32,10 +17,10 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', topic.slug
   end
 
-  test "should allow setting ordering of policies" do
+  test "policies can be ordered" do
     topic = create(:topic)
-    first_policy = create(:policy, topics: [topic])
-    second_policy = create(:policy, topics: [topic])
+    first_policy = create(:published_policy, topics: [topic])
+    second_policy = create(:published_policy, topics: [topic])
     first_association = topic.classification_memberships.find_by_edition_id(first_policy.id)
     second_association = topic.classification_memberships.find_by_edition_id(second_policy.id)
 
@@ -44,30 +29,22 @@ class TopicTest < ActiveSupport::TestCase
       second_association.id => {id: second_association.id, edition_id: second_policy.id, ordering: "1"}
     })
 
-    assert_equal 2, first_association.reload.ordering
-    assert_equal 1, second_association.reload.ordering
+    assert_equal [second_policy, first_policy], topic.reload.policies
+    assert_equal [second_policy, first_policy], topic.reload.published_policies
   end
 
   test "should be deletable if all the associated policies are archived" do
-    topic = create(:topic, policies: [create(:archived_policy)])
+    topic = create(:topic, editions: [create(:archived_policy)])
     assert topic.destroyable?
     topic.delete!
     assert topic.deleted?
   end
 
   test "should not be deletable if there are non-archived associated policies" do
-    topic = create(:topic, policies: [create(:policy)])
+    topic = create(:topic, editions: [create(:policy)])
     refute topic.destroyable?
     topic.delete!
     refute topic.deleted?
-  end
-
-  test "should return the list of archived policies" do
-    draft_policy = create(:draft_policy)
-    published_policy = create(:published_policy)
-    archived_policy = create(:archived_policy)
-    topic = create(:topic, policies: [draft_policy, published_policy, archived_policy])
-    assert_equal [archived_policy], topic.archived_policies
   end
 
   test "return topics bi-directionally related to specific topic" do
@@ -166,83 +143,6 @@ class TopicTest < ActiveSupport::TestCase
     refute_includes topics, has_draft_policies
     refute_includes topics, has_draft_detailed_guides
     refute_includes topics, has_nothing
-  end
-
-  test 'should filter out topics without any published detailed guides related directly via topics' do
-    has_nothing = create(:topic)
-    create(:draft_detailed_guide, topics: [has_draft_detailed_guide = create(:topic)])
-    create(:published_detailed_guide, topics: [has_published_detailed_guide = create(:topic)])
-
-    topics = Topic.with_related_detailed_guides
-
-    assert_includes topics, has_published_detailed_guide
-    refute_includes topics, has_draft_detailed_guide
-    refute_includes topics, has_nothing
-  end
-
-  test 'should filter out topics without any published publications or consultations related via published policies' do
-    has_nothing = create(:topic)
-    create(:published_policy, topics: [has_published_policy = create(:topic)])
-    create(:draft_publication, related_editions: [create(:published_policy, topics: [has_draft_publication_via_published_policy = create(:topic)])])
-    create(:draft_consultation, related_editions: [create(:published_policy, topics: [has_draft_consultation_via_published_policy = create(:topic)])])
-    create(:published_publication, related_editions: [create(:draft_policy, topics: [has_published_publication_via_draft_policy = create(:topic)])])
-    create(:published_consultation, related_editions: [create(:draft_policy, topics: [has_published_consultation_via_draft_policy = create(:topic)])])
-    create(:published_consultation, related_editions: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
-    create(:published_publication, related_editions: [create(:published_policy, topics: [has_published_publication_via_published_policy = create(:topic)])])
-
-    topics = Topic.with_related_publications
-
-    assert_includes topics, has_published_publication_via_published_policy
-    assert_includes topics, has_published_consultation_via_published_policy
-    refute_includes topics, has_published_publication_via_draft_policy
-    refute_includes topics, has_published_consultation_via_draft_policy
-    refute_includes topics, has_draft_publication_via_published_policy
-    refute_includes topics, has_draft_consultation_via_published_policy
-    refute_includes topics, has_published_policy
-    refute_includes topics, has_nothing
-  end
-
-  test 'should filter out topics without any published announcements related via published policies' do
-    has_nothing = create(:topic)
-    create(:published_policy, topics: [has_published_policy = create(:topic)])
-    create(:draft_news_article, related_editions: [create(:published_policy, topics: [has_draft_news_article_via_published_policy = create(:topic)])])
-    create(:draft_speech, related_editions: [create(:published_policy, topics: [has_draft_speech_via_published_policy = create(:topic)])])
-    create(:published_news_article, related_editions: [create(:draft_policy, topics: [has_published_news_article_via_draft_policy = create(:topic)])])
-    create(:published_speech, related_editions: [create(:draft_policy, topics: [has_published_speech_via_draft_policy = create(:topic)])])
-    create(:published_consultation, related_editions: [create(:published_policy, topics: [has_published_consultation_via_published_policy = create(:topic)])])
-    create(:published_news_article, related_editions: [create(:published_policy, topics: [has_published_news_article_via_published_policy = create(:topic)])])
-    create(:published_speech, related_editions: [create(:published_policy, topics: [has_published_speech_via_published_policy = create(:topic)])])
-
-    topics = Topic.with_related_announcements
-
-    assert_includes topics, has_published_speech_via_published_policy
-    assert_includes topics, has_published_news_article_via_published_policy
-    refute_includes topics, has_published_consultation_via_published_policy
-    refute_includes topics, has_published_news_article_via_draft_policy
-    refute_includes topics, has_published_speech_via_draft_policy
-    refute_includes topics, has_draft_news_article_via_published_policy
-    refute_includes topics, has_draft_speech_via_published_policy
-    refute_includes topics, has_published_policy
-    refute_includes topics, has_nothing
-  end
-
-  test 'should not have duplicate topics in list of topics with announcements' do
-    topic = create(:topic)
-    policy1 = create(:published_policy, topics: [topic])
-    policy2 = create(:published_policy, topics: [topic])
-    create(:published_speech, related_editions: [policy1])
-    create(:published_speech, related_editions: [policy1])
-    create(:published_speech, related_editions: [policy2])
-
-    assert_equal [topic], Topic.with_related_announcements
-  end
-
-  test 'should not have duplicate topics in list of topics with detailed guides' do
-    topic = create(:topic)
-    create(:published_detailed_guide, topics: [topic])
-    create(:published_detailed_guide, topics: [topic])
-
-    assert_equal [topic], Topic.with_related_detailed_guides
   end
 
   test 'should be retrievable in an alphabetically ordered list' do

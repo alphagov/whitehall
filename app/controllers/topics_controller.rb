@@ -7,11 +7,11 @@ class TopicsController < ClassificationsController
     respond_to do |format|
       format.html do
         @policies = @classification.published_policies.includes(:translations, :document)
-        @consultations = latest_presenters(Consultation.published_in_topic(@classification))
-        @publications = latest_presenters(Publication.published_in_topic(@classification))
-        @statistical_data_sets = latest_presenters(StatisticalDataSet.published_in_topic(@classification))
-        @announcements = latest_presenters(Announcement.published_in_topic(@classification))
-        @detailed_guides = @classification.detailed_guides.published.includes(:translations, :document).limit(5)
+        @consultations = latest_presenters(@classification.published_consultations)
+        @publications = latest_presenters(@classification.published_non_statistics_publications)
+        @statistics = latest_presenters(@classification.published_statistics_publications)
+        @announcements = latest_presenters(@classification.published_announcements)
+        @detailed_guides = @classification.published_detailed_guides.includes(:translations, :document).limit(5)
         @related_classifications = @classification.related_classifications
         @featured_editions = decorate_collection(@classification.classification_featurings.includes(:image, edition: [:document, :translations]).limit(5), FeaturedEditionPresenter)
 
