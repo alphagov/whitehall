@@ -88,8 +88,7 @@ module Edition::Workflow
       end
     end
 
-    validates_with EditionHasNoUnpublishedEditionsValidator, on: :create
-    validates_with EditionHasNoOtherPublishedEditionsValidator, on: :create
+    validate :edition_has_no_unpublished_editions, on: :create
   end
 
   def pre_publication?
@@ -114,21 +113,10 @@ module Edition::Workflow
     save_as(user)
   end
 
-  class EditionHasNoUnpublishedEditionsValidator < ActiveModel::Validator
-    def validate(record)
-      return unless record.document
-      existing_edition = record.document.unpublished_edition
-      if existing_edition
-        record.errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
-      end
-    end
-  end
-
-  class EditionHasNoOtherPublishedEditionsValidator < ActiveModel::Validator
-    def validate(record)
-      if record.published? && record.document && record.document.editions.published.any?
-        record.errors.add(:base, "There is already a published edition for this document")
-      end
+  def edition_has_no_unpublished_editions
+    return unless document
+    if existing_edition = document.unpublished_edition
+      errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
   end
 end
