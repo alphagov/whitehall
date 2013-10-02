@@ -2,7 +2,6 @@
 <% page_title "#{@collection.title}", "Document series" %>
 
 <h1><%= @collection.title %></h1>
-<p><%= link_to "View on public site", document_collection_path(@collection) %></p>
 
 <%= edition_editing_tabs(@collection) do %>
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>

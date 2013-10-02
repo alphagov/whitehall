@@ -3,28 +3,11 @@
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
-    <%= render partial: 'shared/heading',
-              locals: { type: 'Series', heading: @document_collection.title } %>
-
-    <aside class="meta">
-      <div class="inner-heading">
-        <% if false #@document_collection.organisation.present? %>
-          <dl>
-            <dt><%= t('document.headings.organisations', count: 1) %>:</dt>
-            <dd>
-              <%= render  partial: 'organisations/organisations_name_list',
-                          locals: { lead_organisations: [@organisation] } %>
-            </dd>
-            <% unless @groups.empty? %>
-              <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
-              <dd class="change-notes">
-                <%= t('change_notes.published_at', date: absolute_date(@most_recent_change)).html_safe %>
-              </dd>
-            <% end %>
-          </dl>
-        <% end %>
-      </div>
-    </aside>
+    <%= render partial: 'header',
+               locals: {
+                 header_title: @document_collection.display_type,
+                 document: @document_collection
+               } %>
   </div>
 </header>
 
@@ -41,7 +24,7 @@
     <div class="contextual-info js-stick-at-top-when-scrolling">
       <h1>Contents</h1>
       <ol class="dash-list">
-        <% @document_collection.groups.each do |group, editions| %>
+        <% @document_collection.groups.each do |group| %>
           <li><%= link_to group.heading, "#group_#{group.id}" %></li>
         <% end %>
       </ol>
@@ -59,7 +42,7 @@
         </div>
       <% end %>
 
-      <% @document_collection.groups.each do |group| %>
+      <% @groups.each do |group, editions| %>
         <div class="editions">
           <%= content_tag :h2, group.heading, id: "group_#{group.id}" %>
           <% unless group.body.blank? %>
@@ -68,7 +51,7 @@
             </div>
           <% end %>
           <ol class="document-list">
-            <% group.editions.each do |edition| %>
+            <% editions.each do |edition| %>
               <%= content_tag_for :li, edition, class: "document-row" do %>
                 <h3><%= edition.link %></h3>
                 <ul class="attributes">

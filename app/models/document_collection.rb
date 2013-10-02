@@ -39,6 +39,10 @@ class DocumentCollection < Edition
     ].flatten.join("\n")
   end
 
+  def display_type
+    "Collection"
+  end
+
   def published_editions
     editions.published.in_reverse_chronological_order
   end
