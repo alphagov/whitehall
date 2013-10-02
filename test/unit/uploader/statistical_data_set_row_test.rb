@@ -107,7 +107,7 @@ module Whitehall::Uploader
     test "finds document collection by slug in data_collection column" do
       document_collection = create(:document_collection)
       row = statistical_data_set_row("data_collection" => document_collection.slug)
-      assert_equal [document_collection], row.document_collection
+      assert_equal [document_collection], row.document_collections
     end
 
     test "finds organisation by slug in org column" do
