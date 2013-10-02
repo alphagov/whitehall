@@ -1,5 +1,5 @@
 <section id="<%= type %>" class="document-block documents-<%= document_block_counter %>">
-  <h1 class="label"><%= type.to_s.capitalize %></h1>
+  <h1 class="label"><%= type.to_s.humanize %></h1>
   <div class="content">
     <%= render partial: "shared/list_description", locals: { editions: documents } %>
     <p class="see-all">
