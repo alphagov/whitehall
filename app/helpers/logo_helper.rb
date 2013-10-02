@@ -27,7 +27,7 @@ module LogoHelper
       linked_logo
     else
       css_classes = logo_classes(organisation: organisation, size: options[:size], stacked: true)
-      content_tag(:span, class: css_classes) { linked_logo }
+      content_tag(:span, class: css_classes) { content_tag(:span) {linked_logo} }
     end
   end
 end
