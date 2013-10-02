@@ -236,7 +236,7 @@ Feature: Importing new editions
 
   Scenario: Importing detailed guides with topic, document collection, detailed guidance category, related detailed guide and related mainstream content
     Given a topic with the slug "my-topic" exists
-    And a document collection with the slug "my-document-collection" exists
+    And a document collection "My document collection" exists
     And a mainstream category with the slug "my-detailed-guidance-category" exists
     And a published detailed guide "My related detailed guide" for the organisation "Foreign Commonwealth Office"
     When I import the following data as CSV as "Detailed guide" for "Home Office":
@@ -248,12 +248,12 @@ Feature: Importing new editions
     And the imported detailed guidance document has the following associations:
       | Name                             | Slugs                         |
       | topics                           | my-topic                      |
-      | document_collection              | my-document-collection        |
+      | document_collections             | my-document-collection        |
       | mainstream_categories            | my-detailed-guidance-category |
       | outbound_related_documents       | my-related-detailed-guide     |
 
   Scenario: Importing case study with related policies and document collection
-    Given a document collection with the slug "my-document-collection" exists
+    Given a document collection "My document collection" exists
     And a published policy "policy-one"
     When I import the following data as CSV as "Case study" for "Department for Beards":
       """
@@ -264,7 +264,7 @@ Feature: Importing new editions
     And the imported case study has the following associations:
       | Name                             | Slugs                         |
       | related_policies                 | policy-one                    |
-      | document_collection              | my-document-collection        |
+      | document_collections             | my-document-collection        |
 
   Scenario: Importing a news article with a translated version present
     When I import the following data as CSV as "News article" for "Department for Transport":
