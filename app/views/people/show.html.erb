@@ -5,7 +5,7 @@
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
-                locals: { type: t('people.heading', count: 1),
+                locals: { type: @person.current_role_appointments.map { |a| a.role.name }.to_sentence,
                           heading: @person.name,
                           big: true, extra: true } %>
       <div class="heading-extra">
@@ -13,17 +13,6 @@
           <%= render partial: 'shared/available_languages', locals: {object: @person } %>
         </div>
       </div>
-
-      <% if @person.current_role_appointments.any? %>
-        <aside class="meta">
-          <div class="inner-heading">
-            <dl>
-              <dt><%= t('roles.heading', count: @person.current_role_appointments.count) %>:</dt>
-              <dd><%= @person.current_role_appointments.map { |a| a.role.ministerial? ? a.role_link : a.role.name }.to_sentence.html_safe %></dd>
-            </dl>
-          </div>
-        </aside>
-      <% end %>
     </div>
   </header>
 
