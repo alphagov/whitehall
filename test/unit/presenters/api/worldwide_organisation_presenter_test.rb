@@ -3,12 +3,12 @@ require 'test_helper'
 class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   setup do
     @access_times = stub_record(:access_and_opening_times, body: 'never')
-    @main_sponsor = stub_record(:organisation)
-    @office = stub_record(:worldwide_office, contact: stub_record(:contact, contact_numbers: []),
+    @main_sponsor = stub_translatable_record(:organisation)
+    @office = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, contact_numbers: []),
                                              services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
-    @world_org = stub_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
+    @world_org = stub_translatable_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
                                                       offices: [@office],
                                                       access_and_opening_times: @access_times)
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
@@ -146,11 +146,11 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes main and other offices in offices with separate keys' do
-    office1 = stub_record(:worldwide_office, contact: stub_record(:contact, title: 'best-office', contact_numbers: []),
+    office1 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'best-office', contact_numbers: []),
                                              services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
-    office2 = stub_record(:worldwide_office, contact: stub_record(:contact, title: 'worst-office', contact_numbers: []),
+    office2 = stub_record(:worldwide_office, contact: stub_translatable_record(:contact, title: 'worst-office', contact_numbers: []),
                                              services: [],
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
@@ -166,8 +166,8 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes office contact phone numbers in offices array as contact_numbers' do
-    contact_numbers = [stub_record(:contact_number, label: 'contact-number-one', number: '1234'),
-                       stub_record(:contact_number, label: 'contact-number-two', number: '5678')]
+    contact_numbers = [stub_translatable_record(:contact_number, contact: @office.contact, label: 'contact-number-one', number: '1234'),
+                       stub_translatable_record(:contact_number, contact: @office.contact, label: 'contact-number-two', number: '5678')]
     @office.contact.stubs(:contact_numbers).returns(contact_numbers)
 
     office_as_json = @presenter.as_json[:offices][:main]
