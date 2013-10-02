@@ -1,5 +1,5 @@
 <%
-  filter_by ||= [:title, :author, :world_location, :type, :state, :date]
+  filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date]
 %>
 <nav class="editions-filter">
   <h2>Filter list by:</h2>
@@ -12,8 +12,8 @@
       <% end %>
     </div>
   <% end %>
-  <% if filter_by.include?(:author) %>
-    <div class="filter-grouping">
+  <div class="filter-grouping">
+    <% if filter_by.include?(:author) %>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'author_filter') do %>
         <%= label_tag :author %>
         <%= select_tag  :author,
@@ -24,9 +24,15 @@
         <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
+    <% end %>
 
+    <% if filter_by.include?(:organisation) %>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'organisation_filter') do %>
-        <%= label_tag :organisation, 'or organisation' %>
+        <% if filter_by.include?(:author) %>
+          <%= label_tag :organisation, 'or organisation' %>
+        <% else %>
+          <%= label_tag :organisation %>
+        <% end %>
         <%= select_tag  :organisation,
                         options_for_select(admin_organisation_filter_options(current_user), @filter.options[:organisation]),
                         class: 'chzn-select',
@@ -35,13 +41,15 @@
         <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :world_location, :from_date, :to_date) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
 
-  <% if filter_by.include?(:world_location) %>
-    <div class="filter-grouping">
+    <% if filter_by.include?(:world_location) %>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'world_location_filter') do %>
-        <%= label_tag :world_location %>
+        <% if filter_by.include?(:author) or filter_by.include?(:organisation) %>
+          <%= label_tag :world_location, 'or world location' %>
+        <% else %>
+          <%= label_tag :world_location %>
+        <% end %>
         <%= select_tag  :world_location,
                         options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]),
                         class: 'chzn-select',
@@ -50,8 +58,8 @@
         <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :from_date, :to_date) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <% if filter_by.include?(:type) %>
     <div class="filter-grouping">
