@@ -7,7 +7,6 @@ class Edition < ActiveRecord::Base
   include Edition::NullWorldLocations
 
   include Edition::Identifiable
-  include Edition::AccessControl
   include Edition::LimitedAccess
   include Edition::Workflow
   include Edition::Organisations
@@ -534,6 +533,14 @@ class Edition < ActiveRecord::Base
 
   def valid_as_draft?
     errors_as_draft.empty?
+  end
+
+  def editable?
+    imported? || draft? || submitted? || rejected?
+  end
+
+  def can_have_some_invalid_data?
+    imported? || deleted? || archived?
   end
 
   attr_accessor :trying_to_convert_to_draft
