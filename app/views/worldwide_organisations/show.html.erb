@@ -13,12 +13,14 @@
         </div>
       </div>
     </div>
-    <aside class="social-media-links">
-      <div class="content">
-        <h1><%= t('worldwide_organisation.headings.follow_us') %></h1>
-        <%= render 'shared/social_media_accounts', socialable: @worldwide_organisation, followus: true %>
-      </div>
-    </aside>
+    <% if @worldwide_organisation.social_media_accounts.any? %>
+      <aside class="social-media-links">
+        <div class="content">
+          <h1><%= t('worldwide_organisation.headings.follow_us') %></h1>
+            <%= render 'shared/social_media_accounts', socialable: @worldwide_organisation, followus: true %>
+        </div>
+      </aside>
+    <% end %>
   </div>
 </section>
 
