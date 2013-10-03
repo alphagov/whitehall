@@ -1,5 +1,6 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   before_filter :find_contactable, :find_contact
+  before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
   def create
@@ -7,6 +8,15 @@ class Admin::ContactTranslationsController < Admin::BaseController
   end
 
   def edit
+  end
+
+  def update
+    if @translated_contact.update_attributes(params[:contact])
+      redirect_to admin_organisation_contacts_path(@contactable),
+                  notice: notice_message("saved")
+    else
+      render action: "edit"
+    end
   end
 
 private
@@ -25,5 +35,14 @@ private
 
   def find_contact
     @contact = @contactable.contacts.find(params[:contact_id])
+  end
+
+  def load_translated_and_english_contact
+    @translated_contact = LocalisedModel.new(@contact, translation_locale.code)
+    @english_contact = LocalisedModel.new(@contact, :en)
+  end
+
+  def notice_message(action)
+    %{#{translation_locale.english_language_name} translation for "#{@contact.title}" #{action}.}
   end
 end

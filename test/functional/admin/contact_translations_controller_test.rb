@@ -25,4 +25,24 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
 
     assert_select "h1", text: "Edit 'Français (French)' translation for: english-title"
   end
+
+  test "update updates translation and redirects back to the index" do
+    organisation = create(:organisation)
+    contact = create(:contact, contactable: organisation, title: "english-title")
+
+    put :update, organisation_id: organisation, contact_id: contact, id: "fr",
+      contact: {
+        title: "Afrolasie Bureau",
+        comments: "Enseigner aux gens comment infuser le thé"
+      }
+
+    contact.reload
+
+    with_locale :fr do
+      assert_equal "Afrolasie Bureau", contact.title
+      assert_equal "Enseigner aux gens comment infuser le thé", contact.comments
+    end
+
+    assert_redirected_to admin_organisation_contacts_path(organisation)
+  end
 end

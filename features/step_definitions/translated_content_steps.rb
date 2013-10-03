@@ -51,4 +51,8 @@ When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_tit
   click_link "open-add-translation-modal"
   select "Cymraeg", from: "Locale"
   click_button "Add translation"
+  fill_in "Title", with: welsh_title
+  fill_in "Recipient", with: "Welsh recipient"
+  fill_in "Street address", with: "Welsh street address"
+  click_button "Save"
 end
