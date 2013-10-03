@@ -40,3 +40,15 @@ Then /^I should see on the admin edition page that "([^"]*)" has a french transl
   assert page.has_text?(french_title)
 end
 
+Given(/^the organisation "(.*?)" has a contact "(.*?)"$/) do |organisation_name, contact_title|
+  organisation = create(:organisation, name: organisation_name)
+  create(:contact, title: contact_title, contactable: organisation)
+end
+
+When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_title, english_title|
+  contact = Contact.where(title: english_title).first
+  visit admin_organisation_contacts_path(contact.contactable)
+  click_link "open-add-translation-modal"
+  select "Cymraeg", from: "Locale"
+  click_button "Add translation"
+end
