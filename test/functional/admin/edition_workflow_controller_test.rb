@@ -4,495 +4,276 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do
-    @edition = build(:submitted_policy, document: build(:document))
-    @edition.document.stubs(:to_param).returns('policy-slug')
-    @edition.stubs(id: 1234, new_record?: false)
+    @edition = create(:submitted_policy)
     @user = login_as(:departmental_editor)
-    Edition.stubs(:find).with(@edition.to_param).returns(@edition)
   end
 
-  test 'publish publishes the given edition on behalf of the current user' do
-    @edition.expects(:publish_as).with(@user, force: false).returns(true)
-    post :publish, id: @edition, lock_version: 1
-  end
+  test 'publish publishes the given edition on behalf of the current user and notifies the author' do
+    post :publish, id: @edition, lock_version: @edition.lock_version
 
-  test 'publish reports that the document has been published' do
-    @edition.stubs(:publish_as).returns(true)
-    post :publish, id: @edition, lock_version: 1
-    assert_equal "The document #{@edition.title} has been published", flash[:notice]
-  end
-
-  test 'publish redirects back to the published edition index' do
-    @edition.stubs(:publish_as).returns(true)
-    post :publish, id: @edition, lock_version: 1
     assert_redirected_to admin_editions_path(state: :published)
-  end
-
-  test 'publish notifies authors of publication via email' do
-    author = build(:user)
-    @edition.stubs(:publish_as).returns(true)
-    @edition.stubs(:authors).returns([author])
-    email = stub('email')
-    Notifications.expects(:edition_published).with(author, @edition, admin_policy_url(@edition), policy_url(@edition.document)).returns(email)
-    email.expects(:deliver)
-    post :publish, id: @edition, lock_version: 1
+    assert_equal "The document #{@edition.title} has been published", flash[:notice]
+    assert @edition.reload.published?
+    assert_equal @user, @edition.published_by
+    assert_match /\'#{@edition.title}\' has now been published/, ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test 'publish only notifies authors with emails' do
-    author_with_email, author_without_email = build(:user), build(:user, email: '')
-    @edition.stubs(:publish_as).returns(true)
-    @edition.stubs(:authors).returns([author_with_email, author_without_email])
-    Notifications.expects(:edition_published).with(author_with_email, anything, anything, anything).returns(stub_everything('email'))
-    post :publish, id: @edition, lock_version: 1
+    author_with_email, author_without_email = create(:user), create(:user, email: nil)
+    @edition.authors = [author_with_email, author_without_email]
+
+    assert_difference('ActionMailer::Base.deliveries.size', 1) do
+      post :publish, id: @edition, lock_version: @edition.lock_version
+    end
   end
 
   test 'publish only notifies authors once' do
-    author = build(:user)
-    @edition.stubs(:publish_as).returns(true)
-    @edition.stubs(:authors).returns([author, author])
-    email = stub('email')
-    Notifications.expects(:edition_published).once.with(author, @edition, admin_policy_url(@edition), policy_url(@edition.document)).returns(email)
-    email.expects(:deliver)
-    post :publish, id: @edition, lock_version: 1
+    author = create(:user)
+    @edition.authors = [author, author]
+
+    assert_difference('ActionMailer::Base.deliveries.size', 1) do
+      post :publish, id: @edition, lock_version: @edition.lock_version
+    end
   end
 
-  test 'publish doesn\'t notify authors if they instigated the rejection' do
-    @edition.stubs(:publish_as).returns(true)
-    @edition.stubs(:authors).returns([@user])
+  test "publish doesn't notify the publisher" do
+    @edition.authors =  [@user]
     Notifications.expects(:edition_published).never
-    post :publish, id: @edition, lock_version: 1
+    post :publish, id: @edition, lock_version: @edition.lock_version
   end
 
-  test 'publish sets change note on edition' do
-    @edition.stubs(:publish_as).returns(true)
-    post :publish, id: @edition, lock_version: 1, edition: {
-      change_note: "change-note"
-    }
+  test 'publish redirects back to the edition with an error message if edition cannot be published' do
+    published_edition = create(:published_policy)
 
-    assert_equal "change-note", @edition.change_note
+    post :publish, id: published_edition, lock_version: published_edition.lock_version
+    assert_redirected_to admin_policy_path(published_edition)
+    assert_equal 'This edition has already been published', flash[:alert]
   end
 
-  test 'publish sets minor change flag on edition' do
-    @edition.stubs(:publish_as).returns(true)
-    post :publish, id: @edition, lock_version: 1, edition: {
-      minor_change: true
-    }
+  test 'publish redirects back to the edition with an error message if the edition is stale' do
+    old_lock_version = @edition.lock_version
+    @edition.touch
+    post :publish, id: @edition, lock_version: old_lock_version
 
-    assert_equal true, @edition.minor_change
-  end
-
-  test 'publish redirects back to the edition with an error message if publishing reports a failure' do
-    @edition.stubs(:publish_as).returns(false)
-    @edition.errors.add(:base, 'Edition could not be published')
-    post :publish, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'Edition could not be published', flash[:alert]
-  end
-
-  test 'publish sets lock version on edition before attempting to publish to guard against stale objects' do
-    lock_before_publishing = sequence('lock-before-publishing')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_publishing)
-    @edition.expects(:publish_as).in_sequence(lock_before_publishing).returns(true)
-    post :publish, id: @edition, lock_version: 92
-  end
-
-  test 'publish redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:publish_as).raises(ActiveRecord::StaleObjectError.new(@edition, :publish_as))
-    post :publish, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
   test 'publish responds with 422 if missing a lock version' do
     post :publish, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
   test 'GET #confirm_force_publish renders force publishing form'do
-    get :confirm_force_publish, id: @edition, lock_version: 1
+    get :confirm_force_publish, id: @edition, lock_version: @edition.lock_version
 
     assert_response :success
     assert_template :confirm_force_publish
   end
 
   test 'POST #force_publish force publishes the edition' do
-    @edition.expects(:publish_as).with(@user, force: true).returns(true)
-    post :force_publish, id: @edition, lock_version: 1, reason: 'Urgent change'
+    post :force_publish, id: @edition, lock_version: @edition.lock_version, reason: 'Urgent change'
 
     assert_redirected_to admin_editions_path(state: :published)
+    assert @edition.reload.force_published?
   end
 
   test 'POST #force_publish without a reason is not allowed' do
-    @edition.expects(:publish_as).never
-    post :force_publish, id: @edition, lock_version: 1
+    post :force_publish, id: @edition, lock_version: @edition.lock_version
 
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'You cannot force publish a document without a reason', flash[:alert]
+    assert @edition.submitted?
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
-    @edition.expects(:schedule_as).with(@user, force: false).returns(true)
-    post :schedule, id: @edition, lock_version: 1
-  end
+    @edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    post :schedule, id: @edition, lock_version: @edition.lock_version
 
-  test 'schedule reports that the document has been scheduled' do
-    @edition.stubs(:schedule_as).returns(true)
-    post :schedule, id: @edition, lock_version: 1
+    assert_redirected_to admin_editions_path(state: :scheduled)
+    assert @edition.reload.scheduled?
     assert_equal "The document #{@edition.title} has been scheduled for publication", flash[:notice]
   end
 
-  test 'schedule redirects back to the scheduled edition index' do
-    @edition.stubs(:schedule_as).returns(true)
-    post :schedule, id: @edition, lock_version: 1
-    assert_redirected_to admin_editions_path(state: :scheduled)
-  end
-
   test 'schedule passes through the force flag' do
-    @edition.expects(:schedule_as).with(@user, force: true).returns(true)
-    post :schedule, id: @edition, force: true, lock_version: 1
+    @edition.update_attribute(:scheduled_publication, 1.day.from_now)
+
+    post :schedule, id: @edition, force: true, lock_version: @edition.lock_version
+
+    assert_redirected_to admin_editions_path(state: :scheduled)
+    assert @edition.reload.scheduled?
+    assert @edition.force_published?
   end
 
   test 'schedule redirects back to the edition with an error message if scheduling reports a failure' do
-    @edition.stubs(:schedule_as).returns(false)
-    @edition.errors.add(:base, 'Edition could not be scheduled')
-    post :schedule, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'Edition could not be scheduled', flash[:alert]
+    scheduled_edition = create(:submitted_policy)
+
+    post :schedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
+
+    assert_redirected_to admin_policy_path(scheduled_edition)
+    assert_equal "This edition does not have a scheduled publication date set", flash[:alert]
   end
 
-  test 'schedule sets lock version on edition before attempting to schedule to guard against stale objects' do
-    lock_before_scheduling = sequence('lock-before-scheduling')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_scheduling)
-    @edition.expects(:schedule_as).in_sequence(lock_before_scheduling).returns(true)
-    post :schedule, id: @edition, lock_version: 92
-  end
+  test 'schedule redirects back to the edition with an error message if the edition is stale' do
+    old_lock_version = @edition.lock_version
+    @edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    @edition.touch
+    post :schedule, id: @edition, lock_version: old_lock_version
 
-  test 'schedule redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:schedule_as).raises(ActiveRecord::StaleObjectError.new(@edition, :schedule))
-    post :schedule, id: @edition, lock_version: 1
     assert_redirected_to admin_policy_path(@edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
   test 'schedule responds with 422 if missing a lock version' do
     post :schedule, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
   test 'unschedule unschedules the given edition on behalf of the current user' do
-    @edition.expects(:unschedule_as).with(@user).returns(true)
-    post :unschedule, id: @edition, lock_version: 1
-  end
+    scheduled_edition = create(:scheduled_policy)
+    post :unschedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
 
-  test 'unschedule redirects back to the submitted edition index' do
-    @edition.stubs(:unschedule_as).returns(true)
-    post :unschedule, id: @edition, lock_version: 1
     assert_redirected_to admin_editions_path(state: :submitted)
+    assert scheduled_edition.reload.submitted?
   end
 
   test 'unschedule redirects back to the edition with an error message if unscheduling reports a failure' do
-    @edition.stubs(:unschedule_as).returns(false)
-    @edition.errors.add(:base, 'Edition could not be unscheduled')
-    post :unschedule, id: @edition, lock_version: 1
+    post :unschedule, id: @edition, lock_version: @edition.lock_version
     assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'Edition could not be unscheduled', flash[:alert]
-  end
-
-  test 'unschedule sets lock version on edition before attempting to unschedule to guard against stale objects' do
-    lock_before_unscheduling = sequence('lock-before-unscheduling')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unscheduling)
-    @edition.expects(:unschedule_as).in_sequence(lock_before_unscheduling).returns(true)
-    post :unschedule, id: @edition, lock_version: 92
-  end
-
-  test 'unschedule redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:unschedule_as).raises(ActiveRecord::StaleObjectError.new(@edition, :unschedule))
-    post :unschedule, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+    assert_equal 'This edition is not scheduled for publication', flash[:alert]
   end
 
   test 'unschedule responds with 422 if missing a lock version' do
     post :unschedule, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
   test 'submit submits the edition' do
-    @edition.expects(:submit!)
-    post :submit, id: @edition, lock_version: 1
-  end
+    draft_edition = create(:draft_policy)
+    post :submit, id: draft_edition, lock_version: draft_edition.lock_version
 
-  test 'submit redirects back to the edition with a message indicating it has been submitted' do
-    @edition.stubs(:submit!)
-    post :submit, id: @edition, lock_version: 1
-
-    assert_redirected_to admin_policy_path(@edition)
+    assert_redirected_to admin_policy_path(draft_edition)
+    assert draft_edition.reload.submitted?
     assert_equal "Your document has been submitted for review by a second pair of eyes", flash[:notice]
   end
 
-  test 'submit sets lock version on edition before attempting to submit to guard against submitting stale objects' do
-    lock_before_submitting = sequence('lock-before-submitting')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_submitting)
-    @edition.expects(:submit!).in_sequence(lock_before_submitting).returns(true)
-    post :submit, id: @edition, lock_version: 92
-  end
+  test 'submit rejects stale editions' do
+    draft_edition = create(:draft_policy)
+    old_lock_version = draft_edition.lock_version
+    draft_edition.touch
+    post :submit, id: draft_edition, lock_version: old_lock_version
 
-  test 'submit redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:submit!).raises(ActiveRecord::StaleObjectError.new(@edition, :submit!))
-    post :submit, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
+    assert_redirected_to admin_policy_path(draft_edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
   test 'submit redirects back to the edition with an error message on validation error' do
-    @edition.errors.add(:change_note, "can't be blank")
-    @edition.stubs(:submit!).raises(ActiveRecord::RecordInvalid, @edition)
-    post :submit, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal "Unable to submit this edition because it is invalid (Change note can't be blank). Please edit it and try again.", flash[:alert]
+    draft_edition = create(:draft_policy)
+    draft_edition.update_attribute(:summary, nil)
+    post :submit, id: draft_edition, lock_version: draft_edition.lock_version
+
+    assert_redirected_to admin_policy_path(draft_edition)
+    assert_equal "Unable to submit this edition because it is invalid (Summary can't be blank). Please edit it and try again.", flash[:alert]
   end
 
   test 'submit responds with 422 if missing a lock version' do
     post :submit, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'reject rejects the edition' do
-    @edition.expects(:reject!)
-    post :reject, id: @edition, lock_version: 1
-  end
-
   test 'reject redirects to the new editorial remark page to explain why the edition has been rejected' do
-    @edition.stubs(:reject!)
-    post :reject, id: @edition, lock_version: 1
+    submitted_policy = create(:submitted_policy)
+    post :reject, id: submitted_policy, lock_version: submitted_policy.lock_version
 
-    assert_redirected_to new_admin_edition_editorial_remark_path(@edition)
+    assert_redirected_to new_admin_edition_editorial_remark_path(submitted_policy)
+    assert submitted_policy.reload.rejected?
   end
 
   test 'reject notifies authors of rejection via email' do
-    author = build(:user)
-    @edition.stubs(:reject!)
-    @edition.stubs(:authors).returns([author])
-    email = stub('email')
-    Notifications.expects(:edition_rejected).with(author, @edition, admin_policy_url(@edition)).returns(email)
-    email.expects(:deliver)
-    post :reject, id: @edition, lock_version: 1
-  end
+    submitted_policy = create(:submitted_policy)
+    post :reject, id: submitted_policy, lock_version: submitted_policy.lock_version
 
-  test 'reject only notifies authors with emails' do
-    author_with_email, author_without_email = build(:user), build(:user, email: '')
-    @edition.stubs(:reject!)
-    @edition.stubs(:authors).returns([author_with_email, author_without_email])
-    Notifications.expects(:edition_rejected).with(author_with_email, anything, anything, anything).returns(stub_everything('email'))
-    post :reject, id: @edition, lock_version: 1
-  end
-
-  test 'reject only notifies authors once' do
-    author = build(:user)
-    @edition.stubs(:reject!).returns(true)
-    @edition.stubs(:authors).returns([author, author])
-    email = stub('email')
-    Notifications.expects(:edition_rejected).once.with(author, @edition, admin_policy_url(@edition)).returns(email)
-    email.expects(:deliver)
-    post :reject, id: @edition, lock_version: 1
-  end
-
-  test 'reject doesn\'t notify authors if they instigated the rejection' do
-    @edition.stubs(:reject!)
-    @edition.stubs(:authors).returns([@user])
-    Notifications.expects(:edition_rejected).never
-    post :reject, id: @edition, lock_version: 1
-  end
-
-  test 'reject sets lock version on edition before attempting to reject to guard against rejecting stale objects' do
-    lock_before_rejecting = sequence('lock-before-rejecting')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_rejecting)
-    @edition.expects(:reject!).in_sequence(lock_before_rejecting).returns(true)
-    post :reject, id: @edition, lock_version: 92
-  end
-
-  test 'reject redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:reject!).raises(ActiveRecord::StaleObjectError.new(@edtion, :reject!))
-    post :reject, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
-  end
-
-  test 'reject redirects back to the edition with an error message on validation error' do
-    @edition.errors.add(:change_note, "can't be blank")
-    @edition.stubs(:reject!).raises(ActiveRecord::RecordInvalid, @edition)
-    post :reject, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal "Unable to reject this edition because it is invalid (Change note can't be blank). Please edit it and try again.", flash[:alert]
+    assert_match /\'#{submitted_policy.title}\' was rejected by/, ActionMailer::Base.deliveries.last.body.to_s
   end
 
   test 'reject responds with 422 if missing a lock version' do
     post :reject, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'approve_retrospectively marks the document as having been approved retrospectively' do
-    @edition.expects(:approve_retrospectively_as)
-    post :approve_retrospectively, id: @edition, lock_version: 1
-  end
-
-  test 'approve_retrospectively redirects back to the edition with a message' do
-    @edition.stubs(:approve_retrospectively_as).returns(true)
-    post :approve_retrospectively, id: @edition, lock_version: 1
+  test 'approve_retrospectively marks the document as having been approved retrospectively and redirects back to he edition' do
+    editor = create(:departmental_editor)
+    acting_as(editor) { @edition.publish_as(editor, force: true) }
+    post :approve_retrospectively, id: @edition, lock_version: @edition.lock_version
 
     assert_redirected_to admin_policy_path(@edition)
     assert_equal "Thanks for reviewing; this document is no longer marked as force-published", flash[:notice]
   end
 
-  test 'approve_retrospectively redirects back to the edition with an error message on validation error' do
-    @edition.stubs(:approve_retrospectively_as).returns(false)
-    @edition.errors.add(:base, 'Could not approve retrospectively')
-    post :approve_retrospectively, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'Could not approve retrospectively', flash[:alert]
-  end
-
-  test 'approve_retrospectively sets lock version on edition before attempting to submit to guard against submitting stale objects' do
-    lock_before_submitting = sequence('lock-before-submitting')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_submitting)
-    @edition.expects(:approve_retrospectively_as).in_sequence(lock_before_submitting).returns(true)
-    post :approve_retrospectively, id: @edition, lock_version: 92
-  end
-
-  test 'approve_retrospectively redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:approve_retrospectively_as).raises(ActiveRecord::StaleObjectError.new(@edition, :approve_retrospectively_as))
-    post :approve_retrospectively, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
-  end
-
   test 'approve_retrospectively responds with 422 if missing a lock version' do
     post :approve_retrospectively, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'unpublish unpublishes the edition' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.expects(:unpublish_as).with(@user)
-    @edition.stubs(:create_unpublishing!)
-    post :unpublish, id: @edition, lock_version: 1
+  test 'unpublish is forbidden to non-GDS editors' do
+    post :unpublish, id: @edition, lock_version: @edition.lock_version
+    assert_response :forbidden
   end
 
-  test 'unpublish records the unpublishing reasons' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).returns(true)
+  test 'unpublish unpublishes the edition and redirects back with a message' do
+    login_as create(:gds_editor)
+    published_edition = create(:published_policy)
     unpublish_params = {
-      'unpublishing_reason_id' => '1',
-      'explanation' => 'Was classified',
-      'alternative_url' => 'http://website.com/alt',
-      'document_type' => 'Policy',
-      'document_slug' => 'some-slug'
-    }
-    @edition.expects(:build_unpublishing).with(unpublish_params)
-    post :unpublish, id: @edition.to_param, lock_version: 1, unpublishing: unpublish_params
-  end
+        'unpublishing_reason_id' => '1',
+        'explanation' => 'Was classified',
+        'alternative_url' => 'http://website.com/alt',
+        'document_type' => 'Policy',
+        'slug' => 'some-slug'
+      }
+    post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
-  test 'unpublish redirects back to the edition with a message' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).returns(true)
-    @edition.stubs(:create_unpublishing!)
-    post :unpublish, id: @edition, lock_version: 1
-
-    assert_redirected_to admin_policy_path(@edition)
+    assert_redirected_to admin_policy_path(published_edition)
     assert_equal "This document has been unpublished and will no longer appear on the public website", flash[:notice]
-  end
-
-  test 'unpublish redirects back to the edition with an error message on validation error' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).returns(false)
-    @edition.errors.add(:base, 'Could not unpublish')
-    post :unpublish, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'Could not unpublish', flash[:alert]
-  end
-
-  test 'unpublish sets lock version on edition before attempting to unpublish to guard against unpublishing stale objects' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    lock_before_unpublishing = sequence('lock-before-unpublishing')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unpublishing)
-    @edition.expects(:unpublish_as).in_sequence(lock_before_unpublishing).returns(true)
-    post :unpublish, id: @edition, lock_version: 92
-  end
-
-  test 'unpublish redirects back to the edition with an error message if a stale object error is thrown' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
-    @edition.stubs(:unpublish_as).raises(ActiveRecord::StaleObjectError.new(@edition, :unpublish_as))
-    post :unpublish, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
+    assert_equal 'Was classified', published_edition.unpublishing.explanation
   end
 
   test 'unpublish responds with 422 if missing a lock version' do
-    controller.stubs(:can?).with(:unpublish, @edition).returns(true)
+    login_as create(:gds_editor)
     post :unpublish, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'convert_to_draft turns the given edition into a draft' do
-    @edition.expects(:convert_to_draft!)
-    post :convert_to_draft, id: @edition, lock_version: 1
-    assert_equal "The imported document #{@edition.title} has been converted into a draft", flash[:notice]
-  end
+  test 'convert_to_draft turns the given edition into a draft and redirects back to the imported editions page' do
+    imported_edition = create(:imported_edition)
+    post :convert_to_draft, id: imported_edition, lock_version: imported_edition.lock_version
 
-  test 'convert_to_draft redirects back to the imported edition index' do
-    @edition.stubs(:convert_to_draft!)
-    post :convert_to_draft, id: @edition, lock_version: 1
+    assert_equal "The imported document #{imported_edition.title} has been converted into a draft", flash[:notice]
     assert_redirected_to admin_editions_path(state: :imported)
-  end
-
-  test 'convert_to_draft redirects back to the edition with an error message on validation error' do
-    @edition.errors.add(:base, "It isn't ready yet")
-    @edition.stubs(:convert_to_draft!).raises(ActiveRecord::RecordInvalid, @edition)
-    post :convert_to_draft, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal "Unable to convert this imported edition to a draft because it is invalid (It isn't ready yet). Please edit it and try again.", flash[:alert]
-  end
-
-  test 'convert_to_draft redirects back to the edition with an error message when it can\'t be transitioned' do
-    @edition.stubs(:convert_to_draft!).raises(Transitions::InvalidTransition, @edition)
-    post :convert_to_draft, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal "Unable to convert this imported edition to a draft because it is not ready yet. Please try again.", flash[:alert]
-  end
-
-  test 'convert_to_draft sets lock version on edition before attempting to unpublish to guard against unpublishing stale objects' do
-    lock_before_unpublishing = sequence('lock-before-unpublishing')
-    @edition.expects(:lock_version=).with('92').in_sequence(lock_before_unpublishing)
-    @edition.expects(:convert_to_draft!).in_sequence(lock_before_unpublishing)
-    post :convert_to_draft, id: @edition, lock_version: 92
-  end
-
-  test 'convert_to_draft redirects back to the edition with an error message if a stale object error is thrown' do
-    @edition.stubs(:convert_to_draft!).raises(ActiveRecord::StaleObjectError.new(@edition, :convert_to_draft!))
-    post :convert_to_draft, id: @edition, lock_version: 1
-    assert_redirected_to admin_policy_path(@edition)
-    assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
   test 'convert_to_draft responds with 422 if missing a lock version' do
     post :convert_to_draft, id: @edition
-    assert_equal 422, response.status
+
+    assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
   test "should prevent access to inaccessible editions" do
-    # TODO: unstub this and the rest of the tests once we have extracted service
-    # objects for edition workflow actions
-    protected_edition = build(:edition, id: "1")
-    Edition.stubs(:find).with("1").returns(protected_edition)
-    controller.stubs(:can?).with(:see, protected_edition).returns(false)
+    protected_edition = create(:protected_edition)
 
     post :submit, id: protected_edition.id
     assert_response :forbidden
