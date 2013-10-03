@@ -25,7 +25,7 @@
   <% end %>
 
   <%= button_to "Delete", [:admin, contactable, contact], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
-  <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn" %>
+  <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn btn-small" %>
   <% if contactable.respond_to? :home_page_contacts %>
     <% unless contact.foi? %>
       <% if contactable.contact_shown_on_home_page?(contact) %>
