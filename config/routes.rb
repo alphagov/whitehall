@@ -144,7 +144,7 @@ Whitehall::Application.routes.draw do
 
         resources :authors, only: [:show]
         resource :document_searches, only: [:show]
-        resources :document_collections, except: [:index] do
+        resources :document_collections, path: "collections", except: [:index] do
           resources :document_collection_groups, as: :groups, path: 'groups' do
             member { get :delete }
             resource :document_collection_group_membership, as: :members,

@@ -64,14 +64,6 @@ class DocumentCollectionsControllerTest < ActionController::TestCase
 
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
   end
-
-  test "GET #show assigns @document_collection as the DocumentCollection wrapped in a DocumentCollectionPresenter" do
-    collection = create(:published_document_collection)
-    get :show, id: collection.slug
-
-    assert assigns(:document_collection).is_a? DocumentCollectionPresenter
-    assert_equal collection, assigns(:document_collection).send(:document_collection)
-  end
 end
 
 class DocumentCollectionControllerRedirectsTest < ActionDispatch::IntegrationTest
