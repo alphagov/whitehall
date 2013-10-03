@@ -199,32 +199,6 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_delegated attachment, :filename
   end
 
-  test "should be inaccessible to a given user if associated with an edition that's inaccessible to that user" do
-    user = stub("some user")
-    accessible_edition = stub(:edition)
-    accessible_edition.stubs(:accessible_by?).with(user).returns(true)
-    inaccessible_edition = stub(:edition)
-    inaccessible_edition.stubs(:accessible_by?).with(user).returns(false)
-    attachment = build(:attachment)
-    attachment.stubs(:attachable).returns(inaccessible_edition)
-    refute attachment.accessible_by?(user)
-  end
-
-  test "should be accessible to a given user if the associated edition is accessible to that user" do
-    user = stub("some user")
-    accessible_edition = stub(:edition)
-    accessible_edition.stubs(:accessible_by?).with(user).returns(true)
-    attachment = build(:attachment)
-    attachment.stubs(:attachable).returns(accessible_edition)
-    assert attachment.accessible_by?(user)
-  end
-
-  test "should be accessible to any user if not associated with an edition" do
-    attachment = build(:attachment)
-    attachment.stubs(:attachable).returns(nil)
-    assert attachment.accessible_by?(nil)
-  end
-
   test 'should generate list of parliamentary sessions' do
     earliest_session = '1951-52'
     now = Time.zone.now

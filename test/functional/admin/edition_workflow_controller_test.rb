@@ -488,24 +488,31 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test "should prevent access to inaccessible editions" do
+    # TODO: unstub this and the rest of the tests once we have extracted service
+    # objects for edition workflow actions
     protected_edition = build(:edition, id: "1")
-    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
     Edition.stubs(:find).with("1").returns(protected_edition)
-    controller.stubs(:can?).with(anything, protected_edition).returns(true)
+    controller.stubs(:can?).with(:see, protected_edition).returns(false)
 
     post :submit, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
+
     post :approve_retrospectively, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
+
     post :reject, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
+
     post :publish, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
+
     post :unpublish, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
+
     post :schedule, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
+
     post :unschedule, id: protected_edition.id
-    assert_response 403
+    assert_response :forbidden
   end
 end

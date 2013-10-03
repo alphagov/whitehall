@@ -132,19 +132,16 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   end
 
   test "should limit access to translations of editions that aren't accessible to the current user" do
-    protected_edition = stub("protected edition", id: "1", document_remarks_trail: [], document_version_trail: [])
-    protected_edition.stubs(:accessible_by?).with(@current_user).returns(false)
-    controller.stubs(:can?).with(anything, protected_edition).returns(true)
-    Edition.stubs(:find).with(protected_edition.id).returns(protected_edition)
+    protected_edition = create(:protected_edition)
 
     post :create, edition_id: protected_edition.id, id: "en"
-    assert_response 403
+    assert_response :forbidden
 
     get :edit, edition_id: protected_edition.id, id: "en"
-    assert_response 403
+    assert_response :forbidden
 
     put :update, edition_id: protected_edition.id, id: "en"
-    assert_response 403
+    assert_response :forbidden
   end
 
   test "destroy removes translation and redirects to admin edition page" do

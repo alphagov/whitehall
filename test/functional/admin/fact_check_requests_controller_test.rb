@@ -188,7 +188,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "should create a fact check request" do
     @attributes.merge!(email_address: "fact-checker@example.com")
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert fact_check_request = @edition.fact_check_requests.last
@@ -197,14 +196,10 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   test "should prevent creation of a fact check request if edition is not accessible to the current user" do
-    author = create(:user, organisation: create(:organisation))
-    @edition = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [author.organisation])
-    refute @edition.accessible_by?(@requestor)
-    controller.stubs(:can?).with(anything, @edition).returns(true)
+    protected_edition = create(:protected_edition)
+    post :create, edition_id: protected_edition.id, fact_check_request: @attributes
 
-    post :create, edition_id: @edition.id, fact_check_request: @attributes
-
-    assert_response 403
+    assert_response :forbidden
   end
 
   test "should send an email when a fact check has been requested" do
@@ -215,7 +210,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "uses host from request in email urls" do
     request.host = "whitehall.example.com"
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_last_email_body_contains("http://whitehall.example.com/")
@@ -224,7 +218,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "uses protocol from request in email urls" do
     request.env["HTTPS"] = "on"
     request.host = "whitehall.example.com"
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_last_email_body_contains("https://whitehall.example.com/")
@@ -232,7 +225,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "uses port from request in email urls" do
     request.host = "whitehall.example.com:8182"
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_last_email_body_contains("http://whitehall.example.com:8182/")
@@ -252,7 +244,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "should not send an email if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_equal 0, ActionMailer::Base.deliveries.length
@@ -260,7 +251,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "should display a warning if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_equal "There was a problem: Email address can't be blank", flash[:alert]
@@ -268,7 +258,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "redirect back to the edition preview if the fact checker's email address is missing" do
     @attributes.merge!(email_address: "")
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_redirected_to admin_policy_path(@edition)
@@ -276,7 +265,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   test "should reject invalid email addresses" do
     @attributes.merge!(email_address: "not-an-email")
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_equal "There was a problem: Email address does not appear to be valid", flash[:alert]
@@ -284,7 +272,6 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   view_test "should display an apology if requesting a fact check for an edition that has been deleted" do
     @edition.delete!
-
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
@@ -295,5 +282,4 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   def assert_last_email_body_contains(text)
     assert_match Regexp.new(Regexp.escape(text)), ActionMailer::Base.deliveries.last.body.to_s
   end
-
 end

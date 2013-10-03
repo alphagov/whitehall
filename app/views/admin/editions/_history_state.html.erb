@@ -14,7 +14,7 @@
     </p>
   </div>
 <% elsif !edition.is_latest_edition? %>
-  <% if edition.latest_edition.accessible_by?(current_user) %>
+  <% if can?(:see, edition.latest_edition) %>
     <div class="alert alert-info">
       <p>This document has a new draft. You are currently viewing the edition that is published on the website.</p>
       <p><%= link_to "Go to draft", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>

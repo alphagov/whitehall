@@ -57,15 +57,6 @@ module Edition::LimitedAccess
     self.class.access_limited_by_default?
   end
 
-  def accessible_by?(user)
-    return false if user && user.location_limited? && (world_locations & user.world_locations).empty?
-    if access_limited?
-      organisations.include?(user.organisation) || authors.include?(user)
-    else
-      true
-    end
-  end
-
   def set_access_limited
     if new_record? && access_limited.nil?
       self.access_limited = self.access_limited_by_default?

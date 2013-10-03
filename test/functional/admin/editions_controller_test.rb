@@ -254,7 +254,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
-    controller.stubs(:can?).returns(true)
 
     get :show, id: inaccessible
     assert_response :forbidden
