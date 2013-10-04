@@ -1,6 +1,16 @@
 require "test_helper"
 
 class OfficialDocsImportTest < ActiveSupport::TestCase
+  def setup
+    Import.use_separate_connection
+  end
+
+  def teardown
+    Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
+  end
+
   test "importer recognises attachments with hoc/command numbers and parliamentary sessions" do
     creator = User.create!(name: "Automatic Data Importer")
     od_document_collection = create(:document_collection, title: "official-documents")

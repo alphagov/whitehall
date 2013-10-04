@@ -1,6 +1,16 @@
 require "test_helper"
 
 class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
+  def setup
+    Import.use_separate_connection
+  end
+
+  def teardown
+    Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
+  end
+
   test "imports CSV in DFT format (including JSON attachments) into database" do
     creator = User.create!(name: "Automatic Data Importer")
     create(:document_collection, title: "Highways orders inspectors reports and decision letters")

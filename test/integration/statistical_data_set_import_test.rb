@@ -1,6 +1,16 @@
 require "test_helper"
 
 class StatisticalDataSetImportTest < ActiveSupport::TestCase
+  def setup
+    Import.use_separate_connection
+  end
+
+  def teardown
+    Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
+  end
+
   test "imports CSV into database" do
     creator = User.create!(name: "Automatic Data Importer")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-transport")
