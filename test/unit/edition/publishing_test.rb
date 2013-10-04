@@ -2,102 +2,52 @@ require "test_helper"
 
 class Edition::PublishingControlsTest < ActiveSupport::TestCase
 
-  test "is publishable by an editor when submitted" do
-    edition = create(:submitted_edition)
-    assert edition.publishable_by?(create(:departmental_editor))
-  end
-
-  test "is never publishable by a writer" do
-    writer = create(:policy_writer)
-    edition = create(:submitted_edition)
-    refute edition.publishable_by?(writer)
-    refute edition.publishable_by?(writer, force: true)
-    assert_equal "Only departmental editors can publish", edition.reason_to_prevent_publication_by(writer)
-  end
-
-  test "is never publishable when already published" do
-    editor = create(:departmental_editor)
+  test "is not publishable when already published" do
     edition = create(:published_edition)
-    refute edition.publishable_by?(editor)
-    refute edition.publishable_by?(editor, force: true)
-    assert_equal "This edition has already been published", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "This edition has already been published", edition.reason_to_prevent_publication
   end
 
   test "is not normally publishable when draft" do
-    editor = create(:departmental_editor)
     edition = create(:draft_edition)
-    refute edition.publishable_by?(editor)
-    assert_equal "Not ready for publication", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "Not ready for publication", edition.reason_to_prevent_publication
   end
 
   test "is force publishable when draft" do
     edition = create(:draft_edition)
-    assert edition.publishable_by?(create(:departmental_editor), force: true)
+    assert_nil edition.reason_to_prevent_publication(force: true)
   end
 
   test "is not force publishable when imported" do
     edition = create(:imported_edition)
-    refute edition.publishable_by?(create(:departmental_editor), force: true)
-  end
-
-  test "is not normally publishable by the original creator" do
-    editor = create(:departmental_editor)
-    edition = create(:submitted_edition, creator: editor)
-    refute edition.publishable_by?(editor)
-    assert_equal "You are not the second set of eyes", edition.reason_to_prevent_publication_by(editor)
-  end
-
-  test "is force publishable by the original creator" do
-    editor = create(:departmental_editor)
-    edition = create(:submitted_edition, creator: editor)
-    assert edition.publishable_by?(editor, force: true)
+    assert_equal 'This edition has been imported', edition.reason_to_prevent_publication(force: true)
   end
 
   test "is never publishable when invalid" do
-    editor = create(:departmental_editor)
-    edition = create(:submitted_edition, creator: editor)
-    edition.update_attributes(title: nil)
-    refute edition.publishable_by?(editor, force: true)
-    assert_equal "This edition is invalid. Edit the edition to fix validation problems", edition.reason_to_prevent_publication_by(editor)
+    edition = build(:submitted_edition, title: nil)
+    assert_equal "This edition is invalid. Edit the edition to fix validation problems", edition.reason_to_prevent_publication
   end
 
   test "is never publishable when rejected" do
-    editor = create(:departmental_editor)
     edition = create(:rejected_edition)
-    refute edition.publishable_by?(editor)
-    refute edition.publishable_by?(editor, force: true)
-    assert_equal "This edition has been rejected", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "This edition has been rejected", edition.reason_to_prevent_publication
   end
 
   test "is never publishable when archived" do
-    editor = create(:departmental_editor)
     edition = create(:archived_edition)
-    refute edition.publishable_by?(editor)
-    refute edition.publishable_by?(editor, force: true)
-    assert_equal "This edition has been archived", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "This edition has been archived", edition.reason_to_prevent_publication
   end
 
   test "is never publishable when deleted" do
-    editor = create(:departmental_editor)
     edition = create(:draft_edition)
     edition.delete!
-    refute edition.publishable_by?(editor)
-    refute edition.publishable_by?(editor, force: true)
-    assert_equal "This edition has been deleted", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "This edition has been deleted", edition.reason_to_prevent_publication
   end
 
   test "is not publishable if there is a reason to prevent approval" do
     edition = build(:submitted_edition)
     arbitrary_reason = "Because I said so"
-    edition.stubs(:reason_to_prevent_publication_by).returns(arbitrary_reason)
-    refute edition.publishable_by?(stub)
-    assert_equal arbitrary_reason, edition.reason_to_prevent_publication_by(stub)
-  end
-
-  test "is publishable by departmental editor if there is a no reason to prevent approval" do
-    edition = build(:submitted_edition)
-    edition.stubs(:reason_to_prevent_publication_by).returns(nil)
-    assert edition.publishable_by?(build(:departmental_editor))
+    edition.stubs(:reason_to_prevent_publication).returns(arbitrary_reason)
+    assert_equal arbitrary_reason, edition.reason_to_prevent_publication
   end
 end
 
@@ -307,24 +257,15 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:scheduled_edition, access_limited: true)
     assert edition.access_limited
     Timecop.freeze(edition.scheduled_publication + 1.minute) do
-      assert edition.publish_as(robot), edition.reason_to_prevent_publication_by(robot)
+      assert edition.publish_as(robot), edition.reason_to_prevent_publication
       refute edition.reload.access_limited?
     end
-  end
-
-  test "publication fails if not publishable by user" do
-    editor = create(:departmental_editor)
-    edition = create(:submitted_edition)
-    edition.stubs(:publishable_by?).with(editor, anything).returns(false)
-    refute edition.publish_as(editor)
-    refute edition.reload.published?
   end
 
   test "publication adds reason for failure to validation errors" do
     editor = create(:departmental_editor)
     edition = create(:submitted_edition)
-    edition.stubs(:publishable_by?).returns(false)
-    edition.stubs(:reason_to_prevent_publication_by).with(editor, {}).returns('a spurious reason')
+    edition.stubs(:reason_to_prevent_publication).returns('a spurious reason')
     edition.publish_as(editor)
     assert_equal ['a spurious reason'], edition.errors.full_messages
   end

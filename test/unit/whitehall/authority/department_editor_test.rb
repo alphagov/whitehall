@@ -84,6 +84,14 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert enforcer_for(department_editor, normal_edition).can?(:force_publish)
   end
 
+  test 'cannot publish a scheduled edition' do
+    refute enforcer_for(department_editor, scheduled_edition).can?(:publish)
+  end
+
+  test 'cannot force publish a scheduled edition' do
+    refute enforcer_for(department_editor, scheduled_edition).can?(:force_publish)
+  end
+
   test 'can force publish a limited access edition outside their org if they can_force_publish_anything?' do
     org1 = 'organisation_1'
     org2 = 'organisation_2'

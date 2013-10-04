@@ -32,6 +32,11 @@ if defined? Rails
         })
         le
       end
+      define_method("scheduled_#{edition_type}") do
+        FactoryGirl.build(:"scheduled_#{edition_type}").tap do |scheduled_edition|
+          scheduled_edition.stubs(:scheduled?).returns(true)
+        end
+      end
     end
 
     define_edition_factory_methods :edition
@@ -67,6 +72,9 @@ else
         }
         e
       end
+      define_method("scheduled_#{edition_type}") do
+        AuthorityTestHelper.get_class_from_type(edition_type).new(nil, false, nil, true)
+      end
     end
 
     define_edition_factory_methods :edition
@@ -75,7 +83,7 @@ else
     define_edition_factory_methods :worldwide_priority
   end
 
-  class EditionBase < Struct.new(:creator, :force_published, :published_by);
+  class EditionBase < Struct.new(:creator, :force_published, :published_by, :scheduled);
     def force_published?
       !!@force_published
     end
@@ -84,6 +92,9 @@ else
     end
     def edition_organisations
       []
+    end
+    def scheduled?
+      scheduled
     end
   end
 

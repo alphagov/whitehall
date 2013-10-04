@@ -58,15 +58,11 @@ module Edition::Publishing
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
-  def publishable_by?(user, options = {})
-    reason_to_prevent_publication_by(user, options).nil?
-  end
-
   def unpublishable_by?(user)
     reasons_to_prevent_unpublication_by(user).empty?
   end
 
-  def reason_to_prevent_approval_by(user, options = {})
+  def reason_to_prevent_approval(options = {})
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
     elsif published?
@@ -75,26 +71,20 @@ module Edition::Publishing
       "This edition has been #{current_state}"
     elsif !submitted? && !options[:force]
       "Not ready for publication"
-    elsif user == creator && !options[:force]
-      "You are not the second set of eyes"
-    elsif !enforcer(user).can?(options[:force] ? :force_publish : :publish)
-      "Only departmental editors can publish"
     end
   end
 
-  def reason_to_prevent_publication_by(user, options = {})
+  def reason_to_prevent_publication(options = {})
     if scheduled?
       if Time.zone.now < scheduled_publication
         "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
       elsif !valid?
         "Can't publish invalid scheduled publication"
-      elsif !user.can_publish_scheduled_editions?
-        "User must have permission to publish scheduled publications"
       end
     elsif scheduled_publication.present?
       "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
     else
-      reason_to_prevent_approval_by(user, options)
+      reason_to_prevent_approval(options)
     end
   end
 
@@ -129,7 +119,7 @@ module Edition::Publishing
   end
 
   def publish_as(user, options = {})
-    if publishable_by?(user, options)
+    unless reason_to_prevent_publication(options)
       self.major_change_published_at = Time.zone.now unless self.minor_change?
       make_public_at(major_change_published_at)
       self.access_limited = false
@@ -146,7 +136,7 @@ module Edition::Publishing
       publish!
       true
     else
-      errors.add(:base, reason_to_prevent_publication_by(user, options))
+      errors.add(:base, reason_to_prevent_publication(options))
       false
     end
   end

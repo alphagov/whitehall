@@ -7,7 +7,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
       Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
       edition = create(:edition, state.name, scheduled_publication: Whitehall.default_cache_max_age.from_now - 1.second + 1.minute)
       Timecop.freeze(2.minutes.from_now) do
-        edition.stubs(:reason_to_prevent_approval_by).returns(nil)
+        edition.stubs(:reason_to_prevent_approval).returns(nil)
         if [:draft, :submitted, :rejected].include?(state.name)
           refute edition.valid?, "#{state.name} edition should be invalid"
           assert edition.errors[:scheduled_publication].include?("date must be at least 15 minutes from now")
@@ -48,30 +48,17 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
-  test "is publishable if submitted without scheduled_publication date and there is no reason to prevent approval" do
-    editor = build(:departmental_editor)
-    edition = build(:submitted_edition, scheduled_publication: nil)
-    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
-    assert edition.publishable_by?(editor)
-  end
-
   test "is never publishable if submitted with a scheduled_publication date, even if no reason to prevent approval" do
-    editor = build(:departmental_editor)
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
-    refute edition.publishable_by?(editor)
-    refute edition.publishable_by?(editor, force: true)
-    assert_equal "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date.", edition.reason_to_prevent_publication_by(editor)
+    assert_equal "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date.", edition.reason_to_prevent_publication
   end
 
   test "is never publishable if scheduled, but the scheduled_publication date has not yet arrived" do
     editor = build(:departmental_editor)
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
-    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
+    edition.stubs(:reason_to_prevent_approval).returns(nil)
     Timecop.freeze(edition.scheduled_publication - 1.second) do
-      refute edition.publishable_by?(editor)
-      refute edition.publishable_by?(editor, force: true)
-      assert_equal "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before", edition.reason_to_prevent_publication_by(editor)
+      assert_equal "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before", edition.reason_to_prevent_publication
     end
   end
 
@@ -87,8 +74,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     editor = build(:scheduled_publishing_robot)
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
     Timecop.freeze(edition.scheduled_publication) do
-      assert_equal nil, edition.reason_to_prevent_publication_by(editor)
-      assert edition.publishable_by?(editor)
+      assert_nil edition.reason_to_prevent_publication
     end
   end
 
@@ -104,7 +90,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
   test "is not schedulable if there is a reason to prevent approval" do
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
     arbitrary_reason = "Because I said so"
-    edition.stubs(:reason_to_prevent_approval_by).returns(arbitrary_reason)
+    edition.stubs(:reason_to_prevent_approval).returns(arbitrary_reason)
     refute edition.schedulable_by?(stub)
     assert_equal arbitrary_reason, edition.reason_to_prevent_scheduling_by(stub)
   end
@@ -112,7 +98,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
   test "is schedulable if no reason to prevent approval and submitted with a scheduled_publication date" do
     editor = build(:departmental_editor)
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    edition.stubs(:reason_to_prevent_approval_by).returns(nil)
+    edition.stubs(:reason_to_prevent_approval).returns(nil)
     assert edition.schedulable_by?(editor)
   end
 
@@ -191,7 +177,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
 
   test ".scheduled_for_publication_as returns edition if edition is scheduled" do
     edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
-    edition.schedule_as(create(:departmental_editor), force: true)
+    assert edition.schedule_as(create(:departmental_editor), force: true)
     assert_equal edition, Publication.scheduled_for_publication_as(edition.document.to_param)
   end
 

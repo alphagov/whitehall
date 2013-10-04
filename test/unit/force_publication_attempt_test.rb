@@ -17,9 +17,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert_equal Time.zone.now, force_publish_attempt.started_at
   end
 
-  test "an edition that has a reason_to_prevent_publication_by is a failure, and won't be published" do
+  test "an edition that has a reason_to_prevent_publication is a failure, and won't be published" do
     failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_publication_by).returns('it is badly written')
+    failure_doc.stubs(:reason_to_prevent_publication).returns('it is badly written')
     failure_doc.expects(:publish_as).never
 
     stubbed_import = stub_import([failure_doc])
@@ -32,9 +32,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert force_publish_attempt.successes.empty?
   end
 
-  test "an edition that has a reason_to_prevent_publication_by is logged as a failure with the reason" do
+  test "an edition that has a reason_to_prevent_publication is logged as a failure with the reason" do
     failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_publication_by).returns('it is badly written')
+    failure_doc.stubs(:reason_to_prevent_publication).returns('it is badly written')
     failure_doc.expects(:publish_as).never
 
     stubbed_import = stub_import([failure_doc])
@@ -46,9 +46,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     force_publish_attempt.perform
   end
 
-  test 'an edition that has no reason_to_prevent_publication_by but fails to publish_as is a failure' do
+  test 'an edition that has no reason_to_prevent_publication but fails to publish_as is a failure' do
     failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
+    failure_doc.stubs(:reason_to_prevent_publication).returns(nil)
     failure_doc.stubs(:publish_as).raises(ArgumentError.new('eek!'))
 
     stubbed_import = stub_import([failure_doc])
@@ -61,9 +61,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert force_publish_attempt.successes.empty?
   end
 
-  test 'an edition that has no reason_to_prevent_publication_by but fails to publish_as is logged as a failure with the raised exception' do
+  test 'an edition that has no reason_to_prevent_publication but fails to publish_as is logged as a failure with the raised exception' do
     failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
+    failure_doc.stubs(:reason_to_prevent_publication).returns(nil)
     exception = ArgumentError.new('eek!')
     failure_doc.stubs(:publish_as).raises(exception)
 
@@ -76,9 +76,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     force_publish_attempt.perform
   end
 
-  test 'an edition that has no reason_to_prevent_publication_by and doesn\'t break when asked to publish_as is a success' do
+  test 'an edition that has no reason_to_prevent_publication and doesn\'t break when asked to publish_as is a success' do
     success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
+    success_doc.stubs(:reason_to_prevent_publication).returns(nil)
     success_doc.stubs(:publish_as).returns true
 
     stubbed_import = stub_import([success_doc])
@@ -92,9 +92,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert force_publish_attempt.successes.include?(success_doc)
   end
 
-  test 'an edition that has no reason_to_prevent_publication_by and doesn\'t break when asked to publish_as is logged as a success' do
+  test 'an edition that has no reason_to_prevent_publication and doesn\'t break when asked to publish_as is logged as a success' do
     success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
+    success_doc.stubs(:reason_to_prevent_publication).returns(nil)
     success_doc.stubs(:publish_as).returns true
 
     stubbed_import = stub_import([success_doc])
@@ -106,9 +106,9 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     force_publish_attempt.perform
   end
 
-  test 'an edition that has no reason_to_prevent_publication_by well be force published by the GDS Team user' do
+  test 'an edition that has no reason_to_prevent_publication well be force published by the GDS Team user' do
     success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
+    success_doc.stubs(:reason_to_prevent_publication).returns(nil)
 
     stubbed_import = stub_import([success_doc])
     force_publish_attempt = ForcePublicationAttempt.create()
@@ -149,14 +149,14 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
 
   def stub_successful_document
     success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_publication_by).returns(nil)
+    success_doc.stubs(:reason_to_prevent_publication).returns(nil)
     success_doc.stubs(:publish_as).returns(true)
     success_doc
   end
 
   def stub_failure_document
     fail_doc = stub_imported_document
-    fail_doc.stubs(:reason_to_prevent_publication_by).returns('it smells')
+    fail_doc.stubs(:reason_to_prevent_publication).returns('it smells')
     fail_doc
   end
 end

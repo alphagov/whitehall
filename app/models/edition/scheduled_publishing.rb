@@ -24,10 +24,10 @@ module Edition::ScheduledPublishing
   def reason_to_prevent_scheduling_by(user, options = {})
     if scheduled?
       "This edition is already scheduled for publication"
-    else
-      reason_to_prevent_approval_by(user, options) or if scheduled_publication.blank?
-        "This edition does not have a scheduled publication date set"
-      end
+    elsif reason = reason_to_prevent_approval(options)
+      reason
+    elsif scheduled_publication.blank?
+      "This edition does not have a scheduled publication date set"
     end
   end
 

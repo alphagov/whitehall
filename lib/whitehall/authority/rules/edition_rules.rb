@@ -45,6 +45,8 @@ module Whitehall::Authority::Rules
           world_editor_can?(action)
         elsif actor.world_writer?
           world_writer_can?(action)
+        elsif actor.scheduled_publishing_robot?
+          scheduled_publishing_robot_can?(action)
         else
           departmental_writer_can?(action)
         end
@@ -57,6 +59,8 @@ module Whitehall::Authority::Rules
         can_approve?
       when :publish
         can_publish?
+      when :force_publish
+        can_force_publish?
       else
         true
       end
@@ -67,7 +71,19 @@ module Whitehall::Authority::Rules
     end
 
     def can_publish?
+      actor_is_not_creator? && not_publishing_scheduled_edition_without_authority?
+    end
+
+    def can_force_publish?
+      not_publishing_scheduled_edition_without_authority?
+    end
+
+    def actor_is_not_creator?
       subject.creator != actor
+    end
+
+    def not_publishing_scheduled_edition_without_authority?
+      !subject.scheduled? || actor.can_publish_scheduled_editions?
     end
 
     def can_with_a_class?(action)
@@ -97,6 +113,8 @@ module Whitehall::Authority::Rules
         can_approve?
       when :publish
         can_publish?
+      when :force_publish
+        can_force_publish?
       when :unpublish
         false
       else
@@ -119,6 +137,15 @@ module Whitehall::Authority::Rules
 
     def world_writer_can?(action)
       departmental_writer_can?(action)
+    end
+
+    def scheduled_publishing_robot_can?(action)
+      case action
+      when :publish
+        can_publish?
+      else
+        false
+      end
     end
   end
 end

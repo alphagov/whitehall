@@ -81,6 +81,10 @@ class GDSEditorTest < ActiveSupport::TestCase
     refute enforcer_for(me, normal_edition(me)).can?(:publish)
   end
 
+  test 'cannot publish a scheduled edition' do
+    refute enforcer_for(gds_editor, scheduled_edition).can?(:publish)
+  end
+
   test 'can reject an edition' do
     assert enforcer_for(gds_editor, normal_edition).can?(:reject)
   end
@@ -103,6 +107,10 @@ class GDSEditorTest < ActiveSupport::TestCase
     edition = limited_edition([org2])
 
     assert enforcer_for(user, edition).can?(:force_publish)
+  end
+
+  test 'cannot force publish a scheduled edition' do
+    refute enforcer_for(gds_editor, scheduled_edition).can?(:force_publish)
   end
 
   test 'can make editorial remarks' do

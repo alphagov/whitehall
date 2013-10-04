@@ -77,12 +77,20 @@ class DepartmentWriterTest < ActiveSupport::TestCase
     refute enforcer_for(department_writer, normal_edition).can?(:publish)
   end
 
+  test 'cannot publish a scheduled edition' do
+    refute enforcer_for(department_writer, scheduled_edition).can?(:publish)
+  end
+
   test 'cannot reject an edition' do
     refute enforcer_for(department_writer, normal_edition).can?(:reject)
   end
 
   test 'cannot force publish a edition' do
     refute enforcer_for(department_writer, normal_edition).can?(:force_publish)
+  end
+
+  test 'cannot force publish a scheduled edition' do
+    refute enforcer_for(department_writer, scheduled_edition).can?(:force_publish)
   end
 
   test 'can force publish an edition if they can_force_publish_anything?' do
@@ -126,5 +134,4 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   test 'cannot administer the get_involved_section' do
     refute enforcer_for(department_writer, :get_involved_section).can?(:administer)
   end
-
 end

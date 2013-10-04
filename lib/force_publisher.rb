@@ -18,7 +18,7 @@ class ForcePublisher
         if edition.nil?
           reporter.failure(edition, 'Edition is nil')
         else
-          reason = edition.reason_to_prevent_publication_by(user, force: true)
+          reason = edition.reason_to_prevent_publication(force: true)
           if reason
             reporter.failure(edition, reason)
           else
