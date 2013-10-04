@@ -160,7 +160,7 @@ Whitehall::Application.routes.draw do
             resources :translations, controller: 'corporate_information_pages_translations'
           end
           resources :contacts do
-            resources :translations, controller: 'contact_translations', only: [:create, :edit, :update]
+            resources :translations, controller: 'contact_translations', only: [:create, :edit, :update, :destroy]
             member do
               post :remove_from_home_page
               post :add_to_home_page

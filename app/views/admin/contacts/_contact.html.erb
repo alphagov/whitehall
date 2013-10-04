@@ -65,6 +65,7 @@
       <%= render_hcard_address(translated_contact) %>
     </div>
 
+    <%= button_to "Delete", [:admin, contactable, contact, translated_contact.translation_locale], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from contact '#{contact.title}'?" %>
     <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]), class: "btn btn-small" %>
   <% end %>
 <% end %>

@@ -26,7 +26,7 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     assert_select "h1", text: "Edit 'Français (French)' translation for: english-title"
   end
 
-  test "update updates translation and redirects back to the index" do
+  test "update updates translation and redirects back to contacts list" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, title: "english-title")
 
@@ -43,6 +43,17 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
       assert_equal "Enseigner aux gens comment infuser le thé", contact.comments
     end
 
+    assert_redirected_to admin_organisation_contacts_path(organisation)
+  end
+
+  test "destroy removes translation and redirects to contacts list" do
+    organisation = create(:organisation)
+    contact = create(:contact, contactable: organisation, translated_into: [:fr])
+
+    delete :destroy, organisation_id: organisation, contact_id: contact, id: "fr"
+
+    contact.reload
+    refute contact.translated_locales.include?(:fr)
     assert_redirected_to admin_organisation_contacts_path(organisation)
   end
 end

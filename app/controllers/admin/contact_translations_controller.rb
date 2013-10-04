@@ -19,6 +19,12 @@ class Admin::ContactTranslationsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @contact.remove_translations_for(translation_locale.code)
+    redirect_to admin_organisation_contacts_path(@contactable),
+                notice: notice_message("deleted")
+  end
+
 private
   def translation_locale
     Locale.new(params[:translation_locale] || params[:id])
