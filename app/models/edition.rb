@@ -513,7 +513,7 @@ class Edition < ActiveRecord::Base
   end
 
   def display_type_key
-    format_name.underscore
+    format_name.tr(' ', '_')
   end
 
   def first_public_at

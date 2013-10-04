@@ -490,6 +490,34 @@ cs:
     heading: Publikace
     headings:
       detail: Více
+  publishing:
+    format_advice:
+      case_study:
+        intended_use:
+      consultation:
+        intended_use:
+      detailed_guidance:
+        intended_use:
+      document_collection:
+        intended_use:
+      fatality_notice:
+        intended_use:
+      news_article:
+        intended_use:
+      policy:
+        intended_use:
+      policy_supporting_page:
+        intended_use:
+      publication:
+        intended_use:
+      speech:
+        intended_use:
+      statistical_data_set:
+        intended_use:
+      world_location_news_article:
+        intended_use:
+      worldwide_priority:
+        intended_use:
   read_more: Více
   shared:
     see_all: Podívejte se na

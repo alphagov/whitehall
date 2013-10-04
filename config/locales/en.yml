@@ -473,3 +473,37 @@ en:
         %{email}
         quoting your address, telephone number along with the title of the
         publication ("%{title}")%{references}.
+  publishing:
+    format_advice:
+      case_study:
+        intended_use: Specific real world examples where a particular government activity or policy has helped or could help.
+      consultation:
+        intended_use: Consultations (officially "documents requiring collective agreement across government", including calls for evidence).
+      document_collection:
+        intended_use: Continuously curated, permanent lists of closely related documents for a specific audience - not just by subject.
+      news_article:
+        intended_use: |
+          Press releases, news stories and responses to media coverage including official statements.
+          Do *not* use for: promoting the publication of other content (e.g. statistics).
+      publication:
+        intended_use: Stand-alone government documents, issued on a specified date through GOV.UK for distribution.
+      policy:
+        intended_use: A plain English definition of an outcome government is working to achieve and the specific actions it\'s taking. Related content (news etc.) should be associated to policies.
+      policy_supporting_page:
+        intended_use: Detailed background or information about an action government is taking in relation to a policy.
+      detailed_guidance:
+        intended_use: Answering a specific user need for detailed or specialist information so that the user can complete a defined task.
+      worldwide_priority:
+        intended_use: A plain English definition of an outcome government is working to achieve in a specific world location. Related content (news etc.) should be associated to worldwide priorities.
+      world_location_news_article:
+        intended_use: Announcements specific to one or more world location. Don\'t duplicate news published by another department.
+      statistical_data_set:
+        intended_use: |
+          Frequently updated ("live") statistical data files.
+          Do *not* use for: less frequently updated (e.g. quarterly) data. Use a publication (subtype: statistics) instead.
+      fatality_notice:
+        intended_use: Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don\'t publish a news story which duplicates this announcement.
+      speech:
+        intended_use: |
+          Public speeches by ministers or other named spokespeople, ministerial statements to Parliament and bylined articles.
+          Do not use for: statements *not* made to Parliament (use the "news article" format for those).

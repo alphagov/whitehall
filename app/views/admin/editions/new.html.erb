@@ -2,6 +2,7 @@
 <div class="span8">
   <section>
     <h1>Create <%= @edition.type.underscore.humanize.downcase %></h1>
+    <%= render 'format_advice', edition: @edition %>
     <%= render partial: "form", locals: {edition: @edition} %>
   </section>
 </div>

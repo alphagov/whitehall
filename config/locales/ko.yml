@@ -390,6 +390,34 @@ ko:
     heading: 출판물
     headings:
       detail: 디테일
+  publishing:
+    format_advice:
+      case_study:
+        intended_use:
+      consultation:
+        intended_use:
+      detailed_guidance:
+        intended_use:
+      document_collection:
+        intended_use:
+      fatality_notice:
+        intended_use:
+      news_article:
+        intended_use:
+      policy:
+        intended_use:
+      policy_supporting_page:
+        intended_use:
+      publication:
+        intended_use:
+      speech:
+        intended_use:
+      statistical_data_set:
+        intended_use:
+      world_location_news_article:
+        intended_use:
+      worldwide_priority:
+        intended_use:
   read_more: 더 자세한 정보 알아보기
   roles:
     heading:
