@@ -10,12 +10,18 @@
       width: 25%;
       float: left;
       display: inline;
+      @include right-to-left {
+        float: right;
+      }
     }
     
     .block-3 {
       width: 66%;
       float: left;
       display: inline;
+      @include right-to-left {
+        float: right;
+      }
     }
   }
 }
