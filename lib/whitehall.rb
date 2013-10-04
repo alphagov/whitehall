@@ -230,7 +230,7 @@ module Whitehall
   end
 
   def self.url_maker
-    @url_maker ||= Whitehall::UrlMaker.new
+    @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   def self.load_secrets

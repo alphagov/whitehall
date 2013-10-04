@@ -81,6 +81,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
 
     assert_redirected_to placeholder_url
+    assert_cache_control "max-age=#{1.minute}"
   end
 
   test "requesting an attachment on an unpublished edition redirects to the edition's unpublishing page" do
@@ -90,6 +91,12 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
 
     assert_redirected_to publication_url(unpublished_edition.unpublishing.slug)
+  end
+
+  test "an invalid filename returns a 404" do
+    attachment_data = create(:attachment_data)
+    get :show, id: attachment_data.to_param, file: File.basename(attachment_data.filename, ".#{attachment_data.file_extension}"), extension: "#{attachment_data.file_extension}missing"
+    assert_response :not_found
   end
 
   private

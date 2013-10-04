@@ -9,7 +9,7 @@ class EmailSignupTest < ActiveSupport::TestCase
     topic_1 = create(:topic)
     topic_2 = create(:topic)
     policy  = create(:published_policy)
-    topic_1.published_policies << policy
+    topic_1.editions << policy
 
     topics_by_type = EmailSignup.valid_topics_by_type
     assert topics_by_type[:topic].include?(topic_1)
@@ -22,7 +22,7 @@ class EmailSignupTest < ActiveSupport::TestCase
     topical_event_1 = create(:topical_event, :active)
     topical_event_2 = create(:topical_event, :active)
     policy  = create(:published_policy)
-    topical_event_1.published_policies << policy
+    topical_event_1.editions << policy
 
     topics_by_type = EmailSignup.valid_topics_by_type
     assert topics_by_type[:topical_event].include?(topical_event_1)

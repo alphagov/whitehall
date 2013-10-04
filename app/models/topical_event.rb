@@ -35,19 +35,6 @@ class TopicalEvent < Classification
             conditions: { "editions.state" => "published" },
             source: :consultation
 
-  has_many :classification_featurings,
-            foreign_key: :classification_id,
-            order: "classification_featurings.ordering asc",
-            include: :edition,
-            conditions: { editions: { state: "published" } }
-
-  has_many :featured_editions,
-            through: :classification_featurings,
-            source: :edition,
-            order: "classification_featurings.ordering ASC"
-
-  has_many :features, dependent: :destroy
-
   scope :active, -> { where("end_date > ?", Date.today) }
   scope :order_by_start_date, -> { order("start_date DESC") }
 
@@ -55,14 +42,8 @@ class TopicalEvent < Classification
   validates :start_date, presence: true, if: -> topical_event { topical_event.end_date }
 
   accepts_nested_attributes_for :social_media_accounts, allow_destroy: true
-  accepts_nested_attributes_for :classification_featurings
 
   alias_method :display_name, :to_s
-
-  def featured?(edition)
-    return false unless edition.persisted?
-    featuring_of(edition).present?
-  end
 
   def archived?
     if end_date && end_date <= Date.today
@@ -70,19 +51,6 @@ class TopicalEvent < Classification
     else
       false
     end
-  end
-
-  def featuring_of(edition)
-    classification_featurings.where(edition_id: edition.id).first
-  end
-
-  def feature(featuring_params)
-    classification_featurings.create({ordering: next_ordering}.merge(featuring_params))
-  end
-
-  def next_ordering
-    last = classification_featurings.order("ordering desc").limit(1).last
-    last ? last.ordering + 1 : 1
   end
 
   def search_link

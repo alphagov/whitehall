@@ -39,17 +39,6 @@ module AdminEditionWorldLocationsBehaviour
         assert_equal [world_location], document.world_locations
       end
 
-      test "updating should remove all world locations if none in params" do
-        world_location = create(:world_location)
-
-        document = create(document_type, world_locations: [world_location])
-
-        put :update, id: document, edition: {}
-
-        document.reload
-        assert_equal [], document.world_locations
-      end
-
       view_test "updating a stale document should render edit page with conflicting document and its world locations" do
         document = create(document_type)
         lock_version = document.lock_version
@@ -61,7 +50,6 @@ module AdminEditionWorldLocationsBehaviour
           assert_select "h1", "World locations"
         end
       end
-
     end
   end
 end

@@ -14,5 +14,7 @@ module Whitehall
     autoload :PublicationRow, 'whitehall/uploader/publication_row'
     autoload :SpeechRow, 'whitehall/uploader/speech_row'
     autoload :StatisticalDataSetRow, 'whitehall/uploader/statistical_data_set_row'
+
+    autoload :ProgressLogger, 'whitehall/uploader/progress_logger'
   end
 end

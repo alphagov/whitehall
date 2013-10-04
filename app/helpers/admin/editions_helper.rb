@@ -174,6 +174,7 @@ module Admin::EditionsHelper
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
+      concat render('user_needs_fields', form: form, edition: edition)
       concat render(partial: "standard_fields",
                     locals: { form: form, edition: edition })
       yield(form)
@@ -244,6 +245,25 @@ module Admin::EditionsHelper
       [group, members.map {|c| [c.title, c.id]}]
     end
     grouped_options_for_select(grouped_options, selected, "")
+  end
+
+  def user_need_options(options = {})
+    grouped_needs = UserNeed.all.group_by(&:organisation_id)
+
+    my_org = current_user.organisation
+
+    orgs = Organisation.select(:id).where(id: grouped_needs.keys).order(:slug).to_a
+
+    if grouped_needs.has_key?(my_org.id)
+      orgs.delete(my_org)
+      orgs = orgs.unshift(my_org)
+    end
+
+    grouped_options = orgs.map do |org|
+      [org.name, grouped_needs[org.id].map {|n| [n.to_s, n.id]}]
+    end
+
+    grouped_options_for_select(grouped_options, options[:selected])
   end
 
   def warn_about_lack_of_contacts_in_body?(edition)

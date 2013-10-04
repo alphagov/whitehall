@@ -1,8 +1,6 @@
 require "test_helper"
 
 class PoliciesControllerTest < ActionController::TestCase
-  include DocumentViewAssertions
-
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
 

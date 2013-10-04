@@ -40,7 +40,7 @@ module Admin::UrlHelper
   end
 
   def admin_policy_teams_header_link
-    admin_header_link "Policy teams", admin_policy_teams_path
+    admin_header_link "Teams", admin_policy_teams_path
   end
 
   def admin_policy_advisory_groups_header_link

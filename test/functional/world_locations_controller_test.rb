@@ -2,8 +2,6 @@
 require "test_helper"
 
 class WorldLocationsControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
   include FilterRoutesHelper
 
   should_be_a_public_facing_controller
@@ -170,8 +168,8 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select "#announcements" do
       assert_select_object announcement_1 do
-        assert_select '.first-published-at abbr[title=?]', 1.days.ago.iso8601
-        assert_select '.announcement-type', "Press release"
+        assert_select '.publication-date abbr[title=?]', 1.days.ago.iso8601
+        assert_select '.document-type', "Press release"
       end
       assert_select_object announcement_2
       refute_select_object announcement_3

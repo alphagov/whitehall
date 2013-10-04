@@ -17,17 +17,17 @@ module LogoHelper
   end
 
   def organisation_logo(organisation, options = {})
-    logo = if organisation.logo?
+    logo = if organisation.custom_logo_selected?
       image_tag(organisation.logo.url, alt: organisation.name, class: 'organisation-logo-custom')
     else
       organisation_logo_name(organisation)
     end
     linked_logo = link_to_if(options[:linked], logo, organisation_path(organisation))
-    if organisation.logo?
+    if organisation.custom_logo_selected?
       linked_logo
     else
       css_classes = logo_classes(organisation: organisation, size: options[:size], stacked: true)
-      content_tag(:span, class: css_classes) { linked_logo }
+      content_tag(:span, class: css_classes) { content_tag(:span) {linked_logo} }
     end
   end
 end

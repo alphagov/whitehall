@@ -1,9 +1,6 @@
 require "test_helper"
 
 class MinisterialRolesControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
-
   should_be_a_public_facing_controller
   should_show_published_documents_associated_with :ministerial_role, :policies
 

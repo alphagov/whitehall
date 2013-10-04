@@ -1,23 +1,20 @@
 module Admin::TabbedNavHelper
-  def tab_navigation_for(content_object, *extra_classes, &block)
-    case content_object
-    when Organisation
-      tab_navigation(organisation_tabs(content_object), *extra_classes, &block)
-    when WorldwideOrganisation
-      tab_navigation(worldwide_organisation_tabs(content_object), *extra_classes, &block)
-    when WorldLocation
-      tab_navigation(world_location_tabs(content_object), *extra_classes, &block)
-    when Person
-      tab_navigation(person_tabs(content_object), *extra_classes, &block)
-    when TopicalEvent
-      tab_navigation(topical_event_tabs(content_object), *extra_classes, &block)
-    end
+  def tab_navigation_for(model, *extra_classes, &block)
+    tabs = send("#{model.class.model_name.underscore}_tabs", model)
+    tab_navigation(tabs, *extra_classes, &block)
   end
 
   def person_tabs(person)
     { 'Details' => admin_person_path(person),
       'Translations' => admin_person_translations_path(person),
       'Historical accounts' => admin_person_historical_accounts_path(person) }
+  end
+
+  def topic_tabs(topic)
+    {
+      "Details" => url_for([:admin, topic]),
+      "Featured documents" => url_for([:admin, topic, :classification_featurings])
+    }
   end
 
   def tab_navigation(tabs, *extra_classes, &block)

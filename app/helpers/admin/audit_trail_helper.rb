@@ -18,27 +18,6 @@ module Admin::AuditTrailHelper
     html << absolute_time(entry.created_at, class: "created_at")
   end
 
-  def render_edition_diff(edition, audit_entry)
-    title = Diffy::Diff.new(audit_entry.title, edition.title, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
-    summary = Diffy::Diff.new(audit_entry.summary, edition.summary, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
-    body = Diffy::Diff.new(audit_entry.body, edition.body, allow_empty_diff: true, include_plus_and_minus_in_html: true).to_s(:html)
-    out = ""
-    empty_diff = %(<div class=\"diff\">\n  <ul>\n\n  </ul>\n</div>\n)
-    unless title == empty_diff
-    out << content_tag(:h2, 'Title')
-      out << title
-    end
-    unless summary == empty_diff
-    out << content_tag(:h2, 'Summary')
-      out << summary
-    end
-    unless body == empty_diff
-    out << content_tag(:h2, 'Body')
-      out << body
-    end
-    out.html_safe
-  end
-
   def paginated_audit_trail_url(page)
     url_for(params.merge(controller: 'admin/edition_audit_trail', action: 'index', page: ((page <= 1) ? nil : page)))
   end

@@ -13,8 +13,12 @@ module TopicsHelper
 
   def classification_contents_breakdown(classification)
     capture do
-      concat content_tag(:span, pluralize(classification.policies.published.count, "published policy"))
-      concat content_tag(:span, pluralize(classification.detailed_guides.published.count, "published detailed guide"))
+      concat content_tag(:span, pluralize(classification.published_policies.count, "published policy"))
+      concat content_tag(:span, pluralize(classification.published_detailed_guides.count, "published detailed guide"))
     end
+  end
+
+  def topic_grid_size_class(*edition_scopes)
+    "grid-size-#{edition_scopes.compact.select(&:any?).length}"
   end
 end

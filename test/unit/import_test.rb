@@ -53,7 +53,7 @@ class ImportTest < ActiveSupport::TestCase
   test "invalid if file has invalid UTF8 encoding" do
     csv_data = File.open(Rails.root.join("test/fixtures/invalid_encoding.csv"), "r:binary").read
     csv_file = stub("file", read: csv_data, original_filename: "invalid_encoding.csv")
-    i = Import.create_from_file(stub_record(:user), csv_file, "consultation", organisation_id)
+    i = Import.create_from_file(stub_record(:user), csv_file, "consultation", organisation.id)
     refute i.valid?
     assert i.errors[:csv_data].any? {|e| e =~ /Invalid UTF-8 character encoding/}
   end
@@ -61,7 +61,7 @@ class ImportTest < ActiveSupport::TestCase
   test "accepts UTF8 byte order mark" do
     csv_data = File.open(Rails.root.join("test/fixtures/byte_order_mark_test_sample.csv"), "r:binary").read
     csv_file = stub("file", read: csv_data, original_filename: "byte_order_mark_test_sample.csv")
-    i = Import.create_from_file(stub_record(:user), csv_file, "consultation", organisation_id)
+    i = Import.create_from_file(stub_record(:user), csv_file, "consultation", organisation.id)
     assert_equal 'old', i.csv_data[0..2]
   end
 
@@ -83,42 +83,24 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "records the start time and total number of rows in the csv" do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    import = perform_import do |import|
-      import.stubs(:row_class).returns(@row_class)
-      import.stubs(:model_class).returns(@model_class)
-    end
+    import = perform_import
     assert_equal 1, import.total_rows
     assert_equal Time.zone.now, import.import_started_at
   end
 
   test "#perform records the document source of successfully imported records" do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    i = perform_import do |import|
-      import.stubs(:row_class).returns(@row_class)
-      import.stubs(:model_class).returns(@model_class)
-      DocumentSource.expects(:create!).with(document: @document, url: @row.legacy_urls.first, import: import, row_number: 2)
-    end
+    example_url = 'http://example.com/1'
+    import = perform_import(csv_data: consultation_csv_sample('old_url' => example_url))
+    assert_equal 1, import.document_sources.where(url: example_url).count
   end
 
   test "#perform records multiple document sources if an imported record has multiple legacy_urls" do
-    stub_document_source
-    stub_row_class(legacy_urls: ["http://example.com/1", "http://example.com/2"])
-    stub_model_class
-    i = perform_import do |import|
-      import.stubs(:row_class).returns(@row_class)
-      import.stubs(:model_class).returns(@model_class)
-      DocumentSource.expects(:create!).with(document: @document, url: "http://example.com/1", import: import, row_number: 2)
-      DocumentSource.expects(:create!).with(document: @document, url: "http://example.com/2", import: import, row_number: 2)
-    end
+    import = perform_import(csv_data: consultation_csv_sample({'old_url' => 'http://example.com/1'}, ['old_url' => 'http://example.com/2']))
+    assert_equal ['http://example.com/1', 'http://example.com/2'], import.document_sources.pluck(:url)
   end
 
   test '#perform saves translations along with the document' do
-    import = perform_import(csv_data: translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+    import = perform_import(csv_data: translated_news_article_csv, data_type: "news_article", organisation_id: organisation.id)
     assert_equal 1, import.documents.size
     assert article = import.documents.first.latest_edition
 
@@ -135,7 +117,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test '#perform saves the translation source, along with its locale' do
-    import = perform_import(csv_data: translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+    import = perform_import(csv_data: translated_news_article_csv, data_type: "news_article", organisation_id: organisation.id)
     assert_equal 2, import.document_sources.size
 
     assert translation_source = import.document_sources.first
@@ -149,7 +131,7 @@ class ImportTest < ActiveSupport::TestCase
 
   test '#perform records an error when given incomplete translation data' do
     perform_import_cleanup do
-      import = perform_import(csv_data: incomplete_translated_news_article_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+      import = perform_import(csv_data: incomplete_translated_news_article_csv, data_type: "news_article", organisation_id: organisation.id)
       assert_equal 1, import.import_errors.count
       assert_equal "Translated title: can't be blank", import.import_errors.map.first.message
     end
@@ -157,7 +139,7 @@ class ImportTest < ActiveSupport::TestCase
 
   test '#perform records an error when translation data is present without a locale' do
     perform_import_cleanup do
-      import = perform_import(csv_data: translated_news_article_with_missing_locale_csv, data_type: "news_article", organisation_id: create(:organisation).id)
+      import = perform_import(csv_data: translated_news_article_with_missing_locale_csv, data_type: "news_article", organisation_id: organisation.id)
       assert_equal 1 ,import.import_errors.count
       assert_match /Locale not recognised/, import.import_errors.map.first.message
     end
@@ -172,7 +154,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test '#perform rolls back if exception raised during the row import' do
-    import = perform_import(csv_data: publication_with_dud_series_csv, data_type: "publication", organisation_id: create(:organisation).id)
+    import = perform_import(csv_data: publication_with_dud_collection_csv, data_type: "publication", organisation_id: create(:organisation).id)
     assert_equal [], import.imported_editions
   end
 
@@ -189,25 +171,19 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "#perform records an error if a document has already been imported" do
-    DocumentSource.stubs(:where).with(url: ["http://example.com"]).returns([stub("document source", row_number: 2, import_id: 3, url: "http://example.com")])
-    perform_import_cleanup do
-      i = perform_import(csv_data: consultation_csv_sample("old_url" => "http://example.com"))
-      assert_equal 1, i.import_errors.count
-      assert_match /already imported/, i.import_errors.map(&:message).first
-    end
+    perform_import(csv_data: consultation_csv_sample({'old_url' => 'http://example.com/1'}))
+
+    import = perform_import(csv_data: consultation_csv_sample({'old_url' => 'http://example.com/1'}))
+    assert_equal 1, import.import_errors.count
+    assert_match /already imported/, import.import_errors.map(&:message).first
   end
 
   test "#perform records an error if any old url of a row has already been imported" do
-    DocumentSource.stubs(:where)
-      .with(url: ["http://example.com/1", "http://example.com/2"])
-      .returns([stub("document source", row_number: 2, import_id: 3, url: "http://example.com/2")])
-
-    perform_import_cleanup do
-      i = perform_import(csv_data: consultation_csv_sample("old_url" => ["http://example.com/1", "http://example.com/2"].to_json))
-      assert_equal 1, i.import_errors.count
-      assert_match /already imported/, i.import_errors.map(&:message).first
-      assert_match %r{http://example\.com/2}, i.import_errors.map(&:message).first
-    end
+    perform_import(csv_data: consultation_csv_sample({'old_url' => 'http://example.com/2'}))
+    i = perform_import(csv_data: consultation_csv_sample("old_url" => ["http://example.com/1", "http://example.com/2"].to_json))
+    assert_equal 1, i.import_errors.count
+    assert_match /already imported/, i.import_errors.map(&:message).first
+    assert_match %r{http://example\.com/2}, i.import_errors.map(&:message).first
   end
 
   test "#perform skips blank rows" do
@@ -222,22 +198,9 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'logs failure if save unsuccessful' do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    @errors = {body: ["required"]}
-    @model.stubs(:save).returns(false)
-    @model.stubs(:errors).returns(@errors)
-    @model.stubs(:attachments).returns([])
-
     perform_import_cleanup do
-      i = perform_import(creator: stub_record(:user)) do |import|
-        import.stubs(:row_class).returns(@row_class)
-        import.stubs(:model_class).returns(@model_class)
-      end
-      assert_equal 1, i.import_errors.count
-      assert_equal 2, i.import_errors[0].row_number
-      assert_match /body: required/, i.import_errors[0].message
+      import = perform_import(csv_data: consultation_csv_sample('body' => nil))
+      assert import.import_errors.detect {|e| e[:message] =~ /body: can't be blank/}
     end
   end
 
@@ -252,39 +215,11 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'logs failures within attachments if save unsuccessful' do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    @errors = {attachments: ["is invalid"]}
-    @model.stubs(:save).returns(false)
-    @model.stubs(:errors).returns(@errors)
-    attachment = stub('attachment', errors: stub('attachment-errors', full_messages: 'attachment error'))
-    attachment.stubs(:valid?).returns(false)
-    attachment.stubs(:attachment_source).returns(stub('attachment-source', url: 'url'))
-    @model.stubs(:attachments).returns([attachment])
-
-    i = perform_import(creator: stub_record(:user)) do |import|
-      import.stubs(:row_class).returns(@row_class)
-      import.stubs(:model_class).returns(@model_class)
+    csv_with_invalid_attachment = consultation_csv_sample("attachment_1_url" => "bad url", "attachment_1_title" => "")
+    perform_import_cleanup do
+      i = perform_import(csv_data: csv_with_invalid_attachment)
+      assert i.import_errors.any? {|e| e[:message] =~ /Unable to fetch attachment 'bad url'/}
     end
-    assert_equal 1, i.import_errors.size
-    assert_equal 2, i.import_errors[0][:row_number]
-    assert_match /Attachment 'url': attachment error/, i.import_errors[0][:message]
-  end
-
-  test 'logs errors for exceptions' do
-    stub_document_source
-    stub_row_class
-    stub_model_class
-    @model.stubs(:save).raises("Something awful happened")
-
-    i = perform_import(creator: stub_record(:user)) do |import|
-      import.stubs(:row_class).returns(@row_class)
-      import.stubs(:model_class).returns(@model_class)
-    end
-    assert_equal 1, i.import_errors.size
-    assert_equal 2, i.import_errors[0][:row_number]
-    assert_match /Something awful happened/, i.import_errors[0][:message]
   end
 
   test 'successful rows are imported and failed rows are skipped' do
@@ -478,15 +413,15 @@ class ImportTest < ActiveSupport::TestCase
 
   private
 
-  def organisation_id
-    1
+  def organisation
+    @organisation ||= create(:organisation)
   end
 
   def new_import(params = {})
     valid_params = {
       csv_data: consultation_csv_sample,
       data_type: "consultation",
-      organisation_id: 1,
+      organisation_id: organisation.id,
       creator: stub_record(:user)
     }
 
@@ -496,35 +431,13 @@ class ImportTest < ActiveSupport::TestCase
   def perform_import(params = {})
     new_import(params).tap do |import|
       import.save!
-      yield(import) if block_given?
       import.update_column(:import_enqueued_at, Time.current)
-
-      without_delay! do
-        import.perform
-      end
+      import.perform
     end
-  end
-
-  def stub_document_source
-    DocumentSource.stubs(:find_by_url).returns(nil)
-    DocumentSource.stubs(:create!)
-  end
-
-  def stub_row_class(row_attribute_overrides = {})
-    @row = stub('row', {attributes: {row: :one}, legacy_urls: ['row-legacy-url'], valid?: true, translation_present?: false, document_collections: []}.merge(row_attribute_overrides))
-    @row_class = stub('row-class', new: @row, heading_validation_errors: [])
-  end
-
-  def stub_model_class
-    @document = stub('document')
-    @model = stub('model', save: true, document: @document)
-    @model_class = stub('model-class', new: @model)
   end
 
   def perform_import_cleanup(&block)
     Import.use_separate_connection
-    Import.delete_all
-    ImportError.delete_all
     yield
   ensure
     Import.destroy_all
@@ -558,7 +471,7 @@ class ImportTest < ActiveSupport::TestCase
     EOF
   end
 
-  def publication_with_dud_series_csv
+  def publication_with_dud_collection_csv
     <<-EOF.strip_heredoc
     old_url,title,summary,body,publication_type,policy_1,policy_2,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
     http://example.com/3,Title,Summary,Body,correspondence,,,collection-name-dud,,19-Oct-2012,2012-10-19,,,,175

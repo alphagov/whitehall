@@ -31,16 +31,8 @@
           <div class="consultation-dates">
             <p>This consultation closes on <span><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
           </div>
-          <div class="consultation-summary">
-            <div class="consultation-summary-inner">
-              <h2>Summary</h2>
-              <p><%= @document.summary %></p>
-              <% if @document.external? %>
-                <h3>This consultation is being held on another website</h3>
-                <p><%= link_to "View details of the consultation here", @document.external_url, rel: "external" %></p>
-              <% end %>
-            </div>
-          </div>
+
+          <%= render partial: "document_summary", locals: { document: @document } %>
         </div>
       <% else %>
 
@@ -92,23 +84,13 @@
           <div class="consultation-dates">
             <p>This consultation ran from <span><%= absolute_date(@document.opening_on, class: 'opening-on') %> to<br><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
           </div>
-          <div class="consultation-summary">
-            <div class="consultation-summary-inner">
-              <h2>Summary</h2>
-              <p><%= @document.summary %></p>
-              <% if @document.external? %>
-                <h3>This consultation is being held on another website</h3>
-                <p><%= link_to "View details of the consultation here", @document.external_url, rel: "external" %></p>
-              <% end %>
-            </div>
-          </div>
+
+          <%= render partial: "document_summary", locals: { document: @document } %>
         </div>
       <% end %>
 
-
       <%= render partial: "documents/attachment_full_width",
-                locals: { document: @document, title: 'Documents', summary: nil } %>
-
+                 locals: { document: @document, title: 'Documents' } %>
 
       <section class="heading-block">
         <h1>Consultation description</h1>

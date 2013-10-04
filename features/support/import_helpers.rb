@@ -1,10 +1,4 @@
 module ImportHelpers
-  def run_last_import
-    DelayedJobTestHelpers.without_delay! do
-      Import.last.perform
-    end
-  end
-
   def with_import_csv_file(data)
     tf = Tempfile.new('csv_import')
     tf << data
@@ -24,8 +18,6 @@ module ImportHelpers
       select organisation.name, from: 'Default organisation'
       click_button 'Save'
       click_button 'Run'
-
-      run_last_import
 
       visit current_path
     end
@@ -50,3 +42,14 @@ module ImportHelpers
 end
 
 World(ImportHelpers)
+
+require 'database_cleaner'
+DatabaseCleaner.clean_with :truncation # clean once to ensure clean slate
+
+Before('@import') do
+  Import.use_separate_connection
+end
+
+After('@import') do
+  DatabaseCleaner.clean_with :truncation
+end

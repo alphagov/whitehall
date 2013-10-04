@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as create(:policy_writer, organisation: create(:organisation))
   end
 
   should_be_an_admin_controller
@@ -69,27 +69,13 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal [soul], DetailedGuide.first.other_mainstream_categories
   end
 
-  test "update allows removal of other mainstream categories" do
-    funk = create(:mainstream_category, title: "Funk")
-    soul = create(:mainstream_category, title: "Soul")
-    existing_edition = create(:detailed_guide, primary_mainstream_category: funk, other_mainstream_categories: [soul])
-
-    attributes = controller_attributes_for_instance(existing_edition)
-    attributes.delete(:other_mainstream_category_ids)
-
-    put :update,
-      id: existing_edition,
-      edition: attributes
-
-    assert_equal [], existing_edition.reload.other_mainstream_categories
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})
-    super.except(:primary_mainstream_category, :alternative_format_provider).reverse_merge(
+    super.except(:primary_mainstream_category, :alternative_format_provider, :user_need_ids).reverse_merge(
       primary_mainstream_category_id: create(:mainstream_category).id,
-      alternative_format_provider_id: create(:alternative_format_provider).id
+      alternative_format_provider_id: create(:alternative_format_provider).id,
+      user_need_ids: [create(:user_need).id]
     )
   end
 end

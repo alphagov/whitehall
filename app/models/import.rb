@@ -33,6 +33,10 @@ class Import < ActiveRecord::Base
   validate :all_rows_have_old_url?, if: :valid_csv_data_encoding?
   validate :no_duplicate_old_urls, if: :valid_csv_data_encoding?
 
+  def self.excluding_csv_data
+    select(Import.columns.map(&:name) - ['csv_data'])
+  end
+
   def self.read_file(file)
     return nil unless file
     raw = file.read.force_encoding("ascii-8bit")
@@ -56,7 +60,7 @@ class Import < ActiveRecord::Base
 
   def enqueue!
     update_column(:import_enqueued_at, Time.zone.now)
-    Delayed::Job.enqueue(Job.new(self.id))
+    ImportWorker.perform_async(self.id)
   end
 
   def status
@@ -156,8 +160,6 @@ class Import < ActiveRecord::Base
   end
 
   def perform(options = {})
-    attachment_cache = options[:attachment_cache] || Whitehall::Uploader::AttachmentCache.new(Whitehall::Uploader::AttachmentCache.default_root_directory, progress_logger)
-
     progress_logger.start(rows)
     rows.each_with_index do |data_row, ix|
       row_number = ix + 2
@@ -165,24 +167,14 @@ class Import < ActiveRecord::Base
         progress_logger.info("blank, skipped", row_number)
         next
       end
-      row = row_class.new(data_row.to_hash, row_number, attachment_cache, organisation, progress_logger)
-      document_sources = DocumentSource.where(url: row.legacy_urls)
-      if document_sources.any?
-        document_sources.each do |document_source|
-          progress_logger.already_imported(document_source, row_number)
-        end
-      else
-        Edition::AuditTrail.acting_as(import_user) do
-          import_row(row, row_number, import_user, progress_logger)
-        end
-      end
+      ImportRowWorker.perform_async(id, data_row.to_hash, row_number)
     end
 
     progress_logger.finish
   end
 
   def progress_logger
-    @progress_logger ||= ProgressLogger.new(self)
+    @progress_logger ||= Whitehall::Uploader::ProgressLogger.new(self)
   end
 
   def log
@@ -192,23 +184,6 @@ class Import < ActiveRecord::Base
   def import_user
     User.find_by_name!("Automatic Data Importer")
   end
-
-  def import_row(row, row_number, creator, progress_logger)
-    progress_logger.with_transaction(row_number) do
-      attributes = row.attributes.merge(creator: creator, state: 'imported')
-      model = model_class.new(attributes)
-      if model.save
-        save_translation!(model, row) if row.translation_present?
-        assign_document_collections!(model, row.document_collections)
-        row.legacy_urls.each do |legacy_url|
-          DocumentSource.create!(document: model.document, url: legacy_url, import: self, row_number: row_number)
-        end
-      else
-        record_errors_for(model, row_number)
-      end
-    end
-  end
-  handle_asynchronously :import_row, priority: 10
 
   def headers
     rows.headers
@@ -272,48 +247,6 @@ class Import < ActiveRecord::Base
     end
   end
 
-  def record_errors_for(model, row_number, translated=false)
-    error_prefix = translated ? 'Translated ' : ''
-
-    model.errors.keys.each do |attribute|
-      next if [:attachments, :images].include?(attribute)
-      progress_logger.error("#{error_prefix}#{attribute}: #{model.errors[attribute].join(", ")}", row_number)
-    end
-    if model.respond_to?(:attachments)
-      model.attachments.reject(&:valid?).each do |a|
-        progress_logger.error("#{error_prefix}Attachment '#{a.attachment_source.url}': #{a.errors.full_messages.to_s}", row_number)
-      end
-    end
-    if model.respond_to?(:images)
-      model.images.reject(&:valid?).each do |i|
-        progress_logger.error("#{error_prefix}Image '#{i.caption}': #{i.errors.full_messages.to_s}", row_number)
-      end
-    end
-  end
-
-  def save_translation!(model, row)
-    translation = LocalisedModel.new(model, row.translation_locale)
-
-    if translation.update_attributes(row.translation_attributes)
-      if locale = Locale.find_by_code(row.translation_locale.to_s)
-        DocumentSource.create!(document: model.document, url: row.translation_url, locale: locale.code, import: self, row_number: row.line_number)
-      else
-        progress_logger.error("Locale not recognised", row.line_number)
-      end
-    else
-      record_errors_for(translation, row.line_number, true)
-    end
-  end
-
-  def assign_document_collections!(model, document_collections)
-    if document_collections.any?
-      groups = document_collections.map do |collection|
-        collection.groups.first_or_initialize(DocumentCollectionGroup.default_attributes)
-      end
-      model.document.document_collection_groups << groups
-    end
-  end
-
   def self.use_separate_connection
     # ActiveRecord stashes DB connections on a class
     # hierarchy basis, so this establishes a separate
@@ -329,73 +262,8 @@ class Import < ActiveRecord::Base
     ImportLog.establish_connection ActiveRecord::Base.configurations[Rails.env]
   end
 
-  class ProgressLogger
-    def initialize(import)
-      @import = import
-      @errors_during = []
-    end
-
-    def with_transaction(row_number, &block)
-      ActiveRecord::Base.transaction do
-        begin
-          @errors_during = []
-          yield
-        rescue => e
-          self.error(e.to_s + "\n" + e.backtrace.join("\n"), row_number)
-        end
-        raise ActiveRecord::Rollback if @errors_during.any?
-      end
-    end
-
-    def start(rows)
-      @import.update_column(:total_rows, rows.size)
-      @import.update_column(:import_started_at, Time.zone.now)
-    end
-
-    def finish
-      @import.update_column(:import_finished_at, Time.zone.now)
-    end
-
-    def info(message, row_number)
-      write_log(:info, message, row_number)
-    end
-
-    def warn(message, row_number)
-      write_log(:warning, message, row_number)
-    end
-
-    def error(error_message, row_number)
-      @errors_during << @import.import_errors.create!(row_number: row_number, message: error_message)
-    end
-
-    def already_imported(document_source, row_number)
-      error("#{document_source.url} already imported by import '#{document_source.import_id}' row '#{document_source.row_number}'", row_number)
-    end
-
-    def write_log(level, data, row_number)
-      @import.import_logs.create(row_number: row_number, level: level, message: data)
-    end
-  end
-
-  class Job < Struct.new(:id)
-    def perform(options = {})
-      import.perform options
-    end
-
-    def error(delayed_job, error)
-      import.progress_logger.error(error.to_s + error.backtrace.join("\n"), nil)
-    end
-
   private
-    def import
-      @import ||= begin
-                    Import.use_separate_connection
-                    Import.find(self.id)
-                  end
-    end
-  end
 
-  private
   def destroy_all_imported_documents
     Document.destroy_all(id: self.document_ids)
   end

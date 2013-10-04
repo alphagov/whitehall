@@ -1,10 +1,6 @@
 require "test_helper"
 
 class HomeControllerTest < ActionController::TestCase
-  include ActionDispatch::Routing::UrlFor
-  include PublicDocumentRoutesHelper
-  default_url_options[:host] = 'test.host'
-
   should_be_a_public_facing_controller
 
   view_test 'Atom feed has the right elements' do

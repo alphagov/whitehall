@@ -6,6 +6,7 @@ class DetailedGuide < Edition
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
   include Edition::HasMainstreamCategories
+  include Edition::UserNeeds
   include Edition::HasDocumentCollections
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true

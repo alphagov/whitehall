@@ -13,8 +13,8 @@ end
 
 Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
   policy = create(:published_policy, title: policy_title)
-  create(:topic, name: topic_1, policies: [policy])
-  create(:topic, name: topic_2, policies: [policy])
+  create(:topic, name: topic_1, editions: [policy])
+  create(:topic, name: topic_2, editions: [policy])
 end
 
 Given /^a published policy "([^"]*)" that does not apply to the nations:$/ do |policy_title, nation_names|

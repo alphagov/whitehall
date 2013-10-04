@@ -26,75 +26,10 @@ class Organisation < ActiveRecord::Base
             order: "edition_organisations.ordering ASC"
   has_many :editions,
             through: :edition_organisations
-  has_many :published_editions,
-            through: :edition_organisations,
-            class_name: "Edition",
-            conditions: { state: "published" },
-            source: :edition
-  has_many :corporate_publications,
-            through: :edition_organisations,
-            class_name: "Publication",
-            conditions: { "editions.publication_type_id" => PublicationType::CorporateReport.id },
-            source: :edition
   has_many :featured_editions,
             through: :featured_edition_organisations,
             source: :edition,
             order: "edition_organisations.ordering ASC"
-  has_many :detailed_guides,
-            through: :edition_organisations,
-            class_name: "DetailedGuide",
-            source: :edition
-  has_many :published_detailed_guides,
-            through: :edition_organisations,
-            class_name: "DetailedGuide",
-            conditions: { "editions.state" => "published" },
-            source: :edition
-  has_many :published_publications,
-            through: :edition_organisations,
-            class_name: "Publicationesque",
-            conditions: { "editions.state" => "published" },
-            source: :edition
-  has_many :published_consultations,
-            through: :edition_organisations,
-            class_name: "Consultation",
-            conditions: { "editions.state" => "published" },
-            source: :edition
-  has_many :published_non_statistics_publications,
-            through: :edition_organisations,
-            class_name: "Publication",
-            conditions: [ "editions.state='published' AND editions.publication_type_id NOT IN (?)",
-              PublicationType.statistical.map(&:id) ],
-            source: :edition
-  has_many :published_statistics_publications,
-            through: :edition_organisations,
-            class_name: "Publication",
-            conditions: [ "editions.state='published' AND editions.publication_type_id IN (?)",
-              PublicationType.statistical.map(&:id) ],
-            source: :edition
-  has_many :published_announcements,
-            through: :edition_organisations,
-            class_name: "Announcement",
-            conditions: { "editions.state" => "published"},
-            source: :edition
-  has_many :policies,
-            through: :edition_organisations,
-            class_name: "Policy",
-            source: :edition
-  has_many :published_policies,
-            through: :edition_organisations,
-            class_name: "Policy",
-            conditions: { "editions.state" => "published"},
-            source: :edition
-  has_many :scheduled_editions,
-            through: :edition_organisations,
-            class_name: "Edition",
-            conditions: { state: "scheduled" },
-            order: "scheduled_publication ASC",
-            source: :edition
-  has_many :document_collections,
-            through: :edition_organisations,
-            class_name: "DocumentCollection",
-            source: :edition
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
@@ -278,6 +213,12 @@ class Organisation < ActiveRecord::Base
     where("exists (#{published_editions_conditions})")
   end
 
+  def self.parent_organisations
+    where("not exists (" +
+      "select * from organisational_relationships " +
+      "where organisational_relationships.child_organisation_id=organisations.id)")
+  end
+
   def sub_organisations
     child_organisations.where(organisation_type_key: :sub_organisation)
   end
@@ -333,10 +274,40 @@ class Organisation < ActiveRecord::Base
     ministerial_roles.map { |mr| mr.speeches.published }.flatten.uniq
   end
 
-  def self.parent_organisations
-    where("not exists (" +
-      "select * from organisational_relationships " +
-      "where organisational_relationships.child_organisation_id=organisations.id)")
+  def published_editions
+    editions.published
+  end
+
+  def scheduled_editions
+    editions.scheduled.order('scheduled_publication ASC')
+  end
+
+  def published_announcements
+    published_editions.announcements
+  end
+
+  def published_consultations
+    published_editions.consultations
+  end
+
+  def published_detailed_guides
+    published_editions.detailed_guides
+  end
+
+  def published_policies
+    published_editions.policies
+  end
+
+  def published_non_statistics_publications
+    published_editions.non_statistical_publications
+  end
+
+  def published_statistics_publications
+    published_editions.statistical_publications
+  end
+
+  def corporate_publications
+    editions.corporate_publications
   end
 
   def destroyable?
@@ -356,7 +327,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def has_published_publications_of_type?(publication_type)
-    published_publications.where("editions.publication_type_id" => publication_type.id).any?
+    published_editions.where(publication_type_id: publication_type.id).any?
   end
 
   private

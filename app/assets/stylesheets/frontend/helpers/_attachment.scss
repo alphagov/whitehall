@@ -37,7 +37,7 @@ $thumbnail-width: 99px;
       height: 140px;
       background: white;
       outline: $gutter-one-sixth solid transparentize($black, 0.9);
-      @include ie-lte(7) {
+      @include ie-lte(8) {
         border: $gutter-one-sixth solid $grey-3;
       }
       @include box-shadow(0 2px 2px rgba(0,0,0,0.4));

@@ -7,6 +7,14 @@ module FilterRoutesHelper
     publications_path(path_arguments(objects))
   end
 
+  def consultations_filter_path(*objects)
+    consultations_path(path_arguments(objects))
+  end
+
+  def statistical_data_sets_filter_path(*objects)
+    statistical_data_sets_path(path_arguments(objects))
+  end
+
   def policies_filter_path(*objects)
     policies_path(path_arguments(objects))
   end

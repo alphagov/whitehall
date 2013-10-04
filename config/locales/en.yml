@@ -105,7 +105,7 @@ en:
     headings:
       field_of_operation: Field of operation
       applies_to_nations: Applies to
-      policy_team: Policy team
+      policy_team: Teams
       advisory_groups: Advisory groups
       document_collection:
         one: Collection
@@ -471,7 +471,7 @@ en:
       request_a_different_format: Request a different format.
       full_help_html: |
         If you use assistive technology and need a version of this document
-        in a more accesible format please email
+        in a more accessible format please email
         %{email}
         quoting your address, telephone number along with the title of the
         publication ("%{title}")%{references}.

@@ -1,0 +1,5 @@
+:verbose: false
+:concurrency:  4
+:queues:
+  - [imports, 2]
+  - [default, 5]

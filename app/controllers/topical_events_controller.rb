@@ -9,7 +9,7 @@ class TopicalEventsController < ClassificationsController
     @publications = fetch_associated(:published_publications, PublicationesquePresenter)
     @consultations = fetch_associated(:published_consultations, PublicationesquePresenter)
     @announcements = fetch_associated(:published_announcements, AnnouncementPresenter)
-    @detailed_guides = @classification.detailed_guides.published.includes(:translations, :document).limit(5)
+    @detailed_guides = @classification.published_detailed_guides.includes(:translations, :document).limit(5)
     @related_classifications = @classification.related_classifications
     @featured_editions = decorate_collection(@classification.classification_featurings.includes(:image, edition: :document).limit(5), FeaturedEditionPresenter)
     set_slimmer_organisations_header(@classification.organisations)
