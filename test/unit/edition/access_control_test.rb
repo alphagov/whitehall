@@ -30,20 +30,10 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  test "should be rejectable by editors if submitted" do
-    edition = build(:submitted_edition)
-    assert edition.rejectable_by?(build(:departmental_editor))
-  end
-
-  test "should not be rejectable by writers" do
-    edition = build(:submitted_edition)
-    refute edition.rejectable_by?(build(:policy_writer))
-  end
-
   [:draft, :rejected, :published, :archived, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
       edition = build("#{state}_edition")
-      refute edition.rejectable_by?(build(:departmental_editor))
+      refute edition.can_reject?
     end
   end
 

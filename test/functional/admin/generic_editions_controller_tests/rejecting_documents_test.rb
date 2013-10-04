@@ -7,17 +7,16 @@ class Admin::GenericEditionsController::RejectingDocumentsTest < ActionControlle
     login_as :policy_writer
   end
 
-  view_test "should display the 'Reject' button" do
-    edition = create(:edition)
-    edition.stubs(:rejectable_by?).returns(true)
+  view_test "displays the 'Reject' button for privileged users " do
+    login_as :departmental_editor
+    edition = create(:submitted_edition)
     GenericEdition.stubs(:find).with(edition.to_param).returns(edition)
     get :show, id: edition
     assert_select reject_button_selector(edition), count: 1
   end
 
-  view_test "shouldn't display the 'Reject' button" do
+  view_test "doesn't display the 'Reject' button for unprivileged users" do
     edition = create(:edition)
-    edition.stubs(:rejectable_by?).returns(false)
     GenericEdition.stubs(:find).with(edition.to_param).returns(edition)
     get :show, id: edition
     refute_select reject_button_selector(edition)

@@ -31,7 +31,7 @@
         <%= publish_edition_form(@edition, force: true) %>
       <% end %>
 
-      <%= reject_edition_button(@edition) if @edition.rejectable_by?(current_user) %>
+      <%= reject_edition_button(@edition) if @edition.can_reject? && can?(:reject, @edition) %>
       <%= delete_edition_button(@edition) if @edition.can_delete? %>
       <%= unpublish_edition_button(@edition) if @edition.unpublishable_by?(current_user) %>
     </section>

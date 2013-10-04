@@ -98,10 +98,6 @@ module Edition::Publishing
     errors
   end
 
-  def rejectable_by?(user)
-    submitted? && enforcer(user).can?(:reject)
-  end
-
   def approvable_retrospectively_by?(user)
     !reason_to_prevent_retrospective_approval_by(user)
   end
