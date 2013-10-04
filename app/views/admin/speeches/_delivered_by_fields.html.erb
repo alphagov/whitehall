@@ -1,6 +1,6 @@
 <div class="role_appointment">
   <%= form.label :role_appointment_id, 'Speaker' %>
-  <%= form.select :role_appointment_id, options_from_collection_for_select(role_appointment_options, :first, :last, edition.role_appointment_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose a speaker..." } %>
+  <%= form.select :role_appointment_id, options_from_collection_for_select(role_appointment_options, :first, :last, edition.role_appointment_id), { include_blank: true }, class: 'chzn-select', data: { placeholder: "Choose a person..." } %>
 </div>
 <div class="edition_person_override">
   <%= form.text_field :person_override, label_text: "Speaker" %>
