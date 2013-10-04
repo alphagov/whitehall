@@ -101,14 +101,20 @@ module Admin::EditionsHelper
   end
 
   def speech_type_label_data
-    label_data = SpeechType.all.map do |speech_type|
-      [ speech_type.id,
-        { ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
-          publishedExternallyLabel: t_delivered_on(speech_type),
-          locationRelevant: speech_type.location_relevant }
-      ]
+    label_data = SpeechType.all.inject({}) do |hash, speech_type|
+      hash.merge(speech_type.id => {
+        ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
+        publishedExternallyLabel: t_delivered_on(speech_type),
+        locationRelevant: speech_type.location_relevant
+      })
     end
-    Hash[label_data]
+
+    imported_type = SpeechType.find_by_name('Imported - Awaiting Type')
+    label_data.merge('' => {
+        ownerGroup: I18n.t("document.speech.#{imported_type.owner_key_group}"),
+        publishedExternallyLabel: t_delivered_on(imported_type),
+        locationRelevant: imported_type.location_relevant
+      })
   end
 
   class EditionFormBuilder < Whitehall::FormBuilder
@@ -303,5 +309,11 @@ module Admin::EditionsHelper
       parts << "#{label}: #{value}" if value.present?
     end
     content_tag(:p, parts.join(', ')) if parts.any?
+  end
+
+  def format_advice_map(format_type_class)
+    format_type_class.all.inject({}) do |hash, type|
+      hash.merge(type.id => t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
+    end
   end
 end

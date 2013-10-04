@@ -93,7 +93,7 @@ module DocumentHelper
     role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     speech_type = SpeechType::Transcript
     begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content")
-    select speech_type.name, from: "Type"
+    select speech_type.name, from: "Speech type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
     select_date 1.day.ago.to_s, from: "Delivered on"
     fill_in "Location", with: "The Drawing Room"

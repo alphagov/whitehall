@@ -1,7 +1,7 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :name, :plural_name, :genus_key, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant
+  attr_accessor :id, :name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant
 
   def self.create(attributes)
     super({
@@ -13,10 +13,6 @@ class SpeechType
 
   def slug
     name.downcase.gsub(/[^a-z]+/, "-")
-  end
-
-  def display_type_key
-    @genus_key || @key
   end
 
   def self.find_by_name(name)
@@ -49,20 +45,28 @@ class SpeechType
     types
   end
 
+  def genus_key
+    'speech'
+  end
+
+  def display_type_key
+    statement_to_parliament? ? key : genus_key
+  end
+
   Transcript = create(
-    id: 1, name: "Transcript", genus_key: "speech", key: "transcript",
+    id: 1, name: "Transcript", key: "transcript",
     explanation: "Transcript of the speech, exactly as it was delivered",
     plural_name: "Transcripts"
   )
 
   DraftText = create(
-    id: 2, name: "Draft text", genus_key: "speech", key: "draft_text",
+    id: 2, name: "Draft text", key: "draft_text",
     explanation: "Original script, may differ from delivered version",
     plural_name: "Draft texts"
   )
 
   SpeakingNotes = create(
-    id: 3, name: "Speaking notes", genus_key: "speech", key: "speaking_notes",
+    id: 3, name: "Speaking notes", key: "speaking_notes",
     explanation: "Speaker's notes, may differ from delivered version",
     plural_name: "Speaking notes"
   )

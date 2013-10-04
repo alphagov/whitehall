@@ -114,5 +114,7 @@ jQuery(document).ready(function($) {
   }
 
   GOVUK.largeImportLogs.init($('.large-data-set'));
+
+  GOVUK.formatAdvice.init($('.subtype').filter('select'));
 });
 

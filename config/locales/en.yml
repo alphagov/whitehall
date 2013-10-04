@@ -485,10 +485,70 @@ en:
         intended_use: |
           Press releases, news stories and responses to media coverage including official statements.
           Do *not* use for: promoting the publication of other content (e.g. statistics).
+        press_release:
+          intended_use: |
+            Unedited press releases as sent to the media, and official statements from the organisation or a minister.
+            Do *not* use for: statements to Parliament. Use the "Speech" format for those.
+        news_story:
+          intended_use: News written exclusively for GOV.UK which users need, can act on and can't get from other sources. Avoid duplicating press releases.
+        government_response:
+          intended_use: |
+            Government statements in response to media coverage, such as rebuttals and 'myth busters'.
+            Do *not* use for: statements to Parliament. Use the "Speech" format for those.
+        announcement:
+          intended_use: DO NOT USE. This is a legacy category for content created before sub-types existed.
+        imported:
+          intended_use: DO NOT USE. This is a holding category for content that has been imported automatically.
       publication:
         intended_use: Stand-alone government documents, issued on a specified date through GOV.UK for distribution.
+        policy_paper:
+          intended_use: Publications that relate to the setting and delivery of government policy. Includes white papers, strategies, operational plans, action plans, implementation plans (excludes consultations, research and impact assessments, or internal procedural "policies").
+        impact_assessment:
+          intended_use: Cost-benefit analyses and other assessments of the impact of proposed initiatives, or changes to regulations or legislation.
+        guidance:
+          intended_use: |
+            Non-statutory guidance publications. Includes: manuals, handbooks and other documents that offer advice.
+            Do *not* use for: statutory guidance (use the "statutory guidance" publication type) or guidance about completing a form (attach to same publication as the form itself).
+        statutory_guidance:
+          intended_use: Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the "guidance" sub-type).
+        form:
+          intended_use: Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (i.e. no need to create a separate "guidance" publication for form instructions).
+        statistics:
+          intended_use: Official statistics, of the kind governed by the UK Statistics Authority and produced by members of the Government Statistical Service.
+        national_statistics:
+          intended_use: Official statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.
+        research:
+          intended_use: Research and evaluation papers. Can be conducted by government, commissioned by government or independent of government.
+        corporate_report:
+          intended_use: Publications about what an organisation does (eg business plans, annual reports, accounts), or any plans that affect the organisation (eg structural reform plans, efficiency reviews). Corporate reports are shown automatically on the organisation's "What we do" page.
+        transparency:
+          intended_use: |
+            Information made available about departmental operations with the intent of making government more transparent.
+            Includes organisation charts, staff survey results, departmental spending, salaries, contracts, meetings with ministers, etc.
+            Do *not* use for: FOI responses.
+        international_treaty:
+          intended_use: Treaties and memoranda of understanding between the UK and other nations.
+        foi_release:
+          intended_use: Responses to Freedom of Information requests. Ensure the title describes specifically what the request is about.
+        independent_report:
+          intended_use: Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.
+        correspondence:
+          intended_use: |
+            Ministerial or departmental responses (e.g. to campaign letters), announcements, or statements;
+            regularly issued circulars or bulletins (e.g. fire service circulars), official correspondence to professionals (e.g. "Dear chief planning officer" letters);
+            letters to individuals or organisations that are published to share with a wider audience than their original recipient;
+            online versions of e-bulletins or newsletters.
+            Do *not* use for: minutes, agendas or other meeting papers. Attach them to relevant "policy detail", "team" or "our governance" pages instead.
+        promotional:
+          intended_use: Leaflets, posters, fact sheets and marketing collateral.
+        map:
+          intended_use: Drawn maps and geographical data.
+        publication:
+          intended_use: DO NOT USE. This is a legacy category for content created before sub-types existed.
+        imported:
+          intended_use: DO NOT USE. This is a holding category for content that has been imported automatically.
       policy:
-        intended_use: A plain English definition of an outcome government is working to achieve and the specific actions it\'s taking. Related content (news etc.) should be associated to policies.
+        intended_use: A plain English definition of an outcome government is working to achieve and the specific actions it's taking. Related content (news etc.) should be associated to policies.
       policy_supporting_page:
         intended_use: Detailed background or information about an action government is taking in relation to a policy.
       detailed_guidance:
@@ -496,14 +556,28 @@ en:
       worldwide_priority:
         intended_use: A plain English definition of an outcome government is working to achieve in a specific world location. Related content (news etc.) should be associated to worldwide priorities.
       world_location_news_article:
-        intended_use: Announcements specific to one or more world location. Don\'t duplicate news published by another department.
+        intended_use: Announcements specific to one or more world location. Don't duplicate news published by another department.
       statistical_data_set:
         intended_use: |
           Frequently updated ("live") statistical data files.
           Do *not* use for: less frequently updated (e.g. quarterly) data. Use a publication (subtype: statistics) instead.
       fatality_notice:
-        intended_use: Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don\'t publish a news story which duplicates this announcement.
+        intended_use: Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don't publish a news story which duplicates this announcement.
       speech:
         intended_use: |
           Public speeches by ministers or other named spokespeople, ministerial statements to Parliament and bylined articles.
           Do not use for: statements *not* made to Parliament (use the "news article" format for those).
+        transcript:
+          intended_use: A verbatim report of exactly what the speaker said (checked against delivery).
+        draft_text:
+          intended_use: A script of what the speaker was expected to say (check against delivery).
+        speaking_notes:
+          intended_use: Incomplete notes about what the speech covered.
+        written_statement:
+          intended_use: Very significant written statements given to Parliament by a minister.
+        oral_statement:
+          intended_use: Very significant oral statements given to Parliament by a minister.
+        authored_article:
+          intended_use: Bylined articles written in the name of a minister or official (usually re-published from elsewhere).
+        imported:
+          intended_use: DO NOT USE. This is a holding category for content that has been imported automatically.

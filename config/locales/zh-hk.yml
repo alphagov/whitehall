@@ -402,15 +402,75 @@ zh-hk:
       fatality_notice:
         intended_use:
       news_article:
+        announcement:
+          intended_use:
+        government_response:
+          intended_use:
+        imported:
+          intended_use:
         intended_use:
+        news_story:
+          intended_use:
+        press_release:
+          intended_use:
       policy:
         intended_use:
       policy_supporting_page:
         intended_use:
       publication:
+        corporate_report:
+          intended_use:
+        correspondence:
+          intended_use:
+        foi_release:
+          intended_use:
+        form:
+          intended_use:
+        guidance:
+          intended_use:
+        impact_assessment:
+          intended_use:
+        imported:
+          intended_use:
+        independent_report:
+          intended_use:
         intended_use:
+        international_treaty:
+          intended_use:
+        map:
+          intended_use:
+        national_statistics:
+          intended_use:
+        policy_paper:
+          intended_use:
+        promotional:
+          intended_use:
+        publication:
+          intended_use:
+        research:
+          intended_use:
+        statistics:
+          intended_use:
+        statutory_guidance:
+          intended_use:
+        transparency:
+          intended_use:
       speech:
+        authored_article:
+          intended_use:
+        draft_text:
+          intended_use:
+        imported:
+          intended_use:
         intended_use:
+        oral_statement:
+          intended_use:
+        speaking_notes:
+          intended_use:
+        transcript:
+          intended_use:
+        written_statement:
+          intended_use:
       statistical_data_set:
         intended_use:
       world_location_news_article:
