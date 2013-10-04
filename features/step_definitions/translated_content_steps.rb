@@ -41,7 +41,7 @@ Then /^I should see on the admin edition page that "([^"]*)" has a french transl
 end
 
 Given(/^the organisation "(.*?)" has a contact "(.*?)"$/) do |organisation_name, contact_title|
-  organisation = create(:organisation, name: organisation_name)
+  organisation = create(:organisation, name: organisation_name, translated_into: :cy)
   create(:contact, title: contact_title, country: create(:world_location),
          street_address: '123 The Avenue', contactable: organisation)
 end

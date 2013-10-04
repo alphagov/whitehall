@@ -59,4 +59,8 @@ class Contact < ActiveRecord::Base
   def general?
     contact_type == ContactType::General
   end
+
+  def missing_translations
+    super & contactable.non_english_translated_locales
+  end
 end
