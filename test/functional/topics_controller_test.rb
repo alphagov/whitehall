@@ -31,7 +31,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   view_test "GET :show lists the published policies and their summaries" do
     published_policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    topic = create(:topic, policies: [published_policy])
+    topic = create(:topic, editions: [published_policy])
 
     get :show, id: topic
 
@@ -83,18 +83,18 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "GET :show lists published statistic data sets and links to more" do
+  view_test "GET :show lists published statistical publications and links to more" do
     topic = create(:topic)
     published = []
     4.times do |i|
-      published << create(:published_statistical_data_set, {
+      published << create(:published_statistics, {
         title: "title-#{i}", topics: [topic], first_published_at: i.days.ago
       })
     end
 
     get :show, id: topic
 
-    assert_select "#statistical_data_sets" do
+    assert_select "#statistics" do
       published.take(3).each do |edition|
         assert_select "a", text: edition.title, href: public_document_path(edition)
       end
@@ -128,7 +128,7 @@ class TopicsControllerTest < ActionController::TestCase
     6.times do |i|
       published_detailed_guides << create(:published_detailed_guide, title: "detailed-guide-title-#{i}")
     end
-    topic = create(:topic, detailed_guides: published_detailed_guides)
+    topic = create(:topic, editions: published_detailed_guides)
 
     get :show, id: topic
 

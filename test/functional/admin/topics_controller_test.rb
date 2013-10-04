@@ -118,7 +118,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   end
 
   test "DELETE :destroy does not delete topics with associated content" do
-    topic = create(:topic, policies: [build(:published_policy)])
+    topic = create(:topic, editions: [build(:published_policy)])
 
     delete :destroy, id: topic
     assert_equal "Cannot destroy Topic with associated content", flash[:alert]

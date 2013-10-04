@@ -344,16 +344,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.featured_editions.include?(new_version)
   end
 
-  test '#published_detailed_guides returns published detailed guides' do
-    organisation = create(:organisation)
-    alpha = create(:draft_detailed_guide, organisations: [organisation], title: "Alpha")
-    beta = create(:published_detailed_guide, organisations: [organisation], title: "Beta")
-    gamma = create(:published_detailed_guide, organisations: [organisation], title: "Gamma")
-    delta = create(:published_detailed_guide, organisations: [organisation], title: "Delta")
-
-    assert_same_elements [gamma, beta, delta], organisation.published_detailed_guides
-  end
-
   test '#published_announcements returns published news or speeches' do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])

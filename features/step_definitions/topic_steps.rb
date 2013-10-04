@@ -140,14 +140,14 @@ end
 Then /^I should see published policies belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
   actual_editions = records_from_elements(Edition, page.all(".policy")).sort_by(&:id)
-  expected_editions = topic.policies.published.all.sort_by(&:id)
+  expected_editions = topic.published_policies.sort_by(&:id)
   assert_equal expected_editions, actual_editions
 end
 
 Then /^I should only see published detailed guides belonging to the "([^"]*)" topic$/ do |name|
   topic = Topic.find_by_name!(name)
   actual_editions = records_from_elements(Edition, page.all(".detailed_guide")).sort_by(&:id)
-  expected_editions = topic.detailed_guides.published.all.sort_by(&:id)
+  expected_editions = topic.published_detailed_guides.all.sort_by(&:id)
   assert_equal expected_editions, actual_editions
 end
 
@@ -171,7 +171,7 @@ Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
 end
 
 When(/^I feature one of the policies on the topic$/) do
-  @policy = @topic.policies.published.last
+  @policy = @topic.published_policies.last
   visit admin_topic_path(@topic)
   click_on 'Featured documents'
 
