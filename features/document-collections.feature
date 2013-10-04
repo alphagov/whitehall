@@ -1,4 +1,4 @@
-Feature: Grouping documents into collection
+Feature: Grouping documents into a collection
   As an organisation,
   I want to present regularly published documents as collection
   So that my users can more easily find earlier publications of the same type
@@ -26,3 +26,8 @@ Feature: Grouping documents into collection
     Given a published publication called "May 2012 Update" in the document collection "Monthly Updates"
     When I visit the publication "May 2012 Update"
     Then I should see links back to the collection
+
+  Scenario: Legacy document series urls are redirected to the new document collection urls
+    Given a published document collection "Rail statistics" exists
+    When I visit the old document series url "/government/organisations/government-department/series/rail-statistics"
+    Then I should be redirected to the "Rail statistics" document collection

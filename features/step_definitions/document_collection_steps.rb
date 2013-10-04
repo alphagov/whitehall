@@ -87,3 +87,12 @@ Then(/^I should see links back to the collection$/) do
   @document_collection
   assert page.has_css?("a[href='#{public_document_path(@document_collection)}']")
 end
+
+When(/^I visit the old document series url "(.*?)"$/) do |url|
+  visit url
+end
+
+Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
+  dc = DocumentCollection.find_by_title(title)
+  assert_equal public_document_path(dc), page.current_path
+end

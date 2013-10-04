@@ -107,8 +107,7 @@ Whitehall::Application.routes.draw do
     get '/collections' => redirect("/publications")
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
-      #redirects /gov/organisations/:org_id/series/:id => /gov/collections/:id
-      match '/series/:collection_id' => redirect("/collections/%{collection_id}")
+      match '/series/:slug' => redirect("/collections/%{slug}")
       match '/series' => redirect("/publications")
 
       member do
