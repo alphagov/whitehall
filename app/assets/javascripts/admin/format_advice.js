@@ -9,7 +9,15 @@ GOVUK.formatAdvice = {
     $subtypeFields.change(function() {
       $field = $(this);
       var formatAdviceMap = $field.data('format-advice');
-      $subformatAdvice.text(formatAdviceMap[$field.val()] || '');
+
+      var adviceText = formatAdviceMap[$field.val()];
+      if (adviceText) {
+        var selectedText = $field.find(':selected').text();
+        var adviceHTML = '<strong>'+selectedText+'</strong>: '+adviceText;
+        $subformatAdvice.html(adviceHTML);
+      } else {
+        $subformatAdvice.text('');
+      }
     }).change();
   }
 };
