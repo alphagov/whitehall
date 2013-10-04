@@ -56,7 +56,7 @@ protected
       groups = document_collections.map do |collection|
         collection.groups.first_or_initialize(DocumentCollectionGroup.default_attributes)
       end
-      model.document.document_collections_groups << groups
+      model.document.document_collection_groups << groups
     end
   end
 
