@@ -42,7 +42,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Add translation</h3>
       </div>
-      <%= form_tag(admin_organisation_contact_translations_path(contactable, contact)) do %>
+      <%= form_tag([:admin, contactable, contact, :translations]) do %>
         <div class="modal-body">
           <%= label_tag :translation_locale, 'Locale' %>
           <%= select_locale :translation_locale, contact.missing_translations %>
