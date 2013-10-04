@@ -12,7 +12,7 @@
         <%= convert_to_draft_edition_form(@edition) %>
       <% end %>
 
-      <% if @edition.unschedulable_by?(current_user) %>
+      <% if @edition.can_unschedule? && can?(:update, @edition) %>
         <%= unschedule_edition_button(@edition) %>
       <% end %>
 

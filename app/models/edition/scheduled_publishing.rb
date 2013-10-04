@@ -42,26 +42,17 @@ module Edition::ScheduledPublishing
     end
   end
 
-  def unschedulable_by?(user)
-    reason_to_prevent_unscheduling_by(user).nil?
-  end
-
-  def reason_to_prevent_unscheduling_by(user)
-    if !scheduled?
-      "This edition is not scheduled for publication"
-    elsif !enforcer(user).can?(:update)
-      "You do not have permission to unschedule this publication"
-    end
+  def reason_to_prevent_unscheduling
+    "This edition is not scheduled for publication" if !scheduled?
   end
 
   def unschedule_as(user)
-    if unschedulable_by?(user)
+    if reason = reason_to_prevent_unscheduling
+      errors.add(:base, reason)
+      false
+    else
       self.force_published = false
       unschedule!
-      true
-    else
-      errors.add(:base, reason_to_prevent_unscheduling_by(user))
-      false
     end
   end
 

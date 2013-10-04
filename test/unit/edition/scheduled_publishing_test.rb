@@ -130,11 +130,9 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     Edition.state_machine.states.each do |state|
       edition = build(:edition, state.name)
       if state.name == :scheduled
-        assert edition.unschedulable_by?(author)
-        assert_equal nil, edition.reason_to_prevent_unscheduling_by(author)
+        assert_equal nil, edition.reason_to_prevent_unscheduling
       else
-        refute edition.unschedulable_by?(author)
-        assert_equal "This edition is not scheduled for publication", edition.reason_to_prevent_unscheduling_by(author)
+        assert_equal "This edition is not scheduled for publication", edition.reason_to_prevent_unscheduling
       end
     end
   end
@@ -145,15 +143,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert edition.unschedule_as(author)
     assert_equal "submitted", edition.state
     assert_equal false, edition.force_published
-  end
-
-  test "unscheduling adds reason for failure to validation errors" do
-    author = build(:author)
-    edition = build(:edition, :scheduled)
-    edition.stubs(:unschedulable_by?).returns(false)
-    edition.stubs(:reason_to_prevent_unscheduling_by).returns('a spurious reason')
-    edition.unschedule_as(author)
-    assert_equal ['a spurious reason'], edition.errors.full_messages
   end
 
   test "can find editions due for publication" do
