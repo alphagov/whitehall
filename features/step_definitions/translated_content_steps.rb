@@ -42,7 +42,8 @@ end
 
 Given(/^the organisation "(.*?)" has a contact "(.*?)"$/) do |organisation_name, contact_title|
   organisation = create(:organisation, name: organisation_name)
-  create(:contact, title: contact_title, contactable: organisation)
+  create(:contact, title: contact_title, country: create(:world_location),
+         street_address: '123 The Avenue', contactable: organisation)
 end
 
 When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_title, english_title|
@@ -55,4 +56,11 @@ When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_tit
   fill_in "Recipient", with: "Welsh recipient"
   fill_in "Street address", with: "Welsh street address"
   click_button "Save"
+end
+
+Then(/^I should see on the admin organisation contacts page that "(.*?)" has a welsh translation "(.*?)"$/) do |english_title, welsh_title|
+  contact = Contact.where(title: english_title).first
+  visit admin_organisation_contacts_path(contact.contactable)
+  assert page.has_text?("Cymraeg (Welsh) translation")
+  assert page.has_text?(welsh_title)
 end

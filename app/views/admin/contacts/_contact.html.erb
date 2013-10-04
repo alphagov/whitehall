@@ -55,4 +55,14 @@
     </div>
   <% end %>
 
+  <% contact.non_english_localised_models.each do |translated_contact| %>
+    <hr />
+    <h3><small><%= translated_contact.translation_locale.native_and_english_language_name %> translation</small></h3>
+
+    <h3><%= translated_contact.title %></h3>
+
+    <div class="vcard">
+      <%= render_hcard_address(translated_contact) %>
+    </div>
+  <% end %>
 <% end %>

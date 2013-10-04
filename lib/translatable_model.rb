@@ -23,6 +23,14 @@ module TranslatableModel
     Locale.non_english - non_english_translated_locales
   end
 
+  def non_english_localised_models
+    non_english_translated_locale_codes.map { |l| LocalisedModel.new(self, l) }
+  end
+
+  def translation_locale
+    Locale.new(translation.locale)
+  end
+
   private
 
   def non_english_translated_locale_codes
