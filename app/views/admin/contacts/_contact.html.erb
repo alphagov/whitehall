@@ -64,5 +64,7 @@
     <div class="vcard">
       <%= render_hcard_address(translated_contact) %>
     </div>
+
+    <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]), class: "btn btn-small" %>
   <% end %>
 <% end %>
