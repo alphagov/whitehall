@@ -15,5 +15,5 @@ class SpeechTypeTest < ActiveSupport::TestCase
       refute speech_type.search_format_types.include?('speech-statement-to-parliament')
     end
   end
-  
+
 end
