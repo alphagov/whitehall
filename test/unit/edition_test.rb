@@ -317,11 +317,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
 
-  test "should not be publishable when not submitted" do
-    draft_edition = create(:draft_edition)
-    refute draft_edition.publishable_by?(create(:departmental_editor))
-  end
-
   test "should not return published editions in submitted" do
     edition = create(:submitted_edition)
     edition.publish_as(create(:departmental_editor))

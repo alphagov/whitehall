@@ -66,23 +66,13 @@ module Edition::Publishing
     reasons_to_prevent_unpublication_by(user).empty?
   end
 
-  def approvable_by?(user, options = {})
-    reason_to_prevent_approval_by(user, options).nil?
-  end
-
   def reason_to_prevent_approval_by(user, options = {})
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
-    elsif imported?
-      "This edition is not ready for publishing"
     elsif published?
       "This edition has already been published"
-    elsif archived?
-      "This edition has been archived"
-    elsif deleted?
-      "This edition has been deleted"
-    elsif rejected?
-      "This edition has been rejected"
+    elsif !can_publish?
+      "This edition has been #{current_state}"
     elsif !submitted? && !options[:force]
       "Not ready for publication"
     elsif user == creator && !options[:force]
@@ -93,7 +83,19 @@ module Edition::Publishing
   end
 
   def reason_to_prevent_publication_by(user, options = {})
-    reason_to_prevent_approval_by(user, options)
+    if scheduled?
+      if Time.zone.now < scheduled_publication
+        "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
+      elsif !valid?
+        "Can't publish invalid scheduled publication"
+      elsif !user.can_publish_scheduled_editions?
+        "User must have permission to publish scheduled publications"
+      end
+    elsif scheduled_publication.present?
+      "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
+    else
+      reason_to_prevent_approval_by(user, options)
+    end
   end
 
   def reasons_to_prevent_unpublication_by(user)

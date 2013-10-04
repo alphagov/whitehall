@@ -65,22 +65,6 @@ module Edition::ScheduledPublishing
     end
   end
 
-  def reason_to_prevent_publication_by(user, options = {})
-    if scheduled?
-      if Time.zone.now < scheduled_publication
-        "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
-      elsif !valid?
-        "Can't publish invalid scheduled publication"
-      elsif !user.can_publish_scheduled_editions?
-        "User must have permission to publish scheduled publications"
-      end
-    elsif scheduled_publication.present?
-      "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
-    else
-      super
-    end
-  end
-
   private
 
   def scheduled_publication_is_in_the_future
