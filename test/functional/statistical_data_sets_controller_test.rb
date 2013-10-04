@@ -1,7 +1,6 @@
 require "test_helper"
 
 class StatisticalDataSetsControllerTest < ActionController::TestCase
-  include DocumentViewAssertions
   should_be_a_public_facing_controller
   should_display_attachments_for :statistical_data_set
   should_be_previewable :statistical_data_set
