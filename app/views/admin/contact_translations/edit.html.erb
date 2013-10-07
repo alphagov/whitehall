@@ -10,12 +10,21 @@
 
         <%= form.translated_text_field :title %>
         <%= form.translated_text_area :comments %>
+
         <%= form.translated_text_field :recipient %>
         <%= form.translated_text_area :street_address %>
         <%= form.translated_text_field :locality %>
         <%= form.translated_text_field :region %>
+
         <%= form.translated_text_field :email %>
         <%= form.translated_text_field :contact_form_url %>
+
+        <%= form.fields_for :contact_numbers, @translated_contact.contact_numbers do |number_form| %>
+          <fieldset class="contact_number well">
+            <%= number_form.translated_text_field :label %>
+            <%= number_form.translated_text_field :number %>
+          </fieldset>
+        <% end %>
 
         <%= form.save_or_cancel cancel: admin_organisation_contacts_path(@contactable) %>
       <% end %>

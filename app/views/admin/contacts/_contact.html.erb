@@ -55,7 +55,7 @@
     </div>
   <% end %>
 
-  <% contact.non_english_localised_models.each do |translated_contact| %>
+  <% contact.non_english_localised_models([:contact_numbers]).each do |translated_contact| %>
     <hr />
     <h3><small><%= translated_contact.translation_locale.native_and_english_language_name %> translation</small></h3>
 
@@ -64,6 +64,15 @@
     <div class="vcard">
       <%= render_hcard_address(translated_contact) %>
     </div>
+
+    <%= content_tag(:dl, class: "dl-horizontal") do %>
+      <% translated_contact.contact_numbers.each do |cn| %>
+        <%= definition(cn.label, cn.number) %>
+      <% end %>
+      <% if contact.email.present? %>
+        <%= definition('Email', contact.email) %>
+      <% end %>
+    <% end %>
 
     <%= button_to "Delete", [:admin, contactable, contact, translated_contact.translation_locale], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from contact '#{contact.title}'?" %>
     <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]), class: "btn btn-small" %>

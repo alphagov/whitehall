@@ -39,8 +39,8 @@ private
   end
 
   def load_translated_and_english_contact
-    @translated_contact = LocalisedModel.new(@contact, translation_locale.code)
-    @english_contact = LocalisedModel.new(@contact, :en)
+    @translated_contact = LocalisedModel.new(@contact, translation_locale.code, [:contact_numbers])
+    @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end
 
   def notice_message(action)

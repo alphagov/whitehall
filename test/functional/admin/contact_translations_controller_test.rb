@@ -26,6 +26,16 @@ class Admin::ContactTranslationsControllerTest < ActionController::TestCase
     assert_select "h1", text: "Edit 'Français (French)' translation for: english-title"
   end
 
+  view_test "edit displays translation boxes for contact numbers" do
+    organisation = create(:organisation)
+    contact = create(:contact, contactable: organisation, title: "english-title")
+    contact_number = create(:contact_number, contact: contact, number: "123456789 english-number")
+
+    get :edit, organisation_id: organisation, contact_id: contact, id: "fr"
+
+    assert_select "input", value: "123456789 english-number"
+  end
+
   test "update updates translation and redirects back to contacts list" do
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation, title: "english-title")
