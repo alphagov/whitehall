@@ -27,20 +27,16 @@
     <%= button_to "Run", run_admin_import_path(@import), class: "btn btn-large btn-primary" %>
   <% elsif @import.status == :queued %>
     <h2 class="summary">Queued</h2>
-  <% elsif @import.status == :running %>
-    <h2 class="summary">Import running (row <%= @import.current_row %>/<%= @import.total_rows %>)</h2>
-
-    <%= render partial: "errors", locals: {import: @import} %>
   <% else %>
     <h2 class="summary">
-      Imported finished:
+      Import summary:
       <%= link_to pluralize(@import.rows.count, 'row'), annotated_admin_import_path(@import), class:"download", title: "Download CSV" %>,
       <%= link_to "#{@import.documents.count} passed", annotated_admin_import_path(@import, filter: :succeeded), class:"download", title: "Download CSV" %>,
       <%= link_to "#{@import.number_of_rows_with_errors} failed", annotated_admin_import_path(@import, filter: :failed), class:"download", title: "Download CSV" %>
     </h2>
 
     <% if @import.missing_row_numbers.any? %>
-      The following rows failed with no error message recorded: <%= @import.missing_row_numbers.join(', ') %>
+      <p>The following rows are either still running or failed with no error message recorded: <%= @import.missing_row_numbers.join(', ') %></p>
     <% end %>
 
     <% if @import.document_sources.any? %>
