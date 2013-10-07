@@ -24,9 +24,9 @@
 
       <%= submit_edition_button(@edition) if @edition.can_submit? %>
 
-      <% if can?(:publish, @edition) %>
+      <% if @edition.can_publish? && can?(:publish, @edition) %>
         <%= publish_edition_form(@edition) %>
-      <% elsif can?(:force_publish, @edition) %>
+      <% elsif @edition.can_force_publish? && can?(:force_publish, @edition) %>
         <%= render partial: "admin/edition_workflow/force_publish_modal", locals: { extra_css_classes: "hide" } %>
         <%= publish_edition_form(@edition, force: true) %>
       <% end %>

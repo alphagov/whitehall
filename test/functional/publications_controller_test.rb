@@ -563,8 +563,8 @@ class PublicationsControllerTest < ActionController::TestCase
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
-      collection.publish_as(editor, force: true)
-      publication.publish_as(editor, force: true)
+      collection.perform_force_publish
+      publication.perform_force_publish
       get :index
 
       assert_select_object(publication) do
@@ -579,8 +579,8 @@ class PublicationsControllerTest < ActionController::TestCase
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
-      collection.publish_as(editor, force: true)
-      publication.publish_as(editor, force: true)
+      collection.perform_force_publish
+      publication.perform_force_publish
 
       get :index, format: :json
 

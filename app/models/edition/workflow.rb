@@ -72,9 +72,12 @@ module Edition::Workflow
       end
 
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: [:draft, :submitted], to: :published,
-          guard: -> edition { edition.scheduled_publication.blank? }
-        transitions from: [:scheduled], to: :published
+        transitions from: :submitted, to: :published, guard: :scheduled_publication_time_not_set
+        transitions from: :scheduled, to: :published
+      end
+
+      event :force_publish, success: -> edition { edition.run_callbacks(:publish) } do
+        transitions from: [:draft, :submitted], to: :published, guard: :scheduled_publication_time_not_set
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
@@ -117,5 +120,11 @@ module Edition::Workflow
     if existing_edition = document.unpublished_edition
       errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
+  end
+
+private
+
+  def scheduled_publication_time_not_set
+    scheduled_publication.blank?
   end
 end

@@ -62,19 +62,17 @@ module Edition::Publishing
     reasons_to_prevent_unpublication_by(user).empty?
   end
 
-  def reason_to_prevent_approval(options = {})
+  def reason_to_prevent_approval
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
     elsif published?
       "This edition has already been published"
     elsif !can_publish?
       "This edition has been #{current_state}"
-    elsif !submitted? && !options[:force]
-      "Not ready for publication"
     end
   end
 
-  def reason_to_prevent_publication(options = {})
+  def reason_to_prevent_publication
     if scheduled?
       if Time.zone.now < scheduled_publication
         "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
@@ -83,8 +81,20 @@ module Edition::Publishing
       end
     elsif scheduled_publication.present?
       "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
+    elsif draft?
+      "Not ready for publication"
     else
-      reason_to_prevent_approval(options)
+      reason_to_prevent_approval
+    end
+  end
+
+  def reason_to_prevent_force_publication
+    if !valid?
+      "This edition is invalid. Edit the edition to fix validation problems"
+    elsif published?
+      "This edition has already been published"
+    elsif !can_force_publish?
+      "This edition has been #{current_state}"
     end
   end
 
@@ -114,25 +124,23 @@ module Edition::Publishing
     end
   end
 
-  def publish_as(user, options = {})
-    unless reason_to_prevent_publication(options)
-      self.major_change_published_at = Time.zone.now unless self.minor_change?
-      make_public_at(major_change_published_at)
-      self.access_limited = false
-      unless scheduled?
-        self.force_published = options[:force]
-      end
-      if minor_change?
-        self.published_major_version = Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 1
-        self.published_minor_version = (Edition.unscoped.where(document_id: document_id, published_major_version: published_major_version).maximum(:published_minor_version) || -1) + 1
-      else
-        self.published_major_version = (Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 0) + 1
-        self.published_minor_version = 0
-      end
+  def perform_publish
+    unless reason = reason_to_prevent_publication
+      set_publishing_attributes_and_increment_version_numbers
       publish!
-      true
     else
-      errors.add(:base, reason_to_prevent_publication(options))
+      errors.add(:base, reason)
+      false
+    end
+  end
+
+  def perform_force_publish
+    unless reason = reason_to_prevent_force_publication
+      set_publishing_attributes_and_increment_version_numbers
+      self.force_published = true
+      force_publish!
+    else
+      errors.add(:base, reason)
       false
     end
   end
@@ -172,5 +180,20 @@ module Edition::Publishing
       errors.add(:base, reason_to_prevent_retrospective_approval_by(user))
       false
     end
+  end
+
+private
+
+  def set_publishing_attributes_and_increment_version_numbers
+    self.access_limited = false
+    if minor_change?
+      self.published_major_version = Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 1
+      self.published_minor_version = (Edition.unscoped.where(document_id: document_id, published_major_version: published_major_version).maximum(:published_minor_version) || -1) + 1
+    else
+      self.major_change_published_at = Time.zone.now
+      self.published_major_version = (Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 0) + 1
+      self.published_minor_version = 0
+    end
+    make_public_at(major_change_published_at)
   end
 end

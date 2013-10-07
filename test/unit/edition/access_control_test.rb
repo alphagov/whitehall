@@ -68,14 +68,14 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
   test "should allow another editor to retrospectively approve a force-published document" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)
-    acting_as(editor) { edition.publish_as(editor, force: true) }
+    acting_as(editor) { edition.perform_force_publish }
     assert edition.approvable_retrospectively_by?(other_editor)
   end
 
   test "should not allow the same editor to retrospectively approve a force-published document" do
     editor = create(:departmental_editor)
     edition = create(:submitted_policy)
-    acting_as(editor) { edition.publish_as(editor, force: true) }
+    acting_as(editor) { edition.perform_force_publish }
     refute edition.approvable_retrospectively_by?(editor)
   end
 
@@ -111,7 +111,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     edition = create(:submitted_policy, scheduled_publication: 1.day.from_now)
     acting_as(editor) { assert edition.schedule_as(editor, force: true) }
     Timecop.freeze edition.scheduled_publication do
-      acting_as(robot) { assert edition.publish_as(robot) }
+      acting_as(robot) { assert edition.perform_publish }
       refute edition.approvable_retrospectively_by?(editor)
     end
   end

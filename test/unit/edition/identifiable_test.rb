@@ -80,7 +80,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "should be linkable when archived if document is published" do
     policy = create(:published_policy)
     new_edition = policy.create_draft(create(:policy_writer))
-    new_edition.publish_as(create(:departmental_editor), force: true)
+    new_edition.perform_force_publish
     assert policy.linkable?
   end
 

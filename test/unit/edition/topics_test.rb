@@ -17,7 +17,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
 
     new_edition = edition.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.publish_as(create(:departmental_editor), force: true)
+    new_edition.perform_force_publish
 
     assert_equal @topic, new_edition.topics.first
   end

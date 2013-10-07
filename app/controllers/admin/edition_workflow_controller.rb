@@ -63,7 +63,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def publish
-    if @edition.publish_as(current_user, force: false)
+    if @edition.perform_publish
       notify_users_of_edition_publishing
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
@@ -75,7 +75,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def force_publish
-    if @edition.publish_as(current_user, force: true)
+    if @edition.perform_force_publish
       notify_users_of_edition_publishing
       @edition.editorial_remarks.create(body: "Force published: #{params[:reason]}", author: current_user)
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"

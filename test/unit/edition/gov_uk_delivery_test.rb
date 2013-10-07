@@ -41,6 +41,6 @@ class Edition::GovUkDeliveryTest < ActiveSupport::TestCase
     notifier = Whitehall::GovUkDelivery::Notifier.new(notifiable_edition)
     Whitehall::GovUkDelivery::Notifier.expects(:new).with(notifiable_edition).returns(notifier)
     notifier.expects(:edition_published!).once
-    notifiable_edition.publish!
+    notifiable_edition.perform_force_publish
   end
 end

@@ -15,7 +15,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
 
     new_edition = edition.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.publish_as(create(:departmental_editor), force: true)
+    new_edition.perform_force_publish
 
     assert_equal topical_event, new_edition.topical_events.first
   end
@@ -37,7 +37,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
 
     new_edition = edition.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.publish_as(create(:departmental_editor), force: true)
+    new_edition.perform_force_publish
 
     featuring = new_edition.classification_featurings.first
     assert featuring.persisted?

@@ -80,7 +80,7 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
     assert french_edition.available_in_locale?(:fr)
     refute french_edition.available_in_locale?(:en)
 
-    french_edition.publish_as(create(:departmental_editor), force: true)
+    french_edition.perform_force_publish
 
     assert french_edition.available_in_locale?(:fr)
     refute french_edition.available_in_locale?(:en)

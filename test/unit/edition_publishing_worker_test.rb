@@ -18,7 +18,7 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
 
   test '#perform will not do anything to an already-published edition' do
     edition = create(:edition, :published)
-    edition.expects(:publish_as).never
+    edition.expects(:perform_publish).never
 
     EditionPublishingWorker.new.perform(edition.id, @publishing_robot.id)
     assert_equal :published, edition.reload.current_state

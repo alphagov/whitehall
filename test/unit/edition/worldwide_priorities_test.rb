@@ -54,7 +54,7 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
     @edition.save!
     new_priority = priorities.first.latest_edition.create_draft(build(:user))
     new_priority.update_column(:minor_change, true)
-    new_priority.publish!
+    new_priority.perform_force_publish
     assert @edition.published_worldwide_priorities.include?(new_priority)
   end
 

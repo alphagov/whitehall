@@ -17,10 +17,9 @@ class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
   test "new editions carry over worldwide organisations" do
     organisation = create(:worldwide_organisation)
     priority = create(:published_worldwide_priority, worldwide_organisations: [organisation])
-    editor = create(:departmental_editor)
     new_edition = priority.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.publish_as(editor, force: true)
+    new_edition.perform_force_publish
 
     assert_equal [organisation], new_edition.worldwide_organisations
   end

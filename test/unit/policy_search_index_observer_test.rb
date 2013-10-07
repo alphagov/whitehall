@@ -6,7 +6,7 @@ class PolicySearchIndexObserverTest < ActiveSupport::TestCase
 
     PolicySearchIndexObserver::ReindexRelatedEditions.expects(:later).with(policy)
 
-    policy.publish_as(create(:departmental_editor))
+    policy.perform_publish
   end
 
   test 'after unpublishing a policy, it requests to reindex all related editions for that policy later' do

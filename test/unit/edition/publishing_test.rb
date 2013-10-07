@@ -14,12 +14,17 @@ class Edition::PublishingControlsTest < ActiveSupport::TestCase
 
   test "is force publishable when draft" do
     edition = create(:draft_edition)
-    assert_nil edition.reason_to_prevent_publication(force: true)
+    assert_nil edition.reason_to_prevent_force_publication
+  end
+
+  test "is force publishable when submitted" do
+    edition = create(:submitted_edition)
+    assert_nil edition.reason_to_prevent_force_publication
   end
 
   test "is not force publishable when imported" do
     edition = create(:imported_edition)
-    assert_equal 'This edition has been imported', edition.reason_to_prevent_publication(force: true)
+    assert_equal 'This edition has been imported', edition.reason_to_prevent_force_publication
   end
 
   test "is never publishable when invalid" do
@@ -198,27 +203,27 @@ end
 class Edition::PublishingTest < ActiveSupport::TestCase
   test "publication marks edition as published" do
     edition = create(:submitted_edition)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     assert edition.reload.published?
   end
 
   test "publication records time of major change publication" do
     edition = create(:submitted_edition)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     assert_equal Time.zone.now, edition.reload.major_change_published_at
   end
 
   test "publication records time of publication" do
     edition = create(:submitted_edition)
     edition.expects(:make_public_at).with(Time.zone.now)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
   end
 
   test "publication does not update time of publication if minor change" do
     original_publishing_time = 1.day.ago
     edition = create(:submitted_edition, major_change_published_at: original_publishing_time, change_note: nil, minor_change: true)
     Timecop.travel 1.day.from_now do
-      edition.publish_as(create(:departmental_editor))
+      edition.perform_publish
       assert_equal original_publishing_time, edition.major_change_published_at
     end
   end
@@ -226,21 +231,21 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   test "publication preserves time of first publication if provided" do
     first_published_at = 1.week.ago
     edition = create(:submitted_edition, first_published_at: first_published_at)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     assert_equal first_published_at, edition.reload.first_published_at
   end
 
   test "publication archives previous published versions" do
     published_edition = create(:published_edition)
     edition = create(:submitted_edition, change_note: "change-note", document: published_edition.document)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     assert published_edition.reload.archived?
   end
 
   test "publication archives previous published versions, even if first edition has no change note" do
     first_edition = create(:published_edition, change_note: nil, minor_change: false)
     edition = create(:submitted_edition, change_note: "change-note", document: first_edition.document)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     assert first_edition.reload.archived?
   end
 
@@ -248,7 +253,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     org = create(:organisation)
     edition = create(:submitted_edition, access_limited: true, organisations: [org])
     assert edition.access_limited
-    edition.publish_as(create(:departmental_editor, organisation: org))
+    edition.perform_publish
     refute edition.reload.access_limited?
   end
 
@@ -257,7 +262,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:scheduled_edition, access_limited: true)
     assert edition.access_limited
     Timecop.freeze(edition.scheduled_publication + 1.minute) do
-      assert edition.publish_as(robot), edition.reason_to_prevent_publication
+      assert edition.perform_publish, edition.reason_to_prevent_publication
       refute edition.reload.access_limited?
     end
   end
@@ -266,7 +271,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     edition = create(:submitted_edition)
     edition.stubs(:reason_to_prevent_publication).returns('a spurious reason')
-    edition.publish_as(editor)
+    edition.perform_publish
     assert_equal ['a spurious reason'], edition.errors.full_messages
   end
 
@@ -276,7 +281,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     Edition.find(edition.id).update_attributes(title: "new title")
 
     assert_raise(ActiveRecord::StaleObjectError) do
-      edition.publish_as(create(:departmental_editor))
+      edition.perform_publish
     end
     refute Edition.find(edition.id).published?
   end
@@ -288,7 +293,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "publication of first edition sets published version to 1.0" do
     edition = create(:submitted_edition)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     assert_equal '1.0', edition.reload.published_version
   end
 
@@ -297,7 +302,8 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     new_draft = edition.create_draft(editor)
     new_draft.minor_change = true
-    new_draft.publish_as(editor, force: true)
+    new_draft.submit!
+    new_draft.perform_publish
     assert_equal '1.1', new_draft.reload.published_version
   end
 
@@ -306,13 +312,14 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     new_draft = edition.create_draft(editor)
     new_draft.change_note = 'My new version'
-    new_draft.publish_as(editor, force: true)
+    new_draft.submit!
+    new_draft.perform_publish
     assert_equal '2.0', new_draft.reload.published_version
   end
 
   test "unpublishing first edition sets published version to nil" do
     edition = create(:submitted_edition)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     edition.unpublishing = build(:unpublishing)
     edition.unpublish_as(create(:gds_editor))
     assert_nil edition.reload.published_version
@@ -323,7 +330,8 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     new_draft = edition.create_draft(editor)
     new_draft.minor_change = true
-    new_draft.publish_as(editor, force: true)
+    new_draft.submit!
+    new_draft.perform_publish
     new_draft.unpublishing = build(:unpublishing)
     new_draft.unpublish_as(create(:gds_editor))
     assert_equal '1.0', new_draft.reload.published_version
@@ -334,7 +342,8 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     new_draft = edition.create_draft(editor)
     new_draft.change_note = 'My new version'
-    new_draft.publish_as(editor, force: true)
+    new_draft.submit!
+    new_draft.perform_publish
     new_draft.unpublishing = build(:unpublishing)
     new_draft.unpublish_as(create(:gds_editor))
     assert_equal '1.0', new_draft.reload.published_version
@@ -345,10 +354,12 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     minor_change_edition = edition.create_draft(editor)
     minor_change_edition.minor_change = true
-    minor_change_edition.publish_as(editor, force: true)
+    minor_change_edition.submit!
+    minor_change_edition.perform_publish
     new_draft = minor_change_edition.create_draft(editor)
     new_draft.change_note = 'My new version'
-    new_draft.publish_as(editor, force: true)
+    new_draft.submit!
+    new_draft.perform_publish
     new_draft.unpublishing = build(:unpublishing)
     new_draft.unpublish_as(create(:gds_editor))
     assert_equal '1.1', new_draft.reload.published_version
@@ -356,8 +367,8 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "#approve_retrospectively_as should clear the force_published flag, and return true on success" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
-    edition = create(:submitted_policy)
-    acting_as(editor) { edition.publish_as(editor, force: true) }
+    edition = create(:draft_policy)
+    acting_as(editor) { assert edition.perform_force_publish }
 
     assert edition.approve_retrospectively_as(other_editor)
     refute edition.force_published?
@@ -366,7 +377,7 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   test "#approve_retrospectively_as should return false and set a validation error if document was not force-published" do
     editor, other_editor = create(:departmental_editor), create(:departmental_editor)
     edition = create(:submitted_policy)
-    acting_as(editor) { edition.publish_as(editor, force: false) }
+    acting_as(editor) { edition.perform_publish }
 
     refute edition.approve_retrospectively_as(other_editor)
     assert edition.errors[:base].include?('This document has not been force-published')
@@ -374,8 +385,8 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "#approve_retrospectively_as should return false and set a validation error if attempted by a writer" do
     editor, writer = create(:departmental_editor), create(:policy_writer)
-    edition = create(:submitted_policy)
-    acting_as(editor) { edition.publish_as(editor, force: true) }
+    edition = create(:draft_policy)
+    acting_as(editor) { edition.perform_force_publish }
 
     refute edition.approve_retrospectively_as(writer)
     assert edition.force_published?
@@ -384,8 +395,8 @@ class Edition::PublishingTest < ActiveSupport::TestCase
 
   test "#approve_retrospectively_as should return false and set a validation error if attempted by the force-publisher" do
     editor = create(:departmental_editor)
-    edition = create(:submitted_policy)
-    acting_as(editor) { edition.publish_as(editor, force: true) }
+    edition = create(:draft_policy)
+    acting_as(editor) { edition.perform_force_publish }
 
     refute edition.approve_retrospectively_as(editor)
     assert edition.force_published?

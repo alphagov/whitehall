@@ -7,7 +7,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
       Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
       edition = create(:edition, state.name, scheduled_publication: Whitehall.default_cache_max_age.from_now - 1.second + 1.minute)
       Timecop.freeze(2.minutes.from_now) do
-        edition.stubs(:reason_to_prevent_approval).returns(nil)
         if [:draft, :submitted, :rejected].include?(state.name)
           refute edition.valid?, "#{state.name} edition should be invalid"
           assert edition.errors[:scheduled_publication].include?("date must be at least 15 minutes from now")
@@ -56,7 +55,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
   test "is never publishable if scheduled, but the scheduled_publication date has not yet arrived" do
     editor = build(:departmental_editor)
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
-    edition.stubs(:reason_to_prevent_approval).returns(nil)
     Timecop.freeze(edition.scheduled_publication - 1.second) do
       assert_equal "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before", edition.reason_to_prevent_publication
     end
@@ -68,6 +66,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert_equal "This edition is already scheduled for publication", edition.reason_to_prevent_scheduling_by(editor)
     refute edition.schedulable_by?(editor)
     refute edition.schedulable_by?(editor, force: true)
+    assert_equal "This edition is already scheduled for publication", edition.reason_to_prevent_scheduling_by(editor)
   end
 
   test "is publishable by scheduled publishing robot if scheduled and the scheduled_publication date has passed" do
@@ -82,23 +81,20 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     robot_user = create(:scheduled_publishing_robot)
     edition = create(:scheduled_edition, scheduled_publication: 1.day.from_now, force_published: true)
     Timecop.freeze(edition.scheduled_publication) do
-      edition.publish_as(robot_user)
+      edition.perform_publish
     end
     assert_equal true, edition.reload.force_published
   end
 
-  test "is not schedulable if there is a reason to prevent approval" do
-    edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    arbitrary_reason = "Because I said so"
-    edition.stubs(:reason_to_prevent_approval).returns(arbitrary_reason)
+  test "is not schedulable if the edition is invalid" do
+    edition = build(:submitted_edition, scheduled_publication: 1.day.from_now, title: nil)
     refute edition.schedulable_by?(stub)
-    assert_equal arbitrary_reason, edition.reason_to_prevent_scheduling_by(stub)
+    assert_equal "This edition is invalid. Edit the edition to fix validation problems", edition.reason_to_prevent_scheduling_by(stub)
   end
 
-  test "is schedulable if no reason to prevent approval and submitted with a scheduled_publication date" do
+  test "is schedulable if submitted with a scheduled_publication date" do
     editor = build(:departmental_editor)
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    edition.stubs(:reason_to_prevent_approval).returns(nil)
     assert edition.schedulable_by?(editor)
   end
 

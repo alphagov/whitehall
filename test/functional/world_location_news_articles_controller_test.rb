@@ -39,7 +39,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
     editor = create(:departmental_editor)
     updated_world_news_article = world_news_article.create_draft(editor)
     updated_world_news_article.change_note = "change-note"
-    updated_world_news_article.publish_as(editor, force: true)
+    updated_world_news_article.perform_force_publish
 
     get :show, id: updated_world_news_article.document
 
