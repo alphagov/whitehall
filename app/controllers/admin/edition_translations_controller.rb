@@ -1,5 +1,6 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   before_filter :find_edition
+  before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!
   before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
@@ -50,4 +51,10 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def find_edition
     @edition ||= Edition.find(params[:edition_id])
   end
+
+  def fetch_edition_version_and_remark_trails
+    @edition_remarks = @edition.document_remarks_trail.reverse
+    @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
+  end
 end
+
