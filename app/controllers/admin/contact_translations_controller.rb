@@ -31,12 +31,7 @@ private
   end
 
   def find_contactable
-    @contactable =
-      if params.has_key?(:organisation_id)
-        Organisation.find(params[:organisation_id])
-      else
-        raise ActiveRecord::RecordNotFound
-      end
+    @contactable = Organisation.find(params[:organisation_id])
   end
 
   def find_contact
