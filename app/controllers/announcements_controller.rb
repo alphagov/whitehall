@@ -6,7 +6,7 @@ class AnnouncementsController < DocumentsController
     clean_search_filter_params
 
     expire_on_next_scheduled_publication(scheduled_announcements)
-    @filter = build_document_filter(params.reverse_merge({ page: 1, direction: 'before' }))
+    @filter = build_document_filter(params.reverse_merge({ page: 1 }))
 
     respond_to do |format|
       format.html do

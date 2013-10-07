@@ -7,10 +7,8 @@
     world_locations: filter_results_selections(filter.selected_locations, 'world_locations'),
     keywords_any?: filter.keywords.any?,
     keywords: filter_results_keywords(filter.keywords),
-    date: ({
-      direction: filter.direction,
-      date: filter.date.to_s(:short_ordinal)
-    } if filter.date),
+    date_from: filter.date_from,
+    date_to: filter.date_to,
     relevant_to_local_government: filter.relevant_to_local_government,
     include_world_location_news: filter.include_world_location_news
   }

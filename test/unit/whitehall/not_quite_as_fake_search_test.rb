@@ -103,9 +103,9 @@ module Whitehall
         documents[1]['public_timestamp'] = Time.zone.parse("2011-02-02 02:02:02")
         documents[2]['public_timestamp'] = Time.zone.parse("2011-03-03 02:02:02")
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Foo}, public_timestamp: {before: "2011-01-31"}
-        assert_search_returns_documents %w{Bar Qux}, public_timestamp: {after: "2011-01-31"}
-        assert_search_returns_documents %w{Bar}, public_timestamp: {after: "2011-01-31", before: "2011-02-28"}
+        assert_search_returns_documents %w{Foo}, public_timestamp: {to: "2011-01-31"}
+        assert_search_returns_documents %w{Qux Bar}, public_timestamp: {from: "2011-01-31"}
+        assert_search_returns_documents %w{Bar}, public_timestamp: {from: "2011-01-31", to: "2011-02-28"}
       end
 
       test "advanced search can order documents explicitly" do
@@ -176,7 +176,8 @@ module Whitehall
             "description" => "#{title}-description",
             "indexable_content" => "#{title}-indexable_content",
             topics: ["#{title}-topic1", "#{title}-topic2"],
-            "relevant_to_local_government" => false
+            "relevant_to_local_government" => false,
+            "public_timestamp" => Time.zone.parse("2011-01-01 00:00:00")
           }
         end
       end

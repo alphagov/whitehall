@@ -74,24 +74,12 @@
     }
   }
 
-  .date-range {
+  #date-range-filter {
     padding-bottom: $gutter-one-third;
 
     h3 {
       @include ig-core-14;
       font-weight: bold;
-      display: inline;
-      padding-right: $gutter-half;
-    }
-
-    label {
-      position: relative;
-      @include ig-core-14;
-      padding-left: $gutter-two-thirds;
-      padding-right: $gutter-one-third;
-      &.visuallyhidden {
-        position: absolute;
-      }
     }
   }
 

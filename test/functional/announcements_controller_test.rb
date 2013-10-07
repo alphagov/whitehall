@@ -118,17 +118,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "index shows articles in chronological order if date filter is 'after' a given date" do
-    without_delay! do
-      oldest = create(:published_speech, first_published_at: 5.days.ago)
-      newest = create(:published_news_article, first_published_at: 4.days.ago)
-
-      get :index, direction: 'after', date: 6.days.ago.to_s
-
-      assert_select "#{record_css_selector(oldest)} + #{record_css_selector(newest)}"
-    end
-  end
-
   view_test "index shows selected announcement type filter option in the title" do
     get :index, announcement_type_option: 'news-stories'
 
@@ -254,7 +243,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, date: "2012-01-01", direction: "before", topics: [topic], departments: [organisation]
+    get :index, format: :json, to_date: "2012-01-01", topics: [topic], departments: [organisation]
 
     json = ActiveSupport::JSON.decode(response.body)
 

@@ -319,17 +319,18 @@ test("should update selections to match filters", function(){
             title: ['my-title'],
             id: 'topics',
             value: ['my-value']
-          },
-          {
-            title: ['my-date'],
-            id: 'date',
-            value: ['my-value']
           }
         ],
-        checked: [
+        text: [
           {
-            id: 'direction_before',
-            value: 'before'
+            title: ['form-date'],
+            id: 'from_date',
+            value: ['from-date']
+          },
+          {
+            title: ['to-date'],
+            id: 'to_date',
+            value: ['to-date']
           }
         ]
       };
@@ -341,7 +342,8 @@ test("should update selections to match filters", function(){
 
   ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
   equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
-  equals(this.selections.text().match(/before my-date/).length, 1, 'not before my-date');
+  equals(this.selections.text().match(/from from-date/).length, 1, 'not from my-date');
+  equals(this.selections.text().match(/to to-date/).length, 1, 'not to my-date');
   stub.restore();
 });
 
