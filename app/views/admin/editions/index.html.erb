@@ -57,7 +57,7 @@
           <% end %>
           <% @filter.editions.each do |edition| %>
             <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
-              <td class="type"><%= edition.display_type %></td>
+              <td class="type"><%= edition_type(edition) %></td>
               <td class="title">
                 <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
                 <% if edition.non_english_edition? %>
