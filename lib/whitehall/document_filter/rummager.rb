@@ -87,10 +87,10 @@ module Whitehall::DocumentFilter
     def filter_by_date
       dates_hash = {}
       if @form_date.present?
-        dates_hash.merge({from: @from_date})
+        dates_hash.merge(from: @from_date)
       end
       if @to_date.present?
-        dates_hash.merge({to: @to_date})
+        dates_hash.merge(to: @to_date)
       end
       if dates_hash.empty?
         {}
