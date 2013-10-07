@@ -15,7 +15,7 @@ module Edition::UserNeeds
 
     accepts_nested_attributes_for :user_needs, reject_if: lambda { |attrs| attrs.values.any?(&:blank?) }
 
-    validates_presence_of :user_needs, unless: lambda {|edition| edition.deleted? || edition.imported? }
+    validates_presence_of :user_needs, unless: lambda {|edition| edition.deleted? || edition.imported? || edition.archived? }
 
     add_trait Trait
   end
