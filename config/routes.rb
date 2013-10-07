@@ -26,6 +26,7 @@ Whitehall::Application.routes.draw do
         get :tags
       end
     end
+    resources :organisations, only: [:index, :show], defaults: { format: :json }
     resources :world_locations, path: 'world-locations', only: [:index, :show], defaults: { format: :json } do
       resources :worldwide_organisations, path: 'organisations', only: [:index], defaults: { format: :json }
     end
