@@ -321,4 +321,17 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     edition.stubs(:save).returns(false)
     refute edition.save_as(create(:user))
   end
+
+  # This is a quick fix to deal with a specific instance of the larger
+  # workflow issue that you cannot archive a document which fails
+  # validation.
+  test "can archive a detailed guide without a user need" do
+    detailed_guide = create(:published_detailed_guide)
+
+    detailed_guide.update_attribute(:user_needs, [])
+    refute detailed_guide.valid?
+
+    detailed_guide.archive! rescue nil
+    assert detailed_guide.archived?
+  end
 end
