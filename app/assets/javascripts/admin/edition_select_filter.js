@@ -8,6 +8,6 @@
       btn.siblings('input').on('change paste keydown', function() {
         btn.show();
       });
-    })
-  })
+    });
+  });
 })(jQuery);
