@@ -22,7 +22,7 @@ module OrganisationHelper
   def organisation_govuk_status_description(organisation)
     if organisation.closed?
       if organisation.closed_at.present?
-        "#{organisation.name} closed on #{absolute_date(organisation.closed_at, class: 'closed-at')}"
+        "#{organisation.name} closed on #{absolute_date(organisation.closed_at, class: 'closed-at')}".html_safe
       else
         "#{organisation.name} has closed"
       end
