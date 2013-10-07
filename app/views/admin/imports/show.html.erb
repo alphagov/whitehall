@@ -40,22 +40,15 @@
     <% end %>
 
     <% if @import.document_sources.any? %>
-      <h2 id="success">Documents added:</h2>
-      <ul class="added">
-        <% @import.documents.each do |document| %>
-          <li>
-            <% if document.latest_edition %>
-              <%= link_to document.latest_edition.title, admin_edition_path(document.latest_edition) %>
-            <% else %>
-              DELETED - &ldquo;<%= Edition.unscoped.where(:document_id => document.id).first.title %>&rdquo;
-            <% end %>
-            imported from
-            <%= document.document_sources.map { |ds| link_to(ds.url, ds.url) }.to_sentence.html_safe %>
-          </li>
-        <% end %>
-      </ul>
+      <p>Added <%= link_to pluralize(@import.document_sources.count, 'document'), action: 'new_document_list', class: 'large-data-set' %>.</p>
     <% end %>
 
-    <%= render partial: "errors", locals: {import: @import} %>
+    <% if @import.import_errors.any? %>
+      <p><%= link_to pluralize(@import.import_errors.count, 'error'), action: 'error_list', class: 'large-data-set' %>.</p>
+    <% end %>
+
+    <% if @import.import_logs.any? %>
+      <p>See the <%= link_to "import log (#{pluralize(@import.import_logs.count, 'line')})", action: 'import_log', class: 'large-data-set' %>.</p>
+    <% end %>
   <% end %>
 <% end %>

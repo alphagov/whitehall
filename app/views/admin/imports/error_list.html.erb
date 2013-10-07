@@ -1,0 +1,19 @@
+<% page_title "Errors for #{@import.original_filename}" %>
+
+<h2>Import errors:</h2>
+<table id="errors">
+  <thead>
+    <tr>
+      <th>Row Number</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @import.import_errors.each do |import_error| %>
+      <tr class="import_error">
+        <td class="row_number"><%= import_error[:row_number] %></td>
+        <td class="message"><pre><%= import_error[:message] %></pre></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
