@@ -1,10 +1,15 @@
 module Admin::EditionsHelper
 
   def edition_type(edition)
-    if (@edition.is_a?(Speech) && @edition.speech_type.written_article?)
-      @edition.speech_type.name
+    if (edition.is_a?(Speech) && edition.speech_type.written_article?)
+      type = edition.speech_type.name
     else
-      @edition.type.underscore.humanize
+      type = edition.type.underscore.humanize
+    end
+    if type == edition.display_type
+      type
+    else
+      "#{type}: #{edition.display_type}"
     end
   end
 
