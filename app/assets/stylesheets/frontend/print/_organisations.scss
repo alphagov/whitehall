@@ -4,8 +4,31 @@
     li {
       list-style: none;
       margin-left: 0;
+      padding: 0;
     }
   }
+
+  .organisation-mainstream-links {
+    li {
+      padding: 0;
+      a {
+        font-weight: bold;
+        &:after {
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  section {
+    padding-top: $gutter*2;
+    h1,
+    h2 {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
   .text,
   .image-holder {
     float: left;
@@ -27,14 +50,18 @@
       }      
     }
   }
+
   .recently-updated {
     clear: both;
     h1 {
       margin-bottom: 0;
       padding-bottom: 0;
     }
-    ol {
+    .document-list {
       margin-top: 0;
+      h3 {
+        padding-bottom: 0;
+      }
       li {
         clear: both;
         .attributes {
@@ -50,8 +77,100 @@
       display: none;
     }
   }
+
+  .block-6,
+  .block-7 {
+    ol {
+      li {
+        float: left;
+        margin-right: 2.5%;
+        width: 45%;
+        h2  {
+          @include core-19;
+          font-weight: bold;
+          &:after {
+            font-weight: normal;
+          }
+        }
+        &:nth-child(2n+1) {
+          clear: both;
+        }
+      }
+    }
+  }
+
+  .documents-grid {
+    padding-top: $gutter*2;
+    h1 {
+      padding-bottom: 0;
+    }
+    section {
+      float: left;
+      margin-right: 2.5%;
+      width: 45%;
+      h1 {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      .document-list {
+        margin-top: 0;
+        h2  {
+          @include core-19;
+          font-weight: bold;
+          margin-top: 0;
+          &:after {
+            font-weight: normal;
+          }
+        }
+      }
+      &.documents-3 {
+        clear: both;
+      }
+    }
+  }
+
+  li.person-excerpt {
+    float: left;
+    margin: 0 3% $gutter*2 0;
+    width: 30%;
+    .image-holder {
+      float: none;
+      margin: 0;
+      width: 25%;
+      a {
+        padding: 0;
+        img {
+          margin: 0;
+        }
+      }
+    }
+    .text {
+      clear: both;
+    }
+    &:nth-child(3n+1) {
+      clear: both;
+    }
+    h2, h3, p {
+      @include core-14;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      &.role a:after {
+        display: none;
+      }
+    }
+  }
+
+  .see-all {
+    display: none;
+  }
+
   .what-we-do,
-  .block-10 {
+  .block-6,
+  .block-7,
+  .block-9,
+  .block-9 section,
+  .block-10,
+  .documents-grid {
     clear: both;
   }
 }

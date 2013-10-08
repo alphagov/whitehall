@@ -12,18 +12,36 @@
     .person-excerpt {
       list-style: none;
       float: left;
+      margin: 0 3% $gutter*2 0;
       width: 30%;
       img {
         //float: left;
         width: $one-quarter;
+      .image-holder {
+        float: none;
+        margin: 0;
+        width: 25%;
+        a {
+          padding: 0;
+          img {
+            margin: 0;
+            width: 100%
+          }
+        }
+      }
+      .text {
+        clear: both;
       }
       &:nth-child(3n+1) {
         clear: both;
       }
-      h3, p {
+      h2, h3, p {
         @include core-14;
         margin-bottom: 0;
         padding-bottom: 0;
+        &.role a:after {
+          display: none;
+        }
       }
     }
   }
