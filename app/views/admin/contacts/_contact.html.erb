@@ -70,8 +70,8 @@
         <% translated_contact.contact_numbers.each do |cn| %>
           <%= definition(cn.label, cn.number) %>
         <% end %>
-        <% if contact.email.present? %>
-          <%= definition('Email', contact.email) %>
+        <% if translated_contact.email.present? %>
+          <%= definition('Email', translated_contact.email) %>
         <% end %>
       <% end %>
     <% end %>

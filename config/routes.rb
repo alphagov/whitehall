@@ -211,6 +211,7 @@ Whitehall::Application.routes.draw do
             end
             post :reorder_for_home_page, on: :collection
             resource :access_and_opening_time, path: 'access_info', except: [:index, :show, :new]
+            resources :translations, controller: 'worldwide_office_translations', only: [:create, :edit, :update, :destroy]
           end
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'

@@ -68,3 +68,32 @@ Then(/^I should see on the admin organisation contacts page that "(.*?)" has a w
   assert page.has_text?(welsh_title)
   assert page.has_text?("9876543210")
 end
+
+Given(/^the world organisation "(.*?)" has an office "(.*?)"$/) do |organisation_name, office_name|
+  organisation = create(:worldwide_organisation, name: organisation_name, translated_into: :fr)
+  contact = create(:contact, title: office_name, country: create(:world_location),
+                   street_address: "123 The Avenue")
+  create(:contact_number, contact: contact, label: "English phone", number: "0123456789")
+  office = create(:worldwide_office, worldwide_organisation: organisation, contact: contact)
+end
+
+When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|
+  office = Contact.where(title: english_title).first.contactable
+  visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
+  click_link "open-add-translation-modal"
+  select "Français", from: "Locale"
+  click_button "Add translation"
+  fill_in "Title", with: french_title
+  fill_in "Recipient", with: "French recipient"
+  fill_in "Street address", with: "French street address"
+  fill_in "Number", with: "9876543210"
+  click_button "Save"
+end
+
+Then(/^I should see on the admin world organisation offices page that "(.*?)" has a french translation "(.*?)"$/) do |english_title, french_title|
+  office = Contact.where(title: english_title).first.contactable
+  visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
+  assert page.has_text?("Français (French) translation")
+  assert page.has_text?(french_title)
+  assert page.has_text?("9876543210")
+end
