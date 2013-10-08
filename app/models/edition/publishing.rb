@@ -125,23 +125,23 @@ module Edition::Publishing
   end
 
   def perform_publish
-    unless reason = reason_to_prevent_publication
-      set_publishing_attributes_and_increment_version_numbers
-      publish!
-    else
+    if reason = reason_to_prevent_publication
       errors.add(:base, reason)
       false
+    else
+      set_publishing_attributes_and_increment_version_numbers
+      publish!
     end
   end
 
   def perform_force_publish
-    unless reason = reason_to_prevent_force_publication
+    if reason = reason_to_prevent_force_publication
+      errors.add(:base, reason)
+      false
+    else
       set_publishing_attributes_and_increment_version_numbers
       self.force_published = true
       force_publish!
-    else
-      errors.add(:base, reason)
-      false
     end
   end
 
