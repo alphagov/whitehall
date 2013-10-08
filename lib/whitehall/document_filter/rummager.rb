@@ -100,7 +100,7 @@ module Whitehall::DocumentFilter
     end
 
     def sort
-      if (@form_date.present? || @to_date.present?) && @keywords.blank?
+      if @keywords.blank?
         {order: { public_timestamp: "desc" } }
       else
         {}
