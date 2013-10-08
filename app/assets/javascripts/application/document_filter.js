@@ -282,7 +282,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         })();
 
-        $('#keyword-filter').find('input[name=keywords]').keyup(function () {
+        $('#keyword-filter').add('#date-range-filter').find('input[type=text]').keyup(function () {
           delay(function () {
             $form.submit();
           }, 600);

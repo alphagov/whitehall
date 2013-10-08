@@ -86,12 +86,9 @@ module Whitehall::DocumentFilter
 
     def filter_by_date
       dates_hash = {}
-      if @from_date.present?
-        dates_hash.merge(from: @from_date)
-      end
-      if @to_date.present?
-        dates_hash.merge(to: @to_date)
-      end
+      dates_hash.merge!(from: @from_date.to_s) if @from_date.present?
+      dates_hash.merge!(to: @to_date.to_s) if @to_date.present?
+
       if dates_hash.empty?
         {}
       else
