@@ -2,7 +2,7 @@
 
 <h2 id="success">Documents added:</h2>
 <ul class="added">
-  <% @import.documents.each do |document| %>
+  <% @import.documents.includes(:document_sources, {latest_edition: :translations}).each do |document| %>
     <li>
       <% if document.latest_edition %>
         <%= link_to document.latest_edition.title, admin_edition_path(document.latest_edition) %>
