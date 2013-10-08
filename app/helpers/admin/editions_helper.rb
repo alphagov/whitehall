@@ -281,9 +281,9 @@ module Admin::EditionsHelper
     when :clean
       nil
     when :pending
-      content_tag(:p, "Scanning For Viruses", class: "virus-scanning")
+      content_tag(:p, "Virus scanning", class: "virus-scanning")
     else
-      content_tag(:p, "Virus Found", class: "virus")
+      content_tag(:p, "Virus found", class: "virus")
     end
   end
 
