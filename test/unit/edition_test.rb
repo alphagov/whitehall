@@ -275,7 +275,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#scheduled_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { publication.schedule_as(editor, force: true) }
+    acting_as(editor) { publication.perform_force_schedule }
     assert_equal editor, publication.scheduled_by
   end
 
@@ -283,7 +283,7 @@ class EditionTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     robot = create(:scheduled_publishing_robot)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { publication.schedule_as(editor, force: true) }
+    acting_as(editor) { publication.perform_force_schedule }
     Timecop.freeze publication.scheduled_publication do
       acting_as(robot) { publication.perform_publish }
       acting_as(editor) do

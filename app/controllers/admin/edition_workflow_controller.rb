@@ -95,7 +95,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    if @edition.schedule_as(current_user, force: params[:force].present?)
+    if(params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule)
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence

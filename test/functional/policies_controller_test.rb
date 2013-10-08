@@ -289,7 +289,7 @@ That's all
     p2 = create(:draft_publication,
       scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
       related_editions: [policy])
-    p2.schedule_as(user, force: true)
+    p2.perform_force_schedule
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :activity, id: policy.document

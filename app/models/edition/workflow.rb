@@ -63,8 +63,11 @@ module Edition::Workflow
       end
 
       event :schedule do
-        transitions from: [:draft, :submitted], to: :scheduled,
-          guard: -> edition { edition.scheduled_publication.present? }
+        transitions from: :submitted, to: :scheduled, guard: :scheduled_publication_time_set?
+      end
+
+      event :force_schedule do
+        transitions from: [:draft, :submitted], to: :scheduled, guard: :scheduled_publication_time_set?
       end
 
       event :unschedule do
@@ -72,12 +75,12 @@ module Edition::Workflow
       end
 
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: :submitted, to: :published, guard: :scheduled_publication_time_not_set
+        transitions from: :submitted, to: :published, guard: :scheduled_publication_time_not_set?
         transitions from: :scheduled, to: :published
       end
 
       event :force_publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: [:draft, :submitted], to: :published, guard: :scheduled_publication_time_not_set
+        transitions from: [:draft, :submitted], to: :published, guard: :scheduled_publication_time_not_set?
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
@@ -124,7 +127,11 @@ module Edition::Workflow
 
 private
 
-  def scheduled_publication_time_not_set
-    scheduled_publication.blank?
+  def scheduled_publication_time_not_set?
+    !scheduled_publication_time_set?
+  end
+
+  def scheduled_publication_time_set?
+    scheduled_publication.present?
   end
 end

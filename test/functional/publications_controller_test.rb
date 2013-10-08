@@ -150,7 +150,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
     user = login_as(:departmental_editor)
     publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    publication.schedule_as(user, force: true)
+    publication.perform_force_schedule
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :index

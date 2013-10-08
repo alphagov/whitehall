@@ -52,7 +52,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "when scheduled" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
-    edition.schedule_as(create(:departmental_editor))
+    edition.perform_schedule
     refute edition.imported?
     refute edition.draft?
     refute edition.published?

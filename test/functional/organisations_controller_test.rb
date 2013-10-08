@@ -161,7 +161,7 @@ class OrganisationsControllerTest < ActionController::TestCase
           scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
           organisations: [organisation])
       end
-      assert edition.schedule_as(user, force: true)
+      assert edition.perform_force_schedule
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
         get :show, id: organisation

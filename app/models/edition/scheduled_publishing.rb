@@ -17,11 +17,7 @@ module Edition::ScheduledPublishing
     end
   end
 
-  def schedulable_by?(user, options = {})
-    reason_to_prevent_scheduling_by(user, options).nil?
-  end
-
-  def reason_to_prevent_scheduling_by(user, options = {})
+  def reason_to_prevent_scheduling
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
     elsif scheduled?
@@ -33,14 +29,34 @@ module Edition::ScheduledPublishing
     end
   end
 
-  def schedule_as(user, options = {})
-    if schedulable_by?(user, options)
-      self.force_published = options[:force]
-      schedule!
-      true
-    else
-      errors.add(:base, reason_to_prevent_scheduling_by(user, options))
+  def reason_to_prevent_force_scheduling
+    if !valid?
+      "This edition is invalid. Edit the edition to fix validation problems"
+    elsif scheduled?
+      "This edition is already scheduled for publication"
+    elsif !can_force_schedule?
+      "This edition has been #{current_state}"
+    elsif scheduled_publication.blank?
+      "This edition does not have a scheduled publication date set"
+    end
+  end
+
+  def perform_schedule
+    if reason = reason_to_prevent_scheduling
+      errors.add(:base, reason)
       false
+    else
+      schedule!
+    end
+  end
+
+  def perform_force_schedule
+    if reason = reason_to_prevent_force_scheduling
+      errors.add(:base, reason)
+      false
+    else
+      self.force_published = true
+      force_schedule!
     end
   end
 
@@ -56,6 +72,14 @@ module Edition::ScheduledPublishing
       self.force_published = false
       unschedule!
     end
+  end
+
+  def schedulable?
+    can_schedule? && scheduled_publication_time_set?
+  end
+
+  def force_schedulable?
+    can_force_schedule? && scheduled_publication_time_set?
   end
 
   private

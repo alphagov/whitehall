@@ -16,9 +16,9 @@
         <%= unschedule_edition_button(@edition) %>
       <% end %>
 
-      <% if @edition.schedulable_by?(current_user) %>
+      <% if @edition.schedulable? && can?(:publish, @edition) %>
         <%= schedule_edition_form(@edition) %>
-      <% elsif @edition.schedulable_by?(current_user, force: true) %>
+      <% elsif @edition.force_schedulable? && can?(:force_publish, @edition) %>
         <%= schedule_edition_form(@edition, force: true) %>
       <% end %>
 
@@ -26,7 +26,7 @@
 
       <% if @edition.can_publish? && can?(:publish, @edition) %>
         <%= publish_edition_form(@edition) %>
-      <% elsif @edition.can_force_publish? && can?(:force_publish, @edition) %>
+      <% elsif @edition.force_publishable? && can?(:force_publish, @edition) %>
         <%= render partial: "admin/edition_workflow/force_publish_modal", locals: { extra_css_classes: "hide" } %>
         <%= publish_edition_form(@edition, force: true) %>
       <% end %>

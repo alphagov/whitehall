@@ -144,7 +144,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should return scheduled edition" do
     publication = create(:draft_publication, scheduled_publication: 1.day.from_now)
-    publication.schedule_as(create(:departmental_editor), force: true)
+    publication.perform_force_schedule
     document = publication.document.reload
 
     assert_equal publication, document.scheduled_edition

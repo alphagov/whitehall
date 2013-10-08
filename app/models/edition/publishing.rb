@@ -145,6 +145,10 @@ module Edition::Publishing
     end
   end
 
+  def force_publishable?
+    can_force_publish? && scheduled_publication_time_not_set?
+  end
+
   def unpublish_as(user)
     if unpublishable_by?(user)
       if minor_change?

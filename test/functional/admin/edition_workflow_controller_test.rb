@@ -88,12 +88,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
-    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-    post :schedule, id: draft_edition, lock_version: draft_edition.lock_version
+    submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    post :schedule, id: submitted_edition, lock_version: submitted_edition.lock_version
 
     assert_redirected_to admin_editions_path(state: :scheduled)
-    assert draft_edition.reload.scheduled?
-    assert_equal "The document #{draft_edition.title} has been scheduled for publication", flash[:notice]
+    assert submitted_edition.reload.scheduled?
+    assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
   end
 
   test 'schedule passes through the force flag' do
@@ -115,12 +115,12 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule redirects back to the edition with an error message if the edition is stale' do
-    old_lock_version = draft_edition.lock_version
-    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-    draft_edition.touch
-    post :schedule, id: draft_edition, lock_version: old_lock_version
+    old_lock_version = submitted_edition.lock_version
+    submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    submitted_edition.touch
+    post :schedule, id: submitted_edition, lock_version: old_lock_version
 
-    assert_redirected_to admin_policy_path(draft_edition)
+    assert_redirected_to admin_policy_path(submitted_edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 
