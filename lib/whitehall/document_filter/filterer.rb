@@ -104,7 +104,10 @@ module Whitehall::DocumentFilter
     end
 
     def parse_date(date)
-      Chronic.parse(date, endian_precedence: :little) if date.present?
+      if date.present?
+        date = Chronic.parse(date, endian_precedence: :little)
+        date.to_date
+      end
     end
   end
 end

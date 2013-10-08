@@ -40,11 +40,11 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   end
 
   def date_from
-    from_date ? from_date.to_s(:short_ordinal) : nil
+    from_date ? from_date.to_s(:uk_short) : nil
   end
 
   def date_to
-    to_date ? to_date.to_s(:short_ordinal) : nil
+    to_date ? to_date.to_s(:uk_short) : nil
   end
 
   def documents
