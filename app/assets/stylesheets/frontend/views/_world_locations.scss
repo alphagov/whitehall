@@ -91,13 +91,13 @@
     margin-bottom: $gutter-two-thirds;
   }
 
-  .mainstream-links {
+  .top-tasks {
     @include core-16;
     ul {
       li {
         list-style: none;
         margin-bottom: $gutter-one-sixth;
-        
+
         a[rel="external"] {
           @include external-link-14-bold-no-hover;
           @include media(tablet) {

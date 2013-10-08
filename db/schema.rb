@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007092029) do
+ActiveRecord::Schema.define(:version => 20131008145633) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -861,6 +861,13 @@ ActiveRecord::Schema.define(:version => 20131007092029) do
   add_index "organisation_roles", ["organisation_id"], :name => "index_organisation_roles_on_organisation_id"
   add_index "organisation_roles", ["role_id"], :name => "index_organisation_roles_on_role_id"
 
+  create_table "organisation_top_tasks", :force => true do |t|
+    t.integer "organisation_id"
+    t.integer "top_task_id"
+  end
+
+  add_index "organisation_top_tasks", ["organisation_id"], :name => "index_organisation_top_tasks_on_organisation_id"
+
   create_table "organisation_translations", :force => true do |t|
     t.integer  "organisation_id"
     t.string   "locale"
@@ -1133,6 +1140,18 @@ ActiveRecord::Schema.define(:version => 20131007092029) do
   add_index "take_part_pages", ["ordering"], :name => "index_take_part_pages_on_ordering"
   add_index "take_part_pages", ["slug"], :name => "index_take_part_pages_on_slug", :unique => true
 
+  create_table "top_tasks", :force => true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "linkable_type"
+    t.integer  "linkable_id"
+  end
+
+  add_index "top_tasks", ["linkable_id", "linkable_type"], :name => "index_top_tasks_on_linkable_id_and_linkable_type"
+  add_index "top_tasks", ["linkable_type"], :name => "index_top_tasks_on_linkable_type"
+
   create_table "unpublishings", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "unpublishing_reason_id"
@@ -1196,6 +1215,13 @@ ActiveRecord::Schema.define(:version => 20131007092029) do
     t.integer "world_location_id"
     t.integer "mainstream_link_id"
   end
+
+  create_table "world_location_top_tasks", :force => true do |t|
+    t.integer "world_location_id"
+    t.integer "top_task_id"
+  end
+
+  add_index "world_location_top_tasks", ["world_location_id"], :name => "index_world_location_top_tasks_on_world_location_id"
 
   create_table "world_location_translations", :force => true do |t|
     t.integer  "world_location_id"

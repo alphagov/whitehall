@@ -130,9 +130,9 @@
         @include core-36;
         font-weight: bold;
         margin-right: $gutter-two-thirds;
-      }      
+      }
     }
-    
+
     @include media(tablet){
       p {
         clear: both;
@@ -254,7 +254,7 @@
       }
     }
 
-    .organisation-mainstream-links {
+    .organisation-top-tasks {
       padding-top: $gutter;
 
       @include media(tablet){
@@ -1294,7 +1294,7 @@
       width: 50%;
     }
   }
-  .organisation-mainstream-links {
+  .organisation-top-tasks {
     @include media(tablet){
       float: right;
       width: 50%;

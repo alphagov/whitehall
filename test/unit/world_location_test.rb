@@ -114,9 +114,9 @@ class WorldLocationTest < ActiveSupport::TestCase
     refute arabic.persisted?
   end
 
-  test "should be creatable with mainstream link data" do
+  test "should be creatable with top task data" do
     params = {
-      mainstream_links_attributes: [
+      top_tasks_attributes: [
         {url: "https://www.gov.uk/blah/blah",
          title: "Blah blah"},
         {url: "https://www.gov.uk/wah/wah",
@@ -126,7 +126,7 @@ class WorldLocationTest < ActiveSupport::TestCase
 
     world_location = create(:world_location, params)
 
-    links = world_location.mainstream_links
+    links = world_location.top_tasks
     assert_equal 2, links.count
     assert_equal "https://www.gov.uk/blah/blah", links[0].url
     assert_equal "Blah blah", links[0].title
@@ -134,9 +134,9 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal "Wah wah", links[1].title
   end
 
-  test 'should ignore blank mainstream link attributes' do
+  test 'should ignore blank top task attributes' do
     params = {
-      mainstream_links_attributes: [
+      top_tasks_attributes: [
         {url: "",
          title: ""}
       ]
@@ -145,17 +145,17 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert world_location.valid?
   end
 
-  test 'mainstream links are returned in order of creation' do
+  test 'top tasks are returned in order of creation' do
     world_location = create(:world_location)
-    link_1 = create(:mainstream_link, linkable: world_location, title: '2 days ago', created_at: 2.days.ago)
-    link_2 = create(:mainstream_link, linkable: world_location, title: '12 days ago', created_at: 12.days.ago)
-    link_3 = create(:mainstream_link, linkable: world_location, title: '1 hour ago', created_at: 1.hour.ago)
-    link_4 = create(:mainstream_link, linkable: world_location, title: '2 hours ago', created_at: 2.hours.ago)
-    link_5 = create(:mainstream_link, linkable: world_location, title: '20 minutes ago', created_at: 20.minutes.ago)
-    link_6 = create(:mainstream_link, linkable: world_location, title: '2 years ago', created_at: 2.years.ago)
+    link_1 = create(:top_task, linkable: world_location, title: '2 days ago', created_at: 2.days.ago)
+    link_2 = create(:top_task, linkable: world_location, title: '12 days ago', created_at: 12.days.ago)
+    link_3 = create(:top_task, linkable: world_location, title: '1 hour ago', created_at: 1.hour.ago)
+    link_4 = create(:top_task, linkable: world_location, title: '2 hours ago', created_at: 2.hours.ago)
+    link_5 = create(:top_task, linkable: world_location, title: '20 minutes ago', created_at: 20.minutes.ago)
+    link_6 = create(:top_task, linkable: world_location, title: '2 years ago', created_at: 2.years.ago)
 
-    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], world_location.mainstream_links
-    assert_equal [link_6, link_2, link_1, link_4, link_3], world_location.mainstream_links.only_the_initial_set
+    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], world_location.top_tasks
+    assert_equal [link_6, link_2, link_1, link_4, link_3], world_location.top_tasks.only_the_initial_set
   end
 
   test "has removeable translations" do

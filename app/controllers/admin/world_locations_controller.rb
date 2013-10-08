@@ -6,7 +6,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def edit
-    @world_location.mainstream_links.build unless @world_location.mainstream_links.any?
+    @world_location.top_tasks.build unless @world_location.top_tasks.any?
   end
 
   def update

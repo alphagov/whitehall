@@ -9,12 +9,12 @@
                 locals: { type: t_world_location(@world_location),
                           heading: @world_location.title,
                           extra: true, big: true } %>
-      <aside class="heading-extra mainstream-links">
+      <aside class="heading-extra top-tasks">
         <div class="inner-heading">
           <%= render partial: 'shared/available_languages', locals: {object: @world_location} %>
-          <ul class="mainstream-links-list">
-            <% @world_location.mainstream_links.only_the_initial_set.each do |link| %>
-              <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
+          <ul class="top-tasks-list">
+            <% @world_location.top_tasks.only_the_initial_set.each do |top_task| %>
+              <li><%= link_to top_task.title, top_task.url, ({rel: 'external'} if is_external?(top_task.url)) %></li>
             <% end %>
           </ul>
         </div>

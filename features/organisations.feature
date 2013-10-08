@@ -58,10 +58,10 @@ Scenario: Requesting publications in alternative format
   When I visit the publication "Charleston styles today"
   Then I should see a mailto link for the alternative format contact email "alternative.format@ministry-of-pop.gov.uk"
 
-Scenario: Adding mainstream services
+Scenario: Adding top tasks
   Given the organisation "Ministry of Pop" exists
-  When I add some mainstream links to "Ministry of Pop" via the admin
-  Then the mainstream links for "Ministry of Pop" should be visible on the public site
+  When I add some top tasks to "Ministry of Pop" via the admin
+  Then the top tasks for "Ministry of Pop" should be visible on the public site
 
 Scenario: Managing social media links
   Given the organisation "Ministry of Pop" exists

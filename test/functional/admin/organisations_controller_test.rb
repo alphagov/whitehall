@@ -17,7 +17,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [org1, org2], assigns(:organisations)
   end
 
-  test "GET on :new assigns a new organisation with blank classifications and a mainstream link" do
+  test "GET on :new assigns a new organisation with blank classifications and a top task" do
     get :new
 
     assert_response :success
@@ -26,7 +26,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = assigns(:organisation)
     assert organisation.new_record?
     assert organisation.new_record?
-    assert_equal 1, organisation.mainstream_links.size
+    assert_equal 1, organisation.top_tasks.size
     assert_equal 13, organisation.organisation_classifications.size
   end
 
@@ -44,13 +44,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
         { classification_id: topic_ids[1], ordering: 2 }
       ],
       organisation_mainstream_categories_attributes: [
-        {mainstream_category_id: mainstream_category_ids[0], ordering: 2 },
-        {mainstream_category_id: mainstream_category_ids[1], ordering: 1 }
+        { mainstream_category_id: mainstream_category_ids[0], ordering: 2 },
+        { mainstream_category_id: mainstream_category_ids[1], ordering: 1 }
       ],
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
       organisation_type_key: :executive_agency,
       govuk_status: 'exempt',
-      mainstream_links_attributes: {
+      top_tasks_attributes: {
         "0" =>{
           url: "http://www.gov.uk/mainstream/something",
           title: "Something on mainstream"
@@ -65,9 +65,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation.organisation_mainstream_categories.map(&:ordering).all?(&:present?), "no ordering"
     assert_equal [mainstream_category_ids[1], mainstream_category_ids[0]], organisation.organisation_mainstream_categories.sort_by(&:ordering).map(&:mainstream_category_id)
     assert_equal topic_ids, organisation.organisation_classifications.sort_by(&:ordering).map(&:classification_id)
-    assert organisation_mainstream_link = organisation.mainstream_links.last
-    assert_equal "http://www.gov.uk/mainstream/something", organisation_mainstream_link.url
-    assert_equal "Something on mainstream", organisation_mainstream_link.title
+    assert organisation_top_task = organisation.top_tasks.last
+    assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url
+    assert_equal "Something on mainstream", organisation_top_task.title
     assert_same_elements [parent_org_1, parent_org_2], organisation.parent_organisations
     assert_equal OrganisationType.executive_agency, organisation.organisation_type
     assert_equal 'exempt', organisation.govuk_status

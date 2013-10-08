@@ -50,28 +50,28 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_redirected_to [:admin, world_location]
   end
 
-  view_test "should display fields for new mainstream links" do
+  view_test "should display fields for new top tasks" do
     world_location = create(:world_location)
 
     get :edit, id: world_location
 
-    assert_select "input[type=text][name='world_location[mainstream_links_attributes][0][url]']"
-    assert_select "input[type=text][name='world_location[mainstream_links_attributes][0][title]']"
+    assert_select "input[type=text][name='world_location[top_tasks_attributes][0][url]']"
+    assert_select "input[type=text][name='world_location[top_tasks_attributes][0][title]']"
   end
 
-  test "updating should be able to create a new mainstream links" do
+  test "updating should be able to create a new top task" do
     world_location = create(:world_location)
 
     post :update, id: world_location, world_location: {
-      mainstream_links_attributes: {"0" =>{
+      top_tasks_attributes: {"0" =>{
         url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
       }}
     }
 
     assert world_location = WorldLocation.last
-    assert mainstream_link = world_location.mainstream_links.last
-    assert_equal "http://www.gov.uk/mainstream/something", mainstream_link.url
-    assert_equal "Something on mainstream", mainstream_link.title
+    assert top_task = world_location.top_tasks.last
+    assert_equal "http://www.gov.uk/mainstream/something", top_task.url
+    assert_equal "Something on mainstream", top_task.title
   end
 end

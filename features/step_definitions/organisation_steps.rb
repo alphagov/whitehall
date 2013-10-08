@@ -83,7 +83,7 @@ end
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
   create(:mainstream_category, title: 'Jazzy Bizzle')
- 
+
   visit new_admin_organisation_path
 
   fill_in 'Name', with: organisation_name
@@ -93,8 +93,8 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   select 'Ministerial department', from: 'Organisation type'
   select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
   select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
-  within '.mainstream-links' do
-    fill_in 'Title', with: 'Mainstream link 1'
+  within '.top-tasks' do
+    fill_in 'Title', with: 'Top task 1'
     fill_in 'Url', with: 'http://mainstream.co.uk'
   end
   click_button 'Save'
@@ -234,20 +234,20 @@ When /^I associate a Transparency data publication to the "([^"]*)"$/ do |name|
   publication = create(:published_publication, :transparency_data, organisations: [organisation])
 end
 
-When /^I add some mainstream links to "([^"]*)" via the admin$/ do |organisation_name|
+When /^I add some top tasks to "([^"]*)" via the admin$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
-  within ".mainstream-links" do
+  within ".top-tasks" do
     fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
     fill_in "Title", with: "Tool Alpha"
   end
   click_button "Save"
 end
 
-Then /^the mainstream links for "([^"]*)" should be visible on the public site$/ do |organisation_name|
+Then /^the top tasks for "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
-  within ".organisation-mainstream-links" do
+  within ".organisation-top-tasks" do
     assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
   end
 end
