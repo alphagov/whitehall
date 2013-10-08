@@ -85,30 +85,23 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_date
-      if @date.present? && @direction.present?
-        case @direction
-        when "before"
-          {public_timestamp: {before: (@date - 1.day).to_s(:db)}}
-        when "after"
-          {public_timestamp: {after: @date.to_s(:db) }}
-        else
-          {}
-        end
-      else
+      dates_hash = {}
+      if @form_date.present?
+        dates_hash.merge(from: @from_date)
+      end
+      if @to_date.present?
+        dates_hash.merge(to: @to_date)
+      end
+      if dates_hash.empty?
         {}
+      else
+        {public_timestamp: dates_hash}
       end
     end
 
     def sort
-      if @direction.present? && @keywords.blank?
-        case @direction
-        when "before"
-          {order: { public_timestamp: "desc" } }
-        when "after"
-          {order: { public_timestamp: "asc" } }
-        else
-          {}
-        end
+      if (@form_date.present? || @to_date.present?) && @keywords.blank?
+        {order: { public_timestamp: "desc" } }
       else
         {}
       end

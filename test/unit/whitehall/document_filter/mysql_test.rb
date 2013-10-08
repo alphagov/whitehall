@@ -16,11 +16,6 @@ module Whitehall::DocumentFilter
       assert_nil Whitehall::DocumentFilter::Mysql.new.selected_publication_filter_option
     end
 
-    test "alphabetical direction returns the given set of documents ordered alphabetically" do
-      document_scope.expects(:alphabetical)
-      create_filter(document_scope, direction: "alphabetical")
-    end
-
     test "topics param filters the documents by topic using slugs" do
       topic = stub_topic("car-tax")
 
@@ -126,36 +121,23 @@ module Whitehall::DocumentFilter
       assert_equal filtered_scope, filter.documents
     end
 
-    test "date and direction param allows filtering before a date" do
-      document_scope.expects(:published_before).with(Date.parse("2012-01-01 12:23:45")).returns(document_scope)
-      create_filter(document_scope, date: "2012-01-01 12:23:45", direction: "before")
+    test "date param allows filtering after a date" do
+      document_scope.expects(:published_after).with(Chronic.parse("2012-01-01 12:23:45")).returns(document_scope)
+      create_filter(document_scope, from_date: "2012-01-01 12:23:45")
     end
 
-    test "direction before a date returns documents in reverse chronological order" do
-      document_scope.expects(:in_reverse_chronological_order).returns(document_scope)
-      create_filter(document_scope, date: "2012-01-01 12:23:45", direction: "before")
-    end
-
-    test "direction param sets direction attribute" do
-      assert_equal "before", Whitehall::DocumentFilter::Mysql.new(direction: "before").direction
+    test "date param allows filtering before a date" do
+      document_scope.expects(:published_before).with(Chronic.parse("2012-01-01 12:23:45")).returns(document_scope)
+      create_filter(document_scope, to_date: "2012-01-01 12:23:45")
     end
 
     test "date param sets date attribute" do
-      assert_equal Date.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter::Mysql.new(date: "2012-01-01 12:23:45").date
+      assert_equal Chronic.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter::Mysql.new(from_date: "2012-01-01 12:23:45").from_date
+      assert_equal Chronic.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter::Mysql.new(to_date: "2012-01-01 12:23:45").to_date
     end
 
     test "invalid date param sets date attribute to nil" do
-      assert_equal nil, Whitehall::DocumentFilter::Mysql.new(date: "invalid-date").date
-    end
-
-    test "can filter after a date" do
-      document_scope.expects(:published_after).with(Date.parse("2012-01-01 12:23:45")).returns(document_scope)
-      create_filter(document_scope, date: "2012-01-01 12:23:45", direction: "after")
-    end
-
-    test "filtering after a date returns documents in chronological order" do
-      document_scope.expects(:in_chronological_order).returns(document_scope)
-      create_filter(document_scope, date: "2012-01-01 12:23:45", direction: "after")
+      assert_equal nil, Whitehall::DocumentFilter::Mysql.new(from_date: "invalid-date").from_date
     end
 
     test "publication_type param filters by publication type" do
@@ -380,11 +362,9 @@ module Whitehall::DocumentFilter
       document_scope.stubs(:arel_table).returns(Edition.arel_table)
       document_scope.stubs(:without_editions_of_type).returns(document_scope)
       document_scope.stubs(:in_reverse_chronological_order).returns(document_scope)
-      document_scope.stubs(:in_chronological_order).returns(document_scope)
       document_scope.stubs(:with_title_or_summary_containing).returns(document_scope)
       document_scope.stubs(:published_before).returns(document_scope)
       document_scope.stubs(:published_after).returns(document_scope)
-      document_scope.stubs(:alphabetical).returns(document_scope)
       document_scope.stubs(:published_in_topic).returns(document_scope)
       document_scope.stubs(:in_organisation).returns(document_scope)
       document_scope.stubs(:where).with(has_entry(:publication_type_id, anything)).returns(document_scope)
