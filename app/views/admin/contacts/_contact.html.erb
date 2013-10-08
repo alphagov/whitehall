@@ -1,4 +1,4 @@
-<%= content_tag_for(:div, contact, class: 'well') do %>
+<%= content_tag_for(:div, contact, class: 'well contacts-admin') do %>
   <h3><%= contact.title %></h3>
 
   <div class="vcard">
@@ -59,18 +59,20 @@
     <hr />
     <h3><small><%= translated_contact.translation_locale.native_and_english_language_name %> translation</small></h3>
 
-    <h3><%= translated_contact.title %></h3>
+    <%= content_tag(:div, class: contact_translation_css_class(translated_contact)) do %>
+      <h3><%= translated_contact.title %></h3>
 
-    <div class="vcard">
-      <%= render_hcard_address(translated_contact) %>
-    </div>
+      <div class="vcard">
+        <%= render_hcard_address(translated_contact) %>
+      </div>
 
-    <%= content_tag(:dl, class: "dl-horizontal") do %>
-      <% translated_contact.contact_numbers.each do |cn| %>
-        <%= definition(cn.label, cn.number) %>
-      <% end %>
-      <% if contact.email.present? %>
-        <%= definition('Email', contact.email) %>
+      <%= content_tag(:dl, class: "dl-horizontal") do %>
+        <% translated_contact.contact_numbers.each do |cn| %>
+          <%= definition(cn.label, cn.number) %>
+        <% end %>
+        <% if contact.email.present? %>
+          <%= definition('Email', contact.email) %>
+        <% end %>
       <% end %>
     <% end %>
 
