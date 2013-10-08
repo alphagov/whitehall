@@ -102,22 +102,6 @@ module Edition::Publishing
     end
   end
 
-  def approvable_retrospectively_by?(user)
-    !reason_to_prevent_retrospective_approval_by(user)
-  end
-
-  def reason_to_prevent_retrospective_approval_by(user)
-    if !force_published?
-      "This document has not been force-published"
-    elsif scheduled_by && user == scheduled_by
-      "You are not allowed to retrospectively approve this document, since you force-scheduled it"
-    elsif user == published_by
-      "You are not allowed to retrospectively approve this document, since you force-published it"
-    elsif !enforcer(user).can?(:approve)
-      "Only departmental editors can retrospectively approve a force-published document"
-    end
-  end
-
   def perform_publish
     if reason = reason_to_prevent_publication
       errors.add(:base, reason)
@@ -158,12 +142,12 @@ module Edition::Publishing
     end
   end
 
-  def approve_retrospectively_as(user)
-    if approvable_retrospectively_by?(user)
+  def approve_retrospectively
+    if force_published?
       self.force_published = false
       save!
     else
-      errors.add(:base, reason_to_prevent_retrospective_approval_by(user))
+      errors.add(:base, "This document has not been force-published")
       false
     end
   end

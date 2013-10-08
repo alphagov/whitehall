@@ -130,6 +130,15 @@ class GDSEditorTest < ActiveSupport::TestCase
     refute enforcer_for(me, force_published_edition(me)).can?(:approve)
   end
 
+  test 'can clear the "not reviewed" flag on editions they did not force schedule' do
+    assert enforcer_for(gds_editor(10), force_scheduled_edition(gds_editor(100))).can?(:approve)
+  end
+
+  test 'cannot clear the "not reviewed" flag on editions they force scheduled' do
+    user = gds_editor
+    refute enforcer_for(user, force_scheduled_edition(user)).can?(:approve)
+  end
+
   test 'can limit access to an edition' do
     assert enforcer_for(gds_editor, normal_edition).can?(:limit_access)
   end

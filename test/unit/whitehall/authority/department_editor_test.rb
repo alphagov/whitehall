@@ -120,6 +120,15 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     refute enforcer_for(user, force_published_edition(user)).can?(:approve)
   end
 
+  test 'can clear the "not reviewed" flag on editions they did not force schedule' do
+    assert enforcer_for(department_editor(10), force_scheduled_edition(department_editor(100))).can?(:approve)
+  end
+
+  test 'cannot clear the "not reviewed" flag on editions they force scheduled' do
+    user = department_editor
+    refute enforcer_for(user, force_scheduled_edition(user)).can?(:approve)
+  end
+
   test 'can limit access to an edition' do
     assert enforcer_for(department_editor, normal_edition).can?(:limit_access)
   end

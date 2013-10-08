@@ -333,41 +333,17 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_equal '2.0', new_draft.reload.published_version
   end
 
-  test "#approve_retrospectively_as should clear the force_published flag, and return true on success" do
-    editor, other_editor = create(:departmental_editor), create(:departmental_editor)
-    edition = create(:draft_policy)
-    acting_as(editor) { assert edition.perform_force_publish }
+  test "#approve_retrospectively should clear the force_published flag, and return true on success" do
+    edition = create(:published_policy, force_published: true)
 
-    assert edition.approve_retrospectively_as(other_editor)
+    assert edition.approve_retrospectively
     refute edition.force_published?
   end
 
-  test "#approve_retrospectively_as should return false and set a validation error if document was not force-published" do
-    editor, other_editor = create(:departmental_editor), create(:departmental_editor)
-    edition = create(:submitted_policy)
-    acting_as(editor) { edition.perform_publish }
+  test "#approve_retrospectively should return false and set a validation error if document was not force-published" do
+    edition = create(:published_policy)
 
-    refute edition.approve_retrospectively_as(other_editor)
+    refute edition.approve_retrospectively
     assert edition.errors[:base].include?('This document has not been force-published')
-  end
-
-  test "#approve_retrospectively_as should return false and set a validation error if attempted by a writer" do
-    editor, writer = create(:departmental_editor), create(:policy_writer)
-    edition = create(:draft_policy)
-    acting_as(editor) { edition.perform_force_publish }
-
-    refute edition.approve_retrospectively_as(writer)
-    assert edition.force_published?
-    assert edition.errors[:base].include?('Only departmental editors can retrospectively approve a force-published document')
-  end
-
-  test "#approve_retrospectively_as should return false and set a validation error if attempted by the force-publisher" do
-    editor = create(:departmental_editor)
-    edition = create(:draft_policy)
-    acting_as(editor) { edition.perform_force_publish }
-
-    refute edition.approve_retrospectively_as(editor)
-    assert edition.force_published?
-    assert edition.errors[:base].include?('You are not allowed to retrospectively approve this document, since you force-published it')
   end
 end

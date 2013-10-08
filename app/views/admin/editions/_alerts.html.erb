@@ -2,7 +2,7 @@
   <div class="alert alert-error force_published">
     <p><strong>Warning</strong> This edition was force published and has not yet been reviewed by a second pair of eyes.</p>
 
-    <% if edition.approvable_retrospectively_by?(current_user) %>
+    <% if can?(:approve, edition) %>
       <p><%= link_to "View this on the website", preview_document_path(@edition), target: '_blank' %> and check everything thoroughly.</p>
       <p><%= approve_retrospectively_edition_button(edition) %></p>
     <% else %>

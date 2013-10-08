@@ -67,7 +67,7 @@ module Whitehall::Authority::Rules
     end
 
     def can_approve?
-      subject.published_by != actor
+      actor_is_not_publisher? && actor_is_not_scheduler?
     end
 
     def can_publish?
@@ -80,6 +80,14 @@ module Whitehall::Authority::Rules
 
     def actor_is_not_creator?
       subject.creator != actor
+    end
+
+    def actor_is_not_publisher?
+      subject.published_by != actor
+    end
+
+    def actor_is_not_scheduler?
+      !subject.scheduled? || subject.scheduled_by != actor
     end
 
     def not_publishing_scheduled_edition_without_authority?
