@@ -490,7 +490,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(policy)
     policy.unpublishing = build(:unpublishing)
-    policy.unpublish_as(create(:gds_editor))
+    policy.perform_unpublish
   end
 
   test "swallows errors from search index when it's unpublished" do
@@ -498,7 +498,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
     policy.unpublishing = build(:unpublishing)
-    assert_nothing_raised { policy.unpublish_as(create(:gds_editor)) }
+    assert_nothing_raised { policy.perform_unpublish }
   end
 
   test "should remove published edition from search index when it's archived" do

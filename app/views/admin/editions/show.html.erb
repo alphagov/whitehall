@@ -33,7 +33,7 @@
 
       <%= reject_edition_button(@edition) if @edition.can_reject? && can?(:reject, @edition) %>
       <%= delete_edition_button(@edition) if @edition.can_delete? %>
-      <%= unpublish_edition_button(@edition) if @edition.unpublishable_by?(current_user) %>
+      <%= unpublish_edition_button(@edition) if @edition.can_unpublish? && can?(:unpublish, @edition) %>
     </section>
 
     <%= render partial: "history_state", locals: { edition: @edition } %>

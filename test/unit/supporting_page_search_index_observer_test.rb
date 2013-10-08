@@ -20,7 +20,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(supporting_page)
     policy.unpublishing = build(:unpublishing)
-    policy.unpublish_as(create(:gds_editor))
+    policy.perform_unpublish
   end
 
   test 'should remove supporting page from search index when its edition is archived' do

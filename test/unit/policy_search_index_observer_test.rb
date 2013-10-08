@@ -14,7 +14,7 @@ class PolicySearchIndexObserverTest < ActiveSupport::TestCase
 
     PolicySearchIndexObserver::ReindexRelatedEditions.expects(:later).with(policy)
     policy.unpublishing = build(:unpublishing)
-    policy.unpublish_as(create(:gds_editor))
+    policy.perform_unpublish
   end
 
   test 'ReindexRelatedEditions.later enqueues a job for the supplied policy onto the rummager work queue' do

@@ -2,10 +2,7 @@ class Unpublishing < ActiveRecord::Base
   belongs_to :edition
 
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true
-  validates :alternative_url, presence: {
-    message: "must be entered if you want to redirect to it",
-    if: -> unpublishing { unpublishing.redirect? }
-  }
+  validates :alternative_url, presence: { message: "must be entered if you want to redirect to it", if: :redirect? }
   validates :alternative_url, uri: true, allow_blank: true
   validate :redirect_not_circular
 

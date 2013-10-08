@@ -69,91 +69,107 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     assert_nil Publication.unpublished_as(publication.document.to_param)
   end
 
-  test "is unpublishable if the edition is published and the user is a GDS editor" do
-    edition = build(:published_edition, :with_document)
-    gds_editor = build(:gds_editor)
-    assert edition.unpublishable_by?(gds_editor)
-  end
-
   test "is not unpublishable if the edition is not published" do
     non_published_edition = build(:edition, :with_document)
-    gds_editor = build(:gds_editor)
-    refute non_published_edition.unpublishable_by?(gds_editor)
-  end
-
-  test "is not unpublishable if the user is not a GDS editor" do
-    edition = build(:published_edition, :with_document)
-    departmental_editor = build(:departmental_editor)
-    refute edition.unpublishable_by?(departmental_editor)
+    assert_equal 'This edition has not been published', non_published_edition.reason_to_prevent_unpublication
   end
 
   test 'is not unpublishable if the document has a draft' do
-    edition = build(:published_edition, :with_document)
-    draft_edition = build(:draft_edition)
-    edition.stubs(:other_draft_editions).returns([draft_edition])
-    gds_editor = build(:gds_editor)
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(create(:policy_writer))
 
-    refute edition.unpublishable_by?(gds_editor)
+    assert_equal 'There is already a draft edition of this document. You must remove it before you can unpublish this edition.',
+      edition.reload.reason_to_prevent_unpublication
   end
 
-  test "sets the state back to draft if the edition is unpublishable by the user" do
-    user = build(:user)
-    edition = create(:published_edition, :with_document)
-    edition.stubs(:unpublishable_by?).with(user).returns(true)
-    edition.unpublishing = build(:unpublishing)
-    edition.unpublish_as(user)
+  test "#perform_unpublish returns true, sets the state back to draft and saves the associated unpublishing" do
+    edition = create(:published_edition)
+    edition.build_unpublishing(attributes_for(:unpublishing))
+
+    assert edition.perform_unpublish
     assert edition.draft?
+    assert edition.unpublishing.persisted?
   end
 
-  test "adds an editorial remark stating that this edition has been set back to draft if the edition is unpublishable by the user" do
-    user = build(:user)
-    edition = create(:published_edition, :with_document)
-    edition.stubs(:unpublishable_by?).with(user).returns(true)
-    edition.unpublishing = build(:unpublishing)
-    edition.unpublish_as(user)
+  test '#perform_unpublish returns false if the edition could not be unpublished, setting the reason why on the edition' do
+    edition = create(:draft_edition)
+    edition.build_unpublishing(attributes_for(:unpublishing))
 
-    assert_equal "Reset to draft", edition.editorial_remarks.last.body
-    assert_equal user, edition.editorial_remarks.last.author
+    refute edition.perform_unpublish
+    assert edition.draft?
+    assert edition.unpublishing.new_record?
+    assert_equal ['This edition has not been published'], edition.errors[:base]
   end
 
-  test "returns true if the edition is unpublishable by the user" do
-    user = build(:user)
-    edition = create(:published_edition, :with_document)
-    edition.stubs(:unpublishable_by?).with(user).returns(true)
-    edition.unpublishing = build(:unpublishing)
-    assert edition.unpublish_as(user)
+  test '#perform_unpublish includes validation errrors from the unpublishing on the edition' do
+    edition = create(:published_edition)
+    edition.build_unpublishing(attributes_for(:unpublishing).merge(redirect: true))
+
+    refute edition.perform_unpublish
+    assert edition.published?
+    assert edition.unpublishing.new_record?
+    assert_equal ['Alternative url must be entered if you want to redirect to it'], edition.errors[:base]
   end
 
-  test "does not set the state back to draft if the edition is not unpublishable by the user" do
-    user = build(:user)
-    edition = create(:published_edition, :with_document)
-    edition.stubs(:unpublishable_by?).with(user).returns(false)
-    edition.unpublishing = build(:unpublishing)
-    edition.unpublish_as(user)
-    refute edition.draft?
+  test "#perform_unpublish on a first edition sets the version number to nil" do
+    edition = create(:published_edition)
+    edition.build_unpublishing(attributes_for(:unpublishing))
+
+    assert edition.perform_unpublish
+    assert_nil edition.reload.published_version
   end
 
-  test "returns false if the edition is not unpublishable by the user" do
-    user = build(:user)
-    edition = create(:published_edition, :with_document)
-    edition.stubs(:unpublishable_by?).with(user).returns(false)
-    edition.unpublishing = build(:unpublishing)
-    refute edition.unpublish_as(user)
+  test "#perform_unpublish on a minor change decrements the minor version" do
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(create(:policy_writer))
+    new_draft.minor_change = true
+    new_draft.submit!
+    new_draft.perform_publish
+
+    assert_equal '1.1', new_draft.reload.published_version
+
+    new_draft.build_unpublishing(attributes_for(:unpublishing))
+
+    assert new_draft.perform_unpublish
+    assert_equal '1.0', new_draft.reload.published_version
   end
 
-  test "adds a suitable error message if the edition is not published" do
-    edition = create(:edition, :with_document)
-    edition.unpublish_as(build(:user))
-    edition.unpublishing = build(:unpublishing)
-    assert edition.errors[:base].include?("This edition has not been published")
+  test "#perform_unpublish on a major change decrements the major version" do
+    edition = create(:published_edition)
+    new_draft = edition.create_draft(create(:policy_writer))
+    new_draft.change_note = 'My new version'
+    new_draft.submit!
+    new_draft.perform_publish
+
+    assert_equal '2.0', new_draft.published_version
+
+    new_draft.build_unpublishing(attributes_for(:unpublishing))
+    new_draft.perform_unpublish
+
+    assert_equal '1.0', new_draft.reload.published_version
   end
 
-  test "adds a suitable error message if the user is not a GDS editor" do
-    non_gds_editor = build(:user)
-    edition = create(:edition, :with_document)
-    edition.unpublishing = build(:unpublishing)
-    edition.unpublish_as(non_gds_editor)
-    assert edition.errors[:base].include?("Only GDS editors can unpublish")
+  test "#perform_unpublish on a major change that has previous minor changes decrements the major version and picks the highest minor version" do
+    editor = create(:departmental_editor)
+    edition = create(:published_edition)
+    minor_change_edition = edition.create_draft(editor)
+    minor_change_edition.minor_change = true
+    minor_change_edition.submit!
+    minor_change_edition.perform_publish
+
+    assert_equal '1.1', minor_change_edition.published_version
+
+    new_draft = minor_change_edition.create_draft(editor)
+    new_draft.change_note = 'My new version'
+    new_draft.submit!
+    new_draft.perform_publish
+
+    assert_equal '2.0', new_draft.published_version
+
+    new_draft.build_unpublishing(attributes_for(:unpublishing))
+    new_draft.perform_unpublish
+
+    assert_equal '1.1', new_draft.reload.published_version
   end
 end
 
@@ -315,54 +331,6 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     new_draft.submit!
     new_draft.perform_publish
     assert_equal '2.0', new_draft.reload.published_version
-  end
-
-  test "unpublishing first edition sets published version to nil" do
-    edition = create(:submitted_edition)
-    edition.perform_publish
-    edition.unpublishing = build(:unpublishing)
-    edition.unpublish_as(create(:gds_editor))
-    assert_nil edition.reload.published_version
-  end
-
-  test "unpublishing a minor change to an edition decrements the minor version" do
-    editor = create(:departmental_editor)
-    edition = create(:published_edition)
-    new_draft = edition.create_draft(editor)
-    new_draft.minor_change = true
-    new_draft.submit!
-    new_draft.perform_publish
-    new_draft.unpublishing = build(:unpublishing)
-    new_draft.unpublish_as(create(:gds_editor))
-    assert_equal '1.0', new_draft.reload.published_version
-  end
-
-  test "unpublishing a major change to an edition decrements the major version" do
-    editor = create(:departmental_editor)
-    edition = create(:published_edition)
-    new_draft = edition.create_draft(editor)
-    new_draft.change_note = 'My new version'
-    new_draft.submit!
-    new_draft.perform_publish
-    new_draft.unpublishing = build(:unpublishing)
-    new_draft.unpublish_as(create(:gds_editor))
-    assert_equal '1.0', new_draft.reload.published_version
-  end
-
-  test "unpublishing a major change to an edition that has previous minor changes decrements the major version and picks the highest minor version" do
-    editor = create(:departmental_editor)
-    edition = create(:published_edition)
-    minor_change_edition = edition.create_draft(editor)
-    minor_change_edition.minor_change = true
-    minor_change_edition.submit!
-    minor_change_edition.perform_publish
-    new_draft = minor_change_edition.create_draft(editor)
-    new_draft.change_note = 'My new version'
-    new_draft.submit!
-    new_draft.perform_publish
-    new_draft.unpublishing = build(:unpublishing)
-    new_draft.unpublish_as(create(:gds_editor))
-    assert_equal '1.1', new_draft.reload.published_version
   end
 
   test "#approve_retrospectively_as should clear the force_published flag, and return true on success" do

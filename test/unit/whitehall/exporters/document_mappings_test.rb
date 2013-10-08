@@ -102,11 +102,10 @@ Old Url,New Url,Status,Slug,Admin Url,State
     end
 
     test "exports with 301 to the original slug of an unpublished edition" do
-      user = create(:gds_editor)
       publication = create(:published_publication)
       old_slug = publication.document.slug
       publication.unpublishing = create(:unpublishing)
-      publication.unpublish_as(user)
+      publication.perform_unpublish
       unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
       publication.title = "This is a new title"
       publication.save!

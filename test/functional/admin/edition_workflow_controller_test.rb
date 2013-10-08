@@ -229,7 +229,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  test 'unpublish unpublishes the edition and redirects back with a message' do
+  test 'unpublish unpublishes the edition, adds a remark, and redirects back with a message' do
     login_as create(:gds_editor)
     unpublish_params = {
         'unpublishing_reason_id' => '1',
@@ -242,7 +242,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_policy_path(published_edition)
     assert_equal "This document has been unpublished and will no longer appear on the public website", flash[:notice]
-    assert_equal 'Was classified', published_edition.unpublishing.explanation
+    assert_equal 'Was classified', published_edition.reload.unpublishing.explanation
+    assert_equal "Reset to draft", published_edition.editorial_remarks.last.body
   end
 
   test 'unpublish responds with 422 if missing a lock version' do

@@ -58,10 +58,6 @@ module Edition::Publishing
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
-  def unpublishable_by?(user)
-    reasons_to_prevent_unpublication_by(user).empty?
-  end
-
   def reason_to_prevent_approval
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
@@ -98,14 +94,12 @@ module Edition::Publishing
     end
   end
 
-  def reasons_to_prevent_unpublication_by(user)
-    errors = []
-    errors << "Only GDS editors can unpublish" unless enforcer(user).can?(:unpublish)
-    errors << "This edition has not been published" unless published?
-    unless other_draft_editions.empty?
-      errors << "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
+  def reason_to_prevent_unpublication
+    if !published?
+      "This edition has not been published"
+    elsif other_draft_editions.any?
+      "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
     end
-    errors
   end
 
   def approvable_retrospectively_by?(user)
@@ -149,30 +143,18 @@ module Edition::Publishing
     can_force_publish? && scheduled_publication_time_not_set?
   end
 
-  def unpublish_as(user)
-    if unpublishable_by?(user)
-      if minor_change?
-        self.published_minor_version = self.published_minor_version - 1
-      elsif first_published_version?
-        self.published_major_version = nil
-        self.published_minor_version = nil
-      else
-        self.published_major_version = self.published_major_version - 1
-        self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
-      end
+  def perform_unpublish
+    if reason = reason_to_prevent_unpublication
+      errors.add(:base, reason)
+      false
+    else
+      decrement_version_numbers
       if unpublishing && unpublishing.valid?
-        unpublish!
-        editorial_remarks.create!(author: user, body: "Reset to draft")
-        unpublishing.save
+        unpublish! and unpublishing.save
       else
         errors.add(:base, unpublishing.errors.full_messages.join) if unpublishing
         false
       end
-    else
-      reasons_to_prevent_unpublication_by(user).each do |reason|
-        errors.add(:base, reason)
-      end
-      false
     end
   end
 
@@ -199,5 +181,17 @@ private
       self.published_minor_version = 0
     end
     make_public_at(major_change_published_at)
+  end
+
+  def decrement_version_numbers
+    if minor_change?
+      self.published_minor_version = self.published_minor_version - 1
+    elsif first_published_version?
+      self.published_major_version = nil
+      self.published_minor_version = nil
+    else
+      self.published_major_version = self.published_major_version - 1
+      self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
+    end
   end
 end
