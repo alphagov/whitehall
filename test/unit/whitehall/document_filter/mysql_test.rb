@@ -122,18 +122,18 @@ module Whitehall::DocumentFilter
     end
 
     test "date param allows filtering after a date" do
-      document_scope.expects(:published_after).with(Chronic.parse("2012-01-01 12:23:45")).returns(document_scope)
+      document_scope.expects(:published_after).with(Chronic.parse("2012-01-01 12:23:45").to_date).returns(document_scope)
       create_filter(document_scope, from_date: "2012-01-01 12:23:45")
     end
 
     test "date param allows filtering before a date" do
-      document_scope.expects(:published_before).with(Chronic.parse("2012-01-01 12:23:45")).returns(document_scope)
+      document_scope.expects(:published_before).with(Chronic.parse("2012-01-01 12:23:45").to_date).returns(document_scope)
       create_filter(document_scope, to_date: "2012-01-01 12:23:45")
     end
 
     test "date param sets date attribute" do
-      assert_equal Chronic.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter::Mysql.new(from_date: "2012-01-01 12:23:45").from_date
-      assert_equal Chronic.parse("2012-01-01 12:23:45"), Whitehall::DocumentFilter::Mysql.new(to_date: "2012-01-01 12:23:45").to_date
+      assert_equal Chronic.parse("2012-01-01 12:23:45").to_date, Whitehall::DocumentFilter::Mysql.new(from_date: "2012-01-01 12:23:45").from_date
+      assert_equal Chronic.parse("2012-01-01 12:23:45").to_date, Whitehall::DocumentFilter::Mysql.new(to_date: "2012-01-01 12:23:45").to_date
     end
 
     test "invalid date param sets date attribute to nil" do
