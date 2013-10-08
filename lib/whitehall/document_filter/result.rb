@@ -22,8 +22,8 @@ module Whitehall::DocumentFilter
       Time.zone.parse(@doc['public_timestamp'])
     end
 
-    def part_of_collection?
-      document_collections && document_collections.any?
+    def part_of_published_collection?
+      published_document_collections && published_document_collections.any?
     end
 
     def organisations
@@ -34,7 +34,7 @@ module Whitehall::DocumentFilter
       @doc.fetch('topics', []).map { |slug| fetch_from_cache(:topic, slug) }.compact
     end
 
-    def document_collections
+    def published_document_collections
       @doc.fetch('document_collections', []).map { |slug| fetch_from_cache(:document_collection, slug) }.compact
     end
 

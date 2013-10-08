@@ -8,8 +8,8 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   end
 
   def publication_collections
-    if model.part_of_collection?
-      links = model.document_collections.map do |dc|
+    if model.part_of_published_collection?
+      links = model.published_document_collections.map do |dc|
         context.link_to(dc.title, context.public_document_path(dc))
       end
       "Part of a collection: #{links.to_sentence}"

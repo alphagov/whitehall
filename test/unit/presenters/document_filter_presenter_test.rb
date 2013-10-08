@@ -16,7 +16,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
       # TODO: perhaps rethink edition factory, so this apparent duplication
       # isn't neccessary
       publication.stubs(:organisations).returns([organisation])
-      publication.stubs(:document_collections).returns([])
+      publication.stubs(:published_document_collections).returns([])
       publication
     end
   end

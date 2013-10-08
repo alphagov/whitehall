@@ -28,9 +28,9 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
     assert_select ".body", text: "body-in-html"
   end
 
-  view_test "show links to the document collection that the statistical data set belongs to" do
+  view_test "show links to the published document collection that the statistical data set belongs to" do
     document = create(:published_statistical_data_set).document
-    document_collection = create(:document_collection, :with_group)
+    document_collection = create(:published_document_collection, :with_group)
     document_collection.groups.first.documents = [document]
     get :show, id: document
 

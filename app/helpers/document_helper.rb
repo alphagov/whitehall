@@ -290,7 +290,7 @@ Details of document required:
         classes: ["document-policy-advisory-groups"]
       }
     end
-    if document.respond_to?(:part_of_collection?) && document.part_of_collection?
+    if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
       metadata << {
         title: t('document.headings.document_collection.other'),
         data: array_of_links_to_document_collections(document),

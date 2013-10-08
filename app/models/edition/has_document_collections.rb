@@ -7,16 +7,20 @@ module Edition::HasDocumentCollections
     has_many :document_collection_groups, through: :document
   end
 
+  def published_document_collections
+    document_collections.published
+  end
+
   def can_be_grouped_in_collections?
     true
   end
 
-  def part_of_collection?
-    document_collections.any?
+  def part_of_published_collection?
+    published_document_collections.any?
   end
 
   def search_index
-    super.merge("document_collections" => document_collections.map(&:slug))
+    super.merge("document_collections" => published_document_collections.map(&:slug))
   end
 
   # We allow document collection groups to be assigned directly on an

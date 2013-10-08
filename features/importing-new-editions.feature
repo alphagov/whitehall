@@ -1,6 +1,8 @@
 @import
 Feature: Importing new editions
-  We want to be able to import editions into our database which don't have all the data filled in. The idea is to enable editors to 'speed tag' them with all the associations they need, and send them directly to draft state.
+  We want to be able to import editions into our database which don't have all
+  the data filled in. The idea is to enable editors to 'speed tag' them with
+  all the associations they need, and send them directly to draft state.
 
   - Can specify the Organisation that is being imported on the import page
   - When importing:
@@ -235,9 +237,9 @@ Feature: Importing new editions
       """
     Then I can delete the imported edition if I choose to
 
-  Scenario: Importing detailed guides with topic, document collection, detailed guidance category, related detailed guide and related mainstream content
+  Scenario: Importing detailed guides with topic, detailed guidance category, related detailed guide and related mainstream content
     Given a topic with the slug "my-topic" exists
-    And a document collection "My document collection" exists
+    And a published document collection "My document collection" exists
     And a mainstream category with the slug "my-detailed-guidance-category" exists
     And a published detailed guide "My related detailed guide" for the organisation "Foreign Commonwealth Office"
     When I import the following data as CSV as "Detailed guide" for "Home Office":
@@ -252,6 +254,7 @@ Feature: Importing new editions
       | document_collections             | my-document-collection        |
       | mainstream_categories            | my-detailed-guidance-category |
       | outbound_related_documents       | my-related-detailed-guide     |
+
 
   Scenario: Importing case study with related policies and document collection
     Given a document collection "My document collection" exists

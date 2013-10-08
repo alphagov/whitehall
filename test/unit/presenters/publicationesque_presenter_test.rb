@@ -13,23 +13,17 @@ class PublicationesquePresenterTest < PresenterTestCase
     assert_equal "Impact assessment", presenter.display_type
   end
 
-  test "should indicate when publication is part of a collection" do
+  test "should indicate when publication is part of a published collection" do
     publication = Publication.new
-    publication.expects(:part_of_collection?).returns(true)
+    publication.expects(:part_of_published_collection?).returns(true)
     presenter = PublicationesquePresenter.new(publication, @view_context)
-    assert presenter.part_of_collection?
+    assert presenter.part_of_published_collection?
   end
 
   test "should return display publication type on statistical data set" do
     publication = StatisticalDataSet.new
     presenter = PublicationesquePresenter.new(publication, @view_context)
     assert_equal "Statistical data set", presenter.display_type
-  end
-
-  test "should indicate when publication is not part of a collection" do
-    publication = Publication.new
-    presenter = PublicationesquePresenter.new(publication, @view_context)
-    refute presenter.part_of_collection?
   end
 
   test 'should add publication collection link to hash' do
@@ -41,9 +35,9 @@ class PublicationesquePresenterTest < PresenterTestCase
     publication = stub_record(:publication,
       document: document,
       public_timestamp: Time.zone.now,
-      organisations: [organisation],
-      document_collections: [collection])
-    publication.expects(:part_of_collection?).returns(true)
+      organisations: [organisation])
+    publication.stubs(:published_document_collections).returns([collection])
+    publication.expects(:part_of_published_collection?).returns(true)
     # TODO: perhaps rethink edition factory, so this apparent duplication
     # isn't neccessary
     publication.stubs(:organisations).returns([organisation])
