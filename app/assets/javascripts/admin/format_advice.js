@@ -3,20 +3,17 @@ GOVUK.formatAdvice = {
   init: function($subtypeFields) {
     if ($subtypeFields.length < 1) { return; }
 
-    var $subformatAdvice = $('<p/>');
-    $('#format-advice').append($subformatAdvice);
-
     $subtypeFields.change(function() {
-      $field = $(this);
+      var $field = $(this);
+      var $container = $field.parent();
       var formatAdviceMap = $field.data('format-advice');
+
+      $container.find('.govspeak').remove();
 
       var adviceText = formatAdviceMap[$field.val()];
       if (adviceText) {
-        var selectedText = $field.find(':selected').text();
-        var adviceHTML = '<strong>'+selectedText+'</strong>: '+adviceText;
-        $subformatAdvice.html(adviceHTML);
-      } else {
-        $subformatAdvice.text('');
+        var adviceHTML = '<strong class="govspeak">Use this subformat for…</strong> '+adviceText;
+        $container.append(adviceHTML);
       }
     }).change();
   }
