@@ -313,7 +313,8 @@ module Admin::EditionsHelper
 
   def format_advice_map(format_type_class)
     format_type_class.all.inject({}) do |hash, type|
-      hash.merge(type.id => t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
+      html = govspeak_to_html(t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
+      hash.merge(type.id => html)
     end
   end
 end

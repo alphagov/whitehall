@@ -1,6 +1,4 @@
-<section id='format-advice'>
+<section>
   <h2>Use this format for…</h2>
-  <p>
-    <%= t("publishing.format_advice.#{@edition.format_name.tr(' ', '_')}.intended_use") %>
-  </p>
+  <%= govspeak_to_html t("publishing.format_advice.#{@edition.format_name.tr(' ', '_')}.intended_use") %>
 </section>
