@@ -50,15 +50,6 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_redirected_to [:admin, world_location]
   end
 
-  view_test "should display fields for new top tasks" do
-    world_location = create(:world_location)
-
-    get :edit, id: world_location
-
-    assert_select "input[type=text][name='world_location[top_tasks_attributes][0][url]']"
-    assert_select "input[type=text][name='world_location[top_tasks_attributes][0][title]']"
-  end
-
   test "updating should be able to create a new top task" do
     world_location = create(:world_location)
 

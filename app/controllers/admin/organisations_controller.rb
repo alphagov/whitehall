@@ -8,7 +8,6 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def new
     @organisation = Organisation.new
-    @organisation.top_tasks.build
     build_organisation_classifications
     build_organisation_mainstream_categories
   end
@@ -57,7 +56,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def edit
-    @organisation.top_tasks.build unless @organisation.top_tasks.any?
     build_organisation_classifications
     build_organisation_mainstream_categories
     build_default_news_image

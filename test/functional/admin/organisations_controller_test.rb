@@ -17,19 +17,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal [org1, org2], assigns(:organisations)
   end
 
-  test "GET on :new assigns a new organisation with blank classifications and a top task" do
-    get :new
-
-    assert_response :success
-    assert_template :new
-
-    organisation = assigns(:organisation)
-    assert organisation.new_record?
-    assert organisation.new_record?
-    assert_equal 1, organisation.top_tasks.size
-    assert_equal 13, organisation.organisation_classifications.size
-  end
-
   test "POST on :create saves the organisation and its associations" do
     attributes = attributes_for(:organisation)
 
