@@ -1,6 +1,7 @@
 class CleanupOrganisationType < ActiveRecord::Migration
   def up
     remove_index :organisations, :organisation_type_id
+    remove_index :organisations, [:id, :organisation_type_id]
     remove_column :organisations, :organisation_type_id
     drop_table :organisation_types
   end
@@ -31,5 +32,6 @@ class CleanupOrganisationType < ActiveRecord::Migration
 
     add_column :organisations, :organisation_type_id, :int
     add_index :organisations, :organisation_type_id
+    add_index :organisations, [:id, :organisation_type_id]
   end
 end
