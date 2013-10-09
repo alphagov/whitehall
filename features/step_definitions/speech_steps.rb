@@ -86,7 +86,7 @@ end
 
 When /^I draft a new authored article "([^"]*)"$/ do |title|
   begin_drafting_speech title: title
-  select 'Authored article', from: "Type"
+  select 'Authored article', from: "Speech type"
 end
 
 Then /^I should be able to choose who wrote the article$/ do

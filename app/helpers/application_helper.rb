@@ -106,9 +106,6 @@ module ApplicationHelper
       }],
       ["Use discouraged", PublicationType.use_discouraged.map { |publication_type|
         [publication_type.singular_name, publication_type.id]
-      }],
-      ["Legacy (need migration)", PublicationType.migration.map { |publication_type|
-        [publication_type.singular_name, publication_type.id]
       }]
     ]
   end
@@ -127,8 +124,14 @@ module ApplicationHelper
       ["", [""]],
       ["Common types", NewsArticleType.primary.map { |type|
         [type.singular_name, type.id]
-      }],
-      ["Legacy (need migration)", NewsArticleType.migration.map { |type|
+      }]
+    ]
+  end
+
+  def speech_type_options
+    [
+      ["", [""]],
+      ["Common types", SpeechType.primary.map { |type|
         [type.singular_name, type.id]
       }]
     ]

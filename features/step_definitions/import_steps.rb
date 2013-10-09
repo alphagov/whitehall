@@ -160,7 +160,7 @@ end
 
 When /^I set the imported speech's type to "([^"]*)"$/ do |speech_type|
   begin_editing_document Edition.imported.last.title
-  select speech_type, from: 'Type'
+  select speech_type, from: 'Speech type'
   click_on 'Save'
 end
 

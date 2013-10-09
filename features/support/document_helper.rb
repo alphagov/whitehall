@@ -18,13 +18,9 @@ module DocumentHelper
     end
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
-    if options[:type] == "detailed_guide"
-      visit new_detailed_guides_page
-    else
-      find('li.create-new a', text: 'New document').click
-      within 'li.create-new' do
-        click_link options[:type].humanize
-      end
+    find('li.create-new a', text: 'New document').click
+    within 'li.create-new' do
+      click_link options[:type].humanize
     end
 
     within 'form' do
@@ -93,7 +89,7 @@ module DocumentHelper
     role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     speech_type = SpeechType::Transcript
     begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content")
-    select speech_type.name, from: "Type"
+    select speech_type.singular_name, from: "Speech type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
     select_date 1.day.ago.to_s, from: "Delivered on"
     fill_in "Location", with: "The Drawing Room"
