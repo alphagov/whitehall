@@ -9,14 +9,10 @@
                 locals: { type: t_world_location(@world_location),
                           heading: @world_location.title,
                           extra: true, big: true } %>
-      <aside class="heading-extra top-tasks">
+      <aside class="heading-extra">
         <div class="inner-heading">
-          <%= render partial: 'shared/available_languages', locals: {object: @world_location} %>
-          <ul class="top-tasks-list">
-            <% @world_location.top_tasks.only_the_initial_set.each do |top_task| %>
-              <li><%= link_to top_task.title, top_task.url, ({rel: 'external'} if is_external?(top_task.url)) %></li>
-            <% end %>
-          </ul>
+          <%= render 'shared/available_languages', object: @world_location %>
+          <%= render 'shared/top_tasks', top_tasks: @world_location.top_tasks %>
         </div>
       </aside>
     </div>

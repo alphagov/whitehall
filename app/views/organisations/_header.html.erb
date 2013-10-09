@@ -26,7 +26,7 @@
     <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
   <% end %>
 
-  <%= content_tag_if_not_empty :aside, class: "heading-aside" do %>
+  <%= content_tag_if_not_empty :aside, class: "heading-extra" do %>
     <% if languages_available %>
       <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
     <% end %>

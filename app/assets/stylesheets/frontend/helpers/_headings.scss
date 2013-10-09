@@ -56,12 +56,48 @@
         float: left;
       }
     }
-  }
 
-  .top-tasks-list {
-    margin-top: $gutter-two-thirds;
-    li {
-      font-weight: bold;
+    h4 {
+      @include ig-core-19;
+
+      @include media(tablet) {
+        position: absolute;
+        left: -9999em;
+      }
+    }
+
+    .top-tasks {
+      list-style: none;
+
+      @include media(tablet) {
+        padding-left: $gutter-two-thirds;
+      }
+
+      li {
+        @include core-16;
+        font-weight: bold;
+        padding: 3px 0;
+        @include media(tablet) {
+          padding: $gutter-one-sixth 0 0;
+        }
+
+        a[rel="external"] {
+          @include external-link-14-bold-no-hover;
+          @include media(tablet) {
+            @include external-link-16-bold-no-hover;
+          }
+        }
+      }
+    }
+
+    .available-languages {
+      margin: 0 0 $gutter-half $gutter-two-thirds;
+      ul {
+        padding: 0 0 $gutter-one-sixth 0;
+        li {
+          padding-right: $gutter-one-third;
+        }
+      }
     }
   }
 
