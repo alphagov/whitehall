@@ -30,8 +30,8 @@ class RenameMainstreamLinksToTopTasksPart2 < ActiveRecord::Migration
     add_index "organisation_mainstream_links", ["organisation_id"]
 
     execute %Q{
-      INSERT INTO mainstream_links(url, title, created_at, updated_at, linkable_type, linkable_id)
-      SELECT url, title, created_at, updated_at, linkable_type, linkable_id
+      INSERT INTO mainstream_links(id, url, title, created_at, updated_at, linkable_type, linkable_id)
+      SELECT id, url, title, created_at, updated_at, linkable_type, linkable_id
       FROM top_tasks
     }
     execute %Q{
