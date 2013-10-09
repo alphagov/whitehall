@@ -720,7 +720,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     top_task = create(:top_task, linkable: organisation)
     get :show, id: organisation
 
-    assert_select '.organisation-top-tasks' do
+    assert_select '.top-tasks' do
       assert_select "a[href='#{top_task.url}']", text: top_task.title
     end
   end
