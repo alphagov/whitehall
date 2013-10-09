@@ -11,16 +11,13 @@ Feature: Grouping documents into a collection
     Given a published document "Wombats of Wimbledon" exists
     When I draft a new document collection called "Wildlife of Wimbledon Common"
     And I add the document "Wombats of Wimbledon" to the document collection
-    Then I can preview the document collection
-    And I see that the document "Wombats of Wimbledon" is part of the document collection
+    Then I can see in the preview that "Wombats of Wimbledon" is part of the document collection
 
   @javascript
   Scenario: Removing documents from a collection
-    Given a published publication called "May 2012 Update" in the document collection "Monthly Updates"
-    And I'm editing the document collection "Monthly Updates"
-    When I remove the document "May 2012 Update" from the document collection
-    And I preview the document collection
-    Then I see that the document "May 2012 Update" is not part of the document collection
+    Given a published publication called "May 2012 Update" in a published document collection
+    When I redraft the document collection and remove "May 2012 Update" from it
+    Then I can see in the preview that "May 2012 Update" does not appear
 
   Scenario: Documents should link back to their collection
     Given a published publication called "May 2012 Update" in the document collection "Monthly Updates"
