@@ -60,8 +60,8 @@ Scenario: Requesting publications in alternative format
 
 Scenario: Adding top tasks
   Given the organisation "Ministry of Pop" exists
-  When I add some top tasks to "Ministry of Pop" via the admin
-  Then the top tasks for "Ministry of Pop" should be visible on the public site
+  When I add some top tasks to the organisation "Ministry of Pop" via the admin
+  Then the top tasks for the organisation "Ministry of Pop" should be visible on the public site
 
 Scenario: Managing social media links
   Given the organisation "Ministry of Pop" exists

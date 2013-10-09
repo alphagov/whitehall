@@ -26,16 +26,12 @@
     <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
   <% end %>
 
-  <%= content_tag_if_not_empty :aside, class: "organisation-top-tasks" do %>
+  <%= content_tag_if_not_empty :aside, class: "heading-aside" do %>
     <% if languages_available %>
       <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
     <% end %>
-    <% if show_top_tasks && organisation.top_tasks.any? && !sub_organisation %>
-      <ul>
-        <% organisation.top_tasks.only_the_initial_set.each do |link| %>
-          <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
-        <% end %>
-      </ul>
+    <% if show_top_tasks && !sub_organisation %>
+      <%= render 'shared/top_tasks', top_tasks: organisation.top_tasks %>
     <% end %>
   <% end %>
 </header>

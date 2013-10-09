@@ -234,7 +234,7 @@ When /^I associate a Transparency data publication to the "([^"]*)"$/ do |name|
   publication = create(:published_publication, :transparency_data, organisations: [organisation])
 end
 
-When /^I add some top tasks to "([^"]*)" via the admin$/ do |organisation_name|
+When /^I add some top tasks to the organisation "([^"]*)" via the admin$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
@@ -245,9 +245,9 @@ When /^I add some top tasks to "([^"]*)" via the admin$/ do |organisation_name|
   click_button "Save"
 end
 
-Then /^the top tasks for "([^"]*)" should be visible on the public site$/ do |organisation_name|
+Then /^the top tasks for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
-  within ".organisation-top-tasks" do
+  within ".top-tasks" do
     assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
   end
 end

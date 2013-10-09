@@ -11,6 +11,10 @@
                           heading: @classification.name,
                           big: true, extra: true } %>
 
+      <aside class="heading-aside">
+        <%= render 'shared/top_tasks', top_tasks: @classification.top_tasks %>
+      </aside>
+
       <aside class="meta">
         <div class="inner-heading">
           <dl>

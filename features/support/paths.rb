@@ -33,6 +33,10 @@ module NavigationHelpers
     worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
     visit worldwide_organisation_path(worldwide_organisation)
   end
+
+  def visit_topic(name)
+    visit topic_path(Topic.find_by_name!(name))
+  end
 end
 
 World(NavigationHelpers)

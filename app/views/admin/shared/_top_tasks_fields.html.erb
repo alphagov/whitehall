@@ -1,8 +1,16 @@
+<%
+  top_tasks = if form.object.top_tasks.any?
+    form.object.top_tasks.sort_by { |tt| tt.created_at || Time.current }
+  else
+    [TopTask.new]
+  end
+%>
+
 <fieldset class="named top-tasks form-horizontal js-duplicate-fields">
   <legend>Top tasks</legend>
   <p class="alert alert-info">Only the first <%= TopTask::DEFAULT_INITIAL_SET_SIZE %> top tasks will be shown on the public site.</p>
 
-  <%= form.fields_for(:top_tasks, form.object.top_tasks.sort_by { |ml| ml.created_at || Time.current }) do |top_task_form| %>
+  <%= form.fields_for(:top_tasks, top_tasks) do |top_task_form| %>
     <div class="js-duplicate-fields-set well">
       <%= top_task_form.text_field :title, horizontal: true %>
       <%= top_task_form.text_field :url, horizontal: true %>
