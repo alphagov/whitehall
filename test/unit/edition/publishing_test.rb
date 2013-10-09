@@ -274,7 +274,6 @@ class Edition::PublishingTest < ActiveSupport::TestCase
   end
 
   test "publication clears the access_limited flag from a scheduled edition if it was set" do
-    robot = create(:scheduled_publishing_robot)
     edition = create(:scheduled_edition, access_limited: true)
     assert edition.access_limited
     Timecop.freeze(edition.scheduled_publication + 1.minute) do

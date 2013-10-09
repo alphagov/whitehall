@@ -58,29 +58,19 @@ module Edition::Publishing
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
-  def reason_to_prevent_approval
+  def reason_to_prevent_publication
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
+    elsif draft?
+      "Not ready for publication"
     elsif published?
       "This edition has already been published"
     elsif !can_publish?
       "This edition has been #{current_state}"
-    end
-  end
-
-  def reason_to_prevent_publication
-    if scheduled?
-      if Time.zone.now < scheduled_publication
+    elsif scheduled? && Time.zone.now < scheduled_publication
         "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
-      elsif !valid?
-        "Can't publish invalid scheduled publication"
-      end
-    elsif scheduled_publication.present?
+    elsif scheduled_publication.present? && Time.zone.now < scheduled_publication
       "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
-    elsif draft?
-      "Not ready for publication"
-    else
-      reason_to_prevent_approval
     end
   end
 
