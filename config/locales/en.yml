@@ -484,7 +484,7 @@ en:
       news_article:
         intended_use: |
           Press releases, news stories and responses to media coverage including official statements.
-          Do *not* use for: promoting the publication of other content (e.g. statistics).
+          Do *not* use for: promoting the publication of other content (eg statistics).
         press_release:
           intended_use: |
             Unedited press releases as sent to the media, and official statements from the organisation or a minister.
@@ -512,7 +512,7 @@ en:
         statutory_guidance:
           intended_use: Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the "guidance" sub-type).
         form:
-          intended_use: Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (i.e. no need to create a separate "guidance" publication for form instructions).
+          intended_use: Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (ie no need to create a separate "guidance" publication for form instructions).
         statistics:
           intended_use: Official statistics, of the kind governed by the UK Statistics Authority and produced by members of the Government Statistical Service.
         national_statistics:
@@ -534,8 +534,8 @@ en:
           intended_use: Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.
         correspondence:
           intended_use: |
-            Ministerial or departmental responses (e.g. to campaign letters), announcements, or statements;
-            regularly issued circulars or bulletins (e.g. fire service circulars), official correspondence to professionals (e.g. "Dear chief planning officer" letters);
+            Ministerial or departmental responses (eg to campaign letters), announcements, or statements;
+            regularly issued circulars or bulletins (eg fire service circulars), official correspondence to professionals (eg "Dear chief planning officer" letters);
             letters to individuals or organisations that are published to share with a wider audience than their original recipient;
             online versions of e-bulletins or newsletters.
             Do *not* use for: minutes, agendas or other meeting papers. Attach them to relevant "policy detail", "team" or "our governance" pages instead.
@@ -548,19 +548,19 @@ en:
         imported:
           intended_use: DO NOT USE. This is a holding category for content that has been imported automatically.
       policy:
-        intended_use: A plain English definition of an outcome government is working to achieve and the specific actions it's taking. Related content (news etc.) should be associated to policies.
+        intended_use: A plain English definition of an outcome government is working to achieve and the specific actions it's taking. Related content (news etc) should be associated to policies.
       policy_supporting_page:
         intended_use: Detailed background or information about an action government is taking in relation to a policy.
       detailed_guidance:
         intended_use: Answering a specific user need for detailed or specialist information so that the user can complete a defined task.
       worldwide_priority:
-        intended_use: A plain English definition of an outcome government is working to achieve in a specific world location. Related content (news etc.) should be associated to worldwide priorities.
+        intended_use: A plain English definition of an outcome government is working to achieve in a specific world location. Related content (news etc) should be associated to worldwide priorities.
       world_location_news_article:
         intended_use: Announcements specific to one or more world location. Don't duplicate news published by another department.
       statistical_data_set:
         intended_use: |
           Frequently updated ("live") statistical data files.
-          Do *not* use for: less frequently updated (e.g. quarterly) data. Use a publication (subtype: statistics) instead.
+          Do *not* use for: less frequently updated (eg quarterly) data. Use a publication (subtype: statistics) instead.
       fatality_notice:
         intended_use: Initial fatality notices and subsequent obituaries of forces and MOD personnel. Don't publish a news story which duplicates this announcement.
       speech:
