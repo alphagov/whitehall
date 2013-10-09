@@ -309,6 +309,9 @@ Whitehall::Application.routes.draw do
             post :run
             post :force_publish
             get :force_publish_log
+            get :new_document_list
+            get :error_list
+            get :import_log
           end
         end
 

@@ -1,6 +1,6 @@
 class Admin::ImportsController < Admin::BaseController
   before_filter :require_import_permission!
-  before_filter :find_import, only: [:show, :annotated, :run, :force_publish, :force_publish_log]
+  before_filter :find_import, except: [:index, :new, :create]
 
   def index
     @imports = Import.order("id desc").includes(:force_publication_attempts, :creator).page(params[:page]).per(10)
@@ -73,6 +73,10 @@ class Admin::ImportsController < Admin::BaseController
       redirect_to admin_imports_path, notice: "Import #{@import.id} has not been force published yet!"
     end
   end
+
+  def new_document_list; end
+  def error_list; end
+  def import_log; end
 
 private
 

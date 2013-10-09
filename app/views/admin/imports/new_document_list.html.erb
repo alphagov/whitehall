@@ -1,0 +1,16 @@
+<% page_title "Documents added from #{@import.original_filename}" %>
+
+<h2 id="success">Documents added:</h2>
+<ul class="added">
+  <% @import.documents.includes(:document_sources, {latest_edition: :translations}).each do |document| %>
+    <li>
+      <% if document.latest_edition %>
+        <%= link_to document.latest_edition.title, admin_edition_path(document.latest_edition) %>
+      <% else %>
+        DELETED - &ldquo;<%= Edition.unscoped.where(:document_id => document.id).first.title %>&rdquo;
+      <% end %>
+      imported from
+      <%= document.document_sources.map { |ds| link_to(ds.url, ds.url) }.to_sentence.html_safe %>
+    </li>
+  <% end %>
+</ul>
