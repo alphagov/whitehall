@@ -51,7 +51,7 @@ module Whitehall::Uploader
     end
 
     def document_collections
-      Finders::EditionFinder.new(DocumentCollection, logger, line_number).find(row['data_collection'])
+      fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
     def first_published_at

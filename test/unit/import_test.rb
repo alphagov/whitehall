@@ -1,8 +1,8 @@
 require 'test_helper'
-require 'support/consultation_csv_sample_helpers'
+require 'support/csv_sample_helpers'
 
 class ImportTest < ActiveSupport::TestCase
-  include ConsultationCsvSampleHelpers
+  include CsvSampleHelpers
 
   setup do
     @automatic_data_importer = create(:importer, name: "Automatic Data Importer")
@@ -441,6 +441,8 @@ class ImportTest < ActiveSupport::TestCase
     yield
   ensure
     Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
   end
 
   def translated_news_article_csv

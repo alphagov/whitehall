@@ -47,10 +47,12 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
     end
 
-    test "finds document collections by slug in document_collection_n column" do
-      document_collection = create(:document_collection)
-      row = new_publication_row({"document_collection_1" => document_collection.slug})
-      assert_equal [document_collection], row.document_collections
+    test "returns document collection slugs from document_collection_n columns, rejecting blanks" do
+      row = new_publication_row(
+        "document_collection_1" => "collection-slug",
+        "document_collection_2" => ""
+      )
+      assert_equal ["collection-slug"], row.document_collections
     end
 
     test "finds publication type by slug in the pub type column" do

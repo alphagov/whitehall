@@ -28,7 +28,7 @@ module Whitehall::Uploader
     end
 
     def document_collections
-      Finders::EditionFinder.new(DocumentCollection, @logger, @line_number).find(*fields(1..4, 'document_collection_#'))
+      fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
     def ministerial_roles

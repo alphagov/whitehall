@@ -104,10 +104,12 @@ module Whitehall::Uploader
       assert_equal ["http://example.com/legacy-url"], row.legacy_urls
     end
 
-    test "finds document collection by slug in data_collection column" do
-      document_collection = create(:document_collection)
-      row = statistical_data_set_row("data_collection" => document_collection.slug)
-      assert_equal [document_collection], row.document_collections
+    test "returns document collection slugs from document_collection_n columns, rejecting blanks" do
+      row = statistical_data_set_row(
+        "document_collection_1" => "collection-slug",
+        "document_collection_2" => ""
+      )
+      assert_equal ["collection-slug"], row.document_collections
     end
 
     test "finds organisation by slug in org column" do

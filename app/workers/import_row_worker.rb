@@ -51,12 +51,21 @@ protected
     end
   end
 
-  def assign_document_collections!(model, document_collections)
-    if document_collections.any?
-      groups = document_collections.map do |collection|
-        collection.groups.first_or_initialize(DocumentCollectionGroup.default_attributes)
-      end
-      model.document.document_collection_groups << groups
+  def assign_document_collections!(model, document_collection_slugs)
+    document_collection_slugs.each do |slug|
+      collection_document = Document.find_by_slug(slug) or raise "Couldn't find DocumentCollection for slug '#{slug}'"
+
+      collection_draft = draft_of_collection_for_editing(collection_document)
+      group = collection_draft.groups.first_or_create(DocumentCollectionGroup.default_attributes)
+      group.documents << model.document
+    end
+  end
+
+  def draft_of_collection_for_editing(collection_document)
+    if collection_document.latest_edition.published?
+      collection_document.latest_edition.create_draft(import_user)
+    else
+      collection_document.latest_edition
     end
   end
 

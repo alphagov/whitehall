@@ -44,10 +44,12 @@ module Whitehall::Uploader
         ], Whitehall::Uploader::DetailedGuideRow.heading_validation_errors(keys)
     end
 
-    test "finds document collections by slug in document_collection_n column" do
-      document_collection = create(:document_collection)
-      row = new_detailed_guide_row({"document_collection_1" => document_collection.slug})
-      assert_equal [document_collection], row.document_collections
+    test "returns document collection slugs from document_collection_n columns, rejecting blanks" do
+      row = new_detailed_guide_row(
+        "document_collection_1" => "collection-slug",
+        "document_collection_2" => ""
+      )
+      assert_equal ["collection-slug"], row.document_collections
     end
 
     test "finds topics by slug in topic_n column" do
