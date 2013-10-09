@@ -2,8 +2,9 @@
 <%= form.select :publication_type_id,
       grouped_options_for_select(publication_type_options, edition.publication_type_id),
       {},
-      class: ['chzn-select', 'js-access-limited-by-default-checkbox'],
+      class: ['chzn-select', 'js-access-limited-by-default-checkbox', 'subtype'],
       data: {
         placeholder: "Choose publication type...",
-        access_limited_by_default_type_ids: form.object.persisted? ? [] : PublicationType.access_limitable.map(&:id)
+        access_limited_by_default_type_ids: form.object.persisted? ? [] : PublicationType.access_limitable.map(&:id),
+        :'format-advice' => format_advice_map(PublicationType).to_json
       } %>

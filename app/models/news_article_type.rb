@@ -39,6 +39,10 @@ class NewsArticleType
     ['news-article-' + self.key.gsub('_', ' ').parameterize]
   end
 
+  def genus_key
+    'news_article'
+  end
+
   NewsStory = create(id: 1, key: "news_story", singular_name: "News story", plural_name: "News stories", prevalence: :primary)
   PressRelease = create(id: 2, key: "press_release", singular_name: "Press release", plural_name: "Press releases", prevalence: :primary)
   GovernmentResponse = create(id: 3, key: "government_response", singular_name: "Government response", plural_name: "Government responses", prevalence: :primary)
