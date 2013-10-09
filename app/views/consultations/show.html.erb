@@ -12,7 +12,7 @@
     </div>
 
     <% if @document.closed? %>
-      <div class="consultation-alert">
+      <div class="status-block">
         <% if @document.outcome_published? %>
           <h2>This consultation has concluded</h2>
         <% else %>

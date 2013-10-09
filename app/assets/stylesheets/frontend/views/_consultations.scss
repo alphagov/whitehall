@@ -63,24 +63,22 @@ nav.consultations_scope {
 .consultation {
   &.consultation-closed,
   &.consultation-responded {
-    .consultation-alert {
-      border: $gutter-one-sixth solid $inside-gov-brand;
-      padding: $gutter-half;
+    .status-block {
+      border-color: $inside-gov-brand;
       margin: 0 $gutter-half ($gutter * 1.5) $gutter-half;
       @include media(tablet) {
         margin: 0 $gutter ($gutter * 1.5) $gutter;
-      }
-      h2 {
-        @include heading-36;
-        font-weight: bold;
-        @include media(tablet) {
+        h2 {
           padding-top: 0;
         }
+      }
+      p {
+        @include core-16;
       }
     }
   }
   &.consultation-responded {
-    .consultation-alert {
+    .status-block {
       h2 {
         @include media(tablet) {
           padding-bottom: 0;
