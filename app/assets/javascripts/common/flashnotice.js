@@ -19,16 +19,16 @@
 
       $(this).fadeOut();
     });
-  }
+  };
 
   $.fn.showNotice = function (message) {
-    $(this).html("<p class='flash notice'>"+message+"</p>")
+    $(this).html("<p class='flash notice'>"+message+"</p>");
     $(".notice", this).flashNotice();
-  }
+  };
 
   $.fn.showAlert = function (message) {
-    $(this).html("<p class='flash alert'>"+message+"</p>")
+    $(this).html("<p class='flash alert'>"+message+"</p>");
     $(".alert", this).flashNotice();
-  }
+  };
 
 })(jQuery);
