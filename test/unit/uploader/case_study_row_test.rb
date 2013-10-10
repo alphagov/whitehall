@@ -22,12 +22,12 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::CaseStudyRow.heading_validation_errors(basic_headings + %w(ignore_this ignore_this_too))
     end
 
-    test "finds document collections by slug in document_collection_n column" do
+    test "stores document collection slugs from document_collection_n column" do
       doc_collection_1 = create(:document_collection)
       doc_collection_2 = create(:document_collection)
       row = case_study_row({"document_collection_1" => doc_collection_1.slug, "document_collection_2" => doc_collection_2.slug})
       row.stubs(:organisation).returns(stubbed_organisation)
-      assert_equal [doc_collection_1, doc_collection_2], row.document_collections
+      assert_equal [doc_collection_1.slug, doc_collection_2.slug], row.document_collections
     end
 
     test "finds policies by slug in policy_n column" do
