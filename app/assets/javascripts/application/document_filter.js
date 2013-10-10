@@ -272,7 +272,9 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         documentFilter.formType = $form.attr('action').split('/').pop();
 
         history.replaceState(documentFilter.currentPageState(), null);
+
         $form.submit(documentFilter.submitFilters);
+        $form.find('select, input[type=checkbox]').change(documentFilter.submitFilters);
 
         var delay = (function(){
           var timer = 0;
