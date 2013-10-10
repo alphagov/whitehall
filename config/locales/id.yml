@@ -112,7 +112,7 @@ id:
         one: Dokumen
         other: Dokumen-dokumen
       document_collection:
-        one:
+        one: Serial
         other:
       field_of_operation: Area operasi
       live_data: Data Live

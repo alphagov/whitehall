@@ -110,7 +110,7 @@ zh-hk:
         one: 文件
         other: 其他文件
       document_collection:
-        one:
+        one: 系列
         other:
       field_of_operation: 運用領域
       live_data: 即時資料

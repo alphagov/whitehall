@@ -5,7 +5,7 @@ sq:
         one: Dokument
         other: Dokumente
       document_collection:
-        one:
+        one: Seri
         other:
       ministers:
         one: Minister

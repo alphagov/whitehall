@@ -7,7 +7,7 @@ pl:
         many:
         other: Dokumenty
       document_collection:
-        one:
+        one: Seria
         few:
         many:
         other:

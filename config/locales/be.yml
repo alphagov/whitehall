@@ -7,7 +7,7 @@ be:
         many:
         other: Дакументы
       document_collection:
-        one:
+        one: Серыя
         few:
         many:
         other:

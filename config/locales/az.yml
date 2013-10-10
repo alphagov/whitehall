@@ -110,7 +110,7 @@ az:
         one:
         other:
       document_collection:
-        one:
+        one: növlər
         other:
       field_of_operation: əməliyyat sahəsi
       live_data: canlı məlumat

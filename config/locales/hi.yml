@@ -5,7 +5,7 @@ hi:
         one: दस्तावेज़
         other: दस्तावेजों
       document_collection:
-        one:
+        one: श्रृंखला
         other:
       ministers:
         one: मंत्री

@@ -110,7 +110,7 @@ zh:
         one: 文件
         other: 文件
       document_collection:
-        one:
+        one: 系列
         other:
       field_of_operation: 操作区域
       live_data: 实时数据

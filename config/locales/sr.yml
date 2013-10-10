@@ -7,7 +7,7 @@ sr:
         many:
         other: Dokumenti
       document_collection:
-        one:
+        one: serija
         few:
         many:
         other:

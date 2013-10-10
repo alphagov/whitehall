@@ -5,7 +5,7 @@ bg:
         one: Документ
         other: Документи
       document_collection:
-        one:
+        one: Серии
         other:
       ministers:
         one: Министър

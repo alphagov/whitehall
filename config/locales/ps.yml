@@ -5,7 +5,7 @@ ps:
         one: سند
         other: سندونه
       document_collection:
-        one:
+        one: سلسله
         other:
       ministers:
         one: وزیر

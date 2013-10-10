@@ -10,7 +10,7 @@ cy:
         other: Dogfennau
       document_collection:
         zero:
-        one:
+        one: Cyfres
         two:
         few:
         many:

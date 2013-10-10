@@ -112,7 +112,7 @@ fa:
         one: مدرک
         other: مدارک
       document_collection:
-        one:
+        one: ردیف
         other:
       field_of_operation: میدان عمل
       live_data: ! 'داده های لحظه ای '

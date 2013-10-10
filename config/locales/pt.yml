@@ -5,7 +5,7 @@ pt:
         one: Documento
         other: Documentos
       document_collection:
-        one:
+        one: Séries
         other:
       ministers:
         one: Ministro

@@ -5,7 +5,7 @@ ta:
         one: ! ' ஆவணம்'
         other: ஆவணங்கள்
       document_collection:
-        one:
+        one: தொடர்
         other:
       ministers:
         one: அமைச்சர்

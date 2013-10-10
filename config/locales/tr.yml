@@ -113,7 +113,7 @@ tr:
         one: Belge
         other: Belgeler
       document_collection:
-        one:
+        one: Seriler
         other:
       field_of_operation: Faaliyet Alanı
       live_data: Canlı veri

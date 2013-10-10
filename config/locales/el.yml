@@ -5,7 +5,7 @@ el:
         one: Έγγραφο
         other: Έγγραφα
       document_collection:
-        one:
+        one: Σειρά
         other:
       ministers:
         one: Υπουργός

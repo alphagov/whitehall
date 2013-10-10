@@ -7,7 +7,7 @@ uk:
         many:
         other: Документи
       document_collection:
-        one:
+        one: Серія
         few:
         many:
         other:

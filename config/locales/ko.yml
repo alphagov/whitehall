@@ -111,7 +111,7 @@ ko:
         one: 문서
         other: 문서
       document_collection:
-        one:
+        one: 시리즈
         other:
       field_of_operation: 오퍼레이션 필드
       live_data: 라이브 데이터

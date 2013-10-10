@@ -5,7 +5,7 @@ so:
         one: Dokumenti
         other: Dokumentiyo
       document_collection:
-        one:
+        one: Taxane
         other:
       ministers:
         one: Wasiir

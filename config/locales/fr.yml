@@ -5,7 +5,7 @@ fr:
         one: Document
         other: Documents
       document_collection:
-        one:
+        one: Série
         other:
       ministers:
         one: Ministre

@@ -113,7 +113,7 @@ vi:
         one: Tài liệu
         other: Tài liệu
       document_collection:
-        one:
+        one: Chuỗi
         other:
       field_of_operation: Lĩnh vực hoạt động
       live_data: Dữ liệu cập nhật

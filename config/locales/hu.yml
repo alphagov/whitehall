@@ -113,7 +113,7 @@ hu:
         one: Dokumentum
         other: Dokumentumok
       document_collection:
-        one:
+        one: Sorozatok
         other:
       field_of_operation: Működési terület
       live_data: Élő adatok
