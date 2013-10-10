@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'fast_test_helper'
+require 'test_helper'
 require 'whitehall/uploader'
 
 module Whitehall::Uploader
