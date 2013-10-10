@@ -12,7 +12,7 @@
       var timeout = setTimeout(function () { element.fadeOut(); }, 3000);
     }
 
-    $(this).click(function () {
+    $(this).css('cursor', 'pointer').click(function () {
       if (timeout) {
         clearTimeout(timeout);
       }
