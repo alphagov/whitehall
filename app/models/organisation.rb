@@ -86,8 +86,6 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, dependent: :nullify
 
-  has_many :mainstream_links, as: :linkable, dependent: :destroy, order: :created_at
-
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
   has_many :contacts, as: :contactable, dependent: :destroy
@@ -122,8 +120,9 @@ class Organisation < ActiveRecord::Base
 
   has_many :promotional_features
 
+  include HasTopTasks
+
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
-  accepts_nested_attributes_for :mainstream_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
   accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true

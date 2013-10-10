@@ -74,3 +74,8 @@ Scenario: Featuring content on a topic page
   Given the topic "Higher Education" contains some policies
   When I feature one of the policies on the topic
   Then I should see the policy featured on the public topic page
+
+Scenario: Adding top tasks
+  Given a topic called "Housing prices" exists
+  When I add some top tasks to the topic "Housing prices" via the admin
+  Then the top tasks for the topic "Housing prices" should be visible on the public site

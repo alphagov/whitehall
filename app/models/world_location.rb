@@ -14,12 +14,12 @@ class WorldLocation < ActiveRecord::Base
             source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
-  has_many :mainstream_links, as: :linkable, dependent: :destroy, order: :created_at
+
+  include HasTopTasks
 
   include Featurable
 
   accepts_nested_attributes_for :edition_world_locations
-  accepts_nested_attributes_for :mainstream_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
 
   include TranslatableModel
   translates :name, :title, :mission_statement

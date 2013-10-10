@@ -335,14 +335,14 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should show mainstream category links if there are some" do
+  view_test "should show top task links if there are some" do
     world_location = create(:world_location)
-    mainstream_link = create(:mainstream_link, linkable: world_location)
+    top_task = create(:top_task, linkable: world_location)
 
     get :show, id: world_location
 
-    assert_select '.mainstream-links' do
-      assert_select "a[href='#{mainstream_link.url}']", text: mainstream_link.title
+    assert_select '.top-tasks' do
+      assert_select "a[href='#{top_task.url}']", text: top_task.title
     end
   end
 end
