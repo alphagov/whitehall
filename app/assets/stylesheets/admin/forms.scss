@@ -15,6 +15,11 @@ form {
   fieldset {
     margin-top: 3em;
 
+    .role_appointment,
+    .speech-type {
+      width: 98%;
+    }
+
     legend {
       border-top: 1px solid #EEE;
       border-bottom: none;
