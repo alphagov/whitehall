@@ -1,2 +1,10 @@
-<%= form.label :speech_type_id, "Type" %>
-<%= form.select :speech_type_id, options_from_collection_for_select(SpeechType.all, :id, :name, edition.speech_type_id) %>
+<div>
+  <%= form.label :speech_type_id, "Speech type" %>
+  <%= form.select :speech_type_id,
+        grouped_options_for_select(speech_type_options, edition.speech_type_id),
+        {}, class: ['chzn-select', 'subtype'],
+        data: {
+          placeholder: "Choose speech type...",
+          :'format-advice' => format_advice_map(SpeechType).to_json
+        } %>
+</div>

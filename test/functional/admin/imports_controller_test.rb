@@ -70,14 +70,11 @@ class Admin::ImportsControllerTest < ActionController::TestCase
       import_finished_at: Time.zone.now)
     import.import_errors.create(row_number: 2, message: "Policy 'blah' does not exist")
 
-    get :show, id: import
+    get :error_list, id: import
 
-    assert_select record_css_selector(import) do
-      assert_select ".summary", /1 failed/
-      assert_select ".import_error" do
-        assert_select ".row_number", "2"
-        assert_select ".message", "Policy &#x27;blah&#x27; does not exist"
-      end
+    assert_select ".import_error" do
+      assert_select ".row_number", "2"
+      assert_select ".message", "Policy &#x27;blah&#x27; does not exist"
     end
   end
 

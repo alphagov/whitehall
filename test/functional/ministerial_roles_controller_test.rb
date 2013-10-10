@@ -132,6 +132,15 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal whips, assigns(:whips_by_organisation)
   end
 
+  test 'index loads ministerial-reshuffle snippet' do
+    snippet = Snippet.create(key: "ministerial-reshuffle", body: "<p>The reshuffle is happening today. </p>")
+
+    get :index
+
+    assert_equal "<p>The reshuffle is happening today. </p>", assigns[:snippet]
+    assert assigns[:snippet].html_safe?
+  end
+
   view_test "shows the cabinet minister's name and role" do
     person = create(:person, forename: "John", surname: "Doe", image: image_fixture_file)
     ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: true)

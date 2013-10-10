@@ -97,7 +97,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           context = {},
           i, _i, j, _j, field;
 
-
       $selections.html('');
       $title.find('span').remove();
 
@@ -115,17 +114,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
             if (field.id == "publication_filter_option" || field.id == "announcement_type_option") {
               if (field.value != "all") {
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
-              }
-            } else if (field.id === 'date'){
-              var direction_value = 'before';
-              $.each(formStatus.checked, function(i, checkbox) {
-                if (checkbox.id.match(/^direction_/) !== null) {
-                  direction_value = checkbox.value;
-                }
-              });
-              context[field.id] = {
-                date: field.title[0],
-                direction: direction_value
               }
             } else if (field.id === 'world_locations'){
               context.world_locations = [];
@@ -176,6 +164,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
                   joining: (j < _j-1 ? 'or' : '')
                 });
               }
+            } else if (field.id === 'from_date'){
+              context['date_from'] = field.value
+            } else if (field.id === 'to_date'){
+              context['date_to'] = field.value
             }
           }
         }
@@ -196,7 +188,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     removeFilters: function(field, removed){
       var selects = ['topics', 'departments', 'world_locations'],
-          inputs = ['keywords'],
+          inputs = ['keywords', 'from_date', 'to_date'],
           checkboxes = ['relevant_to_local_government'];
 
       if($.inArray(field, selects) > -1){
@@ -281,9 +273,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
         history.replaceState(documentFilter.currentPageState(), null);
         $form.submit(documentFilter.submitFilters);
-        $form.find('select, input[name=direction]:radio, input:checkbox').change(function(e){
-          $form.submit();
-        });
 
         var delay = (function(){
           var timer = 0;
@@ -293,7 +282,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           }
         })();
 
-        $('#keyword-filter').find('input[name=keywords]').keyup(function () {
+        $('#keyword-filter').add('#date-range-filter').find('input[type=text]').keyup(function () {
           delay(function () {
             $form.submit();
           }, 600);

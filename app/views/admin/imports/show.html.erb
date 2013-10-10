@@ -27,39 +27,28 @@
     <%= button_to "Run", run_admin_import_path(@import), class: "btn btn-large btn-primary" %>
   <% elsif @import.status == :queued %>
     <h2 class="summary">Queued</h2>
-  <% elsif @import.status == :running %>
-    <h2 class="summary">Import running (row <%= @import.current_row %>/<%= @import.total_rows %>)</h2>
-
-    <%= render partial: "errors", locals: {import: @import} %>
   <% else %>
     <h2 class="summary">
-      Imported finished:
+      Import summary:
       <%= link_to pluralize(@import.rows.count, 'row'), annotated_admin_import_path(@import), class:"download", title: "Download CSV" %>,
       <%= link_to "#{@import.documents.count} passed", annotated_admin_import_path(@import, filter: :succeeded), class:"download", title: "Download CSV" %>,
       <%= link_to "#{@import.number_of_rows_with_errors} failed", annotated_admin_import_path(@import, filter: :failed), class:"download", title: "Download CSV" %>
     </h2>
 
     <% if @import.missing_row_numbers.any? %>
-      The following rows failed with no error message recorded: <%= @import.missing_row_numbers.join(', ') %>
+      <p>The following rows are either still running or failed with no error message recorded: <%= @import.missing_row_numbers.join(', ') %></p>
     <% end %>
 
     <% if @import.document_sources.any? %>
-      <h2 id="success">Documents added:</h2>
-      <ul class="added">
-        <% @import.documents.each do |document| %>
-          <li>
-            <% if document.latest_edition %>
-              <%= link_to document.latest_edition.title, admin_edition_path(document.latest_edition) %>
-            <% else %>
-              DELETED - &ldquo;<%= Edition.unscoped.where(:document_id => document.id).first.title %>&rdquo;
-            <% end %>
-            imported from
-            <%= document.document_sources.map { |ds| link_to(ds.url, ds.url) }.to_sentence.html_safe %>
-          </li>
-        <% end %>
-      </ul>
+      <p>Added <%= link_to pluralize(@import.document_sources.count, 'document'), new_document_list_admin_import_path(@import), class: 'large-data-set' %>.</p>
     <% end %>
 
-    <%= render partial: "errors", locals: {import: @import} %>
+    <% if @import.import_errors.any? %>
+      <p><%= link_to pluralize(@import.import_errors.count, 'error'), error_list_admin_import_path(@import), class: 'large-data-set' %>.</p>
+    <% end %>
+
+    <% if @import.import_logs.any? %>
+      <p>See the <%= link_to "import log (#{pluralize(@import.import_logs.count, 'line')})", import_log_admin_import_path(@import), class: 'large-data-set' %>.</p>
+    <% end %>
   <% end %>
 <% end %>

@@ -4,14 +4,14 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test 'should only allow whitelisted attachments' do
-    images = %w(png jpg eps ps)
+    graphics = %w(png jpg eps ps dxf)
     documents = %w(pdf rtf doc docx ppt pptx rdf txt odt)
     spreadsheets = %w(csv xls xlsx xlsm ods)
     markup = %w(kml xml xsd)
     containers = %w(zip)
     templates = %w(dot xlt)
 
-    allowed_attachments = images + documents + spreadsheets + markup + containers + templates
+    allowed_attachments = graphics + documents + spreadsheets + markup + containers + templates
     assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_white_list.sort
   end
 

@@ -30,8 +30,8 @@ module Whitehall::DocumentFilter
       filter_by_relevant_to_local_government_option!
       filter_by_include_world_location_news_option!
       filter_by_location!
-      paginate!
       apply_sort_direction!
+      paginate!
     end
 
     private
@@ -42,7 +42,7 @@ module Whitehall::DocumentFilter
 
     def filter_by_topics!
       if selected_topics.any?
-        @documents = @documents.published_in_topic(selected_topics) 
+        @documents = @documents.published_in_topic(selected_topics)
       end
     end
 
@@ -54,18 +54,16 @@ module Whitehall::DocumentFilter
 
     def filter_by_keywords!
       if keywords.any?
-        @documents = @documents.with_title_or_summary_containing(*keywords) 
+        @documents = @documents.with_title_or_summary_containing(*keywords)
       end
     end
 
     def filter_by_date!
-      if date.present? && direction.present?
-        case direction
-        when "before"
-          @documents = @documents.published_before(date)
-        when "after"
-          @documents = @documents.published_after(date)
-        end
+      if @from_date.present?
+        @documents = @documents.published_after(@from_date)
+      end
+      if @to_date.present?
+        @documents = @documents.published_before(@to_date)
       end
     end
 
@@ -131,16 +129,7 @@ INNER JOIN `world_locations` ON `world_locations`.`id` = `edition_world_location
     end
 
     def apply_sort_direction!
-      if direction.present?
-        case direction
-        when "before"
-          @documents = @documents.in_reverse_chronological_order
-        when "after"
-          @documents = @documents.in_chronological_order
-        when "alphabetical"
-          @documents = @documents.alphabetical(locale || I18n.default_locale)
-        end
-      end
+      @documents = @documents.in_reverse_chronological_order
     end
   end
 end

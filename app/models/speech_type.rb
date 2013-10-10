@@ -1,7 +1,7 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :name, :plural_name, :genus_key, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant
+  attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence
 
   def self.create(attributes)
     super({
@@ -12,15 +12,11 @@ class SpeechType
   end
 
   def slug
-    name.downcase.gsub(/[^a-z]+/, "-")
-  end
-
-  def display_type_key
-    @genus_key || @key
+    singular_name.downcase.gsub(/[^a-z]+/, "-")
   end
 
   def self.find_by_name(name)
-    all.detect { |type| type.name == name }
+    all.detect { |type| type.singular_name == name }
   end
 
   def self.find_by_slug(slug)
@@ -29,6 +25,14 @@ class SpeechType
 
   def self.non_statements
     [Transcript, DraftText, SpeakingNotes]
+  end
+
+  def self.primary
+    all - use_discouraged
+  end
+
+  def self.use_discouraged
+    [ImportedAwaitingType]
   end
 
   def statement_to_parliament?
@@ -44,46 +48,54 @@ class SpeechType
   end
 
   def search_format_types
-    types = ['speech-' + self.name.parameterize]
+    types = ['speech-' + self.singular_name.parameterize]
     types << 'speech-statement-to-parliament' if statement_to_parliament?
     types
   end
 
+  def genus_key
+    'speech'
+  end
+
+  def display_type_key
+    statement_to_parliament? ? key : genus_key
+  end
+
   Transcript = create(
-    id: 1, name: "Transcript", genus_key: "speech", key: "transcript",
+    id: 1, singular_name: "Transcript", key: "transcript",
     explanation: "Transcript of the speech, exactly as it was delivered",
     plural_name: "Transcripts"
   )
 
   DraftText = create(
-    id: 2, name: "Draft text", genus_key: "speech", key: "draft_text",
+    id: 2, singular_name: "Draft text", key: "draft_text",
     explanation: "Original script, may differ from delivered version",
     plural_name: "Draft texts"
   )
 
   SpeakingNotes = create(
-    id: 3, name: "Speaking notes", genus_key: "speech", key: "speaking_notes",
+    id: 3, singular_name: "Speaking notes", key: "speaking_notes",
     explanation: "Speaker's notes, may differ from delivered version",
     plural_name: "Speaking notes"
   )
 
   WrittenStatement = create(
-    id: 4, key: "written_statement", name: "Written statement to Parliament",
+    id: 4, key: "written_statement", singular_name: "Written statement to Parliament",
     plural_name: "Written statements to Parliament"
   )
 
   OralStatement = create(
-    id: 5, key: "oral_statement", name: "Oral statement to Parliament",
+    id: 5, key: "oral_statement", singular_name: "Oral statement to Parliament",
     plural_name: "Oral statements to Parliament"
   )
 
   AuthoredArticle = create(
-    id: 6, key: "authored_article", name: "Authored article",
+    id: 6, key: "authored_article", singular_name: "Authored article",
     owner_key_group: "author_title", published_externally_key: "written_on", location_relevant: false,
     plural_name: "Authored article"
   )
 
   ImportedAwaitingType = create(
-    id: 1000, key: "imported", name: "Imported - Awaiting Type", plural_name: "Imported"
+    id: 1000, key: "imported", singular_name: "Imported - Awaiting Type", plural_name: "Imported"
   )
 end

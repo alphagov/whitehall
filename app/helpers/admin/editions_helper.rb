@@ -1,10 +1,15 @@
 module Admin::EditionsHelper
 
   def edition_type(edition)
-    if (@edition.is_a?(Speech) && @edition.speech_type.written_article?)
-      @edition.speech_type.name
+    if (edition.is_a?(Speech) && edition.speech_type.written_article?)
+      type = edition.speech_type.singular_name
     else
-      @edition.type.underscore.humanize
+      type = edition.type.underscore.humanize
+    end
+    if type == edition.display_type
+      type
+    else
+      "#{type}: #{edition.display_type}"
     end
   end
 
@@ -58,17 +63,17 @@ module Admin::EditionsHelper
     if current_user.organisation
         organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
-    organisations.map { |o| [o.name, o.id] }
+    [["All organisations", ""]] + organisations.map { |o| [o.name, o.id] }
   end
 
   def admin_author_filter_options(current_user)
     other_users = User.all - [current_user]
-    [["Me", current_user.id]] + other_users.map { |u| [u.name, u.id] }
+    [["All authors", ""], ["Me", current_user.id]] + other_users.map { |u| [u.name, u.id] }
   end
 
   def admin_state_filter_options
     [
-      [nil, 'active'],
+      ["All states", 'active'],
       ["Imported (pre-draft)", 'imported'],
       ["Draft", 'draft'],
       ["Submitted", 'submitted'],
@@ -80,7 +85,7 @@ module Admin::EditionsHelper
   end
 
   def admin_world_location_filter_options(current_user)
-    options = []
+    options = [["All locations", ""]]
     if current_user.world_locations.any?
       options << ["My locations", "user"]
     end
@@ -92,14 +97,20 @@ module Admin::EditionsHelper
   end
 
   def speech_type_label_data
-    label_data = SpeechType.all.map do |speech_type|
-      [ speech_type.id,
-        { ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
-          publishedExternallyLabel: t_delivered_on(speech_type),
-          locationRelevant: speech_type.location_relevant }
-      ]
+    label_data = SpeechType.all.inject({}) do |hash, speech_type|
+      hash.merge(speech_type.id => {
+        ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
+        publishedExternallyLabel: t_delivered_on(speech_type),
+        locationRelevant: speech_type.location_relevant
+      })
     end
-    Hash[label_data]
+
+    imported_type = SpeechType.find_by_name('Imported - Awaiting Type')
+    label_data.merge('' => {
+        ownerGroup: I18n.t("document.speech.#{imported_type.owner_key_group}"),
+        publishedExternallyLabel: t_delivered_on(imported_type),
+        locationRelevant: imported_type.location_relevant
+      })
   end
 
   class EditionFormBuilder < Whitehall::FormBuilder
@@ -279,9 +290,9 @@ module Admin::EditionsHelper
     when :clean
       nil
     when :pending
-      content_tag(:p, "Scanning For Viruses", class: "virus-scanning")
+      content_tag(:p, "Virus scanning", class: "virus-scanning")
     else
-      content_tag(:p, "Virus Found", class: "virus")
+      content_tag(:p, "Virus found", class: "virus")
     end
   end
 
@@ -301,5 +312,12 @@ module Admin::EditionsHelper
       parts << "#{label}: #{value}" if value.present?
     end
     content_tag(:p, parts.join(', ')) if parts.any?
+  end
+
+  def format_advice_map(format_type_class)
+    format_type_class.all.inject({}) do |hash, type|
+      html = govspeak_to_html(t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
+      hash.merge(type.id => html)
+    end
   end
 end

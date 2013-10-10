@@ -9,7 +9,7 @@
 
   var updateSpeechHeaders = function() {
     var speechTypeLabels = <%= speech_type_label_data.to_json.html_safe %>;
-    var chosenType = $('select#edition_speech_type_id').val();
+    var chosenType = $('select#edition_speech_type_id').val() || '';
     var labels = speechTypeLabels[chosenType];
 
     $('label[for=edition_role_appointment_id]').text(labels.ownerGroup.speaker);

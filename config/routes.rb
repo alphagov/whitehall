@@ -26,6 +26,7 @@ Whitehall::Application.routes.draw do
         get :tags
       end
     end
+    resources :organisations, only: [:index, :show], defaults: { format: :json }
     resources :world_locations, path: 'world-locations', only: [:index, :show], defaults: { format: :json } do
       resources :worldwide_organisations, path: 'organisations', only: [:index], defaults: { format: :json }
     end
@@ -309,6 +310,9 @@ Whitehall::Application.routes.draw do
             post :run
             post :force_publish
             get :force_publish_log
+            get :new_document_list
+            get :error_list
+            get :import_log
           end
         end
 

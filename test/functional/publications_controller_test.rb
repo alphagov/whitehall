@@ -214,13 +214,11 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "input[name='keywords'][value=?]", "olympics 2012"
   end
 
-  view_test "index displays selected date filter" do
-    get :index, direction: "before", date: "2011-01-01"
+  view_test "index displays date filter" do
+    get :index, from_date: "01/01/2011", to_date: "01/02/2012"
 
-    assert_select "input#direction_before[name='direction'][checked=checked]"
-    assert_select "select[name='date']" do
-      assert_select "option[selected='selected'][value=?]", "2011-01-01"
-    end
+    assert_select "input#from_date[name='from_date'][value=01/01/2011]"
+    assert_select "input#to_date[name='to_date'][value=01/02/2012]"
   end
 
   view_test "index orders publications by publication date by default" do
@@ -288,9 +286,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "index does not select a date filter by default" do
     get :index
 
-    assert_select "select[name='date']" do
-      refute_select "option[selected='selected']"
-    end
+    assert_select "input[name='from_date'][placeholder=?]", "e.g. 01/01/2013"
+    assert_select "input[name='to_date'][placeholder=?]", "e.g. 30/02/2013"
   end
 
   view_test "index should show a helpful message if there are no matching publications" do
@@ -384,7 +381,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "index requested as JSON includes atom feed URL without date parameters" do
     create(:topic, name: "topic-1")
 
-    get :index, format: :json, date: "2012-01-01", direction: "before", topics: ["topic-1"]
+    get :index, format: :json, from_date: "2012-01-01", topics: ["topic-1"]
 
     json = ActiveSupport::JSON.decode(response.body)
 
@@ -392,7 +389,7 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "index requested as JSON includes email signup path without date parameters" do
-    get :index, format: :json, date: "2012-01-01", direction: "before"
+    get :index, format: :json, to_date: "2012-01-01"
 
     json = ActiveSupport::JSON.decode(response.body)
 
@@ -403,7 +400,7 @@ class PublicationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, date: "2012-01-01", direction: "before", topics: [topic], departments: [organisation]
+    get :index, format: :json, from_date: "2012-01-01", topics: [topic], departments: [organisation]
 
     json = ActiveSupport::JSON.decode(response.body)
 
@@ -427,7 +424,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test 'index atom feed autodiscovery link does not include date filter' do
     topic = create(:topic)
 
-    get :index, topics: [topic], date: "2012-01-01", direction: "after"
+    get :index, topics: [topic], to_date: "2012-01-01"
 
     assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic])
   end
@@ -445,7 +442,7 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test 'index shows a link to the atom feed without any date filters' do
     organisation = create(:organisation)
 
-    get :index, date: "2012-01-01", direction: "before", departments: [organisation]
+    get :index, from_date: "2012-01-01", departments: [organisation]
 
     feed_url = ERB::Util.html_escape(publications_url(format: "atom", departments: [organisation]))
     assert_select "a.feed[href=?]", feed_url

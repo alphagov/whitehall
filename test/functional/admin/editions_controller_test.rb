@@ -45,7 +45,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft
 
     assert_select_object(policy) { assert_select ".type", text: "Policy" }
-    assert_select_object(publication) { assert_select ".type", text: "Policy paper" }
+    assert_select_object(publication) { assert_select ".type", text: "Publication: Policy paper" }
   end
 
   test "diffing against a previous version" do

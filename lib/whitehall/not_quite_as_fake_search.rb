@@ -33,7 +33,7 @@ module Whitehall
         params = params.stringify_keys
         raise "Pagination params are required." if params["per_page"].nil? || params["page"].nil?
 
-        order     = params.delete("order")
+        order     = params.delete("order") || { public_timestamp: "desc" }
         keywords  = params.delete("keywords")
         per_page  = params.delete("per_page").to_i
         page      = params.delete("page").to_i
@@ -157,20 +157,22 @@ module Whitehall
       end
 
       def filter_by_date_field(field, date_filter_hash, document_hashes)
-        date_filter_hash = date_filter_hash.stringify_keys
-        document_hashes = date_filter_hash.inject(document_hashes) do |document_hashes, (direction, date_filter_value)|
-          raise GdsApi::Rummager::SearchServiceError, "Invalid date #{date_filter_value}" unless valid_date?(date_filter_value)
-          date = Time.zone.parse(date_filter_value)
-          predicate = case direction
-          when "before"
-            ->(document_hash) { document_hash[field] && Time.zone.parse(document_hash[field]) <= date }
-          when "after"
-            ->(document_hash) { document_hash[field] && Time.zone.parse(document_hash[field]) >= date }
-          else
-            ->(_) {true}
-          end
-          document_hashes.select(&predicate)
+        date_filter_hash = ActiveSupport::HashWithIndifferentAccess.new(date_filter_hash)
+        date_filter_hash.keys.each do |k|
+          raise GdsApi::Rummager::SearchServiceError, "Invalid date #{date_filter_hash[k]}" unless valid_date?(date_filter_hash[k])
         end
+        date_filter_hash.each do |date_type, date|
+          document_hashes.select! do |document_hash|
+            if date_type == "from"
+              document_hash[field] && Time.zone.parse(document_hash[field]) >= date
+            elsif date_type == "to"
+              document_hash[field] && Time.zone.parse(document_hash[field]) <= date
+            else
+              true
+            end
+          end
+        end
+        document_hashes
       end
 
       def valid_date?(date_value)

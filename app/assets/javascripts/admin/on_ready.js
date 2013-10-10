@@ -112,5 +112,9 @@ jQuery(document).ready(function($) {
     GOVUK.diff('summary');
     GOVUK.diff('body');
   }
+
+  GOVUK.largeImportLogs.init($('.large-data-set'));
+
+  GOVUK.formatAdvice.init($('.subtype').filter('select'));
 });
 

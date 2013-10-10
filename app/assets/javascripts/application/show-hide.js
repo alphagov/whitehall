@@ -5,14 +5,14 @@
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
   var showHide = {
-    
+
     init: function() {
       showHide.$toggle = $('.js-showhide');
       if (showHide.$toggle.length > 0) {
         showHide.$target = $(showHide.$toggle[0].hash);
 
         showHide.$toggle.on('click', showHide.toggle);
-        
+
         if (showHide.$toggle.is(':visible')) {
           // if toggle is visible
           showHide.hideStuff(); // hide stuff on init

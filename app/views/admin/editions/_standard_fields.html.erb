@@ -1,4 +1,6 @@
 <%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
+  <%= render "subtype_fields", form: form, edition: form.object %>
+
   <%= form.hidden_field :lock_version %>
   <% if form.object.document %>
   <%= form.text_field :slug, disabled: true %>
