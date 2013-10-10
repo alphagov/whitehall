@@ -4,10 +4,10 @@
   * Fades flash notices out after they are shown
   *
   */
-  $.fn.flashNotice = function (static) {
+  $.fn.flashNotice = function () {
     $(this).fadeIn();
 
-    if (!static) {
+    if (!$(this).hasClass('alert')) {
       var element = $(this);
       var timeout = setTimeout(function () { element.fadeOut(); }, 3000);
     }
