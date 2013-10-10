@@ -525,6 +525,7 @@ cy:
       previous_holders: ! 'Cyn-ddeiliaid '
       responsibilities: Cyfrifoldebau
     ministerial: Rôl Gweinidogol
+    policies_responsible: dan gyfrifoldeb %{role}
     policies_responsible_with_person: dan gyfrifoldeb %{person} fel %{role}
     previous_holders: Cyn-ddeiliaid y rôl yma
     read_more: Mwy am y rôl yma

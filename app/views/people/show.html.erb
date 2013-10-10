@@ -95,7 +95,7 @@
             <% if role.published_policies.any? %>
               <section class="policy">
                 <h1><%= t('policies.heading') %></h1>
-                <p><%= t('roles.policies_responsible_with_person', person: @person.name, role: role.name) %></p>
+                <p><%= policies_responsible(@person, role) %></p>
 
                 <%= render partial: 'ministerial_roles/policies',
                            locals: { role: role } %>

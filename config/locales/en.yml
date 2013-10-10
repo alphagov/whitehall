@@ -440,6 +440,7 @@ en:
     ministerial: Ministerial role
     read_more: More about this role
     previous_holders: Previous holders of this role
+    policies_responsible: under the responsibility of %{role}
     policies_responsible_with_person: under the responsibility of %{person} as %{role}
     headings:
       responsibilities: Responsibilities

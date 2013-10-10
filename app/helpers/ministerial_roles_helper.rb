@@ -12,4 +12,12 @@ module MinisterialRolesHelper
       link_to minister.current_person_name(minister.name), minister
     end
   end
+
+  def policies_responsible(person, role)
+    if person.present?
+      t('roles.policies_responsible_with_person', person: person.name, role: role.name)
+    else
+      t('roles.policies_responsible', role: role.name)
+    end
+  end
 end
