@@ -12,7 +12,7 @@
                           big: true, extra: true } %>
 
       <aside class="heading-extra">
-        <%= render 'shared/top_tasks', top_tasks: @classification.top_tasks %>
+        <%= render 'shared/top_tasks', top_tasks: @classification.top_tasks.only_the_initial_set %>
       </aside>
 
       <aside class="meta">

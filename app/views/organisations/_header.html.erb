@@ -31,7 +31,7 @@
       <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
     <% end %>
     <% if show_top_tasks && !sub_organisation %>
-      <%= render 'shared/top_tasks', top_tasks: organisation.top_tasks %>
+      <%= render 'shared/top_tasks', top_tasks: organisation.top_tasks.only_the_initial_set %>
     <% end %>
   <% end %>
 </header>
