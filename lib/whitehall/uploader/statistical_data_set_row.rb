@@ -13,8 +13,8 @@ module Whitehall::Uploader
 
     def self.validator
       HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
-        .required(%w{data_collection first_published})
+        .required(%w{old_url title summary body organisation first_published})
+        .required(%w{document_collection_1 document_collection_2 document_collection_3 document_collection_4})
         .optional(%W{change_note})
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
         .ignored("ignore_*")

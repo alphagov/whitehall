@@ -1,4 +1,4 @@
-require 'fast_test_helper'
+require 'test_helper'
 require 'whitehall/uploader'
 
 module Whitehall::Uploader
@@ -13,7 +13,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url title summary body organisation data_collection first_published}
+      %w{old_url title summary body organisation first_published document_collection_1 document_collection_2 document_collection_3 document_collection_4}
     end
 
     test "validates row headings" do
