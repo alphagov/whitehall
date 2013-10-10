@@ -68,6 +68,10 @@ class DetailedGuide < Edition
     additional_related_mainstream_content_url.present?
   end
 
+  def display_type
+    "Detailed guide"
+  end
+
   def display_type_key
     "detailed_guidance"
   end
