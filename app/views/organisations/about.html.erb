@@ -34,7 +34,7 @@
           <%= content_tag :p, class: 'homepage-link' do %>
             <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
           <% end %>
-          <aside class="organisation-mainstream-links">
+          <aside class="organisation-top-tasks">
             <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
           </aside>
           <h1 class="main"><%= t('organisation.headings.what_we_do') %></h1>

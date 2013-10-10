@@ -189,4 +189,49 @@ class TopicTest < ActiveSupport::TestCase
     classification_membership.reload.destroy
     assert_equal 0, topic.reload.published_policies_count
   end
+
+
+  ### Describing top tasks ###
+
+  test 'should be creatable with top task data' do
+    params = {
+      top_tasks_attributes: [
+        {url: "https://www.gov.uk/blah/blah",
+         title: "Blah blah"},
+        {url: "https://www.gov.uk/wah/wah",
+         title: "Wah wah"},
+      ]
+    }
+    topic = create(:topic, params)
+
+    links = topic.top_tasks
+    assert_equal 2, links.count
+    assert_equal "https://www.gov.uk/blah/blah", links[0].url
+    assert_equal "Blah blah", links[0].title
+    assert_equal "https://www.gov.uk/wah/wah", links[1].url
+    assert_equal "Wah wah", links[1].title
+  end
+
+  test 'top tasks are returned in order of creation' do
+    topic = create(:topic)
+    link_1 = create(:top_task, linkable: topic, title: '2 days ago', created_at: 2.days.ago)
+    link_2 = create(:top_task, linkable: topic, title: '12 days ago', created_at: 12.days.ago)
+    link_3 = create(:top_task, linkable: topic, title: '1 hour ago', created_at: 1.hour.ago)
+    link_4 = create(:top_task, linkable: topic, title: '2 hours ago', created_at: 2.hours.ago)
+    link_5 = create(:top_task, linkable: topic, title: '20 minutes ago', created_at: 20.minutes.ago)
+    link_6 = create(:top_task, linkable: topic, title: '2 years ago', created_at: 2.years.ago)
+
+    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], topic.top_tasks
+  end
+
+  test 'should ignore blank top task attributes' do
+    params = {
+      top_tasks_attributes: [
+        {url: "",
+         title: ""}
+      ]
+    }
+    topic = build(:topic, params)
+    assert topic.top_tasks.empty?
+  end
 end

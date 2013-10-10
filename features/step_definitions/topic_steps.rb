@@ -189,3 +189,22 @@ Then(/^I should see the policy featured on the public topic page$/) do
     assert page.has_content?(@policy.title)
   end
 end
+
+When /^I add some top tasks to the topic "([^"]*)" via the admin$/ do |topic_name|
+  topic = Topic.find_by_name!(topic_name)
+  visit admin_topic_path(topic)
+  click_link "Edit"
+  within ".top-tasks" do
+    fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
+    fill_in "Title", with: "Tool Alpha"
+  end
+  click_button "Save"
+end
+
+Then /^the top tasks for the topic "([^"]*)" should be visible on the public site$/ do |topic_name|
+  visit_topic topic_name
+  within ".top-tasks" do
+    assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
+  end
+end
+

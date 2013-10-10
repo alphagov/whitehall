@@ -54,11 +54,11 @@
             </td>
           </tr>
           <tr><th>Analytics identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
-          <tr><th>Mainstream links</th>
+          <tr><th>Top tasks</th>
             <td>
-              <% if @organisation.mainstream_links.any? %>
+              <% if @organisation.top_tasks.any? %>
                 <ul>
-                  <% @organisation.mainstream_links.each do |link| %>
+                  <% @organisation.top_tasks.each do |link| %>
                     <li><%= link_to link.title, link.url %></li>
                   <% end %>
                 </ul>
