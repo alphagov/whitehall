@@ -51,3 +51,35 @@ img {
 article {
   width: 100%;
 }
+
+.govspeak {
+  h2 {
+    clear: both;
+    padding-top: $gutter*2;
+  }
+  .attachment {
+    clear: both;
+    .attachment-thumb,
+    .attachment-details {
+      float: left;
+      width: 15%;
+    }
+    .attachment-thumb {
+      margin: 0 $gutter*2 $gutter*2 0;
+      a {
+        img {
+          width: 100%;
+        }
+        &:after {
+          content: "";
+        }
+      }
+    }
+    .attachment-details {
+      width: 80%;
+      h3 {
+        margin-top: 0;
+      }
+    }
+  }
+}
