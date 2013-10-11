@@ -272,6 +272,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         documentFilter.formType = $form.attr('action').split('/').pop();
 
         history.replaceState(documentFilter.currentPageState(), null);
+
         $form.submit(documentFilter.submitFilters);
 
         var delay = (function(){
@@ -281,6 +282,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
             timer = setTimeout(callback, ms);
           }
         })();
+
+        $form.find('select, input[type=checkbox]').change(function() {
+          $form.submit();
+        });
 
         $('#keyword-filter').add('#date-range-filter').find('input[type=text]').keyup(function () {
           delay(function () {
