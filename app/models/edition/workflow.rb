@@ -14,9 +14,9 @@ module Edition::Workflow
 
     define_model_callbacks :publish, :unpublish, :archive, :delete, only: :after
 
+    # TODO: Service object to handle/co-ordinate the functionality of this callback
     after_publish do
       notify_observers :after_publish
-      archive_previous_editions
     end
     after_unpublish do
       notify_observers :after_unpublish
@@ -100,7 +100,7 @@ module Edition::Workflow
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
-  def archive_previous_editions
+  def archive_previous_editions!
     document.editions.published.each do |edition|
       edition.archive! unless edition == self
     end

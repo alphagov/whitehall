@@ -99,7 +99,7 @@ class ClassificationTest < ActiveSupport::TestCase
     new_version = old_version.create_draft(editor)
     new_version.change_note = 'New stuffs!'
     new_version.save
-    new_version.perform_force_publish
+    force_publish(new_version)
 
     refute topical_event.featured_editions.include?(old_version)
     assert topical_event.featured_editions.include?(new_version)

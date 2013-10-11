@@ -32,7 +32,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
     editor = create(:departmental_editor)
     updated_fatality_notice = fatality_notice.create_draft(editor)
     updated_fatality_notice.change_note = "change-note"
-    updated_fatality_notice.perform_force_publish
+    force_publish(updated_fatality_notice)
 
     get :show, id: updated_fatality_notice.document
 

@@ -18,12 +18,14 @@ class ForcePublisher
         if edition.nil?
           reporter.failure(edition, 'Edition is nil')
         else
-          if reason = edition.reason_to_prevent_force_publication
-            reporter.failure(edition, reason)
+          # TODO: Should we be able to force publish without a reason?
+          publisher = EditionForcePublisher.new(edition, user, 'Data fix?')
+          if !publisher.can_perform?
+            reporter.failure(edition, publisher.failure_reason)
           else
             begin
               Edition::AuditTrail.acting_as(user) do
-                edition.perform_force_publish
+                publisher.perform!
               end
               reporter.success(edition)
             rescue => e

@@ -90,7 +90,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
   view_test "show omits the link to edit an existing translation unless the edition is editable" do
     edition = create(:draft_edition, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
-    edition.perform_force_publish
+    force_publish(edition)
 
     get :show, id: edition
 
@@ -100,7 +100,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
   view_test "show omits the link to delete an existing translation unless the edition is deletable" do
     edition = create(:draft_edition, title: 'english-title', summary: 'english-summary', body: 'english-body')
     with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
-    edition.perform_force_publish
+    force_publish(edition)
 
     get :show, id: edition
 
