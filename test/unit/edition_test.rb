@@ -81,7 +81,7 @@ class EditionTest < ActiveSupport::TestCase
     refute Edition.latest_published_edition.include?(new_draft)
   end
 
-  test '.most_recent_cahnge_note returns the most recent change note' do
+  test '.most_recent_change_note returns the most recent change note' do
     editor = create(:departmental_editor)
     edition = create(:published_edition)
 
