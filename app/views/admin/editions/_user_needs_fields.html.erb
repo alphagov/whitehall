@@ -4,7 +4,7 @@
 
     <p class='notice'>All detailed guides now require one or more user needs</p>
 
-    <p class='add-user-need'>
+    <p class='add-user-need js-add-user-need' data-add-user-need-url="<%= admin_user_needs_path %>">
       <%= form.label :user_need_ids, "Select existing user needs:" %>
       <%= form.select :user_need_ids,
                       user_need_options(selected: edition.user_need_ids),
@@ -21,6 +21,7 @@
                   size: 80, placeholder: "e.g. I can market it in-line with legislation", :'data-source' => UserNeed.existing_content('goal').to_json %></span>
         <%= f.hidden_field :organisation_id, value: current_user.organisation.id %>
       <% end %>
+      <button class="js-create">Create</button>
     </p>
   </fieldset>
 <% end %>
