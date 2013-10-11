@@ -13,10 +13,10 @@ class DocumentTest < ActiveSupport::TestCase
     user = create(:departmental_editor)
     document = create(:document)
     original_policy = create(:draft_policy, document: document)
-    original_policy.perform_force_publish
+    force_publish(original_policy)
     draft_policy = original_policy.create_draft(user)
     draft_policy.change_note = "change-note"
-    draft_policy.perform_force_publish
+    force_publish(draft_policy)
 
     archived_policy = original_policy
     published_policy = draft_policy

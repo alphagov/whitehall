@@ -207,7 +207,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
     new_draft.submit!
-    new_draft.perform_publish
+    EditionPublisher.new(new_draft).perform!
     [edition, new_draft]
   end
 
