@@ -4,10 +4,10 @@
   * Fades flash notices out after they are shown
   *
   */
-  $.fn.flashNotice = function (static) {
-    $(this).fadeIn();
+  $.fn.flashNotice = function () {
+    $(this).addClass('js-flash').fadeIn();
 
-    if (!static) {
+    if (!$(this).hasClass('alert')) {
       var element = $(this);
       var timeout = setTimeout(function () { element.fadeOut(); }, 3000);
     }
@@ -19,16 +19,16 @@
 
       $(this).fadeOut();
     });
-  }
+  };
 
   $.fn.showNotice = function (message) {
-    $(this).html("<p class='flash notice'>"+message+"</p>")
+    $(this).html("<p class='flash notice'>"+message+"</p>");
     $(".notice", this).flashNotice();
-  }
+  };
 
   $.fn.showAlert = function (message) {
-    $(this).html("<p class='flash alert'>"+message+"</p>")
+    $(this).html("<p class='flash alert'>"+message+"</p>");
     $(".alert", this).flashNotice();
-  }
+  };
 
 })(jQuery);
