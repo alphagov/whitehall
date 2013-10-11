@@ -5,14 +5,14 @@
   *
   */
   $.fn.flashNotice = function () {
-    $(this).fadeIn();
+    $(this).addClass('js-flash').fadeIn();
 
     if (!$(this).hasClass('alert')) {
       var element = $(this);
       var timeout = setTimeout(function () { element.fadeOut(); }, 3000);
     }
 
-    $(this).css('cursor', 'pointer').click(function () {
+    $(this).click(function () {
       if (timeout) {
         clearTimeout(timeout);
       }
