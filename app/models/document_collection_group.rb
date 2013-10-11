@@ -12,6 +12,14 @@ class DocumentCollectionGroup < ActiveRecord::Base
 
   before_create :assign_ordering
 
+  def set_document_ids_in_order!(document_ids)
+    self.document_ids = document_ids
+    self.save!
+    self.memberships.each do |membership|
+      membership.update_attribute(:ordering, document_ids.index(membership.document_id))
+    end
+  end
+
   def self.visible
     includes(:editions).where('editions.state = ?', 'published')
   end
