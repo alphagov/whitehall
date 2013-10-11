@@ -831,21 +831,9 @@
       max-width: 287px;
     }
   }
-  .information-block {
-    margin: $gutter-half 0;
-    min-height: $gutter;
-    background-color: transparent;
-    border: $gutter-one-sixth solid $inside-gov-secondary;
-    padding: $gutter-half;
-    position: relative;
-    p {
-      @include core-36;
-      font-weight: bold;
-    }
-
+  .status-block {
     @include media(desktop) {
       margin: 0 0 $gutter*2 0;
-      padding: $gutter-two-thirds;
     }
   }
 
