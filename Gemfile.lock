@@ -13,7 +13,7 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/svenfuchs/globalize3.git
+  remote: git://github.com/globalize/globalize.git
   revision: ab69160adc66d23b8d34aedc3ea9bfc724207494
   ref: ab69160ad
   specs:
