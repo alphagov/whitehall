@@ -47,7 +47,7 @@ attachable_ids_by_type.each do |attachable_type, attachable_ids|
       STDOUT.flush
 
       attachable.attachments.sort_by(&:created_at).each_with_index do |attachment, index|
-        attachment.update_attribute(:ordering, index)
+        attachment.update_column(:ordering, index)
       end
     end
   end
