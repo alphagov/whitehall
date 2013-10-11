@@ -82,7 +82,7 @@ class FeatureListTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     new_draft = item_b.create_draft(editor)
     new_draft.minor_change = true
-    new_draft.perform_force_publish
+    force_publish(new_draft)
 
     feature_list.reload
 

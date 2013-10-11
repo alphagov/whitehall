@@ -63,10 +63,7 @@ class AttachableTest < ActiveSupport::TestCase
     assert publication.valid?
     user = create(:departmental_editor)
     publication.change_note = "change-note"
-    error = assert_raise ActiveRecord::RecordInvalid do
-      publication.perform_force_publish
-    end
-    assert_match /must have passed virus scanning/, error.message
+    assert_raise(ActiveRecord::RecordInvalid, "Validation failed: Attachments must have passed virus scanning") { force_publish(publication) }
     refute publication.published?
   end
 

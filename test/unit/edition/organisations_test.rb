@@ -15,7 +15,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
 
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.perform_force_publish
+    force_publish(new_edition)
 
     edition_organisation = new_edition.edition_organisations.first
     assert edition_organisation.featured?
@@ -30,7 +30,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
 
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.perform_force_publish
+    force_publish(new_edition)
 
     edition_organisation = new_edition.edition_organisations.first
     refute edition_organisation.featured?
@@ -51,7 +51,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
 
     new_edition = news_article.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.perform_force_publish
+    force_publish(new_edition)
 
     lead_edition_organisations = new_edition.lead_edition_organisations
     assert_equal 2, lead_edition_organisations.size

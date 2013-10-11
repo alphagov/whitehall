@@ -55,13 +55,19 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
 
   test "is never publishable if submitted with a scheduled_publication date, even if no reason to prevent approval" do
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    assert_equal "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date.", edition.reason_to_prevent_publication
+    publisher = EditionPublisher.new(edition)
+    refute publisher.can_perform?
+    expected_reason = expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
+    assert_equal expected_reason, publisher.failure_reason
   end
 
   test "is never publishable if scheduled, but the scheduled_publication date has not yet arrived" do
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
     Timecop.freeze(edition.scheduled_publication - 1.second) do
-      assert_equal "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before", edition.reason_to_prevent_publication
+      publisher = EditionPublisher.new(edition)
+      refute publisher.can_perform?
+      expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
+      assert_equal expected_reason, publisher.failure_reason
     end
   end
 
@@ -73,14 +79,14 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
   test "is publishable if scheduled and the scheduled_publication date has passed" do
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
     Timecop.freeze(edition.scheduled_publication) do
-      assert_nil edition.reason_to_prevent_publication
+      assert EditionPublisher.new(edition).can_perform?
     end
   end
 
   test "publishing a force-scheduled edition does not clear the force_published flag" do
     edition = create(:scheduled_edition, scheduled_publication: 1.day.from_now, force_published: true)
     Timecop.freeze(edition.scheduled_publication) do
-      edition.perform_publish
+      EditionPublisher.new(edition).perform!
     end
     assert_equal true, edition.reload.force_published
   end

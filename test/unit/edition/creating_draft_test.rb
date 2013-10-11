@@ -157,7 +157,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     }
     priority = create(:draft_worldwide_priority)
     with_locale(:es) { priority.update_attributes!(spanish_translation_attributes) }
-    priority.perform_force_publish
+    force_publish(priority)
 
     assert_equal 2, priority.translations.length
 

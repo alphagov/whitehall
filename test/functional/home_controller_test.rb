@@ -42,7 +42,7 @@ class HomeControllerTest < ActionController::TestCase
     edition = create(:published_speech)
     version_2 = edition.create_draft(editor)
     version_2.change_note = 'My new version'
-    version_2.perform_force_publish
+    force_publish(version_2)
 
     get :feed, format: :atom, govdelivery_version: 'yes'
 

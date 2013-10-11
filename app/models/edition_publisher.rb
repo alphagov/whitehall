@@ -1,0 +1,40 @@
+class EditionPublisher
+  attr_reader :edition
+
+  def initialize(edition, options={})
+    @edition = edition
+    @options = options
+  end
+
+  def perform!
+    if can_perform?
+      edition.access_limited  = false
+      set_publishing_timestamps
+      edition.increment_version_number
+      edition.publish!
+      edition.archive_previous_editions!
+      true
+    end
+  end
+
+  def can_perform?
+    !failure_reason
+  end
+
+  def failure_reason
+    @failure_reason ||= if !edition.valid?
+      "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
+    elsif !edition.can_publish?
+      "An edition that is #{edition.current_state} cannot be published"
+    elsif edition.scheduled_publication.present? && Time.zone.now < edition.scheduled_publication
+      "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
+    end
+  end
+
+private
+
+  def set_publishing_timestamps
+    edition.major_change_published_at = Time.zone.now unless edition.minor_change?
+    edition.make_public_at(edition.major_change_published_at)
+  end
+end

@@ -46,7 +46,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
     post :publish, id: published_edition, lock_version: published_edition.lock_version
     assert_redirected_to admin_policy_path(published_edition)
-    assert_equal 'This edition has already been published', flash[:alert]
+    assert_equal 'An edition that is published cannot be published', flash[:alert]
   end
 
   test 'publish redirects back to the edition with an error message if the edition is stale' do
@@ -210,7 +210,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'approve_retrospectively marks the document as having been approved retrospectively and redirects back to he edition' do
     editor = create(:departmental_editor)
-    acting_as(editor) { draft_edition.perform_force_publish }
+    acting_as(editor) { force_publish(draft_edition) }
     post :approve_retrospectively, id: draft_edition, lock_version: draft_edition.lock_version
 
     assert_redirected_to admin_policy_path(draft_edition)

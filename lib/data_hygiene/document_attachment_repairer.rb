@@ -66,8 +66,9 @@ module DataHygiene
       new_edition.skip_virus_status_check = true
 
       # publish
-      if new_edition.perform_force_publish
-        add_remark_to_latest_edition('Re-editioned with corrected attachment filename(s)')
+      reason = 'Re-editioned with corrected attachment filename(s)'
+      if EditionForcePublisher.new(new_edition, user, reason)
+        add_remark_to_latest_edition(reason)
       else
         logger.error("Error: Document (#{document.id}) could not be published: #{new_edition.errors.full_messages.to_sentence}")
       end
