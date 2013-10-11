@@ -80,7 +80,7 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     parent = stub_record(:organisation)
     @organisation.stubs(:parent_organisations).returns([parent])
     assert_equal api_organisation_url(parent, host: 'test.host'), @presenter.as_json[:parent_organisations].first[:id]
-    assert_equal organisation_url(parent, host: 'test.host'), @presenter.as_json[:parent_organisations].first[:web_url]
+    assert_equal organisation_url(parent, host: 'govuk.example.com'), @presenter.as_json[:parent_organisations].first[:web_url]
   end
 
   test "json includes request-relative api child organisations" do
@@ -88,6 +88,6 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     child = stub_record(:organisation)
     @organisation.stubs(:child_organisations).returns([child])
     assert_equal api_organisation_url(child, host: 'test.host'), @presenter.as_json[:child_organisations].first[:id]
-    assert_equal organisation_url(child, host: 'test.host'), @presenter.as_json[:child_organisations].first[:web_url]
+    assert_equal organisation_url(child, host: 'govuk.example.com'), @presenter.as_json[:child_organisations].first[:web_url]
   end
 end
