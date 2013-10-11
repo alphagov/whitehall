@@ -137,6 +137,7 @@ Whitehall::Application.routes.draw do
         root to: 'dashboard#index', via: :get
 
         resources :users, only: [:index, :show, :edit, :update]
+        resources :user_needs, only: [:create]
 
         resources :authors, only: [:show]
         resources :document_series, only: [:index]
