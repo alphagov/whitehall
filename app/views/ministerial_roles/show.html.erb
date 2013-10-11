@@ -30,6 +30,9 @@
           </dl>
         </div>
       </aside>
+      <% unless @ministerial_role.occupied? %>
+        <aside class="status-block"><p>This is not a current government role</p></aside>
+      <% end %>
     </div>
   </header>
 
