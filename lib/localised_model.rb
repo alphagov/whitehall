@@ -13,7 +13,11 @@ class LocalisedModel < BasicObject
       response = @model.__send__(method, *args, &block)
 
       # Automatically localise any ActiveRecord associations
-      localise_association(method, response)
+      if translatable_association?(method, response)
+        response = localise_association(method, response)
+      end
+
+      response
     end
   end
 
@@ -25,16 +29,20 @@ class LocalisedModel < BasicObject
   end
 
 private
-  def localise_association(method, response)
-    return response unless @model.class.respond_to?(:reflect_on_association)
+  def translatable_association?(method, response)
+    return false unless @model.class.respond_to?(:reflect_on_association)
 
     association = @model.class.reflect_on_association(method)
-    return response if association.nil?
+    return false if association.nil?
 
-    return response unless @associations_to_localise.include?(method)
+    return false unless @associations_to_localise.include?(method)
 
     association_class = association.collection? ? association.class_name.constantize : response.class
-    return response unless association_class.respond_to?(:translates?) && association_class.translates?
+    association_class.respond_to?(:translates?) && association_class.translates?
+  end
+
+  def localise_association(method, response)
+    association = @model.class.reflect_on_association(method)
 
     if association.collection?
       # Converting to an array early isn't ideal, but Rails expects this to be
