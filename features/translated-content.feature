@@ -16,12 +16,12 @@ Feature: Providing translated content from gov.uk/government
 
   Scenario: Adding a translation for contact details
     Given I am a GDS editor
-    And the organisation "Wales Office" has a contact "Wales Office, Cardiff"
+    And the organisation "Wales Office" is translated into Welsh and has a contact "Wales Office, Cardiff"
     When I add a welsh translation "Cysylltwch â ni" to the "Wales Office, Cardiff" contact
     Then I should see on the admin organisation contacts page that "Wales Office, Cardiff" has a welsh translation "Cysylltwch â ni"
 
   Scenario: Adding a translation for worldwide offices
     Given I am a GDS editor
-    And the world organisation "British Embassy, Paris" has an office "British Consulate-General Paris"
+    And the world organisation "British Embassy, Paris" is translated into French and has an office "British Consulate-General Paris"
     When I add a french translation "Consulat Général du Royaume-Uni à Paris" to the "British Consulate-General Paris" office
     Then I should see on the admin world organisation offices page that "British Consulate-General Paris" has a french translation "Consulat Général du Royaume-Uni à Paris"

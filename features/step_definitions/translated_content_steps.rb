@@ -40,7 +40,7 @@ Then /^I should see on the admin edition page that "([^"]*)" has a french transl
   assert page.has_text?(french_title)
 end
 
-Given(/^the organisation "(.*?)" has a contact "(.*?)"$/) do |organisation_name, contact_title|
+Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*?)"$/) do |organisation_name, contact_title|
   organisation = create(:organisation, name: organisation_name, translated_into: :cy)
   contact = create(:contact, title: contact_title, country: create(:world_location),
                    street_address: '123 The Avenue', contactable: organisation)
@@ -51,7 +51,7 @@ end
 When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_title, english_title|
   contact = Contact.where(title: english_title).first
   visit admin_organisation_contacts_path(contact.contactable)
-  click_link "open-add-translation-modal"
+  click_link "Add translation"
   select "Cymraeg", from: "Locale"
   click_button "Add translation"
   fill_in "Title", with: welsh_title
@@ -69,7 +69,7 @@ Then(/^I should see on the admin organisation contacts page that "(.*?)" has a w
   assert page.has_text?("9876543210")
 end
 
-Given(/^the world organisation "(.*?)" has an office "(.*?)"$/) do |organisation_name, office_name|
+Given(/^the world organisation "(.*?)" is translated into French and has an office "(.*?)"$/) do |organisation_name, office_name|
   organisation = create(:worldwide_organisation, name: organisation_name, translated_into: :fr)
   contact = create(:contact, title: office_name, country: create(:world_location),
                    street_address: "123 The Avenue")
@@ -80,7 +80,7 @@ end
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|
   office = Contact.where(title: english_title).first.contactable
   visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
-  click_link "open-add-translation-modal"
+  click_link "Add translation"
   select "Français", from: "Locale"
   click_button "Add translation"
   fill_in "Title", with: french_title
