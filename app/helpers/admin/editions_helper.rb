@@ -20,11 +20,7 @@ module Admin::EditionsHelper
   end
 
   def admin_documents_header_link
-    admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|policies|news_articles|consultations|speeches)/
-  end
-
-  def admin_document_series_header_link
-    admin_header_link "Document series", admin_document_series_index_path, /^#{Whitehall.router_prefix}\/admin\/document_series/
+    admin_header_link "Documents", admin_editions_path, /^#{Whitehall.router_prefix}\/admin\/(editions|publications|policies|news_articles|consultations|speeches|collections)/
   end
 
   def link_to_filter(link, options, filter, html_options = {})
@@ -181,8 +177,11 @@ module Admin::EditionsHelper
   end
 
   def standard_edition_form(edition, &blk)
+    form_classes = ["edition-form"]
+    form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
+
     form_for [:admin, edition], as: :edition, builder: EditionFormBuilder,
-              html: { class: ('js-supports-non-english' if edition.locale_can_be_changed?) } do |form|
+              html: { class: form_classes } do |form|
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
@@ -214,6 +213,10 @@ module Admin::EditionsHelper
           "Attachments"
         end
         tabs[text] = admin_edition_attachments_path(edition)
+      end
+
+      if edition.is_a?(DocumentCollection) && !edition.new_record?
+        tabs["Collection documents"] = admin_document_collection_groups_path(edition)
       end
     end
   end

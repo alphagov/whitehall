@@ -4,6 +4,9 @@ tk:
       attachments:
         one:
         other:
+      document_collection:
+        one:
+        other:
       ministers:
         one:
         other:
@@ -27,7 +30,6 @@ tk:
         other:
       advisory_groups:
       applies_to_nations:
-      document_series:
       field_of_operation:
       live_data:
       location:
@@ -58,6 +60,9 @@ tk:
         one:
         other:
       detailed_guidance:
+        one:
+        other:
+      document_collection:
         one:
         other:
       draft_text:

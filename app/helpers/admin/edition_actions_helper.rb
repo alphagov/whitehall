@@ -78,7 +78,8 @@ module Admin::EditionActionsHelper
     content_tag(:ul, class: "more-nav left js-hidden") do
       [Policy, Publication, NewsArticle, FatalityNotice,
         Consultation, Speech, DetailedGuide, WorldwidePriority, CaseStudy,
-        StatisticalDataSet, WorldLocationNewsArticle].map do |edition_type|
+        StatisticalDataSet, WorldLocationNewsArticle,
+        DocumentCollection].map do |edition_type|
         content_tag(:li) do
           link_to edition_type.model_name.human, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
         end if can?(:create, edition_type)
@@ -104,7 +105,8 @@ module Admin::EditionActionsHelper
       WorldLocationNewsArticle,
       CaseStudy,
       StatisticalDataSet,
-      FatalityNotice
+      FatalityNotice,
+      DocumentCollection
     ].map do |edition_type|
       unless edition_type == FatalityNotice && !user.can_handle_fatalities?
         [edition_type.model_name.human.pluralize, edition_type.model_name.underscore]

@@ -44,7 +44,7 @@ module Whitehall::Uploader
 
     test "finds related policies using the policy finder" do
       policies = 5.times.map { stub('policy') }
-      Finders::PoliciesFinder.stubs(:find).with("first", "second", "third", "fourth", anything, anything).returns(policies)
+      Finders::EditionFinder.any_instance.stubs(:find).with("first", "second", "third", "fourth").returns(policies)
       row = news_article_row("policy_1" => "first", "policy_2" => "second", "policy_3" => "third", "policy_4" => "fourth")
       assert_equal policies, row.related_editions
     end

@@ -110,7 +110,9 @@ th:
       attachments:
         one: เอกสาร
         other: เอกสารต่างๆ
-      document_series: ตอน
+      document_collection:
+        one: ตอน
+        other:
       field_of_operation: ลักษณะงาน
       live_data: ข้อมูลสด
       location:
@@ -175,6 +177,9 @@ th:
       detailed_guidance:
         one: คู่มือโดยละเอียด
         other: คู่มือโดยละเอียด
+      document_collection:
+        one: ตอน
+        other:
       draft_text:
         one: ร่างข้อความ
         other: ร่างข้อความ

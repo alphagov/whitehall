@@ -6,6 +6,11 @@ ru:
         few:
         many:
         other: Документы
+      document_collection:
+        one: Серии
+        few:
+        many:
+        other:
       ministers:
         one: Министр
         few:
@@ -43,7 +48,6 @@ ru:
         other: Всемирные организации
       advisory_groups: Консультативные группы
       applies_to_nations: Применимо к
-      document_series: Серии
       field_of_operation: Сфера деятельности
       live_data: Обновленная информация
       location:
@@ -94,6 +98,11 @@ ru:
         few:
         many:
         other: Подробное руководство
+      document_collection:
+        one: Серии
+        few:
+        many:
+        other:
       draft_text:
         one: Проект текста
         few:

@@ -201,7 +201,7 @@ module DataHygiene
 
     # edge cases
 
-    test 'documents in a series successfully get repaired' do
+    test 'documents in a collection successfully get repaired' do
       bad_attachment = create(:attachment, file: double_extension_file, title: 'attachment title')
       VirusScanHelpers.simulate_virus_scan
 
@@ -209,7 +209,7 @@ module DataHygiene
                         alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
                         attachments: [bad_attachment])
       document = edition.document
-      series = create(:document_series, documents: [document])
+      collection = create(:document_collection, documents: [document])
       repairer = repairer_for(document)
 
       assert repairer.repair_attachments!

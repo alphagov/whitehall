@@ -4,6 +4,9 @@ ur:
       attachments:
         one: دستاویز
         other: دستاویزات
+      document_collection:
+        one: سلسلہ
+        other:
       ministers:
         one: وزير
         other: وزراء
@@ -27,7 +30,6 @@ ur:
         other: عالمی ادرے
       advisory_groups: مشاورتی گروپس
       applies_to_nations: اطلاق ہوتا ہے
-      document_series: سلسلہ
       field_of_operation: کارروائی کا میدان
       live_data: لائیو ڈیٹا
       location:
@@ -60,6 +62,9 @@ ur:
       detailed_guidance:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
+      document_collection:
+        one: سلسلہ
+        other:
       draft_text:
         one: ڈرافٹ متن
         other: ڈرافٹ متن

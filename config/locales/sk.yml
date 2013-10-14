@@ -5,6 +5,10 @@ sk:
         one:
         few:
         other:
+      document_collection:
+        one:
+        few:
+        other:
       ministers:
         one:
         few:
@@ -35,7 +39,6 @@ sk:
         other:
       advisory_groups:
       applies_to_nations:
-      document_series:
       field_of_operation:
       live_data:
       location:
@@ -74,6 +77,10 @@ sk:
         few:
         other:
       detailed_guidance:
+        one:
+        few:
+        other:
+      document_collection:
         one:
         few:
         other:

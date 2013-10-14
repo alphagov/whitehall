@@ -1,9 +1,19 @@
 require "test_helper"
 
 class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
+  def setup
+    Import.use_separate_connection
+  end
+
+  def teardown
+    Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
+  end
+
   test "imports CSV in DFT format (including JSON attachments) into database" do
     creator = User.create!(name: "Automatic Data Importer")
-    create(:document_series, name: "Highways orders inspectors reports and decision letters")
+    create(:document_collection, title: "Highways orders inspectors reports and decision letters")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-transport")
     policy = create(:policy, title: "managing-improving-and-investing-in-the-road-network")
     stub_request(:get, "http://assets.dft.gov.uk/publications/a5m1-dunstable-norther-bypass/inspector-report.pdf").to_return(body: "attachment-content")

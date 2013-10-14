@@ -112,7 +112,9 @@ tr:
       attachments:
         one: Belge
         other: Belgeler
-      document_series: Seriler
+      document_collection:
+        one: Seriler
+        other:
       field_of_operation: Faaliyet Alanı
       live_data: Canlı veri
       location:
@@ -177,6 +179,9 @@ tr:
       detailed_guidance:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
+      document_collection:
+        one: Seriler
+        other:
       draft_text:
         one: Taslak metin
         other: Taslak metinler

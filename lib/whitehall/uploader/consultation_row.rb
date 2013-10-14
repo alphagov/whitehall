@@ -30,7 +30,7 @@ module Whitehall::Uploader
     end
 
     def related_editions
-      Finders::PoliciesFinder.find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'], @logger, @line_number)
+      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'])
     end
 
     def alternative_format_provider

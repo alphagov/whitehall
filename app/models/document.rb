@@ -38,9 +38,9 @@ class Document < ActiveRecord::Base
                AND e2.state <> 'deleted'))
 
   has_many :document_sources, dependent: :destroy
-  has_many :document_series_group_memberships
-  has_many :document_series_groups, through: :document_series_group_memberships
-  has_many :document_series, through: :document_series_groups
+  has_many :document_collection_group_memberships
+  has_many :document_collection_groups, through: :document_collection_group_memberships
+  has_many :document_collections, through: :document_collection_groups
 
   delegate :topics, to: :latest_edition
 

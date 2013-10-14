@@ -1,10 +1,20 @@
 require "test_helper"
 
 class StatisticalDataSetImportTest < ActiveSupport::TestCase
+  def setup
+    Import.use_separate_connection
+  end
+
+  def teardown
+    Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
+  end
+
   test "imports CSV into database" do
     creator = User.create!(name: "Automatic Data Importer")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-transport")
-    statistical_data_series = create(:document_series, name: "Statistical Series 1", organisation: organisation)
+    statistical_data_collection = create(:document_collection, title: "Statistical Series 1", lead_organisations: [organisation])
     stub_request(:get, "http://www.example.com/documents/fire/pdf/2205794.pdf").to_return(body: "attachment-content")
 
     filename = Rails.root.join("test/fixtures/dft_statistical_data_set_sample.csv")
@@ -23,7 +33,7 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
 
     assert_equal creator, statistical_data_set.creator
     assert_equal [organisation], statistical_data_set.organisations
-    assert_equal [statistical_data_series], statistical_data_set.document_series
+    assert_equal [statistical_data_collection], statistical_data_set.document_collections
     assert_equal "http://example.com/legacy-url", statistical_data_set.document.document_sources.first.url
 
     assert_equal "!@1 !@2", statistical_data_set.body

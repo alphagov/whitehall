@@ -13,8 +13,8 @@ module Whitehall::Uploader
 
     def self.validator
       HeadingValidator.new
-        .required(%w{old_url title summary body organisation})
-        .required(%w{data_series first_published})
+        .required(%w{old_url title summary body organisation first_published})
+        .required(%w{document_collection_1 document_collection_2 document_collection_3 document_collection_4})
         .optional(%W{change_note})
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
         .ignored("ignore_*")
@@ -50,8 +50,8 @@ module Whitehall::Uploader
       organisations
     end
 
-    def document_series
-      Finders::SluggedModelFinder.new(DocumentSeries, logger, line_number).find([row['data_series']])
+    def document_collections
+      fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
     def first_published_at

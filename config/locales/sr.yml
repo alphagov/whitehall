@@ -6,6 +6,11 @@ sr:
         few:
         many:
         other: Dokumenti
+      document_collection:
+        one: serija
+        few:
+        many:
+        other:
       ministers:
         one: ministar
         few:
@@ -43,7 +48,6 @@ sr:
         other: svetske organizacije
       advisory_groups: savetodavne grupe
       applies_to_nations: Odnosi se na
-      document_series: serija
       field_of_operation: polje delovanja
       live_data: aktivni podaci
       location:
@@ -94,6 +98,11 @@ sr:
         few:
         many:
         other: detaljno uputstvo
+      document_collection:
+        one: serija
+        few:
+        many:
+        other:
       draft_text:
         one: Nacrt teksta
         few:

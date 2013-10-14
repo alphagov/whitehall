@@ -1,0 +1,68 @@
+<% page_title @document_collection.title %>
+<% page_class "document-collection-page" %>
+
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'header',
+               locals: {
+                 header_title: @document_collection.display_type,
+                 document: @document_collection
+               } %>
+  </div>
+</header>
+
+<% unless @document_collection.summary.blank? %>
+  <div class="block summary">
+    <div class="inner-block">
+      <p><%= @document_collection.summary %></p>
+    </div>
+  </div>
+<% end %>
+
+<div class="block-2 ">
+  <div class="inner-block">
+    <div class="contextual-info js-stick-at-top-when-scrolling">
+      <h1>Contents</h1>
+      <ol class="dash-list">
+        <% @document_collection.groups.each do |group| %>
+          <li><%= link_to group.heading, "#group_#{group.id}" %></li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="block-3">
+  <div class="inner-block">
+    <section id="document_collection" class="group">
+
+      <% unless @document_collection.body.blank? %>
+        <div class="description">
+          <%= govspeak_to_html @document_collection.body %>
+        </div>
+      <% end %>
+
+      <% @groups.each do |group, editions| %>
+        <div class="editions">
+          <%= content_tag :h2, group.heading, id: "group_#{group.id}" %>
+          <% unless group.body.blank? %>
+            <div class="group-body">
+              <%= govspeak_to_html group.body %>
+            </div>
+          <% end %>
+          <ol class="document-list">
+            <% editions.each do |edition| %>
+              <%= content_tag_for :li, edition, class: "document-row" do %>
+                <h3><%= edition.link %></h3>
+                <ul class="attributes">
+                  <li class="date"><%= edition.display_date_microformat %></li>
+                  <li class="display-type attribute"><%= edition.display_type %></li>
+                </ul>
+              <% end %>
+            <% end %>
+          </ol>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</div>

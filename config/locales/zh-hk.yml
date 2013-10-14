@@ -109,7 +109,9 @@ zh-hk:
       attachments:
         one: 文件
         other: 其他文件
-      document_series: 系列
+      document_collection:
+        one: 系列
+        other:
       field_of_operation: 運用領域
       live_data: 即時資料
       location:
@@ -174,6 +176,9 @@ zh-hk:
       detailed_guidance:
         one: 詳細指引
         other: 其他詳細指引
+      document_collection:
+        one: 系列
+        other:
       draft_text:
         one: 內容
         other: 其他內容

@@ -107,7 +107,9 @@ en:
       applies_to_nations: Applies to
       policy_team: Teams
       advisory_groups: Advisory groups
-      document_series: Series
+      document_collection:
+        one: Collection
+        other: Collections
       live_data: Live data
       location: Location
       world_locations:
@@ -159,6 +161,9 @@ en:
       detailed_guidance:
         one: Detailed guidance
         other: Detailed guidance
+      document_collection:
+        one: Collection
+        other: Collections
       draft_text:
         one: Draft text
         other: Draft texts

@@ -1,0 +1,37 @@
+<% content_for :page_class, 'document-collection-groups delete' %>
+<% page_title 'Delete group' %>
+
+<div class="span8">
+  <section>
+    <h1>Delete group</h1>
+
+    <% if (@collection.groups.size == 1) || @group.documents.present? %>
+      <div class="alert alert-error">
+        <% if @collection.groups.size == 1 %>
+          <p>
+            Every document collection needs at least one group, so you can't
+            delete the last one.
+          </p>
+          <p>
+            If you were planning on replacing it you can return to the
+            collection page, click the edit link, and rename it instead.
+          </p>
+        <% else %>
+          You can't delete a group that has documents in it &ndash;
+          remove the documents first, or move them into another group.
+        <% end %>
+      </div>
+
+      <p>
+        <%= link_to 'Return to the collection', admin_document_collection_groups_path(@collection) %>
+      </p>
+    <% else %>
+      <%= form_for [@collection, @group], url: admin_document_collection_group_path(@collection, @group), method: 'delete' do |form| %>
+        <p>
+          Are you sure you want to delete the group '<%= @group.heading %>'?
+        </p>
+        <%= form.form_actions(buttons: { delete: 'Delete' }, cancel: admin_document_collection_groups_path(@collection)) %>
+      <% end %>
+    <% end %>
+  </section>
+</div>

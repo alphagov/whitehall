@@ -4,6 +4,9 @@ bg:
       attachments:
         one: Документ
         other: Документи
+      document_collection:
+        one: Серии
+        other:
       ministers:
         one: Министър
         other: Министри
@@ -27,7 +30,6 @@ bg:
         other: Разпространени по целия свят организации
       advisory_groups: Консултативни групи
       applies_to_nations: Отнася се към
-      document_series: Серии
       field_of_operation: Поле на операцията
       live_data: Реална информация
       location:
@@ -60,6 +62,9 @@ bg:
       detailed_guidance:
         one: Подробна насока
         other: Подробни насоки
+      document_collection:
+        one: Серии
+        other:
       draft_text:
         one: Чернова
         other: Чернови

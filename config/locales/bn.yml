@@ -4,6 +4,9 @@ bn:
       attachments:
         one:
         other:
+      document_collection:
+        one:
+        other:
       ministers:
         one:
         other:
@@ -27,7 +30,6 @@ bn:
         other:
       advisory_groups:
       applies_to_nations:
-      document_series:
       field_of_operation:
       live_data:
       location:
@@ -58,6 +60,9 @@ bn:
         one:
         other:
       detailed_guidance:
+        one:
+        other:
+      document_collection:
         one:
         other:
       draft_text:

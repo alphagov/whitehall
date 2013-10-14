@@ -36,8 +36,8 @@
 
     <%= render partial: 'required_fields_for_imported_editions', locals: { form: form, edition: form.object } %>
 
-    <% if @edition.can_be_grouped_in_series? %>
-      <%= render partial: 'document_series_fields', locals: { form: form, edition: form.object } %>
+    <% if @edition.can_be_grouped_in_collections? %>
+      <%= render partial: 'document_collection_fields', locals: { form: form, edition: form.object } %>
     <% end %>
 
     <% if @edition.can_be_associated_with_role_appointments? %>

@@ -5,6 +5,10 @@ ro:
         one: Document
         few:
         other: Documente
+      document_collection:
+        one: Seria
+        few:
+        other:
       ministers:
         one: Ministru
         few:
@@ -35,7 +39,6 @@ ro:
         other: Organizații
       advisory_groups: ! 'Grupuri cu rol consultativ '
       applies_to_nations: Se adresează
-      document_series: Seria
       field_of_operation: Domeniu de activitate
       live_data: Informaţii în timp real
       location:
@@ -77,6 +80,10 @@ ro:
         one: Mai multe detalii
         few:
         other: Mai multe detalii
+      document_collection:
+        one: Seria
+        few:
+        other:
       draft_text:
         one: Versiune preliminară
         few:

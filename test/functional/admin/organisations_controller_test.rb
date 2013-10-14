@@ -327,13 +327,4 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template :about
     assert_equal organisation, assigns(:organisation)
   end
-
-  test "GET on :document_series loads the organisation and renders the document series template" do
-    organisation = create(:organisation)
-    get :document_series, id: organisation
-
-    assert_response :success
-    assert_template :document_series
-    assert_equal organisation.document_series, assigns(:document_series)
-  end
 end

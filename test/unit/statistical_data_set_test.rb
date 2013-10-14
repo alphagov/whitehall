@@ -7,8 +7,8 @@ class StatisticalDataSetTest < ActiveSupport::TestCase
     assert StatisticalDataSet.new.can_be_associated_with_worldwide_priorities?
   end
 
-  test "should include the Edition::HasDocumentSeries behaviour" do
-    assert StatisticalDataSet.ancestors.include?(Edition::HasDocumentSeries)
+  test "should include the Edition::HasDocumentCollections behaviour" do
+    assert StatisticalDataSet.ancestors.include?(Edition::HasDocumentCollections)
   end
 
   test "specifically limit access" do
