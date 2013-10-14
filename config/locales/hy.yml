@@ -62,6 +62,9 @@ hy:
       detailed_guidance:
         one: Մանրամասն ուղեցույց
         other: Մանրամասն ուղեցույցեր
+      document_collection:
+        one: Մի շարք
+        other:
       draft_text:
         one: Սևագիր տեքստ
         other: Սևագիր տեքստեր

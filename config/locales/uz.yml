@@ -62,6 +62,9 @@ uz:
       detailed_guidance:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
+      document_collection:
+        one: Bir talay
+        other:
       draft_text:
         one: Matn loyihasi
         other: Matn loyihalari

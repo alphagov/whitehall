@@ -62,6 +62,9 @@ dr:
       detailed_guidance:
         one: ! ' رهنمود مفصل'
         other: رهنمود های مفصل
+      document_collection:
+        one: سلسله
+        other:
       draft_text:
         one: متن مسوده
         other: متون مسوده

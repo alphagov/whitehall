@@ -177,6 +177,9 @@ ko:
       detailed_guidance:
         one: 상세 안내
         other: 상세 안내
+      document_collection:
+        one: 시리즈
+        other:
       draft_text:
         one: 드래프트 택스트
         other: 드래프트 택스트

@@ -62,6 +62,9 @@ fr:
       detailed_guidance:
         one: Instructions détaillées
         other: Instructions détaillées
+      document_collection:
+        one: Série
+        other:
       draft_text:
         one: Projet de texte
         other: Projets de textes

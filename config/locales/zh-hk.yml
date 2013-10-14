@@ -176,6 +176,9 @@ zh-hk:
       detailed_guidance:
         one: 詳細指引
         other: 其他詳細指引
+      document_collection:
+        one: 系列
+        other:
       draft_text:
         one: 內容
         other: 其他內容

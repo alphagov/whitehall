@@ -98,6 +98,11 @@ pl:
         few:
         many:
         other: Szczegółowe wskazówki
+      document_collection:
+        one: Seria
+        few:
+        many:
+        other:
       draft_text:
         one: Tekst roboczy
         few:

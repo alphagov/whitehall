@@ -80,6 +80,10 @@ lt:
         one: Detalesnė informacija
         few:
         other: Detalesnė informacija
+      document_collection:
+        one: Serijos
+        few:
+        other:
       draft_text:
         one: Pirminis teksto variantas
         few:

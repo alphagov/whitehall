@@ -98,6 +98,11 @@ he:
         two:
         many:
         other: מדריך מפורט
+      document_collection:
+        one: סדרות
+        two:
+        many:
+        other:
       draft_text:
         one: טיוטה
         two:

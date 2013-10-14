@@ -80,6 +80,10 @@ sk:
         one:
         few:
         other:
+      document_collection:
+        one:
+        few:
+        other:
       draft_text:
         one:
         few:

@@ -161,6 +161,9 @@ en:
       detailed_guidance:
         one: Detailed guidance
         other: Detailed guidance
+      document_collection:
+        one: Collection
+        other: Collections
       draft_text:
         one: Draft text
         other: Draft texts

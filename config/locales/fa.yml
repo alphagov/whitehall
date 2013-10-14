@@ -178,6 +178,9 @@ fa:
       detailed_guidance:
         one: راهنمای تفصیلی
         other: راهنمای تفصیلی
+      document_collection:
+        one: ردیف
+        other:
       draft_text:
         one: متن پیش نویس
         other: متون پیش نویس

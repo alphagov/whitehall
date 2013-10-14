@@ -62,6 +62,9 @@ it:
       detailed_guidance:
         one: Indicazione dettagliata
         other: Indicazioni dettagliate
+      document_collection:
+        one: Serie
+        other:
       draft_text:
         one: Bozza
         other: Bozze

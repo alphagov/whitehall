@@ -62,6 +62,9 @@ pt:
       detailed_guidance:
         one: Guia detalhado
         other: Guias detalhados
+      document_collection:
+        one: Séries
+        other:
       draft_text:
         one: Texto preliminar
         other: Textos preliminares

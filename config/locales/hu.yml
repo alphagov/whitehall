@@ -179,6 +179,9 @@ hu:
       detailed_guidance:
         one: Részletes útmutató
         other: Részletes útmutató
+      document_collection:
+        one: Sorozatok
+        other:
       draft_text:
         one: Szövegtervezet
         other: Szövegtervezetek

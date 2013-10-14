@@ -98,6 +98,11 @@ ru:
         few:
         many:
         other: Подробное руководство
+      document_collection:
+        one: Серии
+        few:
+        many:
+        other:
       draft_text:
         one: Проект текста
         few:

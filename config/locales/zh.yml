@@ -176,6 +176,9 @@ zh:
       detailed_guidance:
         one: 详细指导
         other: 详细指导
+      document_collection:
+        one: 系列
+        other:
       draft_text:
         one: 草拟稿件
         other: 草拟稿件

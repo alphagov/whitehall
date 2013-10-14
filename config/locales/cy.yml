@@ -134,6 +134,13 @@ cy:
         few:
         many:
         other: Cyfarwyddyd manwl
+      document_collection:
+        zero:
+        one: Cyfres
+        two:
+        few:
+        many:
+        other:
       draft_text:
         zero:
         one: Testun drafft

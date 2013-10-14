@@ -98,6 +98,11 @@ uk:
         few:
         many:
         other: Детальні інструкції
+      document_collection:
+        one: Серія
+        few:
+        many:
+        other:
       draft_text:
         one: Проект документу
         few:

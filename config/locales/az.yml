@@ -176,6 +176,9 @@ az:
       detailed_guidance:
         one: ətraflı məlumat
         other: ətraflı məlumat
+      document_collection:
+        one: növlər
+        other:
       draft_text:
         one: hazırlanmış mətn
         other: hazırlanmış mətn

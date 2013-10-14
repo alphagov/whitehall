@@ -80,6 +80,10 @@ cs:
         one: Podrobný návod
         few:
         other: Podrobný návod
+      document_collection:
+        one: Edice
+        few:
+        other:
       draft_text:
         one: Koncept
         few:

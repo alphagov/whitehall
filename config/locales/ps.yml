@@ -62,6 +62,9 @@ ps:
       detailed_guidance:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
+      document_collection:
+        one: سلسله
+        other:
       draft_text:
         one: مسوده
         other: مسودی

@@ -62,6 +62,9 @@ hi:
       detailed_guidance:
         one: विस्तृत मार्गदर्शन
         other: विस्तृत मार्गदर्शन
+      document_collection:
+        one: श्रृंखला
+        other:
       draft_text:
         one: मसौदा पाठ
         other: मसौदे के पाठ

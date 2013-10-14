@@ -134,6 +134,13 @@ ar:
         few:
         many:
         other: توجيهات مفصل
+      document_collection:
+        zero:
+        one: سلسة
+        two:
+        few:
+        many:
+        other:
       draft_text:
         zero:
         one: مسودة النص

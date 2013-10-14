@@ -177,6 +177,9 @@ ja:
       detailed_guidance:
         one: 詳細説明
         other: 詳細説明
+      document_collection:
+        one: シリーズ
+        other:
       draft_text:
         one: 草稿
         other: 草稿

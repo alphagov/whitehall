@@ -98,6 +98,11 @@ be:
         few:
         many:
         other: Падрабязнае кіраўніцтва
+      document_collection:
+        one: Серыя
+        few:
+        many:
+        other:
       draft_text:
         one: Чарнавік
         few:

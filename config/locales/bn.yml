@@ -62,6 +62,9 @@ bn:
       detailed_guidance:
         one:
         other:
+      document_collection:
+        one:
+        other:
       draft_text:
         one:
         other:

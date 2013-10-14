@@ -62,6 +62,9 @@ de:
       detailed_guidance:
         one: Detaillierte Hinweise
         other: Detaillierte Hinweise
+      document_collection:
+        one: Reihe
+        other:
       draft_text:
         one: Entwurf
         other: Entwürfe

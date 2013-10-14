@@ -62,6 +62,9 @@ ta:
       detailed_guidance:
         one: விளக்கமான வழிகாட்டல்
         other: விளக்கமான வழிகாட்டல்
+      document_collection:
+        one: தொடர்
+        other:
       draft_text:
         one: வரைபு உரை
         other: வரைபு உரைகள்

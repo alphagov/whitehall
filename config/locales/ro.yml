@@ -80,6 +80,10 @@ ro:
         one: Mai multe detalii
         few:
         other: Mai multe detalii
+      document_collection:
+        one: Seria
+        few:
+        other:
       draft_text:
         one: Versiune preliminară
         few:

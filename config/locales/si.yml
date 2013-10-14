@@ -62,6 +62,9 @@ si:
       detailed_guidance:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
+      document_collection:
+        one: කාණ්ඩය
+        other:
       draft_text:
         one: අශෝදිත වැකිය
         other: අශෝදිත වැකි

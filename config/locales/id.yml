@@ -178,6 +178,9 @@ id:
       detailed_guidance:
         one: Panduan lebih lanjut
         other: Panduan lebih lanjut
+      document_collection:
+        one: Serial
+        other:
       draft_text:
         one: Rancangan teks
         other: Rancangan tulisan

@@ -179,6 +179,9 @@ tr:
       detailed_guidance:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
+      document_collection:
+        one: Seriler
+        other:
       draft_text:
         one: Taslak metin
         other: Taslak metinler
