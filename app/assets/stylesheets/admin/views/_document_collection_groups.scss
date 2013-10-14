@@ -138,6 +138,7 @@
         li.document-row {
           position: relative;
           padding-top: $gutter-one-third;
+          cursor: move;
 
           .loading-spinner {
             background-image: image-url('loading-2b2c2d.gif');
