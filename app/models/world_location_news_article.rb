@@ -1,6 +1,7 @@
 class WorldLocationNewsArticle < Newsesque
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
+  include ::Attachable
 
   def can_be_related_to_policies?
     false
