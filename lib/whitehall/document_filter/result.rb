@@ -23,7 +23,7 @@ module Whitehall::DocumentFilter
     end
 
     def part_of_published_collection?
-      published_document_collections && published_document_collections.any?
+      published_document_collections.any?
     end
 
     def organisations
