@@ -110,7 +110,9 @@ ko:
       attachments:
         one: 문서
         other: 문서
-      document_series: 시리즈
+      document_collection:
+        one: 시리즈
+        other:
       field_of_operation: 오퍼레이션 필드
       live_data: 라이브 데이터
       location:
@@ -175,6 +177,9 @@ ko:
       detailed_guidance:
         one: 상세 안내
         other: 상세 안내
+      document_collection:
+        one: 시리즈
+        other:
       draft_text:
         one: 드래프트 택스트
         other: 드래프트 택스트

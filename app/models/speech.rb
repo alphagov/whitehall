@@ -1,6 +1,6 @@
 class Speech < Announcement
   include Edition::Appointment
-  include Edition::HasDocumentSeries
+  include Edition::HasDocumentCollections
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
   after_save :populate_organisations_based_on_role_appointment, unless: ->(speech) { speech.person_override? }

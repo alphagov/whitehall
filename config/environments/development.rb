@@ -44,6 +44,7 @@ Whitehall::Application.configure do
     # Bullet.airbrake = true
 
     Rack::MiniProfiler.config.position = 'right'
+    Rack::MiniProfiler.config.start_hidden = ENV['HIDE_RACK_MINI_PROFILER'].present? # Use Alt-P shortcut to show
   end
 
   if ENV['SHOW_PRODUCTION_IMAGES']

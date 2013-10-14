@@ -4,6 +4,9 @@ de:
       attachments:
         one: Dokument
         other: Dokumente
+      document_collection:
+        one: Reihe
+        other:
       ministers:
         one: Minister
         other: Minister
@@ -27,7 +30,6 @@ de:
         other: Weltweite Organisationen
       advisory_groups: Beratergruppen
       applies_to_nations: Gilt für
-      document_series: Reihe
       field_of_operation: Einsatzbereich
       live_data: Live-Daten
       location:
@@ -60,6 +62,9 @@ de:
       detailed_guidance:
         one: Detaillierte Hinweise
         other: Detaillierte Hinweise
+      document_collection:
+        one: Reihe
+        other:
       draft_text:
         one: Entwurf
         other: Entwürfe

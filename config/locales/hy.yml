@@ -4,6 +4,9 @@ hy:
       attachments:
         one: Փաստաթուղթ
         other: Փաստաթղթեր
+      document_collection:
+        one: Մի շարք
+        other:
       ministers:
         one: Նախարար
         other: Նախարարներ
@@ -27,7 +30,6 @@ hy:
         other: Համաշխարհային կազմակերպություններ
       advisory_groups: Խորհրդակցական խմբեր
       applies_to_nations: Վերաբերվում է
-      document_series: Մի շարք
       field_of_operation: Գործունեության ոլորտ
       live_data: առկա տեղեկատվություն
       location:
@@ -60,6 +62,9 @@ hy:
       detailed_guidance:
         one: Մանրամասն ուղեցույց
         other: Մանրամասն ուղեցույցեր
+      document_collection:
+        one: Մի շարք
+        other:
       draft_text:
         one: Սևագիր տեքստ
         other: Սևագիր տեքստեր

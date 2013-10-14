@@ -90,6 +90,14 @@ module ModelHelpers
       end
     end
 
+    def should_validate_with_safe_html_validator
+      test "should validate with safe_html_validator" do
+        instance = class_from_test_name.new
+        SafeHtmlValidator.any_instance.expects(:validate).with(instance)
+        instance.valid?
+      end
+    end
+
     def should_support_linking_to_external_version
       test "external #{class_from_test_name.name.downcase.pluralize} must have a valid external URL" do
         edition = class_from_test_name.new(external: true, external_url: nil)

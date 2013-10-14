@@ -58,7 +58,7 @@ module("Document filter", {
           "title": "document-title-2",
           "url": "/document-path-2",
           "organisations": "organisation-name-2, organisation-name-3",
-          "publication_series": "series-1"
+          "publication_collections": "collection-1"
         }
       ]
     };
@@ -155,7 +155,7 @@ test("should render results based on successful ajax response", function() {
   server.respond();
 
   equals(this.filterResults.find(".document-row").length, 2);
-  equals(this.filterResults.find(".document-row .document-series").text(), 'series-1');
+  equals(this.filterResults.find(".document-row .document-collections").text(), 'collection-1');
   equals(this.filterResults.find(".document-row .topics").text(), 'topic-name-1, topic-name-2');
   equals(this.filterResults.find(".document-row .field-of-operation").text(), 'place-of-war');
 });

@@ -22,8 +22,8 @@ module Whitehall::DocumentFilter
       Time.zone.parse(@doc['public_timestamp'])
     end
 
-    def part_of_series?
-      document_series && document_series.any?
+    def part_of_published_collection?
+      published_document_collections.any?
     end
 
     def organisations
@@ -34,8 +34,8 @@ module Whitehall::DocumentFilter
       @doc.fetch('topics', []).map { |slug| fetch_from_cache(:topic, slug) }.compact
     end
 
-    def document_series
-      @doc.fetch('document_series', []).map { |slug| fetch_from_cache(:document_series, slug) }.compact
+    def published_document_collections
+      @doc.fetch('document_collections', []).map { |slug| fetch_from_cache(:document_collection, slug) }.compact
     end
 
     def operational_field
@@ -50,8 +50,8 @@ module Whitehall::DocumentFilter
           Organisation.includes(:translations).find_by_slug(slug)
         when :topic
           Classification.find_by_slug(slug)
-        when :document_series
-          DocumentSeries.includes(:organisation).find_by_slug(slug)
+        when :document_collection
+          Document.find_by_slug(slug).published_edition
         when :operational_field
           OperationalField.find_by_slug(slug)
         else

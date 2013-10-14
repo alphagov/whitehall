@@ -1,8 +1,8 @@
 require 'test_helper'
-require 'support/consultation_csv_sample_helpers'
+require 'support/csv_sample_helpers'
 
 class Admin::ImportsControllerTest < ActionController::TestCase
-  include ConsultationCsvSampleHelpers
+  include CsvSampleHelpers
 
   def organisation_id
     "1"

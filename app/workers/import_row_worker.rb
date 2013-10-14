@@ -27,7 +27,7 @@ protected
       model = import.model_class.new(attributes)
       if model.save
         save_translation!(model, row) if row.translation_present?
-        assign_document_series!(model, row.document_series)
+        assign_document_collections!(model, row.document_collections)
         row.legacy_urls.each do |legacy_url|
           DocumentSource.create!(document: model.document, url: legacy_url, import: import, row_number: row_number)
         end
@@ -51,12 +51,21 @@ protected
     end
   end
 
-  def assign_document_series!(model, document_series)
-    if document_series.any?
-      groups = document_series.map do |series|
-        series.groups.first_or_initialize(DocumentSeriesGroup.default_attributes)
-      end
-      model.document.document_series_groups << groups
+  def assign_document_collections!(model, document_collection_slugs)
+    document_collection_slugs.each do |slug|
+      collection_document = Document.find_by_slug(slug) or raise "Couldn't find DocumentCollection for slug '#{slug}'"
+
+      collection_draft = draft_of_collection_for_editing(collection_document)
+      group = collection_draft.groups.first_or_create(DocumentCollectionGroup.default_attributes)
+      group.documents << model.document
+    end
+  end
+
+  def draft_of_collection_for_editing(collection_document)
+    if collection_document.latest_edition.published?
+      collection_document.latest_edition.create_draft(import_user)
+    else
+      collection_document.latest_edition
     end
   end
 

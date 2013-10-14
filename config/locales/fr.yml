@@ -4,6 +4,9 @@ fr:
       attachments:
         one: Document
         other: Documents
+      document_collection:
+        one: Série
+        other:
       ministers:
         one: Ministre
         other: Ministres
@@ -27,7 +30,6 @@ fr:
         other: Représentations à l'étranger
       advisory_groups: Groupes d'experts
       applies_to_nations: s'appliquant à
-      document_series: Série
       field_of_operation: Domaine d'activité
       live_data: Données
       location:
@@ -60,6 +62,9 @@ fr:
       detailed_guidance:
         one: Instructions détaillées
         other: Instructions détaillées
+      document_collection:
+        one: Série
+        other:
       draft_text:
         one: Projet de texte
         other: Projets de textes

@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'fast_test_helper'
+require 'test_helper'
 require 'whitehall/uploader'
 
 module Whitehall::Uploader
@@ -14,7 +14,7 @@ module Whitehall::Uploader
     end
 
     test "validates a complete set of row headings" do
-      complete_row_headings = basic_headings + %w(document_series_2 document_series_3 document_series_4 policy_2 policy_3 policy_4)
+      complete_row_headings = basic_headings + %w(document_collection_2 document_collection_3 document_collection_4 policy_2 policy_3 policy_4)
       assert_equal [], Whitehall::Uploader::CaseStudyRow.heading_validation_errors(complete_row_headings)
     end
 
@@ -22,12 +22,12 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::CaseStudyRow.heading_validation_errors(basic_headings + %w(ignore_this ignore_this_too))
     end
 
-    test "finds document series by slug in document_series_n column" do
-      doc_series_1 = create(:document_series)
-      doc_series_2 = create(:document_series)
-      row = case_study_row({"document_series_1" => doc_series_1.slug, "document_series_2" => doc_series_2.slug})
+    test "stores document collection slugs from document_collection_n column" do
+      doc_collection_1 = create(:document_collection)
+      doc_collection_2 = create(:document_collection)
+      row = case_study_row({"document_collection_1" => doc_collection_1.slug, "document_collection_2" => doc_collection_2.slug})
       row.stubs(:organisation).returns(stubbed_organisation)
-      assert_equal [doc_series_1, doc_series_2], row.document_series
+      assert_equal [doc_collection_1.slug, doc_collection_2.slug], row.document_collections
     end
 
     test "finds policies by slug in policy_n column" do
@@ -54,7 +54,7 @@ module Whitehall::Uploader
     private
 
     def basic_headings
-      %w(old_url title summary body organisation document_series_1 policy_1 first_published)
+      %w(old_url title summary body organisation document_collection_1 policy_1 first_published)
     end
 
     def case_study_row(data)

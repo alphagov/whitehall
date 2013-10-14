@@ -4,6 +4,9 @@ so:
       attachments:
         one: Dokumenti
         other: Dokumentiyo
+      document_collection:
+        one: Taxane
+        other:
       ministers:
         one: Wasiir
         other: Wasiirro
@@ -27,7 +30,6 @@ so:
         other: Ururro caalami ah
       advisory_groups: Kooxo la-talineed
       applies_to_nations: Waxa lagu saleeyaa
-      document_series: Taxane
       field_of_operation: Nooca hawlgalka
       live_data: Xog cusub
       location:
@@ -60,6 +62,9 @@ so:
       detailed_guidance:
         one: Hagid faahfaahsan
         other: Hagid faahfaahsan
+      document_collection:
+        one: Taxane
+        other:
       draft_text:
         one: Qoraal qabyo ah
         other: Qoraallo qabyo ah

@@ -43,9 +43,9 @@ When /^I can only tag the (?:publication|news article) with "([^"]*)" once$/ do 
   assert page.has_css?("label.checkbox", text: /#{label}/, count: 1)
 end
 
-Then /^I should be able to select the first group for the document series "([^"]*)"$/ do |name|
-  group = @document_series.groups.first
-  select "#{name} (#{group.heading})", from: 'Document series'
+Then /^I should be able to select the first group for the document collection "([^"]*)"$/ do |name|
+  group = @document_collection.groups.first
+  select "#{name} (#{group.heading})", from: 'Document collection'
 end
 
 Then /^I should be able to set the first published date$/ do

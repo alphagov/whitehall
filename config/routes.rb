@@ -104,9 +104,13 @@ Whitehall::Application.routes.draw do
       resource :about_pages, path: "about", only: [:show]
     end
 
+    resources :document_collections, only: [:show], path: 'collections'
+    get '/collections' => redirect("/publications")
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
-      resources :document_series, only: [:index, :show], path: 'series'
+      match '/series/:slug' => redirect("/collections/%{slug}")
+      match '/series' => redirect("/publications")
+
       member do
         get :about, localised: true
         get :consultations
@@ -140,22 +144,20 @@ Whitehall::Application.routes.draw do
         resources :user_needs, only: [:create]
 
         resources :authors, only: [:show]
-        resources :document_series, only: [:index]
         resource :document_searches, only: [:show]
-        resources :document_series, only: [] do
-          resources :document_series_groups, as: :groups, path: 'groups' do
+        resources :document_collections, path: "collections", except: [:index] do
+          resources :document_collection_groups, as: :groups, path: 'groups' do
             member { get :delete }
-            resource :document_series_group_membership, as: :members,
+            resource :document_collection_group_membership, as: :members,
                                                         path: 'members',
                                                         only: [:destroy]
           end
-          resource :document_series_group_membership, as: :new_member,
+          resource :document_collection_group_membership, as: :new_member,
                                                       path: 'members',
                                                       only: [:create]
         end
         resources :organisations do
           resources :groups, except: [:show]
-          resources :document_series, except: [:index]
           resources :corporate_information_pages do
             resources :translations, controller: 'corporate_information_pages_translations'
           end
@@ -173,7 +175,6 @@ Whitehall::Application.routes.draw do
           end
           member do
             get :features, localised: true
-            get :document_series
             get :about
             get :people
           end

@@ -4,6 +4,9 @@ ps:
       attachments:
         one: سند
         other: سندونه
+      document_collection:
+        one: سلسله
+        other:
       ministers:
         one: وزیر
         other: وزیران
@@ -27,7 +30,6 @@ ps:
         other: نړیواله اداری
       advisory_groups: مشورتی ګروپونه
       applies_to_nations: پورې اړه لری
-      document_series: سلسله
       field_of_operation: د کړنو څانګه
       live_data: ژوندې اطلاعات
       location:
@@ -60,6 +62,9 @@ ps:
       detailed_guidance:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
+      document_collection:
+        one: سلسله
+        other:
       draft_text:
         one: مسوده
         other: مسودی

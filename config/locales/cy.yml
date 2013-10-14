@@ -8,6 +8,13 @@ cy:
         few:
         many:
         other: Dogfennau
+      document_collection:
+        zero:
+        one: Cyfres
+        two:
+        few:
+        many:
+        other:
       ministers:
         zero:
         one: Gweinidog
@@ -59,7 +66,6 @@ cy:
         other: Sefydliadau byd-eang
       advisory_groups: Grwpiau cynghori
       applies_to_nations: Yn berthnasol i
-      document_series: Cyfres
       field_of_operation: Maes gweithredu
       live_data: Data byw
       location:
@@ -128,6 +134,13 @@ cy:
         few:
         many:
         other: Cyfarwyddyd manwl
+      document_collection:
+        zero:
+        one: Cyfres
+        two:
+        few:
+        many:
+        other:
       draft_text:
         zero:
         one: Testun drafft

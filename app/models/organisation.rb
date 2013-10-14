@@ -31,8 +31,6 @@ class Organisation < ActiveRecord::Base
             source: :edition,
             order: "edition_organisations.ordering ASC"
 
-  has_many :document_series
-
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
   has_many :groups

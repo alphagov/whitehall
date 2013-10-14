@@ -23,7 +23,7 @@ latin_tables=(
     corporate_information_pages
     data_migration_records
     delayed_jobs
-    document_series
+    document_collections
     document_sources
     edition_authors
     edition_document_series

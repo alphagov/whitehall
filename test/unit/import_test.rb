@@ -1,8 +1,8 @@
 require 'test_helper'
-require 'support/consultation_csv_sample_helpers'
+require 'support/csv_sample_helpers'
 
 class ImportTest < ActiveSupport::TestCase
-  include ConsultationCsvSampleHelpers
+  include CsvSampleHelpers
 
   setup do
     @automatic_data_importer = create(:importer, name: "Automatic Data Importer")
@@ -145,17 +145,16 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
-  test '#perform assigns document series to the document' do
-    series = create(:document_series, name: 'series-name')
-    import = perform_import(csv_data: publication_with_series_csv, data_type: "publication", organisation_id: organisation.id)
+  test '#perform assigns document collection to the document' do
+    collection = create(:document_collection, title: 'collection-name')
+    import = perform_import(csv_data: publication_with_collection_csv, data_type: "publication", organisation_id: create(:organisation).id)
     edition = import.imported_editions.first
 
-    assert_equal [series], edition.document.document_series
+    assert_equal [collection], edition.document.document_collections
   end
 
   test '#perform rolls back if exception raised during the row import' do
-    series = create(:document_series, name: 'series-name')
-    import = perform_import(csv_data: publication_with_dud_series_csv, data_type: "publication", organisation_id: organisation.id)
+    import = perform_import(csv_data: publication_with_dud_collection_csv, data_type: "publication", organisation_id: create(:organisation).id)
     assert_equal [], import.imported_editions
   end
 
@@ -442,6 +441,8 @@ class ImportTest < ActiveSupport::TestCase
     yield
   ensure
     Import.destroy_all
+    ImportError.destroy_all
+    ImportLog.destroy_all
   end
 
   def translated_news_article_csv
@@ -465,17 +466,17 @@ class ImportTest < ActiveSupport::TestCase
     EOF
   end
 
-  def publication_with_series_csv
+  def publication_with_collection_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
-    http://example.com/3,Title,Summary,Body,correspondence,,,series-name,,19-Oct-2012,2012-10-19,,,,175
+    old_url,title,summary,body,publication_type,policy_1,policy_2,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,,,collection-name,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 
-  def publication_with_dud_series_csv
+  def publication_with_dud_collection_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,publication_type,policy_1,policy_2,document_series_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
-    http://example.com/3,Title,Summary,Body,correspondence,,,series-name-dud,,19-Oct-2012,2012-10-19,,,,175
+    old_url,title,summary,body,publication_type,policy_1,policy_2,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,,,collection-name-dud,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 end

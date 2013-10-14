@@ -6,6 +6,11 @@ uk:
         few:
         many:
         other: Документи
+      document_collection:
+        one: Серія
+        few:
+        many:
+        other:
       ministers:
         one: Міністр
         few:
@@ -43,7 +48,6 @@ uk:
         other: Організації
       advisory_groups: Дорадчі групи
       applies_to_nations: Застосовується до
-      document_series: Серія
       field_of_operation: Сфера діяльності
       live_data: В реальному часі
       location:
@@ -94,6 +98,11 @@ uk:
         few:
         many:
         other: Детальні інструкції
+      document_collection:
+        one: Серія
+        few:
+        many:
+        other:
       draft_text:
         one: Проект документу
         few:

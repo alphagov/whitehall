@@ -1,6 +1,6 @@
 class NewsArticle < Newsesque
   include Edition::RoleAppointments
-  include Edition::HasDocumentSeries
+  include Edition::HasDocumentCollections
   include ::Attachable
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies

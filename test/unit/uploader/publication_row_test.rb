@@ -15,8 +15,8 @@ module Whitehall::Uploader
     def basic_headings
       %w{old_url  title summary body  publication_type
         policy_1  policy_2  policy_3  policy_4
-        organisation  document_series_1 document_series_2
-        document_series_3 document_series_4 publication_date
+        organisation  document_collection_1 document_collection_2
+        document_collection_3 document_collection_4 publication_date
         order_url price ISBN  URN command_paper_number
         country_1 country_2 country_3 country_4}
     end
@@ -47,10 +47,12 @@ module Whitehall::Uploader
       assert_equal [], Whitehall::Uploader::PublicationRow.heading_validation_errors(keys)
     end
 
-    test "finds document series by slug in document_series_n column" do
-      document_series = create(:document_series)
-      row = new_publication_row({"document_series_1" => document_series.slug})
-      assert_equal [document_series], row.document_series
+    test "returns document collection slugs from document_collection_n columns, rejecting blanks" do
+      row = new_publication_row(
+        "document_collection_1" => "collection-slug",
+        "document_collection_2" => ""
+      )
+      assert_equal ["collection-slug"], row.document_collections
     end
 
     test "finds publication type by slug in the pub type column" do

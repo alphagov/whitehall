@@ -64,10 +64,10 @@ Feature: Speed tagging editions
     Then I should be able to tag the news article with "Jane Smith"
     And I should not be able to tag the news article with "Joe Bloggs"
 
-  Scenario: Speed tagging shows document series when relevant
-    Given a document series "Beard statistics"
+  Scenario: Speed tagging shows document collections when relevant
+    Given a document collection "Beard statistics"
     When I go to speed tag a newly imported publication "Beard length statistics 2012"
-    Then I should be able to select the first group for the document series "Beard statistics"
+    Then I should be able to select the first group for the document collection "Beard statistics"
 
   Scenario: Speed tagging news articles allows first published at to be set
     When I go to speed tag a newly imported news article "Beards are more costly this year"

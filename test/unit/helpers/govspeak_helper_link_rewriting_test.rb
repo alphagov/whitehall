@@ -65,19 +65,17 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     end
   end
 
-  test "should not raise exception when link to an admin page for an organisation document series is present" do
-    organisation = create(:organisation, name: "department-for-communities-and-local-government")
-    document_series = create(:document_series, organisation: organisation)
-    path = admin_organisation_document_series_path(organisation, document_series)
+  test "should not raise exception when link to an admin page for an organisation document collection is present" do
+    document_collection = create(:document_collection)
+    path = admin_document_collection_path(document_collection)
     assert_nothing_raised do
       govspeak_to_html("[text](#{path})")
     end
   end
 
-  test "should not raise exception when link to an admin edit page for an organisation document series is present" do
-    organisation = create(:organisation, name: "department-for-communities-and-local-government")
-    document_series = create(:document_series, organisation: organisation)
-    path = edit_admin_organisation_document_series_path(organisation, document_series)
+  test "should not raise exception when link to an admin edit page for an organisation document collection is present" do
+    document_collection = create(:document_collection)
+    path = edit_admin_document_collection_path(document_collection)
     assert_nothing_raised do
       govspeak_to_html("[text](#{path})")
     end

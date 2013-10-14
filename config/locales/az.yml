@@ -109,7 +109,9 @@ az:
       attachments:
         one:
         other:
-      document_series: növlər
+      document_collection:
+        one: növlər
+        other:
       field_of_operation: əməliyyat sahəsi
       live_data: canlı məlumat
       location:
@@ -174,6 +176,9 @@ az:
       detailed_guidance:
         one: ətraflı məlumat
         other: ətraflı məlumat
+      document_collection:
+        one: növlər
+        other:
       draft_text:
         one: hazırlanmış mətn
         other: hazırlanmış mətn

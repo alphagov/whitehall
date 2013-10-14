@@ -6,6 +6,11 @@ pl:
         few:
         many:
         other: Dokumenty
+      document_collection:
+        one: Seria
+        few:
+        many:
+        other:
       ministers:
         one: Minister
         few:
@@ -43,7 +48,6 @@ pl:
         other: Organizacje na świecie
       advisory_groups: Grupy doradcze
       applies_to_nations: Dotyczy
-      document_series: Seria
       field_of_operation: Obszar działania
       live_data: Dane pobierane na żywo
       location:
@@ -94,6 +98,11 @@ pl:
         few:
         many:
         other: Szczegółowe wskazówki
+      document_collection:
+        one: Seria
+        few:
+        many:
+        other:
       draft_text:
         one: Tekst roboczy
         few:
