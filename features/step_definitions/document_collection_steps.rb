@@ -156,6 +156,7 @@ end
 Then(/^I can see in the preview that "(.*?)" does not appear$/) do |document_title|
   visit_link_href "Preview on website"
   refute_document_is_part_of_document_collection(document_title)
+end
 
 Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
   assert page.has_content? doc_title_1
