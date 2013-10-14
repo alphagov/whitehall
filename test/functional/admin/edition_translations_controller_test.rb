@@ -59,6 +59,15 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
     assert_select '#govspeak_help'
   end
 
+  view_test "edit shows editorial remarks" do
+    edition = create(:edition)
+    create(:editorial_remark, edition: edition)
+
+    get :edit, edition_id: edition, id: "fr"
+
+    assert_select "#notes"
+  end
+
   test "update creates a translation for an edition that's yet to be published, and redirect back to the edition admin page" do
     edition = create(:draft_edition)
 
