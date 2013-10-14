@@ -86,22 +86,7 @@
       <% end %>
     </h2>
     <% if @edition.editable? and @edition.missing_translations.any? %>
-      <div id="add-translation-modal" class="modal hide">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3>Add translation</h3>
-        </div>
-        <%= form_tag(admin_edition_translations_path(@edition)) do %>
-          <div class="modal-body">
-            <%= label_tag :translation_locale, 'Locale' %>
-            <%= select_locale :translation_locale, @edition.missing_translations %>
-          </div>
-          <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <%= submit_tag "Add translation", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-      </div>
+      <%= render partial: 'admin/shared/translation_modal', locals: { form_path: admin_edition_translations_path(@edition), locales: @edition.missing_translations } %>
     <% end %>
     <% if @edition.non_english_translations.any? %>
       <table class="table">

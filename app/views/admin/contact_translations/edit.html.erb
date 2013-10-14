@@ -1,0 +1,7 @@
+<% page_title "Edit translation for #{@contact.title}" %>
+
+<h1>Edit '<%= translation_locale.native_language_name %> (<%= translation_locale.english_language_name %>)' translation for: <%= @contact.title %></h1>
+
+<%= render partial: 'form', locals: { translated_contact: @translated_contact,
+                                      form_path: admin_organisation_contact_translation_path(@contactable, @translated_contact),
+                                      cancel_path: admin_organisation_contacts_path(@contactable) } %>

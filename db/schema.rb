@@ -171,6 +171,18 @@ ActiveRecord::Schema.define(:version => 20131010130144) do
     t.integer  "consultation_response_form_data_id"
   end
 
+  create_table "contact_number_translations", :force => true do |t|
+    t.integer  "contact_number_id"
+    t.string   "locale"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "label"
+    t.string   "number"
+  end
+
+  add_index "contact_number_translations", ["contact_number_id"], :name => "index_contact_number_translations_on_contact_number_id"
+  add_index "contact_number_translations", ["locale"], :name => "index_contact_number_translations_on_locale"
+
   create_table "contact_numbers", :force => true do |t|
     t.integer  "contact_id"
     t.string   "label"
@@ -180,6 +192,24 @@ ActiveRecord::Schema.define(:version => 20131010130144) do
   end
 
   add_index "contact_numbers", ["contact_id"], :name => "index_contact_numbers_on_contact_id"
+
+  create_table "contact_translations", :force => true do |t|
+    t.integer  "contact_id"
+    t.string   "locale"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "title"
+    t.text     "comments"
+    t.string   "recipient"
+    t.text     "street_address"
+    t.string   "locality"
+    t.string   "region"
+    t.string   "email"
+    t.string   "contact_form_url"
+  end
+
+  add_index "contact_translations", ["contact_id"], :name => "index_contact_translations_on_contact_id"
+  add_index "contact_translations", ["locale"], :name => "index_contact_translations_on_locale"
 
   create_table "contacts", :force => true do |t|
     t.decimal "latitude",         :precision => 15, :scale => 10
