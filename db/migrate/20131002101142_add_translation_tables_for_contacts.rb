@@ -1,10 +1,4 @@
 class AddTranslationTablesForContacts < ActiveRecord::Migration
-  class Contact < ActiveRecord::Base
-    # without this .create_translation_table! doesn't exist
-    translates :title, :comments, :recipient, :street_address, :locality,
-               :region, :email, :contact_form_url
-  end
-
   def up
     Contact.create_translation_table!({ title: :string,
                                         comments: :text,
