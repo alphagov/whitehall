@@ -39,7 +39,7 @@ module Admin
     end
 
     def page_title
-      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches}".squeeze(' ')
+      "#{ownership} #{edition_state} #{type_for_display}#{title_matches}#{location_matches} #{date_range_string}".squeeze(' ').strip
     end
 
     def default_page_size
@@ -80,6 +80,16 @@ module Admin
 
     def to_date
       @to_date ||= Chronic.parse(options[:to_date], endian_precedence: :little) if options[:to_date]
+    end
+
+    def date_range_string
+      if from_date && to_date
+        "from #{from_date.to_date.to_s(:uk_short)} to #{to_date.to_date.to_s(:uk_short)}"
+      elsif from_date
+        "after #{from_date.to_date.to_s(:uk_short)}"
+      elsif to_date
+        "before #{to_date.to_date.to_s(:uk_short)}"
+      end
     end
 
     private
