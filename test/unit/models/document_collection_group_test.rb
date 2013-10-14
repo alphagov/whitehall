@@ -38,14 +38,15 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal [published_2, published_1], group.published_editions
   end
 
-  test '::latest_editions should list latest editions in reverse chronological order, with drafts at the end' do
+  test '::latest_editions should list latest editions for each document ordered by membership ordering' do
     group = create(:document_collection_group)
     draft = create(:draft_publication)
-    new = create(:published_publication, first_published_at: 1.day.ago)
-    old = create(:published_publication, first_published_at: 2.days.ago)
-    group.documents = [draft.document, new.document, old.document]
+    published_1 = create(:published_publication)
+    published_2 = create(:published_publication)
 
-    assert_equal [new, old, draft], group.latest_editions
+    group.set_document_ids_in_order! [published_1.document.id, draft.document.id, published_2.document.id]
+
+    assert_equal [published_1, draft, published_2], group.latest_editions
   end
 
   test '#dup should also clone document memberships' do

@@ -35,7 +35,7 @@ class DocumentCollectionGroup < ActiveRecord::Base
   def latest_editions
     associations = { latest_edition: [:organisations, :translations] }
     editions = documents.includes(associations).map(&:latest_edition)
-    editions.compact.sort_by { |edition| - edition.public_timestamp.to_i }
+    editions.compact
   end
 
   def visible?
