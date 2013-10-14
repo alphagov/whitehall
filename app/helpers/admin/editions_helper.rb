@@ -262,7 +262,7 @@ module Admin::EditionsHelper
 
     orgs = Organisation.select(:id).where(id: grouped_needs.keys).order(:slug).to_a
 
-    if grouped_needs.has_key?(my_org.id)
+    if my_org && grouped_needs.has_key?(my_org.id)
       orgs.delete(my_org)
       orgs = orgs.unshift(my_org)
     end

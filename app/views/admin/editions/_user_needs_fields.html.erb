@@ -19,7 +19,7 @@
                   size: 50, placeholder: "e.g. know how to register my product", :'data-source' => UserNeed.existing_content('need').to_json %></span>
         <span><%= f.text_field :goal, class: 'user-need-input', label_text: 'so that',
                   size: 80, placeholder: "e.g. I can market it in-line with legislation", :'data-source' => UserNeed.existing_content('goal').to_json %></span>
-        <%= f.hidden_field :organisation_id, value: current_user.organisation.id %>
+        <%= f.hidden_field :organisation_id, value: current_user.organisation.try(:id) %>
       <% end %>
       <button class="js-create">Create</button>
     </p>
