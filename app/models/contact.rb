@@ -10,6 +10,10 @@ class Contact < ActiveRecord::Base
   validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
+  include TranslatableModel
+  translates :title, :comments, :recipient, :street_address, :locality,
+             :region, :email, :contact_form_url
+
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists
 
@@ -54,5 +58,9 @@ class Contact < ActiveRecord::Base
   end
   def general?
     contact_type == ContactType::General
+  end
+
+  def missing_translations
+    super & contactable.non_english_translated_locales
   end
 end

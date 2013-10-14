@@ -116,6 +116,15 @@ fieldset.contact_number {
     border-bottom: none;
   }
 }
+
+.contacts-admin {
+  max-width: 600px;
+
+  .contact-translation.right-to-left {
+    direction: rtl;
+  }
+}
+
 fieldset.fatality-notice-casualties {
   h3 {
     margin-top: 0.5em;

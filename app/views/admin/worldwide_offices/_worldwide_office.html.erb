@@ -47,5 +47,33 @@
       <%= button_to "Add to home page", [:add_to_home_page, :admin, worldwide_organisation, worldwide_office], class: 'btn btn-small' %>
     <% end %>
   <% end %>
+  <% if worldwide_office.contact.missing_translations.any? %>
+    <a href="#add-translation-modal" id="open-add-translation-modal" class="btn btn-small" data-toggle="modal"><i class="icon-plus-sign"></i> Add translation</a>
+    <%= render partial: 'admin/shared/translation_modal', locals: { form_path: [:admin, worldwide_organisation, worldwide_office, :translations], locales: worldwide_office.contact.missing_translations } %>
+  <% end %>
 
+  <% worldwide_office.contact.non_english_localised_models([:contact_numbers]).each do |translated_contact| %>
+    <hr />
+    <h3><small><%= translated_contact.translation_locale.native_and_english_language_name %> translation</small></h3>
+
+    <%= content_tag(:div, class: contact_translation_css_class(translated_contact)) do %>
+      <h3><%= translated_contact.title %></h3>
+
+      <div class="vcard">
+        <%= render_hcard_address(translated_contact) %>
+      </div>
+
+      <%= content_tag(:dl, class: "dl-horizontal") do %>
+        <% translated_contact.contact_numbers.each do |cn| %>
+          <%= definition(cn.label, cn.number) %>
+        <% end %>
+        <% if translated_contact.email.present? %>
+          <%= definition('Email', translated_contact.email) %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= button_to "Delete", [:admin, worldwide_organisation, worldwide_office, translated_contact.translation_locale], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from worldwide office '#{worldwide_office.title}'?" %>
+    <%= link_to icon("Edit"), edit_polymorphic_path([:admin, worldwide_organisation, worldwide_office, translated_contact.translation_locale]), class: "btn btn-small" %>
+  <% end %>
 <% end %>

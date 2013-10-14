@@ -102,4 +102,12 @@ class ContactTest < ActiveSupport::TestCase
 
     refute list.shown_on_home_page?(contact)
   end
+
+  test "#missing_translations should only include contactable translations" do
+    organisation = create(:organisation, translated_into: [:de, :es, :fr])
+    contact = create(:contact, contactable: organisation, translated_into: [:es])
+
+    expected_locales = [:de, :fr].map { |l| Locale.new(l) }
+    assert_equal expected_locales, contact.missing_translations
+  end
 end

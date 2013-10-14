@@ -1,0 +1,16 @@
+<div id="add-translation-modal" class="modal hide">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Add translation</h3>
+  </div>
+  <%= form_tag(form_path) do %>
+    <div class="modal-body">
+      <%= label_tag :translation_locale, 'Locale' %>
+      <%= select_locale :translation_locale, locales %>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <%= submit_tag "Add translation", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

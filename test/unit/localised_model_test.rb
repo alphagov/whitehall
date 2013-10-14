@@ -48,4 +48,20 @@ class LocalisedModelTest < ActiveSupport::TestCase
     refute localised_model.valid?
     assert_equal ["can't be blank"], localised_model.errors[:title]
   end
+
+  test "ActiveRecord has_many associations are localised" do
+    contact = create(:contact)
+    create(:contact_number, contact: contact)
+
+    localised_model = LocalisedModel.new(contact, :es, [:contact_numbers])
+    assert_equal :es, localised_model.contact_numbers.first.fixed_locale
+  end
+
+  test "ActiveRecord belongs_to associations are localised" do
+    contact = create(:contact)
+    number = create(:contact_number, contact: contact)
+
+    localised_model = LocalisedModel.new(number, :es, [:contact])
+    assert_equal :es, localised_model.contact.fixed_locale
+  end
 end

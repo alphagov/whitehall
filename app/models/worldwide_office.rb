@@ -19,6 +19,8 @@ class WorldwideOffice < ActiveRecord::Base
   contact_methods = Contact.column_names + %w(contact_numbers country country_code country_name has_postal_address?) -  %w(id contactable_id contactable_type)
   delegate *contact_methods, to: :contact, allow_nil: true
 
+  delegate :non_english_translated_locales, to: :worldwide_organisation
+
   def access_and_opening_times_body
     (access_and_opening_times || default_access_and_opening_times).try(:body)
   end

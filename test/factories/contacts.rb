@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :contact do
+  factory :contact, traits: [:translated] do
     title "Contact description"
     contact_type { ContactType::General }
   end
