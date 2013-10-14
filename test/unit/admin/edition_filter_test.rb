@@ -203,4 +203,14 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter = Admin::EditionFilter.new(Edition, build(:user), world_location: location.to_param)
     assert_equal "Everyone's documents about Spain", filter.page_title
   end
+
+  test "should generate page title for from date" do
+    filter = Admin::EditionFilter.new(Edition, build(:user), from_date: '09/11/2011')
+    assert_equal "Everyone's documents after 09/11/2011", filter.page_title
+  end
+
+  test "should generate page title for to date" do
+    filter = Admin::EditionFilter.new(Edition, build(:user), to_date: '09/11/2011')
+    assert_equal "Everyone's documents before 09/11/2011", filter.page_title
+  end
 end
