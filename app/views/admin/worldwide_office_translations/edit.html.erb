@@ -2,35 +2,7 @@
 
 <h1>Edit '<%= translation_locale.native_language_name %> (<%= translation_locale.english_language_name %>)' translation for: <%= @contact.title %></h1>
 
-<div class="row-fluid">
-  <div class="span8">
-    <section>
-      <%= form_for @translated_contact, as: :contact, url: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale), method: :put do |form| %>
-        <%= form.errors %>
-
-        <%= form.translated_text_field :title %>
-        <%= form.translated_text_area :comments %>
-
-        <%= form.translated_text_field :recipient %>
-        <%= form.translated_text_area :street_address %>
-        <%= form.translated_text_field :locality %>
-        <%= form.translated_text_field :region %>
-
-        <%= form.translated_text_field :email %>
-        <%= form.translated_text_field :contact_form_url %>
-
-        <%= form.fields_for :contact_numbers, @translated_contact.contact_numbers do |number_form| %>
-          <fieldset class="contact_number well">
-            <%= number_form.translated_text_field :label %>
-            <%= number_form.translated_text_field :number %>
-          </fieldset>
-        <% end %>
-
-        <%= form.save_or_cancel cancel: admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation, @worldwide_office) %>
-      <% end %>
-    </section>
-  </div>
-  <div class="span4">
-    <%= simple_formatting_sidebar %>
-  </div>
-</div>
+<%= render partial: 'admin/contact_translations/form',
+           locals: { translated_contact: @translated_contact,
+                     form_path: admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale),
+                     cancel_path: admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation, @worldwide_office) } %>
