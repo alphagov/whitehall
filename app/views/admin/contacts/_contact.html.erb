@@ -37,22 +37,7 @@
   <% end %>
   <% if contact.missing_translations.any? %>
     <a href="#add-translation-modal" id="open-add-translation-modal" class="btn btn-small" data-toggle="modal"><i class="icon-plus-sign"></i> Add translation</a>
-    <div id="add-translation-modal" class="modal hide">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>Add translation</h3>
-      </div>
-      <%= form_tag([:admin, contactable, contact, :translations]) do %>
-        <div class="modal-body">
-          <%= label_tag :translation_locale, 'Locale' %>
-          <%= select_locale :translation_locale, contact.missing_translations %>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-          <%= submit_tag "Add translation", class: "btn btn-primary" %>
-        </div>
-      <% end %>
-    </div>
+    <%= render partial: 'admin/shared/translation_modal', locals: { form_path: [:admin, contactable, contact, :translations], locales: contact.missing_translations } %>
   <% end %>
 
   <% contact.non_english_localised_models([:contact_numbers]).each do |translated_contact| %>
