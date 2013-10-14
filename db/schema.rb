@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007092029) do
+ActiveRecord::Schema.define(:version => 20131010130144) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1165,6 +1165,18 @@ ActiveRecord::Schema.define(:version => 20131007092029) do
 
   add_index "take_part_pages", ["ordering"], :name => "index_take_part_pages_on_ordering"
   add_index "take_part_pages", ["slug"], :name => "index_take_part_pages_on_slug", :unique => true
+
+  create_table "top_tasks", :force => true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "linkable_type"
+    t.integer  "linkable_id"
+  end
+
+  add_index "top_tasks", ["linkable_id", "linkable_type"], :name => "index_top_tasks_on_linkable_id_and_linkable_type"
+  add_index "top_tasks", ["linkable_type"], :name => "index_top_tasks_on_linkable_type"
 
   create_table "unpublishings", :force => true do |t|
     t.integer  "edition_id"

@@ -5,10 +5,6 @@ class Admin::WorldLocationsController < Admin::BaseController
     @active_world_locations, @inactive_world_locations = WorldLocation.ordered_by_name.partition { |wl| wl.active? }
   end
 
-  def edit
-    @world_location.mainstream_links.build unless @world_location.mainstream_links.any?
-  end
-
   def update
     if @world_location.update_attributes(params[:world_location])
       redirect_to [:admin, @world_location], notice: "World location updated successfully"

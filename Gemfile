@@ -32,7 +32,7 @@ gem 'whenever', '0.7.3', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
 gem 'rails-i18n'
-gem 'globalize3', github: 'svenfuchs/globalize3', ref: 'ab69160ad'
+gem 'globalize3', github: 'globalize/globalize', ref: 'ab69160ad'
 gem 'link_header'
 gem 'logstasher', '0.2.5'
 gem 'slop', '3.4.5'

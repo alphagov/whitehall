@@ -7,10 +7,41 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+
+  ### Describing :index ###
+
+  view_test "GET :index lists the topical events in alphabetial order" do
+    topic_c = create(:topic, name: "Topic C")
+    topic_a = create(:topic, name: "Topic A")
+    topic_b = create(:topic, name: "Topic B")
+
+    get :index
+
+    assert_response :success
+    assert_select "#{record_css_selector(topic_a)} + #{record_css_selector(topic_b)} + #{record_css_selector(topic_c)}"
+  end
+
+
+  ### Describing :show ###
+
+  view_test "GET :show lists the topic's details" do
+    topic = create(:topic)
+    get :show, id: topic
+
+    assert_response :success
+    assert_select 'h1', topic.name
+  end
+
+
+  ### Describing :new ###
+
   view_test "GET :new displays topic form" do
     get :new
     assert_select "input[name='topic[name]']"
   end
+
+
+  ### Describing :create ###
 
   test "POST :create creates a new topic" do
     first_topic = create(:topic)
@@ -36,24 +67,8 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  view_test "GET :show lists the topic's details" do
-    topic = create(:topic)
-    get :show, id: topic
 
-    assert_response :success
-    assert_select 'h1', topic.name
-  end
-
-  view_test "GET :index lists the topical events in alphabetial order" do
-    topic_c = create(:topic, name: "Topic C")
-    topic_a = create(:topic, name: "Topic A")
-    topic_b = create(:topic, name: "Topic B")
-
-    get :index
-
-    assert_response :success
-    assert_select "#{record_css_selector(topic_a)} + #{record_css_selector(topic_b)} + #{record_css_selector(topic_c)}"
-  end
+  ### Describing :edit ###
 
   view_test "GET :edit renders the edit form" do
     topic = create(:topic)
@@ -62,6 +77,22 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_response :success
     assert_select "input[name='topic[name]'][value='#{topic.name}']"
   end
+
+  view_test "GET :edit only lists published editions for ordering" do
+    topic = create(:topic)
+    policy = create(:published_policy, topics: [topic])
+    draft_policy = create(:draft_policy, topics: [topic])
+    published_association = topic.classification_memberships.where(edition_id: policy.id).first
+    draft_association = topic.classification_memberships.where(edition_id: draft_policy.id).first
+
+    get :edit, id: topic.id
+
+    assert_select "#policy_order input[type=hidden][value=#{published_association.id}]"
+    refute_select "#policy_order input[type=hidden][value=#{draft_association.id}]"
+  end
+
+
+  ### Describing :update ###
 
   test "PUT :update saves changes to the topic and redirects" do
     topic = create(:topic)
@@ -84,19 +115,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-  view_test "GET :edit only lists published editions for ordering" do
-    topic = create(:topic)
-    policy = create(:published_policy, topics: [topic])
-    draft_policy = create(:draft_policy, topics: [topic])
-    published_association = topic.classification_memberships.where(edition_id: policy.id).first
-    draft_association = topic.classification_memberships.where(edition_id: draft_policy.id).first
-
-    get :edit, id: topic.id
-
-    assert_select "#policy_order input[type=hidden][value=#{published_association.id}]"
-    refute_select "#policy_order input[type=hidden][value=#{draft_association.id}]"
-  end
-
   test "PUT :update re-orders editions" do
     topic = create(:topic)
     policy = create(:policy, topics: [topic])
@@ -108,6 +126,9 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     assert_equal 4, association.reload.ordering
   end
+
+
+  ### Describing :destroy ###
 
   test "DELETE :destroy deletes a deletable topic" do
     topic = create(:topic)

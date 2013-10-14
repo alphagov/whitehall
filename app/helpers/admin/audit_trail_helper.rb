@@ -28,13 +28,13 @@ module Admin::AuditTrailHelper
     if this_edition_remarks.any?
       out << content_tag(:h2, 'On this edition')
       out << content_tag(:ul) do
-        render partial: "audit_trail_entry", collection: this_edition_remarks
+        render partial: "admin/editions/audit_trail_entry", collection: this_edition_remarks
       end
     end
     if other_edition_remarks.any?
       out << content_tag(:h2, 'On previous editions')
       out << content_tag(:ul) do
-        render partial: "audit_trail_entry", collection: other_edition_remarks
+        render partial: "admin/editions/audit_trail_entry", collection: other_edition_remarks
       end
     end
     out.html_safe

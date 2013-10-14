@@ -34,6 +34,9 @@ $orange: #f47738;
   .flash {
     @extend .flash-box;
   }
+  .js-flash {
+    cursor: pointer;
+  }
   .alert {
     @extend .flash-box;
     @extend .flash-alert;

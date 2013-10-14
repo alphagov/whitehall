@@ -130,9 +130,9 @@
         @include core-36;
         font-weight: bold;
         margin-right: $gutter-two-thirds;
-      }      
+      }
     }
-    
+
     @include media(tablet){
       p {
         clear: both;
@@ -251,60 +251,6 @@
       @include media(tablet){
         float: left;
         width: 66.66%;
-      }
-    }
-
-    .organisation-mainstream-links {
-      padding-top: $gutter;
-
-      @include media(tablet){
-        float: left;
-        width: 33.33%;
-        padding-top: 0;
-        margin-top: ($gutter-one-third * -1);
-      }
-
-      h4 {
-        @include ig-core-19;
-
-        @include media(tablet){
-          position: absolute;
-          left: -9999em;
-        }
-      }
-
-      ul {
-        list-style: none;
-
-        @include media(tablet){
-          padding-left: $gutter-two-thirds;
-        }
-
-        li {
-          @include core-16;
-          font-weight: bold;
-          padding: 3px 0;
-          @include media(tablet){
-            padding: $gutter-one-sixth 0 0;
-          }
-
-          a[rel="external"] {
-            @include external-link-14-bold-no-hover;
-            @include media(tablet) {
-              @include external-link-16-bold-no-hover;
-            }
-          }
-        }
-      }
-
-      .available-languages {
-        margin: 0 0 $gutter-half $gutter-two-thirds;
-        ul {
-          padding: 0 0 $gutter-one-sixth 0;
-          li {
-            padding-right: $gutter-one-third;
-          }
-        }
       }
     }
   }
@@ -885,21 +831,9 @@
       max-width: 287px;
     }
   }
-  .information-block {
-    margin: $gutter-half 0;
-    min-height: $gutter;
-    background-color: transparent;
-    border: $gutter-one-sixth solid $inside-gov-secondary;
-    padding: $gutter-half;
-    position: relative;
-    p {
-      @include core-36;
-      font-weight: bold;
-    }
-
+  .status-block {
     @include media(desktop) {
       margin: 0 0 $gutter*2 0;
-      padding: $gutter-two-thirds;
     }
   }
 
@@ -1294,7 +1228,7 @@
       width: 50%;
     }
   }
-  .organisation-mainstream-links {
+  .organisation-top-tasks {
     @include media(tablet){
       float: right;
       width: 50%;

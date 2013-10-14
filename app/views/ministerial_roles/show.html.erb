@@ -30,6 +30,9 @@
           </dl>
         </div>
       </aside>
+      <% unless @ministerial_role.occupied? %>
+        <aside class="status-block"><p>This is not a current government role</p></aside>
+      <% end %>
     </div>
   </header>
 
@@ -98,7 +101,7 @@
       <% if @ministerial_role.published_policies.any? %>
         <section class="policy" id="policies">
           <h1><%= t('policies.heading') %></h1>
-          <p><%= t('roles.policies_reponsible', person: @ministerial_role.current_person.name, role: @ministerial_role.name) %></p>
+          <p><%= policies_responsible(@ministerial_role.current_person, @ministerial_role) %></p>
 
           <%= render partial: 'ministerial_roles/policies',
                       locals: { role: @ministerial_role } %>
