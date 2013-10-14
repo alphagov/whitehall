@@ -37,7 +37,7 @@
     <section id="document_collection" class="group">
 
       <% unless @document_collection.body.blank? %>
-        <div class="description" id="this-series">
+        <div class="description">
           <%= govspeak_to_html @document_collection.body %>
         </div>
       <% end %>
