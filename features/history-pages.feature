@@ -23,6 +23,6 @@ Scenario: Viewing 11 downing street page
   When I visit the "11 downing street" page
   Then I should see historic information about "11 downing street"
 
-Scenario: Viewing 1 horse guards page
-  When I visit the "1 horse guards" page
-  Then I should see historic information about "1 horse guards"
+Scenario: Viewing 1 horse guards road page
+  When I visit the "1 horse guards road" page
+  Then I should see historic information about "1 horse guards road"
