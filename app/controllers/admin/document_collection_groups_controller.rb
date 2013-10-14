@@ -36,6 +36,16 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def delete; end
 
+  def update_memberships
+    params[:groups].values.each do |group_params|
+      @collection.groups.find(group_params[:id]).set_document_ids_in_order! group_params[:document_ids].map(&:to_i)
+    end
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: {result: :success} }
+    end
+  end
+
   private
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])

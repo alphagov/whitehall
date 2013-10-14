@@ -68,6 +68,29 @@ When(/^I remove the document "(.*?)" from the document collection$/) do |documen
   @document_collection = @document_collection.reload.document.latest_edition
 end
 
+When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
+  refute @document_collection.nil?, "No document collection to act on."
+
+  visit admin_document_collection_path(@document_collection)
+  click_on "Edit draft"
+  click_on "Collection documents"
+
+  #Simulate drag-droping document.
+  page.execute_script %Q{
+    (function($) {
+      var doc_1_li = $('.document-list li:contains(#{doc_title_1})');
+      if(doc_1_li.length == 0) throw("Couldn't find li for document '#{doc_title_1}' in .document-list.");
+
+      var doc_2_li = $('.document-list li:contains(#{doc_title_2})');
+      if(doc_2_li.length == 0) throw("Couldn't find li for document '#{doc_title_2}' in .document-list.");
+
+      doc_2_li.before(doc_1_li.remove());
+
+      window.GOVUK.Admin.DocumentGroupOrdering.do_post();
+    })(jQuery);
+  }
+end
+
 Then(/^I (?:can )?preview the document collection$/) do
   refute @document_collection.nil?, "No document collection to act on."
 
@@ -133,4 +156,8 @@ end
 Then(/^I can see in the preview that "(.*?)" does not appear$/) do |document_title|
   visit_link_href "Preview on website"
   refute_document_is_part_of_document_collection(document_title)
+
+Then(/^I see that "(.*?)" is before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
+  assert page.has_content? doc_title_1
+  assert page.body.index(doc_title_1) < page.body.index(doc_title_2), "Expected #{doc_title_1} to be before #{doc_title_2}"
 end

@@ -3,8 +3,8 @@ class DocumentCollectionGroup < ActiveRecord::Base
   has_many :memberships, class_name: 'DocumentCollectionGroupMembership',
                          order: 'document_collection_group_memberships.ordering',
                          dependent: :destroy
-  has_many :documents, through: :memberships
-  has_many :editions, through: :documents
+  has_many :documents, through: :memberships, order: 'document_collection_group_memberships.ordering'
+  has_many :editions, through: :documents, order: 'document_collection_group_memberships.ordering'
 
   attr_accessible :body, :heading
 
@@ -29,7 +29,7 @@ class DocumentCollectionGroup < ActiveRecord::Base
   end
 
   def published_editions
-    editions.published.in_reverse_chronological_order
+    editions.published
   end
 
   def latest_editions

@@ -28,3 +28,17 @@ Feature: Grouping documents into a collection
     Given a published document collection "Rail statistics" exists
     When I visit the old document series url "/government/organisations/government-department/series/rail-statistics"
     Then I should be redirected to the "Rail statistics" document collection
+
+  @javascript
+  Scenario: Reordering documents in a document collection
+    Given a published document "Wombats of Wimbledon" exists
+    And a published document "Feeding Wombats" exists
+    And a published document "The nocturnal habits of Wombats" exists
+    When I draft a new document collection called "Wildlife of Wimbledon Common"
+    And I add the document "Wombats of Wimbledon" to the document collection
+    And I add the document "Feeding Wombats" to the document collection
+    And I add the document "The nocturnal habits of Wombats" to the document collection
+    And I move "Feeding Wombats" before "Wombats of Wimbledon" in the document collection
+    Then I can preview the document collection
+    And I see that "Feeding Wombats" is before "Wombats of Wimbledon" in the document collection
+    And I see that "Wombats of Wimbledon" is before "The nocturnal habits of Wombats" in the document collection
