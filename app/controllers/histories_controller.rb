@@ -16,7 +16,7 @@ private
       lancaster-house
       10-downing-street
       11-downing-street
-      1-horse-guards
+      1-horse-guards-road
     )
   end
 end
