@@ -9,12 +9,12 @@
       <div class="alert alert-error">
         <% if @collection.groups.size == 1 %>
           <p>
-            Every document series needs at least one group, so you can't
+            Every document collection needs at least one group, so you can't
             delete the last one.
           </p>
           <p>
             If you were planning on replacing it you can return to the
-            series page, click the edit link, and rename it instead.
+            collection page, click the edit link, and rename it instead.
           </p>
         <% else %>
           You can't delete a group that has documents in it &ndash;
@@ -23,7 +23,7 @@
       </div>
 
       <p>
-        <%= link_to 'Return to the series', admin_document_collection_groups_path(@collection) %>
+        <%= link_to 'Return to the collection', admin_document_collection_groups_path(@collection) %>
       </p>
     <% else %>
       <%= form_for [@collection, @group], url: admin_document_collection_group_path(@collection, @group), method: 'delete' do |form| %>
