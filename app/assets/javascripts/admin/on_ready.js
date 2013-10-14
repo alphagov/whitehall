@@ -91,8 +91,8 @@ jQuery(document).ready(function($) {
 
   // Admin UI for document collections
   if ($('div.document-collection-groups.index').length > 0) {
-    GOVUK.documentSeriesDocFinder.init();
-    GOVUK.documentSeriesCheckboxSelector.init();
+    GOVUK.documentCollectionDocFinder.init();
+    GOVUK.documentCollectionCheckboxSelector.init();
   }
 
   // Inbound links on edition show page

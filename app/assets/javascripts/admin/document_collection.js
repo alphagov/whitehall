@@ -5,7 +5,7 @@
 
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
-  var documentSeriesDocFinder = {
+  var documentCollectionDocFinder = {
 
     // This object is re-usable. All it relies upon to work is an input
     // with an id of 'title' (though you could easily configure that),
@@ -21,7 +21,7 @@
         disabled: true,
         minLength: 0,
         select: function(event, ui) {
-          documentSeriesDocFinder.selectDocFromMenu(event, ui);
+          documentCollectionDocFinder.selectDocFromMenu(event, ui);
         }
       });
       this.$document_id_input = this.$search_term.parents('form').find('input[name="document_id"]');
@@ -35,26 +35,26 @@
 
     setupEventHandlers: function() {
       var $find_button = $('#find-documents');
-      $find_button.click(function(event) { documentSeriesDocFinder.searchForDocument() });
+      $find_button.click(function(event) { documentCollectionDocFinder.searchForDocument() });
       this.$search_term.keypress(function(event) {
-        if (documentSeriesDocFinder.enterKeyPressed(event)) {
+        if (documentCollectionDocFinder.enterKeyPressed(event)) {
           event.preventDefault();
           $find_button.click();
         }
       });
       this.$search_term.keydown(function(event) {
-        documentSeriesDocFinder.search_term_content = $(this).val();
+        documentCollectionDocFinder.search_term_content = $(this).val();
       });
       this.$search_term.keyup(function(event) {
-        if (documentSeriesDocFinder.searchTermChanged()) {
-          documentSeriesDocFinder.$search_term.autocomplete('disable');
-          documentSeriesDocFinder.$document_id_input.val('');
+        if (documentCollectionDocFinder.searchTermChanged()) {
+          documentCollectionDocFinder.$search_term.autocomplete('disable');
+          documentCollectionDocFinder.$document_id_input.val('');
         }
       });
     },
 
     searchTermChanged: function() {
-      return this.$search_term.val() != documentSeriesDocFinder.search_term_content;
+      return this.$search_term.val() != documentCollectionDocFinder.search_term_content;
     },
 
     searchForDocument: function() {
@@ -63,11 +63,11 @@
       $.ajax(url, {
         data: { title: this.$search_term.val() },
         success: function(data, textStatus, xhr) {
-          documentSeriesDocFinder.showSearchResults(data['results']);
+          documentCollectionDocFinder.showSearchResults(data['results']);
         },
         error: this.showErrorMessage,
         complete: function() {
-          documentSeriesDocFinder.$loader_indicator.hide();
+          documentCollectionDocFinder.$loader_indicator.hide();
         }
       });
     },
@@ -89,7 +89,7 @@
     selectDocFromMenu: function(event, ui) {
       $.each(this.latest_results, function(i, result) {
         if (result.title == ui.item.label) {
-          documentSeriesDocFinder.$document_id_input.val(result.document_id);
+          documentCollectionDocFinder.$document_id_input.val(result.document_id);
         }
       });
     },
@@ -99,9 +99,9 @@
             'The server said: ' + errorThrown);
     }
   }
-  root.GOVUK.documentSeriesDocFinder = documentSeriesDocFinder;
+  root.GOVUK.documentCollectionDocFinder = documentCollectionDocFinder;
 
-  var documentSeriesCheckboxSelector = {
+  var documentCollectionCheckboxSelector = {
     init: function() {
       $('section.group ul.controls input:checkbox').click(function() {
         var to_toggle = $(this)
@@ -111,5 +111,5 @@
       });
     }
   };
-  root.GOVUK.documentSeriesCheckboxSelector = documentSeriesCheckboxSelector;
+  root.GOVUK.documentCollectionCheckboxSelector = documentCollectionCheckboxSelector;
 }).call(this);
