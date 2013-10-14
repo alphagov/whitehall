@@ -41,18 +41,16 @@
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     <% end %>
+  </div>
 
+  <div class="filter-grouping">
     <% if filter_by.include?(:world_location) %>
       <%= form_tag("", method: :get, class: "js-edition-select-filter", id: 'world_location_filter') do %>
-        <% if filter_by.include?(:author) or filter_by.include?(:organisation) %>
-          <%= label_tag :world_location, 'or world location' %>
-        <% else %>
-          <%= label_tag :world_location %>
-        <% end %>
+        <%= label_tag :world_location %>
         <%= select_tag  :world_location,
                         options_for_select(admin_world_location_filter_options(current_user), @filter.options[:world_location]),
                         class: 'chzn-select' %>
-        <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :from_date, :to_date) %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :type, :state, :author, :organisation, :from_date, :to_date) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     <% end %>
