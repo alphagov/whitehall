@@ -34,6 +34,8 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
                 notice: "'#{@group.heading}' was deleted"
   end
 
+  def delete; end
+
   private
   def load_document_collection
     @collection = DocumentCollection.find(params[:document_collection_id])
