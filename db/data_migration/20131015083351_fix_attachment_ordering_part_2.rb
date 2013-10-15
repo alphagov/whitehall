@@ -30,16 +30,19 @@ attachable_ids_by_type.each do |attachable_type, attachable_ids|
 
   attachable_ids.each_slice(1000) do |ids|
     attachable_class.includes(:attachments).where(id: ids).each do |attachable|
-      current_ordering = OldAttachment.where(id: attachable.attachment_ids).compact.map(&:ordering)
+      nil_attachments, old_attachments = OldAttachment.where(id: attachable.attachment_ids).partition(&:nil?)
+
+      current_ordering = old_attachments.map(&:ordering)
 
       next unless has_any_null_ordering?(current_ordering) || has_duplicate_ordering?(current_ordering)
 
-      print "#{attachable_class}##{attachable.id}, "
-      STDOUT.flush
+      puts "#{attachable_class}##{attachable.id}"
 
       resorted_attachments = attachable.attachments.sort_by { |a| [a.created_at, a.id] }
 
       resorted_attachments.each_with_index do |attachment, index|
+        old_attachment = old_attachments.detect { |o| o.id == attachment.id }
+        puts "-- #{attachment.id} #{old_attachment.try(:ordering)}->#{attachment.ordering}->#{index}"
         attachment.update_column(:ordering, index)
       end
     end
