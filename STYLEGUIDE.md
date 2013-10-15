@@ -1,5 +1,10 @@
 # Whitehall style guide
 
+Code written for Whitehall should follow these guidelines.
+
+This is an extension of the [GDS style guide](https://github.com/alphagov/styleguides) with things that are specific to Whitehall.
+
+
 ## CSS
 
 ### File structure
