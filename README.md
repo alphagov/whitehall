@@ -121,7 +121,7 @@ You need to set the following environment variables :-
     CONTENT_API_USERNAME
     CONTENT_API_PASSWORD
 
-# Generating the documentation
+## Generating the documentation
 
 We use [YARD](https://github.com/lsegal/yard) for the documentation. You can generate a local copy with:
 
