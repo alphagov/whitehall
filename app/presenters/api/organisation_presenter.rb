@@ -8,7 +8,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
       web_url: context.organisation_url(model, host: context.public_host),
       details: {
         slug: model.slug,
-        acronym: model.acronym,
+        abbreviation: model.acronym,
         closed_at: model.closed_at,
         govuk_status: model.govuk_status,
       },
