@@ -46,9 +46,9 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     assert_equal now, @presenter.as_json[:updated_at]
   end
 
-  test "json includes acronym in details hash" do
+  test "json includes acronym in details hash as abbreviation" do
     @organisation.stubs(:acronym).returns('decc')
-    assert_equal 'decc', @presenter.as_json[:details][:acronym]
+    assert_equal 'decc', @presenter.as_json[:details][:abbreviation]
   end
 
   test "json includes slug in details hash" do
