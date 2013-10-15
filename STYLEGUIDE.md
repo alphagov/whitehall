@@ -1,7 +1,13 @@
-# CSS
+# Whitehall style guide
+
+Code written for Whitehall should follow these guidelines.
+
+This is an extension of the [GDS style guide](https://github.com/alphagov/styleguides) with things that are specific to Whitehall.
 
 
-## File structure
+## CSS
+
+### File structure
 
 The stylesheets are split between frontend and admin. The frontend ones are in a much better state and should be the way the admin ones move in the future.
 
@@ -22,7 +28,7 @@ Within the frontend folder the basic structure of the files looks like:
 
 The `base.scss` is the file that will be compiled with Sass. All other files should be referenced from it in the relevant sections. The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
 
-### `./helpers`
+#### `./helpers`
 
 These are blocks of Sass which usually match a rails partial. They are used to style singular blocks which appear on multiple pages around the site. The name of the file should match the single selector inside the file and everything else should be nested under that selector. For example if you had a partial to display a document table you would have the following helper:
 
@@ -41,7 +47,7 @@ These are blocks of Sass which usually match a rails partial. They are used to s
       }
     }
 
-### `./views`
+#### `./views`
 
 These are where you style the layout of a page and any elements which will only appear in that one view. There should be one file in this directory for each controller. They should be named after the controller. The view for the controller should set the `page_class` in the form `{controller}-{action}`. For example for the views from `people_controller.rb`
 
@@ -59,20 +65,20 @@ These are where you style the layout of a page and any elements which will only 
       ...
     }
 
-### `./resets`
+#### `./resets`
 
 This contains the base html resets which remove most of the default styling a browser adds to elements. It also houses a reset to change any of the styles which have been added by [static][2] which might be flowing into the app.
 
-### `./layouts`
+#### `./layouts`
 
 There should be files in here for the views in `app/views/layouts`. They contain global page styling for things which appear on every page of the site. This includes any global navigation or global footers.
 
 
-### `./styleguide`
+#### `./styleguide`
 
 These are a collection of Sass mixins. They shouldn't output any CSS when included and should only produce CSS when called from another file. Things should be put here and used before being standardised and moved into the [frontend_toolkit][3].
 
-## Layouts
+### Layouts
 
 The frontend is built using responsive design in a mobile up fashion. That means that we define the mobile styles by default and then using a Sass mixin add on tablet or desktop styles. The whole site is also fluid so has been built using percentage widths for layout.
 
@@ -134,7 +140,7 @@ The right to left support has been built the same way as the IE support. So that
       }
     }
 
-# JavaScript
+## JavaScript
 
 We write testable JavaScript. That means you can write unit tests for all the logic in the JavaScript and have a fairly high degree of confidence that the JavaScript will do exactly what you expect it to.
 
@@ -164,7 +170,7 @@ The init for your thing should then be called in `on_ready.js`. There are separa
 
 You should prefix any classes you wish your JavaScript to find with a [`js-` prefix][4]. This lets us easily see when refactoring code that there is some JavaScript behaviour associated to the object.
 
-## Styles
+### Styles
 
 If you want to add styles to things with the knowledge that JavaScript is available on the page you can take advantage of the `js-enabled` class we add to the body element. So if you know an element need to be hidden when JavaScript is available you can use:
 
