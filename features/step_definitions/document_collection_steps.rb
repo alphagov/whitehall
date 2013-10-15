@@ -86,7 +86,7 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
 
       doc_2_li.before(doc_1_li.remove());
 
-      window.GOVUK.Admin.DocumentGroupOrdering.do_post();
+      window.documentGroupOrdering.__onDrop({}, {item: doc_1_li});
     })(jQuery);
   }
 end
