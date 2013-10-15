@@ -28,7 +28,7 @@ private
     model.parent_organisations.map do |parent|
       {
         id: context.api_organisation_url(parent),
-        web_url: context.organisation_url(parent)
+        web_url: context.organisation_url(parent, host: context.public_host)
       }
     end
   end
@@ -37,7 +37,7 @@ private
     model.child_organisations.map do |child|
       {
         id: context.api_organisation_url(child),
-        web_url: context.organisation_url(child)
+        web_url: context.organisation_url(child, host: context.public_host)
       }
     end
   end
