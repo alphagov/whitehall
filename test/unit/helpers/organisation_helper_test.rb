@@ -243,8 +243,8 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_match parent.name, result
     assert_match parent2.name, result
   end
-  
-  
+
+
 end
 
 class OrganisationSiteThumbnailPathTest < ActionView::TestCase
