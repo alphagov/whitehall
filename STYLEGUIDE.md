@@ -208,7 +208,7 @@ Each javascript object should be stored in it's own file with a filename reflect
 
 Views are view-specific scripts and as with the css, it's file path & name should exactly mirror the view template or partial it applies to.
 
-Helpers are site-wide scripts such as the script which prevents forms being submitted twice. Use of helpers should be kept to a minimum to avoid doing extra work when not necessary.
+Helpers are scripts which cannot be associated with any particular view.  These may be scripts which are loaded everywhere (such as the script which prevents forms from being submited twice), or may be scripts which apply to multiple different not-necessarily-related views.
 
 Namespaces should be kept simple. All constructors should be under 'Whitehall', 'Whitehall.Frontend' or 'Whitehall.Admin'. The javascript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces. These 3 namespaces are defined in whitehall.js and so code like `window.Whitehall = window.Whitehall || {}` is unnecessary.
 
@@ -220,14 +220,14 @@ Scripts should be initialised with `Whitehall.init`:
 
 Whitehall.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `Whitehall.instances`.
 
-Scripts should only be initialised when needed and should make use of the helper `initialise_script`:
+Scripts should only be initialised when needed and should make use of the rails helper `initialise_script`:
 
     #!erb
     <% initialise_script "Whitehall.Frontend.SomeView", selector: '.js-some-view' %>
 
-This helper takes a ruby hash as a seond argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so in it's constructor.
+This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so in it's constructor.
 
-This initialise\_script line should be in the most appropriate template/partial for view scripts, and should be near the :javascript_initialisers yield in the applicable layout for helpers.
+This initialise\_script line should be in the most appropriate template/partial for view scripts / view-specific helpers, and should be near the :javascript_initialisers yield in the applicable layout for site-wide helpers.
 
 ## CSS selectors
 
