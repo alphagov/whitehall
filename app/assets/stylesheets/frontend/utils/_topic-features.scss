@@ -9,21 +9,9 @@
 
     &.items-1 {
       article {
-        .img-holder {
-          @include media(tablet){
-            width: 50%;
-            float: left;
-          }
-        }
-        .text {
-          @include media(tablet){
-            width: 50%;
-            float: left;
-
-            h2, p {
-              padding-left: $gutter-half;
-            }
-          }
+        @include media(tablet) {
+          float: left;
+          width: 33.33%;
         }
       }
     }
