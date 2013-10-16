@@ -14,5 +14,6 @@
 //= require shared_mustache
 //= require templates
 //
+//= require whitehall
 //= require_tree ./common
 //= require_tree ./application

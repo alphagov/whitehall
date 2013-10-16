@@ -6,6 +6,7 @@
 //= require vendor/google-diff-match-patch.js
 //= require ./application/convert-html-pub-charts
 //= require bootstrap
+//= require whitehall
 //= require_tree ./common
 //= require ./application/hide-extra-rows.js
 //= require ./application/toggler.js
