@@ -86,7 +86,7 @@
       <% end %>
     </h2>
     <% if @edition.editable? and @edition.missing_translations.any? %>
-      <%= render partial: 'admin/shared/translation_modal', locals: { form_path: admin_edition_translations_path(@edition), locales: @edition.missing_translations } %>
+      <%= render partial: 'admin/shared/translation_modal', locals: { id: "add-translation-modal", form_path: admin_edition_translations_path(@edition), locales: @edition.missing_translations } %>
     <% end %>
     <% if @edition.non_english_translations.any? %>
       <table class="table">
