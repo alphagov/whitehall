@@ -91,6 +91,7 @@ class RenameDocumentSeriesToDocumentCollections < ActiveRecord::Migration
 
     dc = create_document_collection_for(document_series)
     create_document_collection_groups_for(document_series, dc)
+    add_editorial_remark_to(dc)
   rescue ActiveRecord::RecordInvalid => e
     @failures << [document_series, e]
   end
@@ -150,6 +151,13 @@ class RenameDocumentSeriesToDocumentCollections < ActiveRecord::Migration
         puts "      #{membership.ordering}: dcgm #{dcgm.id}: (doc #{membership.document_id})"
       end
     end
+  end
+
+  def add_editorial_remark_to(collection)
+    collection.editorial_remarks.create!(
+      author: creator,
+      body: "Automatically converted from a document series"
+    )
   end
 
   def time_since(start)
