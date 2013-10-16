@@ -100,6 +100,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "should include a rel='alternate' link to JSON representation of organisations" do
+    get :index
+
+    assert_select "link[rel=alternate][type=application/json][href=#{api_organisations_url}]"
+  end
 
 
   ### Describing :show ###
@@ -537,6 +542,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select_atom_feed do
       assert_select_atom_entries([pol, pub])
     end
+  end
+
+  view_test "show should include a rel='alternate' link to the organisation's JSON representation" do
+    organisation = create(:organisation, name: "org-name")
+
+    get :show, id: organisation
+
+    assert_select "link[rel=alternate][type=application/json][href=#{api_organisation_url(organisation)}]"
   end
 
   test "shows ministerial roles in the specified order" do
