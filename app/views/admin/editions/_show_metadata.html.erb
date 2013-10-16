@@ -6,6 +6,8 @@
     <dd><%= edition_type(@edition) %></dd>
     <dt>Status:</dt>
     <dd><%= @edition.state.capitalize %></dd>
+    <dt>Organisations:</dt>
+    <dd><%= @edition.organisations.map { |o| o.name }.join(", ") %></dd>
   </dl>
   <% if @edition.non_english_edition? %>
     <p><em>(This document is <%=@edition.primary_language_name %>-only)</em></p>
