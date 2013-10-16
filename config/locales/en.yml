@@ -564,7 +564,7 @@ en:
       policy_supporting_page:
         intended_use: Detailed background or information about an action government is taking in relation to a policy.
       detailed_guidance:
-        intended_use: Answering a specific user need for detailed or specialist information so that the user can complete a defined task.
+        intended_use: Guidance for professional or specialist users so that they can complete a defined task.
       worldwide_priority:
         intended_use: A plain English definition of an outcome government is working to achieve in a specific world location. Related content (news etc) should be associated to worldwide priorities.
       world_location_news_article:
