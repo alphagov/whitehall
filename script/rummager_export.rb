@@ -16,6 +16,7 @@ end
 
 total_count = counts_by_class.values.inject(&:+)
 
+GC.disable
 start = Time.now
 done = 0
 Whitehall.government_edition_classes.each do |klass|
@@ -35,13 +36,19 @@ Whitehall.government_edition_classes.each do |klass|
       association = association.includes(sym)
     end
   end
-  association.map(&:search_index).each.with_index do |s, i|
+  i=0
+  association.find_each do |obj|
+    s=obj.search_index
     puts %Q[{"index": {"_type": "edition", "_id": "#{s['link']}"}}]
     puts s.to_json
     if i>0 and i%1000 == 0
       logger.info " .. #{i}"
+      GC.enable
+      GC.start
+      GC.disable
     end
     done += 1
+    i += 1
   end
   batch_took = Time.now - batch_start
   logger.info("Export of %s complete in %.1fs rate %.2f/s (estimated %.1fs)" % [klass.name, batch_took, count/batch_took, time_remaining_this_batch])
