@@ -28,6 +28,11 @@ Within the frontend folder the basic structure of the files looks like:
 
 The `base.scss` is the file that will be compiled with Sass. All other files should be referenced from it in the relevant sections. The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
 
+Within ./views and ./layouts, files should be placed and named to directly reflect the template / partial they style.  For example, the styling for the partial `app/views/shared/_header.html.erb` should be `app/assets/stylesheets/frontend/helpers/shared/_header.scss`.
+
+Why?: Tech-debt creep in CSS is usually an symptom of a lack of confidence in changing or removing existing CSS. By structuring CSS in this way, we are clearly communicating the scope of that CSS.
+
+
 #### `./helpers`
 
 These are blocks of Sass which usually match a rails partial. They are used to style singular blocks which appear on multiple pages around the site. The name of the file should match the single selector inside the file and everything else should be nested under that selector. For example if you had a partial to display a document table you would have the following helper:
@@ -142,33 +147,91 @@ The right to left support has been built the same way as the IE support. So that
 
 ## JavaScript
 
-We write testable JavaScript. That means you can write unit tests for all the logic in the JavaScript and have a fairly high degree of confidence that the JavaScript will do exactly what you expect it to.
+## Code style
 
-The standard wrapper for JavaScript files looks like:
+Javascript code should be written following this pattern:
 
-    (function () {
-      "use strict"
-      var root = this,
-          $ = root.jQuery;
-
-      if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
-
-      var myThing = {
-        methodToDoSometing: function(){
-          ...
-        },
-        init: function(){
-          ...
-        }
+    (function ($) {
+      function TheThing(params) {
+        //some initialisation code
       }
-      root.GOVUK.myThing = myThing;
-    }).call(this);
 
-Using this format means you can write a unit test for `methodToDoSomething` by itself and check that it does exactly what you want it to do. Writing the same thing as a jQuery extension or as a clousured function means you couldn't then unit test the individual components.
+      TheThing.prototype.someFunction = function someFunction() {
+        //do some stuff
+      };
 
-The init for your thing should then be called in `on_ready.js`. There are separate `on_ready.js` files for each of the admin and frontend.
+      Whitehall.Frontend.TheThing = TheThing;
+    )}(jQuery);
 
-You should prefix any classes you wish your JavaScript to find with a [`js-` prefix][4]. This lets us easily see when refactoring code that there is some JavaScript behaviour associated to the object.
+Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometime helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
+
+Objects in general should not be defined as singletons. Using singletons makes re-use difficult, prevents multiple instances and makes testing difficult.  In the rare case that a singleton is appropriate it should be defined as above, except an instance should be assigned to the namespace finally:
+
+    (function ($) {
+      function TheSingletonThing(params) {
+      }
+
+      Whitehall.TheSingletonThing = new TheSingletonThing();
+    )}(jQuery);
+
+
+In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile
+and debug.
+
+bad:
+
+    TheThing.prototype.someFunction = function() {
+      //do some stuff
+    };
+    new TheThing().someFunction.name;  //  ==> ''
+
+good:
+
+    TheThing.prototype.someFunction = function someFunction() {
+      //do some stuff
+    };
+    new TheThing().someFunction.name;  //  ==> 'someFunction'
+
+
+Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].
+
+## File structure and namespacing
+
+Each javascript object should be stored in it's own file with a filename reflecting the object name. In the spirit of keeping things similar to the css, they should be stored in:
+
+    ./views/
+    ./helpers/
+    ./frontend/views/
+    ./frontend/helpers/
+    ./admin/views/
+    ./admin/helpers/
+
+Views are view-specific scripts and as with the css, it's file path & name should exactly mirror the view template or partial it applies to.
+
+Helpers are site-wide scripts such as the script which prevents forms being submitted twice. Use of helpers should be kept to a minimum to avoid doing extra work when not necessary.
+
+Namespaces should be kept simple. All constructors should be under 'Whitehall', 'Whitehall.Frontend' or 'Whitehall.Admin'. The javascript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces. These 3 namespaces are defined in whitehall.js and so code like `window.Whitehall = window.Whitehall || {}` is unnecessary.
+
+## Script initialisation
+
+Scripts should be initialised with `Whitehall.init`:
+
+    Whitehall.init(Whitehall.Frontend.SomeScript, {elem_selector: '.js-the-thing'});
+
+Whitehall.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `Whitehall.instances`.
+
+Scripts should only be initialised when needed and should make use of the helper `initialise_script`:
+
+    #!erb
+    <% initialise_script "Whitehall.Frontend.SomeView", selector: '.js-some-view' %>
+
+This helper takes a ruby hash as a seond argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so in it's constructor.
+
+This initialise\_script line should be in the most appropriate template/partial for view scripts, and should be near the :javascript_initialisers yield in the applicable layout for helpers.
+
+## CSS selectors
+
+Scripts should only make use of css classes beginning with 'js-'. [This makes it completely transparent what the class is used for within the HTML][4].
 
 ### Styles
 
@@ -184,3 +247,4 @@ If you want to add styles to things with the knowledge that JavaScript is availa
 [2]: https://github.com/alphagov/static
 [3]: https://github.com/alphagov/govuk_frontend_toolkit
 [4]: https://github.com/alphagov/styleguides/blob/master/js.md#use-a-js--prefix-for-js-only-html-classes
+[5]: http://en.wikipedia.org/wiki/Connascence_%28computer_programming%29#Types_of_connascence
