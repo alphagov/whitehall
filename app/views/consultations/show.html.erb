@@ -101,39 +101,41 @@
         </div>
       </section>
 
-      <% if @document.open? && @document.has_consultation_participation? %>
-        <section id="response-formats" class="heading-block participation">
-          <h1>Ways to respond</h1>
-          <div class="content">
-            <article>
-              <% if @document.consultation_participation.has_link? %>
-                <p class="online"><%= link_to 'Respond online', @document.consultation_participation.link_url %></p>
-              <% end %>
-              <% if @document.consultation_participation.has_link? and (@document.consultation_participation.has_postal_address? or @document.consultation_participation.has_email?) %>
-                <p class="or">or</p>
-              <% end %>
-              <% if @document.consultation_participation.has_email? or @document.consultation_participation.has_postal_address? %>
-                <% if @document.consultation_participation.has_response_form? %>
-                  <p class="response-form">
-                    Complete a
-                    <%= link_to 'response form', @document.consultation_participation.consultation_response_form.file.url %>
-                    and either
-                  </p>
+      <% unless @document.external? %>
+        <% if @document.open? && @document.has_consultation_participation? %>
+          <section id="response-formats" class="heading-block participation">
+            <h1>Ways to respond</h1>
+            <div class="content">
+              <article>
+                <% if @document.consultation_participation.has_link? %>
+                  <p class="online"><%= link_to 'Respond online', @document.consultation_participation.link_url %></p>
                 <% end %>
-                <dl>
-                  <% if @document.consultation_participation.has_email? %>
-                    <dt>Email to:</dt>
-                    <dd class="email"><%= mail_to @document.consultation_participation.email %></dd>
+                <% if @document.consultation_participation.has_link? and (@document.consultation_participation.has_postal_address? or @document.consultation_participation.has_email?) %>
+                  <p class="or">or</p>
+                <% end %>
+                <% if @document.consultation_participation.has_email? or @document.consultation_participation.has_postal_address? %>
+                  <% if @document.consultation_participation.has_response_form? %>
+                    <p class="response-form">
+                      Complete a
+                      <%= link_to 'response form', @document.consultation_participation.consultation_response_form.file.url %>
+                      and either
+                    </p>
                   <% end %>
-                  <% if @document.consultation_participation.has_postal_address? %>
-                    <dt>Write to:</dt>
-                    <dd class="postal-address"><%= format_with_html_line_breaks @document.consultation_participation.postal_address %></dd>
-                  <% end %>
-                </dl>
-              <% end %>
-            </article>
-          </div>
-        </section>
+                  <dl>
+                    <% if @document.consultation_participation.has_email? %>
+                      <dt>Email to:</dt>
+                      <dd class="email"><%= mail_to @document.consultation_participation.email %></dd>
+                    <% end %>
+                    <% if @document.consultation_participation.has_postal_address? %>
+                      <dt>Write to:</dt>
+                      <dd class="postal-address"><%= format_with_html_line_breaks @document.consultation_participation.postal_address %></dd>
+                    <% end %>
+                  </dl>
+                <% end %>
+              </article>
+            </div>
+          </section>
+        <% end %>
       <% end %>
     </div>
   </div>
