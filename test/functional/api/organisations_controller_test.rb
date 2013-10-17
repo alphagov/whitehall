@@ -38,8 +38,12 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
   view_test "index paginates organisations" do
     presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Organisation.stubs(:order).returns([])
-    Api::OrganisationPresenter.stubs(:paginate).with(Organisation.order(:id), anything).returns(presenter)
+
+    orgs_includes = stub
+    orgs_includes.stubs(:order).returns([])
+    Organisation.stubs(:includes).returns(orgs_includes)
+
+    Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
 
     get :index, format: 'json'
 
@@ -49,8 +53,12 @@ class Api::OrganisationsControllerTest < ActionController::TestCase
   view_test "index includes _response_info in response" do
     presenter = Api::PagePresenter.new(Kaminari.paginate_array([]).page(1).per(1), controller.view_context)
     presenter.stubs(:as_json).returns(paged: :representation)
-    Organisation.stubs(:order).returns([])
-    Api::OrganisationPresenter.stubs(:paginate).with(Organisation.order(:id), anything).returns(presenter)
+
+    orgs_includes = stub
+    orgs_includes.stubs(:order).returns([])
+    Organisation.stubs(:includes).returns(orgs_includes)
+
+    Api::OrganisationPresenter.stubs(:paginate).with(Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id), anything).returns(presenter)
 
     get :index, format: 'json'
 

@@ -5,7 +5,8 @@ class Api::OrganisationsController < PublicFacingController
 
   def index
     respond_with Api::OrganisationPresenter.paginate(
-      Organisation.order(:id), # Need to order by something for pagination to be deterministic
+      # Need to order by something for pagination to be deterministic:
+      Organisation.includes(:parent_organisations, :child_organisations, :translations).order(:id),
       view_context
     )
   end
