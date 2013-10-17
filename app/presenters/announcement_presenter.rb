@@ -6,7 +6,7 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
   def as_hash
     super.merge({
       field_of_operation: field_of_operation,
-      publication_collection: publication_collection
+      publication_collections: publication_collections
     })
   end
 
@@ -16,10 +16,10 @@ class AnnouncementPresenter < Whitehall::Decorators::Decorator
     end
   end
 
-  def publication_collection
+  def publication_collections
     if model.respond_to?(:part_of_published_collection?) && model.part_of_published_collection?
       links = model.published_document_collections.map do |dc|
-        context.link_to(dc.name, context.public_document_path(dc))
+        context.link_to(dc.title, context.public_document_path(dc))
       end
       "Part of a collection: #{links.to_sentence}"
     end
