@@ -45,4 +45,16 @@ class AnnouncementPresenterTest < PresenterTestCase
     hash = AnnouncementPresenter.new(fatality_notice, @view_context).as_hash
     assert hash[:field_of_operation]
   end
+
+  test "shows the collection the announcement belongs to" do
+    document = stub_record(:document)
+    article = stub_record(:news_article, document: document)
+    collection = stub_record(:document_collection, title: "CollectionTitle", document: stub_record(:document))
+
+    article.stubs(:part_of_published_collection?).returns(true)
+    article.stubs(:published_document_collections).returns([collection])
+
+    presenter = AnnouncementPresenter.new(article, @view_context)
+    assert presenter.publication_collections =~ /CollectionTitle/
+  end
 end
