@@ -694,4 +694,9 @@ class OrganisationTest < ActiveSupport::TestCase
     closed_org = create(:organisation, govuk_status: 'closed')
     assert_equal [open_org], Organisation.excluding_govuk_status_closed
   end
+  test "closed scopes to organisations which have a govuk_state of 'closed'" do
+    open_org = create(:organisation, govuk_status: 'live')
+    closed_org = create(:organisation, govuk_status: 'closed')
+    assert_equal [closed_org], Organisation.closed
+  end
 end
