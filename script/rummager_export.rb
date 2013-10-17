@@ -21,7 +21,7 @@ start = Time.now
 done = 0
 Whitehall.government_edition_classes.each do |klass|
   batch_start = Time.now
-  rate = [done / (batch_start - start), 0.1].max 
+  rate = [done / (batch_start - start), 0.1].max
   count = counts_by_class[klass]
   total_remaining = total_count - done
   total_time_remaining = (total_count - done) / rate
@@ -30,7 +30,7 @@ Whitehall.government_edition_classes.each do |klass|
   logger.info "Exporting #{klass.name} (this batch of #{count} will take #{time_remaining_this_batch}s. #{total_remaining} to go will eta #{eta})"
   association = klass.searchable_instances
 
-  eager_loads = [:document, :organisations, :attachments, :world_locations] 
+  eager_loads = [:document, :organisations, :attachments, :world_locations]
   eager_loads.each do |sym|
     if klass.reflect_on_association(sym)
       association = association.includes(sym)
