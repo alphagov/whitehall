@@ -91,10 +91,9 @@
       <% if filters.include? :date %>
         <div class="filter" id="date-range-filter">
           <div class="filter-inner">
-            <h3>Published</h3>
-            <%= label_tag "from_date", "From" %>
+            <%= label_tag "from_date", "Published after" %>
             <%= text_field_tag :from_date, @filter.date_from, placeholder: "e.g. 01/01/2013" %>
-            <%= label_tag "to_date", "To" %>
+            <%= label_tag "to_date", "Published before" %>
             <%= text_field_tag :to_date, @filter.date_to, placeholder: "e.g. 30/02/2013" %>
           </div>
         </div>

@@ -323,7 +323,7 @@ test("should update selections to match filters", function(){
         ],
         text: [
           {
-            title: ['form-date'],
+            title: ['from-date'],
             id: 'from_date',
             value: ['from-date']
           },
@@ -342,8 +342,8 @@ test("should update selections to match filters", function(){
 
   ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
   equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
-  equals(this.selections.text().match(/from from-date/).length, 1, 'not from my-date');
-  equals(this.selections.text().match(/to to-date/).length, 1, 'not to my-date');
+  equals(this.selections.text().match(/after from-date/).length, 1, 'not from my-date');
+  equals(this.selections.text().match(/before to-date/).length, 1, 'not to my-date');
   stub.restore();
 });
 
