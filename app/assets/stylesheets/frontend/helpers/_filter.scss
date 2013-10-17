@@ -77,9 +77,8 @@
   #date-range-filter {
     padding-bottom: $gutter-one-third;
 
-    h3 {
-      @include ig-core-14;
-      font-weight: bold;
+    input {
+      margin-bottom: $gutter-half;
     }
   }
 
