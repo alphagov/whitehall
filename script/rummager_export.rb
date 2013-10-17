@@ -17,10 +17,10 @@ end
 total_count = counts_by_class.values.inject(&:+)
 
 GC.disable
-start = Time.now
+start = Time.zone.now
 done = 0
 Whitehall.government_edition_classes.each do |klass|
-  batch_start = Time.now
+  batch_start = Time.zone.now
   rate = [done / (batch_start - start), 0.1].max
   count = counts_by_class[klass]
   total_remaining = total_count - done
@@ -50,6 +50,6 @@ Whitehall.government_edition_classes.each do |klass|
     done += 1
     i += 1
   end
-  batch_took = Time.now - batch_start
+  batch_took = Time.zone.now - batch_start
   logger.info("Export of %s complete in %.1fs rate %.2f/s (estimated %.1fs)" % [klass.name, batch_took, count/batch_took, time_remaining_this_batch])
 end
