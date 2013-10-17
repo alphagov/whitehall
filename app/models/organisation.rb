@@ -164,6 +164,7 @@ class Organisation < ActiveRecord::Base
   end
 
   scope :excluding_govuk_status_closed, where("govuk_status != 'closed'")
+  scope :closed, where(govuk_status: "closed")
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?
