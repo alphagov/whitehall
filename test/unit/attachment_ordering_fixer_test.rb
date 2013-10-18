@@ -310,4 +310,43 @@ class AttachmentOrderingFixerTest < ActiveSupport::TestCase
 
     assert_equal good_attachment_order, Edition.find(235015).attachments.map(&:title)
   end
+
+  test 'should retain ordering of attachments manually ordered before 2013-10-11' do
+    load_sample_doc(42828)
+
+    manual_attachment_order = [
+      "Afghanistan: Progress Report - March 2013",
+      "Afghanistan: Progress Report - February 2013",
+      "Afghanistan: Progress Report - January 2013",
+      "Afghanistan: Progress Report - November and December 2012",
+      "Afghanistan: Progress Report - October 2012",
+      "Afghanistan: Progress Report - September 2012",
+      "Afghanistan: Progress Report - July to August 2012",
+      "Afghanistan: Progress Report - June 2012",
+      "Afghanistan: Progress Report - May 2012",
+      "Afghanistan: Progress Report - April 2012",
+      "Afghanistan: Progress Report - March 2012",
+      "Afghanistan: Progress Report - February 2012",
+      "Afghanistan: Progress Report - January 2012",
+      "Afghanistan: Progress Report - December 2011",
+      "Afghanistan: Progress Report - November 2011",
+      "Afghanistan: Progress Report - October 2011",
+      "Afghanistan: Progress Report - September 2011",
+      "Afghanistan: Progress Report - July to August 2011",
+      "Afghanistan: Progress Report - June 2011",
+      "Afghanistan: Progress Report - May 2011",
+      "Afghanistan: Progress Report - April 2011",
+      "Afghanistan: Progress Report - March 2011",
+      "Afghanistan: Progress Report - February 2011",
+      "Afghanistan: Progress Report - January 2011",
+      "Afghanistan: Progress Report - December 2010",
+      "Afghanistan: Progress Report - November 2010"
+    ]
+
+    assert_equal manual_attachment_order, Edition.find(220944).attachments.map(&:title)
+
+    AttachmentOrderingFixer.run!
+
+    assert_equal manual_attachment_order, Edition.find(220944).attachments.map(&:title)
+  end
 end

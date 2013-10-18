@@ -1,7 +1,12 @@
 class AttachmentOrderingFixer
 
+  class OldAttachment < Attachment; end
+  OldAttachment.table_name = :old_attachments
+
   def self.run!
     Document.all.each do |doc|
+      next if manually_ordered?(doc)
+
       last_known_good_edition = nil
       doc.editions.order(:id).each do |edition|
         if created_before_polymorphic_attachments_code_deployed?(edition)
@@ -20,6 +25,14 @@ class AttachmentOrderingFixer
     end
   end
 
+  def self.manually_ordered?(doc)
+    doc.editions.where('created_at < ?', polymorphic_attachments_code_deployed_at).find do |edition|
+      old_attachments = OldAttachment.where(id: edition.attachment_ids)
+
+      old_attachments.order(:ordering).map(&:ordering) == (0...old_attachments.length).to_a
+    end
+  end
+
   def self.created_before_polymorphic_attachments_code_deployed?(edition)
     edition.created_at < polymorphic_attachments_code_deployed_at
   end
@@ -34,10 +47,6 @@ class AttachmentOrderingFixer
 
   def self.first_edition_after_polymorphic_attachments_code_deployed(doc)
     doc.editions.order(:id).find {|e| e.created_at > polymorphic_attachments_code_deployed_at }
-  end
-
-  class OldAttachment < Attachment
-    table_name = :old_attachments
   end
 
   def self.fix_ordering_using_attachment_ids(edition)
