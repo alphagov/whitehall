@@ -7,9 +7,8 @@ require 'cleanups/attachment_ordering_fixer'
 
 class AttachmentOrderingFixerTest < ActiveSupport::TestCase
 
-  setup do
+  def load_sample_doc(document_id)
     c = ActiveRecord::Base.connection
-    @document_id = 80781
     c.execute "insert into documents select * from whitehall_development.documents where id=#{document_id}"
     c.execute "insert into editions select e.* from whitehall_development.editions e join whitehall_test.documents d on e.document_id=d.id"
     c.execute "insert into edition_translations select et.* from whitehall_development.edition_translations et join whitehall_test.editions e on e.id=et.edition_id"
@@ -20,8 +19,11 @@ class AttachmentOrderingFixerTest < ActiveSupport::TestCase
   end
 
   test 'should fix ordering of attachments in the normal case' do
+    load_sample_doc(80781)
+
     AttachmentOrderingFixer.run!
-    expected_order = [
+
+    pre_7_oct_attachments = [
       "ECO brokerage results: 29 January 2013",
       "ECO brokerage results: 12 February 2013",
       "ECO brokerage results: 15 January 2013",
@@ -48,14 +50,140 @@ class AttachmentOrderingFixerTest < ActiveSupport::TestCase
       "ECO brokerage results: 10 September (PDF)",
       "ECO brokerage results: 10 September (CSV)",
       "ECO brokerage results: 24 September (PDF)",
-      "ECO brokerage results: 24 September (CSV)",
+      "ECO brokerage results: 24 September (CSV)"
+    ]
+
+    post_7_oct_attachments = [
       "ECO brokerage results: 8 October 2013 (PDF)",
       "ECO brokerage results: 8 October 2013 (CSV)"
     ]
 
-    attachments_248348 = Edition.find(248348).attachments.map(&:title)
-    assert_equal expected_order[0...attachments_248348.length], attachments_248348
+    assert_equal pre_7_oct_attachments, Edition.find(248348).attachments.map(&:title)
 
-    assert_equal expected_order, Edition.find(248750).attachments.map(&:title)
+    assert_equal pre_7_oct_attachments + post_7_oct_attachments, Edition.find(248750).attachments.map(&:title)
+  end
+
+  test 'should fix ordering of attachments even with dodgy created_at on attachments' do
+    load_sample_doc(9406)
+
+    bad_attachment_order = [
+      "Felixstowe port traffic",
+      "Aberdeen port traffic",
+      "Ballylumford port traffic",
+      "Belfast port traffic",
+      "Boston port traffic",
+      "Bristol port traffic",
+      "Cairnryan port traffic",
+      "Cardiff port traffic",
+      "Clyde port traffic",
+      "Cromarty Firth port traffic",
+      "Dover port traffic",
+      "Dundee port traffic",
+      "Fishguard port traffic",
+      "Fleetwood port traffic",
+      "Forth port traffic",
+      "Fowey port traffic",
+      "Glensanda port traffic",
+      "Goole port traffic",
+      "Great Yarmouth port traffic",
+      "Grimsby and Immingham port traffic",
+      "Harwich port traffic",
+      "Heysham port traffic",
+      "Holyhead port traffic",
+      "Hull port traffic",
+      "Ipswich port traffic",
+      "Larne port traffic",
+      "Liverpool port traffic",
+      "London port traffic",
+      "Londonderry port traffic",
+      "Manchester port traffic",
+      "Medway port traffic",
+      "Milford Haven port traffic",
+      "Newhaven port traffic",
+      "Newport port traffic",
+      "Orkney port traffic",
+      "Peterhead port traffic",
+      "Plymouth port traffic",
+      "Poole port traffic",
+      "Port Talbot port traffic",
+      "Portsmouth port traffic",
+      "Ramsgate port traffic",
+      "Rivers Hull and Humber port traffic",
+      "River Trent port traffic",
+      "Shoreham port traffic",
+      "Southampton port traffic",
+      "Stranraer port traffic",
+      "Sullom Voe port traffic",
+      "Sunderland port traffic",
+      "Swansea port traffic",
+      "Tees and Hartlepool port traffic",
+      "Tyne port traffic",
+      "Warrenpoint port traffic",
+      "UK major port traffic, port level downloadable dataset, tonnage",
+      "UK major port traffic, port level downloadable dataset, unitised traffic"
+    ]
+
+    good_attachment_order = [
+      "Aberdeen port traffic",
+      "Ballylumford port traffic",
+      "Belfast port traffic",
+      "Boston port traffic",
+      "Bristol port traffic",
+      "Cairnryan port traffic",
+      "Cardiff port traffic",
+      "Clyde port traffic",
+      "Cromarty Firth port traffic",
+      "Dover port traffic",
+      "Dundee port traffic",
+      "Felixstowe port traffic",
+      "Fishguard port traffic",
+      "Fleetwood port traffic",
+      "Forth port traffic",
+      "Fowey port traffic",
+      "Glensanda port traffic",
+      "Goole port traffic",
+      "Great Yarmouth port traffic",
+      "Grimsby and Immingham port traffic",
+      "Harwich port traffic",
+      "Heysham port traffic",
+      "Holyhead port traffic",
+      "Hull port traffic",
+      "Ipswich port traffic",
+      "Larne port traffic",
+      "Liverpool port traffic",
+      "London port traffic",
+      "Londonderry port traffic",
+      "Manchester port traffic",
+      "Medway port traffic",
+      "Milford Haven port traffic",
+      "Newhaven port traffic",
+      "Newport port traffic",
+      "Orkney port traffic",
+      "Peterhead port traffic",
+      "Plymouth port traffic",
+      "Poole port traffic",
+      "Port Talbot port traffic",
+      "Portsmouth port traffic",
+      "Ramsgate port traffic",
+      "Rivers Hull and Humber port traffic",
+      "River Trent port traffic",
+      "Shoreham port traffic",
+      "Southampton port traffic",
+      "Stranraer port traffic",
+      "Sullom Voe port traffic",
+      "Sunderland port traffic",
+      "Swansea port traffic",
+      "Tees and Hartlepool port traffic",
+      "Tyne port traffic",
+      "Warrenpoint port traffic",
+      "UK major port traffic, port level downloadable dataset, tonnage",
+      "UK major port traffic, port level downloadable dataset, unitised traffic"
+    ]
+
+    assert_equal bad_attachment_order, Edition.find(244489).attachments.map(&:title)
+
+    AttachmentOrderingFixer.run!
+
+    assert_equal good_attachment_order, Edition.find(244489).attachments.map(&:title)
   end
 end
