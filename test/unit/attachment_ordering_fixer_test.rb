@@ -349,4 +349,27 @@ class AttachmentOrderingFixerTest < ActiveSupport::TestCase
 
     assert_equal manual_attachment_order, Edition.find(220944).attachments.map(&:title)
   end
+
+  test 'should not screw up documents created after 2013-10-07' do
+    load_sample_doc(197426)
+
+    current_attachment_order = [
+      "Chapter 1 - Introduction and Overview ",
+      "Chapter 2 - Strategic Working Relationships, Working with Partners ",
+      "Chapter 3 - Eligibility and initial engagement ",
+      "Chapter 4 - Completion of ESF14 and Attachments",
+      "Chapter 5 - Action planning and working with families ",
+      "Chapter 6 - Progress Measures ",
+      "Chapter 7 - Payments, Timing and Evidence Requirements ",
+      "Chapter 8 - Performance Management and ESF Compliance ",
+      "Chapter 9 - Completing ESF and Updating ESF Customer Records",
+      "Chapter 10 - Management Information "
+    ]
+
+    assert_equal current_attachment_order, Edition.find(248643).attachments.map(&:title)
+
+    AttachmentOrderingFixer.run!
+
+    assert_equal current_attachment_order, Edition.find(248643).attachments.map(&:title)
+  end
 end
