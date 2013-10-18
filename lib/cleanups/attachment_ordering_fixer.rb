@@ -4,7 +4,8 @@ class AttachmentOrderingFixer
   OldAttachment.table_name = :old_attachments
 
   def self.run!
-    Document.all.each do |doc|
+    Document.find_each do |doc|
+      next unless doc.latest_edition.try(:allows_attachments?)
       next if manually_ordered?(doc)
 
       last_known_good_edition = nil
