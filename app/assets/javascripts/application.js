@@ -14,6 +14,6 @@
 //= require shared_mustache
 //= require templates
 //
-//= require whitehall
+//= require govuk
 //= require_tree ./common
 //= require_tree ./application

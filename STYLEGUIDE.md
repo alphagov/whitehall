@@ -149,9 +149,47 @@ The right to left support has been built the same way as the IE support. So that
 
 ## Code style
 
-Javascript code should be written following this pattern:
+All code should be wrapped in a closure and should declare 'use strict'.  The GOVUK namespace should be setup in each file to promote portability.
 
-    (function ($) {
+    (function() {
+      "use strict";
+      window.GOVUK = window.GOVUK || {}
+
+      // stuff
+    )}();
+
+
+There are two patterns which can be employed in Whitehall, a singleton pattern and a constructor pattern and it's a case of choosing the right tool for the right job.
+
+### Singleton pattern
+
+Singletons should be defined as raw javascript hashes, and if required should do it's initialisation in a function called init.
+
+    (function() {
+      "use strict";
+      window.GOVUK = window.GOVUK || {}
+
+      window.GOVUK.singletonThing = {
+        init: function init() {
+
+        },
+
+        anotherFunction: function anotherFunction() {
+
+        },
+
+        // etc.
+      }
+    )}();
+
+### Constructor pattern
+
+Constructors should follow the prototype pattern as follows:
+
+    (function() {
+      "use strict";
+      window.GOVUK = window.GOVUK || {}
+
       function TheThing(params) {
         //some initialisation code
       }
@@ -160,23 +198,18 @@ Javascript code should be written following this pattern:
         //do some stuff
       };
 
-      Whitehall.Frontend.TheThing = TheThing;
-    )}(jQuery);
+      GOVUK.TheThing = TheThing;
+    )}();
 
-Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometime helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
+Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometimes helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
 
-Objects in general should not be defined as singletons. Using singletons makes re-use difficult, prevents multiple instances and makes testing difficult.  In the rare case that a singleton is appropriate it should be defined as above, except an instance should be assigned to the namespace finally:
+Defining the constructor in the wrapper function's scope, then assigning it to the namespace improves readability by keeping names shorter.
 
-    (function ($) {
-      function TheSingletonThing(params) {
-      }
+### Other style points
 
-      Whitehall.TheSingletonThing = new TheSingletonThing();
-    )}(jQuery);
+Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].
 
-
-In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile
-and debug.
+In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile and debug.
 
 bad:
 
@@ -192,9 +225,6 @@ good:
     };
     new TheThing().someFunction.name;  //  ==> 'someFunction'
 
-
-Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].
-
 ## File structure and namespacing
 
 Each javascript object should be stored in it's own file with a filename reflecting the object name. In the spirit of keeping things similar to the css, they should be stored in:
@@ -206,26 +236,28 @@ Each javascript object should be stored in it's own file with a filename reflect
     ./admin/views/
     ./admin/helpers/
 
-Views are view-specific scripts and as with the css, it's file path & name should exactly mirror the view template or partial it applies to.
+Views are view-specific scripts and as with the css, their file path & name should exactly mirror the view template or partial it applies to.
 
 Helpers are scripts which cannot be associated with any particular view.  These may be scripts which are loaded everywhere (such as the script which prevents forms from being submited twice), or may be scripts which apply to multiple different not-necessarily-related views.
 
-Namespaces should be kept simple. All constructors should be under 'Whitehall', 'Whitehall.Frontend' or 'Whitehall.Admin'. The javascript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces. These 3 namespaces are defined in whitehall.js and so code like `window.Whitehall = window.Whitehall || {}` is unnecessary.
+Namespaces should be kept simple and all constructors should be under 'GOVUK'. The javascript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces.
 
 ## Script initialisation
 
-Scripts should be initialised with `Whitehall.init`:
+Scripts should be initialised with `GOVUK.init`:
 
-    Whitehall.init(Whitehall.Frontend.SomeScript, {elem_selector: '.js-the-thing'});
+    GOVUK.init(GOVUK.SomeScript, {elem_selector: '.js-the-thing'});
 
-Whitehall.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `Whitehall.instances`.
+If the passed in object is a constructor, GOVUK.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `GOVUK.instances`.
+
+Otherwise, GOVUK.init will call init on the passed in hash, treating it as a singleton.
 
 Scripts should only be initialised when needed and should make use of the rails helper `initialise_script`:
 
     #!erb
-    <% initialise_script "Whitehall.Frontend.SomeView", selector: '.js-some-view' %>
+    <% initialise_script "GOVUK.SomeView", selector: '.js-some-view' %>
 
-This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so in it's constructor.
+This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so itself.
 
 This initialise\_script line should be in the most appropriate template/partial for view scripts / view-specific helpers, and should be near the :javascript_initialisers yield in the applicable layout for site-wide helpers.
 
