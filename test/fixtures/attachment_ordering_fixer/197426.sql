@@ -58,7 +58,31 @@ UNLOCK TABLES;
 --
 -- Dumping data for table `old_attachments`
 --
-
+DROP TABLE IF EXISTS `old_attachments`;
+CREATE TABLE `old_attachments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `accessible` tinyint(1) DEFAULT NULL,
+  `isbn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unique_reference` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `command_paper_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price_in_pence` int(11) DEFAULT NULL,
+  `attachment_data_id` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `hoc_paper_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parliamentary_session` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unnumbered_command_paper` tinyint(1) DEFAULT NULL,
+  `unnumbered_hoc_paper` tinyint(1) DEFAULT NULL,
+  `attachable_id` int(11) DEFAULT NULL,
+  `attachable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_attachments_on_attachment_data_id` (`attachment_data_id`),
+  KEY `index_attachments_on_ordering` (`ordering`),
+  KEY `index_attachments_on_attachable_id_and_attachable_type` (`attachable_id`,`attachable_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=395726 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 LOCK TABLES `old_attachments` WRITE;
 /*!40000 ALTER TABLE `old_attachments` DISABLE KEYS */;
 INSERT INTO `old_attachments` (`id`, `created_at`, `updated_at`, `title`, `accessible`, `isbn`, `unique_reference`, `command_paper_number`, `order_url`, `price_in_pence`, `attachment_data_id`, `ordering`, `hoc_paper_number`, `parliamentary_session`, `unnumbered_command_paper`, `unnumbered_hoc_paper`, `attachable_id`, `attachable_type`) VALUES (393467,'2013-10-09 12:33:42','2013-10-09 12:33:44','Chapter 1 - Introduction and Overview ',0,'','','','',NULL,249129,0,'','',0,0,248643,'Edition'),(393469,'2013-10-09 12:34:28','2013-10-09 12:34:28','Chapter 2 - Strategic Working Relationships, Working with Partners ',0,'','','','',NULL,249131,1,'','',0,0,248643,'Edition'),(393470,'2013-10-09 12:35:11','2013-10-09 12:35:12','Chapter 3 - Eligibility and initial engagement ',0,'','','','',NULL,249132,2,'','',0,0,248643,'Edition'),(393476,'2013-10-09 12:38:47','2013-10-09 12:38:47','Chapter 4 - Completion of ESF14 and Attachments',0,'','','','',NULL,249138,3,'','',0,0,248643,'Edition'),(393478,'2013-10-09 12:41:58','2013-10-09 12:41:58','Chapter 5 - Action planning and working with families ',0,'','','','',NULL,249140,4,'','',0,0,248643,'Edition'),(393483,'2013-10-09 12:43:01','2013-10-09 12:43:01','Chapter 6 - Progress Measures ',0,'','','','',NULL,249145,5,'','',0,0,248643,'Edition'),(393488,'2013-10-09 12:46:04','2013-10-09 12:46:04','Chapter 7 - Payments, Timing and Evidence Requirements ',0,'','','','',NULL,249151,6,'','',0,0,248643,'Edition'),(393490,'2013-10-09 12:54:26','2013-10-09 12:54:26','Chapter 8 - Performance Management and ESF Compliance ',0,'','','','',NULL,249155,7,'','',0,0,248643,'Edition'),(393505,'2013-10-09 13:13:35','2013-10-09 13:13:35','Chapter 9 - Completing ESF and Updating ESF Customer Records',0,'','','','',NULL,249166,8,'','',0,0,248643,'Edition'),(393541,'2013-10-09 13:20:16','2013-10-09 13:20:16','Chapter 10 - Management Information ',0,'','','','',NULL,249177,9,'','',0,0,248643,'Edition');

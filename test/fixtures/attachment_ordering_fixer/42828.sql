@@ -58,6 +58,31 @@ UNLOCK TABLES;
 --
 -- Dumping data for table `old_attachments`
 --
+DROP TABLE IF EXISTS `old_attachments`;
+CREATE TABLE `old_attachments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `accessible` tinyint(1) DEFAULT NULL,
+  `isbn` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unique_reference` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `command_paper_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price_in_pence` int(11) DEFAULT NULL,
+  `attachment_data_id` int(11) DEFAULT NULL,
+  `ordering` int(11) DEFAULT NULL,
+  `hoc_paper_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `parliamentary_session` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `unnumbered_command_paper` tinyint(1) DEFAULT NULL,
+  `unnumbered_hoc_paper` tinyint(1) DEFAULT NULL,
+  `attachable_id` int(11) DEFAULT NULL,
+  `attachable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_attachments_on_attachment_data_id` (`attachment_data_id`),
+  KEY `index_attachments_on_ordering` (`ordering`),
+  KEY `index_attachments_on_attachable_id_and_attachable_type` (`attachable_id`,`attachable_type`)
+) ENGINE=InnoDB AUTO_INCREMENT=395726 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `old_attachments` WRITE;
 /*!40000 ALTER TABLE `old_attachments` DISABLE KEYS */;
