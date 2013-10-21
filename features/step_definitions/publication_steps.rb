@@ -114,7 +114,7 @@ When /^I replace the data file of the attachment in a new draft of the publicati
   @new_edition = Publication.last
   click_on 'Attachments'
 
-  within record_css_selector(@new_edition.attachments.first) do
+  within record_css_selector(@new_edition.attachments.first.becomes(Attachment)) do
     click_on 'Edit'
   end
   attach_file 'Replace file', new_file
