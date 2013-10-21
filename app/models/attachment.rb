@@ -63,6 +63,10 @@ class Attachment < ActiveRecord::Base
     false
   end
 
+  def could_contain_viruses?
+    true
+  end
+
   private
 
   def store_price_in_pence
