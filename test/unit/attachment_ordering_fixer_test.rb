@@ -8,14 +8,13 @@ require 'cleanups/attachment_ordering_fixer'
 class AttachmentOrderingFixerTest < ActiveSupport::TestCase
 
   def load_sample_doc(document_id)
-    c = ActiveRecord::Base.connection
-    c.execute "insert into documents select * from whitehall_development.documents where id=#{document_id}"
-    c.execute "insert into editions select e.* from whitehall_development.editions e join whitehall_test.documents d on e.document_id=d.id"
-    c.execute "insert into edition_translations select et.* from whitehall_development.edition_translations et join whitehall_test.editions e on e.id=et.edition_id"
-    c.execute "insert into attachments select a.* from whitehall_development.attachments a join whitehall_test.editions e on e.id=a.attachable_id where a.attachable_type='Edition'"
-    c.execute "insert into old_attachments select a.* from whitehall_development.old_attachments a join whitehall_test.editions e on e.id=a.attachable_id where a.attachable_type='Edition'"
-    c.execute "insert into attachment_data select distinct ad.* from whitehall_development.attachment_data ad join whitehall_test.attachments a on ad.id=a.attachment_data_id"
-    c.execute "insert ignore into attachment_data select distinct ad.* from whitehall_development.attachment_data ad join whitehall_test.old_attachments a on ad.id=a.attachment_data_id"
+    filename = Rails.root+"test/fixtures/attachment_ordering_fixer/#{document_id}.sql"
+    config = ActiveRecord::Base.configurations['test']
+    `mysql -u"#{config['username']}" -p"#{config['password']}" "#{config['database']}" < "#{filename}"`
+  end
+
+  teardown do
+    DatabaseCleaner.clean_with :truncation
   end
 
   test 'should fix ordering of attachments in the normal case' do
