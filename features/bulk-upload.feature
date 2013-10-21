@@ -9,7 +9,7 @@ Feature: Bulk uploading attachments to editions
       Then I should see that the news article has attachments
 
     Scenario: Replacing existing attachments with a zip file
-      Given a draft publication "Results of beards survay" with attachment "greenpaper.pdf" exists
+      Given a draft publication "Results of beards survey" with a file attachment exists
       When I upload a zip file that contains a file "greenpaper.pdf"
       Then the greenpaper.pdf attachment file should be replaced with the new file
       And any other files should be added as new attachments
