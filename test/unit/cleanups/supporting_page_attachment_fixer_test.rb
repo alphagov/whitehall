@@ -79,5 +79,4 @@ class SupportingPageAttachmentFixerTest < ActiveSupport::TestCase
 
     assert_equal 0, problems.count
   end
-
 end
