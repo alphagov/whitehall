@@ -231,12 +231,14 @@ ps:
       foi_releases: د بیان د آزادی خپرونی
       jobs_and_contacts: دندی او تړونونه
       transparency: د شفافیت معلومات
+    foi_exemption_html:
     headings:
       chief_professional_officers: زمونږه لوړپوړي مسلکی مدیران
       contact: تماس  %{name}
       corporate_information: متحد معلومات
       corporate_reports: متحد راپورونه
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: زمونږه اعلانات
       our_consultations:

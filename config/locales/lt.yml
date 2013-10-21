@@ -293,12 +293,14 @@ lt:
       foi_releases: ! 'Informacijos laisvė: pranešimai'
       jobs_and_contacts: Darbai ir sutartys
       transparency: Skaidrumo informacija
+    foi_exemption_html:
     headings:
       chief_professional_officers: Mūsų vyriausieji pareigūnai
       contact: Susisiekite su %{name}
       corporate_information: Korporatyvinė informacija
       corporate_reports: Korporatyvinės ataskaitos
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Mūsų skelbimai
       our_consultations:

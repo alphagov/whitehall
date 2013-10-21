@@ -303,22 +303,28 @@
           </div>
         </div>
 
-        <section id="foi-contacts">
-          <h1 class="label"><%= t('organisation.headings.making_foi_requests') %></h1>
-          <ol class="steps">
-            <li><%= t('organisation.making_foi_requests.step1_html', how_to_path: 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act') %></li>
-            <li><%= t('organisation.making_foi_requests.step2_html', our_releases_path: publications_filter_path(@organisation, publication_type: 'foi-releases')) %></li>
-            <% if @foi_contacts.any? %>
-              <li><%= t('organisation.making_foi_requests.step3_html') %></li>
-            <% end %>
-          </ol>
+        <section id="freedom-of-information">
+          <% if @organisation.foi_exempt? %>
+            <h1 class='label'><%= t('organisation.headings.freedom_of_information_act') %></h1>
 
-          <% if @foi_contacts.any? %>
-            <div class="org-contacts">
-              <div class="addresses js-hide-extra-contacts">
-                <%= render partial: 'contacts/contact', collection: @foi_contacts %>
+            <p><%= t('organisation.foi_exemption_html', foi_url: 'http://www.legislation.gov.uk/ukpga/2000/36/schedule/1') %></p>
+          <% else %>
+            <h1 class="label"><%= t('organisation.headings.making_foi_requests') %></h1>
+            <ol class="steps">
+              <li><%= t('organisation.making_foi_requests.step1_html', how_to_path: 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act') %></li>
+              <li><%= t('organisation.making_foi_requests.step2_html', our_releases_path: publications_filter_path(@organisation, publication_type: 'foi-releases')) %></li>
+              <% if @foi_contacts.any? %>
+                <li><%= t('organisation.making_foi_requests.step3_html') %></li>
+              <% end %>
+            </ol>
+
+            <% if @foi_contacts.any? %>
+              <div class="org-contacts">
+                <div class="addresses js-hide-extra-contacts">
+                  <%= render partial: 'contacts/contact', collection: @foi_contacts %>
+                </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
         </section>
 

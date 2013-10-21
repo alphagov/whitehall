@@ -229,12 +229,14 @@ ta:
       foi_releases: தகவல் சுதந்திர  வெளியிடுதல்கள்
       jobs_and_contacts: வேலைகள் மற்றும் ஒப்பந்தங்கள்
       transparency: வெளிப்படையான தரவு
+    foi_exemption_html:
     headings:
       chief_professional_officers: எங்களது பிரதம தொழில்சார் தகைமை அதிகாரிகள்
       contact: தொடர்பு %{name}
       corporate_information: கூட்டாண்மைத் தகவல்
       corporate_reports: கூட்டாண்மை அறிக்கைகள்
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: எங்களது அறிவிப்புகள்
       our_consultations:

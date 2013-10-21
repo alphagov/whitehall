@@ -357,12 +357,14 @@ uk:
       foi_releases: ! 'Відповіді на інформаційні запити '
       jobs_and_contacts: Вакансії та контракти
       transparency: Прозорість інформації
+    foi_exemption_html:
     headings:
       chief_professional_officers: Наші головні спеціалісти
       contact: Контактна особа  %{name}
       corporate_information: Корпоративна інформація
       corporate_reports: Корпоративні звіти
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Наші оголошення
       our_consultations:

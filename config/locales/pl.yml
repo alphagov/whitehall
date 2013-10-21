@@ -357,12 +357,14 @@ pl:
       foi_releases: Ujawnienie informacji zgodnie z ustawą o wolności informacji
       jobs_and_contacts: Stanowiska pracy i kontrakty
       transparency: Dane o transparentności
+    foi_exemption_html:
     headings:
       chief_professional_officers: ! 'Nasi naczelni specjaliści '
       contact: Skontaktuj się z %{name}
       corporate_information: Informacje korporacyjne
       corporate_reports: Raporty korporacyjne
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Nasze ogłoszenia
       our_consultations:

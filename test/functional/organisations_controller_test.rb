@@ -826,6 +826,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#corporate-information"
   end
 
+  view_test "should show FOI contact information if not exempt" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select '#freedom-of-information', /Make an FOI request/
+  end
+
+  view_test "should show FOI exemption notice if exempt" do
+    organisation = create(:organisation, foi_exempt: true)
+    get :show, id: organisation
+    assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
+  end
+
   private
 
   def assert_disclaimer_present(organisation)

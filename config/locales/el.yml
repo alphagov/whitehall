@@ -230,12 +230,14 @@ el:
       foi_releases: Ελεύθερη πρόσβαση σε διοικητικά έγγραφα
       jobs_and_contacts: Θέσεις εργασίας και συμβάσεις
       transparency: Στοιχεία διαφάνειας
+    foi_exemption_html:
     headings:
       chief_professional_officers: Τα ανώτερα στελέχη της υπηρεσίας μας
       contact: Επικοινωνήστε%{name}
       corporate_information: Πληροφορίες για τον Οργανισμό
       corporate_reports: Εκθέσεις Οργανισμού
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Οι ανακοινώσεις μας
       our_consultations:

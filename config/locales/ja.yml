@@ -314,12 +314,14 @@ ja:
       foi_releases: 情報公開関連
       jobs_and_contacts: 求人と調達
       transparency: データ開示
+    foi_exemption_html:
     headings:
       chief_professional_officers: チーフ・プロフェッショナル・オフィサー
       contact: 連絡先
       corporate_information: 各種情報
       corporate_reports: 各種レポート
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: ニュース
       our_consultations:

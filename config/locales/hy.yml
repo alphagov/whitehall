@@ -229,12 +229,14 @@ hy:
       foi_releases: Տեղեկատվության հարցում
       jobs_and_contacts: Աշխատանք և պայմանագրեր
       transparency: Թափանցիկ տեղեկատվությ
+    foi_exemption_html:
     headings:
       chief_professional_officers: Մեր գլխավոր մասնագետները
       contact: Տվյալ %{name}
       corporate_information: Կորպորատիվ տեղեկատվություն
       corporate_reports: Կորպորատիվ հաշվետվություններ
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Մեր հայտարարությունները
       our_consultations:

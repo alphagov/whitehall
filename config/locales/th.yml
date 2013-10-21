@@ -314,12 +314,14 @@ th:
       foi_releases: ข้อมูลที่เปิดเผยได้
       jobs_and_contacts: งานและการทำสัญญา
       transparency: ข้อมูลที่มีความโปร่งใส
+    foi_exemption_html:
     headings:
       chief_professional_officers: หัวหน้าผู้ชำนาญการ
       contact: สัญญา %{name}
       corporate_information: ข้อมูลบริษัท
       corporate_reports: รายงานบริษัท
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: ข่าวสารของเรา
       our_consultations:

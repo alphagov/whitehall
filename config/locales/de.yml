@@ -229,12 +229,14 @@ de:
       foi_releases: Veröffentlichungen nach dem Freedom of Information Act
       jobs_and_contacts: Stellenanzeigen
       transparency: Transparenzdaten
+    foi_exemption_html:
     headings:
       chief_professional_officers: Unsere leitenden Mitarbeiter
       contact: ! '%{name} kontaktieren'
       corporate_information: Administrative Informationen
       corporate_reports: Berichte
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Unsere Meldungen
       our_consultations:

@@ -316,12 +316,14 @@ id:
       foi_releases: Rilis-rilis FOI
       jobs_and_contacts: Pekerjaan dan kontrak
       transparency: Transparansi data
+    foi_exemption_html:
     headings:
       chief_professional_officers: Para kepala pejabat profesional kami
       contact: Hubungi %{name}
       corporate_information: Informasi korporat
       corporate_reports: Laporan korporat
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Pengumuman-pengumuman kami
       our_consultations:

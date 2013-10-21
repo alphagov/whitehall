@@ -229,12 +229,14 @@ pt:
       foi_releases: Comunicado sobre pedido de acesso a informação
       jobs_and_contacts: Vagas e contratos
       transparency: Dados de Transparência
+    foi_exemption_html:
     headings:
       chief_professional_officers: Nossos principais oficiais
       contact: Contato %{name}
       corporate_information: Informações administrativas
       corporate_reports: Relatórios administrativos
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Nossos anúncios
       our_consultations:

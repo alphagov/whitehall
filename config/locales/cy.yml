@@ -485,12 +485,14 @@ cy:
       foi_releases: Datganiadau Rhyddid Gwybodaeth
       jobs_and_contacts: Swyddi a chontractau
       transparency: Data tryloywder
+    foi_exemption_html:
     headings:
       chief_professional_officers:
       contact: Cyswllt %{name}
       corporate_information: Gwybodaeth gorfforaethol
       corporate_reports: Adroddiadau corfforaethol
       documents: Dogfennau
+      freedom_of_information_act:
       making_foi_requests: Gwneud cais DRhG
       our_announcements: Ein cyhoeddiadau
       our_consultations: Ein ymgynghoriadau

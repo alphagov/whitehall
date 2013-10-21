@@ -313,12 +313,14 @@ zh-hk:
       foi_releases: 資訊自由(FOI)資訊發布
       jobs_and_contacts: 職位及聯絡方法
       transparency: 透明化數據
+    foi_exemption_html:
     headings:
       chief_professional_officers: 我們的首席專業官員
       contact: 聯繫%{name}
       corporate_information: 政府資訊
       corporate_reports: 政府報告
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: 我們的公告
       our_consultations:

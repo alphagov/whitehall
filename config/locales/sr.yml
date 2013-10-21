@@ -361,12 +361,14 @@ sr:
       foi_releases: Odgovori na zahteve za pristup informacijama od javnog značaja
       jobs_and_contacts: Poslovi i ugovori
       transparency: podaci o transparentnosti
+    foi_exemption_html:
     headings:
       chief_professional_officers: Naši nadležni službenici
       contact: Kontaktirajte %{name}
       corporate_information: Informacije o organizaciji
       corporate_reports: Izveštaji
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Naše objave
       our_consultations:

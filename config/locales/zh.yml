@@ -313,12 +313,14 @@ zh:
       foi_releases: 资讯自由(FOI)信息发布
       jobs_and_contacts: 职位及联系方式
       transparency: 透明化数据
+    foi_exemption_html:
     headings:
       chief_professional_officers: 我们的首席专业官员
       contact: 联系%{name}
       corporate_information: 政府信息
       corporate_reports: 政府报告
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: 我们的公告
       our_consultations:

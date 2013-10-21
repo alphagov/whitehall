@@ -229,12 +229,14 @@ hi:
       foi_releases: एफओआई की विज्ञप्तियां
       jobs_and_contacts: नौकरी एवं अनुबंध
       transparency: पारदर्शिता आंकड़े
+    foi_exemption_html:
     headings:
       chief_professional_officers: हमारे मुख्य पेशेवर अधिकारी
       contact: संपर्क %{name}
       corporate_information: निकाय सूचना
       corporate_reports: कम्पनी रपट
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: हमारी घोषणाएं
       our_consultations:

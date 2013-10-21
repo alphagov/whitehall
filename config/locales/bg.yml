@@ -231,12 +231,14 @@ bg:
       foi_releases: Съобщения по закона за достъп до информация
       jobs_and_contacts: Работни места и договори
       transparency: Данни за прозрачността
+    foi_exemption_html:
     headings:
       chief_professional_officers: Нашите служители
       contact: Свържете се с %{name}
       corporate_information: Корпоративна информация
       corporate_reports: Корпоративни доклади
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Съобщенията ни
       our_consultations:

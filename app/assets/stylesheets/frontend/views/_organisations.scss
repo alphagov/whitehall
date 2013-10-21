@@ -682,7 +682,11 @@
     }
   }
 
-  #foi-contacts {
+  #freedom-of-information {
+    p {
+      padding: 0 $gutter-half;
+    }
+
     // dupe from static
     ol.steps {
       margin-bottom: $gutter;

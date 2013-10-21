@@ -314,12 +314,14 @@ ko:
       foi_releases: FOI 자료
       jobs_and_contacts: 채용 및 연락처
       transparency: 투명성 데이터
+    foi_exemption_html:
     headings:
       chief_professional_officers: 최고책임자
       contact: ! '%{name} 에게 연락하세요'
       corporate_information: 대사관 정보
       corporate_reports: 대사관 보고서
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: 뉴스
       our_consultations:

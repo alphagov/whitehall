@@ -229,12 +229,14 @@ es:
       foi_releases: Comunicados de la ley de libertad de información
       jobs_and_contacts: Trabajos y contratos
       transparency: Datos de transparencia
+    foi_exemption_html:
     headings:
       chief_professional_officers: Nuestros responsables administrativos
       contact: Contacto %{name}
       corporate_information: Información corporativa
       corporate_reports: Informes corporativos
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Anuncios
       our_consultations:

@@ -116,6 +116,14 @@
     </fieldset>
   <% end %>
 
+  <fieldset>
+    <legend>Freedom of Information</legend>
+
+    <label class="checkbox">
+      <%= organisation_form.check_box :foi_exempt, label_text: 'Exempt from Freedom of Information requests' %>
+    </label>
+  </fieldset>
+
   <p class="warning">
     <% if show_instantly_live_warning %>
       Warning: changes to organisations appear instantly on the live site.
