@@ -24,7 +24,7 @@
 
   </header>
 
-  <div class="block-2">
+  <div class="block-2 heading-block">
     <div class="inner-block">
       <% if @document.open? %>
         <div class="consultation-block <%= consultation_css_class(@document) %>">
@@ -46,8 +46,10 @@
                           summary: nil } %>
             <% end %>
             <% if @document.outcome.summary.present? %>
-              <section class="heading-block consultation-response-summary">
-                <h1>Detail of outcome</h1>
+              <section class="consultation-response-summary">
+                <div class="head-section">
+                  <h1>Detail of outcome</h1>
+                </div>
                 <div class="content">
                   <article>
                     <%= govspeak_to_html @document.outcome.summary %>
@@ -68,8 +70,10 @@
                           summary: nil } %>
             <% end %>
 
-            <section class="heading-block consultation-response-summary">
-              <h1>Detail of feedback received</h1>
+            <section class="consultation-response-summary">
+              <div class="head-section">
+                <h1>Detail of feedback received</h1>
+              </div>
               <div class="content">
                 <article>
                   <%= govspeak_to_html @document.public_feedback.summary %>
@@ -92,8 +96,10 @@
       <%= render partial: "documents/attachment_full_width",
                  locals: { document: @document, title: 'Documents' } %>
 
-      <section class="heading-block">
-        <h1>Consultation description</h1>
+      <section>
+        <div class="head-section">
+          <h1>Consultation description</h1>
+        </div>
         <div class="content">
           <article>
             <%= govspeak_edition_to_html @document %>
@@ -103,8 +109,10 @@
 
       <% unless @document.external? %>
         <% if @document.open? && @document.has_consultation_participation? %>
-          <section id="response-formats" class="heading-block participation">
-            <h1>Ways to respond</h1>
+          <section id="response-formats" class="participation">
+            <div class="head-section">
+              <h1>Ways to respond</h1>
+            </div>
             <div class="content">
               <article>
                 <% if @document.consultation_participation.has_link? %>

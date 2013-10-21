@@ -88,19 +88,19 @@
   <% end %>
 
   <% if @policies.any? %>
-    <div class="block-7">
+    <div class="block-7 heading-block">
       <div class="inner-block">
-        <% if @policies.any? %>
-          <section id="policies" class="heading-block">
+        <section id="policies">
+          <div class="head-section">
             <h1 class="label"><%= link_to t('organisation.headings.our_policies'), policies_filter_path(@organisation) %></h1>
-            <div class="content">
-              <%= render partial: "policies/list_description", locals: {policies: @policies} %>
-              <p class="see-all">
-                <%= link_to t_see_all_our(:policy), policies_filter_path(@organisation) %>
-              </p>
-            </div>
-          </section>
-        <% end %>
+          </div>
+          <div class="content">
+            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+            <p class="see-all">
+              <%= link_to t_see_all_our(:policy), policies_filter_path(@organisation) %>
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   <% end %>

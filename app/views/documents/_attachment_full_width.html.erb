@@ -4,8 +4,10 @@
   published_on = '' unless local_assigns.include?(:published_on)
   external = false unless defined?(:external)
 %>
-<section class="heading-block attachment-full-width">
-  <h1><%= title %></h1>
+<section class="attachment-full-width">
+  <div class="head-section">
+    <h1><%= title %></h1>
+  </div>
   <div class="content">
     <article>
       <div class="govspeak">

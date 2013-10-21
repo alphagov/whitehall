@@ -62,14 +62,15 @@
     </div>
   <% end %>
 
-  <div class="block block-4">
+  <div class="block block-4 heading-block">
     <div class="inner-block">
       <% if @policies.any? %>
-        <section id="policies" class="policies heading-block">
-          <h1 class="label">Policies
-            <span class="count"><%= @policies.count %></span>
-          </h1>
-
+        <section id="policies" class="policies">
+          <div class="head-section">
+            <h1 class="label">Policies
+              <span class="count"><%= @policies.count %></span>
+            </h1>
+          </div>
           <div class="content">
             <%= render partial: "policies/list_description", locals: { policies: @policies.limit(5) } %>
             <% if @policies.count > 5 %>

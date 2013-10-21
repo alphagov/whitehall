@@ -24,10 +24,12 @@
     <% end %>
     <% if @topical_events.any? %>
       <div class="heading-block js-filter-block">
+        <div class="head-section">
           <h1 class="label">Topical events</h1>
-          <div class="content">
-            <%= render partial: "list", locals: { topics: @topical_events } %>
-          </div>
+        </div>
+        <div class="content">
+          <%= render partial: "list", locals: { topics: @topical_events } %>
+        </div>
       </div>
     <% end %>
     <div class="js-filter-no-results">
