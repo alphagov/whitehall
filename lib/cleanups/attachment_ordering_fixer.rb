@@ -14,10 +14,12 @@ class AttachmentOrderingFixer
           puts "#{edition.class}##{edition.id} - created before #{polymorphic_attachments_code_deployed_at}, using attachment IDs"
           fix_ordering_using_attachment_ids(edition)
           last_known_good_edition = edition
-        elsif was_first_edition_after_polymorphic_attachments_code_deployed?(doc, edition)
+        elsif was_first_edition_after_polymorphic_attachments_code_deployed?(doc, edition) && created_before_timestamp_ordering_fix?(edition)
           puts "#{edition.class}##{edition.id} - first edition after #{polymorphic_attachments_code_deployed_at}, using attachment IDs"
           fix_ordering_using_attachment_ids(edition)
           last_known_good_edition = edition
+        elsif last_known_good_edition.nil?
+          puts "Skipping #{edition.class}##{edition.id} because no last known good edition - CHECK INTEGRITY - Major: #{edition.published_major_version} Minor: #{edition.published_minor_version}"
         else
           puts "#{edition.class}##{edition.id} - 2+ editions after #{polymorphic_attachments_code_deployed_at}, fixing with last known good edition"
           fix_ordering_using_last_known_good_edition(last_known_good_edition, edition)
@@ -40,6 +42,14 @@ class AttachmentOrderingFixer
 
   def self.polymorphic_attachments_code_deployed_at
     Time.zone.parse("2013-10-07 10:14:05 UTC")
+  end
+
+  def self.created_before_timestamp_ordering_fix?(edition)
+    edition.created_at < timestamp_fix_ran_at
+  end
+
+  def self.timestamp_fix_ran_at
+    Time.zone.parse("2013-10-11 12:59:31 UTC")
   end
 
   def self.was_first_edition_after_polymorphic_attachments_code_deployed?(doc, edition)
