@@ -1,6 +1,6 @@
 <% content_for :page_class, 'document-collection-groups index' %>
 <% page_title "#{@collection.title}", "Document collections" %>
-<% content_for :javascript_initialisers, 'GOVUK.Admin.DocumentGroupOrdering.init();' %>
+<% initialise_script 'GOVUK.DocumentGroupOrdering', selector: '.js-document-group', post_url: admin_document_collection_update_group_memberships_path(document_collection_id: @collection.id) %>
 
 <h1><%= @collection.title %></h1>
 
@@ -61,14 +61,13 @@
                 </li>
               <% end %>
             </ul>
-            <ol class="document-list" data-group-id="<%= group.id %>">
+            <ol class="document-list js-document-group" data-group-id="<%= group.id %>">
               <%= render partial: 'collection_document', collection: group.latest_editions, as: :edition, locals: { document_collection: @collection } %>
             </ol>
           <% end %>
         <% end %>
       </section>
     <% end %>
-    <%= form_tag admin_document_collection_update_group_memberships_path(document_collection_id: @collection.id), method: :post, id: "save-group-membership-changes-form" %>
   </div>
 
   <p class="add-group">

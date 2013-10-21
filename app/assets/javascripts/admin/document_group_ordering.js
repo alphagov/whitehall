@@ -1,77 +1,65 @@
-(function ($) {
+(function() {
+  "use strict";
   window.GOVUK = window.GOVUK || {}
-  window.GOVUK.Admin = window.GOVUK.Admin || {}
 
-  window.GOVUK.Admin.DocumentGroupOrdering = function DocumentGroupOrdering() {
-    var self = this;
-    var documentGroups = [],
-        SPINNER_TEMPLATE = '<div class="loading-spinner"></div>',
-        loading_spinner,
-        postURL;
+  function DocumentGroupOrdering(params) {
+    this.postURL = params.post_url + '.json';
 
-    init();
+    $(params.selector).each($.proxy(function(i, docList) {
+      this.documentGroups.push(new this.DocumentGroup(this, docList));
+    }, this));
+  }
 
-    function init() {
-      var form = $('#save-group-membership-changes-form');
-      postURL = form.attr('action')+".json";
+  DocumentGroupOrdering.prototype.documentGroups = [];
+  DocumentGroupOrdering.prototype.SPINNER_TEMPLATE = '<div class="loading-spinner"></div>';
 
-      $('.document-list').each(function(i, docList) {
-        documentGroups.push(new DocumentGroup(docList));
+  DocumentGroupOrdering.prototype.getPostData = function getPostData() {
+    var postData = { groups: [] };
+
+    for(var i=0; i<this.documentGroups.length; i++) {
+      postData.groups.push({
+        id: this.documentGroups[i].groupID(),
+        document_ids: this.documentGroups[i].documentIDs()
       });
     }
+    return postData;
+  };
 
-    function getPostData() {
-      var postData = { groups: [] };
+  DocumentGroupOrdering.prototype.doPost = function doPost() {
+    $.post(this.postURL, this.getPostData(), $.proxy(onPostComplete, this), "json");
 
-      for(var i=0; i<documentGroups.length; i++) {
-        postData.groups.push({
-          id: documentGroups[i].groupID(),
-          document_ids: documentGroups[i].documentIDs()
-        });
-      }
-      return postData;
-    }
-
-    function doPost() {
-      $.post(postURL, getPostData(), onPostComplete, "json");
-
-      function onPostComplete() {
-        loadingSpinner.remove();
-      }
-    }
-
-    function DocumentGroup(documentList) {
-      documentList = $(documentList);
-
-      this.groupID = function groupID() {
-        return documentList.data('group-id');
-      }
-
-      this.documentIDs = function documentIDs() {
-        return documentList.find("input[name='documents[]']").map(function(i, input) {
-          return input.value;
-        }).toArray();
-      }
-
-      documentList.sortable({
-        opacity: 0.5,
-        distance: 5,
-        axis: 'y',
-        connectWith: '.document-list',
-        stop: onDrop
-      });
-
-      function onDrop(e, ui) {
-        loadingSpinner = $(SPINNER_TEMPLATE);
-        ui.item.append(loadingSpinner);
-        doPost();
-      }
-      // Expose this for tests.
-      self.__onDrop = onDrop;
+    function onPostComplete() {
+      this.loadingSpinner.remove();
     }
   };
 
-  window.GOVUK.Admin.DocumentGroupOrdering.init = function init() {
-    window.documentGroupOrdering = new window.GOVUK.Admin.DocumentGroupOrdering();
+  DocumentGroupOrdering.prototype.onDrop = function onDrop(e, ui) {
+    this.loadingSpinner = $(this.SPINNER_TEMPLATE);
+    ui.item.append(this.loadingSpinner);
+    this.doPost();
+  };
+
+  DocumentGroupOrdering.prototype.DocumentGroup = function DocumentGroup(document_group_ordering, documentList) {
+    documentList = $(documentList);
+
+    this.groupID = function groupID() {
+      return documentList.data('group-id');
+    };
+
+    this.documentIDs = function documentIDs() {
+      return documentList.find("input[name='documents[]']").map(function(i, input) {
+        return input.value;
+      }).toArray();
+    };
+
+    documentList.sortable({
+      opacity: 0.5,
+      distance: 5,
+      axis: 'y',
+      connectWith: '.document-list',
+      stop: $.proxy(document_group_ordering.onDrop, document_group_ordering)
+    });
   }
-})(jQuery);
+
+  window.GOVUK.DocumentGroupOrdering = DocumentGroupOrdering;
+})();
