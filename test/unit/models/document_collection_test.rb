@@ -94,6 +94,11 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal "/government/collections/#{collection.slug}", collection.search_index['link']
   end
 
+  test 'indexes the slug' do
+    collection = create(:published_document_collection)
+    assert_equal collection.slug, collection.search_index['slug']
+  end
+
   test "indexes the body without markup as indexable_content" do
     collection = create(:document_collection,
                     title: "A doc collection", body: "This is a *body*")
