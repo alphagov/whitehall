@@ -22,28 +22,27 @@ module AdminEditionControllerScheduledPublishingTestHelpers
         end
       end
 
-      view_test "should display the 'Schedule' button for a submitted edition with schedule" do
-        edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
-        edition.stubs(:schedulable_by?).returns(true)
-        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
+      view_test "GET :show with a draft scheduled edition displays the 'Force schedule', but not the 'Force publish' button" do
+        login_as :gds_editor
+        edition = create(edition_type, :draft, scheduled_publication: 1.day.from_now)
         get :show, id: edition
+
+        assert_select force_schedule_button_selector(edition), count: 1
+        refute_select force_publish_button_selector(edition)
+        assert_select '.scheduled-publication', "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
+      end
+
+      view_test "should display the 'Schedule' button for a submitted scheduled edition when viewing as an editor" do
+        login_as :gds_editor
+        edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
+        get :show, id: edition
+
         assert_select schedule_button_selector(edition), count: 1
         assert_select '.scheduled-publication', /Scheduled publication proposed for/
       end
 
-      view_test "should display the 'Force schedule' button for a submitted edition with schedule" do
-        edition = create(edition_type, :submitted, scheduled_publication: 1.day.from_now)
-        edition.stubs(:schedulable_by?).returns(false)
-        edition.stubs(:schedulable_by?).with(anything, has_entry(force:true)).returns(true)
-        document_type_class.stubs(:find).with(edition.to_param).returns(edition)
-        get :show, id: edition
-        assert_select force_schedule_button_selector(edition), count: 1
-        assert_select '.scheduled-publication', "Scheduled publication proposed for #{I18n.localize edition.scheduled_publication, format: :long}."
-      end
-
       view_test "should not display the 'Schedule' button if not schedulable" do
         edition = create(edition_type, :published)
-        edition.stubs(:schedulable_by?).returns(false)
         document_type_class.stubs(:find).with(edition.to_param).returns(edition)
         get :show, id: edition
         refute_select schedule_button_selector(edition)

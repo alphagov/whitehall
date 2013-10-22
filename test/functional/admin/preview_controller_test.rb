@@ -54,13 +54,10 @@ class Admin::PreviewControllerTest < ActionController::TestCase
   end
 
   test "preview returns a 403 if any of the referenced attachments are inaccessible to the current user" do
-    attachment = build(:attachment)
-    attachment.stubs(:id).returns("1")
-    attachment.stubs(:accessible_by?).with(@current_user).returns(false)
-    Attachment.stubs(:find).with(attachment.id).returns(attachment)
+    protected_edition = create(:protected_edition)
+    attachment = create(:attachment, attachable: protected_edition)
 
     post :preview, body: "blah", attachment_ids: [attachment.id]
-
     assert_response :forbidden
   end
 end

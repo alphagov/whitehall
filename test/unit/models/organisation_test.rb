@@ -334,11 +334,10 @@ class OrganisationTest < ActiveSupport::TestCase
     # reload the edition_organisations on old_version to pick up this new one
     old_version.edition_organisations.reload
 
-    editor = create(:departmental_editor)
-    new_version = old_version.create_draft(editor)
+    new_version = old_version.create_draft(create(:departmental_editor))
     new_version.change_note = 'New stuffs!'
     new_version.save
-    new_version.publish_as(editor, force: true)
+    new_version.perform_force_publish
 
     refute organisation.featured_editions.include?(old_version)
     assert organisation.featured_editions.include?(new_version)

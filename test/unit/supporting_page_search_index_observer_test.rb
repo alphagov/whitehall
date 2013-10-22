@@ -10,7 +10,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
 
     Searchable::Index.expects(:later).with(supporting_page)
 
-    policy.publish_as(create(:departmental_editor))
+    policy.perform_publish
   end
 
   test 'should remove supporting page from search index when its edition is unpublished' do
@@ -20,7 +20,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(supporting_page)
     policy.unpublishing = build(:unpublishing)
-    policy.unpublish_as(create(:gds_editor))
+    policy.perform_unpublish
   end
 
   test 'should remove supporting page from search index when its edition is archived' do
@@ -34,7 +34,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.reload # because each supporting page touches the new edition as it's copied over
     new_edition.change_note = "change-note"
-    new_edition.publish_as(create(:departmental_editor), force: true)
+    new_edition.perform_force_publish
   end
 
   private

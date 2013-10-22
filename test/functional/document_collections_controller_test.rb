@@ -55,7 +55,7 @@ class DocumentCollectionsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
     collection = create(:published_document_collection, :with_group)
     publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    publication.reload.schedule_as(user, force: true)
+    publication.reload.perform_force_schedule
     collection.groups.first.documents << publication.document
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do

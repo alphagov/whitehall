@@ -19,16 +19,15 @@ class SluggingTest < ActiveSupport::TestCase
   end
 
   test "deleting should free up the slug" do
-    user = create(:departmental_editor)
     d1 = create(:draft_policy, title: "test")
-    d1.publish_as(user, force: true)
+    d1.perform_force_publish
     d1.reload
     d1.unpublish!
     d1.delete!
     assert_equal "deleted-test", d1.reload.slug
 
     d2 = create(:draft_policy, title: "test")
-    d2.publish_as(user, force: true)
+    d2.perform_force_publish
     assert_equal "test", d2.slug
   end
 end

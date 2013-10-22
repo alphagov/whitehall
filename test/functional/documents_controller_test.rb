@@ -45,7 +45,7 @@ class DocumentsControllerTest < ActionController::TestCase
   view_test "show responds with 'Coming soon' page and shorter cache control 'max-age' if document is scheduled for publication" do
     user = login_as(:departmental_editor)
     edition = create(:draft_edition, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    edition.schedule_as(user, force: true)
+    edition.perform_force_schedule
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: edition.document
@@ -60,13 +60,13 @@ class DocumentsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
 
     edition = create(:edition)
-    edition.publish_as(user, force: true)
+    edition.perform_force_publish
     new_draft = edition.create_draft(user)
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
     new_draft.save_as(user)
     new_draft.scheduled_publication = Time.zone.now + Whitehall.default_cache_max_age * 2
-    new_draft.schedule_as(user, force: true)
+    new_draft.perform_force_schedule
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: new_draft.document
@@ -79,7 +79,7 @@ class DocumentsControllerTest < ActionController::TestCase
   view_test "show responds with 'Coming soon' page and default cache control 'max-age' if document is scheduled for publication far in the future" do
     user = login_as(:departmental_editor)
     edition = create(:draft_edition, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 10)
-    edition.schedule_as(user, force: true)
+    edition.perform_force_schedule
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: edition.document
@@ -100,7 +100,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   test "requests for documents in a locale it is translated into should respond successfully" do
     edition = create(:draft_edition, translated_into: 'fr')
-    edition.publish_as(create(:departmental_editor), force: true)
+    edition.perform_force_publish
 
     get :show, id: edition.document, locale: 'fr'
 
@@ -109,7 +109,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   test "requests for documents in a locale it is not translated into should respond with a not_found" do
     edition = create(:draft_edition)
-    edition.publish_as(create(:departmental_editor), force: true)
+    edition.perform_force_publish
 
     get :show, id: edition.document, locale: 'fr'
 
@@ -122,7 +122,7 @@ class DocumentsControllerTest < ActionController::TestCase
       edition.assign_attributes(attributes_for(:draft_edition, title: 'spanish-title'))
     end
     edition.save!
-    edition.publish_as(create(:departmental_editor), force: true)
+    edition.perform_force_publish
 
     get :show, id: edition.document
 
@@ -133,7 +133,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   view_test "should not show any links to translations when the edition is only available in one language" do
     edition = create(:draft_edition)
-    edition.publish_as(create(:departmental_editor), force: true)
+    edition.perform_force_publish
 
     get :show, id: edition.document
 

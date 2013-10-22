@@ -54,7 +54,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     Edition::AuditTrail.whodunnit = editor
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
-    policy.publish_as(editor, force: true)
+    policy.perform_force_publish
     draft_policy = Timecop.freeze 1.hour.from_now do
       policy.reload.create_draft(editor)
     end
@@ -254,7 +254,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
-    controller.stubs(:can?).returns(true)
 
     get :show, id: inaccessible
     assert_response :forbidden

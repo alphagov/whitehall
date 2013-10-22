@@ -227,12 +227,10 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
   end
 
   test "should limit edition access" do
-    protected_edition = stub("protected edition", id: "1")
-    protected_edition.expects(:accessible_by?).with(@current_user).returns(false)
-    Edition.expects(:find).with(protected_edition.id).returns(protected_edition)
+    protected_edition = create(:protected_edition)
     get :show, edition_id: protected_edition.id, id: "2"
 
-    assert_response 403
+    assert_response :forbidden
   end
 
   def controller_attributes_for(edition_type, attributes = {})

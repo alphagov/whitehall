@@ -6,7 +6,6 @@ class PageTitleTest < ActiveSupport::TestCase
     admin/about_pages/edit.html.erb
     admin/about_pages/new.html.erb
     admin/edition_audit_trail/index.html.erb
-    admin/edition_workflow/force_publish.html.erb
     admin/preview/preview.html.erb
     layouts/admin.html.erb
     layouts/detailed-guidance.html.erb

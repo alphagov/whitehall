@@ -29,7 +29,7 @@ by_state['published'].each do |e|
   fix_specialist_guides_reference(new_draft)
   new_draft.change_note = 'Fixing references to specialist guides'
   new_draft.save
-  new_draft.publish_as(acting_as, force: true)
+  new_draft.perform_force_publish
 end
 
 puts "Fixed draft detailed guides:"

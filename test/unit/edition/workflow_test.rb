@@ -31,7 +31,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "when published" do
     edition = create(:submitted_edition)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     refute edition.imported?
     refute edition.draft?
     assert edition.published?
@@ -42,7 +42,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "when force published" do
     editor = create(:departmental_editor)
     edition = create(:draft_edition, creator: editor)
-    edition.publish_as(editor, force: true)
+    edition.perform_force_publish
     refute edition.imported?
     refute edition.draft?
     assert edition.published?
@@ -52,7 +52,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "when scheduled" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
-    edition.schedule_as(create(:departmental_editor))
+    edition.perform_schedule
     refute edition.imported?
     refute edition.draft?
     refute edition.published?
@@ -119,10 +119,18 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :scheduled].each do |state|
+  [:submitted, :scheduled].each do |state|
     test "publishing a #{state} edition transitions it into the published state" do
       edition = create("#{state}_edition", major_change_published_at: 1.day.ago)
       edition.publish!
+      assert edition.published?
+    end
+  end
+
+  [:draft, :submitted].each do |state|
+    test " force publishing a #{state} edition transitions it into the published state" do
+      edition = create("#{state}_edition", major_change_published_at: 1.day.ago)
+      edition.force_publish!
       assert edition.published?
     end
   end
@@ -164,7 +172,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should prevent a submitted edition from being published if it has a scheduled date" do
     edition = create("submitted_edition", scheduled_publication: 1.day.from_now)
-    edition.publish!
+    refute edition.publish!
     refute edition.published?
   end
 
@@ -294,7 +302,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
     edition.title = "Second Title"
     edition.save_as(user)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
 
     assert_nil Policy.published_as("first-title")
     assert_equal edition, Policy.published_as("second-title")
@@ -303,14 +311,14 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "#save_as does not alter the slug if this edition has previously been published" do
     edition = create(:submitted_policy, title: "First Title")
     edition.save_as(user = create(:user))
-    edition.publish_as(editor = create(:departmental_editor))
+    edition.perform_publish
 
     new_draft = edition.create_draft(user)
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
     new_draft.save_as(user)
     new_draft.submit!
-    new_draft.publish_as(editor)
+    new_draft.perform_publish
 
     assert_equal new_draft, Policy.published_as("first-title")
     assert_nil Policy.published_as("second-title")

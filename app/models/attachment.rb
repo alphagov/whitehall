@@ -52,10 +52,6 @@ class Attachment < ActiveRecord::Base
     store_price_in_pence
   end
 
-  def accessible_by?(user)
-    attachable.nil? || attachable.accessible_by?(user)
-  end
-
   def html?
     false
   end

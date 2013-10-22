@@ -55,10 +55,7 @@ FactoryGirl.define do
       end
     end
     trait(:deleted) {
-      state "draft"
-      after :create do |edition|
-        edition.delete!
-      end
+      state "deleted"
     }
     trait(:archived) {
       state "archived"
@@ -71,6 +68,7 @@ FactoryGirl.define do
       state "scheduled"
       scheduled_publication 7.days.from_now
     }
+    trait(:access_limited) { access_limited true }
 
     trait(:with_alternative_format_provider) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
@@ -107,4 +105,5 @@ FactoryGirl.define do
   factory :archived_edition, parent: :edition, traits: [:archived]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
   factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
+  factory :protected_edition, parent: :edition, traits: [:access_limited]
 end

@@ -51,8 +51,7 @@ module Edition::Workflow
       end
 
       event :delete, success: -> edition { edition.run_callbacks(:delete) } do
-        transitions from: [:imported, :draft, :submitted, :rejected], to: :deleted,
-          guard: -> d { d.deletable? }
+        transitions from: [:imported, :draft, :submitted, :rejected], to: :deleted
       end
 
       event :submit do
@@ -64,8 +63,11 @@ module Edition::Workflow
       end
 
       event :schedule do
-        transitions from: [:draft, :submitted], to: :scheduled,
-          guard: -> edition { edition.scheduled_publication.present? }
+        transitions from: :submitted, to: :scheduled, guard: :scheduled_publication_time_set?
+      end
+
+      event :force_schedule do
+        transitions from: [:draft, :submitted], to: :scheduled, guard: :scheduled_publication_time_set?
       end
 
       event :unschedule do
@@ -73,9 +75,12 @@ module Edition::Workflow
       end
 
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: [:draft, :submitted], to: :published,
-          guard: -> edition { edition.scheduled_publication.blank? }
-        transitions from: [:scheduled], to: :published
+        transitions from: :submitted, to: :published, guard: :scheduled_publication_time_not_set?
+        transitions from: :scheduled, to: :published
+      end
+
+      event :force_publish, success: -> edition { edition.run_callbacks(:publish) } do
+        transitions from: [:draft, :submitted], to: :published, guard: :scheduled_publication_time_not_set?
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
@@ -88,8 +93,7 @@ module Edition::Workflow
       end
     end
 
-    validates_with EditionHasNoUnpublishedEditionsValidator, on: :create
-    validates_with EditionHasNoOtherPublishedEditionsValidator, on: :create
+    validate :edition_has_no_unpublished_editions, on: :create
   end
 
   def pre_publication?
@@ -114,21 +118,20 @@ module Edition::Workflow
     save_as(user)
   end
 
-  class EditionHasNoUnpublishedEditionsValidator < ActiveModel::Validator
-    def validate(record)
-      return unless record.document
-      existing_edition = record.document.unpublished_edition
-      if existing_edition
-        record.errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
-      end
+  def edition_has_no_unpublished_editions
+    return unless document
+    if existing_edition = document.unpublished_edition
+      errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
   end
 
-  class EditionHasNoOtherPublishedEditionsValidator < ActiveModel::Validator
-    def validate(record)
-      if record.published? && record.document && record.document.editions.published.any?
-        record.errors.add(:base, "There is already a published edition for this document")
-      end
-    end
+private
+
+  def scheduled_publication_time_not_set?
+    !scheduled_publication_time_set?
+  end
+
+  def scheduled_publication_time_set?
+    scheduled_publication.present?
   end
 end

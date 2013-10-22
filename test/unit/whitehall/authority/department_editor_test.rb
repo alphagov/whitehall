@@ -84,6 +84,14 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     assert enforcer_for(department_editor, normal_edition).can?(:force_publish)
   end
 
+  test 'cannot publish a scheduled edition' do
+    refute enforcer_for(department_editor, scheduled_edition).can?(:publish)
+  end
+
+  test 'cannot force publish a scheduled edition' do
+    refute enforcer_for(department_editor, scheduled_edition).can?(:force_publish)
+  end
+
   test 'can force publish a limited access edition outside their org if they can_force_publish_anything?' do
     org1 = 'organisation_1'
     org2 = 'organisation_2'
@@ -110,6 +118,15 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   test 'cannot clear the "not reviewed" flag on editions they did force publish' do
     user = department_editor
     refute enforcer_for(user, force_published_edition(user)).can?(:approve)
+  end
+
+  test 'can clear the "not reviewed" flag on editions they did not force schedule' do
+    assert enforcer_for(department_editor(10), force_scheduled_edition(department_editor(100))).can?(:approve)
+  end
+
+  test 'cannot clear the "not reviewed" flag on editions they force scheduled' do
+    user = department_editor
+    refute enforcer_for(user, force_scheduled_edition(user)).can?(:approve)
   end
 
   test 'can limit access to an edition' do

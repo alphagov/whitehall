@@ -13,7 +13,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
   test "Publishing a policy calls govuk-delivery API" do
     without_delay! do
       Edition::AuditTrail.whodunnit = create(:user)
-      policy = create(:policy, topics: [create(:topic), create(:topic)])
+      policy = create(:submitted_policy, topics: [create(:topic), create(:topic)])
       policy.first_published_at = Time.zone.now
       policy.major_change_published_at = Time.zone.now
       Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.any_instance.stubs(:tags).returns(['http://example.com/feed'])
@@ -30,7 +30,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
   test "API 400 errors calls don't block publishing" do
     without_delay! do
       Edition::AuditTrail.whodunnit = create(:user)
-      policy = create(:policy, topics: [create(:topic), create(:topic)])
+      policy = create(:submitted_policy, topics: [create(:topic), create(:topic)])
       policy.first_published_at = Time.zone.now
       policy.major_change_published_at = Time.zone.now
       Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.any_instance.stubs(:tags).returns(['http://example.com/feed'])

@@ -101,6 +101,10 @@ class WorldEditorTest < ActiveSupport::TestCase
     assert enforcer_for(user, edition).can?(:publish)
   end
 
+  test 'cannot publish a scheduled edition' do
+    refute enforcer_for(world_editor(['hat land']), scheduled_edition).can?(:publish)
+  end
+
   test 'can reject an edition that is about their location and not access limited' do
     user = world_editor(['hat land', 'tie land'])
     edition = with_locations(normal_edition, ['shirt land', 'hat land'])
@@ -143,6 +147,10 @@ class WorldEditorTest < ActiveSupport::TestCase
     edition = with_locations(limited_edition([org2]), ['shirt land'])
 
     assert enforcer_for(user, edition).can?(:force_publish)
+  end
+
+  test 'cannot force publish a scheduled edition' do
+    refute enforcer_for(world_editor(['hat land']), scheduled_edition).can?(:force_publish)
   end
 
   test 'can make editorial remarks that is about their location and not access limited' do

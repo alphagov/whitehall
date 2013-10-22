@@ -47,12 +47,6 @@ class Edition::ValidationTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "should be invalid when published if document has existing published editions" do
-    published_edition = create(:published_edition)
-    edition = build(:published_policy, document: published_edition.document.reload)
-    refute edition.valid?
-  end
-
   test "should be invalid when it has no organisations" do
     edition = build(:edition, create_default_organisation: false, lead_organisations: [], supporting_organisations: [])
     refute edition.valid?

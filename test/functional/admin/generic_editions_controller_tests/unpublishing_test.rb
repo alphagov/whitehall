@@ -3,25 +3,18 @@ require 'test_helper'
 class Admin::GenericEditionsController::UnpublishingTest < ActionController::TestCase
   tests Admin::GenericEditionsController
 
-  setup do
-    login_as :policy_writer
-  end
+  setup { login_as :gds_editor }
 
-  view_test "should display unpublish button" do
-    edition = create(:edition)
-    edition.stubs(:unpublishable_by?).returns(true)
-    GenericEdition.stubs(:find).returns(edition)
-
+  view_test "displays unpublish button for unpublishable editions" do
+    edition = create(:published_edition)
     get :show, id: edition
 
     assert_select "form[action=?]", confirm_unpublish_admin_edition_path(edition)
   end
 
-  view_test "should not display unpublish button if edition is not unpublishable" do
-    edition = create(:edition)
-    edition.stubs(:unpublishable_by?).returns(false)
-    GenericEdition.stubs(:find).returns(edition)
-
+  view_test "does not display unpublish button if edition is not unpublishable" do
+    login_as :gds_editor
+    edition = create(:draft_edition)
     get :show, id: edition
 
     refute_select "form[action=?]", confirm_unpublish_admin_edition_path(edition)

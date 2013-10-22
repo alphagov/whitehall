@@ -1,10 +1,11 @@
 class Admin::PreviewController < Admin::BaseController
-  before_filter :find_images, only: :preview
-  before_filter :find_attachments, only: :preview
-  before_filter :limit_access_to_attachments!, only: :preview
-  before_filter :find_alternative_format_provider, only: :preview
+  before_filter :find_attachments
+  before_filter :limit_attachment_access!
 
   def preview
+    @images = Image.find(params.fetch(:image_ids, []))
+    find_alternative_format_provider
+
     if Govspeak::HtmlValidator.new(params[:body]).valid?
       render layout: false
     else
@@ -12,13 +13,7 @@ class Admin::PreviewController < Admin::BaseController
     end
   end
 
-  def find_images
-    @images = (params[:image_ids] || []).map { |id| Image.find(id) }
-  end
-
-  def find_attachments
-    @attachments = (params[:attachment_ids] || []).map { |id| Attachment.find(id) }
-  end
+private
 
   def find_alternative_format_provider
     @alternative_format_provider = Organisation.find(params[:alternative_format_provider_id]) if params[:alternative_format_provider_id]
@@ -27,10 +22,13 @@ class Admin::PreviewController < Admin::BaseController
     nil
   end
 
-private
-  def limit_access_to_attachments!
-    unless @attachments.all? { |a| a.accessible_by?(current_user) }
-      render "admin/editions/forbidden", status: 403
+  def find_attachments
+    @attachments = Attachment.find(params.fetch(:attachment_ids, []))
+  end
+
+  def limit_attachment_access!
+    if @attachments.any? { |attachment| !can?(:see, attachment.attachable) }
+      forbidden!
     end
   end
 end

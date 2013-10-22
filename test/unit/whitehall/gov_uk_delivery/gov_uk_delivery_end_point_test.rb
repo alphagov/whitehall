@@ -64,12 +64,11 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
   end
 
   test '#description includes the change note for updated editions' do
-    editor = create(:departmental_editor)
     first_edition = create(:published_publication)
-    second_edition = first_edition.create_draft(editor)
+    second_edition = first_edition.create_draft(create(:departmental_editor))
     second_edition.change_note = "Updated some stuff"
     second_edition.save!
-    assert second_edition.publish_as(editor, force: true)
+    assert second_edition.perform_force_publish
     notifier = govuk_delivery_notifier_for(second_edition)
 
     assert_equal "[Updated: #{second_edition.change_note}]<br /><br />#{second_edition.summary}", notifier.description
@@ -386,12 +385,11 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
   end
 
   test '#email_body html-escapes html characters in the title, change note and summary' do
-    editor = create(:departmental_editor)
     first_draft = create(:published_publication, title: 'Beards & Facial Hair', summary: 'Keep your beard "tip-top"!')
-    second_draft = first_draft.create_draft(editor)
+    second_draft = first_draft.create_draft(create(:departmental_editor))
     second_draft.change_note = '"tip-top" added.'
     second_draft.save!
-    second_draft.publish_as(editor, force: true)
+    second_draft.perform_force_publish
 
     body = email_body_for(second_draft)
     assert_match %r(Beards &amp; Facial Hair), body

@@ -77,8 +77,8 @@ module CssSelectors
     "form[action=#{CGI::escapeHTML(publish_admin_edition_path(document, lock_version: document.lock_version))}]"
   end
 
-  def force_publish_form_selector(document)
-    "form[action=#{CGI::escapeHTML(publish_admin_edition_path(document, force: true, lock_version: document.lock_version))}]"
+  def force_publish_button_selector(document)
+    "a[href='#{CGI::escapeHTML(confirm_force_publish_admin_edition_path(document, lock_version: document.lock_version))}']"
   end
 
   def reject_button_selector(document)

@@ -13,7 +13,7 @@ class PublicationTest < ActiveSupport::TestCase
     edition.create_draft(create(:author)).tap do |draft|
       draft.html_version.title = new_title
       draft.minor_change = true
-      draft.publish!
+      draft.perform_force_publish
     end
   end
 

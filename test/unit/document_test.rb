@@ -13,10 +13,10 @@ class DocumentTest < ActiveSupport::TestCase
     user = create(:departmental_editor)
     document = create(:document)
     original_policy = create(:draft_policy, document: document)
-    original_policy.publish_as(user, force: true)
+    original_policy.perform_force_publish
     draft_policy = original_policy.create_draft(user)
     draft_policy.change_note = "change-note"
-    draft_policy.publish_as(user, force: true)
+    draft_policy.perform_force_publish
 
     archived_policy = original_policy
     published_policy = draft_policy
@@ -144,7 +144,7 @@ class DocumentTest < ActiveSupport::TestCase
 
   test "should return scheduled edition" do
     publication = create(:draft_publication, scheduled_publication: 1.day.from_now)
-    publication.schedule_as(create(:departmental_editor), force: true)
+    publication.perform_force_schedule
     document = publication.document.reload
 
     assert_equal publication, document.scheduled_edition

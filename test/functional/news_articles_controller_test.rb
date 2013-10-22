@@ -35,7 +35,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
     editor = create(:departmental_editor)
     updated_news_article = news_article.create_draft(editor)
     updated_news_article.change_note = "change-note"
-    updated_news_article.publish_as(editor, force: true)
+    updated_news_article.perform_force_publish
 
     get :show, id: updated_news_article.document
 

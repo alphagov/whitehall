@@ -37,7 +37,7 @@ For accurate, reliable and up to date information on this policy, visit the #{le
 
   puts "importing #{title.inspect}"
   policy = Policy.stub.create!(attributes)
-  policy.publish_as(creator, force: true)
+  policy.perform_force_publish
   policy.update_column(:major_change_published_at, backdate)
   policy.update_column(:updated_at, backdate)
 end

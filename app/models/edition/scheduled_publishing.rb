@@ -17,68 +17,69 @@ module Edition::ScheduledPublishing
     end
   end
 
-  def schedulable_by?(user, options = {})
-    reason_to_prevent_scheduling_by(user, options).nil?
-  end
-
-  def reason_to_prevent_scheduling_by(user, options = {})
-    if scheduled?
+  def reason_to_prevent_scheduling
+    if !valid?
+      "This edition is invalid. Edit the edition to fix validation problems"
+    elsif scheduled?
       "This edition is already scheduled for publication"
-    else
-      reason_to_prevent_approval_by(user, options) or if scheduled_publication.blank?
-        "This edition does not have a scheduled publication date set"
-      end
+    elsif !can_schedule?
+      "This edition has been #{current_state}"
+    elsif scheduled_publication.blank?
+      "This edition does not have a scheduled publication date set"
     end
   end
 
-  def schedule_as(user, options = {})
-    if schedulable_by?(user, options)
-      self.force_published = options[:force]
-      schedule!
-      true
-    else
-      errors.add(:base, reason_to_prevent_scheduling_by(user, options))
+  def reason_to_prevent_force_scheduling
+    if !valid?
+      "This edition is invalid. Edit the edition to fix validation problems"
+    elsif scheduled?
+      "This edition is already scheduled for publication"
+    elsif !can_force_schedule?
+      "This edition has been #{current_state}"
+    elsif scheduled_publication.blank?
+      "This edition does not have a scheduled publication date set"
+    end
+  end
+
+  def perform_schedule
+    if reason = reason_to_prevent_scheduling
+      errors.add(:base, reason)
       false
+    else
+      schedule!
     end
   end
 
-  def unschedulable_by?(user)
-    reason_to_prevent_unscheduling_by(user).nil?
+  def perform_force_schedule
+    if reason = reason_to_prevent_force_scheduling
+      errors.add(:base, reason)
+      false
+    else
+      self.force_published = true
+      force_schedule!
+    end
   end
 
-  def reason_to_prevent_unscheduling_by(user)
-    if !scheduled?
-      "This edition is not scheduled for publication"
-    elsif !enforcer(user).can?(:update)
-      "You do not have permission to unschedule this publication"
-    end
+  def reason_to_prevent_unscheduling
+    "This edition is not scheduled for publication" if !scheduled?
   end
 
   def unschedule_as(user)
-    if unschedulable_by?(user)
+    if reason = reason_to_prevent_unscheduling
+      errors.add(:base, reason)
+      false
+    else
       self.force_published = false
       unschedule!
-      true
-    else
-      errors.add(:base, reason_to_prevent_unscheduling_by(user))
-      false
     end
   end
 
-  def reason_to_prevent_publication_by(user, options = {})
-    if scheduled?
-      if Time.zone.now < scheduled_publication
-        "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
-      elsif !valid?
-        "Can't publish invalid scheduled publication"
-      elsif !user.can_publish_scheduled_editions?
-        "User must have permission to publish scheduled publications"
-      end
-    elsif scheduled_publication.present?
-      "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
-    else
-      super
-    end
+  def schedulable?
+    can_schedule? && scheduled_publication_time_set?
+  end
+
+  def force_schedulable?
+    can_force_schedule? && scheduled_publication_time_set?
   end
 
   private

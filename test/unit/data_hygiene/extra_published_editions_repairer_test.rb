@@ -14,7 +14,7 @@ module Whitehall
       d3 = create(:published_edition, :with_document).document
       d4 = create(:published_edition, :with_document).document
       create(:draft_edition, document: d1).update_column(:state, 'published')
-      create(:draft_edition, document: d3).publish_as(create(:gds_editor))
+      create(:draft_edition, document: d3).perform_publish
       create(:draft_edition, document: d4)
 
       docs_to_be_repaired = @repairer.documents

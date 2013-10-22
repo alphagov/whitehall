@@ -2,26 +2,15 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   before_filter :load_fact_check_request, only: [:show, :edit, :update]
   before_filter :load_edition, only: [:create]
   before_filter :enforce_permissions!, only: [:create]
+  before_filter :limit_edition_access!, only: [:create]
   before_filter :check_edition_availability, only: [:show, :edit]
   skip_before_filter :authenticate_user!, except: [:create]
   skip_before_filter :require_signin_permission!, except: [:create]
-
-  def load_edition
-    @edition = Edition.unscoped.find(params[:edition_id])
-  end
-
-  def enforce_permissions!
-    enforce_permission!(:make_fact_check, @edition)
-  end
 
   def show
   end
 
   def create
-    unless @edition.accessible_by?(current_user)
-      render "admin/editions/forbidden", status: 403
-      return
-    end
     attributes = params[:fact_check_request].merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
     if @edition.deleted?
@@ -52,6 +41,14 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   private
+
+  def load_edition
+    @edition = Edition.unscoped.find(params[:edition_id])
+  end
+
+  def enforce_permissions!
+    enforce_permission!(:make_fact_check, @edition)
+  end
 
   def mailer_url_options
     options = { host: request.host }

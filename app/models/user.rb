@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     has_permission?(Permissions::WORLD_WRITER)
   end
 
+  def scheduled_publishing_robot?
+    can_publish_scheduled_editions?
+  end
+
   def location_limited?
     world_editor? || world_writer?
   end

@@ -39,8 +39,8 @@ module Admin::EditionActionsHelper
     button_title = "Publish #{edition.title}"
     confirm = publish_edition_alerts(edition, options[:force])
     if options[:force]
-      force_publish_path = force_publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version))
-      link_to "Force publish", force_publish_path, {class: "btn", "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
+      confirm_force_publish_path = confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version)
+      link_to "Force publish", confirm_force_publish_path, {class: "btn", "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
     else
       button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: "btn btn-success"
     end

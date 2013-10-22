@@ -38,7 +38,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#unpublished_edition returns the edition for an attachment associated with an unpublished edition' do
-    unpublished_edition = create(:draft_publication, :unpublished, :with_attachment)
+    unpublished_edition = create(:publication, :unpublished, :with_attachment)
     attachment_data = unpublished_edition.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
 
@@ -47,7 +47,8 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#unpublished_edition returns the edition, even if it is deleted' do
-    unpublished_edition = create(:deleted_publication, :unpublished, :with_attachment)
+    unpublished_edition = create(:publication, :unpublished, :with_attachment)
+    unpublished_edition.delete!
     attachment_data = unpublished_edition.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 

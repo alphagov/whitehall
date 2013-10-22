@@ -81,7 +81,7 @@ class EditionTest < ActiveSupport::TestCase
     refute Edition.latest_published_edition.include?(new_draft)
   end
 
-  test '.most_recent_cahnge_note returns the most recent change note' do
+  test '.most_recent_change_note returns the most recent change note' do
     editor = create(:departmental_editor)
     edition = create(:published_edition)
 
@@ -89,13 +89,13 @@ class EditionTest < ActiveSupport::TestCase
 
     version_2 = edition.create_draft(editor)
     version_2.change_note = 'My new version'
-    version_2.publish_as(editor, force: true)
+    version_2.perform_force_publish
 
     assert_equal 'My new version', version_2.most_recent_change_note
 
     version_3 = version_2.create_draft(editor)
     version_3.minor_change = true
-    version_3.publish_as(editor, force: true)
+    version_3.perform_force_publish
 
     assert_equal 'My new version', version_3.most_recent_change_note
   end
@@ -192,7 +192,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal user2, edition.last_author, 'creating'
 
     acting_as(user1) do
-      edition.publish_as(user1, force: true)
+      edition.perform_force_publish
     end
     assert_equal user1, edition.reload.last_author, 'publishing'
   end
@@ -268,14 +268,14 @@ class EditionTest < ActiveSupport::TestCase
   test "#published_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
-    acting_as(editor) { publication.publish_as(editor, force: true) }
+    acting_as(editor) { assert publication.perform_publish }
     assert_equal editor, publication.published_by
   end
 
   test "#scheduled_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { publication.schedule_as(editor, force: true) }
+    acting_as(editor) { publication.perform_force_schedule }
     assert_equal editor, publication.scheduled_by
   end
 
@@ -283,9 +283,9 @@ class EditionTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     robot = create(:scheduled_publishing_robot)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { publication.schedule_as(editor, force: true) }
+    acting_as(editor) { publication.perform_force_schedule }
     Timecop.freeze publication.scheduled_publication do
-      acting_as(robot) { publication.publish_as(robot) }
+      acting_as(robot) { publication.perform_publish }
       acting_as(editor) do
         new_draft = publication.create_draft(editor)
         assert_equal nil, new_draft.scheduled_by
@@ -317,14 +317,9 @@ class EditionTest < ActiveSupport::TestCase
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
 
-  test "should not be publishable when not submitted" do
-    draft_edition = create(:draft_edition)
-    refute draft_edition.publishable_by?(create(:departmental_editor))
-  end
-
   test "should not return published editions in submitted" do
     edition = create(:submitted_edition)
-    edition.publish_as(create(:departmental_editor))
+    edition.perform_publish
     refute Edition.submitted.include?(edition)
   end
 
@@ -459,7 +454,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Index.expects(:later).with(policy)
 
-    policy.publish_as(create(:departmental_editor))
+    policy.perform_publish
   end
 
   test "swallows errors from search index on publishing" do
@@ -467,7 +462,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Index.stubs(:later).raises(RuntimeError, 'Problem?')
 
-    assert_nothing_raised { policy.publish_as(create(:departmental_editor)) }
+    assert_nothing_raised { policy.perform_publish }
   end
 
   test "should not remove edition from search index when a new edition is published" do
@@ -478,7 +473,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(policy).never
 
-    new_edition.publish_as(create(:departmental_editor), force: true)
+    new_edition.perform_force_publish
   end
 
   test "should not remove edition from search index when a new draft of a published edition is deleted" do
@@ -495,7 +490,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(policy)
     policy.unpublishing = build(:unpublishing)
-    policy.unpublish_as(create(:gds_editor))
+    policy.perform_unpublish
   end
 
   test "swallows errors from search index when it's unpublished" do
@@ -503,7 +498,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
     policy.unpublishing = build(:unpublishing)
-    assert_nothing_raised { policy.unpublish_as(create(:gds_editor)) }
+    assert_nothing_raised { policy.perform_unpublish }
   end
 
   test "should remove published edition from search index when it's archived" do

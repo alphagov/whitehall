@@ -7,7 +7,7 @@ class Admin::BaseController < ApplicationController
   before_filter :skip_slimmer
 
   def limit_edition_access!
-    forbidden! unless @edition.accessible_by?(current_user)
+    enforce_permission!(:see, @edition)
   end
 
   def require_fatality_handling_permission!

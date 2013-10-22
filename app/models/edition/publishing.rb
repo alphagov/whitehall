@@ -58,111 +58,114 @@ module Edition::Publishing
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
-  def publishable_by?(user, options = {})
-    reason_to_prevent_publication_by(user, options).nil?
-  end
-
-  def unpublishable_by?(user)
-    reasons_to_prevent_unpublication_by(user).empty?
-  end
-
-  def approvable_by?(user, options = {})
-    reason_to_prevent_approval_by(user, options).nil?
-  end
-
-  def reason_to_prevent_approval_by(user, options = {})
+  def reason_to_prevent_publication
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
-    elsif imported?
-      "This edition is not ready for publishing"
+    elsif draft?
+      "Not ready for publication"
     elsif published?
       "This edition has already been published"
-    elsif archived?
-      "This edition has been archived"
-    elsif deleted?
-      "This edition has been deleted"
-    elsif rejected?
-      "This edition has been rejected"
-    elsif !submitted? && !options[:force]
-      "Not ready for publication"
-    elsif user == creator && !options[:force]
-      "You are not the second set of eyes"
-    elsif !enforcer(user).can?(options[:force] ? :force_publish : :publish)
-      "Only departmental editors can publish"
+    elsif !can_publish?
+      "This edition has been #{current_state}"
+    elsif scheduled? && Time.zone.now < scheduled_publication
+        "This edition is scheduled for publication on #{scheduled_publication.to_s}, and may not be published before"
+    elsif scheduled_publication.present? && Time.zone.now < scheduled_publication
+      "Can't publish this edition immediately as it has a scheduled publication date. Schedule it for publication or remove the scheduled publication date."
     end
   end
 
-  def reason_to_prevent_publication_by(user, options = {})
-    reason_to_prevent_approval_by(user, options)
-  end
-
-  def reasons_to_prevent_unpublication_by(user)
-    errors = []
-    errors << "Only GDS editors can unpublish" unless enforcer(user).can?(:unpublish)
-    errors << "This edition has not been published" unless published?
-    unless other_draft_editions.empty?
-      errors << "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
+  def reason_to_prevent_force_publication
+    if !valid?
+      "This edition is invalid. Edit the edition to fix validation problems"
+    elsif published?
+      "This edition has already been published"
+    elsif !can_force_publish?
+      "This edition has been #{current_state}"
     end
-    errors
   end
 
-  def publish_as(user, options = {})
-    if publishable_by?(user, options)
-      self.major_change_published_at = Time.zone.now unless self.minor_change?
-      make_public_at(major_change_published_at)
-      self.access_limited = false
-      unless scheduled?
-        self.force_published = options[:force]
-      end
-      if minor_change?
-        self.published_major_version = Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 1
-        self.published_minor_version = (Edition.unscoped.where(document_id: document_id, published_major_version: published_major_version).maximum(:published_minor_version) || -1) + 1
-      else
-        self.published_major_version = (Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 0) + 1
-        self.published_minor_version = 0
-      end
-      publish!
-      true
-    else
-      errors.add(:base, reason_to_prevent_publication_by(user, options))
+  def reason_to_prevent_unpublication
+    if !published?
+      "This edition has not been published"
+    elsif other_draft_editions.any?
+      "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
+    end
+  end
+
+  def perform_publish
+    if reason = reason_to_prevent_publication
+      errors.add(:base, reason)
       false
+    else
+      set_publishing_attributes_and_increment_version_numbers
+      publish!
     end
   end
 
-  def unpublish_as(user)
-    if unpublishable_by?(user)
-      if minor_change?
-        self.published_minor_version = self.published_minor_version - 1
-      elsif first_published_version?
-        self.published_major_version = nil
-        self.published_minor_version = nil
-      else
-        self.published_major_version = self.published_major_version - 1
-        self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
-      end
+  def perform_force_publish
+    if reason = reason_to_prevent_force_publication
+      errors.add(:base, reason)
+      false
+    else
+      set_publishing_attributes_and_increment_version_numbers
+      self.force_published = true
+      force_publish!
+    end
+  end
+
+  def force_publishable?
+    can_force_publish? && scheduled_publication_time_not_set?
+  end
+
+  def perform_unpublish
+    if reason = reason_to_prevent_unpublication
+      errors.add(:base, reason)
+      false
+    else
+      decrement_version_numbers
       if unpublishing && unpublishing.valid?
-        unpublish!
-        editorial_remarks.create!(author: user, body: "Reset to draft")
-        unpublishing.save
+        unpublish! and unpublishing.save
       else
         errors.add(:base, unpublishing.errors.full_messages.join) if unpublishing
         false
       end
+    end
+  end
+
+  def approve_retrospectively
+    if force_published?
+      self.force_published = false
+      save!
     else
-      reasons_to_prevent_unpublication_by(user).each do |reason|
-        errors.add(:base, reason)
-      end
+      errors.add(:base, "This document has not been force-published")
       false
     end
   end
 
-  def approve_retrospectively_as(user)
-    if approvable_retrospectively_by?(user)
-      self.force_published = false
-      save!
+private
+
+  def set_publishing_attributes_and_increment_version_numbers
+    self.access_limited = false
+    if minor_change?
+      self.published_major_version = Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 1
+      self.published_minor_version = (Edition.unscoped.where(document_id: document_id, published_major_version: published_major_version).maximum(:published_minor_version) || -1) + 1
     else
-      errors.add(:base, reason_to_prevent_retrospective_approval_by(user))
-      false
+      self.major_change_published_at = Time.zone.now
+      self.published_major_version = (Edition.unscoped.where(document_id: document_id).maximum(:published_major_version) || 0) + 1
+      self.published_minor_version = 0
+    end
+    make_public_at(major_change_published_at)
+  end
+
+  def decrement_version_numbers
+    if minor_change?
+      self.published_minor_version = self.published_minor_version - 1
+    elsif first_published_version?
+      self.published_major_version = nil
+      self.published_minor_version = nil
+    else
+      self.published_major_version = self.published_major_version - 1
+      self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
     end
   end
 end

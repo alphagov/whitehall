@@ -84,12 +84,11 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   test "should rewrite link to archived edition with a newer published edition in admin preview" do
     publication = create(:published_publication)
     writer = create(:policy_writer)
-    editor = create(:departmental_editor)
     new_edition = publication.create_draft(writer)
     new_edition.change_note = "change-note"
     new_edition.save_as(writer)
     new_edition.submit!
-    new_edition.publish_as(editor)
+    new_edition.perform_publish
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_edition), text: "published"
   end

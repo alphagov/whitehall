@@ -203,12 +203,11 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   def create_archived_policy_with_published_edition
     edition = create(:published_policy)
     writer = create(:policy_writer)
-    editor = create(:departmental_editor)
     new_draft = edition.create_draft(writer)
     new_draft.change_note = 'change-note'
     new_draft.save_as(writer)
     new_draft.submit!
-    new_draft.publish_as(editor)
+    new_draft.perform_publish
     [edition, new_draft]
   end
 

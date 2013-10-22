@@ -24,7 +24,7 @@ Given /^a worldwide priority which is available in english as "([^"]*)" and in s
   with_locale(:es) do
     priority.update_attributes!(attributes_for(:draft_worldwide_priority, title: spanish_title))
   end
-  priority.publish_as(create(:gds_editor), force: true)
+  priority.perform_force_publish
 end
 
 When /^I view the worldwide priority "([^"]*)"$/ do |title|

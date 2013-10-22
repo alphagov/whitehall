@@ -187,7 +187,7 @@ class SpeechTest < ActiveSupport::TestCase
     speech = create(:speech, :draft,
       scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
       role_appointment: role_appointment)
-    speech.schedule!
+    speech.force_schedule!
     assert_equal [speech], organisation.reload.editions
   end
 

@@ -26,7 +26,7 @@ class SupportingPageAttachmentFixerTest < ActiveSupport::TestCase
     end
 
     Timecop.freeze 1.day.ago do
-      @second_edition.publish_as(@editor, force: true)
+      @second_edition.perform_force_publish
     end
 
     # Create legacy associations
