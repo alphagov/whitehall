@@ -495,4 +495,58 @@ class AttachmentOrderingFixerTest < ActiveSupport::TestCase
 
     assert_equal current_attachment_order, Edition.find(248643).attachments.map(&:title)
   end
+
+  test 'when fixing a document which was editioned after 2013-10-07 and had attachments added the original attachments are ordered using the last_known_good ordering and the new attachments go on the end' do
+    load_sample_doc(80781)
+
+    e2 = Edition.find(248750)
+    attachments = e2.attachments.to_a
+    attachments[0...27].each do |a|
+      a.update_column(:ordering, nil)
+    end
+    attachments[27..-1].each.with_index do |a, i|
+      a.update_column(:ordering, i)
+    end
+
+    AttachmentOrderingFixer.run!
+
+    pre_7_oct_attachments = [
+      "ECO brokerage results: 29 January 2013",
+      "ECO brokerage results: 12 February 2013",
+      "ECO brokerage results: 15 January 2013",
+      "ECO brokerage results: 26 February 2013",
+      "ECO brokerage results: 12 March 2013",
+      "ECO brokerage results: 26 March 2013",
+      "ECO brokerage results: 9 April 2013",
+      "ECO brokerage results: 23 April 2013",
+      "ECO brokerage results: 7 May 2013",
+      "ECO brokerage results: 21 May 2013",
+      "ECO brokerage results: 4 June 2013",
+      "ECO brokerage results: 18 June 2013 (PDF)",
+      "ECO brokerage results: 18 June 2013 (CSV)",
+      "ECO brokerage results: 02 July 2013 (PDF)",
+      "ECO brokerage results: 02 July 2013 (CSV)",
+      "ECO brokerage results: 16 July 2013 (PDF)",
+      "ECO brokerage results: 16 July 2013 (CSV)",
+      "ECO brokerage results: 30 July 2013 (PDF)",
+      "ECO brokerage results: 30 July 2013 (CSV)",
+      "ECO brokerage results: 13 August 2013 (PDF)",
+      "ECO brokerage results: 13 August 2013 (CSV)",
+      "ECO brokerage results: 27 August 2013 (PDF)",
+      "ECO brokerage results: 27 August 2013 (CSV)",
+      "ECO brokerage results: 10 September (PDF)",
+      "ECO brokerage results: 10 September (CSV)",
+      "ECO brokerage results: 24 September (PDF)",
+      "ECO brokerage results: 24 September (CSV)"
+    ]
+
+    post_7_oct_attachments = [
+      "ECO brokerage results: 8 October 2013 (PDF)",
+      "ECO brokerage results: 8 October 2013 (CSV)"
+    ]
+
+    assert_equal pre_7_oct_attachments, Edition.find(248348).attachments.map(&:title)
+
+    assert_equal pre_7_oct_attachments + post_7_oct_attachments, Edition.find(248750).attachments.map(&:title)
+  end
 end
