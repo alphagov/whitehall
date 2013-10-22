@@ -100,7 +100,7 @@ module Whitehall
     def check_box(method, options = {}, *args)
       horizontal = options.delete(:horizontal)
       lable_options = { required: options.delete(:required) }
-      label_text = options.delete(:label_text)
+      label_text = options.delete(:label_text) || method.to_s.humanize
       if horizontal
         lable_options[:class] = "control-label"
         horizontal_group(label(method, label_text, lable_options), super, options)
