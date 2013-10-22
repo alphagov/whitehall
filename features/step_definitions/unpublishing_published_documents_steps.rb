@@ -21,7 +21,7 @@ end
 Then /^I should see that the document was published in error on the public site$/ do
   edition = Edition.last
   visit public_document_path(edition)
-  refute page.has_content?(edition.title)
+  assert page.has_no_content?(edition.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
   assert page.has_css?('a[href="https://www.gov.uk/government/how-government-works"]')
@@ -29,7 +29,7 @@ end
 
 Then /^I should see that the document was published in error at the original url$/ do
   visit policy_path(@original_slug)
-  refute page.has_content?(@document.title)
+  assert page.has_no_content?(@document.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
   assert page.has_css?('a[href="https://www.gov.uk/government/how-government-works"]')

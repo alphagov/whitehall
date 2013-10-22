@@ -175,7 +175,7 @@ Then /^I should not see his picture on the worldwide organisation page$/ do
   person = Person.last
 
   within record_css_selector(person) do
-    refute page.has_css?('img')
+    assert page.has_no_css?('img')
   end
 end
 

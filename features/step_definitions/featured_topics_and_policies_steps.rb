@@ -107,7 +107,7 @@ Then /^the removed items are no longer displayed on the executive office page$/ 
       assert page.has_css?("li:nth-child(#{idx + 1})", text: item.respond_to?(:name) ? item.name : item.title)
     end
     @the_removed_featured_items.each do |item|
-      refute page.has_css?("li", text: item.respond_to?(:name) ? item.name : item.title)
+      assert page.has_no_css?("li", text: item.respond_to?(:name) ? item.name : item.title)
     end
   end
 end

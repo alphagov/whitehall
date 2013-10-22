@@ -341,7 +341,7 @@ end
 
 Then /^I should not see a link to "([^"]*)" in the list of related documents$/ do |title|
   edition = Edition.find_by_title(title)
-  refute page.has_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
+  assert page.has_no_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
 end
 
 Given /^a (.*?) policy "([^"]*)" for the organisation "([^"]*)"$/ do |state, title, organisation|

@@ -72,7 +72,7 @@ Then /^the removed take part page is no longer displayed on the frontend get inv
 
   within '.take-part-pages' do
     @the_removed_pages.each do |removed_page|
-      refute page.has_css?('article h3', text: removed_page.title)
+      assert page.has_no_css?('article h3', text: removed_page.title)
     end
   end
 

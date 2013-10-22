@@ -221,7 +221,7 @@ end
 
 Then /^I cannot see links to Transparency data on the "([^"]*)" about page$/ do |name|
   visit_organisation_about_page name
-  refute page.has_css?('a', text: 'Transparency data')
+  assert page.has_no_css?('a', text: 'Transparency data')
 end
 
 Then /^I can see a link to "([^"]*)" on the "([^"]*)" about page$/ do |link_text, name|
@@ -384,6 +384,6 @@ Then /^I can not see information about uk aid on the "(.*?)" page$/ do |org_name
   org = Organisation.find_by_name!(org_name)
 
   visit organisation_path(org)
-  refute page.has_css?('.uk-aid')
+  assert page.has_no_css?('.uk-aid')
 end
 

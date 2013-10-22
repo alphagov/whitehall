@@ -74,7 +74,7 @@ Then /^that contact is no longer visible on the home page of the organisation$/ 
   visit organisation_path(@the_organisation)
 
   within '.addresses' do
-    refute page.has_css?("div.contact h2", text: @the_removed_contact.title)
+    assert page.has_no_css?("div.contact h2", text: @the_removed_contact.title)
   end
 end
 
@@ -135,7 +135,7 @@ Then /^that office is no longer visible on the home page of the worldwide organi
   visit worldwide_organisation_path(@the_organisation)
 
   within '.contact-us' do
-    refute page.has_css?("div.contact h2", text: @the_removed_office.title)
+    assert page.has_no_css?("div.contact h2", text: @the_removed_office.title)
   end
 end
 
@@ -160,20 +160,20 @@ Then /^I cannot add or reorder the new FOI contact in the home page list$/ do
   click_on 'All'
 
   within record_css_selector(@the_new_foi_contact) do
-    refute page.has_button?('Add to home page')
-    refute page.has_button?('Remove from home page')
+    assert page.has_no_button?('Add to home page')
+    assert page.has_no_button?('Remove from home page')
   end
 
   click_on 'Order on home page'
 
-  refute page.has_field?("ordering[#{@the_new_foi_contact.id}]")
+  assert page.has_no_field?("ordering[#{@the_new_foi_contact.id}]")
 end
 
 Then /^I see the new FOI contact listed on the home page(?: only once,)? in the FOI section$/ do
   visit organisation_path(@the_organisation)
 
   within '#org-contacts + .org-contacts' do
-    refute page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
+    assert page.has_no_css?("div.contact h2", text: @the_new_foi_contact.title)
   end
 
   within '#foi-contacts .org-contacts' do

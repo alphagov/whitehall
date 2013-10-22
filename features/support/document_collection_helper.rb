@@ -7,7 +7,7 @@ module DocumentCollectionStepHelpers
 
   def refute_document_is_part_of_document_collection(document_title)
     within '#document_collection' do
-      refute page.has_content? document_title
+      assert page.has_no_content? document_title
     end
   end
 end

@@ -32,7 +32,7 @@ When /^I should be able to tag the (?:publication|news article) with "([^"]*)"$/
 end
 
 When /^I should not be able to tag the (?:publication|news article) with "([^"]*)"$/ do |label|
-  refute page.has_css?("label.checkbox", text: /#{label}/)
+  assert page.has_no_css?("label.checkbox", text: /#{label}/)
 end
 
 Then /^I should be able to select the world location "([^"]*)"$/ do |name|

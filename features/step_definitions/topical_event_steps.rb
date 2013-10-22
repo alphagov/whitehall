@@ -13,7 +13,7 @@ end
 Then /^I should not see the topical event "([^"]*)" on the topics listing$/ do |topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit topics_path
-  refute page.has_css?(record_css_selector(topical_event))
+  assert page.has_no_css?(record_css_selector(topical_event))
 end
 
 Then /^I should see the topical event "([^"]*)" on the frontend is archived$/ do |topical_event_name|

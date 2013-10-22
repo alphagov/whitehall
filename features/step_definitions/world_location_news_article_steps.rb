@@ -30,7 +30,7 @@ Then /^I should only see the world location news article on the French version o
   end
 
   visit world_location_path(world_location)
-  refute page.has_css?(record_css_selector(@world_location_news_article))
+  assert page.has_no_css?(record_css_selector(@world_location_news_article))
 end
 
 Then /^I should only be able to view the world location news article article in French$/ do
@@ -79,7 +79,7 @@ Given /^there is a world location news article$/ do
 end
 
 Then /^I should not be able to see the world location news article$/ do
-  refute page.has_css?(record_css_selector(@world_location_news))
+  assert page.has_no_css?(record_css_selector(@world_location_news))
 end
 
 When /^I explicitly ask for world location news to be included$/ do
