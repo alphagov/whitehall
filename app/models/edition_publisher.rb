@@ -1,17 +1,15 @@
 class EditionPublisher
   attr_reader :edition, :options, :subscribers
 
-  def initialize(edition, options={}, subscribers=[])
+  def initialize(edition, options={})
     @edition = edition
     @options = options
-    @subscribers = subscribers
+    @subscribers = options.delete(:subscribers) || default_subscribers
   end
 
   def perform!
     if can_perform?
-      edition.access_limited  = false
-      set_publishing_timestamps
-      edition.increment_version_number
+      prepare_edition
       edition.publish!
       edition.archive_previous_editions!
       subscribers.each { |subscriber| subscriber.edition_published(edition, options) }
@@ -33,10 +31,16 @@ class EditionPublisher
     end
   end
 
+  def default_subscribers
+    [Edition::AuthorNotifier]
+  end
+
 private
 
-  def set_publishing_timestamps
+  def prepare_edition
+    edition.access_limited  = false
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
+    edition.increment_version_number
   end
 end

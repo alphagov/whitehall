@@ -7,38 +7,13 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     @user = login_as(:departmental_editor)
   end
 
-  test 'publish publishes the given edition on behalf of the current user and notifies the author' do
+  test 'publish publishes the given edition on behalf of the current user' do
     post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
 
     assert_redirected_to admin_editions_path(state: :published)
     assert_equal "The document #{submitted_edition.title} has been published", flash[:notice]
     assert submitted_edition.reload.published?
     assert_equal @user, submitted_edition.published_by
-    assert_match /\'#{submitted_edition.title}\' has now been published/, ActionMailer::Base.deliveries.last.body.to_s
-  end
-
-  test 'publish only notifies authors with emails' do
-    author_with_email, author_without_email = create(:user), create(:user, email: nil)
-    submitted_edition.authors = [author_with_email, author_without_email]
-
-    assert_difference('ActionMailer::Base.deliveries.size', 1) do
-      post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
-    end
-  end
-
-  test 'publish only notifies authors once' do
-    author = create(:user)
-    submitted_edition.authors = [author, author]
-
-    assert_difference('ActionMailer::Base.deliveries.size', 1) do
-      post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
-    end
-  end
-
-  test "publish doesn't notify the publisher" do
-    submitted_edition.authors =  [@user]
-    Notifications.expects(:edition_published).never
-    post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
   end
 
   test 'publish redirects back to the edition with an error message if edition cannot be published' do

@@ -85,22 +85,34 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert published_edition.reload.archived?, "expected previous edition to be archived but it's #{published_edition.state}"
   end
 
+  test 'by default, subscribers include Edition::AuthorNotifier' do
+    assert EditionPublisher.new(Edition.new).subscribers.include?(Edition::AuthorNotifier)
+  end
+
+  test 'subscribers can be overwritten' do
+    subscribers = [stub('sub1'), stub('stub2')]
+    publisher = EditionPublisher.new(Edition.new, subscribers: subscribers)
+
+    assert_equal subscribers, publisher.subscribers
+  end
+
   test 'successful #perform! sends the edition_published message to subscribers' do
     edition = create(:submitted_edition)
-    options = { one: 1, two: 2}
     subscriber = stub('subscriber')
-    subscriber.expects(:edition_published).with(edition, options)
-    publisher = EditionPublisher.new(edition, options, [subscriber])
+    options = { one: 1, two: 2 }
+    subscriber.expects(:edition_published).with(edition, options.dup)
+    options[:subscribers] = [subscriber]
+    publisher = EditionPublisher.new(edition, options)
 
     assert publisher.perform!
   end
 
   test 'unsuccessful #perform! does not send the edition_published message to subscribers' do
     edition = build(:draft_edition)
-    options = { one: 1, two: 2}
     subscriber = stub('subscriber')
     subscriber.expects(:edition_published).never
-    publisher = EditionPublisher.new(edition, options, [subscriber])
+    options = { one: 1, two: 2, subscribers: [subscriber]}
+    publisher = EditionPublisher.new(edition, options)
 
     refute publisher.perform!
   end
@@ -108,6 +120,6 @@ class EditionPublisherTest < ActiveSupport::TestCase
 private
 
   def publisher_for(edition)
-    EditionPublisher.new(edition, {}, [])
+    EditionPublisher.new(edition, { subscribers: [] })
   end
 end
