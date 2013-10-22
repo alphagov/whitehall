@@ -274,7 +274,7 @@ Whitehall::Application.routes.draw do
           resource :outcome, controller: 'responses', type: 'ConsultationOutcome', except: [:new, :destroy]
           resource :public_feedback, controller: 'responses', type: 'ConsultationPublicFeedback', except: [:new, :destroy]
         end
-        resources :responses do
+        resources :responses, only: :none do
           resources :attachments do
             put :order, on: :collection
           end
