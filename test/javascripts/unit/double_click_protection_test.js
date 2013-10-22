@@ -7,8 +7,6 @@ module("Double click protection", {
 });
 
 test('clicking submit input disables the button', function() {
-  GOVUK.doubleClickProtection();
-
   var $submit_tag = this.$form.find('input[type=submit]');
   ok(!$submit_tag.prop('disabled'));
 
@@ -21,8 +19,6 @@ test('clicking submit input disables the button', function() {
 });
 
 test('clicking submit input creates a hidden input with the same name and value', function() {
-  GOVUK.doubleClickProtection();
-
   var $submit_tag = this.$form.find('input[type=submit]');
 
   this.$form.on('submit', function (e) {
