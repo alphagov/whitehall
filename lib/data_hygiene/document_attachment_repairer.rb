@@ -67,7 +67,7 @@ module DataHygiene
 
       # publish
       reason = 'Re-editioned with corrected attachment filename(s)'
-      if EditionForcePublisher.new(new_edition, user, reason)
+      if EditionForcePublisher.new(new_edition, user: user, reason: reason)
         add_remark_to_latest_edition(reason)
       else
         logger.error("Error: Document (#{document.id}) could not be published: #{new_edition.errors.full_messages.to_sentence}")

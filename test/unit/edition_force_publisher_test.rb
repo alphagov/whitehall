@@ -40,4 +40,26 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
       assert_equal "An edition that is #{state} cannot be force published", publisher.failure_reason
     end
   end
+
+  test 'by default, subscribers include Edition::AuthorNotifier' do
+    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::AuthorNotifier)
+  end
+
+  test 'subscribers can be overwritten' do
+    subscribers = [stub('sub1'), stub('stub2')]
+    publisher = EditionForcePublisher.new(Edition.new, subscribers: subscribers)
+
+    assert_equal subscribers, publisher.subscribers
+  end
+
+  test 'successful #perform! sends the edition_published message to subscribers' do
+    edition = create(:draft_edition)
+    subscriber = stub('subscriber')
+    options = { user: edition.creator, reason: 'Urgent update' }
+    subscriber.expects(:edition_published).with(edition, options.dup)
+    options[:subscribers] = [subscriber]
+    publisher = EditionForcePublisher.new(edition, options)
+
+    assert publisher.perform!
+  end
 end
