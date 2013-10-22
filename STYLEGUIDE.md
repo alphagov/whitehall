@@ -229,7 +229,6 @@ good:
 
 Each javascript object should be stored in it's own file with a filename reflecting the object name. In the spirit of keeping things similar to the css, they should be stored in:
 
-    ./views/
     ./helpers/
     ./frontend/views/
     ./frontend/helpers/
