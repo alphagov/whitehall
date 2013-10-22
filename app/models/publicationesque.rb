@@ -4,7 +4,6 @@ class Publicationesque < Edition
   include Edition::HasDocumentCollections
   include Edition::Topics
   include Edition::WorldwidePriorities
-  include Edition::GovUkDelivery
   include ::Attachable
 
   def self.sti_names
@@ -13,6 +12,10 @@ class Publicationesque < Edition
 
   def presenter
     PublicationesquePresenter
+  end
+
+  def supports_govuk_delivery_notifications?
+    true
   end
 
   protected
