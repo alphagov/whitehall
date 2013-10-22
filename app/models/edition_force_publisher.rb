@@ -14,6 +14,8 @@ class EditionForcePublisher < EditionPublisher
   def failure_reason
     @failure_reason ||= if !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
+    elsif edition.scheduled_publication.present? && Time.zone.now < edition.scheduled_publication
+      "This edition is scheduled for publication on #{edition.scheduled_publication.to_s} so cannot be force published"
     elsif force_publish_reason.blank?
       'You cannot force publish an edition without a reason'
     elsif !edition.can_force_publish?
