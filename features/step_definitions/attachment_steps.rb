@@ -34,3 +34,25 @@ end
 Then /^the virus checked image will be available for viewing$/ do
   assert_final_path(person_image_path, person_image_path)
 end
+
+When(/^I start editing the attachments from the .*? page$/) do
+  click_on 'Edit attachments'
+end
+
+When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/) do |title, fixture_file_name|
+  click_on 'Upload new file attachment'
+  fill_in 'Title', with: title
+  attach_file 'File', Rails.root+"test/fixtures/#{fixture_file_name}"
+  click_on 'Save'
+end
+
+When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/) do |title, body|
+  click_on 'Add new HTML attachment'
+  fill_in 'Title', with: title
+  fill_in 'Body', with: body
+  click_on 'Save'
+end
+
+Then(/^the publication "(.*?)" should have (\d+) attachments$/) do |publication_title, expected_number_of_attachments|
+  assert_equal expected_number_of_attachments.to_i, Publication.find_by_title(publication_title).attachments.count
+end

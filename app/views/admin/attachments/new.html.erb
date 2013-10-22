@@ -3,6 +3,6 @@
   <section>
     <h1>Add attachment to <%= @attachable.class.name.underscore.humanize.downcase %></h1>
 
-    <%= render partial: 'form', locals: { attachable: @attachable, attachment: @attachment } %>
+    <%= render 'form', attachable: @attachable %>
   </section>
 </div>

@@ -1,5 +1,15 @@
 Feature: Managing attachments on editions
+  As a writer or editor
+  I want to attach files and additional HTML content to publications and consultations
+  In order to support the publications and consultations with statistics and other relevant documents
 
+  Scenario: Adding and reordering attachments
+    Given I am an writer
+    And I draft a new publication "Standard Beard Lengths"
+    When I start editing the attachments from the publication page
+    And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
+    And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example **Govspeak body**"
+    Then the publication "Standard Beard Lengths" should have 2 attachments
 
   Scenario: Replacing data on an attachment
     Given I am an editor

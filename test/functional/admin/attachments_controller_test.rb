@@ -10,6 +10,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     }
   end
 
+  def valid_html_attachment_params
+    {
+      title: 'Attachment title',
+      body: 'Some **govspeak** body'
+    }
+  end
+
   setup do
     login_as :gds_editor
     @edition = create(:consultation)
@@ -38,8 +45,8 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   test "PUT :order saves the new order of attachments" do
     attachment1 = build(:file_attachment)
-    attachment2 = build(:file_attachment)
-    attachment3 = build(:attachment)
+    attachment2 = build(:html_attachment)
+    attachment3 = build(:file_attachment)
     @edition.attachments << [attachment1, attachment2, attachment3]
 
     put :order, edition_id: @edition, ordering: {
@@ -67,33 +74,51 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[name='attachment[title]']"
   end
 
-  view_test "GET :new for a publication includes House of Commons metadata" do
+  view_test "GET :new for a publication includes House of Commons metadata for file attachments" do
     publication = create(:publication)
-    get :new, edition_id: publication
+    get :new, edition_id: publication, html: 'false'
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
   end
 
-  test "POST :create saves the attachment to the edition and redirects to the attachments index" do
+  view_test "GET :new for a publication includes House of Commons metadata for HTML attachments" do
+    publication = create(:publication)
+    get :new, edition_id: publication, html: 'true'
+
+    assert_select "input[name='attachment[hoc_paper_number]']"
+    assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
+  end
+
+  test "POST :create saves the file attachment to the edition and redirects to the attachments index" do
     post :create, edition_id: @edition, attachment: valid_attachment_params
 
     assert_redirected_to admin_edition_attachments_path(@edition)
     assert_equal 1, @edition.reload.attachments.size
+    assert_equal FileAttachment, @edition.attachments[0].class
     assert_equal 'Attachment title', @edition.attachments[0].title
     assert_equal 'whitepaper.pdf', @edition.attachments[0].filename
   end
 
-  test "POST :create handles response attachments and redirects to the response itself, rather than the attachments index" do
-    response = @edition.outcome = create(:consultation_outcome)
-    post :create, response_id: response, attachment: valid_attachment_params
+  test "POST :create saves the html attachment to the edition and redirects to the attachments index" do
+    post :create, edition_id: @edition, html: 'true', attachment: valid_html_attachment_params
 
-    assert_redirected_to admin_consultation_outcome_url(@edition)
-    assert_equal 1, response.reload.attachments.size
-    assert_equal 'Attachment title', response.attachments[0].title
-    assert_equal 'whitepaper.pdf', response.attachments[0].filename
+    assert_redirected_to admin_edition_attachments_path(@edition)
+    assert_equal 1, @edition.reload.attachments.size
+    assert_equal HtmlAttachment, @edition.attachments[0].class
+    assert_equal 'Attachment title', @edition.attachments[0].title
+    assert_equal 'Some **govspeak** body', @edition.attachments[0].body
   end
 
+  test "POST :create handles response attachments and redirects to the response itself, rather than the attachments index" do
+    consultation_response = @edition.outcome = create(:consultation_outcome)
+    post :create, response_id: consultation_response, attachment: valid_attachment_params
+
+    assert_redirected_to admin_consultation_outcome_url(@edition)
+    assert_equal 1, consultation_response.reload.attachments.size
+    assert_equal 'Attachment title', consultation_response.attachments[0].title
+    assert_equal 'whitepaper.pdf', consultation_response.attachments[0].filename
+  end
 
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
     post :create, edition_id: @edition, attachment: { attachment_data_attributes: { } }
@@ -105,6 +130,17 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:file_attachment, attachable: @edition)
     get :edit, edition_id: @edition, id: attachment
     assert_select "input[value=#{attachment.title}]"
+  end
+
+  test "PUT :update for HTML attachment updates the attachment" do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    put :update, edition_id: @edition, id: attachment.id, attachment: {
+      title: 'New title',
+      body: 'New body'
+    }
+    assert_equal 'New title', attachment.reload.title
+    assert_equal 'New body', attachment.reload.body
   end
 
   test "PUT :update with empty file payload changes attachment metadata, but not the attachment data" do
