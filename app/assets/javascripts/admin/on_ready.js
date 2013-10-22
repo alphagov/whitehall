@@ -99,13 +99,9 @@ jQuery(document).ready(function($) {
   $('#inbound-links').hideExtraRows({rows: 10});
 
   // show/hide unnumbered HTML headings markdown help
-  $('#edition_html_attachment_attributes_manually_numbered_headings').change(function () {
-    if($(this).is(':checked')) {
-      $('.js-manual-numbering-help').show();
-    } else {
-      $('.js-manual-numbering-help').hide();
-    }
-  });
+  $('#attachment_manually_numbered_headings').change(function () {
+    $('.js-manual-numbering-help').toggle($(this).is(':checked'));
+  }).change();
 
   if ($('#diff').length > 0) {
     GOVUK.diff('title');
