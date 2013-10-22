@@ -72,3 +72,17 @@ Then(/^the attachments should be in the following order:$/) do |attachment_list|
     page.assert_selector(".existing-attachments li#attachment_#{attachment.id}:nth-child(#{index+1})")
   end
 end
+
+Given(/^a draft closed consultation "(.*?)" with an outcome exists$/) do |title|
+  create(:consultation_with_outcome, :draft, title: title)
+end
+
+When(/^I go to the outcome for the consultation "(.*?)"$/) do |title|
+  consultation = Consultation.find_by_title(title)
+  visit admin_consultation_outcome_path(consultation)
+end
+
+Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do |attachment_title|
+  assert page.has_no_selector?(".flash.alert")
+  assert page.has_content?(attachment_title)
+end

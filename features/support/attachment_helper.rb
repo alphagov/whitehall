@@ -16,7 +16,7 @@ module AttachmentHelper
   end
 
   def upload_new_attachment(file_path, attachment_title)
-    click_link "Upload new attachment"
+    click_link "Upload new file attachment"
     fill_in "Title", with: attachment_title
     attach_file "File", file_path
     click_button "Save"

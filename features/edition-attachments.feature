@@ -30,3 +30,10 @@ Feature: Managing attachments on editions
     And I log out
     Then the new data file should be public
     And the old data file should redirect to the new data file
+
+  Scenario: Adding attachments on consultation responses
+    Given I am a writer
+    And a draft closed consultation "Should We Ban Beards" with an outcome exists
+    When I go to the outcome for the consultation "Should We Ban Beards"
+    And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
+    Then the outcome for the consultation should have the attachment "Beard Length Statistics 2014"
