@@ -5,7 +5,7 @@ end
 Then /^the public page for the organisation says nothing about mainstream categories$/ do
   visit organisation_path(@the_organisation)
 
-  refute page.has_css?('#mainstream_categories')
+  assert page.has_no_css?('#mainstream_categories')
 end
 
 Then /^the admin page for the organisation says it has no mainstream categories$/ do
@@ -41,7 +41,7 @@ Then /^only the mainstream categories I chose appear on the public page for the 
       assert page.has_css?("li.mainstream_category:nth-child(#{idx+1}) h2", text: selected_mainstream_category.title)
     end
     (@all_mainstream_categories - @selected_mainstream_categories).each do |unselected_mainstream_category|
-      refute page.has_css?("li.mainstream_category h2", text: unselected_mainstream_category.title)
+      assert page.has_no_css?("li.mainstream_category h2", text: unselected_mainstream_category.title)
     end
   end
 end

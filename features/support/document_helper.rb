@@ -131,7 +131,7 @@ module DocumentHelper
   end
 
   def refute_flash_alerts_exist
-    refute has_css?(".flash.alert")
+    assert has_no_css?(".flash.alert")
   end
 
   def publish(options = {})

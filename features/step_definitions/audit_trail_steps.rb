@@ -20,13 +20,13 @@ Then /^I can traverse the audit trail with newer and older navigation$/ do
   click_on 'History'
   within '#history' do
     assert page.has_css?('.version', count: 30)
-    refute page.has_link? '<< Newer'
+    assert page.has_no_link? '<< Newer'
     find('.audit-trail-nav', match: :first).click_link('Older >>')
   end
   within '#history' do
     # there are 51 versions (1 real via create 50 fake from step above)
     assert page.has_css?('.version', count: 21)
-    refute page.has_link? 'Older >>'
+    assert page.has_no_link? 'Older >>'
     find('.audit-trail-nav', match: :first).click_link('<< Newer')
   end
   within '#history' do

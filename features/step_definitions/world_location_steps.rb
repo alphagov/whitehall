@@ -107,7 +107,7 @@ Then /^I should see a (?:world location|international delegation) called "([^"]*
 end
 
 Then /^I should not see a link to the (?:world location|international delegation) called "([^"]*)"$/ do |text|
-  refute page.has_css?(".world_location a", text: text)
+  assert page.has_no_css?(".world_location a", text: text)
 end
 
 Then /^I should see that it is an? (world location|international delegation)$/ do |world_location_type|

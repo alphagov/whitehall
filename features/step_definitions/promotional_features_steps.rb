@@ -83,7 +83,7 @@ end
 
 Then /^I should no longer see the promotional feature$/ do
   assert_current_url admin_organisation_promotional_features_url(@executive_office)
-  refute page.has_css?(record_css_selector(@promotional_feature))
+  assert page.has_no_css?(record_css_selector(@promotional_feature))
 end
 
 Then /^I should see the promotional feature item's summary has been updated to "([^"]*)"$/ do |summary_text|
@@ -101,7 +101,7 @@ Then /^I should no longer see the promotional item$/ do
 end
 
 Then /^I should not be able to add any further feature items$/ do
-  refute page.has_link?("Add feature item")
+  assert page.has_no_link?("Add feature item")
 end
 
 Then /^I should see the promotional feature on the executive office page$/ do

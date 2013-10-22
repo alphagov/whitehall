@@ -185,7 +185,7 @@ Then /^I should see (#{THE_DOCUMENT})$/ do |edition|
 end
 
 Then /^I should not see (#{THE_DOCUMENT})$/ do |edition|
-  refute has_css?(record_css_selector(edition))
+  assert has_no_css?(record_css_selector(edition))
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the list of draft documents$/ do |edition|
