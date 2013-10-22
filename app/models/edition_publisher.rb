@@ -1,9 +1,10 @@
 class EditionPublisher
-  attr_reader :edition
+  attr_reader :edition, :options, :subscribers
 
-  def initialize(edition, options={})
+  def initialize(edition, options={}, subscribers=[])
     @edition = edition
     @options = options
+    @subscribers = subscribers
   end
 
   def perform!
@@ -13,6 +14,7 @@ class EditionPublisher
       edition.increment_version_number
       edition.publish!
       edition.archive_previous_editions!
+      subscribers.each { |subscriber| subscriber.edition_published(edition, options) }
       true
     end
   end

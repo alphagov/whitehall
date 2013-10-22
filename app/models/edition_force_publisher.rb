@@ -26,10 +26,10 @@ class EditionForcePublisher < EditionPublisher
 private
 
   def force_publish_reason
-    @options[:reason]
+    options[:reason]
   end
 
   def user
-    @options[:user]
+    options[:user]
   end
 end
