@@ -23,7 +23,7 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
 
   test '#perform! when no reason for force publishing is given refuses to publish' do
     edition              = create(:draft_edition)
-    publisher            = EditionForcePublisher.new(edition, user: edition.authors.first, reason: '')
+    publisher            = EditionForcePublisher.new(edition, user: edition.creator, reason: '')
 
     refute @return_value
     refute edition.published?
@@ -33,12 +33,18 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
   %w(published imported rejected archived).each do |state|
     test "#{state} editions cannot be force published" do
       edition = create(:"#{state}_edition")
-      publisher = EditionForcePublisher.new(edition, user: edition.authors.first, reason: 'Because')
+      publisher = EditionForcePublisher.new(edition, user: edition.creator, reason: 'Because')
 
       refute publisher.perform!
       assert_equal state, edition.state
       assert_equal "An edition that is #{state} cannot be force published", publisher.failure_reason
     end
+  end
+
+  test 'a draft edition with a scheduled publication time cannot be force published' do
+    edition = build(:draft_edition, scheduled_publication: 1.day.from_now)
+    publisher = EditionForcePublisher.new(edition, user: edition.creator, reason: 'Because')
+    refute publisher.can_perform?
   end
 
   test 'by default, subscribers include Edition::AuthorNotifier' do
