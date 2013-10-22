@@ -32,7 +32,7 @@ class EditionPublisher
   end
 
   def default_subscribers
-    [Edition::AuthorNotifier]
+    [Edition::AuthorNotifier, Whitehall::GovUkDelivery::Notifier]
   end
 
 private

@@ -1,5 +1,12 @@
 class Whitehall::GovUkDelivery::Notifier
   attr_accessor :edition
+
+  def self.edition_published(edition, options)
+    if edition.supports_govuk_delivery_notifications?
+      new(edition).edition_published!
+    end
+  end
+
   def initialize(edition)
     @edition = edition
   end

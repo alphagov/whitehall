@@ -45,6 +45,10 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::AuthorNotifier)
   end
 
+  test 'by default, subscribers include Whitehall::GovUkDelivery::Notifier' do
+    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Whitehall::GovUkDelivery::Notifier)
+  end
+
   test 'subscribers can be overwritten' do
     subscribers = [stub('sub1'), stub('stub2')]
     publisher = EditionForcePublisher.new(Edition.new, subscribers: subscribers)
