@@ -76,12 +76,11 @@ module Edition::Workflow
       end
 
       event :publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: :submitted, to: :published, guard: :scheduled_publication_time_not_set?
-        transitions from: :scheduled, to: :published
+        transitions from: [:submitted, :scheduled], to: :published
       end
 
       event :force_publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: [:draft, :submitted], to: :published, guard: :scheduled_publication_time_not_set?
+        transitions from: [:draft, :submitted], to: :published
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do

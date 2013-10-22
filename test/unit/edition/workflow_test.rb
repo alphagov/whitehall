@@ -170,12 +170,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute edition.draft?
   end
 
-  test "should prevent a submitted edition from being published if it has a scheduled date" do
-    edition = create("submitted_edition", scheduled_publication: 1.day.from_now)
-    refute edition.publish!
-    refute edition.published?
-  end
-
   test "should allow a submitted edition to be scheduled if it has a scheduled date" do
     edition = create("submitted_edition", scheduled_publication: 1.day.from_now)
     edition.schedule!
