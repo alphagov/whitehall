@@ -11,6 +11,7 @@
   <% when FileAttachment %>
     <%= render 'attachment_data_fields', form: form %>
   <% when HtmlAttachment %>
+    <%= form.check_box :manually_numbered_headings %>
     <%= form.text_area :body %>
   <% end %>
 
