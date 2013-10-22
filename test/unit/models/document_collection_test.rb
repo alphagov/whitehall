@@ -79,14 +79,14 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal original.groups.map(&:documents), draft.groups.map(&:documents)
   end
 
+  test "only indexes published collections" do
+    refute create(:unpublished_document_collection).can_index_in_search?
+    assert create(:published_document_collection).can_index_in_search?
+  end
+
   test 'indexes the title as title' do
     collection = create(:document_collection, title: 'a title')
     assert_equal 'a title', collection.search_index['title']
-  end
-
-  test "includes slug in search index data" do
-    collection = create(:document_collection, title: "Coffee for the win")
-    assert_equal 'coffee-for-the-win', collection.search_index['slug']
   end
 
   test 'indexes the full URL to the collection show page as link' do

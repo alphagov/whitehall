@@ -20,12 +20,6 @@ class DocumentCollection < Edition
 
   add_trait ClonesGroupsTrait
 
-  searchable title:       :title,
-             slug:        :slug,
-             link:        :search_link,
-             content:     :indexable_content,
-             description: :summary
-
   def search_link
     Whitehall.url_maker.public_document_path(self)
   end
