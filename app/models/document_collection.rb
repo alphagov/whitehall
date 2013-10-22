@@ -20,6 +20,10 @@ class DocumentCollection < Edition
 
   add_trait ClonesGroupsTrait
 
+  def search_index
+    super.merge("slug" => slug)
+  end
+
   def search_link
     Whitehall.url_maker.public_document_path(self)
   end
