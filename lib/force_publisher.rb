@@ -19,7 +19,7 @@ class ForcePublisher
           reporter.failure(edition, 'Edition is nil')
         else
           # TODO: Should we be able to force publish without a reason?
-          publisher = EditionForcePublisher.new(edition, user, 'Data fix?')
+          publisher = EditionForcePublisher.new(edition, user: user, reason: 'Data fix?')
           if !publisher.can_perform?
             reporter.failure(edition, publisher.failure_reason)
           else

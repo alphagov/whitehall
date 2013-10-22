@@ -2,13 +2,11 @@ class EditionForcePublisher < EditionPublisher
 
   def perform!
     if can_perform?
-      edition.force_published = true
-      edition.access_limited  = false
-      set_publishing_timestamps
-      edition.increment_version_number
+      prepare_edition
       edition.force_publish!
       edition.archive_previous_editions!
       edition.editorial_remarks.create(body: "Force published: #{force_publish_reason}", author: user)
+      subscribers.each { |subscriber| subscriber.edition_published(edition, options) }
       true
     end
   end
@@ -24,6 +22,11 @@ class EditionForcePublisher < EditionPublisher
   end
 
 private
+
+  def prepare_edition
+    edition.force_published = true
+    super
+  end
 
   def force_publish_reason
     options[:reason]
