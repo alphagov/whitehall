@@ -1,5 +1,5 @@
 module JavascriptHelper
-  def initialise_script(script_name, params = {})
-    content_for :javascript_initialisers, raw("GOVUK.init(#{script_name}, #{params.to_json})");
+  def initialise_script(constructor_or_singleton_name, params = {})
+    content_for :javascript_initialisers, raw("GOVUK.init(#{constructor_or_singleton_name}, #{params.to_json})");
   end
 end

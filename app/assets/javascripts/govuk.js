@@ -6,22 +6,26 @@
 
   window.GOVUK.init = function init(object, params) {
     if (typeof(object) == 'function') {
-      return init_constructor(object, params);
+      return initConstructor(object, params);
     }
     else {
-      return init_singleton(object, params);
+      return initSingleton(object, params);
     }
 
-    function init_constructor(constructor, params) {
-      GOVUK.instances[constructor.name] = GOVUK.instances[constructor.name] || [];
+    function initConstructor(constructor, params) {
       var instance = new constructor(params);
-      GOVUK.instances[constructor.name].push(instance);
+      storeReferenceToInstance(instance);
       return instance;
     }
 
-    function init_singleton(singleton, params) {
+    function initSingleton(singleton, params) {
       singleton.init(params);
       return singleton;
+    }
+
+    function storeReferenceToInstance(instance) {
+      GOVUK.instances[instance.constructor.name] = GOVUK.instances[instance.constructor.name] || [];
+      GOVUK.instances[instance.constructor.name].push(instance);
     }
   }
 })(jQuery);

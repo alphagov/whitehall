@@ -209,7 +209,7 @@ Defining the constructor in the wrapper function's scope, then assigning it to t
 
 Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].
 
-In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile and debug.
+In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile and debug.  Anonymous functions don't report a name to profilers, stack traces and when calling arguments.callee.caller, etc.
 
 bad:
 
