@@ -6,12 +6,12 @@
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: "embedded") do %>
   <div class="attachment-thumb">
-    <%= link_to attachment.url, attachment_link_options.merge({ class: 'thumbnail' }) do %>
+    <%= link_to attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }) do %>
       <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
     <% end %>
   </div>
   <div class="attachment-details">
-    <h3 class="title"><%= link_to attachment.title, attachment.url, attachment_link_options %></h3>
+    <h3 class="title"><%= link_to attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h3>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>

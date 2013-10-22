@@ -86,3 +86,16 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
   assert page.has_no_selector?(".flash.alert")
   assert page.has_content?(attachment_title)
 end
+
+Given(/^the publication "(.*?)" has an html attachment "(.*?)" with the body "(.*?)"$/) do |publication_title, attachment_title, attachment_body|
+  publication = Publication.find_by_title(publication_title)
+  create(:html_attachment, attachable: publication, title: attachment_title, body: attachment_body)
+end
+
+When(/^I preview the attachment "(.*?)"$/) do |attachment_title|
+  click_on attachment_title
+end
+
+Then(/^I should see the html attachment body "(.*?)"$/) do |attachment_body|
+  assert page.has_content?(attachment_body)
+end

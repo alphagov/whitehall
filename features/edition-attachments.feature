@@ -37,3 +37,11 @@ Feature: Managing attachments on editions
     When I go to the outcome for the consultation "Should We Ban Beards"
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
     Then the outcome for the consultation should have the attachment "Beard Length Statistics 2014"
+
+  Scenario: Previewing HTML attachments on draft publication
+    Given I am a writer
+    And a draft publication "Standard Beard Lengths" exists
+    And the publication "Standard Beard Lengths" has an html attachment "Beard Length Graphs 2012" with the body "Example Govspeak body"
+    When I preview "Standard Beard Lengths"
+    And I preview the attachment "Beard Length Graphs 2012"
+    Then I should see the html attachment body "Example Govspeak body"

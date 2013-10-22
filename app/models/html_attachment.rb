@@ -25,14 +25,16 @@ class HtmlAttachment < Attachment
     'text/html'
   end
 
-  def url
+  def url(options = {})
+    options[:preview] = id if options.delete(:preview)
+
     path_helper = case attachable
                   when Consultation
                     :consultation_html_attachment_path
                   else
                     :publication_html_attachment_path
                   end
-    Rails.application.routes.url_helpers.send(path_helper, attachable.slug, self)
+    Rails.application.routes.url_helpers.send(path_helper, attachable.slug, self, options)
   end
 
   def extracted_text
