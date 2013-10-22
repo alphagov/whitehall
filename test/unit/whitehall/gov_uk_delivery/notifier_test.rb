@@ -10,6 +10,22 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier_for(edition).notification_date
   end
 
+  test 'Notifier.edition_published notifies when edition supports gov delivery notifications' do
+    edition =  Publication.new
+    notifier = stub('notifier')
+
+    notifier.expects(:edition_published!)
+    Whitehall::GovUkDelivery::Notifier.expects(:new).with(edition).returns(notifier)
+
+    Whitehall::GovUkDelivery::Notifier.edition_published(edition, {})
+  end
+
+  test 'Notifier.edition_published does not notify if edition does not support gov delivery notifications' do
+    edition =  CaseStudy.new
+    Whitehall::GovUkDelivery::Notifier.expects(:new).never
+    Whitehall::GovUkDelivery::Notifier.edition_published(edition, {})
+  end
+
   test '#edition_published! will route the edition to govuk delivery if it is not relevant to local government' do
     edition = build(:edition, relevant_to_local_government: false, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns true
@@ -74,5 +90,4 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
   end
-
 end
