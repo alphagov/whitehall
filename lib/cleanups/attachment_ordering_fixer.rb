@@ -87,13 +87,23 @@ class AttachmentOrderingFixer
       hash[a.attachment_data.replaced_by_id] = a if a.attachment_data.replaced_by_id
     end
 
+    new_attachments_to_put_at_the_end = []
+    highest_seen_ordering = nil
     edition.attachments.each do |attachment|
       matching_attachment_from_previous_edition = old_attachments_by_attachment_data_id[attachment.attachment_data_id]
 
       if matching_attachment_from_previous_edition
         logger.info "-- #{attachment.id} #{matching_attachment_from_previous_edition.ordering}->#{attachment.ordering}->#{matching_attachment_from_previous_edition.ordering}"
         attachment.update_column(:ordering, matching_attachment_from_previous_edition.ordering)
+        highest_seen_ordering ||= matching_attachment_from_previous_edition.ordering
+        highest_seen_ordering = [highest_seen_ordering, matching_attachment_from_previous_edition.ordering].max
+      else
+        new_attachments_to_put_at_the_end << attachment
       end
+    end
+
+    new_attachments_to_put_at_the_end.each.with_index do |attachment, i|
+      attachment.update_column(:ordering, highest_seen_ordering + i + 1)
     end
   end
 end
