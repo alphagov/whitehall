@@ -118,11 +118,13 @@
   </div>
 
 
-  <div class="block">
+  <div class="block heading-block">
     <div class="inner-block">
       <% if @classification.lead_organisations.any? %>
-        <section id="organisations" class="heading-block organisations">
-          <h1 class="label">Who&rsquo;s involved</h1>
+        <section id="organisations" class="organisations">
+          <div class="head-section">
+            <h1 class="label">Who&rsquo;s involved</h1>
+          </div>
           <div class="content">
             <ul>
               <% @classification.lead_organisations.each do |organisation| %>

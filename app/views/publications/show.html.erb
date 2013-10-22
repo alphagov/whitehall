@@ -18,17 +18,19 @@
     </div>
   </div>
 
-  <div class="block-2">
+  <div class="block-2 heading-block">
     <div class="inner-block">
       <%= render partial: "documents/attachment_full_width",
                  locals: { document: @document, external: @document.external? } %>
     </div>
   </div>
 
-  <div class="block-3">
+  <div class="block-3 heading-block">
     <div class="inner-block">
-      <section id="details" class="heading-block">
-        <h1><%= t('publications.headings.detail') %></h1>
+      <section id="details">
+        <div class="head-section">
+          <h1><%= t('publications.headings.detail') %></h1>
+        </div>
         <div class="content">
           <article>
             <div class="body">

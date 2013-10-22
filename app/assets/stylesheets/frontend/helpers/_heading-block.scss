@@ -1,21 +1,37 @@
 
 .heading-block {
-  margin-bottom: $gutter;
   @extend %contain-floats;
+  clear: both;
+  margin-bottom: $gutter;
 
   h1 {
     @include ig-core-27;
     font-weight: bold;
+  }
 
+  .inner-block {
+    padding: 0 $gutter-half;
+  }
+
+  section {
+    @extend %contain-floats;
+    margin-bottom: $gutter;
+  }
+
+  .head-section { 
     @include media(tablet){
+      h1 {
+        padding: 0 $gutter-half;        
+      }
       float: left;
       clear: both;
       width: 33.3%;
       @include right-to-left {
         float: right;
       }
-    }
+    }     
   }
+
   .content {
     @include media(tablet){
       float: right;
@@ -38,7 +54,7 @@
 
     .document-list {
       @include media(tablet){
-        padding-left: $gutter-half;
+        padding: 0 $gutter-half;
         margin-top: -$gutter-one-third;
       }
     }

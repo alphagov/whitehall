@@ -43,11 +43,12 @@
 
 
   <% if @recently_updated.present? %>
-    <div class="block-5">
+    <div class="block-5 heading-block">
       <div class="inner-block">
-        <section id="recently-updated" class="heading-block latest-documents">
-          <h1>Mentions on GOV.UK</h1>
-
+        <section id="recently-updated" class="latest-documents">
+          <div class="head-section">
+            <h1>Mentions on GOV.UK</h1>
+          </div>
           <div class="content">
             <%= render partial: "shared/recently_updated_documents", locals: {recently_updated: @recently_updated} %>
           </div>
