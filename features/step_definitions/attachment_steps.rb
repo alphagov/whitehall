@@ -1,4 +1,3 @@
-
 When(/^I make unsaved changes to the news article$/) do
   @news_article = NewsArticle.last
   visit edit_admin_news_article_path(@news_article)
