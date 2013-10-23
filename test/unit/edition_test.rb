@@ -448,33 +448,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
   end
 
-  test "should add edition to search index on publishing" do
-    policy = create(:submitted_policy)
-
-    Searchable::Index.expects(:later).with(policy)
-
-    EditionPublisher.new(policy).perform!
-  end
-
-  test "swallows errors from search index on publishing" do
-    policy = create(:submitted_policy)
-
-    Searchable::Index.stubs(:later).raises(RuntimeError, 'Problem?')
-
-    assert_nothing_raised { EditionPublisher.new(policy).perform! }
-  end
-
-  test "should not remove edition from search index when a new edition is published" do
-    policy = create(:published_policy)
-
-    new_edition = policy.create_draft(create(:policy_writer))
-    new_edition.change_note = "change-note"
-
-    Searchable::Delete.expects(:later).with(policy).never
-
-    force_publish(new_edition)
-  end
-
   test "should not remove edition from search index when a new draft of a published edition is deleted" do
     policy = create(:published_policy)
     new_draft_policy = policy.create_draft(create(:policy_writer))
