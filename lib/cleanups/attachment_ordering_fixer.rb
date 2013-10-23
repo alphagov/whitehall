@@ -15,25 +15,35 @@ class AttachmentOrderingFixer
 
   def run!
     Document.find_each do |doc|
-      next unless doc.latest_edition.try(:allows_attachments?)
-      next if manually_ordered?(doc)
+      unless doc.latest_edition.try(:allows_attachments?)
+        logger.info "Skipping #{doc.id} because it does not allow attachments"
+        next
+      end
+      if manually_ordered_edition = manually_ordered?(doc)
+        logger.info "Skipping #{doc.id} because #{manually_ordered_edition.id} was manually ordered"
+        next
+      end
 
-      last_known_good_edition = nil
-      doc.editions.order(:id).each do |edition|
-        if created_before_polymorphic_attachments_code_deployed?(edition)
-          logger.info "#{edition.class}##{edition.id} - created before #{polymorphic_attachments_code_deployed_at}, using attachment IDs"
-          fix_ordering_using_attachment_ids(edition)
-          last_known_good_edition = edition
-        elsif was_first_edition_after_polymorphic_attachments_code_deployed?(doc, edition) && created_before_timestamp_ordering_fix?(edition)
-          logger.info "#{edition.class}##{edition.id} - first edition after #{polymorphic_attachments_code_deployed_at}, using attachment IDs"
-          fix_ordering_using_attachment_ids(edition)
-          last_known_good_edition = edition
-        elsif last_known_good_edition.nil?
-          logger.info "Skipping #{edition.class}##{edition.id} because no last known good edition - CHECK INTEGRITY - Major: #{edition.published_major_version} Minor: #{edition.published_minor_version}"
-        else
-          logger.info "#{edition.class}##{edition.id} - 2+ editions after #{polymorphic_attachments_code_deployed_at}, fixing with last known good edition"
-          fix_ordering_using_last_known_good_edition(last_known_good_edition, edition)
-        end
+      fix(doc)
+    end
+  end
+
+  def fix(doc)
+    last_known_good_edition = nil
+    doc.editions.order(:id).each do |edition|
+      if created_before_polymorphic_attachments_code_deployed?(edition)
+        logger.info "#{edition.class}##{edition.id} - created before #{polymorphic_attachments_code_deployed_at}, using attachment IDs"
+        fix_ordering_using_attachment_ids(edition)
+        last_known_good_edition = edition
+      elsif was_first_edition_after_polymorphic_attachments_code_deployed?(doc, edition) && created_before_timestamp_ordering_fix?(edition)
+        logger.info "#{edition.class}##{edition.id} - first edition after #{polymorphic_attachments_code_deployed_at}, using attachment IDs"
+        fix_ordering_using_attachment_ids(edition)
+        last_known_good_edition = edition
+      elsif last_known_good_edition.nil?
+        logger.info "Skipping #{edition.class}##{edition.id} because no last known good edition - CHECK INTEGRITY - Major: #{edition.published_major_version} Minor: #{edition.published_minor_version}"
+      else
+        logger.info "#{edition.class}##{edition.id} - 2+ editions after #{polymorphic_attachments_code_deployed_at}, fixing with last known good edition"
+        fix_ordering_using_last_known_good_edition(last_known_good_edition, edition)
       end
     end
   end
@@ -102,8 +112,11 @@ class AttachmentOrderingFixer
       end
     end
 
+    highest_seen_ordering ||= 0
     new_attachments_to_put_at_the_end.each.with_index do |attachment, i|
-      attachment.update_column(:ordering, highest_seen_ordering + i + 1)
+      new_ordering = highest_seen_ordering + i + 1
+      logger.info "-- #{attachment.id} NEW->#{attachment.ordering}->#{new_ordering}"
+      attachment.update_column(:ordering, new_ordering)
     end
   end
 end
