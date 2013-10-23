@@ -21,7 +21,7 @@
 
 Manually number your headings as appropriate using the above numbering scheme.</pre>
     </div>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, class: "previewable" %>
   <% end %>
 
   <%= hidden_field_tag :html, params[:html] %>
