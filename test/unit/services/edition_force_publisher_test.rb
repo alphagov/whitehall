@@ -51,6 +51,10 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::AuthorNotifier)
   end
 
+  test 'by default, subscribers include Edition::SearchIndexer' do
+    assert EditionPublisher.new(Edition.new).subscribers.include?(Edition::SearchIndexer)
+  end
+
   test 'by default, subscribers include Whitehall::GovUkDelivery::Notifier' do
     assert EditionForcePublisher.new(Edition.new).subscribers.include?(Whitehall::GovUkDelivery::Notifier)
   end
