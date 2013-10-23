@@ -38,5 +38,6 @@ class HtmlAttachment < Attachment
   end
 
   def extracted_text
+    Govspeak::Document.new(body).to_text
   end
 end
