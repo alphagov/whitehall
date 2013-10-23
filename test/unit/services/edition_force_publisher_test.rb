@@ -2,26 +2,21 @@ require 'test_helper'
 
 class EditionForcePublisherTest < ActiveSupport::TestCase
 
-  test '#perform! with a valid submitted edition force publishes the edition, setting timestamps, version and editorial remark' do
+  test '#perform! with a valid submitted edition force publishes the edition, setting timestamps' do
     edition              = create(:draft_edition)
     user                 = edition.authors.first
     force_publish_reason = 'Urgent change to the document'
     publisher            = EditionForcePublisher.new(edition, user: user, reason: force_publish_reason)
 
     assert publisher.perform!
-    assert edition.published?
+    assert_equal :published, edition.current_state
+    assert edition.force_published?
     assert_equal Time.zone.now.to_i, edition.major_change_published_at.to_i
     assert_equal Time.zone.now.to_i, edition.first_published_at.to_i
     assert_equal '1.0', edition.published_version
-
-    assert edition.force_published?
-
-    assert remark = edition.editorial_remarks.last
-    assert_equal "Force published: #{force_publish_reason}", remark.body
-    assert_equal user, remark.author
   end
 
-  test '#perform! when no reason for force publishing is given refuses to publish' do
+  test '#perform! without a force publishing reason fails' do
     edition              = create(:draft_edition)
     publisher            = EditionForcePublisher.new(edition, user: edition.creator, reason: '')
 
@@ -52,7 +47,11 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
   end
 
   test 'by default, subscribers include Edition::SearchIndexer' do
-    assert EditionPublisher.new(Edition.new).subscribers.include?(Edition::SearchIndexer)
+    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::SearchIndexer)
+  end
+
+  test 'by default, subscribers include Edition::ForcePublishLogger' do
+    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::ForcePublishLogger)
   end
 
   test 'by default, subscribers include Whitehall::GovUkDelivery::Notifier' do
