@@ -40,4 +40,8 @@ class HtmlAttachment < Attachment
   def extracted_text
     Govspeak::Document.new(body).to_text
   end
+
+  def should_generate_new_friendly_id?
+    slug.nil? || attachable.nil? || !attachable.document.published?
+  end
 end
