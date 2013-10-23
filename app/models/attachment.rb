@@ -9,7 +9,7 @@ class Attachment < ActiveRecord::Base
     :number_of_pages, :file, :filename, :virus_status,
     to: :attachment_data
 
-  after_destroy :destroy_attachment_data_if_required
+  after_destroy :destroy_unused_attachment_data
 
   accepts_nested_attributes_for :attachment_data
 
@@ -77,8 +77,10 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  def destroy_attachment_data_if_required
-    unless Attachment.where(attachment_data_id: attachment_data.id).any?
+  # Only destroy the associated attachment_data record if no other
+  # attachments are using it
+  def destroy_unused_attachment_data
+    if attachment_data && Attachment.where(attachment_data_id: attachment_data.id).empty?
       attachment_data.destroy
     end
   end
