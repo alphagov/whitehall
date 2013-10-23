@@ -66,7 +66,7 @@ module Admin::EditionActionsHelper
   end
 
   def delete_edition_button(edition)
-    button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the document?", class: "btn btn-danger"
+    button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to discard this draft?", class: "btn btn-danger"
   end
 
   def unpublish_edition_button(edition)
