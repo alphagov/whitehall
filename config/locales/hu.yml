@@ -317,12 +317,14 @@ hu:
       foi_releases: Információhoz való joggal kapcsolatos közlemények
       jobs_and_contacts: Állások
       transparency: Átláthatósági adatok
+    foi_exemption_html:
     headings:
       chief_professional_officers: Szakmai vezetőink
       contact: ! 'Kapcsolat felvétele: %{name}'
       corporate_information: Szervezeti információk
       corporate_reports: Testületi beszámolók
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Híreink
       our_consultations:

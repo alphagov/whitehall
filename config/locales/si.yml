@@ -231,12 +231,14 @@ si:
       foi_releases: එෆ්.ඔ.ඉ. තොරතුරු
       jobs_and_contacts: රැකියා සහ කොන්තරාත්තු
       transparency: විනිවිධභාවයේ දත්ත
+    foi_exemption_html:
     headings:
       chief_professional_officers: අපේ ප්‍රධාන වෘත්තීය නිලධාරීන්
       contact: විස්තර %{name}
       corporate_information: සංවිධානයේ තොරතුරු
       corporate_reports: සංවිධානයේ වාර්තා
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: අපේ නිවේදන
       our_consultations:

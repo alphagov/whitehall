@@ -357,12 +357,14 @@ be:
       foi_releases: Рэлізы ў межах Закона аб свабодзе інфармацыі
       jobs_and_contacts: Праца і кантакты
       transparency: Адкрытыя дадзеныя
+    foi_exemption_html:
     headings:
       chief_professional_officers: Нашы галоўныя прафесійныя афіцэры
       contact: Звязацца з %{name}
       corporate_information: Карпаратыўная інфармацыя
       corporate_reports: Карпаратыўныя справаздачы
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Нашы абвесткі
       our_consultations:

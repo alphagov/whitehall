@@ -229,12 +229,14 @@ ur:
       foi_releases: آزادئی معلومات کی اشاعتیں
       jobs_and_contacts: ملازمتیں اورکنٹریکٹس
       transparency: ٹرانسپیرنسی ڈیٹا
+    foi_exemption_html:
     headings:
       chief_professional_officers: ہمارے چیف پروفیشنل افسران
       contact: رابطہ %{name}
       corporate_information: کارپوریٹ معلومات
       corporate_reports: کارپوریٹ رپورٹس
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: ہمارے اعلانات
       our_consultations:

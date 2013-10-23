@@ -176,7 +176,7 @@ Then /^I see the new FOI contact listed on the home page(?: only once,)? in the 
     assert page.has_no_css?("div.contact h2", text: @the_new_foi_contact.title)
   end
 
-  within '#foi-contacts .org-contacts' do
+  within '#freedom-of-information .org-contacts' do
     assert page.has_css?("div.contact h2", text: @the_new_foi_contact.title)
   end
 end

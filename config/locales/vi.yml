@@ -317,12 +317,14 @@ vi:
       foi_releases: Tuyên bố FOI
       jobs_and_contacts: Việc làm và hợp đồng
       transparency: Minh bạch dữ liệu
+    foi_exemption_html:
     headings:
       chief_professional_officers: Các cán bộ phụ trách chuyên môn của chúng tôi
       contact: Liên lạc %{name}
       corporate_information: Thông tin về phòng tổng hợp
       corporate_reports: Các báo cáo của phòng tổng hợp
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Các thông báo của chúng tôi
       our_consultations:

@@ -357,12 +357,14 @@ ru:
       foi_releases: ! 'Свобода распространения информации '
       jobs_and_contacts: Рабочие места и контракты
       transparency: Данные о прозрачности
+    foi_exemption_html:
     headings:
       chief_professional_officers: Наши главные профессиональные служащие
       contact: Обратиться к %{name}
       corporate_information: Корпоративная информация
       corporate_reports: Корпоративные отчеты
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Наши объявления
       our_consultations:

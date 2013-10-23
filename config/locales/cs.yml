@@ -293,12 +293,14 @@ cs:
       foi_releases: Svoboda přístupu k informacím
       jobs_and_contacts: Pracovní příležitosti
       transparency: ! 'Data '
+    foi_exemption_html:
     headings:
       chief_professional_officers: Naše vedení
       contact: Kontakt %{name}
       corporate_information: Korporátní informace
       corporate_reports: Korporátní zprávy
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Naše prohlášení
       our_consultations:

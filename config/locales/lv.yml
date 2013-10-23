@@ -229,12 +229,14 @@ lv:
       foi_releases: Informācijas atklātības (FOI) paziņojumi
       jobs_and_contacts: Darbs un līgumi
       transparency: Atklātība
+    foi_exemption_html:
     headings:
       chief_professional_officers: Mūsu atbildīgie speciālisti
       contact: Sazināties %{name}
       corporate_information: Korporatīva informācija
       corporate_reports: Korporatīvi ziņojumi
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Mūsu paziņojumi
       our_consultations:

@@ -229,12 +229,14 @@ es-419:
       foi_releases: Presentación de FOI
       jobs_and_contacts: Empleos y contratos
       transparency: Datos de transparencia
+    foi_exemption_html:
     headings:
       chief_professional_officers: Nuestros oficiales profesionales en jefe
       contact: Comuníquese con %{name}
       corporate_information: Información institucional
       corporate_reports: Reportes institucionales
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Nuestras novedades
       our_consultations:

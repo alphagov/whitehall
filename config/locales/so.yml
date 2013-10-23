@@ -229,12 +229,14 @@ so:
       foi_releases: FOI la sii daayey
       jobs_and_contacts: Shaqaayin iyo qandaraasyo
       transparency: Xog daahfurnaan
+    foi_exemption_html:
     headings:
       chief_professional_officers: Saraakiisheena xirfadlayaasha ah ee ugu waaweyn
       contact: La soo xiriir %{name}
       corporate_information: Macluumaad ku saabsan hay'ad
       corporate_reports: Warbixinno ku saabsan hay'ad
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Ogeysiisyadeenna
       our_consultations:

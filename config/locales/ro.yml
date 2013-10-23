@@ -294,12 +294,14 @@ ro:
       foi_releases: ! 'Informații cu caracter public '
       jobs_and_contacts: ! 'Oportunități de angajare '
       transparency:
+    foi_exemption_html:
     headings:
       chief_professional_officers:
       contact: Contactează-ne  %{name}
       corporate_information: Informaţii despre ambasadă
       corporate_reports: ! 'Rapoarte de management '
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: ! 'Știri '
       our_consultations:

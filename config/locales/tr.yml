@@ -316,12 +316,14 @@ tr:
       foi_releases: Bilgi Edinme Hakkı Raporu
       jobs_and_contacts: İş ve sözleşmeler
       transparency: Veri saydamlığı
+    foi_exemption_html:
     headings:
       chief_professional_officers: ! 'Üst düzey uzman '
       contact: İletişim %{name}
       corporate_information: Kurumsal bilgi
       corporate_reports: Kurumsal raporlar
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: ! 'Duyurular '
       our_consultations:

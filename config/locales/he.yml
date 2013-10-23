@@ -357,12 +357,14 @@ he:
       foi_releases: שוחרר תחת חופש המידע
       jobs_and_contacts: עבודות וחוזים
       transparency: מידע נגיש
+    foi_exemption_html:
     headings:
       chief_professional_officers: אנשי המקצוע הבכירים שלנו
       contact: חוזה %{name}
       corporate_information: מידע מסחרי
       corporate_reports: דו"חות מסחריים
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: ההודעות שלנו
       our_consultations:

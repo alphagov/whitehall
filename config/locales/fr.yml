@@ -229,12 +229,14 @@ fr:
       foi_releases: Communiqués Freedom of Information
       jobs_and_contacts: Emploi et contrats
       transparency: Données de transparence
+    foi_exemption_html:
     headings:
       chief_professional_officers: Nos responsables administratifs
       contact: Contacter %{name}
       corporate_information: Informations générales
       corporate_reports: Rapports d'activité
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: Nos actualités
       our_consultations:

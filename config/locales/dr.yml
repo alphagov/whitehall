@@ -229,12 +229,14 @@ dr:
       foi_releases: نشریه های آزادی بیان
       jobs_and_contacts: وظایف و قرارداد ها
       transparency: معلومات شفافیت
+    foi_exemption_html:
     headings:
       chief_professional_officers: مدیران مسلکی ارشد ما
       contact: تماس %{name}
       corporate_information: معلومات یکی شده
       corporate_reports: گزارش های یکی شده
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: اعلانات ما
       our_consultations:

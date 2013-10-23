@@ -405,6 +405,7 @@ en:
       corporate_information: Corporate information
       corporate_reports: Corporate reports
       making_foi_requests: Make an FOI request
+      freedom_of_information_act: Freedom of Information (FOI) Act
       documents: Documents
     corporate_information:
       access_our_info: Access our information
@@ -418,6 +419,9 @@ en:
       step1_html: Read about the Freedom of Information (FOI) Act and <a href="%{how_to_path}">how to make a request</a>
       step2_html: Check <a href="%{our_releases_path}">our previous releases</a> to see if we’ve already answered your question
       step3_html: "Make a new request by contacting us at:"
+    foi_exemption_html: |
+      This organisation is not covered by the Freedom of Information Act.
+      To see which organisations are included, see <a href="%{foi_url}">the legislation</a>.
   announcements:
     heading: Announcements
     view_all: View all announcements

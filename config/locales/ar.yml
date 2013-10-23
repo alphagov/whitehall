@@ -485,12 +485,14 @@ ar:
       foi_releases: إصدارات حرية الحصول على المعلومات
       jobs_and_contacts: الوظائف والعقود
       transparency: بيانات تتعلق بالشفافية
+    foi_exemption_html:
     headings:
       chief_professional_officers: كبار المسؤولين المحترفين لدينا
       contact: اتصل بـ%{name}
       corporate_information: معلومات عن الوزارة
       corporate_reports: تقارير الوزارة
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: إعلاناتنا
       our_consultations:

@@ -316,12 +316,14 @@ fa:
       foi_releases: انتشار آزاد اطلاعات
       jobs_and_contacts: مشاغل و قراردادها
       transparency: داده های شفاف سازی
+    foi_exemption_html:
     headings:
       chief_professional_officers: افسران ارشد حرفه ای ما
       contact: تماس با %{name}
       corporate_information: اطلاعات سازمانی
       corporate_reports: گزارش های سازمانی
       documents:
+      freedom_of_information_act:
       making_foi_requests:
       our_announcements: اطلاعیه های ما
       our_consultations:
