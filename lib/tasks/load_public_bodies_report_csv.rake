@@ -23,12 +23,13 @@ def clean_yes_no(raw_boolean)
 end
 
 namespace :public_bodies do
+  desc "Import Public Bodies report data from CSV"
   task :import, [:filename, :year] => :environment do |_, args|
     csv = CSV.open(args[:filename], { :headers => :first_row })
       .map{ |body| body}
 
     Organisation.all.each do |organisation|
-      if organisation.non_departmental_public_body?
+      if organisation.type.non_departmental_public_body?
         csv_body = csv.find { |body| body["Name"] == organisation.name }
         unless csv_body.nil?
           raw_spending = csv_body["Total Gross Expenditure"]
@@ -57,6 +58,7 @@ namespace :public_bodies do
           end
 
           organisation.save
+          puts "Organisation #{organisation.name} updated with figures for #{args[:year]}"
         end
       end
     end
