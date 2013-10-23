@@ -25,4 +25,10 @@ class Edition::SearchIndexerTest < ActiveSupport::TestCase
 
     Edition::SearchIndexer.edition_published(policy)
   end
+
+  test '#edition_published re-indexes a policies related editions' do
+    policy = create(:published_policy)
+    PolicySearchIndexObserver::ReindexRelatedEditions.expects(:later).with(policy)
+    Edition::SearchIndexer.edition_published(policy)
+  end
 end
