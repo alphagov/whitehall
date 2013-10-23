@@ -63,11 +63,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def publish
-    if @edition.perform_publish
-      notify_users_of_edition_publishing
+    edition_publisher = EditionPublisher.new(@edition)
+    if edition_publisher.perform!
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
   end
 
@@ -75,12 +75,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def force_publish
-    if @edition.perform_force_publish
-      notify_users_of_edition_publishing
-      @edition.editorial_remarks.create(body: "Force published: #{params[:reason]}", author: current_user)
+    edition_publisher = EditionForcePublisher.new(@edition, user: current_user, reason: params[:reason])
+    if edition_publisher.perform!
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
   end
 
@@ -131,12 +130,6 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def ensure_reason_given_for_force_publishing
     if params[:reason].blank?
       redirect_to admin_edition_path(@edition), alert: "You cannot force publish a document without a reason"
-    end
-  end
-
-  def notify_users_of_edition_publishing
-    users_to_notify(@edition).each do |user|
-      Notifications.edition_published(user, @edition, admin_edition_url(@edition), public_document_url(@edition)).deliver
     end
   end
 

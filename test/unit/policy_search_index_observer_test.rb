@@ -1,14 +1,6 @@
 require 'test_helper'
 
 class PolicySearchIndexObserverTest < ActiveSupport::TestCase
-  test 'after publishing a policy, it requests to reindex all related editions for that policy later' do
-    policy = create(:submitted_policy)
-
-    PolicySearchIndexObserver::ReindexRelatedEditions.expects(:later).with(policy)
-
-    policy.perform_publish
-  end
-
   test 'after unpublishing a policy, it requests to reindex all related editions for that policy later' do
     policy = create(:published_policy)
 

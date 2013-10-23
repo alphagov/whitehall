@@ -6,7 +6,7 @@ Given /^a published publication that's part of the "([^"]*)" document collection
   draft = create(:draft_publication)
   document_collection = DocumentCollection.find_by_title!(document_collection_title)
   document_collection.groups.first.documents << draft.document
-  draft.perform_force_publish
+  force_publish(draft)
 end
 
 Given /^a published statistical data set "([^"]*)" that's part of the "([^"]*)" document collection$/ do |data_set_title, document_collection_title|

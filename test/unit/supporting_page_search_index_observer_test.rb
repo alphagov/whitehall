@@ -1,18 +1,6 @@
 require 'test_helper'
 
 class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
-  test 'should add supporting page to search index when its edition is published' do
-    policy = create(:submitted_policy)
-    supporting_page = create(:supporting_page, edition: policy)
-
-    policy.stubs(:supporting_pages).returns([supporting_page])
-    ignore_addition_of_policy_to_search_index(policy)
-
-    Searchable::Index.expects(:later).with(supporting_page)
-
-    policy.perform_publish
-  end
-
   test 'should remove supporting page from search index when its edition is unpublished' do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
@@ -34,7 +22,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     new_edition = policy.create_draft(create(:policy_writer))
     new_edition.reload # because each supporting page touches the new edition as it's copied over
     new_edition.change_note = "change-note"
-    new_edition.perform_force_publish
+    force_publish(new_edition)
   end
 
   private
