@@ -10,7 +10,7 @@ class EditionPublisher
   def perform!
     if can_perform?
       prepare_edition
-      edition.publish!
+      fire_transition!
       edition.archive_previous_editions!
       subscribers.each { |subscriber| subscriber.edition_published(edition, options) }
       true
@@ -42,5 +42,9 @@ private
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
     edition.increment_version_number
+  end
+
+  def fire_transition!
+    edition.publish!
   end
 end
