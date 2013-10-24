@@ -180,7 +180,7 @@ fieldset.fatality-notice-casualties {
     font-weight: bold;
   }
 }
-.title-length-input, .summary-length-input.warning:focus {
+.title-length-input:focus, .summary-length-input.warning:focus {
   border-color: #A47E3C;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(236, 187, 82, 0.6);
