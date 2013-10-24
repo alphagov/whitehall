@@ -26,11 +26,19 @@ Within the frontend folder the basic structure of the files looks like:
     ./styleguide/
 
 
-The `base.scss` is the file that will be compiled with Sass. All other files should be referenced from it in the relevant sections. The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
+The `base.scss` is the file that will be compiled with Sass.
+All other files should be referenced from it in the relevant sections.
+The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
+
+Tech-debt creep in CSS is usually an symptom of a lack of confidence in changing or removing existing CSS. By structuring CSS in this way, we are clearly communicating the scope of that CSS.
 
 #### `./helpers`
 
-These are blocks of Sass which usually match a rails partial. They are used to style singular blocks which appear on multiple pages around the site. The name of the file should match the single selector inside the file and everything else should be nested under that selector. For example if you had a partial to display a document table you would have the following helper:
+Helpers are blocks of Sass which match a reusable markup pattern, the markup for which is often represented in a Rails partial.
+They are used to style singular blocks which appear on multiple pages around the site.
+
+The name of the file should match the single selector inside the file and everything else should be nested under that selector,
+for example if you had a partial to display a document table you would have the following helper:
 
 `_document_table.html.erb`:
 
@@ -49,7 +57,11 @@ These are blocks of Sass which usually match a rails partial. They are used to s
 
 #### `./views`
 
-These are where you style the layout of a page and any elements which will only appear in that one view. There should be one file in this directory for each controller. They should be named after the controller. The view for the controller should set the `page_class` in the form `{controller}-{action}`. For example for the views from `people_controller.rb`
+Views are where you style the layout of a page and any elements which will only appear in that controller.
+There should be one file in this directory for each controller, and should be named after the controller.
+
+The view for the controller should set the `page_class` in the form `{controller}-{action}`,
+for example for the views from `people_controller.rb`
 
 `people/index.html.erb`:
 
@@ -72,7 +84,6 @@ This contains the base html resets which remove most of the default styling a br
 #### `./layouts`
 
 There should be files in here for the views in `app/views/layouts`. They contain global page styling for things which appear on every page of the site. This includes any global navigation or global footers.
-
 
 #### `./styleguide`
 
@@ -142,33 +153,122 @@ The right to left support has been built the same way as the IE support. So that
 
 ## JavaScript
 
-We write testable JavaScript. That means you can write unit tests for all the logic in the JavaScript and have a fairly high degree of confidence that the JavaScript will do exactly what you expect it to.
+## Code style
 
-The standard wrapper for JavaScript files looks like:
+All code should be wrapped in a closure and should declare 'use strict'.  The GOVUK namespace should be setup in each file to promote portability.
 
-    (function () {
-      "use strict"
-      var root = this,
-          $ = root.jQuery;
+    (function() {
+      "use strict";
+      window.GOVUK = window.GOVUK || {}
 
-      if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
+      // stuff
+    }());
 
-      var myThing = {
-        methodToDoSometing: function(){
-          ...
+
+There are two patterns which can be employed in Whitehall, a singleton pattern and a constructor pattern and it's a case of choosing the right tool for the right job.
+
+### Singleton pattern
+
+Singletons should be defined as raw javascript hashes, and if required should do its initialisation in a function called init.
+
+    (function() {
+      "use strict";
+      window.GOVUK = window.GOVUK || {}
+
+      window.GOVUK.singletonThing = {
+        init: function init() {
+
         },
-        init: function(){
-          ...
-        }
+
+        anotherFunction: function anotherFunction() {
+
+        },
+
+        // etc.
       }
-      root.GOVUK.myThing = myThing;
-    }).call(this);
+    }());
 
-Using this format means you can write a unit test for `methodToDoSomething` by itself and check that it does exactly what you want it to do. Writing the same thing as a jQuery extension or as a clousured function means you couldn't then unit test the individual components.
+### Constructor pattern
 
-The init for your thing should then be called in `on_ready.js`. There are separate `on_ready.js` files for each of the admin and frontend.
+Constructors should follow the prototype pattern as follows:
 
-You should prefix any classes you wish your JavaScript to find with a [`js-` prefix][4]. This lets us easily see when refactoring code that there is some JavaScript behaviour associated to the object.
+    (function() {
+      "use strict";
+      window.GOVUK = window.GOVUK || {}
+
+      function TheThing(params) {
+        //some initialisation code
+      }
+
+      TheThing.prototype.someFunction = function someFunction() {
+        //do some stuff
+      };
+
+      GOVUK.TheThing = TheThing;
+    }());
+
+Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometimes helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
+
+Defining the constructor in the wrapper function's scope, then assigning it to the namespace improves readability by keeping names shorter.
+
+### Other style points
+
+Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].
+
+In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile and debug.  Anonymous functions don't report a name to profilers, stack traces and when calling arguments.callee.caller, etc.
+
+bad:
+
+    TheThing.prototype.someFunction = function() {
+      //do some stuff
+    };
+    new TheThing().someFunction.name;  //  ==> ''
+
+good:
+
+    TheThing.prototype.someFunction = function someFunction() {
+      //do some stuff
+    };
+    new TheThing().someFunction.name;  //  ==> 'someFunction'
+
+## File structure and namespacing
+
+Each javascript object should be stored in it's own file with a filename reflecting the object name. In the spirit of keeping things similar to the css, they should be stored in:
+
+    ./helpers/
+    ./frontend/views/
+    ./frontend/helpers/
+    ./admin/views/
+    ./admin/helpers/
+
+Views are view-specific scripts and as with the css, their file path & name should exactly mirror the view template or partial it applies to.
+
+Helpers are scripts which cannot be associated with any particular view.  These may be scripts which are loaded everywhere (such as the script which prevents forms from being submited twice), or may be scripts which apply to multiple different not-necessarily-related views.
+
+Namespaces should be kept simple and all constructors should be under 'GOVUK'. The javascript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces.
+
+## Script initialisation
+
+Scripts should be initialised with `GOVUK.init`:
+
+    GOVUK.init(GOVUK.SomeScript, {elem_selector: '.js-the-thing'});
+
+If the passed in object is a constructor, GOVUK.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `GOVUK.instances`.
+
+Otherwise, GOVUK.init will call init on the passed in hash, treating it as a singleton.
+
+Scripts should only be initialised when needed and should make use of the rails helper `initialise_script`:
+
+    #!erb
+    <% initialise_script "GOVUK.SomeView", selector: '.js-some-view' %>
+
+This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so itself.
+
+This initialise\_script line should be in the most appropriate template/partial for view scripts / view-specific helpers, and should be near the :javascript_initialisers yield in the applicable layout for site-wide helpers.
+
+## CSS selectors
+
+Scripts should only make use of css classes beginning with 'js-'. [This makes it completely transparent what the class is used for within the HTML][4].
 
 ### Styles
 
@@ -184,3 +284,4 @@ If you want to add styles to things with the knowledge that JavaScript is availa
 [2]: https://github.com/alphagov/static
 [3]: https://github.com/alphagov/govuk_frontend_toolkit
 [4]: https://github.com/alphagov/styleguides/blob/master/js.md#use-a-js--prefix-for-js-only-html-classes
+[5]: http://en.wikipedia.org/wiki/Connascence_%28computer_programming%29#Types_of_connascence

@@ -110,5 +110,6 @@
       </script>
     <% end %>
     <%= render_mustache_templates if Rails.env.development? %>
+    <%= javascript_tag(yield :javascript_initialisers) %>
   </body>
 </html>

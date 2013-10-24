@@ -14,6 +14,7 @@
 //= require templates
 //= require govuk_toolkit
 //
+//= require govuk
 //= require_tree ./common
 //= require_tree ./application
 //= require_tree ./admin

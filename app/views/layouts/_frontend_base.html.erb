@@ -32,5 +32,6 @@
       <%= yield %>
     </div>
     <%= javascript_include_tag "application" %>
+    <%= javascript_tag(yield :javascript_initialisers) %>
   </body>
 </html>
