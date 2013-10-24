@@ -169,7 +169,7 @@ There are two patterns which can be employed in Whitehall, a singleton pattern a
 
 ### Singleton pattern
 
-Singletons should be defined as raw javascript hashes, and if required should do it's initialisation in a function called init.
+Singletons should be defined as raw javascript hashes, and if required should do its initialisation in a function called init.
 
     (function() {
       "use strict";
