@@ -93,8 +93,10 @@
         </div>
       <% end %>
 
-      <%= render partial: "documents/attachment_full_width",
-                 locals: { document: @document, title: 'Documents' } %>
+      <% if @document.attachments.any? || @document.html_version.present? %>
+        <%= render partial: "documents/attachment_full_width",
+                   locals: { document: @document, title: 'Documents' } %>
+      <% end %>
 
       <section>
         <div class="head-section">
