@@ -26,16 +26,19 @@ Within the frontend folder the basic structure of the files looks like:
     ./styleguide/
 
 
-The `base.scss` is the file that will be compiled with Sass. All other files should be referenced from it in the relevant sections. The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
+The `base.scss` is the file that will be compiled with Sass.
+All other files should be referenced from it in the relevant sections.
+The IE variants (`base-ie[6-8].scss` which you should never need to edit as they include `base.scss`) enable us to use mixins which only show css to certain IE versions.
 
-Within ./views and ./layouts, files should be placed and named to directly reflect the template / partial they style.  For example, the styling for the partial `app/views/shared/_header.html.erb` should be `app/assets/stylesheets/frontend/helpers/shared/_header.scss`.
-
-Why?: Tech-debt creep in CSS is usually an symptom of a lack of confidence in changing or removing existing CSS. By structuring CSS in this way, we are clearly communicating the scope of that CSS.
-
+Tech-debt creep in CSS is usually an symptom of a lack of confidence in changing or removing existing CSS. By structuring CSS in this way, we are clearly communicating the scope of that CSS.
 
 #### `./helpers`
 
-These are blocks of Sass which usually match a rails partial. They are used to style singular blocks which appear on multiple pages around the site. The name of the file should match the single selector inside the file and everything else should be nested under that selector. For example if you had a partial to display a document table you would have the following helper:
+Helpers are blocks of Sass which match a reusable markup pattern, the markup for which is often represented in a Rails partial.
+They are used to style singular blocks which appear on multiple pages around the site.
+
+The name of the file should match the single selector inside the file and everything else should be nested under that selector,
+for example if you had a partial to display a document table you would have the following helper:
 
 `_document_table.html.erb`:
 
@@ -54,7 +57,11 @@ These are blocks of Sass which usually match a rails partial. They are used to s
 
 #### `./views`
 
-These are where you style the layout of a page and any elements which will only appear in that one view. There should be one file in this directory for each controller. They should be named after the controller. The view for the controller should set the `page_class` in the form `{controller}-{action}`. For example for the views from `people_controller.rb`
+Views are where you style the layout of a page and any elements which will only appear in that controller.
+There should be one file in this directory for each controller, and should be named after the controller.
+
+The view for the controller should set the `page_class` in the form `{controller}-{action}`,
+for example for the views from `people_controller.rb`
 
 `people/index.html.erb`:
 
@@ -77,7 +84,6 @@ This contains the base html resets which remove most of the default styling a br
 #### `./layouts`
 
 There should be files in here for the views in `app/views/layouts`. They contain global page styling for things which appear on every page of the site. This includes any global navigation or global footers.
-
 
 #### `./styleguide`
 
