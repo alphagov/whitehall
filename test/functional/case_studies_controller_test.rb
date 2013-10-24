@@ -35,7 +35,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
     editor = create(:departmental_editor)
     updated_case_study = case_study.create_draft(editor)
     updated_case_study.change_note = "change-note"
-    updated_case_study.perform_force_publish
+    force_publish(updated_case_study)
 
     get :show, id: updated_case_study.document
 

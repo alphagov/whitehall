@@ -18,7 +18,7 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
 
   test '#perform will not do anything to an already-published edition' do
     edition = create(:edition, :published)
-    edition.expects(:perform_publish).never
+    edition.expects(:publish!).never
 
     EditionPublishingWorker.new.perform(edition.id, @publishing_robot.id)
     assert_equal :published, edition.reload.current_state
@@ -31,7 +31,7 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
       EditionPublishingWorker.new.perform(edition.id, @publishing_robot.id)
     end
 
-    assert_equal 'This edition has been archived', exception.message
+    assert_equal 'An edition that is archived cannot be published', exception.message
     assert edition.reload.archived?
   end
 end

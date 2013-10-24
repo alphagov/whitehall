@@ -89,13 +89,13 @@ class EditionTest < ActiveSupport::TestCase
 
     version_2 = edition.create_draft(editor)
     version_2.change_note = 'My new version'
-    version_2.perform_force_publish
+    force_publish(version_2)
 
     assert_equal 'My new version', version_2.most_recent_change_note
 
     version_3 = version_2.create_draft(editor)
     version_3.minor_change = true
-    version_3.perform_force_publish
+    force_publish(version_3)
 
     assert_equal 'My new version', version_3.most_recent_change_note
   end
@@ -192,7 +192,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal user2, edition.last_author, 'creating'
 
     acting_as(user1) do
-      edition.perform_force_publish
+      force_publish(edition)
     end
     assert_equal user1, edition.reload.last_author, 'publishing'
   end
@@ -268,7 +268,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#published_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
-    acting_as(editor) { assert publication.perform_publish }
+    acting_as(editor) { EditionPublisher.new(publication).perform! }
     assert_equal editor, publication.published_by
   end
 
@@ -285,7 +285,7 @@ class EditionTest < ActiveSupport::TestCase
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
     acting_as(editor) { publication.perform_force_schedule }
     Timecop.freeze publication.scheduled_publication do
-      acting_as(robot) { publication.perform_publish }
+      acting_as(robot) { EditionPublisher.new(publication).perform! }
       acting_as(editor) do
         new_draft = publication.create_draft(editor)
         assert_equal nil, new_draft.scheduled_by
@@ -318,8 +318,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should not return published editions in submitted" do
-    edition = create(:submitted_edition)
-    edition.perform_publish
+    edition = create(:published_edition)
     refute Edition.submitted.include?(edition)
   end
 
@@ -447,33 +446,6 @@ class EditionTest < ActiveSupport::TestCase
     results = Edition.search_index.to_a
 
     assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
-  end
-
-  test "should add edition to search index on publishing" do
-    policy = create(:submitted_policy)
-
-    Searchable::Index.expects(:later).with(policy)
-
-    policy.perform_publish
-  end
-
-  test "swallows errors from search index on publishing" do
-    policy = create(:submitted_policy)
-
-    Searchable::Index.stubs(:later).raises(RuntimeError, 'Problem?')
-
-    assert_nothing_raised { policy.perform_publish }
-  end
-
-  test "should not remove edition from search index when a new edition is published" do
-    policy = create(:published_policy)
-
-    new_edition = policy.create_draft(create(:policy_writer))
-    new_edition.change_note = "change-note"
-
-    Searchable::Delete.expects(:later).with(policy).never
-
-    new_edition.perform_force_publish
   end
 
   test "should not remove edition from search index when a new draft of a published edition is deleted" do

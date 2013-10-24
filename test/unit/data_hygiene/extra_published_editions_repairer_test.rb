@@ -14,7 +14,7 @@ module Whitehall
       d3 = create(:published_edition, :with_document).document
       d4 = create(:published_edition, :with_document).document
       create(:draft_edition, document: d1).update_column(:state, 'published')
-      create(:draft_edition, document: d3).perform_publish
+      EditionPublisher.new(create(:draft_edition, document: d3)).perform!
       create(:draft_edition, document: d4)
 
       docs_to_be_repaired = @repairer.documents
@@ -39,14 +39,14 @@ module Whitehall
       d1 = e1.document
       e2 = create(:published_edition, :with_document)
       d2 = e2.document
-      
+
       @repairer.stubs(:documents).returns [d2, d1]
       @repairer.stubs(:most_recent_published_edition_for_document).with(d1).returns e1
       @repairer.stubs(:most_recent_published_edition_for_document).with(d2).returns e2
-      
-      e1.expects(:archive_previous_editions)
-      e2.expects(:archive_previous_editions)
-      
+
+      e1.expects(:archive_previous_editions!)
+      e2.expects(:archive_previous_editions!)
+
       @repairer.repair!
     end
 
@@ -55,13 +55,13 @@ module Whitehall
       d1 = e1.document
       e2 = create(:published_edition, :with_document)
       d2 = e2.document
-      
+
       @repairer.stubs(:documents).returns [d2, d1]
       @repairer.stubs(:most_recent_published_edition_for_document).with(d1).returns e1
       @repairer.stubs(:most_recent_published_edition_for_document).with(d2).returns e2
-      
-      e1.expects(:archive_previous_editions)
-      e2.expects(:archive_previous_editions).raises("Problem!")
+
+      e1.expects(:archive_previous_editions!)
+      e2.expects(:archive_previous_editions!).raises("Problem!")
 
       assert_nothing_raised do
         @repairer.repair!

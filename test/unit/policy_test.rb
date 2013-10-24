@@ -47,7 +47,7 @@ class PolicyTest < ActiveSupport::TestCase
 
     published_policy = create(:published_policy)
     first_draft = create(:draft_publication, related_editions: [published_policy])
-    assert first_draft.perform_force_publish
+    force_publish(first_draft)
     first_draft.reload
     second_draft = first_draft.create_draft(editor)
     second_draft.change_note = 'change-note'

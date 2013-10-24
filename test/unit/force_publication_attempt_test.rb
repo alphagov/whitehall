@@ -5,7 +5,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     @gds_team = create(:gds_editor, name: "GDS Inside Government Team")
   end
 
-  test "records the start time and total number of documents to be force published" do
+  test "reports the start time and total number of documents to be force published" do
     stubbed_import = stub_import([build(:imported_edition), build(:imported_edition)])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns(stubbed_import)
@@ -17,14 +17,11 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert_equal Time.zone.now, force_publish_attempt.started_at
   end
 
-  test "an edition that has a reason_to_prevent_force_publication is a failure, and won't be published" do
-    failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_force_publication).returns('it is badly written')
-    failure_doc.expects(:perform_force_publish).never
+  test "failed publishings are reported" do
+    stubbed_import = stub_import([unpublishable_edition])
 
-    stubbed_import = stub_import([failure_doc])
     force_publish_attempt = ForcePublicationAttempt.create
-    force_publish_attempt.stubs(:import).returns(stubbed_import)
+    force_publish_attempt.stubs(import: stubbed_import)
 
     force_publish_attempt.perform
     assert_equal 0, force_publish_attempt.successful_documents
@@ -32,91 +29,58 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     assert force_publish_attempt.successes.empty?
   end
 
-  test "an edition that has a reason_to_prevent_force_publication is logged as a failure with the reason" do
-    failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_force_publication).returns('it is badly written')
-    failure_doc.expects(:perform_force_publish).never
+  test "publishing failure reasons are logged" do
+    stubbed_import = stub_import([unpublishable_edition])
 
-    stubbed_import = stub_import([failure_doc])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
 
-    force_publish_attempt.progress_logger.expects(:failure).with(failure_doc, 'it is badly written')
+    force_publish_attempt.progress_logger.expects(:failure).with(unpublishable_edition, "This edition is invalid: Title can't be blank")
 
     force_publish_attempt.perform
   end
 
-  test 'an edition that has no reason_to_prevent_force_publication but fails to perform_force_publish is a failure' do
-    failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_force_publication).returns(nil)
-    failure_doc.stubs(:perform_force_publish).raises(ArgumentError.new('eek!'))
-
-    stubbed_import = stub_import([failure_doc])
-    force_publish_attempt = ForcePublicationAttempt.create
-    force_publish_attempt.stubs(:import).returns stubbed_import
-
-    force_publish_attempt.perform
-    assert_equal 0, force_publish_attempt.successful_documents
-    assert_equal 1, force_publish_attempt.failed_documents
-    assert force_publish_attempt.successes.empty?
-  end
-
-  test 'an edition that has no reason_to_prevent_force_publication but fails to perform_force_publish is logged as a failure with the raised exception' do
-    failure_doc = stub_imported_document
-    failure_doc.stubs(:reason_to_prevent_force_publication).returns(nil)
+  test "exceptions raised during publication are caught and logged" do
+    exceptional_edition = publishable_edition
     exception = ArgumentError.new('eek!')
-    failure_doc.stubs(:perform_force_publish).raises(exception)
+    exceptional_edition.stubs(:force_publish!).raises(exception)
 
-    stubbed_import = stub_import([failure_doc])
+    stubbed_import = stub_import([exceptional_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
 
-    force_publish_attempt.progress_logger.expects(:failure).with(failure_doc, exception)
+    force_publish_attempt.progress_logger.expects(:failure).with(exceptional_edition, exception)
 
     force_publish_attempt.perform
   end
 
-  test 'an edition that has no reason_to_prevent_force_publication and doesn\'t break when asked to perform_force_publish is a success' do
-    success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_force_publication).returns(nil)
-    success_doc.stubs(:perform_force_publish).returns(true)
-
-    stubbed_import = stub_import([success_doc])
+  test "force publishable editions are force published and logged as a success" do
+    publishable_edition = create(:draft_edition)
+    stubbed_import = stub_import([publishable_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
 
+    force_publish_attempt.progress_logger.expects(:success).with(publishable_edition)
     force_publish_attempt.perform
 
-    assert_equal 1, force_publish_attempt.successful_documents
-    assert_equal 0, force_publish_attempt.failed_documents
-    assert force_publish_attempt.successes.include?(success_doc)
+    assert publishable_edition.reload.published?
   end
 
-  test 'an edition that has no reason_to_prevent_force_publication and doesn\'t break when asked to perform_force_publish is logged as a success' do
-    success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_force_publication).returns(nil)
-    success_doc.stubs(:perform_force_publish).returns(true)
-
-    stubbed_import = stub_import([success_doc])
+  test "reports the finish time and total number of documents successfully published" do
+    stubbed_import = stub_import([publishable_edition, unpublishable_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
 
-    force_publish_attempt.progress_logger.expects(:success).with(success_doc)
+    Timecop.freeze(1.day.from_now) do
+      force_publish_attempt.perform
 
-    force_publish_attempt.perform
+      assert_equal 1, force_publish_attempt.successful_documents
+      assert_equal 1, force_publish_attempt.failed_documents
+      assert_equal Time.zone.now, force_publish_attempt.finished_at
+    end
   end
 
-  test "records the finish time and total number of documents successfully published" do
-    stubbed_import = stub_import([stub_successful_document, stub_failure_document])
-    force_publish_attempt = ForcePublicationAttempt.create()
-    force_publish_attempt.stubs(:import).returns stubbed_import
-
-    force_publish_attempt.perform
-
-    assert_equal 1, force_publish_attempt.successful_documents
-    assert_equal 1, force_publish_attempt.failed_documents
-    assert_equal Time.zone.now, force_publish_attempt.finished_at
-  end
+private
 
   def stub_import(force_publishable_editions)
     stub(:import).tap do |stubbed_import|
@@ -125,25 +89,11 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
     end
   end
 
-  def stub_imported_document
-    edition = build(:imported_edition)
-    edition.stubs(:id).returns 10
-    doc = build(:document)
-    doc.stubs(:id).returns 11
-    edition.stubs(:document).returns doc
-    edition
+  def publishable_edition
+    @publishable_edition ||= create(:draft_edition)
   end
 
-  def stub_successful_document
-    success_doc = stub_imported_document
-    success_doc.stubs(:reason_to_prevent_force_publication).returns(nil)
-    success_doc.stubs(:perform_force_publish).returns(true)
-    success_doc
-  end
-
-  def stub_failure_document
-    fail_doc = stub_imported_document
-    fail_doc.stubs(:reason_to_prevent_force_publication).returns('it smells')
-    fail_doc
+  def unpublishable_edition
+    @unpublishable_edition ||= build(:draft_edition, title: nil)
   end
 end

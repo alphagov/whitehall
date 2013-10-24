@@ -337,7 +337,7 @@ class OrganisationTest < ActiveSupport::TestCase
     new_version = old_version.create_draft(create(:departmental_editor))
     new_version.change_note = 'New stuffs!'
     new_version.save
-    new_version.perform_force_publish
+    force_publish(new_version)
 
     refute organisation.featured_editions.include?(old_version)
     assert organisation.featured_editions.include?(new_version)

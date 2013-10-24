@@ -12,12 +12,8 @@ module Edition::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
-    define_model_callbacks :publish, :unpublish, :archive, :delete, only: :after
+    define_model_callbacks :unpublish, :archive, :delete, only: :after
 
-    after_publish do
-      notify_observers :after_publish
-      archive_previous_editions
-    end
     after_unpublish do
       notify_observers :after_unpublish
     end
@@ -74,13 +70,12 @@ module Edition::Workflow
         transitions from: :scheduled, to: :submitted
       end
 
-      event :publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: :submitted, to: :published, guard: :scheduled_publication_time_not_set?
-        transitions from: :scheduled, to: :published
+      event :publish do
+        transitions from: [:submitted, :scheduled], to: :published
       end
 
-      event :force_publish, success: -> edition { edition.run_callbacks(:publish) } do
-        transitions from: [:draft, :submitted], to: :published, guard: :scheduled_publication_time_not_set?
+      event :force_publish do
+        transitions from: [:draft, :submitted], to: :published
       end
 
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
@@ -100,7 +95,7 @@ module Edition::Workflow
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
-  def archive_previous_editions
+  def archive_previous_editions!
     document.editions.published.each do |edition|
       edition.archive! unless edition == self
     end

@@ -8,7 +8,6 @@ class Policy < Edition
   include Edition::WorldLocations
   include Edition::WorldwidePriorities
   include Edition::AlternativeFormatProvider
-  include Edition::GovUkDelivery
 
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
@@ -71,6 +70,10 @@ class Policy < Edition
   end
 
   def translatable?
+    true
+  end
+
+  def supports_govuk_delivery_notifications?
     true
   end
 

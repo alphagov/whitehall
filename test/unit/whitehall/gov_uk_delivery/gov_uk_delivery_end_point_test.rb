@@ -68,7 +68,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     second_edition = first_edition.create_draft(create(:departmental_editor))
     second_edition.change_note = "Updated some stuff"
     second_edition.save!
-    assert second_edition.perform_force_publish
+    force_publish(second_edition)
     notifier = govuk_delivery_notifier_for(second_edition)
 
     assert_equal "[Updated: #{second_edition.change_note}]<br /><br />#{second_edition.summary}", notifier.description
@@ -389,7 +389,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     second_draft = first_draft.create_draft(create(:departmental_editor))
     second_draft.change_note = '"tip-top" added.'
     second_draft.save!
-    second_draft.perform_force_publish
+    force_publish(second_draft)
 
     body = email_body_for(second_draft)
     assert_match %r(Beards &amp; Facial Hair), body
