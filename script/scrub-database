@@ -80,11 +80,11 @@ run_mysql_command "UPDATE fact_check_requests SET email_address = concat('fact-e
 echo "Done"
 
 echo "Anonymising attachment data for latest access limited drafts..."
-run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1))" 1> /dev/null
+run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1))" 1> /dev/null
 echo "Done"
 
 echo "Anonymising file names for attachments on latest access limited drafts..."
-run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1)))" 1> /dev/null
+run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1)))" 1> /dev/null
 echo "Done"
 
 echo "Anonymising supporting pages linked to latest access limited drafts..."
