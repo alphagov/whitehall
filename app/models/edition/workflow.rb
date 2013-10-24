@@ -36,6 +36,7 @@ module Edition::Workflow
       state :scheduled
       state :published
       state :archived
+      state :superseded
       state :deleted
 
       event :try_draft do
