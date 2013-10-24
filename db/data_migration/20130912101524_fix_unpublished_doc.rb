@@ -1,1 +1,0 @@
-Unpublishing.find(1385).update_attribute(:alternative_url, nil)
