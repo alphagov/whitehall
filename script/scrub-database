@@ -24,6 +24,9 @@ Fusce dui ante, ornare a interdum vel, posuere non ipsum. Morbi placerat est ac 
 
 Etiam eu orci sed massa porttitor volutpat. Maecenas euismod lobortis risus sed vehicula. Proin luctus fringilla odio, in ullamcorper eros suscipit ac. Ut consequat vehicula urna nec posuere. Donec vel dapibus massa. Pellentesque consectetur odio a mauris semper bibendum. In vitae sem sollicitudin est egestas gravida id non urna."
 
+access_limited_edition_ids="SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1"
+access_limited_document_ids="SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1"
+
 usage() {
     echo "usage: $cmd [ops]" >&2
     echo "    [-d|--from-db]    database to copy" >&2
@@ -68,11 +71,11 @@ if [ -n "$copy_databases" ]; then
 fi
 
 echo "Anonymising latest access limited drafts..."
-run_mysql_command "UPDATE edition_translations SET title='${lorem_ipsum_line}', summary='${lorem_ipsum_line}', body='${lorem_ipsum_paragraphs}' WHERE edition_id IN (SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1)" 1> /dev/null
+run_mysql_command "UPDATE edition_translations SET title='${lorem_ipsum_line}', summary='${lorem_ipsum_line}', body='${lorem_ipsum_paragraphs}' WHERE edition_id IN (${access_limited_edition_ids})" 1> /dev/null
 echo "Done"
 
 echo "Anonymising slugs for latest access limited drafts..."
-run_mysql_command "UPDATE documents SET slug=concat('${lorem_ipsum_slug}-', id) WHERE id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1)" 1> /dev/null
+run_mysql_command "UPDATE documents SET slug=concat('${lorem_ipsum_slug}-', id) WHERE id IN (${access_limited_document_ids})" 1> /dev/null
 echo "Done"
 
 echo "Anonymising email addresses and comments in fact checks..."
@@ -80,13 +83,13 @@ run_mysql_command "UPDATE fact_check_requests SET email_address = concat('fact-e
 echo "Done"
 
 echo "Anonymising attachment data for latest access limited drafts..."
-run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1))" 1> /dev/null
+run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE attachable_type = 'Edition' AND attachable_id IN (${access_limited_edition_ids})" 1> /dev/null
 echo "Done"
 
 echo "Anonymising file names for attachments on latest access limited drafts..."
-run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.id IN (SELECT attachment_id FROM edition_attachments WHERE edition_id IN (SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1)))" 1> /dev/null
+run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.attachable_type = 'Edition' AND attachments.attachable_id IN (${access_limited_edition_ids}))" 1> /dev/null
 echo "Done"
 
 echo "Anonymising supporting pages linked to latest access limited drafts..."
-run_mysql_command "UPDATE supporting_pages SET slug=concat('${lorem_ipsum_slug}-', id), title='${lorem_ipsum_line}', body='${lorem_ipsum_paragraphs}' WHERE edition_id IN (SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1)" 1> /dev/null
+run_mysql_command "UPDATE supporting_pages SET slug=concat('${lorem_ipsum_slug}-', id), title='${lorem_ipsum_line}', body='${lorem_ipsum_paragraphs}' WHERE edition_id IN (${access_limited_edition_ids})" 1> /dev/null
 echo "Done"
