@@ -156,7 +156,7 @@ All code should be wrapped in a closure and should declare 'use strict'.  The GO
       window.GOVUK = window.GOVUK || {}
 
       // stuff
-    )}();
+    }());
 
 
 There are two patterns which can be employed in Whitehall, a singleton pattern and a constructor pattern and it's a case of choosing the right tool for the right job.
@@ -180,7 +180,7 @@ Singletons should be defined as raw javascript hashes, and if required should do
 
         // etc.
       }
-    })();
+    }());
 
 ### Constructor pattern
 
@@ -199,7 +199,7 @@ Constructors should follow the prototype pattern as follows:
       };
 
       GOVUK.TheThing = TheThing;
-    })();
+    }());
 
 Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometimes helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
 
