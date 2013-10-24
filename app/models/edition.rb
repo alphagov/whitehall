@@ -50,6 +50,7 @@ class Edition < ActiveRecord::Base
   }
 
   scope :force_published, where(state: "published", force_published: true)
+  scope :not_published,   where(state: %w(draft submitted rejected))
 
   scope :announcements,            -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
   scope :consultations,                 where(type: "Consultation")
@@ -58,6 +59,7 @@ class Edition < ActiveRecord::Base
   scope :statistical_publications,      where("publication_type_id IN (?)", PublicationType.statistical.map(&:id))
   scope :non_statistical_publications,  where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
   scope :corporate_publications,        where(publication_type_id: PublicationType::CorporateReport.id)
+  scope :worldwide_priorities,          where(type: "WorldwidePriority")
 
   # @!group Callbacks
   before_save :set_public_timestamp
