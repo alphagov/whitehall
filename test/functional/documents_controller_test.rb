@@ -34,7 +34,7 @@ class DocumentsControllerTest < ActionController::TestCase
   test "show redirects to new location if the document has been unpublished and a redirect has been requested" do
     user = login_as(:departmental_editor)
     edition = create(:unpublished_edition)
-    edition.unpublishing.update_attributes(redirect: true, alternative_url: "http://gov.uk/some-other-url")
+    edition.unpublishing.update_attributes(redirect: true, alternative_url: "https://www.gov.uk/some-other-url")
 
     get :show, id: edition.unpublishing.slug
 

@@ -234,7 +234,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     unpublish_params = {
         'unpublishing_reason_id' => '1',
         'explanation' => 'Was classified',
-        'alternative_url' => 'http://website.com/alt',
+        'alternative_url' => 'https://www.gov.uk/alt',
         'document_type' => 'Policy',
         'slug' => 'some-slug'
       }

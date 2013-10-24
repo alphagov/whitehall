@@ -25,10 +25,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true)
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.gov.uk/example")
     assert unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: false, alternative_url: "http://example.com")
+    unpublishing = build(:unpublishing, redirect: false, alternative_url: "https://www.gov.uk/example")
     assert unpublishing.valid?
   end
 
@@ -37,7 +37,15 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing.alternative_url = Whitehall.url_maker.public_document_url(unpublishing.edition)
     assert_equal unpublishing.alternative_url, unpublishing.edition_url
     refute unpublishing.valid?
-    assert_equal ["cannot redirect to itself"], unpublishing.errors[:alternative_url]
+    assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
+  end
+
+  test 'alternative_url must not be external (must be in the form of https://www.gov.uk/example)' do
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
+    refute unpublishing.valid?
+
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.gov.uk/example")
+    assert unpublishing.valid?
   end
 
   test 'returns an unpublishing reason' do
