@@ -18,6 +18,8 @@ Whitehall::Application.routes.draw do
     ::Whitehall.admin_hosts.include?(request.host)
   }
 
+  get '/government/ministers/minister-of-state--11' => redirect('/government/people/kris-hopkins', prefix: '')
+
   get '/browse/*parent_tag/:id', to: 'mainstream_categories#show'
 
   namespace 'api' do
