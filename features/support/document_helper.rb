@@ -9,7 +9,7 @@ module DocumentHelper
   end
 
   def force_publish(edition)
-    EditionForcePublisher.new(edition, user: edition.authors.first, reason: 'Urgent change').perform!
+    EditionForcePublisher.new(edition).perform!
   end
 
   def document_class(type)
