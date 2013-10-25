@@ -9,6 +9,24 @@ class AddHtmlColumnsToAttachments < ActiveRecord::Migration
       execute "UPDATE attachments SET type = 'FileAttachment' WHERE type IS NULL"
 
       execute %Q{
+        UPDATE
+          attachments
+        JOIN
+          html_versions ON attachable_id = edition_id
+        SET
+          ordering = ordering + 1
+        WHERE
+          `type` = 'FileAttachment'
+        AND attachable_type = 'Edition'
+        AND edition_id IS NOT NULL
+        AND html_versions.title IS NOT NULL
+        AND html_versions.title != ''
+        AND html_versions.body IS NOT NULL
+        AND html_versions.body != ''
+        ORDER BY ordering desc;
+      }
+
+      execute %Q{
         INSERT INTO attachments
           (`type`, attachable_id, attachable_type, title, body, slug, manually_numbered_headings, ordering, created_at, updated_at)
         SELECT 'HtmlAttachment', edition_id, 'Edition', title, body, slug, manually_numbered, 0, created_at, updated_at
@@ -18,20 +36,6 @@ class AddHtmlColumnsToAttachments < ActiveRecord::Migration
         AND title != ''
         AND body IS NOT NULL
         AND body != '';
-      }
-
-      execute %Q{
-        UPDATE attachments
-        JOIN html_versions
-        ON attachable_id = edition_id
-        SET ordering = ordering + 1
-        WHERE `type` = 'FileAttachment'
-        AND attachable_type = 'Edition'
-        AND edition_id IS NOT NULL
-        AND html_versions.title IS NOT NULL
-        AND html_versions.title != ''
-        AND html_versions.body IS NOT NULL
-        AND html_versions.body != '';
       }
     end
   end
