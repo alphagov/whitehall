@@ -1,6 +1,7 @@
 .document-list {
   clear: both;
   margin: 0;
+  min-height: $gutter;
 
   .document-row {
     display: block;

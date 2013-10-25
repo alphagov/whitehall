@@ -138,6 +138,16 @@
         li.document-row {
           position: relative;
           padding-top: $gutter-one-third;
+          cursor: move;
+
+          .loading-spinner {
+            background-image: image-url('loading-2b2c2d.gif');
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+          }
         }
 
         label,

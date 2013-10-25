@@ -109,4 +109,56 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
   end
+
+  test "POST #update_memberships saves the order of group members" do
+    given_two_groups_with_documents
+    post :update_memberships, {
+      document_collection_id: @collection.id,
+      groups: {
+        0 => {
+          id: @group_1.id,
+          document_ids: [
+            @doc_1_2.id,
+            @doc_1_1.id
+          ]
+        }
+      }
+    }
+    assert_equal [@doc_1_2, @doc_1_1], @group_1.reload.documents
+  end
+
+  test "POST #update_memberships should support moving memberships between groups" do
+    given_two_groups_with_documents
+    post :update_memberships, {
+      document_collection_id: @collection.id,
+      groups: {
+        0 => {
+          id: @group_1.id,
+          document_ids: [
+            @doc_1_1.id
+          ]
+        },
+        1 => {
+          id: @group_2.id,
+          document_ids: [
+            @doc_1_2.id,
+            @doc_2_1.id,
+            @doc_2_2.id
+          ]
+        }
+      }
+    }
+    assert @group_2.reload.documents.include?(@doc_1_2)
+  end
+
+  def given_two_groups_with_documents
+    @group_1 = build(:document_collection_group)
+    @group_2 = build(:document_collection_group)
+    @collection.update_attribute :groups, [@group_1, @group_2]
+
+    @group_1.documents << @doc_1_1 = create(:document)
+    @group_1.documents << @doc_1_2 = create(:document)
+    @group_2.documents << @doc_2_1 = create(:document)
+    @group_2.documents << @doc_2_2 = create(:document)
+  end
 end

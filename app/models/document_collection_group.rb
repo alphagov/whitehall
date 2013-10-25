@@ -3,14 +3,22 @@ class DocumentCollectionGroup < ActiveRecord::Base
   has_many :memberships, class_name: 'DocumentCollectionGroupMembership',
                          order: 'document_collection_group_memberships.ordering',
                          dependent: :destroy
-  has_many :documents, through: :memberships
-  has_many :editions, through: :documents
+  has_many :documents, through: :memberships, order: 'document_collection_group_memberships.ordering'
+  has_many :editions, through: :documents, order: 'document_collection_group_memberships.ordering'
 
   attr_accessible :body, :heading
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id }
 
   before_create :assign_ordering
+
+  def set_document_ids_in_order!(document_ids)
+    self.document_ids = document_ids
+    self.save!
+    self.memberships.each do |membership|
+      membership.update_attribute(:ordering, document_ids.index(membership.document_id))
+    end
+  end
 
   def self.visible
     includes(:editions).where('editions.state = ?', 'published')
@@ -21,13 +29,13 @@ class DocumentCollectionGroup < ActiveRecord::Base
   end
 
   def published_editions
-    editions.published.in_reverse_chronological_order
+    editions.published
   end
 
   def latest_editions
     associations = { latest_edition: [:organisations, :translations] }
     editions = documents.includes(associations).map(&:latest_edition)
-    editions.compact.sort_by { |edition| - edition.public_timestamp.to_i }
+    editions.compact
   end
 
   def visible?
