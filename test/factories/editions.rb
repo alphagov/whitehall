@@ -63,6 +63,9 @@ FactoryGirl.define do
         edition.refresh_index_if_required
       end
     }
+    trait(:superseded) {
+      state "superseded"
+    }
     trait(:featured) { featured true }
     trait(:scheduled) {
       state "scheduled"
