@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131025143125) do
+ActiveRecord::Schema.define(:version => 20131021134040) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20131025143125) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
-    t.integer  "ordering",                 :null => false
+    t.integer  "ordering"
     t.string   "hoc_paper_number"
     t.string   "parliamentary_session"
     t.boolean  "unnumbered_command_paper"
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(:version => 20131025143125) do
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
-  add_index "attachments", ["attachable_type", "attachable_id", "ordering"], :name => "no_duplicate_attachment_orderings", :unique => true
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
   add_index "attachments", ["ordering"], :name => "index_attachments_on_ordering"
 
