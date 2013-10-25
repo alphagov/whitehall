@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  window.GOVUK = window.GOVUK || {}
+  window.GOVUK = window.GOVUK || {};
 
   function DocumentGroupOrdering(params) {
     this.postURL = params.post_url + '.json';
@@ -59,7 +59,7 @@
       connectWith: '.document-list',
       stop: $.proxy(document_group_ordering.onDrop, document_group_ordering)
     });
-  }
+  };
 
   window.GOVUK.DocumentGroupOrdering = DocumentGroupOrdering;
-})();
+}());
