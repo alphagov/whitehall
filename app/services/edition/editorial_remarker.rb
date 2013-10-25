@@ -1,4 +1,4 @@
-class Edition::ForcePublishLogger
+class Edition::EditorialRemarker
   attr_accessor :edition, :options
 
   def self.edition_published(edition, options)
@@ -11,14 +11,16 @@ class Edition::ForcePublishLogger
   end
 
   def save_remark!
-    edition.editorial_remarks.create(body: reason, author: user)
+    if author.present? && remark.present?
+      edition.editorial_remarks.create(body: remark, author: author)
+    end
   end
 
-  def reason
-    "Force published: #{options[:reason]}"
+  def remark
+    options[:remark]
   end
 
-  def user
+  def author
     options[:user]
   end
 end

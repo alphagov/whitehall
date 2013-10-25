@@ -75,7 +75,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def force_publish
-    edition_publisher = EditionForcePublisher.new(@edition, user: current_user, reason: params[:reason])
+    edition_publisher = EditionForcePublisher.new(@edition, user: current_user, remark: force_publish_reason)
     if edition_publisher.perform!
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
@@ -126,6 +126,10 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   private
+
+  def force_publish_reason
+    "Force published: #{params[:reason]}"
+  end
 
   def ensure_reason_given_for_force_publishing
     if params[:reason].blank?

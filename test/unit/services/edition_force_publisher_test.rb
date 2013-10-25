@@ -4,9 +4,7 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
 
   test '#perform! with a valid submitted edition force publishes the edition, setting timestamps' do
     edition              = create(:draft_edition)
-    user                 = edition.authors.first
-    force_publish_reason = 'Urgent change to the document'
-    publisher            = EditionForcePublisher.new(edition, user: user, reason: force_publish_reason)
+    publisher            = force_publisher_for(edition)
 
     assert publisher.perform!
     assert_equal :published, edition.current_state
@@ -16,19 +14,10 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     assert_equal '1.0', edition.published_version
   end
 
-  test '#perform! without a force publishing reason fails' do
-    edition              = create(:draft_edition)
-    publisher            = EditionForcePublisher.new(edition, user: edition.creator, reason: '')
-
-    refute @return_value
-    refute edition.published?
-    assert_equal 'You cannot force publish an edition without a reason', publisher.failure_reason
-  end
-
   %w(published imported rejected archived).each do |state|
     test "#{state} editions cannot be force published" do
       edition = create(:"#{state}_edition")
-      publisher = EditionForcePublisher.new(edition, user: edition.creator, reason: 'Because')
+      publisher = force_publisher_for(edition)
 
       refute publisher.perform!
       assert_equal state, edition.state
@@ -38,41 +27,24 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
 
   test 'a draft edition with a scheduled publication time cannot be force published' do
     edition = build(:draft_edition, scheduled_publication: 1.day.from_now)
-    publisher = EditionForcePublisher.new(edition, user: edition.creator, reason: 'Because')
+    publisher = EditionForcePublisher.new(edition)
     refute publisher.can_perform?
-  end
-
-  test 'by default, subscribers include Edition::AuthorNotifier' do
-    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::AuthorNotifier)
-  end
-
-  test 'by default, subscribers include Edition::SearchIndexer' do
-    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::SearchIndexer)
-  end
-
-  test 'by default, subscribers include Edition::ForcePublishLogger' do
-    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Edition::ForcePublishLogger)
-  end
-
-  test 'by default, subscribers include Whitehall::GovUkDelivery::Notifier' do
-    assert EditionForcePublisher.new(Edition.new).subscribers.include?(Whitehall::GovUkDelivery::Notifier)
-  end
-
-  test 'subscribers can be overwritten' do
-    subscribers = [stub('sub1'), stub('stub2')]
-    publisher = EditionForcePublisher.new(Edition.new, subscribers: subscribers)
-
-    assert_equal subscribers, publisher.subscribers
   end
 
   test 'successful #perform! sends the edition_published message to subscribers' do
     edition = create(:draft_edition)
     subscriber = stub('subscriber')
-    options = { user: edition.creator, reason: 'Urgent update' }
+    options = { user: edition.creator, remark: 'Making changes' }
     subscriber.expects(:edition_published).with(edition, options.dup)
     options[:subscribers] = [subscriber]
     publisher = EditionForcePublisher.new(edition, options)
 
     assert publisher.perform!
+  end
+
+private
+
+  def force_publisher_for(edition)
+    EditionForcePublisher.new(edition, { subscribers: [] })
   end
 end

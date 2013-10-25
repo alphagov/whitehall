@@ -18,7 +18,7 @@ class ForcePublisher
         if edition.nil?
           reporter.failure(edition, 'Edition is nil')
         else
-          publisher = EditionForcePublisher.new(edition, user: user, reason: 'from bulk import')
+          publisher = EditionForcePublisher.new(edition, user: user, remark: 'Bulk force published after import')
           if !publisher.can_perform?
             reporter.failure(edition, publisher.failure_reason)
           else

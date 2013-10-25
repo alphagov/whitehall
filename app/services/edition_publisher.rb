@@ -24,18 +24,26 @@ class EditionPublisher
   def failure_reason
     @failure_reason ||= if !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
-    elsif !edition.can_publish?
-      "An edition that is #{edition.current_state} cannot be published"
+    elsif !can_transition?
+      "An edition that is #{edition.current_state} cannot be #{past_participle}"
     elsif edition.scheduled_publication.present? && Time.zone.now < edition.scheduled_publication
-      "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
+      "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be #{past_participle} before"
     end
   end
 
   def default_subscribers
-    [Edition::AuthorNotifier, Whitehall::GovUkDelivery::Notifier, Edition::SearchIndexer]
+    [Edition::AuthorNotifier, Whitehall::GovUkDelivery::Notifier, Edition::SearchIndexer, Edition::EditorialRemarker]
   end
 
 private
+
+  def verb
+    :publish
+  end
+
+  def past_participle
+    "#{verb}ed".humanize.downcase
+  end
 
   def prepare_edition
     edition.access_limited  = false
@@ -46,5 +54,9 @@ private
 
   def fire_transition!
     edition.publish!
+  end
+
+  def can_transition?
+    edition.public_send("can_#{verb}?")
   end
 end
