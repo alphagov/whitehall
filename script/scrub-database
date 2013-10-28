@@ -24,8 +24,8 @@ Fusce dui ante, ornare a interdum vel, posuere non ipsum. Morbi placerat est ac 
 
 Etiam eu orci sed massa porttitor volutpat. Maecenas euismod lobortis risus sed vehicula. Proin luctus fringilla odio, in ullamcorper eros suscipit ac. Ut consequat vehicula urna nec posuere. Donec vel dapibus massa. Pellentesque consectetur odio a mauris semper bibendum. In vitae sem sollicitudin est egestas gravida id non urna."
 
-access_limited_edition_ids="SELECT id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1"
-access_limited_document_ids="SELECT document_id FROM editions WHERE state IN ('draft', 'scheduled') AND access_limited = 1"
+access_limited_edition_ids="SELECT id FROM editions WHERE access_limited = 1"
+access_limited_document_ids="SELECT document_id FROM editions WHERE access_limited = 1"
 
 usage() {
     echo "usage: $cmd [ops]" >&2
