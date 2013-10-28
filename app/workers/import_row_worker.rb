@@ -24,7 +24,9 @@ protected
   def import_row!
     progress_logger.with_transaction(row_number) do
       attributes = row.attributes.merge(creator: import_user, state: 'imported')
+      attachment = HtmlAttachment.new(attributes.delete(:html_attachment_attributes))
       model = import.model_class.new(attributes)
+      model.attachments = [attachment] if attachment.valid?
       if model.save
         save_translation!(model, row) if row.translation_present?
         assign_document_collections!(model, row.document_collections)

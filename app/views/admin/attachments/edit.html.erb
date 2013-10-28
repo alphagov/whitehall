@@ -4,6 +4,17 @@
   <section>
     <h1>Editing <%= @attachable.class.name.underscore.humanize.downcase %> attachment</h1>
 
-    <%= render partial: 'form', locals: { attachable: @attachable, attachment: @attachment } %>
+    <%= render partial: 'form', locals: { attachable: @attachable, attachment: attachment } %>
   </section>
 </div>
+
+<% if attachment.html? %>
+  <div class="span4">
+    <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
+      <%= tabs.pane id: "govspeak_help" do %>
+        <%= render partial: "admin/editions/govspeak_help",
+                   locals: { hide_inline_attachments_help: true } %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

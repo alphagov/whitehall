@@ -6,45 +6,14 @@ class PublicationTest < ActiveSupport::TestCase
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-  should_allow_html_version
   should_support_linking_to_external_version
 
-  def draft_with_new_title(edition, new_title)
-    edition.create_draft(create(:author)).tap do |draft|
-      draft.html_version.title = new_title
-      draft.minor_change = true
-      draft.perform_force_publish
-    end
-  end
-
-  test 'slug of html version does not change when we republish several times' do
-    publication = create(:published_publication)
-    initial_slug = publication.html_version.slug
-
-    new_draft = draft_with_new_title(publication, 'Title changed once')
-    assert_equal initial_slug, new_draft.reload.html_version.slug
-
-    further_draft = draft_with_new_title(new_draft, "Title changed again")
-    assert_equal initial_slug, further_draft.reload.html_version.slug
-  end
-
-  test 'slug of html version changes whilst in draft' do
-    publication = build(:draft_publication)
-    publication.html_version.title = "title"
-    publication.save!
-    assert_equal 'title', publication.html_version.slug
-
-    publication.html_version.title = 'new title'
-    publication.save!
-    assert_equal 'new-title', publication.reload.html_version.slug
-  end
-
-  test 'imported publications are valid when the publication_type is \'imported-awaiting-type\'' do
+  test 'imported publications are valid when the publication_type is imported-awaiting-type' do
     publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
     assert publication.valid?
   end
 
-  test 'imported publications are not valid_as_draft? when the publcation_type is \'imported-awaiting-type\'' do
+  test 'imported publications are not valid_as_draft? when the publcation_type is imported-awaiting-type' do
     publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
     refute publication.valid_as_draft?
   end
@@ -56,14 +25,14 @@ class PublicationTest < ActiveSupport::TestCase
 
   %w(submitted scheduled published).each do |state|
     test "A #{state} publication is not valid without an attachment" do
-      publication = build("#{state}_publication", html_version: nil, attachments: [])
+      publication = build("#{state}_publication", attachments: [])
       refute publication.valid?
       assert_match /an attachment or HTML version before being #{state}/, publication.errors[:base].first
     end
   end
 
   test 'is valid for publishing without attachments or an html_version when it is external' do
-    publication = build(:published_publication, html_version: nil, attachments: [])
+    publication = build(:published_publication, attachments: [])
     refute publication.valid?
 
     publication.external = true
@@ -73,19 +42,19 @@ class PublicationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing publication" do
-    published_publication = create(:published_publication,
-      :with_attachment,
+    published = create(:published_publication, :with_file_attachment, {
       first_published_at: Date.parse("2010-01-01"),
       publication_type_id: PublicationType::ResearchAndAnalysis.id
-    )
+    })
 
-    draft_publication = published_publication.create_draft(create(:policy_writer))
+    draft = published.create_draft(create(:policy_writer))
 
-    assert_kind_of Attachment, published_publication.attachments.first
-    assert_not_equal published_publication.attachments, draft_publication.attachments
-    assert_equal published_publication.attachments.first.attachment_data, draft_publication.attachments.first.attachment_data
-    assert_equal published_publication.first_published_at, draft_publication.first_published_at
-    assert_equal published_publication.publication_type, draft_publication.publication_type
+    assert_kind_of Attachment, published.attachments.first
+    assert_not_equal published.attachments, draft.attachments
+    assert_equal published.attachments.first.attachment_data,
+        draft.attachments.first.attachment_data
+    assert_equal published.first_published_at, draft.first_published_at
+    assert_equal published.publication_type, draft.publication_type
   end
 
   test "should allow setting of publication type" do

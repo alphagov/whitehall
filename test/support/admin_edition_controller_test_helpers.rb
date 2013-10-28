@@ -212,31 +212,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_html_versions_for(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test "new displays html version fields" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "input[name='edition[html_version_attributes][title]'][type='text']"
-          assert_select "textarea[name='edition[html_version_attributes][body]']"
-        end
-      end
-
-      test "should destroy html version when all fields are blank" do
-        edition = create("draft_#{edition_type}")
-        edition.html_version = build(:html_version)
-        put :update, id: edition, edition: controller_attributes_for_instance(edition,
-          html_version_attributes: {
-            title: "", body: "", id: edition.html_version.id
-          }
-        )
-        edition.reload
-        assert_equal nil, edition.html_version
-      end
-    end
-
     def should_allow_attached_images_for(edition_type)
       edition_class = class_for(edition_type)
 
@@ -620,8 +595,11 @@ module AdminEditionControllerTestHelpers
         lock_version = document.lock_version
         document.touch
 
-        put :update, id: document, edition: controller_attributes_for_instance(document,
-          lock_version: lock_version, related_policy_ids: document.related_policy_ids)
+        put :update, id: document, edition: controller_attributes_for_instance(
+          document,
+          lock_version: lock_version,
+          related_policy_ids: document.related_policy_ids
+        )
 
         assert_select ".document.conflict" do
           assert_select "h1", "Related policies"

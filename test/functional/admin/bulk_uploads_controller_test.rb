@@ -84,7 +84,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   view_test 'POST :upload_zip when replacing an attachment sets to_replace_id' do
     existing_file = File.open(File.join(Rails.root, *%w(test fixtures greenpaper.pdf)))
-    existing = create(:attachment, file: existing_file)
+    existing = create(:file_attachment, file: existing_file)
     @edition.attachments << existing
     post_to_upload_zip('two-pages-and-greenpaper.zip')
     assert_response :success

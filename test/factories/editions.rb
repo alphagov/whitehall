@@ -77,17 +77,22 @@ FactoryGirl.define do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
     end
 
-    trait(:with_attachment) do
+    trait(:with_file_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
-      attachments { FactoryGirl.build_list :attachment, 1 }
+      attachments { FactoryGirl.build_list :file_attachment, 1 }
       after :build do |edition, evaluator|
         VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
       end
     end
 
-    trait(:with_attachment_not_scanned) do
+    trait(:with_html_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
-      attachments { FactoryGirl.build_list :attachment, 1 }
+      attachments { FactoryGirl.build_list :html_attachment, 1 }
+    end
+
+    trait(:with_file_attachment_not_scanned) do
+      association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
+      attachments { FactoryGirl.build_list :file_attachment, 1 }
     end
 
     trait(:with_document) do

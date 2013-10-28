@@ -4,7 +4,7 @@ FactoryGirl.define do
     body  "publication-body"
     summary "publication-summary"
     publication_type_id { PublicationType::PolicyPaper.id }
-    association :html_version, strategy: :build
+    attachments { FactoryGirl.build_list :html_attachment, 1 }
 
     trait(:corporate) do
       publication_type_id { PublicationType::CorporateReport.id }
@@ -28,10 +28,6 @@ FactoryGirl.define do
 
     trait(:policy_paper) do
       publication_type_id { PublicationType::PolicyPaper.id }
-    end
-
-    trait(:without_html_version) do
-      html_version nil
     end
 
     ignore do

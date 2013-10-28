@@ -1,9 +1,19 @@
 <% page_title "Add attachment to: #{@attachable.class.name.underscore.humanize.downcase}" %>
-
 <div class="span8">
   <section>
     <h1>Add attachment to <%= @attachable.class.name.underscore.humanize.downcase %></h1>
 
-    <%= render partial: 'form', locals: { attachable: @attachable, attachment: @attachment } %>
+    <%= render 'form', attachable: @attachable %>
   </section>
 </div>
+
+<% if attachment.html? %>
+  <div class="span4">
+    <%= sidebar_tabs govspeak_help: "Formatting help" do |tabs| %>
+      <%= tabs.pane id: "govspeak_help" do %>
+        <%= render partial: "admin/editions/govspeak_help",
+                   locals: { hide_inline_attachments_help: true } %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

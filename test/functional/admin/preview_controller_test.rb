@@ -21,7 +21,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
   end
 
   view_test "renders attached files if attachment_ids provided" do
-    edition = create(:published_detailed_guide, :with_attachment, body: '!@1')
+    edition = create(:published_detailed_guide, :with_file_attachment, body: '!@1')
 
     post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id)
     assert_select ".document .body" do
@@ -30,7 +30,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
   end
 
   view_test "shows alternative_format_contact_email in attachment block if alternative_format_provider_id given" do
-    edition = create(:published_detailed_guide, :with_attachment, body: '!@1')
+    edition = create(:published_detailed_guide, :with_file_attachment, body: '!@1')
     alternative_format_provider = create(:organisation, alternative_format_contact_email: "alternative@example.com")
 
     post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: alternative_format_provider.id
@@ -42,7 +42,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
   end
 
   test "preview succeeds if alternative_format_provider_id is blank" do
-    edition = create(:published_detailed_guide, :with_attachment, body: '!@1')
+    edition = create(:published_detailed_guide, :with_file_attachment, body: '!@1')
 
     post :preview, body: edition.body, attachment_ids: edition.attachments.map(&:id), alternative_format_provider_id: ""
     assert_response :success
@@ -55,7 +55,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
 
   test "preview returns a 403 if any of the referenced attachments are inaccessible to the current user" do
     protected_edition = create(:protected_edition)
-    attachment = create(:attachment, attachable: protected_edition)
+    attachment = create(:file_attachment, attachable: protected_edition)
 
     post :preview, body: "blah", attachment_ids: [attachment.id]
     assert_response :forbidden

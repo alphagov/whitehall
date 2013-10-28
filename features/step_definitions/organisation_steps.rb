@@ -68,7 +68,7 @@ end
 
 Given /^a published publication "([^"]*)" with a PDF attachment and alternative format provider "([^"]*)"$/ do |title, organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
-  publication = create(:published_publication, :with_attachment, title: title, body: "!@1", organisations: [organisation], alternative_format_provider: organisation)
+  publication = create(:published_publication, :with_file_attachment, title: title, body: "!@1", organisations: [organisation], alternative_format_provider: organisation)
   @attachment_title = publication.attachments.first.title
   @attachment_filename = publication.attachments.first.filename
 end

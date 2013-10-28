@@ -110,8 +110,8 @@ module DocumentHelper
   def fill_in_publication_fields
     select_date "2010-01-01", from: "First published"
     select "Research and analysis", from: "edition_publication_type_id"
-    fill_in "HTML version title", with: "HTML version title"
-    fill_in "HTML version text", with: "HTML version text"
+    check "This publication is held on another website"
+    fill_in "External link URL", with: "http://example.com/publication"
   end
 
   def visit_edition_admin(title, scope = :scoped)

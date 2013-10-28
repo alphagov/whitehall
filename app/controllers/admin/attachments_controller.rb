@@ -5,34 +5,28 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
-  helper_method :attachable_attachments_path
-
-  def index
-  end
+  def index; end
 
   def order
-    params[:ordering].each do |attachment_id, ordering|
+    uniquify_ordering(params[:ordering]).each do |attachment_id, ordering|
       @attachable.attachments.find(attachment_id).update_column(:ordering, ordering)
     end
     redirect_to attachable_attachments_path(@attachable), notice: 'Attachments re-ordered'
   end
 
-  def new
-    @attachment = @attachable.attachments.build(attachment_data: AttachmentData.new)
-  end
+  def new; end
 
   def create
-    @attachment = @attachable.attachments.build(params[:attachment])
-    if @attachment.save
-      redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{@attachment.filename}' uploaded"
+    if attachment.save
+      redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
     end
   end
 
   def update
-    if @attachment.update_attributes(attachment_params)
-      message = "Attachment '#{@attachment.filename}' updated"
+    if attachment.update_attributes(attachment_params)
+      message = "Attachment '#{attachment.title}' updated"
       redirect_to attachable_attachments_path(@attachable), notice: message
     else
       render :edit
@@ -40,11 +34,23 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def destroy
-    @attachment.destroy
+    attachment.destroy
     redirect_to attachable_attachments_path(@attachable), notice: 'Attachment deleted'
   end
 
-  private
+private
+  def attachment
+    @attachment ||= begin
+      attachment_class = html? ? HtmlAttachment : FileAttachment
+
+      attachment_params = params[:attachment] || {}
+      attachment_params.merge!(attachable: @attachable)
+      attachment_params.reverse_merge!(attachment_data: AttachmentData.new) if attachment_class == FileAttachment
+
+      attachment_class.new(attachment_params)
+    end
+  end
+  helper_method :attachment
 
   def find_attachable
     @attachable =
@@ -61,19 +67,9 @@ class Admin::AttachmentsController < Admin::BaseController
     @attachment = @attachable.attachments.find(params[:id])
   end
 
-  def attachable_attachments_path(attachable)
-    case attachable
-    when Edition
-      admin_edition_attachments_path(attachable)
-    when Response
-      [:admin, attachable.consultation, attachable.singular_routing_symbol]
-    else
-      [:admin, attachable, Attachment]
-    end
-  end
-
   def attachment_params
-    if params[:attachment][:attachment_data_attributes][:file]
+    data_attributes = params[:attachment][:attachment_data_attributes]
+    if data_attributes && data_attributes[:file]
       params[:attachment]
     else
       params[:attachment].except(:attachment_data_attributes)
@@ -86,5 +82,30 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def attachable_is_an_edition?
     @attachable.is_a?(Edition)
+  end
+
+  def html?
+    params[:html] == 'true'
+  end
+
+  # Attachment has a unique constraint on attachable type/id and ordering.
+  # This stops us simple changing the ordering values of existing
+  # attachments, as two rows end up with the same ordering value during
+  # the update, violating the constraint. To get around it, if all the new
+  # ordering values are less than the lowest ordering value currently
+  # stored we just use them. Otherwise, we renumber the new ordering
+  # values to start above the existing maximum value.
+  def uniquify_ordering(ordering_params)
+    return ordering_params if ordering_params.empty?
+
+    min_existing = @attachable.attachments.minimum(:ordering)
+    max_new = ordering_params.values.map(&:to_i).max
+
+    if max_new < min_existing
+      ordering_params
+    else
+      max_existing = @attachable.attachments.maximum(:ordering)
+      Hash[ordering_params.map { |id, order| [id, order.to_i + max_existing + 1] }].with_indifferent_access
+    end
   end
 end

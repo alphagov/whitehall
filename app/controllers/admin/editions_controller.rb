@@ -6,7 +6,6 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
-  before_filter :destroy_blank_html_version, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
   before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
@@ -191,10 +190,6 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def build_html_version
-    @edition.build_html_version unless @edition.html_version.present?
-  end
-
   def set_default_edition_locations
     if current_user.world_locations.any? && !@edition.world_locations.any?
       @edition.world_locations = current_user.world_locations
@@ -254,14 +249,6 @@ class Admin::EditionsController < Admin::BaseController
   def remove_blank_parameters
     params.keys.each do |k|
       params.delete(k) if params[k] == ""
-    end
-  end
-
-  def destroy_blank_html_version
-    if params[:edition][:html_version_attributes] &&
-       params[:edition][:html_version_attributes][:title].blank? &&
-       params[:edition][:html_version_attributes][:body].blank?
-       params[:edition][:html_version_attributes][:_destroy] = true
     end
   end
 

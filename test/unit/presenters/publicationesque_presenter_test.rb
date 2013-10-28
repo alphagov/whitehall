@@ -35,6 +35,7 @@ class PublicationesquePresenterTest < PresenterTestCase
     publication = stub_record(:publication,
       document: document,
       public_timestamp: Time.zone.now,
+      attachments: [],
       organisations: [organisation])
     publication.stubs(:published_document_collections).returns([collection])
     publication.expects(:part_of_published_collection?).returns(true)

@@ -6,7 +6,7 @@
     </pre>
     <% if edition.allows_attachments? %>
       <% edition.attachments.each do |attachment| %>
-        <p class="attachment"><%= link_to_attachment(attachment) %></p>
+        <p class="attachment"><%= link_to_attachment(attachment, preview: true) %></p>
       <% end %>
     <% end %>
   </article>

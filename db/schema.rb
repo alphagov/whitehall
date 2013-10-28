@@ -70,6 +70,10 @@ ActiveRecord::Schema.define(:version => 20131025143125) do
     t.boolean  "unnumbered_hoc_paper"
     t.integer  "attachable_id"
     t.string   "attachable_type"
+    t.string   "type"
+    t.string   "slug"
+    t.text     "body",                       :limit => 2147483647
+    t.boolean  "manually_numbered_headings"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"

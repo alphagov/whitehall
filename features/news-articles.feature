@@ -58,3 +58,13 @@ Scenario: Viewing a published news article with related policies
   Given a published news article "News 1" with related published policies "Policy 1" and "Policy 2"
   When I visit the news article "News 1"
   Then I can see links to the related published policies "Policy 1" and "Policy 2"
+
+@javascript
+Scenario: Changes on an edition are not lost when adding attachments
+  Given I am a writer
+  And a draft news article "Stubble to be Outlawed" exists
+  When I make unsaved changes to the news article
+  And I attempt to visit the attachments page
+  Then I should stay on the edit screen for the news article
+  When I save my changes
+  Then I can visit the attachments page

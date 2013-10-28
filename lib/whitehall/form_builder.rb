@@ -61,26 +61,26 @@ module Whitehall
 
     def text_field(method, options={})
       horizontal = options.delete(:horizontal)
-      lable_options = { required: options.delete(:required) }
+      label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
       if horizontal
-        lable_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, lable_options), super(method, options), options)
+        label_options[:class] = "control-label"
+        horizontal_group(label(method, label_text, label_options), super(method, options), options)
       else
-        label(method, label_text, lable_options) + super(method, options)
+        label(method, label_text, label_options) + super(method, options)
       end
     end
 
     def text_area(method, *args)
       options = (args.last || {})
       horizontal = options.delete(:horizontal)
-      lable_options = { required: options.delete(:required) }
+      label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
       if horizontal
-        lable_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, lable_options), super, options)
+        label_options[:class] = "control-label"
+        horizontal_group(label(method, label_text, label_options), super, options)
       else
-        label(method, label_text, lable_options) + super
+        label(method, label_text, label_options) + super
       end
     end
 
@@ -99,19 +99,19 @@ module Whitehall
 
     def check_box(method, options = {}, *args)
       horizontal = options.delete(:horizontal)
-      lable_options = { required: options.delete(:required) }
-      label_text = options.delete(:label_text)
+      label_options = { required: options.delete(:required) }
+      label_text = options.delete(:label_text) || method.to_s.humanize
       if horizontal
-        lable_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, lable_options), super, options)
+        label_options[:class] = "control-label"
+        horizontal_group(label(method, label_text, label_options), super, options)
       else
-        label(method, label_text, lable_options.merge(class: "checkbox")) { super + label_text }
+        label(method, label_text, label_options.merge(class: "checkbox")) { super + label_text }
       end
     end
 
     def upload(method, options={})
       horizontal = options.delete(:horizontal)
-      lable_options = { required: options.delete(:required) }
+      label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
       allow_removal = options.delete(:allow_removal) || false
       allow_removal_label_text = options.delete(:allow_removal_label_text) || "Check to remove #{method.to_s.humanize.downcase}"
@@ -126,10 +126,10 @@ module Whitehall
       end
 
       if horizontal
-        lable_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, lable_options), fields, options)
+        label_options[:class] = "control-label"
+        horizontal_group(label(method, label_text, label_options), fields, options)
       else
-        label(method, label_text, lable_options) + fields
+        label(method, label_text, label_options) + fields
       end
     end
 

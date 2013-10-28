@@ -14,7 +14,6 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     documents
     email_signups
     healthcheck
-    html_versions
     mainstream_categories
     people
     placeholder

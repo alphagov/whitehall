@@ -75,8 +75,8 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
   end
 end
 
-Given(/^a draft publication "(.*?)" with attachment "(.*?)" exists$/) do |title, fixture_filename|
-  @edition = create(:draft_publication, :with_attachment, title: title)
+Given(/^a draft publication "(.*?)" with a file attachment exists$/) do |title|
+  @edition = create(:draft_publication, :with_file_attachment, title: title)
   @attachment = @edition.attachments.first
 end
 

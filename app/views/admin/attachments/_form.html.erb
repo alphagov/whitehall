@@ -1,5 +1,4 @@
-<%= form_for [:admin, typecast_for_attachable_routing(attachable), attachment] do |form| %>
-
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment do |form| %>
   <%= form.errors %>
 
   <%= form.text_field :title %>
@@ -8,21 +7,24 @@
     <%= render 'reference_fields', edition: attachable, form: form %>
   <% end %>
 
-  <%= form.fields_for(:attachment_data, include_id: false) do |attachment_data_fields| %>
-    <% if attachment_data_fields.object.filename %>
-      <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id || attachment_data_fields.object.id) %>
-      <p>Current file: <%= link_to attachment_data_fields.object.filename, attachment_data_fields.object.url %></p>
-    <% end %>
+  <% case attachment %>
+  <% when FileAttachment %>
+    <%= render 'attachment_data_fields', form: form %>
+  <% when HtmlAttachment %>
+    <%= form.check_box :manually_numbered_headings %>
+    <div class="js-manual-numbering-help<%= ' js-hidden' unless attachment.manually_numbered_headings? %>">
+     <pre>
+## 1. First heading
+### 1.1 First sub-heading
+### 1.2 Second sub-heading
+### Unnumbered sub-heading
 
-    <%= attachment_data_fields.label :file, (attachment_data_fields.object.filename ? 'Replace file' : nil), required: false %>
-    <%= attachment_data_fields.file_field :file %>
-
-    <%= form.check_box :accessible, label_text: "Attachment is accessible" %>
-    <% if attachment_data_fields.object.file_cache.present? %>
-      <span class="already_uploaded"><%= File.basename(attachment_data_fields.object.file_cache) %> already uploaded</span>
-    <% end %>
-    <%= attachment_data_fields.hidden_field :file_cache %>
+Manually number your headings as appropriate using the above numbering scheme.</pre>
+    </div>
+    <%= form.text_area :body, class: "previewable" %>
   <% end %>
+
+  <%= hidden_field_tag :html, params[:html] %>
 
   <%= form.save_or_cancel cancel: attachable_attachments_path(attachable) %>
 <% end %>

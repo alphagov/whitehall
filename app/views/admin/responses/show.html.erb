@@ -20,7 +20,7 @@
 
         <h3>Attachments (optional)</h3>
         <ul class="actions">
-          <li><%= link_to 'Upload new attachment', new_admin_response_attachment_path(@response) %></li>
+          <li><%= link_to 'Upload new file attachment', new_admin_response_attachment_path(@response) %></li>
         </ul>
         <%= render('admin/attachments/attachments', attachable: @response) if @response.attachments.any? %>
 

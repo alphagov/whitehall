@@ -9,7 +9,9 @@ class Attachment < ActiveRecord::Base
     :number_of_pages, :file, :filename, :virus_status,
     to: :attachment_data
 
-  after_destroy :destroy_attachment_data_if_required
+  before_save :set_ordering, if: -> { ordering.blank? }
+
+  after_destroy :destroy_unused_attachment_data
 
   accepts_nested_attributes_for :attachment_data
 
@@ -36,15 +38,22 @@ class Attachment < ActiveRecord::Base
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
+  scope :files, where('type = ?', 'FileAttachment')
+
   def self.parliamentary_sessions
     (1951..Time.zone.now.year).to_a.reverse.map do |year|
-      [Date.new(year).strftime('%Y'), Date.new(year + 1).strftime('%y')].join('-')
+      starts = Date.new(year).strftime('%Y')
+      ends = Date.new(year + 1).strftime('%y')  # %y gives last two digits of year
+      "#{starts}-#{ends}"
     end
   end
 
   def price
-    return @price if @price
-    return price_in_pence / 100.0 if price_in_pence
+    if @price
+      @price
+    elsif price_in_pence
+      price_in_pence / 100.0
+    end
   end
 
   def price=(price_in_pounds)
@@ -54,6 +63,10 @@ class Attachment < ActiveRecord::Base
 
   def html?
     false
+  end
+
+  def could_contain_viruses?
+    true
   end
 
   private
@@ -66,9 +79,15 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  def destroy_attachment_data_if_required
-    unless Attachment.where(attachment_data_id: attachment_data.id).any?
+  # Only destroy the associated attachment_data record if no other
+  # attachments are using it
+  def destroy_unused_attachment_data
+    if attachment_data && Attachment.where(attachment_data_id: attachment_data.id).empty?
       attachment_data.destroy
     end
+  end
+
+  def set_ordering
+    self.ordering = attachable.next_ordering
   end
 end

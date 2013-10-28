@@ -2,20 +2,16 @@
   extra_description ||= ""
   published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
-  if attachment.accessible?
-    attachment_link_options = {}
-  else
-    attachment_link_options = { "aria-describedby" => help_block_id }
-  end
+  attachment_link_options = attachment.accessible? ? {} : { "aria-describedby" => help_block_id }
 %>
-<%= content_tag_for(:section, attachment, class: "embedded") do %>
+<%= content_tag_for(:section, attachment.becomes(Attachment), class: "embedded") do %>
   <div class="attachment-thumb">
-    <%= link_to attachment.url, attachment_link_options.merge({ class: 'thumbnail' }) do %>
+    <%= link_to attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }) do %>
       <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
     <% end %>
   </div>
   <div class="attachment-details">
-    <h3 class="title"><%= link_to attachment.title, attachment.url, attachment_link_options %></h3>
+    <h3 class="title"><%= link_to attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h3>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
