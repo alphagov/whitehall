@@ -52,12 +52,6 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 #   end
 #
 
-# Render mustache templates for javascript tests.
-Rake.application.rake_require('tasks/shared_mustache')
-Rake::Task["shared_mustache:compile"].invoke
-at_exit do
-  Rake::Task["shared_mustache:clean"].invoke
-end
 
 Before do
   create(:world_location, name: "United Kingdom", iso2: "GB")
