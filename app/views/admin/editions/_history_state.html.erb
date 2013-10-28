@@ -1,6 +1,6 @@
-<% if edition.archived? %>
+<% if edition.superseded? %>
   <div class="alert alert-error">
-    <p>This edition has been archived.</p>
+    <p>This edition has been superseded.</p>
     <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
   </div>
 <% elsif edition.pre_publication? && edition.latest_published_edition %>

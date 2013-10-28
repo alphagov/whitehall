@@ -81,7 +81,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_draft), text: "draft"
   end
 
-  test "should rewrite link to archived edition with a newer published edition in admin preview" do
+  test "should rewrite link to superseded edition with a newer published edition in admin preview" do
     publication = create(:published_publication)
     writer = create(:policy_writer)
     new_edition = publication.create_draft(writer)

@@ -31,7 +31,7 @@ INNER JOIN (
       documents.each.with_index do |document, idx|
         @logger.info "#{idx +1}. '#{document.slug}' Archiving #{document.editions.published.count - 1} extra published editions"
         begin
-          most_recent_published_edition_for_document(document).archive_previous_editions!
+          most_recent_published_edition_for_document(document).supersede_previous_editions!
         rescue => e
           @logger.error "PROBLEM: #{e.message}"
         end

@@ -11,7 +11,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
     policy.perform_unpublish
   end
 
-  test 'should remove supporting page from search index when its edition is archived' do
+  test 'should remove supporting page from search index when its edition is superseded' do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
 

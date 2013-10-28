@@ -14,7 +14,7 @@ class EditionForcePublisherTest < ActiveSupport::TestCase
     assert_equal '1.0', edition.published_version
   end
 
-  %w(published imported rejected archived).each do |state|
+  %w(published imported rejected superseded).each do |state|
     test "#{state} editions cannot be force published" do
       edition = create(:"#{state}_edition")
       publisher = EditionForcePublisher.new(edition)

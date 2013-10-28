@@ -12,6 +12,6 @@ FactoryGirl.define do
   factory :rejected_fatality_notice, parent: :fatality_notice, traits: [:rejected]
   factory :published_fatality_notice, parent: :fatality_notice, traits: [:published]
   factory :deleted_fatality_notice, parent: :fatality_notice, traits: [:deleted]
-  factory :archived_fatality_notice, parent: :fatality_notice, traits: [:archived]
+  factory :superseded_fatality_notice, parent: :fatality_notice, traits: [:superseded]
   factory :scheduled_fatality_notice, parent: :fatality_notice, traits: [:scheduled]
 end

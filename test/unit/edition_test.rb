@@ -306,14 +306,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [submitted_edition], Edition.submitted
   end
 
-  test "should return all editions excluding those that are archived or deleted" do
+  test "should return all editions excluding those that are superseded or deleted" do
     draft_edition = create(:draft_edition)
     submitted_edition = create(:submitted_edition)
     rejected_edition = create(:rejected_edition)
     published_edition = create(:published_edition)
     deleted_edition = create(:draft_edition)
     deleted_edition.delete!
-    archived_edition = create(:archived_edition)
+    superseded_edition = create(:superseded_edition)
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
 
@@ -335,7 +335,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should still be archivable if alt text validation would normally fail" do
     article = create(:published_news_article, images: [build(:image)])
     article.images.first.update_column(:alt_text, nil)
-    NewsArticle.find(article.id).archive!
+    NewsArticle.find(article.id).supersede!
   end
 
   test "should still be deleteable if alt text validation would normally fail" do
@@ -473,21 +473,21 @@ class EditionTest < ActiveSupport::TestCase
     assert_nothing_raised { policy.perform_unpublish }
   end
 
-  test "should remove published edition from search index when it's archived" do
+  test "should remove published edition from search index when it's superseded" do
     policy = create(:published_policy)
 
     Searchable::Delete.expects(:later).with(policy)
 
-    policy.archive!
+    policy.supersede!
   end
 
-  test "swallows errors from search index when it's archived" do
+  test "swallows errors from search index when it's superseded" do
     policy = create(:published_policy)
     slug = policy.document.slug
 
     Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
 
-    assert_nothing_raised { policy.archive! }
+    assert_nothing_raised { policy.supersede! }
   end
 
   test "#destroy should also remove the relationship to any authors" do
@@ -586,7 +586,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 4.days.ago, e.public_timestamp
   end
 
-  [:draft, :scheduled, :published, :archived, :submitted, :rejected].each do |state|
+  [:draft, :scheduled, :published, :superseded, :submitted, :rejected].each do |state|
     test "valid_as_draft? is true for valid #{state} editions" do
       edition = build("#{state}_edition")
       assert edition.valid_as_draft?

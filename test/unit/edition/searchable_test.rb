@@ -87,12 +87,12 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition.perform_unpublish
   end
 
-  test "should remove published edition from search index when it's archived" do
+  test "should remove published edition from search index when it's superseded" do
     edition = create(:published_edition)
     slug = edition.document.slug
 
     Searchable::Delete.expects(:later).with(edition)
 
-    edition.archive!
+    edition.supersede!
   end
 end

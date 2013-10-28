@@ -33,14 +33,14 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [second_policy, first_policy], topic.reload.published_policies
   end
 
-  test "should be deletable if all the associated policies are archived" do
-    topic = create(:topic, editions: [create(:archived_policy)])
+  test "should be deletable if all the associated policies are superseded" do
+    topic = create(:topic, editions: [create(:superseded_policy)])
     assert topic.destroyable?
     topic.delete!
     assert topic.deleted?
   end
 
-  test "should not be deletable if there are non-archived associated policies" do
+  test "should not be deletable if there are non-superseded associated policies" do
     topic = create(:topic, editions: [create(:policy)])
     refute topic.destroyable?
     topic.delete!

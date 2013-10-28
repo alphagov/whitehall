@@ -32,8 +32,8 @@ class Edition < ActiveRecord::Base
   validates :summary, presence: true
   validates :first_published_at, recent_date: true, allow_blank: true
 
-  UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
-  FROZEN_STATES = %w(archived deleted).freeze
+  UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
+  FROZEN_STATES = %w(superseded deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
 
 
@@ -67,7 +67,7 @@ class Edition < ActiveRecord::Base
   after_unpublish :reset_force_published_flag
   after_delete :clear_slug, :destroy_email_curation_queue_items
 
-  [:unpublish, :archive, :delete].each do |event|
+  [:unpublish, :supersede, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
   end
   # @!endgroup
@@ -542,7 +542,7 @@ class Edition < ActiveRecord::Base
   end
 
   def can_have_some_invalid_data?
-    imported? || deleted? || archived?
+    imported? || deleted? || superseded?
   end
 
   attr_accessor :trying_to_convert_to_draft

@@ -13,6 +13,6 @@ FactoryGirl.define do
     public_timestamp { 2.days.ago }
   end
   factory :deleted_policy, parent: :policy, traits: [:deleted]
-  factory :archived_policy, parent: :policy, traits: [:archived]
+  factory :superseded_policy, parent: :policy, traits: [:superseded]
   factory :scheduled_policy, parent: :policy, traits: [:scheduled]
 end

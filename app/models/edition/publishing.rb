@@ -35,7 +35,7 @@ module Edition::Publishing
   end
 
   def change_note_required?
-    if deleted? || archived?
+    if deleted? || superseded?
       false
     elsif draft? && new_record?
       false

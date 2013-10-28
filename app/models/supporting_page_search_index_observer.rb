@@ -5,7 +5,7 @@ class SupportingPageSearchIndexObserver < ActiveRecord::Observer
     edition.supporting_pages.each(&:remove_from_search_index)
   end
 
-  def after_archive(edition)
+  def after_supersede(edition)
     edition.supporting_pages.each(&:remove_from_search_index)
   end
 end

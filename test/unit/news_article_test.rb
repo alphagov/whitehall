@@ -33,8 +33,8 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid?
   end
 
-  test 'archived news articles are valid with the "unknown" news_article_type' do
-    news_article = build(:archived_news_article, news_article_type: NewsArticleType::Unknown)
+  test 'superseded news articles are valid with the "unknown" news_article_type' do
+    news_article = build(:superseded_news_article, news_article_type: NewsArticleType::Unknown)
     assert news_article.valid?
   end
 

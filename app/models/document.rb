@@ -85,7 +85,7 @@ class Document < ActiveRecord::Base
   end
 
   def ever_published_editions
-    editions.where(state: %w(published archived))
+    editions.where(state: %w(published superseded))
   end
 
   def scheduled_edition

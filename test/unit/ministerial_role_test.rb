@@ -19,7 +19,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "should be able to get published policies associated with a role" do
-    editions = [create(:published_policy), create(:draft_policy), create(:archived_policy)]
+    editions = [create(:published_policy), create(:draft_policy), create(:superseded_policy)]
     ministerial_role = create(:ministerial_role, editions: editions)
     assert_equal editions[0..0], ministerial_role.published_policies
   end

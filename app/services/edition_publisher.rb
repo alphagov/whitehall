@@ -11,7 +11,7 @@ class EditionPublisher
     if can_perform?
       prepare_edition
       fire_transition!
-      edition.archive_previous_editions!
+      edition.supersede_previous_editions!
       notify!
       true
     end

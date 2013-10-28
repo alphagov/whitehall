@@ -11,7 +11,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
 
     assert_equal [:imported, :draft, :submitted, :rejected, :scheduled], pre
-    assert_equal [:published, :archived, :superseded, :deleted], post
+    assert_equal [:published, :superseded, :deleted], post
   end
 
   test "rejecting a submitted edition transitions it into the rejected state" do
@@ -20,7 +20,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert submitted_edition.rejected?
   end
 
-  [:draft, :scheduled, :published, :archived, :deleted].each do |state|
+  [:draft, :scheduled, :published, :superseded, :deleted].each do |state|
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
       edition.reject! rescue nil
@@ -36,7 +36,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :published, :archived, :deleted].each do |state|
+  [:scheduled, :published, :superseded, :deleted].each do |state|
     test "should prevent a #{state} edition being submitted" do
       edition = create("#{state}_edition")
       edition.submit! rescue nil
@@ -52,7 +52,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :published, :archived].each do |state|
+  [:scheduled, :published, :superseded].each do |state|
     test "should prevent a #{state} edition being deleted" do
       edition = create("#{state}_edition")
       edition.delete! rescue nil
@@ -76,7 +76,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:rejected, :archived, :deleted].each do |state|
+  [:rejected, :superseded, :deleted].each do |state|
     test "should prevent a #{state} edition being published" do
       edition = create("#{state}_edition")
       edition.publish! rescue nil
@@ -96,7 +96,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute edition.force_published?
   end
 
-  [:submitted, :scheduled, :rejected, :archived, :deleted].each do |state|
+  [:submitted, :scheduled, :rejected, :superseded, :deleted].each do |state|
     test "should prevent a #{state} edition being unpublished" do
       edition = create("#{state}_edition")
       edition.unpublish! rescue nil
@@ -125,10 +125,10 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   [:draft, :submitted, :scheduled, :rejected, :deleted].each do |state|
-    test "should prevent a #{state} edition being archived" do
+    test "should prevent a #{state} edition being superseded" do
       edition = create("#{state}_edition")
-      edition.archive! rescue nil
-      refute edition.archived?
+      edition.supersede! rescue nil
+      refute edition.superseded?
     end
   end
 
@@ -147,7 +147,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :published, :archived, :deleted].each do |state|
+  [:scheduled, :published, :superseded, :deleted].each do |state|
     test "should not be editable when #{state}" do
       edition = create("#{state}_edition")
       edition.title = "new-title"
@@ -266,15 +266,15 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   # This is a quick fix to deal with a specific instance of the larger
-  # workflow issue that you cannot archive a document which fails
+  # workflow issue that you cannot supersede a document which fails
   # validation.
-  test "can archive a detailed guide without a user need" do
+  test "can supersede a detailed guide without a user need" do
     detailed_guide = create(:published_detailed_guide)
 
     detailed_guide.update_attribute(:user_needs, [])
     refute detailed_guide.valid?
 
-    detailed_guide.archive! rescue nil
-    assert detailed_guide.archived?
+    detailed_guide.supersede! rescue nil
+    assert detailed_guide.superseded?
   end
 end

@@ -3,7 +3,7 @@ module Edition::Workflow
 
   module ClassMethods
     def active
-      where(arel_table[:state].not_eq('archived'))
+      where(arel_table[:state].not_eq('superseded'))
     end
   end
 
@@ -12,13 +12,13 @@ module Edition::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
-    define_model_callbacks :unpublish, :archive, :delete, only: :after
+    define_model_callbacks :unpublish, :supersede, :delete, only: :after
 
     after_unpublish do
       notify_observers :after_unpublish
     end
-    after_archive do
-      notify_observers :after_archive
+    after_supersede do
+      notify_observers :after_supersede
     end
     after_delete do
       notify_observers :after_delete
@@ -31,7 +31,6 @@ module Edition::Workflow
       state :rejected
       state :scheduled
       state :published
-      state :archived
       state :superseded
       state :deleted
 
@@ -84,8 +83,8 @@ module Edition::Workflow
           guard: -> edition { edition.other_draft_editions.empty? }
       end
 
-      event :archive, success: -> edition { edition.run_callbacks(:archive) } do
-        transitions from: :published, to: :archived
+      event :supersede, success: -> edition { edition.run_callbacks(:supersede) } do
+        transitions from: :published, to: :superseded
       end
     end
 
@@ -96,9 +95,9 @@ module Edition::Workflow
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
-  def archive_previous_editions!
+  def supersede_previous_editions!
     document.editions.published.each do |edition|
-      edition.archive! unless edition == self
+      edition.supersede! unless edition == self
     end
   end
 

@@ -535,7 +535,7 @@ module AdminEditionControllerTestHelpers
         submitted_policy = create(:submitted_policy)
         rejected_policy = create(:rejected_policy)
         published_policy = create(:published_policy)
-        archived_policy = create(:archived_policy)
+        superseded_policy = create(:superseded_policy)
         deleted_policy = create(:deleted_policy)
 
         get :new
@@ -546,7 +546,7 @@ module AdminEditionControllerTestHelpers
             assert_select "option[value='#{submitted_policy.id}']"
             assert_select "option[value='#{rejected_policy.id}']"
             assert_select "option[value='#{published_policy.id}']"
-            refute_select "option[value='#{archived_policy.id}']"
+            refute_select "option[value='#{superseded_policy.id}']"
             refute_select "option[value='#{deleted_policy.id}']"
           end
         end
