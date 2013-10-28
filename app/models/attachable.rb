@@ -2,7 +2,7 @@ module Attachable
   extend ActiveSupport::Concern
 
   included do
-    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', before_add: :set_order
+    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id'
 
     no_substantive_attachment_attributes = ->(attrs) do
       attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
@@ -84,12 +84,6 @@ module Attachable
         hoc_paper_number: attachment.hoc_paper_number
       }
     end
-  end
-
-  private
-
-  def set_order(new_attachment)
-    new_attachment.ordering = next_ordering unless new_attachment.ordering.present?
   end
 
   def next_ordering

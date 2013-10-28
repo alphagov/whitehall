@@ -9,6 +9,8 @@ class Attachment < ActiveRecord::Base
     :number_of_pages, :file, :filename, :virus_status,
     to: :attachment_data
 
+  before_save :set_ordering, if: -> { ordering.blank? }
+
   after_destroy :destroy_unused_attachment_data
 
   accepts_nested_attributes_for :attachment_data
@@ -83,5 +85,9 @@ class Attachment < ActiveRecord::Base
     if attachment_data && Attachment.where(attachment_data_id: attachment_data.id).empty?
       attachment_data.destroy
     end
+  end
+
+  def set_ordering
+    self.ordering = attachable.next_ordering
   end
 end
