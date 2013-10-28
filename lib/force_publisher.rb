@@ -18,7 +18,7 @@ class ForcePublisher
         if edition.nil?
           reporter.failure(edition, 'Edition is nil')
         else
-          publisher = EditionForcePublisher.new(edition, user: user, remark: 'Bulk force published after import')
+          publisher = Whitehall.edition_services.force_publisher(edition, user: user, remark: 'Bulk force published after import')
           if !publisher.can_perform?
             reporter.failure(edition, publisher.failure_reason)
           else

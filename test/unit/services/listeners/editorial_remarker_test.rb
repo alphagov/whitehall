@@ -1,14 +1,12 @@
 require 'test_helper'
 
-class EditorialRemarkerTest < ActiveSupport::TestCase
-
-  test '#edition_published adds an editorial remark to the edition' do
+class ServiceListeners::EditorialRemarkerTest < ActiveSupport::TestCase
+  test 'adds an editorial remark to the edition' do
     edition = create(:published_edition)
     user    = edition.creator
     body    = 'Force published: Urgent change'
-    options = { user: user, remark: body }
 
-    Edition::EditorialRemarker.edition_published(edition, options)
+    ServiceListeners::EditorialRemarker.new(edition, user, body).save_remark!
 
     assert remark = edition.editorial_remarks.last
     assert_equal user, remark.author
@@ -18,13 +16,13 @@ class EditorialRemarkerTest < ActiveSupport::TestCase
   test '#edition_published does not add a remark if a user or remark is not given' do
     edition = create(:published_edition)
 
-    Edition::EditorialRemarker.edition_published(edition, {})
+    ServiceListeners::EditorialRemarker.new(edition, nil, nil).save_remark!
     assert edition.editorial_remarks.empty?
 
-    Edition::EditorialRemarker.edition_published(edition, { user: edition.creator })
+    ServiceListeners::EditorialRemarker.new(edition, edition.creator, nil).save_remark!
     assert edition.editorial_remarks.empty?
 
-    Edition::EditorialRemarker.edition_published(edition, { remark: 'Made some changes' })
+    ServiceListeners::EditorialRemarker.new(edition, nil, 'Made some changes').save_remark!
     assert edition.editorial_remarks.empty?
   end
 end

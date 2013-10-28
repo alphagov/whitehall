@@ -1,10 +1,10 @@
 class EditionPublisher
-  attr_reader :edition, :options, :subscribers
+  attr_reader :edition, :options, :notifier
 
   def initialize(edition, options={})
     @edition = edition
+    @notifier = options.delete(:notifier)
     @options = options
-    @subscribers = options.delete(:subscribers) || default_subscribers
   end
 
   def perform!
@@ -12,7 +12,7 @@ class EditionPublisher
       prepare_edition
       fire_transition!
       edition.archive_previous_editions!
-      subscribers.each { |subscriber| subscriber.edition_published(edition, options) }
+      notify!
       true
     end
   end
@@ -31,18 +31,18 @@ class EditionPublisher
     end
   end
 
-  def default_subscribers
-    [Edition::AuthorNotifier, Whitehall::GovUkDelivery::Notifier, Edition::SearchIndexer, Edition::EditorialRemarker]
-  end
-
-private
-
   def verb
-    :publish
+    'publish'
   end
 
   def past_participle
     "#{verb}ed".humanize.downcase
+  end
+
+private
+
+  def notify!
+    notifier && notifier.publish(verb, edition, options)
   end
 
   def prepare_edition
@@ -53,7 +53,7 @@ private
   end
 
   def fire_transition!
-    edition.publish!
+    edition.public_send("#{verb}!")
   end
 
   def can_transition?

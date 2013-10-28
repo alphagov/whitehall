@@ -53,42 +53,9 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
-  test "is never publishable if submitted with a scheduled_publication date, even if no reason to prevent approval" do
-    edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    publisher = EditionPublisher.new(edition)
-    refute publisher.can_perform?
-    expected_reason = expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
-    assert_equal expected_reason, publisher.failure_reason
-  end
-
-  test "is never publishable if scheduled, but the scheduled_publication date has not yet arrived" do
-    edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
-    Timecop.freeze(edition.scheduled_publication - 1.second) do
-      publisher = EditionPublisher.new(edition)
-      refute publisher.can_perform?
-      expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
-      assert_equal expected_reason, publisher.failure_reason
-    end
-  end
-
   test "is not schedulable if already scheduled" do
     edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
     assert_equal "This edition is already scheduled for publication", edition.reason_to_prevent_scheduling
-  end
-
-  test "is publishable if scheduled and the scheduled_publication date has passed" do
-    edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
-    Timecop.freeze(edition.scheduled_publication) do
-      assert EditionPublisher.new(edition).can_perform?
-    end
-  end
-
-  test "publishing a force-scheduled edition does not clear the force_published flag" do
-    edition = create(:scheduled_edition, scheduled_publication: 1.day.from_now, force_published: true)
-    Timecop.freeze(edition.scheduled_publication) do
-      EditionPublisher.new(edition).perform!
-    end
-    assert_equal true, edition.reload.force_published
   end
 
   test "is not schedulable if the edition is invalid" do

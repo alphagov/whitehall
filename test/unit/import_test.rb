@@ -306,7 +306,7 @@ class ImportTest < ActiveSupport::TestCase
     refute import.force_publishable?
     import.imported_editions.map { |e| e.convert_to_draft! }
     assert import.force_publishable?
-    import.imported_editions.map { |e| EditionPublisher.new(e).perform! }
+    import.imported_editions.map { |e|publish(e) }
     assert import.force_publishable?
     import.imported_editions.map { |e| force_publish(e) }
     refute import.force_publishable?

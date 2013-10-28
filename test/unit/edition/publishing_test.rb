@@ -68,7 +68,7 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(create(:policy_writer))
     new_draft.minor_change = true
     new_draft.submit!
-    EditionPublisher.new(new_draft).perform!
+    publish(new_draft)
 
     assert_equal '1.1', new_draft.reload.published_version
 
@@ -83,7 +83,7 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     new_draft = edition.create_draft(create(:policy_writer))
     new_draft.change_note = 'My new version'
     new_draft.submit!
-    EditionPublisher.new(new_draft).perform!
+    publish(new_draft)
 
     assert_equal '2.0', new_draft.published_version
 
@@ -99,14 +99,14 @@ class Edition::UnpublishingControlsTest < ActiveSupport::TestCase
     minor_change_edition = edition.create_draft(editor)
     minor_change_edition.minor_change = true
     minor_change_edition.submit!
-    EditionPublisher.new(minor_change_edition).perform!
+    publish(minor_change_edition)
 
     assert_equal '1.1', minor_change_edition.published_version
 
     new_draft = minor_change_edition.create_draft(editor)
     new_draft.change_note = 'My new version'
     new_draft.submit!
-    EditionPublisher.new(new_draft).perform!
+    publish(new_draft)
 
     assert_equal '2.0', new_draft.published_version
 

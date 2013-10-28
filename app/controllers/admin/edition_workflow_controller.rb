@@ -63,7 +63,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def publish
-    edition_publisher = EditionPublisher.new(@edition)
+    edition_publisher = Whitehall.edition_services.publisher(@edition)
     if edition_publisher.perform!
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else
@@ -75,7 +75,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def force_publish
-    edition_publisher = EditionForcePublisher.new(@edition, user: current_user, remark: force_publish_reason)
+    edition_publisher = Whitehall.edition_services.force_publisher(@edition, user: current_user, remark: force_publish_reason)
     if edition_publisher.perform!
       redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
     else

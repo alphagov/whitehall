@@ -3,15 +3,6 @@ THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consulta
 end
 
 module DocumentHelper
-
-  def publish(edition)
-    EditionPublisher.new(edition).perform!
-  end
-
-  def force_publish(edition)
-    EditionForcePublisher.new(edition).perform!
-  end
-
   def document_class(type)
     type = 'edition' if type == 'document'
     type.gsub(" ", "_").classify.constantize

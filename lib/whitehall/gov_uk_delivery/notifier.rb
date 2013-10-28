@@ -1,12 +1,6 @@
 class Whitehall::GovUkDelivery::Notifier
   attr_accessor :edition
 
-  def self.edition_published(edition, options)
-    if edition.supports_govuk_delivery_notifications?
-      new(edition).edition_published!
-    end
-  end
-
   def initialize(edition)
     @edition = edition
   end
@@ -30,7 +24,8 @@ class Whitehall::GovUkDelivery::Notifier
   end
 
   def edition_can_be_sent_as_notification?
-    !edition.minor_change? &&
+    edition.supports_govuk_delivery_notifications? &&
+      !edition.minor_change? &&
       # We don't want to send anything that will appear to have been
       # published in the past.
       (Time.zone.now.to_date == notification_date.to_date) &&

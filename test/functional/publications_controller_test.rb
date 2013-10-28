@@ -563,8 +563,8 @@ class PublicationsControllerTest < ActionController::TestCase
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
-      force_publish(collection)
-      force_publish(publication)
+      Whitehall.edition_services.force_publisher(collection).perform!
+      Whitehall.edition_services.force_publisher(publication).perform!
       get :index
 
       assert_select_object(publication) do
@@ -579,8 +579,8 @@ class PublicationsControllerTest < ActionController::TestCase
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
-      force_publish(collection)
-      force_publish(publication)
+      Whitehall.edition_services.force_publisher(collection).perform!
+      Whitehall.edition_services.force_publisher(publication).perform!
 
       get :index, format: :json
 

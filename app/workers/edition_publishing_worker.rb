@@ -12,7 +12,7 @@ class EditionPublishingWorker
   def publish_edition_as_user(edition, user)
     Edition::AuditTrail.acting_as(user) do
       perform_atomic_update do
-        publisher = EditionPublisher.new(edition)
+        publisher = Whitehall.edition_services.publisher(edition)
         unless publisher.perform!
           raise ScheduledPublishingFailure, publisher.failure_reason
         end
