@@ -4,7 +4,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
 
   test 'scrub script runs' do
-    `./script/scrub-database --no-copy -d whitehall_test -D whitehall_test`
+    run_script
     assert $?.to_i == 0, "Script exited non-zero"
   end
 
@@ -12,7 +12,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
     good_edition = create(:edition, title: "Good title", summary: "Good summary", body: "Good body", access_limited: false)
     bad_edition = create(:edition, title: "Bad title", summary: "Bad summary", body: "Bad body", access_limited: true)
 
-    `./script/scrub-database --no-copy -d whitehall_test -D whitehall_test`
+    run_script
 
     good_edition.reload
     assert_equal "Good title", good_edition.title
@@ -31,7 +31,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
     good_attachment = create(:file_attachment, title: "Good title", attachable: create(:edition, access_limited: false))
     bad_attachment = create(:file_attachment, title: "Bad title", attachable: create(:edition, access_limited: true))
 
-    `./script/scrub-database --no-copy -d whitehall_test -D whitehall_test`
+    run_script
 
     good_attachment.reload
     assert_equal "Good title", good_attachment.title
@@ -46,7 +46,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
     good_attachment = create(:html_attachment, title: "Good title", body: "Good body", attachable: create(:edition, access_limited: false))
     bad_attachment = create(:html_attachment, title: "Bad title", body: "Bad body", attachable: create(:edition, access_limited: true))
 
-    `./script/scrub-database --no-copy -d whitehall_test -D whitehall_test`
+    run_script
 
     good_attachment.reload
     assert_equal "Good title", good_attachment.title
@@ -63,7 +63,7 @@ class SanitiseDBTest < ActiveSupport::TestCase
     good_page = create(:supporting_page, title: "Good title", body: "Good body", edition: create(:edition, access_limited: false))
     bad_page = create(:supporting_page, title: "Bad title", body: "Bad body", edition: create(:edition, access_limited: true))
 
-    `./script/scrub-database --no-copy -d whitehall_test -D whitehall_test`
+    run_script
 
     good_page.reload
     assert_equal "Good title", good_page.title
@@ -79,12 +79,21 @@ class SanitiseDBTest < ActiveSupport::TestCase
   test "scrub script sanitises all fact checks" do
     fact_check = create(:fact_check_request, email_address: "important-person@example.com", comments: "Secret data", instructions: "Secret data", key: "abcdefghijklmnop")
 
-    `./script/scrub-database --no-copy -d whitehall_test -D whitehall_test`
+    run_script
 
     fact_check.reload
     refute fact_check.email_address =~ /important-person/, "Expected email to be sanitised"
     assert_equal "", fact_check.comments, "Expected comments to be sanitised"
     assert_equal "", fact_check.instructions, "Expected instructions to be sanitised"
     refute fact_check.key =~ /abcdefghijklmnop/, "Expected key to be sanitised"
+  end
+
+private
+  def run_script
+    database, username, password = %w(database username password).map do |key|
+      ActiveRecord::Base.configurations[Rails.env][key]
+    end
+
+    `./script/scrub-database --no-copy -D #{database} -U #{username} -P #{password}`
   end
 end
