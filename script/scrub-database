@@ -82,8 +82,12 @@ echo "Anonymising email addresses and comments in fact checks..."
 run_mysql_command "UPDATE fact_check_requests SET email_address = concat('fact-email-', id, '@example.com'), comments = '', instructions = '', \`key\` = concat('redacted-', id)"
 echo "Done"
 
-echo "Anonymising attachment data for latest access limited drafts..."
+echo "Anonymising attachment titles for latest access limited drafts..."
 run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE attachable_type = 'Edition' AND attachable_id IN (${access_limited_edition_ids})" 1> /dev/null
+echo "Done"
+
+echo "Anonymising html attachment data for latest access limited drafts..."
+run_mysql_command "UPDATE attachments SET body='${lorem_ipsum_paragraphs}', slug=concat('${lorem_ipsum_slug}-', id) WHERE attachable_type = 'Edition' AND attachable_id IN (${access_limited_edition_ids})" 1> /dev/null
 echo "Done"
 
 echo "Anonymising file names for attachments on latest access limited drafts..."
