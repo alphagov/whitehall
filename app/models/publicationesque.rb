@@ -14,11 +14,7 @@ class Publicationesque < Edition
     PublicationesquePresenter
   end
 
-  def supports_govuk_delivery_notifications?
-    true
-  end
-
-  protected
+protected
 
   def search_format_types
     super + [Publicationesque.search_format_type]

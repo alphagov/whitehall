@@ -18,10 +18,6 @@ class Announcement < Edition
   def presenter
     AnnouncementPresenter
   end
-
-  def supports_govuk_delivery_notifications?
-    true
-  end
 end
 
 require_relative 'newsesque'

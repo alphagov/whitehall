@@ -10,9 +10,22 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier_for(edition).notification_date
   end
 
-  test '#edition_published! does nothing if edition does not support gov delivery notifications' do
-    edition =  CaseStudy.new
-    refute edition.supports_govuk_delivery_notifications?
+  test 'Announcement, Policy and Publicationesques are GovUK deliverable' do
+    deliverable_classes = [Policy, Announcement.concrete_descendants, Publicationesque.concrete_descendants].flatten
+    undeliverable_classes = Whitehall.edition_classes - deliverable_classes
+
+    deliverable_classes.each do |klass|
+      assert Whitehall::GovUkDelivery.deliverable?(klass.new)
+    end
+
+    undeliverable_classes.each do |klass|
+      refute Whitehall::GovUkDelivery.deliverable?(klass.new)
+    end
+  end
+
+  test '#edition_published! does nothing if edition is not deliverable' do
+    edition = build(:edition)
+    Whitehall::GovUkDelivery.stubs(deliverable?: false)
 
     notifier = notifier_for(edition)
     notifier.expects(:notify_email_curation_queue).never

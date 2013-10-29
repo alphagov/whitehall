@@ -6,7 +6,7 @@ class Whitehall::GovUkDelivery::Notifier
   end
 
   def edition_published!
-    if edition_can_be_sent_as_notification?
+    if should_notify_govuk_delivery?
       if edition.relevant_to_local_government?
         notify_email_curation_queue
       else
@@ -23,13 +23,24 @@ class Whitehall::GovUkDelivery::Notifier
     Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.new(edition, notification_date).notify!
   end
 
-  def edition_can_be_sent_as_notification?
-    edition.supports_govuk_delivery_notifications? &&
-      !edition.minor_change? &&
-      # We don't want to send anything that will appear to have been
-      # published in the past.
-      (Time.zone.now.to_date == notification_date.to_date) &&
-      edition.available_in_locale?(:en)
+  def should_notify_govuk_delivery?
+    edition_type_is_deliverable? && major_change? && published_today? && available_in_english?
+  end
+
+  def edition_type_is_deliverable?
+    Whitehall::GovUkDelivery.deliverable?(edition)
+  end
+
+  def major_change?
+    !edition.minor_change?
+  end
+
+  def published_today?
+    Time.zone.now.to_date == notification_date.to_date
+  end
+
+  def available_in_english?
+    edition.available_in_locale?(:en)
   end
 
   def notification_date

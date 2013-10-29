@@ -73,11 +73,7 @@ class Policy < Edition
     true
   end
 
-  def supports_govuk_delivery_notifications?
-    true
-  end
-
-  private
+private
 
   def remove_edition_relations
     edition_relations.each(&:destroy)

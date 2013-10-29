@@ -397,10 +397,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def supports_govuk_delivery_notifications?
-    false
-  end
-
   # @!endgroup
 
   def create_draft(user)
