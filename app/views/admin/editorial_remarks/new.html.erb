@@ -11,7 +11,7 @@
     back to <%= link_to 'document', admin_edition_path(@edition) %>
   </span>
 
-  <%= form_for [:admin, @edition, @editorial_remark] do |feedback_form| %>
+  <%= form_for [:admin, @edition, @editorial_remark], url: admin_edition_editorial_remarks_path(@edition) do |feedback_form| %>
     <%= feedback_form.errors %>
     <%= feedback_form.text_area :body, label_text: "Remark" %>
     <%= feedback_form.submit "Submit remark", class: "btn" %>

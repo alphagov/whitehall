@@ -22,6 +22,12 @@ class Admin::EditorialRemarksControllerTest < ActionController::TestCase
     assert_select "form#new_editorial_remark"
   end
 
+  view_test "should render the editorial remark form for a document collection" do
+    edition = create(:draft_document_collection, title: "collection-title", body: "collection-body")
+    get :new, edition_id: edition
+    assert_select "form#new_editorial_remark"
+  end
+
   test "should redirect to the edition" do
     edition = create(:submitted_speech)
     post :create, edition_id: edition, editorial_remark: { body: "editorial-remark-body" }
