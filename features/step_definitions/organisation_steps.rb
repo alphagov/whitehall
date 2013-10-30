@@ -80,6 +80,25 @@ Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ d
   click_button "Save"
 end
 
+Given(/^some organisations of every type exist$/) do
+  @executive_office =             create :organisation, organisation_type_key: :executive_office, govuk_status: 'live'
+  @ministerial_department =       create :organisation, organisation_type_key: :ministerial_department, govuk_status: 'live'
+  @non_ministerial_department_1 = create :organisation, organisation_type_key: :non_ministerial_department, govuk_status: 'live'
+  @non_ministerial_department_2 = create :organisation, organisation_type_key: :non_ministerial_department, govuk_status: 'transitioning'
+  @executive_agency =             create :organisation, organisation_type_key: :executive_agency
+  @executive_ndpb =               create :organisation, organisation_type_key: :executive_ndpb
+  @advisory_ndpb =                create :organisation, organisation_type_key: :advisory_ndpb
+  @tribunal_ndpb =                create :organisation, organisation_type_key: :tribunal_ndpb
+  @public_corporation =           create :organisation, organisation_type_key: :public_corporation
+  @independent_monitoring_body =  create :organisation, organisation_type_key: :independent_monitoring_body
+  @adhoc_advisory_group =         create :organisation, organisation_type_key: :adhoc_advisory_group
+  @devolved_administration =      create :organisation, organisation_type_key: :devolved_administration, govuk_status: "exempt"
+  @other_organisation =           create :organisation, organisation_type_key: :other
+
+  @child_org_1 = create :organisation, parent_organisations: [@ministerial_department]
+  @child_org_2 = create :organisation, parent_organisations: [@non_ministerial_department_2]
+end
+
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
   create(:mainstream_category, title: 'Jazzy Bizzle')
@@ -112,7 +131,11 @@ When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
 
-When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
+When(/^I visit the organisations page$/) do
+  visit organisations_path
+end
+
+When /^I feature the news article "([^"]*)" f2or "([^"]*)"$/ do |news_article_title, organisation_name|
   step %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
 end
 
@@ -151,6 +174,75 @@ When /^I delete the organisation "([^"]*)"$/ do |name|
   organisation = Organisation.find_by_name!(name)
   visit edit_admin_organisation_path(organisation)
   click_button "delete"
+end
+
+Then(/^I should see the executive offices listed$/) do
+  within "#executive-offices" do
+    assert page.has_link?(@executive_office.name, href: organisation_path(@executive_office))
+  end
+end
+
+Then(/^I should see the ministerial departments including their sub\-organisations listed with count and number live$/) do
+  within "#ministerial-departments" do
+    assert page.has_link?(@ministerial_department.name, href: organisation_path(@ministerial_department))
+    within "#organisation_#{@ministerial_department.id}" do
+      assert page.has_link?(@child_org_1.name, href: organisation_path(@child_org_1))
+    end
+    within "header" do
+      assert page.has_content? "1"
+      assert page.has_content? "All live on GOV.UK"
+    end
+  end
+end
+
+Then(/^I should see the non ministerial departments including their sub\-organisations listed with count and number live$/) do
+  within "#non-ministerial-departments" do
+    assert page.has_link?(@non_ministerial_department_1.name, href: organisation_path(@non_ministerial_department_1))
+    assert page.has_link?(@non_ministerial_department_2.name, href: organisation_path(@non_ministerial_department_2))
+    within "#organisation_#{@non_ministerial_department_2.id}" do
+      assert page.has_link?(@child_org_2.name, href: organisation_path(@child_org_2))
+    end
+    within "header" do
+      assert page.has_content? "2"
+      assert page.has_content? "1 live on GOV.UK"
+    end
+  end
+end
+
+Then(/^I should see the agencies and government bodies listed with count and number live$/) do
+  within "#agencies-and-government-bodies" do
+    assert page.has_link?(@executive_agency.name, href: organisation_path(@executive_agency))
+    assert page.has_link?(@executive_ndpb.name, href: organisation_path(@executive_ndpb))
+    assert page.has_link?(@advisory_ndpb.name, href: organisation_path(@advisory_ndpb))
+    assert page.has_link?(@tribunal_ndpb.name, href: organisation_path(@tribunal_ndpb))
+    assert page.has_link?(@independent_monitoring_body.name, href: organisation_path(@independent_monitoring_body))
+    assert page.has_link?(@adhoc_advisory_group.name, href: organisation_path(@adhoc_advisory_group))
+    assert page.has_link?(@other_organisation.name, href: organisation_path(@other_organisation))
+    assert page.has_link?(@child_org_1.name, href: organisation_path(@child_org_1))
+    assert page.has_link?(@child_org_2.name, href: organisation_path(@child_org_2))
+    within "header" do
+      assert page.has_content? "9"
+      assert page.has_content? "All live on GOV.UK"
+    end
+  end
+end
+
+Then(/^I should see the public corporations listed with count$/) do
+  within "#public-corporations" do
+    assert page.has_link?(@public_corporation.name, href: organisation_path(@public_corporation))
+    within "header" do
+      assert page.has_content? "1"
+    end
+  end
+end
+
+Then(/^I should see the devolved administrations listed with count$/) do
+  within "#devolved-administrations" do
+    assert page.has_link?(@devolved_administration.name, href: organisation_path(@devolved_administration))
+    within "header" do
+      assert page.has_content? "1"
+    end
+  end
 end
 
 Then /^there should not be an organisation called "([^"]*)"$/ do |name|

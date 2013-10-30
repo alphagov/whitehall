@@ -114,6 +114,17 @@ Scenario: Editing an existing translation
     | description         | Barbes, moustaches, même rouflaquettes            |
     | about us            | Nous nous occupons de la pilosité faciale du pays |
 
+Scenario: Viewing the Organisation index
+  Given some organisations of every type exist
+  When I visit the organisations page
+  Then I should see the executive offices listed
+  And I should see the ministerial departments including their sub-organisations listed with count and number live
+  And I should see the non ministerial departments including their sub-organisations listed with count and number live
+  And I should see the agencies and government bodies listed with count and number live
+  And I should see the agencies and government bodies listed with count and number live
+  And I should see the public corporations listed with count
+  And I should see the devolved administrations listed with count
+
 Scenario: Organisation page should show policies
   Given the organisation "Attorney General's Office" contains some policies
   And other organisations also have policies
