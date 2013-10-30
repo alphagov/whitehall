@@ -99,6 +99,12 @@ Given(/^some organisations of every type exist$/) do
   @child_org_2 = create :organisation, parent_organisations: [@non_ministerial_department_2]
 end
 
+Given(/^1 live, 1 transitioning and 1 exempt executive agencies$/) do
+  @live_agency =          create :organisation, organisation_type_key: :executive_agency, govuk_status: 'live'
+  @transitioning_agency = create :organisation, organisation_type_key: :executive_agency, govuk_status: 'transitioning'
+  @exempt_agency =        create :organisation, organisation_type_key: :executive_agency, govuk_status: 'exempt'
+end
+
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
   create(:mainstream_category, title: 'Jazzy Bizzle')
@@ -135,7 +141,7 @@ When(/^I visit the organisations page$/) do
   visit organisations_path
 end
 
-When /^I feature the news article "([^"]*)" f2or "([^"]*)"$/ do |news_article_title, organisation_name|
+When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
   step %%I feature the news article "#{news_article_title}" for "#{organisation_name}" with image "minister-of-funk.960x640.jpg"%
 end
 
@@ -209,7 +215,7 @@ Then(/^I should see the non ministerial departments including their sub\-organis
   end
 end
 
-Then(/^I should see the agencies and government bodies listed with count and number live$/) do
+Then(/^I should see the agencies and government bodies listed with count$/) do
   within "#agencies-and-government-bodies" do
     assert page.has_link?(@executive_agency.name, href: organisation_path(@executive_agency))
     assert page.has_link?(@executive_ndpb.name, href: organisation_path(@executive_ndpb))
@@ -222,7 +228,6 @@ Then(/^I should see the agencies and government bodies listed with count and num
     assert page.has_link?(@child_org_2.name, href: organisation_path(@child_org_2))
     within "header" do
       assert page.has_content? "9"
-      assert page.has_content? "All live on GOV.UK"
     end
   end
 end
@@ -242,6 +247,14 @@ Then(/^I should see the devolved administrations listed with count$/) do
     within "header" do
       assert page.has_content? "1"
     end
+  end
+end
+
+Then(/^I should see a transition visualisation showing 1 out of 2 agencies moved plus 1 agency$/) do
+  within "#agencies-and-government-bodies .transition-state-visualisation" do
+    assert page.find('.horizontal-percent-bar .bar-inner')['style'].include?("width: 50%")
+    assert page.has_content? "1/2 agencies live on GOV.UK"
+    assert page.has_content? "+1 not moving to GOV.UK"
   end
 end
 
