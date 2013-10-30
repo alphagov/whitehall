@@ -105,15 +105,6 @@ module Edition::Publishing
     end
   end
 
-private
-
-  def set_publishing_attributes_and_increment_version_numbers
-    self.access_limited = false
-    increment_version_number
-    self.major_change_published_at = Time.zone.now unless minor_change?
-    make_public_at(major_change_published_at)
-  end
-
   def decrement_version_numbers
     if minor_change?
       self.published_minor_version = self.published_minor_version - 1
