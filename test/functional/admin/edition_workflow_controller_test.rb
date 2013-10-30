@@ -207,11 +207,9 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'unpublish unpublishes the edition, adds a remark, and redirects back with a message' do
     login_as create(:gds_editor)
     unpublish_params = {
-        'unpublishing_reason_id' => '1',
-        'explanation' => 'Was classified',
-        'alternative_url' => 'https://www.gov.uk/alt',
-        'document_type' => 'Policy',
-        'slug' => 'some-slug'
+        unpublishing_reason_id: '1',
+        explanation: 'Was classified',
+        alternative_url: 'https://www.gov.uk/alt'
       }
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 

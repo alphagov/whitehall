@@ -58,6 +58,10 @@ module Edition::Publishing
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
+  def build_unpublishing(attributes={})
+    super(attributes.merge(slug: slug, document_type: type))
+  end
+
   def reason_to_prevent_unpublication
     if !published?
       "This edition has not been published"

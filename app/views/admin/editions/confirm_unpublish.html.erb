@@ -6,8 +6,6 @@
 
       <%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
         <%= fields_for :unpublishing do |unpublish| %>
-          <%= unpublish.hidden_field :document_type %>
-          <%= unpublish.hidden_field :slug %>
           <%= unpublish.label :unpublishing_reason_id, "Reason for unpublishing" %>
           <%= unpublish.select :unpublishing_reason_id, options_from_collection_for_select(UnpublishingReason.all, :id, :name) %>
           <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5, class: "previewable"  %>

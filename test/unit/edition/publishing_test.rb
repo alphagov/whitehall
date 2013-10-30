@@ -161,6 +161,24 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
 end
 
 class Edition::PublishingTest < ActiveSupport::TestCase
+  test '#build_unpublishing builds an unpublishing for the edition with the slug and type set' do
+    edition = create(:published_edition)
+    params  = {
+      unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
+      explanation: 'This document was published by mistake'
+    }
+
+    edition.build_unpublishing(params)
+
+    assert unpublishing = edition.unpublishing
+    assert unpublishing.new_record?
+    assert unpublishing.valid?
+    assert_equal edition.slug, unpublishing.slug
+    assert_equal edition.type, unpublishing.document_type
+    assert_equal UnpublishingReason::PublishedInError, unpublishing.unpublishing_reason
+    assert_equal params[:explanation], unpublishing.explanation
+  end
+
   test "a draft edition has no published version number" do
     draft_edition = create(:draft_edition)
     assert_nil draft_edition.published_version
