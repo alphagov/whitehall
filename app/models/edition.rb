@@ -64,9 +64,9 @@ class Edition < ActiveRecord::Base
   # @!group Callbacks
   before_save :set_public_timestamp
 
-  after_unpublish :reset_force_published_flag
   after_delete :clear_slug, :destroy_email_curation_queue_items
 
+  # TODO: Remove :unpublish from here once callbacks are gone
   [:unpublish, :supersede, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
   end
@@ -527,10 +527,6 @@ class Edition < ActiveRecord::Base
 
   def alternative_format_contact_email
     nil
-  end
-
-  def reset_force_published_flag
-    update_column(:force_published, false)
   end
 
   def valid_as_draft?

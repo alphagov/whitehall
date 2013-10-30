@@ -462,7 +462,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(policy)
     policy.unpublishing = build(:unpublishing)
-    policy.perform_unpublish
+    Whitehall.edition_services.unpublisher(policy).perform!
   end
 
   test "swallows errors from search index when it's unpublished" do
@@ -470,7 +470,7 @@ class EditionTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
     policy.unpublishing = build(:unpublishing)
-    assert_nothing_raised { policy.perform_unpublish }
+    assert_nothing_raised { Whitehall.edition_services.unpublisher(policy).perform! }
   end
 
   test "should remove published edition from search index when it's superseded" do

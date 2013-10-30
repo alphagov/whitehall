@@ -8,7 +8,7 @@ class SupportingPageSearchIndexObserverTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(supporting_page)
     policy.unpublishing = build(:unpublishing)
-    policy.perform_unpublish
+    Whitehall.edition_services.unpublisher(policy).perform!
   end
 
   test 'should remove supporting page from search index when its edition is superseded' do

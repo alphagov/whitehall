@@ -62,29 +62,6 @@ module Edition::Publishing
     super(attributes.merge(slug: slug, document_type: type))
   end
 
-  def reason_to_prevent_unpublication
-    if !published?
-      "This edition has not been published"
-    elsif other_draft_editions.any?
-      "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
-    end
-  end
-
-  def perform_unpublish
-    if reason = reason_to_prevent_unpublication
-      errors.add(:base, reason)
-      false
-    else
-      reset_version_numbers
-      if unpublishing && unpublishing.valid?
-        unpublish! and unpublishing.save
-      else
-        errors.add(:base, unpublishing.errors.full_messages.join) if unpublishing
-        false
-      end
-    end
-  end
-
   def approve_retrospectively
     if force_published?
       self.force_published = false

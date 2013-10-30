@@ -105,7 +105,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       publication = create(:published_publication)
       old_slug = publication.document.slug
       publication.unpublishing = create(:unpublishing)
-      publication.perform_unpublish
+      Whitehall.edition_services.unpublisher(publication).perform!
       unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
       publication.title = "This is a new title"
       publication.save!

@@ -6,7 +6,7 @@ class PolicySearchIndexObserverTest < ActiveSupport::TestCase
 
     PolicySearchIndexObserver::ReindexRelatedEditions.expects(:later).with(policy)
     policy.unpublishing = build(:unpublishing)
-    policy.perform_unpublish
+    Whitehall.edition_services.unpublisher(policy).perform!
   end
 
   test 'ReindexRelatedEditions.later enqueues a job for the supplied policy onto the rummager work queue' do

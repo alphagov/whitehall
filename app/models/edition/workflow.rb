@@ -12,8 +12,10 @@ module Edition::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
+    # TODO: move to service object
     define_model_callbacks :unpublish, :supersede, :delete, only: :after
 
+    # TODO: move to service object
     after_unpublish do
       notify_observers :after_unpublish
     end
@@ -78,9 +80,9 @@ module Edition::Workflow
         transitions from: [:draft, :submitted], to: :published
       end
 
+      # TODO: remove callbacks once we have a service object
       event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
-        transitions from: :published, to: :draft,
-          guard: -> edition { edition.other_draft_editions.empty? }
+        transitions from: :published, to: :draft
       end
 
       event :supersede, success: -> edition { edition.run_callbacks(:supersede) } do
