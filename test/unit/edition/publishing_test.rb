@@ -205,6 +205,25 @@ class Edition::PublishingTest < ActiveSupport::TestCase
     assert_equal '1.1', new_draft.published_version
   end
 
+  test '#reset_version_numbers on a first edition resets the version numbers back to nil' do
+    edition = create(:published_edition)
+    edition.reset_version_numbers
+
+    assert_nil edition.published_version
+  end
+
+  test '#reset_version_numbers on a re-editioned edition resets the version numbers back to that of the previous edition' do
+    previous_edition = create(:published_edition, published_major_version: 2, published_minor_version: 4)
+    new_edition = previous_edition.create_draft(create(:policy_writer))
+    new_edition.minor_change = true
+    force_publish(new_edition)
+
+    assert_equal '2.5', new_edition.published_version
+
+    new_edition.reset_version_numbers
+    assert_equal '2.4', new_edition.published_version
+  end
+
   test "#approve_retrospectively should clear the force_published flag, and return true on success" do
     edition = create(:published_policy, force_published: true)
 

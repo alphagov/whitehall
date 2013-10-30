@@ -75,7 +75,7 @@ module Edition::Publishing
       errors.add(:base, reason)
       false
     else
-      decrement_version_numbers
+      reset_version_numbers
       if unpublishing && unpublishing.valid?
         unpublish! and unpublishing.save
       else
@@ -105,15 +105,8 @@ module Edition::Publishing
     end
   end
 
-  def decrement_version_numbers
-    if minor_change?
-      self.published_minor_version = self.published_minor_version - 1
-    elsif first_published_version?
-      self.published_major_version = nil
-      self.published_minor_version = nil
-    else
-      self.published_major_version = self.published_major_version - 1
-      self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
-    end
+  def reset_version_numbers
+    self.published_major_version = previous_edition.try(:published_major_version)
+    self.published_minor_version = previous_edition.try(:published_minor_version)
   end
 end

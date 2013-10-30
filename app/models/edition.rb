@@ -480,8 +480,8 @@ class Edition < ActiveRecord::Base
     document.editions.latest_published_edition.first
   end
 
-  def edition_to_diff_against
-    if PRE_PUBLICATION_STATES.include?(state)
+  def previous_edition
+    if pre_publication?
       latest_published_edition
     else
       document.ever_published_editions.reverse.second
