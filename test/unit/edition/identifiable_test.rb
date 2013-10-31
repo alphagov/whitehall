@@ -80,6 +80,7 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
   test "should be linkable when superseded if document is published" do
     policy = create(:published_policy)
     new_edition = policy.create_draft(create(:policy_writer))
+    new_edition.minor_change = true
     force_publish(new_edition)
     assert policy.linkable?
   end
