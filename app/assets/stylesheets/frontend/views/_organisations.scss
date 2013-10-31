@@ -721,7 +721,18 @@
         }
       }
     }
+    .org-contacts {
+      .adr,
+      .email {
+        padding: 0;
+      }
+      .comments {
+        clear: both;
+        padding: $gutter 0 $gutter-half 0;
+      }
+    }
   }
+
   .organisation-news {
     @extend %contain-floats;
     @include media(tablet) {
