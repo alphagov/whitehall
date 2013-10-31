@@ -13,9 +13,6 @@ module Edition::Workflow
     default_scope where(arel_table[:state].not_eq('deleted'))
 
     define_model_callbacks :delete, only: :after
-    after_delete do
-      notify_observers :after_delete
-    end
 
     state_machine auto_scopes: true do
       state :imported
