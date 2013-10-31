@@ -10,6 +10,6 @@ FactoryGirl.define do
   factory :rejected_worldwide_priority, parent: :worldwide_priority, traits: [:rejected]
   factory :published_worldwide_priority, parent: :worldwide_priority, traits: [:published]
   factory :deleted_worldwide_priority, parent: :worldwide_priority, traits: [:deleted]
-  factory :archived_worldwide_priority, parent: :worldwide_priority, traits: [:archived]
+  factory :superseded_worldwide_priority, parent: :worldwide_priority, traits: [:superseded]
   factory :scheduled_worldwide_priority, parent: :worldwide_priority, traits: [:scheduled]
 end

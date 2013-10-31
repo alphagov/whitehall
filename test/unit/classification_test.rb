@@ -69,12 +69,12 @@ class ClassificationTest < ActiveSupport::TestCase
     assert topical_event.featured?(news_article)
   end
 
-  test "a featured news article is no longer featured when it is archived" do
+  test "a featured news article is no longer featured when it is superseded" do
     topical_event = create(:topical_event)
     news_article = create(:published_news_article)
     image = create(:classification_featuring_image_data)
     topical_event.feature(edition_id: news_article.id, alt_text: "A thing", image: image)
-    news_article.archive!
+    news_article.supersede!
 
     featuring = topical_event.reload.featuring_of(news_article)
     refute featuring

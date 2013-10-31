@@ -35,7 +35,7 @@ module Edition::Publishing
   end
 
   def change_note_required?
-    if deleted? || archived?
+    if deleted? || superseded?
       false
     elsif draft? && new_record?
       false
@@ -58,27 +58,8 @@ module Edition::Publishing
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
-  def reason_to_prevent_unpublication
-    if !published?
-      "This edition has not been published"
-    elsif other_draft_editions.any?
-      "There is already a draft edition of this document. You must remove it before you can unpublish this edition."
-    end
-  end
-
-  def perform_unpublish
-    if reason = reason_to_prevent_unpublication
-      errors.add(:base, reason)
-      false
-    else
-      decrement_version_numbers
-      if unpublishing && unpublishing.valid?
-        unpublish! and unpublishing.save
-      else
-        errors.add(:base, unpublishing.errors.full_messages.join) if unpublishing
-        false
-      end
-    end
+  def build_unpublishing(attributes={})
+    super(attributes.merge(slug: slug, document_type: type))
   end
 
   def approve_retrospectively
@@ -101,24 +82,8 @@ module Edition::Publishing
     end
   end
 
-private
-
-  def set_publishing_attributes_and_increment_version_numbers
-    self.access_limited = false
-    increment_version_number
-    self.major_change_published_at = Time.zone.now unless minor_change?
-    make_public_at(major_change_published_at)
-  end
-
-  def decrement_version_numbers
-    if minor_change?
-      self.published_minor_version = self.published_minor_version - 1
-    elsif first_published_version?
-      self.published_major_version = nil
-      self.published_minor_version = nil
-    else
-      self.published_major_version = self.published_major_version - 1
-      self.published_minor_version = (Edition.unscoped.where(document_id: document_id).where(published_major_version: self.published_major_version).maximum(:published_minor_version) || 0)
-    end
+  def reset_version_numbers
+    self.published_major_version = previous_edition.try(:published_major_version)
+    self.published_minor_version = previous_edition.try(:published_minor_version)
   end
 end

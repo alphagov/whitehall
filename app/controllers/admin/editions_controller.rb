@@ -99,12 +99,12 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def revise
-    edition = @edition.create_draft(current_user)
-    if edition.persisted?
-      redirect_to edit_admin_edition_path(edition)
+    new_draft = @edition.create_draft(current_user)
+    if new_draft.persisted?
+      redirect_to edit_admin_edition_path(new_draft)
     else
-      redirect_to edit_admin_edition_path(@edition.document.unpublished_edition),
-        alert: edition.errors.full_messages.to_sentence
+      redirect_to edit_admin_edition_path(@edition.document.latest_edition),
+        alert: new_draft.errors.full_messages.to_sentence
     end
   end
 
@@ -114,7 +114,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = Unpublishing.new(document_type: @edition.type, slug: @edition.slug)
+    @unpublishing = @edition.build_unpublishing
   end
 
   def destroy

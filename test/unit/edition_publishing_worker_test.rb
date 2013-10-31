@@ -25,13 +25,13 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test '#perform raises an exception when publishing fails' do
-    edition = create(:archived_edition)
+    edition = create(:superseded_edition)
 
     exception = assert_raise(EditionPublishingWorker::ScheduledPublishingFailure) do
       EditionPublishingWorker.new.perform(edition.id, @publishing_robot.id)
     end
 
-    assert_equal 'An edition that is archived cannot be published', exception.message
-    assert edition.reload.archived?
+    assert_equal 'An edition that is superseded cannot be published', exception.message
+    assert edition.reload.superseded?
   end
 end

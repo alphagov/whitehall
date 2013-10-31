@@ -45,8 +45,6 @@ module Whitehall
     if config.respond_to?(:active_record)
       config.active_record.observers = [
         :ministerial_role_search_index_observer,
-        :policy_search_index_observer,
-        :supporting_page_search_index_observer,
         :corporate_information_page_search_index_observer
       ]
     end

@@ -3,7 +3,7 @@ module Edition::Workflow
 
   module ClassMethods
     def active
-      where(arel_table[:state].not_eq('archived'))
+      where(arel_table[:state].not_eq('superseded'))
     end
   end
 
@@ -12,17 +12,7 @@ module Edition::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
-    define_model_callbacks :unpublish, :archive, :delete, only: :after
-
-    after_unpublish do
-      notify_observers :after_unpublish
-    end
-    after_archive do
-      notify_observers :after_archive
-    end
-    after_delete do
-      notify_observers :after_delete
-    end
+    define_model_callbacks :delete, only: :after
 
     state_machine auto_scopes: true do
       state :imported
@@ -31,7 +21,6 @@ module Edition::Workflow
       state :rejected
       state :scheduled
       state :published
-      state :archived
       state :superseded
       state :deleted
 
@@ -79,13 +68,12 @@ module Edition::Workflow
         transitions from: [:draft, :submitted], to: :published
       end
 
-      event :unpublish, success: -> edition { edition.run_callbacks(:unpublish) } do
-        transitions from: :published, to: :draft,
-          guard: -> edition { edition.other_draft_editions.empty? }
+      event :unpublish do
+        transitions from: :published, to: :draft
       end
 
-      event :archive, success: -> edition { edition.run_callbacks(:archive) } do
-        transitions from: :published, to: :archived
+      event :supersede do
+        transitions from: :published, to: :superseded
       end
     end
 
@@ -94,12 +82,6 @@ module Edition::Workflow
 
   def pre_publication?
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
-  end
-
-  def archive_previous_editions!
-    document.editions.published.each do |edition|
-      edition.archive! unless edition == self
-    end
   end
 
   def save_as(user)
@@ -116,7 +98,7 @@ module Edition::Workflow
 
   def edition_has_no_unpublished_editions
     return unless document
-    if existing_edition = document.unpublished_edition
+    if existing_edition = document.non_published_edition
       errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
   end

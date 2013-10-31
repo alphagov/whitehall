@@ -4,7 +4,7 @@ Given /^a document that has gone through many changes$/ do
   assert page.has_content?('An exciting new publication')
   @the_publication = Publication.find_by_title('An exciting new publication')
   # fake it
-  states = ['draft', 'submitted', 'published', 'archived']
+  states = ['draft', 'submitted', 'published', 'superseded']
   50.times do |i|
     Timecop.travel i.hours.from_now do
       @the_publication.versions.create event: 'update', whodunnit: @user, state: states.sample

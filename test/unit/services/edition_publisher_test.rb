@@ -20,7 +20,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     refute edition.access_limited?
   end
 
-  %w(published draft imported rejected archived).each do |state|
+  %w(published draft imported rejected superseded).each do |state|
     test "#{state} editions cannot be published" do
       edition = create(:"#{state}_edition")
       publisher = EditionPublisher.new(edition)
@@ -73,7 +73,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_equal 1.week.ago, edition.major_change_published_at
   end
 
-  test '#perform! archives all previous editions' do
+  test '#perform! supersedes all previous editions' do
     published_edition = create(:published_edition)
     edition = published_edition.create_draft(create(:policy_writer))
     edition.minor_change = true
@@ -81,7 +81,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     publisher = EditionPublisher.new(edition)
 
     assert publisher.perform!
-    assert published_edition.reload.archived?, "expected previous edition to be archived but it's #{published_edition.state}"
+    assert published_edition.reload.superseded?, "expected previous edition to be superseded but it's #{published_edition.state}"
   end
 
   test '#perform! notifies on successful publishing' do

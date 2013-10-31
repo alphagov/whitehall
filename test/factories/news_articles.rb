@@ -23,6 +23,6 @@ FactoryGirl.define do
     first_published_at  { 2.days.ago }
   end
   factory :deleted_news_article, parent: :news_article, traits: [:deleted]
-  factory :archived_news_article, parent: :news_article, traits: [:archived]
+  factory :superseded_news_article, parent: :news_article, traits: [:superseded]
   factory :scheduled_news_article, parent: :news_article, traits: [:scheduled]
 end

@@ -112,11 +112,17 @@ class ActiveSupport::TestCase
   end
 
   def publish(edition)
-    EditionPublisher.new(edition).perform!
+    publisher = EditionPublisher.new(edition)
+    unless publisher.perform!
+      raise "Could not publish edition: #{publisher.failure_reason}"
+    end
   end
 
   def force_publish(edition)
-    EditionForcePublisher.new(edition).perform!
+    publisher = EditionForcePublisher.new(edition)
+    unless publisher.perform!
+      raise "Could not force publish edition: #{publisher.failure_reason}"
+    end
   end
 end
 

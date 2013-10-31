@@ -14,6 +14,6 @@ FactoryGirl.define do
   factory :rejected_detailed_guide, parent: :detailed_guide, traits: [:rejected]
   factory :published_detailed_guide, parent: :detailed_guide, traits: [:published]
   factory :deleted_detailed_guide, parent: :detailed_guide, traits: [:deleted]
-  factory :archived_detailed_guide, parent: :detailed_guide, traits: [:archived]
+  factory :superseded_detailed_guide, parent: :detailed_guide, traits: [:superseded]
   factory :scheduled_detailed_guide, parent: :detailed_guide, traits: [:scheduled]
 end

@@ -17,7 +17,7 @@ module Edition::UserNeeds
       attrs.reject { |k, _| k == "organisation_id" }.values.all?(&:blank?)
     }
 
-    validates_presence_of :user_needs, unless: lambda {|edition| edition.deleted? || edition.imported? || edition.archived? }
+    validates_presence_of :user_needs, unless: lambda {|edition| edition.deleted? || edition.imported? || edition.superseded? }
 
     add_trait Trait
   end

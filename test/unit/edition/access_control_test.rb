@@ -9,14 +9,14 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  [:published, :archived, :deleted].each do |state|
+  [:published, :superseded, :deleted].each do |state|
     test "should not be editable if #{state}" do
       edition = build("#{state}_edition")
       refute edition.editable?
     end
   end
 
-  [:imported, :deleted, :archived].each do |state|
+  [:imported, :deleted, :superseded].each do |state|
     test "can have some invalid data if #{state}" do
       edition = build("#{state}_edition")
       assert edition.can_have_some_invalid_data?
@@ -30,7 +30,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :rejected, :published, :archived, :deleted].each do |state|
+  [:draft, :rejected, :published, :superseded, :deleted].each do |state|
     test "should not be rejectable if #{state}" do
       edition = build("#{state}_edition")
       refute edition.can_reject?
@@ -44,7 +44,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  [:submitted, :published, :archived, :deleted].each do |state|
+  [:submitted, :published, :superseded, :deleted].each do |state|
     test "should not be submittable if #{state}" do
       edition = build("#{state}_edition")
       refute edition.can_submit?
@@ -58,7 +58,7 @@ class Edition::AccessControlTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :published, :archived].each do |state|
+  [:scheduled, :published, :superseded].each do |state|
     test "should not be deletable if #{state}" do
       edition = build("#{state}_edition")
       refute edition.can_delete?

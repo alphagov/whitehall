@@ -2,7 +2,7 @@ require "test_helper"
 
 class DocumentTest < ActiveSupport::TestCase
   test "should return documents that have published editions" do
-    archived_policy = create(:archived_policy)
+    superseded_policy = create(:superseded_policy)
     published_policy = create(:published_policy)
     draft_policy = create(:draft_policy)
 
@@ -18,7 +18,7 @@ class DocumentTest < ActiveSupport::TestCase
     draft_policy.change_note = "change-note"
     force_publish(draft_policy)
 
-    archived_policy = original_policy
+    superseded_policy = original_policy
     published_policy = draft_policy
     new_draft_policy = published_policy.create_draft(user)
 
@@ -96,9 +96,9 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should list change history for published editions" do
-    original_edition = create(:archived_edition, major_change_published_at: 3.days.ago, change_note: "first version")
+    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago, change_note: "first version")
     document = original_edition.document
-    new_edition_1 = create(:archived_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
+    new_edition_1 = create(:superseded_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
     new_edition_2 = create(:published_edition, document: document, major_change_published_at: 1.day.ago, change_note: "more changes")
 
     history = document.change_history
@@ -108,9 +108,9 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should omit minor changes from change history" do
-    original_edition = create(:archived_edition, major_change_published_at: 3.days.ago)
+    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago)
     document = original_edition.document
-    new_edition_1 = create(:archived_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
+    new_edition_1 = create(:superseded_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
     new_edition_2 = create(:published_edition, document: document, major_change_published_at: 1.day.ago, change_note: "", minor_change: true)
 
     history = document.change_history
@@ -118,7 +118,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should omit drafts from change history" do
-    original_edition = create(:archived_edition, major_change_published_at: 3.days.ago)
+    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago)
     document = original_edition.document
     new_edition_1 = create(:draft_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
 

@@ -11,7 +11,7 @@ FactoryGirl.define do
   factory :rejected_document_collection, parent: :document_collection, traits: [:rejected]
   factory :published_document_collection, parent: :document_collection, traits: [:published]
   factory :deleted_document_collection, parent: :document_collection, traits: [:deleted]
-  factory :archived_document_collection, parent: :document_collection, traits: [:archived]
+  factory :superseded_document_collection, parent: :document_collection, traits: [:superseded]
   factory :scheduled_document_collection, parent: :document_collection, traits: [:scheduled]
   factory :unpublished_document_collection, parent: :document_collection, traits: [:draft, :unpublished]
 end

@@ -1,6 +1,6 @@
-<% if edition.archived? %>
+<% if edition.superseded? %>
   <div class="alert alert-error">
-    <p>This edition has been archived.</p>
+    <p>This edition has been superseded.</p>
     <p><%= link_to "Go to most recent edition", admin_edition_path(edition.latest_edition), class: "btn btn-primary" %></p>
   </div>
 <% elsif edition.pre_publication? && edition.latest_published_edition %>
@@ -8,8 +8,8 @@
     <p>This is a new draft of a document that has already been published.</p>
     <p>
       <%= link_to "Go to published edition", admin_edition_path(edition.latest_published_edition), class: "btn btn-primary" %>
-      <% if edition.edition_to_diff_against %>
-        <%= link_to "See what's changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.edition_to_diff_against.id), class: "btn" %>
+      <% if edition.previous_edition %>
+        <%= link_to "See what's changed", diff_admin_edition_path(edition, audit_trail_entry_id: edition.previous_edition.id), class: "btn" %>
       <% end %>
     </p>
   </div>

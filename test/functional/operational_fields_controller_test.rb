@@ -35,7 +35,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     uk = create(:operational_field)
 
     iraq_fatality = create(:published_fatality_notice, operational_field: iraq)
-    archived_iraq_fatality = create(:archived_fatality_notice, operational_field: iraq)
+    superseded_iraq_fatality = create(:superseded_fatality_notice, operational_field: iraq)
 
     uk_fatality = create(:fatality_notice, operational_field: uk)
 
