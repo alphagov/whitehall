@@ -84,12 +84,6 @@ module Edition::Workflow
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
-  def supersede_previous_editions!
-    document.editions.published.each do |edition|
-      edition.supersede! unless edition == self
-    end
-  end
-
   def save_as(user)
     if save
       edition_authors.create!(user: user)

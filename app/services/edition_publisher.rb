@@ -11,7 +11,7 @@ class EditionPublisher
     if can_perform?
       prepare_edition
       fire_transition!
-      edition.supersede_previous_editions!
+      supersede_previous_editions!
       notify!
       true
     end
@@ -58,5 +58,11 @@ private
 
   def can_transition?
     edition.public_send("can_#{verb}?")
+  end
+
+  def supersede_previous_editions!
+    edition.document.editions.published.each do |e|
+      e.supersede! unless e == edition
+    end
   end
 end
