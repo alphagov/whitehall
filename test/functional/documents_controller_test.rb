@@ -60,7 +60,7 @@ class DocumentsControllerTest < ActionController::TestCase
     user = login_as(:departmental_editor)
 
     edition = create(:edition)
-    edition.perform_force_publish
+    force_publish(edition)
     new_draft = edition.create_draft(user)
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
@@ -100,7 +100,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   test "requests for documents in a locale it is translated into should respond successfully" do
     edition = create(:draft_edition, translated_into: 'fr')
-    edition.perform_force_publish
+    force_publish(edition)
 
     get :show, id: edition.document, locale: 'fr'
 
@@ -109,7 +109,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   test "requests for documents in a locale it is not translated into should respond with a not_found" do
     edition = create(:draft_edition)
-    edition.perform_force_publish
+    force_publish(edition)
 
     get :show, id: edition.document, locale: 'fr'
 
@@ -122,7 +122,7 @@ class DocumentsControllerTest < ActionController::TestCase
       edition.assign_attributes(attributes_for(:draft_edition, title: 'spanish-title'))
     end
     edition.save!
-    edition.perform_force_publish
+    force_publish(edition)
 
     get :show, id: edition.document
 
@@ -133,7 +133,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
   view_test "should not show any links to translations when the edition is only available in one language" do
     edition = create(:draft_edition)
-    edition.perform_force_publish
+    force_publish(edition)
 
     get :show, id: edition.document
 

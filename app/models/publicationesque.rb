@@ -4,7 +4,6 @@ class Publicationesque < Edition
   include Edition::HasDocumentCollections
   include Edition::Topics
   include Edition::WorldwidePriorities
-  include Edition::GovUkDelivery
   include ::Attachable
 
   def self.sti_names
@@ -15,7 +14,7 @@ class Publicationesque < Edition
     PublicationesquePresenter
   end
 
-  protected
+protected
 
   def search_format_types
     super + [Publicationesque.search_format_type]

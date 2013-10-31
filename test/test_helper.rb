@@ -110,6 +110,14 @@ class ActiveSupport::TestCase
   def factory_name_from_test
     self.class.factory_name_from_test
   end
+
+  def publish(edition)
+    EditionPublisher.new(edition).perform!
+  end
+
+  def force_publish(edition)
+    EditionForcePublisher.new(edition).perform!
+  end
 end
 
 class ActionController::TestCase

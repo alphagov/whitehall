@@ -10,8 +10,32 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier_for(edition).notification_date
   end
 
+  test 'Announcement, Policy and Publicationesques are GovUK deliverable' do
+    deliverable_classes = [Policy, Announcement.concrete_descendants, Publicationesque.concrete_descendants].flatten
+    undeliverable_classes = Whitehall.edition_classes - deliverable_classes
+
+    deliverable_classes.each do |klass|
+      assert Whitehall::GovUkDelivery.deliverable?(klass.new)
+    end
+
+    undeliverable_classes.each do |klass|
+      refute Whitehall::GovUkDelivery.deliverable?(klass.new)
+    end
+  end
+
+  test '#edition_published! does nothing if edition is not deliverable' do
+    edition = build(:edition)
+    Whitehall::GovUkDelivery.stubs(deliverable?: false)
+
+    notifier = notifier_for(edition)
+    notifier.expects(:notify_email_curation_queue).never
+    notifier.expects(:notify_govuk_delivery).never
+
+    notifier.edition_published!
+  end
+
   test '#edition_published! will route the edition to govuk delivery if it is not relevant to local government' do
-    edition = build(:edition, relevant_to_local_government: false, public_timestamp: Time.zone.now)
+    edition = build(:policy, relevant_to_local_government: false, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns true
     notifier = notifier_for(edition)
     notification_end_point = Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.new(edition, Time.zone.now)
@@ -22,7 +46,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test '#edition_published! will route the edition to the email curation queue if it is relevant to local government' do
-    edition = build(:edition, relevant_to_local_government: true, public_timestamp: Time.zone.now)
+    edition = build(:policy, relevant_to_local_government: true, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns true
     notifier = notifier_for(edition)
     notification_end_point = Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.new(edition, Time.zone.now)
@@ -74,5 +98,4 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
     assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
   end
-
 end

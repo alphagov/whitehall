@@ -65,7 +65,7 @@ class Edition < ActiveRecord::Base
   after_unpublish :reset_force_published_flag
   after_delete :clear_slug, :destroy_email_curation_queue_items
 
-  [:publish, :unpublish, :archive, :delete].each do |event|
+  [:unpublish, :archive, :delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
   end
   # @!endgroup

@@ -18,12 +18,13 @@ class ForcePublisher
         if edition.nil?
           reporter.failure(edition, 'Edition is nil')
         else
-          if reason = edition.reason_to_prevent_force_publication
-            reporter.failure(edition, reason)
+          publisher = Whitehall.edition_services.force_publisher(edition, user: user, remark: 'Bulk force published after import')
+          if !publisher.can_perform?
+            reporter.failure(edition, publisher.failure_reason)
           else
             begin
               Edition::AuditTrail.acting_as(user) do
-                edition.perform_force_publish
+                publisher.perform!
               end
               reporter.success(edition)
             rescue => e

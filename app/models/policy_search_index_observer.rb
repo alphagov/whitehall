@@ -1,10 +1,6 @@
 class PolicySearchIndexObserver < ActiveRecord::Observer
   observe :policy
 
-  def after_publish(policy)
-    ReindexRelatedEditions.later(policy)
-  end
-
   def after_unpublish(policy)
     ReindexRelatedEditions.later(policy)
   end

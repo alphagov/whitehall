@@ -54,7 +54,7 @@ class FeaturedItemTest < ActiveSupport::TestCase
     p1 = create(:published_policy, :with_document)
     p2 = p1.create_draft(create(:policy_writer))
     p2.change_note = 'meh'
-    p2.perform_force_publish
+    force_publish(p2)
 
     item = build(:featured_policy_item, item: p1.document)
     assert_equal p2, item.linkable_item
@@ -71,7 +71,7 @@ class FeaturedItemTest < ActiveSupport::TestCase
     p1 = create(:published_policy, :with_document)
     p2 = p1.create_draft(create(:policy_writer))
     p2.change_note = 'meh'
-    p2.perform_force_publish
+    force_publish(p2)
 
     item = build(:featured_policy_item, item: p1.document)
     assert_equal p2.title, item.linkable_title
