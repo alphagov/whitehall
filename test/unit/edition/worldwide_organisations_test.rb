@@ -19,7 +19,7 @@ class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
     priority = create(:published_worldwide_priority, worldwide_organisations: [organisation])
     new_edition = priority.create_draft(create(:policy_writer))
     new_edition.change_note = 'change-note'
-    new_edition.perform_force_publish
+    force_publish(new_edition)
 
     assert_equal [organisation], new_edition.worldwide_organisations
   end

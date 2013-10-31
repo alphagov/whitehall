@@ -44,7 +44,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Whitehall.stubs(:searchable_classes).returns([edition.class])
     Searchable::Index.expects(:later).with(edition)
 
-    edition.perform_publish
+    Whitehall.edition_services.publisher(edition).perform!
   end
 
   test "should not add edition to search index if it is not available in English" do
@@ -54,7 +54,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Whitehall.stubs(:searchable_classes).returns([french_edition.class])
     Searchable::Index.expects(:later).with(french_edition).never
 
-    french_edition.perform_publish
+    Whitehall.edition_services.publisher(french_edition).perform!
   end
 
   test "should not remove edition from search index when a new edition is published" do
@@ -65,7 +65,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     new_edition = edition.create_draft(create(:policy_writer))
     new_edition.change_note = "change-note"
-    new_edition.perform_force_publish
+    force_publish(new_edition)
   end
 
   test "should not remove edition from search index when a new draft of a published edition is deleted" do

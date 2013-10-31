@@ -233,6 +233,10 @@ module Whitehall
     @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
+  def self.edition_services
+    @edition_actions ||= EditionServiceCoordinator.new
+  end
+
   def self.load_secrets
     if File.exists?(secrets_path)
       YAML.load_file(secrets_path)

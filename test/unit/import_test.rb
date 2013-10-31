@@ -270,7 +270,7 @@ class ImportTest < ActiveSupport::TestCase
     edition = Consultation.find_by_title('title')
     editor = create(:departmental_editor)
     edition.convert_to_draft!
-    edition.perform_force_publish
+    force_publish(edition)
     new_draft = edition.create_draft(editor)
     refute import.imported_editions.include?(new_draft)
   end
@@ -283,7 +283,7 @@ class ImportTest < ActiveSupport::TestCase
     edition.convert_to_draft!
     assert import.force_publishable_editions.include?(edition)
 
-    edition.perform_force_publish
+    force_publish(edition)
     refute import.force_publishable_editions.include?(edition)
 
     new_draft = edition.create_draft(create(:departmental_editor))
@@ -306,9 +306,9 @@ class ImportTest < ActiveSupport::TestCase
     refute import.force_publishable?
     import.imported_editions.map { |e| e.convert_to_draft! }
     assert import.force_publishable?
-    import.imported_editions.map { |e| e.perform_publish }
+    import.imported_editions.map { |e|publish(e) }
     assert import.force_publishable?
-    import.imported_editions.map { |e| e.perform_force_publish }
+    import.imported_editions.map { |e| force_publish(e) }
     refute import.force_publishable?
   end
 

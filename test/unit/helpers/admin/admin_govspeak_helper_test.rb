@@ -88,7 +88,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     new_edition.change_note = "change-note"
     new_edition.save_as(writer)
     new_edition.submit!
-    new_edition.perform_publish
+    publish(new_edition)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_edition), text: "published"
   end

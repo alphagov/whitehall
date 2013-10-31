@@ -8,7 +8,6 @@ class Policy < Edition
   include Edition::WorldLocations
   include Edition::WorldwidePriorities
   include Edition::AlternativeFormatProvider
-  include Edition::GovUkDelivery
 
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
@@ -74,7 +73,7 @@ class Policy < Edition
     true
   end
 
-  private
+private
 
   def remove_edition_relations
     edition_relations.each(&:destroy)
