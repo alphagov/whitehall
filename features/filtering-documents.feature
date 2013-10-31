@@ -30,44 +30,33 @@ Feature: Filtering Documents
     - c.f. world-location-news.feature
 
 
-  Scenario: User filters policies, combining filters
-    Given I'm looking at the policies index showing several policies with various attributes
-    When I filter by a topic
-    Then I should only see policies for that topic
-    When I also filter by a department
-    Then I should only see policies for both the topic and the department
-    When I also filter by a keyword
-    Then I should only see policies for the topic, the department and the keyword
+  Scenario: Filtering policies
+    Given there are some published policies
+    When I look at the policies index page
+    Then I should be able to filter policies by topic, department and keyword
 
-  Scenario: User filters publications using each filter one at a time
-    Given I'm looking at the publications index showing several publications with various attributes
-    When I filter by only a publication type
-    Then I should only see the publications of that publication type
-    When I filter by only a topic
-    Then I should only see publications for that topic
-    When I filter by only a department
-    Then I should only see publications for that department
-    When I filter by only a world location
-    Then I should only see publications for that world location
-    When I filter by only published date
-    Then I should only see publications for the published date range
+  Scenario: Filtering publications
+    Given there are some published publications
+    When I visit the publications index page
+    Then I should be able to filter publications by keyword, publication type, topic, department, world location and publication date
 
-  Scenario: User filters announcements combining all filters
-    Given I'm looking at the announcements index showing several announcements with various attributes
-    When I filter by a keyword, an announcement type, a topic, a department, a world location and published date
-    Then I should only see announcements matching those filters
+  Scenario: Filtering announcements
+    Given there are some published announcements
+    When I visit the announcements index page
+    Then I should be able to filter announcements by keyword, announcement type, topic, department, world location and publication date
 
   @javascript
-  Scenario: User filters publications with javascript enabled
-    Given I'm looking at the publications index showing several publications with various attributes
-    When I filter by a keyword
-    Then I should only see publications for that keyword
-    When I also filter by a department
-    Then I should only see publications for the keyword and department
+  Scenario: Filtering publications in a javascript-enabled browser
+    Given there are some published publications
+    When I visit the publications index page
+    When I select a filter option without clicking any button
+    Then the filtered publications refresh automatically
 
-  Scenario: User visits the announcements index in french
-    Given I'm looking at the announcements index in french
-    Then I can only filter by world location (or Pays in french)
+  Scenario: Filtering translated announcments
+    Given there are some published announcments including a few in French
+    When I visit the announcments index in French
+    Then I should see only announcements which have French translations
+    And I should be able to filter them by country (or 'Pays' in French)
 
   Scenario: User filters by "Statistics" which returns statistics and national statistics
     Given a published publication "Road accidents" with type "Statistics"
