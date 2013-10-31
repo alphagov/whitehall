@@ -16,27 +16,6 @@ class NewsArticleTest < ActiveSupport::TestCase
     assert NewsArticle.new.can_be_associated_with_worldwide_priorities?
   end
 
-  test "#topics includes topics associated with related published policies" do
-    related_policy = create(:published_policy, topics: [create(:topic), create(:topic)])
-    news_article = create(:news_article, related_editions: [related_policy])
-    assert_equal related_policy.topics.sort, news_article.policy_topics.sort
-  end
-
-  test "#topics excludes topics associated with related unpublished policies" do
-    related_policy = create(:draft_policy, topics: [create(:topic), create(:topic)])
-
-    news_article = create(:news_article, related_editions: [related_policy])
-    assert_equal [], news_article.topics
-  end
-
-  test "#policy_topics only includes each topic once when related via multiple policies" do
-    topic = create(:topic)
-    first_related_policy = create(:published_policy, topics: [topic])
-    second_related_policy = create(:published_policy, topics: [topic])
-    news_article = create(:news_article, related_editions: [first_related_policy, second_related_policy])
-    assert_equal [topic], news_article.policy_topics
-  end
-
   test "can associate news articles with topical events" do
     news_article = create(:news_article)
     assert news_article.can_be_associated_with_topical_events?
@@ -54,8 +33,8 @@ class NewsArticleTest < ActiveSupport::TestCase
     refute news_article.valid?
   end
 
-  test 'archived news articles are valid with the "unknown" news_article_type' do
-    news_article = build(:archived_news_article, news_article_type: NewsArticleType::Unknown)
+  test 'superseded news articles are valid with the "unknown" news_article_type' do
+    news_article = build(:superseded_news_article, news_article_type: NewsArticleType::Unknown)
     assert news_article.valid?
   end
 

@@ -32,8 +32,8 @@ class Edition < ActiveRecord::Base
   validates :summary, presence: true
   validates :first_published_at, recent_date: true, allow_blank: true
 
-  UNMODIFIABLE_STATES = %w(scheduled published archived deleted).freeze
-  FROZEN_STATES = %w(archived deleted).freeze
+  UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
+  FROZEN_STATES = %w(superseded deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
 
 
@@ -50,6 +50,7 @@ class Edition < ActiveRecord::Base
   }
 
   scope :force_published, where(state: "published", force_published: true)
+  scope :not_published,   where(state: %w(draft submitted rejected))
 
   scope :announcements,            -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
   scope :consultations,                 where(type: "Consultation")
@@ -58,14 +59,14 @@ class Edition < ActiveRecord::Base
   scope :statistical_publications,      where("publication_type_id IN (?)", PublicationType.statistical.map(&:id))
   scope :non_statistical_publications,  where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
   scope :corporate_publications,        where(publication_type_id: PublicationType::CorporateReport.id)
+  scope :worldwide_priorities,          where(type: "WorldwidePriority")
 
   # @!group Callbacks
   before_save :set_public_timestamp
 
-  after_unpublish :reset_force_published_flag
   after_delete :clear_slug, :destroy_email_curation_queue_items
 
-  [:unpublish, :archive, :delete].each do |event|
+  [:delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
   end
   # @!endgroup
@@ -286,9 +287,6 @@ class Edition < ActiveRecord::Base
     else
       remove_from_search_index
     end
-  rescue => e
-    # TODO: this is harsh, revisit
-    Rails.logger.error e
   end
 
   def creator
@@ -478,8 +476,8 @@ class Edition < ActiveRecord::Base
     document.editions.latest_published_edition.first
   end
 
-  def edition_to_diff_against
-    if PRE_PUBLICATION_STATES.include?(state)
+  def previous_edition
+    if pre_publication?
       latest_published_edition
     else
       document.ever_published_editions.reverse.second
@@ -527,10 +525,6 @@ class Edition < ActiveRecord::Base
     nil
   end
 
-  def reset_force_published_flag
-    update_column(:force_published, false)
-  end
-
   def valid_as_draft?
     errors_as_draft.empty?
   end
@@ -540,7 +534,7 @@ class Edition < ActiveRecord::Base
   end
 
   def can_have_some_invalid_data?
-    imported? || deleted? || archived?
+    imported? || deleted? || superseded?
   end
 
   attr_accessor :trying_to_convert_to_draft

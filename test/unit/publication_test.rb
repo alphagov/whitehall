@@ -67,8 +67,8 @@ class PublicationTest < ActiveSupport::TestCase
     refute publication.valid?
   end
 
-  test 'archived publications are valid with the "unknown" publication_type' do
-    publication = build(:archived_publication, publication_type: PublicationType::Unknown)
+  test 'superseded publications are valid with the "unknown" publication_type' do
+    publication = build(:superseded_publication, publication_type: PublicationType::Unknown)
     assert publication.valid?
   end
 

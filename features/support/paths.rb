@@ -37,6 +37,25 @@ module NavigationHelpers
   def visit_topic(name)
     visit topic_path(Topic.find_by_name!(name))
   end
+
+  def visit_public_index_for(edition)
+    case edition
+    when Publication
+      visit publications_path
+    when NewsArticle, Speech
+      visit announcements_path
+    when Consultation
+      visit consultations_path
+    when Policy
+      visit policies_path
+    when DetailedGuide
+      visit detailed_guide_path(edition.document)
+    when WorldwidePriority
+      visit worldwide_priorities_path
+    else
+      raise "Don't know where to go for #{edition.class.name}s"
+    end
+  end
 end
 
 World(NavigationHelpers)

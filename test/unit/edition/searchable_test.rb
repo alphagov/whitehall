@@ -84,15 +84,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     Searchable::Delete.expects(:later).with(edition)
     edition.unpublishing = build(:unpublishing)
-    edition.perform_unpublish
-  end
-
-  test "should remove published edition from search index when it's archived" do
-    edition = create(:published_edition)
-    slug = edition.document.slug
-
-    Searchable::Delete.expects(:later).with(edition)
-
-    edition.archive!
+    Whitehall.edition_services.unpublisher(edition).perform!
   end
 end

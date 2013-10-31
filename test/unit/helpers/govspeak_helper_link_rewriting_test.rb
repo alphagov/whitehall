@@ -81,9 +81,9 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     end
   end
 
-  test 'should rewrite admin link to an archived edition as a link to its published edition' do
-    archived_edition, published_edition = create_archived_policy_with_published_edition
-    assert_rewrites_link(from: admin_edition_url(archived_edition), to: public_document_url(published_edition))
+  test 'should rewrite admin link to an superseded edition as a link to its published edition' do
+    superseded_edition, published_edition = create_superseded_policy_with_published_edition
+    assert_rewrites_link(from: admin_edition_url(superseded_edition), to: public_document_url(published_edition))
   end
 
   test 'should rewrite admin link to a draft edition as a link to its published edition' do
@@ -200,7 +200,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     assert_select_within_html html, "a[href=?]", options[:to], text: "that"
   end
 
-  def create_archived_policy_with_published_edition
+  def create_superseded_policy_with_published_edition
     edition = create(:published_policy)
     writer = create(:policy_writer)
     new_draft = edition.create_draft(writer)

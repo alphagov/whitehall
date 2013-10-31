@@ -27,6 +27,17 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, publisher.notifier
   end
 
+  test "prepares an EditionUnpublisher with it's notifier" do
+    edition = stub(:edition)
+    options = { one: 1, two: 2 }
+    publisher = @service_coordinator.unpublisher(edition, options)
+
+    assert publisher.is_a?(EditionUnpublisher)
+    assert_equal edition, publisher.edition
+    assert_equal options, publisher.options
+    assert_equal @service_coordinator, publisher.notifier
+  end
+
   test "listeners on named events are notified" do
     events = []
     @service_coordinator.subscribe('action1') { |*args| events << args }

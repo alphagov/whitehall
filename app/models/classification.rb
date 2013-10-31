@@ -103,7 +103,7 @@ class Classification < ActiveRecord::Base
   end
 
   def destroyable?
-    (policies - policies.archived).empty?
+    (policies - policies.superseded).empty?
   end
 
   def search_link

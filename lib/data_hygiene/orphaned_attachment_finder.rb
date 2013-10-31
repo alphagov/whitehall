@@ -60,7 +60,7 @@ module DataHygiene
           else
             state = "published"
           end
-          next if state == 'archived'
+          next if state == 'superseded'
           num_attachments = edition.attachments.count
           actual_placeholders = edition.body.scan(/!@[1-9][0-9]*/).sort
           expected_placeholders = 1.upto(num_attachments).map {|n| "!@#{n}"}

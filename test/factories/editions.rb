@@ -57,8 +57,8 @@ FactoryGirl.define do
     trait(:deleted) {
       state "deleted"
     }
-    trait(:archived) {
-      state "archived"
+    trait(:superseded) {
+      state "superseded"
       after :create do |edition|
         edition.refresh_index_if_required
       end
@@ -110,7 +110,7 @@ FactoryGirl.define do
   factory :rejected_edition, parent: :edition, traits: [:rejected]
   factory :published_edition, parent: :edition, traits: [:published]
   factory :deleted_edition, parent: :edition, traits: [:deleted]
-  factory :archived_edition, parent: :edition, traits: [:archived]
+  factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
   factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
   factory :protected_edition, parent: :edition, traits: [:access_limited]

@@ -21,7 +21,7 @@ FactoryGirl.define do
   factory :rejected_consultation, parent: :consultation, traits: [:rejected]
   factory :published_consultation, parent: :consultation, traits: [:published]
   factory :deleted_consultation, parent: :consultation, traits: [:deleted]
-  factory :archived_consultation, parent: :consultation, traits: [:archived]
+  factory :superseded_consultation, parent: :consultation, traits: [:superseded]
   factory :scheduled_consultation, parent: :consultation, traits: [:scheduled]
 
   factory :open_consultation, parent: :published_consultation do

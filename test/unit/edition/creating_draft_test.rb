@@ -20,11 +20,11 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal "Cannot create new edition based on edition in the draft state", e.message
   end
 
-  test "should raise an exception when attempting to build a draft copy of an archived edition" do
-    archived_edition = create(:archived_edition)
+  test "should raise an exception when attempting to build a draft copy of an superseded edition" do
+    superseded_edition = create(:superseded_edition)
     new_creator = create(:policy_writer)
-    e = assert_raise(RuntimeError) { archived_edition.create_draft(new_creator) }
-    assert_equal "Cannot create new edition based on edition in the archived state", e.message
+    e = assert_raise(RuntimeError) { superseded_edition.create_draft(new_creator) }
+    assert_equal "Cannot create new edition based on edition in the superseded state", e.message
   end
 
   test "should not copy create and update time when creating draft" do

@@ -123,26 +123,26 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#index only displays *published* publications" do
     without_delay! do
-      archived_publication = create(:archived_publication)
+      superseded_publication = create(:superseded_publication)
       published_publication = create(:published_publication)
       draft_publication = create(:draft_publication)
       get :index
 
       assert_select_object(published_publication)
-      refute_select_object(archived_publication)
+      refute_select_object(superseded_publication)
       refute_select_object(draft_publication)
     end
   end
 
   view_test "#index only displays *published* consultations" do
     without_delay! do
-      archived_consultation = create(:archived_consultation)
+      superseded_consultation = create(:superseded_consultation)
       published_consultation = create(:published_consultation)
       draft_consultation = create(:draft_consultation)
       get :index
 
       assert_select_object(published_consultation)
-      refute_select_object(archived_consultation)
+      refute_select_object(superseded_consultation)
       refute_select_object(draft_consultation)
     end
   end

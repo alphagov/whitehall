@@ -4,14 +4,11 @@ module Edition::WorldwidePriorities
   include Edition::RelatedDocuments
 
   included do
-    has_many :worldwide_priorities,
-      through: :related_documents,
-      source: :latest_edition,
-      class_name: "WorldwidePriority"
-    has_many :published_worldwide_priorities,
-      through: :related_documents,
-      class_name: "WorldwidePriority",
-      source: :published_edition
+    has_many :worldwide_priorities, through: :related_documents, source: :latest_edition, class_name: "WorldwidePriority"
+  end
+
+  def published_worldwide_priorities
+    worldwide_priorities.published
   end
 
   # Ensure that when we set priority ids we don't remove other types of edition from the array

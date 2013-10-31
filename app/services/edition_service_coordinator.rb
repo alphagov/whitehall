@@ -14,4 +14,8 @@ class EditionServiceCoordinator
   def force_publisher(edition, options={})
     EditionForcePublisher.new(edition, options.merge(notifier: self))
   end
+
+  def unpublisher(edition, options={})
+    EditionUnpublisher.new(edition, options.merge(notifier: self))
+  end
 end

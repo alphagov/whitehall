@@ -37,12 +37,12 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
     refute_select ".edition-sidebar input[name='_method'][type='hidden'][value='delete']"
   end
 
-  view_test "show does not display the delete button for archived editions" do
-    archived_edition = create(:archived_edition)
+  view_test "show does not display the delete button for superseded editions" do
+    superseded_edition = create(:superseded_edition)
 
-    get :show, id: archived_edition
+    get :show, id: superseded_edition
 
-    refute_select "form[action='#{admin_generic_edition_path(archived_edition)}'] input[name='_method'][type='hidden'][value='delete']"
+    refute_select "form[action='#{admin_generic_edition_path(superseded_edition)}'] input[name='_method'][type='hidden'][value='delete']"
   end
 
   test "destroy marks the edition as deleted" do

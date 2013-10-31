@@ -15,18 +15,7 @@ class Document < ActiveRecord::Base
            class_name: 'Edition',
            inverse_of: :document,
            conditions: { state: 'published' }
-  has_one  :scheduled_edition,
-           class_name: 'Edition',
-           inverse_of: :document,
-           conditions: { state: 'scheduled' }
-  has_one  :unpublished_edition,
-           class_name: 'Edition',
-           inverse_of: :document,
-           conditions: { state: %w[ draft submitted rejected ] }
-  has_many :ever_published_editions,
-           class_name: 'Edition',
-           inverse_of: :document,
-           conditions: { state: %w[ published archived ] }
+
   has_one  :latest_edition,
            class_name: 'Edition',
            inverse_of: :document,
@@ -48,6 +37,14 @@ class Document < ActiveRecord::Base
 
   attr_accessor :sluggable_string
 
+  def self.published
+    joins(:published_edition)
+  end
+
+  def self.at_slug(document_types, slug)
+    where(document_type: document_types, slug: slug).first
+  end
+
   class Change < Struct.new(:public_timestamp, :note)
     def set_as_first_change
       self.note = "First published." if note.blank?
@@ -65,14 +62,6 @@ class Document < ActiveRecord::Base
     unless candidate_slug == slug
       update_attributes(sluggable_string: new_title)
     end
-  end
-
-  def self.published
-    joins(:published_edition)
-  end
-
-  def self.at_slug(document_types, slug)
-    where(document_type: document_types, slug: slug).first
   end
 
   def published?
@@ -93,6 +82,18 @@ class Document < ActiveRecord::Base
     editions.map { |e|
       Change.new(e.public_timestamp, e.change_note)
     }.push(oldest_change)
+  end
+
+  def ever_published_editions
+    editions.where(state: %w(published superseded))
+  end
+
+  def scheduled_edition
+    editions.scheduled.last
+  end
+
+  def non_published_edition
+    editions.not_published.last
   end
 
   private

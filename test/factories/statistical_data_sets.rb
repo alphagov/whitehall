@@ -13,6 +13,6 @@ FactoryGirl.define do
   factory :rejected_statistical_data_set, parent: :statistical_data_set, traits: [:rejected]
   factory :published_statistical_data_set, parent: :statistical_data_set, traits: [:published]
   factory :deleted_statistical_data_set, parent: :statistical_data_set, traits: [:deleted]
-  factory :archived_statistical_data_set, parent: :statistical_data_set, traits: [:archived]
+  factory :superseded_statistical_data_set, parent: :statistical_data_set, traits: [:superseded]
   factory :scheduled_statistical_data_set, parent: :statistical_data_set, traits: [:scheduled]
 end
