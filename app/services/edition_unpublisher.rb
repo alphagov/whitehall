@@ -1,25 +1,4 @@
-class EditionUnpublisher
-  attr_reader :edition, :options, :notifier
-
-    def initialize(edition, options={})
-    @edition = edition
-    @notifier = options.delete(:notifier)
-    @options = options
-  end
-
-  def perform!
-    if can_perform?
-      prepare_edition
-      fire_transition!
-      notify!
-      true
-    end
-  end
-
-  def can_perform?
-    !failure_reason
-  end
-
+class EditionUnpublisher < EditionService
   def failure_reason
     @failure_reason ||= if !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
@@ -38,26 +17,10 @@ class EditionUnpublisher
     'unpublish'
   end
 
-  def past_participle
-    "#{verb}ed".humanize.downcase
-  end
-
 private
-
-  def notify!
-    notifier && notifier.publish(verb, edition, options)
-  end
 
   def prepare_edition
     edition.force_published = false
     edition.reset_version_numbers
-  end
-
-  def fire_transition!
-    edition.public_send("#{verb}!")
-  end
-
-  def can_transition?
-    edition.public_send("can_#{verb}?")
   end
 end
