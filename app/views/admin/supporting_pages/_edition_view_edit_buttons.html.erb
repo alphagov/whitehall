@@ -1,0 +1,11 @@
+<section class="edition-view-edit-buttons">
+  <%= render 'admin/shared/bootstrap/button_dropdown',
+              button_text: (@edition.published? || @edition.archived?) ? 'View on website' : 'Preview on website',
+              links: related_policy_links(@edition) %>
+
+  <% if @edition.editable? %>
+    <%= edit_edition_button(@edition) %>
+  <% elsif @edition.is_latest_edition? and @edition.published? %>
+    <%= redraft_edition_button(@edition) %>
+  <% end %>
+</section>

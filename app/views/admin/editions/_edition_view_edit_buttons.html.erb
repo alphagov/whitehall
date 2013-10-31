@@ -1,0 +1,13 @@
+<section class="edition-view-edit-buttons">
+  <% if @edition.published? || @edition.archived? %>
+    <%= link_to "View on website", public_document_url(@edition), class: 'btn btn-large btn-primary public_version', target: '_blank' %>
+  <% else %>
+    <%= link_to "Preview on website", preview_document_path(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
+  <% end %>
+
+  <% if @edition.editable? %>
+    <%= edit_edition_button(@edition) %>
+  <% elsif @edition.is_latest_edition? and @edition.published? %>
+    <%= redraft_edition_button(@edition) %>
+  <% end %>
+</section>
