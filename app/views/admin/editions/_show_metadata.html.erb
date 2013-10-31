@@ -57,11 +57,6 @@
       <% end %>
     </h2>
 
-    <aside>
-      <h3>Use this format for…</h3>
-      <p><%= t('publishing.format_advice.policy_supporting_page.intended_use') %></p>
-    </aside>
-
     <% if @edition.supporting_pages.any? %>
       <table class="table">
         <% @edition.supporting_pages.each do |supporting_page| %>

@@ -565,7 +565,7 @@ en:
           intended_use: DO NOT USE. This is a holding category for content that has been imported automatically.
       policy:
         intended_use: A plain English definition of an outcome government is working to achieve and the specific actions it's taking. Related content (news etc) should be associated to policies.
-      policy_supporting_page:
+      supporting_page:
         intended_use: Detailed background or information about an action government is taking in relation to a policy.
       detailed_guidance:
         intended_use: Guidance for professional or specialist users so that they can complete a defined task.
