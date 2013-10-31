@@ -9,7 +9,7 @@ FactoryGirl.define do
     trait(:closed) { govuk_status 'closed' }
     trait(:with_published_edition) {
       after :create do |organisation, evaluator|
-        FactoryGirl.create(:published_edition, lead_organisations: [organisation])
+        FactoryGirl.create(:published_publication, lead_organisations: [organisation])
       end
     }
   end

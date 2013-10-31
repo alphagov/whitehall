@@ -1,6 +1,7 @@
 # @abstract
 class Announcement < Edition
   include Edition::Images
+  include Edition::Organisations
   include Edition::RelatedPolicies
   include Edition::WorldLocations
   include Edition::TopicalEvents

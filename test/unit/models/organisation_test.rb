@@ -329,7 +329,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test '#featured_editions includes the newly published version of a featured edition, but not the original' do
     organisation = create(:organisation)
-    old_version = create(:published_edition, title: "Gamma")
+    old_version = create(:published_publication, title: "Gamma")
     create(:featured_edition_organisation, organisation: organisation, edition: old_version, ordering: 0)
     # reload the edition_organisations on old_version to pick up this new one
     old_version.edition_organisations.reload
@@ -377,7 +377,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'destroy removes edition relationships' do
     organisation = create(:organisation)
-    edition = create(:published_edition, organisations: [organisation])
+    edition = create(:published_publication, organisations: [organisation])
     organisation.destroy
     assert_equal 0, EditionOrganisation.count
   end
@@ -642,19 +642,7 @@ class OrganisationTest < ActiveSupport::TestCase
     refute HomePageList.exists?(h)
   end
 
-  test 'Organisation.with_published_editions scope returns organisations with published editions' do
-    org1 = create(:organisation)
-    org2 = create(:organisation)
-    org3 = create(:organisation)
-    org4 = create(:organisation)
-
-    create(:published_edition, organisations: [org1])
-    create(:published_edition, organisations: [org4])
-
-    assert_same_elements [org1, org4], Organisation.with_published_editions
-  end
-
-  test 'Organisation.with_published_editions scope limits to a particular edition type' do
+  test 'Organisation.with_published_editions returns organisations with published editions' do
     org1 = create(:organisation)
     org2 = create(:organisation)
     org3 = create(:organisation)
@@ -664,17 +652,6 @@ class OrganisationTest < ActiveSupport::TestCase
     create(:published_publication, organisations: [org3])
 
     assert_same_elements [org1, org3], Organisation.with_published_editions
-    assert_same_elements [org1], Organisation.with_published_editions(:news_article)
-    assert_same_elements [org1], Organisation.with_published_editions(:announcement)
-    assert_same_elements [org3], Organisation.with_published_editions(:publication)
-    assert_equal [], Organisation.with_published_editions(:consultation)
-  end
-
-  test 'Organisation.with_published_editions copes with non-STI edition types' do
-    organisation = create(:organisation)
-    create(:published_policy, organisations: [organisation])
-
-    assert_equal [organisation], Organisation.with_published_editions(:policy)
   end
 
   test '#organisation_brand_colour fetches the brand colour' do

@@ -117,13 +117,13 @@ class EditionTest < ActiveSupport::TestCase
   test "should return a list of editions in an organisation" do
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
-    draft_edition = create(:draft_edition, organisations: [organisation_1])
-    published_edition = create(:published_edition, organisations: [organisation_1])
-    published_in_second_organisation = create(:published_edition, organisations: [organisation_2])
+    draft_edition = create(:draft_publication, organisations: [organisation_1])
+    published_edition = create(:published_publication, organisations: [organisation_1])
+    published_in_second_organisation = create(:published_publication, organisations: [organisation_2])
 
-    assert_equal [draft_edition, published_edition], Edition.in_organisation(organisation_1)
-    assert_equal [published_edition], Edition.published.in_organisation(organisation_1)
-    assert_equal [published_in_second_organisation], Edition.in_organisation(organisation_2)
+    assert_equal [draft_edition, published_edition], Publication.in_organisation(organisation_1)
+    assert_equal [published_edition], Publication.published.in_organisation(organisation_1)
+    assert_equal [published_in_second_organisation], Publication.in_organisation(organisation_2)
   end
 
   test "should return a list of editions in a ministerial role" do

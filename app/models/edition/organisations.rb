@@ -22,19 +22,6 @@ module Edition::Organisations
     add_trait Trait
   end
 
-  module ClassMethods
-    def in_organisation(organisation)
-      organisations = [*organisation]
-      slugs = organisations.map(&:slug)
-      where('exists (
-               select * from edition_organisations eo_orgcheck
-                 join organisations orgcheck on eo_orgcheck.organisation_id=orgcheck.id
-               where
-                 eo_orgcheck.edition_id=editions.id
-               and orgcheck.slug in (?))', slugs)
-    end
-  end
-
   def lead_edition_organisations
     edition_organisations.where(lead: true).order('edition_organisations.lead_ordering')
   end
@@ -81,6 +68,10 @@ module Edition::Organisations
 
   def skip_organisation_validation?
     false
+  end
+
+  def search_index
+    super.merge("organisations" => organisations.map(&:slug) )
   end
 
   private

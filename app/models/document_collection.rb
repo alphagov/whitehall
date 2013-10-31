@@ -1,4 +1,5 @@
 class DocumentCollection < Edition
+  include Edition::Organisations
   include Edition::RelatedPolicies
   include Edition::Topics
 

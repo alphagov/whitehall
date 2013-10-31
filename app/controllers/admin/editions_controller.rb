@@ -4,7 +4,6 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :confirm_unpublish, :topics]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
-  before_filter :default_arrays_of_ids_to_empty, only: [:update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
   before_filter :build_edition_organisations, only: [:new, :edit]
@@ -163,19 +162,14 @@ class Admin::EditionsController < Admin::BaseController
     @information = information ? information.first : nil
   end
 
-  def default_arrays_of_ids_to_empty
-    unless params[:edition][:organisation_ids]
-      params[:edition][:lead_organisation_ids] ||= []
-      params[:edition][:supporting_organisation_ids] ||= []
-    end
-  end
-
   def build_edition_dependencies
     build_image
     build_edition_organisations
   end
 
   def build_edition_organisations
+    return unless @edition.can_be_related_to_organisations?
+
     n = @edition.edition_organisations.select { |eo| eo.lead? }.count
     (n...4).each do |i|
       if i == 0 && current_user.organisation

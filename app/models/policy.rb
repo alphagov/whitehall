@@ -4,6 +4,7 @@ class Policy < Edition
   include Edition::Topics
   include Edition::Ministers
   include Edition::FactCheckable
+  include Edition::Organisations
   include Edition::SupportingPages
   include Edition::WorldLocations
   include Edition::WorldwidePriorities

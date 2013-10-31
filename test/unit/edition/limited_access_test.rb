@@ -4,10 +4,10 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
 
   class LimitedAccessEdition < Edition
     include Edition::LimitedAccess
+    include Edition::Organisations
   end
 
-  class LimitedByDefaultEdition < Edition
-    include Edition::LimitedAccess
+  class LimitedByDefaultEdition < LimitedAccessEdition
     def self.access_limited_by_default?
       true
     end

@@ -104,9 +104,8 @@ Old Url,New Url,Status,Slug,Admin Url,State
     test "exports with 301 to the original slug of an unpublished edition" do
       publication = create(:published_publication)
       old_slug = publication.document.slug
-      publication.unpublishing = create(:unpublishing)
+      unpublishing = publication.unpublishing = create(:unpublishing)
       Whitehall.edition_services.unpublisher(publication).perform!
-      unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
       publication.title = "This is a new title"
       publication.save!
       refute_equal old_slug, publication.document.slug

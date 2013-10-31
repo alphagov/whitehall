@@ -196,21 +196,13 @@ class Organisation < ActiveRecord::Base
     all.sort_by { |o| o.name_without_prefix }
   end
 
-  def self.with_published_editions(type=nil)
-    if type
-      klass = type.to_s.classify.constantize
-      type_clause = { type: (klass.respond_to?(:sti_names) ? klass.sti_names : klass.name) }
-    else
-      type_class = ''
-    end
-
-    published_editions_conditions = Edition.joins(:edition_organisations).
-                                            published.
-                                            where(type_clause).
-                                            where("edition_organisations.organisation_id = organisations.id").
-                                            select(1).to_sql
-
-    where("exists (#{published_editions_conditions})")
+  def self.with_published_editions
+    where("exists (
+      SELECT 1 FROM `editions`
+      INNER JOIN `edition_organisations` ON `edition_organisations`.`edition_id` = `editions`.`id`
+      WHERE `editions`.`state` = 'published'
+      AND (edition_organisations.organisation_id = organisations.id)
+    )")
   end
 
   def self.parent_organisations

@@ -9,13 +9,11 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
   include ActionDispatch::TestProcess
 
   def valid_edition_attributes
-    o = create(:organisation)
     {
       title:   'edition-title',
       body:    'edition-body',
       summary: 'edition-summary',
-      creator: build(:user),
-      lead_organisations: [o]
+      creator: build(:user)
     }
   end
 

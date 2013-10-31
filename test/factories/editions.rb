@@ -2,12 +2,6 @@ require_relative '../support/generic_edition'
 
 FactoryGirl.define do
   factory :edition, class: GenericEdition, traits: [:translated] do
-    ignore do
-      organisations { [] }
-      create_default_organisation { true }
-      supporting_organisations { [] }
-      lead_organisations { organisations }
-    end
     creator
     sequence(:title) { |index| "edition-title-#{index}" }
     body "edition-body"
@@ -16,23 +10,33 @@ FactoryGirl.define do
 
     after :build do |edition, evaluator|
       edition.skip_virus_status_check = true
+    end
 
-      if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
-        edition.edition_organisations.build(edition: edition,
-                                            organisation: FactoryGirl.build(:organisation),
-                                            lead_ordering: 1,
-                                            lead: true)
+    trait(:with_organisations) do
+      ignore do
+        organisations { [] }
+        create_default_organisation { true }
+        supporting_organisations { [] }
+        lead_organisations { organisations }
       end
-      Array.wrap(evaluator.lead_organisations).each.with_index do |org, idx|
-        edition.edition_organisations.build(edition: edition,
-                                            organisation: org,
-                                            lead_ordering: idx+1,
-                                            lead: true)
-      end
-      Array.wrap(evaluator.supporting_organisations).each do |org|
-        edition.edition_organisations.build(edition: edition,
-                                            organisation: org,
-                                            lead: false)
+      after :build do |edition, evaluator|
+        if evaluator.lead_organisations.empty? && evaluator.create_default_organisation
+          edition.edition_organisations.build(edition: edition,
+                                              organisation: FactoryGirl.build(:organisation),
+                                              lead_ordering: 1,
+                                              lead: true)
+        end
+        Array.wrap(evaluator.lead_organisations).each.with_index do |org, idx|
+          edition.edition_organisations.build(edition: edition,
+                                              organisation: org,
+                                              lead_ordering: idx+1,
+                                              lead: true)
+        end
+        Array.wrap(evaluator.supporting_organisations).each do |org|
+          edition.edition_organisations.build(edition: edition,
+                                              organisation: org,
+                                              lead: false)
+        end
       end
     end
 
@@ -97,7 +101,9 @@ FactoryGirl.define do
     end
 
     trait(:unpublished) do
-      unpublishing
+      after(:build) do |edition|
+        edition.unpublishing = build(:unpublishing, edition: edition)
+      end
     end
   end
 
@@ -112,4 +118,5 @@ FactoryGirl.define do
   factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
   factory :archived_edition, parent: :edition, traits: [:archived]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
+  factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]
 end
