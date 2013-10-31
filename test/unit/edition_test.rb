@@ -465,31 +465,6 @@ class EditionTest < ActiveSupport::TestCase
     Whitehall.edition_services.unpublisher(policy).perform!
   end
 
-  test "swallows errors from search index when it's unpublished" do
-    policy = create(:published_policy)
-
-    Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
-    policy.unpublishing = build(:unpublishing)
-    assert_nothing_raised { Whitehall.edition_services.unpublisher(policy).perform! }
-  end
-
-  test "should remove published edition from search index when it's superseded" do
-    policy = create(:published_policy)
-
-    Searchable::Delete.expects(:later).with(policy)
-
-    policy.supersede!
-  end
-
-  test "swallows errors from search index when it's superseded" do
-    policy = create(:published_policy)
-    slug = policy.document.slug
-
-    Searchable::Delete.expects(:later).raises(RuntimeError, 'Problem?')
-
-    assert_nothing_raised { policy.supersede! }
-  end
-
   test "#destroy should also remove the relationship to any authors" do
     edition = create(:draft_edition, creator: create(:policy_writer))
     relation = edition.edition_authors.first

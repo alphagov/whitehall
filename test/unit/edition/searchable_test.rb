@@ -86,13 +86,4 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition.unpublishing = build(:unpublishing)
     Whitehall.edition_services.unpublisher(edition).perform!
   end
-
-  test "should remove published edition from search index when it's superseded" do
-    edition = create(:published_edition)
-    slug = edition.document.slug
-
-    Searchable::Delete.expects(:later).with(edition)
-
-    edition.supersede!
-  end
 end

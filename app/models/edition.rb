@@ -66,8 +66,7 @@ class Edition < ActiveRecord::Base
 
   after_delete :clear_slug, :destroy_email_curation_queue_items
 
-  # TODO: Remove :unpublish from here once callbacks are gone
-  [:unpublish, :supersede, :delete].each do |event|
+  [:delete].each do |event|
     set_callback(event, :after) { refresh_index_if_required }
   end
   # @!endgroup
@@ -288,9 +287,6 @@ class Edition < ActiveRecord::Base
     else
       remove_from_search_index
     end
-  rescue => e
-    # TODO: this is harsh, revisit
-    Rails.logger.error e
   end
 
   def creator

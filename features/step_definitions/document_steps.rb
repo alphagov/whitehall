@@ -208,25 +208,15 @@ Then /^I should not see the policy "([^"]*)" in the list of draft documents$/ do
   assert has_no_css?(".policy a", text: title)
 end
 
+Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |edition|
+  visit_public_index_for(edition)
+  css_selector = edition.is_a?(DetailedGuide) ? 'h1.page_title' : record_css_selector(edition)
+  refute page.has_content?(edition.title)
+end
+
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
-  css_selector = record_css_selector(edition)
-  case edition
-  when Publication
-    visit publications_path
-  when NewsArticle, Speech
-    visit announcements_path
-  when Consultation
-    visit consultations_path
-  when Policy
-    visit policies_path
-  when DetailedGuide
-    visit detailed_guide_path(edition.document)
-    css_selector = 'h1.page_title'
-  when WorldwidePriority
-    visit worldwide_priorities_path
-  else
-    raise "Don't know where to go for #{edition.class.name}s"
-  end
+  visit_public_index_for(edition)
+  css_selector = edition.is_a?(DetailedGuide) ? 'h1.page_title' : record_css_selector(edition)
   assert page.has_css?(css_selector, text: edition.title)
 end
 
