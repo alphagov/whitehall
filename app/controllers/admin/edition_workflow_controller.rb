@@ -85,11 +85,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def unpublish
     @edition.build_unpublishing(params[:unpublishing])
-    unpublisher = Whitehall.edition_services.unpublisher(@edition)
+    unpublisher = Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft")
 
     if unpublisher.perform!
-      # TODO: move to service object
-      @edition.editorial_remarks.create(body: "Reset to draft", author: current_user)
       redirect_options = {notice: "This document has been unpublished and will no longer appear on the public website"}
     else
       redirect_options = {alert: unpublisher.failure_reason }

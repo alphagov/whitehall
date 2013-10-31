@@ -7,6 +7,7 @@ Feature: Unpublishing published documents
     Given I am a GDS editor
     And a published document "Published by accident" exists
     When I unpublish the document because it was published in error
+    Then there should be an editorial remark recording the fact that the document was unpublished
     Then I should see that the document was published in error on the public site
 
   Scenario: Unpublishing a document that has had a title change

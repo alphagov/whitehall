@@ -18,6 +18,11 @@ When /^I unpublish the document because it was published in error$/ do
   unpublish_edition(Edition.last)
 end
 
+Then(/^there should be an editorial remark recording the fact that the document was unpublished$/) do
+  edition = Edition.last
+  assert_equal 'Reset to draft', edition.editorial_remarks.last.body
+end
+
 Then /^I should see that the document was published in error on the public site$/ do
   edition = Edition.last
   visit public_document_path(edition)
