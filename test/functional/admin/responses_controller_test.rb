@@ -5,7 +5,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   setup do
     login_as :policy_writer
-    @consultation = create(:draft_consultation, opening_on: 2.days.ago, closing_on: 1.day.ago)
+    @consultation = create(:draft_consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
   end
 
   test 'Actions are unavailable if consultation is unmodifiable' do

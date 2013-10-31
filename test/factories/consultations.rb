@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :consultation, class: Consultation, parent: :edition do
     title "consultation-title"
     body  "consultation-body"
-    opening_on { 1.day.ago }
-    closing_on { 6.weeks.from_now }
+    opening_at { 1.day.ago }
+    closing_at { 6.weeks.from_now }
     ignore do
       relevant_to_local_government { false }
     end
@@ -25,13 +25,13 @@ FactoryGirl.define do
   factory :scheduled_consultation, parent: :consultation, traits: [:scheduled]
 
   factory :open_consultation, parent: :published_consultation do
-    opening_on { 1.day.ago }
-    closing_on { 1.day.from_now }
+    opening_at { 1.day.ago }
+    closing_at { 1.day.from_now }
   end
 
   factory :closed_consultation, parent: :published_consultation do
-    opening_on { 2.days.ago }
-    closing_on { 1.day.ago }
+    opening_at { 2.days.ago }
+    closing_at { 1.day.ago }
   end
 
   factory :consultation_with_outcome, parent: :closed_consultation do

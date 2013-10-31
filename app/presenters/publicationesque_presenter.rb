@@ -17,7 +17,7 @@ class PublicationesquePresenter < Whitehall::Decorators::Decorator
   end
 
   def time_until_closure
-    days_left = model.closing_on - Time.zone.now.to_date
+    days_left = (model.closing_at.to_date - Time.zone.now.to_date).to_i
     case days_left
     when ->(n) {n < 0}
       "Closed"

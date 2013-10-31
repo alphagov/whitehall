@@ -29,7 +29,7 @@
       <% if @document.open? %>
         <div class="consultation-block <%= consultation_css_class(@document) %>">
           <div class="consultation-dates">
-            <p>This consultation closes on <span><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
+            <p>This consultation closes at <span><%= absolute_time(@document.closing_at, class: 'closing-at') %></span></p>
           </div>
 
           <%= render partial: "document_summary", locals: { document: @document } %>
@@ -86,7 +86,7 @@
         <h2 class="original-consultation">Original consultation</h2>
         <div class="consultation-block <%= consultation_css_class(@document) %>">
           <div class="consultation-dates">
-            <p>This consultation ran from <span><%= absolute_date(@document.opening_on, class: 'opening-on') %> to<br><%= absolute_date(@document.closing_on, class: 'closing-on') %></span></p>
+            <p>This consultation ran from <span><%= absolute_time(@document.opening_at, class: 'opening-at') %> to<br><%= absolute_time(@document.closing_at, class: 'closing-at') %></span></p>
           </div>
 
           <%= render partial: "document_summary", locals: { document: @document } %>

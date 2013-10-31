@@ -8,10 +8,10 @@ class Consultation < Publicationesque
   include Edition::TopicalEvents
   include Edition::CanBeExternal
 
-  validates :opening_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
-  validates :closing_on, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
+  validates :opening_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
+  validates :closing_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
 
-  validate :closing_on_must_be_after_opening_on
+  validate :validate_closes_after_opens
 
   has_one :outcome, class_name: 'ConsultationOutcome', foreign_key: :edition_id, dependent: :destroy
   has_one :public_feedback, class_name: 'ConsultationPublicFeedback', foreign_key: :edition_id, dependent: :destroy
@@ -21,10 +21,10 @@ class Consultation < Publicationesque
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
 
-  scope :closed, -> { where("closing_on < ?",  Date.today)}
-  scope :closed_since, ->(earliest_closing_date) { closed.where('closing_on >= ?', earliest_closing_date.to_date) }
-  scope :open, -> { where('closing_on >= ? AND opening_on <= ?', Date.today, Date.today) }
-  scope :upcoming, -> { where('opening_on > ?', Date.today) }
+  scope :closed, -> { where("closing_at < ?",  Time.zone.now) }
+  scope :closed_since, ->(earliest_closing_date) { closed.where('closing_at >= ?', earliest_closing_date.to_date) }
+  scope :open, -> { where('closing_at >= ? AND opening_at <= ?', Time.zone.now, Time.zone.now) }
+  scope :upcoming, -> { where('opening_at > ?', Time.zone.now) }
   scope :responded, -> { joins(:outcome) }
 
   add_trait do
@@ -55,15 +55,15 @@ class Consultation < Publicationesque
   end
 
   def not_yet_open?
-    opening_on.nil? || (opening_on > Date.today)
+    opening_at.nil? || (opening_at > Time.zone.now)
   end
 
   def open?
-    opening_on.present? && !closed? && opening_on <= Date.today
+    opening_at.present? && !closed? && opening_at <= Time.zone.now
   end
 
   def closed?
-    closing_on.nil? || (closing_on < Date.today)
+    closing_at.nil? || (closing_at < Time.zone.now)
   end
 
   def outcome_published?
@@ -75,7 +75,7 @@ class Consultation < Publicationesque
   end
 
   def first_public_at
-    opening_on.to_datetime unless opening_on.nil?
+    opening_at.to_datetime unless opening_at.nil?
   end
 
   def make_public_at(date)
@@ -134,9 +134,9 @@ class Consultation < Publicationesque
 
   private
 
-  def closing_on_must_be_after_opening_on
-    if closing_on && opening_on && closing_on.to_date <= opening_on.to_date
-      errors.add :closing_on,  "must be after the opening on date"
+  def validate_closes_after_opens
+    if closing_at && opening_at && closing_at.to_date <= opening_at.to_date
+      errors.add :closing_at,  "must be after the opening on date"
     end
   end
 end

@@ -91,28 +91,28 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test "get involved has counts of open and closed consultations" do
-    old = create(:published_consultation, opening_on: 2.years.ago, closing_on: 1.year.ago - 2.day)
+    old = create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.day)
 
     # open
     recently_opened_consultations = [
-      next_closing = create(:open_consultation, opening_on: 9.days.ago, closing_on: 2.days.from_now),
-      create(:open_consultation, opening_on: 8.days.ago, closing_on: 3.days.from_now),
-      create(:open_consultation, opening_on: 7.days.ago, closing_on: 4.days.from_now),
-      create(:open_consultation, opening_on: 6.days.ago, closing_on: 5.days.from_now),
-      create(:open_consultation, opening_on: 5.days.ago, closing_on: 6.days.from_now),
+      next_closing = create(:open_consultation, opening_at: 9.days.ago, closing_at: 2.days.from_now),
+      create(:open_consultation, opening_at: 8.days.ago, closing_at: 3.days.from_now),
+      create(:open_consultation, opening_at: 7.days.ago, closing_at: 4.days.from_now),
+      create(:open_consultation, opening_at: 6.days.ago, closing_at: 5.days.from_now),
+      create(:open_consultation, opening_at: 5.days.ago, closing_at: 6.days.from_now),
     ]
 
     # closed
-    closed_in_past_12_months = create(:published_consultation, opening_on: 2.years.ago, closing_on: 1.year.ago + 1.day)
-    create(:closed_consultation, opening_on: 4.days.ago, closing_on: 2.days.ago)
-    create(:closed_consultation, opening_on: 3.days.ago, closing_on: 1.day.ago)
+    closed_in_past_12_months = create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago + 1.day)
+    create(:closed_consultation, opening_at: 4.days.ago, closing_at: 2.days.ago)
+    create(:closed_consultation, opening_at: 3.days.ago, closing_at: 1.day.ago)
 
     # responded
     recent_outcomes = [
-      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 8.day),
-      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 7.day),
-      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 6.day),
-      create(:consultation_with_outcome, opening_on: 2.years.ago, closing_on: 1.year.ago - 5.day),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 8.day),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 7.day),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 6.day),
+      create(:consultation_with_outcome, opening_at: 2.years.ago, closing_at: 1.year.ago - 5.day),
     ]
 
     # Add a response ahead of the closing date
@@ -147,7 +147,7 @@ class HomeControllerTest < ActionController::TestCase
       create(:published_news_article, first_published_at: x.days.ago + 2.hours)
       create(:published_speech, delivered_on: x.days.ago + 3.hours)
       create(:published_publication, first_published_at: x.days.ago + 4.hours)
-      create(:published_consultation, opening_on: x.days.ago + 5.hours)
+      create(:published_consultation, opening_at: x.days.ago + 5.hours)
     end
   end
 

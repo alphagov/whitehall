@@ -7,8 +7,8 @@
     </div>
   </div>
 
-  <p class="opening_on"><%= consultation_opening_phrase(edition) %></p>
-  <p class="closing_on"><%= consultation_closing_phrase(edition) %></p>
+  <p class="opening_at"><%= consultation_opening_phrase(edition) %></p>
+  <p class="closing_at"><%= consultation_closing_phrase(edition) %></p>
 
   <% if edition.has_consultation_participation? %>
     <div class="participation">

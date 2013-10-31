@@ -426,9 +426,9 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display 2 consultations in reverse chronological order" do
     organisation = create(:organisation)
-    consultation_2 = create(:published_consultation, organisations: [organisation], opening_on: 2.days.ago)
-    consultation_3 = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago)
-    consultation_1 = create(:published_consultation, organisations: [organisation], opening_on: 1.day.ago)
+    consultation_2 = create(:published_consultation, organisations: [organisation], opening_at: 2.days.ago)
+    consultation_3 = create(:published_consultation, organisations: [organisation], opening_at: 3.days.ago)
+    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 1.day.ago)
 
     get :show, id: organisation
 
@@ -437,9 +437,9 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 consultations with details and a link to publications filter if there are many consultations" do
     organisation = create(:organisation)
-    consultation_3 = create(:published_consultation, organisations: [organisation], opening_on: 5.days.ago.to_date, closing_on: 1.days.ago.to_date)
-    consultation_2 = create(:published_consultation, organisations: [organisation], opening_on: 4.days.ago.to_date, closing_on: 1.days.ago.to_date)
-    consultation_1 = create(:published_consultation, organisations: [organisation], opening_on: 3.days.ago.to_date)
+    consultation_3 = create(:published_consultation, organisations: [organisation], opening_at: 5.days.ago, closing_at: 1.days.ago)
+    consultation_2 = create(:published_consultation, organisations: [organisation], opening_at: 4.days.ago, closing_at: 1.days.ago)
+    consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 3.days.ago)
     response_attachment = create(:file_attachment)
     response = create(:consultation_outcome, consultation: consultation_3)
     response.attachments << response_attachment
@@ -448,11 +448,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#consultations" do
       assert_select_object consultation_1 do
-        assert_select '.publication-date abbr[title=?]', 3.days.ago.to_date.to_datetime.iso8601
+        assert_select '.publication-date abbr[title=?]', 3.days.ago.iso8601
         assert_select '.document-type', "Open consultation"
       end
       assert_select_object consultation_2 do
-        assert_select '.publication-date abbr[title=?]', 4.days.ago.to_date.to_datetime.iso8601
+        assert_select '.publication-date abbr[title=?]', 4.days.ago.iso8601
         assert_select '.document-type', "Closed consultation"
       end
       refute_select_object consultation_3
@@ -466,7 +466,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.days.ago)
     publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago)
 
-    consultation = create(:published_consultation, organisations: [organisation], opening_on: 1.days.ago)
+    consultation = create(:published_consultation, organisations: [organisation], opening_at: 1.days.ago)
     statistics_publication = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago, publication_type: PublicationType::Statistics)
 
     get :show, id: organisation

@@ -21,11 +21,11 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
     end
 
-    def opening_on
+    def opening_at
       Parsers::DateParser.parse(row['opening_date'], @logger, @line_number)
     end
 
-    def closing_on
+    def closing_at
       Parsers::DateParser.parse(row['closing_date'], @logger, @line_number)
     end
 
@@ -50,8 +50,8 @@ module Whitehall::Uploader
         title: title,
         summary: summary,
         body: body,
-        opening_on: opening_on,
-        closing_on: closing_on,
+        opening_at: opening_at,
+        closing_at: closing_at,
         lead_organisations: lead_organisations,
         related_editions: related_editions,
         attachments: attachments,
