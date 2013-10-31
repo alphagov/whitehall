@@ -240,7 +240,6 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
             get :audit_trail, to: 'edition_audit_trail#index'
           end
-          resources :supporting_pages, path: "supporting-pages", except: [:index, :show]
           resources :translations, controller: "edition_translations", except: [:index, :show]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
@@ -266,6 +265,7 @@ Whitehall::Application.routes.draw do
         resources :policies, except: [:index] do
           member { get :topics }
         end
+        resources :supporting_pages, path: "supporting-pages", except: [:index]
         resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :world_location_news_articles, path: 'world-location-news', except: [:index]

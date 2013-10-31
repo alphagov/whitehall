@@ -50,7 +50,7 @@
     <h2>Supporting pages
       <% if @edition.editable? %>
         <span class="add_supporting_page pull-right">
-          <%= link_to new_admin_edition_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
+          <%= link_to new_admin_supporting_page_path(edition: {related_policy_ids: @edition.id}), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
           <i class="icon-plus-sign"></i> Add supporting page
         <% end %>
         </span>
@@ -67,7 +67,7 @@
         <% @edition.supporting_pages.each do |supporting_page| %>
           <tr>
             <td>
-              <%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %>
+              <%= link_to supporting_page.title, admin_edition_path(supporting_page) %>
             </td>
           </tr>
         <% end %>

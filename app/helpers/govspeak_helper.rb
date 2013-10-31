@@ -270,7 +270,7 @@ module GovspeakHelper
 
   def rewritten_href_for_edition(edition, supporting_page)
     if supporting_page
-      public_supporting_page_url(edition, supporting_page)
+      policy_supporting_page_url(edition, supporting_page)
     else
       public_document_url(edition)
     end
