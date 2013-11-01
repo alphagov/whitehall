@@ -14,9 +14,9 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
   end
 
   FactoryGirl.define do
-    factory :limited_access_edition, class: LimitedAccessEdition, parent: :edition do
+    factory :limited_access_edition, class: LimitedAccessEdition, parent: :edition_with_organisations do
     end
-    factory :limited_by_default_edition, class: LimitedByDefaultEdition, parent: :edition do
+    factory :limited_by_default_edition, class: LimitedByDefaultEdition, parent: :limited_access_edition do
     end
   end
 

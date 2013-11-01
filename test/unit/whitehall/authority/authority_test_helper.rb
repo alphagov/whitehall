@@ -45,6 +45,7 @@ if defined? Rails
     end
 
     define_edition_factory_methods :edition
+    define_edition_factory_methods :publication
     define_edition_factory_methods :fatality_notice
     define_edition_factory_methods :world_location_news_article
     define_edition_factory_methods :worldwide_priority
@@ -86,6 +87,7 @@ else
     end
 
     define_edition_factory_methods :edition
+    define_edition_factory_methods :publication
     define_edition_factory_methods :fatality_notice
     define_edition_factory_methods :world_location_news_article
     define_edition_factory_methods :worldwide_priority
