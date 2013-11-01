@@ -35,6 +35,9 @@
     </p>
   </section>
 <% end %>
+
+<%= render_partial_if_exists 'extra_metadata' %>
+
 <% if @edition.allows_supporting_pages? %>
   <section>
     <h2>Supporting pages

@@ -332,4 +332,10 @@ module ApplicationHelper
 
     body.html_safe
   end
+
+  def render_partial_if_exists(partial)
+    if lookup_context.template_exists?(partial, lookup_context.prefixes, true)
+      render partial
+    end
+  end
 end
