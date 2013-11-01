@@ -1,8 +1,7 @@
 FactoryGirl.define do
-  factory :supporting_page do
+  factory :supporting_page, class: SupportingPage, parent: :edition do
     title "Something Supportive"
     body "Some supporting information"
-    association :edition, factory: :policy
 
     trait(:with_alternative_format_provider) do
     end

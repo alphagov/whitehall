@@ -18,7 +18,7 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
 
   test '#index! with a policy indexes supporting pages' do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     expect_indexing(policy)
     expect_indexing(supporting_page)

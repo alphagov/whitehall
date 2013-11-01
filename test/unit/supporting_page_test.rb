@@ -97,7 +97,7 @@ class SupportingPageTest < ActiveSupport::TestCase
 
   test 'should not remove supporting page from search index on destroying' do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     Searchable::Delete.expects(:later).with(supporting_page).never
     supporting_page.destroy

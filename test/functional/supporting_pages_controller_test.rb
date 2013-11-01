@@ -21,7 +21,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "show displays the date that the policy was updated" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -30,7 +30,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "show includes the main policy navigation" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -42,7 +42,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "show adds the current class to the supporting pages link in the policy navigation" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -61,7 +61,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   test "doesn't show supporting page if parent isn't published" do
     policy = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -72,7 +72,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     policy = create(:published_policy)
     northern_ireland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://northern-ireland.com/")
     scotland_inapplicability = policy.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://scotland.com")
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -83,7 +83,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "should not explicitly say that policy applies to the whole of the UK" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -92,9 +92,9 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "show lists supporting pages when there are some" do
     policy = create(:published_policy)
-    first_supporting_page = create(:supporting_page, edition: policy)
-    second_supporting_page = create(:supporting_page, edition: policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    first_supporting_page = create(:supporting_page, related_policies: [policy])
+    second_supporting_page = create(:supporting_page, related_policies: [policy])
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -109,7 +109,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     draft = policy.create_draft(create(:user))
     document = draft.document
 
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: document, id: supporting_page
 
@@ -121,7 +121,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     first_topic = create(:topic)
     second_topic = create(:topic)
     policy = create(:published_policy, topics: [first_topic, second_topic])
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -133,7 +133,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     first_org = create(:organisation)
     second_org = create(:organisation)
     policy = create(:published_policy, organisations: [first_org, second_org])
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -149,7 +149,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
     policy = create(:published_policy, ministerial_roles: [appointment.role])
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -158,7 +158,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "should not apply active class to the parent policy page navigation heading" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -184,7 +184,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "should use supporting page title as page title" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -193,7 +193,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "should use supporting page title as h1" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -203,7 +203,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
   view_test "show displays the policy team responsible for this policy" do
     policy_team = create(:policy_team, email: 'policy-team@example.com')
     policy = create(:published_policy, policy_teams: [policy_team])
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -213,7 +213,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -222,7 +222,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "shows correct sub navigation when viewing supporting details" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 
@@ -234,7 +234,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   view_test "shows activity link when viewing supporting details" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     speech = create(:published_speech, related_editions: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
@@ -260,7 +260,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
   test "the format name is being set to 'policy' on the detail tab" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page
 

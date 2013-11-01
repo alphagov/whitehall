@@ -21,7 +21,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test "should rewrite absolute path to an admin page for a published supporting page as link to its public page" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: policy_supporting_page_url(policy, supporting_page))
   end
 
@@ -102,7 +102,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   test "should rewrite absolute path to an admin page for a supporting page as a link to its public page on the internal preview host" do
     request.host = ActionController::Base.default_url_options[:host] = internal_preview_host
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: policy_supporting_page_url(policy, supporting_page, host: public_preview_host))
   end
 
@@ -110,7 +110,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     request.host = public_preview_host
     ActionController::Base.default_url_options[:host] = internal_preview_host
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: policy_supporting_page_url(policy, supporting_page, host: public_preview_host))
   end
 
@@ -130,7 +130,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   test "should rewrite absolute path to an admin page for a supporting page as a link to its public page on the internal production host" do
     request.host = ActionController::Base.default_url_options[:host] = internal_production_host
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: policy_supporting_page_url(policy, supporting_page, host: public_production_host))
   end
 
@@ -138,7 +138,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     request.host = public_production_host
     ActionController::Base.default_url_options[:host] = internal_production_host
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: policy_supporting_page_url(policy, supporting_page, host: public_production_host))
   end
 
@@ -158,7 +158,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test "should not link to supporting pages whose editions are not published" do
     policy = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     url = admin_supporting_page_path(supporting_page)
     html = govspeak_to_html("this and [that](#{url}) yeah?")
     refute_select_within_html html, "a"
@@ -166,7 +166,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test "should not raise exception when the supporting page does not exist" do
     policy = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
     url = admin_supporting_page_path(supporting_page)
     added_trailing_one_digit = govspeak_to_html("this and [that](#{url}1) yeah?")
     refute_select_within_html added_trailing_one_digit, "a"
