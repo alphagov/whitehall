@@ -9,7 +9,7 @@ class SupportingPagesController < PublicFacingController
     if @policy.supporting_pages.empty?
       render_not_found
     else
-      redirect_to policy_supporting_page_path(@policy.document, @policy.supporting_pages.first)
+      redirect_to policy_supporting_page_path(@policy.document, @policy.supporting_pages.first.document)
     end
   end
 
