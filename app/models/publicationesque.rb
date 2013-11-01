@@ -11,6 +11,10 @@ class Publicationesque < Edition
     ([self] + descendants).map { |model| model.sti_name }
   end
 
+  def self.published_with_eager_loading(ids)
+    self.published.with_translations.includes([:document, organisations: :translations]).where(id: ids)
+  end
+
   def presenter
     PublicationesquePresenter
   end

@@ -7,10 +7,6 @@ class DocumentsController < PublicFacingController
 
   private
 
-  def load_editions_by_id(ids)
-    Edition.published.with_translations.includes([:document, organisations: :translations]).where(id: ids)
-  end
-
   def preview?
     params[:preview]
   end

@@ -16,7 +16,7 @@ class AnnouncementsController < DocumentsController
         render json: AnnouncementFilterJsonPresenter.new(@filter, view_context, AnnouncementPresenter)
       end
       format.atom do
-        documents = load_editions_by_id(@filter.documents.map(&:id))
+        documents = Announcement.published_with_eager_loading(@filter.documents.map(&:id))
         @announcements = Whitehall::Decorators::CollectionDecorator.new(
           documents.sort_by(&:public_timestamp).reverse, AnnouncementPresenter, view_context)
       end
