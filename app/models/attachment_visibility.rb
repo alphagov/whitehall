@@ -45,8 +45,7 @@ class AttachmentVisibility
   def edition_ids
     @edition_ids ||= [
       Attachment.where(attachment_data_id: id).where(attachable_type: 'Edition').pluck(:attachable_id) +
-      edition_ids_for_type(Response),
-      edition_ids_for_type(SupportingPage)
+      edition_ids_for_type(Response)
     ].flatten.uniq
   end
 end
