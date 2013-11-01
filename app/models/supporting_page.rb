@@ -3,5 +3,12 @@ class SupportingPage < Edition
   include Edition::RelatedPolicies
   include ::Attachable
 
-  validates :related_policies, length: { minimum: 1, message: "must include at least one policy" }
+  validate :at_least_one_related_policy
+
+private
+  def at_least_one_related_policy
+    unless related_documents.any? { |d| d.document_type == "Policy" }
+      errors.add(:related_policies, "must include at least one policy")
+    end
+  end
 end
