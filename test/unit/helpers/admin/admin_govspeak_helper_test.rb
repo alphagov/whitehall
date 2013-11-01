@@ -64,7 +64,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   end
 
   test "should rewrite link to destroyed supporting page in admin preview" do
-    html = govspeak_to_admin_html("this and [that](#{admin_edition_supporting_page_path("doesnt-exist", "missing-id")})")
+    html = govspeak_to_admin_html("this and [that](#{admin_supporting_page_path("doesnt-exist", "missing-id")})")
     assert_select_within_html html, "del", text: "that"
   end
 
