@@ -43,7 +43,7 @@ module DocumentHelper
   end
 
   def begin_drafting_policy(options)
-    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary", alternative_format_provider: create(:alternative_format_provider)))
+    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary"))
   end
 
   def begin_editing_document(title)

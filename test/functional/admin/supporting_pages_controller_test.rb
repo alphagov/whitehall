@@ -7,6 +7,7 @@ class Admin::SupportingPagesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
   should_allow_attached_images_for :supporting_page
+  should_allow_alternative_format_provider_for :supporting_page
 
 private
   def controller_attributes_for(edition_type, attributes = {})

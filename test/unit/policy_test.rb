@@ -8,10 +8,6 @@ class PolicyTest < ActiveSupport::TestCase
     refute build(:policy).allows_attachments?
   end
 
-  test "should be invalid without an alternative format provider" do
-    refute build(:policy, alternative_format_provider: nil).valid?
-  end
-
   test "is translatable" do
     assert Policy.new.translatable?
   end

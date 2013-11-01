@@ -1,4 +1,5 @@
 class SupportingPage < Edition
+  include Edition::AlternativeFormatProvider
   include Edition::Images
   include Edition::RelatedPolicies
   include ::Attachable

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :supporting_page, class: SupportingPage, parent: :edition do
+  factory :supporting_page, class: SupportingPage, traits: [:with_alternative_format_provider], parent: :edition do
     title "Something Supportive"
     body "Some supporting information"
 
