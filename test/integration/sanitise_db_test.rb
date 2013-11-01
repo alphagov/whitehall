@@ -67,23 +67,6 @@ class SanitiseDBTest < ActiveSupport::TestCase
     refute bad_attachment.slug =~ /bad-title/, "Expected slug to be sanitised"
   end
 
-  test "scrub script sanitises supporting pages linked to access limited editions" do
-    good_page = create(:supporting_page, title: "Good title", body: "Good body", edition: create(:edition, access_limited: false))
-    bad_page = create(:supporting_page, title: "Bad title", body: "Bad body", edition: create(:edition, access_limited: true))
-
-    run_script
-
-    good_page.reload
-    assert_equal "Good title", good_page.title
-    assert_equal "Good body", good_page.body
-    assert_equal "good-title", good_page.slug
-
-    bad_page.reload
-    refute bad_page.title =~ /Bad title/, "Expected title to be sanitised"
-    refute bad_page.body =~ /Bad body/, "Expected body to be sanitised"
-    refute bad_page.slug =~ /bad-title/, "Expected slug to be sanitised"
-  end
-
   test "scrub script sanitises all fact checks" do
     fact_check = create(:fact_check_request, email_address: "important-person@example.com", comments: "Secret data", instructions: "Secret data", key: "abcdefghijklmnop")
 
