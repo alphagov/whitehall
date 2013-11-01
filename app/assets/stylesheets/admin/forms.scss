@@ -190,15 +190,19 @@ fieldset.fatality-notice-casualties {
 
 .publishing-controls {
   margin-top: $gutter;
+  padding-top: 0;
   fieldset {
-    margin-top: 0;
+    border-bottom: 1px solid $border-colour;
+    margin-top: $gutter-two-thirds;
+    padding-bottom: $gutter-two-thirds;
     p {
       margin: $gutter-one-third 0 0 0;
     }
   }
   .form-actions {
-    margin-bottom: 0;
-    padding-bottom: 0;
+    border-top: 0;
+    margin: 0;
+    padding: $gutter-two-thirds 0 0 0;
   }
 }
 
