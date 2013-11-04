@@ -25,10 +25,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true)
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.gov.uk/example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
     assert unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: false, alternative_url: "https://www.gov.uk/example")
+    unpublishing = build(:unpublishing, redirect: false, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
     assert unpublishing.valid?
   end
 
@@ -44,7 +44,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.gov.uk/example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
     assert unpublishing.valid?
   end
 

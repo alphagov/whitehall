@@ -2,9 +2,12 @@ class Unpublishing < ActiveRecord::Base
   belongs_to :edition
 
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true
-  validates :alternative_url, presence: { message: "must be entered if you want to redirect to it", if: :redirect? }
+  validates :alternative_url, presence: { message: "must be provided to redirect the document", if: :redirect? }
   validates :alternative_url, uri: true, allow_blank: true
-  validates_format_of :alternative_url, with: %r{^https://www\.gov\.uk/?.*}, message: 'must be in the form of https://www.gov.uk/example', allow_blank: true
+  validates_format_of :alternative_url,
+    with: %r(^#{Whitehall.public_protocol}://#{Whitehall.public_host}?.*),
+    message: "must be in the form of #{Whitehall.public_protocol}://#{Whitehall.public_host}/example",
+    allow_blank: true
   validate :redirect_not_circular
 
   def self.from_slug(slug, type)
