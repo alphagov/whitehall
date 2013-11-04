@@ -34,7 +34,7 @@ class Edition < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
-  validates :summary, presence: true
+  validates :summary, presence: true, if: :summary_required?
   validates :first_published_at, recent_date: true, allow_blank: true
 
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
@@ -580,6 +580,10 @@ private
   end
 
   def body_required?
+    true
+  end
+
+  def summary_required?
     true
   end
 end

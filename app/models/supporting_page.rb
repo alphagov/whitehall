@@ -12,4 +12,8 @@ private
       errors.add(:related_policies, "must include at least one policy")
     end
   end
+
+  def summary_required?
+    false
+  end
 end
