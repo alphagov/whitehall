@@ -125,7 +125,6 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true
-    # match "world/organisations" => 'worldwide_organisations#index', as: :worldwide_organisations
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
