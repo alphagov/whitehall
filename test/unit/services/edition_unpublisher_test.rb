@@ -68,7 +68,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     unpublisher = EditionUnpublisher.new(edition)
 
     refute unpublisher.can_perform?
-    assert_equal 'Alternative url must be entered if you want to redirect to it', unpublisher.failure_reason
+    assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason
   end
 
 private

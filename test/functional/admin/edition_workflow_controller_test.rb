@@ -207,9 +207,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test 'unpublish unpublishes the edition redirects back with a message' do
     login_as create(:gds_editor)
     unpublish_params = {
-        unpublishing_reason_id: '1',
-        explanation: 'Was classified',
-        alternative_url: 'https://www.gov.uk/alt'
+        unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
+        explanation: 'Was classified'
       }
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
