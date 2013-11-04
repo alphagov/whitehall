@@ -14,6 +14,10 @@ class Unpublishing < ActiveRecord::Base
     where(slug: slug, document_type: type.to_s).first
   end
 
+  def redirect?
+    redirect || unpublishing_reason == UnpublishingReason::Consolidated
+  end
+
   def unpublishing_reason
     UnpublishingReason.find_by_id unpublishing_reason_id
   end
