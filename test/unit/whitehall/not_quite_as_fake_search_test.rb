@@ -143,7 +143,7 @@ module Whitehall
 
       test "advanced search raises if attempting to filter by an unknown param" do
         not_quite_as_fake_rummager = GdsApiRummager.new("government", @store, simple: %w{title})
-        assert_raise GdsApi::Rummager::SearchServiceError do
+        assert_raise GdsApi::HTTPErrorResponse do
           not_quite_as_fake_rummager.advanced_search(default_search_params.merge(topic: "something"))
         end
       end
@@ -159,7 +159,7 @@ module Whitehall
       end
 
       def assert_invalid_search(search_params)
-        assert_raise GdsApi::Rummager::SearchServiceError do
+        assert_raise GdsApi::HTTPErrorResponse do
           GdsApiRummager.new("government", @store).advanced_search(default_search_params.merge(search_params))
         end
       end
