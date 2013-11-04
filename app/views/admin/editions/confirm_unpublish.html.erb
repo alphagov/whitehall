@@ -2,12 +2,23 @@
 
   <div class="span8">
     <section>
-      <h1>Unpublish <%= @edition.type.titleize %></h1>
+      <h1><%= @edition.title %></h1>
 
       <%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
         <%= fields_for :unpublishing do |unpublish| %>
-          <%= unpublish.label :unpublishing_reason_id, "Reason for unpublishing" %>
-          <%= unpublish.select :unpublishing_reason_id, options_from_collection_for_select(UnpublishingReason.all, :id, :name) %>
+          <%= unpublish.label :unpublishing_reason_id, "Do you want to archive or unpublish this document?" %>
+
+
+          <%= unpublish.radio_button :unpublishing_reason_id, UnpublishingReason::Archived.id %>
+          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::Archived.id}", "Archive: no longer current government policy/activity" %>
+
+          <%= unpublish.radio_button :unpublishing_reason_id, UnpublishingReason::PublishedInError.id %>
+          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}", "Unpublish: published in error" %>
+
+
+          <%= unpublish.radio_button :unpublishing_reason_id, UnpublishingReason::Consolidated.id %>
+          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}", "Unpublish: consolidated into another GOV.UK page" %>
+
           <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5, class: "previewable"  %>
           <p class="alert alert-info">Note: This explanation is shown on the public page of this <%= @edition.type.titleize.downcase %> when it is unpublished.</p>
           <%= unpublish.text_field :alternative_url, label_text: 'Alternative URL' %>
