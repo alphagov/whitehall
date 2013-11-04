@@ -12,8 +12,9 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
   end
 
   test "should generate publish form for edition with supporting pages alert" do
-    edition = create(:submitted_policy, supporting_pages: [create(:supporting_page)])
-    html = publish_edition_form(edition)
+    policy = create(:submitted_policy)
+    create(:supporting_page, related_policies: [policy])
+    html = publish_edition_form(policy)
     fragment = Nokogiri::HTML.fragment(html)
     assert_equal "Have you checked the 1 supporting pages?", (fragment/"input[type=submit]").first["data-confirm"]
   end
