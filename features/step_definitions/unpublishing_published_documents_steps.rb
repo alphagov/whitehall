@@ -17,6 +17,22 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   click_button 'Unpublish'
 end
 
+When(/^I unpublish the policy because it is no longer government policy$/) do
+  @policy = Policy.last
+  visit admin_edition_path(@policy)
+  click_button 'Unpublish'
+  choose 'Archive: no longer current government policy/activity'
+  fill_in 'Further explanation', with: 'We no longer believe people should shave'
+  click_button 'Unpublish'
+end
+
+Then(/^the policy should be marked as archived on the public site$/) do
+  visit public_document_path(@policy)
+  assert page.has_content?(@policy.title)
+  assert page.has_content?('This policy was archived')
+  assert page.has_content?('We no longer believe people should shave')
+end
+
 Then(/^I should be redirected to the other page when I view the document on the public site$/) do
   visit public_document_path(@duplicate_edition)
   assert_current_url policy_url(@existing_edition.document)
