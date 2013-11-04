@@ -18,6 +18,10 @@ class Unpublishing < ActiveRecord::Base
     redirect || unpublishing_reason == UnpublishingReason::Consolidated
   end
 
+  def archived?
+    unpublishing_reason == UnpublishingReason::Archived
+  end
+
   def unpublishing_reason
     UnpublishingReason.find_by_id unpublishing_reason_id
   end
