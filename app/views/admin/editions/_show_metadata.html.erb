@@ -41,13 +41,11 @@
 <% if @edition.allows_supporting_pages? %>
   <section>
     <h2>Supporting pages
-      <% if @edition.editable? %>
-        <span class="add_supporting_page pull-right">
-          <%= link_to new_admin_supporting_page_path(edition: {related_policy_ids: @edition.id}), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
-          <i class="icon-plus-sign"></i> Add supporting page
-        <% end %>
-        </span>
+      <span class="add_supporting_page pull-right">
+        <%= link_to admin_new_policy_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
+        <i class="icon-plus-sign"></i> Add supporting page
       <% end %>
+      </span>
     </h2>
 
     <% if @edition.supporting_pages.any? %>
