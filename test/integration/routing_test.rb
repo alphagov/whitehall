@@ -124,15 +124,4 @@ class RoutingTest < ActionDispatch::IntegrationTest
     get "/government/admin/editions/#{publication.id}"
     assert_redirected_to "/government/admin/publications/#{publication.id}"
   end
-
-  test "cannot get supporting_pages#show through a non-numerical id" do
-    login_as_admin
-    edition = create(:draft_policy)
-    supporting_page = create(:supporting_page, edition: edition)
-
-    assert_raise ActionController::RoutingError do
-      get "/government/admin/editions/#{edition.id}/supporting-pages/#{supporting_page.slug}"
-    end
-  end
-
 end
