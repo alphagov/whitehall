@@ -35,6 +35,7 @@
 // HELPERS
 // Styles for comment page elements
 #whitehall-wrapper {
+  @import "helpers/_govspeak.scss";
   @import "helpers/_organisations.scss";
 
   // helpers shared with frontend and admin
