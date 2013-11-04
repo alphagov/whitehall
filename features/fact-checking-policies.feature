@@ -11,10 +11,9 @@ Scenario: Departmental editor requests fact checking
   And I should see the pending fact check request to "fact-checker@example.com" for policy "Standard Beard Lengths"
 
 Scenario: Fact checker views the draft policy
-  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy "Check me" with supporting page "And me!"
+  Given "fact-checker@example.com" has received an email requesting they fact check a draft policy "Check me"
   When "fact-checker@example.com" clicks the email link to the draft policy
   Then they should see the draft policy "Check me"
-  And they should see the supporting page "And me!"
 
 Scenario: Fact checker enters feedback
   Given "fact-checker@example.com" has received an email requesting they fact check a draft policy "Check me"
