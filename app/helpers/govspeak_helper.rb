@@ -176,18 +176,18 @@ module GovspeakHelper
 
       path = anchor['href']
 
-      edition, supporting_page = find_edition_and_supporting_page_from_absolute_path(path)
-      replacement_html = replacement_html_for(anchor, edition, supporting_page)
+      edition = find_edition_from_absolute_path(path)
+      replacement_html = replacement_html_for(anchor, edition)
       replacement_html = yield(replacement_html, edition) if block_given?
 
       anchor.replace Nokogiri::HTML.fragment(replacement_html)
     end
   end
 
-  def replacement_html_for(anchor, edition, supporting_page)
+  def replacement_html_for(anchor, edition)
     if edition.present? && edition.linkable?
       anchor.dup.tap do |anchor|
-        anchor['href'] = rewritten_href_for_edition(edition, supporting_page)
+        anchor['href'] = rewritten_href_for_edition(edition)
       end.to_html.html_safe
     else
       anchor.inner_text
@@ -255,22 +255,18 @@ module GovspeakHelper
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
-  def find_edition_and_supporting_page_from_absolute_path(path)
+  def find_edition_from_absolute_path(path)
     edition_path_pattern = Whitehall.edition_route_path_segments.join("|")
-    edition_id, supporting_page_id = nil
-    if path[%r{^#{Whitehall.router_prefix}/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
-      edition_id, supporting_page_id = $1, $2
-    elsif path[%r{^#{Whitehall.router_prefix}/admin/(?:#{edition_path_pattern})/(\d+)$}]
+    if path[%r{/admin/(?:#{edition_path_pattern})/(\d+)$}]
       edition_id = $1
+      Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
     end
-    edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
-    supporting_page = supporting_page_id && edition && edition.supporting_pages.where(id: supporting_page_id).first
-    [edition, supporting_page]
   end
 
-  def rewritten_href_for_edition(edition, supporting_page)
-    if supporting_page
-      policy_supporting_page_url(edition, supporting_page)
+  def rewritten_href_for_edition(edition)
+    case edition
+    when SupportingPage
+      policy_supporting_page_url(edition.related_policies.first.document, edition.document)
     else
       public_document_url(edition)
     end
