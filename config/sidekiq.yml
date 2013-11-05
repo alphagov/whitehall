@@ -2,4 +2,5 @@
 :concurrency:  4
 :queues:
   - [imports, 2]
+  - [router, 4]
   - [default, 5]
