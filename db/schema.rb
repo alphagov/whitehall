@@ -356,17 +356,6 @@ ActiveRecord::Schema.define(:version => 20131105171156) do
 
   add_index "document_series_groups", ["document_series_id", "ordering"], :name => "index_document_series_groups_on_document_series_id_and_ordering"
 
-  create_table "document_series_memberships", :force => true do |t|
-    t.integer  "document_series_id"
-    t.integer  "document_id"
-    t.integer  "ordering"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "document_series_memberships", ["document_id", "document_series_id"], :name => "index_document_series_memberships_on_document_and_series_id"
-  add_index "document_series_memberships", ["document_series_id", "ordering"], :name => "index_document_series_memberships_on_series_id_and_ordering"
-
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
     t.string  "url",                           :null => false
