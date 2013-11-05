@@ -217,6 +217,19 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'Was classified', published_edition.reload.unpublishing.explanation
   end
 
+  test '#unpublish when the edition is being archived sets an appropriate flash message for the user' do
+    login_as create(:gds_editor)
+    unpublish_params = {
+        unpublishing_reason_id: UnpublishingReason::Archived.id,
+        explanation: 'No longer government policy'
+      }
+    post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
+
+    assert_redirected_to admin_policy_path(published_edition)
+    assert_equal "This document has been marked as archived", flash[:notice]
+    assert_equal 'No longer government policy', published_edition.reload.unpublishing.explanation
+  end
+
   test 'unpublish responds with 422 if missing a lock version' do
     login_as create(:gds_editor)
     post :unpublish, id: published_edition
