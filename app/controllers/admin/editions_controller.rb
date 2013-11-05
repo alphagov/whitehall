@@ -114,7 +114,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = @edition.build_unpublishing
+    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id)
   end
 
   def destroy
@@ -232,7 +232,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def sanitized_filters(filters)
-    valid_states = %w(active imported draft submitted rejected published scheduled force_published)
+    valid_states = %w(active imported draft submitted rejected published scheduled force_published archived)
     filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_s)
     filters
   end

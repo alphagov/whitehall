@@ -1,20 +1,52 @@
 <% page_title "Unpublish: #{@edition.title}"  %>
+<% page_class "edition-unpublish" %>
 
-  <div class="span8">
+  <div class="span10">
     <section>
-      <h1>Unpublish <%= @edition.type.titleize %></h1>
+      <h1><%= @edition.title %></h1>
 
-      <%= form_tag unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do %>
-        <%= fields_for :unpublishing do |unpublish| %>
-          <%= unpublish.label :unpublishing_reason_id, "Reason for unpublishing" %>
-          <%= unpublish.select :unpublishing_reason_id, options_from_collection_for_select(UnpublishingReason.all, :id, :name) %>
-          <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5, class: "previewable"  %>
-          <p class="alert alert-info">Note: This explanation is shown on the public page of this <%= @edition.type.titleize.downcase %> when it is unpublished.</p>
-          <%= unpublish.text_field :alternative_url, label_text: 'Alternative URL' %>
-          <%= unpublish.check_box :redirect, label_text: 'Redirect to URL automatically?' %>
-          <%= submit_tag 'Unpublish', class: "btn btn-danger" %>
+      <%= form_for @unpublishing, url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version) do |form| %>
+
+          <h2>Do you want to archive or unpublish this document?</h2>
+
+          <fieldset>
+            <%= form.label "unpublishing_reason_id_#{UnpublishingReason::Archived.id}" do %>
+              <%= form.radio_button :unpublishing_reason_id, UnpublishingReason::Archived.id %>
+              <strong>Archive:</strong> no longer current government policy/activity
+            <% end %>
+
+            <%= form.label "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}" do %>
+              <%= form.radio_button :unpublishing_reason_id, UnpublishingReason::PublishedInError.id %>
+              <strong>Unpublish:</strong> published in error
+            <% end %>
+
+            <%= form.label "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}" do %>
+              <%= form.radio_button :unpublishing_reason_id, UnpublishingReason::Consolidated.id %>
+              <strong>Unpublish:</strong> consolidated into another GOV.UK page
+            <% end %>
+          </fieldset>
+
+          <fieldset>
+            <div class="js_alt_url">
+              <%= form.text_field :alternative_url, label_text: '<strong>Alternative URL</strong>'.html_safe %>
+              <span class="auto_redirect">This will be automatically redirected</span>
+            </div>
+
+            <div class="js_redirect">
+              <%= form.check_box :redirect, label_text: 'Redirect to URL automatically?' %>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <div class="js_explanation">
+              <%= form.text_area :explanation, label_text: '<strong>Public explanation</strong> (this is shown on the live site)'.html_safe, rows: 5, class: "previewable"  %>
+            </div>
+          </fieldset>
+
+          <%= form.submit 'Unpublish', class: "btn btn-danger" %>
           <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
         <% end %>
-      <% end %>
     </section>
   </div>
+
+<%= initialise_script "GOVUK.enhanceUnpublishingForm", selector: '#new_unpublishing' %>

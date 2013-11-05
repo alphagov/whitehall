@@ -23,3 +23,15 @@ Feature: Unpublishing published documents
     And a published document "Published by accident" exists
     When I unpublish the document and ask for a redirect
     Then I should be redirected to the new url when I view the document on the public site
+
+  Scenario: Consolidating a document into another GOV.UK page
+    Given I am a GDS editor
+    And there is a published document that is a duplicate of another page
+    When I unpublish the duplicate, marking it as consolidated into the other page
+    Then I should be redirected to the other page when I view the document on the public site
+
+  Scenario: Archive a document that is no longer current
+    Given I am a GDS editor
+    And a published policy "Shaving kits for all" exists
+    When I unpublish the policy because it is no longer government policy
+    Then the policy should be marked as archived on the public site

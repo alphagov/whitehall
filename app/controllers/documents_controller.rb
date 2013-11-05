@@ -29,7 +29,7 @@ class DocumentsController < PublicFacingController
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
       elsif @unpublishing = Unpublishing.from_slug(params[:id], document_class)
-        if @unpublishing.redirect
+        if @unpublishing.redirect?
           redirect_to @unpublishing.alternative_url
         else
           # NOTE: We should be returning a 410 here, but because 4XX statuses get clobbered upstream,

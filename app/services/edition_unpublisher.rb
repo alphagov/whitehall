@@ -23,4 +23,12 @@ private
     edition.force_published = false
     edition.reset_version_numbers
   end
+
+  def fire_transition!
+    if edition.unpublishing.archived?
+      edition.archive!
+    else
+      edition.unpublish!
+    end
+  end
 end

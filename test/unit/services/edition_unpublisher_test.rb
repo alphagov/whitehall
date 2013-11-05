@@ -14,6 +14,18 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert_nil edition.published_version
   end
 
+  test '#perform! when the edition has been archived transitions the edition to an "archived" state' do
+    edition = create(:published_edition)
+    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Archived.id)
+    unpublisher = EditionUnpublisher.new(edition)
+
+    assert unpublisher.perform!
+    assert_equal :archived, edition.reload.current_state
+    assert_equal 'Old policy', edition.unpublishing.explanation
+    assert_equal UnpublishingReason::Archived, edition.unpublishing.unpublishing_reason
+    assert_nil edition.published_version
+  end
+
   test '#perform! resets the force published flag' do
     edition = create(:published_edition, force_published: true)
     edition.build_unpublishing(unpublishing_params)
@@ -68,7 +80,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     unpublisher = EditionUnpublisher.new(edition)
 
     refute unpublisher.can_perform?
-    assert_equal 'Alternative url must be entered if you want to redirect to it', unpublisher.failure_reason
+    assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason
   end
 
 private

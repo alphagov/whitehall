@@ -23,6 +23,7 @@ module Edition::Workflow
       state :published
       state :superseded
       state :deleted
+      state :archived
 
       event :try_draft do
         transitions from: :imported, to: :draft
@@ -74,6 +75,10 @@ module Edition::Workflow
 
       event :supersede do
         transitions from: :published, to: :superseded
+      end
+
+      event :archive do
+        transitions from: :published, to: :archived
       end
     end
 
