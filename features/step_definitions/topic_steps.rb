@@ -24,11 +24,6 @@ Given /^the topic "([^"]*)" has "([^"]*)" as a lead organisation$/ do |topic_nam
   OrganisationClassification.create(topic: topic, organisation: organisation, lead: true)
 end
 
-Given /^the topic "([^"]*)" contains a published and a draft detailed guide$/ do |topic_name|
-  detailed_guides = [build(:published_detailed_guide), build(:draft_detailed_guide)]
-  create(:topic, name: topic_name, detailed_guides: detailed_guides)
-end
-
 Given /^two topics "([^"]*)" and "([^"]*)" exist$/ do |first_topic, second_topic|
   create(:topic, name: first_topic)
   create(:topic, name: second_topic)
@@ -141,13 +136,6 @@ Then /^I should see published policies belonging to the "([^"]*)" topic$/ do |na
   topic = Topic.find_by_name!(name)
   actual_editions = records_from_elements(Edition, page.all(".policy")).sort_by(&:id)
   expected_editions = topic.published_policies.sort_by(&:id)
-  assert_equal expected_editions, actual_editions
-end
-
-Then /^I should only see published detailed guides belonging to the "([^"]*)" topic$/ do |name|
-  topic = Topic.find_by_name!(name)
-  actual_editions = records_from_elements(Edition, page.all(".detailed_guide")).sort_by(&:id)
-  expected_editions = topic.published_detailed_guides.all.sort_by(&:id)
   assert_equal expected_editions, actual_editions
 end
 

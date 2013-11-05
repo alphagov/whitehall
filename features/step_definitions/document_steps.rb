@@ -11,13 +11,6 @@ Given /^a published document "([^"]*)" exists$/ do |title|
   create(:published_policy, title: title)
 end
 
-Given /^a (draft|published) document "([^"]*)" exists which links to the "([^"]*)" document$/ do |state, source_title, target_title|
-  target_edition = Edition.find_by_title!(target_title)
-  target_url = admin_edition_url(target_edition)
-  body = "[#{target_title}](#{target_url})"
-  create("#{state}_policy", title: source_title, body: body)
-end
-
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
   topic = Topic.find_by_name!(topic_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
@@ -101,10 +94,6 @@ When /^I visit the list of documents awaiting review$/ do
   visit admin_editions_path(state: :submitted)
 end
 
-When /^I select the "([^"]*)" filter$/ do |filter|
-  click_link filter
-end
-
 When /^I select the "([^"]*)" edition filter$/ do |edition_type|
   filter_editions_by :type, edition_type
 end
@@ -163,21 +152,6 @@ end
 When /^I edit the (publication|policy|news article|consultation) changing the title to "([^"]*)"$/ do |document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
-end
-
-When /^I create a new edition of the published document "([^"]*)"$/ do |title|
-  visit admin_editions_path(state: :published)
-  click_link title
-  click_button 'Create new edition'
-end
-
-When /^I publish a new edition of the published document "([^"]*)"$/ do |title|
-  visit admin_editions_path(state: :published)
-  click_link title
-  click_button 'Create new edition'
-  fill_in_change_note_if_required
-  click_button 'Save'
-  publish(force: true)
 end
 
 Then /^I should see (#{THE_DOCUMENT})$/ do |edition|
@@ -275,12 +249,4 @@ end
 Then /^my attempt to save it should fail with error "([^"]*)"/ do |error_message|
   click_button "Save"
   assert page.has_css?(".errors li", text: error_message)
-end
-
-Then /^the published document "([^"]*)" should still link to the "([^"]*)" document$/ do |source_title, target_title|
-  source_edition = Edition.find_by_title!(source_title)
-  target_edition = Edition.find_by_title!(target_title)
-  visit policy_path(source_edition.document)
-  target_url = policy_url(target_edition.document)
-  assert has_link?(target_title, href: target_url)
 end
