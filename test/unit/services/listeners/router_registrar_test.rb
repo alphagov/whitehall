@@ -10,7 +10,7 @@ class ServiceListeners::RouterRegistrarTest < ActiveSupport::TestCase
   end
 
   test "does not register other document types" do
-    edition = create(:published_publication)
+    edition = build(:published_publication)
     GdsApi::Router.any_instance.expects(:add_route).never
     ServiceListeners::RouterRegistrar.new(edition).register!
   end
@@ -22,7 +22,7 @@ class ServiceListeners::RouterRegistrarTest < ActiveSupport::TestCase
   end
 
   test "does not remove other document types" do
-    edition = create(:published_publication)
+    edition = build(:published_publication)
     GdsApi::Router.any_instance.expects(:delete_route).never
     ServiceListeners::RouterRegistrar.new(edition).unregister!
   end
