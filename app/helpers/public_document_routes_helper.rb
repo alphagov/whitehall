@@ -11,6 +11,7 @@ module PublicDocumentRoutesHelper
 
   def document_path(edition, options = {})
     defaults = { id: edition.document }
+    defaults[:policy_id] = edition.related_policies.first.document if edition.is_a?(SupportingPage)
     defaults[:locale] = edition.locale if edition.non_english_edition?
     polymorphic_path(model_name_for_route_recognition(edition), defaults.merge(options))
   end
@@ -26,6 +27,7 @@ module PublicDocumentRoutesHelper
 
   def document_url(edition, options = {})
     defaults = { id: edition.document }
+    defaults[:policy_id] = edition.related_policies.first.document if edition.is_a?(SupportingPage)
     defaults[:locale] = edition.locale if edition.non_english_edition?
     polymorphic_url(model_name_for_route_recognition(edition), defaults.merge(options))
   end
@@ -45,6 +47,6 @@ module PublicDocumentRoutesHelper
   # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def model_name_for_route_recognition(edition)
     klass = edition.to_model.class
-    klass.name.underscore
+    klass == SupportingPage ? 'policy_supporting_page' : klass.name.underscore
   end
 end
