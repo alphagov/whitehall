@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131025143125) do
+ActiveRecord::Schema.define(:version => 20131105171156) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20131025143125) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
-    t.integer  "ordering",                 :null => false
+    t.integer  "ordering",                                         :null => false
     t.string   "hoc_paper_number"
     t.string   "parliamentary_session"
     t.boolean  "unnumbered_command_paper"
