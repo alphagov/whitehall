@@ -10,6 +10,8 @@ Mime::Type.register "text/rtf", :rtf
 
 Mime::Type.register "image/jpeg", :jpg, [], %w( jpeg )
 
+Mime::Type.register "image/gif", :gif 
+
 Mime::Type.register "application/msword", :doc
 Mime::Type.register "application/msword", :dot
 Mime::Type.register "application/vnd.openxmlformats-officedocument.wordprocessingml.document", :docx

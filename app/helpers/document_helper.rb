@@ -84,6 +84,7 @@ module DocumentHelper
       "dot"  => file_abbr_tag('DOT', 'MS Word Document Template'),
       "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
       "dxf"  => file_abbr_tag('DXF', 'AutoCAD Drawing Exchange Format'),
+      "gif"  => file_abbr_tag('GIF', 'Graphics Interchange Format'),
       "html" => file_abbr_tag('HTML', 'Hypertext Markup Language'),
       "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
       "jpg"  => "JPEG",
