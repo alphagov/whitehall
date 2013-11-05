@@ -114,7 +114,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = @edition.build_unpublishing
+    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id)
   end
 
   def destroy
