@@ -1,6 +1,7 @@
 <%= content_tag_for :li, organisation, class: 'js-filter-item department index-item-plain',
               "data-filter-terms" => filter_terms(organisation) do %>
   <%= link_to organisation.name, organisation_path(organisation), id: organisation.slug, class: 'department-link' %>
+  <%= govuk_status_meta_data_for(organisation) if show_transition_state %>
   <% if include_works_with %>
     <%= render partial: 'works_with', locals: { organisation: organisation } %>
   <% end %>

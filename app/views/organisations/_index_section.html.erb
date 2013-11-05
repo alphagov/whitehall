@@ -4,7 +4,7 @@
   header_text ||= nil
   include_works_with ||= false
   show_govuk_status ||= false
-  show_transition_state_visualisation ||= false
+  show_transition_state ||= false
 %>
 
 <div class="heading-block js-filter-block <%= "js-hide-department-children " if include_works_with %><%= block_class %>" <%= raw("id=\"#{block_id}\"") if block_id %>>
@@ -16,10 +16,12 @@
   <% end %>
 
   <div class="content">
-    <%= render "transition_state_visualisation", organisations: organisations if show_transition_state_visualisation %>
+    <%= render "transition_state_visualisation", organisations: organisations if show_transition_state %>
     <ol>
       <% organisations.each do |organisation| %>
-        <%= render list_item_partial, organisation: organisation, include_works_with: include_works_with %>
+        <%= render list_item_partial, organisation: organisation,
+                                      include_works_with: include_works_with,
+                                      show_transition_state: show_transition_state %>
       <% end %>
     </ol>
   </div>

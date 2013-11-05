@@ -128,6 +128,7 @@ Scenario: Viewing the organisations index and seeing a visualisation of the numb
   Given 1 live, 1 transitioning and 1 exempt executive agencies
   When I visit the organisations page
   Then I should see a transition visualisation showing 1 out of 2 agencies moved plus 1 agency
+  And I should see metadata in the organisation list indicating the status of each organisation which is not live
 
 Scenario: Organisation page should show policies
   Given the organisation "Attorney General's Office" contains some policies

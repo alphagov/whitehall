@@ -47,6 +47,7 @@
     .department {
       .department-link {
         display: block;
+        float: left;
       }
       .view-all {
         margin-bottom: 0;
@@ -90,6 +91,12 @@
         vertical-align: middle;
         content: " \25B2";
       }
+    }
+
+    .metadata {
+      color: $grey-1;
+      @include core-16;
+      margin-left: $gutter-one-third;
     }
 
     &.js-hiding-children {

@@ -1,5 +1,5 @@
 <div class="transition-state-visualisation">
   <%= horizontal_percent_bar(organisations.live_count.to_f / organisations.potentially_live_count) %>
-  <p class="num-agencies-live"><span class="count"><strong><%= organisations.live_count %></strong>/<strong><%= organisations.potentially_live_count %></strong></span> agencies live on GOV.UK</p>
+  <p class="num-agencies-live"><span class="count"><strong><%= organisations.live_count %></strong>/<strong><%= organisations.potentially_live_count %></strong></span> agencies on GOV.UK</p>
   <p class="num-agencies-exempt"><span class="count">+<strong><%= organisations.exempt_count %></strong></span> not moving to GOV.UK</p>
 </div>

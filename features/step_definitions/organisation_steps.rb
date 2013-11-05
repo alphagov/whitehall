@@ -253,8 +253,15 @@ end
 Then(/^I should see a transition visualisation showing 1 out of 2 agencies moved plus 1 agency$/) do
   within "#agencies-and-government-bodies .transition-state-visualisation" do
     assert page.find('.horizontal-percent-bar .bar-inner')['style'].include?("width: 50%")
-    assert page.has_content? "1/2 agencies live on GOV.UK"
+    assert page.has_content? "1/2 agencies on GOV.UK"
     assert page.has_content? "+1 not moving to GOV.UK"
+  end
+end
+
+Then(/^I should see metadata in the organisation list indicating the status of each organisation which is not live$/) do
+  within('#agencies-and-government-bodies') do
+    assert page.has_content? "#{@transitioning_agency.name} moving to GOV.UK"
+    assert page.has_content? "#{@exempt_agency.name} separate website"
   end
 end
 
