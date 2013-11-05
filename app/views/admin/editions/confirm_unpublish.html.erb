@@ -10,19 +10,20 @@
 
 
           <%= unpublish.radio_button :unpublishing_reason_id, UnpublishingReason::Archived.id %>
-          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::Archived.id}", "Archive: no longer current government policy/activity" %>
+          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::Archived.id}", "<strong>Archive:</strong> no longer current government policy/activity".html_safe %>
 
           <%= unpublish.radio_button :unpublishing_reason_id, UnpublishingReason::PublishedInError.id %>
-          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}", "Unpublish: published in error" %>
+          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}", "<strong>Unpublish:</strong> published in error".html_safe %>
 
 
           <%= unpublish.radio_button :unpublishing_reason_id, UnpublishingReason::Consolidated.id %>
-          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}", "Unpublish: consolidated into another GOV.UK page" %>
+          <%= unpublish.label "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}", "<strong>Unpublish:</strong> consolidated into another GOV.UK page".html_safe %>
 
-          <%= unpublish.text_area :explanation, label_text: 'Further explanation', rows: 5, class: "previewable"  %>
-          <p class="alert alert-info">Note: This explanation is shown on the public page of this <%= @edition.type.titleize.downcase %> when it is unpublished.</p>
           <%= unpublish.text_field :alternative_url, label_text: 'Alternative URL' %>
           <%= unpublish.check_box :redirect, label_text: 'Redirect to URL automatically?' %>
+
+          <%= unpublish.text_area :explanation, label_text: '<strong>Public explanation</strong> (this is shown on the live site)'.html_safe, rows: 5, class: "previewable"  %>
+
           <%= submit_tag 'Unpublish', class: "btn btn-danger" %>
           <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
         <% end %>
