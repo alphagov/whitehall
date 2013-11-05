@@ -22,7 +22,7 @@ When(/^I unpublish the policy because it is no longer government policy$/) do
   visit admin_edition_path(@policy)
   click_button 'Unpublish'
   choose 'Archive: no longer current government policy/activity'
-  fill_in 'Further explanation', with: 'We no longer believe people should shave'
+  fill_in 'Public explanation (this is shown on the live site)', with: 'We no longer believe people should shave'
   click_button 'Unpublish'
 end
 
