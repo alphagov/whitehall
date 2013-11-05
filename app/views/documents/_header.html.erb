@@ -7,6 +7,14 @@
           locals: { type: header_title,
                     heading: document.title,
                     extra: true } %>
+
+<% if document.archived? %>
+  <div class="status-block">
+    <h2>This <%= header_title.downcase %> was archived on <%= document.updated_at.to_date.to_s(:long_ordinal) %></h2>
+    <%=govspeak_to_html document.unpublishing.explanation unless document.unpublishing.explanation.blank? %>
+  </div>
+<% end %>
+
 <div class="heading-extra">
   <div class="inner-heading">
     <%= render partial: 'shared/available_languages', locals: {object: document} %>
