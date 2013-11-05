@@ -85,7 +85,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def unpublish
     @edition.build_unpublishing(params[:unpublishing])
-    unpublisher = Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft")
+    unpublisher = Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: unpublishing_remark)
 
     if unpublisher.perform!
       redirect_options = {notice: "This document has been unpublished and will no longer appear on the public website"}
@@ -131,6 +131,14 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def force_publish_reason
     "Force published: #{params[:reason]}"
+  end
+
+  def unpublishing_remark
+    if params[:unpublishing][:unpublishing_reason_id] == UnpublishingReason::Archived.id.to_s
+      "Archived"
+    else
+      "Reset to draft"
+    end
   end
 
   def ensure_reason_given_for_force_publishing
