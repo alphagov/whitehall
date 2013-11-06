@@ -34,4 +34,5 @@ Feature: Unpublishing published documents
     Given I am a GDS editor
     And a published policy "Shaving kits for all" exists
     When I unpublish the policy because it is no longer government policy
-    Then the policy should be marked as archived on the public site
+    Then there should be an editorial remark recording the fact that the document was archived
+    And the policy should be marked as archived on the public site

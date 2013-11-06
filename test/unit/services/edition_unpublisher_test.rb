@@ -14,18 +14,6 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert_nil edition.published_version
   end
 
-  test '#perform! when the edition has been archived transitions the edition to an "archived" state' do
-    edition = create(:published_edition)
-    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Archived.id)
-    unpublisher = EditionUnpublisher.new(edition)
-
-    assert unpublisher.perform!
-    assert_equal :archived, edition.reload.current_state
-    assert_equal 'Old policy', edition.unpublishing.explanation
-    assert_equal UnpublishingReason::Archived, edition.unpublishing.unpublishing_reason
-    assert_nil edition.published_version
-  end
-
   test '#perform! resets the force published flag' do
     edition = create(:published_edition, force_published: true)
     edition.build_unpublishing(unpublishing_params)
@@ -39,6 +27,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
   test 'only "published" editions can be unpublished' do
     (Edition.available_states - [:published]).each do |state|
       edition = create(:"#{state}_edition")
+      edition.build_unpublishing(unpublishing_params)
       unpublisher = EditionUnpublisher.new(edition)
 
       refute unpublisher.perform!
@@ -73,7 +62,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert_equal 'The reason for unpublishing must be present', unpublisher.failure_reason
   end
 
-  test 'cannot unpublish an edition if it does not have a valid Unpublishing' do
+  test 'cannot unpublish an edition if the Unpublishing is not valid' do
     edition = create(:published_edition)
     edition.build_unpublishing(unpublishing_params.merge(redirect: true))
 
