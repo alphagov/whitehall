@@ -13,21 +13,16 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   attr_reader :request
 
   Whitehall.edition_classes.each do |edition_class|
-    test "should rewrite absolute link to an admin page for a published #{edition_class} as link to its public page" do
-      edition = create("published_#{edition_class.name.underscore}")
-      assert_rewrites_link(from: admin_edition_url(edition), to: public_document_url(edition))
-    end
-
-    test "should rewrite relative link to an admin page for a published #{edition_class} as link to its public page" do
+    test "should rewrite absolute path to an admin page for a published #{edition_class} as link to its public page" do
       edition = create("published_#{edition_class.name.underscore}")
       assert_rewrites_link(from: admin_edition_path(edition), to: public_document_url(edition))
     end
   end
 
-  test "should rewrite absolute link to an admin page for a published supporting page as link to its public page" do
+  test "should rewrite absolute path to an admin page for a published supporting page as link to its public page" do
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    assert_rewrites_link(from: admin_supporting_page_url(supporting_page), to: public_supporting_page_url(policy, supporting_page))
+    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_supporting_page_url(policy, supporting_page))
   end
 
   test "should rewrite link without confusing supporting pages with the same title on different documents" do
@@ -36,7 +31,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     policy_1.delete
     policy_2 = create(:published_policy)
     supporting_page_2 = create(:supporting_page, edition: policy_2, title: "supporting-page-title")
-    assert_rewrites_link(from: admin_supporting_page_url(supporting_page_2), to: public_supporting_page_url(policy_2, supporting_page_2))
+    assert_rewrites_link(from: admin_supporting_page_path(supporting_page_2), to: public_supporting_page_url(policy_2, supporting_page_2))
   end
 
   test "should not raise exception when link to an admin page for an organisation is present" do
@@ -83,68 +78,68 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
 
   test 'should rewrite admin link to an superseded edition as a link to its published edition' do
     superseded_edition, published_edition = create_superseded_policy_with_published_edition
-    assert_rewrites_link(from: admin_edition_url(superseded_edition), to: public_document_url(published_edition))
+    assert_rewrites_link(from: admin_edition_path(superseded_edition), to: public_document_url(published_edition))
   end
 
   test 'should rewrite admin link to a draft edition as a link to its published edition' do
     published_edition, new_draft = create_draft_policy_with_published_edition
-    assert_rewrites_link(from: admin_edition_url(new_draft), to: public_document_url(published_edition))
+    assert_rewrites_link(from: admin_edition_path(new_draft), to: public_document_url(published_edition))
   end
 
-  test "should rewrite absolute link to an admin page for a speech as a link to its public page on the internal preview host" do
+  test "should rewrite absolute path to an admin page for a speech as a link to its public page on the internal preview host" do
     request.host = ActionController::Base.default_url_options[:host] = internal_preview_host
     speech = create(:published_speech)
-    assert_rewrites_link(from: admin_speech_url(speech), to: public_document_url(speech))
+    assert_rewrites_link(from: admin_speech_path(speech), to: public_document_url(speech))
   end
 
-  test "should rewrite absolute link to an admin page for a speech as a link to its public page on the public preview host" do
+  test "should rewrite absolute path to an admin page for a speech as a link to its public page on the public preview host" do
     request.host = public_preview_host
     ActionController::Base.default_url_options[:host] = internal_preview_host
     speech = create(:published_speech)
-    assert_rewrites_link(from: admin_speech_url(speech), to: public_document_url(speech))
+    assert_rewrites_link(from: admin_speech_path(speech), to: public_document_url(speech))
   end
 
-  test "should rewrite absolute link to an admin page for a supporting page as a link to its public page on the internal preview host" do
+  test "should rewrite absolute path to an admin page for a supporting page as a link to its public page on the internal preview host" do
     request.host = ActionController::Base.default_url_options[:host] = internal_preview_host
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    assert_rewrites_link(from: admin_supporting_page_url(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_preview_host))
+    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_preview_host))
   end
 
-  test "should rewrite absolute link to an admin page for a supporting page as a link to its public page on the public preview host" do
+  test "should rewrite absolute path to an admin page for a supporting page as a link to its public page on the public preview host" do
     request.host = public_preview_host
     ActionController::Base.default_url_options[:host] = internal_preview_host
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    assert_rewrites_link(from: admin_supporting_page_url(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_preview_host))
+    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_preview_host))
   end
 
-  test "should rewrite absolute link to an admin page for a speech as a link to its public page on the internal production host" do
+  test "should rewrite absolute path to an admin page for a speech as a link to its public page on the internal production host" do
     request.host = ActionController::Base.default_url_options[:host] = internal_production_host
     speech = create(:published_speech)
-    assert_rewrites_link(from: admin_speech_url(speech), to: public_document_url(speech))
+    assert_rewrites_link(from: admin_speech_path(speech), to: public_document_url(speech))
   end
 
-  test "should rewrite absolute link to an admin page for a speech as a link to its public page on the public production host" do
+  test "should rewrite absolute path to an admin page for a speech as a link to its public page on the public production host" do
     request.host = public_production_host
     ActionController::Base.default_url_options[:host] = internal_production_host
     speech = create(:published_speech)
-    assert_rewrites_link(from: admin_speech_url(speech), to: public_document_url(speech))
+    assert_rewrites_link(from: admin_speech_path(speech), to: public_document_url(speech))
   end
 
-  test "should rewrite absolute link to an admin page for a supporting page as a link to its public page on the internal production host" do
+  test "should rewrite absolute path to an admin page for a supporting page as a link to its public page on the internal production host" do
     request.host = ActionController::Base.default_url_options[:host] = internal_production_host
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    assert_rewrites_link(from: admin_supporting_page_url(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_production_host))
+    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_production_host))
   end
 
-  test "should rewrite absolute link to an admin page for a supporting page as a link to its public page on the public production host" do
+  test "should rewrite absolute path to an admin page for a supporting page as a link to its public page on the public production host" do
     request.host = public_production_host
     ActionController::Base.default_url_options[:host] = internal_production_host
     policy = create(:published_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    assert_rewrites_link(from: admin_supporting_page_url(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_production_host))
+    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_supporting_page_url(policy, supporting_page, host: public_production_host))
   end
 
   test "should not link to draft editions with no published edition" do
@@ -164,7 +159,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   test "should not link to supporting pages whose editions are not published" do
     policy = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    url = admin_supporting_page_url(supporting_page)
+    url = admin_supporting_page_path(supporting_page)
     html = govspeak_to_html("this and [that](#{url}) yeah?")
     refute_select_within_html html, "a"
   end
@@ -172,7 +167,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   test "should not raise exception when the supporting page does not exist" do
     policy = create(:draft_policy)
     supporting_page = create(:supporting_page, edition: policy)
-    url = admin_supporting_page_url(supporting_page)
+    url = admin_supporting_page_path(supporting_page)
     added_trailing_one_digit = govspeak_to_html("this and [that](#{url}1) yeah?")
     refute_select_within_html added_trailing_one_digit, "a"
   end
