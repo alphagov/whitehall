@@ -11,7 +11,7 @@ end
 
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
   visit admin_edition_path(@duplicate_edition)
-  click_button 'Unpublish'
+  click_button 'Archive or unpublish'
   choose 'Unpublish: consolidated into another GOV.UK page'
   fill_in 'Alternative URL', with: Whitehall.url_maker.policy_url(@existing_edition.document)
   click_button 'Unpublish'
@@ -20,7 +20,7 @@ end
 When(/^I unpublish the policy because it is no longer government policy$/) do
   @policy = Policy.last
   visit admin_edition_path(@policy)
-  click_button 'Unpublish'
+  click_button 'Archive or unpublish'
   choose 'Archive: no longer current government policy/activity'
   fill_in 'Public explanation (this is shown on the live site)', with: 'We no longer believe people should shave'
   click_button 'Unpublish'

@@ -70,7 +70,7 @@ module Admin::EditionActionsHelper
   end
 
   def unpublish_edition_button(edition)
-    button_to 'Unpublish', confirm_unpublish_admin_edition_path(edition), title: "Unpublish", class: "btn btn-danger", method: :get
+    button_to 'Archive or unpublish', confirm_unpublish_admin_edition_path(edition), title: "Unpublish", class: "btn btn-danger", method: :get
   end
 
   # If adding new models also update filter_options_for_edition
