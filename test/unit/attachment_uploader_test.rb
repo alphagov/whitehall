@@ -4,7 +4,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test 'should only allow whitelisted attachments' do
-    graphics = %w(png jpg eps ps dxf)
+    graphics = %w(png gif jpg eps ps dxf)
     documents = %w(pdf rtf doc docx ppt pptx rdf txt odt)
     spreadsheets = %w(csv xls xlsx xlsm ods)
     markup = %w(kml xml xsd)
