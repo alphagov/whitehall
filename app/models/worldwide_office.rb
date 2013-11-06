@@ -16,7 +16,11 @@ class WorldwideOffice < ActiveRecord::Base
   is_stored_on_home_page_lists
 
   # WorldOffice quacks like a Contact
-  contact_methods = Contact.column_names + %w(contact_numbers country country_code country_name has_postal_address?) -  %w(id contactable_id contactable_type)
+  contact_methods = Contact.column_names +
+                    Contact::Translation.column_names +
+                    %w(contact_numbers country country_code country_name has_postal_address?) -
+                    %w(id contactable_id contactable_type contact_id locale created_at updated_at)
+
   delegate *contact_methods, to: :contact, allow_nil: true
 
   delegate :non_english_translated_locales, to: :worldwide_organisation

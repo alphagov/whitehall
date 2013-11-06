@@ -36,8 +36,9 @@ class Admin::ContactsController < Admin::BaseController
   end
 
   def destroy
+    title = @contact.title
     if @contact.destroy
-      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" deleted successfully}
+      redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{title}" deleted successfully}
     else
       render :edit
     end

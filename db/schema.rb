@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131031094414) do
+ActiveRecord::Schema.define(:version => 20131106094930) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -219,16 +219,8 @@ ActiveRecord::Schema.define(:version => 20131031094414) do
   create_table "contacts", :force => true do |t|
     t.decimal "latitude",         :precision => 15, :scale => 10
     t.decimal "longitude",        :precision => 15, :scale => 10
-    t.string  "email"
-    t.string  "contact_form_url"
     t.integer "contactable_id"
     t.string  "contactable_type"
-    t.string  "title"
-    t.text    "comments"
-    t.string  "recipient"
-    t.text    "street_address"
-    t.string  "locality"
-    t.string  "region"
     t.string  "postal_code"
     t.integer "country_id"
     t.integer "contact_type_id",                                  :null => false

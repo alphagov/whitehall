@@ -118,7 +118,7 @@ end
 Then /^the "([^"]*)" office details should be shown on the public website$/ do |description|
   worldwide_org = WorldwideOrganisation.last
   visit worldwide_organisation_path(worldwide_org)
-  worldwide_office = worldwide_org.offices.includes(:contact).where(contacts: {title: description}).first
+  worldwide_office = worldwide_org.offices.joins(contact: :translations).where(contact_translations: {title: description}).first
 
   within "#{record_css_selector(worldwide_office)}.contact" do
     assert page.has_css?("h2", text: worldwide_office.contact.title)
@@ -144,7 +144,7 @@ Given /^a worldwide organisation "([^"]*)" with offices "([^"]*)" and "([^"]*)"$
 end
 
 When /^I choose "([^"]*)" to be the main office$/ do |contact_title|
-  worldwide_office = WorldwideOffice.includes(:contact).where(contacts: {title: contact_title}).first
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: {title: contact_title}).first
   visit admin_worldwide_organisation_path(WorldwideOrganisation.last)
   click_link "Offices"
   within record_css_selector(worldwide_office) do
@@ -154,7 +154,7 @@ end
 
 Then /^the "([^"]*)" should be shown as the main office on the public website$/ do |contact_title|
   worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = WorldwideOffice.includes(:contact).where(contacts: {title: contact_title}).first
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: {title: contact_title}).first
   visit worldwide_organisation_path(worldwide_organisation)
   within "#{record_css_selector(worldwide_office)}.main" do
     assert page.has_content?(contact_title)
@@ -189,7 +189,7 @@ end
 
 Then /^I should see the default access information on the public "([^"]*)" office page$/ do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = Contact.where(title: office_name).first.contactable
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: {title: office_name}).first
   visit worldwide_organisation_path(worldwide_organisation)
   within record_css_selector(worldwide_office) do
     click_link 'Access and opening times'
@@ -222,7 +222,7 @@ end
 
 When /^I give "([^"]*)" custom access information$/ do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = Contact.where(title: office_name).first.contactable
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: {title: office_name}).first
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link 'Offices'
   within record_css_selector(worldwide_office) do
@@ -235,7 +235,7 @@ end
 
 Then /^I should see the custom access information on the public "([^"]*)" office page$/ do |office_name|
   worldwide_organisation = WorldwideOrganisation.last
-  worldwide_office = Contact.where(title: office_name).first.contactable
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: {title: office_name}).first
   visit worldwide_organisation_path(worldwide_organisation)
   within record_css_selector(worldwide_office) do
     click_link 'Access and opening times'
