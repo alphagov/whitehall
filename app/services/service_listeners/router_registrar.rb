@@ -18,12 +18,8 @@ module ServiceListeners
 
     private
 
-    def url_maker
-      @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
-    end
-
     def url
-      url_maker.document_path(@edition)
+      Whitehall.url_maker.document_path(@edition)
     end
   end
 end

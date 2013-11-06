@@ -26,5 +26,4 @@ class ServiceListeners::RouterRegistrarTest < ActiveSupport::TestCase
     RouterDeleteRouteWorker.expects(:perform_async).never
     ServiceListeners::RouterRegistrar.new(edition).unregister!
   end
-
 end
