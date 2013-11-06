@@ -4,3 +4,5 @@ Whitehall.edition_services.subscribe(/^(force_publish|publish|unpublish)$/) { |e
 Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).index! }
 Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |event, edition, options| Whitehall::GovUkDelivery::Notifier.new(edition).edition_published! }
 Whitehall.edition_services.subscribe("unpublish") { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).remove! }
+Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |_, edition, _| ServiceListeners::RouterRegistrar.new(edition).register! }
+Whitehall.edition_services.subscribe("unpublish") { |_, edition, _| ServiceListeners::RouterRegistrar.new(edition).unregister! }
