@@ -6,12 +6,6 @@ Given /^there is a user called "([^"]*)" with email address "([^"]*)"$/ do |name
   @user = create(:policy_writer, name: name, email: email)
 end
 
-When /^I set the email address for "([^"]*)" to "([^"]*)"$/ do |name, email_address|
-  begin_editing_user_details(name)
-  fill_in "Email", with: email_address
-  click_button "Save"
-end
-
 When /^I view my own user record$/ do
   visit admin_user_path(@user)
 end

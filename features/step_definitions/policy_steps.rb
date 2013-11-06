@@ -2,15 +2,6 @@ Given /^a submitted policy titled "([^"]*)"$/ do |policy_title|
   create(:submitted_policy, title: policy_title)
 end
 
-Given /^"([^"]*)" submitted "([^"]*)" with body "([^"]*)"$/ do |author, title, body|
-  step %{I am a writer called "#{author}"}
-
-  begin_drafting_policy title: title, body: body
-  click_button 'Save'
-
-  click_button 'Submit'
-end
-
 Given /^a published policy "([^"]*)" that appears in the "([^"]*)" and "([^"]*)" topics$/ do |policy_title, topic_1, topic_2|
   policy = create(:published_policy, title: policy_title)
   create(:topic, name: topic_1, editions: [policy])
