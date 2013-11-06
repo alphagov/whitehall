@@ -26,12 +26,15 @@ class EditionArchiverTest < ActiveSupport::TestCase
     end
   end
 
-  test 'cannot archive an invalid edition' do
-    edition = build(:published_edition, title: nil)
+  test 'even invalid editions can be archived' do
+    edition = create(:published_edition)
+    edition.build_unpublishing(unpublishing_params)
+    edition.summary = nil
     unpublisher = EditionArchiver.new(edition)
 
-    refute unpublisher.can_perform?
-    assert_equal "This edition is invalid: Title can't be blank", unpublisher.failure_reason
+    assert unpublisher.can_perform?
+    assert unpublisher.perform!
+    assert edition.reload.archived?
   end
 
   test 'cannot archive a published editions if a newer draft exists' do

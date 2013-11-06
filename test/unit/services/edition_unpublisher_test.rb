@@ -36,12 +36,15 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     end
   end
 
-  test 'cannot unpublish an invalid edition' do
-    edition = build(:published_edition, title: nil)
+  test 'even invalid editions can be unpublished' do
+    edition = create(:published_edition)
+    edition.build_unpublishing(unpublishing_params)
+    edition.summary = nil
     unpublisher = EditionUnpublisher.new(edition)
 
-    refute unpublisher.can_perform?
-    assert_equal "This edition is invalid: Title can't be blank", unpublisher.failure_reason
+    assert unpublisher.can_perform?
+    assert unpublisher.perform!
+    assert edition.reload.draft?
   end
 
   test 'cannot unpublish a published editions if a newer draft exists' do
