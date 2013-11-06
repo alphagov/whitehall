@@ -15,22 +15,6 @@ When /^I draft a new detailed guide "([^"]*)"$/ do |title|
   click_button "Save"
 end
 
-When /^I draft a new detailed guide "([^"]*)" in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
-  category = create(:mainstream_category)
-  begin_drafting_document type: 'detailed_guide', title: title, primary_mainstream_category: category
-  select first_topic, from: "Topics"
-  select second_topic, from: "Topics"
-  click_button "Save"
-end
-
-When /^I draft a new detailed guide "([^"]*)" related to the detailed guide "([^"]*)"$/ do |title, related_title|
-  category = create(:mainstream_category)
-  related_guide = DetailedGuide.latest_edition.find_by_title!(related_title)
-  begin_drafting_document type: 'detailed_guide', title: title, primary_mainstream_category: category
-  select related_title, from: "Related guides"
-  click_button "Save"
-end
-
 Given /^I start drafting a new detailed guide$/ do
   category = create(:mainstream_category)
   begin_drafting_document type: 'detailed_guide', title: "Detailed Guide", primary_mainstream_category: category
@@ -50,19 +34,6 @@ end
 
 Then /^I should be able to select another image for the detailed guide$/ do
   assert_equal 2, page.all(".images input[type=file]").length
-end
-
-When /^I select an attachment for the detailed guide$/ do
-  @attachment_filename = "attachment.pdf"
-  within ".attachments" do
-    choose "Individual upload"
-    attach_file "File", Rails.root.join("features/fixtures", @attachment_filename)
-  end
-end
-
-Then /^I should see in the preview that "([^"]*)" is related to the detailed guide "([^"]*)"$/ do |title, related_title|
-  visit_document_preview title
-  assert has_css?(".detailed_guide", text: related_title)
 end
 
 Given /^a mainstream category "([^"]*)" exists$/ do |title|

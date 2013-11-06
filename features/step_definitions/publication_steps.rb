@@ -13,10 +13,6 @@ Given /^a published publication "([^"]*)" with a PDF attachment$/ do |title|
   @attachment = publication.attachments.first
 end
 
-When /^I begin drafting a new publication "([^"]*)"$/ do |title|
-  begin_drafting_publication(title)
-end
-
 When /^I draft a new publication "([^"]*)"$/ do |title|
   begin_drafting_publication(title)
   click_button "Save"
