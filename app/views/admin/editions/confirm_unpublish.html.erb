@@ -11,20 +11,9 @@
           <h2>Do you want to archive or unpublish this document?</h2>
 
           <fieldset>
-            <%= form.label "unpublishing_reason_id_#{UnpublishingReason::Archived.id}" do %>
-              <%= form.radio_button :unpublishing_reason_id, UnpublishingReason::Archived.id %>
-              <strong>Archive:</strong> no longer current government policy/activity
-            <% end %>
-
-            <%= form.label "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}" do %>
-              <%= form.radio_button :unpublishing_reason_id, UnpublishingReason::PublishedInError.id %>
-              <strong>Unpublish:</strong> published in error
-            <% end %>
-
-            <%= form.label "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}" do %>
-              <%= form.radio_button :unpublishing_reason_id, UnpublishingReason::Consolidated.id %>
-              <strong>Unpublish:</strong> consolidated into another GOV.UK page
-            <% end %>
+            <%= form.labelled_radio_button "<strong>Archive:</strong> no longer current government policy/activity".html_safe, :unpublishing_reason_id, UnpublishingReason::Archived.id %><br />
+            <%= form.labelled_radio_button "<strong>Unpublish:</strong> published in error".html_safe, :unpublishing_reason_id, UnpublishingReason::PublishedInError.id %><br />
+            <%= form.labelled_radio_button "<strong>Unpublish:</strong> consolidated into another GOV.UK page".html_safe, :unpublishing_reason_id, UnpublishingReason::Consolidated.id %><br />
           </fieldset>
 
           <fieldset>

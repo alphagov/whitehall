@@ -21,7 +21,7 @@ module Whitehall
       label_opts = {class: 'radio inline'}
       label_opts = label_opts.merge(radio_button_args.shift) if radio_button_args.first.is_a?(Hash)
       @template.label_tag(nil, label_opts) do
-        radio_button(*radio_button_args)+ " #{label_text}"
+        radio_button(*radio_button_args) + label_text
       end
     end
 
