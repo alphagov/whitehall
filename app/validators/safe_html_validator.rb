@@ -17,14 +17,10 @@ class SafeHtmlValidator < ActiveModel::Validator
   end
 
   def check_string(record, field_name, string)
-    if unacceptable_govspeak?(string)
-      error = "cannot include invalid formatting or JavaScript"
-      record.errors.add(field_name, error)
-    end
+    record.errors.add(field_name, "cannot include invalid formatting or JavaScript") if unacceptable_govspeak?(string)
   end
 
-  private
-
+private
   def self.cache
     @cache ||= ActiveSupport::Cache::MemoryStore.new
   end

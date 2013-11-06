@@ -1,4 +1,3 @@
-require 'addressable/uri'
 require 'delegate'
 
 module GovspeakHelper
@@ -173,7 +172,7 @@ module GovspeakHelper
 
   def replace_internal_admin_links_in(nokogiri_doc)
     nokogiri_doc.search('a').each do |anchor|
-      next unless is_internal_admin_link?(anchor['href'])
+      next unless DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(anchor['href'])
 
       path = anchor['href']
 
@@ -254,17 +253,6 @@ module GovspeakHelper
   def edition_body_with_attachments_and_alt_format_information(edition)
     attachments = edition.allows_attachments? ? edition.attachments : []
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
-  end
-
-  def is_internal_admin_link?(href)
-    return false unless href.is_a? String
-
-    begin
-      href = Addressable::URI.parse(href)
-      href.path.start_with?("#{Whitehall.router_prefix}/admin")
-    rescue Addressable::URI::InvalidURIError
-      return false
-    end
   end
 
   def find_edition_and_supporting_page_from_absolute_path(path)
