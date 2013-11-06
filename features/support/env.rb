@@ -52,6 +52,7 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 #   end
 #
 
+
 Before do
   create(:world_location, name: "United Kingdom", iso2: "GB")
 end
