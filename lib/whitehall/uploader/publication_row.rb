@@ -12,7 +12,7 @@ module Whitehall::Uploader
         .optional('json_attachments')
         .multiple("country_#", 0..4)
         .optional(%w(html_title html_body))
-        .multiple('html_body_#',0..50)
+        .multiple('html_body_#',0..99)
     end
 
     def first_published_at
@@ -57,7 +57,7 @@ module Whitehall::Uploader
 
     def html_body
       if row['html_body']
-        ([row['html_body']] + (1..50).map {|n| row["html_body_#{n}"] }).compact.join
+        ([row['html_body']] + (1..99).map {|n| row["html_body_#{n}"] }).compact.join
       end
     end
 
