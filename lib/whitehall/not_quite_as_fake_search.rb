@@ -85,7 +85,7 @@ module Whitehall
           when :simple
             filter_by_simple_field(field_name, params[field_name], results)
           else
-            raise GdsApi::Rummager::SearchServiceError, "cannot filter by field '#{field_name}', its type is not known"
+            raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
         end
         if order && order.any?
@@ -126,7 +126,7 @@ module Whitehall
         def validate_ordering!
           @ordering.find do |field_name, direction|
             if ! %w{asc desc}.include?(direction)
-              raise GdsApi::Rummager::SearchServiceError, "bad search direction #{direction} for #{field_name} (expected 'asc' or 'desc')"
+              raise GdsApi::HTTPErrorResponse, "bad search direction #{direction} for #{field_name} (expected 'asc' or 'desc')"
             end
           end
         end
@@ -146,7 +146,7 @@ module Whitehall
           elsif desired_field_value =~ /\A(false|0)\Z/
             false
           else
-            raise GdsApi::Rummager::SearchServiceError, "bad boolean value #{desired_field_value}"
+            raise GdsApi::HTTPErrorResponse, "bad boolean value #{desired_field_value}"
           end
 
         document_hashes.select { |document_hash| document_hash[field] == desired_boolean }
@@ -159,7 +159,7 @@ module Whitehall
       def filter_by_date_field(field, date_filter_hash, document_hashes)
         date_filter_hash = ActiveSupport::HashWithIndifferentAccess.new(date_filter_hash)
         date_filter_hash.keys.each do |k|
-          raise GdsApi::Rummager::SearchServiceError, "Invalid date #{date_filter_hash[k]}" unless valid_date?(date_filter_hash[k])
+          raise GdsApi::HTTPErrorResponse, "Invalid date #{date_filter_hash[k]}" unless valid_date?(date_filter_hash[k])
         end
         date_filter_hash.each do |date_type, date|
           document_hashes.select! do |document_hash|
