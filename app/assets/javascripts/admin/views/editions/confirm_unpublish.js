@@ -12,9 +12,7 @@
       this.$auto_redirect = $('.auto_redirect');
 
       this.refreshFormFields();
-      $("input[name='unpublishing[unpublishing_reason_id]']", this.$form).change(function () {
-        enhanceUnpublishingForm.refreshFormFields();
-      });
+      $("input[name='unpublishing[unpublishing_reason_id]']", this.$form).change(this.refreshFormFields);
     },
 
     refreshFormFields: function() {
