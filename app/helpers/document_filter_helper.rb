@@ -13,24 +13,32 @@ module DocumentFilterHelper
   end
 
   def organisation_filter_options(selected_organisations = [])
-    grouped_organisations = Rails.cache.fetch("organisation_filter_options/grouped_organisations/#{I18n.locale}", expires_in: 30.minutes) do
-      {
+    grouped_organisation_options = Rails.cache.fetch("organisation_filter_options/grouped_organisations/#{I18n.locale}", expires_in: 30.minutes) do
+       {
         'Ministerial departments' =>  Organisation.with_published_editions
+                                      .excluding_govuk_status_closed
                                       .with_translations
                                       .ministerial_departments
                                       .ordered_by_name_ignoring_prefix
                                       .map { |o| [o.name, o.slug] },
 
         'Other departments & public bodies' =>  Organisation.with_published_editions
+                                                .excluding_govuk_status_closed
                                                 .with_translations
                                                 .excluding_ministerial_departments
+                                                .ordered_by_name_ignoring_prefix
+                                                .map { |o| [o.name, o.slug] },
+
+        'Closed organisations' => Organisation.with_published_editions
+                                                .closed
+                                                .with_translations
                                                 .ordered_by_name_ignoring_prefix
                                                 .map { |o| [o.name, o.slug] }
       }
     end
     selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
     options_for_select([["All departments", "all"]], selected_values) +
-    grouped_options_for_select(grouped_organisations, selected_values)
+    unsorted_grouped_options_for_select(grouped_organisation_options, selected_values)
   end
 
   def publication_type_filter_options(publication_filter_options, selected_publication_filter_options = nil)

@@ -42,4 +42,42 @@ class DocumentFilterHelperTest < ActionView::TestCase
       { name: 'two', url: announcements_path({ keywords: 'one' }), joining: ''},
     ], filter_results_keywords(keywords)
   end
+
+  test "#organisation_filter_options makes option tags with organsation name as text and slug as value" do
+    org = create(:ministerial_department, :with_published_edition, name: "Some organisation")
+    option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
+    option_set.at_css('optgroup option').tap {|option|
+      assert_equal org.name, option.text
+      assert_equal org.slug, option["value"]
+    }
+  end
+
+  test "#organisation_filter_options makes an 'All departments' option tag" do
+    option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
+    option_set.at_css('option').tap {|option|
+      assert_equal 'All departments', option.text
+      assert_equal 'all', option["value"]
+    }
+  end
+
+  test "#organisation_filter_options return organisations as select options grouped into \
+    'Ministerial departments', 'Other departments & public bodies' and 'Closed organisations'" do
+    ministerial_dept = create(:ministerial_department, :with_published_edition)
+    other_dept = create(:executive_office, :with_published_edition)
+    closed_ministerial_dept = create(:ministerial_department, :with_published_edition, :closed)
+    closed_other_dept = create(:executive_office, :with_published_edition, :closed)
+
+    option_set = Nokogiri::HTML::DocumentFragment.parse(organisation_filter_options)
+
+    assert_equal [
+      ["Ministerial departments", [ministerial_dept.name]],
+      ["Other departments & public bodies", [other_dept.name]],
+      ["Closed organisations", [closed_ministerial_dept.name, closed_other_dept.name]],
+    ], option_set.css('optgroup').map { |optgroup|
+      [
+        optgroup["label"],
+        optgroup.css("option").map {|option| option.text}
+      ]
+    }
+  end
 end
