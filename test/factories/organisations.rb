@@ -5,6 +5,13 @@ FactoryGirl.define do
     organisation_type_key :other
     analytics_identifier "T123"
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
+
+    trait(:closed) { govuk_status 'closed' }
+    trait(:with_published_edition) {
+      after :create do |organisation, evaluator|
+        FactoryGirl.create(:published_edition, lead_organisations: [organisation])
+      end
+    }
   end
 
   factory :ministerial_department, parent: :organisation do
@@ -27,5 +34,5 @@ FactoryGirl.define do
   factory :devolved_administration, parent: :organisation do
     organisation_type_key :devolved_administration
     govuk_status 'exempt'
-  end  
+  end
 end
