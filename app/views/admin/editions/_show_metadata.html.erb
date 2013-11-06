@@ -153,14 +153,10 @@
 
 <% if @edition.document.document_sources.any? or current_user.can_import? %>
   <section id="document-sources-section">
-    <h2>Legacy URL redirects</h2>
-    <ul>
-      <% @edition.document.document_sources.map(&:url).each do |url| %>
-        <li><%= url %></li>
-      <% end %>
-    </ul>
+    <h2>
+    	Legacy URL redirects
     <% if current_user.can_import? %>
-      <p><a href="#document-sources-modal" class="btn" data-toggle="modal">Edit URL redirects</a></p>
+      <a href="#document-sources-modal" class="btn pull-right" data-toggle="modal">Edit URL redirects</a>
       <div id="document-sources-modal" class="modal hide">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -178,6 +174,12 @@
         <% end %>
       </div>
     <% end %>
+    </h2>
+    <ul>
+      <% @edition.document.document_sources.map(&:url).each do |url| %>
+        <li><%= link_to truncate(document_source.url, length: 90), document_source.url, title: document_source.url, target: '_new' %></li>
+      <% end %>
+    </ul>
   </section>
 <% end %>
 
