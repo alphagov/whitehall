@@ -37,4 +37,8 @@ module EditionPresenterHelper
       context.l(model.send(attribute_name).to_date, format: :long_ordinal)
     }
   end
+
+  def page_title
+    model.archived? ? "Archived: #{model.title}" : model.title
+  end
 end

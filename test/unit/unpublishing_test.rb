@@ -25,10 +25,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true)
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.gov.uk/example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
     assert unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: false, alternative_url: "https://www.gov.uk/example")
+    unpublishing = build(:unpublishing, redirect: false, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
     assert unpublishing.valid?
   end
 
@@ -44,7 +44,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "https://www.gov.uk/example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
     assert unpublishing.valid?
   end
 
@@ -63,6 +63,17 @@ class UnpublishingTest < ActiveSupport::TestCase
     refute Unpublishing.from_slug('not-a-match','CaseStudy')
     refute Unpublishing.from_slug('some-slug','OtherDocumentType')
     assert_equal unpublishing, Unpublishing.from_slug('some-slug', 'CaseStudy')
+  end
+
+  test 'alternative_url is required if the reason is Consolidated' do
+    unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Consolidated.id, alternative_url: nil)
+    refute unpublishing.valid?
+    assert_equal ['must be provided to redirect the document'], unpublishing.errors[:alternative_url]
+  end
+
+  test 'always redirects if the reason is Consolidated' do
+    unpublishing = Unpublishing.new(unpublishing_reason_id: UnpublishingReason::Consolidated.id)
+    assert unpublishing.redirect?
   end
 
   def reason

@@ -18,4 +18,8 @@ class EditionServiceCoordinator
   def unpublisher(edition, options={})
     EditionUnpublisher.new(edition, options.merge(notifier: self))
   end
+
+  def archiver(edition, options={})
+    EditionArchiver.new(edition, options.merge(notifier: self))
+  end
 end

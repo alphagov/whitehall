@@ -98,7 +98,7 @@ class Edition < ActiveRecord::Base
     end
 
     def being_unpublished?(previous_state, current_state)
-      previous_state == 'published' && current_state == 'draft'
+      previous_state == 'published' && %w(draft archived).include?(current_state)
     end
   end
 

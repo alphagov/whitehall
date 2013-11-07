@@ -85,12 +85,12 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def unpublish
     @edition.build_unpublishing(params[:unpublishing])
-    unpublisher = Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft")
+    service_object = archiver_or_unpublisher_for(@edition)
 
-    if unpublisher.perform!
-      redirect_options = {notice: "This document has been unpublished and will no longer appear on the public website"}
+    if service_object.perform!
+      redirect_options = {notice: unpublish_success_notice }
     else
-      redirect_options = {alert: unpublisher.failure_reason }
+      redirect_options = {alert: service_object.failure_reason }
     end
 
     redirect_to admin_edition_path(@edition), redirect_options
@@ -137,6 +137,26 @@ class Admin::EditionWorkflowController < Admin::BaseController
     if params[:reason].blank?
       redirect_to admin_edition_path(@edition), alert: "You cannot force publish a document without a reason"
     end
+  end
+
+  def archiver_or_unpublisher_for(edition)
+    if archiving?
+      Whitehall.edition_services.archiver(@edition, user: current_user, remark: "Archived")
+    else
+      Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft")
+    end
+  end
+
+  def unpublish_success_notice
+    if archiving?
+      "This document has been marked as archived"
+    else
+      "This document has been unpublished and will no longer appear on the public website"
+    end
+  end
+
+  def archiving?
+    params[:unpublishing][:unpublishing_reason_id] == UnpublishingReason::Archived.id.to_s
   end
 
   def users_to_notify(edition)
