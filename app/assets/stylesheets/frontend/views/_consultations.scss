@@ -120,7 +120,7 @@ nav.consultations_scope {
       span {
         display: block;
         abbr {
-          @include core-27;
+          @include core-24(1.4em);
           &.date {
             font-weight: bold;
           }

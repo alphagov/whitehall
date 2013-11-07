@@ -460,7 +460,7 @@ That's all
   view_test 'activity atom feed shows activity documents' do
     policy = create(:published_policy)
     publication = create(:published_publication, first_published_at: 4.weeks.ago.to_date, related_editions: [policy])
-    consultation = create(:published_consultation, opening_on: 1.weeks.ago.to_date, related_editions: [policy])
+    consultation = create(:published_consultation, opening_at: 1.weeks.ago, related_editions: [policy])
     news_article = create(:published_news_article, first_published_at: 3.weeks.ago, related_editions: [policy])
     speech = create(:published_speech, first_published_at: 2.weeks.ago.to_date, related_editions: [policy])
 

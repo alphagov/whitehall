@@ -61,21 +61,21 @@ module Whitehall::Uploader
     test "takes opening on from the 'opening_date' column" do
       Parsers::DateParser.stubs(:parse).with("opening-on-date", anything, anything).returns("date-object")
       row = consultation_row("opening_date" => "opening-on-date")
-      assert_equal "date-object", row.opening_on
+      assert_equal "date-object", row.opening_at
     end
     test "leaves opening on blank if the 'opening_date' column is blank" do
       row = consultation_row("opening_date" => '')
-      assert_nil row.opening_on
+      assert_nil row.opening_at
     end
 
     test "takes closing on from the 'closing_date' column" do
       Parsers::DateParser.stubs(:parse).with("closing-on-date", anything, anything).returns("date-object")
       row = consultation_row("closing_date" => "closing-on-date")
-      assert_equal "date-object", row.closing_on
+      assert_equal "date-object", row.closing_at
     end
     test "leaves closing on blank if the 'closing_date' column is blank" do
       row = consultation_row("closing_date" => '')
-      assert_nil row.closing_on
+      assert_nil row.closing_at
     end
 
     test "finds related policies using the policy finder" do
@@ -125,7 +125,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :summary, :body, :opening_on, :closing_on, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :outcome]
+      attribute_keys = [:title, :summary, :body, :opening_at, :closing_at, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :outcome]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

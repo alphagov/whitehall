@@ -153,6 +153,24 @@ class OrganisationHelperTest < ActionView::TestCase
 
     assert_equal 'Potato Jazz Association has a <a href="http://pots-jazz.fm">separate website</a>', organisation_govuk_status_description(organisation)
   end
+
+
+  test '#govuk_status_meta_data_for joining and transitioning orgs should return "moving to GOV.UK"' do
+    rendered = Nokogiri::HTML::DocumentFragment.parse(govuk_status_meta_data_for(build(:organisation, govuk_status: 'joining')))
+    assert_equal "moving to GOV.UK", rendered.at_css('.metadata').text
+    rendered = Nokogiri::HTML::DocumentFragment.parse(govuk_status_meta_data_for(build(:organisation, govuk_status: 'transitioning')))
+    assert_equal "moving to GOV.UK", rendered.at_css('.metadata').text
+  end
+
+  test '#govuk_status_meta_data_for exempt orgs should return "separate website"' do
+    rendered = Nokogiri::HTML::DocumentFragment.parse(govuk_status_meta_data_for(build(:organisation, govuk_status: 'exempt')))
+    assert_equal "separate website", rendered.at_css('.metadata').text
+  end
+
+  test '#govuk_status_meta_data_for live and closed orgs should return nothing' do
+    assert_nil govuk_status_meta_data_for(build(:organisation, govuk_status: 'live'))
+    assert_nil govuk_status_meta_data_for(build(:organisation, govuk_status: 'closed'))
+  end
 end
 
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase

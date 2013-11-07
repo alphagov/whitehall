@@ -65,6 +65,7 @@
   @import "helpers/_heading-block.scss";
   @import "helpers/_historic-people-list.scss";
   @import "helpers/_holding.scss";
+  @import "helpers/_horizontal-percent-bar.scss";
   @import "helpers/_index-list.scss";
   @import "helpers/_js-list-items.scss";
   @import "helpers/_lead-image.scss";
@@ -114,6 +115,7 @@
   @import "views/_new-document-page.scss";
   @import "views/_operational-field.scss";
   @import "views/_organisations.scss";
+  @import "views/organisations/_transition_state_visualisation.scss";
   @import "views/_people.scss";
   @import "views/_policies.scss";
   @import "views/_policy_groups.scss";
