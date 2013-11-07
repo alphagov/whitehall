@@ -1,0 +1,18 @@
+.edition-unpublish {
+
+  h2 {
+    margin: $gutter-half 0;
+  }
+
+  form.new_unpublishing {
+    input[type=radio] {
+      display: inline;
+      margin-right: 5px;
+    }
+
+    fieldset {
+      margin-top: $gutter-two-thirds;
+    }
+
+  }
+}

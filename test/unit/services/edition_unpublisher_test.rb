@@ -27,6 +27,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
   test 'only "published" editions can be unpublished' do
     (Edition.available_states - [:published]).each do |state|
       edition = create(:"#{state}_edition")
+      edition.build_unpublishing(unpublishing_params)
       unpublisher = EditionUnpublisher.new(edition)
 
       refute unpublisher.perform!
@@ -49,7 +50,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     unpublisher = EditionUnpublisher.new(edition)
 
     refute unpublisher.can_perform?
-    assert_equal 'There is already a draft edition of this document. You must remove it before you can unpublish this edition.',
+    assert_equal 'There is already a draft edition of this document. You must discard it before you can unpublish this edition.',
       unpublisher.failure_reason
   end
 
@@ -61,14 +62,14 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     assert_equal 'The reason for unpublishing must be present', unpublisher.failure_reason
   end
 
-  test 'cannot unpublish an edition if it does not have a valid Unpublishing' do
+  test 'cannot unpublish an edition if the Unpublishing is not valid' do
     edition = create(:published_edition)
     edition.build_unpublishing(unpublishing_params.merge(redirect: true))
 
     unpublisher = EditionUnpublisher.new(edition)
 
     refute unpublisher.can_perform?
-    assert_equal 'Alternative url must be entered if you want to redirect to it', unpublisher.failure_reason
+    assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason
   end
 
 private

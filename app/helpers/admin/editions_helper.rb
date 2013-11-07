@@ -86,6 +86,7 @@ module Admin::EditionsHelper
       ["Scheduled", 'scheduled'],
       ["Published", 'published'],
       ["Force published (not reviewed)", 'force_published'],
+      ['Archived', 'archived']
     ]
   end
 
