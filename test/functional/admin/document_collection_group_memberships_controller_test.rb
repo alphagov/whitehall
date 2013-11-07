@@ -26,6 +26,14 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     assert_match /couldn't find.*blah/, flash[:alert]
   end
 
+  test 'POST #create refuses to add another collection to a collection' do
+    collection = create(:document_collection).document
+    post :create, id_params.merge(document_id: collection.id)
+    assert_redirected_to admin_document_collection_groups_path(@collection)
+    refute @group.reload.documents.include?(collection)
+    assert_match /Cannot add a collection to another collection/, flash[:alert]
+  end
+
   def remove_params
     id_params.merge(commit: 'Remove')
   end
