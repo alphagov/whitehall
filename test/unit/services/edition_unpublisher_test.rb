@@ -50,7 +50,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     unpublisher = EditionUnpublisher.new(edition)
 
     refute unpublisher.can_perform?
-    assert_equal 'There is already a draft edition of this document. You must remove it before you can unpublish this edition.',
+    assert_equal 'There is already a draft edition of this document. You must discard it before you can unpublish this edition.',
       unpublisher.failure_reason
   end
 
