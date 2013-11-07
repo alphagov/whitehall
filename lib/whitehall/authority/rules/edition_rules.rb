@@ -63,6 +63,8 @@ module Whitehall::Authority::Rules
         can_publish?
       when :force_publish
         can_force_publish?
+      when :unpublish
+        false
       else
         true
       end
