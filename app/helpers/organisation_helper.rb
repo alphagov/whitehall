@@ -43,6 +43,14 @@ module OrganisationHelper
     end
   end
 
+  def govuk_status_meta_data_for(organisation)
+    if organisation.exempt?
+      content_tag :span, "separate website", class: 'metadata'
+    elsif organisation.joining? || organisation.transitioning?
+      content_tag :span, "moving to GOV.UK", class: 'metadata'
+    end
+  end
+
   def organisation_display_name_and_parental_relationship(organisation)
     name = ERB::Util.h(organisation_display_name(organisation))
     type_name = organisation_type_name(organisation)

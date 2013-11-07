@@ -1,0 +1,31 @@
+.transition-state-visualisation {
+  @extend %contain-floats;
+  margin-bottom: $gutter*2;
+  padding-top: 6px;
+
+  p {
+    display: inline-block;
+    margin-right: $gutter-two-thirds;
+
+    span.count {
+      display: block;
+
+      strong {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .num-agencies-live span.count {
+    @include core-48(0.7em);
+    color: $black;
+  }
+  .num-agencies-exempt {
+    margin-top: $gutter-one-third;
+
+    span.count {
+      @include core-24(0.85em);
+      color: $black;
+    }
+  }
+}

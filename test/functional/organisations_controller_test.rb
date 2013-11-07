@@ -17,87 +17,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal :some_presented_organisations, assigns(:organisations)
   end
 
-  view_test "should display a list of executive offices" do
-    organisation = create(:organisation, organisation_type: OrganisationType.executive_office)
-
-    get :index
-
-    assert_select '#executive-offices' do
-      assert_select_object(organisation)
-    end
-  end
-
-  view_test "should display a list of ministerial departments" do
-    organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
-    organisation_2 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
-    organisation_3 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
-
-    get :index
-
-    assert_select '#ministerial-departments' do
-      assert_select '.js-filter-count', text: '3'
-      assert_select_object(organisation_1)
-    end
-  end
-
-  view_test "should display a list of non-ministerial departments" do
-    organisation_1 = create(:organisation, organisation_type: OrganisationType.non_ministerial_department)
-    organisation_2 = create(:organisation, organisation_type: OrganisationType.non_ministerial_department)
-
-    get :index
-
-    assert_select '#non-ministerial-departments' do
-      assert_select '.js-filter-count', text: '2'
-      assert_select_object(organisation_1)
-    end
-  end
-
-  view_test "should display a list of public corporation organisations" do
-    organisation_1 = create(:organisation, organisation_type: OrganisationType.public_corporation)
-    organisation_2 = create(:organisation, organisation_type: OrganisationType.public_corporation)
-
-    get :index
-
-    assert_select '#public-corporations' do
-      assert_select '.js-filter-count', text: '2'
-      assert_select_object(organisation_1)
-    end
-  end
-
-  view_test "should display a list of devolved administrations" do
-    organisation_1 = create(:devolved_administration)
-    organisation_2 = create(:devolved_administration)
-
-    get :index
-
-    assert_select '#devolved-administrations' do
-      assert_select '.js-filter-count', text: '2'
-      assert_select_object(organisation_1)
-    end
-  end
-
   view_test "index shouldn't include sub-organisations" do
     sub_organisation = create(:sub_organisation)
 
     get :index
 
     refute_select_object(sub_organisation)
-  end
-
-  view_test 'should show sub-organisations nested under parent' do
-    organisation_1 = create(:organisation, organisation_type: OrganisationType.ministerial_department)
-    organisation_2 = create(:organisation, organisation_type: OrganisationType.non_ministerial_department)
-    child_organisation_1 = create(:organisation, parent_organisations: [organisation_1])
-    child_organisation_2 = create(:organisation, parent_organisations: [organisation_2])
-
-    get :index
-
-    assert_select_object(organisation_1) do
-      assert_select_object(child_organisation_1)
-    end
-    assert_select_object(organisation_2) do
-      assert_select_object(child_organisation_2)
-    end
   end
 
   view_test "should include a rel='alternate' link to JSON representation of organisations" do
