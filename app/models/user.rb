@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   module Permissions
     SIGNIN = 'signin'
     DEPARTMENTAL_EDITOR = 'Editor'
+    MANAGING_EDITOR = 'Managing Editor'
     GDS_EDITOR = 'GDS Editor'
     PUBLISH_SCHEDULED_EDITIONS = 'Publish scheduled editions'
     IMPORT = 'Import CSVs'
@@ -27,6 +28,7 @@ class User < ActiveRecord::Base
     case
     when gds_editor? then "GDS Editor"
     when departmental_editor? then "Departmental Editor"
+    when managing_editor? then "Managing Editor"
     when world_editor? then 'World Editor'
     when world_writer? then 'World Writer'
     else "Policy Writer"
@@ -35,6 +37,10 @@ class User < ActiveRecord::Base
 
   def departmental_editor?
     has_permission?(Permissions::DEPARTMENTAL_EDITOR)
+  end
+
+  def managing_editor?
+    has_permission?(Permissions::MANAGING_EDITOR)
   end
 
   def gds_editor?
