@@ -1,4 +1,4 @@
-# Whitehall style guide
+# Whitehall style guide
 
 Code written for Whitehall should follow these guidelines.
 
