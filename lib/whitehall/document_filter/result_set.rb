@@ -2,7 +2,7 @@ module Whitehall::DocumentFilter
   class ResultSet
     def initialize(results, page, per_page)
       @results = results
-      @docs = results.is_a?(Hash) ? results['results'] : []
+      @docs = results.respond_to?(:[]) ? results['results'] : []
       @page = page
       @per_page = per_page
     end

@@ -3,6 +3,14 @@ require 'test_helper'
 class SanitiseDBTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
 
+  setup do
+    DatabaseCleaner.clean_with :truncation
+  end
+
+  teardown do
+    DatabaseCleaner.clean_with :truncation
+  end
+
   test 'scrub script runs' do
     run_script
     assert $?.to_i == 0, "Script exited non-zero"
