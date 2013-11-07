@@ -12,6 +12,7 @@ module Whitehall
   mattr_accessor :govuk_delivery_client
   mattr_accessor :public_host
   mattr_accessor :default_cache_max_age
+  mattr_accessor :organisations_transition_visualisation_feature_enabled
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
