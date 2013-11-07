@@ -48,9 +48,9 @@
       </span>
     </h2>
 
-    <% if @edition.supporting_pages.any? %>
+    <% if @edition.has_active_supporting_pages? %>
       <table class="table">
-        <% @edition.supporting_pages.each do |supporting_page| %>
+        <% @edition.active_supporting_pages.each do |supporting_page| %>
           <tr>
             <td>
               <%= link_to supporting_page.title, admin_edition_path(supporting_page) %>

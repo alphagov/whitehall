@@ -69,11 +69,11 @@
                 <% if edition.access_limited? %>
                   <span class="access_limited label label-important">limited access</span>
                 <% end %>
-                <% if edition.has_supporting_pages? %>
+                <% if edition.allows_supporting_pages? && edition.has_active_supporting_pages? %>
                   <div class="supporting_pages additional_information well">
                     <h4>Supporting Pages</h4>
                     <ul>
-                      <% edition.supporting_pages.each do |supporting_page| %>
+                      <% edition.active_supporting_pages.each do |supporting_page| %>
                       <li><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></li>
                       <% end %>
                     </ul>

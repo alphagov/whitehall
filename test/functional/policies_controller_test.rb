@@ -58,7 +58,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
   view_test "show includes the main policy navigation" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, related_policies: [policy])
+    supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, id: policy.document
 
@@ -70,7 +70,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
   view_test "show adds the current class to the policy link in the policy navigation" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, related_policies: [policy])
+    supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, id: policy.document
 
@@ -217,7 +217,7 @@ That's all
 
   view_test "activity includes the main policy navigation" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, related_policies: [policy])
+    supporting_page = create(:published_supporting_page, related_policies: [policy])
     publication = create(:published_publication, related_editions: [policy])
 
     get :activity, id: policy.document
@@ -409,7 +409,7 @@ That's all
 
   view_test "navigation is shown on pages with some supporting pages" do
     policy = create(:published_policy)
-    supporting_page = create(:supporting_page, related_policies: [policy])
+    supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, id: policy.document
 

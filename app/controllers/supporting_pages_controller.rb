@@ -1,16 +1,20 @@
 class SupportingPagesController < PublicFacingController
   include PermissionsChecker
+  include PublicDocumentRoutesHelper
 
   before_filter :find_policy
   before_filter :find_supporting_page, only: [:show]
   before_filter :set_analytics_format, only: [:show]
 
   def index
-    if @policy.supporting_pages.empty?
-      render_not_found
+    if should_preview? && @policy.has_active_supporting_pages?
+      redirect_to preview_document_path(@policy.active_supporting_pages.first,
+                                        policy_id: @policy.document)
+    elsif @policy.has_published_supporting_pages?
+      redirect_to public_document_path(@policy.published_supporting_pages.first,
+                                       policy_id: @policy.document)
     else
-      options = params.slice(:preview, :cachebust)
-      redirect_to policy_supporting_page_path(@policy.document, @policy.supporting_pages.first.document, options)
+      render_not_found
     end
   end
 
@@ -41,7 +45,7 @@ private
       render_not_found unless can_preview?(@supporting_page)
     else
       @supporting_page = Document.at_slug('SupportingPage', params[:id]).try(:published_edition)
-      render_not_found unless @policy.supporting_pages.include?(@supporting_page)
+      render_not_found unless @policy.published_supporting_pages.include?(@supporting_page)
     end
   end
 

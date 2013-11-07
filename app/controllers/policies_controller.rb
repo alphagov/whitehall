@@ -26,7 +26,7 @@ class PoliciesController < DocumentsController
     @policy = @document
     @world_locations = @policy.world_locations
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
-    @show_navigation = (@policy.supporting_pages.any? or @recently_changed_documents.any?)
+    @show_navigation = (@policy.has_published_supporting_pages? || @recently_changed_documents.any?)
     set_slimmer_organisations_header(@policy.organisations)
     set_slimmer_page_owner_header(@policy.lead_organisations.first)
     set_meta_description(@document.summary)

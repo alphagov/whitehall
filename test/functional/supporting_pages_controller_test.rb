@@ -99,8 +99,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
     get :show, policy_id: policy.document, id: supporting_page.document
 
     assert_select ".contextual-info nav.supporting-pages" do
-      assert_select "a[href='#{policy_supporting_page_path(policy.document, first_supporting_page)}']", text: first_supporting_page.title
-      assert_select "a[href='#{policy_supporting_page_path(policy.document, second_supporting_page)}']", text: second_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(policy.document, first_supporting_page.document)}']", text: first_supporting_page.title
+      assert_select "a[href='#{policy_supporting_page_path(policy.document, second_supporting_page.document)}']", text: second_supporting_page.title
     end
   end
 

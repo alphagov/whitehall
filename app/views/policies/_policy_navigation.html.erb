@@ -1,7 +1,7 @@
 <nav class="activity-navigation">
   <ul>
     <li><%= link_to_with_current t('document.headings.policies', count: 1), public_document_path(@policy) %></li>
-    <% if @policy.supporting_pages.any? %>
+    <% if @policy.has_published_supporting_pages? %>
       <li>
         <%= link_to_with_current t('publications.headings.detail'),
               policy_supporting_pages_path(@policy.document),
