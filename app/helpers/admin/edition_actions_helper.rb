@@ -128,22 +128,12 @@ module Admin::EditionActionsHelper
   def publish_edition_alerts(edition, force)
     alerts = []
     alerts << "Are you sure you want to force publish this document?" if force
-    alerts += supporting_pages_alerts(edition)
     alerts.join(" ")
   end
 
   def schedule_edition_alerts(edition, force)
     alerts = []
     alerts << "Are you sure you want to force schedule this document for publication?" if force
-    alerts += supporting_pages_alerts(edition)
     alerts.join(" ")
-  end
-
-  def supporting_pages_alerts(edition)
-    if edition.has_supporting_pages?
-      ["Have you checked the #{edition.supporting_pages.count} supporting pages?"]
-    else
-      []
-    end
   end
 end
