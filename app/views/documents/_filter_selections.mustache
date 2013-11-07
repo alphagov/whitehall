@@ -1,14 +1,14 @@
-{{result_count}} about
+<span class="count">{{result_count}}</span> <strong>{{result_type}}</strong> about
 <span class="topics-selections chosen">
   {{#topics}}
-    <strong>{{name}} <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    <strong>{{name}}</strong> <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/topics}}
   {{^topics}} <strong>All topics</strong> {{/topics}}
 </span>
 by
 <span class="departments-selections chosen">
   {{#departments}}
-    <strong>{{name}} <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    <strong>{{name}}</strong> <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/departments}}
   {{^departments}} <strong>All organisations</strong> {{/departments}}
 </span>
@@ -16,7 +16,7 @@ by
 from
 <span class="locations-selections chosen">
   {{#world_locations}}
-    <strong>{{name}} <a href="{{url}}" data-field="world_locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    <strong>{{name}}</strong> <a href="{{url}}" data-field="world_locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/world_locations}}
 </span>
 {{/world_locations_any?}}
@@ -25,7 +25,7 @@ from
   containing
   <span class="keyword-selections chosen">
     {{#keywords}}
-      <strong>{{name}} <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+      <strong>{{name}}</strong> <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a> {{joining}}
     {{/keywords}}
   </span>
 {{/keywords_any?}}
@@ -43,9 +43,9 @@ from
 {{/include_world_location_news}}
 
 {{#date_from}}
-published after <span class="chosen"><strong>{{date_from}}</strong></span>
+published <span class="chosen"><strong>after&nbsp;{{date_from}}</strong></span>
 {{/date_from}}
 
 {{#date_to}}
-published before <span class="chosen"><strong>{{date_to}}</strong></span>
+published <span class="chosen"><strong>before&nbsp;{{date_to}}</strong></span>
 {{/date_to}}

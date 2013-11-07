@@ -341,9 +341,9 @@ test("should update selections to match filters", function(){
   window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
 
   ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
-  equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
-  equals(this.selections.text().match(/after from-date/).length, 1, 'not from my-date');
-  equals(this.selections.text().match(/before to-date/).length, 1, 'not to my-date');
+  equals(this.selections.find('.topics-selections a').attr('data-val'), 'my-value');
+  equals(this.selections.text().match(/after.from-date/).length, 1, 'not from my-date');
+  equals(this.selections.text().match(/before.to-date/).length, 1, 'not to my-date');
   stub.restore();
 });
 

@@ -100,11 +100,12 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $selections.html('');
       $title.find('span').remove();
 
-      if (data.total_count > 0) {
-        context.result_count = 'Showing ' + data.total_count +' result' + ( data.total_count != 1 ? 's' : '');
-      } else {
-        context.result_count = 'No results ';
+      if (!data.result_type) {
+        data.result_type = "result";
       }
+
+      context.result_count = data.total_count;
+      context.result_type = 'result' + ( data.total_count != 1 ? 's' : '');
 
       if(formStatus.selected) {
         for(i=0,_i=formStatus.selected.length; i<_i; i++) {

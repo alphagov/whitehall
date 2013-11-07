@@ -129,7 +129,6 @@
 
 .document-filter-page {
   .feeds {
-    display: inline;
     .feed,
     .govdelivery {
       display: inline;
@@ -162,40 +161,49 @@
 }
 
 .filter-results-summary {
-  display: inline;
+  @include core-16;
 
-  h3 {
-    display: inline;
+  .count {
+    @include core-48;
+    font-weight: bold;
+    float: left;
     padding-right: $gutter-one-third;
   }
 
-  .count{
-    padding-bottom: 0;
+  strong {
+    font-weight: bold;
   }
 
-  .selections {
-    @include core-16;
+  a {
+    color: $secondary-text-colour;
+    position: relative;
+    top: 1px;
+    padding-right: 3px;
+
+    &:hover {
+      text-decoration: none;
+      color: $secondary-text-colour;
+    }
   }
 
-  .chosen {
-    margin-bottom: $gutter-one-third;
-    line-height: $gutter;
-
-    strong {
-      @include bold;
-      background-color: $panel-colour;
-      padding: 0 $gutter-one-sixth;
-      @include border-radius(3px);
-
-      @include media (tablet) {
-        white-space: nowrap;
-      }
-
-      a {
-        position: relative;
-        top: 2px;
-        color: $link-colour;
-      }
+  @include media (tablet) {
+    padding-top: $gutter-one-sixth;
+    .count {
+      // The count is shifted up instead of the rest of the text down because
+      // we want the flow after the summary to be determined by the length of the
+      // the text
+      margin-top: -$gutter-one-sixth;
     }
   }
 }
+
+.filtered-results {
+  .feeds {
+    clear: both;
+    border-top: 1px solid $border-colour;
+    padding-top: $gutter-one-sixth;
+    margin-top: $gutter-one-sixth;
+  }
+}
+
+
