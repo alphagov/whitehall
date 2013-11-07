@@ -1,12 +1,12 @@
 <span class="count">{{result_count}}</span> <strong>{{result_type}}</strong> about
-<span class="topics-selections chosen">
+<span class="topics-selections">
   {{#topics}}
     <strong>{{name}}</strong> <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/topics}}
   {{^topics}} <strong>All topics</strong> {{/topics}}
 </span>
 by
-<span class="departments-selections chosen">
+<span class="departments-selections">
   {{#departments}}
     <strong>{{name}}</strong> <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/departments}}
@@ -14,7 +14,7 @@ by
 </span>
 {{#world_locations_any?}}
 from
-<span class="locations-selections chosen">
+<span class="locations-selections">
   {{#world_locations}}
     <strong>{{name}}</strong> <a href="{{url}}" data-field="world_locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/world_locations}}
@@ -23,7 +23,7 @@ from
 
 {{#keywords_any?}}
   containing
-  <span class="keyword-selections chosen">
+  <span class="keyword-selections">
     {{#keywords}}
       <strong>{{name}}</strong> <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a> {{joining}}
     {{/keywords}}
@@ -31,21 +31,21 @@ from
 {{/keywords_any?}}
 
 {{#relevant_to_local_government}}
-  <span class="local-government-selections chosen">
+  <span class="local-government-selections">
     <strong>relevant to local government</strong>
   </span>
 {{/relevant_to_local_government}}
 
 {{#include_world_location_news}}
-  <span class="world-location-news chosen">
+  <span class="world-location-news">
     <strong>including location-specific news</strong>
   </span>
 {{/include_world_location_news}}
 
 {{#date_from}}
-published <span class="chosen"><strong>after&nbsp;{{date_from}}</strong></span>
+published <strong>after&nbsp;{{date_from}}</strong>
 {{/date_from}}
 
 {{#date_to}}
-published <span class="chosen"><strong>before&nbsp;{{date_to}}</strong></span>
+published <strong>before&nbsp;{{date_to}}</strong>
 {{/date_to}}
