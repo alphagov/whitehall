@@ -29,7 +29,7 @@ When /^I link the minister "([^"]*)" to the fatality notice$/ do |minister_name|
   create(:ministerial_role_appointment, person: @person)
   begin_new_draft_document FatalityNotice.last.title
   select minister_name, from: "Ministers"
-  check "edition_minor_change"
+  choose "edition_minor_change_true"
   click_button "Save"
   publish(force: true)
 end

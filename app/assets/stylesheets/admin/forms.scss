@@ -191,12 +191,21 @@ fieldset.fatality-notice-casualties {
 .publishing-controls {
   margin-top: $gutter;
   padding-top: 0;
+
   fieldset {
     border-bottom: 1px solid $border-colour;
     margin-top: $gutter-two-thirds;
     padding-bottom: $gutter-two-thirds;
     p {
       margin: $gutter-one-third 0 0 0;
+    }
+    label {
+      font-size: 16px;
+      margin-top: $gutter-two-thirds;
+      &.checkbox {
+        font-size: 13px;
+        margin-top: 0;
+      }
     }
   }
   .form-actions {

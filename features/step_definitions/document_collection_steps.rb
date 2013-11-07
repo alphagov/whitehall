@@ -123,7 +123,7 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
   check document_title
   click_on "Remove"
   click_on "Document"
-  check "edition_minor_change"
+  choose "edition_minor_change_true"
   click_on "Save"
   @document_collection = @document_collection.reload.document.latest_edition
 end
