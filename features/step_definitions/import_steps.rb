@@ -96,8 +96,8 @@ Then /^the import succeeds, creating (\d+) imported consultations? for "([^"]*)"
   edition = Edition.imported.first
   assert_kind_of Consultation, edition
   assert_equal organisation, edition.organisations.first
-  assert_nil edition.opening_on
-  assert_nil edition.closing_on
+  assert_nil edition.opening_at
+  assert_nil edition.closing_at
 end
 
 Then /^the import should fail with errors about organisation and sub type and no editions are created$/ do

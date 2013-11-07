@@ -50,8 +50,8 @@ Then /^I should be able to set the delivered date of the speech$/ do
 end
 
 Then /^I should be able to set the consultation dates$/ do
-  assert page.has_css?('select[id*=edition_opening_on]')
-  assert page.has_css?('select[id*=edition_closing_on]')
+  assert page.has_css?('select[id*=edition_opening_at]')
+  assert page.has_css?('select[id*=edition_closing_at]')
 end
 
 Then /^I can choose "([^"]*)" from an additional list of policies$/ do |policy_name|

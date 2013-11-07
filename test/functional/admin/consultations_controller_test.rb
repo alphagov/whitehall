@@ -27,8 +27,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     assert_select "form#new_edition" do
       assert_select "textarea[name='edition[summary]']"
-      assert_select "select[name*='edition[opening_on']", count: 3
-      assert_select "select[name*='edition[closing_on']", count: 3
+      assert_select "select[name*='edition[opening_at']", count: 5
+      assert_select "select[name*='edition[closing_at']", count: 5
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
@@ -55,8 +55,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
     consultation = Consultation.last
     response_form = consultation.consultation_participation.consultation_response_form
     assert_equal attributes[:summary], consultation.summary
-    assert_equal attributes[:opening_on].to_date, consultation.opening_on
-    assert_equal attributes[:closing_on].to_date, consultation.closing_on
+    assert_equal attributes[:opening_at], consultation.opening_at
+    assert_equal attributes[:closing_at], consultation.closing_at
     assert_equal "http://participation.com", consultation.consultation_participation.link_url
     assert_equal "countmein@participation.com", consultation.consultation_participation.email
     assert_equal "the title of the response form", response_form.title
@@ -122,8 +122,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     assert_select "form#edit_edition" do
       assert_select "textarea[name='edition[summary]']"
-      assert_select "select[name*='edition[opening_on']", count: 3
-      assert_select "select[name*='edition[closing_on']", count: 3
+      assert_select "select[name*='edition[opening_at']", count: 5
+      assert_select "select[name*='edition[closing_at']", count: 5
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
@@ -139,8 +139,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     put :update, id: consultation, edition: controller_attributes_for_instance(consultation,
       summary: "new-summary",
-      opening_on: 1.day.ago,
-      closing_on: 50.days.from_now,
+      opening_at: 1.day.ago,
+      closing_at: 50.days.from_now,
       consultation_participation_attributes: {
         link_url: "http://consult.com",
         email: "tell-us-what-you-think@gov.uk"
@@ -149,8 +149,8 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
     consultation.reload
     assert_equal "new-summary", consultation.summary
-    assert_equal 1.day.ago.to_date, consultation.opening_on
-    assert_equal 50.days.from_now.to_date, consultation.closing_on
+    assert_equal 1.day.ago, consultation.opening_at
+    assert_equal 50.days.from_now, consultation.closing_at
     assert_equal "http://consult.com", consultation.consultation_participation.link_url
     assert_equal "tell-us-what-you-think@gov.uk", consultation.consultation_participation.email
   end

@@ -53,8 +53,8 @@ Feature: Importing new editions
 
   Consultations:
 
-  - opening_on: required
-  - closing_on: required
+  - opening_at: required
+  - closing_at: required
   - response_date: optional
   - response_summary: optional
   - response_attachments_1..n_*: 1 column required, optional (should stay as is)

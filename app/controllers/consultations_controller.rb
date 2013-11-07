@@ -9,6 +9,7 @@ class ConsultationsController < DocumentsController
     set_slimmer_organisations_header(@document.organisations)
     set_slimmer_page_owner_header(@document.lead_organisations.first)
     set_meta_description(@document.summary)
+    expire_on_open_state_change(@document)
   end
 
   private

@@ -2,7 +2,7 @@ require "test_helper"
 
 class PublicationesquePresenterTest < PresenterTestCase
   test "should use header title for display publication type on consultation" do
-    consultation = Consultation.new(opening_on: 1.day.ago, closing_on: 2.days.from_now)
+    consultation = Consultation.new(opening_at: 1.day.ago, closing_at: 2.days.from_now)
     presenter = PublicationesquePresenter.new(consultation, @view_context)
     assert_equal "Open consultation", presenter.display_type
   end
@@ -45,4 +45,30 @@ class PublicationesquePresenterTest < PresenterTestCase
     hash = PublicationesquePresenter.new(publication, @view_context).as_hash
     assert hash[:publication_collections] =~ /SeriesTitle/
   end
+
+  test '#time_until_closure should return "Closed" for closed consultations' do
+    assert_equal "Closed", PublicationesquePresenter.new(build(:closed_consultation), @view_context).time_until_closure
+  end
+
+  test '#time_until_closure should return "Closing today" for consultations closing on the current day' do
+    Timecop.freeze("2013-01-01 12:00:00") do
+      consultation = build(:consultation, opening_at: "2012-12-01 00:00:00", closing_at: "2013-01-01 18:00:00")
+      assert_equal "Closing today", PublicationesquePresenter.new(consultation, @view_context).time_until_closure
+    end
+  end
+
+  test '#time_until_closure should return "Closes tomorrow" for consultations closing tomorrow' do
+    Timecop.freeze("2013-01-01 12:00:00") do
+      consultation = build(:consultation, opening_at: "2012-12-01 00:00:00", closing_at: "2013-01-02 00:00:00")
+      assert_equal "Closes tomorrow", PublicationesquePresenter.new(consultation, @view_context).time_until_closure
+    end
+  end
+
+  test '#time_until_closure should return "<n> days left" for consultations closing after tomorrow current day' do
+    Timecop.freeze("2013-01-01 12:00:00") do
+      consultation = build(:consultation, opening_at: "2012-12-01 00:00:00", closing_at: "2013-01-04 00:00:00")
+      assert_equal "3 days left", PublicationesquePresenter.new(consultation, @view_context).time_until_closure
+    end
+  end
 end
+
