@@ -3,32 +3,33 @@
 <div class="document_page <%= @document.type.downcase %>">
   <header class="block headings-block">
     <div class="inner-block floated-children">
-      <%= render  partial: "documents/header", locals: {
-                  document: @document,
-                  header_title: 'Policy',
-                  topics: @document.topics } %>
+      <%= render "documents/header",
+                 document: @document,
+                 header_title: 'Policy',
+                 topics: @document.topics %>
     </div>
   </header>
 
   <div class="block">
     <div class="inner-block">
       <div class="meta-three">
-        <%= render partial: "policies/policy_navigation" %>
+        <%= render "policies/policy_navigation" %>
       </div>
     </div>
   </div>
 
   <div class="block-2">
     <div class="inner-block">
-      <%= render partial: "document_contextual", locals: {edition: @document} %>
+      <%= render "document_contextual" %>
       <%= national_statistics_logo(@document) %>
     </div>
   </div>
+
   <div class="block-3">
     <div class="inner-block">
     <h2>Supporting detail:</h2>
       <h1 class="supporting-page-title"><%= @supporting_page.title %></h1>
-      <%= render partial: "document_content" %>
+      <%= render "document_content" %>
     </div>
   </div>
 </div>
