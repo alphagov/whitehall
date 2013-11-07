@@ -56,9 +56,7 @@ module Whitehall::Uploader
     end
 
     def html_body
-      if row['html_body']
-        ([row['html_body']] + (1..99).map {|n| row["html_body_#{n}"] }).compact.join
-      end
+      ([row['html_body']] + (1..99).map {|n| row["html_body_#{n}"] }).compact.join
     end
 
     def html_attachment_attributes
