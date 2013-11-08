@@ -69,6 +69,14 @@ class Attachment < ActiveRecord::Base
     true
   end
 
+  def is_command_paper?
+    command_paper_number.present? || unnumbered_command_paper?
+  end
+
+  def is_act_paper?
+    hoc_paper_number.present? || unnumbered_hoc_paper?
+  end
+
   private
 
   def store_price_in_pence
