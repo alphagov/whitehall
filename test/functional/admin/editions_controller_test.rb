@@ -272,7 +272,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
   end
 
   test "confirm_unpublish loads the edition and renders the confirm page" do
-    login_as(create(:gds_editor))
+    login_as(create(:managing_editor))
     policy = create(:published_policy)
     get :confirm_unpublish, id: policy.to_param
 

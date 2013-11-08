@@ -199,13 +199,13 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
-  test 'unpublish is forbidden to non-GDS editors' do
+  test 'unpublish is forbidden to non-Managing editors editors' do
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version
     assert_response :forbidden
   end
 
   test 'unpublish unpublishes the edition redirects back with a message' do
-    login_as create(:gds_editor)
+    login_as create(:managing_editor)
     unpublish_params = {
         unpublishing_reason_id: '1',
         explanation: 'Was classified',
@@ -219,7 +219,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unpublish responds with 422 if missing a lock version' do
-    login_as create(:gds_editor)
+    login_as create(:managing_editor)
     post :unpublish, id: published_edition
 
     assert_response :unprocessable_entity

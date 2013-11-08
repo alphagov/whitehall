@@ -110,7 +110,7 @@ class GDSEditorWorldLocationNewsTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:limit_access)
   end
 
-  test 'can unpublish a world location news article' do
-    assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:unpublish)
+  test 'cannot unpublish a world location news article' do
+    refute enforcer_for(gds_editor, normal_world_location_news_article).can?(:unpublish)
   end
 end
