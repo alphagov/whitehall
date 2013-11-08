@@ -218,7 +218,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test '#unpublish when the edition is being archived sets an appropriate flash message for the user' do
-    login_as create(:gds_editor)
+    login_as create(:managing_editor)
     unpublish_params = {
         unpublishing_reason_id: UnpublishingReason::Archived.id,
         explanation: 'No longer government policy'
