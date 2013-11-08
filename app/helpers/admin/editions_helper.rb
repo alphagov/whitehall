@@ -183,7 +183,9 @@ module Admin::EditionsHelper
   end
 
   def standard_edition_form(edition, &blk)
-    form_classes = ["edition-form"]
+    initialise_script "GOVUK.editionForm", selector: '.js-edition-form'
+
+    form_classes = ["edition-form js-edition-form"]
     form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
 
     form_for [:admin, edition], as: :edition, builder: EditionFormBuilder,

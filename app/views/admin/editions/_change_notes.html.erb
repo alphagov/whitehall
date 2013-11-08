@@ -1,7 +1,17 @@
-<fieldset>
-  <h3>Change notes</h3>
-          <%= form.text_area(:change_note, rows: 4, label_text:"<strong>Substantive change (publicly viewable).</strong> Tell the user how this document has changed. Be specific and use past tense eg 'Updated the list of actions to include new 10m investment'. Appears on the site, in atom feeds and in email alerts.".html_safe) %>
+<fieldset class="js-change-notes">
+  <h3>To save this document please complete the following</h3>
+  <p>Select an option:</p>
+    <%= form.label :minor_change_true, class: 'radio' do %>
+      <%= form.radio_button(:minor_change, true) %>
+      <strong>Update the document silently</strong> - for corrections to typos, links, style or metadata
+    <% end %>
 
-  <p><strong>Minor change</strong></p>
-  <%= form.check_box(:minor_change, label_text: "Exclude your changes from the public document history. Only for corrections to typos, style points and broken links") %> 
+    <%= form.label :minor_change_false, class: 'radio' do %>
+      <%= form.radio_button(:minor_change, false) %>
+      <strong>Alert the public to what's changed</strong> - for substantive updates to the content or attached files
+    <% end %>
+
+    <div class="js-change-notes-section">
+      <%= form.text_area(:change_note, rows: 4, placeholder: 'Input text to display publicly in email alerts and page history', label_text:"<strong>Public change note</strong>".html_safe) %>
+    </div>
 </fieldset>
