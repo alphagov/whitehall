@@ -41,6 +41,8 @@ module Whitehall::Authority::Rules
           gds_editor_can?(action)
         elsif actor.departmental_editor?
           departmental_editor_can?(action)
+        elsif actor.managing_editor?
+          managing_editor_can?(action)
         elsif actor.world_editor?
           world_editor_can?(action)
         elsif actor.world_writer?
@@ -61,6 +63,8 @@ module Whitehall::Authority::Rules
         can_publish?
       when :force_publish
         can_force_publish?
+      when :unpublish
+        false
       else
         true
       end
@@ -127,6 +131,15 @@ module Whitehall::Authority::Rules
         false
       else
         true
+      end
+    end
+
+    def managing_editor_can?(action)
+      case action
+      when :unpublish
+        true
+      else
+        departmental_editor_can?(action)
       end
     end
 

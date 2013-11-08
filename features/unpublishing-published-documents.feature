@@ -5,7 +5,7 @@ Feature: Unpublishing published documents
 
   @not-quite-as-fake-search
   Scenario: Unpublishing a published document
-    Given I am a GDS editor
+    Given I am a managing editor
     And a published document "Published by accident" exists
     When I unpublish the document because it was published in error
     Then there should be an editorial remark recording the fact that the document was unpublished
@@ -13,13 +13,13 @@ Feature: Unpublishing published documents
     And the policy "Published by accident" should no longer be listed on the public site
 
   Scenario: Unpublishing a document that has had a title change
-    Given I am a GDS editor
+    Given I am a managing editor
     And a published document exists with a slug that does not match the title
     When I unpublish the document because it was published in error
     Then I should see that the document was published in error at the original url
 
   Scenario: Unpublishing a document and redirecting
-    Given I am a GDS editor
+    Given I am a managing editor
     And a published document "Published by accident" exists
     When I unpublish the document and ask for a redirect
     Then I should be redirected to the new url when I view the document on the public site

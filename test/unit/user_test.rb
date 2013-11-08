@@ -19,6 +19,7 @@ class UserTest < ActiveSupport::TestCase
   test 'should be a departmental editor if has whitehall Editor role' do
     user = build(:user, permissions: [User::Permissions::DEPARTMENTAL_EDITOR])
     assert user.departmental_editor?
+    assert_equal 'Departmental Editor', user.role
   end
 
   test 'should not be a departmental editor if does not have has whitehall Editor role' do
@@ -26,9 +27,21 @@ class UserTest < ActiveSupport::TestCase
     refute user.departmental_editor?
   end
 
+  test 'should be a managing editor if has whitehall Managing Editor role' do
+    user = build(:user, permissions: [User::Permissions::MANAGING_EDITOR])
+    assert user.managing_editor?
+    assert_equal 'Managing Editor', user.role
+  end
+
+  test 'should not be a managing editor if does not have has whitehall Managing Editor role' do
+    user = build(:user, permissions: [])
+    refute user.managing_editor?
+  end
+
   test 'should be a GDS editor if has whitehall GDS Editor role' do
     user = build(:user, permissions: [User::Permissions::GDS_EDITOR])
     assert user.gds_editor?
+    assert_equal 'GDS Editor', user.role
   end
 
   test 'should not be a GDS editor if does not have has whitehall GDS Editor role' do
@@ -39,6 +52,7 @@ class UserTest < ActiveSupport::TestCase
   test 'should be a world editor if has whitehall World Editor role' do
     user = build(:user, permissions: [User::Permissions::WORLD_EDITOR])
     assert user.world_editor?
+    assert_equal 'World Editor', user.role
   end
 
   test 'should not be a world editor if does not have has whitehall World Editor role' do
@@ -49,6 +63,7 @@ class UserTest < ActiveSupport::TestCase
   test 'should be a world writer if has whitehall World Editor role' do
     user = build(:user, permissions: [User::Permissions::WORLD_WRITER])
     assert user.world_writer?
+    assert_equal 'World Writer', user.role
   end
 
   test 'should not be a world writer if does not have has whitehall World Writer role' do

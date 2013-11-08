@@ -110,7 +110,7 @@ class GDSEditorWorldwidePriorityTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_worldwide_priority).can?(:limit_access)
   end
 
-  test 'can unpublish a worldwide priority' do
-    assert enforcer_for(gds_editor, normal_worldwide_priority).can?(:unpublish)
+  test 'cannot unpublish a worldwide priority' do
+    refute enforcer_for(gds_editor, normal_worldwide_priority).can?(:unpublish)
   end
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::GenericEditionsController::UnpublishingTest < ActionController::TestCase
   tests Admin::GenericEditionsController
 
-  setup { login_as :gds_editor }
+  setup { login_as :managing_editor }
 
   view_test "displays unpublish button for unpublishable editions" do
     edition = create(:published_edition)
@@ -13,7 +13,7 @@ class Admin::GenericEditionsController::UnpublishingTest < ActionController::Tes
   end
 
   view_test "does not display unpublish button if edition is not unpublishable" do
-    login_as :gds_editor
+    login_as :managing_editor
     edition = create(:draft_edition)
     get :show, id: edition
 

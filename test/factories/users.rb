@@ -25,6 +25,10 @@ FactoryGirl.define do
     permissions { [User::Permissions::SIGNIN, User::Permissions::DEPARTMENTAL_EDITOR] }
   end
 
+  factory :managing_editor, parent: :user do
+    permissions { [User::Permissions::SIGNIN, User::Permissions::MANAGING_EDITOR] }
+  end
+
   factory :scheduled_publishing_robot, parent: :user do
     uid nil
     name "Scheduled Publishing Robot"

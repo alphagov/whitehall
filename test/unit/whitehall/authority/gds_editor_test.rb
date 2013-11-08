@@ -143,8 +143,8 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_edition).can?(:limit_access)
   end
 
-  test 'can unpublish an edition' do
-    assert enforcer_for(gds_editor, normal_edition).can?(:unpublish)
+  test 'cannot unpublish an edition' do
+    refute enforcer_for(gds_editor, normal_edition).can?(:unpublish)
   end
 
   test 'can reorder cabinet ministers' do
