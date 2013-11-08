@@ -27,7 +27,9 @@
 <div class="block-3 filtered-results">
   <div class="inner-block">
     <% if Locale.current.english? %>
-      <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
+      <%= render partial: "documents/filter_results",
+                locals: { filter: @filter,
+                          result_type: "policy" } %>
     <% end %>
 
     <div class="filter-results js-filter-results" aria-live="polite">

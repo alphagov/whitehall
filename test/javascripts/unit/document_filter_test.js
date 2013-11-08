@@ -42,6 +42,8 @@ module("Document filter", {
       "atom_feed_url": '/atom-feed',
       "email_signup_url": '/email-signups',
       "results_any?": true,
+      "total_count": 8,
+      "result_type": "publication",
       "results": [
         {
           "id": 1,

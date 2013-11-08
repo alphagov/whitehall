@@ -40,7 +40,9 @@
 <div class="block-4 filtered-results">
   <div class="inner-block">
     <% if Locale.current.english? %>
-      <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
+      <%= render partial: "documents/filter_results",
+                locals: { filter: @filter,
+                          result_type: "publication" } %>
     <% end %>
     <%= render partial: 'shared/feeds',
         locals: { atom_url: filter_atom_feed_url,

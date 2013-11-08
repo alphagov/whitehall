@@ -14,6 +14,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
       total_count: documents.total_count,
       results: documents.map { |d| d.as_hash },
       results_any?: documents.any?,
+      result_type: result_type,
       no_results_title: context.t('document_filters.no_results.title'),
       no_results_description: context.t('document_filters.no_results.description'),
       no_results_tna_heading: context.t('document_filters.no_results.tna_heading'),
@@ -54,5 +55,9 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
     else
       filter.documents
     end
+  end
+
+  def result_type
+    "document"
   end
 end
