@@ -69,6 +69,24 @@ The test suite can be run in parallel like so:
 
 This will automatically prepare your test database for parallel work.
 
+### Running javascript unit tests
+
+Javascript unit tests can be run together:
+
+    rake test:javascript
+
+To run individual tests or when debugging:
+
+    ./script/javascript-test-server
+
+And go to http://localhost:3100/test/qunit in the browser
+
+NB: The shared mustache templates must be compiled for the tests to pass.  Take care not to commit the compiled templates to the repository.
+
+    rake shared_mustache:compile
+    rake shared_mustache:clean
+
+
 ### Running the server locally
 
     $ bundle exec rails s
