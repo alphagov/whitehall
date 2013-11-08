@@ -1,16 +1,13 @@
-<span class="count">{{result_count}}</span> <strong>{{result_type}}</strong> about
+<span class="count">{{result_count}}</span> <strong>{{result_type}}</strong>
 <span class="topics-selections">
   {{#topics}}
-    <strong>{{name}}</strong> <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
+    about <strong>{{name}}</strong> <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/topics}}
-  {{^topics}} <strong>All topics</strong> {{/topics}}
 </span>
-by
 <span class="departments-selections">
   {{#departments}}
-    <strong>{{name}}</strong> <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
+    by <strong>{{name}}</strong> <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/departments}}
-  {{^departments}} <strong>All organisations</strong> {{/departments}}
 </span>
 {{#world_locations_any?}}
 from
