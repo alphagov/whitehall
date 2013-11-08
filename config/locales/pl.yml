@@ -546,8 +546,9 @@ pl:
       all: Wszystkie lokalizacje
       label: Lokalizacje na świecie
   feeds:
-    atom: atom
-    email_alerts: powiadomienia emailowe
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Najnowsza czynność
   i18n:
     direction: ltr

@@ -547,8 +547,9 @@ he:
       all: כל המיקומים
       label: מיקומים גלובאליים
   feeds:
-    atom: אטום
-    email_alerts: התרעת דואר אלטרוני
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: פעילות אחרונה
   i18n:
     direction: rtl

@@ -409,8 +409,9 @@ es-419:
       all: Todas las ubicaciones
       label: Ubicaciones globales
   feeds:
-    atom: atom
-    email_alerts: Alertas electrónicas
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Actividad más reciente
   i18n:
     direction: ltr

@@ -543,8 +543,9 @@ ru:
       all: Все места нахождения
       label: Места нахождения
   feeds:
-    atom: атом
-    email_alerts: электронное оповещение
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Реестр активности
   i18n:
     direction: письмо

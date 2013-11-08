@@ -407,8 +407,9 @@ lv:
       all: Visas vietas
       label: Pasaules vietas
   feeds:
-    atom: atom
-    email_alerts: E-pasta paziņojumi
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Jaunumi
   i18n:
     direction: ltr

@@ -291,8 +291,9 @@ tr:
       all: Tüm yerler
       label: Ülkeler
   feeds:
-    atom: atom
-    email_alerts: E-posta uyarıları
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Son etkinlik
   i18n:
     direction: Itr

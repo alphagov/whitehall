@@ -549,8 +549,9 @@ sr:
       all: Sve lokacije
       label: lokacije u svetu
   feeds:
-    atom: atom
-    email_alerts: obavštenje e-mailom
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: najnovije aktivnosti
   i18n:
     direction: ltr

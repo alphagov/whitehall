@@ -476,8 +476,9 @@ lt:
       all: Visos geografinės vietos
       label: Geografinės vietos pasaulyje
   feeds:
-    atom: atom
-    email_alerts: pranešimai el. paštu
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Paskutinės naujienos
   i18n:
     direction: ltr

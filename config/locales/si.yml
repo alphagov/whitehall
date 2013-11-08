@@ -409,8 +409,9 @@ si:
       all: සියලු ස්ථාන
       label: ලෝක ස්ථාන
   feeds:
-    atom: අණුව
-    email_alerts: විද්‍යුත් තැපැල් දැන්වීම්
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: අලුත්ම ක්‍රියාකාරකම්
   i18n:
     direction: ltr

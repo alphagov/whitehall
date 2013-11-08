@@ -291,8 +291,9 @@ id:
       all: Semua lokasi
       label: Lokasi-lokasi di dunia
   feeds:
-    atom: atom
-    email_alerts: email pemberitahuan
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Aktivitas terbaru
   i18n:
     direction: ltr

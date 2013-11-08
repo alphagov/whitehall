@@ -410,8 +410,9 @@ ta:
       all: அனைத்து அமைவிடங்களும்
       label: உலக அமைவிடங்கள்
   feeds:
-    atom: அணு
-    email_alerts: மின்னஞ்சல் எச்சரிக்கைகள்
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: சமீபத்தைய நடவடிக்கை
   i18n:
     direction: ltr

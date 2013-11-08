@@ -35,6 +35,8 @@ jQuery(function($) {
   GOVUK.showHide.init();
   GOVUK.emailSignup.init();
   GOVUK.virtualTour.init();
+  GOVUK.feeds.init();
+
 });
 // These want images to be loaded before they run so the page height doesn't change.
 jQuery(window).load(function(){

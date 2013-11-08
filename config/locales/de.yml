@@ -409,8 +409,9 @@ de:
       all: Alle Standorte
       label: Standorte weltweit
   feeds:
-    atom: Atom-Feed
-    email_alerts: Benachrichtigung per E-Mail
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Zuletzt aktiv
   i18n:
     direction: ltr

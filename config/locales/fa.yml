@@ -291,8 +291,9 @@ fa:
       all: تمام نقاط
       label: موقعیت های جهانی
   feeds:
-    atom: خوراک اتم
-    email_alerts: اطلاعیه ایمیلی
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: آخرین تحولات
   i18n:
     direction: rtl

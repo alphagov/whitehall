@@ -477,8 +477,9 @@ cs:
       all: Všude
       label: Světové lokace
   feeds:
-    atom: atom
-    email_alerts: Upozornění na email
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Poslední aktivita
   i18n:
     direction: ltr

@@ -245,5 +245,10 @@
     position: absolute;
     right: $gutter-half;
     top: 0;
+
+    .feed-panel {
+      position: absolute;
+      right: 0;
+    }
   }
 }

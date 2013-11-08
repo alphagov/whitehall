@@ -408,8 +408,9 @@ it:
       all: Tutte le sedi
       label: Sedi internazionali
   feeds:
-    atom: atom
-    email_alerts: avvisi di ricezione messaggio email
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Attività recente
   i18n:
     direction: Itr

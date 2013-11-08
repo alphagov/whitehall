@@ -288,8 +288,9 @@ ka:
       all:
       label:
   feeds:
-    atom:
-    email_alerts:
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity:
   i18n:
     direction: ltr

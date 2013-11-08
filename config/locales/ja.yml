@@ -289,8 +289,9 @@ ja:
       all: 全ての地域
       label: 地域
   feeds:
-    atom: atom
-    email_alerts: email alerts
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: 最新情報
   i18n:
     direction: ltr

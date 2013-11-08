@@ -410,8 +410,9 @@ hi:
       all: सभी स्थान
       label: वैश्विक स्थान
   feeds:
-    atom: परमाणु
-    email_alerts: ईमेल सचेतक
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: नवीनतम गतिविधि
   i18n:
     direction: ltr

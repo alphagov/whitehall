@@ -409,8 +409,9 @@ hy:
       all: Բոլոր վայրերը
       label: Տեղակայված բառեր
   feeds:
-    atom: ատոմ
-    email_alerts: Տեղեկատվություն Էլ. Փոստին
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Վերջին գործողություն
   i18n:
     direction: ltr

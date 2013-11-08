@@ -292,8 +292,9 @@ hu:
       all: Minden ország
       label: Országok
   feeds:
-    atom: atom
-    email_alerts: E-mail értesítés
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Legfrissebb aktivitás
   i18n:
     direction: ltr

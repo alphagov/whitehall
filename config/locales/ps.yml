@@ -410,8 +410,9 @@ ps:
       all: ټول موقعیتونه
       label: نړیوال موقعیتونه
   feeds:
-    atom: اتم
-    email_alerts: د ایمیل خبرورکوونکي
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: اخیرنی فعالیت
   i18n:
     direction: rtl

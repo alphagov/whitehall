@@ -413,8 +413,9 @@ fr:
       all: Tous les endroits
       label: Pays
   feeds:
-    atom: RSS
-    email_alerts: alertes emails
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Dernière mise à jour
   i18n:
     direction: ltr

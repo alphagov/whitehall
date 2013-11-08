@@ -410,8 +410,9 @@ so:
       all: Dhammaan goobaha kala duwan
       label: Goobo dunida ka mid ah
   feeds:
-    atom: atam
-    email_alerts: e-mail soo dhacay
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Waxqabadkii ugu dambeeyey
   i18n:
     direction: litir

@@ -419,8 +419,9 @@ bg:
       all: Всички места
       label: Световни места
   feeds:
-    atom: Атом
-    email_alerts: сигнал за и-мейл
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Последна дейност
   i18n:
     direction: ltr

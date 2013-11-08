@@ -409,8 +409,9 @@ sq:
       all: Te gjitha vendndodhjet
       label: Vendndodhje boterore
   feeds:
-    atom: atom
-    email_alerts: njoftime emaili
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Aktiviteti me i fundit
   i18n:
     direction: ltr
