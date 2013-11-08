@@ -67,6 +67,10 @@ module Admin::UrlHelper
     admin_header_link "Cabinet ministers order", admin_cabinet_ministers_path
   end
 
+  def admin_email_curation_queue_link
+    admin_header_link "Email curation queue", admin_email_curation_queue_items_path
+  end
+
   def admin_get_involved_link
     if can?(:administer, :get_involved_section)
       admin_header_link "Get involved", admin_get_involved_path
