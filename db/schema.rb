@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106094930) do
+ActiveRecord::Schema.define(:version => 20131108144127) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1169,6 +1169,16 @@ ActiveRecord::Schema.define(:version => 20131106094930) do
 
   add_index "supporting_page_attachments", ["attachment_id"], :name => "index_supporting_page_attachments_on_attachment_id"
   add_index "supporting_page_attachments", ["supporting_page_id"], :name => "index_supporting_page_attachments_on_supporting_page_id"
+
+  create_table "supporting_page_redirects", :force => true do |t|
+    t.integer  "policy_document_id"
+    t.integer  "supporting_page_document_id"
+    t.string   "original_slug"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "supporting_page_redirects", ["policy_document_id", "original_slug"], :name => "index_supporting_page_redirects_on_policy_and_slug", :unique => true
 
   create_table "supporting_pages", :force => true do |t|
     t.integer  "edition_id"

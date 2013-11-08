@@ -277,4 +277,17 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     assert_equal "policy", response.headers["X-Slimmer-Format"]
   end
+
+  test "#show redirects if there's been a slug change" do
+    policy = create(:published_policy)
+    supporting_page = create(:published_supporting_page, related_policies: [policy])
+    SupportingPageRedirect.create!(policy_document: policy.document,
+                                   supporting_page_document: supporting_page.document,
+                                   original_slug: "an-old-slug")
+
+    get :show, policy_id: policy.document, id: "an-old-slug"
+
+    assert_response :redirect
+    assert_redirected_to policy_supporting_page_path(policy.document, supporting_page.document)
+  end
 end

@@ -3,8 +3,7 @@ class SupportingPagesController < PublicFacingController
   include PublicDocumentRoutesHelper
 
   before_filter :find_policy
-  before_filter :find_supporting_page, only: [:show]
-  before_filter :set_analytics_format, only: [:show]
+  before_filter :redirect_if_required, :find_supporting_page, :set_analytics_format, only: [:show]
 
   def index
     if should_preview? && @policy.has_active_supporting_pages?
@@ -37,6 +36,14 @@ private
     end
 
     @policy ||= Policy.published_as(params[:policy_id]) or render_not_found
+  end
+
+  # When supporting pages were converted to editions some of the slugs had to
+  # be changed. The changes are kept in the supporting_page_redirects table in
+  # the database.
+  def redirect_if_required
+    redirect = SupportingPageRedirect.find_by_policy_document_id_and_original_slug(@policy.document.id, params[:id])
+    redirect_to redirect.destination if redirect
   end
 
   def find_supporting_page
