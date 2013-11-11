@@ -137,7 +137,7 @@ nav.consultations_scope {
       .consultation-summary-inner {
         border-top: 1px solid $white;
         padding-top: $gutter-half;
-        margin-top: -$gutter-half + 1px;
+        margin-top: $gutter-half;
 
         @include media(tablet) {
           border-top: 0;
