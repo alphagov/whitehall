@@ -1,7 +1,27 @@
 <% hide_inline_attachments_help ||= false %>
 <% show_attachments_tab_help ||= false %>
+<% govspeak_link_errors ||= [] %>
 
 <h1>Govspeak help</h1>
+
+<% if govspeak_link_errors.any? %>
+  <section id='link-errors' class='alert'>
+    <h3>Link errors</h3>
+
+    <p>You will not be able to publish this document until these are fixed.</p>
+
+    <dl>
+      <% govspeak_link_errors.each do |link_error| %>
+        <dt><%= link_error[:link] %></dt>
+        <dd data-start='<%= link_error[:start] %>' data-end='<%= link_error[:end] %>'>
+          <%= link_error[:fix] %>
+        </dd>
+      <% end %>
+    </dl>
+  </section>
+
+  <% initialise_script "GOVUK.govspeakLinkErrors", selector: '#link-errors' %>
+<% end %>
 
 <h3>Style</h3>
 <p>For style, see the <a href="https://www.gov.uk/designprinciples/styleguide">style guide</a></p>
