@@ -89,8 +89,14 @@ nav.consultations_scope {
 
   .original-consultation {
     @include heading-27;
+    border-top: 1px solid $border-colour;
     font-weight: bold;
     margin-bottom: $gutter-half;
+    padding-top: $gutter-half;
+    @include media(tablet) {
+      margin: $gutter-half;
+      padding-top: $gutter-half;
+    }
   }
 
   .consultation-block {
@@ -164,7 +170,6 @@ nav.consultations_scope {
   }
 
   .consultation-response {
-    border-bottom: 1px solid $border-colour;
     margin-bottom: $gutter-half;
   }
 
@@ -184,4 +189,10 @@ nav.consultations_scope {
       font-weight: bold;
     }
   }
+}
+
+.consultation-closed {
+  .original-consultation {
+    border-top: 0;
+  }  
 }
