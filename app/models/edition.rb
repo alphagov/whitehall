@@ -567,7 +567,7 @@ class Edition < ActiveRecord::Base
     end
   end
 
-  private
+private
 
   def enforcer(user)
     Whitehall::Authority::Enforcer.new(user, self)
