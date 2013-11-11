@@ -2,7 +2,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
   before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :confirm_unpublish, :topics]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :topics]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
@@ -10,7 +10,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :set_default_edition_locations, only: :new
   before_filter :enforce_permissions!
-  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :confirm_unpublish]
+  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :redirect_to_controller_for_type, only: [:show]
 
   def enforce_permissions!
@@ -25,8 +25,6 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, @edition)
     when 'edit', 'update', 'revise', 'diff'
       enforce_permission!(:update, @edition)
-    when 'confirm_unpublish'
-      enforce_permission!(:unpublish, @edition)
     when 'destroy'
       enforce_permission!(:delete, @edition)
     else
@@ -110,10 +108,6 @@ class Admin::EditionsController < Admin::BaseController
   def diff
     audit_trail_entry = edition_class.find(params[:audit_trail_entry_id])
     @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.locale)
-  end
-
-  def confirm_unpublish
-    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id)
   end
 
   def destroy

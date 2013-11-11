@@ -199,6 +199,16 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'All workflow actions require a lock version', response.body
   end
 
+  test "confirm_unpublish loads the edition and renders the confirm page" do
+    login_as(create(:managing_editor))
+    policy = create(:published_policy)
+    get :confirm_unpublish, id: policy, lock_version: policy.lock_version
+
+    assert_response :success
+    assert_template :confirm_unpublish
+    assert_equal policy, assigns(:edition)
+  end
+
   test 'unpublish is forbidden to non-Managing editors editors' do
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version
     assert_response :forbidden

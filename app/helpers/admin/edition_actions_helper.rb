@@ -69,10 +69,6 @@ module Admin::EditionActionsHelper
     button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to discard this draft?", class: "btn btn-danger"
   end
 
-  def unpublish_edition_button(edition)
-    button_to 'Archive or unpublish', confirm_unpublish_admin_edition_path(edition), title: "Unpublish", class: "btn btn-danger", method: :get
-  end
-
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     content_tag(:ul, class: "more-nav left js-hidden") do

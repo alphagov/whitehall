@@ -38,7 +38,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       end
     when 'force_publish', 'confirm_force_publish'
       enforce_permission!(:force_publish, @edition)
-    when 'unpublish'
+    when 'unpublish', 'confirm_unpublish'
       enforce_permission!(:unpublish, @edition)
     when 'approve_retrospectively'
       enforce_permission!(:approve, @edition)
@@ -81,6 +81,10 @@ class Admin::EditionWorkflowController < Admin::BaseController
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end
+  end
+
+  def confirm_unpublish
+    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id)
   end
 
   def unpublish

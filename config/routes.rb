@@ -232,7 +232,7 @@ Whitehall::Application.routes.draw do
             post :publish, to: 'edition_workflow#publish'
             get  :confirm_force_publish, to: 'edition_workflow#confirm_force_publish'
             post :force_publish, to: 'edition_workflow#force_publish'
-            get  :confirm_unpublish
+            get  :confirm_unpublish, to: 'edition_workflow#confirm_unpublish'
             post :unpublish, to: 'edition_workflow#unpublish'
             post :schedule, to: 'edition_workflow#schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
