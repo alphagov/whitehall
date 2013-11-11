@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131108144127) do
+ActiveRecord::Schema.define(:version => 20131111170317) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -526,6 +526,15 @@ ActiveRecord::Schema.define(:version => 20131108144127) do
 
   add_index "edition_worldwide_organisations", ["edition_id"], :name => "index_edition_worldwide_orgs_on_edition_id"
   add_index "edition_worldwide_organisations", ["worldwide_organisation_id"], :name => "index_edition_worldwide_orgs_on_worldwide_organisation_id"
+
+  create_table "editioned_supporting_page_mappings", :force => true do |t|
+    t.integer  "old_supporting_page_id"
+    t.integer  "new_supporting_page_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  add_index "editioned_supporting_page_mappings", ["old_supporting_page_id"], :name => "index_editioned_supporting_page_mappings", :unique => true
 
   create_table "editions", :force => true do |t|
     t.datetime "created_at"

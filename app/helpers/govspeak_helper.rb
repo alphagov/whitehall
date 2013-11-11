@@ -184,7 +184,7 @@ module GovspeakHelper
     edition_path_pattern = Whitehall.edition_route_path_segments.join('|')
     if path[%r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
       policy = Policy.send(:with_exclusive_scope) { Policy.find_by_id($1) }
-      supporting_page = Document.at_slug('SupportingPage', $2).latest_edition
+      supporting_page = EditionedSupportingPageMapping.find_by_old_supporting_page_id($2).try(:new_supporting_page)
       replacement_html_for_edition_link(anchor, supporting_page, policy_id: policy.document, &block)
     elsif path[%r{/admin/(?:#{edition_path_pattern})/(\d+)$}]
       edition = Edition.send(:with_exclusive_scope) { Edition.find_by_id($1) }

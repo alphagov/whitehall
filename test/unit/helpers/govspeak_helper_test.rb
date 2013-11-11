@@ -83,7 +83,8 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should rewrite old style admin links for supporting pages" do
     policy = create(:published_policy)
     supporting_page = create(:published_supporting_page, related_policies: [policy])
-    admin_path = "/government/admin/editions/#{policy.id}/supporting-pages/#{supporting_page.slug}"
+    EditionedSupportingPageMapping.create(old_supporting_page_id: 654321, new_supporting_page_id: supporting_page.id)
+    admin_path = "/government/admin/editions/#{policy.id}/supporting-pages/654321"
     public_url = policy_supporting_page_url(policy.document, supporting_page.document)
 
     govspeak = "this and [that](#{admin_path}) yeah?"
