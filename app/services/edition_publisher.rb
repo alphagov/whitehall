@@ -1,12 +1,17 @@
 class EditionPublisher < EditionService
   def failure_reason
-    @failure_reason ||= if !edition.valid?
-      "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
-    elsif !can_transition?
-      "An edition that is #{edition.current_state} cannot be #{past_participle}"
-    elsif edition.scheduled_publication.present? && Time.zone.now < edition.scheduled_publication
-      "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be #{past_participle} before"
-    end
+    @failure_reason ||= failure_reasons.first
+  end
+
+  def failure_reasons
+    return @failure_reasons if @failure_reasons
+
+    reasons = []
+    reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
+    reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
+    reasons << "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be #{past_participle} before" if scheduled_for_publication?
+
+    @failure_reasons = reasons
   end
 
   def verb
@@ -31,5 +36,9 @@ private
     edition.document.editions.published.each do |e|
       e.supersede! unless e == edition
     end
+  end
+
+  def scheduled_for_publication?
+    edition.scheduled_publication.present? && Time.zone.now < edition.scheduled_publication
   end
 end
