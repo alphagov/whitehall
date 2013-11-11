@@ -137,6 +137,13 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert enforcer_for(managing_editor, normal_edition).can?(:unpublish)
   end
 
+  test 'can unpublish an edition with multiple roles' do
+    editor = managing_editor
+    editor.send("departmental_editor?=", true)
+    editor.send("gds_editor?=", true)
+    assert enforcer_for(editor, normal_edition).can?(:unpublish)
+  end
+
   test 'cannot reorder cabinet ministers' do
     refute enforcer_for(managing_editor, MinisterialRole).can?(:reorder_cabinet_ministers)
   end
