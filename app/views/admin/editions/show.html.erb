@@ -22,11 +22,11 @@
         <%= schedule_edition_form(@edition, force: true) %>
       <% end %>
 
-      <%= submit_edition_button(@edition) if @edition.can_submit? %>
+      <%= submit_edition_button(@edition) if force_publisher.can_perform? && @edition.can_submit? %>
 
-      <% if Whitehall.edition_services.publisher(@edition).can_perform? && can?(:publish, @edition) %>
+      <% if publisher.can_perform? && can?(:publish, @edition) %>
         <%= publish_edition_form(@edition) %>
-      <% elsif Whitehall.edition_services.force_publisher(@edition).can_perform? && can?(:force_publish, @edition) %>
+      <% elsif force_publisher.can_perform? && can?(:force_publish, @edition) %>
         <%= render partial: "admin/edition_workflow/force_publish_modal", locals: { extra_css_classes: "hide" } %>
         <%= publish_edition_form(@edition, force: true) %>
       <% end %>
@@ -35,6 +35,19 @@
       <%= delete_edition_button(@edition) if @edition.can_delete? %>
       <%= unpublish_edition_button(@edition) if @edition.can_unpublish? && can?(:unpublish, @edition) %>
     </section>
+
+    <% if force_publisher.failure_reasons.any? %>
+      <section class='alert'>
+        <p>You can't force-publish this edition because:</p>
+        <ul>
+          <% force_publisher.failure_reasons.each do |reason| %>
+            <li><%= reason %></li>
+          <% end %>
+        </ul>
+
+        <p>Please <%= link_to 'edit the edition', edit_admin_edition_path(@edition) %> and fix the issues if possible.</p>
+      </section>
+    <% end %>
 
     <%= render partial: "history_state", locals: { edition: @edition } %>
     <% if @edition.imported? %>
