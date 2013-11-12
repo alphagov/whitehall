@@ -22,7 +22,7 @@
         <%= schedule_edition_form(@edition, force: true) %>
       <% end %>
 
-      <%= submit_edition_button(@edition) if force_publisher.can_perform? && @edition.can_submit? %>
+      <%= submit_edition_button(@edition) if @edition.can_submit? %>
 
       <% if publisher.can_perform? && can?(:publish, @edition) %>
         <%= publish_edition_form(@edition) %>
