@@ -11,12 +11,12 @@
     <div class="row-fluid">
       <div class="conflicting new span6">
         <h2>Your version</h2>
-        <%= render partial: "form", locals: {edition: @edition} %>
+        <%= render "form", edition: @edition %>
       </div>
 
       <div class="conflicting latest span6">
         <h2>Current saved version</h2>
-        <%= render partial: "conflict", locals: {edition: @conflicting_edition} %>
+        <%= render "conflict", edition: @conflicting_edition %>
       </div>
     </div>
   </section>
@@ -25,16 +25,17 @@
     <section>
       <h1>Edit <%= @edition.type.underscore.humanize.downcase %></h1>
 
-      <%= render partial: "recent_openings", locals: {edition: @edition, recent_openings: @recent_openings} %>
-      <%= render partial: "form", locals: {edition: @edition} %>
+      <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
+      <%= render "form", edition: @edition %>
     </section>
   </div>
 
   <div class="span4">
     <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count, editing: true) do |tabs| %>
       <%= tabs.pane class: "govspeak_help", id: "govspeak_help" do %>
-        <%= render partial: "govspeak_help",
-                   locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+        <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+                                    show_attachments_tab_help: true,
+                                    govspeak_link_errors: force_publisher.govspeak_link_errors %>
       <% end %>
 
       <%= tabs.pane class: "audit-trail", id: "notes" do %>

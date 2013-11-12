@@ -41,43 +41,43 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
 
   test "should rewrite link to draft edition in admin preview" do
     publication = create(:draft_publication)
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "draft"
   end
 
   test "should not alter unicode when replacing links" do
     publication = create(:published_publication)
-    html = govspeak_to_admin_html("the [☃](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("the [☃](#{admin_publication_path(publication)})")
     assert_select_within_html html, "a[href=?]", public_document_url(publication), text: "☃"
   end
 
   test "should rewrite link to deleted edition in admin preview" do
     publication = create(:draft_publication)
     publication.delete!
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
     assert_select_within_html html, "del", text: "that"
   end
 
   test "should rewrite link to missing edition in admin preview" do
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url('missing-id')})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path('missing-id')})")
     assert_select_within_html html, "del", text: "that"
   end
 
   test "should rewrite link to destroyed supporting page in admin preview" do
-    html = govspeak_to_admin_html("this and [that](#{admin_edition_supporting_page_url("doesnt-exist", "missing-id")})")
+    html = govspeak_to_admin_html("this and [that](#{admin_edition_supporting_page_path("doesnt-exist", "missing-id")})")
     assert_select_within_html html, "del", text: "that"
   end
 
   test "should rewrite link to published edition in admin preview" do
     publication = create(:published_publication)
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
     assert_select_within_html html, "a[href=?]", public_document_url(publication), text: "that"
   end
 
   test "should rewrite link to published edition with a newer draft in admin preview" do
     publication = create(:published_publication)
     new_draft = publication.create_draft(create(:policy_writer))
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_draft), text: "draft"
   end
 
@@ -89,7 +89,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     new_edition.save_as(writer)
     new_edition.submit!
     publish(new_edition)
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(publication)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(new_edition), text: "published"
   end
 
@@ -98,7 +98,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     new_draft = publication.create_draft(create(:policy_writer))
     new_draft.delete!
     deleted_edition = new_draft
-    html = govspeak_to_admin_html("this and [that](#{admin_publication_url(deleted_edition)})")
+    html = govspeak_to_admin_html("this and [that](#{admin_publication_path(deleted_edition)})")
     assert_select_within_html html, "a[href=?]", admin_publication_path(publication), text: "published"
   end
 

@@ -205,12 +205,6 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, ".attachment.embedded"
   end
 
-  test "should identify internal admin links" do
-    assert is_internal_admin_link?( [Whitehall.router_prefix, "admin", "test"].join("/") )
-    refute is_internal_admin_link?( 'http://www.google.com/' )
-    refute is_internal_admin_link?( nil )
-  end
-
   test "prefixes embedded image urls with asset host if present" do
     Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
     edition = build(:published_news_article, body: "!!1")

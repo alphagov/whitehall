@@ -87,6 +87,23 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.first_published_at
   end
 
+  view_test "should remove the publish buttons if the edition breaks the rules permitting publishing" do
+    # This applies to all editions but can't be tested in the editions controller test due to redirects.
+    # After conversation with DH I picked publications arbitrarily.
+    login_as(create(:departmental_editor))
+    publication = create(:draft_publication)
+
+    [EditionPublisher, EditionForcePublisher].each do |publisher|
+      publisher.any_instance.stubs(:failure_reasons).returns(["This edition is not dope enough"])
+    end
+
+    get :show, id: publication.id
+
+    assert_response :success
+    refute_select ".publish"
+    refute_select ".force-publish"
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

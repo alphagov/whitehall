@@ -21,7 +21,7 @@ module Admin::EditionActionsHelper
   end
 
   def submit_edition_button(edition)
-    button_to "Submit for 2nd eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success"
+    button_to "Submit for 2nd eyes", submit_admin_edition_path(edition, lock_version: edition.lock_version), class: "btn btn-success second-eyes"
   end
 
   def reject_edition_button(edition)
@@ -40,9 +40,9 @@ module Admin::EditionActionsHelper
     confirm = publish_edition_alerts(edition, options[:force])
     if options[:force]
       confirm_force_publish_path = confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version)
-      link_to "Force publish", confirm_force_publish_path, {class: "btn", "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
+      link_to "Force publish", confirm_force_publish_path, {class: "btn force-publish", "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
     else
-      button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: "btn btn-success"
+      button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: "btn btn-success publish"
     end
   end
 

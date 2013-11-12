@@ -1,4 +1,3 @@
-require 'addressable/uri'
 require 'delegate'
 
 module GovspeakHelper
@@ -173,9 +172,11 @@ module GovspeakHelper
 
   def replace_internal_admin_links_in(nokogiri_doc)
     nokogiri_doc.search('a').each do |anchor|
-      next unless is_internal_admin_link?(uri = anchor['href'])
+      next unless DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(anchor['href'])
 
-      edition, supporting_page = find_edition_and_supporting_page_from_uri(uri)
+      path = anchor['href']
+
+      edition, supporting_page = find_edition_and_supporting_page_from_absolute_path(path)
       replacement_html = replacement_html_for(anchor, edition, supporting_page)
       replacement_html = yield(replacement_html, edition) if block_given?
 
@@ -254,31 +255,12 @@ module GovspeakHelper
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
-  def is_internal_admin_link?(href)
-    return false unless href.is_a? String
-    begin
-      uri = Addressable::URI.parse(href)
-    rescue Addressable::URI::InvalidURIError
-      return false
-    end
-
-    admin_path = [Whitehall.router_prefix, "admin"].join("/")
-
-    if %w(http https).include?(uri.scheme)
-      truncated_link_uri = [normalise_host(uri.host), uri.path.split("/")[1,2]].join("/")
-      truncated_host_uri = [normalise_host(request.host) + admin_path].join("/")
-      truncated_link_uri == truncated_host_uri
-    else
-      uri.path.start_with?(admin_path)
-    end
-  end
-
-  def find_edition_and_supporting_page_from_uri(uri)
+  def find_edition_and_supporting_page_from_absolute_path(path)
     edition_path_pattern = Whitehall.edition_route_path_segments.join("|")
     edition_id, supporting_page_id = nil
-    if uri[%r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
+    if path[%r{^#{Whitehall.router_prefix}/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
       edition_id, supporting_page_id = $1, $2
-    elsif uri[%r{/admin/(?:#{edition_path_pattern})/(\d+)$}]
+    elsif path[%r{^#{Whitehall.router_prefix}/admin/(?:#{edition_path_pattern})/(\d+)$}]
       edition_id = $1
     end
     edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }

@@ -159,7 +159,7 @@ All code should be wrapped in a closure and should declare 'use strict'.  The GO
 
     (function() {
       "use strict";
-      window.GOVUK = window.GOVUK || {}
+      window.GOVUK = window.GOVUK || {};
 
       // stuff
     }());
@@ -173,7 +173,7 @@ Singletons should be defined as raw javascript hashes, and if required should do
 
     (function() {
       "use strict";
-      window.GOVUK = window.GOVUK || {}
+      window.GOVUK = window.GOVUK || {};
 
       window.GOVUK.singletonThing = {
         init: function init() {
@@ -185,7 +185,7 @@ Singletons should be defined as raw javascript hashes, and if required should do
         },
 
         // etc.
-      }
+      };
     }());
 
 ### Constructor pattern
@@ -194,7 +194,7 @@ Constructors should follow the prototype pattern as follows:
 
     (function() {
       "use strict";
-      window.GOVUK = window.GOVUK || {}
+      window.GOVUK = window.GOVUK || {};
 
       function TheThing(params) {
         //some initialisation code

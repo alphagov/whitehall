@@ -273,4 +273,14 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to admin_edition_path(@edition)
     end
   end
+
+  def publisher
+    @publisher ||= Whitehall.edition_services.publisher(@edition)
+  end
+  helper_method :publisher
+
+  def force_publisher
+    @force_publisher ||= Whitehall.edition_services.force_publisher(@edition)
+  end
+  helper_method :force_publisher
 end
