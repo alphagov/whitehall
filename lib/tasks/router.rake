@@ -1,7 +1,7 @@
 require 'logger'
 
 namespace :router do
-  task :router_environment => :environment do
+  task :router_environment do
     require 'plek'
     require 'gds_api/router'
     @logger = Logger.new STDOUT
@@ -10,16 +10,19 @@ namespace :router do
     @application_id = "whitehall-frontend"
   end
 
+  desc "Register the whitehall backend with the router"
   task :register_backend => :router_environment do
     @logger.info "Registering application..."
     @router_api.add_backend(@application_id, Plek.current.find('whitehall-frontend', :force_http => true) + "/")
   end
 
+  desc "Register the government prefix with the router"
   task :register_routes => :router_environment do
     @router_api.add_route("/government", "prefix", @application_id)
   end
 
-  task :register_guidance => [:router_environment, :register_backend] do
+  desc "Register all detailed guides with the router"
+  task :register_guidance => [:environment, :router_environment, :register_backend] do
     DetailedGuide.published.includes(:document).each do |guide|
       path = "/#{guide.slug}"
       @logger.info "Registering detailed guide #{path}..."
@@ -29,6 +32,6 @@ namespace :router do
     @router_api.commit_routes
   end
 
-  desc "Register whitehall application and routes with the router (run this task on server in cluster)"
+  desc "Register whitehall backend and routes with the router"
   task :register => [ :register_backend, :register_routes ]
 end
