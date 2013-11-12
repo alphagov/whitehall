@@ -142,12 +142,12 @@ class PublicationTest < ActiveSupport::TestCase
 
   test '#has_command_paper? is true if an attachment is a command paper' do
     pub = build(:publication)
-    pub.expects(:attachments).returns([
+    pub.stubs(:attachments).returns([
       OpenStruct.new(is_command_paper?: false)
     ])
     refute pub.has_command_paper?
 
-    pub.expects(:attachments).returns([
+    pub.stubs(:attachments).returns([
       OpenStruct.new(is_command_paper?: false),
       OpenStruct.new(is_command_paper?: true)
     ])
@@ -156,12 +156,12 @@ class PublicationTest < ActiveSupport::TestCase
 
   test '#has_act_paper? is true if an attachment is an act paper' do
     pub = build(:publication)
-    pub.expects(:attachments).returns([
+    pub.stubs(:attachments).returns([
       OpenStruct.new(is_act_paper?: false)
     ])
     refute pub.has_act_paper?
 
-    pub.expects(:attachments).returns([
+    pub.stubs(:attachments).returns([
       OpenStruct.new(is_act_paper?: false),
       OpenStruct.new(is_act_paper?: true)
     ])
@@ -170,8 +170,8 @@ class PublicationTest < ActiveSupport::TestCase
 
   test '#search_index should include has_command_paper and has_act_paper' do
     pub = create(:publication)
-    pub.expects(:has_command_paper?).at_least_once.returns(true)
-    pub.expects(:has_act_paper?).at_least_once.returns(true)
+    pub.stubs(:has_command_paper?).returns(true)
+    pub.stubs(:has_act_paper?).returns(true)
 
     assert pub.search_index[:has_command_paper] == true
     assert pub.search_index[:has_act_paper] == true
