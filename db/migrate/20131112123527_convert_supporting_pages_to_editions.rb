@@ -134,13 +134,10 @@ class ConvertSupportingPagesToEditions < ActiveRecord::Migration
 
         rescue Exception => e
           puts "  Exception raised trying to migrate old supporting page ##{old_sp.id}: #{e.message}"
-          debugger
           raise e
         end
       end
     end
-
-    debugger
 
     puts "\nRedirects created:"
     SupportingPageRedirect.all.each do |redirect|

@@ -22,7 +22,6 @@ class Edition::SupportingPagesTest < ActiveSupport::TestCase
     supporting_page = create(:published_supporting_page, related_policies: [policy])
     other_page = create(:published_supporting_page, related_policies: [policy])
     draft = other_page.create_draft(create(:policy_writer))
-    debugger
 
     assert_equal [supporting_page, draft], policy.active_supporting_pages
   end
