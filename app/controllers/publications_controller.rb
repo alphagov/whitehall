@@ -13,7 +13,7 @@ class PublicationsController < DocumentsController
         render json: PublicationFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
       end
       format.atom do
-        documents = load_editions_by_id(@filter.documents.map(&:id))
+        documents = Publicationesque.published_with_eager_loading(@filter.documents.map(&:id))
         @publications = Whitehall::Decorators::CollectionDecorator.new(
           documents.sort_by(&:public_timestamp).reverse, PublicationesquePresenter, view_context)
       end

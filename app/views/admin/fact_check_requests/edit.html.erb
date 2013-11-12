@@ -5,26 +5,11 @@
   <div class="tabbable">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#document" data-toggle="tab">Document</a></li>
-      <% if @edition.allows_supporting_pages? && @edition.supporting_pages.any? %>
-        <li><a href="#supporting_pages" data-toggle="tab">Supporting pages</a></li>
-      <% end %>
     </ul>
     <div class="tab-content">
       <section class="document_page tab-pane active" id="document">
         <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
       </section>
-      <% if @edition.allows_supporting_pages? && @edition.supporting_pages.any? %>
-        <section class="tab-pane supporting_pages" id="supporting_pages">
-          <h1>Supporting pages</h1>
-
-          <% @edition.supporting_pages.each do |supporting_page| %>
-            <%= content_tag_for :section, supporting_page do %>
-              <p><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></p>
-              <%= render partial: "admin/supporting_pages/supporting_page", object: supporting_page %>
-            <% end %>
-          <% end %>
-        </section>
-      <% end %>
     </div>
   </div>
 </div>
@@ -32,10 +17,6 @@
 <div class="span4">
   <div class="alert alert-info">
     <p>Please check this document for factual accuracy and comment in the form below.</p>
-
-    <% if @edition.has_supporting_pages? %>
-      <p>Please indicate whether your comments refer to the main document or supporting page.</p>
-    <% end %>
   </div>
 
   <% if @fact_check_request.instructions.present? %>

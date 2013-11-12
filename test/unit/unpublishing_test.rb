@@ -12,7 +12,9 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'is not valid without a document type' do
-    unpublishing = build(:unpublishing, document_type: nil)
+    unpublishing = build(:unpublishing)
+    unpublishing.document_type = nil
+
     refute unpublishing.valid?
   end
 
@@ -58,7 +60,8 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'can be retrieved by slug and document type' do
-    unpublishing = create(:unpublishing, document_type: 'CaseStudy', slug: 'some-slug')
+    case_study = create(:case_study)
+    unpublishing = create(:unpublishing, edition: case_study, slug: 'some-slug')
 
     refute Unpublishing.from_slug('not-a-match','CaseStudy')
     refute Unpublishing.from_slug('some-slug','OtherDocumentType')

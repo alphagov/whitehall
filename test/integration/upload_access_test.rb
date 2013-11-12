@@ -120,7 +120,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows everyone access to attachments of published supporting pages' do
     attachment = create(:file_attachment)
-    create(:published_policy, supporting_pages: [create(:supporting_page, attachments: [attachment])])
+    create(:published_supporting_page, attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -130,7 +130,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'blocks general access to attachments of unpublished supporting pages' do
     attachment = create(:file_attachment)
-    create(:draft_policy, supporting_pages: [create(:supporting_page, attachments: [attachment])])
+    create(:draft_supporting_page, attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -140,7 +140,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows authenticated users access to attachments of unpublished supporting pages' do
     attachment = create(:file_attachment)
-    create(:draft_policy, supporting_pages: [create(:supporting_page, attachments: [attachment])])
+    create(:draft_supporting_page, attachments: [attachment])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))

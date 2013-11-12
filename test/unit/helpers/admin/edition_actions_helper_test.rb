@@ -11,13 +11,6 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     assert (fragment/"input[type=submit]").first["data-confirm"].blank?
   end
 
-  test "should generate publish form for edition with supporting pages alert" do
-    edition = create(:submitted_policy, supporting_pages: [create(:supporting_page)])
-    html = publish_edition_form(edition)
-    fragment = Nokogiri::HTML.fragment(html)
-    assert_equal "Have you checked the 1 supporting pages?", (fragment/"input[type=submit]").first["data-confirm"]
-  end
-
   test "should generate force-publish modal button" do
     edition = create(:submitted_edition, title: "edition-title")
     html = publish_edition_form(edition, force: true)

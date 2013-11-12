@@ -25,7 +25,7 @@ class GDSEditorTest < ActiveSupport::TestCase
     org = 'organisation'
     user = gds_editor
     user.stubs(:organisation).returns(org)
-    edition = limited_edition([org])
+    edition = limited_publication([org])
     assert enforcer_for(user, edition).can?(:see)
   end
 
@@ -34,7 +34,7 @@ class GDSEditorTest < ActiveSupport::TestCase
     org2 = 'organisation_2'
     user = gds_editor
     user.stubs(:organisation).returns(org1)
-    edition = limited_edition([org2])
+    edition = limited_publication([org2])
 
     refute enforcer_for(user, edition).can?(:see)
   end
@@ -44,7 +44,7 @@ class GDSEditorTest < ActiveSupport::TestCase
     org2 = 'organisation_2'
     user = gds_editor
     user.stubs(:organisation).returns(org1)
-    edition = limited_edition([org2])
+    edition = limited_publication([org2])
     enforcer = enforcer_for(user, edition)
 
     Whitehall::Authority::Rules::EditionRules.actions.each do |action|
@@ -104,7 +104,7 @@ class GDSEditorTest < ActiveSupport::TestCase
     user = gds_editor
     user.stubs(:organisation).returns(org1)
     user.stubs(:can_force_publish_anything?).returns(true)
-    edition = limited_edition([org2])
+    edition = limited_publication([org2])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end

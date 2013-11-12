@@ -76,10 +76,11 @@ module Admin::EditionActionsHelper
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     content_tag(:ul, class: "more-nav left js-hidden") do
-      [Policy, Publication, NewsArticle, FatalityNotice,
-        Consultation, Speech, DetailedGuide, WorldwidePriority, CaseStudy,
-        StatisticalDataSet, WorldLocationNewsArticle,
-        DocumentCollection].map do |edition_type|
+      [Consultation, Publication, NewsArticle,
+        Speech, DetailedGuide, DocumentCollection,
+        Policy, SupportingPage, FatalityNotice,
+        WorldwidePriority, CaseStudy, StatisticalDataSet,
+        WorldLocationNewsArticle].map do |edition_type|
         content_tag(:li) do
           link_to edition_type.model_name.human, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
         end if can?(:create, edition_type)
@@ -128,22 +129,12 @@ module Admin::EditionActionsHelper
   def publish_edition_alerts(edition, force)
     alerts = []
     alerts << "Are you sure you want to force publish this document?" if force
-    alerts += supporting_pages_alerts(edition)
     alerts.join(" ")
   end
 
   def schedule_edition_alerts(edition, force)
     alerts = []
     alerts << "Are you sure you want to force schedule this document for publication?" if force
-    alerts += supporting_pages_alerts(edition)
     alerts.join(" ")
-  end
-
-  def supporting_pages_alerts(edition)
-    if edition.has_supporting_pages?
-      ["Have you checked the #{edition.supporting_pages.count} supporting pages?"]
-    else
-      []
-    end
   end
 end

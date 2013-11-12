@@ -2,12 +2,17 @@
 class Publicationesque < Edition
   include Edition::RelatedPolicies
   include Edition::HasDocumentCollections
+  include Edition::Organisations
   include Edition::Topics
   include Edition::WorldwidePriorities
   include ::Attachable
 
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
+  end
+
+  def self.published_with_eager_loading(ids)
+    self.published.with_translations.includes([:document, organisations: :translations]).where(id: ids)
   end
 
   def presenter

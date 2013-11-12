@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :detailed_guide, class: DetailedGuide, parent: :edition do
+  factory :detailed_guide, class: DetailedGuide, parent: :edition_with_organisations do
     title "detailed-guide-title"
     body  "detailed-guide-body"
     primary_mainstream_category { FactoryGirl.build(:mainstream_category) }

@@ -8,12 +8,7 @@
                     heading: document.title,
                     extra: true } %>
 
-<% if document.archived? %>
-  <div class="status-block archive-notice">
-    <h2>This <%= header_title.downcase %> was archived on <%= document.updated_at.to_date.to_s(:long_ordinal) %></h2>
-    <%=govspeak_to_html document.unpublishing.explanation unless document.unpublishing.explanation.blank? %>
-  </div>
-<% end %>
+<%= render 'documents/archive_notice', document: document, type: header_title if document.archived? %>
 
 <div class="heading-extra">
   <div class="inner-heading">

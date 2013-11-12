@@ -1,0 +1,12 @@
+<fieldset>
+  <%= form.label :related_policy_ids, "Parent policy" %>
+  <p class="help-block">Choose which policy this page will appear on. (You
+  should rarely choose more than one policy).</p>
+
+  <%= form.select :related_policy_ids,
+                  options_from_related_policy_options_for_select(related_policy_options, form.object),
+                  { include_blank: true },
+                  multiple: true,
+                  class: "chzn-select",
+                  data: { placeholder: "Choose related policies..."} %>
+</fieldset>

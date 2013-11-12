@@ -10,8 +10,7 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
       title:   'edition-title',
       body:    'edition-body',
       summary: 'edition-summary',
-      creator: build(:user),
-      lead_organisation_ids: [create(:organisation).id]
+      creator: build(:user)
     }
   end
 

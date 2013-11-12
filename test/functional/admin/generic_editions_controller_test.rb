@@ -8,7 +8,7 @@ class Admin::GenericEditionsControllerTest < ActionController::TestCase
   end
 
   test "POST :create redirects to edit page when 'Save and continue editing' button clicked" do
-    params = attributes_for(:edition).merge(lead_organisation_ids: [create(:organisation).id])
+    params = attributes_for(:edition)
     assert_difference 'GenericEdition.count' do
       post :create, edition: params, save_and_continue: 'Save and continue editing'
     end

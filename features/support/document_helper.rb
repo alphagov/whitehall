@@ -1,4 +1,4 @@
-THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set) "([^"]*)"/) do |document_type, title|
+THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set|supporting page) "([^"]*)"/) do |document_type, title|
   document_class(document_type).latest_edition.find_by_title!(title)
 end
 
@@ -43,7 +43,7 @@ module DocumentHelper
   end
 
   def begin_drafting_policy(options)
-    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary", alternative_format_provider: create(:alternative_format_provider)))
+    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary"))
   end
 
   def begin_editing_document(title)

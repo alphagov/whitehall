@@ -103,18 +103,6 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       target << [attachment_source.url, attachment_url, status, '', '', '', 'Closed'] if attachment_url.present?
     end
 
-    SupportingPage.find_each do |page|
-      next unless page.edition.present?
-      target << row(
-        url_maker.policy_supporting_page_url(page.edition.document, page, host: host_name),
-        url_maker.admin_supporting_page_url(page, host: admin_host)
-      )
-      target << row(
-        url_maker.policy_supporting_page_url(page.edition.document, page, host: host_name),
-        url_maker.edit_admin_supporting_page_url(page, host: admin_host)
-      )
-    end
-
     Person.find_each do |person|
       target << row(
         url_maker.person_url(person, host: host_name),

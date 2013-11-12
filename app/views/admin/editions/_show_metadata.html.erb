@@ -6,8 +6,10 @@
     <dd><%= edition_type(@edition) %></dd>
     <dt>Status:</dt>
     <dd><%= @edition.state.capitalize %></dd>
-    <dt>Organisations:</dt>
-    <dd><%= @edition.organisations.map { |o| o.name }.join(", ") %></dd>
+    <% if @edition.respond_to?(:organisations) %>
+      <dt>Organisations:</dt>
+      <dd><%= @edition.organisations.map { |o| o.name }.join(", ") %></dd>
+    <% end %>
   </dl>
   <% if @edition.non_english_edition? %>
     <p><em>(This document is <%=@edition.primary_language_name %>-only)</em></p>
@@ -17,19 +19,7 @@
 <%= render partial: "rejected_by", locals: { edition: @edition } %>
 <%= render partial: 'alerts', locals: {edition: @edition}  %>
 
-<section class="edition-view-edit-buttons">
-  <% if @edition.published? || @edition.archived? %>
-    <%= link_to "View on website", public_document_url(@edition), class: 'btn btn-large btn-primary public_version', target: '_blank' %>
-  <% else %>
-    <%= link_to "Preview on website", preview_document_path(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
-  <% end %>
-
-  <% if @edition.editable? %>
-    <%= edit_edition_button(@edition) %>
-  <% elsif @edition.is_latest_edition? and @edition.published? %>
-    <%= redraft_edition_button(@edition) %>
-  <% end %>
-</section>
+<%= render 'edition_view_edit_buttons' %>
 
 <% if @edition.change_note_required? %>
   <section>
@@ -45,33 +35,31 @@
     </p>
   </section>
 <% end %>
+
+<%= render_partial_if_exists 'extra_metadata' %>
+
 <% if @edition.allows_supporting_pages? %>
   <section>
     <h2>Supporting pages
-      <% if @edition.editable? %>
-        <span class="add_supporting_page pull-right">
-          <%= link_to new_admin_edition_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
-          <i class="icon-plus-sign"></i> Add supporting page
-        <% end %>
-        </span>
+      <span class="add_supporting_page pull-right">
+        <%= link_to admin_new_policy_supporting_page_path(@edition), title: "Add supporting page to #{@edition.title}", class: "btn" do %>
+        <i class="icon-plus-sign"></i> Add supporting page
       <% end %>
+      </span>
     </h2>
 
-    <aside>
-      <h3>Use this format for…</h3>
-      <p><%= t('publishing.format_advice.policy_supporting_page.intended_use') %></p>
-    </aside>
-
-    <% if @edition.supporting_pages.any? %>
+    <% if @edition.has_active_supporting_pages? %>
       <table class="table">
-        <% @edition.supporting_pages.each do |supporting_page| %>
+        <% @edition.active_supporting_pages.each do |supporting_page| %>
           <tr>
             <td>
-              <%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %>
+              <%= link_to supporting_page.title, admin_edition_path(supporting_page) %>
             </td>
           </tr>
         <% end %>
       </table>
+    <% else %>
+      <p><em>No supporting pages added.</em></p>
     <% end %>
   </section>
 <% end %>

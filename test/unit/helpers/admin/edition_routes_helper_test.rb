@@ -23,11 +23,6 @@ class Admin::EditionRoutesHelperTest < ActionView::TestCase
     end
   end
 
-  test 'supporting_pages path helper generates a generic path regardless of edition subtype' do
-    n = FactoryGirl.create(:news_article)
-    assert_equal "/government/admin/editions/#{n.id}/supporting-pages", admin_news_article_supporting_pages_path(n)
-  end
-
   test 'generates editorial_remarks path helpers for each edition subtype' do
     Admin::EditionRoutesHelper::EDITION_TYPES.each do |edition_type|
       assert Admin::EditionRoutesHelper.instance_methods(false).include?(:"admin_#{edition_type.name.underscore}_editorial_remarks_path"), "expected admin_#{edition_type.name.underscore}_editorial_remarks_path to be a method on Admin::EditionRoutesHelper, but it's not"

@@ -1,5 +1,6 @@
 class WorldwidePriority < Edition
   include Edition::Images
+  include Edition::Organisations
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
 

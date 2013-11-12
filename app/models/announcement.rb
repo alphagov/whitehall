@@ -1,6 +1,7 @@
 # @abstract
 class Announcement < Edition
   include Edition::Images
+  include Edition::Organisations
   include Edition::RelatedPolicies
   include Edition::WorldLocations
   include Edition::TopicalEvents
@@ -9,6 +10,10 @@ class Announcement < Edition
 
   def self.sti_names
     ([self] + descendants).map { |model| model.sti_name }
+  end
+
+  def self.published_with_eager_loading(ids)
+    self.published.with_translations.includes([:document, organisations: :translations]).where(id: ids)
   end
 
   def search_format_types

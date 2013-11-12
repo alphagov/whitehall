@@ -1,0 +1,4 @@
+<div class="status-block archive-notice">
+  <h2>This <%= type.downcase %> was archived on <%= document.updated_at.to_date.to_s(:long_ordinal) %></h2>
+  <%= govspeak_to_html document.unpublishing.explanation unless document.unpublishing.explanation.blank? %>
+</div>

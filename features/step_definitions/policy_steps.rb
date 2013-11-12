@@ -37,13 +37,6 @@ Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_
   create(:published_policy, title: policy_title_2)
 end
 
-Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)" with supporting page "([^"]*)"$/ do |email, title, supporting_page_title|
-  policy = create(:draft_policy, title: title)
-  supporting_page = create(:supporting_page, edition: policy, title: supporting_page_title)
-  fact_check_request = create(:fact_check_request, edition: policy, email_address: email)
-  Notifications.fact_check_request(fact_check_request, host: "example.com").deliver
-end
-
 Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)"$/ do |editor_name, policy_title|
   editor = create(:departmental_editor, name: editor_name)
   policy = create(:submitted_policy, title: policy_title)
@@ -241,12 +234,6 @@ Then /^they should see the draft policy "([^"]*)"$/ do |title|
   policy = Policy.draft.find_by_title!(title)
   assert page.has_css?('.document .title', text: policy.title)
   assert page.has_css?('.document .body', text: policy.body)
-end
-
-Then /^they should see the supporting page "([^"]*)"$/ do |title|
-  supporting_page = SupportingPage.find_by_title!(title)
-  assert page.has_css?("#{supporting_pages_selector} .document .title", text: supporting_page.title)
-  assert page.has_css?("#{supporting_pages_selector} .document .body", text: supporting_page.body)
 end
 
 Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"$/ do |policy_title_1, policy_title_2|

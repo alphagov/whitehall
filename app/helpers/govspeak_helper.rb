@@ -170,28 +170,44 @@ module GovspeakHelper
     end
   end
 
-  def replace_internal_admin_links_in(nokogiri_doc)
+  def replace_internal_admin_links_in(nokogiri_doc, &block)
     nokogiri_doc.search('a').each do |anchor|
       next unless DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(anchor['href'])
 
-      path = anchor['href']
-
-      edition, supporting_page = find_edition_and_supporting_page_from_absolute_path(path)
-      replacement_html = replacement_html_for(anchor, edition, supporting_page)
-      replacement_html = yield(replacement_html, edition) if block_given?
-
+      replacement_html = replacement_html_for_admin_link(anchor, &block)
       anchor.replace Nokogiri::HTML.fragment(replacement_html)
     end
   end
 
-  def replacement_html_for(anchor, edition, supporting_page)
-    if edition.present? && edition.linkable?
+  def replacement_html_for_admin_link(anchor, &block)
+    path = anchor['href']
+    edition_path_pattern = Whitehall.edition_route_path_segments.join('|')
+    if path[%r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
+      policy = Policy.send(:with_exclusive_scope) { Policy.find_by_id($1) }
+      supporting_page = EditionedSupportingPageMapping.find_by_old_supporting_page_id($2).try(:new_supporting_page)
+      replacement_html_for_edition_link(anchor, supporting_page, policy_id: policy.document, &block)
+    elsif path[%r{/admin/(?:#{edition_path_pattern})/(\d+)$}]
+      edition = Edition.send(:with_exclusive_scope) { Edition.find_by_id($1) }
+      replacement_html_for_edition_link(anchor, edition, &block)
+    else
+      replacement_html_for_bad_link(anchor, &block)
+    end
+  end
+
+  def replacement_html_for_edition_link(anchor, edition, options = {})
+    new_html = if edition.present? && edition.linkable?
       anchor.dup.tap do |anchor|
-        anchor['href'] = rewritten_href_for_edition(edition, supporting_page)
+        anchor['href'] = public_document_url(edition, options)
       end.to_html.html_safe
     else
       anchor.inner_text
     end
+
+    block_given? ? yield(new_html, edition) : new_html
+  end
+
+  def replacement_html_for_bad_link(anchor)
+    block_given? ? yield(anchor.inner_text, nil) : anchor.inner_text
   end
 
   def add_class_to_last_blockquote_paragraph(nokogiri_doc)
@@ -253,27 +269,6 @@ module GovspeakHelper
   def edition_body_with_attachments_and_alt_format_information(edition)
     attachments = edition.allows_attachments? ? edition.attachments : []
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
-  end
-
-  def find_edition_and_supporting_page_from_absolute_path(path)
-    edition_path_pattern = Whitehall.edition_route_path_segments.join("|")
-    edition_id, supporting_page_id = nil
-    if path[%r{^#{Whitehall.router_prefix}/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
-      edition_id, supporting_page_id = $1, $2
-    elsif path[%r{^#{Whitehall.router_prefix}/admin/(?:#{edition_path_pattern})/(\d+)$}]
-      edition_id = $1
-    end
-    edition = edition_id && Edition.send(:with_exclusive_scope) { Edition.where(id: edition_id).first }
-    supporting_page = supporting_page_id && edition && edition.supporting_pages.where(id: supporting_page_id).first
-    [edition, supporting_page]
-  end
-
-  def rewritten_href_for_edition(edition, supporting_page)
-    if supporting_page
-      public_supporting_page_url(edition, supporting_page)
-    else
-      public_document_url(edition)
-    end
   end
 
   def normalise_host(host)

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :publication, class: Publication, parent: :edition do
+  factory :publication, class: Publication, parent: :edition_with_organisations do
     sequence(:title) { |index| "publication-title-#{index}" }
     body  "publication-body"
     summary "publication-summary"

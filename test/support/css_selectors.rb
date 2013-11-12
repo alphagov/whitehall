@@ -25,10 +25,6 @@ module CssSelectors
     "#ministers_responsible"
   end
 
-  def supporting_pages_selector
-    "#supporting_pages"
-  end
-
   def metadata_nav_selector
     ".meta"
   end

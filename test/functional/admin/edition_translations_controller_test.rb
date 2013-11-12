@@ -132,7 +132,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
   end
 
   test "should limit access to translations of editions that aren't accessible to the current user" do
-    protected_edition = create(:protected_edition)
+    protected_edition = create(:draft_publication, :access_limited)
 
     post :create, edition_id: protected_edition.id, id: "en"
     assert_response :forbidden

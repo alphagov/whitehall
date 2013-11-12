@@ -1,7 +1,7 @@
 <fieldset>
   <%= form.label :related_policy_ids, 'Related policies' %>
   <%= form.select :related_policy_ids,
-                  options_from_collection_for_select(related_policy_options, :first, :last, form.object.related_policy_ids),
+                  options_from_related_policy_options_for_select(related_policy_options, form.object),
                   { include_blank: true },
                   multiple: true,
                   class: 'chzn-select',

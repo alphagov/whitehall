@@ -4,6 +4,7 @@ class CaseStudy < Edition
   include Edition::FactCheckable
   include Edition::FirstImagePulledOut
   include Edition::HasDocumentCollections
+  include Edition::Organisations
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
   include Edition::WorldwidePriorities

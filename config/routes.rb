@@ -125,7 +125,6 @@ Whitehall::Application.routes.draw do
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true
-    # match "world/organisations" => 'worldwide_organisations#index', as: :worldwide_organisations
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
@@ -240,7 +239,6 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
             get :audit_trail, to: 'edition_audit_trail#index'
           end
-          resources :supporting_pages, path: "supporting-pages", except: [:index, :show]
           resources :translations, controller: "edition_translations", except: [:index, :show]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true
@@ -256,6 +254,7 @@ Whitehall::Application.routes.draw do
 
         # Ensure that supporting page routes are just ids in admin
         get "/editions/:edition_id/supporting-pages/:id" => "supporting_pages#show", constraints: {id: /[0-9]+/}
+        get '/editions/:policy_id/supporting-pages/new', constraints: {id: /(\d+)/}, to: redirect("/admin/supporting-pages/new?edition[related_policy_ids]=%{policy_id}"), as: 'new_policy_supporting_page'
 
         get "/editions/:id" => "editions#show"
 
@@ -266,6 +265,7 @@ Whitehall::Application.routes.draw do
         resources :policies, except: [:index] do
           member { get :topics }
         end
+        resources :supporting_pages, path: "supporting-pages", except: [:index]
         resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :world_location_news_articles, path: 'world-location-news', except: [:index]

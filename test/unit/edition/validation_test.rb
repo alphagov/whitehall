@@ -48,30 +48,30 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid when it has no organisations" do
-    edition = build(:edition, create_default_organisation: false, lead_organisations: [], supporting_organisations: [])
+    edition = build(:publication, create_default_organisation: false, lead_organisations: [], supporting_organisations: [])
     refute edition.valid?
   end
 
   test "should be invalid when it has only supporting organisations" do
-    edition = build(:edition, create_default_organisation: false, lead_organisations: [], supporting_organisations: [build(:organisation)])
+    edition = build(:publication, create_default_organisation: false, lead_organisations: [], supporting_organisations: [build(:organisation)])
     refute edition.valid?
   end
 
   test "should be valid when it has a lead organisation, but no supporting organisation" do
-    edition = build(:edition, create_default_organisation: false, lead_organisations: [build(:organisation)], supporting_organisations: [])
+    edition = build(:publication, create_default_organisation: false, lead_organisations: [build(:organisation)], supporting_organisations: [])
     assert edition.valid?
   end
 
   test 'should be invalid when it duplicates lead organisations on create' do
     o1 = create(:organisation)
-    edition = build(:edition, create_default_organisation: false,
+    edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [o1, o1])
     refute edition.valid?
   end
 
   test 'should be invalid when it duplicates lead organisations on save' do
     o1 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [o1])
     edition.lead_organisations = [o1, o1]
     refute edition.valid?
@@ -79,7 +79,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test 'should be invalid when it duplicates organisations via lead and supporting on create' do
     o1 = create(:organisation)
-    edition = build(:edition, create_default_organisation: false,
+    edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [o1],
                               supporting_organisations: [o1])
     refute edition.valid?
@@ -87,7 +87,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test 'should be invalid when it duplicates organisations via lead and supporting on save' do
     o1 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [o1])
     edition.lead_organisations = [o1]
     edition.supporting_organisations = [o1]
@@ -96,7 +96,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test 'should be invalid when it duplicates organisations via edition organisations directly on create' do
     o1 = create(:organisation)
-    edition = build(:edition, create_default_organisation: false,
+    edition = build(:publication, create_default_organisation: false,
                               edition_organisations: [build(:edition_organisation, organisation: o1, lead: true),
                                                       build(:edition_organisation, organisation: o1, lead: false)])
     refute edition.valid?
@@ -104,7 +104,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
 
   test 'should be invalid when it duplicates organisations via edition organisations directly on save' do
     o1 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                edition_organisations: [build(:edition_organisation, organisation: o1, lead: true)])
     edition.edition_organisations.build(organisation: o1, lead: false)
     refute edition.valid?
@@ -113,7 +113,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test 'should be invalid when it duplicates support organisations on create' do
     o1 = create(:organisation)
     o2 = create(:organisation)
-    edition = build(:edition, create_default_organisation: false,
+    edition = build(:publication, create_default_organisation: false,
                               lead_organisations: [o1],
                               supporting_organisations: [o2, o2])
     refute edition.valid?
@@ -122,7 +122,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test 'should be invalid when it duplicates support organisations on save' do
     o1 = create(:organisation)
     o2 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [o1],
                                supporting_organisations: [o2])
     edition.supporting_organisations = [o2, o2]
@@ -132,7 +132,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test 'should be valid when it swaps a lead and support organisation on save' do
     o1 = create(:organisation)
     o2 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [o1],
                                supporting_organisations: [o2])
     edition.lead_organisations = [o2]
@@ -143,7 +143,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test 'should be valid when it removes one lead and replaces it with the other on save' do
     o1 = create(:organisation)
     o2 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [o1, o2],
                                supporting_organisations: [])
     edition.lead_organisations = [o2]
@@ -153,7 +153,7 @@ class Edition::ValidationTest < ActiveSupport::TestCase
   test 'should be valid when it removes a lead to make it supporting, and swaps the other lead\'s position on save' do
     o1 = create(:organisation)
     o2 = create(:organisation)
-    edition = create(:edition, create_default_organisation: false,
+    edition = create(:publication, create_default_organisation: false,
                                lead_organisations: [o1, o2],
                                supporting_organisations: [],
                                organisations: [])

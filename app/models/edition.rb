@@ -9,12 +9,14 @@ class Edition < ActiveRecord::Base
   include Edition::Identifiable
   include Edition::LimitedAccess
   include Edition::Workflow
-  include Edition::Organisations
   include Edition::Publishing
   include Edition::ScheduledPublishing
   include Edition::AuditTrail
   include Edition::ActiveEditors
   include Edition::Translatable
+
+  # This mixin should go away when we switch to a search backend for admin documents
+  extend Edition::FindableByOrganisation
 
   include Searchable
 
@@ -32,7 +34,7 @@ class Edition < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
-  validates :summary, presence: true
+  validates :summary, presence: true, if: :summary_required?
   validates :first_published_at, recent_date: true, allow_blank: true
 
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
@@ -261,7 +263,7 @@ class Edition < ActiveRecord::Base
     section: :section,
     subsection: :subsection,
     subsubsection: :subsubsection,
-    organisations: -> d { d.organisations.map(&:slug) },
+    organisations: nil,
     people: nil,
     display_type: :display_type,
     public_timestamp: :public_timestamp,
@@ -346,6 +348,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def can_be_related_to_organisations?
+    false
+  end
+
   def can_be_associated_with_mainstream_categories?
     false
   end
@@ -367,10 +373,6 @@ class Edition < ActiveRecord::Base
   end
 
   def allows_supporting_pages?
-    false
-  end
-
-  def has_supporting_pages?
     false
   end
 
@@ -574,6 +576,10 @@ private
   end
 
   def body_required?
+    true
+  end
+
+  def summary_required?
     true
   end
 end

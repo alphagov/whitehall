@@ -11,14 +11,16 @@
     <% end %>
   </article>
 
-  <section>
-    <h1>Organisations</h1>
-    <% if edition.organisations.any? %>
-      <%= render partial: "admin/organisations/organisations_name_list", locals: {organisations: edition.sorted_organisations} %>
-    <% else %>
-      <p>This document isn't assigned to any organisations.</p>
-    <% end %>
-  </section>
+  <% if edition.can_be_related_to_organisations? %>
+    <section>
+      <h1>Organisations</h1>
+      <% if edition.organisations.any? %>
+        <%= render partial: "admin/organisations/organisations_name_list", locals: {organisations: edition.sorted_organisations} %>
+      <% else %>
+        <p>This document isn't assigned to any organisations.</p>
+      <% end %>
+    </section>
+  <% end %>
 
   <% if edition.can_be_related_to_policies? %>
     <section>

@@ -1,7 +1,3 @@
-<%
-  alternative_format_required ||= false
-%>
-
 <% if edition.can_be_related_to_organisations? %>
   <fieldset class="named">
     <div class="row-fluid">
@@ -18,5 +14,4 @@
       </fieldset>
     </div>
   </fieldset>
-  <%= form.alternative_format_provider_select(alternative_format_required) %>
 <% end %>

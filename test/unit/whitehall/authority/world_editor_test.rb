@@ -29,7 +29,7 @@ class WorldEditorTest < ActiveSupport::TestCase
     org = 'organisation'
     user = world_editor(['hat land', 'tie land'])
     user.stubs(:organisation).returns(org)
-    edition = with_locations(limited_edition([org]), ['shirt land', 'hat land'])
+    edition = with_locations(limited_publication([org]), ['shirt land', 'hat land'])
     assert enforcer_for(user, edition).can?(:see)
   end
 
@@ -38,7 +38,7 @@ class WorldEditorTest < ActiveSupport::TestCase
     org2 = 'organisation_2'
     user = world_editor(['hat land', 'tie land'])
     user.stubs(:organisation).returns(org1)
-    edition = with_locations(limited_edition([org2]), ['shirt land', 'hat land'])
+    edition = with_locations(limited_publication([org2]), ['shirt land', 'hat land'])
 
     refute enforcer_for(user, edition).can?(:see)
   end
@@ -133,7 +133,7 @@ class WorldEditorTest < ActiveSupport::TestCase
     user = world_editor(['hat land', 'tie land'])
     user.stubs(:organisation).returns(org1)
     user.stubs(:can_force_publish_anything?).returns(true)
-    edition = with_locations(limited_edition([org2]), ['shirt land', 'hat land'])
+    edition = with_locations(limited_publication([org2]), ['shirt land', 'hat land'])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end
@@ -144,7 +144,7 @@ class WorldEditorTest < ActiveSupport::TestCase
     user = world_editor(['hat land', 'tie land'])
     user.stubs(:organisation).returns(org1)
     user.stubs(:can_force_publish_anything?).returns(true)
-    edition = with_locations(limited_edition([org2]), ['shirt land'])
+    edition = with_locations(limited_publication([org2]), ['shirt land'])
 
     assert enforcer_for(user, edition).can?(:force_publish)
   end

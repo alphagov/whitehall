@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :case_study, class: CaseStudy, parent: :edition do
+  factory :case_study, class: CaseStudy, parent: :edition_with_organisations do
     title "case-study-title"
     summary "case-study-summary"
     body  "case-study-body"

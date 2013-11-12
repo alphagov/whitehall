@@ -70,6 +70,28 @@ class GovspeakHelperTest < ActionView::TestCase
     refute_select_within_html html, "a[rel='external']", text: "that"
   end
 
+  test "should rewrite admin links for editions" do
+    speech = create(:published_speech)
+    admin_path = admin_speech_path(speech)
+    public_url = public_document_url(speech)
+
+    govspeak = "this and [that](#{admin_path}) yeah?"
+    html = govspeak_to_html(govspeak)
+    assert_select_within_html html, "a[href='#{public_url}']", text: "that"
+  end
+
+  test "should rewrite old style admin links for supporting pages" do
+    policy = create(:published_policy)
+    supporting_page = create(:published_supporting_page, related_policies: [policy])
+    EditionedSupportingPageMapping.create(old_supporting_page_id: 654321, new_supporting_page_id: supporting_page.id)
+    admin_path = "/government/admin/editions/#{policy.id}/supporting-pages/654321"
+    public_url = policy_supporting_page_url(policy.document, supporting_page.document)
+
+    govspeak = "this and [that](#{admin_path}) yeah?"
+    html = govspeak_to_html(govspeak)
+    assert_select_within_html html, "a[href='#{public_url}']", text: "that"
+  end
+
   test "should allow attached images to be embedded in public html" do
     images = [OpenStruct.new(alt_text: "My Alt", url: "http://example.com/image.jpg")]
     html = govspeak_to_html("!!1", images)

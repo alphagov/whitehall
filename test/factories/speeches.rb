@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :speech, class: Speech, parent: :edition do
+  factory :speech, class: Speech, parent: :edition_with_organisations do
     title "speech-title"
     body  "speech-body"
     association :role_appointment, factory: :ministerial_role_appointment

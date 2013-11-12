@@ -60,16 +60,6 @@ Old Url,New Url,Status,Slug,Admin Url,State
       EOT
     end
 
-    test "extracts supporting pages to csv" do
-      supporting_page = create(:supporting_page)
-      edition = supporting_page.edition
-      assert_extraction_contains <<-EOT
-"",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug},418,#{edition.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/policies/#{edition.id},draft
-"",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug}/supporting-pages/#{supporting_page.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/editions/#{supporting_page.edition_id}/supporting-pages/#{supporting_page.id},""
-"",https://www.preview.alphagov.co.uk/government/policies/#{edition.slug}/supporting-pages/#{supporting_page.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/editions/#{supporting_page.edition_id}/supporting-pages/#{supporting_page.id}/edit,""
-      EOT
-    end
-
     test "exports multiple document sources" do
       article = create(:news_article)
       source_1 = create(:document_source, document: article.document)
@@ -104,9 +94,8 @@ Old Url,New Url,Status,Slug,Admin Url,State
     test "exports with 301 to the original slug of an unpublished edition" do
       publication = create(:published_publication)
       old_slug = publication.document.slug
-      publication.unpublishing = create(:unpublishing)
+      unpublishing = publication.unpublishing = create(:unpublishing)
       Whitehall.edition_services.unpublisher(publication).perform!
-      unpublishing = publication.create_unpublishing!(attributes_for(:unpublishing))
       publication.title = "This is a new title"
       publication.save!
       refute_equal old_slug, publication.document.slug

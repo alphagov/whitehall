@@ -1,0 +1,14 @@
+<section>
+  <h2>Policies</h2>
+  <% if @edition.related_policies.any? %>
+    <table class="table">
+      <% @edition.related_policies.each do |policy| %>
+        <tr>
+          <td><%= link_to policy.title, admin_policy_path(policy) %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p><em>No related policies.</em></p>
+  <% end %>
+</section>

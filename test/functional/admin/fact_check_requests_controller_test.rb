@@ -100,24 +100,6 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     refute_select "#fact_check_request_instructions"
   end
 
-  view_test "should not display the supporting pages section" do
-    policy = create(:policy, supporting_pages: [])
-    fact_check_request = create(:fact_check_request, edition: policy)
-
-    get :edit, id: fact_check_request
-
-    refute_select supporting_pages_selector
-  end
-
-  view_test "should display the supporting pages section" do
-    policy = create(:policy, supporting_pages: [create(:supporting_page, title: "Blah!")])
-    fact_check_request = create(:fact_check_request, edition: policy)
-
-    get :edit, id: fact_check_request
-
-    assert_select "#{supporting_pages_selector} .title", "Blah!"
-  end
-
   test "save the fact checkers comment" do
     fact_check_request = create(:fact_check_request)
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
@@ -196,7 +178,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   test "should prevent creation of a fact check request if edition is not accessible to the current user" do
-    protected_edition = create(:protected_edition)
+    protected_edition = create(:draft_publication, :access_limited)
     post :create, edition_id: protected_edition.id, fact_check_request: @attributes
 
     assert_response :forbidden

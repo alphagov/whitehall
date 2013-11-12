@@ -3,7 +3,7 @@ require "test_helper"
 class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should return search index suitable for Rummageable" do
-    edition = create(:published_edition, title: "edition-title", organisations: [create(:organisation)])
+    edition = create(:published_edition, title: "edition-title")
 
     assert_equal "edition-title", edition.search_index["title"]
     assert_equal routes_helper.public_document_path(edition), edition.search_index["link"]
@@ -11,7 +11,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal "generic_edition", edition.search_index["format"]
     assert_equal edition.summary, edition.search_index["description"]
     assert_equal edition.id, edition.search_index["id"]
-    assert_equal edition.organisations.map(&:slug), edition.search_index["organisations"]
+    assert_equal nil, edition.search_index["organisations"]
     assert_equal nil, edition.search_index["people"]
     assert_equal nil, edition.search_index["publication_type"]
     assert_equal nil, edition.search_index["speech_type"]

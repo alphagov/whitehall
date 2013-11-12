@@ -1,12 +1,15 @@
-<%= form_for supporting_page, url: supporting_page.persisted? ? admin_edition_supporting_page_path(@edition, supporting_page.id) : admin_edition_supporting_pages_path(@edition), as: disabled ? :disabled_supporting_page : :supporting_page do |form| %>
-  <%= form.errors %>
-  <%= form.hidden_field :lock_version %>
-  <%= form.text_field :title, disabled: disabled %>
-  <%= form.text_area :body, disabled: disabled, class: disabled ? "" : "previewable" %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <%= render partial: "admin/shared/attachment_fields", locals: { form: form, edition: supporting_page, parent_type: :supporting_page } %>
+    <div class="js-external-url-set">
+      <%= render 'inline_attachments_info', form: form, edition: edition %>
+    </div>
 
-  <% unless disabled %>
-    <%= form.save_or_cancel cancel: (supporting_page.new_record? ? admin_edition_path(@edition) : admin_supporting_page_path(supporting_page))%>
+    <fieldset>
+      <legend>Associations</legend>
+      <%= render 'related_policy_fields', form: form, edition: edition %>
+    </fieldset>
+
+    <%= render 'first_published_at', form: form, edition: edition %>
   <% end %>
 <% end %>

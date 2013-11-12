@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :fatality_notice, class: FatalityNotice, parent: :edition do
+  factory :fatality_notice, class: FatalityNotice, parent: :edition_with_organisations do
     title "fatality-title"
     summary "fatality-summary"
     body  "fatality-body"

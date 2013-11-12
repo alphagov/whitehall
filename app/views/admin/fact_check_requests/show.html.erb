@@ -4,13 +4,6 @@
   <section class="document_page" id="<%= dom_id(@edition) %>">
     <%= render partial: 'admin/editions/edition', locals: { edition: @edition } %>
   </section>
-
-  <% if @edition.has_supporting_pages? %>
-    <section id="supporting_pages">
-      <h1>Supporting pages</h1>
-      <%= render partial: "admin/supporting_pages/supporting_page", collection: @edition.supporting_pages %>
-    </section>
-  <% end %>
 </div>
 
 <div class="span4">

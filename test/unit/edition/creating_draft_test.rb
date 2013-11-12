@@ -88,20 +88,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal [country], draft_policy.world_locations
   end
 
-  test "should build a draft copy with copies of supporting pages" do
-    published_policy = create(:published_policy)
-    supporting_page = create(:supporting_page, edition: published_policy)
-    draft_policy = published_policy.create_draft(create(:policy_writer))
-    draft_policy.change_note = 'change-note'
-
-    assert draft_policy.valid?
-
-    assert new_supporting_page = draft_policy.supporting_pages.last
-    refute_equal supporting_page, new_supporting_page
-    assert_equal supporting_page.title, new_supporting_page.title
-    assert_equal supporting_page.body, new_supporting_page.body
-  end
-
   test "should build a draft copy with copies of consultation participation" do
     consultation_participation = create(:consultation_participation, link_url: "http://link.com")
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)

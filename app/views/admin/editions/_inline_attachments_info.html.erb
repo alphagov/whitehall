@@ -1,17 +1,15 @@
-<% if edition.new_record? %>
-  <fieldset id="edition_attachment_fields" class="attachments">
-    <legend>Attachments</legend>
-
+<%
+  alternative_format_required = false unless defined?(:alternative_format_required)
+%>
+<fieldset id="edition_attachment_fields" class="attachments">
+  <legend>Attachments</legend>
+  <% if edition.new_record? %>
     <p>
       If you'd like to add an attachment to this document, please save
       it first. You'll then find a new tab at the top of the page that you
       can use to upload, edit and delete attachments.
     </p>
-  </fieldset>
-<% elsif edition.allows_inline_attachments? %>
-  <fieldset id="edition_attachment_fields" class="attachments">
-    <legend>Attachments</legend>
-
+  <% elsif edition.allows_inline_attachments? %>
     <% if edition.attachments.any? %>
       <p>
         You can insert an attachment into your document by entering the
@@ -28,5 +26,7 @@
     <% else %>
       <p>No attachments</p>
     <% end %>
-  </fieldset>
-<% end %>
+  <% end %>
+
+  <%= form.alternative_format_provider_select(alternative_format_required, current_user.organisation) %>
+</fieldset>

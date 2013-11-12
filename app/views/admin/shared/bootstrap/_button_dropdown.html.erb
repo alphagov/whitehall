@@ -1,0 +1,16 @@
+<% if links.count > 1 %>
+  <div class='btn-group button-dropdown'>
+    <button type='button' class='btn btn-large btn-primary dropdown-toggle' data-toggle='dropdown'>
+      <%= button_text %>
+      <span class='caret'></span>
+    </button>
+    <ul class='dropdown-menu' role='menu'>
+      <% links.each do |href, link_text| %>
+        <li><%= link_to link_text, href, target: '_blank' %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <% href, _ = links.first %>
+  <%= link_to button_text, href, class: 'btn btn-large btn-primary', target: '_blank' %>
+<% end %>

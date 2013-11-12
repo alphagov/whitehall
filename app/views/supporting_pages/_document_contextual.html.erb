@@ -1,13 +1,12 @@
 <section class="contextual-info supporting_pages">
-  <% if (supporting_pages = @policy.supporting_pages).any? %>
+  <% if @policy.has_published_supporting_pages? %>
     <nav role="navigation" class="supporting-pages">
       <a href="#contents" class="js-showhide contents-toggle">Show all detail pages</a>
       <ul id="contents">
-        <% supporting_pages.each do |supporting_page| %>
-          <% options = supporting_page == @supporting_page ? {class: "active"} : {} %>
+        <% @policy.published_supporting_pages.each do |supporting_page| %>
+          <% options = {class: "active"} if supporting_page == @supporting_page %>
           <%= content_tag :li, options do %>
-            <%= link_to_with_current(supporting_page.title,
-                policy_supporting_page_path(@policy.document, supporting_page)) %>
+            <%= link_to supporting_page.title, public_document_path(supporting_page, policy_id: @policy.document) %>
           <% end %>
         <% end %>
       </ul>
