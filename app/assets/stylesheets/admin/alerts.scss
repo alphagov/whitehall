@@ -48,6 +48,12 @@ $orange: #f47738;
 }
 
 .alert {
+  color: red;
+
+  li {
+    font-weight: bold;
+  }
+
   p:last-child,
   form:last-child {
     margin-bottom: 0;
