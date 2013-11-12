@@ -36,6 +36,8 @@ module Whitehall::Authority::Rules
         return true
       elsif !can_see?
         return false
+      elsif action == :unpublish && actor.managing_editor?
+        return true
       else
         if actor.gds_editor?
           gds_editor_can?(action)
@@ -135,12 +137,7 @@ module Whitehall::Authority::Rules
     end
 
     def managing_editor_can?(action)
-      case action
-      when :unpublish
-        true
-      else
-        departmental_editor_can?(action)
-      end
+      departmental_editor_can?(action)
     end
 
     def world_editor_can?(action)
