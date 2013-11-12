@@ -122,10 +122,6 @@ When(/^I redraft the document collection and remove "(.*?)" from it$/) do |docum
 
   check document_title
   click_on "Remove"
-  click_on "Document"
-  choose "edition_minor_change_true"
-  click_on "Save"
-  @document_collection = @document_collection.reload.document.latest_edition
 end
 
 Then(/^I can see in the preview that "(.*?)" does not appear$/) do |document_title|
