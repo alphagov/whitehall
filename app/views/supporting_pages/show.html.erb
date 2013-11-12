@@ -29,6 +29,9 @@
     <div class="inner-block">
     <h2>Supporting detail:</h2>
       <h1 class="supporting-page-title"><%= @supporting_page.title %></h1>
+
+      <%= render 'documents/archive_notice', document: @supporting_page, type: '' if @supporting_page.archived? %>
+
       <%= render "document_content" %>
     </div>
   </div>

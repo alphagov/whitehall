@@ -52,7 +52,7 @@ private
       render_not_found unless can_preview?(@supporting_page)
     else
       @supporting_page = Document.at_slug('SupportingPage', params[:id]).try(:published_edition)
-      render_not_found unless @policy.published_supporting_pages.include?(@supporting_page)
+      render_not_found unless @policy.has_visible_supporting_page?(@supporting_page)
     end
   end
 

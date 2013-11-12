@@ -26,6 +26,10 @@ module Edition::SupportingPages
     supporting_pages.published
   end
 
+  def archived_supporting_pages
+    supporting_pages.archived
+  end
+
   def allows_supporting_pages?
     true
   end
@@ -36,5 +40,10 @@ module Edition::SupportingPages
 
   def has_published_supporting_pages?
     published_supporting_pages.any?
+  end
+
+  def has_visible_supporting_page?(supporting_page)
+    published_supporting_pages.include?(supporting_page) ||
+      archived_supporting_pages.include?(supporting_page)
   end
 end
