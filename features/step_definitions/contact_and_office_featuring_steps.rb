@@ -51,10 +51,10 @@ end
 Then /^I see the contacts in my specified order including the new one on the home page of the organisation$/ do
   visit organisation_path(@the_organisation)
 
-  within '.addresses' do
-    @the_ordered_contacts.each.with_index do |contact, idx|
-      assert page.has_css?("div.contact:nth-child(#{idx+1}) h2", text: contact.title)
-    end
+  contact_headings = page.all(".addresses div.contact h2").map(&:text)
+
+  @the_ordered_contacts.each.with_index do |contact, idx|
+    assert_equal contact.title, contact_headings[idx]
   end
 end
 
@@ -111,11 +111,11 @@ end
 Then /^I see the offices in my specified order including the new one under the main office on the home page of the worldwide organisation$/ do
   visit worldwide_organisation_path(@the_organisation)
 
-  within '.contact-us' do
-    assert page.has_css?("div.contact:nth-child(1) h2", text: @the_main_office.title)
-    @the_ordered_offices.each.with_index do |contact, idx|
-      assert page.has_css?("div.contact:nth-child(#{idx+2}) h2", text: contact.title)
-    end
+  contact_headings = page.all(".contact-us div.contact h2").map(&:text)
+
+  assert_equal @the_main_office.title, contact_headings[0]
+  @the_ordered_offices.each.with_index do |contact, idx|
+    assert_equal contact.title, contact_headings[idx+1]
   end
 end
 

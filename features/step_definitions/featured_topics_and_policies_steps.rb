@@ -15,7 +15,7 @@ When /^I feature some topics and policies for the executive office in a specific
   visit admin_organisation_path(@the_featuring_org)
   click_on 'Featured topics and policies'
 
-  within('.featured-topics-and-policies-items .well:nth-child(1)') do
+  within page.all('.featured-topics-and-policies-items .well')[0] do
     choose 'Topic'
     # no better way to identify the select than by direct name
     select topic_1.name, from: 'featured_topics_and_policies_list[featured_items_attributes][0][topic_id]'
@@ -23,14 +23,14 @@ When /^I feature some topics and policies for the executive office in a specific
   end
   click_on 'Save'
 
-  within('.featured-topics-and-policies-items .well:nth-child(2)') do
+  within page.all('.featured-topics-and-policies-items .well')[1] do
     choose 'Policy'
     select policy_2.title, from: 'featured_topics_and_policies_list[featured_items_attributes][1][document_id]'
     fill_in 'Ordering', with: '2'
   end
   click_on 'Save'
 
-  within('.featured-topics-and-policies-items .well:nth-child(3)') do
+  within page.all('.featured-topics-and-policies-items .well')[2] do
     choose 'Policy'
     select policy_1.title, from: 'featured_topics_and_policies_list[featured_items_attributes][2][document_id]'
     fill_in 'Ordering', with: '3'
@@ -51,10 +51,10 @@ end
 Then /^the featured topics and policies are in my specified order$/ do
   visit_organisation @the_featuring_org.name
 
-  within '#featured-topics-and-policies' do
-    @the_featured_items.each.with_index do |item, idx|
-      assert page.has_css?("li:nth-child(#{idx + 1})", text: item.respond_to?(:name) ? item.name : item.title)
-    end
+  features = page.all('#featured-topics-and-policies li').map(&:text)
+
+  @the_featured_items.each.with_index do |item, idx|
+    assert_equal (item.respond_to?(:name) ? item.name : item.title), features[idx]
   end
 end
 
@@ -87,11 +87,11 @@ When /^I remove some items from the featured topics and policies list for the ex
   click_on 'Featured topics and policies'
 
   @the_removed_featured_items = []
-  within('.featured-topics-and-policies-items .well:nth-child(2)') do
+  within page.all('.featured-topics-and-policies-items .well')[1] do
     check "Remove"
     @the_removed_featured_items << @the_featured_items[1]
   end
-  within('.featured-topics-and-policies-items .well:nth-child(3)') do
+  within page.all('.featured-topics-and-policies-items .well')[2] do
     check "Remove"
     @the_removed_featured_items << @the_featured_items[2]
   end
@@ -102,12 +102,12 @@ end
 Then /^the removed items are no longer displayed on the executive office page$/ do
   visit_organisation @the_featuring_org.name
 
-  within '#featured-topics-and-policies' do
-    (@the_featured_items - @the_removed_featured_items).each.with_index do |item, idx|
-      assert page.has_css?("li:nth-child(#{idx + 1})", text: item.respond_to?(:name) ? item.name : item.title)
-    end
-    @the_removed_featured_items.each do |item|
-      assert page.has_no_css?("li", text: item.respond_to?(:name) ? item.name : item.title)
-    end
+  features = page.all('#featured-topics-and-policies li').map(&:text)
+
+  (@the_featured_items - @the_removed_featured_items).each.with_index do |item, idx|
+    assert_equal (item.respond_to?(:name) ? item.name : item.title), features[idx]
+  end
+  @the_removed_featured_items.each do |item|
+    assert page.has_no_css?("li", text: item.respond_to?(:name) ? item.name : item.title)
   end
 end

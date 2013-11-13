@@ -11,16 +11,13 @@ Then /^the policy is listed at the top of the email curation queue$/ do
   visit admin_email_curation_queue_items_path
 
   within '#email_curation_queue_items' do
-    assert page.has_css? 'tr:nth-child(1) td.title', text: @the_local_government_edition.title
-    assert page.has_css? 'tr:nth-child(1) td.summary', text: @the_local_government_edition.summary
-    within 'tr:nth-child(1) td.actions' do
-      assert page.has_link? 'View on website', href: document_url(@the_local_government_edition, host: public_host_for_test)
-    end
+    assert_equal @the_local_government_edition.title, page.first('tr td.title').text
+    assert_equal @the_local_government_edition.summary, page.first('tr td.summary').text
   end
 end
 
 When /^I tweak the title and summary to better reflect why it is interesting to subscribers$/ do
-  within '#email_curation_queue_items tr:nth-child(1) td.actions' do
+  within page.first('#email_curation_queue_items tr td.actions') do
     click_on 'Edit'
   end
 
@@ -35,16 +32,17 @@ When /^I tweak the title and summary to better reflect why it is interesting to 
   click_on 'Save'
 
   within '#email_curation_queue_items' do
-    assert page.has_css? 'tr:nth-child(1) td.title', text: @tweaked_copy_for_the_local_government_edition[:title]
-    assert page.has_css? 'tr:nth-child(1) td.summary', text: @tweaked_copy_for_the_local_government_edition[:summary]
-    within 'tr:nth-child(1) td.actions' do
+    assert_equal @tweaked_copy_for_the_local_government_edition[:title], page.first('tr td.title').text
+    assert_equal @tweaked_copy_for_the_local_government_edition[:summary], page.first('tr td.summary').text
+
+    within page.first('tr td.actions') do
       assert page.has_link? 'View on website', href: document_url(@the_local_government_edition, host: public_host_for_test)
     end
   end
 end
 
 When /^I decide the policy is ready to go out$/ do
-  within '#email_curation_queue_items tr:nth-child(1) td.actions' do
+  within page.first('#email_curation_queue_items tr td.actions') do
     click_on 'Send'
   end
 end
@@ -56,7 +54,7 @@ Then /^the policy is not listed on the email curation queue$/ do
 end
 
 When /^I decide the policy is not relevant to subscribers and delete it$/ do
-  within '#email_curation_queue_items tr:nth-child(1) td.actions' do
+  within page.first('#email_curation_queue_items tr td.actions') do
     click_on 'Delete'
   end
 end

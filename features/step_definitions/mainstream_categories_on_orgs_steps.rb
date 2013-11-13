@@ -36,13 +36,13 @@ end
 Then /^only the mainstream categories I chose appear on the public page for the organisation, in my specified order$/ do
   visit organisation_path(@the_organisation)
 
-  within '#mainstream_categories' do
-    @selected_mainstream_categories.each.with_index do |selected_mainstream_category, idx|
-      assert page.has_css?("li.mainstream_category:nth-child(#{idx+1}) h2", text: selected_mainstream_category.title)
-    end
-    (@all_mainstream_categories - @selected_mainstream_categories).each do |unselected_mainstream_category|
-      assert page.has_no_css?("li.mainstream_category h2", text: unselected_mainstream_category.title)
-    end
+  mainstream_category_titles = page.all('#mainstream_categories li.mainstream_category h2').map(&:text)
+
+  @selected_mainstream_categories.each.with_index do |selected_mainstream_category, idx|
+    assert_equal selected_mainstream_category.title, mainstream_category_titles[idx]
+  end
+  (@all_mainstream_categories - @selected_mainstream_categories).each do |unselected_mainstream_category|
+    assert page.has_no_css?("li.mainstream_category h2", text: unselected_mainstream_category.title)
   end
 end
 

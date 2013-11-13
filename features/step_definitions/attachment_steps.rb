@@ -67,9 +67,13 @@ When(/^I set the order of attachments to:$/) do |attachment_order|
 end
 
 Then(/^the attachments should be in the following order:$/) do |attachment_list|
+
+  attachment_ids = page.all('.existing-attachments > li').map {|element| element[:id] }
+
   attachment_list.hashes.each_with_index do |attachment_info, index|
     attachment = Attachment.find_by_title(attachment_info[:title])
-    page.assert_selector(".existing-attachments li#attachment_#{attachment.id}:nth-child(#{index+1})")
+
+    assert_equal "attachment_#{attachment.id}", attachment_ids[index]
   end
 end
 

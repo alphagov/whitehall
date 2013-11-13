@@ -138,18 +138,21 @@ end
 
 Then /^I should see that ordering displayed on the organisation page$/ do
   visit organisation_path(@the_ministerial_organisation)
-  within '#ministers' do
-    @the_ordered_ministers.each.with_index do |role_appointment, idx|
-      assert page.has_css?("li:nth-child(#{idx + 1}) h3", text: role_appointment.person.name)
-    end
+
+  minister_headings = page.all('#ministers li h3').map(&:text)
+
+  @the_ordered_ministers.each.with_index do |role_appointment, idx|
+    assert_equal role_appointment.person.name, minister_headings[idx]
   end
 end
 
 Then /^I should see that ordering displayed on the section for the organisation on the ministers page$/ do
   visit ministers_page
-  within "#organisation_#{@the_ministerial_organisation.id} .minister-list" do
-    @the_ordered_ministers.each.with_index do |role_appointment, idx|
-      assert page.has_css?("li:nth-child(#{idx + 1}) h4", text: role_appointment.person.name)
-    end
+
+  headings_css_selector = "#organisation_#{@the_ministerial_organisation.id} .minister-list li h4"
+  minister_headings = page.all(headings_css_selector).map(&:text)
+
+  @the_ordered_ministers.each.with_index do |role_appointment, idx|
+    assert_equal role_appointment.person.name, minister_headings[idx]
   end
 end
