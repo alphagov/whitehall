@@ -15,7 +15,7 @@ class Admin::FeaturesControllerTest < ActionController::TestCase
     assert_equal edition.document, assigns[:feature].document
   end
 
-  test "post :unfeature sets the ended_at date of a feature" do
+  test "post :unfeature ends the feature" do
     world_location = create(:world_location)
     feature_list = create(:feature_list, featurable: world_location, locale: :en)
     edition = create(:published_speech)

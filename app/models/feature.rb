@@ -34,6 +34,11 @@ class Feature < ActiveRecord::Base
     joins(:topical_event)
   end
 
+  def end!
+    self.ended_at = Time.zone.now
+    save
+  end
+
   def locale
     feature_list ? feature_list.locale : :en
   end
