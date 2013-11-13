@@ -59,7 +59,7 @@ where("editions.state NOT IN ('deleted', 'superseded', 'archived')
   body = et.body
   new_body = nil
 
-  et.body.scan(/(\[(.*?)\]\((\S*?)(:?\s+"[^"]+")?\))/) do |capture_groups|
+  et.body.scan(/(\[(.*?)\]\((\S*?)(\s+"[^"]+")?\))/) do |capture_groups|
     original_markdown, original_text, original_link, original_title = capture_groups
     body = new_body || body
 
