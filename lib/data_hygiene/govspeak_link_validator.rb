@@ -8,7 +8,7 @@ module DataHygiene
     end
 
     def errors
-      matches(/\[.*?\]\((\S*?)(:?\s+"[^"]+")?\)/) do |match|
+      matches(/\[.*?\]\((\S*?)(?:\s+"[^"]+")?\)/) do |match|
         link = match[1]
 
         fix = if link.first == '/'
