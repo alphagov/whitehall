@@ -110,6 +110,8 @@ GEM
       activerecord (>= 2.1.0, < 4)
       delayed_job (~> 3.0)
     diff-lcs (1.2.4)
+    equivalent-xml (0.3.0)
+      nokogiri (>= 1.4.3)
     erubis (2.7.0)
     eventmachine (1.0.3)
     exception_notification (3.0.1)
@@ -363,6 +365,7 @@ DEPENDENCIES
   database_cleaner (= 1.0.1)
   debugger
   delayed_job_active_record
+  equivalent-xml (= 0.3.0)
   exception_notification
   factory_girl
   friendly_id (= 4.0.9)

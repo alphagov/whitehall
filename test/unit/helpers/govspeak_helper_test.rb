@@ -253,13 +253,13 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should add class to last paragraph of blockquote" do
     input = "\n> firstline\n>\n> lastline\n"
     output = '<div class="govspeak"> <blockquote> <p>firstline</p> <p class="last-child">lastline</p> </blockquote></div>'
-    assert_equal output, govspeak_to_html(input).gsub(/\s+/, ' ')
+    assert_equivalent_html output, govspeak_to_html(input).gsub(/\s+/, ' ')
   end
 
   test "adds numbers to h2 headings" do
     input = "# main\n\n## first\n\n## second"
     output = '<div class="govspeak"><h1 id="main">main</h1> <h2 id="first"> <span class="number">1. </span>first</h2> <h2 id="second"> <span class="number">2. </span>second</h2></div>'
-    assert_equal output, govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, ' ')
+    assert_equivalent_html output, govspeak_to_html(input, [], heading_numbering: :auto).gsub(/\s+/, ' ')
   end
 
   test "adds sub-numbers to h3 tags" do
@@ -280,7 +280,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "adds manual numbering to heading tags" do
     input = "## 1. Main\n\n## 2. Second\n\n### Sub heading without a number\n\n## 42.12 Out of sequence"
     expected_output = '<div class="govspeak"><h2 id="main"> <span class="number">1. </span> Main</h2> <h2 id="second"> <span class="number">2. </span> Second</h2> <h3 id="sub-heading-without-a-number">Sub heading without a number</h3> <h2 id="out-of-sequence"> <span class="number">42.12 </span> Out of sequence</h2></div>'
-    assert_equal expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, ' ')
+    assert_equivalent_html expected_output, govspeak_to_html(input, [], heading_numbering: :manual).gsub(/\s+/, ' ')
   end
 
   test "leaves heading numbers not occuring at the start of the heading text alone when using manual heading numbering" do
@@ -301,7 +301,7 @@ class GovspeakHelperTest < ActionView::TestCase
     input = '[Contact:1]'
     output = govspeak_to_html(input)
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
-    assert_equal "<div class=\"govspeak\">#{contact_html}</div>", output
+    assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
   test 'converts [Contact:<id>] into a rendering of contacts/_contact for the Contact with id = <id> with defined header level' do
@@ -310,14 +310,14 @@ class GovspeakHelperTest < ActionView::TestCase
     input = '[Contact:1]'
     output = govspeak_to_html(input, [], contact_heading_tag: 'h4')
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h4')
-    assert_equal "<div class=\"govspeak\">#{contact_html}</div>", output
+    assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", output
   end
 
   test 'silently converts [Contact:<id>] into nothing if there is no Contact with id = <id>' do
     Contact.stubs(:find_by_id).with('1').returns(nil)
     input = '[Contact:1]'
     output = govspeak_to_html(input)
-    assert_equal "<div class=\"govspeak\"></div>", output
+    assert_equivalent_html "<div class=\"govspeak\"></div>", output
   end
 
   test 'can collect all the embedded contacts into a list of Contacts in order' do
@@ -352,7 +352,7 @@ class GovspeakHelperTest < ActionView::TestCase
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
     @controller.lookup_context.formats = ['atom']
     assert_nothing_raised(ActionView::MissingTemplate) do
-      assert_equal "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
+      assert_equivalent_html "<div class=\"govspeak\">#{contact_html}</div>", govspeak_to_html(input)
     end
   end
 
