@@ -39,6 +39,7 @@ gem 'slop', '3.4.5'
 gem 'chronic'
 gem 'jbuilder'
 gem 'rack_strip_client_ip', '0.0.1'
+gem 'invalid_utf8_rejector', '~> 0.0.1'
 gem 'sidekiq', '2.14.1'
 gem 'raindrops', '0.11.0'
 
