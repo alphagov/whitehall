@@ -37,10 +37,9 @@ end
 Then /^I see the take part pages in my specified order including the new page on the frontend get involved section$/ do
   visit get_involved_path
 
-  within '.take-part-pages' do
-    @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
-      assert page.has_css?("article:nth-child(#{idx+1}) h3", text: take_part_page.title)
-    end
+  take_part_headings = page.all('.take-part-pages article h3').map(&:text)
+  @the_take_part_pages_in_order.each.with_index do |take_part_page, idx|
+    assert_equal take_part_page.title, take_part_headings[idx]
   end
 end
 

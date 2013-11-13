@@ -75,6 +75,7 @@ group :test do
   gem 'webmock', require: false
   gem 'ci_reporter'
   gem 'database_cleaner', '1.0.1'
+  gem 'equivalent-xml', '0.3.0', require: false
 end
 
 group :test_coverage do

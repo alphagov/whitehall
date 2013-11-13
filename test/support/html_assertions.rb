@@ -1,4 +1,5 @@
 require 'support/css_selectors'
+require 'equivalent-xml'
 
 module HtmlAssertions
   include CssSelectors
@@ -35,5 +36,11 @@ module HtmlAssertions
   def refute_select_within_html(html, *args)
     node = ::HTML::Document.new(CGI.unescape(html)).root
     refute_select(node, *args)
+  end
+
+  def assert_equivalent_html(expected, actual)
+    assert_block("Expected\n#{actual}\n\nto equal\n\n#{expected}") do
+      EquivalentXml.equivalent?(expected, actual)
+    end
   end
 end

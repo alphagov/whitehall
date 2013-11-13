@@ -49,7 +49,7 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
 
   test "json includes the document body (without govspeak wrapper div) as html" do
     @guide.stubs(:body).returns("govspeak-body")
-    assert_equal '<p>govspeak-body</p>', @presenter.as_json[:details][:body]
+    assert_equivalent_html '<p>govspeak-body</p>', @presenter.as_json[:details][:body]
   end
 
   test "json includes related detailed guides as related" do
