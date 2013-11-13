@@ -18,17 +18,23 @@ $csv_data = {
   possibly_broken_links: []
 }
 
-def replace_link_if_required(link_type, body, edition_translation, original_link = nil, replacement_link = nil)
-  puts "Replacing #{link_type.to_s.humanize.downcase.singularize} '#{original_link}' with '#{replacement_link}' in edition ##{edition_translation.edition_id}"
+$gds_ig_team_user = User.find_by_name!('GDS Inside Government Team')
+
+def replace_link_if_required(link_type, body, edition_translation, original_markdown, replacement_markdown = nil)
+  if replacement_markdown
+    puts "Replacing #{link_type.to_s.humanize.downcase.singularize} '#{original_markdown}' with '#{replacement_markdown}' in edition ##{edition_translation.edition_id}"
+  else
+    puts "Not replacing #{link_type.to_s.humanize.downcase.singularize} '#{original_markdown}' in edition ##{edition_translation.edition_id}"
+  end
 
   row_data = {
     edition: edition_translation.edition_id,
     state: edition_translation.state,
-    original: original_link || '(NULL)',
-    replacement: replacement_link || '(NULL)'
+    original: original_markdown || '(NULL)',
+    replacement: replacement_markdown || '(NULL)'
   }
 
-  if replacement_link.nil? && (edition = edition_translation.edition)
+  if replacement_markdown.nil? && (edition = edition_translation.edition)
     row_data.merge!(
       admin_link: "https://whitehall-admin.production.alphagov.co.uk/government/admin/editions/#{edition.id}",
       force_published: edition.force_published?
@@ -37,8 +43,11 @@ def replace_link_if_required(link_type, body, edition_translation, original_link
 
   $csv_data[link_type] << row_data
 
-  if replacement_link
-    body.gsub(original_link, replacement_link)
+  if replacement_markdown
+    editorial_remark = "Replaced #{link_type.to_s.humanize.downcase.singularize} '#{original_markdown}' with '#{replacement_markdown}' during data migration 20131106163843"
+    edition_translation.edition.editorial_remarks.create(author: $gds_ig_team_user, body: editorial_remark)
+
+    body.gsub(original_markdown, replacement_markdown)
   else
     body
   end
@@ -50,46 +59,52 @@ where("editions.state NOT IN ('deleted', 'superseded', 'archived')
   body = et.body
   new_body = nil
 
-  et.body.scan(/\[.*?\]\((\S*?)(:?\s+"[^"]+")?\)/) do |capture_groups|
-    original_link = capture_groups.first || 'NULL'
+  et.body.scan(/(\[(.*?)\]\((\S*?)(\s+"[^"]+")?\))/) do |capture_groups|
+    original_markdown, original_text, original_link, original_title = capture_groups
     body = new_body || body
 
     if original_link.first == '/' # We have a path
       unless original_link.start_with?("#{Whitehall.router_prefix}/admin")
-        replace_link_if_required(:nonadmin_paths, body, et, original_link) # Not fixing
+        replace_link_if_required(:nonadmin_paths, body, et, original_markdown) # Not fixing
       end
     else # We have a URL
       begin
         parsed_original_link = Addressable::URI.parse(original_link)
       rescue Addressable::URI::InvalidURIError
         # Not fixing
-        replace_link_if_required(:possibly_broken_links, body, et, original_link)
+        replace_link_if_required(:possibly_broken_links, body, et, original_markdown)
         next
       end
 
       new_body = if "/#{original_link}".start_with?("#{Whitehall.router_prefix}/admin")
-        replace_link_if_required(:relative_admin_paths, body, et, original_link, "/#{original_link}")
+        new_link = "/#{original_link}"
+        replace_link_if_required(:relative_admin_paths, body, et, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
 
       elsif parsed_original_link.path.start_with?("#{Whitehall.router_prefix}/admin")
-        replace_link_if_required(:absolute_admin_urls, body, et, original_link, parsed_original_link.path)
+        new_link = parsed_original_link.path
+        replace_link_if_required(:absolute_admin_urls, body, et, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
 
       elsif original_link =~ /whitehall-admin/
-        replace_link_if_required(:nonadmin_preview_links, body, et, original_link, parsed_original_link.path)
+        new_link = "https://www.gov.uk#{parsed_original_link.path}"
+        replace_link_if_required(:nonadmin_preview_links, body, et, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
 
       elsif original_link =~ %r{^(https?://|mailto:|#)}
-        replace_link_if_required(:probably_ok_links, body, et, original_link) # Not fixing
+        replace_link_if_required(:probably_ok_links, body, et, original_markdown) # Not fixing
 
       elsif original_link =~ /^www/
-        replace_link_if_required(:possibly_broken_links, body, et, original_link, "http://#{original_link}")
+        new_link = "http://#{original_link}"
+        replace_link_if_required(:possibly_broken_links, body, et, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
 
       elsif original_link =~ /@/
-        replace_link_if_required(:possibly_broken_links, body, et, original_link, "mailto:#{original_link}")
+        new_link = "mailto:#{original_link}"
+        replace_link_if_required(:possibly_broken_links, body, et, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
 
       elsif original_link =~ /^http;(.+)/
-        replace_link_if_required(:possibly_broken_links, body, et, original_link, "http:#{$1}")
+        new_link = "http:#{$1}"
+        replace_link_if_required(:possibly_broken_links, body, et, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
 
       else
-        replace_link_if_required(:possibly_broken_links, body, et, original_link) # Not fixing
+        replace_link_if_required(:possibly_broken_links, body, et, original_markdown) # Not fixing
       end
     end
   end
