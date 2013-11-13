@@ -34,7 +34,8 @@
                                   block_id:           'non-ministerial-departments',
                                   include_works_with: true,
                                   list_item_partial:  'index_item_plain',
-                                  show_govuk_status:  true %>
+                                  show_govuk_status:  !Whitehall::organisations_transition_visualisation_feature_enabled,
+                                  show_transition_state: Whitehall::organisations_transition_visualisation_feature_enabled %>
 
       <%= render 'index_section', organisations:      @organisations.agencies_and_government_bodies,
                                   header_text:        'Agencies &amp; other public bodies',

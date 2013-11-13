@@ -119,7 +119,7 @@ Scenario: Viewing the organisations index and seeing organisations grouped into 
   When I visit the organisations page
   Then I should see the executive offices listed
   And I should see the ministerial departments including their sub-organisations listed with count and number live
-  And I should see the non ministerial departments including their sub-organisations listed with count and number live
+  And I should see the non ministerial departments including their sub-organisations listed with count
   And I should see the agencies and government bodies listed with count
   And I should see the public corporations listed with count
   And I should see the devolved administrations listed with count
@@ -128,7 +128,13 @@ Scenario: Viewing the organisations index and seeing a visualisation of the numb
   Given 1 live, 1 transitioning and 1 exempt executive agencies
   When I visit the organisations page
   Then I should see a transition visualisation showing 1 out of 2 agencies moved plus 1 agency
-  And I should see metadata in the organisation list indicating the status of each organisation which is not live
+  And I should see metadata in the agency list indicating the status of each organisation which is not live
+
+Scenario: Viewing the organisations index and seeing a visualisation of the number of non ministerial departments
+  Given 1 live, 1 transitioning and 1 exempt non ministerial departments
+  When I visit the organisations page
+  Then I should see a transition visualisation showing 1 out of 2 non ministerial departments moved plus 1 not moving
+  And I should see metadata in the non ministerial department list indicating the status of each organisation which is not live
 
 Scenario: Organisation page should show policies
   Given the organisation "Attorney General's Office" contains some policies

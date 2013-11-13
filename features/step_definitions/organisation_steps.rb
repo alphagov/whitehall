@@ -105,6 +105,12 @@ Given(/^1 live, 1 transitioning and 1 exempt executive agencies$/) do
   @exempt_agency =        create :organisation, organisation_type_key: :executive_agency, govuk_status: 'exempt'
 end
 
+Given(/^1 live, 1 transitioning and 1 exempt non ministerial departments$/) do
+  @live_agency =          create :organisation, organisation_type_key: :non_ministerial_department, govuk_status: 'live'
+  @transitioning_agency = create :organisation, organisation_type_key: :non_ministerial_department, govuk_status: 'transitioning'
+  @exempt_agency =        create :organisation, organisation_type_key: :non_ministerial_department, govuk_status: 'exempt'
+end
+
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
   create(:mainstream_category, title: 'Jazzy Bizzle')
@@ -201,7 +207,7 @@ Then(/^I should see the ministerial departments including their sub\-organisatio
   end
 end
 
-Then(/^I should see the non ministerial departments including their sub\-organisations listed with count and number live$/) do
+Then(/^I should see the non ministerial departments including their sub\-organisations listed with count$/) do
   within "#non-ministerial-departments" do
     assert page.has_link?(@non_ministerial_department_1.name, href: organisation_path(@non_ministerial_department_1))
     assert page.has_link?(@non_ministerial_department_2.name, href: organisation_path(@non_ministerial_department_2))
@@ -210,7 +216,6 @@ Then(/^I should see the non ministerial departments including their sub\-organis
     end
     within "header" do
       assert page.has_content? "2"
-      assert page.has_content? "1 live on GOV.UK"
     end
   end
 end
@@ -253,13 +258,28 @@ end
 Then(/^I should see a transition visualisation showing 1 out of 2 agencies moved plus 1 agency$/) do
   within "#agencies-and-government-bodies .transition-state-visualisation" do
     assert page.find('.horizontal-percent-bar .bar-inner')['style'].include?("width: 50%")
-    assert page.has_content? "1/2 agencies on GOV.UK"
+    assert page.has_content? "1/2 on GOV.UK"
     assert page.has_content? "+1 not moving to GOV.UK"
   end
 end
 
-Then(/^I should see metadata in the organisation list indicating the status of each organisation which is not live$/) do
+Then(/^I should see a transition visualisation showing 1 out of 2 non ministerial departments moved plus 1 not moving$/) do
+  within "#non-ministerial-departments .transition-state-visualisation" do
+    assert page.find('.horizontal-percent-bar .bar-inner')['style'].include?("width: 50%")
+    assert page.has_content? "1/2 on GOV.UK"
+    assert page.has_content? "+1 not moving to GOV.UK"
+  end
+end
+
+Then(/^I should see metadata in the agency list indicating the status of each organisation which is not live$/) do
   within('#agencies-and-government-bodies') do
+    assert page.has_content? "#{@transitioning_agency.name} moving to GOV.UK"
+    assert page.has_content? "#{@exempt_agency.name} separate website"
+  end
+end
+
+Then(/^I should see metadata in the non ministerial department list indicating the status of each organisation which is not live$/) do
+  within('#non-ministerial-departments') do
     assert page.has_content? "#{@transitioning_agency.name} moving to GOV.UK"
     assert page.has_content? "#{@exempt_agency.name} separate website"
   end
