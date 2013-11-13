@@ -18,7 +18,7 @@ module DataHygiene
         else
           if self.class.is_internal_admin_link?("/#{link}")
             "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"
-          elsif link !~ %r{^https?://}
+          elsif link !~ %r{^(?:https?://|mailto:|#)}
             'Non-document or external links should start with http:// or https://'
           elsif link =~ /whitehall-admin/
             'This links to the whitehall-admin domain. Please use paths for admin documents or full gov.uk URLs for other GOV.UK links'
