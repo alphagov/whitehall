@@ -22,4 +22,8 @@ class EditionServiceCoordinator
   def archiver(edition, options={})
     EditionArchiver.new(edition, options.merge(notifier: self))
   end
+
+  def deleter(edition, options={})
+    EditionDeleter.new(edition, options.merge(notifier: self))
+  end
 end
