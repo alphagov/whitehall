@@ -18,7 +18,7 @@ class EditionUnpublisher < EditionService
 private
 
   def fire_transition!
-    edition.public_send("#{verb}")
+    edition.public_send(verb)
     edition.save(validate: false)
     edition.document.features.each(&:end!)
   end

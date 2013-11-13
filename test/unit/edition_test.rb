@@ -732,12 +732,4 @@ class EditionTest < ActiveSupport::TestCase
     refute non_local_gov_editions.include? local_gov_policy
     refute non_local_gov_editions.include? local_gov_publication
   end
-
-  test 'deleting an edition also deletes any associated email curation queue items' do
-    edition =  create(:edition)
-    queue_item = EmailCurationQueueItem.create_from_edition(edition, Date.today)
-
-    edition.delete!
-    refute EmailCurationQueueItem.exists?(queue_item)
-  end
 end
