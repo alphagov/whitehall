@@ -152,6 +152,8 @@ GEM
     http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.4)
+    invalid_utf8_rejector (0.0.1)
+      rack (~> 1.0)
     isbn_validation (1.1.1)
       activerecord (>= 3)
     jbuilder (1.5.0)
@@ -372,6 +374,7 @@ DEPENDENCIES
   govspeak (~> 1.2.3)
   govuk_frontend_toolkit (= 0.34.0)
   hash_syntax
+  invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
   jbuilder
   jquery-rails (= 1.0.19)
