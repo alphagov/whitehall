@@ -195,6 +195,10 @@ module Whitehall::DocumentFilter
       filter = Whitehall::DocumentFilter::Mysql.new(world_locations: [])
       filter.publications_search
       assert_same_elements [item_1, item_2, item_3, item_4], filter.documents
+
+      filter = Whitehall::DocumentFilter::Mysql.new(world_locations: "all")
+      filter.publications_search
+      assert_same_elements [item_1, item_2, item_3, item_4], filter.documents
     end
 
     test "can filter consultations" do
