@@ -18,10 +18,10 @@ module Whitehall::DocumentFilter
       @relevant_to_local_government = params[:relevant_to_local_government]
       @include_world_location_news  = params[:include_world_location_news]
 
-      @topics          = @params[:topics]
-      @departments     = @params[:departments]
-      @people_ids      = @params[:people_id]
-      @world_locations = @params[:world_locations]
+      @topics          = Array(@params[:topics])
+      @departments     = Array(@params[:departments])
+      @people_ids      = Array(@params[:people_id])
+      @world_locations = Array(@params[:world_locations])
     end
 
     def announcements_search
@@ -59,21 +59,13 @@ module Whitehall::DocumentFilter
     end
 
     def selected_people_option
-      if @people_ids.try(:any?) && @people_ids != ["all"]
-        @people_ids.reject! {|l| l == "all"}
-        People.where(id: @people_ids)
-      else
-        []
-      end
+      @people_ids.reject! { |l| l == "all" }
+      People.where(id: @people_ids)
     end
 
     def selected_locations
-      if @world_locations.try(:any?) && @world_locations != ["all"]
-        @world_locations.reject! {|l| l == "all"}
-        WorldLocation.find_all_by_slug(@world_locations)
-      else
-        []
-      end
+      @world_locations.reject! { |l| l == "all" }
+      WorldLocation.find_all_by_slug(@world_locations)
     end
 
     def keywords
