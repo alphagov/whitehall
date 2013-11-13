@@ -36,7 +36,7 @@
       <%= unpublish_edition_button(@edition) if @edition.can_unpublish? && can?(:unpublish, @edition) %>
     </section>
 
-    <% if force_publisher.failure_reasons.any? %>
+    <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
       <section class='alert'>
         <p>You can't force-publish this edition because:</p>
         <ul>
@@ -44,8 +44,6 @@
             <li><%= reason %></li>
           <% end %>
         </ul>
-
-        <p>Please <%= link_to 'edit the edition', edit_admin_edition_path(@edition) %> and fix the issues if possible.</p>
       </section>
     <% end %>
 

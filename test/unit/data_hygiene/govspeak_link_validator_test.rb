@@ -50,4 +50,14 @@ class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
     refute DataHygiene::GovspeakLinkValidator.is_internal_admin_link?(nil)
   end
 
+  test "should permit mailto links" do
+    validator = DataHygiene::GovspeakLinkValidator.new("[example text](mailto:test@example.com)")
+    assert_equal [], validator.errors
+  end
+
+  test "should permit anchor links" do
+    validator = DataHygiene::GovspeakLinkValidator.new("[example text](#example-section)")
+    assert_equal [], validator.errors
+  end
+
 end
