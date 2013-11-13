@@ -21,6 +21,10 @@ class EditionService
     !failure_reason
   end
 
+  def can_transition?
+    edition.public_send("can_#{verb}?")
+  end
+
   def failure_reason
     raise NotImplementedError.new("You must implement failure method.")
   end
@@ -45,9 +49,5 @@ private
 
   def fire_transition!
     edition.public_send("#{verb}!")
-  end
-
-  def can_transition?
-    edition.public_send("can_#{verb}?")
   end
 end
