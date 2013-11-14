@@ -90,4 +90,8 @@ class User < ActiveRecord::Base
   def can_handle_fatalities?
     gds_editor? || (organisation && organisation.handles_fatalities?)
   end
+
+  def fuzzy_last_name
+    name.split(/ +/, 2).last
+  end
 end
