@@ -14,20 +14,11 @@ class ClassificationMembership < ActiveRecord::Base
 
   validates :edition, :classification, presence: true
 
-  after_create :update_classification_counts
-  after_destroy :update_classification_counts
-
   def self.published
     joins(:edition).where("editions.state" => "published")
   end
 
   def self.for_type(type)
     joins(:edition).where("editions.type" => type)
-  end
-
-  private
-
-  def update_classification_counts
-    classification.update_counts
   end
 end

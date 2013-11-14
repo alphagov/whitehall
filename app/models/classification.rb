@@ -43,8 +43,6 @@ class Classification < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_classifications
   accepts_nested_attributes_for :classification_featurings
 
-  scope :with_content, where("published_edition_count <> 0")
-  scope :with_policies, where("published_policies_count <> 0")
   scope :alphabetical, order("name ASC")
   scope :randomized, order('RAND()')
 
@@ -95,11 +93,6 @@ class Classification < ActiveRecord::Base
 
   def lead_organisation_classifications
     organisation_classifications.where(lead: true).order("organisation_classifications.lead_ordering")
-  end
-
-  def update_counts
-    update_column(:published_edition_count, published_editions.count)
-    update_column(:published_policies_count, published_policies.count)
   end
 
   def destroyable?

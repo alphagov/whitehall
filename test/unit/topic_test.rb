@@ -129,22 +129,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 4, results.length
   end
 
-  test 'should filter out topics without any published policies or documents' do
-    has_nothing = create(:topic)
-    create(:published_policy, topics: [has_published_policies = create(:topic)])
-    create(:draft_policy, topics: [has_draft_policies = create(:topic)])
-    create(:draft_detailed_guide, topics: [has_draft_detailed_guides = create(:topic)])
-    create(:published_detailed_guide, topics: [has_published_detailed_guides = create(:topic)])
-
-    topics = Topic.with_content.all
-
-    assert_includes topics, has_published_policies
-    assert_includes topics, has_published_detailed_guides
-    refute_includes topics, has_draft_policies
-    refute_includes topics, has_draft_detailed_guides
-    refute_includes topics, has_nothing
-  end
-
   test 'should be retrievable in an alphabetically ordered list' do
     cheese = create(:topic, name: "Cheese")
     bananas = create(:topic, name: "Bananas")
@@ -153,43 +137,6 @@ class TopicTest < ActiveSupport::TestCase
 
     assert_equal [apples, bananas, cheese, dates], Topic.alphabetical
   end
-
-  test "should update count of published editions" do
-    topic = create(:topic)
-    assert_equal 0, topic.published_edition_count
-
-    policy = create(:published_policy)
-    classification_membership = create(:classification_membership, classification: topic, policy: policy)
-    assert_equal 1, topic.reload.published_edition_count
-
-    policy.update_attributes(state: :draft)
-    assert_equal 0, topic.reload.published_edition_count
-
-    policy.update_attributes(state: :published)
-    assert_equal 1, topic.reload.published_edition_count
-
-    classification_membership.reload.destroy
-    assert_equal 0, topic.reload.published_edition_count
-  end
-
-  test "should update count of published policies" do
-    topic = create(:topic)
-    assert_equal 0, topic.published_policies_count
-
-    policy = create(:published_policy)
-    classification_membership = create(:classification_membership, classification: topic, policy: policy)
-    assert_equal 1, topic.reload.published_policies_count
-
-    policy.update_attributes(state: :draft)
-    assert_equal 0, topic.reload.published_policies_count
-
-    policy.update_attributes(state: :published)
-    assert_equal 1, topic.reload.published_policies_count
-
-    classification_membership.reload.destroy
-    assert_equal 0, topic.reload.published_policies_count
-  end
-
 
   ### Describing top tasks ###
 
