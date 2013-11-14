@@ -9,6 +9,10 @@ module DocumentHelper
   include TopicsHelper
   include TranslationHelper
 
+  def edition_page_title(edition)
+    edition.archived? ? "[Archived] #{edition.title}" : edition.title
+  end
+
   def document_block_counter
     @block_count ||= 0
     @block_count += 1

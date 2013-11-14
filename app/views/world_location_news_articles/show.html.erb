@@ -1,3 +1,3 @@
-<% page_title @document.title, t_display_type(@document, 10) %>
+<% page_title edition_page_title(@document), t_display_type(@document, 10) %>
 <%= render  template: 'documents/show',
             locals: { header_title: t_display_type(@document) } %>
