@@ -20,7 +20,7 @@ class PersonTest < ActiveSupport::TestCase
                   'format' => 'person',
                   'description' => '',
                   'slug' => 'david-cameron'
-                  }, person.search_index) 
+                  }, person.search_index)
   end
 
   test "should be invalid without a name" do
@@ -29,13 +29,11 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if image isn't 960x640px" do
-    ImageSizeChecker.any_instance.unstub(:size_is?)
     person = build(:person, image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')))
     refute person.valid?
   end
 
   test "should be valid if legacy image isn't 960x640px" do
-    ImageSizeChecker.any_instance.unstub(:size_is?)
     person = build(:person, image: File.open(Rails.root.join('test/fixtures/horrible-image.64x96.jpg')))
     person.stubs(:search_link)
     person.save(validate: false)

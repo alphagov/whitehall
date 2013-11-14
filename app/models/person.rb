@@ -32,7 +32,7 @@ class Person < ActiveRecord::Base
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
-  validate :image_must_be_960px_by_640px, if: :image_changed?
+  validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   searchable title: :name,
              link: :search_link,
@@ -115,12 +115,6 @@ class Person < ActiveRecord::Base
 
   def image_changed?
     changes["carrierwave_image"].present?
-  end
-
-  def image_must_be_960px_by_640px
-    if image.path
-      errors.add(:file, 'must be 960px wide and 640px tall') unless ImageSizeChecker.new(image.path).size_is?(960, 640)
-    end
   end
 
   def slug_name

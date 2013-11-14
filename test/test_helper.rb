@@ -32,7 +32,6 @@ class ActiveSupport::TestCase
   setup do
     Timecop.freeze(2011, 11, 11, 11, 11, 11)
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
-    ImageSizeChecker.any_instance.stubs(:size_is?).returns true
     VirusScanHelpers.erase_test_files
   end
 
