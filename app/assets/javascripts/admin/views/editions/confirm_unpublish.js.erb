@@ -21,22 +21,22 @@
       switch(selectedReason) {
         case '<%= UnpublishingReason::Archived.id %>':
           enhanceUnpublishingForm.$explanation.show();
-          enhanceUnpublishingForm.$alt_url.hide();
-          enhanceUnpublishingForm.$redirect.hide();
-          enhanceUnpublishingForm.$auto_redirect.hide();
+          enhanceUnpublishingForm.$alt_url.hide().find('input').val('');
+          enhanceUnpublishingForm.$redirect.hide().find('input').prop('checked', false);
+          enhanceUnpublishingForm.$auto_redirect.hide().find('input').val('');
           enhanceUnpublishingForm.$submit_button.val('Archive');
           break;
         case '<%= UnpublishingReason::PublishedInError.id %>':
           enhanceUnpublishingForm.$explanation.show();
           enhanceUnpublishingForm.$alt_url.show();
           enhanceUnpublishingForm.$redirect.show();
-          enhanceUnpublishingForm.$auto_redirect.hide();
+          enhanceUnpublishingForm.$auto_redirect.hide().find('input').prop('checked', false);
           enhanceUnpublishingForm.$submit_button.val('Unpublish');
           break;
         case '<%= UnpublishingReason::Consolidated.id %>':
-          enhanceUnpublishingForm.$explanation.hide();
+          enhanceUnpublishingForm.$explanation.hide().find('textarea').val('');
           enhanceUnpublishingForm.$alt_url.show();
-          enhanceUnpublishingForm.$redirect.hide();
+          enhanceUnpublishingForm.$redirect.hide().find('input').prop('checked', false);
           enhanceUnpublishingForm.$auto_redirect.show();
           enhanceUnpublishingForm.$submit_button.val('Unpublish');
           break;
