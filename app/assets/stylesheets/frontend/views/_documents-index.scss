@@ -40,6 +40,11 @@
   }
 
   .feeds {
+    clear: both;
+    border-top: 1px solid $border-colour;
+    padding-top: $gutter-one-third;
+    margin-top: $gutter-one-sixth;
+
     .feed,
     .govdelivery {
       display: inline;
@@ -233,15 +238,6 @@
         // the text
         margin-top: -$gutter-one-sixth;
       }
-    }
-  }
-
-  .filtered-results {
-    .feeds {
-      clear: both;
-      border-top: 1px solid $border-colour;
-      padding-top: $gutter-one-third;
-      margin-top: $gutter-one-sixth;
     }
   }
 }
