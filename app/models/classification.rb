@@ -116,7 +116,7 @@ class Classification < ActiveRecord::Base
     featuring_of(edition).present?
   end
 
-    def featuring_of(edition)
+  def featuring_of(edition)
     classification_featurings.detect { |cf| cf.edition == edition }
   end
 
@@ -133,8 +133,8 @@ class Classification < ActiveRecord::Base
     name
   end
 
-  private
-    def logo_changed?
-      changes["carrierwave_image"].present?
-    end
+private
+  def logo_changed?
+    changes["carrierwave_image"].present?
+  end
 end
