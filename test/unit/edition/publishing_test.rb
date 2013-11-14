@@ -13,13 +13,6 @@ class Edition::PublishingChangeNoteTest < ActiveSupport::TestCase
     refute edition.valid?
   end
 
-  test "a draft is valid without change note if deleting" do
-    published_edition = create(:published_edition)
-    edition = create(:draft_edition, change_note: nil, minor_change: false, document: published_edition.document)
-    edition.delete!
-    assert edition.valid?
-  end
-
   test "is valid without change note if no published edition already exists" do
     edition = create(:draft_edition, change_note: nil, minor_change: false)
     assert edition.valid?

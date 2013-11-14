@@ -68,16 +68,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     force_publish(new_edition)
   end
 
-  test "should not remove edition from search index when a new draft of a published edition is deleted" do
-    edition = create(:published_edition)
-    new_draft_edition = edition.create_draft(create(:policy_writer))
-    slug = edition.document.slug
-
-    Searchable::Delete.expects(:later).with(edition).never
-
-    new_draft_edition.delete!
-  end
-
   test "should remove published edition from search index when it's unpublished" do
     edition = create(:published_edition)
     slug = edition.document.slug
