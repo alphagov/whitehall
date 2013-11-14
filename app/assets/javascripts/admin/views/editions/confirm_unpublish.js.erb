@@ -12,7 +12,10 @@
       this.$auto_redirect = $('.auto_redirect');
 
       this.refreshFormFields();
+      this.hideExplanationIfRedirecting();
+
       $("input[name='unpublishing[unpublishing_reason_id]']", this.$form).change(this.refreshFormFields);
+      this.$redirect.find('input[type="checkbox"]').change(this.hideExplanationIfRedirecting);
     },
 
     refreshFormFields: function() {
@@ -40,6 +43,14 @@
           enhanceUnpublishingForm.$auto_redirect.show();
           enhanceUnpublishingForm.$submit_button.val('Unpublish');
           break;
+      }
+    },
+
+    hideExplanationIfRedirecting: function() {
+      if( enhanceUnpublishingForm.$redirect.find('input[type="checkbox"]').prop('checked') ) {
+        enhanceUnpublishingForm.$explanation.hide().find('textarea').val('');
+      } else {
+        enhanceUnpublishingForm.$explanation.show();
       }
     }
   };
