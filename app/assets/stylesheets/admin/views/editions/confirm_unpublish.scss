@@ -4,15 +4,16 @@
     margin: $gutter-half 0;
   }
 
-  form.new_unpublishing {
+  .js-unpublishing-reason {
     input[type=radio] {
       display: inline;
       margin-right: 5px;
     }
+  }
 
+  form {
     fieldset {
       margin-top: $gutter-two-thirds;
     }
-
   }
 }

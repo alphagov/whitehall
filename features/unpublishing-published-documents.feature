@@ -33,6 +33,6 @@ Feature: Unpublishing published documents
   Scenario: Archive a document that is no longer current
     Given I am a managing editor
     And a published policy "Shaving kits for all" exists
-    When I unpublish the policy because it is no longer government policy
+    When I archive the policy because it is no longer government policy
     Then there should be an editorial remark recording the fact that the document was archived
     And the policy should be marked as archived on the public site
