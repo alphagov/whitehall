@@ -71,7 +71,7 @@
         <%= select_tag :type,
                         filter_edition_type_options_for_select(current_user, @filter.options[:type]),
                         class: 'chzn-select-no-search' %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :title, :organisation, :world_location_ids, :state, :author, :from_date, :to_date) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :title, :organisation, :world_location, :state, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
@@ -84,7 +84,7 @@
         <%= select_tag :state,
                         options_for_select(admin_state_filter_options, @filter.options[:state]),
                         class: 'chzn-select-no-search' %>
-          <%= pass_through_filter_options_as_hidden_fields(@filter, :title, :organisation, :world_location_ids, :type, :author, :from_date, :to_date) %>
+          <%= pass_through_filter_options_as_hidden_fields(@filter, :title, :organisation, :world_location, :type, :author, :from_date, :to_date) %>
           <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
@@ -104,7 +104,7 @@
           <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date', placeholder: "e.g. 23/08/2013" %>
           <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
         </div>
-        <%= pass_through_filter_options_as_hidden_fields(@filter, :title, :organisation, :world_location_ids, :state, :author, :type) %>
+        <%= pass_through_filter_options_as_hidden_fields(@filter, :title, :organisation, :world_location, :state, :author, :type) %>
         <%= submit_tag "Go", class: "btn js-hidden" %>
       <% end %>
     </div>
