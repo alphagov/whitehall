@@ -240,6 +240,19 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal 'No longer government policy', published_edition.reload.unpublishing.explanation
   end
 
+  test '#unpublish when there are validation errors re-renders the unpublish form' do
+    login_as create(:managing_editor)
+    unpublish_params = {
+        unpublishing_reason_id: UnpublishingReason::Consolidated.id,
+        alternative_url: ''
+      }
+    post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
+    assert_response :success
+    assert_template :confirm_unpublish
+    assert_match /Alternative url must be provided/, flash[:alert]
+    assert published_edition.reload.published?
+  end
+
   test 'unpublish responds with 422 if missing a lock version' do
     login_as create(:managing_editor)
     post :unpublish, id: published_edition

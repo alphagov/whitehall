@@ -88,16 +88,15 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def unpublish
-    @edition.build_unpublishing(params[:unpublishing])
-    service_object = archiver_or_unpublisher_for(@edition)
+    @unpublishing = @edition.build_unpublishing(params[:unpublishing])
+    @service_object = archiver_or_unpublisher_for(@edition)
 
-    if service_object.perform!
-      redirect_options = {notice: unpublish_success_notice }
+    if @service_object.perform!
+     redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
-      redirect_options = {alert: service_object.failure_reason }
+      flash.now[:alert] = @service_object.failure_reason
+      render :confirm_unpublish
     end
-
-    redirect_to admin_edition_path(@edition), redirect_options
   end
 
   def schedule
