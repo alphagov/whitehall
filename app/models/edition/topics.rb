@@ -4,6 +4,7 @@ module Edition::Topics
 
   included do
     has_many :topics, through: :classification_memberships, source: :topic
+    has_one :topic_suggestion, foreign_key: :edition_id
   end
 
   def can_be_associated_with_topics?
