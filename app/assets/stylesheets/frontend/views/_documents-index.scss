@@ -40,10 +40,7 @@
   }
 
   .feeds {
-    clear: both;
-    border-top: 1px solid $border-colour;
-    padding-top: $gutter-one-third;
-    margin-top: $gutter-one-sixth;
+    margin-bottom: $gutter;
 
     .feed,
     .govdelivery {
@@ -185,8 +182,6 @@
   }
 
   .filter-results {
-    padding-top: $gutter;
-
     .no-results {
       padding: $gutter 0 $gutter-half;
       border-bottom: 1px solid $border-colour;
@@ -205,13 +200,19 @@
   }
 
   .filter-results-summary {
+    @extend %contain-floats;
     @include core-16;
+
+    border-bottom: 1px solid $border-colour;
+    padding-bottom: $gutter-one-sixth;
+    margin-bottom: $gutter-one-third;
 
     .count {
       @include core-48;
       font-weight: bold;
       float: left;
       padding-right: $gutter-one-third;
+      line-height: 1;
     }
 
     strong {
