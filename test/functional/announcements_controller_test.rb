@@ -269,6 +269,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test 'index for non-english locales skips results summary' do
     get :index, locale: 'fr'
-    refute_select '#filter-results-summary'
+    refute_select '.filter-results-summary'
   end
 end
