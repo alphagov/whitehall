@@ -43,8 +43,6 @@ When(/^I add the document "(.*?)" to the document collection$/) do |document_tit
   within ('section.group') do
     assert page.has_content? doc_edition.title
   end
-
-  # assert @document_collection.groups.first.documents.include?(doc_edition.document), 'Document has not been added to the collection'
 end
 
 When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title_1, doc_title_2|
@@ -73,8 +71,7 @@ end
 Then(/^I (?:can )?preview the document collection$/) do
   refute @document_collection.nil?, "No document collection to act on."
 
-  visit admin_document_collection_path(@document_collection)
-  visit_link_href "Preview on website"
+  visit preview_document_path(@document_collection)
 
   assert page.has_selector?("h1", text: @document_collection.title)
   assert page.has_content? @document_collection.summary
@@ -100,8 +97,7 @@ Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
 end
 
 Then(/^I can see in the preview that "(.*?)" is part of the document collection$/) do |document_title|
-  visit admin_document_collection_path(@document_collection)
-  visit_link_href "Preview on website"
+  visit preview_document_path(@document_collection)
   assert_document_is_part_of_document_collection(document_title)
 end
 
