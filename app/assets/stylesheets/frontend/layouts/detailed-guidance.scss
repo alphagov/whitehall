@@ -6,6 +6,10 @@ body.detailed-guidance {
     padding-bottom: 0;
     margin-bottom: 0;
 
+    .archive-notice {
+      margin: 0 30px 60px 30px;
+    }
+
     // What is this doing here? this should be in the view stylesheet not the layout stylesheet
     #detailed-guides-container.filter-results {
       margin: 0 $gutter;
