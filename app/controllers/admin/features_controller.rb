@@ -17,8 +17,7 @@ class Admin::FeaturesController < Admin::BaseController
 
   def unfeature
     @feature = @feature_list.features.find(params[:id])
-    @feature.ended_at = Time.zone.now
-    if @feature.save
+    if @feature.end!
       message = {notice: "'#{@feature}' unfeatured"}
     else
       message = {alert: "Unable to unfeature '#{@feature}' because #{@feature.errors.full_messages.to_sentence}"}

@@ -30,6 +30,7 @@ class Document < ActiveRecord::Base
   has_many :document_collection_group_memberships
   has_many :document_collection_groups, through: :document_collection_group_memberships
   has_many :document_collections, through: :document_collection_groups
+  has_many :features, inverse_of: :document
 
   delegate :topics, to: :latest_edition
 

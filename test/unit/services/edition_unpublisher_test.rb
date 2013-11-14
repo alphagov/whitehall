@@ -24,6 +24,16 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
     refute edition.force_published?
   end
 
+  test '#perform! ends any featurings associated with the document' do
+    edition     = create(:published_edition)
+    edition.build_unpublishing(unpublishing_params)
+    feature     = create(:feature, document: edition.document)
+    unpublisher = EditionUnpublisher.new(edition)
+
+    assert unpublisher.perform!
+    assert_equal Time.zone.now, feature.reload.ended_at
+  end
+
   test 'only "published" editions can be unpublished' do
     (Edition.available_states - [:published]).each do |state|
       edition = create(:"#{state}_edition")
