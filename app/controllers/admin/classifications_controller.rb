@@ -5,7 +5,7 @@ class Admin::ClassificationsController < Admin::BaseController
   before_filter :load_object, only: [:show, :edit]
 
   def index
-    @classifications = model_class.order(:name)
+    @classifications = model_class.includes(:related_classifications).order(:name)
   end
 
   def new
