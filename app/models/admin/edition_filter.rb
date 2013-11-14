@@ -11,31 +11,27 @@ module Admin
       @source, @current_user, @options = source, current_user, options
     end
 
-    def editions
-      @editions ||= editions_with_filter.
-                      includes(:last_author, :translations).
-                      order("editions.updated_at DESC").
-                      page(options[:page]).
-                      per( options.fetch(:per_page) { default_page_size } )
-    end
+    def editions(locale = nil)
+      @editions ||= {}
+      return @editions[locale] if @editions[locale]
 
-    def editions_with_filter
-      editions = @source
-      editions = editions.accessible_to(@current_user)
-      editions = editions.by_type(type) if type
-      editions = editions.by_subtype(type, subtype) if subtype
-      editions = editions.__send__(options[:state]) if options[:state]
-      editions = editions.authored_by(author) if options[:author]
-      editions = editions.in_organisation(organisation) if options[:organisation]
-      editions = editions.with_title_containing(options[:title]) if options[:title]
-      editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
-      editions = editions.from_date(from_date) if from_date
-      editions = editions.to_date(to_date) if to_date
-      editions
-    end
+      editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
 
-    def unpagenated_edtions
-      @unpagenated_edtions ||= editions_with_filter
+      editions_with_translations = if locale
+        editions_without_translations.with_translations(locale)
+      else
+        editions_without_translations.includes(:translations)
+      end
+
+      paginated_editions = editions_with_translations.page(options[:page]).per( options.fetch(:per_page) { default_page_size } )
+
+      permitted_only = paginated_editions.select do |edition|
+        Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
+      end
+
+      new_paginator = Kaminari.paginate_array(permitted_only, total_count: paginated_editions.total_count).page(options[:page])
+
+      @editions[locale] = new_paginator
     end
 
     def page_title
@@ -51,11 +47,11 @@ module Admin
     end
 
     def published_count
-      unpagenated_edtions.published.count
+      unpaginated_editions.published.count
     end
 
     def force_published_count
-      unpagenated_edtions.force_published.count
+      unpaginated_editions.force_published.count
     end
 
     def force_published_percentage
@@ -93,6 +89,23 @@ module Admin
     end
 
     private
+
+    def unpaginated_editions
+      return @unpaginated_editions if @unpaginated_editions
+
+      editions = @source
+      editions = editions.by_type(type) if type
+      editions = editions.by_subtype(type, subtype) if subtype
+      editions = editions.__send__(options[:state]) if options[:state]
+      editions = editions.authored_by(author) if options[:author]
+      editions = editions.in_organisation(organisation) if options[:organisation]
+      editions = editions.with_title_containing(options[:title]) if options[:title]
+      editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
+      editions = editions.from_date(from_date) if from_date
+      editions = editions.to_date(to_date) if to_date
+
+      @unpaginated_editions = editions
+    end
 
     def type
       EDITION_TYPE_LOOKUP[options[:type].sub(/_\d+$/, '').classify] if options[:type]
