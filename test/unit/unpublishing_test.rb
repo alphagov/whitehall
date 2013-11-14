@@ -79,6 +79,12 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.redirect?
   end
 
+  test 'explanation is required if the reason is Archived' do
+    unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Archived.id, explanation: nil)
+    refute unpublishing.valid?
+    assert_equal ['must be provided when archiving'], unpublishing.errors[:explanation]
+  end
+
   def reason
     UnpublishingReason::PublishedInError
   end
