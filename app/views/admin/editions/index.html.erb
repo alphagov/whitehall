@@ -73,7 +73,7 @@
                   <div class="supporting_pages additional_information well">
                     <h4>Supporting Pages</h4>
                     <ul>
-                      <% edition.active_supporting_pages.each do |supporting_page| %>
+                      <% edition.active_supporting_pages.includes(:translations).each do |supporting_page| %>
                       <li><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></li>
                       <% end %>
                     </ul>
