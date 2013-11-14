@@ -1,4 +1,44 @@
 .documents-index {
+  @include ie(6) {
+    .block-2,
+    .block-3,
+    .block-4 {
+      zoom: 1;
+    }
+  }
+
+  @include media(tablet) {
+    .block-2 {
+      float: left;
+      width: 33.333%;
+      .inner-block {
+        padding: 0 $gutter*1.5 0 $gutter;
+      }
+
+      @include right-to-left {
+        float: right;
+        .inner-block {
+          padding: 0 $gutter 0 $gutter*1.5;
+        }
+      }
+    }
+
+    .block-4 {
+      float: left;
+      width: 66.666%;
+      .inner-block {
+        padding: $gutter-one-sixth $gutter 0 $gutter-half;
+      }
+
+      @include right-to-left {
+        float: right;
+        .inner-block {
+          padding: $gutter-one-sixth $gutter-half 0 $gutter;
+        }
+      }
+    }
+  }
+
   .feeds {
     .feed,
     .govdelivery {
@@ -9,4 +49,5 @@
   .js-hidden {
     display: none;
   }
+
 }
