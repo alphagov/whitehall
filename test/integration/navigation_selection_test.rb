@@ -8,6 +8,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
   EXCLUDED_CONTROLLERS = %w(
     application
     attachments
+    html_attachments
     case_studies
     detailed_guides
     document_collections
