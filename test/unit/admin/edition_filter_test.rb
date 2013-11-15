@@ -95,9 +95,9 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "should filter by publication sub-type" do
-    national_statistics = create(:publication, publication_type: PublicationType::NationalStatistics)
-    form                = create(:publication, publication_type: PublicationType::Form)
-    assert_equal [national_statistics], Admin::EditionFilter.new(Edition, @current_user, type: 'publication_15').editions
+    guidance = create(:publication, publication_type: PublicationType::Guidance)
+    form     = create(:publication, publication_type: PublicationType::Form)
+    assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "publication_#{PublicationType::Guidance.id}").editions
   end
 
   test "should filter by title" do
