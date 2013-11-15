@@ -133,4 +133,19 @@ class UserTest < ActiveSupport::TestCase
     user = build(:user, world_locations: [location, location2])
     assert_equal [location, location2], user.world_locations
   end
+
+  test '#fuzzy_last_name returns second word' do
+    user = build(:user, name: "Joe Bloggs")
+    assert_equal user.fuzzy_last_name, 'Bloggs'
+  end
+
+  test '#fuzzy_last_name returns last words in name' do
+    user = build(:user, name: "Joe van de Rijt")
+    assert_equal user.fuzzy_last_name, 'van de Rijt'
+  end
+
+  test '#fuzzy_last_name returns name if it is a single word' do
+    user = build(:user, name: "Joe")
+    assert_equal user.fuzzy_last_name, 'Joe'
+  end
 end

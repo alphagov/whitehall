@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::BaseController
   before_filter :load_user, only: [:show, :edit, :update]
 
   def index
-    @users = User.all
+    @users = User.with_translations_for(:organisation).sort_by { |u| u.fuzzy_last_name.downcase }
   end
 
   def show
