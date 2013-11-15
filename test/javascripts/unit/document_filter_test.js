@@ -390,4 +390,16 @@ test("#_numberWithDelimiter should add commas", function() {
   equal(GOVUK.documentFilter._numberWithDelimiter(1000000), "1,000,000");
 });
 
+test("#_pluralize pluralizes basic words", function() {
+  equal(GOVUK.documentFilter._pluralize("badger", 0), "badgers");
+  equal(GOVUK.documentFilter._pluralize("badger", 1), "badger");
+  equal(GOVUK.documentFilter._pluralize("badger", 2), "badgers");
+});
+
+test("#_pluralize pluralizes words ending in y", function() {
+  equal(GOVUK.documentFilter._pluralize("fly", 0), "flies");
+  equal(GOVUK.documentFilter._pluralize("fly", 1), "fly");
+  equal(GOVUK.documentFilter._pluralize("fly", 2), "flies");
+});
+
 

@@ -11,20 +11,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 (function($) {
   "use strict";
 
-  function pluralize(word, count) {
-    if (count === 1) {
-      return word;
-    }
-    else {
-      if (word.slice(-1) === 'y') {
-        return word.slice(0, -1) + 'ies';
-      }
-      else {
-        return word + 's';
-      }
-    }
-  }
-
   var documentFilter = {
     loading: false,
     $form: null,
@@ -119,7 +105,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       }
 
       context.result_count = documentFilter._numberWithDelimiter(data.total_count);
-      context.pluralized_result_type = pluralize(data.result_type, data.total_count);
+      context.pluralized_result_type = documentFilter._pluralize(data.result_type, data.total_count);
 
       if(formStatus.selected) {
         for(i=0,_i=formStatus.selected.length; i<_i; i++) {
@@ -274,6 +260,19 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       var parts = x.toString().split(".");
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       return parts.join(".");
+    },
+    _pluralize: function(word, count) {
+      if (count === 1) {
+        return word;
+      }
+      else {
+        if (word.slice(-1) === 'y') {
+          return word.slice(0, -1) + 'ies';
+        }
+        else {
+          return word + 's';
+        }
+      }
     }
   };
   window.GOVUK.documentFilter = documentFilter;
