@@ -21,4 +21,8 @@ class ClassificationMembership < ActiveRecord::Base
   def self.for_type(type)
     joins(:edition).where("editions.type" => type)
   end
+
+  def edition
+    Edition.unscoped { super }
+  end
 end
