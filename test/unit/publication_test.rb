@@ -140,6 +140,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_equal [publication], topical_event.publications
   end
 
+  #TODO: Move these tests into something more sepcifically related to Publicationesque
   test '#has_command_paper? is true if an attachment is a command paper' do
     pub = build(:publication)
     pub.stubs(:attachments).returns([
@@ -176,6 +177,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert pub.search_index[:has_command_paper] == true
     assert pub.search_index[:has_act_paper] == true
   end
+  #/TODO
 end
 
 class PublicationsInTopicsTest < ActiveSupport::TestCase

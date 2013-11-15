@@ -101,18 +101,6 @@ class Publication < Publicationesque
     ! attachments.empty?
   end
 
-  def has_official_document?
-    has_command_paper? || has_act_paper?
-  end
-
-  def has_command_paper?
-    attachments.any?(&:is_command_paper?)
-  end
-
-  def has_act_paper?
-    attachments.any?(&:is_act_paper?)
-  end
-
   def search_index
     super.merge({
       has_official_document: has_official_document?,
