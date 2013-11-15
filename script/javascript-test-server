@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "Starting test server on port 3100"
+echo "Starting test server on http://localhost:3100/test/qunit"
 script/rails server -p 3100 --environment=test --pid=tmp/pids/javascript_tests.pid
 
