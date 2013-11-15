@@ -170,6 +170,18 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal attachment.attachment_data, new_draft.outcome.attachments.first.attachment_data
   end
 
+  test "should copy the outcome without falling over if the outcome has attachments but no summary" do
+    consultation = create(:published_consultation)
+    outcome = create(:consultation_outcome, consultation: consultation, summary: '', attachments: [
+      create(:attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+    ])
+
+    assert_nothing_raised {
+      new_draft = consultation.create_draft(build(:user))
+      assert_equal 1, new_draft.outcome.attachments.length
+    }
+  end
+
   test "copies public feedback and its attachments when creating a new draft" do
     consultation = create(:published_consultation)
     feedback = create(:consultation_public_feedback, consultation: consultation)
@@ -186,6 +198,18 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal 'attachment-title', new_feedback.attachments.first.title
     assert_not_equal attachment, new_feedback.attachments.first
     assert_equal attachment.attachment_data, new_feedback.attachments.first.attachment_data
+  end
+
+  test "should copy public feedback without falling over if the feedback has attachments but no summary" do
+    consultation = create(:published_consultation)
+    public_feedback = create(:consultation_public_feedback, consultation: consultation, summary: '', attachments: [
+      create(:attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+    ])
+
+    assert_nothing_raised {
+      new_draft = consultation.create_draft(build(:user))
+      assert_equal 1, new_draft.public_feedback.attachments.length
+    }
   end
 
   test "should report that the outcome has not been published if the consultation is still open" do
