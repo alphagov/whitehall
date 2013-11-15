@@ -1,4 +1,12 @@
 <fieldset>
   <%= form.label :topic_ids, 'Topics' %>
   <%= form.select :topic_ids, options_from_collection_for_select(Topic.order(:name), 'id', 'name', edition.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
+
+  <%= form.fields_for :topic_suggestion do |topic_suggestion_form| %>
+    <%= topic_suggestion_form.label :name, "Can’t find a suitable topic?", id: "topic-suggestion-toggle", data: { toggle: "collapse", target: "#topic-suggestion-fields" } %>
+    <% html_class = topic_suggestion_form.object.persisted? ? "collapse in" : "collapse" %>
+    <div id="topic-suggestion-fields" class="<%= html_class %>">
+      <%= topic_suggestion_form.text_field :name, label_text: "Suggest a new topic", placeholder: "eg Science and Technology" %>
+    </div>
+  <% end %>
 </fieldset>
