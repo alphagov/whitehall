@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :world_location_news_article, class: WorldLocationNewsArticle, parent: :edition do
+  factory :world_location_news_article, class: WorldLocationNewsArticle, parent: :edition, traits: [:with_topics] do
     title "world-location-news-title"
     summary "world-location-news-summary"
     body  "world-location-news-body"
