@@ -5,10 +5,7 @@ module Edition::RelatedPolicies
 
   included do
     has_many :related_policies, through: :related_documents, source: :latest_edition, class_name: 'Policy'
-  end
-
-  def published_related_policies
-    related_policies.published
+    has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
   end
 
   # Ensure that when we set policy ids we don't remove other types of edition from the array
