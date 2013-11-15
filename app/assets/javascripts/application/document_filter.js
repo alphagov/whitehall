@@ -118,7 +118,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         data.result_type = "result";
       }
 
-      context.result_count = data.total_count;
+      context.result_count = documentFilter._numberWithDelimiter(data.total_count);
       context.pluralized_result_type = pluralize(data.result_type, data.total_count);
 
       if(formStatus.selected) {
@@ -269,6 +269,11 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           $("#" + checked.id).attr('checked', true);
         });
       }
+    },
+    _numberWithDelimiter: function(x) {
+      var parts = x.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
     }
   };
   window.GOVUK.documentFilter = documentFilter;

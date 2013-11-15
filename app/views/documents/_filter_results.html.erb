@@ -1,6 +1,6 @@
 <%
   context = {
-    result_count: filter.documents.total_count,
+    result_count: number_with_delimiter(filter.documents.total_count),
     pluralized_result_type: result_type.pluralize(filter.documents.total_count),
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
     topics: filter_results_selections(filter.selected_topics, 'topics'),

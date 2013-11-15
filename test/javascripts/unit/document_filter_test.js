@@ -308,7 +308,7 @@ test("should create live count value", function(){
   var data = { total_count: 1337 };
 
   window.GOVUK.documentFilter.liveResultSummary(data);
-  ok(this.resultsCount.text().indexOf('1337 results') > -1, 'should display 1337 results');
+  ok(this.resultsCount.text().indexOf('1,337 results') > -1, 'should display 1,337 results');
 });
 
 test("should update selections to match filters", function(){
@@ -383,3 +383,11 @@ test("should select first item in filter if no item would be selected", function
   GOVUK.documentFilter.removeFilters('departments', 'dept1');
   equal(this.filterForm.find('select option:first-child:selected').length, 1);
 });
+
+test("#_numberWithDelimiter should add commas", function() {
+  equal(GOVUK.documentFilter._numberWithDelimiter(10), "10");
+  equal(GOVUK.documentFilter._numberWithDelimiter(1000), "1,000");
+  equal(GOVUK.documentFilter._numberWithDelimiter(1000000), "1,000,000");
+});
+
+
