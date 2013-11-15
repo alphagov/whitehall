@@ -5,7 +5,7 @@
 %>
 <p class="js-hide-other-departments organisations-name-list">
   <% if show_hm_government %>
-    <span>HM Government<% if organisations.length > 0 %>, <% end %></span>
+    <span>HM Government<%= ", " if organisations.length > 0 %></span>
   <% end %>
   <%= organisations_link_sentence(lead_organisations, organisations) %>
 </p>
