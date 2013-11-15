@@ -215,13 +215,15 @@
       table {
         border-collapse: collapse;
         border-spacing: 0;
-        border-top: 1px solid $grey-2;
+        margin-bottom: $gutter*2;
         th, td {
           @include core-14;
+          background-color: transparent;
           vertical-align: top;
           text-align: left;
           padding: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
           border-bottom: 1px solid $grey-2;
+          border-width: 0 0 1px 0;
         }
         th {
           font-weight: bold;
