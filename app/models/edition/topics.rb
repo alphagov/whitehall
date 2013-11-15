@@ -12,7 +12,7 @@ module Edition::Topics
   end
 
   def search_index
-    super.merge("topics" => topics.map(&:slug)) { |k, ov, nv| ov + nv }
+    super.merge("topics" => topics.map(&:slug)) { |_, ov, nv| ov + nv }
   end
 
   module ClassMethods
