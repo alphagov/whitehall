@@ -16,6 +16,9 @@ module DocumentHelper
     if Organisation.count == 0
       create(:organisation)
     end
+    if Topic.count == 0
+      create(:topic)
+    end
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find('li.create-new a', text: 'New document').click
@@ -28,6 +31,7 @@ module DocumentHelper
       fill_in "edition_body", with: options.fetch(:body, "Any old iron")
       fill_in "edition_summary", with: options.fetch(:summary, 'one plus one euals two!')
       fill_in_change_note_if_required
+      select_topic_if_required
 
       unless options[:type] == 'world_location_news_article'
         set_lead_organisation_on_document(Organisation.first)
@@ -95,6 +99,10 @@ module DocumentHelper
     fill_in "Location", with: "The Drawing Room"
   end
 
+  def begin_drafting_document_collection(options)
+    begin_drafting_document options.merge(type: 'document_collection')
+  end
+
   def new_attachments_zip_file
     Rails.root.join('test/fixtures/two-pages-and-greenpaper.zip')
   end
@@ -127,6 +135,14 @@ module DocumentHelper
   def fill_in_change_note_if_required
     if has_css?("textarea[name='edition[change_note]']")
       fill_in "edition_change_note", with: "changes"
+    end
+  end
+
+  def select_topic_if_required
+    if has_css?(".edition-topic-fields")
+      within(".edition-topic-fields") do
+        select Topic.first.name, from: "Topics"
+      end
     end
   end
 

@@ -16,14 +16,8 @@ Given(/^a published publication called "(.*?)" in the document collection "(.*?)
 end
 
 When(/^I draft a new document collection called "(.*?)"$/) do |title|
-  visit new_admin_document_collection_path
-  within ".edition-form" do
-    fill_in "Title",   with: title
-    fill_in "Summary", with: "a summary"
-    fill_in "Body",    with: "a body"
-
-    click_on "Save"
-  end
+  begin_drafting_document_collection(title: title)
+  click_on "Save"
   @document_collection = DocumentCollection.find_by_title!(title)
 end
 
