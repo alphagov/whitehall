@@ -2,7 +2,8 @@ require "test_helper"
 
 class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
   setup do
-    @organisation_1 = create(:organisation)
+    @organisation = create(:organisation)
+    @topic = create(:topic)
 
     @user = create(:policy_writer)
     login_as @user
@@ -39,7 +40,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
           title: "collection-title",
           summary: "collection-summary",
           body: "collection-body",
-          lead_organisation_ids: [@organisation_1.id]
+          lead_organisation_ids: [@organisation.id],
+          topic_ids: [@topic.id]
         }
 
     assert_equal 1, DocumentCollection.count

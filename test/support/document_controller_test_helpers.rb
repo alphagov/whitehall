@@ -466,6 +466,12 @@ module DocumentControllerTestHelpers
       )
     end
 
+    if edition_type.to_s.classify.constantize.new.can_be_associated_with_topics?
+      attributes = attributes.merge(
+        topic_ids: [(Topic.first || create(:topic)).id]
+      )
+    end
+
     attributes_for(edition_type, attributes).except(:attachments)
   end
 end
