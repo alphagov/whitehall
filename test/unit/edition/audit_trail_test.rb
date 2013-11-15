@@ -36,11 +36,12 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal @user, edition.document_audit_trail.first.actor
   end
 
-  test "deletion appears as a deletion action" do
+  test "saving after changing the state records a state change action" do
     edition = create(:draft_edition)
-    edition.delete!
-    edition.update_attributes!(state: 'draft')
-    assert_equal "deleted", edition.document_audit_trail.second.action
+    edition.state = "published"
+    edition.save!
+
+    assert_equal "published", edition.document_audit_trail.second.action
   end
 
   test "saving without any changes does not get recorded as an action" do
@@ -49,7 +50,7 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal 1, edition.document_audit_trail.size
   end
 
-  test "saving after changing an attribute records an update action" do
+  test "saving after changing an attribute without changing the state records an update action" do
     edition = create(:draft_edition)
     edition.title = "foo"
     edition.save!

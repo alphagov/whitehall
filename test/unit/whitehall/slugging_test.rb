@@ -17,17 +17,4 @@ class SluggingTest < ActiveSupport::TestCase
     document = create(:document, sluggable_string: "attorney general's")
     assert_equal "attorney-generals", document.slug
   end
-
-  test "deleting should free up the slug" do
-    d1 = create(:draft_policy, title: "test")
-    force_publish(d1)
-    d1.reload
-    d1.unpublish!
-    d1.delete!
-    assert_equal "deleted-test", d1.reload.slug
-
-    d2 = create(:draft_policy, title: "test")
-    force_publish(d2)
-    assert_equal "test", d2.slug
-  end
 end

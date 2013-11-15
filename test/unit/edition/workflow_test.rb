@@ -44,46 +44,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:imported, :draft, :submitted, :rejected].each do |state|
-    test "deleting a #{state} edition transitions it into the deleted state" do
-      edition = create("#{state}_edition")
-      edition.delete!
-      assert edition.deleted?
-    end
-  end
-
-  [:scheduled, :published, :superseded].each do |state|
-    test "should prevent a #{state} edition being deleted" do
-      edition = create("#{state}_edition")
-      edition.delete! rescue nil
-      refute edition.deleted?
-    end
-  end
-
-  [:submitted, :scheduled].each do |state|
-    test "publishing a #{state} edition transitions it into the published state" do
-      edition = create("#{state}_edition", major_change_published_at: 1.day.ago)
-      edition.publish!
-      assert edition.published?
-    end
-  end
-
-  [:draft, :submitted].each do |state|
-    test " force publishing a #{state} edition transitions it into the published state" do
-      edition = create("#{state}_edition", major_change_published_at: 1.day.ago)
-      edition.force_publish!
-      assert edition.published?
-    end
-  end
-
-  [:rejected, :superseded, :deleted].each do |state|
-    test "should prevent a #{state} edition being published" do
-      edition = create("#{state}_edition")
-      edition.publish! rescue nil
-      refute edition.published?
-    end
-  end
-
   test "should allow a submitted edition to be scheduled if it has a scheduled date" do
     edition = create("submitted_edition", scheduled_publication: 1.day.from_now)
     edition.schedule!
@@ -106,8 +66,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "should not find deleted editions by default" do
-    edition = create(:draft_edition)
-    edition.delete!
+    edition = create(:deleted_edition)
     assert_nil Edition.find_by_id(edition.id)
   end
 

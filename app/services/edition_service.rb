@@ -44,7 +44,7 @@ private
   end
 
   def prepare_edition
-    raise NotImplementedError.new("You must implement prepare_edition method.")
+    # Noop by default
   end
 
   def fire_transition!

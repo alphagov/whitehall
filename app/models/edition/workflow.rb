@@ -12,8 +12,6 @@ module Edition::Workflow
 
     default_scope where(arel_table[:state].not_eq('deleted'))
 
-    define_model_callbacks :delete, only: :after
-
     state_machine auto_scopes: true do
       state :imported
       state :draft
@@ -37,7 +35,7 @@ module Edition::Workflow
         transitions from: :imported, to: :draft, guard: -> edition { edition.valid_as_draft? }
       end
 
-      event :delete, success: -> edition { edition.run_callbacks(:delete) } do
+      event :delete do
         transitions from: [:imported, :draft, :submitted, :rejected], to: :deleted
       end
 

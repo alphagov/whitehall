@@ -66,19 +66,21 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test ".latest_edition ignores deleted editions" do
-    original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
-    new_draft.delete!
+    document = create(:document)
+    original_edition = create(:published_edition, document: document)
+    deleted_edition = create(:deleted_edition, document: document)
+
     assert Edition.latest_edition.include?(original_edition)
-    refute Edition.latest_edition.include?(new_draft)
+    refute Edition.latest_edition.include?(deleted_edition)
   end
 
   test ".latest_published_edition includes only published editions" do
-    original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
-    new_draft.delete!
+    document = create(:document)
+    original_edition = create(:published_edition, document: document)
+    draft_edition = create(:draft_edition, document: document)
+
     assert Edition.latest_published_edition.include?(original_edition)
-    refute Edition.latest_published_edition.include?(new_draft)
+    refute Edition.latest_published_edition.include?(draft_edition)
   end
 
   test '.most_recent_change_note returns the most recent change note' do
@@ -311,8 +313,7 @@ class EditionTest < ActiveSupport::TestCase
     submitted_edition = create(:submitted_edition)
     rejected_edition = create(:rejected_edition)
     published_edition = create(:published_edition)
-    deleted_edition = create(:draft_edition)
-    deleted_edition.delete!
+    deleted_edition = create(:deleted_edition)
     superseded_edition = create(:superseded_edition)
     assert_same_elements [draft_edition, submitted_edition, rejected_edition, published_edition], Edition.active
   end
@@ -336,12 +337,6 @@ class EditionTest < ActiveSupport::TestCase
     article = create(:published_news_article, images: [build(:image)])
     article.images.first.update_column(:alt_text, nil)
     NewsArticle.find(article.id).supersede!
-  end
-
-  test "should still be deleteable if alt text validation would normally fail" do
-    article = create(:submitted_news_article, images: [build(:image)])
-    article.images.first.update_column(:alt_text, nil)
-    NewsArticle.find(article.id).delete!
   end
 
   test "should be invalid without a summary" do
@@ -446,15 +441,6 @@ class EditionTest < ActiveSupport::TestCase
     results = Edition.search_index.to_a
 
     assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
-  end
-
-  test "should not remove edition from search index when a new draft of a published edition is deleted" do
-    policy = create(:published_policy)
-    new_draft_policy = policy.create_draft(create(:policy_writer))
-
-    Searchable::Delete.expects(:later).with(policy).never
-
-    new_draft_policy.delete!
   end
 
   test "should remove published edition from search index when it's unpublished" do
@@ -731,13 +717,5 @@ class EditionTest < ActiveSupport::TestCase
 
     refute non_local_gov_editions.include? local_gov_policy
     refute non_local_gov_editions.include? local_gov_publication
-  end
-
-  test 'deleting an edition also deletes any associated email curation queue items' do
-    edition =  create(:edition)
-    queue_item = EmailCurationQueueItem.create_from_edition(edition, Date.today)
-
-    edition.delete!
-    refute EmailCurationQueueItem.exists?(queue_item)
   end
 end

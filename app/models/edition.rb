@@ -66,12 +66,6 @@ class Edition < ActiveRecord::Base
 
   # @!group Callbacks
   before_save :set_public_timestamp
-
-  after_delete :clear_slug, :destroy_email_curation_queue_items
-
-  [:delete].each do |event|
-    set_callback(event, :after) { refresh_index_if_required }
-  end
   # @!endgroup
 
 

@@ -58,19 +58,21 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should ignore deleted editions when finding latest edition" do
-    original_edition = create(:published_edition)
-    new_draft = original_edition.create_draft(create(:policy_writer))
-    new_draft.delete!
-    assert_equal original_edition, original_edition.document.latest_edition
+    document = create(:document)
+    original_edition = create(:published_edition, document: document)
+    deleted_edition = create(:deleted_edition, document: document)
+
+    assert_equal original_edition, document.latest_edition
   end
 
   test "#destroy also destroys ALL editions including those marked as deleted" do
-    original_edition = create(:published_policy)
-    new_draft = original_edition.create_draft(create(:policy_writer))
-    new_draft.delete!
-    original_edition.document.destroy
-    assert_equal nil, Edition.unscoped.find_by_id(original_edition.id)
-    assert_equal nil, Edition.unscoped.find_by_id(new_draft.id)
+    document = create(:document)
+    original_edition = create(:published_edition, document: document)
+    deleted_edition = create(:deleted_edition, document: document)
+
+    document.destroy
+    refute Edition.unscoped.exists?(original_edition)
+    refute Edition.unscoped.exists?(deleted_edition)
   end
 
   test "#destroy also destroys relations to other editions" do

@@ -18,9 +18,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   view_test "should not display the edition if it has been deleted" do
-    edition = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
+    edition = create(:deleted_edition, title: "deleted-policy-title", body: "deleted-policy-body")
     fact_check_request = create(:fact_check_request, edition: edition)
-    edition.delete!
 
     get :show, id: fact_check_request
 
@@ -45,9 +44,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   view_test "it should not be possible to fact check a deleted edition" do
-    edition = create(:edition, title: "deleted-policy-title", body: "deleted-policy-body")
+    edition = create(:deleted_edition, title: "deleted-policy-title", body: "deleted-policy-body")
     fact_check_request = create(:fact_check_request, edition: edition)
-    edition.delete!
 
     get :edit, id: fact_check_request
 
@@ -142,9 +140,8 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   view_test "display an apology if comments are submitted for a deleted edition" do
-    edition = create(:edition)
+    edition = create(:deleted_edition)
     fact_check_request = create(:fact_check_request, edition: edition)
-    edition.delete!
     attributes = attributes_for(:fact_check_request, comments: "looks fine to me")
 
     put :update, id: fact_check_request, fact_check_request: attributes
@@ -253,8 +250,8 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   view_test "should display an apology if requesting a fact check for an edition that has been deleted" do
-    @edition.delete!
-    post :create, edition_id: @edition.id, fact_check_request: @attributes
+    edition = create(:deleted_policy)
+    post :create, edition_id: edition.id, fact_check_request: @attributes
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
   end
