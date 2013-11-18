@@ -544,8 +544,9 @@ uk:
       all: Будь-яке місце
       label: Країна
   feeds:
-    atom: атом
-    email_alerts: сповіщення е-поштою
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Останні новини
   i18n:
     direction: ltr

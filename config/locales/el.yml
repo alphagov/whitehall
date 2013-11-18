@@ -410,8 +410,9 @@ el:
       all: Όλες οι τοποθεσίες
       label: Παγκόσμιες τοποθεσίες
   feeds:
-    atom:
-    email_alerts:
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Πρόσφατες ενημερώσεις
   i18n:
     direction:

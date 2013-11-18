@@ -480,8 +480,9 @@ ro:
       all: Toate locațiile
       label: Locații
   feeds:
-    atom:
-    email_alerts: Alerte pe email
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Activiţăti recente
   i18n:
     direction:

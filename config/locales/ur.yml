@@ -409,8 +409,9 @@ ur:
       all: تمام مقامات
       label: عالمی مقامات
   feeds:
-    atom: ایٹم
-    email_alerts: ای میل الرٹس
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: تازہ ترین سرگرمیاں
   i18n:
     direction: rtl

@@ -1,6 +1,7 @@
 <%
   context = {
-    result_count: result_count(filter.documents.total_count),
+    result_count: number_with_delimiter(filter.documents.total_count),
+    pluralized_result_type: result_type.pluralize(filter.documents.total_count),
     departments: filter_results_selections(filter.selected_organisations, 'departments'),
     topics: filter_results_selections(filter.selected_topics, 'topics'),
     world_locations_any?: filter.selected_locations.any?,
@@ -14,5 +15,7 @@
   }
 %>
 <div class="filter-results-summary">
-  <h3 class="selections"><%= render_mustache('documents/filter_selections', context) %></h3>
+  <div class="selections">
+    <%= render_mustache('documents/filter_selections', context) %>
+  </div>
 </div>

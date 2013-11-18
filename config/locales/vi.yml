@@ -292,8 +292,9 @@ vi:
       all: Tất cả địa điểm
       label: Các địa điểm trên thế giới
   feeds:
-    atom: nguyên tử
-    email_alerts: Cảnh báo qua thư điện tử
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Hoạt động mới nhất
   i18n:
     direction: ltr

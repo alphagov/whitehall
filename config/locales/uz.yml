@@ -408,8 +408,9 @@ uz:
       all: Hamma joylashuvlar
       label: Hududiy joylashuvlar
   feeds:
-    atom: atom
-    email_alerts: ! 'elektron xabarlari orqali ogohlantirilish '
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Eng so'nggi faoliyat
   i18n:
     direction: ltr

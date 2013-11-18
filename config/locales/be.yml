@@ -545,8 +545,9 @@ be:
       all: Усе месцазнаходжанні
       label: Мы ў свеце
   feeds:
-    atom: атам
-    email_alerts: Апавяшчэнні па электроннай пошце
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Апошнія аднаўленні
   i18n:
     direction: ltr

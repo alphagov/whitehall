@@ -1,5 +1,5 @@
 <% page_title t('announcements.heading') %>
-<% page_class "announcements-index document-filter-page" %>
+<% page_class "documents-index" %>
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent announcements" %>
 <%
   heading = [t('announcements.heading')]
@@ -40,7 +40,9 @@
 <div class="block-4 filtered-results">
   <div class="inner-block">
     <% if Locale.current.english? %>
-      <%= render partial: "documents/filter_results", locals: { filter: @filter } %>
+      <%= render partial: "documents/filter_results",
+                locals: { filter: @filter,
+                          result_type: "announcement" } %>
     <% end %>
     <%= render partial: 'shared/feeds',
         locals: { atom_url: filter_atom_feed_url,

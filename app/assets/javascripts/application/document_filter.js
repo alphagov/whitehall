@@ -100,11 +100,12 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $selections.html('');
       $title.find('span').remove();
 
-      if (data.total_count > 0) {
-        context.result_count = 'Showing ' + data.total_count +' result' + ( data.total_count != 1 ? 's' : '');
-      } else {
-        context.result_count = 'No results ';
+      if (!data.result_type) {
+        data.result_type = "result";
       }
+
+      context.result_count = documentFilter._numberWithDelimiter(data.total_count);
+      context.pluralized_result_type = documentFilter._pluralize(data.result_type, data.total_count);
 
       if(formStatus.selected) {
         for(i=0,_i=formStatus.selected.length; i<_i; i++) {
@@ -253,6 +254,24 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         $.each(event.state.checked, function(i, checked) {
           $("#" + checked.id).attr('checked', true);
         });
+      }
+    },
+    _numberWithDelimiter: function(x) {
+      var parts = x.toString().split(".");
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return parts.join(".");
+    },
+    _pluralize: function(word, count) {
+      if (count === 1) {
+        return word;
+      }
+      else {
+        if (word.slice(-1) === 'y') {
+          return word.slice(0, -1) + 'ies';
+        }
+        else {
+          return word + 's';
+        }
       }
     }
   };

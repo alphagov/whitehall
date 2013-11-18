@@ -408,8 +408,9 @@ pt:
       all: Todos os locais
       label: Locais no Mundo
   feeds:
-    atom: atom
-    email_alerts: alertas de e-mail
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Últimas atividades
   i18n:
     direction: Itr

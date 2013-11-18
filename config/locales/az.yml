@@ -288,8 +288,9 @@ az:
       all: bütün yerlər
       label: dünya üzrə məkanlar
   feeds:
-    atom:
-    email_alerts: email xəbərdarlığı
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: sonuncu fəaliyyət
   i18n:
     direction: ltr

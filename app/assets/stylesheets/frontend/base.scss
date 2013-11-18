@@ -61,8 +61,7 @@
   @import "helpers/_documents-grid.scss";
   @import "helpers/_headings.scss";
   @import "helpers/_featured_news.scss";
-  @import "helpers/_feed.scss";
-  @import "helpers/_filter.scss";
+  @import "helpers/_feeds.scss";
   @import "helpers/_govspeak.scss";
   @import "helpers/_heading-block.scss";
   @import "helpers/_historic-people-list.scss";
@@ -96,13 +95,13 @@
 
 #whitehall-wrapper {
   @import "views/_about_pages.scss";
-  @import "views/_announcements.scss";
   @import "views/_biographical-page.scss";
   @import "views/_consultations.scss";
   @import "views/_corporate-information-pages-worldwide-organisation.scss";
   @import "views/_detailed_guides.scss";
   @import "views/_document-page.scss";
   @import "views/_document-collection.scss";
+  @import "views/_documents-index.scss";
   @import "views/_email-signup.scss";
   @import "views/_get-involved.scss";
   @import "views/_groups.scss";

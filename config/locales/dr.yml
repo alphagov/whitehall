@@ -408,8 +408,9 @@ dr:
       all: تمام موقعیت ها
       label: موقعیت های جهانی
   feeds:
-    atom:
-    email_alerts: خبردهنده های ایمیل
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: فعالیت اخیر
   i18n:
     direction: rtl

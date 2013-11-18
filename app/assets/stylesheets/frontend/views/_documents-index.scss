@@ -1,0 +1,244 @@
+.documents-index {
+  @include ie(6) {
+    .block-2,
+    .block-3,
+    .block-4 {
+      zoom: 1;
+    }
+  }
+
+  @include media(tablet) {
+    .block-2 {
+      float: left;
+      width: 33.333%;
+      .inner-block {
+        padding: 0 $gutter*1.5 0 $gutter;
+      }
+
+      @include right-to-left {
+        float: right;
+        .inner-block {
+          padding: 0 $gutter 0 $gutter*1.5;
+        }
+      }
+    }
+
+    .block-4 {
+      float: left;
+      width: 66.666%;
+      .inner-block {
+        padding: $gutter-one-sixth $gutter 0 $gutter-half;
+      }
+
+      @include right-to-left {
+        float: right;
+        .inner-block {
+          padding: $gutter-one-sixth $gutter-half 0 $gutter;
+        }
+      }
+    }
+  }
+
+  .feeds {
+    margin-bottom: $gutter;
+
+    .feed,
+    .govdelivery {
+      display: inline;
+    }
+  }
+
+  .js-hidden {
+    display: none;
+  }
+
+  .filter-block {
+    h2 {
+      @include core-16;
+      padding-top: $gutter-one-third;
+    }
+
+    form {
+      padding: 0;
+
+      fieldset {
+        position: relative;
+
+        .filter {
+          width: 100%;
+          margin-top: $gutter-one-third;
+          @include media (tablet) {
+            margin-top: $gutter-half;
+          }
+        }
+      }
+    }
+
+    .sub-filter {
+      margin-top: $gutter-half;
+    }
+
+    label {
+      @include ig-core-14;
+      font-weight: bold;
+
+      &.sub-title {
+        @include ig-core-19;
+      }
+    }
+
+    input {
+      @include ig-core-14;
+      background: $white;
+      border: 1px solid $grey-3;
+      width: 100%;
+      margin: 0;
+      @include media (desktop) {
+        padding: $gutter-one-sixth 0;
+        text-indent: $gutter-one-third;
+      }
+
+      border-color: $border-colour;
+    }
+
+    select {
+      @include ig-core-14;
+      background: #fff;
+      line-height: 1.3;
+      width: 100%;
+    }
+
+    .checkbox input {
+      width: auto;
+    }
+
+    @include media (tablet) {
+      .single-row-select {
+        border: 1px solid #555;
+        padding: $gutter-one-sixth $gutter-one-sixth $gutter-one-sixth $gutter-one-third;
+        width: 100%;
+        background: #fff;
+        background-image: image-url('dropdown-arrow-small.png');
+        background-repeat: no-repeat;
+        background-position: right center;
+        border-color: $border-colour;
+        @include box-shadow(1px 1px 1px #fff);
+        @include border-radius($gutter-one-sixth);
+        @include appearance(none);
+      }
+    }
+
+    #date-range-filter {
+      padding-bottom: $gutter-one-third;
+
+      input {
+        margin-bottom: $gutter-half;
+      }
+    }
+
+    .checkbox {
+      position: relative;
+      label {
+        @include ig-core-14;
+        display: block;
+        padding-left: $gutter-two-thirds;
+      }
+      input {
+        position: absolute;
+        top: $gutter-one-sixth;
+        left: 0;
+        @include media (tablet) {
+          top: $gutter * 0.25;
+        }
+      }
+    }
+
+    .submit {
+      padding: $gutter-two-thirds 0 $gutter-one-third;
+      margin: $gutter-one-sixth 0 0;
+
+      @include media (desktop) {
+        padding-bottom: 0;
+      }
+    }
+
+    .button {
+      margin-top: $gutter;
+      display: block;
+      margin: 0 auto;
+      color: $white;
+      @include button($mellow-red);
+      @include ig-core-19;
+      padding-bottom: 7px;
+    }
+
+    .disabled {
+      opacity: 0.3;
+      cursor: default;
+      @include ie-lte(7){
+        color: $secondary-text-colour;
+      }
+    }
+  }
+
+  .filter-results {
+    .no-results {
+      padding: $gutter 0 $gutter-half;
+      border-bottom: 1px solid $border-colour;
+      h2 {
+        @include core-27;
+      }
+      h3 {
+        @include core-19;
+        font-weight: bold;
+      }
+      p {
+        @include core-19;
+        margin: $gutter-half 0;
+      }
+    }
+  }
+
+  .filter-results-summary {
+    @extend %contain-floats;
+    @include core-16;
+
+    border-bottom: 1px solid $border-colour;
+    padding-bottom: $gutter-one-sixth;
+    margin-bottom: $gutter-one-third;
+
+    .count {
+      @include core-48;
+      font-weight: bold;
+      float: left;
+      padding-right: $gutter-one-third;
+      line-height: 1;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    a {
+      color: $secondary-text-colour;
+      position: relative;
+      top: 1px;
+      padding-right: 3px;
+
+      &:hover {
+        text-decoration: none;
+        color: $secondary-text-colour;
+      }
+    }
+
+    @include media (tablet) {
+      padding-top: $gutter-one-sixth;
+      .count {
+        // The count is shifted up instead of the rest of the text down because
+        // we want the flow after the summary to be determined by the length of the
+        // the text
+        margin-top: -$gutter-one-sixth;
+      }
+    }
+  }
+}

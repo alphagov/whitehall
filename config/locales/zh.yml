@@ -288,8 +288,9 @@ zh:
       all: 所有地区位置
       label: 世界地区位置
   feeds:
-    atom: atom
-    email_alerts: 邮件提醒
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: 最新活动
   i18n:
     direction: ltr

@@ -684,8 +684,9 @@ cy:
       all: Pob lleoliad
       label: Lleoliadau byd
   feeds:
-    atom: atom
-    email_alerts: hysbysiadau e-bost
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Gweithgaredd diweddaraf
   i18n:
     direction: ltr

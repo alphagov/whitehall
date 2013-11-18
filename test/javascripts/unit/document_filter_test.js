@@ -42,6 +42,8 @@ module("Document filter", {
       "atom_feed_url": '/atom-feed',
       "email_signup_url": '/email-signups',
       "results_any?": true,
+      "total_count": 8,
+      "result_type": "publication",
       "results": [
         {
           "id": 1,
@@ -306,7 +308,7 @@ test("should create live count value", function(){
   var data = { total_count: 1337 };
 
   window.GOVUK.documentFilter.liveResultSummary(data);
-  ok(this.resultsCount.text().indexOf('1337 results') > -1, 'should display 1337 results');
+  ok(this.resultsCount.text().indexOf('1,337 results') > -1, 'should display 1,337 results');
 });
 
 test("should update selections to match filters", function(){
@@ -341,9 +343,9 @@ test("should update selections to match filters", function(){
   window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
 
   ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
-  equals(this.selections.find('.topics-selections strong a').attr('data-val'), 'my-value');
-  equals(this.selections.text().match(/after from-date/).length, 1, 'not from my-date');
-  equals(this.selections.text().match(/before to-date/).length, 1, 'not to my-date');
+  equals(this.selections.find('.topics-selections a').attr('data-val'), 'my-value');
+  equals(this.selections.text().match(/after.from-date/).length, 1, 'not from my-date');
+  equals(this.selections.text().match(/before.to-date/).length, 1, 'not to my-date');
   stub.restore();
 });
 
@@ -381,3 +383,23 @@ test("should select first item in filter if no item would be selected", function
   GOVUK.documentFilter.removeFilters('departments', 'dept1');
   equal(this.filterForm.find('select option:first-child:selected').length, 1);
 });
+
+test("#_numberWithDelimiter should add commas", function() {
+  equal(GOVUK.documentFilter._numberWithDelimiter(10), "10");
+  equal(GOVUK.documentFilter._numberWithDelimiter(1000), "1,000");
+  equal(GOVUK.documentFilter._numberWithDelimiter(1000000), "1,000,000");
+});
+
+test("#_pluralize pluralizes basic words", function() {
+  equal(GOVUK.documentFilter._pluralize("badger", 0), "badgers");
+  equal(GOVUK.documentFilter._pluralize("badger", 1), "badger");
+  equal(GOVUK.documentFilter._pluralize("badger", 2), "badgers");
+});
+
+test("#_pluralize pluralizes words ending in y", function() {
+  equal(GOVUK.documentFilter._pluralize("fly", 0), "flies");
+  equal(GOVUK.documentFilter._pluralize("fly", 1), "fly");
+  equal(GOVUK.documentFilter._pluralize("fly", 2), "flies");
+});
+
+

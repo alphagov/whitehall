@@ -680,8 +680,9 @@ ar:
       all: كافة المواقع
       label: مواقع في العالم
   feeds:
-    atom: آتوم
-    email_alerts: إشعار بالبريد الإلكتروني
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: أحدث المستجدات
   i18n:
     direction: rtl

@@ -1,37 +1,3 @@
-.policies-index {
-  @include media(tablet) {
-    .block-2 {
-      float: left;
-      width: 33.333%;
-      .inner-block {
-        padding: 0 $gutter*1.5 0 $gutter;
-      }
-
-      @include right-to-left {
-        float: right;
-        .inner-block {
-          padding: 0 $gutter 0 $gutter*1.5;
-        }
-      }
-    }
-
-    .block-3 {
-      float: left;
-      width: 66.666%;
-      .inner-block {
-        padding: $gutter-one-sixth $gutter 0 $gutter-half;
-      }
-
-      @include right-to-left {
-        float: right;
-        .inner-block {
-          padding: $gutter-one-sixth $gutter-half 0 $gutter;
-        }
-      }
-    }
-  }
-}
-
 .policy {
   .meta-three {
     clear: both;
@@ -245,5 +211,10 @@
     position: absolute;
     right: $gutter-half;
     top: 0;
+
+    .feed-panel {
+      position: absolute;
+      right: 0;
+    }
   }
 }

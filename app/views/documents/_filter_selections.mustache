@@ -1,51 +1,48 @@
-{{result_count}} about
-<span class="topics-selections chosen">
+<span class="count">{{result_count}}</span> <strong>{{pluralized_result_type}}</strong>
+<span class="topics-selections">
   {{#topics}}
-    <strong>{{name}} <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    about <strong>{{name}}</strong> <a href="{{url}}" data-field="topics" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/topics}}
-  {{^topics}} <strong>All topics</strong> {{/topics}}
 </span>
-by
-<span class="departments-selections chosen">
+<span class="departments-selections">
   {{#departments}}
-    <strong>{{name}} <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    by <strong>{{name}}</strong> <a href="{{url}}" data-field="departments" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/departments}}
-  {{^departments}} <strong>All organisations</strong> {{/departments}}
 </span>
 {{#world_locations_any?}}
 from
-<span class="locations-selections chosen">
+<span class="locations-selections">
   {{#world_locations}}
-    <strong>{{name}} <a href="{{url}}" data-field="world_locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+    <strong>{{name}}</strong> <a href="{{url}}" data-field="world_locations" data-val="{{value}}" title="Remove {{name}} filter">&times;</a> {{joining}}
   {{/world_locations}}
 </span>
 {{/world_locations_any?}}
 
 {{#keywords_any?}}
   containing
-  <span class="keyword-selections chosen">
+  <span class="keyword-selections">
     {{#keywords}}
-      <strong>{{name}} <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a></strong> {{joining}}
+      <strong>{{name}}</strong> <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a> {{joining}}
     {{/keywords}}
   </span>
 {{/keywords_any?}}
 
 {{#relevant_to_local_government}}
-  <span class="local-government-selections chosen">
+  <span class="local-government-selections">
     <strong>relevant to local government</strong>
   </span>
 {{/relevant_to_local_government}}
 
 {{#include_world_location_news}}
-  <span class="world-location-news chosen">
+  <span class="world-location-news">
     <strong>including location-specific news</strong>
   </span>
 {{/include_world_location_news}}
 
 {{#date_from}}
-published after <span class="chosen"><strong>{{date_from}}</strong></span>
+published <strong>after&nbsp;{{date_from}}</strong>
 {{/date_from}}
 
 {{#date_to}}
-published before <span class="chosen"><strong>{{date_to}}</strong></span>
+published <strong>before&nbsp;{{date_to}}</strong>
 {{/date_to}}

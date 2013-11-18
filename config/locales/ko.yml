@@ -289,8 +289,9 @@ ko:
       all: 모든 로케이션
       label: 월드 로케이션
   feeds:
-    atom: 부분
-    email_alerts: 이메일 소식
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: 최근 활동
   i18n:
     direction: ltr

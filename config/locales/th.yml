@@ -289,8 +289,9 @@ th:
       all: ที่ตั้งทั้งหมด
       label: ที่ตั้งทั่วโลก
   feeds:
-    atom: ระบบการรับข่าวอะตอม
-    email_alerts: ระบบการแจ้งเตือนทางอีเมล์
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: กิจกรรมล่าสุด
   i18n:
     direction: ltr

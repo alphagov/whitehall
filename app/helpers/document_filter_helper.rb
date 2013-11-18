@@ -121,11 +121,7 @@ module DocumentFilterHelper
     results.map.with_index { |obj, i| obj.merge({ joining: (results.length - 1 == i ? '' : 'or') }) }
   end
 
-  def result_count(count)
-    if count > 0
-      "Showing #{pluralize(count, 'result')}"
-    else
-      "No results"
-    end
+  def result_type(count)
+    "result".pluralize(count)
   end
 end

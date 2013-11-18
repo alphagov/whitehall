@@ -63,7 +63,7 @@ Then /^I am invited to click through to see all the policies the executive offic
 
   click_on 'See all our policies'
   assert page.has_css?('h1', text: 'Policies')
-  assert page.has_content?("about All topics by #{@the_featuring_org.name}")
+  assert page.has_content?("by #{@the_featuring_org.name}")
 end
 
 Given /^there are some topics and policies featured for the executive office "([^"]*)"$/ do |org_name|

@@ -80,7 +80,7 @@ Then(/^I should be able to filter policies by topic, department and keyword$/) d
   assert page.has_no_content? "A policy with the department"
   assert page.has_content? "A policy with both the topic and the department"
   assert page.has_content? "A keyword one"
-  assert page.text.match /Showing 3 results about A Topic . by All organisations/
+  assert page.text.match /3 policies about A Topic ./
 
   select_filter "Department", "A Department"
 
@@ -88,7 +88,7 @@ Then(/^I should be able to filter policies by topic, department and keyword$/) d
   assert page.has_no_content? "A policy with the department"
   assert page.has_content? "A policy with both the topic and the department"
   assert page.has_content? "A keyword one"
-  assert page.text.match /Showing 2 results about A Topic . by A Department ./
+  assert page.text.match /2 policies about A Topic . by A Department ./
 
   fill_in_filter "Contains", "keyword"
 
@@ -96,7 +96,7 @@ Then(/^I should be able to filter policies by topic, department and keyword$/) d
   assert page.has_no_content? "A policy with the department"
   assert page.has_no_content? "A policy with both the topic and the department"
   assert page.has_content? "A keyword one"
-  assert page.text.match /Showing 1 result about A Topic . by A Department . containing keyword ./
+  assert page.text.match /1 policy about A Topic . by A Department . containing keyword ./
 end
 
 
@@ -132,7 +132,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 2 results about All topics by All organisations containing keyword ./
+  assert page.text.match /2 publications containing keyword ./
 
   select_filter "Department", "A Department"
 
@@ -144,7 +144,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by A Department . containing keyword ./
+  assert page.text.match /1 publication by A Department . containing keyword ./
 
   select_filter "Publication type", "Statistics", and_clear_others: true
 
@@ -156,7 +156,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by All organisations/
+  assert page.text.match /1 publication/
 
   select_filter "Topic", "A Topic", and_clear_others: true
 
@@ -168,7 +168,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about A Topic . by All organisations/
+  assert page.text.match /1 publication about A Topic ./
 
   select_filter "Department", "A Department", and_clear_others: true
 
@@ -180,7 +180,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by A Department ./
+  assert page.text.match /1 publication by A Department ./
 
   select_filter "World locations", "A World Location", and_clear_others: true
 
@@ -192,7 +192,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by All organisations from A World Location ./
+  assert page.text.match /1 publication from A World Location ./
 
   clear_filters
   page.fill_in "Published after", with: "01/01/2013"
@@ -207,7 +207,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by All organisations published after 01\/01\/2013 published before 01\/03\/2013 ./
+  assert page.text.match /1 publication published after 01\/01\/2013 published before 01\/03\/2013 ./
 end
 
 
@@ -224,7 +224,7 @@ Then(/^the filtered publications refresh automatically$/) do
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by A Department ./
+  assert page.text.match /1 ?publication by A Department ./
 end
 
 
@@ -296,7 +296,7 @@ Then(/^I should be able to filter announcements by keyword, announcement type, t
   assert page.has_no_content? "News Article with keyword without world location"
   assert page.has_no_content? "News Article with keyword published out of range"
 
-  assert page.text.match /Showing 1 result about A Topic . by A Department . from A World Location . containing keyword . published after 01\/01\/2013 published before 01\/03\/2013/
+  assert page.text.match /1 announcement about A Topic . by A Department . from A World Location . containing keyword . published after 01\/01\/2013 published before 01\/03\/2013/
 end
 
 Given(/^there are some published announcments including a few in French$/) do

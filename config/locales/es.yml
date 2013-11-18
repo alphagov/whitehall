@@ -408,8 +408,9 @@ es:
       all: Todos los lugares
       label: Lugares del mundo
   feeds:
-    atom: Átomo
-    email_alerts: alertas de email
+    email:
+    feed:
+    get_updates_to_this_list:
     latest_activity: Actividad reciente
   i18n:
     direction: ltr

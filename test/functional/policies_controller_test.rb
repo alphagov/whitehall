@@ -37,7 +37,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
   view_test "index for non-english locales skips results summary" do
     get :index, locale: 'fr'
-    refute_select '#filter-results-summary'
+    refute_select '.filter-results-summary'
   end
 
   view_test "show displays the date that the policy was updated" do
