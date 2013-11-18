@@ -38,7 +38,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       end
     when 'force_publish', 'confirm_force_publish'
       enforce_permission!(:force_publish, @edition)
-    when 'unpublish'
+    when 'unpublish', 'confirm_unpublish'
       enforce_permission!(:unpublish, @edition)
     when 'approve_retrospectively'
       enforce_permission!(:approve, @edition)
@@ -83,17 +83,20 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
+  def confirm_unpublish
+    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id)
+  end
+
   def unpublish
-    @edition.build_unpublishing(params[:unpublishing])
-    service_object = archiver_or_unpublisher_for(@edition)
+    @service_object = archiver_or_unpublisher_for(@edition)
 
-    if service_object.perform!
-      redirect_options = {notice: unpublish_success_notice }
+    if @service_object.perform!
+     redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
-      redirect_options = {alert: service_object.failure_reason }
+      @unpublishing = @edition.unpublishing
+      flash.now[:alert] = @service_object.failure_reason
+      render :confirm_unpublish
     end
-
-    redirect_to admin_edition_path(@edition), redirect_options
   end
 
   def schedule
@@ -141,10 +144,14 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   def archiver_or_unpublisher_for(edition)
     if archiving?
-      Whitehall.edition_services.archiver(@edition, user: current_user, remark: "Archived")
+      Whitehall.edition_services.archiver(@edition, user: current_user, remark: "Archived", unpublishing: unpublishing_params)
     else
-      Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft")
+      Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft", unpublishing: unpublishing_params)
     end
+  end
+
+  def unpublishing_params
+    params.fetch(:unpublishing, {}).slice(:unpublishing_reason_id, :alternative_url, :redirect, :explanation)
   end
 
   def unpublish_success_notice
@@ -156,7 +163,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def archiving?
-    params[:unpublishing][:unpublishing_reason_id] == UnpublishingReason::Archived.id.to_s
+    unpublishing_params[:unpublishing_reason_id] == UnpublishingReason::Archived.id.to_s
   end
 
   def users_to_notify(edition)

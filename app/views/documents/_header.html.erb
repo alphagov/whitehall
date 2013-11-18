@@ -8,7 +8,7 @@
                     heading: document.title,
                     extra: true } %>
 
-<%= render 'documents/archive_notice', document: document, type: header_title if document.archived? %>
+<%= render('documents/archive_notice', document: document, type: document.format_name) if document.archived? %>
 
 <div class="heading-extra">
   <div class="inner-heading">

@@ -4,42 +4,39 @@
 
   var enhanceUnpublishingForm = {
     init: function(params) {
-      this.$form = $(params.selector);
-      this.$submit_button = $('input[type="submit"]', this.$form);
-      this.$explanation = $('.js_explanation');
-      this.$alt_url = $('.js_alt_url');
-      this.$redirect = $('.js_redirect');
-      this.$auto_redirect = $('.auto_redirect');
+      this.revealCorrectForm();
+      this.hideExplanationIfRedirecting();
 
-      this.refreshFormFields();
-      $("input[name='unpublishing[unpublishing_reason_id]']", this.$form).change(this.refreshFormFields);
+      $("input[name='unpublishing_reason_id']").change(this.revealCorrectForm);
+      $('#unpublishing_redirect').change(this.hideExplanationIfRedirecting);
     },
 
-    refreshFormFields: function() {
-      var selectedReason =  $("input[name='unpublishing[unpublishing_reason_id]']:checked").val();
-
+    revealCorrectForm: function() {
+      var selectedReason = $("input[name='unpublishing_reason_id']:checked").val();
       switch(selectedReason) {
         case '<%= UnpublishingReason::Archived.id %>':
-          enhanceUnpublishingForm.$explanation.show();
-          enhanceUnpublishingForm.$alt_url.hide();
-          enhanceUnpublishingForm.$redirect.hide();
-          enhanceUnpublishingForm.$auto_redirect.hide();
-          enhanceUnpublishingForm.$submit_button.val('Archive');
+          $('#js-archive-form').show();
+          $('#js-published-in-error-form').hide();
+          $('#js-consolidated-form').hide();
           break;
         case '<%= UnpublishingReason::PublishedInError.id %>':
-          enhanceUnpublishingForm.$explanation.show();
-          enhanceUnpublishingForm.$alt_url.show();
-          enhanceUnpublishingForm.$redirect.show();
-          enhanceUnpublishingForm.$auto_redirect.hide();
-          enhanceUnpublishingForm.$submit_button.val('Unpublish');
+          $('#js-archive-form').hide();
+          $('#js-published-in-error-form').show();
+          $('#js-consolidated-form').hide();
           break;
         case '<%= UnpublishingReason::Consolidated.id %>':
-          enhanceUnpublishingForm.$explanation.hide();
-          enhanceUnpublishingForm.$alt_url.show();
-          enhanceUnpublishingForm.$redirect.hide();
-          enhanceUnpublishingForm.$auto_redirect.show();
-          enhanceUnpublishingForm.$submit_button.val('Unpublish');
+          $('#js-archive-form').hide();
+          $('#js-published-in-error-form').hide();
+          $('#js-consolidated-form').show();
           break;
+      }
+    },
+
+    hideExplanationIfRedirecting: function() {
+      if ( $("#unpublishing_redirect").prop('checked') ) {
+        $('#published_in_error_explanation').val('').closest('fieldset').hide();
+      } else {
+        $('#published_in_error_explanation').closest('fieldset').show();
       }
     }
   };

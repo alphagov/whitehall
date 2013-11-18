@@ -2,10 +2,9 @@ require 'test_helper'
 
 class EditionUnpublisherTest < ActiveSupport::TestCase
 
-  test '#perform! with a published edition that has a valid Unpublishing returns the edition to draft and resets the version numbers' do
+  test '#perform! with a published edition returns the edition to draft, resets the version numbers and saves the unpublishing details' do
     edition = create(:published_edition)
-    edition.build_unpublishing(unpublishing_params)
-    unpublisher = EditionUnpublisher.new(edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.perform!
     assert_equal :draft, edition.reload.current_state
@@ -16,8 +15,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test '#perform! resets the force published flag' do
     edition = create(:published_edition, force_published: true)
-    edition.build_unpublishing(unpublishing_params)
-    unpublisher = EditionUnpublisher.new(edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.perform!
     assert_equal :draft, edition.reload.current_state
@@ -26,9 +24,8 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test '#perform! ends any featurings associated with the document' do
     edition     = create(:published_edition)
-    edition.build_unpublishing(unpublishing_params)
     feature     = create(:feature, document: edition.document)
-    unpublisher = EditionUnpublisher.new(edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.perform!
     assert_equal Time.zone.now, feature.reload.ended_at
@@ -37,8 +34,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
   test 'only "published" editions can be unpublished' do
     (Edition.available_states - [:published]).each do |state|
       edition = create(:"#{state}_edition")
-      edition.build_unpublishing(unpublishing_params)
-      unpublisher = EditionUnpublisher.new(edition)
+      unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
       refute unpublisher.perform!
       assert_equal state, edition.current_state
@@ -48,9 +44,8 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'even invalid editions can be unpublished' do
     edition = create(:published_edition)
-    edition.build_unpublishing(unpublishing_params)
     edition.summary = nil
-    unpublisher = EditionUnpublisher.new(edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     assert unpublisher.can_perform?
     assert unpublisher.perform!
@@ -60,14 +55,14 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
   test 'cannot unpublish a published editions if a newer draft exists' do
     edition = create(:published_edition)
     edition.create_draft(create(:policy_writer))
-    unpublisher = EditionUnpublisher.new(edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
     refute unpublisher.can_perform?
     assert_equal 'There is already a draft edition of this document. You must discard it before you can unpublish this edition.',
       unpublisher.failure_reason
   end
 
-  test 'cannot unpublish without an Unpublishing prepared on the edition' do
+  test 'cannot unpublish without an unpublishing details' do
     edition = create(:published_edition)
     unpublisher = EditionUnpublisher.new(edition)
 
@@ -77,9 +72,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'cannot unpublish an edition if the Unpublishing is not valid' do
     edition = create(:published_edition)
-    edition.build_unpublishing(unpublishing_params.merge(redirect: true))
-
-    unpublisher = EditionUnpublisher.new(edition)
+    unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params.merge(redirect: true))
 
     refute unpublisher.can_perform?
     assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason

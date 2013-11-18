@@ -1,4 +1,10 @@
 class EditionUnpublisher < EditionService
+
+  def initialize(edition, options={})
+    super
+    @edition.build_unpublishing(options[:unpublishing]) if options[:unpublishing]
+  end
+
   def failure_reason
     @failure_reason ||= if !can_transition?
       "An edition that is #{edition.current_state} cannot be #{past_participle}"

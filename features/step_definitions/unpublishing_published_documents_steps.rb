@@ -11,19 +11,24 @@ end
 
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
   visit admin_edition_path(@duplicate_edition)
-  click_button 'Archive or unpublish'
+  click_on 'Archive or unpublish'
   choose 'Unpublish: consolidated into another GOV.UK page'
-  fill_in 'Alternative URL', with: Whitehall.url_maker.policy_url(@existing_edition.document)
-  click_button 'Unpublish'
+
+  within '#js-consolidated-form' do
+    fill_in 'consolidated_alternative_url', with: Whitehall.url_maker.policy_url(@existing_edition.document)
+    click_button 'Unpublish'
+  end
 end
 
-When(/^I unpublish the policy because it is no longer government policy$/) do
+When(/^I archive the policy because it is no longer government policy$/) do
   @policy = Policy.last
   visit admin_edition_path(@policy)
-  click_button 'Archive or unpublish'
+  click_on 'Archive or unpublish'
   choose 'Archive: no longer current government policy/activity'
-  fill_in 'Public explanation (this is shown on the live site)', with: 'We no longer believe people should shave'
-  click_button 'Unpublish'
+  fill_in 'Public explanation (this is shown on the live site) *', with: 'We no longer believe people should shave'
+  click_button 'Archive'
+
+  assert_equal :archived, @policy.reload.current_state
 end
 
 Then(/^the policy should be marked as archived on the public site$/) do
@@ -35,7 +40,7 @@ end
 
 Then(/^I should be redirected to the other page when I view the document on the public site$/) do
   visit public_document_path(@duplicate_edition)
-  assert_current_url policy_url(@existing_edition.document)
+  assert_equal policy_path(@existing_edition.document), page.current_path
 end
 
 When /^I unpublish the document because it was published in error$/ do
@@ -58,7 +63,6 @@ Then /^I should see that the document was published in error on the public site$
   assert page.has_no_content?(edition.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
-  assert page.has_css?("a[href='#{Whitehall.url_maker.how_government_works_url}']")
 end
 
 Then /^I should see that the document was published in error at the original url$/ do
@@ -66,11 +70,11 @@ Then /^I should see that the document was published in error at the original url
   assert page.has_no_content?(@document.title)
   assert page.has_content?('The information on this page has been removed because it was published in error')
   assert page.has_content?('This page should never have existed')
-  assert page.has_css?("a[href='#{Whitehall.url_maker.how_government_works_url}']")
 end
 
 When /^I unpublish the document and ask for a redirect$/ do
   unpublish_edition(Edition.last) do
+    fill_in 'published_in_error_alternative_url', with: Whitehall.url_maker.how_government_works_url
     check 'Redirect to URL automatically?'
   end
 end
