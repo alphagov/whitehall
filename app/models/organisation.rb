@@ -16,20 +16,8 @@ class Organisation < ActiveRecord::Base
   has_many :parent_organisations,
             through: :parent_organisational_relationships
 
-  has_many :edition_organisations,
-            dependent: :destroy
-  has_many :featured_edition_organisations,
-            class_name: "EditionOrganisation",
-            include: :edition,
-            conditions: { "edition_organisations" => {"featured" => true},
-                          "editions" => {state: "published"}},
-            order: "edition_organisations.ordering ASC"
-  has_many :editions,
-            through: :edition_organisations
-  has_many :featured_editions,
-            through: :featured_edition_organisations,
-            source: :edition,
-            order: "edition_organisations.ordering ASC"
+  has_many :edition_organisations, dependent: :destroy
+  has_many :editions, through: :edition_organisations
 
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles

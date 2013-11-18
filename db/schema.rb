@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112123527) do
+ActiveRecord::Schema.define(:version => 20131118121852) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -408,27 +408,16 @@ ActiveRecord::Schema.define(:version => 20131112123527) do
   add_index "edition_ministerial_roles", ["edition_id"], :name => "index_edition_ministerial_roles_on_edition_id"
   add_index "edition_ministerial_roles", ["ministerial_role_id"], :name => "index_edition_ministerial_roles_on_ministerial_role_id"
 
-  create_table "edition_organisation_image_data", :force => true do |t|
-    t.string   "carrierwave_image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "edition_organisations", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "organisation_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "featured",                           :default => false
-    t.integer  "ordering"
-    t.integer  "edition_organisation_image_data_id"
-    t.string   "alt_text"
-    t.boolean  "lead",                               :default => false, :null => false
+    t.boolean  "lead",            :default => false, :null => false
     t.integer  "lead_ordering"
   end
 
   add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
-  add_index "edition_organisations", ["edition_organisation_image_data_id"], :name => "index_edition_orgs_on_edition_org_image_data_id"
   add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
   create_table "edition_policy_groups", :force => true do |t|

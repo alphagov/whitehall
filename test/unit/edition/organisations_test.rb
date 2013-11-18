@@ -1,46 +1,11 @@
 require "test_helper"
 
 class Edition::OrganisationsTest < ActiveSupport::TestCase
-  test "new edition of document featured in organisation should remain featured in that organisation with image and alt text" do
-    featured_image = create(:edition_organisation_image_data)
-    organisation = create(:organisation)
-    news_article = create(:published_news_article, organisations: [organisation])
-    association = news_article.association_with_organisation(organisation)
-    association.image = featured_image
-    association.alt_text = "alt-text"
-    association.featured = true
-    association.save!
-    # reset the association so it picks up the db changes above
-    news_article.edition_organisations(true)
-
-    new_edition = news_article.create_draft(create(:policy_writer))
-    new_edition.change_note = 'change-note'
-    force_publish(new_edition)
-
-    edition_organisation = new_edition.edition_organisations.first
-    assert edition_organisation.featured?
-    assert_equal featured_image, edition_organisation.image
-    assert_equal "alt-text", edition_organisation.alt_text
-  end
-
-  test "new edition of document not featured in organisation should remain unfeatured in that organisation" do
-    news_article = create(:published_news_article)
-    organisation = create(:organisation)
-    create(:edition_organisation, featured: false, edition: news_article, organisation: organisation)
-
-    new_edition = news_article.create_draft(create(:policy_writer))
-    new_edition.change_note = 'change-note'
-    force_publish(new_edition)
-
-    edition_organisation = new_edition.edition_organisations.first
-    refute edition_organisation.featured?
-  end
-
   test "#destroy removes relationship with organisation" do
     edition = create(:draft_policy, organisations: [create(:organisation)])
     relation = edition.edition_organisations.first
     edition.destroy
-    refute EditionOrganisation.find_by_id(relation.id)
+    refute EditionOrganisation.exists?(relation)
   end
 
   test "new edition of document will retain lead and supporting organisations and their orderings" do
