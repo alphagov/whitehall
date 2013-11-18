@@ -317,32 +317,6 @@ class OrganisationTest < ActiveSupport::TestCase
                   'description' => 'Defensive.'}, results[3])
   end
 
-  test '#featured_editions returns featured editions by ordering' do
-    organisation = create(:organisation)
-    alpha = create(:edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Alpha"))
-    beta = create(:featured_edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Beta"), ordering: 1)
-    gamma = create(:featured_edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Gamma"), ordering: 0)
-    delta = create(:featured_edition_organisation, organisation: organisation, edition: create(:published_edition, title: "Delta"), ordering: 2)
-
-    assert_equal [gamma.edition, beta.edition, delta.edition], organisation.featured_editions
-  end
-
-  test '#featured_editions includes the newly published version of a featured edition, but not the original' do
-    organisation = create(:organisation)
-    old_version = create(:published_publication, title: "Gamma")
-    create(:featured_edition_organisation, organisation: organisation, edition: old_version, ordering: 0)
-    # reload the edition_organisations on old_version to pick up this new one
-    old_version.edition_organisations.reload
-
-    new_version = old_version.create_draft(create(:departmental_editor))
-    new_version.change_note = 'New stuffs!'
-    new_version.save
-    force_publish(new_version)
-
-    refute organisation.featured_editions.include?(old_version)
-    assert organisation.featured_editions.include?(new_version)
-  end
-
   test '#published_announcements returns published news or speeches' do
     organisation = create(:organisation)
     role = create(:ministerial_role, organisations: [organisation])
