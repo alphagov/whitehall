@@ -3,7 +3,7 @@ require 'test_helper'
 class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  test 'should only allow whitelisted attachments' do
+  test 'should allow whitelisted file extensions' do
     graphics = %w(png gif jpg eps ps dxf)
     documents = %w(pdf rtf doc docx ppt pptx rdf txt odt)
     spreadsheets = %w(csv xls xlsx xlsm ods)
@@ -13,6 +13,16 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
     allowed_attachments = graphics + documents + spreadsheets + markup + containers + templates
     assert_equal allowed_attachments.sort, AttachmentUploader.new.extension_white_list.sort
+  end
+
+  test 'non-whitelisted file extensions are rejected' do
+    uploader = AttachmentUploader.new(stub("AR Model", id: 1), "mounted-as")
+
+    exception = assert_raise CarrierWave::IntegrityError do
+      uploader.store!(fixture_file_upload('dodgy.exe'))
+    end
+
+    assert_match %r(You are not allowed to upload "exe" files), exception.message
   end
 
   test "should store uploads in a directory that persists across deploys" do

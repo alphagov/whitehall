@@ -7,8 +7,7 @@ class Feature < ActiveRecord::Base
   validates :document, presence: true, unless: -> feature { feature.topical_event_id.present? }
   validates :started_at, presence: true
   validates :image, presence: true, on: :create
-
-  validate :image_must_be_960px_by_640px, if: :image_changed?
+  validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   before_validation :set_started_at!, on: :create
 
@@ -51,11 +50,5 @@ class Feature < ActiveRecord::Base
 
   def image_changed?
     changes["carrierwave_image"].present?
-  end
-
-  def image_must_be_960px_by_640px
-    if image.path
-      errors.add(:image, 'must be 960px wide and 640px tall') unless ImageSizeChecker.new(image.path).size_is?(960, 640)
-    end
   end
 end

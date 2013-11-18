@@ -10,11 +10,11 @@ class TakePartPage < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title
 
+  mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
+
   validates :image, presence: true, on: :create
   validates :image_alt_text, presence: true, length: { maximum: 255 }, on: :create
-  validate :image_must_be_960px_by_640px, if: :image_changed?
-
-  mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
+  validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
 
   include Searchable
   searchable title: :title,
@@ -47,11 +47,6 @@ class TakePartPage < ActiveRecord::Base
   end
 
   protected
-  def image_must_be_960px_by_640px
-    if image.path
-      errors.add(:image, 'must be 960px wide and 640px tall') unless ImageSizeChecker.new(image.path).size_is?(960, 640)
-    end
-  end
 
   def image_changed?
     changes["carrierwave_image"].present?
