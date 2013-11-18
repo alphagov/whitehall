@@ -10,7 +10,7 @@ module Edition::Topics
       attrs[:id].blank? && attrs[:name].blank?
     }
 
-    validate :validate_presence_of_topic
+    validate :validate_presence_of_topic, unless: :imported?
 
     before_validation :mark_topic_suggestion_for_destruction
   end
@@ -39,9 +39,21 @@ module Edition::Topics
 
 private
   def validate_presence_of_topic
-    if topics.empty? && (topic_suggestion.blank? || topic_suggestion.marked_for_destruction?)
+    unless has_associated_topics? || has_topic_suggestion?
       errors.add(:topics, "at least one required")
     end
+  end
+
+  def has_associated_topics?
+    # We need to check the join model because topics will be empty until the
+    # classification memberships records are saved, which won't happen until
+    # the parent topic is valid. We need to use #empty? here as ActiveRecord
+    # overrides it to avoid caching the topics association.
+    !(classification_memberships.empty? && topics.empty?)
+  end
+
+  def has_topic_suggestion?
+    topic_suggestion.present? && !topic_suggestion.marked_for_destruction?
   end
 
   def mark_topic_suggestion_for_destruction
