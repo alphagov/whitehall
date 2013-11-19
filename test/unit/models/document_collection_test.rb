@@ -39,8 +39,8 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_invalid build(:document_collection, summary: nil)
   end
 
-  test "it should be invalid without body text" do
-    assert_invalid build(:document_collection, body: nil)
+  test "it should be valid without body text" do
+    assert_valid build(:document_collection, body: nil)
   end
 
   test "it should create a group called 'Documents' when created if groups are empty" do
