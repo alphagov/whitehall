@@ -22,6 +22,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     updateAtomFeed: function(data) {
       if (data.atom_feed_url) {
         $(".feeds .feed").attr("href", data.atom_feed_url);
+        $(".feed-panel input").val(data.atom_feed_url);
       }
     },
     updateEmailSignup: function(data) {
