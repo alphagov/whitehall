@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HtmlAttachmentsControllerTest < ActionController::TestCase
 
-  view_test '#show renders the HTML attachment of a publication' do
+  view_test '#show renders the HTML attachment of a published publication' do
     publication, attachment = create_edition_and_attachment
     get :show, publication_id: publication.document, id: attachment
 
@@ -10,7 +10,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select 'header h1', attachment.title
   end
 
-  view_test '#show renders the HTML attachment of a consultation' do
+  view_test '#show renders the HTML attachment of a published consultation' do
     consultation, attachment = create_edition_and_attachment(:consultation)
     get :show, consultation_id: consultation.document, id: attachment
 
@@ -64,6 +64,28 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select 'header h1', draft_attachment.title
+  end
+
+  test '#show redirects to the edition if the edition has been unpublished' do
+    publication, attachment = create_edition_and_attachment
+    assert EditionUnpublisher.new(publication, unpublishing: { unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: 'Published by mistake' }).perform!
+    assert publication.unpublishing
+
+    get :show, publication_id: publication.document, id: attachment
+
+    assert_redirected_to publication_url(publication.document)
+  end
+
+  view_test '#show does not redirect if an unpublished edition is subsequently published' do
+    publication, attachment = create_edition_and_attachment
+    assert EditionUnpublisher.new(publication, unpublishing: { unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: 'Published by mistake' }).perform!
+    assert publication.unpublishing
+    publication.force_publish!
+
+    get :show, publication_id: publication.document, id: attachment
+
+    assert_response :success
+    assert_select 'header h1', attachment.title
   end
 
 private

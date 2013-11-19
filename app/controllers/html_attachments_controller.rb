@@ -1,8 +1,9 @@
 class HtmlAttachmentsController < ApplicationController
+  include PublicDocumentRoutesHelper
+
   layout 'html_attachments'
 
-  before_filter :find_edition
-  before_filter :find_html_attachment
+  before_filter :find_edition, :redirect_if_unpublished, :find_html_attachment
 
   def show
   end
@@ -15,8 +16,16 @@ private
     else
       @edition = document_class.published_as(slug_param)
     end
+  end
 
-    raise ActiveRecord::RecordNotFound unless @edition
+  def redirect_if_unpublished
+    return if @edition
+
+    if unpublishing = Unpublishing.from_slug(slug_param, document_class)
+      redirect_to public_document_path(unpublishing.edition)
+    else
+      raise ActiveRecord::RecordNotFound, "could not find Edition with slug #{slug_param}"
+    end
   end
 
   def find_html_attachment
