@@ -25,7 +25,7 @@
       <h1>Contents</h1>
       <ol class="dash-list">
         <% @document_collection.groups.each do |group| %>
-          <li><%= link_to group.heading, "#group_#{group.id}" %></li>
+          <li><%= link_to group.heading, "##{group.slug}" %></li>
         <% end %>
       </ol>
     </div>
@@ -44,7 +44,7 @@
 
       <% @groups.each do |group, editions| %>
         <div class="editions">
-          <%= content_tag :h2, group.heading, id: "group_#{group.id}" %>
+          <%= content_tag :h2, group.heading, id: group.slug %>
           <% unless group.body.blank? %>
             <div class="group-body">
               <%= govspeak_to_html group.body %>

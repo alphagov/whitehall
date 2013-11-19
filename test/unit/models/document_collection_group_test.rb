@@ -67,4 +67,9 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert_equal     1,                             new_group.memberships[1].ordering
     assert_equal     3,                             new_group.memberships[2].ordering
   end
+
+  test '#slug generates slugs of the heading' do
+    group = create(:document_collection_group, heading: 'Foo bar')
+    assert_equal group.slug, 'foo-bar'
+  end
 end

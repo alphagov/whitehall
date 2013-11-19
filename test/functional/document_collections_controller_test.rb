@@ -47,8 +47,8 @@ class DocumentCollectionsControllerTest < ActionController::TestCase
     group_2 = create_group_from_editions(collection, 'Group 2', create(:published_publication))
     get :show, id: collection.slug
 
-    assert_select "ol li a[href=#group_#{group_1.id}]", text: 'Group 1'
-    assert_select "ol li a[href=#group_#{group_2.id}]", text: 'Group 2'
+    assert_select "ol li a[href=##{group_1.slug}]", text: 'Group 1'
+    assert_select "ol li a[href=##{group_2.slug}]", text: 'Group 2'
   end
 
   test "GET #show sets Cache-Control: max-age to the time of the next scheduled publication in the collection" do
