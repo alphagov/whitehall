@@ -45,23 +45,20 @@ module Whitehall::Uploader
       ResponseBuilder.new(@row, @line_number, @attachment_cache, @logger).build
     end
 
-    def attributes
-      {
-        title: title,
-        summary: summary,
-        body: body,
-        opening_at: opening_at,
-        closing_at: closing_at,
-        lead_organisations: lead_organisations,
-        related_editions: related_editions,
-        attachments: attachments,
-        alternative_format_provider: alternative_format_provider,
-        outcome: outcome
-      }
+  protected
+    def attribute_keys
+      super + [
+        :alternative_format_provider,
+        :attachments,
+        :closing_at,
+        :lead_organisations,
+        :opening_at,
+        :outcome,
+        :related_editions
+      ]
     end
 
-    private
-
+  private
     def build_attachments
       result = 1.upto(Row::ATTACHMENT_LIMIT).map do |number|
         if row["attachment_#{number}_title"] || row["attachment_#{number}_url"]

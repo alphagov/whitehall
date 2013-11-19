@@ -61,22 +61,22 @@ module Whitehall::Uploader
       Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
     end
 
-    def attributes
-      [
-        :title, :summary, :body,
+  protected
+    def attribute_keys
+      super + [
+        :additional_related_mainstream_content_title,
+        :additional_related_mainstream_content_url,
+        :alternative_format_provider,
+        :attachments,
+        :first_published_at,
         :lead_organisations,
-        :topics,
-        :primary_mainstream_category,
         :other_mainstream_categories,
         :outbound_related_documents,
-        :related_mainstream_content_url,
+        :primary_mainstream_category,
         :related_mainstream_content_title,
-        :additional_related_mainstream_content_url,
-        :additional_related_mainstream_content_title,
-        :attachments, :alternative_format_provider,
-        :first_published_at].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+        :related_mainstream_content_url,
+        :topics
+      ]
     end
   end
 end

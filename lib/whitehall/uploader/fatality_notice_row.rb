@@ -43,14 +43,18 @@ module Whitehall::Uploader
       Organisation.find_by_slug("ministry-of-defence")
     end
 
-    def attributes
-      [:title, :summary, :body, :lead_organisations, :images, :operational_field, :first_published_at, :roll_call_introduction].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :first_published_at,
+        :images,
+        :lead_organisations,
+        :operational_field,
+        :roll_call_introduction
+      ]
     end
 
-    private
-
+  private
     class ImageBuilder
       def initialize(image_cache, logger, line_number)
         @image_cache = image_cache

@@ -21,15 +21,13 @@ module Whitehall::Uploader
       Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
     end
 
-    def attributes
-      {
-        title: title,
-        summary: summary,
-        body: body,
-        lead_organisations: lead_organisations,
-        related_editions: related_editions,
-        first_published_at: first_published_at
-      }
+  protected
+    def attribute_keys
+      super + [
+        :first_published_at,
+        :lead_organisations,
+        :related_editions
+      ]
     end
   end
 end

@@ -97,7 +97,16 @@ module Whitehall::Uploader
       []
     end
 
-    protected
+    def attributes
+      @attributes ||= attribute_keys.map.with_object({}) do |attribute, result|
+        result[attribute] = __send__(attribute)
+      end
+    end
+
+  protected
+    def attribute_keys
+      [:title, :summary, :body]
+    end
 
     def fields(range, pattern)
       range.map do |n|

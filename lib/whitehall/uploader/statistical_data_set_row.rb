@@ -78,16 +78,19 @@ module Whitehall::Uploader
       false
     end
 
-    def attributes
-      [:title, :summary, :body, :lead_organisations,
-       :attachments, :alternative_format_provider, :access_limited,
-       :first_published_at, :change_note].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :access_limited,
+        :alternative_format_provider,
+        :attachments,
+        :change_note,
+        :first_published_at,
+        :lead_organisations
+      ]
     end
 
-    private
-
+  private
     def generated_attachment_body
       attachments.map.with_index { |_, i| "!@#{i+1}" }.join("\n\n")
     end

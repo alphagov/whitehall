@@ -36,12 +36,17 @@ module Whitehall::Uploader
       attachments_from_columns + attachments_from_json
     end
 
-    def attributes
-      [:title, :summary, :body, :lead_organisations,
-       :first_published_at, :related_editions, :role_appointments,
-       :world_locations, :news_article_type, :attachments].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :attachments,
+        :first_published_at,
+        :lead_organisations,
+        :news_article_type,
+        :related_editions,
+        :role_appointments,
+        :world_locations
+      ]
     end
   end
 end
