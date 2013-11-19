@@ -13,6 +13,7 @@ module Whitehall::Uploader
         .multiple("country_#", 0..4)
         .optional(%w(html_title html_body))
         .multiple('html_body_#',0..99)
+        .multiple("topic_#", 0..4)
     end
 
     def first_published_at
@@ -76,6 +77,7 @@ module Whitehall::Uploader
         :ministerial_roles,
         :publication_type,
         :related_editions,
+        :topics,
         :world_locations
       ]
     end

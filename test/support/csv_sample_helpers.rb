@@ -41,7 +41,8 @@ module CsvSampleHelpers
       "consultation_ISBN" => "",
       "consultation_URN"  => "",
       "response_date"     => "20-Nov-2012",
-      "response_summary"  => "summary required"
+      "response_summary"  => "summary required",
+      "topic_1"           => sample_topic.slug
     )
   end
 
@@ -54,5 +55,9 @@ module CsvSampleHelpers
 
   def sample_organisation
     @sample_organisation ||= (Organisation.first || create(:organisation))
+  end
+
+  def sample_topic
+    @sample_topic ||= (Topic.first || create(:topic))
   end
 end

@@ -8,6 +8,7 @@ module Whitehall::Uploader
         .required(%w{delivered_by delivered_on event_and_location})
         .multiple("country_#", 0..4)
         .translatable(%w{title summary body})
+        .multiple("topic_#", 0..4)
     end
 
     def speech_type
@@ -53,6 +54,7 @@ module Whitehall::Uploader
         :speech_type,
         :organisations,
         :related_editions,
+        :topics,
         :world_locations
       ]
     end

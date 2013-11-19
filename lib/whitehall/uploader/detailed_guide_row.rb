@@ -13,10 +13,6 @@ module Whitehall::Uploader
         .optional('json_attachments')
     end
 
-    def topics
-      Finders::SluggedModelFinder.new(Topic, @logger, @line_number).find(fields(1..4, 'topic_#'))
-    end
-
     def primary_mainstream_category
       Finders::SluggedModelFinder.new(MainstreamCategory, @logger, @line_number).find([row['detailed_guidance_category_1']]).first
     end

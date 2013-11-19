@@ -145,6 +145,16 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
+  test '#perform assigns topics to the document' do
+    topic = create(:topic)
+    data = publication_csv_sample('topic_1' => topic.slug)
+
+    import = perform_import(csv_data: data, data_type: 'publication', organisation_id: organisation.id)
+    edition = import.imported_editions.first
+
+    assert_equal [topic], edition.topics
+  end
+
   test '#perform assigns document collection to the document' do
     collection = create(:document_collection, title: 'collection-name')
     import = perform_import(csv_data: publication_with_collection_csv, data_type: "publication", organisation_id: create(:organisation).id)

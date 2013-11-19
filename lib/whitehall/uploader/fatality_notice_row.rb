@@ -13,6 +13,7 @@ module Whitehall::Uploader
         .multiple(%w{image_#_imgalt image_#_imgcap image_#_imgcapmd image_#_imgurl}, 0..4)
         .ignored("ignore_*")
         .required(%w{first_published field_of_operation roll_call_introduction})
+        .multiple("topic_#", 0..4)
     end
 
     def images
@@ -50,7 +51,8 @@ module Whitehall::Uploader
         :images,
         :lead_organisations,
         :operational_field,
-        :roll_call_introduction
+        :roll_call_introduction,
+        :topics
       ]
     end
 

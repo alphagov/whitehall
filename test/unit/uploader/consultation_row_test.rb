@@ -1,5 +1,4 @@
-require 'fast_test_helper'
-require 'whitehall/uploader'
+require 'test_helper'
 
 module Whitehall::Uploader
   class ConsultationRowTest < ActiveSupport::TestCase
@@ -125,7 +124,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :summary, :body, :opening_at, :closing_at, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :outcome]
+      attribute_keys = [:title, :summary, :body, :opening_at, :closing_at, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :outcome, :topics]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

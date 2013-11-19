@@ -10,6 +10,7 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
         .translatable(%w{title summary body})
+        .multiple("topic_#", 0..4)
     end
 
     def news_article_type
@@ -45,6 +46,7 @@ module Whitehall::Uploader
         :news_article_type,
         :related_editions,
         :role_appointments,
+        :topics,
         :world_locations
       ]
     end

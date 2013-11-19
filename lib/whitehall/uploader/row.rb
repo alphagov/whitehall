@@ -103,6 +103,10 @@ module Whitehall::Uploader
       end
     end
 
+    def topics
+      Finders::SluggedModelFinder.new(Topic, @logger, @line_number).find(fields(1..4, 'topic_#'))
+    end
+
   protected
     def attribute_keys
       [:title, :summary, :body]

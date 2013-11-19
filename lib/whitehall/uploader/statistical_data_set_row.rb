@@ -18,6 +18,7 @@ module Whitehall::Uploader
         .optional(%W{change_note})
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
         .ignored("ignore_*")
+        .multiple("topic_#", 0..4)
     end
 
     def title
@@ -86,7 +87,8 @@ module Whitehall::Uploader
         :attachments,
         :change_note,
         :first_published_at,
-        :lead_organisations
+        :lead_organisations,
+        :topics
       ]
     end
 

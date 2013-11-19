@@ -19,6 +19,7 @@ module Whitehall::Uploader
         .ignored("ignore_*")
         .multiple(%w{response_#_url response_#_title response_#_ISBN}, 0..Row::ATTACHMENT_LIMIT)
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
+        .multiple("topic_#", 0..4)
     end
 
     def opening_at
@@ -54,7 +55,8 @@ module Whitehall::Uploader
         :lead_organisations,
         :opening_at,
         :outcome,
-        :related_editions
+        :related_editions,
+        :topics
       ]
     end
 
