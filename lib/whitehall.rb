@@ -164,7 +164,8 @@ module Whitehall
       DetailedGuide,
       NewsArticle,
       Publication,
-      DocumentCollection
+      DocumentCollection,
+      SupportingPage
     ]
   end
 
