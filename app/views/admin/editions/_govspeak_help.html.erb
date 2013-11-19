@@ -1,6 +1,9 @@
-<% hide_inline_attachments_help ||= false %>
-<% show_attachments_tab_help ||= false %>
-<% govspeak_link_errors ||= [] %>
+<%
+  hide_inline_attachments_help ||= false
+  show_attachments_tab_help ||= false
+  show_footnote_help ||= false
+  govspeak_link_errors ||= []
+%>
 
 <h1>Govspeak help</h1>
 
@@ -183,3 +186,23 @@ $A</pre>
   <p>You can find the ID on the list of contacts for an <%= link_to 'organisation', admin_organisations_path %> or <%= link_to 'worldwide organisation', admin_worldwide_organisations_path %> or you can type '[Contact: ' and then type a keyword to find your contact (if it exists).</p>
   <p>If it doesn't exist you will have to add it (see your ‘Publishing explained’ guidance). </p>
 </div>
+
+<% if show_footnote_help %>
+  <h3><a data-toggle="collapse" data-target="#govspeak-footnotes">Footnotes</a></h3>
+  <div class="collapse" id="govspeak-footnotes">
+    <pre>Footnotes can be added[^1].
+
+  [^1]: And then later defined.</pre>
+    <p>
+      You can add a footnote marker to a document using [^<em>i</em>] where <em>i</em> is the footnote number or label. Each of these tags should have corresponding footnote content, defined with [^<em>i</em>]: <em>The footnote content</em>. The footnote content will always appear at the end of the document regardless of where they are in the markdown.
+    </p>
+    <p>
+      Footnote content can hold more than one paragraph by indenting the content 4 spaces:
+    </p>
+
+    <pre>[^1]:
+      This is some footnote content and is indented 4 spaces.
+
+      This paragraph is also indented, so will be considered part of the footnote content.</pre>
+  </div>
+<% end %>
