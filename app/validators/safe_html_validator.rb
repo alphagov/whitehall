@@ -6,6 +6,8 @@ class SafeHtmlValidator < ActiveModel::Validator
     end
   end
 
+private
+
   def check_struct(record, field_name, value)
     if value.respond_to?(:values) # e.g. Hash
       value.values.each { |entry| check_struct(record, field_name, entry) }
@@ -20,7 +22,6 @@ class SafeHtmlValidator < ActiveModel::Validator
     record.errors.add(field_name, "cannot include invalid formatting or JavaScript") if unacceptable_govspeak?(string)
   end
 
-private
   def self.cache
     @cache ||= ActiveSupport::Cache::MemoryStore.new
   end
