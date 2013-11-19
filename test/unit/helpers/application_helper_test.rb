@@ -211,15 +211,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert classes.include?("class-2")
   end
 
-  test "generates related policy option as title without topics" do
-    policy = create(:policy, title: "Policy title", topics: [])
-    assert_equal [[policy.id, "Policy title"]], related_policy_options
-  end
-
   test "#related_policy_options_excluding excludes a set of policies" do
-    policy = create(:policy, title: "Policy title", topics: [])
-    excluded = create(:policy, title: "Excluded", topics: [])
-    assert_equal [[policy.id, "Policy title"]], related_policy_options_excluding([excluded])
+    topic = build(:topic, name: "Topic")
+    policy = create(:policy, title: "Policy title", topics: [topic])
+    excluded = create(:policy, title: "Excluded", topics: [topic])
+    assert_equal [[policy.id, "Policy title (Topic)"]], related_policy_options_excluding([excluded])
   end
 
   test "#policies_for_editions_organisations returns all active policies that map to an organisation the edition is in" do
