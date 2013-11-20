@@ -4,13 +4,19 @@ FactoryGirl.define do
     sequence(:ordering)
 
     ignore do
-      file { File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')) }
+      file { File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf')) }
     end
   end
 
   factory :file_attachment, class: FileAttachment, parent: :attachment do
     after(:build) do |attachment, evaluator|
       attachment.attachment_data ||= build(:attachment_data, file: evaluator.file)
+    end
+  end
+
+  factory :csv_attachment, parent: :file_attachment do
+    ignore do
+      file { File.open(Rails.root.join('test', 'fixtures', 'sample.csv')) }
     end
   end
 
