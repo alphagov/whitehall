@@ -561,14 +561,14 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def body_required?
+    true
+  end
+
 private
 
   def enforcer(user)
     Whitehall::Authority::Enforcer.new(user, self)
-  end
-
-  def body_required?
-    true
   end
 
   def summary_required?

@@ -57,4 +57,8 @@ class DocumentCollection < Edition
       groups << DocumentCollectionGroup.new(DocumentCollectionGroup.default_attributes)
     end
   end
+
+  def body_required?
+    false
+  end
 end
