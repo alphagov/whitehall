@@ -63,7 +63,12 @@ module Whitehall
             document_collections
           },
           date: %w{public_timestamp},
-          boolean: %w{relevant_to_local_government}
+          boolean: %w{
+            relevant_to_local_government
+            has_official_document
+            has_command_paper
+            has_act_paper
+          }
         }
       end
 

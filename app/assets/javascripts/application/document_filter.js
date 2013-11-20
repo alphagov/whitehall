@@ -111,13 +111,15 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       if(formStatus.selected) {
         for(i=0,_i=formStatus.selected.length; i<_i; i++) {
           field = formStatus.selected[i];
-
           if (field.title.length > 0) {
+
             if (field.id == "publication_filter_option" || field.id == "announcement_type_option") {
               if (field.value != "all") {
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
               }
-            } else if (field.id === 'world_locations'){
+            }
+
+            else if (field.id === 'world_locations'){
               context.world_locations = [];
               for(j=0, _j=field.title.length; j<_j; j++){
                 if(field.value[j] !== 'all'){
@@ -132,7 +134,22 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
               if (context.world_locations.length > 0) {
                 context['world_locations_any?'] = true;
               }
-            } else if (field.id != 'sub_orgs' && field.id != 'date') {
+            }
+
+            else if (field.id == "official_document_status") {
+              switch ( field.value[0] ) {
+                case 'command_and_act_papers':
+                  context['filtering_command_and_act_papers?'] = true;
+                  break;
+                case 'command_papers_only':
+                  context['filtering_command_papers_only?'] = true;
+                  break;
+                case 'act_papers_only':
+                  context['filtering_act_papers_only?'] = true;
+              }
+            }
+
+            else if (field.id != 'sub_orgs' && field.id != 'date') {
               context[field.id] = [];
 
               for(j=0, _j=field.title.length; j<_j; j++){
@@ -189,7 +206,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       $selections.mustache('documents/_filter_selections', context);
     },
     removeFilters: function(field, removed){
-      var selects = ['topics', 'departments', 'world_locations'],
+      var selects = ['topics', 'departments', 'world_locations', 'official_document_status'],
           inputs = ['keywords', 'from_date', 'to_date'],
           checkboxes = ['relevant_to_local_government'];
 

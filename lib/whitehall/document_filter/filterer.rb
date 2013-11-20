@@ -22,6 +22,8 @@ module Whitehall::DocumentFilter
       @departments     = Array(@params[:departments])
       @people_ids      = Array(@params[:people_id])
       @world_locations = Array(@params[:world_locations])
+
+      @official_document_status = @params[:official_document_status]
     end
 
     def announcements_search
@@ -66,6 +68,10 @@ module Whitehall::DocumentFilter
     def selected_locations
       @world_locations.reject! { |l| l == "all" }
       WorldLocation.find_all_by_slug(@world_locations)
+    end
+
+    def selected_official_document_status
+      @official_document_status
     end
 
     def keywords

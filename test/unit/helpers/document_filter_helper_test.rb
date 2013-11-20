@@ -80,4 +80,31 @@ class DocumentFilterHelperTest < ActionView::TestCase
       ]
     }
   end
+
+  test "#official_document_status_filter_options should return the options 'All statuses', 'Command papers' and 'Act papers'" do
+    option_set = Nokogiri::HTML::DocumentFragment.parse(official_document_status_filter_options)
+
+    option_set.css("option")[0].tap { |option|
+      assert_equal "All documents", option.text
+      assert_equal "all", option['value']
+    }
+    option_set.css("option")[1].tap { |option|
+      assert_equal "Command or act papers", option.text
+      assert_equal "command_and_act_papers", option['value']
+    }
+    option_set.css("option")[2].tap { |option|
+      assert_equal "Command papers only", option.text
+      assert_equal "command_papers_only", option['value']
+    }
+    option_set.css("option")[3].tap { |option|
+      assert_equal "Act papers only", option.text
+      assert_equal "act_papers_only", option['value']
+    }
+  end
+
+  test "#official_document_status_filter_options should select the passed in option" do
+    option_set = Nokogiri::HTML::DocumentFragment.parse(official_document_status_filter_options(:command_papers_only))
+
+    assert_equal "Command papers only", option_set.at_css("option[selected]").text
+  end
 end

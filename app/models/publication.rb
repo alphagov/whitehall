@@ -101,6 +101,14 @@ class Publication < Publicationesque
     ! attachments.empty?
   end
 
+  def search_index
+    super.merge({
+      has_official_document: has_official_document?,
+      has_command_paper: has_command_paper?,
+      has_act_paper: has_act_paper?
+    })
+  end
+
   private
 
   def attachment_required_before_moving_out_of_draft

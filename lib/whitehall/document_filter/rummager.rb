@@ -9,6 +9,7 @@ module Whitehall::DocumentFilter
 
     def publications_search
       filter_args = standard_filter_args.merge(filter_by_publication_type)
+                                        .merge(filter_by_official_document_status)
       @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
@@ -79,6 +80,19 @@ module Whitehall::DocumentFilter
     def filter_by_locations
       if selected_locations.any?
         {world_locations: selected_locations.map(&:slug)}
+      else
+        {}
+      end
+    end
+
+    def filter_by_official_document_status
+      case selected_official_document_status
+      when "command_and_act_papers"
+        {has_official_document: "1"}
+      when "command_papers_only"
+        {has_command_paper: "1"}
+      when "act_papers_only"
+        {has_act_paper: "1"}
       else
         {}
       end

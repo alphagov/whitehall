@@ -19,6 +19,18 @@ class Publicationesque < Edition
     PublicationesquePresenter
   end
 
+  def has_official_document?
+    has_command_paper? || has_act_paper?
+  end
+
+  def has_command_paper?
+    attachments.any?(&:is_command_paper?)
+  end
+
+  def has_act_paper?
+    attachments.any?(&:is_act_paper?)
+  end
+
 protected
 
   def search_format_types

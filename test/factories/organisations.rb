@@ -7,10 +7,15 @@ FactoryGirl.define do
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
 
     trait(:closed) { govuk_status 'closed' }
+
     trait(:with_published_edition) {
       after :create do |organisation, evaluator|
         FactoryGirl.create(:published_publication, lead_organisations: [organisation])
       end
+    }
+
+    trait(:with_alternative_format_contact_email) {
+      sequence(:alternative_format_contact_email) { |n| "organisation-#{n}@example.com" }
     }
   end
 

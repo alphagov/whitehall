@@ -66,6 +66,15 @@
         <% end %>
       <% end %>
 
+      <% if filters.include? :official_document_status %>
+        <div class="filter" id="official-document-status-articles-filter">
+          <div class="filter-inner">
+            <%= label_tag :official_document_status, "Official document status" %>
+            <%= select_tag :official_document_status, official_document_status_filter_options(@filter.selected_official_document_status), class: "single-row-select" %>
+          </div>
+        </div>
+      <% end %>
+
       <% if Whitehall.world_feature? %>
         <% if filters.include? :locations %>
           <div class="filter" id="location-filter">

@@ -60,4 +60,16 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   def result_type
     "document"
   end
+
+  def filtering_command_and_act_papers?
+    selected_official_document_status == "command_and_act_papers"
+  end
+
+  def filtering_command_papers_only?
+    selected_official_document_status == "command_papers_only"
+  end
+
+  def filtering_act_papers_only?
+    selected_official_document_status == "act_papers_only"
+  end
 end

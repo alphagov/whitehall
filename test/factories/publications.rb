@@ -30,6 +30,16 @@ FactoryGirl.define do
       publication_type_id { PublicationType::PolicyPaper.id }
     end
 
+    trait(:with_command_paper) do
+      attachments { [build(:file_attachment, unnumbered_command_paper: true)] }
+      alternative_format_provider { build(:organisation, :with_alternative_format_contact_email) }
+    end
+
+    trait(:with_act_paper) do
+      attachments { [build(:file_attachment, unnumbered_hoc_paper: true)] }
+      alternative_format_provider { build(:organisation, :with_alternative_format_contact_email) }
+    end
+
     ignore do
       relevant_to_local_government { false }
     end

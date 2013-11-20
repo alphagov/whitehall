@@ -83,6 +83,15 @@ module DocumentFilterHelper
     options_for_select(locations, selected_value)
   end
 
+  def official_document_status_filter_options(selected = nil)
+    options_for_select([
+      ['All documents', 'all'],
+      ['Command or act papers', 'command_and_act_papers'],
+      ['Command papers only', 'command_papers_only'],
+      ['Act papers only', 'act_papers_only']
+    ], selected.to_s)
+  end
+
   def publication_types_for_filter
     Whitehall::PublicationFilterOption.all
   end
