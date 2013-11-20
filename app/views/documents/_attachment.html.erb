@@ -35,10 +35,15 @@
       <% end %>
       <% if previewable?(attachment) %>
         <span class="preview">
-          <%= link_to "View online", preview_path_for_attachment(attachment) %>
+          <strong>
+            <%= link_to "View online", preview_path_for_attachment(attachment) %>
+          </strong>
         </span>
         <span class="download">
-          <%= link_to "Download #{attachment.file_extension.upcase} #{number_to_human_size(attachment.file_size)}", attachment.url(preview: params[:preview]) %>
+          <%= link_to attachment.url(preview: params[:preview]) do %>
+            <strong>Download <%= attachment.file_extension.upcase %></strong>
+            <%= number_to_human_size(attachment.file_size) %>
+          <% end %>
         </span>
       <% else %>
         <%= attachment_attributes(attachment) %>

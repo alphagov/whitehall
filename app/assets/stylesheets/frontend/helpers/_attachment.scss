@@ -79,6 +79,15 @@ $thumbnail-width: 99px;
         display: block;
       }
     }
+
+    .preview,
+    .download {
+      @include core-19;
+    }
+
+    .preview {
+      padding-right: $gutter-half;
+    }
   }
 
   .accessibility-warning {
@@ -100,5 +109,9 @@ $thumbnail-width: 99px;
   &:first-child {
     margin-top: 0;
     padding-top: 0;
+  }
+
+  strong {
+    font-weight: bold;
   }
 }
