@@ -1,6 +1,8 @@
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
+  has_many :attachments, inverse_of: :attachment_data
+
   delegate :url, :path, to: :file, allow_nil: true
 
   before_save :update_file_attributes
