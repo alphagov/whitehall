@@ -1,5 +1,5 @@
 <fieldset class="edition-topic-fields">
-  <%= form.label :topic_ids, 'Topics' %>
+  <%= form.label :topic_ids, 'Topics', required: true %>
   <%= form.select :topic_ids, options_from_collection_for_select(Topic.order(:name), 'id', 'name', edition.topic_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose topics..."} %>
 
   <%= form.fields_for :topic_suggestion do |topic_suggestion_form| %>
