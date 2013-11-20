@@ -48,6 +48,10 @@ class DocumentCollectionGroup < ActiveRecord::Base
     new_group
   end
 
+  def slug
+    heading.parameterize
+  end
+
   private
 
   def assign_ordering
