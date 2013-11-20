@@ -12,9 +12,9 @@
     date_to: filter.date_to,
     relevant_to_local_government: filter.relevant_to_local_government,
     include_world_location_news: filter.include_world_location_news,
-    filtering_command_and_act_papers?: filter.selected_official_document_status == "command_and_act_papers",
-    filtering_command_papers_only?: filter.selected_official_document_status == "command_papers_only",
-    filtering_act_papers_only?: filter.selected_official_document_status == "act_papers_only",
+    filtering_command_and_act_papers?: filter.filtering_command_and_act_papers?,
+    filtering_command_papers_only?: filter.filtering_command_papers_only?,
+    filtering_act_papers_only?: filter.filtering_act_papers_only?
   }
 %>
 <div class="filter-results-summary">
