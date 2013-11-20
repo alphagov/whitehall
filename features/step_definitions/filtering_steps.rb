@@ -207,7 +207,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by All organisations which are Command papers ./
+  assert page.text.match /1 publication which are Command papers ./
 
   select_filter "Official document status", "Act papers only", and_clear_others: true
 
@@ -221,7 +221,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 1 result about All topics by All organisations which are Act papers ./
+  assert page.text.match /1 publication which are Act papers ./
 
   select_filter "Official document status", "Command or act papers", and_clear_others: true
 
@@ -235,7 +235,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /Showing 2 results about All topics by All organisations which are Command or Act papers ./
+  assert page.text.match /2 publications which are Command or Act papers ./
 
   select_filter "World locations", "A World Location", and_clear_others: true
 
