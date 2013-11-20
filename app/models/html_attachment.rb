@@ -17,6 +17,10 @@ class HtmlAttachment < Attachment
     false
   end
 
+  def csv?
+    false
+  end
+
   def could_contain_viruses?
     false
   end

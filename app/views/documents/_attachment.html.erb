@@ -6,12 +6,12 @@
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: "embedded") do %>
   <div class="attachment-thumb">
-    <%= link_to attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }) do %>
-      <%= attachment_thumbnail(attachment) unless defined?(hide_thumbnail) && hide_thumbnail %>
+    <% unless defined?(hide_thumbnail) && hide_thumbnail %>
+      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }) %>
     <% end %>
   </div>
   <div class="attachment-details">
-    <h3 class="title"><%= link_to attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h3>
+    <h3 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h3>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
@@ -33,7 +33,16 @@
       <% unless published_on.blank? %>
         <span class="changed"><%= t('attachment.headings.published') %>: <%= absolute_date(published_on) %></span>
       <% end %>
-      <%= attachment_attributes(attachment) %>
+      <% if previewable?(attachment) %>
+        <span class="preview">
+          <%= link_to "View online", preview_path_for_attachment(attachment) %>
+        </span>
+        <span class="download">
+          <%= link_to "Download #{attachment.file_extension.upcase} #{number_to_human_size(attachment.file_size)}", attachment.url(preview: params[:preview]) %>
+        </span>
+      <% else %>
+        <%= attachment_attributes(attachment) %>
+      <% end %>
     </p>
     <% if attachment.order_url.present? %>
       <p>

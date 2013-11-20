@@ -1,0 +1,52 @@
+<% page_title @attachment.title %>
+<% page_class "html-publications-show" %>
+
+<div class="block publication-external">
+  <div class="inner-block floated-children">
+    <ul class="organisations-icon-list organisations">
+      <% @edition.sorted_organisations.each do |organisation| %>
+        <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
+          <%= link_to organisation_path(organisation),
+                      class: logo_classes(organisation: organisation, size: 'medium', stacked: true) do %>
+            <span><%= organisation_logo_name(organisation) %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+    <div class="return">
+      <p><%= link_to "See more information about this #{consultation_or_publication(@edition)}", public_document_path(@edition) %></p>
+    </div>
+  </div>
+</div>
+<header class="publication-header" id="contents">
+  <div class="inner-block floated-children">
+    <div class="headings">
+      <%= content_tag(:p, @edition.display_type, class: 'document-type') %>
+      <h1><%= @attachment.title %></h1>
+      <p>
+        <%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %><br />
+        <%= link_to "Download #{@attachment.file_extension.upcase} #{number_to_human_size(@attachment.file_size)}", @attachment.url(preview: params[:preview]) %>
+      </p>
+    </div>
+  </div>
+</header>
+
+<table class="csv_preview">
+  <thead>
+    <tr>
+      <% @csv_preview.headings.each do |heading| %>
+        <th><%= heading %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @csv_preview.each_row do |row| %>
+      <tr>
+        <% row.each do |data| %>
+          <td><%= data %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

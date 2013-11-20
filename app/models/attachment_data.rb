@@ -31,6 +31,10 @@ class AttachmentData < ActiveRecord::Base
     file_extension == "txt"
   end
 
+  def csv?
+    file_extension == "csv"
+  end
+
   def indexable?
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end

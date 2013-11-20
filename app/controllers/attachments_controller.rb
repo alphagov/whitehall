@@ -1,6 +1,20 @@
 class AttachmentsController < PublicUploadsController
   include PublicDocumentRoutesHelper
 
+  before_filter :reject_non_previewable_attachments, only: :preview
+
+  def preview
+    if attachment_visible? && attachment_visibility.visible_edition
+      expires_headers
+      @edition = attachment_visibility.visible_edition
+      @attachment = attachment_visibility.visible_attachment
+      @csv_preview = CsvPreview.new(upload_path)
+      render layout: 'html_attachments'
+    else
+      fail
+    end
+  end
+
 private
 
   def attachment_visible?
@@ -51,5 +65,9 @@ private
 
   def attachment_visibility
     @attachment_visibility ||= AttachmentVisibility.new(attachment_data, current_user)
+  end
+
+  def reject_non_previewable_attachments
+    render(text: "Not found", status: :not_found) unless attachment_data.csv?
   end
 end

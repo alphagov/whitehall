@@ -32,7 +32,7 @@ module DocumentControllerTestHelpers
 
       view_test "show information about accessibility" do
         attachment_1 = create(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: true)
-        attachment_2 = create(:file_attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
+        attachment_2 = create(:file_attachment, file: fixture_file_upload('sample.rtf', 'text/rtf'))
 
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1\n\n!@2", attachments: [attachment_1, attachment_2])
 
@@ -78,16 +78,16 @@ module DocumentControllerTestHelpers
       end
 
       view_test "show displays non-PDF attachment metadata" do
-        csv = fixture_file_upload('sample-from-excel.csv', 'text/csv')
+        csv = fixture_file_upload('sample.rtf', 'text/rtf')
         attachment = create(:file_attachment, file: csv)
         edition = create("published_#{document_type}", :with_alternative_format_provider, body: "!@1", attachments: [attachment])
 
         get :show, id: edition.document
 
         assert_select_object(attachment) do
-          assert_select ".type", /CSV/
+          assert_select ".type", /RTF/
           refute_select ".page-length"
-          assert_select ".file-size", "121Bytes"
+          assert_select ".file-size", "288Bytes"
         end
       end
     end
