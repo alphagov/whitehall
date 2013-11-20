@@ -35,17 +35,19 @@ class Consultation < Publicationesque
       end
 
       if @edition.outcome.present?
-        new_outcome = edition.create_outcome(@edition.outcome.attributes.except('edition_id'))
+        new_outcome = edition.build_outcome(@edition.outcome.attributes.except('edition_id'))
         @edition.outcome.attachments.each do |attachment|
-          new_outcome.attachments.create(attachment.attributes)
+          new_outcome.attachments.build(attachment.attributes)
         end
+        new_outcome.save!
       end
 
       if @edition.public_feedback.present?
-        new_feedback = edition.create_public_feedback(@edition.public_feedback.attributes.except('edition_id'))
+        new_feedback = edition.build_public_feedback(@edition.public_feedback.attributes.except('edition_id'))
         @edition.public_feedback.attachments.each do |attachment|
-          new_feedback.attachments.create(attachment.attributes)
+          new_feedback.attachments.build(attachment.attributes)
         end
+        new_feedback.save!
       end
     end
   end
