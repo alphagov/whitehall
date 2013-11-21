@@ -99,13 +99,15 @@ private
     return ordering_params if ordering_params.empty?
 
     min_existing = @attachable.attachments.minimum(:ordering)
-    max_new = ordering_params.values.map(&:to_i).max
+    ordered_attachment_ids = ordering_params.sort_by { |_, order_index| order_index }.map(&:first)
 
-    if max_new < min_existing
-      ordering_params
+    first_ordering_index = if ordered_attachment_ids.count < min_existing
+      0
     else
-      max_existing = @attachable.attachments.maximum(:ordering)
-      Hash[ordering_params.map { |id, order| [id, order.to_i + max_existing + 1] }].with_indifferent_access
+      @attachable.attachments.maximum(:ordering) + 1
     end
+
+    ordering_indexes = first_ordering_index...(first_ordering_index + ordered_attachment_ids.count)
+    Hash[ordered_attachment_ids.zip(ordering_indexes)].with_indifferent_access
   end
 end
