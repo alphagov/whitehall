@@ -1,0 +1,43 @@
+.attachments-preview {
+  .csv-preview {
+    border: $gutter-one-sixth solid $panel-colour;
+    margin: $gutter 0 $gutter * 2;
+  }
+  .csv-preview-inner {
+    border: 1px solid $border-colour;
+    padding: $gutter-one-third ($gutter - $gutter-one-sixth - 1px);
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    th, td {
+      @include core-16;
+      background-color: transparent;
+      vertical-align: top;
+      text-align: left;
+      padding: $gutter-one-third $gutter-two-thirds $gutter-one-third 0;
+      border-bottom: 1px solid $grey-2;
+      border-width: 0 0 1px 0;
+    }
+    tr:last-child {
+      td {
+        border-bottom: none;
+      }
+    }
+    th {
+      font-weight: bold;
+    }
+  }
+
+  .truncated-message {
+    margin-bottom: $gutter * 2;
+  }
+
+  .preview-error {
+    margin: $gutter 0 $gutter * 2;
+  }
+
+}

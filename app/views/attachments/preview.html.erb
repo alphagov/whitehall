@@ -1,5 +1,5 @@
 <% page_title @attachment.title %>
-<% page_class "html-publications-show" %>
+<% page_class "html-publications-show attachments-preview" %>
 
 <div class="block publication-external">
   <div class="inner-block floated-children">
@@ -25,37 +25,47 @@
       <h1><%= @attachment.title %></h1>
       <p>
         <%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %><br />
-        <%= link_to "Download #{@attachment.file_extension.upcase} #{number_to_human_size(@attachment.file_size)}", @attachment.url(preview: params[:preview]) %>
+        <%= link_to @attachment.url(preview: params[:preview]) do %>
+          <strong>Download <%= @attachment.file_extension.upcase %></strong>
+          <%= number_to_human_size(@attachment.file_size) %>
+        <% end %>
       </p>
     </div>
   </div>
 </header>
-
-
 <% if @csv_preview %>
-  <table class="csv_preview">
-    <thead>
-      <tr>
-        <% @csv_preview.headings.each do |heading| %>
-          <th><%= heading %></th>
-        <% end %>
-      </tr>
-    </thead>
+  <div class="csv-preview">
+    <div class="csv-preview-inner">
+      <table>
+        <thead>
+          <tr>
+            <% @csv_preview.headings.each do |heading| %>
+              <th><%= heading %></th>
+            <% end %>
+          </tr>
+        </thead>
 
-    <tbody>
-      <% @csv_preview.each_row do |row| %>
-        <tr>
-          <% row.each do |data| %>
-            <td><%= data %></td>
+        <tbody>
+          <% @csv_preview.each_row do |row| %>
+            <tr>
+              <% row.each do |data| %>
+                <td><%= data %></td>
+              <% end %>
+            </tr>
           <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
+        </tbody>
+      </table>
+    </div>
+  </div>
   <% if @csv_preview.truncated? %>
-    <p>Truncation message here</p>
+    <p class="truncated-message">
+      This preview only shows the first 1000 rows.
+      <%= link_to "Download the file to view its full contents.", @attachment.url(preview: params[:preview]) %>
+    </p>
   <% end %>
 <% else %>
-  <p>This file could not be previewed. Download to view full contents</p>
+  <p class="preview-error">
+    This file could not be previewed.
+    <%= link_to "Download it to view its full contents.", @attachment.url(preview: params[:preview]) %>
+  </p>
 <% end %>
