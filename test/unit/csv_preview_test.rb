@@ -4,7 +4,7 @@ require "test_helper"
 class CsvPreviewTest < ActiveSupport::TestCase
 
   def csv_preview
-    @csv_preview ||= CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
+    @csv_preview ||= CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
   end
 
   test "returns the header row for a CSV file" do
@@ -18,8 +18,8 @@ class CsvPreviewTest < ActiveSupport::TestCase
     assert_csv_data expected_data, csv_preview
   end
 
-  test "handles non-UTF-8 encoded files" do
-    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/iso-encoded.csv')))
+  test "handles iso-8859-1 encoded files" do
+    iso_encoded_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/iso-8859-1.csv'))
 
     assert_equal ['ECO Lot', 'Band', 'Contract Term', 'Price Per Unit', 'Above reserve price?', 'Reserve Price (£)'],
       iso_encoded_preview.headings
@@ -30,11 +30,18 @@ class CsvPreviewTest < ActiveSupport::TestCase
     assert_csv_data(expected_data, iso_encoded_preview)
   end
 
+  test "handles windows-1252 encoded files" do
+    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/windows-1252.csv')))
+
+    assert_equal %w(name address1 address2 town postcode access_notes general_notes url email phone fax text_phone),
+      iso_encoded_preview.headings
+  end
+
   test "raises CsvPreview::FileEncodingError if the encoding cannot be handled by the CSV library" do
     CSV.expects(:open).raises(ArgumentError, 'invalid byte sequence in UTF-8')
 
     assert_raise CsvPreview::FileEncodingError do
-      CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
+      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
     end
   end
 
@@ -43,7 +50,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test 'the size of the preview can be overridden' do
-    preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')), 1)
+    preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv')), 1)
     expected_data = [ ['Office for Facial Hair Studies', '£12000000' , '£10000000'] ]
 
     assert_csv_data(expected_data, preview)
@@ -53,7 +60,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     csv_preview.each_row {}
     refute csv_preview.truncated?
 
-    truncated_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')), 1)
+    truncated_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'), 1)
     truncated_preview.each_row {}
     assert truncated_preview.truncated?
   end
