@@ -26,6 +26,8 @@ module Edition::ScheduledPublishing
       "This edition has been #{current_state}"
     elsif scheduled_publication.blank?
       "This edition does not have a scheduled publication date set"
+    elsif DataHygiene::GovspeakLinkValidator.new(body).errors.any?
+      "This edition contains bad links"
     end
   end
 
@@ -38,6 +40,8 @@ module Edition::ScheduledPublishing
       "This edition has been #{current_state}"
     elsif scheduled_publication.blank?
       "This edition does not have a scheduled publication date set"
+    elsif DataHygiene::GovspeakLinkValidator.new(body).errors.any?
+      "This edition contains bad links"
     end
   end
 
