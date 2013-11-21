@@ -68,6 +68,16 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     assert_nil edition.reason_to_prevent_scheduling
   end
 
+  test "#reason_to_prevent_scheduling reports bad links in the edition" do
+    edition = build(:edition, :submitted, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
+    assert_equal "This edition contains bad links", edition.reason_to_prevent_scheduling
+  end
+
+  test "#reason_to_prevent_force_scheduling reports bad links in the edition" do
+    edition = build(:edition, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
+    assert_equal "This edition contains bad links", edition.reason_to_prevent_force_scheduling
+  end
+
   test "scheduling returns true and marks edition as scheduled" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     assert edition.perform_schedule
