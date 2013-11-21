@@ -3,15 +3,15 @@ require "test_helper"
 
 class CsvPreviewTest < ActiveSupport::TestCase
 
-  test "returns the header row for a CSV file" do
-    csv_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
+  def csv_preview
+    @csv_preview ||= CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
+  end
 
+  test "returns the header row for a CSV file" do
     assert_equal ['Department', 'Budget', 'Amount spent'], csv_preview.headings
   end
 
   test "yields the data, row by row" do
-    csv_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
-
     expected_data = [ ['Office for Facial Hair Studies', '£12000000' , '£10000000'],
                       ['Department of Grooming','£15000000','£15600000'] ]
 
@@ -19,23 +19,43 @@ class CsvPreviewTest < ActiveSupport::TestCase
   end
 
   test "handles non-UTF-8 encoded files" do
-    csv_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/iso-encoded.csv')))
+    iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/iso-encoded.csv')))
 
     assert_equal ['ECO Lot', 'Band', 'Contract Term', 'Price Per Unit', 'Above reserve price?', 'Reserve Price (£)'],
-      csv_preview.headings
+      iso_encoded_preview.headings
 
     expected_data = [ ['Carbon Saving Communities','Carbon Saving Band 1 [1K-3K]','3 months','£69.10','YES',nil],
                       ['Carbon Saving Communities','Carbon Saving Band 1 [1K-3K]','12 months','£62.10','YES','£40.00'] ]
 
-    assert_csv_data(expected_data, csv_preview)
+    assert_csv_data(expected_data, iso_encoded_preview)
   end
 
   test "raises CsvPreview::FileEncodingError if the encoding cannot be handled by the CSV library" do
     CSV.expects(:open).raises(ArgumentError, 'invalid byte sequence in UTF-8')
 
     assert_raise CsvPreview::FileEncodingError do
-      csv_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
+      CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')))
     end
+  end
+
+  test 'the size of the preview is limited to 1,000 rows of data by default' do
+    assert_equal 1_000, csv_preview.maximum_rows
+  end
+
+  test 'the size of the preview can be overridden' do
+    preview       = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')), 1)
+    expected_data = [ ['Office for Facial Hair Studies', '£12000000' , '£10000000'] ]
+
+    assert_csv_data(expected_data, preview)
+  end
+
+  test '#truncated? returns true if the preview does not show the entire file contents' do
+    csv_preview.each_row {}
+    refute csv_preview.truncated?
+
+    truncated_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/sample.csv')), 1)
+    truncated_preview.each_row {}
+    assert truncated_preview.truncated?
   end
 
 private

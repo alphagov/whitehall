@@ -52,6 +52,10 @@
       <% end %>
     </tbody>
   </table>
+
+  <% if @csv_preview.truncated? %>
+    <p>Truncation message here</p>
+  <% end %>
 <% else %>
   <p>This file could not be previewed. Download to view full contents</p>
 <% end %>
