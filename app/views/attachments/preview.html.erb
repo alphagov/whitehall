@@ -31,22 +31,27 @@
   </div>
 </header>
 
-<table class="csv_preview">
-  <thead>
-    <tr>
-      <% @csv_preview.headings.each do |heading| %>
-        <th><%= heading %></th>
-      <% end %>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @csv_preview.each_row do |row| %>
+<% if @csv_preview %>
+  <table class="csv_preview">
+    <thead>
       <tr>
-        <% row.each do |data| %>
-          <td><%= data %></td>
+        <% @csv_preview.headings.each do |heading| %>
+          <th><%= heading %></th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @csv_preview.each_row do |row| %>
+        <tr>
+          <% row.each do |data| %>
+            <td><%= data %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>This file could not be previewed. Download to view full contents</p>
+<% end %>

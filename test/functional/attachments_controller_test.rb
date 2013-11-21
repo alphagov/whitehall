@@ -123,6 +123,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_equal visible_edition, assigns(:edition)
     assert_equal attachment, assigns(:attachment)
+    assert assigns(:csv_preview).is_a?(CsvPreview)
     assert_response :success
     assert_template :preview
   end
@@ -152,6 +153,22 @@ class AttachmentsControllerTest < ActionController::TestCase
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
 
     assert_redirected_to publication_url(unpublished_publication.unpublishing.slug)
+  end
+
+  test "GET #preview handles CsvPreview::FileEncodingError errors" do
+    attachment      = create(:csv_attachment)
+    attachment_data = attachment.attachment_data
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
+
+    CsvPreview.expects(:new).raises(CsvPreview::FileEncodingError)
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_equal visible_edition, assigns(:edition)
+    assert_equal attachment, assigns(:attachment)
+    assert_nil assigns(:csv_preview)
+    assert_response :success
+    assert_template :preview
   end
 
   test "preview is not possible on CSV attachments on non-Editions" do
