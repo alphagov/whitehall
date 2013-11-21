@@ -93,7 +93,7 @@ class AttachmentVisibility
   end
 
   def visible_consultation_response?
-    visisble_consultation_scope.exists?
+    visible_consultation_scope.exists?
   end
 
   def visible_edition_scope
@@ -104,7 +104,7 @@ class AttachmentVisibility
     end
   end
 
-  def visisble_consultation_scope
+  def visible_consultation_scope
     Edition.published.where(id: consultation_ids)
   end
 
