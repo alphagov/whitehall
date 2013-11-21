@@ -55,10 +55,6 @@ module Whitehall::Uploader
       fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
     def change_note
       if row['change_note'].blank?
         StatisticalDataSetRow::DEFAULT_CHANGE_NOTE

@@ -103,6 +103,10 @@ module Whitehall::Uploader
       end
     end
 
+    def first_published_at
+      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
+    end
+
     def topics
       Finders::SluggedModelFinder.new(Topic, @logger, @line_number).find(fields(1..4, 'topic_#'))
     end

@@ -53,10 +53,6 @@ module Whitehall::Uploader
       row['related_mainstream_content_title_2']
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
   protected
     def attribute_keys
       super + [

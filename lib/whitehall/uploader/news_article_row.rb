@@ -17,10 +17,6 @@ module Whitehall::Uploader
       Finders::NewsArticleTypeFinder.find(row['news_article_type'], @logger, @line_number)
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
     def related_editions
       Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'])
     end

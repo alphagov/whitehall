@@ -32,10 +32,6 @@ module Whitehall::Uploader
       Finders::OperationalFieldFinder.find(row['field_of_operation'], @logger, @line_number)
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
     def roll_call_introduction
       row['roll_call_introduction']
     end

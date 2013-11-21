@@ -17,10 +17,6 @@ module Whitehall::Uploader
       Finders::EditionFinder.new(Policy, @logger, @line_number).find(*fields(1..4, 'policy_#'))
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
   protected
     def attribute_keys
       super + [
