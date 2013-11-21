@@ -1,15 +1,15 @@
 require 'csv'
+require 'charlock_holmes'
 
 class CsvPreview
   MAXIMUM_ROWS = 1_000
 
-  def initialize(file_path)
-    @csv = CSV.open(file_path, encoding: "UTF-8")
-    @headings = @csv.shift
-  end
+  attr_reader :file_path, :headings
 
-  def headings
-    @headings
+  def initialize(file_path)
+    @file_path = file_path
+    @csv = CSV.open(@file_path, encoding: guess_encoding)
+    @headings = @csv.shift
   end
 
   def each_row
@@ -24,5 +24,11 @@ class CsvPreview
   def reset
     @csv.rewind
     @csv.shift
+  end
+
+  def guess_encoding
+    sample = File.readlines(file_path, 5).join
+    detection = CharlockHolmes::EncodingDetector.detect(sample)
+    return detection[:encoding]
   end
 end

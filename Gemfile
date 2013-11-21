@@ -42,6 +42,7 @@ gem 'rack_strip_client_ip', '0.0.1'
 gem 'invalid_utf8_rejector', '~> 0.0.1'
 gem 'sidekiq', '2.14.1'
 gem 'raindrops', '0.11.0'
+gem 'charlock_holmes'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.38.0'
