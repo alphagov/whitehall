@@ -15,7 +15,7 @@ end
 Then(/^I should see the CSV data previewed on the page$/) do
   assert page.has_content?(@attachment.title)
 
-  within 'table.csv_preview' do
+  within '.csv-preview table' do
     header_row = page.all('thead tr th').map(&:text)
     assert_equal ['Department', 'Budget', 'Amount spent'], header_row
 
