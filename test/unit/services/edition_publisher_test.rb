@@ -84,6 +84,18 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert published_edition.reload.superseded?, "expected previous edition to be superseded but it's #{published_edition.state}"
   end
 
+  test '#perform! does not choke if previoues editions are invalid' do
+    published_edition = create(:published_edition)
+    edition = published_edition.create_draft(create(:policy_writer))
+    edition.minor_change = true
+    edition.submit!
+    published_edition.update_attribute(:title, nil)
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    assert published_edition.reload.superseded?, "expected previous edition to be superseded but it's #{published_edition.state}"
+  end
+
   test '#perform! notifies on successful publishing' do
     edition  = create(:submitted_edition)
     options  = { one: 1, two: 2}

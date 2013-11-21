@@ -6,6 +6,10 @@ class SupportingPage < Edition
 
   validate :at_least_one_related_policy
 
+  def organisations
+    related_policies.flat_map(&:organisations).uniq
+  end
+
 private
   def at_least_one_related_policy
     unless related_documents.any? { |d| d.document_type == "Policy" }

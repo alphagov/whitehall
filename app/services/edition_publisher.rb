@@ -39,7 +39,10 @@ private
 
   def supersede_previous_editions!
     edition.document.editions.published.each do |e|
-      e.supersede! unless e == edition
+      if e != edition
+        e.supersede
+        e.save(validate: false)
+      end
     end
   end
 

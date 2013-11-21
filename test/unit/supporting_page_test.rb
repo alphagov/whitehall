@@ -71,4 +71,13 @@ class SupportingPageTest < ActiveSupport::TestCase
   test "should allow inline attachments" do
     assert build(:supporting_page).allows_inline_attachments?
   end
+
+  test "should inherit organisations from its policies" do
+    org1, org2, org3 = 3.times.map { create(:organisation) }
+    policy1 = create(:policy, organisations: [org1, org2])
+    policy2 = create(:policy, organisations: [org2, org3])
+    supporting_page = create(:supporting_page, related_policies: [policy1, policy2])
+
+    assert_equal [org1, org2, org3], supporting_page.organisations
+  end
 end
