@@ -65,5 +65,8 @@ class DocumentsController < PublicFacingController
     url_for(redir_params)
   end
 
-
+  def set_slimmer_headers_for_document(document)
+    set_slimmer_organisations_header(@document.organisations)
+    set_slimmer_page_owner_header(@document.lead_organisations.first)
+  end
 end

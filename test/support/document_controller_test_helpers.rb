@@ -441,6 +441,18 @@ module DocumentControllerTestHelpers
         assert_equal "My first #{document_type}", assigns(:meta_description)
       end
     end
+
+    def should_set_slimmer_analytics_headers_for(document_type)
+      test "#{document_type} should set Google Analytics organisation headers" do
+        organisation = create(:organisation)
+        lead_organisation = create(:organisation, acronym: "ABC")
+        edition = create("published_#{document_type}", organisations: [organisation], lead_organisations: [lead_organisation])
+        get :show, id: edition.document
+
+        assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+        assert_equal lead_organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
+      end
+    end
   end
 
   private
