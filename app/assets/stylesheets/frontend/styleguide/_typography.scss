@@ -202,3 +202,18 @@
   }
 }
 
+@mixin white-links {
+  a,
+  a:visited,
+  a:hover {
+    color: $white;
+    text-decoration: underline;
+    &[rel="external"] {
+      @include external-link-white;
+    }
+  }
+  a:active {
+    color: $link-active-colour;
+  }
+}
+

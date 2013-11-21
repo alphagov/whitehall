@@ -101,6 +101,7 @@ nav.consultations_scope {
 
   .consultation-block {
     @extend %contain-floats;
+    @include white-links;
     background: $inside-gov-brand;
     color: $white;
     padding: $gutter-half;
@@ -108,14 +109,6 @@ nav.consultations_scope {
     @include media(tablet) {
       padding: $gutter;
       margin: 0 $gutter-half $gutter*1.5;
-    }
-
-    a {
-      color: $white;
-      text-decoration: underline;
-      &[rel="external"] {
-        @include external-link-white;
-      }
     }
 
     .consultation-dates {
