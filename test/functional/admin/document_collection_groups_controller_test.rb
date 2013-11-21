@@ -151,6 +151,32 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
     assert @group_2.reload.documents.include?(@doc_1_2)
   end
 
+  test "POST #update_memberships should handle empty groups" do
+    given_two_groups_with_documents
+
+    post :update_memberships, {
+      document_collection_id: @collection.id,
+      groups: {
+        0 => {
+          id: @group_1.id,
+          document_ids: [
+            @doc_1_1.id,
+            @doc_1_2.id,
+            @doc_2_1.id,
+            @doc_2_2.id
+          ]
+        },
+        1 => {
+          id: @group_2.id
+        }
+      }
+    }
+
+    assert_response :success
+    assert_equal [@doc_1_1, @doc_1_2, @doc_2_1, @doc_2_2], @group_1.reload.documents
+    assert_empty @group_2.reload.documents
+  end
+
   def given_two_groups_with_documents
     @group_1 = build(:document_collection_group)
     @group_2 = build(:document_collection_group)
