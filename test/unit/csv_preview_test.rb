@@ -74,5 +74,7 @@ private
       assert_equal expected_data[index], row
       index += 1
     end
+
+    assert_equal expected_data.size, index
   end
 end
