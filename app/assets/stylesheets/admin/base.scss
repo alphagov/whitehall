@@ -31,7 +31,6 @@
 @import "sidebar.scss";
 @import "lists.scss";
 @import "get_involved.scss";
-@import "user_needs.scss";
 @import "import.scss";
 
 // GLOBAL
@@ -53,6 +52,7 @@
 // Controller specific styles. Usually named after the controller whos views
 // they relate to
 @import "views/_dashboard.scss";
+@import "views/_edition_form.scss";
 @import "views/_edition_show.scss";
 @import "views/_editions-index.scss";
 @import "views/_document_collection_groups.scss";

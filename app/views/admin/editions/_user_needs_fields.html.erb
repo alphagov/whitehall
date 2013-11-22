@@ -1,8 +1,8 @@
 <% if edition.respond_to?(:requires_user_needs?) and edition.requires_user_needs? %>
-  <fieldset id='user-needs'>
-    <h2>User needs</h2>
+  <div class='user-needs alert alert-info'>
+    <h3>User needs</h3>
 
-    <p class='notice'>All detailed guides now require one or more user needs</p>
+    <p>All detailed guides require one or more user needs.</p>
 
     <p class='add-user-need js-add-user-need' data-add-user-need-url="<%= admin_user_needs_path %>">
       <%= form.label :user_need_ids, "Select existing user needs:" %>
@@ -21,7 +21,7 @@
                   size: 80, placeholder: "eg I can market it inline with legislation", :'data-source' => UserNeed.existing_content('goal').to_json %></span>
         <%= f.hidden_field :organisation_id, value: current_user.organisation.try(:id) %>
       <% end %>
-      <button class="js-create">Create</button>
+      <button class="btn js-create">Create</button>
     </p>
-  </fieldset>
+  </div>
 <% end %>
