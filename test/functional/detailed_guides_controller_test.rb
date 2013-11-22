@@ -6,6 +6,7 @@ class DetailedGuidesControllerTest < ActionController::TestCase
   should_show_inapplicable_nations :detailed_guide
   should_be_previewable :detailed_guide
   should_set_slimmer_analytics_headers_for :detailed_guide
+  should_set_the_article_id_for_the_edition_for :detailed_guide
 
   view_test "show doesn't include header-context element which is used for breadcrumbs" do
     guide = create(:published_detailed_guide)

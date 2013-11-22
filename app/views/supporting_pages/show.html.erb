@@ -1,6 +1,6 @@
 <% page_title edition_page_title(@supporting_page), @policy.title, "Policies " %>
 
-<div class="document_page <%= @document.type.downcase %>">
+<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render "documents/header",
@@ -35,4 +35,4 @@
       <%= render "document_content" %>
     </div>
   </div>
-</div>
+<% end %>

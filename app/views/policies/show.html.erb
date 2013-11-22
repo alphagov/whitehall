@@ -1,6 +1,6 @@
 <% page_title @policy.title, t('document.headings.policies', :count => 1) %>
 
-<div class="document_page <%= @document.type.downcase %>">
+<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render  partial: "documents/header", locals: {
@@ -39,4 +39,4 @@
       <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
     </div>
   </div>
-</div>
+<% end %>

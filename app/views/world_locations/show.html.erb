@@ -2,7 +2,7 @@
 <% page_class "world-locations-show" %>
 <% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 
-<%= content_tag_for(:div, @world_location) do %>
+<%= content_tag_for(:article, @world_location) do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',

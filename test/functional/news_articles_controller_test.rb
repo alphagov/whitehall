@@ -7,6 +7,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   should_display_inline_images_for :news_article
   should_set_meta_description_for :news_article
   should_set_slimmer_analytics_headers_for :news_article
+  should_set_the_article_id_for_the_edition_for :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)

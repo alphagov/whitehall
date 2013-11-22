@@ -4,6 +4,7 @@ class FatalityNoticesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_inline_images_for :fatality_notice
   should_set_slimmer_analytics_headers_for :fatality_notice
+  should_set_the_article_id_for_the_edition_for :fatality_notice
 
   test "shows published fatality notices" do
     fatality_notice = create(:published_fatality_notice)
