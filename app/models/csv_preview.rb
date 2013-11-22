@@ -42,8 +42,7 @@ class CsvPreview
   end
 
   def guess_encoding
-    file = File.open(file_path)
-    sample = (1...5).collect { file.readline unless file.eof? }.join
+    sample = File.open(file_path) { |file| 5.times.collect { file.readline unless file.eof? }.join }
 
     if utf_8_encoding?(sample)
       'UTF-8'
