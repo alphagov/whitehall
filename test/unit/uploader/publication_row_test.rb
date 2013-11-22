@@ -147,7 +147,7 @@ module Whitehall::Uploader
         "urn" => "10/899"
       }, Logger.new(StringIO.new))
 
-      attachment = Attachment.new(
+      attachment = FileAttachment.new(
         title: "first title",
         order_url: "http://example.com/order-it.php",
         price_in_pence: "1199",
