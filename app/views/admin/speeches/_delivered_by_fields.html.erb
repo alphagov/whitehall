@@ -6,5 +6,5 @@
   <%= form.text_field :person_override, label_text: "Speaker" %>
 </div>
 <%= label_tag :person_override_active, nil, class: 'checkbox' do %>
-  <%= check_box_tag :person_override_active, "1", edition.person_override? %> Speaker is not a person on inside government
+  <%= check_box_tag :person_override_active, "1", edition.person_override? %> Speaker does not have a profile on GOV.UK (eg the Queen)
 <% end %>
