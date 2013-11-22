@@ -50,6 +50,6 @@ class HtmlAttachment < Attachment
   end
 
   def allows_footnotes?
-    attachable.respond_to?(:allows_footnotes?) && attachable.allows_footnotes?
+    attachable.is_a? Publication
   end
 end

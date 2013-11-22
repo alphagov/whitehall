@@ -392,9 +392,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def allows_footnotes?
-    false
-  end
 
   # @!endgroup
 

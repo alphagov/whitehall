@@ -45,10 +45,6 @@ class Publication < Publicationesque
     true
   end
 
-  def allows_footnotes?
-    true
-  end
-
   def display_type
     publication_type.singular_name
   end
