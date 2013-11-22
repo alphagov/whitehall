@@ -16,7 +16,7 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachment_1, attachment_2], publication.attachments
   end
 
-  test "should be able to add multiple attachments at once" do
+  test "should support mass-assignment of attachments" do
     page = create(:supporting_page)
 
     file_attrs = attributes_for(:file_attachment)
