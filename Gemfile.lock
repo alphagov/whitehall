@@ -128,8 +128,8 @@ GEM
       multi_json (~> 1.0)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
     friendly_id (4.0.9)
@@ -139,8 +139,8 @@ GEM
       null_logger
       plek
       rest-client (~> 1.6.3)
-    gds-sso (3.0.4)
-      omniauth-gds (~> 0.0.3)
+    gds-sso (9.0.0)
+      omniauth-gds (>= 3.0.0)
       rack-accept (~> 0.4.4)
       rails (>= 3.0.0)
       warden (~> 1.2)
@@ -218,7 +218,7 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-gds (0.0.4)
+    omniauth-gds (3.0.0)
       omniauth-oauth2 (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
@@ -343,7 +343,7 @@ GEM
       raindrops (~> 0.7)
     uniform_notifier (1.2.0)
     validates_email_format_of (1.5.3)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     webmock (1.11.0)
       addressable (>= 2.2.7)
@@ -378,7 +378,7 @@ DEPENDENCIES
   factory_girl
   friendly_id (= 4.0.9)
   gds-api-adapters (= 7.18.0)
-  gds-sso (= 3.0.4)
+  gds-sso (= 9.0.0)
   globalize3!
   govspeak (~> 1.2.4)
   govuk_frontend_toolkit (= 0.38.0)
