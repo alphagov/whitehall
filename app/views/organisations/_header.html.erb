@@ -5,6 +5,7 @@
   sub_organisation = organisation.organisation_type.sub_organisation?
   logo_size = 'medium' if sub_organisation
   languages_available ||= false
+  alternate_style_top_tasks = (@organisation.slug == 'driver-and-vehicle-licensing-agency')
 %>
 
 <header class="page-header">
@@ -26,12 +27,16 @@
     <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
   <% end %>
 
-  <%= content_tag_if_not_empty :aside, class: "heading-extra" do %>
-    <% if languages_available %>
-      <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
-    <% end %>
-    <% if show_top_tasks && !sub_organisation %>
-      <%= render 'shared/top_tasks', top_tasks: organisation.top_tasks.only_the_initial_set %>
+  <% if alternate_style_top_tasks %>
+    <%= render 'alternate_style_top_tasks' %>
+  <% else %>
+    <%= content_tag_if_not_empty :aside, class: "heading-extra" do %>
+      <% if languages_available %>
+        <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
+      <% end %>
+      <% if show_top_tasks && !sub_organisation %>
+        <%= render 'shared/top_tasks', top_tasks: organisation.top_tasks.only_the_initial_set %>
+      <% end %>
     <% end %>
   <% end %>
 </header>
