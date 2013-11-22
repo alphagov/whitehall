@@ -12,7 +12,7 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
   end
 
   test "imports CSV in DFT format (including JSON attachments) into database" do
-    creator = User.create!(name: "Automatic Data Importer")
+    creator = create(:user, name: "Automatic Data Importer")
     create(:document_collection, title: "Highways orders inspectors reports and decision letters")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-transport")
     policy = create(:policy, title: "managing-improving-and-investing-in-the-road-network")

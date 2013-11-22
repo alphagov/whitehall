@@ -12,7 +12,7 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
   end
 
   test "imports CSV into database" do
-    creator = User.create!(name: "Automatic Data Importer")
+    creator = create(:user, name: "Automatic Data Importer")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-transport")
     statistical_data_collection = create(:document_collection, title: "Statistical Series 1", lead_organisations: [organisation])
     stub_request(:get, "http://www.example.com/documents/fire/pdf/2205794.pdf").to_return(body: "attachment-content")

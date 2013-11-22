@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :world_locations, through: :user_world_locations
 
   serialize :permissions, Array
-  attr_protected :permissions
+  attr_accessible :world_location_ids
 
   validates :name, presence: true
   validates :email, email_format: { allow_blank: true }
