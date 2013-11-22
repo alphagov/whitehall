@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118121852) do
+ActiveRecord::Schema.define(:version => 20131122123607) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -941,7 +941,7 @@ ActiveRecord::Schema.define(:version => 20131118121852) do
   create_table "organisations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
+    t.string   "slug",                                                        :null => false
     t.string   "url"
     t.string   "alternative_format_contact_email"
     t.string   "govuk_status",                            :default => "live", :null => false
@@ -965,7 +965,7 @@ ActiveRecord::Schema.define(:version => 20131118121852) do
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"
   add_index "organisations", ["organisation_type_key"], :name => "index_organisations_on_organisation_type_key"
-  add_index "organisations", ["slug"], :name => "index_organisations_on_slug"
+  add_index "organisations", ["slug"], :name => "index_organisations_on_slug", :unique => true
 
   create_table "people", :force => true do |t|
     t.string   "title"
@@ -1259,9 +1259,11 @@ ActiveRecord::Schema.define(:version => 20131118121852) do
     t.integer  "version"
     t.text     "permissions"
     t.boolean  "remotely_signed_out", :default => false
+    t.string   "organisation_slug"
   end
 
   add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
+  add_index "users", ["organisation_slug"], :name => "index_users_on_organisation_slug"
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false

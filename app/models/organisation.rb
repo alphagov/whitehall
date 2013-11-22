@@ -70,7 +70,7 @@ class Organisation < ActiveRecord::Base
   has_many :organisation_mainstream_categories, dependent: :destroy, order: 'organisation_mainstream_categories.ordering', inverse_of: :organisation
   has_many :mainstream_categories, through: :organisation_mainstream_categories, order: 'organisation_mainstream_categories.ordering'
 
-  has_many :users, dependent: :nullify
+  has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
@@ -114,6 +114,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :organisation_mainstream_categories, reject_if: -> attributes { attributes['mainstream_category_id'].blank? }, allow_destroy: true
 
+  validates :slug, presence: true, uniqueness: true
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attributes: [:description, :about_us]
   validates :name, presence: true, uniqueness: true

@@ -1,7 +1,10 @@
 class User < ActiveRecord::Base
+  extend DeprecatedColumns
+  deprecated_columns :organisation_id
+
   include GDS::SSO::User
 
-  belongs_to :organisation
+  belongs_to :organisation, foreign_key: :organisation_slug, primary_key: :slug
 
   has_many :user_world_locations
   has_many :world_locations, through: :user_world_locations
