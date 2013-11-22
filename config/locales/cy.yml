@@ -734,8 +734,6 @@ cy:
           intended_use:
       policy:
         intended_use:
-      supporting_page:
-        intended_use:
       publication:
         corporate_report:
           intended_use:
@@ -791,6 +789,8 @@ cy:
         written_statement:
           intended_use:
       statistical_data_set:
+        intended_use:
+      supporting_page:
         intended_use:
       world_location_news_article:
         intended_use:
