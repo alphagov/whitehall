@@ -5,7 +5,7 @@ class ResponseTest < ActiveSupport::TestCase
     response = build(:consultation_outcome, summary: nil)
     refute response.valid?
 
-    response.attachments << build(:attachment)
+    response.attachments << build(:file_attachment)
     assert response.valid?, response.errors.full_messages.inspect
   end
 

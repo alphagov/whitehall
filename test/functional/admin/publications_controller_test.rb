@@ -15,7 +15,6 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   should_allow_organisations_for :publication
   should_allow_ministerial_roles_for :publication
   should_allow_references_to_statistical_data_sets_for :publication
-  should_require_alternative_format_provider_for :publication
   should_allow_attached_images_for :publication
   should_allow_association_between_world_locations_and :publication
   should_prevent_modification_of_unmodifiable :publication
@@ -49,7 +48,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       alternative_format_provider_id: create(:alternative_format_provider).id,
       attachments_attributes: {
         '0' => attributes_for(
-          :attachment,
+          :file_attachment,
           title: 'attachment-title',
           order_url: 'http://example.com/publication',
           price: '1.23',

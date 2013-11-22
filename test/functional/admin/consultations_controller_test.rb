@@ -15,7 +15,6 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   should_allow_related_policies_for :consultation
   should_allow_organisations_for :consultation
   should_allow_ministerial_roles_for :consultation
-  should_require_alternative_format_provider_for :consultation
   should_allow_attached_images_for :consultation
   should_prevent_modification_of_unmodifiable :consultation
   should_allow_alternative_format_provider_for :consultation

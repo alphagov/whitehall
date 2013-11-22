@@ -37,7 +37,7 @@ class Consultation < Publicationesque
       if @edition.outcome.present?
         new_outcome = edition.build_outcome(@edition.outcome.attributes.except('edition_id'))
         @edition.outcome.attachments.each do |attachment|
-          new_outcome.attachments.build(attachment.attributes)
+          new_outcome.attachments << attachment.class.new(attachment.attributes)
         end
         new_outcome.save!
       end
@@ -45,7 +45,7 @@ class Consultation < Publicationesque
       if @edition.public_feedback.present?
         new_feedback = edition.build_public_feedback(@edition.public_feedback.attributes.except('edition_id'))
         @edition.public_feedback.attachments.each do |attachment|
-          new_feedback.attachments.build(attachment.attributes)
+          new_feedback.attachments << attachment.class.new(attachment.attributes)
         end
         new_feedback.save!
       end

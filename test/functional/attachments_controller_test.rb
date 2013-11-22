@@ -89,7 +89,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
   test 'requesting an attachment that has not been virus checked redirects to the placeholder page' do
     attachment_data = create(:attachment_data)
-    visible_edition = create(:published_publication, :with_file_attachment_not_scanned, attachments: [create(:attachment, attachment_data: attachment_data)])
+    visible_edition = create(:published_publication, :with_file_attachment_not_scanned, attachments: [create(:file_attachment, attachment_data: attachment_data)])
 
     get_show attachment_data
 
