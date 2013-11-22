@@ -3,7 +3,6 @@
     <%= link_to topic.name, [:admin, topic], title: "Edit #{model_name.humanize.downcase} #{topic.name}" %>
   </td>
   <td class="description"><%= truncate(topic.description, length: 130, separator: ' ') %></td>
-  <td class="details"><%= classification_contents_breakdown(topic) %></td>
   <td class="related">
     <ul>
       <% topic.related_classifications.each do |pa| %>

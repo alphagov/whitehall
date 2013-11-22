@@ -13,6 +13,7 @@ module Whitehall::Uploader
         .multiple(%w{image_#_imgalt image_#_imgcap image_#_imgcapmd image_#_imgurl}, 0..4)
         .ignored("ignore_*")
         .required(%w{first_published field_of_operation roll_call_introduction})
+        .multiple("topic_#", 0..4)
     end
 
     def images
@@ -31,10 +32,6 @@ module Whitehall::Uploader
       Finders::OperationalFieldFinder.find(row['field_of_operation'], @logger, @line_number)
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
     def roll_call_introduction
       row['roll_call_introduction']
     end
@@ -43,14 +40,19 @@ module Whitehall::Uploader
       Organisation.find_by_slug("ministry-of-defence")
     end
 
-    def attributes
-      [:title, :summary, :body, :lead_organisations, :images, :operational_field, :first_published_at, :roll_call_introduction].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :first_published_at,
+        :images,
+        :lead_organisations,
+        :operational_field,
+        :roll_call_introduction,
+        :topics
+      ]
     end
 
-    private
-
+  private
     class ImageBuilder
       def initialize(image_cache, logger, line_number)
         @image_cache = image_cache

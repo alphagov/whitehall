@@ -43,8 +43,6 @@ class Classification < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_classifications
   accepts_nested_attributes_for :classification_featurings
 
-  scope :with_content, where("published_edition_count <> 0")
-  scope :with_policies, where("published_policies_count <> 0")
   scope :alphabetical, order("name ASC")
   scope :randomized, order('RAND()')
 
@@ -97,11 +95,6 @@ class Classification < ActiveRecord::Base
     organisation_classifications.where(lead: true).order("organisation_classifications.lead_ordering")
   end
 
-  def update_counts
-    update_column(:published_edition_count, published_editions.count)
-    update_column(:published_policies_count, published_policies.count)
-  end
-
   def destroyable?
     (policies - policies.superseded).empty?
   end
@@ -123,7 +116,7 @@ class Classification < ActiveRecord::Base
     featuring_of(edition).present?
   end
 
-    def featuring_of(edition)
+  def featuring_of(edition)
     classification_featurings.detect { |cf| cf.edition == edition }
   end
 
@@ -140,8 +133,8 @@ class Classification < ActiveRecord::Base
     name
   end
 
-  private
-    def logo_changed?
-      changes["carrierwave_image"].present?
-    end
+private
+  def logo_changed?
+    changes["carrierwave_image"].present?
+  end
 end

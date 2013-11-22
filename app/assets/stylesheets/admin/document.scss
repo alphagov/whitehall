@@ -176,3 +176,14 @@ input[name="save_and_continue"] {
 .virus-status {
   width: 20%;
 }
+
+#topic-suggestion-toggle {
+  color: #0088cc;
+  display: inline-block;
+
+  &:hover {
+    color: #005580;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

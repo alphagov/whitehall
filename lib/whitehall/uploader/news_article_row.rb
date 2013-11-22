@@ -10,14 +10,11 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title}, 0..Row::ATTACHMENT_LIMIT)
         .optional('json_attachments')
         .translatable(%w{title summary body})
+        .multiple("topic_#", 0..4)
     end
 
     def news_article_type
       Finders::NewsArticleTypeFinder.find(row['news_article_type'], @logger, @line_number)
-    end
-
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
     end
 
     def related_editions
@@ -36,12 +33,18 @@ module Whitehall::Uploader
       attachments_from_columns + attachments_from_json
     end
 
-    def attributes
-      [:title, :summary, :body, :lead_organisations,
-       :first_published_at, :related_editions, :role_appointments,
-       :world_locations, :news_article_type, :attachments].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :attachments,
+        :first_published_at,
+        :lead_organisations,
+        :news_article_type,
+        :related_editions,
+        :role_appointments,
+        :topics,
+        :world_locations
+      ]
     end
   end
 end

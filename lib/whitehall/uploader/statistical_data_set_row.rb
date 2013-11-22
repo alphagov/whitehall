@@ -18,6 +18,7 @@ module Whitehall::Uploader
         .optional(%W{change_note})
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
         .ignored("ignore_*")
+        .multiple("topic_#", 0..4)
     end
 
     def title
@@ -54,10 +55,6 @@ module Whitehall::Uploader
       fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
     def change_note
       if row['change_note'].blank?
         StatisticalDataSetRow::DEFAULT_CHANGE_NOTE
@@ -78,16 +75,20 @@ module Whitehall::Uploader
       false
     end
 
-    def attributes
-      [:title, :summary, :body, :lead_organisations,
-       :attachments, :alternative_format_provider, :access_limited,
-       :first_published_at, :change_note].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :access_limited,
+        :alternative_format_provider,
+        :attachments,
+        :change_note,
+        :first_published_at,
+        :lead_organisations,
+        :topics
+      ]
     end
 
-    private
-
+  private
     def generated_attachment_body
       attachments.map.with_index { |_, i| "!@#{i+1}" }.join("\n\n")
     end

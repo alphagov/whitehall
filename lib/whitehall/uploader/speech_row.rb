@@ -8,6 +8,7 @@ module Whitehall::Uploader
         .required(%w{delivered_by delivered_on event_and_location})
         .multiple("country_#", 0..4)
         .translatable(%w{title summary body})
+        .multiple("topic_#", 0..4)
     end
 
     def speech_type
@@ -43,13 +44,19 @@ module Whitehall::Uploader
       Finders::WorldLocationsFinder.find(row['country_1'], row['country_2'], row['country_3'], row['country_4'], @logger, @line_number)
     end
 
-    def attributes
-      [:title, :summary, :body, :speech_type,
-       :role_appointment, :delivered_on, :location, :organisations,
-       :related_editions, :first_published_at,
-       :world_locations].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :delivered_on,
+        :first_published_at,
+        :location,
+        :role_appointment,
+        :speech_type,
+        :organisations,
+        :related_editions,
+        :topics,
+        :world_locations
+      ]
     end
   end
 end

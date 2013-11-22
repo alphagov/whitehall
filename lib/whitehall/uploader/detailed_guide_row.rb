@@ -13,10 +13,6 @@ module Whitehall::Uploader
         .optional('json_attachments')
     end
 
-    def topics
-      Finders::SluggedModelFinder.new(Topic, @logger, @line_number).find(fields(1..4, 'topic_#'))
-    end
-
     def primary_mainstream_category
       Finders::SluggedModelFinder.new(MainstreamCategory, @logger, @line_number).find([row['detailed_guidance_category_1']]).first
     end
@@ -57,26 +53,22 @@ module Whitehall::Uploader
       row['related_mainstream_content_title_2']
     end
 
-    def first_published_at
-      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
-    end
-
-    def attributes
-      [
-        :title, :summary, :body,
+  protected
+    def attribute_keys
+      super + [
+        :additional_related_mainstream_content_title,
+        :additional_related_mainstream_content_url,
+        :alternative_format_provider,
+        :attachments,
+        :first_published_at,
         :lead_organisations,
-        :topics,
-        :primary_mainstream_category,
         :other_mainstream_categories,
         :outbound_related_documents,
-        :related_mainstream_content_url,
+        :primary_mainstream_category,
         :related_mainstream_content_title,
-        :additional_related_mainstream_content_url,
-        :additional_related_mainstream_content_title,
-        :attachments, :alternative_format_provider,
-        :first_published_at].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+        :related_mainstream_content_url,
+        :topics
+      ]
     end
   end
 end

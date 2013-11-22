@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :document_collection, class: DocumentCollection, parent: :edition_with_organisations do
+  factory :document_collection, class: DocumentCollection, parent: :edition, traits: [:with_organisations, :with_topics] do
     trait(:with_group) do
       groups { FactoryGirl.build_list :document_collection_group, 1 }
     end

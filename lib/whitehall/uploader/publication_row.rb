@@ -13,6 +13,7 @@ module Whitehall::Uploader
         .multiple("country_#", 0..4)
         .optional(%w(html_title html_body))
         .multiple('html_body_#',0..99)
+        .multiple("topic_#", 0..4)
     end
 
     def first_published_at
@@ -65,17 +66,23 @@ module Whitehall::Uploader
       { title: html_title, body: html_body }
     end
 
-    def attributes
-      [:title, :summary, :body, :first_published_at, :publication_type,
-       :related_editions, :lead_organisations,
-       :ministerial_roles, :attachments, :alternative_format_provider,
-       :world_locations, :html_attachment_attributes].map.with_object({}) do |name, result|
-        result[name] = __send__(name)
-      end
+  protected
+    def attribute_keys
+      super + [
+        :alternative_format_provider,
+        :attachments,
+        :first_published_at,
+        :html_attachment_attributes,
+        :lead_organisations,
+        :ministerial_roles,
+        :publication_type,
+        :related_editions,
+        :topics,
+        :world_locations
+      ]
     end
 
-    private
-
+  private
     def attachments_from_json
       if row["json_attachments"]
         attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])

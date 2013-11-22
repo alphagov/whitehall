@@ -5,15 +5,6 @@ class TopicsControllerTest < ActionController::TestCase
 
   should_be_a_public_facing_controller
 
-  view_test "GET :index lists topics with published policies" do
-    topics = [0, 1, 2].map { |n| create(:topic, published_policies_count: n) }
-    get :index
-
-    refute_select_object(topics[0])
-    assert_select_object(topics[1])
-    assert_select_object(topics[2])
-  end
-
   view_test "GET :shows lists the topic details, setting the expiry headers based on the scheduled editions" do
     organisation = create(:organisation)
     policy = create(:draft_policy, :scheduled)

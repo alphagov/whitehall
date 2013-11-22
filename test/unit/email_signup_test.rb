@@ -5,19 +5,6 @@ class EmailSignupTest < ActiveSupport::TestCase
     assert_equal [:topic, :topical_event], EmailSignup.valid_topics_by_type.keys.sort
   end
 
-  test 'the list of valid_topics_by_type only includes topics with published policies in the list of topics' do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    policy  = create(:published_policy)
-    topic_1.editions << policy
-
-    topics_by_type = EmailSignup.valid_topics_by_type
-    assert topics_by_type[:topic].include?(topic_1)
-    refute topics_by_type[:topic].include?(topic_2)
-    refute topics_by_type[:topical_event].include?(topic_1)
-    refute topics_by_type[:topical_event].include?(topic_2)
-  end
-
   test 'the list of valid_topics_by_type includes all topical events even if they have no published policies in the list of topical event' do
     topical_event_1 = create(:topical_event, :active)
     topical_event_2 = create(:topical_event, :active)

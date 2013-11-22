@@ -1207,6 +1207,15 @@ ActiveRecord::Schema.define(:version => 20131118121852) do
   add_index "top_tasks", ["linkable_id", "linkable_type"], :name => "index_top_tasks_on_linkable_id_and_linkable_type"
   add_index "top_tasks", ["linkable_type"], :name => "index_top_tasks_on_linkable_type"
 
+  create_table "topic_suggestions", :force => true do |t|
+    t.string   "name"
+    t.integer  "edition_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "topic_suggestions", ["edition_id"], :name => "index_topic_suggestions_on_edition_id"
+
   create_table "unpublishings", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "unpublishing_reason_id"

@@ -53,19 +53,19 @@ module Edition::AuditTrail
   end
 
   def document_audit_trail
-    document.editions.includes(versions: [:user], editorial_remarks: [:author]).order("created_at asc").map.with_index do |edition, i|
+    document.editions.includes(versions: [:user], editorial_remarks: [:author]).order("created_at asc, id asc").map.with_index do |edition, i|
       edition.edition_audit_trail(i)
     end.flatten
   end
 
   def document_remarks_trail
-    document.editions.includes(editorial_remarks: [:author]).order("created_at asc").map.with_index do |edition, i|
+    document.editions.includes(editorial_remarks: [:author]).order("created_at asc, id asc").map.with_index do |edition, i|
       edition.edition_remarks_trail(i)
     end.flatten
   end
 
   def document_version_trail
-    document.editions.includes(versions: [:user]).order("created_at asc").map.with_index do |edition, i|
+    document.editions.includes(versions: [:user]).order("created_at asc, id asc").map.with_index do |edition, i|
       edition.edition_version_trail(i)
     end.flatten
   end

@@ -52,7 +52,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
-    topic = create(:topic, published_edition_count: 1)
+    topic = create(:topic)
     management_role = create(:board_member_role)
     management = create(:role_appointment, role: management_role, person: create(:person))
     organisation = create(:organisation, topics: [topic], management_roles: [management_role])
@@ -256,17 +256,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#parent_organisations"
-  end
-
-  view_test "should display the organisation's topics with content" do
-    topics = [0, 1, 2].map { |n| create(:topic, published_edition_count: n) }
-    organisation = create(:organisation, topics: topics)
-    get :show, id: organisation
-    assert_select "#topics" do
-      assert_select_object topics[1]
-      assert_select_object topics[2]
-      refute_select_object topics[0]
-    end
   end
 
   view_test "should display link to policies filter if there are many policies" do

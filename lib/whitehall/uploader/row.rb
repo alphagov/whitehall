@@ -97,7 +97,24 @@ module Whitehall::Uploader
       []
     end
 
-    protected
+    def attributes
+      @attributes ||= attribute_keys.map.with_object({}) do |attribute, result|
+        result[attribute] = __send__(attribute)
+      end
+    end
+
+    def first_published_at
+      Parsers::DateParser.parse(row['first_published'], @logger, @line_number)
+    end
+
+    def topics
+      Finders::SluggedModelFinder.new(Topic, @logger, @line_number).find(fields(1..4, 'topic_#'))
+    end
+
+  protected
+    def attribute_keys
+      [:title, :summary, :body]
+    end
 
     def fields(range, pattern)
       range.map do |n|

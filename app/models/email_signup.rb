@@ -32,7 +32,7 @@ class EmailSignup
 
   def self.valid_topics_by_type
     {
-      topic: Topic.where("published_policies_count <> 0").alphabetical,
+      topic: Topic.alphabetical,
       topical_event: TopicalEvent.active.order_by_start_date
     }
   end
