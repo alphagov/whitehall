@@ -132,6 +132,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_select "input[value=#{attachment.title}]"
   end
 
+  view_test "GET :edit renders the file upload field when the attachment is a base Attachment" do
+    attachment = create(:attachment, attachable: @edition, attachment_data: create(:attachment_data))
+    get :edit, edition_id: @edition, id: attachment
+    assert_select "input[type=file]"
+  end
+
   test "PUT :update for HTML attachment updates the attachment" do
     attachment = create(:html_attachment, attachable: @edition)
 
