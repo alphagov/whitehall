@@ -4,7 +4,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   setup do
-    @organisation = create(:organisation, handles_fatalities: true)
+    @organisation = create(:organisation, handles_fatalities: true, acronym: "ABC")
   end
 
   view_test "show displays name" do
@@ -85,5 +85,14 @@ class OperationalFieldsControllerTest < ActionController::TestCase
         end
       end
     end
+  end
+
+  test "should set Google Analytics organisation headers" do
+    operational_field = create(:operational_field)
+
+    get :show, id: operational_field
+
+    assert_equal "<#{@organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+    assert_equal @organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
   end
 end

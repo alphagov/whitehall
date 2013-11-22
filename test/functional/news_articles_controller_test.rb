@@ -6,6 +6,7 @@ class NewsArticlesControllerTest < ActionController::TestCase
   should_show_the_world_locations_associated_with :news_article
   should_display_inline_images_for :news_article
   should_set_meta_description_for :news_article
+  should_set_slimmer_analytics_headers_for :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)

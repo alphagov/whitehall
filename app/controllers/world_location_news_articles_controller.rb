@@ -5,6 +5,7 @@ class WorldLocationNewsArticlesController < DocumentsController
     # so it can pretend to have orgs
     @document = WorldLocationNewsArticlePresenter.new(@document)
     set_meta_description(@document.summary)
+    set_slimmer_headers_for_document(@document)
   end
 
   def index

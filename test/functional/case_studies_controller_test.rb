@@ -6,6 +6,7 @@ class CaseStudiesControllerTest < ActionController::TestCase
   should_show_related_policies_for :case_study
   should_display_inline_images_for :case_study
   should_be_previewable :case_study
+  should_set_slimmer_analytics_headers_for :case_study
 
   test "shows published case study" do
     case_study = create(:published_case_study)

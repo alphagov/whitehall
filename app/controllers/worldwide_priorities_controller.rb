@@ -8,6 +8,7 @@ class WorldwidePrioritiesController < DocumentsController
 
   def show
     set_meta_description(@document.summary)
+    set_slimmer_headers_for_document(@document)
   end
 
   def activity

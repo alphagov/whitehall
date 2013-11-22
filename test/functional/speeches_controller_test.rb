@@ -97,4 +97,16 @@ class SpeechesControllerTest < ActionController::TestCase
     get :show, id: published_speech.document
     refute_select ".location"
   end
+
+  view_test "shoud set Google Analytics headers based on the organisation of the person who delivered the speech" do
+    organisation = create(:organisation, acronym: "ABC")
+    ministerial_role = create(:ministerial_role, organisations: [organisation])
+    role_appointment = create(:role_appointment, role: ministerial_role)
+    speech = create(:published_speech, role_appointment: role_appointment)
+
+    get :show, id: speech.document
+
+    assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+    assert_equal organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
+  end
 end
