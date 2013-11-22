@@ -2,7 +2,7 @@ require 'tmpdir'
 require 'open3'
 
 # There are two ways to create and use a BulkUpload instance. You can
-# either a) call BulkUpload.from_files, which will build new Attachment
+# either a) call BulkUpload.from_files, which will build new FileAttachment
 # instances for you, or b) call BulkUpload.new and then assign a hash
 # (in a accepts_nested_attributes_for compliant format) via the
 # attachments_attributes= method.
@@ -31,7 +31,7 @@ class BulkUpload
   end
 
   def build_attachment_for_file(path)
-    attachment = find_attachment_with_file(path) || Attachment.new
+    attachment = find_attachment_with_file(path) || FileAttachment.new
     replaced_data_id = attachment.attachment_data.try(:id)
     attachment.attachment_data_attributes = { file: File.open(path) }
     attachment.attachment_data.to_replace_id = replaced_data_id
@@ -42,7 +42,7 @@ class BulkUpload
     @attachments = attributes.map do |index, params|
       attachment_attrs = params.except(:attachment_data_attrs)
       data_attrs = params.fetch(:attachment_data_attributes, {})
-      find_and_update_existing_attachment(attachment_attrs, data_attrs) || Attachment.new(params)
+      find_and_update_existing_attachment(attachment_attrs, data_attrs) || FileAttachment.new(params)
     end
   end
 
@@ -82,7 +82,7 @@ class BulkUpload
   end
 
   def find_and_update_existing_attachment(attachment_attrs, data_attrs)
-    if attachment = Attachment.find_by_id(attachment_attrs[:id])
+    if attachment = FileAttachment.find_by_id(attachment_attrs[:id])
       replaced_data_id = attachment.attachment_data.id
       attachment.attributes = attachment_attrs
       attachment.attachment_data = AttachmentData.new(data_attrs)
