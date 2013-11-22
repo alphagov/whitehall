@@ -49,7 +49,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       alternative_format_provider_id: create(:alternative_format_provider).id,
       attachments_attributes: {
         '0' => attributes_for(
-          :attachment,
+          :file_attachment,
           title: 'attachment-title',
           order_url: 'http://example.com/publication',
           price: '1.23',

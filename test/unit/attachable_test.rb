@@ -36,7 +36,7 @@ class AttachableTest < ActiveSupport::TestCase
     attachment_2 = create(:file_attachment, ordering: 1)
     publication = create(:publication, :with_file_attachment, attachments: [attachment_1, attachment_2])
 
-    attachment_3 = build(:file_attachment)
+    attachment_3 = FileAttachment.new(title: 'Title', attachment_data: build(:attachment_data))
     publication.attachments << attachment_3
 
     assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments(true)

@@ -22,7 +22,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           alternative_format_provider_id: "",
-          attachments_attributes: { "0" => attributes_for(:attachment) }
+          attachments_attributes: { "0" => attributes_for(:file_attachment) }
         )
 
         refute assigns(edition_base_class_name).errors[:alternative_format_provider].blank?
@@ -44,7 +44,7 @@ module AdminEditionAttachableControllerTestHelpers
       test 'creating an edition should attach file' do
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
         attributes = controller_attributes_for(edition_type)
-        attachment_attributes = attributes_for(:attachment).merge(
+        attachment_attributes = attributes_for(:file_attachment).merge(
           attachment_data_attributes: { file: greenpaper_pdf })
         attributes[:attachments_attributes] = { "0" => attachment_attributes }
 
@@ -67,7 +67,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         post :create, edition_base_class_name => controller_attributes_for(
           edition_type, attachments_attributes: {
-            "0" => attributes_for(:attachment).merge( attachment_data_attributes: { file: greenpaper_pdf })
+            "0" => attributes_for(:file_attachment).merge( attachment_data_attributes: { file: greenpaper_pdf })
           }
         )
       end
@@ -86,7 +86,7 @@ module AdminEditionAttachableControllerTestHelpers
         attributes = controller_attributes_for(
           edition_type,
           attachments_attributes: {
-            "0" => attributes_for(:attachment).merge(
+            "0" => attributes_for(:file_attachment).merge(
               title: 'my attachment',
               attachment_data_attributes: { file: greenpaper_pdf })
           })
@@ -105,7 +105,7 @@ module AdminEditionAttachableControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
         attributes[:attachments_attributes] = {
-          "0" => attributes_for(:attachment).merge(attachment_data_attributes: {
+          "0" => attributes_for(:file_attachment).merge(attachment_data_attributes: {
               file: greenpaper_pdf
           })
         }
@@ -120,9 +120,9 @@ module AdminEditionAttachableControllerTestHelpers
         csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
         attributes = controller_attributes_for(edition_type)
         attributes[:attachments_attributes] = {
-          "0" => attributes_for(:attachment, title: "attachment-1-title").merge(
+          "0" => attributes_for(:file_attachment, title: "attachment-1-title").merge(
                      attachment_data_attributes: { file: greenpaper_pdf }),
-          "1" => attributes_for(:attachment, title: "attachment-2-title").merge(
+          "1" => attributes_for(:file_attachment, title: "attachment-2-title").merge(
                      attachment_data_attributes: { file: csv_file })
         }
 
@@ -161,7 +161,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           attachments_attributes: {
-            "0" => attributes_for(:attachment, title: "attachment-title").merge(
+            "0" => attributes_for(:file_attachment, title: "attachment-title").merge(
                        attachment_data_attributes: { file: greenpaper_pdf })
           }
         )
@@ -182,9 +182,9 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           attachments_attributes: {
-            "0" => attributes_for(:attachment, title: "attachment-1-title").merge(
+            "0" => attributes_for(:file_attachment, title: "attachment-1-title").merge(
                        attachment_data_attributes: { file: greenpaper_pdf }),
-            "1" => attributes_for(:attachment, title: "attachment-2-title").merge(
+            "1" => attributes_for(:file_attachment, title: "attachment-2-title").merge(
                        attachment_data_attributes: { file: csv_file })
           }
         )
@@ -218,7 +218,7 @@ module AdminEditionAttachableControllerTestHelpers
 
         put :update, id: edition, edition_base_class_name => make_invalid(controller_attributes_for(edition_type,
           attachments_attributes: {
-            "0" => attributes_for(:attachment).merge(
+            "0" => attributes_for(:file_attachment).merge(
                 title: 'my attachment',
                 attachment_data_attributes: { file: greenpaper_pdf }
               )
@@ -254,7 +254,7 @@ module AdminEditionAttachableControllerTestHelpers
         put :update, id: edition, edition_base_class_name => controller_attributes_for_instance(edition,
           lock_version: lock_version,
           attachments_attributes: {
-            "0" => attributes_for(:attachment).merge(
+            "0" => attributes_for(:file_attachment).merge(
               title: 'my attachment',
               attachment_data_attributes: {
                 file: greenpaper_pdf
@@ -317,7 +317,7 @@ module AdminEditionAttachableControllerTestHelpers
                 to_replace_id: attachment_3.attachment_data.id
               }
             },
-            "3" => attributes_for(:attachment).merge(attachment_data_attributes: { file: greenpaper_pdf })
+            "3" => attributes_for(:file_attachment).merge(attachment_data_attributes: { file: greenpaper_pdf })
           }
         )
 

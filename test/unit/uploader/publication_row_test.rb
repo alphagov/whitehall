@@ -130,7 +130,7 @@ module Whitehall::Uploader
         "attachment_1_url" => "http://example.com/attachment.pdf"
       }, Logger.new(StringIO.new))
 
-      attachment = Attachment.new(title: "first title")
+      attachment = FileAttachment.new(title: "first title")
       assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
@@ -170,7 +170,7 @@ module Whitehall::Uploader
         'unnumbered_command_paper' => '',
       }, Logger.new(StringIO.new))
 
-      attachment = Attachment.new(
+      attachment = FileAttachment.new(
         title: "title",
         command_paper_number: 'Cm 5861',
         hoc_paper_number: '123456',
@@ -188,7 +188,7 @@ module Whitehall::Uploader
         "json_attachments" => ActiveSupport::JSON.encode([{"title" => "first title", "link" => "http://example.com/attachment.pdf"}])
       }, Logger.new(StringIO.new))
 
-      attachment = Attachment.new(title: "first title")
+      attachment = FileAttachment.new(title: "first title")
       assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end

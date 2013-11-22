@@ -1,20 +1,19 @@
 FactoryGirl.define do
-  factory :attachment do
-    sequence(:title) { |index| "attachment-title-#{index}" }
-    sequence(:ordering)
-
+  factory :file_attachment do
     ignore do
       file { File.open(File.join(Rails.root, 'test', 'fixtures', 'greenpaper.pdf')) }
     end
-  end
 
-  factory :file_attachment, class: FileAttachment, parent: :attachment do
+    sequence(:title) { |index| "file-attachment-title-#{index}" }
+    sequence(:ordering)
     after(:build) do |attachment, evaluator|
       attachment.attachment_data ||= build(:attachment_data, file: evaluator.file)
     end
   end
 
-  factory :html_attachment, class: HtmlAttachment, parent: :attachment do
+  factory :html_attachment do
+    sequence(:title) { |index| "html-attachment-title-#{index}" }
+    sequence(:ordering)
     body 'Attachment body'
   end
 end
