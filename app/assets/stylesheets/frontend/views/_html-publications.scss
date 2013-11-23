@@ -37,6 +37,7 @@
 
   .publication-header {
     @extend %contain-floats;
+    @include white-links;
     background: $light-blue;
     padding: $gutter-one-third;
     margin: 0 (-$gutter-half);
@@ -69,6 +70,10 @@
         margin: $gutter-half 0 20px;
         color: $white;
       }
+    }
+
+    strong {
+      font-weight: bold;
     }
   }
 

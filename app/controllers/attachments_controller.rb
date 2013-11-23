@@ -1,12 +1,24 @@
 class AttachmentsController < PublicUploadsController
   include PublicDocumentRoutesHelper
 
-  layout 'html-publication', only: [:show_html]
+  before_filter :reject_non_previewable_attachments, only: :preview
 
-  before_filter :find_edition, only: [:show_html]
-  before_filter :find_html_attachment, only: [:show_html]
+  def preview
+    if attachment_visible? && attachment_visibility.visible_edition
+      expires_headers
+      @edition = attachment_visibility.visible_edition
+      @attachment = attachment_visibility.visible_attachment
+      @csv_preview = CsvPreview.new(upload_path)
+      render layout: 'html_attachments'
+    else
+      fail
+    end
 
-  private
+  rescue CsvPreview::FileEncodingError
+    render layout: 'html_attachments'
+  end
+
+private
 
   def attachment_visible?
     super && attachment_visibility.visible?
@@ -28,33 +40,6 @@ class AttachmentsController < PublicUploadsController
 
   def set_slimmer_template
     slimmer_template('chromeless')
-  end
-
-  def previewing?
-    user_signed_in? && params[:preview]
-  end
-
-  def edition_slug
-    params[:publication_id] || params[:consultation_id]
-  end
-
-  def find_edition
-    cls = params[:publication_id] ? Publication : Consultation
-    @edition = if previewing?
-      Document.at_slug(cls, edition_slug).latest_edition
-    else
-      cls.published_as(edition_slug)
-    end
-    @edition.nil? && raise(ActiveRecord::RecordNotFound)
-  end
-
-  def find_html_attachment
-    @attachment = if previewing?
-      HtmlAttachment.find(params[:preview])
-    else
-      @edition.attachments.where(slug: params[:id]).first
-    end
-    @attachment.nil? && raise(ActiveRecord::RecordNotFound)
   end
 
   def attachment_data
@@ -83,5 +68,9 @@ class AttachmentsController < PublicUploadsController
 
   def attachment_visibility
     @attachment_visibility ||= AttachmentVisibility.new(attachment_data, current_user)
+  end
+
+  def reject_non_previewable_attachments
+    render(text: "Not found", status: :not_found) unless attachment_data.csv?
   end
 end

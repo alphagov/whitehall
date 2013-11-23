@@ -78,7 +78,7 @@ Whitehall::Application.routes.draw do
     get "/fatalities" => redirect("/announcements"), as: 'fatality_notices'
 
     resources :publications, only: [:index, :show], localised: true
-    get "/publications/:publication_id/:id" => 'attachments#show_html', as: 'publication_html_attachment'
+    get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
     resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
     resources :speeches, only: [:show], localised: true
@@ -99,7 +99,7 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
-    match "/consultations/:consultation_id/:id" => 'attachments#show_html', as: 'consultation_html_attachment'
+    match "/consultations/:consultation_id/:id" => 'html_attachments#show', as: 'consultation_html_attachment'
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show] do
@@ -359,5 +359,6 @@ Whitehall::Application.routes.draw do
 
   get '/government/uploads/system/uploads/consultation_response_form/*path.:extension' => LongLifeRedirect.new('/government/uploads/system/uploads/consultation_response_form_data/')
   get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension' => "attachments#show"
+  get '/government/uploads/system/uploads/attachment_data/file/:id/*file.:extension/preview' => "attachments#preview", as: :preview_attachment
   get '/government/uploads/*path.:extension' => "public_uploads#show"
 end

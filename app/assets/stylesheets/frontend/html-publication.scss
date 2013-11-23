@@ -49,6 +49,7 @@
 // VIEWS
 // Styles scoped to each template in /views
 #whitehall-wrapper {
+  @import "views/_attachments-preview.scss";
   @import "views/_html-publications.scss";
 }
 

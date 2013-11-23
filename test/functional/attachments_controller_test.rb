@@ -2,9 +2,11 @@ require "test_helper"
 
 class AttachmentsControllerTest < ActionController::TestCase
   def get_show(attachment_data)
-    extension = attachment_data.file_extension
-    basename = File.basename(attachment_data.filename, '.' + extension)
-    get :show, id: attachment_data.to_param, file: basename, extension: extension
+    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+  end
+
+  def basename(attachment_data)
+    File.basename(attachment_data.filename, '.' + attachment_data.file_extension)
   end
 
   test "attachment documents that aren't visible and haven't been replaced are redirected to the placeholder url" do
@@ -106,77 +108,76 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to publication_url(unpublished_edition.unpublishing.slug)
   end
 
-  test "an invalid filename returns a 404" do
+  test "an invalid filename returns a not found response" do
     attachment_data = create(:attachment_data)
-    get :show, id: attachment_data.to_param, file: File.basename(attachment_data.filename, ".#{attachment_data.file_extension}"), extension: "#{attachment_data.file_extension}missing"
+    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: "#{attachment_data.file_extension}missing"
     assert_response :not_found
   end
 
-  private
-  def get_show_html(publication, attachment, params = {})
-    defaults = {
-      publication_id: publication.document,
-      id: attachment.slug
-    }
-    get :show_html, defaults.merge(params)
+  test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
+    attachment      = create(:csv_attachment)
+    attachment_data = attachment.attachment_data
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_equal visible_edition, assigns(:edition)
+    assert_equal attachment, assigns(:attachment)
+    assert assigns(:csv_preview).is_a?(CsvPreview)
+    assert_response :success
+    assert_template :preview
   end
 
-  def create_edition_and_attachment(type = :publication, state = :published)
-    publication = create([state, type].join('_'))
-    attachment = create(:html_attachment)
-    publication.attachments << attachment
-    [publication, attachment]
+  test "GET #preview for a CSV attachment on a non-public edition returns a not found response" do
+    unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [create(:csv_attachment)])
+    attachment_data = unpublished_edition.attachments.first.attachment_data
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_response :not_found
   end
 
-  view_test '#show_html displays HTML attachment on publication' do
-    publication, attachment = create_edition_and_attachment
-    get_show_html(publication, attachment)
-    assert_select 'header h1', attachment.title
+  test "GET #preview for a non-CSV file type returns a not found response" do
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [create(:file_attachment)])
+    attachment_data = visible_edition.attachments.first.attachment_data
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_response :not_found
   end
 
-  view_test '#show_html displays HTML attachment on consultation' do
-    consultation, attachment = create_edition_and_attachment(:consultation)
-    get :show_html, consultation_id: consultation.document, id: attachment.slug
-    assert_select 'header h1', attachment.title
+  test "GET #preview for a CSV attachment on an edition that has been unpublished redirects to the edition" do
+    unpublished_publication = create(:draft_publication, :unpublished, :with_file_attachment, attachments: [create(:csv_attachment)])
+    attachment_data = unpublished_publication.attachments.first.attachment_data
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_redirected_to publication_url(unpublished_publication.unpublishing.slug)
   end
 
-  view_test '#show_html displays version of attachment from published edition' do
-    publication, attachment = create_edition_and_attachment
-    draft = publication.create_draft(create(:user))
-    draft.attachments.first.update_attribute(:title, 'New title')
-    get_show_html(publication, attachment)
-    assert_select 'h1', attachment.title
+  test "GET #preview handles CsvPreview::FileEncodingError errors" do
+    attachment      = create(:csv_attachment)
+    attachment_data = attachment.attachment_data
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
+
+    CsvPreview.expects(:new).raises(CsvPreview::FileEncodingError)
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_equal visible_edition, assigns(:edition)
+    assert_equal attachment, assigns(:attachment)
+    assert_nil assigns(:csv_preview)
+    assert_response :success
+    assert_template :preview
   end
 
-  test '#show_html renders 404 page if the slug is wrong' do
-    publication = create(:published_publication)
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show_html, publication_id: publication.document, id: 'not-the-real-slug'
-    end
-  end
+  test "preview is not possible on CSV attachments on non-Editions" do
+    attachment      = create(:csv_attachment, attachable: create(:policy_advisory_group))
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 
-  test "#show_html renders 404 page if publication hasn't been published" do
-    publication, attachment = create_edition_and_attachment(:publication, :draft)
-    assert_raise ActiveRecord::RecordNotFound do
-      get_show_html(publication, attachment)
-    end
-  end
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
 
-  view_test "#show_html allows previewing of a draft edition's HTML attachments" do
-    publication, attachment = create_edition_and_attachment(:publication, :draft)
-    login_as create(:departmental_editor)
-    get_show_html(publication, attachment, preview: attachment.id)
-    assert_select 'h1', attachment.title
-  end
-
-  view_test '#show_html allows previewing draft HTML attachment for logged in users' do
-    user = create(:departmental_editor)
-    publication, attachment = create_edition_and_attachment
-    draft = publication.create_draft(user)
-    draft_attachment = draft.attachments.first
-    draft_attachment.update_attribute(:title, 'New title')
-    login_as user
-    get_show_html(publication, attachment, preview: draft_attachment.id)
-    assert_select 'h1', 'New title'
+    assert_response :not_found
   end
 end

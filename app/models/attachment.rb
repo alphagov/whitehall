@@ -4,7 +4,7 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :attachment_data
 
-  delegate :url, :content_type, :pdf?,
+  delegate :url, :content_type, :pdf?, :csv?,
     :extracted_text, :file_extension, :file_size,
     :number_of_pages, :file, :filename, :virus_status,
     to: :attachment_data

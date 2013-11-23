@@ -8,7 +8,7 @@ $thumbnail-width: 99px;
   @include right-to-left {
     padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
   }
-  
+
   &.inline {
     background: transparent;
     position: static;
@@ -43,7 +43,7 @@ $thumbnail-width: 99px;
       @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
     }
   }
-  
+
   .title a {
     text-decoration: none;
     font-weight: bold;
@@ -52,18 +52,22 @@ $thumbnail-width: 99px;
       text-decoration: underline;
     }
   }
-  
+
   .attachment-details {
     h1, h2, h3 {
       @include ig-core-27;
       margin: 0;
     }
-    
+
+    h3 {
+      font-weight: bold;
+    }
+
     .extra-description {
       @include ig-core-19;
       margin: 0;
     }
-    
+
     .metadata {
       @include ig-core-14;
       margin: 0;
@@ -75,8 +79,17 @@ $thumbnail-width: 99px;
         display: block;
       }
     }
+
+    .preview,
+    .download {
+      @include core-19;
+    }
+
+    .preview {
+      padding-right: $gutter-half;
+    }
   }
-  
+
   .accessibility-warning {
     h3 {
       @include ig-core-14;
@@ -96,5 +109,9 @@ $thumbnail-width: 99px;
   &:first-child {
     margin-top: 0;
     padding-top: 0;
+  }
+
+  strong {
+    font-weight: bold;
   }
 }
