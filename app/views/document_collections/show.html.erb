@@ -24,7 +24,7 @@
     <div class="contextual-info js-stick-at-top-when-scrolling">
       <h1>Contents</h1>
       <ol class="dash-list">
-        <% @document_collection.groups.each do |group| %>
+        <% @groups.each do |group, _| %>
           <li><%= link_to group.heading, "##{group.slug}" %></li>
         <% end %>
       </ol>
