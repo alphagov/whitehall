@@ -1,11 +1,10 @@
 class PoliciesController < DocumentsController
   include CacheControlHelper
 
+  enable_request_formats index: [:json], activity: [:atom]
+
   before_filter :find_document, only: [:show, :activity]
   before_filter :set_analytics_format, only: [:show, :activity]
-
-  respond_to :html
-  respond_to :atom, only: :activity
 
   def index
     clean_search_filter_params

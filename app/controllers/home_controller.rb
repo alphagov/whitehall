@@ -1,6 +1,7 @@
 class HomeController < PublicFacingController
   layout 'frontend'
 
+  enable_request_formats feed: [:atom]
   before_filter :load_ministerial_department_count, only: :how_government_works
 
   def feed
