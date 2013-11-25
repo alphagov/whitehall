@@ -1,0 +1,29 @@
+.edition-form {
+  .add-user-need {
+    span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    span label {
+      min-width: 4em;
+      display: inline-block;
+      text-align: right;
+    }
+
+    .choice {
+      margin-top: 1.2em;
+    }
+
+    label,
+    input {
+      display: inline;
+      width: auto;
+      margin: 0 0.2em;
+    }
+
+    label span {
+      display: none;
+    }
+  }
+}
