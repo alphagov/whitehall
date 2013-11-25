@@ -122,11 +122,6 @@
   padding: 3px 0 2px 0;
   text-decoration: none;
 
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
-
   &:link,
   &:visited {
     color: $black;
@@ -139,6 +134,12 @@
   @include right-to-left {
     direction: ltr;
   }
+}
+a.organisation-logo {
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }  
 }
 @include organisation-brand-colour(".organisation-logo", border-color);
 
