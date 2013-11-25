@@ -2,7 +2,6 @@ require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
-  # should_render_a_list_of :news_articles, :first_published_at
   should_show_the_world_locations_associated_with :news_article
   should_display_inline_images_for :news_article
   should_set_meta_description_for :news_article
