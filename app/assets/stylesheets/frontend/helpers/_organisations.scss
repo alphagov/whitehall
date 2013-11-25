@@ -120,6 +120,12 @@
   font-size: 13px;
   line-height: 15px;
   padding: 3px 0 2px 0;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 
   &:link,
   &:visited {
