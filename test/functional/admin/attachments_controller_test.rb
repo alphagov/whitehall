@@ -59,6 +59,18 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal [attachment3, attachment1, attachment2], @edition.attachments(true)
   end
 
+  test "PUT :order handles negative ordering values" do
+    a, b, c = 3.times.map { build(:html_attachment) }
+    @edition.attachments << [a, b, c]
+
+    put :order, edition_id: @edition, ordering: { a.id.to_s => '-1',
+                                                  b.id.to_s => '0',
+                                                  c.id.to_s => '1' }
+
+    assert_response :redirect
+    assert_equal [a, b, c], @edition.attachments(true)
+  end
+
   view_test "GET :new renders the attachment form" do
     get :new, edition_id: @edition
 
