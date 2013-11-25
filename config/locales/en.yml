@@ -292,7 +292,7 @@ en:
     follow_us: Follow us
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %I:%M%P'
+      long_ordinal: ! '%e %B %Y %l:%M%P'
   world_location:
     headings:
       announcements: Our announcements
