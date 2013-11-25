@@ -2,6 +2,7 @@ require "test_helper"
 
 class DocumentCollectionsControllerTest < ActionController::TestCase
   should_set_slimmer_analytics_headers_for :document_collection
+  should_set_the_article_id_for_the_edition_for :document_collection
 
   def create_group_from_editions(collection, heading, *editions)
     collection.groups.create(heading: heading, body: 'Group body').tap do |group|

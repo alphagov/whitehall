@@ -1,6 +1,6 @@
 <% page_title edition_page_title(@document), t('publications.heading') %>
 
-<div class="document-page <%= @document.type.downcase %>">
+<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'header',
@@ -47,4 +47,4 @@
       <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
     </div>
   </div>
-</div>
+<% end %>

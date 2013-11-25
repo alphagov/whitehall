@@ -1,7 +1,7 @@
 <% header_title ||= t_display_type(@document) %>
 <% page_title @document.title, "Worldwide Priorities" %>
 
-<article class="document-page <%= @document.type.downcase %>">
+<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render(partial: 'documents/header', locals: { header_title: header_title, document: @document }) %>
@@ -43,4 +43,4 @@
       <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
     </div>
   </div>
-</article>
+<% end %>

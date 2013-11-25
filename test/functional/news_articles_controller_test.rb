@@ -2,11 +2,11 @@ require 'test_helper'
 
 class NewsArticlesControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
-  # should_render_a_list_of :news_articles, :first_published_at
   should_show_the_world_locations_associated_with :news_article
   should_display_inline_images_for :news_article
   should_set_meta_description_for :news_article
   should_set_slimmer_analytics_headers_for :news_article
+  should_set_the_article_id_for_the_edition_for :news_article
 
   test "shows published news article" do
     news_article = create(:published_news_article)

@@ -453,6 +453,15 @@ module DocumentControllerTestHelpers
         assert_equal lead_organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
       end
     end
+
+    def should_set_the_article_id_for_the_edition_for(document_type)
+      view_test "#{document_type} should set the article ID to the edition type/ID" do
+        edition = create("published_#{document_type}")
+        get :show, id: edition.document
+
+        assert_select "article.document-page##{document_type}_#{edition.id}"
+      end
+    end
   end
 
   private

@@ -19,6 +19,7 @@ class PublicationsControllerTest < ActionController::TestCase
   should_show_local_government_items_for :consultation
   should_set_meta_description_for :publication
   should_set_slimmer_analytics_headers_for :publication
+  should_set_the_article_id_for_the_edition_for :publication
 
   def assert_publication_order(expected_order)
     actual_order = assigns(:publications).map(&:model).map(&:id)

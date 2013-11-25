@@ -1,7 +1,7 @@
 <% page_title edition_page_title(@document), "Consultations" %>
 <% page_class consultation_css_class(@document) %>
 
-<div class="document-page <%= @document.type.downcase %>">
+<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render  partial: "documents/header", locals: {
@@ -154,4 +154,4 @@
       <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
     </div>
   </div>
-</div>
+<% end %>
