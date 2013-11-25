@@ -30,5 +30,3 @@ cleaner.csv_data.each do |link_type, links|
     end
   end
 end
-
-raise "stop"
