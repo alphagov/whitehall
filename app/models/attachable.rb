@@ -93,23 +93,25 @@ module Attachable
   def reorder_attachments(ordered_attachment_ids)
     return if ordered_attachment_ids.empty?
 
-    # Attachment has a unique constraint on attachable type/id and ordering.
-    # This stops us simply changing the ordering values of existing
-    # attachments, as two rows end up with the same ordering value during
-    # the update, violating the constraint.
+    transaction do
+      # Attachment has a unique constraint on attachable type/id and ordering.
+      # This stops us simply changing the ordering values of existing
+      # attachments, as two rows end up with the same ordering value during
+      # the update, violating the constraint.
 
-    # To get around it, we check that we can start at 0 and fit all the
-    # ordering values below the current lowest ordering.
-    if ordered_attachment_ids.count < attachments.minimum(:ordering)
-      start_at = 0
+      # To get around it, we check that we can start at 0 and fit all the
+      # ordering values below the current lowest ordering.
+      if ordered_attachment_ids.count < attachments.minimum(:ordering)
+        start_at = 0
 
-    # Otherwise, we start reordering at the next available number
-    else
-      start_at = next_ordering
-    end
+      # Otherwise, we start reordering at the next available number
+      else
+        start_at = next_ordering
+      end
 
-    ordered_attachment_ids.each.with_index(start_at) do |attachment_id, ordering|
-      attachments.find(attachment_id).update_column(:ordering, ordering)
+      ordered_attachment_ids.each.with_index(start_at) do |attachment_id, ordering|
+        attachments.find(attachment_id).update_column(:ordering, ordering)
+      end
     end
   end
 end
