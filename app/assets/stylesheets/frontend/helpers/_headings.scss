@@ -47,11 +47,11 @@
   }
 
   .heading-extra {
-    margin: 0 0 $gutter;
-    @include media(tablet){
+    margin: $gutter 0;
+    @include media(tablet) {
       float: right;
       width: 33.33%;
-      margin: $gutter 0;
+      margin-top: 0;
       @include right-to-left {
         float: left;
       }
@@ -63,6 +63,12 @@
       @include media(tablet) {
         position: absolute;
         left: -9999em;
+      }
+    }
+
+    .all-services {
+      @include media(tablet) {
+        padding: 0 $gutter-two-thirds;
       }
     }
 
@@ -222,6 +228,38 @@
 
     a {
       text-decoration: underline;
+    }
+  }
+
+  .prominent-top-tasks {
+    @extend %contain-floats;
+    clear: both;
+    article {
+      @include media(tablet) {
+        float: left;
+        padding: $gutter 0;
+        width: $one-third;
+      }
+      .content {
+        padding: 0 0 $gutter-two-thirds 0;
+
+        h2 {
+          @include core-19;
+          font-weight: bold;
+        }
+        ul li {
+          font-weight: bold;
+          line-height: 1.25;
+          list-style: none;
+          padding: 0 0 $gutter-one-sixth 0;
+        }
+        @include media(tablet) {
+          padding: $gutter-half;
+        }
+      }
+    }
+    @include media(tablet) {
+      margin: 0 -$gutter-half;
     }
   }
 
