@@ -12,7 +12,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 
   def new
     build_corporate_information_page
-    build_attachment
+    build_file_attachment
   end
 
   def create
@@ -21,13 +21,13 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} created successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      build_attachment
+      build_file_attachment
       render :new
     end
   end
 
   def edit
-    build_attachment
+    build_file_attachment
   end
 
   def update
@@ -35,7 +35,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} updated successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      build_attachment
+      build_file_attachment
       render :new
     end
   rescue ActiveRecord::StaleObjectError
@@ -46,7 +46,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
     EOF
     @conflicting_corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
     @corporate_information_page.lock_version = @conflicting_corporate_information_page.lock_version
-    build_attachment
+    build_file_attachment
     render action: "edit"
   end
 
@@ -55,7 +55,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} deleted successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      build_attachment
+      build_file_attachment
       render :new
     end
   end
@@ -81,7 +81,7 @@ private
       end
   end
 
-  def build_attachment
-    @corporate_information_page.build_empty_attachment
+  def build_file_attachment
+    @corporate_information_page.build_empty_file_attachment unless @corporate_information_page.attachments.any?(&:new_record?)
   end
 end

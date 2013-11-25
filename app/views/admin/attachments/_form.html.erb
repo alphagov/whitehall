@@ -7,10 +7,7 @@
     <%= render 'reference_fields', edition: attachable, form: form %>
   <% end %>
 
-  <% case attachment %>
-  <% when FileAttachment %>
-    <%= render 'attachment_data_fields', form: form %>
-  <% when HtmlAttachment %>
+  <% if attachment.is_a?(HtmlAttachment) %>
     <%= form.check_box :manually_numbered_headings %>
     <div class="js-manual-numbering-help<%= ' js-hidden' unless attachment.manually_numbered_headings? %>">
      <pre>
@@ -22,6 +19,8 @@
 Manually number your headings as appropriate using the above numbering scheme.</pre>
     </div>
     <%= form.text_area :body, class: "previewable" %>
+  <% else %>
+  <%= render 'attachment_data_fields', form: form %>
   <% end %>
 
   <%= hidden_field_tag :html, params[:html] %>

@@ -93,7 +93,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test "should support attachments" do
     organisation = build(:organisation_with_alternative_format_contact_email)
     corporate_information_page = build(:corporate_information_page, organisation: organisation)
-    corporate_information_page.attachments << build(:attachment)
+    corporate_information_page.attachments << build(:file_attachment)
   end
 
   test "should be able to get corporate information pages for a particular menu" do

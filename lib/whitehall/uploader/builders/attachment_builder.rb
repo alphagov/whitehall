@@ -7,7 +7,7 @@ class Whitehall::Uploader::Builders::AttachmentBuilder
       logger.error "Unable to fetch attachment '#{url}' - #{e.to_s}", line_number
     end
     attachment_data = AttachmentData.new(file: file)
-    attachment = Attachment.new(attributes.merge(attachment_data: attachment_data))
+    attachment = FileAttachment.new(attributes.merge(attachment_data: attachment_data))
     attachment.build_attachment_source(url: url)
     attachment
   end

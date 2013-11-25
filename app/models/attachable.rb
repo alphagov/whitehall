@@ -21,11 +21,10 @@ module Attachable
     end
   end
 
-  def build_empty_attachment
-    unless attachments.any?(&:new_record?)
-      attachment = attachments.build
-      attachment.build_attachment_data
-    end
+  def build_empty_file_attachment
+    attachment = FileAttachment.new
+    attachment.build_attachment_data
+    attachments << attachment
   end
 
   def valid_virus_state?

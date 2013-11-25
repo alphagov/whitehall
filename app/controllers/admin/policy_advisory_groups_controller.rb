@@ -10,7 +10,7 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
 
   def new
     @policy_advisory_group = PolicyAdvisoryGroup.new
-    build_attachment
+    build_file_attachment
   end
 
   def create
@@ -24,7 +24,7 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
 
   def edit
     @policy_advisory_group = PolicyAdvisoryGroup.find(params[:id])
-    build_attachment
+    build_file_attachment
   end
 
   def update
@@ -48,7 +48,7 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
     enforce_permission!(:delete, PolicyAdvisoryGroup)
   end
 
-  def build_attachment
-    @policy_advisory_group.build_empty_attachment
+  def build_file_attachment
+    @policy_advisory_group.build_empty_file_attachment unless @policy_advisory_group.attachments.any?(&:new_record?)
   end
 end

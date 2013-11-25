@@ -1,3 +1,9 @@
+# Abstract base class for Attachments.
+#
+# Attachment instances should never be directly created. Instead, the
+# more concreate FileAttachment and HtmlAttachment sub-classes should be used
+# in all instances.
+#
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, polymorphic: true
   has_one :attachment_source
