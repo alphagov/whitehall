@@ -4,7 +4,7 @@ class HomeController < PublicFacingController
   before_filter :load_ministerial_department_count, only: :how_government_works
 
   def feed
-    @recently_updated = Edition.published.in_reverse_chronological_order.includes(:document, :organisations).limit(10)
+    @recently_updated = Edition.published.in_reverse_chronological_order.includes(:document).limit(10)
   end
 
   def how_government_works
