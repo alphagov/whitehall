@@ -3,6 +3,7 @@ class TakePartPage < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :title, :summary, presence: true, length: { maximum: 255 }
   validates :body, presence: true, length: { maximum: (16.megabytes - 1) }
+  validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
   before_save :ensure_ordering!
   scope :in_order, -> { order(:ordering) }
@@ -55,5 +56,4 @@ class TakePartPage < ActiveRecord::Base
   def ensure_ordering!
     self.ordering = TakePartPage.next_ordering if self.ordering.nil?
   end
-
 end

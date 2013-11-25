@@ -1,13 +1,10 @@
 class SafeHtmlValidator < ActiveModel::Validator
-  FOOTNOTE_TAG_MATCHER = /(\[\^.*\])/
-
   def validate(record)
     @record = record
 
     return if Whitehall.skip_safe_html_validation || @record.marked_for_destruction?
 
     @record.changes.each do |field_name, (old_value, new_value)|
-      validate_no_footnote_tags(field_name, new_value) unless record_allows_footnotes?
       check_struct(field_name, new_value)
     end
   end
@@ -36,15 +33,5 @@ private
     self.class.cache.fetch(string) do
       !Govspeak::HtmlValidator.new(string).valid?
     end
-  end
-
-  def validate_no_footnote_tags(field_name, string)
-    if string =~ FOOTNOTE_TAG_MATCHER
-      @record.errors.add(field_name, "cannot include footnotes on this type of document (#{field_name} includes '#{$1}')")
-    end
-  end
-
-  def record_allows_footnotes?
-    @record.respond_to?(:allows_footnotes?) && @record.allows_footnotes?
   end
 end

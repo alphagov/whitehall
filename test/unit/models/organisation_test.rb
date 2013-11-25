@@ -649,4 +649,7 @@ class OrganisationTest < ActiveSupport::TestCase
     closed_org = create(:organisation, govuk_status: 'closed')
     assert_equal [closed_org], Organisation.closed
   end
+
+  should_not_accept_footnotes_in(:description)
+  should_not_accept_footnotes_in(:about_us)
 end

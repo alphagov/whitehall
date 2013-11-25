@@ -48,8 +48,4 @@ class HtmlAttachment < Attachment
   def should_generate_new_friendly_id?
     slug.nil? || attachable.nil? || !attachable.document.published?
   end
-
-  def allows_footnotes?
-    attachable.is_a? Publication
-  end
 end

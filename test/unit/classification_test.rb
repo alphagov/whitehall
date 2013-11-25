@@ -104,4 +104,6 @@ class ClassificationTest < ActiveSupport::TestCase
     refute topical_event.featured_editions.include?(old_version)
     assert topical_event.featured_editions.include?(new_version)
   end
+
+  should_not_accept_footnotes_in :description
 end

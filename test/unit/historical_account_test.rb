@@ -73,4 +73,6 @@ class HistoricalAccountTest < ActiveSupport::TestCase
 
     assert_equal role1, historical_account.role
   end
+
+  should_not_accept_footnotes_in(:body)
 end

@@ -16,4 +16,6 @@ class ResponseTest < ActiveSupport::TestCase
 
     assert_equal consultation.alternative_format_contact_email, response.alternative_format_contact_email
   end
+
+  should_not_accept_footnotes_in :summary
 end

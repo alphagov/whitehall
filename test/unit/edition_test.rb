@@ -718,4 +718,6 @@ class EditionTest < ActiveSupport::TestCase
     refute non_local_gov_editions.include? local_gov_policy
     refute non_local_gov_editions.include? local_gov_publication
   end
+
+  should_not_accept_footnotes_in :body
 end

@@ -102,5 +102,17 @@ module ModelHelpers
         assert_match /not valid/, edition.errors[:external_url].first
       end
     end
+
+    def should_not_accept_footnotes_in(attribute_name)
+      test "#{class_from_test_name.name} does not allow footnotes in #{attribute_name}" do
+        instance = build(class_from_test_name.name.underscore)
+
+        instance.public_send("#{attribute_name}=", 'text without footnote')
+        assert instance.valid?
+
+        instance.public_send("#{attribute_name}=", 'text with footnote[^1]')
+        refute instance.valid?
+      end
+    end
   end
 end

@@ -6,6 +6,7 @@ class Response < ActiveRecord::Base
   validates :published_on, recent_date: true, presence: true
   validates_presence_of :summary, unless: :has_attachments
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :summary
 
   def alternative_format_contact_email
     consultation.alternative_format_contact_email

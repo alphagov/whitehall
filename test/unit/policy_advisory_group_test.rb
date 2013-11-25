@@ -26,4 +26,6 @@ class PolicyAdvisoryGroupTest < ActiveSupport::TestCase
     policy_advisory_group = build(:policy_advisory_group, description: "policy-team-description")
     assert_equal "policy-team-description", policy_advisory_group.description
   end
+
+  should_not_accept_footnotes_in(:description)
 end

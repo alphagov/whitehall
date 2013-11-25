@@ -20,22 +20,4 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
 
     assert_equal 2, test_model.errors.count
   end
-
-  test "it should validate that attributes don't include govspeak footnote tags" do
-    test_model = Edition.new(body: 'some body text with footnote[^1]')
-
-    subject.validate(test_model)
-
-    assert_equal 1, test_model.errors.count
-    assert_equal "cannot include footnotes on this type of document (body includes '[^1]')", test_model.errors.messages[:body].join
-  end
-
-  test "it should allow govspeak footnote tags if record responds to :allows_footnotes? with true" do
-    test_model = HtmlAttachment.new(body: 'some body text with footnote[^1]')
-    test_model.stubs(:allows_footnotes?).returns(true)
-
-    subject.validate(test_model)
-
-    assert_equal 0, test_model.errors.count
-  end
 end

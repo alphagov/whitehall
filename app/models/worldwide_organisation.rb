@@ -25,6 +25,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   alias_method :original_main_office, :main_office
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attributes: [:description, :services]
   validates :name, :summary, :description, presence: true
 
   extend FriendlyId

@@ -7,4 +7,6 @@ class AboutPageTest < ActiveSupport::TestCase
     assert_equal page.name, page.search_index['title']
     assert_equal "/government/topical-events/#{event.slug}/about", page.search_index['link']
   end
+
+  should_not_accept_footnotes_in :body
 end
