@@ -155,7 +155,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to publication_url(unpublished_publication.unpublishing.slug)
   end
 
-  test "GET #preview handles CsvPreview::FileEncodingError errors" do
+  view_test "GET #preview handles CsvPreview::FileEncodingError errors" do
     attachment      = create(:csv_attachment)
     attachment_data = attachment.attachment_data
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
@@ -166,10 +166,21 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_equal visible_edition, assigns(:edition)
     assert_equal attachment, assigns(:attachment)
-    assert_nil assigns(:csv_preview)
     assert_response :success
-    assert_template :preview
+    assert_select 'p.preview-error', text: /This file could not be previewed/
   end
+
+  view_test "GET #preview handles malformed CSV" do
+    attachment      = create(:csv_attachment, file: fixture_file_upload('malformed.csv'))
+    attachment_data = attachment.attachment_data
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_response :success
+    assert_select 'p.preview-error', text: /This file could not be previewed/
+  end
+
 
   test "preview is not possible on CSV attachments on non-Editions" do
     attachment      = create(:csv_attachment, attachable: create(:policy_advisory_group))
