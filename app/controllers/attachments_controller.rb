@@ -14,7 +14,7 @@ class AttachmentsController < PublicUploadsController
       fail
     end
 
-  rescue CsvPreview::FileEncodingError
+  rescue CsvPreview::FileEncodingError, CSV::MalformedCSVError
     render layout: 'html_attachments'
   end
 
