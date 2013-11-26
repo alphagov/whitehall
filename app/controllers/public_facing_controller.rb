@@ -9,6 +9,25 @@ class PublicFacingController < ApplicationController
 
   include LocalisedUrlPathHelper
 
+  # Allows additional request formats to be enabled.
+  #
+  # By default, PublicFacingController actions will only respond to HTML requests. To enable
+  # additional formats on any given action, use this helper method. For example:
+  #
+  #   enable_request_formats index: [:atom, :json]
+  #
+  # That would allow both atom and JSON requests for the :index action to be processed.
+  #
+  def self.enable_request_formats(options)
+    self.acceptable_formats ||= {}
+
+    options.each do |action, formats|
+      self.acceptable_formats[action.to_s] ||= Set.new
+      self.acceptable_formats[action.to_s] += Array(formats)
+    end
+  end
+  cattr_accessor :acceptable_formats
+
   private
 
   def set_locale(&block)
@@ -23,13 +42,17 @@ class PublicFacingController < ApplicationController
     response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER] = 'government'
   end
 
-  def error(status_code)
-    render status: status_code, text: "#{status_code} error"
+  def restrict_request_formats
+    unless can_handle_format?(request.format)
+      render status: :not_found, text: "Request format #{request.format} not handled."
+    end
   end
 
-  def restrict_request_formats
-    allowed_formats = [Mime::HTML, Mime::JSON, Mime::XML, Mime::ATOM, Mime::ALL]
-    error(404) unless allowed_formats.include?(request.format)
+  def can_handle_format?(format)
+    return true if format == Mime::HTML
+
+    self.acceptable_formats ||= {}
+    acceptable_formats.fetch(params[:action], []).include?(format.to_sym)
   end
 
   def set_expiry(duration = 30.minutes)

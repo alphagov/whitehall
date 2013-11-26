@@ -1,4 +1,6 @@
 class ClassificationsController < PublicFacingController
+  enable_request_formats index: [:atom], show: [:atom]
+
   include CacheControlHelper
 
   def index

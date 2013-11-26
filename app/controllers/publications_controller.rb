@@ -1,4 +1,6 @@
 class PublicationsController < DocumentsController
+  enable_request_formats index: [:json, :atom]
+
   def index
     clean_search_filter_params
 

@@ -1,6 +1,8 @@
 class MinisterialRolesController < PublicFacingController
   include Whitehall::Controllers::RolesPresenters
 
+  enable_request_formats show: [:atom]
+
   def index
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)

@@ -1,4 +1,6 @@
 class PeopleController < PublicFacingController
+  enable_request_formats show: [:atom]
+
   def show
     @person = PersonPresenter.new(Person.find(params[:id]), view_context)
 

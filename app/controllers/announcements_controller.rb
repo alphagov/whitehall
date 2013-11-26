@@ -1,6 +1,5 @@
 class AnnouncementsController < DocumentsController
-  respond_to :html, :json
-  respond_to :atom, only: :index
+  enable_request_formats index: [:json, :atom]
 
   def index
     clean_search_filter_params

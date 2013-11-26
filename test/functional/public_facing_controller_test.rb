@@ -3,12 +3,29 @@ require "test_helper"
 
 class PublicFacingControllerTest < ActionController::TestCase
   class TestController < PublicFacingController
+    enable_request_formats json: :json, js_or_atom: [:js, :atom]
+
     def test
       render text: 'ok'
     end
 
     def locale
       render text: I18n.locale.to_s
+    end
+
+    def json
+      respond_to do |format|
+        format.html { render text: 'html' }
+        format.json { render text: '{}' }
+      end
+    end
+
+    def js_or_atom
+      respond_to do |format|
+        format.html  { render text: 'html' }
+        format.js    { render text: 'javascript' }
+        format.atom  { render text: 'atom' }
+      end
     end
   end
 
@@ -40,8 +57,8 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests without a format parameter should respond with html" do
-    mime_types = ["text/html", "application/xhtml+xml", "application/json", "application/xml", "application/atom+xml"]
+  test "HTML requests are allowed by default" do
+    mime_types = ["text/html", "application/xhtml+xml"]
 
     mime_types.each do |type|
       with_routing_to_test_action do
@@ -53,19 +70,47 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests with a format parameter should respond with their respective format" do
-    mime_types = {
-      html: "text/html", json: "application/json", xml: "application/xml", atom: "application/atom+xml"
-    }
+  test "non-HTML requests are rejected by default" do
+    [:json, :xml, :atom].each do |format|
+      get :test, format: format
 
-    mime_types.each do |format, type|
-      with_routing_to_test_action do
-        @request.env['HTTP_ACCEPT'] = type
-        get :test, format: format
-        assert_equal 200, response.status, "mime type #{type} should be acceptable"
-        assert_equal Mime::Type.lookup_by_extension(format), response.content_type
-      end
+      assert_response :not_found
     end
+  end
+
+  test "additional formats can be explicitly enabled" do
+    get :json
+    assert_response :success
+    assert_equal Mime::HTML, response.content_type
+    assert_equal 'html', response.body
+
+    get :json, format: :json
+    assert_response :success
+    assert_equal Mime::JSON, response.content_type
+    assert_equal '{}', response.body
+
+    get :json, format: :atom
+    assert_response :not_found
+  end
+
+  test "multiple formats can be enabled" do
+    get :js_or_atom
+    assert_response :success
+    assert_equal Mime::HTML, response.content_type
+    assert_equal 'html', response.body
+
+    get :js_or_atom, format: :js
+    assert_response :success
+    assert_equal Mime::JS, response.content_type
+    assert_equal 'javascript', response.body
+
+    get :js_or_atom, format: :atom
+    assert_response :success
+    assert_equal Mime::ATOM, response.content_type
+    assert_equal 'atom', response.body
+
+    get :js_or_atom, format: :json
+    assert_response :not_found
   end
 
   test "all public facing requests without a locale should use the default locale" do

@@ -2,6 +2,7 @@ class OrganisationsController < PublicFacingController
   include CacheControlHelper
   include Whitehall::Controllers::RolesPresenters
 
+  enable_request_formats show: [:atom]
   before_filter :load_organisation, only: [:show, :about]
   skip_before_filter :set_cache_control_headers, only: [:show]
   before_filter :set_cache_max_age, only: [:show]

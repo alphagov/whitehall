@@ -1,4 +1,5 @@
 class WorldLocationsController < PublicFacingController
+  enable_request_formats index: [:json], show: [:atom, :json]
   before_filter :load_world_location, only: :show
 
   def index
