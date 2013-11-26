@@ -1,6 +1,6 @@
 module AttachmentsHelper
   def previewable?(attachment)
-    attachment.csv?
+    attachment.csv? && attachment.attachable.is_a?(Edition)
   end
 
   # Until we have sensible (resourceful) routing for serving attachments, this method
