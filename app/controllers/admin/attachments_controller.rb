@@ -8,9 +8,9 @@ class Admin::AttachmentsController < Admin::BaseController
   def index; end
 
   def order
-    uniquify_ordering(params[:ordering]).each do |attachment_id, ordering|
-      @attachable.attachments.find(attachment_id).update_column(:ordering, ordering)
-    end
+    attachment_ids = params[:ordering].sort_by { |_, ordering| ordering }.map { |id, _| id }
+    @attachable.reorder_attachments(attachment_ids)
+
     redirect_to attachable_attachments_path(@attachable), notice: 'Attachments re-ordered'
   end
 
@@ -86,26 +86,5 @@ private
 
   def html?
     params[:html] == 'true'
-  end
-
-  # Attachment has a unique constraint on attachable type/id and ordering.
-  # This stops us simple changing the ordering values of existing
-  # attachments, as two rows end up with the same ordering value during
-  # the update, violating the constraint. To get around it, if all the new
-  # ordering values are less than the lowest ordering value currently
-  # stored we just use them. Otherwise, we renumber the new ordering
-  # values to start above the existing maximum value.
-  def uniquify_ordering(ordering_params)
-    return ordering_params if ordering_params.empty?
-
-    min_existing = @attachable.attachments.minimum(:ordering)
-    max_new = ordering_params.values.map(&:to_i).max
-
-    if max_new < min_existing
-      ordering_params
-    else
-      max_existing = @attachable.attachments.maximum(:ordering)
-      Hash[ordering_params.map { |id, order| [id, order.to_i + max_existing + 1] }].with_indifferent_access
-    end
   end
 end

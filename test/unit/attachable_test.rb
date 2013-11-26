@@ -146,4 +146,24 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal attachment.command_paper_number, edition.search_index['attachments'][index][:command_paper_number]
     assert_equal attachment.hoc_paper_number, edition.search_index['attachments'][index][:hoc_paper_number]
   end
+
+  test '#reorder_attachments should update the ordering of its attachments' do
+    attachable = create(:consultation)
+    a, b, c = 3.times.map { create(:file_attachment, attachable: attachable) }
+
+    attachable.reorder_attachments([b.id, a.id, c.id])
+
+    assert_equal [b, a, c], attachable.reload.attachments
+  end
+
+  test '#reorder_attachments should handle existing negative orderings' do
+    attachable = create(:consultation)
+    a = create(:file_attachment, attachable: attachable, ordering: -1)
+    b = create(:file_attachment, attachable: attachable, ordering: 0)
+    c = create(:file_attachment, attachable: attachable, ordering: 1)
+
+    attachable.reorder_attachments([b.id, a.id, c.id])
+
+    assert_equal [b, a, c], attachable.reload.attachments
+  end
 end

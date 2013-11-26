@@ -44,19 +44,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "PUT :order saves the new order of attachments" do
-    attachment1 = build(:file_attachment)
-    attachment2 = build(:html_attachment)
-    attachment3 = build(:file_attachment)
-    @edition.attachments << [attachment1, attachment2, attachment3]
+    a, b, c = 3.times.map { |n| create(:file_attachment, attachable: @edition, ordering: n) }
 
-    put :order, edition_id: @edition, ordering: {
-                                        attachment1.id.to_s => '1',
-                                        attachment2.id.to_s => '2',
-                                        attachment3.id.to_s => '0'
-                                      }
+    Consultation.any_instance.expects(:reorder_attachments).with([c.id.to_s, a.id.to_s, b.id.to_s]).once
+
+    put :order, edition_id: @edition, ordering: { a.id.to_s => '1',
+                                                  b.id.to_s => '2',
+                                                  c.id.to_s => '0' }
 
     assert_response :redirect
-    assert_equal [attachment3, attachment1, attachment2], @edition.attachments(true)
   end
 
   view_test "GET :new renders the attachment form" do
