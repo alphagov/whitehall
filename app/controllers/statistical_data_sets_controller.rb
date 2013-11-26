@@ -7,6 +7,7 @@ class StatisticalDataSetsController < DocumentsController
   end
 
   def show
+    set_slimmer_headers_for_document(@document)
     set_meta_description(@document.summary)
   end
 

@@ -5,6 +5,7 @@ class StatisticalDataSetsControllerTest < ActionController::TestCase
   should_display_attachments_for :statistical_data_set
   should_be_previewable :statistical_data_set
   should_set_meta_description_for :statistical_data_set
+  should_set_slimmer_analytics_headers_for :statistical_data_set
   should_set_the_article_id_for_the_edition_for :statistical_data_set
 
   view_test 'show displays published statistical data set' do
