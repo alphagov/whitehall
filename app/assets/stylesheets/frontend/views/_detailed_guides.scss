@@ -29,6 +29,7 @@
 .detailed-guides-show {
   @include media(desktop) {
     .block-2 {
+      float: left;
       width: 25%;
     }
     .block-3 {
@@ -355,9 +356,12 @@
     padding-top: $gutter-half; // to fix margin-top floating sibling bug
   }
 
+  .document-page .meta {
+    margin: 0;
+  }
 
   @include media(desktop) {
-    .meta {
+    .document-page .meta {
       position: relative;
       z-index: 49;
       margin-top: -37px;
@@ -382,7 +386,7 @@
         float: left;
       }
     }
-    .document_page {
+    .document-page {
       .page-header {
         float: none;
         width: auto;
