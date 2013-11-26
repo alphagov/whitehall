@@ -2,7 +2,7 @@ module Attachable
   extend ActiveSupport::Concern
 
   included do
-    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id'
+    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', inverse_of: :attachable
 
     no_substantive_attachment_attributes = ->(attrs) do
       attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
