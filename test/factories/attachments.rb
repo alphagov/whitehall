@@ -1,11 +1,13 @@
 FactoryGirl.define do
+  sequence(:attachment_ordering)
+
   factory :file_attachment do
     ignore do
       file { File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf')) }
     end
 
     sequence(:title) { |index| "file-attachment-title-#{index}" }
-    sequence(:ordering)
+    ordering { generate(:attachment_ordering) }
     after(:build) do |attachment, evaluator|
       attachment.attachment_data ||= build(:attachment_data, file: evaluator.file)
     end
@@ -19,7 +21,7 @@ FactoryGirl.define do
 
   factory :html_attachment do
     sequence(:title) { |index| "html-attachment-title-#{index}" }
-    sequence(:ordering)
+    ordering { generate(:attachment_ordering) }
     body 'Attachment body'
   end
 end
