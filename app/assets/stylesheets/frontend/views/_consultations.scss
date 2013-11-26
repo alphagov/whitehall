@@ -116,13 +116,18 @@ nav.consultations_scope {
         float: left;
         width: 33.33%;
       }
-      span {
-        display: block;
-        abbr {
-          @include core-24(1.4em);
-          &.date {
-            font-weight: bold;
+      p {
+        span {
+          display: block;
+          abbr {
+            @include core-24(1.4em);
+            &.date {
+              font-weight: bold;
+            }
           }
+        }
+        @include media(tablet) {
+          padding-right: $gutter;
         }
       }
     }
