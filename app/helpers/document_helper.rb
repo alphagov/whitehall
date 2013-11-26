@@ -18,10 +18,6 @@ module DocumentHelper
     @block_count += 1
   end
 
-  def consultation_or_publication(edition)
-    edition.is_a?(Consultation) ? 'consultation' : 'publication'
-  end
-
   def published_or_updated(edition)
     edition.first_published_version? ? t('document.published') : t('document.updated')
   end

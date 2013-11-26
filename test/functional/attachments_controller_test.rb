@@ -114,7 +114,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_response :not_found
   end
 
-  test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
+  view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
     attachment      = create(:csv_attachment)
     attachment_data = attachment.attachment_data
     visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
@@ -125,7 +125,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_equal attachment, assigns(:attachment)
     assert assigns(:csv_preview).is_a?(CsvPreview)
     assert_response :success
-    assert_template :preview
+    assert_select '.headings h1', attachment.title
   end
 
   test "GET #preview for a CSV attachment on a non-public edition returns a not found response" do
