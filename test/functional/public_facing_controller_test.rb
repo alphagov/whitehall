@@ -29,6 +29,10 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
+  class EnsureSegregationOfAcceptableFormatsBetweenControllersController < PublicFacingController
+    enable_request_formats json: [:atom]
+  end
+
   tests TestController
 
   teardown do

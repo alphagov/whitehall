@@ -19,14 +19,15 @@ class PublicFacingController < ApplicationController
   # That would allow both atom and JSON requests for the :index action to be processed.
   #
   def self.enable_request_formats(options)
-    self.acceptable_formats ||= {}
-
     options.each do |action, formats|
-      self.acceptable_formats[action.to_s] ||= Set.new
-      self.acceptable_formats[action.to_s] += Array(formats)
+      self.acceptable_formats[action.to_sym] ||= Set.new
+      self.acceptable_formats[action.to_sym] += Array(formats)
     end
   end
-  cattr_accessor :acceptable_formats
+
+  def self.acceptable_formats
+    @acceptable_formats ||= {}
+  end
 
   private
 
@@ -50,9 +51,7 @@ class PublicFacingController < ApplicationController
 
   def can_handle_format?(format)
     return true if format == Mime::HTML
-
-    self.acceptable_formats ||= {}
-    acceptable_formats.fetch(params[:action], []).include?(format.to_sym)
+    self.class.acceptable_formats.fetch(params[:action].to_sym, []).include?(format.to_sym)
   end
 
   def set_expiry(duration = 30.minutes)
