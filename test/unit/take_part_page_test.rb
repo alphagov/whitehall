@@ -190,4 +190,5 @@ class TakePartPageTest < ActiveSupport::TestCase
                   'description' => 'Help govern this country!'}, results[1])
   end
 
+  should_not_accept_footnotes_in :body
 end

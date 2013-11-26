@@ -36,6 +36,8 @@ class Classification < ActiveRecord::Base
 
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :description
+
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
 

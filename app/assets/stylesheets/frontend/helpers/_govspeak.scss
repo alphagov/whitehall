@@ -210,6 +210,12 @@
     }
   }
 
+  sup {
+    font-size: 0.8em;
+    line-height: 0.7em;
+    vertical-align: top;
+  }
+
   .information-block,
   .call-to-action {
     margin: $gutter 0;
@@ -343,6 +349,21 @@
       }
       .comments {
         @include core-16;
+      }
+    }
+  }
+
+  .footnotes {
+    border-top: 1px solid $border-colour;
+    margin-top: $gutter;
+    padding-top: $gutter-one-third;
+
+    ol {
+      margin-top: 0px !important;
+      padding-top: 0;
+
+      li p {
+        margin: 10px 0 !important;
       }
     }
   }

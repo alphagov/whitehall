@@ -4,6 +4,7 @@ class HistoricalAccount < ActiveRecord::Base
   has_many   :roles, through: :historical_account_roles
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :body
   validates :person, :roles, :summary, :body, :political_parties, presence: true
   validates :born, :died, length: { maximum: 256 }
   validate :roles_support_historical_accounts

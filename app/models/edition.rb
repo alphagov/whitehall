@@ -30,6 +30,8 @@ class Edition < ActiveRecord::Base
   has_many :classification_featurings, inverse_of: :edition
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :body
+
   validates :title, :creator, presence: true
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true, if: :summary_required?
@@ -391,6 +393,7 @@ class Edition < ActiveRecord::Base
   def has_consultation_participation?
     false
   end
+
 
   # @!endgroup
 

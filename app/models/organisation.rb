@@ -115,6 +115,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_mainstream_categories, reject_if: -> attributes { attributes['mainstream_category_id'].blank? }, allow_destroy: true
 
   validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attributes: [:description, :about_us]
   validates :name, presence: true, uniqueness: true
   validates :logo_formatted_name, presence: true
   validates :url, uri: true, allow_blank: true

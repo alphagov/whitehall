@@ -301,4 +301,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     world_organisation.destroy
     refute HomePageList.exists?(h)
   end
+
+  should_not_accept_footnotes_in :description
+  should_not_accept_footnotes_in :services
 end
