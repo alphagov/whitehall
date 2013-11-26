@@ -1,4 +1,6 @@
 class TopicsController < ClassificationsController
+  enable_request_formats show: :atom
+
   include CacheControlHelper
 
   def show
