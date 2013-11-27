@@ -72,4 +72,8 @@
       @include ig-core-16;
     }
   }
+
+  .heading-extra {
+    margin-top: $gutter+$gutter-half;
+  }
 }
