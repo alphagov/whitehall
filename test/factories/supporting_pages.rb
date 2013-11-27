@@ -18,4 +18,5 @@ FactoryGirl.define do
 
   factory :draft_supporting_page, parent: :supporting_page
   factory :published_supporting_page, parent: :supporting_page, traits: [:published]
+  factory :submitted_supporting_page, parent: :supporting_page, traits: [:submitted]
 end

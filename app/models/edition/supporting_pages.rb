@@ -13,7 +13,7 @@ module Edition::SupportingPages
     # Approach: Join editions to itself where the document IDs match
     # and the edition ID is smaller than another edition ID. The row
     # which has a null later edition is the most recent.
-    supporting_pages.where(state: [:published, :draft]).joins(%(
+    supporting_pages.where(state: %w(draft submitted published)).joins(%(
       LEFT OUTER JOIN editions AS later_editions
       ON editions.document_id = later_editions.document_id
       AND editions.id < later_editions.id

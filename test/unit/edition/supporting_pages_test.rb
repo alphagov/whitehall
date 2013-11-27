@@ -17,12 +17,13 @@ class Edition::SupportingPagesTest < ActiveSupport::TestCase
     assert_equal [supporting_page], policy.published_supporting_pages
   end
 
-  test "#active_supporting_pages should return the latest draft or published editions" do
+  test "#active_supporting_pages should return the latest draft, submitted or published editions" do
     policy = create(:policy)
-    supporting_page = create(:published_supporting_page, related_policies: [policy])
+    published_page = create(:published_supporting_page, related_policies: [policy])
     other_page = create(:published_supporting_page, related_policies: [policy])
-    draft = other_page.create_draft(create(:policy_writer))
+    draft_page = other_page.create_draft(create(:policy_writer))
+    submitted_page = create(:submitted_supporting_page, related_policies: [policy])
 
-    assert_equal [supporting_page, draft], policy.active_supporting_pages
+    assert_equal [published_page, draft_page, submitted_page], policy.active_supporting_pages
   end
 end
