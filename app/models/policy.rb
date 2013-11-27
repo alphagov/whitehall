@@ -53,10 +53,6 @@ class Policy < Edition
     PolicyPresenter
   end
 
-  def alternative_format_provider_required?
-    true
-  end
-
   def can_apply_to_local_government?
     true
   end
