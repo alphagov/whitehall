@@ -74,6 +74,9 @@
   }
 
   .heading-extra {
-    margin-top: $gutter+$gutter-half;
+    margin: 0 $gutter-half $gutter;
+    @include media(tablet) {
+      margin: $gutter+$gutter-half 0 $gutter;
+    }
   }
 }
