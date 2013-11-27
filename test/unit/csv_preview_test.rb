@@ -65,6 +65,12 @@ class CsvPreviewTest < ActiveSupport::TestCase
     assert truncated_preview.truncated?
   end
 
+  test 'raises CSV::MalformedCSVError early if the data cannot be handled by the CSV library' do
+    assert_raise CSV::MalformedCSVError do
+      csv_with_blank_lines = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/eof.csv'))
+    end
+  end
+
 private
 
   def assert_csv_data(expected_data, preview)

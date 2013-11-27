@@ -9,8 +9,9 @@ class CsvPreview
   def initialize(file_path, maximum_rows=1_000)
     @maximum_rows = maximum_rows
     @file_path = file_path
-    @csv = CSV.open(@file_path, encoding: guess_encoding)
+    @csv = CSV.open(file_path, encoding: encoding )
     @headings = @csv.shift
+    ensure_csv_data_is_well_formed
   rescue ArgumentError => e
     if e.message =~ /invalid byte sequence/
       raise FileEncodingError, 'File encoding not recognised'
@@ -41,26 +42,34 @@ class CsvPreview
     @csv.shift
   end
 
-  def guess_encoding
-    sample = File.open(file_path) { |file| 5.times.collect { file.readline unless file.eof? }.join }
+  def preview_rows
+    @preview ||= File.foreach(file_path).take(maximum_rows+1).join
+  end
 
-    if utf_8_encoding?(sample)
+  def encoding
+    @encoding ||= if utf_8_encoding?
       'UTF-8'
-    elsif windows_1252_encoding?(sample)
+    elsif windows_1252_encoding?
       'windows-1252'
     else
       raise FileEncodingError, 'File encoding not recognised'
     end
   end
 
-  def utf_8_encoding?(text)
-    text.force_encoding('utf-8').valid_encoding?
+  def utf_8_encoding?
+    preview_rows.force_encoding('utf-8').valid_encoding?
   end
 
-  def windows_1252_encoding?(text)
-    text.force_encoding('windows-1252')
+  def windows_1252_encoding?
+    preview_rows.force_encoding('windows-1252')
     # This regexp checks for the presence of ASCII control characters, which
     # would indicate we have the wrong encoding.
-    text.valid_encoding? && !text.match(/[\x00-\x09\x0b\x0c\x0e-\x1f]/)
+    preview_rows.valid_encoding? && !preview_rows.match(/[\x00-\x09\x0b\x0c\x0e-\x1f]/)
+  end
+
+  def ensure_csv_data_is_well_formed
+    # We iterate over the CSV data to ensure all the data is sound and won't
+    # cause errors later when it's iterated over.
+    each_row {}
   end
 end
