@@ -89,8 +89,8 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal nil, DocumentSource.find_by_id(document_source.id)
   end
 
-  test "should list change history when only one edition with a minor change exists" do
-    edition = create(:published_policy, minor_change: true)
+  test "should list a single change history when sole published edition is marked as a minor change" do
+    edition = create(:published_policy, minor_change: true, change_note: nil)
 
     history = edition.change_history
     assert_equal 1, history.length
@@ -104,43 +104,49 @@ class DocumentTest < ActiveSupport::TestCase
     new_edition_2 = create(:published_edition, document: document, major_change_published_at: 1.day.ago, change_note: "more changes")
 
     history = document.change_history
+    assert_equal 3, history.length
     assert_equal "more changes", history[0].note
     assert_equal "some changes", history[1].note
     assert_equal "first version", history[2].note
   end
 
   test "should omit minor changes from change history" do
-    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago)
+    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago, change_note: nil)
     document = original_edition.document
     new_edition_1 = create(:superseded_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
     new_edition_2 = create(:published_edition, document: document, major_change_published_at: 1.day.ago, change_note: "", minor_change: true)
 
     history = document.change_history
+    assert_equal 2, history.size
     assert_equal "some changes", history[0].note
+    assert_equal "First published.", history[1].note
   end
 
   test "should omit drafts from change history" do
-    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago)
+    original_edition = create(:superseded_edition, major_change_published_at: 3.days.ago, change_note: "First edition")
     document = original_edition.document
     new_edition_1 = create(:draft_edition, document: document, major_change_published_at: 2.days.ago, change_note: "some changes")
 
     history = document.change_history
-    refute_equal "some changes", history[0].note
+    assert_equal 1, history.size
+    assert_equal "First edition", history[0].note
   end
 
-  test "should start change history with First Published if it would otherwise be blank" do
+  test 'should use "First Published" as the change note if it is not set on the first edition' do
     original_edition = create(:published_edition, major_change_published_at: 3.days.ago, change_note: "", minor_change: false)
     document = original_edition.document
 
     history = document.change_history
+    assert_equal 1, history.length
     assert_equal "First published.", history[0].note
   end
 
-  test "should replace first change note date with first published" do
+  test "should use first published timestamp for the initial change history" do
     original_edition = create(:published_edition, first_published_at: 4.days.ago, minor_change: false)
     document = original_edition.document
 
     history = document.change_history
+    assert_equal 1, history.length
     assert_equal 4.days.ago, history[0].public_timestamp
   end
 
