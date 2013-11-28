@@ -26,4 +26,13 @@ class Edition::SupportingPagesTest < ActiveSupport::TestCase
 
     assert_equal [published_page, draft_page, submitted_page], policy.active_supporting_pages
   end
+
+  test "#active_supporting_pages ignores newer deleted editions" do
+    policy = create(:policy)
+    old_edition       = create(:supporting_page, :superseded, related_policies: [policy])
+    published_edition = create(:published_supporting_page, related_policies: [policy], document: old_edition.document)
+    deleted_edition   = create(:supporting_page, :deleted, related_policies: [policy], document: old_edition.document)
+
+    assert_equal [published_edition], policy.active_supporting_pages
+  end
 end
