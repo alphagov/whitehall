@@ -4,7 +4,7 @@
 <%= api_link_tag api_detailed_guide_url(@document.document) %>
 
 <% category_slug_classes =  @document.mainstream_categories.map { |cat| "category-#{cat.slug}" } %>
-<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase} #{category_slug_classes.join(' ')}" do %>
+<%= content_tag_for :article, @document, nil, class: "document_page #{@document.type.downcase} #{category_slug_classes.join(' ')}" do %>
   <div class="block-1">
     <div class="inner-block">
       <div class="meta">
