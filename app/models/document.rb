@@ -46,12 +46,6 @@ class Document < ActiveRecord::Base
     where(document_type: document_types, slug: slug).first
   end
 
-  class Change < Struct.new(:public_timestamp, :note)
-    def set_as_first_change
-      self.note = "First published." if note.blank?
-    end
-  end
-
   def should_generate_new_friendly_id?
     sluggable_string.present?
   end
@@ -74,19 +68,15 @@ class Document < ActiveRecord::Base
   end
 
   def change_history
-    editions = ever_published_editions.significant_change.by_major_change_published_at
-
-    first_edition = editions.pop
-    oldest_change = Change.new(first_published_date, first_edition ? first_edition.change_note : nil)
-    oldest_change.set_as_first_change
-
-    editions.map { |e|
-      Change.new(e.public_timestamp, e.change_note)
-    }.push(oldest_change)
+    DocumentHistory.new(self).changes
   end
 
   def ever_published_editions
     editions.where(state: %w(published superseded))
+  end
+
+  def historic_editions
+    ever_published_editions.in_reverse_chronological_order
   end
 
   def scheduled_edition
