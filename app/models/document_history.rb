@@ -1,17 +1,21 @@
 class DocumentHistory
-  attr_reader :document
+  include Enumerable
 
   class Change < Struct.new(:public_timestamp, :note)
   end
+
+  attr_reader :document
+
+  delegate :first, :last, :length, :size, :[], to: :changes
 
   def initialize(document)
     @document = document
   end
 
-  def changes
-    return [] unless first_public_edition.present?
-
-    subsequent_changes + [first_change]
+  def each(&block)
+    changes.each do |change|
+      block.call(change)
+    end
   end
 
   def newly_published?
@@ -27,6 +31,12 @@ class DocumentHistory
   end
 
   private
+
+  def changes
+    return [] unless first_public_edition.present?
+
+    subsequent_changes + [first_change]
+  end
 
   def first_change
     @first_change ||= Change.new(first_published_at, first_public_edition_note)

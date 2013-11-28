@@ -68,7 +68,7 @@ class Document < ActiveRecord::Base
   end
 
   def change_history
-    DocumentHistory.new(self).changes
+    DocumentHistory.new(self)
   end
 
   def ever_published_editions
