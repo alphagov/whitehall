@@ -196,12 +196,12 @@ Constructors should follow the prototype pattern as follows:
       "use strict";
       window.GOVUK = window.GOVUK || {};
 
-      function TheThing(params) {
-        //some initialisation code
+      function TheThing(options) {
+        // some initialisation code
       }
 
       TheThing.prototype.someFunction = function someFunction() {
-        //do some stuff
+        // do some stuff
       };
 
       GOVUK.TheThing = TheThing;
@@ -210,6 +210,16 @@ Constructors should follow the prototype pattern as follows:
 Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometimes helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
 
 Defining the constructor in the wrapper function's scope, then assigning it to the namespace improves readability by keeping names shorter.
+
+This pattern works well for creating views (in the Backbone sense) to control a DOM element. You probably want to add this line to your constructor to initialise the view against a DOM element:
+
+    this.$el = $(options.el);
+
+The view can then be initialised with a selector for the DOM element is controlling:
+
+    GOVUK.init(GOVUK.TheThing, {el: '.js-the-thing'});
+
+See "Script initialisation" below for more details on `GOVUK.init`.
 
 ### Other style points
 
@@ -251,7 +261,7 @@ Namespaces should be kept simple and all constructors should be under 'GOVUK'. T
 
 Scripts should be initialised with `GOVUK.init`:
 
-    GOVUK.init(GOVUK.SomeScript, {elem_selector: '.js-the-thing'});
+    GOVUK.init(GOVUK.SomeScript, {el: '.js-the-thing'});
 
 If the passed in object is a constructor, GOVUK.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `GOVUK.instances`.
 
@@ -260,7 +270,7 @@ Otherwise, GOVUK.init will call init on the passed in hash, treating it as a sin
 Scripts should only be initialised when needed and should make use of the rails helper `initialise_script`:
 
     #!erb
-    <% initialise_script "GOVUK.SomeView", selector: '.js-some-view' %>
+    <% initialise_script "GOVUK.SomeView", el: '.js-some-view' %>
 
 This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so itself.
 
