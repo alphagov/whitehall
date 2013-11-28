@@ -89,15 +89,7 @@ module Edition::AuditTrail
     end
 
     def <=>(other)
-      if created_at == other.created_at
-        if sort_priority = other.sort_priority
-          object <=> other.object
-        else
-          sort_priority <=> other.sort_priority
-        end
-      else
-        created_at <=> other.created_at
-      end
+      [created_at, sort_priority] <=> [other.created_at, other.sort_priority]
     end
 
     def ==(other)
