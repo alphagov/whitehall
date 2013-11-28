@@ -3,31 +3,23 @@ require 'test_helper'
 class DocumentHistoryTest < ActiveSupport::TestCase
   test "#changes on the first public edition uses the edition's change note if present" do
     edition  = create(:published_edition, change_note: "Some changes")
-    document = edition.document
-    history  = DocumentHistory.new(document)
+    history  = DocumentHistory.new(edition.document)
 
-    assert_equal 1, history.size
-    assert_equal edition.public_timestamp, history[0].public_timestamp
-    assert_equal 'Some changes', history[0].note
+    assert_history_equal [[edition.public_timestamp, 'Some changes']], history
   end
 
   test "#changes on the first public edition uses the default change note if the edition does not have one" do
     edition  = create(:published_edition, change_note: nil)
-    document = edition.document
-    history  = DocumentHistory.new(document)
+    history  = DocumentHistory.new(edition.document)
 
-    assert_equal 1, history.size
-    assert_equal edition.public_timestamp, history[0].public_timestamp
-    assert_equal 'First published.', history[0].note
+    assert_history_equal [[edition.public_timestamp, 'First published.']], history
   end
 
   test "#changes on the first public edition uses the first_published_at timestamp to account for discrepancies with public_timestamp" do
     edition  = create(:published_edition, first_published_at: 4.days.ago, minor_change: false)
-    document = edition.document
-    history  = DocumentHistory.new(document)
+    history  = DocumentHistory.new(edition.document)
 
-    assert_equal 1, history.size
-    assert_equal 4.days.ago, history[0].public_timestamp
+    assert_history_equal [[4.days.ago, edition.change_note]], history
   end
 
   test "#changes returns change history for all historic editions, excluding those with minor changes" do
@@ -38,23 +30,21 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     new_edition_3    = create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: 1.day.ago, change_note: "more changes")
     history          = DocumentHistory.new(document)
 
-    assert_equal 3, history.size
-    assert_equal "more changes", history[0].note
-    assert_equal 1.days.ago, history[0].public_timestamp
-    assert_equal "some changes", history[1].note
-    assert_equal 2.days.ago, history[1].public_timestamp
-    assert_equal "First published.", history[2].note
-    assert_equal 3.days.ago, history[2].public_timestamp
+
+    expected = [
+      [1.day.ago, 'more changes'],
+      [2.day.ago, 'some changes'],
+      [3.day.ago, 'First published.']
+    ]
+
+    assert_history_equal expected, history
   end
 
   test "the first historic edition is always included, even if it is a minor change (i.e. broken data)" do
     edition  = create(:published_edition, minor_change: true, change_note: nil)
-    document = edition.document
-    history  = DocumentHistory.new(document)
+    history  = DocumentHistory.new(edition.document)
 
-    assert_equal 1, history.size
-    assert_equal edition.public_timestamp, history[0].public_timestamp
-    assert_equal 'First published.', history[0].note
+    assert_history_equal [[edition.public_timestamp, 'First published.']], history
   end
 
   test "a document with no public editions returns an empty history" do
@@ -82,5 +72,11 @@ class DocumentHistoryTest < ActiveSupport::TestCase
 
     create(:superseded_edition, document: document)
     refute DocumentHistory.new(document).newly_published?
+  end
+
+private
+
+  def assert_history_equal(expected, history)
+    assert_equal expected, history.collect {|change| [change.public_timestamp, change.note] }
   end
 end
