@@ -6,9 +6,10 @@ class DocumentHistory
 
   attr_reader :document
 
-  delegate :first, :last, :length, :size, :[], to: :changes
+  delegate :first, :last, :length, :size, :[], :empty?, to: :changes
 
-  def initialize(document)
+  def initialize(document, default_first_published_note = 'First published.')
+    @default_first_published_note = default_first_published_note
     @document = document
   end
 
@@ -26,28 +27,28 @@ class DocumentHistory
     changes.first.public_timestamp
   end
 
-  def empty?
-    changes.empty?
-  end
-
-  private
-
   def changes
     return [] unless first_public_edition.present?
 
     subsequent_changes + [first_change]
   end
 
+  private
+
   def first_change
     @first_change ||= Change.new(first_published_at, first_public_edition_note)
   end
 
   def subsequent_changes
-    @subsequent_changes ||= subsequent_major_editions.map { |edition| Change.new(edition.public_timestamp, edition.change_note) }
+    @subsequent_changes ||= (main_document_changes + supporting_pages_changes).sort_by {|c| -c.public_timestamp.to_i }
   end
 
   def first_public_edition
-    document.historic_editions.last
+    all_published_editions.last
+  end
+
+  def latest_public_edition
+    all_published_editions.first
   end
 
   def first_published_at
@@ -55,10 +56,28 @@ class DocumentHistory
   end
 
   def first_public_edition_note
-    first_public_edition.change_note.blank? ? 'First published.' : first_public_edition.change_note
+    first_public_edition.change_note.blank? ? @default_first_published_note : first_public_edition.change_note
   end
 
   def subsequent_major_editions
-    (document.historic_editions - [first_public_edition]).reject(&:minor_change?)
+    (all_published_editions - [first_public_edition]).reject(&:minor_change?)
+  end
+
+  def all_published_editions
+    document.ever_published_editions.in_reverse_chronological_order
+  end
+
+  def supporting_pages
+    latest_public_edition.respond_to?(:published_supporting_pages) ? latest_public_edition.published_supporting_pages : []
+  end
+
+  def main_document_changes
+    @main_document_changes ||= subsequent_major_editions.map { |edition| Change.new(edition.public_timestamp, edition.change_note) }
+  end
+
+  def supporting_pages_changes
+    @supporting_pages_changes ||= supporting_pages.flat_map do |supporting_page|
+      DocumentHistory.new(supporting_page.document, "Supporting detail added: #{supporting_page.title}" ).changes
+    end
   end
 end

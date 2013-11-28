@@ -75,10 +75,6 @@ class Document < ActiveRecord::Base
     editions.where(state: %w(published superseded))
   end
 
-  def historic_editions
-    ever_published_editions.in_reverse_chronological_order
-  end
-
   def scheduled_edition
     editions.scheduled.last
   end

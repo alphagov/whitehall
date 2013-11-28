@@ -40,6 +40,23 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     assert_history_equal expected, history
   end
 
+  test "#changes includes changes for any supporting pages" do
+    policy            = create(:policy, :superseded, first_published_at: 5.days.ago, change_note: nil)
+    support_page_1    = create(:supporting_page, :superseded, first_published_at: 4.days.ago, change_note: nil, related_policies: [policy])
+    support_page_2    = create(:supporting_page, :published, first_published_at: 3.days.ago, change_note: nil, related_policies: [policy])
+    support_page_1_2  = create(:supporting_page, :published, document: support_page_1.document, major_change_published_at: 2.days.ago, published_major_version: 2, published_minor_version: 0, change_note: 'Some stuff was changed', related_policies: [policy])
+    history           = DocumentHistory.new(policy.document)
+
+    expected = [
+      [2.days.ago, "Some stuff was changed"],
+      [3.days.ago, "Supporting detail added: #{support_page_2.title}"],
+      [4.days.ago, "Supporting detail added: #{support_page_1.title}"],
+      [5.days.ago, "First published."]
+    ]
+
+    assert_history_equal expected, history
+  end
+
   test "the first historic edition is always included, even if it is a minor change (i.e. broken data)" do
     edition  = create(:published_edition, minor_change: true, change_note: nil)
     history  = DocumentHistory.new(edition.document)
