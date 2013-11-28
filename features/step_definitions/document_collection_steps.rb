@@ -60,6 +60,8 @@ When(/^I move "(.*?)" before "(.*?)" in the document collection$/) do |doc_title
       GOVUK.instances.DocumentGroupOrdering[0].onDrop({}, {item: doc_1_li});
     })(jQuery);
   }
+  # Wait for post to complete
+  assert page.has_no_css?(".loading-spinner")
 end
 
 Then(/^I (?:can )?preview the document collection$/) do
