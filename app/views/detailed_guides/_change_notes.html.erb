@@ -3,17 +3,14 @@
     <p>Preview</p>
   </section>
 <% else %>
-  <%-
-    history = document.change_history
-    most_recent_change = history.first.public_timestamp
-  -%>
-  <% if history.length == 1 %>
+  <% history = document.change_history %>
+  <% if history.newly_published? %>
     <section class="change-notes">
-      <p>Published <%= absolute_date(most_recent_change, class: 'published-at') %></p>
+      <p>Published <%= absolute_date(history.most_recent_change, class: 'published-at') %></p>
     </section>
   <% else %>
     <section class="change-notes js-toggle-change-notes">
-      <p class="toggle">Updated <%= absolute_date(most_recent_change, class: 'published-at') %></p>
+      <p class="toggle">Updated <%= absolute_date(history.most_recent_change, class: 'published-at') %></p>
       <div class="overlay js-hidden" id="change-notes">
         <dl>
           <% history.each do |change| %>

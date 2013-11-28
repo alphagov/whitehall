@@ -296,7 +296,7 @@ Then /^the change notes should appear in the history for the policy "([^"]*)" in
   visit policies_path
   click_link title
   policy = Policy.find_by_title!(title)
-  document_history = policy.document.change_history
+  document_history = policy.change_history
   change_notes = find('.change-notes').all('.note')
   assert_equal document_history.length, change_notes.length
   document_history.zip(change_notes).each do |history, note|

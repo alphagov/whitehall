@@ -12,13 +12,13 @@
       <% else %>
         <dd><%= absolute_date(history.last.public_timestamp) %></dd>
 
-        <% if history.length > 1 %>
+        <% unless history.newly_published? %>
           <dt><%= t('document.footer_meta.updated') %>:</dt>
           <dd><%= absolute_date(history.first.public_timestamp) %></dd>
         <% end %>
       <% end %>
     </dl>
-    <% if history.length > 1 %>
+    <% unless history.newly_published? %>
       <div class="footer-change-notes js-toggle-footer-change-notes">
         <p class="toggle">+ <%= t('document.footer_meta.full_page_history') %></p>
         <div class="overlay js-hidden">
