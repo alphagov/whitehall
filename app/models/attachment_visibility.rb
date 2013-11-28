@@ -105,7 +105,11 @@ class AttachmentVisibility
   end
 
   def visible_consultation_scope
-    Edition.published.where(id: consultation_ids)
+    if user
+      Edition.accessible_to(user).where(id: consultation_ids)
+    else
+      Edition.published.where(id: consultation_ids)
+    end
   end
 
   def visible_corporate_information_page_scope

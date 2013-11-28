@@ -65,6 +65,18 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     assert_nil attachment_visibility.visible_consultation_response
   end
 
+  test '#visible_consultation_response returns a draft response if it is accessible to the provided user' do
+    user = create(:policy_writer)
+    attachment = create(:file_attachment)
+    response = create(:consultation_with_outcome, :draft).outcome
+    response.attachments << attachment
+    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, user)
+
+    assert_equal :draft, response.consultation.current_state
+
+    assert_equal response, attachment_visibility.visible_consultation_response
+  end
+
   test '#visible_edition returns nil if the attachment is associated with a non-published edition' do
     edition = create(:draft_publication, :with_file_attachment)
     attachment_data = edition.attachments.first.attachment_data
