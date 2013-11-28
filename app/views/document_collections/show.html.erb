@@ -1,7 +1,7 @@
 <% page_title edition_page_title(@document) %>
 <% page_class "document-collection-page" %>
 
-<%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
+<%= content_tag_for :article, @document, nil, class: "#{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'header',
