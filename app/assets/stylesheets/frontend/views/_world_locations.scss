@@ -237,4 +237,10 @@
       }
     }
   }
+  .heading-extra {
+    margin: 0;
+    @include media(tablet) {
+      margin: $gutter+$gutter-half 0 $gutter 0;
+    }
+  }
 }
