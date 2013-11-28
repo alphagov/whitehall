@@ -462,6 +462,22 @@ module DocumentControllerTestHelpers
         assert_select "article##{document_type}_#{edition.id}"
       end
     end
+
+    def should_show_share_links_for(document_type)
+      view_test "#{document_type} should show share links" do
+        edition = create("published_#{document_type}")
+        get :show, id: edition.document
+        assert_select ".document-share-links"
+      end
+    end
+
+    def should_not_show_share_links_for(document_type)
+      view_test "#{document_type} should not show share links" do
+        edition = create("published_#{document_type}")
+        get :show, id: edition.document
+        refute_select ".document-share-links"
+      end
+    end
   end
 
   private

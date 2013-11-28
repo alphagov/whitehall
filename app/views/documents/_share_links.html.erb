@@ -1,0 +1,19 @@
+<div class="document-share-links">
+  <h3>Share this page</h3>
+  <ul class="social-media-accounts">
+    <li>
+      <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{url_encode(public_document_url(document))}",
+          target: "_blank",
+          class: "facebook" do %>
+        <span class="connect">Share on</span> Facebook
+      <% end %>
+    </li>
+    <li>
+      <%= link_to "https://twitter.com/share?url=#{url_encode(public_document_url(document))}&text=#{url_encode(document.title)}",
+          target: "_blank",
+          class: "twitter" do %>
+        <span class="connect">Share on</span> Twitter
+      <% end %>
+    </li>
+  </ul>
+</div>

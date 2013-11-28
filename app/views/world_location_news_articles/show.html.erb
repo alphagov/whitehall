@@ -1,3 +1,5 @@
 <% page_title edition_page_title(@document), t_display_type(@document, 10) %>
 <%= render  template: 'documents/show',
-            locals: { header_title: t_display_type(@document) } %>
+            locals: {
+              header_title: t_display_type(@document),
+              show_share_links: true } %>

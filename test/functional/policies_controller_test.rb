@@ -13,6 +13,7 @@ class PoliciesControllerTest < ActionController::TestCase
   should_set_meta_description_for :policy
   should_set_slimmer_analytics_headers_for :policy
   should_set_the_article_id_for_the_edition_for :policy
+  should_not_show_share_links_for :policy
 
   test "index should handle badly formatted params for topics and departments" do
     get :index, departments: {'0' => "all"}, topics: {'0' => "all"}, keywords: []

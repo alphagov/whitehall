@@ -8,6 +8,7 @@ class ConsultationsControllerTest < ActionController::TestCase
   should_set_meta_description_for :consultation
   should_set_slimmer_analytics_headers_for :consultation
   should_set_the_article_id_for_the_edition_for :consultation
+  should_show_share_links_for :consultation
 
   test 'index redirects to the publications index filtering consultations' do
     get :index
