@@ -459,7 +459,7 @@ module DocumentControllerTestHelpers
         edition = create("published_#{document_type}")
         get :show, id: edition.document
 
-        assert_select "article.document-page##{document_type}_#{edition.id}"
+        assert_select "article##{document_type}_#{edition.id}"
       end
     end
   end
