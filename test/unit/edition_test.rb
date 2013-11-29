@@ -508,6 +508,15 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [second_feb, re_editioned_feb, jan].collect(&:id), Edition.published.in_reverse_chronological_order.collect(&:id)
   end
 
+  test ".in_reverse_chronological_order works for editions that share the same document and timestamp" do
+    edition_1 = create(:superseded_edition)
+    document  = edition_1.document
+    edition_2 = create(:superseded_edition, document: document)
+    edition_3 = create(:superseded_edition, document: document)
+
+    assert_equal [edition_3, edition_2, edition_1].collect(&:id), Edition.in_reverse_chronological_order.collect(&:id)
+  end
+
   test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
