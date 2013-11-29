@@ -6,6 +6,7 @@ class WorldLocationNewsArticlesControllerTest < ActionController::TestCase
   should_display_inline_images_for :world_location_news_article
   should_set_meta_description_for :world_location_news_article
   should_set_the_article_id_for_the_edition_for :world_location_news_article
+  should_show_share_links_for :world_location_news_article
 
   test "shows published world location news article" do
     world_news_article = create(:published_world_location_news_article)

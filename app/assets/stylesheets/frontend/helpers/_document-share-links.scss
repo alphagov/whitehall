@@ -1,0 +1,20 @@
+.document-share-links {
+  @extend %contain-floats;
+
+  margin-bottom: $gutter;
+
+  @include media(tablet) {
+    margin-left: 33.3%;
+    padding-left: 15px;
+  }
+
+  h3 {
+    @include core-16;
+  }
+
+  .social-media-accounts li {
+    clear: none;
+    float: left;
+    margin-right: $gutter-half;
+  }
+}

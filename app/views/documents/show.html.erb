@@ -1,6 +1,7 @@
 <%
   header_title ||= ""
   topics ||= []
+  show_share_links ||= false
 %>
 <% page_title @document.title, "Documents" if page_title.blank? %>
 
@@ -35,6 +36,11 @@
       </div>
     </div>
   </div>
+  <% if show_share_links %>
+    <div class="inner-block">
+      <%= render partial: 'documents/share_links', locals: { document: @document } %>
+    </div>
+  <% end %>
   <div class="block-5">
     <div class="inner-block">
       <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>

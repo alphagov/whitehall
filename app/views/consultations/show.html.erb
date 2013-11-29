@@ -2,7 +2,7 @@
 <% page_class consultation_css_class(@document) %>
 
 <%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
-  <header class="block headings-block">
+  <header class="headings-block">
     <div class="inner-block floated-children">
       <%= render  partial: "documents/header", locals: {
                     document: @document,
@@ -24,7 +24,7 @@
 
   </header>
 
-  <div class="block-2 heading-block">
+  <div class="heading-block">
     <div class="inner-block">
       <% if @document.open? %>
         <div class="consultation-block <%= consultation_css_class(@document) %>">
@@ -149,9 +149,10 @@
       <% end %>
     </div>
   </div>
-  <div class="block-5">
-    <div class="inner-block">
-      <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
-    </div>
+  <div class="inner-block">
+    <%= render partial: 'documents/share_links', locals: { document: @document } %>
+  </div>
+  <div class="inner-block">
+    <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
   </div>
 <% end %>
