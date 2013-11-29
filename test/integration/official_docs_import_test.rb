@@ -12,7 +12,7 @@ class OfficialDocsImportTest < ActiveSupport::TestCase
   end
 
   test "importer recognises attachments with hoc/command numbers and parliamentary sessions" do
-    creator = User.create!(name: "Automatic Data Importer")
+    creator = create(:user, name: "Automatic Data Importer")
     od_document_collection = create(:document_collection, title: "official-documents")
     hoc_document_collection = create(:document_collection, title: "house-of-commons-papers")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "the-national-archives")

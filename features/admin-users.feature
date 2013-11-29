@@ -26,15 +26,6 @@ Scenario: Logged in users should be able to view but not edit their record
   Then I can see my user details
   But I cannot change my user details
 
-Scenario: Logged in GDS editors can edit other users organisations
-  Given I am a GDS editor
-  And there is a user called "John Smith"
-  And the organisation "Department of Beards" exists
-  When I visit the user list in the admin section
-  Then I should see "John Smith" in the user list
-  When I set the organisation for "John Smith" to "Department of Beards"
-  Then the organisation for "John Smith" is "Department of Beards"
-
 Scenario: Logged in users should be able to see other users' contact details
   Given I am a writer
   And there is a user called "John Smith" with email address "johnsmith@example.com"

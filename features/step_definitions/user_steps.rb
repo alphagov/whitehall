@@ -43,14 +43,3 @@ end
 Then /^I should see "([^"]*)" in the user list$/ do |name|
   assert page.has_content?(name)
 end
-
-When /^I set the organisation for "([^"]*)" to "([^"]*)"$/ do |user_name, organisation_name|
-  visit edit_admin_user_path(User.find_by_name(user_name))
-  select organisation_name, from: 'Organisation'
-  click_on "Save"
-end
-
-Then /^the organisation for "([^"]*)" is "([^"]*)"$/ do |user_name, organisation_name|
-  assert page.has_css?(".user .name", text: user_name)
-  assert page.has_css?(".user .organisation", text: organisation_name)
-end

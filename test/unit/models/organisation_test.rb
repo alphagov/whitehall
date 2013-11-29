@@ -375,7 +375,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     user = create(:policy_writer, organisation: organisation)
     organisation.destroy
-    assert_nil user.reload.organisation_id
+    assert_nil user.reload.organisation_slug
   end
 
   test 'should use full name as display_name if acronym is an empty string' do

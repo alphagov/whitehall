@@ -2,7 +2,7 @@ require "test_helper"
 
 class DclgConsultationImportTest < ActiveSupport::TestCase
   test "imports CSV in DCLG format into database" do
-    creator = User.create!(name: "Automatic Data Importer")
+    creator = create(:user, name: "Automatic Data Importer")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-communities-and-local-government")
     policy = create(:policy, title: "supporting-fire-and-rescue-authorities-to-reduce-the-number-and-impact-of-fires")
     stub_request(:get, "http://www.communities.gov.uk/documents/fire/pdf/2205794.pdf").to_return(body: "attachment-content")
