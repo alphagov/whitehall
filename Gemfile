@@ -51,7 +51,11 @@ gem 'raindrops', '0.11.0'
 gem 'sanitize', github: 'alphagov/sanitize', branch: '2.0.6-plus-colons-in-anchor-hrefs'
 
 group :assets do
-  gem 'govuk_frontend_toolkit', '0.38.0'
+  if ENV['FRONTEND_TOOLKIT_DEV']
+    gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
+  else
+    gem 'govuk_frontend_toolkit', '0.38.0'
+  end
   gem 'sass', '3.2.8'
   gem 'sass-rails'
   gem 'uglifier'
