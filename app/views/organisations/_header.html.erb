@@ -5,7 +5,7 @@
   sub_organisation = organisation.organisation_type.sub_organisation?
   logo_size = 'medium' if sub_organisation
   languages_available ||= false
-  alternate_style_top_tasks = (@organisation.slug == 'driver-and-vehicle-licensing-agency')
+  alternate_style_top_tasks ||= false
 %>
 
 <header class="page-header">
