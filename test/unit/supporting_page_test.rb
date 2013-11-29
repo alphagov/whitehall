@@ -31,4 +31,12 @@ class SupportingPageTest < ActiveSupport::TestCase
 
     assert_equal [org1, org2, org3], supporting_page.organisations
   end
+
+  test "should be findable via #in_organisation" do
+    org = create(:organisation)
+    policy = create(:policy, organisations: [org])
+    page = create(:supporting_page, related_policies: [policy])
+
+    assert_equal [page], SupportingPage.in_organisation(org).to_a
+  end
 end
