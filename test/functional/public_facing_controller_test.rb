@@ -78,7 +78,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     [:json, :xml, :atom].each do |format|
       get :test, format: format
 
-      assert_response :not_found
+      assert_response :not_acceptable
     end
   end
 
@@ -94,7 +94,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     assert_equal '{}', response.body
 
     get :json, format: :atom
-    assert_response :not_found
+    assert_response :not_acceptable
   end
 
   test "multiple formats can be enabled" do
@@ -114,7 +114,12 @@ class PublicFacingControllerTest < ActionController::TestCase
     assert_equal 'atom', response.body
 
     get :js_or_atom, format: :json
-    assert_response :not_found
+    assert_response :not_acceptable
+  end
+
+  test "returns an appropriate response for unrecognised/invalid request formats" do
+    get :test, format: 'atom\\'
+    assert_response :not_acceptable
   end
 
   test "all public facing requests without a locale should use the default locale" do
