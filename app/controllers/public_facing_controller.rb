@@ -45,13 +45,13 @@ class PublicFacingController < ApplicationController
 
   def restrict_request_formats
     unless can_handle_format?(request.format)
-      render status: :not_found, text: "Request format #{request.format} not handled."
+      render status: :not_acceptable, text: "Request format #{request.format} not handled."
     end
   end
 
   def can_handle_format?(format)
     return true if format == Mime::HTML
-    self.class.acceptable_formats.fetch(params[:action].to_sym, []).include?(format.to_sym)
+    format && self.class.acceptable_formats.fetch(params[:action].to_sym, []).include?(format.to_sym)
   end
 
   def set_expiry(duration = 30.minutes)
