@@ -1,3 +1,9 @@
+require 'supporting_page'
+
+class SupportingPage
+  has_one :editioned_supporting_page_mapping, foreign_key: :new_supporting_page_id
+end
+
 class SupportingPageCleaner
   attr_accessor :document, :logger
 
@@ -11,8 +17,9 @@ class SupportingPageCleaner
   # superseded editions that are duplicates of the published edition will also
   # be deleted.
   def delete_duplicate_superseded_editions!
+    logger.info "Deleting duplicate migrated editions of #{document.slug}"
     superseded_editions.each do |superseded_edition|
-      logger.info "checking #{superseded_edition.id} against: #{superseded_editions.collect(&:id)}"
+      logger.info "Checking #{superseded_edition.id} against: #{superseded_editions.collect(&:id)}"
 
       if duplicate = find_duplicate(superseded_edition)
         logger.info "  #{superseded_edition.id} is a duplicate of #{duplicate.id}"
@@ -21,18 +28,60 @@ class SupportingPageCleaner
     end
   end
 
-private
-
-  def superseded_editions
-    document.editions.includes(:translations).superseded.in_reverse_chronological_order
+  def repair_version_history!
+    logger.info "Repairing version history for editions of #{document.slug}"
+    fix_versions_and_change_notes_for_migrated_editions!
+    renumber_subsequent_editions!
   end
 
+  def fix_versions_and_change_notes_for_migrated_editions!
+    migrated_editions.each do |edition|
+      if migrated_editions.last == edition
+        logger.info "  #{edition.id} is a is the first migrated edition - setting minor change to false"
+        edition.minor_change = false
+      else
+        logger.info "  #{edition.id} is a subsequent migrated edition - setting as minor change"
+        edition.minor_change = true
+      end
+
+      edition.change_note = nil
+      edition.published_major_version = 1
+      edition.published_minor_version = 0
+
+      edition.save(validate: false)
+    end
+  end
+
+  def renumber_subsequent_editions!
+    non_migrated_editions.each do |edition|
+      edition.reset_version_numbers
+      edition.increment_version_number
+      logger.info " #{edition.id} is editor-created; public_version recalculated as #{edition.published_version}"
+      edition.save(validate: false)
+    end
+  end
+
+private
+
+  def migrated_editions
+    ever_published_editions.in_reverse_chronological_order.select {|edition| edition.editioned_supporting_page_mapping }
+  end
+
+  def non_migrated_editions
+    ever_published_editions.in_chronological_order.select {|edition| !edition.editioned_supporting_page_mapping }
+  end
+
+  def superseded_editions
+    document.editions.includes(:translations, :editioned_supporting_page_mapping).superseded.in_reverse_chronological_order
+  end
+
+
   def ever_published_editions
-    document.ever_published_editions
+    document.ever_published_editions.includes(:translations, :editioned_supporting_page_mapping)
   end
 
   def find_duplicate(superseded_edition)
-    ever_published_editions.includes(:translations).detect { |edition| duplicates?(edition, superseded_edition) }
+    ever_published_editions.detect { |edition| duplicates?(edition, superseded_edition) }
   end
 
   def duplicates?(edition1, edition2)

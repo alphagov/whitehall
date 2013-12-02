@@ -1,6 +1,10 @@
 require 'test_helper'
 require 'data_hygiene/supporting_page_cleaner'
 
+class OldSupportingPage < ActiveRecord::Base
+  self.table_name = 'supporting_pages'
+end
+
 class SupportingPageCleanerTest < ActiveSupport::TestCase
 
   test "destroys duplicate superseded supporting pages and their attachments" do
@@ -41,20 +45,56 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     assert Attachment.exists? draft_attachment
   end
 
+  test "#repair_version_history fixes the versioning and change history for migrated supporting pages, ignoring non-migrated ones" do
+    first_edition     = create_migrated_supporting_page(:superseded, change_note: "Policy's change note")
+    second_edition    = duplicate_migrated_supportig_page(first_edition)
+    third_edition     = duplicate_migrated_supportig_page(second_edition, state: :published)
+    new_edition       = third_edition.create_draft(create(:policy_writer))
+    new_edition.change_note = "Updated by an editor"
+    new_edition.minor_change = false
+    force_publish(new_edition)
+
+    cleaner = SupportingPageCleaner.new(first_edition.document)
+    cleaner.repair_version_history!
+
+    # All change notes should be cleared as they will have been copied from the parent policy, so already appear in the history
+    assert_nil first_edition.reload.change_note
+    assert_nil second_edition.reload.change_note
+    assert_nil third_edition.reload.change_note
+
+    # All versions are designated version 1.0 as guessing what's a major and what's a minor change is too difficult.
+    assert_equal '1.0', first_edition.published_version
+    assert_equal '1.0', second_edition.published_version
+    assert_equal '1.0', third_edition.published_version
+
+    # All but the first edition should be minor changes; see above.
+    refute first_edition.minor_change?
+    assert second_edition.minor_change?
+    assert third_edition.minor_change?
+
+    # Version numbers for editor-created editions are updated, but nothing else
+    refute new_edition.reload.minor_change?
+    assert_equal 'Updated by an editor', new_edition.change_note
+    assert_equal '2.0', new_edition.published_version
+  end
+
 private
 
   def create_migrated_supporting_page(state, attributes={})
-    create(:supporting_page, state, attributes).tap do |edition|
+    create(:supporting_page, state, { published_minor_version: nil, published_major_version: nil }.merge(attributes)).tap do |edition|
       EditionedSupportingPageMapping.create!(new_supporting_page_id: edition.id)
     end
   end
 
   def duplicate_migrated_supportig_page(original, options={})
-    body  ||= options.fetch(:body, original.body)
-    title ||= options.fetch(:title, original.title)
-    state ||= options.fetch(:state, original.current_state)
+    body        ||= options.fetch(:body, original.body)
+    title       ||= options.fetch(:title, original.title)
+    state       ||= options.fetch(:state, original.current_state)
+    change_note ||= options.fetch(:change_note, original.change_note)
 
-    create_migrated_supporting_page(state, body: body, title: title, document: original.document, related_policies: original.related_policies).tap do |edition|
+    attributes = { body: body, title: title, change_note: change_note, document: original.document, related_policies: original.related_policies }
+
+    create_migrated_supporting_page(state, attributes).tap do |edition|
       original.attachments(true).each { |attachment| edition.attachments << attachment.class.new(attachment.attributes) }
     end
   end
