@@ -4,6 +4,13 @@ class SupportingPage
   has_one :editioned_supporting_page_mapping, foreign_key: :new_supporting_page_id
 end
 
+class OldSupportingPage < ActiveRecord::Base
+  self.table_name = 'supporting_pages'
+
+  belongs_to :edition
+end
+
+
 class SupportingPageCleaner
   attr_accessor :document, :logger
 
@@ -32,6 +39,8 @@ class SupportingPageCleaner
     logger.info "Repairing version history for editions of #{document.slug}"
     fix_versions_and_change_notes_for_migrated_editions!
     renumber_subsequent_editions!
+    logger.info "Repairing publishing timestamps for editions of #{document.slug}"
+    repair_edition_timestamps!
   end
 
   def fix_versions_and_change_notes_for_migrated_editions!
@@ -44,7 +53,7 @@ class SupportingPageCleaner
         edition.minor_change = true
       end
 
-      edition.change_note = nil
+      edition.change_note             = nil
       edition.published_major_version = 1
       edition.published_minor_version = 0
 
@@ -56,7 +65,15 @@ class SupportingPageCleaner
     non_migrated_editions.each do |edition|
       edition.reset_version_numbers
       edition.increment_version_number
-      logger.info " #{edition.id} is editor-created; public_version recalculated as #{edition.published_version}"
+      logger.info "  #{edition.id} is editor-created; public_version recalculated as #{edition.published_version}"
+      edition.save(validate: false)
+    end
+  end
+
+  def repair_edition_timestamps!
+    ever_published_editions.each do |edition|
+      logger.info "  #{edition.id} - setting first_published_timestamp to #{first_published_timestamp.to_s(:short)}"
+      edition.first_published_at = first_published_timestamp
       edition.save(validate: false)
     end
   end
@@ -75,9 +92,16 @@ private
     document.editions.includes(:translations, :editioned_supporting_page_mapping).superseded.in_reverse_chronological_order
   end
 
-
   def ever_published_editions
     document.ever_published_editions.includes(:translations, :editioned_supporting_page_mapping)
+  end
+
+  def first_published_timestamp
+    @first_published_timestamp ||= original_policy.public_timestamp
+  end
+
+  def original_policy
+    OldSupportingPage.find(migrated_editions.last.editioned_supporting_page_mapping.old_supporting_page_id).edition
   end
 
   def find_duplicate(superseded_edition)

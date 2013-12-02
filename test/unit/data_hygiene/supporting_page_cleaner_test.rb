@@ -1,10 +1,6 @@
 require 'test_helper'
 require 'data_hygiene/supporting_page_cleaner'
 
-class OldSupportingPage < ActiveRecord::Base
-  self.table_name = 'supporting_pages'
-end
-
 class SupportingPageCleanerTest < ActiveSupport::TestCase
 
   test "destroys duplicate superseded supporting pages and their attachments" do
@@ -78,11 +74,46 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     assert_equal '2.0', new_edition.published_version
   end
 
+  test "#repair_version_history corrects the timestamps of migrated and subsequent editions" do
+    first_edition = create_migrated_supporting_page(:superseded, change_note: "Policy's change note", first_published_at: 1.week.ago)
+    first_policy  = OldSupportingPage.find(first_edition.editioned_supporting_page_mapping.old_supporting_page_id).edition
+    first_policy.update_column(:first_published_at, 2.weeks.ago)
+    first_policy.update_column(:public_timestamp, 2.weeks.ago)
+
+    second_edition = duplicate_migrated_supportig_page(first_edition)
+    second_policy  = OldSupportingPage.find(second_edition.editioned_supporting_page_mapping.old_supporting_page_id).edition
+    second_policy.update_column(:first_published_at, 1.weeks.ago)
+    second_policy.update_column(:public_timestamp, 1.weeks.ago)
+
+    major_change = create(:supporting_page, :published, document: first_edition.document, related_policies: first_edition.related_policies,
+                          first_published_at: first_edition.first_published_at, major_change_published_at: 2.days.ago)
+
+    minor_change = major_change.create_draft(create(:policy_writer))
+    minor_change.minor_change = true
+    force_publish(minor_change)
+
+    cleaner = SupportingPageCleaner.new(first_edition.document)
+    cleaner.repair_version_history!
+
+    # migrated editions inherit their timestamps from their oldest parent policy
+    assert_equal 2.weeks.ago, first_edition.reload.first_published_at
+    assert_equal 2.weeks.ago, first_edition.public_timestamp
+
+    # subsequent editions re-calculate their public timestamps
+    assert_equal 2.weeks.ago, major_change.reload.first_published_at
+    assert_equal 2.days.ago,  major_change.public_timestamp
+    assert_equal 2.weeks.ago, minor_change.reload.first_published_at
+    assert_equal 2.days.ago,  minor_change.public_timestamp
+  end
+
 private
 
-  def create_migrated_supporting_page(state, attributes={})
-    create(:supporting_page, state, { published_minor_version: nil, published_major_version: nil }.merge(attributes)).tap do |edition|
-      EditionedSupportingPageMapping.create!(new_supporting_page_id: edition.id)
+  def create_migrated_supporting_page(state, overrides={})
+    attributes = { published_minor_version: nil, published_major_version: nil, first_published_at: Time.zone.now, public_timestamp: Time.zone.now }.merge(overrides)
+
+    create(:supporting_page, state, attributes).tap do |edition|
+      old_supporting_page = OldSupportingPage.create!(edition_id: create(:policy, :published).id)
+      EditionedSupportingPageMapping.create!(new_supporting_page_id: edition.id, old_supporting_page_id: old_supporting_page.id)
     end
   end
 
