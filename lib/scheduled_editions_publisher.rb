@@ -40,7 +40,7 @@ class ScheduledEditionsPublisher
       EditionPublishingWorker.new.perform(edition.id, publishing_robot.id)
       log_successful_publication(edition)
     end
-  rescue Object => exception
+  rescue Exception => exception
     log_unsuccessful_publication(edition, exception.message)
   end
 
