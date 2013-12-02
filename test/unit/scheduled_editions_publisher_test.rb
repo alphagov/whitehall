@@ -35,11 +35,15 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     end
   end
 
-  test '#publish_edition! recovers from exceptions and logs the failure' do
+  test '#publish_edition! recovers from exceptions and logs the failure to the publisher logger and the exception notifier' do
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
-    EditionPublishingWorker.any_instance.expects(:perform).raises(EditionPublishingWorker::ScheduledPublishingFailure, 'Some failure message')
+    exception = EditionPublishingWorker::ScheduledPublishingFailure.new('Some failure message')
+    EditionPublishingWorker.any_instance.stubs(:perform).raises(exception)
+
     publisher.expects(:log).with("WARNING: Edition (#{stubbed_edition.id}) failed to publish: Some failure message")
-    publisher.publish_edition!(stubbed_edition)
+    ExceptionNotifier::Notifier.expects(:background_exception_notification).with(exception)
+
+    assert_nothing_raised { publisher.publish_edition!(stubbed_edition) }
   end
 
   test '#publish_edition! waits until the publication time before publishing' do
