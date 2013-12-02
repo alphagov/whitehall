@@ -1,7 +1,7 @@
 .attachments-preview {
   .csv-preview {
     border: $gutter-one-sixth solid $panel-colour;
-    margin: $gutter 0 $gutter * 2;
+    margin: $gutter 0 $gutter;
   }
   .csv-preview-inner {
     border: 1px solid $border-colour;
@@ -33,7 +33,7 @@
   }
 
   .truncated-message {
-    margin-bottom: $gutter * 2;
+    margin: $gutter 0;
   }
 
   .preview-error {
