@@ -31,7 +31,7 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
       EditionPublishingWorker.new.perform(edition.id, @publishing_robot.id)
     end
 
-    assert_equal 'An edition that is superseded cannot be published', exception.message
+    assert_equal 'Only scheduled editions can be published with ScheduledEditionPublisher', exception.message
     assert edition.reload.superseded?
   end
 end
