@@ -43,3 +43,35 @@ module Capybara::DSL
     page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   end
 end
+
+# This monkey catches Capybara::Poltergeist::TimeoutErrors and logs out network traffic before re-raising.
+class Capybara::Poltergeist::WebSocketServer
+  alias_method :_send, :send
+
+  def send(message)
+    _send(message)
+  rescue Capybara::Poltergeist::TimeoutError => e
+    log_network_traffic
+    raise e
+  end
+
+private
+
+  def log_network_traffic(opts = {})
+    traffic = Capybara.page.driver.network_traffic
+    traffic = traffic.select { |request| request.response_parts.empty? } if opts[:hide_completed]
+
+    traffic.each do |request|
+      puts render_network_traffic_request(request)
+    end
+  end
+
+  def render_network_traffic_request(request)
+    request_complete = request.response_parts.any?
+    %{
+      #{request.method}: #{request.url}
+      Complete: #{request_complete}
+      Duration: #{request_complete ?(request.response_parts.last.time - request.time) : (Time.zone.now.localtime - request.time)}
+    }
+  end
+end
