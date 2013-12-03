@@ -49,8 +49,24 @@ class DocumentHistoryTest < ActiveSupport::TestCase
 
     expected = [
       [2.days.ago, "Some stuff was changed"],
-      [3.days.ago, "Supporting detail added: #{support_page_2.title}"],
-      [4.days.ago, "Supporting detail added: #{support_page_1.title}"],
+      [3.days.ago, "Detail added: #{support_page_2.title}"],
+      [4.days.ago, "Detail added: #{support_page_1.title}"],
+      [5.days.ago, "First published."]
+    ]
+
+    assert_history_equal expected, history
+  end
+
+  test "#changes excludes any supporting page changes that share a public timestamp with any main document changes" do
+    policy            = create(:policy, :superseded, first_published_at: 5.days.ago, change_note: nil)
+    migrated_page     = create(:supporting_page, :superseded, first_published_at: 5.days.ago, change_note: nil, related_policies: [policy])
+    support_page_2    = create(:supporting_page, :published, first_published_at: 3.days.ago, change_note: nil, related_policies: [policy])
+    support_page_1_2  = create(:supporting_page, :published, document: migrated_page.document, major_change_published_at: 2.days.ago, published_major_version: 2, published_minor_version: 0, change_note: 'Some stuff was changed', related_policies: [policy])
+    history           = DocumentHistory.new(policy.document)
+
+    expected = [
+      [2.days.ago, "Some stuff was changed"],
+      [3.days.ago, "Detail added: #{support_page_2.title}"],
       [5.days.ago, "First published."]
     ]
 
