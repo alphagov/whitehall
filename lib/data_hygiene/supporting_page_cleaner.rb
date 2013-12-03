@@ -73,7 +73,14 @@ class SupportingPageCleaner
   end
 
   def repair_edition_timestamps!
-    ever_published_editions.each do |edition|
+    migrated_editions.each do |edition|
+      logger.info "  #{edition.id} - setting first_published_timestamp and major_change_published_at to #{first_published_timestamp.to_s(:short)}"
+      edition.first_published_at        = first_published_timestamp
+      edition.major_change_published_at = first_published_timestamp
+      edition.save(validate: false)
+    end
+
+    non_migrated_editions.each do |edition|
       logger.info "  #{edition.id} - setting first_published_timestamp to #{first_published_timestamp.to_s(:short)}"
       edition.first_published_at = first_published_timestamp
       edition.save(validate: false)
