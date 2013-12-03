@@ -20,7 +20,6 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     pub_attachment    = published_edition.reload.attachments.first
     draft_attachment  = draft_edition.reload.attachments.first
 
-
     cleaner = SupportingPageCleaner.new(published_edition.document)
     cleaner.delete_duplicate_superseded_editions!
 
@@ -104,6 +103,33 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     assert_equal 2.days.ago,  major_change.public_timestamp
     assert_equal 2.weeks.ago, minor_change.reload.first_published_at
     assert_equal 2.days.ago,  minor_change.public_timestamp
+  end
+
+  test "#matching_content_exists? matches editions that have the same title, body and attachment content" do
+    edition_1 = create_migrated_supporting_page(:superseded)
+    attachment = create(:file_attachment, attachable: edition_1)
+    edition_2 = duplicate_migrated_supportig_page(edition_1)
+    edition_3 = duplicate_migrated_supportig_page(edition_1, title: 'Different title')
+
+    cleaner = SupportingPageCleaner.new(edition_1.document)
+
+    assert cleaner.duplicates_exists?(edition_1)
+    assert cleaner.duplicates_exists?(edition_2)
+    refute cleaner.duplicates_exists?(edition_3)
+  end
+
+  test "#matching_content_exists? does not match editions that have differing attachments" do
+    edition_1 = create_migrated_supporting_page(:superseded)
+    attachment = create(:file_attachment, attachable: edition_1)
+    edition_2 = duplicate_migrated_supportig_page(edition_1)
+    edition_2.attachments.first.update_attribute(:title, 'Changed title')
+    edition_3 = duplicate_migrated_supportig_page(edition_1)
+
+    cleaner = SupportingPageCleaner.new(edition_1.document)
+
+    assert cleaner.duplicates_exists?(edition_1)
+    refute cleaner.duplicates_exists?(edition_2)
+    assert cleaner.duplicates_exists?(edition_3)
   end
 
 private

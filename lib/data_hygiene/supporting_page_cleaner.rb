@@ -28,8 +28,8 @@ class SupportingPageCleaner
     superseded_editions.each do |superseded_edition|
       logger.info "Checking #{superseded_edition.id} against: #{superseded_editions.collect(&:id)}"
 
-      check_off_from_content_digests(superseded_edition)
-      if matching_content_exists?(superseded_edition)
+      if duplicates_exists?(superseded_edition)
+        check_off_from_content_digests(superseded_edition)
         logger.info "  #{superseded_edition.id} is a duplicate of another edition"
         delete(superseded_edition)
       end
@@ -79,8 +79,8 @@ class SupportingPageCleaner
     end
   end
 
-  def matching_content_exists?(edition)
-    content_digests[content_digest(edition)] > 0
+  def duplicates_exists?(edition)
+    content_digests[content_digest(edition)] > 1
   end
 
 private
@@ -94,11 +94,11 @@ private
   end
 
   def superseded_editions
-    document.editions.includes(:translations, :editioned_supporting_page_mapping).superseded.in_reverse_chronological_order
+    document.editions.includes(:translations, :editioned_supporting_page_mapping, :attachments).superseded.in_reverse_chronological_order
   end
 
   def ever_published_editions
-    document.ever_published_editions.includes(:translations, :editioned_supporting_page_mapping)
+    document.ever_published_editions.includes(:translations, :editioned_supporting_page_mapping, :attachments)
   end
 
   def first_published_timestamp
@@ -117,7 +117,13 @@ private
   end
 
   def content_digest(edition)
-    Digest::MD5.hexdigest([edition.title, edition.body, edition.attachments.collect(&:attachment_data_id)].flatten.join)
+    Digest::MD5.hexdigest [edition.title, edition.body, attachments_string(edition)].join
+  end
+
+  def attachments_string(edition)
+    edition.attachments.inject('') do |string, att|
+      string << att.attributes.except(*%w(id created_at updated_at attachable_id)).values.join
+    end
   end
 
   def check_off_from_content_digests(edition)
