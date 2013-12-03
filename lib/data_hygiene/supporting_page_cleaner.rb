@@ -45,18 +45,19 @@ class SupportingPageCleaner
   end
 
   def fix_versions_and_change_notes_for_migrated_editions!
-    migrated_editions.each do |edition|
+    migrated_editions.reverse.each do |edition|
+      edition.change_note = nil
       if migrated_editions.last == edition
         logger.info "  #{edition.id} is a is the first migrated edition - setting minor change to false"
         edition.minor_change = false
+        edition.published_major_version = 1
+        edition.published_minor_version = 0
       else
         logger.info "  #{edition.id} is a subsequent migrated edition - setting as minor change"
         edition.minor_change = true
+        edition.reset_version_numbers
+        edition.increment_version_number
       end
-
-      edition.change_note             = nil
-      edition.published_major_version = 1
-      edition.published_minor_version = 0
 
       edition.save(validate: false)
     end

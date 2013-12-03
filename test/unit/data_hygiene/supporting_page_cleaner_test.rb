@@ -57,15 +57,15 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     assert_nil second_edition.reload.change_note
     assert_nil third_edition.reload.change_note
 
-    # All versions are designated version 1.0 as guessing what's a major and what's a minor change is too difficult.
-    assert_equal '1.0', first_edition.published_version
-    assert_equal '1.0', second_edition.published_version
-    assert_equal '1.0', third_edition.published_version
-
-    # All but the first edition should be minor changes; see above.
+    # All but the first edition should be minor changes as we cannot easily determine what is and isn't a major change
     refute first_edition.minor_change?
     assert second_edition.minor_change?
     assert third_edition.minor_change?
+
+    # All migrated editions are re-numbered as if they were minor changes
+    assert_equal '1.0', first_edition.published_version
+    assert_equal '1.1', second_edition.published_version
+    assert_equal '1.2', third_edition.published_version
 
     # Version numbers for editor-created editions are updated, but nothing else
     refute new_edition.reload.minor_change?
