@@ -2,6 +2,44 @@ module DocumentControllerTestHelpers
   extend ActiveSupport::Concern
 
   module ClassMethods
+    def should_display_localised_attachments
+      view_test "displays localised file attachments" do
+        edition = create("published_#{document_type}", translated_into: [:en, :fr])
+
+        attachment = create(:file_attachment, locale: nil, attachable: edition)
+        english_attachment = create(:file_attachment, locale: :en, attachable: edition)
+        french_attachment = create(:file_attachment, locale: :fr, attachable: edition)
+
+        get :show, id: edition.document
+        assert_select_object(attachment)
+        assert_select_object(english_attachment)
+        refute_select_object(french_attachment)
+
+        get :show, id: edition.document, locale: :fr
+        assert_select_object(attachment)
+        refute_select_object(english_attachment)
+        assert_select_object(french_attachment)
+      end
+
+      view_test 'displays localised HTML attachments' do
+        edition = create("published_#{document_type}", translated_into: [:en, :fr])
+
+        attachment = create(:html_attachment, locale: nil, attachable: edition)
+        english_attachment = create(:html_attachment, locale: :en, attachable: edition)
+        french_attachment = create(:html_attachment, locale: :fr, attachable: edition)
+
+        get :show, id: edition.document
+        assert_select_object(attachment)
+        assert_select_object(english_attachment)
+        refute_select_object(french_attachment)
+
+        get :show, id: edition.document, locale: :fr
+        assert_select_object(attachment)
+        refute_select_object(english_attachment)
+        assert_select_object(french_attachment)
+      end
+    end
+
     def should_display_attachments_for(document_type)
       view_test "show displays file attachments" do
         attachment_1 = create(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
@@ -510,5 +548,9 @@ module DocumentControllerTestHelpers
     end
 
     attributes_for(edition_type, attributes).except(:attachments)
+  end
+
+  def document_type
+    controller.send(:document_class).name.underscore
   end
 end

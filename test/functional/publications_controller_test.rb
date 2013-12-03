@@ -6,6 +6,7 @@ class PublicationsControllerTest < ActionController::TestCase
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
   should_display_attachments_for :publication
+  should_display_localised_attachments
   should_show_the_world_locations_associated_with :publication
   should_display_inline_images_for :publication
   should_show_inapplicable_nations :publication

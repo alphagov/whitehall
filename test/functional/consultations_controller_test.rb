@@ -3,6 +3,7 @@ require "test_helper"
 class ConsultationsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_display_attachments_for :consultation
+  should_display_localised_attachments
   should_display_inline_images_for :consultation
   should_show_inapplicable_nations :consultation
   should_set_meta_description_for :consultation
