@@ -31,23 +31,15 @@ class EditionPublisherTest < ActiveSupport::TestCase
     end
   end
 
-  test "#perform! with a future-scheduled edition refuses to publish" do
+  test "#perform! with a scheduled edition refuses to publish" do
     edition = create(:scheduled_edition)
     publisher = EditionPublisher.new(edition)
 
     refute publisher.perform!
     refute edition.published?
 
-    expected_reason = "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be published before"
+    expected_reason = "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication.to_s}"
     assert_equal expected_reason, publisher.failure_reason
-  end
-
-  test "#perform! with a scheduled edition that is ready for publishing publishes the edition" do
-    edition = create(:scheduled_edition, scheduled_publication: 1.hour.ago)
-    publisher = EditionPublisher.new(edition)
-
-    assert publisher.perform!
-    assert edition.published?
   end
 
   test '#perform! with an invalid edition refuses to publish' do

@@ -10,7 +10,7 @@ class EditionPublisher < EditionService
     reasons << "This edition is invalid: #{edition.errors.full_messages.to_sentence}" unless edition.valid?
     reasons << "This edition contains bad links" if govspeak_link_errors.any?
     reasons << "An edition that is #{edition.current_state} cannot be #{past_participle}" unless can_transition?
-    reasons << "This edition is scheduled for publication on #{edition.scheduled_publication.to_s}, and may not be #{past_participle} before" if scheduled_for_publication?
+    reasons << "Scheduled editions cannot be published. This edition is scheduled for publication on #{edition.scheduled_publication.to_s}" if scheduled_for_publication?
 
     @failure_reasons = reasons
   end
@@ -47,6 +47,7 @@ private
   end
 
   def scheduled_for_publication?
-    edition.scheduled_publication.present? && Time.zone.now < edition.scheduled_publication
+    # Just using edition.scheduled? misses submitted editions
+    edition.scheduled_publication.present?
   end
 end
