@@ -1,3 +1,7 @@
+<% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
+  <%= form.label :locale, 'This attachment displays in' %>
+  <%= form.select :locale, options_for_locales(attachable.translated_locales), include_blank: 'All languages' %>
+<% end %>
 <%= form.text_field :isbn, label_text: 'ISBN' %>
 <%= form.text_field :unique_reference %>
 <div class="paper-number clearfix">

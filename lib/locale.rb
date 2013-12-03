@@ -4,6 +4,10 @@ class Locale < Struct.new(:code)
 
   extend ActiveModel::Naming
 
+  def initialize(code)
+    super(code.to_sym)
+  end
+
   def self.model_name
     ActiveModel::Name.new(Translations)
   end
@@ -34,8 +38,19 @@ class Locale < Struct.new(:code)
     all.detect { |l| l.code == code.to_sym }
   end
 
+  def self.coerce(value)
+    case value
+    when Symbol, String
+      Locale.new(value)
+    when Locale
+      value
+    else
+      raise ArgumentError.new("Could not coerce #{value.inspect} to a Locale")
+    end
+  end
+
   def english?
-    code.to_sym == ENGLISH_LOCALE_CODE
+    code == ENGLISH_LOCALE_CODE
   end
 
   def native_language_name

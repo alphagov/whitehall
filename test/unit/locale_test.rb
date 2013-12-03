@@ -52,4 +52,17 @@ class LocaleTest < ActiveSupport::TestCase
       assert_equal Locale.new(:fr), Locale.current
     end
   end
+
+  test ".coerce converts a symbol into a Locale object" do
+    assert_equal Locale.new(:en), Locale.coerce(:en)
+  end
+
+  test ".coerce converts a string into a Locale object" do
+    assert_equal Locale.new(:en), Locale.coerce("en")
+  end
+
+  test ".coerce returns a Locale object without modification" do
+    english = Locale.new(:en)
+    assert_equal english, Locale.coerce(english)
+  end
 end
