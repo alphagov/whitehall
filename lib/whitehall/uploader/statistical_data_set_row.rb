@@ -1,15 +1,6 @@
 module Whitehall::Uploader
   class StatisticalDataSetRow < Row
     DEFAULT_CHANGE_NOTE = 'Data set updated.'
-    attr_reader :row
-
-    def initialize(row, line_number, attachment_cache, default_organisation, logger = Logger.new($stdout))
-      @row = row
-      @line_number = line_number
-      @logger = logger
-      @attachment_cache = attachment_cache
-      @default_organisation = default_organisation
-    end
 
     def self.validator
       HeadingValidator.new
@@ -19,10 +10,6 @@ module Whitehall::Uploader
         .multiple(%w{attachment_#_url attachment_#_title attachment_#_URN attachment_#_published_date}, 0..100)
         .ignored("ignore_*")
         .multiple("topic_#", 0..4)
-    end
-
-    def title
-      row['title']
     end
 
     def summary
@@ -35,20 +22,7 @@ module Whitehall::Uploader
     end
 
     def body
-      body = row['body']
-      body.blank? ? generated_attachment_body : body
-    end
-
-    def legacy_urls
-      [row["old_url"]]
-    end
-
-    def organisations
-      Finders::OrganisationFinder.find(row['organisation'], @logger, @line_number, @default_organisation)
-    end
-
-    def lead_organisations
-      organisations
+      super.presence || generated_attachment_body
     end
 
     def document_collections
