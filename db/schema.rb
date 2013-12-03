@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122123607) do
+ActiveRecord::Schema.define(:version => 20131203113707) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20131122123607) do
     t.string   "slug"
     t.text     "body",                       :limit => 2147483647
     t.boolean  "manually_numbered_headings"
+    t.string   "locale"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
