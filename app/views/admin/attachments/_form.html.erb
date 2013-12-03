@@ -4,7 +4,7 @@
   <%= form.text_field :title %>
 
   <% if attachable.allows_attachment_references? %>
-    <%= render 'reference_fields', edition: attachable, form: form %>
+    <%= render 'reference_fields', attachable: attachable, form: form %>
   <% end %>
 
   <% if attachment.is_a?(HtmlAttachment) %>
