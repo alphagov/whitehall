@@ -28,8 +28,9 @@ class SupportingPageCleaner
     superseded_editions.each do |superseded_edition|
       logger.info "Checking #{superseded_edition.id} against: #{superseded_editions.collect(&:id)}"
 
-      if duplicate = find_duplicate(superseded_edition)
-        logger.info "  #{superseded_edition.id} is a duplicate of #{duplicate.id}"
+      check_off_from_content_digests(superseded_edition)
+      if matching_content_exists?(superseded_edition)
+        logger.info "  #{superseded_edition.id} is a duplicate of another edition"
         delete(superseded_edition)
       end
     end
@@ -78,6 +79,10 @@ class SupportingPageCleaner
     end
   end
 
+  def matching_content_exists?(edition)
+    content_digests[content_digest(edition)] > 0
+  end
+
 private
 
   def migrated_editions
@@ -104,12 +109,19 @@ private
     OldSupportingPage.find(migrated_editions.last.editioned_supporting_page_mapping.old_supporting_page_id).edition
   end
 
-  def find_duplicate(superseded_edition)
-    ever_published_editions.detect { |edition| duplicates?(edition, superseded_edition) }
+  def content_digests
+    @content_digests ||= ever_published_editions.collect { |edition| content_digest(edition) }.inject(Hash.new(0)) do |hash, value|
+      hash[value] +=1
+      hash
+    end
   end
 
-  def duplicates?(edition1, edition2)
-    edition1 != edition2 && edition1.body == edition2.body && edition1.title == edition2.title
+  def content_digest(edition)
+    Digest::MD5.hexdigest([edition.title, edition.body, edition.attachments.collect(&:attachment_data_id)].flatten.join)
+  end
+
+  def check_off_from_content_digests(edition)
+    content_digests[content_digest(edition)] -= 1
   end
 
   def delete(edition)
