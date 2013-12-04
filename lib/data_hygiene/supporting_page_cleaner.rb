@@ -118,10 +118,7 @@ private
   end
 
   def content_digests
-    @content_digests ||= ever_published_editions.collect { |edition| content_digest(edition) }.inject(Hash.new(0)) do |hash, value|
-      hash[value] +=1
-      hash
-    end
+    @content_digests ||= ever_published_editions.each_with_object(Hash.new(0)) { |edition, hash| hash[content_digest(edition)] +=1 }
   end
 
   def content_digest(edition)

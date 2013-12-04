@@ -109,7 +109,7 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     assert_equal 2.days.ago,  minor_change.public_timestamp
   end
 
-  test "#matching_content_exists? matches editions that have the same title, body and attachment content" do
+  test "#duplicates_exists? matches editions that have the same title, body and attachment content" do
     edition_1 = create_migrated_supporting_page(:superseded)
     attachment = create(:file_attachment, attachable: edition_1)
     edition_2 = duplicate_migrated_supporting_page(edition_1)
@@ -122,7 +122,7 @@ class SupportingPageCleanerTest < ActiveSupport::TestCase
     refute cleaner.duplicates_exists?(edition_3)
   end
 
-  test "#matching_content_exists? does not match editions that have differing attachments" do
+  test "#duplicates_exists? does not match editions that have differing attachments" do
     edition_1 = create_migrated_supporting_page(:superseded)
     attachment = create(:file_attachment, attachable: edition_1)
     edition_2 = duplicate_migrated_supporting_page(edition_1)
