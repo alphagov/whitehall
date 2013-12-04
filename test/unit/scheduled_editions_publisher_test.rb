@@ -38,7 +38,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   test '#publish_edition! recovers from exceptions and logs the failure' do
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
     EditionPublishingWorker.any_instance.expects(:perform).raises(EditionPublishingWorker::ScheduledPublishingFailure, 'Some failure message')
-    publisher.expects(:log).with("WARNING: Edition (#{stubbed_edition.id}) failed to publish: Some failure message")
+    publisher.expects(:log).with("Edition (#{stubbed_edition.id}) failed to publish: Some failure message", :warn)
     publisher.publish_edition!(stubbed_edition)
   end
 
@@ -101,6 +101,23 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     publisher.log('line 3')
 
     assert_equal "line 1\nline 2\nline 3\n", publisher.log_cache
+  end
+
+  test "#log accepts optional log_level as second param defaulting to info" do
+    logger = Logger.new("/dev/null")
+    publisher = ScheduledEditionsPublisher.new(stubbed_scope, logger: logger)
+
+    logger.expects(:info).with("An info message")
+    publisher.log("An info message")
+
+    logger.expects(:info).with("Another info message")
+    publisher.log("Another info message", :info)
+
+    logger.expects(:warn).with("A warn message")
+    publisher.log("A warn message", :warn)
+
+    logger.expects(:error).with("A error message")
+    publisher.log("A error message", :error)
   end
 
   private
