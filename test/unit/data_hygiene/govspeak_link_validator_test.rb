@@ -2,6 +2,11 @@ require "fast_test_helper"
 
 class Edition::GovspeakLinkValidatorTest < ActiveSupport::TestCase
 
+  test "should be valid if the input is nil" do
+    validator = DataHygiene::GovspeakLinkValidator.new(nil)
+    assert_equal [], validator.errors
+  end
+
   test "should be valid if it contains a correct absolute URL" do
     validator = DataHygiene::GovspeakLinkValidator.new("
       [example text](http://www.example.com/example)
