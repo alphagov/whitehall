@@ -1,7 +1,7 @@
 <% if edition.rejected? %>
   <p class="alert alert-danger">
     Rejected by:
-    <%= link_to edition.rejected_by.name, admin_author_path(edition.rejected_by), class: "rejected_by" %>
+    <%= linked_author(edition.rejected_by, class: "rejected_by") %>
     (See <em>History &amp; Notes</em>)
   </p>
 <% end %>
