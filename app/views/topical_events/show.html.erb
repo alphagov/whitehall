@@ -77,7 +77,12 @@
         <section id="policies" class="policies document-block documents-<%= document_block_counter %>">
           <h1 class="label">Policies</h1>
           <div class="content">
-            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+            <%= render partial: "policies/list_description", locals: { policies: @policies.limit(5) } %>
+            <% if @policies.count > 5 %>
+              <p class="see-all">
+                <%= link_to "See all #{@policies.count} policies", policies_filter_path(@classification) %>
+              </p>
+            <% end %>
           </div>
         </section>
       <% end %>
