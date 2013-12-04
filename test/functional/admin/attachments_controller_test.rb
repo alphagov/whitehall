@@ -200,4 +200,14 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     get :new, edition_id: @edition
     assert_response :forbidden
   end
+
+  test "attachments can have locales" do
+    post :create, edition_id: @edition, attachment: valid_attachment_params.merge(locale: :fr)
+    attachment = @edition.reload.attachments.first
+
+    assert_equal "fr", attachment.locale
+
+    put :update, edition_id: @edition, id: attachment, attachment: valid_attachment_params.merge(locale: :es)
+    assert_equal "es", attachment.reload.locale
+  end
 end

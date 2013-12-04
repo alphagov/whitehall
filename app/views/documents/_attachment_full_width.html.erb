@@ -1,5 +1,6 @@
 <%
-  title = t('document.headings.attachments', count: document.attachments.size) unless local_assigns.include?(:title)
+  attachments = document.attachments.for_current_locale
+  title = t('document.headings.attachments', count: attachments.size) unless local_assigns.include?(:title)
   published_on = '' unless local_assigns.include?(:published_on)
   external = false unless defined?(:external)
 %>
@@ -10,7 +11,7 @@
   <div class="content">
     <article>
       <div class="govspeak">
-        <% document.attachments.each do |attachment| %>
+        <% attachments.each do |attachment| %>
           <%= render partial: "documents/attachment",
                      object: attachment,
                      locals: {

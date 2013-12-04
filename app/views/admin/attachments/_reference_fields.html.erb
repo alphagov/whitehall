@@ -1,10 +1,14 @@
+<% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
+  <%= form.label :locale, 'This attachment displays in' %>
+  <%= form.select :locale, options_for_locales(attachable.translated_locales), include_blank: 'All languages' %>
+<% end %>
 <%= form.text_field :isbn, label_text: 'ISBN' %>
 <%= form.text_field :unique_reference %>
 <div class="paper-number clearfix">
   <%= form.text_field :command_paper_number, class: 'paper-number' %>
   <%= form.check_box :unnumbered_command_paper, label_text: 'Unnumbered' %>
 </div>
-<% if edition.can_have_attached_house_of_commons_papers? %>
+<% if attachable.can_have_attached_house_of_commons_papers? %>
   <%= render 'admin/attachments/hoc_reference_fields', form: form %>
 <% end %>
 <%= form.text_field :order_url, label_text: 'Order URL' %>

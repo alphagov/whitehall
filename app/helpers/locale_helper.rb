@@ -4,7 +4,10 @@ module LocaleHelper
   end
 
   def options_for_locales(locales)
-    locales.map { |locale| [locale.native_and_english_language_name, locale.code.to_s] }
+    locales.map do |locale|
+      locale = Locale.coerce(locale)
+      [locale.native_and_english_language_name, locale.code.to_s]
+    end
   end
 
   def options_for_foreign_language_locale(edition)

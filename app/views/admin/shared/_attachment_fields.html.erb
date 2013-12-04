@@ -9,7 +9,7 @@
         <%= attachment_fields.text_field :title, required: false %>
 
         <% if edition.allows_attachment_references? %>
-          <%= render 'admin/attachments/reference_fields', edition: edition, form: attachment_fields %>
+          <%= render 'admin/attachments/reference_fields', attachable: edition, form: attachment_fields %>
         <% end %>
 
         <%= attachment_fields.fields_for :attachment_data do |attachment_data_fields| %>
@@ -27,7 +27,7 @@
       <div class="well" id="attachment_<%= attachment_fields.object.id %>">
         <%= attachment_fields.text_field :title %>
         <% if edition.allows_attachment_references? %>
-          <%= render 'admin/attachments/reference_fields', edition: edition, form: attachment_fields %>
+          <%= render 'admin/attachments/reference_fields', attachable: edition, form: attachment_fields %>
         <% end %>
         <%= attachment_fields.check_box :accessible, label_text: "Attachment is accessible" %>
 
