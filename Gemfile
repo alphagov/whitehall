@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
 gem 'rake', '0.9.2'
-gem 'rails', '3.2.14'
+gem 'rails', '3.2.16'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'delayed_job_active_record'

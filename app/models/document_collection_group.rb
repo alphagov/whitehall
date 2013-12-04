@@ -55,7 +55,7 @@ class DocumentCollectionGroup < ActiveRecord::Base
   private
 
   def assign_ordering
-    peers = document_collection.present? ? document_collection.groups.size : 0
+    peers = document_collection.present? ? document_collection.groups.maximum(:ordering).to_i : 0
     self.ordering = peers + 1
   end
 end

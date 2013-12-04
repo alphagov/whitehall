@@ -54,7 +54,7 @@
         <%= link_to t('attachment.headings.order_a_copy'), attachment.order_url,
             class: "order_url", title: t('attachment.headings.order_a_copy_full') %>
         <% if attachment.price %>
-          (<span class="price"><%= number_to_currency(attachment.price, unit: "&pound;") %></span>)
+          (<span class="price"><%= number_to_currency(attachment.price, unit: "&pound;".html_safe) %></span>)
         <% end %>
       </p>
     <% end %>
