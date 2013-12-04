@@ -46,6 +46,8 @@ module DataHygiene
       start_at = 0
       matches = []
 
+      return matches if @string.nil?
+
       while (match = @string.match(regex, start_at))
         error = yield(match)
         matches << error if error
