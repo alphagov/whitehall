@@ -55,6 +55,18 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
+  test "PUT :order sorts attachment orderings as numbers" do
+    a, b, c = 3.times.map { |n| create(:file_attachment, attachable: @edition, ordering: n) }
+
+    Consultation.any_instance.expects(:reorder_attachments).with([a.id.to_s, b.id.to_s, c.id.to_s]).once
+
+    put :order, edition_id: @edition, ordering: { a.id.to_s => '9',
+                                                  b.id.to_s => '10',
+                                                  c.id.to_s => '11' }
+
+    assert_response :redirect
+  end
+
   view_test "GET :new renders the attachment form" do
     get :new, edition_id: @edition
 
