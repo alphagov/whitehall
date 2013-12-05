@@ -1,4 +1,4 @@
-class TakePartPagesController < ApplicationController
+class TakePartPagesController < PublicFacingController
   layout 'frontend'
 
   def show
