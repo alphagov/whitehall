@@ -206,8 +206,9 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
   test 'edit adds an unsaved extra attachment to the corporate information page' do
     two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-    attachment = create(:file_attachment, title: "attachment-title", file: two_page_pdf)
-    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [attachment])
+    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
+      attachment = build(:file_attachment, title: "attachment-title", file: two_page_pdf)
+    ])
 
     get :edit, id: info_page, organisation_id: info_page.organisation_id
 

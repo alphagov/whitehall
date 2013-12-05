@@ -20,8 +20,9 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible? returns true when attachment is associated with a corporate info page' do
-    info_page = create(:corporate_information_page, :with_alternative_format_provider)
-    info_page.attachments << create(:file_attachment)
+    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
+      build(:file_attachment)
+    ])
     attachment_data = info_page.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
 
@@ -30,7 +31,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible? returns true when attachment is associated with a response on a published consultation' do
     response = create(:consultation_with_outcome).outcome
-    response.attachments << create(:file_attachment)
+    response.attachments << build(:file_attachment)
     attachment_data = response.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
 
@@ -46,18 +47,16 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_consultation_response a published response that the attachment is associated with' do
-    attachment = create(:file_attachment)
     response   = create(:consultation_with_outcome).outcome
-    response.attachments << attachment
+    response.attachments << attachment = build(:file_attachment)
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
     assert_equal response, attachment_visibility.visible_consultation_response
   end
 
   test '#visible_consultation_response returns nil if the attachment is not associated with a response on a published consultation' do
-    attachment = create(:file_attachment)
-    response   = create(:consultation_with_outcome, :draft).outcome
-    response.attachments << attachment
+    response = create(:consultation_with_outcome, :draft).outcome
+    response.attachments << attachment = build(:file_attachment)
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
     assert_equal :draft, response.consultation.current_state
@@ -67,9 +66,9 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible_consultation_response returns a draft response if it is accessible to the provided user' do
     user = create(:policy_writer)
-    attachment = create(:file_attachment)
+
     response = create(:consultation_with_outcome, :draft).outcome
-    response.attachments << attachment
+    response.attachments << attachment = build(:file_attachment)
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, user)
 
     assert_equal :draft, response.consultation.current_state
@@ -95,8 +94,9 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_edition returns nil if the attachment is associated with a non-Edition' do
-    info_page = create(:corporate_information_page, :with_alternative_format_provider)
-    info_page.attachments << create(:file_attachment)
+    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
+      build(:file_attachment)
+    ])
     attachment_visibility = AttachmentVisibility.new(info_page.attachments.first.attachment_data, nil)
 
     assert_nil attachment_visibility.visible_edition
@@ -121,26 +121,25 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
 
   test '#visible_attachment returns the attachment associated with the response of the published consultation' do
     response              = create(:consultation_with_outcome).outcome
-    attachment            = create(:file_attachment)
-    response.attachments << attachment
+    response.attachments << attachment = build(:file_attachment)
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
 
     assert_equal attachment, attachment_visibility.visible_attachment
   end
 
   test '#visible_attachment returns the attachment associated with a corporate information page' do
-    attachment = create(:file_attachment)
-    info_page  = create(:corporate_information_page, :with_alternative_format_provider)
-    info_page.attachments << attachment
+    info_page  = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
+      attachment = build(:file_attachment)
+    ])
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
 
     assert_equal attachment, attachment_visibility.visible_attachment
   end
 
   test '#visible_attachment returns the attachment associated with a policy group' do
-    attachment = create(:file_attachment)
-    advisory_group  = create(:policy_advisory_group)
-    advisory_group.attachments << attachment
+    advisory_group  = create(:policy_advisory_group, attachments: [
+      attachment = build(:file_attachment)
+    ])
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
 
     assert_equal attachment, attachment_visibility.visible_attachment

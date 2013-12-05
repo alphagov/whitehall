@@ -8,10 +8,10 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "should allow multiple attachments" do
-    attachment_1 = create(:file_attachment)
-    attachment_2 = create(:file_attachment)
-
-    publication = create(:publication, :with_file_attachment, attachments: [attachment_1, attachment_2])
+    publication = create(:publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment),
+      attachment_2 = build(:file_attachment)
+    ])
 
     assert_equal [attachment_1, attachment_2], publication.attachments
   end
@@ -32,9 +32,10 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "new attachments are put to the end of the list" do
-    attachment_1 = create(:file_attachment, ordering: 0)
-    attachment_2 = create(:file_attachment, ordering: 1)
-    publication = create(:publication, :with_file_attachment, attachments: [attachment_1, attachment_2])
+    publication = create(:publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment, ordering: 0),
+      attachment_2 = build(:file_attachment, ordering: 1)
+    ])
 
     attachment_3 = FileAttachment.new(title: 'Title', attachment_data: build(:attachment_data))
     publication.attachments << attachment_3
@@ -73,10 +74,10 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test "should allow deletion of attachments via nested attributes" do
-    attachment_1 = create(:file_attachment)
-    attachment_2 = create(:file_attachment)
-
-    publication = create(:publication, :with_file_attachment, attachments: [attachment_1, attachment_2])
+    publication = create(:publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment),
+      attachment_2 = build(:file_attachment)
+    ])
 
     attributes = {
       attachment_1.id => attachment_1.attributes.merge('_destroy' => '1'),
@@ -103,14 +104,11 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   def build_edition_with_three_attachments
-    @sample_csv = create(:file_attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'))
-    @greenpaper_pdf = create(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'))
-    @two_pages_pdf = create(:file_attachment, file: fixture_file_upload('two-pages.pdf'))
-
     edition = create(:publication)
-    edition.attachments << @sample_csv
-    edition.attachments << @greenpaper_pdf
-    edition.attachments << @two_pages_pdf
+
+    edition.attachments << @sample_csv = create(:file_attachment, file: fixture_file_upload('sample-from-excel.csv', 'text/csv'), attachable: edition)
+    edition.attachments << @greenpaper_pdf = create(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), attachable: edition)
+    edition.attachments << @two_pages_pdf = create(:file_attachment, file: fixture_file_upload('two-pages.pdf'), attachable: edition)
 
     edition
   end
@@ -129,13 +127,16 @@ class AttachableTest < ActiveSupport::TestCase
 
   test 'should include attachment content into the #search_index' do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-    attachment = create(:file_attachment, file: test_pdf, title: "The title of the attachment",
-      hoc_paper_number: "1234", parliamentary_session: '2013-14', command_paper_number: "Cm. 1234",
-      unique_reference: "w123", isbn: "0140620222"
-    )
+
+    edition = create(:publication, :with_file_attachment, attachments: [
+      attachment = build(:file_attachment, file: test_pdf, title: "The title of the attachment",
+                                           hoc_paper_number: "1234", parliamentary_session: '2013-14',
+                                           command_paper_number: "Cm. 1234", unique_reference: "w123",
+                                           isbn: "0140620222"
+      )
+    ])
+
     attachment.stubs(:extracted_text).returns "\nThis is a test pdf.\n\n\n"
-    edition = create(:publication)
-    edition.attachments << attachment
 
     index = edition.attachments.to_a.index { |attachment| attachment.kind_of?(FileAttachment) }
 
