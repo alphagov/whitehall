@@ -16,11 +16,36 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(non_english_edition).index!
   end
 
+  test '#index! also indexes all collection documents for collections' do
+    publication = create(:published_publication)
+    consultation = create(:published_consultation)
+    collection = create(:published_document_collection, groups: [
+      create(:document_collection_group, documents: [publication.document, consultation.document])
+    ])
+
+    expect_indexing(collection, publication, consultation)
+
+    ServiceListeners::SearchIndexer.new(collection).index!
+  end
+
   test '#remove! removes the edition from the search index' do
     edition = create(:published_news_article)
 
     expect_removal_from_index(edition)
     ServiceListeners::SearchIndexer.new(edition).remove!
+  end
+
+  test '#remove! also indexes all collection documents for collections' do
+    publication = create(:published_publication)
+    consultation = create(:published_consultation)
+    collection = create(:published_document_collection, groups: [
+      create(:document_collection_group, documents: [publication.document, consultation.document])
+    ])
+
+    expect_removal_from_index(collection)
+    expect_indexing(publication, consultation)
+
+    ServiceListeners::SearchIndexer.new(collection).remove!
   end
 
 private
