@@ -2,6 +2,7 @@ class Policy < Edition
   include Edition::Images
   include Edition::NationalApplicability
   include Edition::Topics
+  include Edition::TopicalEvents
   include Edition::Ministers
   include Edition::FactCheckable
   include Edition::Organisations

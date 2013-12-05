@@ -82,6 +82,17 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal [topic_1, topic_2], policy.topics.reload
   end
 
+  test "can belong to topical events" do
+    one = create(:topical_event)
+    two = create(:topical_event)
+    policy = create(:policy)
+
+    policy.topical_events = [one, two]
+
+    assert policy.save!
+    assert_equal [one, two], policy.topical_events.reload
+  end
+
   test "#destroy should remove edition relations to other editions" do
     edition = create(:draft_policy)
     relationship = create(:edition_relation, document: edition.document)
