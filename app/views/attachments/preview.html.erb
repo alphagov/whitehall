@@ -34,6 +34,7 @@
   </div>
 </header>
 <% if @csv_preview %>
+  <%= render(partial: 'truncated_message', locals: { attachment: @attachment }) if @csv_preview.truncated? %>
   <div class="csv-preview">
     <div class="csv-preview-inner">
       <table>
@@ -57,12 +58,7 @@
       </table>
     </div>
   </div>
-  <% if @csv_preview.truncated? %>
-    <p class="truncated-message">
-      This preview only shows the first 1000 rows.
-      <%= link_to "Download the file to view its full contents.", @attachment.url(preview: params[:preview]) %>
-    </p>
-  <% end %>
+  <%= render(partial: 'truncated_message', locals: { attachment: @attachment }) if @csv_preview.truncated? %>
 <% else %>
   <p class="preview-error">
     This file could not be previewed.
