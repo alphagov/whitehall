@@ -16,12 +16,16 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(non_english_edition).index!
   end
 
-  test '#index! with a policy re-indexes related editions' do
-    policy = create(:published_policy)
+  test '#index! also indexes all collection documents for collections' do
+    publication = create(:published_publication)
+    consultation = create(:published_consultation)
+    collection = create(:published_document_collection, groups: [
+      create(:document_collection_group, documents: [publication.document, consultation.document])
+    ])
 
-    expect_indexing(policy)
-    ReindexRelatedEditions.expects(:later).with(policy)
-    ServiceListeners::SearchIndexer.new(policy).index!
+    expect_indexing(collection, publication, consultation)
+
+    ServiceListeners::SearchIndexer.new(collection).index!
   end
 
   test '#remove! removes the edition from the search index' do
@@ -31,12 +35,17 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(edition).remove!
   end
 
-  test '#remove! with a policy also re-indexes related editions' do
-    policy = create(:published_policy)
+  test '#remove! also indexes all collection documents for collections' do
+    publication = create(:published_publication)
+    consultation = create(:published_consultation)
+    collection = create(:published_document_collection, groups: [
+      create(:document_collection_group, documents: [publication.document, consultation.document])
+    ])
 
-    expect_removal_from_index(policy)
-    ReindexRelatedEditions.expects(:later).with(policy)
-    ServiceListeners::SearchIndexer.new(policy).remove!
+    expect_removal_from_index(collection)
+    expect_indexing(publication, consultation)
+
+    ServiceListeners::SearchIndexer.new(collection).remove!
   end
 
 private

@@ -55,17 +55,6 @@
         </div>
       <% end %>
 
-      <% if Whitehall.local_government_features? %>
-        <% if filters.include? :relevant_to_local_government %>
-          <div class="filter" id="local-government-relevance-filter">
-            <div class="filter-inner checkbox">
-              <%= label_tag "relevant_to_local_government", "Only show #{document_type_plural} relevant to local government" %>
-              <%= check_box_tag :relevant_to_local_government, '1', @filter.relevant_to_local_government %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-
       <% if filters.include? :official_document_status %>
         <div class="filter" id="official-document-status-articles-filter">
           <div class="filter-inner">

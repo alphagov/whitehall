@@ -439,37 +439,6 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_show_local_government_items_for(document_type)
-      test "index fetches #{document_type} items irrespective of relevance to local goverment by default" do
-        without_delay! do
-          announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
-
-          get :index
-
-          assert_filtered_documents_include announced_today[0]
-          assert_filtered_documents_include announced_today[1]
-        end
-      end
-
-      test "index fetches only local government #{document_type} only when asked for" do
-        without_delay! do
-          announced_today = [create(:"published_#{document_type}", relevant_to_local_government: true), create(:"published_#{document_type}")]
-
-          get :index, relevant_to_local_government: 1
-
-          assert_filtered_documents_include announced_today[0]
-          refute_filtered_documents_include announced_today[1]
-        end
-      end
-
-      view_test "index doesn't show local government checkbox if turned off for #{document_type}" do
-        Whitehall.stubs('local_government_features?').returns(false)
-        get :index, relevant_to_local_government: 1
-
-        refute_select "input[name='relevant_to_local_government']"
-      end
-    end
-
     def should_set_meta_description_for(document_type)
       test "#{document_type} should set a meaningful meta description" do
         edition = create("published_#{document_type}", summary: "My first #{document_type}")

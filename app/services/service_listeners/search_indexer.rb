@@ -3,18 +3,22 @@ module ServiceListeners
     def index!
       if edition.can_index_in_search?
         Searchable::Index.later(edition)
-        index_related_editions if edition.is_a?(Policy)
+        reindex_collection_documents
       end
     end
 
     def remove!
       Searchable::Delete.later(edition)
-      index_related_editions if edition.is_a?(Policy)
+      reindex_collection_documents
     end
 
   private
-    def index_related_editions
-      ReindexRelatedEditions.later(edition)
+    def reindex_collection_documents
+      if edition.is_a?(DocumentCollection)
+        edition.published_editions.each do |collected_edition|
+          Searchable::Index.later(collected_edition)
+        end
+      end
     end
   end
 end
