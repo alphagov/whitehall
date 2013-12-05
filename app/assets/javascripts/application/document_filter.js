@@ -195,9 +195,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       if (formStatus.checked) {
         for (i=0, _i=formStatus.checked.length; i<_i; i++) {
           field = formStatus.checked[i];
-          if (field.id === 'relevant_to_local_government' && field.value === '1') {
-            context.relevant_to_local_government = true;
-          } else if (field.id === 'include_world_location_news' && field.value === '1') {
+          if (field.id === 'include_world_location_news' && field.value === '1') {
             context.include_world_location_news = true;
           }
         }
@@ -207,8 +205,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     },
     removeFilters: function(field, removed){
       var selects = ['topics', 'departments', 'world_locations', 'official_document_status'],
-          inputs = ['keywords', 'from_date', 'to_date'],
-          checkboxes = ['relevant_to_local_government'];
+          inputs = ['keywords', 'from_date', 'to_date'];
 
       if($.inArray(field, selects) > -1){
         var $options = $("select option[value='"+removed+"']");
@@ -228,12 +225,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           $input.val(value.replace(reg, '').trim())
         }
         $input.parents('form').submit();
-      } else if ($.inArray(field, checkboxes)) {
-        var $checkbox = $('input#' + field);
-        if ($checkbox.length) {
-          $checkbox.attr('checked', false);
-        }
-        $checkbox.parents('form').submit();
       }
     },
     currentPageState: function() {

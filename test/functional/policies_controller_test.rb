@@ -9,7 +9,6 @@ class PoliciesControllerTest < ActionController::TestCase
   should_show_inapplicable_nations :policy
   should_be_previewable :policy
   should_return_json_suitable_for_the_document_filter :policy
-  should_show_local_government_items_for :policy
   should_set_meta_description_for :policy
   should_set_slimmer_analytics_headers_for :policy
   should_set_the_article_id_for_the_edition_for :policy

@@ -16,27 +16,11 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
     ServiceListeners::SearchIndexer.new(non_english_edition).index!
   end
 
-  test '#index! with a policy re-indexes related editions' do
-    policy = create(:published_policy)
-
-    expect_indexing(policy)
-    ReindexRelatedEditions.expects(:later).with(policy)
-    ServiceListeners::SearchIndexer.new(policy).index!
-  end
-
   test '#remove! removes the edition from the search index' do
     edition = create(:published_news_article)
 
     expect_removal_from_index(edition)
     ServiceListeners::SearchIndexer.new(edition).remove!
-  end
-
-  test '#remove! with a policy also re-indexes related editions' do
-    policy = create(:published_policy)
-
-    expect_removal_from_index(policy)
-    ReindexRelatedEditions.expects(:later).with(policy)
-    ServiceListeners::SearchIndexer.new(policy).remove!
   end
 
 private

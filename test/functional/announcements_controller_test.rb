@@ -8,8 +8,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
-  should_show_local_government_items_for :speech
-  should_show_local_government_items_for :news_article
 
   test "index should handle badly formatted params for topics and departments" do
     get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}

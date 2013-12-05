@@ -20,14 +20,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal nil, edition.search_index["topics"]
   end
 
-  test 'search_index contains the value of relevant_to_local_government?' do
-    edition = create(:published_edition, relevant_to_local_government: false)
-    relevancy = stub("relevancy")
-    edition.stubs(:relevant_to_local_government?).returns(relevancy)
-
-    assert_equal relevancy, edition.search_index['relevant_to_local_government']
-  end
-
   test "#indexable_content should return the body without markup by default" do
     edition = create(:published_edition, body: "# header\n\nsome text")
     assert_equal "header some text", edition.indexable_content
