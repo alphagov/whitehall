@@ -155,7 +155,7 @@ The right to left support has been built the same way as the IE support. So that
 
 ## Code style
 
-All code should be wrapped in a closure and should declare 'use strict'.  The GOVUK namespace should be setup in each file to promote portability.
+All code should be wrapped in a closure and should declare `use strict`.  The GOVUK namespace should be setup in each file to promote portability.
 
     (function() {
       "use strict";
@@ -169,7 +169,7 @@ There are two patterns which can be employed in Whitehall, a singleton pattern a
 
 ### Singleton pattern
 
-Singletons should be defined as raw javascript hashes, and if required should do its initialisation in a function called init.
+Singletons should be defined as raw JavaScript hashes, and if required should do its initialisation in a function called init.
 
     (function() {
       "use strict";
@@ -207,7 +207,7 @@ Constructors should follow the prototype pattern as follows:
       GOVUK.TheThing = TheThing;
     }());
 
-Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometimes helpful to do so in Javascript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
+Defining functions on the prototype as opposed to defining them privately in the constructor exposes them making the objects easier to test. Although in theory you should never test a private method, it's sometimes helpful to do so in JavaScript - particularly when testing objects which are very tightly coupled to the dom and often don't have any public API.
 
 Defining the constructor in the wrapper function's scope, then assigning it to the namespace improves readability by keeping names shorter.
 
@@ -225,7 +225,7 @@ See "Script initialisation" below for more details on `GOVUK.init`.
 
 Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].
 
-In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile and debug.  Anonymous functions don't report a name to profilers, stack traces and when calling arguments.callee.caller, etc.
+In general, use of anonymous functions should be avoided. Code made up of anonymous functions is more difficult to profile and debug.  Anonymous functions don't report a name to profilers, stack traces and when calling `arguments.callee.caller`, etc.
 
 bad:
 
@@ -243,7 +243,7 @@ good:
 
 ## File structure and namespacing
 
-Each javascript object should be stored in it's own file with a filename reflecting the object name. In the spirit of keeping things similar to the css, they should be stored in:
+Each JavaScript object should be stored in its own file with a filename reflecting the object name. In the spirit of keeping things similar to the CSS, they should be stored in:
 
     ./helpers/
     ./frontend/views/
@@ -251,11 +251,11 @@ Each javascript object should be stored in it's own file with a filename reflect
     ./admin/views/
     ./admin/helpers/
 
-Views are view-specific scripts and as with the css, their file path & name should exactly mirror the view template or partial it applies to.
+Views are view-specific scripts and as with the css, their file path and name should exactly mirror the view template or partial it applies to.
 
 Helpers are scripts which cannot be associated with any particular view.  These may be scripts which are loaded everywhere (such as the script which prevents forms from being submited twice), or may be scripts which apply to multiple different not-necessarily-related views.
 
-Namespaces should be kept simple and all constructors should be under 'GOVUK'. The javascript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces.
+Namespaces should be kept simple and all constructors should be under `GOVUK`. The JavaScript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces.
 
 ## Script initialisation
 
@@ -263,22 +263,22 @@ Scripts should be initialised with `GOVUK.init`:
 
     GOVUK.init(GOVUK.SomeScript, {el: '.js-the-thing'});
 
-If the passed in object is a constructor, GOVUK.init creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `GOVUK.instances`.
+If the passed in object is a constructor, `GOVUK.init` creates an instance of the passed in constructor, passing the second argument through as an argument. A reference to the new instance is stored in `GOVUK.instances`.
 
-Otherwise, GOVUK.init will call init on the passed in hash, treating it as a singleton.
+Otherwise, `GOVUK.init` will call init on the passed in hash, treating it as a singleton.
 
 Scripts should only be initialised when needed and should make use of the rails helper `initialise_script`:
 
     #!erb
     <% initialise_script "GOVUK.SomeView", el: '.js-some-view' %>
 
-This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block :javascript_initialisers). This is not done in $.ready by default, so if the script needs to wait for $.ready, it should do so itself.
+This rails helper takes a ruby hash as a second argument, which is jsonified and passed down to the javascript constructor (in content\_for block `:javascript_initialisers`). This is not done in `$.ready` by default, so if the script needs to wait for $.ready, it should do so itself.
 
-This initialise\_script line should be in the most appropriate template/partial for view scripts / view-specific helpers, and should be near the :javascript_initialisers yield in the applicable layout for site-wide helpers.
+This initialise\_script line should be in the most appropriate template/partial for view scripts / view-specific helpers, and should be near the `:javascript_initialisers` yield in the applicable layout for site-wide helpers.
 
 ## CSS selectors
 
-Scripts should only make use of css classes beginning with 'js-'. [This makes it completely transparent what the class is used for within the HTML][4].
+Scripts should only make use of CSS classes beginning with `js-`. [This makes it completely transparent what the class is used for within the HTML][4].
 
 ### Styles
 
