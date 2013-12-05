@@ -91,6 +91,10 @@ class SupportingPageCleaner
     content_digests[content_digest(edition)] > 1
   end
 
+  def needs_cleaning?
+    migrated_editions.any?
+  end
+
 private
 
   def migrated_editions
