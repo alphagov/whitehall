@@ -354,9 +354,9 @@ class OrganisationsControllerTest < ActionController::TestCase
     consultation_3 = create(:published_consultation, organisations: [organisation], opening_at: 5.days.ago, closing_at: 1.days.ago)
     consultation_2 = create(:published_consultation, organisations: [organisation], opening_at: 4.days.ago, closing_at: 1.days.ago)
     consultation_1 = create(:published_consultation, organisations: [organisation], opening_at: 3.days.ago)
-    response_attachment = create(:file_attachment)
-    response = create(:consultation_outcome, consultation: consultation_3)
-    response.attachments << response_attachment
+    response = create(:consultation_outcome, consultation: consultation_3, attachments: [
+      build(:file_attachment)
+    ])
 
     get :show, id: organisation
 

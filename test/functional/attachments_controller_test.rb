@@ -54,11 +54,11 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'attachments that are images are sent inline' do
-    attachment_data = create(:image_attachment_data)
+    attachment_data = build(:image_attachment_data)
     visible_edition = create(
       :published_publication,
       :with_file_attachment,
-      attachments: [create(:file_attachment, attachment_data: attachment_data)]
+      attachments: [build(:file_attachment, attachment_data: attachment_data)]
     )
 
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
@@ -74,11 +74,11 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "requesting an attachment's thumbnail returns the thumbnail inline" do
-    attachment_data = create(:attachment_data)
+    attachment_data = build(:attachment_data)
     visible_edition = create(
       :published_publication,
       :with_file_attachment,
-      attachments: [create(:file_attachment, attachment_data: attachment_data)]
+      attachments: [build(:file_attachment, attachment_data: attachment_data)]
     )
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
     create_thumbnail_for_upload(attachment_data.file)
@@ -90,8 +90,10 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'requesting an attachment that has not been virus checked redirects to the placeholder page' do
-    attachment_data = create(:attachment_data)
-    visible_edition = create(:published_publication, :with_file_attachment_not_scanned, attachments: [create(:file_attachment, attachment_data: attachment_data)])
+    attachment_data = build(:attachment_data)
+    visible_edition = create(:published_publication, :with_file_attachment_not_scanned, attachments: [
+      build(:file_attachment, attachment_data: attachment_data)
+    ])
 
     get_show attachment_data
 
@@ -115,9 +117,10 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do
-    attachment      = create(:csv_attachment)
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
+      attachment = build(:csv_attachment)
+    ])
     attachment_data = attachment.attachment_data
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
 
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
 
@@ -129,7 +132,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "GET #preview for a CSV attachment on a non-public edition returns a not found response" do
-    unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [create(:csv_attachment)])
+    unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_edition.attachments.first.attachment_data
 
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
@@ -138,7 +141,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "GET #preview for a non-CSV file type returns a not found response" do
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [create(:file_attachment)])
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [build(:file_attachment)])
     attachment_data = visible_edition.attachments.first.attachment_data
 
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
@@ -147,7 +150,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "GET #preview for a CSV attachment on an edition that has been unpublished redirects to the edition" do
-    unpublished_publication = create(:draft_publication, :unpublished, :with_file_attachment, attachments: [create(:csv_attachment)])
+    unpublished_publication = create(:draft_publication, :unpublished, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_publication.attachments.first.attachment_data
 
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
@@ -156,9 +159,10 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET #preview handles CsvPreview::FileEncodingError errors" do
-    attachment      = create(:csv_attachment)
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
+      attachment = build(:csv_attachment)
+    ])
     attachment_data = attachment.attachment_data
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
 
     CsvPreview.expects(:new).raises(CsvPreview::FileEncodingError)
 
@@ -171,9 +175,10 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test "GET #preview handles malformed CSV" do
-    attachment      = create(:csv_attachment, file: fixture_file_upload('malformed.csv'))
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
+      attachment = build(:csv_attachment, file: fixture_file_upload('malformed.csv'))
+    ])
     attachment_data = attachment.attachment_data
-    visible_edition = create(:published_publication, :with_file_attachment, attachments: [attachment])
 
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
 

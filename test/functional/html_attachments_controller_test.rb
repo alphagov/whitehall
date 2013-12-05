@@ -26,14 +26,6 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     end
   end
 
-  test '#show returns 404 if the edition cannot be found' do
-    attachment = create(:html_attachment)
-
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show, publication_id: 'bogus-edition-slug', id: attachment
-    end
-  end
-
   test '#show returns 404 if the attachment cannot be found' do
     publication = create(:published_publication)
 
@@ -91,9 +83,9 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
 private
 
   def create_edition_and_attachment(type = :publication, state = :published)
-    publication = create([state, type].join('_'))
-    attachment = create(:html_attachment, title: 'HTML Attachment Title')
-    publication.attachments << attachment
+    publication = create([state, type].join('_'), attachments: [
+      attachment = build(:html_attachment, title: 'HTML Attachment Title')
+    ])
     [publication, attachment]
   end
 end
