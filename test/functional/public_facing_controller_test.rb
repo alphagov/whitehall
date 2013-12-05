@@ -27,6 +27,18 @@ class PublicFacingControllerTest < ActionController::TestCase
         format.atom  { render text: 'atom' }
       end
     end
+
+    def api_timeout
+      raise GdsApi::TimedOutException
+    end
+
+    def api_bad_gateway
+      raise GdsApi::HTTPErrorResponse.new(502, 'Bad Gateway')
+    end
+
+    def api_error
+      raise GdsApi::HTTPErrorResponse.new(500, 'Something went wrong')
+    end
   end
 
   class EnsureSegregationOfAcceptableFormatsBetweenControllersController < PublicFacingController
@@ -143,6 +155,22 @@ class PublicFacingControllerTest < ActionController::TestCase
       I18n.locale = :original
       get :locale, locale: 'fr'
       assert_equal :original, I18n.locale
+    end
+  end
+
+  test "public facing controllers catch GDS API timeouts and error responses and renders a 500 response" do
+    get :api_timeout
+    assert_response :internal_server_error
+  end
+
+  test "public facing controllers catch 502 errors from GDS API and renders a 500 response" do
+    get :api_bad_gateway
+    assert_response :internal_server_error
+  end
+
+  test "public facing controllers do not catch other GDS API errors" do
+    assert_raise GdsApi::HTTPErrorResponse do
+      get :api_error
     end
   end
 
