@@ -129,7 +129,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
 
     test "attachment sources are included" do
       attachment_source = create(:attachment_source)
-      assert_extraction <<-EOT
+      assert_extraction_contains <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
 #{attachment_source.url},www.preview.alphagov.co.uk#{attachment_source.attachment.url},301,"","","",Closed
       EOT
