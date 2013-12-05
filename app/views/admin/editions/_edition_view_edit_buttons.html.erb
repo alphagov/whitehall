@@ -1,6 +1,10 @@
 <section class="edition-view-edit-buttons">
   <% if @edition.published? || @edition.archived? %>
     <%= link_to "View on website", public_document_url(@edition), class: 'btn btn-large btn-primary public_version', target: '_blank' %>
+  <% elsif @edition.translatable? && @edition.available_in_multiple_languages? %>
+    <%= render 'admin/shared/bootstrap/button_dropdown',
+                button_text: 'Preview on website',
+                links: translation_preview_links(@edition) %>
   <% else %>
     <%= link_to "Preview on website", preview_document_path(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
   <% end %>

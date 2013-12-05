@@ -330,4 +330,17 @@ module Admin::EditionsHelper
       hash.merge(type.id => html)
     end
   end
+
+  def translation_preview_links(edition)
+    links = []
+
+    if edition.available_in_english?
+      links << [preview_document_path(edition), 'Language: English']
+    end
+
+    links + edition.non_english_translated_locales.map do |locale|
+      [preview_document_path(edition, locale: locale),
+       "Language: #{locale.native_and_english_language_name}"]
+    end
+  end
 end

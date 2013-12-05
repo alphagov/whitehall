@@ -11,6 +11,10 @@ module TranslatableModel
     non_english_translated_locale_codes.any?
   end
 
+  def available_in_english?
+    available_in_locale?(I18n.default_locale)
+  end
+
   def remove_translations_for(locale)
     translations.where(locale: locale).each { |t| t.destroy }
   end
