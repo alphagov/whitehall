@@ -1,9 +1,12 @@
-development:
+development: &development
   encoding: utf8
   adapter: mysql2
   database: whitehall_development
   username: whitehall
   password: whitehall
+
+development_slave:
+  <<: *development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -15,10 +18,16 @@ test: &test
   username: whitehall
   password: whitehall
 
-production:
+test_slave:
+  <<: *test
+
+production: &production
   encoding: utf8
   adapter: mysql2
   database: whitehall_production
+
+production_slave:
+  <<: *production
 
 cucumber:
   <<: *test

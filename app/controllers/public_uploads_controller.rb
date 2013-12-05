@@ -1,6 +1,8 @@
 class PublicUploadsController < ApplicationController
   include ActionView::Helpers::AssetTagHelper
 
+  before_filter :switch_to_slave_db
+
   def show
     if attachment_visible?
       expires_headers
@@ -11,6 +13,10 @@ class PublicUploadsController < ApplicationController
   end
 
   private
+
+  def switch_to_slave_db
+    ActiveRecord::Base.establish_connection "#{Rails.env}_slave"
+  end
 
   def fail
     if image? upload_path
