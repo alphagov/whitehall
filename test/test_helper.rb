@@ -47,6 +47,10 @@ class ActiveSupport::TestCase
     assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
   end
 
+  def assert_select_from(text, *args, &block)
+    assert_select HTML::Document.new(text).root, *args, &block
+  end
+
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
@@ -207,9 +211,5 @@ class PresenterTestCase < ActionView::TestCase
 
   def stubs_helper_method(*args)
     @view_context.stubs(*args)
-  end
-
-  def assert_select_from(text, *args, &block)
-    assert_select HTML::Document.new(text).root, *args, &block
   end
 end

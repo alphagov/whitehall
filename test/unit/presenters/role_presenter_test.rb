@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class RolePresenterTest < PresenterTestCase
+class RolePresenterTest < ActionView::TestCase
   setup do
+    setup_view_context
     @role = stub_translatable_record(:role_without_organisations)
     @presenter = RolePresenter.new(@role, @view_context)
   end
@@ -67,5 +68,18 @@ class RolePresenterTest < PresenterTestCase
     @role.stubs(:published_news_articles).returns(
       stub("all news_articles", limit: ten_published_news_articles))
     assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
+  end
+
+  test '#published_policies returns decorated published policies available in the current locale' do
+    role = create(:ministerial_role)
+    english_policy = create(:published_policy, ministerial_roles: [role])
+    welsh_policy   = create(:published_policy, ministerial_roles: [role], translated_into: 'cy')
+    presenter = RolePresenter.new(role, @view_content)
+
+    assert_equal [PolicyPresenter.new(welsh_policy), PolicyPresenter.new(english_policy)], presenter.published_policies
+
+    I18n.with_locale(:cy) do
+      assert_equal [PolicyPresenter.new(welsh_policy)], presenter.published_policies
+    end
   end
 end

@@ -32,7 +32,7 @@ class PoliciesController < DocumentsController
 
   def activity
     @policy = @document
-    @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order.page(params[:page]).per(40)
+    @recently_changed_documents = Edition.published.related_to(@policy).with_translations(I18n.locale).in_reverse_chronological_order.page(params[:page]).per(40)
     expire_on_next_scheduled_publication(Edition.scheduled.related_to(@policy))
 
     if @recently_changed_documents.empty?
