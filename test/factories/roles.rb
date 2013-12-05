@@ -6,7 +6,7 @@ FactoryGirl.define do
   end
 
   factory :role_without_organisations, class: Role, traits: [:translated] do
-    name "role-name"
+    sequence(:name) { |index| "role-name-#{index}" }
     type ""
   end
 
