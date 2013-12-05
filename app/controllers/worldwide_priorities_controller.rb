@@ -12,7 +12,7 @@ class WorldwidePrioritiesController < DocumentsController
   end
 
   def activity
-    @related_editions = @document.published_related_editions.in_reverse_chronological_order.page(params[:page]).per(40)
+    @related_editions = @document.published_related_editions.with_translations(I18n.locale).in_reverse_chronological_order.page(params[:page]).per(40)
   end
 
   private

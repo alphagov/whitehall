@@ -64,17 +64,23 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
     assert_select ".change-notes-title", /Historique de page/
   end
 
-  test '#activity loads the recently changed documents related to the priority' do
-    priority = create(:published_worldwide_priority)
+  test '#activity loads the recently changed documents related to the priority and appropriate to the current locale' do
+    priority = create(:published_worldwide_priority, translated_into: 'fr')
     news     = create(:published_world_location_news_article, related_editions: [priority])
     speech   = create(:published_speech, related_editions: [priority])
     draft    = create(:draft_world_location_news_article, related_editions: [priority])
+    french   = create(:published_news_article, related_editions: [priority], translated_into: 'fr')
 
     get :activity, id: priority.document
 
     assert_response :success
     assert_template :activity
     assert_equal priority, assigns(:document)
-    assert_equal [speech, news], assigns(:related_editions)
+    assert_equal [french, speech, news], assigns(:related_editions)
+
+    get :activity, id: priority.document, locale: 'fr'
+
+    assert_response :success
+    assert_equal [french], assigns(:related_editions)
   end
 end

@@ -32,8 +32,8 @@ class PersonPresenter < Whitehall::Decorators::Decorator
 
   def announcements
     announcements =
-      model.published_speeches.limit(10).map { |s| SpeechPresenter.new(s, context) } +
-      model.published_news_articles.limit(10).map { |na| NewsArticlePresenter.new(na, context) }
+      model.published_speeches.with_translations(I18n.locale).limit(10).map { |s| SpeechPresenter.new(s, context) } +
+      model.published_news_articles.with_translations(I18n.locale).limit(10).map { |na| NewsArticlePresenter.new(na, context) }
     announcements.sort_by { |a| a.public_timestamp.to_datetime }.reverse[0..9]
   end
 

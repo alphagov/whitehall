@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class PersonPresenterTest < PresenterTestCase
+class PersonPresenterTest < ActionView::TestCase
   setup do
+    setup_view_context
     @person = stub_translatable_record(:person)
     @presenter = PersonPresenter.new(@person, @view_context)
   end
@@ -30,26 +31,19 @@ class PersonPresenterTest < PresenterTestCase
     assert_select_from @presenter.biography, '.govspeak h2', text: 'Hello'
   end
 
-  test "#announcements returns 10 published speeches and news articles sorted by descending date" do
-    speech_1 = Speech.new
-    speech_1.stubs(:public_timestamp).returns(1.days.ago)
+  test "#announcements returns decorated published speeches and news articles available in the current locale in descending date" do
+    speech_1 = build(:published_speech, first_published_at: 1.day.ago)
+    speech_2 = build(:published_speech, first_published_at: 30.days.ago, translated_into: :cy)
+    speech_3 = build(:draft_speech)
+    news_1   = build(:published_news_article, first_published_at: 4.days.ago, translated_into: :cy)
+    role_appointment = create(:ministerial_role_appointment, news_articles: [news_1], speeches: [speech_1, speech_2])
+    presenter = PersonPresenter.new(role_appointment.person)
 
-    speech_2 = Speech.new
-    speech_2.stubs(:public_timestamp).returns(30.days.ago)
+    assert_equal [speech_1, news_1, speech_2], presenter.announcements.map(&:model)
 
-    two_published_speeches = [ speech_1, speech_2 ]
-
-    ten_published_news_articles = 10.times.map do |i|
-      article = NewsArticle.new
-      article.stubs(:public_timestamp).returns(i.days.ago - 3.days)
-      article
+    I18n.with_locale(:cy) do
+      assert_equal [news_1, speech_2], presenter.announcements.map(&:model)
     end
-
-    @person.stubs(:published_speeches).returns(
-      stub("all speeches", limit: two_published_speeches))
-    @person.stubs(:published_news_articles).returns(
-      stub("all news_articles", limit: ten_published_news_articles))
-    assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
   end
 
   test "is not available in multiple languages if person is not available in multiple languages" do

@@ -375,6 +375,19 @@ That's all
     assert_select ".speech .display-type", text: "Statement to Parliament"
   end
 
+  test "#activity loads content appropriate to the current locale" do
+    policy = create(:published_policy, translated_into: 'es')
+    speech = create(:published_speech, related_editions: [policy])
+    spanish = create(:published_news_article, related_editions: [policy], translated_into: 'es')
+
+    get :activity, id: policy.document
+    assert_response :success
+    assert_equal [spanish, speech], assigns(:recently_changed_documents)
+
+    get :activity, id: policy.document, locale: 'es'
+    assert_equal [spanish], assigns(:recently_changed_documents)
+  end
+
   view_test "supporting case studies are included in page" do
     policy = create(:published_policy)
     case_study = create(:published_case_study, related_editions: [policy])

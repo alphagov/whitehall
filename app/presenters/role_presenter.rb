@@ -44,7 +44,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
   end
 
   def published_policies
-    model.published_policies(limit: 10).map { |p| PolicyPresenter.new(p, context) }
+    model.published_policies.with_translations(I18n.locale).limit(10).map { |p| PolicyPresenter.new(p, context) }
   end
 
   def previous_appointments
