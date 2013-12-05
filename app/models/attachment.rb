@@ -24,6 +24,7 @@ class Attachment < ActiveRecord::Base
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
   validates_with AttachmentValidator
+  validates :attachable, presence: true
   validates :title, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
   validates :command_paper_number, format: {
