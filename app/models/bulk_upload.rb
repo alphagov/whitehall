@@ -17,7 +17,7 @@ class BulkUpload
 
   validate :attachments_must_be_valid
 
-  attr_reader :attachments
+  attr_reader :edition, :attachments
 
   def self.from_files(edition, file_paths)
     new(edition).tap do |bulk_upload|
@@ -55,6 +55,8 @@ class BulkUpload
   end
 
   def save_attachments
+    attachments.each { |attachment| attachment.attachable = edition }
+
     if valid?
       attachments.each do |attachment|
         if attachment.new_record?
