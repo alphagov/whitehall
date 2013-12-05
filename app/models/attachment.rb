@@ -16,6 +16,7 @@ class Attachment < ActiveRecord::Base
     to: :attachment_data
 
   before_save :set_ordering, if: -> { ordering.blank? }
+  before_save :nilify_locale_if_blank
 
   after_destroy :destroy_unused_attachment_data
 
@@ -105,5 +106,9 @@ class Attachment < ActiveRecord::Base
 
   def set_ordering
     self.ordering = attachable.next_ordering
+  end
+
+  def nilify_locale_if_blank
+    self.locale = nil if locale.blank?
   end
 end
