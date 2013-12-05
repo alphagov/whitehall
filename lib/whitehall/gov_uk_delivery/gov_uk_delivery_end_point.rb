@@ -119,7 +119,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   end
 
   def update_information
-    if edition.document.change_history.length > 1
+    if edition.change_history.length > 1
       "[Updated: #{edition.document.change_history.first.note}]"
     end
   end

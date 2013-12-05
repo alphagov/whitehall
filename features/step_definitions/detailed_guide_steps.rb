@@ -64,7 +64,7 @@ end
 Then /^the change notes should appear in the history for the detailed guide "([^"]*)" in reverse chronological order$/ do |title|
   detailed_guide = DetailedGuide.find_by_title!(title)
   visit detailed_guide_path(detailed_guide.document)
-  document_history = detailed_guide.document.change_history
+  document_history = detailed_guide.change_history
   change_notes = find('.change-notes').all('.note')
   assert_equal document_history.length, change_notes.length
   document_history.zip(change_notes).each do |history, note|
