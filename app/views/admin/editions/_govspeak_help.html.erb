@@ -48,6 +48,22 @@ Don't use a single # - this is H1 and is for the title only</pre>
   <p>For external websites, use the full URL including http://:</p>
   <pre>[link text](http://www.example.com)</pre>
   <p>The link will display with an external link symbol.</p>
+
+  <h4>Linking to paragraphs</h4>
+  <p>
+    If you want to link to specific paragraphs within a document, you need to mark the paragraph as linkable
+    by placing an anchor tag <strong>below</strong> the paragraph:
+  </p>
+<pre>
+Stocks of some fish species are very low. For example, stocks of European Eel have declined by about 95% over the last 30 years.
+{:eel-decline}
+</pre>
+
+  <p>The paragraph can then be linked to from the same document:</p>
+  <pre>[Sample link text](#eel-decline)</pre>
+
+  <p>or from another document:</p>
+  <pre>[Sample link text](https://www.gov.uk/government/policies/managing-freshwater-fisheries#eel-decline)</pre>
 </div>
 
 <h3><a data-toggle="collapse" data-target="#govspeak-bullets">Bullets</a></h3>
