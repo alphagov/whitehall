@@ -15,7 +15,9 @@ task :supporting_page_cleanup => :environment do
   Document.where(document_type: 'SupportingPage').find_each do |document|
     logger.info "Reparing: #{document.slug}"
     cleaner = SupportingPageCleaner.new(document, logger)
-    cleaner.delete_duplicate_superseded_editions!
-    cleaner.repair_version_history!
+    if cleaner.needs_cleaning?
+      cleaner.delete_duplicate_superseded_editions!
+      cleaner.repair_version_history!
+    end
   end
 end
