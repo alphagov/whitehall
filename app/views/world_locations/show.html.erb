@@ -2,6 +2,10 @@
 <% page_class "world-locations-show" %>
 <% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
 
+<% if world_location_survey_url(@world_location) %>
+  <% initialise_script('GOVUK.CustomUserSatisfactionSurvey', surveyUrl: world_location_survey_url(@world_location)) %>
+<% end %>
+
 <%= content_tag_for(:article, @world_location) do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
