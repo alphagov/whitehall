@@ -26,8 +26,8 @@ private
       log_data = {message: log_data}
     end
 
-    log_data.symbolize_keys!
-    message = log_data.delete(:message)
+    log_data = log_data.symbolize_keys
+    message = log_data.delete(:message) || ''
     source  = log_data.delete(:source) || ''
     tags    = default_tags + (log_data.delete(:tags) || [])
     fields  = log_data.reverse_merge({
