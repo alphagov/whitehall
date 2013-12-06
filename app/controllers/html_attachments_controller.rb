@@ -1,4 +1,4 @@
-class HtmlAttachmentsController < ApplicationController
+class HtmlAttachmentsController < PublicFacingController
   include PublicDocumentRoutesHelper
 
   layout 'html_attachments'
@@ -9,6 +9,14 @@ class HtmlAttachmentsController < ApplicationController
   end
 
 private
+
+  def set_cache_control_headers
+    if previewing?
+      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+    else
+      super
+    end
+  end
 
   def find_edition
     if previewing?

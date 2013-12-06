@@ -30,7 +30,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_equal 301, response.status
   end
 
-  test 'document attachments that are visible are sent to the browser inline' do
+  test 'document attachments that are visible are sent to the browser inline with default caching' do
     visible_edition = create(:published_publication, :with_file_attachment)
     attachment_data = visible_edition.attachments.first.attachment_data
 
@@ -38,6 +38,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
 
     assert_response :success
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
     assert_match /^inline;/, response.headers['Content-Disposition']
     assert_match attachment_data.filename, response.headers['Content-Disposition']
   end
@@ -112,6 +113,21 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data = create(:attachment_data)
     get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: "#{attachment_data.file_extension}missing"
     assert_response :not_found
+  end
+
+  test "editor previewed attachments are not cached" do
+    draft_edition = create(:draft_edition)
+    attachment = create(:file_attachment, attachable: draft_edition)
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+
+    login_as(:policy_writer)
+    get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_response :success
+    assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
+    assert_match attachment_data.filename, response.headers['Content-Disposition']
+    assert_match /^inline;/, response.headers['Content-Disposition']
   end
 
   view_test "GET #preview for a CSV attachment on a public edition renders the CSV preview" do

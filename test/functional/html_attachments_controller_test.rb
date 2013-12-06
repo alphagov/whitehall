@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class HtmlAttachmentsControllerTest < ActionController::TestCase
+  should_be_a_public_facing_controller
 
   view_test '#show renders the HTML attachment of a published publication' do
     publication, attachment = create_edition_and_attachment
@@ -8,6 +9,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select 'header h1', attachment.title
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
   view_test '#show renders the HTML attachment of a published consultation' do
@@ -42,17 +44,18 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test '#show renders the HTML attachment if previewing an attachment on a draft edition' do
+  view_test '#show renders the HTML attachment (without caching) on draft edition if previewing' do
     login_as create(:departmental_editor)
     publication, attachment = create_edition_and_attachment(:publication, :draft)
 
     get :show, publication_id: publication.document, id: attachment, preview: attachment.id
 
     assert_response :success
+    assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
     assert_select 'header h1', attachment.title
   end
 
-  view_test '#show previews the latest html attachment, despite the slugs matching' do
+  view_test '#show previews the latest html attachment (without caching), despite the slugs matching' do
     user = create(:departmental_editor)
     publication, attachment = create_edition_and_attachment(:publication)
     draft = publication.create_draft(user)
@@ -63,6 +66,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     get :show, publication_id: draft.document, id: draft_attachment, preview: draft_attachment.id
 
     assert_response :success
+    assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
     assert_select 'header h1', draft_attachment.title
   end
 
