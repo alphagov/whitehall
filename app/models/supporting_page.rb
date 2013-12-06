@@ -6,9 +6,7 @@ class SupportingPage < Edition
 
   validate :at_least_one_related_policy
 
-  def organisations
-    related_policies.flat_map(&:organisations).uniq
-  end
+  has_many :organisations, through: :related_policies, readonly: true
 
 private
   def at_least_one_related_policy
