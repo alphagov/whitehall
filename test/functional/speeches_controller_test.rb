@@ -92,6 +92,15 @@ class SpeechesControllerTest < ActionController::TestCase
     assert_select ".type", "Oral statement to Parliament"
   end
 
+  view_test "should display details about a written article" do
+    speech_type = SpeechType::AuthoredArticle
+    published_speech = create(:published_speech, speech_type: speech_type)
+
+    get :show, id: published_speech.document
+    refute_select ".explanation"
+    assert_select ".type", "Authored article"
+  end
+
   view_test "should omit location if not given" do
     published_speech = create(:published_speech, location: '')
 
