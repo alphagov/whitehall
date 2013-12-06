@@ -1,9 +1,10 @@
-class HtmlAttachmentsController < ApplicationController
+class HtmlAttachmentsController < PublicFacingController
   include PublicDocumentRoutesHelper
 
   layout 'html_attachments'
 
   before_filter :find_edition, :redirect_if_unpublished, :find_html_attachment
+  skip_before_filter :set_cache_control_headers, if: :previewing?
 
   def show
   end

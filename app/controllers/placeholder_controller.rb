@@ -1,4 +1,4 @@
-class PlaceholderController < ApplicationController
+class PlaceholderController < PublicFacingController
   include ActionView::Helpers::AssetTagHelper
 
   def show

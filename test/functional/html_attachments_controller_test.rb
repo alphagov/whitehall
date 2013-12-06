@@ -2,6 +2,8 @@ require 'test_helper'
 
 class HtmlAttachmentsControllerTest < ActionController::TestCase
 
+  should_be_a_public_facing_controller
+
   view_test '#show renders the HTML attachment of a published publication' do
     publication, attachment = create_edition_and_attachment
     get :show, publication_id: publication.document, id: attachment
