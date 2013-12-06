@@ -9,6 +9,18 @@ class PublicFacingController < ApplicationController
 
   include LocalisedUrlPathHelper
 
+  rescue_from GdsApi::TimedOutException do |exception|
+    log_error_and_render_500 exception
+  end
+
+  rescue_from GdsApi::HTTPErrorResponse do |exception|
+    if exception.code == 502
+      log_error_and_render_500 exception
+    else
+      raise
+    end
+  end
+
   # Allows additional request formats to be enabled.
   #
   # By default, PublicFacingController actions will only respond to HTML requests. To enable
@@ -30,6 +42,11 @@ class PublicFacingController < ApplicationController
   end
 
   private
+
+  def log_error_and_render_500(exception)
+    logger.error "\n#{exception.class} (#{exception.message}):\n#{exception.backtrace.join("\n")}\n\n"
+    render text: 'API Timed Out', status: :internal_server_error
+  end
 
   def set_locale(&block)
     I18n.with_locale(params[:locale] || I18n.default_locale, &block)
