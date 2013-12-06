@@ -4,12 +4,19 @@ class HtmlAttachmentsController < PublicFacingController
   layout 'html_attachments'
 
   before_filter :find_edition, :redirect_if_unpublished, :find_html_attachment
-  skip_before_filter :set_cache_control_headers, if: :previewing?
 
   def show
   end
 
 private
+
+  def set_cache_control_headers
+    if previewing?
+      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+    else
+      super
+    end
+  end
 
   def find_edition
     if previewing?
