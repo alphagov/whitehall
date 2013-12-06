@@ -22,7 +22,7 @@ class Consultation < Publicationesque
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
 
   scope :closed, -> { where("closing_at < ?",  Time.zone.now) }
-  scope :closed_since, ->(earliest_closing_date) { closed.where('closing_at >= ?', earliest_closing_date.to_date) }
+  scope :closed_since, ->(time) { closed.where('closing_at >= ?', time) }
   scope :open, -> { where('closing_at >= ? AND opening_at <= ?', Time.zone.now, Time.zone.now) }
   scope :upcoming, -> { where('opening_at > ?', Time.zone.now) }
   scope :responded, -> { joins(:outcome) }
