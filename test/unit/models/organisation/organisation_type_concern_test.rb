@@ -75,15 +75,15 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     refute Organisation.listable.include?(closed_org)
   end
 
-  test "active_child_organisations_excluding_sub_organisations should live up to it's name" do
+  test "active_child_organisations_excluding_sub_organisations should live up to it's name and in alphabetical order" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
-    child_org_1 = create(:organisation, parent_organisations: [parent_org_1])
+    child_org_1 = create(:organisation, parent_organisations: [parent_org_1], name: "b second")
     child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
-    child_org_3 = create(:organisation, parent_organisations: [parent_org_1])
+    child_org_3 = create(:organisation, parent_organisations: [parent_org_1], name: "a first")
     child_org_4 = create(:organisation, parent_organisations: [parent_org_1], govuk_status: 'closed')
 
-    assert_equal [child_org_1, child_org_3], parent_org_1.active_child_organisations_excluding_sub_organisations
+    assert_equal [child_org_3, child_org_1], parent_org_1.active_child_organisations_excluding_sub_organisations
   end
 
   test "active_child_organisations_excluding_sub_organisations_grouped_by_type should return a 2D array with each 1st level member being a OrganisationType and a collection of organisations" do
