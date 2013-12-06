@@ -8,14 +8,15 @@ class ScheduledEditionsPublisher
     end
   end
 
-  attr_reader :log_cache
+  attr_reader :log_cache, :logger
 
-  def initialize(editions_scope)
+  def initialize(editions_scope, opts = {})
     unless editions_scope.is_a?(ActiveRecord::Relation)
       raise ArgumentError, 'editions_scope must be an ActiveRecord::Relation'
     end
     @editions_scope = editions_scope
     @log_cache = ''
+    @logger = opts[:logger] || SCHEDULED_PUBLISHING_LOGGER
   end
 
   def editions
@@ -40,7 +41,7 @@ class ScheduledEditionsPublisher
       EditionPublishingWorker.new.perform(edition.id, publishing_robot.id)
       log_successful_publication(edition)
     end
-  rescue Object => exception
+  rescue Exception => exception
     log_unsuccessful_publication(edition, exception.message)
   end
 
@@ -53,8 +54,8 @@ class ScheduledEditionsPublisher
     new(editions_scope).publish_all!
   end
 
-  def log(message)
-    Rails.logger.info("Scheduled Publisher > #{message}")
+  def log(message, log_level = :info)
+    logger.send(log_level, message)
     @log_cache << message << "\n"
   end
 
@@ -88,7 +89,7 @@ class ScheduledEditionsPublisher
     yield
 
     log "Finishing attempt No. #{@attempts}"
-    log "WARNING: #{unpublished_editions_count} unpublished editions still remain" if unpublished_editions_remaining?
+    log "#{unpublished_editions_count} unpublished editions still remain", :warn if unpublished_editions_remaining?
   end
 
   def log_successful_publication(edition)
@@ -97,6 +98,6 @@ class ScheduledEditionsPublisher
   end
 
   def log_unsuccessful_publication(edition, reason)
-    log "WARNING: Edition (#{edition.id}) failed to publish: #{reason}"
+    log "Edition (#{edition.id}) failed to publish: #{reason}", :warn
   end
 end
