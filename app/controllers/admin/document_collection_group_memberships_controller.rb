@@ -2,12 +2,16 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
   before_filter :load_document_collection
   before_filter :load_document_collection_group
   before_filter :find_document, only: :create
-  before_filter :ensure_document_is_not_collection, only: :create
 
   def create
-    @group.documents << @document
-    redirect_to admin_document_collection_groups_path(@collection),
-      notice: "'#{params[:title]}' added to '#{@group.heading}'"
+    membership = DocumentCollectionGroupMembership.new(document: @document, document_collection_group: @group)
+    if membership.save
+      redirect_to admin_document_collection_groups_path(@collection),
+        notice: "'#{params[:title]}' added to '#{@group.heading}'"
+    else
+      redirect_to admin_document_collection_groups_path(@collection),
+        alert: membership.errors.full_messages.join(". ") + '.'
+    end
   end
 
   def destroy
@@ -23,7 +27,8 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     end
   end
 
-  private
+private
+
   def moving?
     params[:commit] == 'Move'
   end
@@ -62,13 +67,6 @@ class Admin::DocumentCollectionGroupMembershipsController < Admin::BaseControlle
     unless @document = Document.where(id: params[:document_id]).first
       redirect_to admin_document_collection_groups_path(@collection),
         alert: "We couldn't find a document titled '#{params[:title]}'"
-    end
-  end
-
-  def ensure_document_is_not_collection
-    if @document.document_type == 'DocumentCollection'
-      redirect_to admin_document_collection_groups_path(@collection),
-        alert: "Cannot add a collection to another collection"
     end
   end
 end
