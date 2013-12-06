@@ -41,7 +41,7 @@ module Organisation::OrganisationTypeConcern
 
   def active_child_organisations_excluding_sub_organisations
     @active_child_organisations_excluding_sub_organisations ||=
-      child_organisations.excluding_govuk_status_closed.with_translations.where("organisation_type_key != 'sub_organisation'")
+      child_organisations.excluding_govuk_status_closed.with_translations.where("organisation_type_key != 'sub_organisation'").ordered_by_name_ignoring_prefix
   end
 
   def active_child_organisations_excluding_sub_organisations_grouped_by_type
