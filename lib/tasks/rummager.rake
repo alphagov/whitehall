@@ -23,10 +23,10 @@ namespace :rummager do
       index.commit
     end
 
-    desc "reindex consultations which close today"
+    desc "reindex consultations which closed in the past day"
     task :closed_consultations => [:environment, :warn_about_no_op] do
       index = Whitehall::SearchIndex.for(:government)
-      index.add_batch(Consultation.published.closed_since(Date.today).map(&:search_index))
+      index.add_batch(Consultation.published.closed_since(25.hours.ago).map(&:search_index))
       index.commit
     end
   end
