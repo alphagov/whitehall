@@ -1,4 +1,4 @@
-class AboutPagesController < ApplicationController
+class AboutPagesController < PublicFacingController
   def show
     @topical_event = TopicalEvent.find_by_slug!(params[:topical_event_id])
     @about_page = @topical_event.about_page
