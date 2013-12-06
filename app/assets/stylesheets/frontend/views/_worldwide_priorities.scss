@@ -39,4 +39,8 @@
       padding: ($gutter + $gutter-one-third - 2px) 0 ($gutter);
     }
   }
+
+  .heading-extra {
+    margin-top: $gutter + $gutter-half;
+  }
 }
