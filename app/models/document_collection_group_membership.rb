@@ -1,5 +1,5 @@
 class DocumentCollectionGroupMembership < ActiveRecord::Base
-  BANNED_DOCUMENT_TYPES = ["DocumentCollection"]
+  BANNED_DOCUMENT_TYPES = ["DocumentCollection", "SupportingPage"]
 
   belongs_to :document
   belongs_to :document_collection_group

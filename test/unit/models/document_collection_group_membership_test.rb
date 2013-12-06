@@ -20,4 +20,9 @@ class DocumentCollectionGroupMembershipTest < ActiveSupport::TestCase
     membership = build(:document_collection_group_membership, document: create(:document_collection).document)
     refute membership.valid?
   end
+
+  test 'is invalid when document is a supporting page' do
+    membership = build(:document_collection_group_membership, document: create(:supporting_page).document)
+    refute membership.valid?
+  end
 end
