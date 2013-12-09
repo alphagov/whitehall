@@ -1,9 +1,9 @@
 // Styles for Publications view
 
 .publication {
-  @include media(tablet){
+  @include media(tablet) {
     .block-3 {
-      width: 100%;
+      width: $full-width;
     }
   }
 }

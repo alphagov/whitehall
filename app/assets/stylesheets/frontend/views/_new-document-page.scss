@@ -1,8 +1,8 @@
 .document-page {
-  @include media(desktop){
+  @include media(desktop) {
     .block-3 {
       float: left;
-      width: 33%;
+      width: $one-third;
       min-height: 100px;
 
       @include right-to-left {
@@ -11,7 +11,7 @@
     }
     .block-4 {
       float: left;
-      width: 66%;
+      width: $two-thirds;
       min-height: 100px;
 
       @include right-to-left {

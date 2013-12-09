@@ -1,13 +1,13 @@
 .about-page {
   @include media(desktop) {
     .sidebar-block {
-      width: 33.33%;
+      width: $one-third;
       float: left;
 
       margin-top: -4px;
     }
     .content-block {
-      width: 66.66%;
+      width: $two-thirds;
       float: right;
     }
   }
@@ -19,14 +19,14 @@
 
   nav {
     @include ig-core-16;
-    padding: ($gutter - $gutter-one-third) 0 $gutter;
+    padding: $gutter-two-thirds 0 $gutter;
     h1 {
       @include bold;
     }
   }
   .description {
     @include ig-core-24;
-    margin: 10px 0 20px;
+    margin: $gutter-one-third 0 $gutter-two-thirds;
   }
   .body {
     h2 {

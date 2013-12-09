@@ -1,6 +1,6 @@
 .holding-block {
-  @include media(desktop){
-    width: 66%;
+  @include media(desktop) {
+    width: $two-thirds;
     margin: $gutter 0;
   }
 

@@ -1,65 +1,3 @@
-nav.consultations_scope {
-  li {
-    margin: 0;
-    font-size: 0.875em;
-    line-height: 1.286em;
-    margin-bottom: 1.286em;
-    list-style-type: none;
-    margin-bottom: 0.75em;
-    position: relative;
-    padding-left: 1.75em;
-  }
-  li a {
-    color: #444;
-  }
-  li a span {
-    background-color:  #CCC;
-    display: block;
-    height: 0.75em;
-    left: 0;
-    position: absolute;
-    top: 0.355em;
-    width: 0.75em;
-  }
-  li.selected a span, li:hover a span {
-    background-color:  #2E3191;
-  }
-  li.toggle a span {
-    background-color: inherit;
-    top: 0;
-  }
-
-  a:first-child {
-    margin-left: 0;
-    background-color: #744260;
-    margin-right: 1px;
-  }
-   a {
-    margin: 0;
-    font-size: 0.813em;
-    line-height: 1.385em;
-    margin-bottom: 1.385em;
-    color: white;
-    font-weight: bold;
-    background-color: #DB43A1;
-    padding: 0.35em 1em 0.5em 1em;
-    display: inline-block;
-    margin-left: -4px;
-    margin-bottom: 0;
-    text-decoration: none;
-  }
-  a:last-child {
-    color: white;
-    background-color: #DB43A1;
-    opacity: 0.6666;
-  }
-  a:hover {
-    background-color: #ddd;
-    color: #666;
-  }
-
-}
-
 .consultation {
   &.consultation-closed,
   &.consultation-responded {
@@ -114,7 +52,7 @@ nav.consultations_scope {
     .consultation-dates {
       @include media(tablet) {
         float: left;
-        width: 33.33%;
+        width: $one-third;
       }
       p {
         span {
@@ -136,7 +74,7 @@ nav.consultations_scope {
       @include media(tablet) {
         float: left;
         margin-top: 0;
-        width: 66.66%;
+        width: $two-thirds;
       }
       .consultation-summary-inner {
         border-top: 1px solid $white;

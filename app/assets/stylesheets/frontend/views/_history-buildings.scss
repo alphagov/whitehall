@@ -2,7 +2,7 @@
   .content-list, .content-body {
     @include media(tablet) {
       float: left;
-      width: 33.33%;
+      width: $one-third;
     }
   }
   .content-body {
@@ -22,7 +22,7 @@
       margin-bottom: $gutter;
     }
     @include media(tablet) {
-      width: 66.66%;
+      width: $two-thirds;
     }
     address {
       @include core-19;
@@ -31,7 +31,7 @@
     }
     img {
       margin-bottom: $gutter-half;
-      width: 100%
+      width: $full-width;
     }
     figure {
       margin-bottom: $gutter;
@@ -68,7 +68,7 @@
       }
     }
     img {
-      max-width: 100%;
+      max-width: $full-width;
     }
   }
 
@@ -83,7 +83,7 @@
     padding: 0;
     margin: 0;
     border: 0;
-    color: lighten($text-colour, 33.333%);
+    color: lighten($text-colour, $one-third);
 
     p {
       padding-left: $gutter-half;
@@ -146,9 +146,9 @@
 
 
     .tour-nav {
-      @include media(tablet){
+      @include media(tablet) {
         float: left;
-        width: 33.33%;
+        width: $one-third;
       }
 
       ul {
@@ -163,9 +163,9 @@
       }
     }
     .tour-info {
-      @include media(tablet){
+      @include media(tablet) {
         float: left;
-        width: 66.66%;
+        width: $two-thirds;
       }
       .tour-content {
         padding: 0 $gutter-half;

@@ -10,7 +10,7 @@
     }
     .topical-event-logo {
       img {
-        max-width: 100%;
+        max-width: $full-width;
         margin-top: $gutter;
       }
     }
@@ -28,7 +28,7 @@
       }
       .read-more {
         @include core-24;
-        margin: 20px 0;
+        margin: $gutter-two-thirds 0;
       }
 
       .social-media-accounts {
@@ -60,7 +60,7 @@
           display: block;
           height: 80px;
           text-indent: -999em;
-          background: transparent none no-repeat 50% 50%;
+          background: transparent none no-repeat $half $half;
         }
 
         &.arts-council-england a {

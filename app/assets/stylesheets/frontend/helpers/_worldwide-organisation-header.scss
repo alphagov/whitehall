@@ -1,14 +1,14 @@
 .worldwide-organisation-header {
   margin: $gutter-half 0;
-  @include media(tablet){
+  @include media(tablet) {
     padding-bottom: $gutter;
   }
 
   .logo {
-    @include media(tablet){
+    @include media(tablet) {
       margin-top: $gutter-half;
       float: left;
-      width: 66.66%;
+      width: $two-thirds;
       @include right-to-left {
         float: right;
       }
@@ -19,7 +19,7 @@
   }
   .headings-block {
     float: left;
-    width: 33.33%;
+    width: $one-third;
   }
   .available-languages {
     ul {
@@ -29,9 +29,9 @@
   .metadata {
     margin-top: $gutter-one-third;
 
-    @include media(tablet){
+    @include media(tablet) {
       float: right;
-      width: 33.33%;
+      width: $one-third;
       @include right-to-left {
         float: left;
       }

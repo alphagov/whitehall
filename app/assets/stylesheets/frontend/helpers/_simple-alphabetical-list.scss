@@ -9,8 +9,8 @@
     width: auto;
 
     @include media(tablet) {
-      padding-left: 33.333%;
-      width: 66%;
+      padding-left: $one-third;
+      width: $two-thirds;
     }
 
     .image_holder {
@@ -30,7 +30,7 @@
 
       li {
         @include core-19;
-        padding: 5px 0;
+        padding: $gutter-one-sixth 0;
         border-bottom: 1px solid $border-colour;
       }
     }

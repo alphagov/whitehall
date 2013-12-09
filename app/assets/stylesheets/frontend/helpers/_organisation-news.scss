@@ -1,14 +1,14 @@
 .organisation-news {
   article {
     &.first {
-      width: 100%;
+      width: $full-width;
       .content {
         padding: $gutter-half 0 $gutter-one-third 0;
         @extend %contain-floats;
         .image-holder {
-          width: 100%;
+          width: $full-width;
           @include media(tablet){
-            width: 66.66%;
+            width: $two-thirds;
             float: left;
           }
           .img {
@@ -16,12 +16,12 @@
           }
         }
         .text {
-          width: 100%;
+          width: $full-width;
           .meta, h2, .summary {
             padding: 0 $gutter-half;
           }
           @include media(tablet){
-            width: 33.33%;
+            width: $one-third;
             float: left;
 
             .meta, h2, .summary {
@@ -49,7 +49,7 @@
     .recently-updated {
       @include media(tablet){
         clear: both;
-        width: 66.66%;
+        width: $two-thirds;
       }
     }
   }

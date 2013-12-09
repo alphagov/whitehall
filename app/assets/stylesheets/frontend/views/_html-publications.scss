@@ -2,7 +2,7 @@
   @extend %contain-floats;
 
   padding: $gutter-half $gutter-half $gutter*3;
-  @include media(tablet){
+  @include media(tablet) {
     padding: $gutter $gutter $gutter*3;
   }
 
@@ -12,8 +12,8 @@
     position: relative;
 
     .organisations {
-      @include media(tablet){
-        width: 25%;
+      @include media(tablet) {
+        width: $one-quarter;
         float: left;
       }
       .content {
@@ -22,7 +22,7 @@
     }
     .return {
       color: $text-colour;
-      @include media(tablet){
+      @include media(tablet) {
         width: 75%;
         float: left;
 
@@ -41,7 +41,7 @@
     background: $light-blue;
     padding: $gutter-one-third;
     margin: 0 (-$gutter-half);
-    @include media(tablet){
+    @include media(tablet) {
       padding: 0 $gutter;
       margin: 0;
     }
@@ -54,7 +54,7 @@
         margin: $gutter-one-sixth 0 $gutter-half;
         color: $white;
 
-        @include media(tablet){
+        @include media(tablet) {
           margin-bottom: $gutter*2;
         }
       }
@@ -67,7 +67,7 @@
         }
       }
       p {
-        margin: $gutter-half 0 20px;
+        margin: $gutter-half 0 $gutter-two-thirds;
         color: $white;
       }
     }
@@ -79,7 +79,7 @@
 
   .in-page-navigation {
     color: $white;
-    margin: 0 0 40px;
+    margin: 0 0 $gutter+$gutter-one-third;
     width: 70%;
     h2 {
       font-weight: bold;
@@ -114,7 +114,7 @@
     z-index: 2;
 
     .govspeak {
-      @include media(tablet){
+      @include media(tablet) {
         width: 75%;
         float: right;
       }
@@ -124,7 +124,7 @@
         @include core-36;
         margin: $gutter-half 0 $gutter-one-third;
 
-        @include media(tablet){
+        @include media(tablet) {
           margin: $gutter*2 0 $gutter-half;
         }
         .number {
@@ -152,7 +152,7 @@
           background: $white;
           color: $secondary-text-colour;
           padding-right: $gutter-one-third;
-          @include media(tablet){
+          @include media(tablet) {
             padding-right: 0;
             display: inline-block;
             width: $gutter*2.5;
@@ -164,7 +164,7 @@
         font-weight: bold;
         color: black;
         margin-top: $gutter;
-        @include media(tablet){
+        @include media(tablet) {
           margin-top: ($gutter*2) + $gutter-two-thirds;
         }
       }
@@ -179,7 +179,7 @@
       p, ul, ol {
         line-height: 1.4736842105;
         margin: $gutter-one-third 0;
-        @include media(tablet){
+        @include media(tablet) {
           margin: $gutter-two-thirds 0;
         }
         a {
@@ -193,13 +193,13 @@
         @include core-16;
         font-weight: bold;
         margin: 0 0 $gutter-one-third;
-        @include media(tablet){
+        @include media(tablet) {
           margin: 0 0 $gutter-two-thirds;
         }
       }
       ul, ol {
         margin-left: 1.3em;
-        @include ie(7){
+        @include ie(7) {
           margin-left: $gutter;
         }
 
@@ -214,7 +214,7 @@
       }
       table, img {
         margin: $gutter-half 0;
-        width: 100%;
+        width: $full-width;
         height: auto;
       }
       table {
@@ -263,8 +263,8 @@
         .adr,
         .email-url-number,
         .comments {
-          @include media(tablet){
-            width: 50%;
+          @include media(tablet) {
+            width: $half;
             float: left;
           }
         }
@@ -298,7 +298,7 @@
           margin-top: 0px;
           .number {
             background: none;
-            @include media(tablet){
+            @include media(tablet) {
               width: $gutter-one-third*9;
               margin-left: $gutter-one-third*-9;
             }

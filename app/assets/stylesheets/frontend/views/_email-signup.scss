@@ -30,8 +30,8 @@
       .field {
         margin-bottom: $gutter-half;
 
-        @include media(tablet){
-          width: 33.33%;
+        @include media(tablet) {
+          width: $one-third;
           float: left;
         }
         &.clear-field {
@@ -48,13 +48,13 @@
           font-weight: bold;
         }
         select {
-          width: 100%;
+          width: $full-width;
         }
 
         &.checkbox {
           clear: both;
-          @include media(tablet){
-            width: 100%;
+          @include media(tablet) {
+            width: $full-width;
           }
 
           label {

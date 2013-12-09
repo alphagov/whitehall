@@ -28,7 +28,7 @@
 
   .control-bar {
     position: relative;
-    width: 100%;
+    width: $full-width;
     height: 60px;
     border-bottom: 1px solid $border-colour;
 
@@ -85,7 +85,7 @@
       }
 
       .forward {
-        left: 100%;
+        left: $full-width;
         margin-left: -40px;
         background-image: image-url('player-icon-forward.png');
       }
@@ -201,7 +201,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 100%;
+      width: $full-width;
       height: 20px;
       overflow: hidden;
       background: $border-colour;
@@ -210,7 +210,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
+        height: $full-width;
         padding-bottom: 1px;
         background: $light-blue;
       }
@@ -218,7 +218,7 @@
       .ui-slider-handle {
         position: absolute;
         top: 0;
-        height: 100%;
+        height: $full-width;
         padding-bottom: 1px;
         width: 20px;
         color: rgba(0,0,0,0.5);

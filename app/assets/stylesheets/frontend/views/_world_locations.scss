@@ -1,13 +1,13 @@
 .world-locations-index {
   .page-title {
-    @include media(desktop){
+    @include media(desktop) {
       padding: $gutter*2 0 $gutter;
     }
 
     hgroup {
       @include heading-48;
-      @include media(desktop){
-        width: 66.66%;
+      @include media(desktop) {
+        width: $two-thirds;
       }
 
       h1 {
@@ -30,12 +30,12 @@
       margin-bottom: $gutter;
 
       .type-heading {
-        @include media(desktop){
-          width: 33.33%;
+        @include media(desktop) {
+          width: $one-third;
           float: left
         }
 
-        @include media(tablet){
+        @include media(tablet) {
           p {
             @include core-80;
             font-weight: bold;
@@ -44,8 +44,8 @@
       }
 
       .content {
-        @include media(desktop){
-          width: 66.66%;
+        @include media(desktop) {
+          width: $two-thirds;
           float: left;
           padding-top: $gutter - $gutter-one-sixth;
         };
@@ -64,7 +64,7 @@
 
             .location-link {
               @include core-19;
-              padding: 5px 0;
+              padding: $gutter-one-sixth 0;
               display: block;
               border-bottom: 1px solid $border-colour;
             }
@@ -87,7 +87,7 @@
 
   .keyline-header {
     @include heading-36;
-    border-bottom: 5px solid $inside-gov-nav;
+    border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
 
@@ -113,7 +113,7 @@
     .inner-block {
       padding: 0;
 
-      @include media(tablet){
+      @include media(tablet) {
         padding: 0 $gutter-half;
       }
     }
@@ -124,7 +124,7 @@
     &.items-3 {
       .recently-updated {
         @include media(tablet) {
-          width: 66.66%;
+          width: $two-thirds;
           clear: both;
           @include right-to-left {
             float: right;
@@ -154,7 +154,7 @@
       padding-bottom: $gutter;
       @include media(tablet) {
         float: left;
-        width: 50%;
+        width: $half;
 
         @include right-to-left {
           float: right;
@@ -196,7 +196,7 @@
         @include media(tablet) {
           float: left;
           display: inline;
-          width: 66.66%;
+          width: $two-thirds;
         }
 
         h2 {
@@ -226,10 +226,10 @@
         @include media(tablet) {
           margin-top: 0;
           min-width: auto;
-          width: 33.33%;
+          width: $one-third;
           .content {
             padding-left: $gutter-half;
-            @include right-to-left{
+            @include right-to-left {
               padding-right: 0;
             }
           }

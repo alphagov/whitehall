@@ -3,7 +3,7 @@
   .other-departments .type-heading {
     @include media(tablet) {
       margin-top: 0;
-      width: 25%;
+      width: $one-quarter;
     }
   }
 
@@ -21,7 +21,7 @@
     padding: $gutter-half 0;
     @extend %contain-floats;
 
-    @include media(tablet){
+    @include media(tablet) {
       width: 75%;
       padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
     }
@@ -81,7 +81,7 @@
       background: $panel-colour;
       @include border-radius(3px);
       padding: 2px $gutter-one-sixth;
-      margin: 3px $gutter-half 10px;
+      margin: 3px $gutter-half $gutter-one-third;
 
       &:after {
         display: inline-block;
@@ -127,11 +127,11 @@
 
   .type-heading {
     h1 {
-      width: 100%;
+      width: $full-width;
     }
-    @include media(desktop){
-      width: 33.33%;
-      float: left
+    @include media(desktop) {
+      width: $one-third;
+      float: left;
     }
 
     p {
@@ -142,14 +142,14 @@
       }
     }
 
-    @include media(tablet){
+    @include media(tablet) {
       p {
         clear: both;
         .count {
           @include core-80;
           display: block;
           font-weight: bold;
-          width: 100%;
+          width: $full-width;
         }
         .on-govuk {
           @include core-24;
@@ -183,7 +183,7 @@
 
   }
   .block-2 img {
-    width: 100%;
+    width: $full-width;
     height: auto;
   }
 
@@ -259,7 +259,7 @@
 
       @include media(tablet) {
         float: left;
-        width: 66.66%;
+        width: $two-thirds;
       }
     }
   }
@@ -295,7 +295,7 @@
           }
           @include media(tablet) {
             float: left;
-            width: $two-thirds;            
+            width: $two-thirds;
           }
         }
       }
@@ -314,7 +314,7 @@
           .content {
             .image-holder, .text {
               display: block;
-              width: 100%;
+              width: $full-width;
               h2 {
                 @include core-19;
               }
@@ -351,7 +351,7 @@
   .has-social {
     .organisation-news.items-0 .recently-updated {
       @include media(desktop){
-        width: 66.66%;
+        width: $two-thirds;
       }
     }
     .what-we-do {
@@ -361,10 +361,10 @@
 
   .what-we-do {
     .overview {
-      @include media(tablet){
+      @include media(tablet) {
         display: inline;
         float: left;
-        width: 66.66%;
+        width: $two-thirds;
 
         p {
           padding-right: $gutter-half;
@@ -380,16 +380,16 @@
     clear: both;
     float: left;
     display: inline;
-    width: 100%;
+    width: $full-width;
     @include media(desktop) {
-      width: 66.66%;
+      width: $two-thirds;
     }
     @include media(tablet) {
       margin-bottom: $gutter;
     }
     .content {
       padding: $gutter-half $gutter-half 0;
-      @include media(tablet){
+      @include media(tablet) {
         padding-top: $gutter*1.5;
       }
       p {
@@ -401,7 +401,7 @@
     h1 {
       @include core-27;
       font-weight: bold;
-      border-top-width: 5px;
+      border-top-width: $gutter-one-sixth;
       border-top-style: solid;
       padding-top: $gutter-two-thirds;
       padding-bottom: 1px;
@@ -430,10 +430,10 @@
   }
 
   .social-media {
-    @include media(tablet){
+    @include media(tablet) {
       float: left;
       display: inline;
-      width: 33.33%;
+      width: $one-third;
     }
     .content {
       padding: 0 $gutter-half;
@@ -446,7 +446,7 @@
     h2 {
       @include core-27;
       font-weight: bold;
-      border-top-width: 5px;
+      border-top-width: $gutter-one-sixth;
       border-top-style: solid;
       padding-top: $gutter-two-thirds;
       padding-bottom: 1px;
@@ -454,7 +454,7 @@
     }
     .content {
       padding: $gutter-half $gutter-half 0;
-      @include media(tablet){
+      @include media(tablet) {
         padding-top: $gutter*1.5;
       }
     }
@@ -483,7 +483,7 @@
       padding: $gutter-one-third;
       margin: $gutter 0;
 
-      @include media(desktop){
+      @include media(desktop) {
         padding: $gutter-half;
       }
 
@@ -497,7 +497,7 @@
           height: 58px;
           text-indent: -9999em;
           background: transparent image-url("uk-aid-logo.png") no-repeat 0 0;
-          background-size: 100% 100%;
+          background-size: $full-width $full-width;
 
           @include media(tablet){
             width: 108px;
@@ -561,10 +561,10 @@
         ul {
           position: relative;
           float: left;
-          width: 25%;
+          width: $one-quarter;
           margin: 0;
           li {
-            width: 100%;
+            width: $full-width;
           }
         }
         ul.management-secondary {
@@ -572,7 +572,7 @@
           float: left;
           width: 75%;
           li {
-            width: 33.33%;
+            width: $one-third;
           }
         }
       }
@@ -581,7 +581,7 @@
     .show-other-content {
       float: left;
       clear: both;
-      margin-right: -100%;
+      margin-right: -$full-width;
       margin-left: 0;
     }
 
@@ -590,14 +590,14 @@
   .contact-wrapper, .corporate-information {
     float: left;
     display: inline;
-    width: 100%;
+    width: $full-width;
     nav {
       @include media(tablet) {
         padding: 0 $gutter-half;
       }
     }
     @include media(desktop) {
-      width: 66.66%;
+      width: $two-thirds;
     }
     @include media(tablet) {
       margin-bottom: $gutter;
@@ -606,7 +606,7 @@
     h1 {
       @include core-27;
       font-weight: bold;
-      border-top-width: 5px;
+      border-top-width: $gutter-one-sixth;
       border-top-style: solid;
       padding-top: $gutter-two-thirds;
 
@@ -622,7 +622,7 @@
   }
 
   .corporate-information {
-    width: 100%;
+    width: $full-width;
     h2, nav, p {
       @include media(tablet) {
         padding: 0 $gutter-half;
@@ -632,7 +632,7 @@
       margin-bottom: $gutter;
     }
     @include media(desktop) {
-      width: 33.33%;
+      width: $one-third;
     }
   }
 
@@ -648,7 +648,7 @@
       clear: both;
       margin-top: $gutter-one-third;
       @extend %contain-floats;
-      @include media(tablet){
+      @include media(tablet) {
         margin-bottom: $gutter-two-thirds;
       }
       h2 {
@@ -790,22 +790,22 @@
 .organisations-external {
   @include media(desktop) {
     .block-2 {
-      width: 66.66%;
+      width: $two-thirds;
       float: right;
       .inner-block {
         padding-left: $gutter-two-thirds+$gutter-one-sixth;
       }
     }
     .block-3 {
-      width: 33.33%;
+      width: $one-third;
       float: left;
     }
     .block-4 {
-      width: 100%;
+      width: $full-width;
       clear: both;
     }
     .block-5 {
-      width: 100%;
+      width: $full-width;
       clear: both;
     }
   }
@@ -824,10 +824,10 @@
     }
 
     h1 {
-      @include media(desktop){
+      @include media(desktop) {
         float: left;
         padding-top: 0;
-        width: 33.33%;
+        width: $one-third;
       }
     }
 
@@ -837,7 +837,7 @@
         padding-left: 0;
         margin-top: $gutter-half;
         a {
-          color: #000;
+          color: $black;
         }
         @include media(desktop) {
           @include ig-core-48;
@@ -846,7 +846,7 @@
       @include media(desktop) {
         float: left;
         margin-bottom: $gutter;
-        width: 66.66%;
+        width: $two-thirds;
       }
     }
 
@@ -871,7 +871,7 @@
 
     img {
       @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
-      width: 100%;
+      width: $full-width;
       max-width: 287px;
     }
   }
@@ -893,7 +893,7 @@
 
   .executive-office-header {
     h1 {
-      background: transparent none no-repeat 50% 0;
+      background: transparent none no-repeat $half 0;
       padding-top: 140px;
       @include core-19;
       text-align: center;
@@ -904,8 +904,8 @@
   }
   .deputy-prime-ministers-office .executive-office-header h1 {
     padding-top: 110px;
-    padding-bottom: 15px;
-    background-position: 50% 10px;
+    padding-bottom: $gutter-half;
+    background-position: $half $gutter-one-third;
     background-image: image_url("executive-office-bars/deputy-prime-ministers-office.png");
     font-family: 'Times New Roman', serif;
   }
@@ -929,7 +929,7 @@
 
     .promo {
       float: left;
-      width: 100%;
+      width: $full-width;
       margin: $gutter-half 0 $gutter;
 
       &.clear-promo {
@@ -943,14 +943,14 @@
 
       .feature {
         float: left;
-        width: 100%;
+        width: $full-width;
         margin-bottom: $gutter;
       }
     }
 
     #featured-topics-and-policies {
-      @include media(tablet){
-        width: 66.66%;
+      @include media(tablet) {
+        width: $two-thirds;
         float: left;
       }
 
@@ -966,40 +966,40 @@
     }
 
     .social-media {
-      @include media(tablet){
-        width: 33.33%;
+      @include media(tablet) {
+        width: $one-third;
       }
     }
 
     .features {
       .features-1 {
-        @include media(tablet){
-          width: 33.33%;
+        @include media(tablet) {
+          width: $one-third;
           .large {
-            width: 66.66%;
+            width: $two-thirds;
           }
         }
       }
       .features-2 {
-        @include media(tablet){
-          width: 66.66%;
+        @include media(tablet) {
+          width: $two-thirds;
 
           .promotional_feature_item {
-            width: 50%;
+            width: $half;
             &.large {
-              width: 100%;
+              width: $full-width;
             }
           }
         }
       }
       .features-3 {
-        @include media(tablet){
-          width: 100%;
+        @include media(tablet) {
+          width: $full-width;
 
           .promotional_feature_item {
-            width: 33.33%;
+            width: $one-third;
             &.large {
-              width: 66.66%;
+              width: $two-thirds;
             }
           }
         }
@@ -1007,7 +1007,7 @@
       .content {
         @include core-16;
         img {
-          width: 100%;
+          width: $full-width;
           margin-bottom: $gutter-one-third;
         }
         h3 {
@@ -1027,7 +1027,7 @@
           li {
             list-style: none;
             float: left;
-            width: 50%;
+            width: $half;
             a {
               border-bottom: 1px solid $border-colour;
               display: block;
@@ -1043,8 +1043,8 @@
 
   .contact-wrapper {
     padding: 0 $gutter-half;
-    @include media(tablet){
-      width: 66.33%;
+    @include media(tablet) {
+      width: $two-thirds;
       float: left;
       padding: 0;
     }
@@ -1053,19 +1053,19 @@
       @include core-24;
       font-weight: bold;
       padding: $gutter-two-thirds 0;
-      @include media(tablet){
+      @include media(tablet) {
         margin: 0 $gutter-half;
       }
     }
     .org-contacts {
-      @include media(tablet){
+      @include media(tablet) {
         margin: 0 $gutter-half;
       }
     }
     .contact {
       clear: both;
       margin-top: $gutter-one-third;
-      @include media(tablet){
+      @include media(tablet) {
         margin-bottom: $gutter-two-thirds;
       }
       h2 {
@@ -1108,15 +1108,15 @@
   }
 
   .corporate-information {
-    @include media(tablet){
-      width: 33.33%;
+    @include media(tablet) {
+      width: $one-third;
       float: left;
     }
     .dash-list {
       @include core-19;
       margin: 0 $gutter-half;
       padding-top: $gutter;
-      border-top: 5px solid;
+      border-top: $gutter-one-sixth solid;
     }
   }
 
@@ -1130,13 +1130,13 @@
   @include organisation-brand-colour('.block-2 a', color, $websafe: true);
   @include organisation-brand-colour('.body .attachment .accessibility-warning h3 .toggler', color, $websafe: true);
 
-  @include media(desktop){
+  @include media(desktop) {
     .block-1 {
-      width: 33.33%;
+      width: $one-third;
       float: left;
     }
     .block-2 {
-      width: 66.66%;
+      width: $two-thirds;
       float: right;
     }
   }
@@ -1149,7 +1149,7 @@
         @include ig-core-36;
         padding-top: $gutter;
         a {
-          color: #000;
+          color: $black;
         }
       }
     }
@@ -1195,7 +1195,7 @@
     @include ig-core-48;
     font-weight: bold;
 
-    @include media(desktop){
+    @include media(desktop) {
       padding: $gutter*3 0 $gutter-half;
     }
   }
@@ -1248,15 +1248,15 @@
 
 .organisations-about {
   .corporate-information-block {
-    @include media(tablet){
+    @include media(tablet) {
       float: left;
-      width: 50%;
+      width: $half;
     }
 
     nav {
       display: block;
       padding: 0 0 $gutter-half;
-      width: 100%;
+      width: $full-width;
     }
     h2 {
       @include ig-core-19;
@@ -1269,13 +1269,13 @@
   .homepage-link {
     @include media(desktop) {
       float: left;
-      width: 50%;
+      width: $half;
     }
   }
   .organisation-top-tasks {
-    @include media(tablet){
+    @include media(tablet) {
       float: right;
-      width: 50%;
+      width: $half;
       padding-top: 0;
       margin-top: ($gutter-one-third * -1);
     }

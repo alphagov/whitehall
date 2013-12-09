@@ -39,7 +39,7 @@
   p {
     @include ig-core-19;
     margin: $gutter-one-sixth 0;
-    @include media(tablet){
+    @include media(tablet) {
       margin: $gutter-one-third 0;
     }
   }
@@ -192,7 +192,7 @@
   }
 
   figure {
-    width: 100%;
+    width: $full-width;
     clear: both;
     overflow: hidden;
     padding: $gutter-one-third 0 0;
@@ -202,7 +202,7 @@
       text-align: center;
       width: auto;
       height: auto;
-      max-width: 100%;
+      max-width: $full-width;
     }
 
     figcaption {
@@ -258,7 +258,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     margin: $gutter -10px $gutter -10px;
-    width: 100%;
+    width: $full-width;
     @include ig-core-19;
 
     caption {
@@ -287,7 +287,7 @@
     th {
       line-height:1.25em;
       text-align: left;
-      color:#000;
+      color: $black;
       font-weight:normal;
       background-color: #e1e8e8;
       border:solid 1px #bbb;
@@ -322,17 +322,17 @@
     position: relative;
     .content {
       float: none;
-      width: 100%;
+      width: $full-width;
       h3 {
         @include core-19;
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: $gutter-one-sixth;
       }
       .adr,
       .email-url-number,
       .comments {
-        @include media(tablet){
-          width: 50%;
+        @include media(tablet) {
+          width: $half;
           float: left;
         }
       }

@@ -11,7 +11,7 @@
   @include media(desktop) {
     .block-2 {
       clear: both;
-      width: 25%;
+      width: $one-quarter;
       float: left;
       display: inline;
     }
@@ -26,11 +26,11 @@
       width: 75%;
       float: left;
       display: inline;
-      margin-left: 25%;
+      margin-left: $one-quarter;
     }
   }
 
-  @include media(tablet){
+  @include media(tablet) {
     .page-header {
       width: 75%;
       float: left;

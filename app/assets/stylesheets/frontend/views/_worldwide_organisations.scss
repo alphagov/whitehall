@@ -1,7 +1,7 @@
 .worldwide-organisations-show {
   .keyline-header {
     @include heading-36;
-    border-bottom: 5px solid $inside-gov-nav;
+    border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
 
@@ -19,18 +19,18 @@
     @extend %contain-floats;
 
     .about-us {
-      @include media(tablet){
+      @include media(tablet) {
         float: left;
-        width: 66.66%;
+        width: $two-thirds;
         @include right-to-left {
           float: right;
         }
       }
     }
     .social-media-links {
-      @include media(tablet){
+      @include media(tablet) {
         float: left;
-        width: 33.33%;
+        width: $one-third;
         @include right-to-left {
           float: right;
         }
@@ -67,8 +67,8 @@
 
   .our-services {
     .content {
-      @include media(tablet){
-        width: 66.66%;
+      @include media(tablet) {
+        width: $two-thirds;
       }
       .govspeak {
         h2 {
@@ -92,14 +92,14 @@
       margin-right: $gutter-half;
     }
     .people-list {
-      @include media(tablet){
+      @include media(tablet) {
         float: left;
-        width: 66.66%
+        width: $two-thirds;
       }
 
       .person-excerpt {
-        @include media(tablet){
-          width: 33.33%;
+        @include media(tablet) {
+          width: $one-third;
         }
       }
     }
@@ -111,9 +111,9 @@
       @include core-16;
       margin-bottom: $gutter;
 
-      @include media(desktop){
+      @include media(desktop) {
         float: left;
-        width: 33%;
+        width: $one-third;
       }
       &.clear-contact {
         clear: both;
@@ -147,8 +147,8 @@
     }
     .contact.main {
 
-      @include media(desktop){
-        width: 100%;
+      @include media(desktop) {
+        width: $full-width;
         margin: 0 0 $gutter;
       }
 
@@ -159,16 +159,16 @@
         border-bottom: 1px solid $border-colour;
 
         .comments {
-          @include media(desktop){
+          @include media(desktop) {
             float: right;
-            width: 33.33%;
+            width: $one-third;
           }
         }
         .adr,
         .email-url-number {
-          @include media(desktop){
+          @include media(desktop) {
             float: left;
-            width: 33.33%;
+            width: $one-third;
           }
         }
       }

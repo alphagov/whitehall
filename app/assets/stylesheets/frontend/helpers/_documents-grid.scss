@@ -10,7 +10,7 @@
   }
 
   .block-title {
-    border-bottom-width: 5px;
+    border-bottom-width: $gutter-one-sixth;
     border-bottom-style: solid;
     @include core-36;
     padding-bottom: 1px;
@@ -19,17 +19,17 @@
 
   &.grid-size-1 {
     .document-block {
-      width: 100%;
+      width: $full-width;
 
       @include media(tablet){
         h1 {
-          width: 33.33%;
+          width: $one-third;
           float: left;
           margin: $gutter-one-sixth 0 0;
           text-indent: $gutter-half;
         }
         .content {
-          width: 66.66%;
+          width: $two-thirds;
           float: left;
           margin: 0;
           ol, p {
@@ -49,7 +49,7 @@
     }
 
     @include media(desktop){
-      width: 50%;
+      width: $half;
       float: left;
       @include right-to-left {
         float: right;

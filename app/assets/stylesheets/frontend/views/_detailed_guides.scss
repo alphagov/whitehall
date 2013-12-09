@@ -8,7 +8,7 @@
   margin-bottom: 120px;
 
   .page-header {
-    padding: 20px 0;
+    padding: $gutter-two-thirds 0;
     margin: 0;
   }
 
@@ -29,13 +29,13 @@
 .detailed-guides-show {
   @include media(desktop) {
     .block-2 {
-      width: 25%;
+      width: $one-quarter;
     }
     .block-3 {
       width: 70%;
     }
     .block-4 {
-      width: 100%;
+      width: $full-width;
       margin: 0;
       padding-bottom: $gutter*2;
     }
@@ -47,7 +47,7 @@
     .page-meta {
       padding-bottom: $gutter*3;
 
-      @include media(tablet){
+      @include media(tablet) {
         padding-bottom: 0;
         margin-right: $gutter*7.5;
       }
@@ -71,12 +71,12 @@
     }
     @include media(desktop) {
       &.toggleable .overlay {
-        left: -100%;
+        left: -($full-width);
       }
     }
     .arrow {
       left: 20%;
-      @include media(desktop){
+      @include media(desktop) {
         left: 70%;
       }
     }
@@ -94,7 +94,7 @@
 
     .organisations-icon-list {
       overflow: hidden;
-      width: 100%;
+      width: $full-width;
       padding-bottom: $gutter-one-third;
       @include media (640px) {
         padding-bottom: $gutter-half;
@@ -154,9 +154,9 @@
 
     .replaces-businesslink {
       @include ig-core-16;
-      padding-top: 10px;
+      padding-top: $gutter-one-third;
 
-      @include media(desktop){
+      @include media(desktop) {
         float: right;
       }
       p {
@@ -210,7 +210,7 @@
           border-bottom: 0;
           padding: $gutter-one-sixth $gutter-one-sixth+32px $gutter-one-sixth $gutter-one-sixth;
           color: $white;
-          background: transparent image-url("down-arrow-small.png") no-repeat 100% 100%;
+          background: transparent image-url("down-arrow-small.png") no-repeat $full-width $full-width;
         }
       }
       a {
@@ -242,9 +242,9 @@
   }
 
   .related-mainstream-content {
-    @include media(desktop){
+    @include media(desktop) {
       float: right;
-      width: 33.33%;
+      width: $one-third;
       padding: 0 0 $gutter $gutter;
     }
 
@@ -275,12 +275,12 @@
 
   .block.related-links {
     padding-bottom: 0;
-    @include media(desktop){
+    @include media(desktop) {
       padding-bottom: $gutter;
     }
 
     .inner-block {
-      @include media(desktop){
+      @include media(desktop) {
         padding: 0;
       }
     }
@@ -292,19 +292,19 @@
       background: $detailed-guidance-brand;
       color: $white;
       padding: $gutter-one-third;
-      @include media(desktop){
+      @include media(desktop) {
         margin: $gutter;
       }
     }
 
     section {
-      @include media(desktop){
+      @include media(desktop) {
         width: 75%;
         float: left;
       }
 
       .inner {
-        @include media(desktop){
+        @include media(desktop) {
           margin: 0 $gutter;
         }
       }
@@ -325,7 +325,7 @@
 
     .categories {
       @include media(desktop){
-        width: 25%;
+        width: $one-quarter;
       }
 
       .inner {
@@ -368,7 +368,7 @@
 
       .organisations-icon-list {
         overflow: hidden;
-        width: 100%;
+        width: $full-width;
         .organisation {
           float: left;
           margin-right: $gutter;
@@ -392,7 +392,7 @@
       }
       .block-4 {
         margin-left: 0;
-        width: 100%;
+        width: $full-width;
       }
     }
   }

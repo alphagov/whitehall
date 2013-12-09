@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   margin-top: $gutter*2;
-  width: 100%;
+  width: $full-width;
 
   li {
     @include ig-core-27;
@@ -24,7 +24,7 @@
         margin: -4px -32px 0 0;
         display: block;
         float: right;
-        width: 30px;
+        width: $gutter;
         height: 38px;
         content: " ";
       }
@@ -38,7 +38,7 @@
         margin: -4px 0 0 -32px;
         display: block;
         float: left;
-        width: 30px;
+        width: $gutter;
         height: 38px;
         content: " ";
       }
@@ -64,17 +64,17 @@
       }
     }
     @media (max-width: 768px) {
-      width: 100%;
+      width: $full-width;
       float: none;
       &.next {
         float: none;
         a {
-          padding: $gutter-half $gutter-half+30px;
+          padding: $gutter-half $gutter-half+$gutter;
         }
       }
       &.previous {
         a {
-          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+          padding: $gutter-half 0 $gutter-half $gutter-half+$gutter;
         }
       }
     }
@@ -88,11 +88,11 @@
       margin: 0 auto;
       width: 240px;
       a {
-        padding: 15px 0;
+        padding: $gutter-half 0;
       }
     }
     &.loading li {
-      background: transparent image-url("loading-2b2c2d.gif") no-repeat 0 50%;
+      background: transparent image-url("loading-2b2c2d.gif") no-repeat 0 $half;
     }
   }
 }
