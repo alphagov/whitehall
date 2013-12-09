@@ -1,8 +1,8 @@
 class ImageValidator < ActiveModel::Validator
   DEFAULT_MIME_TYPES = {
-    "image/jpeg" => /.jpeg|.jpg$/,
-    "image/gif"  => /.gif$/,
-    "image/png"  => /.png$/
+    "image/jpeg" => /(\.jpeg|\.jpg)$/,
+    "image/gif"  => /\.gif$/,
+    "image/png"  => /\.png$/
   }
 
   def initialize(options = {})
@@ -31,8 +31,8 @@ class ImageValidator < ActiveModel::Validator
     if @mime_types[image.mime_type].nil?
       record.errors.add(@method, "is not of an allowed type")
     end
-    unless file_for(record).path =~ @mime_types[image.mime_type]
-      record.errors.add(@method, "is of type '#{image.mime_type}, but has the extension '.#{file_for(record).path.split('.').last}'.")
+    unless file_for(record).path.downcase =~ @mime_types[image.mime_type]
+      record.errors.add(@method, "is of type '#{image.mime_type}', but has the extension '.#{file_for(record).path.split('.').last}'.")
     end
   end
 

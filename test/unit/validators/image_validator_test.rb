@@ -11,6 +11,10 @@ class ImageValidatorTest < ActiveSupport::TestCase
     assert_validates_as_invalid(ImageValidator.new, "960x640_gif_pretending_to_be_jpeg.jpg")
   end
 
+  test "should not care about the case of the file extension" do
+    assert_validates_as_valid(ImageValidator.new, "960x640_jpeg_with_uppercase_extension.JPG")
+  end
+
   test "should not accept a corrupt image" do
     assert_validates_as_invalid(ImageValidator.new, "not_an_image.jpg")
   end
