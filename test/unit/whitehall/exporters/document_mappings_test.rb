@@ -131,7 +131,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       attachment_source = create(:attachment_source)
       assert_extraction <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
-#{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment_source.attachment.url},301,"","","",Closed
+#{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment_source.attachment.url},301,"","",published
       EOT
     end
 
