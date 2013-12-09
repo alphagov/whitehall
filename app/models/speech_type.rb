@@ -1,7 +1,7 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
-  attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence
+  attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence, :use_key_as_display_key
 
   def self.create(attributes)
     super({
@@ -58,7 +58,7 @@ class SpeechType
   end
 
   def display_type_key
-    statement_to_parliament? ? key : genus_key
+    use_key_as_display_key ? key : genus_key
   end
 
   Transcript = create(
@@ -81,18 +81,18 @@ class SpeechType
 
   WrittenStatement = create(
     id: 4, key: "written_statement", singular_name: "Written statement to Parliament",
-    plural_name: "Written statements to Parliament"
+    plural_name: "Written statements to Parliament", use_key_as_display_key: true
   )
 
   OralStatement = create(
     id: 5, key: "oral_statement", singular_name: "Oral statement to Parliament",
-    plural_name: "Oral statements to Parliament"
+    plural_name: "Oral statements to Parliament", use_key_as_display_key: true
   )
 
   AuthoredArticle = create(
     id: 6, key: "authored_article", singular_name: "Authored article",
     owner_key_group: "author_title", published_externally_key: "written_on", location_relevant: false,
-    plural_name: "Authored article"
+    plural_name: "Authored article", use_key_as_display_key: true
   )
 
   ImportedAwaitingType = create(
