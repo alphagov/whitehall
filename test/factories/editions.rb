@@ -90,7 +90,7 @@ FactoryGirl.define do
     trait(:with_file_attachment) do
       association :alternative_format_provider, factory: :organisation_with_alternative_format_contact_email
       attachments { FactoryGirl.build_list :file_attachment, 1 }
-      after :build do |edition, evaluator|
+      after :create do |edition, evaluator|
         VirusScanHelpers.simulate_virus_scan(edition.attachments.first.attachment_data.file)
       end
     end

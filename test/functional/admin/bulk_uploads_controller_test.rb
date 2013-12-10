@@ -40,7 +40,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
         zip_file: fixture_file_upload(filename)
       }
     end
-    post :upload_zip, { edition_id: @edition }.merge(params) 
+    post :upload_zip, { edition_id: @edition }.merge(params)
   end
 
   test 'Actions are unavailable on unmodifiable editions' do
@@ -84,8 +84,7 @@ class Admin::BulkUploadsControllerTest < ActionController::TestCase
 
   view_test 'POST :upload_zip when replacing an attachment sets to_replace_id' do
     existing_file = File.open(File.join(Rails.root, *%w(test fixtures greenpaper.pdf)))
-    existing = create(:file_attachment, file: existing_file)
-    @edition.attachments << existing
+    @edition.attachments << existing = build(:file_attachment, file: existing_file)
     post_to_upload_zip('two-pages-and-greenpaper.zip')
     assert_response :success
     assert_select "input[name*='to_replace_id'][value='#{existing.attachment_data.id}']"

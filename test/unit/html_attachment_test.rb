@@ -9,16 +9,18 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "slug is copied from previous edition's attachment" do
-    attachment = create(:html_attachment, title: "an-html-attachment")
-    edition = create(:published_publication, attachments: [attachment])
+    edition = create(:published_publication, attachments: [
+      attachment = build(:html_attachment, title: "an-html-attachment")
+    ])
     draft = edition.create_draft(create(:policy_writer))
 
     assert_equal "an-html-attachment", draft.attachments.first.slug
   end
 
   test "slug is updated when the title is changed if edition is unpublished" do
-    attachment = create(:html_attachment, title: "an-html-attachment")
-    edition = create(:draft_publication, attachments: [attachment])
+    edition = create(:draft_publication, attachments: [
+      attachment = build(:html_attachment, title: "an-html-attachment")
+    ])
 
     attachment.title = "a-new-title"
     attachment.save
@@ -28,7 +30,9 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
   end
 
   test "slug is not updated when the title is changed if edition is published" do
-    edition = create(:published_publication, attachments: [create(:html_attachment, title: "an-html-attachment")])
+    edition = create(:published_publication, attachments: [
+      build(:html_attachment, title: "an-html-attachment")
+    ])
     draft = edition.create_draft(create(:policy_writer))
     attachment = draft.attachments.first
 

@@ -3,6 +3,10 @@ require 'test_helper'
 class AttachmentTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  test 'should be invalid without an attachable' do
+    refute build(:file_attachment, attachable: nil).valid?
+  end
+
   test 'should be invalid without a title' do
     attachment = build(:file_attachment, title: nil)
     refute attachment.valid?

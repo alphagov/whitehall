@@ -24,9 +24,9 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   view_test 'show displays the summary of the published consultation response when there are response attachments' do
     closed_consultation = create(:published_consultation, opening_at: 2.days.ago, closing_at: 1.day.ago)
-    response_attachment = create(:file_attachment)
-    response = create(:consultation_outcome, consultation: closed_consultation)
-    response.attachments << response_attachment
+    response = create(:consultation_outcome, consultation: closed_consultation, attachments: [
+      response_attachment = build(:file_attachment)
+    ])
 
     get :show, id: closed_consultation.document
 

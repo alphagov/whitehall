@@ -177,37 +177,11 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     refute_select "p.attachment"
   end
 
-  test "creating a corporate information page with multiple attachments should attach all files" do
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
-    csv_file = fixture_file_upload('sample-from-excel.csv', 'text/csv')
-    attributes = attributes_for(:corporate_information_page)
-    attributes[:attachments_attributes] = {
-      "0" => attributes_for(:file_attachment, title: "attachment-1-title").merge(
-                 attachment_data_attributes: { file: greenpaper_pdf }),
-      "1" => attributes_for(:file_attachment, title: "attachment-2-title").merge(
-                 attachment_data_attributes: { file: csv_file })
-    }
-
-    post :create, organisation_id: @organisation.id, corporate_information_page: attributes
-
-    info_page = assigns(:corporate_information_page)
-    assert_equal 2, info_page.attachments.length
-    attachment_1 = info_page.attachments.first
-    assert_equal "attachment-1-title", attachment_1.title
-    assert_equal "greenpaper.pdf", attachment_1.attachment_data.carrierwave_file
-    assert_equal "application/pdf", attachment_1.content_type
-    assert_equal greenpaper_pdf.size, attachment_1.file_size
-    attachment_2 = info_page.attachments.last
-    assert_equal "attachment-2-title", attachment_2.title
-    assert_equal "sample-from-excel.csv", attachment_2.attachment_data.carrierwave_file
-    assert_equal "text/csv", attachment_2.content_type
-    assert_equal csv_file.size, attachment_2.file_size
-  end
-
   test 'edit adds an unsaved extra attachment to the corporate information page' do
     two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-    attachment = create(:file_attachment, title: "attachment-title", file: two_page_pdf)
-    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [attachment])
+    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
+      attachment = build(:file_attachment, title: "attachment-title", file: two_page_pdf)
+    ])
 
     get :edit, id: info_page, organisation_id: info_page.organisation_id
 

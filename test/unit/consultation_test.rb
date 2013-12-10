@@ -156,8 +156,9 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the outcome summary and link to the original attachments when creating a new draft" do
     consultation = create(:published_consultation)
-    attachment = create(:file_attachment, title: 'attachment-title')
-    outcome = create(:consultation_outcome, consultation: consultation, attachments: [attachment])
+    outcome = create(:consultation_outcome, consultation: consultation, attachments: [
+      attachment = build(:file_attachment, title: 'attachment-title')
+    ])
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
@@ -172,8 +173,9 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "should copy the outcome without falling over if the outcome has attachments but no summary" do
     consultation = create(:published_consultation)
-    attachment = create(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
-    outcome = create(:consultation_outcome, consultation: consultation, summary: '', attachments: [attachment])
+    outcome = create(:consultation_outcome, consultation: consultation, summary: '', attachments: [
+      attachment = build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+    ])
 
     assert_nothing_raised {
       new_draft = consultation.create_draft(build(:user))
@@ -183,8 +185,9 @@ class ConsultationTest < ActiveSupport::TestCase
 
   test "copies public feedback and its attachments when creating a new draft" do
     consultation = create(:published_consultation)
-    attachment = create(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
-    feedback = create(:consultation_public_feedback, consultation: consultation, attachments: [attachment])
+    feedback = create(:consultation_public_feedback, consultation: consultation, attachments: [
+      attachment = build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+    ])
 
     new_draft = consultation.create_draft(build(:user))
     new_draft.reload
@@ -202,7 +205,7 @@ class ConsultationTest < ActiveSupport::TestCase
   test "should copy public feedback without falling over if the feedback has attachments but no summary" do
     consultation = create(:published_consultation)
     public_feedback = create(:consultation_public_feedback, consultation: consultation, summary: '', attachments: [
-      create(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
+      build(:file_attachment, title: 'attachment-title', attachment_data_attributes: { file: fixture_file_upload('greenpaper.pdf') })
     ])
 
     assert_nothing_raised {
