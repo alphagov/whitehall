@@ -1,4 +1,4 @@
-class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
+class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
 
   def url_maker
     @url_maker ||= Whitehall::UrlMaker.new(host: public_host, protocol: 'https')
@@ -36,7 +36,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
       url_maker.admin_edition_url(edition, host: admin_host),
       edition.state ]
   rescue => e
-    Rails.logger.error("Whitehall::Exporters::DocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
+    Rails.logger.error("Whitehall::Exporters::RedirectorDocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
     nil
   end
 

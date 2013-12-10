@@ -23,7 +23,7 @@ namespace :export do
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::DocumentMappings.new(ENV['FACTER_govuk_platform'])
+    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new(ENV['FACTER_govuk_platform'])
 
     CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_document_mappings.csv'), 'wb') do |csv_out|
       exporter.export(csv_out)
