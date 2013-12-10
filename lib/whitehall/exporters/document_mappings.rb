@@ -100,7 +100,7 @@ class Whitehall::Exporters::DocumentMappings < Struct.new(:platform)
     AttachmentSource.all.each do |attachment_source|
       attachment_url = attachment_source.attachment ? 'https://' + host_name + attachment_source.attachment.url : ""
       status = (attachment_url.blank? ? '' : '301')
-      target << [attachment_source.url, attachment_url, status, '', '', '', 'Closed'] if attachment_url.present?
+      target << [attachment_source.url, attachment_url, status, '', '', 'published'] if attachment_url.present?
     end
 
     Person.find_each do |person|
