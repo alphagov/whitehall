@@ -5,7 +5,7 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
       edition = document.published_edition
       if edition
         document.document_sources.each do |document_source|
-          target << row(edition, document, document_source)
+          target << document_row(edition, document, document_source)
         end
       end
     end
@@ -18,8 +18,8 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
   end
 
 private
-  def row(edition, document, document_source)
-    public_url = document_url(edition, document, document_source)
+  def document_row(edition, document, document_source)
+    public_url = document_url(edition, document)
     [
       document_source.url,
       public_url,
@@ -28,7 +28,7 @@ private
     ]
   end
 
-  def document_url(edition, document, document_source)
+  def document_url(edition, document)
     doc_url_args = {}
     slug = document_slug(edition, document)
     edition_type_for_route = edition.class.name.underscore
