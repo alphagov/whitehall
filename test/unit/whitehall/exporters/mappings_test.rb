@@ -65,5 +65,13 @@ module Whitehall
         http://oldurl2,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
       EOT
     end
+
+    test "attachment sources are included, without an admin URL" do
+      attachment = create(:csv_attachment)
+      attachment_source = create(:attachment_source, url: 'http://oldurl', attachment: attachment)
+      assert_extraction_contains <<-EOT.strip_heredoc
+        http://oldurl,https://www.preview.alphagov.co.uk#{attachment.url},"",published
+      EOT
+    end
   end
 end

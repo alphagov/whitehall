@@ -7,6 +7,12 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
         target << row(edition, document, document_source)
       end
     end
+
+    AttachmentSource.find_each do |attachment_source|
+      path = attachment_source.attachment.url
+      attachment_url = 'https://' + public_host + path
+      target << [attachment_source.url, attachment_url, '', 'published']
+    end
   end
 
 private
