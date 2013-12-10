@@ -1,9 +1,11 @@
 class Whitehall::Exporters::Mappings < Struct.new(:platform)
+  STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + ['published']
+
   def export(target)
     target << ['Old URL','New URL','Admin URL','State']
     Document.find_each do |document|
-      edition = document.published_edition
-      if edition
+      edition = document.published_edition || document.latest_edition
+      if edition && STATES_TO_INCLUDE.include?(edition.state)
         document.document_sources.each do |document_source|
           target << document_row(edition, document, document_source)
         end

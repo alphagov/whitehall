@@ -36,6 +36,12 @@ module Whitehall
       refute actual.include?(unexpected.strip), "Expected:\n#{actual} to NOT contain: \n#{unexpected}"
     end
 
+    def publication_with_source(publication_trait)
+      publication = create(:publication, publication_trait)
+      create(:document_source, document: publication.document, url: "http://oldurl/#{publication_trait}")
+      publication
+    end
+
     test "headers" do
       assert_extraction_contains <<-EOT.strip_heredoc
         Old URL,New URL,Admin URL,State
@@ -64,7 +70,33 @@ module Whitehall
       EOT
     end
 
-    test "includes a row per Document Source for published publication" do
+    test "prefers published editions to newer works-in-progress" do
+      document = create(:document)
+      source = create(:document_source, document: document, url: 'http://oldurl')
+      published = create(:published_publication, document: document)
+      draft = create(:draft_publication, document: document)
+
+      assert_extraction_contains <<-EOT.strip_heredoc
+        http://oldurl,https://www.preview.alphagov.co.uk/government/publications/#{published.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{published.id},published
+      EOT
+    end
+
+    test "includes works-in-progress with a Document Source" do
+      publications = {
+        'imported'  => publication_with_source(:imported),
+        'draft'     => publication_with_source(:draft),
+        'submitted' => publication_with_source(:submitted),
+        'rejected'  => publication_with_source(:rejected),
+        'scheduled' => publication_with_source(:scheduled),
+      }
+      publications.each do |state, publication|
+        assert_extraction_contains <<-EOT.strip_heredoc
+          http://oldurl/#{state},https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},#{state}
+        EOT
+      end
+    end
+
+    test "includes a row per Document Source" do
       publication = create(:published_publication)
       source1 = create(:document_source, document: publication.document, url: 'http://oldurl1')
       source2 = create(:document_source, document: publication.document, url: 'http://oldurl2')
