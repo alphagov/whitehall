@@ -3,8 +3,10 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
     target << ['Old URL','New URL','Admin URL','State']
     Document.find_each do |document|
       edition = document.published_edition
-      document.document_sources.each do |document_source|
-        target << row(edition, document, document_source)
+      if edition
+        document.document_sources.each do |document_source|
+          target << row(edition, document, document_source)
+        end
       end
     end
 

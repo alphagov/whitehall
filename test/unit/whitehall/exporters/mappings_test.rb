@@ -47,6 +47,14 @@ module Whitehall
       assert_extraction_does_not_contain "https://admin.gov.uk/government/admin/publications/#{publication.id}"
     end
 
+    test "handles documents without an edition" do
+      document = create(:document)
+      source = create(:document_source, document: document, url: 'http://oldurl')
+      assert_nothing_raised do
+        @exporter.export([])
+      end
+    end
+
     test "includes published publication with a Document Source" do
       publication = create(:published_publication)
       source = create(:document_source, document: publication.document, url: 'http://oldurl')
