@@ -18,6 +18,10 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     govuk_delivery_notifier_for(edition, notification_date).email_body
   end
 
+  def feed_url(important_part)
+    "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/#{important_part}"
+  end
+
   test ".notify_from_queue! constructs an instance using the queue item and calls notify! on it" do
     policy = build(:policy, title: 'Foo', summary: 'Bar')
     queue_item = stub(edition: policy, notification_date: 3.days.ago, title: 'Baz', summary: 'Qux')
@@ -349,6 +353,19 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}"
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}"
     assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases"
+  end
+
+  test '#tags for an announcement includes the atom feed for the associated role and person' do
+    appointment1 = create(:ministerial_role_appointment)
+    appointment2 = create(:ministerial_role_appointment)
+
+    edition = create(:news_article, role_appointments: [appointment1, appointment2])
+
+    assert tags_for(edition).include? feed_url("people/#{appointment1.person.slug}.atom")
+    assert tags_for(edition).include? feed_url("ministers/#{appointment1.role.slug}.atom")
+
+    assert tags_for(edition).include? feed_url("people/#{appointment2.person.slug}.atom")
+    assert tags_for(edition).include? feed_url("ministers/#{appointment2.role.slug}.atom")
   end
 
   ## end document type specific tests

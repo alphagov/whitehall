@@ -64,6 +64,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
     end
 
     tag_paths += policy_tag_paths
+    tag_paths += people_and_role_tag_paths
 
     # Fallback URL including everything
     tag_paths << url_maker.atom_feed_url(format: :atom)
@@ -156,5 +157,18 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
     else
       []
     end
+  end
+
+  def people_and_role_tag_paths
+    paths = []
+
+    if edition.can_be_associated_with_role_appointments?
+      edition.role_appointments.each do |appointment|
+        paths << url_maker.polymorphic_url(appointment.person, format: 'atom') if appointment.person
+        paths << url_maker.polymorphic_url(appointment.role, format: 'atom') if appointment.role
+      end
+    end
+
+    return paths
   end
 end
