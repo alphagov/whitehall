@@ -652,18 +652,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should not top tasks on suborg pages" do
-    organisation = create(:organisation)
-    top_task = create(:top_task, linkable: organisation)
-    sub_organisation = create(:sub_organisation, parent_organisations: [organisation])
-
-    get :show, id: sub_organisation
-
-    refute_select "a[href='#{top_task.url}']", text: top_task.title
-  end
-
-
-
   ### Describing :about ###
 
   view_test "should show description on organisation about subpage" do
