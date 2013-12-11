@@ -48,24 +48,13 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
   end
 
   def tags
-    if edition.can_be_associated_with_topics? || edition.can_be_related_to_policies?
-      topic_slugs = edition.topics.map(&:slug)
-    else
-      topic_slugs = []
-    end
+    department_and_topic_combos = [department_slugs, topic_slugs].inject(&:product)
 
-    org_slugs = edition.organisations.map(&:slug)
+    tag_paths = department_and_topic_combos.map do |(org, topic)|
+      combinatorial_args = [{departments: [org]}, {topics: [topic]}]
+      combinatorial_args << filter_option if filter_option
+      combinatorial_args << { relevant_to_local_government: 1 } if edition.relevant_to_local_government?
 
-    tags = [org_slugs, topic_slugs].inject(&:product)
-
-    tag_paths = tags.map do |t|
-      combinatorial_args = [{departments: [t[0]]}, {topics: [t[1]]}]
-      if filter_option
-        combinatorial_args << filter_option
-      end
-      if edition.relevant_to_local_government?
-        combinatorial_args << { relevant_to_local_government: 1 }
-      end
       all_combinations_of_args(combinatorial_args).map do |combined_args|
         [
           url_helper(edition, combined_args),
@@ -74,13 +63,9 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
       end
     end
 
-    if edition.can_be_related_to_policies? && edition.published_related_policies.any?
-      edition.published_related_policies.each do |policy|
-        tag_paths << url_maker.activity_policy_url(policy.document, format: :atom)
-      end
-    end
+    tag_paths += policy_tag_paths
 
-    # Include this in case there aren't any other tag paths
+    # Fallback URL including everything
     tag_paths << url_maker.atom_feed_url(format: :atom)
 
     tag_paths.flatten.uniq
@@ -149,5 +134,27 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPoint < Whitehall::GovUkDelivery
 
   def escape(string)
     ERB::Util.html_escape(string)
+  end
+
+  def topic_slugs
+    if edition.can_be_associated_with_topics?
+      topic_slugs = edition.topics.map(&:slug)
+    else
+      topic_slugs = []
+    end
+  end
+
+  def department_slugs
+    edition.organisations.map(&:slug)
+  end
+
+  def policy_tag_paths
+    if edition.can_be_related_to_policies?
+      edition.published_related_policies.map do |policy|
+        url_maker.activity_policy_url(policy.document, format: :atom)
+      end
+    else
+      []
+    end
   end
 end
