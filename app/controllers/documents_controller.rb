@@ -4,6 +4,7 @@ class DocumentsController < PublicFacingController
 
   before_filter :redirect_to_canonical_url
   before_filter :find_document, only: [:show]
+  before_filter :set_slimmer_headers_for_document, only: [:show]
 
   private
 
@@ -65,7 +66,7 @@ class DocumentsController < PublicFacingController
     url_for(redir_params)
   end
 
-  def set_slimmer_headers_for_document(document)
+  def set_slimmer_headers_for_document()
     set_slimmer_organisations_header(@document.organisations)
     set_slimmer_page_owner_header(@document.lead_organisations.first)
   end

@@ -9,7 +9,6 @@ class DetailedGuidesController < DocumentsController
   def show
     @categories = @document.mainstream_categories
     @topics = @document.topics
-    set_slimmer_headers_for_document(@document)
   end
 
 private
