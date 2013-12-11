@@ -4,6 +4,7 @@ class PoliciesController < DocumentsController
   enable_request_formats index: [:json], activity: [:atom]
 
   before_filter :find_document, only: [:show, :activity]
+  before_filter :set_slimmer_headers_for_document, only: [:show, :activity]
   before_filter :set_analytics_format, only: [:show, :activity]
 
   def index

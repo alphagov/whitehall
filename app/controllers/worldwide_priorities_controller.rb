@@ -1,5 +1,6 @@
 class WorldwidePrioritiesController < DocumentsController
   before_filter :find_document, only: [:show, :activity]
+  before_filter :set_slimmer_headers_for_document, only: [:show, :activity]
   helper_method :show_navigation?
 
   def index
