@@ -456,10 +456,10 @@ module DocumentControllerTestHelpers
       test "#{document_type} should set Google Analytics organisation headers" do
         organisation = create(:organisation)
         lead_organisation = create(:organisation, acronym: "ABC")
-        edition = create("published_#{document_type}", organisations: [organisation], lead_organisations: [lead_organisation])
+        edition = create("published_#{document_type}", supporting_organisations: [organisation], lead_organisations: [lead_organisation])
         get :show, id: edition.document
 
-        assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+        assert_equal "<#{lead_organisation.analytics_identifier}><#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
         assert_equal lead_organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
       end
     end

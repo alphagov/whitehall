@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:name) { |index| "organisation-#{index}" }
     sequence(:logo_formatted_name) { |index| "organisation-#{index} logo text".split(" ").join("\n") }
     organisation_type_key :other
-    analytics_identifier "T123"
+    sequence(:analytics_identifier) { |index| "T#{index}" }
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
 
     trait(:closed) { govuk_status 'closed' }
