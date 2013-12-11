@@ -55,10 +55,10 @@
       </div>
     <% end %>
 
-    <% if @edition.can_be_associated_with_ministers? %>
+    <% if @edition.can_be_associated_with_ministers? && (ministerial_roles = @edition.organisations.flat_map(&:ministerial_roles)).any? %>
       <div class="row-fluid">
         <h3>Ministers</h3>
-        <% @edition.organisations.map(&:ministerial_roles).flatten.each do |role| %>
+        <% ministerial_roles.each do |role| %>
           <label class="checkbox">
             <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
             <%= RolePresenter.new(role, self).current_person.name %>
@@ -91,6 +91,13 @@
           class: 'chzn-select',
             data: { placeholder: "Choose from other policies..."}
         %>
+      </div>
+    <% end %>
+
+    <% if @edition.can_be_associated_with_topics? %>
+      <div class="row-fluid">
+        <h3>Topics</h3>
+        <%= render partial: 'topic_fields', locals: { form: form, edition: @edition } %>
       </div>
     <% end %>
 
