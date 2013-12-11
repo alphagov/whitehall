@@ -111,6 +111,22 @@ module Whitehall
       EOT
     end
 
+    test "includes access limited editions" do
+      # Rationale: we wouldn't redirect to this New URL, but it is still useful
+      # to see that there is something being worked on relating to this Old URL
+      publication = publication_with_source(:access_limited)
+      assert_extraction_contains <<-EOT.strip_heredoc
+        http://oldurl/access_limited,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},draft
+      EOT
+    end
+
+    test "excludes superseded editions" do
+      # A superseded edition should always have a newer edition that we would
+      # look at, so this test is just belt-and-braces
+      publication = publication_with_source(:superseded)
+      assert_extraction_does_not_contain publication.slug
+    end
+
     test "includes a row per Document Source" do
       publication = create(:published_publication)
       source1 = create(:document_source, document: publication.document, url: 'http://oldurl1')
