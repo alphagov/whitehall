@@ -10,22 +10,7 @@
       can use to upload, edit and delete attachments.
     </p>
   <% elsif edition.allows_inline_attachments? %>
-    <% if edition.attachments.any? %>
-      <p>
-        You can insert an attachment into your document by entering the
-        following snippets of Markdown:
-      </p>
-
-      <ol>
-        <% edition.attachments.each_with_index do |attachment, i| %>
-          <li>
-            <strong><%= attachment.title %></strong> - <%= inline_attachment_code_tags(i+1) %>
-          </li>
-        <% end %>
-      </ol>
-    <% else %>
-      <p>No attachments</p>
-    <% end %>
+    <%= render 'admin/attachments/markdown_codes', attachable: edition %>
   <% end %>
 
   <%= form.alternative_format_provider_select(alternative_format_required, current_user.organisation) %>

@@ -1,0 +1,17 @@
+<% if attachable.attachments.any? %>
+  <p>
+    You can insert an attachment into your document by entering the
+    following snippets of Markdown:
+  </p>
+
+  <ol>
+    <% attachable.attachments.each.with_index(1) do |attachment, i| %>
+      <li>
+        <strong><%= attachment.title %></strong>
+        &ndash; <%= inline_attachment_code_tags(i) %>
+      </li>
+    <% end %>
+  </ol>
+<% else %>
+  <p>No attachments</p>
+<% end %>
