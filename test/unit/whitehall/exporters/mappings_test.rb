@@ -155,5 +155,18 @@ module Whitehall
         http://oldurl/foo.es,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug}.es,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
       EOT
     end
+
+    test "an error exporting one document doesn't cause the whole export to fail" do
+      problem_publication = create(:published_publication)
+      create(:document_source, document: problem_publication.document, url: 'http://oldurl/problem')
+      good_publication = create(:published_publication)
+      create(:document_source, document: good_publication.document, url: 'http://oldurl/good')
+
+      @exporter.expects(:document_url).twice.raises('Error!').then.returns('http://example.com/slug')
+
+      assert_extraction_contains <<-EOT.strip_heredoc
+        http://oldurl/good,http://example.com/slug,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{good_publication.id},published
+      EOT
+    end
   end
 end

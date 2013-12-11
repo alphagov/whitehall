@@ -7,15 +7,23 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
       edition = document.published_edition || document.latest_edition
       if edition && STATES_TO_INCLUDE.include?(edition.state)
         document.document_sources.each do |document_source|
-          target << document_row(edition, document, document_source)
+          begin
+            target << document_row(edition, document, document_source)
+          rescue StandardError => e
+            Rails.logger.error("#{self.class.name}: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
+          end
         end
       end
     end
 
     AttachmentSource.find_each do |attachment_source|
-      path = attachment_source.attachment.url
-      attachment_url = 'https://' + public_host + path
-      target << [attachment_source.url, attachment_url, '', 'published']
+      begin
+        path = attachment_source.attachment.url
+        attachment_url = 'https://' + public_host + path
+        target << [attachment_source.url, attachment_url, '', 'published']
+      rescue StandardError => e
+        Rails.logger.error("#{self.class.name}: when exporting #{attachment_source} - #{e} - #{e.backtrace.join("\n")}")
+      end
     end
   end
 
