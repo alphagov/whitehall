@@ -1,7 +1,7 @@
 <%
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date]
 %>
-<nav class="editions-filter">
+<div class="editions-filter js-editions-filter-form">
   <h2>Filter list by:</h2>
   <% if filter_by.include?(:title) %>
     <div class="filter-grouping">
@@ -110,5 +110,5 @@
     </div>
   <% end %>
   <p><a href="?state=active">Reset all fields</a></p>
-</nav>
+</div>
 
