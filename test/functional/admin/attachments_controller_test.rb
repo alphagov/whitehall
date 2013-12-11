@@ -67,16 +67,30 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  view_test "GET :new renders the attachment form" do
+  test "GET :new raises an exception with an unknown parent type" do
+    assert_raise(ActiveRecord::RecordNotFound) {
+      get :new, parent_id: 123
+    }
+  end
+
+  view_test "GET :new handles editions" do
     get :new, edition_id: @edition
 
     assert_response :success
     assert_select "input[name='attachment[title]']"
   end
 
-  view_test "GET :new handles other 'attachable' things" do
+  view_test "GET :new handles consultation outcomes" do
     response = @edition.outcome = create(:consultation_outcome)
     get :new, response_id: response
+
+    assert_response :success
+    assert_select "input[name='attachment[title]']"
+  end
+
+  view_test "GET :new handles corporate information pages" do
+    page = create(:corporate_information_page)
+    get :new, corporate_information_page_id: page.id
 
     assert_response :success
     assert_select "input[name='attachment[title]']"

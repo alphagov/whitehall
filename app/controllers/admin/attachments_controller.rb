@@ -58,6 +58,8 @@ private
         @edition = Edition.find(params[:edition_id])
       elsif params.has_key?(:response_id)
         Response.find(params[:response_id])
+      elsif params.has_key?(:corporate_information_page_id)
+        CorporateInformationPage.find(params[:corporate_information_page_id])
       else
         raise ActiveRecord::RecordNotFound
       end
