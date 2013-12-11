@@ -96,6 +96,21 @@ module Whitehall
       end
     end
 
+    test "excludes deleted documents" do
+      # Rationale: this thing should never have been published
+      publication = publication_with_source(:deleted)
+      assert_extraction_does_not_contain "https://www.preview.alphagov.co.uk/government/publications/#{publication.slug}"
+    end
+
+    test "includes archived documents" do
+      # Rationale: we should still redirect to things that were
+      # published and then removed
+      publication = publication_with_source(:archived)
+      assert_extraction_contains <<-EOT.strip_heredoc
+        http://oldurl/archived,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},archived
+      EOT
+    end
+
     test "includes a row per Document Source" do
       publication = create(:published_publication)
       source1 = create(:document_source, document: publication.document, url: 'http://oldurl1')
