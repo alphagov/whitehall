@@ -105,15 +105,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_redirected_to admin_organisation_path(@organisation)
   end
 
-  # NOTE: The following tests have been moved from a now-redundant AdminEditionAttachableControllerTestHelpers module.
-  test "new puts an empty attachment on the corporate information page" do
-    get :new, organisation_id: @organisation.id
-
-    attachments = assigns(:corporate_information_page).attachments
-    assert_equal 1, attachments.size
-    assert attachments.first.new_record?
-  end
-
   test 'creating a corporate information page should attach file' do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
     attributes = attributes_for(:corporate_information_page)
@@ -131,14 +122,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal "greenpaper.pdf", attachment.attachment_data.carrierwave_file
     assert_equal "application/pdf", attachment.content_type
     assert_equal greenpaper_pdf.size, attachment.file_size
-  end
-
-  test "creating a corporate information page with invalid data should leave one unsaved attachment on the instance" do
-    post :create, organisation_id: @organisation.id, corporate_information_page: attributes_for(:corporate_information_page).merge(body: '')
-
-    attachments = assigns(:corporate_information_page).attachments
-    assert_equal 1, attachments.size
-    assert attachments.first.new_record?
   end
 
   test "creating a corporate information page with invalid data does not add an extra attachment and preserves the uploaded data" do
@@ -175,20 +158,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, organisation_id: @organisation.id, corporate_information_page: invalid_attributes
 
     refute_select "p.attachment"
-  end
-
-  test 'edit adds an unsaved extra attachment to the corporate information page' do
-    two_page_pdf = fixture_file_upload('two-pages.pdf', 'application/pdf')
-    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
-      attachment = build(:file_attachment, title: "attachment-title", file: two_page_pdf)
-    ])
-
-    get :edit, id: info_page, organisation_id: info_page.organisation_id
-
-    attachments = assigns(:corporate_information_page).attachments
-    assert_equal 2, attachments.size
-    assert_equal 'attachment-title', attachments.first.title
-    assert attachments.last.new_record?
   end
 
   test 'updating a corporate information page should attach file' do
@@ -239,15 +208,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_equal csv_file.size, attachment_2.file_size
   end
 
-  view_test "updating a corporate information page with invalid data should still add a blank unsaved attachment to the info_page" do
-    info_page = create(:corporate_information_page)
-    put :update, id: info_page, organisation_id: info_page.organisation_id, corporate_information_page: attributes_for(:corporate_information_page).merge(body: '')
-
-    attachments = assigns(:corporate_information_page).attachments
-    assert_equal 1, attachments.size
-    assert attachments.first.new_record?
-  end
-
   test "updating a corporate information page with invalid data does not add an unsaved attachment, and preserves the uploaded data" do
     info_page = create(:corporate_information_page)
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
@@ -286,60 +246,6 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     info_page.reload
     assert_equal [attachment_2], info_page.attachments
   end
-
-  test 'updating should respect the attachment_action attribute to keep, remove, or replace attachments' do
-    two_pages_pdf = fixture_file_upload('two-pages.pdf')
-    greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-
-    whitepaper_file, greenpaper_file, three_pages_file = %w(whitepaper greenpaper three-pages).map do |basename|
-      File.open(File.join(Rails.root, 'test', 'fixtures', "#{basename}.pdf"))
-    end
-    info_page = create(:corporate_information_page, :with_alternative_format_provider)
-
-    attachment_1 = create(:file_attachment, attachable: info_page, file: whitepaper_file)
-    attachment_1_data = attachment_1.attachment_data
-    attachment_2 = create(:file_attachment, attachable: info_page, file: greenpaper_file)
-    attachment_3 = create(:file_attachment, attachable: info_page, file: three_pages_file)
-    attachment_3_data = attachment_3.attachment_data
-
-    put :update, id: info_page, organisation_id: info_page.organisation_id, corporate_information_page: attributes_for(:corporate_information_page,
-      attachments_attributes: {
-        "0" => { id: attachment_1.id.to_s, attachment_action: 'keep' },
-        "1" => { id: attachment_2.id.to_s, attachment_action: 'remove' },
-        "2" => {
-          id: attachment_3.id.to_s,
-          attachment_action: 'replace',
-          attachment_data_attributes: {
-            file: two_pages_pdf,
-            to_replace_id: attachment_3.attachment_data.id
-          }
-        },
-        "3" => attributes_for(:file_attachment).merge(attachment_data_attributes: { file: greenpaper_pdf })
-      }
-    )
-
-    assert assigns(:corporate_information_page).errors.empty?
-    info_page.reload
-    assert_equal 3, info_page.attachments.size
-    assert info_page.attachments.include?(attachment_1)
-    assert !info_page.attachments.include?(attachment_2)
-    assert info_page.attachments.include?(attachment_3)
-
-    assert_raise(ActiveRecord::RecordNotFound) do
-      attachment_2.reload
-    end
-
-    assert_equal attachment_1_data, attachment_1.reload.attachment_data
-
-    new_attachment_3_data = attachment_3.reload.attachment_data
-    assert_not_equal attachment_3_data, new_attachment_3_data
-    assert_equal "two-pages.pdf", new_attachment_3_data.carrierwave_file
-    assert_equal new_attachment_3_data, attachment_3_data.reload.replaced_by
-
-    attachment_4 = info_page.attachments.last
-    assert_equal "greenpaper.pdf", attachment_4.attachment_data.carrierwave_file
-  end
-
 private
 
   def corporate_information_page_attributes(overrides = {})
