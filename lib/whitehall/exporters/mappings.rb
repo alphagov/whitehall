@@ -21,7 +21,7 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
 
 private
   def document_row(edition, document, document_source)
-    public_url = document_url(edition, document)
+    public_url = document_url(edition, document, document_source)
     [
       document_source.url,
       public_url,
@@ -30,15 +30,13 @@ private
     ]
   end
 
-  def document_url(edition, document)
-    doc_url_args = {}
-    slug = document_slug(edition, document)
+  def document_url(edition, document, document_source)
+    doc_url_args = { id: document.slug }
+    if document_source.locale && ! Locale.new(document_source.locale).english?
+      doc_url_args[:locale] = document_source.locale
+    end
     edition_type_for_route = edition.class.name.underscore
-    url_maker.polymorphic_url(edition_type_for_route, doc_url_args.merge(id: slug))
-  end
-
-  def document_slug(edition, document)
-    document.slug
+    url_maker.polymorphic_url(edition_type_for_route, doc_url_args)
   end
 
   def url_maker

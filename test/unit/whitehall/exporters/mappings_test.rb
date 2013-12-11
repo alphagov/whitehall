@@ -144,5 +144,16 @@ module Whitehall
         http://oldurl,https://www.preview.alphagov.co.uk#{attachment.url},"",published
       EOT
     end
+
+    test "maps localised sources to localised New URLs in addition to the the default mapping" do
+      publication = create(:published_publication)
+      source = create(:document_source, document: publication.document, url: 'http://oldurl/foo')
+      localised_source = create(:document_source, document: publication.document, url: 'http://oldurl/foo.es', locale: 'es')
+
+      assert_extraction_contains <<-EOT.strip_heredoc
+        http://oldurl/foo,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl/foo.es,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug}.es,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+      EOT
+    end
   end
 end
