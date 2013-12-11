@@ -79,13 +79,13 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
   end
 
   test "#tags returns a feed for 'all' by default" do
-    assert tags_for(build(:policy)).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed"
+    assert tags_for(build(:policy)).include? feed_url("feed")
   end
 
   test '#tags for a relevant to local government policy does not put the relevant to local param on the "all" feed url' do
     edition = build(:policy, relevant_to_local_government: true)
 
-    refute tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?relevant_to_local_government=1"
+    refute tags_for(edition).include? feed_url("feed?relevant_to_local_government=1")
   end
 
   test '#tags includes both a document specific and an "all" variant of the same params' do
@@ -93,12 +93,12 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/feed?topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("feed?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("feed?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("feed?topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?topics%5B%5D=#{topic.slug}")
   end
 
   ### begin document type specific tests
@@ -110,7 +110,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
   end
 
   test '#tags for a policy returns an atom feed url for each topic/organisation combination' do
@@ -119,8 +119,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic1, topic2], organisations: [organisation])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}")
   end
 
   test '#tags for a policy returns an atom feed url that does not include topics' do
@@ -128,7 +128,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}"
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}")
   end
 
   test '#tags for a policy returns an atom feed url that does not include departments' do
@@ -136,7 +136,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("policies.atom?topics%5B%5D=#{topic.slug}")
   end
 
   test '#tags for a policy returns an atom feed url that does not include departments or topics' do
@@ -144,7 +144,7 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom"
+    assert tags_for(edition).include? feed_url("policies.atom")
   end
 
   test '#tags for a relevant to local government policy puts the relevant to local param on some policies.atom urls' do
@@ -152,22 +152,22 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     organisation = create(:ministerial_department)
     edition = create(:policy, topics: [topic], organisations: [organisation], relevant_to_local_government: true)
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?relevant_to_local_government=1"
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("policies.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?relevant_to_local_government=1")
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom?topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies.atom"
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom?topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("policies.atom")
   end
 
   test "#tags includes policy activity feeds" do
     policy = create(:published_policy)
     edition = create(:news_article, related_policy_ids: [policy])
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies/#{policy.slug}/activity.atom"
+    assert tags_for(edition).include? feed_url("policies/#{policy.slug}/activity.atom")
   end
 
   ### publications feed urls tests
@@ -178,8 +178,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}")
   end
 
   test '#tags for a publication returns an atom feed url for each topic/organisation combination' do
@@ -189,11 +189,11 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
     edition.stubs(:topics).returns [topic1, topic2]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}")
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic1.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic2.slug}"
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic1.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic2.slug}")
   end
 
   test '#tags for a publication returns an atom feed url that does not include topics (with and without the publication_filter_option param)' do
@@ -202,8 +202,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports"
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports")
   end
 
   test '#tags for a publication returns an atom feed url that does not include departments (with and without the publication_filter_option param)' do
@@ -212,8 +212,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("publications.atom?topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}")
   end
 
   test '#tags for a publication returns an atom feed url that does not include departments or topics (with and without the publication_filter_option param)' do
@@ -222,8 +222,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports"
+    assert tags_for(edition).include? feed_url("publications.atom")
+    assert tags_for(edition).include? feed_url("publications.atom?publication_filter_option=corporate-reports")
   end
 
   test '#tags for a publication with a type that is not available as a filter returns an atom feed without a publication_filter_option' do
@@ -243,23 +243,23 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     # This value is inferred through parent policy in the full stack
     edition.stubs(:relevant_to_local_government?).returns true
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports&relevant_to_local_government=1"
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("publications.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("publications.atom?publication_filter_option=corporate-reports&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?publication_filter_option=corporate-reports&relevant_to_local_government=1")
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.atom?publication_filter_option=corporate-reports"
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports")
+    assert tags_for(edition).include? feed_url("publications.atom?publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("publications.atom?publication_filter_option=corporate-reports")
   end
 
   ## announcements feed urls tests
@@ -270,8 +270,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
   end
 
   test '#tags for an announcement returns an atom feed url for each topic/organisation combination' do
@@ -281,11 +281,11 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
     edition.stubs(:topics).returns [topic1, topic2]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}")
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}"
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic1.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic2.slug}")
   end
 
   test '#tags for an announcement returns an atom feed url that does not include topics (with and without the publication_filter_option param)' do
@@ -294,8 +294,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}"
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}")
   end
 
   test '#tags for an announcement returns an atom feed url that does not include departments (with and without the publication_filter_option param)' do
@@ -304,8 +304,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}"
+    assert tags_for(edition).include? feed_url("announcements.atom?topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}")
   end
 
   test '#tags for an announcement returns an atom feed url that does not include departments or topics (with and without the publication_filter_option param)' do
@@ -314,8 +314,8 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
     edition.stubs(:topics).returns [topic]
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases"
+    assert tags_for(edition).include? feed_url("announcements.atom")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases")
   end
 
   test '#tags for an announcement with a type that is not available as a filter returns an atom feed without a announcement_filter_option' do
@@ -336,23 +336,23 @@ class Whitehall::GovUkDelivery::GovUkDeliveryEndPointTest < ActiveSupport::TestC
     # This value is inferred through parent policy in the full stack
     edition.stubs(:relevant_to_local_government?).returns true
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&relevant_to_local_government=1"
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("announcements.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&relevant_to_local_government=1")
 
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}"
-    assert tags_for(edition).include? "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/announcements.atom?announcement_filter_option=press-releases"
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}")
+    assert tags_for(edition).include? feed_url("announcements.atom?announcement_filter_option=press-releases")
   end
 
   test '#tags for an announcement includes the atom feed for the associated role and person' do
