@@ -18,9 +18,11 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
 
     AttachmentSource.find_each do |attachment_source|
       begin
-        path = attachment_source.attachment.url
-        attachment_url = 'https://' + public_host + path
-        target << [attachment_source.url, attachment_url, '', 'published']
+        if attachment_source.attachment
+          path = attachment_source.attachment.url
+          attachment_url = 'https://' + public_host + path
+          target << [attachment_source.url, attachment_url, '', 'published']
+        end
       rescue StandardError => e
         Rails.logger.error("#{self.class.name}: when exporting #{attachment_source} - #{e} - #{e.backtrace.join("\n")}")
       end
