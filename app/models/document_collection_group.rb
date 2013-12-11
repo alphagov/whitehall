@@ -9,6 +9,7 @@ class DocumentCollectionGroup < ActiveRecord::Base
   attr_accessible :body, :heading
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id }
+  validates_associated :memberships
 
   before_create :assign_ordering
 

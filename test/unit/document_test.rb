@@ -112,4 +112,8 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_equal publication, document.scheduled_edition
   end
+
+  test "#humanized_document_type should return document type in a user friendly format" do
+    assert_equal "document collection", build(:document, document_type: "DocumentCollection").humanized_document_type
+  end
 end

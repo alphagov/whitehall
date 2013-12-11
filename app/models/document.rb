@@ -83,6 +83,10 @@ class Document < ActiveRecord::Base
     editions.not_published.last
   end
 
+  def humanized_document_type
+    document_type.underscore.gsub('_', ' ')
+  end
+
   private
 
   def destroy_all_editions
