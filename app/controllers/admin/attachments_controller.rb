@@ -38,6 +38,16 @@ class Admin::AttachmentsController < Admin::BaseController
     redirect_to attachable_attachments_path(@attachable), notice: 'Attachment deleted'
   end
 
+  def attachable_attachments_path(attachable)
+    case attachable
+    when Response
+      [:admin, attachable.consultation, attachable.singular_routing_symbol]
+    else
+      [:admin, typecast_for_attachable_routing(attachable), Attachment]
+    end
+  end
+  helper_method :attachable_attachments_path
+
 private
   def attachment
     @attachment ||= begin

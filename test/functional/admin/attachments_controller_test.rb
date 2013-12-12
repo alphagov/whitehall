@@ -236,4 +236,16 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     put :update, edition_id: @edition, id: attachment, attachment: valid_attachment_params.merge(locale: :es)
     assert_equal "es", attachment.reload.locale
   end
+
+  test "#attachable_attachments_path should be the attachments index" do
+    assert_equal admin_edition_attachments_path(@edition),
+                 polymorphic_path(controller.attachable_attachments_path(@edition))
+  end
+
+  test "#attachable_attachments_path should be the response page for responses" do
+    response = create(:consultation_outcome)
+
+    assert_equal admin_consultation_outcome_path(response.consultation),
+                 polymorphic_path(controller.attachable_attachments_path(response))
+  end
 end
