@@ -7,7 +7,7 @@
 
     $(function(){
       $("select", $filter_form).change(function() {
-        $(this).parent().submit();
+        $filter_form.submit();
       });
       $(".js-btn-enter", $filter_form).each(function() {
         var btn = $(this);
