@@ -1,5 +1,6 @@
 class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
+  before_filter :handle_closed_organisation_param, only: :index
   before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :topics]
@@ -249,6 +250,12 @@ class Admin::EditionsController < Admin::BaseController
   def remove_blank_parameters
     params.keys.each do |k|
       params.delete(k) if params[k] == ""
+    end
+  end
+
+  def handle_closed_organisation_param
+    if params[:closed_organisation].present? && params[:organisation].nil?
+      params[:organisation] = params.delete(:closed_organisation)
     end
   end
 
