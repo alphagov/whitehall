@@ -16,21 +16,6 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachment_1, attachment_2], publication.attachments
   end
 
-  test "should support mass-assignment of attachments" do
-    page = create(:supporting_page)
-
-    file_attrs = attributes_for(:file_attachment)
-    file_attrs.delete(:ordering)
-    html_attrs = attributes_for(:html_attachment)
-    html_attrs.delete(:ordering)
-
-    page.attachments_attributes = [file_attrs, html_attrs]
-    page.save!
-    page.reload
-
-    assert_equal 2, page.attachments.count
-  end
-
   test "new attachments are put to the end of the list" do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),
@@ -71,22 +56,6 @@ class AttachableTest < ActiveSupport::TestCase
   test "should be valid without alternative format provider if no attachments" do
     publication = build(:publication, attachments: [])
     assert publication.valid?
-  end
-
-  test "should allow deletion of attachments via nested attributes" do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment),
-      attachment_2 = build(:file_attachment)
-    ])
-
-    attributes = {
-      attachment_1.id => attachment_1.attributes.merge('_destroy' => '1'),
-      attachment_2.id => attachment_2.attributes.merge('_destroy' => '0'),
-    }
-    publication.update_attributes(attachments_attributes: attributes)
-    publication.reload
-
-    assert_equal [attachment_2], publication.attachments
   end
 
   test 'should say a edition does not have a thumbnail when it has no attachments' do

@@ -4,12 +4,6 @@ module Attachable
   included do
     has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', inverse_of: :attachable
 
-    no_substantive_attachment_attributes = ->(attrs) do
-      attrs.except(:accessible, :attachment_data_attributes).values.all?(&:blank?) &&
-        attrs.fetch(:attachment_data_attributes, {}).values.all?(&:blank?)
-    end
-    accepts_nested_attributes_for :attachments, reject_if: no_substantive_attachment_attributes, allow_destroy: true
-
     if respond_to?(:add_trait)
       add_trait do
         def process_associations_after_save(edition)
