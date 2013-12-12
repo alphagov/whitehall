@@ -114,6 +114,14 @@ class ActiveSupport::TestCase
     self.class.factory_name_from_test
   end
 
+  def file_fixture(filename)
+    File.new(Rails.root.join('test/fixtures', filename))
+  end
+
+  def assert_file_content_identical(file1, file2)
+    FileUtils.compare_file(file1.path, file2.path)
+  end
+
   def publish(edition)
     publisher = EditionPublisher.new(edition)
     unless publisher.perform!
