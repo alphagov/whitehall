@@ -106,9 +106,20 @@ When /^I filter by organisation "([^"]*)"$/ do |organisation_name|
   filter_editions_by :organisation, organisation_name
 end
 
+When(/^I filter by organisation "(.*?)" with javascript enabled$/) do |organisation_name|
+  select_from_chosen(organisation_name, from: "organisation")
+end
+
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
   edition = document_class(document_type).find_by_title!(title)
   visit public_document_path(edition)
+end
+
+When(/^I filter by title or slug "(.*?)" with javascript enabled$/) do |title_or_slug|
+  within '#title_filter' do
+    fill_in("Title or slug", with: title_or_slug)
+    click_on "enter"
+  end
 end
 
 When /^I preview "([^"]*)"$/ do |title|

@@ -6,7 +6,7 @@
 
   <% if filter_by.include?(:title) %>
     <div class="filter-grouping" id="title_filter">
-      <%= label_tag :title, 'Title or slug' %>
+      <%= label_tag :search_title, 'Title or slug' %>
       <div class="btn-enter-wrapper">
         <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
         <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
