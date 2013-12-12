@@ -24,6 +24,13 @@ module Admin::TabbedNavHelper
     }
   end
 
+  def policy_advisory_group_tabs(group)
+    {
+      'Policy advisory group' => edit_admin_policy_advisory_group_path(group),
+      'Attachments' => admin_policy_advisory_group_attachments_path(group),
+    }
+  end
+
   def tab_navigation(tabs, *extra_classes, &block)
     tabs = tab_navigation_header(tabs)
     content_tag(:div, class: ['tabbable', *extra_classes] ) do

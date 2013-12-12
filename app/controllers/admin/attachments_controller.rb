@@ -70,6 +70,8 @@ private
         Response.find(params[:response_id])
       elsif params.has_key?(:corporate_information_page_id)
         CorporateInformationPage.find(params[:corporate_information_page_id])
+      elsif params.has_key?(:policy_advisory_group_id)
+        PolicyAdvisoryGroup.find(params[:policy_advisory_group_id])
       else
         raise ActiveRecord::RecordNotFound
       end

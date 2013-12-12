@@ -28,6 +28,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       consultation_outcome: :response_id,
       consultation_public_feedback: :response_id,
       corporate_information_page: :corporate_information_page_id,
+      policy_advisory_group: :policy_advisory_group_id,
     }
   end
 
