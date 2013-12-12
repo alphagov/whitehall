@@ -1,9 +1,10 @@
-<% page_title "Attachments for: #{@attachable.title}" %>
+<% attachable_type = @attachable.class.name.underscore.humanize.downcase %>
+<% page_title "Attachments for #{attachable_type}" %>
 <% page_class "attachments index" %>
 
 <div class="span8">
   <section>
-    <h1>Attachments for <%= @attachable.type.underscore.humanize.downcase %></h1>
+    <h1>Attachments for <%= attachable_type %></h1>
 
     <%= attachable_editing_tabs(@attachable) do %>
       <ul class="actions">

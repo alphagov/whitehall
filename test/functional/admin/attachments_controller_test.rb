@@ -33,8 +33,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   supported_attachable_types.each do |type, param_name|
     view_test "GET :index handles #{type} as attachable" do
-      skip
-
       attachable = create(type)
       create(:file_attachment, isbn: '817525766-0', attachable: attachable)
 
