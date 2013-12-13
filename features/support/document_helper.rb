@@ -103,10 +103,6 @@ module DocumentHelper
     begin_drafting_document options.merge(type: 'document_collection')
   end
 
-  def new_attachments_zip_file
-    Rails.root.join('test/fixtures/two-pages-and-greenpaper.zip')
-  end
-
   def pdf_attachment
     Rails.root.join('features/fixtures/attachment.pdf')
   end
