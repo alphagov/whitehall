@@ -63,17 +63,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       assert_equal 'whitepaper.pdf', attachable.attachments.first.filename
     end
 
-    test "POST :create handles html attachments for #{type} as attachable" do
-      attachable = create(type)
-
-      post :create, param_name => attachable.id, html: 'true', attachment: valid_html_attachment_params
-
-      assert_response :redirect
-      assert_equal 1, attachable.reload.attachments.size
-      assert_equal 'Attachment title', attachable.attachments.first.title
-      assert_equal 'Some **govspeak** body', attachable.attachments.first.body
-    end
-
     test "DELETE :destroy handles file attachments for #{type} as attachable" do
       attachable = create(type)
       attachment = create(:file_attachment, attachable: attachable)
@@ -83,25 +72,42 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       assert_response :redirect
       refute Attachment.exists?(attachment), 'attachment should have been deleted'
     end
-
-    test "DELETE :destroy handles html attachments for #{type} as attachable" do
-      attachable = create(type)
-      attachment = create(:html_attachment, attachable: attachable)
-
-      delete :destroy, param_name => attachable.id, id: attachment.id
-
-      assert_response :redirect
-      refute Attachment.exists?(attachment), 'attachment should have been deleted'
-    end
   end
 
-  view_test "GET :index shows html attachments" do
+  view_test 'GET :index shows html attachments' do
     create(:html_attachment, title: 'An HTML attachment', attachable: @edition)
 
     get :index, edition_id: @edition
 
     assert_response :success
     assert_select 'li span.title', text: 'An HTML attachment'
+  end
+
+  test 'POST :create handles html attachments when attachable allows them' do
+    post :create, edition_id: @edition, html: 'true', attachment: valid_html_attachment_params
+
+    assert_response :redirect
+    assert_equal 1, @edition.reload.attachments.size
+    assert_equal 'Attachment title', @edition.attachments.first.title
+    assert_equal 'Some **govspeak** body', @edition.attachments.first.body
+  end
+
+  test 'POST :create ignores html attachments when attachable does not allow them' do
+    attachable = create(:statistical_data_set, access_limited: false)
+
+    post :create, edition_id: attachable, html: 'true', attachment: valid_html_attachment_params
+
+    assert_response :redirect
+    assert_equal 0, attachable.reload.attachments.size
+  end
+
+  test 'DELETE :destroy handles html attachments' do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    delete :destroy, edition_id: @edition, id: attachment.id
+
+    assert_response :redirect
+    refute Attachment.exists?(attachment), 'attachment should have been deleted'
   end
 
   test 'Actions are unavailable on unmodifiable editions' do

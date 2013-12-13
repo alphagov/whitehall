@@ -134,6 +134,10 @@ class Consultation < Publicationesque
     types
   end
 
+  def allows_html_attachments?
+    true
+  end
+
   private
 
   def validate_closes_after_opens

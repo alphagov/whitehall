@@ -50,6 +50,10 @@ module Attachable
     false
   end
 
+  def allows_html_attachments?
+    false
+  end
+
   def has_thumbnail?
     thumbnailable_attachments.any?
   end

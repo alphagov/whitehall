@@ -3,6 +3,7 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :limit_edition_access!, if: :attachable_is_an_edition?
   before_filter :enforce_edition_permissions!, if: :attachable_is_an_edition?
   before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
+  before_filter :check_attachable_allows_html_attachments, if: :html?
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
   def index; end
@@ -100,5 +101,9 @@ private
 
   def html?
     params[:html] == 'true'
+  end
+
+  def check_attachable_allows_html_attachments
+    redirect_to attachable_attachments_path(@attachable) unless @attachable.allows_html_attachments?
   end
 end
