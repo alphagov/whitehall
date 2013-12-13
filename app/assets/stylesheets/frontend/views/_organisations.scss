@@ -740,6 +740,10 @@
         padding: $gutter 0 $gutter-half 0;
       }
     }
+
+    .see-legislation {
+      margin-bottom: $gutter;
+    }
   }
 
   .organisation-news {
@@ -768,7 +772,7 @@
   @include organisation-brand-colour("a", color, $websafe: true);
 }
 .organisations-external {
-  @include media(desktop){
+  @include media(desktop) {
     .block-2 {
       width: 66.66%;
       float: right;

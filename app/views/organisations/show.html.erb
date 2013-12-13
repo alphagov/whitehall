@@ -308,7 +308,7 @@
           <% if @organisation.foi_exempt? %>
             <h1 class='label'><%= t('organisation.headings.freedom_of_information_act') %></h1>
 
-            <p><%= t('organisation.foi_exemption_html', foi_url: 'http://www.legislation.gov.uk/ukpga/2000/36/schedule/1') %></p>
+            <p class="see-legislation"><%= t('organisation.foi_exemption_html', foi_url: 'http://www.legislation.gov.uk/ukpga/2000/36/schedule/1') %></p>
           <% else %>
             <h1 class="label"><%= t('organisation.headings.making_foi_requests') %></h1>
             <ol class="steps">
