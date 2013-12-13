@@ -345,7 +345,7 @@
         <% end %>
       </div>
 
-      <% if @organisation.corporate_information_pages.any? %>
+      <% if @organisation.live? %>
         <%= render partial: 'corporate_information',
                    locals: { organisation: @organisation,
                              show_corporate_reports: true } %>
