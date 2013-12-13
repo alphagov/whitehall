@@ -11,9 +11,11 @@
         <li>
           <%= link_to 'Upload new file attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(@attachable), Attachment]) %>
         </li>
-        <li>
-          <%= link_to 'Bulk upload from Zip file'.html_safe, new_admin_edition_bulk_upload_path(@attachable) %>
-        </li>
+        <% if @attachable.is_a?(Edition) %>
+          <li>
+            <%= link_to 'Bulk upload from Zip file'.html_safe, new_admin_edition_bulk_upload_path(@attachable) %>
+          </li>
+        <% end %>
         <% if @attachable.allows_html_attachments? %>
           <li>
             <%= link_to 'Add new HTML attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(@attachable), Attachment], html: true) %>
