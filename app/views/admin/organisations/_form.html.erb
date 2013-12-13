@@ -45,6 +45,9 @@
       <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
       <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
     </p>
+    <p>
+      <%= organisation_form.text_field :organisation_chart_url %>
+    </p>
   </fieldset>
   <fieldset>
     <legend>Associations</legend>

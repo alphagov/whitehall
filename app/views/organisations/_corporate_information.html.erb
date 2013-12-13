@@ -10,6 +10,9 @@
     <% end %>
     <nav class="group sub_navigation" role="navigation">
       <ul>
+        <% if organisation.organisation_chart_url.present? %>
+          <li><%= link_to t('organisation.corporate_information.organisation_chart'), organisation.organisation_chart_url %></li>
+        <% end %>
         <% organisation.corporate_information_pages.by_menu_heading(:our_information).each do |corporate_information_page| %>
           <li><%= link_to corporate_information_page.title, organisation_corporate_information_page_path(organisation, corporate_information_page) %></li>
         <% end %>
