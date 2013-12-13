@@ -11,8 +11,23 @@ module DataHygiene
       HAVING count(*) > 1;
     HEREDOC
 
+    DUP_NON_EDITION_ATTACHMENT_SQL = <<-HEREDOC
+      SELECT attachable_type, attachable_id as id FROM attachments
+      JOIN attachment_data on attachments.attachment_data_id = attachment_data.id
+      WHERE attachable_type != "Edition" and attachable_type != "SupportingPage"
+      GROUP BY attachable_type, attachable_id, attachment_data.carrierwave_file
+      HAVING count(*) > 1;
+    HEREDOC
+
     def editions
       Edition.where(id: edition_ids)
+    end
+
+    def non_editions
+      duplicate_non_edition_results.collect do |results|
+        type, id = results
+        type.constantize.find(id)
+      end
     end
 
     def csv_dump
@@ -43,6 +58,10 @@ module DataHygiene
 
     def edition_ids
       duplicate_edition_results.collect(&:first)
+    end
+
+    def duplicate_non_edition_results
+      ActiveRecord::Base.connection.execute(DUP_NON_EDITION_ATTACHMENT_SQL).to_a
     end
 
   private
