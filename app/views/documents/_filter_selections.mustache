@@ -18,14 +18,12 @@ from
 </span>
 {{/world_locations_any?}}
 
-{{#keywords_any?}}
+{{#keywords}}
   containing
   <span class="keyword-selections">
-    {{#keywords}}
-      <strong>{{name}}</strong> <a href="{{url}}" data-field="keywords" data-val="{{name}}" title="Remove {{name}} filter">&times;</a> {{joining}}
-    {{/keywords}}
+    <strong>{{keywords.name}}</strong> <a href="{{keywords.url}}" data-field="keywords" data-val="{{keywords.name}}" title="Remove {{keywords.name}} filter">&times;</a>
   </span>
-{{/keywords_any?}}
+{{/keywords}}
 
 {{#filtering_command_and_act_papers?}}
   <span class="official-document-status">which are <strong>Command or Act papers <a data-field="official_document_status" data-val="command_and_act_papers" title="Remove official status filter">&times;</a></strong></span>
