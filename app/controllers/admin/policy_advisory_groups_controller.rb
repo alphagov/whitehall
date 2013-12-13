@@ -1,8 +1,5 @@
 class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
-  include Admin::AttachmentActionParamHandler
-
   before_filter :enforce_permissions!, only: [:destroy]
-  before_filter :cope_with_attachment_action_params, only: [:update]
 
   def index
     @policy_advisory_groups = PolicyAdvisoryGroup.order(:name)
@@ -10,7 +7,6 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
 
   def new
     @policy_advisory_group = PolicyAdvisoryGroup.new
-    build_file_attachment
   end
 
   def create
@@ -24,7 +20,6 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
 
   def edit
     @policy_advisory_group = PolicyAdvisoryGroup.find(params[:id])
-    build_file_attachment
   end
 
   def update
@@ -43,12 +38,8 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
     redirect_to admin_policy_advisory_groups_path, notice: %{"#{name}" deleted.}
   end
 
-  private
+private
   def enforce_permissions!
     enforce_permission!(:delete, PolicyAdvisoryGroup)
-  end
-
-  def build_file_attachment
-    @policy_advisory_group.build_empty_file_attachment unless @policy_advisory_group.attachments.any?(&:new_record?)
   end
 end
