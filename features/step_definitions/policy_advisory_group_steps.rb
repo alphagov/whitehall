@@ -42,19 +42,9 @@ Then /^I should not see the policy advisory group "([^"]*)"$/ do |group_name|
   end
 end
 
-Given /^I attach a PDF document "([^"]*)" to the policy advisory group "([^"]*)"$/ do |attachment_name, group_name|
-  group = PolicyAdvisoryGroup.where(name: group_name).first
-  visit edit_admin_policy_advisory_group_path(group)
-  add_attachment(attachment_name, "attachment.pdf", "#policy_group_attachment_fields")
-  click_button "Save"
-end
-
-When /^I insert the attachment into the body of policy advisory group "([^"]*)"$/ do |group_name|
-  group = PolicyAdvisoryGroup.where(name: group_name).first
-  group.description += "\n\n!@1"
-  group.save
-end
-
-Then /^I should be able to see a PDF document "([^"]*)"$/ do |attachment_name|
-  assert page.has_css?('.attachment-details .title', text: attachment_name)
+Then /^I should be able to add attachments to the policy advisory group "(.*?)"$/ do |group_name|
+  group = PolicyAdvisoryGroup.find_by_name(group_name)
+  attachment = upload_pdf_to_policy_advisory_group(group)
+  insert_attachment_markdown_into_policy_advisory_group_description(attachment, group)
+  check_attachment_appears_on_policy_advisory_group(attachment, group)
 end

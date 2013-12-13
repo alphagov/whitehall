@@ -165,16 +165,6 @@ module DocumentHelper
     end
   end
 
-  def add_attachment(title, filename, section)
-    within section do
-      if page.has_field?("Individual upload")
-        choose "Individual upload"
-      end
-      fill_in "Title", with: title
-      attach_file "File", Rails.root.join("features/fixtures", filename)
-    end
-  end
-
   def speed_tag_publication(title)
     edition = Edition.find_by_title(title)
     visit admin_edition_path(edition)
