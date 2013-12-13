@@ -14,10 +14,11 @@
         <table class="table">
           <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
           <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
-          <tr><th>URL</th><td><%= link_to @organisation.url, @organisation.url %></td></tr>
+          <tr><th>URL</th><td><%= link_to @organisation.url %></td></tr>
           <tr><th>gov.uk status</th><td><%= @organisation.govuk_status.titleize %></td></tr>
           <tr><th>Description</th><td><%= govspeak_to_html @organisation.description %></td></tr>
           <tr><th>Email address for ordering attached files in an alternative format</th><td><%= @organisation.alternative_format_contact_email %></td></tr>
+          <tr><th>Organisation chart URL</th><td><%= link_to @organisation.organisation_chart_url %>
           <tr><th>Sponsoring organisations</th><td>
             <% if @organisation.parent_organisations.any? %>
               <%= @organisation.parent_organisations.map {|o| link_to(o.name, [:admin, o]) }.to_sentence.html_safe %>
