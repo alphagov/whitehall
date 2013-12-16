@@ -11,7 +11,16 @@
 
   <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled, required: true %>
 
-  <%= render partial: "admin/shared/attachment_fields", locals: { form: form, edition: corporate_information_page, parent_type: :corporate_information_page } %>
+  <h3>Attachments</h3>
+  <% if corporate_information_page.persisted? %>
+    <%= render 'admin/attachments/markdown_codes', attachable: corporate_information_page %>
+  <% else %>
+    <p>
+      If you'd like to add an attachment to this corporate information page,
+      please save it first. You'll then find a new tab at the top of the page
+      that you can use to upload, edit and delete attachments.
+    </p>
+  <% end %>
   
   <p class="warning">Warning: changes to corporate info pages appear instantly on the live site.</p>
   <%= form.save_or_cancel cancel: [:admin, @organisation] %>

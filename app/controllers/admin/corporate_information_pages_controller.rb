@@ -1,10 +1,7 @@
 class Admin::CorporateInformationPagesController < Admin::BaseController
-  include Admin::AttachmentActionParamHandler
-
   before_filter :find_organisation
   before_filter :build_corporate_information_page, only: [:new, :create]
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
-  before_filter :cope_with_attachment_action_params, only: [:update]
 
   def index
     @corporate_information_pages = @organisation.corporate_information_pages
@@ -12,7 +9,6 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 
   def new
     build_corporate_information_page
-    build_file_attachment
   end
 
   def create
@@ -21,13 +17,11 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} created successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      build_file_attachment
       render :new
     end
   end
 
   def edit
-    build_file_attachment
   end
 
   def update
@@ -35,7 +29,6 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} updated successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      build_file_attachment
       render :new
     end
   rescue ActiveRecord::StaleObjectError
@@ -46,7 +39,6 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
     EOF
     @conflicting_corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
     @corporate_information_page.lock_version = @conflicting_corporate_information_page.lock_version
-    build_file_attachment
     render action: "edit"
   end
 
@@ -55,7 +47,6 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} deleted successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      build_file_attachment
       render :new
     end
   end
@@ -79,9 +70,5 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
-  end
-
-  def build_file_attachment
-    @corporate_information_page.build_empty_file_attachment unless @corporate_information_page.attachments.any?(&:new_record?)
   end
 end

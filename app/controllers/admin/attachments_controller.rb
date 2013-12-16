@@ -3,6 +3,7 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :limit_edition_access!, if: :attachable_is_an_edition?
   before_filter :enforce_edition_permissions!, if: :attachable_is_an_edition?
   before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
+  before_filter :check_attachable_allows_html_attachments, if: :html?
   before_filter :find_attachment, only: [:edit, :update, :destroy]
 
   def index; end
@@ -38,6 +39,16 @@ class Admin::AttachmentsController < Admin::BaseController
     redirect_to attachable_attachments_path(@attachable), notice: 'Attachment deleted'
   end
 
+  def attachable_attachments_path(attachable)
+    case attachable
+    when Response
+      [:admin, attachable.consultation, attachable.singular_routing_symbol]
+    else
+      [:admin, typecast_for_attachable_routing(attachable), Attachment]
+    end
+  end
+  helper_method :attachable_attachments_path
+
 private
   def attachment
     @attachment ||= begin
@@ -58,6 +69,10 @@ private
         @edition = Edition.find(params[:edition_id])
       elsif params.has_key?(:response_id)
         Response.find(params[:response_id])
+      elsif params.has_key?(:corporate_information_page_id)
+        CorporateInformationPage.find(params[:corporate_information_page_id])
+      elsif params.has_key?(:policy_advisory_group_id)
+        PolicyAdvisoryGroup.find(params[:policy_advisory_group_id])
       else
         raise ActiveRecord::RecordNotFound
       end
@@ -86,5 +101,9 @@ private
 
   def html?
     params[:html] == 'true'
+  end
+
+  def check_attachable_allows_html_attachments
+    redirect_to attachable_attachments_path(@attachable) unless @attachable.allows_html_attachments?
   end
 end

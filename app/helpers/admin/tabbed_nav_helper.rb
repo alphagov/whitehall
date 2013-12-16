@@ -17,6 +17,20 @@ module Admin::TabbedNavHelper
     }
   end
 
+  def corporate_information_page_tabs(page)
+    {
+      'Details' => edit_admin_organisation_corporate_information_page_path(page.organisation, page),
+      'Attachments' => admin_corporate_information_page_attachments_path(page.id)
+    }
+  end
+
+  def policy_advisory_group_tabs(group)
+    {
+      'Policy advisory group' => edit_admin_policy_advisory_group_path(group),
+      'Attachments' => admin_policy_advisory_group_attachments_path(group),
+    }
+  end
+
   def tab_navigation(tabs, *extra_classes, &block)
     tabs = tab_navigation_header(tabs)
     content_tag(:div, class: ['tabbable', *extra_classes] ) do

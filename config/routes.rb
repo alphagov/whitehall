@@ -184,8 +184,17 @@ Whitehall::Application.routes.draw do
           resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]
           resources :financial_reports, except: [:show]
         end
+        resources :corporate_information_pages, only: [] do
+          resources :attachments, except: [:show] do
+            put :order, on: :collection
+          end
+        end
         resources :policy_teams, except: [:show]
-        resources :policy_advisory_groups, except: [:show]
+        resources :policy_advisory_groups, except: [:show] do
+          resources :attachments do
+            put :order, on: :collection
+          end
+        end
         resources :operational_fields, except: [:show]
         resources :edition_organisations, only: [:edit, :update]
         resources :topics, path: "topics" do

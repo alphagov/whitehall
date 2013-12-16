@@ -2,20 +2,23 @@
 
 <h1>Edit '<%= @corporate_information_page.title %>' page for <%= link_to @organisation.name, [:admin, @organisation] %></h1>
 <p class="warning">Warning: changes to corporate info pages appear instantly on the live site.</p>
+
 <div class="row-fluid">
   <div class="span8">
     <section>
-      <% if @conflicting_corporate_information_page %>
-        <div class="row-fluid">
-          <div class="conflicting new span6">
-            <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+      <%= tab_navigation_for(@corporate_information_page) do %>
+        <% if @conflicting_corporate_information_page %>
+          <div class="row-fluid">
+            <div class="conflicting new span6">
+              <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+            </div>
+            <div class="conflicting latest span6">
+              <%= render partial: "form", locals: {disabled: true, organisation: @organisation, corporate_information_page: @conflicting_corporate_information_page} %>
+            </div>
           </div>
-          <div class="conflicting latest span6">
-            <%= render partial: "form", locals: {disabled: true, organisation: @organisation, corporate_information_page: @conflicting_corporate_information_page} %>
-          </div>
-        </div>
-      <% else %>
-        <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+        <% else %>
+          <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
+        <% end %>
       <% end %>
     </section>
   </div>

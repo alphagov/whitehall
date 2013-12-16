@@ -103,10 +103,6 @@ module DocumentHelper
     begin_drafting_document options.merge(type: 'document_collection')
   end
 
-  def new_attachments_zip_file
-    Rails.root.join('test/fixtures/two-pages-and-greenpaper.zip')
-  end
-
   def pdf_attachment
     Rails.root.join('features/fixtures/attachment.pdf')
   end
@@ -166,16 +162,6 @@ module DocumentHelper
       unless options[:ignore_errors]
         refute_flash_alerts_exist
       end
-    end
-  end
-
-  def add_attachment(title, filename, section)
-    within section do
-      if page.has_field?("Individual upload")
-        choose "Individual upload"
-      end
-      fill_in "Title", with: title
-      attach_file "File", Rails.root.join("features/fixtures", filename)
     end
   end
 

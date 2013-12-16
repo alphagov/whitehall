@@ -22,25 +22,99 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     @edition = create(:consultation)
   end
 
+  def self.supported_attachable_types
+    {
+      edition: :edition_id,
+      consultation_outcome: :response_id,
+      consultation_public_feedback: :response_id,
+      corporate_information_page: :corporate_information_page_id,
+      policy_advisory_group: :policy_advisory_group_id,
+    }
+  end
+
+  supported_attachable_types.each do |type, param_name|
+    view_test "GET :index handles #{type} as attachable" do
+      attachable = create(type)
+      create(:file_attachment, isbn: '817525766-0', attachable: attachable)
+
+      get :index, param_name => attachable.id
+
+      assert_response :success
+      assert_select 'p', text: /ISBN: 817525766-0/
+    end
+
+    view_test "GET :new handles #{type} as attachable" do
+      attachable = create(type)
+
+      get :new, param_name => attachable.id
+
+      assert_response :success
+      assert_select "input[name='attachment[title]']"
+    end
+
+    test "POST :create handles file attachments for #{type} as attachable" do
+      attachable = create(type)
+
+      post :create, param_name => attachable.id, attachment: valid_attachment_params
+
+      assert_response :redirect
+      assert_equal 1, attachable.reload.attachments.size
+      assert_equal 'Attachment title', attachable.attachments.first.title
+      assert_equal 'whitepaper.pdf', attachable.attachments.first.filename
+    end
+
+    test "DELETE :destroy handles file attachments for #{type} as attachable" do
+      attachable = create(type)
+      attachment = create(:file_attachment, attachable: attachable)
+
+      delete :destroy, param_name => attachable.id, id: attachment.id
+
+      assert_response :redirect
+      refute Attachment.exists?(attachment), 'attachment should have been deleted'
+    end
+  end
+
+  view_test 'GET :index shows html attachments' do
+    create(:html_attachment, title: 'An HTML attachment', attachable: @edition)
+
+    get :index, edition_id: @edition
+
+    assert_response :success
+    assert_select 'li span.title', text: 'An HTML attachment'
+  end
+
+  test 'POST :create handles html attachments when attachable allows them' do
+    post :create, edition_id: @edition, html: 'true', attachment: valid_html_attachment_params
+
+    assert_response :redirect
+    assert_equal 1, @edition.reload.attachments.size
+    assert_equal 'Attachment title', @edition.attachments.first.title
+    assert_equal 'Some **govspeak** body', @edition.attachments.first.body
+  end
+
+  test 'POST :create ignores html attachments when attachable does not allow them' do
+    attachable = create(:statistical_data_set, access_limited: false)
+
+    post :create, edition_id: attachable, html: 'true', attachment: valid_html_attachment_params
+
+    assert_response :redirect
+    assert_equal 0, attachable.reload.attachments.size
+  end
+
+  test 'DELETE :destroy handles html attachments' do
+    attachment = create(:html_attachment, attachable: @edition)
+
+    delete :destroy, edition_id: @edition, id: attachment.id
+
+    assert_response :redirect
+    refute Attachment.exists?(attachment), 'attachment should have been deleted'
+  end
+
   test 'Actions are unavailable on unmodifiable editions' do
     edition = create(:published_news_article)
 
     get :index, edition_id: edition
     assert_response :redirect
-  end
-
-  view_test "GET :index lists the attachments for the edition" do
-    @edition.attachments << build(:file_attachment)
-    get :index, edition_id: @edition
-
-    assert_response :success
-    assert_select 'li span.title', text: @edition.attachments[0].title
-  end
-
-  view_test "GET :index shows metadata on each attachment" do
-    @edition.attachments << build(:file_attachment, isbn: '817525766-0')
-    get :index, edition_id: @edition
-    assert_select 'p', text: /ISBN: 817525766-0/
   end
 
   test "PUT :order saves the new order of attachments" do
@@ -67,19 +141,10 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  view_test "GET :new renders the attachment form" do
-    get :new, edition_id: @edition
-
-    assert_response :success
-    assert_select "input[name='attachment[title]']"
-  end
-
-  view_test "GET :new handles other 'attachable' things" do
-    response = @edition.outcome = create(:consultation_outcome)
-    get :new, response_id: response
-
-    assert_response :success
-    assert_select "input[name='attachment[title]']"
+  test "GET :new raises an exception with an unknown parent type" do
+    assert_raise(ActiveRecord::RecordNotFound) {
+      get :new, parent_id: 123
+    }
   end
 
   view_test "GET :new for a publication includes House of Commons metadata for file attachments" do
@@ -96,36 +161,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
-  end
-
-  test "POST :create saves the file attachment to the edition and redirects to the attachments index" do
-    post :create, edition_id: @edition, attachment: valid_attachment_params
-
-    assert_redirected_to admin_edition_attachments_path(@edition)
-    assert_equal 1, @edition.reload.attachments.size
-    assert_equal FileAttachment, @edition.attachments[0].class
-    assert_equal 'Attachment title', @edition.attachments[0].title
-    assert_equal 'whitepaper.pdf', @edition.attachments[0].filename
-  end
-
-  test "POST :create saves the html attachment to the edition and redirects to the attachments index" do
-    post :create, edition_id: @edition, html: 'true', attachment: valid_html_attachment_params
-
-    assert_redirected_to admin_edition_attachments_path(@edition)
-    assert_equal 1, @edition.reload.attachments.size
-    assert_equal HtmlAttachment, @edition.attachments[0].class
-    assert_equal 'Attachment title', @edition.attachments[0].title
-    assert_equal 'Some **govspeak** body', @edition.attachments[0].body
-  end
-
-  test "POST :create handles response attachments and redirects to the response itself, rather than the attachments index" do
-    consultation_response = @edition.outcome = create(:consultation_outcome)
-    post :create, response_id: consultation_response, attachment: valid_attachment_params
-
-    assert_redirected_to admin_consultation_outcome_url(@edition)
-    assert_equal 1, consultation_response.reload.attachments.size
-    assert_equal 'Attachment title', consultation_response.attachments[0].title
-    assert_equal 'whitepaper.pdf', consultation_response.attachments[0].filename
   end
 
   test "POST :create with bad data does not save the attachment and re-renders the new template" do
@@ -182,31 +217,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     assert_equal 'whitepaper.pdf',  attachment.filename
   end
 
-  test "DELETE :destroy deletes a file attachment" do
-    attachment = create(:file_attachment, attachable: @edition)
-    delete :destroy, edition_id: @edition, id: attachment
-
-    refute Attachment.exists?(attachment), 'attachment should have been deleted'
-    assert_equal [], @edition.attachments.reload.to_a
-  end
-
-  test "DELETE :destroy deletes an html attachment" do
-    attachment = create(:html_attachment, attachable: @edition)
-    delete :destroy, edition_id: @edition, id: attachment.id
-
-    refute Attachment.exists?(attachment), 'attachment should have been deleted'
-    assert_equal [], @edition.attachments.reload.to_a
-  end
-
-  test "DELETE :destroy deletes attachments from other 'attachable' things" do
-    response = @edition.outcome = create(:consultation_outcome)
-    attachment = create(:file_attachment, attachable: response)
-    delete :destroy, response_id: response, id: attachment
-
-    refute Attachment.exists?(attachment), 'attachment should have been deleted'
-    assert_equal [], @edition.attachments.to_a
-  end
-
   test 'attachment access is forbidden for users without access to the edition' do
     login_as :world_editor
     get :new, edition_id: @edition
@@ -221,5 +231,17 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     put :update, edition_id: @edition, id: attachment, attachment: valid_attachment_params.merge(locale: :es)
     assert_equal "es", attachment.reload.locale
+  end
+
+  test "#attachable_attachments_path should be the attachments index" do
+    assert_equal admin_edition_attachments_path(@edition),
+                 polymorphic_path(controller.attachable_attachments_path(@edition))
+  end
+
+  test "#attachable_attachments_path should be the response page for responses" do
+    response = create(:consultation_outcome)
+
+    assert_equal admin_consultation_outcome_path(response.consultation),
+                 polymorphic_path(controller.attachable_attachments_path(response))
   end
 end

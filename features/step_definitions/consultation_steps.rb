@@ -32,7 +32,7 @@ When /^I add an outcome to the consultation$/ do
   fill_in "Detail/Summary", with: "Outcome summary"
   click_button "Save"
 
-  upload_new_attachment(Rails.root.join("features/fixtures/attachment.pdf"), "Outcome attachment title")
+  upload_new_attachment(pdf_attachment, "Outcome attachment title")
 end
 
 When(/^I add public feedback to the consultation$/) do
@@ -43,7 +43,7 @@ When(/^I add public feedback to the consultation$/) do
   fill_in "Summary", with: "Feedback summary"
   click_button "Save"
 
-  upload_new_attachment(Rails.root.join("features/fixtures/attachment.pdf"), "Feedback attachment title")
+  upload_new_attachment(pdf_attachment, "Feedback attachment title")
 end
 
 When /^I save and publish the amended consultation$/ do

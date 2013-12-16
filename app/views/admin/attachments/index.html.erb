@@ -1,21 +1,26 @@
-<% page_title "Attachments for: #{@attachable.title}" %>
+<% attachable_type = @attachable.class.name.underscore.humanize.downcase %>
+<% page_title "Attachments for #{attachable_type}" %>
 <% page_class "attachments index" %>
 
 <div class="span8">
   <section>
-    <h1>Attachments for <%= @attachable.type.underscore.humanize.downcase %></h1>
+    <h1>Attachments for <%= attachable_type %></h1>
 
     <%= attachable_editing_tabs(@attachable) do %>
       <ul class="actions">
         <li>
-          <%= link_to 'Upload new file attachment', new_admin_edition_attachment_path(@attachable) %>
+          <%= link_to 'Upload new file attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(@attachable), Attachment]) %>
         </li>
-        <li>
-          <%= link_to 'Bulk upload from Zip file'.html_safe, new_admin_edition_bulk_upload_path(@attachable) %>
-        </li>
-        <li>
-          <%= link_to 'Add new HTML attachment', new_admin_edition_attachment_path(@attachable, html: true) %>
-        </li>
+        <% if @attachable.is_a?(Edition) %>
+          <li>
+            <%= link_to 'Bulk upload from Zip file'.html_safe, new_admin_edition_bulk_upload_path(@attachable) %>
+          </li>
+        <% end %>
+        <% if @attachable.allows_html_attachments? %>
+          <li>
+            <%= link_to 'Add new HTML attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(@attachable), Attachment], html: true) %>
+          </li>
+        <% end %>
       </ul>
 
       <%= render('attachments', attachable: @attachable) if @attachable.attachments.any? %>

@@ -43,12 +43,9 @@ Feature: Policy advisory groups
     When I visit the policy advisory group "ABC Advisories"
     Then I should see the policy advisory group "ABC Advisories"
 
-  Scenario: Attachments can be added to policy advisory groups using Markdown
-    Given a policy advisory group "Yet More Amazing Advisories" exists
-    And I attach a PDF document "Meeting notes" to the policy advisory group "Yet More Amazing Advisories"
-    When I insert the attachment into the body of policy advisory group "Yet More Amazing Advisories"
-    And I visit the policy advisory group "Yet More Amazing Advisories"
-    Then I should be able to see a PDF document "Meeting notes"
+  Scenario:
+    Given a policy advisory group "Advisory Panel" exists
+    Then I should be able to add attachments to the policy advisory group "Advisory Panel"
 
   Scenario: Deleting a policy advisory group
     Given I am a GDS editor

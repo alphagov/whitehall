@@ -42,21 +42,18 @@ class Admin::BaseController < ApplicationController
     end
   end
 
-  def attachable_attachments_path(attachable)
-    case attachable
-    when Edition
-      admin_edition_attachments_path(attachable)
-    when Response
-      [:admin, attachable.consultation, attachable.singular_routing_symbol]
-    else
-      [:admin, attachable, Attachment]
-    end
-  end
-  helper_method :attachable_attachments_path
-
   private
 
   def forbidden!
     render "admin/editions/forbidden", status: 403
   end
+
+  def typecast_for_attachable_routing(attachable)
+    case attachable
+    when Edition then attachable.becomes(Edition)
+    when Response then attachable.becomes(Response)
+    else attachable
+    end
+  end
+  helper_method :typecast_for_attachable_routing
 end

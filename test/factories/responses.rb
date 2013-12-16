@@ -1,20 +1,16 @@
 FactoryGirl.define do
-  factory :response do
+  trait :response do
+    consultation
     published_on { Date.today }
-    sequence :summary do |n|
-      "generic response summary #{n}"
-    end
   end
 
-  factory :consultation_outcome do
-    published_on { Date.today }
+  factory :consultation_outcome, traits: [:response] do
     sequence :summary do |n|
       "outcome summary #{n}"
     end
   end
 
-  factory :consultation_public_feedback do
-    published_on { Date.today }
+  factory :consultation_public_feedback, traits: [:response] do
     sequence :summary do |n|
       "public feedback summary #{n}"
     end

@@ -1,18 +1,14 @@
 module Admin::AttachableHelper
-
-  def typecast_for_attachable_routing(attachable)
+  def attachable_editing_tabs(attachable, &block)
     case attachable
-    when Edition then attachable.becomes(Edition)
-    when Response then attachable.becomes(Response)
-    else attachable
-    end
-  end
-
-  def attachable_editing_tabs(attachable, &blk)
-    if attachable.is_a?(Consultation)
-      consultation_editing_tabs(attachable) { yield blk }
+    when Consultation
+      consultation_editing_tabs(attachable, &block)
+    when Response
+      consultation_editing_tabs(attachable.consultation, &block)
+    when Edition
+      edition_editing_tabs(attachable, &block)
     else
-      edition_editing_tabs(attachable) { yield blk }
+      tab_navigation_for(attachable, &block)
     end
   end
 

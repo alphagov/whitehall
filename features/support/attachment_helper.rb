@@ -20,6 +20,7 @@ module AttachmentHelper
     fill_in "Title", with: attachment_title
     attach_file "File", file_path
     click_button "Save"
+    Attachment.find_by_title(attachment_title)
   end
 end
 

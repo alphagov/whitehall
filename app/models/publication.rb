@@ -109,6 +109,10 @@ class Publication < Publicationesque
     })
   end
 
+  def allows_html_attachments?
+    true
+  end
+
   private
 
   def attachment_required_before_moving_out_of_draft
