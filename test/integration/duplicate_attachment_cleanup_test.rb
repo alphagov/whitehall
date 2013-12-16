@@ -5,14 +5,16 @@ require 'data_hygiene/duplicate_attachment_fixer'
 class DuplicateAttachmentCleanupTest < ActiveSupport::TestCase
 
   test "duplicate files are replaced with a renamed copy of themselves" do
-    attachable = create(:policy_advisory_group, attachments: [
-        attachment_1 = build(:file_attachment, id: 1, file: file_fixture('whitepaper.pdf')),
-        attachment_2 = build(:file_attachment, id: 2, file: file_fixture('whitepaper.pdf')),
-        attachment_3 = build(:file_attachment, id: 3, file: file_fixture('whitepaper.pdf')),
-        attachment_4 = build(:file_attachment, id: 4, file: file_fixture('greenpaper.pdf')),
-        attachment_5 = build(:file_attachment, id: 5, file: file_fixture('whitepaper-1.pdf')),
-        attachment_6 = build(:file_attachment, id: 6, file: file_fixture('greenpaper.pdf'))
-    ])
+    attachable = create(:policy_advisory_group)
+    attachments =[
+      attachment_1 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper.pdf')),
+      attachment_2 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper.pdf')),
+      attachment_3 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper.pdf')),
+      attachment_4 = build(:file_attachment, attachable: attachable, file: file_fixture('greenpaper.pdf')),
+      attachment_5 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper-1.pdf')),
+      attachment_6 = build(:file_attachment, attachable: attachable, file: file_fixture('greenpaper.pdf'))
+    ]
+    attachments.each { |attachment| attachment.save(validate: false) }
     VirusScanHelpers.simulate_virus_scan
 
     attachment_1_file_data = attachment_1.attachment_data
