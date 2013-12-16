@@ -22,13 +22,24 @@ namespace :router do
   end
 
   desc "Register all detailed guides with the router"
-  task :register_guidance => [:environment, :router_environment, :register_backend] do
+  task :register_guidance => [:environment, :router_environment, :register_backend, :register_unpublished_guidance] do
     DetailedGuide.published.includes(:document).each do |guide|
       path = "/#{guide.slug}"
       @logger.info "Registering detailed guide #{path}..."
       @router_api.add_route(path, "exact", @application_id, skip_commit: true)
     end
     @logger.info "Guides registered, reloading routes..."
+    @router_api.commit_routes
+  end
+
+  desc "Register all unpublished detailed guides with the router"
+  task :register_unpublished_guidance => [:environment, :router_environment, :register_backend] do
+    Unpublishing.where(document_type: DetailedGuide.name).each do |unpublishing|
+      path = "/#{unpublishing.slug}"
+      @logger.info "Registering detailed guide unpublishing #{path}..."
+      @router_api.add_route(path, "exact", @application_id, skip_commit: true)
+    end
+    @logger.info "Guides unpublishings registered, reloading routes..."
     @router_api.commit_routes
   end
 
