@@ -31,15 +31,31 @@ class Unpublishing < ActiveRecord::Base
     unpublishing_reason.as_sentence
   end
 
-  def edition_url
-    Whitehall.url_maker.public_document_url(edition)
+  def document_path
+    @document_path ||= if edition.present?
+      Whitehall.url_maker.public_document_path(edition)
+    else
+      # If edition is nil it's probably because it's deleted and hidden by the
+      # default scope
+      deleted_edition = Edition.unscoped { Edition.find(edition_id) }
+      # The slug on deleted editions can be changed if its document doesn't
+      # have a published edition, so we need to use our own slug
+      Whitehall.url_maker.public_document_path(deleted_edition, id: slug)
+    end
   end
 
+private
   def redirect_not_circular
     if alternative_url.present?
-      if edition_url == alternative_url
+      if document_path == alternative_path
         errors.add(:alternative_url, "cannot redirect to itself")
       end
     end
+  end
+
+  def alternative_path
+    URI.parse(alternative_url).path
+  rescue URI::InvalidURIError
+    nil
   end
 end
