@@ -22,6 +22,7 @@
     <h3>Support</h3>
     <ul>
       <li><a href="https://gov.uk/support/internal">GDS support form (Zendesk)</a></li>
+      <li><%= link_to "Find in admin bookmarklet", controller: :dashboard, action: :find_in_admin_bookmarklet %></li>
     </ul>
   </div>
 </div>
@@ -38,29 +39,4 @@
       <p><%= link_to "See all", admin_editions_path(state: :force_published, organisation: current_user.organisation) %></p>
     </div>
   <% end %>
-</div>
-
-<div class="row-fluid">
-  <div class="span12 bookmarks">
-    <h2>Find in admin bookmark</h2>
-    <p>The following is a bookmark which will take you from any document on the front end to that document in the admin suite.  To use this, make a new favourite / bookmark in your browser with this code as it's url.</p>
-    <%# See 'find_in_admin.js' for source code. %>
-
-    <pre>javascript:<%= Uglifier.compile(render("find_in_admin", open_in_new_tab: false)); %></pre>
-
-    <p>This alternative version will open the admin page in a new tab or window depending on browser.</p>
-
-    <pre>javascript:<%= Uglifier.compile(render("find_in_admin", open_in_new_tab: true)); %></pre>
-
-    <h3>IE users</h3>
-    <p>It's a little tricky to persuade IE to make this kind of favourite, but here are the steps:</p>
-    <ol>
-      <li>Copy the code</li>
-      <li>Favourite any page (just select Favourites -> Add To Favourites from the menu bar) and name it "Find in admin" or whatever you like.</li>
-      <li>Click on Favourites in the menu bar again, right click on the favourite you just created and select "Properties".</li>
-      <li>Replace whatever's in the URL field with the copied code.</li>
-      <li>Click OK. It will give you a warning message, ignore this and click OK again.</li>
-      <li>Use the bookmark on any document page.</li>
-    </ol>
-  </div>
 </div>
