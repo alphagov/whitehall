@@ -142,6 +142,15 @@ Old Url,New Url,Status,Slug,Admin Url,State
       EOT
     end
 
+    test "attachment sources use their visibility to populate 'State'" do
+      edition = create(:publication, :draft)
+      attachment = create(:csv_attachment, attachable: edition)
+      attachment_source = create(:attachment_source, attachment: attachment)
+      assert_extraction_contains <<-EOT
+#{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment.url},301,"","",draft
+      EOT
+    end
+
     private
 
     def news_article_url(article)
