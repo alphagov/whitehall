@@ -139,6 +139,15 @@ module Whitehall
       EOT
     end
 
+    test "attachment sources use their visibility to populate 'State'" do
+      edition = create(:publication, :draft)
+      attachment = create(:csv_attachment, attachable: edition)
+      attachment_source = create(:attachment_source, attachment: attachment)
+      assert_csv_contains <<-EOT.strip_heredoc
+        #{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment.url},"",draft
+      EOT
+     end
+
     test "maps localised sources to localised New URLs in addition to the the default mapping" do
       publication = create(:published_publication)
       source = create(:document_source, document: publication.document, url: 'http://oldurl/foo')

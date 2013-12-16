@@ -21,7 +21,9 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
         if attachment_source.attachment
           path = attachment_source.attachment.url
           attachment_url = 'https://' + public_host + path
-          target << [attachment_source.url, attachment_url, '', 'published']
+          visibility = AttachmentVisibility.new(attachment_source.attachment.attachment_data, nil)
+          state = visibility.visible? ? 'published' : 'draft'
+          target << [attachment_source.url, attachment_url, '', state]
         end
       rescue StandardError => e
         Rails.logger.error("#{self.class.name}: when exporting #{attachment_source} - #{e} - #{e.backtrace.join("\n")}")
