@@ -10,7 +10,7 @@ class AttachableTest < ActiveSupport::TestCase
   test "should allow multiple attachments" do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment),
-      attachment_2 = build(:file_attachment)
+      attachment_2 = build(:file_attachment, file: file_fixture('whitepaper.pdf'))
     ])
 
     assert_equal [attachment_1, attachment_2], publication.attachments
@@ -19,10 +19,10 @@ class AttachableTest < ActiveSupport::TestCase
   test "new attachments are put to the end of the list" do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:file_attachment, ordering: 1)
+      attachment_2 = build(:file_attachment, ordering: 1, file: file_fixture('whitepaper.pdf'))
     ])
 
-    attachment_3 = FileAttachment.new(title: 'Title', attachment_data: build(:attachment_data))
+    attachment_3 = FileAttachment.new(title: 'Title', attachment_data: build(:attachment_data, file: file_fixture('sample.rtf')))
     publication.attachments << attachment_3
 
     assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments(true)
@@ -129,8 +129,8 @@ class AttachableTest < ActiveSupport::TestCase
   test '#reorder_attachments should handle existing negative orderings' do
     attachable = create(:consultation)
     a = create(:file_attachment, attachable: attachable, ordering: -1)
-    b = create(:file_attachment, attachable: attachable, ordering: 0)
-    c = create(:file_attachment, attachable: attachable, ordering: 1)
+    b = create(:file_attachment, attachable: attachable, ordering: 0, file: file_fixture('whitepaper.pdf'))
+    c = create(:file_attachment, attachable: attachable, ordering: 1, file: file_fixture('simple.pdf'))
 
     attachable.reorder_attachments([b.id, a.id, c.id])
 

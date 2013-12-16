@@ -41,12 +41,13 @@ class Attachment < ActiveRecord::Base
   validates :price, numericality: {
     allow_blank: true, greater_than: 0
   }
+  validate :filename_is_unique, unless: :html?
 
   scope :with_filename, ->(basename) {
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
-  scope :files, where('type = ?', 'FileAttachment')
+  scope :files, where("type != ?", 'HtmlAttachment')
 
   scope :for_current_locale, -> { where(locale: [nil, I18n.locale]) }
 
@@ -87,6 +88,10 @@ class Attachment < ActiveRecord::Base
     hoc_paper_number.present? || unnumbered_hoc_paper?
   end
 
+  def attachable_model_name
+    attachable.class.model_name.human.downcase
+  end
+
   private
 
   def store_price_in_pence
@@ -111,5 +116,11 @@ class Attachment < ActiveRecord::Base
 
   def nilify_locale_if_blank
     self.locale = nil if locale.blank?
+  end
+
+  def filename_is_unique
+    if attachable && attachable.attachments.any? { |attachment| !attachment.html? && attachment != self && attachment.filename == filename }
+      self.errors[:base] << "This #{attachable_model_name} already has a file called \"#{filename}\""
+    end
   end
 end
