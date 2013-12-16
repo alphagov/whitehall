@@ -13,7 +13,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   end
 
   view_test '#show renders the HTML attachment of a published consultation' do
-    consultation, attachment = create_edition_and_attachment(:consultation)
+    consultation, attachment = create_edition_and_attachment(type: :consultation)
     get :show, consultation_id: consultation.document, id: attachment
 
     assert_response :success
@@ -21,7 +21,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   end
 
   test '#show returns 404 if the edition is not published' do
-    publication, attachment = create_edition_and_attachment(:publication, :draft)
+    publication, attachment = create_edition_and_attachment(state: :draft)
 
     assert_raise ActiveRecord::RecordNotFound do
       get :show, publication_id: publication.document, id: attachment
@@ -38,7 +38,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
 
   view_test '#show renders the HTML attachment (without caching) on draft edition if previewing' do
     login_as create(:departmental_editor)
-    publication, attachment = create_edition_and_attachment(:publication, :draft)
+    publication, attachment = create_edition_and_attachment(state: :draft)
 
     get :show, publication_id: publication.document, id: attachment, preview: attachment.id
 
@@ -49,7 +49,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
 
   view_test '#show previews the latest html attachment (without caching), despite the slugs matching' do
     user = create(:departmental_editor)
-    publication, attachment = create_edition_and_attachment(:publication)
+    publication, attachment = create_edition_and_attachment
     draft = publication.create_draft(user)
     draft_attachment = draft.attachments.first
     draft_attachment.update_attribute(:title, 'Updated HTML Attachment Title')
@@ -85,9 +85,11 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   end
 
 private
+  def create_edition_and_attachment(options = {})
+    type = options.fetch(:type, :publication)
+    state = options.fetch(:state, :published)
 
-  def create_edition_and_attachment(type = :publication, state = :published)
-    publication = create([state, type].join('_'), attachments: [
+    publication = create("#{state}_#{type}", attachments: [
       attachment = build(:html_attachment, title: 'HTML Attachment Title')
     ])
     [publication, attachment]
