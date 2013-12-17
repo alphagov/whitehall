@@ -19,7 +19,7 @@ module Admin::TabbedNavHelper
 
   def corporate_information_page_tabs(page)
     {
-      'Details' => edit_admin_organisation_corporate_information_page_path(page.organisation, page),
+      'Details' => polymorphic_path([:edit, :admin, page.organisation, page]),
       'Attachments' => admin_corporate_information_page_attachments_path(page.id)
     }
   end
