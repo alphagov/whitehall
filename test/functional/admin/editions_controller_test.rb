@@ -58,6 +58,13 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select_object(publication) { assert_select ".type", text: "Publication: Policy paper" }
   end
 
+  view_test '#index should respond to xhr requests with only the filter results html' do
+    xhr :get, :index, state: :active
+    response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
+
+    assert_equal "search_results", response_html.children[0].attr(:id)
+  end
+
   test "diffing against a previous version" do
     policy = create(:draft_policy)
     editor = create(:departmental_editor)
