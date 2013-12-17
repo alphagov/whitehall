@@ -97,6 +97,10 @@ class Classification < ActiveRecord::Base
     organisation_classifications.where(lead: true).order("organisation_classifications.lead_ordering")
   end
 
+  def importance_ordered_organisations
+    organisations.reorder("organisation_classifications.lead DESC, organisation_classifications.lead_ordering")
+  end
+
   def destroyable?
     (policies - policies.superseded).empty?
   end

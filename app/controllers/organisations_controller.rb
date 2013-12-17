@@ -4,6 +4,7 @@ class OrganisationsController < PublicFacingController
 
   enable_request_formats show: [:atom]
   before_filter :load_organisation, only: [:show, :about]
+  before_filter :set_organisation_slimmer_headers, only: [:show, :about]
   skip_before_filter :set_cache_control_headers, only: [:show]
   before_filter :set_cache_max_age, only: [:show]
 
@@ -19,8 +20,6 @@ class OrganisationsController < PublicFacingController
         @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
         if @organisation.live?
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
-          set_slimmer_organisations_header([@organisation])
-          set_slimmer_page_owner_header(@organisation)
           set_meta_description(@organisation.description)
 
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
@@ -97,5 +96,10 @@ class OrganisationsController < PublicFacingController
 
   def set_cache_max_age
     @cache_max_age = 5.minutes
+  end
+
+  def set_organisation_slimmer_headers
+    set_slimmer_organisations_header([@organisation])
+    set_slimmer_page_owner_header(@organisation)
   end
 end

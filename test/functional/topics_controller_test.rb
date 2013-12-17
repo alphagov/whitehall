@@ -188,4 +188,13 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_cache_control("max-age=#{5.minutes}")
   end
+
+  test 'GET :show sets analytics organisation headers' do
+    organisation = create(:organisation)
+    topic = create(:topic, organisations: [organisation])
+
+    get :show, id: topic
+
+    assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+  end
 end

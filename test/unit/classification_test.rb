@@ -105,5 +105,17 @@ class ClassificationTest < ActiveSupport::TestCase
     assert topical_event.featured_editions.include?(new_version)
   end
 
+  test '#importance_ordered_organisations' do
+    topic = create(:topic)
+    supporting_org = create(:organisation)
+    supporting_org.organisation_classifications.create(classification_id: topic.id, lead: false)
+    second_lead_org = create(:organisation)
+    second_lead_org.organisation_classifications.create(classification_id: topic.id, lead: true, lead_ordering: 2)
+    first_lead_org = create(:organisation)
+    first_lead_org.organisation_classifications.create(classification_id: topic.id, lead: true, lead_ordering: 1)
+    assert_equal topic.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
+  end
+
+
   should_not_accept_footnotes_in :description
 end

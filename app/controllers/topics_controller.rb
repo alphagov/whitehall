@@ -17,7 +17,7 @@ class TopicsController < ClassificationsController
         @related_classifications = @classification.related_classifications
         @featured_editions = decorate_collection(@classification.classification_featurings.includes(:image, edition: [:document, :translations]).limit(5), FeaturedEditionPresenter)
 
-        set_slimmer_organisations_header(@classification.organisations.includes(:translations))
+        set_slimmer_organisations_header(@classification.importance_ordered_organisations.includes(:translations))
         set_slimmer_page_owner_header(@classification.lead_organisations.includes(:translations).first)
         set_meta_description(@classification.description)
 

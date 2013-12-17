@@ -4,7 +4,6 @@ class NewsArticlesController < DocumentsController
   def show
     @related_policies = @document.published_related_policies
     @document = NewsArticlePresenter.new(@document, view_context)
-    set_slimmer_headers_for_document(@document)
     set_meta_description(@document.summary)
   end
 

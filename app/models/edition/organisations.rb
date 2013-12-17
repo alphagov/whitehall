@@ -62,6 +62,11 @@ module Edition::Organisations
     edition_organisations.where(organisation_id: organisation.id).first
   end
 
+  def importance_ordered_organisations
+    organisations.reorder("edition_organisations.lead DESC, edition_organisations.lead_ordering")
+  end
+
+
   def can_be_related_to_organisations?
     true
   end

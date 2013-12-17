@@ -6,7 +6,6 @@ class CaseStudiesController < DocumentsController
   def show
     @related_policies = @document.published_related_policies
     @document = CaseStudyPresenter.new(@document, view_context)
-    set_slimmer_headers_for_document(@document)
   end
 
   private

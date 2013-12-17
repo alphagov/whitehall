@@ -4,6 +4,7 @@ class PoliciesController < DocumentsController
   enable_request_formats index: [:json], activity: [:atom]
 
   before_filter :find_document, only: [:show, :activity]
+  before_filter :set_slimmer_headers_for_document, only: [:show, :activity]
   before_filter :set_analytics_format, only: [:show, :activity]
 
   def index
@@ -26,7 +27,6 @@ class PoliciesController < DocumentsController
     @world_locations = @policy.world_locations
     @recently_changed_documents = Edition.published.related_to(@policy).in_reverse_chronological_order
     @show_navigation = (@policy.has_published_supporting_pages? || @recently_changed_documents.any?)
-    set_slimmer_headers_for_document(@policy)
     set_meta_description(@document.summary)
   end
 

@@ -652,6 +652,15 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "should set slimmer analytics headers on every organisation sub page" do
+    organisation = create(:organisation, acronym: "ABC")
+    [:show, :about].each do |page|
+      get page, id: organisation
+      assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+      assert_equal organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
+    end
+  end
+
   ### Describing :about ###
 
   view_test "should show description on organisation about subpage" do
