@@ -728,7 +728,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page, organisation: organisation)
     get :about, id: organisation
-    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page)}']"
+    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
   end
 
   view_test "should not display corporate information section on about-us page if there are no corporate publications" do

@@ -165,7 +165,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
     CorporateInformationPage.find_each do |page|
       organisation = page.organisation
       target << row(
-        url_maker.organisation_corporate_information_page_url(page, organisation_id: organisation, host: host_name),
+        url_maker.organisation_corporate_information_page_url(page.slug, organisation_id: organisation, host: host_name),
         url_maker.edit_admin_organisation_corporate_information_page_url(page, organisation_id: organisation, host: admin_host)
       )
     end

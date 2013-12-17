@@ -65,10 +65,6 @@ class CorporateInformationPage < ActiveRecord::Base
     self.type_id = type && type.id
   end
 
-  def to_param
-    slug
-  end
-
   def title_prefix_organisation_name
     [organisation.name, title].join(' - ')
   end

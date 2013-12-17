@@ -37,7 +37,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
       at the top and the latest version appears at the bottom. Please
       incorporate any relevant changes into your version and then save it.
     EOF
-    @conflicting_corporate_information_page = @organisation.corporate_information_pages.for_slug(params[:id])
+    @conflicting_corporate_information_page = @organisation.corporate_information_pages.find(params[:id])
     @corporate_information_page.lock_version = @conflicting_corporate_information_page.lock_version
     render action: "edit"
   end
@@ -54,7 +54,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
 private
 
   def find_corporate_information_page
-    @corporate_information_page = @organisation.corporate_information_pages.for_slug!(params[:id])
+    @corporate_information_page = @organisation.corporate_information_pages.find(params[:id])
   end
 
   def build_corporate_information_page
