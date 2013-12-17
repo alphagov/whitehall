@@ -27,17 +27,18 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true)
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: false, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
+    unpublishing = build(:unpublishing, redirect: false, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
   end
 
   test 'alternative_url cannot be the same url as the edition' do
-    unpublishing = build(:unpublishing, redirect: true)
-    unpublishing.alternative_url = Whitehall.url_maker.public_document_url(unpublishing.edition)
-    assert_equal unpublishing.alternative_url, unpublishing.edition_url
+    document = create(:document, slug: 'document-path')
+    edition = create(:detailed_guide, document: document)
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: 'https://www.dev.gov.uk/document-path', edition: edition)
+
     refute unpublishing.valid?
     assert unpublishing.errors[:alternative_url].include?("cannot redirect to itself")
   end
@@ -46,7 +47,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, redirect: true, alternative_url: "http://example.com")
     refute unpublishing.valid?
 
-    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}example")
+    unpublishing = build(:unpublishing, redirect: true, alternative_url: "#{Whitehall.public_protocol}://#{Whitehall.public_host}/example")
     assert unpublishing.valid?
   end
 
@@ -83,6 +84,30 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Archived.id, explanation: nil)
     refute unpublishing.valid?
     assert_equal ['must be provided when archiving'], unpublishing.errors[:explanation]
+  end
+
+  test '#document_path returns the URL for the unpublished edition' do
+    document = create(:document, slug: 'detailed-guide')
+    edition = create(:detailed_guide, :draft, document: document)
+    unpublishing = create(:unpublishing, edition: edition,
+                          unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
+
+    original_path = '/detailed-guide'
+    assert_equal original_path, unpublishing.document_path
+  end
+
+  test '#document_path returns the URL for a deleted unpublished edition' do
+    document = create(:document, slug: 'deleted-detailed-guide')
+    edition = create(:detailed_guide, :deleted, document: document)
+    unpublishing = create(:unpublishing, edition: edition, slug: 'detailed-guide',
+                          unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
+
+    # The default scope on Edition stops deleted editions being found when an
+    # unpublishing is loaded. To trigger the bug we need to reload.
+    unpublishing.reload
+
+    original_path = '/detailed-guide'
+    assert_equal original_path, unpublishing.document_path
   end
 
   def reason
