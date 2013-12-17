@@ -37,7 +37,11 @@ class Admin::EditionsController < Admin::BaseController
   def index
     if filter && filter.valid?
       session[:document_filters] = params_filters
-      render :index
+      if request.xhr?
+        render partial: 'search_results'
+      else
+        render :index
+      end
     elsif session_filters.any?
       redirect_to session_filters
     else
