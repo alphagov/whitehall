@@ -6,7 +6,7 @@ class Unpublishing < ActiveRecord::Base
   validates :alternative_url, presence: { message: "must be provided to redirect the document", if: :redirect? }
   validates :alternative_url, uri: true, allow_blank: true
   validates_format_of :alternative_url,
-    with: %r(^#{Whitehall.public_protocol}://#{Whitehall.public_host}?.*),
+    with: %r(^#{Whitehall.public_protocol}://#{Whitehall.public_host}/),
     message: "must be in the form of #{Whitehall.public_protocol}://#{Whitehall.public_host}/example",
     allow_blank: true
   validate :redirect_not_circular
