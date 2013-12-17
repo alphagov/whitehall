@@ -30,7 +30,7 @@ private
     return if @edition
 
     if unpublishing = Unpublishing.from_slug(slug_param, document_class)
-      redirect_to public_document_path(unpublishing.edition)
+      redirect_to unpublishing.document_path
     else
       raise ActiveRecord::RecordNotFound, "could not find Edition with slug #{slug_param}"
     end

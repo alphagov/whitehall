@@ -70,6 +70,14 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_redirected_to publication_url(publication.document)
   end
 
+  test '#show redirects to the edition if the edition has been unpublished and deleted' do
+    publication, attachment = create_edition_and_attachment(state: :deleted, build_unpublishing: true)
+
+    get :show, publication_id: publication.document, id: attachment
+
+    assert_redirected_to publication_url(publication.document)
+  end
+
   view_test '#show does not redirect if an unpublished edition is subsequently published' do
     publication, attachment = create_edition_and_attachment(build_unpublishing: true)
 
