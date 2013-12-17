@@ -1,95 +1,12 @@
+<% initialise_script "GOVUK.AdminEditionsIndex", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
+
 <% page_title @filter.page_title %>
 <section class="editions-index">
   <div class="row-fluid">
     <div class="span3">
-      <%= render partial: 'filter_options' %>
+      <%= render 'filter_options' %>
     </div>
 
-    <div class="span9">
-      <h1>
-        <%= "#{@filter.page_title}" %>
-      </h1>
-      <div class="row-fluid">
-        <div class="span7">
-          <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
-        </div>
-        <div class="span5">
-          <div class="publishing-stats">
-            <% if @filter.show_stats %>
-              <div class="stat">
-                Published
-                <strong><%= @filter.published_count %></strong>
-              </div>
-              <div class="stat">
-                Force Published
-                <strong><%= @filter.force_published_count %></strong>
-              </div>
-              <div class="stat">
-              Percentage Force Published
-                <strong><%= @filter.force_published_percentage %>%</strong>
-              </div>
-              <% else %>
-              <div class="stat">
-                Documents
-                <strong><%= @filter.editions.total_count %></strong>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th class="type">Type</th>
-            <th class="title">Title</th>
-            <th class="updated-by">Updated by</th>
-            <th class="updated">Updated</th>
-            <% if viewing_all_active_editions? %>
-              <th class="state">State</th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% if @filter.editions.blank? %>
-            <tr>
-              <td colspan="5">No documents have been found.</td>
-            </tr>
-          <% end %>
-          <% @filter.editions.each do |edition| %>
-            <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
-              <td class="type"><%= edition_type(edition) %></td>
-              <td class="title">
-                <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
-                <% if edition.non_english_edition? %>
-                  (<%= edition.locale %>)
-                <% end %>
-                <% if edition.force_published? %>
-                  <span class="force_published label label-important">not reviewed</span>
-                <% end %>
-                <% if edition.access_limited? %>
-                  <span class="access_limited label label-important">limited access</span>
-                <% end %>
-                <% if edition.allows_supporting_pages? && edition.has_active_supporting_pages? %>
-                  <div class="supporting_pages additional_information well">
-                    <h4>Supporting Pages</h4>
-                    <ul>
-                      <% edition.active_supporting_pages.includes(:translations).each do |supporting_page| %>
-                      <li><%= link_to supporting_page.title, admin_supporting_page_path(supporting_page) %></li>
-                      <% end %>
-                    </ul>
-                  </div>
-                <% end %>
-              </td>
-              <td class="author"><%= linked_author(edition.last_author) %></td>
-              <td class="updated"><%= time_ago_in_words edition.updated_at %> ago</td>
-              <% if viewing_all_active_editions? %>
-                <td class="state"><%= edition.state.humanize %></td>
-              <% end %>
-            <% end %>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
-    </div>
+    <%= render 'search_results' %>
   </div>
 </section>
