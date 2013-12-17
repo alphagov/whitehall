@@ -1,5 +1,3 @@
-var backend_root = "<%= admin_root_url %>/";
-
 function url_matcher(path_fragment) {
   return function() { return window.location.toString().search(path_fragment) >= 0 }
 };
@@ -47,13 +45,20 @@ function get_mapping() {
   }
 }
 
+function backend_root() {
+  switch (window.location.hostname) {
+    case 'www.gov.uk':
+      return "https://whitehall-admin.production.alphagov.co.uk/government/admin/";
+    case 'www.preview.alphagov.co.uk':
+      return "https://whitehall-admin.preview.alphagov.co.uk/government/admin/";
+    default:
+      return "<%= admin_root_url %>/";
+  }
+};
+
 function nav_to_backend() {
   var mapping = get_mapping();
-  <% if open_in_new_tab %>
-    if (mapping) window.location = backend_root + mapping.path_builder(mapping.id_finder());
-  <% else %>
-    if (mapping) window.open(backend_root + mapping.path_builder(mapping.id_finder()), "_blank");
-  <% end %>
+  if (mapping) window.location = backend_root() + mapping.path_builder(mapping.id_finder());
 }
 
 nav_to_backend();
