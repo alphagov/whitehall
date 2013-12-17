@@ -2,10 +2,6 @@ require 'test_helper'
 
 class BulkUploadTest < ActiveSupport::TestCase
 
-  def fixture_file(filename)
-    File.open(File.join(Rails.root, 'test', 'fixtures', filename))
-  end
-
   def attachments_params(*pairs)
     {}.tap do |params|
       pairs.each_with_index do |pair, i|
@@ -18,8 +14,8 @@ class BulkUploadTest < ActiveSupport::TestCase
   # Parameters suitable for posting to #create for attachments with new filenames
   def new_attachments_params
     attachments_params(
-      [{ title: 'Title 1' }, { file: fixture_file('whitepaper.pdf') }],
-      [{ title: 'Title 2' }, { file: fixture_file('greenpaper.pdf') }]
+      [{ title: 'Title 1' }, { file: file_fixture('whitepaper.pdf') }],
+      [{ title: 'Title 2' }, { file: file_fixture('greenpaper.pdf') }]
     )
   end
 
@@ -28,7 +24,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '.from_files builds Attachment instances for an array of file paths' do
-    paths = %w(greenpaper.pdf whitepaper.pdf).map { |f| fixture_file(f).path }
+    paths = %w(greenpaper.pdf whitepaper.pdf).map { |f| file_fixture(f).path }
     bulk_upload = BulkUpload.from_files(create(:news_article), paths)
     assert_equal 2, bulk_upload.attachments.size
     assert_equal 'greenpaper.pdf', bulk_upload.attachments[0].filename
@@ -38,7 +34,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   test '.from_files loads attachments from the edition if filenames match' do
     edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
-    paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
+    paths = ['whitepaper.pdf', existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     assert bulk_upload.attachments.first.new_record?, 'Attachment should be new record'
     refute bulk_upload.attachments.last.new_record?, "Attachment shouldn't be new record"
@@ -47,7 +43,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   test '.from_files always builds new AttachmentData instances' do
     edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
-    paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
+    paths = ['whitepaper.pdf', existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     assert bulk_upload.attachments.all? { |a| a.attachment_data.new_record? }
   end
@@ -55,7 +51,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   test '.from_files sets replaced_by on existing AttachmentData when file re-attached' do
     edition = create(:news_article, :with_file_attachment)
     existing = edition.attachments.first
-    paths = ['whitepaper.pdf', existing.filename].map { |name| fixture_file(name).path }
+    paths = ['whitepaper.pdf', existing.filename].map { |name| file_fixture(name).path }
     bulk_upload = BulkUpload.from_files(edition, paths)
     new_attachment_data = bulk_upload.attachments.last.attachment_data
     new_attachment_data.save!
@@ -78,7 +74,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     existing = edition.attachments.first
     bulk_upload = BulkUpload.new(edition)
     params = attachments_params(
-      [{ id: existing.id, title: 'Title' }, { file: fixture_file(existing.filename) }]
+      [{ id: existing.id, title: 'Title' }, { file: file_fixture(existing.filename) }]
     )
     bulk_upload.attachments_attributes = params
     bulk_upload.save_attachments
@@ -106,7 +102,7 @@ class BulkUploadTest < ActiveSupport::TestCase
     new_title = 'New title for existing attachment'
     bulk_upload = BulkUpload.new(edition)
     bulk_upload.attachments_attributes = attachments_params(
-      [{ id: existing.id, title: new_title }, { file: fixture_file(existing.filename) }]
+      [{ id: existing.id, title: new_title }, { file: file_fixture(existing.filename) }]
     )
     bulk_upload.save_attachments
     assert_equal 1, edition.attachments.length
@@ -177,10 +173,10 @@ class BulkUploadZipFileTest < ActiveSupport::TestCase
     assert extracted.include?(File.join(zip_file.temp_dir, 'extracted', 'greenpaper.pdf').to_s)
   end
 
-  def uploaded_file(fixture_filename)
+  def uploaded_file(file_fixturename)
     ActionDispatch::Http::UploadedFile.new(
-      filename: fixture_filename,
-      tempfile: File.open(Rails.root.join('test', 'fixtures', fixture_filename))
+      filename: file_fixturename,
+      tempfile: File.open(Rails.root.join('test', 'fixtures', file_fixturename))
     )
   end
 
