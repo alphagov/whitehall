@@ -7,6 +7,7 @@ module DataHygiene
       JOIN attachment_data on attachments.attachment_data_id = attachment_data.id
       JOIN editions on attachable_id = editions.id
       WHERE attachable_type = "Edition" AND editions.state = 'published'
+      AND attachment_data.carrierwave_file != "redacted.pdf"
       GROUP BY attachable_type, attachable_id, attachment_data.carrierwave_file
       HAVING count(*) > 1;
     HEREDOC
