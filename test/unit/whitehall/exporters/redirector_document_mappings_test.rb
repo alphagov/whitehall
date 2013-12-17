@@ -2,9 +2,9 @@
 require 'test_helper'
 
 module Whitehall
-  class DocumentMappingsTest < ActiveSupport::TestCase
+  class RedirectorDocumentMappingsTest < ActiveSupport::TestCase
     setup do
-      @exporter = Whitehall::Exporters::DocumentMappings.new('test')
+      @exporter = Whitehall::Exporters::RedirectorDocumentMappings.new('test')
       ENV['FACTER_govuk_platform'] = 'preview'
     end
 
