@@ -221,6 +221,39 @@ The view can then be initialised with a selector for the DOM element is controll
 
 See "Script initialisation" below for more details on `GOVUK.init`.
 
+#### Proxying function when using the prototype / constructor pattern
+
+One of the main problems with the prototype / constructor pattern is the need to proxy functions in order to avoid loss of context. Here's an example of the problem:
+
+    function SillyRedButton(options) {
+      $('#the_big_red_button').click(this.makeSillyNoise);
+    };
+
+    SillyRedButton.prototype.makeSillyNoise = function makeSillyNoise() {
+      this.playSoundFile("a_silly_noise");
+    };
+
+    SillyRedButton.prototype.playSoundEffect = function playSoundEffect(soundEffect) {
+      SomeSoundLibrary.play(soundEffect);
+    };
+
+This script will break on the call `this.playSoundFile()` because that function will be called in the context of the button clicked on, not the constructed object. GOVUK.Proxifier can make this problem go away with a single call in the constructor function and no further changes to the script:
+
+    function SillyRedButton(options) {
+      GOVUK.Proxifier.proxifyAllMethods(this);
+      $('#the_big_red_button').click(this.makeSillyNoise);
+    };
+
+    SillyRedButton.prototype.makeSillyNoise = function makeSillyNoise() {
+      this.playSoundFile("a_silly_noise");
+    };
+
+    SillyRedButton.prototype.playSoundEffect = function playSoundEffect(soundEffect) {
+      SomeSoundLibrary.play(soundEffect);
+    };
+
+To proxify only single methods, use `GOVUK.Proxifier.ProxifyMethods(object, [methodNames])` or `GOVUK.Proxifier.ProxifyMethod(object, methodName)`
+
 ### Other style points
 
 Favour named arguments in a hash over sequential arguments. [Connascence of naming is a weaker form of connascence than connascence of position][5].

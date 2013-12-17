@@ -52,18 +52,19 @@ test("It renders response to #search_results", function() {
 });
 
 test("It gets results when a form select changes", function(){
-  this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResults');
+  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResults');
   var subject = new GOVUK.AdminEditionsIndex({
     filter_form: $('#qunit-fixture .editions-filter'),
     search_results: $('#qunit-fixture #search_results')
   });
 
   $('#qunit-fixture #state').change();
-  ok(subject.updateResults.calledOnce);
+
+  ok(spy.calledOnce);
 });
 
 test("It shows an enter button when a text input is changed, and then updates results when that's clicked", function() {
-  this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResults');
+  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResults');
   var subject = new GOVUK.AdminEditionsIndex({
     filter_form: $('#qunit-fixture .editions-filter'),
     search_results: $('#qunit-fixture #search_results')
@@ -76,7 +77,7 @@ test("It shows an enter button when a text input is changed, and then updates re
   ok($('.btn-enter').css('display') != 'none');
   $('.btn-enter').click();
   ok($('.btn-enter').css('display') == 'none');
-  // ok(subject.updateResults.calledOnce);  <-- function should only be called once - this will be handled in some post merge cleanup.
-  ok(subject.updateResults.called);
+  // ok(spy.calledOnce);  <-- function should only be called once - this will be handled in some post merge cleanup.
+  ok(spy.called);
 });
 

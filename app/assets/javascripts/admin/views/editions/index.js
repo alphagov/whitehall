@@ -3,13 +3,15 @@
   window.GOVUK = window.GOVUK || {};
 
   function AdminEditionsIndex(options) {
+    GOVUK.Proxifier.proxifyAllMethods(this);
+
     var self = this;
     this.$filterForm = $(options.filter_form);
     this.$searchResults = $(options.search_results);
 
     this.getPath = this.$filterForm.attr('action');
 
-    $('select', this.$filterForm).change($.proxy(this.updateResults, this));
+    $('select', this.$filterForm).change(this.updateResults);
     this.$filterForm.submit(function(e) {
       e.preventDefault();
       self.updateResults();
@@ -32,17 +34,18 @@
       method: 'get',
       url: this.getPath,
       data: this.$filterForm.serialize(),
-      success: $.proxy(renderResults, this)
+      success: this.renderResults
     });
+  }
 
-    function renderResults(responseHtml) {
-      this.$searchResults.fadeTo(0.1, 1.0);
-      this.activeRequest = null;
-      this.$searchResults.html(responseHtml);
-    }
+  AdminEditionsIndex.prototype.renderResults = function renderResults(resultHtml) {
+    this.$searchResults.fadeTo(0.1, 1.0);
+    this.activeRequest = null;
+    this.$searchResults.html(resultHtml);
   }
 
   AdminEditionsIndex.prototype.TextFieldHandler = function TextFieldHandler(args) {
+    var adminEditionsIndex = args.adminEditionsIndex
     var $form = $(args.form);
     var $el = $(args.el);
     var $field = $('input[type=search], input[type=text]', $el);
@@ -50,7 +53,7 @@
 
     $field.on('change paste keydown', showCommitButton);
     $button.on('click', commitField);
-    $form.on('submit', function() {$button.hide();});
+    $form.on('submit', hideCommitButton);
 
     function showCommitButton() {
       $button.show();
@@ -63,7 +66,7 @@
 
     function commitField() {
       hideCommitButton();
-      args.adminEditionsIndex.updateResults();
+      adminEditionsIndex.updateResults();
     }
   }
 
