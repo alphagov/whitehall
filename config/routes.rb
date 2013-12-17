@@ -141,7 +141,7 @@ Whitehall::Application.routes.draw do
       namespace :admin do
         root to: 'dashboard#index', via: :get
 
-        get 'find-in-admin-bookmarklet' => 'find_in_admin_bookmarklet#index'
+        get 'find-in-admin-bookmarklet' => 'find_in_admin_bookmarklet#index', as: :find_in_admin_bookmarklet_instructions_index
         get 'find-in-admin-bookmarklet/:browser' => 'find_in_admin_bookmarklet#show', as: :find_in_admin_bookmarklet_instructions
 
         resources :users, only: [:index, :show, :edit, :update]
