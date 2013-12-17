@@ -15,7 +15,7 @@
           <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
         <% end %>
         <aside class="organisation-top-tasks">
-          <%= render partial: 'shared/available_languages', locals: {object: @corporate_information_page } %>
+          <%= render 'shared/available_languages', object: @corporate_information_page %>
         </aside>
         <h1 class="main"><%= @corporate_information_page.title %></h1>
         <p class="description">

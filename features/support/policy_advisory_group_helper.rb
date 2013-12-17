@@ -12,13 +12,9 @@ module PolicyAdvisoryGroupHelper
     click_button 'Save'
   end
 
-  def find_markdown_snippet_to_insert_attachment(attachment)
-    find("strong:contains('#{attachment.title}') + code").text
-  end
-
   def check_attachment_appears_on_policy_advisory_group(attachment, group)
     visit policy_advisory_group_path(group)
-    assert page.has_css?('.attachment-details .title', text: attachment.title)
+    assert page_has_attachment?(attachment)
   end
 end
 

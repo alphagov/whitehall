@@ -35,6 +35,7 @@ module TranslationHelper
 
   def t_corporate_information_page_link(organisation, slug)
     page = organisation.corporate_information_pages.for_slug(slug)
+    page.extend(UseSlugAsParam)
     link_to(t_corporate_information_page_type(page), [organisation, page])
   end
 end

@@ -55,6 +55,6 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
   end
 
   def corporate_information_page
-    @corporate_information_page ||= organisational_entity.corporate_information_pages.for_slug!(params[:corporate_information_page_id])
+    @corporate_information_page ||= organisational_entity.corporate_information_pages.find(params[:corporate_information_page_id])
   end
 end

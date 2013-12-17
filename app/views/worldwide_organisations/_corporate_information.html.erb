@@ -6,10 +6,12 @@
       <nav class="group sub_navigation" role="navigation">
         <ul>
           <% organisation.corporate_information_pages.by_menu_heading(:our_information).each do |corporate_information_page| %>
+            <% corporate_information_page.extend(UseSlugAsParam) %>
             <li><%= link_to corporate_information_page.title, [organisation, corporate_information_page] %></li>
           <% end %>
 
           <% organisation.corporate_information_pages.by_menu_heading(:jobs_and_contracts).each do |corporate_information_page| %>
+            <% corporate_information_page.extend(UseSlugAsParam) %>
             <li><%= link_to corporate_information_page.title, [organisation, corporate_information_page]%></li>
           <% end %>
         </ul>

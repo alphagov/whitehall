@@ -7,7 +7,7 @@ module AdminCorporateInformationPagesTranslationsControllerHelpers
   def path_prefix(type, organisational_entity, corporate_information_page)
     [
       "/government/admin/#{type}s", organisational_entity.slug,
-      'corporate_information_pages', corporate_information_page.slug,
+      'corporate_information_pages', corporate_information_page.id,
         'translations'
     ].join('/')
   end
