@@ -94,3 +94,18 @@ Then /^I should be able to read the translated "([^"]*)" corporate information p
   assert page.has_css?(".description", text: "Le summary")
   assert page.has_css?(".body", text: "Le body")
 end
+
+Given /^my organisation has a "(.*?)" corporate information page$/ do |page_title|
+  @user.organisation ||= create(:organisation)
+  page_type = CorporateInformationPageType.find_by_title(page_title)
+  create(:corporate_information_page, type: page_type,
+                                      organisation: @user.organisation)
+end
+
+Then /^I should be able to add attachments to the "(.*?)" corporate information page$/ do |page_title|
+  page_type = CorporateInformationPageType.find_by_title(page_title)
+  page = @user.organisation.corporate_information_pages.find_by_type_id(page_type.id)
+  attachment = upload_pdf_to_corporate_information_page(page)
+  insert_attachment_markdown_into_corporate_information_page_body(attachment, page)
+  check_attachment_appears_on_corporate_information_page(attachment, page)
+end

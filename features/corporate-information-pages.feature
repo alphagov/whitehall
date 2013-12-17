@@ -14,3 +14,8 @@ Scenario: Translating a corporate information page for a worldwide organisation
   When I add a "Terms of reference" corporate information page to "Ministry of Pop" with body "To support the UK pop music industry"
   And I translate the "Terms of reference" corporate information page for the organisation "Ministry of Pop"
   Then I should be able to read the translated "Terms of reference" corporate information page for the organisation "Ministry of Pop" on the site
+
+Scenario:
+  Given I am a writer
+  And my organisation has a "Terms of reference" corporate information page
+  Then I should be able to add attachments to the "Terms of reference" corporate information page
