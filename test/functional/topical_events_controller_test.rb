@@ -92,4 +92,22 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     assert_equal 'my description', assigns(:meta_description)
   end
+
+  view_test 'GET :show renders an atom feed' do
+    topical_event = create(:topical_event)
+    policy = create(:published_policy, topical_events: [topical_event])
+
+    get :show, id: topical_event, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > id', 1
+      assert_select 'feed > title', 1
+      assert_select 'feed > author, feed > entry > author'
+      assert_select 'feed > updated', 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topical_event_url(topical_event, format: 'atom'), 1
+      assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topical_event_url(topical_event), 1
+
+      assert_select_atom_entries([policy])
+    end
+  end
 end

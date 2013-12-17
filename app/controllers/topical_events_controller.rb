@@ -1,4 +1,6 @@
 class TopicalEventsController < ClassificationsController
+  enable_request_formats show: :atom
+
   def index
     redirect_to :topics
   end
