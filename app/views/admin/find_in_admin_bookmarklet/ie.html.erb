@@ -1,0 +1,43 @@
+<% page_title 'Find in admin bookmarklet instructions' %>
+<% page_class 'find-in-admin-bookmarklet-index' %>
+
+<h1>Find in admin bookmarklet</h1>
+
+<div class="row-fluid">
+  <div class="span12 bookmarks">
+    <p>Once activated, this bookmarklet will provide you with a button that allows you to jump immediately from a frontend page to the corresponding admin page.</p>
+
+    <ul>
+      <li>Internet explorer</li>
+      <li><%= link_to "Other browsers", admin_find_in_admin_bookmarklet_instructions_path(browser: :other) %></li>
+    </ul>
+
+    <h2 id="ie">Instructions for Internet explorer</h2>
+
+    <p>1. First, make sure that your 'Favourites bar' is enabled</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/1.png' %></p>
+
+    <p>you should see the favourites bar:</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/2.png' %></p>
+
+    <p>2. Right-click on this button</p>
+
+    <p>
+      <a class='btn btn-large btn-primary' href="javascript:<%= render("bookmarklet").gsub(/[\r\n]/,'') %>">Find in admin</a>
+    </p>
+
+    <p> and select 'Add to Favourites...'</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/3.png' %></p>
+
+    <p>3. If you get a security alert, select 'Yes'</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/4.png' %></p>
+
+    <p>4. Now choose where you want to create the bookmarklet. You should select 'Favourites bar'</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/5.png' %></p>
+    <p>Then press 'Add'</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/6.png' %></p>
+
+    <p>5. DONE! Your bookmarklet should now appear in the Favourites bar</p>
+    <p><%= image_tag 'find_in_admin_bookmarklet_instructions/7.png' %></p>
+  </div>
+</div>

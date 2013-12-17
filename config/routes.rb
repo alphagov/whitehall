@@ -140,7 +140,9 @@ Whitehall::Application.routes.draw do
     constraints(AdminRequest) do
       namespace :admin do
         root to: 'dashboard#index', via: :get
-        get 'find-in-admin-bookmarklet' => 'dashboard#find_in_admin_bookmarklet', as: :find_in_admin_bookmarklet
+
+        get 'find-in-admin-bookmarklet' => 'find_in_admin_bookmarklet#index'
+        get 'find-in-admin-bookmarklet/:browser' => 'find_in_admin_bookmarklet#show', as: :find_in_admin_bookmarklet_instructions
 
         resources :users, only: [:index, :show, :edit, :update]
         resources :user_needs, only: [:create]

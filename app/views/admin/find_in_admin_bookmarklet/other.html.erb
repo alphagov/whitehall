@@ -1,0 +1,24 @@
+<% page_title 'Find in admin bookmarklet instructions' %>
+<% page_class 'find-in-admin-bookmarklet-index' %>
+
+<h1>Find in admin bookmarklet</h1>
+
+<div class="row-fluid">
+  <div class="span12 bookmarks">
+    <p>Once activated, this bookmarklet will provide you with a button that allows you to jump immediately from a frontend page to the corresponding admin page.</p>
+
+    <ul>
+      <li><%= link_to "Internet explorer", admin_find_in_admin_bookmarklet_instructions_path(browser: :ie) %></li>
+      <li>Other browsers</li>
+    </ul>
+
+    <h2 id="other">Instructions for other browsers</h2>
+    <p>Drag this to your bookmarks bar:</p>
+
+    <p>
+      <a class='btn btn-large btn-primary' href="javascript:<%= render("bookmarklet").gsub(/[\r\n]/,'') %>">Find in admin</a>
+    </p>
+
+    <p>Then, when you're on a frontend page on www.gov.uk you can click 'Find in admin' from your bookmarks toolbar to go to the corresponding admin page.</p>
+  </div>
+</div>

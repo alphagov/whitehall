@@ -1,0 +1,15 @@
+<% page_title 'Find in admin bookmarklet instructions' %>
+<% page_class 'find-in-admin-bookmarklet-index' %>
+
+<h1>Find in admin bookmarklet</h1>
+
+<div class="row-fluid">
+  <div class="span12 bookmarks">
+    <p>Once activated, this bookmarklet will provide you with a button that allows you to jump immediately from a frontend page to the corresponding admin page.</p>
+
+    <p>Please choose: </p>
+    <ul>
+      <li><%= link_to "Internet explorer", admin_find_in_admin_bookmarklet_instructions_path(browser: :ie) %></li>
+      <li><%= link_to "Other browsers", admin_find_in_admin_bookmarklet_instructions_path(browser: :other) %></li>
+    </ul>
+</div>
