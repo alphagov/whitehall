@@ -32,7 +32,7 @@ class DupFilenameAttachmentFixerTest < ActiveSupport::TestCase
     VirusScanHelpers.simulate_virus_scan
 
     # original data is replaced by new attachment data
-    assert_equal @attachment_6.attachment_data, original_data.reload.replaced_by
+    assert_equal @attachment_6.reload.attachment_data, original_data.reload.replaced_by
     assert_equal 'greenpaper.pdf', original_data.filename
     assert_file_content_identical file_fixture('greenpaper.pdf'), original_data
 
@@ -50,13 +50,13 @@ class DupFilenameAttachmentFixerTest < ActiveSupport::TestCase
     VirusScanHelpers.simulate_virus_scan
 
     # original remains unchanged
-    assert_equal original_data, @attachment_1.attachment_data
+    assert_equal original_data, @attachment_1.reload.attachment_data
     assert_equal 'whitepaper.pdf', original_data.reload.filename
     assert_file_content_identical file_fixture('whitepaper.pdf'), original_data
 
     # conflicting files are renamed and replaced
-    assert_equal 'whitepaper-2.pdf', @attachment_2.filename
-    assert_equal 'whitepaper-3.pdf', @attachment_3.filename
+    assert_equal 'whitepaper-2.pdf', @attachment_2.reload.filename
+    assert_equal 'whitepaper-3.pdf', @attachment_3.reload.filename
     assert_equal attach_2_data.reload.replaced_by, @attachment_2.attachment_data
     assert_equal attach_3_data.reload.replaced_by, @attachment_3.attachment_data
     assert_file_content_identical file_fixture('whitepaper.pdf'), @attachment_2.attachment_data
