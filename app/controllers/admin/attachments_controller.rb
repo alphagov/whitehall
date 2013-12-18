@@ -4,7 +4,6 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :enforce_edition_permissions!, if: :attachable_is_an_edition?
   before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
   before_filter :check_attachable_allows_html_attachments, if: :html?
-  before_filter :find_attachment, only: [:edit, :update, :destroy]
 
   def index; end
 
@@ -51,20 +50,27 @@ class Admin::AttachmentsController < Admin::BaseController
 
 private
   def attachment
-    @attachment ||= begin
-      attachment_class = html? ? HtmlAttachment : FileAttachment
-
-      attachment_params = params[:attachment] || {}
-      attachment_params.merge!(attachable: attachable)
-      attachment_params.reverse_merge!(attachment_data: AttachmentData.new) if attachment_class == FileAttachment
-
-      attachment_class.new(attachment_params)
-    end
+    @attachment ||= find_attachment || build_attachment
   end
   helper_method :attachment
 
   def find_attachment
-    @attachment = attachable.attachments.find(params[:id])
+    attachable.attachments.find(params[:id]) if params[:id]
+  end
+
+  def build_attachment
+    html? ? build_html_attachment : build_file_attachment
+  end
+
+  def build_html_attachment
+    attributes = params.fetch(:attachment, {}).merge(attachable: attachable)
+    HtmlAttachment.new(attributes)
+  end
+
+  def build_file_attachment
+    attributes = params.fetch(:attachment, {}).merge(attachable: attachable)
+    attributes.reverse_merge!(attachment_data: AttachmentData.new)
+    FileAttachment.new(attributes)
   end
 
   def attachment_params
