@@ -3,8 +3,6 @@ GOVUK.init(GOVUK.chosenSelects);
 jQuery(document).ready(function($) {
   if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
 
-  $("#completed_fact_check_requests").markLinkedAnchor();
-
   $('.document .body').enhanceYoutubeVideoLinks();
 
   var url = document.location.toString();
