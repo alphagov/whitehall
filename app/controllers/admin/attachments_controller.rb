@@ -64,7 +64,7 @@ private
   helper_method :attachment
 
   def find_attachment
-    @attachment = @attachable.attachments.find(params[:id])
+    @attachment = attachable.attachments.find(params[:id])
   end
 
   def attachment_params

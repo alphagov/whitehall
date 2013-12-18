@@ -1,10 +1,9 @@
-<% attachable_type = attachment.attachable_model_name %>
-<% page_title "Attachments for #{attachable_type}" %>
+<% page_title "Attachments for #{attachment.attachable_model_name}" %>
 <% page_class "attachments index" %>
 
 <div class="span8">
   <section>
-    <h1>Attachments for <%= attachable_type %></h1>
+    <h1>Attachments for <%= attachment.attachable_model_name %></h1>
 
     <%= attachable_editing_tabs(attachable) do %>
       <ul class="actions">
