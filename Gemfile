@@ -28,7 +28,7 @@ gem 'unicorn', '4.6.2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '7.18.0'
-gem 'whenever', '0.7.3', require: false
+gem 'whenever', '0.9.0', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
 gem 'rails-i18n'
