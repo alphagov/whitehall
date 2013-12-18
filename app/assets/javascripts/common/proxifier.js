@@ -14,11 +14,9 @@
     },
 
     proxifyAllMethods: function proxifyAllMethods(object) {
-      var methodNames = [];
       for (var attrName in object) {
-        if ( typeof object[attrName] == 'function' && attrName.match(/^[a-z]/) ) methodNames.push(attrName);
+        if ( typeof object[attrName] == 'function' && attrName.match(/^[a-z]/) ) this.proxifyMethod(object, attrName);
       }
-      this.proxifyMethods(object, methodNames);
     }
   };
 }());
