@@ -11,7 +11,7 @@
 
     this.getPath = this.$filterForm.attr('action');
 
-    $('select', this.$filterForm).change(this.updateResults);
+    $('select', this.$filterForm).change(this.updateResultsWithNoRepeatProtection);
     this.$filterForm.submit(function(e) {
       e.preventDefault();
       self.updateResults();
@@ -26,7 +26,12 @@
     });
   }
 
-  AdminEditionsIndex.prototype.updateResults = function updateResults() {
+  AdminEditionsIndex.prototype.updateResultsWithNoRepeatProtection = function updateResultsWithNoRepeatProtection() {
+    if ( this.updateTimeout ) window.clearTimeout(this.updateTimeout);
+    this.updateTimeout = window.setTimeout(this.updateResults, 10);
+  };
+
+  AdminEditionsIndex.prototype.updateResults = function updateResults(skipAntiRepeat) {
     this.$searchResults.fadeTo(0.4, 0.6);
 
     if ( this.activeRequest ) this.activeRequest.abort();
@@ -66,7 +71,7 @@
 
     function commitField() {
       hideCommitButton();
-      adminEditionsIndex.updateResults();
+      adminEditionsIndex.updateResultsWithNoRepeatProtection();
     }
   }
 

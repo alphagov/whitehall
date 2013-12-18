@@ -29,14 +29,14 @@ test("It gets using serialized form as data", function(){
     filter_form: $('#qunit-fixture .editions-filter'),
     search_results: $('#qunit-fixture #search_results')
   });
-  this.stub(jQuery, 'ajax');
+  var spy = this.stub(jQuery, 'ajax');
 
-  subject.updateResults();
+  subject.updateResults(true);
 
-  ok(jQuery.ajax.calledOnce);
-  ok(jQuery.ajax.getCall(0).args[0].url == '/government/admin/editions');
-  ok(jQuery.ajax.getCall(0).args[0].method == 'get');
-  ok(jQuery.ajax.getCall(0).args[0].data == 'title=hello+world&state=active');
+  ok(spy.calledOnce);
+  ok(spy.getCall(0).args[0].url == '/government/admin/editions');
+  ok(spy.getCall(0).args[0].method == 'get');
+  ok(spy.getCall(0).args[0].data == 'title=hello+world&state=active');
 });
 
 test("It renders response to #search_results", function() {
@@ -44,15 +44,16 @@ test("It renders response to #search_results", function() {
     filter_form: $('#qunit-fixture .editions-filter'),
     search_results: $('#qunit-fixture #search_results')
   });
-  this.stub(jQuery, 'ajax');
+  var spy = this.stub(jQuery, 'ajax');
 
-  subject.updateResults();
-  jQuery.ajax.getCall(0).args[0].success('<div id="exactly_what_you_wanted"></div>');
+  subject.updateResults(true);
+
+  spy.getCall(0).args[0].success('<div id="exactly_what_you_wanted"></div>');
   ok($('#qunit-fixture #search_results').find('#exactly_what_you_wanted').length > 0);
 });
 
 test("It gets results when a form select changes", function(){
-  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResults');
+  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResultsWithNoRepeatProtection');
   var subject = new GOVUK.AdminEditionsIndex({
     filter_form: $('#qunit-fixture .editions-filter'),
     search_results: $('#qunit-fixture #search_results')
@@ -64,7 +65,7 @@ test("It gets results when a form select changes", function(){
 });
 
 test("It shows an enter button when a text input is changed, and then updates results when that's clicked", function() {
-  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResults');
+  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResultsWithNoRepeatProtection');
   var subject = new GOVUK.AdminEditionsIndex({
     filter_form: $('#qunit-fixture .editions-filter'),
     search_results: $('#qunit-fixture #search_results')
@@ -77,7 +78,6 @@ test("It shows an enter button when a text input is changed, and then updates re
   ok($('.btn-enter').css('display') != 'none');
   $('.btn-enter').click();
   ok($('.btn-enter').css('display') == 'none');
-  // ok(spy.calledOnce);  <-- function should only be called once - this will be handled in some post merge cleanup.
-  ok(spy.called);
+  ok(spy.calledOnce);
 });
 
