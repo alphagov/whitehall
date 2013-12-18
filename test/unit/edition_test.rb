@@ -128,19 +128,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [published_in_second_organisation], Publication.in_organisation(organisation_2)
   end
 
-  test "should return a list of editions in a ministerial role" do
-    ministerial_role_1 = create(:ministerial_role)
-    ministerial_role_2 = create(:ministerial_role)
-    draft_policy = create(:draft_policy, ministerial_roles: [ministerial_role_1])
-    published_policy = create(:published_policy, ministerial_roles: [ministerial_role_1])
-    published_publication = create(:published_publication, ministerial_roles: [ministerial_role_1])
-    published_in_second_ministerial_role = create(:published_policy, ministerial_roles: [ministerial_role_2])
-
-    assert_equal [draft_policy, published_policy], Policy.in_ministerial_role(ministerial_role_1)
-    assert_equal [published_policy], Policy.published.in_ministerial_role(ministerial_role_1)
-    assert_equal [published_in_second_ministerial_role], Policy.in_ministerial_role(ministerial_role_2)
-  end
-
   test "return editions bi-directionally related to specific edition" do
     policy = create(:policy)
     publication_1 = create(:publication, related_editions: [policy])
