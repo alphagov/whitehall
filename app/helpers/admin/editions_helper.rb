@@ -40,24 +40,6 @@ module Admin::EditionsHelper
     'active' if filter_value && disallowed_values.none? { |disallowed_value| filter_value == disallowed_value }
   end
 
-  def pass_through_filter_options_as_hidden_fields(filter, *options_to_pass)
-    options_to_pass.map { |option_to_pass|
-      value = filter.options[option_to_pass]
-      pass_through_filter_value_as_hidden_field(option_to_pass, value)
-    }.join.html_safe
-  end
-
-  def pass_through_filter_value_as_hidden_field(filter_name, filter_value)
-    return '' unless filter_value
-    if filter_value.is_a?(Array)
-      filter_value.map { |value_to_pass|
-        hidden_field_tag "#{filter_name}[]", value_to_pass
-      }.join.html_safe
-    else
-      hidden_field_tag filter_name, filter_value
-    end
-  end
-
   def admin_organisation_filter_options(current_user)
     organisations = Organisation.with_translations(:en).excluding_govuk_status_closed
     if current_user.organisation

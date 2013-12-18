@@ -17,33 +17,31 @@
         margin-bottom: 0;
         font-weight: bold;
       }
-      form {
-        margin-bottom: 0;
-        input {
-          @include border-radius(0);
-          width: 95%;
-          padding: 6px;
-        }
-        // to align btn-enter with input
-        .btn-enter-wrapper {
-          position: relative;
-        }
-        input.btn-enter {
-          position: absolute;
-          top: 4px;
-          right: 3px;
-          width: 50px;
-          background: #999;
-          color: white;
-          border: none;
-          @include border-radius(3px);
-          margin: 0;
-          padding: 3px;
-        }
 
-        select {
-          width: 100%;
-        }
+      input {
+        @include border-radius(0);
+        width: 95%;
+        padding: 6px;
+      }
+      // to align btn-enter with input
+      .btn-enter-wrapper {
+        position: relative;
+      }
+      input.btn-enter {
+        position: absolute;
+        top: 4px;
+        right: 3px;
+        width: 50px;
+        background: #999;
+        color: white;
+        border: none;
+        @include border-radius(3px);
+        margin: 0;
+        padding: 3px;
+      }
+
+      select {
+        width: 100%;
       }
     }
   }
