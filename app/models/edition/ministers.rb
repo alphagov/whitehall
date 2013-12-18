@@ -17,10 +17,4 @@ module Edition::Ministers
   def can_be_associated_with_ministers?
     true
   end
-
-  module ClassMethods
-    def in_ministerial_role(role)
-      joins(:ministerial_roles).where('roles.id' => role.to_model)
-    end
-  end
 end
