@@ -63,8 +63,4 @@ private
   def should_preview?
     params[:preview]
   end
-
-  def can_preview?(record)
-    can?(:see, record)
-  end
 end

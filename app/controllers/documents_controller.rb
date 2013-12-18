@@ -1,5 +1,6 @@
 class DocumentsController < PublicFacingController
   include CacheControlHelper
+  include PermissionsChecker
   include PublicDocumentRoutesHelper
 
   before_filter :redirect_to_canonical_url
@@ -41,11 +42,17 @@ class DocumentsController < PublicFacingController
   end
 
   def find_document_or_edition
-    if current_user_can_preview?
-      document_class.with_translations(I18n.locale).find(params[:preview])
-    else
-      document_class.published_as(params[:id], I18n.locale)
-    end
+    find_document_or_edition_for_preview || find_document_or_edition_for_public
+  end
+
+  def find_document_or_edition_for_preview
+    return unless current_user_can_preview?
+    document = document_class.with_translations(I18n.locale).find(params[:preview])
+    document if can_preview?(document)
+  end
+
+  def find_document_or_edition_for_public
+    document_class.published_as(params[:id], I18n.locale)
   end
 
   def document_class

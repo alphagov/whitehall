@@ -283,7 +283,8 @@ module DocumentControllerTestHelpers
         document = first_edition.document
         draft_edition = create("draft_#{document_type}",
                                document: document,
-                               body: "Draft information")
+                               body: "Draft information",
+                               access_limited: false)
 
         login_as create(:departmental_editor)
         get :show, id: document.id, preview: draft_edition.id
@@ -295,9 +296,28 @@ module DocumentControllerTestHelpers
         document = first_edition.document
         draft_edition = create("draft_#{document_type}",
                                document: document,
-                               body: "Draft information")
+                               body: "Draft information",
+                               access_limited: false)
 
         get :show, id: document.id, preview: draft_edition.id
+        assert_response 404
+      end
+
+      test "access limited #{document_type} preview should be visible for authorised users" do
+        draft = create(document_type, :published, access_limited: true)
+
+        login_as(create(:departmental_editor, organisation: draft.organisations.first))
+        get :show, id: draft.document.id, preview: draft.id
+
+        assert_response 200
+      end
+
+      test "access limited #{document_type} preview should be hidden for unauthorised users" do
+        draft = create(document_type, :published, access_limited: true)
+
+        login_as(create(:departmental_editor))
+        get :show, id: draft.document.id, preview: draft.id
+
         assert_response 404
       end
     end

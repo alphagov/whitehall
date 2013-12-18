@@ -5,6 +5,10 @@ module PermissionsChecker
     enforcer_for(subject).can?(action)
   end
 
+  def can_preview?(subject)
+    can?(:see, subject)
+  end
+
   included do
     helper_method :can?
   end
