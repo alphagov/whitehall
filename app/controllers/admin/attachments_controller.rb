@@ -1,8 +1,5 @@
 class Admin::AttachmentsController < Admin::BaseController
-  before_filter :assign_edition, if: :attachable_is_an_edition?
-  before_filter :limit_edition_access!, if: :attachable_is_an_edition?
-  before_filter :enforce_edition_permissions!, if: :attachable_is_an_edition?
-  before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
+  before_filter :limit_attachable_access, if: :attachable_is_an_edition?
   before_filter :check_attachable_allows_html_attachments, if: :html?
 
   def index; end
@@ -82,14 +79,6 @@ private
     end
   end
 
-  def enforce_edition_permissions!
-    enforce_permission!(:update, attachable)
-  end
-
-  def attachable_is_an_edition?
-    attachable.is_a?(Edition)
-  end
-
   def html?
     params[:html] == 'true'
   end
@@ -121,7 +110,15 @@ private
   end
   helper_method :attachable
 
-  def assign_edition
+  def attachable_is_an_edition?
+    attachable_class == Edition
+  end
+
+  def limit_attachable_access
+    enforce_permission!(:see, attachable)
+    enforce_permission!(:update, attachable)
+
     @edition = attachable
+    prevent_modification_of_unmodifiable_edition
   end
 end
