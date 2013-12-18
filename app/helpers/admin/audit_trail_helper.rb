@@ -3,7 +3,7 @@ module Admin::AuditTrailHelper
     actor = entry.actor
     html = if entry.respond_to?(:message)
       content_tag(:span, class: "body") do
-        entry.message.html_safe
+        entry.message
       end
     else
       content_tag(:span, entry.action.capitalize, class: "action") + " by"
