@@ -5,15 +5,16 @@ class DupFilenameAttachmentFixerTest < ActiveSupport::TestCase
   include DataHygiene
 
   setup do
-    @attachable = create(:policy_advisory_group, attachments: [
-        @attachment_1 = build(:file_attachment, file: file_fixture('whitepaper.pdf')),
-        @attachment_2 = build(:file_attachment, file: file_fixture('whitepaper.pdf')),
-        @attachment_3 = build(:file_attachment, file: file_fixture('whitepaper.pdf')),
-        @attachment_4 = build(:file_attachment, file: file_fixture('greenpaper.pdf')),
-        @attachment_5 = build(:file_attachment, file: file_fixture('whitepaper-1.pdf')),
-        @attachment_6 = build(:file_attachment, file: file_fixture('greenpaper.pdf'))
-    ])
-    @attachments = @attachable.attachments
+    @attachable = create(:policy_advisory_group)
+    @attachments = [
+      @attachment_1 = build(:file_attachment, attachable: @attachable, file: file_fixture('whitepaper.pdf')),
+      @attachment_2 = build(:file_attachment, attachable: @attachable, file: file_fixture('whitepaper.pdf')),
+      @attachment_3 = build(:file_attachment, attachable: @attachable, file: file_fixture('whitepaper.pdf')),
+      @attachment_4 = build(:file_attachment, attachable: @attachable, file: file_fixture('greenpaper.pdf')),
+      @attachment_5 = build(:file_attachment, attachable: @attachable, file: file_fixture('whitepaper-1.pdf')),
+      @attachment_6 = build(:file_attachment, attachable: @attachable, file: file_fixture('greenpaper.pdf'))
+    ]
+    @attachments.each { |attachment| attachment.save(validate: false) }
     VirusScanHelpers.simulate_virus_scan
   end
 

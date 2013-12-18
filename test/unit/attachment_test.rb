@@ -22,6 +22,14 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
+  test 'should not be valid if an attachment already exists on the attachable with the same filename' do
+    attachable = create(:policy_advisory_group, attachments: [build(:file_attachment, file: file_fixture('whitepaper.pdf'))])
+    duplicate  = build(:file_attachment,  file: file_fixture('whitepaper.pdf'), attachable: attachable)
+
+    refute duplicate.valid?
+    assert_match %r(This policy advisory group already has a file called "whitepaper.pdf"), duplicate.errors[:base].first
+  end
+
   test "should be invalid with an ISBN that's not in ISBN-10 or ISBN-13 format" do
     attachment = build(:file_attachment, isbn: "invalid-isbn")
     refute attachment.valid?

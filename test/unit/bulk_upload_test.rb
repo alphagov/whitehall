@@ -15,7 +15,7 @@ class BulkUploadTest < ActiveSupport::TestCase
   def new_attachments_params
     attachments_params(
       [{ title: 'Title 1' }, { file: file_fixture('whitepaper.pdf') }],
-      [{ title: 'Title 2' }, { file: file_fixture('greenpaper.pdf') }]
+      [{ title: 'Title 2' }, { file: file_fixture('simple.pdf') }]
     )
   end
 
@@ -24,10 +24,10 @@ class BulkUploadTest < ActiveSupport::TestCase
   end
 
   test '.from_files builds Attachment instances for an array of file paths' do
-    paths = %w(greenpaper.pdf whitepaper.pdf).map { |f| file_fixture(f).path }
+    paths = %w(simple.pdf whitepaper.pdf).map { |f| file_fixture(f).path }
     bulk_upload = BulkUpload.from_files(create(:news_article), paths)
     assert_equal 2, bulk_upload.attachments.size
-    assert_equal 'greenpaper.pdf', bulk_upload.attachments[0].filename
+    assert_equal 'simple.pdf', bulk_upload.attachments[0].filename
     assert_equal 'whitepaper.pdf', bulk_upload.attachments[1].filename
   end
 
