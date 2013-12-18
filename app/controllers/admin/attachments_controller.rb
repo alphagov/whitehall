@@ -1,5 +1,5 @@
 class Admin::AttachmentsController < Admin::BaseController
-  before_filter :find_attachable
+  before_filter :assign_edition, if: :attachable_is_an_edition?
   before_filter :limit_edition_access!, if: :attachable_is_an_edition?
   before_filter :enforce_edition_permissions!, if: :attachable_is_an_edition?
   before_filter :prevent_modification_of_unmodifiable_edition, if: :attachable_is_an_edition?
@@ -10,16 +10,16 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def order
     attachment_ids = params[:ordering].sort_by { |_, ordering| ordering.to_i }.map { |id, _| id }
-    @attachable.reorder_attachments(attachment_ids)
+    attachable.reorder_attachments(attachment_ids)
 
-    redirect_to attachable_attachments_path(@attachable), notice: 'Attachments re-ordered'
+    redirect_to attachable_attachments_path(attachable), notice: 'Attachments re-ordered'
   end
 
   def new; end
 
   def create
     if attachment.save
-      redirect_to attachable_attachments_path(@attachable), notice: "Attachment '#{attachment.title}' uploaded"
+      redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
     else
       render :new
     end
@@ -28,7 +28,7 @@ class Admin::AttachmentsController < Admin::BaseController
   def update
     if attachment.update_attributes(attachment_params)
       message = "Attachment '#{attachment.title}' updated"
-      redirect_to attachable_attachments_path(@attachable), notice: message
+      redirect_to attachable_attachments_path(attachable), notice: message
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class Admin::AttachmentsController < Admin::BaseController
 
   def destroy
     attachment.destroy
-    redirect_to attachable_attachments_path(@attachable), notice: 'Attachment deleted'
+    redirect_to attachable_attachments_path(attachable), notice: 'Attachment deleted'
   end
 
   def attachable_attachments_path(attachable)
@@ -55,28 +55,13 @@ private
       attachment_class = html? ? HtmlAttachment : FileAttachment
 
       attachment_params = params[:attachment] || {}
-      attachment_params.merge!(attachable: @attachable)
+      attachment_params.merge!(attachable: attachable)
       attachment_params.reverse_merge!(attachment_data: AttachmentData.new) if attachment_class == FileAttachment
 
       attachment_class.new(attachment_params)
     end
   end
   helper_method :attachment
-
-  def find_attachable
-    @attachable =
-      if params.has_key?(:edition_id)
-        @edition = Edition.find(params[:edition_id])
-      elsif params.has_key?(:response_id)
-        Response.find(params[:response_id])
-      elsif params.has_key?(:corporate_information_page_id)
-        CorporateInformationPage.find(params[:corporate_information_page_id])
-      elsif params.has_key?(:policy_advisory_group_id)
-        PolicyAdvisoryGroup.find(params[:policy_advisory_group_id])
-      else
-        raise ActiveRecord::RecordNotFound
-      end
-  end
 
   def find_attachment
     @attachment = @attachable.attachments.find(params[:id])
@@ -92,11 +77,11 @@ private
   end
 
   def enforce_edition_permissions!
-    enforce_permission!(:update, @attachable)
+    enforce_permission!(:update, attachable)
   end
 
   def attachable_is_an_edition?
-    @attachable.is_a?(Edition)
+    attachable.is_a?(Edition)
   end
 
   def html?
@@ -104,6 +89,33 @@ private
   end
 
   def check_attachable_allows_html_attachments
-    redirect_to attachable_attachments_path(@attachable) unless @attachable.allows_html_attachments?
+    redirect_to attachable_attachments_path(attachable) unless attachable.allows_html_attachments?
+  end
+
+  def attachable_param
+    params.keys.find { |k| k =~ /_id$/ }
+  end
+
+  def attachable_class
+    if attachable_param
+      attachable_param.sub(/_id$/, '').classify.constantize
+    else
+      raise ActiveRecord::RecordNotFound
+    end
+  rescue NameError
+    raise ActiveRecord::RecordNotFound
+  end
+
+  def attachable_id
+    params[attachable_param]
+  end
+
+  def attachable
+    @attachable ||= attachable_class.find(attachable_id)
+  end
+  helper_method :attachable
+
+  def assign_edition
+    @edition = attachable
   end
 end
