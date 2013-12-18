@@ -1,9 +1,0 @@
-<article class="document">
-  <%= render partial: "standard_elements", locals: { edition: edition } %>
-
-  <section class="contextual-info">
-    <% if edition.publication_type.present? %>
-      <p>Publication type: <span class="publication_type"><%= edition.publication_type.singular_name %></span></p>
-    <% end %>
-  </section>
-</article>
