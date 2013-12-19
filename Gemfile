@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
 
-gem 'rake', '0.9.2'
+gem 'rake', '10.1.0'
 gem 'rails', '3.2.16'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
@@ -28,7 +28,7 @@ gem 'unicorn', '4.6.2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '7.18.0'
-gem 'whenever', '0.7.3', require: false
+gem 'whenever', '0.9.0', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
 gem 'rails-i18n'
