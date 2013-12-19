@@ -1,14 +1,16 @@
 class HomePageList < ActiveRecord::Base
-  belongs_to :owner,
-             polymorphic: true
-  validates :owner, presence: true
-  validates :name, presence: true,
-                   uniqueness: { scope: [:owner_id, :owner_type] },
-                   length: { maximum: 255 }
+  belongs_to :owner, polymorphic: true
   has_many :home_page_list_items,
-           dependent: :destroy,
-           order: :ordering,
-           before_add: :ensure_ordering!
+            -> { order :ordering },
+            dependent: :destroy,
+            before_add: :ensure_ordering!
+
+  validates :owner, presence: true
+  validates :name,
+            presence: true,
+            uniqueness: { scope: [:owner_id, :owner_type] },
+            length: { maximum: 255 }
+
   def items
     home_page_list_items.includes(:item).map(&:item)
   end

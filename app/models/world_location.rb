@@ -3,9 +3,8 @@ class WorldLocation < ActiveRecord::Base
   has_many :editions,
             through: :edition_world_locations
   has_many :published_edition_world_locations,
-            class_name: "EditionWorldLocation",
-            include: :edition,
-            conditions: { editions: { state: "published" } }
+            -> { where(editions: { state: :published }).includes(:edition) },
+            class_name: "EditionWorldLocation"
   has_many :published_editions,
             through: :published_edition_world_locations,
             source: :edition

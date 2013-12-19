@@ -6,7 +6,7 @@ class SupportingPage < Edition
 
   validate :at_least_one_related_policy
 
-  has_many :organisations, through: :related_policies, readonly: true
+  has_many :organisations, -> { readonly }, through: :related_policies
 
 private
   def at_least_one_related_policy

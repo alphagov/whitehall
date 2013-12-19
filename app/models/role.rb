@@ -10,10 +10,10 @@ class Role < ActiveRecord::Base
     super.reject { |column| ['name', 'responsibilities'].include?(column.name) }
   end
 
-  has_many :role_appointments, order: 'started_at'
+  has_many :role_appointments, -> { order 'started_at' }
   has_many :people, through: :role_appointments
 
-  has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
+  has_many :current_role_appointments, -> { where RoleAppointment::CURRENT_CONDITION }, class_name: 'RoleAppointment'
   has_many :current_people, class_name: 'Person', through: :current_role_appointments, source: :person
 
   has_many :organisation_roles

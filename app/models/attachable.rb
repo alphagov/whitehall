@@ -2,7 +2,7 @@ module Attachable
   extend ActiveSupport::Concern
 
   included do
-    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', inverse_of: :attachable
+    has_many :attachments, -> { order('attachments.ordering, attachments.id') }, as: :attachable, inverse_of: :attachable
 
     if respond_to?(:add_trait)
       add_trait do

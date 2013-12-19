@@ -4,7 +4,7 @@ class RoleAppointment < ActiveRecord::Base
   has_many :speeches
   has_many :edition_role_appointments
   has_many :editions, through: :edition_role_appointments
-  has_many :news_articles, through: :edition_role_appointments, source: :edition, conditions: { "editions.type" => NewsArticle }
+  has_many :news_articles, -> { where(editions: { type: NewsArticle }) }, through: :edition_role_appointments, source: :edition
 
   belongs_to :role
   belongs_to :person

@@ -23,19 +23,19 @@ class Organisation < ActiveRecord::Base
   has_many :roles, through: :organisation_roles
   has_many :groups
   has_many :ministerial_roles,
+            -> { where "roles.whip_organisation_id IS NULL" },
             class_name: 'MinisterialRole',
             through: :organisation_roles,
-            source: :role,
-            conditions: "roles.whip_organisation_id IS null"
+            source: :role
   has_many :ministerial_whip_roles,
+            -> { where "roles.whip_organisation_id IS NOT NULL" },
             class_name: 'MinisterialRole',
             through: :organisation_roles,
-            source: :role,
-            conditions: "roles.whip_organisation_id IS NOT null"
+            source: :role
   has_many :management_roles,
+            -> { where "type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'" },
             through: :organisation_roles,
-            source: :role,
-            conditions: "type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'"
+            source: :role
   has_many :military_roles,
             class_name: 'MilitaryRole',
             through: :organisation_roles,
@@ -63,19 +63,19 @@ class Organisation < ActiveRecord::Base
 
   has_many :people, through: :roles
 
-  has_many :organisation_classifications, dependent: :destroy, order: 'organisation_classifications.ordering'
-  has_many :topics, through: :organisation_classifications, order: 'organisation_classifications.ordering'
+  has_many :organisation_classifications, -> { order 'organisation_classifications.ordering' }, dependent: :destroy
+  has_many :topics, -> { order 'organisation_classifications.ordering' }, through: :organisation_classifications
   has_many :classifications, through: :organisation_classifications
 
-  has_many :organisation_mainstream_categories, dependent: :destroy, order: 'organisation_mainstream_categories.ordering', inverse_of: :organisation
-  has_many :mainstream_categories, through: :organisation_mainstream_categories, order: 'organisation_mainstream_categories.ordering'
+  has_many :organisation_mainstream_categories, -> { order 'organisation_mainstream_categories.ordering' }, dependent: :destroy, inverse_of: :organisation
+  has_many :mainstream_categories, -> { order 'organisation_mainstream_categories.ordering' }, through: :organisation_mainstream_categories
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
   has_many :corporate_information_pages, as: :organisation, dependent: :destroy
 
   has_many :contacts, as: :contactable, dependent: :destroy
-  has_many :social_media_accounts, as: :socialable, dependent: :destroy, include: [:social_media_service]
+  has_many :social_media_accounts, -> { includes :social_media_service }, as: :socialable, dependent: :destroy
 
   has_many :sponsorships, dependent: :destroy
   has_many :sponsored_worldwide_organisations, through: :sponsorships, source: :worldwide_organisation

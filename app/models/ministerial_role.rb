@@ -4,8 +4,13 @@ class MinisterialRole < Role
   has_many :edition_ministerial_roles
   has_many :editions, through: :edition_ministerial_roles
   has_many :speeches, through: :role_appointments
-  has_many :policies, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => Policy }
-  has_many :news_articles, through: :role_appointments, conditions: { "editions.type" => NewsArticle }, uniq: true
+  has_many :policies,
+            -> { where(editions: { type: Policy }) },
+            through: :edition_ministerial_roles,
+            source: :edition
+  has_many :news_articles,
+            -> { where(editions: { type: NewsArticle }).uniq },
+            through: :role_appointments
 
   def published_policies(options = {})
     policies

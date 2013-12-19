@@ -23,17 +23,14 @@ class Classification < ActiveRecord::Base
             }
 
   has_many :classification_featurings,
+            -> { order("classification_featurings.ordering asc").includes(edition: :translations).where(editions: { state: "published" }) },
             foreign_key: :classification_id,
-            order: "classification_featurings.ordering asc",
-            include: { edition: :translations },
-            inverse_of: :classification,
-            conditions: { editions: { state: "published" } }
+            inverse_of: :classification
 
   has_many :featured_editions,
+            -> { order("classification_featurings.ordering ASC") },
             through: :classification_featurings,
-            source: :edition,
-            order: "classification_featurings.ordering ASC"
-
+            source: :edition
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description

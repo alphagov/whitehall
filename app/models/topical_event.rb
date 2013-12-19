@@ -18,21 +18,21 @@ class TopicalEvent < Classification
   has_many :consultations, through: :classification_memberships
 
   has_many :published_announcements,
+            -> { where(editions: { state: :published }) },
             through: :classification_memberships,
             class_name: "Announcement",
-            conditions: { "editions.state" => "published" },
             source: :announcement
 
   has_many :published_publications,
+            -> { where(editions: { state: :published }) },
             through: :classification_memberships,
             class_name: "Publication",
-            conditions: { "editions.state" => "published" },
             source: :publication
 
   has_many :published_consultations,
+            -> { where(editions: { state: :published }) },
             through: :classification_memberships,
             class_name: "Consultation",
-            conditions: { "editions.state" => "published" },
             source: :consultation
 
   scope :active, -> { where("end_date > ?", Date.today) }

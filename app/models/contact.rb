@@ -1,9 +1,10 @@
 class Contact < ActiveRecord::Base
-  belongs_to :contactable, polymorphic: true
   has_many :contact_numbers, dependent: :destroy
-  belongs_to :country, class_name: "WorldLocation",
-    foreign_key: :country_id,
-    conditions: { "world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id }
+  belongs_to :contactable, polymorphic: true
+  belongs_to :country,
+              -> { where "world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id },
+              class_name: "WorldLocation",
+              foreign_key: :country_id
 
   validates :title, :contact_type, presence: true
   validates :contact_form_url, uri: true, allow_blank: true

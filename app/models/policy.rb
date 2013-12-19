@@ -12,11 +12,23 @@ class Policy < Edition
 
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
-  has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
-  has_many :published_related_publications, through: :edition_relations, source: :edition, conditions: {editions: {type: Publicationesque.sti_names, state: 'published'}}
-  has_many :published_related_announcements, through: :edition_relations, source: :edition, conditions: {document: {editions: {type: Announcement.sti_names, state: 'published'}}}
-  has_many :case_studies, through: :edition_relations, source: :edition, conditions: {editions: {type: 'CaseStudy', state: 'published'}}
 
+  has_many :published_related_editions,
+            -> { where(editions: { state: :published }) },
+            through: :edition_relations,
+            source: :edition
+  has_many :published_related_publications,
+            -> { where(editions: { type: Publicationesque.sti_names, state: :published }) },
+            through: :edition_relations,
+            source: :edition
+  has_many :published_related_announcements,
+            -> { where(document: { editions: { type: Announcement.sti_names, state: :published }}) },
+            through: :edition_relations,
+            source: :edition
+  has_many :case_studies,
+            -> { where(editions: { type: CaseStudy, state: :published }) },
+            through: :edition_relations,
+            source: :edition
 
   has_many :edition_policy_groups, foreign_key: :edition_id
   has_many :policy_teams, through: :edition_policy_groups, class_name: 'PolicyTeam', source: :policy_group

@@ -1,5 +1,5 @@
 class FeatureList < ActiveRecord::Base
-  has_many :features, dependent: :destroy, order: :ordering, before_add: :ensure_ordering!
+  has_many :features, -> { order :ordering }, dependent: :destroy, before_add: :ensure_ordering!
   belongs_to :featurable, polymorphic: true
 
   validates_presence_of :locale

@@ -3,11 +3,11 @@ require 'csv'
 class Import < ActiveRecord::Base
   serialize :successful_rows
   has_many :document_sources
-  has_many :documents, through: :document_sources, uniq: true
-  has_many :editions, through: :documents, uniq: true
+  has_many :documents, -> { uniq }, through: :document_sources
+  has_many :editions, -> { uniq }, through: :documents
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
-  has_many :import_logs, dependent: :destroy, order: 'row_number'
+  has_many :import_logs, -> { order :row_number }, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation

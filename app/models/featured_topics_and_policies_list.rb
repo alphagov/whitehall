@@ -4,9 +4,7 @@ class FeaturedTopicsAndPoliciesList < ActiveRecord::Base
   validates :summary, length: { maximum: 65_535 }
   validates :organisation, presence: true
 
-  has_many :featured_items, dependent: :destroy,
-                            order: :ordering,
-                            before_add: :ensure_ordering!
+  has_many :featured_items, -> { order :ordering }, dependent: :destroy, before_add: :ensure_ordering!
   accepts_nested_attributes_for :featured_items, reject_if: :no_useful_featured_item_attributes?
 
   def current_and_linkable_featured_items
