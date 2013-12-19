@@ -20,9 +20,6 @@ Whitehall::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  # Enable lograge
-  config.lograge.enabled = true
-
   # Enable JSON-style logging
   config.logstasher.enabled = true
   config.logstasher.logger = Logger.new("#{Rails.root}/log/#{Rails.env}.json.log")
