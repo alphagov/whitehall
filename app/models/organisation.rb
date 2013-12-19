@@ -129,6 +129,8 @@ class Organisation < ActiveRecord::Base
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
 
+  delegate :ministerial_department?, to: :type
+
   include TranslatableModel
   translates :name, :logo_formatted_name, :acronym, :description, :about_us
 
