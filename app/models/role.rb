@@ -25,15 +25,15 @@ class Role < ActiveRecord::Base
   has_many :historical_account_roles
   has_many :historical_accounts, through: :historical_account_roles
 
-  scope :alphabetical_by_person, includes(:current_people, :organisations).order('people.surname', 'people.forename')
+  scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order('people.surname', 'people.forename') }
 
-  scope :ministerial, where(type: 'MinisterialRole')
-  scope :board_member, where(type: 'BoardMemberRole')
-  scope :management, where("type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'")
-  scope :traffic_commissioner, where(type: 'TrafficCommissionerRole')
-  scope :military, where(type: 'MilitaryRole')
-  scope :special_representative, where(type: 'SpecialRepresentativeRole')
-  scope :chief_professional_officer, where(type: 'ChiefProfessionalOfficerRole')
+  scope :ministerial,                -> { where(type: 'MinisterialRole') }
+  scope :board_member,               -> { where(type: 'BoardMemberRole') }
+  scope :management,                 -> { where("type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'") }
+  scope :traffic_commissioner,       -> { where(type: 'TrafficCommissionerRole') }
+  scope :military,                   -> { where(type: 'MilitaryRole') }
+  scope :special_representative,     -> { where(type: 'SpecialRepresentativeRole') }
+  scope :chief_professional_officer, -> { where(type: 'ChiefProfessionalOfficerRole') }
 
   validates :name, presence: true
   validates_with SafeHtmlValidator

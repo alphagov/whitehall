@@ -45,8 +45,8 @@ class Classification < ActiveRecord::Base
   accepts_nested_attributes_for :organisation_classifications
   accepts_nested_attributes_for :classification_featurings
 
-  scope :alphabetical, order("name ASC")
-  scope :randomized, order('RAND()')
+  scope :alphabetical, -> { order("name ASC") }
+  scope :randomized,   -> { order('RAND()') }
 
   mount_uploader :logo, ImageUploader, mount_on: :carrierwave_image
 
