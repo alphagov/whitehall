@@ -4,7 +4,9 @@
   <section>
     <h1>Edit policy advisory group</h1>
     <p class="warning">Warning: changes to policy advisory groups appear instantly on the live site.</p>
-    <%= render partial: "form", locals: {policy_advisory_group: @policy_advisory_group} %>
+    <%= tab_navigation_for(@policy_advisory_group) do %>
+      <%= render "form", policy_advisory_group: @policy_advisory_group %>
+    <% end %>
   </section>
 </div>
 
