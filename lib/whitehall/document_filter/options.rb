@@ -9,7 +9,7 @@ module Whitehall
         @options_by_key = {
           'publication_filter_option' => all_publication_options,
           'announcement_type_option' => all_announcement_options,
-          'departments[]' => organisations[:grouped_options].values.unshift(organisations[:all_option]),
+          'departments[]' => organisations[:grouped_options].values.reduce(&:+).unshift(organisations[:all_option]),
           'topics[]' => topics[:grouped_options].values.unshift(organisations[:all_option]),
           'world_locations[]' => all_location_options,
           'official_document_status' => all_official_documents_options

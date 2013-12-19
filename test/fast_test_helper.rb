@@ -16,7 +16,7 @@ require 'bundler/setup'
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 $LOAD_PATH.unshift File.expand_path("..", __FILE__)
 
-require 'active_support/test_case'
 require 'minitest/autorun'
+require 'mocha/setup'
 
 require 'logger'
