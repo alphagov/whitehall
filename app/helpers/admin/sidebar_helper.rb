@@ -1,8 +1,8 @@
 module Admin::SidebarHelper
-  def simple_formatting_sidebar
+  def simple_formatting_sidebar(options = {})
     sidebar_tabs govspeak_help: "Formatting help" do |tabs|
       tabs.pane id: "govspeak_help" do
-        render partial: "admin/editions/govspeak_help"
+        render "admin/editions/govspeak_help", options
       end
     end
   end
