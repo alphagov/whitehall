@@ -99,7 +99,7 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
-    match "/consultations/:consultation_id/:id" => 'html_attachments#show', as: 'consultation_html_attachment'
+    get "/consultations/:consultation_id/:id" => 'html_attachments#show', as: 'consultation_html_attachment'
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show] do
@@ -110,8 +110,8 @@ Whitehall::Application.routes.draw do
     get '/collections' => redirect("/publications")
     resources :organisations, only: [:index], localised: false
     resources :organisations, only: [:show], localised: true do
-      match '/series/:slug' => redirect("/collections/%{slug}")
-      match '/series' => redirect("/publications")
+      get '/series/:slug' => redirect("/collections/%{slug}")
+      get '/series' => redirect("/publications")
 
       member do
         get :about, localised: true

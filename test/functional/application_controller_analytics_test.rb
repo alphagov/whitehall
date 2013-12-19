@@ -23,7 +23,7 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
   test "sets google analytics proposition to government for all actions" do
     with_routing do |map|
       map.draw do
-        match '/test_proposition', to: 'application_controller_analytics_test/test#test_proposition'
+        get '/test_proposition', to: 'application_controller_analytics_test/test#test_proposition'
       end
       get :test_proposition
     end
@@ -34,7 +34,7 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
 
     with_routing do |map|
       map.draw do
-        match '/test_organisations', to: 'application_controller_analytics_test/test#test_organisations'
+        get '/test_organisations', to: 'application_controller_analytics_test/test#test_organisations'
       end
       get :test_organisations
     end
@@ -44,7 +44,7 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
   test "sets format header for google analytics" do
     with_routing do |map|
       map.draw do
-        match '/test_format', to: 'application_controller_analytics_test/test#test_format'
+        get '/test_format', to: 'application_controller_analytics_test/test#test_format'
       end
       get :test_format
     end
