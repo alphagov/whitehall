@@ -162,4 +162,9 @@ class MinisterialRoleTest < ActiveSupport::TestCase
                   'format' => 'minister',
                   'description' => ''}, results[3])
   end
+
+  test "#current_person_name should return the role name when vacant" do
+    role = create(:ministerial_role, name: "Minister of Importance", people: [])
+    assert_equal "Minister of Importance", role.current_person_name
+  end
 end

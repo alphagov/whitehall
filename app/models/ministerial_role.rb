@@ -55,4 +55,9 @@ class MinisterialRole < Role
     # is still marked as dirty during after_save callbacks.
     Whitehall.url_maker.ministerial_role_path(slug)
   end
+
+private
+  def default_person_name
+    name
+  end
 end

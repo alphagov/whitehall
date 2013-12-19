@@ -89,8 +89,8 @@ class Role < ActiveRecord::Base
     role_appointments.where(["ended_at is not null AND ended_at < ?", Time.zone.now])
   end
 
-  def current_person_name(default = "No one is assigned to this role")
-    current_person ? current_person.name : default
+  def current_person_name
+    current_person.try(:name) || default_person_name
   end
 
   delegate :surname, to: :current_person, prefix: true, allow_nil: true
@@ -143,5 +143,9 @@ class Role < ActiveRecord::Base
 
   def prevent_destruction_unless_destroyable
     return false unless destroyable?
+  end
+
+  def default_person_name
+    "No one is assigned to this role"
   end
 end
