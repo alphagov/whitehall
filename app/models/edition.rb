@@ -51,17 +51,17 @@ class Edition < ActiveRecord::Base
     .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
   }
 
-  scope :force_published, where(state: "published", force_published: true)
-  scope :not_published,   where(state: %w(draft submitted rejected))
+  scope :force_published,               -> { where(state: "published", force_published: true) }
+  scope :not_published,                 -> { where(state: %w(draft submitted rejected)) }
 
-  scope :announcements,            -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
-  scope :consultations,                 where(type: "Consultation")
-  scope :detailed_guides,               where(type: "DetailedGuide")
-  scope :policies,                      where(type: "Policy")
-  scope :statistical_publications,      where("publication_type_id IN (?)", PublicationType.statistical.map(&:id))
-  scope :non_statistical_publications,  where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
-  scope :corporate_publications,        where(publication_type_id: PublicationType::CorporateReport.id)
-  scope :worldwide_priorities,          where(type: "WorldwidePriority")
+  scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
+  scope :consultations,                 -> { where(type: "Consultation") }
+  scope :detailed_guides,               -> { where(type: "DetailedGuide") }
+  scope :policies,                      -> { where(type: "Policy") }
+  scope :statistical_publications,      -> { where("publication_type_id IN (?)", PublicationType.statistical.map(&:id)) }
+  scope :non_statistical_publications,  -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
+  scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
+  scope :worldwide_priorities,          -> { where(type: "WorldwidePriority") }
 
   # @!group Callbacks
   before_save :set_public_timestamp

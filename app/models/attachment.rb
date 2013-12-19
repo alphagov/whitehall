@@ -47,7 +47,7 @@ class Attachment < ActiveRecord::Base
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
-  scope :files, where(type: [nil, 'FileAttachment'])
+  scope :files, -> { where(type: [nil, 'FileAttachment']) }
 
   scope :for_current_locale, -> { where(locale: [nil, I18n.locale]) }
 

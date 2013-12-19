@@ -8,8 +8,8 @@ class FactCheckRequest < ActiveRecord::Base
   validates :edition, :email_address, :requestor, presence: true
   validates :email_address, email_format: {allow_blank: true}
 
-  scope :completed, where('comments IS NOT NULL')
-  scope :pending, where('comments IS NULL')
+  scope :completed, -> { where('comments IS NOT NULL') }
+  scope :pending,   -> { where('comments IS NULL') }
 
   def self.for_editions(editions)
     FactCheckRequest.where(edition_id: editions)

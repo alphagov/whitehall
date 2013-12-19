@@ -10,7 +10,7 @@ module Edition::Workflow
   included do
     include ActiveRecord::Transitions
 
-    default_scope where(arel_table[:state].not_eq('deleted'))
+    default_scope -> { where(arel_table[:state].not_eq('deleted')) }
 
     state_machine auto_scopes: true do
       state :imported
