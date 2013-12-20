@@ -462,7 +462,7 @@ sk:
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description:
     no_results:

@@ -117,7 +117,7 @@ uk:
         one: Відповідь на інформаційний запит
         few:
         many:
-        other: ! 'Відповіді на інформаційні запити '
+        other: 'Відповіді на інформаційні запити '
       form:
         one: Форма
         few:
@@ -354,7 +354,7 @@ uk:
     corporate_information:
       access_our_info: Доступ до нашої інформації
       foi_how_to: Як зробити інформаційний запит
-      foi_releases: ! 'Відповіді на інформаційні запити '
+      foi_releases: 'Відповіді на інформаційні запити '
       jobs_and_contacts: Вакансії та контракти
       organisation_chart:
       transparency: Прозорість інформації
@@ -670,12 +670,12 @@ uk:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! 'Це %{link} пояснює наші принципи роботи
+      personal_information_charter_html: 'Це %{link} пояснює наші принципи роботи
         з персональними даними. '
       publication_scheme_html: Прочитайти, яку інформацію ми регулярно публікуємо
         у %{link}.
       social_media_use_html: Прочитайне про наші принципи роботи щодо %{link}.
-      welsh_language_scheme_html: ! 'Дізнайтеся про наші зобов''язання щодо публікації
+      welsh_language_scheme_html: 'Дізнайтеся про наші зобов''язання щодо публікації
         інформації у %{link}. '
     find_out_more: Дивіться повний профіль та всі контакти
     headings:

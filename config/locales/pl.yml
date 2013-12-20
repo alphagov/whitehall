@@ -360,7 +360,7 @@ pl:
       transparency: Dane o transparentności
     foi_exemption_html:
     headings:
-      chief_professional_officers: ! 'Nasi naczelni specjaliści '
+      chief_professional_officers: 'Nasi naczelni specjaliści '
       contact: Skontaktuj się z %{name}
       corporate_information: Informacje korporacyjne
       corporate_reports: Raporty korporacyjne
@@ -378,7 +378,7 @@ pl:
       our_services: Nasze usługi
       our_statistics: Nasze statystyki
       our_topics: Zajmujemy się tymi tematami
-      plus_others: ! ' + inne'
+      plus_others: ' + inne'
       special_representatives: Specjalni wysłannicy
       traffic_commissioners: Komisarze z wydziałów ruchu drogowego
       what_we_do: Czym się zajmujemy
@@ -533,8 +533,8 @@ pl:
       welsh_language_scheme: Schemat języka walijskiego
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi
       są Państwo&nbsp;zainteresowani
@@ -563,7 +563,7 @@ pl:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Polityki
     view_all:
@@ -669,7 +669,7 @@ pl:
       last_word_connector: i
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Nasz %{link} pokazuje, w jaki sposób traktujemy

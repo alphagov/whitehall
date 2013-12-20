@@ -377,7 +377,7 @@ cy:
       author_title:
         minister:
         speaker:
-      delivered_on: ! 'Danfonwyd ar:'
+      delivered_on: 'Danfonwyd ar:'
       delivery_title:
         minister: Gweinidog
         speaker: Siaradwr
@@ -515,7 +515,7 @@ cy:
         i wneud cais</a>
       step2_html: Ymchwiliwch <a href="%{our_releases_path}">ein datganiadau blaenorol</a>
         i weld os ydym eisioes wedi ateb eich cwestiwn
-      step3_html: ! 'Gwnewch cais newydd drwy gysylltu a ni ar:'
+      step3_html: 'Gwnewch cais newydd drwy gysylltu a ni ar:'
   people:
     heading:
       zero:
@@ -537,8 +537,8 @@ cy:
       many:
       other: Rolau
     headings:
-      current_holder: ! 'Deiliad y rôl  '
-      previous_holders: ! 'Cyn-ddeiliaid '
+      current_holder: 'Deiliad y rôl  '
+      previous_holders: 'Cyn-ddeiliaid '
       responsibilities: Cyfrifoldebau
     ministerial: Rôl Gweinidogol
     policies_responsible: dan gyfrifoldeb %{role}
@@ -670,8 +670,8 @@ cy:
       welsh_language_scheme: Cynllun iaith Gymraeg
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb
       i chi
@@ -701,7 +701,7 @@ cy:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Polisïau
     view_all: Gwelir holl polisiau
@@ -807,7 +807,7 @@ cy:
       last_word_connector: a
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Mae ein %{link} yn egluro sut rydym yn trin

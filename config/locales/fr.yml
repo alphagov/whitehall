@@ -173,11 +173,11 @@ fr:
       author_title:
         minister: Ministre
         speaker: Rédacteur
-      delivered_on: ! 'Prononcé le :'
+      delivered_on: 'Prononcé le :'
       delivery_title:
         minister: Ministre
         speaker: Orateur
-      written_on: ! 'Ecrit le : '
+      written_on: 'Ecrit le : '
     updated: mise à  jour
     view: Voir '%{title}'
   organisation:
@@ -247,10 +247,10 @@ fr:
       our_policies: Nos politiques
       our_publications: Nos publications
       our_senior_military_officials: Nos hauts responsables militaires
-      our_services: ! 'Nos services '
+      our_services: 'Nos services '
       our_statistics: Nos statistiques
       our_topics: Nos axes de travail
-      plus_others: ! ' + autres'
+      plus_others: ' + autres'
       special_representatives: Représentants spéciaux
       traffic_commissioners: Commissaires du trafic
       what_we_do: Nos activités
@@ -368,14 +368,11 @@ fr:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! '
+      full_help_html: |2-
 
-        Si vous souhaitez recevoir ce document dans un autre format (braille, audio
-        ou autre), merci d''envoyer un email à %{email}
-
-        en indiquant votre adresse, votre numéro de téléphone, ainsi que le titre
-        du document ("%{title}")%{references}.'
-      heading: ! 'Le format de ce document peut ne pas convenir aux utilisateurs de
+        Si vous souhaitez recevoir ce document dans un autre format (braille, audio ou autre), merci d'envoyer un email à %{email}
+        en indiquant votre adresse, votre numéro de téléphone, ainsi que le titre du document ("%{title}")%{references}.
+      heading: 'Le format de ce document peut ne pas convenir aux utilisateurs de
         technologies d''assistance '
       request_a_different_format: Demander un format de document différent
     headings:
@@ -396,12 +393,12 @@ fr:
     type:
       personal_information_charter: Charte de données personnelles
       publication_scheme: Régime de publication
-      social_media_use: ! 'Utilisation réseaux sociaux '
+      social_media_use: 'Utilisation réseaux sociaux '
       welsh_language_scheme: Système de la langue galloise
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%B %d, %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%B %d, %Y'
   document_filters:
     description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
       qui correspondent à vos intérêts
@@ -430,7 +427,7 @@ fr:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politiques
     view_all:
@@ -536,7 +533,7 @@ fr:
       last_word_connector: et
   time:
     formats:
-      long_ordinal: ! '%B %d, %Y %H:%M'
+      long_ordinal: '%B %d, %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Notre %{link} explique comment nous traitons

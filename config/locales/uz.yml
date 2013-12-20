@@ -29,7 +29,7 @@ uz:
         one: Dunyoviy tashkilot
         other: Dunyoviy tashkilotlar
       advisory_groups: Maslahatchi guruh
-      applies_to_nations: ! 'Tegishli '
+      applies_to_nations: 'Tegishli '
       field_of_operation: Faoliyat sohasi
       live_data: Mavjud ma'lumot
       location:
@@ -87,8 +87,8 @@ uz:
         one: Ta'sir etuvchi omillar tahlili
         other: Ta'sir etuvchi omillar tahlillari
       imported:
-        one: ! 'yuklandi - kutilmoqda '
-        other: ! 'yuklandi - kutilmoqda '
+        one: 'yuklandi - kutilmoqda '
+        other: 'yuklandi - kutilmoqda '
       independent_report:
         one: Mustaqil hisobot
         other: Mustaqil hisobotlar
@@ -173,11 +173,11 @@ uz:
       author_title:
         minister: Vazir
         speaker: Muallif
-      delivered_on: ! 'Yetkazildi:'
+      delivered_on: 'Yetkazildi:'
       delivery_title:
         minister: Vazir
         speaker: Spiker
-      written_on: ! 'Yozildi:'
+      written_on: 'Yozildi:'
     updated: yangilandi
     view: Nazorat '%{title}'
   organisation:
@@ -233,7 +233,7 @@ uz:
     foi_exemption_html:
     headings:
       chief_professional_officers: Bizning asosiy mutaxassislar
-      contact: ! '%{name} bog''laning'
+      contact: '%{name} bog''laning'
       corporate_information: Korporativ ma'lumot
       corporate_reports: Korporativ hisobotlar
       documents:
@@ -250,7 +250,7 @@ uz:
       our_services: Bizning xizmatlat
       our_statistics: Bizning statistika
       our_topics: Bu yonalishlar bo'yicha ishlaymiz
-      plus_others: ! ' + boshqalar'
+      plus_others: ' + boshqalar'
       special_representatives: Maxsus vakil
       traffic_commissioners: Traffik va transport savollari bo'yicha komissar 
       what_we_do: Bizning faoliyatimiz
@@ -395,8 +395,8 @@ uz:
       welsh_language_scheme: Uels tili rejasi
   date:
     formats:
-      default: ! '%e %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Sizni&nbsp; qiziqtirgan natijalarni ko'rish&nbsp; uchun filtrlarni
       qullaning
@@ -419,13 +419,13 @@ uz:
     uz: O'zbekcha
   latest_feed:
     no_updates: Yangiliklar yoq.
-    title: ! 'Eng so''nggi '
+    title: 'Eng so''nggi '
   national_statistics:
     heading:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Dasturlar
     view_all:
@@ -531,16 +531,16 @@ uz:
       last_word_connector: va
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot
         bilan ishlashimiz haqida sizga ma'lumot beradi 
-      publication_scheme_html: ! '%{link} Biz doimiy tarzda nashr etayotgan ma''lumot
+      publication_scheme_html: '%{link} Biz doimiy tarzda nashr etayotgan ma''lumot
         haqida o''qing'
-      social_media_use_html: ! '%{link} Bizning dasturimiz haqida batafsil ma''lumot'
-      welsh_language_scheme_html: ! '%{link} Nashr etish uchun biz olib borayotgan
-        faoliyatimiz haqida o''qing'
+      social_media_use_html: '%{link} Bizning dasturimiz haqida batafsil ma''lumot'
+      welsh_language_scheme_html: '%{link} Nashr etish uchun biz olib borayotgan faoliyatimiz
+        haqida o''qing'
     find_out_more: To'liq profil va bog'lanish uchun ma'lumotni ko'ring
     headings:
       about_us: Biz haqimizda

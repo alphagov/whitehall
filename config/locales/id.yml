@@ -96,8 +96,8 @@ id:
       welsh_language_scheme: Skema bahasa Wales
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -145,11 +145,11 @@ id:
       author_title:
         minister: Menteri
         speaker: Penulis
-      delivered_on: ! 'Dikirimkan pada:'
+      delivered_on: 'Dikirimkan pada:'
       delivery_title:
         minister: Menteri
         speaker: Pembicara
-      written_on: ! 'Dituliskan pada:'
+      written_on: 'Dituliskan pada:'
     type:
       announcement:
         one: Pengumuman
@@ -307,7 +307,7 @@ id:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: Baca lebih lanjut mengenai kerja kami
@@ -338,7 +338,7 @@ id:
       our_services: Pelayanan-pelayanan kami
       our_statistics: Statistik-statistik kami
       our_topics: Kami bekerja pada bidang-bidang ini
-      plus_others: ! ' + lainnya'
+      plus_others: ' + lainnya'
       special_representatives: Perwakilan khusus
       traffic_commissioners: Komisioner lalu lintas
       what_we_do: Kerja kami
@@ -512,7 +512,7 @@ id:
       last_word_connector: dan
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: Pengumuman kami
@@ -534,8 +534,8 @@ id:
         other: Lokasi-lokasi dunia
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} menjelaskan tentang bagaimana
-        kami memperlakukan informasi pribadi Anda'
+      personal_information_charter_html: '%{link} menjelaskan tentang bagaimana kami
+        memperlakukan informasi pribadi Anda'
       publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat
         di %{link}
       social_media_use_html: Baca kebijakan kami di %{link}

@@ -69,11 +69,10 @@ vi:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! 'Để yêu cầu tài liệu này dưới định dạng khác như tài liệu
-        chữ nổi, tiếng hay một định dạng file khác, xin mời email đến %{email}
-
-        cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{title}")%{references}.'
-      heading: ! 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
+      full_help_html: |-
+        Để yêu cầu tài liệu này dưới định dạng khác như tài liệu chữ nổi, tiếng hay một định dạng file khác, xin mời email đến %{email}
+        cung cấp địa chỉ của bạn, số điện thoại cùng với tiêu đề của tài liệu ("%{title}")%{references}.
+      heading: 'File này không phù hợp với công nghệ hỗ trợ của người dùng '
       request_a_different_format: Yêu cầu một định dạng khác
     headings:
       order_a_copy: Đặt một bản sao
@@ -97,8 +96,8 @@ vi:
       welsh_language_scheme: cơ chế ngôn ngữ của xứ Wales
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%d %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%d %B %Y'
   document:
     contents:
     footer_meta:
@@ -146,11 +145,11 @@ vi:
       author_title:
         minister: Thứ trưởng
         speaker: Tác giả
-      delivered_on: ! 'Đưa ra:'
+      delivered_on: 'Đưa ra:'
       delivery_title:
         minister: Thứ trưởng
         speaker: Người phát biểu
-      written_on: ! 'Viết vào:'
+      written_on: 'Viết vào:'
     type:
       announcement:
         one: Thông báo
@@ -308,7 +307,7 @@ vi:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: Xem thêm về những việc chúng tôi làm
@@ -513,7 +512,7 @@ vi:
       last_word_connector: và
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: Các thông báo của chúng tôi
@@ -535,8 +534,8 @@ vi:
         other: Các địa điểm trên thế giới
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} của chúng tôi giải thích cách
-        chúng tôi xử lý thông tin cá nhân của bạn'
+      personal_information_charter_html: '%{link} của chúng tôi giải thích cách chúng
+        tôi xử lý thông tin cá nhân của bạn'
       publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường
         xuyên tại %{link}
       social_media_use_html: Đọc chính sách của chúng tôi tại %{link}

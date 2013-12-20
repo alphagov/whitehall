@@ -177,7 +177,7 @@ es:
       delivery_title:
         minister: Ministro
         speaker: Orador
-      written_on: ! 'Escrito en:'
+      written_on: 'Escrito en:'
     updated: Actualizado
     view: Mirar '%{title}'
   organisation:
@@ -250,7 +250,7 @@ es:
       our_services: Nuestros servicios
       our_statistics: Estadísticas
       our_topics: Trabajamos en estos temas
-      plus_others: ! ' + otros'
+      plus_others: ' + otros'
       special_representatives: Representantes especiales
       traffic_commissioners: Inspector de tráfico
       what_we_do: Qué hacemos
@@ -396,8 +396,8 @@ es:
       welsh_language_scheme: Esquema de gales
   date:
     formats:
-      default: ! '%e %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Puedes utilizar los filtros para ver sólo los resultados que te interesen
     no_results:
@@ -425,7 +425,7 @@ es:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politicas
     view_all:
@@ -531,7 +531,7 @@ es:
       last_word_connector: y
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: El siguiente enlace %{link} explica cómo
@@ -539,7 +539,7 @@ es:
       publication_scheme_html: Lea acerca del tipo de información que publicamos en
         el siguiente enlace %{link}
       social_media_use_html: Lea nuestra política en %{link}
-      welsh_language_scheme_html: ! 'Encuentre más sobre nuestro compromiso de publicar
+      welsh_language_scheme_html: 'Encuentre más sobre nuestro compromiso de publicar
         en %{link} '
     find_out_more: Vea el perfil completo y los detalles de contacto
     headings:

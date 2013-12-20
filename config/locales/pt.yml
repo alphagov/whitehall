@@ -173,11 +173,11 @@ pt:
       author_title:
         minister: Ministro
         speaker: Autor
-      delivered_on: ! 'Entregue em:'
+      delivered_on: 'Entregue em:'
       delivery_title:
         minister: Ministro
         speaker: Orador
-      written_on: ! 'Escrito em:'
+      written_on: 'Escrito em:'
     updated: Atualizado
     view: Veja '%{title}'
   organisation:
@@ -318,7 +318,7 @@ pt:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
       detailed_guide:
-        primary_mainstream_category: ! 'Categoria principal do guia detalhado '
+        primary_mainstream_category: 'Categoria principal do guia detalhado '
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
         hoc_paper_number:
@@ -392,11 +392,11 @@ pt:
       personal_information_charter: Guia de Informação Pessoal
       publication_scheme: Programa de publicação
       social_media_use: Uso de mídias sociais
-      welsh_language_scheme: ! 'Programa de língua galesa '
+      welsh_language_scheme: 'Programa de língua galesa '
   date:
     formats:
-      default: ! '%e %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
       &nbsp; interessam
@@ -425,7 +425,7 @@ pt:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Políticas
     view_all:
@@ -531,7 +531,7 @@ pt:
       last_word_connector: e
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Nosso %{link} explica como nós tratamos suas
@@ -541,7 +541,7 @@ pt:
       social_media_use_html: Leia nossa política sobre %{link}
       welsh_language_scheme_html: Saiba mais sobre nosso comprometimento em publicar
         em %{link}
-    find_out_more: ! 'Veja o perfil completo e todos os contatos '
+    find_out_more: 'Veja o perfil completo e todos os contatos '
     headings:
       about_us: Sobre
       contact_us: Contato

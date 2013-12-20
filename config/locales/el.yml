@@ -87,7 +87,7 @@ el:
         one: Αξιολόγηση αποτελέσματος
         other: Αξιολογήσεις αποτελέσματος
       imported:
-        one: ! ' εισηγμένο  - σε αναμονή'
+        one: ' εισηγμένο  - σε αναμονή'
         other: εισηγμένα - σε αναμονή
       independent_report:
         one: Έκθεση ανεξάρτητης αρχής
@@ -112,7 +112,7 @@ el:
         other: Ανοιχτές διαβουλεύσεις
       oral_statement:
         one: Δήλωση στη Βουλή
-        other: ! 'Δηλώσεις στη Βουλή '
+        other: 'Δηλώσεις στη Βουλή '
       policy:
         one: Πολιτική
         other: Πολιτικές
@@ -139,7 +139,7 @@ el:
         other: Ομιλίες
       statement_to_parliament:
         one: Δήλωση στη Βουλή
-        other: ! 'Δηλώσεις στη Βουλή '
+        other: 'Δηλώσεις στη Βουλή '
       statistical_data_set:
         one: Στατιστικά στοιχεία
         other: Στατιστικά στοιχεία
@@ -173,12 +173,12 @@ el:
       author_title:
         minister: Υπουργός
         speaker: Συγγραφέας
-      delivered_on: ! 'Παραδόθηκε στις:'
+      delivered_on: 'Παραδόθηκε στις:'
       delivery_title:
         minister: Υπουργός
         speaker: Ομιλητής
-      written_on: ! 'Γραφτηκε τη: '
-    updated: ! 'ανανεωμένο '
+      written_on: 'Γραφτηκε τη: '
+    updated: 'ανανεωμένο '
     view: Δείτε '%{title}'
   organisation:
     type:
@@ -253,7 +253,7 @@ el:
       our_topics: Εργαζόμαστε στους παρακάτω τομείς
       plus_others: και άλλα
       special_representatives: Ειδικοί αντιπρόσωποι
-      traffic_commissioners: ! 'Ομάδα ρύθμισης μεταφορών '
+      traffic_commissioners: 'Ομάδα ρύθμισης μεταφορών '
       what_we_do: Οι δράσεις μας
     making_foi_requests:
       step1_html:
@@ -418,7 +418,7 @@ el:
   i18n:
     direction:
   language_names:
-    el: ! 'Ελληνικά '
+    el: 'Ελληνικά '
   latest_feed:
     no_updates: Δεν υπάρχουν ανανεώσεις ακόμα
     title: Πρόσφατα

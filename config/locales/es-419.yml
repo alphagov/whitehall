@@ -177,7 +177,7 @@ es-419:
       delivery_title:
         minister: Ministro
         speaker: Orador
-      written_on: ! 'Escrito en:'
+      written_on: 'Escrito en:'
     updated: actualizado
     view: Ver '%{title}'
   organisation:
@@ -250,7 +250,7 @@ es-419:
       our_services: Nuestros servicios
       our_statistics: Nuestras estadísticas
       our_topics: Trabajamos sobre estos temas
-      plus_others: ! ' + otros'
+      plus_others: ' + otros'
       special_representatives: Representantes especiales
       traffic_commissioners: Comisionados de tráfico
       what_we_do: Qué hacemos
@@ -396,8 +396,8 @@ es-419:
       welsh_language_scheme: Plan de idioma galés
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Puede utilizar los filtros para mostrar&nbsp;sólo resultados que
       coincidan con sus&nbsp;intereses
@@ -426,7 +426,7 @@ es-419:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Políticas
     view_all:
@@ -532,7 +532,7 @@ es-419:
       last_word_connector: y
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Nuestro %{link} explica cómo manejamos su

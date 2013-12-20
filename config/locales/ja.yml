@@ -95,8 +95,8 @@ ja:
       welsh_language_scheme: ウェールズ語スキーム
   date:
     formats:
-      default: ! '%Y %B %d'
-      long_ordinal: ! '%e %B %Y'
+      default: '%Y %B %d'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -139,7 +139,7 @@ ja:
         one: 組織名
         other: 組織名
     published: 掲載日
-    read: ! '%{title} の記事を読む'
+    read: '%{title} の記事を読む'
     speech:
       author_title:
         minister: 大臣
@@ -277,7 +277,7 @@ ja:
         one: 閣僚声明文
         other: 閣僚声明文
     updated: 更新
-    view: ! '%{title}'' を見る'
+    view: '%{title}'' を見る'
   document_filters:
     description: 検索精度を上げるために、各種フィルターをご利用下さい
     no_results:
@@ -305,7 +305,7 @@ ja:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: 続き
@@ -502,7 +502,7 @@ ja:
     previous_holders:
     read_more:
   shared:
-    see_all: ! '%{type} を全て見る'
+    see_all: '%{type} を全て見る'
   social_media:
     follow_us:
   support:
@@ -510,7 +510,7 @@ ja:
       last_word_connector: and
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: 発表
@@ -534,7 +534,7 @@ ja:
     corporate_information:
       personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい
       publication_scheme_html: 情報公開の種類については %{link} をご覧下さい
-      social_media_use_html: ! '%{link}に関する政策を読む'
+      social_media_use_html: '%{link}に関する政策を読む'
       welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい
     find_out_more: 業務案内と連絡先を見る
     headings:

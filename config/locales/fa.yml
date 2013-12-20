@@ -96,8 +96,8 @@ fa:
       welsh_language_scheme: برنامه زبان ولز
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -115,7 +115,7 @@ fa:
         one: ردیف
         other:
       field_of_operation: میدان عمل
-      live_data: ! 'داده های لحظه ای '
+      live_data: 'داده های لحظه ای '
       location:
       ministers:
         one: معاون وزیر
@@ -145,11 +145,11 @@ fa:
       author_title:
         minister: معاون وزیر
         speaker: نویسنده
-      delivered_on: ! 'ارائه شده در تاریخ:'
+      delivered_on: 'ارائه شده در تاریخ:'
       delivery_title:
         minister: معاون وزیر
         speaker: سخنگو
-      written_on: ! 'نوشته شده در:'
+      written_on: 'نوشته شده در:'
     type:
       announcement:
         one: اعلامیه
@@ -512,7 +512,7 @@ fa:
       last_word_connector: و
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: اطلاعیه های ما
@@ -534,10 +534,10 @@ fa:
         other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} چگونگی نگهداری از اطلاعات شخصی
-        شما را توضیح می دهد'
-      publication_scheme_html: ! 'درباره نوع اطلاعاتی که ما به طور روال در %{link}
-        منتشر می کنیم بخوانید '
+      personal_information_charter_html: '%{link} چگونگی نگهداری از اطلاعات شخصی شما
+        را توضیح می دهد'
+      publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر
+        می کنیم بخوانید '
       social_media_use_html: سیاست ما را درباره  %{link} بخوانید
       welsh_language_scheme_html: درباره تعهد ما به انتشار مطالب به %{link} بخوانید
     find_out_more: مشاهده مشخصات کامل و تمام جزئیات تماس

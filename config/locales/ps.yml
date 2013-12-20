@@ -196,9 +196,9 @@ ps:
         other: اجرائیوی ادارې
       Executive non-departmental public body:
         one: غیر تشکیلاتی عامه اجرائیوی اداره
-        other: ! 'غیر تشکیلاتی عامه
-
-          اجرائیوی اداری'
+        other: |-
+          غیر تشکیلاتی عامه
+          اجرائیوی اداری
       Executive office:
         one: اجرائیوی دفتر
         other: اجرائیوی دفترونه
@@ -397,8 +397,8 @@ ps:
       welsh_language_scheme: د ویلز د ژبی پلان
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر کار
       واخلۍ چې ستاسې لپاره په زړه پوری وی
@@ -427,7 +427,7 @@ ps:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: پالیسی ګانی
     view_all:
@@ -533,11 +533,11 @@ ps:
       last_word_connector: او
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! ' زموږ تشریح کوی چې موږ د شخصی معلوماتو
-        سره څرنګه چلند کوو'
+      personal_information_charter_html: ' زموږ تشریح کوی چې موږ د شخصی معلوماتو سره
+        څرنګه چلند کوو'
       publication_scheme_html: زموږ د هغو معلوماتو په اړه ولولۍ چې هره ورڅ یې موږ
         خپروو %{link}.
       social_media_use_html: زموږه پالسی ولولی %{link}.

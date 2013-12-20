@@ -94,8 +94,8 @@ zh-tw:
       welsh_language_scheme: 威爾士語言計畫
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -147,7 +147,7 @@ zh-tw:
       delivery_title:
         minister: 部長
         speaker: 發言人
-      written_on: ! '撰寫於:'
+      written_on: '撰寫於:'
     type:
       announcement:
         one: 公告
@@ -304,7 +304,7 @@ zh-tw:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: 查閱更多關於我們的工作
@@ -335,7 +335,7 @@ zh-tw:
       our_services: 我們的服務
       our_statistics: 我們的統計資料
       our_topics: 我們工作的領域
-      plus_others: ! ' + 其他'
+      plus_others: ' + 其他'
       special_representatives: 特別代表
       traffic_commissioners: 交通事務專員
       what_we_do: 我們的工作
@@ -509,7 +509,7 @@ zh-tw:
       last_word_connector: 和
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: 我們的公告

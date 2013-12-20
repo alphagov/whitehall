@@ -2,7 +2,7 @@ ta:
   document:
     headings:
       attachments:
-        one: ! ' ஆவணம்'
+        one: ' ஆவணம்'
         other: ஆவணங்கள்
       document_collection:
         one: தொடர்
@@ -173,11 +173,11 @@ ta:
       author_title:
         minister: அமைச்சர்
         speaker: எழுத்தாளர்
-      delivered_on: ! 'அன்று விநியோகிக்கப்பட்டது:'
+      delivered_on: 'அன்று விநியோகிக்கப்பட்டது:'
       delivery_title:
         minister: அமைச்சர்
         speaker: சபாநாயகர்
-      written_on: ! 'அன்று எழுதப்பட்டது:'
+      written_on: 'அன்று எழுதப்பட்டது:'
     updated: இற்றைப்படுத்தப்பட்டது
     view: பார்வையிடுக '%{title}'
   organisation:
@@ -250,7 +250,7 @@ ta:
       our_services: எங்களது  சேவைகள்
       our_statistics: எங்களது புள்ளிவிபரம்
       our_topics: இந்த விடயங்கள் மீது நாங்கள் செயலாற்றுகிறோம்
-      plus_others: ! ' ஏனையவர்கள்'
+      plus_others: ' ஏனையவர்கள்'
       special_representatives: விசேட பிரதிநிதிகள்
       traffic_commissioners: போக்குவரத்து ஆணையாளர்கள்
       what_we_do: நாங்கள் செய்வது என்ன
@@ -397,8 +397,8 @@ ta:
       welsh_language_scheme: வெல்ஷ் மொழித் திட்டம்
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: உங்களது &nbsp உடன் பொருந்தும் &nbsp பெறுபேறுகளைக் காண்பிப்பதற்கு
       வடிகட்டிகளை நீங்கள் உபயோகிப்பதற்கு முடியும்.
@@ -427,7 +427,7 @@ ta:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: கொள்கைகள்
     view_all:
@@ -533,7 +533,7 @@ ta:
       last_word_connector: மற்றும்
   time:
     formats:
-      long_ordinal: ! '%e %B %Y%H:%M'
+      long_ordinal: '%e %B %Y%H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: உங்களது தனிப்பட்ட தகவல்களை எப்படி நாங்கள்
@@ -541,7 +541,7 @@ ta:
       publication_scheme_html: எங்களது %{link} நாங்கள் வழமையாக வெளியிடும் தகவல்களின்  வகைகள்
         பற்றி வாசிக்கவும்
       social_media_use_html: எங்களது  கொள்கையை %{link} இல் வாசிக்கவும்
-      welsh_language_scheme_html: ! '%{link} இல் பிரசுரிப்பதற்கான எங்களது பற்றுறுதி
+      welsh_language_scheme_html: '%{link} இல் பிரசுரிப்பதற்கான எங்களது பற்றுறுதி
         பற்றி கண்டறியவும்'
     find_out_more: முழுமையான விபரம் மற்றும்  அனைத்து தொடர்பு விபரங்களையும் காண்க
     headings:

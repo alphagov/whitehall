@@ -275,11 +275,11 @@ he:
       author_title:
         minister: שר
         speaker: מחבר
-      delivered_on: ! 'נשלח ב:'
+      delivered_on: 'נשלח ב:'
       delivery_title:
         minister: שר
         speaker: דובר
-      written_on: ! 'נכתב על:'
+      written_on: 'נכתב על:'
     updated: מעודכן
     view: ראה '%{title}'
   organisation:
@@ -290,10 +290,10 @@ he:
         many:
         other: קבוצות ייעוץ אד- הוק
       Advisory non-departmental public body:
-        one: ! ',גוף ייעוץ חוץ- מחלקתי בכיר'
+        one: ',גוף ייעוץ חוץ- מחלקתי בכיר'
         two:
         many:
-        other: ! ',ייעוץ חוץ- מחלקתי של גוף ציבורי'
+        other: ',ייעוץ חוץ- מחלקתי של גוף ציבורי'
       Devolved administration:
         one:
         two:
@@ -378,7 +378,7 @@ he:
       our_services: השירותים שלנו
       our_statistics: הנתונים שלנו
       our_topics: אנו עוסקים בנושאים הללו
-      plus_others: ! ' + אחרים'
+      plus_others: ' + אחרים'
       special_representatives: נציגים מיוחדים
       traffic_commissioners: ממונים על תעבורה
       what_we_do: מה אנחנו עושים
@@ -504,13 +504,10 @@ he:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! 'כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
-
+      full_help_html: |
+        כדי להזמין את המסמך בפורמט אלטרנטיבי כגון ברייל, אודיו או
         סוגי קובץ שונים אנא שלח/י אימייל %{title} עם כתובת וטלפון יחד עם שם המסמך
-
         המבוקש ("%{title}")%{references}.
-
-'
       heading: הקובץ אינו תומך במשתמשי טכנולוגית סיוע
       request_a_different_format: אנא בקש/י פורמט אחר
     headings:
@@ -535,8 +532,8 @@ he:
       welsh_language_scheme: תכנית שפה וולשית
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
@@ -564,7 +561,7 @@ he:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: מדיניות
     view_all:
@@ -670,7 +667,7 @@ he:
       last_word_connector: בנוסף
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע

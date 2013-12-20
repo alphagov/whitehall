@@ -93,9 +93,9 @@ lt:
         few:
         other: Pranešimas apie nelaimes
       foi_release:
-        one: ! 'Informacijos laisvė: pranešimas'
+        one: 'Informacijos laisvė: pranešimas'
         few:
-        other: ! 'Informacijos laisvė: pranešimai'
+        other: 'Informacijos laisvė: pranešimai'
       form:
         one: Forma
         few:
@@ -129,9 +129,9 @@ lt:
         few:
         other: Žemėlapiai
       national_statistics:
-        one: ! 'Statistika - nacionalinė statistika '
+        one: 'Statistika - nacionalinė statistika '
         few:
-        other: ! 'Statistika - nacionalinė statistika '
+        other: 'Statistika - nacionalinė statistika '
       news_article:
         one: Straipsnis
         few:
@@ -143,7 +143,7 @@ lt:
       open_consultation:
         one: Atvira konsultacija
         few:
-        other: ! 'Atviros konsultacijos '
+        other: 'Atviros konsultacijos '
       oral_statement:
         one: Žodinis kreipimasis į parlamentą
         few:
@@ -219,12 +219,12 @@ lt:
       published:
       updated:
     published: publikuota
-    read: ! 'Skaitykite straipsnį %{title} '
+    read: 'Skaitykite straipsnį %{title} '
     speech:
       author_title:
         minister: Ministras
         speaker: Autorius
-      delivered_on: ! 'Pasakyta:'
+      delivered_on: 'Pasakyta:'
       delivery_title:
         minister: Ministras
         speaker: Pranešėjas
@@ -290,7 +290,7 @@ lt:
     corporate_information:
       access_our_info: Prieiga prie mūsų informacijos
       foi_how_to: Kaip pateikti užklausymą informacijai gauti
-      foi_releases: ! 'Informacijos laisvė: pranešimai'
+      foi_releases: 'Informacijos laisvė: pranešimai'
       jobs_and_contacts: Darbai ir sutartys
       organisation_chart:
       transparency: Skaidrumo informacija
@@ -463,8 +463,8 @@ lt:
       welsh_language_scheme: Valų kalbos schema
   date:
     formats:
-      default: ! '%Y %B %d'
-      long_ordinal: ! '%Y %B %e'
+      default: '%Y %B %d'
+      long_ordinal: '%Y %B %e'
   document_filters:
     description: Galite naudoti filtrus &nbsp; kad būtų pateikiami tik jus dominantys&nbsp;
       rezultatai
@@ -493,7 +493,7 @@ lt:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Strategijos
     view_all:
@@ -599,7 +599,7 @@ lt:
       last_word_connector: ir
   time:
     formats:
-      long_ordinal: ! '%Y %B %e %H:%M'
+      long_ordinal: '%Y %B %e %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma

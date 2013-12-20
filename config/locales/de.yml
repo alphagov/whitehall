@@ -173,7 +173,7 @@ de:
       author_title:
         minister: Minister
         speaker: Autor
-      delivered_on: ! 'Gehalten am:'
+      delivered_on: 'Gehalten am:'
       delivery_title:
         minister: Minister
         speaker: Redner
@@ -233,7 +233,7 @@ de:
     foi_exemption_html:
     headings:
       chief_professional_officers: Unsere leitenden Mitarbeiter
-      contact: ! '%{name} kontaktieren'
+      contact: '%{name} kontaktieren'
       corporate_information: Administrative Informationen
       corporate_reports: Berichte
       documents:
@@ -250,7 +250,7 @@ de:
       our_services: Unsere Dienstleistungen
       our_statistics: Unsere Statistiken
       our_topics: Unsere Arbeitsgebiete
-      plus_others: ! ' + andere'
+      plus_others: ' + andere'
       special_representatives: Sonderbeauftragte
       traffic_commissioners: Verkehrsbeauftragte
       what_we_do: Was wir tun
@@ -396,8 +396,8 @@ de:
       welsh_language_scheme: Walisisches Sprachprogramm
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
       entsprechen.
@@ -426,7 +426,7 @@ de:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politik
     view_all:
@@ -532,7 +532,7 @@ de:
       last_word_connector: und
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen

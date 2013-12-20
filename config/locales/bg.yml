@@ -87,7 +87,7 @@ bg:
         one: Оценка на влиянието
         other: Оценки на влиянието
       imported:
-        one: ! 'импортирано-очаква тип '
+        one: 'импортирано-очаква тип '
         other: импортирано-очаква тип
       independent_report:
         one: Независим доклад
@@ -168,7 +168,7 @@ bg:
       published:
       updated:
     published: Публикувано
-    read: ! 'Прочетете статията %{title} '
+    read: 'Прочетете статията %{title} '
     speech:
       author_title:
         minister: Министър
@@ -177,9 +177,8 @@ bg:
       delivery_title:
         minister: Министър
         speaker: Говорител
-      written_on: ! 'Написана на:
-
-'
+      written_on: |
+        Написана на:
     updated: обновено
     view: Вижте '%{title}'
   organisation:
@@ -370,20 +369,14 @@ bg:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! 'За да направите заявка за алтернативен формат на този документ
-        като Брайл, аудио или друг, моля
-
+      full_help_html: |
+        За да направите заявка за алтернативен формат на този документ като Брайл, аудио или друг, моля
         пратете електронна поща на %{email}
-
         като упоменете Вашия адрес, телефон, както и заглавието на публикацията
-
         ("%{title}")%{references}.
-
-'
       heading: Този файл може да не е подходящ за хора, ползващи помощни технологии
-      request_a_different_format: ! 'Направете заявка за друг формат
-
-'
+      request_a_different_format: |
+        Направете заявка за друг формат
     headings:
       order_a_copy: Поръчайте копие
       order_a_copy_full: Поръчайте копия
@@ -406,8 +399,8 @@ bg:
       welsh_language_scheme: Уелска езикова схема
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Можете да използвате филтрите, за да видите резултатите, които пасват
       на вашето търсене
@@ -436,7 +429,7 @@ bg:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Политики
     view_all:
@@ -542,7 +535,7 @@ bg:
       last_word_connector: и
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Нашият %{link} дава информация за начина

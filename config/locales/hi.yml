@@ -173,7 +173,7 @@ hi:
       author_title:
         minister: मंत्री
         speaker: लेखक 
-      delivered_on: ! 'को वितरित:'
+      delivered_on: 'को वितरित:'
       delivery_title:
         minister: मंत्री
         speaker: वक्ता
@@ -368,10 +368,9 @@ hi:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! 'इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो
-        में निवेदन करें, %{email}
-
-        अपना पता, टेलीफोन नंबर और प्रकाशन के  शीर्षक के साथ ("%{title}")%{references}.'
+      full_help_html: |-
+        इस  दस्तावेज को एक  वैकल्पिक प्रारूप जैसे कि ब्रेल, ऑडियो में निवेदन करें, %{email}
+        अपना पता, टेलीफोन नंबर और प्रकाशन के  शीर्षक के साथ ("%{title}")%{references}.
       heading: संभव है  कि यह फाइल सहायक प्रोद्योगिकी का इस्तेमाल करने वालों के लिए
         उपयोगी ना हो
       request_a_different_format: एक  अलग प्रारूप का निवेदन
@@ -397,13 +396,13 @@ hi:
       welsh_language_scheme: वेल्श भाषा योजना
   date:
     formats:
-      default: ! '%e %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: आप फिल्टरों का उपयोग सिर्फ उन नतीजों को दर्शाने के लिए कर सकते हैं,
       जिनमें आप की दिलचस्पी हो।
     no_results:
-      description: ! 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
+      description: 'अपनी खोज़ को व्यापक बनाए और पुन: कोशिश करें'
       title: मेल खाने वाले दस्तावेज़ नहीं हैं
       tna_heading:
       tna_link:
@@ -427,7 +426,7 @@ hi:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: नीतियां
     view_all:
@@ -533,7 +532,7 @@ hi:
       last_word_connector: और
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत
