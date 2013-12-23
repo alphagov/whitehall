@@ -4,7 +4,8 @@ class DocumentCollectionGroup < ActiveRecord::Base
   has_many :documents, -> { order 'document_collection_group_memberships.ordering' }, through: :memberships
   has_many :editions, -> { order 'document_collection_group_memberships.ordering' }, through: :documents
 
-  attr_accessible :body, :heading
+  # TODO: Figure out if we need to add protection in the controllers with strong params
+  # attr_accessible :body, :heading
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id }
   validates_associated :memberships

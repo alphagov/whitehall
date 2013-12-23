@@ -1,7 +1,8 @@
 class AboutPage < ActiveRecord::Base
   include Searchable
 
-  attr_accessible :body, :name, :summary, :read_more_link_text
+  # TODO: Figure out if we need to add protection in the controllers with strong params
+  # attr_accessible :body, :name, :summary, :read_more_link_text
 
   belongs_to :topical_event
 

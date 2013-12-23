@@ -44,7 +44,7 @@ gem 'sidekiq', '2.14.1'
 gem 'raindrops', '0.11.0'
 
 # transition gems
-gem 'protected_attributes'
+# gem 'protected_attributes'
 gem 'rails-observers'
 # Do we need these two??
 # gem 'actionpack-page_caching'

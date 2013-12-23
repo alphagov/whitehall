@@ -1,7 +1,8 @@
 class Version < ActiveRecord::Base
   belongs_to :item, polymorphic: true
   validates_presence_of :event
-  attr_accessible :item_type, :item_id, :event, :whodunnit, :state
+  # TODO: Figure out if we need to add protection in the controllers with strong params
+  # attr_accessible :item_type, :item_id, :event, :whodunnit, :state
   belongs_to :user, foreign_key: 'whodunnit'
 
   def self.with_item_keys(item_type, item_id)

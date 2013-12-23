@@ -1,5 +1,6 @@
 class TopicSuggestion < ActiveRecord::Base
-  attr_accessible :name
+  # TODO: Figure out if we need to add protection in the controllers with strong params
+  # attr_accessible :name
 
   belongs_to :edition
 
