@@ -198,7 +198,7 @@ class Edition < ActiveRecord::Base
 
     # This works around a wierd bug in ActiveRecord where an outer scope applied
     # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
-    all_after_forcing_query_execution = related.all
+    all_after_forcing_query_execution = related.load
     where(id: all_after_forcing_query_execution.map(&:id))
   end
 

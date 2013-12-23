@@ -223,7 +223,7 @@ class EditionTest < ActiveSupport::TestCase
     publication.edit_as(writer, {})
     publication.edit_as(writer, {})
     publication.edit_as(writer, {})
-    assert_equal 1, Edition.authored_by(writer).all.size
+    assert_equal 1, Edition.authored_by(writer).size
   end
 
   test ".authored_by excludes editions creatored by another user" do
@@ -456,14 +456,14 @@ class EditionTest < ActiveSupport::TestCase
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [jan, feb, mar], Edition.in_chronological_order.all
+    assert_equal [jan, feb, mar], Edition.in_chronological_order.load
   end
 
   test ".in_reverse_chronological_order returns editions in descending order of first_published_at" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     mar = create(:edition, first_published_at: Date.parse("2011-03-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [mar, feb, jan], Edition.in_reverse_chronological_order.all
+    assert_equal [mar, feb, jan], Edition.in_reverse_chronological_order.load
   end
 
   test "re-editioned documents that share a timestamp are returned in document ID order and do not jump the queue when sorted in_chronological_order" do
@@ -507,13 +507,13 @@ class EditionTest < ActiveSupport::TestCase
   test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [jan], Edition.published_before("2011-01-29").all
+    assert_equal [jan], Edition.published_before("2011-01-29").load
   end
 
   test ".published_after returns editions whose first_published_at is after the given date" do
     jan = create(:edition, first_published_at: Date.parse("2011-01-01"))
     feb = create(:edition, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [feb], Edition.published_after("2011-01-29").all
+    assert_equal [feb], Edition.published_after("2011-01-29").load
   end
 
   test "should find editions with summary containing keyword" do

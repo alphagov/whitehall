@@ -76,26 +76,26 @@ class PublicationTest < ActiveSupport::TestCase
     jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
     mar = create(:publication, first_published_at: Date.parse("2011-03-01"))
     feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [jan, feb, mar], Publication.in_chronological_order.all
+    assert_equal [jan, feb, mar], Publication.in_chronological_order.load
   end
 
   test ".in_reverse_chronological_order returns publications in descending order of first_published_at" do
     jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
     mar = create(:publication, first_published_at: Date.parse("2011-03-01"))
     feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [mar, feb, jan], Publication.in_reverse_chronological_order.all
+    assert_equal [mar, feb, jan], Publication.in_reverse_chronological_order.load
   end
 
   test ".published_before returns editions whose first_published_at is before the given date" do
     jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
     feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [jan], Publication.published_before("2011-01-29").all
+    assert_equal [jan], Publication.published_before("2011-01-29").load
   end
 
   test ".published_after returns editions whose first_published_at is after the given date" do
     jan = create(:publication, first_published_at: Date.parse("2011-01-01"))
     feb = create(:publication, first_published_at: Date.parse("2011-02-01"))
-    assert_equal [feb], Publication.published_after("2011-01-29").all
+    assert_equal [feb], Publication.published_after("2011-01-29").load
   end
 
   test "new instances are access_limited based on their publication_type" do
@@ -189,11 +189,11 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   test "should be able to find a publication from an associated topic" do
     published_publication = create(:published_publication, topics: [@topic_1])
 
-    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
+    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).load
   end
 
   test "should ignore non-integer topic ids" do
-    assert_equal [], Publication.published_in_topic(["'bad"]).all
+    assert_equal [], Publication.published_in_topic(["'bad"]).load
   end
 
   test "returns publications with any of the listed topics" do
@@ -202,20 +202,20 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
       create(:published_publication, topics: [@topic_2])
     ]
 
-    assert_equal publications, Publication.published_in_topic([@topic_1, @topic_2]).all
+    assert_equal publications, Publication.published_in_topic([@topic_1, @topic_2]).load
   end
 
   test "should only find published publications, not draft ones" do
     published_publication = create(:published_publication, topics: [@topic_1])
     create(:draft_publication, topics: [@topic_1])
 
-    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).all
+    assert_equal [published_publication], Publication.published_in_topic([@topic_1]).load
   end
 
   test "should be able to get items scheduled in a particular topic" do
     scheduled_publication = create(:scheduled_publication, topics: [@topic_1])
 
-    assert_equal [scheduled_publication], Publication.scheduled_in_topic([@topic_1]).all
+    assert_equal [scheduled_publication], Publication.scheduled_in_topic([@topic_1]).load
   end
 
   test 'search_format_types tags the publication as a publication' do
