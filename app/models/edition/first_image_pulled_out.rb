@@ -4,7 +4,8 @@ module Edition::FirstImagePulledOut
   included do
     validates :body, format: {
       without: /^!!1([^\d]|$)/,
-      message: "cannot have a reference to the first image in the text"
+      message: "cannot have a reference to the first image in the text",
+      multiline: true
     }
   end
 
