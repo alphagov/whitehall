@@ -28,13 +28,6 @@ GIT
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
 
-GIT
-  remote: git://github.com/episko/test_track.git
-  revision: d223c352851e54c9bb6b6dc80a6961945606b4cd
-  specs:
-    test_track (0.0.4)
-      rails (>= 3.1.0)
-
 GEM
   remote: https://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
@@ -421,7 +414,6 @@ DEPENDENCIES
   slop (= 3.4.5)
   statsd-ruby (~> 1.2.1)
   test-queue
-  test_track!
   thin (= 1.5.1)
   timecop
   transitions

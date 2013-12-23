@@ -87,7 +87,7 @@ group :test do
   gem 'hash_syntax'
   gem 'mocha', '0.14.0', require: false
   # Do we still need test_track?
-  gem 'test_track', github: 'episko/test_track'
+  # gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false
   gem 'ci_reporter'

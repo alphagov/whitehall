@@ -66,6 +66,6 @@ Whitehall::Application.configure do
 end
 
 require Rails.root.join("test/support/skip_slimmer")
-TestTrack.application_manifest = "all"
+# TestTrack.application_manifest = "all"
 
 Whitehall.skip_safe_html_validation = true
