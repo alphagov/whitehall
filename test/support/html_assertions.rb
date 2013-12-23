@@ -39,8 +39,6 @@ module HtmlAssertions
   end
 
   def assert_equivalent_html(expected, actual)
-    assert_block("Expected\n#{actual}\n\nto equal\n\n#{expected}") do
-      EquivalentXml.equivalent?(expected, actual)
-    end
+    assert EquivalentXml.equivalent?(expected, actual), "Expected\n#{actual}\n\nto equal\n\n#{expected}"
   end
 end
