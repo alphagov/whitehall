@@ -142,7 +142,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
     consultation.destroy
-    assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
+    refute ConsultationParticipation.exists?(consultation_participation.id)
   end
 
   test "should destroy the consultation outcome when the consultation is destroyed" do

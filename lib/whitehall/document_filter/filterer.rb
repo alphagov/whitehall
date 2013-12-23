@@ -67,7 +67,7 @@ module Whitehall::DocumentFilter
 
     def selected_locations
       @world_locations.reject! { |l| l == "all" }
-      WorldLocation.find_all_by_slug(@world_locations)
+      WorldLocation.where(slug: @world_locations)
     end
 
     def selected_official_document_status

@@ -250,7 +250,7 @@ class ImportTest < ActiveSupport::TestCase
 
   test 'once run, it has access to the editions that it created via imported_editions' do
     import = perform_import
-    assert_equal [Consultation.find_by_title('title')], import.imported_editions.all
+    assert_equal [Consultation.find_by(title: 'title')], import.imported_editions.load
   end
 
   test 'imported_editions lists each imported edition once even when there are multiple document sources per edition' do
@@ -260,7 +260,7 @@ class ImportTest < ActiveSupport::TestCase
       'old_url' => '["http://example.com/1","http://example.com/2"]'
     )
     import = perform_import(csv_data: csv_data)
-    assert_equal [Consultation.find_by_title(title)], import.imported_editions.all
+    assert_equal [Consultation.find_by(title: title)], import.imported_editions.load
   end
 
   test 'force_publishable_edition_count counts each imported edition once even when there are multiple document sources per edition' do
@@ -270,14 +270,14 @@ class ImportTest < ActiveSupport::TestCase
       'old_url' => '["http://example.com/1","http://example.com/2"]'
     )
     import = perform_import(csv_data: csv_data)
-    consultation = Consultation.find_by_title(title)
+    consultation = Consultation.find_by(title: title)
     consultation.convert_to_draft!
     assert_equal 1, import.force_publishable_edition_count
   end
 
   test 'if an imported edition is published and re-drafted, imported_editions only contains the original, not the re-draft' do
     import = perform_import
-    edition = Consultation.find_by_title('title')
+    edition = Consultation.find_by(title: 'title')
     editor = create(:departmental_editor)
     edition.convert_to_draft!
     force_publish(edition)
@@ -287,7 +287,7 @@ class ImportTest < ActiveSupport::TestCase
 
   test 'force_publishable_editions contains only editions from imported_editions that are draft or submitted' do
     import = perform_import
-    edition = Consultation.find_by_title('title')
+    edition = Consultation.find_by(title: 'title')
     refute import.force_publishable_editions.include?(edition)
 
     edition.convert_to_draft!
@@ -387,7 +387,7 @@ class ImportTest < ActiveSupport::TestCase
     documents = import.documents
     import.destroy
     documents.each do |imported_doc|
-      assert_equal nil, Document.find_by_id(imported_doc.id)
+      refute Document.exists?(imported_doc.id)
     end
   end
 
@@ -396,7 +396,7 @@ class ImportTest < ActiveSupport::TestCase
     logs = import.import_logs
     import.destroy
     logs.each do |import_log|
-      assert_equal nil, ImportLog.find_by_id(import_log.id)
+      refute ImportLog.exists?(import_log.id)
     end
   end
 
@@ -404,14 +404,14 @@ class ImportTest < ActiveSupport::TestCase
     import = perform_import
     import_error = import.import_errors.create!(row_number: 1, message: 'uh oh')
     import.destroy
-    assert_equal nil, ImportError.find_by_id(import_error.id)
+    refute ImportError.exists?(import_error.id)
   end
 
   test "#destroy also destroys force publication attempts" do
     import = perform_import
     force_attempt = import.force_publication_attempts.create!
     import.destroy
-    assert_equal nil, ForcePublicationAttempt.find_by_id(force_attempt.id)
+    refute ForcePublicationAttempt.exists?(force_attempt.id)
   end
 
   private

@@ -283,11 +283,10 @@ class ApplicationHelperTest < ActionView::TestCase
 
   def appoint_minister(attributes = {})
     organisation_name = attributes.delete(:organisation)
-    organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
+    organisation = Organisation.find_by(name: organisation_name) || create(:organisation, name: organisation_name)
     role_name = attributes.delete(:role)
-    role = organisation.ministerial_roles.find_by_name(role_name) || create(:ministerial_role, name: role_name, organisations: [organisation])
+    role = organisation.ministerial_roles.find_by(name: role_name) || create(:ministerial_role, name: role_name, organisations: [organisation])
     person = create(:person, forename: attributes.delete(:forename), surname: attributes.delete(:surname))
     create(:role_appointment, attributes.merge(role: role, person: person))
   end
-
 end
