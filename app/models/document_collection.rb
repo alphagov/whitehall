@@ -4,7 +4,7 @@ class DocumentCollection < Edition
   include Edition::Topics
 
   has_many :groups,
-            -> { order 'document_collection_groups.ordering' }
+            -> { order 'document_collection_groups.ordering' },
             class_name: 'DocumentCollectionGroup',
             dependent: :destroy,
             inverse_of: :document_collection
