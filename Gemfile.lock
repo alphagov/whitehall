@@ -1,4 +1,15 @@
 GIT
+  remote: git://github.com/alphagov/gds-sso.git
+  revision: ce5a15c62358a630074c16f2c095ac14748feb07
+  branch: fix-user-attr-accessible
+  specs:
+    gds-sso (9.1.0)
+      omniauth-gds (>= 3.0.0)
+      rack-accept (~> 0.4.4)
+      rails (>= 3.0.0)
+      warden (~> 1.2)
+
+GIT
   remote: git://github.com/alphagov/sanitize.git
   revision: d8c9015ce78c8ac2108ad632214463a5eed465d3
   branch: 2.0.6-plus-colons-in-anchor-hrefs
@@ -134,11 +145,6 @@ GEM
       null_logger
       plek
       rest-client (~> 1.6.3)
-    gds-sso (9.0.0)
-      omniauth-gds (>= 3.0.0)
-      rack-accept (~> 0.4.4)
-      rails (>= 3.0.0)
-      warden (~> 1.2)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     globalize (4.0.0.alpha.3)
@@ -369,7 +375,7 @@ DEPENDENCIES
   factory_girl
   friendly_id (~> 5.0.2)
   gds-api-adapters (= 7.18.0)
-  gds-sso (= 9.0.0)
+  gds-sso!
   globalize (~> 4.0.0.alpha.3)
   govspeak (~> 1.2.4)
   govuk_frontend_toolkit (= 0.38.0)
