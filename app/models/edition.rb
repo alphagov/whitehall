@@ -52,6 +52,7 @@ class Edition < ActiveRecord::Base
     in_default_locale
     .includes(:document)
     .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
+    .references(:document)
   }
 
   scope :force_published,               -> { where(state: "published", force_published: true) }

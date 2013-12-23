@@ -59,7 +59,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.without_a_current_ministerial_role
-    includes(:current_roles).where("(#{RoleAppointment.arel_table[:id].eq(nil).to_sql}) OR (#{Role.arel_table[:type].not_eq("MinisterialRole").to_sql})")
+    includes(:current_roles).where("(#{RoleAppointment.arel_table[:id].eq(nil).to_sql}) OR (#{Role.arel_table[:type].not_eq("MinisterialRole").to_sql})").references(:role_appointments)
   end
 
   def ministerial_roles_at(date)

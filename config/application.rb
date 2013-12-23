@@ -43,6 +43,9 @@ module Whitehall
         :ministerial_role_search_index_observer,
         :corporate_information_page_search_index_observer
       ]
+      # Gets rid of deprecation warning relating to referencing an eager loaded table in an SQL
+      # snippet. Because we don't rely on implicit join references, we can just disable the feature.
+      config.active_record.disable_implicit_join_references = true
     end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
