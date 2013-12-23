@@ -123,7 +123,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   private
 
   def stubbed_scope(editions=nil)
-    Edition.scoped
+    Edition.all
   end
 
   def stubbed_edition(publication_time=nil)

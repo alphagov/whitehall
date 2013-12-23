@@ -24,7 +24,7 @@ module Searchable
         format:         -> o { o.class.model_name.element },
         index_after:    :save,
         unindex_after:  :destroy,
-        only:           :scoped,
+        only:           :all,
         description:    ""
 
       self.searchable_options[:index_after] = [self.searchable_options[:index_after]].flatten.select { |e| e }
