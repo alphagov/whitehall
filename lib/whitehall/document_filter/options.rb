@@ -16,6 +16,14 @@ module Whitehall
         }
       end
 
+      def label_for(key, value)
+        if subset_options = @options_by_key[key]
+          if labels = subset_options.rassoc(value)
+            labels.first
+          end
+        end
+      end
+
       def publication_type
         @publication_type ||= group_options(all_publication_options)
       end

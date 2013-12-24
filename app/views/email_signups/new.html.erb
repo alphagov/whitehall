@@ -1,0 +1,27 @@
+<% page_title "Email alert subscription" %>
+<% page_class "email-signup-show" %>
+
+<header class="block email-header">
+  <div class="inner-block">
+    <h1>Email alert subscription</h1>
+  </div>
+</header>
+
+<div class="block">
+  <div class="inner-block">
+    <%= form_for @email_signup, html: { class: "signup-form" } do |form| %>
+      <p>You're signing up to all alerts for <%= @email_signup %></p>
+
+      <%= form.hidden_field :feed %>
+
+      <p>
+        <%= form.check_box :local_government, label_text: 'Only include results relevant to local government' %>
+      </p>
+
+      <div class="submit">
+        <%= button_tag 'Create subscription' %>
+        <p>You can enter your email address on the next page to complete the subscription</p>
+      </div>
+    <% end %>
+  </div>
+</div>

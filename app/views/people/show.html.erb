@@ -105,8 +105,7 @@
         </div>
       <% end %>
 
-      <%= render partial: 'people/announcment_list',
-                  locals: { person: @person } %>
+      <%= render 'shared/announcement_list', announcer: @person %>
     </div>
   </div>
 <% end %>

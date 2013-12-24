@@ -22,9 +22,7 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <%= render partial: 'shared/feeds',
-            locals: { atom_url: activity_policy_url(@policy.document, format: "atom"),
-                      govdelivery_url: filter_email_signup_url(policy: @policy.slug) } %>
+      <%= render 'shared/feeds', atom_url: activity_policy_url(@policy.document, format: "atom") %>
       <%= render partial: "recently_changed_documents",
                 object: @recently_changed_documents,
                 locals: { title: "Latest on this policy" } %>

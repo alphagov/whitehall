@@ -11,9 +11,7 @@
     <% else %>
       <p><%= t('latest_feed.no_updates') %></p>
     <% end %>
-    <%= render partial: 'shared/feeds',
-          locals: { atom_url: atom_url,
-                    govdelivery_url: govdelivery_url } %>
+    <%= render 'shared/feeds', atom_url: atom_url %>
     <% if local_assigns[:all_announcements_link] %>
       <p class="see-all">
         <%= link_to "See all our announcements", all_announcements_link %>

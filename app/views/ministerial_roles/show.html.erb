@@ -103,14 +103,12 @@
           <h1><%= t('policies.heading') %></h1>
           <p><%= policies_responsible(@ministerial_role.current_person, @ministerial_role) %></p>
 
-          <%= render partial: 'ministerial_roles/policies',
-                      locals: { role: @ministerial_role } %>
+          <%= render 'ministerial_roles/policies', role: @ministerial_role %>
 
         </section>
       <% end %>
 
-      <%= render partial: 'people/announcment_list',
-                  locals: { person: @ministerial_role } %>
+      <%= render 'shared/announcement_list', announcer: @ministerial_role %>
     </div>
   </div>
 <% end %>
