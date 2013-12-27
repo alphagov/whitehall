@@ -8,7 +8,7 @@ module Attachable
       add_trait do
         def process_associations_after_save(edition)
           @edition.attachments.each do |attachment|
-            edition.attachments << attachment.class.new(attachment.attributes)
+            edition.attachments << attachment.class.new(attachment.attributes.except('id'))
           end
         end
       end
