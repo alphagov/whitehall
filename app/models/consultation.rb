@@ -30,22 +30,22 @@ class Consultation < Publicationesque
   add_trait do
     def process_associations_after_save(edition)
       if @edition.consultation_participation.present?
-        attributes = @edition.consultation_participation.attributes.except("id", "edition_id")
+        attributes = @edition.consultation_participation.attributes.except('id', 'edition_id')
         edition.create_consultation_participation(attributes)
       end
 
       if @edition.outcome.present?
-        new_outcome = edition.build_outcome(@edition.outcome.attributes.except('edition_id'))
+        new_outcome = edition.build_outcome(@edition.outcome.attributes.except('id', 'edition_id'))
         @edition.outcome.attachments.each do |attachment|
-          new_outcome.attachments << attachment.class.new(attachment.attributes)
+          new_outcome.attachments << attachment.class.new(attachment.attributes.except('id'))
         end
         new_outcome.save!
       end
 
       if @edition.public_feedback.present?
-        new_feedback = edition.build_public_feedback(@edition.public_feedback.attributes.except('edition_id'))
+        new_feedback = edition.build_public_feedback(@edition.public_feedback.attributes.except('id', 'edition_id'))
         @edition.public_feedback.attachments.each do |attachment|
-          new_feedback.attachments << attachment.class.new(attachment.attributes)
+          new_feedback.attachments << attachment.class.new(attachment.attributes.except('id'))
         end
         new_feedback.save!
       end

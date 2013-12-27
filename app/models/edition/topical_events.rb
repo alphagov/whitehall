@@ -5,7 +5,7 @@ module Edition::TopicalEvents
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
       edition.classification_featurings = @edition.classification_featurings.map do |cf|
-        ClassificationFeaturing.new(cf.attributes.except(:id))
+        ClassificationFeaturing.new(cf.attributes.except('id'))
       end
     end
   end

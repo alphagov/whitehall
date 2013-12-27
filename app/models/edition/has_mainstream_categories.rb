@@ -4,7 +4,7 @@ module Edition::HasMainstreamCategories
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
       edition.edition_mainstream_categories = @edition.edition_mainstream_categories.map do |emc|
-        EditionMainstreamCategory.new(emc.attributes.except(:id))
+        EditionMainstreamCategory.new(emc.attributes.except('id'))
       end
     end
   end

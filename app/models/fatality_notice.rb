@@ -7,7 +7,7 @@ class FatalityNotice < Announcement
   class CasualtiesTrait < Edition::Traits::Trait
     def process_associations_after_save(new_edition)
       @edition.fatality_notice_casualties.each do |casualty|
-        new_edition.fatality_notice_casualties.create(casualty.attributes.except(:id))
+        new_edition.fatality_notice_casualties.create(casualty.attributes.except('id'))
       end
     end
   end
