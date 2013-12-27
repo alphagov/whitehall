@@ -29,10 +29,6 @@ class ClassificationRelation < ActiveRecord::Base
     self.class.relation_for(related_classification_id, classification_id)
   end
 
-  def readonly?
-    !new_record?
-  end
-
   def create_inverse_relation
     unless inverse_relation.present?
       self.class.create!(
