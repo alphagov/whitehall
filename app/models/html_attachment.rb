@@ -1,6 +1,6 @@
 class HtmlAttachment < Attachment
   extend FriendlyId
-  friendly_id :title
+  friendly_id :title, use: :scoped, scope: :attachable
 
   validates :body, presence: true
   validates_with SafeHtmlValidator
