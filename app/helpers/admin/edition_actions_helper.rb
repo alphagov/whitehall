@@ -107,7 +107,7 @@ module Admin::EditionActionsHelper
       SupportingPage
     ].map do |edition_type|
       unless edition_type == FatalityNotice && !user.can_handle_fatalities?
-        [edition_type.model_name.human.pluralize, edition_type.model_name.underscore]
+        [edition_type.model_name.human.pluralize, edition_type.model_name.to_s.underscore]
       end
     end
 

@@ -1,6 +1,6 @@
 module Admin::TabbedNavHelper
   def tab_navigation_for(model, *extra_classes, &block)
-    tabs = send("#{model.class.model_name.underscore}_tabs", model)
+    tabs = send("#{model.class.model_name.to_s.underscore}_tabs", model)
     tab_navigation(tabs, *extra_classes, &block)
   end
 

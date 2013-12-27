@@ -188,7 +188,7 @@ module Admin::EditionsHelper
 
   def tab_url_for_edition(edition)
     if edition.new_record?
-      url_for([:new, :admin, edition.class.model_name.underscore])
+      url_for([:new, :admin, edition.class.model_name.to_s.underscore])
     else
       url_for([:edit, :admin, edition])
     end
