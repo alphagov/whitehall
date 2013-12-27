@@ -2,9 +2,10 @@ class EditionRelation < ActiveRecord::Base
   belongs_to :edition
   belongs_to :document
 
-  validates :edition_id, presence: true
-  validates :document, presence: true
-  validates :document_id, uniqueness: { scope: :edition_id }
+  # TODO: These validations on join models cause errors
+  # validates :edition_id, presence: true
+  # validates :document, presence: true
+  # validates :document_id, uniqueness: { scope: :edition_id }
 
   after_create :update_published_related_edition_counts
   after_destroy :update_published_related_edition_counts

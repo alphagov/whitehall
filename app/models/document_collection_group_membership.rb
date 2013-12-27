@@ -6,8 +6,9 @@ class DocumentCollectionGroupMembership < ActiveRecord::Base
 
   before_create :assign_ordering
 
-  validates :document, presence: true
-  validates :document_collection_group, presence: true
+  # TODO: join model validations broken :(
+  # validates :document, presence: true
+  # validates :document_collection_group, presence: true
   validate :document_is_of_allowed_type, if: -> { document.present? }
 
 private

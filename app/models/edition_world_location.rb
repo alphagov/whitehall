@@ -4,7 +4,8 @@ class EditionWorldLocation < ActiveRecord::Base
   belongs_to :edition
   belongs_to :world_location
 
-  validates :edition, :world_location, presence: true
+  # TODO: Another case of the broken join model
+  # validates :edition, :world_location, presence: true
 
   deprecated_columns :featured, :ordering, :edition_world_location_image_data_id, :alt_text
 
