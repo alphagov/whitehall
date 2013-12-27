@@ -135,9 +135,8 @@ class Import < ActiveRecord::Base
     imported_editions.where(state: ['draft', 'submitted'])
   end
 
-  # needed because count does not resepect uniq until rails 3.2.13
   def force_publishable_edition_count
-    force_publishable_editions.count(distinct: true)
+    force_publishable_editions.count
   end
 
   def imported_editions
