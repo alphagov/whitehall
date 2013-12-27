@@ -318,7 +318,8 @@ class DocumentHelperTest < ActionView::TestCase
 
   test 'document_metadata includes worldwdide priorities in metadata' do
     priority = create(:published_worldwide_priority)
-    edition = create(:published_consultation, worldwide_priorities: [priority])
+    edition = create(:published_consultation)
+    priority.document.edition_relations.create!(edition: edition)
 
     metadata = document_metadata(edition)[0]
     assert_equal 'Worldwide priorities', metadata[:title]
