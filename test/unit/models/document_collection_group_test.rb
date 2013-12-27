@@ -2,10 +2,9 @@ require 'test_helper'
 
 class DocumentSeriesGroupTest < ActiveSupport::TestCase
   test 'new groups should set #ordering when assigned to a series' do
-    series = create(:document_collection, groups: [
-      build(:document_collection_group),
-      build(:document_collection_group)
-    ])
+    series = create(:document_collection)
+    series.groups << build(:document_collection_group)
+
     assert_equal [1, 2], series.groups.reload.map(&:ordering)
   end
 
