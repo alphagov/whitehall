@@ -10,7 +10,13 @@ class WorldwideOffice < ActiveRecord::Base
   accepts_nested_attributes_for :contact
 
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: :worldwide_organisation
+  friendly_id :slug_candidates, use: :scoped, scope: :worldwide_organisation
+
+  def slug_candidates
+    [ :title,
+      [:title, :locality],
+      [:title, :locality, :region] ]
+  end
 
   extend HomePageList::ContentItem
   is_stored_on_home_page_lists

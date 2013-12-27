@@ -50,12 +50,12 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
     assert_equal 'consulate-generals-office', office.slug
   end
 
-  test 'scopes the slug to the worldwide organisation' do
+  test 'slug is scoped to the worldwide organisation and uses the locality if there is a clash' do
     office = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
-    office_at_same_org = create(:worldwide_office, worldwide_organisation: office.worldwide_organisation, contact: create(:contact, title: "Consulate General's Office"))
+    office_at_same_org = create(:worldwide_office, worldwide_organisation: office.worldwide_organisation, contact: create(:contact_with_country, title: "Consulate General's Office", locality: 'Somewhere'))
 
     assert_equal 'consulate-generals-office', office.slug
-    assert_equal 'consulate-generals-office--2', office_at_same_org.slug
+    assert_equal 'consulate-generals-office-somewhere', office_at_same_org.slug
 
     office_at_different_org = create(:worldwide_office, contact: create(:contact, title: "Consulate General's Office"))
     assert_equal 'consulate-generals-office', office_at_different_org.slug
