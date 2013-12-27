@@ -10,10 +10,6 @@ class EditionRelation < ActiveRecord::Base
   after_create :update_published_related_edition_counts
   after_destroy :update_published_related_edition_counts
 
-  def readonly?
-    !new_record?
-  end
-
   private
 
   def update_published_related_edition_counts
