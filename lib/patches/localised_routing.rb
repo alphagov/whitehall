@@ -11,44 +11,42 @@
 #     /documents.fr => {locale: 'fr'}
 #     /documents.json => {locale: 'en', format: 'json'}
 #     /documents.fr.json => {locale: 'fr', format: 'json'}
-
-class ActionDispatch::Routing::Mapper::Mapping
+module LocalisedRoutingPatch
   LOCALE_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
 
-  def localise_routing?
-    @localise_routing ||= @options.delete(:localised)
+  attr_reader :localise_routing
+
+  def initialize(set, scope, path, options)
+    @localise_routing = options.delete(:localised)
+    super(set, scope, path, options)
   end
 
-  def normalize_path_with_locale(path)
+  def normalize_requirements!
+    super
     if localise_routing?
-      normalize_path_without_locale "#{path}(.:locale)"
-    else
-      normalize_path_without_locale path
+      @requirements[:locale] = LOCALE_REGEX
     end
   end
 
-  def requirements_with_locale
-    @requirements_with_locale ||= requirements_without_locale.tap do |r|
-      if localise_routing?
-        r[:locale] = LOCALE_REGEX
-      end
+  def normalize_defaults!
+    super
+    if localise_routing?
+      @defaults[:locale] = I18n.default_locale.to_s
     end
   end
 
-  def defaults_with_locale
-    @defaults_with_locale ||= defaults_without_locale.tap do |d|
-      if localise_routing?
-        d[:locale] = I18n.default_locale.to_s
-      end
+  def normalize_path!
+    if localise_routing?
+      @path = "#{@path}(.:locale)"
     end
+    super
   end
 
-  alias normalize_path_without_locale normalize_path
-  alias normalize_path normalize_path_with_locale
+  def localise_routing?
+    @localise_routing
+  end
+end
 
-  alias requirements_without_locale requirements
-  alias requirements requirements_with_locale
-
-  alias defaults_without_locale defaults
-  alias defaults defaults_with_locale
+class ActionDispatch::Routing::Mapper::Mapping
+  prepend LocalisedRoutingPatch
 end
