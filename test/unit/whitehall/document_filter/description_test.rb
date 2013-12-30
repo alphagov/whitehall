@@ -18,6 +18,26 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
 
       assert_match /Department of Health/, description.text
     end
+
+    test 'describes policy filters' do
+      create(:published_policy, title: "Supporting vibrant and sustainable arts and culture")
+      policy_feed = "http://example.com/government/policies/supporting-vibrant-and-sustainable-arts-and-culture/activity.atom"
+      description = Whitehall::DocumentFilter::Description.new(policy_feed)
+      assert_match /sustainable arts/, description.text
+    end
+
+    test 'describes role filters' do
+      create(:role, name: 'Prime Minister', slug: 'prime-minister')
+      policy_feed = "http://example.com/government/ministers/prime-minister.atom"
+      description = Whitehall::DocumentFilter::Description.new(policy_feed)
+      assert_match /Prime Minister/, description.text
+    end
+
+    test 'describes people filters' do
+      create(:person, forename: 'Francis', surname: 'Maude', slug: 'francis-maude')
+      policy_feed = "http://example.com/government/people/francis-maude.atom"
+      description = Whitehall::DocumentFilter::Description.new(policy_feed)
+      assert_match /Francis Maude/, description.text
     end
 
 end

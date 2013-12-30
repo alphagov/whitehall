@@ -7,22 +7,51 @@ module Whitehall
     class Description
 
       def initialize(feed_url)
+        @feed_url = feed_url
         query = URI.parse(feed_url).query
         @params = CGI.parse(query) if query
         @options_manager = DocumentFilter::Options.new
       end
 
       def text
-        return '' if @params.nil?
+        if @feed_url =~ %r{(policies|ministers|people)/([a-z-]+)}
+          type = $1
+          slug = $2
 
+          klass = classify_type(type)
+
+          if klass == Policy
+            if policy = Document.where(slug: slug, document_type: 'Policy').first
+              policy.published_edition.try(:title)
+            end
+          else
+            klass.find_by_slug(slug).try(:name)
+          end
+        else
+          labels_from_params.join(', ')
+        end
+      end
+
+    protected
+
+      def classify_type(type)
+        case type
+        when 'policies'
+          Policy
+        when 'ministers'
+          Role
+        when 'people'
+          Person
+        end
+      end
+
+      def labels_from_params
         @params.flat_map do |key, values|
           Array(values).map do |value|
             label_for(key, value)
           end
-        end.compact.join(', ')
+        end.compact
       end
-
-    protected
 
       def label_for(key, value)
         label = @options_manager.label_for(key, value)
