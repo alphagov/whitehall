@@ -17,9 +17,17 @@ module Whitehall
 
         @params.flat_map do |key, values|
           Array(values).map do |value|
-            @options_manager.label_for(key, value)
+            label_for(key, value)
           end
-        end.compact.join(', ').downcase
+        end.compact.join(', ')
+      end
+
+    protected
+
+      def label_for(key, value)
+        label = @options_manager.label_for(key, value)
+
+        @options_manager.proper_noun?(key, value) ? label : label.try(:downcase)
       end
 
     end
