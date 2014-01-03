@@ -297,8 +297,6 @@
       @extend %contain-floats;
       article {
         &.first {
-          float: left;
-          width: 33.33%;
           .content {
             .image-holder, .text {
               display: block;
@@ -310,6 +308,10 @@
                 @include core-14;
               }
             }
+          }
+          @include media(tablet) {
+            float: left;
+            width: 33.33%;
           }
         }
         &.item-3 {
