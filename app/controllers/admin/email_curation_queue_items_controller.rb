@@ -23,7 +23,12 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
   end
 
   def send_to_subscribers
-    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.notify_from_queue!(@email_curation_queue_item)
+    Whitehall::GovUkDelivery::Worker.notify!(
+      @email_curation_queue_item.edition,
+      @email_curation_queue_item.notification_date,
+      @email_curation_queue_item.title,
+      @email_curation_queue_item.summary
+    )
     @email_curation_queue_item.destroy
     flash[:notice] = "#{@email_curation_queue_item.title} has been sent to subscribers"
     redirect_to [:admin, EmailCurationQueueItem]

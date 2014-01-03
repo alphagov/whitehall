@@ -6,58 +6,80 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     Whitehall::GovUkDelivery::Notifier.new(edition)
   end
 
-  def notification_date_for(edition)
-    notifier_for(edition).notification_date
+  def self.deliverable_classes
+    [Policy, Announcement.concrete_descendants, Publicationesque.concrete_descendants].flatten
   end
 
-  test 'Announcement, Policy and Publicationesques are GovUK deliverable' do
-    deliverable_classes = [Policy, Announcement.concrete_descendants, Publicationesque.concrete_descendants].flatten
-    undeliverable_classes = Whitehall.edition_classes - deliverable_classes
+  def self.undeliverable_classes
+    Whitehall.edition_classes - deliverable_classes
+  end
 
-    deliverable_classes.each do |klass|
-      assert Whitehall::GovUkDelivery.deliverable?(klass.new)
-    end
+  deliverable_classes.each do |klass|
+    test "#{klass} is deliverable" do
+      edition = build("published_#{klass.name.underscore}", relevant_to_local_government: false, public_timestamp: Time.zone.now, major_change_published_at: Time.zone.now)
+      edition.stubs(:available_in_locale?).returns(true)
+      notifier = notifier_for(edition)
+      notifier.expects(:notify_govuk_delivery).once
 
-    undeliverable_classes.each do |klass|
-      refute Whitehall::GovUkDelivery.deliverable?(klass.new)
+      notifier.edition_published!
     end
   end
 
-  test '#edition_published! does nothing if edition is not deliverable' do
-    edition = build(:edition)
-    Whitehall::GovUkDelivery.stubs(deliverable?: false)
+  undeliverable_classes.each do |klass|
+    test "#{klass} is deliverable" do
+      edition = build("published_#{klass.name.underscore}", relevant_to_local_government: false, public_timestamp: Time.zone.now, major_change_published_at: Time.zone.now)
+      edition.stubs(:available_in_locale?).returns(true)
+      notifier = notifier_for(edition)
+      notifier.expects(:notify_govuk_delivery).never
 
+      notifier.edition_published!
+    end
+  end
+
+  test '#edition_published! will route the edition only to govuk delivery if it is not relevant to local government' do
+    edition = build(:published_policy, relevant_to_local_government: false, public_timestamp: Time.zone.now)
+    edition.stubs(:available_in_locale?).returns(true)
     notifier = notifier_for(edition)
+
     notifier.expects(:notify_email_curation_queue).never
+    notifier.expects(:notify_govuk_delivery).once
+
+    notifier.edition_published!
+  end
+
+  test '#edition_published! will route the edition only to the email curation queue if it is relevant to local government' do
+    edition = build(:published_policy, relevant_to_local_government: true, public_timestamp: Time.zone.now)
+    edition.stubs(:available_in_locale?).returns(true)
+    notifier = notifier_for(edition)
+
+    notifier.expects(:notify_email_curation_queue).once
     notifier.expects(:notify_govuk_delivery).never
 
     notifier.edition_published!
   end
 
-  test '#edition_published! will route the edition to govuk delivery if it is not relevant to local government' do
-    edition = build(:policy, relevant_to_local_government: false, public_timestamp: Time.zone.now)
-    edition.stubs(:available_in_locale?).returns true
+  test '#notify_email_curation_queue creates an email curation queue item from the edition and notification date' do
+    notification_date = stub("notification date")
+    edition = build(:published_edition)
     notifier = notifier_for(edition)
-    notification_end_point = Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.new(edition, Time.zone.now)
-    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.expects(:new).with(edition, anything).returns(notification_end_point).once
-    Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.expects(:new).never
+    notifier.stubs(:notification_date).returns(notification_date)
 
-    notifier.edition_published!
+    EmailCurationQueueItem.expects(:create_from_edition).with(edition, notification_date)
+    notifier.notify_email_curation_queue
   end
 
-  test '#edition_published! will route the edition to the email curation queue if it is relevant to local government' do
-    edition = build(:policy, relevant_to_local_government: true, public_timestamp: Time.zone.now)
-    edition.stubs(:available_in_locale?).returns true
+  test '#notify_govuk_delivery notifies the Worker of the edition' do
+    notification_date = stub("notification date")
+    edition = build(:published_edition)
     notifier = notifier_for(edition)
-    notification_end_point = Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.new(edition, Time.zone.now)
-    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.expects(:new).never
-    Whitehall::GovUkDelivery::EmailCurationQueueEndPoint.expects(:new).with(edition, anything).returns(notification_end_point).once
+    notifier.stubs(:notification_date).returns(notification_date)
 
-    notifier.edition_published!
+    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(edition, notification_date).once
+    notifier.notify_govuk_delivery
   end
 
   test '#edition_published! does nothing if the change is minor' do
-    policy = create(:policy, topics: [create(:topic)], minor_change: true, public_timestamp: Time.zone.now)
+    policy = create(:published_policy, topics: [create(:topic)], minor_change: true, public_timestamp: Time.zone.now)
     notifier = notifier_for(policy)
     notifier.expects(:notify_email_curation_queue).never
     notifier.expects(:notify_govuk_delivery).never
@@ -76,7 +98,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test '#edition_published! does nothing if the edition notification date is not today' do
-    policy = create(:policy, topics: [create(:topic)], minor_change: false, public_timestamp: Time.zone.now)
+    policy = create(:published_policy, topics: [create(:topic)], minor_change: false, public_timestamp: Time.zone.now)
     notifier = notifier_for(policy)
     notifier.stubs(:notification_date).returns 2.days.ago
     notifier.expects(:notify_email_curation_queue).never
@@ -86,16 +108,20 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test "#notification_date uses the major_change_published_at for the notification_date of speeches" do
-    speech = create(:speech)
+    speech = create(:published_speech)
     speech.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
     speech.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
-    assert_equal notification_date_for(speech), Time.zone.parse('2011-01-01 12:13:14')
+
+    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(speech, Time.zone.parse('2011-01-01 12:13:14')).once
+    notifier_for(speech).notify_govuk_delivery
   end
 
   test "#notification_date uses the public_timestamp for the notification_date of other editions" do
-    policy = create(:policy)
+    policy = create(:published_policy)
     policy.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
     policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
-    assert_equal notification_date_for(policy), Time.zone.parse('2010-12-31 12:13:14')
+
+    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(policy, Time.zone.parse('2010-12-31 12:13:14')).once
+    notifier_for(policy).notify_govuk_delivery
   end
 end
