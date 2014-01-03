@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
 source 'https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/'
+source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
 gem 'rails', '3.2.16'

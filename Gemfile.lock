@@ -31,8 +31,8 @@ GIT
       paper_trail (~> 2)
 
 GEM
-  remote: https://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
+  remote: https://rubygems.org/
   specs:
     PriorityQueue (0.1.2)
     actionmailer (3.2.16)
