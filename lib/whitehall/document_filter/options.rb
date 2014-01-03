@@ -118,7 +118,12 @@ module Whitehall
 
       def group_options(all_options)
         all = all_options.first
-        grouped_options = all_options[1..-1].group_by(&:third)
+
+        grouped_options = Hash.new { |hash, key| hash[key] = [] }
+        all_options[1..-1].each do |(text, value, group)|
+          grouped_options[group] << [text, value]
+        end
+
         solo_options = grouped_options.delete(nil) || []
 
         {
