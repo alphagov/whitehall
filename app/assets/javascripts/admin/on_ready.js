@@ -4,17 +4,6 @@ GOVUK.init(GOVUK.navTabs);
 jQuery(document).ready(function($) {
   if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
 
-
-  $('.sidebar.remarks-history a').on('shown', function (e) {
-    // Chrome isn't redrawing this properly. Try and trick it by toggling the
-    // display value
-    var $el = $($(e.target).attr('href'))
-    // switch display to inline
-    $el.css('display', 'inline')
-    // and back to block
-    $el.css('display', '');
-  });
-
   $('.js-create-new').toggler({header: ".toggler", content: "ul", showArrow: false, actLikeLightbox: true});
   $('.js-more-nav').toggler({header: ".toggler", content: "ul", showArrow: false, actLikeLightbox: true});
 
