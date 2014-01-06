@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212172829) do
+ActiveRecord::Schema.define(:version => 20140106163015) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -406,26 +406,15 @@ ActiveRecord::Schema.define(:version => 20131212172829) do
 
   add_index "edition_user_needs", ["edition_id"], :name => "index_edition_user_needs_on_edition_id"
 
-  create_table "edition_world_location_image_data", :force => true do |t|
-    t.string   "carrierwave_image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "edition_world_locations", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "world_location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "featured",                             :default => false
-    t.integer  "ordering"
-    t.integer  "edition_world_location_image_data_id"
-    t.string   "alt_text"
   end
 
   add_index "edition_world_locations", ["edition_id", "world_location_id"], :name => "idx_edition_world_locations_on_edition_and_world_location_ids", :unique => true
   add_index "edition_world_locations", ["edition_id"], :name => "index_edition_world_locations_on_edition_id"
-  add_index "edition_world_locations", ["edition_world_location_image_data_id"], :name => "idx_edition_world_locs_on_edition_world_location_image_data_id"
   add_index "edition_world_locations", ["world_location_id"], :name => "index_edition_world_locations_on_world_location_id"
 
   create_table "edition_worldwide_organisations", :force => true do |t|
