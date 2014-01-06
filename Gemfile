@@ -100,7 +100,3 @@ group :cucumber do
   gem 'capybara', '~> 2.1.0'
   gem 'poltergeist', '~> 1.3.0'
 end
-
-group :router do
-  gem 'router-client', '~> 3.0.1', require: 'router'
-end

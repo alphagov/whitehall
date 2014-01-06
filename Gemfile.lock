@@ -276,10 +276,6 @@ GEM
       redis (~> 3.0.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    router-client (3.0.2)
-      activesupport
-      builder
-      null_logger
     rummageable (1.0.0)
       multi_json
       null_logger
@@ -410,7 +406,6 @@ DEPENDENCIES
   rails-i18n
   raindrops (= 0.11.0)
   rake (= 10.1.0)
-  router-client (~> 3.0.1)
   rummageable (= 1.0.0)
   sanitize!
   sass (= 3.2.8)
