@@ -11,21 +11,6 @@ jQuery(document).ready(function($) {
   GOVUK.hideClosedAtDates();
   GOVUK.toggleCustomLogoField();
 
-  $('.attachment-mode-select label[data-target]').click(function (e) {
-    $(this).tab('show');
-  });
-  $('.attachment-mode-select label[data-target]').on('shown', function(e) {
-    $(this).parents('li').addClass('active');
-    $(this).parents('li').siblings().removeClass('active');
-  });
-  $('.attachment-mode-select label[data-target] input:checked').parent().tab('show');
-  $('.attachment-mode-select label[data-target]').on('shown', function(e) {
-    var before_shown_scroll_y = window.pageYOffset;
-    var before_shown_scroll_x = window.pageXOffset;
-    window.location.hash = $(this).data('target');
-    window.scrollTo(before_shown_scroll_y, before_shown_scroll_y);
-  });
-
   if (window.location.hash && $('.tab-content').length > 0) {
     // we may need to preload the tabs
     var hash = window.location.hash.substring(1);
