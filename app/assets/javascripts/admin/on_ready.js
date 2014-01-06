@@ -1,4 +1,4 @@
-GOVUK.init(GOVUK.chosenSelects);
+GOVUK.init(GOVUK.formsHelper);
 GOVUK.init(GOVUK.navTabs);
 
 jQuery(document).ready(function($) {
