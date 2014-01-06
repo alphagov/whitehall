@@ -7,7 +7,7 @@
 
   @include media(desktop) {
     .block-2 {
-      width: 25%;
+      width: $one-quarter;
       float: left;
       display: inline;
       @include right-to-left {
@@ -16,7 +16,7 @@
     }
     
     .block-3 {
-      width: 66%;
+      width: $two-thirds;
       float: left;
       display: inline;
       @include right-to-left {

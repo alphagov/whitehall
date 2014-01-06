@@ -31,13 +31,13 @@
         h2 {
           position: relative;
           float: left;
-          width: 33.3%;
+          width: $one-third;
           margin-top: $gutter-one-sixth;
         }
 
         .summary {
           float: left;
-          width: 66.6%;
+          width: $two-thirds;
           padding-top: 8px;
 
           p {
@@ -55,7 +55,7 @@
       .collection-item {
         margin-top: 0;
         float: left;
-        width: 50%;
+        width: $half;
         padding-bottom: $gutter-two-thirds;
         border-top: none;
 
@@ -68,13 +68,13 @@
         }
 
         h2 {
-          width: 100%;
+          width: $full-width;
           margin-left: 0;
           margin-top: 0;
         }
 
         .summary {
-          width: 100%;
+          width: $full-width;
 
           p {
             padding-left: 0;
@@ -92,7 +92,7 @@
         margin-top: 0;
         float: left;
         display: inline;
-        width: 33%;
+        width: $one-third;
         padding-bottom: $gutter-two-thirds;
         border-top: none;
 
@@ -105,7 +105,7 @@
         }
 
         h2 {
-          width: 100%;
+          width: $full-width;
           margin-left: 0;
           margin-top: 0;
         }

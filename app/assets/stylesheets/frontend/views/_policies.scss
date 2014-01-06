@@ -5,7 +5,7 @@
     padding: $gutter 0 $gutter-half;
     @extend %contain-floats;
 
-    @include media(tablet){
+    @include media(tablet) {
       padding: ($gutter + $gutter-one-third - 2px) 0 ($gutter);
     }
   }
@@ -13,14 +13,14 @@
   .block-2, .block-3 {
     display: block;
     float: none;
-    width: 100%;
+    width: $full-width;
   }
 
   @include media(desktop) {
     .block-2 {
       float: left;
       display: inline;
-      width: 33.333%;
+      width: $one-third;
       @include right-to-left {
         float: right;
       }
@@ -28,7 +28,7 @@
     .block-3 {
       float: left;
       display: inline;
-      width: 66.666%;
+      width: $two-thirds;
       @include right-to-left {
         float: right;
       }
@@ -79,7 +79,7 @@
       text-decoration: none;
       zoom: 1;
 
-      background: transparent image-url("accordian-arrow.png") 100% -40px no-repeat;
+      background: transparent image-url("accordian-arrow.png") $full-width -40px no-repeat;
 
       margin-left: 0;
       padding: 0.5em 2em;
@@ -101,7 +101,7 @@
       }
 
       &.closed {
-        background-position: 100% 6px;
+        background-position: $full-width 6px;
       }
     }
 
@@ -147,7 +147,7 @@
       @include ie(6) {
         float: left;
         clear: left;
-        width: 100%;
+        width: $full-width;
       }
 
       @include ie(7) {
@@ -168,7 +168,7 @@
     h1 {
       // from _document.scss h2
       @include ig-core-27;
-      color: lighten($text-colour, 50%);
+      color: lighten($text-colour, $half);
       margin-top: $gutter;
       @media (max-width: 640px) {
         margin-top: $gutter-half;
@@ -202,7 +202,7 @@
       position: relative;
       display: block;
       float: none;
-      width: 100%;
+      width: $full-width;
     }
   }
 

@@ -14,12 +14,12 @@
   }
   .history {
     @include media(tablet){
-      width: 33.3%;
+      width: $one-third;
     }
   }
   .links {
     @include media(tablet){
-      width: 66.6%;
+      width: $two-thirds;
     }
     dl {
       @include media(tablet){

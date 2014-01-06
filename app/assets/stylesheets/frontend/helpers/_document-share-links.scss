@@ -4,8 +4,8 @@
   margin-bottom: $gutter;
 
   @include media(tablet) {
-    margin-left: 33.3%;
-    padding-left: 15px;
+    margin-left: $one-third;
+    padding-left: $gutter-half;
   }
 
   h3 {

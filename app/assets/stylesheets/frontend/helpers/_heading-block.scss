@@ -25,7 +25,7 @@
       }
       float: left;
       clear: both;
-      width: 33.3%;
+      width: $one-third;
       @include right-to-left {
         float: right;
       }
@@ -35,7 +35,7 @@
   .content {
     @include media(tablet){
       float: right;
-      width: 66.6%;
+      width: $two-thirds;
       @include right-to-left {
         float: left;
       }

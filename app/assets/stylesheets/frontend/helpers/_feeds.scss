@@ -36,7 +36,7 @@
 
     input {
       @include core-14;
-      width: 100%;
+      width: $full-width;
       text-indent: $gutter-one-sixth;
       padding: $gutter-one-sixth 0;
       box-sizing: border-box;

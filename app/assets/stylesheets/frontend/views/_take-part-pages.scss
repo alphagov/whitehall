@@ -1,11 +1,11 @@
 .take-part-pages-show {
-  @include media(desktop){
+  @include media(desktop) {
     .block-1 {
-      width: 33.33%;
+      width: $one-third;
       float: left;
     }
     .block-2 {
-      width: 66.66%;
+      width: $two-thirds;
       float: right;
     }
   }

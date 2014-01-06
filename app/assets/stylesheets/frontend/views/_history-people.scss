@@ -7,7 +7,7 @@
     margin-bottom: $gutter;
     .profiles {
       @include heading-36;
-      border-bottom: 5px solid $black;
+      border-bottom: $gutter-one-sixth solid $black;
       margin: 0 $gutter-half $gutter-half;
     }
 
@@ -24,7 +24,7 @@
       .inner {
         .image-holder {
           img {
-            max-width: 100%;
+            max-width: $full-width;
           }
         }
       }
@@ -39,7 +39,7 @@
     .heading, ol {
       @include media(tablet) {
         float: left;
-        width: 25%;
+        width: $one-quarter;
       }
     }
     ol {
@@ -47,7 +47,7 @@
         list-style: none;
         @include media(tablet) {
           float: left;
-          width: 33.33%;
+          width: $one-third;
         }
         .inner {
           padding: $gutter-half;
@@ -57,7 +57,7 @@
         }
       }
       @include media(tablet) {
-        width: 75%;
+        width: 75%; // There's no variable for this in the toolkit yet, needs updating when the toolkit gets updated
       }
     }
     .heading {
@@ -84,7 +84,7 @@
   .historic-people-list, .person-info {
     @include media(tablet) {
       float: left;
-      width: 25%;
+      width: $one-quarter;
     }
   }
 
@@ -101,7 +101,7 @@
       width: 218px;
 
       img {
-        max-width: 100%;
+        max-width: $full-width;
       }
       .info {
         background-color: $grey-3;
@@ -149,9 +149,9 @@
       width: 75%;
       .person-profile {
         float: left;
-        width: 33.33%;
+        width: $one-third;
         img {
-          width: 100%;
+          width: $full-width;
         }
         .inner {
           padding: 0 $gutter-half;
@@ -159,7 +159,7 @@
       }
       .name-title, .person-detail {
         float: right;
-        width: 66.66%;
+        width: $two-thirds;
         .inner {
           padding: 0 $gutter 0 $gutter-half;
         }

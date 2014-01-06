@@ -1,13 +1,13 @@
 .policy-groups {
   .summary {
-    width: 100%;
+    width: $full-width;
     @include ig-core-24;
     margin-bottom: $gutter*2;
   }
 
   @include media(desktop) {
     .sidebar, .content {
-      width: 33%;
+      width: $one-third;
       float: left;
       display: inline;
     }
@@ -21,7 +21,7 @@
     }
 
     .content {
-      width: 66%;
+      width: $two-thirds;
       .policies {
         list-style: none;
       }

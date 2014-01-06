@@ -4,14 +4,14 @@
     margin: 0 (-$gutter-half);
 
     article {
-      width: 100%;
+      width: $full-width;
     }
 
     &.items-1 {
       article {
         @include media(tablet) {
           float: left;
-          width: 33.33%;
+          width: $one-third;
         }
       }
     }
@@ -20,10 +20,10 @@
     &.items-4 {
       article {
         @include media(tablet) {
-          width: 33.33%;
+          width: $one-third;
           &.item-0,
           &.item-1 {
-            width: 50%;
+            width: $half;
             float: left;
           }
         }
@@ -36,8 +36,8 @@
     &.items-2,
     &.items-5 {
       article {
-        @include media(tablet){
-          width: 33.33%;
+        @include media(tablet) {
+          width: $one-third;
           float: left;
         }
       }

@@ -55,7 +55,7 @@ hr {
   margin-bottom: $gutter;
 }
 figure {
-  width: 100%;
+  width: $full-width;
   clear: both;
   overflow: hidden;
   padding: $gutter-one-third 0 0;
@@ -65,7 +65,7 @@ figure {
     text-align: center;
     width: auto;
     height: auto;
-    max-width: 100%;
+    max-width: $full-width;
   }
   figcaption {
     @include copy-14;

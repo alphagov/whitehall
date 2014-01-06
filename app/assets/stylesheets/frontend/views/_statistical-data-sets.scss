@@ -9,14 +9,14 @@
       .block-2, .block-3 {
         float: left;
         display: inline;
-        width: 33%;
+        width: $one-third;
         @include right-to-left {
           float: right;
         }
       }
       .block-3 {
         float: right;
-        width: 66%;
+        width: $two-thirds;
 
         @include right-to-left {
           float: left;

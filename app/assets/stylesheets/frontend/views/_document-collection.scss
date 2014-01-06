@@ -42,10 +42,10 @@
     .block-2, .block-3 {
       float: left;
       display: inline;
-      width: 33%;
+      width: $one-third;
     }
     .block-3 {
-      width: 66%;
+      width: $two-thirds;
     }
   }
 

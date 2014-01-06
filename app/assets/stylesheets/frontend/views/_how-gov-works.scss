@@ -22,7 +22,7 @@
     margin-bottom:$gutter-two-thirds;
     @extend %contain-floats;
     img {
-      width: 100%;
+      width: $full-width;
       height: auto;
     }
 
@@ -39,17 +39,17 @@
       }
 
       .two-thirds {
-        width: 66.666%;
+        width: $two-thirds;
         margin-bottom: $gutter;
         float: left;
       }
       .one-third {
-        width: 33.333%;
+        width: $one-third;
         margin-bottom: $gutter;
         float: left;
       }
       .one-half {
-        width: 50%;
+        width: $half;
         margin-bottom: $gutter;
         float: left;
       }
@@ -64,7 +64,7 @@
   }
 
   .ministers{
-    margin-bottom:$gutter*2;
+    margin-bottom: $gutter*2;
   }
 
   .coalition {
@@ -91,7 +91,7 @@
     }
 
     table {
-      width: 100%;
+      width: $full-width;
       margin-bottom:$gutter-half;
       margin-top:$gutter-half;
       tr{
@@ -131,16 +131,16 @@
     max-width: 250px;
     margin: 0 auto;
     padding-top: 95px;
-    background-color:#fff;
+    background-color: $white;
     vertical-align:middle;
     text-align:center;
     background-image: image-url("how-gov-works/Civil_Service_Info.png");
     background-repeat:no-repeat;
-    background-size: 100% auto;
+    background-size: $full-width auto;
 
     @media all and (-webkit-min-device-pixel-ratio: 2) {
       background-image: image-url("how-gov-works/Civil_Service_Infox2.png");
-      background-size: 100% auto;
+      background-size: $full-width auto;
     }
 
     margin: 0 auto;
@@ -267,7 +267,7 @@
       -webkit-border-radius: 105px;
       border-radius: 105px;
       display:block;
-      margin: 5px auto 0;
+      margin: $gutter-one-sixth auto 0;
       text-align:center;
       padding:0;
       margin-bottom: $gutter-half;
@@ -311,7 +311,7 @@
     @include ig-core-27;
     font-weight: bold;
     margin: 0 0 $gutter-two-thirds;
-    width:100%;
+    width: $full-width;
     &.with-gutter {
       margin-top: $gutter-half;
     }
@@ -360,7 +360,7 @@
   .block {
     float: none;
     display: block;
-    width: 100%;
+    width: $full-width;
   }
 
   p.small-print {
@@ -371,7 +371,7 @@
   }
   .coalition h3 {
     border-color: black;
-    border-width: 5px;
+    border-width: $gutter-one-sixth;
     padding-top: $gutter - 9px;
   }
 
@@ -403,9 +403,9 @@
     .prime-minister,
     .history {
       .one-half {
-        width: 66.666%;
+        width: $two-thirds;
         &:first-child {
-          width: 33.333%;
+          width: $one-third;
         }
       }
     }
@@ -413,7 +413,7 @@
     .cabinet {
       .two-thirds,
       .one-third {
-        width: 50%;
+        width: $half;
       }
     }
 
@@ -422,10 +422,10 @@
     .access-information {
       .one-third {
         float: right;
-        width: 66.666%;
+        width: $two-thirds;
         &:first-child {
           float: left;
-          width: 33.333%;
+          width: $one-third;
         }
       }
     }
@@ -438,7 +438,7 @@
 
     .gov-types {
       .one-third {
-        width: 100%;
+        width: $full-width;
       }
     }
   }
@@ -446,10 +446,10 @@
   @media (min-width: 640px) and (max-width: 760px) {
     .feature-ministers {
       p {
-        font-size: 30px;
+        font-size: $gutter;
       }
       span.circle .count {
-        top: 5px;
+        top: $gutter-one-sixth;
       }
       span.circle .caption {
         position: relative;
@@ -466,7 +466,7 @@
         font-size: 35px;
       }
       span.circle .count {
-        top: 5px;
+        top: $gutter-one-sixth;
       }
       span.circle .caption {
         position: relative;
@@ -482,7 +482,7 @@
         font-size: 39px;
       }
       span.circle .count {
-        top: 5px;
+        top: $gutter-one-sixth;
       }
       span.circle .caption {
         position: relative;

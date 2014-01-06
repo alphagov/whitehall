@@ -5,7 +5,7 @@
   nav {
     @include media(tablet){
       float: left;
-      width: 33.33%;
+      width: $one-third;
     }
     li {
       list-style: none;
@@ -23,7 +23,7 @@
   .main-body {
     @include media(tablet){
       float: right;
-      width: 66.66%;
+      width: $two-thirds;
     }
     h1.main {
       @include heading-48;
@@ -42,7 +42,7 @@
         margin-bottom: $gutter-one-third;
         @include media(tablet){
           float: left;
-          width: 50%;
+          width: $half;
         }
         .email,
         .tel {

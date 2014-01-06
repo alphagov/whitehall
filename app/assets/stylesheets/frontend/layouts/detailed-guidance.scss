@@ -7,7 +7,7 @@ body.detailed-guidance {
     margin-bottom: 0;
 
     .archive-notice {
-      margin: 0 30px 60px 30px;
+      margin: 0 $gutter $gutter*2 $gutter;
     }
 
     // What is this doing here? this should be in the view stylesheet not the layout stylesheet
@@ -32,7 +32,7 @@ body.detailed-guidance {
       width: auto;
       @media (max-width: 640px) {
         margin-left: 0;
-        width: 100%;
+        width: $full-width;
       }
 
       li {

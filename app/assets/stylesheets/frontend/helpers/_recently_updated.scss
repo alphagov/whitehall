@@ -2,10 +2,10 @@
   clear: both;
   padding-top: $gutter-half;
 
-  @include media(tablet){
+  @include media(tablet) {
     clear: none;
     float: left;
-    width: 33.33%;
+    width: $one-third;
     padding: 0;
   }
 
@@ -34,7 +34,7 @@
         @include core-14;
         border-bottom: 0;
         padding-top: 0;
-        padding-bottom: 5px;
+        padding-bottom: $gutter-one-sixth;
 
         h3 {
           @include core-14;

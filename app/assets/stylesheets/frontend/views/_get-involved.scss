@@ -2,7 +2,7 @@
 
   h2 {
     @include heading-36;
-    border-bottom: 5px solid black;
+    border-bottom: $gutter-one-sixth solid $black;
     margin-bottom: $gutter-half;
     @include media(tablet) {
       margin-bottom: $gutter;
@@ -36,7 +36,7 @@
     .head-section {
       @include media(tablet) {
         float: left;
-        width: 33.33%;
+        width: $one-third;
       }
       h3 {
         @include heading-27;
@@ -86,7 +86,7 @@
         dt, dd {
           padding: 0 $gutter-half;
           @include media(tablet) {
-            width: 50%;
+            width: $half;
           }
         }
         dt {
@@ -101,14 +101,14 @@
       .column {
         @include media(tablet) {
           float: left;
-          width: 66.66%;
+          width: $two-thirds;
         }
       }
 
       .consultation-lists {
         @include media(tablet) {
           float: left;
-          width: 66.66%;
+          width: $two-thirds;
         }
         .consultation-closing-soon {
           color: $white;
@@ -153,7 +153,7 @@
         .column {
           @include media(tablet) {
             float: left;
-            width: 50%;
+            width: $half;
             @include ie(7) {
               width: 49.99%;
             }

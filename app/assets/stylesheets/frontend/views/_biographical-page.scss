@@ -21,9 +21,9 @@
     }
     figure.img {
       margin: 0;
-      width: 100%;
+      width: $full-width;
       img {
-        width: 100%;
+        width: $full-width;
         max-width: 216px;
         @include ie(6) {
           width: 216px;
@@ -58,7 +58,7 @@
     .logo-icon-list {
       margin: 12px 0 $gutter $gutter-half;
       float: right;
-      min-width: 33.333333%;
+      min-width: $one-third;
 
       li {
         margin-left: $gutter-half;

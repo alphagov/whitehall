@@ -45,11 +45,11 @@
     .column {
       img {
         margin-bottom: $gutter-half;
-        width: 100%;
+        width: $full-width;
       }
       @include media(tablet) {
         float: left;
-        width: 50%;
+        width: $half;
       }
     }
   }
@@ -73,12 +73,12 @@
         color: $grey-1;
       }
       @include media(tablet) {
-        width: 33.33%;
+        width: $one-third;
       }
     }
     @include media(tablet) {
       .copy {
-        width: 66.66%;
+        width: $two-thirds;
       }
     }
   }

@@ -22,7 +22,7 @@
     text-decoration: none;
     zoom: 1;
 
-    background: transparent image-url("accordian-arrow.png") 100% -40px no-repeat;
+    background: transparent image-url("accordian-arrow.png") $full-width -40px no-repeat;
 
     margin-left: 0;
     padding: 0.5em 2em 0.5em 0;
@@ -44,7 +44,7 @@
     }
 
     &.closed {
-      background-position: 100% 6px;
+      background-position: $full-width 6px;
     }
   }
 

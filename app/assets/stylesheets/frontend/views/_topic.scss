@@ -2,13 +2,13 @@
 
 .topics-show {
   @include topic-features;
-  @include media(desktop){
+  @include media(desktop) {
     .block-2 {
-      width: 66%;
+      width: $two-thirds;
       float: left;
     }
     .block-3 {
-      width: 33%;
+      width: $one-third;
       float: left;
       clear: right;
     }
@@ -28,7 +28,7 @@
         padding-left: 0;
       }
       .recently-updated {
-        width: 100%;
+        width: $full-width;
 
         .content {
           margin-top: $gutter-one-third;

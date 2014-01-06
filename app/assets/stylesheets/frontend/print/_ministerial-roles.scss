@@ -10,14 +10,14 @@
   #cabinet, #also-attends-cabinet {
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: $full-width;
     .person-excerpt {
       list-style: none;
       float: left;
       width: 30%;
       img {
         //float: left;
-        width: 25%;
+        width: $one-quarter;
       }
       &:nth-child(3n+1) {
         clear: both;
@@ -38,7 +38,7 @@
     .minister-list {
       margin: 0;
       padding: 0;
-      width: 100%;
+      width: $full-width;
       .person-excerpt {
         list-style: none;
         float: left;

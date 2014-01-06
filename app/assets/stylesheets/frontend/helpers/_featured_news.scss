@@ -6,7 +6,7 @@
       float: left;
       display: inline;
       overflow: hidden;
-      width: 33.33%;
+      width: $one-third;
       clear: none;
       @include right-to-left {
         float: right;
@@ -17,13 +17,13 @@
       padding: $gutter-half $gutter-half $gutter-one-third;
 
       .image-holder {
-        width: 33.33%;
+        width: $one-third;
         float: left;
         @include right-to-left {
           float: right;
         }
         @include media(tablet){
-          width: 100%;
+          width: $full-width;
           float: none;
         }
 
@@ -38,19 +38,19 @@
           }
 
           img {
-            width: 100%;
+            width: $full-width;
           }
         }
       }
       .text {
         float: left;
-        width: 66.66%;
+        width: $two-thirds;
         @include right-to-left {
           float: right;
         }
         @include media(tablet){
           float: none;
-          width: 100%;
+          width: $full-width;
         }
 
         .meta {

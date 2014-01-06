@@ -1,7 +1,7 @@
 .ministers-index {
   h2 {
     @include heading-36;
-    border-bottom: 5px solid $inside-gov-brand;
+    border-bottom: $gutter-one-sixth solid $inside-gov-brand;
     margin: 0 $gutter-half;
   }
 
@@ -52,7 +52,7 @@
       .heading {
         @include media(tablet) {
           float: left;
-          width: 25%;
+          width: $one-quarter;
         }
         h3 {
           padding: 0 $gutter-half;
@@ -63,7 +63,7 @@
       .current-appointee {
         border: 0;
         float: none;
-        width: 100%;
+        width: $full-width;
         margin: 0;
       }
 
@@ -73,7 +73,7 @@
           width: 75%;
 
           .person-excerpt {
-            width: 33.33%;
+            width: $one-third;
           }
         }
       }

@@ -1,14 +1,14 @@
 .activity-navigation {
   border-bottom: 1px solid $border-colour;
   float: left;
-  width: 100%;
+  width: $full-width;
   margin: 0 ($gutter * -1 + 2px);
   padding: 0 ($gutter - 2px);
 
   li {
     list-style: none;
     float: left;
-    width: 33.333%;
+    width: $one-third;
     padding: 0;
 
     a {
@@ -19,7 +19,7 @@
       background: $panel-colour;
       color: $text-colour;
 
-      @include media(tablet){
+      @include media(tablet) {
         margin-bottom: 4px;
       }
 
