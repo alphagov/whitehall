@@ -94,8 +94,8 @@ zh:
       welsh_language_scheme: 威尔士语言计划
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -304,7 +304,7 @@ zh:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: 阅读更多关于我们的工作
@@ -335,7 +335,7 @@ zh:
       our_services: 我们的服务
       our_statistics: 我们的数据
       our_topics: 我们围绕这些主题进行工作
-      plus_others: ! ' + 其他'
+      plus_others: ' + 其他'
       special_representatives: 特别代表
       traffic_commissioners: 交通事务专员
       what_we_do: 我们的工作
@@ -509,7 +509,7 @@ zh:
       last_word_connector: 和
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: 我们的公告

@@ -173,11 +173,11 @@ it:
       author_title:
         minister: Ministro
         speaker: Autore
-      delivered_on: ! 'Consegnato il:'
+      delivered_on: 'Consegnato il:'
       delivery_title:
         minister: Ministro
         speaker: Relatore
-      written_on: ! 'Scritto su:'
+      written_on: 'Scritto su:'
     updated: aggiornato
     view: Visualizza '%{title}'
   organisation:
@@ -250,7 +250,7 @@ it:
       our_services: I nostri servizi
       our_statistics: Le nostre statistiche
       our_topics: Di cosa ci occupiamo
-      plus_others: ! ' + altro'
+      plus_others: ' + altro'
       special_representatives: Rappresentanti speciali
       traffic_commissioners: Commissari per le attività commerciali
       what_we_do: Cosa facciamo
@@ -396,10 +396,10 @@ it:
       welsh_language_scheme: Schema gaelico
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
-    description: ! 'Utilizza i filtri per visualizzare&nbsp;solo i risultati di tuo&nbsp;interesse '
+    description: 'Utilizza i filtri per visualizzare&nbsp;solo i risultati di tuo&nbsp;interesse '
     no_results:
       description: Amplia la ricerca e riprovare
       title: Non è stato trovato alcun documento corrispondente
@@ -425,7 +425,7 @@ it:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politiche
     view_all:
@@ -531,7 +531,7 @@ it:
       last_word_connector: e
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Per informazioni sul trattamento dei dati

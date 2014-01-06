@@ -95,8 +95,8 @@ th:
       welsh_language_scheme: โครงการภาษาเวลช์
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -274,8 +274,8 @@ th:
         one: นโยบายสำคัญที่ใช้ทั่วโลก
         other: นโยบายสำคัญที่ใช้ทั่วโลก
       written_statement:
-        one: ! 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
-        other: ! 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+        one: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+        other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
     view: ดู '%{title}'
   document_filters:
@@ -305,7 +305,7 @@ th:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: อ่านเพิ่มเติมเกี่ยวกับสิ่งที่เราทำ
@@ -336,7 +336,7 @@ th:
       our_services: บริการของเรา
       our_statistics: สถิติของเรา
       our_topics: เราทำงานในห้วข้อเหล่านี้
-      plus_others: ! '#ชื่อ?'
+      plus_others: '#ชื่อ?'
       special_representatives: ผู้แทนพิเศษ
       traffic_commissioners: ผู้บัญชาการจราจร
       what_we_do: สิ่งที่เราทำ
@@ -374,7 +374,7 @@ th:
         other: หน่วยงานที่ไม่อยู่ในกำกับของรัฐมนตรี
       Other:
         one: อื่นๆ
-        other: ! 'อื่นๆ '
+        other: 'อื่นๆ '
       Public corporation:
         one: บริษัทมหาชน
         other: บริษัทมหาชน
@@ -510,7 +510,7 @@ th:
       last_word_connector: และ
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: ข่าวสารของเรา

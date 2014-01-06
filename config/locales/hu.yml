@@ -69,9 +69,9 @@ hu:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! 'Ha ezt a dokumentumot más formátumban szeretné igényelni
-        (braille, audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg
-        címét, telefonszámát és az igényelt dokumentum címét: ("%{title}")%{references}.'
+      full_help_html: 'Ha ezt a dokumentumot más formátumban szeretné igényelni (braille,
+        audio stb.), kérjük, írjon a %{email} címre. Levelében adja meg címét, telefonszámát
+        és az igényelt dokumentum címét: ("%{title}")%{references}.'
       heading: Ez a fájl valószínűleg nem megfelelő hozzáférést segítő alkalmások
         számára.
       request_a_different_format: Más formátum igénylése.
@@ -97,8 +97,8 @@ hu:
       welsh_language_scheme: Welsh language scheme
   date:
     formats:
-      default: ! '%Y %B %d'
-      long_ordinal: ! '%Y %B %e'
+      default: '%Y %B %d'
+      long_ordinal: '%Y %B %e'
   document:
     contents:
     footer_meta:
@@ -108,7 +108,7 @@ hu:
       updated:
     headings:
       advisory_groups: Tanácsadó testületek
-      applies_to_nations: ! 'A következő nemzetekre vonatkozik:'
+      applies_to_nations: 'A következő nemzetekre vonatkozik:'
       attachments:
         one: Dokumentum
         other: Dokumentumok
@@ -141,16 +141,16 @@ hu:
         one: Szervezet
         other: Szervezetek
     published: közzététel dátuma
-    read: ! 'Olvassa el a következő cikket: %{title}'
+    read: 'Olvassa el a következő cikket: %{title}'
     speech:
       author_title:
         minister: Miniszter
         speaker: Szerző
-      delivered_on: ! 'Elhangzott:'
+      delivered_on: 'Elhangzott:'
       delivery_title:
         minister: Miniszter
         speaker: Beszélő
-      written_on: ! 'A beszéd megírásának időpontja:'
+      written_on: 'A beszéd megírásának időpontja:'
     type:
       announcement:
         one: Bejelentés
@@ -278,7 +278,7 @@ hu:
       written_statement:
         one: Írásbeli parlamenti nyilatkozat
         other: Írásbeli parlamenti nyilatkozatok
-    updated: ! 'Utolsó frissítés:'
+    updated: 'Utolsó frissítés:'
     view: Tekintse meg a következő dokumentumot '%{title}'
   document_filters:
     description: A szűrők segítséget nyújtanak az érdeklődésének megfelelő eredmények
@@ -308,7 +308,7 @@ hu:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: További információk a tevékenységünkről
@@ -322,7 +322,7 @@ hu:
     foi_exemption_html:
     headings:
       chief_professional_officers: Szakmai vezetőink
-      contact: ! 'Kapcsolat felvétele: %{name}'
+      contact: 'Kapcsolat felvétele: %{name}'
       corporate_information: Szervezeti információk
       corporate_reports: Testületi beszámolók
       documents:
@@ -505,7 +505,7 @@ hu:
     previous_holders:
     read_more:
   shared:
-    see_all: ! ' %{type} - mindegyik megtekintése'
+    see_all: ' %{type} - mindegyik megtekintése'
   social_media:
     follow_us:
   support:
@@ -513,7 +513,7 @@ hu:
       last_word_connector: és
   time:
     formats:
-      long_ordinal: ! '%Y %B %e %H:%M'
+      long_ordinal: '%Y %B %e %H:%M'
   world_location:
     headings:
       announcements: Híreink
@@ -535,13 +535,12 @@ hu:
         other: Országok
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! 'A következő oldalon olvashat róla, hogy
+      personal_information_charter_html: 'A következő oldalon olvashat róla, hogy
         hogyan kezeljük a személyes adatokat: %{link}'
-      publication_scheme_html: ! 'Tekintse meg, hogy milyen jellegű információkat
-        teszünk közzé: %{link}'
-      social_media_use_html: ! 'Bővebb információk az alábbi témával kapcsolatban:
-        %{link}'
-      welsh_language_scheme_html: ! 'Tájékozódjon az információk közzétételével kapcsolatos
+      publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk
+        közzé: %{link}'
+      social_media_use_html: 'Bővebb információk az alábbi témával kapcsolatban: %{link}'
+      welsh_language_scheme_html: 'Tájékozódjon az információk közzétételével kapcsolatos
         elkötelezettségünkről: %{link}'
     find_out_more: A teljes profil és elérhetőség megtekintése
     headings:
@@ -552,6 +551,5 @@ hu:
       our_people: Munkatársaink
       our_services: Szolgáltatásaink
     location: Ország
-    part_of: ! 'Felettes szervezet
-
-'
+    part_of: |
+      Felettes szervezet

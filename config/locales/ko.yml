@@ -71,7 +71,7 @@ ko:
     accessibility:
       full_help_html: 점자, 오디오 혹은 다른 타입의 ("%{title}")%{references} 파일을 다운로드받으시려면, 주소,
         전화번호, 요청하시는 자료의 제목을 명시하여, %{email} 로 이메일을 주십시오.
-      heading: ! '본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. '
+      heading: '본 파일은 지원 기술이 필요한 분들께 적합하지 않을 수 있습니다. '
       request_a_different_format: 다른 포맷으로 요청
     headings:
       order_a_copy: 카피 주문하기
@@ -95,8 +95,8 @@ ko:
       welsh_language_scheme: 웨일스어 계획
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:
@@ -139,7 +139,7 @@ ko:
         one: 세계 기구
         other: 세계 기구
     published: 발행
-    read: ! '%{title} 기사를 확인하세요'
+    read: '%{title} 기사를 확인하세요'
     speech:
       author_title:
         minister: 장관
@@ -148,7 +148,7 @@ ko:
       delivery_title:
         minister: 장관
         speaker: 스피커
-      written_on: ! '작성일시:'
+      written_on: '작성일시:'
     type:
       announcement:
         one: 공지
@@ -277,7 +277,7 @@ ko:
         one: 의회로 서면 성명
         other: 의회로 서면 성명
     updated: 업데이트
-    view: ! '''%{title}'' 을 확인하세요.'
+    view: '''%{title}'' 을 확인하세요.'
   document_filters:
     description: 원하시는 내용으로 써치를 제한하는 필터를 사용하실 수 있습니다
     no_results:
@@ -305,7 +305,7 @@ ko:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   organisation:
     about:
       read_more: 우리 업무에 대한 자세한 내용을 확인하세요.
@@ -319,7 +319,7 @@ ko:
     foi_exemption_html:
     headings:
       chief_professional_officers: 최고책임자
-      contact: ! '%{name} 에게 연락하세요'
+      contact: '%{name} 에게 연락하세요'
       corporate_information: 대사관 정보
       corporate_reports: 대사관 보고서
       documents:
@@ -502,7 +502,7 @@ ko:
     previous_holders:
     read_more:
   shared:
-    see_all: ! '%{type} 모두 둘러보기'
+    see_all: '%{type} 모두 둘러보기'
   social_media:
     follow_us:
   support:
@@ -510,7 +510,7 @@ ko:
       last_word_connector: 그리고
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   world_location:
     headings:
       announcements: 공지사항
@@ -532,10 +532,10 @@ ko:
         other: 월드 로케이션
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} 에서 개인정보 처리에 대한 안내'
+      personal_information_charter_html: '%{link} 에서 개인정보 처리에 대한 안내'
       publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내
-      social_media_use_html: ! '%{link} 에서 정책 정보 확인'
-      welsh_language_scheme_html: ! '%{link} 에서 정보 공개에 대한 내용'
+      social_media_use_html: '%{link} 에서 정책 정보 확인'
+      welsh_language_scheme_html: '%{link} 에서 정보 공개에 대한 내용'
     find_out_more: 프로필과 연락처 보기
     headings:
       about_us: 대사관 안내

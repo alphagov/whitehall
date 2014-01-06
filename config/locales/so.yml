@@ -177,7 +177,7 @@ so:
       delivery_title:
         minister: Wasiir
         speaker: Af-hayeen
-      written_on: ! 'Waxaa la qorey:'
+      written_on: 'Waxaa la qorey:'
     updated: Wax lagu kordhiyey
     view: Eeg '%{title}'
   organisation:
@@ -397,8 +397,8 @@ so:
       welsh_language_scheme: Nidaamka luqadda Welsh-ka
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
       natiijooyinka waafaqsan waxa aad daneyneyso
@@ -427,7 +427,7 @@ so:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Siyaasado
     view_all:
@@ -533,10 +533,10 @@ so:
       last_word_connector: iyo
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} ayaa sharxaya sida aan ula tacaamulno
+      personal_information_charter_html: '%{link} ayaa sharxaya sida aan ula tacaamulno
         macluumaadkaaga shakhsiga ah'
       publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
         %{link} aan soo saarno.

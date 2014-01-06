@@ -116,8 +116,8 @@ en:
         one: World location
         other: World locations
       worldwide_organisations:
-        one: Worldwide organisation
-        other: Worldwide organisations
+        one: World agency
+        other: World agencies
       policies:
         one: Policy
         other: Policies
@@ -198,8 +198,8 @@ en:
         one: Map
         other: Maps
       worldwide_priority:
-        one: Worldwide priority
-        other: Worldwide priorities
+        one: World priority
+        other: World priorities
       national_statistics:
         one: Statistics - national statistics
         other: Statistics - national statistics

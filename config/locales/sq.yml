@@ -168,16 +168,16 @@ sq:
       published:
       updated:
     published: publikuar
-    read: ! 'Lexo %{title} '
+    read: 'Lexo %{title} '
     speech:
       author_title:
         minister: Minister
         speaker: Shkrimtar
-      delivered_on: ! 'Dorezuar ne:'
+      delivered_on: 'Dorezuar ne:'
       delivery_title:
         minister: Minister
         speaker: Foles
-      written_on: ! 'Shkruar më:'
+      written_on: 'Shkruar më:'
     updated: rifreskuar
     view: Shiko '%{title}'
   organisation:
@@ -232,7 +232,7 @@ sq:
       transparency: Te dhena transparence
     foi_exemption_html:
     headings:
-      chief_professional_officers: ! 'Zyrtaret tane kryesore profesioniste '
+      chief_professional_officers: 'Zyrtaret tane kryesore profesioniste '
       contact: Kontakt %{name}
       corporate_information: Informacion korporate
       corporate_reports: Raporte korporate
@@ -396,8 +396,8 @@ sq:
       welsh_language_scheme: Skeme e gjuhes Uells
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
       qe perputhen me interesin tuaj&nbsp;
@@ -426,7 +426,7 @@ sq:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politikat
     view_all:
@@ -532,10 +532,10 @@ sq:
       last_word_connector: dhe
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} shpjegon si trajtohet informacioni
+      personal_information_charter_html: '%{link} shpjegon si trajtohet informacioni
         juaj personal'
       publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht
         ne %{link}.

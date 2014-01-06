@@ -40,7 +40,7 @@ be:
         one: Месцазнаходжанне ў свеце
         few:
         many:
-        other: ! 'Месцазнаходжання '
+        other: 'Месцазнаходжання '
       worldwide_organisations:
         one: Сусветная арганізацыя
         few:
@@ -51,7 +51,7 @@ be:
       field_of_operation: Сфера дзейнасці
       live_data: Бягучая інфармацыя
       location:
-      policy_team: ! 'Палітычны аддзел '
+      policy_team: 'Палітычны аддзел '
     type:
       announcement:
         one: Аб'ява
@@ -275,7 +275,7 @@ be:
       author_title:
         minister: Міністр
         speaker: Аўтар
-      delivered_on: ! 'Зроблена:'
+      delivered_on: 'Зроблена:'
       delivery_title:
         minister: Міністр
         speaker: Прамоўца
@@ -290,10 +290,10 @@ be:
         many:
         other: Спецыяльныя кансультатыўныя групы
       Advisory non-departmental public body:
-        one: ! 'Пазаведамасны кансультатыўны дзяржаўны орган '
+        one: 'Пазаведамасны кансультатыўны дзяржаўны орган '
         few:
         many:
-        other: ! 'Пазаведамасныя кансультатыўныя дзяржаўныя органы '
+        other: 'Пазаведамасныя кансультатыўныя дзяржаўныя органы '
       Devolved administration:
         one:
         few:
@@ -378,7 +378,7 @@ be:
       our_services: Нашы паслугі
       our_statistics: Наша статыстыка
       our_topics: Мы працуем па гэтым тэмам
-      plus_others: ! ' + іншыя'
+      plus_others: ' + іншыя'
       special_representatives: Спецыяльныя прадстаўнікі
       traffic_commissioners: Транспартны суд
       what_we_do: Што мы робім
@@ -422,7 +422,7 @@ be:
         one: Месцазнаходжанне ў свеце
         few:
         many:
-        other: ! 'Месцазнаходжання '
+        other: 'Месцазнаходжання '
     headings:
       announcements: Нашы аб'явы
       country: Краіна
@@ -432,7 +432,7 @@ be:
       priorities: Прыярытэты
       publications: Нашы публікацыі
       quick_links: Хуткія спасылкі
-      related_policies: ! 'Падобныя напрамкі дзейнасці '
+      related_policies: 'Падобныя напрамкі дзейнасці '
       statistics: Наша статыстыка
   activerecord:
     attributes:
@@ -454,7 +454,7 @@ be:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
       detailed_guide:
-        primary_mainstream_category: ! 'Першасная катэгорыя падрабязнага кіраўніцтва '
+        primary_mainstream_category: 'Першасная катэгорыя падрабязнага кіраўніцтва '
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
         hoc_paper_number:
@@ -531,8 +531,8 @@ be:
       welsh_language_scheme: Валійская мова
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
       якія вас цікавяць.
@@ -562,7 +562,7 @@ be:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Напрамкі дзейнасці
     view_all:
@@ -668,7 +668,7 @@ be:
       last_word_connector: і
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Наша %{link}  тлумачыць, як мы ставімся да

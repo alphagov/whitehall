@@ -111,7 +111,7 @@ si:
         one: විවෘත මත විමසුම
         other: විවෘත මත විමසුම්
       oral_statement:
-        one: ! ' පාර්ලිමේන්තුවේ වාචික ප්රුකාශය'
+        one: ' පාර්ලිමේන්තුවේ වාචික ප්රුකාශය'
         other: පාර්ලිමේන්තුවේ වාචික ප්රේකාශ
       policy:
         one: ප්රතතිපත්තිය
@@ -177,7 +177,7 @@ si:
       delivery_title:
         minister: අමාත්‍යවරයා
         speaker: කතානායකවරයා
-      written_on: ! 'ලියන ලද දිනය:'
+      written_on: 'ලියන ලද දිනය:'
     updated: යාවත්කාලීන කල
     view: බලන්න  '%{title}'
   organisation:
@@ -204,9 +204,8 @@ si:
         one: ස්වාධීන නිරීක්ෂණ ආයතනය
         other: ස්වාධීන නිරීක්ෂණ ආයතන
       Ministerial department:
-        one: ! 'අමාත්‍ය දෙපාර්තමේන්තුව
-
-'
+        one: |
+          අමාත්‍ය දෙපාර්තමේන්තුව
         other: අමාත්‍ය දෙපාර්තමේන්තු
       Non-ministerial department:
         one: අමාත්ය නොවන දෙපාර්තමේන්තුව
@@ -397,8 +396,8 @@ si:
       welsh_language_scheme: වේල්සයේ භාෂා පටිපාටිය
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න
     no_results:
@@ -426,7 +425,7 @@ si:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: ප්‍රතිපත්ති
     view_all:
@@ -532,7 +531,7 @@ si:
       last_word_connector: සහ
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ඔබගේ පුද්ගලික තොරතුරු භාවිතා කිරීම ගැන අපේ
@@ -549,4 +548,4 @@ si:
       our_people: අපේ පිරිස
       our_services: අපේ සේවාවන්
     location: ස්ථානය
-    part_of: ! ' කොටසක්'
+    part_of: ' කොටසක්'

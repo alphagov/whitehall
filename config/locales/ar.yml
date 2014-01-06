@@ -381,7 +381,7 @@ ar:
       delivery_title:
         minister: وزير
         speaker: متحدث
-      written_on: ! 'كتبت في:'
+      written_on: 'كتبت في:'
     updated: تحديث
     view: اطلع على ’%{title}‘
   organisation:
@@ -667,8 +667,8 @@ ar:
       welsh_language_scheme: برنامج لغة ويلز
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
       اهتماماتك
@@ -697,7 +697,7 @@ ar:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: سياسات
     view_all:
@@ -803,10 +803,10 @@ ar:
       last_word_connector: و
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} يشرح كيفية التعامل مع المعلومات
+      personal_information_charter_html: '%{link} يشرح كيفية التعامل مع المعلومات
         الشخصية الخاصة بك'
       publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في
         موقعنا %{link} الرابط.

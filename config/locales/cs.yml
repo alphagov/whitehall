@@ -293,7 +293,7 @@ cs:
       foi_releases: Svoboda přístupu k informacím
       jobs_and_contacts: Pracovní příležitosti
       organisation_chart:
-      transparency: ! 'Data '
+      transparency: 'Data '
     foi_exemption_html:
     headings:
       chief_professional_officers: Naše vedení
@@ -465,8 +465,8 @@ cs:
       welsh_language_scheme: Welština
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
@@ -494,7 +494,7 @@ cs:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politiky
     view_all:
@@ -600,7 +600,7 @@ cs:
       last_word_connector: a
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi

@@ -209,14 +209,12 @@ sr:
         many:
         other: publikacije
       research:
-        one: ! 'istraživanje i analiza
-
-'
+        one: |
+          istraživanje i analiza
         few:
         many:
-        other: ! 'istraživanje i analiza
-
-'
+        other: |
+          istraživanje i analiza
       speaking_notes:
         one: teze za govor
         few:
@@ -279,11 +277,11 @@ sr:
       author_title:
         minister: Ministar
         speaker: Pisac
-      delivered_on: ! 'Objavljeno:'
+      delivered_on: 'Objavljeno:'
       delivery_title:
         minister: Ministar
         speaker: govornik
-      written_on: ! 'Napisano na:'
+      written_on: 'Napisano na:'
     updated: ažurirano
     view: Pogledajte '%{title}'
   organisation:
@@ -382,7 +380,7 @@ sr:
       our_services: Naše usluge
       our_statistics: Naša statistika
       our_topics: Radimo na ovim temama
-      plus_others: ! ' + drugi'
+      plus_others: ' + drugi'
       special_representatives: specijalni predstavnici
       traffic_commissioners: poverenik za saobraćaj
       what_we_do: Radimo na
@@ -537,13 +535,13 @@ sr:
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Možete iskoristiti filter da biste videli rezultate u skladu sa vašim
       interesovanjima
     no_results:
-      description: ! 'Pokušajte da proširite vašu potragu i pokušajte ponovo '
-      title: ! 'Nema dokumenata koji odgovaraju vašoj pretrazi '
+      description: 'Pokušajte da proširite vašu potragu i pokušajte ponovo '
+      title: 'Nema dokumenata koji odgovaraju vašoj pretrazi '
       tna_heading:
       tna_link:
     world_locations:
@@ -675,13 +673,13 @@ sr:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '%{link} daje informacije o tome kako obrađujemo
+      personal_information_charter_html: '%{link} daje informacije o tome kako obrađujemo
         vaše lične podatke. '
       publication_scheme_html: Čitajte o tipovima informacija koje redovno objavljujemo
         u  %{link}.
       social_media_use_html: Pročitajte o našoj politici prema  %{link}.
       welsh_language_scheme_html: Saznajte naš stav o objavljivanju u %{link}.
-    find_out_more: ! 'Pogledajte pun profil i sve kontakt detalje '
+    find_out_more: 'Pogledajte pun profil i sve kontakt detalje '
     headings:
       about_us: O nama
       contact_us: Kontakt

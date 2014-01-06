@@ -95,7 +95,7 @@ ms:
   date:
     formats:
       default:
-      long_ordinal: ! '%e %B %Y'
+      long_ordinal: '%e %B %Y'
   document:
     contents:
     footer_meta:

@@ -114,10 +114,10 @@ ru:
         many:
         other: Уведомления о несчастных случаях
       foi_release:
-        one: ! 'Свобода распространения информации '
+        one: 'Свобода распространения информации '
         few:
         many:
-        other: ! 'Свобода распространения информации '
+        other: 'Свобода распространения информации '
       form:
         one: Форма
         few:
@@ -279,7 +279,7 @@ ru:
       delivery_title:
         minister: Министр
         speaker: Докладчик
-      written_on: ! 'Написано: '
+      written_on: 'Написано: '
     updated: обновлено
     view: Просмотреть '%{title}'
   organisation:
@@ -354,7 +354,7 @@ ru:
     corporate_information:
       access_our_info: Доступ к нашей информации
       foi_how_to: запрос  Свобода распространения информации
-      foi_releases: ! 'Свобода распространения информации '
+      foi_releases: 'Свобода распространения информации '
       jobs_and_contacts: Рабочие места и контракты
       organisation_chart:
       transparency: Данные о прозрачности
@@ -530,8 +530,8 @@ ru:
       welsh_language_scheme: Выбор Уэльского языка
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры
@@ -560,7 +560,7 @@ ru:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Политика
     view_all:
@@ -666,7 +666,7 @@ ru:
       last_word_connector: и
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся

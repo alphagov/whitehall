@@ -60,7 +60,7 @@ dr:
         one: مطابقت
         other: مطابقت ها
       detailed_guidance:
-        one: ! ' رهنمود مفصل'
+        one: ' رهنمود مفصل'
         other: رهنمود های مفصل
       document_collection:
         one: سلسله
@@ -395,8 +395,8 @@ dr:
       welsh_language_scheme: طرح زبان ویلش
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
       نتایجی که با منفعت های شما و nbsp تطابق دارند
@@ -425,7 +425,7 @@ dr:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: پالیسی ها
     view_all:
@@ -531,10 +531,10 @@ dr:
       last_word_connector: و
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
-      personal_information_charter_html: ! '  %{link} ما شیوه برخود با معلومات شخصی
+      personal_information_charter_html: '  %{link} ما شیوه برخود با معلومات شخصی
         را تشریح مینماید'
       publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر
         می کنیم.

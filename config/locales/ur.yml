@@ -46,7 +46,7 @@ ur:
         other: کیس اسٹڈیز
       closed_consultation:
         one: مشاورت ختم
-        other: ! ' مشاورت ختم'
+        other: ' مشاورت ختم'
       consultation:
         one: مشاورت
         other: مشاورت
@@ -142,7 +142,7 @@ ur:
         other: پارلیمنٹ میں بیانات
       statistical_data_set:
         one: شماریاتی ڈیٹا سیٹ
-        other: ! ' شماریاتی ڈیٹا سیٹس'
+        other: ' شماریاتی ڈیٹا سیٹس'
       statistics:
         one: اعدادوشمار
         other: اعدادو شمار
@@ -173,13 +173,13 @@ ur:
       author_title:
         minister: وزیر
         speaker: مصنف
-      delivered_on: ! 'تقریرکی تاریخ:'
+      delivered_on: 'تقریرکی تاریخ:'
       delivery_title:
         minister: وزیر
         speaker: مقرر
-      written_on: ! 'تحریر کی  تاریخ:'
+      written_on: 'تحریر کی  تاریخ:'
     updated: تجدید شدہ
-    view: ! '''%{title}'' دیکھئیے'
+    view: '''%{title}'' دیکھئیے'
   organisation:
     type:
       Ad-hoc advisory group:
@@ -285,7 +285,7 @@ ur:
         one: عالمی وفد
         other: عالمی وفود
       world_location:
-        one: ! ' عالمی محل وقوع'
+        one: ' عالمی محل وقوع'
         other: عالمی محل ہائے وقوع
     headings:
       announcements: ہمارے اعلانات
@@ -393,16 +393,16 @@ ur:
       personal_information_charter: ذاتی معلومات کاچارٹر
       publication_scheme: اشاعتی اسکیم
       social_media_use: سوشل میڈیاکااستعمال
-      welsh_language_scheme: ! ' ویلش زبان اسکیم'
+      welsh_language_scheme: ' ویلش زبان اسکیم'
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں
     no_results:
-      description: ! 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
+      description: 'اپنی تلاش کو وسیع تر کرکے دوبارا کوشش کیجئیے '
       title: مطلوبہ یا ملتا جلتا مضمون نہیں ملا
       tna_heading:
       tna_link:
@@ -426,7 +426,7 @@ ur:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: پالیسیاں
     view_all:
@@ -532,12 +532,12 @@ ur:
       last_word_connector: اور
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
         معلومات کو کیسے استعمال کرتے ہیں
-      publication_scheme_html: ! 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
+      publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}
         پرملاحظہ کیجئیے '
       social_media_use_html: ہماری پالیسی  %{link} پر ملاحظہ کیجئیے
       welsh_language_scheme_html: اشاعت کے باب میں ہمارے کمٹ منٹ %{link} میں ملاحظہ

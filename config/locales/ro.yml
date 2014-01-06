@@ -37,21 +37,21 @@ ro:
         one: Organizație
         few:
         other: Organizații
-      advisory_groups: ! 'Grupuri cu rol consultativ '
+      advisory_groups: 'Grupuri cu rol consultativ '
       applies_to_nations: Se adresează
       field_of_operation: Domeniu de activitate
       live_data: Informaţii în timp real
       location:
-      policy_team: ! 'Echipa '
+      policy_team: 'Echipa '
     type:
       announcement:
         one: Știre
         few:
         other: Știri
       authored_article:
-        one: ! 'Articol '
+        one: 'Articol '
         few:
-        other: ! 'Articol '
+        other: 'Articol '
       case_study:
         one: Studiu de caz
         few:
@@ -93,25 +93,25 @@ ro:
         few:
         other: Anunțuri privind decese
       foi_release:
-        one: ! 'Acces la informații publice '
+        one: 'Acces la informații publice '
         few:
-        other: ! 'Acces la informații publice '
+        other: 'Acces la informații publice '
       form:
         one: Formular
         few:
         other: Formulare
       government_response:
-        one: ! 'Document de poziție '
+        one: 'Document de poziție '
         few:
-        other: ! 'Documente de poziție '
+        other: 'Documente de poziție '
       guidance:
         one: Mai multe detalii
         few:
         other: Mai multe detalii
       impact_assessment:
-        one: ! 'Evaluarea impactului '
+        one: 'Evaluarea impactului '
         few:
-        other: ! 'Evaluarea impactului '
+        other: 'Evaluarea impactului '
       imported:
         one:
         few:
@@ -145,9 +145,9 @@ ro:
         few:
         other: Dezbateri
       oral_statement:
-        one: ! 'Declarație verbală în fața Parlamentului '
+        one: 'Declarație verbală în fața Parlamentului '
         few:
-        other: ! 'Declarații verbale în fața Parlamentului '
+        other: 'Declarații verbale în fața Parlamentului '
       policy:
         one: Obiectiv strategic
         few:
@@ -173,9 +173,9 @@ ro:
         few:
         other: Analiză și cercetare
       speaking_notes:
-        one: ! 'Note '
+        one: 'Note '
         few:
-        other: ! 'Note '
+        other: 'Note '
       speech:
         one: Discurs
         few:
@@ -209,9 +209,9 @@ ro:
         few:
         other: Priorități
       written_statement:
-        one: ! 'Declarație scrisă către Parlament '
+        one: 'Declarație scrisă către Parlament '
         few:
-        other: ! 'Declarații scrise către Parlament '
+        other: 'Declarații scrise către Parlament '
     contents:
     footer_meta:
       full_page_history:
@@ -219,16 +219,16 @@ ro:
       published:
       updated:
     published: Data publicării
-    read: ! 'Citește articolul %{title} '
+    read: 'Citește articolul %{title} '
     speech:
       author_title:
-        minister: ! 'Ministru '
-        speaker: ! 'Autor '
+        minister: 'Ministru '
+        speaker: 'Autor '
       delivered_on: Data prezentării
       delivery_title:
         minister: Ministru
         speaker: Vorbitor
-      written_on: ! 'Publicat pe: '
+      written_on: 'Publicat pe: '
     updated: Actualizat
     view: Vizualizare '%{title}'
   organisation:
@@ -238,35 +238,35 @@ ro:
         few:
         other: Comitete consultative ad-hoc
       Advisory non-departmental public body:
-        one: ! 'Instituție publică non - guvernamentală cu rol consultativ '
+        one: 'Instituție publică non - guvernamentală cu rol consultativ '
         few:
-        other: ! 'Instituții publice non - guvernamentale cu rol consultativ '
+        other: 'Instituții publice non - guvernamentale cu rol consultativ '
       Devolved administration:
         one:
         few:
         other:
       Executive agency:
-        one: ! 'Agenție '
+        one: 'Agenție '
         few:
-        other: ! 'Agenții '
+        other: 'Agenții '
       Executive non-departmental public body:
-        one: ! 'Instituție publică non-guvernamentală cu rol executiv '
+        one: 'Instituție publică non-guvernamentală cu rol executiv '
         few:
-        other: ! 'Instituții publice non-guvernamentale cu rol executiv '
+        other: 'Instituții publice non-guvernamentale cu rol executiv '
       Executive office:
-        one: ! 'Birou executiv '
+        one: 'Birou executiv '
         few:
-        other: ! 'Birouri executive '
+        other: 'Birouri executive '
       Independent monitoring body:
-        one: ! 'Instituție independentă de monitorizare  '
+        one: 'Instituție independentă de monitorizare  '
         few:
-        other: ! 'Instituții independente de monitorizare  '
+        other: 'Instituții independente de monitorizare  '
       Ministerial department:
-        one: ! 'Departament ministerial '
+        one: 'Departament ministerial '
         few:
-        other: ! 'Departamente ministeriale '
+        other: 'Departamente ministeriale '
       Non-ministerial department:
-        one: ! 'Departament non-guvernamental  '
+        one: 'Departament non-guvernamental  '
         few:
         other: Departamente non-guvernamentale
       Other:
@@ -274,25 +274,25 @@ ro:
         few:
         other: Altele
       Public corporation:
-        one: ! 'Companie publică '
+        one: 'Companie publică '
         few:
-        other: ! 'Companii publice '
+        other: 'Companii publice '
       Sub-organisation:
         one: Organizație din componență
         few:
         other: Organizații din componență
       Tribunal non-departmental public body:
-        one: ! 'Instanță de judecată '
+        one: 'Instanță de judecată '
         few:
-        other: ! 'Instanțe de judecată '
+        other: 'Instanțe de judecată '
     about:
-      read_more: ! 'Mai multe despre activitatea noastră '
+      read_more: 'Mai multe despre activitatea noastră '
     corporate_information:
-      access_our_info: ! 'Accesul la informații publice '
-      foi_how_to: ! 'Cum  se face o cerere pentru accesul la informațiile cu caracter
+      access_our_info: 'Accesul la informații publice '
+      foi_how_to: 'Cum  se face o cerere pentru accesul la informațiile cu caracter
         public '
-      foi_releases: ! 'Informații cu caracter public '
-      jobs_and_contacts: ! 'Oportunități de angajare '
+      foi_releases: 'Informații cu caracter public '
+      jobs_and_contacts: 'Oportunități de angajare '
       organisation_chart:
       transparency:
     foi_exemption_html:
@@ -300,24 +300,24 @@ ro:
       chief_professional_officers:
       contact: Contactează-ne  %{name}
       corporate_information: Informaţii despre ambasadă
-      corporate_reports: ! 'Rapoarte de management '
+      corporate_reports: 'Rapoarte de management '
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: ! 'Știri '
+      our_announcements: 'Știri '
       our_consultations:
       our_mainstream_categories:
-      our_management: ! 'Echipa ambasadei '
-      our_ministers: ! 'Miniștrii '
-      our_policies: ! 'Obiective strategice '
-      our_publications: ! 'Publicații '
-      our_senior_military_officials: ! 'Oficiali militari de rang înalt '
-      our_services: ! 'Servicii '
+      our_management: 'Echipa ambasadei '
+      our_ministers: 'Miniștrii '
+      our_policies: 'Obiective strategice '
+      our_publications: 'Publicații '
+      our_senior_military_officials: 'Oficiali militari de rang înalt '
+      our_services: 'Servicii '
       our_statistics: Statistici
-      our_topics: ! 'Ce domenii acoperim '
-      plus_others: ! ' + altele'
-      special_representatives: ! 'Reprezentanți speciali '
-      traffic_commissioners: ! 'Monitorizarea traficului '
+      our_topics: 'Ce domenii acoperim '
+      plus_others: ' + altele'
+      special_representatives: 'Reprezentanți speciali '
+      traffic_commissioners: 'Monitorizarea traficului '
       what_we_do: Activitatea noastră
     making_foi_requests:
       step1_html:
@@ -364,8 +364,8 @@ ro:
       organisations: Organizații
       priorities: Priorități
       publications: Documente
-      quick_links: ! 'Link-uri rapide '
-      related_policies: ! 'Priorități conexe '
+      quick_links: 'Link-uri rapide '
+      related_policies: 'Priorități conexe '
       statistics: Statistici
   activerecord:
     attributes:
@@ -387,7 +387,7 @@ ro:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
       detailed_guide:
-        primary_mainstream_category: ! 'Ghid detaliat '
+        primary_mainstream_category: 'Ghid detaliat '
       policy_advisory_group/policy_group_attachments/attachment:
         command_paper_number:
         hoc_paper_number:
@@ -437,20 +437,16 @@ ro:
     view_all:
   attachment:
     accessibility:
-      full_help_html: ! 'Pentru a solicita acest document într-un format alternativ
-        (braille, audio, etc.) vă rugăm să transmiteți o solicitare pe email către
-        %{email}, specificând adresa de corespondență, numărul dumneavoastră  de telefon,
-        precum și titlul publicației ("%{title}")%{references}.
-
-'
+      full_help_html: |
+        Pentru a solicita acest document într-un format alternativ (braille, audio, etc.) vă rugăm să transmiteți o solicitare pe email către %{email}, specificând adresa de corespondență, numărul dumneavoastră  de telefon, precum și titlul publicației ("%{title}")%{references}.
       heading: Este posibil ca acest fișier să nu fie adecvat utilizatorilor de  tehnologii
         de asistare
-      request_a_different_format: ! 'Solicită un format diferit '
+      request_a_different_format: 'Solicită un format diferit '
     headings:
       order_a_copy: Comandă o copie
-      order_a_copy_full: ! 'Comandă o copie a publicației '
-      published: ! 'Data publicării '
-      reference: ! 'Referință '
+      order_a_copy_full: 'Comandă o copie a publicației '
+      published: 'Data publicării '
+      reference: 'Referință '
       unnumbered_command_paper:
       unnumbered_hoc_paper:
   change_notes:
@@ -464,7 +460,7 @@ ro:
     type:
       personal_information_charter: Organigramă
       publication_scheme:
-      social_media_use: ! 'Utilizarea rețelelor sociale online '
+      social_media_use: 'Utilizarea rețelelor sociale online '
       welsh_language_scheme:
   date:
     formats:
@@ -504,7 +500,7 @@ ro:
   publications:
     heading: Obiective strategic
     headings:
-      detail: ! 'Mai multe '
+      detail: 'Mai multe '
   publishing:
     format_advice:
       case_study:
@@ -610,7 +606,7 @@ ro:
         cu caracter personal pe %{link}
       publication_scheme_html: Citește mai multe despre informațiile pe care le publigăm
         în mod regulat pe  %{link}.
-      social_media_use_html: ! 'Citește mai multe despre strategia noastră pe '
+      social_media_use_html: 'Citește mai multe despre strategia noastră pe '
       welsh_language_scheme_html: Află mai multe despre angajamentul nostru față de
         accesul la informații publice pe %{link}.
     find_out_more: Află mai multe
@@ -620,6 +616,6 @@ ro:
       corporate_information: Informaţii despre ambasadă
       follow_us: Ne găsești și pe
       our_people: Echipa noastră
-      our_services: ! 'Servicii '
+      our_services: 'Servicii '
     location: Țară
     part_of: Parte din

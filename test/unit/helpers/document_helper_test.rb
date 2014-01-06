@@ -257,7 +257,7 @@ class DocumentHelperTest < ActionView::TestCase
     organisation = create(:worldwide_organisation)
     edition = create(:draft_worldwide_priority, worldwide_organisations: [organisation])
     metadata = document_metadata(edition)[0]
-    assert_equal metadata[:title], "Worldwide organisation"
+    assert_equal metadata[:title], "World agency"
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
                               worldwide_organisation_path(organisation),
@@ -321,7 +321,7 @@ class DocumentHelperTest < ActionView::TestCase
     edition = create(:published_consultation, worldwide_priorities: [priority])
 
     metadata = document_metadata(edition)[0]
-    assert_equal 'Worldwide priorities', metadata[:title]
+    assert_equal 'World priorities', metadata[:title]
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
                               public_document_path(priority),

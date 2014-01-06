@@ -173,11 +173,11 @@ lv:
       author_title:
         minister: Ministrs
         speaker: Autors
-      delivered_on: ! 'Datums:'
+      delivered_on: 'Datums:'
       delivery_title:
         minister: Ministrs
         speaker: Runas autors
-      written_on: ! 'Sarakstīts:'
+      written_on: 'Sarakstīts:'
     updated: atjaunināts
     view: Skatīt '%{title}'
   organisation:
@@ -250,7 +250,7 @@ lv:
       our_services: Mūsu pakalpojumi
       our_statistics: Statistika
       our_topics: Mēs strādājam ar šiem jautājumiem
-      plus_others: ! ' + citi'
+      plus_others: ' + citi'
       special_representatives: Īpašie pārstāvji
       traffic_commissioners: Satiksmes komisāri
       what_we_do: Par mums
@@ -374,8 +374,8 @@ lv:
       heading: Datne, iespējams, nav piemērota izmantošanai ar palīgtehnoloģijām.
       request_a_different_format: Pieprasīt citā formātā.
     headings:
-      order_a_copy: ! 'Pasūtīt '
-      order_a_copy_full: ! 'Pasūtīt publikāciju '
+      order_a_copy: 'Pasūtīt '
+      order_a_copy_full: 'Pasūtīt publikāciju '
       published: Publicēts
       reference: Ref.
       unnumbered_command_paper:
@@ -395,8 +395,8 @@ lv:
       welsh_language_scheme: Velsiešu valodas shēma
   date:
     formats:
-      default: ! '%d %B %Y'
-      long_ordinal: ! '%e %B %Y'
+      default: '%d %B %Y'
+      long_ordinal: '%e %B %Y'
   document_filters:
     description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp;
     no_results:
@@ -424,7 +424,7 @@ lv:
   number:
     human:
       storage_units:
-        format: ! '%n%u'
+        format: '%n%u'
   policies:
     heading: Politika
     view_all:
@@ -530,7 +530,7 @@ lv:
       last_word_connector: un
   time:
     formats:
-      long_ordinal: ! '%e %B %Y %H:%M'
+      long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
       personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
