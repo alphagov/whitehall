@@ -82,9 +82,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carrierwave (0.8.0)
+    carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+      json (>= 1.7)
     celluloid (0.15.1)
       timers (~> 1.1.0)
     chronic (0.10.2)
@@ -362,7 +363,7 @@ DEPENDENCIES
   bootstrap-kaminari-views
   bullet
   capybara (~> 2.1.0)
-  carrierwave (= 0.8.0)
+  carrierwave (= 0.9.0)
   chronic
   ci_reporter
   cucumber-rails (~> 1.4)

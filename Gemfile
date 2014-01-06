@@ -9,7 +9,7 @@ gem 'delayed_job_active_record'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
-gem 'carrierwave', '0.8.0'
+gem 'carrierwave', '0.9.0'
 gem 'govspeak', '~> 1.2.4'
 gem 'kramdown', '~> 0.13.8'
 gem 'validates_email_format_of'
