@@ -202,7 +202,7 @@ class DocumentHelperTest < ActionView::TestCase
     assert_select_within_html metadata[:data][0],
                               "a[href=?]",
                               ministerial_role_path(role),
-                              text: role.current_person_name(role.name)
+                              text: role.name
   end
 
   test "document_metadata generates speech delivery metadata" do
