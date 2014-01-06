@@ -20,9 +20,6 @@ class Edition < ActiveRecord::Base
 
   include Searchable
 
-  extend DeprecatedColumns
-  deprecated_columns :opening_on, :closing_on
-
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
