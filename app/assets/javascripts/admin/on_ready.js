@@ -1,11 +1,9 @@
 GOVUK.init(GOVUK.formsHelper);
+GOVUK.init(GOVUK.navBarHelper);
 GOVUK.init(GOVUK.navTabs);
 
 jQuery(document).ready(function($) {
   if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
-
-  $('.js-create-new').toggler({header: ".toggler", content: "ul", showArrow: false, actLikeLightbox: true});
-  $('.js-more-nav').toggler({header: ".toggler", content: "ul", showArrow: false, actLikeLightbox: true});
 
   GOVUK.doubleClickProtection();
   GOVUK.duplicateFields.init();
