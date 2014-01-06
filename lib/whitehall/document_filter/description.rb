@@ -48,17 +48,10 @@ module Whitehall
       def labels_from_params
         @params.flat_map do |key, values|
           Array(values).map do |value|
-            label_for(key, value)
+            @options_manager.sentence_fragment_for(key, value)
           end
         end.compact
       end
-
-      def label_for(key, value)
-        label = @options_manager.label_for(key, value)
-
-        @options_manager.proper_noun?(key, value) ? label : label.try(:downcase)
-      end
-
     end
   end
 end

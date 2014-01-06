@@ -4,135 +4,92 @@ module Whitehall
 
       def initialize(options = {})
         @locale = options[:locale] || I18n.locale
-        @cache_time = options[:cache_time] || 30.minutes
-
-        @options_by_key = {
-          'publication_filter_option' => all_publication_options,
-          'announcement_type_option' => all_announcement_options,
-          'departments[]' => organisations[:grouped_options].values.reduce(&:+).unshift(organisations[:all_option]),
-          'topics[]' => topics[:grouped_options].values.reduce(&:+).unshift(topics[:all_option]),
-          'world_locations[]' => all_location_options,
-          'official_document_status' => all_official_documents_options
-        }
       end
 
-      def label_for(key, value)
-        if subset_options = @options_by_key[key]
-          if labels = subset_options.rassoc(value)
-            labels.first
-          end
-        end
+      def for(option_name)
+        raise ArgumentError.new("Unknown option name #{option_name}") unless self.class.valid_option_name?(option_name)
+        send(:"options_for_#{option_name}")
+      end
+
+      def for_filter_key(filter_key)
+        option_name = option_name_for_filter_key(filter_key)
+        self.for(option_name)
+      end
+
+      def sentence_fragment_for(filter_key, value)
+        label = for_filter_key(filter_key).label_for(value)
+        proper_noun?(filter_key, value) ? label : label.try(:downcase)
+      rescue UnknownFilterKey
+        nil
+      end
+
+      OPTIONS = {
+        publication_type: 'publication_filter_option',
+        organisations: 'departments[]',
+        topics: 'topics[]',
+        announcement_type: 'announcement_type_option',
+        official_documents: 'official_document_status',
+        locations: 'world_locations[]'
+      }.freeze
+
+      def self.valid_option_name?(option_name)
+        OPTIONS.has_key?(option_name)
+      end
+
+      def self.valid_filter_key?(filter_key)
+        OPTIONS.has_value?(filter_key)
+      end
+
+      class UnknownFilterKey < StandardError; end
+
+    protected
+      def option_name_for_filter_key(filter_key)
+        raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless self.class.valid_filter_key?(filter_key)
+        OPTIONS.key(filter_key)
+      end
+
+      def options_for_organisations
+        StructuredOptions.new(all_label: "All departments", grouped: Organisation.grouped_by_type(@locale))
+      end
+
+      def options_for_topics
+        StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
+      end
+
+      def options_for_publication_type
+        StructuredOptions.create_from_ungrouped("All publication types", Whitehall::PublicationFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
+      end
+
+      def options_for_announcement_type
+        StructuredOptions.create_from_ungrouped("All announcement types", Whitehall::AnnouncementFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
+      end
+
+      def options_for_official_documents
+        StructuredOptions.new(
+          all_label: "All documents",
+          ungrouped: [
+            ['Command or act papers', 'command_and_act_papers'],
+            ['Command papers only', 'command_papers_only'],
+            ['Act papers only', 'act_papers_only']
+          ]
+        )
+      end
+
+      def options_for_locations
+        StructuredOptions.new(
+          all_label: I18n.t("document_filters.world_locations.all"),
+          ungrouped: WorldLocation.includes(:translations).ordered_by_name.map { |l| [l.name, l.slug] }
+        )
       end
 
       def proper_noun?(key, value)
-        return false if value == 'all'
-
         [
           'departments[]',
           'world_locations[]',
           'people',
           'roles'
-        ].include?(key)
+        ].include?(key) && value != 'all'
       end
-
-      def publication_type
-        @publication_type ||= group_options(all_publication_options)
-      end
-
-      def announcement_type
-        @announcement_type ||= group_options(all_announcement_options)
-      end
-
-      def organisations
-        @organisations ||= Rails.cache.fetch("filter_options/organisations/#{@locale}", expires_in: @cache_time) do
-          all_orgs = Organisation.with_published_editions.with_translations(@locale).ordered_by_name_ignoring_prefix
-
-          closed_orgs, open_orgs = all_orgs.partition(&:closed?)
-          ministerial_orgs, other_orgs = open_orgs.partition(&:ministerial_department?)
-
-          grouped_orgs = {
-            'Ministerial departments' => ministerial_orgs.map { |o| [o.name, o.slug] },
-            'Other departments & public bodies' => other_orgs.map { |o| [o.name, o.slug] },
-            'Closed organisations' => closed_orgs.map { |o| [o.name, o.slug] }
-          }
-
-          return {
-            all_option: ["All departments", "all"],
-            grouped_options: grouped_orgs,
-            solo_options: []
-          }
-        end
-      end
-
-      def topics
-        @topics ||= Rails.cache.fetch("filter_options/topics", expires_in: @cache_time) do
-          grouped_topics = {
-            'Topics' => Topic.alphabetical.map { |o| [o.name, o.slug] },
-            'Topical events' => TopicalEvent.active.order_by_start_date.map { |o| [o.name, o.slug] }
-          }
-
-          return {
-            all_option: ["All topics", "all"],
-            grouped_options: grouped_topics,
-            solo_options: []
-          }
-        end
-      end
-
-      def official_documents
-        @official_documents ||= group_options(all_official_documents_options)
-      end
-
-      def locations
-        @locations ||= group_options(all_location_options)
-      end
-
-    protected
-
-      def all_publication_options
-        @all_publication_options ||= Whitehall::PublicationFilterOption.all.sort_by(&:label).map do |option|
-          [option.label, option.slug, option.group_key]
-        end.unshift(["All publication types", "all"])
-      end
-
-      def all_announcement_options
-        @all_announcement_options ||= Whitehall::AnnouncementFilterOption.all.sort_by(&:label).map do |option|
-          [option.label, option.slug, option.group_key]
-        end.unshift(["All announcement types", "all"])
-      end
-
-      def all_official_documents_options
-        @all_official_documents_options ||= [
-          ['All documents', 'all'],
-          ['Command or act papers', 'command_and_act_papers'],
-          ['Command papers only', 'command_papers_only'],
-          ['Act papers only', 'act_papers_only']
-        ]
-      end
-
-      def all_location_options
-        @all_location_options ||= WorldLocation.includes(:translations).ordered_by_name.map do |location|
-          [location.name, location.slug]
-        end.unshift([I18n.t("document_filters.world_locations.all"), "all"])
-      end
-
-      def group_options(all_options)
-        all = all_options.first
-
-        grouped_options = Hash.new { |hash, key| hash[key] = [] }
-        all_options[1..-1].each do |(text, value, group)|
-          grouped_options[group] << [text, value]
-        end
-
-        solo_options = grouped_options.delete(nil) || []
-
-        {
-          all_option: all,
-          grouped_options: grouped_options,
-          solo_options: solo_options
-        }
-      end
-
     end
   end
 end
