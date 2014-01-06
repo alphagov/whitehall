@@ -120,14 +120,12 @@ module DocumentFilterHelper
   end
 
   def filter_results_keywords(keywords)
-    results = keywords.map.with_index do |word, index|
-      new_keywords = keywords.reject.with_index { |w, i| i == index }.join(' ')
+    if keywords.any?
       {
-        name: word,
-        url: url_for(remove_filter_from_params('keywords').merge({ 'keywords' => new_keywords }))
+        name: keywords.join(' '),
+        url: url_for(remove_filter_from_params('keywords'))
       }
     end
-    results.map.with_index { |obj, i| obj.merge({ joining: (results.length - 1 == i ? '' : 'or') }) }
   end
 
   def result_type(count)

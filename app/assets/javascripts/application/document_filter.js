@@ -77,19 +77,6 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
       return url.replace(reg, '&')
     },
-    urlWithoutKeyword: function(words, index){
-      var url = window.location.search,
-          reg = new RegExp('keywords=[^&]+'),
-          newKeywords = [],
-          i, _i;
-
-      for(i=0,_i=words.length; i<_i; i++){
-        if(i !== index){
-          newKeywords.push(words[i]);
-        }
-      }
-      return url.replace(reg, 'keywords='+ newKeywords.join('+'));
-    },
     liveResultSummary: function(data){
       var $selections = $('.selections'),
           $title = $('.headings-block h1'),
@@ -172,17 +159,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
 
           if(field.value.length){
             if(field.id === 'keywords'){
-              context['keywords_any?'] = true;
-              context.keywords = [];
-
-              var words = field.value.trim().split(/\s+/);
-              for(j=0, _j=words.length; j<_j; j++){
-                context.keywords.push({
-                  name: words[j],
-                  url: documentFilter.urlWithoutKeyword(words, j-1),
-                  joining: (j < _j-1 ? 'or' : '')
-                });
-              }
+              context.keywords = {
+                name: field.value,
+                url: documentFilter.urlWithout(field.id, field.value),
+              };
             } else if (field.id === 'from_date'){
               context['date_from'] = field.value
             } else if (field.id === 'to_date'){
