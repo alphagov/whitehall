@@ -6,7 +6,7 @@
   if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
   var doubleClickProtection = function() {
-    $('form input[type=submit]').live('click', function() {
+    $(document).on('click', 'form input[type=submit]', function() {
       var $submit = $(this),
           name = $submit.attr('name'),
           value = $submit.val();
