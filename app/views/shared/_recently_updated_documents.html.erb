@@ -1,7 +1,7 @@
 <ol class="document-list">
   <% recently_updated.each do |document| %>
     <%= content_tag_for :li, document, :recent, class: 'document-row' do %>
-      <h3><%= link_to document.title, public_document_path(document) %></h3>
+      <h2><%= link_to document.title, public_document_path(document) %></h2>
       <ul class="attributes">
         <li class="published-date">
           <%= published_or_updated(document) %>
