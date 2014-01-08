@@ -19,14 +19,6 @@ jQuery(document).ready(function($) {
     });
   }
 
-  // admin attachments are sortable
-  $( "ol.existing-attachments.js-sortable" ).sortable({
-    stop: function (event, ui) {
-      $(this).find('input.ordering').each( function (index, input) {
-        $(input).val(index);
-      });
-    }
-  });
 
   // Admin UI for document collections
   if ($('div.document-collection-groups.index').length > 0) {
