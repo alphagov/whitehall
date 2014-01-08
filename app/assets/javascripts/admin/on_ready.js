@@ -11,6 +11,4 @@ jQuery(document).ready(function($) {
   GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
   GOVUK.hideClosedAtDates();
   GOVUK.toggleCustomLogoField();
-
-  $("form.js-supports-non-english").setupNonEnglishSupport();
 });

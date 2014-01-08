@@ -5,9 +5,11 @@
   var editionForm = {
     init: function init(params) {
       this.$form = $(params.selector);
+      this.rightToLeftLocales = params.right_to_left_locales;
 
       this.showChangeNotesIfMajorChange();
       this.showFormatAdviceForSelectedSubtype();
+      this.setupNonEnglishSupport();
     },
 
     showChangeNotesIfMajorChange: function showChangeNotesIfMajorChange() {
@@ -47,6 +49,49 @@
           $container.append(adviceHTML);
         }
       }).change();
+    },
+
+    setupNonEnglishSupport: function setupNonEnglishSupport() {
+      if ( !this.$form.hasClass('js-supports-non-english') ) return;
+
+      var $form = this.$form;
+
+      $().ready(function() {
+        // hide locale fieldsets
+        var $localeInput = $(this).find('#edition_locale');
+        var $fieldset = $localeInput.parent('fieldset');
+        $fieldset.hide();
+
+        // add link for changing the default locale
+        var $revealLink = $('<a href=# class="foreign-language-only">Designate as a foreign language only document</a>');
+        $revealLink.insertBefore($fieldset);
+        $revealLink.on('click', function () {
+          // reveal the locale selector
+          $(this).hide();
+          $fieldset.show();
+        });
+
+        // add link to cancel and reset back to the default locale
+        var $resetLink = $('<a href=# class="cancel-foreign-language-only">cancel</a>');
+        $resetLink.insertAfter($localeInput);
+        $resetLink.on('click', function () {
+          // hide the fieldset and reset the locale selector
+          $fieldset.hide();
+          $revealLink.show();
+          $localeInput.val('');
+          $form.find('fieldset').removeClass('right-to-left');
+        });
+
+        // setup observer to apply right-to-left classes as appropriate
+        $('#edition_locale').change(function () {
+          if ( $.inArray($(this).val(), GOVUK.editionForm.rightToLeftLocales) > -1) {
+            $form.find('fieldset').addClass('right-to-left');
+          } else {
+            $form.find('fieldset').removeClass('right-to-left');
+          }
+        });
+      })
+
     }
   }
 

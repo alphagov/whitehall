@@ -1,10 +1,11 @@
-module("non-english-editions: ", {
+module("admin-edition-form: ", {
   setup: function() {
-    this.$localeFieldsContainer = $(
-      '<form id="non-english">' +
+    $('#qunit-fixture').append(
+      '<form id="non-english" class="js-supports-non-english">' +
         '<fieldset>' +
           '<label for="edition_locale">Document language</label>' +
           '<select id="edition_locale" name="edition[locale]">' +
+            '<option value="" selected="selected">Choose foreign language</option>' +
             '<option value="en" selected="selected">English (English)</option>' +
             '<option value="ar">العربية (Arabic)</option>' +
             '<option value="cy">Cymraeg (Welsh)</option>' +
@@ -16,9 +17,11 @@ module("non-english-editions: ", {
           '<input id="edition_title" name="edition[title]" size="30" type="text" />' +
         '</fieldset>' +
       '</form>');
-    $('#qunit-fixture').append(this.$localeFieldsContainer);
 
-    $('form#non-english').setupNonEnglishSupport();
+    GOVUK.editionForm.init({
+      selector: 'form#non-english',
+      right_to_left_locales:["ar"]
+    });
   }
 });
 
@@ -47,7 +50,8 @@ test("cancelling foreign language only document hides and resets the locale fiel
 
   // reset the form
   $('a.cancel-foreign-language-only').click();
-  equal($('#edition_locale option:selected').val(), 'en', 'locale reset back to English');
+
+  equal($('#edition_locale option:selected').val(), '', 'locale reset back to English');
   ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs has become hidden');
 });
 
