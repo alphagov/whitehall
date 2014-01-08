@@ -11,13 +11,6 @@ jQuery(document).ready(function($) {
   GOVUK.hideClosedAtDates();
   GOVUK.toggleCustomLogoField();
 
-  if($('select#edition_speech_type_id').length) {
-    GOVUK.updateSpeechHeaders();
-    $('select#edition_speech_type_id').on('change', function(e) {
-      GOVUK.updateSpeechHeaders();
-    });
-  }
-
   $("form.js-supports-non-english").setupNonEnglishSupport();
 
   if(window.ieVersion && ieVersion === 8){

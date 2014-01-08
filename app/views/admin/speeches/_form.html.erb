@@ -1,3 +1,5 @@
+<% initialise_script "GOVUK.AdminSpeechForm", el: '.js-edition-form', speech_type_label_data: speech_type_label_data %>
+
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
     <fieldset>
