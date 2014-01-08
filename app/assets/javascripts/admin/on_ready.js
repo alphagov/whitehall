@@ -17,11 +17,6 @@ jQuery(document).ready(function($) {
   // Inbound links on edition show page
   $('#inbound-links').hideExtraRows({rows: 10});
 
-  // show/hide unnumbered HTML headings markdown help
-  $('#attachment_manually_numbered_headings').change(function () {
-    $('.js-manual-numbering-help').toggle($(this).is(':checked'));
-  }).change();
-
   if ($('#diff').length > 0) {
     GOVUK.diff('title');
     GOVUK.diff('summary');
