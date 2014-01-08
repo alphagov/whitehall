@@ -69,6 +69,7 @@ group :development, :test do
   gem 'debugger'
   gem 'parallel_tests'
   gem 'test-queue'
+  gem 'test_track', github: 'alphagov/test_track'
 end
 
 group :development do
@@ -86,8 +87,6 @@ group :test do
   gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.14.0', require: false
-  # Do we still need test_track?
-  # gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false
   gem 'ci_reporter'

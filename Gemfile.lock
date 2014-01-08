@@ -18,6 +18,13 @@ GIT
       nokogiri (>= 1.4.4)
 
 GIT
+  remote: git://github.com/alphagov/test_track.git
+  revision: 720696dab08aaea687910e2b2784130919faea1d
+  specs:
+    test_track (4.0.0)
+      rails (~> 4.0.0)
+
+GIT
   remote: git://github.com/brynary/rack-test.git
   revision: 8cdb86e1d710194ce45f439915707db7fb2b27e5
   specs:
@@ -417,6 +424,7 @@ DEPENDENCIES
   slop (= 3.4.5)
   statsd-ruby (~> 1.2.1)
   test-queue
+  test_track!
   thin (= 1.5.1)
   timecop
   transitions
