@@ -11,7 +11,7 @@
     <% end %>
   </div>
   <div class="attachment-details">
-    <h3 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h3>
+    <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h2>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
@@ -60,9 +60,9 @@
     <% end %>
     <% unless attachment.accessible? %>
       <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
-        <h3><%= t('attachment.accessibility.heading') %>
+        <h2><%= t('attachment.accessibility.heading') %>
           <span class="toggler"><%= t('attachment.accessibility.request_a_different_format') %></span>
-        </h3>
+        </h2>
         <p class="help-block">
           <%= t('attachment.accessibility.full_help_html',
                 email: alternative_format_order_link(attachment, alternative_format_contact_email),
