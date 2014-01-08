@@ -14,12 +14,6 @@ jQuery(document).ready(function($) {
 
   $("form.js-supports-non-english").setupNonEnglishSupport();
 
-  if ($('#diff').length > 0) {
-    GOVUK.diff('title');
-    GOVUK.diff('summary');
-    GOVUK.diff('body');
-  }
-
   GOVUK.largeImportLogs.init($('.large-data-set'));
 
   GOVUK.formatAdvice.init($('.subtype').filter('select'));
