@@ -1,3 +1,4 @@
+GOVUK.init(GOVUK.ieHandler);
 GOVUK.init(GOVUK.formsHelper);
 GOVUK.init(GOVUK.navBarHelper);
 GOVUK.init(GOVUK.tabs);
@@ -12,12 +13,6 @@ jQuery(document).ready(function($) {
   GOVUK.toggleCustomLogoField();
 
   $("form.js-supports-non-english").setupNonEnglishSupport();
-
-  if(window.ieVersion && ieVersion === 8){
-    $('textarea').each(function(i, el){
-      $(el).css('width', $(el).width());
-    });
-  }
 
 
   // Admin UI for document collections
