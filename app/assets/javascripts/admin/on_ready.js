@@ -13,6 +13,4 @@ jQuery(document).ready(function($) {
   GOVUK.toggleCustomLogoField();
 
   $("form.js-supports-non-english").setupNonEnglishSupport();
-
-  GOVUK.formatAdvice.init($('.subtype').filter('select'));
 });

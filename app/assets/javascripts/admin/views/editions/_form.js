@@ -7,6 +7,7 @@
       this.$form = $(params.selector);
 
       this.showChangeNotesIfMajorChange();
+      this.showFormatAdviceForSelectedSubtype();
     },
 
     showChangeNotesIfMajorChange: function showChangeNotesIfMajorChange() {
@@ -26,6 +27,26 @@
           $change_notes_section.slideDown(200);
         }
       }
+    },
+
+    showFormatAdviceForSelectedSubtype: function showFormatAdviceForSelectedSubtype() {
+      var $subtypeFields = $('.subtype', this.$form).filter('select');
+
+      if ($subtypeFields.length < 1) { return; }
+
+      $subtypeFields.change(function() {
+        var $field = $(this);
+        var $container = $field.parent();
+        var formatAdviceMap = $field.data('format-advice');
+
+        $container.find('.govspeak').remove();
+
+        var adviceText = formatAdviceMap[$field.val()];
+        if (adviceText) {
+          var adviceHTML = '<strong class="govspeak">Use this subformat for…</strong> '+adviceText;
+          $container.append(adviceHTML);
+        }
+      }).change();
     }
   }
 
