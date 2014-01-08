@@ -125,7 +125,7 @@ module DocumentHelper
 
   def attachment_thumbnail(attachment)
     if attachment.pdf?
-      image_tag(attachment.url(:thumbnail), alt: '')
+      image_tag(attachment.file.thumbnail.url, alt: '')
     elsif attachment.html?
       image_tag('pub-cover-html.png', alt: '')
     elsif %w{doc docx odt}.include? attachment.file_extension
