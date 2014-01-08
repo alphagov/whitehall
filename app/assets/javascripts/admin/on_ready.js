@@ -1,6 +1,6 @@
 GOVUK.init(GOVUK.formsHelper);
 GOVUK.init(GOVUK.navBarHelper);
-GOVUK.init(GOVUK.navTabs);
+GOVUK.init(GOVUK.tabs);
 
 jQuery(document).ready(function($) {
   if(typeof GOVUK === 'undefined') { window.GOVUK = {}; }
@@ -10,13 +10,6 @@ jQuery(document).ready(function($) {
   GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
   GOVUK.hideClosedAtDates();
   GOVUK.toggleCustomLogoField();
-
-  if (window.location.hash && $('.tab-content').length > 0) {
-    // we may need to preload the tabs
-    var hash = window.location.hash.substring(1);
-    // ... if it's not already selected.
-    $('a[href$=#' + hash + '][data-toggle=tab]:not(.active)').tab('show');
-  }
 
   if($('select#edition_speech_type_id').length) {
     GOVUK.updateSpeechHeaders();

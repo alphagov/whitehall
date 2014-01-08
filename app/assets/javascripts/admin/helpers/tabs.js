@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {};
 
-  window.GOVUK.navTabs = {
+  window.GOVUK.tabs = {
     init: function init() {
       var url = document.location.toString();
       if (url.match('#')) {
