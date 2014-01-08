@@ -14,13 +14,6 @@ jQuery(document).ready(function($) {
 
   $("form.js-supports-non-english").setupNonEnglishSupport();
 
-
-  // Admin UI for document collections
-  if ($('div.document-collection-groups.index').length > 0) {
-    GOVUK.documentCollectionDocFinder.init();
-    GOVUK.documentCollectionCheckboxSelector.init();
-  }
-
   // Inbound links on edition show page
   $('#inbound-links').hideExtraRows({rows: 10});
 
