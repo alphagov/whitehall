@@ -14,9 +14,6 @@ jQuery(document).ready(function($) {
 
   $("form.js-supports-non-english").setupNonEnglishSupport();
 
-  // Inbound links on edition show page
-  $('#inbound-links').hideExtraRows({rows: 10});
-
   if ($('#diff').length > 0) {
     GOVUK.diff('title');
     GOVUK.diff('summary');
