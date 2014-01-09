@@ -8,11 +8,6 @@
       GOVUK.init(GOVUK.formsHelper);
       GOVUK.init(GOVUK.navBarHelper);
       GOVUK.init(GOVUK.tabs);
-
-      jQuery(document).ready(function($) {
-        GOVUK.hideClosedAtDates();
-        GOVUK.toggleCustomLogoField();
-      });
     }
   };
 }());
