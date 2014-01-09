@@ -1,15 +1,21 @@
+a {
+  text-decoration: none;
+}
 h1 {
   @include heading-27;
+  font-weight: bold;
   margin: $gutter 0;
 }
 h2 {
   @include heading-24;
+  font-weight: bold;
   margin: $gutter 0 0;
 }
 h3,
 h4,
 h5 {
   @include copy-19;
+  font-weight: bold;
   margin: $gutter 0 0;
 }
 h4 {
@@ -18,17 +24,28 @@ h4 {
 h5 {
   margin: 0;
 }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  a:after {
+    font-weight: normal;
+  }
+}
 p {
   @include copy-14;
   margin: $gutter-half 0;
 }
-ol {
+ol,
+ul {
   list-style: decimal;
   list-style-position: outside;
+  margin-left: 0;
+  padding-left: 0;
 }
 ul {
   list-style: disc;
-  list-style-position: outside;
 }
 li {
   @include copy-14;
@@ -44,10 +61,16 @@ strong, b {
 em, i {
   font-style: italic;
 }
-blockquote p {
-  text-indent: -0.45em;
-  padding-left: $gutter;
-  
+blockquote {
+  margin-left: $gutter-half $gutter;
+  &:before {
+    content: "\201c";
+    float: left;
+    margin-right: $gutter-one-third;
+  }
+  p:last-child:after {
+    content: "\201d";
+  }
 }
 hr {
   margin-top: $gutter - 1px;
@@ -75,14 +98,3 @@ figure {
   display: none;
 }
 
-aside.meta {
-  dt {
-    float: left;
-    clear: both;
-    min-width: 100px;
-  }
-  dd p {
-    margin: 0;
-    padding: 0;
-  }
-}

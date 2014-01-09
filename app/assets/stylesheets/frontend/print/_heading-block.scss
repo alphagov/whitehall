@@ -1,0 +1,25 @@
+.headings-block {
+  .type {
+    @include core-27;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  h1 {
+    font-weight: bold;
+    margin-top: 0;
+    padding-top: 0;
+    width: 66.66%;
+  }
+  aside.meta {
+    dt {
+      float: left;
+      font-weight: bold;
+      clear: both;
+      min-width: 100px;
+    }
+    dd p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

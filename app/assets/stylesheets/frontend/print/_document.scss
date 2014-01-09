@@ -1,0 +1,82 @@
+img {
+  float: left;
+  width: 25%;
+  clear: both;
+  margin: 0 30px 30px 0px;
+}
+
+.document-footer-meta {
+  display: none;
+}
+
+.contextual-info {
+  display: none;
+}
+
+.govspeak {
+  h2,
+  h3 {
+    padding-bottom: 0;
+  }
+  p {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.document-page {
+  .block-3 {
+    float: left;
+    padding: 0;
+    margin: 0 $gutter*2 $gutter 0;
+    width: 25%;
+    figure {
+      display: inline;
+      margin: 0;
+    }
+  }
+}
+
+.meta {
+  padding: 0;
+  margin: 0;
+}
+.date:after {
+  content: "";
+}
+
+article {
+  width: 100%;
+}
+
+.govspeak {
+  h2 {
+    clear: both;
+    padding-top: $gutter*2;
+  }
+  .attachment {
+    clear: both;
+    .attachment-thumb,
+    .attachment-details {
+      float: left;
+      width: 15%;
+    }
+    .attachment-thumb {
+      margin: 0 $gutter*2 $gutter*2 0;
+      a {
+        img {
+          width: 100%;
+        }
+        &:after {
+          content: "";
+        }
+      }
+    }
+    .attachment-details {
+      width: 80%;
+      h3 {
+        margin-top: 0;
+      }
+    }
+  }
+}
