@@ -24,6 +24,7 @@ module Whitehall
       end
 
       OPTIONS = {
+        document_type: 'document_type',
         publication_type: 'publication_filter_option',
         organisations: 'departments[]',
         topics: 'topics[]',
@@ -40,6 +41,10 @@ module Whitehall
         OPTIONS.has_value?(filter_key)
       end
 
+      def self.valid_filter_key_and_value?(filter_key, filter_value)
+        new.sentence_fragment_for(filter_key, filter_value) != nil
+      end
+
       class UnknownFilterKey < StandardError; end
 
     protected
@@ -54,6 +59,17 @@ module Whitehall
 
       def options_for_topics
         StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
+      end
+
+      def options_for_document_type
+        StructuredOptions.new(
+          all_label: "All document types",
+          ungrouped: [
+            ['Announcements', 'announcements'],
+            ['Policies', 'policies'],
+            ['Publications', 'publications']
+          ]
+        )
       end
 
       def options_for_publication_type
