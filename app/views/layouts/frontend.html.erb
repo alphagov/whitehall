@@ -14,7 +14,7 @@
     </ul>
   </nav>
   <div class="whitehall-top-bar<%= content_for?(:bar_colour_class) ? " #{yield(:bar_colour_class)}" : '' %>"></div>
-  <div class="whitehall-content">
+  <div id="content" role="main" class="whitehall-content">
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>
       <%= render_mustache_templates if Rails.env.development? %>
