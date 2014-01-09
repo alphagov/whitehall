@@ -82,12 +82,12 @@ group :test do
   gem 'factory_girl'
   gem 'hash_syntax'
   gem 'mocha', '0.14.0', require: false
-  gem 'test_track', github: 'episko/test_track'
   gem 'timecop'
   gem 'webmock', require: false
   gem 'ci_reporter'
   gem 'database_cleaner', '1.0.1'
   gem 'equivalent-xml', '0.3.0', require: false
+  gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
 end
 
 group :test_coverage do
