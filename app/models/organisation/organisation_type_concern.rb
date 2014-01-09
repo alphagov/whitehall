@@ -13,14 +13,14 @@ module Organisation::OrganisationTypeConcern
 
     # Creates a scope for each department type. (eg. Organisation.ministerial_departments)
     OrganisationType.valid_keys.each do |type_key|
-      scope type_key.to_s.pluralize, where(organisation_type_key: type_key)
+      scope type_key.to_s.pluralize, -> { where(organisation_type_key: type_key) }
     end
 
-    scope :excluding_ministerial_departments, lambda {
+    scope :excluding_ministerial_departments, -> {
       where("organisation_type_key != 'ministerial_department'")
     }
 
-    scope :listable, lambda {
+    scope :listable, -> {
       excluding_govuk_status_closed.with_translations.where("organisation_type_key != 'sub_organisation'")
     }
   end

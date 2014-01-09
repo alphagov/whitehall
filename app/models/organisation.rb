@@ -154,8 +154,8 @@ class Organisation < ActiveRecord::Base
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
   end
 
-  scope :excluding_govuk_status_closed, where("govuk_status != 'closed'")
-  scope :closed, where(govuk_status: "closed")
+  scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
+  scope :closed, -> { where(govuk_status: "closed") }
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?

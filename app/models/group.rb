@@ -23,7 +23,7 @@ class Group < ActiveRecord::Base
 
   before_destroy :prevent_destruction_unless_destroyable
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
 
   def destroyable?
     members.empty?

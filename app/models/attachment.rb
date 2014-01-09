@@ -29,7 +29,7 @@ class Attachment < ActiveRecord::Base
   validates :title, presence: true
   validates :isbn, isbn_format: true, allow_blank: true
   validates :command_paper_number, format: {
-    with: /^(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
+    with: /\A(#{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join('|')}) ?\d+/,
     allow_blank: true,
     message: "is invalid. The number must start with one of #{VALID_COMMAND_PAPER_NUMBER_PREFIXES.join(', ')}"
   }
@@ -47,7 +47,7 @@ class Attachment < ActiveRecord::Base
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
-  scope :files, where(type: [nil, 'FileAttachment'])
+  scope :files, -> { where(type: [nil, 'FileAttachment']) }
 
   scope :for_current_locale, -> { where(locale: [nil, I18n.locale]) }
 

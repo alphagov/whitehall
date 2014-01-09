@@ -10,7 +10,7 @@ class DetailedGuidesControllerPropositionTest < ActionController::TestCase
   test "sets google analytics proposition to detailed-guidance for all actions" do
     with_routing do |map|
       map.draw do
-        match '/test', to: 'detailed_guides_controller_proposition_test/test#test'
+        get '/test', to: 'detailed_guides_controller_proposition_test/test#test'
       end
       get :test
     end

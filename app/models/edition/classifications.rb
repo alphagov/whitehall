@@ -4,7 +4,7 @@ module Edition::Classifications
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
       edition.classification_memberships = @edition.classification_memberships.map do |dt|
-        ClassificationMembership.new(dt.attributes.except(:id))
+        ClassificationMembership.new(dt.attributes.except('id'))
       end
     end
   end

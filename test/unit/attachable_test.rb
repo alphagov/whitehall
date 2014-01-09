@@ -7,15 +7,6 @@ class AttachableTest < ActiveSupport::TestCase
     assert build(:publication).allows_attachments?
   end
 
-  test "should allow multiple attachments" do
-    publication = create(:publication, :with_file_attachment, attachments: [
-      attachment_1 = build(:file_attachment),
-      attachment_2 = build(:file_attachment, file: file_fixture('whitepaper.pdf'))
-    ])
-
-    assert_equal [attachment_1, attachment_2], publication.attachments
-  end
-
   test "new attachments are put to the end of the list" do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),
@@ -121,7 +112,7 @@ class AttachableTest < ActiveSupport::TestCase
     attachable = create(:consultation)
     a, b, c = 3.times.map { create(:file_attachment, attachable: attachable) }
 
-    attachable.reorder_attachments([b.id, a.id, c.id])
+    attachable.reload.reorder_attachments([b.id, a.id, c.id])
 
     assert_equal [b, a, c], attachable.reload.attachments
   end
@@ -132,7 +123,7 @@ class AttachableTest < ActiveSupport::TestCase
     b = create(:file_attachment, attachable: attachable, ordering: 0, file: file_fixture('whitepaper.pdf'))
     c = create(:file_attachment, attachable: attachable, ordering: 1, file: file_fixture('simple.pdf'))
 
-    attachable.reorder_attachments([b.id, a.id, c.id])
+    attachable.reload.reorder_attachments([b.id, a.id, c.id])
 
     assert_equal [b, a, c], attachable.reload.attachments
   end

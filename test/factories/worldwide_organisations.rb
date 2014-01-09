@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :worldwide_organisation, traits: [:translated] do
-    name "name"
+    sequence(:name) { |index| "worldwide-organisation-#{index}" }
     summary "summary"
     description "description"
   end

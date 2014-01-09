@@ -10,7 +10,7 @@ module Edition::Publishing
 
     attr_accessor :skip_virus_status_check
 
-    scope :significant_change, where(minor_change: false)
+    scope :significant_change, -> { where(minor_change: false) }
   end
 
   module ClassMethods

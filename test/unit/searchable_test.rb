@@ -10,7 +10,7 @@ class SearchableTest < ActiveSupport::TestCase
     include Searchable
     searchable  link: :name, only: :published, index_after: [:save], unindex_after: [:destroy]
 
-    scope :published, where(state: 'published')
+    scope :published, -> { where(state: 'published') }
   end
 
   def setup

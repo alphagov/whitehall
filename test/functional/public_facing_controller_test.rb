@@ -177,9 +177,9 @@ class PublicFacingControllerTest < ActionController::TestCase
   def with_routing_to_test_action(&block)
     with_routing do |map|
       map.draw do
-        match '/search' => 'search#index'
-        match '/test', to: 'public_facing_controller_test/test#test'
-        match '/locale', to: 'public_facing_controller_test/test#locale'
+        get '/search' => 'search#index'
+        get '/test', to: 'public_facing_controller_test/test#test'
+        get '/locale', to: 'public_facing_controller_test/test#locale'
       end
       yield
     end

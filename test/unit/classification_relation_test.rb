@@ -57,13 +57,6 @@ class ClassificationRelationTest < ActiveSupport::TestCase
     assert_nothing_raised { relation.save }
   end
 
-  test "should not allow modification" do
-    relation = create(:classification_relation)
-    assert_raise(ActiveRecord::ReadOnlyRecord) do
-      relation.update_attributes(updated_at: Time.zone.now)
-    end
-  end
-
   test "should allow destruction" do
     relation = create(:classification_relation)
     assert_nothing_raised { relation.destroy }

@@ -93,6 +93,6 @@ module Admin::UrlHelper
   end
 
   def website_home_url
-    root_url(host: public_host)
+    main_root_url(host: public_host)
   end
 end

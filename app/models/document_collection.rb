@@ -43,7 +43,7 @@ class DocumentCollection < Edition
   end
 
   def published_editions
-    editions.published.in_reverse_chronological_order
+    editions.published.reorder(nil).in_reverse_chronological_order
   end
 
   def scheduled_editions
