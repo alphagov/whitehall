@@ -1,18 +1,20 @@
 <% page_title @attachment.title %>
 <% page_class "html-publications-show attachments-preview" %>
+<%
+  first_organisation = @edition.sorted_organisations.first
+%>
 
 <div class="block publication-external">
   <div class="inner-block floated-children">
-    <ul class="organisations-icon-list organisations">
-      <% @edition.sorted_organisations.each do |organisation| %>
-        <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
-          <%= link_to organisation_path(organisation),
-                      class: logo_classes(organisation: organisation, size: 'medium', stacked: true) do %>
-            <span><%= organisation_logo_name(organisation) %></span>
-          <% end %>
+    <% if first_organisation %>
+      <div class="<%= organisation_brand_colour_class(first_organisation) %>">
+        <%= link_to organisation_path(first_organisation),
+                    class: logo_classes(organisation: first_organisation, size: 'medium', stacked: true) do %>
+          <span><%= organisation_logo_name(first_organisation) %></span>
         <% end %>
-      <% end %>
-    </ul>
+      </div>
+      <% # there is a bug in ERB that throws a syntax error if this is not here %>
+    <% end %>
     <div class="return">
       <p><%= link_to "See more information about this #{@edition.display_type}", public_document_path(@edition) %></p>
     </div>
