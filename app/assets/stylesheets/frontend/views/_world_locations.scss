@@ -85,6 +85,13 @@
     overflow: hidden;
   }
 
+  .headings-block {
+    margin-bottom: $gutter;
+    @include media(tablet) {
+      margin-bottom: 0;
+    }
+  }
+
   .keyline-header {
     @include heading-36;
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
