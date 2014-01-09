@@ -1,8 +1,8 @@
 <%= render :layout => 'layouts/frontend_base', locals: {show_breadcrumbs: true, extra_body_class: 'detailed-guidance'} do %>
-  <div id="content" role="main" class="whitehall-content">
+  <main id="content" role="main" class="whitehall-content">
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>
       <div id="report-a-problem"></div>
     </div>
-  </div>
+  </main>
 <% end %>
