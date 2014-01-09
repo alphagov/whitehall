@@ -85,3 +85,14 @@ test("when there are two really long things, the second is hidden", function() {
   ok($('.long-words .other-content').children().length == 1);
 });
 
+test("when showCount is 2, it shows two things", function() {
+  $('.js-hide-other-links').hideOtherLinks({showCount: 2});
+  ok($('.animals').children('a').length == 3);
+  ok($('.animals .other-content').children().length == 2);
+});
+
+test("when showCount is 0, it hides everything", function() {
+  $('.js-hide-other-links').hideOtherLinks({showCount: 0});
+  ok($('.animals').children('a').length == 1);
+  ok($('.animals .other-content').children().length == 4);
+});

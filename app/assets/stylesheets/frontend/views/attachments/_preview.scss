@@ -40,4 +40,15 @@
     margin: $gutter 0 $gutter * 2;
   }
 
+  .other-organisations {
+    @include core-16;
+    margin: $gutter-half 0;
+    @include media(tablet) {
+      margin-bottom: 0;
+      width: $half;
+    }
+    .show-other-content {
+      text-decoration: none;
+    }
+  }
 }

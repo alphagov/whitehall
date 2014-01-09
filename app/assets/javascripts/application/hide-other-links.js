@@ -7,7 +7,11 @@
 (function($) {
   "use strict";
   $.fn.hideOtherLinks = function(options) {
-    var config = { linkElement: 'a', alwaysVisibleClass: '.always-visible' };
+    var config = {
+      linkElement: 'a',
+      alwaysVisibleClass: '.always-visible',
+      showCount: 1
+    };
     $.extend(config, options);
 
     $(this).each(function(i, elm){
@@ -19,18 +23,29 @@
           fullStop = false;
 
       // Don't hide 2 or fewer links if they're short
-      if ($el.children(config.linkElement).length <= 2 && $el.text().length <= 100) {
+      if (config.showCount > 0
+          && $el.children(config.linkElement).length <= 2
+          && $el.text().length <= 100) {
         return;
       }
 
+      var linksCount = 0;
+
       $($el.contents()).each(function(i, el) {
+        if (linksCount >= config.showCount
+            && $(el).is(config.linkElement)
+            && !$(el).is(config.alwaysVisibleClass)) {
+          currentlyAppending = hiddenElements;
+        }
+
         if (el.nodeValue && (el.nodeValue === "." || el.nodeValue.match(/^\s+$/))) {
           fullStop = (el.nodeValue === ".");
           return;
         }
         currentlyAppending.push(el);
-        if($(el).is(config.linkElement) && !$(el).next(config.linkElement).is(config.alwaysVisibleClass)) {
-          currentlyAppending = hiddenElements;
+
+        if ($(el).is(config.linkElement)) {
+          linksCount += 1;
         }
       });
 

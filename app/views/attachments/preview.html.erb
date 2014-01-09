@@ -1,18 +1,26 @@
 <% page_title @attachment.title %>
 <% page_class "html-publications-show attachments-preview" %>
+<% initialise_script "GOVUK.AttachmentsPreview", el: '.attachments-preview' %>
+<%
+  first_organisation = @edition.sorted_organisations.first
+  other_organisations = @edition.sorted_organisations - [first_organisation]
+%>
 
 <div class="block publication-external">
   <div class="inner-block floated-children">
-    <ul class="organisations-icon-list organisations">
-      <% @edition.sorted_organisations.each do |organisation| %>
-        <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
-          <%= link_to organisation_path(organisation),
-                      class: logo_classes(organisation: organisation, size: 'medium', stacked: true) do %>
-            <span><%= organisation_logo_name(organisation) %></span>
-          <% end %>
-        <% end %>
-      <% end %>
-    </ul>
+    <%- if first_organisation -%>
+      <div class="<%= organisation_brand_colour_class(first_organisation) %>">
+        <%= link_to organisation_path(first_organisation),
+                    class: logo_classes(organisation: first_organisation, size: 'medium', stacked: true) do %>
+          <span><%= organisation_logo_name(first_organisation) %></span>
+        <%- end -%>
+      </div>
+
+      <div class="other-organisations">
+        <%= organisations_link_sentence [], other_organisations %>
+      </div>
+
+    <%- end -%>
     <div class="return">
       <p><%= link_to "See more information about this #{@edition.display_type}", public_document_path(@edition) %></p>
     </div>
