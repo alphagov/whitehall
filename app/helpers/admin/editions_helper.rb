@@ -41,7 +41,7 @@ module Admin::EditionsHelper
   end
 
   def admin_organisation_filter_options(current_user)
-    organisations = Organisation.with_translations(:en).excluding_govuk_status_closed
+    organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed
     if current_user.organisation
         organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
@@ -49,7 +49,7 @@ module Admin::EditionsHelper
   end
 
   def admin_closed_organisation_filter_options()
-    organisations = Organisation.with_translations(:en).closed
+    organisations = Organisation.with_translations(:en).order(:name).closed
     [["All organisations", ""]] + organisations.map { |o| [o.name, o.id] }
   end
 
