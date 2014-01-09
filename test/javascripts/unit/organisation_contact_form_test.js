@@ -104,7 +104,7 @@ test("remove hides and blanks number when other numbers are visible", function()
   target = $('.contact_number').first()
   target.find('a.remove').click();
   equal(target.is(':visible'), false)
-  equal(target.find('input[value!=""]').length, 0)
+  equal(target.find('input').filter(function() { return this.value != ''; }).length, 0)
 })
 
 test("remove only blanks number when it's the last visible", function() {
@@ -112,5 +112,5 @@ test("remove only blanks number when it's the last visible", function() {
   target = $('.contact_number').last()
   target.find('a.remove').click();
   equal(target.is(':visible'), true)
-  equal(target.find('input[value!=""]').length, 0)
+  equal(target.find('input').filter(function() { return this.value != ''; }).length, 0)
 })

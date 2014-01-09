@@ -5,10 +5,12 @@ gem 'rake', '10.1.0'
 gem 'rails', '3.2.16'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
+gem 'delayed_job', '~> 4.0.0'
 gem 'delayed_job_active_record'
-gem 'jquery-rails', '1.0.19'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
-gem 'carrierwave', '0.8.0'
+gem 'carrierwave', '0.9.0'
 gem 'govspeak', '~> 1.2.4'
 gem 'kramdown', '~> 0.13.8'
 gem 'validates_email_format_of'
@@ -94,13 +96,8 @@ group :test_coverage do
 end
 
 group :cucumber do
-  gem 'cucumber', '~> 1.3.2'
-  gem 'cucumber-rails', '~> 1.3.1', require: false
+  gem 'cucumber-rails', '~> 1.4', require: false
   gem 'launchy', '~> 2.3.0'
   gem 'capybara', '~> 2.1.0'
   gem 'poltergeist', '~> 1.3.0'
-end
-
-group :router do
-  gem 'router-client', '~> 3.0.1', require: 'router'
 end

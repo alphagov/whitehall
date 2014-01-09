@@ -291,7 +291,7 @@ module ApplicationHelper
   end
 
   def path_to_image(source)
-    if source.starts_with?("/government/uploads") && user_signed_in?
+    if source && source.starts_with?("/government/uploads") && user_signed_in?
       source
     else
       super(source)

@@ -14,7 +14,7 @@ GOVUK.largeImportLogs = {
       return false;
     });
 
-    $('.large-data-link.loaded h2').live('click', function() {
+    $(document).on('click', '.large-data-link.loaded h2', function() {
       $(this).nextAll().slideToggle('fast');
     });
   }

@@ -5,7 +5,7 @@ end
 
 When(/^I assign the publicationesque to a topic$/) do
   visit edit_admin_publication_path(@edition)
-  select_from_chzn('edition_topic_ids', @topic.name)
+  select @topic.name, from: 'edition_topic_ids'
   click_button 'Save'
 end
 
@@ -21,7 +21,7 @@ end
 
 When(/^I assign the announcement to a policy with topics$/) do
   visit edit_admin_news_article_path(@edition)
-  select_from_chzn('edition_related_policy_ids', @policy.title)
+  select @policy.title, from: 'edition_related_policy_ids'
 end
 
 Then(/^the policy's topics will be copied from the policy to the announcement$/) do
