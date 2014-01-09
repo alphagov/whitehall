@@ -6,18 +6,20 @@ class EmailSignup
   extend ActiveModel::Naming
   include ActiveModel::Validations
 
-  def initialize(params)
-    @feed = Rack::Utils.unescape(params[:feed])
-    @feed = add_local_government(@feed) if params[:local_government] == '1'
+  def initialize(params = {})
+    if params[:feed]
+      @feed = Rack::Utils.unescape(params[:feed])
+      @feed = add_local_government(@feed) if params[:local_government] == '1'
+    end
   end
 
   attr_accessor :feed, :local_government
 
-  validate :valid_feed?
+  validate :validate_feed
 
   def self.create(*args)
     signup = new(*args)
-    signup.ensure_govdelivery_topic_exists
+    signup.ensure_govdelivery_topic_exists if signup.valid?
     signup
   end
 
@@ -45,7 +47,12 @@ protected
     "#{feed}#{param_character}relevant_to_local_government=1"
   end
 
-  def valid_feed?
+  def validate_feed
+    if @feed.nil?
+      errors.add('feed', 'is missing')
+      return
+    end
+
     if parsed_feed.scheme != 'https'
       errors.add('feed', "needs to start with https")
     end
@@ -58,8 +65,22 @@ protected
       errors.add('feed', "must be a /government URL")
     end
 
+    if parsed_feed.path =~ %r{^/government/(policies|people|ministers)/(.+)\.atom$}
+      errors.add('feed', "refers to #{$1} that don't exist") unless valid_slug?($1, $2)
+    end
+
     if invalid_params?
       errors.add('feed', "contains invalid filter options")
+    end
+  end
+
+  def valid_slug?(type, slug)
+    if type == 'policies'
+      Document.where(document_type: type.classify, slug: slug.split('/').first).published.any?
+    else
+      type = 'roles' if type == 'ministers'
+
+      type.classify.constantize.find_by_slug(slug).present?
     end
   end
 

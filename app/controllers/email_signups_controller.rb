@@ -8,7 +8,12 @@ class EmailSignupsController < PublicFacingController
 
   def create
     @email_signup = EmailSignup.create(params[:email_signup])
-    redirect_to @email_signup.govdelivery_url
+
+    if @email_signup.valid?
+      redirect_to @email_signup.govdelivery_url
+    else
+      render action: 'new'
+    end
   end
 
 end

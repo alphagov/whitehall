@@ -2,6 +2,11 @@ require 'test_helper'
 
 class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
 
+  test 'returns a blank string if given no URL' do
+    assert_equal '', Whitehall::DocumentFilter::Description.new('').text
+    assert_equal '', Whitehall::DocumentFilter::Description.new(nil).text
+  end
+
   test 'builds a human-readable description of a document filter using the filter drop-down texts' do
     publication_feed = "https://example.com/government/publications.atom?&departments%5B%5D=all&keywords=&official_document_status=all&publication_filter_option=closed-consultations&topics%5B%5D=all"
     description = Whitehall::DocumentFilter::Description.new(publication_feed)

@@ -8,12 +8,17 @@ module Whitehall
 
       def initialize(feed_url)
         @feed_url = feed_url
-        query = URI.parse(feed_url).query
-        @params = CGI.parse(query) if query
-        @options_manager = DocumentFilter::Options.new
+
+        unless feed_url.blank?
+          query = URI.parse(feed_url).query
+          @params = CGI.parse(query) if query
+          @options_manager = DocumentFilter::Options.new
+        end
       end
 
       def text
+        return '' if @feed_url.blank?
+
         if @feed_url =~ %r{(policies|ministers|people)/([\w-]+)}
           label_from_slug(type: $1, slug: $2)
         else
