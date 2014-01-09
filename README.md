@@ -5,6 +5,8 @@
 aims to bring Government departments online in a consistent and
 user-friendly manner. Documention can be found on [rdoc](http://rdoc.info/github/alphagov/whitehall/frames).
 
+[Contributing guide](https://github.com/alphagov/whitehall/blob/master/docs/CONTRIBUTING.md).
+
 ## Getting set-up locally
 
 ### Pre-requisites
