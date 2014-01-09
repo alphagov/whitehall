@@ -10,6 +10,8 @@
       this.showChangeNotesIfMajorChange();
       this.showFormatAdviceForSelectedSubtype();
       this.setupNonEnglishSupport();
+
+      GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
     },
 
     showChangeNotesIfMajorChange: function showChangeNotesIfMajorChange() {

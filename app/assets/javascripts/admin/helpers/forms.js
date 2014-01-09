@@ -4,6 +4,8 @@
 
   window.GOVUK.formsHelper = {
     init: function init() {
+      GOVUK.doubleClickProtection();
+      GOVUK.duplicateFields.init();
       this.initChznSelects();
     },
 
