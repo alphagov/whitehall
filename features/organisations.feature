@@ -29,6 +29,12 @@ Scenario: Featuring news on an organisation page
   When I stop featuring the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop"
   Then there should be nothing featured on the home page of "Ministry of Pop"
 
+@javascript
+Scenario: Filtering items to feature on an organisation page
+  Given an organisation and some documents exist
+  When I go to the organisation feature page
+  Then I can filter instantaneously the list of documents by title, author, organisation, and document type
+
 Scenario: Featuring a topical event on an organisation page
   Given the organisation "Ministry of Pop" exists
   And the topical event "G8" exists
