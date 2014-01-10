@@ -1,7 +1,6 @@
 class AboutPage < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include Searchable
-
-  attr_accessible :body, :name, :summary, :read_more_link_text
 
   belongs_to :topical_event
 

@@ -71,18 +71,6 @@ class UserTest < ActiveSupport::TestCase
     refute user.world_writer?
   end
 
-  test 'should not normally allow mass assignment of permissions' do
-    user = build(:user, permissions: [])
-    user.assign_attributes(permissions: ['Superuser'])
-    assert_equal [], user.permissions
-  end
-
-  test 'should allow gds-sso to mass assign permissions' do
-    user = build(:user, permissions: [])
-    user.assign_attributes({permissions: ['Superuser']}, as: :oauth)
-    assert_equal ['Superuser'], user.permissions
-  end
-
   test 'should not allow editing to just anyone' do
     user = build(:user)
     another_user = build(:user)

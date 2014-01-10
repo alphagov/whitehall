@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
+  # This stops the attr_accessible call in the SSO module messing things up
+  extend AttrAccessibleNoop
   include GDS::SSO::User
 
   belongs_to :organisation, foreign_key: :organisation_slug, primary_key: :slug
@@ -7,7 +11,6 @@ class User < ActiveRecord::Base
   has_many :world_locations, through: :user_world_locations
 
   serialize :permissions, Array
-  attr_accessible :world_location_ids
 
   validates :name, presence: true
   validates :email, email_format: { allow_blank: true }
