@@ -18,9 +18,7 @@ class Admin::UsersController < Admin::BaseController
       return
     end
 
-    params[:user][:world_location_ids] = [] unless params[:user][:world_location_ids]
-
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       redirect_to admin_user_path(@user), notice: "Your settings have been saved"
     else
       render action: "edit"
@@ -31,5 +29,11 @@ class Admin::UsersController < Admin::BaseController
 
   def load_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user)
+          .reverse_merge(world_location_ids: [])
+          .permit(world_location_ids: [])
   end
 end
