@@ -34,7 +34,7 @@
 
 <div class="row-fluid">
   <div class="span2">
-    <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by } %>
+    <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
   <div class="span10">
 
