@@ -8,9 +8,10 @@ module Whitehall
       end
 
       def perform(edition_id, notification_date, options = {})
+        options.symbolize_keys!
+
         edition = Edition.find(edition_id)
         endpoint = SubscriptionUrlGenerator.new(edition)
-
         email_formatter = EmailFormatter.new(edition, notification_date, options)
 
         Whitehall.govuk_delivery_client.notify(endpoint.subscription_urls, email_formatter.display_title, email_formatter.email_body)

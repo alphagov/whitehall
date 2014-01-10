@@ -42,12 +42,14 @@ When /^I tweak the title and summary to better reflect why it is interesting to 
 end
 
 When /^I decide the policy is ready to go out$/ do
+  visit admin_email_curation_queue_items_path
+
   within page.first('#email_curation_queue_items tr td.actions') do
     click_on 'Send'
   end
 end
 
-Then /^the policy is not listed on the email curation queue$/ do
+Then /^then the policy is not listed on the email curation queue$/ do
   within '#email_curation_queue_items' do
     assert page.has_no_link? 'View document', href: document_url(@the_local_government_edition, host: public_host_for_test)
   end
@@ -59,20 +61,22 @@ When /^I decide the policy is not relevant to subscribers and delete it$/ do
   end
 end
 
-Then /^the policy is sent to the notification service with the tweaked copy$/ do
-  found = RememberingWorker.memories.detect do |memory|
-    edition_id, _, options = *memory
-    edition_id == @the_local_government_edition.id &&
-    options["title"] == @tweaked_copy_for_the_local_government_edition[:title] &&
-    options["summary"] == @tweaked_copy_for_the_local_government_edition[:summary]
-  end
-  assert found, "Expected to find #{@the_local_government_edition} in the list of things gov uk delivery was notified about, but it was missing"
+Then /^the policy should be sent to the notification service with the tweaked copy$/ do
+  mock_client = mock
+  mock_client.stub_everything
+  Whitehall.stubs(govuk_delivery_client: mock_client)
+
+  mock_client.expects(:notify).with(
+    includes("https://#{Whitehall.public_host}/government/policies.atom?relevant_to_local_government=1"),
+    includes(@tweaked_copy_for_the_local_government_edition[:title]),
+    includes(@tweaked_copy_for_the_local_government_edition[:summary])
+  )
 end
 
-Then /^the policy is not sent to the notification service$/ do
-  found = RememberingWorker.memories.detect do |memory|
-    edition_id, _, options = *memory
-    edition_id == @the_local_government_edition.id
-  end
-  refute found, "Expected not to find #{@the_local_government_edition} in the list of things gov uk delivery was notified about, but we found it"
+Then /^the policy should not be sent to the notification service$/ do
+  mock_client = mock
+  mock_client.stub_everything
+  Whitehall.stubs(govuk_delivery_client: mock_client)
+
+  mock_client.expects(:notify).never
 end
