@@ -35,16 +35,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, type: :policy
   end
 
-  test 'should pass closed_organisation to filter organisation if organisation param not given' do
-    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("organisation" => "1")).returns(stub_edition_filter)
-    get :index, closed_organisation: '1'
-  end
-
-  test 'should favour organisation over closed_organisation' do
-    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("organisation" => "1")).returns(stub_edition_filter)
-    get :index, organisation: '1', closed_organisation: '2'
-  end
-
   view_test 'should distinguish between edition types when viewing the list of editions' do
     policy = create(:draft_policy)
     publication = create(:draft_publication)
