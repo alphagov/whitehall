@@ -1,0 +1,116 @@
+.document-show {
+  $published-colour: $green;
+  $draft-colour: $orange;
+
+  .edition {
+    @extend %contain-floats;
+
+    margin-bottom: 30px;
+
+    h3 {
+      @include core-27;
+      font-weight: bold;
+    }
+    .lead {
+      margin-bottom: 18px;
+    }
+    dl {
+      @include core-16;
+    }
+    dd,
+    dt {
+      float: left
+    }
+    dt {
+      clear: left;
+    }
+
+    .edition-actions {
+      @include core-16;
+      margin: 0 0 15px 0;
+
+      li {
+        padding-left: 15px;
+        margin-left: 15px;
+        border-left: 1px solid $border-colour;
+        display: inline-block;
+        list-style: none;
+
+        &:first-child {
+          padding-left: 0;
+          margin-left: 0;
+          border-left: 0;
+        }
+      }
+    }
+
+    h4 {
+      @include core-16;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-top: 5px;
+      border-top: 1px solid $border-colour;
+    }
+
+    .edition-history {
+      ul {
+        margin: 0;
+        list-style: none;
+      }
+    }
+  }
+
+  .latest-edition {
+    @extend %contain-floats;
+
+    h2 {
+      float: left;
+      @include core-16;
+      font-weight: normal;
+      padding: 5px 10px;
+      margin-bottom: 30px;
+      color: $secondary-text-colour;
+      border: 3px solid $secondary-text-colour;
+
+      &.published {
+        color: $published-colour;
+        border-color: $published-colour;
+      }
+      &.draft {
+        color: $draft-colour;
+        border-color: $draft-colour;
+      }
+    }
+  }
+
+  .previous-editions {
+    h1 {
+      @include core-19;
+      border-top: 3px solid $black;
+      padding: 5px 0;
+      font-weight: bold;
+    }
+
+    h2 {
+      background: $panel-colour;
+
+      a {
+        display: block;
+        padding: 10px;
+        cursor: pointer;
+      }
+      margin: 7px 0;
+
+      &.published {
+        background: $published-colour;
+        a {
+          color: white;
+        }
+      }
+    }
+
+    .edition {
+      margin-top: 15px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<div class="edition">
+  <h3><%= edition.title %></h3>
+  <p class="lead summary"><%= edition.summary %></p>
+  <dl class="clearfix">
+    <dt>Type of document:</dt>
+    <dd><%= edition_type(edition) %></dd>
+    <% if edition.respond_to?(:organisations) %>
+      <dt>Organisations:</dt>
+      <dd><%= edition.organisations.map { |o| o.name }.join(", ") %></dd>
+    <% end %>
+  </dl>
+  <ul class="edition-actions">
+    <li>
+      <% if edition.published? || edition.archived? %>
+        <%= link_to "View on website", public_document_url(edition), target: '_blank' %>
+      <% elsif edition.translatable? && edition.available_in_multiple_languages? %>
+        <% # TODO: multiple language dropdown %>
+        <%= link_to "Preview on website", preview_document_path(edition), target: '_blank' %>
+      <% else %>
+        <%= link_to "Preview on website", preview_document_path(edition), target: '_blank' %>
+      <% end %>
+    </li>
+    <% if edition.editable? %>
+      <li><%= link_to 'Edit draft', edit_admin_edition_path(edition) %></li>
+    <% end %>
+    <% if edition.can_delete? %>
+      <li><%= delete_edition_button(edition) %></li>
+    <% end %>
+  </ul>
+
+  <div class="edition-history">
+    <h4>Edition history:</h4>
+    <ul>
+      <% edition.edition_audit_trail.reverse_each do |entry| %>
+        <li><%= describe_audit_trail_entry entry %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

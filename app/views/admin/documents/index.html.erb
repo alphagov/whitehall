@@ -1,0 +1,5 @@
+<ul>
+  <% documents.each do |document| %>
+    <li><%= link_to document.slug, admin_document_path(document.id) %> (<%= document.editions.length %> editions)</li>
+  <% end %>
+</ul>

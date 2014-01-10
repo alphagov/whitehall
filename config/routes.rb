@@ -234,6 +234,8 @@ Whitehall::Application.routes.draw do
           resources :social_media_accounts
         end
 
+        resources :documents, only: [:index, :show]
+
         resources :editions, only: [:index] do
           member do
             post :submit, to: 'edition_workflow#submit'
