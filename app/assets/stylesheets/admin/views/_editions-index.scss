@@ -1,51 +1,5 @@
 .editions-index {
 
-  .editions-filter {
-    background-color: #f5f5f5;
-    margin-top: 0;
-    padding: $gutter-one-sixth $gutter-one-third;
-    h2 {
-      font-size: 19px;
-    }
-    .filter-grouping {
-      border-top: 1px solid #ddd;
-      padding: $gutter-one-sixth 0 $gutter-one-third 0;
-      label,
-      h3 {
-        font-size: 14px;
-        line-height: 27px;
-        margin-bottom: 0;
-        font-weight: bold;
-      }
-
-      input {
-        @include border-radius(0);
-        width: 95%;
-        padding: 6px;
-      }
-      // to align btn-enter with input
-      .btn-enter-wrapper {
-        position: relative;
-      }
-      input.btn-enter {
-        position: absolute;
-        top: 4px;
-        right: 3px;
-        width: 50px;
-        background: #999;
-        color: white;
-        border: none;
-        @include border-radius(3px);
-        margin: 0;
-        padding: 3px;
-      }
-
-      select {
-        width: 100%;
-      }
-    }
-  }
-
   .publishing-stats {
     font-size: 16px;
     text-align: right;

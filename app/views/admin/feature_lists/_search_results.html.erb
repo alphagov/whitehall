@@ -1,0 +1,3 @@
+<p><strong><%= @filter.page_title %>:</strong></p>
+
+<%= render partial: 'admin/feature_lists/featurable_editions', locals: { feature_list: feature_list, featurable_editions: @filter.editions(feature_list.locale) } %>

@@ -1,8 +1,9 @@
+<% initialise_script "GOVUK.AdminEditionsIndex", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
 <%
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date]
   raise "filter action required" unless defined?(filter_action)
 %>
-<form class="editions-filter js-editions-filter-form" method="get" action="<%= filter_action %>">
+<form class="filter-options js-editions-filter-form" method="get" action="<%= filter_action %>">
   <h2>Filter list by:</h2>
 
   <% if filter_by.include?(:title) %>
