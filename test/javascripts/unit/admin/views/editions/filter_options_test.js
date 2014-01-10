@@ -1,4 +1,4 @@
-module("adminEditionsIndex", {
+module("FilterOptions", {
   setup: function(){
     $('#qunit-fixture').append('\
       <form class="filter-options js-editions-filter-form" action="/government/admin/editions" method="get">\
@@ -25,7 +25,7 @@ module("adminEditionsIndex", {
 });
 
 test("It gets using serialized form as data", function(){
-  var subject = new GOVUK.AdminEditionsIndex({
+  var subject = new GOVUK.FilterOptions({
     filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
@@ -40,7 +40,7 @@ test("It gets using serialized form as data", function(){
 });
 
 test("It renders response to #search_results", function() {
-  var subject = new GOVUK.AdminEditionsIndex({
+  var subject = new GOVUK.FilterOptions({
     filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
@@ -53,8 +53,8 @@ test("It renders response to #search_results", function() {
 });
 
 test("It gets results when a form select changes", function(){
-  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResultsWithNoRepeatProtection');
-  var subject = new GOVUK.AdminEditionsIndex({
+  var spy = this.stub(GOVUK.FilterOptions.prototype, 'updateResultsWithNoRepeatProtection');
+  var subject = new GOVUK.FilterOptions({
     filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
@@ -65,8 +65,8 @@ test("It gets results when a form select changes", function(){
 });
 
 test("It shows an enter button when a text input is changed, and then updates results when that's clicked", function() {
-  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResultsWithNoRepeatProtection');
-  var subject = new GOVUK.AdminEditionsIndex({
+  var spy = this.stub(GOVUK.FilterOptions.prototype, 'updateResultsWithNoRepeatProtection');
+  var subject = new GOVUK.FilterOptions({
     filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
