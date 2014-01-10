@@ -204,10 +204,10 @@ class Admin::EditionsController < Admin::BaseController
   def delete_absent_edition_organisations
     return unless params[:edition]
     if params[:edition][:lead_organisation_ids]
-      params[:edition][:lead_organisation_ids].delete_if { |org_id| org_id.blank? }
+      params[:edition][:lead_organisation_ids] = params[:edition][:lead_organisation_ids].reject(&:blank?)
     end
     if params[:edition][:supporting_organisation_ids]
-      params[:edition][:supporting_organisation_ids].delete_if { |org_id| org_id.blank? }
+      params[:edition][:supporting_organisation_ids] = params[:edition][:supporting_organisation_ids].reject(&:blank?)
     end
   end
 
