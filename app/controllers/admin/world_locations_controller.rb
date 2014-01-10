@@ -15,14 +15,21 @@ class Admin::WorldLocationsController < Admin::BaseController
 
   def features
     @feature_list = @world_location.load_or_create_feature_list(params[:locale])
-    filter_params = params.slice(:page, :type, :world_location_ids, :title).
-      reverse_merge(world_location_ids: [@world_location.id]).
-      merge(state: 'published')
+
+    filter_params = default_filter_params
+      .merge(params.slice(:page, :type, :world_location, :title).symbolize_keys)
+      .merge(state: 'published')
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = []
   end
 
   private
+
+  def default_filter_params
+    {
+      world_location: @world_location.id
+    }
+  end
 
   def load_world_location
     @world_location = WorldLocation.find(params[:id] || params[:world_location_id])
