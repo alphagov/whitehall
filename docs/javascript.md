@@ -79,14 +79,14 @@ One of the main problems with the prototype / constructor pattern is the need to
     };
 
     SillyRedButton.prototype.makeSillyNoise = function makeSillyNoise() {
-      this.playSoundFile("a_silly_noise");
+      this.playSoundEffect("a_silly_noise");
     };
 
     SillyRedButton.prototype.playSoundEffect = function playSoundEffect(soundEffect) {
       SomeSoundLibrary.play(soundEffect);
     };
 
-This script will break on the call `this.playSoundFile()` because that function will be called in the context of the button clicked on, not the constructed object. GOVUK.Proxifier can make this problem go away with a single call in the constructor function and no further changes to the script:
+This script will break on the call `this.playSoundEffect()` because that function will be called in the context of the button clicked on, not the constructed object. GOVUK.Proxifier can make this problem go away with a single call in the constructor function and no further changes to the script:
 
     function SillyRedButton(options) {
       GOVUK.Proxifier.proxifyAllMethods(this);
@@ -94,7 +94,7 @@ This script will break on the call `this.playSoundFile()` because that function 
     };
 
     SillyRedButton.prototype.makeSillyNoise = function makeSillyNoise() {
-      this.playSoundFile("a_silly_noise");
+      this.playSoundEffect("a_silly_noise");
     };
 
     SillyRedButton.prototype.playSoundEffect = function playSoundEffect(soundEffect) {
@@ -129,13 +129,17 @@ Each JavaScript object should be stored in its own file with a filename reflecti
 
     ./helpers/
     ./frontend/views/
+    ./frontend/modules/
     ./frontend/helpers/
     ./admin/views/
+    ./admin/modules/
     ./admin/helpers/
 
-Views are view-specific scripts and as with the css, their file path and name should exactly mirror the view template or partial it applies to.
+__Views__ are view-specific scripts and as with the css, their file path and name should exactly mirror the view template or partial it applies to. The name of the script object should reflect the whole view path (the object in `/admin/editions/index.js` should be called `GOVUK.adminEditionsIndex`).
 
-Helpers are scripts which cannot be associated with any particular view.  These may be scripts which are loaded everywhere (such as the script which prevents forms from being submited twice), or may be scripts which apply to multiple different not-necessarily-related views.
+__Modules__ are re-useable things. An example of a module would be the script for a tabbed content block. Modules should not be initialised globaly, and should only be initialised when needed, by the layout / partial which needs it (see script initialisation). If a script is only ever going to be used in one place, don't make it a module.
+
+__Helpers__ are scripts which are loaded everywhere (such as the script which prevents forms from being submited twice).
 
 Namespaces should be kept simple and all constructors should be under `GOVUK`. The JavaScript layer is thin for whitehall and so (at least at present) there's no need to use deeper namespaces.
 
