@@ -317,6 +317,10 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     statsd-ruby (1.2.1)
+    strong_parameters (0.2.2)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      railties (~> 3.0)
     subexec (0.2.3)
     test-queue (0.1.3)
     thin (1.5.1)
@@ -420,6 +424,7 @@ DEPENDENCIES
   slimmer (= 3.25.0)
   slop (= 3.4.5)
   statsd-ruby (~> 1.2.1)
+  strong_parameters
   test-queue
   test_track (~> 0.1.0)!
   thin (= 1.5.1)
