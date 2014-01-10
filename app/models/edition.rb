@@ -481,6 +481,15 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def version_number
+    number = 1
+    document.editions.order(:id).each do |edition|
+      break if self.id == edition.id
+      number += 1
+    end
+    number
+  end
+
   def is_latest_edition?
     latest_edition == self
   end
