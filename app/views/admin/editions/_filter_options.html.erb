@@ -1,4 +1,4 @@
-<% initialise_script "GOVUK.AdminEditionsIndex", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
+<% initialise_script "GOVUK.FilterOptions", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
 <%
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date]
   raise "filter action required" unless defined?(filter_action)

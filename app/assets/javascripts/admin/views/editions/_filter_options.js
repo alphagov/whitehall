@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {};
 
-  function AdminEditionsIndex(options) {
+  function FilterOptions(options) {
     GOVUK.Proxifier.proxifyAllMethods(this);
 
     var self = this;
@@ -21,17 +21,17 @@
       return new self.TextFieldHandler({
         form: self.$filterForm,
         el: this,
-        adminEditionsIndex: self
+        filterOptions: self
       });
     });
   }
 
-  AdminEditionsIndex.prototype.updateResultsWithNoRepeatProtection = function updateResultsWithNoRepeatProtection() {
+  FilterOptions.prototype.updateResultsWithNoRepeatProtection = function updateResultsWithNoRepeatProtection() {
     if ( this.updateTimeout ) window.clearTimeout(this.updateTimeout);
     this.updateTimeout = window.setTimeout(this.updateResults, 10);
   };
 
-  AdminEditionsIndex.prototype.updateResults = function updateResults(skipAntiRepeat) {
+  FilterOptions.prototype.updateResults = function updateResults(skipAntiRepeat) {
     this.$searchResults.fadeTo(0.4, 0.6);
 
     if ( this.activeRequest ) this.activeRequest.abort();
@@ -43,14 +43,14 @@
     });
   }
 
-  AdminEditionsIndex.prototype.renderResults = function renderResults(resultHtml) {
+  FilterOptions.prototype.renderResults = function renderResults(resultHtml) {
     this.$searchResults.fadeTo(0.1, 1.0);
     this.activeRequest = null;
     this.$searchResults.html(resultHtml);
   }
 
-  AdminEditionsIndex.prototype.TextFieldHandler = function TextFieldHandler(args) {
-    var adminEditionsIndex = args.adminEditionsIndex
+  FilterOptions.prototype.TextFieldHandler = function TextFieldHandler(args) {
+    var filterOptions = args.filterOptions
     var $form = $(args.form);
     var $el = $(args.el);
     var $field = $('input[type=search], input[type=text]', $el);
@@ -71,9 +71,9 @@
 
     function commitField() {
       hideCommitButton();
-      adminEditionsIndex.updateResultsWithNoRepeatProtection();
+      filterOptions.updateResultsWithNoRepeatProtection();
     }
   }
 
-  GOVUK.AdminEditionsIndex = AdminEditionsIndex;
+  GOVUK.FilterOptions = FilterOptions;
 }());
