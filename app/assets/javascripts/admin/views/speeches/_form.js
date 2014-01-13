@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {};
 
-  function AdminSpeechForm(options) {
+  function AdminSpeechesForm(options) {
     GOVUK.Proxifier.proxifyAllMethods(this);
 
     this.$el = $(options.el);
@@ -16,7 +16,7 @@
     this.updateSpeechHeaders();
   }
 
-  AdminSpeechForm.prototype.updateSpeechHeaders = function updateSpeechHeaders() {
+  AdminSpeechesForm.prototype.updateSpeechHeaders = function updateSpeechHeaders() {
     var chosenType = this.$speechTypeSelect.val() || '';
     var labels = this.speechTypeLabels[chosenType];
 
@@ -30,5 +30,5 @@
     }
   };
 
-  GOVUK.AdminSpeechForm = AdminSpeechForm;
+  GOVUK.AdminSpeechesForm = AdminSpeechesForm;
 }());

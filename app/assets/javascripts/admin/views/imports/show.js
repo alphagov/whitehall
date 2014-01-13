@@ -2,9 +2,9 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var adminImportsShowPage = {
+  var adminImportsShow = {
     init: function init(params) {
-      adminImportsShowPage.handleLargeImportLogs($('.large-data-set'));
+      adminImportsShow.handleLargeImportLogs($('.large-data-set'));
     },
 
     handleLargeImportLogs: function($largeDataLinks) {
@@ -28,5 +28,5 @@
     }
   }
 
-  window.GOVUK.adminImportsShowPage = adminImportsShowPage;
+  window.GOVUK.adminImportsShow = adminImportsShow;
 })();

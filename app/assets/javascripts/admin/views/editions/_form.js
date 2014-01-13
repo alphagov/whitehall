@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var editionForm = {
+  var adminEditionsForm = {
     init: function init(params) {
       this.$form = $(params.selector);
       this.rightToLeftLocales = params.right_to_left_locales;
@@ -86,7 +86,7 @@
 
         // setup observer to apply right-to-left classes as appropriate
         $('#edition_locale').change(function () {
-          if ( $.inArray($(this).val(), GOVUK.editionForm.rightToLeftLocales) > -1) {
+          if ( $.inArray($(this).val(), GOVUK.adminEditionsForm.rightToLeftLocales) > -1) {
             $form.find('fieldset').addClass('right-to-left');
           } else {
             $form.find('fieldset').removeClass('right-to-left');
@@ -97,5 +97,5 @@
     }
   }
 
-  window.GOVUK.editionForm = editionForm;
+  window.GOVUK.adminEditionsForm = adminEditionsForm;
 })();

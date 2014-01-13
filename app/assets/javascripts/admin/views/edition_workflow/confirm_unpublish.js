@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var confirmUnpublishForm = {
+  var adminEditionWorkflowConfirmUnpublish = {
     init: function(params) {
       this.unpublishReasonIds = params.unpublish_reason_ids
 
@@ -16,17 +16,17 @@
     revealCorrectForm: function() {
       var selectedReasonId = $("input[name='unpublishing_reason_id']:checked").val()-0;
       switch(selectedReasonId) {
-        case confirmUnpublishForm.unpublishReasonIds.Archived:
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Archived:
           $('#js-archive-form').show();
           $('#js-published-in-error-form').hide();
           $('#js-consolidated-form').hide();
           break;
-        case confirmUnpublishForm.unpublishReasonIds.PublishedInError:
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.PublishedInError:
           $('#js-archive-form').hide();
           $('#js-published-in-error-form').show();
           $('#js-consolidated-form').hide();
           break;
-        case confirmUnpublishForm.unpublishReasonIds.Consolidated:
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Consolidated:
           $('#js-archive-form').hide();
           $('#js-published-in-error-form').hide();
           $('#js-consolidated-form').show();
@@ -43,5 +43,5 @@
     }
   };
 
-  window.GOVUK.confirmUnpublishForm = confirmUnpublishForm;
+  window.GOVUK.adminEditionWorkflowConfirmUnpublish = adminEditionWorkflowConfirmUnpublish;
 }());

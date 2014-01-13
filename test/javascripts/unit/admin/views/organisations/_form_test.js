@@ -7,6 +7,6 @@ module("admin-organisations-form", {
 test("Should hide child elements", function() {
   var $select = $('.organisation_govuk_status'),
       $group = $('#js-organisation-closed-at-group');
-  GOVUK.organisationForm.init();
+  GOVUK.organisationsForm.init();
   ok($group.find('*').is(':hidden'));
 });

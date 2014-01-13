@@ -1,4 +1,4 @@
-<% initialise_script "GOVUK.AttachmentForm" %>
+<% initialise_script "GOVUK.AdminAttachmentsForm" %>
 
 <%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment do |form| %>
   <%= form.errors %>

@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var adminEditionsDiffPage = {
+  var adminEditionsDiff = {
     init: function init(params) {
       GOVUK.diff('title');
       GOVUK.diff('summary');
@@ -10,5 +10,5 @@
     }
   }
 
-  window.GOVUK.adminEditionsDiffPage = adminEditionsDiffPage;
+  window.GOVUK.adminEditionsDiff = adminEditionsDiff;
 })();

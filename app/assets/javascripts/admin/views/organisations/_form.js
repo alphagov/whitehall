@@ -2,11 +2,11 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var organisationForm = {
+  var organisationsForm = {
     init: function init(params) {
       $().ready(function($) {
-        organisationForm.hideClosedAtDates();
-        organisationForm.toggleCustomLogoField();
+        organisationsForm.hideClosedAtDates();
+        organisationsForm.toggleCustomLogoField();
       });
     },
 
@@ -58,5 +58,5 @@
     }
   }
 
-  window.GOVUK.organisationForm = organisationForm;
+  window.GOVUK.organisationsForm = organisationsForm;
 })();

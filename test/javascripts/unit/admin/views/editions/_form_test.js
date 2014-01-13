@@ -18,7 +18,7 @@ module("admin-edition-form: ", {
         '</fieldset>' +
       '</form>');
 
-    GOVUK.editionForm.init({
+    GOVUK.adminEditionsForm.init({
       selector: 'form#non-english',
       right_to_left_locales:["ar"]
     });

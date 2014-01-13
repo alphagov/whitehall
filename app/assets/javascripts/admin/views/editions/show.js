@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var adminEditionShowPage = {
+  var adminEditionShow = {
     init: function init(params) {
       this.hideExtraInboundLinks();
     },
@@ -12,5 +12,5 @@
     }
   }
 
-  window.GOVUK.adminEditionShowPage = adminEditionShowPage;
+  window.GOVUK.adminEditionShow = adminEditionShow;
 })();
