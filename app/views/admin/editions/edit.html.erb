@@ -22,8 +22,9 @@
   </section>
 <% else %>
   <div class="span8">
+    <%= link_to "Back to document", admin_document_path(@edition.document) %>
     <section>
-      <h1>Edit <%= @edition.type.underscore.humanize.downcase %></h1>
+      <h1>Edit draft of edition <%= @edition.version_number %></h1>
 
       <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
       <%= render "form", edition: @edition %>
