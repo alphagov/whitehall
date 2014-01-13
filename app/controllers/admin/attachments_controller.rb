@@ -60,23 +60,40 @@ private
   end
 
   def build_html_attachment
-    attributes = params.fetch(:attachment, {}).merge(attachable: attachable)
-    HtmlAttachment.new(attributes)
+    HtmlAttachment.new(html_attachment_params)
   end
 
   def build_file_attachment
-    attributes = params.fetch(:attachment, {}).merge(attachable: attachable)
-    attributes.reverse_merge!(attachment_data: AttachmentData.new)
-    FileAttachment.new(attributes)
+    FileAttachment.new(file_attachment_params)
   end
 
   def attachment_params
-    data_attributes = params[:attachment][:attachment_data_attributes]
-    if data_attributes && data_attributes[:file]
-      params[:attachment]
-    else
-      params[:attachment].except(:attachment_data_attributes)
+    attributes = permitted_params
+
+    unless attributes.fetch(:attachment_data_attributes, {}).fetch(:file, false)
+      attributes.delete(:attachment_data_attributes)
     end
+
+    attributes
+  end
+
+  def permitted_params
+    params.fetch(:attachment, {}).permit(
+      :title, :body, :locale, :isbn, :unique_reference, :command_paper_number,
+      :unnumbered_command_paper, :hoc_paper_number, :unnumbered_hoc_paper,
+      :parliamentary_session, :order_url, :price, :accessible,
+      :manually_numbered_headings,
+      attachment_data_attributes: [:file, :to_replace_id, :file_cache]
+    )
+  end
+
+  def html_attachment_params
+    attachment_params.merge(attachable: attachable)
+  end
+
+  def file_attachment_params
+    attachment_params.merge(attachable: attachable)
+                     .reverse_merge(attachment_data: AttachmentData.new)
   end
 
   def html?
