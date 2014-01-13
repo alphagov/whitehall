@@ -15,7 +15,7 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
   end
 
   def update
-    if @translated_corporate_information_page.update_attributes(params[:corporate_information_page])
+    if @translated_corporate_information_page.update_attributes(corporate_information_page_params)
       redirect_to [:admin, @organisational_entity, @translated_corporate_information_page, :translations],
         notice: notice_message("saved")
     else
@@ -56,5 +56,9 @@ class Admin::CorporateInformationPagesTranslationsController < Admin::BaseContro
 
   def corporate_information_page
     @corporate_information_page ||= organisational_entity.corporate_information_pages.find(params[:corporate_information_page_id])
+  end
+
+  def corporate_information_page_params
+    params.require(:corporate_information_page).permit(:body, :summary)
   end
 end

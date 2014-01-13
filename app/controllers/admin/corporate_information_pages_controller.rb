@@ -25,7 +25,7 @@ class Admin::CorporateInformationPagesController < Admin::BaseController
   end
 
   def update
-    if @corporate_information_page.update_attributes(params[:corporate_information_page])
+    if @corporate_information_page.update_attributes(corporate_information_page_params)
       redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} updated successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
@@ -58,7 +58,7 @@ private
   end
 
   def build_corporate_information_page
-    @corporate_information_page ||= @organisation.corporate_information_pages.build(params[:corporate_information_page])
+    @corporate_information_page ||= @organisation.corporate_information_pages.build(corporate_information_page_params)
   end
 
   def find_organisation
@@ -70,5 +70,11 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
+  end
+
+  def corporate_information_page_params
+    params.fetch(:corporate_information_page, {}).permit(
+      :body, :type_id, :summary, :lock_version
+    )
   end
 end
