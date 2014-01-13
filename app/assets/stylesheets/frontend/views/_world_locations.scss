@@ -90,6 +90,30 @@
     @include media(tablet) {
       margin-bottom: 0;
     }
+    .heading-extra {
+      .top-tasks {
+        @include core-16;
+        ul {
+          li {
+            list-style: none;
+            margin-bottom: $gutter-one-sixth;
+
+            a[rel="external"] {
+              @include external-link-14-bold-no-hover;
+              @include media(tablet) {
+                @include external-link-16-bold-no-hover;
+              }
+            }
+          }
+        }
+        @include media(tablet) {
+          padding-left: 0;
+        }
+      }
+      .available-languages {
+        margin-left: 0;
+      }
+    }
   }
 
   .keyline-header {
@@ -97,24 +121,6 @@
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;
   }
-
-  .top-tasks {
-    @include core-16;
-    ul {
-      li {
-        list-style: none;
-        margin-bottom: $gutter-one-sixth;
-
-        a[rel="external"] {
-          @include external-link-14-bold-no-hover;
-          @include media(tablet) {
-            @include external-link-16-bold-no-hover;
-          }
-        }
-      }
-    }
-  }
-
 
   .news-block {
     .inner-block {
