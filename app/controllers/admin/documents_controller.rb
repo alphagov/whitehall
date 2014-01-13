@@ -26,4 +26,14 @@ private
   def editions
     document.editions.order('id desc')
   end
+
+  def publisher
+    @publisher ||= Whitehall.edition_services.publisher(latest_edition)
+  end
+  helper_method :publisher
+
+  def force_publisher
+    @force_publisher ||= Whitehall.edition_services.force_publisher(latest_edition)
+  end
+  helper_method :force_publisher
 end

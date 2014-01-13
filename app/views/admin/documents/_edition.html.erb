@@ -23,6 +23,15 @@
     <% if edition.editable? %>
       <li><%= link_to 'Edit draft', edit_admin_edition_path(edition) %></li>
     <% end %>
+    <% if edition.can_submit? %>
+      <li><%= submit_edition_button(edition) %></li>
+    <% end %>
+    <% if publisher.can_perform? && can?(:publish, edition) %>
+      <li><%= publish_edition_form(edition) %></li>
+    <% elsif force_publisher.can_perform? && can?(:force_publish, edition) %>
+      <%= render "force_publish_modal", edition: edition, extra_css_classes: "hide" %>
+      <li><%= publish_edition_form(edition, force: true) %></li>
+    <% end %>
     <% if edition.can_delete? %>
       <li><%= delete_edition_button(edition) %></li>
     <% end %>
