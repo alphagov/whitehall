@@ -1,33 +1,40 @@
-<div class="document-show">
-  <div class="latest-edition">
-    <h2 class="<%= latest_edition.state %>">
-      <strong>Edition <%= latest_edition.version_number %></strong>
-      <% if latest_edition.published? %>
-        (currently published)
-      <% elsif latest_edition.draft? %>
-        (draft)
-      <% end %>
-    </h2>
-  </div>
+<div class="document-show row-fluid">
+  <div class="span9">
+    <div class="latest-edition">
+      <h2 class="<%= latest_edition.state %>">
+        <strong>Edition <%= latest_edition.version_number %></strong>
+        <% if latest_edition.published? %>
+          (currently published)
+        <% elsif latest_edition.draft? %>
+          (draft)
+        <% end %>
+      </h2>
+    </div>
 
-  <%= render "edition", edition: latest_edition %>
+    <%= render "edition", edition: latest_edition %>
 
-  <div class="previous-editions">
-    <h1>Previous editions</h1>
-    <% if previous_editions %>
-      <% previous_editions.each do |edition| %>
-        <h2 class="<%= edition.state %>">
-          <a data-target="#<%= dom_id(edition) %>" data-toggle="collapse">
-            Edition <%= edition.version_number %>
-            <% if edition.published? %>
-              (currently published)
-            <% end %>
-          </a>
-        </h2>
-        <%= content_tag_for :div, edition, class: "collapse" do %>
-          <%= render "edition", edition: edition %>
+    <div class="previous-editions">
+      <h1>Previous editions</h1>
+      <% if previous_editions %>
+        <% previous_editions.each do |edition| %>
+          <h2 class="<%= edition.state %>">
+            <a data-target="#<%= dom_id(edition) %>" data-toggle="collapse">
+              Edition <%= edition.version_number %>
+              <% if edition.published? %>
+                (currently published)
+              <% end %>
+            </a>
+          </h2>
+          <%= content_tag_for :div, edition, class: "collapse" do %>
+            <%= render "edition", edition: edition %>
+          <% end %>
         <% end %>
       <% end %>
+    </div>
+  </div>
+  <div class="span3">
+    <% if latest_edition.published? %>
+      <%= button_to 'Create new draft edition', revise_admin_edition_path(latest_edition), title: "Create new draft edition", class: "btn btn-danger" %>
     <% end %>
   </div>
 </div>

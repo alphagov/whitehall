@@ -103,12 +103,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def revise
     new_draft = @edition.create_draft(current_user)
-    if new_draft.persisted?
-      redirect_to edit_admin_edition_path(new_draft)
-    else
-      redirect_to edit_admin_edition_path(@edition.document.latest_edition),
-        alert: new_draft.errors.full_messages.to_sentence
-    end
+    redirect_to admin_document_path(@edition.document.id)
   end
 
   def diff
@@ -119,9 +114,9 @@ class Admin::EditionsController < Admin::BaseController
   def destroy
     edition_deleter = Whitehall.edition_services.deleter(@edition)
     if edition_deleter.perform!
-      redirect_to admin_editions_path, notice: "The document '#{@edition.title}' has been deleted"
+      redirect_to admin_document_path(@edition.document.id), notice: "Edition #{@edition.version_number} has been deleted"
     else
-      redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
+      redirect_to admin_document_path(@edition.document.id), alert: edition_deleter.failure_reason
     end
   end
 

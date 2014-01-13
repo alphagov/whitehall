@@ -1,6 +1,6 @@
 .document-show {
   $published-colour: $green;
-  $draft-colour: $orange;
+  $draft-colour: $red;
 
   .edition {
     @extend %contain-floats;
