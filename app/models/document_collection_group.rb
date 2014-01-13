@@ -1,6 +1,4 @@
 class DocumentCollectionGroup < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   belongs_to :document_collection
   has_many :memberships, class_name: 'DocumentCollectionGroupMembership',
                          order: 'document_collection_group_memberships.ordering',

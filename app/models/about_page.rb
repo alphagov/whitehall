@@ -1,5 +1,4 @@
 class AboutPage < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
   include Searchable
 
   belongs_to :topical_event

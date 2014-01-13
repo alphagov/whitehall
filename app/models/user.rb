@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
-
   # This stops the attr_accessible call in the SSO module messing things up
   extend AttrAccessibleNoop
   include GDS::SSO::User
