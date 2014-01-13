@@ -1,3 +1,12 @@
+# Whitehall contributing guide
+
+This guide covers the basics of how to contribute to the Whitehall project.
+
+Ruby code should follow the rules below and also follow the [testing guideline
+s](https://github.com/alphagov/whitehall/tree/master/docs/testing.md).
+
+Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree/master/docs/css.md) and [javascript](https://github.com/alphagov/whitehall/tree/master/docs/javascript.md) guidelines.
+
 ## Git workflow ##
 
 - Make a feature branch
@@ -27,18 +36,4 @@
   - Then any scopes
   - Then validations
   - Then code
-
-## Testing ##
-
-Write tests.
-
-### Cucumber ###
-
-- Only test the "happy path" behaviour, not exceptional behaviour.
-- Only describe things that should *happen*, not things that shouldn't.
-- Prefer large descriptive steps to small reusable ones.  DRY can be achieved at the Ruby level.
-- Prefer steps written at a high level of abstraction.
-- Write steps to be independent, not relying on the user being on a certain page.
-- Avoid testing negatives; these are better tested in functional/unit tests.
-- Avoid testing incidental behaviour (e.g. flash messages); these are better tested in functional/unit tests.
-- Never call a cucumber step from within another one; extract the behaviour into a method which can be called from both.
+- Follow the [GOV.UK Ruby styleguide](https://github.com/alphagov/styleguides/blob/master/ruby.md)
