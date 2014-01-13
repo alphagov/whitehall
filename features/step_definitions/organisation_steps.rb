@@ -519,3 +519,53 @@ Then /^I can not see information about uk aid on the "(.*?)" page$/ do |org_name
   assert page.has_no_css?('.uk-aid')
 end
 
+Given(/^an organisation and some documents exist$/) do
+  @organisation = create(:ministerial_department)
+  @organisation2 = create(:ministerial_department)
+  @author1 = create(:departmental_editor)
+  @author2 = create(:departmental_editor)
+  @documents = [
+    create(:published_news_article, title: "DOC1", organisations: [@organisation], creator: @author1),
+    create(:published_news_article, title: "DOC2", organisations: [@organisation2], creator: @author1),
+    create(:published_consultation, title: "DOC3", organisations: [@organisation2], creator: @author2)
+  ]
+end
+
+When(/^I go to the organisation feature page$/) do
+  visit admin_organisation_path(@organisation)
+  click_link "Featured documents"
+end
+
+Then(/^I can filter instantaneously the list of documents by title, author, organisation, and document type$/) do
+  fill_in "title", with: @documents.first.title
+  click_on "enter"
+  within "#search_results" do
+    assert page.has_css?(record_css_selector(@documents[0]))
+    assert page.has_no_css?(record_css_selector(@documents[1]))
+    assert page.has_no_css?(record_css_selector(@documents[2]))
+  end
+  click_link "Reset all fields"
+  within "#search_results" do
+    assert page.has_css?(record_css_selector(@documents[0]))
+    assert page.has_css?(record_css_selector(@documents[1]))
+    assert page.has_css?(record_css_selector(@documents[2]))
+  end
+  select @organisation2.name, from: "organisation"
+  within "#search_results" do
+    assert page.has_no_css?(record_css_selector(@documents[0]))
+    assert page.has_css?(record_css_selector(@documents[1]))
+    assert page.has_css?(record_css_selector(@documents[2]))
+  end
+  select @author2.name, from: "author"
+  within "#search_results" do
+    assert page.has_no_css?(record_css_selector(@documents[0]))
+    assert page.has_no_css?(record_css_selector(@documents[1]))
+    assert page.has_css?(record_css_selector(@documents[2]))
+  end
+  select "News articles", from: "type"
+  within "#search_results" do
+    assert page.has_no_css?(record_css_selector(@documents[0]))
+    assert page.has_no_css?(record_css_selector(@documents[1]))
+    assert page.has_no_css?(record_css_selector(@documents[2]))
+  end
+end

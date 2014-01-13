@@ -1,10 +1,8 @@
-<% initialise_script "GOVUK.AdminEditionsIndex", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
-
 <% page_title @filter.page_title %>
 <section class="editions-index">
   <div class="row-fluid">
     <div class="span3">
-      <%= render 'filter_options' %>
+      <%= render partial: 'filter_options', locals: {filter_action: admin_editions_path} %>
     </div>
 
     <%= render 'search_results' %>

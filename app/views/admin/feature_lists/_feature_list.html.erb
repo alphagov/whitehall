@@ -34,13 +34,10 @@
 
 <div class="row-fluid">
   <div class="span2">
-    <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by } %>
+    <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
-  <div class="span10">
-
-    <p><strong><%= @filter.page_title %>:</strong></p>
-
-    <%= render partial: 'admin/feature_lists/featurable_editions', locals: { feature_list: feature_list, featurable_editions: @filter.editions(feature_list.locale) } %>
+  <div class="span10" id="search_results">
+    <%= render partial: "admin/feature_lists/search_results", locals: {feature_list: feature_list} %>
   </div>
 </div>
 

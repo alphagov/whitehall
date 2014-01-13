@@ -52,7 +52,10 @@ def feature_news_article_in_world_location(news_article_title, world_location_na
   click_link "Features (#{locale})"
   locale = Locale.find_by_language_name(locale)
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
-  fill_in 'title', with: news_article.title.split.first
+  within ".filter-options" do
+    select "All locations", from: :world_location
+    click_button "Search"
+  end
   within record_css_selector(news_article) do
     click_link "Feature"
   end

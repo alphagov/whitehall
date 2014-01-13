@@ -96,15 +96,23 @@ module Admin
       editions = @source
       editions = editions.by_type(type) if type
       editions = editions.by_subtype(type, subtype) if subtype
-      editions = editions.__send__(options[:state]) if options[:state]
-      editions = editions.authored_by(author) if options[:author]
-      editions = editions.in_organisation(organisation) if options[:organisation]
-      editions = editions.with_title_containing(options[:title]) if options[:title]
+      editions = editions.send(state) if state
+      editions = editions.authored_by(author) if author
+      editions = editions.in_organisation(organisation) if organisation
+      editions = editions.with_title_containing(title) if title
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
 
       @unpaginated_editions = editions
+    end
+
+    def state
+      options[:state].presence
+    end
+
+    def title
+      options[:title].presence
     end
 
     def type
@@ -160,24 +168,25 @@ module Admin
     end
 
     def title_matches
-      " that match '#{options[:title]}'" if options[:title]
+      " that match '#{options[:title]}'" if options[:title].present?
     end
 
     def edition_state
-      options[:state].humanize.downcase if options[:state] && options[:state] != 'active'
+      options[:state].humanize.downcase if options[:state].present? && options[:state] != 'active'
     end
 
     def organisation
-      Organisation.find(options[:organisation]) if options[:organisation]
+      Organisation.find(options[:organisation]) if options[:organisation].present?
     end
 
     def author
-      User.find(options[:author]) if options[:author]
+      User.find(options[:author]) if options[:author].present?
     end
 
     def location_matches
       if selected_world_locations.any?
-        " about #{selected_world_locations.map { |location| WorldLocation.find(location).name }.to_sentence}"
+        sentence = selected_world_locations.map { |l| WorldLocation.find(l).name }.to_sentence
+        " about #{sentence}"
       end
     end
   end

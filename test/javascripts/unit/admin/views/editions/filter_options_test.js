@@ -1,7 +1,7 @@
-module("adminEditionsIndex", {
+module("FilterOptions", {
   setup: function(){
     $('#qunit-fixture').append('\
-      <form class="editions-filter js-editions-filter-form" action="/government/admin/editions" method="get">\
+      <form class="filter-options js-editions-filter-form" action="/government/admin/editions" method="get">\
         <div id="title_filter" class="filter-grouping">\
           <label for="search_title">Title or slug</label>\
           <div class="btn-enter-wrapper">\
@@ -25,8 +25,8 @@ module("adminEditionsIndex", {
 });
 
 test("It gets using serialized form as data", function(){
-  var subject = new GOVUK.AdminEditionsIndex({
-    filter_form: $('#qunit-fixture .editions-filter'),
+  var subject = new GOVUK.FilterOptions({
+    filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
   var spy = this.stub(jQuery, 'ajax');
@@ -40,8 +40,8 @@ test("It gets using serialized form as data", function(){
 });
 
 test("It renders response to #search_results", function() {
-  var subject = new GOVUK.AdminEditionsIndex({
-    filter_form: $('#qunit-fixture .editions-filter'),
+  var subject = new GOVUK.FilterOptions({
+    filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
   var spy = this.stub(jQuery, 'ajax');
@@ -53,9 +53,9 @@ test("It renders response to #search_results", function() {
 });
 
 test("It gets results when a form select changes", function(){
-  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResultsWithNoRepeatProtection');
-  var subject = new GOVUK.AdminEditionsIndex({
-    filter_form: $('#qunit-fixture .editions-filter'),
+  var spy = this.stub(GOVUK.FilterOptions.prototype, 'updateResultsWithNoRepeatProtection');
+  var subject = new GOVUK.FilterOptions({
+    filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
 
@@ -65,9 +65,9 @@ test("It gets results when a form select changes", function(){
 });
 
 test("It shows an enter button when a text input is changed, and then updates results when that's clicked", function() {
-  var spy = this.stub(GOVUK.AdminEditionsIndex.prototype, 'updateResultsWithNoRepeatProtection');
-  var subject = new GOVUK.AdminEditionsIndex({
-    filter_form: $('#qunit-fixture .editions-filter'),
+  var spy = this.stub(GOVUK.FilterOptions.prototype, 'updateResultsWithNoRepeatProtection');
+  var subject = new GOVUK.FilterOptions({
+    filter_form: $('#qunit-fixture .filter-options'),
     search_results: $('#qunit-fixture #search_results')
   });
 

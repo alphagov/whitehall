@@ -1,7 +1,9 @@
+<% initialise_script "GOVUK.FilterOptions", filter_form: '.js-editions-filter-form', search_results: '#search_results' %>
 <%
   filter_by ||= [:title, :author, :organisation, :world_location, :type, :state, :date]
+  raise "filter action required" unless defined?(filter_action)
 %>
-<form class="editions-filter js-editions-filter-form" method="get" action="<%= admin_editions_path %>">
+<form class="filter-options js-editions-filter-form" method="get" action="<%= filter_action %>">
   <h2>Filter list by:</h2>
 
   <% if filter_by.include?(:title) %>
@@ -29,12 +31,7 @@
         <% else %>
           <%= label_tag :organisation, 'organisation' %>
         <% end %>
-        <%= select_tag  :organisation, options_for_select(admin_organisation_filter_options(current_user), @filter.options[:organisation]), class: 'chzn-select' %>
-      </div>
-
-      <div id="closed_organisation_filter">
-        <%= label_tag :closed_organisation, 'or closed organisation' %>
-        <%= select_tag  :closed_organisation, options_for_select(admin_closed_organisation_filter_options(), @filter.options[:organisation]), class: 'chzn-select' %>
+        <%= select_tag  :organisation, admin_organisation_filter_options(current_user, @filter.options[:organisation]), class: 'chzn-select' %>
       </div>
     <% end %>
   </div>

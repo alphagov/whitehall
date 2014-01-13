@@ -43,7 +43,7 @@ module Capybara::DSL
       option_value = page.evaluate_script("value")
     end
 
-    page.execute_script("$('##{field[:id]}').val(#{option_value})")
+    page.execute_script("$('##{field[:id]}').val(#{option_value.to_json})")
     page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   end
 end

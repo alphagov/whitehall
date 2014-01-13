@@ -40,17 +40,21 @@ module Admin::EditionsHelper
     'active' if filter_value && disallowed_values.none? { |disallowed_value| filter_value == disallowed_value }
   end
 
-  def admin_organisation_filter_options(current_user)
-    organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed
+  def admin_organisation_filter_options(current_user, selected_organisation)
+    organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
+    closed_organisations = Organisation.with_translations(:en).closed || []
     if current_user.organisation
         organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
-    [["All organisations", ""]] + organisations.map { |o| [o.name, o.id] }
-  end
 
-  def admin_closed_organisation_filter_options()
-    organisations = Organisation.with_translations(:en).order(:name).closed
-    [["All organisations", ""]] + organisations.map { |o| [o.name, o.id] }
+    options_for_select([["All organisations", ""]], selected_organisation) +
+    grouped_options_for_select(
+      [
+        ["Live organisations", organisations.map { |o| [o.name, o.id] }],
+        ["Closed organisations", closed_organisations.map { |o| [o.name, o.id] }]
+      ],
+      selected_organisation
+    )
   end
 
   def admin_author_filter_options(current_user)
