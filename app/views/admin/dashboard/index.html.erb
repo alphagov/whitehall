@@ -34,7 +34,10 @@
   </div>
   <% if current_user.organisation %>
     <div class="span6 force-published-documents">
-      <h2><%= current_user.organisation.acronym %>'s force-published documents</h2>
+      <h2>
+        <%= organisation_acronym_or_name(current_user.organisation) %>'s
+        force-published documents
+      </h2>
       <%= render partial: 'document_table', locals: { documents: @force_published_documents, title: 'force published documents' } %>
       <p><%= link_to "See all", admin_editions_path(state: :force_published, organisation: current_user.organisation) %></p>
     </div>
