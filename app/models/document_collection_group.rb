@@ -1,12 +1,12 @@
 class DocumentCollectionGroup < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :document_collection
   has_many :memberships, class_name: 'DocumentCollectionGroupMembership',
                          order: 'document_collection_group_memberships.ordering',
                          dependent: :destroy
   has_many :documents, through: :memberships, order: 'document_collection_group_memberships.ordering'
   has_many :editions, through: :documents, order: 'document_collection_group_memberships.ordering'
-
-  attr_accessible :body, :heading
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id }
   validates_associated :memberships

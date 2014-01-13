@@ -9,7 +9,7 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
   def create
-    @about_page = @topical_event.build_about_page(params[:about_page])
+    @about_page = @topical_event.build_about_page(about_page_params)
     if @about_page.save
       redirect_to admin_topical_event_about_pages_path, notice: 'About page created'
     else
@@ -18,7 +18,7 @@ class Admin::AboutPagesController < Admin::BaseController
   end
 
   def update
-    if @about_page.update_attributes(params[:about_page])
+    if @about_page.update_attributes(about_page_params)
       redirect_to admin_topical_event_about_pages_path, notice: 'About page saved'
     else
       render action: 'edit'
@@ -37,12 +37,16 @@ class Admin::AboutPagesController < Admin::BaseController
     model_name.humanize
   end
 
-  private
-    def find_topical_event
-      @topical_event = TopicalEvent.find(params[:topical_event_id])
-    end
+private
+  def find_topical_event
+    @topical_event = TopicalEvent.find(params[:topical_event_id])
+  end
 
-    def find_page
-      @about_page = @topical_event.about_page
-    end
+  def find_page
+    @about_page = @topical_event.about_page
+  end
+
+  def about_page_params
+    params.require(:about_page).permit(:body, :name, :summary, :read_more_link_text)
+  end
 end
