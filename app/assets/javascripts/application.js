@@ -9,6 +9,7 @@
 //= require vendor/jquery/jquery.player.min
 //= require vendor/jquery/magna-charta.min
 //= require vendor/sorttable
+//= require vendor/object-create-polyfill
 //
 //= require govuk_toolkit
 //= require shared_mustache
