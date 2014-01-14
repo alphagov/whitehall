@@ -11,7 +11,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def create
-    attributes = params[:fact_check_request].merge(requestor: current_user)
+    attributes = fact_check_request_params.merge(requestor: current_user)
     fact_check_request = @edition.fact_check_requests.build(attributes)
     if @edition.deleted?
       render "edition_unavailable"
@@ -29,7 +29,7 @@ class Admin::FactCheckRequestsController < Admin::BaseController
   end
 
   def update
-    if @fact_check_request.update_attributes(params[:fact_check_request])
+    if @fact_check_request.update_attributes(fact_check_request_params)
       if @fact_check_request.requestor_contactable?
         Notifications.fact_check_response(@fact_check_request, mailer_url_options).deliver
       end
@@ -40,7 +40,13 @@ class Admin::FactCheckRequestsController < Admin::BaseController
     end
   end
 
-  private
+private
+
+  def fact_check_request_params
+    params.require(:fact_check_request).permit(
+      :email_address, :comments, :instructions
+    )
+  end
 
   def load_edition
     @edition = Edition.unscoped.find(params[:edition_id])
