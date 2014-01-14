@@ -26,7 +26,7 @@
         $(this).nextAll().slideToggle('fast');
       });
     }
-  }
+  };
 
   window.GOVUK.adminImportsShow = adminImportsShow;
-})();
+}());

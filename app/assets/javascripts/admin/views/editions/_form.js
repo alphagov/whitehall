@@ -98,4 +98,4 @@
   }
 
   window.GOVUK.adminEditionsForm = adminEditionsForm;
-})();
+}());

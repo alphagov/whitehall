@@ -56,7 +56,7 @@
         }
       });
     }
-  }
+  };
 
   window.GOVUK.organisationsForm = organisationsForm;
-})();
+}());

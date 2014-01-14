@@ -41,13 +41,13 @@
       data: this.$filterForm.serialize(),
       success: this.renderResults
     });
-  }
+  };
 
   FilterOptions.prototype.renderResults = function renderResults(resultHtml) {
     this.$searchResults.fadeTo(0.1, 1.0);
     this.activeRequest = null;
     this.$searchResults.html(resultHtml);
-  }
+  };
 
   FilterOptions.prototype.TextFieldHandler = function TextFieldHandler(args) {
     var filterOptions = args.filterOptions
@@ -73,7 +73,7 @@
       hideCommitButton();
       filterOptions.updateResultsWithNoRepeatProtection();
     }
-  }
+  };
 
   GOVUK.FilterOptions = FilterOptions;
 }());

@@ -10,7 +10,7 @@
     hideExtraInboundLinks: function hideExtraInboundLinks() {
       $('#inbound-links').hideExtraRows({rows: 10});
     }
-  }
+  };
 
   window.GOVUK.adminEditionShow = adminEditionShow;
-})();
+}());
