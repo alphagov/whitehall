@@ -3,6 +3,8 @@ module("Double click protection", {
     this.$form = $('<form action="/go" method="POST"><input type="submit" name="input_name" value="Save" /></form>');
 
     $('#qunit-fixture').append(this.$form);
+
+    GOVUK.doubleClickProtection();
   }
 });
 
@@ -23,7 +25,7 @@ test('clicking submit input creates a hidden input with the same name and value'
 
   this.$form.on('submit', function (e) {
     e.preventDefault();
-    equal($.find('form input[type=hidden][name=input_name][value=Save]').length, 1);
+    ok($('form input[type=hidden][name=input_name][value=Save]').length > 0);
   });
 
   $submit_tag.click();

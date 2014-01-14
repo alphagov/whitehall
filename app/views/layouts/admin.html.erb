@@ -111,6 +111,7 @@
       </script>
     <% end %>
     <%= render_mustache_templates if Rails.env.development? %>
+    <% initialise_script "GOVUK.adminGlobalInitialiser" %>
     <%= javascript_tag(yield :javascript_initialisers) %>
   </body>
 </html>

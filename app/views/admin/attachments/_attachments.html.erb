@@ -1,3 +1,5 @@
+<% initialise_script "GOVUK.ReorderableAttachmentsList", el: "ol.existing-attachments" if attachable.can_order_attachments? && attachable.attachments.many? %>
+
 <% if attachable.can_order_attachments? && attachable.attachments.many? %>
   <p class="alert alert-info">
     To change the order of your attachments, drag them up or down and then click "Save attachment order" at
@@ -6,7 +8,7 @@
 <% end %>
 
 <%= form_tag [:order, :admin, typecast_for_attachable_routing(attachable), Attachment], method: :put do %>
-  <ol class="existing-attachments<%= ' js-sortable' if attachable.can_order_attachments? && attachable.attachments.many? %>">
+  <ol class="existing-attachments">
     <% attachable.attachments.each do |attachment| %>
       <%= content_tag_for(:li, attachment.becomes(Attachment), class: "well") do %>
         <span class="title"><%= attachment.title %></span>

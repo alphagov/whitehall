@@ -1,6 +1,10 @@
 <% page_title "Unpublish: #{@edition.title}"  %>
 <% page_class "edition-unpublish" %>
-<%= initialise_script "GOVUK.enhanceUnpublishingForm", selector: '#new_unpublishing' %>
+<%
+  initialise_script "GOVUK.adminEditionWorkflowConfirmUnpublish", unpublish_reason_ids: { Archived: UnpublishingReason::Archived.id,
+                                                                                          PublishedInError: UnpublishingReason::PublishedInError.id,
+                                                                                          Consolidated: UnpublishingReason::Consolidated.id }
+%>
 
   <div class="span10">
     <section>

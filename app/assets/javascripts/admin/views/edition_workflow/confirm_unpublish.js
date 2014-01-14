@@ -2,8 +2,10 @@
   "use strict";
   window.GOVUK = window.GOVUK || {}
 
-  var enhanceUnpublishingForm = {
+  var adminEditionWorkflowConfirmUnpublish = {
     init: function(params) {
+      this.unpublishReasonIds = params.unpublish_reason_ids
+
       this.revealCorrectForm();
       this.hideExplanationIfRedirecting();
 
@@ -12,19 +14,19 @@
     },
 
     revealCorrectForm: function() {
-      var selectedReason = $("input[name='unpublishing_reason_id']:checked").val();
-      switch(selectedReason) {
-        case '<%= UnpublishingReason::Archived.id %>':
+      var selectedReasonId = $("input[name='unpublishing_reason_id']:checked").val()-0;
+      switch(selectedReasonId) {
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Archived:
           $('#js-archive-form').show();
           $('#js-published-in-error-form').hide();
           $('#js-consolidated-form').hide();
           break;
-        case '<%= UnpublishingReason::PublishedInError.id %>':
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.PublishedInError:
           $('#js-archive-form').hide();
           $('#js-published-in-error-form').show();
           $('#js-consolidated-form').hide();
           break;
-        case '<%= UnpublishingReason::Consolidated.id %>':
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Consolidated:
           $('#js-archive-form').hide();
           $('#js-published-in-error-form').hide();
           $('#js-consolidated-form').show();
@@ -41,5 +43,5 @@
     }
   };
 
-  window.GOVUK.enhanceUnpublishingForm = enhanceUnpublishingForm;
+  window.GOVUK.adminEditionWorkflowConfirmUnpublish = adminEditionWorkflowConfirmUnpublish;
 }());
