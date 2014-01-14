@@ -4,6 +4,89 @@ Should be read in conjunction with the [GOV.UK JS styleguide](https://github.com
 
 ## Code style
 
+### Self-documenting javascript and avoiding 'loose code'
+
+If care is taken to write communicative code, javascript can quickly become extremely difficult to read, especially when excessive jQuery-style chaining is happening. Being mindful of how communicative one's code is to other developers is of course a given as with all languages, but there are certain practices which can help make code easier to follow in javascript.
+
+#### Avoid loose code
+
+__Loose code is code whose function or effect is not described by the name of the containing function.__
+
+Consider the following two examples:
+
+    function init() {
+      $('ol.lemmings li a.linky_link').map(function(linky_linky) {
+        $(linky_linky).after('<span>blot</span>');
+      });
+    }
+
+and
+
+    function init() {
+      addBlotsToLemmingLinks();
+    }
+
+    function addBlotsToLemmingLinks() {
+      $('ol.lemmings li a.linky_link').map(function(linky_linky) {
+        $(linky_linky).after('<span>blot</span>');
+      });
+    }
+
+In the second example, there's no need to read into the jQuery bits to see what the purpose of that piece of code is.
+
+#### Use many small functions
+
+Keeping functions small and using loads of them intrinsicly makes javascript more self-documenting. It may even be beneficial to break a function's code into small private nested functions:
+
+    function showLightbox() {
+      buildDomElements();
+      appendToDom();
+      bindEvents();
+      show();
+
+      function buildDomElements() {
+        // some code
+      }
+
+      function appendToDom() {
+        // some code
+      }
+
+      function bindEvents() {
+        // some code
+      }
+
+      function show() {
+        // some code
+      }
+    }
+
+_However_ in these cases, it would be best to first think about whether the function is doing too much.
+
+#### Avoid excessive chaining
+
+jQuery and a few other libraries allow you to chain functions together. This can be nice, but if done excessively can make things very hard to read:
+
+    function doSomethingToTheDom() {
+      $('.something').find('.something_else').next('label').css('background-color', 'red').click(function() {doSomething();}).click();
+    }
+
+In this case, there's no need for the two finders at the start, and it would be far more readable if split out into several lines:
+
+    function doSomethingToTheDom() {
+      var $somethingElse = $('.something .something_else');
+      var $label = $somethingElse.next('label');
+      $label.css('background-color', 'red');
+      $label.click(doSomething);
+      doSomething();
+
+      function doSomething() {
+        // ...
+      }
+    }
+
+### Patterns
+
 All code should be wrapped in a closure and should declare `use strict`.  The GOVUK namespace should be setup in each file to promote portability.
 
     (function() {
@@ -16,7 +99,7 @@ All code should be wrapped in a closure and should declare `use strict`.  The GO
 
 There are two patterns which can be employed in Whitehall, a singleton pattern and a constructor pattern and it's a case of choosing the right tool for the right job.
 
-### Singleton pattern
+#### Singleton pattern
 
 Singletons should be defined as raw JavaScript hashes, and if required should do its initialisation in a function called init.
 
@@ -37,7 +120,7 @@ Singletons should be defined as raw JavaScript hashes, and if required should do
       };
     }());
 
-### Constructor pattern
+#### Constructor pattern
 
 Constructors should follow the prototype pattern as follows:
 
@@ -70,7 +153,7 @@ The view can then be initialised with a selector for the DOM element is controll
 
 See "Script initialisation" below for more details on `GOVUK.init`.
 
-#### Proxying function when using the prototype / constructor pattern
+##### Proxying function when using the prototype / constructor pattern
 
 One of the main problems with the prototype / constructor pattern is the need to proxy functions in order to avoid loss of context. Here's an example of the problem:
 
