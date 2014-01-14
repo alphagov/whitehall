@@ -73,7 +73,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def update
-    if @edition.edit_as(current_user, params[:edition])
+    if @edition.edit_as(current_user, edition_params)
       if params[:speed_save_convert]
         @edition.convert_to_draft!
         next_edition = Admin::EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions.first
@@ -136,7 +136,58 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def edition_params
-    (params[:edition] || {}).merge(creator: current_user)
+    params.fetch(:edition, {}).permit(
+      :title, :body, :change_note, :summary, :first_published_at,
+      :publication_type_id, :scheduled_publication, :lock_version,
+      :access_limited, :alternative_format_provider_id, :opening_at,
+      :closing_at, :external, :external_url, :minor_change,
+      :roll_call_introduction, :operational_field_id, :news_article_type_id,
+      :relevant_to_local_government, :role_appointment_id, :speech_type_id,
+      :delivered_on, :location, :person_override, :locale,
+      :primary_mainstream_category_id, :related_mainstream_content_url,
+      :related_mainstream_content_title,
+      :additional_related_mainstream_content_url,
+      :additional_related_mainstream_content_title,
+      ministerial_role_ids: [],
+      lead_organisation_ids: [],
+      supporting_organisation_ids: [],
+      organisation_ids: [],
+      world_location_ids: [],
+      worldwide_organisation_ids: [],
+      worldwide_priority_ids: [],
+      related_policy_ids: [],
+      user_need_ids: [],
+      other_mainstream_category_ids: [],
+      topic_ids: [],
+      topical_event_ids: [],
+      outbound_related_document_ids: [],
+      role_appointment_ids: [],
+      statistical_data_set_document_ids: [],
+      policy_team_ids: [],
+      policy_advisory_group_ids: [],
+      document_collection_group_ids: [],
+      topic_suggestion_attributes: [:name],
+      images_attributes: [
+        :id, :alt_text, :caption, :_destroy,
+        image_data_attributes: [:file, :file_cache]
+      ],
+      consultation_participation_attributes: [
+        :id, :link_url, :email, :postal_address,
+        consultation_response_form_attributes: [
+          :id, :title, :_destroy,
+          consultation_response_form_data_attributes: [:id, :file, :file_cache]
+        ]
+      ],
+      nation_inapplicabilities_attributes: [
+        :id, :nation_id, :alternative_url, :_destroy
+      ],
+      user_needs_attributes: [:user, :need, :goal, :organisation_id],
+      fatality_notice_casualties_attributes: [:personal_details, :_destroy]
+    )
+  end
+
+  def new_edition_params
+    edition_params.merge(creator: current_user)
   end
 
   def redirect_to_show_or_edit
@@ -144,14 +195,14 @@ class Admin::EditionsController < Admin::BaseController
     if params[:save_and_continue].present?
       redirect_to [:edit, :admin, @edition], notice: message
     else
-     redirect_to admin_edition_url(@edition), notice: message
-   end
+      redirect_to admin_edition_url(@edition), notice: message
+    end
   end
 
   def build_edition
     edition_locale = edition_params[:locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
-      @edition = LocalisedModel.new(edition_class.new(edition_params), edition_locale)
+      @edition = LocalisedModel.new(edition_class.new(new_edition_params), edition_locale)
     end
   end
 
@@ -251,9 +302,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def remove_blank_parameters
-    params.keys.each do |k|
-      params.delete(k) if params[k] == ""
-    end
+    params.reject! { |_, value| value.blank? }
   end
 
   def clean_edition_parameters

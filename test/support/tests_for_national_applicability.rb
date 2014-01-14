@@ -63,9 +63,7 @@ module TestsForNationalApplicability
       edition = create_edition(attributes)
       northern_ireland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.northern_ireland, alternative_url: "http://www.discovernorthernireland.com/")
 
-      put :update, id: edition, edition: controller_attributes_for_instance(edition,
-        nation_inapplicabilities_attributes_for({Nation.scotland => "http://www.visitscotland.com/"}, northern_ireland_inapplicability)
-      )
+      put :update, id: edition, edition: nation_inapplicabilities_attributes_for({Nation.scotland => "http://www.visitscotland.com/"}, northern_ireland_inapplicability)
 
       edition.reload
       assert_equal [Nation.scotland], edition.inapplicable_nations
@@ -78,11 +76,9 @@ module TestsForNationalApplicability
       scotland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
-      put :update, id: edition, edition: controller_attributes_for_instance(edition,
-        {title: ''}.merge(
-          nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability)
-        )
-      )
+      attributes = nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability).merge(title: '')
+
+      put :update, id: edition, edition: attributes
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")
@@ -96,12 +92,10 @@ module TestsForNationalApplicability
       scotland_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.scotland, alternative_url: "http://www.scotland.com/")
       wales_inapplicability = edition.nation_inapplicabilities.create!(nation: Nation.wales, alternative_url: "http://www.wales.com/")
 
-      put :update, id: edition, edition: controller_attributes_for_instance(edition,
-        nation_inapplicabilities_attributes_for(
-          {Nation.northern_ireland => "invalid-url"},
-          scotland_inapplicability,
-          wales_inapplicability
-        )
+      put :update, id: edition, edition: nation_inapplicabilities_attributes_for(
+        {Nation.northern_ireland => "invalid-url"},
+        scotland_inapplicability,
+        wales_inapplicability
       )
 
       assert_nation_inapplicability_fields_exist
@@ -117,11 +111,9 @@ module TestsForNationalApplicability
       lock_version = edition.lock_version
       edition.update_attributes!(title: "new title")
 
-      put :update, id: edition, edition: controller_attributes_for_instance(edition,
-        {lock_version: lock_version}.merge(
-          nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability)
-        )
-      )
+      attributes = nation_inapplicabilities_attributes_for({Nation.northern_ireland => "http://www.northernireland.com/"}, scotland_inapplicability, wales_inapplicability).merge(lock_version: lock_version)
+
+      put :update, id: edition, edition: attributes
 
       assert_nation_inapplicability_fields_exist
       assert_nation_inapplicability_fields_set_as(index: 0, checked: false, alternative_url: "http://www.scotland.com/")

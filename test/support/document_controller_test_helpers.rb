@@ -522,12 +522,6 @@ module DocumentControllerTestHelpers
     refute_includes assigns(:filter).documents.map(&:id), edition.id
   end
 
-  def controller_attributes_for_instance(edition, attribute_overrides = {})
-    attributes = edition.attributes
-    attributes['lead_organisation_ids'] = edition.lead_organisations.map(&:id).map(&:to_s) if edition.respond_to?(:lead_organisations)
-    attributes.deep_merge(attribute_overrides)
-  end
-
   def controller_attributes_for(edition_type, attributes = {})
     if edition_type.to_s.classify.constantize.new.can_be_related_to_organisations?
       attributes = attributes.merge(
