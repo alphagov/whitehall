@@ -122,6 +122,20 @@ That's all
     assert_equal "detailed_guidance", response.headers["X-Slimmer-Format"]
   end
 
+  test "industry sector categories are not included in category list" do
+    sector_category = create(:mainstream_category, slug: "industry-sector-education-teaching")
+    other_category = create(:mainstream_category)
+
+    guide = create(:published_detailed_guide, primary_mainstream_category: sector_category)
+    guide.other_mainstream_categories << other_category
+    guide.save!
+
+    get :show, id: guide.document
+
+    assert_equal 1, assigns(:categories).size
+    assert_equal other_category.slug, assigns(:categories).first.slug
+  end
+
   view_test "guides have their mainstream categories added as classes" do
     category = create(:mainstream_category)
     guide = create(:published_detailed_guide, primary_mainstream_category: category)
