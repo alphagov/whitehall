@@ -13,7 +13,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
   def create
-    @take_part_page = TakePartPage.new(params[:take_part_page])
+    @take_part_page = TakePartPage.new(take_part_page_params)
     if @take_part_page.save
       redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" created!}
     else
@@ -27,7 +27,7 @@ class Admin::TakePartPagesController < Admin::BaseController
 
   def update
     @take_part_page = TakePartPage.find(params[:id])
-    if @take_part_page.update_attributes(params[:take_part_page])
+    if @take_part_page.update_attributes(take_part_page_params)
       redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" updated!}
     else
       render :edit
@@ -44,5 +44,12 @@ class Admin::TakePartPagesController < Admin::BaseController
     new_ordering = (params[:ordering] || []).sort_by {|id, ordering| ordering.to_i}.map(&:first)
     TakePartPage.reorder!(new_ordering)
     redirect_to admin_take_part_pages_path, notice: 'Take part pages reordered!'
+  end
+
+private
+  def take_part_page_params
+    params.require(:take_part_page).permit(
+      :title, :summary, :body, :image, :image_alt_text, :image_cache
+    )
   end
 end
