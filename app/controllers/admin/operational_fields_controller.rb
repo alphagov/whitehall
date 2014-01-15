@@ -10,7 +10,7 @@ class Admin::OperationalFieldsController < Admin::BaseController
   end
 
   def create
-    @operational_field = OperationalField.new(params[:operational_field])
+    @operational_field = OperationalField.new(operational_field_params)
     if @operational_field.save
       redirect_to admin_operational_fields_path, notice: %{"#{@operational_field.name}" created.}
     else
@@ -24,10 +24,15 @@ class Admin::OperationalFieldsController < Admin::BaseController
 
   def update
     @operational_field = OperationalField.find(params[:id])
-    if @operational_field.update_attributes(params[:operational_field])
+    if @operational_field.update_attributes(operational_field_params)
       redirect_to admin_operational_fields_path, notice: %{"#{@operational_field.name}" saved.}
     else
       render action: "edit"
     end
+  end
+
+private
+  def operational_field_params
+    params.require(:operational_field).permit(:name, :description)
   end
 end
