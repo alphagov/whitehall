@@ -9,7 +9,7 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def create
-    @person = Person.new(params[:person])
+    @person = Person.new(person_params)
     if @person.save
       redirect_to [:admin, @person], notice: %{"#{@person.name}" created.}
     else
@@ -24,7 +24,7 @@ class Admin::PeopleController < Admin::BaseController
   end
 
   def update
-    if @person.update_attributes(params[:person])
+    if @person.update_attributes(person_params)
       redirect_to [:admin, @person], notice: %{"#{@person.name}" saved.}
     else
       render action: "edit"
@@ -43,5 +43,12 @@ class Admin::PeopleController < Admin::BaseController
 
   def load_person
     @person = Person.find(params[:id])
+  end
+
+  def person_params
+    params.require(:person).permit(
+      :title, :forename, :surname, :letters, :image, :biography,
+      :privy_counsellor
+    )
   end
 end

@@ -148,18 +148,6 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     assert_redirected_to admin_person_translations_path(@person)
   end
 
-  view_test 'update re-renders form if translation is invalid' do
-    put :update, person_id: @person, id: 'fr', person: {
-      forename: nil,
-      biography: 'Elle est née. Elle a vécu. Elle est morte.'
-    }
-
-    translation_path = admin_person_translation_path(@person, 'fr')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
-      assert_select "textarea[name='person[biography]']", text: 'Elle est née. Elle a vécu. Elle est morte.'
-    end
-  end
-
   test 'destroy removes translation and redirects to list of translations' do
     person = create(:person, translated_into: {
       fr: { biography: 'Elle est née. Elle a vécu. Elle est morte.' }
