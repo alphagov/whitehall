@@ -26,24 +26,24 @@ module Whitehall
       test '#sentence_fragment_for downcase the "all" option for organisations but not the orgs themselves' do
         organisation = create(:ministerial_department, :with_published_edition, name: "The National Archives", slug: "the-national-archives")
 
-        assert_equal "The National Archives", @filter_options.sentence_fragment_for("departments[]", "the-national-archives")
-        assert_equal "all departments", @filter_options.sentence_fragment_for("departments[]", "all")
+        assert_equal "The National Archives", @filter_options.sentence_fragment_for("departments", "the-national-archives")
+        assert_equal "all departments", @filter_options.sentence_fragment_for("departments", "all")
       end
 
       test '#sentence_fragment_for downcase the "all" option for world locations but not the locations themselves' do
         location = create(:world_location, name: "United Kingdom", slug: "united-kingdom")
 
-        assert_equal "United Kingdom", @filter_options.sentence_fragment_for("world_locations[]", "united-kingdom")
-        assert_equal "all locations", @filter_options.sentence_fragment_for("world_locations[]", "all")
+        assert_equal "United Kingdom", @filter_options.sentence_fragment_for("world_locations", "united-kingdom")
+        assert_equal "all locations", @filter_options.sentence_fragment_for("world_locations", "all")
       end
 
       test '#sentence_fragment_for downcases topics' do
         topic = create(:topic, name: "Example Topic", slug: "example-topic")
         topical_event = create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
 
-        assert_equal "example topic", @filter_options.sentence_fragment_for("topics[]", "example-topic")
-        assert_equal "example topical event", @filter_options.sentence_fragment_for("topics[]", "example-topical-event")
-        assert_equal "all topics", @filter_options.sentence_fragment_for("topics[]", "all")
+        assert_equal "example topic", @filter_options.sentence_fragment_for("topics", "example-topic")
+        assert_equal "example topical event", @filter_options.sentence_fragment_for("topics", "example-topical-event")
+        assert_equal "all topics", @filter_options.sentence_fragment_for("topics", "all")
       end
 
       test '#sentence_fragment_for downcases official docs' do
@@ -71,11 +71,11 @@ module Whitehall
       test ".valid_filter_key? identifies valid filter keys" do
         valid_filter_keys = %w{
           publication_filter_option
-          departments[]
-          topics[]
+          departments
+          topics
           announcement_type_option
           official_document_status
-          world_locations[]
+          world_locations
         }
 
         valid_filter_keys.each do |filter_key|

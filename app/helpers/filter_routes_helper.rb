@@ -20,7 +20,7 @@ module FilterRoutesHelper
   end
 
   def filter_atom_feed_url
-    url_for(params.except(:utf8, :_, :from_date, :to_date, :page).merge(format: "atom", only_path: false))
+    Whitehall::FeedUrlBuilder.new({document_type: params[:controller]}.merge(params)).url
   end
 
   def filter_json_url(args = {})

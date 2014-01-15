@@ -26,11 +26,11 @@ module Whitehall
       OPTIONS = {
         document_type: 'document_type',
         publication_type: 'publication_filter_option',
-        organisations: 'departments[]',
-        topics: 'topics[]',
+        organisations: 'departments',
+        topics: 'topics',
         announcement_type: 'announcement_type_option',
         official_documents: 'official_document_status',
-        locations: 'world_locations[]'
+        locations: 'world_locations'
       }.freeze
 
       def self.valid_option_name?(option_name)
@@ -38,7 +38,11 @@ module Whitehall
       end
 
       def self.valid_filter_key?(filter_key)
-        OPTIONS.has_value?(filter_key)
+        OPTIONS.has_value?(filter_key.to_s)
+      end
+
+      def self.invalid_filter_key?(*args)
+        !valid_filter_key?(*args)
       end
 
       def self.valid_filter_key_and_value?(filter_key, filter_value)
@@ -100,8 +104,8 @@ module Whitehall
 
       def proper_noun?(key, value)
         [
-          'departments[]',
-          'world_locations[]',
+          'departments',
+          'world_locations',
           'people',
           'roles'
         ].include?(key) && value != 'all'

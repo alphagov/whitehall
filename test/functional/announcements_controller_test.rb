@@ -185,7 +185,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
   view_test 'index has atom feed autodiscovery link' do
     get :index
-    assert_select_autodiscovery_link announcements_url(format: "atom")
+    assert_select_autodiscovery_link announcements_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test 'index atom feed autodiscovery link includes any present filters' do
@@ -194,7 +194,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     get :index, topics: [topic], departments: [organisation]
 
-    assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation])
+    assert_select_autodiscovery_link announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "index generates an atom feed for the current filter" do
@@ -245,7 +245,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["email_signup_url"], email_signups_path(document_type: 'announcement_type_all', topic: topic.slug, organisation: organisation.slug)
+    atom_url = announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+
+    assert_equal json["email_signup_url"], new_email_signups_path(feed: ERB::Util.url_encode(atom_url))
   end
 
   view_test 'index only lists documents in the given locale' do
