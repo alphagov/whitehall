@@ -151,7 +151,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def unpublishing_params
-    params.fetch(:unpublishing, {}).slice(:unpublishing_reason_id, :alternative_url, :redirect, :explanation)
+    params.fetch(:unpublishing, {}).permit(
+      :unpublishing_reason_id, :alternative_url, :redirect, :explanation
+    )
   end
 
   def unpublish_success_notice
