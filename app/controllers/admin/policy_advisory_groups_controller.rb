@@ -10,7 +10,7 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
   end
 
   def create
-    @policy_advisory_group = PolicyAdvisoryGroup.new(params[:policy_advisory_group])
+    @policy_advisory_group = PolicyAdvisoryGroup.new(policy_advisory_group_params)
     if @policy_advisory_group.save
       redirect_to admin_policy_advisory_groups_path, notice: %{"#{@policy_advisory_group.name}" created.}
     else
@@ -24,7 +24,7 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
 
   def update
     @policy_advisory_group = PolicyAdvisoryGroup.find(params[:id])
-    if @policy_advisory_group.update_attributes(params[:policy_advisory_group])
+    if @policy_advisory_group.update_attributes(policy_advisory_group_params)
       redirect_to admin_policy_advisory_groups_path, notice: %{"#{@policy_advisory_group.name}" saved.}
     else
       render action: "edit"
@@ -41,5 +41,11 @@ class Admin::PolicyAdvisoryGroupsController < Admin::BaseController
 private
   def enforce_permissions!
     enforce_permission!(:delete, PolicyAdvisoryGroup)
+  end
+
+  def policy_advisory_group_params
+    params.require(:policy_advisory_group).permit(
+      :name, :email, :summary, :description
+    )
   end
 end
