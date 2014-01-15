@@ -19,7 +19,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
-    if @translated_edition.update_attributes(params[:edition])
+    if @translated_edition.update_attributes(edition_params)
       redirect_to admin_edition_path(@edition),
         notice: notice_message("saved")
     else
@@ -55,6 +55,10 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def fetch_edition_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse
     @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
+  end
+
+  def edition_params
+    params.require(:edition).permit(:title, :summary, :body)
   end
 end
 
