@@ -61,7 +61,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
   end
 
   view_test "POST :create with bad data shows errors" do
-    post :create, attributes_for(:topic).merge(name: "")
+    post :create, topic: attributes_for(:topic).merge(name: "")
 
     assert_template :new
     assert_select ".form-errors"
