@@ -91,12 +91,13 @@ $thumbnail-width: 99px;
   }
 
   .accessibility-warning {
-    h3 {
+    h2 {
       @include ig-core-14;
       margin: 0;
       color: $text-colour;
     }
     .toggler {
+      display: block;
       color: $link-colour;
       cursor: pointer;
       &:hover,
