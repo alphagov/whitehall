@@ -14,7 +14,7 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
   end
 
   def update
-    if @translated_worldwide_organisation.update_attributes(params[:worldwide_organisation])
+    if @translated_worldwide_organisation.update_attributes(worldwide_organisation_params)
       redirect_to admin_worldwide_organisation_translations_path(@translated_worldwide_organisation),
         notice: notice_message("saved")
     else
@@ -45,5 +45,11 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
 
   def load_worldwide_organisation
     @worldwide_organisation ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
+  end
+
+  def worldwide_organisation_params
+    params.require(:worldwide_organisation).permit(
+      :name, :summary, :description, :services
+    )
   end
 end
