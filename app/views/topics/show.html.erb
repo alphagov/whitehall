@@ -4,7 +4,7 @@
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
-  <header class="block headings-block">
+  <header class="block headings-block js-multivariate-topic-heading">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
                 locals: { type: "Topic",

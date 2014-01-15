@@ -7,7 +7,7 @@
       <li><%= main_navigation_link_to "Worldwide", world_locations_path(locale: :en) %></li>
       <li><%= main_navigation_link_to 'How government works', how_government_works_path %></li>
       <li><%= main_navigation_link_to "Get involved", get_involved_path %></li>
-      <li class="clear-child"><%= main_navigation_link_to "Policies", policies_path, class: "js-policies-link" %></li>
+      <li class="js-policies-link clear-child"><%= main_navigation_link_to "Policies", policies_path %></li>
       <li><%= main_navigation_link_to "Publications", publications_path %></li>
       <li><%= main_navigation_link_to "Consultations", publications_filter_path(publication_filter_option: 'consultations') %></li>
       <li><%= main_navigation_link_to "Statistics", publications_filter_path(publication_filter_option: 'statistics') %></li>
