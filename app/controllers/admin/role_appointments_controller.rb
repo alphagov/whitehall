@@ -8,7 +8,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
 
   def create
     role = Role.find(params[:role_id])
-    @role_appointment = role.role_appointments.build(params[:role_appointment])
+    @role_appointment = role.role_appointments.build(role_appointment_params)
     if @role_appointment.save
       redirect_to edit_admin_role_path(role), notice: "Appointment created"
     else
@@ -21,7 +21,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
   end
 
   def update
-    if @role_appointment.update_attributes(params[:role_appointment])
+    if @role_appointment.update_attributes(role_appointment_params)
       redirect_to edit_admin_role_path(@role_appointment.role), notice: "Appointment has been updated"
     else
       render :edit
@@ -41,5 +41,11 @@ class Admin::RoleAppointmentsController < Admin::BaseController
 private
   def load_role_appointment
     @role_appointment = RoleAppointment.find(params[:id])
+  end
+
+  def role_appointment_params
+    params.require(:role_appointment).permit(
+      :person_id, :started_at, :ended_at, :make_current
+    )
   end
 end

@@ -11,7 +11,7 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def create
-    attributes = RoleTypePresenter.role_attributes_from(params[:role])
+    attributes = RoleTypePresenter.role_attributes_from(role_params)
     @role = Role.new(attributes.except(:type))
     @role.type = attributes.delete(:type) || MinisterialRole.name
     if @role.save
@@ -26,7 +26,7 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def update
-    attributes = RoleTypePresenter.role_attributes_from(params[:role])
+    attributes = RoleTypePresenter.role_attributes_from(role_params)
     if new_type = attributes.delete(:type)
       @role.type = new_type
     end
@@ -53,4 +53,12 @@ class Admin::RolesController < Admin::BaseController
     @role = Role.find(params[:id])
   end
 
+  def role_params
+    params.require(:role).permit(
+      :name, :type, :whip_organisation_id, :role_payment_type_id,
+      :attends_cabinet_type_id, :responsibilities,
+      organisation_ids: [],
+      worldwide_organisation_ids: []
+    )
+  end
 end
