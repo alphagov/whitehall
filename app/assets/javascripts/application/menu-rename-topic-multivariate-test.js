@@ -21,6 +21,8 @@
   MenuRenameTopicMultivariateTest.prototype.policyAreasCallback = function() {
     this.$el.find('.js-topics-link').text('Policy areas');
     this.$el.find('.js-policies-link').hide();
+    window.$('.js-multivariate-topics-heading').text('Policy areas');
+    window.$('.js-multivariate-topic-heading .type').text('Policy area');
   };
 
   window.GOVUK.MenuRenameTopicMultivariateTest = MenuRenameTopicMultivariateTest;
