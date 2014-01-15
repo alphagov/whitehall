@@ -12,7 +12,7 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def create
-    @group = @organisation.groups.build(params[:group])
+    @group = @organisation.groups.build(group_params)
     if @group.save
       redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" created.}
     else
@@ -26,7 +26,7 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def update
-    if @group.update_attributes(params[:group])
+    if @group.update_attributes(group_params)
       redirect_to admin_organisation_path(@organisation, anchor: "groups"), notice: %{"#{@group.name}" updated.}
     else
       render action: "edit"
@@ -52,4 +52,10 @@ class Admin::GroupsController < Admin::BaseController
     @group = Group.find(params[:id])
   end
 
+  def group_params
+    params.require(:group).permit(
+      :name, :description,
+      group_memberships_attributes: [:id, :person_id, :_destroy]
+    )
+  end
 end
