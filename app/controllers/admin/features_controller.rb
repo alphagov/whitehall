@@ -31,7 +31,13 @@ private
   end
 
   def build_feature
-    @feature = @feature_list.features.build(params[:feature])
+    @feature = @feature_list.features.build(feature_params)
+  end
+
+  def feature_params
+    params.fetch(:feature, {}).permit(
+      :image, :image_cache, :alt_text, :document_id, :topical_event_id
+    )
   end
 
   def find_edition
