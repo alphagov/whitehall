@@ -13,7 +13,7 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def create
-    @organisation = Organisation.new(params[:organisation])
+    @organisation = Organisation.new(organisation_params)
     if @organisation.save
       redirect_to admin_organisations_path
     else
@@ -66,7 +66,7 @@ class Admin::OrganisationsController < Admin::BaseController
   def update
     delete_absent_organisation_classifications
     delete_absent_organisation_mainstream_categories
-    if @organisation.update_attributes(params[:organisation])
+    if @organisation.update_attributes(organisation_params)
       redirect_to admin_organisation_path(@organisation)
     else
       render :edit
@@ -79,6 +79,26 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   private
+
+  def organisation_params
+    params.require(:organisation).permit(
+      :name, :acronym, :logo_formatted_name, :organisation_logo_type_id,
+      :logo, :logo_cache, :organisation_brand_colour_id, :description, :url,
+      :organisation_type_key, :alternative_format_contact_email,
+      :govuk_status, :closed_at, :organisation_chart_url, :about_us,
+      :foi_exempt,
+      default_news_image_attributes: [:file, :file_cache],
+      organisation_roles_attributes: [:id, :ordering],
+      parent_organisation_ids: [],
+      organisation_classifications_attributes: [
+        :classification_id, :ordering, :id, :_destroy
+      ],
+      organisation_mainstream_categories_attributes: [
+        :mainstream_category_id, :ordering, :id, :_destroy
+      ],
+      top_tasks_attributes: [:title, :url, :_destroy]
+    )
+  end
 
   def build_organisation_classifications
     n = @organisation.organisation_classifications.count
