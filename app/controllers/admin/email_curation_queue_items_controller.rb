@@ -9,7 +9,7 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
   end
 
   def update
-    if @email_curation_queue_item.update_attributes(params[:email_curation_queue_item])
+    if @email_curation_queue_item.update_attributes(email_curation_queue_item_params)
       redirect_to [:admin, EmailCurationQueueItem], notice: 'Email curation queue item updated.'
     else
       render :edit
@@ -32,5 +32,9 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
   private
   def load_email_curation_queue_item
     @email_curation_queue_item = EmailCurationQueueItem.find(params[:id])
+  end
+
+  def email_curation_queue_item_params
+    params.require(:email_curation_queue_item).permit(:title, :summary)
   end
 end
