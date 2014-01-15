@@ -12,7 +12,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   end
 
   def create
-    @historical_account = @person.historical_accounts.build(params[:historical_account])
+    @historical_account = @person.historical_accounts.build(historical_account_params)
     if @historical_account.save
       redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account created'
     else
@@ -24,7 +24,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   end
 
   def update
-    if @historical_account.update_attributes(params[:historical_account])
+    if @historical_account.update_attributes(historical_account_params)
       redirect_to admin_person_historical_accounts_url(@person), notice: 'Historical account updated'
     else
       render :edit
@@ -44,5 +44,13 @@ class Admin::HistoricalAccountsController < Admin::BaseController
 
   def load_historical_account
     @historical_account = @person.historical_accounts.find(params[:id])
+  end
+
+  def historical_account_params
+    params.require(:historical_account).permit(
+      :summary, :body, :born, :died, :major_acts, :interesting_facts,
+      role_ids: [],
+      political_party_ids: []
+    )
   end
 end
