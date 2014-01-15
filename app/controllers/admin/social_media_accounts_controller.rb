@@ -15,7 +15,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   end
 
   def update
-    @social_media_account.update_attributes(params[:social_media_account])
+    @social_media_account.update_attributes(social_media_account_params)
     if @social_media_account.save
       redirect_to [:admin, @socialable, SocialMediaAccount],
         notice: "#{@social_media_account.service_name} account updated successfully"
@@ -25,7 +25,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   end
 
   def create
-    @social_media_account = @socialable.social_media_accounts.build(params[:social_media_account])
+    @social_media_account = @socialable.social_media_accounts.build(social_media_account_params)
     if @social_media_account.save
       redirect_to [:admin, @socialable, SocialMediaAccount],
         notice: "#{@social_media_account.service_name} account created successfully"
@@ -64,5 +64,11 @@ private
     if params[:social_media_account] && params[:social_media_account][:url]
       params[:social_media_account][:url].strip!
     end
+  end
+
+  def social_media_account_params
+    params.require(:social_media_account).permit(
+      :social_media_service_id, :url, :title
+    )
   end
 end
