@@ -107,6 +107,17 @@ class EditionPublisherTest < ActiveSupport::TestCase
     refute publisher.perform!
   end
 
+  test '#perform! rescues errors from notified observers' do
+    edition = create(:submitted_edition)
+    notifier = mock
+    notifier.expects(:publish).raises('Error')
+    publisher = EditionPublisher.new(edition, {notifier: notifier})
+
+    assert_nothing_raised do
+      publisher.perform!
+    end
+  end
+
   test 'a submitted edition with a scheduled publication time cannot be published' do
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
     publisher = EditionPublisher.new(edition)
