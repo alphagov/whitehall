@@ -9,8 +9,8 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   end
 
   def update
-    params_with_item_ids = prepare_feature_item_params(params[:featured_topics_and_policies_list])
-    if @featured_topics_and_policies_list.update_attributes(params_with_item_ids)
+    prepare_feature_item_params(params[:featured_topics_and_policies_list])
+    if @featured_topics_and_policies_list.update_attributes(featured_topics_and_policies_list_params)
       redirect_to admin_organisation_featured_topics_and_policies_list_path(@organisation),
         notice: "Featured topics and policies for #{@organisation.name} updated"
     else
@@ -51,33 +51,36 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
       end
   end
 
+  def featured_topics_and_policies_list_params
+    params.require(:featured_topics_and_policies_list).permit(
+      :summary, :link_to_filtered_policies,
+      featured_items_attributes: [
+        :id, :item_type, :ordering, :item_id, :ended_at
+      ]
+    )
+  end
+
   def prepare_feature_item_params(feature_list_params)
-    (feature_list_params['featured_items_attributes'] || {}).each do |k, v|
-      prepare_item_id_param(v)
-      prepare_ended_at_param(v)
-      # this helps when new lists are created at the same time as new items
-      v['featured_topics_and_policies_list'] = @featured_topics_and_policies_list
+    feature_list_params.fetch('featured_items_attributes', {}).each do |_, attrs|
+      prepare_item_id_param(attrs)
+      prepare_ended_at_param(attrs)
     end
-    feature_list_params
   end
 
   def prepare_item_id_param(feature_item_params)
+    topic_id = feature_item_params.delete('topic_id')
+    document_id = feature_item_params.delete('document_id')
+
     case feature_item_params['item_type']
     when 'Topic'
-      feature_item_params.delete('document_id')
-      feature_item_params['item_id'] = feature_item_params.delete('topic_id')
+      feature_item_params['item_id'] = topic_id
     when 'Document'
-      feature_item_params.delete('topic_id')
-      feature_item_params['item_id'] = feature_item_params.delete('document_id')
-    else
-      feature_item_params.delete('topic_id')
-      feature_item_params.delete('document_id')
+      feature_item_params['item_id'] = document_id
     end
   end
 
   def prepare_ended_at_param(feature_item_params)
-    unfeature = feature_item_params.delete('unfeature')
-    if unfeature && unfeature == '1'
+    if feature_item_params.delete('unfeature') == '1'
       feature_item_params['ended_at'] = Time.current
     end
   end
