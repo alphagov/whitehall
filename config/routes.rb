@@ -62,6 +62,7 @@ Whitehall::Application.routes.draw do
     resources :histories, path: "history", only: [:index, :show]
 
     resource :email_signups, path: 'email-signup', only: [:create, :new]
+    get "/email-signup", to: redirect('/')
 
     get '/feed' => 'home#feed', defaults: { format: :atom }, constraints: { format: :atom }, as: :atom_feed
     get '/tour' => redirect("/tour", prefix: "")

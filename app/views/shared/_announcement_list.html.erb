@@ -1,3 +1,5 @@
+<% atom_discovery_link_tag polymorphic_url(announcer, format: "atom"), t('announcements.heading') %>
+
 <% if announcer.announcements.any? %>
   <section class="announcements" id="announcements">
     <h1><%= t('announcements.heading') %></h1>

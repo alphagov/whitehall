@@ -87,7 +87,11 @@ module Whitehall
       end
 
       def department_slugs
-        edition.organisations.map(&:slug)
+        if edition.respond_to?(:organisations)
+          edition.organisations.map(&:slug)
+        else
+          []
+        end
       end
 
       def topic_urls

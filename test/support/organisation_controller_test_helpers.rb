@@ -157,7 +157,8 @@ module OrganisationControllerTestHelpers
 
         get :show, id: organisation
 
-        assert_select ".govdelivery[href='#{email_signups_path(organisation: organisation.slug)}']"
+        feed_url = organisation_url(organisation, format: 'atom')
+        assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
       end
 
       view_test "#{org_type}:show has link to corporate information pages" do
