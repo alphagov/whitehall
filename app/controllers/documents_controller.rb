@@ -48,7 +48,10 @@ class DocumentsController < PublicFacingController
   def find_document_or_edition_for_preview
     return unless current_user_can_preview?
     document = document_class.with_translations(I18n.locale).find(params[:preview])
-    document if can_preview?(document)
+    if can_preview?(document)
+      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+      document
+    end
   end
 
   def find_document_or_edition_for_public
