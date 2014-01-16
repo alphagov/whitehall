@@ -39,7 +39,22 @@ end
 
 When /^I publish a news article "([^"]*)" associated with "([^"]*)"$/ do |title, person_name|
   begin_drafting_news_article title: title
+  fill_in_news_article_fields(first_published: Date.today.to_s)
   select person_name, from: "Ministers"
+  click_button "Save"
+  publish(force: true)
+end
+
+When /^I publish a news article "([^"]*)" associated with the (topic|topical event) "([^"]*)"$/ do |title, type, topic_name|
+  begin_drafting_news_article title: title, skip_topic_selection: (type == 'topic')
+
+  if type == 'topic'
+    select topic_name, from: "Topics"
+  else
+    select topic_name, from: "Topical events"
+  end
+
+  fill_in_news_article_fields(first_published: Date.today.to_s)
   click_button "Save"
   publish(force: true)
 end

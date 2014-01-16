@@ -6,23 +6,12 @@ module Whitehall
       end
 
       def subscription_urls
-        department_and_topic_combos = [department_slugs, topic_slugs].inject(&:product)
-
-        urls = department_and_topic_combos.map do |(org, topic)|
-          combinatorial_args = [{departments: [org]}, {topics: [topic]}]
-          combinatorial_args << filter_option if filter_option
-          combinatorial_args << { relevant_to_local_government: 1 } if edition.relevant_to_local_government?
-
-          all_combinations_of_args(combinatorial_args).map do |combined_args|
-            [
-              url_helper(edition, combined_args),
-              url_maker.atom_feed_url(combined_args.merge(format: :atom))
-            ]
-          end
-        end
-
+        urls = []
+        urls += filter_urls
         urls += policy_urls
         urls += people_and_role_urls
+        urls += topic_urls
+        urls += topical_event_urls
 
         # Fallback URL including everything
         urls << url_maker.atom_feed_url(format: :atom)
@@ -87,8 +76,44 @@ module Whitehall
         end
       end
 
+      def topical_event_slugs
+        if edition.can_be_associated_with_topical_events?
+          topical_event_slugs = edition.topical_events.map(&:slug)
+        else
+          topical_event_slugs = []
+        end
+      end
+
       def department_slugs
         edition.organisations.map(&:slug)
+      end
+
+      def topic_urls
+        topic_slugs.map do |slug|
+          url_maker.topic_url(slug, format: :atom)
+        end
+      end
+
+      def topical_event_urls
+        topical_event_slugs.map do |slug|
+          url_maker.topical_event_url(slug, format: :atom)
+        end
+      end
+
+      def filter_urls
+        department_and_topic_combos = [department_slugs, topic_slugs].inject(&:product)
+        department_and_topic_combos.map do |(org, topic)|
+          combinatorial_args = [{departments: [org]}, {topics: [topic]}]
+          combinatorial_args << filter_option if filter_option
+          combinatorial_args << { relevant_to_local_government: 1 } if edition.relevant_to_local_government?
+
+          all_combinations_of_args(combinatorial_args).map do |combined_args|
+            [
+              url_helper(edition, combined_args),
+              url_maker.atom_feed_url(combined_args.merge(format: :atom))
+            ]
+          end
+        end
       end
 
       def policy_urls

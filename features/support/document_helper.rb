@@ -31,7 +31,7 @@ module DocumentHelper
       fill_in "edition_body", with: options.fetch(:body, "Any old iron")
       fill_in "edition_summary", with: options.fetch(:summary, 'one plus one euals two!')
       fill_in_change_note_if_required
-      select_topic_if_required
+      select_topic_if_required unless options[:skip_topic_selection]
 
       unless options[:type] == 'world_location_news_article'
         set_lead_organisation_on_document(Organisation.first)
@@ -62,8 +62,7 @@ module DocumentHelper
 
   def begin_drafting_news_article(options)
     begin_drafting_document(options.merge(type: "news_article"))
-    options.delete(:title)
-    fill_in_news_article_fields(options)
+    fill_in_news_article_fields(options.slice(:first_published, :announcement_type))
   end
 
   def begin_drafting_consultation(options)
