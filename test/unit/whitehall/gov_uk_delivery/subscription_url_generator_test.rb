@@ -350,4 +350,14 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
 
     assert_subscription_urls_for_edition_include("world/#{world_location.slug}.atom")
   end
+
+  test "#subscription_urls for an edition related to an organisation includes the atom feed for both the generic feed and the specific organisation's feed" do
+    organisation = create(:organisation)
+    @edition = create(:news_article, organisations: [organisation])
+
+    assert_subscription_urls_for_edition_include(
+      "organisations/#{organisation.slug}.atom",
+      "feed?departments%5B%5D=#{organisation.slug}"
+    )
+  end
 end

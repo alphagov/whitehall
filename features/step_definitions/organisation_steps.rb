@@ -12,6 +12,11 @@ Given /^the organisation "([^"]*)" exists$/ do |name|
   create(:ministerial_department, name: name)
 end
 
+Given(/^the organisation "(.*?)" exists with a featured article$/) do |name|
+  org = create(:ministerial_department, name: name)
+  create(:feature_list, featurable: org, features: [create(:feature, document: create(:published_news_article).document)])
+end
+
 Given /^the executive office "([^"]*)" exists$/ do |name|
   create(:executive_office, name: name)
 end

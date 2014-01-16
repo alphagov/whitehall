@@ -72,6 +72,16 @@ When(/^I publish a news article "(.*?)" associated with the policy "(.*?)"$/) do
   publish(force: true)
 end
 
+When(/^I publish a news article "(.*?)" associated with the organisation "(.*?)"$/) do |title, organisation_name|
+  begin_drafting_news_article title: title
+  fill_in_news_article_fields(first_published: Date.today.to_s)
+  within '.lead-organisations' do
+    select organisation_name, from: "Organisation 1"
+  end
+  click_button "Save"
+  publish(force: true)
+end
+
 When /^I attempt to add the article image into the markdown$/ do
   fill_in "Body", with: "body copy\n!!1\nmore body"
 end
