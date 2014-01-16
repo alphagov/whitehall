@@ -17,10 +17,10 @@ module Whitehall
 
       test "#sentence_fragment_for downcases announcement type values" do
         Whitehall::AnnouncementFilterOption.all.each do |option|
-          assert_equal option.label.downcase, @filter_options.sentence_fragment_for("announcement_type_option", option.slug)
+          assert_equal option.label.downcase, @filter_options.sentence_fragment_for("announcement_filter_option", option.slug)
         end
 
-        assert_equal "all announcement types", @filter_options.sentence_fragment_for("announcement_type_option", "all")
+        assert_equal "all announcement types", @filter_options.sentence_fragment_for("announcement_filter_option", "all")
       end
 
       test '#sentence_fragment_for downcase the "all" option for organisations but not the orgs themselves' do
@@ -73,7 +73,7 @@ module Whitehall
           publication_filter_option
           departments
           topics
-          announcement_type_option
+          announcement_filter_option
           official_document_status
           world_locations
         }

@@ -30,8 +30,8 @@
         <div class="filter" id="announcement-type-filter">
           <div class="filter-inner">
             <div class="announcement-type">
-              <%= label_tag "announcement_type_option", "Announcement type", class: "title" %>
-              <%= select_tag :announcement_type_option, announcement_type_filter_options(@filter.selected_announcement_type_option), class: "single-row-select" %>
+              <%= label_tag "announcement_filter_option", "Announcement type", class: "title" %>
+              <%= select_tag :announcement_filter_option, announcement_type_filter_options(@filter.selected_announcement_filter_option), class: "single-row-select" %>
             </div>
           </div>
         </div>

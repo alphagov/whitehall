@@ -100,7 +100,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           field = formStatus.selected[i];
           if (field.title.length > 0) {
 
-            if (field.id == "publication_filter_option" || field.id == "announcement_type_option") {
+            if (field.id == "publication_filter_option" || field.id == "announcement_filter_option") {
               if (field.value != "all") {
                 $title.html($title.text().trim() + '<span>: '+field.title[0]+'</span>');
               }

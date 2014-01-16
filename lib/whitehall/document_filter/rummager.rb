@@ -120,8 +120,8 @@ module Whitehall::DocumentFilter
 
     def filter_by_announcement_type
       announcement_types =
-        if selected_announcement_type_option
-          selected_announcement_type_option.search_format_types
+        if selected_announcement_filter_option
+          selected_announcement_filter_option.search_format_types
         elsif include_world_location_news
           [Announcement.search_format_type]
         else

@@ -83,17 +83,17 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_announcement_filter_option!
-      if selected_announcement_type_option
+      if selected_announcement_filter_option
         @documents = @documents.where(@documents.arel_table[:type].in(
-          selected_announcement_type_option.edition_types))
-        if selected_announcement_type_option.speech_types.present?
+          selected_announcement_filter_option.edition_types))
+        if selected_announcement_filter_option.speech_types.present?
           @documents = @documents.where(
             @documents.arel_table[:speech_type_id].in(
-              selected_announcement_type_option.speech_types.map(&:id)))
-        elsif selected_announcement_type_option.news_article_types.present?
+              selected_announcement_filter_option.speech_types.map(&:id)))
+        elsif selected_announcement_filter_option.news_article_types.present?
           @documents = @documents.where(
             @documents.arel_table[:news_article_type_id].in(
-              selected_announcement_type_option.news_article_types.map(&:id)))
+              selected_announcement_filter_option.news_article_types.map(&:id)))
         end
       end
     end

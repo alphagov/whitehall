@@ -230,16 +230,16 @@ module Whitehall::DocumentFilter
       transcript = create(:published_speech, speech_type: SpeechType::Transcript)
       statement = create(:published_speech, speech_type: SpeechType::WrittenStatement)
 
-      filter = create_filter(Announcement.published, announcement_type_option: "news-stories")
+      filter = create_filter(Announcement.published, announcement_filter_option: "news-stories")
       assert_equal [news_article.id], filter.documents.map(&:id)
 
-      filter = create_filter(Announcement.published, announcement_type_option: "fatality-notices")
+      filter = create_filter(Announcement.published, announcement_filter_option: "fatality-notices")
       assert_equal [fatality_notice.id], filter.documents.map(&:id)
 
-      filter = create_filter(Announcement.published, announcement_type_option: "speeches")
+      filter = create_filter(Announcement.published, announcement_filter_option: "speeches")
       assert_equal [transcript.id], filter.documents.map(&:id)
 
-      filter = create_filter(Announcement.published, announcement_type_option: "statements")
+      filter = create_filter(Announcement.published, announcement_filter_option: "statements")
       assert_equal [statement.id], filter.documents.map(&:id)
     end
 

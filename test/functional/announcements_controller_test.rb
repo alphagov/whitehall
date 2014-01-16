@@ -117,15 +117,15 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows selected announcement type filter option in the title" do
-    get :index, announcement_type_option: 'news-stories'
+    get :index, announcement_filter_option: 'news-stories'
 
     assert_select 'h1 span', ': News stories'
   end
 
   view_test "index indicates selected announcement type filter option in the filter selector" do
-    get :index, announcement_type_option: 'news-stories'
+    get :index, announcement_filter_option: 'news-stories'
 
-    assert_select "select[name='announcement_type_option']" do
+    assert_select "select[name='announcement_filter_option']" do
       assert_select "option[selected='selected']", text: Whitehall::AnnouncementFilterOption::NewsStory.label
     end
   end

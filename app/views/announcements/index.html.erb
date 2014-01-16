@@ -3,7 +3,7 @@
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent announcements" %>
 <%
   heading = [t('announcements.heading')]
-  heading << "<span>: #{@filter.selected_announcement_type_option.label}</span>" if @filter.selected_announcement_type_option
+  heading << "<span>: #{@filter.selected_announcement_filter_option.label}</span>" if @filter.selected_announcement_filter_option
   heading = heading.join('').html_safe
 %>
 
