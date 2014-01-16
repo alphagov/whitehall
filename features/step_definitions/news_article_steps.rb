@@ -10,6 +10,11 @@ Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title
   create(:published_news_article, title: title, role_appointments: [appointment])
 end
 
+Given(/^a published news article associated with the policy "(.*?)"$/) do |policy_title|
+  policy = Policy.find_by_title(policy_title)
+  create(:published_news_article, related_editions: [policy])
+end
+
 Given /^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/ do |title, thing|
   create(:published_news_article, title: title)
 end
@@ -55,6 +60,14 @@ When /^I publish a news article "([^"]*)" associated with the (topic|topical eve
   end
 
   fill_in_news_article_fields(first_published: Date.today.to_s)
+  click_button "Save"
+  publish(force: true)
+end
+
+When(/^I publish a news article "(.*?)" associated with the policy "(.*?)"$/) do |title, policy_name|
+  begin_drafting_news_article title: title
+  fill_in_news_article_fields(first_published: Date.today.to_s)
+  select policy_name, from: "Related policies"
   click_button "Save"
   publish(force: true)
 end

@@ -171,6 +171,11 @@ When /^I view the policy titled "([^"]*)"$/ do |policy_title|
   visit admin_edition_path(policy)
 end
 
+When(/^I visit the policy activity page for "(.*?)"$/) do |policy_title|
+  policy = Policy.find_by_title!(policy_title)
+  visit activity_policy_path(policy.slug)
+end
+
 When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)
