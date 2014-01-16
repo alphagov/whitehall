@@ -12,6 +12,7 @@ module Whitehall
         urls += people_and_role_urls
         urls += topic_urls
         urls += topical_event_urls
+        urls += world_location_urls
 
         # Fallback URL including everything
         urls << url_maker.atom_feed_url(format: :atom)
@@ -97,6 +98,12 @@ module Whitehall
       def topical_event_urls
         topical_event_slugs.map do |slug|
           url_maker.topical_event_url(slug, format: :atom)
+        end
+      end
+
+      def world_location_urls
+        edition.world_locations.map do |location|
+          url_maker.world_location_url(location.slug, format: :atom)
         end
       end
 

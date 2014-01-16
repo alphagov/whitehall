@@ -327,7 +327,7 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
-  test '#subscription_urls for a editions related to topics includes the atom feed for both the generic feed and the specific topic feed' do
+  test '#subscription_urls for an edition related to topics includes the atom feed for both the generic feed and the specific topic feed' do
     topic = create(:topic)
     @edition = create(:news_article, topics: [topic])
 
@@ -337,10 +337,17 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
-  test '#subscription_urls for a editions related to topical events includes the atom feed for both the generic feed and the specific topical_event feed' do
+  test '#subscription_urls for an edition related to topical events includes the atom feed for the specific topical_event feed' do
     topical_event = create(:topical_event)
     @edition = create(:news_article, topical_events: [topical_event])
 
     assert_subscription_urls_for_edition_include("topical-events/#{topical_event.slug}.atom")
+  end
+
+  test '#subscription_urls for an edition related to a world location includes the atom feed for the specific world location feed' do
+    world_location = create(:world_location)
+    @edition = create(:world_location_news_article, world_locations: [world_location])
+
+    assert_subscription_urls_for_edition_include("world/#{world_location.slug}.atom")
   end
 end
