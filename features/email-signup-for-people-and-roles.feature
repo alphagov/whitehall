@@ -8,7 +8,7 @@ Feature: Email signup for people and roles
 
   Scenario: Signing up to role alerts
     Given I visit the role page for "Minister of Anachronisms"
-    Then govuk_delivery should be sent the feed subscription URL
+    Then a govuk_delivery signup should be sent for the feed subscription URL
     When I sign up for emails
 
     Then a notification should be sent for subscribers to the role "Minister of Anachronisms" and for subscribers to the person "Marty McFly"
@@ -19,7 +19,7 @@ Feature: Email signup for people and roles
 
   Scenario: Signing up to people alerts
     Given I visit the person page for "Marty McFly"
-    Then govuk_delivery should be sent the feed subscription URL
+    Then a govuk_delivery signup should be sent for the feed subscription URL
     When I sign up for emails
 
     Then a notification should be sent for subscribers to the role "Minister of Anachronisms" and for subscribers to the person "Marty McFly"

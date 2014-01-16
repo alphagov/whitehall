@@ -45,4 +45,10 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
     assert_match /Francis Maude/, description.text
   end
 
+  test 'handles unfiltered publications' do
+    feed = "https://example.com/government/publications.atom"
+    description = Whitehall::DocumentFilter::Description.new(feed, 'document_type' => ['publications'])
+    assert_match /publications/, description.text
+  end
+
 end

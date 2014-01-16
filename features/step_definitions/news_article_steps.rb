@@ -92,3 +92,15 @@ end
 When /^I browse to the announcements index$/ do
   visit announcements_path
 end
+
+When(/^I publish a new news article of the type "(.*?)" called "(.*?)"$/) do |announcement_type, title|
+  begin_drafting_news_article(title: title, first_published: Date.today.to_s, announcement_type: announcement_type)
+  click_button "Save"
+  publish(force: true)
+end
+
+When(/^I filter the announcements list by "(.*?)"$/) do |announcement_type|
+  visit announcements_path
+  select announcement_type, from: "Announcement type"
+  click_on "Refresh results"
+end

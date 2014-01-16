@@ -176,3 +176,15 @@ Then(/^I should see in the preview that the publication is external and there is
   assert has_content?('This document is hosted on another website')
   assert has_link?('another website', href: @publication.external_url)
 end
+
+When /^I publish a new publication called "([^"]*)"$/ do |title|
+  begin_drafting_publication(title, first_published: Date.today.to_s)
+  click_button "Save"
+  publish(force: true)
+end
+
+When /^I publish a new publication of the type "([^"]*)" called "([^"]*)"$/ do |publication_type, title|
+  begin_drafting_publication(title, first_published: Date.today.to_s, publication_type: publication_type)
+  click_button "Save"
+  publish(force: true)
+end

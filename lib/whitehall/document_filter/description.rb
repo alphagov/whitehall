@@ -6,12 +6,13 @@ module Whitehall
   module DocumentFilter
     class Description
 
-      def initialize(feed_url)
+      def initialize(feed_url, default_params = {})
         @feed_url = feed_url
 
         unless feed_url.blank?
           query = URI.parse(feed_url).query
-          @params = CGI.parse(query) if query
+          feed_params = Rack::Utils.parse_nested_query(query)
+          @params = default_params.merge(feed_params)
           @options_manager = DocumentFilter::Options.new
         end
       end
