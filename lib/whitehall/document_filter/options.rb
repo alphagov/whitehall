@@ -16,9 +16,8 @@ module Whitehall
         self.for(option_name)
       end
 
-      def sentence_fragment_for(filter_key, value)
-        label = for_filter_key(filter_key).label_for(value)
-        proper_noun?(filter_key, value) ? label : label.try(:downcase)
+      def label_for(filter_key, value)
+        for_filter_key(filter_key).label_for(value)
       rescue UnknownFilterKey
         nil
       end
@@ -100,15 +99,6 @@ module Whitehall
           all_label: I18n.t("document_filters.world_locations.all"),
           ungrouped: WorldLocation.includes(:translations).ordered_by_name.map { |l| [l.name, l.slug] }
         )
-      end
-
-      def proper_noun?(key, value)
-        [
-          'departments',
-          'world_locations',
-          'people',
-          'roles'
-        ].include?(key) && value != 'all'
       end
     end
   end

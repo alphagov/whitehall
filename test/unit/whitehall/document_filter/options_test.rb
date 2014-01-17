@@ -7,48 +7,48 @@ module Whitehall
         @filter_options = Options.new
       end
 
-      test "#sentence_fragment_for downcases publication type values" do
+      test "#label_for returns labels for publication type values" do
         Whitehall::PublicationFilterOption.all.each do |option|
-          assert_equal option.label.downcase, @filter_options.sentence_fragment_for("publication_filter_option", option.slug)
+          assert_equal option.label, @filter_options.label_for("publication_filter_option", option.slug)
         end
 
-        assert_equal "all publication types", @filter_options.sentence_fragment_for("publication_filter_option", "all")
+        assert_equal "All publication types", @filter_options.label_for("publication_filter_option", "all")
       end
 
-      test "#sentence_fragment_for downcases announcement type values" do
+      test "#label_for returns labels for announcement type values" do
         Whitehall::AnnouncementFilterOption.all.each do |option|
-          assert_equal option.label.downcase, @filter_options.sentence_fragment_for("announcement_filter_option", option.slug)
+          assert_equal option.label, @filter_options.label_for("announcement_filter_option", option.slug)
         end
 
-        assert_equal "all announcement types", @filter_options.sentence_fragment_for("announcement_filter_option", "all")
+        assert_equal "All announcement types", @filter_options.label_for("announcement_filter_option", "all")
       end
 
-      test '#sentence_fragment_for downcase the "all" option for organisations but not the orgs themselves' do
+      test '#label_for downcase the "all" option for organisations but not the orgs themselves' do
         organisation = create(:ministerial_department, :with_published_edition, name: "The National Archives", slug: "the-national-archives")
 
-        assert_equal "The National Archives", @filter_options.sentence_fragment_for("departments", "the-national-archives")
-        assert_equal "all departments", @filter_options.sentence_fragment_for("departments", "all")
+        assert_equal "The National Archives", @filter_options.label_for("departments", "the-national-archives")
+        assert_equal "All departments", @filter_options.label_for("departments", "all")
       end
 
-      test '#sentence_fragment_for downcase the "all" option for world locations but not the locations themselves' do
+      test '#label_for downcase the "all" option for world locations but not the locations themselves' do
         location = create(:world_location, name: "United Kingdom", slug: "united-kingdom")
 
-        assert_equal "United Kingdom", @filter_options.sentence_fragment_for("world_locations", "united-kingdom")
-        assert_equal "all locations", @filter_options.sentence_fragment_for("world_locations", "all")
+        assert_equal "United Kingdom", @filter_options.label_for("world_locations", "united-kingdom")
+        assert_equal "All locations", @filter_options.label_for("world_locations", "all")
       end
 
-      test '#sentence_fragment_for downcases topics' do
+      test '#label_for downcases topics' do
         topic = create(:topic, name: "Example Topic", slug: "example-topic")
         topical_event = create(:topical_event, :active, name: "Example Topical Event", slug: "example-topical-event")
 
-        assert_equal "example topic", @filter_options.sentence_fragment_for("topics", "example-topic")
-        assert_equal "example topical event", @filter_options.sentence_fragment_for("topics", "example-topical-event")
-        assert_equal "all topics", @filter_options.sentence_fragment_for("topics", "all")
+        assert_equal "Example Topic", @filter_options.label_for("topics", "example-topic")
+        assert_equal "Example Topical Event", @filter_options.label_for("topics", "example-topical-event")
+        assert_equal "All topics", @filter_options.label_for("topics", "all")
       end
 
-      test '#sentence_fragment_for downcases official docs' do
-        assert_equal "command or act papers", @filter_options.sentence_fragment_for("official_document_status", "command_and_act_papers")
-        assert_equal "all documents", @filter_options.sentence_fragment_for("official_document_status", "all")
+      test '#label_for downcases official docs' do
+        assert_equal "Command or act papers", @filter_options.label_for("official_document_status", "command_and_act_papers")
+        assert_equal "All documents", @filter_options.label_for("official_document_status", "all")
       end
 
       test ".valid_option_name? identifies valid option names" do

@@ -2,53 +2,110 @@ require 'test_helper'
 
 class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
 
-  test 'returns a blank string if given no URL' do
-    assert_equal '', Whitehall::DocumentFilter::Description.new('').text
-    assert_equal '', Whitehall::DocumentFilter::Description.new(nil).text
+  test 'With a publications feed url and all possible query params given, it generates a nice sentance' do
+    create(:topic, slug: 'arts-and-culture', name: 'Arts and culture')
+    create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
+    create(:world_location, slug: 'afghanistan', name: 'Afghanistan')
+
+    feed_url = feed_url_for(
+      document_type: "publications",
+      publication_filter_option: "corporate-reports",
+      topics: ["arts-and-culture"],
+      departments: ["the-cabinet-office"],
+      official_document_status: "command_and_act_papers",
+      world_locations: ["afghanistan"]
+    )
+
+    assert_equal "corporate reports related to The Cabinet Office, Arts and culture and Afghanistan which are command or act papers", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
-  test 'builds a human-readable description of a document filter using the filter drop-down texts' do
-    publication_feed = "https://example.com/government/publications.atom?&departments%5B%5D=all&keywords=&official_document_status=all&publication_filter_option=closed-consultations&topics%5B%5D=all"
-    description = Whitehall::DocumentFilter::Description.new(publication_feed)
+  test 'with a publication with no publication_filter_option and no other params, it makes a nice sentence' do
+    feed_url = feed_url_for(
+      document_type: "publications"
+    )
 
-    assert_match /closed consultations/, description.text
-    assert_match /all departments/, description.text
-    assert_match /all topics/, description.text
+    assert_equal "publications", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
-  test 'properly describes department filters' do
-    create(:ministerial_department, :with_published_edition, name: "Department of Health", slug: "department-of-health")
-    publication_feed = 'http://example.com/government/publications.atom?&departments%5B%5D=department-of-health&keywords=&official_document_status=command_and_act_papers&publication_filter_option=all&topics%5B%5D=all'
-    description = Whitehall::DocumentFilter::Description.new(publication_feed)
-
-    assert_match /Department of Health/, description.text
+  test 'it calls untyped feeds documents' do
+    create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
+    feed_url = feed_url_for(
+      departments: ["the-cabinet-office"]
+    )
+    assert_equal "documents related to The Cabinet Office", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
-  test 'describes policy filters' do
-    create(:published_policy, title: "Supporting vibrant and sustainable arts and culture")
-    policy_feed = "http://example.com/government/policies/supporting-vibrant-and-sustainable-arts-and-culture/activity.atom"
-    description = Whitehall::DocumentFilter::Description.new(policy_feed)
-    assert_match /sustainable arts/, description.text
+  test 'it makes nice sentences for announcement feeds without an announcement_filter_option' do
+    create(:topic, slug: 'arts-and-culture', name: 'Arts and culture')
+    create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
+    create(:world_location, slug: 'afghanistan', name: 'Afghanistan')
+
+    feed_url = feed_url_for(
+      document_type: "announcements",
+      topics: ["arts-and-culture"],
+      departments: ["the-cabinet-office"],
+      world_locations: ["afghanistan"]
+    )
+    assert_equal "announcements related to The Cabinet Office, Arts and culture and Afghanistan", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
-  test 'describes role filters' do
-    create(:role, name: 'Prime Minister', slug: 'prime-minister')
-    policy_feed = "http://example.com/government/ministers/prime-minister.atom"
-    description = Whitehall::DocumentFilter::Description.new(policy_feed)
-    assert_match /Prime Minister/, description.text
+  test 'uses announcement_filter_option when given' do
+    feed_url = feed_url_for(
+      document_type: "announcements",
+      announcement_filter_option: "fatality-notices"
+    )
+    assert_equal "fatality notices", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
-  test 'describes people filters' do
-    create(:person, forename: 'Francis', surname: 'Maude', slug: 'francis-maude')
-    policy_feed = "http://example.com/government/people/francis-maude.atom"
-    description = Whitehall::DocumentFilter::Description.new(policy_feed)
-    assert_match /Francis Maude/, description.text
+  test 'uses the organisation name for organisation feeds' do
+    create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
+    feed_url = generic_url_maker.organisation_url('the-cabinet-office')
+    assert_equal "The Cabinet Office", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
-  test 'handles unfiltered publications' do
-    feed = "https://example.com/government/publications.atom"
-    description = Whitehall::DocumentFilter::Description.new(feed, 'document_type' => ['publications'])
-    assert_match /publications/, description.text
+  test 'uses the policy name for policy feeds' do
+    create(:published_policy, title: 'A policy')
+    feed_url = generic_url_maker.policy_url('a-policy')
+    assert_equal "A policy", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
+  test 'uses the topic name for topic feeds' do
+    create(:topic, name: 'A topic')
+    feed_url = generic_url_maker.topic_url('a-topic')
+    assert_equal "A topic", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+  test 'uses the topical event name for topical event feeds' do
+    create(:topical_event, name: 'A topical event')
+    feed_url = generic_url_maker.topical_event_url('a-topical-event')
+    assert_equal "A topical event", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+  test 'uses the world location name for world location feeds' do
+    create(:world_location, name: 'A world location')
+    feed_url = generic_url_maker.world_location_url('a-world-location')
+    assert_equal "A world location", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+  test 'uses the person\'s name for person feeds' do
+    create(:person, forename: 'A', surname: 'Person')
+    feed_url = generic_url_maker.person_url('a-person')
+    assert_equal "A Person", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+  test 'uses the role name for role feeds' do
+    create(:role, name: 'A role')
+    feed_url = generic_url_maker.ministerial_role_url('a-role')
+    assert_equal "A role", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+private
+
+  def feed_url_for(params)
+    Whitehall::FeedUrlBuilder.new(params).url
+  end
+
+  def generic_url_maker
+    Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: :atom)
+  end
 end
