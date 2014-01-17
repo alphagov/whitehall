@@ -10,6 +10,14 @@
 <div class="block">
   <div class="inner-block">
     <%= form_for @email_signup, html: { class: "signup-form" } do |form| %>
+      <% unless @email_signup.valid? %>
+        <ul>
+          <% @email_signup.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
       <p>You're signing up to all alerts for <%= @email_signup %></p>
 
       <%= form.hidden_field :feed %>

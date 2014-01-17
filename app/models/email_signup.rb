@@ -1,6 +1,9 @@
 class EmailSignup
   include ActiveModel::Conversion
   extend ActiveModel::Naming
+  include ActiveModel::Validations
+
+  validates_presence_of :feed
 
   def initialize(params = {})
     @feed = params[:feed]
@@ -30,10 +33,6 @@ class EmailSignup
 
   def persisted?
     false
-  end
-
-  def valid?
-    feed.present?
   end
 
 protected
