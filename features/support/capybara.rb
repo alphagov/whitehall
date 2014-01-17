@@ -3,12 +3,6 @@
 # so we've increased the default timeout.
 Capybara.default_wait_time = 5
 
-Before do
-  default_url_options[:host] = Whitehall.public_host
-  default_url_options[:protocol] = "https"
-  Capybara.app_host = "https://#{Whitehall.public_host}"
-end
-
 module ScreenshotHelper
   def screenshot(name = 'capybara')
     page.driver.render(File.join(Rails.root, 'tmp', "#{name}.png"), full: true)
