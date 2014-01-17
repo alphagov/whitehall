@@ -147,11 +147,19 @@ module Whitehall
       def people_and_role_urls
         urls = []
 
-        if edition.can_be_associated_with_role_appointments?
-          edition.role_appointments.each do |appointment|
-            urls << url_maker.polymorphic_url(appointment.person, format: 'atom') if appointment.person
-            urls << url_maker.polymorphic_url(appointment.role, format: 'atom') if appointment.role
-          end
+        appointments = []
+
+        if edition.respond_to?(:role_appointments)
+          appointments += edition.role_appointments
+        end
+
+        if edition.respond_to?(:role_appointment)
+          appointments << edition.role_appointment
+        end
+
+        appointments.each do |appointment|
+          urls << url_maker.polymorphic_url(appointment.person, format: 'atom') if appointment.person
+          urls << url_maker.polymorphic_url(appointment.role, format: 'atom') if appointment.role
         end
 
         return urls

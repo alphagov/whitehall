@@ -327,6 +327,17 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
+  test '#subscription_urls for a speech includes the atom feed for the associated role and person' do
+    appointment1 = create(:ministerial_role_appointment)
+
+    @edition = create(:speech, role_appointment: appointment1)
+
+    assert_subscription_urls_for_edition_include(
+      "people/#{appointment1.person.slug}.atom",
+      "ministers/#{appointment1.role.slug}.atom"
+    )
+  end
+
   test '#subscription_urls for an edition related to topics includes the atom feed for both the generic feed and the specific topic feed' do
     topic = create(:topic)
     @edition = create(:news_article, topics: [topic])
