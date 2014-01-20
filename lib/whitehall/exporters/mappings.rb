@@ -8,6 +8,7 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
       if edition && STATES_TO_INCLUDE.include?(edition.state)
         document.document_sources.each do |document_source|
           begin
+            next if fake_source_url?(document_source)
             target << document_row(edition, document, document_source)
           rescue StandardError => e
             Rails.logger.error("#{self.class.name}: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
@@ -18,6 +19,7 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
 
     AttachmentSource.find_each do |attachment_source|
       begin
+        next if fake_source_url?(attachment_source)
         if attachment_source.attachment
           path = attachment_source.attachment.url
           attachment_url = 'https://' + public_host + path
@@ -49,6 +51,10 @@ private
     end
     edition_type_for_route = edition.class.name.underscore
     url_maker.polymorphic_url(edition_type_for_route, doc_url_args)
+  end
+
+  def fake_source_url?(source)
+    source.url =~ /(fabricatedurl|placeholderunique)/
   end
 
   def url_maker
