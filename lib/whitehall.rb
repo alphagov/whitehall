@@ -10,7 +10,6 @@ module Whitehall
   mattr_accessor :stats_collector
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
-  mattr_accessor :public_host
   mattr_accessor :default_cache_max_age
   mattr_accessor :organisations_transition_visualisation_feature_enabled
 
@@ -38,6 +37,24 @@ module Whitehall
     'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
     'public-api.production.alphagov.co.uk' => 'www.gov.uk'
   }
+
+  PUBLIC_HOST_FOR_ENV = {
+    'production' => 'www.gov.uk',
+    'development' => 'www.dev.gov.uk',
+    'test' => 'www.example.com'
+  }
+
+  def self.public_host
+    PUBLIC_HOST_FOR_ENV[Rails.env]
+  end
+
+  def self.public_protocol
+    if Rails.env.development? || Rails.env.test?
+      'http'
+    else
+      'https'
+    end
+  end
 
   def self.available_locales
     [
@@ -84,15 +101,11 @@ module Whitehall
   end
 
   def self.platform
-    ENV["FACTER_govuk_platform"] || Rails.env
+    Rails.env
   end
 
   def self.public_host_for(request_host)
     PUBLIC_HOSTS[request_host] || request_host
-  end
-
-  def self.public_protocol
-    ENV['FACTER_govuk_platform'] == 'development' ? 'http': 'https'
   end
 
   def self.secrets

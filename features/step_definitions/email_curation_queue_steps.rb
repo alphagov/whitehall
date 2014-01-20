@@ -67,7 +67,7 @@ Then /^the policy should be sent to the notification service with the tweaked co
   Whitehall.stubs(govuk_delivery_client: mock_client)
 
   mock_client.expects(:notify).with(
-    includes("https://#{Whitehall.public_host}/government/policies.atom?relevant_to_local_government=1"),
+    includes("http://www.example.com/government/policies.atom?relevant_to_local_government=1"),
     includes(@tweaked_copy_for_the_local_government_edition[:title]),
     includes(@tweaked_copy_for_the_local_government_edition[:summary])
   )
