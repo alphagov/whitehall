@@ -8,31 +8,31 @@ module Whitehall
       attr_reader :feed_type, :feed_params, :feed_object_slug, :filter_options_describer
 
       def initialize(feed_url)
-        feed_url, @feed_params = feed_url.split("?")
-        @feed_params =  Rack::Utils.parse_nested_query(@feed_params).symbolize_keys
+        feed_url = URI.parse feed_url
+        @feed_params =  Rack::Utils.parse_nested_query(feed_url.query).symbolize_keys
         @filter_options_describer = DocumentFilter::Options.new
 
-        if feed_url == url_maker.atom_feed_url
+        if feed_url.path == url_maker.atom_feed_path
           @feed_type = 'documents'
-        elsif feed_url == url_maker.publications_url
+        elsif feed_url.path == url_maker.publications_path
           @feed_type = 'publications'
-        elsif feed_url == url_maker.announcements_url
+        elsif feed_url.path == url_maker.announcements_path
           @feed_type = 'announcements'
         else
-          @feed_object_slug = feed_url.match(/([^\/]*)\.atom$/)[1]
-          if feed_url == url_maker.organisation_url(@feed_object_slug)
+          @feed_object_slug = feed_url.path.match(/([^\/]*)\.atom$/)[1]
+          if feed_url.path == url_maker.organisation_path(@feed_object_slug)
             @feed_type = 'organisation'
-          elsif feed_url == url_maker.policy_url(@feed_object_slug)
+          elsif feed_url.path == url_maker.policy_path(@feed_object_slug)
             @feed_type = 'policy'
-          elsif feed_url == url_maker.topic_url(@feed_object_slug)
+          elsif feed_url.path == url_maker.topic_path(@feed_object_slug)
             @feed_type = 'topic'
-          elsif feed_url == url_maker.topical_event_url(@feed_object_slug)
+          elsif feed_url.path == url_maker.topical_event_path(@feed_object_slug)
             @feed_type = 'topical_event'
-          elsif feed_url == url_maker.world_location_url(@feed_object_slug)
+          elsif feed_url.path == url_maker.world_location_path(@feed_object_slug)
             @feed_type = 'world_location'
-          elsif feed_url == url_maker.person_url(@feed_object_slug)
+          elsif feed_url.path == url_maker.person_path(@feed_object_slug)
             @feed_type = 'person'
-          elsif feed_url == url_maker.ministerial_role_url(@feed_object_slug)
+          elsif feed_url.path == url_maker.ministerial_role_path(@feed_object_slug)
             @feed_type = 'role'
           end
         end
@@ -104,7 +104,7 @@ module Whitehall
       end
 
       def url_maker
-        @url_maker ||= UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: :atom)
+        @url_maker ||= UrlMaker.new(format: :atom)
       end
     end
   end
