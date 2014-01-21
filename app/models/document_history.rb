@@ -56,7 +56,7 @@ class DocumentHistory
   end
 
   def first_published_at
-    first_public_edition.first_published_at
+    first_public_edition.first_public_at
   end
 
   def first_public_edition_note
