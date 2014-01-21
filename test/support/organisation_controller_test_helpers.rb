@@ -159,6 +159,15 @@ module OrganisationControllerTestHelpers
 
         assert_select ".govdelivery[href='#{email_signups_path(organisation: organisation.slug)}']"
       end
+
+      view_test "#{org_type}:show has link to corporate information pages" do
+        organisation = create(org_type)
+        corporate_information_page = create(:corporate_information_page, organisation: organisation)
+
+        get :show, id: organisation
+
+        assert_select ".corporate-information a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
+      end
     end
   end
 end
