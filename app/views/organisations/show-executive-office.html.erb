@@ -66,7 +66,7 @@
         <section class="corporate-information">
           <ul class="dash-list">
             <% @organisation.corporate_information_pages.each do |page| %>
-              <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page) %></li>
+              <li><%= link_to page.title, organisation_corporate_information_page_path(@organisation, page.slug) %></li>
             <% end %>
           </ul>
         </section>
