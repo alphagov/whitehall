@@ -5,9 +5,9 @@ class EmailSignup
 
   validates_presence_of :feed
 
-  def initialize(params = {})
-    @feed = params[:feed]
-    @feed = add_local_government(@feed) if params[:local_government] == '1'
+  def initialize(feed = nil, is_local_government = false)
+    @feed = feed
+    @feed = add_local_government(@feed) if is_local_government
   end
 
   attr_accessor :feed, :local_government
