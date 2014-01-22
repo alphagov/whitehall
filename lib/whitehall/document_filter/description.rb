@@ -19,21 +19,27 @@ module Whitehall
         elsif feed_url.path == url_maker.announcements_path
           @feed_type = 'announcements'
         else
+          path_root_fragment = feed_url.path.split('/')[2];
           @feed_object_slug = feed_url.path.match(/([^\/]*)\.atom$/)[1]
-          if feed_url.path == url_maker.organisation_path(@feed_object_slug)
-            @feed_type = 'organisation'
-          elsif feed_url.path == url_maker.policy_path(@feed_object_slug)
+
+          case path_root_fragment
+          when "policies"
+            @feed_object_slug = feed_url.path.match(/([^\/]*)\/activity\.atom$/)[1]
             @feed_type = 'policy'
-          elsif feed_url.path == url_maker.topic_path(@feed_object_slug)
+          when 'organisations'
+            @feed_type = 'organisation'
+          when 'topics'
             @feed_type = 'topic'
-          elsif feed_url.path == url_maker.topical_event_path(@feed_object_slug)
+          when 'topical-events'
             @feed_type = 'topical_event'
-          elsif feed_url.path == url_maker.world_location_path(@feed_object_slug)
+          when 'world'
             @feed_type = 'world_location'
-          elsif feed_url.path == url_maker.person_path(@feed_object_slug)
+          when 'people'
             @feed_type = 'person'
-          elsif feed_url.path == url_maker.ministerial_role_path(@feed_object_slug)
+          when 'ministers'
             @feed_type = 'role'
+          else
+            raise ArgumentError.new("Feed not recognised: '#{feed_url.path}'")
           end
         end
       end

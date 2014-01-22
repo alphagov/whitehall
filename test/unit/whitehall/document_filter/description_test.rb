@@ -65,7 +65,7 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
 
   test 'uses the policy name for policy feeds' do
     create(:published_policy, title: 'A policy')
-    feed_url = generic_url_maker.policy_url('a-policy')
+    feed_url = generic_url_maker.activity_policy_url('a-policy')
     assert_equal "A policy", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
