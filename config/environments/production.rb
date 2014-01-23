@@ -10,7 +10,7 @@ Whitehall::Application.configure do
 
   # Log unpermitted parameters. This can be removed once we're confident the
   # strong parameters change is complete
-  config.action_controller.action_on_unpermitted_parameters = :log
+  config.action_controller.action_on_unpermitted_parameters = :raise
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
