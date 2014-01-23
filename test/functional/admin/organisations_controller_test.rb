@@ -318,4 +318,23 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_template :about
     assert_equal organisation, assigns(:organisation)
   end
+
+  test "PUT on :update handles non-departmental public body information" do
+    organisation = create(:organisation)
+
+    put :update, id: organisation, organisation: {
+      ocpa_regulated: 'false',
+      public_meetings: 'true',
+      public_minutes: 'true',
+      regulatory_function: 'false'
+    }
+
+    organisation.reload
+
+    assert_response :redirect
+    refute organisation.ocpa_regulated?
+    assert organisation.public_meetings?
+    assert organisation.public_minutes?
+    refute organisation.regulatory_function?
+  end
 end
