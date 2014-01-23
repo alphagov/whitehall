@@ -52,7 +52,11 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
+  def response_key
+    response_class.to_s.underscore
+  end
+
   def response_params
-    params[:consultation_outcome] || params[:consultation_public_feedback]
+    params.require(response_key).permit(:summary, :published_on)
   end
 end

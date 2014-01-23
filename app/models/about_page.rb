@@ -1,8 +1,6 @@
 class AboutPage < ActiveRecord::Base
   include Searchable
 
-  attr_accessible :body, :name, :summary, :read_more_link_text
-
   belongs_to :topical_event
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 255 }

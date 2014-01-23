@@ -8,7 +8,7 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
   end
 
   def create
-    @access_and_opening_times = @accessible.build_access_and_opening_times(params[:access_and_opening_times])
+    @access_and_opening_times = @accessible.build_access_and_opening_times(access_and_opening_times_params)
     if @access_and_opening_times.save
       redirect_to accessible_path(@accessible), notice: 'Access information saved.'
     else
@@ -18,7 +18,7 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
 
   def update
     @access_and_opening_times = @accessible.access_and_opening_times
-    if @access_and_opening_times.update_attributes(params[:access_and_opening_times])
+    if @access_and_opening_times.update_attributes(access_and_opening_times_params)
       redirect_to accessible_path(@accessible), notice: 'Access information saved.'
     else
       render :edit
@@ -51,5 +51,9 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
     if @accessible.is_a?(WorldwideOffice)
       @access_and_opening_times.body ||= @accessible.default_access_and_opening_times.try(:body)
     end
+  end
+
+  def access_and_opening_times_params
+    params.require(:access_and_opening_times).permit(:body)
   end
 end

@@ -56,9 +56,9 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
   test "update should save modified publication attributes" do
     publication = create(:publication)
 
-    put :update, id: publication, edition: controller_attributes_for_instance(publication,
+    put :update, id: publication, edition: {
       first_published_at: Time.zone.parse("2001-06-18 00:00:00")
-    )
+    }
 
     saved_publication = publication.reload
     assert_equal Time.zone.parse("2001-06-18 00:00:00"), saved_publication.first_published_at

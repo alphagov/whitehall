@@ -14,7 +14,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
   end
 
   def update
-    if @translated_role.update_attributes(params[:role])
+    if @translated_role.update_attributes(role_params)
       redirect_to admin_role_translations_path(@translated_role),
         notice: notice_message("saved")
     else
@@ -45,5 +45,9 @@ class Admin::RoleTranslationsController < Admin::BaseController
 
   def load_role
     @role ||= Role.find(params[:role_id])
+  end
+
+  def role_params
+    params.require(:role).permit(:name, :responsibilities)
   end
 end

@@ -17,8 +17,8 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def update
-    params[:worldwide_office] = {service_ids: []}.merge(params[:worldwide_office])
-    @worldwide_office.update_attributes(params[:worldwide_office])
+    worldwide_office_params[:service_ids] ||= []
+    @worldwide_office.update_attributes(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
       redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
@@ -28,7 +28,7 @@ class Admin::WorldwideOfficesController < Admin::BaseController
   end
 
   def create
-    @worldwide_office = @worldwide_organisation.offices.build(params[:worldwide_office])
+    @worldwide_office = @worldwide_organisation.offices.build(worldwide_office_params)
     if @worldwide_office.save
       handle_show_on_home_page_param
       redirect_to [:admin, @worldwide_organisation, WorldwideOffice]
@@ -64,16 +64,27 @@ private
     @worldwide_office = @worldwide_organisation.offices.find(params[:id])
   end
 
+  def worldwide_office_params
+    params.require(:worldwide_office)
+          .permit(:worldwide_office_type_id, :show_on_home_page,
+                  service_ids: [],
+                  contact_attributes: [
+                    :id, :title, :contact_type_id, :comments, :recipient,
+                    :street_address, :locality, :region, :postal_code,
+                    :country_id, :email, :contact_form_url,
+                    contact_numbers_attributes: [:id, :label, :number]])
+  end
+
   def destroy_blank_contact_numbers
-    contact_number_params.each do |index, attributes|
-      if attributes.except(:id).values.all?(&:blank?)
-        attributes[:_destroy] = "1"
-      end
+    blank_numbers = contact_number_params.select do |_, attributes|
+      attributes.except(:id).values.all?(&:blank?)
     end
+
+    blank_numbers.each { |_, attributes| attributes[:_destroy] = "1" }
   end
 
   def contact_number_params
-    (params[:worldwide_office][:contact_attributes] || {})[:contact_numbers_attributes] || []
+    worldwide_office_params.fetch(:contact_attributes, {})
+                           .fetch(:contact_numbers_attributes, {})
   end
-
 end

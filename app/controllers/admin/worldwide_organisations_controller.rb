@@ -14,7 +14,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def create
-    @worldwide_organisation = WorldwideOrganisation.create(params[:worldwide_organisation])
+    @worldwide_organisation = WorldwideOrganisation.create(worldwide_organisation_params)
     respond_with :admin, @worldwide_organisation
   end
 
@@ -24,7 +24,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def update
-    @worldwide_organisation.update_attributes(params[:worldwide_organisation])
+    @worldwide_organisation.update_attributes(worldwide_organisation_params)
     respond_with :admin, @worldwide_organisation
   end
 
@@ -37,7 +37,8 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   end
 
   def set_main_office
-    if @worldwide_organisation.update_attributes(params[:worldwide_organisation])
+    org_params = params.require(:worldwide_organisation).permit(:main_office_id)
+    if @worldwide_organisation.update_attributes(org_params)
       flash[:notice] = "Main office updated successfully"
     end
     respond_with [:admin, @worldwide_organisation, WorldwideOffice]
@@ -52,5 +53,14 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def find_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.find(params[:id])
+  end
+
+  def worldwide_organisation_params
+    params.require(:worldwide_organisation).permit(
+      :name, :summary, :description, :logo_formatted_name, :services,
+      world_location_ids: [],
+      sponsoring_organisation_ids: [],
+      default_news_image_attributes: [:file_cache]
+    )
   end
 end

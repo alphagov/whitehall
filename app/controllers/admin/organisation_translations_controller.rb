@@ -14,7 +14,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   end
 
   def update
-    if @translated_organisation.update_attributes(params[:organisation])
+    if @translated_organisation.update_attributes(organisation_params)
       redirect_to admin_organisation_translations_path(@translated_organisation),
         notice: notice_message("saved")
     else
@@ -29,6 +29,12 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   end
 
   private
+
+  def organisation_params
+    params.require(:organisation).permit(
+      :name, :acronym, :logo_formatted_name, :description, :about_us
+    )
+  end
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@organisation.name}" #{action}.}

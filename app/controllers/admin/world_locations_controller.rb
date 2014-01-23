@@ -6,7 +6,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def update
-    if @world_location.update_attributes(params[:world_location])
+    if @world_location.update_attributes(world_location_params)
       redirect_to [:admin, @world_location], notice: "World location updated successfully"
     else
       render action: :edit
@@ -39,5 +39,12 @@ class Admin::WorldLocationsController < Admin::BaseController
 
   def load_world_location
     @world_location = WorldLocation.find(params[:id] || params[:world_location_id])
+  end
+
+  def world_location_params
+    params.require(:world_location).permit(
+      :mission_statement,
+      top_tasks_attributes: [:url, :title]
+    )
   end
 end

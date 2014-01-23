@@ -11,7 +11,7 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   end
 
   def update
-    if @translated_contact.update_attributes(params[:contact])
+    if @translated_contact.update_attributes(contact_params)
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation),
                   notice: notice_message("saved")
     else
@@ -46,5 +46,12 @@ private
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@contact.title}" #{action}.}
+  end
+
+  def contact_params
+    params.require(:contact)
+          .permit(:title, :comments, :recipient, :street_address, :locality,
+                  :region, :email, :contact_form_url,
+                  contact_numbers_attributes: [:id, :label, :number])
   end
 end

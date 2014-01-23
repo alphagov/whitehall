@@ -11,7 +11,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
   def create
-    @group = @collection.groups.build(params[:document_collection_group])
+    @group = @collection.groups.build(document_collection_group_params)
     if @group.save
       redirect_to admin_document_collection_groups_path(@collection),
                   notice: "'#{@group.heading}' added"
@@ -21,7 +21,7 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
   end
 
   def update
-    @group.update_attributes!(params[:document_collection_group])
+    @group.update_attributes!(document_collection_group_params)
     redirect_to admin_document_collection_groups_path(@collection),
                 notice: "'#{@group.heading}' saved"
   rescue ActiveRecord::RecordInvalid
@@ -53,5 +53,9 @@ class Admin::DocumentCollectionGroupsController < Admin::BaseController
 
   def load_document_collection_group
     @group = @collection.groups.find(params[:id])
+  end
+
+  def document_collection_group_params
+    params.require(:document_collection_group).permit(:body, :heading)
   end
 end

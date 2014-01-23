@@ -12,7 +12,7 @@ class Admin::EditorialRemarksController < Admin::BaseController
   end
 
   def create
-    @editorial_remark = @edition.editorial_remarks.build(params[:editorial_remark].merge(author: current_user))
+    @editorial_remark = @edition.editorial_remarks.build(editorial_remark_params)
     if @editorial_remark.save
       redirect_to admin_edition_path(@edition)
     else
@@ -23,5 +23,9 @@ class Admin::EditorialRemarksController < Admin::BaseController
 private
   def find_edition
     @edition = Edition.find(params[:edition_id])
+  end
+
+  def editorial_remark_params
+    params.require(:editorial_remark).permit(:body).merge(author: current_user)
   end
 end

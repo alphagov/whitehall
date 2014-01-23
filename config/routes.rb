@@ -266,7 +266,7 @@ Whitehall::Application.routes.draw do
 
         # Ensure that supporting page routes are just ids in admin
         get "/editions/:edition_id/supporting-pages/:id" => "supporting_pages#show", constraints: {id: /[0-9]+/}
-        get '/editions/:policy_id/supporting-pages/new', constraints: {id: /(\d+)/}, to: redirect("/admin/supporting-pages/new?edition[related_policy_ids]=%{policy_id}"), as: 'new_policy_supporting_page'
+        get '/editions/:policy_id/supporting-pages/new', constraints: {id: /(\d+)/}, to: redirect("/admin/supporting-pages/new?edition[related_policy_ids][]=%{policy_id}"), as: 'new_policy_supporting_page'
 
         get "/editions/:id" => "editions#show"
 

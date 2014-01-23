@@ -51,6 +51,9 @@ gem 'raindrops', '0.11.0'
 # https://github.com/alphagov/govspeak/blob/master/Gemfile
 gem 'sanitize', github: 'alphagov/sanitize', branch: '2.0.6-plus-colons-in-anchor-hrefs'
 
+# Gems to smooth transition to Rails 4
+gem 'strong_parameters'
+
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'

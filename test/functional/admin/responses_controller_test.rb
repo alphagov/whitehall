@@ -97,7 +97,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   test "PUT :update with valid feedback params saves the changes to the feedback" do
     feedback = create_feedback
-    put :update, consultation_id: @consultation, consultation_outcome: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationPublicFeedback'
+    put :update, consultation_id: @consultation, consultation_public_feedback: { summary: 'New summary', published_on: Date.today }, type: 'ConsultationPublicFeedback'
     assert_response :redirect
     assert_equal 'New summary', feedback.reload.summary
   end

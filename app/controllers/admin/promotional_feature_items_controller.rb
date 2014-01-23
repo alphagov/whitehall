@@ -9,7 +9,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def create
-    @promotional_feature_item = @promotional_feature.promotional_feature_items.create(params[:promotional_feature_item])
+    @promotional_feature_item = @promotional_feature.promotional_feature_items.create(promotional_feature_item_params)
     if @promotional_feature_item.save
       redirect_to_feature 'Feature item added.'
     else
@@ -22,7 +22,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
   end
 
   def update
-    if @promotional_feature_item.update_attributes(params[:promotional_feature_item])
+    if @promotional_feature_item.update_attributes(promotional_feature_item_params)
       redirect_to_feature 'Feature item updated.'
     else
       render :edit
@@ -50,5 +50,13 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
 
   def redirect_to_feature(notice = nil)
     redirect_to [:admin, @organisation, @promotional_feature], notice: notice
+  end
+
+  def promotional_feature_item_params
+    params.require(:promotional_feature_item).permit(
+      :summary, :image, :image_alt_text, :title, :title_url, :double_width,
+      :image_cache,
+      links_attributes: [:url, :text, :_destroy]
+    )
   end
 end

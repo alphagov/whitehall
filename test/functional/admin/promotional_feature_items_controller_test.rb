@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer

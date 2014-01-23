@@ -7,6 +7,10 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
+  def example_organisation_attributes
+    attributes_for(:organisation).except(:logo, :analytics_identifier)
+  end
+
   test "GET on :index assigns all organisations in alphabetical order" do
     org2 = create(:organisation, name: "org 2")
     org1 = create(:organisation, name: "org 1")
@@ -18,7 +22,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "POST on :create saves the organisation and its associations" do
-    attributes = attributes_for(:organisation)
+    attributes = example_organisation_attributes
 
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
@@ -61,7 +65,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create can set a custom logo' do
-    post :create, organisation: attributes_for(:organisation).merge(
+    post :create, organisation: example_organisation_attributes.merge(
       organisation_logo_type_id: OrganisationLogoType::CustomLogo.id,
       logo: fixture_file_upload('logo.png')
     )
@@ -69,7 +73,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "POST on :create with invalid data re-renders the new form" do
-    attributes = attributes_for(:organisation)
+    attributes = example_organisation_attributes
 
     assert_no_difference('Organisation.count') do
       post :create, organisation: attributes.merge(name: '')
@@ -267,6 +271,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_match /logo.png/, organisation.reload.logo.file.filename
   end
 
+  test 'PUT :update can set default news image' do
+    organisation = create(:organisation)
+    put :update, id: organisation, organisation: {
+      default_news_image_attributes: {
+        file: fixture_file_upload('minister-of-funk.960x640.jpg')
+      }
+    }
+    assert_equal 'minister-of-funk.960x640.jpg', organisation.reload.default_news_image.file.file.filename
+  end
+
   test "PUT on :update with bad params does not update the organisation and renders the edit page" do
     ministerial_role = create(:ministerial_role)
     organisation = create(:organisation, name: 'org name')
@@ -294,29 +308,6 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal "Ministry of Noise", organisation.name
     assert_equal "organisation-description", organisation.description
     assert_equal "organisation-about-us", organisation.about_us
-  end
-
-  test "PUT on :update should remove all related topics if none specified" do
-    organisation_attributes = {name: "Ministry of Sound"}
-    organisation = create(:organisation,
-      organisation_attributes.merge(topics: [create(:topic)])
-    )
-
-    put :update, id: organisation, organisation: organisation_attributes.merge(classification_ids: [""])
-
-    organisation.reload
-    assert_equal [], organisation.topics
-  end
-
-  test "PUT on :update ordering featured editions should not lose topics or parent organisations" do
-    topic = create(:topic)
-    parent_organisation = create(:organisation)
-    organisation = create(:organisation, topics: [topic], parent_organisations: [parent_organisation])
-
-    put :update, id: organisation, organisation: {edition_organisations_attributes: {}}
-
-    assert_equal [topic], organisation.reload.topics
-    assert_equal [parent_organisation], organisation.reload.parent_organisations
   end
 
   test "GET on :about loads the organisation and renders the about template" do

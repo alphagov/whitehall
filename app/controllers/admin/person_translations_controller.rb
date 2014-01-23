@@ -14,7 +14,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
   end
 
   def update
-    if @translated_person.update_attributes(params[:person])
+    if @translated_person.update_attributes(person_params)
       redirect_to admin_person_translations_path(@translated_person),
         notice: notice_message("saved")
     else
@@ -45,5 +45,9 @@ class Admin::PersonTranslationsController < Admin::BaseController
 
   def load_person
     @person ||= Person.find(params[:person_id])
+  end
+
+  def person_params
+    params.require(:person).permit(:biography)
   end
 end

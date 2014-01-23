@@ -16,7 +16,7 @@ class Admin::ContactsController < Admin::BaseController
   end
 
   def update
-    @contact.update_attributes(params[:contact])
+    @contact.update_attributes(contact_params)
     if @contact.save
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" updated successfully}
@@ -26,7 +26,7 @@ class Admin::ContactsController < Admin::BaseController
   end
 
   def create
-    @contact = @contactable.contacts.build(params[:contact])
+    @contact = @contactable.contacts.build(contact_params)
     if @contact.save
       handle_show_on_home_page_param
       redirect_to [:admin, @contact.contactable, Contact], notice: %{"#{@contact.title}" created successfully}
@@ -72,5 +72,13 @@ private
     if @contactable.respond_to?(:home_page_contacts)
       super
     end
+  end
+
+  def contact_params
+    params.require(:contact)
+          .permit(:title, :comments, :recipient, :street_address, :locality,
+                  :region, :postal_code, :country_id, :email,
+                  :contact_form_url, :contact_type_id,
+                  contact_numbers_attributes: [:id, :label, :number])
   end
 end
