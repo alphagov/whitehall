@@ -61,10 +61,10 @@ def associate_document_with_organisation(document, organisation)
   edition.editorial_remarks.create!(author: User.find_by_name!('GDS Inside Government Team'), body: editorial_remark)
 end
 
-raise "Missing topics CSV 'tmp/closed-and-new-organisations.csv'" unless File.exist?('tmp/closed-and-new-organisations.csv')
-raise "Missing topics CSV 'tmp/ORGS_to_PUBS_association.csv'" unless File.exist?('tmp/ORGS_to_PUBS_association.csv')
+raise "Missing topics CSV 'db/data_migration/20140121152543_closed-and-new-organisations.csv'" unless File.exist?('db/data_migration/20140121152543_closed-and-new-organisations.csv')
+raise "Missing topics CSV 'db/data_migration/20140121152543_orgs-to-pubs-association.csv'" unless File.exist?('db/data_migration/20140121152543_orgs-to-pubs-association.csv')
 
-org_rows = CSV.parse(Pathname.new('tmp/closed-and-new-organisations.csv').read, headers: true)
+org_rows = CSV.parse(Pathname.new('db/data_migration/20140121152543_closed-and-new-organisations.csv').read, headers: true)
 
 $orgs = {}
 org_rows.each do |row|
@@ -88,7 +88,7 @@ org_rows.each do |row|
   }
 end
 
-CSV.foreach('tmp/ORGS_to_PUBS_association.csv') do |(old_url, _, org_slug)|
+CSV.foreach('db/data_migration/20140121152543_orgs-to-pubs-association.csv') do |(old_url, _, org_slug)|
   next if old_url == 'old_url'
 
   next unless document = load_document(old_url.strip)

@@ -38,9 +38,9 @@ def associate_document_with_topic(document, topic)
   end
 end
 
-raise "Missing topics CSV 'tmp/topics-ready-for-load.csv'" unless File.exist?('tmp/topics-ready-for-load.csv')
+raise "Missing topics CSV 'db/data_migration/20140121113602_topics-ready-for-load.csv'" unless File.exist?('db/data_migration/20140121113602_topics-ready-for-load.csv')
 
-CSV.foreach('tmp/topics-ready-for-load.csv') do |(old_url, _, topic_name)|
+CSV.foreach('db/data_migration/20140121113602_topics-ready-for-load.csv') do |(old_url, _, topic_name)|
   next if old_url == 'Link'
 
   next unless topic = load_topic(topic_name.strip)
