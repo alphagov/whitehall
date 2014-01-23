@@ -1,10 +1,6 @@
 require 'pathname'
 require 'csv'
 
-def dry_run?
-  ENV['DRY_RUN'] != 'false'
-end
-
 def load_topic(topic_name)
   if topic = Topic.find_by_name(topic_name)
     topic
@@ -35,21 +31,14 @@ def associate_document_with_topic(document, topic)
     puts "Association between #{document.document_type} '#{document.slug}' and topic '#{topic.slug}' already exists"
   else
     puts "Associating #{document.document_type} '#{document.slug}' with topic '#{topic.slug}'"
-    unless dry_run?
-      ClassificationMembership.create!(classification: topic, edition: edition)
+    ClassificationMembership.create!(classification: topic, edition: edition)
 
-      editorial_remark = "Imported document associated with topic #{topic.slug}"
-      edition.editorial_remarks.create!(author: User.find_by_name!('GDS Inside Government Team'), body: editorial_remark)
-    end
+    editorial_remark = "Imported document associated with topic #{topic.slug}"
+    edition.editorial_remarks.create!(author: User.find_by_name!('GDS Inside Government Team'), body: editorial_remark)
   end
 end
 
 raise "Missing topics CSV 'tmp/topics-ready-for-load.csv'" unless File.exist?('tmp/topics-ready-for-load.csv')
-
-if dry_run?
-  puts "===       STARTING A DRY RUN        ==="
-  puts "=== Run for real with DRY_RUN=false ==="
-end
 
 CSV.foreach('tmp/topics-ready-for-load.csv') do |(old_url, _, topic_name)|
   next if old_url == 'Link'
@@ -59,5 +48,3 @@ CSV.foreach('tmp/topics-ready-for-load.csv') do |(old_url, _, topic_name)|
 
   associate_document_with_topic(document, topic)
 end
-
-raise "Rolling back dry run" if dry_run?

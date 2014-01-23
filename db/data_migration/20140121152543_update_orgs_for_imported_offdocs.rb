@@ -1,10 +1,6 @@
 require 'pathname'
 require 'csv'
 
-def dry_run?
-  ENV['DRY_RUN'] != 'false'
-end
-
 def load_or_create_organisation(org_slug)
   if org = Organisation.find_by_slug(org_slug)
     org
@@ -23,7 +19,7 @@ def load_or_create_organisation(org_slug)
       return
     end
 
-    org.save! unless dry_run?
+    org.save!
     puts "Missing organisation '#{org_slug}', created as '#{org.try(:slug)}'"
     org
   end
@@ -61,19 +57,12 @@ def associate_document_with_organisation(document, organisation)
     return
   end
 
-  unless dry_run?
-    edition.save!
-    edition.editorial_remarks.create!(author: User.find_by_name!('GDS Inside Government Team'), body: editorial_remark)
-  end
+  edition.save!
+  edition.editorial_remarks.create!(author: User.find_by_name!('GDS Inside Government Team'), body: editorial_remark)
 end
 
 raise "Missing topics CSV 'tmp/closed-and-new-organisations.csv'" unless File.exist?('tmp/closed-and-new-organisations.csv')
 raise "Missing topics CSV 'tmp/ORGS_to_PUBS_association.csv'" unless File.exist?('tmp/ORGS_to_PUBS_association.csv')
-
-if dry_run?
-  puts "===       STARTING A DRY RUN        ==="
-  puts "=== Run for real with DRY_RUN=false ==="
-end
 
 org_rows = CSV.parse(Pathname.new('tmp/closed-and-new-organisations.csv').read, headers: true)
 
@@ -107,5 +96,3 @@ CSV.foreach('tmp/ORGS_to_PUBS_association.csv') do |(old_url, _, org_slug)|
 
   associate_document_with_organisation(document, organisation)
 end
-
-raise "Rolling back dry run" if dry_run?
