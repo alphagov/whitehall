@@ -337,4 +337,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation.public_minutes?
     refute organisation.regulatory_function?
   end
+
+  test 'PUT on :update handles existing top task attributes' do
+    organisation = create(:organisation)
+    top_task = create(:top_task, linkable: organisation)
+
+    put :update, id: organisation, organisation: { top_tasks_attributes: { '0' => {
+      id: top_task.id,
+      title: 'New title',
+      url: top_task.url,
+      _destroy: 'false'
+    } } }
+
+    assert_response :redirect
+    assert_equal 'New title', top_task.reload.title
+  end
 end
