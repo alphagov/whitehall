@@ -72,6 +72,13 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_match /logo.png/, Organisation.last.logo.file.filename
   end
 
+  test 'POST create can set number of important board members' do
+    post :create, organisation: example_organisation_attributes.merge(
+      important_board_members: 1,
+    )
+    assert_equal 1, Organisation.last.important_board_members
+  end
+
   test "POST on :create with invalid data re-renders the new form" do
     attributes = example_organisation_attributes
 

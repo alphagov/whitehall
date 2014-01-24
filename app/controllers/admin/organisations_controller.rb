@@ -87,7 +87,7 @@ class Admin::OrganisationsController < Admin::BaseController
       :organisation_type_key, :alternative_format_contact_email,
       :govuk_status, :closed_at, :organisation_chart_url, :about_us,
       :foi_exempt, :ocpa_regulated, :public_meetings, :public_minutes,
-      :regulatory_function,
+      :regulatory_function, :important_board_members,
       default_news_image_attributes: [:file, :file_cache],
       organisation_roles_attributes: [:id, :ordering],
       parent_organisation_ids: [],
