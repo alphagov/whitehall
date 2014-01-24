@@ -79,6 +79,6 @@ private
           .permit(:title, :comments, :recipient, :street_address, :locality,
                   :region, :postal_code, :country_id, :email,
                   :contact_form_url, :contact_type_id,
-                  contact_numbers_attributes: [:id, :label, :number])
+                  contact_numbers_attributes: [:id, :label, :number, :_destroy])
   end
 end
