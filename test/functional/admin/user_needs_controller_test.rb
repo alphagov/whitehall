@@ -8,7 +8,8 @@ class Admin::UserNeedsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   test "POST on :create creates a new user need" do
-    data = { user: "test user", need: "this to work", goal: "pass my tests" }
+    organisation = create(:organisation)
+    data = { user: "test user", need: "this to work", goal: "pass my tests", organisation_id: organisation.id }
     post :create, format: :json, user_need: data
 
     assert_response :success
@@ -27,4 +28,3 @@ class Admin::UserNeedsControllerTest < ActionController::TestCase
     assert json_response["errors"].any?
   end
 end
-
