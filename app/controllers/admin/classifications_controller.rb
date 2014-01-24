@@ -66,9 +66,9 @@ class Admin::ClassificationsController < Admin::BaseController
       related_classification_ids: [],
       classification_memberships_attributes: [:id, :ordering],
       social_media_accounts_attributes: [
-        :social_media_service_id, :url, :_destroy
+        :social_media_service_id, :url, :_destroy, :id
       ],
-      top_tasks_attributes: [:title, :url, :_destroy],
+      top_tasks_attributes: [:title, :url, :_destroy, :id],
       organisation_classifications_attributes: [:id, :lead, :lead_ordering]
     )
   end
