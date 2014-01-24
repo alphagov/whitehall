@@ -11,6 +11,6 @@ class Admin::UserNeedsController < Admin::BaseController
 
 private
   def user_need_params
-    params.require(:user_need).permit(:user, :need, :goal)
+    params.require(:user_need).permit(:user, :need, :goal, :organisation_id)
   end
 end
