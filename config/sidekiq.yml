@@ -3,4 +3,5 @@
 :queues:
   - [imports, 2]
   - [router, 4]
+  - [panopticon, 4]
   - [default, 5]
