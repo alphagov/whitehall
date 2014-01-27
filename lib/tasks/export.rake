@@ -1,4 +1,5 @@
 require "csv"
+require "fileutils"
 
 namespace :export do
 
@@ -22,9 +23,13 @@ namespace :export do
 
     exporter = Whitehall::Exporters::Mappings.new(ENV['FACTER_govuk_platform'])
 
-    CSV.open(Rails.root.join('public/government/mappings.csv'), 'wb') do |csv_out|
+    filename = 'public/government/mappings.csv'
+    temporary_filename = filename + '.new'
+    CSV.open(Rails.root.join(temporary_filename), 'wb') do |csv_out|
       exporter.export(csv_out)
     end
+
+    FileUtils.mv(temporary_filename, filename)
   end
 
   desc "Export Redirector compatible document mappings"
