@@ -795,6 +795,26 @@ module AdminEditionControllerTestHelpers
         assert_equal [second_topic], edition.topics
       end
 
+      test "create should create a topic suggestion for the edition" do
+        attributes = controller_attributes_for(edition_type)
+
+        put :create, edition: attributes.merge(topic_suggestion_attributes: {name: 'Suggestion'})
+
+        assert edition = edition_class.last
+        assert_equal 'Suggestion', edition.topic_suggestion.name
+      end
+
+      test "update should update the topic suggestion for the edition" do
+        edition = create("draft_#{edition_type}")
+        suggestion = TopicSuggestion.create(edition: edition, name: 'Suggestion')
+
+        put :update, id: edition, edition: {
+          topic_suggestion_attributes: {id: suggestion.id, name: 'New suggestion'}
+        }
+
+        assert_equal 'New suggestion', suggestion.reload.name
+      end
+
       view_test "updating a stale document should render edit page with conflicting document and its related topics" do
         topic = create(:topic)
         edition = create(edition_type, topics: [topic])

@@ -44,7 +44,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   def world_location_params
     params.require(:world_location).permit(
       :mission_statement,
-      top_tasks_attributes: [:url, :title]
+      top_tasks_attributes: [:url, :title, :id, :_destroy]
     )
   end
 end

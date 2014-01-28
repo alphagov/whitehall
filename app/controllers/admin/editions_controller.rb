@@ -166,7 +166,7 @@ class Admin::EditionsController < Admin::BaseController
       policy_team_ids: [],
       policy_advisory_group_ids: [],
       document_collection_group_ids: [],
-      topic_suggestion_attributes: [:name],
+      topic_suggestion_attributes: [:name, :id],
       images_attributes: [
         :id, :alt_text, :caption, :_destroy,
         image_data_attributes: [:file, :file_cache]
