@@ -62,7 +62,8 @@ class Admin::ClassificationsController < Admin::BaseController
 
   def object_params
     params.require(model_name).permit(
-      :name, :description, :logo_alt_text, :logo_cache, :start_date, :end_date,
+      :name, :description, :logo_alt_text, :logo_cache, :remove_logo,
+      :start_date, :end_date,
       related_classification_ids: [],
       classification_memberships_attributes: [:id, :ordering],
       social_media_accounts_attributes: [
