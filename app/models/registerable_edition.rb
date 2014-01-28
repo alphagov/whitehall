@@ -20,7 +20,7 @@ class RegisterableEdition
   end
 
   def state
-    "live"
+    @edition.state == "published" ? "live" : "draft"
   end
 
   def industry_sectors

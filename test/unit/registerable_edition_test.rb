@@ -18,6 +18,13 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal [], registerable_edition.industry_sectors
   end
 
+  test "sets the state to draft if the edition isn't published" do
+    edition = create(:draft_detailed_guide)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "draft", registerable_edition.state
+  end
+
   test "attaches industry sector tags based on mainstream categories for detailed guides" do
     primary_mainstream_category = create(:mainstream_category,
                                          parent_tag: "oil-and-gas",
