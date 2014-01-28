@@ -2,14 +2,18 @@ require 'test_helper'
 
 class RegisterableEditionTest < ActiveSupport::TestCase
 
-  test "prepares an edition for registration with Panopticon" do
-    edition = create(:published_edition)
+  test "prepares a detailed guide for registration with Panopticon" do
+    edition = create(:published_detailed_guide,
+                     title: "Edition title",
+                     summary: "Edition summary")
+    slug = edition.document.slug
+
     registerable_edition = RegisterableEdition.new(edition)
 
-    assert_equal edition.slug, registerable_edition.slug
-    assert_equal edition.title, registerable_edition.title
-    assert_equal edition.type.underscore, registerable_edition.kind
-    assert_equal edition.summary, registerable_edition.description
+    assert_equal slug, registerable_edition.slug
+    assert_equal "Edition title", registerable_edition.title
+    assert_equal "detailed_guide", registerable_edition.kind
+    assert_equal "Edition summary", registerable_edition.description
     assert_equal "live", registerable_edition.state
     assert_equal [], registerable_edition.industry_sectors
   end
