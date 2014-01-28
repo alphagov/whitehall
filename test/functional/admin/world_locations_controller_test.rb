@@ -65,4 +65,18 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_equal "http://www.gov.uk/mainstream/something", top_task.url
     assert_equal "Something on mainstream", top_task.title
   end
+
+  test "updating should be able to destroy an existing top task" do
+    world_location = create(:world_location)
+    top_task = create(:top_task, linkable: world_location)
+
+    post :update, id: world_location, world_location: {
+      top_tasks_attributes: {"0" =>{
+        id: top_task.id,
+        _destroy: "1"
+      }}
+    }
+
+    refute TopTask.exists?(top_task)
+  end
 end
