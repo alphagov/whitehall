@@ -100,10 +100,6 @@ module Whitehall
     (! Rails.env.production?) || admin_hosts.include?(request.host)
   end
 
-  def self.platform
-    Rails.env
-  end
-
   def self.public_host_for(request_host)
     PUBLIC_HOSTS[request_host] || request_host
   end
