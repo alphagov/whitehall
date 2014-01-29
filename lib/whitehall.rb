@@ -8,6 +8,7 @@ module Whitehall
   mattr_accessor :government_search_client
   mattr_accessor :mainstream_content_api
   mattr_accessor :stats_collector
+  mattr_accessor :public_host
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
   mattr_accessor :default_cache_max_age
@@ -37,16 +38,6 @@ module Whitehall
     'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
     'public-api.production.alphagov.co.uk' => 'www.gov.uk'
   }
-
-  PUBLIC_HOST_FOR_ENV = {
-    'production' => 'www.gov.uk',
-    'development' => 'www.dev.gov.uk',
-    'test' => 'www.example.com'
-  }
-
-  def self.public_host
-    PUBLIC_HOST_FOR_ENV[Rails.env]
-  end
 
   def self.public_protocol
     if Rails.env.development? || Rails.env.test?
