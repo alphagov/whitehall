@@ -100,7 +100,7 @@ class AttachmentVisibility
     if user
       Edition.accessible_to(user).where(id: edition_ids)
     else
-      Edition.published.where(id: edition_ids)
+      Edition.publicly_visible.where(id: edition_ids)
     end
   end
 
@@ -108,7 +108,7 @@ class AttachmentVisibility
     if user
       Edition.accessible_to(user).where(id: consultation_ids)
     else
-      Edition.published.where(id: consultation_ids)
+      Edition.publicly_visible.where(id: consultation_ids)
     end
   end
 
