@@ -377,7 +377,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], departments: ["organisation-1"])
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], departments: ["organisation-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "#index requested as JSON includes atom feed URL without date parameters" do
@@ -387,7 +387,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"])
+    assert_equal json["atom_feed_url"], publications_url(format: "atom", topics: ["topic-1"], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test "#index requested as JSON includes email signup path without date parameters" do
@@ -395,7 +395,9 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["email_signup_url"], email_signups_path(document_type: 'publication_type_all')
+    atom_url = publications_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+
+    assert_equal json["email_signup_url"], new_email_signups_path(feed: ERB::Util.url_encode(atom_url))
   end
 
   view_test "#index requested as JSON includes email signup path with organisation and topic parameters" do
@@ -406,12 +408,14 @@ class PublicationsControllerTest < ActionController::TestCase
 
     json = ActiveSupport::JSON.decode(response.body)
 
-    assert_equal json["email_signup_url"], email_signups_path(document_type: 'publication_type_all', topic: topic.slug, organisation: organisation.slug)
+    atom_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+
+    assert_equal json["email_signup_url"], new_email_signups_path(feed: ERB::Util.url_encode(atom_url))
   end
 
   view_test '#index has atom feed autodiscovery link' do
     get :index
-    assert_select_autodiscovery_link publications_url(format: "atom")
+    assert_select_autodiscovery_link publications_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index atom feed autodiscovery link includes any present filters' do
@@ -420,7 +424,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, topics: [topic], departments: [organisation]
 
-    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation])
+    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index atom feed autodiscovery link does not include date filter' do
@@ -428,7 +432,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, topics: [topic], to_date: "2012-01-01"
 
-    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic])
+    assert_select_autodiscovery_link publications_url(format: "atom", topics: [topic], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
   view_test '#index shows a link to the atom feed including any present filters' do
@@ -437,7 +441,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, topics: [topic], departments: [organisation]
 
-    feed_url = ERB::Util.html_escape(publications_url(format: "atom", topics: [topic], departments: [organisation]))
+    feed_url = ERB::Util.html_escape(publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol))
     assert_select "a.feed[href=?]", feed_url
   end
 
@@ -446,7 +450,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, from_date: "2012-01-01", departments: [organisation]
 
-    feed_url = ERB::Util.html_escape(publications_url(format: "atom", departments: [organisation]))
+    feed_url = ERB::Util.html_escape(publications_url(format: "atom", departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol))
     assert_select "a.feed[href=?]", feed_url
   end
 

@@ -13,19 +13,17 @@ Feature: Email queue for local gov alerts
   Background:
     Given I am a GDS editor
 
-  @gov-uk-delivery-remembers-notifications
-  Scenario: Curating items in the email queue
+  Scenario: Approving a local government policy for delivery
     When a policy relevant to local government is published
     Then the policy is listed at the top of the email curation queue
     When I tweak the title and summary to better reflect why it is interesting to subscribers
-    And I decide the policy is ready to go out
-    Then the policy is not listed on the email curation queue
-    And the policy is sent to the notification service with the tweaked copy
+    Then the policy should be sent to the notification service with the tweaked copy
+    When I decide the policy is ready to go out
+    And then the policy is not listed on the email curation queue
 
-  @gov-uk-delivery-remembers-notifications
-  Scenario: Curating items in the email queue
+  Scenario: Rejecting delivery for a local government policy
     When a policy relevant to local government is published
     Then the policy is listed at the top of the email curation queue
+    And the policy should not be sent to the notification service
     When I decide the policy is not relevant to subscribers and delete it
-    Then the policy is not listed on the email curation queue
-    And the policy is not sent to the notification service
+    And then the policy is not listed on the email curation queue

@@ -17,6 +17,20 @@ When /^I publish the French-only world location news article$/ do
   publish(force: true)
 end
 
+When(/^I publish a world location news article "(.*?)" for "(.*?)"$/) do |title, location_name|
+  world_organisation = create(:worldwide_organisation, name: "Funky Consulate in #{location_name}")
+
+  begin_drafting_world_location_news_article(title: title)
+
+  select location_name, from: "Select the world locations this world location news article is about"
+  select world_organisation.name, from: "Select the worldwide organisations associated with this world location news article"
+  select_date Date.today.to_s, from: "First published"
+
+  click_button "Save"
+
+  publish(force: true)
+end
+
 Then /^I should see the world location news article listed in admin with an indication that it is in French$/ do
   assert_equal admin_edition_path(@world_location_news_article), page.current_path
   assert page.has_content?("This document is French-only")

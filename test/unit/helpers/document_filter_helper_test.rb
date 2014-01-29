@@ -3,13 +3,20 @@ require 'test_helper'
 class DocumentFilterHelperTest < ActionView::TestCase
   include ApplicationHelper
 
-  test "#publication_types_for_filter returns all publication filter option types" do
-    assert_equal Whitehall::PublicationFilterOption.all, publication_types_for_filter
+  test "#announcement_type_filter_options makes option tags with subtype name as text and slug as value" do
+    expected = Whitehall::AnnouncementFilterOption.all.map { |o| [o.label, o.slug] }.unshift(["All announcement types", "all"])
+    option_set = Nokogiri::HTML::DocumentFragment.parse(announcement_type_filter_options)
+    actual = option_set.css('option').map { |o| [o.text, o['value']] }
+
+    assert_same_elements expected, actual
   end
 
-  test "#announcement_types_for_filter returns all announcement filter option types" do
-    announcement_type_options = ["Press releases", "News stories", "Fatality notices", "Speeches", "Statements", "Government responses"]
-    assert_equal announcement_type_options, announcement_types_for_filter.map(&:label)
+  test "#publication_type_filter_options makes option tags with subtype name as text and slug as value" do
+    expected = Whitehall::PublicationFilterOption.all.map { |o| [o.label, o.slug] }.unshift(["All publication types", "all"])
+    option_set = Nokogiri::HTML::DocumentFragment.parse(publication_type_filter_options)
+    actual = option_set.css('option').map { |o| [o.text, o['value']] }
+
+    assert_same_elements expected, actual
   end
 
   test "remove_filter_from_params removes filter from params" do

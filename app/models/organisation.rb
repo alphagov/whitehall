@@ -129,6 +129,8 @@ class Organisation < ActiveRecord::Base
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
 
+  delegate :ministerial_department?, to: :type
+
   include TranslatableModel
   translates :name, :logo_formatted_name, :acronym, :description, :about_us
 
@@ -157,6 +159,21 @@ class Organisation < ActiveRecord::Base
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
   scope :closed, -> { where(govuk_status: "closed") }
+
+  def self.grouped_by_type(locale = I18n.locale)
+    Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do
+      all_orgs = self.with_published_editions.with_translations(locale).ordered_by_name_ignoring_prefix
+
+      closed_orgs, open_orgs = all_orgs.partition(&:closed?)
+      ministerial_orgs, other_orgs = open_orgs.partition(&:ministerial_department?)
+
+      {
+        'Ministerial departments' => ministerial_orgs.map { |o| [o.name, o.slug] },
+        'Other departments & public bodies' => other_orgs.map { |o| [o.name, o.slug] },
+        'Closed organisations' => closed_orgs.map { |o| [o.name, o.slug] }
+      }
+    end
+  end
 
   def ensure_analytics_identifier
     unless analytics_identifier.present?

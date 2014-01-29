@@ -35,6 +35,16 @@ Given /^the topic "([^"]*)" is related to the topic "([^"]*)"$/ do |name, relate
   topic.update_attributes!(related_classifications: [related_topic])
 end
 
+Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|
+  classification = if type == 'topic'
+    create(:topic, name: name)
+  else
+    create(:topical_event, name: name)
+  end
+
+  create(:classification_featuring, classification: classification)
+end
+
 When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
   create_topic(name: name, description: description)
 end
@@ -57,9 +67,14 @@ When /^I visit the list of topics$/ do
   visit topics_path
 end
 
-When /^I visit the "([^"]*)" topic$/ do |name|
-  topic = Topic.find_by_name!(name)
-  visit topic_path(topic)
+When /^I visit the "([^"]*)" (topic|topical event)$/ do |name, type|
+  classification = if type == 'topic'
+    Topic.find_by_name!(name)
+  else
+    TopicalEvent.find_by_name!(name)
+  end
+
+  visit polymorphic_path(classification)
 end
 
 When /^I set the order of the policies in the "([^"]*)" topic to:$/ do |name, table|

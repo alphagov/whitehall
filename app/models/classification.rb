@@ -53,6 +53,15 @@ class Classification < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  def self.grouped_by_type
+    Rails.cache.fetch("filter_options/topics", expires_in: 30.minutes) do
+      {
+        'Topics' => Topic.alphabetical.map { |o| [o.name, o.slug] },
+        'Topical events' => TopicalEvent.active.order_by_start_date.map { |o| [o.name, o.slug] }
+      }
+    end
+  end
+
   def policies
     editions.policies.order('classification_memberships.ordering ASC')
   end

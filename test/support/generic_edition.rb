@@ -17,6 +17,7 @@ module PublicDocumentRoutesHelper
   end
 
   def generic_edition_url(options = {})
-    options[:host] + generic_edition_path(options)
+    host = options[:host] || ''
+    host + generic_edition_path(options)
   end
 end

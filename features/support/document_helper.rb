@@ -31,7 +31,7 @@ module DocumentHelper
       fill_in "edition_body", with: options.fetch(:body, "Any old iron")
       fill_in "edition_summary", with: options.fetch(:summary, 'one plus one euals two!')
       fill_in_change_note_if_required
-      select_topic_if_required
+      select_topic_if_required unless options[:skip_topic_selection]
 
       unless options[:type] == 'world_location_news_article'
         set_lead_organisation_on_document(Organisation.first)
@@ -62,7 +62,7 @@ module DocumentHelper
 
   def begin_drafting_news_article(options)
     begin_drafting_document(options.merge(type: "news_article"))
-    fill_in_news_article_fields
+    fill_in_news_article_fields(options.slice(:first_published, :announcement_type))
   end
 
   def begin_drafting_consultation(options)
@@ -75,10 +75,10 @@ module DocumentHelper
     begin_drafting_document(options.merge(type: "world_location_news_article"))
   end
 
-  def begin_drafting_publication(title)
+  def begin_drafting_publication(title, options = {})
     policy = create(:policy)
     begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
-    fill_in_publication_fields
+    fill_in_publication_fields(options)
     select policy.title, from: "Related policies"
   end
 
@@ -107,13 +107,14 @@ module DocumentHelper
     Rails.root.join('features/fixtures/attachment.pdf')
   end
 
-  def fill_in_news_article_fields
-    select "News story", from: "News article type"
+  def fill_in_news_article_fields(first_published: "2010-01-01", announcement_type: "News story")
+    select announcement_type, from: "News article type"
+    select_date first_published, from: "First published"
   end
 
-  def fill_in_publication_fields
-    select_date "2010-01-01", from: "First published"
-    select "Research and analysis", from: "edition_publication_type_id"
+  def fill_in_publication_fields(first_published: "2010-01-01", publication_type: "Research and analysis")
+    select_date first_published, from: "First published"
+    select publication_type, from: "edition_publication_type_id"
     check "This publication is held on another website"
     fill_in "External link URL", with: "http://example.com/publication"
   end

@@ -147,7 +147,9 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_prefix_object policy_2, prefix="recent"
       assert_select_prefix_object news_article, prefix="recent"
     end
-    assert_select ".govdelivery[href='#{email_signups_path(topic: topic.slug)}']"
+
+    feed_url = topic_url(topic, format: "atom")
+    assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
     assert_select_autodiscovery_link topic_url(topic, format: 'atom')
   end
 

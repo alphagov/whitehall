@@ -3,7 +3,7 @@
 <% atom_discovery_link_tag filter_atom_feed_url, "Recent announcements" %>
 <%
   heading = [t('announcements.heading')]
-  heading << "<span>: #{@filter.selected_announcement_type_option.label}</span>" if @filter.selected_announcement_type_option
+  heading << "<span>: #{@filter.selected_announcement_filter_option.label}</span>" if @filter.selected_announcement_filter_option
   heading = heading.join('').html_safe
 %>
 
@@ -43,10 +43,7 @@
                 locals: { filter: @filter,
                           result_type: "announcement" } %>
     <% end %>
-    <%= render partial: 'shared/feeds',
-        locals: { atom_url: filter_atom_feed_url,
-                  govdelivery_url: filter_email_signup_url(document_type: 'announcement_type_all') }
-    %>
+    <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
     <div class="filter-results js-filter-results" id="announcements-container" aria-live="polite">
       <%= render_mustache('documents/filter_table', @filter.as_hash) %>
     </div>

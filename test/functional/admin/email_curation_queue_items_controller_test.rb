@@ -70,9 +70,9 @@ class Admin::EmailCurationQueueItemsControllerTest < ActionController::TestCase
     refute EmailCurationQueueItem.exists?(item)
   end
 
-  test 'POST on :send_to_subscribers invokes the Whitehall::GovUkDelivery::GovUkDeliveryEndPoint with the specified queue item' do
+  test 'POST on :send_to_subscribers invokes the Whitehall::GovUkDelivery::Worker with the specified queue item' do
     item = create(:email_curation_queue_item)
-    Whitehall::GovUkDelivery::GovUkDeliveryEndPoint.expects(:notify_from_queue!).with(item)
+    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(item.edition, item.notification_date, item.title, item.summary)
     post :send_to_subscribers, id: item
   end
 
