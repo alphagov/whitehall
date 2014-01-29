@@ -8,8 +8,11 @@
   }
 
   .omissions {
-    padding: $gutter*2 $gutter 0;
+    padding: $gutter*2 $gutter-half 0;
     clear: both;
+    @include media(tablet) {
+      padding: $gutter*2 $gutter 0;
+    }
   }
 
   .page-header {
