@@ -46,7 +46,7 @@ class Notifications < ActionMailer::Base
 
   def no_reply_email_address
     name = "DO NOT REPLY"
-    name << " (#{Whitehall.platform})" unless Whitehall.platform == 'production'
+    name << " (#{Plek.current.parent_domain})" unless Plek.current.parent_domain =~ /production/
     "#{name} <inside-government@digital.cabinet-office.gov.uk>"
   end
 end
