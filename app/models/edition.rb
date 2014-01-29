@@ -62,6 +62,7 @@ class Edition < ActiveRecord::Base
   scope :non_statistical_publications,  -> { where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id)) }
   scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
   scope :worldwide_priorities,          -> { where(type: "WorldwidePriority") }
+  scope :publicly_visible,              -> { where(state: ['published', 'archived']) }
 
   # @!group Callbacks
   before_save :set_public_timestamp

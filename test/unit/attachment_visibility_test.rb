@@ -46,6 +46,14 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     assert_equal edition, attachment_visibility.visible_edition
   end
 
+  test '#visible_edition returns an archived edition that the attachment is assigned to' do
+    edition = create(:publication, :archived, :with_file_attachment)
+    attachment_data = edition.attachments.first.attachment_data
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
+
+    assert_equal edition, attachment_visibility.visible_edition
+  end
+
   test '#visible_consultation_response a published response that the attachment is associated with' do
     response   = create(:consultation_with_outcome).outcome
     response.attachments << attachment = build(:file_attachment)
