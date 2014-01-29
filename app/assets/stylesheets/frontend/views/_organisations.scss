@@ -78,10 +78,11 @@
       }
     }
     .view-all {
-      background: $panel-colour;
       @include border-radius(3px);
+      background: $panel-colour;
+      clear: both;
       padding: 2px $gutter-one-sixth;
-      margin: 3px $gutter-half $gutter-one-third;
+      margin: 3px $gutter-half $gutter-one-third 0;
 
       &:after {
         display: inline-block;
@@ -90,6 +91,16 @@
         padding-left: 5px;
         vertical-align: middle;
         content: " \25B2";
+      }
+
+      @include media(tablet) {
+        clear: none;
+        float: right;
+        margin-right: 0;
+      }
+      @include media(desktop) {
+        float: left;
+        margin-left: $gutter-half;
       }
     }
 
