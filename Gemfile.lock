@@ -141,7 +141,7 @@ GEM
       null_logger
       plek
       rest-client (~> 1.6.3)
-    gds-sso (9.0.0)
+    gds-sso (9.2.0)
       omniauth-gds (>= 3.0.0)
       rack-accept (~> 0.4.4)
       rails (>= 3.0.0)
@@ -381,7 +381,7 @@ DEPENDENCIES
   factory_girl
   friendly_id (= 4.0.9)
   gds-api-adapters (= 8.2.3)
-  gds-sso (= 9.0.0)
+  gds-sso (= 9.2.0)
   globalize3!
   govspeak (~> 1.2.4)
   govuk_frontend_toolkit (= 0.41.0)
