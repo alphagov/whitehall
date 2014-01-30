@@ -10,8 +10,10 @@ class EditionService
 
   def perform!
     if can_perform?
-      prepare_edition
-      fire_transition!
+      ActiveRecord::Base.transaction do
+        prepare_edition
+        fire_transition!
+      end
       notify!
       true
     end
