@@ -108,9 +108,17 @@
     }
 
     .metadata {
-      color: $grey-1;
       @include core-16;
-      margin-left: $gutter-one-third;
+      color: $grey-1;
+      clear: both;
+      display: block;
+      margin-left: 0;
+
+      @include media(tablet) {
+        clear: none;
+        display: inline;
+        margin-left: $gutter-one-third;
+      }
     }
 
     &.js-hiding-children {
