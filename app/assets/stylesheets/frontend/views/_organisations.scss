@@ -151,9 +151,9 @@
     h1 {
       width: $full-width;
     }
-    @include media(desktop) {
-      width: $one-third;
+    @include media(tablet) {
       float: left;
+      width: $one-third;
     }
 
     p {
