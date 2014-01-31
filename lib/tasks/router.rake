@@ -24,7 +24,7 @@ namespace :router do
   desc "Register all detailed guidance categories with the router"
   task :register_detailed_guidance_categories => :register_backend do
     MainstreamCategory.find_each do |category|
-      path = "/" + category.path
+      path = "/browse/" + category.path
       @logger.info "Registering detailed guidance category '#{path}'"
       @router_api.add_route(path, "exact", @application_id, skip_commit: true)
     end
