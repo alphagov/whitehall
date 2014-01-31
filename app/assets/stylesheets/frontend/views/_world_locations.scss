@@ -30,21 +30,21 @@
       margin-bottom: $gutter;
 
       .type-heading {
-        @include media(desktop) {
+        margin-bottom: $gutter;
+
+        @include media(tablet) {
           width: $one-third;
           float: left
         }
 
-        @include media(tablet) {
-          p {
-            @include core-80;
-            font-weight: bold;
-          }
+        p {
+          @include core-80;
+          font-weight: bold;
         }
       }
 
       .content {
-        @include media(desktop) {
+        @include media(tablet) {
           width: $two-thirds;
           float: left;
           padding-top: $gutter - $gutter-one-sixth;
