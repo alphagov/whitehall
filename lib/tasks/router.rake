@@ -1,7 +1,7 @@
 require 'logger'
 
 namespace :router do
-  task :router_environment do
+  task :router_environment => :environment do
     require 'plek'
     require 'gds_api/router'
     @logger = Logger.new STDOUT
@@ -21,8 +21,19 @@ namespace :router do
     @router_api.add_route("/government", "prefix", @application_id)
   end
 
+  desc "Register all detailed guidance categories with the router"
+  task :register_detailed_guidance_categories => :register_backend do
+    MainstreamCategory.find_each do |category|
+      path = "/" + category.path
+      @logger.info "Registering detailed guidance category '#{path}'"
+      @router_api.add_route(path, "exact", @application_id, skip_commit: true)
+    end
+    @logger.info "Detailed guidance categories registered, reloading routes..."
+    @router_api.commit_routes
+  end
+
   desc "Register all detailed guides with the router"
-  task :register_guidance => [:environment, :router_environment, :register_backend, :register_unpublished_guidance] do
+  task :register_guidance => [:environment, :router_environment, :register_backend, :register_detailed_guidance_categories, :register_unpublished_guidance] do
     DetailedGuide.published.includes(:document).each do |guide|
       path = "/#{guide.slug}"
       @logger.info "Registering detailed guide #{path}..."
