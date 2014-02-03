@@ -19,6 +19,10 @@ class AttachmentData < ActiveRecord::Base
     url && File.basename(url)
   end
 
+  def filename_without_extension
+    url && filename.sub(/.[^\.]*$/, '')
+  end
+
   def file_extension
     File.extname(url).gsub(/\./, "") if url.present?
   end

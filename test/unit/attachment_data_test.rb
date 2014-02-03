@@ -160,6 +160,12 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal "pdf", attachment.file_extension
   end
 
+  test '#filename_without_extension returns the filename minus the extension' do
+    greenpaper_pdf = fixture_file_upload('greenpaper.pdf', 'application/pdf')
+    attachment = build(:attachment_data, file: greenpaper_pdf)
+    assert_equal "greenpaper", attachment.filename_without_extension
+  end
+
   test "should return extracted_text if text file present" do
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: test_pdf)
