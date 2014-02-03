@@ -59,6 +59,7 @@ module Whitehall
           announcement_type
           official_documents
           locations
+          local_government
         }
 
         valid_option_names.each do |option_name|
@@ -76,6 +77,7 @@ module Whitehall
           announcement_filter_option
           official_document_status
           world_locations
+          relevant_to_local_government
         }
 
         valid_filter_keys.each do |filter_key|

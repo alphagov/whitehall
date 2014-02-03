@@ -99,6 +99,26 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
     assert_equal "A role", Whitehall::DocumentFilter::Description.new(feed_url).text
   end
 
+  test 'appends "which are relevant to local government" when relevant_to_local_government is truthy' do
+    feed_url = feed_url_for(
+      document_type: "publications",
+      relevant_to_local_government: '1'
+    )
+
+    assert_equal "publications which are relevant to local government", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+  test 'appends "which are command papers and are relevant to local government" when relevant_to_local_government is truthy and official_document_status is present' do
+    feed_url = feed_url_for(
+      document_type: "publications",
+      official_document_status: "command_papers_only",
+      relevant_to_local_government: '1'
+    )
+
+    assert_equal "publications which are command papers and are relevant to local government", Whitehall::DocumentFilter::Description.new(feed_url).text
+  end
+
+
 private
 
   def feed_url_for(params)
