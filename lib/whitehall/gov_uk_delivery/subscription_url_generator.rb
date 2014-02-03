@@ -95,27 +95,39 @@ module Whitehall
       end
 
       def topic_urls
+        urls = []
         topic_slugs.map do |slug|
-          url_maker.topic_url(slug, format: :atom)
+          urls << url_maker.topic_url(slug, format: :atom)
+          urls << url_maker.topic_url(slug, format: :atom, relevant_to_local_government: 1) if edition.relevant_to_local_government?
         end
+        urls
       end
 
       def topical_event_urls
-        topical_event_slugs.map do |slug|
-          url_maker.topical_event_url(slug, format: :atom)
+        urls = []
+        topical_event_slugs.each do |slug|
+          urls << url_maker.topical_event_url(slug, format: :atom)
+          urls << url_maker.topical_event_url(slug, format: :atom, relevant_to_local_government: 1) if edition.relevant_to_local_government?
         end
+        urls
       end
 
       def world_location_urls
-        edition.world_locations.map do |location|
-          url_maker.world_location_url(location.slug, format: :atom)
+        urls = []
+        edition.world_locations.each do |location|
+          urls << url_maker.world_location_url(location.slug, format: :atom)
+          urls << url_maker.world_location_url(location.slug, format: :atom, relevant_to_local_government: 1) if edition.relevant_to_local_government?
         end
+        urls
       end
 
       def organisation_urls
-        department_slugs.map do |slug|
-          url_maker.organisation_url(slug, format: :atom)
+        urls = []
+        department_slugs.each do |slug|
+          urls << url_maker.organisation_url(slug, format: :atom)
+          urls << url_maker.organisation_url(slug, format: :atom, relevant_to_local_government: 1) if edition.relevant_to_local_government?
         end
+        urls
       end
 
       def filter_urls
@@ -135,13 +147,14 @@ module Whitehall
       end
 
       def policy_urls
+        urls = []
         if edition.can_be_related_to_policies?
-          edition.published_related_policies.map do |policy|
-            url_maker.activity_policy_url(policy.document, format: :atom)
+          edition.published_related_policies.each do |policy|
+            urls << url_maker.activity_policy_url(policy.document, format: :atom)
+            urls << url_maker.activity_policy_url(policy.document, format: :atom, relevant_to_local_government: 1) if edition.relevant_to_local_government?
           end
-        else
-          []
         end
+        urls
       end
 
       def people_and_role_urls
@@ -158,10 +171,15 @@ module Whitehall
         end
 
         appointments.each do |appointment|
-          urls << url_maker.polymorphic_url(appointment.person, format: 'atom') if appointment.person
-          urls << url_maker.polymorphic_url(appointment.role, format: 'atom') if appointment.role
+          if appointment.person
+            urls << url_maker.polymorphic_url(appointment.person, format: 'atom')
+            urls << url_maker.polymorphic_url(appointment.person, format: 'atom', relevant_to_local_government: 1) if edition.relevant_to_local_government?
+          end
+          if appointment.role
+            urls << url_maker.polymorphic_url(appointment.role, format: 'atom')
+            urls << url_maker.polymorphic_url(appointment.role, format: 'atom', relevant_to_local_government: 1) if edition.relevant_to_local_government?
+          end
         end
-
         return urls
       end
     end
