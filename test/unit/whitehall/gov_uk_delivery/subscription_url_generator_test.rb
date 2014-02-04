@@ -327,6 +327,39 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
+  test '#subscription_urls includes relevant_to_local_government variations' do
+    role_appointment = create(:ministerial_role_appointment)
+    role = role_appointment.role
+    person = role_appointment.person
+    topic = create(:topic)
+    topical_event = create(:topical_event)
+    world_location = create(:world_location)
+    policy = create(:published_policy, relevant_to_local_government: true)
+
+    @edition = create(:news_article,
+      role_appointments: [role_appointment],
+      related_documents: [policy.document],
+      topics: [topic],
+      topical_events: [topical_event],
+      world_locations: [world_location]
+    )
+
+    assert_subscription_urls_for_edition_include(
+      "policies/#{policy.slug}/activity.atom?relevant_to_local_government=1",
+      "policies/#{policy.slug}/activity.atom",
+      "organisations/#{@edition.organisations.first.slug}.atom?relevant_to_local_government=1",
+      "organisations/#{@edition.organisations.first.slug}.atom",
+      "topics/#{topic.slug}.atom?relevant_to_local_government=1",
+      "topics/#{topic.slug}.atom",
+      "world/#{world_location.slug}.atom?relevant_to_local_government=1",
+      "world/#{world_location.slug}.atom",
+      "people/#{person.slug}.atom?relevant_to_local_government=1",
+      "people/#{person.slug}.atom",
+      "ministers/#{role.slug}.atom?relevant_to_local_government=1",
+      "ministers/#{role.slug}.atom"
+    )
+  end
+
   test '#subscription_urls for a speech includes the atom feed for the associated role and person' do
     appointment1 = create(:ministerial_role_appointment)
 

@@ -29,7 +29,8 @@ module Whitehall
         topics: 'topics',
         announcement_type: 'announcement_filter_option',
         official_documents: 'official_document_status',
-        locations: 'world_locations'
+        locations: 'world_locations',
+        local_government: 'relevant_to_local_government'
       }.freeze
 
       def self.valid_option_name?(option_name)

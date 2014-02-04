@@ -6,19 +6,16 @@ module Whitehall
       end
 
       def subscription_urls
-        urls = []
-        urls += filter_urls
-        urls += policy_urls
-        urls += people_and_role_urls
-        urls += topic_urls
-        urls += topical_event_urls
-        urls += world_location_urls
-        urls += organisation_urls
-
-        # Fallback URL including everything
-        urls << url_maker.atom_feed_url(format: :atom)
-
-        urls.flatten.uniq
+        [
+          filter_urls,
+          policy_urls,
+          people_and_role_urls,
+          topic_urls,
+          topical_event_urls,
+          world_location_urls,
+          organisation_urls,
+          url_maker.atom_feed_url(format: :atom)
+        ].flatten.uniq
       end
 
     protected
@@ -29,7 +26,18 @@ module Whitehall
         @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
       end
 
-      def url_helper(edition, args={})
+      def relevant_to_local_government?
+        edition.relevant_to_local_government?
+      end
+
+      def generate_urls(url_method, resources)
+        resources.each_with_object([]) do |resource, urls|
+          urls << url_method.call(resource, format: :atom, relevant_to_local_government: 1) if relevant_to_local_government?
+          urls << url_method.call(resource, format: :atom)
+        end
+      end
+
+      def edition_url(args={})
         url_params = args.merge(format: :atom)
 
         case edition
@@ -47,18 +55,25 @@ module Whitehall
         when Policy
           nil
         when Announcement
-          {
-            announcement_filter_option:
-            Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types).slug
-          } if Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types)
+          announcement_filter_options
         when Publicationesque
-          {
-            publication_filter_option:
-            Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types).slug
-          } if Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types)
+          publication_filter_options
         end
       end
 
+      def announcement_filter_options
+        {
+          announcement_filter_option:
+          Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types).slug
+        } if Whitehall::AnnouncementFilterOption.find_by_search_format_types(edition.search_format_types)
+      end
+
+      def publication_filter_options
+        {
+          publication_filter_option:
+          Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types).slug
+        } if Whitehall::PublicationFilterOption.find_by_search_format_types(edition.search_format_types)
+      end
 
       def all_combinations_of_args(args)
         # turn [1,2,3] into [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
@@ -71,51 +86,35 @@ module Whitehall
       end
 
       def topic_slugs
-        if edition.can_be_associated_with_topics?
-          topic_slugs = edition.topics.map(&:slug)
-        else
-          topic_slugs = []
-        end
+        edition.can_be_associated_with_topics? ? edition.topics.map(&:slug) : []
       end
 
       def topical_event_slugs
-        if edition.can_be_associated_with_topical_events?
-          topical_event_slugs = edition.topical_events.map(&:slug)
-        else
-          topical_event_slugs = []
-        end
+        edition.can_be_associated_with_topical_events? ? edition.topical_events.map(&:slug) : []
       end
 
       def department_slugs
-        if edition.respond_to?(:organisations)
-          edition.organisations.map(&:slug)
-        else
-          []
-        end
+        edition.respond_to?(:organisations) ? edition.organisations.map(&:slug) : []
+      end
+
+      def world_location_slugs
+        edition.world_locations.map(&:slug)
       end
 
       def topic_urls
-        topic_slugs.map do |slug|
-          url_maker.topic_url(slug, format: :atom)
-        end
+        generate_urls(url_maker.method(:topic_url), topic_slugs)
       end
 
       def topical_event_urls
-        topical_event_slugs.map do |slug|
-          url_maker.topical_event_url(slug, format: :atom)
-        end
+        generate_urls(url_maker.method(:topical_event_url), topical_event_slugs)
       end
 
       def world_location_urls
-        edition.world_locations.map do |location|
-          url_maker.world_location_url(location.slug, format: :atom)
-        end
+        generate_urls(url_maker.method(:world_location_url), world_location_slugs)
       end
 
       def organisation_urls
-        department_slugs.map do |slug|
-          url_maker.organisation_url(slug, format: :atom)
-        end
+        generate_urls(url_maker.method(:organisation_url), department_slugs)
       end
 
       def filter_urls
@@ -123,11 +122,11 @@ module Whitehall
         department_and_topic_combos.map do |(org, topic)|
           combinatorial_args = [{departments: [org]}, {topics: [topic]}]
           combinatorial_args << filter_option if filter_option
-          combinatorial_args << { relevant_to_local_government: 1 } if edition.relevant_to_local_government?
+          combinatorial_args << { relevant_to_local_government: 1 } if relevant_to_local_government?
 
           all_combinations_of_args(combinatorial_args).map do |combined_args|
             [
-              url_helper(edition, combined_args),
+              edition_url(combined_args),
               url_maker.atom_feed_url(combined_args.merge(format: :atom))
             ]
           end
@@ -136,17 +135,13 @@ module Whitehall
 
       def policy_urls
         if edition.can_be_related_to_policies?
-          edition.published_related_policies.map do |policy|
-            url_maker.activity_policy_url(policy.document, format: :atom)
-          end
+          generate_urls(url_maker.method(:activity_policy_url), edition.published_related_policies.map(&:document))
         else
           []
         end
       end
 
       def people_and_role_urls
-        urls = []
-
         appointments = []
 
         if edition.respond_to?(:role_appointments)
@@ -157,12 +152,10 @@ module Whitehall
           appointments << edition.role_appointment
         end
 
-        appointments.each do |appointment|
-          urls << url_maker.polymorphic_url(appointment.person, format: 'atom') if appointment.person
-          urls << url_maker.polymorphic_url(appointment.role, format: 'atom') if appointment.role
+        appointments.each_with_object([]) do |appointment, urls|
+          urls << generate_urls(url_maker.method(:person_url), [appointment.person]) if appointment.person
+          urls << generate_urls(url_maker.method(:ministerial_role_url), [appointment.role]) if appointment.role
         end
-
-        return urls
       end
     end
   end

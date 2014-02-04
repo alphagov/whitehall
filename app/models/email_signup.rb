@@ -27,7 +27,7 @@ class EmailSignup
   end
 
   def description
-    Whitehall::DocumentFilter::Description.new(feed).text
+    Whitehall::GovUkDelivery::EmailSignupDescription.new(feed).text
   end
   alias_method :to_s, :description
 

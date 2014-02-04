@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
+class Whitehall::GovUkDelivery::EmailSignupDescriptionTest < ActiveSupport::TestCase
 
   test 'With a publications feed url and all possible query params given, it generates a nice sentance' do
     create(:topic, slug: 'arts-and-culture', name: 'Arts and culture')
@@ -16,7 +16,7 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
       world_locations: ["afghanistan"]
     )
 
-    assert_equal "corporate reports related to The Cabinet Office, Arts and culture and Afghanistan which are command or act papers", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "corporate reports related to The Cabinet Office, Arts and culture and Afghanistan which are command or act papers", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'with a publication with no publication_filter_option and no other params, it makes a nice sentence' do
@@ -24,7 +24,7 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
       document_type: "publications"
     )
 
-    assert_equal "publications", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "publications", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'it calls untyped feeds documents' do
@@ -32,7 +32,7 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
     feed_url = feed_url_for(
       departments: ["the-cabinet-office"]
     )
-    assert_equal "documents related to The Cabinet Office", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "documents related to The Cabinet Office", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'it makes nice sentences for announcement feeds without an announcement_filter_option' do
@@ -46,7 +46,7 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
       departments: ["the-cabinet-office"],
       world_locations: ["afghanistan"]
     )
-    assert_equal "announcements related to The Cabinet Office, Arts and culture and Afghanistan", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "announcements related to The Cabinet Office, Arts and culture and Afghanistan", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses announcement_filter_option when given' do
@@ -54,50 +54,70 @@ class Whitehall::DocumentFilter::DescriptionTest < ActiveSupport::TestCase
       document_type: "announcements",
       announcement_filter_option: "fatality-notices"
     )
-    assert_equal "fatality notices", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "fatality notices", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the organisation name for organisation feeds' do
     create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
     feed_url = generic_url_maker.organisation_url('the-cabinet-office')
-    assert_equal "The Cabinet Office", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "The Cabinet Office", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the policy name for policy feeds' do
     create(:published_policy, title: 'A policy')
     feed_url = generic_url_maker.activity_policy_url('a-policy')
-    assert_equal "A policy", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "A policy", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the topic name for topic feeds' do
     create(:topic, name: 'A topic')
     feed_url = generic_url_maker.topic_url('a-topic')
-    assert_equal "A topic", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "A topic", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the topical event name for topical event feeds' do
     create(:topical_event, name: 'A topical event')
     feed_url = generic_url_maker.topical_event_url('a-topical-event')
-    assert_equal "A topical event", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "A topical event", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the world location name for world location feeds' do
     create(:world_location, name: 'A world location')
     feed_url = generic_url_maker.world_location_url('a-world-location')
-    assert_equal "A world location", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "A world location", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the person\'s name for person feeds' do
     create(:person, forename: 'A', surname: 'Person')
     feed_url = generic_url_maker.person_url('a-person')
-    assert_equal "A Person", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "A Person", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
 
   test 'uses the role name for role feeds' do
     create(:role, name: 'A role')
     feed_url = generic_url_maker.ministerial_role_url('a-role')
-    assert_equal "A role", Whitehall::DocumentFilter::Description.new(feed_url).text
+    assert_equal "A role", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
   end
+
+  test 'appends "which are relevant to local government" when relevant_to_local_government is truthy' do
+    feed_url = feed_url_for(
+      document_type: "publications",
+      relevant_to_local_government: '1'
+    )
+
+    assert_equal "publications which are relevant to local government", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
+  end
+
+  test 'appends "which are command papers and are relevant to local government" when relevant_to_local_government is truthy and official_document_status is present' do
+    feed_url = feed_url_for(
+      document_type: "publications",
+      official_document_status: "command_papers_only",
+      relevant_to_local_government: '1'
+    )
+
+    assert_equal "publications which are command papers and are relevant to local government", Whitehall::GovUkDelivery::EmailSignupDescription.new(feed_url).text
+  end
+
 
 private
 

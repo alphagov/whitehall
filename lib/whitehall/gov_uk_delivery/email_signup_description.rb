@@ -3,8 +3,8 @@ require 'uri'
 require 'cgi'
 
 module Whitehall
-  module DocumentFilter
-    class Description
+  module GovUkDelivery
+    class EmailSignupDescription
       attr_reader :feed_type, :feed_params, :feed_object_slug, :filter_options_describer
 
       def initialize(feed_url)
@@ -45,7 +45,7 @@ module Whitehall
       end
 
       def text
-        [leading_fragment, parameter_fragments, command_and_act_fragment].compact.join " "
+        [leading_fragment, parameter_fragments, command_and_act_fragment, relevant_to_local_government_fragment].compact.join " "
       end
 
     protected
@@ -63,7 +63,7 @@ module Whitehall
       end
 
       def parameter_fragments
-        listable_params = feed_params.except(:publication_filter_option, :announcement_filter_option, :official_document_status)
+        listable_params = feed_params.except(:publication_filter_option, :announcement_filter_option, :official_document_status, :relevant_to_local_government)
         if listable_params.any?
           "related to " + (listable_params.map { |param_key, _|
             label_for_param(param_key)
@@ -83,6 +83,17 @@ module Whitehall
           when "act_papers_only"
             "which are act papers"
           end
+        end
+      end
+
+      def relevant_to_local_government_fragment
+        relevant_to_local_government = feed_params[:relevant_to_local_government] && feed_params[:relevant_to_local_government] != "0"
+        if relevant_to_local_government && feed_params[:official_document_status].present?
+          "and are relevant to local government"
+        elsif relevant_to_local_government
+          "which are relevant to local government"
+        else
+          nil
         end
       end
 
