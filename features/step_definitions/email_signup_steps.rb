@@ -6,8 +6,20 @@ Then(/^a govuk_delivery signup should be sent for the feed subscription URL$/) d
   mock_client.expects(:signup_url).with(feed_url).returns(current_url).once
 end
 
+Then(/^a govuk_delivery signup should be sent for the local government feed subscription URL$/) do
+  feed_url = get_govdelivery_url_with_relevant_to_local_government
+  mock_client = mock_govdelivery_client
+  mock_client.expects(:signup_url).with(feed_url).returns(current_url).once
+end
+
 Then(/^a govuk_delivery notification should be sent for the feed subscription URL$/) do
   feed_url = get_govdelivery_url
+  mock_client = mock_govdelivery_client
+  mock_client.expects(:notify).with(includes(feed_url), anything, anything).once
+end
+
+Then(/^a govuk_delivery notification should be sent for the local government feed subscription URL$/) do
+  feed_url = get_govdelivery_url_with_relevant_to_local_government
   mock_client = mock_govdelivery_client
   mock_client.expects(:notify).with(includes(feed_url), anything, anything).once
 end
@@ -24,6 +36,22 @@ When(/^I sign up for emails$/) do
   end
 
   click_on 'Create subscription'
+end
+
+When(/^I sign up for emails, checking the relevant to local government box$/) do
+  within '.feeds' do
+    click_on 'email'
+  end
+
+  check 'Only include results relevant to local government'
+  click_on 'Create subscription'
+end
+
+When(/^I send the latest email in the email curation queue$/) do
+  visit admin_email_curation_queue_items_path
+  within('.email_curation_queue_item:first-child') do
+    click_on 'Send'
+  end
 end
 
 Then(/^a notification should be sent for subscribers to the role "(.*?)" and for subscribers to the person "(.*?)"$/) do |role_name, person_name|
@@ -79,4 +107,9 @@ def get_govdelivery_url
   parsed_url = URI.parse(subscription_href)
   parsed_params = CGI.parse(parsed_url.query)
   return Rack::Utils.unescape(parsed_params['feed'].first)
+end
+
+def get_govdelivery_url_with_relevant_to_local_government
+  feed_url = get_govdelivery_url
+  feed_url + (feed_url.include?("?") ? "&" : "?") + "relevant_to_local_government=1"
 end
