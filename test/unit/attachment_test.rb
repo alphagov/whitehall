@@ -22,14 +22,6 @@ class AttachmentTest < ActiveSupport::TestCase
     assert attachment.valid?
   end
 
-  test 'should not be valid if an attachment already exists on the attachable with the same filename' do
-    attachable = create(:policy_advisory_group, attachments: [build(:file_attachment, file: file_fixture('whitepaper.pdf'))])
-    duplicate  = build(:file_attachment,  file: file_fixture('whitepaper.pdf'), attachable: attachable)
-
-    refute duplicate.valid?
-    assert_match %r(This policy advisory group already has a file called "whitepaper.pdf"), duplicate.errors[:base].first
-  end
-
   test "should be invalid with an ISBN that's not in ISBN-10 or ISBN-13 format" do
     attachment = build(:file_attachment, isbn: "invalid-isbn")
     refute attachment.valid?
@@ -175,53 +167,12 @@ class AttachmentTest < ActiveSupport::TestCase
     assert_nil attachment.price
   end
 
-  test "does not destroy attachment_data when more attachments are associated" do
-    attachment = create(:file_attachment)
-    attachment_data = attachment.attachment_data
-    other_attachment = create(:file_attachment, attachment_data: attachment_data)
-
-    attachment_data.expects(:destroy).never
-    attachment.destroy
-  end
-
-  test "destroys attachment_data when no attachments are associated" do
-    attachment = create(:file_attachment)
-    attachment_data = attachment.attachment_data
-
-    attachment_data.expects(:destroy)
-    attachment.destroy
-  end
-
-  def assert_delegated attachment, method
-     attachment.attachment_data.expects(method).returns(method.to_s)
-     assert_equal method.to_s, attachment.send(method)
-  end
-
-  test "asks data for file specific information" do
-    attachment = build(:file_attachment)
-
-    assert_delegated attachment, :url
-    assert_delegated attachment, :content_type
-    assert_delegated attachment, :pdf?
-    assert_delegated attachment, :extracted_text
-    assert_delegated attachment, :file_extension
-    assert_delegated attachment, :file_size
-    assert_delegated attachment, :number_of_pages
-    assert_delegated attachment, :file
-    assert_delegated attachment, :filename
-  end
-
   test 'should generate list of parliamentary sessions' do
     earliest_session = '1951-52'
     now = Time.zone.now
     latest_session = [now.strftime('%Y'), (now + 1.year).strftime('%y')].join('-')
     assert_equal latest_session, Attachment.parliamentary_sessions.first
     assert_equal earliest_session, Attachment.parliamentary_sessions.last
-  end
-
-  test 'html? is false' do
-    attachment = build(:file_attachment)
-    refute attachment.html?
   end
 
   test '#is_command_paper? should be true if attachment has a command paper number or is flagged as an unnumbered command paper' do
@@ -234,5 +185,11 @@ class AttachmentTest < ActiveSupport::TestCase
     refute build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: false).is_act_paper?
     assert build(:html_attachment, hoc_paper_number: '12345', unnumbered_hoc_paper: false).is_act_paper?
     assert build(:html_attachment, hoc_paper_number: nil,     unnumbered_hoc_paper: true ).is_act_paper?
+  end
+
+  test 'prevents saving of abstract Attachment class' do
+    assert_raises RuntimeError do
+      Attachment.new(attachable: Consultation.new, title: 'Attachment').save
+    end
   end
 end
