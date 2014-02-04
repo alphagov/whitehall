@@ -25,7 +25,7 @@ class LogStashLoggerTest < ActiveSupport::TestCase
 
   def get_logged_lines
     stream_writer.close
-    lines = stream_reader.lines.to_a
+    lines = stream_reader.each_line.to_a
     stream_reader.close
     lines
   end
