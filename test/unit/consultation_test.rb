@@ -303,5 +303,4 @@ class ConsultationTest < ActiveSupport::TestCase
     assert topical_event = consultation.topical_events.create(name: "Test", description: "Test")
     assert_equal [consultation], topical_event.consultations
   end
-
 end
