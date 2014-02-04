@@ -35,6 +35,14 @@ class FileAttachmentTest < ActiveSupport::TestCase
     assert_match %r(This policy advisory group already has a file called "whitepaper.pdf"), duplicate.errors[:base].first
   end
 
+  test "unique filename check does not explode if file is not present" do
+    attachable = create(:policy_advisory_group, attachments: [build(:file_attachment)])
+    attachment  = build(:file_attachment, attachable: attachable, file: nil)
+
+    refute attachment.valid?
+    assert_match %r(can't be blank), attachment.errors[:"attachment_data.file"].first
+  end
+
   test "does not destroy attachment_data when more attachments are associated" do
     attachment_data = attachment.attachment_data
     other_attachment = create(:file_attachment, attachment_data: attachment_data)
