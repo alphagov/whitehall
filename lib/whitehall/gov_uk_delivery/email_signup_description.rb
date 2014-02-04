@@ -3,8 +3,8 @@ require 'uri'
 require 'cgi'
 
 module Whitehall
-  module DocumentFilter
-    class Description
+  module GovUkDelivery
+    class EmailSignupDescription
       attr_reader :feed_type, :feed_params, :feed_object_slug, :filter_options_describer
 
       def initialize(feed_url)
