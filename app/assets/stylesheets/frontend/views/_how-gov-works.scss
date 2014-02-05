@@ -99,6 +99,16 @@
         td{
           padding-right:$gutter;
         }
+        @include media(tablet) {
+          &.others {
+            vertical-align: top;
+
+            td + td {
+              line-height: 1;
+              padding-top: 3px;
+            }
+          }
+        }
       }
       strong {
         @include bold;
@@ -126,11 +136,12 @@
     }
   }
   .civil-pie {
+    font-size: 16px;
     display:block;
     height: 190px;
     max-width: 250px;
     margin: 0 auto;
-    padding-top: 95px;
+    padding-top: 100px;
     background-color: $white;
     vertical-align:middle;
     text-align:center;
@@ -145,7 +156,13 @@
 
     margin: 0 auto;
     @include media(tablet) {
+      @include core-16;
+      padding-top: 40%;
       margin: 0;
+    }
+    @include media(desktop) {
+      @include core-19;
+      padding-top: 95px;
     }
   }
 
