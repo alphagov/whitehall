@@ -152,7 +152,7 @@ GEM
       htmlentities (~> 4)
       kramdown (~> 0.13.3)
       sanitize (~> 2.0.3)
-    govuk_frontend_toolkit (0.41.0)
+    govuk_frontend_toolkit (0.42.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
     hash_syntax (1.0.0)
@@ -384,7 +384,7 @@ DEPENDENCIES
   gds-sso (= 9.2.0)
   globalize3!
   govspeak (~> 1.2.4)
-  govuk_frontend_toolkit (= 0.41.0)
+  govuk_frontend_toolkit (= 0.42.0)
   hash_syntax
   invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
