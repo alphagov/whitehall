@@ -460,6 +460,25 @@
     }
   }
 
+  @include media(tablet) {
+    .depts-cont,
+    .legislation,
+    .access-information {
+      .one-third {
+        float: right;
+        &:first-child {
+          float: left;
+          width: $one-third;
+        }
+      }
+    }
+    .legislation {
+      .two-thirds {
+        margin-bottom: $gutter-one-third;
+      }
+    }
+  }
+
   @media (min-width: 640px) and (max-width: 760px) {
     .feature-ministers {
       p {
