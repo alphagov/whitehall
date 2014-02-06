@@ -1,14 +1,13 @@
 <fieldset class="excluded_nations">
   <legend>Excluded nations</legend>
-  <%= form.fields_for :nation_inapplicabilities do |ni_form| %>
-    <%= content_tag_for(:div, ni_form.object.nation, class: 'control-group') do %>
+  <%= form.fields_for :nation_inapplicabilities do |ni_fields| %>
+    <%= content_tag_for(:div, ni_fields.object.nation, class: 'control-group') do %>
       <div class="control">
-        <% checkbox_args = nested_attribute_destroy_checkbox_options(ni_form, label_text: ni_form.object.nation.name) %>
-        <%= ni_form.check_box :_destroy, *checkbox_args %>
+        <%= ni_fields.check_box :excluded, label_text: ni_fields.object.nation.name, checked: ni_fields.object.excluded? %>
       </div>
       <div class="control">
-        <%= ni_form.text_field :alternative_url %>
-        <%= ni_form.hidden_field :nation_id %>
+        <%= ni_fields.text_field :alternative_url %>
+        <%= ni_fields.hidden_field :nation_id %>
       </div>
     <% end %>
   <% end %>

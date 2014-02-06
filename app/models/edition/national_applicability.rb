@@ -3,19 +3,36 @@ module Edition::NationalApplicability
 
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
-      na_attributes = @edition.nation_inapplicabilities.map do |na|
-        na.attributes.except("id")
+      @edition.nation_inapplicabilities.each do |na|
+        edition.nation_inapplicabilities.build(na.attributes.except("id"))
       end
-      edition.nation_inapplicabilities_attributes = na_attributes
     end
   end
 
   included do
-    has_many :nation_inapplicabilities, foreign_key: :edition_id, dependent: :destroy
-
-    accepts_nested_attributes_for :nation_inapplicabilities, allow_destroy: true
+    has_many :nation_inapplicabilities, foreign_key: :edition_id, dependent: :destroy, autosave: true
+    validates_associated :nation_inapplicabilities
 
     add_trait Trait
+  end
+
+  def nation_inapplicabilities_attributes=(attributes)
+    attributes.each do |index, params|
+      existing = nation_inapplicabilities.detect { |ni| ni.nation_id == params[:nation_id].to_i }
+
+      if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:excluded])
+        if existing
+          existing.attributes = params.except(:excluded, :id)
+        else
+          nation_inapplicabilities.build(params)
+        end
+      else
+        if existing
+          existing.mark_for_destruction
+          existing.excluded = params[:excluded]
+        end
+      end
+    end
   end
 
   def inapplicable_nations

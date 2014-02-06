@@ -179,7 +179,7 @@ class Admin::EditionsController < Admin::BaseController
         ]
       ],
       nation_inapplicabilities_attributes: [
-        :id, :nation_id, :alternative_url, :_destroy
+        :id, :nation_id, :alternative_url, :excluded
       ],
       user_needs_attributes: [:user, :need, :goal, :organisation_id],
       fatality_notice_casualties_attributes: [:personal_details, :_destroy]
