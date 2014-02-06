@@ -7,6 +7,7 @@ class NationInapplicability < ActiveRecord::Base
     where(nation_id: nation.id)
   }
 
+  validates :nation_id, inclusion: { in: Nation.potentially_inapplicable.map(&:id) }
   validates :alternative_url, uri: true, allow_blank: true
 
   def nation
