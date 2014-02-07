@@ -1,8 +1,7 @@
 class EmailSignupsController < PublicFacingController
 
   def new
-    feed = Rack::Utils.unescape(new_email_signup_params[:feed]) if new_email_signup_params[:feed]
-    @email_signup = EmailSignup.new(feed, new_email_signup_params[:local_government])
+    @email_signup = EmailSignup.new(new_email_signup_params[:feed], new_email_signup_params[:local_government])
   rescue ArgumentError
     render text: 'Not found', status: :not_found
   end
