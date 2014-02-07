@@ -6,7 +6,7 @@ class FileAttachment < Attachment
 
   after_destroy :destroy_unused_attachment_data
 
-  accepts_nested_attributes_for :attachment_data
+  accepts_nested_attributes_for :attachment_data, reject_if: -> attributes { attributes[:file].blank? && attributes[:file_cache].blank? }
 
   validate :filename_is_unique
 
