@@ -19,7 +19,7 @@ yerevan_embassy = WorldwideOrganisation.find_by_slug(OLD_YEREVAN_SLUG)
 yerevan_embassy.update_attribute(:slug, NEW_YEREVAN_SLUG)
 
 router.add_redirect_route("/government/world/organisations/#{OLD_YEREVAN_SLUG}",
-                          'exact',
+                          'prefix',
                           "/government/world/organisations/#{NEW_YEREVAN_SLUG}")
 
 # tallin -> tallinn
@@ -30,7 +30,7 @@ tallinn_embassy = WorldwideOrganisation.find_by_slug(OLD_TALLINN_SLUG)
 tallinn_embassy.update_attribute(:slug, NEW_TALLINN_SLUG)
 
 router.add_redirect_route("/government/world/organisations/#{OLD_TALLINN_SLUG}",
-                          'exact',
+                          'prefix',
                           "/government/world/organisations/#{NEW_TALLINN_SLUG}")
 
 # organisation -> organization
@@ -42,5 +42,5 @@ osce = WorldwideOrganisation.find_by_slug(OLD_OSCE_SLUG)
 osce.update_attribute(:slug, NEW_OSCE_SLUG)
 
 router.add_redirect_route("/government/world/organisations/#{OLD_OSCE_SLUG}",
-                          'exact',
+                          'prefix',
                           "/government/world/organisations/#{NEW_OSCE_SLUG}")
