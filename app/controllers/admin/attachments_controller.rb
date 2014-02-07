@@ -60,40 +60,23 @@ private
   end
 
   def build_html_attachment
-    HtmlAttachment.new(html_attachment_params)
+    HtmlAttachment.new(attachment_params)
   end
 
   def build_file_attachment
-    FileAttachment.new(file_attachment_params)
+    FileAttachment.new(attachment_params).tap do |file_attachment|
+      file_attachment.build_attachment_data unless file_attachment.attachment_data
+    end
   end
 
   def attachment_params
-    attributes = permitted_params
-
-    unless attributes.fetch(:attachment_data_attributes, {}).fetch(:file, false)
-      attributes.delete(:attachment_data_attributes)
-    end
-
-    attributes
-  end
-
-  def permitted_params
     params.fetch(:attachment, {}).permit(
       :title, :body, :locale, :isbn, :unique_reference, :command_paper_number,
       :unnumbered_command_paper, :hoc_paper_number, :unnumbered_hoc_paper,
       :parliamentary_session, :order_url, :price, :accessible,
       :manually_numbered_headings,
       attachment_data_attributes: [:file, :to_replace_id, :file_cache]
-    )
-  end
-
-  def html_attachment_params
-    attachment_params.merge(attachable: attachable)
-  end
-
-  def file_attachment_params
-    attachment_params.merge(attachable: attachable)
-                     .reverse_merge(attachment_data: AttachmentData.new)
+    ).merge(attachable: attachable)
   end
 
   def html?
