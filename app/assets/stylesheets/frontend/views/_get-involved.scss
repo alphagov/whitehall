@@ -45,8 +45,7 @@
       h3 {
         @include heading-27;
         font-weight: bold;
-        padding-left: $gutter-half;
-        padding-right: $gutter-half;
+        padding: 0 $gutter-half 7px;
       }
     }
 
@@ -204,6 +203,15 @@
         }
       }
 
+      &.take-part-pages,
+      &.start-a-petition,
+      &.more-ways {
+        margin-bottom: 0;
+        @include media(tablet) {
+          margin-bottom: $gutter;
+        }
+      }
+
       &.respond-to-consultations {
         margin-bottom: 0;
         h3 {
@@ -222,10 +230,7 @@
 
       .see-all {
         font-weight: bold;
-        margin: $gutter-one-third 0 $gutter*1.5;
-        @include media(tablet) {
-          margin: $gutter-one-third 0 $gutter;
-        }
+        margin: $gutter-one-third 0 $gutter;
       }
     
     }
