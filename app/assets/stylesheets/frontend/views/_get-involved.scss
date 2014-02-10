@@ -89,7 +89,7 @@
         padding-top: $gutter-half;
         dt, dd {
           padding: 0 $gutter-half;
-          @include media(tablet) {
+          @include media(desktop) {
             width: $half;
           }
         }
