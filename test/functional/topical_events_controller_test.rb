@@ -51,7 +51,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
     get :show, id: event
 
     feed_url = topical_event_url(event, format: "atom")
-    assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
+    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: feed_url })}']"
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do

@@ -498,7 +498,7 @@ That's all
     get :activity, id: policy.document
 
     feed_url = activity_policy_url(policy.document, format: "atom")
-    assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
+    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: feed_url })}']"
   end
 
   test "the format name is being set to policy" do

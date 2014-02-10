@@ -20,7 +20,7 @@ class EmailSignupTest < ActiveSupport::TestCase
 
     Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, signup_description)
 
-    EmailSignup.create(feed_url)
+    EmailSignup.create(feed: feed_url)
   end
 
   test ".create does not create a GovDelivery topic if the feed is missing" do
@@ -34,15 +34,15 @@ class EmailSignupTest < ActiveSupport::TestCase
 
     Whitehall.govuk_delivery_client.expects(:signup_url).with(feed_url)
 
-    EmailSignup.new(feed_url).govdelivery_url
+    EmailSignup.new(feed: feed_url).govdelivery_url
   end
 
   test "#description provides a human-readable description of the filters being applied" do
     feed_url = 'http://example.com/government/publications.atom?departments%5B%5D=department-of-health&keywords=&official_document_status=command_and_act_papers&publication_filter_option=all&topics%5B%5D=all'
-    assert_match /publication/, EmailSignup.new(feed_url).description
+    assert_match /publication/, EmailSignup.new(feed: feed_url).description
   end
 
   def email_signup(url_fragment, is_local_government = false)
-    EmailSignup.new("https://#{Whitehall.public_host}/government/#{url_fragment}", is_local_government)
+    EmailSignup.new(feed: "https://#{Whitehall.public_host}/government/#{url_fragment}", local_government: (is_local_government ? '1' : '0'))
   end
 end

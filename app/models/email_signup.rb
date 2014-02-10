@@ -3,19 +3,22 @@ class EmailSignup
   extend ActiveModel::Naming
   include ActiveModel::Validations
 
+  attr_reader :feed
   validates_presence_of :feed
 
-  def initialize(feed = nil, is_local_government = false)
-    @feed = feed
-    @feed = add_local_government(@feed) if is_local_government
+  def initialize(attributes={})
+    @attributes = attributes
+    @feed = local_government ? add_local_government(attributes[:feed]) : attributes[:feed]
   end
-
-  attr_accessor :feed, :local_government
 
   def self.create(*args)
     signup = new(*args)
     signup.ensure_govdelivery_topic_exists if signup.valid?
     signup
+  end
+
+  def local_government
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(@attributes[:local_government])
   end
 
   def ensure_govdelivery_topic_exists

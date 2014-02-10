@@ -149,7 +149,7 @@ class TopicsControllerTest < ActionController::TestCase
     end
 
     feed_url = topic_url(topic, format: "atom")
-    assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
+    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: feed_url })}']"
     assert_select_autodiscovery_link topic_url(topic, format: 'atom')
   end
 
