@@ -1,11 +1,11 @@
 <article<%= ' class="article-clear"'.html_safe if (take_part_page_counter % 3 == 0) %>>
   <div class="content">
-    <span class="img-holder">
+    <span class="image-holder">
       <%= link_to image_tag(take_part_page.image_url(:s300), alt: take_part_page.image_alt_text), take_part_page, title: take_part_page.title, class: 'img' %>
     </span>
     <div class="text">
       <h3><%= link_to take_part_page.title, take_part_page %></h3>
-      <p><%= format_with_html_line_breaks(take_part_page.summary) %></p>
+      <p class="summary"><%= format_with_html_line_breaks(take_part_page.summary) %></p>
     </div>
   </div>
 </article>
