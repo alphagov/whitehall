@@ -4,7 +4,7 @@ namespace :panopticon do
   require 'gds_api/panopticon'
 
   desc "Register application metadata with Panopticon"
-  task :register do
+  task :register => :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
     registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend')
