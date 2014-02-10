@@ -115,7 +115,7 @@
     @include media (tablet) {
       .single-row-select {
         border: 1px solid $border-colour;
-        padding: $gutter-one-sixth $gutter-one-sixth $gutter-one-sixth $gutter-one-third;
+        padding: $gutter-one-sixth $gutter-two-thirds $gutter-one-sixth $gutter-one-third;
         width: $full-width;
         background: $white;
         background-image: image-url('dropdown-arrow-small.png');
