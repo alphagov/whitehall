@@ -1,33 +1,7 @@
 require 'uri'
 
-Then(/^a govuk_delivery signup should be sent for the feed subscription URL$/) do
-  feed_url = get_govdelivery_url
-  mock_client = mock_govdelivery_client
-  mock_client.expects(:signup_url).with(feed_url).returns(current_url).once
-end
-
-Then(/^a govuk_delivery signup should be sent for the local government feed subscription URL$/) do
-  feed_url = get_govdelivery_url_with_relevant_to_local_government
-  mock_client = mock_govdelivery_client
-  mock_client.expects(:signup_url).with(feed_url).returns(current_url).once
-end
-
-Then(/^a govuk_delivery notification should be sent for the feed subscription URL$/) do
-  feed_url = get_govdelivery_url
-  mock_client = mock_govdelivery_client
-  mock_client.expects(:notify).with(includes(feed_url), anything, anything).once
-end
-
-Then(/^a govuk_delivery notification should be sent for the local government feed subscription URL$/) do
-  feed_url = get_govdelivery_url_with_relevant_to_local_government
-  mock_client = mock_govdelivery_client
-  mock_client.expects(:notify).with(includes(feed_url), anything, anything).once
-end
-
-Then(/^a govuk_delivery notification should be sent for anything other than the feed subscription URL$/) do
-  feed_url = get_govdelivery_url
-  mock_client = mock_govdelivery_client
-  mock_client.expects(:notify).with(Not(includes(feed_url)), anything, anything).once
+Given(/^govuk delivery exists$/) do
+  mock_govuk_delivery_client
 end
 
 When(/^I sign up for emails$/) do
@@ -54,62 +28,90 @@ When(/^I send the latest email in the email curation queue$/) do
   end
 end
 
-Then(/^a notification should be sent for subscribers to the role "(.*?)" and for subscribers to the person "(.*?)"$/) do |role_name, person_name|
-  mock_client = mock_govdelivery_client
-
-  role = Role.find_by_name(role_name)
-  person = find_person(person_name)
-
-  role_page_atom = polymorphic_url(role, format: "atom")
-  person_page_atom = polymorphic_url(person, format: "atom")
-
-  mock_client.expects(:notify).with(
-    all_of(includes(role_page_atom), includes(person_page_atom)),
-    anything,
-    anything
-  ).once
+Then(/^I should be signed up for the all publications mailing list$/) do
+  assert_signed_up_to_mailing_list("http://www.example.com/government/publications.atom", "publications")
 end
 
-Then(/^a notification should be not sent for subscribers to the role "(.*?)" or for subscribers to the person "(.*?)"$/) do |role_name, person_name|
-  mock_client = mock_govdelivery_client
-
-  role = Role.find_by_name(role_name)
-  person = find_person(person_name)
-
-  role_page_atom = polymorphic_url(role, format: "atom")
-  person_page_atom = polymorphic_url(person, format: "atom")
-
-  mock_client.stubs(:notify)
-  mock_client.expects(:notify).with(
-    all_of(includes(role_page_atom), includes(person_page_atom)),
-    anything,
-    anything
-  ).never
+Then(/^I should be signed up to the correspondence publications mailing list$/) do
+  assert_signed_up_to_mailing_list("http://www.example.com/government/publications.atom?publication_filter_option=correspondence", "correspondence")
 end
 
-def mock_govdelivery_client
-  @mock_govdelivery_client ||= begin
-    mock_client = mock
-    mock_client.stubs(:topic)
+Then(/^I should be signed up for the all announcements mailing list$/) do
+  assert_signed_up_to_mailing_list("http://www.example.com/government/announcements.atom", "announcements")
+end
+
+Then(/^I should be signed up for the news stories mailing list$/) do
+  assert_signed_up_to_mailing_list("http://www.example.com/government/announcements.atom?announcement_filter_option=news-stories", "news stories")
+end
+
+Then(/^I should be signed up for the local government news stories mailing list$/) do
+  assert_signed_up_to_mailing_list("http://www.example.com/government/announcements.atom?announcement_filter_option=news-stories&relevant_to_local_government=1", "news stories which are relevant to local government")
+end
+
+Then(/^I should be signed up for the "(.*?)" organisation mailing list$/) do |org_name|
+  org_slug = Organisation.find_by_name!(org_name).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/organisations/#{org_slug}.atom", org_name)
+end
+
+Then(/^I should be signed up for the "(.*?)" role mailing list$/) do |role_name|
+  role_slug = Role.find_by_name!(role_name).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/ministers/#{role_slug}.atom", role_name)
+end
+
+Then(/^I should be signed up for the "(.*?)" person mailing list$/) do |person_name|
+  names = person_name.split
+  person_slug = Person.find_by_forename_and_surname!(names[0], names[1]).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/people/#{person_slug}.atom", person_name)
+end
+
+Then(/^I should be signed up for the "(.*?)" policy mailing list$/) do |policy_name|
+  policy_slug = Policy.find_by_title!(policy_name).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/policies/#{policy_slug}/activity.atom", policy_name)
+end
+
+Then(/^I should be signed up for the "(.*?)" topical event mailing list$/) do |topical_event_name|
+  topical_event_slug = TopicalEvent.find_by_name!(topical_event_name).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/topical-events/#{topical_event_slug}.atom", topical_event_name)
+end
+
+Then(/^I should be signed up for the "(.*?)" topic mailing list$/) do |topic_name|
+  topic_slug = Topic.find_by_name!(topic_name).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/topics/#{topic_slug}.atom", topic_name)
+end
+
+Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |world_location_name|
+  world_location_slug = WorldLocation.find_by_name!(world_location_name).slug
+  assert_signed_up_to_mailing_list("http://www.example.com/government/world/#{world_location_slug}.atom", world_location_name)
+end
+
+
+Then(/^a govuk_delivery notification should have been sent to the mailing list I signed up for$/) do
+  mock_govuk_delivery_client.assert_method_called(:notify, with: ->(feed_urls, _subject, _body) {
+    feed_urls.include?(@feed_signed_up_to)
+  })
+end
+
+Then(/^a govuk_delivery notification should not have been sent to the mailing list I signed up for$/) do
+  mock_govuk_delivery_client.refute_method_called(:notify, with: ->(feed_urls, _subject, _body) {
+    feed_urls.include?(@feed_signed_up_to)
+  })
+end
+
+Then(/^no govuk_delivery notifications should have been sent yet$/) do
+  mock_govuk_delivery_client.refute_method_called(:notify)
+end
+
+def mock_govuk_delivery_client
+  @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
+    mock_client.stub :topic
+    mock_client.stub :signup_url, returns: "http://www.example.com/email_signup_url"
+    mock_client.stub :notify
     Whitehall.stubs(govuk_delivery_client: mock_client)
-
-    mock_client
-  end
+  }
 end
 
-def get_govdelivery_url
-  if subscription_link = find('.feeds .govdelivery')
-    subscription_href = subscription_link['href']
-  else
-    fail "Cannot find the govdelivery email link"
-  end
-
-  parsed_url = URI.parse(subscription_href)
-  parsed_params = CGI.parse(parsed_url.query)
-  return Rack::Utils.unescape(parsed_params['feed'].first)
-end
-
-def get_govdelivery_url_with_relevant_to_local_government
-  feed_url = get_govdelivery_url
-  feed_url + (feed_url.include?("?") ? "&" : "?") + "relevant_to_local_government=1"
+def assert_signed_up_to_mailing_list(feed_url, description)
+  @feed_signed_up_to = feed_url
+  mock_govuk_delivery_client.assert_method_called(:topic, with: [feed_url, description])
+  mock_govuk_delivery_client.assert_method_called(:signup_url, with: [feed_url])
 end
