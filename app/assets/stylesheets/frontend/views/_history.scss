@@ -1,9 +1,18 @@
 .home-history {
   @include core-19;
 
+  #documents-records,
+  #notable-people {
+    padding-top: $gutter-two-thirds;
+    @include media(tablet) {
+      padding-top: 0;
+    }
+  }
+
   h2 {
     @include heading-27;
     font-weight: bold;
+    padding-top: 0;
     margin-bottom: $gutter-half;
     @include media(tablet) {
       padding: 0;
@@ -20,7 +29,7 @@
 
   .block {
     clear: both;
-    padding-bottom: $gutter*2;
+    padding-bottom: $gutter-half;
     ul {
       margin-top : $gutter;
       li {
@@ -31,6 +40,9 @@
           margin-right: $gutter-one-sixth;
         }
       }
+    }
+    @include media(tablet) {
+      padding-bottom: $gutter*2;
     }
   }
 
@@ -44,7 +56,6 @@
   .floated-children {
     .column {
       img {
-        margin-bottom: $gutter-half;
         width: $full-width;
       }
       @include media(tablet) {
@@ -74,6 +85,9 @@
       }
       @include media(tablet) {
         width: $one-third;
+        img {
+          margin-bottom: $gutter-half;
+        }
       }
     }
     @include media(tablet) {
@@ -84,15 +98,17 @@
   }
 
   .government-buildings {
-    padding-bottom: $gutter*1.5;
-    @include media(tablet) {
-      padding-bottom: $gutter*2;
-    }
+    padding-bottom: $gutter;
 
     img {
       margin-top: $gutter;
-      @include media(tablet) {
-        margin-top: 0;
+    }
+
+    @include media(tablet) {
+      padding-bottom: $gutter*2;
+
+      img {
+       margin-top: 0;
       }
     }
   }
