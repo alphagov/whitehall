@@ -29,7 +29,11 @@ namespace :panopticon do
     DetailedGuide.published.includes(:document, :primary_mainstream_category, :other_mainstream_categories).each do |guide|
       artefact = RegisterableEdition.new(guide)
       logger.info "Registering /#{guide.slug} with Panopticon..."
-      registerer.register(artefact)
+      begin
+        registerer.register(artefact)
+      rescue GdsApi::HTTPErrorResponse => e
+        logger.warn "Failed to register /#{guide.slug} with #{e.code}: #{e.error_details}"
+      end
     end
   end
 end
