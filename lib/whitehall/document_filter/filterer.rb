@@ -105,6 +105,9 @@ module Whitehall::DocumentFilter
     def parse_date(date)
       date = Chronic.parse(date, endian_precedence: :little)
       date.to_date if date
+    rescue NoMethodError
+      #Rescue from a bug in Chronic which throws exceptions with certain specifc date strings (eg. 't')
+      nil
     end
   end
 end
