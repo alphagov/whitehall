@@ -665,6 +665,30 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "should show links to other available translations of the edition" do
+    edition = build(:draft_publication)
+    with_locale(:es) do
+      edition.assign_attributes(attributes_for(:draft_edition, title: 'spanish-title'))
+    end
+    edition.save!
+    force_publish(edition)
+
+    get :show, id: edition.document
+
+    assert_select ".translation", text: "English"
+    refute_select "a[href=?]", public_document_path(edition, locale: :en), text: 'English'
+    assert_select "a[href=?]", public_document_path(edition, locale: :es), text: 'Español'
+  end
+
+  view_test "should not show any links to translations when the edition is only available in one language" do
+    edition = create(:draft_publication)
+    force_publish(edition)
+
+    get :show, id: edition.document
+
+    refute_select ".translations"
+  end
+
   private
 
   def publication_with_attachment(params = {})
