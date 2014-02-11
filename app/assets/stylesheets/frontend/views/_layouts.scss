@@ -4,7 +4,7 @@
 .inner-block {
   padding: 0 $gutter-half;
 
-  @include media(tablet){
+  @include media(tablet) {
     padding: 0 $gutter;
   }
 
@@ -13,7 +13,7 @@
 
     padding: 0;
 
-    @include media(tablet){
+    @include media(tablet) {
       padding: 0 $gutter-half;
     }
   }
@@ -21,10 +21,10 @@
 
 p.report-a-problem-toggle {
   clear: both;
-  margin: $gutter-half;
+  padding: $gutter-half;
   direction: ltr;
-  @include media(tablet){
-    margin: $gutter;
+  @include media(tablet) {
+    padding: $gutter;
   }
 
   a {
