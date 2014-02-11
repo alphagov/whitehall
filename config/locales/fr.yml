@@ -38,129 +38,171 @@ fr:
       announcement:
         one: Annonce
         other: Annonces
+        see_all: Voir toutes nos annonces
       authored_article:
         one: Article signé
         other: Articles signés
+        see_all: Voir toutes nos articles signés
       case_study:
         one: Etude de cas
         other: Etudes de cas
+        see_all: Voir toutes nos etudes de cas
       closed_consultation:
         one: Consultation close
         other: Consultations closes
+        see_all: Voir toutes nos consultations closes
       consultation:
         one: Consultation
         other: Consultations
+        see_all: Voir toutes nos consultations
       consultation_outcome:
         one: Résultat de la consultation
         other: Résultats de la consultation
+        see_all: Voir toutes nos résultats de la consultation
       corporate_report:
         one: Rapport d'activité
         other: Rapports d'activité
+        see_all: Voir toutes nos rapports d'activité
       correspondence:
         one: Correspondance
         other: Correspondances
+        see_all: Voir toutes nos correspondances
       detailed_guidance:
         one: Instructions détaillées
         other: Instructions détaillées
+        see_all: Voir toutes nos instructions détaillées
       document_collection:
         one: Série
         other:
+        see_all:
       draft_text:
         one: Projet de texte
         other: Projets de textes
+        see_all: Voir toutes nos projets de textes
       fatality_notice:
         one: Avis de décès
         other: Avis de décès
+        see_all: Voir toutes nos avis de décès
       foi_release:
         one: Communiqué Freedom of Information
         other: Communiqués Freedom of Information
+        see_all: Voir toutes nos communiqués freedom of information
       form:
         one: Formulaire
         other: Formulaires
+        see_all: Voir toutes nos formulaires
       government_response:
         one: Réponse du gouvernement
         other: Réponses du gouvernement
+        see_all: Voir toutes nos réponses du gouvernement
       guidance:
         one: Instructions
         other: Instructions
+        see_all: Voir toutes nos instructions
       impact_assessment:
         one: Evaluation des impacts
         other: Evaluations des impacts
+        see_all: Voir toutes nos evaluations des impacts
       imported:
         one: Importé
         other: Importé
+        see_all: Voir toutes nos importé
       independent_report:
         one: Rapport indépendant
         other: Rapports indépendants
+        see_all: Voir toutes nos rapports indépendants
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Carte
         other: Cartes
+        see_all: Voir toutes nos cartes
       national_statistics:
         one: Statistiques - statistiques nationales
         other: Statistiques - statistiques nationales
+        see_all: Voir toutes nos statistiques - statistiques nationales
       news_article:
         one: Actualités
         other: Actualités
+        see_all: Voir toutes nos actualités
       news_story:
         one: Actualités
         other: Actualités
+        see_all: Voir toutes nos actualités
       open_consultation:
         one: Consultation ouverte
         other: Consultations ouvertes
+        see_all: Voir toutes nos consultations ouvertes
       oral_statement:
         one: Déclaration orale au Parlement
         other: Déclarations orales au Parlement
+        see_all: Voir toutes nos déclarations orales au parlement
       policy:
         one: Priorité politique
         other: Priorités politiques
+        see_all: Voir toutes nos priorités politiques
       policy_paper:
         one: Document d'orientation
         other: Documents d'orientation
+        see_all: Voir toutes nos documents d'orientation
       press_release:
         one: Communiqué de presse
         other: Communiqués de presse
+        see_all: Voir toutes nos communiqués de presse
       promotional:
         one: Matériel promotionnel
         other: Matériel promotionnel
+        see_all: Voir toutes nos matériel promotionnel
       publication:
         one: Publication
         other: Publications
+        see_all: Voir toutes nos publications
       research:
         one: Recherche et analyse
         other: Recherche et analyse
+        see_all: Voir toutes nos recherche et analyse
       speaking_notes:
         one: Notes d'allocution
         other: Notes d'allocution
+        see_all: Voir toutes nos notes d'allocution
       speech:
         one: Discours
         other: Discours
+        see_all: Voir toutes nos discours
       statement_to_parliament:
         one: Déclaration au Parlement
         other: Déclarations au Parlement
+        see_all: Voir toutes nos déclarations au parlement
       statistical_data_set:
         one: Ensemble de données statistiques
         other: Ensembles de données statistiques
+        see_all: Voir toutes nos ensembles de données statistiques
       statistics:
         one: Statistiques
         other: Statistiques
+        see_all: Voir toutes nos statistiques
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transcription
         other: Transcriptions
+        see_all: Voir toutes nos transcriptions
       transparency:
         one: Transparence des données
         other: Transparence des données
+        see_all: Voir toutes nos transparence des données
       worldwide_priority:
         one: Priorité internationale
         other: Priorités internationales
+        see_all: Voir toutes nos priorités internationales
       written_statement:
         one: Communiqué
         other: Communiqués
+        see_all: Voir toutes nos communiqués
     contents:
     footer_meta:
       full_page_history:
@@ -368,8 +410,7 @@ fr:
     view_all:
   attachment:
     accessibility:
-      full_help_html: |2-
-
+      full_help_html: |-
         Si vous souhaitez recevoir ce document dans un autre format (braille, audio ou autre), merci d'envoyer un email à %{email}
         en indiquant votre adresse, votre numéro de téléphone, ainsi que le titre du document ("%{title}")%{references}.
       heading: 'Le format de ce document peut ne pas convenir aux utilisateurs de

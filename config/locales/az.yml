@@ -152,129 +152,171 @@ az:
       announcement:
         one: Elan
         other: Elanlar
+        see_all: Bax bütün növ
       authored_article:
         one:
         other:
+        see_all:
       case_study:
         one: Öyrənilib
         other: Öyrənilib
+        see_all: Bax bütün növ
       closed_consultation:
         one: Bağlı məslətləşmə
         other: Bağlı məslətləşmələr
+        see_all: Bax bütün növ
       consultation:
         one: Məsləhət
         other: məsləhətləşmələr
+        see_all: Bax bütün növ
       consultation_outcome:
         one: məsləhətləşmənin nəticəsi
         other: məsləhətləşmənin nəticələri
+        see_all: Bax bütün növ
       corporate_report:
         one: birgə məruzə
         other: birgə məruzələr
+        see_all: Bax bütün növ
       correspondence:
         one: Yazışmalar
         other: Yazışmalar
+        see_all: Bax bütün növ
       detailed_guidance:
         one: ətraflı məlumat
         other: ətraflı məlumat
+        see_all: Bax bütün növ
       document_collection:
         one: növlər
         other:
+        see_all:
       draft_text:
         one: hazırlanmış mətn
         other: hazırlanmış mətn
+        see_all: Bax bütün növ
       fatality_notice:
         one: səhvlə bağlı qeyd
         other: səhvlə bağlı qeydlər
+        see_all: Bax bütün növ
       foi_release:
         one: Məlumat azadlığı ilə bağlı açıqlama
         other: Məlumat azadlığı ilə bağlı açıqlamalar
+        see_all: Bax bütün növ
       form:
         one: Forma
         other: Formalar
+        see_all: Bax bütün növ
       government_response:
         one:
         other:
+        see_all:
       guidance:
         one: İnstruksiya
         other: İnstruksiya
+        see_all: Bax bütün növ
       impact_assessment:
         one: Dəyərləndirmə
         other: Dəyərləndirmə
+        see_all: Bax bütün növ
       imported:
         one:
         other:
+        see_all:
       independent_report:
         one: Müstəqil məruzə
         other: Müstəqil məruzələr
+        see_all: Bax bütün növ
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Xəritə
         other: xəritələr
+        see_all: Bax bütün növ
       national_statistics:
         one: Statistika - milli statistika
         other: Statistika - milli statistika
+        see_all: Bax bütün növ
       news_article:
         one: məqalə
         other: məqalələr
+        see_all: Bax bütün növ
       news_story:
         one: Xəbərlər
         other: Xəbərlər
+        see_all: Bax bütün növ
       open_consultation:
         one: açıq məsləhətləşmələr
         other: açıq məsləhətləşmələr
+        see_all: Bax bütün növ
       oral_statement:
         one: Parliamentə açıq bəyanat
         other: Parlamentə açıq bəyanatlar
+        see_all: Bax bütün növ
       policy:
         one: Siyasət
         other: Siyasət
+        see_all: Bax bütün növ
       policy_paper:
         one: Siyasi sənədlər
         other: Siyasi sənədlər
+        see_all: Bax bütün növ
       press_release:
         one: mətbuat üçün açıqlama
         other: mətbuat üçün açıqlama
+        see_all: Bax bütün növ
       promotional:
         one: Təşviqedici materiallar
         other: Təşviqedici materiallar
+        see_all: Bax bütün növ
       publication:
         one: Nəşrlər
         other: Nəşrlər
+        see_all: Bax bütün növ
       research:
         one: Tətqiqat və analiz
         other: Tətqiqat və analiz
+        see_all: Bax bütün növ
       speaking_notes:
         one: Çıxış üçün  qeydləri
         other: Çıxış üçün  qeydləri
+        see_all: Bax bütün növ
       speech:
         one: çıxış
         other: Çıxışlar
+        see_all: Bax bütün növ
       statement_to_parliament:
         one: Parlamentə bəyanat
         other: Parlamentə bəyanatlar
+        see_all: Bax bütün növ
       statistical_data_set:
         one: statistik məlumatlar bazası
         other: statistik məlumatlar bazaları
+        see_all: Bax bütün növ
       statistics:
         one: statistika
         other: statistika
+        see_all: Bax bütün növ
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transkripsiya
         other: Transkripsiyalar
+        see_all: Bax bütün növ
       transparency:
         one: Şəffaf məlumat
         other: Şəffaf məlumat
+        see_all: Bax bütün növ
       worldwide_priority:
         one: dünya üzrə prioritet
         other: dünya üzrə prioritetlər
+        see_all: Bax bütün növ
       written_statement:
         one: Parlamentə yazılı müraciət
         other: Parlamentə yazılı müraciət
+        see_all: Bax bütün növ
     updated: yenilənib
     view:
   document_filters:

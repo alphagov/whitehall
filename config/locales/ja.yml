@@ -153,129 +153,171 @@ ja:
       announcement:
         one: ニュース
         other: ニュース
+        see_all: ニュース を全て見る
       authored_article:
         one: Authored article
         other: Authored articles
+        see_all: authored articles を全て見る
       case_study:
         one: ケーススタディ
         other: ケーススタディ
+        see_all: ケーススタディ を全て見る
       closed_consultation:
         one: 非公開協議
         other: 非公開協議
+        see_all: 非公開協議 を全て見る
       consultation:
         one: 協議
         other: 協議
+        see_all: 協議 を全て見る
       consultation_outcome:
         one: 協議結果
         other: 協議結果
+        see_all: 協議結果 を全て見る
       corporate_report:
         one: 事業報告
         other: 事業報告
+        see_all: 事業報告 を全て見る
       correspondence:
         one: 通信文書
         other: 通信文書
+        see_all: 通信文書 を全て見る
       detailed_guidance:
         one: 詳細説明
         other: 詳細説明
+        see_all: 詳細説明 を全て見る
       document_collection:
         one: シリーズ
         other:
+        see_all:
       draft_text:
         one: 草稿
         other: 草稿
+        see_all: 草稿 を全て見る
       fatality_notice:
         one: 死亡告示
         other: 死亡告示
+        see_all: 死亡告示 を全て見る
       foi_release:
         one: 情報公開に関するニュース
         other: 情報公開に関するニュース
+        see_all: 情報公開に関するニュース を全て見る
       form:
         one: フォーム
         other: フォーム
+        see_all: フォーム を全て見る
       government_response:
         one: レスポンス
         other: レスポンス
+        see_all: レスポンス を全て見る
       guidance:
         one: ガイダンス
         other: ガイダンス
+        see_all: ガイダンス を全て見る
       impact_assessment:
         one: 影響評価
         other: 影響評価
+        see_all: 影響評価 を全て見る
       imported:
         one: 確認中
         other: 確認中
+        see_all: 確認中 を全て見る
       independent_report:
         one: 第三者機関によるレポート
         other: 第三者機関によるレポート
+        see_all: 第三者機関によるレポート を全て見る
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: 地図
         other: 地図
+        see_all: 地図 を全て見る
       national_statistics:
         one: 国家統計
         other: 国家統計
+        see_all: 国家統計 を全て見る
       news_article:
         one: ニュース
         other: ニュース
+        see_all: ニュース を全て見る
       news_story:
         one: ニュース
         other: ニュース
+        see_all: ニュース を全て見る
       open_consultation:
         one: 公開協議
         other: 公開協議
+        see_all: 公開協議 を全て見る
       oral_statement:
         one: 議会に対する口頭陳述
         other: 議会に対する口頭陳述
+        see_all: 議会に対する口頭陳述 を全て見る
       policy:
         one: 政策
         other: 政策
+        see_all: 政策 を全て見る
       policy_paper:
         one: 政策文書
         other: 政策文書
+        see_all: 政策文書 を全て見る
       press_release:
         one: 新聞発表
         other: 新聞発表
+        see_all: 新聞発表 を全て見る
       promotional:
         one: 宣伝資料
         other: 宣伝資料
+        see_all: 宣伝資料 を全て見る
       publication:
         one: 出版物
         other: 出版物
+        see_all: 出版物 を全て見る
       research:
         one: 調査と分析
         other: 調査と分析
+        see_all: 調査と分析 を全て見る
       speaking_notes:
         one: キーポイント
         other: キーポイント
+        see_all: キーポイント を全て見る
       speech:
         one: スピーチ
         other: スピーチ
+        see_all: スピーチ を全て見る
       statement_to_parliament:
         one: 閣僚声明
         other: 閣僚声明
+        see_all: 閣僚声明 を全て見る
       statistical_data_set:
         one: 統計データセット
         other: 統計データセット
+        see_all: 統計データセット を全て見る
       statistics:
         one: 統計
         other: 統計
+        see_all: 統計 を全て見る
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: スピーチ全文
         other: スピーチ全文
+        see_all: スピーチ全文 を全て見る
       transparency:
         one: 透明性データ
         other: 透明性データ
+        see_all: 透明性データ を全て見る
       worldwide_priority:
         one: 優先事項
         other: 優先事項
+        see_all: 優先事項 を全て見る
       written_statement:
         one: 閣僚声明文
         other: 閣僚声明文
+        see_all: 閣僚声明文 を全て見る
     updated: 更新
     view: '%{title}'' を見る'
   document_filters:

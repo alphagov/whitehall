@@ -154,129 +154,171 @@ fa:
       announcement:
         one: اعلامیه
         other: اعلامیه ها
+        see_all: تمامی اعلامیه ها ما را مشاهده کنید
       authored_article:
         one: مقاله
         other: مقالات
+        see_all: تمامی مقالات ما را مشاهده کنید
       case_study:
         one: مطالعه ی موردی
         other: مطالعه های موردی
+        see_all: تمامی مطالعه های موردی ما را مشاهده کنید
       closed_consultation:
         one: رایزنی بسته
         other: رایزنی های بسته
+        see_all: تمامی رایزنی های بسته ما را مشاهده کنید
       consultation:
         one: رایزنی
         other: رایزنی ها
+        see_all: تمامی رایزنی ها ما را مشاهده کنید
       consultation_outcome:
         one: نتیجه رایزنی
         other: نتایج رایزنی
+        see_all: تمامی نتایج رایزنی ما را مشاهده کنید
       corporate_report:
         one: گزارش سازمانی
         other: گزارش های سازمانی
+        see_all: تمامی گزارش های سازمانی ما را مشاهده کنید
       correspondence:
         one: مکاتبه
         other: مکاتبات
+        see_all: تمامی مکاتبات ما را مشاهده کنید
       detailed_guidance:
         one: راهنمای تفصیلی
         other: راهنمای تفصیلی
+        see_all: تمامی راهنمای تفصیلی ما را مشاهده کنید
       document_collection:
         one: ردیف
         other:
+        see_all:
       draft_text:
         one: متن پیش نویس
         other: متون پیش نویس
+        see_all: تمامی متون پیش نویس ما را مشاهده کنید
       fatality_notice:
         one: اطلاعیه تلفات
         other: اطلاعیه تلفات
+        see_all: تمامی اطلاعیه تلفات ما را مشاهده کنید
       foi_release:
         one: انتشار آزاد اطلاعات
         other: انتشار آزاد اطلاعات
+        see_all: تمامی انتشار آزاد اطلاعات ما را مشاهده کنید
       form:
         one: فرم
         other: فرم ها
+        see_all: تمامی فرم ها ما را مشاهده کنید
       government_response:
         one: جوابیه دولت
         other: جوابیه های دولت
+        see_all: تمامی جوابیه های دولت ما را مشاهده کنید
       guidance:
         one: راهنمایی
         other: راهنمایی
+        see_all: تمامی راهنمایی ما را مشاهده کنید
       impact_assessment:
         one: ارزیابی تاثیرات
         other: ارزیابی های تاثیرات
+        see_all: تمامی ارزیابی های تاثیرات ما را مشاهده کنید
       imported:
         one: منتقل شده - در انتظار دسته بندی
         other: منتقل شده - در انتظار دسته بندی
+        see_all: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
       independent_report:
         one: گزارش مستقل
         other: گزارش های مستقل
+        see_all: تمامی گزارش های مستقل ما را مشاهده کنید
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: نقشه
         other: نقشه ها
+        see_all: تمامی نقشه ها ما را مشاهده کنید
       national_statistics:
         one: آمار - آمار ملی
         other: آمار - آمار ملی
+        see_all: تمامی آمار - آمار ملی ما را مشاهده کنید
       news_article:
         one: مقاله ی خبری
         other: مقالات خبری
+        see_all: تمامی مقالات خبری ما را مشاهده کنید
       news_story:
         one: خبر
         other: اخبار
+        see_all: تمامی اخبار ما را مشاهده کنید
       open_consultation:
         one: رایزنی باز
         other: رایزنی های باز
+        see_all: تمامی رایزنی های باز ما را مشاهده کنید
       oral_statement:
         one: گزارش شفاهی به پارلمان
         other: گزارش های شفاهی به پارلمان
+        see_all: تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید
       policy:
         one: سیاست
         other: سیاست ها
+        see_all: تمامی سیاست ها ما را مشاهده کنید
       policy_paper:
         one: مقاله ی سیاسی
         other: مقاله های سیاسی
+        see_all: تمامی مقاله های سیاسی ما را مشاهده کنید
       press_release:
         one: بیانیه
         other: بیانیه ها
+        see_all: تمامی بیانیه ها ما را مشاهده کنید
       promotional:
         one: مطالب تبلیغاتی
         other: مطالب تبلیغاتی
+        see_all: تمامی مطالب تبلیغاتی ما را مشاهده کنید
       publication:
         one: نشریه
         other: نشریات
+        see_all: تمامی نشریات ما را مشاهده کنید
       research:
         one: پژوهش و تحلیل
         other: پژوهش و تحلیل
+        see_all: تمامی پژوهش و تحلیل ما را مشاهده کنید
       speaking_notes:
         one: موضوعات سخنرانی
         other: موضوعات سخنرانی
+        see_all: تمامی موضوعات سخنرانی ما را مشاهده کنید
       speech:
         one: سخنرانی
         other: سخنرانی ها
+        see_all: تمامی سخنرانی ها ما را مشاهده کنید
       statement_to_parliament:
         one: گزارش به پارلمان
         other: گزارش ها به پارلمان
+        see_all: تمامی گزارش ها به پارلمان ما را مشاهده کنید
       statistical_data_set:
         one: بسته ی داده های آماری
         other: بسته های داده های آماری
+        see_all: تمامی بسته های داده های آماری ما را مشاهده کنید
       statistics:
         one: آمار
         other: آمار
+        see_all: تمامی آمار ما را مشاهده کنید
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: رونوشت
         other: رونوشت ها
+        see_all: تمامی رونوشت ها ما را مشاهده کنید
       transparency:
         one: داده های شفاف سازی
         other: داده های شفاف سازی
+        see_all: تمامی داده های شفاف سازی ما را مشاهده کنید
       worldwide_priority:
         one: اولویت جهانی
         other: اولویت های جهانی
+        see_all: تمامی اولویت های جهانی ما را مشاهده کنید
       written_statement:
         one: گزارش کتبی به پارلمان
         other: گزارش های کتبی به پارلمان
+        see_all: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
     updated: به روز رسانی شده
     view: مشاهده '%{title}'
   document_filters:

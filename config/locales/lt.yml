@@ -48,170 +48,212 @@ lt:
         one: Pranešimas
         few:
         other: Pranešimai
+        see_all: Pažiūrėkite  mūsų pranešimai
       authored_article:
         one: Autoriaus straipsnis
         few:
         other: Autorių straipsniai
+        see_all: Pažiūrėkite  mūsų autorių straipsniai
       case_study:
         one: Atvejo analizė
         few:
         other: Atvejų analizės
+        see_all: Pažiūrėkite  mūsų atvejų analizės
       closed_consultation:
         one: Pasibaigusi konsultacija
         few:
         other: Pasibaigusios konsultacijos
+        see_all: Pažiūrėkite  mūsų pasibaigusios konsultacijos
       consultation:
         one: Konsultacija
         few:
         other: Konsultacijos
+        see_all: Pažiūrėkite  mūsų konsultacijos
       consultation_outcome:
         one: Konsultacijos rezultatas
         few:
         other: Konsultacijos rezultatai
+        see_all: Pažiūrėkite  mūsų konsultacijos rezultatai
       corporate_report:
         one: Bendra ataskaita
         few:
         other: Bendros ataskaitos
+        see_all: Pažiūrėkite  mūsų bendros ataskaitos
       correspondence:
         one: Korespondencija
         few:
         other: Korespondencija
+        see_all: Pažiūrėkite  mūsų korespondencija
       detailed_guidance:
         one: Detalesnė informacija
         few:
         other: Detalesnė informacija
+        see_all: Pažiūrėkite  mūsų detalesnė informacija
       document_collection:
         one: Serijos
         few:
         other:
+        see_all:
       draft_text:
         one: Pirminis teksto variantas
         few:
         other: Pirminiai teksto variantai
+        see_all: Pažiūrėkite  mūsų pirminiai teksto variantai
       fatality_notice:
         one: Pranešimas apie nelaimę
         few:
         other: Pranešimas apie nelaimes
+        see_all: Pažiūrėkite  mūsų pranešimas apie nelaimes
       foi_release:
         one: 'Informacijos laisvė: pranešimas'
         few:
         other: 'Informacijos laisvė: pranešimai'
+        see_all: 'Pažiūrėkite  mūsų informacijos laisvė: pranešimai'
       form:
         one: Forma
         few:
         other: Formos
+        see_all: Pažiūrėkite  mūsų formos
       government_response:
         one: Vyriausybės atsakas
         few:
         other: Vyriausybės atsakai
+        see_all: Pažiūrėkite  mūsų vyriausybės atsakai
       guidance:
         one: Informacija
         few:
         other: Informacija
+        see_all: Pažiūrėkite  mūsų informacija
       impact_assessment:
         one: Poveikio įvertinimas
         few:
         other: Poveikio įvertinimai
+        see_all: Pažiūrėkite  mūsų poveikio įvertinimai
       imported:
         one: Patalpinta - laukiama publikavimo
         few:
         other: Patalpinta - laukiama publikavimo
+        see_all: Pažiūrėkite  mūsų patalpinta - laukiama publikavimo
       independent_report:
         one: Nepriklausoma ataskaita
         few:
         other: Nepriklausomos ataskaitos
+        see_all: Pažiūrėkite  mūsų nepriklausomos ataskaitos
       international_treaty:
         one:
         few:
         other:
+        see_all:
       map:
         one: Žemėlapis
         few:
         other: Žemėlapiai
+        see_all: Pažiūrėkite  mūsų Žemėlapiai
       national_statistics:
         one: 'Statistika - nacionalinė statistika '
         few:
         other: 'Statistika - nacionalinė statistika '
+        see_all: 'Pažiūrėkite  mūsų statistika - nacionalinė statistika '
       news_article:
         one: Straipsnis
         few:
         other: Straipsniai
+        see_all: Pažiūrėkite  mūsų straipsniai
       news_story:
         one: Naujiena
         few:
         other: Naujienos
+        see_all: Pažiūrėkite  mūsų naujienos
       open_consultation:
         one: Atvira konsultacija
         few:
         other: 'Atviros konsultacijos '
+        see_all: 'Pažiūrėkite  mūsų atviros konsultacijos '
       oral_statement:
         one: Žodinis kreipimasis į parlamentą
         few:
         other: Žodiniai kreipimaisi į parlamentą
+        see_all: Pažiūrėkite  mūsų Žodiniai kreipimaisi į parlamentą
       policy:
         one: Strategija
         few:
         other: Strategija
+        see_all: Pažiūrėkite  mūsų strategija
       policy_paper:
         one: Strategijos dokumentas
         few:
         other: Strategijų dokumentai
+        see_all: Pažiūrėkite  mūsų strategijų dokumentai
       press_release:
         one: Pranešimas spaudai
         few:
         other: Pranešimai spaudai
+        see_all: Pažiūrėkite  mūsų pranešimai spaudai
       promotional:
         one: Reklaminė medžiaga
         few:
         other: Reklaminė medžiaga
+        see_all: Pažiūrėkite  mūsų reklaminė medžiaga
       publication:
         one: Leidinys
         few:
         other: Leidiniai
+        see_all: Pažiūrėkite  mūsų leidiniai
       research:
         one: Tyrimas ir analizė
         few:
         other: Tyrimai ir analizės
+        see_all: Pažiūrėkite  mūsų tyrimai ir analizės
       speaking_notes:
         one: Kalbos santrauka
         few:
         other: Kalbos santrauka
+        see_all: Pažiūrėkite  mūsų kalbos santrauka
       speech:
         one: Kalba
         few:
         other: Kalbos
+        see_all: Pažiūrėkite  mūsų kalbos
       statement_to_parliament:
         one: Kreipimasis į parlamentą
         few:
         other: Kreipimaisi į parlamentą
+        see_all: Pažiūrėkite  mūsų kreipimaisi į parlamentą
       statistical_data_set:
         one: Statistiniai duomenys
         few:
         other: Statistiniai duomenys
+        see_all: Pažiūrėkite  mūsų statistiniai duomenys
       statistics:
         one: Statistika
         few:
         other: Statistika
+        see_all: Pažiūrėkite  mūsų statistika
       statutory_guidance:
         one:
         few:
         other:
+        see_all:
       transcript:
         one: Kalbos tekstas
         few:
         other: Kalbų tekstai
+        see_all: Pažiūrėkite  mūsų kalbų tekstai
       transparency:
         one: Skaidrumo informacija
         few:
         other: Skaidrumo informacija
+        see_all: Pažiūrėkite  mūsų skaidrumo informacija
       worldwide_priority:
         one: Pasaulinis pioritetas
         few:
         other: Pasauliniai prioritetai
+        see_all: Pažiūrėkite  mūsų pasauliniai prioritetai
       written_statement:
         one: Rašytinis kreipimasis į parlamentą
         few:
         other: Rašytiniai kreipimaisi į parlamentą
+        see_all: Pažiūrėkite  mūsų rašytiniai kreipimaisi į parlamentą
     contents:
     footer_meta:
       full_page_history:

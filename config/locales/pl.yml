@@ -58,211 +58,253 @@ pl:
         few:
         many:
         other: Ogłoszenia
+        see_all: Zobacz wszystkie nasze ogłoszenia
       authored_article:
         one: Dokument utworzony przez
         few:
         many:
         other: Dokumenty utworzone przez
+        see_all: Zobacz wszystkie nasze dokumenty utworzone przez
       case_study:
         one: Studium przypadku
         few:
         many:
         other: Studia przypadku
+        see_all: Zobacz wszystkie nasze studia przypadku
       closed_consultation:
         one: Konsultacja zamknięta
         few:
         many:
         other: Konsultacje zamknięte
+        see_all: Zobacz wszystkie nasze konsultacje zamknięte
       consultation:
         one: Konsultacja
         few:
         many:
         other: Konsultacje
+        see_all: Zobacz wszystkie nasze konsultacje
       consultation_outcome:
         one: Wynik konsultacji
         few:
         many:
         other: Wyniki konsultacji
+        see_all: Zobacz wszystkie nasze wyniki konsultacji
       corporate_report:
         one: Raport korporacyjny
         few:
         many:
         other: Raporty korporacyjne
+        see_all: Zobacz wszystkie nasze raporty korporacyjne
       correspondence:
         one: Korespondencja
         few:
         many:
         other: Korespondencje
+        see_all: Zobacz wszystkie nasze korespondencje
       detailed_guidance:
         one: Szczegółowe wskazówki
         few:
         many:
         other: Szczegółowe wskazówki
+        see_all: Zobacz wszystkie nasze szczegółowe wskazówki
       document_collection:
         one: Seria
         few:
         many:
         other:
+        see_all:
       draft_text:
         one: Tekst roboczy
         few:
         many:
         other: Teksty robocze
+        see_all: Zobacz wszystkie nasze teksty robocze
       fatality_notice:
         one: Informacja o śmierci
         few:
         many:
         other: Informacje o śmierci
+        see_all: Zobacz wszystkie nasze informacje o śmierci
       foi_release:
         one: Informacja zgodnie z ustawą o wolnosci informacji
         few:
         many:
         other: Informacje zgodnie z ustawą o wolności informacji
+        see_all: Zobacz wszystkie nasze informacje zgodnie z ustawą o wolności informacji
       form:
         one: Formularz
         few:
         many:
         other: Formularze
+        see_all: Zobacz wszystkie nasze formularze
       government_response:
         one: Odpowiedź rządu
         few:
         many:
         other: Odpowiedzi rządu
+        see_all: Zobacz wszystkie nasze odpowiedzi rządu
       guidance:
         one: Wskazówki
         few:
         many:
         other: Wskazówki
+        see_all: Zobacz wszystkie nasze wskazówki
       impact_assessment:
         one: Ocena oddziaływania
         few:
         many:
         other: Oceny oddziaływania
+        see_all: Zobacz wszystkie nasze oceny oddziaływania
       imported:
         one: Zaimportowany - oczekuje typu
         few:
         many:
         other: Zaimportowany - oczekuje typu
+        see_all: Zobacz wszystkie nasze zaimportowany - oczekuje typu
       independent_report:
         one: Niezależny raport
         few:
         many:
         other: Niezależne raporty
+        see_all: Zobacz wszystkie nasze niezależne raporty
       international_treaty:
         one:
         few:
         many:
         other:
+        see_all:
       map:
         one: Mapa
         few:
         many:
         other: Mapy
+        see_all: Zobacz wszystkie nasze mapy
       national_statistics:
         one: Statystyki - statystyki narodowe
         few:
         many:
         other: Statystyki - statystyki narodowe
+        see_all: Zobacz wszystkie nasze statystyki - statystyki narodowe
       news_article:
         one: Artykuł prasowy
         few:
         many:
         other: Artykuły prasowe
+        see_all: Zobacz wszystkie nasze artykuły prasowe
       news_story:
         one: Aktualności
         few:
         many:
         other: Aktualności
+        see_all: Zobacz wszystkie nasze aktualności
       open_consultation:
         one: Konsultacje otwarte
         few:
         many:
         other: Konsultacje otwarte
+        see_all: Zobacz wszystkie nasze konsultacje otwarte
       oral_statement:
         one: Ustne oświadczenie przed parlamentem
         few:
         many:
         other: Ustne oświadczenia przed parlamentem
+        see_all: Zobacz wszystkie nasze ustne oświadczenia przed parlamentem
       policy:
         one: Polityka
         few:
         many:
         other: Polityki
+        see_all: Zobacz wszystkie nasze polityki
       policy_paper:
         one: Dokument programowy
         few:
         many:
         other: Dokumenty programowe
+        see_all: Zobacz wszystkie nasze dokumenty programowe
       press_release:
         one: Informacja prasowa
         few:
         many:
         other: Informacje prasowe
+        see_all: Zobacz wszystkie nasze informacje prasowe
       promotional:
         one: Materiał promocyjny
         few:
         many:
         other: Materiał promocyjny
+        see_all: Zobacz wszystkie nasze materiał promocyjny
       publication:
         one: Publikacja
         few:
         many:
         other: Publikacje
+        see_all: Zobacz wszystkie nasze publikacje
       research:
         one: Badania i analiza
         few:
         many:
         other: Badania i analiza
+        see_all: Zobacz wszystkie nasze badania i analiza
       speaking_notes:
         one: Notatki do prelekcji
         few:
         many:
         other: Notatki do prelekcji
+        see_all: Zobacz wszystkie nasze notatki do prelekcji
       speech:
         one: Przemówienie
         few:
         many:
         other: Przemówienia
+        see_all: Zobacz wszystkie nasze przemówienia
       statement_to_parliament:
         one: Wystapienie przed parlamentem
         few:
         many:
         other: Wystapienia przed parlamentem
+        see_all: Zobacz wszystkie nasze wystapienia przed parlamentem
       statistical_data_set:
         one: Zestaw danych statystycznych
         few:
         many:
         other: Zestawy danych statystycznych
+        see_all: Zobacz wszystkie nasze zestawy danych statystycznych
       statistics:
         one: Statystyki
         few:
         many:
         other: Statystyki
+        see_all: Zobacz wszystkie nasze statystyki
       statutory_guidance:
         one:
         few:
         many:
         other:
+        see_all:
       transcript:
         one: Transkrypcja
         few:
         many:
         other: Transkrypcje
+        see_all: Zobacz wszystkie nasze transkrypcje
       transparency:
         one: Dane o transparentności
         few:
         many:
         other: Dane o transparentności
+        see_all: Zobacz wszystkie nasze dane o transparentności
       worldwide_priority:
         one: Światowy priorytet
         few:
         many:
         other: Światowe priorytety
+        see_all: Zobacz wszystkie nasze Światowe priorytety
       written_statement:
         one: Pisemne oświadczenie przed parlamentem
         few:
         many:
         other: Pisemne oświadczenia przed parlamentem
+        see_all: Zobacz wszystkie nasze pisemne oświadczenia przed parlamentem
     contents:
     footer_meta:
       full_page_history:

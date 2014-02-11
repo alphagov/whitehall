@@ -38,129 +38,171 @@ sw:
       announcement:
         one:
         other:
+        see_all:
       authored_article:
         one:
         other:
+        see_all:
       case_study:
         one:
         other:
+        see_all:
       closed_consultation:
         one:
         other:
+        see_all:
       consultation:
         one:
         other:
+        see_all:
       consultation_outcome:
         one:
         other:
+        see_all:
       corporate_report:
         one:
         other:
+        see_all:
       correspondence:
         one:
         other:
+        see_all:
       detailed_guidance:
         one:
         other:
+        see_all:
       document_collection:
         one:
         other:
+        see_all:
       draft_text:
         one:
         other:
+        see_all:
       fatality_notice:
         one:
         other:
+        see_all:
       foi_release:
         one:
         other:
+        see_all:
       form:
         one:
         other:
+        see_all:
       government_response:
         one:
         other:
+        see_all:
       guidance:
         one:
         other:
+        see_all:
       impact_assessment:
         one:
         other:
+        see_all:
       imported:
         one:
         other:
+        see_all:
       independent_report:
         one:
         other:
+        see_all:
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one:
         other:
+        see_all:
       national_statistics:
         one:
         other:
+        see_all:
       news_article:
         one:
         other:
+        see_all:
       news_story:
         one:
         other:
+        see_all:
       open_consultation:
         one:
         other:
+        see_all:
       oral_statement:
         one:
         other:
+        see_all:
       policy:
         one:
         other:
+        see_all:
       policy_paper:
         one:
         other:
+        see_all:
       press_release:
         one:
         other:
+        see_all:
       promotional:
         one:
         other:
+        see_all:
       publication:
         one:
         other:
+        see_all:
       research:
         one:
         other:
+        see_all:
       speaking_notes:
         one:
         other:
+        see_all:
       speech:
         one:
         other:
+        see_all:
       statement_to_parliament:
         one:
         other:
+        see_all:
       statistical_data_set:
         one:
         other:
+        see_all:
       statistics:
         one:
         other:
+        see_all:
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one:
         other:
+        see_all:
       transparency:
         one:
         other:
+        see_all:
       worldwide_priority:
         one:
         other:
+        see_all:
       written_statement:
         one:
         other:
+        see_all:
     contents:
     footer_meta:
       full_page_history:

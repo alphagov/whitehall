@@ -38,129 +38,171 @@ hi:
       announcement:
         one: घोषणा
         other: घोषणाएं
+        see_all: देखें हमारे सभी घोषणाएं
       authored_article:
         one: मूल आलेख
         other: मूल आलेख
+        see_all: देखें हमारे सभी मूल आलेख
       case_study:
         one: विषय अध्ययन
         other: विषय अध्ययन
+        see_all: देखें हमारे सभी विषय अध्ययन
       closed_consultation:
         one: बंद कमरे में परामर्श
         other: बंद कमरे में परामर्श
+        see_all: देखें हमारे सभी बंद कमरे में परामर्श
       consultation:
         one: परामर्श
         other: परामर्श
+        see_all: देखें हमारे सभी परामर्श
       consultation_outcome:
         one: परामर्श का नतीजा
         other: परामर्श के नतीजे
+        see_all: देखें हमारे सभी परामर्श के नतीजे
       corporate_report:
         one: कॉरपोरेट विवरण
         other: कॉरपोरेट विवरण
+        see_all: देखें हमारे सभी कॉरपोरेट विवरण
       correspondence:
         one: पत्र व्यवहार
         other: पत्र व्यवहार
+        see_all: देखें हमारे सभी पत्र व्यवहार
       detailed_guidance:
         one: विस्तृत मार्गदर्शन
         other: विस्तृत मार्गदर्शन
+        see_all: देखें हमारे सभी विस्तृत मार्गदर्शन
       document_collection:
         one: श्रृंखला
         other:
+        see_all:
       draft_text:
         one: मसौदा पाठ
         other: मसौदे के पाठ
+        see_all: देखें हमारे सभी मसौदे के पाठ
       fatality_notice:
         one: विपत्ति की सूचना
         other: विपत्ति की सूचना
+        see_all: देखें हमारे सभी विपत्ति की सूचना
       foi_release:
         one: एफओआई की विज्ञप्ति
         other: एफओआई की विज्ञप्तियां
+        see_all: देखें हमारे सभी एफओआई की विज्ञप्तियां
       form:
         one: प्रपत्र
         other: प्रपत्र
+        see_all: देखें हमारे सभी प्रपत्र
       government_response:
         one: सरकारी जवाब
         other: सरकारी जवाब
+        see_all: देखें हमारे सभी सरकारी जवाब
       guidance:
         one: मार्गदर्शन
         other: मार्गदर्शन
+        see_all: देखें हमारे सभी मार्गदर्शन
       impact_assessment:
         one: प्रभाव का आंकलन
         other: प्रभाव का आंकलन
+        see_all: देखें हमारे सभी प्रभाव का आंकलन
       imported:
         one: आयातित - प्रतीक्षा का प्रकार
         other: आयातित - प्रतीक्षा का प्रकार
+        see_all: देखें हमारे सभी आयातित - प्रतीक्षा का प्रकार
       independent_report:
         one: स्वतंत्र रिपोर्ट
         other: स्वतंत्र रिपोर्टें
+        see_all: देखें हमारे सभी स्वतंत्र रिपोर्टें
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: मानचित्र
         other: मानचित्रों
+        see_all: देखें हमारे सभी मानचित्रों
       national_statistics:
         one: सांख्यिकी - राष्ट्रीय सांख्यिकी
         other: सांख्यिकी - राष्ट्रीय सांख्यिकी
+        see_all: देखें हमारे सभी सांख्यिकी - राष्ट्रीय सांख्यिकी
       news_article:
         one: समाचार लेख
         other: समाचार लेख
+        see_all: देखें हमारे सभी समाचार लेख
       news_story:
         one: समाचार कथा
         other: समाचार कथाएं
+        see_all: देखें हमारे सभी समाचार कथाएं
       open_consultation:
         one: खुला परामर्श
         other: खुले परामर्श
+        see_all: देखें हमारे सभी खुले परामर्श
       oral_statement:
         one: संसद में मौखिक बयान
         other: संसद में मौखिक बयान
+        see_all: देखें हमारे सभी संसद में मौखिक बयान
       policy:
         one: नीति
         other: नीतियां
+        see_all: देखें हमारे सभी नीतियां
       policy_paper:
         one: नीति पत्र
         other: नीति पत्र
+        see_all: देखें हमारे सभी नीति पत्र
       press_release:
         one: प्रेस विज्ञप्ति
         other: प्रेस विज्ञप्तियां
+        see_all: देखें हमारे सभी प्रेस विज्ञप्तियां
       promotional:
         one: प्रचार सामग्री
         other: प्रचार सामग्री
+        see_all: देखें हमारे सभी प्रचार सामग्री
       publication:
         one: प्रकाशन
         other: प्रकाशन
+        see_all: देखें हमारे सभी प्रकाशन
       research:
         one: अनुसंधान एवं विश्लेषण
         other: अनुसंधान एवं विश्लेषण
+        see_all: देखें हमारे सभी अनुसंधान एवं विश्लेषण
       speaking_notes:
         one:  उदबोधन अंश
         other:  उदबोधन अंश
+        see_all: देखें हमारे सभी  उदबोधन अंश
       speech:
         one: भाषण
         other: भाषण
+        see_all: देखें हमारे सभी भाषण
       statement_to_parliament:
         one: संसद में बयान
         other: संसद में बयान
+        see_all: देखें हमारे सभी संसद में बयान
       statistical_data_set:
         one: सांख्यिकीय आंकड़े का समूह
         other: सांख्यिकीय आंकड़े का समूह
+        see_all: देखें हमारे सभी सांख्यिकीय आंकड़े का समूह
       statistics:
         one: आंकड़े
         other: आंकड़े
+        see_all: देखें हमारे सभी आंकड़े
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: प्रतिलिपि
         other: प्रतिलिपियां
+        see_all: देखें हमारे सभी प्रतिलिपियां
       transparency:
         one: पारदर्शिता आंकड़े
         other: पारदर्शिता आंकड़े
+        see_all: देखें हमारे सभी पारदर्शिता आंकड़े
       worldwide_priority:
         one: वैश्विक प्राथमिकता
         other: वैश्विक प्राथमिकताएं
+        see_all: देखें हमारे सभी वैश्विक प्राथमिकताएं
       written_statement:
         one: संसद में लिखित बयान
         other: संसद में लिखित बयान
+        see_all: देखें हमारे सभी संसद में लिखित बयान
     contents:
     footer_meta:
       full_page_history:

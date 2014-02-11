@@ -58,211 +58,253 @@ ru:
         few:
         many:
         other: Объявления
+        see_all: Посмотреть все наши Объявления
       authored_article:
         one: Авторская статья
         few:
         many:
         other: Авторские статьи
+        see_all: Посмотреть все наши Авторские статьи
       case_study:
         one: Ситуационный анализ
         few:
         many:
         other: Ситуационные анализы
+        see_all: Посмотреть все наши Ситуационные анализы
       closed_consultation:
         one: Закрытая консультация
         few:
         many:
         other: Закрытые консультации
+        see_all: Посмотреть все наши Закрытые консультации
       consultation:
         one: Консультация
         few:
         many:
         other: Консультации
+        see_all: Посмотреть все наши Консультации
       consultation_outcome:
         one: Результат консультации
         few:
         many:
         other: Результаты консультаций
+        see_all: Посмотреть все наши Результаты консультаций
       corporate_report:
         one: Корпоративный отчет
         few:
         many:
         other: Корпоративные отчеты
+        see_all: Посмотреть все наши Корпоративные отчеты
       correspondence:
         one: Корреспонденция
         few:
         many:
         other: Корреспонденция
+        see_all: Посмотреть все наши Корреспонденция
       detailed_guidance:
         one: Подробное руководство
         few:
         many:
         other: Подробное руководство
+        see_all: Посмотреть все наши Подробное руководство
       document_collection:
         one: Серии
         few:
         many:
         other:
+        see_all:
       draft_text:
         one: Проект текста
         few:
         many:
         other: Проект текстов
+        see_all: Посмотреть все наши Проект текстов
       fatality_notice:
         one: Уведомление о несчастном случае
         few:
         many:
         other: Уведомления о несчастных случаях
+        see_all: Посмотреть все наши Уведомления о несчастных случаях
       foi_release:
         one: 'Свобода распространения информации '
         few:
         many:
         other: 'Свобода распространения информации '
+        see_all: 'Посмотреть все наши Свобода распространения информации '
       form:
         one: Форма
         few:
         many:
         other: Формы
+        see_all: Посмотреть все наши Формы
       government_response:
         one: Ответ правительства
         few:
         many:
         other: Ответы правительства
+        see_all: Посмотреть все наши Ответы правительства
       guidance:
         one: Руководство
         few:
         many:
         other: Руководство
+        see_all: Посмотреть все наши Руководство
       impact_assessment:
         one: Оценка воздействия
         few:
         many:
         other: Оценки воздействия
+        see_all: Посмотреть все наши Оценки воздействия
       imported:
         one: импортировано - тип ожидания
         few:
         many:
         other: импортировано - тип ожидания
+        see_all: Посмотреть все наши импортировано - тип ожидания
       independent_report:
         one: Независимый отчет
         few:
         many:
         other: Независимые отчеты
+        see_all: Посмотреть все наши Независимые отчеты
       international_treaty:
         one:
         few:
         many:
         other:
+        see_all:
       map:
         one: Карта
         few:
         many:
         other: Карты
+        see_all: Посмотреть все наши Карты
       national_statistics:
         one: Статистика - национальная статистика
         few:
         many:
         other: Статистика - национальная статистика
+        see_all: Посмотреть все наши Статистика - национальная статистика
       news_article:
         one: Новостная статья
         few:
         many:
         other: Новостные статьи
+        see_all: Посмотреть все наши Новостные статьи
       news_story:
         one: Новостная заметка
         few:
         many:
         other: Новостные заметки
+        see_all: Посмотреть все наши Новостные заметки
       open_consultation:
         one: Открытая консультация
         few:
         many:
         other: Открытые консультации
+        see_all: Посмотреть все наши Открытые консультации
       oral_statement:
         one: Устное заявление парламенту
         few:
         many:
         other: Устные заявления парламенту
+        see_all: Посмотреть все наши Устные заявления парламенту
       policy:
         one: Политика
         few:
         many:
         other: Политика
+        see_all: Посмотреть все наши Политика
       policy_paper:
         one: Директивный документ
         few:
         many:
         other: Директивные документы
+        see_all: Посмотреть все наши Директивные документы
       press_release:
         one: Пресс-релиз
         few:
         many:
         other: Пресс-релизы
+        see_all: Посмотреть все наши Пресс-релизы
       promotional:
         one: Рекламный материал
         few:
         many:
         other: Рекламные материалы
+        see_all: Посмотреть все наши Рекламные материалы
       publication:
         one: Публикация
         few:
         many:
         other: Публикации
+        see_all: Посмотреть все наши Публикации
       research:
         one: Исследования и аналитика
         few:
         many:
         other: Исследования и аналитика
+        see_all: Посмотреть все наши Исследования и аналитика
       speaking_notes:
         one: Тезисы выступления
         few:
         many:
         other: Тезисы выступления
+        see_all: Посмотреть все наши Тезисы выступления
       speech:
         one: Текст выступления
         few:
         many:
         other: Тексты выступлений
+        see_all: Посмотреть все наши Тексты выступлений
       statement_to_parliament:
         one: Заявление парламенту
         few:
         many:
         other: Заявления парламенту
+        see_all: Посмотреть все наши Заявления парламенту
       statistical_data_set:
         one: Статистика
         few:
         many:
         other: Статистические данные
+        see_all: Посмотреть все наши Статистические данные
       statistics:
         one: Статистика
         few:
         many:
         other: Статистика
+        see_all: Посмотреть все наши Статистика
       statutory_guidance:
         one:
         few:
         many:
         other:
+        see_all:
       transcript:
         one: Текст
         few:
         many:
         other: Тексты
+        see_all: Посмотреть все наши Тексты
       transparency:
         one: Прозрачность данных
         few:
         many:
         other: Прозрачность данных
+        see_all: Посмотреть все наши Прозрачность данных
       worldwide_priority:
         one: Мировой приоритет
         few:
         many:
         other: Мировые приоритеты
+        see_all: Посмотреть все наши Мировые приоритеты
       written_statement:
         one: Письменное заявление парламенту
         few:
         many:
         other: Письменные заявления парламенту
+        see_all: Посмотреть все наши Письменные заявления парламенту
     contents:
     footer_meta:
       full_page_history:

@@ -48,170 +48,212 @@ ro:
         one: Știre
         few:
         other: Știri
+        see_all: Toate Știri
       authored_article:
         one: 'Articol '
         few:
         other: 'Articol '
+        see_all: 'Toate articol '
       case_study:
         one: Studiu de caz
         few:
         other: Studii de caz
+        see_all: Toate studii de caz
       closed_consultation:
         one: Dezbatere
         few:
         other: Dezbateri
+        see_all: Toate dezbateri
       consultation:
         one: Dezbatere
         few:
         other: Dezbateri
+        see_all: Toate dezbateri
       consultation_outcome:
         one: Concluzia dezbaterii
         few:
         other: Concluziile dezbaterii
+        see_all: Toate concluziile dezbaterii
       corporate_report:
         one: Raport
         few:
         other: Rapoarte
+        see_all: Toate rapoarte
       correspondence:
         one: Similaritate
         few:
         other: Similarităţi
+        see_all: Toate similarităţi
       detailed_guidance:
         one: Mai multe detalii
         few:
         other: Mai multe detalii
+        see_all: Toate mai multe detalii
       document_collection:
         one: Seria
         few:
         other:
+        see_all:
       draft_text:
         one: Versiune preliminară
         few:
         other: Versiuni preliminare
+        see_all: Toate versiuni preliminare
       fatality_notice:
         one: Anunț privind decesul
         few:
         other: Anunțuri privind decese
+        see_all: Toate anunțuri privind decese
       foi_release:
         one: 'Acces la informații publice '
         few:
         other: 'Acces la informații publice '
+        see_all: 'Toate acces la informații publice '
       form:
         one: Formular
         few:
         other: Formulare
+        see_all: Toate formulare
       government_response:
         one: 'Document de poziție '
         few:
         other: 'Documente de poziție '
+        see_all: 'Toate documente de poziție '
       guidance:
         one: Mai multe detalii
         few:
         other: Mai multe detalii
+        see_all: Toate mai multe detalii
       impact_assessment:
         one: 'Evaluarea impactului '
         few:
         other: 'Evaluarea impactului '
+        see_all: 'Toate evaluarea impactului '
       imported:
         one:
         few:
         other:
+        see_all:
       independent_report:
         one: Raport independent
         few:
         other: Rapoarte independente
+        see_all: Toate rapoarte independente
       international_treaty:
         one:
         few:
         other:
+        see_all:
       map:
         one: Hartă
         few:
         other: Hărţi
+        see_all: Toate hărţi
       national_statistics:
         one: Statistici - statistici naționale
         few:
         other: Statistici - statistici naționale
+        see_all: Toate statistici - statistici naționale
       news_article:
         one: Știre
         few:
         other: Știri
+        see_all: Toate Știri
       news_story:
         one: Știre
         few:
         other: Știri
+        see_all: Toate Știri
       open_consultation:
         one: Dezbatere
         few:
         other: Dezbateri
+        see_all: Toate dezbateri
       oral_statement:
         one: 'Declarație verbală în fața Parlamentului '
         few:
         other: 'Declarații verbale în fața Parlamentului '
+        see_all: 'Toate declarații verbale în fața parlamentului '
       policy:
         one: Obiectiv strategic
         few:
         other: Obiective strategic
+        see_all: Toate obiective strategic
       policy_paper:
         one:
         few:
         other:
+        see_all:
       press_release:
         one: Știre
         few:
         other: Știri
+        see_all: Toate Știri
       promotional:
         one: Material promoțional
         few:
         other: Materiale promoționale
+        see_all: Toate materiale promoționale
       publication:
         one: Publicație
         few:
         other: Publicații
+        see_all: Toate publicații
       research:
         one: Analiză și cercetare
         few:
         other: Analiză și cercetare
+        see_all: Toate analiză și cercetare
       speaking_notes:
         one: 'Note '
         few:
         other: 'Note '
+        see_all: 'Toate note '
       speech:
         one: Discurs
         few:
         other: Discursuri
+        see_all: Toate discursuri
       statement_to_parliament:
         one: Declarație în Parlament
         few:
         other: Declarații în Parlament
+        see_all: Toate declarații în parlament
       statistical_data_set:
         one: Date statistice
         few:
         other: Date statistice
+        see_all: Toate date statistice
       statistics:
         one: Statistici
         few:
         other: Statistici
+        see_all: Toate statistici
       statutory_guidance:
         one:
         few:
         other:
+        see_all:
       transcript:
         one: Transcriere
         few:
         other: Transcrieri
+        see_all: Toate transcrieri
       transparency:
         one:
         few:
         other:
+        see_all:
       worldwide_priority:
         one: Prioritate
         few:
         other: Priorități
+        see_all: Toate priorități
       written_statement:
         one: 'Declarație scrisă către Parlament '
         few:
         other: 'Declarații scrise către Parlament '
+        see_all: 'Toate declarații scrise către parlament '
     contents:
     footer_meta:
       full_page_history:

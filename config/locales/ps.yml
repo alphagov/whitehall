@@ -38,129 +38,171 @@ ps:
       announcement:
         one: خبرتیا
         other: خبرتیاوې
+        see_all: ټول وګوری خبرتیاوې
       authored_article:
         one: تالیف شوی مضمون
         other: تالیف شوي مضامین
+        see_all: ټول وګوری تالیف شوي مضامین
       case_study:
         one: موردی څیړنه
         other: مودری څیړنی
+        see_all: ټول وګوری مودری څیړنی
       closed_consultation:
         one: محرمه مشوره
         other: محرمه مشوری
+        see_all: ټول وګوری محرمه مشوری
       consultation:
         one: مشوره
         other: مشوری
+        see_all: ټول وګوری مشوری
       consultation_outcome:
         one: د مشوری پایله
         other: د مشورو پایله
+        see_all: ټول وګوری د مشورو پایله
       corporate_report:
         one: متحد راپور
         other: متحد راپورونه
+        see_all: ټول وګوری متحد راپورونه
       correspondence:
         one: ارتباط ساتنه
         other: ارتباطات ساتنه
+        see_all: ټول وګوری ارتباطات ساتنه
       detailed_guidance:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
+        see_all: ټول وګوری مفصلی لارښوونی
       document_collection:
         one: سلسله
         other:
+        see_all:
       draft_text:
         one: مسوده
         other: مسودی
+        see_all: ټول وګوری مسودی
       fatality_notice:
         one: دمړینی خبرتیا
         other: دمړینی خبرتیاوی
+        see_all: ټول وګوری دمړینی خبرتیاوی
       foi_release:
         one: د بیان د آزادی خپرونه
         other: د بیان د آزادی خپرونی
+        see_all: ټول وګوری د بیان د آزادی خپرونی
       form:
         one: فارم
         other: فارمونه
+        see_all: ټول وګوری فارمونه
       government_response:
         one: د دولت ځواب
         other: د دولت ځوابونه
+        see_all: ټول وګوری د دولت ځوابونه
       guidance:
         one: رهنمایی
         other: رهنمایی
+        see_all: ټول وګوری رهنمایی
       impact_assessment:
         one: د تاثیراتو څیړنه
         other: د تاثیراتو څیړنی
+        see_all: ټول وګوری د تاثیراتو څیړنی
       imported:
         one: وارد شوی - د انتظار نمونه
         other: وارد شوی - د انتظار نمونه
+        see_all: ټول وګوری وارد شوی - د انتظار نمونه
       independent_report:
         one: آزاد راپور
         other: آزاد راپورونه
+        see_all: ټول وګوری آزاد راپورونه
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: نقشه
         other: نقشی
+        see_all: ټول وګوری نقشی
       national_statistics:
         one: شمیرنه - ملی شمیرنې
         other: شمیرنه - ملی شمیرنې
+        see_all: ټول وګوری شمیرنه - ملی شمیرنې
       news_article:
         one: خبری مقاله
         other: خبری مقالی
+        see_all: ټول وګوری خبری مقالی
       news_story:
         one: خبری راپور
         other: خبری راپورونه
+        see_all: ټول وګوری خبری راپورونه
       open_consultation:
         one: آزاده مشوره
         other: آزادې مشورې
+        see_all: ټول وګوری آزادې مشورې
       oral_statement:
         one: پارلمان ته شفاهی اعلامیه
         other: پارلمان ته شفاهی اعلامیی
+        see_all: ټول وګوری پارلمان ته شفاهی اعلامیی
       policy:
         one: پالیسی
         other: پالیسی ګانی
+        see_all: ټول وګوری پالیسی ګانی
       policy_paper:
         one: د پالیسۍ سند
         other: د پالیسې سندونه
+        see_all: ټول وګوری د پالیسې سندونه
       press_release:
         one: مطبوعاتی خبرپاڼه
         other: مطبوعاتی خبرپاڼې
+        see_all: ټول وګوری مطبوعاتی خبرپاڼې
       promotional:
         one: روزونکې مواد
         other: روزونکی مواد
+        see_all: ټول وګوری روزونکی مواد
       publication:
         one: خپرونه
         other: خپرونې
+        see_all: ټول وګوری خپرونې
       research:
         one: څیړنه او تجزیه
         other: ځیړنه او تجزیه
+        see_all: ټول وګوری ځیړنه او تجزیه
       speaking_notes:
         one: د وینا یادښت
         other: د وینا یادښتونه
+        see_all: ټول وګوری د وینا یادښتونه
       speech:
         one: وینا
         other: ویناوې
+        see_all: ټول وګوری ویناوې
       statement_to_parliament:
         one: پارلمان ته اعلامیه
         other: پارلمان ته اعلامیې
+        see_all: ټول وګوری پارلمان ته اعلامیې
       statistical_data_set:
         one: د شمیرنې اطلاعات
         other: د شمیرنې اطلاعات
+        see_all: ټول وګوری د شمیرنې اطلاعات
       statistics:
         one: شمیرنه
         other: شمیرنه
+        see_all: ټول وګوری شمیرنه
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: لیکنه
         other: لیکنې
+        see_all: ټول وګوری لیکنې
       transparency:
         one: د روڼوالې اطلاعات
         other: د روڼوالي اطلاعات
+        see_all: ټول وګوری د روڼوالي اطلاعات
       worldwide_priority:
         one: نړیوال لومړیتوب
         other: نړیوال لومړیتوبونه
+        see_all: ټول وګوری نړیوال لومړیتوبونه
       written_statement:
         one: پارلمان ته لیکلې اعلامیه
         other: پارلمان ته لیکلې اعلامیې
+        see_all: ټول وګوری پارلمان ته لیکلې اعلامیې
     contents:
     footer_meta:
       full_page_history:

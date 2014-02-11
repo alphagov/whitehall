@@ -153,129 +153,171 @@ ko:
       announcement:
         one: 공지
         other: 공지
+        see_all: 공지 모두 둘러보기
       authored_article:
         one: 기사
         other: 기사
+        see_all: 기사 모두 둘러보기
       case_study:
         one: 케이스 스터디
         other: 케이스 스터디
+        see_all: 케이스 스터디 모두 둘러보기
       closed_consultation:
         one: 비공개 협의
         other: 비공개 협의
+        see_all: 비공개 협의 모두 둘러보기
       consultation:
         one: 협의
         other: 협의
+        see_all: 협의 모두 둘러보기
       consultation_outcome:
         one: 협의 결과
         other: 협의 결과
+        see_all: 협의 결과 모두 둘러보기
       corporate_report:
         one: 기업 레포트
         other: 기업 레포트
+        see_all: 기업 레포트 모두 둘러보기
       correspondence:
         one: 서신
         other: 서신
+        see_all: 서신 모두 둘러보기
       detailed_guidance:
         one: 상세 안내
         other: 상세 안내
+        see_all: 상세 안내 모두 둘러보기
       document_collection:
         one: 시리즈
         other:
+        see_all:
       draft_text:
         one: 드래프트 택스트
         other: 드래프트 택스트
+        see_all: 드래프트 택스트 모두 둘러보기
       fatality_notice:
         one: 사상자 공지
         other: 사상자 공지
+        see_all: 사상자 공지 모두 둘러보기
       foi_release:
         one: FOI 보도자료
         other: FOI 보도자료
+        see_all: foi 보도자료 모두 둘러보기
       form:
         one: 문서
         other: 문서
+        see_all: 문서 모두 둘러보기
       government_response:
         one: 정부 대책
         other: 정부 대책
+        see_all: 정부 대책 모두 둘러보기
       guidance:
         one: 안내
         other: 안내
+        see_all: 안내 모두 둘러보기
       impact_assessment:
         one: 임팩트 평가
         other: 임팩트 평가
+        see_all: 임팩트 평가 모두 둘러보기
       imported:
         one: 수입 - 대기
         other: 수입 - 대기
+        see_all: 수입 - 대기 모두 둘러보기
       independent_report:
         one: 독립 레포트
         other: 독립 레포트
+        see_all: 독립 레포트 모두 둘러보기
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: 지도
         other: 지도
+        see_all: 지도 모두 둘러보기
       national_statistics:
         one: 통계 - 국가 통계
         other: 통계 - 국가 통계
+        see_all: 통계 - 국가 통계 모두 둘러보기
       news_article:
         one: 뉴스
         other: 뉴스
+        see_all: 뉴스 모두 둘러보기
       news_story:
         one: 뉴스 스토리
         other: 뉴스 스토리
+        see_all: 뉴스 스토리 모두 둘러보기
       open_consultation:
         one: 오픈 컨설테이션
         other: 오픈 컨설테이션
+        see_all: 오픈 컨설테이션 모두 둘러보기
       oral_statement:
         one: 의회로 구두 성명
         other: 의회로 구두 성명
+        see_all: 의회로 구두 성명 모두 둘러보기
       policy:
         one: 정책
         other: 정책
+        see_all: 정책 모두 둘러보기
       policy_paper:
         one: 정책 논문
         other: 정책 논문
+        see_all: 정책 논문 모두 둘러보기
       press_release:
         one: 보도자료
         other: 보도자료
+        see_all: 보도자료 모두 둘러보기
       promotional:
         one: 홍보물
         other: 홍보물
+        see_all: 홍보물 모두 둘러보기
       publication:
         one: 간행물
         other: 간행물
+        see_all: 간행물 모두 둘러보기
       research:
         one: 리써치 및 분석
         other: 리써치 및 분석
+        see_all: 리써치 및 분석 모두 둘러보기
       speaking_notes:
         one: 요점사항
         other: 요점사항
+        see_all: 요점사항 모두 둘러보기
       speech:
         one: 연설문
         other: 연설문
+        see_all: 연설문 모두 둘러보기
       statement_to_parliament:
         one: 의회로 성명
         other: 의회로 성명
+        see_all: 의회로 성명 모두 둘러보기
       statistical_data_set:
         one: 통계 데이터 세트
         other: 통계 데이터 세트
+        see_all: 통계 데이터 세트 모두 둘러보기
       statistics:
         one: 통계
         other: 통계
+        see_all: 통계 모두 둘러보기
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: 트랜스크립트
         other: 트랜스크립트
+        see_all: 트랜스크립트 모두 둘러보기
       transparency:
         one: 투명성 데이타
         other: 투명성 데이타
+        see_all: 투명성 데이타 모두 둘러보기
       worldwide_priority:
         one: 세계 우선과제
         other: 세계 우선과제
+        see_all: 세계 우선과제 모두 둘러보기
       written_statement:
         one: 의회로 서면 성명
         other: 의회로 서면 성명
+        see_all: 의회로 서면 성명 모두 둘러보기
     updated: 업데이트
     view: '''%{title}'' 을 확인하세요.'
   document_filters:

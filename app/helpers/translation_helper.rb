@@ -14,7 +14,7 @@ module TranslationHelper
   end
 
   def t_see_all_our(type)
-    t("shared.see_all", type: t("document.type.#{type}", count: 100).downcase)
+    t("document.type.#{type}.see_all")
   end
 
   def t_delivery_title(document)

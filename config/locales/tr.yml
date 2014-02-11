@@ -154,129 +154,171 @@ tr:
       announcement:
         one: Duyuru
         other: Duyurular
+        see_all: Tamamını görüntüle
       authored_article:
         one: Yazılan makale
         other: Yazılan makaleler
+        see_all: Tamamını görüntüle
       case_study:
         one: Örnek Olay
         other: Örnek Olaylar
+        see_all: Tamamını görüntüle
       closed_consultation:
         one: Sona eren çalışmalar
         other: Sona eren çalışmalar
+        see_all: Tamamını görüntüle
       consultation:
         one: Danışma
         other: Yapılan Danışmalar
+        see_all: Tamamını görüntüle
       consultation_outcome:
         one: Danışma sonucu
         other: Danışma sonuçları
+        see_all: Tamamını görüntüle
       corporate_report:
         one: Kurumsal Rapor
         other: Kurumsal Raporlar
+        see_all: Tamamını görüntüle
       correspondence:
         one: Yazışma
         other: Yazışmalar
+        see_all: Tamamını görüntüle
       detailed_guidance:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
+        see_all: Tamamını görüntüle
       document_collection:
         one: Seriler
         other:
+        see_all:
       draft_text:
         one: Taslak metin
         other: Taslak metinler
+        see_all: Tamamını görüntüle
       fatality_notice:
         one: Ölüm ilanı
         other: Ölüm ilanları
+        see_all: Tamamını görüntüle
       foi_release:
         one: Bilgi edinme hakkı raporu
         other: Bilgi edinme hakkı raporları
+        see_all: Tamamını görüntüle
       form:
         one: Form
         other: Formlar
+        see_all: Tamamını görüntüle
       government_response:
         one: Hükümet cevabı
         other: Hükümet cevapları
+        see_all: Tamamını görüntüle
       guidance:
         one: Kılavuz
         other: Kılavuzlar
+        see_all: Tamamını görüntüle
       impact_assessment:
         one: Etki değerlendirmesi
         other: Etki değerlendirmeleri
+        see_all: Tamamını görüntüle
       imported:
         one: Alındı - Kategorize edilecek
         other: Alındı - Kategorize edilecek
+        see_all: Tamamını görüntüle
       independent_report:
         one: Bağımsız rapor
         other: Bağımsız raporlar
+        see_all: Tamamını görüntüle
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Harita
         other: Haritalar
+        see_all: Tamamını görüntüle
       national_statistics:
         one: İstatistikler - ulusal istatistikler
         other: İstatistikler - ulusal istatistikler
+        see_all: Tamamını görüntüle
       news_article:
         one: Makale
         other: Makaleler
+        see_all: Tamamını görüntüle
       news_story:
         one: Haber
         other: Haberler
+        see_all: Tamamını görüntüle
       open_consultation:
         one: Devam eden çalışma
         other: Devam eden çalışmalar
+        see_all: Tamamını görüntüle
       oral_statement:
         one: Parlamento'ya sözlü açıklama
         other: Parlamento'ya sözlü açıklamalar
+        see_all: Tamamını görüntüle
       policy:
         one: Politika
         other: Politikalar
+        see_all: Tamamını görüntüle
       policy_paper:
         one: Politika belgesi
         other: Politika belgeleri
+        see_all: Tamamını görüntüle
       press_release:
         one: Basın Bülteni
         other: Basın Bültenleri
+        see_all: Tamamını görüntüle
       promotional:
         one: Tanıtım Malzemesi
         other: Tanıtım Malzemeleri
+        see_all: Tamamını görüntüle
       publication:
         one: Yayın
         other: Yayınlar
+        see_all: Tamamını görüntüle
       research:
         one: Araştırma ve analiz
         other: Araştırma ve analizler
+        see_all: Tamamını görüntüle
       speaking_notes:
         one: Konuşma notu
         other: Konuşma notları
+        see_all: Tamamını görüntüle
       speech:
         one: Konuşma
         other: Konuşmalar
+        see_all: Tamamını görüntüle
       statement_to_parliament:
         one: Parlamento'ya yapılan açıklama
         other: Parlamento'ya yapılan açıklamalar
+        see_all: Tamamını görüntüle
       statistical_data_set:
         one: İstatiksel veri setleri
         other: İstatiksel veri setleri
+        see_all: Tamamını görüntüle
       statistics:
         one: İstatistikler
         other: İstatistikler
+        see_all: Tamamını görüntüle
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transkriptler
         other: Transkriptler
+        see_all: Tamamını görüntüle
       transparency:
         one: Veri saydamlığı
         other: Veri saydamlığı
+        see_all: Tamamını görüntüle
       worldwide_priority:
         one: Öncelik
         other: Öncelikler
+        see_all: Tamamını görüntüle
       written_statement:
         one: Parlamento'ya yapılan yazılı açıklama
         other: Parlamento'ya yapılan yazılı açıklamalar
+        see_all: Tamamını görüntüle
     updated: Güncellendi
     view: Görüntüle '%{title}'
   document_filters:

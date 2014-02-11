@@ -58,156 +58,188 @@ sr:
         few:
         many:
         other: Najave
+        see_all: Pogledajte sve naše najave
       authored_article:
         one: Autorski članak
         few:
         many:
         other: Autorski članci
+        see_all: Pogledajte sve naše autorski članci
       case_study:
         one: Studija slučaja
         few:
         many:
         other: Studije slučajeva
+        see_all: Pogledajte sve naše studije slučajeva
       closed_consultation:
         one: Zatvorene konsultacije
         few:
         many:
         other: Zatvorene konsultacije
+        see_all: Pogledajte sve naše zatvorene konsultacije
       consultation:
         one: Konsultacije
         few:
         many:
         other: Konsultacije
+        see_all: Pogledajte sve naše konsultacije
       consultation_outcome:
         one: Ishod konsultacija
         few:
         many:
         other: Ishodi konsultacija
+        see_all: Pogledajte sve naše ishodi konsultacija
       corporate_report:
         one: organizacioni izveštaj
         few:
         many:
         other: organizacioni izveštaji
+        see_all: Pogledajte sve naše organizacioni izveštaji
       correspondence:
         one: prepiska
         few:
         many:
         other: prepiske
+        see_all: Pogledajte sve naše prepiske
       detailed_guidance:
         one: detaljno uputstvo
         few:
         many:
         other: detaljno uputstvo
+        see_all: Pogledajte sve naše detaljno uputstvo
       document_collection:
         one: serija
         few:
         many:
         other:
+        see_all:
       draft_text:
         one: Nacrt teksta
         few:
         many:
         other: Nacrti tekstova
+        see_all: Pogledajte sve naše nacrti tekstova
       fatality_notice:
         one: Obaveštenje o smrtnim slučajevima
         few:
         many:
         other: Obaveštenja o smrtnim slučajevima
+        see_all: Pogledajte sve naše obaveštenja o smrtnim slučajevima
       foi_release:
         one: Odgovor na zahtev za pristup informaciji od javnog značaja
         few:
         many:
         other: Odgovori na zahteve za pristup informacijama od javnog značaja
+        see_all: Pogledajte sve naše odgovori na zahteve za pristup informacijama
+          od javnog značaja
       form:
         one: formular
         few:
         many:
         other: formulari
+        see_all: Pogledajte sve naše formulari
       government_response:
         one: odgovor Vlade
         few:
         many:
         other: odgovori Vlade
+        see_all: Pogledajte sve naše odgovori vlade
       guidance:
         one: uputstvo
         few:
         many:
         other: uputstvo
+        see_all: Pogledajte sve naše uputstvo
       impact_assessment:
         one: procena efekata
         few:
         many:
         other: procene efekata
+        see_all: Pogledajte sve naše procene efekata
       imported:
         one: uvezeno - utvrđivanje tipa
         few:
         many:
         other: uvezeno - utvrđivanje tipa
+        see_all: Pogledajte sve naše uvezeno - utvrđivanje tipa
       independent_report:
         one: nezavisni izveštaj
         few:
         many:
         other: nezavisni izveštaj
+        see_all: Pogledajte sve naše nezavisni izveštaj
       international_treaty:
         one:
         few:
         many:
         other:
+        see_all:
       map:
         one: mapa
         few:
         many:
         other: mape
+        see_all: Pogledajte sve naše mape
       national_statistics:
         one: statistika - nacionalna statistika
         few:
         many:
         other: statistika - nacionalna statistika
+        see_all: Pogledajte sve naše statistika - nacionalna statistika
       news_article:
         one: Vest
         few:
         many:
         other: Vesti
+        see_all: Pogledajte sve naše vesti
       news_story:
         one: Vesti
         few:
         many:
         other: Vesti
+        see_all: Pogledajte sve naše vesti
       open_consultation:
         one: Otvorene konsultacije
         few:
         many:
         other: Otvorene konsultacije
+        see_all: Pogledajte sve naše otvorene konsultacije
       oral_statement:
         one: usmeno obraćanje Parlamentu
         few:
         many:
         other: usmena obraćanja Parlamentu
+        see_all: Pogledajte sve naše usmena obraćanja parlamentu
       policy:
         one: politika
         few:
         many:
         other: politike
+        see_all: Pogledajte sve naše politike
       policy_paper:
         one: predlog politike
         few:
         many:
         other: predlozi politika
+        see_all: Pogledajte sve naše predlozi politika
       press_release:
         one: saopštenje za medije
         few:
         many:
         other: saopštenja za medije
+        see_all: Pogledajte sve naše saopštenja za medije
       promotional:
         one: promotivni materijal
         few:
         many:
         other: promotivni materijal
+        see_all: Pogledajte sve naše promotivni materijal
       publication:
         one: publikacija
         few:
         many:
         other: publikacije
+        see_all: Pogledajte sve naše publikacije
       research:
         one: |
           istraživanje i analiza
@@ -215,56 +247,68 @@ sr:
         many:
         other: |
           istraživanje i analiza
+        see_all: |
+          Pogledajte sve naše istraživanje i analiza
       speaking_notes:
         one: teze za govor
         few:
         many:
         other: teze za govor
+        see_all: Pogledajte sve naše teze za govor
       speech:
         one: Govor
         few:
         many:
         other: Govori
+        see_all: Pogledajte sve naše govori
       statement_to_parliament:
         one: obraćanje Parlamentu
         few:
         many:
         other: obraćanje Parlamentu
+        see_all: Pogledajte sve naše obraćanje parlamentu
       statistical_data_set:
         one: set statističkih podataka
         few:
         many:
         other: set statističkih podataka
+        see_all: Pogledajte sve naše set statističkih podataka
       statistics:
         one: statistika
         few:
         many:
         other: statistika
+        see_all: Pogledajte sve naše statistika
       statutory_guidance:
         one:
         few:
         many:
         other:
+        see_all:
       transcript:
         one: transkript
         few:
         many:
         other: transkripti
+        see_all: Pogledajte sve naše transkripti
       transparency:
         one: podaci o transparentnosti
         few:
         many:
         other: podaci o transparentnosti
+        see_all: Pogledajte sve naše podaci o transparentnosti
       worldwide_priority:
         one: globalni prioritet
         few:
         many:
         other: globalni prioriteti
+        see_all: Pogledajte sve naše globalni prioriteti
       written_statement:
         one: Pisana predstavka Parlamentu
         few:
         many:
         other: Pisane predstavke Parlamentu
+        see_all: Pogledajte sve naše pisane predstavke parlamentu
     contents:
     footer_meta:
       full_page_history:

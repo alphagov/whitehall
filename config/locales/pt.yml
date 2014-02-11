@@ -38,129 +38,171 @@ pt:
       announcement:
         one: Anúncio
         other: Anúncios
+        see_all: Veja todos os nossos anúncios
       authored_article:
         one: Artigo
         other: Artigos
+        see_all: Veja todos os nossos artigos
       case_study:
         one: Estudo de caso
         other: Estudos de caso
+        see_all: Veja todos os nossos estudos de caso
       closed_consultation:
         one: Consulta fechada
         other: Consultas fechadas
+        see_all: Veja todos os nossos consultas fechadas
       consultation:
         one: Consulta
         other: Consultas
+        see_all: Veja todos os nossos consultas
       consultation_outcome:
         one: Resultado de consulta
         other: Resultados de consultas
+        see_all: Veja todos os nossos resultados de consultas
       corporate_report:
         one: Relatório Corporativo
         other: Relatórios Corporativos
+        see_all: Veja todos os nossos relatórios corporativos
       correspondence:
         one: Correspondência
         other: Correspondências
+        see_all: Veja todos os nossos correspondências
       detailed_guidance:
         one: Guia detalhado
         other: Guias detalhados
+        see_all: Veja todos os nossos guias detalhados
       document_collection:
         one: Séries
         other:
+        see_all:
       draft_text:
         one: Texto preliminar
         other: Textos preliminares
+        see_all: Veja todos os nossos textos preliminares
       fatality_notice:
         one: Aviso de Falecimento
         other: Avisos de Falecimento
+        see_all: Veja todos os nossos avisos de falecimento
       foi_release:
         one: Comunicado sobre pedido de acesso a informação
         other: Comunicados sobre pedidos de acesso a informação
+        see_all: Veja todos os nossos comunicados sobre pedidos de acesso a informação
       form:
         one: Formulário
         other: Formulários
+        see_all: Veja todos os nossos formulários
       government_response:
         one: Resposta governamental
         other: Respostas governamentais
+        see_all: Veja todos os nossos respostas governamentais
       guidance:
         one: Instrução
         other: Instruções
+        see_all: Veja todos os nossos instruções
       impact_assessment:
         one: Relatório de Impacto
         other: Relatórios de Impacto
+        see_all: Veja todos os nossos relatórios de impacto
       imported:
         one: importado - esperando tipo
         other: importados - esperando tipo
+        see_all: Veja todos os nossos importados - esperando tipo
       independent_report:
         one: Relatório independente
         other: Relatórios independentes
+        see_all: Veja todos os nossos relatórios independentes
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Mapa
         other: Mapas
+        see_all: Veja todos os nossos mapas
       national_statistics:
         one: Estatística - estatística nacional
         other: Estatísticas - estatísticas nacionais
+        see_all: Veja todos os nossos estatísticas - estatísticas nacionais
       news_article:
         one: Notícia - Artigo
         other: Notícias - Artigos
+        see_all: Veja todos os nossos notícias - artigos
       news_story:
         one: Notícia
         other: Notícias
+        see_all: Veja todos os nossos notícias
       open_consultation:
         one: Consulta aberta
         other: Consultas abertas
+        see_all: Veja todos os nossos consultas abertas
       oral_statement:
         one: Declaração verbal ao Parlamento
         other: Declarações verbais ao Parlamento
+        see_all: Veja todos os nossos declarações verbais ao parlamento
       policy:
         one: Política
         other: Políticas
+        see_all: Veja todos os nossos políticas
       policy_paper:
         one: Relatório sobre políticas
         other: Relatórios sobre políticas
+        see_all: Veja todos os nossos relatórios sobre políticas
       press_release:
         one: Comunicado de Imprensa
         other: Comunicados de Imprensa
+        see_all: Veja todos os nossos comunicados de imprensa
       promotional:
         one: Material promocional
         other: Materiais promocionais
+        see_all: Veja todos os nossos materiais promocionais
       publication:
         one: Publicação
         other: Publicações
+        see_all: Veja todos os nossos publicações
       research:
         one: Pesquisa e análise
         other: Pesquisas e análises
+        see_all: Veja todos os nossos pesquisas e análises
       speaking_notes:
         one: Notas de discurso
         other: Notas de discursos
+        see_all: Veja todos os nossos notas de discursos
       speech:
         one: Discurso
         other: Discursos
+        see_all: Veja todos os nossos discursos
       statement_to_parliament:
         one: Declaração ao Parlamento
         other: Declarações ao Parlamento
+        see_all: Veja todos os nossos declarações ao parlamento
       statistical_data_set:
         one: Conjunto de dados estastísticos
         other: Conjuntos de dados estatísticos
+        see_all: Veja todos os nossos conjuntos de dados estatísticos
       statistics:
         one: Estatística
         other: Estatísticas
+        see_all: Veja todos os nossos estatísticas
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transcrição
         other: Transcrições
+        see_all: Veja todos os nossos transcrições
       transparency:
         one: Dado de Transparência
         other: Dados de Transparência
+        see_all: Veja todos os nossos dados de transparência
       worldwide_priority:
         one: Prioridade Global
         other: Prioridades Globais
+        see_all: Veja todos os nossos prioridades globais
       written_statement:
         one: Declaração escrita ao Parlamento
         other: Declarações escritas ao Parlamento
+        see_all: Veja todos os nossos declarações escritas ao parlamento
     contents:
     footer_meta:
       full_page_history:

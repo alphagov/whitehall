@@ -38,129 +38,171 @@ dr:
       announcement:
         one: اعلان
         other: اعلانات
+        see_all: همه را ببینید اعلانات
       authored_article:
         one: مقاله نوشته شده
         other: مقاله های نوشته شده
+        see_all: همه را ببینید مقاله های نوشته شده
       case_study:
         one: بررسی  موردی
         other: بررسی های موردی
+        see_all: همه را ببینید بررسی های موردی
       closed_consultation:
         one: مشوره محرم
         other: مشوره های محرم
+        see_all: همه را ببینید مشوره های محرم
       consultation:
         one: مشوره
         other: مشوره ها
+        see_all: همه را ببینید مشوره ها
       consultation_outcome:
         one: نتیجه مشوره
         other: نتایج مشوره
+        see_all: همه را ببینید نتایج مشوره
       corporate_report:
         one: گزارش توحیدی
         other: گزارشات توحیدی
+        see_all: همه را ببینید گزارشات توحیدی
       correspondence:
         one: مطابقت
         other: مطابقت ها
+        see_all: همه را ببینید مطابقت ها
       detailed_guidance:
         one: ' رهنمود مفصل'
         other: رهنمود های مفصل
+        see_all: همه را ببینید رهنمود های مفصل
       document_collection:
         one: سلسله
         other:
+        see_all:
       draft_text:
         one: متن مسوده
         other: متون مسوده
+        see_all: همه را ببینید متون مسوده
       fatality_notice:
         one: خبر  مرگ و میر
         other: اخبار مرگ و میر
+        see_all: همه را ببینید اخبار مرگ و میر
       foi_release:
         one: نشرآزادی بیان
         other: نشریه های آزادی بیان
+        see_all: همه را ببینید نشریه های آزادی بیان
       form:
         one: فورمه
         other: فورمه ها
+        see_all: همه را ببینید فورمه ها
       government_response:
         one: جوابدهی دولت
         other: جوابدهی های دولت
+        see_all: همه را ببینید جوابدهی های دولت
       guidance:
         one: رهنمود
         other: رهنمود
+        see_all: همه را ببینید رهنمود
       impact_assessment:
         one: بررسی تاثیرات
         other: بررسی های تاثیرات
+        see_all: همه را ببینید بررسی های تاثیرات
       imported:
         one: وارد شده- نوع انتظار
         other: وارد شده - نوع انتظار
+        see_all: همه را ببینید وارد شده - نوع انتظار
       independent_report:
         one: گزارش آزاد
         other: گزارش های آزاد
+        see_all: همه را ببینید گزارش های آزاد
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: نقشه
         other: نقشه ها
+        see_all: همه را ببینید نقشه ها
       national_statistics:
         one: احصایه ها - احصایه های ملی
         other: احصایه ها - احصایه های ملی
+        see_all: همه را ببینید احصایه ها - احصایه های ملی
       news_article:
         one: مقاله جدید
         other: مقاله خبری
+        see_all: همه را ببینید مقاله خبری
       news_story:
         one: گزارش خبری
         other: گزارش های خبری
+        see_all: همه را ببینید گزارش های خبری
       open_consultation:
         one: مشاورت باز
         other: مشاورت های باز
+        see_all: همه را ببینید مشاورت های باز
       oral_statement:
         one: بیانیه شفایی به پارلمان
         other: بیانیه های شفایی به پارلمان
+        see_all: همه را ببینید بیانیه های شفایی به پارلمان
       policy:
         one: پالیسی
         other: پالیسی ها
+        see_all: همه را ببینید پالیسی ها
       policy_paper:
         one: سند پالیسی
         other: سندهای پالیسی
+        see_all: همه را ببینید سندهای پالیسی
       press_release:
         one: اعلامیه مطبوعاتی
         other: اعلامیه های مصبوعاتی
+        see_all: همه را ببینید اعلامیه های مصبوعاتی
       promotional:
         one: مواد تعلیمی
         other: مواد تعلیمی
+        see_all: همه را ببینید مواد تعلیمی
       publication:
         one: نشر
         other: نشریات
+        see_all: همه را ببینید نشریات
       research:
         one: تحقیق و تجزیه
         other: تحقیق و تجزیه
+        see_all: همه را ببینید تحقیق و تجزیه
       speaking_notes:
         one: یادداشت سخنرانی
         other: یادداشت سخنرانی
+        see_all: همه را ببینید یادداشت سخنرانی
       speech:
         one: سخنرانی
         other: سخنرانی ها
+        see_all: همه را ببینید سخنرانی ها
       statement_to_parliament:
         one: بیانیه به پارلمان
         other: بیانیه ها به پارلمان
+        see_all: همه را ببینید بیانیه ها به پارلمان
       statistical_data_set:
         one: ارقام احصائیوی
         other: ارقام احصائیوی
+        see_all: همه را ببینید ارقام احصائیوی
       statistics:
         one: احصائیه ها
         other: احصائیه ها
+        see_all: همه را ببینید احصائیه ها
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: نسخه
         other: نسخه ها
+        see_all: همه را ببینید نسخه ها
       transparency:
         one: ارقام شفافیت
         other: ارقام شفافیت
+        see_all: همه را ببینید ارقام شفافیت
       worldwide_priority:
         one: اولویت جهانی
         other: اولویت های جهانی
+        see_all: همه را ببینید اولویت های جهانی
       written_statement:
         one: بیانیه تحریری به پارلمان
         other: بیانیه های تحریری به پارلمان
+        see_all: همه را ببینید بیانیه های تحریری به پارلمان
     contents:
     footer_meta:
       full_page_history:

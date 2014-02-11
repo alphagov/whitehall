@@ -58,211 +58,253 @@ uk:
         few:
         many:
         other: Оголошення
+        see_all: Дивіться всі наші Оголошення
       authored_article:
         one: Стаття
         few:
         many:
         other: Статті
+        see_all: Дивіться всі наші Статті
       case_study:
         one: Тематичне дослідження
         few:
         many:
         other: Тематичні дослідження
+        see_all: Дивіться всі наші Тематичні дослідження
       closed_consultation:
         one: Закрите обговорення
         few:
         many:
         other: Закриті обговорення
+        see_all: Дивіться всі наші Закриті обговорення
       consultation:
         one: Обговорення
         few:
         many:
         other: Обговорення
+        see_all: Дивіться всі наші Обговорення
       consultation_outcome:
         one: Результат обговорення
         few:
         many:
         other: Результати обговорення
+        see_all: Дивіться всі наші Результати обговорення
       corporate_report:
         one: Корпоративний звіт
         few:
         many:
         other: Корпоративні звіти
+        see_all: Дивіться всі наші Корпоративні звіти
       correspondence:
         one: Кореспонденція
         few:
         many:
         other: Кореспонденція
+        see_all: Дивіться всі наші Кореспонденція
       detailed_guidance:
         one: Детальні інструкції
         few:
         many:
         other: Детальні інструкції
+        see_all: Дивіться всі наші Детальні інструкції
       document_collection:
         one: Серія
         few:
         many:
         other:
+        see_all:
       draft_text:
         one: Проект документу
         few:
         many:
         other: Проекти документів
+        see_all: Дивіться всі наші Проекти документів
       fatality_notice:
         one: Повідомлення про смерть
         few:
         many:
         other: Повідомлення про смерть
+        see_all: Дивіться всі наші Повідомлення про смерть
       foi_release:
         one: Відповідь на інформаційний запит
         few:
         many:
         other: 'Відповіді на інформаційні запити '
+        see_all: 'Дивіться всі наші Відповіді на інформаційні запити '
       form:
         one: Форма
         few:
         many:
         other: Форми
+        see_all: Дивіться всі наші Форми
       government_response:
         one: Реакція уряду
         few:
         many:
         other: Реакція уряду
+        see_all: Дивіться всі наші Реакція уряду
       guidance:
         one: Інструкції
         few:
         many:
         other: Інструкції
+        see_all: Дивіться всі наші Інструкції
       impact_assessment:
         one: Оцінка впливу
         few:
         many:
         other: Оцінки впливу
+        see_all: Дивіться всі наші Оцінки впливу
       imported:
         one: імпортовано - в очікуванні
         few:
         many:
         other: імпортовано - в очікуванні
+        see_all: Дивіться всі наші імпортовано - в очікуванні
       independent_report:
         one: Незалежний звіт
         few:
         many:
         other: Незалежні звіти
+        see_all: Дивіться всі наші Незалежні звіти
       international_treaty:
         one:
         few:
         many:
         other:
+        see_all:
       map:
         one: Мапа
         few:
         many:
         other: Мапи
+        see_all: Дивіться всі наші Мапи
       national_statistics:
         one: Статистика - національна статистика
         few:
         many:
         other: Статистика - національна статистика
+        see_all: Дивіться всі наші Статистика - національна статистика
       news_article:
         one: Стаття
         few:
         many:
         other: Статті
+        see_all: Дивіться всі наші Статті
       news_story:
         one: Новина
         few:
         many:
         other: Новини
+        see_all: Дивіться всі наші Новини
       open_consultation:
         one: Відкрите обговорення
         few:
         many:
         other: Відкриті обговорення
+        see_all: Дивіться всі наші Відкриті обговорення
       oral_statement:
         one: Усна заява у парламенті
         few:
         many:
         other: Усні заяви у парламенті
+        see_all: Дивіться всі наші Усні заяви у парламенті
       policy:
         one: Політика
         few:
         many:
         other: Політики
+        see_all: Дивіться всі наші Політики
       policy_paper:
         one: Програмний документ
         few:
         many:
         other: Програмні документи
+        see_all: Дивіться всі наші Програмні документи
       press_release:
         one: Прес-реліз
         few:
         many:
         other: Прес-релізи
+        see_all: Дивіться всі наші Прес-релізи
       promotional:
         one: Інформаційний матеріал
         few:
         many:
         other: Інформаційний матеріал
+        see_all: Дивіться всі наші Інформаційний матеріал
       publication:
         one: Публікація
         few:
         many:
         other: Публікації
+        see_all: Дивіться всі наші Публікації
       research:
         one: Дослідження та аналіз
         few:
         many:
         other: Дослідження та аналіз
+        see_all: Дивіться всі наші Дослідження та аналіз
       speaking_notes:
         one: Тези для промови
         few:
         many:
         other: Тези для промови
+        see_all: Дивіться всі наші Тези для промови
       speech:
         one: Промова
         few:
         many:
         other: Промови
+        see_all: Дивіться всі наші Промови
       statement_to_parliament:
         one: Заява у парламенті
         few:
         many:
         other: Заяви у парламенті
+        see_all: Дивіться всі наші Заяви у парламенті
       statistical_data_set:
         one: Набір статистичних даних
         few:
         many:
         other: Набори статистичних даних
+        see_all: Дивіться всі наші Набори статистичних даних
       statistics:
         one: Статистика
         few:
         many:
         other: Статистика
+        see_all: Дивіться всі наші Статистика
       statutory_guidance:
         one:
         few:
         many:
         other:
+        see_all:
       transcript:
         one: Транскрипт
         few:
         many:
         other: Транскрипти
+        see_all: Дивіться всі наші Транскрипти
       transparency:
         one: Прозорість інформації
         few:
         many:
         other: Прозорість інформації
+        see_all: Дивіться всі наші Прозорість інформації
       worldwide_priority:
         one: Глобальний пріоритет
         few:
         many:
         other: Глобальні пріоритети
+        see_all: Дивіться всі наші Глобальні пріоритети
       written_statement:
         one: Письмова заява у парламенті
         few:
         many:
         other: Письмові заяви у парламенті
+        see_all: Дивіться всі наші Письмові заяви у парламенті
     contents:
     footer_meta:
       full_page_history:
