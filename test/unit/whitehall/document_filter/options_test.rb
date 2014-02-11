@@ -69,7 +69,7 @@ module Whitehall
         refute Options.new.valid_option_name?(:not_a_real_option_name)
       end
 
-      test "#{}valid_filter_key? identifies valid filter keys" do
+      test "#valid_filter_key? identifies valid filter keys" do
         valid_filter_keys = %w{
           publication_filter_option
           departments
@@ -85,6 +85,16 @@ module Whitehall
         end
 
         refute Options.new.valid_filter_key?(:not_a_real_filter_key)
+      end
+
+      test "#valid_keys? returns true when given valid keys" do
+        assert Options.new.valid_keys?(Options::OPTION_NAMES_TO_FILTER_KEYS.values)
+        assert Options.new.valid_keys?(%w(topics departments))
+        assert Options.new.valid_keys?(%w(publication_filter_option))
+      end
+
+      test "#valid_keys? returns false when given invalid keys" do
+        refute Options.new.valid_keys?(%w(topics frank))
       end
 
       test "can get the list of options for publication_type" do
