@@ -45,10 +45,6 @@ module Whitehall
         !valid_filter_key?(*args)
       end
 
-      def self.valid_filter_key_and_value?(filter_key, filter_value)
-        new.sentence_fragment_for(filter_key, filter_value) != nil
-      end
-
       class UnknownFilterKey < StandardError; end
 
     protected
