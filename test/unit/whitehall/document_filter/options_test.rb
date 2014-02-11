@@ -51,7 +51,7 @@ module Whitehall
         assert_equal "All documents", @filter_options.label_for("official_document_status", "all")
       end
 
-      test ".valid_option_name? identifies valid option names" do
+      test "#valid_option_name? identifies valid option names" do
         valid_option_names = %i{
           publication_type
           organisations
@@ -63,13 +63,13 @@ module Whitehall
         }
 
         valid_option_names.each do |option_name|
-          assert Options.valid_option_name?(option_name)
+          assert Options.new.valid_option_name?(option_name)
         end
 
-        refute Options.valid_option_name?(:not_a_real_option_name)
+        refute Options.new.valid_option_name?(:not_a_real_option_name)
       end
 
-      test ".valid_filter_key? identifies valid filter keys" do
+      test "#{}valid_filter_key? identifies valid filter keys" do
         valid_filter_keys = %w{
           publication_filter_option
           departments
@@ -81,10 +81,10 @@ module Whitehall
         }
 
         valid_filter_keys.each do |filter_key|
-          assert Options.valid_filter_key?(filter_key)
+          assert Options.new.valid_filter_key?(filter_key)
         end
 
-        refute Options.valid_filter_key?(:not_a_real_filter_key)
+        refute Options.new.valid_filter_key?(:not_a_real_filter_key)
       end
 
       test "can get the list of options for publication_type" do

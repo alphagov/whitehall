@@ -38,9 +38,6 @@ module Whitehall
     end
 
     test "It should only accept the right params for generic feeds" do
-      DocumentFilter::Options.stubs(:valid_filter_key?).with(:departments).returns(true)
-      DocumentFilter::Options.stubs(:valid_filter_key?).with(:favourite_power_ranger).returns(false)
-
       assert_equal feed_url("feed?departments%5B%5D=something"), Whitehall::FeedUrlBuilder.new(departments: ["something"], favourite_power_ranger: ["the blue one"]).url
     end
 

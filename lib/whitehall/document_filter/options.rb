@@ -7,7 +7,7 @@ module Whitehall
       end
 
       def for(option_name)
-        raise ArgumentError.new("Unknown option name #{option_name}") unless self.class.valid_option_name?(option_name)
+        raise ArgumentError.new("Unknown option name #{option_name}") unless valid_option_name?(option_name)
         send(:"options_for_#{option_name}")
       end
 
@@ -33,15 +33,15 @@ module Whitehall
         local_government: 'relevant_to_local_government'
       }.freeze
 
-      def self.valid_option_name?(option_name)
+      def valid_option_name?(option_name)
         OPTIONS.has_key?(option_name)
       end
 
-      def self.valid_filter_key?(filter_key)
+      def valid_filter_key?(filter_key)
         OPTIONS.has_value?(filter_key.to_s)
       end
 
-      def self.invalid_filter_key?(*args)
+      def invalid_filter_key?(*args)
         !valid_filter_key?(*args)
       end
 
@@ -49,7 +49,7 @@ module Whitehall
 
     protected
       def option_name_for_filter_key(filter_key)
-        raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless self.class.valid_filter_key?(filter_key)
+        raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless valid_filter_key?(filter_key)
         OPTIONS.key(filter_key)
       end
 
