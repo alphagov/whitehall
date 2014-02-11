@@ -32,7 +32,7 @@ namespace :panopticon do
       begin
         registerer.register(artefact)
       rescue GdsApi::HTTPErrorResponse => e
-        logger.warn "Failed to register /#{guide.slug} with #{e.code}: #{e.error_details}"
+        logger.error "Failed to register /#{guide.slug} with #{e.code}: #{e.error_details}"
       end
     end
   end
