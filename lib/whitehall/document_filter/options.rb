@@ -41,8 +41,8 @@ module Whitehall
         OPTION_NAMES_TO_FILTER_KEYS.has_value?(filter_key.to_s)
       end
 
-      def invalid_filter_key?(*args)
-        !valid_filter_key?(*args)
+      def invalid_filter_key?(filter_key)
+        !valid_filter_key?(filter_key)
       end
 
       class UnknownFilterKey < StandardError; end
