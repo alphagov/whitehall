@@ -22,7 +22,7 @@ module Whitehall
         nil
       end
 
-      OPTIONS = {
+      OPTION_NAMES_TO_FILTER_KEYS = {
         document_type: 'document_type',
         publication_type: 'publication_filter_option',
         organisations: 'departments',
@@ -34,11 +34,11 @@ module Whitehall
       }.freeze
 
       def valid_option_name?(option_name)
-        OPTIONS.has_key?(option_name)
+        OPTION_NAMES_TO_FILTER_KEYS.has_key?(option_name)
       end
 
       def valid_filter_key?(filter_key)
-        OPTIONS.has_value?(filter_key.to_s)
+        OPTION_NAMES_TO_FILTER_KEYS.has_value?(filter_key.to_s)
       end
 
       def invalid_filter_key?(*args)
@@ -50,7 +50,7 @@ module Whitehall
     protected
       def option_name_for_filter_key(filter_key)
         raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless valid_filter_key?(filter_key)
-        OPTIONS.key(filter_key)
+        OPTION_NAMES_TO_FILTER_KEYS.key(filter_key)
       end
 
       def options_for_organisations
