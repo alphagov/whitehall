@@ -1,0 +1,7 @@
+<fieldset class="edition-specialist-sector-fields">
+  <%= form.label :specialist_sector_tags, 'Specialist sectors' %>
+  <%= form.select :specialist_sector_tags, SpecialistSector.options_for_select, {},
+                  { multiple: true,
+                    class: 'chzn-select',
+                    data: { placeholder: 'Choose specialist sectors…' } } %>
+</fieldset>

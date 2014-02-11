@@ -9,6 +9,7 @@ class Publication < Publicationesque
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
   include Edition::CanBeExternal
+  include Edition::SpecialistSectors
 
   validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
   validates :publication_type_id, presence: true
