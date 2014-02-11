@@ -154,129 +154,171 @@ id:
       announcement:
         one: Pengumuman
         other: Pengumuman-pengumuman
+        see_all: Lihat semua pengumuman-pengumuman
       authored_article:
         one: Artikel yang ditulis
         other: Artikel-artikel yang ditulis
+        see_all: Lihat semua artikel-artikel yang ditulis
       case_study:
         one: Studi kasus
         other: Studi-studi kasus
+        see_all: Lihat semua studi-studi kasus
       closed_consultation:
         one: Konsultasi tertutup
         other: Konsultasi-konsultasi tertutup
+        see_all: Lihat semua konsultasi-konsultasi tertutup
       consultation:
         one: Konsultasi
         other: Konsultasi-konsultasi
+        see_all: Lihat semua konsultasi-konsultasi
       consultation_outcome:
         one: Hasil konsultasi
         other: Hasil-hasil konsultasi
+        see_all: Lihat semua hasil-hasil konsultasi
       corporate_report:
         one: Laporan korporat
         other: Laporan-laporan korporat
+        see_all: Lihat semua laporan-laporan korporat
       correspondence:
         one: Koresponden
         other: Koresponden-koresponden
+        see_all: Lihat semua koresponden-koresponden
       detailed_guidance:
         one: Panduan lebih lanjut
         other: Panduan lebih lanjut
+        see_all: Lihat semua panduan lebih lanjut
       document_collection:
         one: Serial
         other:
+        see_all:
       draft_text:
         one: Rancangan teks
         other: Rancangan tulisan
+        see_all: Lihat semua rancangan tulisan
       fatality_notice:
         one: Pemberitahuan kematian
         other: Pemberitahuan-pemberitahuan kematian
+        see_all: Lihat semua pemberitahuan-pemberitahuan kematian
       foi_release:
         one: Rilis FOI
         other: Rilis FOI
+        see_all: Lihat semua rilis foi
       form:
         one: Formulir
         other: Formulir-formulir
+        see_all: Lihat semua formulir-formulir
       government_response:
         one: Respon Pemerintah
         other: Respon-respon Pemerintah
+        see_all: Lihat semua respon-respon pemerintah
       guidance:
         one: Panduan
         other: Panduan
+        see_all: Lihat semua panduan
       impact_assessment:
         one: Penilaian dampak
         other: Penilaian-penilaian dampak
+        see_all: Lihat semua penilaian-penilaian dampak
       imported:
         one: Diimpor-menunggu tipe
         other: Diimpor-menunggu tipe
+        see_all: Lihat semua diimpor-menunggu tipe
       independent_report:
         one: Laporan independen
         other: Laporan-laporan independen
+        see_all: Lihat semua laporan-laporan independen
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Peta
         other: Peta-peta
+        see_all: Lihat semua peta-peta
       national_statistics:
         one: Statistik-statistik nasional
         other: Statistik-statistik nasional
+        see_all: Lihat semua statistik-statistik nasional
       news_article:
         one: Artikel berita
         other: Artikel-artikel berita
+        see_all: Lihat semua artikel-artikel berita
       news_story:
         one: Berita
         other: Berita-berita
+        see_all: Lihat semua berita-berita
       open_consultation:
         one: Konsultasi terbuka
         other: Konsultasi-konsultasi terbuka
+        see_all: Lihat semua konsultasi-konsultasi terbuka
       oral_statement:
         one: Pernyataan langsung kepada parlemen
         other: Pernyataan-pernyataan langsung kepada parlemen
+        see_all: Lihat semua pernyataan-pernyataan langsung kepada parlemen
       policy:
         one: Kebijakan
         other: Kebijakan-kebijakan
+        see_all: Lihat semua kebijakan-kebijakan
       policy_paper:
         one: Laporan kebijakan
         other: Laporan-laporan kebijakan
+        see_all: Lihat semua laporan-laporan kebijakan
       press_release:
         one: Rilis pers
         other: Rilis pers
+        see_all: Lihat semua rilis pers
       promotional:
         one: Materi promosi
         other: Materi promosi
+        see_all: Lihat semua materi promosi
       publication:
         one: Publikasi
         other: Publikasi-publikasi
+        see_all: Lihat semua publikasi-publikasi
       research:
         one: Riset dan analisis
         other: Riset dan analisis
+        see_all: Lihat semua riset dan analisis
       speaking_notes:
         one: Naskah Pembicara
         other: Naskah Pembicara
+        see_all: Lihat semua naskah pembicara
       speech:
         one: Pidato
         other: Pidato-pidato
+        see_all: Lihat semua pidato-pidato
       statement_to_parliament:
         one: Pernyatan kepada Parlemen
         other: Pernyataan-pernyaatan kepada Parlemen
+        see_all: Lihat semua pernyataan-pernyaatan kepada parlemen
       statistical_data_set:
         one: Set data statistik
         other: Set data statistik
+        see_all: Lihat semua set data statistik
       statistics:
         one: Statistik
         other: Statistik-statistik
+        see_all: Lihat semua statistik-statistik
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transkrip
         other: Transkrip-transkrip
+        see_all: Lihat semua transkrip-transkrip
       transparency:
         one: Transparansi data
         other: Transparansi data
+        see_all: Lihat semua transparansi data
       worldwide_priority:
         one: Prioritas di penjuru dunia
         other: Prioritas-prioritas di penjuru dunia
+        see_all: Lihat semua prioritas-prioritas di penjuru dunia
       written_statement:
         one: Pernyataan tertulis kepada parlemen
         other: Pernyataan-pernyatan tertulis kepada parlemen
+        see_all: Lihat semua pernyataan-pernyatan tertulis kepada parlemen
     updated: Terkini
     view: Lihat '%{title}'
   document_filters:

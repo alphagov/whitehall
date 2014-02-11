@@ -153,129 +153,171 @@ th:
       announcement:
         one: ข่าวสาร
         other: ข่าวสาร
+        see_all: ดูทั้งหมดข่าวสาร
       authored_article:
         one: บทความที่เขียน
         other: บทความที่เขียน
+        see_all: ดูทั้งหมดบทความที่เขียน
       case_study:
         one: กรณีศึกษา
         other: กรณีศึกษา
+        see_all: ดูทั้งหมดกรณีศึกษา
       closed_consultation:
         one: การศึกษาแบบปิด
         other: การศึกษาแบบปิด
+        see_all: ดูทั้งหมดการศึกษาแบบปิด
       consultation:
         one: การปรึกษา
         other: การปรึกษา
+        see_all: ดูทั้งหมดการปรึกษา
       consultation_outcome:
         one: ผลการปรึกษา
         other: ผลการปรึกษา
+        see_all: ดูทั้งหมดผลการปรึกษา
       corporate_report:
         one: รายงานบริษัท
         other: รายงานบริษัท
+        see_all: ดูทั้งหมดรายงานบริษัท
       correspondence:
         one: จดหมาย
         other: จดหมาย
+        see_all: ดูทั้งหมดจดหมาย
       detailed_guidance:
         one: คู่มือโดยละเอียด
         other: คู่มือโดยละเอียด
+        see_all: ดูทั้งหมดคู่มือโดยละเอียด
       document_collection:
         one: ตอน
         other:
+        see_all:
       draft_text:
         one: ร่างข้อความ
         other: ร่างข้อความ
+        see_all: ดูทั้งหมดร่างข้อความ
       fatality_notice:
         one: การแจ้งมรณะกรรม
         other: การแจ้งมรณะกรรม
+        see_all: ดูทั้งหมดการแจ้งมรณะกรรม
       foi_release:
         one: ข้อมูลที่เปิดเผยได้
         other: ข้อมูลที่เปิดเผยได้
+        see_all: ดูทั้งหมดข้อมูลที่เปิดเผยได้
       form:
         one: แบบฟอร์ม
         other: แบบฟอร์ม
+        see_all: ดูทั้งหมดแบบฟอร์ม
       government_response:
         one: การตอบสนองของรัฐบาล
         other: การตอบสนองของรัฐบาล
+        see_all: ดูทั้งหมดการตอบสนองของรัฐบาล
       guidance:
         one: คู่มือ
         other: คู่มือ
+        see_all: ดูทั้งหมดคู่มือ
       impact_assessment:
         one: การประเมินผลกระทบ
         other: การประเมินผลกระทบ
+        see_all: ดูทั้งหมดการประเมินผลกระทบ
       imported:
         one: ประเภทรอนำเข้า
         other: ประเภทรอนำเข้า
+        see_all: ดูทั้งหมดประเภทรอนำเข้า
       independent_report:
         one: รายงานอิสระ
         other: รายงานอิสระ
+        see_all: ดูทั้งหมดรายงานอิสระ
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: แผนที่
         other: แผนที่
+        see_all: ดูทั้งหมดแผนที่
       national_statistics:
         one: สถิติ-สถิติแห่งชาน
         other: สถิติ-สถิติแห่งชาติ
+        see_all: ดูทั้งหมดสถิติ-สถิติแห่งชาติ
       news_article:
         one: บทความข่าว
         other: บทความข่าว
+        see_all: ดูทั้งหมดบทความข่าว
       news_story:
         one: ข่าว
         other: ข่าว
+        see_all: ดูทั้งหมดข่าว
       open_consultation:
         one: การให้คำปรึกษาเปิด
         other: การให้คำปรึกษาเปิด
+        see_all: ดูทั้งหมดการให้คำปรึกษาเปิด
       oral_statement:
         one: แถลงการณ์ด้วยวาจาต่อรัฐสภา
         other: แถลงการณ์ด้วยวาจาต่อรัฐสภา
+        see_all: ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา
       policy:
         one: นโยบาย
         other: นโยบาย
+        see_all: ดูทั้งหมดนโยบาย
       policy_paper:
         one: เอกสารนโยบาย
         other: เอกสารนโยบาย
+        see_all: ดูทั้งหมดเอกสารนโยบาย
       press_release:
         one: ข่าวประชาสัมพันธ์
         other: ข่าวประชาสัมพันธ์
+        see_all: ดูทั้งหมดข่าวประชาสัมพันธ์
       promotional:
         one: เอกสารเพี่อการประชาสัมพันธ์
         other: เอกสารเพือการประชาสัมพันธ์
+        see_all: ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์
       publication:
         one: สิ่งพิมพ์
         other: สิ่งพิมพ์
+        see_all: ดูทั้งหมดสิ่งพิมพ์
       research:
         one: บทวิจัยและบทวิเคราะห์
         other: บทวิจัยและบทวิเคราะห์
+        see_all: ดูทั้งหมดบทวิจัยและบทวิเคราะห์
       speaking_notes:
         one: ประเด็นการพูด
         other: ประเด็นการพูด
+        see_all: ดูทั้งหมดประเด็นการพูด
       speech:
         one: สุนทรพจน์
         other: สุนทรพจน์
+        see_all: ดูทั้งหมดสุนทรพจน์
       statement_to_parliament:
         one: แถลงการณ์ต่อรัฐสภา
         other: แถลงการณ์ต่อรัฐสภา
+        see_all: ดูทั้งหมดแถลงการณ์ต่อรัฐสภา
       statistical_data_set:
         one: ชุดข้อมูลสถิติ
         other: ชุดข้อมูลสถิติ
+        see_all: ดูทั้งหมดชุดข้อมูลสถิติ
       statistics:
         one: สถิติ
         other: สถิติ
+        see_all: ดูทั้งหมดสถิติ
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: สำเนา
         other: สำเนา
+        see_all: ดูทั้งหมดสำเนา
       transparency:
         one: ข้อมูลโปร่งใส
         other: ข้อมูลโปร่งใส
+        see_all: ดูทั้งหมดข้อมูลโปร่งใส
       worldwide_priority:
         one: นโยบายสำคัญที่ใช้ทั่วโลก
         other: นโยบายสำคัญที่ใช้ทั่วโลก
+        see_all: ดูทั้งหมดนโยบายสำคัญที่ใช้ทั่วโลก
       written_statement:
         one: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
         other: 'แถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
+        see_all: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
     updated: ปรับปรุง
     view: ดู '%{title}'
   document_filters:

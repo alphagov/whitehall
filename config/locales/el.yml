@@ -38,129 +38,171 @@ el:
       announcement:
         one: Ανακοίνωση
         other: Ανακοινώσεις
+        see_all: Δείτε τα Ανακοινώσεις
       authored_article:
         one: Κείμενο συντάκτη
         other: Κείμενα συντακτών
+        see_all: Δείτε τα Κείμενα συντακτών
       case_study:
         one: Παράδειγμα
         other: Παραδείγματα
+        see_all: Δείτε τα Παραδείγματα
       closed_consultation:
         one: Κλειστή διαβούλευση
         other: Κλειστές διαβουλεύσεις
+        see_all: Δείτε τα Κλειστές διαβουλεύσεις
       consultation:
         one: Διαβούλευση
         other: Διαβουλεύσεις
+        see_all: Δείτε τα Διαβουλεύσεις
       consultation_outcome:
         one: Αποτέλεσμα διαβούλευσης
         other: Αποτελέσματα διαβούλευσης
+        see_all: Δείτε τα Αποτελέσματα διαβούλευσης
       corporate_report:
         one: Έκθεση Οργανισμού
         other: Εκθέσεις Οργανισμού
+        see_all: Δείτε τα Εκθέσεις Οργανισμού
       correspondence:
         one: Αλληλογραφία
         other: Αλληλογραφία
+        see_all: Δείτε τα Αλληλογραφία
       detailed_guidance:
         one: Οδηγίες
         other: Οδηγίες
+        see_all: Δείτε τα Οδηγίες
       document_collection:
         one: Σειρά
         other:
+        see_all:
       draft_text:
         one: Προσχέδιο
         other: Προσχέδια
+        see_all: Δείτε τα Προσχέδια
       fatality_notice:
         one: Ανακοίνωση θανάτου
         other: Ανακοινώσεις θανάτων
+        see_all: Δείτε τα Ανακοινώσεις θανάτων
       foi_release:
         one: Δημοσιοποίηση
         other: Δημοσιοποίηση
+        see_all: Δείτε τα Δημοσιοποίηση
       form:
         one: Έντυπο
         other: Έντυπα
+        see_all: Δείτε τα Έντυπα
       government_response:
         one: Η θέση της Κυβέρνησης
         other: Οι θέσεις της Κυβέρνησης
+        see_all: Δείτε τα Οι θέσεις της Κυβέρνησης
       guidance:
         one: Οδηγίες
         other: Οδηγίες
+        see_all: Δείτε τα Οδηγίες
       impact_assessment:
         one: Αξιολόγηση αποτελέσματος
         other: Αξιολογήσεις αποτελέσματος
+        see_all: Δείτε τα Αξιολογήσεις αποτελέσματος
       imported:
         one: ' εισηγμένο  - σε αναμονή'
         other: εισηγμένα - σε αναμονή
+        see_all: Δείτε τα εισηγμένα - σε αναμονή
       independent_report:
         one: Έκθεση ανεξάρτητης αρχής
         other: Εκθέσεις ανεξάρτητων αρχών
+        see_all: Δείτε τα Εκθέσεις ανεξάρτητων αρχών
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Χάρτης
         other: Χάρτες
+        see_all: Δείτε τα Χάρτες
       national_statistics:
         one: Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
         other: Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
+        see_all: Δείτε τα Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
       news_article:
         one: Είδηση
         other: Ειδήσεις
+        see_all: Δείτε τα Ειδήσεις
       news_story:
         one: Νέα
         other: Νέα
+        see_all: Δείτε τα Νέα
       open_consultation:
         one: Ανοιχτή διαβούλευση
         other: Ανοιχτές διαβουλεύσεις
+        see_all: Δείτε τα Ανοιχτές διαβουλεύσεις
       oral_statement:
         one: Δήλωση στη Βουλή
         other: 'Δηλώσεις στη Βουλή '
+        see_all: 'Δείτε τα Δηλώσεις στη Βουλή '
       policy:
         one: Πολιτική
         other: Πολιτικές
+        see_all: Δείτε τα Πολιτικές
       policy_paper:
         one: Κείμενο πολιτικής
         other: Κείμενα πολιτικής
+        see_all: Δείτε τα Κείμενα πολιτικής
       press_release:
         one: Δελτίο Τύπου
         other: Δελτία Τύπου
+        see_all: Δείτε τα Δελτία Τύπου
       promotional:
         one: Προωθητικό υλικό
         other: Προωθητικό υλικό
+        see_all: Δείτε τα Προωθητικό υλικό
       publication:
         one: Έκδοση
         other: Εκδόσεις
+        see_all: Δείτε τα Εκδόσεις
       research:
         one: Έρευνα και ανάλυση
         other: Έρευνα και ανάλυση
+        see_all: Δείτε τα Έρευνα και ανάλυση
       speaking_notes:
         one: Βασικά σημεία ομιλίας
         other: Βασικά σημεία ομιλίας
+        see_all: Δείτε τα Βασικά σημεία ομιλίας
       speech:
         one: Ομιλία
         other: Ομιλίες
+        see_all: Δείτε τα Ομιλίες
       statement_to_parliament:
         one: Δήλωση στη Βουλή
         other: 'Δηλώσεις στη Βουλή '
+        see_all: 'Δείτε τα Δηλώσεις στη Βουλή '
       statistical_data_set:
         one: Στατιστικά στοιχεία
         other: Στατιστικά στοιχεία
+        see_all: Δείτε τα Στατιστικά στοιχεία
       statistics:
         one: Στατιστικά στοιχεία
         other: Στατιστικά στοιχεία
+        see_all: Δείτε τα Στατιστικά στοιχεία
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Απομαγνητοφώνηση
         other: Απομαγνητοφωνήσεις
+        see_all: Δείτε τα Απομαγνητοφωνήσεις
       transparency:
         one: Στοιχεία διαφάνειας
         other: Στοιχεία διαφάνειας
+        see_all: Δείτε τα Στοιχεία διαφάνειας
       worldwide_priority:
         one: Παγκόσμια προτεραιότητα
         other: Παγκόσμιες προτεραιότητες
+        see_all: Δείτε τα Παγκόσμιες προτεραιότητες
       written_statement:
         one: Γραπτή  δήλωση στη Βουλή
         other: Γραπτές δηλώσεις στη Βουλή
+        see_all: Δείτε τα Γραπτές δηλώσεις στη Βουλή
     contents:
     footer_meta:
       full_page_history:

@@ -38,129 +38,171 @@ si:
       announcement:
         one: නිවේදනය
         other: නිවේදන
+        see_all: අපගේ සියලු නිවේදන බලන්න
       authored_article:
         one: රචිත ලිපිය  
         other: රචිත ලිපි
+        see_all: අපගේ සියලු රචිත ලිපි බලන්න
       case_study:
         one: සිද්ධි අධ්යනයනය
         other: සිද්ධීන්  අධ්යයයනය
+        see_all: අපගේ සියලු සිද්ධීන්  අධ්යයයනය බලන්න
       closed_consultation:
         one: සංවෘත මත විමසුම
         other: සංවෘත
+        see_all: අපගේ සියලු සංවෘත බලන්න
       consultation:
         one:  මත විමසුම
         other: මත විමසුම්
+        see_all: අපගේ සියලු මත විමසුම් බලන්න
       consultation_outcome:
         one: මත විමසුමේ ප්‍රතිපල
         other: මත විමසුමේ ප්‍රතිපලයන්
+        see_all: අපගේ සියලු මත විමසුමේ ප්‍රතිපලයන් බලන්න
       corporate_report:
         one: සංවිධාන වාර්තාව
         other: සංවිධාන වාර්තා
+        see_all: අපගේ සියලු සංවිධාන වාර්තා බලන්න
       correspondence:
         one: ලිපි ගනුදෙනුව  
         other: ලිපි ගනුදෙනු
+        see_all: අපගේ සියලු ලිපි ගනුදෙනු බලන්න
       detailed_guidance:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
+        see_all: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
       document_collection:
         one: කාණ්ඩය
         other:
+        see_all:
       draft_text:
         one: අශෝදිත වැකිය
         other: අශෝදිත වැකි
+        see_all: අපගේ සියලු අශෝදිත වැකි බලන්න
       fatality_notice:
         one: තීරණාත්මක  දැන්වීම
         other: තීරණාත්මක  දැන්වීම්
+        see_all: අපගේ සියලු තීරණාත්මක  දැන්වීම් බලන්න
       foi_release:
         one: එෆ්. ඉ. ඕ. දැන්වීම
         other: එෆ්. ඉ. ඕ. දැන්වීම්
+        see_all: අපගේ සියලු එෆ්. ඉ. ඕ. දැන්වීම් බලන්න
       form:
         one: පෝරමය
         other: පෝරම
+        see_all: අපගේ සියලු පෝරම බලන්න
       government_response:
         one: ආණ්ඩුවේ ප්‍රතිචාරය
         other: ආණ්ඩුවේ ප්‍රතිචාර
+        see_all: අපගේ සියලු ආණ්ඩුවේ ප්‍රතිචාර බලන්න
       guidance:
         one: උපදෙස්
         other: උපදෙස්
+        see_all: අපගේ සියලු උපදෙස් බලන්න
       impact_assessment:
         one: ප්‍රතිපල ඇගයීම
         other: ප්‍රතිපල ඇගයීම්
+        see_all: අපගේ සියලු ප්‍රතිපල ඇගයීම් බලන්න
       imported:
         one: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
         other: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
+        see_all: අපගේ සියලු ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න බලන්න
       independent_report:
         one: ස්වාධීන වාර්තාව
         other: ස්වාධීන වාර්තා
+        see_all: අපගේ සියලු ස්වාධීන වාර්තා බලන්න
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: සිතියම
         other: සිතියම්
+        see_all: අපගේ සියලු සිතියම් බලන්න
       national_statistics:
         one: සංඛ්යාන - ජාතික සංඛ්යාන
         other: සංඛ්යාන - ජාතික සංඛ්යාන
+        see_all: අපගේ සියලු සංඛ්යාන - ජාතික සංඛ්යාන බලන්න
       news_article:
         one: පුවත් ලිපිය
         other: පුවත් ලිපි
+        see_all: අපගේ සියලු පුවත් ලිපි බලන්න
       news_story:
         one: පුවත් වාර්තාව
         other: පුවත් වාර්තා
+        see_all: අපගේ සියලු පුවත් වාර්තා බලන්න
       open_consultation:
         one: විවෘත මත විමසුම
         other: විවෘත මත විමසුම්
+        see_all: අපගේ සියලු විවෘත මත විමසුම් බලන්න
       oral_statement:
         one: ' පාර්ලිමේන්තුවේ වාචික ප්රුකාශය'
         other: පාර්ලිමේන්තුවේ වාචික ප්රේකාශ
+        see_all: අපගේ සියලු පාර්ලිමේන්තුවේ වාචික ප්රේකාශ බලන්න
       policy:
         one: ප්රතතිපත්තිය
         other: ප්‍රතිපත්තීන්
+        see_all: අපගේ සියලු ප්‍රතිපත්තීන් බලන්න
       policy_paper:
         one: ප්‍රතිපත්ති  ලිපිය
         other: ප්‍රතිපත්ති  ලිපි
+        see_all: අපගේ සියලු ප්‍රතිපත්ති  ලිපි බලන්න
       press_release:
         one: මාධ්යි නිවේදනය
         other: මාධ්යි නිවේදන
+        see_all: අපගේ සියලු මාධ්යි නිවේදන බලන්න
       promotional:
         one: ප්ර්චාරණ ද්රිච්ය
         other: ප්ර්චාරණ ද්රිච්ය
+        see_all: අපගේ සියලු ප්ර්චාරණ ද්රිච්ය බලන්න
       publication:
         one: ප්ර්කාශනය
         other: ප්ර්කාශන
+        see_all: අපගේ සියලු ප්ර්කාශන බලන්න
       research:
         one: පර්යේෂණ සහ විශ්ලේෂණ
         other: පර්යේෂණ සහ විශ්ලේෂණ
+        see_all: අපගේ සියලු පර්යේෂණ සහ විශ්ලේෂණ බලන්න
       speaking_notes:
         one: දේශනයට අදාළ සටහන්
         other: දේශනයට අදාළ සටහන්
+        see_all: අපගේ සියලු දේශනයට අදාළ සටහන් බලන්න
       speech:
         one: කථාව
         other: කථා
+        see_all: අපගේ සියලු කථා බලන්න
       statement_to_parliament:
         one: පාර්ලිමේන්තුවට කල ප්‍රකාශය
         other: පාර්ලිමේන්තුවට කල ප්‍රකාශ
+        see_all: අපගේ සියලු පාර්ලිමේන්තුවට කල ප්‍රකාශ බලන්න
       statistical_data_set:
         one: සංඛ්යාන දත්ත සමූහය  
         other: සංඛ්යාන දත්ත සමූහ
+        see_all: අපගේ සියලු සංඛ්යාන දත්ත සමූහ බලන්න
       statistics:
         one: සංඛ්යාන
         other: සංඛ්යාන
+        see_all: අපගේ සියලු සංඛ්යාන බලන්න
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: අනුපත
         other:  අනුපත්
+        see_all: අපගේ සියලු  අනුපත් බලන්න
       transparency:
         one: විනිවිධභාවයේ දත්ත
         other: විනිවිධභාවයේ දත්ත
+        see_all: අපගේ සියලු විනිවිධභාවයේ දත්ත බලන්න
       worldwide_priority:
         one: ලෝක ප්‍රමුඛතාව
         other: ලෝක ප්‍රමුඛතා
+        see_all: අපගේ සියලු ලෝක ප්‍රමුඛතා බලන්න
       written_statement:
         one: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශය
         other: පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ
+        see_all: අපගේ සියලු පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ බලන්න
     contents:
     footer_meta:
       full_page_history:

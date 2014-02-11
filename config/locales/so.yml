@@ -38,129 +38,171 @@ so:
       announcement:
         one: Ogeysiis
         other: Ogeysiisyo
+        see_all: Fiiri dhammaan ogeysiisyo yadeenna
       authored_article:
         one: Maqaal la qorey
         other: Maqaallo la qorey
+        see_all: Fiiri dhammaan maqaallo la qorey yadeenna
       case_study:
         one: Daraasad xaalad gaar ah
         other: Daraasado xaalado gaar ah
+        see_all: Fiiri dhammaan daraasado xaalado gaar ah yadeenna
       closed_consultation:
         one: Wada-tashi albaabadu u xiran yihiin
         other: Wadatashiyo albaabadu u xiran yihiin
+        see_all: Fiiri dhammaan wadatashiyo albaabadu u xiran yihiin yadeenna
       consultation:
         one: Wadatashi
         other: Wadatashiyo
+        see_all: Fiiri dhammaan wadatashiyo yadeenna
       consultation_outcome:
         one: Natiijo ka dhalatey wadatashi
         other: Natiijooyin ka dhashey wadatashiyo
+        see_all: Fiiri dhammaan natiijooyin ka dhashey wadatashiyo yadeenna
       corporate_report:
         one: Warbixin sharikaad
         other: Warbixinno sharikaad
+        see_all: Fiiri dhammaan warbixinno sharikaad yadeenna
       correspondence:
         one: Waraaq is-dhaafsi
         other: Waraaqo is-dhaafsi
+        see_all: Fiiri dhammaan waraaqo is-dhaafsi yadeenna
       detailed_guidance:
         one: Hagid faahfaahsan
         other: Hagid faahfaahsan
+        see_all: Fiiri dhammaan hagid faahfaahsan yadeenna
       document_collection:
         one: Taxane
         other:
+        see_all:
       draft_text:
         one: Qoraal qabyo ah
         other: Qoraallo qabyo ah
+        see_all: Fiiri dhammaan qoraallo qabyo ah yadeenna
       fatality_notice:
         one: Ogeysiis geeri
         other: Ogeysiisyo geeri
+        see_all: Fiiri dhammaan ogeysiisyo geeri yadeenna
       foi_release:
         one: Soo saarista FOI
         other: Soo saarista FOI-yo
+        see_all: Fiiri dhammaan soo saarista foi-yo yadeenna
       form:
         one: Foom
         other: Foomam
+        see_all: Fiiri dhammaan foomam yadeenna
       government_response:
         one: Jawaab dowladeed
         other: Jawaabo dowladeed
+        see_all: Fiiri dhammaan jawaabo dowladeed yadeenna
       guidance:
         one: Hagid
         other: Hagid
+        see_all: Fiiri dhammaan hagid yadeenna
       impact_assessment:
         one: Daraasad saameyn ku saabsan
         other: Daraasado saameyn ku saabsan
+        see_all: Fiiri dhammaan daraasado saameyn ku saabsan yadeenna
       imported:
         one: La soo waaridey - nooca sugitaanka
         other: La soo waaridey - nooca sugitaanka
+        see_all: Fiiri dhammaan la soo waaridey - nooca sugitaanka yadeenna
       independent_report:
         one: Warbixin madax bannaan
         other: Warbixinno madax bannaan
+        see_all: Fiiri dhammaan warbixinno madax bannaan yadeenna
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Khariidad
         other: Khariidado
+        see_all: Fiiri dhammaan khariidado yadeenna
       national_statistics:
         one: Istaatistik - istaatistik qaran
         other: Istaatistik - istaatistik qaran
+        see_all: Fiiri dhammaan istaatistik - istaatistik qaran yadeenna
       news_article:
         one: Maqaal wareed
         other: Maqaallo wareed
+        see_all: Fiiri dhammaan maqaallo wareed yadeenna
       news_story:
         one: Sheeko wareed
         other: Sheekooyin wareed
+        see_all: Fiiri dhammaan sheekooyin wareed yadeenna
       open_consultation:
         one: Wada-tashi furan
         other: Wada-tashiyo furan
+        see_all: Fiiri dhammaan wada-tashiyo furan yadeenna
       oral_statement:
         one: Hadal loo jeediyo baarlamaanka
         other: hadallo loo jeediyo baarlamaanka
+        see_all: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
       policy:
         one: Siyaasad
         other: Siyaasado
+        see_all: Fiiri dhammaan siyaasado yadeenna
       policy_paper:
         one: Waraaq qeexaysa siyaasadda
         other: Waraaqo qeexaya siyaasadda
+        see_all: Fiiri dhammaan waraaqo qeexaya siyaasadda yadeenna
       press_release:
         one: War-saxaafadeed
         other: War-saxaafadeedyo
+        see_all: Fiiri dhammaan war-saxaafadeedyo yadeenna
       promotional:
         one: Agab xayeysiin ah
         other: Agab xayeysiin ah
+        see_all: Fiiri dhammaan agab xayeysiin ah yadeenna
       publication:
         one: Daabacaad
         other: Daabacaado
+        see_all: Fiiri dhammaan daabacaado yadeenna
       research:
         one: Cilmi-baaris iyo lafaguris
         other: Cilmi-baaris iyo lafaguris
+        see_all: Fiiri dhammaan cilmi-baaris iyo lafaguris yadeenna
       speaking_notes:
         one: Qoraallo hadal jeedin
         other: Qoraallo hadal jeedin
+        see_all: Fiiri dhammaan qoraallo hadal jeedin yadeenna
       speech:
         one: Hadal
         other: Hadallo
+        see_all: Fiiri dhammaan hadallo yadeenna
       statement_to_parliament:
         one: Hadal loo jeediyo baarlamaanka
         other: hadallo loo jeediyo baarlamaanka
+        see_all: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
       statistical_data_set:
         one: Xirmo xog istaatistik ah
         other: Xirmooyin xog istaatistik ah
+        see_all: Fiiri dhammaan xirmooyin xog istaatistik ah yadeenna
       statistics:
         one: Istaatistik
         other: Istaatistik
+        see_all: Fiiri dhammaan istaatistik yadeenna
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Qoraal la soo guuriyey
         other: Qoraallo la soo guuriyey
+        see_all: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
       transparency:
         one: Xog daahfurnaan
         other: Xog daahfurnaan
+        see_all: Fiiri dhammaan xog daahfurnaan yadeenna
       worldwide_priority:
         one: Muhiimad caalami ah
         other: Muhiimado caalami ah
+        see_all: Fiiri dhammaan muhiimado caalami ah yadeenna
       written_statement:
         one: Hadal qoran oo loo gudbiyo baarlamaanka
         other: Hadallo qoran oo loo gudbiyo baarlamaanka
+        see_all: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
     contents:
     footer_meta:
       full_page_history:

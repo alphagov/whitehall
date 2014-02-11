@@ -154,129 +154,171 @@ vi:
       announcement:
         one: Thông báo
         other: Các thông báo
+        see_all: Xem tất cả các thông báo của chúng tôi
       authored_article:
         one: bài viết do tác giả
         other: Các bài viết do tác giả
+        see_all: Xem tất cả các bài viết do tác giả của chúng tôi
       case_study:
         one: Trường hợp cụ thể
         other: Các Trường hợp cụ thể
+        see_all: Xem tất cả các trường hợp cụ thể của chúng tôi
       closed_consultation:
         one: Kết thúc tham vấn
         other: Kết thúc các cuộc tham vấn
+        see_all: Xem tất cả kết thúc các cuộc tham vấn của chúng tôi
       consultation:
         one: Tham vấn
         other: Các cuộc tham vấn
+        see_all: Xem tất cả các cuộc tham vấn của chúng tôi
       consultation_outcome:
         one: Kết quả tham vấn
         other: Các Kết quả tham vấn
+        see_all: Xem tất cả các kết quả tham vấn của chúng tôi
       corporate_report:
         one: báo cáo tổng hợp
         other: Các báo cáo tổng hợp
+        see_all: Xem tất cả các báo cáo tổng hợp của chúng tôi
       correspondence:
         one: Liên hệ
         other: Liên hệ
+        see_all: Xem tất cả liên hệ của chúng tôi
       detailed_guidance:
         one: Hướng dẫn chi tiết
         other: Hướng dẫn chi tiết
+        see_all: Xem tất cả hướng dẫn chi tiết của chúng tôi
       document_collection:
         one: Chuỗi
         other:
+        see_all:
       draft_text:
         one: Nội dung dự thảo
         other: Các nội dung dự thảo
+        see_all: Xem tất cả các nội dung dự thảo của chúng tôi
       fatality_notice:
         one: Tin buồn
         other: Tin buồn
+        see_all: Xem tất cả tin buồn của chúng tôi
       foi_release:
         one: Thông cáo FOI
         other: Thông cáo FOI
+        see_all: Xem tất cả thông cáo foi của chúng tôi
       form:
         one: Mẫu đơn
         other: Các mẫu đơn
+        see_all: Xem tất cả các mẫu đơn của chúng tôi
       government_response:
         one: Phản ứng của Chính phủ
         other: các phản hồi của Chính phủ
+        see_all: Xem tất cả các phản hồi của chính phủ của chúng tôi
       guidance:
         one: hướng dẫn
         other: hướng dẫn
+        see_all: Xem tất cả hướng dẫn của chúng tôi
       impact_assessment:
         one: Đánh giá tác động
         other: Đánh giá tác động
+        see_all: Xem tất cả Đánh giá tác động của chúng tôi
       imported:
         one: Loại tài liệu đính kèm
         other: Loại tài liệu đính kèm
+        see_all: Xem tất cả loại tài liệu đính kèm của chúng tôi
       independent_report:
         one: Báo cáo độc lập
         other: Các báo cáo độc lập
+        see_all: Xem tất cả các báo cáo độc lập của chúng tôi
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Bản đồ
         other: Các bản đồ
+        see_all: Xem tất cả các bản đồ của chúng tôi
       national_statistics:
         one: Thống kê - Thống kê quốc gia
         other: Thống kê - Thống kê quốc gia
+        see_all: Xem tất cả thống kê - thống kê quốc gia của chúng tôi
       news_article:
         one: Tin tức
         other: Tin tức
+        see_all: Xem tất cả tin tức của chúng tôi
       news_story:
         one: Câu chuyện tin tức
         other: Câu chuyện tin tức
+        see_all: Xem tất cả câu chuyện tin tức của chúng tôi
       open_consultation:
         one: Tham vấn mở rộng
         other: Tham vấn mở rộng
+        see_all: Xem tất cả tham vấn mở rộng của chúng tôi
       oral_statement:
         one: Tuyên bố bằng lời nói tới quốc hội
         other: Tuyên bố bằng lời nói tới quốc hội
+        see_all: Xem tất cả tuyên bố bằng lời nói tới quốc hội của chúng tôi
       policy:
         one: Chính sách
         other: Các chính sách
+        see_all: Xem tất cả các chính sách của chúng tôi
       policy_paper:
         one: Tài liệu chính sách
         other: Tài liệu chính sách
+        see_all: Xem tất cả tài liệu chính sách của chúng tôi
       press_release:
         one: Thông cáo báo chí
         other: Thông cáo báo chí
+        see_all: Xem tất cả thông cáo báo chí của chúng tôi
       promotional:
         one: Tài liệu truyền thông
         other: Tài liệu truyền thông
+        see_all: Xem tất cả tài liệu truyền thông của chúng tôi
       publication:
         one: Tài liệu truyền thông
         other: Tài liệu truyền thông
+        see_all: Xem tất cả tài liệu truyền thông của chúng tôi
       research:
         one: Nghiên cứu và phân tích
         other: Nghiên cứu và phân tích
+        see_all: Xem tất cả nghiên cứu và phân tích của chúng tôi
       speaking_notes:
         one: Bài phát biểu
         other: Bài phát biểu
+        see_all: Xem tất cả bài phát biểu của chúng tôi
       speech:
         one: Bài phát biểu
         other: Các bài phát biểu
+        see_all: Xem tất cả các bài phát biểu của chúng tôi
       statement_to_parliament:
         one: Tuyên bố tới Quốc hội
         other: Tuyên bố tới Quốc hội
+        see_all: Xem tất cả tuyên bố tới quốc hội của chúng tôi
       statistical_data_set:
         one: Bộ dữ liệu thống kê
         other: Bộ dữ liệu thống kê
+        see_all: Xem tất cả bộ dữ liệu thống kê của chúng tôi
       statistics:
         one: Thống kê
         other: Thống kê
+        see_all: Xem tất cả thống kê của chúng tôi
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Kịch bản
         other: Kịch bản
+        see_all: Xem tất cả kịch bản của chúng tôi
       transparency:
         one: Dữ liệu kịch bản
         other: Dữ liệu kịch bản
+        see_all: Xem tất cả dữ liệu kịch bản của chúng tôi
       worldwide_priority:
         one: Ưu tiên toàn cầu
         other: Các ưu tiên toàn cầu
+        see_all: Xem tất cả các ưu tiên toàn cầu của chúng tôi
       written_statement:
         one: Tuyên bố bằng văn bản tới quốc hội
         other: Các Tuyên bố bằng văn bản tới quốc hội
+        see_all: Xem tất cả các tuyên bố bằng văn bản tới quốc hội của chúng tôi
     updated: Cập nhật
     view: Xem '%{title}'
   document_filters:

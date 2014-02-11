@@ -155,129 +155,171 @@ hu:
       announcement:
         one: Bejelentés
         other: Bejelentések
+        see_all: ' bejelentések - mindegyik megtekintése'
       authored_article:
         one: Publicisztika
         other: Publicisztikák
+        see_all: ' publicisztikák - mindegyik megtekintése'
       case_study:
         one: Esettanulmány
         other: Esettanulmányok
+        see_all: ' esettanulmányok - mindegyik megtekintése'
       closed_consultation:
         one: Lezárt konzultáció
         other: Lezárt konzultációk
+        see_all: ' lezárt konzultációk - mindegyik megtekintése'
       consultation:
         one: Konzultáció
         other: Konzultációk
+        see_all: ' konzultációk - mindegyik megtekintése'
       consultation_outcome:
         one: Konzultációs eredmény
         other: Konzultációs eredmények
+        see_all: ' konzultációs eredmények - mindegyik megtekintése'
       corporate_report:
         one: Testületi beszámoló
         other: Testületi beszámolók
+        see_all: ' testületi beszámolók - mindegyik megtekintése'
       correspondence:
         one: Levelezés
         other: Levelezések
+        see_all: ' levelezések - mindegyik megtekintése'
       detailed_guidance:
         one: Részletes útmutató
         other: Részletes útmutató
+        see_all: ' részletes útmutató - mindegyik megtekintése'
       document_collection:
         one: Sorozatok
         other:
+        see_all:
       draft_text:
         one: Szövegtervezet
         other: Szövegtervezetek
+        see_all: ' szövegtervezetek - mindegyik megtekintése'
       fatality_notice:
         one: Halálesettel kapcsolatos értesítés
         other: Halálesettel kapcsolatos értesítések
+        see_all: ' halálesettel kapcsolatos értesítések - mindegyik megtekintése'
       foi_release:
         one: Információhoz való joggal kapcsolatos közlemény
         other: Információhoz való joggal kapcsolatos közlemények
+        see_all: ' információhoz való joggal kapcsolatos közlemények - mindegyik megtekintése'
       form:
         one: Űrlap
         other: Űrlapok
+        see_all: ' Űrlapok - mindegyik megtekintése'
       government_response:
         one: Kormányválasz
         other: Kormányválaszok
+        see_all: ' kormányválaszok - mindegyik megtekintése'
       guidance:
         one: Útmutató
         other: Útmutató
+        see_all: ' Útmutató - mindegyik megtekintése'
       impact_assessment:
         one: Hatásvizsgálat
         other: Hatásvizsgálatok
+        see_all: ' hatásvizsgálatok - mindegyik megtekintése'
       imported:
         one: Importálva
         other: Importálva
+        see_all: ' importálva - mindegyik megtekintése'
       independent_report:
         one: Független beszámoló
         other: Független beszámolók
+        see_all: ' független beszámolók - mindegyik megtekintése'
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Térkép
         other: Térképek
+        see_all: ' térképek - mindegyik megtekintése'
       national_statistics:
         one: Statisztikák - nemzeti adatok
         other: Statisztikák - nemzeti adatok
+        see_all: ' statisztikák - nemzeti adatok - mindegyik megtekintése'
       news_article:
         one: Cikk
         other: Cikkek
+        see_all: ' cikkek - mindegyik megtekintése'
       news_story:
         one: Hír
         other: Hírek
+        see_all: ' hírek - mindegyik megtekintése'
       open_consultation:
         one: Nyílt konzultáció
         other: Nyílt konzultációk
+        see_all: ' nyílt konzultációk - mindegyik megtekintése'
       oral_statement:
         one: Parlamenti felszólalás
         other: Parlamenti felszólalások
+        see_all: ' parlamenti felszólalások - mindegyik megtekintése'
       policy:
         one: Szakpolitika
         other: Szakpolitikák
+        see_all: ' szakpolitikák - mindegyik megtekintése'
       policy_paper:
         one: Szakpolitikai dokumentum
         other: Szakpolitikai dokumentumok
+        see_all: ' szakpolitikai dokumentumok - mindegyik megtekintése'
       press_release:
         one: Sajtóközlemény
         other: Sajtóközlemények
+        see_all: ' sajtóközlemények - mindegyik megtekintése'
       promotional:
         one: Promóciós anyag
         other: Promóciós anyagok
+        see_all: ' promóciós anyagok - mindegyik megtekintése'
       publication:
         one: Kiadvány
         other: Kiadványok
+        see_all: ' kiadványok - mindegyik megtekintése'
       research:
         one: Kutatás és elemzés
         other: Kutatás és elemzés
+        see_all: ' kutatás és elemzés - mindegyik megtekintése'
       speaking_notes:
         one: Feljegyzések
         other: Feljegyzések
+        see_all: ' feljegyzések - mindegyik megtekintése'
       speech:
         one: Beszéd
         other: Beszédek
+        see_all: ' beszédek - mindegyik megtekintése'
       statement_to_parliament:
         one: Parlamenti nyilatkozat
         other: Parlamenti nyilatkozatok
+        see_all: ' parlamenti nyilatkozatok - mindegyik megtekintése'
       statistical_data_set:
         one: Statisztikai adatcsoport
         other: Statisztikai adatcsoportok
+        see_all: ' statisztikai adatcsoportok - mindegyik megtekintése'
       statistics:
         one: Statisztika
         other: Statisztikák
+        see_all: ' statisztikák - mindegyik megtekintése'
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Átirat
         other: Átiratok
+        see_all: ' Átiratok - mindegyik megtekintése'
       transparency:
         one: Átláthatósági adatok
         other: Átláthatósági adatok
+        see_all: ' Átláthatósági adatok - mindegyik megtekintése'
       worldwide_priority:
         one: Globális prioritás
         other: Globális prioritások
+        see_all: ' globális prioritások - mindegyik megtekintése'
       written_statement:
         one: Írásbeli parlamenti nyilatkozat
         other: Írásbeli parlamenti nyilatkozatok
+        see_all: ' Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése'
     updated: 'Utolsó frissítés:'
     view: Tekintse meg a következő dokumentumot '%{title}'
   document_filters:
@@ -551,5 +593,4 @@ hu:
       our_people: Munkatársaink
       our_services: Szolgáltatásaink
     location: Ország
-    part_of: |
-      Felettes szervezet
+    part_of: Felettes szervezet

@@ -38,129 +38,171 @@ es-419:
       announcement:
         one: Novedades
         other: Novedades
+        see_all: Vea todos nuestros novedades
       authored_article:
         one: Artículo con autor
         other: Artículos con autor
+        see_all: Vea todos nuestros artículos con autor
       case_study:
         one: Caso de estudio
         other: Casos de estudio
+        see_all: Vea todos nuestros casos de estudio
       closed_consultation:
         one: Consulta cerrada
         other: Consultas cerradas
+        see_all: Vea todos nuestros consultas cerradas
       consultation:
         one: Consulta
         other: Consultas
+        see_all: Vea todos nuestros consultas
       consultation_outcome:
         one: Resultado de la consulta
         other: Resultados de la consulta
+        see_all: Vea todos nuestros resultados de la consulta
       corporate_report:
         one: Reporte institucional
         other: Reportes institucionales
+        see_all: Vea todos nuestros reportes institucionales
       correspondence:
         one: Correspondencia
         other: Correspondencias
+        see_all: Vea todos nuestros correspondencias
       detailed_guidance:
         one: Orientación detallada
         other: Orientación detallada
+        see_all: Vea todos nuestros orientación detallada
       document_collection:
         one: Series
         other:
+        see_all:
       draft_text:
         one: Borrador
         other: Borradores
+        see_all: Vea todos nuestros borradores
       fatality_notice:
         one: Aviso de defunción
         other: Avisos de defunción
+        see_all: Vea todos nuestros avisos de defunción
       foi_release:
         one: Boletín de FOI
         other: Boletines de FOI
+        see_all: Vea todos nuestros boletines de foi
       form:
         one: Formulario
         other: Formularios
+        see_all: Vea todos nuestros formularios
       government_response:
         one: Respuesta del gobierno
         other: Respuestas del gobierno
+        see_all: Vea todos nuestros respuestas del gobierno
       guidance:
         one: Instrucciones
         other: Instrucciones
+        see_all: Vea todos nuestros instrucciones
       impact_assessment:
         one: Evaluación del impacto
         other: Evaluaciones del impacto
+        see_all: Vea todos nuestros evaluaciones del impacto
       imported:
         one: Importado - esperando tipo
         other: Importado - esperando tipo
+        see_all: Vea todos nuestros importado - esperando tipo
       independent_report:
         one: Reporte independiente
         other: Reportes independientes
+        see_all: Vea todos nuestros reportes independientes
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Mapa
         other: Mapas
+        see_all: Vea todos nuestros mapas
       national_statistics:
         one: Estadísticas - cifras nacionales
         other: Estadísticas - cifras nacionales
+        see_all: Vea todos nuestros estadísticas - cifras nacionales
       news_article:
         one: Artículo
         other: Artículos
+        see_all: Vea todos nuestros artículos
       news_story:
         one: Noticia
         other: Noticias
+        see_all: Vea todos nuestros noticias
       open_consultation:
         one: Consulta abierta
         other: Consultas abiertas
+        see_all: Vea todos nuestros consultas abiertas
       oral_statement:
         one: Declaración oral al Parlamento
         other: Declaraciones orales al Parlamento
+        see_all: Vea todos nuestros declaraciones orales al parlamento
       policy:
         one: Política
         other: Políticas
+        see_all: Vea todos nuestros políticas
       policy_paper:
         one: Informe sobre políticas gubernamentales
         other: Informes sobre políticas gubernamentales
+        see_all: Vea todos nuestros informes sobre políticas gubernamentales
       press_release:
         one: Gacetilla de prensa
         other: Gacetillas de prensa
+        see_all: Vea todos nuestros gacetillas de prensa
       promotional:
         one: Material promocional
         other: Material promocional
+        see_all: Vea todos nuestros material promocional
       publication:
         one: Publicación
         other: Publicaciones
+        see_all: Vea todos nuestros publicaciones
       research:
         one: Investigación y análisis
         other: Investigación y análisis
+        see_all: Vea todos nuestros investigación y análisis
       speaking_notes:
         one: Anotaciones
         other: Anotaciones
+        see_all: Vea todos nuestros anotaciones
       speech:
         one: Discurso
         other: Discursos
+        see_all: Vea todos nuestros discursos
       statement_to_parliament:
         one: Declaración al Parlamento
         other: Declaraciones al Parlamento
+        see_all: Vea todos nuestros declaraciones al parlamento
       statistical_data_set:
         one: Conjunto de datos estadísticos
         other: Conjuntos de datos estadísticos
+        see_all: Vea todos nuestros conjuntos de datos estadísticos
       statistics:
         one: Estadísticas
         other: Estadísticas
+        see_all: Vea todos nuestros estadísticas
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transcripción
         other: Transcripciones
+        see_all: Vea todos nuestros transcripciones
       transparency:
         one: Datos sobre transparencia
         other: Datos sobre transparencia
+        see_all: Vea todos nuestros datos sobre transparencia
       worldwide_priority:
         one: Prioridad en todo el mundo
         other: Prioridades en todo el mundo
+        see_all: Vea todos nuestros prioridades en todo el mundo
       written_statement:
         one: Declaración escrita al Parlamento
         other: Declaraciones escritas al Parlamento
+        see_all: Vea todos nuestros declaraciones escritas al parlamento
     contents:
     footer_meta:
       full_page_history:

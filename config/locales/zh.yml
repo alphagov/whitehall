@@ -152,129 +152,171 @@ zh:
       announcement:
         one: 公告
         other: 公告
+        see_all: 查阅我们所有的公告
       authored_article:
         one: 撰写的文章
         other: 撰写的文章
+        see_all: 查阅我们所有的撰写的文章
       case_study:
         one: 实例研究
         other: 实例研究
+        see_all: 查阅我们所有的实例研究
       closed_consultation:
         one: 已办结的咨询
         other: 已办结的咨询
+        see_all: 查阅我们所有的已办结的咨询
       consultation:
         one: 咨询
         other: 咨询
+        see_all: 查阅我们所有的咨询
       consultation_outcome:
         one: 咨询结果
         other: 咨询结果
+        see_all: 查阅我们所有的咨询结果
       corporate_report:
         one: 政府报告
         other: 政府报告
+        see_all: 查阅我们所有的政府报告
       correspondence:
         one: 交流
         other: 交流
+        see_all: 查阅我们所有的交流
       detailed_guidance:
         one: 详细指导
         other: 详细指导
+        see_all: 查阅我们所有的详细指导
       document_collection:
         one: 系列
         other:
+        see_all:
       draft_text:
         one: 草拟稿件
         other: 草拟稿件
+        see_all: 查阅我们所有的草拟稿件
       fatality_notice:
         one: 死亡通告
         other: 死亡通告
+        see_all: 查阅我们所有的死亡通告
       foi_release:
         one: 资讯自由(FOI)信息发布
         other: 资讯自由(FOI)信息发布
+        see_all: 查阅我们所有的资讯自由(foi)信息发布
       form:
         one: 表格
         other: 表格
+        see_all: 查阅我们所有的表格
       government_response:
         one: 政府反应
         other: 政府反应
+        see_all: 查阅我们所有的政府反应
       guidance:
         one: 指导
         other: 指导
+        see_all: 查阅我们所有的指导
       impact_assessment:
         one: 影响评估
         other: 影响评估
+        see_all: 查阅我们所有的影响评估
       imported:
         one: 导入 - 正在等待的类型
         other: 导入 - 正在等待的类型
+        see_all: 查阅我们所有的导入 - 正在等待的类型
       independent_report:
         one: 独立报告
         other: 独立报告
+        see_all: 查阅我们所有的独立报告
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: 地图
         other: 地图
+        see_all: 查阅我们所有的地图
       national_statistics:
         one: 统计数据 - 国家数据
         other: 统计数据 - 国家数据
+        see_all: 查阅我们所有的统计数据 - 国家数据
       news_article:
         one: 新闻文章
         other: 新闻文章
+        see_all: 查阅我们所有的新闻文章
       news_story:
         one: 新闻报道
         other: 新闻报道
+        see_all: 查阅我们所有的新闻报道
       open_consultation:
         one: 公开咨询
         other: 公开咨询
+        see_all: 查阅我们所有的公开咨询
       oral_statement:
         one: 对议会的口头声明
         other: 对议会的口头声明
+        see_all: 查阅我们所有的对议会的口头声明
       policy:
         one: 政策
         other: 政策
+        see_all: 查阅我们所有的政策
       policy_paper:
         one: 政策文件
         other: 政策文件
+        see_all: 查阅我们所有的政策文件
       press_release:
         one: 新闻稿
         other: 新闻稿
+        see_all: 查阅我们所有的新闻稿
       promotional:
         one: 宣传材料
         other: 宣传材料
+        see_all: 查阅我们所有的宣传材料
       publication:
         one: 发布的报告
         other: 发布的报告
+        see_all: 查阅我们所有的发布的报告
       research:
         one: 研究及分析
         other: 研究及分析
+        see_all: 查阅我们所有的研究及分析
       speaking_notes:
         one: 演讲稿
         other: 演讲稿
+        see_all: 查阅我们所有的演讲稿
       speech:
         one: 演讲
         other: 演讲
+        see_all: 查阅我们所有的演讲
       statement_to_parliament:
         one: 对议会的声明
         other: 对议会的声明
+        see_all: 查阅我们所有的对议会的声明
       statistical_data_set:
         one: 统计数据集
         other: 统计数据集
+        see_all: 查阅我们所有的统计数据集
       statistics:
         one: 统计数据
         other: 统计数据
+        see_all: 查阅我们所有的统计数据
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: 副本
         other: 副本
+        see_all: 查阅我们所有的副本
       transparency:
         one: 透明化数据
         other: 透明化数据
+        see_all: 查阅我们所有的透明化数据
       worldwide_priority:
         one: 世界范围内的工作重点
         other: 世界范围内的工作重点
+        see_all: 查阅我们所有的世界范围内的工作重点
       written_statement:
         one: 对议会的书面声明
         other: 对议会的书面声明
+        see_all: 查阅我们所有的对议会的书面声明
     updated: 已更新
     view: 阅读'%{title}'
   document_filters:

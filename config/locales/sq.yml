@@ -38,129 +38,171 @@ sq:
       announcement:
         one: Lajmerim
         other: Lajmerime
+        see_all: Shiko te gjitha lajmerime
       authored_article:
         one: Artikull autori
         other: Artikuj autoresh
+        see_all: Shiko te gjitha artikuj autoresh
       case_study:
         one: Rast studimi
         other: Raste studimi
+        see_all: Shiko te gjitha raste studimi
       closed_consultation:
         one: Konsultim i mbyllur
         other: Konsultime te mbyllur
+        see_all: Shiko te gjitha konsultime te mbyllur
       consultation:
         one: Konsultim
         other: Konsultime
+        see_all: Shiko te gjitha konsultime
       consultation_outcome:
         one: Rezultati i konsultimit
         other: Rezultatet e konsultimit
+        see_all: Shiko te gjitha rezultatet e konsultimit
       corporate_report:
         one: Raport i organizates
         other: Raporte te organizates
+        see_all: Shiko te gjitha raporte te organizates
       correspondence:
         one: Korrespondence
         other: Korrespondencat
+        see_all: Shiko te gjitha korrespondencat
       detailed_guidance:
         one: Udhezim i detajuar
         other: Udhezim i detajuar
+        see_all: Shiko te gjitha udhezim i detajuar
       document_collection:
         one: Seri
         other:
+        see_all:
       draft_text:
         one: Draft tekst
         other: draft tekste
+        see_all: Shiko te gjitha draft tekste
       fatality_notice:
         one: njoftim fataliteti
         other: njoftime fataliteti
+        see_all: Shiko te gjitha njoftime fataliteti
       foi_release:
         one: Njoftim mbi Lirine e Informacionit
         other: Njoftime mbi Lirine e Informacionit
+        see_all: Shiko te gjitha njoftime mbi lirine e informacionit
       form:
         one: Forme
         other: Forma
+        see_all: Shiko te gjitha forma
       government_response:
         one: Reagim qeveritar
         other: Reagime qeveritare
+        see_all: Shiko te gjitha reagime qeveritare
       guidance:
         one: Udhezime
         other: Udhezime
+        see_all: Shiko te gjitha udhezime
       impact_assessment:
         one: Vleresim i ndikimit
         other: Vleresime te ndikimit
+        see_all: Shiko te gjitha vleresime te ndikimit
       imported:
         one: Importuar - tipi pritje
         other: Importuar - tipi pritje
+        see_all: Shiko te gjitha importuar - tipi pritje
       independent_report:
         one: Raport i pavarur
         other: Raporte te pavarur
+        see_all: Shiko te gjitha raporte te pavarur
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Harte
         other: Harta
+        see_all: Shiko te gjitha harta
       national_statistics:
         one: Statistika - statistika kombetare
         other: Statistika - statistika kombetare
+        see_all: Shiko te gjitha statistika - statistika kombetare
       news_article:
         one: Artikull lajm
         other: Artikuj lajme
+        see_all: Shiko te gjitha artikuj lajme
       news_story:
         one: Ngjarje
         other: Ngjarje
+        see_all: Shiko te gjitha ngjarje
       open_consultation:
         one: Konsultim i hapur
         other: Konsultime te hapur
+        see_all: Shiko te gjitha konsultime te hapur
       oral_statement:
         one: Deklarate per Parliamentin
         other: Deklarata per Parlamentin
+        see_all: Shiko te gjitha deklarata per parlamentin
       policy:
         one: Politike
         other: Politika
+        see_all: Shiko te gjitha politika
       policy_paper:
         one: dokument politikash
         other: dokumente politikash
+        see_all: Shiko te gjitha dokumente politikash
       press_release:
         one: Njoftim shtyp
         other: Njoftime shtypi
+        see_all: Shiko te gjitha njoftime shtypi
       promotional:
         one: Material promovues
         other: Material promovues
+        see_all: Shiko te gjitha material promovues
       publication:
         one: Publikim
         other: Publikime
+        see_all: Shiko te gjitha publikime
       research:
         one: kerkime dhe analiza
         other: kerkime dhe analiza
+        see_all: Shiko te gjitha kerkime dhe analiza
       speaking_notes:
         one: Pika fjalimi
         other: Pika fjalimi
+        see_all: Shiko te gjitha pika fjalimi
       speech:
         one: Fjalim
         other: Fjalime
+        see_all: Shiko te gjitha fjalime
       statement_to_parliament:
         one: Deklarate per Parliamentin
         other: Deklarata per Parlamentin
+        see_all: Shiko te gjitha deklarata per parlamentin
       statistical_data_set:
         one: Grup te dhenash statistikore
         other: Grupe te dhenash stasistikore
+        see_all: Shiko te gjitha grupe te dhenash stasistikore
       statistics:
         one: Statistika
         other: Statistika
+        see_all: Shiko te gjitha statistika
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Transkript
         other: Transkripte
+        see_all: Shiko te gjitha transkripte
       transparency:
         one: Te dhena per transparencen
         other: Te dhena per transparencen
+        see_all: Shiko te gjitha te dhena per transparencen
       worldwide_priority:
         one: Prioritet global
         other: Prioritete globale
+        see_all: Shiko te gjitha prioritete globale
       written_statement:
         one: Deklarate me shkrim per Parlamentin
         other: Deklarata me shkrim per Parlamentin
+        see_all: Shiko te gjitha deklarata me shkrim per parlamentin
     contents:
     footer_meta:
       full_page_history:

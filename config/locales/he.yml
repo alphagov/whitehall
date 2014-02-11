@@ -58,211 +58,253 @@ he:
         two:
         many:
         other: הודעות
+        see_all: ראה כל הודעות
       authored_article:
         one: מאמר מאושר
         two:
         many:
         other: מאמרים מאושרים
+        see_all: ראה כל מאמרים מאושרים
       case_study:
         one: מקרה בוחן
         two:
         many:
         other: מקרי בוחן
+        see_all: ראה כל מקרי בוחן
       closed_consultation:
         one: דיון סגור
         two:
         many:
         other: דיונים סגורים
+        see_all: ראה כל דיונים סגורים
       consultation:
         one: דיון
         two:
         many:
         other: דיונים
+        see_all: ראה כל דיונים
       consultation_outcome:
         one: תוצאות דיון
         two:
         many:
         other: תוצאות דיונים
+        see_all: ראה כל תוצאות דיונים
       corporate_report:
         one: דו"ח משותף
         two:
         many:
         other: דו"חות משותפים
+        see_all: ראה כל דו"חות משותפים
       correspondence:
         one: תכתובת
         two:
         many:
         other: תכתובות
+        see_all: ראה כל תכתובות
       detailed_guidance:
         one: מדריך מפורט
         two:
         many:
         other: מדריך מפורט
+        see_all: ראה כל מדריך מפורט
       document_collection:
         one: סדרות
         two:
         many:
         other:
+        see_all:
       draft_text:
         one: טיוטה
         two:
         many:
         other: טיוטות
+        see_all: ראה כל טיוטות
       fatality_notice:
         one: הודעת פטירה
         two:
         many:
         other: הודעות פטירה
+        see_all: ראה כל הודעות פטירה
       foi_release:
         one: פרסום חופש מידע
         two:
         many:
         other: פרסומי חופש מידע
+        see_all: ראה כל פרסומי חופש מידע
       form:
         one: טופס
         two:
         many:
         other: טפסים
+        see_all: ראה כל טפסים
       government_response:
         one: תגובה ממשלתית
         two:
         many:
         other: תגובות ממשלתיות
+        see_all: ראה כל תגובות ממשלתיות
       guidance:
         one: הדרכה
         two:
         many:
         other: הדרכה
+        see_all: ראה כל הדרכה
       impact_assessment:
         one: הערכת השפעה
         two:
         many:
         other: הערכת השפעות
+        see_all: ראה כל הערכת השפעות
       imported:
         one: יבוא- המתנה לסוג
         two:
         many:
         other: יבוא- המתנה לסוג
+        see_all: ראה כל יבוא- המתנה לסוג
       independent_report:
         one: דו"ח עצמאי
         two:
         many:
         other: דו"ות עצמאיים
+        see_all: ראה כל דו"ות עצמאיים
       international_treaty:
         one:
         two:
         many:
         other:
+        see_all:
       map:
         one: מפה
         two:
         many:
         other: מפות
+        see_all: ראה כל מפות
       national_statistics:
         one: סטטיסטיקות- סטטיסטיקה לאומית
         two:
         many:
         other: סטטיסטיקות- סטטסטיקה לאומית
+        see_all: ראה כל סטטיסטיקות- סטטסטיקה לאומית
       news_article:
         one: מאמר חדשות
         two:
         many:
         other: מאמרי חדשות
+        see_all: ראה כל מאמרי חדשות
       news_story:
         one: חדשות
         two:
         many:
         other: חדשות
+        see_all: ראה כל חדשות
       open_consultation:
         one: דיון פתוח
         two:
         many:
         other: דיון פתוח
+        see_all: ראה כל דיון פתוח
       oral_statement:
         one: הצהרה בעל פה לפרלמנט
         two:
         many:
         other: הצהרות בעל פה לפרלמנט
+        see_all: ראה כל הצהרות בעל פה לפרלמנט
       policy:
         one: מדיניות
         two:
         many:
         other: מדיניות
+        see_all: ראה כל מדיניות
       policy_paper:
         one: נייר מדיניות
         two:
         many:
         other: ניירות מדיניות
+        see_all: ראה כל ניירות מדיניות
       press_release:
         one: הודעה לעיתונות
         two:
         many:
         other: הודעות לעיתונות
+        see_all: ראה כל הודעות לעיתונות
       promotional:
         one: חומר פרסומי
         two:
         many:
         other: חומר פרסומי
+        see_all: ראה כל חומר פרסומי
       publication:
         one: פרסום
         two:
         many:
         other: פרסומים
+        see_all: ראה כל פרסומים
       research:
         one: מחקר וניתוח
         two:
         many:
         other: מחקר וניתוח
+        see_all: ראה כל מחקר וניתוח
       speaking_notes:
         one: נאומים
         two:
         many:
         other: נאומים
+        see_all: ראה כל נאומים
       speech:
         one: נאום
         two:
         many:
         other: נאומים
+        see_all: ראה כל נאומים
       statement_to_parliament:
         one: הצהרה לפרלמנט
         two:
         many:
         other: הצהרות לפרלמנט
+        see_all: ראה כל הצהרות לפרלמנט
       statistical_data_set:
         one: מידע סטטיסטי
         two:
         many:
         other: מידע סטטיסטי
+        see_all: ראה כל מידע סטטיסטי
       statistics:
         one: נתונים
         two:
         many:
         other: נתונים
+        see_all: ראה כל נתונים
       statutory_guidance:
         one:
         two:
         many:
         other:
+        see_all:
       transcript:
         one: תמלול
         two:
         many:
         other: תמלולים
+        see_all: ראה כל תמלולים
       transparency:
         one: שקיפות מידע
         two:
         many:
         other: שקיפות מידע
+        see_all: ראה כל שקיפות מידע
       worldwide_priority:
         one: עדיפות גלובאלית
         two:
         many:
         other: עדיפות גלובאלית
+        see_all: ראה כל עדיפות גלובאלית
       written_statement:
         one: הצהרה בכתב לפרלמנט
         two:
         many:
         other: הצהרות בכתב לפרלמנט
+        see_all: ראה כל הצהרות בכתב לפרלמנט
     contents:
     footer_meta:
       full_page_history:

@@ -38,129 +38,171 @@ ur:
       announcement:
         one: اعلان
         other: اعلانات
+        see_all: تما م دیکھئیے اعلانات
       authored_article:
         one: تحریر کردہ مضمون
         other: تحریر کردہ مضامین
+        see_all: تما م دیکھئیے تحریر کردہ مضامین
       case_study:
         one: کیس اسٹڈی
         other: کیس اسٹڈیز
+        see_all: تما م دیکھئیے کیس اسٹڈیز
       closed_consultation:
         one: مشاورت ختم
         other: ' مشاورت ختم'
+        see_all: تما م دیکھئیے  مشاورت ختم
       consultation:
         one: مشاورت
         other: مشاورت
+        see_all: تما م دیکھئیے مشاورت
       consultation_outcome:
         one: مشاورت کا نتیجہ
         other: مشاورت کے نتائج
+        see_all: تما م دیکھئیے مشاورت کے نتائج
       corporate_report:
         one: کارپوریٹ رپورٹ
         other: کارپوریٹ رپورٹس
+        see_all: تما م دیکھئیے کارپوریٹ رپورٹس
       correspondence:
         one: مراسلت
         other: مراسلات
+        see_all: تما م دیکھئیے مراسلات
       detailed_guidance:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
+        see_all: تما م دیکھئیے مفصل رہنمائی
       document_collection:
         one: سلسلہ
         other:
+        see_all:
       draft_text:
         one: ڈرافٹ متن
         other: ڈرافٹ متن
+        see_all: تما م دیکھئیے ڈرافٹ متن
       fatality_notice:
         one: وفات کی اطلاع
         other: وفات کی اطلاعات
+        see_all: تما م دیکھئیے وفات کی اطلاعات
       foi_release:
         one: آزادئی معلومات کی اشاعت
         other: آزادئی معلومات کی اشاعت
+        see_all: تما م دیکھئیے آزادئی معلومات کی اشاعت
       form:
         one: فارم
         other: فارمز
+        see_all: تما م دیکھئیے فارمز
       government_response:
         one: حکومتی جوابی اقدام
         other: حکومتی جوابی اقدامات
+        see_all: تما م دیکھئیے حکومتی جوابی اقدامات
       guidance:
         one: رہنمائی
         other: رہنمائی
+        see_all: تما م دیکھئیے رہنمائی
       impact_assessment:
         one: اثرات کا تجزیہ
         other: اثرات کے تجزیے
+        see_all: تما م دیکھئیے اثرات کے تجزیے
       imported:
         one: امپورٹڈ- نوع کا انتظار
         other: امپورٹڈ- نوع کا انتظار
+        see_all: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
       independent_report:
         one: غیر جانبدار رپورٹ
         other: غیر جانبداررپورٹس
+        see_all: تما م دیکھئیے غیر جانبداررپورٹس
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: نقشہ
         other: نقشے
+        see_all: تما م دیکھئیے نقشے
       national_statistics:
         one: شماریات- قومی اعدادوشمار
         other: شماریات- قومی اعدادوشمار
+        see_all: تما م دیکھئیے شماریات- قومی اعدادوشمار
       news_article:
         one: نیوزآرٹیکل
         other: نیوزآرٹیکلز
+        see_all: تما م دیکھئیے نیوزآرٹیکلز
       news_story:
         one: نیوز اسٹوری
         other: نیوزاسٹوریز
+        see_all: تما م دیکھئیے نیوزاسٹوریز
       open_consultation:
         one: جاری مشاورت
         other: جاری مشاورت
+        see_all: تما م دیکھئیے جاری مشاورت
       oral_statement:
         one: پارلیمنٹ میں زبانی بیان
         other: پارلیمنٹ میں زبانی بیانات
+        see_all: تما م دیکھئیے پارلیمنٹ میں زبانی بیانات
       policy:
         one: پالیسی
         other: پالیسیاں
+        see_all: تما م دیکھئیے پالیسیاں
       policy_paper:
         one: پالیسی پیپر
         other: پالیسی پیپرز
+        see_all: تما م دیکھئیے پالیسی پیپرز
       press_release:
         one: پریس ریلیز
         other: پریس ریلیزز
+        see_all: تما م دیکھئیے پریس ریلیزز
       promotional:
         one: تشہیری مواد
         other: تشہیری مواد
+        see_all: تما م دیکھئیے تشہیری مواد
       publication:
         one: مطبوعہ
         other: مطبوعات
+        see_all: تما م دیکھئیے مطبوعات
       research:
         one: تحقیق وتجزیہ
         other: تحقیق وتجزیہ
+        see_all: تما م دیکھئیے تحقیق وتجزیہ
       speaking_notes:
         one: تقریری نوٹ
         other: تقریری نوٹ
+        see_all: تما م دیکھئیے تقریری نوٹ
       speech:
         one: تقریر
         other: تقاریر
+        see_all: تما م دیکھئیے تقاریر
       statement_to_parliament:
         one: پارلیمنٹ میں بیان
         other: پارلیمنٹ میں بیانات
+        see_all: تما م دیکھئیے پارلیمنٹ میں بیانات
       statistical_data_set:
         one: شماریاتی ڈیٹا سیٹ
         other: ' شماریاتی ڈیٹا سیٹس'
+        see_all: تما م دیکھئیے  شماریاتی ڈیٹا سیٹس
       statistics:
         one: اعدادوشمار
         other: اعدادو شمار
+        see_all: تما م دیکھئیے اعدادو شمار
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: ٹرانسکرپٹ
         other: ٹرانسکرپٹس
+        see_all: تما م دیکھئیے ٹرانسکرپٹس
       transparency:
         one: ٹرانسپیرنسی ڈیٹا
         other: ٹرانسپیرنسی ڈیٹا
+        see_all: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
       worldwide_priority:
         one: عالمی ترجیح
         other: عالمی ترجیحات
+        see_all: تما م دیکھئیے عالمی ترجیحات
       written_statement:
         one: پارلیمنٹ میں تحریری بیان
         other: پارلیمنٹ میں تحریری بیانات
+        see_all: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
     contents:
     footer_meta:
       full_page_history:

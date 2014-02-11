@@ -140,129 +140,170 @@ en:
       announcement:
         one: Announcement
         other: Announcements
+        see_all: See all our announcements
       case_study:
         one: Case study
         other: Case studies
+        see_all: See all our case studies
       closed_consultation:
         one: Closed consultation
         other: Closed consultations
+        see_all: See all our closed consultations
       consultation:
         one: Consultation
         other: Consultations
+        see_all: See all our consultations
       consultation_outcome:
         one: Consultation outcome
         other: Consultation outcomes
+        see_all: See all our consultation outcomes
       corporate_report:
         one: Corporate report
         other: Corporate reports
+        see_all: See all our corporate reports
       correspondence:
         one: Correspondence
         other: Correspondences
+        see_all: See all our correspondences
       detailed_guidance:
         one: Detailed guidance
         other: Detailed guidance
+        see_all: See all our detailed guidance
       document_collection:
         one: Collection
         other: Collections
+        see_all: See all our collections
       draft_text:
         one: Draft text
         other: Draft texts
+        see_all: See all our draft texts
       fatality_notice:
         one: Fatality notice
         other: Fatality notices
+        see_all: See all our fatality notices
       foi_release:
         one: FOI release
         other: FOI releases
+        see_all: See all our FOI releases
       form:
         one: Form
         other: Forms
+        see_all: See all our forms
       guidance:
         one: Guidance
         other: Guidance
+        see_all: See all our guidance
       statutory_guidance:
         one: Statutory guidance
         other: Statutory guidance
+        see_all: See all our statutory guidance
       impact_assessment:
         one: Impact assessment
         other: Impact assessments
+        see_all: See all our impact assessments
       imported:
         one: imported - awaiting type
         other: imported - awaiting type
       independent_report:
         one: Independent report
         other: Independent reports
+        see_all: See all our independent reports
       international_treaty:
         one: International treaty
         other: International treaties
+        see_all: See all our international treaties
       map:
         one: Map
         other: Maps
+        see_all: See all our maps
       worldwide_priority:
         one: World priority
         other: World priorities
+        see_all: See all our world priorities
       national_statistics:
         one: Statistics - national statistics
         other: Statistics - national statistics
+        see_all: See all our national statistics
       news_article:
         one: News article
         other: News articles
+        see_all: See all our news articles
       news_story:
         one: News story
         other: News stories
+        see_all: See all our news stories
       open_consultation:
         one: Open consultation
         other: Open consultations
+        see_all: See all our open consultations
       oral_statement:
         one: Oral statement to Parliament
         other: Oral statements to Parliament
+        see_all: See all our oral statements to Parliament
       policy:
         one: Policy
         other: Policies
+        see_all: See all our policies
       policy_paper:
         one: Policy paper
         other: Policy papers
+        see_all: See all our policy papers
       press_release:
         one: Press release
         other: Press releases
+        see_all: See all our press releases
       promotional:
         one: Promotional material
         other: Promotional material
+        see_all: See all our promotional material
       publication:
         one: Publication
         other: Publications
+        see_all: See all our publications
       government_response:
         one: Government response
         other: Government responses
+        see_all: See all our government responses
       research:
         one: Research and analysis
         other: Research and analysis
+        see_all: See all our research and analysis
       speaking_notes:
         one: Speaking notes
         other: Speaking notes
+        see_all: See all our speaking notes
       speech:
         one: Speech
         other: Speeches
+        see_all: See all our speeches
       statement_to_parliament:
         one: Statement to Parliament
         other: Statements to Parliament
+        see_all: See all our statements to Parliament
       statistical_data_set:
         one: Statistical data set
         other: Statistical data sets
+        see_all: See all our statistical data sets
       statistics:
         one: Statistics
         other: Statistics
+        see_all: See all our statistics
       transcript:
         one: Transcript
         other: Transcripts
+        see_all: See all our transcripts
       transparency:
         one: Transparency data
         other: Transparency data
+        see_all: See all our transparency data
       written_statement:
         one: Written statement to Parliament
         other: Written statements to Parliament
+        see_all: See all our written statements to Parliament
       authored_article:
         one: Authored article
         other: Authored articles
+        see_all: See all our authored articles
     updated: updated
     view: View '%{title}'
     read: Read the %{title} article

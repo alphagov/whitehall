@@ -38,129 +38,171 @@ lv:
       announcement:
         one: Paziņojums
         other: Paziņojumi
+        see_all: Skatīt visas paziņojumi
       authored_article:
         one: Autora raksts
         other: Autora raksti
+        see_all: Skatīt visas autora raksti
       case_study:
         one: Piemērs
         other: Piemēri
+        see_all: Skatīt visas piemēri
       closed_consultation:
         one: Slēgta tipa konsultācija
         other: Slēgta tipa konsultācijas
+        see_all: Skatīt visas slēgta tipa konsultācijas
       consultation:
         one: Konsultēšana
         other: Konsultācijas
+        see_all: Skatīt visas konsultācijas
       consultation_outcome:
         one: Konsultāciju rezultāts
         other: Konsultāciju rezultāti
+        see_all: Skatīt visas konsultāciju rezultāti
       corporate_report:
         one: Korporatīvais ziņojums
         other: Korporatīvie ziņojumi
+        see_all: Skatīt visas korporatīvie ziņojumi
       correspondence:
         one: Sarakste
         other: Sarakstes
+        see_all: Skatīt visas sarakstes
       detailed_guidance:
         one: Detalizētas norādes
         other: Detalizētas norādes
+        see_all: Skatīt visas detalizētas norādes
       document_collection:
         one: Sērija
         other:
+        see_all:
       draft_text:
         one: Teksta uzmetums
         other: Teksta uzmetumi
+        see_all: Skatīt visas teksta uzmetumi
       fatality_notice:
         one: Nāves paziņojums
         other: Nāves paziņojumi
+        see_all: Skatīt visas nāves paziņojumi
       foi_release:
         one: Informācijas atklātības datu publicēšana
         other: Informācijas atklātības datu publicēšana
+        see_all: Skatīt visas informācijas atklātības datu publicēšana
       form:
         one: Forma
         other: Formas
+        see_all: Skatīt visas formas
       government_response:
         one: Valdības atbilde
         other: Valdības atbildes
+        see_all: Skatīt visas valdības atbildes
       guidance:
         one: Norādes
         other: Norādes
+        see_all: Skatīt visas norādes
       impact_assessment:
         one: Ietekmes novērtējums
         other: Ietekmes novērtējumi
+        see_all: Skatīt visas ietekmes novērtējumi
       imported:
         one: importēts-gaidīšanas režīmā
         other: importēts-gaidīšanas režīmā
+        see_all: Skatīt visas importēts-gaidīšanas režīmā
       independent_report:
         one: Neatkarīgs ziņojums
         other: Neatkarīgi ziņojumi
+        see_all: Skatīt visas neatkarīgi ziņojumi
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Karte
         other: Kartes
+        see_all: Skatīt visas kartes
       national_statistics:
         one: Statistika - valsts dati
         other: Statistika - valsts dati
+        see_all: Skatīt visas statistika - valsts dati
       news_article:
         one: Raksts
         other: Raksti
+        see_all: Skatīt visas raksti
       news_story:
         one: Ziņa
         other: Ziņas
+        see_all: Skatīt visas ziņas
       open_consultation:
         one: Atklāta konsultācija
         other: Atklātas konsultācijas
+        see_all: Skatīt visas atklātas konsultācijas
       oral_statement:
         one: Mutisks paziņojums parlamentam
         other: Mutiski paziņojumi parlamentam
+        see_all: Skatīt visas mutiski paziņojumi parlamentam
       policy:
         one: Darbības joma
         other: Darbības jomas
+        see_all: Skatīt visas darbības jomas
       policy_paper:
         one: Politikas dokuments
         other: Politikas dokumenti
+        see_all: Skatīt visas politikas dokumenti
       press_release:
         one: Paziņojums presei
         other: Paziņojumi presei
+        see_all: Skatīt visas paziņojumi presei
       promotional:
         one: Reklāmas materiāls
         other: Reklāmas materiāli
+        see_all: Skatīt visas reklāmas materiāli
       publication:
         one: Publikācija
         other: Publikācijas
+        see_all: Skatīt visas publikācijas
       research:
         one: Izpēte un analīze
         other: Izpēte un analīze
+        see_all: Skatīt visas izpēte un analīze
       speaking_notes:
         one: Runas piezīmes
         other: Runas piezīmes
+        see_all: Skatīt visas runas piezīmes
       speech:
         one: Runa
         other: Runas
+        see_all: Skatīt visas runas
       statement_to_parliament:
         one: Ziņojums parlamentam
         other: Ziņojumi parlamentam
+        see_all: Skatīt visas ziņojumi parlamentam
       statistical_data_set:
         one: Statistiskas datu kopums
         other: Statistikas datu kopumi
+        see_all: Skatīt visas statistikas datu kopumi
       statistics:
         one: Statistika
         other: Statistika
+        see_all: Skatīt visas statistika
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Noraksts
         other: Noraksti
+        see_all: Skatīt visas noraksti
       transparency:
         one: Atklātības dati
         other: Atklātības dati
+        see_all: Skatīt visas atklātības dati
       worldwide_priority:
         one: Pasaules mēroga prioritāte
         other: Pasaules mēroga prioritātes
+        see_all: Skatīt visas pasaules mēroga prioritātes
       written_statement:
         one: Rakstisks ziņojums parlamentam
         other: Rakstiski ziņojumi parlamentam
+        see_all: Skatīt visas rakstiski ziņojumi parlamentam
     contents:
     footer_meta:
       full_page_history:

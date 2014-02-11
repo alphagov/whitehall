@@ -38,129 +38,171 @@ uz:
       announcement:
         one: E'lon
         other: E'lonlar
+        see_all: Bizning butun e'lonlar ko'ring
       authored_article:
         one: Muallif maqolasi
         other: Muallif maqolalari
+        see_all: Bizning butun muallif maqolalari ko'ring
       case_study:
         one: Holat o'rganilishi
         other: Holat o'rganilishlari
+        see_all: Bizning butun holat o'rganilishlari ko'ring
       closed_consultation:
         one: Yopiq fikr almashish
         other: Yopiq fikr almashishlar
+        see_all: Bizning butun yopiq fikr almashishlar ko'ring
       consultation:
         one: Fikr almashish
         other: Fikr almashishlar
+        see_all: Bizning butun fikr almashishlar ko'ring
       consultation_outcome:
         one: Fikr almashish natijasi
         other: Fikr almashish natijalari
+        see_all: Bizning butun fikr almashish natijalari ko'ring
       corporate_report:
         one: Korporativ hisobot
         other: Korporativ hisobotlar
+        see_all: Bizning butun korporativ hisobotlar ko'ring
       correspondence:
         one: Muvofiqlik
         other: Muvofiqliklar
+        see_all: Bizning butun muvofiqliklar ko'ring
       detailed_guidance:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
+        see_all: Bizning butun batafsil ko'mak ko'ring
       document_collection:
         one: Bir talay
         other:
+        see_all:
       draft_text:
         one: Matn loyihasi
         other: Matn loyihalari
+        see_all: Bizning butun matn loyihalari ko'ring
       fatality_notice:
         one: Falokat haqida e'lon
         other: Falokat haqida e'lonlar
+        see_all: Bizning butun falokat haqida e'lonlar ko'ring
       foi_release:
         one: So'z erkinligiga bag'ishlangan nashr
         other: So'z erkinligiga bag'ishlangan nashrlar
+        see_all: Bizning butun so'z erkinligiga bag'ishlangan nashrlar ko'ring
       form:
         one: Anketa
         other: Anketalar
+        see_all: Bizning butun anketalar ko'ring
       government_response:
         one: Hukumat javobi
         other: Hukumat javoblari
+        see_all: Bizning butun hukumat javoblari ko'ring
       guidance:
         one: Rahbarlik
         other: Rahbarlik
+        see_all: Bizning butun rahbarlik ko'ring
       impact_assessment:
         one: Ta'sir etuvchi omillar tahlili
         other: Ta'sir etuvchi omillar tahlillari
+        see_all: Bizning butun ta'sir etuvchi omillar tahlillari ko'ring
       imported:
         one: 'yuklandi - kutilmoqda '
         other: 'yuklandi - kutilmoqda '
+        see_all: Bizning butun yuklandi - kutilmoqda  ko'ring
       independent_report:
         one: Mustaqil hisobot
         other: Mustaqil hisobotlar
+        see_all: Bizning butun mustaqil hisobotlar ko'ring
       international_treaty:
         one:
         other:
+        see_all:
       map:
         one: Xarita
         other: Xaritalar
+        see_all: Bizning butun xaritalar ko'ring
       national_statistics:
         one: Statistika - milliy statistika
         other: Statistika - milliy statistika
+        see_all: Bizning butun statistika - milliy statistika ko'ring
       news_article:
         one: Yangi maqola
         other: Yangi maqolalar
+        see_all: Bizning butun yangi maqolalar ko'ring
       news_story:
         one: Yangilik
         other: Yangiliklar
+        see_all: Bizning butun yangiliklar ko'ring
       open_consultation:
         one: Ochiq fikr almashish
         other: Ochiq fikr almashishlar
+        see_all: Bizning butun ochiq fikr almashishlar ko'ring
       oral_statement:
         one: Parlament uchun og'zaki bayonot
         other: Parlament uchun og'zaki bayonotlar
+        see_all: Bizning butun parlament uchun og'zaki bayonotlar ko'ring
       policy:
         one: Dastur
         other: Dasturlar
+        see_all: Bizning butun dasturlar ko'ring
       policy_paper:
         one: Dasturga oid hujjat
         other: Dasturga oid hujjatlar
+        see_all: Bizning butun dasturga oid hujjatlar ko'ring
       press_release:
         one: Press reliz
         other: Press relizlar
+        see_all: Bizning butun press relizlar ko'ring
       promotional:
         one: Reklama uchun manbalar
         other: Reklama uchun manbalar
+        see_all: Bizning butun reklama uchun manbalar ko'ring
       publication:
         one: Nashr
         other: Nashrlar
+        see_all: Bizning butun nashrlar ko'ring
       research:
         one: Tadqiqot va tahlilllar
         other: Tadqiqot va tahlilllar
+        see_all: Bizning butun tadqiqot va tahlilllar ko'ring
       speaking_notes:
         one: Nutq qaydlari
         other: Nutq qaydlari
+        see_all: Bizning butun nutq qaydlari ko'ring
       speech:
         one: Nutq
         other: Nutqlar
+        see_all: Bizning butun nutqlar ko'ring
       statement_to_parliament:
         one: Parlament uchun hisobot
         other: Parlament uchun hisobotlar
+        see_all: Bizning butun parlament uchun hisobotlar ko'ring
       statistical_data_set:
         one: Statistika ma'lumot to'plami
         other: Statistika ma'lumot to'plamlari
+        see_all: Bizning butun statistika ma'lumot to'plamlari ko'ring
       statistics:
         one: Statistika
         other: Statistika
+        see_all: Bizning butun statistika ko'ring
       statutory_guidance:
         one:
         other:
+        see_all:
       transcript:
         one: Matn
         other: Matnlar
+        see_all: Bizning butun matnlar ko'ring
       transparency:
         one: Ochiqlikka oid ma'lumotlar
         other: Ochiqlikka oid ma'lumotlar
+        see_all: Bizning butun ochiqlikka oid ma'lumotlar ko'ring
       worldwide_priority:
         one: Dunyoviy prioritet
         other: Dunyoviy prioritetlar
+        see_all: Bizning butun dunyoviy prioritetlar ko'ring
       written_statement:
         one: Parlament uchun yozma hisobot
         other: Parlament uchun yozma hisobotlar
+        see_all: Bizning butun parlament uchun yozma hisobotlar ko'ring
     contents:
     footer_meta:
       full_page_history:
