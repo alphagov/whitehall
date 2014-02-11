@@ -5,11 +5,11 @@
   width: $full-width;
 
   li {
-    @include ig-core-27;
+    @include core-27;
     display: block;
     padding: 0;
     margin: 0;
-    width: 45%;
+    width: 50%;
     float: left;
 
     &.next {
@@ -17,7 +17,7 @@
       text-align: right;
 
       a {
-        padding: $gutter-half $gutter-half+30px $gutter-half 0;
+        padding: $gutter-half $gutter+5px $gutter-half 0;
       }
       a:before {
         background: transparent image-url("arrow-sprite-2B8CC4.png") no-repeat -102px -11px;
@@ -31,7 +31,7 @@
     }
     &.previous {
       a {
-          padding: $gutter-half 0 $gutter-half $gutter-half+30px;
+          padding: $gutter-half 0 $gutter-half $gutter+5px;
       }
       a:before {
         background: transparent image-url("arrow-sprite-2B8CC4.png") no-repeat -20px -11px;
@@ -63,19 +63,12 @@
         background: $grey-3;
       }
     }
-    @media (max-width: 768px) {
-      width: $full-width;
-      float: none;
-      &.next {
-        float: none;
-        a {
-          padding: $gutter-half $gutter-half+$gutter;
-        }
-      }
-      &.previous {
-        a {
-          padding: $gutter-half 0 $gutter-half $gutter-half+$gutter;
-        }
+
+    @include media(tablet) {
+      .visuallyhidden {
+        @include core-27;
+        display: inline-block;
+        position: static;
       }
     }
   }

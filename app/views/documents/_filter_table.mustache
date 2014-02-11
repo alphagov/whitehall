@@ -25,12 +25,12 @@
       <ul class="previous-next-navigation">
         {{#prev_page?}}
           <li class="previous">
-            <a href="{{prev_page_url}}">Previous page <span>{{prev_page}} of {{total_pages}}</span></a>
+            <a href="{{prev_page_url}}">Previous <span class="visuallyhidden">page</span> <span>{{prev_page}} of {{total_pages}}</span></a>
           </li>
         {{/prev_page?}}
         {{#next_page?}}
           <li class="next">
-            <a href="{{next_page_url}}">Next page <span>{{next_page}} of {{total_pages}}</span></a>
+            <a href="{{next_page_url}}">Next <span class="visuallyhidden">page</span> <span>{{next_page}} of {{total_pages}}</span></a>
           </li>
         {{/next_page?}}
       </ul>
