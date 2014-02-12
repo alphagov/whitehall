@@ -35,6 +35,10 @@ class EmailSignup
   end
   alias_method :to_s, :description
 
+  def valid?
+    super && feed_url_validator.valid?
+  end
+
   def persisted?
     false
   end

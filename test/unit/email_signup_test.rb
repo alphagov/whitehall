@@ -26,6 +26,12 @@ class EmailSignupTest < ActiveSupport::TestCase
     refute EmailSignup.new.save
   end
 
+  test "#save does not create a GovDelivery topic if the feed is invalid" do
+    Whitehall.govuk_delivery_client.expects(:topic).never
+
+    refute EmailSignup.new(feed: 'http://fake/feed').save
+  end
+
   test "#govdelivery_url delegates to the govuk_delivery_client" do
     Whitehall.govuk_delivery_client.expects(:signup_url).with(feed_url)
 
