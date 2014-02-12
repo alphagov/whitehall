@@ -11,10 +11,11 @@ class EmailSignup
     @feed = local_government ? add_local_government(attributes[:feed]) : attributes[:feed]
   end
 
-  def self.create(*args)
-    signup = new(*args)
-    signup.ensure_govdelivery_topic_exists if signup.valid?
-    signup
+  def save
+    if valid?
+      ensure_govdelivery_topic_exists
+      true
+    end
   end
 
   def local_government

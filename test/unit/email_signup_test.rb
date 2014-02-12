@@ -12,19 +12,18 @@ class EmailSignupTest < ActiveSupport::TestCase
                  email_signup("publications.atom?departments[]=all", true).feed
   end
 
-  test ".create ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
-    signup_description = 'Example Description'
-    EmailSignup.any_instance.stubs(description: signup_description)
+  test "#save ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
+    email_signup = EmailSignup.new(feed: feed_url)
 
-    Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, signup_description)
+    Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, email_signup.description)
 
-    EmailSignup.create(feed: feed_url)
+    assert email_signup.save
   end
 
-  test ".create does not create a GovDelivery topic if the feed is missing" do
+  test "#save does not create a GovDelivery topic if the feed is missing" do
     Whitehall.govuk_delivery_client.expects(:topic).never
 
-    EmailSignup.create
+    refute EmailSignup.new.save
   end
 
   test "#govdelivery_url delegates to the govuk_delivery_client" do
