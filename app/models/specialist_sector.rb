@@ -1,7 +1,7 @@
 class SpecialistSector < ActiveRecord::Base
   belongs_to :edition
 
-  validates :edition_id, presence: true
+  validates :edition, presence: true
   validates :tag, presence: true, uniqueness: { scope: :edition_id }
 
   def self.options_for_select

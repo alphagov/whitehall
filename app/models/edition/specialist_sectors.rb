@@ -11,7 +11,9 @@ module Edition::SpecialistSectors
 
   def specialist_sector_tags=(sector_tags)
     self.specialist_sectors = Array(sector_tags).reject(&:blank?).map do |tag|
-      self.specialist_sectors.where(tag: tag).first_or_initialize
+      self.specialist_sectors.where(tag: tag).first_or_initialize.tap do |sector|
+        sector.edition = self
+      end
     end
   end
 end
