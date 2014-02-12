@@ -36,7 +36,6 @@
   }
   .heading-big {
     @extend .heading;
-    padding: $gutter 0;
 
     h1 {
       @include core-48;
