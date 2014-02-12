@@ -22,7 +22,7 @@ module Whitehall
       end
 
       def feed_params
-        @feed_params ||= Rack::Utils.parse_nested_query(uri.query).symbolize_keys
+        @feed_params ||= Rack::Utils.parse_nested_query(uri.query)
       end
 
       def filtered_documents_feed?
@@ -47,9 +47,9 @@ module Whitehall
 
       def filter_parameters_are_valid?
         if filtered_documents_feed?
-          filter_options_describer.valid_keys?(feed_params.keys.map(&:to_s))
+          filter_options_describer.valid_keys?(feed_params.keys)
         else
-          feed_params.except(:relevant_to_local_government).none?
+          feed_params.except('relevant_to_local_government').none?
         end
       end
 
@@ -89,10 +89,10 @@ module Whitehall
       end
 
       def leading_fragment
-        if feed_params[:publication_filter_option].present?
-          fragment_for_filter_option(:publication_filter_option).downcase
-        elsif feed_params[:announcement_filter_option].present?
-          fragment_for_filter_option(:announcement_filter_option).downcase
+        if feed_params['publication_filter_option'].present?
+          fragment_for_filter_option('publication_filter_option').downcase
+        elsif feed_params['announcement_filter_option'].present?
+          fragment_for_filter_option('announcement_filter_option').downcase
         elsif ['documents', 'publications', 'announcements'].include? feed_type
           feed_type
         else
@@ -101,7 +101,7 @@ module Whitehall
       end
 
       def parameter_fragments
-        listable_params = feed_params.except(:publication_filter_option, :announcement_filter_option, :official_document_status, :relevant_to_local_government)
+        listable_params = feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status relevant_to_local_government))
         if listable_params.any?
           "related to " + (listable_params.map { |param_key, _|
             fragment_for_filter_option(param_key)
@@ -112,8 +112,8 @@ module Whitehall
       end
 
       def command_and_act_fragment
-        if feed_params[:official_document_status].present?
-          case feed_params[:official_document_status]
+        if feed_params['official_document_status'].present?
+          case feed_params['official_document_status']
           when "command_and_act_papers"
             "which are command or act papers"
           when "command_papers_only"
@@ -125,8 +125,8 @@ module Whitehall
       end
 
       def relevant_to_local_government_fragment
-        relevant_to_local_government = feed_params[:relevant_to_local_government] && feed_params[:relevant_to_local_government] != "0"
-        if relevant_to_local_government && feed_params[:official_document_status].present?
+        relevant_to_local_government = feed_params['relevant_to_local_government'] && feed_params['relevant_to_local_government'] != "0"
+        if relevant_to_local_government && feed_params['official_document_status'].present?
           "and are relevant to local government"
         elsif relevant_to_local_government
           "which are relevant to local government"
@@ -142,7 +142,7 @@ module Whitehall
       def labels_for_filter_option(param_key)
         param_values = Array(feed_params[param_key])
         param_values.map { |value|
-          filter_options_describer.label_for(param_key.to_s, value)
+          filter_options_describer.label_for(param_key, value)
         }
       end
 

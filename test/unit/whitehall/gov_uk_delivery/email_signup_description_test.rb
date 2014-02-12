@@ -176,7 +176,7 @@ class Whitehall::GovUkDelivery::EmailSignupDescriptionTest < ActiveSupport::Test
     assert_equal "publications which are relevant to local government", validator.text
   end
 
-  test 'appends "which are command papers and are relevant to local government" when relevant_to_local_government is truthy and official_document_status is present' do
+  test 'appends which are command papers and are relevant to local government when relevant_to_local_government is truthy and official_document_status is present' do
     feed_url = feed_url_for(document_type: "publications", official_document_status: "command_papers_only", relevant_to_local_government: '1')
     validator = EmailSignupDescription.new(feed_url)
 
