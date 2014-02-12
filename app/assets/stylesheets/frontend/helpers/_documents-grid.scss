@@ -48,7 +48,7 @@
       clear: both;
     }
 
-    @include media(desktop){
+    @include media(tablet) {
       width: $half;
       float: left;
       @include right-to-left {
