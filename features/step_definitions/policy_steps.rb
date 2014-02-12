@@ -19,6 +19,10 @@ Given /^a published policy "([^"]*)"$/ do |title|
   @policy = create(:published_policy, title: title)
 end
 
+Given /^a published policy "([^"]*)" relevant to local government$/ do |title|
+  @policy = create(:published_policy, title: title, relevant_to_local_government: true)
+end
+
 Given /^I visit the list of draft policies$/ do
   visit admin_editions_path(state: :draft)
 end

@@ -2,14 +2,13 @@ Feature: Email signup for world locations
 
   Background:
     Given I am a GDS editor
+    And govuk delivery exists
     And a world location "Best City" exists
-    And a world location "Irrelevantland" exists
 
-  Scenario: Signing up to role alerts
+  Scenario: Signing up to world location alerts
     Given I view the world location "Best City"
-    Then a govuk_delivery signup should be sent for the feed subscription URL
-    And a govuk_delivery notification should be sent for the feed subscription URL
-    And a govuk_delivery notification should be sent for anything other than the feed subscription URL
     When I sign up for emails
-    And I publish a world location news article "More news" for "Best City"
-    And I publish a world location news article "Irrelevant news" for "Irrelevantland"
+    Then I should be signed up for the "Best City" world location mailing list
+
+    When I publish a world location news article "More news" for "Best City"
+    Then a govuk_delivery notification should have been sent to the mailing list I signed up for
