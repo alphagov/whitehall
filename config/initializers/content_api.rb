@@ -4,6 +4,10 @@ class GdsApi::ContentApi::Fake
   def tag(tag)
     {}
   end
+
+  def tags(tag_type)
+    []
+  end
 end
 
 if endpoint_url = ENV["CONTENT_API_ENDPOINT_URL"]
