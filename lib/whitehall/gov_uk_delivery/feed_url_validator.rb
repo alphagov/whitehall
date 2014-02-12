@@ -10,15 +10,17 @@ module Whitehall
       def initialize(feed_url)
         @feed_url = feed_url
         @filter_options_describer = DocumentFilter::Options.new
-        parse_feed_url
+        parse_feed_url if recognised_url?
       end
 
       def description
-        [leading_fragment, parameter_fragments, command_and_act_fragment, relevant_to_local_government_fragment].compact.join " "
+        if valid?
+          [leading_fragment, parameter_fragments, command_and_act_fragment, relevant_to_local_government_fragment].compact.join " "
+        end
       end
 
       def valid?
-        valid_host_and_protocol? && recognised_path? && resource_exists? && filter_parameters_are_valid?
+        recognised_url? && resource_exists? && filter_parameters_are_valid?
       end
 
       def feed_params
@@ -33,6 +35,10 @@ module Whitehall
 
       def valid_host_and_protocol?
         uri.host == Whitehall.public_host && uri.scheme == Whitehall.public_protocol
+      end
+
+      def recognised_url?
+        valid_host_and_protocol? && recognised_path?
       end
 
       def recognised_path?

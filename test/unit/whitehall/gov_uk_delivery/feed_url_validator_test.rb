@@ -126,7 +126,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
   end
 
   test 'does not validate a feed url for another host' do
-    refute FeedUrlValidator.new('http://somewhere-else.com//publications.atom').valid?
+    refute FeedUrlValidator.new('http://somewhere-else.com/publications.atom').valid?
   end
 
   test 'does not validate a feed url with an incorrect protocol' do
@@ -166,6 +166,10 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     validator  = FeedUrlValidator.new(feed_url)
 
     refute validator.valid?
+  end
+
+  test '#description does not fall over when the feed is bad' do
+    assert_nil FeedUrlValidator.new('http://bad/feed').description
   end
 
   test 'appends "which are relevant to local government" when relevant_to_local_government is truthy' do
