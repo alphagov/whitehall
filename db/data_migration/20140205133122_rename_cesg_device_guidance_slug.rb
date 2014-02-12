@@ -1,3 +1,5 @@
+require 'gds_api/router'
+
 OLD_SLUG = 'end-user-devices-security-guidance--2'
 NEW_SLUG = 'end-user-devices-security-guidance'
 
