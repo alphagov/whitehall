@@ -9,6 +9,7 @@ class Policy < Edition
   include Edition::SupportingPages
   include Edition::WorldLocations
   include Edition::WorldwidePriorities
+  include Edition::SpecialistSectors
 
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
