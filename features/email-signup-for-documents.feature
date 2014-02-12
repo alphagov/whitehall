@@ -17,9 +17,6 @@ Feature: Email signup for documents
     And I sign up for emails
     Then I should be signed up to the correspondence publications mailing list
 
-    When I publish a new publication of the type "International treaty" called "Example International Treaty"
-    Then a govuk_delivery notification should not have been sent to the mailing list I signed up for
-
     When I publish a new publication of the type "Correspondence" called "Example Correspondence"
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for
 
@@ -35,9 +32,6 @@ Feature: Email signup for documents
     When I filter the announcements list by "News stories"
     And I sign up for emails
     Then I should be signed up for the news stories mailing list
-
-    When I publish a new news article of the type "Press release" called "Example Press Release"
-    Then a govuk_delivery notification should not have been sent to the mailing list I signed up for
 
     When I publish a new news article of the type "News story" called "Example News Story"
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for

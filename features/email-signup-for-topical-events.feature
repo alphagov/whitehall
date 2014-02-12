@@ -11,8 +11,5 @@ Feature: Email signup for topical events
     When I sign up for emails
     Then I should be signed up for the "Wombat management" topical event mailing list
 
-    When I publish a news article "Another sledgehamster attack" associated with the topical event "Sledgehamster population control"
-    Then a govuk_delivery notification should not have been sent to the mailing list I signed up for
-
     When I publish a news article "Massive wombat influx in Wimbledon Common" associated with the topical event "Wombat management"
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for

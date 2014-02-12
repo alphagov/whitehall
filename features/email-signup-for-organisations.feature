@@ -11,8 +11,5 @@ Feature: Email signup for organisations
     When I sign up for emails
     Then I should be signed up for the "Sledgehamster extermination inc." organisation mailing list
 
-    And I publish a news article "Critial security vulnerability exposed in Death Star plans" associated with the organisation "The Empire"
-    Then a govuk_delivery notification should not have been sent to the mailing list I signed up for
-
     And I publish a news article "Nerf gun trials proved unsucessful" associated with the organisation "Sledgehamster extermination inc."
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for

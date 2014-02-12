@@ -91,12 +91,6 @@ Then(/^a govuk_delivery notification should have been sent to the mailing list I
   })
 end
 
-Then(/^a govuk_delivery notification should not have been sent to the mailing list I signed up for$/) do
-  mock_govuk_delivery_client.refute_method_called(:notify, with: ->(feed_urls, _subject, _body) {
-    feed_urls.include?(@feed_signed_up_to)
-  })
-end
-
 Then(/^no govuk_delivery notifications should have been sent yet$/) do
   mock_govuk_delivery_client.refute_method_called(:notify)
 end

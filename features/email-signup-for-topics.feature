@@ -11,8 +11,5 @@ Feature: Email signup for topics
     When I sign up for emails
     Then I should be signed up for the "Wombat management" topic mailing list
 
-    When I publish a news article "Another sledgehamster attack" associated with the topic "Sledgehamster population control"
-    Then a govuk_delivery notification should not have been sent to the mailing list I signed up for
-
     When I publish a news article "Massive wombat influx in Wimbledon Common" associated with the topic "Wombat management"
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for
