@@ -695,7 +695,7 @@
         margin-bottom: $gutter-half;
       }
       .adr, .email-url-number {
-        @include media(tablet){
+        @include media(tablet) {
           float: left;
           width: 40%;
         }
@@ -706,6 +706,9 @@
           display: block;
           padding-right: $gutter-half;
           margin-bottom: -($gutter-half+$gutter-one-third);
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
         p {
           margin: 0;
