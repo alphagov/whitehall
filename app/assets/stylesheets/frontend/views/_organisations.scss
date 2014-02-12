@@ -212,6 +212,9 @@
   @include media(tablet) {
     .block-7 {
       padding-bottom: $gutter;
+      .see-all {
+        padding: $gutter-half;
+      }
     }
   }
 
