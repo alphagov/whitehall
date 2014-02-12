@@ -1,8 +1,4 @@
 module FeedHelper
-  def link_to_feed(feed_url)
-    link_to "atom", feed_url, class: "feed"
-  end
-
   def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)
     govdelivery_version = feed_wants_govdelivery_version?
     feed_updated_timestamp =
