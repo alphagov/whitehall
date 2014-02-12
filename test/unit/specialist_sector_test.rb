@@ -4,6 +4,14 @@ require 'gds_api/test_helpers/content_api'
 class SpecialistSectorTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::ContentApi
 
+  setup do
+    use_real_content_api
+  end
+
+  teardown do
+    use_fake_content_api
+  end
+
   test '.options_for_select should return specialist sector tags ready for use as grouped options' do
     oil_and_gas = { slug: 'oil-and-gas', title: 'Oil and Gas' }
     tax = { slug: 'tax', title: 'Tax' }
@@ -27,5 +35,14 @@ class SpecialistSectorTest < ActiveSupport::TestCase
     ]
 
     assert_equal expected_options, SpecialistSector.options_for_select
+  end
+
+private
+  def use_real_content_api
+    Whitehall.content_api = GdsApi::ContentApi.new(Plek.current.find('content_api'))
+  end
+
+  def use_fake_content_api
+    Whitehall.content_api = GdsApi::ContentApi::Fake.new
   end
 end
