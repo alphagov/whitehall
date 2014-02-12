@@ -8,9 +8,9 @@ end
 
 if endpoint_url = ENV["CONTENT_API_ENDPOINT_URL"]
   credentials = { user: ENV["CONTENT_API_USERNAME"], password: ENV["CONTENT_API_PASSWORD"] }
-  Whitehall.mainstream_content_api = GdsApi::ContentApi.new(endpoint_url, basic_auth: credentials)
+  Whitehall.content_api = GdsApi::ContentApi.new(endpoint_url, basic_auth: credentials)
 elsif Rails.env.production?
-  Whitehall.mainstream_content_api = GdsApi::ContentApi.new(Plek.current.find("contentapi"))
+  Whitehall.content_api = GdsApi::ContentApi.new(Plek.current.find("contentapi"))
 else
-  Whitehall.mainstream_content_api = GdsApi::ContentApi::Fake.new
+  Whitehall.content_api = GdsApi::ContentApi::Fake.new
 end

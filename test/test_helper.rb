@@ -70,8 +70,8 @@ class ActiveSupport::TestCase
     Whitehall.send(:"#{service_name}=", original_service)
   end
 
-  def with_mainstream_content_api(content_api, &block)
-    with_service(:mainstream_content_api, content_api, &block)
+  def with_content_api(content_api, &block)
+    with_service(:content_api, content_api, &block)
   end
 
   def routes_helper

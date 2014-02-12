@@ -7,7 +7,7 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
     content_api = stub("content-api")
     content_api.expects(:tag).with(mainstream_category.parent_tag).returns(business_tax_tag)
 
-    with_mainstream_content_api(content_api) do
+    with_content_api(content_api) do
       breadcrumb_trail = BreadcrumbTrail.for(detailed_guide)
       assert breadcrumb_trail.valid?
 
@@ -30,7 +30,7 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
 
   test "should build hash from detailed guide even when content API has no metadata" do
     detailed_guide = create(:detailed_guide)
-    with_mainstream_content_api(stub("content-api", tag: nil)) do
+    with_content_api(stub("content-api", tag: nil)) do
       assert BreadcrumbTrail.for(detailed_guide).to_hash[:tags][0][:parent].empty?
     end
   end
@@ -39,7 +39,7 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
     category = build(:mainstream_category, parent_tag: nil)
     detailed_guide = build(:detailed_guide, primary_mainstream_category: category)
 
-    with_mainstream_content_api(stub("content-api")) do
+    with_content_api(stub("content-api")) do
       breadcrumb_trail = BreadcrumbTrail.for(detailed_guide)
       refute breadcrumb_trail.valid?
       assert_nil breadcrumb_trail.to_hash
@@ -51,7 +51,7 @@ class BreadcrumbTrailTest < ActiveSupport::TestCase
     content_api = stub("content-api")
     content_api.expects(:tag).with(mainstream_category.parent_tag).returns(business_tax_tag)
 
-    with_mainstream_content_api(content_api) do
+    with_content_api(content_api) do
       breadcrumb_trail = BreadcrumbTrail.for(mainstream_category)
       assert breadcrumb_trail.valid?
 
