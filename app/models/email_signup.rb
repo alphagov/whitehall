@@ -30,7 +30,7 @@ class EmailSignup
   end
 
   def description
-    Whitehall::GovUkDelivery::EmailSignupDescription.new(feed).text
+    feed_url_validator.description
   end
   alias_method :to_s, :description
 
@@ -39,6 +39,10 @@ class EmailSignup
   end
 
 protected
+
+  def feed_url_validator
+    @feed_url_validator ||= Whitehall::GovUkDelivery::FeedUrlValidator.new(feed)
+  end
 
   def add_local_government(feed)
     param_character = feed.include?('?') ? '&' : '?'

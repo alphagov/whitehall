@@ -4,7 +4,7 @@ require 'cgi'
 
 module Whitehall
   module GovUkDelivery
-    class EmailSignupDescription
+    class FeedUrlValidator
       attr_reader :feed_url, :feed_type, :feed_object_slug, :filter_options_describer
 
       def initialize(feed_url)
@@ -13,7 +13,7 @@ module Whitehall
         parse_feed_url
       end
 
-      def text
+      def description
         [leading_fragment, parameter_fragments, command_and_act_fragment, relevant_to_local_government_fragment].compact.join " "
       end
 
