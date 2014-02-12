@@ -4,7 +4,6 @@ Feature: Email signup for people and roles
     Given I am a GDS editor
     And govuk delivery exists
     And "Marty McFly" is the "Minister of Anachronisms" for the "Department of Temporal Affairs"
-    And "Dave Example" is the "Minister of Examples" for the "Department of Examples"
     And a published news article "News from Marty McFly" associated with "Marty McFly"
 
   Scenario: Signing up to role alerts
@@ -14,7 +13,6 @@ Feature: Email signup for people and roles
 
     When I publish a news article "More news" associated with "Marty McFly"
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for
-
 
   Scenario: Signing up to people alerts
     Given I visit the person page for "Marty McFly"

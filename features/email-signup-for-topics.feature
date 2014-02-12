@@ -4,7 +4,6 @@ Feature: Email signup for topics
     Given I am a GDS editor
     And govuk delivery exists
     And a topic called "Wombat management" exists with featured documents
-    And a topic called "Sledgehamster population control" exists with featured documents
 
   Scenario: Signing up to topic alerts
     Given I visit the "Wombat management" topic
