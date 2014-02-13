@@ -12,8 +12,6 @@ module Whitehall
         url_maker.publications_url(url_params)
       when 'announcements'
         url_maker.announcements_url(url_params)
-      else
-        url_maker.atom_feed_url(url_params)
       end
     end
 

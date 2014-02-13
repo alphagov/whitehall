@@ -2,8 +2,8 @@ require 'test_helper'
 
 class EmailSignupTest < ActiveSupport::TestCase
   test "merges the local_government parameter with the feed URL" do
-    assert_equal feed_url("feed"),
-                 email_signup("feed").feed
+    assert_equal feed_url("publications.atom"),
+                 email_signup("publications.atom").feed
     assert_equal feed_url("publications.atom"),
                   email_signup("publications.atom", false).feed
     assert_equal feed_url("feed?relevant_to_local_government=1"),
@@ -45,7 +45,7 @@ class EmailSignupTest < ActiveSupport::TestCase
                  EmailSignup.new(feed: feed_url).description
   end
 
-  def feed_url(feed_path="feed")
+  def feed_url(feed_path="publications.atom")
     "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/#{feed_path}"
   end
 

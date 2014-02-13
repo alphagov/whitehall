@@ -2,19 +2,15 @@ require "test_helper"
 
 module Whitehall
   class FeedUrlBuilderTest < ActiveSupport::TestCase
-    test "With no params, it should generate a generic feed url" do
-      assert_equal feed_url("feed"), FeedUrlBuilder.new.url
-    end
-
-    test "With document_type as publications, it should generate publications feed url" do
+    test "with :document_type as publications it generates the publications atom feed url" do
       assert_equal feed_url("publications.atom"), FeedUrlBuilder.new(document_type: 'publications').url
     end
 
-    test "With document_type as announcements, it should generate announcements feed url" do
+    test "with :document_type as announcements it generates the announcements feed url" do
       assert_equal feed_url("announcements.atom"), FeedUrlBuilder.new(document_type: 'announcements').url
     end
 
-    test "With document_type as publications with some other params, it should generate a publications feed url with the given params as query string" do
+    test "with :document_type as publications and other params it generate a publications atom feed url with the given params as query string" do
       filter_params = {
         document_type: 'publications',
         departments: ['1', '2'],
@@ -25,20 +21,22 @@ module Whitehall
                    Whitehall::FeedUrlBuilder.new(filter_params).url
     end
 
-    test "It strips blank params or params with the value of all" do
-      assert_equal feed_url("feed"), Whitehall::FeedUrlBuilder.new(official_document_status: nil).url
-      assert_equal feed_url("feed"), Whitehall::FeedUrlBuilder.new(official_document_status: "all").url
-      assert_equal feed_url("feed"), Whitehall::FeedUrlBuilder.new(official_document_status: "").url
-      assert_equal feed_url("feed?official_document_status=something"), Whitehall::FeedUrlBuilder.new(official_document_status: "something").url
+    test 'it strips blank filter params or those with a value of "all"' do
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: nil).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "all").url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "").url
+      assert_equal feed_url("publications.atom?official_document_status=something"),
+        Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "something").url
 
-      assert_equal feed_url("feed"), Whitehall::FeedUrlBuilder.new(departments: []).url
-      assert_equal feed_url("feed"), Whitehall::FeedUrlBuilder.new(departments: ["all"]).url
-      assert_equal feed_url("feed"), Whitehall::FeedUrlBuilder.new(departments: [""]).url
-      assert_equal feed_url("feed?departments%5B%5D=something"), Whitehall::FeedUrlBuilder.new(departments: ["something"]).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: []).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: ["all"]).url
+      assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: [""]).url
+      assert_equal feed_url("publications.atom?departments%5B%5D=something"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: ["something"]).url
     end
 
-    test "It should only accept the right params for generic feeds" do
-      assert_equal feed_url("feed?departments%5B%5D=something"), Whitehall::FeedUrlBuilder.new(departments: ["something"], favourite_power_ranger: ["the blue one"]).url
+    test "it strips out invalid filter params" do
+      assert_equal feed_url("publications.atom?departments%5B%5D=something"),
+        Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: ["something"], favourite_power_ranger: ["the blue one"]).url
     end
 
   protected

@@ -3,13 +3,6 @@ require 'test_helper'
 class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
   include Whitehall::GovUkDelivery
 
-  test 'validates and describes the base document feed' do
-    validator = FeedUrlValidator.new(generic_url_maker.atom_feed_url)
-
-    assert validator.valid?
-    assert_equal 'documents', validator.description
-  end
-
   test 'validates and describes a base publication filter feed url' do
     feed_url  = feed_url_for(document_type: "publications")
     validator = FeedUrlValidator.new(feed_url)

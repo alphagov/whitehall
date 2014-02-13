@@ -28,7 +28,7 @@ module Whitehall
       end
 
       def filtered_documents_feed?
-        %w(documents publications announcements).include?(feed_type)
+        %w(publications announcements).include?(feed_type)
       end
 
     protected
@@ -64,9 +64,7 @@ module Whitehall
       end
 
       def parse_feed_url
-        if uri.path == url_maker.atom_feed_path
-          @feed_type = 'documents'
-        elsif uri.path == url_maker.publications_path
+        if uri.path == url_maker.publications_path
           @feed_type = 'publications'
         elsif uri.path == url_maker.announcements_path
           @feed_type = 'announcements'
@@ -99,7 +97,7 @@ module Whitehall
           fragment_for_filter_option('publication_filter_option').downcase
         elsif feed_params['announcement_filter_option'].present?
           fragment_for_filter_option('announcement_filter_option').downcase
-        elsif ['documents', 'publications', 'announcements'].include? feed_type
+        elsif ['publications', 'announcements'].include? feed_type
           feed_type
         else
           label_for_resource
