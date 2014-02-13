@@ -25,7 +25,7 @@ class SpecialistSectorTest < ActiveSupport::TestCase
       { slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax', parent: tax }
     ]
 
-    content_api_has_tags('industry_sectors', sector_tags)
+    content_api_has_tags('specialist_sectors', sector_tags)
 
     expected_options = [
       ['Oil and Gas', [['Oil and Gas: Wells', 'oil-and-gas/wells'],

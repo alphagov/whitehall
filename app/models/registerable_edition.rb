@@ -23,7 +23,7 @@ class RegisterableEdition
     @edition.state == "published" ? "live" : "draft"
   end
 
-  def industry_sectors
+  def specialist_sectors
     return [] unless @edition.is_a?(DetailedGuide)
 
     @edition.specialist_sector_tags

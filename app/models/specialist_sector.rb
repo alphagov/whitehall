@@ -16,7 +16,7 @@ private
   end
 
   def self.fetch_sectors
-    Whitehall.content_api.tags('industry_sectors')
+    Whitehall.content_api.tags('specialist_sectors')
   end
 
   def self.option_for_tag(tag, parent_title)
