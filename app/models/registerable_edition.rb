@@ -4,7 +4,9 @@ class RegisterableEdition
   end
 
   def slug
-    @edition.slug
+    # strip the preceding slash character from the generated slug,
+    # to be consistent with Panopticon's slug format.
+    routes_helper.public_document_path(@edition).sub(/\A\//,"")
   end
 
   def title
@@ -27,5 +29,11 @@ class RegisterableEdition
     return [] unless @edition.is_a?(DetailedGuide)
 
     @edition.specialist_sector_tags
+  end
+
+  private
+
+  def routes_helper
+    @routes_helper ||= Whitehall::UrlMaker.new
   end
 end

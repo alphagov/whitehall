@@ -18,6 +18,17 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal [], registerable_edition.specialist_sectors
   end
 
+  test "sets the correct slug for a publication" do
+    edition = create(:published_publication,
+                     title: "Edition title",
+                     summary: "Edition summary")
+    slug = edition.document.slug
+
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "government/publications/#{slug}", registerable_edition.slug
+  end
+
   test "sets the state to draft if the edition isn't published" do
     edition = create(:draft_detailed_guide)
     registerable_edition = RegisterableEdition.new(edition)
