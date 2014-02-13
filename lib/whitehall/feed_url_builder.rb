@@ -12,8 +12,6 @@ module Whitehall
         url_maker.publications_url(url_params)
       when 'announcements'
         url_maker.announcements_url(url_params)
-      else
-        url_maker.atom_feed_url(url_params)
       end
     end
 
@@ -22,7 +20,7 @@ module Whitehall
     def url_params
       params.except(:document_type).reject { |key, value|
         values = Array(value)
-        values.empty? || values.all?(&:blank?) || values.include?('all') || DocumentFilter::Options.invalid_filter_key?(key)
+        values.empty? || values.all?(&:blank?) || values.include?('all') || DocumentFilter::Options.new.invalid_filter_key?(key)
       }.merge(format: :atom)
     end
 

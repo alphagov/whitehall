@@ -3,6 +3,7 @@ require "test_helper"
 
 class WorldLocationsControllerTest < ActionController::TestCase
   include FilterRoutesHelper
+  include FeedHelper
 
   should_be_a_public_facing_controller
   should_show_published_documents_associated_with :world_location, :policies
@@ -65,7 +66,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location
 
-    assert_select_autodiscovery_link world_location_url(world_location, format: "atom")
+    assert_select_autodiscovery_link atom_feed_url_for(world_location)
   end
 
   view_test 'show includes a link to the atom feed' do
@@ -73,7 +74,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location
 
-    assert_select "a.feed[href=?]", world_location_url(world_location, format: :atom)
+    assert_select "a.feed[href=?]", atom_feed_url_for(world_location)
   end
 
   view_test "show generates an atom feed with entries for latest activity" do

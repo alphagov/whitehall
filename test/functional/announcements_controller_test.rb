@@ -244,10 +244,9 @@ class AnnouncementsControllerTest < ActionController::TestCase
     get :index, format: :json, to_date: "2012-01-01", topics: [topic], departments: [organisation]
 
     json = ActiveSupport::JSON.decode(response.body)
-
     atom_url = announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
-    assert_equal json["email_signup_url"], new_email_signups_path(feed: ERB::Util.url_encode(atom_url))
+    assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
 
   view_test 'index only lists documents in the given locale' do

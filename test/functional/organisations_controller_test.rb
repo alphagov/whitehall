@@ -1,6 +1,7 @@
 require "test_helper"
 
 class OrganisationsControllerTest < ActionController::TestCase
+  include FeedHelper
   include FilterRoutesHelper
   include OrganisationControllerTestHelpers
 

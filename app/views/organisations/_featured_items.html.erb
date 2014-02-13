@@ -15,7 +15,7 @@
                          extra_class: "secondary" } %>
     <%= render partial: 'shared/recently_updated',
               locals: { recently_updated: recently_updated,
-                        atom_url: organisation_url(organisation, format: "atom"),
+                        atom_url: atom_feed_url_for(organisation),
                         extra_class: 'panel',
                         all_announcements_link: all_announcements_link } %>
   </section>

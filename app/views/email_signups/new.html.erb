@@ -9,27 +9,10 @@
 
 <div class="block">
   <div class="inner-block">
-    <%= form_for @email_signup, html: { class: "signup-form" } do |form| %>
-      <% if @email_signup.valid? %>
-        <p>You're signing up to all alerts for <%= @email_signup %></p>
-      <% else %>
-        <ul>
-          <% @email_signup.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <%= form.hidden_field :feed %>
-
-      <p>
-        <%= form.check_box :local_government, label_text: 'Only include results relevant to local government' %>
-      </p>
-
-      <div class="submit">
-        <%= button_tag 'Create subscription' %>
-        <p>You can enter your email address on the next page to complete the subscription</p>
-      </div>
+    <% if @email_signup.valid? %>
+      <%= render 'form', email_signup: @email_signup %>
+    <% else %>
+      <p>Sorry, we could not find a valid email alerts feed for that.</p>
     <% end %>
   </div>
 </div>
