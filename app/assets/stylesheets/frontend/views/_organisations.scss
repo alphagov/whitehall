@@ -1193,7 +1193,7 @@
   @include organisation-brand-colour('.block-2 a', color, $websafe: true);
   @include organisation-brand-colour('.body .attachment .accessibility-warning h3 .toggler', color, $websafe: true);
 
-  @include media(desktop) {
+  @include media(tablet) {
     .block-1 {
       width: $one-third;
       float: left;
@@ -1258,7 +1258,7 @@
     @include ig-core-48;
     font-weight: bold;
 
-    @include media(desktop) {
+    @include media(tablet) {
       padding: $gutter*3 0 $gutter-half;
     }
   }
