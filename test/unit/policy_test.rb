@@ -13,9 +13,9 @@ class PolicyTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing policy with inapplicable nations" do
-    published_policy = create(:published_policy, nation_inapplicabilities_attributes: [
-      {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},
-      {nation: Nation.scotland, alternative_url: "http://scot.gov.uk"}]
+    published_policy = create(:published_policy, nation_inapplicabilities: [
+      create(:nation_inapplicability, nation_id: Nation.wales.id, alternative_url: "http://wales.gov.uk"),
+      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")]
     )
 
     draft_policy = published_policy.create_draft(create(:policy_writer))

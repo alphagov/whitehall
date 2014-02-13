@@ -146,7 +146,7 @@ module TestsForNationalApplicability
     result = {}
     [Nation.scotland, Nation.wales, Nation.northern_ireland].each.with_index do |nation, index|
       h = result[index.to_s] = {
-        _destroy: (nations_vs_urls.keys.include?(nation) ? "0" : "1"),
+        excluded: (nations_vs_urls.keys.include?(nation) ? "1" : "0"),
         nation_id: nation
       }
       if existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
@@ -162,10 +162,10 @@ module TestsForNationalApplicability
   def assert_nation_inapplicability_fields_set_as(attributes)
     name_fragment = "edition[nation_inapplicabilities_attributes][#{attributes[:index]}]"
     if attributes[:checked]
-      assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
+      assert_select "input[name='#{name_fragment}[excluded]'][type='checkbox'][checked='checked']"
     else
-      refute_select "input[name='#{name_fragment}[_destroy]'][type='checkbox'][checked='checked']"
-      assert_select "input[name='#{name_fragment}[_destroy]'][type='checkbox']"
+      refute_select "input[name='#{name_fragment}[excluded]'][type='checkbox'][checked='checked']"
+      assert_select "input[name='#{name_fragment}[excluded]'][type='checkbox']"
     end
     if attributes[:alternative_url]
       assert_select "input[name='#{name_fragment}[alternative_url]'][value='#{attributes[:alternative_url]}']"

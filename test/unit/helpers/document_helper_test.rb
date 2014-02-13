@@ -265,7 +265,7 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test "document_metadata generates inapplicable_nations metadata" do
-    edition = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.england, alternative_url: nil)])
+    edition = create(:publication, nation_inapplicabilities: [create(:nation_inapplicability, nation: Nation.scotland, alternative_url: nil)])
     metadata = document_metadata(edition)[0]
     assert_equal metadata[:title], "Applies to"
     assert_match(/Wales/, metadata[:data][0])

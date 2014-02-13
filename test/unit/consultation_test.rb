@@ -55,9 +55,9 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "should build a draft copy of the existing consultation with inapplicable nations" do
-    published_consultation = create(:published_consultation, nation_inapplicabilities_attributes: [
-      {nation: Nation.wales, alternative_url: "http://wales.gov.uk"},
-      {nation: Nation.scotland, alternative_url: "http://scot.gov.uk"}]
+    published_consultation = create(:published_consultation, nation_inapplicabilities: [
+      create(:nation_inapplicability, nation_id: Nation.wales.id, alternative_url: "http://wales.gov.uk"),
+      create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")]
     )
 
     draft_consultation = published_consultation.create_draft(create(:policy_writer))
