@@ -4,6 +4,7 @@
     <fieldset>
       <legend>Associations</legend>
       <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
       <%= render partial: 'operational_field_fields', locals: { form: form, edition: edition } %>

@@ -9,7 +9,6 @@ class DetailedGuide < Edition
   include Edition::UserNeeds
   include Edition::HasDocumentCollections
   include Edition::Organisations
-  include Edition::SpecialistSectors
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
