@@ -7,7 +7,7 @@ class DetailedGuidesController < DocumentsController
   before_filter :set_analytics_format, only: [:show]
 
   def show
-    @categories = non_sector_mainstream_categories
+    @categories = @document.mainstream_categories
     @topics = @document.topics
   end
 
@@ -37,11 +37,5 @@ private
     # There's no index for detailed guides, so we don't need to worry
     # about this complaing about a lack of id
     detailed_guide_url(redir_params.except(:controller, :action))
-  end
-
-  def non_sector_mainstream_categories
-    @document.mainstream_categories.reject {|category|
-      category.slug =~ /\Aindustry-sector/
-    }
   end
 end
