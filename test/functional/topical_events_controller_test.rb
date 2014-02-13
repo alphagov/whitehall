@@ -1,6 +1,8 @@
 require "test_helper"
 
 class TopicalEventsControllerTest < ActionController::TestCase
+  include FeedHelper
+
   should_be_a_public_facing_controller
 
   test "#index redirects to topics homepage" do
@@ -41,8 +43,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, id: event
 
-    feed_url = ERB::Util.html_escape(topical_event_url(event, format: "atom"))
-    assert_select "a.feed[href=?]", feed_url
+    assert_select "a.feed[href=?]", atom_feed_url_for(event)
   end
 
   view_test 'show has a link to email signup page' do
@@ -50,8 +51,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
     get :show, id: event
 
-    feed_url = topical_event_url(event, format: "atom")
-    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: feed_url })}']"
+    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(event) })}']"
   end
 
   view_test "#show displays extra org logos for first-world-war-centenary" do

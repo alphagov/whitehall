@@ -1,4 +1,13 @@
 module FeedHelper
+
+  def atom_feed_url_for(resource)
+    if resource.is_a?(Policy)
+      Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom').activity_policy_url(resource.slug)
+    else
+      Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom').url_for(resource)
+    end
+  end
+
   def documents_as_feed_entries(documents, builder, feed_updated_timestamp = Time.current)
     govdelivery_version = feed_wants_govdelivery_version?
     feed_updated_timestamp =
