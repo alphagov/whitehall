@@ -70,15 +70,15 @@ module Whitehall
       end
 
       def options_for_organisations
-        StructuredOptions.new(all_label: "All departments", grouped: Organisation.grouped_by_type(@locale))
+        @options_for_organisations ||= StructuredOptions.new(all_label: "All departments", grouped: Organisation.grouped_by_type(@locale))
       end
 
       def options_for_topics
-        StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
+        @options_for_topics ||= StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
       end
 
       def options_for_document_type
-        StructuredOptions.new(
+        @options_for_document_type ||= StructuredOptions.new(
           all_label: "All document types",
           ungrouped: [
             ['Announcements', 'announcements'],
@@ -89,15 +89,15 @@ module Whitehall
       end
 
       def options_for_publication_type
-        StructuredOptions.create_from_ungrouped("All publication types", Whitehall::PublicationFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
+        @options_for_publication_type ||= StructuredOptions.create_from_ungrouped("All publication types", Whitehall::PublicationFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
       end
 
       def options_for_announcement_type
-        StructuredOptions.create_from_ungrouped("All announcement types", Whitehall::AnnouncementFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
+        @options_for_announcement_type ||= StructuredOptions.create_from_ungrouped("All announcement types", Whitehall::AnnouncementFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
       end
 
       def options_for_official_documents
-        StructuredOptions.new(
+        @options_for_official_documents ||= StructuredOptions.new(
           all_label: "All documents",
           ungrouped: [
             ['Command or act papers', 'command_and_act_papers'],
@@ -108,7 +108,7 @@ module Whitehall
       end
 
       def options_for_locations
-        StructuredOptions.new(
+        @options_for_locations ||= StructuredOptions.new(
           all_label: I18n.t("document_filters.world_locations.all"),
           ungrouped: WorldLocation.includes(:translations).ordered_by_name.map { |l| [l.name, l.slug] }
         )
