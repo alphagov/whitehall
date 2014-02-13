@@ -23,7 +23,7 @@ end
 
 When(/^I send the latest email in the email curation queue$/) do
   visit admin_email_curation_queue_items_path
-  within('.email_curation_queue_item:first-child') do
+  within page.all('.email_curation_queue_item').first do
     click_on 'Send'
   end
 end
