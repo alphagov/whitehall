@@ -183,18 +183,8 @@ Details of document required:
     Locale.new(locale).native_language_name
   end
 
-  def link_to_translated_object(object, locale)
-    object = object.is_a?(Array) ? object : object.to_model
-
-    path = case object
-    when Edition
-      public_document_path(object, locale: locale)
-    when CorporateInformationPage
-      polymorphic_path([object.organisation, object], locale: locale)
-    else
-      polymorphic_path(object, locale: locale)
-    end
-    link_to native_language_name_for(locale), path
+  def link_to_translation(locale)
+    link_to native_language_name_for(locale), locale: locale
   end
 
   def document_metadata(document, policies = [], topics = [], links_only = false)

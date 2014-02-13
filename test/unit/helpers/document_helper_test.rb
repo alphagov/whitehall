@@ -121,39 +121,20 @@ class DocumentHelperTest < ActionView::TestCase
     assert_equal "Español", native_language_name_for(:es)
   end
 
-  test '#link_to_translated_object links to an English edition' do
-    edition = create(:publication)
-    assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :en)}">English</a>),
-      link_to_translated_object(edition, :en)
-  end
-
-  test "link_to_translated_object links to a translated edition" do
-    edition = create(:publication)
-    with_locale(:fr) { edition.update_attributes!(title: 'french-title', summary: 'french-summary', body: 'french-body') }
-
-    assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :fr)}">Français</a>),
-      link_to_translated_object(edition, :fr)
-  end
-
-  test "link_to_translated_object links to corporate information pages under their organisation" do
-    info_page = create(:corporate_information_page)
-
-    assert_dom_equal %Q(<a href="#{polymorphic_path([info_page.organisation, info_page], locale: :en)}">English</a>),
-      link_to_translated_object(info_page, :en)
-  end
-
-  test "link_to_translated_object handles decorated editions" do
-    edition = create(:publication)
-    decorated_edition = PublicationesquePresenter.new(edition, 'context')
-    assert_dom_equal %Q(<a href="#{public_document_path(edition, locale: :en)}">English</a>),
-      link_to_translated_object(decorated_edition, :en)
-  end
-
-  test "link_to_translated_object handles linking to resource actions, i.e. organisation about pages" do
-    organisation = create(:organisation)
-
-    assert_dom_equal %Q(<a href="#{polymorphic_path([:about, organisation], locale: :cy)}">Cymraeg</a>),
-      link_to_translated_object([:about, organisation], :cy)
+  test "#link_to_translation should generate a link based on the current controller action with the given locale" do
+    controller.stubs(:url_options).returns({
+      host: "www.example.com",
+      port: 80,
+      protocol: "http://",
+      _path_segments: {
+        action: "activity",
+        controller: "worldwide_priorities",
+        locale: "it",
+        id: "a-worldwide-priority"
+      }
+    })
+    assert_dom_equal %Q(<a href="#{activity_worldwide_priority_path("a-worldwide-priority", :de)}">Deutsch</a>),
+      link_to_translation(:de)
   end
 
   test "document_metadata does not have any links for simple document" do
