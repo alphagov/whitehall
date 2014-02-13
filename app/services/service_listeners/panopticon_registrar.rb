@@ -5,9 +5,14 @@ module ServiceListeners
     end
 
     def register!
-      if @edition.is_a? DetailedGuide
+      if registerable_types.include?(@edition.class)
         PanopticonRegisterArtefactWorker.perform_async(@edition.id)
       end
+    end
+
+    private
+    def registerable_types
+      [ Consultation, DetailedGuide, DocumentCollection, Policy, Publication, StatisticalDataSet ]
     end
   end
 end
