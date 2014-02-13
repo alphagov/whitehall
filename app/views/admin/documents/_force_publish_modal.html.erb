@@ -1,0 +1,16 @@
+<% extra_css_classes ||= "" %>
+<div id="forcePublishModal", class="modal <%= extra_css_classes %>">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <p>You should only force publish documents when no other editor is available to review and publish your work, for example out of hours or in an emergency.</p>
+    <h3>Why are you force publishing this‽</h3>
+  </div>
+  <%= form_tag force_publish_admin_edition_path(edition, lock_version: edition.lock_version) do %>
+    <div class="modal-body">
+      <%= text_field_tag :reason %>
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag "Force publish", class: "btn-primary btn-warning" %>
+    </div>
+  <% end %>
+</div>

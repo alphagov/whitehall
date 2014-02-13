@@ -744,5 +744,33 @@ class EditionTest < ActiveSupport::TestCase
     refute non_local_gov_editions.include? local_gov_publication
   end
 
+  test 'version_number is 1 when it is the only edition' do
+    document = create(:document)
+    edition = create(:edition, document: document)
+    assert_equal edition.version_number, 1
+  end
+
+  test 'version_number is 1 when it is not persisted and no others exist' do
+    document = create(:document)
+    edition = build(:edition, document: document)
+    assert_equal edition.version_number, 1
+  end
+
+  test 'version_number is 2 when another exists' do
+    document = create(:document)
+    edition_1 = create(:published_edition, document: document)
+    edition_2 = create(:edition, document: document)
+    assert_equal edition_1.version_number, 1
+    assert_equal edition_2.version_number, 2
+  end
+
+  test 'version_number is 2 when it is not persisted and another exists' do
+    document = create(:document)
+    edition_1 = create(:published_edition, document: document)
+    edition_2 = build(:edition, document: document)
+    assert_equal edition_1.version_number, 1
+    assert_equal edition_2.version_number, 2
+  end
+
   should_not_accept_footnotes_in :body
 end
