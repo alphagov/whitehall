@@ -1,3 +1,5 @@
+require 'gds_api/router'
+
 router = GdsApi::Router.new(Plek.current.find('router-api'))
 
 # hanover -> hamburg
