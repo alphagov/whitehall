@@ -1,13 +1,26 @@
 # Abstract base class for Attachments.
+#
+# Attachment instances should never be directly created. Instead, the
+# more concreate FileAttachment and HtmlAttachment sub-classes should be used
+# in all instances.
+#
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, polymorphic: true
   has_one :attachment_source
 
   belongs_to :attachment_data
 
+  delegate :url, :content_type, :pdf?, :csv?,
+    :extracted_text, :file_extension, :file_size,
+    :number_of_pages, :file, :filename, :filename_without_extension, :virus_status,
+    to: :attachment_data
+
   before_save :set_ordering, if: -> { ordering.blank? }
   before_save :nilify_locale_if_blank
-  before_save :prevent_saving_of_abstract_base_class
+
+  after_destroy :destroy_unused_attachment_data
+
+  accepts_nested_attributes_for :attachment_data
 
   VALID_COMMAND_PAPER_NUMBER_PREFIXES = ['C.', 'Cd.', 'Cmd.', 'Cmnd.', 'Cm.']
 
@@ -28,12 +41,13 @@ class Attachment < ActiveRecord::Base
   validates :price, numericality: {
     allow_blank: true, greater_than: 0
   }
+  validate :filename_is_unique, unless: :html?
 
   scope :with_filename, ->(basename) {
     joins(:attachment_data).where('attachment_data.carrierwave_file = ?', basename)
   }
 
-  scope :files, -> { where(type: FileAttachment) }
+  scope :files, -> { where(type: [nil, 'FileAttachment']) }
 
   scope :for_current_locale, -> { where(locale: [nil, I18n.locale]) }
 
@@ -58,6 +72,14 @@ class Attachment < ActiveRecord::Base
     store_price_in_pence
   end
 
+  def html?
+    false
+  end
+
+  def could_contain_viruses?
+    true
+  end
+
   def is_command_paper?
     command_paper_number.present? || unnumbered_command_paper?
   end
@@ -80,6 +102,14 @@ class Attachment < ActiveRecord::Base
     end
   end
 
+  # Only destroy the associated attachment_data record if no other
+  # attachments are using it
+  def destroy_unused_attachment_data
+    if attachment_data && Attachment.where(attachment_data_id: attachment_data.id).empty?
+      attachment_data.destroy
+    end
+  end
+
   def set_ordering
     self.ordering = attachable.next_ordering
   end
@@ -88,9 +118,9 @@ class Attachment < ActiveRecord::Base
     self.locale = nil if locale.blank?
   end
 
-  def prevent_saving_of_abstract_base_class
-    if type.nil? || type == "Attachment"
-      raise RuntimeError, "Attempted to save abstract base class Attachment"
+  def filename_is_unique
+    if attachable && attachable.attachments.any? { |a| !a.html? && a != self && a.filename.downcase == filename.downcase }
+      self.errors[:base] << "This #{attachable_model_name} already has a file called \"#{filename}\""
     end
   end
 end

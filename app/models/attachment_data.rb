@@ -116,7 +116,7 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def handle_to_replace_id
-    return if to_replace_id.blank?
+    return if to_replace_id.nil?
     AttachmentData.find(to_replace_id).replace_with!(self)
   end
 

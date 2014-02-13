@@ -54,22 +54,6 @@ When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/
   click_on 'Save'
 end
 
-When(/^I try and upload an attachment but there are validation errors$/) do
-  ensure_path admin_publication_path(Publication.last)
-  click_on 'Edit attachments'
-  click_on 'Upload new file attachment'
-  attach_file 'File', Rails.root+"test/fixtures/greenpaper.pdf"
-  click_on 'Save'
-end
-
-Then(/^I should be able to submit the attachment without re\-uploading the file$/) do
-  fill_in 'Title', with: 'Title that was missing before'
-  click_on 'Save'
-
-  assert_equal 2, Publication.last.attachments.count
-  assert_equal 'Title that was missing before', Publication.last.attachments.last.title
-end
-
 Then(/^the publication "(.*?)" should have (\d+) attachments$/) do |publication_title, expected_number_of_attachments|
   assert_equal expected_number_of_attachments.to_i, Publication.find_by_title(publication_title).attachments.count
 end
