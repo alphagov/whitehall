@@ -209,17 +209,24 @@
     height: auto;
   }
 
-  @include media(tablet) {
-    .block-7 {
+  .block-7 {
+    margin-bottom: 0;
+
+    @include media(tablet) {
       padding-bottom: $gutter;
+
       .see-all {
         padding: $gutter-half;
+      }
+
+      @include media(tablet) {
+        margin-bottom: $gutter;
       }
     }
   }
 
   .block-1 {
-    padding-top: $gutter-one-third;
+    padding: $gutter-one-third 0 0;
     @include media(tablet) {
       padding-bottom: $gutter-one-sixth;
     }
@@ -232,6 +239,24 @@
   .block-10 {
     .inner-block {
       padding: 0 $gutter-half;
+    }
+  }
+
+  .documents-grid {
+    margin-bottom: 30px;
+
+    .document-block {
+      margin-bottom: $gutter;
+      @include media(tablet) {
+        margin-bottom: $gutter-one-third;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    @include media(tablet) {
+      margin-bottom: $gutter*2;
     }
   }
 
@@ -253,7 +278,10 @@
   #topics h1 {
     @include ig-core-27;
     font-weight: bold;
-    margin: $gutter 0 $gutter-one-third;
+    margin: 0 0 $gutter-one-third;
+    @include media(tablet) {
+      margin-top: $gutter;
+    }
   }
   #mainstream_categories h1 {
     @include ig-core-27;
@@ -285,6 +313,13 @@
       @include media(tablet) {
         float: left;
         width: $two-thirds;
+      }
+    }
+
+    .heading-extra {
+      margin-bottom: 0;
+      @include media(tablet) {
+        margin-bottom: $gutter;
       }
     }
   }
@@ -367,7 +402,7 @@
     .inner-block {
       padding: 0;
 
-      @include media(tablet){
+      @include media(tablet) {
         padding: 0 $gutter-half;
       }
     }
@@ -375,7 +410,7 @@
 
   .has-social {
     .organisation-news.items-0 .recently-updated {
-      @include media(desktop){
+      @include media(desktop) {
         width: $two-thirds;
       }
     }
