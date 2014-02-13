@@ -53,10 +53,18 @@ module Whitehall
 
       def filter_parameters_are_valid?
         if filtered_documents_feed?
-          filter_options_describer.valid_keys?(feed_params.keys)
+          filter_param_keys_valid? && filter_param_resources_exist?
         else
           feed_params.except('relevant_to_local_government').none?
         end
+      end
+
+      def filter_param_keys_valid?
+        filter_options_describer.valid_keys?(feed_params.keys)
+      end
+
+      def filter_param_resources_exist?
+        filter_options_describer.valid_resource_filter_options?(resource_filter_params)
       end
 
       def uri
@@ -104,10 +112,13 @@ module Whitehall
         end
       end
 
+      def resource_filter_params
+        feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status relevant_to_local_government))
+      end
+
       def parameter_fragments
-        listable_params = feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status relevant_to_local_government))
-        if listable_params.any?
-          "related to " + (listable_params.map { |param_key, _|
+        if resource_filter_params.any?
+          "related to " + (resource_filter_params.map { |param_key, _|
             fragment_for_filter_option(param_key)
           }.to_sentence)
         else

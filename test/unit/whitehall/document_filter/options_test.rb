@@ -97,6 +97,15 @@ module Whitehall
         refute Options.new.valid_keys?(%w(topics frank))
       end
 
+      test "#valid_resource_filter_options? returns true when filtered resources exist" do
+        topic = create(:topic)
+        assert @filter_options.valid_resource_filter_options?(topics: [topic.slug])
+      end
+
+      test "valid_resource_filter_options? retrusn false when filtered resources do not exist" do
+        refute @filter_options.valid_resource_filter_options?(topics: ['no-such-topic'])
+      end
+
       test "can get the list of options for publication_type" do
         options = @filter_options.for(:publication_type)
         assert_equal ["All publication types", "all"], options.all
@@ -155,7 +164,6 @@ module Whitehall
         assert_include options.ungrouped, [location.name, location.slug]
         assert_equal({}, options.grouped)
       end
-
     end
   end
 end

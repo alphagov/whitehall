@@ -161,6 +161,13 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     refute validator.valid?
   end
 
+  test 'does not validate a feed url for filtered documents when one of the filter options refers to a non-existant resource' do
+    feed_url = feed_url_for(document_type: "publications", departments: ["does-not-exist"])
+    validator = FeedUrlValidator.new(feed_url)
+
+    refute validator.valid?
+  end
+
   test '#description does not fall over when the feed is bad' do
     assert_nil FeedUrlValidator.new('http://bad/feed').description
   end

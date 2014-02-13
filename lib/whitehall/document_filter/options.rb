@@ -49,6 +49,14 @@ module Whitehall
         (filter_keys & valid_keys) == filter_keys
       end
 
+      def valid_resource_filter_options?(filter_options)
+        filter_options.each_pair.all? do |key, values|
+          values.all? do |value|
+            label_for(key.to_s, value)
+          end
+        end
+      end
+
       def valid_keys
         OPTION_NAMES_TO_FILTER_KEYS.values
       end
