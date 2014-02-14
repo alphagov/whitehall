@@ -116,6 +116,16 @@
     }
   }
 
+  @include media(tablet) {
+    .heading-block {
+      .content {
+        .see-all {
+          padding: $gutter-half;
+        }
+      }
+    }
+  }
+
   .keyline-header {
     @include heading-36;
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
