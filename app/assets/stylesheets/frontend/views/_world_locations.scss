@@ -251,12 +251,22 @@
         @include core-14;
         margin-top: $gutter;
 
+        h2 {
+          position: absolute;
+          left: -9999px;
+        }
+
         @include media(tablet) {
           margin-top: 0;
           min-width: auto;
           width: $one-third;
           .content {
             padding-left: $gutter-half;
+
+            h2 {
+              position: static;
+            }
+
             @include right-to-left {
               padding-right: 0;
             }
