@@ -1,4 +1,11 @@
 .email-signup-show {
+  p {
+    @include core-19;
+    margin:$gutter/2 0;
+  }
+  strong {
+    font-weight:bold;
+  }
   .email-header {
     h1 {
       @include heading-36;
@@ -16,77 +23,11 @@
 
   .signup-form {
     margin: $gutter-half 0;
-
-    .notification {
-      border: 1px solid $border-colour;
-      border-width: 1px 0;
-      padding: $gutter-two-thirds 0 $gutter-one-sixth;
-      margin-bottom: -1px;
-
-      .fieldset-inner {
-        margin: 0 (-$gutter-half);
-      }
-
-      .field {
-        margin-bottom: $gutter-half;
-
-        @include media(tablet) {
-          width: $one-third;
-          float: left;
-        }
-        &.clear-field {
-          clear: left;
-        }
-
-        .field-inner {
-          margin: 0 $gutter-half;
-        }
-
-        label {
-          display: block;
-          @include core-19;
-          font-weight: bold;
-        }
-        select {
-          width: $full-width;
-        }
-
-        &.checkbox {
-          clear: both;
-          @include media(tablet) {
-            width: $full-width;
-          }
-
-          label {
-            font-weight: normal;
-          }
-          p {
-            color: $secondary-text-colour;
-            margin-left: $gutter;
-          }
-        }
-      }
+    
+    input[type=checkbox]  {
+      vertical-align: top;
     }
-    .duplicate-fields {
-      padding: $gutter-half 0 $gutter-one-third;
-      border-bottom: 1px solid $border-colour;
-
-      input {
-        @include core-19;
-        font-weight: bold;
-        border: 0;
-        background: transparent;
-        color: $link-colour;
-        text-decoration: underline;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-
-        &:hover {
-          color: $link-hover-colour;
-        }
-      }
-    }
+    
     .submit {
       margin: $gutter 0;
 
@@ -101,5 +42,4 @@
       }
     }
   }
-
 }
