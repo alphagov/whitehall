@@ -1,7 +1,7 @@
 <%= form_for email_signup, html: { class: "signup-form" } do |form| %>
   <%= form.hidden_field :feed %>
 
-  <p>You're signing up to all alerts for <%= email_signup.description %></p>
+  <p>You're signing up to all alerts for <strong><%= email_signup.description %></strong></p>
   <p>
     <%= form.check_box :local_government, label_text: 'Only include results relevant to local government' %>
   </p>
