@@ -130,6 +130,10 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     refute FeedUrlValidator.new("#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/does-not-exist.atom").valid?
   end
 
+  test 'does not validate a feed url with a dodgy format' do
+    refute FeedUrlValidator.new("#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/publications.foo").valid?
+  end
+
   test 'does not validate a feed url when the resource does not exist' do
     feed_url = generic_url_maker.topic_url('non-existant-slug')
 
