@@ -390,7 +390,8 @@ module AdminEditionControllerTestHelpers
 
       test 'updating an edition with an existing image allows image attributes to be changed' do
         edition = create(edition_type)
-        image = edition.images.create!(alt_text: "old-alt-text", caption: 'old-caption')
+        image = create(:image, edition: edition, alt_text: "old-alt-text", caption: 'old-caption')
+        VirusScanHelpers.simulate_virus_scan
 
         put :update, id: edition, edition: {
           images_attributes: { "0" => {
@@ -400,9 +401,8 @@ module AdminEditionControllerTestHelpers
           } }
         }
 
-        edition.reload
-        assert_equal 1, edition.images.length
-        image = edition.images.first
+        assert_response :redirect
+        image = edition.reload.images.first
         assert_equal "new-alt-text", image.alt_text
         assert_equal "new-caption", image.caption
       end
