@@ -77,7 +77,7 @@
       <div class="inner-block">
         <section id="policies">
           <div class="head-section">
-            <h1 class="label"><%= link_to t('world_location.headings.related_policies'), policies_filter_path(@world_location) %></h1>
+            <h1 class="label"><%= t('world_location.headings.related_policies') %></h1>
           </div>
           <div class="content">
             <%= render partial: "policies/list_description", locals: {policies: @policies} %>

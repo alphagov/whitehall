@@ -169,6 +169,7 @@
   }
 
   #worldwide-priorities {
+    margin-bottom: $gutter-two-thirds;
 
     h1 {
       margin: 0 $gutter-half $gutter-half;
@@ -195,6 +196,10 @@
           font-weight: bold;
         }
       }
+    }
+
+    @include media(tablet) {
+      margin-bottom: $gutter*2
     }
   }
 
