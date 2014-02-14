@@ -46,4 +46,45 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     assert_equal expected_tags, registerable_edition.specialist_sectors
   end
+
+  test "sets the kind for a generic type" do
+    edition = build(:draft_detailed_guide)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "detailed_guide", registerable_edition.kind
+  end
+
+  test "sets the kind for a Publication subtype" do
+    pub_type = PublicationType.all.first
+    edition = build(:publication)
+    edition.publication_type = pub_type
+
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal pub_type.key, registerable_edition.kind
+  end
+
+  test "sets the kind for a News Article subtype" do
+    art_type = NewsArticleType.all.first
+    edition = build(:news_article)
+    edition.news_article_type = art_type
+
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal art_type.key, registerable_edition.kind
+  end
+
+  test "sets the kind for a Consultation" do
+    edition = build(:consultation)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "consultation", registerable_edition.kind
+  end
+
+  test "sets the kind for a Statistical Dataset" do
+    edition = build(:statistical_data_set)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "statistical_data_set", registerable_edition.kind
+  end
 end
