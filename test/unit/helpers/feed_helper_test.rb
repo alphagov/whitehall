@@ -13,6 +13,22 @@ class FeedHelperTest < ActionView::TestCase
     '2005'
   end
 
+  test '#atom_feed_url_for generates an atom feed url for a given resource that matches the public protocol and host' do
+    topic = create(:topic)
+    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/topics/#{topic.slug}.atom",
+      atom_feed_url_for(topic)
+
+    role = create(:ministerial_role)
+    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/ministers/#{role.slug}.atom",
+      atom_feed_url_for(role)
+  end
+
+  test '#atom_feed_url_for generates an atom feed url for the activity on a policy' do
+    policy = create(:published_policy)
+    assert_equal "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/policies/#{policy.slug}/activity.atom",
+      atom_feed_url_for(policy)
+  end
+
   test 'feed_wants_govdelivery_version? is false when there is no govdelivery_version param' do
     stubs(:params).returns({})
     refute feed_wants_govdelivery_version?

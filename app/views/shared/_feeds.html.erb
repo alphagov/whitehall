@@ -1,7 +1,7 @@
 <% unless atom_url.blank? %>
   <div class="feeds">
     <span><%= t("feeds.get_updates_to_this_list") %></span>
-    <%= link_to t('feeds.email'), new_email_signups_path(feed: url_encode(atom_url)), class: 'govdelivery' %>&nbsp;<%= link_to t("feeds.feed"), atom_url, class: "feed js-feed" %>
+    <%= link_to t('feeds.email'), new_email_signups_path(email_signup: {feed: atom_url}), class: 'govdelivery' %>&nbsp;<%= link_to t("feeds.feed"), atom_url, class: "feed js-feed" %>
     <div class="feed-panel js-feed-panel">
       <h3>Copy and paste this URL in to your feed reader</h3>
       <input value="<%= atom_url %>">

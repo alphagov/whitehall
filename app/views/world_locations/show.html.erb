@@ -1,6 +1,6 @@
 <% page_title @world_location.title, "UK and the world" %>
 <% page_class "world-locations-show" %>
-<% atom_discovery_link_tag world_location_url(@world_location, format: :atom), t("feeds.latest_activity") %>
+<% atom_discovery_link_tag atom_feed_url_for(@world_location), t("feeds.latest_activity") %>
 
 <% if world_location_survey_url(@world_location) %>
   <% initialise_script('GOVUK.CustomUserSatisfactionSurvey', surveyUrl: world_location_survey_url(@world_location)) %>
@@ -35,7 +35,7 @@
 
         <%= render partial: 'shared/recently_updated',
                   locals: { recently_updated: @recently_updated,
-                            atom_url: world_location_url(@world_location, format: :atom),
+                            atom_url: atom_feed_url_for(@world_location),
                             govdelivery_url: '',
                             extra_class: 'panel'} %>
       </section>

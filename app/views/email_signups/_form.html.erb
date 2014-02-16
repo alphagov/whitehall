@@ -1,0 +1,12 @@
+<%= form_for email_signup, html: { class: "signup-form" } do |form| %>
+  <%= form.hidden_field :feed %>
+
+  <p>You're signing up to all alerts for <strong><%= email_signup.description %></strong></p>
+  <p>
+    <%= form.check_box :local_government, label_text: 'Only include results relevant to local government' %>
+  </p>
+  <div class="submit">
+    <%= button_tag 'Create subscription' %>
+    <p>You can enter your email address on the next page to complete the subscription</p>
+  </div>
+<% end %>

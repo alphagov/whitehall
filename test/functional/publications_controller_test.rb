@@ -397,7 +397,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     atom_url = publications_url(format: "atom", host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
-    assert_equal json["email_signup_url"], new_email_signups_path(feed: ERB::Util.url_encode(atom_url))
+    assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
 
   view_test "#index requested as JSON includes email signup path with organisation and topic parameters" do
@@ -407,10 +407,9 @@ class PublicationsControllerTest < ActionController::TestCase
     get :index, format: :json, from_date: "2012-01-01", topics: [topic], departments: [organisation]
 
     json = ActiveSupport::JSON.decode(response.body)
-
     atom_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
-    assert_equal json["email_signup_url"], new_email_signups_path(feed: ERB::Util.url_encode(atom_url))
+    assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
 
   view_test '#index has atom feed autodiscovery link' do

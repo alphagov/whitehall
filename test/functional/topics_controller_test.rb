@@ -2,6 +2,7 @@ require "test_helper"
 
 class TopicsControllerTest < ActionController::TestCase
   include AtomTestHelpers
+  include FeedHelper
 
   should_be_a_public_facing_controller
 
@@ -148,9 +149,8 @@ class TopicsControllerTest < ActionController::TestCase
       assert_select_prefix_object news_article, prefix="recent"
     end
 
-    feed_url = topic_url(topic, format: "atom")
-    assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
-    assert_select_autodiscovery_link topic_url(topic, format: 'atom')
+    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(topic) })}']"
+    assert_select_autodiscovery_link atom_feed_url_for(topic)
   end
 
   view_test 'GET :show for atom feed has the right elements' do

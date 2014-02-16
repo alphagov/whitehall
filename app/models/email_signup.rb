@@ -3,19 +3,23 @@ class EmailSignup
   extend ActiveModel::Naming
   include ActiveModel::Validations
 
+  attr_reader :feed
   validates_presence_of :feed
 
-  def initialize(feed = nil, is_local_government = false)
-    @feed = feed
-    @feed = add_local_government(@feed) if is_local_government
+  def initialize(attributes={})
+    @attributes = attributes
+    @feed = local_government ? add_local_government(attributes[:feed]) : attributes[:feed]
   end
 
-  attr_accessor :feed, :local_government
+  def save
+    if valid?
+      ensure_govdelivery_topic_exists
+      true
+    end
+  end
 
-  def self.create(*args)
-    signup = new(*args)
-    signup.ensure_govdelivery_topic_exists if signup.valid?
-    signup
+  def local_government
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(@attributes[:local_government])
   end
 
   def ensure_govdelivery_topic_exists
@@ -27,15 +31,23 @@ class EmailSignup
   end
 
   def description
-    Whitehall::GovUkDelivery::EmailSignupDescription.new(feed).text
+    feed_url_validator.description
   end
   alias_method :to_s, :description
+
+  def valid?
+    super && feed_url_validator.valid?
+  end
 
   def persisted?
     false
   end
 
 protected
+
+  def feed_url_validator
+    @feed_url_validator ||= Whitehall::GovUkDelivery::FeedUrlValidator.new(feed)
+  end
 
   def add_local_government(feed)
     param_character = feed.include?('?') ? '&' : '?'

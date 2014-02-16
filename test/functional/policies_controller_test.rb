@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PoliciesControllerTest < ActionController::TestCase
+  include FeedHelper
+
   with_not_quite_as_fake_search
   should_be_a_public_facing_controller
 
@@ -447,7 +449,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select_autodiscovery_link activity_policy_url(policy.document, format: "atom")
+    assert_select_autodiscovery_link atom_feed_url_for(policy)
   end
 
   view_test 'activity shows a link to the atom feed' do
@@ -456,7 +458,7 @@ That's all
 
     get :activity, id: policy.document
 
-    feed_url = ERB::Util.html_escape(activity_policy_url(policy.document, format: "atom"))
+    feed_url = ERB::Util.html_escape(atom_feed_url_for(policy))
     assert_select "a.feed[href=?]", feed_url
   end
 
@@ -497,8 +499,7 @@ That's all
 
     get :activity, id: policy.document
 
-    feed_url = activity_policy_url(policy.document, format: "atom")
-    assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
+    assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(policy) })}']"
   end
 
   test "the format name is being set to policy" do

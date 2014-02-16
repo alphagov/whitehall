@@ -88,7 +88,7 @@ module OrganisationControllerTestHelpers
 
         get :show, id: organisation
 
-        assert_select_autodiscovery_link organisation_url(organisation, format: "atom")
+        assert_select_autodiscovery_link atom_feed_url_for(organisation)
       end
 
       view_test "#{org_type}:show includes a link to the atom feed and featured documents" do
@@ -98,7 +98,7 @@ module OrganisationControllerTestHelpers
         create(:feature, document: edition.document, feature_list: feature_list, ordering: 1)
         get :show, id: organisation
 
-        assert_select "a.feed[href=?]", organisation_url(organisation, format: :atom)
+        assert_select "a.feed[href=?]", atom_feed_url_for(organisation)
       end
 
       view_test "#{org_type}:shows 3 most recently published editions associated with organisation when featuring a doc" do
@@ -157,8 +157,7 @@ module OrganisationControllerTestHelpers
 
         get :show, id: organisation
 
-        feed_url = organisation_url(organisation, format: 'atom')
-        assert_select ".govdelivery[href='#{new_email_signups_path(feed: ERB::Util.url_encode(feed_url))}']"
+        assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(organisation) })}']"
       end
 
       view_test "#{org_type}:show has link to corporate information pages" do

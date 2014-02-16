@@ -7,7 +7,7 @@ module Whitehall
       end
 
       def for(option_name)
-        raise ArgumentError.new("Unknown option name #{option_name}") unless self.class.valid_option_name?(option_name)
+        raise ArgumentError.new("Unknown option name #{option_name}") unless valid_option_name?(option_name)
         send(:"options_for_#{option_name}")
       end
 
@@ -22,7 +22,7 @@ module Whitehall
         nil
       end
 
-      OPTIONS = {
+      OPTION_NAMES_TO_FILTER_KEYS = {
         document_type: 'document_type',
         publication_type: 'publication_filter_option',
         organisations: 'departments',
@@ -33,40 +33,52 @@ module Whitehall
         local_government: 'relevant_to_local_government'
       }.freeze
 
-      def self.valid_option_name?(option_name)
-        OPTIONS.has_key?(option_name)
+      def valid_option_name?(option_name)
+        OPTION_NAMES_TO_FILTER_KEYS.has_key?(option_name)
       end
 
-      def self.valid_filter_key?(filter_key)
-        OPTIONS.has_value?(filter_key.to_s)
+      def valid_filter_key?(filter_key)
+        OPTION_NAMES_TO_FILTER_KEYS.has_value?(filter_key.to_s)
       end
 
-      def self.invalid_filter_key?(*args)
-        !valid_filter_key?(*args)
+      def invalid_filter_key?(filter_key)
+        !valid_filter_key?(filter_key)
       end
 
-      def self.valid_filter_key_and_value?(filter_key, filter_value)
-        new.sentence_fragment_for(filter_key, filter_value) != nil
+      def valid_keys?(filter_keys)
+        (filter_keys & valid_keys) == filter_keys
+      end
+
+      def valid_resource_filter_options?(filter_options)
+        filter_options.each_pair.all? do |key, values|
+          values.all? do |value|
+            label_for(key.to_s, value)
+          end
+        end
+      end
+
+      def valid_keys
+        OPTION_NAMES_TO_FILTER_KEYS.values
       end
 
       class UnknownFilterKey < StandardError; end
 
     protected
       def option_name_for_filter_key(filter_key)
-        raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless self.class.valid_filter_key?(filter_key)
-        OPTIONS.key(filter_key)
+        raise UnknownFilterKey.new("Unknown filter key #{filter_key}") unless valid_filter_key?(filter_key)
+        OPTION_NAMES_TO_FILTER_KEYS.key(filter_key)
       end
 
       def options_for_organisations
-        StructuredOptions.new(all_label: "All departments", grouped: Organisation.grouped_by_type(@locale))
+        @options_for_organisations ||= StructuredOptions.new(all_label: "All departments", grouped: Organisation.grouped_by_type(@locale))
       end
 
       def options_for_topics
-        StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
+        @options_for_topics ||= StructuredOptions.new(all_label: "All topics", grouped: Classification.grouped_by_type)
       end
 
       def options_for_document_type
-        StructuredOptions.new(
+        @options_for_document_type ||= StructuredOptions.new(
           all_label: "All document types",
           ungrouped: [
             ['Announcements', 'announcements'],
@@ -77,15 +89,15 @@ module Whitehall
       end
 
       def options_for_publication_type
-        StructuredOptions.create_from_ungrouped("All publication types", Whitehall::PublicationFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
+        @options_for_publication_type ||= StructuredOptions.create_from_ungrouped("All publication types", Whitehall::PublicationFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
       end
 
       def options_for_announcement_type
-        StructuredOptions.create_from_ungrouped("All announcement types", Whitehall::AnnouncementFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
+        @options_for_announcement_type ||= StructuredOptions.create_from_ungrouped("All announcement types", Whitehall::AnnouncementFilterOption.all.sort_by(&:label).map { |o| [o.label, o.slug, o.group_key] })
       end
 
       def options_for_official_documents
-        StructuredOptions.new(
+        @options_for_official_documents ||= StructuredOptions.new(
           all_label: "All documents",
           ungrouped: [
             ['Command or act papers', 'command_and_act_papers'],
@@ -96,7 +108,7 @@ module Whitehall
       end
 
       def options_for_locations
-        StructuredOptions.new(
+        @options_for_locations ||= StructuredOptions.new(
           all_label: I18n.t("document_filters.world_locations.all"),
           ungrouped: WorldLocation.includes(:translations).ordered_by_name.map { |l| [l.name, l.slug] }
         )

@@ -1,6 +1,8 @@
 require "test_helper"
 
 class MinisterialRolesControllerTest < ActionController::TestCase
+  include FeedHelper
+
   should_be_a_public_facing_controller
   should_show_published_documents_associated_with :ministerial_role, :policies
 
@@ -207,7 +209,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   view_test 'show has atom feed autodiscovery link' do
     ministerial_role = create(:ministerial_role)
     get :show, id: ministerial_role
-    assert_select_autodiscovery_link ministerial_role_url(ministerial_role, format: "atom")
+    assert_select_autodiscovery_link atom_feed_url_for(ministerial_role)
   end
 
   view_test "show generates an atom feed of news and speeches associated with the ministerial role" do

@@ -2,47 +2,54 @@ require 'test_helper'
 
 class EmailSignupTest < ActiveSupport::TestCase
   test "merges the local_government parameter with the feed URL" do
-    assert_equal "https://#{Whitehall.public_host}/government/feed.atom?relevant_to_local_government=1",
-                 email_signup("feed.atom", true).feed
-    assert_equal "https://#{Whitehall.public_host}/government/feed.atom",
-                 email_signup("feed.atom", false).feed
-    assert_equal "https://#{Whitehall.public_host}/government/feed.atom",
-                 email_signup("feed.atom").feed
-
-    assert_equal "https://#{Whitehall.public_host}/government/feed.atom?departments[]=all&relevant_to_local_government=1",
-                 email_signup("feed.atom?departments[]=all", true).feed
+    assert_equal feed_url("publications.atom"),
+                 email_signup("publications.atom").feed
+    assert_equal feed_url("publications.atom"),
+                  email_signup("publications.atom", false).feed
+    assert_equal feed_url("feed?relevant_to_local_government=1"),
+                 email_signup("feed", true).feed
+    assert_equal feed_url("publications.atom?departments[]=all&relevant_to_local_government=1"),
+                 email_signup("publications.atom?departments[]=all", true).feed
   end
 
-  test ".create ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
-    feed_url = "https://#{Whitehall.public_host}/government/feed.atom"
-    signup_description = 'Example Description'
-    EmailSignup.any_instance.stubs(description: signup_description)
+  test "#save ensures that a relevant topic exists in GovDelivery using the feed and the signup description" do
+    email_signup = EmailSignup.new(feed: feed_url)
 
-    Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, signup_description)
+    Whitehall.govuk_delivery_client.expects(:topic).with(feed_url, email_signup.description)
 
-    EmailSignup.create(feed_url)
+    assert email_signup.save
   end
 
-  test ".create does not create a GovDelivery topic if the feed is missing" do
+  test "#save does not create a GovDelivery topic if the feed is missing" do
     Whitehall.govuk_delivery_client.expects(:topic).never
 
-    EmailSignup.create
+    refute EmailSignup.new.save
+  end
+
+  test "#save does not create a GovDelivery topic if the feed is invalid" do
+    Whitehall.govuk_delivery_client.expects(:topic).never
+
+    refute EmailSignup.new(feed: 'http://fake/feed').save
   end
 
   test "#govdelivery_url delegates to the govuk_delivery_client" do
-    feed_url = "https://#{Whitehall.public_host}/government/feed.atom"
-
     Whitehall.govuk_delivery_client.expects(:signup_url).with(feed_url)
 
-    EmailSignup.new(feed_url).govdelivery_url
+    EmailSignup.new(feed: feed_url).govdelivery_url
   end
 
   test "#description provides a human-readable description of the filters being applied" do
-    feed_url = 'http://example.com/government/publications.atom?departments%5B%5D=department-of-health&keywords=&official_document_status=command_and_act_papers&publication_filter_option=all&topics%5B%5D=all'
-    assert_match /publication/, EmailSignup.new(feed_url).description
+    feed_url = feed_url("publications.atom?official_document_status=command_and_act_papers")
+
+    assert_equal "publications which are command or act papers",
+                 EmailSignup.new(feed: feed_url).description
   end
 
-  def email_signup(url_fragment, is_local_government = false)
-    EmailSignup.new("https://#{Whitehall.public_host}/government/#{url_fragment}", is_local_government)
+  def feed_url(feed_path="publications.atom")
+    "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/#{feed_path}"
+  end
+
+  def email_signup(feed_path, is_local_government = false)
+    EmailSignup.new(feed: feed_url(feed_path), local_government: (is_local_government ? '1' : '0'))
   end
 end

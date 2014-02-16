@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class PeopleControllerTest < ActionController::TestCase
+  include FeedHelper
+
   should_be_a_public_facing_controller
 
   def stub_role_appointment(role_type, options = {})
@@ -63,7 +65,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   view_test 'show has atom feed autodiscovery link' do
     get :show, id: @person
-    assert_select_autodiscovery_link person_url(@person, format: "atom")
+    assert_select_autodiscovery_link atom_feed_url_for(@person)
   end
 
   view_test "#show generates an atom feed of news and speeches associated with the person" do

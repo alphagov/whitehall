@@ -1,6 +1,6 @@
 <% page_title @classification.name %>
 <% page_class "topical-events-show" %>
-<% atom_discovery_link_tag topical_event_url(@classification, format: 'atom'), "Latest activity on #{@classification.name}" %>
+<% atom_discovery_link_tag atom_feed_url_for(@classification), "Latest activity on #{@classification.name}" %>
 
 <%= content_tag_for(:div, @classification, class: "classification #{@classification.class.name.underscore}") do %>
 
@@ -64,7 +64,7 @@
         <% end %>
         <%= render partial: 'shared/recently_updated',
                     locals: { recently_updated: @recently_changed_documents,
-                              atom_url: classification_url(@classification, format: "atom"),
+                              atom_url: atom_feed_url_for(@classification),
                               extra_class: 'panel' } %>
       </section>
     </div>

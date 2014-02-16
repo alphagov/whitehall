@@ -1,11 +1,11 @@
-<% atom_discovery_link_tag polymorphic_url(announcer, format: "atom"), t('announcements.heading') %>
+<% atom_discovery_link_tag atom_feed_url_for(announcer), t('announcements.heading') %>
 
 <% if announcer.announcements.any? %>
   <section class="announcements" id="announcements">
     <h1><%= t('announcements.heading') %></h1>
     <p>by <%= announcer.name %></p>
 
-    <%= render 'shared/feeds', atom_url: polymorphic_url(announcer, format: "atom") %>
+    <%= render 'shared/feeds', atom_url: atom_feed_url_for(announcer) %>
 
     <ol class="document-list">
       <% announcer.announcements.each do |announcement| %>
