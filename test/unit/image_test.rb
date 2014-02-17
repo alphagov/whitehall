@@ -6,6 +6,12 @@ class ImageTest < ActiveSupport::TestCase
     refute image.valid?
   end
 
+  test 'is invalid without any image data' do
+    image = build(:image, image_data: nil)
+    refute image.valid?
+    assert_equal 'must be present', image.errors[:image_data][0]
+  end
+
   test "#url returns the url from the image data" do
     image = create(:image)
     image_data = image.image_data

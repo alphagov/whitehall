@@ -1,6 +1,8 @@
 module VirusScanHelpers
   def self.simulate_virus_scan(*uploaders)
-    uploaders = AttachmentData.all.map(&:file) if uploaders.empty?
+    if uploaders.empty?
+      uploaders = AttachmentData.all.map(&:file) + ImageData.all.map(&:file)
+    end
 
     uploaders.each do |uploader|
       absolute_path = File.join(Whitehall.incoming_uploads_root, uploader.relative_path)
@@ -14,7 +16,9 @@ module VirusScanHelpers
   end
 
   def self.simulate_virus_scan_infected(*uploaders)
-    uploaders = AttachmentData.all.map(&:file) if uploaders.empty?
+    if uploaders.empty?
+      uploaders = AttachmentData.all.map(&:file) + ImageData.all.map(&:file)
+    end
 
     uploaders.each do |uploader|
       absolute_path = File.join(Whitehall.incoming_uploads_root, uploader.relative_path)
