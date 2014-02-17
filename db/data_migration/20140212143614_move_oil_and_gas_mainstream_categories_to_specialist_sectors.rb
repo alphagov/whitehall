@@ -13,4 +13,4 @@ detailed_guides.each do |guide|
   guide.specialist_sector_tags = sector_tags_for_guide(guide)
 end
 
-mainstream_categories.delete_all
+mainstream_categories.destroy_all
