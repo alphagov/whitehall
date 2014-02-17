@@ -38,13 +38,17 @@ module Whitehall
       end
 
       def recognised_url?
-        valid_host_and_protocol? && recognised_path?
+        valid_host_and_protocol? && recognised_path? && valid_extension?
       end
 
       def recognised_path?
         Rails.application.routes.recognize_path(uri.path)
       rescue ActionController::RoutingError
         false
+      end
+
+      def valid_extension?
+        File.extname(uri.path) == '.atom'
       end
 
       def resource_exists?
