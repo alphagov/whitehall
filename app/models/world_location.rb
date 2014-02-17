@@ -1,4 +1,6 @@
 class WorldLocation < ActiveRecord::Base
+  ANALYTICS_PREFIX = 'WL'
+
   has_many :edition_world_locations
   has_many :editions,
             through: :edition_world_locations
