@@ -62,6 +62,9 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.3.4)
+    airbrake (3.1.15)
+      builder
+      multi_json
     arel (3.0.3)
     aws-ses (0.5.0)
       builder
@@ -362,6 +365,7 @@ PLATFORMS
 
 DEPENDENCIES
   addressable
+  airbrake (= 3.1.15)
   aws-ses
   babosa
   bootstrap-kaminari-views
