@@ -29,6 +29,7 @@ namespace :publishing do
       begin
         ScheduledEditionsPublisher.publish_all_due_editions
       rescue ScheduledEditionsPublisher::PublishingFailure => exception
+        Airbrake.notify_or_ignore(exception, parameters: { unpublished_editions: exception.unpublished_edition_ids })
         ExceptionNotifier::Notifier.background_exception_notification(exception, data: { unpublished_editions: exception.unpublished_edition_ids })
       end
     end
