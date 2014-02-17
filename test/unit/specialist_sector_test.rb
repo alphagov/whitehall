@@ -12,7 +12,7 @@ class SpecialistSectorTest < ActiveSupport::TestCase
     use_fake_content_api
   end
 
-  test '.options_for_select should return specialist sector tags ready for use as grouped options' do
+  test '.grouped_sector_topics should return specialist sector tags grouped under parents' do
     oil_and_gas = { slug: 'oil-and-gas', title: 'Oil and Gas' }
     tax = { slug: 'tax', title: 'Tax' }
 
@@ -27,14 +27,25 @@ class SpecialistSectorTest < ActiveSupport::TestCase
 
     content_api_has_tags('specialist_sectors', sector_tags)
 
-    expected_options = [
-      ['Oil and Gas', [['Oil and Gas: Wells', 'oil-and-gas/wells'],
-                       ['Oil and Gas: Fields', 'oil-and-gas/fields']]],
-      ['Tax', [['Tax: Income Tax', 'tax/income-tax'],
-               ['Tax: Capital Gains Tax', 'tax/capital-gains-tax']]]
-    ]
+    oil_and_gas = OpenStruct.new(
+      slug: 'oil-and-gas',
+      title: 'Oil and Gas',
+      topics: [
+        OpenStruct.new(slug: 'oil-and-gas/wells', title: 'Wells'),
+        OpenStruct.new(slug: 'oil-and-gas/fields', title: 'Fields')
+      ]
+    )
 
-    assert_equal expected_options, SpecialistSector.options_for_select
+    tax = OpenStruct.new(
+      slug: 'tax',
+      title: 'Tax',
+      topics: [
+        OpenStruct.new(slug: 'tax/income-tax', title: 'Income Tax'),
+        OpenStruct.new(slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax')
+      ]
+    )
+
+    assert_equal [oil_and_gas, tax], SpecialistSector.grouped_sector_topics
   end
 
 private

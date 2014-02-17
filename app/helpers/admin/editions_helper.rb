@@ -329,4 +329,14 @@ module Admin::EditionsHelper
        "Language: #{locale.native_and_english_language_name}"]
     end
   end
+
+  def specialist_sector_options_for_select(sectors)
+    sectors.map do |sector|
+      topics = sector.topics.map do |topic|
+        ["#{sector.title}: #{topic.title}", topic.slug]
+      end
+
+      [sector.title, topics]
+    end
+  end
 end

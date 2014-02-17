@@ -33,4 +33,35 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     document_collection = create(:document_collection)
     assert_includes default_edition_tabs(document_collection).keys, "Collection documents"
   end
+
+  test 'specialist_sector_options_for_select returns grouped options' do
+    oil_and_gas = OpenStruct.new(
+      slug: 'oil-and-gas',
+      title: 'Oil and Gas',
+      topics: [
+        OpenStruct.new(slug: 'oil-and-gas/wells', title: 'Wells'),
+        OpenStruct.new(slug: 'oil-and-gas/fields', title: 'Fields')
+      ]
+    )
+
+    tax = OpenStruct.new(
+      slug: 'tax',
+      title: 'Tax',
+      topics: [
+        OpenStruct.new(slug: 'tax/income-tax', title: 'Income Tax'),
+        OpenStruct.new(slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax')
+      ]
+    )
+
+    sectors = [oil_and_gas, tax]
+
+    expected_options = [
+      ['Oil and Gas', [['Oil and Gas: Wells', 'oil-and-gas/wells'],
+                       ['Oil and Gas: Fields', 'oil-and-gas/fields']]],
+      ['Tax', [['Tax: Income Tax', 'tax/income-tax'],
+               ['Tax: Capital Gains Tax', 'tax/capital-gains-tax']]]
+    ]
+
+    assert_equal expected_options, specialist_sector_options_for_select(sectors)
+  end
 end

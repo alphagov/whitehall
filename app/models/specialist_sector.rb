@@ -4,9 +4,13 @@ class SpecialistSector < ActiveRecord::Base
   validates :edition, presence: true
   validates :tag, presence: true, uniqueness: { scope: :edition_id }
 
-  def self.options_for_select
-    nested_sectors.map do |parent, tags|
-      [parent.title, tags.map { |tag| option_for_tag(tag, parent.title) }]
+  def self.grouped_sector_topics
+    nested_sectors.map do |sector_tag, topic_tags|
+      OpenStruct.new(
+        slug: slug_for_sector_tag(sector_tag),
+        title: sector_tag.title,
+        topics: topic_tags.map { |tag| sector_topic_from_tag(tag) }
+      )
     end
   end
 
@@ -19,10 +23,11 @@ private
     Whitehall.content_api.tags('specialist_sectors')
   end
 
-  def self.option_for_tag(tag, parent_title)
-    label = "#{parent_title}: #{tag.title}"
-    slug = URI.unescape(tag.id.match(%r{/([^/]*)\.json})[1])
+  def self.sector_topic_from_tag(tag)
+    OpenStruct.new(slug: slug_for_sector_tag(tag), title: tag.title)
+  end
 
-    [label, slug]
+  def self.slug_for_sector_tag(tag)
+    URI.unescape(tag.id.match(%r{/([^/]*)\.json})[1])
   end
 end
