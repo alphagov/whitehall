@@ -39,5 +39,12 @@
       }
 
     }
+
+    &:first-child a {
+      margin-left: 0;
+    }
+    &:last-child a {
+      margin-right: 0;
+    }
   }
 }
