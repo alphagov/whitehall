@@ -61,7 +61,19 @@
 
   .govspeak {
     h2 {
+      margin-top: $gutter;
       position: relative;
+      &:first-child {
+        margin-top: 0;
+      }
+      @include media(tablet) {
+        margin-top: $gutter+$gutter-half;
+      }
+    }
+
+    h2 + h3,
+    h2 + p {
+      margin-top: 0;
     }
   }
 
