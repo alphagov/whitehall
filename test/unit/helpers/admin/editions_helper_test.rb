@@ -64,4 +64,27 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal expected_options, specialist_sector_options_for_select(sectors)
   end
+
+  test 'specialist_sector_fields should pass a list of sectors into a block' do
+    SpecialistSector.stubs(:grouped_sector_topics).returns(:sector_list)
+
+    response = specialist_sector_fields do |sectors|
+      assert_equal :sector_list, sectors
+      'Some string'
+    end
+
+    assert_equal 'Some string', response
+  end
+
+  test 'specialist_sector_fields should return nothing when the list of sectors is unavailable' do
+    SpecialistSector.stubs(:grouped_sector_topics)
+                    .raises(SpecialistSector::DataUnavailable.new)
+
+    response = specialist_sector_fields do |sectors|
+      assert false, 'Block should not be called'
+      'Some string'
+    end
+
+    assert_equal nil, response
+  end
 end

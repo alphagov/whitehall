@@ -339,4 +339,12 @@ module Admin::EditionsHelper
       [sector.title, topics]
     end
   end
+
+  def specialist_sector_fields
+    capture do
+      yield(SpecialistSector.grouped_sector_topics)
+    end
+  rescue SpecialistSector::DataUnavailable
+    # silently return nothing
+  end
 end

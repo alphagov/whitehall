@@ -48,6 +48,14 @@ class SpecialistSectorTest < ActiveSupport::TestCase
     assert_equal [oil_and_gas, tax], SpecialistSector.grouped_sector_topics
   end
 
+  test '.grouped_sector_topics should raise a DataUnavailable error when the content API is unavailable' do
+    GdsApi::ContentApi.any_instance.stubs(:tags).raises(GdsApi::HTTPErrorResponse.new(500, 'Error'))
+
+    assert_raise SpecialistSector::DataUnavailable do
+      SpecialistSector.grouped_sector_topics
+    end
+  end
+
 private
   def use_real_content_api
     Whitehall.content_api = GdsApi::ContentApi.new(Plek.current.find('content_api'))

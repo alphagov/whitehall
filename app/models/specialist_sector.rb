@@ -21,6 +21,8 @@ private
 
   def self.fetch_sectors
     Whitehall.content_api.tags('specialist_sectors')
+  rescue
+    raise DataUnavailable.new
   end
 
   def self.sector_topic_from_tag(tag)
@@ -30,4 +32,6 @@ private
   def self.slug_for_sector_tag(tag)
     URI.unescape(tag.id.match(%r{/([^/]*)\.json})[1])
   end
+
+  class DataUnavailable < StandardError; end
 end
