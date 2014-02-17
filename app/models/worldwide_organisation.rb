@@ -18,6 +18,11 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
+  after_create :ensure_analytics_identifier
+  def ensure_analytics_identifier
+    update_column(:analytics_identifier, ANALYTICS_PREFIX + id.to_s) if analytics_identifier.blank?
+  end
+
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
 
   include TranslatableModel
@@ -46,7 +51,7 @@ class WorldwideOrganisation < ActiveRecord::Base
     super || is_main_office?(office)
   end
 
-  delegate :analytics_identifier, :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+  delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
   def sponsoring_organisation
     sponsoring_organisations.first
   end

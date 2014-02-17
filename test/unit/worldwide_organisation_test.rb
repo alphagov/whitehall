@@ -8,6 +8,11 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     assert_equal 'office-name', worldwide_organisation.slug
   end
 
+  test 'should set an analytics identifier on create' do
+    worldwide_organisation = create(:worldwide_organisation, name: 'Office name')
+    assert_equal 'WO' + worldwide_organisation.id.to_s, worldwide_organisation.analytics_identifier
+  end
+
   %w{name summary description}.each do |param|
     test "should not be valid without a #{param}" do
       refute build(:worldwide_organisation, param.to_sym => '').valid?
@@ -45,18 +50,6 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
      image = build(:default_news_organisation_image_data)
      worldwide_organisation = build(:worldwide_organisation, default_news_image: image)
      assert_equal image, worldwide_organisation.default_news_image
-  end
-
-  test "defers to the main sponsoring organisation for its analytics_identifier" do
-    organisation = create(:organisation)
-    worldwide_organisation = create(:worldwide_organisation)
-    worldwide_organisation.sponsoring_organisations << organisation
-
-    assert_equal organisation.analytics_identifier, worldwide_organisation.analytics_identifier
-  end
-
-  test "#analytics_identifier doesn't blow up if the organisation has no sponsor" do
-    assert_nil create(:worldwide_organisation).analytics_identifier
   end
 
   test "destroys associated sponsorships" do

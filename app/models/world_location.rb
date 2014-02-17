@@ -43,6 +43,11 @@ class WorldLocation < ActiveRecord::Base
     remove_from_search_index if self.active_changed? && !self.active
   end
 
+  after_create :ensure_analytics_identifier
+  def ensure_analytics_identifier
+    update_column(:analytics_identifier, ANALYTICS_PREFIX + id.to_s) if analytics_identifier.blank?
+  end
+
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order('world_location_translations.name') }
 
   def self.active

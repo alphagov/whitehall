@@ -29,6 +29,11 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', world_location.slug
   end
 
+  test 'should set an analytics identifier on create' do
+    world_location = create(:world_location, name: 'Costa Rica')
+    assert_equal 'WL' + world_location.id.to_s, world_location.analytics_identifier
+  end
+
   test "has name of it's world location type as display type" do
     world_location_type = WorldLocationType::WorldLocation
     world_location_type.stubs(:name).returns('The Moon')
