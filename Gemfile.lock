@@ -188,7 +188,7 @@ GEM
       addressable (~> 2.3)
     link_header (0.0.7)
     logstash-event (1.1.5)
-    logstasher (0.4.1)
+    logstasher (0.4.8)
       logstash-event (~> 1.1.0)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
@@ -394,7 +394,7 @@ DEPENDENCIES
   kramdown (~> 0.13.8)
   launchy (~> 2.3.0)
   link_header
-  logstasher (= 0.4.1)
+  logstasher (= 0.4.8)
   mini_magick
   mocha (= 0.14.0)
   mysql2
