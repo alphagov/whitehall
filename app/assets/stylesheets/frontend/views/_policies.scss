@@ -77,8 +77,12 @@
     }
   }
 
-  .supporting_pages {
-    margin: ($gutter-half*-1) (-$gutter) $gutter (-$gutter);
+  .supporting-pages {
+    margin: ($gutter-half*-1) (-$gutter) 0 (-$gutter);
+
+    @include media(tablet) {
+      margin-bottom: $gutter;
+    }
 
     @include media(desktop) {
       margin-left: 0;

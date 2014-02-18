@@ -1,6 +1,6 @@
-<section class="contextual-info supporting_pages">
+<section class="contextual-info supporting-pages">
   <% if @policy.has_published_supporting_pages? %>
-    <nav role="navigation" class="supporting-pages">
+    <nav role="navigation">
       <a href="#contents" class="js-showhide contents-toggle">Show all detail pages</a>
       <ul id="contents">
         <% @policy.published_supporting_pages.each do |supporting_page| %>
