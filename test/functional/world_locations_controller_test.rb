@@ -148,6 +148,14 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal 5, assigns(:feature_list).current_feature_count
   end
 
+  test "show should set slimmer analytics headers" do
+    world_location = create(:world_location)
+
+    get :show, id: world_location.id
+
+    assert_equal "<#{world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
+  end
+
   test "should display world_location's latest two announcements in reverse chronological order" do
     world_location = create(:world_location)
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)

@@ -17,6 +17,14 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_equal 'my summary', assigns(:meta_description)
   end
 
+  test "should set slimmer analytics headers" do
+    organisation = create(:worldwide_organisation, :translated)
+
+    get :show, id: organisation.id
+
+    assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+  end
+
   view_test "shows links to associated world locations" do
     location_1 = create(:world_location)
     location_2 = create(:world_location)

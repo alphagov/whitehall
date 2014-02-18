@@ -19,6 +19,7 @@ class WorldwideOrganisationsController < PublicFacingController
         @primary_role = primary_role
         @other_roles = ([secondary_role] + office_roles).compact
         set_meta_description(@worldwide_organisation.summary)
+        set_slimmer_organisations_header([@worldwide_organisation])
       end
       format.json { redirect_to api_worldwide_organisation_path(@worldwide_organisation, format: :json) }
     end
