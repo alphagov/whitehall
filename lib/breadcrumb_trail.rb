@@ -34,7 +34,7 @@ class DetailedGuideBreadcrumbTrail < BreadcrumbTrail
 
 private
   def tag_hash(mainstream_category)
-    tag = Whitehall.mainstream_content_api.tag(mainstream_category.parent_tag) || {}
+    tag = Whitehall.content_api.tag(mainstream_category.parent_tag) || {}
     {
       title: mainstream_category.title,
       id: mainstream_category.path,
@@ -64,7 +64,7 @@ class MainstreamCategoryBreadcrumbTrail < BreadcrumbTrail
       format: 'section',
       web_url: url_maker.mainstream_category_path(@mainstream_category),
       id: @mainstream_category.path,
-      tags: [Whitehall.mainstream_content_api.tag(@mainstream_category.parent_tag).to_hash]
+      tags: [Whitehall.content_api.tag(@mainstream_category.parent_tag).to_hash]
     }
   end
 end

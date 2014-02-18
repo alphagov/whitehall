@@ -3,7 +3,7 @@ require 'cgi'
 class MainstreamCategory < ActiveRecord::Base
   has_many :primary_detailed_guides, class_name: "DetailedGuide",
            foreign_key: "primary_mainstream_category_id"
-  has_many :edition_mainstream_categories
+  has_many :edition_mainstream_categories, dependent: :destroy
   has_many :other_detailed_guides, through: :edition_mainstream_categories,
            source: :edition, class_name: "DetailedGuide"
 

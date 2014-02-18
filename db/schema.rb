@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106163015) do
+ActiveRecord::Schema.define(:version => 20140211144515) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1021,6 +1021,15 @@ ActiveRecord::Schema.define(:version => 20140106163015) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "specialist_sectors", :force => true do |t|
+    t.integer  "edition_id"
+    t.string   "tag"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "specialist_sectors", ["edition_id", "tag"], :name => "index_specialist_sectors_on_edition_id_and_tag", :unique => true
 
   create_table "sponsorships", :force => true do |t|
     t.integer  "organisation_id"

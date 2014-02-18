@@ -11,6 +11,8 @@
       <%= form.label :other_mainstream_category_ids, 'Other detailed guidance categories' %>
       <%= form.select :other_mainstream_category_ids, mainstream_category_options(edition, edition.other_mainstream_category_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose other detailed guidance categories..."} %>
 
+      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
+
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
 
       <%= form.label :outbound_related_document_ids, 'Related guides' %>

@@ -14,6 +14,7 @@ class Edition < ActiveRecord::Base
   include Edition::AuditTrail
   include Edition::ActiveEditors
   include Edition::Translatable
+  include Edition::SpecialistSectors
 
   # This mixin should go away when we switch to a search backend for admin documents
   extend Edition::FindableByOrganisation
