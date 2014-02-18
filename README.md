@@ -121,14 +121,41 @@ To use a local copy of Rummager you'll need to:
   instance of Rummager (e.g. `export
   RUMMAGER_HOST=http://rummager.dev` in `.powrc`);
 * You'll also need to set `RUMMAGER_HOST` when using the Rummager rake
-  tasks e.g. `RUMMAGER_HOST=http://rummager.dev rake rummager:index`;
+  tasks (ie. when building search index)
 * Run the `rummager` and `frontend` applications to view results. You
   just need the `rummager` app to index results.
 
-Note: Before you index the whitehall data, make sure you have created the
-rummager indices by running the following task from the rummager repo:
+### Rebuilding whitehall search index
+
+The whitehall search index is called 'government'. Rebuilding of the whitehall
+search index can now be done with a bulk data dump. This also supports
+construction of a new detatched index and seamless switchover from the
+existing to the new index. There are two parts to this process, a
+`rummager_export.rb` script in whitehall which dumps the whitehall data to
+STDOUT, and a `bulk_load` script in rummager which accepts that data on STDIN
+and loads it into rummager.
+
+The `bulk_load` script also takes care of constructing the new offline index,
+locking the index for writes (so that index write workers queue up waiting for
+the new index to come online during indexing, avoiding data loss during
+reindex), and seamlessly switching to the new index on completion.
+
+One other caveat is the attachment text extraction feature. This is controlled
+by the `Whitehall.extract_text_feature?` feature flag. You may wish to disable
+this feature in development if you don't have local copies of the attachment
+files.
+
+Steps:
+
+1. Make sure you have created the rummager indices by running the
+following task from the rummager repo:
 
   RUMMAGER_INDEX=government bundle exec rake rummager:migrate_index
+
+2. Run the bulk export and load:
+
+  bundle exec ./script/rummager_export.rb | bash -c "cd ../rummager; bundle exec ./bin/bulk_load government "
+
 
 ## Specifying a different endpoint for the GDS Content API
 
