@@ -25,7 +25,7 @@ class SpecialistSectorTest < ActiveSupport::TestCase
       { slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax', parent: tax }
     ]
 
-    content_api_has_tags('specialist_sectors', sector_tags)
+    content_api_has_tags('specialist_sector', sector_tags)
 
     oil_and_gas = OpenStruct.new(
       slug: 'oil-and-gas',

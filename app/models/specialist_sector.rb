@@ -20,7 +20,7 @@ private
   end
 
   def self.fetch_sectors
-    Whitehall.content_api.tags('specialist_sectors')
+    Whitehall.content_api.tags('specialist_sector')
   rescue
     raise DataUnavailable.new
   end
