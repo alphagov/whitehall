@@ -154,12 +154,19 @@ following task from the rummager repo:
 
 2. Run the bulk export and load:
 
-  WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb | bash -c "cd ../rummager; bundle exec ./bin/bulk_load government"
+  WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb > government.dump
+  WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb --detailed > detailed.dump
 
-  or if you want to allow the text extraction feature
+or if you want to allow the text extraction feature
 
-  bundle exec ./script/rummager_export.rb | bash -c "cd ../rummager; bundle exec ./bin/bulk_load government"
+  bundle exec ./script/rummager_export.rb > government.dump
+  bundle exec ./script/rummager_export.rb --detailed > detailed.dump
 
+then
+
+  cd ../rummager
+  bundle exec ./bin/bulk_load government < government.dump
+  bundle exec ./bin/bulk_load detailed < detailed.dump
 
 ## Specifying a different endpoint for the GDS Content API
 

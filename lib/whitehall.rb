@@ -204,7 +204,11 @@ module Whitehall
   end
 
   def self.government_edition_classes
-    searchable_classes - [DetailedGuide] - DetailedGuide.descendants
+    searchable_classes - detailed_edition_classes
+  end
+
+  def self.detailed_edition_classes
+    [DetailedGuide] - DetailedGuide.descendants
   end
 
   def self.analytics_format(format)
