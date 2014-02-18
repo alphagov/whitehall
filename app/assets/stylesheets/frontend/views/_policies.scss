@@ -220,9 +220,14 @@
 
   // see helpers/_feed.scss for the other styles
   .feeds {
-    position: absolute;
-    right: $gutter-half;
-    top: 0;
+    margin: $gutter-one-third 0;
+
+    @include media(tablet) {
+      margin: 0;
+      position: absolute;
+      right: $gutter-half;
+      top: 0;
+    }
 
     .feed-panel {
       position: absolute;
