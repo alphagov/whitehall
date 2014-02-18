@@ -91,10 +91,10 @@
       text-decoration: none;
       zoom: 1;
 
-      background: transparent image-url("accordian-arrow.png") $full-width -40px no-repeat;
+      background: transparent image-url("accordian-arrow.png") 92% -40px no-repeat;
 
-      margin-left: 0;
-      padding: 0.5em 2em;
+      margin-left: $gutter-half;
+      padding: $gutter-one-third $gutter-half;
 
       float: none;
       clear: both;
@@ -105,7 +105,10 @@
       line-height: (45/16);
 
       @include media(tablet) {
+        background-position: 95% -40px;
         line-height: (45/19);
+        margin-left: 0;
+        padding: $gutter-one-third $gutter;
       }
 
       @include media(desktop) {
@@ -113,12 +116,15 @@
       }
 
       &.closed {
-        background-position: $full-width 6px;
+        background-position: 92% 6px;
+
+        @include media(tablet) {
+          background-position: 95% 6px;
+        }
       }
     }
 
     li {
-      margin-left: 0;
       float: none;
       border-bottom: solid 1px $border-colour;
 
@@ -129,6 +135,7 @@
 
       @include media(tablet) {
         line-height: (45/19);
+        margin-left: 0;
       }
 
       @include media(desktop) {
@@ -141,9 +148,13 @@
 
       a {
         display: block;
-        padding: 0.75em 2em;
+        padding: $gutter-one-third $gutter-half;
         text-decoration: none;
         zoom: 1;
+
+        @include media(tablet) {
+          padding: $gutter-one-third $gutter;
+        }
 
         @include media(desktop) {
           max-width: 16.5em;
