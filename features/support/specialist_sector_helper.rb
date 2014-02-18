@@ -12,7 +12,7 @@ module SpecialistSectorHelper
       { slug: 'oil-and-gas/offshore', title: 'Offshore', parent: parent_tag }
     ]
 
-    content_api_has_tags('specialist_sectors', sector_tags)
+    content_api_has_tags('specialist_sector', sector_tags)
   end
 
   def select_specialist_sectors_in_form
