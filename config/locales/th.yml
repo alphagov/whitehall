@@ -89,6 +89,7 @@ th:
     email: อีเมล์
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: กฎบัตรข้อมูลส่วนบุคคล
       publication_scheme: โครงการสิ่งพิม์
       social_media_use: การใช้สื่อสังคมออนล์
@@ -574,6 +575,7 @@ th:
         other: ทีตั้ง
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: ลิงค์นี้อธิบายถึงวิธีการที่เราปฏิบัติต่อข้อมูลส่วนบุคคลของคุณ
       publication_scheme_html: อ่านประเภทข้อมูลซึ่งเราเผยแพร่เป็นประจำได้ที่ %{link}
       social_media_use_html: อ่านนโยบายของเราได้ที่ %{link}

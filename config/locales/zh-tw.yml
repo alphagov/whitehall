@@ -88,6 +88,7 @@ zh-tw:
     email: 電子郵件
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: 個人資訊表
       publication_scheme: 出版計畫
       social_media_use: 社群應用
@@ -573,6 +574,7 @@ zh-tw:
         other: 其他世界地區位置
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: 我們的%{link}解釋我們如何處理你的個人資料。
       publication_scheme_html: 查閱我們在%{link}定期發布的資訊。
       social_media_use_html: 查閱我們在%{link}的政策。

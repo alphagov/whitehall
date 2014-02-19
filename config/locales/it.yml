@@ -432,6 +432,7 @@ it:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Informazioni personali
       publication_scheme: Schema di pubblicazione
       social_media_use: Uso dei social media
@@ -576,6 +577,7 @@ it:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Per informazioni sul trattamento dei dati
         personali, consulta la pagina %{link}.
       publication_scheme_html: Per maggiori dettagli sul tipo di documenti pubblicati

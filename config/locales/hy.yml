@@ -432,6 +432,7 @@ hy:
     email: Էլելտրոնային հասցե
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Անձնական տվյալների կանոնադրություն
       publication_scheme: Հրապարակման համակարգ
       social_media_use: Սոցիալական լրատվամիջոցի օգտագործում
@@ -577,6 +578,7 @@ hy:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: 'Մեր %{link} ը կպարզաբանի մեր մոտեցումները
         անձնական տեղեկատվությանը '
       publication_scheme_html: Կարդացեք այն ամնենի մասին ինչ մենք հրապարակում ենք

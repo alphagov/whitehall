@@ -432,6 +432,7 @@ de:
     email: E-Mail
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Charta zum Schutz personenbezogener Daten
       publication_scheme: Publikationsprogramm
       social_media_use: Soziale Medien
@@ -577,6 +578,7 @@ de:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Unser %{link} erklärt, wie wir Ihre personenbezogenen
         Daten schützen.
       publication_scheme_html: Lesen Sie hier %{link}, welche Informationen wir routinemäßig

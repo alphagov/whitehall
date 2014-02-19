@@ -433,6 +433,7 @@ ps:
     email: برښنالیک
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: د شخصی معلوماتی په اړه سند
       publication_scheme: د خپرولو پلان
       social_media_use: د ټولنیزو رسنیو استعمال
@@ -578,6 +579,7 @@ ps:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: ' زموږ تشریح کوی چې موږ د شخصی معلوماتو سره
         څرنګه چلند کوو'
       publication_scheme_html: زموږ د هغو معلوماتو په اړه ولولۍ چې هره ورڅ یې موږ

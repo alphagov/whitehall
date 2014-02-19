@@ -371,12 +371,14 @@ en:
       personal_information_charter_html: Our %{link} explains how we treat your personal information.
       welsh_language_scheme_html: Find out about our commitment to publishing in the %{link}.
       social_media_use_html: Read our policy on %{link}.
+      about_our_services_html: Find out %{link}.
   corporate_information_page:
     type:
       publication_scheme: Publication scheme
       personal_information_charter: Personal information charter
       welsh_language_scheme: Welsh language scheme
       social_media_use: Social media use
+      about_our_services: About our services
   contact:
     email: Email
     contact_form: Contact form

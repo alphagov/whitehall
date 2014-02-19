@@ -500,6 +500,7 @@ ro:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Organigramă
       publication_scheme:
       social_media_use: 'Utilizarea rețelelor sociale online '
@@ -644,6 +645,7 @@ ro:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Mai multe despre cum folosim informațiile
         cu caracter personal pe %{link}
       publication_scheme_html: Citește mai multe despre informațiile pe care le publigăm

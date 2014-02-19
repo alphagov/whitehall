@@ -432,6 +432,7 @@ si:
     email: විද්‍යුත් තැපැල්
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: පුද්ගලික තොරතුරු ප්‍රඥප්තිය
       publication_scheme: මහජය පටිපාටිය
       social_media_use: සමාජ මාධ්‍ය භාවිතය
@@ -576,6 +577,7 @@ si:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: ඔබගේ පුද්ගලික තොරතුරු භාවිතා කිරීම ගැන අපේ
         %{link} පැහැදිලි කිරීම
       publication_scheme_html: අප නිතර අපේ %{link} පල කරන තොරතුරු වර්ගයන් ගැන කියවන්න

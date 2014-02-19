@@ -90,6 +90,7 @@ fa:
     email: ایمیل
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: منشور اطلاعات شخصی
       publication_scheme: برنامه انتشار
       social_media_use: استفاده از رسانه اجتماعی
@@ -576,6 +577,7 @@ fa:
         other: موقعیت های جهانی
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} چگونگی نگهداری از اطلاعات شخصی شما
         را توضیح می دهد'
       publication_scheme_html: 'درباره نوع اطلاعاتی که ما به طور روال در %{link} منتشر

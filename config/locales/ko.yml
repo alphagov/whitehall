@@ -89,6 +89,7 @@ ko:
     email: 이메일
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: 개인정보 규정
       publication_scheme: 발행 계획
       social_media_use: 소셜미디어 사용
@@ -574,6 +575,7 @@ ko:
         other: 월드 로케이션
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} 에서 개인정보 처리에 대한 안내'
       publication_scheme_html: 정기적으로 공개되는 %{link} 정보에 대한 안내
       social_media_use_html: '%{link} 에서 정책 정보 확인'

@@ -431,6 +431,7 @@ lv:
     email: E-pasts
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Personas datu harta
       publication_scheme: Publikāciju shēma
       social_media_use: Sociālie mēdiji
@@ -575,6 +576,7 @@ lv:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
         Jūsu sniegtā personīgā informācija
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta

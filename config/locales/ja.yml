@@ -89,6 +89,7 @@ ja:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: 個人情報保護法
       publication_scheme: 情報公開法
       social_media_use: ソーシャルメディア
@@ -574,6 +575,7 @@ ja:
         other: 地域
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい
       publication_scheme_html: 情報公開の種類については %{link} をご覧下さい
       social_media_use_html: '%{link}に関する政策を読む'

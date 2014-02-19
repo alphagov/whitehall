@@ -567,6 +567,7 @@ be:
     email: Электронная пошта
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Статут аб асабістай інфармацыі
       publication_scheme: Схема публікацый
       social_media_use: Ужыванне сацыяльных медый
@@ -713,6 +714,7 @@ be:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Наша %{link}  тлумачыць, як мы ставімся да
         Вашай асабістай інфармацыі.
       publication_scheme_html: Чытайце пра тыпы інфармацыі, якую мы рэгулярна публікуем,

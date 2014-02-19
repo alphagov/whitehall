@@ -77,4 +77,7 @@ class CorporateInformationPageType
   SocialMediaUse = create(
     id: 18, title_template: "Social media use", slug: 'social-media-use', menu_heading: :other
   )
+  AboutOurServices = create(
+    id: 19, title_template: "About our services", slug: 'about-our-services', menu_heading: :other
+  )
 end

@@ -703,6 +703,7 @@ ar:
     email: بريد إلكتروني
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: ميثاق الاحتفاظ بالمعلومات الشخصية
       publication_scheme: نظام المطبوعات
       social_media_use: استخدام مواقع التواصل الاجتماعي
@@ -848,6 +849,7 @@ ar:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} يشرح كيفية التعامل مع المعلومات
         الشخصية الخاصة بك'
       publication_scheme_html: إقرأ عن أنواع المعلومات التي ننشرها بشكل روتيني في

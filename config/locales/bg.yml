@@ -435,6 +435,7 @@ bg:
     email: И-мейл
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Харта за персонална информация
       publication_scheme: Схема за публикации
       social_media_use: Ползване на социални медии
@@ -580,6 +581,7 @@ bg:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Нашият %{link} дава информация за начина
         на ползване на личните Ви данни
       publication_scheme_html: Прочетете какви видове информация публикуваме в нашия

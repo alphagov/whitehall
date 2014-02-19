@@ -432,6 +432,7 @@ hi:
     email: ईमेल
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: व्यक्तिगत जानकारी चार्टर
       publication_scheme: प्रकाशन योजना
       social_media_use: सोशल मीडिया का प्रयोग
@@ -577,6 +578,7 @@ hi:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: हमारे %{link} बताते हैं कि हम कैसे आपकी व्यक्तिगत
         सूचना का उपयोग करते हैं।
       publication_scheme_html: सूचना के उन प्रकारों के बारे में पढ़ें, जिन्हें हम

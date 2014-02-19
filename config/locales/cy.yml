@@ -706,6 +706,7 @@ cy:
     email: E-bost
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Nod gwybodaeth bersonol
       publication_scheme: Cynllun cyhoeddi
       social_media_use:
@@ -852,6 +853,7 @@ cy:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Mae ein %{link} yn egluro sut rydym yn trin
         eich gwybodaeth bersonol.
       publication_scheme_html: Darllenwch am y mathau o wybodaeth rydym yn eu cyhoeddi'n

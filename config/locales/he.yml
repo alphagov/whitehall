@@ -568,6 +568,7 @@ he:
     email: דואר אלקטרוני
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: טבלת מידע אישי
       publication_scheme: תכנית פרסומים
       social_media_use: מדיה חברתית
@@ -712,6 +713,7 @@ he:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: ה%{link} מסביר אודות המדיניות שלנו כלפי מידע
         פרטי
       publication_scheme_html: קרא/י אודות סוגי מידע שאנחנו מפרסמים %{link}
