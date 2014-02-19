@@ -3,6 +3,12 @@ module Edition::SpecialistSectors
 
   included do
     has_many :specialist_sectors, foreign_key: :edition_id, dependent: :destroy
+
+    add_trait do
+      def process_associations_before_save(edition)
+        edition.specialist_sector_tags = @edition.specialist_sector_tags
+      end
+    end
   end
 
   def specialist_sector_tags
