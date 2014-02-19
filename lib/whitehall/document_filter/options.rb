@@ -51,7 +51,7 @@ module Whitehall
 
       def valid_resource_filter_options?(filter_options)
         filter_options.each_pair.all? do |key, values|
-          values.all? do |value|
+          values.respond_to?(:all?) && values.all? do |value|
             label_for(key.to_s, value)
           end
         end
