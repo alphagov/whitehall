@@ -113,4 +113,27 @@ class DocumentsControllerTest < ActionController::TestCase
 
     assert_response :not_found
   end
+
+  test "adds world location slimmer header if the document can be associated with a world location" do
+    DocumentsController.any_instance.stubs(document_class: WorldLocationNewsArticle)
+    edition = create(:world_location_news_article)
+    force_publish(edition)
+
+    get :show, id: edition.document
+
+    assert_response :success
+    expected_header_value = "<#{edition.world_locations.map(&:analytics_identifier).join('><')}>"
+    assert_equal expected_header_value, response.headers["X-Slimmer-World-Locations"]
+  end
+
+  test "does not add world location slimmer header if the document can not be associated with a world location" do
+    DocumentsController.any_instance.stubs(document_class: StatisticalDataSet)
+    statistical_data_set = create(:statistical_data_set)
+    force_publish(statistical_data_set)
+
+    get :show, id: statistical_data_set.document
+
+    assert_response :success
+    assert_nil response.headers["X-Slimmer-World-Locations"]
+  end
 end
