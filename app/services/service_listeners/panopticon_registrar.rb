@@ -5,9 +5,7 @@ module ServiceListeners
     end
 
     def register!
-      if @edition.is_a? DetailedGuide
-        PanopticonRegisterArtefactWorker.perform_async(@edition.id)
-      end
+      PanopticonRegisterArtefactWorker.perform_async(@edition.id)
     end
   end
 end

@@ -4,7 +4,9 @@ class RegisterableEdition
   end
 
   def slug
-    @edition.slug
+    # strip the preceding slash character from the generated slug,
+    # to be consistent with Panopticon's slug format.
+    Whitehall.url_maker.public_document_path(@edition).sub(/\A\//,"")
   end
 
   def title
@@ -16,7 +18,8 @@ class RegisterableEdition
   end
 
   def kind
-    @edition.type.underscore
+    model_type = "#{@edition.type.underscore}_type".to_sym
+    @edition.respond_to?(model_type) ? @edition.send(model_type).key : @edition.type.underscore
   end
 
   def state
