@@ -431,6 +431,7 @@ uz:
     email: Elektron manzil
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Shaxsiy ma'lumot nizomi
       publication_scheme: Nashr rejasi
       social_media_use: Jamoat media vositalarini qullanilishi
@@ -576,6 +577,7 @@ uz:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot
         bilan ishlashimiz haqida sizga ma'lumot beradi 
       publication_scheme_html: '%{link} Biz doimiy tarzda nashr etayotgan ma''lumot

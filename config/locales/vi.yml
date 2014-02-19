@@ -90,6 +90,7 @@ vi:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Bảng thông tin cá nhân
       publication_scheme: Cơ chế Xuất bản
       social_media_use: Sử dụng mạng xã hội
@@ -576,6 +577,7 @@ vi:
         other: Các địa điểm trên thế giới
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} của chúng tôi giải thích cách chúng
         tôi xử lý thông tin cá nhân của bạn'
       publication_scheme_html: Xem các loại thông tin mà chúng tôi cập nhật thường

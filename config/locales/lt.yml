@@ -499,6 +499,7 @@ lt:
     email: El.paštas
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Asmeninės informacijos apsauga
       publication_scheme: Publikavimo schema
       social_media_use: Socialinės medijos naudojimas
@@ -644,6 +645,7 @@ lt:
       long_ordinal: '%Y %B %e %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma
         Jūsų asmeninė informacija
       publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame

@@ -431,6 +431,7 @@ pt:
     email: E-mail
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Guia de Informação Pessoal
       publication_scheme: Programa de publicação
       social_media_use: Uso de mídias sociais
@@ -576,6 +577,7 @@ pt:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Nosso %{link} explica como nós tratamos suas
         informações pessoais
       publication_scheme_html: Leia sobre os tipos de informações que publicamos rotineiramente

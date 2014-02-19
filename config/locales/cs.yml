@@ -501,6 +501,7 @@ cs:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Registr osobních informací
       publication_scheme: Publikační plán
       social_media_use: Použití sociálních sítí
@@ -645,6 +646,7 @@ cs:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Jak nakládáme s vašimi osobními informacemi
         %{link}
       publication_scheme_html: Více o typech informací, které pravidelně zveřejňujeme

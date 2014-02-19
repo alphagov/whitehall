@@ -433,6 +433,7 @@ so:
     email: E-mail
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Axdiga macluumaadka shakhsiga ah
       publication_scheme: Nidaam daabacaad
       social_media_use: Adeegsi war-baahinta bulshada
@@ -578,6 +579,7 @@ so:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} ayaa sharxaya sida aan ula tacaamulno
         macluumaadkaaga shakhsiga ah'
       publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno

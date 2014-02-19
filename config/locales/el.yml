@@ -434,6 +434,7 @@ el:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Προστασία προσωπικών δεδομένων
       publication_scheme: Σχέδιο έκδοσης
       social_media_use: Χρήση κοινωνικών δικτύων
@@ -578,6 +579,7 @@ el:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Το %{link} εξηγεί πώς χειριζόμαστε τα προσωπικά
         σας δεδομένα
       publication_scheme_html: Μάθετε περισσότερα για τις πληροφορίας που δημοσιεύουμε

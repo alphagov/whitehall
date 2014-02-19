@@ -91,6 +91,7 @@ hu:
     email: E-mail
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Személyes információk kezelése
       publication_scheme: Az információk publikálására vonatkozó eljárási rend
       social_media_use: Social media
@@ -577,6 +578,7 @@ hu:
         other: Országok
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: 'A következő oldalon olvashat róla, hogy
         hogyan kezeljük a személyes adatokat: %{link}'
       publication_scheme_html: 'Tekintse meg, hogy milyen jellegű információkat teszünk

@@ -432,6 +432,7 @@ sq:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Informacion Personal
       publication_scheme: Skeme publikimi
       social_media_use: Perdorim media sociale
@@ -577,6 +578,7 @@ sq:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} shpjegon si trajtohet informacioni
         juaj personal'
       publication_scheme_html: Lexo mbi llojet e informacionit qe ne publikojme rregullisht

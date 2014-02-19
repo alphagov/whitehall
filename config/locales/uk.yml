@@ -567,6 +567,7 @@ uk:
     email: Електронна пошта
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Персональна інформація
       publication_scheme: План публікацій
       social_media_use: Використання соціальних медіа
@@ -712,6 +713,7 @@ uk:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: 'Це %{link} пояснює наші принципи роботи
         з персональними даними. '
       publication_scheme_html: Прочитайти, яку інформацію ми регулярно публікуємо

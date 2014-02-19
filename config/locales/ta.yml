@@ -433,6 +433,7 @@ ta:
     email: மின்னஞ்சல்
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: தனிப்பட்ட தகவல் பட்டயம்
       publication_scheme: பிரசுரித்தல் திட்டம்
       social_media_use: சமூக ஊடகப் பயன்பாடு
@@ -578,6 +579,7 @@ ta:
       long_ordinal: '%e %B %Y%H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: உங்களது தனிப்பட்ட தகவல்களை எப்படி நாங்கள்
         கையாள்கிறோம் என்பதை எங்களது %{link} விளக்கும்
       publication_scheme_html: எங்களது %{link} நாங்கள் வழமையாக வெளியிடும் தகவல்களின்  வகைகள்

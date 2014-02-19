@@ -572,6 +572,7 @@ sr:
     email: e-mail
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter:
       publication_scheme:
       social_media_use:
@@ -717,6 +718,7 @@ sr:
       long_ordinal:
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} daje informacije o tome kako obrađujemo
         vaše lične podatke. '
       publication_scheme_html: Čitajte o tipovima informacija koje redovno objavljujemo

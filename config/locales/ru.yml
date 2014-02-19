@@ -566,6 +566,7 @@ ru:
     email: Электронный адрес
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Раздел личной информации
       publication_scheme: Схема публикации
       social_media_use: Использование социальных сетей
@@ -711,6 +712,7 @@ ru:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: По %{link} объяснение о том, как мы обращаемся
         с вашей личной информацией
       publication_scheme_html: Прочитать информацию, которая обычно публикуется,  по

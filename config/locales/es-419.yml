@@ -432,6 +432,7 @@ es-419:
     email: Correo electrónico
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Estatuto de información personal
       publication_scheme: Plano de publicación
       social_media_use: Utilización de redes sociales
@@ -577,6 +578,7 @@ es-419:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Nuestro %{link} explica cómo manejamos su
         información personal
       publication_scheme_html: Lea sobre los tipos de información que usualmente publicamos

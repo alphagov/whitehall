@@ -90,6 +90,7 @@ tr:
     email: E-posta
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Kişisel Bilgiler Tüzüğü
       publication_scheme: Yayın Programı
       social_media_use: 'Sosyal Medya Kullanımı '
@@ -575,6 +576,7 @@ tr:
         other: Ülkeler
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Bu %{link} bilgilerinizi nasıl sakladığımız
         açıklamaktadır
       publication_scheme_html: Rutin olarak yayınladığımız bilgiler için bu %{link}

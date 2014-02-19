@@ -432,6 +432,7 @@ ur:
     email: ای میل
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: ذاتی معلومات کاچارٹر
       publication_scheme: اشاعتی اسکیم
       social_media_use: سوشل میڈیاکااستعمال
@@ -577,6 +578,7 @@ ur:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: ہمارے %{link} واضح کرتے ہیں کہ ہم آپکی ذاتی
         معلومات کو کیسے استعمال کرتے ہیں
       publication_scheme_html: 'ہماری معمول کے مطابق  شائع کردہ معلومات کی نوعیت  %{link}

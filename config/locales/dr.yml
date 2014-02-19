@@ -431,6 +431,7 @@ dr:
     email: ایمیل
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: موافقه معلومات شخصی
       publication_scheme: طرح انتشار
       social_media_use: استفاده از رسانه اجتماعی
@@ -576,6 +577,7 @@ dr:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '  %{link} ما شیوه برخود با معلومات شخصی
         را تشریح مینماید'
       publication_scheme_html: در مورد انواع معلوماتی بخوانید که ما به طور منظم نشر

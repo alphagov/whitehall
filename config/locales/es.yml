@@ -432,6 +432,7 @@ es:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Cédula de información personal
       publication_scheme: Esquema de publicación
       social_media_use: Uso de medios sociales
@@ -576,6 +577,7 @@ es:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: El siguiente enlace %{link} explica cómo
         tratamos tu información personal
       publication_scheme_html: Lea acerca del tipo de información que publicamos en

@@ -569,6 +569,7 @@ pl:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Karta informacji osobowych
       publication_scheme: Schemat publikacji
       social_media_use: Korzystanie z mediów społecznościowych
@@ -714,6 +715,7 @@ pl:
       long_ordinal: '%e %B %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Nasz %{link} pokazuje, w jaki sposób traktujemy
         Państwa informacje osobiste
       publication_scheme_html: Przeczytaj, jakiego rodzaju wiadomości publikujemy

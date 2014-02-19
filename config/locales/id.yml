@@ -90,6 +90,7 @@ id:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Piagam informasi pribadi
       publication_scheme: Skema publikasi
       social_media_use: Penggunaan media sosial
@@ -576,6 +577,7 @@ id:
         other: Lokasi-lokasi dunia
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: '%{link} menjelaskan tentang bagaimana kami
         memperlakukan informasi pribadi Anda'
       publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat

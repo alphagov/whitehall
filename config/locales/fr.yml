@@ -432,6 +432,7 @@ fr:
     email: Email
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: Charte de données personnelles
       publication_scheme: Régime de publication
       social_media_use: 'Utilisation réseaux sociaux '
@@ -577,6 +578,7 @@ fr:
       long_ordinal: '%B %d, %Y %H:%M'
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html: Notre %{link} explique comment nous traitons
         vos renseignements personnels.
       publication_scheme_html: En savoir plus sur les types d'informations régulièrement

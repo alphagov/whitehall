@@ -88,6 +88,7 @@ az:
     email: elektron poçt
   corporate_information_page:
     type:
+      about_our_services:
       personal_information_charter: şəxsi məlumatlar bölümü
       publication_scheme: çap sxemi
       social_media_use:
@@ -573,6 +574,7 @@ az:
         other:
   worldwide_organisation:
     corporate_information:
+      about_our_services_html:
       personal_information_charter_html:
       publication_scheme_html:
       social_media_use_html:
