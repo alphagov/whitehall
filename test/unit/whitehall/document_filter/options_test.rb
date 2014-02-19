@@ -103,8 +103,12 @@ module Whitehall
         assert filter_options.valid_resource_filter_options?(topics: [topic.slug])
       end
 
-      test "valid_resource_filter_options? retrusn false when filtered resources do not exist" do
+      test "valid_resource_filter_options? returns false when filtered resources do not exist" do
         refute filter_options.valid_resource_filter_options?(topics: ['no-such-topic'])
+      end
+
+      test "valid_resource_filter_options? doesn't choke on string values" do
+        refute filter_options.valid_resource_filter_options?(topics: 'string-option')
       end
 
       test "can get the list of options for publication_type" do
