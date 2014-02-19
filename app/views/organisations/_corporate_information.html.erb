@@ -53,5 +53,9 @@
       <%= t('worldwide_organisation.corporate_information.social_media_use_html',
             link: t_corporate_information_page_link(organisation, 'social-media-use')) %>
     <% end %>
+    <% if organisation.corporate_information_pages.for_slug('about-our-services').present? %>
+      <%= t('worldwide_organisation.corporate_information.about_our_services_html',
+            link: t_corporate_information_page_link(organisation, 'about-our-services')) %>
+    <% end %>
   </p>
 </section>
