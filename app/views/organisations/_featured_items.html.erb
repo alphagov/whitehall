@@ -1,5 +1,5 @@
 <%
-  all_announcements_link ||= nil
+  see_all_link ||= nil
 %>
 <% if feature_list.any_current_features? %>
   <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
@@ -17,6 +17,6 @@
               locals: { recently_updated: recently_updated,
                         atom_url: atom_feed_url_for(organisation),
                         extra_class: 'panel',
-                        all_announcements_link: all_announcements_link } %>
+                        see_all_link: see_all_link } %>
   </section>
 <% end %>
