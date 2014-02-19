@@ -204,11 +204,11 @@ module Whitehall
   end
 
   def self.government_edition_classes
-    searchable_classes - detailed_edition_classes
+    (searchable_classes - detailed_edition_classes).uniq
   end
 
   def self.detailed_edition_classes
-    [DetailedGuide] - DetailedGuide.descendants
+    ([DetailedGuide] - DetailedGuide.descendants).uniq
   end
 
   def self.analytics_format(format)
