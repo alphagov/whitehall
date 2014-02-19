@@ -141,9 +141,9 @@ the new index to come online during indexing, avoiding data loss during
 reindex), and seamlessly switching to the new index on completion.
 
 One other caveat is the attachment text extraction feature. This is controlled
-by the `Whitehall.extract_text_feature?` feature flag. You may wish to disable
-this feature in development if you don't have local copies of the attachment
-files.
+by the `Whitehall.extract_text_feature?` feature flag (and
+WHITEHALL_EXTRACT_TEXT_FEATURE env var). You may wish to disable this feature
+in development if you don't have local copies of the attachment files.
 
 Steps:
 
@@ -154,7 +154,11 @@ following task from the rummager repo:
 
 2. Run the bulk export and load:
 
-  bundle exec ./script/rummager_export.rb | bash -c "cd ../rummager; bundle exec ./bin/bulk_load government "
+  WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb | bash -c "cd ../rummager; bundle exec ./bin/bulk_load government"
+
+  or if you want to allow the text extraction feature
+
+  bundle exec ./script/rummager_export.rb | bash -c "cd ../rummager; bundle exec ./bin/bulk_load government"
 
 
 ## Specifying a different endpoint for the GDS Content API
