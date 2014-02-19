@@ -1,6 +1,4 @@
 class WorldLocation < ActiveRecord::Base
-  ANALYTICS_PREFIX = 'WL'
-
   has_many :edition_world_locations
   has_many :editions,
             through: :edition_world_locations
@@ -23,6 +21,9 @@ class WorldLocation < ActiveRecord::Base
 
   accepts_nested_attributes_for :edition_world_locations
 
+  include AnalyticsIdentifierPopulator
+  self.analytics_prefix = 'WL'
+  
   include TranslatableModel
   translates :name, :title, :mission_statement
 
@@ -41,11 +42,6 @@ class WorldLocation < ActiveRecord::Base
   after_update :remove_from_index_if_became_inactive
   def remove_from_index_if_became_inactive
     remove_from_search_index if self.active_changed? && !self.active
-  end
-
-  after_create :ensure_analytics_identifier
-  def ensure_analytics_identifier
-    update_column(:analytics_identifier, ANALYTICS_PREFIX + id.to_s) if analytics_identifier.blank?
   end
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order('world_location_translations.name') }

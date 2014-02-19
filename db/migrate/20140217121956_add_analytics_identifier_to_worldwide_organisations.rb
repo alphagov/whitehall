@@ -8,7 +8,7 @@ class AddAnalyticsIdentifierToWorldwideOrganisations < ActiveRecord::Migration
 
     if direction == :up
       WorldwideOrganisation.all.each do |organisation|
-        organisation.update_column :analytics_identifier, WorldwideOrganisation::ANALYTICS_PREFIX + organisation.id.to_s
+        organisation.update_column :analytics_identifier, WorldwideOrganisation.analytics_prefix + organisation.id.to_s
       end
     end
   end
