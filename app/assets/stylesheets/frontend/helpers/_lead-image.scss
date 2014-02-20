@@ -1,5 +1,15 @@
 .lead-image-sidebar {
   img {
     max-width: $full-width;
+    @include media(tablet) {
+      float: right;
+      margin: $gutter-one-third 0 $gutter $gutter;
+      width: $one-third;
+    }
+    @include media(desktop) {
+      float: none;
+      margin: 0;
+      width: auto;
+    }
   }
 }
