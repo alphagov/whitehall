@@ -27,8 +27,6 @@ class RegisterableEdition
   end
 
   def specialist_sectors
-    return [] unless @edition.is_a?(DetailedGuide)
-
     @edition.specialist_sector_tags
   end
 end
