@@ -3,8 +3,7 @@
 
   li {
     list-style-position: inside;
-    padding-top: 0;
-    padding-right: $gutter-half;
+    padding: 0 $gutter-half 0 0;
 
     @media (min-width: 1px ){ // target modern browsers
       margin-left: $gutter-half;
