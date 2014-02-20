@@ -66,11 +66,6 @@ GEM
       builder
       multi_json
     arel (3.0.3)
-    aws-ses (0.5.0)
-      builder
-      mail (> 2.2.5)
-      mime-types
-      xml-simple
     babosa (0.3.11)
     bootstrap-kaminari-views (0.0.2)
       kaminari (>= 0.13)
@@ -364,7 +359,6 @@ PLATFORMS
 DEPENDENCIES
   addressable
   airbrake (= 3.1.15)
-  aws-ses
   babosa
   bootstrap-kaminari-views
   bullet
