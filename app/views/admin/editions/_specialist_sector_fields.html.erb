@@ -1,6 +1,9 @@
 <%= specialist_sector_fields do |sectors| %>
   <fieldset class="edition-specialist-sector-fields">
-    <%= form.label :specialist_sector_tags, 'Specialist sectors' %>
+    <%= form.label :specialist_sector_tags do %>
+      <strong>ALPHA:</strong> Specialist sectors (this is an evolving feature, 
+      <a href="https://insidegovuk.blog.gov.uk/2014/02/20/new-specialist-sector-option-in-publisher/">read more in our blog post</a>)
+    <% end %>
     <%= form.select :specialist_sector_tags,
                     specialist_sector_options_for_select(sectors),
                     {},
