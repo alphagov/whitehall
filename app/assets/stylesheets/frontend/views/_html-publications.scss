@@ -39,7 +39,7 @@
     @extend %contain-floats;
     @include white-links;
     background: $light-blue;
-    padding: $gutter-one-third;
+    padding: $gutter-one-third $gutter-half;
     margin: 0 (-$gutter-half);
     @include media(tablet) {
       padding: 0 $gutter;
