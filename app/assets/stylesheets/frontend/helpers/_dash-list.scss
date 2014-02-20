@@ -1,7 +1,9 @@
 .dash-list {
+  margin-bottom: $gutter-two-thirds;
+
   li {
     list-style-position: inside;
-    padding-top: $gutter-one-sixth;
+    padding-top: 0;
     padding-right: $gutter-half;
 
     @media (min-width: 1px ){ // target modern browsers
@@ -14,6 +16,10 @@
         width: $gutter-half;
         margin-left: $gutter-half*-1;
       }
+    }
+
+    @include media(desktop) {
+      padding-top: $gutter-one-sixth;
     }
   }
 }
