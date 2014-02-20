@@ -59,6 +59,13 @@ $thumbnail-width: 99px;
       margin: 0;
     }
 
+    h2 {
+      padding-top: 0;
+      @include media(tablet) {
+        padding-top: 7px;
+      }
+    }
+
     h3 {
       font-weight: bold;
     }
