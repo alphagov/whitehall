@@ -1,7 +1,7 @@
 <%= content_tag_for :li, role_appointment, class: 'person person-excerpt' do %>
   <div class="inner">
     <div class="image-holder">
-      <%= link_to_if role_appointment.has_historical_account?, role_appointment.person.image, historic_appointment_path(role.historic_param, role_appointment.person) %>
+      <%= link_to_if role_appointment.has_historical_account?, role_appointment.person.image, historic_appointment_path(role.historic_param, role_appointment.person), class: 'img' %>
     </div>
     <h3 class="name"><%= link_to_if role_appointment.has_historical_account?, role_appointment.person.name, historic_appointment_path(role.historic_param, role_appointment.person) %></h3>
     <p class="term"><%= role_appointment.historical_account.try(:political_membership) %> <%= role_appointment.date_range %></p>

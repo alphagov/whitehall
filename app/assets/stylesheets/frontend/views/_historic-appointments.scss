@@ -39,7 +39,9 @@
       .person-excerpt {
         width: $full-width;
         float: none;
-        min-height: 280px;
+        @include media(tablet) {
+          min-height: 280px;
+        }
 
         h3 {
           @include core-19;
