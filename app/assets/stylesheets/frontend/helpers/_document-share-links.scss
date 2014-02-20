@@ -3,7 +3,7 @@
 
   margin-bottom: $gutter;
 
-  @include media(tablet) {
+  @include media(desktop) {
     margin-left: $one-third;
     padding-left: $gutter-half;
   }
