@@ -52,8 +52,8 @@
         display: block;
         @include ig-core-14;
       }
-      &:focus span,
-      &:hover span {
+      &:focus .page-numbers,
+      &:hover .page-numbers {
         text-decoration: underline;
       }
       &:hover {
