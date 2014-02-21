@@ -8,8 +8,11 @@
   }
 
   .omissions {
-    padding: $gutter*2 $gutter 0;
+    padding: $gutter*2 $gutter-half 0;
     clear: both;
+    @include media(tablet) {
+      padding: $gutter*2 $gutter 0;
+    }
   }
 
   .page-header {
@@ -78,10 +81,11 @@
       }
     }
     .view-all {
-      background: $panel-colour;
       @include border-radius(3px);
+      background: $panel-colour;
+      clear: both;
       padding: 2px $gutter-one-sixth;
-      margin: 3px $gutter-half $gutter-one-third;
+      margin: 3px $gutter-half $gutter-one-third 0;
 
       &:after {
         display: inline-block;
@@ -91,12 +95,30 @@
         vertical-align: middle;
         content: " \25B2";
       }
+
+      @include media(tablet) {
+        clear: none;
+        float: right;
+        margin-right: 0;
+      }
+      @include media(desktop) {
+        float: left;
+        margin-left: $gutter-half;
+      }
     }
 
     .metadata {
-      color: $grey-1;
       @include core-16;
-      margin-left: $gutter-one-third;
+      color: $grey-1;
+      clear: both;
+      display: block;
+      margin-left: 0;
+
+      @include media(tablet) {
+        clear: none;
+        display: inline;
+        margin-left: $gutter-one-third;
+      }
     }
 
     &.js-hiding-children {
@@ -129,9 +151,9 @@
     h1 {
       width: $full-width;
     }
-    @include media(desktop) {
-      width: $one-third;
+    @include media(tablet) {
       float: left;
+      width: $one-third;
     }
 
     p {
@@ -187,14 +209,24 @@
     height: auto;
   }
 
-  @include media(tablet) {
-    .block-7 {
+  .block-7 {
+    margin-bottom: 0;
+
+    @include media(tablet) {
       padding-bottom: $gutter;
+
+      .see-all {
+        padding: $gutter-half;
+      }
+
+      @include media(tablet) {
+        margin-bottom: $gutter;
+      }
     }
   }
 
   .block-1 {
-    padding-top: $gutter-one-third;
+    padding: $gutter-one-third 0 0;
     @include media(tablet) {
       padding-bottom: $gutter-one-sixth;
     }
@@ -207,6 +239,24 @@
   .block-10 {
     .inner-block {
       padding: 0 $gutter-half;
+    }
+  }
+
+  .documents-grid {
+    margin-bottom: 30px;
+
+    .document-block {
+      margin-bottom: $gutter;
+      @include media(tablet) {
+        margin-bottom: $gutter-one-third;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    @include media(tablet) {
+      margin-bottom: $gutter*2;
     }
   }
 
@@ -228,7 +278,10 @@
   #topics h1 {
     @include ig-core-27;
     font-weight: bold;
-    margin: $gutter 0 $gutter-one-third;
+    margin: 0 0 $gutter-one-third;
+    @include media(tablet) {
+      margin-top: $gutter;
+    }
   }
   #mainstream_categories h1 {
     @include ig-core-27;
@@ -260,6 +313,13 @@
       @include media(tablet) {
         float: left;
         width: $two-thirds;
+      }
+    }
+
+    .heading-extra {
+      margin-bottom: 0;
+      @include media(tablet) {
+        margin-bottom: $gutter;
       }
     }
   }
@@ -342,7 +402,7 @@
     .inner-block {
       padding: 0;
 
-      @include media(tablet){
+      @include media(tablet) {
         padding: 0 $gutter-half;
       }
     }
@@ -350,7 +410,7 @@
 
   .has-social {
     .organisation-news.items-0 .recently-updated {
-      @include media(desktop){
+      @include media(desktop) {
         width: $two-thirds;
       }
     }
@@ -670,7 +730,7 @@
         margin-bottom: $gutter-half;
       }
       .adr, .email-url-number {
-        @include media(tablet){
+        @include media(tablet) {
           float: left;
           width: 40%;
         }
@@ -681,6 +741,9 @@
           display: block;
           padding-right: $gutter-half;
           margin-bottom: -($gutter-half+$gutter-one-third);
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
         p {
           margin: 0;
@@ -1130,7 +1193,7 @@
   @include organisation-brand-colour('.block-2 a', color, $websafe: true);
   @include organisation-brand-colour('.body .attachment .accessibility-warning h3 .toggler', color, $websafe: true);
 
-  @include media(desktop) {
+  @include media(tablet) {
     .block-1 {
       width: $one-third;
       float: left;
@@ -1195,7 +1258,7 @@
     @include ig-core-48;
     font-weight: bold;
 
-    @include media(desktop) {
+    @include media(tablet) {
       padding: $gutter*3 0 $gutter-half;
     }
   }

@@ -20,6 +20,13 @@
 
   .block {
     margin-bottom: $gutter;
+    &.block-4 {
+      @include media(tablet) {
+        .see-all {
+          padding: $gutter-half;
+        }
+      }
+    }
   }
 
   @include media(desktop) {

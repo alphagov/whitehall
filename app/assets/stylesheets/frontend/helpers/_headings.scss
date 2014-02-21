@@ -36,6 +36,7 @@
   }
   .heading-big {
     @extend .heading;
+
     h1 {
       @include core-48;
       font-weight: bold;
@@ -131,7 +132,7 @@
         @include bold;
         float: left;
         clear: left;
-        width: 40%;
+        width: 8em;
         @include media(tablet) {
           width: auto;
           min-width: ($gutter * 4);

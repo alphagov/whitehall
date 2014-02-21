@@ -39,7 +39,7 @@
     @extend %contain-floats;
     @include white-links;
     background: $light-blue;
-    padding: $gutter-one-third;
+    padding: $gutter-one-third $gutter-half;
     margin: 0 (-$gutter-half);
     @include media(tablet) {
       padding: 0 $gutter;
@@ -285,6 +285,10 @@
         background: $panel-colour none no-repeat 98% $gutter-two-thirds;
         padding: $gutter-one-third ($gutter*2) $gutter-one-third $gutter-half;
         position: relative;
+
+        h4 {
+          margin-top: 0;
+        }
         p {
           margin: 0;
           padding: 0;

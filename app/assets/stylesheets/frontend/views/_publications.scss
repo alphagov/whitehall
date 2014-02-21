@@ -1,6 +1,10 @@
 // Styles for Publications view
 
 .publication {
+  .block-2 {
+      margin-bottom: 0;
+  }
+
   @include media(tablet) {
     .block-3 {
       width: $full-width;

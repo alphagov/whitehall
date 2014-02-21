@@ -115,7 +115,7 @@
     @include media (tablet) {
       .single-row-select {
         border: 1px solid $border-colour;
-        padding: $gutter-one-sixth $gutter-one-sixth $gutter-one-sixth $gutter-one-third;
+        padding: $gutter-one-sixth $gutter-two-thirds $gutter-one-sixth $gutter-one-third;
         width: $full-width;
         background: $white;
         background-image: image-url('dropdown-arrow-small.png');
@@ -237,7 +237,7 @@
         // The count is shifted up instead of the rest of the text down because
         // we want the flow after the summary to be determined by the length of the
         // the text
-        margin-top: -$gutter-one-sixth;
+        margin-top: -3px;
       }
     }
   }

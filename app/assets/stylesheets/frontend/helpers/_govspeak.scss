@@ -257,7 +257,7 @@
   table {
     border-collapse: collapse;
     border-spacing: 0;
-    margin: $gutter -10px $gutter -10px;
+    margin: $gutter 0;
     width: $full-width;
     @include ig-core-19;
 

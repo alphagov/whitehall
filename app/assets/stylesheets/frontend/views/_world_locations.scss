@@ -30,21 +30,21 @@
       margin-bottom: $gutter;
 
       .type-heading {
-        @include media(desktop) {
+        margin-bottom: $gutter;
+
+        @include media(tablet) {
           width: $one-third;
           float: left
         }
 
-        @include media(tablet) {
-          p {
-            @include core-80;
-            font-weight: bold;
-          }
+        p {
+          @include core-80;
+          font-weight: bold;
         }
       }
 
       .content {
-        @include media(desktop) {
+        @include media(tablet) {
           width: $two-thirds;
           float: left;
           padding-top: $gutter - $gutter-one-sixth;
@@ -116,6 +116,16 @@
     }
   }
 
+  @include media(tablet) {
+    .heading-block {
+      .content {
+        .see-all {
+          padding: $gutter-half;
+        }
+      }
+    }
+  }
+
   .keyline-header {
     @include heading-36;
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
@@ -159,6 +169,7 @@
   }
 
   #worldwide-priorities {
+    margin-bottom: $gutter-two-thirds;
 
     h1 {
       margin: 0 $gutter-half $gutter-half;
@@ -185,6 +196,10 @@
           font-weight: bold;
         }
       }
+    }
+
+    @include media(tablet) {
+      margin-bottom: $gutter*2
     }
   }
 
@@ -236,12 +251,22 @@
         @include core-14;
         margin-top: $gutter;
 
+        h2 {
+          position: absolute;
+          left: -9999px;
+        }
+
         @include media(tablet) {
           margin-top: 0;
           min-width: auto;
           width: $one-third;
           .content {
             padding-left: $gutter-half;
+
+            h2 {
+              position: static;
+            }
+
             @include right-to-left {
               padding-right: 0;
             }

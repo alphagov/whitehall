@@ -1,4 +1,10 @@
 .take-part-pages-show {
+  .block-1 {
+    img {
+      max-width: 100%;
+    }
+  }
+
   @include media(desktop) {
     .block-1 {
       width: $one-third;

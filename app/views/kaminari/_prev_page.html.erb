@@ -6,5 +6,5 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<% text = "Previous page <span>#{current_page - 1} of #{total_pages}</span>".html_safe %>
+<% text = "Previous <span class='visuallyhidden'>page</span> <span class='page-numbers'>#{current_page - 1} of #{total_pages}</span>".html_safe %>
 <li class="previous"><%= link_to_unless current_page.first?, text, url %></li>

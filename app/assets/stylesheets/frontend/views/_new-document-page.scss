@@ -21,7 +21,10 @@
   }
 
   .summary {
-    padding-bottom: $gutter + $gutter-half;
+    padding-bottom: $gutter-two-thirds;
+    @include media(tablet) {
+      padding-bottom: $gutter + $gutter-half;
+    }
 
     p {
       @include ig-core-24;
