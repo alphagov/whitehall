@@ -6,7 +6,7 @@
   <div class="block-1">
     <div class="inner-block">
       <header class="page-header js-filter-list">
-        <h1 class="title">Departments, agencies &amp; public&nbsp;bodies</h1>
+        <h1 class="title">Departments, agencies and public&nbsp;bodies</h1>
         <form class="js-filter-form"><label for="whats-the-latest-from" class="label">What&rsquo;s the latest<br />from <input name="whats-the-latest-from" id="whats-the-latest-from" placeholder="Example: Home Office"> ?</label></form>
       </header>
     </div>
@@ -38,7 +38,7 @@
                                   show_transition_state: Whitehall::organisations_transition_visualisation_feature_enabled %>
 
       <%= render 'index_section', organisations:      @organisations.agencies_and_government_bodies,
-                                  header_text:        'Agencies &amp; other public bodies',
+                                  header_text:        'Agencies and other public bodies',
                                   block_id:           'agencies-and-government-bodies',
                                   list_item_partial:  'index_item_plain',
                                   show_govuk_status:  false,
