@@ -17,12 +17,14 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
     assert_equal 'my summary', assigns(:meta_description)
   end
 
-  test "should set slimmer organisations header" do
-    organisation = create(:worldwide_organisation, :translated)
+  test "should populate slimmer organisations header with worldwide organisation and its sponsored organisations" do
+    organisation = create(:worldwide_organisation, :translated, :with_sponsorships)
+    sponsoring_organisations = organisation.sponsoring_organisations
 
     get :show, id: organisation.id
 
-    assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+    expected_header_value = "<#{([organisation] + sponsoring_organisations).map(&:analytics_identifier).join('><')}>"
+    assert_equal expected_header_value, response.headers["X-Slimmer-Organisations"]
   end
 
   test "should set slimmer worldwide locations header" do

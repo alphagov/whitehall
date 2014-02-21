@@ -41,6 +41,15 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal "The Moon", world_location.display_type
   end
 
+  test ".worldwide_organisations_with_sponsoring_organisations returns all related organisations" do
+    world_location = create(:world_location, :with_worldwide_organisations)
+    related_organisations = world_location.worldwide_organisations +
+                              world_location.worldwide_organisations
+                                .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
+
+    assert_equal related_organisations, world_location.worldwide_organisations_with_sponsoring_organisations
+  end
+
   test "#with_announcements should return the world locations with announcements" do
     world_location = create(:world_location)
     other_world_location = create(:world_location)
