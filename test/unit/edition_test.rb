@@ -153,6 +153,11 @@ class EditionTest < ActiveSupport::TestCase
     assert policy.first_published_version?
   end
 
+  test "#first_published_major_version? is true if published_major_version is 1 and published minor version is 0" do
+    policy = build(:published_policy, published_major_version: 1, published_minor_version: 0)
+    assert policy.first_published_major_version?
+  end
+
   test "#first_edition? is false if published and published_major_version is not 1" do
     policy = build(:published_policy, published_major_version: 2)
     refute policy.first_published_version?

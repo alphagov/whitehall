@@ -50,7 +50,7 @@ module Whitehall
       end
 
       def update_information
-        if edition.change_history.length > 1
+        unless edition.first_published_major_version?
           "[Updated: #{edition.document.change_history.first.note}]"
         end
       end
