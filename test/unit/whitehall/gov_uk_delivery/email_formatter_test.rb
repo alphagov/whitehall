@@ -40,7 +40,7 @@ module Whitehall::GovUkDelivery
     end
 
     test '#email_body generates a utf-8 encoded body' do
-      publication = create(:news_article, title: "Café".encode("UTF-8"))
+      publication = create(:published_news_article, title: "Café".encode("UTF-8"))
 
       body = email_formatter_for(publication).email_body
       assert_includes body, publication.title
@@ -48,7 +48,7 @@ module Whitehall::GovUkDelivery
     end
 
     test "#email_body should link to full URL in email" do
-      publication = create(:publication)
+      publication = create(:published_publication)
       publication.first_published_at = Time.zone.now
       publication.major_change_published_at = Time.zone.now
 
@@ -64,7 +64,7 @@ module Whitehall::GovUkDelivery
     end
 
     test "#email_body includes a formatted date" do
-      publication = create(:publication)
+      publication = create(:published_publication)
       email_body = email_formatter_for(publication, Time.zone.parse("2011-01-01 12:13:14")).email_body
       body = Nokogiri::HTML.fragment(email_body)
       assert_equal_ignoring_whitespace "1 January, 2011 at 12:13pm", body.css('.rss_pub_date').inner_text
