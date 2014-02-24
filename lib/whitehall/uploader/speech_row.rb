@@ -52,7 +52,7 @@ module Whitehall::Uploader
         :location,
         :role_appointment,
         :speech_type,
-        :organisations,
+        :lead_organisations,
         :related_editions,
         :topics,
         :world_locations

@@ -205,7 +205,6 @@ Feature: Importing new editions
     Then I can't make the imported speech into a draft edition yet
     When I set the deliverer of the speech to "Joe Bloggs" from the "Foreign Commonwealth Office"
     Then I can make the imported speech into a draft edition
-    And the speech's organisation is set to "Foreign Commonwealth Office"
 
   Scenario: Importing speeches with blank delivered on means it must be filled in later, along with the deliverer
     Given a person called "Joe Bloggs"

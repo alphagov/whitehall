@@ -324,13 +324,11 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test '#published_announcements returns published news or speeches' do
     organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
-    create(:draft_speech, role_appointment: role_appointment, title: "One")
+    create(:draft_speech, organisations: [organisation], title: "One")
     create(:draft_news_article, organisations: [organisation], title: "Two")
     create(:published_consultation, organisations: [organisation], title: "Three")
     expected_documents = [
-      create(:published_speech, role_appointment: role_appointment, title: "Alpha"),
+      create(:published_speech, organisations: [organisation], title: "Alpha"),
       create(:published_news_article, organisations: [organisation], title: "Beta")
     ]
 

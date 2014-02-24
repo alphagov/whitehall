@@ -3,12 +3,8 @@ class Speech < Announcement
   include Edition::HasDocumentCollections
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
 
-  after_save :populate_organisations_based_on_role_appointment, unless: ->(speech) { speech.person_override? }
-
   validates :speech_type_id, presence: true
   validates :delivered_on, presence: true, unless: ->(speech) { speech.can_have_some_invalid_data? }
-
-  validate :role_appointment_has_associated_organisation, unless: ->(speech) { speech.can_have_some_invalid_data? || speech.person_override? }
 
   delegate :display_type_key, :explanation, to: :speech_type
   validate :only_speeches_allowed_invalid_data_can_be_awaiting_type
@@ -52,26 +48,7 @@ class Speech < Announcement
   private
 
   def skip_organisation_validation?
-    true
-  end
-
-  def populate_organisations_based_on_role_appointment
-    unless deleted? || organisations_via_role_appointment.empty?
-      self.edition_organisations.clear
-      organisations_via_role_appointment.each.with_index do |o, idx|
-        self.edition_organisations.create!(organisation: o, lead: true, lead_ordering: idx)
-      end
-    end
-  end
-
-  def organisations_via_role_appointment
-    role_appointment && role_appointment.role && role_appointment.role.organisations || []
-  end
-
-  def role_appointment_has_associated_organisation
-    unless organisations_via_role_appointment.any?
-      errors.add(:role_appointment, "must have an associated organisation")
-    end
+    can_have_some_invalid_data? || person_override.present?
   end
 
   def only_speeches_allowed_invalid_data_can_be_awaiting_type
