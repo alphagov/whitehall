@@ -34,7 +34,7 @@ module Whitehall
     private
 
       def perform
-        edition = create(:edition)
+        edition = create(:published_edition)
         Worker.new.perform(edition.id, Date.today.iso8601, {})
       end
 
