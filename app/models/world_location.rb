@@ -21,6 +21,9 @@ class WorldLocation < ActiveRecord::Base
 
   accepts_nested_attributes_for :edition_world_locations
 
+  include AnalyticsIdentifierPopulator
+  self.analytics_prefix = 'WL'
+  
   include TranslatableModel
   translates :name, :title, :mission_statement
 
@@ -85,6 +88,10 @@ class WorldLocation < ActiveRecord::Base
 
   def name_without_prefix
     name.gsub(/^The/, "").strip
+  end
+
+  def worldwide_organisations_with_sponsoring_organisations
+    (worldwide_organisations + worldwide_organisations.map { |o| o.sponsoring_organisations.to_a }.flatten).uniq
   end
 
   def self.all_by_type

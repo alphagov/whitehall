@@ -77,7 +77,12 @@ class DocumentsController < PublicFacingController
   end
 
   def set_slimmer_headers_for_document()
-    set_slimmer_organisations_header(@document.importance_ordered_organisations)
+    organisations = @document.importance_ordered_organisations
+    organisations += @document.worldwide_organisations if @document.can_be_associated_with_worldwide_organisations?
+    set_slimmer_organisations_header(organisations)
+
     set_slimmer_page_owner_header(@document.lead_organisations.first)
+
+    set_slimmer_world_locations_header(@document.world_locations) if @document.can_be_associated_with_world_locations?
   end
 end

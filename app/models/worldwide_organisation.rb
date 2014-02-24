@@ -19,6 +19,9 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
 
+  include AnalyticsIdentifierPopulator
+  self.analytics_prefix = 'WO'
+
   include TranslatableModel
   translates :name, :summary, :description, :services
 
@@ -45,7 +48,7 @@ class WorldwideOrganisation < ActiveRecord::Base
     super || is_main_office?(office)
   end
 
-  delegate :analytics_identifier, :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
+  delegate :alternative_format_contact_email, to: :sponsoring_organisation, allow_nil: true
   def sponsoring_organisation
     sponsoring_organisations.first
   end

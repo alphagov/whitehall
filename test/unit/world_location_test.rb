@@ -29,11 +29,25 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', world_location.slug
   end
 
+  test 'should set an analytics identifier on create' do
+    world_location = create(:world_location, name: 'Costa Rica')
+    assert_equal 'WL' + world_location.id.to_s, world_location.analytics_identifier
+  end
+
   test "has name of it's world location type as display type" do
     world_location_type = WorldLocationType::WorldLocation
     world_location_type.stubs(:name).returns('The Moon')
     world_location = build(:world_location, world_location_type: world_location_type)
     assert_equal "The Moon", world_location.display_type
+  end
+
+  test ".worldwide_organisations_with_sponsoring_organisations returns all related organisations" do
+    world_location = create(:world_location, :with_worldwide_organisations)
+    related_organisations = world_location.worldwide_organisations +
+                              world_location.worldwide_organisations
+                                .map { |orgs| orgs.sponsoring_organisations.to_a }.flatten
+
+    assert_equal related_organisations, world_location.worldwide_organisations_with_sponsoring_organisations
   end
 
   test "#with_announcements should return the world locations with announcements" do

@@ -148,6 +148,23 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal 5, assigns(:feature_list).current_feature_count
   end
 
+  test "show should set world location slimmer headers" do
+    world_location = create(:world_location)
+
+    get :show, id: world_location.id
+
+    assert_equal "<#{world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
+  end
+
+  test "show should set organisations slimmer headers" do
+    world_location = create(:world_location, :with_worldwide_organisations)
+
+    get :show, id: world_location.id
+
+    related_organisations = world_location.worldwide_organisations_with_sponsoring_organisations
+    assert_equal "<#{related_organisations.map(&:analytics_identifier).join('><')}>", response.headers["X-Slimmer-Organisations"]
+  end
+
   test "should display world_location's latest two announcements in reverse chronological order" do
     world_location = create(:world_location)
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)
