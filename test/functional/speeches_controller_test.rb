@@ -110,9 +110,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
   view_test "shoud set Google Analytics headers based on the organisation of the person who delivered the speech" do
     organisation = create(:organisation, acronym: "ABC")
-    ministerial_role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:role_appointment, role: ministerial_role)
-    speech = create(:published_speech, role_appointment: role_appointment)
+    speech = create(:published_speech, organisations: [organisation])
 
     get :show, id: speech.document
 

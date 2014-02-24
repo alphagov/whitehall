@@ -89,9 +89,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       first_org = create(:organisation, name: 'first-org', acronym: "FO")
       second_org = create(:organisation, name: 'second-org', acronym: "SO")
       news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
-      role = create(:ministerial_role, organisations: [second_org])
-      role_appointment = create(:ministerial_role_appointment, role: role)
-      speech = create(:published_speech, delivered_on: 5.days.ago, role_appointment: role_appointment)
+      speech = create(:published_speech, delivered_on: 5.days.ago, organisations: [second_org])
 
       get :index
 

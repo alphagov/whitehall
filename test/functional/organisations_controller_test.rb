@@ -317,10 +317,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display 2 announcements with details and a link to announcements filter if there are many announcements" do
     organisation = create(:organisation)
-    role = create(:ministerial_role, organisations: [organisation])
-    role_appointment = create(:ministerial_role_appointment, role: role)
     announcement_1 = create(:published_news_article, organisations: [organisation], first_published_at: 1.days.ago)
-    announcement_2 = create(:published_speech, role_appointment: role_appointment, first_published_at: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
+    announcement_2 = create(:published_speech, organisations: [organisation], first_published_at: 2.days.ago.to_date, speech_type: SpeechType::WrittenStatement)
     announcement_3 = create(:published_news_article, organisations: [organisation], first_published_at: 3.days.ago)
 
     get :show, id: organisation
