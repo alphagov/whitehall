@@ -61,19 +61,11 @@ class Admin::EmailCurationQueueItemsControllerTest < ActionController::TestCase
     refute EmailCurationQueueItem.exists?(item)
   end
 
-  test 'POST on :send_to_subscribers removes the specified queue item' do
-    item = create(:email_curation_queue_item)
-    post :send_to_subscribers, id: item
-
-    assert_redirected_to admin_email_curation_queue_items_path
-
-    refute EmailCurationQueueItem.exists?(item)
-  end
-
-  test 'POST on :send_to_subscribers invokes the Whitehall::GovUkDelivery::Worker with the specified queue item' do
+  test 'POST on :send_to_subscribers invokes the Whitehall::GovUkDelivery::Worker with the queue item and removes it from the queue' do
     item = create(:email_curation_queue_item)
     Whitehall::GovUkDelivery::Worker.expects(:notify!).with(item.edition, item.notification_date, item.title, item.summary)
     post :send_to_subscribers, id: item
-  end
 
+    refute EmailCurationQueueItem.exists?(item)
+  end
 end
