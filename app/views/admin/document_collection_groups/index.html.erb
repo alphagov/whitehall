@@ -1,6 +1,6 @@
 <% content_for :page_class, 'document-collection-groups index' %>
 <% page_title "#{@collection.title}", "Document collections" %>
-<% initialise_script 'GOVUK.DocumentGroupOrdering', selector: '.js-document-group', post_url: admin_document_collection_update_group_memberships_path(document_collection_id: @collection.id) %>
+<% initialise_script 'GOVUK.DocumentGroupOrdering', selector: '.js-document-group', post_url: admin_document_collection_update_group_memberships_path(document_collection_id: @collection.id), group_buttons: '.reorder-buttons', group_container_selector: '.js-group-container' %>
 <% initialise_script 'GOVUK.documentCollectionDocFinder' %>
 <% initialise_script 'GOVUK.documentCollectionCheckboxSelector' %>
 
@@ -10,6 +10,7 @@
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add a document</h2>
     <div>
+      <div class="reorder-buttons"><%= button_tag 'Reorder groups', class: 'btn btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-danger js-finish-reorder' %></div>
       <label for="title">Add</label>
       <div class="document-finder">
         <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
@@ -26,48 +27,51 @@
       <%= hidden_field_tag :document_id %>
     </div>
   <% end %>
-
-  <div>
+  <div class="js-group-container">
     <% @groups.each do |group| %>
       <section class="group">
         <hgroup>
-          <h2>Group: <%= group.heading %></h2>
-          <ul class="actions">
-            <li>
-              <%= link_to 'Edit group heading and body', edit_admin_document_collection_group_path(@collection, group) %>
-            </li>
-            <li>
-              <%= link_to 'Delete group', delete_admin_document_collection_group_path(@collection, group) %>
-            </li>
-          </ul>
-        </hgroup>
-        <% if group.latest_editions.empty? %>
-          <p class="alert alert-info">
-            This group doesn't have any documents in it yet &ndash; add some
-            by searching for documents (above), or moving them here from another group.
-          </p>
-        <% else %>
-          <%= form_tag admin_document_collection_group_members_path(@collection, group), method: 'delete' do %>
-            <ul class="controls">
+          <div class="js-group-header">
+            <h2>Group: <%= group.heading %></h2>
+            <ul class="actions">
               <li>
-                <%= check_box_tag :select_all, group.id, false, id: nil, class: 'checkbox' %>
+                <%= link_to 'Edit group heading and body', edit_admin_document_collection_group_path(@collection, group) %>
               </li>
-              <li class="remove">
-                <%= submit_tag 'Remove', class: 'btn btn-mini btn-info' %>
+              <li>
+                <%= link_to 'Delete group', delete_admin_document_collection_group_path(@collection, group) %>
               </li>
-              <% if other_groups(group).size > 0 %>
-                <li class="move">
-                  Move selected to
-                  <%= select_tag :new_group_id, options_from_collection_for_select(other_groups(group), :id, :heading) %>
-                  <%= submit_tag 'Move', class: 'btn btn-mini btn-info' %>
-                </li>
-              <% end %>
             </ul>
-            <ol class="document-list js-document-group" data-group-id="<%= group.id %>">
-              <%= render partial: 'collection_document', collection: group.latest_editions, as: :edition, locals: { document_collection: @collection } %>
-            </ol>
+          </div>
+        </hgroup>
+        <div class="js-group-body">
+          <% if group.latest_editions.empty? %>
+            <p class="alert alert-info">
+              This group doesn't have any documents in it yet &ndash; add some
+              by searching for documents (above), or moving them here from another group.
+            </p>
+          <% else %>
+            <%= form_tag admin_document_collection_group_members_path(@collection, group), method: 'delete' do %>
+              <ul class="controls">
+                <li>
+                  <%= check_box_tag :select_all, group.id, false, id: nil, class: 'checkbox' %>
+                </li>
+                <li class="remove">
+                  <%= submit_tag 'Remove', class: 'btn btn-mini btn-info' %>
+                </li>
+                <% if other_groups(group).size > 0 %>
+                  <li class="move">
+                    Move selected to
+                    <%= select_tag :new_group_id, options_from_collection_for_select(other_groups(group), :id, :heading) %>
+                    <%= submit_tag 'Move', class: 'btn btn-mini btn-info' %>
+                  </li>
+                <% end %>
+              </ul>
+              <ol class="document-list js-document-group" data-group-id="<%= group.id %>">
+                <%= render partial: 'collection_document', collection: group.latest_editions, as: :edition, locals: { document_collection: @collection } %>
+              </ol>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </section>
     <% end %>
   </div>

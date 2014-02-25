@@ -120,11 +120,39 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
           document_ids: [
             @doc_1_2.id,
             @doc_1_1.id
-          ]
+          ],
+          order: 0
         }
       }
     }
     assert_equal [@doc_1_2, @doc_1_1], @group_1.reload.documents
+  end
+
+  test "POST #update_memberships saves the order of groups" do
+    given_two_groups_with_documents
+    post :update_memberships, {
+      document_collection_id: @collection.id,
+      groups: {
+        0 => {
+          id: @group_1.id,
+          document_ids: [
+            @doc_1_1.id,
+            @doc_1_2.id
+          ],
+          order: 1
+        },
+        1 => {
+          id: @group_2.id,
+          document_ids: [
+            @doc_2_1.id,
+            @doc_2_2.id
+          ],
+          order: 0
+        }
+      }
+    }
+    assert_response :success
+    assert_equal [@group_2.id, @group_1.id], @collection.reload.groups.pluck(:id)
   end
 
   test "POST #update_memberships should support moving memberships between groups" do
@@ -136,7 +164,8 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
           id: @group_1.id,
           document_ids: [
             @doc_1_1.id
-          ]
+          ],
+          order: 0
         },
         1 => {
           id: @group_2.id,
@@ -144,7 +173,8 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
             @doc_1_2.id,
             @doc_2_1.id,
             @doc_2_2.id
-          ]
+          ],
+          order: 1
         }
       }
     }
@@ -164,10 +194,12 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
             @doc_1_2.id,
             @doc_2_1.id,
             @doc_2_2.id
-          ]
+          ],
+          order: 0
         },
         1 => {
-          id: @group_2.id
+          id: @group_2.id,
+          order: 1
         }
       }
     }
