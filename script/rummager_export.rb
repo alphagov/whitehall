@@ -1,4 +1,9 @@
 #!/usr/bin/env ruby
+# Export, to stdout, a dump of all data needed to rebuild search indexes.
+# By default, exports the data for the "government" search index.  If the
+# --detailed flag is supplied on the command line, exports the data for the
+# "detailed" search index.
+
 $LOAD_PATH << File.expand_path("../", File.dirname(__FILE__))
 
 require 'logger'
@@ -7,8 +12,14 @@ logger.info "Booting rails..."
 require 'config/environment'
 logger.info "Booted"
 
+classes_to_index = if ARGV.include?("--detailed")
+  Whitehall.detailed_edition_classes
+else
+  Whitehall.government_edition_classes
+end
+
 logger.info "Counting docs to index..."
-counts_by_class = Whitehall.government_edition_classes.each_with_object({}) do |klass, hash|
+counts_by_class = classes_to_index.each_with_object({}) do |klass, hash|
   count = klass.searchable_instances.count
   logger.info("%20s: %d" % [klass.name, count])
   hash[klass] = count
@@ -19,7 +30,7 @@ total_count = counts_by_class.values.inject(&:+)
 GC.disable
 start = Time.zone.now
 done = 0
-Whitehall.government_edition_classes.each do |klass|
+classes_to_index.each do |klass|
   batch_start = Time.zone.now
   rate = [done / (batch_start - start), 0.1].max
   count = counts_by_class[klass]
