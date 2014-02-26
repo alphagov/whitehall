@@ -50,20 +50,16 @@ module Whitehall
     end
 
     def edition_from_identifier(identifier)
-      return unless identifier.present?
+      if /(.*)_(\d+)/ =~ identifier
+        klass = edition_class_from_string($1)
+        id = $2
 
-      *class_parts, id = identifier.split('_')
-      if is_numeric?(id) && klass = edition_class_from_parts(class_parts)
-        klass.find(id)
+        klass.find_by_id(id) if klass
       end
     end
 
-    def is_numeric?(string)
-      Float(string) rescue false
-    end
-
-    def edition_class_from_parts(class_parts)
-      klass = class_parts.join('_').classify.constantize
+    def edition_class_from_string(klass_identifier)
+      klass = klass_identifier.classify.constantize
       klass if Whitehall.edition_classes.include?(klass)
     rescue NameError
       nil
