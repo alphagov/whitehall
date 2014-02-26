@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/alphagov/whitehall.png)](https://codeclimate.com/github/alphagov/whitehall)
+
 # Whitehall App
 
 "Whitehall" is the code name for the
