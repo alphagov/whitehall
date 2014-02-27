@@ -3,7 +3,10 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_filter :load_featuring, only: [:edit, :destroy]
 
   def index
-    @tagged_editions = @classification.editions.published.with_translations
+    @tagged_editions = @classification.editions.published
+                                      .with_translations
+                                      .order('editions.created_at DESC')
+                                      .page(params[:page])
     @classification_featurings = @classification.classification_featurings
   end
 

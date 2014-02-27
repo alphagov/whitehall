@@ -68,6 +68,7 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @tagged_editions, theme: 'twitter-bootstrap' %>
 <% end %>
 
 <%= render partial: "admin/classifications/tab_wrapper", locals: { model: @classification } %>
