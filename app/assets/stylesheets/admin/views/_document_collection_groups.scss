@@ -2,6 +2,15 @@
   &.index {
     form.document-finder {
       margin: $gutter 0;
+      position: relative;
+
+      div.reorder-buttons {
+        position: absolute;
+        right: 0px;
+        button {
+          display: none;
+        }
+      }
 
       h2 {
         margin-bottom: $gutter-one-third;
@@ -50,6 +59,22 @@
       }
       input.btn-info {
         margin-left: $spacing;
+      }
+    }
+
+    div.ui-sortable {
+      .js-group-header {
+        border-bottom: 1px solid #bfc1c3;
+        padding: 10px 0 10px;
+        cursor: move;
+
+        ul.actions {
+          display: none;
+        }
+
+      }
+      .js-group-body {
+        display: none;
       }
     }
 
