@@ -574,3 +574,18 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
     assert page.has_no_css?(record_css_selector(@documents[2]))
   end
 end
+
+When(/^I close the organisation "(.*?)", superseding it with the organisation "(.*?)"$/) do |org_name, superseding_org_name|
+  organisation = Organisation.find_by_name!(org_name)
+  visit edit_admin_organisation_path(organisation.slug)
+  select "Closed", from: "Status on gov.uk"
+  select superseding_org_name, from: "Superseded by"
+  click_on "Save"
+end
+
+Then(/^I can see that the organisation "(.*?)" has been superseded with the organisaion "(.*?)"$/) do |org_name, superseding_org_name|
+  organisation = Organisation.find_by_name!(org_name)
+  visit admin_organisation_path(organisation)
+
+  assert page.has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+end

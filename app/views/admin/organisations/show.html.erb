@@ -16,6 +16,14 @@
           <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
           <tr><th>URL</th><td><%= link_to @organisation.url %></td></tr>
           <tr><th>gov.uk status</th><td><%= @organisation.govuk_status.titleize %></td></tr>
+          <% if @organisation.closed? %>
+            <% if @organisation.closed_at.present? %>
+              <tr><th>Organisation closed on</th><td><%= absolute_date(@organisation.closed_at) %></td></tr>
+            <% end %>
+            <% if @organisation.superseding_organisations.any? %>
+              <tr><th>Superseded by</th><td><%= @organisation.superseding_organisations.map {|org| link_to org.name, admin_organisation_path(org) }.join(', ').html_safe %></td></tr>
+            <% end %>
+          <% end %>
           <tr><th>Description</th><td><%= govspeak_to_html @organisation.description %></td></tr>
           <tr><th>Email address for ordering attached files in an alternative format</th><td><%= @organisation.alternative_format_contact_email %></td></tr>
           <tr><th>Organisation chart URL</th><td><%= link_to(@organisation.organisation_chart_url) if @organisation.organisation_chart_url.present? %>
@@ -69,10 +77,7 @@
             </td>
           </tr>
           <% if @organisation.default_news_image %>
-          <tr><th>Default news image</th><td><%= image_tag @organisation.default_news_image.file.url(:s300) %></td></tr>
-          <% end %>
-          <% if @organisation.closed? && @organisation.closed_at %>
-            <tr><th>Organisation closed on</th><td><%= absolute_date(@organisation.closed_at) %></td></tr>
+            <tr><th>Default news image</th><td><%= image_tag @organisation.default_news_image.file.url(:s300) %></td></tr>
           <% end %>
         </table>
 
