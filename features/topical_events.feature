@@ -49,9 +49,17 @@ Scenario: Featuring news on an topical event page
   Given a topical event called "An Event" with description "A topical event"
   When I draft a new news article "A speech" relating it to topical event "An Event"
   And I force publish the news article "A speech"
-  When I feature the news article "A speech" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
-  Then I should see the featured news articles in the "An Event" topical event are:
+  When I feature the document "A speech" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured documents in the "An Event" topical event are:
     | A speech | s465_minister-of-funk.960x640.jpg |
+
+Scenario: Featuring a document collection on an topical event page
+  Given a topical event called "An Event" with description "A topical event"
+  When I draft a new document collection "A document collection" relating it to topical event "An Event"
+  And I force publish the document collection "A document collection"
+  When I feature the document "A document collection" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured documents in the "An Event" topical event are:
+    | A document collection | s465_minister-of-funk.960x640.jpg |
 
 Scenario: Adding more information about the event
   Given I'm administering a topical event

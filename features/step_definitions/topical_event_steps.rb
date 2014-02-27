@@ -58,6 +58,12 @@ When /^I draft a new consultation "([^"]*)" relating it to topical event "([^"]*
   click_button "Save"
 end
 
+When /^I draft a new document collection "([^"]*)" relating it to topical event "([^"]*)"$/ do |document_collection_title, topical_event_name|
+  begin_drafting_document_collection title: document_collection_title
+  select topical_event_name, from: "Topical events"
+  click_button "Save"
+end
+
 Then /^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/ do |edition, section, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit topical_event_path(topical_event)
@@ -72,11 +78,11 @@ Then /^(#{THE_DOCUMENT}) shows it is related to the topical event "([^"]*)" on i
   assert page.has_css?(".meta a", text: topical_event.name)
 end
 
-When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with image "([^"]*)"$/ do |news_article_title, topical_event_name, image_filename|
+When /^I feature the document "([^"]*)" for topical event "([^"]*)" with image "([^"]*)"$/ do |news_article_title, topical_event_name, image_filename|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit admin_topical_event_classification_featurings_path(topical_event)
-  news_article = NewsArticle.find_by_title(news_article_title)
-  within record_css_selector(news_article) do
+  edition = Edition.find_by_title(news_article_title)
+  within record_css_selector(edition) do
     click_link "Feature"
   end
   attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
@@ -84,9 +90,9 @@ When /^I feature the news article "([^"]*)" for topical event "([^"]*)" with ima
   click_button "Save"
 end
 
-Then /^I should see the featured news articles in the "([^"]*)" topical event are:$/ do |name, expected_table|
+Then /^I should see the featured documents in the "([^"]*)" topical event are:$/ do |name, expected_table|
   visit topical_event_path(TopicalEvent.find_by_name!(name))
-  rows = find('.featured-news').all('.news_article')
+  rows = find('.featured-news').all('.feature')
   table = rows.collect do |row|
     [
       row.find('h2').text.strip,

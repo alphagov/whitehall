@@ -2,6 +2,7 @@ class DocumentCollection < Edition
   include Edition::Organisations
   include Edition::RelatedPolicies
   include Edition::Topics
+  include Edition::TopicalEvents
 
   has_many :groups, class_name: 'DocumentCollectionGroup',
                     order: 'document_collection_groups.ordering',
