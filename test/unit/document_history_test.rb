@@ -50,6 +50,18 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     assert_history_equal expected, history
   end
 
+  test '#changes handles the fact that first_published_at might be changed in later editions' do
+    original_edition = create(:superseded_edition, first_published_at: 3.days.ago, change_note: nil)
+    document         = original_edition.document
+    updated_published_time = 6.days.ago
+    Timecop.travel(1.day) do
+      new_edition_1    = create(:superseded_edition, document: document, first_published_at: updated_published_time, published_major_version: 1, published_minor_version: 1, minor_change: true)
+    end
+    history          = DocumentHistory.new(document)
+
+    assert_history_equal [[updated_published_time, 'First published.']], history
+  end
+
   test "#changes includes changes for any supporting pages" do
     policy            = create(:policy, :superseded, first_published_at: 5.days.ago, change_note: nil)
     support_page_1    = create(:supporting_page, :superseded, first_published_at: 4.days.ago, change_note: nil, related_policies: [policy])
