@@ -28,6 +28,10 @@ module Edition::Publishing
     published_major_version.nil? || published_major_version == 1
   end
 
+  def first_published_major_version?
+    published_major_version == 1 && published_minor_version == 0
+  end
+
   def published_version
     if published_major_version && published_minor_version
       "#{published_major_version}.#{published_minor_version}"
