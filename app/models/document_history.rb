@@ -48,15 +48,15 @@ class DocumentHistory
   end
 
   def first_public_edition
-    all_published_editions.last
+    all_published_editions_in_creation_order.first
   end
 
   def latest_public_edition
-    all_published_editions.first
+    all_published_editions_in_creation_order.last
   end
 
   def first_published_at
-    first_public_edition.first_public_at
+    all_published_editions_in_creation_order.last.first_public_at
   end
 
   def first_public_edition_note
@@ -64,11 +64,11 @@ class DocumentHistory
   end
 
   def subsequent_major_editions
-    (all_published_editions - [first_public_edition]).reject(&:minor_change?)
+    (all_published_editions_in_creation_order.reverse - [first_public_edition]).reject(&:minor_change?)
   end
 
-  def all_published_editions
-    document.ever_published_editions.in_reverse_chronological_order
+  def all_published_editions_in_creation_order
+    document.ever_published_editions.order('created_at')
   end
 
   def supporting_pages
