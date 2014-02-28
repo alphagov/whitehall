@@ -201,7 +201,7 @@ Scenario: Admin closes an organisation, superseding it with another one
   Given the organisation "Department of wombat population control" exists
   And the organisation "Wimbledon council of wombat population control" exists
   When I close the organisation "Department of wombat population control", superseding it with the organisation "Wimbledon council of wombat population control"
-  # Then I can see that the organisation "Department of wombat population control" has been superseded with the organisaion "Wimbledon council of wombat population control"
+  Then I can see that the organisation "Department of wombat population control" has been superseded with the organisaion "Wimbledon council of wombat population control"
 
 
 

@@ -589,3 +589,31 @@ Then(/^I can see that the organisation "(.*?)" has been superseded with the orga
 
   assert page.has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
 end
+
+Given(/^a closed organisation with documents which has been superseded by another$/) do
+  @superseding_organisation  = create(:organisation)
+  @organisation              = create(:organisation, govuk_status: 'closed', superseding_organisations: [@superseding_organisation])
+  @organisation_speech       = create(:published_speech, organisations: [@organisation])
+  @organisation_consultation = create(:published_consultation, organisations: [@organisation])
+  @organisation_publication  = create(:published_publication, organisations: [@organisation])
+  @organisation_statistics   = create(:published_statistics, organisations: [@organisation])
+end
+
+When(/^I view the organisation$/) do
+  visit organisation_path(@organisation)
+end
+
+Then(/^I can see that the organisation is closed$/) do
+  assert page.has_content?("#{@organisation.name} has closed")
+end
+
+Then(/^I can see that the organisation has been superseded by the other$/) do
+  assert page.has_content?("It has been replaced by #{@superseding_organisation.name}.")
+end
+
+Then(/^I can see the documents associated with that organisation$/) do
+  assert page.has_content?(@organisation_speech.title)
+  assert page.has_content?(@organisation_consultation.title)
+  assert page.has_content?(@organisation_publication.title)
+  assert page.has_content?(@organisation_statistics.title)
+end

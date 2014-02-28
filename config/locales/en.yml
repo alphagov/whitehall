@@ -467,6 +467,7 @@ en:
     foi_exemption_html: |
       This organisation is not covered by the Freedom of Information Act.
       To see which organisations are included, see <a href="%{foi_url}">the legislation</a>.
+    superseding_organisation_text: It has been replaced by
   announcements:
     heading: Announcements
     view_all: View all announcements

@@ -154,6 +154,20 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal 'Potato Jazz Association has a <a href="http://pots-jazz.fm">separate website</a>', organisation_govuk_status_description(organisation)
   end
 
+  test '#superseding_organisations_paragraph_for should return a paragraph listing superseding organisations with the appropriate links' do
+    organisation = build(:organisation, superseding_organisations: [
+      build(:organisation, name: "Ministry of Makeup", slug: "ministry-of-makeup"),
+      build(:organisation, name: "Bureaucracy of Beards", slug: "bureaucracy-of-beards"),
+      build(:organisation, name: "Department of Dandruff", slug: "department-of-dandruff")
+    ])
+    rendered = Nokogiri::HTML::DocumentFragment.parse(superseding_organisations_paragraph_for(organisation)).children.first
+    assert_equal "It has been replaced by Ministry of Makeup, Bureaucracy of Beards and Department of Dandruff.", rendered.text
+
+    links = rendered.css("a")
+    assert_equal links[0][:href], organisation_path("ministry-of-makeup")
+    assert_equal links[1][:href], organisation_path("bureaucracy-of-beards")
+    assert_equal links[2][:href], organisation_path("department-of-dandruff")
+  end
 
   test '#govuk_status_meta_data_for joining and transitioning orgs should return "moving to GOV.UK"' do
     rendered = Nokogiri::HTML::DocumentFragment.parse(govuk_status_meta_data_for(build(:organisation, govuk_status: 'joining')))

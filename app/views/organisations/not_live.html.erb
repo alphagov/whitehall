@@ -13,9 +13,8 @@
   <div class="block-4">
     <div class="inner-block">
       <aside class="govuk-status status-block">
-        <p>
-          <%= organisation_govuk_status_description(@organisation) %>
-        </p>
+        <h2><%= organisation_govuk_status_description(@organisation) %></h2>
+        <%= superseding_organisations_paragraph_for(@organisation) %>
       </aside>
     </div>
   </div>

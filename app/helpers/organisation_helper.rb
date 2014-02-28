@@ -43,6 +43,15 @@ module OrganisationHelper
     end
   end
 
+  def superseding_organisations_paragraph_for(organisation)
+    if organisation.superseding_organisations.any?
+      organisation_links = organisation.superseding_organisations.map { |org|
+        link_to(org.name, organisation_path(org))
+      }
+      content_tag :p, "#{t('organisation.superseding_organisation_text')} #{organisation_links.to_sentence}.".html_safe
+    end
+  end
+
   def govuk_status_meta_data_for(organisation)
     if organisation.exempt?
       content_tag :span, "separate website", class: 'metadata'
