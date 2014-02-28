@@ -17,8 +17,13 @@ class OrganisationsController < PublicFacingController
     set_expiry 5.minutes
     respond_to do |format|
       format.html do
-        @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
+        @announcements = latest_presenters(@organisation.published_announcements, translated: true, count: 2)
+        @consultations = latest_presenters(@organisation.published_consultations, translated: true, count: 2)
+        @non_statistics_publications = latest_presenters(@organisation.published_non_statistics_publications, translated: true, count: 2)
+        @statistics_publications = latest_presenters(@organisation.published_statistics_publications, translated: true, count: 2)
+
         if @organisation.live?
+          @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
           set_meta_description(@organisation.description)
 
@@ -31,10 +36,6 @@ class OrganisationsController < PublicFacingController
             @policies = latest_presenters(@organisation.published_policies, translated: true)
             @topics = @organisation.topics
             @mainstream_categories = @organisation.mainstream_categories
-            @non_statistics_publications = latest_presenters(@organisation.published_non_statistics_publications, translated: true, count: 2)
-            @statistics_publications = latest_presenters(@organisation.published_statistics_publications, translated: true, count: 2)
-            @consultations = latest_presenters(@organisation.published_consultations, translated: true, count: 2)
-            @announcements = latest_presenters(@organisation.published_announcements, translated: true, count: 2)
             @ministers = ministers
             @important_board_members = board_members.take(@organisation.important_board_members)
             @board_members = board_members.from(@organisation.important_board_members)
