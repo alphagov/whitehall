@@ -8,7 +8,7 @@ module Whitehall
 
     def generate_report(report_path)
       csv = CSV.open(report_path, 'w', encoding: 'UTF-8')
-      csv << ["page", "admin link", "department", "bad link count", "bad links"]
+      csv << ["page", "admin link", "department", "format", "bad link count", "bad links"]
 
       ::BadLinkFinder::Site.new(@mirror_directory, nil).each do |page|
         page_checker = ::BadLinkFinder::PageChecker.new(public_host, page, result_cache)
@@ -26,9 +26,10 @@ module Whitehall
             data = {
               public_url:     page_checker.page_url,
               admin_url:      Whitehall.url_maker.admin_edition_url(edition, host: 'whitehall-admin.production.alphagov.co.uk'),
-              organisation:   edition.lead_organisations.first.name,
+              organisation:   (edition.lead_organisations || edition.worldwide_organisations).first.name,
+              content_type:   edition.type,
               bad_link_count: bad_links.size,
-              bad_links:      bad_links.join(' ')
+              bad_links:      bad_links.join("\n")
             }
 
             csv << data.values

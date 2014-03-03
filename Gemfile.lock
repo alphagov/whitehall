@@ -67,7 +67,7 @@ GEM
       multi_json
     arel (3.0.3)
     babosa (0.3.11)
-    bad_link_finder (0.3.0)
+    bad_link_finder (0.3.1)
       mechanize (~> 2.7)
       nokogiri (~> 1.5)
     bootstrap-kaminari-views (0.0.2)
@@ -382,7 +382,7 @@ DEPENDENCIES
   addressable
   airbrake (= 3.1.15)
   babosa
-  bad_link_finder (~> 0.3.0)
+  bad_link_finder (~> 0.3.1)
   bootstrap-kaminari-views
   bullet
   capybara (~> 2.1.0)
