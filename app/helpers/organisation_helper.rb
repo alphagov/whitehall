@@ -48,7 +48,7 @@ module OrganisationHelper
       organisation_links = organisation.superseding_organisations.map { |org|
         link_to(org.name, organisation_path(org))
       }
-      content_tag :p, "#{t('organisation.superseding_organisation_text')} #{organisation_links.to_sentence}.".html_safe
+      content_tag :p, t('organisation.superseding_organisation_text', organisation_list: organisation_links.to_sentence).html_safe
     end
   end
 
