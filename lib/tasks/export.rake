@@ -17,7 +17,7 @@ namespace :export do
     # Read off the MySQL slave - we want performance here and
     # non-contention as this job runs for up to 45 minutes.
     if ENV['FACTER_govuk_platform'] == 'production'
-      mysql_slave_config = ActiveRecord::Base.configurations['production'].merge('host' => 'slave.mysql')
+      mysql_slave_config = ActiveRecord::Base.configurations['production_slave']
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
@@ -45,7 +45,7 @@ namespace :export do
     # Read off the MySQL slave - we want performance here and
     # non-contention as this job runs for up to 45 minutes.
     if ENV['FACTER_govuk_platform'] == 'production'
-      mysql_slave_config = ActiveRecord::Base.configurations['production'].merge('host' => 'slave.mysql')
+      mysql_slave_config = ActiveRecord::Base.configurations['production_slave']
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
