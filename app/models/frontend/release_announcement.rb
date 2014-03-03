@@ -1,0 +1,2 @@
+class Frontend::ReleaseAnnouncement
+end
