@@ -6,10 +6,15 @@
   border: $gutter-one-sixth solid $inside-gov-secondary;
   padding: $gutter-half;
   position: relative;
-  h2,
-  p {
+  h2 {
     @include core-36;
     font-weight: bold;
+  }
+
+  p {
+    @include core-19;
+    font-weight: bold;
+    margin-top: $gutter-half;
   }
 
   @include media(desktop) {

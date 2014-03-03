@@ -558,6 +558,7 @@ cy:
       step2_html: Ymchwiliwch <a href="%{our_releases_path}">ein datganiadau blaenorol</a>
         i weld os ydym eisioes wedi ateb eich cwestiwn
       step3_html: 'Gwnewch cais newydd drwy gysylltu a ni ar:'
+    superseding_organisation_text:
   people:
     heading:
       zero:

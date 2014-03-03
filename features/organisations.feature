@@ -197,4 +197,15 @@ Scenario: DFID shows link to uk aid information
   Then I can see information about uk aid on the "Department for International Development" page
   And I can not see information about uk aid on the "Cabinet Office" page
 
+Scenario: Admin closes an organisation, superseding it with another one
+  Given the organisation "Department of wombat population control" exists
+  And the organisation "Wimbledon council of wombat population control" exists
+  When I close the organisation "Department of wombat population control", superseding it with the organisation "Wimbledon council of wombat population control"
+  Then I can see that the organisation "Department of wombat population control" has been superseded with the organisaion "Wimbledon council of wombat population control"
 
+Scenario: Citizen views a closed organisation
+  Given a closed organisation with documents which has been superseded by another
+  When I view the organisation
+  Then I can see that the organisation is closed
+  And I can see that the organisation has been superseded by the other
+  And I can see the documents associated with that organisation

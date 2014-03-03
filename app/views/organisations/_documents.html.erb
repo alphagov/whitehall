@@ -1,0 +1,49 @@
+<div class="block documents-grid">
+  <div class="inner-block">
+    <h1 class="block-title"><%= t('organisation.headings.documents') %></h1>
+    <% if @announcements.any? %>
+      <section id="announcements" class="document-block documents-<%= document_block_counter %>">
+        <h1><%= t('organisation.headings.our_announcements') %></h1>
+        <div class="content">
+          <%= render partial: "shared/list_description", locals: { editions: @announcements } %>
+          <p class="see-all">
+            <%= link_to t_see_all_our(:announcement), announcements_filter_path(@organisation) %>
+          </p>
+        </div>
+      </section>
+    <% end %>
+    <% if @consultations.any? %>
+      <section id="consultations" class="document-block documents-<%= document_block_counter %>">
+        <h1><%= t('organisation.headings.our_consultations') %></h1>
+        <div class="content">
+          <%= render partial: "shared/list_description", locals: { editions: @consultations } %>
+          <p class="see-all">
+            <%= link_to t_see_all_our(:consultation), publications_filter_path(@organisation, publication_filter_option: 'consultations') %>
+          </p>
+        </div>
+      </section>
+    <% end %>
+    <% if @non_statistics_publications.any? %>
+      <section id="publications" class="document-block documents-<%= document_block_counter %>">
+        <h1><%= t('organisation.headings.our_publications') %></h1>
+        <div class="content">
+          <%= render partial: "shared/list_description", locals: { editions: @non_statistics_publications } %>
+          <p class="see-all">
+            <%= link_to t_see_all_our(:publication), publications_filter_path(@organisation) %>
+          </p>
+        </div>
+      </section>
+    <% end %>
+    <% if @statistics_publications.any? %>
+      <section id="statistics-publications" class="document-block documents-<%= document_block_counter %>">
+        <h1><%= t('organisation.headings.our_statistics') %></h1>
+        <div class="content">
+          <%= render partial: "shared/list_description", locals: { editions: @statistics_publications } %>
+          <p class="see-all">
+            <%= link_to t_see_all_our(:statistics), publications_filter_path(@organisation, publication_filter_option: 'statistics') %>
+          </p>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</div>

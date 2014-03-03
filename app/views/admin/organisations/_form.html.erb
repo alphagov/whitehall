@@ -42,9 +42,13 @@
       <%= organisation_form.label :govuk_status, "Status on gov.uk" %>
       <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"], ["Closed", "closed"]], {}, class: 'chzn-select' %>
     </p>
-    <p id="js-organisation-closed-at-group">
+    <p class="js-closed-organisation-field">
       <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
       <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
+    </p>
+    <p class="js-closed-organisation-field">
+      <%= organisation_form.label :superseding_organisation_ids, "Superseded by" %>
+      <%= organisation_form.select :superseding_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.superseding_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose which organisation(s) this organisation has been superseded by..." } %>
     </p>
     <p>
       <%= organisation_form.text_field :organisation_chart_url %>

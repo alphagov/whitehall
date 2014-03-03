@@ -943,7 +943,9 @@
       margin: 0 0 $gutter*2 0;
     }
   }
-
+  .documents-grid {
+    clear: both;
+  }
 }
 
 .organisations-executive-office {

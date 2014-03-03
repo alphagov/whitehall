@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140217122025) do
+ActiveRecord::Schema.define(:version => 20140227121604) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -802,6 +802,13 @@ ActiveRecord::Schema.define(:version => 20140217122025) do
 
   add_index "organisation_roles", ["organisation_id"], :name => "index_organisation_roles_on_organisation_id"
   add_index "organisation_roles", ["role_id"], :name => "index_organisation_roles_on_role_id"
+
+  create_table "organisation_supersedings", :force => true do |t|
+    t.integer "superseded_organisation_id"
+    t.integer "superseding_organisation_id"
+  end
+
+  add_index "organisation_supersedings", ["superseded_organisation_id"], :name => "index_organisation_supersedings_on_superseded_organisation_id"
 
   create_table "organisation_translations", :force => true do |t|
     t.integer  "organisation_id"

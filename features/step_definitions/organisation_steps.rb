@@ -574,3 +574,46 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
     assert page.has_no_css?(record_css_selector(@documents[2]))
   end
 end
+
+When(/^I close the organisation "(.*?)", superseding it with the organisation "(.*?)"$/) do |org_name, superseding_org_name|
+  organisation = Organisation.find_by_name!(org_name)
+  visit edit_admin_organisation_path(organisation.slug)
+  select "Closed", from: "Status on gov.uk"
+  select superseding_org_name, from: "Superseded by"
+  click_on "Save"
+end
+
+Then(/^I can see that the organisation "(.*?)" has been superseded with the organisaion "(.*?)"$/) do |org_name, superseding_org_name|
+  organisation = Organisation.find_by_name!(org_name)
+  visit admin_organisation_path(organisation)
+
+  assert page.has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")
+end
+
+Given(/^a closed organisation with documents which has been superseded by another$/) do
+  @superseding_organisation  = create(:organisation)
+  @organisation              = create(:organisation, govuk_status: 'closed', superseding_organisations: [@superseding_organisation])
+  @organisation_speech       = create(:published_speech, organisations: [@organisation])
+  @organisation_consultation = create(:published_consultation, organisations: [@organisation])
+  @organisation_publication  = create(:published_publication, organisations: [@organisation])
+  @organisation_statistics   = create(:published_statistics, organisations: [@organisation])
+end
+
+When(/^I view the organisation$/) do
+  visit organisation_path(@organisation)
+end
+
+Then(/^I can see that the organisation is closed$/) do
+  assert page.has_content?("#{@organisation.name} has closed")
+end
+
+Then(/^I can see that the organisation has been superseded by the other$/) do
+  assert page.has_content?("It has been replaced by #{@superseding_organisation.name}.")
+end
+
+Then(/^I can see the documents associated with that organisation$/) do
+  assert page.has_content?(@organisation_speech.title)
+  assert page.has_content?(@organisation_consultation.title)
+  assert page.has_content?(@organisation_publication.title)
+  assert page.has_content?(@organisation_statistics.title)
+end
