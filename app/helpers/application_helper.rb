@@ -170,6 +170,7 @@ module ApplicationHelper
   end
 
   def link_to_with_current(name, path, options = {})
+    options = options.dup
     path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
     css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
     options[:class] = css_classes unless css_classes.blank?
