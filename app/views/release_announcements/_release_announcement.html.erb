@@ -1,0 +1,10 @@
+<li class="document-row">
+  <h3><%= release_announcement.title %></h3>
+  <ul class="attributes">
+    <li><%= release_announcement.release_date_text %></li>
+    <li><%= release_announcement.document_type %></li>
+    <%- release_announcement.organisations.each do |org_name| -%>
+      <li><%= org_name %></li>
+    <%- end -%>
+  </ul>
+</li>

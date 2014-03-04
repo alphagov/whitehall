@@ -169,6 +169,16 @@ module ApplicationHelper
     render_list_of_roles(ministerial_roles, &block)
   end
 
+  def full_width_tabs(tab_data)
+    content_tag(:nav, class: "activity-navigation") {
+      content_tag(:ul) {
+        tab_data.map { | tab |
+          content_tag :li, link_to_with_current(tab[:label], tab[:link_to]).html_safe
+        }.join.html_safe
+      }
+    }
+  end
+
   def link_to_with_current(name, path, options = {})
     options = options.dup
     path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")

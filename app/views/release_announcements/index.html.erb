@@ -5,3 +5,16 @@
                         heading: "Statistics: Upcoming calendar" } %>
   </div>
 </header>
+
+<%= full_width_tabs [
+  { label: "Published",         link_to: publications_filter_path(publication_filter_option: 'statistics') },
+  { label: "Upcoming Calendar", link_to: release_announcements_path }
+] %>
+
+<div class="block-4">
+  <div class="inner-block">
+    <ol class="document-list">
+      <%= render @release_announcements %>
+    </ol>
+  </div>
+</div>
