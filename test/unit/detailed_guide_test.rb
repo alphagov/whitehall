@@ -114,16 +114,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert detailed_guide.errors.full_messages.include?("Primary detailed guidance category can't be blank")
   end
 
-  test "should be invalid without a user need" do
-    detailed_guide = build(:detailed_guide)
-
-    detailed_guide.user_needs = []
-    refute detailed_guide.valid?
-
-    detailed_guide.user_needs << build(:user_need)
-    assert detailed_guide.valid?
-  end
-
   test "should include breadcrumb metadata in search index" do
     category = create(:mainstream_category,
       slug: "manufactured-goods-trade-compliance",

@@ -197,16 +197,4 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute edition.save_as(create(:user))
   end
 
-  # This is a quick fix to deal with a specific instance of the larger
-  # workflow issue that you cannot supersede a document which fails
-  # validation.
-  test "can supersede a detailed guide without a user need" do
-    detailed_guide = create(:published_detailed_guide)
-
-    detailed_guide.update_attribute(:user_needs, [])
-    refute detailed_guide.valid?
-
-    detailed_guide.supersede! rescue nil
-    assert detailed_guide.superseded?
-  end
 end
