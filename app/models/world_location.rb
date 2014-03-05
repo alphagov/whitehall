@@ -94,6 +94,10 @@ class WorldLocation < ActiveRecord::Base
     (worldwide_organisations + worldwide_organisations.map { |o| o.sponsoring_organisations.to_a }.flatten).uniq
   end
 
+  def to_s
+    name
+  end
+
   def self.all_by_type
     ordered_by_name.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
   end
