@@ -5,14 +5,14 @@ Given(/^There are some release announcements in rummager$/) do
       "document_type" => 'National Statistics',
       "release_date" => Time.zone.parse("2055-05-01 12:00:00"),
       "release_date_text" => 'May - June 2055',
-      "organisations" => ["Ministry of beards"]
+      "organisations" => [ { "name" => "Ministry of beards", "slug" => "ministry-of-breards" } ]
     },
     {
       "title" => 'Womble population in Wimbledon Common 2063',
       "document_type" => 'Statistics',
       "release_date" => Time.zone.parse("2063-02-15 12:45:00"),
       "release_date_text" => nil,
-      "organisations" => ["Wombat population regulation authority"]
+      "organisations" => [ { "name" => "Wombat population regulation authority", "slug" => "wombat-population-regulation-authority" } ]
     }
   ]
   Frontend::ReleaseAnnouncementProvider.stubs(:rummager_api).returns(mock(release_announcements: @release_announcements_in_rummager))
@@ -31,8 +31,8 @@ Then(/^I should all the release announcements$/) do
     else
       assert page.has_content? release_announcement_hash["release_date_text"]
     end
-    release_announcement_hash["organisations"].each do | org_name |
-      assert page.has_content? org_name
+    release_announcement_hash["organisations"].each do | org_data |
+      assert page.has_content? org_data['name']
     end
   end
 end
