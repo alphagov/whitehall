@@ -6,7 +6,6 @@ class DetailedGuide < Edition
   include Edition::AlternativeFormatProvider
   include Edition::FactCheckable
   include Edition::HasMainstreamCategories
-  include Edition::UserNeeds
   include Edition::HasDocumentCollections
   include Edition::Organisations
 
