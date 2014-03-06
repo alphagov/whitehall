@@ -13,6 +13,14 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
                 message: 'must be a statistical type'
               }
 
+  def display_release_date
+    if display_release_date_override.blank?
+      expected_release_date.to_s(:long_ordinal)
+    else
+      display_release_date_override
+    end
+  end
+
   def publication_type
     PublicationType.find_by_id(publication_type_id)
   end

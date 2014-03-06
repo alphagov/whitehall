@@ -38,7 +38,7 @@
         <%= content_tag_for(:li, announcement, class: 'document-row') do %>
           <h3><%= announcement.title %></h3>
           <ul class="attributes">
-            <li class="updated-by">Release date <%= announcement.expected_release_date %></li>
+            <li class="updated-by"><%= announcement.display_release_date %></li>
             <li class="type"><%= link_to 'edit', edit_admin_statistical_release_announcement_path(announcement) %></li>
           </ul>
         <% end %>

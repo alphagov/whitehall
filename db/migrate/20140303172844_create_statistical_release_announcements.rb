@@ -5,7 +5,7 @@ class CreateStatisticalReleaseAnnouncements < ActiveRecord::Migration
       t.string      :slug
       t.text        :summary
       t.datetime    :expected_release_date
-      t.string      :display_release_date
+      t.string      :display_release_date_override
       t.integer     :publication_type_id
       t.references  :organisation
       t.references  :topic

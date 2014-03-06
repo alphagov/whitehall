@@ -1053,13 +1053,13 @@ ActiveRecord::Schema.define(:version => 20140303172844) do
     t.string   "slug"
     t.text     "summary"
     t.datetime "expected_release_date"
-    t.string   "display_release_date"
+    t.string   "display_release_date_override"
     t.integer  "publication_type_id"
     t.integer  "organisation_id"
     t.integer  "topic_id"
     t.integer  "creator_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "statistical_release_announcements", ["creator_id"], :name => "index_statistical_release_announcements_on_creator_id"

@@ -46,7 +46,7 @@ class Admin::StatisticalReleaseAnnouncementsController < Admin::BaseController
 
   def statistical_release_announcement_params
     params.require(:statistical_release_announcement).permit(
-      :title, :summary, :expected_release_date, :display_release_date,
+      :title, :summary, :expected_release_date, :display_release_date_override,
       :organisation_id, :topic_id, :publication_type_id
     )
   end
