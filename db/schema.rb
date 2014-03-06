@@ -1040,6 +1040,25 @@ ActiveRecord::Schema.define(:version => 20140307095755) do
   add_index "sponsorships", ["organisation_id", "worldwide_organisation_id"], :name => "unique_sponsorships", :unique => true
   add_index "sponsorships", ["worldwide_organisation_id"], :name => "index_sponsorships_on_worldwide_organisation_id"
 
+  create_table "statistical_release_announcements", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "summary"
+    t.datetime "expected_release_date"
+    t.string   "display_release_date"
+    t.integer  "publication_type_id"
+    t.integer  "organisation_id"
+    t.integer  "topic_id"
+    t.integer  "creator_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "statistical_release_announcements", ["creator_id"], :name => "index_statistical_release_announcements_on_creator_id"
+  add_index "statistical_release_announcements", ["organisation_id"], :name => "index_statistical_release_announcements_on_organisation_id"
+  add_index "statistical_release_announcements", ["slug"], :name => "index_statistical_release_announcements_on_slug"
+  add_index "statistical_release_announcements", ["topic_id"], :name => "index_statistical_release_announcements_on_topic_id"
+
   create_table "supporting_page_redirects", :force => true do |t|
     t.integer  "policy_document_id"
     t.integer  "supporting_page_document_id"
