@@ -5,13 +5,14 @@
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render 'shared/heading',
-               heading: "Latest documents" %>
+               type: link_to(subject, subject),
+               heading: 'Latest documents',
+               big: true %>
   </div>
 </header>
 
 <div class="block results">
   <div class="inner-block">
-    <h2>Latest from <%= link_to subject, subject %></h2>
     <%= render 'shared/feeds', atom_url: atom_feed_url_for(subject) %>
 
     <ol class="document-list">
