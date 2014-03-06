@@ -180,7 +180,6 @@ module Whitehall
       OperationalField,
       PolicyAdvisoryGroup,
       PolicyTeam,
-      SupportingPage,
       TakePartPage,
       StatisticalReleaseAnnouncement
     ]
