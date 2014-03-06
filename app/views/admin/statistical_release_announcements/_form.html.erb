@@ -1,0 +1,32 @@
+
+<%= form_for [:admin, release_announcement] do |form| %>
+  <%= form.errors %>
+
+  <%= form.label  :publication_type_id, 'Statistics type', required: true %>
+  <%= form.select :publication_type_id,
+                  options_from_collection_for_select(PublicationType.statistical, 'id', 'singular_name', release_announcement.publication_type_id) %>
+
+  <%= form.text_field :title, required: true %>
+  <%= form.text_area :summary, rows: 5, required: true %>
+
+  <%= form.label  :organisation_id, 'Organisation', required: true %>
+  <%= form.select :organisation_id,
+                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', release_announcement.organisation_id) %>
+
+  <%= form.label  :topic_id, 'Topic', required: true %>
+  <%= form.select :topic_id,
+                  options_from_collection_for_select(Topic.all, 'id', 'name', release_announcement.topic_id),
+                  prompt: 'Select a topic',
+                  class: 'chzn-select' %>
+
+  <%= form.label :expected_release_date, "Expected release date", required: true %>
+  <%= form.datetime_select :expected_release_date, {
+        start_year: Date.today.year,
+        end_year: Date.today.year + 5,
+        minute_step: 15,
+        default: (Date.tomorrow + 9.5.hours)
+      }, { class: 'date' } %>
+  <%= form.text_field :display_release_date, label_text: "Display date (e.g. Jan/Feb #{Date.today.year+1}). Leave blank to use above date and time." %>
+
+  <%= form.save_or_cancel buttons: { save: 'Make announcement' }, cancel: admin_root_path %>
+<% end %>
