@@ -9,9 +9,8 @@ class Admin::DetailedGuidesController < Admin::EditionsController
     DetailedGuide
   end
 
-  def new_user_need
-     @new_user_need ||= @edition.user_needs.to_a.detect(&:new_record?) || UserNeed.new
+  def clean_edition_parameters
+    super
+    params[:edition].delete_if { |k, v| ["user_need_ids", "user_needs_attributes"].include?(k.to_s) }
   end
-  helper_method :new_user_need
-
 end

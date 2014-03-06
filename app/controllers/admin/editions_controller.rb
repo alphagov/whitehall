@@ -156,7 +156,6 @@ class Admin::EditionsController < Admin::BaseController
       worldwide_organisation_ids: [],
       worldwide_priority_ids: [],
       related_policy_ids: [],
-      user_need_ids: [],
       other_mainstream_category_ids: [],
       topic_ids: [],
       topical_event_ids: [],
@@ -182,7 +181,6 @@ class Admin::EditionsController < Admin::BaseController
       nation_inapplicabilities_attributes: [
         :id, :nation_id, :alternative_url, :excluded
       ],
-      user_needs_attributes: [:user, :need, :goal, :organisation_id],
       fatality_notice_casualties_attributes: [:personal_details, :_destroy]
     )
   end

@@ -68,13 +68,23 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal [soul], DetailedGuide.first.other_mainstream_categories
   end
 
+  test "providing user_needs parameters doesn't cause error" do
+    funk = create(:mainstream_category)
+
+    attributes = controller_attributes_for(:detailed_guide, primary_mainstream_category_id: funk.id)
+    attributes[:user_needs_attributes] = { user: "test user", need: "this to work", goal: "pass my tests" }
+    attributes[:user_need_ids] = [1, 2, 3]
+
+    post :create, edition: attributes
+    assert_response 302
+  end
+ 
   private
 
   def controller_attributes_for(edition_type, attributes = {})
-    super.except(:primary_mainstream_category, :alternative_format_provider, :user_need_ids).reverse_merge(
+    super.except(:primary_mainstream_category, :alternative_format_provider).reverse_merge(
       primary_mainstream_category_id: create(:mainstream_category).id,
-      alternative_format_provider_id: create(:alternative_format_provider).id,
-      user_need_ids: [create(:user_need).id]
+      alternative_format_provider_id: create(:alternative_format_provider).id
     )
   end
 end

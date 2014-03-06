@@ -2,7 +2,7 @@ Feature: Detailed guides
 
 Scenario: Creating a new draft detailed guide
   Given I am a writer in the organisation "Department of Examples"
-  When I draft a new detailed guide "The finer points of moustache trimming" with the user need: as an "example user" I need "some functionality" so that I can "get something done"
+  When I draft a new detailed guide "The finer points of moustache trimming"
   Then I should see the detailed guide "The finer points of moustache trimming" in the list of draft documents
 
 @javascript

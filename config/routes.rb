@@ -147,7 +147,6 @@ Whitehall::Application.routes.draw do
         get 'find-in-admin-bookmarklet/:browser' => 'find_in_admin_bookmarklet#show', as: :find_in_admin_bookmarklet_instructions
 
         resources :users, only: [:index, :show, :edit, :update]
-        resources :user_needs, only: [:create]
 
         resources :authors, only: [:show]
         resource :document_searches, only: [:show]
