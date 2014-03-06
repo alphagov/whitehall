@@ -17,7 +17,9 @@ class LatestController < PublicFacingController
   helper_method :subject
 
   def documents
-    filter.documents
+    Whitehall::Decorators::CollectionDecorator.new(filter.documents,
+                                                   LatestDocumentPresenter,
+                                                   view_context)
   end
   helper_method :documents
 
