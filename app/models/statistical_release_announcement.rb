@@ -13,6 +13,16 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
                 message: 'must be a statistical type'
               }
 
+  include Searchable
+  searchable  title: :title,
+              link: :public_path,
+              description: :summary,
+              slug: :slug,
+              organisations: :organisation_slugs,
+              topics: :topic_slugs,
+              expected_release_timestamp: :expected_release_date,
+              expected_release_text: :display_release_date
+
   def display_release_date
     if display_release_date_override.blank?
       expected_release_date.to_s(:long_ordinal)
@@ -23,5 +33,17 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
 
   def publication_type
     PublicationType.find_by_id(publication_type_id)
+  end
+
+  def public_path
+    Whitehall.url_maker.statistical_release_announcement_path(self)
+  end
+
+  def organisation_slugs
+    [organisation.slug]
+  end
+
+  def topic_slugs
+    [topic.slug]
   end
 end

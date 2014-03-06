@@ -33,4 +33,12 @@ class StatisticalReleaseAnnouncementTest < ActiveSupport::TestCase
 
     assert_equal 'April 2015', announcement.display_release_date
   end
+
+  test 'is search indexable' do
+    assert create(:statistical_release_announcement).can_index_in_search?
+  end
+
+  test 'is indexed for search after being saved' do
+    assert_indexed_for_search create(:statistical_release_announcement)
+  end
 end
