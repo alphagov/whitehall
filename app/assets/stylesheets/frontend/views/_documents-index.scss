@@ -1,4 +1,8 @@
 .documents-index {
+  .activity-navigation {
+    margin-bottom: $gutter;
+  }
+
   @include ie(6) {
     .block-2,
     .block-3,

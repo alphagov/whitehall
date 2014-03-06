@@ -303,6 +303,16 @@ class ApplicationHelperTest < ActionView::TestCase
     assert links[1][:class].to_s.include? "current"
   end
 
+  test "full_width_tabs supports :current_when" do
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+      { label: "Guitar tabs", link_to: "/hipster-guitars", current_when: false },
+      { label: "Document tabs", link_to: "/stationary", current_when: true }
+    ]).children.first
+
+    refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
+    assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'
+  end
+
   private
 
   def appoint_minister(attributes = {})

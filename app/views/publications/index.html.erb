@@ -15,6 +15,8 @@
   </div>
 </header>
 
+<%= render 'release_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
+
 <div class="block-2 filter-form">
   <div class="inner-block">
     <% if Locale.current.english? %>

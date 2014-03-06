@@ -173,7 +173,13 @@ module ApplicationHelper
     content_tag(:nav, class: "activity-navigation") {
       content_tag(:ul) {
         tab_data.map { | tab |
-          content_tag :li, link_to_with_current(tab[:label], tab[:link_to]).html_safe
+          content_tag :li do
+            if tab[:current_when]
+              link_to tab[:label], tab[:link_to], class: ('current' if tab[:current_when])
+            else
+              link_to_with_current(tab[:label], tab[:link_to])
+            end
+          end
         }.join.html_safe
       }
     }
