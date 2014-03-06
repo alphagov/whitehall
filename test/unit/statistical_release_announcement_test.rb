@@ -22,4 +22,15 @@ class StatisticalReleaseAnnouncementTest < ActiveSupport::TestCase
     announcement = create(:statistical_release_announcement, title: 'Beard statistics 2015')
     assert_equal 'beard-statistics-2015', announcement.slug
   end
+
+  test '#display_release_date is based on expected_release_date by default' do
+    announcement = create(:statistical_release_announcement, expected_release_date: Time.new(2015, 03, 15, 9, 30))
+    assert_equal '15 March 2015 09:30', announcement.display_release_date
+  end
+
+  test '#display_release_date can be overridden with display_release_date_override' do
+    announcement = create(:statistical_release_announcement, display_release_date_override: 'April 2015')
+
+    assert_equal 'April 2015', announcement.display_release_date
+  end
 end
