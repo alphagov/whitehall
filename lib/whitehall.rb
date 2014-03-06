@@ -176,12 +176,10 @@ module Whitehall
       Person,
       Topic,
       TopicalEvent,
-      DocumentCollection,
       CorporateInformationPage,
       OperationalField,
       PolicyAdvisoryGroup,
       PolicyTeam,
-      SupportingPage,
       TakePartPage,
       StatisticalReleaseAnnouncement
     ]
