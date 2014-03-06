@@ -35,6 +35,13 @@ class LatestControllerTest < ActionController::TestCase
     assert_equal world_location, @controller.subject
   end
 
+  test 'GET :index should redirect to feed if subject is not provided' do
+    get :index
+
+    assert_response :redirect
+    assert_redirected_to atom_feed_path
+  end
+
   test 'GET :index should expose documents for the subject' do
     organisation = create(:organisation)
 

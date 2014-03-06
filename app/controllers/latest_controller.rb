@@ -1,6 +1,8 @@
 class LatestController < PublicFacingController
   include CacheControlHelper
 
+  before_filter :redirect_unless_subject
+
   def index
   end
 
@@ -44,5 +46,9 @@ private
 
   def supported_subjects
     %w(departments topics world_locations)
+  end
+
+  def redirect_unless_subject
+    redirect_to atom_feed_path unless subject
   end
 end
