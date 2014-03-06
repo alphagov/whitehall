@@ -1,4 +1,5 @@
 <% page_title "Statistics", "Upcoming calendar" %>
+<% page_class "release-announcements-index" %>
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
@@ -13,33 +14,31 @@
   { label: "Upcoming Calendar", link_to: release_announcements_path }
 ] %>
 
-<div class="block-2">
+<div class="filter-form-block">
   <div class="inner-block">
-    <%= form_for @filter, url: release_announcements_path, method: :get, html: { class: "filter-block" } do |f| %>
-      <div class="filter">
-        <div class="filter-inner">
-          <%= f.text_field :keywords, label_text: "Contains", placeholder: "keywords" %>
-        </div>
-      </div>
-      <div class="filter">
-        <div class="filter-inner">
-          <%= f.text_field :from_date, label_text: "Published after", placeholder: "e.g. 01/01/2013" %>
-          <%= f.text_field :to_date, label_text: "Published before", placeholder: "e.g. 30/02/2013" %>
-        </div>
-      </div>
-      <div class="filter">
-        <div class="filter-inner">
-          <div class="submit">
-            <%= f.submit "Refresh results", class: "button" %>
+    <h2>You can use the filters to show only results that match your interests</h2>
+    <%= form_for @filter, url: release_announcements_path, method: :get, html: { class: "filter-form" } do |f| %>
+      <fieldset>
+        <div class="filter">
+          <div class="filter-inner">
+            <%= f.text_field :keywords, label_text: "Contains", placeholder: "keywords" %>
           </div>
         </div>
-      </div>
+        <div class="filter date-range-filter">
+          <div class="filter-inner">
+            <%= f.text_field :from_date, label_text: "Published after", placeholder: "e.g. 01/01/2013" %>
+            <%= f.text_field :to_date, label_text: "Published before", placeholder: "e.g. 30/02/2013" %>
+          </div>
+        </div>
+        <%= f.submit "Refresh results", class: "button" %>
+      </fieldset>
     <%- end -%>
   </div>
 </div>
 
-<div class="block-4">
+<div class="filter-results-block">
   <div class="inner-block">
+    <h2>This calendar of upcoming releases is maintained by the <a href="https://gss.civilservice.gov.uk/">Government Statistical Service</a> independently from government
     <ol class="document-list">
       <%= render @release_announcements %>
     </ol>

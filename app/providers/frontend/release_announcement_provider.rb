@@ -64,7 +64,7 @@ module Frontend
     def self.release_announcements(search_params = {})
       filtered_announcements = RELEASE_ANNOUNCEMENTS.dup
       if search_params[:keywords].present?
-        filtered_announcements.select! {|announcement| announcement['title'].include? search_params[:keywords] }
+        filtered_announcements.select! {|announcement| announcement['title'].downcase.include? search_params[:keywords].downcase }
       end
       if search_params[:from_date].present?
         filtered_announcements.select! {|announcement| announcement['release_date'].to_date >= search_params[:from_date] }
