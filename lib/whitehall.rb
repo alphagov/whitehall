@@ -182,7 +182,8 @@ module Whitehall
       PolicyAdvisoryGroup,
       PolicyTeam,
       SupportingPage,
-      TakePartPage
+      TakePartPage,
+      StatisticalReleaseAnnouncement
     ]
     not_yet_searchable_classes = []
     if world_feature?
