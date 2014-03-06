@@ -1,3 +1,5 @@
+<% page_title "Statistics", "Upcoming calendar" %>
+
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
@@ -10,6 +12,31 @@
   { label: "Published",         link_to: publications_filter_path(publication_filter_option: 'statistics') },
   { label: "Upcoming Calendar", link_to: release_announcements_path }
 ] %>
+
+<div class="block-2">
+  <div class="inner-block">
+    <%= form_for @filter, url: release_announcements_path, method: :get, html: { class: "filter-block" } do |f| %>
+      <div class="filter">
+        <div class="filter-inner">
+          <%= f.text_field :keywords, label_text: "Contains", placeholder: "keywords" %>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-inner">
+          <%= f.text_field :from_date, label_text: "Published after", placeholder: "e.g. 01/01/2013" %>
+          <%= f.text_field :to_date, label_text: "Published before", placeholder: "e.g. 30/02/2013" %>
+        </div>
+      </div>
+      <div class="filter">
+        <div class="filter-inner">
+          <div class="submit">
+            <%= f.submit "Refresh results", class: "button" %>
+          </div>
+        </div>
+      </div>
+    <%- end -%>
+  </div>
+</div>
 
 <div class="block-4">
   <div class="inner-block">
