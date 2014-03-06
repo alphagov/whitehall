@@ -18,18 +18,46 @@ module Frontend
   class ReleaseAnnouncementRummagerStub
     RELEASE_ANNOUNCEMENTS = [
       {
-        "title" => '2055 beard lengths',
-        "document_type" => 'National Statistics',
-        "release_date" => Time.zone.parse("2055-05-01 12:00:00"),
-        "release_date_text" => 'May - June 2055',
-        "organisations" => [ { "name" => "Ministry of beards", "slug" => "ministry-of-breards" } ]
+        "title" => 'Quarterly bus statistics - Q4 2013',
+        "document_type" => 'Statistics',
+        "release_date" => Time.zone.parse("2014-03-11 09:30:00"),
+        "release_date_text" => nil,
+        "organisations" => [ { "name" => "Department of Transport", "slug" => "department-for-transport" } ]
       },
       {
-        "title" => 'Womble population in Wimbledon Common 2063',
-        "document_type" => 'Statistics',
-        "release_date" => Time.zone.parse("2063-02-15 12:45:00"),
+        "title" => 'Incidence of TB in Cattle, Great Britain - Data to December 2013',
+        "document_type" => 'National Statistics',
+        "release_date" => Time.zone.parse("2014-03-12 00:00:00"),
+        "release_date_text" => "12 March 2014",
+        "organisations" => [ { "name" => "Department for Environment, Food and Rural Affairs", "slug" => "department-for-environment-food-rural-affairs" } ]
+      },
+      {
+        "title" => 'Building Price and Cost Indices - Quarterly Update March 2014',
+        "document_type" => 'National Statistics',
+        "release_date" => Time.zone.parse("2014-03-18 09:30:00"),
         "release_date_text" => nil,
-        "organisations" => [ { "name" => "Wombat population regulation authority", "slug" => "wombat-population-regulation-authority" } ]
+        "organisations" => [ { "name" => "Department for Business, Innovation and Skills", "slug" => "department-for-business-innovation-skills" } ]
+      },
+      {
+        "title" => 'UK Armed Forces Monthly Personnel Report - 1 February 2015',
+        "document_type" => 'National Statistics',
+        "release_date" => Time.zone.parse("2015-03-12 00:00:00"),
+        "release_date_text" => "March - April 2015",
+        "organisations" => [ { "name" => "Ministry of Defence", "slug" => "ministry-of-defence" } ]
+      },
+      {
+        "title" => 'UK Armed Forces Monthly Personnel Report - 1 June 2015',
+        "document_type" => 'National Statistics',
+        "release_date" => Time.zone.parse("2015-07-16 00:00:00"),
+        "release_date_text" => nil,
+        "organisations" => [ { "name" => "Ministry of Defence", "slug" => "ministry-of-defence" } ]
+      },
+      {
+        "title" => 'Hydrocarbon Oils Bulletin - November 2015',
+        "document_type" => 'National Statistics',
+        "release_date" => Time.zone.parse("2015-12-22 09:30:00"),
+        "release_date_text" => "December 2015",
+        "organisations" => [ { "name" => "Ministry of Defence", "slug" => "ministry-of-defence" } ]
       }
     ]
 
@@ -48,3 +76,4 @@ module Frontend
     end
   end
 end
+
