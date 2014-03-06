@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'test_helper'
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
@@ -41,5 +43,22 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment.reload
 
     assert_equal "an-html-attachment", attachment.slug
+  end
+
+  test "slug is not created for non-english attachments" do
+    # Additional attachment to ensure the duplicate detection behaviour isn't triggered
+    create(:html_attachment, locale: "fr")
+    attachment = create(:html_attachment, locale: "ar", title: "المملكة المتحدة والمملكة العربية السعودية")
+
+    assert_blank attachment.slug
+    assert_equal attachment.id.to_s, attachment.to_param
+  end
+
+  test "slug is created for english-only attachments" do
+    attachment = create(:html_attachment, locale: "en", title: "We have a bias for action")
+
+    expected_slug = "we-have-a-bias-for-action"
+    assert_equal expected_slug, attachment.slug
+    assert_equal expected_slug, attachment.to_param
   end
 end
