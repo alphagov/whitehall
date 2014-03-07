@@ -1,5 +1,5 @@
 <%
-  see_all_link ||= nil
+  see_all_link ||= latest_path(departments: [@organisation])
 %>
 <% if feature_list.any_current_features? %>
   <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
