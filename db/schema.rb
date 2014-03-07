@@ -1058,19 +1058,6 @@ ActiveRecord::Schema.define(:version => 20140227121604) do
 
   add_index "supporting_page_redirects", ["policy_document_id", "original_slug"], :name => "index_supporting_page_redirects_on_policy_and_slug", :unique => true
 
-  create_table "supporting_pages", :force => true do |t|
-    t.integer  "edition_id"
-    t.string   "title"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "lock_version", :default => 0
-    t.string   "slug"
-  end
-
-  add_index "supporting_pages", ["edition_id"], :name => "index_supporting_pages_on_edition_id"
-  add_index "supporting_pages", ["slug"], :name => "index_supporting_documents_on_slug"
-
   create_table "take_part_pages", :force => true do |t|
     t.string   "title",                                 :null => false
     t.string   "slug",                                  :null => false
