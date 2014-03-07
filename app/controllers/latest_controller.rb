@@ -6,6 +6,7 @@ class LatestController < PublicFacingController
   def index
   end
 
+private
   def subject
     case subject_param
     when 'departments'
@@ -25,7 +26,6 @@ class LatestController < PublicFacingController
   end
   helper_method :documents
 
-private
   def filter
     @filter = LatestDocumentsFilter.for_subject(subject, page_params)
   end

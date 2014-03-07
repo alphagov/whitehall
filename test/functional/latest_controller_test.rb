@@ -8,7 +8,7 @@ class LatestControllerTest < ActionController::TestCase
 
     get :index, departments: [organisation]
 
-    assert_equal organisation, @controller.subject
+    assert_equal organisation, @controller.send(:subject)
   end
 
   test 'GET :index should handle topics' do
@@ -16,7 +16,7 @@ class LatestControllerTest < ActionController::TestCase
 
     get :index, topics: [topic]
 
-    assert_equal topic, @controller.subject
+    assert_equal topic, @controller.send(:subject)
   end
 
   test 'GET :index should handle topical events' do
@@ -24,7 +24,7 @@ class LatestControllerTest < ActionController::TestCase
 
     get :index, topics: [topical_event]
 
-    assert_equal topical_event, @controller.subject
+    assert_equal topical_event, @controller.send(:subject)
   end
 
   test 'GET :index should handle world locations' do
@@ -32,7 +32,7 @@ class LatestControllerTest < ActionController::TestCase
 
     get :index, world_locations: [world_location]
 
-    assert_equal world_location, @controller.subject
+    assert_equal world_location, @controller.send(:subject)
   end
 
   test 'GET :index should redirect to feed if subject is not provided' do
@@ -54,7 +54,7 @@ class LatestControllerTest < ActionController::TestCase
 
     get :index, departments: [organisation]
 
-    assert_equal [policy_paper, detailed_guide], @controller.documents
+    assert_equal [policy_paper, detailed_guide], @controller.send(:documents)
   end
 
   test 'GET :index should accept pagination parameters' do
@@ -69,6 +69,6 @@ class LatestControllerTest < ActionController::TestCase
 
     get :index, departments: [organisation], page: 2
 
-    assert_equal [], @controller.documents
+    assert_equal [], @controller.send(:documents)
   end
 end
