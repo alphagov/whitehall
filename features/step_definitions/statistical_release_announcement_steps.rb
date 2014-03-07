@@ -1,4 +1,4 @@
-Given(/^There are some release announcements in rummager$/) do
+Given(/^There are some statistical release announcements in rummager$/) do
   @release_announcements_in_rummager = [
     {
       "title" => 'Womble to Wombat population ratios',
@@ -22,23 +22,23 @@ Given(/^There are some release announcements in rummager$/) do
       "organisations" => [ { "name" => "Wombat population regulation authority", "slug" => "wombat-population-regulation-authority" } ]
     }
   ]
-  @mock_rummager_api = mock
-  @mock_rummager_api.stubs(:release_announcements).with({}).returns(@release_announcements_in_rummager)
-  Frontend::ReleaseAnnouncementProvider.stubs(:rummager_api).returns(@mock_rummager_api)
+  @mock_statistical_release_announcemnts_source = mock
+  @mock_statistical_release_announcemnts_source.stubs(:find_by).with({}).returns(@release_announcements_in_rummager)
+  Frontend::StatisticalReleaseAnnouncementProvider.stubs(:source).returns(@mock_statistical_release_announcemnts_source)
 end
 
-When(/^I visit the release announcements page$/) do
-  visit release_announcements_path
+When(/^I visit the statistical release announcements page$/) do
+  visit statistical_release_announcements_path
 end
 
-When(/^I filter the release announcements by keyword, from_date and to_date$/) do
-  @mock_rummager_api.stubs(:release_announcements)
+When(/^I filter the statistical release announcements by keyword, from_date and to_date$/) do
+  @mock_statistical_release_announcemnts_source.stubs(:find_by)
                       .with({ keywords: "Wombat",
                               from_date: Date.new(2050, 1, 1),
                               to_date: Date.new(2051, 1, 1) })
                       .returns([@release_announcements_in_rummager.first])
 
-  within '.filter-block' do
+  within '.filter-form' do
     fill_in "Contains", with: "Wombat"
     fill_in "Published after", with: "2050-01-01"
     fill_in "Published before", with: "2051-01-01"
@@ -46,7 +46,7 @@ When(/^I filter the release announcements by keyword, from_date and to_date$/) d
   end
 end
 
-Then(/^I should all the release announcements$/) do
+Then(/^I should all the statistical release announcements$/) do
   @release_announcements_in_rummager.each do | release_announcement_hash |
     assert page.has_content? release_announcement_hash["title"]
     assert page.has_content? release_announcement_hash["document_type"]
@@ -61,7 +61,7 @@ Then(/^I should all the release announcements$/) do
   end
 end
 
-Then(/^I should only see release announcements for those filters$/) do
+Then(/^I should only see statistical release announcements for those filters$/) do
   assert page.has_content? "Womble to Wombat population ratios"
   assert_equal 1, page.all(".document-list .document-row").length
 end

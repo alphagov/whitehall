@@ -1,5 +1,5 @@
-class Frontend::ReleaseAnnouncementsFilter < FormObject
-  named "ReleaseAnnouncementsFilter"
+class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
+  named "StatisticalReleaseAnnouncementsFilter"
   attr_accessor :keywords,
                 :from_date, :parsed_from_date,
                 :to_date, :parsed_to_date

@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Frontend::ReleaseAnnouncementTest < ActiveSupport::TestCase
+class Frontend::StatisticalReleaseAnnouncementTest < ActiveSupport::TestCase
   def build(attrs = {})
-    Frontend::ReleaseAnnouncement.new(attrs)
+    Frontend::StatisticalReleaseAnnouncement.new(attrs)
   end
 
   test "It should accept attrs keyed by strings" do
@@ -14,16 +14,16 @@ class Frontend::ReleaseAnnouncementTest < ActiveSupport::TestCase
     assert_equal 1.day.from_now.to_s(:long), build(release_date: 1.day.from_now, release_date_text: nil).release_date_text
   end
 
-  test "it converts organisation data into ReleaseAnnouncement::Organisations" do
+  test "it converts organisation data into StatisticalReleaseAnnouncement::Organisations" do
     announcement = build(organisations: [{slug: "wombats-inc"}])
-    assert announcement.organisations.first.is_a? Frontend::ReleaseAnnouncement::Organisation
+    assert announcement.organisations.first.is_a? Frontend::StatisticalReleaseAnnouncement::Organisation
     assert_equal "wombats-inc", announcement.organisations.first.slug
   end
 end
 
-class Frontend::ReleaseAnnouncement::OrganisationTest < ActiveSupport::TestCase
+class Frontend::StatisticalReleaseAnnouncement::OrganisationTest < ActiveSupport::TestCase
   def build(attrs = {})
-    Frontend::ReleaseAnnouncement::Organisation.new(attrs)
+    Frontend::StatisticalReleaseAnnouncement::Organisation.new(attrs)
   end
 
   test "it accepts string keyed attrs" do

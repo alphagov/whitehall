@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Frontend::ReleaseAnnouncementsFilterTest < ActiveSupport::TestCase
+class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestCase
   def build(attrs = {})
-    Frontend::ReleaseAnnouncementsFilter.new attrs.reverse_merge({ keywords: "keyword",
+    Frontend::StatisticalReleaseAnnouncementsFilter.new attrs.reverse_merge({ keywords: "keyword",
                                                                    from_date: "2010-01-01",
                                                                    to_date: "2010-01-02" })
   end

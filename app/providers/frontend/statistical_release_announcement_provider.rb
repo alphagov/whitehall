@@ -1,21 +1,21 @@
 module Frontend
-  class ReleaseAnnouncementProvider
+  class StatisticalReleaseAnnouncementProvider
     def self.find_by(filter_params = {})
-      release_announcement_hashes = rummager_api.release_announcements(filter_params)
+      release_announcement_hashes = source.find_by(filter_params)
       build_collection(release_announcement_hashes)
     end
 
   private
     def self.build_collection(release_announcement_hashes)
-      Array(release_announcement_hashes).map { | release_announcement_hash | Frontend::ReleaseAnnouncement.new(release_announcement_hash) }
+      Array(release_announcement_hashes).map { | release_announcement_hash | Frontend::StatisticalReleaseAnnouncement.new(release_announcement_hash) }
     end
 
-    def self.rummager_api
-      Frontend::ReleaseAnnouncementRummagerStub
+    def self.source
+      Frontend::StatisticalReleaseAnnouncementStubSource
     end
   end
 
-  class ReleaseAnnouncementRummagerStub
+  class StatisticalReleaseAnnouncementStubSource
     RELEASE_ANNOUNCEMENTS = [
       {
         "title" => 'Quarterly bus statistics - Q4 2013',
@@ -61,7 +61,7 @@ module Frontend
       }
     ]
 
-    def self.release_announcements(search_params = {})
+    def self.find_by(search_params = {})
       filtered_announcements = RELEASE_ANNOUNCEMENTS.dup
       if search_params[:keywords].present?
         filtered_announcements.select! {|announcement| announcement['title'].downcase.include? search_params[:keywords].downcase }

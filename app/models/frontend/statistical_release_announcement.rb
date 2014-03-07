@@ -1,4 +1,4 @@
-class Frontend::ReleaseAnnouncement
+class Frontend::StatisticalReleaseAnnouncement
   attr_reader :title, :document_type, :release_date, :organisations
 
   def initialize(attrs = {})
@@ -15,7 +15,7 @@ class Frontend::ReleaseAnnouncement
   end
 
   def to_partial_path
-    "release_announcement"
+    "statistical_release_announcement"
   end
 
 private
