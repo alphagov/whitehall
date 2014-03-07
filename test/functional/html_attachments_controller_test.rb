@@ -12,6 +12,15 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
   end
 
+  view_test '#show renders the HTML attachment of a published publication in a non-english locale' do
+    publication, attachment = create_edition_and_attachment(locale: "fr")
+    get :show, publication_id: publication.document, id: attachment
+
+    assert_response :success
+    assert_select 'header h1', attachment.title
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+  end
+
   view_test '#show renders the HTML attachment of a published consultation' do
     consultation, attachment = create_edition_and_attachment(type: :consultation)
     get :show, consultation_id: consultation.document, id: attachment
@@ -92,9 +101,10 @@ private
     type = options.fetch(:type, :publication)
     state = options.fetch(:state, :published)
     build_unpublishing = options.fetch(:build_unpublishing, false)
+    locale = options.fetch(:locale, nil)
 
-    publication = create("#{state}_#{type}", attachments: [
-      attachment = build(:html_attachment, title: 'HTML Attachment Title')
+    publication = create("#{state}_#{type}", translated_into: [locale].compact, attachments: [
+      attachment = build(:html_attachment, title: 'HTML Attachment Title', locale: locale)
     ])
 
     create(:unpublishing, edition: publication, slug: publication.slug) if build_unpublishing

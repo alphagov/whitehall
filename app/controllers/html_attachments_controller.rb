@@ -40,7 +40,7 @@ private
     if previewing?
       @html_attachment = HtmlAttachment.find(params[:preview])
     else
-      @html_attachment = @edition.attachments.find_by_slug!(params[:id])
+      @html_attachment = @edition.html_attachments.find(params[:id])
     end
   end
 
