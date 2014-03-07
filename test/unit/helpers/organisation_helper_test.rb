@@ -198,7 +198,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     parent = create(:organisation)
     child = create(:organisation, parent_organisations: [parent],
       organisation_type: OrganisationType.get(type_key))
-    expected_text = %Q{#{child.name} #{expected_description} the #{parent.name}}
+    expected_text = %Q{#{child.name} #{expected_description} the #{parent.name}.}
     actual_html = organisation_display_name_and_parental_relationship(child)
     assert_equal expected_text, strip_html_tags(actual_html)
   end
@@ -220,7 +220,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "BLAH",
       name: "Building Law and Hygiene", parent_organisations: [parent],
       organisation_type: OrganisationType.executive_agency)
-    expected = %{BLAH is an executive agency of the Department of Building Regulation}
+    expected = %{BLAH is an executive agency of the Department of Building Regulation.}
     assert_display_name_text child, expected
   end
 
@@ -229,14 +229,14 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "B&B",
       name: "Banking & Business", parent_organisations: [parent],
       organisation_type: OrganisationType.executive_agency)
-    expected = %{B&amp;B is an executive agency of the Department of Economy &amp; Trade}
+    expected = %{B&amp;B is an executive agency of the Department of Economy &amp; Trade.}
     assert_display_name_text child, expected
     assert organisation_display_name_and_parental_relationship(child).html_safe?
   end
 
   test 'description of parent organisations' do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    expected = %{DBR is a ministerial department}
+    expected = %{DBR is a ministerial department.}
     assert_display_name_text parent, expected
   end
 
@@ -248,7 +248,6 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test 'relationship types are described correctly' do
     assert_relationship_type_is_described_as(:ministerial_department, 'is a ministerial department of')
-    assert_relationship_type_is_described_as(:non_ministerial_department, 'is a non-ministerial department of')
     assert_relationship_type_is_described_as(:executive_agency, 'is an executive agency of')
     assert_relationship_type_is_described_as(:executive_ndpb, 'is an executive non-departmental public body of')
     assert_relationship_type_is_described_as(:advisory_ndpb, 'is an advisory non-departmental public body of')

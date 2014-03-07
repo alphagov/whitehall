@@ -67,12 +67,22 @@ module OrganisationHelper
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
     if parents.any?
       if type_name == 'other'
-        "%s works with %s" % [name, parents.to_sentence]
+        "%s works with %s." % [name, parents.to_sentence]
+      elsif type_name == 'non-ministerial department'
+        if organisation.active_child_organisations_excluding_sub_organisations.any?
+          "%s is %s" % [name, relationship]
+        else
+          "%s is %s." % [name, relationship]
+        end
       else
-        "%s is %s of %s" % ([name, relationship, parents.to_sentence])
+        "%s is %s of %s." % ([name, relationship, parents.to_sentence])
       end
     else
-      "%s is %s" % [name, relationship]
+      if organisation.active_child_organisations_excluding_sub_organisations.any?
+        "%s is %s" % [name, relationship]
+      else
+        "%s is %s." % [name, relationship]
+      end
     end.html_safe
   end
 
