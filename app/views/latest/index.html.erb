@@ -1,1 +1,40 @@
+<% page_title "Latest from #{subject}" %>
+<% page_class "documents-index" %>
+<% atom_discovery_link_tag filter_atom_feed_url, "Recent documents" %>
 
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render 'shared/heading',
+               heading: "Latest documents" %>
+  </div>
+</header>
+
+<div class="block results">
+  <div class="inner-block">
+    <h2>Latest from <%= link_to subject, subject %></h2>
+    <%= render 'shared/feeds', atom_url: atom_feed_url_for(subject) %>
+
+    <ol class="document-list">
+      <% documents.each do |document| %>
+        <li id="<%= document.type %>_<%= document.id %>" class="document-row">
+          <h3>
+            <%= link_to document.title, document_path(document) %>
+          </h3>
+          <ul class="attributes">
+            <li><%= document.public_timestamp.strftime('%e %B %Y') %></li>
+            <li class="organisations"><%= document.organisations.map{ |o| 
+              organisation_display_name(o)
+            }.to_sentence.html_safe %></li>
+            <li class="display-type"><%= document.display_type %></li>
+            <% if document.has_operational_field? %>
+              <li class="field-of-operation"><%= link_to(document.operational_field.name, document.operational_field) %></li>
+            <% end -%>
+            <% if document.respond_to?(:topics) && document.topics %>
+              <li class="topics"><%= document.topics.map{ |t| link_to t.name, topic_path(t) }.to_sentence.html_safe %></li>  
+            <% end -%>
+          </ul>
+        </li>
+    <% end -%>
+    </ol>
+  </div>
+</div>
