@@ -8,9 +8,4 @@ class Admin::DetailedGuidesController < Admin::EditionsController
   def edition_class
     DetailedGuide
   end
-
-  def clean_edition_parameters
-    super
-    params[:edition].delete_if { |k, v| ["user_need_ids", "user_needs_attributes"].include?(k.to_s) }
-  end
 end
