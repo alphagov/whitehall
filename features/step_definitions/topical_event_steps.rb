@@ -130,3 +130,12 @@ Then(/^the information about the event should be visible on its public page$/) d
   assert page.has_css?('p.description', text: 'Summary')
   assert page.has_css?('p', text: 'Body')
 end
+
+Given /^a topical event with published documents$/ do
+  @topical_event = create(:topical_event, name: 'Topical Event with Published Documents')
+  create_recently_published_documents_for_topical_event(@topical_event)
+end
+
+When /^I view that topical event page$/ do
+  visit topical_event_path(@topical_event)
+end

@@ -1,0 +1,41 @@
+<% page_title "Latest from #{subject}" %>
+<% page_class "documents-index" %>
+<% atom_discovery_link_tag filter_atom_feed_url, "Recent documents" %>
+
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render 'shared/heading',
+               type: link_to(subject, subject),
+               heading: 'Latest documents',
+               big: true %>
+  </div>
+</header>
+
+<div class="block results">
+  <div class="inner-block">
+    <%= render 'shared/feeds', atom_url: atom_feed_url_for(subject) %>
+
+    <ol class="document-list">
+      <% documents.each do |document| %>
+        <li class="document-row">
+          <h3><%= link_to document.title, document_path(document) %></h3>
+          <ul class="attributes">
+            <li class="date">
+              <%= published_or_updated(document).titleize %>
+              <%= absolute_date(document.public_timestamp, class: 'published-at') %>
+            </li>
+            <li class="display-type"><%= document.display_type %></li>
+            <li class="organisations">
+              <%= document.display_organisations.html_safe %>
+            </li>
+            <% if document.document_collections.present? %>
+              <li class="document-collections"><%= document.document_collections %></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ol>
+
+    <%= paginate documents %>
+  </div>
+</div>

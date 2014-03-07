@@ -12,9 +12,9 @@
       <p><%= t('latest_feed.no_updates') %></p>
     <% end %>
     <%= render 'shared/feeds', atom_url: atom_url %>
-    <% if local_assigns[:all_announcements_link] %>
+    <% if local_assigns[:see_all_link] %>
       <p class="see-all">
-        <%= link_to "See all our announcements", all_announcements_link %>
+        <%= link_to 'See all', see_all_link %>
       </p>
     <% end %>
   </div>

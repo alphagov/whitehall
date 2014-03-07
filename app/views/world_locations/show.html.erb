@@ -36,8 +36,8 @@
         <%= render partial: 'shared/recently_updated',
                   locals: { recently_updated: @recently_updated,
                             atom_url: atom_feed_url_for(@world_location),
-                            govdelivery_url: '',
-                            extra_class: 'panel'} %>
+                            extra_class: 'panel',
+                            see_all_link: latest_path(world_locations: [@world_location])} %>
       </section>
     </div>
   </div>

@@ -258,6 +258,16 @@ module ApplicationHelper
       policies_path
     when "take_part_pages"
       get_involved_path
+    when "latest"
+      if parameters[:departments]
+        organisations_path
+      elsif parameters[:world_locations]
+        world_locations_path
+      elsif parameters[:topics]
+        topics_path
+      else
+        latest_path
+      end
     end
   end
 
