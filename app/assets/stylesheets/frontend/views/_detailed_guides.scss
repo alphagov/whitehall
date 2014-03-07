@@ -59,122 +59,21 @@
     color: $black;
   }
 
-  .change-notes {
-    left: 0;
-    .toggle {
-      color: $detailed-guidance-brand;
+  .replaces-businesslink {
+    @include ig-core-16;
+    padding-top: $gutter-one-third;
 
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
-    }
-    @include media(desktop) {
-      &.toggleable .overlay {
-        left: -($full-width);
-      }
-    }
-    .arrow {
-      left: 20%;
-      @include media(desktop) {
-        left: 70%;
-      }
-    }
-  }
-
-  .page-header {
-    color: $detailed-guidance-brand;
-    border: 4px solid;
-    padding: $gutter-half $gutter-half $gutter-one-third;
-    margin-bottom: $gutter;
-    overflow: hidden;
-    width: auto;
-    float: none;
-    position: relative;
-
-    .organisations-icon-list {
-      overflow: hidden;
-      width: $full-width;
-      padding-bottom: $gutter-one-third;
-      @include media (640px) {
-        padding-bottom: $gutter-half;
-      }
-
-      li {
-        list-style: none;
-        color: $text-colour;
-        margin-bottom: $gutter-one-sixth;
-        @include media (640px) {
-          margin-bottom: $gutter-one-third;
-        }
-        a[rel=external] {
-          padding-right: 0;
-          margin-right: 0;
-        }
-      }
-      .show-other-content {
-        float: left;
-        padding-left: $gutter-one-third;
-        padding-right: $gutter-one-third;
-        @include ig-core-14;
-      }
-    }
-
-    .label {
-      @include ig-core-14;
-      margin-bottom: 0;
-      max-width: 33em;
-      a {
-        white-space: nowrap;
-      }
-    }
-    .page_title {
-      margin: 0 0 $gutter;
-      padding-top: 0;
-    }
-    .page-meta {
-      @include ig-core-19;
-      max-width: 33em;
-      p {
-        display: inline;
-      }
-      .inapplicable-nations a {
-        text-decoration: underline;
-      }
-    }
-    .more-like-this {
-      margin-top: $gutter-one-third;
-      padding-top: $gutter-one-sixth;
-      border-top: 1px solid $detailed-guidance-brand;
-      a {
-        color: $detailed-guidance-brand;
-        text-decoration: none;
-      }
-    }
-
-    .replaces-businesslink {
-      @include ig-core-16;
-      padding-top: $gutter-one-third;
-
-      @include media(desktop) {
-        float: right;
-      }
-      p {
-        color: $text-colour;
-      }
-      .businesslink-logo {
-        display: block;
-        width: 84px;
-        height: 33px;
-        background-image: image-url("businesslink-logo.png");
-      }
-    }
-  }
-
-  .meta {
-    @include ig-core-14;
     @include media(desktop) {
       float: right;
+    }
+    p {
+      color: $text-colour;
+    }
+    .businesslink-logo {
+      display: block;
+      width: 84px;
+      height: 33px;
+      background-image: image-url("businesslink-logo.png");
     }
   }
 
@@ -357,36 +256,7 @@
 
 
   @include media(desktop) {
-    .meta {
-      position: relative;
-      z-index: 49;
-      margin-top: -37px;
-    }
-    .page-header {
-      margin-top: $gutter-half;
-      padding: $gutter $gutter $gutter-two-thirds;
-
-      .organisations-icon-list {
-        overflow: hidden;
-        width: $full-width;
-        .organisation {
-          float: left;
-          margin-right: $gutter;
-          position: relative;
-        }
-        &.extra-icons .organisation {
-          margin-right: $gutter-one-third;
-        }
-      }
-      .page-meta {
-        float: left;
-      }
-    }
     .document_page {
-      .page-header {
-        float: none;
-        width: auto;
-      }
       .block-3 {
         width: 75%;
       }
