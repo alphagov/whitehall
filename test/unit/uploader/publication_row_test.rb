@@ -14,7 +14,10 @@ module Whitehall::Uploader
 
     def basic_headings
       %w{old_url  title summary body  publication_type
-        policy_1  policy_2  policy_3  policy_4
+        policy_1   policy_2   policy_3   policy_4   policy_5
+        policy_6   policy_7   policy_8   policy_9   policy_10
+        policy_11  policy_12  policy_13  policy_14  policy_15
+        policy_16  policy_17  policy_18  policy_19  policy_20
         organisation  document_collection_1 document_collection_2
         document_collection_3 document_collection_4 publication_date
         order_url price ISBN  URN command_paper_number
