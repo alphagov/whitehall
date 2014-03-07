@@ -39,7 +39,14 @@
           <h3><%= announcement.title %></h3>
           <ul class="attributes">
             <li class="updated-by"><%= announcement.display_release_date %></li>
-            <li class="type"><%= link_to 'edit', edit_admin_statistical_release_announcement_path(announcement) %></li>
+            <li class="type"><%= link_to 'Edit announcement', edit_admin_statistical_release_announcement_path(announcement) %></li>
+            <li class="edition">
+              <% if announcement.publication %>
+                <%= link_to 'View document', admin_publication_path(announcement.publication) %>
+              <% else %>
+                <%= link_to 'Draft document', new_admin_publication_path(statistical_release_announcement_id: announcement.id) %>
+              <% end %>
+            </li>
           </ul>
         <% end %>
       <% end %>

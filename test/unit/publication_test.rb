@@ -232,4 +232,12 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
     assert publication.search_format_types.include?('stuff-innit')
     assert publication.search_format_types.include?('other-thing')
   end
+
+  test 'can assign statistics to a statistical release announcement' do
+    release_announcement = create(:statistical_release_announcement)
+    publication = build(:draft_statistics, statistical_release_announcement_id: release_announcement.id)
+    publication.save!
+
+    assert_equal publication, release_announcement.reload.publication
+  end
 end

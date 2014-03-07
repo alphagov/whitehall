@@ -153,8 +153,11 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def edition_params
-    params.fetch(:edition, {}).permit(
-      :title, :body, :change_note, :summary, :first_published_at,
+    params.fetch(:edition, {}).permit(*permitted_edition_attributes)
+  end
+
+  def permitted_edition_attributes
+    [ :title, :body, :change_note, :summary, :first_published_at,
       :publication_type_id, :scheduled_publication, :lock_version,
       :access_limited, :alternative_format_provider_id, :opening_at,
       :closing_at, :external, :external_url, :minor_change,
@@ -199,7 +202,7 @@ class Admin::EditionsController < Admin::BaseController
         :id, :nation_id, :alternative_url, :excluded
       ],
       fatality_notice_casualties_attributes: [:personal_details, :_destroy]
-    )
+    ]
   end
 
   def new_edition_params

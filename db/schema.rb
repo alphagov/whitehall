@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140307095755) do
+ActiveRecord::Schema.define(:version => 20140307134209) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1052,10 +1052,12 @@ ActiveRecord::Schema.define(:version => 20140307095755) do
     t.integer  "creator_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+    t.integer  "publication_id"
   end
 
   add_index "statistical_release_announcements", ["creator_id"], :name => "index_statistical_release_announcements_on_creator_id"
   add_index "statistical_release_announcements", ["organisation_id"], :name => "index_statistical_release_announcements_on_organisation_id"
+  add_index "statistical_release_announcements", ["publication_id"], :name => "index_statistical_release_announcements_on_publication_id"
   add_index "statistical_release_announcements", ["slug"], :name => "index_statistical_release_announcements_on_slug"
   add_index "statistical_release_announcements", ["topic_id"], :name => "index_statistical_release_announcements_on_topic_id"
 

@@ -5,7 +5,9 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
   belongs_to :creator, class_name: 'User'
   belongs_to :organisation
   belongs_to :topic
+  belongs_to :publication
 
+  validate  :publication_is_statistics, if: :publication
   validates :title, :summary, :expected_release_date, :organisation, :topic, :creator, presence: true
   validates :publication_type_id,
               inclusion: {
@@ -39,11 +41,17 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
     Whitehall.url_maker.statistical_release_announcement_path(self)
   end
 
+private
+
   def organisation_slugs
     [organisation.slug]
   end
 
   def topic_slugs
     [topic.slug]
+  end
+
+  def publication_is_statistics
+    errors[:publication] << "must be statistics" unless publication.statistics?
   end
 end

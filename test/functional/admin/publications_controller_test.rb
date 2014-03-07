@@ -2,7 +2,9 @@ require 'test_helper'
 
 class Admin::PublicationsControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    @organisation = create(:organisation)
+    @user = create(:policy_writer, organisation: @organisation)
+    login_as @user
   end
 
   should_be_an_admin_controller
@@ -29,6 +31,31 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
       assert_select "select[name*='edition[first_published_at']", count: 5
       assert_select "select[name='edition[publication_type_id]']"
     end
+  end
+
+  test 'GET :new pre-fills the pubication when a statistical release announcement id is provided' do
+    release_announcement = create(:statistical_release_announcement)
+    get :new, statistical_release_announcement_id: release_announcement.id
+
+    assert_equal release_announcement.id, assigns(:edition).statistical_release_announcement_id
+    assert_equal release_announcement.title, assigns(:edition).title
+    assert_equal release_announcement.summary, assigns(:edition).summary
+    assert_equal release_announcement.publication_type, assigns(:edition).publication_type
+    assert_equal [release_announcement.topic], assigns(:edition).topics
+    assert_equal release_announcement.expected_release_date.to_i, assigns(:edition).scheduled_publication.to_i
+  end
+
+  test 'POST :create with an statistical release announcement id assigns the publication to the announcement' do
+    release_announcement = create(:statistical_release_announcement)
+    post :create, edition: controller_attributes_for(:publication,
+      publication_type_id: PublicationType::Statistics.id,
+      lead_organisation_ids: [@organisation.id],
+      statistical_release_announcement_id: release_announcement.id
+    )
+
+    assert publication = Publication.last, assigns(:edition).errors.full_messages.inspect
+    assert_redirected_to admin_publication_path(publication)
+    assert_equal publication, release_announcement.reload.publication
   end
 
   test "create should create a new publication" do

@@ -41,4 +41,18 @@ class StatisticalReleaseAnnouncementTest < ActiveSupport::TestCase
   test 'is indexed for search after being saved' do
     assert_indexed_for_search create(:statistical_release_announcement)
   end
+
+  test 'only valid when associated publication is a statistical publications' do
+    announcement = build(:statistical_release_announcement)
+
+    announcement.publication = create(:draft_national_statistics)
+    assert announcement.valid?
+
+    announcement.publication = create(:published_statistics)
+    assert announcement.valid?
+
+    announcement.publication = create(:draft_policy_paper)
+    refute announcement.valid?
+    assert_equal ["must be statistics"], announcement.errors[:publication]
+  end
 end

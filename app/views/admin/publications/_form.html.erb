@@ -1,5 +1,6 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
+    <%= form.hidden_field :statistical_release_announcement_id %>
 
     <%= render partial: 'external_fields', locals: { form: form, edition: edition } %>
     <div class="js-external-url-set">
