@@ -79,6 +79,8 @@ Whitehall::Application.routes.draw do
     get "/news" => redirect("/announcements"), as: 'news_articles'
     get "/fatalities" => redirect("/announcements"), as: 'fatality_notices'
 
+    get "/latest" => 'latest#index', as: 'latest'
+
     resources :publications, only: [:index, :show], localised: true
     get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
