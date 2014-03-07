@@ -127,4 +127,16 @@ class AttachableTest < ActiveSupport::TestCase
 
     assert_equal [b, a, c], attachable.reload.attachments
   end
+
+  test 'has html_attachments association to fetch only HtmlAttachments' do
+    publication = create(:publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment, ordering: 0),
+      attachment_2 = build(:html_attachment, title: "Test HTML attachment"),
+    ])
+
+    attachment_3 = HtmlAttachment.new(title: 'Title', body: "Testing")
+    publication.attachments << attachment_3
+
+    assert_equal [attachment_2, attachment_3], publication.html_attachments(true)
+  end
 end

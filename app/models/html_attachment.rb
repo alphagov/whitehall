@@ -1,6 +1,6 @@
 class HtmlAttachment < Attachment
   extend FriendlyId
-  friendly_id :title
+  friendly_id :sluggable_string
 
   validates :body, presence: true
   validates_with SafeHtmlValidator
@@ -46,6 +46,17 @@ class HtmlAttachment < Attachment
   end
 
   def should_generate_new_friendly_id?
+    return false unless sluggable_locale?
     slug.nil? || attachable.nil? || !attachable.document.published?
+  end
+
+  private
+
+  def sluggable_locale?
+    locale.blank? or locale == "en"
+  end
+
+  def sluggable_string
+    sluggable_locale? ? title : nil
   end
 end
