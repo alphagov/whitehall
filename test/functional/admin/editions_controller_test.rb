@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::EditionsControllerTest < ActionController::TestCase
+  include Admin::EditionRoutesHelper
+
   setup do
     login_as :policy_writer
   end
@@ -276,6 +278,19 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     delete :destroy, id: inaccessible
     assert_response :forbidden
+  end
+
+  test "should redirect to the next edition after update without changing state if Save and Next was clicked" do
+    edition_foo, edition_bar = *create_list(:imported_publication, 2)
+
+    put :update, id: edition_foo, speed_save_next: 1, edition: {
+      title: "new-title",
+      body: "new-body"
+    }
+
+    edition_foo.reload
+    assert_equal "imported", edition_foo.state
+    assert_redirected_to admin_edition_path(edition_bar)
   end
 
   def stub_edition_filter(attributes = {})

@@ -58,7 +58,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
-      redirect_to_show_or_edit
+      redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -75,17 +75,8 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     if @edition.edit_as(current_user, edition_params)
-      if params[:speed_save_convert]
-        @edition.convert_to_draft!
-        next_edition = Admin::EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions.first
-        if next_edition
-          redirect_to admin_edition_path(next_edition)
-        else
-          redirect_to admin_editions_path(session_filters.merge(state: :imported))
-        end
-      else
-        redirect_to_show_or_edit
-      end
+      @edition.convert_to_draft! if params[:speed_save_convert]
+      redirect_to redirect_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -126,6 +117,20 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   private
+
+  def redirect_path
+    return next_edition_path if params[:speed_save_convert] || params[:speed_save_next]
+    show_or_edit_path
+  end
+
+  def next_edition_path
+    next_edition = (imported_editions - [@edition]).first
+    if next_edition
+      admin_edition_path(next_edition)
+    else
+      admin_editions_path(session_filters.merge(state: :imported))
+    end
+  end
 
   def fetch_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse
@@ -191,13 +196,16 @@ class Admin::EditionsController < Admin::BaseController
     edition_params.merge(creator: current_user)
   end
 
-  def redirect_to_show_or_edit
-    message = "The document has been saved"
+  def show_or_edit_path
     if params[:save_and_continue].present?
-      redirect_to [:edit, :admin, @edition], notice: message
+      [:edit, :admin, @edition]
     else
-      redirect_to admin_edition_url(@edition), notice: message
+      admin_edition_url(@edition)
     end
+  end
+
+  def saved_confirmation_notice
+    { notice: "The document has been saved" }
   end
 
   def build_edition
@@ -295,6 +303,10 @@ class Admin::EditionsController < Admin::BaseController
 
   def filter
     @filter ||= Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state) if params_filters.any?
+  end
+
+  def imported_editions
+    Admin::EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions
   end
 
   def detect_other_active_editors
