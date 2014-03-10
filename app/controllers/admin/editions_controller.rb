@@ -13,6 +13,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :redirect_to_controller_for_type, only: [:show]
+  before_filter :deduplicate_specialist_sectors, only: [:create, :update]
 
   def enforce_permissions!
     case action_name
@@ -148,6 +149,8 @@ class Admin::EditionsController < Admin::BaseController
       :related_mainstream_content_title,
       :additional_related_mainstream_content_url,
       :additional_related_mainstream_content_title,
+      :primary_specialist_sector_tag,
+      secondary_specialist_sector_tags: [],
       ministerial_role_ids: [],
       lead_organisation_ids: [],
       supporting_organisation_ids: [],
@@ -165,7 +168,6 @@ class Admin::EditionsController < Admin::BaseController
       policy_team_ids: [],
       policy_advisory_group_ids: [],
       document_collection_group_ids: [],
-      specialist_sector_tags: [],
       topic_suggestion_attributes: [:name, :id],
       images_attributes: [
         :id, :alt_text, :caption, :_destroy,
@@ -335,4 +337,10 @@ class Admin::EditionsController < Admin::BaseController
     @force_publisher ||= Whitehall.edition_services.force_publisher(@edition)
   end
   helper_method :force_publisher
+
+  def deduplicate_specialist_sectors
+    if params[:edition] && params[:edition][:secondary_specialist_sectors] && params[:edition][:primary_specialist_sector]
+      params[:edition][:secondary_specialist_sectors].delete(params[:edition][:primary_specialist_sector])
+    end
+  end
 end

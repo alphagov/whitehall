@@ -37,14 +37,16 @@ class RegisterableEditionTest < ActiveSupport::TestCase
   end
 
   test "attaches specialist sector tags based on specialist sectors" do
-    expected_tags = ["oil-and-gas/licensing", "oil-and-gas/fields-and-wells"]
+    expected_primary_tag = "oil-and-gas/taxation"
+    expected_secondary_tags = ["oil-and-gas/licensing", "oil-and-gas/fields-and-wells"]
 
     detailed_guide = create(:published_detailed_guide,
-                            specialist_sector_tags: expected_tags)
+                            primary_specialist_sector_tag: expected_primary_tag,
+                            secondary_specialist_sector_tags: expected_secondary_tags)
 
     registerable_edition = RegisterableEdition.new(detailed_guide)
 
-    assert_equal expected_tags, registerable_edition.specialist_sectors
+    assert_equal [expected_primary_tag] + expected_secondary_tags, registerable_edition.specialist_sectors
   end
 
   test "sets the kind for a generic type" do

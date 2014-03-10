@@ -27,6 +27,6 @@ class RegisterableEdition
   end
 
   def specialist_sectors
-    @edition.specialist_sector_tags
+    [@edition.primary_specialist_sector_tag].compact + @edition.secondary_specialist_sector_tags
   end
 end
