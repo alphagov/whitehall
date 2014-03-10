@@ -9,14 +9,6 @@ class DetailedGuidesControllerTest < ActionController::TestCase
   should_set_the_article_id_for_the_edition_for :detailed_guide
   should_not_show_share_links_for :detailed_guide
 
-  view_test "show doesn't include header-context element which is used for breadcrumbs" do
-    guide = create(:published_detailed_guide)
-
-    get :show, id: guide.document
-
-    refute_select ".header-context"
-  end
-
   view_test "guide <title> contains Detailed guidance" do
     guide = create(:published_detailed_guide)
 
