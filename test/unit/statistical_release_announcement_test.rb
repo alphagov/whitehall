@@ -42,6 +42,13 @@ class StatisticalReleaseAnnouncementTest < ActiveSupport::TestCase
     assert_indexed_for_search create(:statistical_release_announcement)
   end
 
+  test 'is removed from search after being deleted' do
+    announcement = create(:statistical_release_announcement)
+    announcement.destroy
+
+    assert_deleted_from_search_index announcement
+  end
+
   test 'only valid when associated publication is a statistical publications' do
     announcement = build(:statistical_release_announcement)
 
