@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140227121604) do
+ActiveRecord::Schema.define(:version => 20140306105311) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1034,6 +1034,7 @@ ActiveRecord::Schema.define(:version => 20140227121604) do
     t.string   "tag"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "primary",    :default => false
   end
 
   add_index "specialist_sectors", ["edition_id", "tag"], :name => "index_specialist_sectors_on_edition_id_and_tag", :unique => true

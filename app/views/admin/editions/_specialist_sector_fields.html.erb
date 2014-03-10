@@ -1,10 +1,18 @@
 <%= specialist_sector_fields do |sectors| %>
   <fieldset class="edition-specialist-sector-fields">
-    <%= form.label :specialist_sector_tags do %>
-      <strong>ALPHA:</strong> Specialist sectors (this is an evolving feature, 
+    <legend>
+      <strong>ALPHA:</strong> Specialist sectors (this is an evolving feature,
       <a href="https://insidegovuk.blog.gov.uk/2014/02/20/new-specialist-sector-option-in-publisher/">read more in our blog post</a>)
-    <% end %>
-    <%= form.select :specialist_sector_tags,
+    </legend>
+    <%= form.label :primary_specialist_sector_tag %>
+    <%= form.select :primary_specialist_sector_tag,
+                    specialist_sector_options_for_select(sectors),
+                    {},
+                    { class: 'chzn-select',
+                      data: { placeholder: 'Choose specialist sectors…' } } %>
+
+    <%= form.label :secondary_specialist_sector_tags, 'Additional specialist sectors' %>
+    <%= form.select :secondary_specialist_sector_tags,
                     specialist_sector_options_for_select(sectors),
                     {},
                     { multiple: true,

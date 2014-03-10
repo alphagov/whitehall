@@ -16,15 +16,16 @@ module SpecialistSectorHelper
   end
 
   def select_specialist_sectors_in_form
-    select 'Oil and Gas: Wells', from: 'Specialist sectors'
-    select 'Oil and Gas: Offshore', from: 'Specialist sectors'
+    select 'Oil and Gas: Wells', from: 'Primary specialist sector'
+    select 'Oil and Gas: Offshore', from: 'Additional specialist sectors'
+    select 'Oil and Gas: Fields', from: 'Additional specialist sectors'
   end
 
   def assert_specialist_sectors_were_saved
     assert has_css?('.flash.notice')
     click_on 'Edit draft'
-    assert_equal ['oil-and-gas/wells', 'oil-and-gas/offshore'],
-                 find_field('Specialist sectors').value
+    assert_equal 'oil-and-gas/wells', find_field('Primary specialist sector').value
+    assert_equal ['oil-and-gas/offshore', 'oil-and-gas/fields'].to_set, find_field('Additional specialist sectors').value.to_set
   end
 
   def save_document
