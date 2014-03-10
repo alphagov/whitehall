@@ -8,6 +8,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'publish publishes the given edition on behalf of the current user' do
+    stub_panopticon_registration(submitted_edition)
     post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
 
     assert_redirected_to admin_editions_path(state: :published)
@@ -48,6 +49,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'POST #force_publish force publishes the edition' do
+    stub_panopticon_registration(draft_edition)
     post :force_publish, id: draft_edition, lock_version: draft_edition.lock_version, reason: 'Urgent change'
 
     assert_redirected_to admin_editions_path(state: :published)

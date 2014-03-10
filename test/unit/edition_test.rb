@@ -262,6 +262,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#published_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
+    stub_panopticon_registration(publication)
     acting_as(editor) { Whitehall.edition_services.publisher(publication).perform! }
     assert_equal editor, publication.published_by
   end
@@ -277,6 +278,7 @@ class EditionTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     robot = create(:scheduled_publishing_robot)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
+    stub_panopticon_registration(publication)
     acting_as(editor) { publication.perform_force_schedule }
     Timecop.freeze publication.scheduled_publication do
       acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }

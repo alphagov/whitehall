@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'gds_api/panopticon'
 
 class PanopticonRegisterArtefactWorkerTest < ActiveSupport::TestCase
   test "registers an artefact with Panopticon" do
