@@ -65,25 +65,22 @@ module OrganisationHelper
     type_name = organisation_type_name(organisation)
     relationship = ERB::Util.h(add_indefinite_article(type_name))
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
-    if parents.any?
-      if type_name == 'other'
-        "%s works with %s." % [name, parents.to_sentence]
-      elsif type_name == 'non-ministerial department'
-        if organisation.active_child_organisations_excluding_sub_organisations.any?
-          "%s is %s" % [name, relationship]
-        else
-          "%s is %s." % [name, relationship]
-        end
+
+    description = if parents.any?
+      case type_name
+      when 'other'
+        "#{name} works with #{parents.to_sentence}."
+      when 'non-ministerial department'
+        "#{name} is #{relationship}."
       else
-        "%s is %s of %s." % ([name, relationship, parents.to_sentence])
+        "#{name} is #{relationship} of #{parents.to_sentence}."
       end
     else
-      if organisation.active_child_organisations_excluding_sub_organisations.any?
-        "%s is %s" % [name, relationship]
-      else
-        "%s is %s." % [name, relationship]
-      end
-    end.html_safe
+      "#{name} is #{relationship}."
+    end
+
+    description.chomp!('.') if organisation.active_child_organisations_excluding_sub_organisations.any?
+    description.html_safe
   end
 
   def organisation_relationship_html(organisation)
