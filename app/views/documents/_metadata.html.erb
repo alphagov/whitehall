@@ -25,6 +25,14 @@
         </dd>
       <% end %>
 
+      <% if document.primary_mainstream_category && document.primary_mainstream_category.present? %>
+        <dt>Primary category:</dt>
+        <dd>
+          <%= link_to document.primary_mainstream_category.title,
+                      Whitehall.url_maker.mainstream_category_path(document.primary_mainstream_category) %>
+        </dd>
+      <% end %>
+
       <% if document.location && document.location.present? %>
         <dt><%= t('document.headings.location') %>:</dt>
         <dd class="location"><%= document.location %></dd>
