@@ -79,14 +79,6 @@ That's all
     assert_select "a[href='http://mainstream/additional-content']", "Some additional related mainstream content"
   end
 
-  view_test "show indicates when a guide replaced businesslink content" do
-    guide = create(:published_detailed_guide, replaces_businesslink: true)
-
-    get :show, id: guide.document
-
-    assert_select ".replaces-businesslink"
-  end
-
   view_test "show mainstream categories for a detailed guide" do
     category = create(:mainstream_category)
     guide = create(:published_detailed_guide, primary_mainstream_category: category)
