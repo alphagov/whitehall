@@ -192,4 +192,17 @@ class AttachmentTest < ActiveSupport::TestCase
       Attachment.new(attachable: Consultation.new, title: 'Attachment').save
     end
   end
+
+  test '#rtl_locale? should be false for non-rtl locale' do
+    refute build(:html_attachment, locale: "fr").rtl_locale?
+  end
+
+  test '#rtl_locale? should be true for an rtl locale' do
+    assert build(:html_attachment, locale: "ar").rtl_locale?
+  end
+
+  test '#rtl_locale? should be false for a blank locale' do
+    refute build(:html_attachment, locale: nil).rtl_locale?
+    refute build(:html_attachment, locale: "").rtl_locale?
+  end
 end

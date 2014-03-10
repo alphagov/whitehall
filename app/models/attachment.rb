@@ -70,6 +70,11 @@ class Attachment < ActiveRecord::Base
     attachable.class.model_name.human.downcase
   end
 
+  def rtl_locale?
+    return false if locale.blank?
+    Locale.new(locale).rtl?
+  end
+
   private
 
   def store_price_in_pence
