@@ -85,7 +85,12 @@
       font-weight: bold;
     }
     ol {
-      padding-left: $gutter;
+      @include left-to-right {
+        padding-left: $gutter;
+      }
+      @include right-to-left {
+        padding-right: $gutter;
+      }
       li {
         list-style: decimal;
         font-weight: bold;
@@ -117,6 +122,9 @@
       @include media(tablet) {
         width: 75%;
         float: right;
+        @include right-to-left{
+          float: left;
+        }
       }
     }
     .govspeak {
@@ -138,6 +146,10 @@
             margin: (-$gutter) 0 0 (-25%);
             width: 22%;
             padding: ($gutter+$gutter-one-sixth) 0 $gutter 3%;
+            @include right-to-left {
+              margin: (-$gutter) (-25%) 0 0;
+              padding: ($gutter+$gutter-one-sixth) 3% $gutter 0;
+            }
             @include ie(7) {
               margin-left: -35%;
             }
@@ -345,5 +357,9 @@
   .report-a-problem-container {
     margin-left: 0;
     max-width: 33em;
+  }
+
+  @include right-to-left {
+    direction: rtl;
   }
 }
