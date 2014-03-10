@@ -5,7 +5,7 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
 
   test 'should allow whitelisted file extensions' do
     graphics = %w(png gif jpg eps ps dxf)
-    documents = %w(pdf rtf doc docx ppt pptx rdf txt odt)
+    documents = %w(pdf rtf doc docx ppt pptx rdf txt odt ics)
     spreadsheets = %w(csv xls xlsx xlsm ods)
     markup = %w(kml xml xsd)
     containers = %w(zip)

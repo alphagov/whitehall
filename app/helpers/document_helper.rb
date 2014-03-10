@@ -86,6 +86,7 @@ module DocumentHelper
       "dxf"  => file_abbr_tag('DXF', 'AutoCAD Drawing Exchange Format'),
       "gif"  => file_abbr_tag('GIF', 'Graphics Interchange Format'),
       "html" => file_abbr_tag('HTML', 'Hypertext Markup Language'),
+      "ics" => file_abbr_tag('ICS', 'iCalendar file'),
       "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
       "jpg"  => "JPEG",
       "ods"  => file_abbr_tag('ODS', 'OpenDocument Spreadsheet'),
