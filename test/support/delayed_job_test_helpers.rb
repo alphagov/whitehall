@@ -20,4 +20,11 @@ module DelayedJobTestHelpers
     assert Delayed::Job.exists?(["handler = ?", YAML.dump(search_job)]),
       "Could not find search indexing job for #{model.class.name} with ID #{model.id}"
   end
+
+  def assert_deleted_from_search_index(model)
+    delete_job = Searchable::Delete.new(model.public_path, model.rummager_index)
+
+    assert Delayed::Job.exists?(["handler = ?", YAML.dump(delete_job)]),
+      "Could not find search delete job for #{model.class.name} with ID #{model.id}"
+  end
 end
