@@ -11,17 +11,14 @@
     <%= meta_description_tag %>
 
     <title><%= page_title %></title>
-    <% if right_to_left? %>
-      <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/right-to-left.css" %><!--<![endif]-->
-      <!--[if IE 6]><%= stylesheet_link_tag "frontend/right-to-left-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
-      <!--[if IE 7]><%= stylesheet_link_tag "frontend/right-to-left-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
-      <!--[if IE 8]><%= stylesheet_link_tag "frontend/right-to-left-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
-    <% else %>
-      <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}.css" %><!--<![endif]-->
-      <!--[if IE 6]><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
-      <!--[if IE 7]><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
-      <!--[if IE 8]><%= stylesheet_link_tag "frontend/#{local_assigns[:stylesheet] || "base"}-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
-    <% end %>
+    <%-
+      stylesheet_base = local_assigns[:stylesheet] || "base"
+      stylesheet_base += "-rtl" if right_to_left?
+    -%>
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/#{stylesheet_base}.css" %><!--<![endif]-->
+    <!--[if IE 6]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
+    <!--[if IE 7]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
+    <!--[if IE 8]><%= stylesheet_link_tag "frontend/#{stylesheet_base}-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
     <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
     <%= csrf_meta_tags %>
     <%= atom_discovery_link_tag %>

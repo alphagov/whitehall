@@ -61,14 +61,18 @@ Whitehall::Application.configure do
     frontend/base-ie8.css
     frontend/base-ie7.css
     frontend/base-ie6.css
-    frontend/right-to-left.css
-    frontend/right-to-left-ie8.css
-    frontend/right-to-left-ie7.css
-    frontend/right-to-left-ie6.css
+    frontend/base-rtl.css
+    frontend/base-rtl-ie8.css
+    frontend/base-rtl-ie7.css
+    frontend/base-rtl-ie6.css
     frontend/html-publication.css
     frontend/html-publication-ie8.css
     frontend/html-publication-ie7.css
     frontend/html-publication-ie6.css
+    frontend/html-publication-rtl.css
+    frontend/html-publication-rtl-ie8.css
+    frontend/html-publication-rtl-ie7.css
+    frontend/html-publication-rtl-ie6.css
     frontend/print.css
     admin.js
     tour/tour_pano.js
