@@ -19,6 +19,7 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
   searchable  title: :title,
               link: :public_path,
               description: :summary,
+              display_type: :display_type,
               slug: :slug,
               organisations: :organisation_slugs,
               topics: :topic_slugs,
@@ -31,6 +32,10 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
     else
       display_release_date_override
     end
+  end
+
+  def display_type
+    publication_type.singular_name
   end
 
   def publication_type
