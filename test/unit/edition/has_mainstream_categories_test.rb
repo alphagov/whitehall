@@ -21,6 +21,14 @@ class Edition::HasMainstreamCategoriesTest < ActiveSupport::TestCase
     assert edition.errors[:other_mainstream_categories].include?("should not contain the primary mainstream category")
   end
 
+  test "edition should be invalid with other categories and no primary category" do
+    category = create(:mainstream_category)
+    edition = build(:draft_detailed_guide, primary_mainstream_category: nil,
+                                           other_mainstream_categories: [category])
+
+    refute edition.valid?
+  end
+
   test "#destroy should also remove the relationship" do
     mainstream_category = create(:mainstream_category)
     edition = create(:draft_detailed_guide, other_mainstream_categories: [mainstream_category])

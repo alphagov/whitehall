@@ -20,7 +20,7 @@ module Edition::HasMainstreamCategories
     add_trait Trait
 
     validate :avoid_duplication_between_primary_and_other_mainstream_categories
-    validates :primary_mainstream_category, presence: true, unless: ->(edition) { edition.can_have_some_invalid_data? }
+    validates :primary_mainstream_category, presence: true, if: ->(edition) { edition.other_mainstream_categories.any? }
   end
 
   def mainstream_categories
