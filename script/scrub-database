@@ -93,8 +93,3 @@ echo "Done"
 echo "Anonymising file names for attachments on latest access limited drafts..."
 run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.attachable_type = 'Edition' AND attachments.attachable_id IN (${access_limited_edition_ids}))" 1> /dev/null
 echo "Done"
-
-# This table is no longer used but hasn't yet been dropped or purged so still needs to be scrubbed.
-echo "Anonymising old supporting pages linked to latest access limited drafts..."
-run_mysql_command "UPDATE supporting_pages SET slug=concat('${lorem_ipsum_slug}-', id), title='${lorem_ipsum_line}', body='${lorem_ipsum_paragraphs}' WHERE edition_id IN (${access_limited_edition_ids})" 1> /dev/null
-echo "Done"
