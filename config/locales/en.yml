@@ -529,6 +529,7 @@ en:
         %{email}
         quoting your address, telephone number along with the title of the
         publication ("%{title}")%{references}.
+    see_more: See more information about this %{document_type}
   publishing:
     format_advice:
       case_study:

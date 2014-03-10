@@ -18,7 +18,9 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select 'header h1', attachment.title
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+
+    expected_type_heading = I18n.t("document.type.#{publication.display_type_key}.one", locale: 'fr')
+    assert_select 'header .document-type', ERB::Util.h(expected_type_heading)
   end
 
   view_test '#show renders the HTML attachment of a published consultation' do

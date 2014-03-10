@@ -4,6 +4,7 @@ class HtmlAttachmentsController < PublicFacingController
   layout 'html_attachments'
 
   before_filter :find_edition, :redirect_if_unpublished, :find_html_attachment
+  around_filter :set_locale_from_attachment
 
   def show
   end
@@ -54,5 +55,9 @@ private
 
   def previewing?
     user_signed_in? && params[:preview]
+  end
+
+  def set_locale_from_attachment(&block)
+    I18n.with_locale(@html_attachment.locale || I18n.default_locale, &block)
   end
 end

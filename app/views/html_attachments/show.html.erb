@@ -14,19 +14,19 @@
       <% end %>
     </ul>
     <div class="return">
-      <p><%= link_to "See more information about this #{@edition.display_type}", public_document_path(@edition) %></p>
+      <p><%= link_to t('attachment.see_more', :document_type => t("document.type.#{@edition.display_type_key}.one")), public_document_path(@edition) %></p>
     </div>
   </div>
 </div>
 <header class="publication-header" id="contents">
   <div class="inner-block floated-children">
     <div class="headings">
-      <%= content_tag(:p, @edition.display_type, class: 'document-type') %>
+      <%= content_tag(:p, t("document.type.#{@edition.display_type_key}.one"), class: 'document-type') %>
       <h1><%= @html_attachment.title %></h1>
       <p><%= published_or_updated(@edition).titlecase %> <%= absolute_date(@edition.public_timestamp, class: 'published-at') %></p>
     </div>
     <nav class="in-page-navigation">
-      <h2>Contents</h2>
+      <h2><%= t('document.contents') %></h2>
       <%= content_tag :ol, class: ('unnumbered' if @html_attachment.manually_numbered_headings?) do %>
         <% html_attachment_govspeak_headers(@html_attachment).each do |header| %>
           <li><%= link_to header.text, "##{header.id}" %></li>
@@ -41,6 +41,6 @@
   </div>
 </div>
 <div class="js-back-to-content back-to-content">
-  <a href="#contents">Contents</a>
+  <a href="#contents"><%= t('document.contents') %></a>
 </div>
 <div class="js-back-to-content-stop"></div>
