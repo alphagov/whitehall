@@ -118,7 +118,7 @@ class Publication < Publicationesque
   end
 
   def assign_statistical_release_announcement
-    if statistical_release_announcement_id
+    if statistical_release_announcement_id.present?
       self.statistical_release_announcement = StatisticalReleaseAnnouncement.find(statistical_release_announcement_id)
     end
   end
