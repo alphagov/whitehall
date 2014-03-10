@@ -1,6 +1,7 @@
 <%
   policies ||= []
   topics ||= []
+  primary_mainstream_category ||= nil
 %>
 <aside class="meta">
   <div class="inner-heading">
@@ -25,11 +26,11 @@
         </dd>
       <% end %>
 
-      <% if document.primary_mainstream_category && document.primary_mainstream_category.present? %>
+      <% if primary_mainstream_category.present? %>
         <dt>Primary category:</dt>
         <dd>
-          <%= link_to document.primary_mainstream_category.title,
-                      Whitehall.url_maker.mainstream_category_path(document.primary_mainstream_category) %>
+          <%= link_to primary_mainstream_category.title,
+                      mainstream_category_path(primary_mainstream_category)%>
         </dd>
       <% end %>
 

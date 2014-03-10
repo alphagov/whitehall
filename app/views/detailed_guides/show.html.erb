@@ -12,7 +12,8 @@
                     header_title: t_display_type(@document),
                     document: @document,
                     policies: @related_policies,
-                    topics: @document.topics
+                    topics: @document.topics,
+                    primary_mainstream_category: @document.primary_mainstream_category
                   } %>
       <% if @document.replaces_businesslink? %>
         <div class="replaces-businesslink">
