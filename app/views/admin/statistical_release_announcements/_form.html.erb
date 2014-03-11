@@ -11,12 +11,14 @@
 
   <%= form.label  :organisation_id, 'Organisation', required: true %>
   <%= form.select :organisation_id,
-                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', release_announcement.organisation_id) %>
+                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', release_announcement.organisation_id),
+                  {},
+                  class: 'chzn-select' %>
 
   <%= form.label  :topic_id, 'Topic', required: true %>
   <%= form.select :topic_id,
                   options_from_collection_for_select(Topic.all, 'id', 'name', release_announcement.topic_id),
-                  prompt: 'Select a topic',
+                  { prompt: 'Select a topic' },
                   class: 'chzn-select' %>
 
   <%= form.label :expected_release_date, "Expected release date", required: true %>
