@@ -1,5 +1,6 @@
 <% if attachable.respond_to?(:translated_locales) && attachable.translated_locales.many? %>
-  <%= form.label :locale, 'This attachment displays in' %>
+  <%= form.label :locale, 'Display language' %>
+  <p class="help-block">This determines the translations of the publication that the attachment will appear in.</p>
   <%= form.select :locale, options_for_locales(attachable.translated_locales), include_blank: 'All languages' %>
 <% end %>
 <%= form.text_field :isbn, label_text: 'ISBN' %>
