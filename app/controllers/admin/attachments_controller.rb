@@ -30,6 +30,15 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
+  def update_many
+    if attachable.attachments.update(params[:attachments].keys,
+                                     params[:attachments].values)
+      redirect_to admin_edition_path(attachable)
+    else
+      render :edit
+    end
+  end
+
   def destroy
     attachment.destroy
     redirect_to attachable_attachments_path(attachable), notice: 'Attachment deleted'

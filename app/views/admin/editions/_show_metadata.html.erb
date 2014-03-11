@@ -113,23 +113,39 @@
       Attachments
       <% if @edition.editable? %>
         <span class="pull-right">
-          <%= link_to admin_edition_attachments_path(@edition), title: "Edit attachments of #{@edition.title}", class: "btn" do %>
-            <i class="icon-edit"></i> Edit attachments
+          <%= link_to admin_edition_attachments_path(@edition), title: "Modify attachments of #{@edition.title}", class: "btn" do %>
+            <i class="icon-edit"></i> Modify attachments
           <% end %>
         </span>
       <% end %>
     </h2>
     <% if @edition.attachments.any? %>
+      <% if @edition.imported? %>
+        <%= form_tag [:update_many, :admin, typecast_for_attachable_routing(@edition), Attachment], method: :put %>
+      <% end %>
+
       <table class="table headless">
         <% @edition.attachments.each do |attachment| %>
           <tr>
-            <td><%= attachment.title %></td>
+            <td>
+              <% if @edition.imported? %>
+                <%= fields_for 'attachments[]', attachment, builder: ActionView::Helpers::FormBuilder do |f| %>
+                  <%= f.text_field :title %>
+                <% end %>
+              <% else %>
+                <%= attachment.title %>
+              <% end %>
+            </td>
             <td><%= link_to_attachment(attachment, preview: !@edition.published?) %></td>
             <td class="virus-status"><%= attachment_virus_status(attachment) %></td>
             <!--<td><%= attachment_metadata_tag(attachment) %></td>-->
           </tr>
         <% end %>
       </table>
+      <% if @edition.imported? %>
+          <%= submit_tag "Save", class: "btn btn-primary" %>
+        </form>
+      <% end %>
     <% else %>
       <p><em>No attachments added.</em></p>
     <% end %>
