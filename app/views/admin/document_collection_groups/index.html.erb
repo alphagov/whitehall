@@ -1,7 +1,7 @@
 <% content_for :page_class, 'document-collection-groups index' %>
 <% page_title "#{@collection.title}", "Document collections" %>
 <% initialise_script 'GOVUK.DocumentGroupOrdering', selector: '.js-document-group', post_url: admin_document_collection_update_group_memberships_path(document_collection_id: @collection.id), group_buttons: '.reorder-buttons', group_container_selector: '.js-group-container' %>
-<% initialise_script 'GOVUK.documentCollectionDocFinder' %>
+<% initialise_script 'GOVUK.documentFinder' %>
 <% initialise_script 'GOVUK.documentCollectionCheckboxSelector' %>
 
 <h1><%= @collection.title %></h1>
