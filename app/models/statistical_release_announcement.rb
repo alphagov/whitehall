@@ -46,8 +46,6 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
     Whitehall.url_maker.statistical_release_announcement_path(self)
   end
 
-private
-
   def organisation_slugs
     [organisation.slug]
   end
@@ -55,6 +53,8 @@ private
   def topic_slugs
     [topic.slug]
   end
+
+private
 
   def publication_is_statistics
     errors[:publication] << "must be statistics" unless publication.statistics?
