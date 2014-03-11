@@ -1,9 +1,11 @@
-<% initialise_script "GOVUK.AdminAttachmentsForm" %>
+<% initialise_script "GOVUK.AdminAttachmentsForm", selector: '.js-attachment-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
 
-<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment do |form| %>
+<%= form_for attachment, url: [:admin, typecast_for_attachable_routing(attachable), attachment.becomes(Attachment)], as: :attachment, html: { :class => "js-attachment-form" } do |form| %>
   <%= form.errors %>
 
-  <%= form.text_field :title %>
+  <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
+    <%= form.text_field :title %>
+  <% end %>
 
   <% if attachable.allows_attachment_references? %>
     <%= render 'reference_fields', attachable: attachable, form: form %>
@@ -20,7 +22,10 @@
 
 Manually number your headings as appropriate using the above numbering scheme.</pre>
     </div>
-    <%= form.text_area :body, class: "previewable" %>
+
+    <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
+      <%= form.text_area :body, class: "previewable" %>
+    <% end %>
   <% else %>
   <%= render 'attachment_data_fields', form: form %>
   <% end %>
