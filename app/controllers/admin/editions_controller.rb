@@ -339,8 +339,8 @@ class Admin::EditionsController < Admin::BaseController
   helper_method :force_publisher
 
   def deduplicate_specialist_sectors
-    if params[:edition] && params[:edition][:secondary_specialist_sectors] && params[:edition][:primary_specialist_sector]
-      params[:edition][:secondary_specialist_sectors].delete(params[:edition][:primary_specialist_sector])
+    if params[:edition] && params[:edition][:secondary_specialist_sector_tags] && params[:edition][:primary_specialist_sector_tag]
+      params[:edition][:secondary_specialist_sector_tags] -= [params[:edition][:primary_specialist_sector_tag]]
     end
   end
 end
