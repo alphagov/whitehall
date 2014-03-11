@@ -7,9 +7,9 @@
     <%= form.label :primary_specialist_sector_tag %>
     <%= form.select :primary_specialist_sector_tag,
                     specialist_sector_options_for_select(sectors),
-                    {},
+                    { include_blank: true },
                     { class: 'chzn-select',
-                      data: { placeholder: 'Choose specialist sectors…' } } %>
+                      data: { placeholder: 'Choose a primary specialist sector…' } } %>
 
     <%= form.label :secondary_specialist_sector_tags, 'Additional specialist sectors' %>
     <%= form.select :secondary_specialist_sector_tags,
@@ -17,6 +17,6 @@
                     {},
                     { multiple: true,
                       class: 'chzn-select',
-                      data: { placeholder: 'Choose specialist sectors…' } } %>
+                      data: { placeholder: 'Choose additional specialist sectors…' } } %>
   </fieldset>
 <% end %>
