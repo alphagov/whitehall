@@ -15,7 +15,7 @@
           <tr><th>Type</th><td><%= @organisation.organisation_type.name %></td></tr>
           <tr><th>Acronym</th><td><%= @organisation.acronym %></td></tr>
           <tr><th>URL</th><td><%= link_to @organisation.url %></td></tr>
-          <tr><th>gov.uk status</th><td><%= @organisation.govuk_status.titleize %></td></tr>
+          <tr><th>Status on GOV.UK</th><td><%= @organisation.govuk_status.titleize %></td></tr>
           <% if @organisation.closed? %>
             <% if @organisation.closed_at.present? %>
               <tr><th>Organisation closed on</th><td><%= absolute_date(@organisation.closed_at) %></td></tr>
