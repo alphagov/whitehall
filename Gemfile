@@ -72,10 +72,7 @@ end
 
 group :development do
   gem 'thin', '1.5.1'
-  gem 'bullet'
   gem 'newrelic_rpm'
-  gem 'rack-mini-profiler'
-  gem 'rails-dev-boost'
   gem 'quiet_assets'
 end
 
