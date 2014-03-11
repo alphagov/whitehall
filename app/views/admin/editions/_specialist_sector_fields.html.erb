@@ -7,7 +7,7 @@
     <%= form.label :primary_specialist_sector_tag %>
     <%= form.select :primary_specialist_sector_tag,
                     specialist_sector_options_for_select(sectors),
-                    {},
+                    { include_blank: true },
                     { class: 'chzn-select',
                       data: { placeholder: 'Choose specialist sectors…' } } %>
 
