@@ -106,17 +106,49 @@ module Whitehall::Uploader
       assert_equal [role_1, role_2], row.attributes[:ministerial_roles]
     end
 
-    test "finds up to 4 policies specified by slug in columns policy_1, policy_2, policy_3 and policy_4" do
+    test "finds up to 20 policies specified by slug in columns policy_1 ... policy_20" do
       policy_1 = create(:published_policy, title: "Policy 1")
       policy_2 = create(:published_policy, title: "Policy 2")
       policy_3 = create(:published_policy, title: "Policy 3")
       policy_4 = create(:published_policy, title: "Policy 4")
+      policy_5 = create(:published_policy, title: "Policy 5")
+      policy_6 = create(:published_policy, title: "Policy 6")
+      policy_7 = create(:published_policy, title: "Policy 7")
+      policy_8 = create(:published_policy, title: "Policy 8")
+      policy_9 = create(:published_policy, title: "Policy 9")
+      policy_10 = create(:published_policy, title: "Policy 10")
+      policy_11 = create(:published_policy, title: "Policy 11")
+      policy_12 = create(:published_policy, title: "Policy 12")
+      policy_13 = create(:published_policy, title: "Policy 13")
+      policy_14 = create(:published_policy, title: "Policy 14")
+      policy_15 = create(:published_policy, title: "Policy 15")
+      policy_16 = create(:published_policy, title: "Policy 16")
+      policy_17 = create(:published_policy, title: "Policy 17")
+      policy_18 = create(:published_policy, title: "Policy 18")
+      policy_19 = create(:published_policy, title: "Policy 19")
+      policy_20 = create(:published_policy, title: "Policy 20")
       row = new_publication_row({ "policy_1" => policy_1.slug,
                                   "policy_2" => policy_2.slug,
                                   "policy_3" => policy_3.slug,
-                                  "policy_4" => policy_4.slug })
+                                  "policy_4" => policy_4.slug,
+                                  "policy_5" => policy_5.slug,
+                                  "policy_6" => policy_6.slug,
+                                  "policy_7" => policy_7.slug,
+                                  "policy_8" => policy_8.slug,
+                                  "policy_9" => policy_9.slug,
+                                  "policy_10" => policy_10.slug,
+                                  "policy_11" => policy_11.slug,
+                                  "policy_12" => policy_12.slug,
+                                  "policy_13" => policy_13.slug,
+                                  "policy_14" => policy_14.slug,
+                                  "policy_15" => policy_15.slug,
+                                  "policy_16" => policy_16.slug,
+                                  "policy_17" => policy_17.slug,
+                                  "policy_18" => policy_18.slug,
+                                  "policy_19" => policy_19.slug,
+                                  "policy_20" => policy_20.slug })
 
-      assert_equal [policy_1, policy_2, policy_3, policy_4], row.attributes[:related_editions]
+      assert_equal [policy_1, policy_2, policy_3, policy_4, policy_5, policy_6, policy_7, policy_8, policy_9, policy_10, policy_11, policy_12, policy_13, policy_14, policy_15, policy_16, policy_17, policy_18, policy_19, policy_20], row.attributes[:related_editions]
     end
 
     test "uses the organisation as the alternative format provider" do
