@@ -16,6 +16,10 @@ class NewsArticle < Newsesque
     where(news_article_type_id: subtype.id)
   end
 
+  def self.by_subtypes(subtype_ids)
+    where(news_article_type_id: subtype_ids)
+  end
+
   def news_article_type
     NewsArticleType.find_by_id(news_article_type_id)
   end

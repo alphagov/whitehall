@@ -29,6 +29,10 @@ class Publication < Publicationesque
     where(publication_type_id: subtype.id)
   end
 
+  def self.by_subtypes(subtype_ids)
+    where(publication_type_id: subtype_ids)
+  end
+
   def self.not_statistics
     where("publication_type_id NOT IN (?)", PublicationType.statistical.map(&:id))
   end

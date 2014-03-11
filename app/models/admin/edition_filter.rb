@@ -96,6 +96,7 @@ module Admin
       editions = @source
       editions = editions.by_type(type) if type
       editions = editions.by_subtype(type, subtype) if subtype
+      editions = editions.by_subtypes(type, subtype_ids) if type && subtype_ids
       editions = editions.send(state) if state
       editions = editions.authored_by(author) if author
       editions = editions.in_organisation(organisation) if organisation
@@ -121,6 +122,10 @@ module Admin
 
     def subtype
       subtype_class.find_by_id(subtype_id) if type && subtype_id
+    end
+
+    def subtype_ids
+      options[:subtypes].present? && options[:subtypes]
     end
 
     def subtype_id

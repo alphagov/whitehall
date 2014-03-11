@@ -100,6 +100,20 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "publication_#{PublicationType::Guidance.id}").editions
   end
 
+  test "should filter by multiple publication sub-types" do
+    guidance     = create(:publication, publication_type: PublicationType::Guidance)
+    form         = create(:publication, publication_type: PublicationType::Form)
+    policy_paper = create(:publication, publication_type: PublicationType::PolicyPaper)
+
+    assert_equal [form, policy_paper],
+      Admin::EditionFilter.new(Edition, @current_user, type: "publication",
+                               subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
+
+    assert_equal [guidance],
+      Admin::EditionFilter.new(Edition, @current_user, type: "publication",
+                               subtypes: [PublicationType::Guidance.id]).editions
+  end
+
   test "should filter by title" do
     detailed = create(:policy, title: "Test mcTest")
     policy = create(:policy, title: "A policy")
