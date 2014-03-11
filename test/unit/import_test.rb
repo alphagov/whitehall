@@ -8,6 +8,13 @@ class ImportTest < ActiveSupport::TestCase
     @automatic_data_importer = create(:importer, name: "Automatic Data Importer")
   end
 
+  test "can find the import which is the source of a document" do
+    import = create(:import)
+    document = create(:document, document_sources: [create(:document_source, import: import)])
+
+    assert_equal import, Import.source_of(document)
+  end
+
   test "valid if known type" do
     i = new_import
     assert i.valid?, i.errors.full_messages.to_s
@@ -205,6 +212,17 @@ class ImportTest < ActiveSupport::TestCase
       assert_equal 1, i.document_sources.count
       assert_match /blank, skipped/, i.log
     end
+  end
+
+  test "#document_imported_after returns the next document imported" do
+    example_url = 'http://example.com/1'
+    import = perform_import(csv_data: consultation_csv_sample(
+      {"old_url" => "http://example.br"},
+      [{"old_url" => "http://example.fr"}]
+    ))
+
+    first_document, second_document = *import.documents
+    assert_equal second_document, import.document_imported_after(first_document)
   end
 
   test 'logs failure if save unsuccessful' do
