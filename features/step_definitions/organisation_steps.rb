@@ -578,7 +578,7 @@ end
 When(/^I close the organisation "(.*?)", superseding it with the organisation "(.*?)"$/) do |org_name, superseding_org_name|
   organisation = Organisation.find_by_name!(org_name)
   visit edit_admin_organisation_path(organisation.slug)
-  select "Closed", from: "Status on gov.uk"
+  select "Closed", from: "Status on GOV.UK"
   select superseding_org_name, from: "Superseded by"
   click_on "Save"
 end
