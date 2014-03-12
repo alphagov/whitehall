@@ -233,13 +233,17 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'logs failure if unable to parse a date' do
-    i = perform_import(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"))
-    assert i.import_errors.detect {|e| e[:message] =~ /Unable to parse the date/}
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"))
+      assert i.import_errors.detect {|e| e[:message] =~ /Unable to parse the date/}
+    end
   end
 
   test 'logs failure if unable to find an organisation' do
-    i = perform_import(csv_data: consultation_csv_sample("organisation" => "does-not-exist"))
-    assert i.import_errors.detect {|e| e[:message] =~ /Unable to find Organisation/}
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample("organisation" => "does-not-exist"))
+      assert i.import_errors.detect {|e| e[:message] =~ /Unable to find Organisation/}
+    end
   end
 
   test 'logs failures within attachments if save unsuccessful' do
@@ -461,9 +465,9 @@ class ImportTest < ActiveSupport::TestCase
     Import.use_separate_connection
     yield
   ensure
-    Import.destroy_all
-    ImportError.destroy_all
-    ImportLog.destroy_all
+    Import.destroy_all; Import.remove_connection
+    ImportError.destroy_all; ImportError.remove_connection
+    ImportLog.destroy_all; ImportLog.remove_connection
   end
 
   def translated_news_article_csv
