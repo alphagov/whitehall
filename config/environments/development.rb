@@ -36,18 +36,6 @@ Whitehall::Application.configure do
   # Disable cache in development
   config.cache_store = :null_store
 
-  config.after_initialize do
-    Bullet.enable = true
-    # Bullet.alert = true
-    Bullet.bullet_logger = true
-    Bullet.console = true
-    Bullet.rails_logger = true
-    # Bullet.airbrake = true
-
-    Rack::MiniProfiler.config.position = 'right'
-    Rack::MiniProfiler.config.start_hidden = ENV['HIDE_RACK_MINI_PROFILER'].present? # Use Alt-P shortcut to show
-  end
-
   if ENV['SHOW_PRODUCTION_IMAGES']
     orig_host = config.asset_host
     config.asset_host = Proc.new do |source|
