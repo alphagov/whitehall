@@ -130,6 +130,13 @@ That's all
     assert_select ".category-#{category.slug}"
   end
 
+  view_test "detailed guides without a mainstream category are successfully rendered" do
+    guide = create(:published_detailed_guide, primary_mainstream_category: nil)
+    get :show, id: guide.document
+
+    assert_response :success
+  end
+
   private
 
   def given_two_detailed_guides_in_two_organisations

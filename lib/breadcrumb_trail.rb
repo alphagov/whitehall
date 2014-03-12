@@ -22,6 +22,10 @@ class DetailedGuideBreadcrumbTrail < BreadcrumbTrail
     @detailed_guide = detailed_guide
   end
 
+  def valid?
+    @detailed_guide.primary_mainstream_category.present? && super
+  end
+
   def to_hash
     return unless @detailed_guide.primary_mainstream_category.parent_tag.present?
     @hash ||= {

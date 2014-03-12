@@ -24,7 +24,7 @@ module Edition::HasMainstreamCategories
   end
 
   def mainstream_categories
-    [primary_mainstream_category] + other_mainstream_categories
+    [primary_mainstream_category].compact + other_mainstream_categories
   end
 
   def can_be_associated_with_mainstream_categories?
