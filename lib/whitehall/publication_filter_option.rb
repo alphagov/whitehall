@@ -19,5 +19,7 @@ module Whitehall
     Map                 = create(id: 16, label: "Maps", search_format_types: PublicationType::Map.search_format_types, publication_types: [PublicationType::Map], group_key: 'Other')
     InternationalTreaty = create(id: 17, label: "International treaties", search_format_types: PublicationType::InternationalTreaty.search_format_types, publication_types: [PublicationType::InternationalTreaty], group_key: 'Other')
     PromotionalMaterial = create(id: 18, label: "Promotional material", search_format_types: PublicationType::PromotionalMaterial.search_format_types, publication_types: [PublicationType::PromotionalMaterial], group_key: 'Other')
+    Notice              = create(id: 20, label: "Notices", search_format_types: PublicationType::Notice.search_format_types, publication_types: [PublicationType::Notice], group_key: 'Other')
+    Decision            = create(id: 21, label: "Decisions", search_format_types: PublicationType::Decision.search_format_types, publication_types: [PublicationType::Decision], group_key: 'Other')
   end
 end
