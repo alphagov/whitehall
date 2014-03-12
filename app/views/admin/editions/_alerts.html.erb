@@ -10,15 +10,29 @@
     <% end %>
   </div>
 <% end %>
-<% if edition.pre_publication? && edition.scheduled_publication.present? %>
-  <div class="alert alert-info scheduled-publication">
-    <% if edition.scheduled? %>
-      <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
-    <% else %>
-      <p>Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>. </p>
-    <% end %>
-  </div>
+<% if edition.pre_publication? %>
+
+  <% if edition.is_a?(Publication) && edition.statistical_release_announcement.present? %>
+    <div class="alert alert-info announced-publication">
+      <p>
+        This publication has been announced for publication <%= edition.statistical_release_announcement.display_release_date %>.
+        <%= link_to 'Edit announcement', [:edit, :admin, edition.statistical_release_announcement] %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if edition.scheduled_publication.present? %>
+    <div class="alert alert-info scheduled-publication">
+      <% if edition.scheduled? %>
+        <p>Scheduled for publication on <%= l edition.scheduled_publication, format: :long %>. </p>
+      <% else %>
+        <p>Scheduled publication proposed for <%= l edition.scheduled_publication, format: :long %>. </p>
+      <% end %>
+    </div>
+  <% end %>
+
 <% end %>
+
 <% if warn_about_lack_of_contacts_in_body?(edition) %>
   <div class="alert alert-info no-contacts">
     <p>This press release has no contact information embedded in the
