@@ -10,8 +10,7 @@ class PanopticonRegisterArtefactWorker
 
     if edition.present?
       registerable_edition = RegisterableEdition.new(edition)
-
-      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
+      registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
       registerer.register(registerable_edition)
     end
   end

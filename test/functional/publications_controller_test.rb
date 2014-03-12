@@ -568,6 +568,8 @@ class PublicationsControllerTest < ActionController::TestCase
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
+      stub_panopticon_registration(collection)
+      stub_panopticon_registration(publication)
       Whitehall.edition_services.force_publisher(collection).perform!
       Whitehall.edition_services.force_publisher(publication).perform!
       get :index
@@ -584,6 +586,8 @@ class PublicationsControllerTest < ActionController::TestCase
       publication = create(:draft_publication)
       collection = create(:document_collection, :with_group)
       collection.groups.first.documents = [publication.document]
+      stub_panopticon_registration(collection)
+      stub_panopticon_registration(publication)
       Whitehall.edition_services.force_publisher(collection).perform!
       Whitehall.edition_services.force_publisher(publication).perform!
 

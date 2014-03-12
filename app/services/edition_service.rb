@@ -43,8 +43,6 @@ private
 
   def notify!
     notifier && notifier.publish(verb, edition, options)
-  rescue
-    # Do nothing
   end
 
   def prepare_edition

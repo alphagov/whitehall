@@ -33,6 +33,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should add edition to search index on publishing" do
     edition = create(:submitted_edition)
+    stub_panopticon_registration(edition)
     Whitehall.stubs(:searchable_classes).returns([edition.class])
     Searchable::Index.expects(:later).with(edition)
 
@@ -43,6 +44,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     I18n.locale = :fr
     french_edition = create(:submitted_edition, title: 'French Title', body: 'French Body', locale: :fr)
     I18n.locale = I18n.default_locale
+    stub_panopticon_registration(french_edition)
     Whitehall.stubs(:searchable_classes).returns([french_edition.class])
     Searchable::Index.expects(:later).with(french_edition).never
 

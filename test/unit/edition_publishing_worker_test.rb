@@ -10,8 +10,10 @@ class EditionPublishingWorkerTest < ActiveSupport::TestCase
 
   test '#perform will publish a scheduled edition as a user' do
     edition = create(:edition, :scheduled, scheduled_publication: 1.day.ago)
+    stub_panopticon_registration(edition)
 
     EditionPublishingWorker.new.perform(edition.id, @publishing_robot.id)
+
     assert_equal :published, edition.reload.current_state
     assert_equal @publishing_robot, edition.latest_version_audit_entry_for('published').actor
   end

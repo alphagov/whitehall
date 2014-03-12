@@ -55,7 +55,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
   end
 
   test "force publishable editions are force published and logged as a success" do
-    publishable_edition = create(:draft_edition)
+    stub_panopticon_registration(publishable_edition)
     stubbed_import = stub_import([publishable_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
@@ -67,6 +67,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
   end
 
   test "reports the finish time and total number of documents successfully published" do
+    stub_panopticon_registration(publishable_edition)
     stubbed_import = stub_import([publishable_edition, unpublishable_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import

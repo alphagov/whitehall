@@ -241,6 +241,10 @@ module Whitehall
     @edition_actions ||= EditionServiceCoordinator.new
   end
 
+  def self.panopticon_registerer_for(registerable_edition)
+    GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
+  end
+
   def self.load_secrets
     if File.exists?(secrets_path)
       YAML.load_file(secrets_path)
