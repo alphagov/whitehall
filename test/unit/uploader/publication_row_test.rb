@@ -106,17 +106,19 @@ module Whitehall::Uploader
       assert_equal [role_1, role_2], row.attributes[:ministerial_roles]
     end
 
-    test "finds up to 4 policies specified by slug in columns policy_1, policy_2, policy_3 and policy_4" do
-      policy_1 = create(:published_policy, title: "Policy 1")
-      policy_2 = create(:published_policy, title: "Policy 2")
-      policy_3 = create(:published_policy, title: "Policy 3")
-      policy_4 = create(:published_policy, title: "Policy 4")
+    test "finds policies specified by slug in columns policy_1, policy_2, policy_3, etc" do
+      policy_1  = create(:published_policy, title: "Policy 1")
+      policy_2  = create(:published_policy, title: "Policy 2")
+      policy_3  = create(:published_policy, title: "Policy 3")
+      policy_4  = create(:published_policy, title: "Policy 4")
+      policy_5  = create(:published_policy, title: "Policy 5")
       row = new_publication_row({ "policy_1" => policy_1.slug,
                                   "policy_2" => policy_2.slug,
                                   "policy_3" => policy_3.slug,
-                                  "policy_4" => policy_4.slug })
+                                  "policy_4" => policy_4.slug,
+                                  "policy_5" => policy_5.slug })
 
-      assert_equal [policy_1, policy_2, policy_3, policy_4], row.attributes[:related_editions]
+      assert_equal [policy_1, policy_2, policy_3, policy_4, policy_5], row.attributes[:related_editions]
     end
 
     test "uses the organisation as the alternative format provider" do
