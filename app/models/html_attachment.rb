@@ -2,6 +2,8 @@ class HtmlAttachment < Attachment
   extend FriendlyId
   friendly_id :sluggable_string
 
+  before_validation :clear_slug_if_non_english_locale
+
   validates :body, presence: true
   validates_with SafeHtmlValidator
 
@@ -58,5 +60,11 @@ class HtmlAttachment < Attachment
 
   def sluggable_string
     sluggable_locale? ? title : nil
+  end
+
+  def clear_slug_if_non_english_locale
+    if locale_changed? and ! sluggable_locale?
+      self.slug = nil
+    end
   end
 end

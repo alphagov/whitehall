@@ -61,4 +61,11 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal expected_slug, attachment.slug
     assert_equal expected_slug, attachment.to_param
   end
+
+  test "slug is cleared when changing from english to non-english" do
+    attachment = create(:html_attachment, locale: "en")
+
+    attachment.update_attributes!(locale: "fr")
+    assert_blank attachment.slug
+  end
 end
