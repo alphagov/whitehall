@@ -135,6 +135,10 @@ cy:
         many:
         other: Gohebiaeth
         see_all: Gweld ein holl gohebiaeth
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         zero:
         one: Cyfarwyddyd manwl
@@ -263,6 +267,10 @@ cy:
         many:
         other: Straeon newyddion
         see_all: Gweld ein holl straeon newyddion
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         zero:
         one: Ymgynghoriad ar agor
@@ -785,6 +793,8 @@ cy:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -803,6 +813,8 @@ cy:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

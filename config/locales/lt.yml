@@ -84,6 +84,10 @@ lt:
         few:
         other: Korespondencija
         see_all: Pažiūrėkite  mūsų korespondencija
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Detalesnė informacija
         few:
@@ -164,6 +168,10 @@ lt:
         few:
         other: Naujienos
         see_all: Pažiūrėkite  mūsų naujienos
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Atvira konsultacija
         few:
@@ -577,6 +585,8 @@ lt:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -595,6 +605,8 @@ lt:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

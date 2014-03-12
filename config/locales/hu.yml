@@ -186,6 +186,10 @@ hu:
         one: Levelezés
         other: Levelezések
         see_all: ' levelezések - mindegyik megtekintése'
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Részletes útmutató
         other: Részletes útmutató
@@ -250,6 +254,10 @@ hu:
         one: Hír
         other: Hírek
         see_all: ' hírek - mindegyik megtekintése'
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Nyílt konzultáció
         other: Nyílt konzultációk
@@ -478,6 +486,8 @@ hu:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -496,6 +506,8 @@ hu:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

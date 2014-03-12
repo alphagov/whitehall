@@ -67,6 +67,10 @@ es:
         one: Correspondencia
         other: Correspondencias
         see_all: Ver toda nuestra correspondencias
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Orientación detallada
         other: Orientación detallada
@@ -131,6 +135,10 @@ es:
         one: Noticia
         other: Noticias
         see_all: Ver toda nuestra noticias
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Consulta abierta
         other: Consultas abiertas
@@ -509,6 +517,8 @@ es:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -527,6 +537,8 @@ es:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

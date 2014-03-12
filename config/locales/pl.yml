@@ -101,6 +101,10 @@ pl:
         many:
         other: Korespondencje
         see_all: Zobacz wszystkie nasze korespondencje
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Szczegółowe wskazówki
         few:
@@ -197,6 +201,10 @@ pl:
         many:
         other: Aktualności
         see_all: Zobacz wszystkie nasze aktualności
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Konsultacje otwarte
         few:
@@ -647,6 +655,8 @@ pl:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -665,6 +675,8 @@ pl:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

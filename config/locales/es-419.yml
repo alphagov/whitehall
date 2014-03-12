@@ -67,6 +67,10 @@ es-419:
         one: Correspondencia
         other: Correspondencias
         see_all: Vea todos nuestros correspondencias
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Orientación detallada
         other: Orientación detallada
@@ -131,6 +135,10 @@ es-419:
         one: Noticia
         other: Noticias
         see_all: Vea todos nuestros noticias
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Consulta abierta
         other: Consultas abiertas
@@ -510,6 +518,8 @@ es-419:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -528,6 +538,8 @@ es-419:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

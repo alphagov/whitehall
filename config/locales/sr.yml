@@ -101,6 +101,10 @@ sr:
         many:
         other: prepiske
         see_all: Pogledajte sve naše prepiske
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: detaljno uputstvo
         few:
@@ -198,6 +202,10 @@ sr:
         many:
         other: Vesti
         see_all: Pogledajte sve naše vesti
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Otvorene konsultacije
         few:
@@ -650,6 +658,8 @@ sr:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -668,6 +678,8 @@ sr:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

@@ -67,6 +67,10 @@ bg:
         one: Кореспонденция
         other: Кореспонденции
         see_all: Вижте всички наши Кореспонденции
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Подробна насока
         other: Подробни насоки
@@ -131,6 +135,10 @@ bg:
         one: Новина
         other: Новини
         see_all: Вижте всички наши Новини
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Отворена консултация
         other: Отворени консултации
@@ -513,6 +521,8 @@ bg:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -531,6 +541,8 @@ bg:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

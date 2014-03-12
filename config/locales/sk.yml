@@ -79,6 +79,10 @@ sk:
         few:
         other:
         see_all:
+      decision:
+        one:
+        other:
+        see_all:
       correspondence:
         one:
         few:
@@ -137,6 +141,10 @@ sk:
       independent_report:
         one:
         few:
+        other:
+        see_all:
+      notice:
+        one:
         other:
         see_all:
       international_treaty:
@@ -574,6 +582,8 @@ sk:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -592,6 +602,8 @@ sk:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

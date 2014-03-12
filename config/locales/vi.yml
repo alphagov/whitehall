@@ -185,6 +185,10 @@ vi:
         one: Liên hệ
         other: Liên hệ
         see_all: Xem tất cả liên hệ của chúng tôi
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Hướng dẫn chi tiết
         other: Hướng dẫn chi tiết
@@ -249,6 +253,10 @@ vi:
         one: Câu chuyện tin tức
         other: Câu chuyện tin tức
         see_all: Xem tất cả câu chuyện tin tức của chúng tôi
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Tham vấn mở rộng
         other: Tham vấn mở rộng
@@ -477,6 +485,8 @@ vi:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -495,6 +505,8 @@ vi:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

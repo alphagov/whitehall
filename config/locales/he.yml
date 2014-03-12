@@ -101,6 +101,10 @@ he:
         many:
         other: תכתובות
         see_all: ראה כל תכתובות
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: מדריך מפורט
         two:
@@ -197,6 +201,10 @@ he:
         many:
         other: חדשות
         see_all: ראה כל חדשות
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: דיון פתוח
         two:
@@ -645,6 +653,8 @@ he:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -663,6 +673,8 @@ he:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

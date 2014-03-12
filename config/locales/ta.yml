@@ -67,6 +67,10 @@ ta:
         one: தொடர்பு
         other: தொடர்புகள்
         see_all: எங்களது அனைத்து தொடர்புகள் பார்க்கவும்
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: விளக்கமான வழிகாட்டல்
         other: விளக்கமான வழிகாட்டல்
@@ -131,6 +135,10 @@ ta:
         one: செய்திக் கதை
         other: செய்திக் கதைகள்
         see_all: எங்களது அனைத்து செய்திக் கதைகள் பார்க்கவும்
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: திறந்த கலந்தாலோசனை
         other: திறந்த கலந்தாலோசனைகள்
@@ -511,6 +519,8 @@ ta:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -529,6 +539,8 @@ ta:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

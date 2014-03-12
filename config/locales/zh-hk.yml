@@ -183,6 +183,10 @@ zh-hk:
         one: 通信
         other: 其他通信
         see_all: 查閱我們所有的其他通信
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: 詳細指引
         other: 其他詳細指引
@@ -247,6 +251,10 @@ zh-hk:
         one: 新聞
         other: 其他新聞
         see_all: 查閱我們所有的其他新聞
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: 公開諮詢
         other: 其他公開諮詢
@@ -474,6 +482,8 @@ zh-hk:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -492,6 +502,8 @@ zh-hk:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

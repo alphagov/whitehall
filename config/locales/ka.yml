@@ -183,6 +183,10 @@ ka:
         one:
         other:
         see_all:
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one:
         other:
@@ -244,6 +248,10 @@ ka:
         other:
         see_all:
       news_story:
+        one:
+        other:
+        see_all:
+      notice:
         one:
         other:
         see_all:
@@ -474,6 +482,8 @@ ka:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -492,6 +502,8 @@ ka:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:
