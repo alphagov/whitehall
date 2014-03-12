@@ -12,7 +12,8 @@
     // store the selected document's id (with a name attribute of
     // 'document_id') or edition's id (with a name attribute of 'edition_id').
 
-    init: function() {
+    init: function(filter_params) {
+      this.additional_filter_params = filter_params;
       this.latest_results = null;
       this.search_term_content = '';
       this.$search_term = $('input#title');
@@ -62,7 +63,7 @@
       var url = '/government/admin/document_searches.json';
       this.$loader_indicator.show();
       $.ajax(url, {
-        data: { title: this.$search_term.val() },
+        data: $.extend({ title: this.$search_term.val() }, this.additional_filter_params),
         success: function(data, textStatus, xhr) {
           documentFinder.showSearchResults(data['results']);
         },
