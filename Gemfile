@@ -79,7 +79,6 @@ end
 group :test do
   gem 'rack-test', github: 'brynary/rack-test'
   gem 'factory_girl'
-  gem 'hash_syntax'
   gem 'mocha', '0.14.0', require: false
   gem 'timecop'
   gem 'webmock', require: false

@@ -153,9 +153,6 @@ GEM
     govuk_frontend_toolkit (0.42.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
-    hash_syntax (1.0.0)
-      object_regex (~> 1.0.1)
-      trollop (~> 1.16.2)
     hashie (2.0.5)
     hike (1.2.3)
     htmlentities (4.3.1)
@@ -228,7 +225,6 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
-    object_regex (1.0.1)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
@@ -343,7 +339,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    trollop (1.16.2)
     tzinfo (0.3.38)
     uglifier (2.1.1)
       execjs (>= 0.3.0)
@@ -394,7 +389,6 @@ DEPENDENCIES
   globalize3!
   govspeak (~> 1.2.4)
   govuk_frontend_toolkit (= 0.42.0)
-  hash_syntax
   invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
   jbuilder
