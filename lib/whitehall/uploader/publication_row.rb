@@ -25,7 +25,7 @@ module Whitehall::Uploader
     end
 
     def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"])
+      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row['policy_4'], row['policy_5'], row['policy_6'], row['policy_7'], row['policy_8'], row['policy_9'], row['policy_10'], row['policy_11'], row['policy_12'], row['policy_13'], row['policy_14'], row['policy_15'], row['policy_16'], row['policy_17'], row['policy_18'], row['policy_19'], row['policy_20'])
     end
 
     def document_collections
