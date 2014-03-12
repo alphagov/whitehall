@@ -58,6 +58,10 @@ class Import < ActiveRecord::Base
     )
   end
 
+  def self.source_of(document)
+    joins(:document_sources => :document).where('documents.id' => document.id).first
+  end
+
   def enqueue!
     update_column(:import_enqueued_at, Time.zone.now)
     ImportWorker.perform_async(self.id)
@@ -244,6 +248,10 @@ class Import < ActiveRecord::Base
         errors.add(:csv_data, "Duplicate old_url '#{old_url}' in rows #{set.map {|r| r[0]}.join(', ')}")
       end
     end
+  end
+
+  def document_imported_after(document)
+    documents[documents.index(document).next]
   end
 
   def self.use_separate_connection

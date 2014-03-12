@@ -58,7 +58,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
-      redirect_to_show_or_edit
+      redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -75,17 +75,8 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     if @edition.edit_as(current_user, edition_params)
-      if params[:speed_save_convert]
-        @edition.convert_to_draft!
-        next_edition = Admin::EditionFilter.new(edition_class, current_user, session_filters.merge(state: :imported)).editions.first
-        if next_edition
-          redirect_to admin_edition_path(next_edition)
-        else
-          redirect_to admin_editions_path(session_filters.merge(state: :imported))
-        end
-      else
-        redirect_to_show_or_edit
-      end
+      @edition.convert_to_draft! if params[:speed_save_convert]
+      redirect_to after_update_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
       extract_edition_information_from_errors
@@ -126,6 +117,24 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   private
+
+  def after_update_path
+    # infer the next action the user wants to take
+    # from the button they pressed to submit the form
+    if params[:speed_save_convert] || params[:speed_save_next]
+      next_imported_document_path
+    else
+      show_or_edit_path
+    end
+  end
+
+  def next_imported_document_path
+    import = Import.source_of(@edition.document)
+    next_document = import.document_imported_after(@edition.document).latest_edition if import
+    return admin_edition_path(next_document.latest_edition) if next_document
+
+    admin_editions_path(session_filters.merge(state: :imported))
+  end
 
   def fetch_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse
@@ -191,13 +200,16 @@ class Admin::EditionsController < Admin::BaseController
     edition_params.merge(creator: current_user)
   end
 
-  def redirect_to_show_or_edit
-    message = "The document has been saved"
+  def show_or_edit_path
     if params[:save_and_continue].present?
-      redirect_to [:edit, :admin, @edition], notice: message
+      [:edit, :admin, @edition]
     else
-      redirect_to admin_edition_url(@edition), notice: message
+      admin_edition_url(@edition)
     end
+  end
+
+  def saved_confirmation_notice
+    { notice: "The document has been saved" }
   end
 
   def build_edition

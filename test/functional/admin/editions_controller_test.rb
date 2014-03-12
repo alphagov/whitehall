@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::EditionsControllerTest < ActionController::TestCase
+  include Admin::EditionRoutesHelper
+
   setup do
     login_as :policy_writer
   end
@@ -276,6 +278,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
     delete :destroy, id: inaccessible
     assert_response :forbidden
+  end
+
+  test "should redirect to the next document imported without changing state when 'Save and Next' is clicked" do
+    first_document, second_document = *create_list(:imported_publication, 2)
+    Import.stubs(:source_of).returns(mock(document_imported_after: second_document))
+
+    first_document_latest_edition = first_document.latest_edition
+    put :update, id: first_document_latest_edition, speed_save_next: 1, edition: {
+      title: "new-title",
+      body: "new-body"
+    }
+
+    first_document_latest_edition.reload
+    assert first_document_latest_edition.imported?
+    assert_redirected_to admin_edition_path(second_document.latest_edition)
   end
 
   def stub_edition_filter(attributes = {})

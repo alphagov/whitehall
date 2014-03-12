@@ -8,6 +8,13 @@ class ImportTest < ActiveSupport::TestCase
     @automatic_data_importer = create(:importer, name: "Automatic Data Importer")
   end
 
+  test "can find the import which is the source of a document" do
+    import = create(:import)
+    document = create(:document, document_sources: [create(:document_source, import: import)])
+
+    assert_equal import, Import.source_of(document)
+  end
+
   test "valid if known type" do
     i = new_import
     assert i.valid?, i.errors.full_messages.to_s
@@ -207,6 +214,17 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
+  test "#document_imported_after returns the next document imported" do
+    example_url = 'http://example.com/1'
+    import = perform_import(csv_data: consultation_csv_sample(
+      {"old_url" => "http://example.br"},
+      [{"old_url" => "http://example.fr"}]
+    ))
+
+    first_document, second_document = *import.documents
+    assert_equal second_document, import.document_imported_after(first_document)
+  end
+
   test 'logs failure if save unsuccessful' do
     perform_import_cleanup do
       import = perform_import(csv_data: consultation_csv_sample('body' => nil))
@@ -215,13 +233,17 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'logs failure if unable to parse a date' do
-    i = perform_import(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"))
-    assert i.import_errors.detect {|e| e[:message] =~ /Unable to parse the date/}
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"))
+      assert i.import_errors.detect {|e| e[:message] =~ /Unable to parse the date/}
+    end
   end
 
   test 'logs failure if unable to find an organisation' do
-    i = perform_import(csv_data: consultation_csv_sample("organisation" => "does-not-exist"))
-    assert i.import_errors.detect {|e| e[:message] =~ /Unable to find Organisation/}
+    perform_import_cleanup do
+      i = perform_import(csv_data: consultation_csv_sample("organisation" => "does-not-exist"))
+      assert i.import_errors.detect {|e| e[:message] =~ /Unable to find Organisation/}
+    end
   end
 
   test 'logs failures within attachments if save unsuccessful' do
@@ -443,9 +465,9 @@ class ImportTest < ActiveSupport::TestCase
     Import.use_separate_connection
     yield
   ensure
-    Import.destroy_all
-    ImportError.destroy_all
-    ImportLog.destroy_all
+    Import.destroy_all; Import.remove_connection
+    ImportError.destroy_all; ImportError.remove_connection
+    ImportLog.destroy_all; ImportLog.remove_connection
   end
 
   def translated_news_article_csv
