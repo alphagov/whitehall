@@ -295,6 +295,15 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_redirected_to admin_edition_path(second_document.latest_edition)
   end
 
+  test "re-renders the show page when there are errors during speed tagging update" do
+    imported_news_article = create(:imported_news_article, title: 'News article')
+    put :update, id: imported_news_article, speed_save: 'Save', edition: { title: '' }
+
+    assert_response :success
+    assert_template :show
+    assert_equal 'News article', imported_news_article.reload.title
+  end
+
   def stub_edition_filter(attributes = {})
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),

@@ -79,10 +79,14 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to after_update_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
-      extract_edition_information_from_errors
-      build_edition_dependencies
-      fetch_version_and_remark_trails
-      render action: "edit"
+      if speed_tagging?
+        render :show
+      else
+        extract_edition_information_from_errors
+        build_edition_dependencies
+        fetch_version_and_remark_trails
+        render :edit
+      end
     end
   rescue ActiveRecord::StaleObjectError
     flash.now[:alert] = "This document has been saved since you opened it"
@@ -117,6 +121,10 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   private
+
+  def speed_tagging?
+    params[:speed_save_convert] || params[:speed_save_next] || params[:speed_save]
+  end
 
   def after_update_path
     # infer the next action the user wants to take
