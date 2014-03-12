@@ -1,5 +1,6 @@
 
 <%= form_for [:admin, release_announcement] do |form| %>
+  <%= form.hidden_field :publication_id %>
   <%= form.errors %>
 
   <%= form.label  :publication_type_id, 'Statistics type', required: true %>

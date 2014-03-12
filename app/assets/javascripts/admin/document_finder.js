@@ -91,8 +91,8 @@
     selectDocFromMenu: function(event, ui) {
       $.each(this.latest_results, function(i, result) {
         if (result.title == ui.item.label) {
-          documentFinder.$document_id_input.val(result.document_id);
-          documentFinder.$edition_id_input.val(result.id);
+          documentFinder.$document_id_input.val(result.document_id).trigger('change');
+          documentFinder.$edition_id_input.val(result.id).trigger('change');
         }
       });
     },

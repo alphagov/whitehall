@@ -19,8 +19,10 @@ class Admin::StatisticalReleaseAnnouncementsController < Admin::BaseController
   end
 
   def update
-    if @release_announcement.update_attributes(release_announcement_params)
-      redirect_to admin_root_url, notice: "Announcement updated successfully"
+    @release_announcement.attributes = release_announcement_params
+    path_to_redirect = @release_announcement.publication_id_changed? ? [:edit, :admin, @release_announcement] : admin_root_url
+    if @release_announcement.save
+      redirect_to path_to_redirect, notice: "Announcement updated successfully"
     else
       render :edit
     end
@@ -47,7 +49,7 @@ class Admin::StatisticalReleaseAnnouncementsController < Admin::BaseController
   def release_announcement_params
     params.require(:statistical_release_announcement).permit(
       :title, :summary, :expected_release_date, :display_release_date_override,
-      :organisation_id, :topic_id, :publication_type_id
+      :organisation_id, :topic_id, :publication_type_id, :publication_id
     )
   end
 end

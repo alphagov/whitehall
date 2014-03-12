@@ -1,0 +1,15 @@
+<% initialise_script 'GOVUK.documentFinder', type: 'publication', subtypes: PublicationType.statistical.map(&:id) %>
+<% initialise_script 'GOVUK.statisticalReleaseAnnouncementLinker' %>
+
+<%= form_for [:admin, release_announcement], html: { class: 'document-finder js-hidden', id: 'document-finder' } do |form| %>
+  <%= label_tag :title, 'Find the draft statistics to link this announcement to:' %>
+  <div class="document-finder">
+    <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique' %>
+    <input value="Search" type="button" id="find-documents" class="btn btn-mini">
+    <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
+    <p class="tip">
+      Only the first 10 results are returned - be as specific as you can
+    </p>
+  </div>
+  <%= hidden_field_tag :edition_id %>
+<% end %>

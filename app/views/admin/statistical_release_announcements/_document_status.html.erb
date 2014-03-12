@@ -1,0 +1,23 @@
+<% if publication = release_announcement.publication %>
+
+  <div class="alert alert-info" style="margin: 10px 0 5px 0">
+    <p>
+      This announcement is linked to the <%= publication.current_state %> document <%= link_to publication.title, [:admin, publication] %>
+    </p>
+  </div>
+
+  <% if publication.pre_publication? %>
+    <p style="font-style: italic;margin-bottom: 20px">The above document will automatically replace this announcement when published.</p>
+  <% else %>
+    <p style="font-style: italic;margin-bottom: 20px">The above document replaced this announcement on <%= publication.public_timestamp.to_s(:long_ordinal) %>.</p>
+  <% end %>
+
+<% else %>
+  <div class="alert">
+    <p>This announcement is not yet linked to a document.</p>
+    <p class="js-document-announcement-linker">
+      <%= link_to "Draft new document", new_admin_publication_path(statistical_release_announcement_id: release_announcement) %>
+    </p>
+    <%= render "document_linker", release_announcement: release_announcement %>
+  </div>
+<% end %>

@@ -1,6 +1,10 @@
+<% content_for :page_class, 'statistical-release-announcements edit' %>
 <% page_title "Edit statistical release announcement" %>
+
 <div class="span8">
   <h1>Edit statistical release announcement</h1>
+
+  <%= render 'document_status', release_announcement: @release_announcement %>
 
   <%= render "form", release_announcement: @release_announcement %>
 </div>

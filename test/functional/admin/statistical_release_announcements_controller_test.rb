@@ -54,6 +54,15 @@ class Admin::StatisticalReleaseAnnouncementsControllerTest < ActionController::T
     assert_equal 'New announcement title', announcement.reload.title
   end
 
+  test "PUT :update redirects back to the edit screen if updating the publication" do
+    announcement = create(:statistical_release_announcement)
+    publication  = create(:submitted_statistics)
+    put :update, id: announcement.id, statistical_release_announcement: { publication_id: publication.id }
+
+    assert_redirected_to edit_admin_statistical_release_announcement_path(announcement)
+    assert_equal publication, announcement.reload.publication
+  end
+
   view_test "PUT :update re-renders edit form if changes are not valid" do
     announcement = create(:statistical_release_announcement)
     put :update, id: announcement.id, statistical_release_announcement: { title: '' }

@@ -1,0 +1,20 @@
+.statistical-release-announcements {
+  &.edit {
+    form.document-finder {
+      margin: 10px 0 20px;
+
+      label {
+        display: block;
+      }
+
+      input#title {
+        width: 40%;
+        margin-left: 0;
+      }
+
+      div.document-finder img.js-loader {
+        right: 5.3em;
+      }
+    }
+  }
+}
