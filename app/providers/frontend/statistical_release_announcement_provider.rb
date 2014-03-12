@@ -16,11 +16,19 @@ module Frontend
         title: rummager_hash['title'],
         summary: rummager_hash['description'],
         document_type: rummager_hash['display_type'],
-        expected_release_date: rummager_hash['expected_release_date'],
-        display_release_date: rummager_hash['display_release_date'],
-        organisations: Array(rummager_hash['organisations']).map {|org_hash| Frontend::OrganisationMetadata.new(name: org_hash['name'], slug: org_hash['slug']) },
-        topics: Array(rummager_hash['topics']).map {|topic_hash| Frontend::TopicMetadata.new(name: topic_hash['name'], slug: topic_hash['slug']) }
+        release_date: rummager_hash['expected_release_timestamp'],
+        release_date_text: rummager_hash['expected_release_text'],
+        organisations: build_organisations(rummager_hash['organisations']),
+        topics: build_topics(rummager_hash['topics'])
       })
+    end
+
+    def self.build_organisations(org_slugs)
+      Organisation.find_all_by_slug(org_slugs)
+    end
+
+    def self.build_topics(topic_slugs)
+      Topic.find_all_by_slug(topic_slugs)
     end
 
     def self.source
@@ -46,11 +54,13 @@ module Frontend
           "title" => announcement.title,
           "description" => announcement.summary,
           "slug" => announcement.slug,
-          "expected_release_date" => announcement.expected_release_date,
-          "display_release_date" => announcement.display_release_date_override,
-          "organisations" => ([{ "name" => announcement.organisation.name, "slug" => announcement.organisation.slug }] if announcement.organisation.present?),
-          "topics" => ([{ "name" => announcement.topic.name, "slug" => announcement.topic.slug }] if announcement.topic.present?),
-          "display_type" => announcement.publication_type.singular_name
+          "expected_release_timestamp" => announcement.expected_release_date.iso8601,
+          "expected_release_text" => announcement.display_release_date_override || announcement.expected_release_date.to_s(:long),
+          "organisations" => Array(announcement.organisation.try :slug),
+          "topics" => Array(announcement.topic.try :slug),
+          "display_type" => announcement.publication_type.singular_name,
+          "search_format_types" => ["statistical_release_announcement"],
+          "format" => "statistical_release_announcement"
         }
       end
     end

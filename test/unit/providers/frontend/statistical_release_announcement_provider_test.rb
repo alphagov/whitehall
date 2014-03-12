@@ -14,15 +14,20 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
   end
 
   test "release announcments are inflated from rummager hashes" do
+    organisation = create(:organisation, name: 'Cabinet Office', slug: 'cabinet-office')
+    topic = create(:topic, name: 'Home affairs', slug: 'home-affairs')
+
     @mock_source.stubs(:advanced_search).returns([{
       "title" => "A title",
       "description" => "The summary",
       "slug" => "a-slug",
-      "expected_release_date" => Time.zone.now,
-      "display_release_date" => "About now",
-      "organisations" => [{ "name" => "An org name", "slug" => "an-org-slug" }],
-      "topics" => [{ "name" => "A topic name", "slug" => "a-topic-slug" }],
-      "display_type" => "Statistics"
+      "expected_release_timestamp" => Time.zone.now,
+      "expected_release_text" => "About now",
+      "organisations" => ["cabinet-office"],
+      "topics" => ["home-affairs"],
+      "display_type" => "Statistics",
+      "search_format_types" => ["statistical_release_announcement"],
+      "format" => "statistical_release_announcement"
     }])
 
     release_announcement = Frontend::StatisticalReleaseAnnouncementProvider.find_by(:something).first
@@ -31,16 +36,10 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
     assert_equal "a-slug",       release_announcement.slug
     assert_equal "The summary",  release_announcement.summary
     assert_equal "Statistics",   release_announcement.document_type
-    assert_equal Time.zone.now,  release_announcement.expected_release_date
-    assert_equal "About now",    release_announcement.display_release_date
-
-    assert release_announcement.organisations.first.is_a? Frontend::OrganisationMetadata
-    assert_equal "An org name",  release_announcement.organisations.first.name
-    assert_equal "an-org-slug",  release_announcement.organisations.first.slug
-
-    assert release_announcement.topics.first.is_a? Frontend::TopicMetadata
-    assert_equal "A topic name", release_announcement.topics.first.name
-    assert_equal "a-topic-slug", release_announcement.topics.first.slug
+    assert_equal Time.zone.now,  release_announcement.release_date
+    assert_equal "About now",    release_announcement.release_date_text
+    assert_equal organisation, release_announcement.organisations.first
+    assert_equal topic, release_announcement.topics.first
   end
 end
 
@@ -68,11 +67,13 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
     assert_equal announcement.title,                          returned_announcement_hash["title"]
     assert_equal announcement.summary,                        returned_announcement_hash["description"]
     assert_equal announcement.slug,                           returned_announcement_hash["slug"]
-    assert_equal announcement.organisation.slug,              returned_announcement_hash["organisations"].first["slug"]
-    assert_equal announcement.topic.slug,                     returned_announcement_hash["topics"].first["slug"]
-    assert_equal announcement.expected_release_date,          returned_announcement_hash["expected_release_date"]
-    assert_equal announcement.display_release_date_override,  returned_announcement_hash["display_release_date"]
     assert_equal announcement.publication_type.singular_name, returned_announcement_hash["display_type"]
+    assert_equal ["statistical_release_announcement"],        returned_announcement_hash["search_format_types"]
+    assert_equal "statistical_release_announcement",          returned_announcement_hash["format"]
+    assert_equal announcement.organisation.slug,              returned_announcement_hash["organisations"].first
+    assert_equal announcement.topic.slug,                     returned_announcement_hash["topics"].first
+    assert_equal announcement.expected_release_date.iso8601,  returned_announcement_hash["expected_release_timestamp"]
+    assert_equal announcement.display_release_date_override,  returned_announcement_hash["expected_release_text"]
   end
 
   test "#advanced_search with :keywords returns release announcements matching title or summary" do
