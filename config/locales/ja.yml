@@ -184,6 +184,10 @@ ja:
         one: 通信文書
         other: 通信文書
         see_all: 通信文書 を全て見る
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: 詳細説明
         other: 詳細説明
@@ -248,6 +252,10 @@ ja:
         one: ニュース
         other: ニュース
         see_all: ニュース を全て見る
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: 公開協議
         other: 公開協議
@@ -475,6 +483,8 @@ ja:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -493,6 +503,8 @@ ja:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

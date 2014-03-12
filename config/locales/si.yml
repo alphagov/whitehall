@@ -67,6 +67,10 @@ si:
         one: ලිපි ගනුදෙනුව  
         other: ලිපි ගනුදෙනු
         see_all: අපගේ සියලු ලිපි ගනුදෙනු බලන්න
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
@@ -131,6 +135,10 @@ si:
         one: පුවත් වාර්තාව
         other: පුවත් වාර්තා
         see_all: අපගේ සියලු පුවත් වාර්තා බලන්න
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: විවෘත මත විමසුම
         other: විවෘත මත විමසුම්
@@ -509,6 +517,8 @@ si:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -527,6 +537,8 @@ si:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

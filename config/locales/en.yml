@@ -216,6 +216,14 @@ en:
         one: Map
         other: Maps
         see_all: See all our maps
+      notice:
+        one: Notice
+        other: Notices
+        see_all: See all our notices
+      decision:
+        one: Decision
+        other: Decisions
+        see_all: See all our decisions
       worldwide_priority:
         one: World priority
         other: World priorities
@@ -606,6 +614,10 @@ en:
           intended_use: Leaflets, posters, fact sheets and marketing collateral.
         map:
           intended_use: Drawn maps and geographical data.
+        notice:
+          intended_use: Notices or notifications that government is required to provide.
+        decision:
+          intended_use: Government decisions or judgements.
         publication:
           intended_use: DO NOT USE. This is a legacy category for content created before sub-types existed.
         imported:

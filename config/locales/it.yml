@@ -67,6 +67,10 @@ it:
         one: Corrispondenza
         other: Corrispondenza
         see_all: Vedi tutte le nostre corrispondenza
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Indicazione dettagliata
         other: Indicazioni dettagliate
@@ -131,6 +135,10 @@ it:
         one: Notizia
         other: Notizie
         see_all: Vedi tutte le nostre notizie
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Consultazione aperta
         other: Consultazioni aperte
@@ -509,6 +517,8 @@ it:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -527,6 +537,8 @@ it:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

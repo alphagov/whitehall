@@ -67,6 +67,10 @@ ur:
         one: مراسلت
         other: مراسلات
         see_all: تما م دیکھئیے مراسلات
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
@@ -131,6 +135,10 @@ ur:
         one: نیوز اسٹوری
         other: نیوزاسٹوریز
         see_all: تما م دیکھئیے نیوزاسٹوریز
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: جاری مشاورت
         other: جاری مشاورت
@@ -510,6 +518,8 @@ ur:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -528,6 +538,8 @@ ur:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

@@ -185,6 +185,10 @@ tr:
         one: Yazışma
         other: Yazışmalar
         see_all: Tamamını görüntüle
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
@@ -249,6 +253,10 @@ tr:
         one: Haber
         other: Haberler
         see_all: Tamamını görüntüle
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Devam eden çalışma
         other: Devam eden çalışmalar
@@ -476,6 +484,8 @@ tr:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -494,6 +504,8 @@ tr:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

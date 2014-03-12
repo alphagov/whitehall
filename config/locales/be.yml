@@ -101,6 +101,10 @@ be:
         many:
         other: Перапіска
         see_all: Паглядзець усе Перапіска
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Падрабязнае кіраўніцтва
         few:
@@ -197,6 +201,10 @@ be:
         many:
         other: Навіны
         see_all: Паглядзець усе Навіны
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Адкрытая кансультацыя
         few:
@@ -646,6 +654,8 @@ be:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -664,6 +674,8 @@ be:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

@@ -184,6 +184,10 @@ ko:
         one: 서신
         other: 서신
         see_all: 서신 모두 둘러보기
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: 상세 안내
         other: 상세 안내
@@ -248,6 +252,10 @@ ko:
         one: 뉴스 스토리
         other: 뉴스 스토리
         see_all: 뉴스 스토리 모두 둘러보기
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: 오픈 컨설테이션
         other: 오픈 컨설테이션
@@ -475,6 +483,8 @@ ko:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -493,6 +503,8 @@ ko:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

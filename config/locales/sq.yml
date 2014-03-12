@@ -67,6 +67,10 @@ sq:
         one: Korrespondence
         other: Korrespondencat
         see_all: Shiko te gjitha korrespondencat
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Udhezim i detajuar
         other: Udhezim i detajuar
@@ -131,6 +135,10 @@ sq:
         one: Ngjarje
         other: Ngjarje
         see_all: Shiko te gjitha ngjarje
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Konsultim i hapur
         other: Konsultime te hapur
@@ -510,6 +518,8 @@ sq:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -528,6 +538,8 @@ sq:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

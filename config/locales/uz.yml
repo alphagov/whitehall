@@ -67,6 +67,10 @@ uz:
         one: Muvofiqlik
         other: Muvofiqliklar
         see_all: Bizning butun muvofiqliklar ko'ring
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
@@ -131,6 +135,10 @@ uz:
         one: Yangilik
         other: Yangiliklar
         see_all: Bizning butun yangiliklar ko'ring
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Ochiq fikr almashish
         other: Ochiq fikr almashishlar
@@ -509,6 +517,8 @@ uz:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -527,6 +537,8 @@ uz:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

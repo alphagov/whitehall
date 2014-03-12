@@ -67,6 +67,10 @@ dr:
         one: مطابقت
         other: مطابقت ها
         see_all: همه را ببینید مطابقت ها
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: ' رهنمود مفصل'
         other: رهنمود های مفصل
@@ -131,6 +135,10 @@ dr:
         one: گزارش خبری
         other: گزارش های خبری
         see_all: همه را ببینید گزارش های خبری
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: مشاورت باز
         other: مشاورت های باز
@@ -509,6 +517,8 @@ dr:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -527,6 +537,8 @@ dr:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

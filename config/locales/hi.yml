@@ -67,6 +67,10 @@ hi:
         one: पत्र व्यवहार
         other: पत्र व्यवहार
         see_all: देखें हमारे सभी पत्र व्यवहार
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: विस्तृत मार्गदर्शन
         other: विस्तृत मार्गदर्शन
@@ -131,6 +135,10 @@ hi:
         one: समाचार कथा
         other: समाचार कथाएं
         see_all: देखें हमारे सभी समाचार कथाएं
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: खुला परामर्श
         other: खुले परामर्श
@@ -510,6 +518,8 @@ hi:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -528,6 +538,8 @@ hi:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

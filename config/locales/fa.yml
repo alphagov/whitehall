@@ -185,6 +185,10 @@ fa:
         one: مکاتبه
         other: مکاتبات
         see_all: تمامی مکاتبات ما را مشاهده کنید
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: راهنمای تفصیلی
         other: راهنمای تفصیلی
@@ -249,6 +253,10 @@ fa:
         one: خبر
         other: اخبار
         see_all: تمامی اخبار ما را مشاهده کنید
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: رایزنی باز
         other: رایزنی های باز
@@ -477,6 +485,8 @@ fa:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -495,6 +505,8 @@ fa:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

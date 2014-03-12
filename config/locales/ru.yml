@@ -101,6 +101,10 @@ ru:
         many:
         other: Корреспонденция
         see_all: Посмотреть все наши Корреспонденция
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Подробное руководство
         few:
@@ -197,6 +201,10 @@ ru:
         many:
         other: Новостные заметки
         see_all: Посмотреть все наши Новостные заметки
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Открытая консультация
         few:
@@ -644,6 +652,8 @@ ru:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -662,6 +672,8 @@ ru:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

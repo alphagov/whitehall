@@ -67,6 +67,10 @@ ps:
         one: ارتباط ساتنه
         other: ارتباطات ساتنه
         see_all: ټول وګوری ارتباطات ساتنه
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
@@ -131,6 +135,10 @@ ps:
         one: خبری راپور
         other: خبری راپورونه
         see_all: ټول وګوری خبری راپورونه
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: آزاده مشوره
         other: آزادې مشورې
@@ -511,6 +519,8 @@ ps:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -529,6 +539,8 @@ ps:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:

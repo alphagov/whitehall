@@ -84,6 +84,10 @@ cs:
         few:
         other: Korespondence
         see_all: Podívejte se na
+      decision:
+        one:
+        other:
+        see_all:
       detailed_guidance:
         one: Podrobný návod
         few:
@@ -164,6 +168,10 @@ cs:
         few:
         other: Zprávy
         see_all: Podívejte se na
+      notice:
+        one:
+        other:
+        see_all:
       open_consultation:
         one: Otevřená konzultace
         few:
@@ -578,6 +586,8 @@ cs:
           intended_use:
         correspondence:
           intended_use:
+        decision:
+          intended_use:
         foi_release:
           intended_use:
         form:
@@ -596,6 +606,8 @@ cs:
         map:
           intended_use:
         national_statistics:
+          intended_use:
+        notice:
           intended_use:
         policy_paper:
           intended_use:
