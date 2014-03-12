@@ -8,12 +8,12 @@ class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
 
   def to_date=(date_string)
     @to_date = date_string
-    @parsed_to_date = Chronic.parse(date_string).try(:to_date)
+    @parsed_to_date = Chronic.parse(date_string, guess: :end)
   end
 
   def from_date=(date_string)
     @from_date = date_string
-    @parsed_from_date = Chronic.parse(date_string).try(:to_date)
+    @parsed_from_date = Chronic.parse(date_string, guess: :begin)
   end
 
   def valid_filter_params
