@@ -28,7 +28,7 @@
         minute_step: 15,
         default: (Date.tomorrow + 9.5.hours)
       }, { class: 'date' } %>
-  <%= form.text_field :display_release_date_override, label_text: "Display date (e.g. Jan/Feb #{Date.today.year+1}). Leave blank to use above date and time." %>
+  <%= form.text_field :display_release_date_override, label_text: "Display date (e.g. Jan to Feb #{Date.today.year+1}). Leave blank to use above date and time." %>
 
   <%= form.save_or_cancel buttons: { save: 'Make announcement' }, cancel: admin_root_path %>
 <% end %>
