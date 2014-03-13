@@ -1,7 +1,7 @@
 <div class="speed-tag">
   <% unless @edition.valid_as_draft? %>
     <div class="alert">
-      <strong>This edition cannot be converted to draft yet</strong>
+      <strong>This edition cannot be saved because:</strong>
 
       <ul>
         <% @edition.errors_as_draft.full_messages.each do |message| %>
