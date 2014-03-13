@@ -74,7 +74,13 @@ class Admin::ImportsController < Admin::BaseController
     end
   end
 
-  def new_document_list; end
+  def new_document_list
+    respond_to do |format|
+      format.html
+      format.js { render layout: false }
+    end
+  end
+
   def error_list; end
   def import_log; end
 
