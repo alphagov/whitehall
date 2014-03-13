@@ -10,7 +10,7 @@ module Whitehall
       def initialize(feed_url)
         @feed_url = feed_url
         @filter_options_describer = DocumentFilter::Options.new
-        parse_feed_url if recognised_url?
+        parse_feed_url if uri && recognised_url?
       end
 
       def description
@@ -20,7 +20,7 @@ module Whitehall
       end
 
       def valid?
-        recognised_url? && resource_exists? && filter_parameters_are_valid?
+        uri && recognised_url? && resource_exists? && filter_parameters_are_valid?
       end
 
       def feed_params
@@ -72,7 +72,11 @@ module Whitehall
       end
 
       def uri
-        @uri ||= URI.parse(feed_url)
+        @uri ||= begin
+          URI.parse(feed_url)
+        rescue URI::InvalidURIError
+          nil
+        end
       end
 
       def parse_feed_url

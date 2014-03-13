@@ -3,6 +3,11 @@ require 'test_helper'
 class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
   include Whitehall::GovUkDelivery
 
+  test 'handles badly formatted feed urls' do
+    refute FeedUrlValidator.new('https://www.glue=latvia').valid?
+    refute FeedUrlValidator.new('https://www.gov.uk/government]').valid?
+  end
+
   test 'validates and describes a base publication filter feed url' do
     feed_url  = feed_url_for(document_type: "publications")
     validator = FeedUrlValidator.new(feed_url)
