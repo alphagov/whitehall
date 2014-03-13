@@ -8,6 +8,10 @@ class GdsApi::ContentApi::Fake
   def tags(tag_type)
     []
   end
+
+  def artefact(*args)
+    nil
+  end
 end
 
 if endpoint_url = ENV["CONTENT_API_ENDPOINT_URL"]

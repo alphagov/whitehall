@@ -188,7 +188,7 @@ Details of document required:
     link_to native_language_name_for(locale), locale: locale
   end
 
-  def document_metadata(document, policies = [], topics = [], links_only = false)
+  def document_metadata(document, policies = [], topics = [], sectors = [], links_only = false)
     metadata = []
     if policies.any?
       metadata << {
@@ -209,6 +209,13 @@ Details of document required:
         title: t('document.headings.topical_events', count: document.topical_events.length),
         data: array_of_links_to_topical_events(document.topical_events),
         classes: ['document-topical-events']
+      }
+    end
+    if sectors.any?
+      metadata << {
+        title: t('document.headings.sectors', count: sectors.length),
+        data: array_of_links_to_sectors(sectors),
+        classes: ['document-sectors']
       }
     end
     if !(document.respond_to?(:statistics?) && document.statistics?)

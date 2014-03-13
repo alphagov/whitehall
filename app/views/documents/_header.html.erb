@@ -4,8 +4,8 @@
   topics ||= []
 %>
 <%= render partial: 'shared/heading',
-          locals: { type: header_title,
-                    heading: document.title,
+          locals: { type: add_sector_name(header_title),
+                    heading: add_subsector_name(document.title),
                     extra: true } %>
 
 <%= render('documents/archive_notice', document: document, type: document.format_name) if document.archived? %>
@@ -16,4 +16,4 @@
     <%= national_statistics_logo(document) %>
   </div>
 </div>
-<%= render partial: 'documents/metadata', locals: { document: document, policies: policies, topics: topics } %>
+<%= render partial: 'documents/metadata', locals: { document: document, policies: policies, topics: topics, sectors: specialist_sector_tags } %>
