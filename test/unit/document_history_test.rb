@@ -33,11 +33,11 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   end
 
   test "#changes returns change history for all historic editions, excluding those with minor changes" do
-    original_edition = create(:superseded_edition, first_published_at: 3.days.ago, change_note: nil)
+    original_edition = Timecop.travel(3.days.ago) { create(:superseded_edition, first_published_at: Time.zone.now, change_note: nil) }
     document         = original_edition.document
-    new_edition_1    = create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: 2.days.ago, change_note: "some changes")
-    new_edition_2    = create(:published_edition,  document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
-    new_edition_3    = create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: 1.day.ago, change_note: "more changes")
+    new_edition_1    = Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
+    new_edition_2    = Timecop.travel(2.days.ago) { create(:published_edition,  document: document, published_major_version: 2, published_minor_version: 1, major_change_published_at: Time.zone.now, minor_change: true) }
+    new_edition_3    = Timecop.travel(1.day.ago)  { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
     history          = DocumentHistory.new(document)
 
 
@@ -63,10 +63,17 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   end
 
   test "#changes includes changes for any supporting pages" do
-    policy            = create(:policy, :superseded, first_published_at: 5.days.ago, change_note: nil)
-    support_page_1    = create(:supporting_page, :superseded, first_published_at: 4.days.ago, change_note: nil, related_policies: [policy])
-    support_page_2    = create(:supporting_page, :published, first_published_at: 3.days.ago, change_note: nil, related_policies: [policy])
-    support_page_1_2  = create(:supporting_page, :published, document: support_page_1.document, major_change_published_at: 2.days.ago, published_major_version: 2, published_minor_version: 0, change_note: 'Some stuff was changed', related_policies: [policy])
+    policy            = Timecop.travel(5.days.ago) { create(:policy, :superseded, first_published_at: Time.zone.now, change_note: nil) }
+    support_page_1    = Timecop.travel(4.days.ago) { create(:supporting_page, :superseded, first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
+    support_page_2    = Timecop.travel(3.days.ago) { create(:supporting_page, :published, first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
+    support_page_1_2  = Timecop.travel(2.days.ago) { create(:supporting_page, :published,
+                                                            document: support_page_1.document,
+                                                            major_change_published_at: Time.zone.now,
+                                                            published_major_version: 2,
+                                                            published_minor_version: 0,
+                                                            change_note: 'Some stuff was changed',
+                                                            related_policies: [policy]) }
+
     history           = DocumentHistory.new(policy.document)
 
     expected = [
@@ -80,10 +87,19 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   end
 
   test "#changes excludes any supporting page changes that share a public timestamp with any main document changes" do
-    policy            = create(:policy, :superseded, first_published_at: 5.days.ago, change_note: nil)
-    migrated_page     = create(:supporting_page, :superseded, first_published_at: 5.days.ago, change_note: nil, related_policies: [policy])
-    support_page_2    = create(:supporting_page, :published, first_published_at: 3.days.ago, change_note: nil, related_policies: [policy])
-    support_page_1_2  = create(:supporting_page, :published, document: migrated_page.document, major_change_published_at: 2.days.ago, published_major_version: 2, published_minor_version: 0, change_note: 'Some stuff was changed', related_policies: [policy])
+    policy            = Timecop.travel(5.days.ago) { create(:policy, :superseded, first_published_at: Time.zone.now, change_note: nil) }
+    migrated_page     = Timecop.travel(5.days.ago) { create(:supporting_page, :superseded, first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
+    support_page_2    = Timecop.travel(3.days.ago) { create(:supporting_page, :published,  title: 'New supporting page', first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
+    support_page_1_2  = Timecop.travel(2.days.ago) { create(:supporting_page, :published,
+                                                            document: migrated_page.document,
+                                                            first_published_at: migrated_page.public_timestamp,
+                                                            public_timestamp: migrated_page.public_timestamp,
+                                                            major_change_published_at: Time.zone.now,
+                                                            published_major_version: 2,
+                                                            published_minor_version: 0,
+                                                            change_note: 'Some stuff was changed',
+                                                            related_policies: [policy]) }
+
     history           = DocumentHistory.new(policy.document)
 
     expected = [
@@ -111,10 +127,10 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   end
 
   test "#most_recent change returns the timestamp of the most recently published edition" do
-    original_edition = create(:superseded_edition, first_published_at: 3.days.ago, change_note: nil)
+    original_edition = Timecop.travel(3.days.ago) { create(:superseded_edition, first_published_at: Time.zone.now, change_note: nil) }
     document         = original_edition.document
-    new_edition_1    = create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: 2.days.ago, change_note: "some changes")
-    new_edition_2    = create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: 1.day.ago, change_note: "more changes")
+    new_edition_1    = Timecop.travel(2.days.ago) { create(:superseded_edition, document: document, published_major_version: 2, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "some changes") }
+    new_edition_2    = Timecop.travel(1.days.ago) { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
     new_edition_2    = create(:published_edition,  document: document, published_major_version: 2, published_minor_version: 1, minor_change: true)
     history          = DocumentHistory.new(document)
 
