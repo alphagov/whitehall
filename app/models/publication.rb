@@ -46,7 +46,7 @@ class Publication < Publicationesque
   end
 
   def display_type
-    publication_type.singular_name
+    publication_type.try(:singular_name)
   end
 
   def display_type_key

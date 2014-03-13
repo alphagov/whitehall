@@ -6,11 +6,8 @@ module Admin::EditionsHelper
     else
       type = edition.type.underscore.humanize
     end
-    if type == edition.display_type
-      type
-    else
-      "#{type}: #{edition.display_type}"
-    end
+
+    [type, edition.display_type].compact.uniq.join(": ")
   end
 
   def nested_attribute_destroy_checkbox_options(form, html_args = {})
