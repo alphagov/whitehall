@@ -4,15 +4,7 @@ module Edition::Topics
 
   included do
     has_many :topics, through: :classification_memberships, source: :topic
-    has_one :topic_suggestion, foreign_key: :edition_id
-
-    accepts_nested_attributes_for :topic_suggestion, allow_destroy: true, reject_if: ->(attrs) {
-      attrs[:id].blank? && attrs[:name].blank?
-    }
-
-    validate :validate_presence_of_topic, unless: :imported?
-
-    before_validation :mark_topic_suggestion_for_destruction
+    validate :has_at_least_one_topic, unless: :imported?
   end
 
   def can_be_associated_with_topics?
@@ -38,27 +30,14 @@ module Edition::Topics
   end
 
 private
-  def validate_presence_of_topic
-    unless has_associated_topics? || has_topic_suggestion?
-      errors.add(:topics, "at least one required")
-    end
-  end
 
-  def has_associated_topics?
+  def has_at_least_one_topic
     # We need to check the join model because topics will be empty until the
     # classification memberships records are saved, which won't happen until
     # the parent topic is valid. We need to use #empty? here as ActiveRecord
     # overrides it to avoid caching the topics association.
-    !(classification_memberships.empty? && topics.empty?)
-  end
-
-  def has_topic_suggestion?
-    topic_suggestion.present? && !topic_suggestion.marked_for_destruction?
-  end
-
-  def mark_topic_suggestion_for_destruction
-    if topic_suggestion.present? && topic_suggestion.name.blank?
-      topic_suggestion.mark_for_destruction
+    if classification_memberships.empty? && topics.empty?
+      errors.add(:topics, "at least one required")
     end
   end
 end
