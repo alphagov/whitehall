@@ -1,5 +1,5 @@
 <dt class="change-notes-title"><%= t('change_notes.page_history') %>:</dt>
-<% if document.state != 'published' %>
+<% if document.pre_publication? %>
   <dd>Preview</dd>
 <% else %>
   <% history = document.change_history %>
