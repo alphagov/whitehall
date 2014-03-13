@@ -25,7 +25,7 @@ module Whitehall::Uploader
     end
 
     def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(row['policy_1'], row['policy_2'], row['policy_3'], row["policy_4"])
+      Finders::EditionFinder.new(Policy, @logger, @line_number).find(*policy_slugs)
     end
 
     def document_collections
@@ -83,6 +83,11 @@ module Whitehall::Uploader
     end
 
   private
+
+    def policy_slugs
+      row.to_hash.select {|k,v| k=~ /^policy_\d+$/ }.values
+    end
+
     def attachments_from_json
       if row["json_attachments"]
         attachment_data = ActiveSupport::JSON.decode(row["json_attachments"])
