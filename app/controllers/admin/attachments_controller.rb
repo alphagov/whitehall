@@ -31,11 +31,18 @@ class Admin::AttachmentsController < Admin::BaseController
   end
 
   def update_many
-    if attachable.attachments.update(params[:attachments].keys,
-                                     params[:attachments].values)
-      redirect_to admin_edition_path(attachable)
+    errors = {}
+    params[:attachments].each do |id, attributes|
+      attachment = attachable.attachments.find(id.to_i)
+      if !attachment.update_attributes(attributes)
+        errors[id] = attachment.errors.full_messages
+      end
+    end
+
+    if errors.empty?
+      render json: {result: :success}
     else
-      render :edit
+      render json: {result: :failure, errors: errors }, status: 422
     end
   end
 

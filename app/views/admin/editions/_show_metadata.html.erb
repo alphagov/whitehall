@@ -121,13 +121,14 @@
     </h2>
     <% if @edition.attachments.any? %>
       <% if @edition.imported? %>
-        <%= form_tag [:update_many, :admin, typecast_for_attachable_routing(@edition), Attachment], method: :put %>
+        <% initialise_script 'GOVUK.AdminRenameAttachments', form_id: '#attachment_form' %>
+        <%= form_tag [:update_many, :admin, typecast_for_attachable_routing(@edition), Attachment], method: :put, id: 'attachment_form', remote: true %>
       <% end %>
 
       <table class="table headless">
         <% @edition.attachments.each do |attachment| %>
           <tr>
-            <td>
+            <td id='<%= "js-attachment-#{attachment.id}" %>'>
               <% if @edition.imported? %>
                 <%= fields_for 'attachments[]', attachment, builder: ActionView::Helpers::FormBuilder do |f| %>
                   <%= f.text_field :title %>
@@ -136,7 +137,7 @@
                 <%= attachment.title %>
               <% end %>
             </td>
-            <td><%= link_to_attachment(attachment, preview: !@edition.published?) %></td>
+            <td class="attachment-filename"><%= link_to_attachment(attachment, preview: !@edition.published?) %></td>
             <td class="virus-status"><%= attachment_virus_status(attachment) %></td>
             <!--<td><%= attachment_metadata_tag(attachment) %></td>-->
           </tr>
