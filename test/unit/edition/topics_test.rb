@@ -13,7 +13,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     edition = create(:draft_policy, topics: [@topic])
     relation = edition.classification_memberships.first
     edition.destroy
-    refute ClassificationMembership.find_by_id(relation.id)
+    refute ClassificationMembership.exists?(relation)
   end
 
   test "new edition of document that is a member of a topic should remain a member of that topic" do
@@ -23,24 +23,17 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     assert_equal [@topic], new_edition.topics
   end
 
-  test "edition should be invalid with neither topic nor topic suggestion" do
+  test "edition should be invalid without a topic" do
     edition = EditionWithTopics.new(attributes_for_edition)
 
     refute edition.valid?, "Edition should not be valid"
+    assert_match /at least one required/, edition.errors[:topics].first
   end
 
-  test "edition should be valid with an associated topic" do
-    topic = build(:topic)
-    edition = EditionWithTopics.new(attributes_for_edition.merge(topics: [topic]))
+  test "imported editions are valid without any topics" do
+    edition = EditionWithTopics.new(attributes_for_edition.merge(state: 'imported'))
 
-    assert edition.valid?, "Edition should be valid"
-  end
-
-  test "edition should be valid with an associated topic suggestion" do
-    suggestion = TopicSuggestion.new(name: "a new topic")
-    edition = EditionWithTopics.new(attributes_for_edition.merge(topic_suggestion: suggestion))
-
-    assert edition.valid?, "Edition should be valid"
+    assert edition.valid?
   end
 
 private

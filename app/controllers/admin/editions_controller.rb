@@ -7,7 +7,6 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
   before_filter :build_edition_organisations, only: [:new, :edit]
-  before_filter :build_topic_suggestion, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :set_default_edition_locations, only: :new
   before_filter :enforce_permissions!
@@ -185,7 +184,6 @@ class Admin::EditionsController < Admin::BaseController
       policy_team_ids: [],
       policy_advisory_group_ids: [],
       document_collection_group_ids: [],
-      topic_suggestion_attributes: [:name, :id],
       images_attributes: [
         :id, :alt_text, :caption, :_destroy,
         image_data_attributes: [:file, :file_cache]
@@ -240,7 +238,6 @@ class Admin::EditionsController < Admin::BaseController
   def build_edition_dependencies
     build_image
     build_edition_organisations
-    build_topic_suggestion
   end
 
   def build_edition_organisations
@@ -257,12 +254,6 @@ class Admin::EditionsController < Admin::BaseController
     n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
     (n...6).each do |i|
       @edition.edition_organisations.build(lead: false)
-    end
-  end
-
-  def build_topic_suggestion
-    if @edition.can_be_associated_with_topics? && @edition.topic_suggestion.nil?
-      @edition.build_topic_suggestion
     end
   end
 
