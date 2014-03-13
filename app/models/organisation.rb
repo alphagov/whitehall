@@ -260,11 +260,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def indexable_content
-    "#{description} #{about_us_without_markup}"
-  end
-
-  def about_us_without_markup
-    Govspeak::Document.new(about_us).to_text
+    Govspeak::Document.new("#{description} #{about_us}").to_text
   end
 
   def search_link
