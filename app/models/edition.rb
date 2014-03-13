@@ -38,6 +38,7 @@ class Edition < ActiveRecord::Base
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
   FROZEN_STATES = %w(superseded deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
+  POST_PUBLICATION_STATES = %w(published superseded archived).freeze
 
 
   scope :with_title_or_summary_containing, -> *keywords {
