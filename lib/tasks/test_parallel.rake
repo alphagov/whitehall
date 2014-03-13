@@ -7,9 +7,17 @@ namespace :test do
   task :in_parallel => :environment do
     ENV['CUCUMBER_FORMAT'] = 'progress'
     ENV['RAILS_ENV'] = 'test'
-    ['parallel:create', 'parallel:prepare', 'test_queue', 'shared_mustache:compile', 'parallel:features', 'test:javascript', 'test:cleanup'].each do |task|
-      Rake::Task[task].invoke
-    end
+
+    setup_tasks = ['parallel:drop', 'parallel:create', 'parallel:load_schema']
+    test_tasks = ['test_queue', 'shared_mustache:compile', 'parallel:features', 'test:javascript']
+    cleanup_tasks = ['test:cleanup']
+
+    setup_tasks.each { |task| Rake::Task[task].invoke }
+    ParallelTests::Tasks.check_for_pending_migrations
+
+    test_tasks.each { |task| Rake::Task[task].invoke }
+
+    cleanup_tasks.each { |task| Rake::Task[task].invoke }
   end
 end
 
