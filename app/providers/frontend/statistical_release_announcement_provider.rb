@@ -1,8 +1,10 @@
 module Frontend
   class StatisticalReleaseAnnouncementProvider
-    def self.find_by(filter_params = {})
-      release_announcement_hashes = source.advanced_search(filter_params)
-      build_collection(release_announcement_hashes)
+    def self.search(filter_params = {})
+      raise ArgumentError.new(":page and :per_page are required") unless filter_params[:page].present? && filter_params[:per_page].present?
+
+      results = source.advanced_search(filter_params)
+      CollectionPage.new(build_collection(results['results']), total: results['total'], page: filter_params[:page], per_page: filter_params[:per_page])
     end
 
   private
@@ -37,16 +39,20 @@ module Frontend
 
     class FakeRummagerApi
       def self.advanced_search(params = {})
+        raise ArgumentError.new(":page and :per_page are required") unless params[:page].present? && params[:per_page].present?
+
         scope = ::StatisticalReleaseAnnouncement.scoped.order("expected_release_date ASC")
         scope = scope.where("title LIKE('%#{params[:keywords]}%') or summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
-        if params[:from_date].present? && params[:from_date] > Time.zone.now
-          from_date = params[:from_date]
-        else
-          from_date = Time.zone.now
-        end
-        scope = scope.where("expected_release_date > ?", from_date)
+        scope = scope.where("expected_release_date > ?", params[:from_date]) if params[:from_date].present?
         scope = scope.where("expected_release_date < ?", params[:to_date]) if params[:to_date].present?
-        scope.map { |announcement| announcement_to_rummager_hash(announcement) }
+
+        count = scope.count
+
+        scope = scope.limit(params[:per_page]).offset((params[:page]-1) * params[:per_page])
+        {
+          'total' => count,
+          'results' => scope.map { |announcement| announcement_to_rummager_hash(announcement) }
+        }
       end
 
       def self.announcement_to_rummager_hash(announcement)

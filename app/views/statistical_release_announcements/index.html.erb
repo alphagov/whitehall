@@ -37,7 +37,21 @@
   <div class="inner-block">
     <h2>This calendar of upcoming releases is maintained by the <a href="https://gss.civilservice.gov.uk/">Government Statistical Service</a> independently from government
     <ol class="document-list">
-      <%= render @release_announcements %>
+      <%= render @filter.results %>
     </ol>
+
+    <% if @filter.results.number_of_pages > 1 %>
+      <nav id="show-more-documents" role="navigation">
+        <ul class="previous-next-navigation">
+          <%= next_page_link(url:  statistical_release_announcements_path(@filter.next_page_params),
+                             page: @filter.page + 1,
+                             of:   @filter.results.number_of_pages) if @filter.results.next_page? %>
+
+          <%= previous_page_link(url:  statistical_release_announcements_path(@filter.previous_page_params),
+                                 page: @filter.page - 1,
+                                 of:   @filter.results.number_of_pages) if @filter.results.previous_page? %>
+        </ul>
+      </nav>
+    <% end %>
   </div>
 </div>

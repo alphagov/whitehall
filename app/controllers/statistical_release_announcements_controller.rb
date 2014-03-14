@@ -1,6 +1,10 @@
 class StatisticalReleaseAnnouncementsController < PublicFacingController
   def index
-    @filter = Frontend::StatisticalReleaseAnnouncementsFilter.new(params[:statistical_release_announcements_filter])
-    @release_announcements = Frontend::StatisticalReleaseAnnouncementProvider.find_by(@filter.valid_filter_params)
+    @filter = Frontend::StatisticalReleaseAnnouncementsFilter.new(filter_params)
+  end
+
+private
+  def filter_params
+    Hash(params[:statistical_release_announcements_filter]).merge({ page: params[:page] })
   end
 end

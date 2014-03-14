@@ -6,18 +6,11 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
     Frontend::StatisticalReleaseAnnouncementProvider.stubs(:source).returns(@mock_source)
   end
 
-  test ".find_by should ask rummager for all release announcements which match the filter params given" do
-    @mock_source.stubs(:advanced_search).with({keywords: 'keyword'}).returns([{'slug' => 'an-announcement-slug'},
-                                                                              {'slug' => 'another-announcement-slug'}])
-
-    assert_equal ['an-announcement-slug', 'another-announcement-slug'], Frontend::StatisticalReleaseAnnouncementProvider.find_by(keywords: 'keyword').map(&:slug)
-  end
-
   test "release announcments are inflated from rummager hashes" do
     organisation = create(:organisation, name: 'Cabinet Office', slug: 'cabinet-office')
     topic = create(:topic, name: 'Home affairs', slug: 'home-affairs')
 
-    @mock_source.stubs(:advanced_search).returns([{
+    @mock_source.stubs(:advanced_search).returns('total' => 1, 'results' => [{
       "title" => "A title",
       "description" => "The summary",
       "slug" => "a-slug",
@@ -30,7 +23,7 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
       "format" => "statistical_release_announcement"
     }])
 
-    release_announcement = Frontend::StatisticalReleaseAnnouncementProvider.find_by(:something).first
+    release_announcement = Frontend::StatisticalReleaseAnnouncementProvider.search({page: 1, per_page: 10}).first
 
     assert_equal "A title",      release_announcement.title
     assert_equal "a-slug",       release_announcement.slug
@@ -41,6 +34,25 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
     assert_equal organisation, release_announcement.organisations.first
     assert_equal topic, release_announcement.topics.first
   end
+
+  test "results are returned in a CollectionPage with the correct total, page and per_page values" do
+    @mock_source.stubs(:advanced_search).with(page: 2, per_page: 10).returns('total' => 30, 'results' => 10.times.map {|n| {"title" => "A title"} })
+
+    results = Frontend::StatisticalReleaseAnnouncementProvider.search(page: 2, per_page: 10)
+
+    assert_equal 30, results.total
+    assert_equal 2, results.page
+    assert_equal 10, results.per_page
+  end
+
+  test "#search requires :page and :per_page params" do
+    assert_raises(ArgumentError){
+      Frontend::StatisticalReleaseAnnouncementProvider.search(page: nil, per_page: 1)
+    }
+    assert_raises(ArgumentError){
+      Frontend::StatisticalReleaseAnnouncementProvider.search(page: 1, per_page: nil)
+    }
+  end
 end
 
 class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest < ActiveSupport::TestCase
@@ -49,7 +61,17 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
   end
 
   def matched_titles(params = {})
-    subject.advanced_search(params).map {|hash| hash["title"]}
+    params = params.reverse_merge(page: 1, per_page: 100)
+    subject.advanced_search(params)['results'].map {|hash| hash["title"]}
+  end
+
+  test "#advanced_search returns 'total' and 'results'" do
+    4.times { create :statistical_release_announcement }
+
+    returned = subject.advanced_search(page: 1, per_page: 2)
+
+    assert_equal 4, returned['total']
+    assert_equal 2, returned['results'].length
   end
 
   test "#advanced_search returns announcements in an array of hashes similar to that which rummager would return" do
@@ -62,7 +84,7 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
                           display_release_date_override: "Jan 2050",
                           publication_type_id: PublicationType.find_by_slug("statistics").id
 
-    returned_announcement_hash = subject.advanced_search.first
+    returned_announcement_hash = subject.advanced_search(page: 1, per_page: 100)['results'].first
 
     assert_equal announcement.title,                          returned_announcement_hash["title"]
     assert_equal announcement.summary,                        returned_announcement_hash["description"]
@@ -98,8 +120,28 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
     assert_equal ["Wanted release announcement"], matched_titles(to_date: 7.days.from_now)
   end
 
-  test "#advanced_search never returns expired release announcments" do
-    announcement_1 = create :statistical_release_announcement, expected_release_date: 1.day.ago
-    assert_equal [], matched_titles(from_date: 10.days.ago)
+  test "#advanced_search returns results ordered by expected_release_date" do
+    announcement_1 = create :statistical_release_announcement, expected_release_date: 2.days.from_now
+    announcement_2 = create :statistical_release_announcement, expected_release_date: 1.days.from_now
+    announcement_3 = create :statistical_release_announcement, expected_release_date: 3.days.from_now
+  end
+
+  test "#advanced_search supports pagination" do
+    announcements = 4.times.map do |n|
+      create :statistical_release_announcement, title: n, expected_release_date: (n+1).days.from_now
+    end
+
+    assert_equal ['0', '1'],      matched_titles(page: 1, per_page: 2)
+    assert_equal ['2', '3'],      matched_titles(page: 2, per_page: 2)
+    assert_equal ['0', '1', '2'], matched_titles(page: 1, per_page: 3)
+  end
+
+  test "#advanced_search requires :page and :per_page params" do
+    assert_raises(ArgumentError){
+      subject.advanced_search(page: nil, per_page: 1)
+    }
+    assert_raises(ArgumentError){
+      subject.advanced_search(page: 1, per_page: nil)
+    }
   end
 end
