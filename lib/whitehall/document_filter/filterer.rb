@@ -9,7 +9,7 @@ module Whitehall::DocumentFilter
     def initialize(params = {})
       @params          = params
       @per_page        = params[:per_page] || Whitehall::DocumentFilter::Filterer.number_of_documents_per_page
-      @page            = params[:page]
+      @page            = params[:page] || 1
       @from_date       = parse_date(params[:from_date])
       @to_date         = parse_date(params[:to_date])
       @keywords        = params[:keywords]

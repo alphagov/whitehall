@@ -113,6 +113,12 @@ module Whitehall::DocumentFilter
       create_filter(document_scope, {})
     end
 
+    test "defaults pagination to the first page if a page is not specified" do
+      filtered_scope = stub_document_scope('filtered scope')
+      document_scope.expects(:page).with(1).returns(filtered_scope)
+      filter = create_filter(document_scope, page: nil)
+    end
+
     test "strips leading and trailing spaces from keywords" do
       filtered_scope = stub_document_scope('filtered scope')
       document_scope.expects(:with_title_or_summary_containing).with("alpha", "beta").returns(filtered_scope)
