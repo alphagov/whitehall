@@ -6,17 +6,18 @@
     var $form = $(options.form_id);
 
     $form.on('ajax:beforeSend', function(event, xhr, settings) {
-      $form.find('td').removeClass('field_with_errors');
-      $form.find('span.alert-error').remove();
+      $form.find('td').removeClass('error success');
+      $form.find('span.help-block').remove();
     }).on('ajax:error', function(event, xhr, status) {
       $.each(xhr.responseJSON.errors, function(key, error) {
         $form.find("td#js-attachment-" + key)
-          .after('<span class="alert-error">' + error + '</span>')
-          .parent().addClass('field_with_errors');
+          .addClass('error')
+          .append('<span class="help-block">' + error + '</span>');
       });
     }).on('ajax:complete', function(xhr, status) {
       $form.find('input[type=hidden][name=commit]').remove();
       $form.find('input[name=commit]').removeAttr('disabled');
+      $form.find('td.control-group').not('.error').addClass('success');
     });
   }
 
