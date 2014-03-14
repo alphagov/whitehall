@@ -16,6 +16,9 @@ ps:
       policies:
         one: پالیسي
         other: پالیسی ګانې
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

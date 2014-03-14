@@ -16,6 +16,9 @@ si:
       policies:
         one: ප්රතතිපත්තිය
         other: ප්‍රතිපත්තීන්
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

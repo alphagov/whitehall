@@ -129,6 +129,9 @@ fa:
         one: سیاست
         other: سیاست ها
       policy_team: تیم سیاست گذاری
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

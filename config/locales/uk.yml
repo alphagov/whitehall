@@ -26,6 +26,11 @@ uk:
         few:
         many:
         other: Політики
+      sectors:
+        one:
+        few:
+        many:
+        other:
       topical_events:
         one:
         few:

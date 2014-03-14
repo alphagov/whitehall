@@ -16,6 +16,9 @@ so:
       policies:
         one: Siyaasad
         other: Siyaasado
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

@@ -21,6 +21,10 @@ lt:
         one: Strategija
         few:
         other: Strategijos
+      sectors:
+        one:
+        few:
+        other:
       topical_events:
         one:
         few:

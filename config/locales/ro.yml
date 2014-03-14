@@ -21,6 +21,10 @@ ro:
         one: Obiectiv strategic
         few:
         other: Obiective strategice
+      sectors:
+        one:
+        few:
+        other:
       topical_events:
         one:
         few:

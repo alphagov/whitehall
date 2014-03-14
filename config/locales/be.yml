@@ -26,6 +26,11 @@ be:
         few:
         many:
         other: Напрамкі дзейнасці
+      sectors:
+        one:
+        few:
+        many:
+        other:
       topical_events:
         one:
         few:

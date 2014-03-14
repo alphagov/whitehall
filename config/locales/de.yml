@@ -16,6 +16,9 @@ de:
       policies:
         one: Politik
         other: Politik
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

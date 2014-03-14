@@ -129,6 +129,9 @@ id:
         one: Kebijakan
         other: Kebijakan-kebijakan
       policy_team: Tim kebijakan
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
