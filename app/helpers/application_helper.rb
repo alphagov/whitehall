@@ -41,7 +41,9 @@ module ApplicationHelper
 
   def link_to_attachment(attachment, options = {})
     return unless attachment
-    link_to (attachment.html? ? 'HTML attachment' : attachment.filename), attachment.url(options)
+    name = (attachment.html? ? 'HTML attachment' : attachment.filename)
+    name = truncate(name) if options[:truncate]
+    link_to name, attachment.url(options)
   end
 
   def role_appointment(appointment, link = false)
