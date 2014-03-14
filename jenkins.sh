@@ -39,7 +39,7 @@ mkdir -p ./infected-uploads
 mkdir -p ./attachment-cache
 
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-time bundle exec rake ci:setup:minitest test:in_parallel --trace
+RAILS_ENV=test time bundle exec rake ci:setup:minitest test:in_parallel --trace
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:clean --trace
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:precompile --trace
 
