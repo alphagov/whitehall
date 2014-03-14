@@ -226,4 +226,14 @@ module OrganisationHelper
 
     content_tag(:p, contents.html_safe)
   end
+
+  def two_people_or_fewer
+    [
+      @ministers,
+      @important_board_members + @board_members,
+      @traffic_commissioners,
+      @special_representatives,
+      @chief_professional_officers
+    ].any? {|group| group.count <= 2}
+  end
 end
