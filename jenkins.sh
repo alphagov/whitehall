@@ -29,8 +29,8 @@ function error_handler {
 trap "error_handler ${LINENO}" ERR
 github_status pending "is running on Jenkins"
 
-# Empty and recreate carrierwave directory
-rm -rf ./carrierwave-tmp && mkdir -p ./carrierwave-tmp
+# Ensure there are no artefacts left over from previous builds
+git clean -fdx
 
 # Generate directories for upload tests
 mkdir -p ./incoming-uploads
@@ -40,7 +40,6 @@ mkdir -p ./attachment-cache
 
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 RAILS_ENV=test time bundle exec rake ci:setup:minitest test:in_parallel --trace
-RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:clean --trace
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:precompile --trace
 
 EXIT_STATUS=$?
