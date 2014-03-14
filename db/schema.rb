@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140306105311) do
+ActiveRecord::Schema.define(:version => 20140307095755) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -396,15 +396,6 @@ ActiveRecord::Schema.define(:version => 20140306105311) do
 
   add_index "edition_translations", ["edition_id"], :name => "index_edition_translations_on_edition_id"
   add_index "edition_translations", ["locale"], :name => "index_edition_translations_on_locale"
-
-  create_table "edition_user_needs", :force => true do |t|
-    t.integer  "edition_id"
-    t.integer  "user_need_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "edition_user_needs", ["edition_id"], :name => "index_edition_user_needs_on_edition_id"
 
   create_table "edition_world_locations", :force => true do |t|
     t.integer  "edition_id"
@@ -1032,8 +1023,8 @@ ActiveRecord::Schema.define(:version => 20140306105311) do
   create_table "specialist_sectors", :force => true do |t|
     t.integer  "edition_id"
     t.string   "tag"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.boolean  "primary",    :default => false
   end
 
@@ -1109,17 +1100,6 @@ ActiveRecord::Schema.define(:version => 20140306105311) do
 
   add_index "unpublishings", ["edition_id"], :name => "index_unpublishings_on_edition_id"
   add_index "unpublishings", ["unpublishing_reason_id"], :name => "index_unpublishings_on_unpublishing_reason_id"
-
-  create_table "user_needs", :force => true do |t|
-    t.string   "user"
-    t.string   "need"
-    t.string   "goal"
-    t.integer  "organisation_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "user_needs", ["organisation_id"], :name => "index_user_needs_on_organisation_id"
 
   create_table "user_world_locations", :force => true do |t|
     t.integer "user_id"
