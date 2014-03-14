@@ -256,6 +256,14 @@ class AnnouncementsControllerTest < ActionController::TestCase
     refute_select_object english_article
   end
 
+  view_test 'index for non-english locale copes when a nil page is specified' do
+    english_article = create(:published_news_article)
+    spanish_article = create(:published_news_article, translated_into: [:fr])
+    get :index, locale: 'fr', page: nil
+
+    assert_response :success
+  end
+
   view_test 'index for non-english locales only allows filtering by world location' do
     get :index, locale: 'fr'
 

@@ -123,9 +123,7 @@ INNER JOIN `world_locations` ON `world_locations`.`id` = `edition_world_location
     end
 
     def paginate!
-      if page.present?
-        @documents = @documents.page(page).per(per_page)
-      end
+      @documents = @documents.page(page).per(per_page)
     end
 
     def apply_sort_direction!
