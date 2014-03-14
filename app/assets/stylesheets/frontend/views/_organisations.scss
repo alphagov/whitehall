@@ -640,6 +640,33 @@
       margin-left: 0;
     }
 
+    &.two-people-or-fewer {
+      margin: 0 (-$gutter-half);
+
+      #ministers,
+      #management {
+        float: left;
+        clear: none;
+        margin: 0;
+        padding: 0;
+        width: $half;
+
+        h1 {
+          margin: 0 $gutter-half $gutter-two-thirds;
+        }
+
+        ul {
+          margin: 0;
+          width: $full-width;
+          .person-excerpt {
+            float: left;
+            clear: none;
+            padding: 0;
+            width: $half;
+          }
+        }
+      }
+    }
   } // end #who
 
   .contact-wrapper, .corporate-information {
