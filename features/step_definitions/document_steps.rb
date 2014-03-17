@@ -201,8 +201,7 @@ end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|
   visit_public_index_for(edition)
-  css_selector = edition.is_a?(DetailedGuide) ? 'h1.page_title' : record_css_selector(edition)
-  assert page.has_css?(css_selector, text: edition.title)
+  assert page.has_css?(record_css_selector(edition), text: edition.title)
 end
 
 Then /^I should see in the preview that "([^"]*)" should be in the "([^"]*)" and "([^"]*)" topics$/ do |title, first_topic, second_topic|
