@@ -21,28 +21,22 @@ Given(/^There are some statistical release announcements$/) do
   end
 end
 
+Given(/^There are some statisical release announcments for various departments and topics$/) do
+  @department = create :ministerial_department
+  @topic = create :topic
+
+  create :statistical_release_announcement, title: "Announcement for both department and topic", organisation: @department, topic: @topic
+  create :statistical_release_announcement, title: "Announcement for department", organisation: @department
+  create :statistical_release_announcement, title: "Announcement for topic", topic: @topic
+
+end
+
 When(/^I visit the statistical release announcements page$/) do
   visit statistical_release_announcements_path
 end
 
 When(/^I navigate to the next page of statistical release announcements$/) do
   click_on "Next page"
-end
-
-Then(/^I can see the first page of all the statistical release announcements$/) do
-  assert page.has_content? "Womble to Wombat population ratios"
-  assert page.has_content? "2055 beard lengths"
-  assert page.has_content? "Wombat population in Wimbledon Common 2063"
-  assert page.has_content? "Extra release announcement 1"
-  assert page.has_content? "Extra release announcement 37"
-  refute page.has_content? "Extra release announcement 38"
-  assert_equal 40, page.all(".document-list .document-row").length
-end
-
-Then(/^I can see the second page of all the statistical release announcements$/) do
-  refute page.has_content? "Extra release announcement 37"
-  assert page.has_content? "Extra release announcement 38"
-  assert page.has_content? "Extra release announcement 40"
 end
 
 When(/^I filter the statistical release announcements by keyword, from_date and to_date$/) do
@@ -54,8 +48,39 @@ When(/^I filter the statistical release announcements by keyword, from_date and 
   end
 end
 
+When(/^I filter the statistical release announcements by department and topic$/) do
+  within '.filter-form' do
+    select @department.name, from: "Department"
+    select @topic.name, from: "Topic"
+    click_on "Refresh results"
+  end
+end
+
+Then(/^I can see the first page of all the statistical release announcements$/) do
+  assert page.has_content? "Womble to Wombat population ratios"
+  assert page.has_content? "2055 beard lengths"
+  assert page.has_content? "Wombat population in Wimbledon Common 2063"
+  assert page.has_content? "Extra release announcement 1"
+  assert page.has_content? "Extra release announcement 37"
+  assert page.has_no_content? "Extra release announcement 38"
+  assert_equal 40, page.all(".document-list .document-row").length
+end
+
+Then(/^I can see the second page of all the statistical release announcements$/) do
+  assert page.has_no_content? "Extra release announcement 37"
+  assert page.has_content? "Extra release announcement 38"
+  assert page.has_content? "Extra release announcement 40"
+end
+
+
+
 Then(/^I should only see statistical release announcements for those filters$/) do
   assert page.has_content? "Womble to Wombat population ratios"
   assert_equal 1, page.all(".document-list .document-row").length
 end
 
+Then(/^I should only see statistical release announcements for the selected departments and topics$/) do
+  assert page.has_content? "Announcement for both department and topic"
+  assert page.has_no_content? "Announcement for department"
+  assert page.has_no_content? "Announcement for topic"
+end

@@ -35,15 +35,24 @@ class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestC
     assert_equal 1, build.page
   end
 
+  test "organisations and topics always return arrays" do
+    assert build(topics: nil).topics.is_a? Array
+    assert build(organisations: nil).organisations.is_a? Array
+  end
+
   test "#valid_filter_params returns all attributes if all are present and valid excluding pagination parameters" do
     announcement = build(keywords: "keyword",
                          from_date: "2020-01-01 12:00:00",
                          to_date: "2020-02-01 10:00:00",
+                         organisations: ["an-org-slug"],
+                         topics: ["a-topic-slug"],
                          page: 2)
 
     assert_equal({ keywords: "keyword",
                    from_date: Time.zone.parse("2020-01-01 12:00:00"),
-                   to_date: Time.zone.parse("2020-02-01 10:00:01")
+                   to_date: Time.zone.parse("2020-02-01 10:00:01"),
+                   organisations: ["an-org-slug"],
+                   topics: ["a-topic-slug"],
                  }, announcement.valid_filter_params)
   end
 
@@ -51,6 +60,8 @@ class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestC
     refute build(keywords: nil).valid_filter_params.keys.include? :keywords
     refute build(from_date: nil).valid_filter_params.keys.include? :from_date
     refute build(to_date: nil).valid_filter_params.keys.include? :to_date
+    refute build(organisations: ['']).valid_filter_params.keys.include? :organisations
+    refute build(topics: ['']).valid_filter_params.keys.include? :topics
   end
 
   test "#valid_filter_params skips invalid attributes" do

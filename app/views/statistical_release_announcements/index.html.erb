@@ -22,6 +22,18 @@
             <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
           </div>
         </div>
+        <div class="filter">
+          <div class="filter-inner">
+            <%= label_tag "organisations", "Department" %>
+            <%= select_tag "organisations[]", organisation_options_for_release_announcement_filter(@filter.organisations), id: "organisations", class: "single-row-select" %>
+          </div>
+        </div>
+        <div class="filter">
+          <div class="filter-inner">
+            <%= label_tag "topics", "Topic" %>
+            <%= select_tag "topics[]", topic_options_for_release_announcement_filter(@filter.topics), id: "topics", class: "single-row-select" %>
+          </div>
+        </div>
         <div class="filter date-range-filter">
           <div class="filter-inner">
             <%= label_tag :from_date, "Published after" %>

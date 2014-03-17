@@ -3,6 +3,7 @@ class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
   attr_accessor :keywords,
                 :from_date, :parsed_from_date,
                 :to_date, :parsed_to_date,
+                :organisations, :topics,
                 :page
 
   RESULTS_PER_PAGE = 40
@@ -29,12 +30,21 @@ class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
     end
   end
 
+  def organisations
+    Array(@organisations).reject(&:blank?)
+  end
+
+  def topics
+    Array(@topics).reject(&:blank?)
+  end
+
   def valid_filter_params
-    valid?
     params = {}
-    params[:keywords]  = keywords         if keywords.present?
-    params[:to_date]   = parsed_to_date   if parsed_to_date.present?
-    params[:from_date] = parsed_from_date if parsed_from_date.present?
+    params[:keywords]  = keywords          if keywords.present?
+    params[:to_date]   = parsed_to_date    if parsed_to_date.present?
+    params[:from_date] = parsed_from_date  if parsed_from_date.present?
+    params[:organisations] = organisations if organisations.present?
+    params[:topics] = topics               if topics.present?
     params
   end
 
