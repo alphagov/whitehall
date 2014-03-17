@@ -232,7 +232,7 @@ module ApplicationHelper
       announcements_path
     when "topics", "classifications", "topical_events", "about_pages"
       topics_path
-    when "publications", "statistical_data_sets"
+    when "publications", "statistical_data_sets", "document_collections"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
       elsif parameters[:publication_filter_option] == 'statistics' || parameters[:controller] == 'statistical_data_sets'
