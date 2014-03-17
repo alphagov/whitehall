@@ -235,7 +235,9 @@ module ApplicationHelper
     when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
-      elsif parameters[:publication_filter_option] == 'statistics' || parameters[:controller] == 'statistical_data_sets'
+      elsif parameters[:publication_filter_option] == 'statistics' || 
+            parameters[:controller] == 'statistical_data_sets' ||
+            @document && @document.try(:statistics?)
         publications_path(publication_filter_option: 'statistics')
       else
         publications_path
