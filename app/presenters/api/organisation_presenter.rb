@@ -9,6 +9,8 @@ class Api::OrganisationPresenter < Api::BasePresenter
       details: {
         slug: model.slug,
         abbreviation: model.acronym,
+        logo_formatted_name: model.logo_formatted_name,
+        organisation_brand_colour_class_name: model.organisation_brand_colour.try(:class_name),
         closed_at: model.closed_at,
         govuk_status: model.govuk_status,
       },
