@@ -1,10 +1,8 @@
 module Frontend
   class StatisticalReleaseAnnouncementProvider
-    def self.search(filter_params = {})
-      raise ArgumentError.new(":page and :per_page are required") unless filter_params[:page].present? && filter_params[:per_page].present?
-
-      results = source.advanced_search(filter_params)
-      CollectionPage.new(build_collection(results['results']), total: results['total'], page: filter_params[:page], per_page: filter_params[:per_page])
+    def self.search(search_params = {})
+      results = source.advanced_search(prepare_search_params(search_params))
+      CollectionPage.new(build_collection(results['results']), total: results['total'], page: search_params[:page], per_page: search_params[:per_page])
     end
 
   private
@@ -33,26 +31,58 @@ module Frontend
       Topic.find_all_by_slug(topic_slugs)
     end
 
-    def self.source
-      FakeRummagerApi
+    def self.prepare_search_params(params)
+      params = params.dup
+
+      expected_release_timestamp_params = {
+        from: params.delete(:from_date).try(:iso8601),
+        to: params.delete(:to_date).try(:iso8601)
+      }.delete_if {|k, v| v.blank? }
+      params[:expected_release_timestamp] = expected_release_timestamp_params unless expected_release_timestamp_params.empty?
+
+      params[:page] = params[:page].to_s
+      params[:per_page] = params[:per_page].to_s
+      params
     end
+
+    def self.source
+      if Rails.env.test? || (Rails.env.development? && ENV['RUMMAGER_HOST'].nil?)
+        FakeRummagerApi
+      else
+        Whitehall.government_search_client
+      end
+    end
+
 
     class FakeRummagerApi
       def self.advanced_search(params = {})
         raise ArgumentError.new(":page and :per_page are required") unless params[:page].present? && params[:per_page].present?
+        raise_unless_values_are_strings(params)
 
         scope = ::StatisticalReleaseAnnouncement.scoped.order("expected_release_date ASC")
         scope = scope.where("title LIKE('%#{params[:keywords]}%') or summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
-        scope = scope.where("expected_release_date > ?", params[:from_date]) if params[:from_date].present?
-        scope = scope.where("expected_release_date < ?", params[:to_date]) if params[:to_date].present?
-
+        if params[:expected_release_timestamp].present?
+          scope = scope.where("expected_release_date > ?", params[:expected_release_timestamp][:from]) if params[:expected_release_timestamp][:from].present?
+          scope = scope.where("expected_release_date < ?", params[:expected_release_timestamp][:to]) if params[:expected_release_timestamp][:to].present?
+        end
         count = scope.count
 
-        scope = scope.limit(params[:per_page]).offset((params[:page]-1) * params[:per_page])
+        scope = scope.limit(params[:per_page]).offset((params[:page].to_i - 1) * params[:per_page].to_i)
         {
           'total' => count,
           'results' => scope.map { |announcement| announcement_to_rummager_hash(announcement) }
         }
+      end
+
+    private
+      def self.raise_unless_values_are_strings(param_hash)
+        param_hash.each do |key, value|
+          if value.is_a? Hash
+            raise_unless_values_are_strings(value)
+          elsif !value.is_a? String
+            raise ArgumentError.new("Search paramaters must be provided as strings, :#{key} was a #{value.class.name}")
+          end
+        end
       end
 
       def self.announcement_to_rummager_hash(announcement)

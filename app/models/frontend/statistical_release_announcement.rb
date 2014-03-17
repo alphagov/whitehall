@@ -2,7 +2,7 @@ class Frontend::StatisticalReleaseAnnouncement < InflatableModel
   attr_accessor :slug, :title, :summary, :document_type, :release_date, :release_date_text, :organisations, :topics
 
   def release_date_text
-    @release_date_text || release_date.to_s(:long)
+    @release_date_text || release_date.try(:to_s, :long)
   end
 
   def release_date=(date_value)
