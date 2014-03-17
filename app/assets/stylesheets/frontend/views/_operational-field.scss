@@ -14,10 +14,6 @@
     @include ig-core-27;
   }
 
-  .page_title {
-    @include ig-core-36;
-  }
-
   .meta {
     @include media(desktop) {
       margin-top: $gutter;

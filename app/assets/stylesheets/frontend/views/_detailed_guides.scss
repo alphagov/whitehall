@@ -43,20 +43,6 @@
 
   .category-european-regional-development-funding .page-header {
     background: image-url("erdf-logo.png") no-repeat 98% 94%;
-
-    .page-meta {
-      padding-bottom: $gutter*3;
-
-      @include media(tablet) {
-        padding-bottom: 0;
-        margin-right: $gutter*7.5;
-      }
-    }
-  }
-
-  .organisation-logo-large,
-  .organisation-logo-small {
-    color: $black;
   }
 
   .replaces-businesslink {
