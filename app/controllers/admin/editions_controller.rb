@@ -137,7 +137,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def next_imported_document_path
     import = Import.source_of(@edition.document)
-    next_document = import.document_imported_after(@edition.document).latest_edition if import
+    next_document = import.document_imported_after(@edition.document) if import
     return admin_edition_path(next_document.latest_edition) if next_document
 
     admin_editions_path(session_filters.merge(state: :imported))
