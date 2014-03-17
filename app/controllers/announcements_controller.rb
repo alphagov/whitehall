@@ -2,10 +2,9 @@ class AnnouncementsController < DocumentsController
   enable_request_formats index: [:json, :atom]
 
   def index
-    clean_search_filter_params
-
     expire_on_next_scheduled_publication(scheduled_announcements)
-    @filter = build_document_filter(params.reverse_merge({ page: 1 }))
+    @filter = build_document_filter
+    @filter.announcements_search
 
     respond_to do |format|
       format.html do
@@ -23,11 +22,6 @@ class AnnouncementsController < DocumentsController
   end
 
 private
-  def build_document_filter(params)
-    document_filter = search_backend.new(params)
-    document_filter.announcements_search
-    document_filter
-  end
 
   def scheduled_announcements
     Announcement.scheduled.order("scheduled_publication asc")

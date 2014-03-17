@@ -26,12 +26,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal expected_order.map(&:id), actual_order
   end
 
-  test "#index should handle badly formatted params for topics and departments" do
-    assert_nothing_raised {
-      get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}
-    }
-  end
-
   test '#show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document
@@ -404,10 +398,10 @@ class PublicationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, from_date: "2012-01-01", topics: [topic], departments: [organisation]
+    get :index, format: :json, from_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug]
 
     json = ActiveSupport::JSON.decode(response.body)
-    atom_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    atom_url = publications_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
     assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end

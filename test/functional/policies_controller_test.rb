@@ -16,10 +16,6 @@ class PoliciesControllerTest < ActionController::TestCase
   should_set_the_article_id_for_the_edition_for :policy
   should_not_show_share_links_for :policy
 
-  test "index should handle badly formatted params for topics and departments" do
-    get :index, departments: {'0' => "all"}, topics: {'0' => "all"}, keywords: []
-  end
-
   view_test "index only lists documents in the given locale" do
     without_delay! do
       english_policy = create(:published_policy)
