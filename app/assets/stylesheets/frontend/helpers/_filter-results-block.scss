@@ -1,0 +1,70 @@
+.filter-results-block {
+  float: left;
+  width: $two-thirds;
+
+  h2 {
+    margin-bottom: $gutter-half;
+  }
+
+  .filter-results-summary {
+    @extend %contain-floats;
+    @include core-16;
+
+    border-bottom: 1px solid $border-colour;
+    padding-bottom: $gutter-one-sixth;
+    margin-bottom: $gutter-one-third;
+
+    .count {
+      @include core-48;
+      font-weight: bold;
+      float: left;
+      padding-right: $gutter-one-third;
+      line-height: 1;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    a {
+      color: $secondary-text-colour;
+      position: relative;
+      top: 1px;
+      padding-right: 3px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: none;
+        color: $secondary-text-colour;
+      }
+    }
+
+    @include media (tablet) {
+      padding-top: $gutter-one-sixth;
+      .count {
+        // The count is shifted up instead of the rest of the text down because
+        // we want the flow after the summary to be determined by the length of the
+        // the text
+        margin-top: -3px;
+      }
+    }
+  }
+
+  .filter-results {
+    .no-results {
+      padding: $gutter 0 $gutter-half;
+      border-bottom: 1px solid $border-colour;
+      h2 {
+        @include core-27;
+      }
+      h3 {
+        @include core-19;
+        font-weight: bold;
+      }
+      p {
+        @include core-19;
+        margin: $gutter-half 0;
+      }
+    }
+  }
+}
