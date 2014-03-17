@@ -41,19 +41,28 @@
     }
   }
 
-  .category-european-regional-development-funding .page-header {
-    background: image-url("erdf-logo.png") no-repeat 98% 94%;
+  .category-european-regional-development-funding .heading-extra .inner-heading {
+    height: 60px;
+    background: image-url("erdf-logo.png") no-repeat $gutter-half 0;
+    @include media(tablet){
+      height: 140px;
+      background-position: 80% 100%;
+    }
   }
 
   .replaces-businesslink {
-    @include ig-core-16;
+    @include core-16;
     padding-top: $gutter-one-third;
 
-    @include media(desktop) {
+    @include media(tablet) {
       float: right;
     }
     p {
+      margin: 0 $gutter-half;
       color: $text-colour;
+      @include media(tablet) {
+        margin: 0 $gutter;
+      }
     }
     .businesslink-logo {
       display: block;
