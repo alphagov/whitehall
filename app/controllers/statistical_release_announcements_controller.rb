@@ -5,6 +5,6 @@ class StatisticalReleaseAnnouncementsController < PublicFacingController
 
 private
   def filter_params
-    Hash(params[:statistical_release_announcements_filter]).merge({ page: params[:page] })
+    params.slice(:page, :keywords, :from_date, :to_date)
   end
 end

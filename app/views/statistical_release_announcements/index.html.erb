@@ -18,13 +18,17 @@
       <fieldset>
         <div class="filter">
           <div class="filter-inner">
-            <%= f.text_field :keywords, label_text: "Contains", placeholder: "keywords" %>
+            <%= label_tag :keywords, "Contains" %>
+            <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
           </div>
         </div>
         <div class="filter date-range-filter">
           <div class="filter-inner">
-            <%= f.text_field :from_date, label_text: "Published after", placeholder: "e.g. 01/01/2013" %>
-            <%= f.text_field :to_date, label_text: "Published before", placeholder: "e.g. 30/02/2013" %>
+            <%= label_tag :from_date, "Published after" %>
+            <%= text_field_tag :from_date, @filter.from_date, placeholder: "e.g. 01/01/2013" %>
+
+            <%= label_tag :to_date, "Published before" %>
+            <%= text_field_tag :to_date, @filter.to_date, placeholder: "e.g. 30/02/2013" %>
           </div>
         </div>
         <%= f.submit "Refresh results", class: "button" %>
