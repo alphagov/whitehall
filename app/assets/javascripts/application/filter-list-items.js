@@ -7,6 +7,7 @@
   var filter = {
     _terms: false,
     _regexCache: {},
+    _trackTimeout: false,
 
     init: function(){
       var $filterList = $('.js-filter-list');
@@ -31,6 +32,16 @@
       filter.$filterItems.hide();
       $(itemsToShow).show();
       filter.hideEmptyBlocks(itemsToShow);
+      filter.track(search);
+    },
+    track: function(search){
+      clearTimeout(filter._trackTimeout);
+      filter._trackTimeout = root.setTimeout(function(){
+        var pagePath = window.location.pathname.split('/').pop();
+        if(pagePath){
+          window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', search, pagePath, true]);
+        }
+      }, 1000);
     },
     hideEmptyBlocks: function(itemsToShow){
       if(itemsToShow.length === 0){
