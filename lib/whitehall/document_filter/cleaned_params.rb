@@ -2,8 +2,8 @@ module Whitehall::DocumentFilter
   class CleanedParams < ActiveSupport::HashWithIndifferentAccess
     # These filter parameters are expected to be an array of values
     PERMITTED_ARRAY_PARAMETER_KEYS  = %w(topics departments people_ids world_locations)
-    # These filter params are expected to be scaler values, as defined by the strong_parameters code
-    PERMITTED_SCALER_PARAMETER_KEYS = %w(page
+    # These filter params are expected to be scalar values, as defined by the strong_parameters code
+    PERMITTED_SCALAR_PARAMETER_KEYS = %w(page
                                          per_page
                                          from_date
                                          to_date
@@ -25,7 +25,7 @@ module Whitehall::DocumentFilter
         clean_malformed_array_params(param_key)
       end
 
-      super params.permit(*PERMITTED_SCALER_PARAMETER_KEYS +
+      super params.permit(*PERMITTED_SCALAR_PARAMETER_KEYS +
                            PERMITTED_ARRAY_PARAMETER_KEYS.map {|key| { key => [] }})
     end
 
