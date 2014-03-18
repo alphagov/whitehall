@@ -653,6 +653,13 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [closed_org], Organisation.closed
   end
 
+  test "with_statistical_release_announcements scopes to organisations with associated statistical_release_announcements" do
+    org_with_announcement = create(:organisation)
+    create(:statistical_release_announcement, organisation: org_with_announcement)
+    org_without_announcement = create(:organisation)
+    assert_equal [org_with_announcement], Organisation.with_statistical_release_announcements
+  end
+
   should_not_accept_footnotes_in(:description)
   should_not_accept_footnotes_in(:about_us)
 end

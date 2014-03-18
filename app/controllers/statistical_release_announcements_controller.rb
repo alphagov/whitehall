@@ -5,6 +5,6 @@ class StatisticalReleaseAnnouncementsController < PublicFacingController
 
 private
   def filter_params
-    params.slice(:page, :keywords, :from_date, :to_date)
+    params.slice(:page, :keywords, :from_date, :to_date, :organisations, :topics)
   end
 end

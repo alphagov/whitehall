@@ -109,18 +109,32 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
     assert_equal ["Wombats", "Womble's troubles"], matched_titles(keywords: "wombat")
   end
 
-  test "#advanced_search with expected_release_timestamp from returns release announcements after the given date" do
+  test "#advanced_search with expected_release_timestamp[:from] returns release announcements after the given date" do
     announcement_1 = create :statistical_release_announcement, expected_release_date: 10.days.from_now.iso8601, title: "Wanted release announcement"
     announcement_2 = create :statistical_release_announcement, expected_release_date: 5.days.from_now.iso8601, title: "Unwanted release announcement"
 
     assert_equal ["Wanted release announcement"], matched_titles(expected_release_timestamp: { from: 7.days.from_now.iso8601 })
   end
 
-  test "#advanced_search with expected_release_timestamp to returns release announcements before the given date" do
+  test "#advanced_search with expected_release_timestamp[:to] returns release announcements before the given date" do
     announcement_1 = create :statistical_release_announcement, expected_release_date: 10.days.from_now.iso8601, title: "Unwanted release announcement"
     announcement_2 = create :statistical_release_announcement, expected_release_date: 5.days.from_now.iso8601, title: "Wanted release announcement"
 
     assert_equal ["Wanted release announcement"], matched_titles(expected_release_timestamp: { to: 7.days.from_now.iso8601 })
+  end
+
+  test "#advanced_search with organisations returns results associated with the organisations" do
+    announcement_1 = create :statistical_release_announcement, organisation: create(:organisation)
+    announcement_2 = create :statistical_release_announcement
+
+    assert_equal [announcement_1.title], matched_titles(organisations: [announcement_1.organisation.slug])
+  end
+
+  test "#advanced_search with topics returns results associated with the topics" do
+    announcement_1 = create :statistical_release_announcement, topic: create(:topic)
+    announcement_2 = create :statistical_release_announcement
+
+    assert_equal [announcement_1.title], matched_titles(topics: [announcement_1.topic.slug])
   end
 
   test "#advanced_search returns results ordered by expected_release_date" do
@@ -162,6 +176,9 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
     }
     assert_nothing_raised {
       subject.advanced_search({ expected_release_timestamp: { from: "some date" }, page: '1', per_page: '1' })
+    }
+    assert_nothing_raised {
+      subject.advanced_search({ some_array: ['a-slug'], page: '1', per_page: '1' })
     }
   end
 end

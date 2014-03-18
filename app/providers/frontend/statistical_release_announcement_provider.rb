@@ -61,6 +61,14 @@ module Frontend
 
         scope = ::StatisticalReleaseAnnouncement.scoped.order("expected_release_date ASC")
         scope = scope.where("title LIKE('%#{params[:keywords]}%') or summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
+        if params[:organisations].present?
+          organisation_ids = Organisation.find_all_by_slug(params[:organisations]).map &:id
+          scope = scope.where(organisation_id: organisation_ids)
+        end
+        if params[:topics].present?
+          topic_ids = Topic.find_all_by_slug(params[:topics]).map &:id
+          scope = scope.where(topic_id: topic_ids)
+        end
         if params[:expected_release_timestamp].present?
           scope = scope.where("expected_release_date > ?", params[:expected_release_timestamp][:from]) if params[:expected_release_timestamp][:from].present?
           scope = scope.where("expected_release_date < ?", params[:expected_release_timestamp][:to]) if params[:expected_release_timestamp][:to].present?
@@ -79,7 +87,7 @@ module Frontend
         param_hash.each do |key, value|
           if value.is_a? Hash
             raise_unless_values_are_strings(value)
-          elsif !value.is_a? String
+          elsif !(value.is_a?(String) || value.is_a?(Array))
             raise ArgumentError.new("Search paramaters must be provided as strings, :#{key} was a #{value.class.name}")
           end
         end
