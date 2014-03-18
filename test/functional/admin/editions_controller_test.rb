@@ -282,7 +282,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "should redirect to the next document imported without changing state when 'Save and Next' is clicked" do
     first_document, second_document = *create_list(:imported_publication, 2)
-    Import.stubs(:source_of).returns(mock(document_imported_after: second_document))
+    Import.stubs(:source_of).returns(mock(document_imported_before: second_document))
 
     first_document_latest_edition = first_document.latest_edition
     put :update, id: first_document_latest_edition, speed_save_next: 1, edition: {
