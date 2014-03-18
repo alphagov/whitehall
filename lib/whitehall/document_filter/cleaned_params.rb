@@ -29,7 +29,15 @@ module Whitehall::DocumentFilter
                            PERMITTED_ARRAY_PARAMETER_KEYS.map {|key| { key => [] }})
     end
 
+    def unpermitted_keys
+      @params.keys - permitted_filter_keys
+    end
+
   private
+
+    def permitted_filter_keys
+      PERMITTED_SCALAR_PARAMETER_KEYS + PERMITTED_ARRAY_PARAMETER_KEYS + ActionController::Parameters::NEVER_UNPERMITTED_PARAMS
+    end
 
     def params
       @params

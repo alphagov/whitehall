@@ -42,6 +42,13 @@ module Whitehall::DocumentFilter
       assert_equal({ 'keywords' => 'statistics'}, cleaned_params)
     end
 
+    test "#unpermitted keys returns any param keys that are not permitted" do
+      raw_params       = build_unclean_params('action' => 'show', 'page' => '3', 'stuff' => 'things', 'hax' => 'haha!')
+      cleaned_params   = CleanedParams.new(raw_params)
+
+      assert_same_elements ['stuff', 'hax'], cleaned_params.unpermitted_keys
+    end
+
   private
 
     def build_unclean_params(param_hash)
