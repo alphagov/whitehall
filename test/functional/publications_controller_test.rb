@@ -26,12 +26,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_equal expected_order.map(&:id), actual_order
   end
 
-  test "#index should handle badly formatted params for topics and departments" do
-    assert_nothing_raised {
-      get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}
-    }
-  end
-
   test '#show displays published publications' do
     published_publication = create(:published_publication)
     get :show, id: published_publication.document
@@ -404,10 +398,10 @@ class PublicationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, from_date: "2012-01-01", topics: [topic], departments: [organisation]
+    get :index, format: :json, from_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug]
 
     json = ActiveSupport::JSON.decode(response.body)
-    atom_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    atom_url = publications_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
     assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end
@@ -690,6 +684,24 @@ class PublicationsControllerTest < ActionController::TestCase
     get :show, id: edition.document
 
     refute_select ".translations"
+  end
+
+  test "#index notifies airbrake when unpermitted filter parameters are received" do
+    begin
+      @old_config_value = ActionController::Parameters.action_on_unpermitted_parameters
+      ActionController::Parameters.action_on_unpermitted_parameters = false
+
+      @controller.expects(:notify_airbrake).with do |ex|
+        ex.is_a?(ActionController::UnpermittedParameters) && ex.params == ['hax']
+      end
+
+      get :index, keywords: 'statistics', hax: 'boo'
+
+      assert_response :success
+      assert_template :index
+    ensure
+      ActionController::Parameters.action_on_unpermitted_parameters = @old_config_value
+    end
   end
 
   private

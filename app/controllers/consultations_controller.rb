@@ -1,6 +1,5 @@
 class ConsultationsController < DocumentsController
   def index
-    clean_search_filter_params
     redirect_to publications_path(publication_filter_option: 'consultations')
   end
 

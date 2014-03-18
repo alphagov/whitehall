@@ -2,10 +2,9 @@ class PublicationsController < DocumentsController
   enable_request_formats index: [:json, :atom]
 
   def index
-    clean_search_filter_params
-
     expire_on_next_scheduled_publication(scheduled_publications)
-    @filter = build_document_filter(params.reverse_merge({ page: 1 }))
+    @filter = build_document_filter
+    @filter.publications_search
 
     respond_to do |format|
       format.html do
@@ -28,12 +27,6 @@ class PublicationsController < DocumentsController
   end
 
 private
-
-  def build_document_filter(params)
-    document_filter = search_backend.new(params)
-    document_filter.publications_search
-    document_filter
-  end
 
   def scheduled_publications
     Publicationesque.scheduled.order("scheduled_publication asc")

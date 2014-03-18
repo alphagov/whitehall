@@ -6,8 +6,24 @@ class DocumentsController < PublicFacingController
   before_filter :redirect_to_canonical_url
   before_filter :find_document, only: [:show]
   before_filter :set_slimmer_headers_for_document, only: [:show]
+  before_filter :notify_if_unpermitted_filter_params, only: :index
 
-  private
+private
+
+  def build_document_filter
+    search_backend.new(cleaned_document_filter_params)
+  end
+
+  def cleaned_document_filter_params
+    Whitehall::DocumentFilter::CleanedParams.new(params.except(:format, :commit, :_))
+  end
+
+  def notify_if_unpermitted_filter_params
+    if cleaned_document_filter_params.unpermitted_keys.any?
+      ex = ActionController::UnpermittedParameters.new(cleaned_document_filter_params.unpermitted_keys)
+      notify_airbrake(ex)
+    end
+  end
 
   def preview?
     params[:preview]
@@ -76,7 +92,7 @@ class DocumentsController < PublicFacingController
     url_for(redir_params)
   end
 
-  def set_slimmer_headers_for_document()
+  def set_slimmer_headers_for_document
     organisations = @document.importance_ordered_organisations
     organisations += @document.worldwide_organisations if @document.can_be_associated_with_worldwide_organisations?
     set_slimmer_organisations_header(organisations)

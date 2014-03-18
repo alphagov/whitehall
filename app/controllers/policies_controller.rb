@@ -8,9 +8,8 @@ class PoliciesController < DocumentsController
   before_filter :set_analytics_format, only: [:show, :activity]
 
   def index
-    clean_search_filter_params
-
-    @filter = build_document_filter(params.reverse_merge({ page: 1 }))
+    @filter = build_document_filter
+    @filter.policies_search
 
     respond_to do |format|
       format.html do
@@ -40,15 +39,10 @@ class PoliciesController < DocumentsController
     end
   end
 
-  private
+private
+
   def document_class
     Policy
-  end
-
-  def build_document_filter(params)
-    document_filter = search_backend.new(params)
-    document_filter.policies_search
-    document_filter
   end
 
   def analytics_format

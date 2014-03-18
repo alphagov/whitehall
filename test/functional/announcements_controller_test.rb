@@ -9,10 +9,6 @@ class AnnouncementsControllerTest < ActionController::TestCase
   should_return_json_suitable_for_the_document_filter :news_article
   should_return_json_suitable_for_the_document_filter :speech
 
-  test "index should handle badly formatted params for topics and departments" do
-    get :index, departments: {"0" => "all"}, topics: {"0" => "all"}, keywords: [], world_location: {"0" => "all"}
-  end
-
   view_test "index shows a mix of news and speeches" do
     without_delay! do
       announced_today = [create(:published_news_article), create(:published_speech)]
@@ -239,10 +235,10 @@ class AnnouncementsControllerTest < ActionController::TestCase
     topic = create(:topic)
     organisation = create(:organisation)
 
-    get :index, format: :json, to_date: "2012-01-01", topics: [topic], departments: [organisation]
+    get :index, format: :json, to_date: "2012-01-01", topics: [topic.slug], departments: [organisation.slug]
 
     json = ActiveSupport::JSON.decode(response.body)
-    atom_url = announcements_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+    atom_url = announcements_url(format: "atom", topics: [topic.slug], departments: [organisation.slug], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
 
     assert_equal json["email_signup_url"], new_email_signups_path(email_signup: { feed: atom_url })
   end

@@ -68,24 +68,4 @@ class ApplicationController < ActionController::Base
   def set_meta_description(description)
     @meta_description = description
   end
-
-  # Facebook referer changes the Rails array syntax in URLs.
-  # Use this when the expected filter value can have multiple values.
-  # This method converts a nested hash to a hash with just the values
-  def clean_malformed_params_array(key)
-    if params[key].kind_of?(Hash)
-      params[key] = params[key].values
-    end
-  end
-
-  # Wrap the params to cope with either an array or singular param value as
-  # some URLs with keywords[]= are causing errors as they treated as an empty array.
-  # @param [Symbol] key
-  # @example
-  #   params[:keywords] = []
-  #   clean_malformed_params(:keywords)
-  #   params[:keywords] #=> nil
-  def clean_malformed_params(key)
-    params[key] = Array.wrap(params[key]).first if params.has_key?(key)
-  end
 end
