@@ -10,12 +10,6 @@ jQuery(function($) {
   GOVUK.stickAtTopWhenScrolling.init();
 
   $('.js-toggle-change-notes').toggler({actLikeLightbox: true});
-  $('.js-toggle-change-notes').click(function(){
-    if(!window.changeNoteTrackingEventSent){
-      window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', 'change_note', 'shown', 0, true]);
-      window.changeNoteTrackingEventSent = true;
-    }
-  });
   $('.js-toggle-footer-change-notes').toggler();
 
   $('.js-toggle-accessibility-warning').toggler({header: ".toggler", content: ".help-block"})
