@@ -5,41 +5,28 @@
 
 <% category_slug_classes =  @document.mainstream_categories.map { |cat| "category-#{cat.slug}" } %>
 <%= content_tag_for :article, @document, nil, class: "document_page #{@document.type.downcase} #{category_slug_classes.join(' ')}" do %>
-  <div class="block-1">
-    <div class="inner-block">
-      <div class="meta">
-        <%= render partial: 'change_notes', locals: {document: @document} %>
-      </div>
-      <section class="page-header js-hide-extra-logos">
-        <ul class="organisations-icon-list">
-          <% @document.sorted_organisations.each do |organisation| %>
-            <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
-              <%= link_to organisation_path(organisation),
-                          class: logo_classes(organisation: organisation, size: 'medium') do %>
-                <span><%= organisation_logo_name(organisation, false) %></span>
-              <% end %>
-            <% end %>
-          <% end %>
-        </ul>
-        <%= render partial: "title", locals: {
-          topics: @topics,
-          document: @document
-        }%>
-
-        <% if @document.replaces_businesslink? %>
-          <div class="replaces-businesslink">
-            <p>
-              This replaces
-              <span class="businesslink-logo">
-                <span class="visuallyhidden">Business Link</span>
-              </span>
-            </p>
-          </div>
-        <% end %>
-      </section>
-
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
+      <%= render  partial: 'header',
+                  locals: {
+                    header_title: t_display_type(@document),
+                    document: @document,
+                    policies: @related_policies,
+                    topics: @document.topics,
+                    primary_mainstream_category: @document.primary_mainstream_category
+                  } %>
+      <% if @document.replaces_businesslink? %>
+        <div class="replaces-businesslink">
+          <p>
+            This replaces
+            <span class="businesslink-logo">
+              <span class="visuallyhidden">Business Link</span>
+            </span>
+          </p>
+        </div>
+      <% end %>
     </div>
-  </div>
+  </header>
 
   <%= render('documents/archive_notice', document: @document, type: 'guidance') if @document.archived? %>
 

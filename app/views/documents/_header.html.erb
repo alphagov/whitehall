@@ -2,6 +2,7 @@
   header_title ||= ""
   policies ||= nil
   topics ||= []
+  primary_mainstream_category ||= nil
 %>
 <%= render partial: 'shared/heading',
           locals: { type: header_title,
@@ -16,4 +17,8 @@
     <%= national_statistics_logo(document) %>
   </div>
 </div>
-<%= render partial: 'documents/metadata', locals: { document: document, policies: policies, topics: topics } %>
+<%= render partial: 'documents/metadata',
+            locals: { document: document,
+                      policies: policies,
+                      topics: topics,
+                      primary_mainstream_category: primary_mainstream_category } %>

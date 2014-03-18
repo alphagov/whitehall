@@ -1,5 +1,4 @@
 class DetailedGuidesController < DocumentsController
-  layout "detailed-guidance"
   skip_before_filter :set_search_path
   before_filter :set_search_index
   before_filter :set_breadcrumb_trail, only: [:show]

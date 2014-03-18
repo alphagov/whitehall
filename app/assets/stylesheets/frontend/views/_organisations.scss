@@ -29,11 +29,6 @@
       padding: $gutter*1.5 0 ($gutter + $gutter-one-third);
     }
 
-    .page_title {
-      display: block;
-      @include bold;
-    }
-
   }
 
   .ministerial-departments, .executive-offices {

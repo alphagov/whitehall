@@ -1,6 +1,7 @@
 <%
   policies ||= []
   topics ||= []
+  primary_mainstream_category ||= nil
 %>
 <aside class="meta">
   <div class="inner-heading">
@@ -22,6 +23,14 @@
         <dt><%= metadata[:title] %>:</dt>
         <dd class="js-hide-other-links <%= metadata.fetch(:classes, []).join(' ') %>">
           <%= metadata[:data].to_sentence.html_safe %>
+        </dd>
+      <% end %>
+
+      <% if primary_mainstream_category.present? %>
+        <dt>Primary category:</dt>
+        <dd>
+          <%= link_to primary_mainstream_category.title,
+                      mainstream_category_path(primary_mainstream_category)%>
         </dd>
       <% end %>
 
