@@ -39,7 +39,7 @@
       filter._trackTimeout = root.setTimeout(function(){
         var pagePath = window.location.pathname.split('/').pop();
         if(pagePath){
-          window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', search, pagePath]);
+          window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', search, pagePath, true]);
         }
       }, 1000);
     },
