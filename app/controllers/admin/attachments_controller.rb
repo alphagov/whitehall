@@ -30,6 +30,22 @@ class Admin::AttachmentsController < Admin::BaseController
     end
   end
 
+  def update_many
+    errors = {}
+    params[:attachments].each do |id, attributes|
+      attachment = attachable.attachments.find(id)
+      if !attachment.update_attributes(attributes.slice(:title))
+        errors[id] = attachment.errors.full_messages
+      end
+    end
+
+    if errors.empty?
+      render json: {result: :success}
+    else
+      render json: {result: :failure, errors: errors }, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     attachment.destroy
     redirect_to attachable_attachments_path(attachable), notice: 'Attachment deleted'

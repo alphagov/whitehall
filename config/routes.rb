@@ -260,6 +260,7 @@ Whitehall::Application.routes.draw do
           resource :document_sources, path: "document-sources", except: [:show]
           resources :attachments, except: [:show] do
             put :order, on: :collection
+            put :update_many, on: :collection, :constraints => {:format => "json"}
           end
           resources :bulk_uploads, except: [:show, :edit, :update] do
             post :upload_zip, on: :collection

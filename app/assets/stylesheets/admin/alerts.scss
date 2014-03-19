@@ -58,6 +58,13 @@ $orange: #f47738;
   }
 }
 
+.inline-submit {
+  .notice {
+    padding: 5px;
+    border: none;
+  }
+}
+
 p.warning {
   color: $alert-border-color;
   font-size: 1.2em;
