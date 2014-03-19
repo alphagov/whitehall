@@ -30,6 +30,12 @@
 
   <%= render('documents/archive_notice', document: @document, type: 'guidance') if @document.archived? %>
 
+  <div class="summary-block">
+    <div class="inner-block">
+      <%= render partial: "document_summary", locals: { document: @document } %>
+    </div>
+  </div>
+
   <div class="block-2">
     <div class="inner-block">
       <%= render partial: "document_contextual", locals: {edition: @document} %>

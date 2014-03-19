@@ -72,6 +72,18 @@
     }
   }
 
+  .summary {
+    padding-bottom: $gutter-half;
+
+    @include media(tablet){
+      padding-top: $gutter-half;
+      padding-bottom: $gutter*1.5;
+    }
+    p {
+      @include core-24;
+    }
+  }
+
   .contextual-info {
     padding-top: $gutter-one-sixth;
 
