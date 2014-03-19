@@ -15,7 +15,7 @@
   <% if edition.is_a?(Publication) && edition.statistics_announcement.present? %>
     <div class="alert alert-info announced-publication">
       <p>
-        This publication has been announced for publication <%= edition.statistics_announcement.display_release_date %>.
+        This publication has been announced for publication <%= edition.statistics_announcement.display_date %>.
         <%= link_to 'Edit announcement', [:edit, :admin, edition.statistics_announcement] %>
       </p>
     </div>

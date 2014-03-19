@@ -23,19 +23,23 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal 'beard-statistics-2015', announcement.slug
   end
 
-  test '#display_release_date is based on expected_release_date by default' do
-    announcement = create(:statistics_announcement, expected_release_date: Time.new(2015, 03, 15, 9, 30))
-    assert_equal '15 March 2015 09:30', announcement.display_release_date
-  end
-
-  test '#display_release_date can be overridden with display_release_date_override' do
-    announcement = create(:statistics_announcement, display_release_date_override: 'April 2015')
-
-    assert_equal 'April 2015', announcement.display_release_date
-  end
-
   test 'is search indexable' do
-    assert create(:statistics_announcement).can_index_in_search?
+    announcement   = create(:statistics_announcement)
+    expected_indexed_content = {
+      'title' => announcement.title,
+      'link' => announcement.public_path,
+      'format' => 'statistics_announcement',
+      'description' => announcement.summary,
+      'organisations' => [announcement.organisation.slug],
+      'topics' => [announcement.topic.slug],
+      'display_type' => announcement.display_type,
+      'slug' => announcement.slug,
+      'expected_release_timestamp' => announcement.release_date,
+      'expected_release_text' => announcement.display_date
+    }
+
+    assert announcement.can_index_in_search?
+    assert_equal expected_indexed_content, announcement.search_index
   end
 
   test 'is indexed for search after being saved' do

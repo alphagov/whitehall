@@ -3,6 +3,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def new
     @statistics_announcement = build_statistics_announcement(organisation_id: current_user.organisation.try(:id))
+    @statistics_announcement.build_statistics_announcement_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
   end
 
   def create
@@ -48,7 +49,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(
-      :title, :summary, :expected_release_date, :display_release_date_override,
-      :organisation_id, :topic_id, :publication_type_id, :publication_id)
+      :title, :summary, :organisation_id, :topic_id, :publication_type_id, :publication_id,
+      statistics_announcement_date_attributes: [:id, :release_date, :precision, :confirmed])
   end
 end

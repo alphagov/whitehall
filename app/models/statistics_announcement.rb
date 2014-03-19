@@ -7,13 +7,17 @@ class StatisticsAnnouncement < ActiveRecord::Base
   belongs_to :topic
   belongs_to :publication
 
+  has_one  :statistics_announcement_date, inverse_of: :statistics_announcement
+
   validate  :publication_is_statistics, if: :publication
-  validates :title, :summary, :organisation, :topic, :creator, presence: true
+  validates :title, :summary, :organisation, :topic, :creator, :statistics_announcement_date, presence: true
   validates :publication_type_id,
               inclusion: {
                 in: PublicationType.statistical.map(&:id),
                 message: 'must be a statistical type'
               }
+
+  accepts_nested_attributes_for :statistics_announcement_date
 
   include Searchable
   searchable  title: :title,
@@ -23,16 +27,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
               slug: :slug,
               organisations: :organisation_slugs,
               topics: :topic_slugs,
-              expected_release_timestamp: :expected_release_date,
-              expected_release_text: :display_release_date
+              expected_release_timestamp: :release_date,
+              expected_release_text: :display_date
 
-  def display_release_date
-    if display_release_date_override.blank?
-      expected_release_date.to_s(:long_ordinal)
-    else
-      display_release_date_override
-    end
-  end
+  delegate :release_date, :display_date, to: :statistics_announcement_date
 
   def display_type
     publication_type.singular_name

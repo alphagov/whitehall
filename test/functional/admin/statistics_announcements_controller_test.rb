@@ -21,13 +21,19 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
                     publication_type_id: PublicationType::Statistics.id,
                     organisation_id: @organisation.id,
                     topic_id: @topic.id,
-                    expected_release_date: 1.year.from_now }
+                    statistics_announcement_date_attributes: {
+                      release_date: 1.year.from_now,
+                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+                      confirmed: '0'
+                    }
+                  }
 
     assert_redirected_to admin_root_url
     assert announcement = StatisticsAnnouncement.last
     assert_equal 'Beard stats 2014', announcement.title
     assert_equal @organisation, announcement.organisation
     assert_equal @user, announcement.creator
+    assert_equal 'November 2012', announcement.display_date
   end
 
   view_test "POST :create re-renders the form if the announcement is invalid" do

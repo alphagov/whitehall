@@ -11,7 +11,7 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   select 'Statistics', from: :statistics_announcement_publication_type_id
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
-  select_date 1.year.from_now.to_s, from: "Expected release date"
+  select_date 1.year.from_now.to_s, from: "Release date"
   select organisation.name, from: :statistics_announcement_organisation_id
   select topic.name, from: :statistics_announcement_topic_id
 
