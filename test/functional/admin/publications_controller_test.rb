@@ -33,29 +33,29 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'GET :new pre-fills the pubication when a statistical release announcement id is provided' do
-    release_announcement = create(:statistical_release_announcement)
-    get :new, statistical_release_announcement_id: release_announcement.id
+  test 'GET :new pre-fills the pubication when a statistics announcement id is provided' do
+    statistics_announcement = create(:statistics_announcement)
+    get :new, statistics_announcement_id: statistics_announcement.id
 
-    assert_equal release_announcement.id, assigns(:edition).statistical_release_announcement_id
-    assert_equal release_announcement.title, assigns(:edition).title
-    assert_equal release_announcement.summary, assigns(:edition).summary
-    assert_equal release_announcement.publication_type, assigns(:edition).publication_type
-    assert_equal [release_announcement.topic], assigns(:edition).topics
-    assert_equal release_announcement.expected_release_date.to_i, assigns(:edition).scheduled_publication.to_i
+    assert_equal statistics_announcement.id, assigns(:edition).statistics_announcement_id
+    assert_equal statistics_announcement.title, assigns(:edition).title
+    assert_equal statistics_announcement.summary, assigns(:edition).summary
+    assert_equal statistics_announcement.publication_type, assigns(:edition).publication_type
+    assert_equal [statistics_announcement.topic], assigns(:edition).topics
+    assert_equal statistics_announcement.expected_release_date.to_i, assigns(:edition).scheduled_publication.to_i
   end
 
-  test 'POST :create with an statistical release announcement id assigns the publication to the announcement' do
-    release_announcement = create(:statistical_release_announcement)
+  test 'POST :create with an statistics announcement id assigns the publication to the announcement' do
+    statistics_announcement = create(:statistics_announcement)
     post :create, edition: controller_attributes_for(:publication,
       publication_type_id: PublicationType::Statistics.id,
       lead_organisation_ids: [@organisation.id],
-      statistical_release_announcement_id: release_announcement.id
+      statistics_announcement_id: statistics_announcement.id
     )
 
     assert publication = Publication.last, assigns(:edition).errors.full_messages.inspect
     assert_redirected_to admin_publication_path(publication)
-    assert_equal publication, release_announcement.reload.publication
+    assert_equal publication, statistics_announcement.reload.publication
   end
 
   test "create should create a new publication" do

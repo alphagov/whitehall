@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :statistical_release_announcement do
+  factory :statistics_announcement do
     sequence(:title) { |index| "Stats announcement #{index}" }
     summary "Summary of announcement"
     publication_type_id PublicationType::Statistics.id

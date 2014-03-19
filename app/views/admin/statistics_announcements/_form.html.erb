@@ -1,24 +1,24 @@
 
-<%= form_for [:admin, release_announcement] do |form| %>
+<%= form_for [:admin, statistics_announcement] do |form| %>
   <%= form.hidden_field :publication_id %>
   <%= form.errors %>
 
   <%= form.label  :publication_type_id, 'Statistics type', required: true %>
   <%= form.select :publication_type_id,
-                  options_from_collection_for_select(PublicationType.statistical, 'id', 'singular_name', release_announcement.publication_type_id) %>
+                  options_from_collection_for_select(PublicationType.statistical, 'id', 'singular_name', statistics_announcement.publication_type_id) %>
 
   <%= form.text_field :title, required: true %>
   <%= form.text_area :summary, rows: 5, required: true %>
 
   <%= form.label  :organisation_id, 'Organisation', required: true %>
   <%= form.select :organisation_id,
-                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', release_announcement.organisation_id),
+                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', statistics_announcement.organisation_id),
                   {},
                   class: 'chzn-select' %>
 
   <%= form.label  :topic_id, 'Topic', required: true %>
   <%= form.select :topic_id,
-                  options_from_collection_for_select(Topic.all, 'id', 'name', release_announcement.topic_id),
+                  options_from_collection_for_select(Topic.all, 'id', 'name', statistics_announcement.topic_id),
                   { prompt: 'Select a topic' },
                   class: 'chzn-select' %>
 

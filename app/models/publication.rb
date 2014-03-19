@@ -17,9 +17,9 @@ class Publication < Publicationesque
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
-  has_one :statistical_release_announcement
-  attr_accessor :statistical_release_announcement_id
-  after_create :assign_statistical_release_announcement
+  has_one :statistics_announcement
+  attr_accessor :statistics_announcement_id
+  after_create :assign_statistics_announcement
 
   def self.subtypes
     PublicationType.all
@@ -121,9 +121,9 @@ class Publication < Publicationesque
     true
   end
 
-  def assign_statistical_release_announcement
-    if statistical_release_announcement_id.present?
-      self.statistical_release_announcement = StatisticalReleaseAnnouncement.find(statistical_release_announcement_id)
+  def assign_statistics_announcement
+    if statistics_announcement_id.present?
+      self.statistics_announcement = StatisticsAnnouncement.find(statistics_announcement_id)
     end
   end
 

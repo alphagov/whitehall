@@ -1,0 +1,22 @@
+<% content_for :page_class, 'statistics-announcements edit' %>
+<% page_title "Edit statistics announcement" %>
+
+<div class="span8">
+  <h1>Edit statistics announcement</h1>
+
+  <%= render 'document_status', statistics_announcement: @statistics_announcement %>
+
+  <%= render "form", statistics_announcement: @statistics_announcement %>
+</div>
+
+<div class="span4">
+  <div class="sidebar">
+    <section class="display_heading">
+        <%= button_to('Delete announcement',
+                      admin_statistics_announcement_path(@statistics_announcement),
+                      method: :delete,
+                      data: { confirm: "Are you sure you want to delete this announcement?" },
+                      class: 'btn btn-danger') %>
+    </section>
+  </div>
+</div>

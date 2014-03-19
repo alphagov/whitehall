@@ -2,9 +2,9 @@ require 'test_helper'
 
 class AnnouncementClearerTest < ActiveSupport::TestCase
   test '#clear! any associated announcement from the search index' do
-    announcement = create(:statistical_release_announcement)
+    announcement = create(:statistics_announcement)
     statistics = create(:published_statistics,
-      statistical_release_announcement: announcement)
+      statistics_announcement: announcement)
 
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
 

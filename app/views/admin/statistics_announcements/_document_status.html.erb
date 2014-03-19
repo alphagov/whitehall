@@ -1,4 +1,4 @@
-<% if publication = release_announcement.publication %>
+<% if publication = statistics_announcement.publication %>
 
   <div class="alert alert-info" style="margin: 10px 0 5px 0">
     <p>
@@ -16,8 +16,8 @@
   <div class="alert">
     <p>This announcement is not yet linked to a document.</p>
     <p class="js-document-announcement-linker">
-      <%= link_to "Draft new document", new_admin_publication_path(statistical_release_announcement_id: release_announcement) %>
+      <%= link_to "Draft new document", new_admin_publication_path(statistics_announcement_id: statistics_announcement) %>
     </p>
-    <%= render "document_linker", release_announcement: release_announcement %>
+    <%= render "document_linker", statistics_announcement: statistics_announcement %>
   </div>
 <% end %>

@@ -12,11 +12,11 @@
 <% end %>
 <% if edition.pre_publication? %>
 
-  <% if edition.is_a?(Publication) && edition.statistical_release_announcement.present? %>
+  <% if edition.is_a?(Publication) && edition.statistics_announcement.present? %>
     <div class="alert alert-info announced-publication">
       <p>
-        This publication has been announced for publication <%= edition.statistical_release_announcement.display_release_date %>.
-        <%= link_to 'Edit announcement', [:edit, :admin, edition.statistical_release_announcement] %>
+        This publication has been announced for publication <%= edition.statistics_announcement.display_release_date %>.
+        <%= link_to 'Edit announcement', [:edit, :admin, edition.statistics_announcement] %>
       </p>
     </div>
   <% end %>

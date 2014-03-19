@@ -1,4 +1,4 @@
-class StatisticalReleaseAnnouncement < ActiveRecord::Base
+class StatisticsAnnouncement < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title
 
@@ -8,7 +8,7 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
   belongs_to :publication
 
   validate  :publication_is_statistics, if: :publication
-  validates :title, :summary, :expected_release_date, :organisation, :topic, :creator, presence: true
+  validates :title, :summary, :organisation, :topic, :creator, presence: true
   validates :publication_type_id,
               inclusion: {
                 in: PublicationType.statistical.map(&:id),
@@ -43,7 +43,7 @@ class StatisticalReleaseAnnouncement < ActiveRecord::Base
   end
 
   def public_path
-    Whitehall.url_maker.statistical_release_announcement_path(self)
+    Whitehall.url_maker.statistics_announcement_path(self)
   end
 
   def organisation_slugs

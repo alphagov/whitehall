@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :user_world_locations
   has_many :world_locations, through: :user_world_locations
-  has_many :statistical_release_announcements, foreign_key: :creator_id
+  has_many :statistics_announcements, foreign_key: :creator_id
 
   serialize :permissions, Array
 

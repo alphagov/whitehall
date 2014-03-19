@@ -2,12 +2,12 @@
   "use strict";
   window.GOVUK = window.GOVUK || {};
 
-  window.GOVUK.statisticalReleaseAnnouncementLinker = {
+  window.GOVUK.statisticsAnnouncementLinker = {
     init: function init() {
       var $linker = $('.js-document-announcement-linker'),
           $documentFinder = $('#document-finder'),
           $documentFinderResult = $documentFinder.find('#edition_id'),
-          $annoucementForm = $('form.edit_statistical_release_announcement');
+          $annoucementForm = $('form.edit_statistics_announcement');
 
       // add link to reveal document finder
       var $revealLink = $('<a href=# class="announcement-linker-link">Link to an existing draft document</a>');
@@ -29,7 +29,7 @@
 
       // listener to assign publication when a result is clicked on in the documentFinder
       $documentFinderResult.change(function() {
-        $annoucementForm.find('input#statistical_release_announcement_publication_id').val($(this).val());
+        $annoucementForm.find('input#statistics_announcement_publication_id').val($(this).val());
         $annoucementForm.submit();
       });
     }
