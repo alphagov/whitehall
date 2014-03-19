@@ -54,7 +54,7 @@ private
   end
 
   def fake_source_url?(source)
-    source.url =~ /(fabricatedurl|placeholderunique)/
+    source.url =~ /(fabricatedurl|fabricatedURL|placeholderunique|github)/
   end
 
   def url_maker
