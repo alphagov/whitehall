@@ -5,26 +5,12 @@ class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestC
     Frontend::StatisticalReleaseAnnouncementsFilter.new(attrs)
   end
 
-  test "#to_date= fills parsed_to_date if possible, taking the latest possible time in it's assumptions" do
-    assert_equal Time.zone.parse("2010-02-01 00:00:00 +0000"), build(to_date: "Jan 2010").parsed_to_date
-    assert_equal nil, build(to_date: "sandwich").parsed_to_date
+  test "to_date= casts into Date, taking the latest possible date in it's assumptions" do
+    assert_equal Date.new(2010, 01, 31), build(to_date: "Jan 2010").to_date
   end
 
-  test "#from_date= fills parsed_from_date if possible, taking the earliest possible time in it's assumptions" do
-    assert_equal Time.zone.parse("2010-01-01 00:00:00 +0000"), build(from_date: "Jan 2010").parsed_from_date
-    assert_equal nil, build(from_date: "sandwich").parsed_from_date
-  end
-
-  test "if to_date isn't parseable, a validation error is added" do
-    announcement = build(to_date: "sandwich")
-    refute announcement.valid?
-    assert announcement.errors[:to_date].any?
-  end
-
-  test "if from_date isn't parseable, a validation error is added" do
-    announcement = build(from_date: "sandwich")
-    refute announcement.valid?
-    assert announcement.errors[:from_date].any?
+  test "from_date= casts into Date, taking the earliest possible date in it's assumptions" do
+    assert_equal Date.new(2010, 01, 01), build(from_date: "Jan 2010").from_date
   end
 
   test "#page= casts to integer" do
@@ -35,24 +21,42 @@ class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestC
     assert_equal 1, build.page
   end
 
-  test "organisations and topics always return arrays" do
-    assert build(topics: nil).topics.is_a? Array
-    assert build(organisations: nil).organisations.is_a? Array
+  test "organisations= parses slugs into real organisations" do
+    org_1, org_2 = 2.times.map { create(:organisation) }
+    assert_equal [org_1, org_2], build(organisations: [org_1.slug, org_2]).organisations
+  end
+
+  test "organisation_slugs returns slugs of organisations" do
+    organisation = create(:organisation)
+    assert_equal [organisation.slug], build(organisations: [organisation]).organisation_slugs
+  end
+
+  test "topics= parses slugs into real topics" do
+    topic_1, topic_2 = 2.times.map { create(:topic) }
+    assert_equal [topic_1, topic_2], build(topics: [topic_1.slug, topic_2]).topics
+  end
+
+  test "topic_slugs returns slugs of topics" do
+    topic = create(:topic)
+    assert_equal [topic.slug], build(topics: [topic]).topic_slugs
   end
 
   test "#valid_filter_params returns all attributes if all are present and valid excluding pagination parameters" do
+    organisation = create :organisation
+    topic = create :topic
+
     announcement = build(keywords: "keyword",
-                         from_date: "2020-01-01 12:00:00",
-                         to_date: "2020-02-01 10:00:00",
-                         organisations: ["an-org-slug"],
-                         topics: ["a-topic-slug"],
+                         from_date: "2020-01-01",
+                         to_date: "2020-02-01",
+                         organisations: [organisation],
+                         topics: [topic],
                          page: 2)
 
     assert_equal({ keywords: "keyword",
-                   from_date: Time.zone.parse("2020-01-01 12:00:00"),
-                   to_date: Time.zone.parse("2020-02-01 10:00:01"),
-                   organisations: ["an-org-slug"],
-                   topics: ["a-topic-slug"],
+                   from_date: Date.new(2020, 1, 1),
+                   to_date: Date.new(2020, 2, 1),
+                   organisations: [organisation.slug],
+                   topics: [topic.slug],
                  }, announcement.valid_filter_params)
   end
 
@@ -60,13 +64,8 @@ class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestC
     refute build(keywords: nil).valid_filter_params.keys.include? :keywords
     refute build(from_date: nil).valid_filter_params.keys.include? :from_date
     refute build(to_date: nil).valid_filter_params.keys.include? :to_date
-    refute build(organisations: ['']).valid_filter_params.keys.include? :organisations
-    refute build(topics: ['']).valid_filter_params.keys.include? :topics
-  end
-
-  test "#valid_filter_params skips invalid attributes" do
-    refute build(from_date: "fishslice").valid_filter_params.keys.include? :from_date
-    refute build(to_date: "fishslice").valid_filter_params.keys.include? :to_date
+    refute build(organisations: []).valid_filter_params.keys.include? :organisations
+    refute build(topics: []).valid_filter_params.keys.include? :topics
   end
 
   test "#results should ask the provider for results, using #valid_filter_params + pagination params as search terms" do

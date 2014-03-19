@@ -1,23 +1,14 @@
 class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
   named "StatisticalReleaseAnnouncementsFilter"
   attr_accessor :keywords,
-                :from_date, :parsed_from_date,
-                :to_date, :parsed_to_date,
+                :from_date, :to_date,
                 :organisations, :topics,
                 :page
 
   RESULTS_PER_PAGE = 40
 
-  validate :validate_dates
-
-  def to_date=(date_string)
-    @to_date = date_string
-    @parsed_to_date = Chronic.parse(date_string, guess: :end)
-  end
-
-  def from_date=(date_string)
-    @from_date = date_string
-    @parsed_from_date = Chronic.parse(date_string, guess: :begin)
+  def filter_type
+    "release announcement"
   end
 
   def page
@@ -30,26 +21,68 @@ class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
     end
   end
 
+  def to_date=(date)
+    date = Chronic.parse(date, guess: :end) if date.is_a? String
+    @to_date = if date.present?
+      (date-1.seconds).to_date
+    else
+      nil
+    end
+  end
+
+  def from_date=(date)
+    date = Chronic.parse(date, guess: :begin) if date.is_a? String
+    @from_date = if date.present?
+      date.to_date
+    else
+      nil
+    end
+  end
+
+  def organisations=(organisations)
+    @organisations = organisations.map { |org|
+      org.is_a?(Organisation) ? org : Organisation.find_by_slug(org)
+    }.compact
+  end
+
   def organisations
-    Array(@organisations).reject(&:blank?)
+    Array(@organisations)
+  end
+
+  def organisation_slugs
+    organisations.map &:slug
+  end
+
+  def topics=(topics)
+    @topics = topics.map { |topic|
+      topic.is_a?(Topic) ? topic : Topic.find_by_slug(topic)
+    }.compact
   end
 
   def topics
-    Array(@topics).reject(&:blank?)
+    Array(@topics)
+  end
+
+  def topic_slugs
+    topics.map &:slug
   end
 
   def valid_filter_params
     params = {}
-    params[:keywords]  = keywords          if keywords.present?
-    params[:to_date]   = parsed_to_date    if parsed_to_date.present?
-    params[:from_date] = parsed_from_date  if parsed_from_date.present?
-    params[:organisations] = organisations if organisations.present?
-    params[:topics] = topics               if topics.present?
+    params[:keywords]      = keywords           if keywords.present?
+    params[:to_date]       = to_date            if to_date.present?
+    params[:from_date]     = from_date          if from_date.present?
+    params[:organisations] = organisation_slugs if organisations.present?
+    params[:topics]        = topic_slugs        if topics.present?
     params
   end
 
   def results
     @results ||= provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
+  end
+
+  def result_count
+    results.count
   end
 
   def next_page_params
@@ -69,11 +102,6 @@ class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
   end
 
 private
-  def validate_dates
-    errors.add(:from_date, :invalid) if from_date.present? && parsed_from_date.nil?
-    errors.add(:to_date, :invalid) if to_date.present? && parsed_to_date.nil?
-  end
-
   def provider
     Frontend::StatisticalReleaseAnnouncementProvider
   end

@@ -37,10 +37,10 @@
         <div class="filter date-range-filter">
           <div class="filter-inner">
             <%= label_tag :from_date, "Published after" %>
-            <%= text_field_tag :from_date, @filter.from_date, placeholder: "e.g. 01/01/2013" %>
+            <%= text_field_tag :from_date, params[:from_date], placeholder: "e.g. 01/01/2013" %>
 
             <%= label_tag :to_date, "Published before" %>
-            <%= text_field_tag :to_date, @filter.to_date, placeholder: "e.g. 30/02/2013" %>
+            <%= text_field_tag :to_date, params[:to_date], placeholder: "e.g. 30/02/2013" %>
           </div>
         </div>
         <%= f.submit "Refresh results", class: "button" %>
@@ -53,26 +53,9 @@
   <div class="inner-block">
     <h2>This calendar of upcoming releases is maintained by the <a href="https://gss.civilservice.gov.uk/">Government Statistical Service</a> independently from government</h2>
 
-    <%
-      filter_description_context = {
-        result_count: number_with_delimiter(@filter.results.total),
-        pluralized_result_type: "upcoming releases",
-        departments: [],
-        topics: [],
-        world_locations_any?: false,
-        world_locations: [],
-        keywords: [],
-        date_from: @filter.parsed_from_date,
-        date_to: @filter.parsed_to_date,
-        include_world_location_news: false,
-        filtering_command_and_act_papers?: false,
-        filtering_command_papers_only?: false,
-        filtering_act_papers_only?: false
-      }
-    %>
     <div class="filter-results-summary">
       <div class="selections">
-        <%= render_mustache('documents/filter_selections', filter_description_context) %>
+        <%= describe_filter @filter, date_prefix_text: "due" %>
       </div>
     </div>
 
