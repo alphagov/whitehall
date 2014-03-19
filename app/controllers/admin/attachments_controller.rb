@@ -33,8 +33,8 @@ class Admin::AttachmentsController < Admin::BaseController
   def update_many
     errors = {}
     params[:attachments].each do |id, attributes|
-      attachment = attachable.attachments.find(id.to_i)
-      if !attachment.update_attributes(attributes)
+      attachment = attachable.attachments.find(id)
+      if !attachment.update_attributes(attributes.slice(:title))
         errors[id] = attachment.errors.full_messages
       end
     end
@@ -42,7 +42,7 @@ class Admin::AttachmentsController < Admin::BaseController
     if errors.empty?
       render json: {result: :success}
     else
-      render json: {result: :failure, errors: errors }, status: 422
+      render json: {result: :failure, errors: errors }, status: :unprocessable_entity
     end
   end
 

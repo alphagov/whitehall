@@ -229,7 +229,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     put :update_many, edition_id: @edition, attachments: Hash[new_data]
 
     @edition.reload.attachments.each do |attachment|
-      print attachment.reload.title
       assert_match(/.+_$/, attachment.title)
     end
   end
