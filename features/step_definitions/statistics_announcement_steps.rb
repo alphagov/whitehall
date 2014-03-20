@@ -31,6 +31,13 @@ Given(/^There are some statisics announcments for various departments and topics
 
 end
 
+Given(/^There is a statistics announcement$/) do
+  @organisation = create :ministerial_department
+  @topic = create :topic
+
+  @announcement = create :statistics_announcement, organisation: @organisation, topic: @topic
+end
+
 When(/^I visit the statistics announcements page$/) do
   visit statistics_announcements_path
 end
@@ -54,6 +61,10 @@ When(/^I filter the statistics announcements by department and topic$/) do
     select @topic.name, from: "Topic"
     click_on "Refresh results"
   end
+end
+
+When(/^I click on the first statistics announcement$/) do
+  within(".filter-results") { click_on @announcement.title }
 end
 
 Then(/^I can see the first page of all the statistics announcements$/) do
@@ -83,4 +94,14 @@ Then(/^I should only see statistics announcements for the selected departments a
   assert page.has_content? "Announcement for both department and topic"
   assert page.has_no_content? "Announcement for department"
   assert page.has_no_content? "Announcement for topic"
+end
+
+Then(/^I should be on a page showing the title, release date, organisation, topic and summary of the release announcement$/) do
+  assert_equal statistics_announcement_path(@announcement), current_path
+
+  assert page.has_content? @announcement.title
+  assert page.has_content? @announcement.expected_release_date.to_s(:long)
+  assert page.has_content? @announcement.summary
+  assert page.has_link? @organisation.name, href: organisation_path(@organisation)
+  assert page.has_link? @topic.name, href: topic_path(@topic)
 end

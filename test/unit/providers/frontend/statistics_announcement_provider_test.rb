@@ -6,19 +6,19 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     Frontend::StatisticsAnnouncementProvider.stubs(:source).returns(@mock_source)
   end
 
-  test "page and per_page params are converted to strings" do
+  test "#search: page and per_page params are converted to strings" do
     @mock_source.expects(:advanced_search).with(page: '2', per_page: '10').returns({'total' => 0, 'results' => []})
     Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
   end
 
-  test "from_date and to_date are moved to expected_release_timestamp[:from] and expected_release_timestamp[:to] and are formatted as iso8601" do
+  test "#search: from_date and to_date are moved to expected_release_timestamp[:from] and expected_release_timestamp[:to] and are formatted as iso8601" do
     from_date = 1.day.from_now
     to_date = 1.year.from_now
     @mock_source.expects(:advanced_search).with(expected_release_timestamp: {from: from_date.iso8601, to: to_date.iso8601}, page: '2', per_page: '10').returns({'total' => 0, 'results' => []})
     Frontend::StatisticsAnnouncementProvider.search(from_date: from_date, to_date: to_date, page: 2, per_page: 10)
   end
 
-  test "release announcments are inflated from rummager hashes" do
+  test "#search: release announcments are inflated from rummager hashes" do
     organisation = create(:organisation, name: 'Cabinet Office', slug: 'cabinet-office')
     topic = create(:topic, name: 'Home affairs', slug: 'home-affairs')
 
@@ -47,7 +47,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal topic, release_announcement.topics.first
   end
 
-  test "results are returned in a CollectionPage with the correct total, page and per_page values" do
+  test "#search: results are returned in a CollectionPage with the correct total, page and per_page values" do
     @mock_source.stubs(:advanced_search).with(page: '2', per_page: '10').returns('total' => 30, 'results' => 10.times.map {|n| {"title" => "A title"} })
 
     results = Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
@@ -55,6 +55,33 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal 30, results.total
     assert_equal 2, results.page
     assert_equal 10, results.per_page
+  end
+
+
+  test "#find_by_slug: finds a publisher StatisticsAnnouncement and inflates from that" do
+    publisher_announcement = create :statistics_announcement, slug: "a-slug",
+                                                              title: "A Title",
+                                                              summary: "A summary",
+                                                              publication_type_id: PublicationType::NationalStatistics.id,
+                                                              expected_release_date: Time.zone.parse("2016-01-01"),
+                                                              display_release_date_override: "Jan 2016",
+                                                              organisation: build(:ministerial_department),
+                                                              topic: build(:topic)
+
+    announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(publisher_announcement.slug)
+
+    assert_equal announcement.slug,              publisher_announcement.slug
+    assert_equal announcement.title,             publisher_announcement.title
+    assert_equal announcement.summary,           publisher_announcement.summary
+    assert_equal announcement.document_type,     PublicationType::NationalStatistics.singular_name
+    assert_equal announcement.release_date,      publisher_announcement.expected_release_date
+    assert_equal announcement.release_date_text, publisher_announcement.display_release_date_override
+    assert_equal announcement.organisations,     [publisher_announcement.organisation]
+    assert_equal announcement.topics,            [publisher_announcement.topic]
+  end
+
+  test "#find_by_slug: returns nil if it can't find one" do
+    assert_equal nil, Frontend::StatisticsAnnouncementProvider.find_by_slug("not-a-slug")
   end
 end
 

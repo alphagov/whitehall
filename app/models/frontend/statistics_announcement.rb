@@ -13,4 +13,8 @@ class Frontend::StatisticsAnnouncement < InflatableModel
   def to_partial_path
     "statistics_announcement"
   end
+
+  def to_param
+    slug
+  end
 end

@@ -14,3 +14,9 @@ Feature: Viewing upcoming statistics announcements
     When I visit the statistics announcements page
     And I filter the statistics announcements by department and topic
     Then I should only see statistics announcements for the selected departments and topics
+
+  Scenario: Citizen views the details of a statistics announcement
+    Given There is a statistics announcement
+    When I visit the statistics announcements page
+    And I click on the first statistics announcement
+    Then I should be on a page showing the title, release date, organisation, topic and summary of the release announcement

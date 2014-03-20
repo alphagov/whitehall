@@ -209,7 +209,7 @@ module OrganisationHelper
     end
   end
 
-  def organisations_link_sentence(lead_organisations, organisations)
+  def organisations_link_sentence(lead_organisations, organisations = [])
     organisations_link_array(lead_organisations, organisations).to_sentence.html_safe
   end
 

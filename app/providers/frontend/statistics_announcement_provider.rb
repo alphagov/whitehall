@@ -5,6 +5,13 @@ module Frontend
       CollectionPage.new(build_collection(results['results']), total: results['total'], page: search_params[:page], per_page: search_params[:per_page])
     end
 
+    def self.find_by_slug(slug)
+      publisher_announcement = ::StatisticsAnnouncement.find_by_slug(slug)
+      if publisher_announcement.present?
+        build_from_publisher_model(publisher_announcement)
+      end
+    end
+
   private
     def self.build_collection(release_announcement_hashes)
       Array(release_announcement_hashes).map { | release_announcement_hash | build_from_rummager_hash(release_announcement_hash) }
@@ -20,6 +27,19 @@ module Frontend
         release_date_text: rummager_hash['expected_release_text'],
         organisations: build_organisations(rummager_hash['organisations']),
         topics: build_topics(rummager_hash['topics'])
+      })
+    end
+
+    def self.build_from_publisher_model(model)
+      Frontend::StatisticsAnnouncement.new({
+        slug: model.slug,
+        title: model.title,
+        summary: model.summary,
+        document_type: model.display_type,
+        release_date: model.expected_release_date,
+        release_date_text: model.display_release_date_override,
+        organisations: [model.organisation],
+        topics: [model.topic]
       })
     end
 

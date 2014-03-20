@@ -1,0 +1,43 @@
+<% page_title @announcement.title, "Statistics release announcement" %>
+
+<article>
+  <header class="block headings-block">
+    <div class="inner-block floated-children">
+      <%= render partial: 'shared/heading',
+                 locals: { type: "Statistics release announcement",
+                           heading: @announcement.title,
+                           extra: true } %>
+
+
+      <aside class="meta">
+        <div class="inner-heading">
+          <dl>
+            <dt>Release date:</dt>
+            <dd><%= @announcement.release_date_text %></dd>
+
+            <% if @announcement.organisations.any?  %>
+              <dt><%= t('document.headings.organisations', count: @announcement.organisations.length) %>:</dt>
+              <dd>
+                <%= organisations_link_sentence(@announcement.organisations) %>
+              </dd>
+            <% end %>
+            <% if @announcement.topics.any?  %>
+              <dt><%= t('document.headings.topics', count: @announcement.topics.length) %>:</dt>
+              <dd>
+                <%= topic_links_sentence(@announcement.topics) %>
+              </dd>
+            <% end %>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <div>
+    <div class="inner-block">
+      <div class="summary">
+        <p><%= @announcement.summary %></p>
+      </div>
+    </div>
+  </div>
+</article>

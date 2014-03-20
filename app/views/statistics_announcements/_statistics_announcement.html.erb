@@ -1,5 +1,5 @@
 <li class="document-row">
-  <h3><%= statistics_announcement.title %></h3>
+  <h3><%= link_to statistics_announcement.title, statistics_announcement_path(statistics_announcement) %></h3>
   <ul class="attributes">
     <li><%= statistics_announcement.release_date_text %></li>
     <li><%= statistics_announcement.document_type %></li>

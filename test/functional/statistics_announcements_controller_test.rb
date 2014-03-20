@@ -3,6 +3,8 @@ require 'test_helper'
 class StatisticsAnnouncementsControllerTest < ActionController::TestCase
   include TextAssertions
 
+  ### Describing #index
+
   test "#index assign a StatisticsAnnouncementsFilter, populated with get params" do
     organisation = create :organisation
     topic = create :topic
@@ -75,5 +77,20 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     get :index
     rendered = Nokogiri::HTML::Document.parse(response.body)
     assert_string_includes "There are no matching announcements", rendered.text
+  end
+
+
+  ### Describing #show
+
+  test "#show assigns @announcement as a Frontend::StatisticsAnnouncement inflated from the publisher model" do
+    announcement = create :statistics_announcement
+    get :show, id: announcement.slug
+    assert assigns(:announcement).is_a?(Frontend::StatisticsAnnouncement)
+    assert_equal announcement.slug, assigns(:announcement).slug
+  end
+
+  test "#show responds with 404" do
+    get :show, id: "not-a-slug"
+    assert_equal 404, response.status
   end
 end
