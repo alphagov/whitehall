@@ -23,13 +23,6 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     get :index, state: :draft, author: ""
   end
 
-  test 'should strip out any invalid states passed as parameters and replace them with "active"' do
-    stub_filter = stub_edition_filter
-    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
-
-    get :index, state: :haxxor_method, type: :policy
-  end
-
   test 'should add state param set to "active" if none is supplied' do
     stub_filter = stub_edition_filter
     Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
