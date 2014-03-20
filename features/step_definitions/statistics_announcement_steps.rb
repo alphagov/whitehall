@@ -1,45 +1,45 @@
-Given(/^There are some statistical release announcements$/) do
-  create :statistical_release_announcement, title: "Womble to Wombat population ratios",
+Given(/^There are some statistics announcements$/) do
+  create :statistics_announcement, title: "Womble to Wombat population ratios",
                                             summary: "All populations of wombles and wombats by region",
                                             publication_type_id: PublicationType::Statistics.id,
                                             expected_release_date: "2050-02-15 12:45:00",
                                             display_release_date_override: nil
 
-  create :statistical_release_announcement, title: "2055 beard lengths",
+  create :statistics_announcement, title: "2055 beard lengths",
                                             summary: "Beard lengths by region and gender - 2055",
                                             publication_type_id: PublicationType::NationalStatistics.id,
                                             expected_release_date: "2050-05-01 12:00:00",
                                             display_release_date_override: "May to June 2055"
 
-  create :statistical_release_announcement, title: "Wombat population in Wimbledon Common 2063",
+  create :statistics_announcement, title: "Wombat population in Wimbledon Common 2063",
                                             summary: "Wombat vs Womble populations in Wimbledon Common for the year 2063",
                                             publication_type_id: PublicationType::Statistics.id,
                                             expected_release_date: "2063-02-15 12:45:00",
                                             display_release_date_override: nil
   (1..40).each do |n|
-    create :statistical_release_announcement, title: "Extra release announcement #{n}", expected_release_date: "2100-01-01"
+    create :statistics_announcement, title: "Extra release announcement #{n}", expected_release_date: "2100-01-01"
   end
 end
 
-Given(/^There are some statisical release announcments for various departments and topics$/) do
+Given(/^There are some statisics announcments for various departments and topics$/) do
   @department = create :ministerial_department
   @topic = create :topic
 
-  create :statistical_release_announcement, title: "Announcement for both department and topic", organisation: @department, topic: @topic
-  create :statistical_release_announcement, title: "Announcement for department", organisation: @department
-  create :statistical_release_announcement, title: "Announcement for topic", topic: @topic
+  create :statistics_announcement, title: "Announcement for both department and topic", organisation: @department, topic: @topic
+  create :statistics_announcement, title: "Announcement for department", organisation: @department
+  create :statistics_announcement, title: "Announcement for topic", topic: @topic
 
 end
 
-When(/^I visit the statistical release announcements page$/) do
-  visit statistical_release_announcements_path
+When(/^I visit the statistics announcements page$/) do
+  visit statistics_announcements_path
 end
 
-When(/^I navigate to the next page of statistical release announcements$/) do
+When(/^I navigate to the next page of statistics announcements$/) do
   click_on "Next page"
 end
 
-When(/^I filter the statistical release announcements by keyword, from_date and to_date$/) do
+When(/^I filter the statistics announcements by keyword, from_date and to_date$/) do
   within '.filter-form' do
     fill_in "Contains", with: "Wombat"
     fill_in "Published after", with: "2050-01-01"
@@ -48,7 +48,7 @@ When(/^I filter the statistical release announcements by keyword, from_date and 
   end
 end
 
-When(/^I filter the statistical release announcements by department and topic$/) do
+When(/^I filter the statistics announcements by department and topic$/) do
   within '.filter-form' do
     select @department.name, from: "Department"
     select @topic.name, from: "Topic"
@@ -56,7 +56,7 @@ When(/^I filter the statistical release announcements by department and topic$/)
   end
 end
 
-Then(/^I can see the first page of all the statistical release announcements$/) do
+Then(/^I can see the first page of all the statistics announcements$/) do
   assert page.has_content? "Womble to Wombat population ratios"
   assert page.has_content? "2055 beard lengths"
   assert page.has_content? "Wombat population in Wimbledon Common 2063"
@@ -66,7 +66,7 @@ Then(/^I can see the first page of all the statistical release announcements$/) 
   assert_equal 40, page.all(".document-list .document-row").length
 end
 
-Then(/^I can see the second page of all the statistical release announcements$/) do
+Then(/^I can see the second page of all the statistics announcements$/) do
   assert page.has_no_content? "Extra release announcement 37"
   assert page.has_content? "Extra release announcement 38"
   assert page.has_content? "Extra release announcement 40"
@@ -74,12 +74,12 @@ end
 
 
 
-Then(/^I should only see statistical release announcements for those filters$/) do
+Then(/^I should only see statistics announcements for those filters$/) do
   assert page.has_content? "Womble to Wombat population ratios"
   assert_equal 1, page.all(".document-list .document-row").length
 end
 
-Then(/^I should only see statistical release announcements for the selected departments and topics$/) do
+Then(/^I should only see statistics announcements for the selected departments and topics$/) do
   assert page.has_content? "Announcement for both department and topic"
   assert page.has_no_content? "Announcement for department"
   assert page.has_no_content? "Announcement for topic"

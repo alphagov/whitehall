@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Frontend::StatisticalReleaseAnnouncementTest < ActiveSupport::TestCase
+class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
   def build(attrs = {})
-    Frontend::StatisticalReleaseAnnouncement.new(attrs)
+    Frontend::StatisticsAnnouncement.new(attrs)
   end
 
   test "#release_date_text should return release_date in long format if release_date_text is not provided" do

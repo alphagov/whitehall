@@ -1,21 +1,21 @@
-class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::TestCase
+class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   attr_accessor :rummager_api_stub
 
   setup do
     @mock_source ||= mock
-    Frontend::StatisticalReleaseAnnouncementProvider.stubs(:source).returns(@mock_source)
+    Frontend::StatisticsAnnouncementProvider.stubs(:source).returns(@mock_source)
   end
 
   test "page and per_page params are converted to strings" do
     @mock_source.expects(:advanced_search).with(page: '2', per_page: '10').returns({'total' => 0, 'results' => []})
-    Frontend::StatisticalReleaseAnnouncementProvider.search(page: 2, per_page: 10)
+    Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
   end
 
   test "from_date and to_date are moved to expected_release_timestamp[:from] and expected_release_timestamp[:to] and are formatted as iso8601" do
     from_date = 1.day.from_now
     to_date = 1.year.from_now
     @mock_source.expects(:advanced_search).with(expected_release_timestamp: {from: from_date.iso8601, to: to_date.iso8601}, page: '2', per_page: '10').returns({'total' => 0, 'results' => []})
-    Frontend::StatisticalReleaseAnnouncementProvider.search(from_date: from_date, to_date: to_date, page: 2, per_page: 10)
+    Frontend::StatisticsAnnouncementProvider.search(from_date: from_date, to_date: to_date, page: 2, per_page: 10)
   end
 
   test "release announcments are inflated from rummager hashes" do
@@ -31,11 +31,11 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
       "organisations" => ["cabinet-office"],
       "topics" => ["home-affairs"],
       "display_type" => "Statistics",
-      "search_format_types" => ["statistical_release_announcement"],
-      "format" => "statistical_release_announcement"
+      "search_format_types" => ["statistics_announcement"],
+      "format" => "statistics_announcement"
     }])
 
-    release_announcement = Frontend::StatisticalReleaseAnnouncementProvider.search({page: 1, per_page: 10}).first
+    release_announcement = Frontend::StatisticsAnnouncementProvider.search({page: 1, per_page: 10}).first
 
     assert_equal "A title",      release_announcement.title
     assert_equal "a-slug",       release_announcement.slug
@@ -50,7 +50,7 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
   test "results are returned in a CollectionPage with the correct total, page and per_page values" do
     @mock_source.stubs(:advanced_search).with(page: '2', per_page: '10').returns('total' => 30, 'results' => 10.times.map {|n| {"title" => "A title"} })
 
-    results = Frontend::StatisticalReleaseAnnouncementProvider.search(page: 2, per_page: 10)
+    results = Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
 
     assert_equal 30, results.total
     assert_equal 2, results.page
@@ -58,9 +58,9 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest < ActiveSupport::Test
   end
 end
 
-class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest < ActiveSupport::TestCase
+class Frontend::StatisticsAnnouncementProviderTest::FakeRummagerApiTest < ActiveSupport::TestCase
   def subject
-    Frontend::StatisticalReleaseAnnouncementProvider::FakeRummagerApi
+    Frontend::StatisticsAnnouncementProvider::FakeRummagerApi
   end
 
   def matched_titles(params = {})
@@ -69,7 +69,7 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
   end
 
   test "#advanced_search returns 'total' and 'results'" do
-    4.times { create :statistical_release_announcement }
+    4.times { create :statistics_announcement }
 
     returned = subject.advanced_search(page: '1', per_page: '2')
 
@@ -78,7 +78,7 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
   end
 
   test "#advanced_search returns announcements in an array of hashes similar to that which rummager would return" do
-    announcement = create :statistical_release_announcement,
+    announcement = create :statistics_announcement,
                           title: "The title",
                           summary: "The summary",
                           organisation: build(:organisation),
@@ -93,8 +93,8 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
     assert_equal announcement.summary,                        returned_announcement_hash["description"]
     assert_equal announcement.slug,                           returned_announcement_hash["slug"]
     assert_equal announcement.publication_type.singular_name, returned_announcement_hash["display_type"]
-    assert_equal ["statistical_release_announcement"],        returned_announcement_hash["search_format_types"]
-    assert_equal "statistical_release_announcement",          returned_announcement_hash["format"]
+    assert_equal ["statistics_announcement"],        returned_announcement_hash["search_format_types"]
+    assert_equal "statistics_announcement",          returned_announcement_hash["format"]
     assert_equal announcement.organisation.slug,              returned_announcement_hash["organisations"].first
     assert_equal announcement.topic.slug,                     returned_announcement_hash["topics"].first
     assert_equal announcement.expected_release_date.iso8601,  returned_announcement_hash["expected_release_timestamp"]
@@ -102,50 +102,50 @@ class Frontend::StatisticalReleaseAnnouncementProviderTest::FakeRummagerApiTest 
   end
 
   test "#advanced_search with :keywords returns release announcements matching title or summary" do
-    announcement_1 = create :statistical_release_announcement, title: "Wombats", summary: "Population in Wimbledon Common 2013"
-    announcement_2 = create :statistical_release_announcement, title: "Womble's troubles", summary: "Population of wombats in Wimbledon Common 2013"
-    announcement_3 = create :statistical_release_announcement, title: "Fishslice", summary: "Fishslice"
+    announcement_1 = create :statistics_announcement, title: "Wombats", summary: "Population in Wimbledon Common 2013"
+    announcement_2 = create :statistics_announcement, title: "Womble's troubles", summary: "Population of wombats in Wimbledon Common 2013"
+    announcement_3 = create :statistics_announcement, title: "Fishslice", summary: "Fishslice"
 
     assert_equal ["Wombats", "Womble's troubles"], matched_titles(keywords: "wombat")
   end
 
   test "#advanced_search with expected_release_timestamp[:from] returns release announcements after the given date" do
-    announcement_1 = create :statistical_release_announcement, expected_release_date: 10.days.from_now.iso8601, title: "Wanted release announcement"
-    announcement_2 = create :statistical_release_announcement, expected_release_date: 5.days.from_now.iso8601, title: "Unwanted release announcement"
+    announcement_1 = create :statistics_announcement, expected_release_date: 10.days.from_now.iso8601, title: "Wanted release announcement"
+    announcement_2 = create :statistics_announcement, expected_release_date: 5.days.from_now.iso8601, title: "Unwanted release announcement"
 
     assert_equal ["Wanted release announcement"], matched_titles(expected_release_timestamp: { from: 7.days.from_now.iso8601 })
   end
 
   test "#advanced_search with expected_release_timestamp[:to] returns release announcements before the given date" do
-    announcement_1 = create :statistical_release_announcement, expected_release_date: 10.days.from_now.iso8601, title: "Unwanted release announcement"
-    announcement_2 = create :statistical_release_announcement, expected_release_date: 5.days.from_now.iso8601, title: "Wanted release announcement"
+    announcement_1 = create :statistics_announcement, expected_release_date: 10.days.from_now.iso8601, title: "Unwanted release announcement"
+    announcement_2 = create :statistics_announcement, expected_release_date: 5.days.from_now.iso8601, title: "Wanted release announcement"
 
     assert_equal ["Wanted release announcement"], matched_titles(expected_release_timestamp: { to: 7.days.from_now.iso8601 })
   end
 
   test "#advanced_search with organisations returns results associated with the organisations" do
-    announcement_1 = create :statistical_release_announcement, organisation: create(:organisation)
-    announcement_2 = create :statistical_release_announcement
+    announcement_1 = create :statistics_announcement, organisation: create(:organisation)
+    announcement_2 = create :statistics_announcement
 
     assert_equal [announcement_1.title], matched_titles(organisations: [announcement_1.organisation.slug])
   end
 
   test "#advanced_search with topics returns results associated with the topics" do
-    announcement_1 = create :statistical_release_announcement, topic: create(:topic)
-    announcement_2 = create :statistical_release_announcement
+    announcement_1 = create :statistics_announcement, topic: create(:topic)
+    announcement_2 = create :statistics_announcement
 
     assert_equal [announcement_1.title], matched_titles(topics: [announcement_1.topic.slug])
   end
 
   test "#advanced_search returns results ordered by expected_release_date" do
-    announcement_1 = create :statistical_release_announcement, expected_release_date: 2.days.from_now.iso8601
-    announcement_2 = create :statistical_release_announcement, expected_release_date: 1.days.from_now.iso8601
-    announcement_3 = create :statistical_release_announcement, expected_release_date: 3.days.from_now.iso8601
+    announcement_1 = create :statistics_announcement, expected_release_date: 2.days.from_now.iso8601
+    announcement_2 = create :statistics_announcement, expected_release_date: 1.days.from_now.iso8601
+    announcement_3 = create :statistics_announcement, expected_release_date: 3.days.from_now.iso8601
   end
 
   test "#advanced_search supports pagination" do
     announcements = 4.times.map do |n|
-      create :statistical_release_announcement, title: n, expected_release_date: (n+1).days.from_now.iso8601
+      create :statistics_announcement, title: n, expected_release_date: (n+1).days.from_now.iso8601
     end
 
     assert_equal ['0', '1'],      matched_titles(page: '1', per_page: '2')

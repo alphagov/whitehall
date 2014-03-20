@@ -1,5 +1,5 @@
-class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
-  named "StatisticalReleaseAnnouncementsFilter"
+class Frontend::StatisticsAnnouncementsFilter < FormObject
+  named "StatisticsAnnouncementsFilter"
   attr_accessor :keywords,
                 :from_date, :to_date,
                 :organisations, :topics,
@@ -103,6 +103,6 @@ class Frontend::StatisticalReleaseAnnouncementsFilter < FormObject
 
 private
   def provider
-    Frontend::StatisticalReleaseAnnouncementProvider
+    Frontend::StatisticsAnnouncementProvider
   end
 end

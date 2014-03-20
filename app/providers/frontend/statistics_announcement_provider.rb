@@ -1,5 +1,5 @@
 module Frontend
-  class StatisticalReleaseAnnouncementProvider
+  class StatisticsAnnouncementProvider
     def self.search(search_params = {})
       results = source.advanced_search(prepare_search_params(search_params))
       CollectionPage.new(build_collection(results['results']), total: results['total'], page: search_params[:page], per_page: search_params[:per_page])
@@ -11,7 +11,7 @@ module Frontend
     end
 
     def self.build_from_rummager_hash(rummager_hash)
-      Frontend::StatisticalReleaseAnnouncement.new({
+      Frontend::StatisticsAnnouncement.new({
         slug: rummager_hash['slug'],
         title: rummager_hash['title'],
         summary: rummager_hash['description'],
@@ -59,7 +59,7 @@ module Frontend
         raise ArgumentError.new(":page and :per_page are required") unless params[:page].present? && params[:per_page].present?
         raise_unless_values_are_strings(params)
 
-        scope = ::StatisticalReleaseAnnouncement.scoped.order("expected_release_date ASC")
+        scope = ::StatisticsAnnouncement.scoped.order("expected_release_date ASC")
         scope = scope.where("title LIKE('%#{params[:keywords]}%') or summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
         if params[:organisations].present?
           organisation_ids = Organisation.find_all_by_slug(params[:organisations]).map &:id
@@ -103,8 +103,8 @@ module Frontend
           "organisations" => Array(announcement.organisation.try :slug),
           "topics" => Array(announcement.topic.try :slug),
           "display_type" => announcement.publication_type.singular_name,
-          "search_format_types" => ["statistical_release_announcement"],
-          "format" => "statistical_release_announcement"
+          "search_format_types" => ["statistics_announcement"],
+          "format" => "statistics_announcement"
         }
       end
     end

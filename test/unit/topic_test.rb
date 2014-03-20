@@ -182,10 +182,10 @@ class TopicTest < ActiveSupport::TestCase
     assert topic.top_tasks.empty?
   end
 
-  test "with_statistical_release_announcements scopes to organisations with associated statistical_release_announcements" do
+  test "with_statistics_announcements scopes to organisations with associated statistics_announcements" do
     topic_with_announcement = create(:topic)
-    create(:statistical_release_announcement, topic: topic_with_announcement)
+    create(:statistics_announcement, topic: topic_with_announcement)
     topic_without_announcement = create(:topic)
-    assert_equal [topic_with_announcement], Topic.with_statistical_release_announcements
+    assert_equal [topic_with_announcement], Topic.with_statistics_announcements
   end
 end

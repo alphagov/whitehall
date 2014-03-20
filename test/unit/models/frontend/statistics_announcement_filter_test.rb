@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Frontend::StatisticalReleaseAnnouncementsFilterTest < ActiveSupport::TestCase
+class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
   def build(attrs = {})
-    Frontend::StatisticalReleaseAnnouncementsFilter.new(attrs)
+    Frontend::StatisticsAnnouncementsFilter.new(attrs)
   end
 
   test "to_date= casts into Date, taking the latest possible date in it's assumptions" do
