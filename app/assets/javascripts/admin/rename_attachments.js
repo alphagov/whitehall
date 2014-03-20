@@ -16,7 +16,7 @@
           .append('<span class="help-block">' + error + '</span>');
       });
     }).on('ajax:success', function(event, data, status, xhr) {
-      $form.find('.inline-submit').append('<span class="notice">Attachments saved</span>');
+      $form.find('.inline-submit').append('<span class="notice">Attachment titles saved</span>');
     }).on('ajax:complete', function(event, xhr, status) {
       $form.find('input[type=hidden][name=commit]').remove();
       $form.find('input[name=commit]').removeAttr('disabled');
