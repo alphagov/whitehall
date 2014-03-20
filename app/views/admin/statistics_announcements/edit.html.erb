@@ -8,15 +8,3 @@
 
   <%= render "form", statistics_announcement: @statistics_announcement %>
 </div>
-
-<div class="span4">
-  <div class="sidebar">
-    <section class="display_heading">
-        <%= button_to('Delete announcement',
-                      admin_statistics_announcement_path(@statistics_announcement),
-                      method: :delete,
-                      data: { confirm: "Are you sure you want to delete this announcement?" },
-                      class: 'btn btn-danger') %>
-    </section>
-  </div>
-</div>

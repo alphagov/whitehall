@@ -3,11 +3,11 @@ Given(/^a statistics announcement called "(.*?)" exists$/) do |announcement_titl
 end
 
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|
-  ensure_path admin_root_path
   organisation = Organisation.first || create(:organisation)
   topic        = Topic.first || create(:topic)
 
-  click_on "Announce upcoming statistics"
+  ensure_path admin_statistics_announcements_path
+  click_on "Create announcement"
   select 'Statistics', from: :statistics_announcement_publication_type_id
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
@@ -15,15 +15,12 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   select organisation.name, from: :statistics_announcement_organisation_id
   select topic.name, from: :statistics_announcement_topic_id
 
-  click_on 'Make announcement'
+  click_on 'Save announcement'
 end
 
-When(/^I go to draft a statistics document from the announcement$/) do
-  ensure_path admin_root_path
-
-  within record_css_selector(@statistics_announcement) do
-    click_on 'Draft document'
-  end
+When(/^I draft a document from the announcement$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+  click_on 'Draft new document'
 end
 
 When(/^I save the draft statistics document$/) do
@@ -38,16 +35,16 @@ end
 
 Then(/^the document becomes linked to the announcement$/) do
   assert publication = Publication.last, "No publication found!"
-  ensure_path admin_root_path
+  visit admin_statistics_announcements_path
 
-  # save_and_open_page
   within record_css_selector(@statistics_announcement) do
-    assert page.has_link? 'View document', href: admin_publication_path(publication)
+    assert page.has_link? publication.title, href: admin_publication_path(publication)
   end
 end
 
-Then(/^I should see "(.*?)" listed as an announced document on my dashboard$/) do |announcement_title|
-  ensure_path admin_root_path
+Then(/^I should see the announcement listed on the list of announcements$/) do
+  announcement = StatisticsAnnouncement.last
+  ensure_path admin_statistics_announcements_path
 
-  assert page.has_content?(announcement_title)
+  assert page.has_content?(announcement.title)
 end

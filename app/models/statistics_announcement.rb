@@ -17,7 +17,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
                 message: 'must be a statistical type'
               }
 
-  accepts_nested_attributes_for :statistics_announcement_date
+  accepts_nested_attributes_for :statistics_announcement_date, reject_if: :persisted?
 
   include Searchable
   searchable  title: :title,
@@ -31,6 +31,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
               expected_release_text: :display_date
 
   delegate :release_date, :display_date, to: :statistics_announcement_date
+
+  def confirmed_date?
+    statistics_announcement_date.confirmed?
+  end
 
   def display_type
     publication_type.singular_name

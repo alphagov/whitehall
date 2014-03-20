@@ -22,22 +22,26 @@
                   { prompt: 'Select a topic' },
                   class: 'chzn-select' %>
 
-  <%= form.fields_for :statistics_announcement_date do |fields| %>
-    <%= fields.label :release_date, "Release date", required: true %>
-    <%= fields.datetime_select :release_date, {
-        start_year: Date.today.year,
-        end_year: Date.today.year + 5,
-        minute_step: 15,
-        default: (Date.tomorrow + 9.5.hours)
-      }, { class: 'date' } %>
 
-    <%= fields.check_box :confirmed, label_text: 'Confirmed date?' %>
+  <% if statistics_announcement.new_record? %>
+    <%= form.fields_for :statistics_announcement_date do |fields| %>
+      <%= fields.label :release_date, "Release date", required: true %>
+      <%= fields.datetime_select :release_date, {
+          start_year: Date.today.year,
+          end_year: Date.today.year + 5,
+          minute_step: 15,
+          default: (Date.tomorrow + 9.5.hours)
+        }, { class: 'date' } %>
 
-    <p>Display precision</p>
-    <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-      <% checked = statistics_announcement.statistics_announcement_date.precision == value %>
-      <%= fields.labelled_radio_button(key.to_s.humanize, :precision, value, checked: checked) %>
+      <%= fields.check_box :confirmed, label_text: 'Confirmed date?' %>
+
+      <p>Display precision</p>
+      <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
+        <% checked = statistics_announcement.statistics_announcement_date.precision == value %>
+        <%= fields.labelled_radio_button(key.to_s.humanize, :precision, value, checked: checked) %>
+      <% end %>
     <% end %>
   <% end %>
-  <%= form.save_or_cancel buttons: { save: 'Make announcement' }, cancel: admin_root_path %>
+
+  <%= form.save_or_cancel buttons: { save: 'Save announcement' }, cancel: [:admin, statistics_announcement] %>
 <% end %>
