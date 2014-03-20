@@ -290,21 +290,15 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def session_filters
-    sanitized_filters(session[:document_filters] || {})
+    session[:document_filters] || {}
   end
 
   def params_filters
-    sanitized_filters(params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date))
+    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date)
   end
 
   def params_filters_with_default_state
     params_filters.reverse_merge(state: 'active')
-  end
-
-  def sanitized_filters(filters)
-    valid_states = %w(active imported draft submitted rejected published scheduled force_published archived)
-    filters.delete(:state) unless filters[:state].nil? || valid_states.include?(filters[:state].to_s)
-    filters
   end
 
   def filter
