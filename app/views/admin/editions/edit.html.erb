@@ -36,6 +36,9 @@
         <%= render "govspeak_help", hide_inline_attachments_help: !@edition.allows_inline_attachments?,
                                     show_attachments_tab_help: true,
                                     govspeak_link_errors: force_publisher.govspeak_link_errors %>
+        <%= render "words_to_avoid_guidance" %>
+        <h3 class="style-title">Style</h3>
+        <p>For style, see the <a href="https://www.gov.uk/designprinciples/styleguide">style guide</a></p>
       <% end %>
 
       <%= tabs.pane class: "audit-trail", id: "notes" do %>
