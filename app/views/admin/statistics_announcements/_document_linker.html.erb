@@ -1,4 +1,4 @@
-<% initialise_script 'GOVUK.documentFinder', type: 'publication', subtypes: PublicationType.statistical.map(&:id) %>
+<% initialise_script 'GOVUK.documentFinder', type: 'publication', subtypes: PublicationType.statistical.map(&:id), state: 'not_published' %>
 <% initialise_script 'GOVUK.statisticsAnnouncementLinker' %>
 
 <%= form_for [:admin, statistics_announcement] do |form| %>
@@ -9,7 +9,7 @@
   <%= hidden_field_tag :edition_id %>
 
   <div class="document-finder-fields">
-    <%= label_tag :title, 'Find the draft statistics to link this announcement to:' %>
+    <%= label_tag :title, 'Find the unpublished statistics to link this announcement to:' %>
     <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique' %>
     <%= button_tag "Search", type: 'button', id: 'find-documents', class: 'btn btn-mini' %>
     <%= image_tag 'loading-666666.gif', class: 'js-loader' %>

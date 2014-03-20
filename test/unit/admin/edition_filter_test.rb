@@ -6,7 +6,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "knows which states/scopes are valid for filtering" do
-    expected_scopes = %w(imported draft submitted rejected scheduled published archived active force_published)
+    expected_scopes = %w(imported draft submitted rejected scheduled published archived active force_published not_published)
     assert_same_elements expected_scopes, Admin::EditionFilter.new(Edition, @current_user).valid_scopes
   end
 

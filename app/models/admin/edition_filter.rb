@@ -89,7 +89,7 @@ module Admin
     end
 
     def valid_scopes
-      %w(active imported draft submitted rejected published scheduled force_published archived)
+      %w(active imported draft submitted rejected published scheduled force_published archived not_published)
     end
 
     private
