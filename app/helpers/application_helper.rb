@@ -252,13 +252,15 @@ module ApplicationHelper
     when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
-      elsif parameters[:publication_filter_option] == 'statistics' || 
+      elsif parameters[:publication_filter_option] == 'statistics' ||
             parameters[:controller] == 'statistical_data_sets' ||
             @document && @document.try(:statistics?)
         publications_path(publication_filter_option: 'statistics')
       else
         publications_path
       end
+    when "statistics_announcements"
+      publications_path(publication_filter_option: 'statistics')
     when "consultations", "consultation_responses"
       publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"
