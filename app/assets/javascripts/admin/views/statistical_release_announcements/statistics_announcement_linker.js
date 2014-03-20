@@ -16,6 +16,7 @@
       $revealLink.on('click', function () {
         $linker.hide();
         $documentFinder.show();
+        $documentFinder.find('input#title').focus();
       });
 
       // add link to cancel and reset back to the default locale

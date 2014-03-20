@@ -9,22 +9,23 @@
 <%= edition_editing_tabs(@collection) do %>
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add a document</h2>
-    <div>
       <div class="reorder-buttons"><%= button_tag 'Reorder groups', class: 'btn btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-danger js-finish-reorder' %></div>
-      <label for="title">Add</label>
-      <div class="document-finder">
-        <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
-        <input value="Find" type="button" id="find-documents" class="btn btn-mini">
-        <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
-        <p class="tip">
-          Only the first 10 results are returned - be as specific as you can
-        </p>
+      <div id="document-finder">
+        <label for="title">Add</label>
+        <div class="document-finder-fields">
+          <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
+          <input value="Find" type="button" id="find-documents" class="btn btn-mini">
+          <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
+          <p class="tip">
+            Only the first 10 results are returned - be as specific as you can
+          </p>
+        </div>
+        to the
+        <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, session[:document_collection_selected_group_id]) %>
+        group
+        <%= submit_tag 'Add', class: 'btn btn-info' %>
+        <%= hidden_field_tag :document_id %>
       </div>
-      to the
-      <%= select_tag :group_id, options_from_collection_for_select(@groups, :id, :heading, session[:document_collection_selected_group_id]) %>
-      group
-      <%= submit_tag 'Add', class: 'btn btn-info' %>
-      <%= hidden_field_tag :document_id %>
     </div>
   <% end %>
   <div class="js-group-container">
