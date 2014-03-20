@@ -11,7 +11,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :worldwide_organisation_roles, dependent: :destroy
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
-  has_many :corporate_information_pages, as: :organisation, dependent: :destroy
+  has_many :corporate_information_pages, as: :organisation, dependent: :destroy, through: :corporate_information_pages_organisations
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 

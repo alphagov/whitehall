@@ -1,31 +1,48 @@
-class CorporateInformationPage < ActiveRecord::Base
+class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
-  delegate :slug, :display_type_key, to: :type
-  delegate :alternative_format_contact_email, :acronym, to: :organisation
+  include Edition::Organisations
+  include Edition::WorldwideOrganisations
+  delegate :slug, :display_type_key, to: :corporate_information_page_type
+  #delegate :alternative_format_contact_email, :acronym, to: :organisation
 
-  belongs_to :organisation, polymorphic: true
+  #validates :organisation, :body, :type, presence: true
+  #validates :corporate_information_page_type_id, uniqueness: {
+    #scope: :organisation, message: "already exists for this organisation"
+  #}
 
-  validates :organisation, :body, :type, presence: true
-  validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
+  validate :only_one_organisation_or_worldwide_organisation
+  #include TranslatableModel
+  #translates :summary, :body
 
-  include TranslatableModel
-  translates :summary, :body
+  #searchable title: :title_prefix_organisation_name,
+             #link: :search_link,
+             #content: :indexable_content,
+             #description: :summary,
+             ## NOTE: when we launch world we can change this to belonging_to_live_organisations on its own
+             #only: :belonging_to_live_organisations_and_excluding_worldwide_organisations
 
-  searchable title: :title_prefix_organisation_name,
-             link: :search_link,
-             content: :indexable_content,
-             description: :summary,
-             # NOTE: when we launch world we can change this to belonging_to_live_organisations on it's own
-             only: :belonging_to_live_organisations_and_excluding_worldwide_organisations
+  #def body_without_markup
+    #Govspeak::Document.new(body).to_text
+  #end
 
-  def body_without_markup
-    Govspeak::Document.new(body).to_text
+  #def indexable_content
+    #body_without_markup
+  #end
+
+  def only_one_organisation_or_worldwide_organisation
+    if organisations.size + worldwide_organisations.size > 1
+      errors.add(:base, "Only one organisation or worldwide organisation allowed")
+    end
   end
 
-  def indexable_content
-    body_without_markup
+  def skip_organisation_validation?
+    true
+  end
+
+  def organisation
+    organisations.first || worldwide_organisations.first
   end
 
   def search_link
@@ -34,12 +51,12 @@ class CorporateInformationPage < ActiveRecord::Base
 
   def self.for_slug(slug)
     type = CorporateInformationPageType.find(slug)
-    find_by_type_id(type && type.id)
+    find_by_corporate_information_page_type_id(type && type.id)
   end
 
   def self.for_slug!(slug)
     type = CorporateInformationPageType.find(slug)
-    find_by_type_id!(type && type.id)
+    find_by_corporate_information_page_type_id!(type && type.id)
   end
 
   def self.belonging_to_live_organisations_and_excluding_worldwide_organisations
@@ -57,12 +74,12 @@ class CorporateInformationPage < ActiveRecord::Base
     where(CorporateInformationPage.arel_table[:organisation_type].not_eq('WorldwideOrganisation'))
   end
 
-  def type
-    CorporateInformationPageType.find_by_id(type_id)
+  def corporate_information_page_type
+    CorporateInformationPageType.find_by_id(corporate_information_page_type_id)
   end
 
-  def type=(type)
-    self.type_id = type && type.id
+  def corporate_information_page_type=(type)
+    self.corporate_information_page_type_id = type && type.id
   end
 
   def title_prefix_organisation_name
@@ -70,7 +87,7 @@ class CorporateInformationPage < ActiveRecord::Base
   end
 
   def title
-    type.title(organisation)
+    corporate_information_page_type.title(organisation)
   end
 
   def self.by_type(*types)

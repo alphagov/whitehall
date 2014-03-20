@@ -452,6 +452,7 @@ ActiveRecord::Schema.define(:version => 20140401132650) do
     t.string   "external_url"
     t.datetime "opening_at"
     t.datetime "closing_at"
+    t.integer  "corporate_information_page_type_id"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"

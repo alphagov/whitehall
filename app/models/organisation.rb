@@ -72,7 +72,7 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
-  has_many :corporate_information_pages, as: :organisation, dependent: :destroy
+  has_many :corporate_information_pages, dependent: :destroy, through: :edition_organisations, source: :edition, class_name: "CorporateInformationPage"
 
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :social_media_accounts, as: :socialable, dependent: :destroy, include: [:social_media_service]
