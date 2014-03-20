@@ -1,8 +1,8 @@
-class CorporateInformationPagesController < PublicFacingController
-  before_filter :find_organisation
+class CorporateInformationPagesController < DocumentsController
+  prepend_before_filter :find_organisation
 
   def show
-    @corporate_information_page = @organisation.corporate_information_pages.for_slug!(params[:id])
+    @corporate_information_page = @document
     @corporate_information_page.extend(UseSlugAsParam)
 
     set_slimmer_organisations_header([@corporate_information_page.organisation])
@@ -13,6 +13,11 @@ class CorporateInformationPagesController < PublicFacingController
     else
       render :show
     end
+  end
+
+  def find_document_or_edition_for_public
+    published_edition = @organisation.corporate_information_pages.published.for_slug!(params[:id])
+    return published_edition if published_edition.present? && published_edition.available_in_locale?(I18n.locale)
   end
 
 private
