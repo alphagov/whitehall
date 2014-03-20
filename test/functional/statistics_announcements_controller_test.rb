@@ -70,4 +70,10 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
       assert_string_includes "July 08, 2015 09:30", list_item.text
     end
   end
+
+  view_test "#index displays no results text when there aren't any results" do
+    get :index
+    rendered = Nokogiri::HTML::Document.parse(response.body)
+    assert_string_includes "There are no matching announcements", rendered.text
+  end
 end

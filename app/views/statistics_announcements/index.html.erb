@@ -59,9 +59,18 @@
       </div>
     </div>
 
-    <ol class="document-list">
-      <%= render @filter.results %>
-    </ol>
+    <div class="filter-results">
+      <%- if @filter.results.any? -%>
+        <ol class="document-list">
+          <%= render @filter.results %>
+        </ol>
+      <%- else -%>
+        <div class="no-results">
+          <h2>There are no matching announcements.</h2>
+          <p>Try making your search broader and try again.</p>
+        </div>
+      <%- end -%>
+    </div>
 
     <% if @filter.results.number_of_pages > 1 %>
       <nav id="show-more-documents" role="navigation">
