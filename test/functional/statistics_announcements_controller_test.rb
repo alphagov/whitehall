@@ -89,8 +89,18 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_equal announcement.slug, assigns(:announcement).slug
   end
 
-  test "#show responds with 404" do
+  test "#show responds with 404 if announcement not found" do
     get :show, id: "not-a-slug"
     assert_equal 404, response.status
+  end
+
+  test "#show redirects to publication show page if linked publication is already published" do
+    statistics = create :published_statistics
+    announcement = create :statistics_announcement, publication: statistics
+
+    get :show, id: announcement.slug
+
+    assert response.redirect?
+    assert_equal publication_url(statistics), response.redirect_url
   end
 end

@@ -62,17 +62,19 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     publisher_announcement = create :statistics_announcement, slug: "a-slug",
                                                               title: "A Title",
                                                               summary: "A summary",
+                                                              publication: create(:published_statistics),
                                                               publication_type_id: PublicationType::NationalStatistics.id,
                                                               expected_release_date: Time.zone.parse("2016-01-01"),
                                                               display_release_date_override: "Jan 2016",
-                                                              organisation: build(:ministerial_department),
-                                                              topic: build(:topic)
+                                                              organisation: create(:ministerial_department),
+                                                              topic: create(:topic)
 
     announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(publisher_announcement.slug)
 
     assert_equal announcement.slug,              publisher_announcement.slug
     assert_equal announcement.title,             publisher_announcement.title
     assert_equal announcement.summary,           publisher_announcement.summary
+    assert_equal announcement.publication,       publisher_announcement.publication
     assert_equal announcement.document_type,     PublicationType::NationalStatistics.singular_name
     assert_equal announcement.release_date,      publisher_announcement.expected_release_date
     assert_equal announcement.release_date_text, publisher_announcement.display_release_date_override

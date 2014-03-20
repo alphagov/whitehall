@@ -35,6 +35,7 @@ module Frontend
         slug: model.slug,
         title: model.title,
         summary: model.summary,
+        publication: model.publication,
         document_type: model.display_type,
         release_date: model.expected_release_date,
         release_date_text: model.display_release_date_override,

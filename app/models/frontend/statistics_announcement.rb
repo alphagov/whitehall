@@ -1,5 +1,8 @@
 class Frontend::StatisticsAnnouncement < InflatableModel
-  attr_accessor :slug, :title, :summary, :document_type, :release_date, :release_date_text, :organisations, :topics
+  attr_accessor :slug, :title, :summary,
+                :publication, :document_type,
+                :release_date, :release_date_text,
+                :organisations, :topics
 
   def release_date_text
     @release_date_text || release_date.try(:to_s, :long)
