@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   serialize :permissions, Array
 
   validates :name, presence: true
-  validates :email, email_format: { allow_blank: true }
 
   module Permissions
     SIGNIN = 'signin'
