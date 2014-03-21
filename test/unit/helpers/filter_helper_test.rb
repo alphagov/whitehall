@@ -36,16 +36,21 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
   def build_filter(params = {})
     OpenStruct.new(params.reverse_merge({
       filter_type: "publication",
-      result_count: 1
+      result_count: 1,
+      valid_filter_params: {}
     }))
   end
 
   def rendered_description(filter, opts = {})
-    Nokogiri::HTML::DocumentFragment.parse(FilterHelper::FilterDescription.new(filter, opts).render)
+    Nokogiri::HTML::DocumentFragment.parse(FilterHelper::FilterDescription.new(filter, base_url, opts).render)
+  end
+
+  def base_url
+    "http://www.example.com"
   end
 
   test "It describes the total count correctly" do
-    assert_string_includes "12,345 documents", rendered_description(build_filter(filter_type: "document", result_count: 12345)).text
+    assert_string_includes "12,345 documents", rendered_description(build_filter(filter_type: "document",  result_count: 12345)).text
     assert_string_includes "1 document", rendered_description(build_filter(filter_type: "document", result_count: 1)).text
   end
 
@@ -65,9 +70,46 @@ class FilterHelperTest::FilterDescriptionTest < ActionView::TestCase
 
   test "It describes date range" do
     filter = build_filter(from_date: Date.new(2040, 02, 20), to_date: Date.new(2050, 01, 10))
-    assert_string_includes "due after 20 February 2040 and before 10 January 2050", rendered_description(filter, date_prefix_text: "due").text
+    assert_string_includes "due after 20 February 2040", rendered_description(filter, date_prefix_text: "due").text
+    assert_string_includes "and before 10 January 2050", rendered_description(filter, date_prefix_text: "due").text
 
     filter = build_filter(from_date: Date.new(2040, 02, 20))
     assert_string_includes "procrantinated after 20 February 2040", rendered_description(filter, date_prefix_text: "procrantinated").text
+  end
+
+  def assert_remove_filter_link_present(html_fragment, field, expected_text, expected_value, expected_query_params)
+    link = html_fragment.at_css("a[data-field=#{field}]")
+    assert link.present?, "No link with data-field=\"#{field}\""
+    assert_equal expected_value, link[:"data-value"]
+    assert_equal "Remove #{expected_text}", link[:title]
+    assert_equal expected_query_params, Rack::Utils.parse_nested_query(URI.parse(link[:href]).query).symbolize_keys
+  end
+
+  test "It renders links to remove search parameters" do
+    topic = build(:topic, name: "Community and society", slug: "community-and-society")
+    organisation = build(:organisation, name: "Department of Magic", slug: "department-of-magic")
+
+    filter = build_filter keywords: "fishslice",
+                          organisations: [organisation],
+                          topics: [topic],
+                          from_date: Date.new(2040, 1, 1),
+                          to_date: Date.new(2050, 1, 1)
+
+    expected_filter_params = {
+      keywords: "fishslice",
+      organisations: [organisation.slug],
+      topics: [topic.slug],
+      from_date: "2040-01-01",
+      to_date: "2050-01-01"
+    }
+
+    filter.stubs(:valid_filter_params).returns(expected_filter_params)
+
+    rendered = rendered_description(filter)
+    assert_remove_filter_link_present(rendered, :keywords,      "fishslice",             "fishslice",       expected_filter_params.except(:keywords))
+    assert_remove_filter_link_present(rendered, :organisations, organisation.name,       organisation.slug, expected_filter_params.except(:organisations))
+    assert_remove_filter_link_present(rendered, :topics,        topic.name,              topic.slug,        expected_filter_params.except(:topics))
+    assert_remove_filter_link_present(rendered, :from_date,     "published after date",  "2040-01-01",      expected_filter_params.except(:from_date))
+    assert_remove_filter_link_present(rendered, :to_date,       "published before date", "2050-01-01",      expected_filter_params.except(:to_date))
   end
 end

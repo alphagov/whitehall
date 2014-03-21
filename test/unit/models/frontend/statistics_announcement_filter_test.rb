@@ -45,19 +45,19 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     organisation = create :organisation
     topic = create :topic
 
-    announcement = build(keywords: "keyword",
-                         from_date: "2020-01-01",
-                         to_date: "2020-02-01",
-                         organisations: [organisation],
-                         topics: [topic],
-                         page: 2)
+    filter = build(keywords: "keyword",
+                   from_date: "2020-01-01",
+                   to_date: "2020-02-01",
+                   organisations: [organisation],
+                   topics: [topic],
+                   page: 2)
 
     assert_equal({ keywords: "keyword",
                    from_date: Date.new(2020, 1, 1),
                    to_date: Date.new(2020, 2, 1),
                    organisations: [organisation.slug],
                    topics: [topic.slug],
-                 }, announcement.valid_filter_params)
+                 }, filter.valid_filter_params)
   end
 
   test "#valid_filter_params skips blank attributes" do
