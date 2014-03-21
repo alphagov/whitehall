@@ -334,6 +334,66 @@ class Organisation < ActiveRecord::Base
     name
   end
 
+  def alternate_style_top_tasks
+    case slug
+    when 'driver-and-vehicle-licensing-agency'
+      {
+        services_in: {
+          link: 'https://www.gov.uk/browse/driving',
+          text: 'Driving and transport',
+        },
+        prominent: [
+          {
+            link: 'https://www.gov.uk/tax-disc',
+            text: 'Get a tax disc for your vehicle',
+            description: 'You will need your numberplate, a credit/debit card and either your tax disc renewal reminder or your vehicle logbook.'
+          },
+          {
+            link: 'https://www.gov.uk/vehicle-registration-certificate-v5c-log-book',
+            text: 'Get a V5C (logbook)',
+            description: 'Apply by phone or post to get a replacement V5C vehicle registration certificate (log book). There is a £25 fee.'
+          }
+        ],
+        top_tasks: [
+          {
+            link: 'https://www.gov.uk/register-sorn-statutory-off-road-notification',
+            text: 'Make a SORN'
+          },
+          {
+            link: 'https://www.gov.uk/change-address-driving-licence',
+            text: 'Change the address on your driving licence'
+          },
+          {
+            link: 'https://www.gov.uk/get-vehicle-information-from-dvla',
+            text: 'Get vehicle information from DVLA'
+          }
+        ]
+      }
+    when 'uk-visas-and-immigration'
+      {
+        prominent: [
+          {
+            link: 'https://www.gov.uk/visas-immigration',
+            text: 'Visas, settlement and asylum',
+            description: 'Information on different UK visas, how to settle in the UK and claiming asylum.'
+          },
+          {
+            link: 'https://www.gov.uk/browse/visas-immigration/eu-eea-commonwealth',
+            text: 'European nationals',
+            description: 'Living and working in the UK for EU and EEA nationals, their partners and family.'
+          },
+          {
+            link: 'https://www.gov.uk/becoming-a-british-citizen',
+            text: 'British citizenship ',
+            description: 'How to become a British citizen and types of UK nationality.'
+          }
+        ]
+      }
+    else
+      {}  
+    end
+  end
+
   private
 
   def sub_organisations_must_have_a_parent
