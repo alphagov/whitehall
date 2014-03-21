@@ -7,7 +7,8 @@
 
   <div class="block-1 headings-block">
     <div class="inner-block">
-      <%= render 'header', organisation: @organisation, show_top_tasks: true, languages_available: true %>
+      <%= render 'header', organisation: @organisation, show_top_tasks: true, languages_available: true,
+                           alternate_style_top_tasks: @organisation.alternate_style_top_tasks %>
     </div>
   </div>
 

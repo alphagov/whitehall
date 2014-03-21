@@ -1,12 +1,12 @@
-<% links = organisation.alternate_style_top_tasks %>
-
 <% if links[:services_in] %>
   <aside class="heading-extra">
     <p class="all-services">View all services in:</p>
     <ul class="top-tasks">
-      <li>
-        <%= link_to links[:services_in][:text], links[:services_in][:link] %>
-      </li>
+      <% links[:services_in].each do |link| %>
+        <li>
+          <%= link_to link[:text], link[:link] %>
+        </li>
+      <% end %>
     </ul>
   </aside>
 <% end -%>
