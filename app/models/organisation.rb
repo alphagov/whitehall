@@ -338,10 +338,12 @@ class Organisation < ActiveRecord::Base
     case slug
     when 'driver-and-vehicle-licensing-agency'
       {
-        services_in: {
-          link: 'https://www.gov.uk/browse/driving',
-          text: 'Driving and transport',
-        },
+        services_in: [
+          {
+            link: 'https://www.gov.uk/browse/driving',
+            text: 'Driving and transport',
+          }
+        ],
         prominent: [
           {
             link: 'https://www.gov.uk/tax-disc',
@@ -371,6 +373,16 @@ class Organisation < ActiveRecord::Base
       }
     when 'uk-visas-and-immigration'
       {
+        services_in: [
+          {
+            link: 'https://www.gov.uk/immigration-operational-guidance',
+            text: "UKVI's operational guidance"
+          },
+          {
+            link: 'https://www.gov.uk/government/collections/immigration-rules',
+            text: 'The current Immigration Rules'
+          },
+        ],
         prominent: [
           {
             link: 'https://www.gov.uk/visas-immigration',
