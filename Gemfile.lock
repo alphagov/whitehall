@@ -70,6 +70,11 @@ GEM
     bad_link_finder (0.3.1)
       mechanize (~> 2.7)
       nokogiri (~> 1.5)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-kaminari-views (0.0.2)
       kaminari (>= 0.13)
       rails (>= 3.1)
@@ -89,6 +94,7 @@ GEM
     chronic (0.10.2)
     ci_reporter (1.8.4)
       builder (>= 2.1.2)
+    coderay (1.1.0)
     columnize (0.3.6)
     connection_pool (1.1.0)
     crack (0.4.0)
@@ -106,6 +112,7 @@ GEM
       rails (>= 3.0.0)
     daemons (1.1.9)
     database_cleaner (1.0.1)
+    debug_inspector (0.0.2)
     debugger (1.6.2)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -371,6 +378,8 @@ DEPENDENCIES
   airbrake (= 3.1.15)
   babosa
   bad_link_finder (~> 0.3.1)
+  better_errors
+  binding_of_caller
   bootstrap-kaminari-views
   capybara (~> 2.1.0)
   carrierwave (= 0.9.0)
