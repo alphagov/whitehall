@@ -2,7 +2,7 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
   class ::OldCorporateInformationPage < ActiveRecord::Base
     translates :summary, :body, foreign_key: :corporate_information_page_id
     belongs_to :organisation, polymorphic: true
-    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', inverse_of: :attachable
+    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', source_type: "CorporateInformationPage"
     delegate :slug, :display_type_key, to: :type
     def type
       CorporateInformationPageType.find_by_id(type_id)
@@ -15,12 +15,15 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
   OldCorporateInformationPage.table_name = 'corporate_information_pages'
   OldCorporateInformationPage::Translation.table_name = 'corporate_information_page_translations'
   Whitehall.skip_safe_html_validation = true
-  #OldCorporateInformationPage.translation_options[:foreign_key] = "corporate_information_page_id"
+
+  # default title text for validation only.
+  CorporateInformationPage.class_eval do
+    def title
+      "title"
+    end
+  end
   def up
 
-    # Remove validation of translated attributes for now.
-    #old_validators = CorporateInformationPage.validators.dup
-    #CorporateInformationPage.validators = old_validators.reject {|v| v.class == ActiveModel::Validations::PresenceValidator && !(v.attributes & [:summary, :body, :title]).empty?}
     gds_ig_team_user = User.find_by_name!('GDS Inside Government Team')
     transaction do
       OldCorporateInformationPage.includes(:organisation).each do |old_cip|
@@ -41,8 +44,6 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
           body: old_cip.body,
           corporate_information_page_type_id: old_cip.type_id,
           major_change_published_at: old_cip.updated_at,
-          #published_major_version: old_cip.updated_at,
-          #published_minor_version: old_cip.updated_at,
           state: 'published')
         if org.is_a? Organisation
           EditionOrganisation.create!(
@@ -63,15 +64,13 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
             updated_at: old_trans.updated_at,
             created_at: old_trans.created_at) unless old_trans.locale == :en
         end
-        old_cip.attachments.each do |att|
-          att.attachable_type = 'Edition'
-          att.attachable_id = new_cip.id
-          att.save
-        end
+        Attachment.where(
+          attachable_type: 'CorporateInformationPage',
+          attachable_id: old_cip.id
+        ).update_all(attachable_type: 'Edition', attachable_id: new_cip.id)
 
       end
     end
-    #CorporateInformationPageType.validators = old_validators
   end
 
   def down
