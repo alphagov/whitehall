@@ -25,13 +25,13 @@
         <div class="filter">
           <div class="filter-inner">
             <%= label_tag "organisations", "Department" %>
-            <%= select_tag "organisations[]", organisation_options_for_statistics_announcement_filter(@filter.organisations), id: "organisations", class: "single-row-select" %>
+            <%= select_tag "organisations[]", organisation_options_for_statistics_announcement_filter(@filter.organisation_slugs), id: "organisations", class: "single-row-select" %>
           </div>
         </div>
         <div class="filter">
           <div class="filter-inner">
             <%= label_tag "topics", "Topic" %>
-            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.topics), id: "topics", class: "single-row-select" %>
+            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.topic_slugs), id: "topics", class: "single-row-select" %>
           </div>
         </div>
         <div class="filter date-range-filter">
