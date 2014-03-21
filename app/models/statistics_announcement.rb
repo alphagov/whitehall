@@ -27,8 +27,8 @@ class StatisticsAnnouncement < ActiveRecord::Base
               slug: :slug,
               organisations: :organisation_slugs,
               topics: :topic_slugs,
-              expected_release_timestamp: :release_date,
-              expected_release_text: :display_date
+              release_timestamp: :release_date,
+              metadata: :search_metadata
 
   delegate :release_date, :display_date, to: :statistics_announcement_date
 
@@ -54,6 +54,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   def topic_slugs
     [topic.slug]
+  end
+
+  def search_metadata
+    { confirmed: confirmed_date?, display_date: display_date, change_reason: nil }
   end
 
 private

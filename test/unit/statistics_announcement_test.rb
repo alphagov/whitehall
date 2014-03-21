@@ -34,8 +34,12 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'topics' => [announcement.topic.slug],
       'display_type' => announcement.display_type,
       'slug' => announcement.slug,
-      'expected_release_timestamp' => announcement.release_date,
-      'expected_release_text' => announcement.display_date
+      'release_timestamp' => announcement.release_date,
+      'metadata' => {
+        confirmed: announcement.confirmed_date?,
+        display_date: announcement.display_date,
+        change_reason: nil
+      }
     }
 
     assert announcement.can_index_in_search?

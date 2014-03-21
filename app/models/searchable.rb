@@ -10,7 +10,7 @@ module Searchable
     :topics, :news_article_type, :display_type,
     :slug, :search_format_types, :world_locations,
     :attachments, :operational_field, :organisation_state,
-    :expected_release_timestamp, :expected_release_text
+    :release_timestamp, :metadata
   ]
 
   included do
