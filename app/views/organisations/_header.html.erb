@@ -5,6 +5,7 @@
   sub_organisation = organisation.organisation_type.sub_organisation?
   logo_size = 'medium' if sub_organisation
   languages_available ||= false
+  alternate_style_top_tasks ||= {}
 %>
 
 <header class="page-header">
@@ -26,8 +27,8 @@
     <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
   <% end %>
 
-  <% if organisation.alternate_style_top_tasks != {} %>
-    <%= render partial: 'alternate_style_top_tasks', locals: {organisation: organisation} %>
+  <% if alternate_style_top_tasks.any? %>
+    <%= render partial: 'organisations/alternate_style_top_tasks', locals: {links: alternate_style_top_tasks} %>
   <% else %>
     <%= content_tag_if_not_empty :aside, class: "heading-extra" do %>
       <% if languages_available %>
