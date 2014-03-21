@@ -275,7 +275,9 @@ Whitehall::Application.routes.draw do
 
         get "/editions/:id" => "editions#show"
 
-        resources :statistics_announcements
+        resources :statistics_announcements do
+          resources :statistics_announcement_dates
+        end
 
         resources :suggestions, only: [:index]
 

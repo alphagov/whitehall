@@ -8,6 +8,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   belongs_to :publication
 
   has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
+  has_many :statistics_announcement_dates
 
   validate  :publication_is_statistics, if: :publication
   validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
@@ -30,7 +31,8 @@ class StatisticsAnnouncement < ActiveRecord::Base
               release_timestamp: :release_date,
               metadata: :search_metadata
 
-  delegate :release_date, :display_date, to: :current_release_date
+  delegate  :release_date, :display_date, :change_note,
+              to: :current_release_date
 
   def confirmed_date?
     current_release_date.confirmed?
@@ -57,7 +59,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def search_metadata
-    { confirmed: confirmed_date?, display_date: display_date, change_reason: nil }
+    { confirmed: confirmed_date?, display_date: display_date, change_note: change_note }
   end
 
 private

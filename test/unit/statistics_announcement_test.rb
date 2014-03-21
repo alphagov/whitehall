@@ -38,7 +38,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'metadata' => {
         confirmed: announcement.confirmed_date?,
         display_date: announcement.display_date,
-        change_reason: nil
+        change_note: announcement.change_note
       }
     }
 

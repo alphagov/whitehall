@@ -16,3 +16,9 @@ Feature: Announcing a upcoming statistics release
     Then the document fields are pre-filled based on the announcement
     When I save the draft statistics document
     Then the document becomes linked to the announcement
+
+  Scenario: changing the date on a statistics announcement
+    Given I am a editor in the organisation "Department for Beards"
+    And a statistics announcement called "Monthly Beard Stats" exists
+    When I change the release date on the announcement
+    Then the new date is reflected on the announcement

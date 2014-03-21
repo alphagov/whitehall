@@ -28,6 +28,16 @@ When(/^I save the draft statistics document$/) do
   click_on "Save"
 end
 
+When(/^I change the release date on the announcement$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+  click_on 'Change release date'
+
+  select_datetime '14-Dec-2014 09:30', from: 'Release date'
+  check 'Confirmed date?'
+  choose 'Exact'
+  click_on 'Change date'
+end
+
 Then(/^the document fields are pre\-filled based on the announcement$/) do
   assert page.has_css?("input[id=edition_title][value='#{@statistics_announcement.title}']")
   assert page.has_css?("textarea[id=edition_summary]", text: @statistics_announcement.summary)
@@ -47,4 +57,9 @@ Then(/^I should see the announcement listed on the list of announcements$/) do
   ensure_path admin_statistics_announcements_path
 
   assert page.has_content?(announcement.title)
+end
+
+Then(/^the new date is reflected on the announcement$/) do
+  ensure_path admin_statistics_announcement_path(@statistics_announcement)
+  assert page.has_content?('14 December 2014 09:30')
 end
