@@ -79,6 +79,21 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_string_includes "There are no matching announcements", rendered.text
   end
 
+  test "#index sets cache control max-age to Whitehall::default_cache_max_age if no release announcements are due to expire within that window" do
+    Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
+    create :statistics_announcement, expected_release_date: 1.day.from_now
+    get :index
+    assert_cache_control("max-age=#{15.minutes}")
+  end
+
+  test "#index sets cache control max-age to expire when the next announcement expires" do
+    Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
+    create :statistics_announcement, expected_release_date: 2.minutes.from_now
+    create :statistics_announcement, expected_release_date: 10.minutes.from_now
+    create :statistics_announcement, expected_release_date: 1.minute.ago
+    get :index
+    assert_cache_control("max-age=#{2.minutes}")
+  end
 
   ### Describing #show
 
@@ -102,5 +117,35 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert response.redirect?
     assert_equal publication_url(statistics), response.redirect_url
+  end
+
+  test "#show sets cache control max-age to Whitehall::default_cache_max_age if neither announcement's expected release date and it's linked document's publication date are within the window" do
+    Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
+    announcement = create :statistics_announcement,
+                          expected_release_date: 1.day.from_now,
+                          publication: create(:scheduled_publication, :statistics,
+                                              scheduled_publication: 1.day.from_now)
+    get :show, id: announcement.slug
+    assert_cache_control("max-age=#{15.minutes}")
+  end
+
+  test "#show sets cache control max-age to the statistics_announcement's expected_release_date if that is before it's publication's scheduled publication date" do
+    Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
+    announcement = create :statistics_announcement,
+                          expected_release_date: 2.minutes.from_now,
+                          publication: create(:scheduled_publication, :statistics,
+                                              scheduled_publication: 3.minutes.from_now)
+    get :show, id: announcement.slug
+    assert_cache_control("max-age=#{2.minutes}")
+  end
+
+  test "#show sets cache control max-age to the statistics_announcement's linked publication's scheduled publication date if that is before the expected_release_date" do
+    Whitehall.stubs(:default_cache_max_age).returns(15.minutes)
+    announcement = create :statistics_announcement,
+                          expected_release_date: 5.minutes.from_now,
+                          publication: create(:scheduled_publication, :statistics,
+                                              scheduled_publication: 4.minutes.from_now)
+    get :show, id: announcement.slug
+    assert_cache_control("max-age=#{4.minutes}")
   end
 end
