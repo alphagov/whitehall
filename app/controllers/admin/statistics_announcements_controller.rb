@@ -3,14 +3,14 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def index
     @statistics_announcements = StatisticsAnnouncement.
-                                  includes(:statistics_announcement_date).
-                                  order(statistics_announcement_date: :release_date ).
+                                  includes(:current_release_date).
+                                  order(current_release_date: :release_date ).
                                   page(params[:page])
   end
 
   def new
     @statistics_announcement = build_statistics_announcement(organisation_id: current_user.organisation.try(:id))
-    @statistics_announcement.build_statistics_announcement_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
+    @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
   end
 
   def create
@@ -56,6 +56,6 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(
       :title, :summary, :organisation_id, :topic_id, :publication_type_id, :publication_id,
-      statistics_announcement_date_attributes: [:id, :release_date, :precision, :confirmed])
+      current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
   end
 end

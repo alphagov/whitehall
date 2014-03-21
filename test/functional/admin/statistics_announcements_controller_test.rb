@@ -21,7 +21,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
                     publication_type_id: PublicationType::Statistics.id,
                     organisation_id: @organisation.id,
                     topic_id: @topic.id,
-                    statistics_announcement_date_attributes: {
+                    current_release_date_attributes: {
                       release_date: 1.year.from_now,
                       precision: StatisticsAnnouncementDate::PRECISION[:one_month],
                       confirmed: '0'

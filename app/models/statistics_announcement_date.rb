@@ -1,7 +1,7 @@
 class StatisticsAnnouncementDate < ActiveRecord::Base
   PRECISION = { exact: 0, one_month: 1, two_month: 2 }
 
-  belongs_to :statistics_announcement, inverse_of: :statistics_announcement_date
+  belongs_to :statistics_announcement
 
   validates :release_date, presence: true
   validates :precision, presence: true, inclusion: { in: PRECISION.values }

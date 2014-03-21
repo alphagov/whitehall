@@ -24,7 +24,7 @@
 
 
   <% if statistics_announcement.new_record? %>
-    <%= form.fields_for :statistics_announcement_date do |fields| %>
+    <%= form.fields_for :current_release_date do |fields| %>
       <%= fields.label :release_date, "Release date", required: true %>
       <%= fields.datetime_select :release_date, {
           start_year: Date.today.year,
@@ -37,7 +37,7 @@
 
       <p>Display precision</p>
       <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-        <% checked = statistics_announcement.statistics_announcement_date.precision == value %>
+        <% checked = statistics_announcement.current_release_date.precision == value %>
         <%= fields.labelled_radio_button(key.to_s.humanize, :precision, value, checked: checked) %>
       <% end %>
     <% end %>
