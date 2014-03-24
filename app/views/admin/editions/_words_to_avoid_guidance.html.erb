@@ -1,0 +1,60 @@
+<h3 class="use-plain-english-title">Use plain English</h3>
+
+<p>For details, see the <a href="https://www.gov.uk/design-principles/style-guide#writing-plain-english">guideline on using Plain English</a></p>
+
+<p id="js-words-to-avoid-alert" class="alert alert-warning words-to-avoid hide">
+  <span id="js-words-to-avoid-count" class="badge badge-warning"></span>
+  highlighted word(s) appear on the words to avoid list.
+</p>
+
+<h3><a data-toggle="collapse" data-target="#words-to-avoid-list">Words to avoid</a></h3>
+<div class="collapse" id="words-to-avoid-list">
+  <ul>
+    <li>agenda (unless it's for a meeting)</li>
+    <li>advancing</li>
+    <li>collaborate (use 'working with')</li>
+    <li>combating</li>
+    <li>commit/pledge (we need to be more specific – we're either doing something or we're not)</li>
+    <li>countering</li>
+    <li>deliver (pizzas, post and services are delivered – not abstract concepts like 'improvements' or 'priorities')</li>
+    <li>deploy (unless it's military or software)</li>
+    <li>dialogue (we speak to people)</li>
+    <li>disincentivise (and incentivise)</li>
+    <li>empower</li>
+    <li>facilitate (instead, say something specific about how you are helping)</li>
+    <li>focusing</li>
+    <li>foster (unless it's children)</li>
+    <li>impact (as a verb)</li>
+    <li>initiate</li>
+    <li>key (unless it unlocks something. A subject/thing isn't 'key' – it's probably 'important')</li>
+    <li>land (as a verb. Only use if you are talking about aircraft)</li>
+    <li>leverage (unless in the financial sense)</li>
+    <li>liaise</li>
+    <li>overarching</li>
+    <li>progress (as a verb – what are you actually doing?)</li>
+    <li>promote (unless you are talking about an ad campaign or some other marketing promotion)</li>
+    <li>robust</li>
+    <li>slimming down (processes don't diet – we are probably removing x amount of paperwork, etc)</li>
+    <li>streamline</li>
+    <li>strengthening (unless it's strengthening bridges or other structures)</li>
+    <li>tackling (unless it's rugby, football or some other sport)</li>
+    <li>transforming (what are you actually doing to change it?)</li>
+    <li>utilise</li>
+  </ul>
+
+  Always avoid metaphors. For example:
+
+  <ul>
+    <li>drive (you can only drive vehicles; not schemes or people)</li>
+    <li>drive out (unless it's cattle)</li>
+    <li>going forward (unlikely we are giving travel directions)</li>
+    <li>in order to (superfluous – don't use it)</li>
+    <li>one-stop shop (we are government, not a retail outlet)</li>
+    <li>ring fencing</li>
+  </ul>
+</div>
+
+<% initialise_script "GOVUK.WordsToAvoidHighlighter",
+    el: "form textarea",
+    wordsToAvoidAlert: "#js-words-to-avoid-alert",
+    wordsToAvoidCounter: "#js-words-to-avoid-count" %>
