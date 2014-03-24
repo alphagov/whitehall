@@ -1,0 +1,43 @@
+<% page_title "Statistics announcement" %>
+
+<nav class="actions">
+  <%= link_to "Create announcement", new_admin_statistics_announcement_path, class: "btn new_resource", title: "Create a statistics announcement" %>
+</nav>
+
+<h1>Statistics announcement</h1>
+
+<table class="statistics-announcements table table-striped">
+  <thead>
+    <tr>
+      <th>Announcement title</th>
+      <th>Document</th>
+      <th>Organisation</th>
+      <th>Topic</th>
+      <th>Display date</th>
+      <th>Release date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @statistics_announcements.each do |statistics_announcement| %>
+      <%= content_tag_for :tr, statistics_announcement do %>
+        <td><%= link_to statistics_announcement.title, [:admin, statistics_announcement] %></td>
+        <td>
+          <% if publication = statistics_announcement.publication %>
+            <%= link_to(publication.title, [:admin, publication]) %>
+            (<%= publication.current_state %>)
+          <% else %>
+            (no document)
+          <% end %>
+        </td>
+        <td><%= statistics_announcement.organisation.name %></td>
+        <td><%= statistics_announcement.topic.name %></td>
+        <td>
+          <%= statistics_announcement.display_date %>
+          (<%= statistics_announcement.confirmed_date? ? 'confirmed' : 'provisional' %>)
+        </td>
+        <td><%= statistics_announcement.release_date.to_s(:long_ordinal) %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @statistics_announcements, theme: 'twitter-bootstrap' %>

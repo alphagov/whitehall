@@ -1,15 +1,23 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_filter :find_statistics_announcement, only: [:edit, :update, :destroy]
+  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @statistics_announcements = StatisticsAnnouncement.
+                                  includes(:current_release_date).
+                                  order(current_release_date: :release_date ).
+                                  page(params[:page])
+  end
 
   def new
     @statistics_announcement = build_statistics_announcement(organisation_id: current_user.organisation.try(:id))
+    @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
   end
 
   def create
     @statistics_announcement = build_statistics_announcement(statistics_announcement_params)
 
     if @statistics_announcement.save
-      redirect_to admin_root_url, notice: "Announcement saved successfully"
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement saved successfully"
     else
       render :new
     end
@@ -20,9 +28,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def update
     @statistics_announcement.attributes = statistics_announcement_params
-    path_to_redirect = @statistics_announcement.publication_id_changed? ? [:edit, :admin, @statistics_announcement] : admin_root_url
     if @statistics_announcement.save
-      redirect_to path_to_redirect, notice: "Announcement updated successfully"
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement updated successfully"
     else
       render :edit
     end
@@ -48,7 +55,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(
-      :title, :summary, :expected_release_date, :display_release_date_override,
-      :organisation_id, :topic_id, :publication_type_id, :publication_id)
+      :title, :summary, :organisation_id, :topic_id, :publication_type_id, :publication_id,
+      current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
   end
 end

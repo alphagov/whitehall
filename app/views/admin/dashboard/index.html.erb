@@ -29,29 +29,6 @@
 
 <div class="row-fluid">
   <div class="span6 draft-documents">
-    <h2>Statistics announcements</h2>
-
-    <p><%= link_to 'Announce upcoming statistics', new_admin_statistics_announcement_path %></p>
-
-    <ol class="document-list statistics-announcements">
-      <% StatisticsAnnouncement.all.each do |announcement| %>
-        <%= content_tag_for(:li, announcement, class: 'document-row') do %>
-          <h3><%= announcement.title %></h3>
-          <ul class="attributes">
-            <li class="updated-by"><%= announcement.display_release_date %></li>
-            <li class="type"><%= link_to 'Edit announcement', edit_admin_statistics_announcement_path(announcement) %></li>
-            <li class="edition">
-              <% if announcement.publication %>
-                <%= link_to 'View document', admin_publication_path(announcement.publication) %>
-              <% else %>
-                <%= link_to 'Draft document', new_admin_publication_path(statistics_announcement_id: announcement.id) %>
-              <% end %>
-            </li>
-          </ul>
-        <% end %>
-      <% end %>
-    </ol>
-
     <h2>My draft documents</h2>
     <%= render partial: 'document_table', locals: { documents: @draft_documents, title: 'draft documents' } %>
   </div>

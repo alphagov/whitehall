@@ -23,19 +23,27 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal 'beard-statistics-2015', announcement.slug
   end
 
-  test '#display_release_date is based on expected_release_date by default' do
-    announcement = create(:statistics_announcement, expected_release_date: Time.new(2015, 03, 15, 9, 30))
-    assert_equal '15 March 2015 09:30', announcement.display_release_date
-  end
-
-  test '#display_release_date can be overridden with display_release_date_override' do
-    announcement = create(:statistics_announcement, display_release_date_override: 'April 2015')
-
-    assert_equal 'April 2015', announcement.display_release_date
-  end
-
   test 'is search indexable' do
-    assert create(:statistics_announcement).can_index_in_search?
+    announcement   = create(:statistics_announcement)
+    expected_indexed_content = {
+      'title' => announcement.title,
+      'link' => announcement.public_path,
+      'format' => 'statistics_announcement',
+      'description' => announcement.summary,
+      'organisations' => [announcement.organisation.slug],
+      'topics' => [announcement.topic.slug],
+      'display_type' => announcement.display_type,
+      'slug' => announcement.slug,
+      'release_timestamp' => announcement.release_date,
+      'metadata' => {
+        confirmed: announcement.confirmed_date?,
+        display_date: announcement.display_date,
+        change_note: announcement.change_note
+      }
+    }
+
+    assert announcement.can_index_in_search?
+    assert_equal expected_indexed_content, announcement.search_index
   end
 
   test 'is indexed for search after being saved' do
@@ -61,5 +69,27 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.publication = create(:draft_policy_paper)
     refute announcement.valid?
     assert_equal ["must be statistics"], announcement.errors[:publication]
+  end
+
+  test '#build_statistics_announcement_date_change returns a date change based on the current date' do
+    announcement = build(:statistics_announcement)
+    current_date = announcement.current_release_date
+    date_change  = announcement.build_statistics_announcement_date_change
+
+    assert date_change.is_a?(StatisticsAnnouncementDateChange)
+    assert_equal announcement, date_change.statistics_announcement
+    assert_equal announcement.current_release_date, date_change.current_release_date
+    assert_equal current_date.precision, date_change.precision
+    assert_equal current_date.release_date, date_change.release_date
+    assert_equal current_date.confirmed, date_change.confirmed
+  end
+
+  test '#build_statistics_announcement_date_change can override attributes' do
+    announcement = build(:statistics_announcement)
+    current_date = announcement.current_release_date
+    date_change  = announcement.build_statistics_announcement_date_change(change_note: 'Some changes being made')
+
+    assert_equal 'Some changes being made', date_change.change_note
+    assert_equal current_date.release_date, date_change.release_date
   end
 end

@@ -1,0 +1,26 @@
+<% page_title "Change statistics announcement release date" %>
+<div class="span8">
+  <h1><%= @statistics_announcement.title %></h1>
+
+  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
+    <%= form.errors %>
+
+    <%= form.label :release_date, "Release date", required: true %>
+    <%= form.datetime_select :release_date, {
+        start_year: Date.today.year,
+        end_year: Date.today.year + 5,
+        minute_step: 15,
+      }, { class: 'date' } %>
+
+    <%= form.check_box :confirmed, label_text: 'Confirmed date?' %>
+
+    <p>Display precision</p>
+    <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
+      <%= form.labelled_radio_button(key.to_s.humanize, :precision, value) %>
+    <% end %>
+
+    <%= form.text_area :change_note, rows: 5 %>
+
+    <%= form.save_or_cancel buttons: { save: 'Change date' }, cancel: [:admin, @statistics_announcement] %>
+  <% end %>
+</div>

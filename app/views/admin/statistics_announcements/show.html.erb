@@ -1,0 +1,53 @@
+<% content_for :page_class, 'statistics-announcements' %>
+<% page_title "Statistics announcement: #{@statistics_announcement.title}" %>
+
+<div class="span8">
+  <h1><%= @statistics_announcement.title %></h1>
+  <%= link_to "View on website", @statistics_announcement %>
+
+  <%= render 'document_status', statistics_announcement: @statistics_announcement %>
+
+  <p><%= @statistics_announcement.summary %></p>
+
+  <dl class="dl-horizontal">
+    <dt>Release date:</dt>
+    <dd>
+      <%= @statistics_announcement.release_date.to_s(:long_ordinal) %>
+    </dd>
+    <dt>Display date:</dt>
+    <dd>
+      <%= @statistics_announcement.display_date %>
+      (<%= @statistics_announcement.confirmed_date? ? 'confirmed' : 'provisional' %>)
+    </dd>
+    <% if @statistics_announcement.change_note.present? %>
+      <dt>Change note:</dt>
+      <dd>
+        <%= @statistics_announcement.change_note %>
+      </dd>
+    <% end %>
+    <dt>Type:</dt>
+    <dd><%= @statistics_announcement.display_type %></dd>
+    <dt>Organisation:</dt>
+    <dd><%= @statistics_announcement.organisation.name %></dd>
+    <dt>Topic:</dt>
+    <dd><%= @statistics_announcement.topic.name %></dd>
+  </dl>
+
+  <div class="form-actions">
+    <%= link_to "Edit", [:edit, :admin, @statistics_announcement], class: "btn btn-primary"%>
+    <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn btn-primary"%>
+    <%= link_to 'Delete announcement', admin_person_path(@statistics_announcement), method: :delete, class: "btn btn-danger", confirm: 'Are you sure you want to delete this announcement?' %>
+  </div>
+</div>
+
+<div class="span4">
+  <h3>Release date history</h3>
+  <ul class="release-date-changes">
+    <% @statistics_announcement.statistics_announcement_dates.reverse.each do |previous_date| %>
+      <li>
+        Date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
+        <%= absolute_time(previous_date.created_at, class: "created_at") %>
+      </li>
+    <% end %>
+  </ul>
+</div>

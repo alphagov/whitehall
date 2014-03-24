@@ -42,7 +42,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal statistics_announcement.summary, assigns(:edition).summary
     assert_equal statistics_announcement.publication_type, assigns(:edition).publication_type
     assert_equal [statistics_announcement.topic], assigns(:edition).topics
-    assert_equal statistics_announcement.expected_release_date.to_i, assigns(:edition).scheduled_publication.to_i
+    assert_equal statistics_announcement.release_date.to_i, assigns(:edition).scheduled_publication.to_i
   end
 
   test 'POST :create with an statistics announcement id assigns the publication to the announcement' do

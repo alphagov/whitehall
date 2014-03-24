@@ -20,7 +20,7 @@ class Admin::PublicationsController < Admin::EditionsController
     @edition.summary = statistics_announcement.summary
     @edition.publication_type = statistics_announcement.publication_type
     @edition.topics = [statistics_announcement.topic]
-    @edition.scheduled_publication = statistics_announcement.expected_release_date
+    @edition.scheduled_publication = statistics_announcement.release_date
   end
 
   def statistics_announcement
