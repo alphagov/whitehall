@@ -31,8 +31,16 @@ class StatisticsAnnouncement < ActiveRecord::Base
               release_timestamp: :release_date,
               metadata: :search_metadata
 
-  delegate  :release_date, :display_date, :change_note,
+  delegate  :release_date, :display_date,
               to: :current_release_date
+
+  def last_change_note
+    statistics_announcement_dates.
+      where('change_note IS NOT NULL && change_note != ?', '').
+      order(:created_at).
+      last.
+      try(:change_note)
+  end
 
   def confirmed_date?
     current_release_date.confirmed?
@@ -59,7 +67,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def search_metadata
-    { confirmed: confirmed_date?, display_date: display_date, change_note: change_note }
+    { confirmed: confirmed_date?,
+      display_date: display_date,
+      change_note: last_change_note }
   end
 
   def build_statistics_announcement_date_change(attributes={})

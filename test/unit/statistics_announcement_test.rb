@@ -38,7 +38,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'metadata' => {
         confirmed: announcement.confirmed_date?,
         display_date: announcement.display_date,
-        change_note: announcement.change_note
+        change_note: announcement.last_change_note
       }
     }
 
@@ -69,6 +69,32 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.publication = create(:draft_policy_paper)
     refute announcement.valid?
     assert_equal ["must be statistics"], announcement.errors[:publication]
+  end
+
+  test '#most_recent_change_note returns the most recent change note' do
+    announcement    = create(:statistics_announcement)
+    minor_change = Timecop.travel(1.day) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: announcement.release_date + 1.week)
+    end
+    major_change = Timecop.travel(2.days) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: announcement.release_date + 1.month,
+              change_note: 'Delayed because of census')
+    end
+    minor_change = Timecop.travel(3.days) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: major_change.release_date,
+              precision: StatisticsAnnouncementDate::PRECISION[:exact],
+              confirmed: true)
+    end
+
+    assert_equal '11 December 2012 11:11', announcement.reload.display_date
+    assert announcement.confirmed_date?
+    assert_equal 'Delayed because of census', announcement.last_change_note
   end
 
   test '#build_statistics_announcement_date_change returns a date change based on the current date' do
