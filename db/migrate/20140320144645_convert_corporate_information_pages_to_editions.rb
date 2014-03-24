@@ -30,7 +30,6 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
         org = old_cip.organisation
         puts "Migrating #{org.name}: #{old_cip.slug} (#{old_cip.id})"
         doc = Document.create!(document_type: 'CorporateInformationPage',
-                               #slug: "#{org.slug}:#{old_cip.slug}",
                                created_at: old_cip.created_at,
                                updated_at: old_cip.updated_at)
         new_cip = CorporateInformationPage.create!(
@@ -55,14 +54,12 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
           new_cip.worldwide_organisations << org
         end
         old_cip.translations.each do |old_trans|
-          Edition::Translation.create!(
-            edition_id: new_cip.id,
+          new_cip.translations.create!(
             locale: old_trans.locale,
-            title: old_cip.title, # OH NOES NO TITLE IN OLD TRANS
             summary: old_trans.summary.present? ? old_trans.summary : ".",
             body: old_trans.body,
-            updated_at: old_trans.updated_at,
-            created_at: old_trans.created_at) unless old_trans.locale == :en
+            title: old_cip.title
+          ) unless old_trans.locale == :en
         end
         Attachment.where(
           attachable_type: 'CorporateInformationPage',
