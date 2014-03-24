@@ -33,6 +33,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert_equal new_date, @announcement.release_date
     assert @announcement.confirmed_date?
     assert_equal '11 May 2013 09:30', @announcement.display_date
-    assert_equal 'Delayed due to unexpected beard growth', @announcement.change_note
+    assert_equal 'Delayed due to unexpected beard growth', @announcement.last_change_note
   end
 end
