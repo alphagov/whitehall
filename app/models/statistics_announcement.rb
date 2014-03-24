@@ -31,7 +31,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
               release_timestamp: :release_date,
               metadata: :search_metadata
 
-  delegate  :release_date, :display_date,
+  delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date
 
   def last_change_note
@@ -43,10 +43,6 @@ class StatisticsAnnouncement < ActiveRecord::Base
       major_change_index = statistics_announcement_dates.index(last_major_change)
       statistics_announcement_dates.at( major_change_index - 1 ).try(:display_date)
     end
-  end
-
-  def confirmed_date?
-    current_release_date.confirmed?
   end
 
   def display_type
@@ -70,7 +66,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def search_metadata
-    { confirmed: confirmed_date?,
+    { confirmed: confirmed?,
       display_date: display_date,
       change_note: last_change_note,
       previous_display_date: previous_display_date }

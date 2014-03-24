@@ -36,7 +36,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'slug' => announcement.slug,
       'release_timestamp' => announcement.release_date,
       'metadata' => {
-        confirmed: announcement.confirmed_date?,
+        confirmed: announcement.confirmed?,
         display_date: announcement.display_date,
         change_note: announcement.last_change_note,
         previous_display_date: announcement.previous_display_date
@@ -76,7 +76,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement    = create_announcement_with_changes
 
     assert_equal '11 December 2012 11:11', announcement.reload.display_date
-    assert announcement.confirmed_date?
+    assert announcement.confirmed?
     assert_equal 'Delayed because of census', announcement.last_change_note
   end
 

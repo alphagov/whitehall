@@ -33,7 +33,7 @@
         <td><%= statistics_announcement.topic.name %></td>
         <td>
           <%= statistics_announcement.display_date %>
-          (<%= statistics_announcement.confirmed_date? ? 'confirmed' : 'provisional' %>)
+          (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
         </td>
         <td><%= statistics_announcement.release_date.to_s(:long_ordinal) %></td>
       <% end %>
