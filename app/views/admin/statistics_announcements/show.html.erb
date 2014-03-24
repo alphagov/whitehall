@@ -29,7 +29,7 @@
 
   <div class="form-actions">
     <%= link_to "Edit", [:edit, :admin, @statistics_announcement], class: "btn btn-primary"%>
-    <%= link_to "Change release date", new_admin_statistics_announcement_statistics_announcement_date_path(@statistics_announcement), class: "btn btn-primary"%>
+    <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn btn-primary"%>
     <%= link_to 'Delete announcement', admin_person_path(@statistics_announcement), method: :delete, class: "btn btn-danger", confirm: 'Are you sure you want to delete this announcement?' %>
   </div>
 </div>

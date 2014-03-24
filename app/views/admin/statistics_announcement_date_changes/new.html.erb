@@ -2,7 +2,7 @@
 <div class="span8">
   <h1><%= @statistics_announcement.title %></h1>
 
-  <%= form_for [:admin, @statistics_announcement, @statistics_announcement_date] do |form| %>
+  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
     <%= form.errors %>
 
     <%= form.label :release_date, "Release date", required: true %>

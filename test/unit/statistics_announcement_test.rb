@@ -70,4 +70,26 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     refute announcement.valid?
     assert_equal ["must be statistics"], announcement.errors[:publication]
   end
+
+  test '#build_statistics_announcement_date_change returns a date change based on the current date' do
+    announcement = build(:statistics_announcement)
+    current_date = announcement.current_release_date
+    date_change  = announcement.build_statistics_announcement_date_change
+
+    assert date_change.is_a?(StatisticsAnnouncementDateChange)
+    assert_equal announcement, date_change.statistics_announcement
+    assert_equal announcement.current_release_date, date_change.current_release_date
+    assert_equal current_date.precision, date_change.precision
+    assert_equal current_date.release_date, date_change.release_date
+    assert_equal current_date.confirmed, date_change.confirmed
+  end
+
+  test '#build_statistics_announcement_date_change can override attributes' do
+    announcement = build(:statistics_announcement)
+    current_date = announcement.current_release_date
+    date_change  = announcement.build_statistics_announcement_date_change(change_note: 'Some changes being made')
+
+    assert_equal 'Some changes being made', date_change.change_note
+    assert_equal current_date.release_date, date_change.release_date
+  end
 end

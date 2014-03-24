@@ -62,6 +62,15 @@ class StatisticsAnnouncement < ActiveRecord::Base
     { confirmed: confirmed_date?, display_date: display_date, change_note: change_note }
   end
 
+  def build_statistics_announcement_date_change(attributes={})
+    current_date_attributes = current_release_date.attributes.slice('release_date', 'confirmed', 'precision')
+
+    StatisticsAnnouncementDateChange.new(attributes.reverse_merge(current_date_attributes)) do |change|
+      change.statistics_announcement = self
+      change.current_release_date = current_release_date
+    end
+  end
+
 private
 
   def publication_is_statistics
