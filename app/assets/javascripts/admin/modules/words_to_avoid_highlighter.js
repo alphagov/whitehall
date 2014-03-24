@@ -47,6 +47,11 @@
           "utilise"
         ];
 
+    var $wordsToAvoidRegexps = $.map($wordsToAvoid, function(word) {
+      // match whole-words only
+      return "\\b" + word + "\\b";
+    });
+
     // without instantiating an instance of the widget
     // per textarea, the `disable` and `enable` calls
     // to the widget don't work as expected.
@@ -54,7 +59,7 @@
       $(textarea).highlightTextarea({
         color: '#FFB040',
         caseSensitive: false,
-        words: $wordsToAvoid
+        words: $wordsToAvoidRegexps
       });
     });
 
