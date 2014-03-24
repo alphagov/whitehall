@@ -15,4 +15,13 @@
       right: 5.3em;
     }
   }
+
+  ul.release-date-changes {
+    margin-left: 0;
+    li {
+      overflow: hidden;
+      margin-bottom: 1em;
+      list-style: none;
+    }
+  }
 }

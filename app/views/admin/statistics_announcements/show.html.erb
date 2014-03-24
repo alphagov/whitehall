@@ -42,4 +42,12 @@
 
 <div class="span4">
   <h3>Release date history</h3>
+  <ul class="release-date-changes">
+    <% @statistics_announcement.statistics_announcement_dates.reverse.each do |previous_date| %>
+      <li>
+        Date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
+        <%= absolute_time(previous_date.created_at, class: "created_at") %>
+      </li>
+    <% end %>
+  </ul>
 </div>
