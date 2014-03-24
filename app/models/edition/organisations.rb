@@ -34,6 +34,10 @@ module Edition::Organisations
     organisations.where(edition_organisations: { lead: true }).reorder('edition_organisations.lead_ordering')
   end
 
+  def lead_organisation_ids
+    lead_organisations.pluck(:id)
+  end
+
   def sorted_organisations
     organisations.alphabetical
   end

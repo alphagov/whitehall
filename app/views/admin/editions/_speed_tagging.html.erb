@@ -31,8 +31,8 @@
 
     <%= form.text_area :body, class: "previewable" %>
 
-    <%= form.label :organisation_ids, 'Organisations:' %>
-    <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.scoped.includes(:translations), 'id', 'name', @edition.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+    <%= form.label :lead_organisation_ids, 'Lead Organisations:' %>
+    <%= form.select :lead_organisation_ids, options_from_collection_for_select(Organisation.scoped.includes(:translations), 'id', 'name', @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
 
     <%= render partial: 'required_fields_for_imported_editions', locals: { form: form, edition: form.object } %>
 
