@@ -1,3 +1,8 @@
+<% initialise_script "GOVUK.RemoteSearchFilter", form_element: '.js-filter-form',
+                                                 results_element: '.js-filter-results',
+                                                 loading_message_holder: '.filter-results-summary',
+                                                 loading_message_text: 'Loading results&hellip;',
+                                                 search_url: statistics_announcements_path %>
 <% page_title "Statistics", "Upcoming calendar" %>
 <% page_class "release-announcements-index" %>
 
@@ -14,7 +19,7 @@
 <div class="filter-form-block">
   <div class="inner-block">
     <h2>You can use the filters to show only results that match your interests.</h2>
-    <%= form_for @filter, url: statistics_announcements_path, method: :get, html: { class: "filter-form" } do |f| %>
+    <%= form_for @filter, url: statistics_announcements_path, method: :get, html: { class: "filter-form js-filter-form" } do |f| %>
       <fieldset>
         <div class="filter">
           <div class="filter-inner">
@@ -50,40 +55,7 @@
 </div>
 
 <div class="filter-results-block">
-  <div class="inner-block">
-    <h2>This calendar of upcoming releases is maintained by the <a href="https://gss.civilservice.gov.uk/">Government Statistical Service</a> independently from government.</h2>
-
-    <div class="filter-results-summary">
-      <div class="selections">
-        <%= describe_filter @filter, statistics_announcements_path, date_prefix_text: "due" %>
-      </div>
-    </div>
-
-    <div class="filter-results">
-      <%- if @filter.results.any? -%>
-        <ol class="document-list">
-          <%= render @filter.results %>
-        </ol>
-      <%- else -%>
-        <div class="no-results">
-          <h2>There are no matching announcements.</h2>
-          <p>Try making your search broader and try again.</p>
-        </div>
-      <%- end -%>
-    </div>
-
-    <% if @filter.results.number_of_pages > 1 %>
-      <nav id="show-more-documents" role="navigation">
-        <ul class="previous-next-navigation">
-          <%= next_page_link(url:  statistics_announcements_path(@filter.next_page_params),
-                             page: @filter.page + 1,
-                             of:   @filter.results.number_of_pages) if @filter.results.next_page? %>
-
-          <%= previous_page_link(url:  statistics_announcements_path(@filter.previous_page_params),
-                                 page: @filter.page - 1,
-                                 of:   @filter.results.number_of_pages) if @filter.results.previous_page? %>
-        </ul>
-      </nav>
-    <% end %>
+  <div class="inner-block js-filter-results">
+    <%= render 'filter_results' %>
   </div>
 </div>

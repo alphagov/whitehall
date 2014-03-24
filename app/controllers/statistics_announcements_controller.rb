@@ -1,7 +1,13 @@
 class StatisticsAnnouncementsController < PublicFacingController
+  enable_request_formats(index: [:js])
+
   def index
     @filter = Frontend::StatisticsAnnouncementsFilter.new(filter_params)
     expire_cache_for_index_on_next_announcement_expiry(@filter.results)
+    if request.xhr?
+      skip_slimmer
+      render partial: "statistics_announcements/filter_results"
+    end
   end
 
   def show

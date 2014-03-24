@@ -95,6 +95,14 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_cache_control("max-age=#{2.minutes}")
   end
 
+  view_test "#index responds to xhr requests, rendering only the filter_results partial in response" do
+    xhr :get, :index
+
+    assert_response :success
+    assert_template layout: nil, partial: 'statistics_announcements/_filter_results'
+  end
+
+
   ### Describing #show
 
   test "#show assigns @announcement as a Frontend::StatisticsAnnouncement inflated from the publisher model" do
