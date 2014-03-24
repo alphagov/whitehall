@@ -95,4 +95,12 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     refute new_date.valid?
     assert_match /required/, new_date.errors[:change_note].first
   end
+
+  test "saving a date change updates the announcement in the search index" do
+    announcement = create(:statistics_announcement)
+    announcement.expects(:update_in_search_index)
+
+    new_date = announcement.build_statistics_announcement_date_change
+    new_date.save!
+  end
 end

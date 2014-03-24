@@ -3,6 +3,8 @@ class StatisticsAnnouncementDateChange < StatisticsAnnouncementDate
 
   attr_accessor :current_release_date
 
+  after_create :update_announcement_in_search_index
+
 private
 
   def major_date_change?
@@ -29,5 +31,9 @@ private
   def changing_outside_of_two_month_window?
     current_release_date.precision == PRECISION[:two_month] &&
       release_date >= (current_release_date.release_date + 2.month)
+  end
+
+  def update_announcement_in_search_index
+    statistics_announcement.update_in_search_index
   end
 end
