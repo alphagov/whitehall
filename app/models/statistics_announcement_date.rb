@@ -5,6 +5,7 @@ class StatisticsAnnouncementDate < ActiveRecord::Base
 
   validates :release_date, presence: true
   validates :precision, presence: true, inclusion: { in: PRECISION.values }
+  validate :confirmed_date_must_be_exact
 
   def display_date
     case precision
@@ -14,6 +15,14 @@ class StatisticsAnnouncementDate < ActiveRecord::Base
       release_date.to_s(:one_month_precision)
     when PRECISION[:two_month]
       release_date.to_s(:two_month_precision)
+    end
+  end
+
+private
+
+  def confirmed_date_must_be_exact
+    if confirmed? && precision != PRECISION[:exact]
+      errors[:precision] << 'Must be exact if date is confirmed'
     end
   end
 end

@@ -32,4 +32,18 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
 
     assert_equal 'December to January 2015', annoucement_date.display_date
   end
+
+  test 'a confirmed date must be of exact precision' do
+    refute build(:statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+      confirmed: true).valid?
+
+    refute build(:statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+      confirmed: true).valid?
+
+    assert build(:statistics_announcement_date,
+      precision: StatisticsAnnouncementDate::PRECISION[:exact],
+      confirmed: true).valid?
+  end
 end
