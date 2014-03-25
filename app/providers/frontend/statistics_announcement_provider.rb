@@ -23,8 +23,8 @@ module Frontend
         title: rummager_hash['title'],
         summary: rummager_hash['description'],
         document_type: rummager_hash['display_type'],
-        release_date: rummager_hash['expected_release_timestamp'],
-        release_date_text: rummager_hash['expected_release_text'],
+        release_date: rummager_hash['release_timestamp'],
+        release_date_text: rummager_hash['metadata']['display_date'],
         organisations: build_organisations(rummager_hash['organisations']),
         topics: build_topics(rummager_hash['topics'])
       })
@@ -37,8 +37,8 @@ module Frontend
         summary: model.summary,
         publication: model.publication,
         document_type: model.display_type,
-        release_date: model.expected_release_date,
-        release_date_text: model.display_release_date_override,
+        release_date: model.current_release_date.release_date,
+        release_date_text: model.current_release_date.display_date,
         organisations: [model.organisation],
         topics: [model.topic]
       })
@@ -55,11 +55,11 @@ module Frontend
     def self.prepare_search_params(params)
       params = params.dup
 
-      expected_release_timestamp_params = {
+      release_timestamp_params = {
         from: params.delete(:from_date).try(:iso8601),
         to: params.delete(:to_date).try(:iso8601)
       }.delete_if {|k, v| v.blank? }
-      params[:expected_release_timestamp] = expected_release_timestamp_params unless expected_release_timestamp_params.empty?
+      params[:release_timestamp] = release_timestamp_params unless release_timestamp_params.empty?
 
       params[:page] = params[:page].to_s
       params[:per_page] = params[:per_page].to_s
@@ -80,8 +80,8 @@ module Frontend
         raise ArgumentError.new(":page and :per_page are required") unless params[:page].present? && params[:per_page].present?
         raise_unless_values_are_strings(params)
 
-        scope = ::StatisticsAnnouncement.scoped.order("expected_release_date ASC")
-        scope = scope.where("title LIKE('%#{params[:keywords]}%') or summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
+        scope = ::StatisticsAnnouncement.joins(:current_release_date).order("statistics_announcement_dates.release_date ASC")
+        scope = scope.where("statistics_announcements.title LIKE('%#{params[:keywords]}%') or statistics_announcements.summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
         if params[:organisations].present?
           organisation_ids = Organisation.find_all_by_slug(params[:organisations]).map &:id
           scope = scope.where(organisation_id: organisation_ids)
@@ -90,13 +90,13 @@ module Frontend
           topic_ids = Topic.find_all_by_slug(params[:topics]).map &:id
           scope = scope.where(topic_id: topic_ids)
         end
-        if params[:expected_release_timestamp].present?
-          scope = scope.where("expected_release_date > ?", params[:expected_release_timestamp][:from]) if params[:expected_release_timestamp][:from].present?
-          scope = scope.where("expected_release_date < ?", params[:expected_release_timestamp][:to]) if params[:expected_release_timestamp][:to].present?
+        if params[:release_timestamp].present?
+          scope = scope.where("statistics_announcement_dates.release_date > ?", params[:release_timestamp][:from]) if params[:release_timestamp][:from].present?
+          scope = scope.where("statistics_announcement_dates.release_date < ?", params[:release_timestamp][:to]) if params[:release_timestamp][:to].present?
         end
         count = scope.count
-
         scope = scope.limit(params[:per_page]).offset((params[:page].to_i - 1) * params[:per_page].to_i)
+
         {
           'total' => count,
           'results' => scope.map { |announcement| announcement_to_rummager_hash(announcement) }
@@ -119,13 +119,17 @@ module Frontend
           "title" => announcement.title,
           "description" => announcement.summary,
           "slug" => announcement.slug,
-          "expected_release_timestamp" => announcement.expected_release_date.iso8601,
-          "expected_release_text" => announcement.display_release_date_override || announcement.expected_release_date.to_s(:long),
+          "release_timestamp" => announcement.current_release_date.release_date.iso8601,
           "organisations" => Array(announcement.organisation.try :slug),
           "topics" => Array(announcement.topic.try :slug),
           "display_type" => announcement.publication_type.singular_name,
           "search_format_types" => ["statistics_announcement"],
-          "format" => "statistics_announcement"
+          "format" => "statistics_announcement",
+          "metadata" => {
+            "confirmed" => announcement.current_release_date.confirmed,
+            "display_date" => announcement.current_release_date.display_date,
+            "change_note" => announcement.change_note
+          }
         }
       end
     end

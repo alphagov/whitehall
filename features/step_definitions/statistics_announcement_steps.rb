@@ -2,22 +2,27 @@ Given(/^There are some statistics announcements$/) do
   create :statistics_announcement, title: "Womble to Wombat population ratios",
                                             summary: "All populations of wombles and wombats by region",
                                             publication_type_id: PublicationType::Statistics.id,
-                                            expected_release_date: "2050-02-15 12:45:00",
-                                            display_release_date_override: nil
+                                            current_release_date: build(:statistics_announcement_date,
+                                                                        release_date: Time.zone.parse("2050-02-15 12:45:00"),
+                                                                        precision: StatisticsAnnouncementDate::PRECISION[:exact])
 
   create :statistics_announcement, title: "2055 beard lengths",
                                             summary: "Beard lengths by region and gender - 2055",
                                             publication_type_id: PublicationType::NationalStatistics.id,
-                                            expected_release_date: "2050-05-01 12:00:00",
-                                            display_release_date_override: "May to June 2055"
+                                            current_release_date: build(:statistics_announcement_date,
+                                                                        release_date: Time.zone.parse("2050-05-01 12:00:00"),
+                                                                        precision: StatisticsAnnouncementDate::PRECISION[:two_month])
 
   create :statistics_announcement, title: "Wombat population in Wimbledon Common 2063",
                                             summary: "Wombat vs Womble populations in Wimbledon Common for the year 2063",
                                             publication_type_id: PublicationType::Statistics.id,
-                                            expected_release_date: "2063-02-15 12:45:00",
-                                            display_release_date_override: nil
+                                            current_release_date: build(:statistics_announcement_date,
+                                                                        release_date: Time.zone.parse("2063-02-15 12:45:00"),
+                                                                        precision: StatisticsAnnouncementDate::PRECISION[:one_month])
+
   (1..40).each do |n|
-    create :statistics_announcement, title: "Extra release announcement #{n}", expected_release_date: "2100-01-01"
+    create :statistics_announcement, title: "Extra release announcement #{n}",
+                                     current_release_date: build(:statistics_announcement_date, release_date: Time.zone.parse("2100-01-01") + n.days)
   end
 end
 
@@ -68,6 +73,7 @@ When(/^I click on the first statistics announcement$/) do
 end
 
 Then(/^I can see the first page of all the statistics announcements$/) do
+
   assert page.has_content? "Womble to Wombat population ratios"
   assert page.has_content? "2055 beard lengths"
   assert page.has_content? "Wombat population in Wimbledon Common 2063"
@@ -100,7 +106,7 @@ Then(/^I should be on a page showing the title, release date, organisation, topi
   assert_equal statistics_announcement_path(@announcement), current_path
 
   assert page.has_content? @announcement.title
-  assert page.has_content? @announcement.expected_release_date.to_s(:long)
+  assert page.has_content? @announcement.current_release_date.display_date
   assert page.has_content? @announcement.summary
   assert page.has_link? @organisation.name, href: organisation_path(@organisation)
   assert page.has_link? @topic.name, href: topic_path(@topic)
