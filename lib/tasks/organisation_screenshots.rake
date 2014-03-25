@@ -8,7 +8,7 @@ task :organisation_screenshots => :environment do
     slugs = File.open(ENV["ORGANISATION_FILE"]).readlines.map(&:chomp)
     Organisation.where(slug: slugs)
   else
-    Organisation.where("govuk_status <> 'live'").where("url <> ''")
+    Organisation.where(govuk_status: %w(joining exempt transitioning)).where("url <> ''")
   end
 
   organisations.each.with_index do |org, i|
