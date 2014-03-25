@@ -33,10 +33,12 @@
 
   <div class="block-3">
     <div class="inner-block">
-      <% if @organisation.url.present? %>
-        <section class="thumbnail">
-          <%= link_to image_tag(organisation_site_thumbnail_path(@organisation), size: '287x215', alt: 'Thumbnail screenshot of website'), @organisation.url, title: "Open the current #{@organisation.name} website" %>
-        </section>
+      <% unless @organisation.closed? %>
+        <% if @organisation.url.present? %>
+          <section class="thumbnail">
+            <%= link_to image_tag(organisation_site_thumbnail_path(@organisation), size: '287x215', alt: 'Thumbnail screenshot of website'), @organisation.url, title: "Open the current #{@organisation.name} website" %>
+          </section>
+        <% end %>
       <% end %>
     </div>
   </div>

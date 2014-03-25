@@ -243,6 +243,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".thumbnail", false
   end
 
+  view_test "doesn't show a thumbnail if the organisation is closed" do
+    organisation = create(:organisation, govuk_status: 'closed', url: 'http://madeup-url.com')
+
+    get :show, id: organisation
+
+    refute_select ".description a[href=?]", organisation.url
+    assert_select ".thumbnail", false
+  end
+
+
   view_test "should not display an empty published policies section" do
     organisation = create(:organisation)
     get :show, id: organisation
