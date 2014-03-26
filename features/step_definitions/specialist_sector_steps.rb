@@ -17,10 +17,6 @@ Given(/^there is a document tagged to specialist sectors$/) do
   stub_content_api_tags(@document)
 end
 
-When(/^I view the document$/) do
-  visit public_document_path(@document)
-end
-
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do
   check_for_primary_sector_in_heading
   check_for_primary_subsector_in_title(@document.title)

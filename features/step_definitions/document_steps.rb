@@ -133,6 +133,10 @@ When /^I preview the document$/ do
   click_link "Preview on website"
 end
 
+When(/^I view the document$/) do
+  visit public_document_path(@document)
+end
+
 When /^I submit (#{THE_DOCUMENT})$/ do |edition|
   visit_edition_admin edition.title
   click_button "Submit for 2nd eyes"
