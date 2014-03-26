@@ -16,6 +16,9 @@ es-419:
       policies:
         one: Política
         other: Políticas
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

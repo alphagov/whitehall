@@ -16,6 +16,9 @@ bg:
       policies:
         one: Политика
         other: Политики
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

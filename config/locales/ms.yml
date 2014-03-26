@@ -127,6 +127,9 @@ ms:
         one:
         other:
       policy_team:
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

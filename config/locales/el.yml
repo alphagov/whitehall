@@ -16,6 +16,9 @@ el:
       policies:
         one: Πολιτική
         other: Πολιτικές
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

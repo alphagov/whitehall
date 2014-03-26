@@ -16,6 +16,9 @@ hi:
       policies:
         one: नीति
         other: नीतियां
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

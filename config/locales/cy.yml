@@ -36,6 +36,13 @@ cy:
         few:
         many:
         other: Polisïau
+      sectors:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       topical_events:
         zero:
         one:

@@ -127,6 +127,9 @@ az:
         one: siyasət
         other: siyasəti
       policy_team: siyasət komandası
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

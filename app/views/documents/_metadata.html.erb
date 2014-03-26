@@ -19,7 +19,7 @@
       <%= render  partial: 'documents/change_notes',
                   locals: { document: document } %>
 
-      <% document_metadata(document, policies, topics).each do |metadata| %>
+      <% document_metadata(document, policies, topics, specialist_tag_finder).each do |metadata| %>
         <dt><%= metadata[:title] %>:</dt>
         <dd class="js-hide-other-links <%= metadata.fetch(:classes, []).join(' ') %>">
           <%= metadata[:data].to_sentence.html_safe %>

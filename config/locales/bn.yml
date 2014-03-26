@@ -16,6 +16,9 @@ bn:
       policies:
         one:
         other:
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

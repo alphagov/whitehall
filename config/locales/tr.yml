@@ -129,6 +129,9 @@ tr:
         one: Politika
         other: Politikalar
       policy_team: Politika Takımı
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

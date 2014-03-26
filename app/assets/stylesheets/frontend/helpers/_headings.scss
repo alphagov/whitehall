@@ -17,7 +17,8 @@
       @include core-36;
       font-weight: bold;
     }
-    .type {
+    .type,
+    .type a {
       @include core-27;
       color: $secondary-text-colour;
       margin-bottom: $gutter-one-sixth;
