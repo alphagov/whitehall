@@ -31,6 +31,17 @@ class CorporateInformationPage < Edition
     #body_without_markup
   #end
 
+  def title_required?
+    false
+  end
+
+  def update_document_slug
+  end
+
+  def ensure_presence_of_document
+    self.document ||= Document.new()
+  end
+
   def only_one_organisation_or_worldwide_organisation
     if organisations.size + worldwide_organisations.size > 1
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
@@ -41,8 +52,18 @@ class CorporateInformationPage < Edition
     true
   end
 
+  def translatable?
+    !non_english_edition?
+  end
+
   def organisation
-    organisations.first || worldwide_organisations.first
+    if interim = edition_organisations.first
+      interim.organisation
+    elsif interim = edition_worldwide_organisations.first
+      interim.worldwide_organisation
+    else
+      Organisation.new
+    end
   end
 
   def search_link
@@ -86,7 +107,7 @@ class CorporateInformationPage < Edition
     [organisation.name, title].join(' - ')
   end
 
-  def title
+  def title(locale=:en)
     corporate_information_page_type.title(organisation)
   end
 

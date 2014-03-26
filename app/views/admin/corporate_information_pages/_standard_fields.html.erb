@@ -1,0 +1,21 @@
+<%= content_tag :fieldset, class: ("right-to-left" if edition.rtl?) do %>
+  <%= render "subtype_fields", form: form, edition: form.object %>
+
+  <%= form.hidden_field :lock_version %>
+
+  <% unless form.object.persisted? %>
+    <%= form.label :corporate_information_page_type_id, 'Type' %>
+    <%= form.select :corporate_information_page_type_id, corporate_information_page_types(@organisation), {disabled: @organisation.corporate_information_pages.map(&:corporate_information_page_type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }} %>
+  <% end %>
+
+  <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' }, required: form.object.summary_required? %>
+  <div class="summary-length-info">Summary text should be 140 characters or fewer. <span class="count"></span></div>
+
+  <%= form.text_area :body, class: "previewable", cols: 9000, required: form.object.body_required? %>
+
+  <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
+<% end %>
+
+<% if form.object.allows_image_attachments? %>
+  <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
+<% end %>

@@ -1,7 +1,7 @@
 <% page_title "Editing: #{@edition.title}"  %>
 <% if @conflicting_edition %>
   <section>
-    <h1>Edit <%= @edition.type.underscore.humanize.downcase %></h1>
+    <h1><%= edition_edit_headline(@edition) %></h1>
 
     <div class="alert alert-warning">
       <p>This document has been updated by another user since you started editing it.</p>
@@ -23,7 +23,7 @@
 <% else %>
   <div class="span8">
     <section>
-      <h1>Edit <%= @edition.type.underscore.humanize.downcase %></h1>
+      <h1><%= edition_edit_headline(@edition) %></h1>
 
       <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
       <%= render "form", edition: @edition %>

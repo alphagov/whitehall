@@ -171,7 +171,7 @@ module Admin::EditionsHelper
     form_classes = ["edition-form js-edition-form"]
     form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
 
-    form_for [:admin, edition], as: :edition, builder: EditionFormBuilder,
+    form_for form_url_for_edition(edition), as: :edition, builder: EditionFormBuilder,
               html: { class: form_classes } do |form|
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
@@ -186,11 +186,27 @@ module Admin::EditionsHelper
     end
   end
 
-  def tab_url_for_edition(edition)
-    if edition.new_record?
-      url_for([:new, :admin, edition.class.model_name.underscore])
+  def form_url_for_edition(edition)
+    if edition.respond_to? :organisation
+      [:admin, edition.organisation, edition]
     else
-      url_for([:edit, :admin, edition])
+      [:admin, edition]
+    end
+  end
+
+  def tab_url_for_edition(edition)
+    if edition.respond_to? :organisation
+      if edition.new_record?
+        url_for([:new, :admin, @organisation, edition.class.model_name.underscore])
+      else
+        url_for([:edit, :admin, edition.organisation, edition])
+      end
+    elsif
+      if edition.new_record?
+        url_for([:new, :admin, edition.class.model_name.underscore])
+      else
+        url_for([:edit, :admin, edition])
+      end
     end
   end
 
@@ -223,6 +239,14 @@ module Admin::EditionsHelper
       tabs['Final outcome'] = admin_consultation_outcome_path(edition)
     end
     tab_navigation(tabs) { yield blk }
+  end
+
+  def edition_edit_headline(edition)
+    if edition.is_a?(CorporateInformationPage)
+      "Edit &lsquo;#{edition.title}&rsquo; page for #{link_to edition.organisation.name, [:admin, edition.organisation]}".html_safe
+    else
+      "Edit #{edition.type.underscore.humanize.downcase}"
+    end
   end
 
   def edition_information(information)

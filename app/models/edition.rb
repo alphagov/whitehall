@@ -30,7 +30,8 @@ class Edition < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
-  validates :title, :creator, presence: true
+  validates :creator, presence: true
+  validates :title, presence: true, if: :title_required?
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true, if: :summary_required?
   validates :first_published_at, recent_date: true, allow_blank: true
@@ -567,6 +568,10 @@ class Edition < ActiveRecord::Base
     else
       self.public_timestamp = major_change_published_at
     end
+  end
+
+  def title_required?
+    true
   end
 
   def body_required?

@@ -1,27 +1,9 @@
-<%= form_for [:admin, organisation, corporate_information_page], as: disabled ? :disabled_corporate_information_page : :corporate_information_page do |form| %>
-  <%= form.hidden_field :lock_version %>
-  <%= form.errors %>
+<%= edition_editing_tabs(edition) do %>
+  <%= standard_edition_form(edition) do |form| %>
 
-  <% unless form.object.persisted? %>
-    <%= form.label :type_id, 'Type' %>
-    <%= form.select :type_id, corporate_information_page_types(organisation), {disabled: organisation.corporate_information_pages.map(&:type_id), allow_blank: true}, {class: 'chzn-select', data: { placeholder: "Type of page..." }, disabled: disabled} %>
+    <div class="js-external-url-set">
+      <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+    </div>
+    <%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
   <% end %>
-
-  <%= form.text_area :summary, label_text: "Summary", rows: 2, disabled: disabled %>
-
-  <%= form.text_area :body, label_text: "Body", class: "previewable", disabled: disabled, required: true %>
-
-  <h3>Attachments</h3>
-  <% if corporate_information_page.persisted? %>
-    <%= render 'admin/attachments/markdown_codes', attachable: corporate_information_page %>
-  <% else %>
-    <p>
-      If you'd like to add an attachment to this corporate information page,
-      please save it first. You'll then find a new tab at the top of the page
-      that you can use to upload, edit and delete attachments.
-    </p>
-  <% end %>
-  
-  <p class="warning">Warning: changes to corporate info pages appear instantly on the live site.</p>
-  <%= form.save_or_cancel cancel: [:admin, @organisation] %>
 <% end %>
