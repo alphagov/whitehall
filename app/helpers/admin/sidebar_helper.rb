@@ -7,7 +7,7 @@ module Admin::SidebarHelper
         tab_content << render("admin/editions/words_to_avoid_guidance")
         tab_content << content_tag(:h3, 'Style', class: 'style-title')
         tab_content << content_tag(:p) do
-          raw %Q<For style, see the #{link_to("style guide", "https://www.gov.uk/designprinciples/styleguide")}>
+          raw %Q<For style, see the #{link_to("style guide", "https://www.gov.uk/design-principles/style-guide")}>
         end
         raw tab_content.join("\n")
       end
