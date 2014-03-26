@@ -74,6 +74,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     end
   end
 
+  test "POST :create handles duplicate ordering key exceptions" do
+    attachable = create(:edition)
+    FileAttachment.any_instance.expects(:save).raises(Mysql2::Error, "Duplicate entry 'GenericEdition-1234-56' for key 'no_duplicate_attachment_orderings'")
+
+    post :create, edition_id: attachable.id, attachment: valid_attachment_params
+
+    assert_redirected_to admin_edition_attachments_url(attachable)
+  end
+
   view_test 'GET :index shows html attachments' do
     create(:html_attachment, title: 'An HTML attachment', attachable: @edition)
 
