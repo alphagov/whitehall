@@ -124,4 +124,14 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     Whitehall::GovUkDelivery::Worker.expects(:notify!).with(policy, Time.zone.parse('2010-12-31 12:13:14')).once
     notifier_for(policy).notify_govuk_delivery
   end
+
+  test "#edition_published! does nothing if the edition is not published" do
+    policy = create(:draft_policy, first_published_at: 1.hour.ago)
+    notifier = notifier_for(policy)
+
+    notifier.expects(:notify_email_curation_queue).never
+    notifier.expects(:notify_govuk_delivery).never
+
+    notifier.edition_published!
+  end
 end
