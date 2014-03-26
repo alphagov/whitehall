@@ -26,6 +26,11 @@ ru:
         few:
         many:
         other: Стратегии
+      sectors:
+        one:
+        few:
+        many:
+        other:
       topical_events:
         one:
         few:

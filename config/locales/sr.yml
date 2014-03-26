@@ -26,6 +26,11 @@ sr:
         few:
         many:
         other: politike
+      sectors:
+        one:
+        few:
+        many:
+        other:
       topical_events:
         one:
         few:

@@ -16,6 +16,9 @@ lv:
       policies:
         one: Darbības joma
         other: Darbības jomas
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

@@ -16,6 +16,9 @@ fr:
       policies:
         one: Priorité politique
         other: Priorités politiques
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

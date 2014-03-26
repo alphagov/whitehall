@@ -136,6 +136,9 @@ en:
       attachments:
         one: Document
         other: Documents
+      sectors:
+        one: Sector
+        other: Sectors
     type:
       announcement:
         one: Announcement

@@ -130,6 +130,9 @@ hu:
         one: Szakpolitika
         other: Szakpolitikák
       policy_team: Politikai csoport
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

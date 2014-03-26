@@ -16,6 +16,9 @@ ur:
       policies:
         one: پالیسی
         other: پالیسیاں
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

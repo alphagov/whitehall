@@ -16,6 +16,9 @@ ta:
       policies:
         one: கொள்கை
         other: கொள்கைகள்
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

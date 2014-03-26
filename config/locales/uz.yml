@@ -16,6 +16,9 @@ uz:
       policies:
         one: Dastur
         other: Dasturlar
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

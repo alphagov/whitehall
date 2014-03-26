@@ -21,6 +21,10 @@ cs:
         one: Politika
         few:
         other: Politiky
+      sectors:
+        one:
+        few:
+        other:
       topical_events:
         one:
         few:

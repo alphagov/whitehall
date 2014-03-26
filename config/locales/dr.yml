@@ -16,6 +16,9 @@ dr:
       policies:
         one: پالیسی
         other: پالیسی ها
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

@@ -127,6 +127,9 @@ zh:
         one: 政策
         other: 政策
       policy_team: 政策团队
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

@@ -129,6 +129,9 @@ vi:
         one: Chính sách
         other: Các chính sách
       policy_team: Nhóm chính sách
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
