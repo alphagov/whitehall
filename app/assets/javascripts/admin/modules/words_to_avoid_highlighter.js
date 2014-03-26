@@ -90,7 +90,7 @@
         $(textarea).highlightTextarea('highlight');
       });
       $($textareaHighlightSelector).show();
-      $wordsToAvoidAlert.show();
+      updateHighlightedWordsCount();
     }
     $(document).bind("govuk.wordsToAvoidHighlighter.enable", enable);
   }
