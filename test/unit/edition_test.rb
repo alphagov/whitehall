@@ -362,6 +362,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', edition.document.slug
   end
 
+  test "should not include ellipsis in the slug" do
+    edition = create(:edition, title: "Something… going on")
+    assert_equal 'something-going-on', edition.document.slug
+  end
+
   test "is filterable by edition type" do
     policy = create(:policy)
     publication = create(:publication)
