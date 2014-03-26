@@ -4,6 +4,6 @@ module Slugging
   end
 
   def normalize_friendly_id(input)
-    input.to_s.to_slug.truncate(150).normalize.to_s
+    super input.to_s.to_slug.truncate(150).normalize.to_s
   end
 end
