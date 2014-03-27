@@ -31,6 +31,14 @@ module Whitehall
         exception = assert_raise(RuntimeError) { perform }
       end
 
+      test '#perform will not notify if an edition is not published' do
+        publication = create(:draft_publication)
+
+        Whitehall.govuk_delivery_client.expects(:notify).never
+
+        Worker.new.perform(publication.id, Date.today.iso8601, {})
+      end
+
     private
 
       def perform

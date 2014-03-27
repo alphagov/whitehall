@@ -11,6 +11,8 @@ module Whitehall
         options.symbolize_keys!
 
         edition = Edition.find(edition_id)
+        return unless edition.published?
+
         endpoint = SubscriptionUrlGenerator.new(edition)
         email_formatter = EmailFormatter.new(edition, notification_date, options)
 
