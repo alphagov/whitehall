@@ -128,7 +128,7 @@ module Frontend
           "metadata" => {
             "confirmed" => announcement.current_release_date.confirmed,
             "display_date" => announcement.current_release_date.display_date,
-            "change_note" => announcement.change_note
+            "change_note" => announcement.last_change_note
           }
         }
       end
