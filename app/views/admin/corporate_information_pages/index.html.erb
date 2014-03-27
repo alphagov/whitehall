@@ -11,29 +11,11 @@
   <div class="span12 organisation-details">
     <section>
       <%= tab_navigation_for(@organisation) do %>
-        <h2>Corporate information pages</h2>
-        <% if @corporate_information_pages.any? %>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <% @corporate_information_pages.each do |corporate_information_page| %>
-              <%= content_tag_for(:tr, corporate_information_page) do %>
-                <td><%= link_to corporate_information_page.title, polymorphic_path([:admin, @organisation, corporate_information_page]) %></td>
-                <td><%= link_to "Manage translations", [:admin, @organisation, corporate_information_page, :translations] %></td>
-                <td><%= button_to "delete", [:admin, @organisation, corporate_information_page], method: :delete, class: "btn btn-danger", confirm: "Really delete #{corporate_information_page.title} from #{@organisation.name}? This cannot be undone." %></td>
-              <% end %>
-            <% end %>
-          </table>
-        <% else %>
-          <p>No corporate information pages exist yet.</p>
-        <% end %>
+        <div class="row-fluid">
+          <%= render 'search_results' %>
+        </div>
         <% if @organisation.unused_corporate_information_page_types.any? %>
-          <%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn"%>
+          <div><%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn"%></div>
         <% end %>
       <% end %>
     </section>

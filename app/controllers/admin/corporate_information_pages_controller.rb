@@ -3,7 +3,9 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
 
   def index
-    @corporate_information_pages = @organisation.corporate_information_pages.select { |e| e.is_latest_edition? }
+    params[:state] = 'active'
+    # Set up EditionFilter which provides search results.
+    filter
   end
 
   def new
@@ -63,5 +65,9 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
+  end
+
+  def params_filters
+    {state: 'active', type: "corporate_information_page", organisation: @organisation.id, hide_type: true, ordering: [:corporate_information_page_type_id, 'editions.state']}
   end
 end
