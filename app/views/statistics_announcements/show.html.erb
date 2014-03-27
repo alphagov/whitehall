@@ -13,7 +13,7 @@
         <div class="inner-heading">
           <dl>
             <dt>Release date:</dt>
-            <dd><%= @announcement.release_date_text %></dd>
+            <dd><%= @announcement.display_date %></dd>
 
             <% if @announcement.organisations.any?  %>
               <dt><%= t('document.headings.organisations', count: @announcement.organisations.length) %>:</dt>

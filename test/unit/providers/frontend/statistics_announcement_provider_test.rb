@@ -46,7 +46,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal "The summary",  release_announcement.summary
     assert_equal "Statistics",   release_announcement.document_type
     assert_equal Time.zone.now,  release_announcement.release_date
-    assert_equal "About now",    release_announcement.release_date_text
+    assert_equal "About now",    release_announcement.display_date
     assert_equal organisation,   release_announcement.organisations.first
     assert_equal topic,          release_announcement.topics.first
   end
@@ -83,7 +83,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal announcement.publication,       publisher_announcement.publication
     assert_equal announcement.document_type,     PublicationType::NationalStatistics.singular_name
     assert_equal announcement.release_date,      publisher_announcement.current_release_date.release_date
-    assert_equal announcement.release_date_text, publisher_announcement.current_release_date.display_date
+    assert_equal announcement.display_date,      publisher_announcement.current_release_date.display_date
     assert_equal announcement.organisations,     [publisher_announcement.organisation]
     assert_equal announcement.topics,            [publisher_announcement.topic]
   end

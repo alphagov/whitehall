@@ -24,7 +24,7 @@ module Frontend
         summary: rummager_hash['description'],
         document_type: rummager_hash['display_type'],
         release_date: rummager_hash['release_timestamp'],
-        release_date_text: rummager_hash['metadata']['display_date'],
+        display_date: rummager_hash['metadata']['display_date'],
         organisations: build_organisations(rummager_hash['organisations']),
         topics: build_topics(rummager_hash['topics'])
       })
@@ -38,7 +38,7 @@ module Frontend
         publication: model.publication,
         document_type: model.display_type,
         release_date: model.current_release_date.release_date,
-        release_date_text: model.current_release_date.display_date,
+        display_date: model.current_release_date.display_date,
         organisations: [model.organisation],
         topics: [model.topic]
       })
