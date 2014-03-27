@@ -1,4 +1,5 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
+  before_filter :restrict_access_to_gds_editors_and_ons_users
   before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
 
   def index
