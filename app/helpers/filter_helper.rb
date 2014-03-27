@@ -53,7 +53,7 @@ module FilterHelper
     def topics_fragment
       if filter.respond_to?(:topics) && filter.topics.any?
         "about " + filter.topics.map {|topic|
-          "<strong>#{topic.name}</strong> #{remove_field_link(:topics, topic.slug, topic.name)}"
+          "<strong>#{CGI::escapeHTML(topic.name)}</strong> #{remove_field_link(:topics, topic.slug, topic.name)}"
         }.to_sentence
       end
     end
@@ -61,7 +61,7 @@ module FilterHelper
     def organisations_fragment
       if filter.respond_to?(:organisations) && filter.organisations.any?
         "by " + filter.organisations.map {|organisation|
-          "<strong>#{organisation.name}</strong> #{remove_field_link(:organisations, organisation.slug, organisation.name)}"
+          "<strong>#{CGI::escapeHTML(organisation.name)}</strong> #{remove_field_link(:organisations, organisation.slug, organisation.name)}"
         }.to_sentence
       end
     end
