@@ -686,24 +686,6 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select ".translations"
   end
 
-  test "#index notifies airbrake when unpermitted filter parameters are received" do
-    begin
-      @old_config_value = ActionController::Parameters.action_on_unpermitted_parameters
-      ActionController::Parameters.action_on_unpermitted_parameters = false
-
-      @controller.expects(:notify_airbrake).with do |ex|
-        ex.is_a?(ActionController::UnpermittedParameters) && ex.params == ['hax']
-      end
-
-      get :index, keywords: 'statistics', hax: 'boo'
-
-      assert_response :success
-      assert_template :index
-    ensure
-      ActionController::Parameters.action_on_unpermitted_parameters = @old_config_value
-    end
-  end
-
   private
 
   def publication_with_attachment(params = {})
