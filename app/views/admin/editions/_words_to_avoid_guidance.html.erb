@@ -54,9 +54,9 @@
   </ul>
 </div>
 
-<% if ENABLE_WORDS_TO_AVOID_HIGHLIGHTING %>
+<!--[if gte IE 9]>
   <% initialise_script "GOVUK.WordsToAvoidHighlighter",
       el: "form textarea",
       wordsToAvoidAlert: "#js-words-to-avoid-alert",
       wordsToAvoidCounter: "#js-words-to-avoid-count" %>
-<% end %>
+<![endif]-->
