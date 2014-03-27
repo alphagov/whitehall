@@ -104,7 +104,8 @@ module Admin::EditionActionsHelper
       StatisticalDataSet,
       FatalityNotice,
       DocumentCollection,
-      SupportingPage
+      SupportingPage,
+      CorporateInformationPage,
     ].map do |edition_type|
       unless edition_type == FatalityNotice && !user.can_handle_fatalities?
         [edition_type.model_name.human.pluralize, edition_type.model_name.underscore]

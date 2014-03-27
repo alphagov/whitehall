@@ -166,7 +166,8 @@ module Whitehall
       NewsArticle,
       Publication,
       DocumentCollection,
-      SupportingPage
+      SupportingPage,
+      CorporateInformationPage,
     ]
   end
 
