@@ -111,10 +111,6 @@ class CorporateInformationPage < Edition
     corporate_information_page_type.title(organisation)
   end
 
-  def self.by_type(*types)
-    where(type_id: types.map(&:id))
-  end
-
   def self.by_menu_heading(menu_heading)
     type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
     where(corporate_information_page_type_id: type_ids)
