@@ -4,10 +4,6 @@ class Frontend::StatisticsAnnouncement < InflatableModel
                 :release_date, :release_date_text,
                 :organisations, :topics
 
-  def release_date_text
-    @release_date_text || release_date.try(:to_s, :long)
-  end
-
   def release_date=(date_value)
     date_value = Time.zone.parse(date_value) if date_value.is_a? String
     @release_date = date_value
