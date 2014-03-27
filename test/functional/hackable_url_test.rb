@@ -1,11 +1,14 @@
 require "test_helper"
 
 class HackableUrlTest < ActiveSupport::TestCase
+  # TODO: remove statistics_announcment exemptions after statistics have been given their own site area
+  EXEMPTIONS = ['statistics_announcements', 'statistics_announcement']
+
   test "should always provide an index for resources that have a show action" do
     all_routes = Rails.application.routes.routes
 
     resource_routes = all_routes.reject do |route|
-      admin_route?(route) || auth_route?(route) || non_public_controller?(route) || api_route?(route) || browse_route?(route) || asset_route?(route)
+      admin_route?(route) || auth_route?(route) || non_public_controller?(route) || api_route?(route) || browse_route?(route) || asset_route?(route) || exempt_route?(route)
     end
 
     resource_routes.each do |resource_route|
@@ -37,6 +40,10 @@ class HackableUrlTest < ActiveSupport::TestCase
 
   def asset_route?(route)
     route.path.ast.to_s.match("\/government\/uploads")
+  end
+
+  def exempt_route?(route)
+    EXEMPTIONS.include? route.name
   end
 
   def all_possible_hackings_of(path)
