@@ -222,6 +222,19 @@ class AnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "index generates an atom feed with the legacy announcement_type_option param set" do
+    without_delay! do
+      news = create(:published_news_story, first_published_at: 1.week.ago)
+      speech = create(:published_speech, delivered_on: 3.days.ago)
+
+      get :index, format: :atom, announcement_type_option: 'news-stories'
+
+      assert_select_atom_feed do
+        assert_select_atom_entries([news])
+      end
+    end
+  end
+
   view_test 'index atom feed should return a valid feed if there are no matching documents' do
     get :index, format: :atom
 
