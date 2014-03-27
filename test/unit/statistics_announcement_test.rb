@@ -24,7 +24,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'is search indexable' do
-    announcement   = create(:statistics_announcement)
+    announcement   = create_announcement_with_changes
     expected_indexed_content = {
       'title' => announcement.title,
       'link' => announcement.public_path,
@@ -36,9 +36,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'slug' => announcement.slug,
       'release_timestamp' => announcement.release_date,
       'metadata' => {
-        confirmed: announcement.confirmed_date?,
+        confirmed: announcement.confirmed?,
         display_date: announcement.display_date,
-        change_note: announcement.change_note
+        change_note: announcement.last_change_note,
+        previous_display_date: announcement.previous_display_date
       }
     }
 
@@ -71,6 +72,21 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal ["must be statistics"], announcement.errors[:publication]
   end
 
+  test '#most_recent_change_note returns the most recent change note' do
+    announcement    = create_announcement_with_changes
+
+    assert_equal '11 December 2012 11:11', announcement.reload.display_date
+    assert announcement.confirmed?
+    assert_equal 'Delayed because of census', announcement.last_change_note
+  end
+
+  test '#previous_display_date returns the release date prior to the most recent change note' do
+    announcement = create_announcement_with_changes
+
+    assert_equal '11 December 2012 11:11', announcement.reload.display_date
+    assert_equal 'November 2012', announcement.previous_display_date
+  end
+
   test '#build_statistics_announcement_date_change returns a date change based on the current date' do
     announcement = build(:statistics_announcement)
     current_date = announcement.current_release_date
@@ -91,5 +107,31 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     assert_equal 'Some changes being made', date_change.change_note
     assert_equal current_date.release_date, date_change.release_date
+  end
+
+private
+
+  def create_announcement_with_changes
+    announcement = create(:statistics_announcement)
+    minor_change = Timecop.travel(1.day) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: announcement.release_date + 1.week)
+    end
+    major_change = Timecop.travel(2.days) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: announcement.release_date + 1.month,
+              change_note: 'Delayed because of census')
+    end
+    minor_change = Timecop.travel(3.days) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: major_change.release_date,
+              precision: StatisticsAnnouncementDate::PRECISION[:exact],
+              confirmed: true)
+    end
+
+    announcement
   end
 end

@@ -17,12 +17,12 @@
     <dt>Display date:</dt>
     <dd>
       <%= @statistics_announcement.display_date %>
-      (<%= @statistics_announcement.confirmed_date? ? 'confirmed' : 'provisional' %>)
+      (<%= @statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
     </dd>
-    <% if @statistics_announcement.change_note.present? %>
+    <% if @statistics_announcement.last_change_note.present? %>
       <dt>Change note:</dt>
       <dd>
-        <%= @statistics_announcement.change_note %>
+        <%= @statistics_announcement.last_change_note %>
       </dd>
     <% end %>
     <dt>Type:</dt>

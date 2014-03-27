@@ -31,11 +31,18 @@ class StatisticsAnnouncement < ActiveRecord::Base
               release_timestamp: :release_date,
               metadata: :search_metadata
 
-  delegate  :release_date, :display_date, :change_note,
+  delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date
 
-  def confirmed_date?
-    current_release_date.confirmed?
+  def last_change_note
+    last_major_change.try(:change_note)
+  end
+
+  def previous_display_date
+    if last_major_change
+      major_change_index = statistics_announcement_dates.index(last_major_change)
+      statistics_announcement_dates.at( major_change_index - 1 ).try(:display_date)
+    end
   end
 
   def display_type
@@ -59,7 +66,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def search_metadata
-    { confirmed: confirmed_date?, display_date: display_date, change_note: change_note }
+    { confirmed: confirmed?,
+      display_date: display_date,
+      change_note: last_change_note,
+      previous_display_date: previous_display_date }
   end
 
   def build_statistics_announcement_date_change(attributes={})
@@ -72,6 +82,13 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
 private
+
+  def last_major_change
+    statistics_announcement_dates.
+      where('change_note IS NOT NULL && change_note != ?', '').
+      order(:created_at).
+      last
+  end
 
   def publication_is_statistics
     errors[:publication] << "must be statistics" unless publication.statistics?
