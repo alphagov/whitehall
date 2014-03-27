@@ -33,6 +33,8 @@ function mockAjaxWithDelayedResponse(responseData, responseDelay) {
 }
 
 test("updateResults should get results from the given url", function() {
+  this.stub(window.history, 'pushState');
+  this.stub(window.history, 'replaceState');
   this.stub(jQuery, "ajax");
 
   new GOVUK.RemoteSearchFilter({search_url: "http://www.example.com/search"}).updateResults();
@@ -42,20 +44,51 @@ test("updateResults should get results from the given url", function() {
   equal(jQuery.ajax.args[0][0].type, "get");
 });
 
-test("updateResults should pass serialized form data", function() {
+test("updateResults should pass form data, adding in an xhr=true field", function() {
+  // xhr=true is required to prevent the browser getting confused between cached XHR and non-XHR requests.
+
+  this.stub(window.history, 'pushState');
+  this.stub(window.history, 'replaceState');
   this.stub(jQuery, "ajax", mockAjax("<p>Success!</p>"));
 
   var filter = new GOVUK.RemoteSearchFilter({form_element: 'form.filter-form'});
 
   $("input[name='a_text_field']").val('text_value');
-  $("input[name='a_select_field[]']").val('option_2');
+  $("select[name='a_select_field[]']").val('option_2');
 
   filter.updateResults();
 
-  equal(jQuery.ajax.args[0][0].data, "a_text_field=text_value&a_select_field%5B%5D=option_1")
+  deepEqual(jQuery.ajax.args[0][0].data, [
+    {
+      "name": "a_text_field",
+      "value": "text_value"
+    },
+    {
+      "name": "a_select_field[]",
+      "value": "option_2"
+    },
+    {
+      "name": "xhr",
+      "value": "true"
+    }
+  ]);
+});
+
+test("getFilterParams ignores blank fields", function() {
+  var filter = new GOVUK.RemoteSearchFilter({form_element: 'form.filter-form'});
+
+  $("input[name='a_text_field']").val('');
+  $("select[name='a_select_field[]']").val('option_2');
+
+  deepEqual(filter.getFilterParams(), [
+    {name: 'a_select_field[]', value: 'option_2'}
+  ]);
 });
 
 test("updateResults should render response to the given results element", function() {
+  this.stub(window.history, 'pushState');
+  this.stub(window.history, 'replaceState');
+
   this.stub(jQuery, "ajax", mockAjax("<p>Success!</p>"));
 
   new GOVUK.RemoteSearchFilter({results_element: ".results"}).updateResults();
@@ -65,6 +98,8 @@ test("updateResults should render response to the given results element", functi
 
 test("updateResults displays a loading message when waiting for a response", function() {
   stop();
+  this.stub(window.history, 'pushState');
+  this.stub(window.history, 'replaceState');
   this.stub(jQuery, "ajax", mockAjaxWithDelayedResponse("<p>Success!</p>", 100));
 
   new GOVUK.RemoteSearchFilter({
@@ -109,4 +144,73 @@ test("changing a text field should trigger an update after a short delay, withou
     equal(updateResultsStub.callCount, 1);
     start();
   }, 500);
+});
+
+test("individual changes are pushed to the browser history as a new object", function() {
+  this.stub(jQuery, "ajax", mockAjax("<p>Success!</p>"));
+  this.stub(window.history, 'pushState');
+  this.stub(window.history, 'replaceState');
+
+  new GOVUK.RemoteSearchFilter({search_url: "http://www.example.com/search", form_element: 'form.filter-form'})
+
+  $("form select[name='a_select_field[]']").val('option_2').change();
+
+  ok(window.history.pushState.calledOnce);
+  deepEqual(window.history.pushState.args[0][0], [{name: 'a_select_field[]', value: 'option_2'}]); // State object
+  deepEqual(window.history.pushState.args[0][1], null); // Window title
+  deepEqual(window.history.pushState.args[0][2], "http://www.example.com/search?a_select_field%5B%5D=option_2"); // Address bar
+});
+
+test("multiple changes in quick succession replace the current history state instead of pushing a new one", function() {
+  stop();
+  this.stub(jQuery, "ajax", mockAjax("<p>Success!</p>"));
+  this.stub(window.history, 'pushState');
+  this.stub(window.history, 'replaceState');
+
+  filter = new GOVUK.RemoteSearchFilter({search_url: "http://www.example.com/search", form_element: 'form.filter-form'})
+  filter.HISTORY_REPLACE_NOT_PUSH_FOR = 100;
+
+  $("form select[name='a_select_field[]']").val('option_2').change();
+  $("form select[name='a_select_field[]']").val('option_1').change();
+
+  equal(1, window.history.pushState.callCount);
+  equal(1, window.history.replaceState.callCount);
+
+  // Stubs don't survive in async tests - have to restore and then re-stub.
+  window.history.pushState.restore();
+  window.history.replaceState.restore();
+
+  window.setTimeout($.proxy(function() {
+    this.stub(window.history, 'pushState');
+    this.stub(window.history, 'replaceState');
+    this.stub(jQuery, "ajax", mockAjax("<p>Success!</p>"));
+
+    $("form select[name='a_select_field[]']").val('option_2').change();
+
+    equal(1, window.history.pushState.callCount);
+
+    window.history.pushState.restore();
+    window.history.replaceState.restore();
+    jQuery.ajax.restore();
+    start();
+  }, this), 150);
+});
+
+test("the search results are reverted on history popstate", function() {
+  var mockEvent = {
+    state: [
+      {name: 'a_text_field', value: 'some filter text'},
+      {name: 'a_select_field[]', value: 'option_2'}
+    ]
+  };
+  var getResultsFromRemoteStub = this.stub(GOVUK.RemoteSearchFilter.prototype, "getResultsFromRemote");
+  var filter = new GOVUK.RemoteSearchFilter({search_url: "http://www.example.com/search", form_element: 'form.filter-form'});
+
+  filter.onHistoryPopState(mockEvent);
+
+  ok(getResultsFromRemoteStub.calledOnce);
+  deepEqual(getResultsFromRemoteStub.args[0][0], mockEvent.state);
+
+  equal($("input[name='a_text_field']").val(), "some filter text");
+  equal($("select[name='a_select_field[]']").val(), "option_2");
 });
