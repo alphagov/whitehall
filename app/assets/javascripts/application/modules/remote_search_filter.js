@@ -84,6 +84,7 @@
   };
 
   RemoteSearchFilter.prototype.setFieldValues = function setFieldValues(filterParams) {
+    filterParams = filterParams || [];
     var paramsAsHash = {}
     for (var i=0; i<filterParams.length; i++) {
       paramsAsHash[filterParams[i].name] = filterParams[i].value;
