@@ -40,7 +40,7 @@ end
 
 Then(/^I should be redirected to the other page when I view the document on the public site$/) do
   visit public_document_path(@duplicate_edition)
-  assert_equal policy_path(@existing_edition.document), page.current_path
+  assert_path policy_path(@existing_edition.document)
 end
 
 When /^I unpublish the document because it was published in error$/ do

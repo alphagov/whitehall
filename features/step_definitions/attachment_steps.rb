@@ -9,7 +9,7 @@ When(/^I attempt to visit the attachments page$/) do
 end
 
 Then(/^I should stay on the edit screen for the news article$/) do
-  assert_equal edit_admin_news_article_path(@news_article), page.current_path
+  assert_path edit_admin_news_article_path(@news_article)
 end
 
 When(/^I save my changes$/) do
@@ -18,7 +18,7 @@ end
 
 Then(/^I can visit the attachments page$/) do
   click_on 'Attachments'
-  assert_equal admin_edition_attachments_path(@news_article), page.current_path
+  assert_path admin_edition_attachments_path(@news_article)
 end
 
 When /^the (?:attachment|image)s? (?:has|have) been virus\-checked$/ do
