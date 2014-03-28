@@ -2,9 +2,22 @@ class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
-  include Edition::Organisations
-  include Edition::WorldwideOrganisations
+  has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
+  has_one :organisation, include: :translations, through: :edition_organisation
+  has_one :edition_worldwide_organisation, foreign_key: :edition_id, dependent: :destroy
+  has_one :worldwide_organisation, through: :edition_worldwide_organisation
+
   delegate :slug, :display_type_key, to: :corporate_information_page_type
+
+  add_trait do
+    def process_associations_before_save(new_edition)
+      if @edition.organisation
+        new_edition.organisation = @edition.organisation
+      elsif @edition.worldwide_organisation
+        new_edition.worldwide_organisation = @edition.worldwide_organisation
+      end
+    end
+  end
   #delegate :alternative_format_contact_email, :acronym, to: :organisation
 
   #validates :organisation, :body, :type, presence: true
@@ -43,7 +56,7 @@ class CorporateInformationPage < Edition
   end
 
   def only_one_organisation_or_worldwide_organisation
-    if organisations.size + worldwide_organisations.size > 1
+    if organisation && worldwide_organisation
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
     end
   end

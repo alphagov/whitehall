@@ -13,8 +13,8 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   end
 
   def create
-    @corporate_information_page = @organisation.corporate_information_pages.create(new_edition_params)
-    if @corporate_information_page.valid?
+    @corporate_information_page = @organisation.build_corporate_information_page(new_edition_params)
+    if @corporate_information_page.save
       redirect_to [:admin, @organisation, CorporateInformationPage], notice: "#{@corporate_information_page.title} created successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"

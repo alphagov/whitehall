@@ -327,6 +327,12 @@ class Organisation < ActiveRecord::Base
     CorporateInformationPageType.all - corporate_information_pages.map(&:type)
   end
 
+  def build_corporate_information_page(params)
+    # The standard organisation.corporate_info_pages.build method does not
+    # correctly set the organisation in the linking table.
+    CorporateInformationPage.new(params.merge({organisation: self}))
+  end
+
   def has_published_publications_of_type?(publication_type)
     published_editions.where(publication_type_id: publication_type.id).any?
   end
