@@ -267,7 +267,7 @@ class DocumentHelperTest < ActionView::TestCase
     policy_advisory_group = create(:policy_advisory_group)
     edition = create(:policy, policy_advisory_groups: [policy_advisory_group])
     metadata = document_metadata(edition)[0]
-    assert_equal(metadata[:title], "Advisory groups")
+    assert_equal(metadata[:title], "Groups")
     html = metadata[:data][0]
     assert_select_within_html html, "a[href=?]", policy_advisory_group_path(policy_advisory_group)
     assert_select_within_html html, 'a', policy_advisory_group.name
