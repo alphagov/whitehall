@@ -157,6 +157,7 @@
                                person: role.current_person,
                                roles: @board_member_roles.roles_for(role.current_person),
                                hlevel: "h2"
+                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
                              } %>
                 <% end %>
               </ul>
