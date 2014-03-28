@@ -22,3 +22,11 @@ Feature: Announcing a upcoming statistics release
     And a statistics announcement called "Monthly Beard Stats" exists
     When I change the release date on the announcement
     Then the new date is reflected on the announcement
+
+  @javascript
+  Scenario: linking a document to a statistics announcement
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And a draft statistics publication called "Beard statistics - January 2014"
+    And a statistics announcement called "January's beard statistics" exists
+    When I link the announcement to the publication
+    Then I should see that the announcement is linked to the publication
