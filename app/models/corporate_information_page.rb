@@ -69,14 +69,8 @@ class CorporateInformationPage < Edition
     !non_english_edition?
   end
 
-  def organisation
-    if interim = edition_organisations.first
-      interim.organisation
-    elsif interim = edition_worldwide_organisations.first
-      interim.worldwide_organisation
-    else
-      Organisation.new
-    end
+  def owning_organisation
+    organisation || worldwide_organisation
   end
 
   def search_link
@@ -117,11 +111,11 @@ class CorporateInformationPage < Edition
   end
 
   def title_prefix_organisation_name
-    [organisation.name, title].join(' - ')
+    [owning_organisation.name, title].join(' - ')
   end
 
   def title(locale=:en)
-    corporate_information_page_type.title(organisation)
+    corporate_information_page_type.title(owning_organisation)
   end
 
   def self.by_menu_heading(menu_heading)

@@ -32,14 +32,14 @@ module Admin::EditionRoutesHelper
   end
 
   def edit_admin_corporate_information_page_path(edition, *args)
-    polymorphic_path([:edit, :admin, edition.organisation, edition], *args)
+    polymorphic_path([:edit, :admin, edition.owning_organisation, edition], *args)
   end
 
   def admin_corporate_information_page_path(edition, *args)
-    polymorphic_path([:admin, edition.organisation, edition], *args)
+    polymorphic_path([:admin, edition.owning_organisation, edition], *args)
   end
 
   def admin_corporate_information_pages_path(*args)
-    polymorphic_path([:admin, @organisation, CorporateInformationPage], *args)
+    polymorphic_path([:admin, edition.owning_organisation, CorporateInformationPage], *args)
   end
 end

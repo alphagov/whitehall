@@ -11,7 +11,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :worldwide_organisation_roles, dependent: :destroy
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
-  has_many :corporate_information_pages, as: :organisation, dependent: :destroy, through: :corporate_information_pages_organisations
+  has_many :edition_worldwide_organisations, dependent: :destroy
+  has_many :corporate_information_pages, dependent: :destroy, through: :edition_worldwide_organisations, source: :edition, class_name: "CorporateInformationPage"
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
@@ -93,5 +94,9 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   def unused_corporate_information_page_types
     CorporateInformationPageType.all - corporate_information_pages.map(&:type)
+  end
+
+  def build_corporate_information_page(params)
+    CorporateInformationPage.new(params.merge({worldwide_organisation: self}))
   end
 end
