@@ -112,13 +112,8 @@ module Admin
       editions = editions.in_world_location(selected_world_locations) if selected_world_locations.any?
       editions = editions.from_date(from_date) if from_date
       editions = editions.to_date(to_date) if to_date
-      editions = editions.order(ordering) if ordering
 
       @unpaginated_editions = editions
-    end
-
-    def ordering
-      options[:ordering]
     end
 
     def state

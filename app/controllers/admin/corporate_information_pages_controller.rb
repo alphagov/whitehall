@@ -2,10 +2,13 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   before_filter :find_organisation
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
 
+  class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
+  end
+
   def index
     params[:state] = 'active'
-    # Set up EditionFilter which provides search results.
-    filter
+    paginator = @organisation.corporate_information_pages.page(1).per(100)
+    @filter = FakeEditionFilter.new paginator, "Corporate information pages", false, true
   end
 
   def new
