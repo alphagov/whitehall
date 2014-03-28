@@ -10,7 +10,7 @@
           $annoucementForm = $('form.edit_statistics_announcement');
 
       // add link to reveal document finder
-      var $revealLink = $('<a href=# class="announcement-linker-link">Link to an existing draft document</a>');
+      var $revealLink = $('<a href=# class="js-announcement-linker-link">Link to an existing draft document</a>');
       $linker.append(' or ').append($revealLink);
 
       $revealLink.on('click', function () {
@@ -20,7 +20,7 @@
       });
 
       // add link to cancel and reset back to the default locale
-      var $resetLink = $('<a href=# class="cancel-announcement-linker-link">cancel</a>');
+      var $resetLink = $('<a href=# class="js-cancel-announcement-linker-link">cancel</a>');
       $documentFinder.append(' or ').append($resetLink);
       $resetLink.on('click', function () {
         // hide the documentFinder
