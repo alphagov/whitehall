@@ -68,6 +68,18 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select ".change-notes .published-at", text: "31 May 1916"
   end
 
+  view_test "#show should not render empty sector metadata" do
+    publication = create(:published_publication,
+      first_published_at: Date.parse("1916-05-31"),
+      publication_type_id: PublicationType::Form.id
+    )
+
+    get :show, id: publication.document
+
+    refute_select ".document-sectors"
+  end
+
+
   def assert_featured(doc)
     assert_select "#{record_css_selector(doc)}.featured"
   end

@@ -211,11 +211,10 @@ Details of document required:
         classes: ['document-topical-events']
       }
     end
-    if sector_tag_finder
-      sectors_and_subsectors = sector_tag_finder.sectors_and_subsectors
+    if sector_tag_finder && (all_sectors = sector_tag_finder.sectors_and_subsectors).any?
       metadata << {
-        title: t('document.headings.sectors', count: sectors_and_subsectors.length),
-        data: array_of_links_to_sectors(sectors_and_subsectors),
+        title: t('document.headings.sectors', count: all_sectors.length),
+        data: array_of_links_to_sectors(all_sectors),
         classes: ['document-sectors']
       }
     end
