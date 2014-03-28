@@ -1,5 +1,6 @@
 class StatisticsAnnouncementDateChange < StatisticsAnnouncementDate
   validates :change_note, presence: { if: :major_date_change?, message: 'required for this date change' }
+  validate :change_note_only_present_for_major_changes
 
   attr_accessor :current_release_date
 
@@ -35,5 +36,11 @@ private
 
   def update_announcement_in_search_index
     statistics_announcement.update_in_search_index
+  end
+
+  def change_note_only_present_for_major_changes
+    if change_note.present? && !major_date_change?
+      errors[:change_note] << 'only required for significant changes to the release date'
+    end
   end
 end
