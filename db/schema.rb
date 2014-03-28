@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319125335) do
+ActiveRecord::Schema.define(:version => 20140328141526) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1048,8 +1048,10 @@ ActiveRecord::Schema.define(:version => 20140319125335) do
     t.string   "change_note"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+    t.integer  "creator_id"
   end
 
+  add_index "statistics_announcement_dates", ["creator_id"], :name => "index_statistics_announcement_dates_on_creator_id"
   add_index "statistics_announcement_dates", ["statistics_announcement_id", "created_at"], :name => "statistics_announcement_release_date"
 
   create_table "statistics_announcements", :force => true do |t|

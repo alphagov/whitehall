@@ -23,6 +23,7 @@ private
   end
 
   def build_date_change(attributes={})
+    attributes[:creator_id] = current_user.id
     @statistics_announcement.build_statistics_announcement_date_change(attributes)
   end
 

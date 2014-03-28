@@ -51,6 +51,9 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def build_statistics_announcement(attributes={})
+    attributes[:current_release_date_attributes] &&
+      attributes[:current_release_date_attributes][:creator_id] = current_user.id
+
     current_user.statistics_announcements.new(attributes)
   end
 

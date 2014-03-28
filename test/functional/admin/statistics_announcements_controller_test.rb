@@ -49,6 +49,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_equal @organisation, announcement.organisation
     assert_equal @user, announcement.creator
     assert_equal 'November 2012', announcement.display_date
+    assert_equal @user, announcement.current_release_date.creator
   end
 
   view_test "POST :create re-renders the form if the announcement is invalid" do

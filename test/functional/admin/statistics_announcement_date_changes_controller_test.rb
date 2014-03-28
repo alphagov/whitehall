@@ -25,7 +25,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert_response :success
   end
 
-
   view_test "GET :new renders a pre-filled announcement form" do
     get :new, statistics_announcement_id: @announcement
 
@@ -50,5 +49,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert @announcement.confirmed?
     assert_equal '11 May 2013 09:30', @announcement.display_date
     assert_equal 'Delayed due to unexpected beard growth', @announcement.last_change_note
+    assert_equal @user, @announcement.statistics_announcement_dates.last.creator
   end
 end
