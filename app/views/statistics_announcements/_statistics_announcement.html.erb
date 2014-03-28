@@ -1,7 +1,7 @@
 <li class="document-row">
   <h3><%= link_to statistics_announcement.title, statistics_announcement_path(statistics_announcement) %></h3>
   <ul class="attributes">
-    <li><%= statistics_announcement.display_date %></li>
+    <li><%= statistics_announcement.display_date_with_confirmed_status %></li>
     <li><%= statistics_announcement.document_type %></li>
     <%- statistics_announcement.organisations.each do |org| -%>
       <li><%= link_to org.name, organisation_path(org) %></li>

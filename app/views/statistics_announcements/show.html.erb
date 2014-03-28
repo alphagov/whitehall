@@ -1,4 +1,5 @@
 <% page_title @announcement.title, "Statistics release announcement" %>
+<% page_class "statistics-announcements-show" %>
 
 <article>
   <header class="block headings-block">
@@ -13,7 +14,7 @@
         <div class="inner-heading">
           <dl>
             <dt>Release date:</dt>
-            <dd><%= @announcement.display_date %></dd>
+            <dd><%= @announcement.display_date_with_confirmed_status %></dd>
 
             <% if @announcement.organisations.any?  %>
               <dt><%= t('document.headings.organisations', count: @announcement.organisations.length) %>:</dt>
@@ -38,6 +39,22 @@
       <div class="summary">
         <p><%= @announcement.summary %></p>
       </div>
+
+      <% if @announcement.release_date_change_note.present? %>
+        <div class="release-date-change-information">
+          <h3>This statistics's release date has been changed.</h3>
+          <aside class="meta">
+            <div class="inner-heading">
+              <dl>
+                <dt>Previous date:</dt>
+                <dd><%= @announcement.previous_display_date %></dd>
+                <dt>Reason for change:</dt>
+                <dd><%= @announcement.release_date_change_note %></dd>
+              </dl>
+            </div>
+          </aside>
+        </div>
+      <% end %>
     </div>
   </div>
 </article>

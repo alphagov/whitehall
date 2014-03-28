@@ -10,5 +10,6 @@ FactoryGirl.define do
     current_release_date { create(:statistics_announcement_date) }
     precision    StatisticsAnnouncementDate::PRECISION[:exact]
     confirmed    true
+    change_note  "A change note"
   end
 end

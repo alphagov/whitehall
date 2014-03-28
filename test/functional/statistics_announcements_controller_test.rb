@@ -34,7 +34,8 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
                                                       topic: topic,
                                                       current_release_date: build(:statistics_announcement_date,
                                                                                   release_date: Time.zone.parse("2050-01-01 09:30:00"),
-                                                                                  precision: StatisticsAnnouncementDate::PRECISION[:exact])
+                                                                                  precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                                                                                  confirmed: true)
 
       get :index
 
@@ -43,7 +44,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
       assert_string_includes "Average beard lengths 2015", list_item.text
       assert_string_includes "national statistics", list_item.text
-      assert_string_includes "1 January 2050 09:30", list_item.text
+      assert_string_includes "1 January 2050 09:30 (confirmed)", list_item.text
       assert_has_link organisation.name, organisation_path(organisation), list_item
       assert_has_link topic.name, topic_path(topic), list_item
     end

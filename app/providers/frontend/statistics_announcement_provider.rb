@@ -25,6 +25,9 @@ module Frontend
         document_type: rummager_hash['display_type'],
         release_date: rummager_hash['release_timestamp'],
         display_date: rummager_hash['metadata']['display_date'],
+        release_date_confirmed: rummager_hash['metadata']['confirmed'],
+        release_date_change_note: rummager_hash['metadata']['change_note'],
+        previous_display_date: rummager_hash['metadata']['previous_display_date'],
         organisations: build_organisations(rummager_hash['organisations']),
         topics: build_topics(rummager_hash['topics'])
       })
@@ -39,6 +42,9 @@ module Frontend
         document_type: model.display_type,
         release_date: model.current_release_date.release_date,
         display_date: model.current_release_date.display_date,
+        release_date_confirmed: model.current_release_date.confirmed,
+        release_date_change_note: model.current_release_date.change_note,
+        previous_display_date: model.previous_display_date,
         organisations: [model.organisation],
         topics: [model.topic]
       })
@@ -94,7 +100,9 @@ module Frontend
           scope = scope.where("statistics_announcement_dates.release_date > ?", params[:release_timestamp][:from]) if params[:release_timestamp][:from].present?
           scope = scope.where("statistics_announcement_dates.release_date < ?", params[:release_timestamp][:to]) if params[:release_timestamp][:to].present?
         end
-        count = scope.count
+
+        scope = scope.group("statistics_announcements.id")
+        count = scope.length
         scope = scope.limit(params[:per_page]).offset((params[:page].to_i - 1) * params[:per_page].to_i)
 
         {
@@ -128,7 +136,8 @@ module Frontend
           "metadata" => {
             "confirmed" => announcement.current_release_date.confirmed,
             "display_date" => announcement.current_release_date.display_date,
-            "change_note" => announcement.last_change_note
+            "change_note" => announcement.last_change_note,
+            "previous_display_date" => announcement.previous_display_date
           }
         }
       end

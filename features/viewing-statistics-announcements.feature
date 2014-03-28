@@ -19,4 +19,4 @@ Feature: Viewing upcoming statistics announcements
     Given There is a statistics announcement
     When I visit the statistics announcements page
     And I click on the first statistics announcement
-    Then I should be on a page showing the title, release date, organisation, topic and summary of the release announcement
+    Then I should be on a page showing the title, release date, organisation, topic, summary and date change information of the release announcement

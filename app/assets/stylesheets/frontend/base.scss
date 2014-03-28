@@ -74,6 +74,7 @@
   @import "helpers/_index-list.scss";
   @import "helpers/_js-list-items.scss";
   @import "helpers/_lead-image.scss";
+  @import "helpers/_meta.scss";
   @import "helpers/_organisations.scss";
   @import "helpers/_organisation-news.scss";
   @import "helpers/_page-header.scss";
@@ -120,12 +121,10 @@
   @import "views/_new-document-page.scss";
   @import "views/_operational-field.scss";
   @import "views/_organisations.scss";
-  @import "views/organisations/_transition_state_visualisation.scss";
   @import "views/_people.scss";
   @import "views/_policies.scss";
   @import "views/_policy_groups.scss";
   @import "views/_publications.scss";
-  @import "views/release_announcements/index.scss";
   @import "views/_search.scss";
   @import "views/_site-index.scss";
   @import "views/_speeches.scss";
@@ -136,6 +135,9 @@
   @import "views/_worldwide_priorities.scss";
   @import "views/_take-part-pages.scss";
   @import "views/_topical-events.scss";
+  @import "views/organisations/_transition_state_visualisation.scss";
+  @import "views/statistics_announcements/index.scss";
+  @import "views/statistics_announcements/show.scss";
 }
 
 
