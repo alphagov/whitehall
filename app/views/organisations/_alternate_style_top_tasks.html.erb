@@ -4,7 +4,7 @@
     <ul class="top-tasks">
       <% links[:services_in].each do |link| %>
         <li>
-          <%= link_to link[:text], link[:link] %>
+          <%= link_to link[:text], link[:path] %>
         </li>
       <% end %>
     </ul>
@@ -17,7 +17,7 @@
       <article>
         <div class="content">
           <h2>
-            <%= link_to prominent_link[:text], prominent_link[:link] %>
+            <%= link_to prominent_link[:text], prominent_link[:path] %>
           </h2>
           <p><%= prominent_link[:description] %></p>
         </div>
@@ -30,7 +30,7 @@
           <ul class="top-tasks">
             <% links[:top_tasks].each do |top_task| %>
               <li>
-                <%= link_to top_task[:text], top_task[:link] %> 
+                <%= link_to top_task[:text], top_task[:path] %> 
               </li>
             <% end -%>
           </ul>
