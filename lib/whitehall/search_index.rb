@@ -20,6 +20,14 @@ module Whitehall
     def self.rummager_host
       ENV.fetch('RUMMAGER_HOST', Plek.current.find('search'))
     end
+
+    def self.add(instance)
+      SearchIndexAddWorker.perform_async(instance.class.name, instance.id)
+    end
+
+    def self.delete(instance)
+      SearchIndexDeleteWorker.perform_async(instance.search_index['link'], instance.rummager_index)
+    end
   end
 
   class FakeRummageableIndex < Rummageable::Index

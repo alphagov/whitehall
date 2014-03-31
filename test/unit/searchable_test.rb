@@ -19,25 +19,25 @@ class SearchableTest < ActiveSupport::TestCase
 
   test 'will not request indexing on save if it is not in searchable_instances' do
     s = SearchableTestTopic.new(name: 'woo', state: 'draft')
-    Searchable::Index.expects(:later).never
+    Whitehall::SearchIndex.expects(:add).never
     s.save
   end
 
   test 'will request indexing on save if it is in searchable_instances' do
-    s = SearchableTestTopic.new(name: 'woo', state: 'published')
-    Searchable::Index.expects(:later).with(s)
+    s = SearchableTestTopic.create(name: 'woo', state: 'published')
+    Whitehall::SearchIndex.expects(:add).with(s)
     s.save
   end
 
   test 'will request deletion on destruction even if it is not in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'draft')
-    Searchable::Delete.expects(:later).with(s)
+    Whitehall::SearchIndex.expects(:delete).with(s)
     s.destroy
   end
 
   test 'will request deletion on destruction if it is contained in searchable_instances' do
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
-    Searchable::Delete.expects(:later).with(s)
+    Whitehall::SearchIndex.expects(:delete).with(s)
     s.destroy
   end
 
@@ -45,7 +45,7 @@ class SearchableTest < ActiveSupport::TestCase
     class NonExistentClass; end
     Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
     s = SearchableTestTopic.new(name: 'woo', state: 'published')
-    Searchable::Index.expects(:later).never
+    Whitehall::SearchIndex.expects(:add).never
     s.save
   end
 
@@ -53,23 +53,23 @@ class SearchableTest < ActiveSupport::TestCase
     class NonExistentClass; end
     Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
     s = SearchableTestTopic.create(name: 'woo', state: 'published')
-    Searchable::Index.expects(:later).never
+    Whitehall::SearchIndex.expects(:add).never
     SearchableTestTopic.reindex_all
   end
 
   test '#reindex_all will respect the scopes it is prefixed with' do
     s1 = SearchableTestTopic.create(name: 'woo', state: 'published')
     s2 = SearchableTestTopic.create(name: 'moo', state: 'published')
-    Searchable::Index.expects(:later).with(s1).never
-    Searchable::Index.expects(:later).with(s2)
+    Whitehall::SearchIndex.expects(:add).with(s1).never
+    Whitehall::SearchIndex.expects(:add).with(s2)
     SearchableTestTopic.where(name: 'moo').reindex_all
   end
 
   test '#reindex_all will request indexing for each searchable instance' do
     s1 = SearchableTestTopic.create(name: 'woo', state: 'draft')
     s2 = SearchableTestTopic.create(name: 'woo', state: 'published')
-    Searchable::Index.expects(:later).with(s1).never
-    Searchable::Index.expects(:later).with(s2)
+    Whitehall::SearchIndex.expects(:add).with(s1).never
+    Whitehall::SearchIndex.expects(:add).with(s2)
     SearchableTestTopic.reindex_all
   end
 
@@ -80,13 +80,6 @@ class SearchableTest < ActiveSupport::TestCase
     searchable_topics = SearchableTestTopic.searchable_instances
     assert searchable_topics.include?(published_topic)
     refute searchable_topics.include?(draft_topic)
-  end
-
-  test 'Index.later will enqueue an indexing job with the class and id onto the rummager work queue' do
-    s = SearchableTestTopic.create(name: 'woo', state: 'draft')
-    Searchable::Index.expects(:new).with('SearchableTest::SearchableTestTopic', s.id).returns :an_indexing_job
-    Delayed::Job.expects(:enqueue).with(:an_indexing_job, queue: Whitehall.rummager_work_queue_name)
-    Searchable::Index.later(s)
   end
 
   test 'Delete.later will enqueue an indexing job with the link for the object and the index to remove it from onto the rummager work queue' do
@@ -127,5 +120,4 @@ class SearchableTest < ActiveSupport::TestCase
     delete_job = Searchable::Delete.new('woo', :government)
     delete_job.perform
   end
-
 end

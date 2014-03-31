@@ -102,7 +102,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   test 'should add ministerial role to search index on creating' do
     ministerial_role = build(:ministerial_role_without_organisation)
 
-    Searchable::Index.expects(:later).with(ministerial_role)
+    Whitehall::SearchIndex.expects(:add).with(ministerial_role)
 
     ministerial_role.save
   end
@@ -110,7 +110,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   test 'should add ministerial role to search index on updating' do
     ministerial_role = create(:ministerial_role_without_organisation)
 
-    Searchable::Index.expects(:later).with(ministerial_role)
+    Whitehall::SearchIndex.expects(:add).with(ministerial_role)
 
     ministerial_role.name = 'Ministry of Junk'
     ministerial_role.save
@@ -118,7 +118,7 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test 'should remove ministerial role from search index on destroying' do
     ministerial_role = create(:ministerial_role_without_organisation)
-    Searchable::Delete.expects(:later).with(ministerial_role)
+    Whitehall::SearchIndex.expects(:delete).with(ministerial_role)
     ministerial_role.destroy
   end
 

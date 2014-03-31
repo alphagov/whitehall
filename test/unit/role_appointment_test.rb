@@ -4,20 +4,20 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
   test "should should remove person from index when added as a minister" do
     person = create(:person)
-    Searchable::Delete.expects(:later).with(person)
+    Whitehall::SearchIndex.expects(:delete).with(person)
     create(:ministerial_role_appointment, person: person)
   end
 
   test "should should add person to index when removed as a minister" do
-    Searchable::Index.stubs(:later)
+    Whitehall::SearchIndex.stubs(:add)
     person = create(:person)
     role = create(:ministerial_role_appointment, person: person)
-    Searchable::Index.expects(:later).with(person)
+    Whitehall::SearchIndex.expects(:add).with(person)
     role.destroy
   end
 
   test "should add the person to the index when a they no longer hold a ministerial role" do
-    Searchable::Index.stubs(:later)
+    Whitehall::SearchIndex.stubs(:add)
 
     role = create(:ministerial_role)
     alice = create(:person, forename: "Alice")
@@ -25,7 +25,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
 
     create(:role_appointment, role: role, person: alice, started_at: 3.days.ago, ended_at: nil)
 
-    Searchable::Index.expects(:later).with(alice)
+    Whitehall::SearchIndex.expects(:add).with(alice)
 
     role.reload
     alice.reload
