@@ -1,0 +1,17 @@
+.beta-notice {
+  background-color: $orange;
+  margin: 0 $gutter;
+  padding: 0;
+
+  p {
+    @include ig-core-16;
+    margin: 0px auto;
+    padding: 8px 32px;
+    max-width: 940px;
+    color: black;
+
+    strong {
+      font-weight: bold;
+    }
+  }
+}
