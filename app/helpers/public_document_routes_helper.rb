@@ -10,10 +10,7 @@ module PublicDocumentRoutesHelper
   end
 
   def document_path(edition, options = {})
-    defaults = { id: edition.document }
-    defaults[:policy_id] = edition.related_policies.first.document if edition.is_a?(SupportingPage)
-    defaults[:locale] = edition.locale if edition.non_english_edition?
-    polymorphic_path(model_name_for_route_recognition(edition), defaults.merge(options))
+    document_url(edition, options.merge(routing_type: :path))
   end
 
   def public_document_path(edition, options = {})
@@ -27,13 +24,21 @@ module PublicDocumentRoutesHelper
 
   def document_url(edition, options = {})
     if edition.is_a?(CorporateInformationPage)
-      defaults = { id: edition.slug, organisation_id: edition.organisation }
+      defaults = { id: edition.slug }
+      if edition.owning_organisation.is_a?(Organisation)
+        route_name = 'organisation_corporate_information_page'
+        defaults[:organisation_id] = edition.owning_organisation
+      else
+        route_name = 'worldwide_organisation_corporate_information_page'
+        defaults[:worldwide_organisation_id] = edition.owning_organisation
+      end
     else
       defaults = { id: edition.document }
       defaults[:policy_id] = edition.related_policies.first.document if edition.is_a?(SupportingPage)
+      route_name = model_name_for_route_recognition(edition)
     end
     defaults[:locale] = edition.locale if edition.non_english_edition?
-    polymorphic_url(model_name_for_route_recognition(edition), defaults.merge(options))
+    polymorphic_url(route_name, defaults.merge(options))
   end
 
   def public_document_url(edition, options = {})
@@ -50,13 +55,7 @@ module PublicDocumentRoutesHelper
 
   # NOTE: This method could (possibly) be dropped once Draper has been removed/replaced.
   def model_name_for_route_recognition(edition)
-    case edition
-    when SupportingPage
-      'policy_supporting_page'
-    when CorporateInformationPage
-      'organisation_corporate_information_page'
-    else
-      edition.to_model.class.name.underscore
-    end
+    klass = edition.to_model.class
+    klass == SupportingPage ? 'policy_supporting_page' : klass.name.underscore
   end
 end
