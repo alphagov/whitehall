@@ -3,11 +3,26 @@ require 'test_helper'
 class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController::TestCase
   setup do
     Timecop.travel(1.day.ago) do
-      @user = login_as(:policy_writer)
+      @user = login_as(:gds_editor)
       @organisation = create(:organisation)
       @topic = create(:topic)
       @announcement = create(:statistics_announcement)
     end
+  end
+
+  test 'only gds editors and ONS users have access' do
+    login_as(:policy_writer)
+    get :new, statistics_announcement_id: @announcement
+    assert_response :forbidden
+
+    login_as(:gds_editor)
+    get :new, statistics_announcement_id: @announcement
+    assert_response :success
+
+    ons_user = create(:user, organisation: create(:organisation, name: 'Office for National Statistics'))
+    login_as(ons_user)
+    get :new, statistics_announcement_id: @announcement
+    assert_response :success
   end
 
   view_test "GET :new renders a pre-filled announcement form" do
@@ -34,5 +49,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert @announcement.confirmed?
     assert_equal '11 May 2013 09:30', @announcement.display_date
     assert_equal 'Delayed due to unexpected beard growth', @announcement.last_change_note
+    assert_equal @user, @announcement.statistics_announcement_dates.last.creator
   end
 end

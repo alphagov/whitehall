@@ -65,6 +65,22 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     assert_match /required/, new_date.errors[:change_note].first
   end
 
+  test "change note should not be provided if date is not making a major change" do
+    current_date  = build(:statistics_announcement_date,
+                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+                      confirmed: false)
+
+    new_date      = build(:statistics_announcement_date_change,
+                      current_release_date: current_date,
+                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
+                      release_date: current_date.release_date,
+                      confirmed: false,
+                      change_note: 'This change note is not required.')
+
+    refute new_date.valid?
+    assert_match /only required for significant changes/, new_date.errors[:change_note].first
+  end
+
   test "valid if improving precision of date" do
     current_date  = build(:statistics_announcement_date,
                       precision: StatisticsAnnouncementDate::PRECISION[:one_month],

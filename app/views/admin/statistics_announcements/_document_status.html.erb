@@ -1,9 +1,10 @@
 <% if publication = statistics_announcement.publication %>
 
   <div class="alert alert-info" style="margin: 10px 0 5px 0">
-    <p>
+    <p class="js-document-announcement-linker">
       This announcement is linked to the <%= publication.current_state %> document <%= link_to publication.title, [:admin, publication] %>
     </p>
+    <%= render "document_linker", statistics_announcement: statistics_announcement %>
   </div>
 
   <% if publication.pre_publication? %>

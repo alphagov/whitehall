@@ -46,6 +46,7 @@
     <% @statistics_announcement.statistics_announcement_dates.reverse.each do |previous_date| %>
       <li>
         Date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
+        <%= previous_date.creator ? linked_author(previous_date.creator) : "User (removed) "%>
         <%= absolute_time(previous_date.created_at, class: "created_at") %>
       </li>
     <% end %>

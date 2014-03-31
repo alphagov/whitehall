@@ -56,4 +56,13 @@ class Admin::BaseController < ApplicationController
     end
   end
   helper_method :typecast_for_attachable_routing
+
+  def user_can_see_stats_announcements?
+    current_user && (current_user.gds_editor? || current_user.organisation_slug == 'office-for-national-statistics')
+  end
+  helper_method :user_can_see_stats_announcements?
+
+  def restrict_access_to_gds_editors_and_ons_users
+    forbidden! unless user_can_see_stats_announcements?
+  end
 end

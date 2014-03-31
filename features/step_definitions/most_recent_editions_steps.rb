@@ -23,7 +23,7 @@ end
 
 Then /^I can click through to the most recent version of document "([^"]*)"$/ do |title|
   click_on 'Go to draft'
-  assert_equal admin_edition_path(Edition.find_by_title(title).latest_edition), current_path
+  assert_path admin_edition_path(Edition.find_by_title(title).latest_edition)
 end
 
 Then /^I cannot click through to the most recent version of document "([^"]*)"$/ do |arg1|

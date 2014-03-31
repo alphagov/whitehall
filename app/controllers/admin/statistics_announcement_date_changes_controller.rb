@@ -1,4 +1,5 @@
 class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
+  before_filter :restrict_access_to_gds_editors_and_ons_users
   before_filter :find_statistics_announcement
 
   def new
@@ -22,6 +23,7 @@ private
   end
 
   def build_date_change(attributes={})
+    attributes[:creator_id] = current_user.id
     @statistics_announcement.build_statistics_announcement_date_change(attributes)
   end
 

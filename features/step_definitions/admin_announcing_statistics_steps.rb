@@ -2,6 +2,26 @@ Given(/^a statistics announcement called "(.*?)" exists$/) do |announcement_titl
   @statistics_announcement = create(:statistics_announcement, title: announcement_title)
 end
 
+Given(/^a draft statistics publication called "(.*?)"$/) do |title|
+  @statistics_publication = create(:publication, :draft, access_limited: false,
+                                   publication_type_id:PublicationType::Statistics.id,
+                                   title: title)
+end
+
+When(/^I link the announcement to the publication$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+  click_on 'Link to an existing draft document'
+
+  fill_in 'title', with: "statistics"
+  click_on 'Search'
+  find('li.ui-menu-item').click
+end
+
+Then(/^I should see that the announcement is linked to the publication$/) do
+  assert_path admin_statistics_announcement_path(@statistics_announcement)
+  assert page.has_content?("This announcement is linked to the draft document #{@statistics_publication.title}")
+end
+
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|
   organisation = Organisation.first || create(:organisation)
   topic        = Topic.first || create(:topic)
