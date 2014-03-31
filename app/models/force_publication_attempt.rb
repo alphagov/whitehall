@@ -105,18 +105,4 @@ class ForcePublicationAttempt < ActiveRecord::Base
       @force_publish_attempt.update_column(:log, log)
     end
   end
-
-  class Job < Struct.new(:id)
-    def perform(options = {})
-      force_publish_attempt.perform options
-    end
-
-    def error(delayed_job, error)
-      force_publish_attempt.progress_logger.write_log(:error, error.to_s + error.backtrace.join("\n"))
-    end
-
-    def force_publish_attempt
-      @force_publish_attempt ||= ForcePublicationAttempt.find(self.id)
-    end
-  end
 end
