@@ -340,33 +340,33 @@ class Organisation < ActiveRecord::Base
       {
         services_in: [
           {
-            link: 'https://www.gov.uk/browse/driving',
+            path: '/browse/driving',
             text: 'Driving and transport',
           }
         ],
         prominent: [
           {
-            link: 'https://www.gov.uk/tax-disc',
+            path: '/tax-disc',
             text: 'Get a tax disc for your vehicle',
             description: 'You will need your numberplate, a credit/debit card and either your tax disc renewal reminder or your vehicle logbook.'
           },
           {
-            link: 'https://www.gov.uk/vehicle-registration-certificate-v5c-log-book',
+            path: '/vehicle-registration-certificate-v5c-log-book',
             text: 'Get a V5C (logbook)',
             description: 'Apply by phone or post to get a replacement V5C vehicle registration certificate (log book). There is a £25 fee.'
           }
         ],
         top_tasks: [
           {
-            link: 'https://www.gov.uk/register-sorn-statutory-off-road-notification',
+            path: '/register-sorn-statutory-off-road-notification',
             text: 'Make a SORN'
           },
           {
-            link: 'https://www.gov.uk/change-address-driving-licence',
+            path: '/change-address-driving-licence',
             text: 'Change the address on your driving licence'
           },
           {
-            link: 'https://www.gov.uk/get-vehicle-information-from-dvla',
+            path: '/get-vehicle-information-from-dvla',
             text: 'Get vehicle information from DVLA'
           }
         ]
@@ -375,27 +375,27 @@ class Organisation < ActiveRecord::Base
       {
         services_in: [
           {
-            link: 'https://www.gov.uk/immigration-operational-guidance',
+            path: '/immigration-operational-guidance',
             text: "UKVI's operational guidance"
           },
           {
-            link: 'https://www.gov.uk/government/collections/immigration-rules',
+            path: '/government/collections/immigration-rules',
             text: 'The current Immigration Rules'
           },
         ],
         prominent: [
           {
-            link: 'https://www.gov.uk/visas-immigration',
+            path: '/visas-immigration',
             text: 'Visas, settlement and asylum',
             description: 'Information on different UK visas, how to settle in the UK and claiming asylum.'
           },
           {
-            link: 'https://www.gov.uk/browse/visas-immigration/eu-eea-commonwealth',
+            path: '/browse/visas-immigration/eu-eea-commonwealth',
             text: 'European nationals',
             description: 'Living and working in the UK for EU and EEA nationals, their partners and family.'
           },
           {
-            link: 'https://www.gov.uk/browse/citizenship/citizenship',
+            path: '/browse/citizenship/citizenship',
             text: 'British citizenship',
             description: 'How to become a British citizen and types of UK nationality.'
           }
@@ -405,23 +405,23 @@ class Organisation < ActiveRecord::Base
       {
         services_in: [
           {
-            link: 'https://www.gov.uk/environmental-management',
+            path: '/environmental-management',
             text: 'Comply with environmental regulations'
           },
         ],
         prominent: [
           {
-            link: 'https://www.gov.uk/check-if-youre-at-risk-of-flooding',
+            path: '/check-if-youre-at-risk-of-flooding',
             text: 'Flood warnings',
             description: 'Check flood warnings in your area'
           },
           {
-            link: 'https://www.gov.uk/browse/environment-countryside/recycling-waste-management',
+            path: '/browse/environment-countryside/recycling-waste-management',
             text: 'Business and commercial waste',
             description: 'What to do with waste you produce in your business'
           },
           {
-            link: 'https://www.gov.uk/browse/environment-countryside',
+            path: '/browse/environment-countryside',
             text: 'Environment, boating and fishing',
             description: 'Buy your rod licence online and register your boat'
           },
