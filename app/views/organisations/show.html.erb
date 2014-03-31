@@ -111,7 +111,7 @@
   <% if people_to_show? %>
     <div class="block-9">
       <div class="inner-block" id="people">
-        <section id="who" <% if two_people_or_fewer? %>class="two-people-or-fewer"<% end %>>
+        <section id="who" <% if two_people_or_fewer %>class="two-people-or-fewer"<% end %>>
           <% if @ministers.any? %>
             <section id="ministers">
               <h1 class="label"><%= t('organisation.headings.our_ministers') %></h1>
