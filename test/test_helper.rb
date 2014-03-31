@@ -26,7 +26,6 @@ class ActiveSupport::TestCase
   include ModelStubbingHelpers
   include HtmlAssertions
   include I18nHelpers
-  include DelayedJobTestHelpers
   include PanopticonTestHelpers
   extend GovspeakValidationTestHelper
 
