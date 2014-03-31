@@ -395,8 +395,8 @@ class Organisation < ActiveRecord::Base
             description: 'Living and working in the UK for EU and EEA nationals, their partners and family.'
           },
           {
-            link: 'https://www.gov.uk/becoming-a-british-citizen',
-            text: 'British citizenship ',
+            link: 'https://www.gov.uk/browse/citizenship/citizenship',
+            text: 'British citizenship',
             description: 'How to become a British citizen and types of UK nationality.'
           }
         ]
