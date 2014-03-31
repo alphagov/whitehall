@@ -42,9 +42,9 @@ Given(/^There is a statistics announcement$/) do
   @announcement = create :statistics_announcement,
                          organisation: @organisation,
                          topic: @topic,
-                         current_release_date: build(:statistics_announcement_date),
-                         statistics_announcement_dates: [ build(:statistics_announcement_date_change, change_note: "A change note") ]
-  @announcement.reload # Factorygirl doesn't get current_release_date / statistics_announcement_dates quite right - needs reload here.
+                         statistics_announcement_dates: [ build(:statistics_announcement_date, release_date: 1.year.from_now, precision: StatisticsAnnouncementDate::PRECISION[:one_month], created_at: 10.days.ago) ],
+                         current_release_date: build(:statistics_announcement_date_change, release_date: 1.year.from_now + 2.months, change_note: "A change note")
+  @announcement.reload # StatisticsAnnouncement doesn't get statistics_announcement_date related stuff right until after reload.
 end
 
 When(/^I visit the statistics announcements page$/) do
