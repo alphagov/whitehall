@@ -3,7 +3,7 @@ class ForcePublicationAttempt < ActiveRecord::Base
 
   def enqueue!
     update_column(:enqueued_at, Time.zone.now)
-    Delayed::Job.enqueue(Job.new(self.id))
+    ImportForcePublicationAttemptWorker.perform_async(self.id)
   end
 
   def documents

@@ -30,6 +30,5 @@ Feature: Force publishing an import
     When I speed tag all of the documents and make them draft
     And I force publish the import
     Then I cannot force publish the import again
-    When the force publish import background processor runs
-    Then I can see the log output of the force publish for my import
+    And I can see the log output of the force publish for my import
     And my imported documents are published
