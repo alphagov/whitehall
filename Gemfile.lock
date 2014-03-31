@@ -67,7 +67,7 @@ GEM
       multi_json
     arel (3.0.3)
     babosa (0.3.11)
-    bad_link_finder (0.3.1)
+    bad_link_finder (0.3.2)
       mechanize (~> 2.7)
       nokogiri (~> 1.5)
     better_errors (1.1.0)
@@ -125,7 +125,7 @@ GEM
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
-    domain_name (0.5.16)
+    domain_name (0.5.18)
       unf (>= 0.0.5, < 1.0.0)
     equivalent-xml (0.3.0)
       nokogiri (>= 1.4.3)
@@ -377,7 +377,7 @@ DEPENDENCIES
   addressable
   airbrake (= 3.1.15)
   babosa
-  bad_link_finder (~> 0.3.1)
+  bad_link_finder (= 0.3.2)
   better_errors
   binding_of_caller
   bootstrap-kaminari-views
