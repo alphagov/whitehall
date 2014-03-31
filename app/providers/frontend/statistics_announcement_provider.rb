@@ -69,6 +69,9 @@ module Frontend
 
       params[:page] = params[:page].to_s
       params[:per_page] = params[:per_page].to_s
+
+      params[:format] = "statistics_announcement"
+
       params
     end
 
