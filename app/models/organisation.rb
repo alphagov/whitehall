@@ -401,6 +401,32 @@ class Organisation < ActiveRecord::Base
           }
         ]
       }
+    when 'environment-agency'
+      {
+        services_in: [
+          {
+            link: 'https://www.gov.uk/environmental-management',
+            text: 'Comply with environmental regulations'
+          },
+        ],
+        prominent: [
+          {
+            link: 'https://www.gov.uk/check-if-youre-at-risk-of-flooding',
+            text: 'Flood warnings',
+            description: 'Check flood warnings in your area'
+          },
+          {
+            link: 'https://www.gov.uk/browse/environment-countryside/recycling-waste-management',
+            text: 'Business and commercial waste',
+            description: 'What to do with waste you produce in your business'
+          },
+          {
+            link: 'https://www.gov.uk/browse/environment-countryside',
+            text: 'Environment, boating and fishing',
+            description: 'Buy your rod licence online and register your boat'
+          },
+        ]
+      }
     else
       {}  
     end
