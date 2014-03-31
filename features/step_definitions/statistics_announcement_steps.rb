@@ -43,7 +43,7 @@ Given(/^There is a statistics announcement$/) do
                          organisation: @organisation,
                          topic: @topic,
                          current_release_date: build(:statistics_announcement_date),
-                         statistics_announcement_dates: [ build(:statistics_announcement_date_change) ]
+                         statistics_announcement_dates: [ build(:statistics_announcement_date_change, change_note: "A change note") ]
   @announcement.reload # Factorygirl doesn't get current_release_date / statistics_announcement_dates quite right - needs reload here.
 end
 
