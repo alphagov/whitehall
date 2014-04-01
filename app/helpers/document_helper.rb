@@ -4,7 +4,7 @@ module DocumentHelper
   include DocumentCollectionHelper
   include MinisterialRolesHelper
   include PolicyHelper
-  include PolicyAdvisoryGroupsHelper
+  include PolicyGroupsHelper
   include RoleAppointmentsHelper
   include TopicsHelper
   include TranslationHelper
