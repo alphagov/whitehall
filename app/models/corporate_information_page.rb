@@ -18,16 +18,9 @@ class CorporateInformationPage < Edition
       end
     end
   end
-  #delegate :alternative_format_contact_email, :acronym, to: :organisation
-
-  #validates :organisation, :body, :type, presence: true
-  #validates :corporate_information_page_type_id, uniqueness: {
-    #scope: :organisation, message: "already exists for this organisation"
-  #}
+  delegate :alternative_format_contact_email, :acronym, to: :owning_organisation
 
   validate :only_one_organisation_or_worldwide_organisation
-  #include TranslatableModel
-  #translates :summary, :body
 
   def search_title
     title_prefix_organisation_name
@@ -74,21 +67,6 @@ class CorporateInformationPage < Edition
   def self.for_slug!(slug)
     type = CorporateInformationPageType.find(slug)
     find_by_corporate_information_page_type_id!(type && type.id)
-  end
-
-  def self.belonging_to_live_organisations_and_excluding_worldwide_organisations
-    belonging_to_live_organisations.excluding_worldwide_organisations
-  end
-
-  def self.belonging_to_live_organisations
-    joins("LEFT OUTER JOIN organisations ON
-      corporate_information_pages.organisation_id = organisations.id AND
-      corporate_information_pages.organisation_type = 'Organisation'").
-    where("(#{Organisation.arel_table[:id].eq(nil).to_sql} OR #{Organisation.arel_table[:govuk_status].eq('live').to_sql})")
-  end
-
-  def self.excluding_worldwide_organisations
-    where(CorporateInformationPage.arel_table[:organisation_type].not_eq('WorldwideOrganisation'))
   end
 
   def corporate_information_page_type
