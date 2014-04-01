@@ -1,6 +1,8 @@
 <% content_for :page_class, 'statistics-announcements' %>
 <% page_title "Statistics announcement: #{@statistics_announcement.title}" %>
 
+<%= render 'warning' %>
+
 <div class="span8">
   <h1><%= @statistics_announcement.title %></h1>
   <%= link_to "View on website", @statistics_announcement %>
