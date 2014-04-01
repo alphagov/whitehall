@@ -54,9 +54,7 @@
   </ul>
 </div>
 
-<% if ENABLE_WORDS_TO_AVOID_HIGHLIGHTING %>
-  <% initialise_script "GOVUK.WordsToAvoidHighlighter",
-      el: "form textarea",
-      wordsToAvoidAlert: "#js-words-to-avoid-alert",
-      wordsToAvoidCounter: "#js-words-to-avoid-count" %>
-<% end %>
+<% initialise_script_on_modern_browsers "GOVUK.WordsToAvoidHighlighter",
+    el: "form textarea",
+    wordsToAvoidAlert: "#js-words-to-avoid-alert",
+    wordsToAvoidCounter: "#js-words-to-avoid-count" %>

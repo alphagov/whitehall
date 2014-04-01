@@ -11,6 +11,14 @@ class JavascriptHelperTest < ActionView::TestCase
     initialise_script "GOVUK.SomeObject"
   end
 
+  test "initialise_script_on_modern_browsers should render a script initialisation to :javascript_initialisers_for_modern_browsers" do
+    self.stubs(:content_for).with() {|yield_block, script|
+      assert_equal :javascript_initialisers_for_modern_browsers, yield_block
+      assert script.include?("GOVUK.init(GOVUK.SomeObject"), "expected #{script} to include 'GOVUK.init(GOVUK.SomeObject'"
+    }
+    initialise_script_on_modern_browsers "GOVUK.SomeObject"
+  end
+
   test "initialise_script should pass params down to script initialisation as json" do
     self.stubs(:content_for).with() {|yield_block, script|
       assert script.include?('{"foo":"bar"}'), "expected #{script} to include '{\"foo\":\"bar\"}'"
