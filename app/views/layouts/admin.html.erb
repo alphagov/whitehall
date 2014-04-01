@@ -113,5 +113,10 @@
     <%= render_mustache_templates if Rails.env.development? %>
     <% initialise_script "GOVUK.adminGlobalInitialiser" %>
     <%= javascript_tag(yield :javascript_initialisers) %>
+    <% if content_for? :javascript_initialisers_for_modern_browsers %>
+      <!--[if gte IE 9]><!-->
+        <%= javascript_tag(yield :javascript_initialisers_for_modern_browsers) %>
+      <!--<![endif]-->
+    <% end %>
   </body>
 </html>
