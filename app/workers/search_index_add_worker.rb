@@ -7,7 +7,7 @@ class SearchIndexAddWorker
     @class_name = class_name
     @id = id
 
-    if searchable_instance.can_index_in_search?
+    if searchable_instance && searchable_instance.can_index_in_search?
       index = Whitehall::SearchIndex.for(searchable_instance.rummager_index)
       index.add searchable_instance.search_index
     end
@@ -16,7 +16,7 @@ class SearchIndexAddWorker
 private
 
   def searchable_instance
-    @searchable_instance ||= searchable_class.find(id)
+    @searchable_instance ||= searchable_class.find_by_id(id)
   end
 
   def searchable_class

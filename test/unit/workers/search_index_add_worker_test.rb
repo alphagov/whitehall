@@ -10,8 +10,8 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
     assert_match /is not a searchable class/, e.message
   end
 
-  test '#perform raises an exception if the instance does not exist' do
-    assert_raise(ActiveRecord::RecordNotFound) { SearchIndexAddWorker.new.perform('Topic', 1) }
+  test '#perform silently succeeds if the instance does not exist' do
+    SearchIndexAddWorker.new.perform('Topic', 1)
   end
 
   test '#perform indexes searchable instances' do
