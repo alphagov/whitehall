@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140331151737) do
+ActiveRecord::Schema.define(:version => 20140401132650) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -872,7 +872,6 @@ ActiveRecord::Schema.define(:version => 20140331151737) do
     t.datetime "updated_at"
     t.string   "name"
     t.text     "description"
-    t.string   "type"
     t.text     "summary"
     t.string   "slug"
   end

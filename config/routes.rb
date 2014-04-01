@@ -131,7 +131,7 @@ Whitehall::Application.routes.draw do
     resources :people, only: [:index, :show], localised: true
 
     resources :policy_teams, path: 'policy-teams', only: [:index, :show]
-    resources :policy_advisory_groups, path: 'policy-advisory-groups', only: [:index, :show]
+    resources :policy_groups, path: 'groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
     resources :worldwide_organisations, path: 'world/organisations', only: [:show, :index], localised: true do
       resources :corporate_information_pages, only: [:show], path: 'about', localised: true

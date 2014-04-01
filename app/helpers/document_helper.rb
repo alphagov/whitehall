@@ -287,11 +287,11 @@ Details of document required:
         classes: ["document-policy-team"]
       }
     end
-    if document.respond_to?(:policy_advisory_groups) && document.policy_advisory_groups.any?
+    if document.respond_to?(:policy_groups) && document.policy_groups.any?
       metadata << {
         title: t('document.headings.advisory_groups'),
-        data: array_of_links_to_policy_advisory_groups(document.policy_advisory_groups),
-        classes: ["document-policy-advisory-groups"]
+        data: array_of_links_to_policy_groups(document.policy_groups),
+        classes: ["document-policy-groups"]
       }
     end
     if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
