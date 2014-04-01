@@ -29,20 +29,9 @@ class CorporateInformationPage < Edition
   #include TranslatableModel
   #translates :summary, :body
 
-  #searchable title: :title_prefix_organisation_name,
-             #link: :search_link,
-             #content: :indexable_content,
-             #description: :summary,
-             ## NOTE: when we launch world we can change this to belonging_to_live_organisations on its own
-             #only: :belonging_to_live_organisations_and_excluding_worldwide_organisations
-
-  #def body_without_markup
-    #Govspeak::Document.new(body).to_text
-  #end
-
-  #def indexable_content
-    #body_without_markup
-  #end
+  def search_title
+    title_prefix_organisation_name
+  end
 
   def title_required?
     false
@@ -65,16 +54,16 @@ class CorporateInformationPage < Edition
     true
   end
 
+  def display_type
+    "Corporate information"
+  end
+
   def translatable?
     !non_english_edition?
   end
 
   def owning_organisation
     organisation || worldwide_organisation
-  end
-
-  def search_link
-    Whitehall.url_maker.organisation_corporate_information_page_path(organisation, slug)
   end
 
   def self.for_slug(slug)

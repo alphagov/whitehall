@@ -255,7 +255,7 @@ class Edition < ActiveRecord::Base
 
   searchable(
     id: :id,
-    title: :title,
+    title: :search_title,
     link: :search_link,
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
@@ -277,6 +277,10 @@ class Edition < ActiveRecord::Base
     attachments: nil,
     operational_field: nil
   )
+
+  def search_title
+    title
+  end
 
   def search_link
     Whitehall.url_maker.public_document_path(self)
