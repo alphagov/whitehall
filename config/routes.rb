@@ -196,7 +196,7 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :policy_teams, except: [:show]
-        resources :policy_advisory_groups, except: [:show] do
+        resources :policy_groups, except: [:show] do
           resources :attachments do
             put :order, on: :collection
           end

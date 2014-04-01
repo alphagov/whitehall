@@ -181,8 +181,7 @@ class Admin::EditionsController < Admin::BaseController
       outbound_related_document_ids: [],
       role_appointment_ids: [],
       statistical_data_set_document_ids: [],
-      policy_team_ids: [],
-      policy_advisory_group_ids: [],
+      policy_group_ids: [],
       document_collection_group_ids: [],
       images_attributes: [
         :id, :alt_text, :caption, :_destroy,

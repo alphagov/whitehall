@@ -24,10 +24,10 @@ module Admin::TabbedNavHelper
     }
   end
 
-  def policy_advisory_group_tabs(group)
+  def policy_group_tabs(group)
     {
-      'Policy advisory group' => edit_admin_policy_advisory_group_path(group),
-      'Attachments' => admin_policy_advisory_group_attachments_path(group),
+      'Policy group' => edit_admin_policy_group_path(group),
+      'Attachments' => admin_policy_group_attachments_path(group),
     }
   end
 

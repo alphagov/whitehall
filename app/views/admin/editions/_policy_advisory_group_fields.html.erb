@@ -1,6 +1,0 @@
-<%= form.label :policy_advisory_group_ids, 'Policy Advisory Groups' %>
-<%= form.select :policy_advisory_group_ids, PolicyAdvisoryGroup.order(:name).all.map { |team|
-  ["#{team.name} (#{team.email})", team.id]}, { include_blank: true },
-  multiple: true,
-  class: 'chzn-select',
-  data: { placeholder: "Choose policy advisory groups..."} %>

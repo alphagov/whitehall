@@ -1,0 +1,6 @@
+<%= form.label :policy_group_ids, 'Groups' %>
+<%= form.select :policy_group_ids, PolicyGroup.order(:name).all.map { |team|
+  ["#{team.name} (#{team.email})", team.id]}, { include_blank: true },
+  multiple: true,
+  class: 'chzn-select',
+  data: { placeholder: "Choose groups..."} %>

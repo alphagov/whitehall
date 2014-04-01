@@ -1,0 +1,31 @@
+<% page_title "Groups" %>
+<section>
+  <nav class="actions">
+    <%= link_to "Create group", new_admin_policy_group_path, class: "btn new_resource", title: "Create a policy team" %>
+  </nav>
+
+  <h1>Groups</h1>
+
+  <table class="policy_groups table table-striped">
+    <thead>
+      <tr>
+        <th width="30%">Name</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @policy_groups.each do |policy_group| %>
+        <%= content_tag_for(:tr, policy_group) do %>
+          <td class="name"><%= link_to policy_group.name, edit_admin_policy_group_path(policy_group), title: "Edit group #{policy_group.name}" %></td>
+          <td class="email"><%= policy_group.email %></td>
+          <td>
+            <% if can?(:delete, PolicyGroup) %>
+            <%= button_to 'Delete', admin_policy_group_path(policy_group), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the group?", class: "btn btn-danger" %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</section>
