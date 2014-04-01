@@ -122,4 +122,8 @@ class CorporateInformationPage < Edition
     type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
     where(corporate_information_page_type_id: type_ids)
   end
+
+  def summary_required?
+    false
+  end
 end

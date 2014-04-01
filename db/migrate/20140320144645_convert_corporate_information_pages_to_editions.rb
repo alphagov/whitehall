@@ -39,7 +39,7 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
           document_id: doc.id,
           creator: gds_ig_team_user,
           title: old_cip.title,
-          summary: old_cip.summary.present? ? old_cip.summary : ".",
+          summary: old_cip.summary,
           body: old_cip.body,
           corporate_information_page_type_id: old_cip.type_id,
           major_change_published_at: old_cip.updated_at,
@@ -47,25 +47,44 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
         if org.is_a? Organisation
           EditionOrganisation.create!(
             edition: new_cip,
-            organisation: org,
-            lead: true,
-            lead_ordering: 1)
+            organisation: org
+          )
         else
           new_cip.worldwide_organisations << org
         end
         old_cip.translations.each do |old_trans|
-          new_cip.translations.create!(
-            locale: old_trans.locale,
-            summary: old_trans.summary.present? ? old_trans.summary : ".",
-            body: old_trans.body,
-            title: old_cip.title
-          ) unless old_trans.locale == :en
+          unless old_trans.locale == :en
+            new_cip.translations.create!(
+              locale: old_trans.locale,
+              summary: old_trans.summary,
+              body: old_trans.body,
+              title: old_cip.title
+            )
+          end
         end
-        Attachment.where(
-          attachable_type: 'CorporateInformationPage',
-          attachable_id: old_cip.id
-        ).update_all(attachable_type: 'Edition', attachable_id: new_cip.id)
-
+        old_cip.attachments.each do |old_att|
+          # Create new Attachments, but keep existing attachment_data instances.
+          new_cip.attachments.create!(
+            title: old_cip.title,
+            accessible: old_cip.accessible,
+            isbn: old_cip.isbn,
+            unique_reference: old_cip.unique_reference,
+            command_paper_number: old_cip.command_paper_number,
+            order_url: old_cip.url,
+            price_in_pence: old_cip.price_in_pence,
+            attachment_data_id: old_cip.attachment_data_id,
+            ordering: old_cip.ordering,
+            hoc_paper_number: old_cip.hoc_paper_number,
+            parliamentary_session: old_cip.hoc_parliamentary_session,
+            unnumbered_command_paper: old_cip.unnumbered_command_paper,
+            unnumbered_hoc_paper: old_cip.unnumbered_hoc_paper,
+            type: old_cip.type,
+            slug: old_cip.slug,
+            body: old_cip.body,
+            manually_numbered_headings: old_cip.manually_numbered_headings,
+            locale: old_cip.locale
+          )
+        end
       end
     end
   end
