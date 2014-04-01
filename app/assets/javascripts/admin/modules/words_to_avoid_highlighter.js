@@ -2,7 +2,7 @@
   "use strict";
   window.GOVUK = window.GOVUK || {};
 
-  function WordsToAvoidHighlighter(options) {
+  function WordsToAvoidGuide(options) {
     var $el = $(options.el),
         $wordsToAvoidAlert = $(options.wordsToAvoidAlert),
         $wordsToAvoidCounter = $(options.wordsToAvoidCounter),
@@ -83,7 +83,7 @@
       $($textareaHighlightSelector).hide();
       $wordsToAvoidAlert.hide();
     }
-    $(document).bind("govuk.wordsToAvoidHighlighter.disable", disable);
+    $(document).bind("govuk.WordsToAvoidGuide.disable", disable);
 
     var enable = function() {
       $.map($el, function(textarea) {
@@ -92,8 +92,8 @@
       $($textareaHighlightSelector).show();
       updateHighlightedWordsCount();
     }
-    $(document).bind("govuk.wordsToAvoidHighlighter.enable", enable);
+    $(document).bind("govuk.WordsToAvoidGuide.enable", enable);
   }
 
-  GOVUK.WordsToAvoidHighlighter = WordsToAvoidHighlighter;
+  GOVUK.WordsToAvoidGuide = WordsToAvoidGuide;
 }());
