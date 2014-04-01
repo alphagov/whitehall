@@ -3,7 +3,6 @@ class CorporateInformationPagesController < DocumentsController
 
   def show
     @corporate_information_page = @document
-    @corporate_information_page.extend(UseSlugAsParam)
 
     if @organisation.is_a? WorldwideOrganisation
       render 'show_worldwide_organisation'
