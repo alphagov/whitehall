@@ -178,7 +178,7 @@ module Whitehall
       TopicalEvent,
       CorporateInformationPage,
       OperationalField,
-      PolicyAdvisoryGroup,
+      PolicyGroup,
       PolicyTeam,
       TakePartPage
     ]

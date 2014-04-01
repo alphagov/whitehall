@@ -118,14 +118,14 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
       )
     end
 
-    PolicyAdvisoryGroup.find_each do |group|
+    PolicyGroup.find_each do |group|
       target << row(
-        url_maker.policy_advisory_group_url(group, host: host_name),
-        url_maker.admin_policy_advisory_group_url(group, host: admin_host)
+        url_maker.policy_group_url(group, host: host_name),
+        url_maker.admin_policy_group_url(group, host: admin_host)
       )
       target << row(
-        url_maker.policy_advisory_group_url(group, host: host_name),
-        url_maker.edit_admin_policy_advisory_group_url(group, host: admin_host)
+        url_maker.policy_group_url(group, host: host_name),
+        url_maker.edit_admin_policy_group_url(group, host: admin_host)
       )
     end
 
