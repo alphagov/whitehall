@@ -263,14 +263,14 @@ class DocumentHelperTest < ActionView::TestCase
                               text: policy_team.name
   end
 
-  test "document_metadata generates policy_advisory_groups metadata" do
-    policy_advisory_group = create(:policy_advisory_group)
-    edition = create(:policy, policy_advisory_groups: [policy_advisory_group])
+  test "document_metadata generates policy_groups metadata" do
+    policy_group = create(:policy_group)
+    edition = create(:policy, policy_groups: [policy_group])
     metadata = document_metadata(edition)[0]
     assert_equal(metadata[:title], "Groups")
     html = metadata[:data][0]
-    assert_select_within_html html, "a[href=?]", policy_advisory_group_path(policy_advisory_group)
-    assert_select_within_html html, 'a', policy_advisory_group.name
+    assert_select_within_html html, "a[href=?]", policy_group_path(policy_group)
+    assert_select_within_html html, 'a', policy_group.name
   end
 
   test "document_metadata generates part_of_collection metadata" do

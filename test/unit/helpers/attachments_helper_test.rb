@@ -13,7 +13,7 @@ class AttachmentsHelperTest < ActionView::TestCase
   end
 
   test 'CSV attachments attached to non-editions are not previewable' do
-    csv_on_policy_group = create(:csv_attachment, attachable: create(:policy_advisory_group))
+    csv_on_policy_group = create(:csv_attachment, attachable: create(:policy_group))
     refute previewable?(csv_on_policy_group)
   end
 end
