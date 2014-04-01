@@ -211,24 +211,24 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "h1", text: supporting_page.title
   end
 
-  view_test "show displays the policy team responsible for this policy" do
-    policy_team = create(:policy_team, email: 'policy-team@example.com')
-    policy = create(:published_policy, policy_teams: [policy_team])
+  view_test "show displays the policy group responsible for this policy" do
+    policy_group = create(:policy_group, email: 'policy-group@example.com')
+    policy = create(:published_policy, policy_groups: [policy_group])
     supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select ".document-policy-team a[href='#{policy_team_path(policy_team)}']", text: 'policy-team-name'
+    assert_select ".document-policy-group a[href='#{policy_group_path(policy_group)}']", text: 'policy-group-name'
 
   end
 
-  view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
+  view_test "show doesn't display the policy group section if the policy isn't associated with a policy group" do
     policy = create(:published_policy)
     supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    refute_select policy_team_selector
+    refute_select policy_group_selector
   end
 
   view_test "shows correct sub navigation when viewing supporting details" do

@@ -252,17 +252,6 @@ class DocumentHelperTest < ActionView::TestCase
     assert_match(/Wales/, metadata[:data][0])
   end
 
-  test "document_metadata generates policy_team metadata" do
-    policy_team = create(:policy_team)
-    edition = create(:policy, policy_teams: [policy_team])
-    metadata = document_metadata(edition)[0]
-    assert_equal metadata[:title], "Teams"
-    assert_select_within_html metadata[:data][0],
-                              "a[href=?]",
-                              policy_team_path(policy_team),
-                              text: policy_team.name
-  end
-
   test "document_metadata generates policy_groups metadata" do
     policy_group = create(:policy_group)
     edition = create(:policy, policy_groups: [policy_group])

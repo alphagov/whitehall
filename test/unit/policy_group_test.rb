@@ -23,8 +23,8 @@ class PolicyGroupTest < ActiveSupport::TestCase
   end
 
   test "should allow a description" do
-    policy_group = build(:policy_group, description: "policy-team-description")
-    assert_equal "policy-team-description", policy_group.description
+    policy_group = build(:policy_group, description: "policy-group-description")
+    assert_equal "policy-group-description", policy_group.description
   end
 
   should_not_accept_footnotes_in(:description)

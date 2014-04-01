@@ -129,17 +129,6 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
       )
     end
 
-    PolicyTeam.find_each do |team|
-      target << row(
-        url_maker.policy_team_url(team, host: host_name),
-        url_maker.admin_policy_team_url(team, host: admin_host),
-      )
-      target << row(
-        url_maker.policy_team_url(team, host: host_name),
-        url_maker.edit_admin_policy_team_url(team, host: admin_host),
-      )
-    end
-
     Role.find_each do |role|
       target << row(
         url_maker.ministerial_role_url(role, host: host_name),

@@ -258,7 +258,7 @@ module ApplicationHelper
       end
     when "world_locations", "worldwide_priorities", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
       world_locations_path(locale: :en)
-    when "policies", "supporting_pages", "policy_groups", "policy_teams"
+    when "policies", "supporting_pages", "policy_groups"
       policies_path
     when "take_part_pages"
       get_involved_path

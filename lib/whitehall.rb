@@ -179,7 +179,6 @@ module Whitehall
       CorporateInformationPage,
       OperationalField,
       PolicyGroup,
-      PolicyTeam,
       TakePartPage
     ]
     not_yet_searchable_classes = []
