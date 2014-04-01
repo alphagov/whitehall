@@ -24,9 +24,7 @@ class OfficialDocsImportTest < ActiveSupport::TestCase
     import = Import.create_from_file(creator, file, "publication", organisation.id)
     assert import.valid?, import.errors.full_messages.join(", ")
 
-    without_delay! do
-      import.perform
-    end
+    import.perform
 
     assert_equal [], import.import_errors
 

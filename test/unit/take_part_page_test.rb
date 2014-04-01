@@ -149,7 +149,7 @@ class TakePartPageTest < ActiveSupport::TestCase
   test 'adds page to search index on creating' do
     page = build(:take_part_page)
 
-    Searchable::Index.expects(:later).with(page)
+    Whitehall::SearchIndex.expects(:add).with(page)
 
     page.save
   end
@@ -157,7 +157,7 @@ class TakePartPageTest < ActiveSupport::TestCase
   test 'adds page to search index on updating' do
     page = create(:take_part_page)
 
-    Searchable::Index.expects(:later).with(page)
+    Whitehall::SearchIndex.expects(:add).with(page)
 
     page.title = 'Build a new polling station'
     page.save
@@ -166,7 +166,7 @@ class TakePartPageTest < ActiveSupport::TestCase
   test 'removes page from search index on destroying' do
     page = create(:take_part_page)
 
-    Searchable::Delete.expects(:later).with(page)
+    Whitehall::SearchIndex.expects(:delete).with(page)
 
     page.destroy
   end

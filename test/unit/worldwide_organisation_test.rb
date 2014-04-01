@@ -179,7 +179,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test 'adds worldwide organisation to search index on creating' do
     worldwide_organisation = build(:worldwide_organisation)
 
-    Searchable::Index.expects(:later).with(worldwide_organisation)
+    Whitehall::SearchIndex.expects(:add).with(worldwide_organisation)
 
     worldwide_organisation.save
   end
@@ -187,7 +187,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test 'adds worldwide organisation to search index on updating' do
     worldwide_organisation = create(:worldwide_organisation)
 
-    Searchable::Index.expects(:later).with(worldwide_organisation)
+    Whitehall::SearchIndex.expects(:add).with(worldwide_organisation)
 
     worldwide_organisation.name = 'British Embassy to Hat land'
     worldwide_organisation.save
@@ -195,7 +195,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
 
   test 'removes worldwide organisation role from search index on destroying if it is active' do
     worldwide_organisation = create(:worldwide_organisation)
-    Searchable::Delete.expects(:later).with(worldwide_organisation)
+    Whitehall::SearchIndex.expects(:delete).with(worldwide_organisation)
     worldwide_organisation.destroy
   end
 

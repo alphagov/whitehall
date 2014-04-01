@@ -76,12 +76,12 @@ module Searchable
 
     def update_in_search_index
       if can_index_in_search?
-        Searchable::Index.later(self)
+        Whitehall::SearchIndex.add(self)
       end
     end
 
     def remove_from_search_index
-      Searchable::Delete.later(self)
+      Whitehall::SearchIndex.delete(self)
     end
 
     def rummager_index
@@ -92,7 +92,7 @@ module Searchable
       def reindex_all
         searchable_instances
           .select { |instance| Whitehall.searchable_classes.include?(instance.class) }
-          .each { |instance|  Searchable::Index.later(instance) }
+          .each { |instance|  Whitehall::SearchIndex.add(instance) }
       end
 
       def searchable_instances

@@ -98,7 +98,7 @@ class TopicTest < ActiveSupport::TestCase
   test 'should add topic to search index on creating' do
     topic = build(:topic)
 
-    Searchable::Index.expects(:later).with(topic)
+    Whitehall::SearchIndex.expects(:add).with(topic)
 
     topic.save
   end
@@ -106,7 +106,7 @@ class TopicTest < ActiveSupport::TestCase
   test 'should add topic to search index on updating' do
     topic = create(:topic)
 
-    Searchable::Index.expects(:later).with(topic)
+    Whitehall::SearchIndex.expects(:add).with(topic)
 
     topic.name = 'different topic name'
     topic.save
@@ -114,7 +114,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should remove topic from search index on destroying' do
     topic = create(:topic)
-    Searchable::Delete.expects(:later).with(topic)
+    Whitehall::SearchIndex.expects(:delete).with(topic)
     topic.destroy
   end
 

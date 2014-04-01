@@ -200,7 +200,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'adds world location to search index on creating if it is active' do
     active_location = build(:world_location, active: true)
 
-    Searchable::Index.expects(:later).with(active_location)
+    Whitehall::SearchIndex.expects(:add).with(active_location)
 
     active_location.save
   end
@@ -208,7 +208,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'does not add world location to search index on creating if it is not active' do
     inactive_location = build(:world_location, active: false)
 
-    Searchable::Index.expects(:later).with(inactive_location).never
+    Whitehall::SearchIndex.expects(:add).with(inactive_location).never
 
     inactive_location.save
   end
@@ -216,7 +216,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'adds world location to search index on updating if it is active' do
     active_location = create(:world_location, active: true)
 
-    Searchable::Index.expects(:later).with(active_location)
+    Whitehall::SearchIndex.expects(:add).with(active_location)
 
     active_location.name = 'Hat land'
     active_location.save
@@ -225,7 +225,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'does not add world location to search index on updating if it is inactive' do
     inactive_location = create(:world_location, active: false)
 
-    Searchable::Index.expects(:later).with(inactive_location).never
+    Whitehall::SearchIndex.expects(:add).with(inactive_location).never
 
     inactive_location.name = 'Hat land'
     inactive_location.save
@@ -234,7 +234,7 @@ class WorldLocationTest < ActiveSupport::TestCase
   test 'removes world location from search index on updating if it is becoming inactive' do
     inactive_location = create(:world_location, active: true)
 
-    Searchable::Delete.expects(:later).with(inactive_location)
+    Whitehall::SearchIndex.expects(:delete).with(inactive_location)
 
     inactive_location.active = false
     inactive_location.save
@@ -242,13 +242,13 @@ class WorldLocationTest < ActiveSupport::TestCase
 
   test 'removes world location role from search index on destroying if it is active' do
     active_location = create(:world_location, active: true)
-    Searchable::Delete.expects(:later).with(active_location)
+    Whitehall::SearchIndex.expects(:delete).with(active_location)
     active_location.destroy
   end
 
   test 'removes world location role from search index on destroying if it is inactive' do
     inactive_location = create(:world_location, active: false)
-    Searchable::Delete.expects(:later).with(inactive_location)
+    Whitehall::SearchIndex.expects(:delete).with(inactive_location)
     inactive_location.destroy
   end
 

@@ -5,8 +5,8 @@ class CorporateInformationPageSearchIndexObserverTest < ActiveSupport::TestCase
     org = create(:organisation, govuk_status: 'joining')
     corp_page = create(:corporate_information_page, organisation: org)
 
-    Searchable::Index.stubs(:later).with(anything)
-    Searchable::Index.expects(:later).with(corp_page)
+    Whitehall::SearchIndex.stubs(:add)
+    Whitehall::SearchIndex.expects(:add).with(corp_page)
 
     org.govuk_status = 'live'
     org.save
@@ -16,11 +16,10 @@ class CorporateInformationPageSearchIndexObserverTest < ActiveSupport::TestCase
     org = create(:organisation, govuk_status: 'live')
     corp_page = create(:corporate_information_page, organisation: org)
 
-    Searchable::Delete.stubs(:later).with(anything)
-    Searchable::Delete.expects(:later).with(corp_page)
+    Whitehall::SearchIndex.stubs(:delete)
+    Whitehall::SearchIndex.expects(:delete).with(corp_page)
 
     org.govuk_status = 'joining'
     org.save
   end
-
 end
