@@ -26,7 +26,7 @@ module Admin::TabbedNavHelper
 
   def policy_group_tabs(group)
     {
-      'Policy group' => edit_admin_policy_group_path(group),
+      'Group' => edit_admin_policy_group_path(group),
       'Attachments' => admin_policy_group_attachments_path(group),
     }
   end
