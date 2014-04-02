@@ -38,9 +38,9 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def destroy
     if @statistics_announcement.destroy
-      redirect_to admin_root_url, notice: "Announcement deleted successfully"
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement deleted successfully"
     else
-      redirect_to admin_root_url, alert: "There was a problem deleting the announcement"
+      redirect_to [:admin, @statistics_announcement], alert: "There was a problem deleting the announcement"
     end
   end
 
@@ -51,8 +51,9 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def build_statistics_announcement(attributes={})
-    attributes[:current_release_date_attributes] &&
+    if attributes[:current_release_date_attributes]
       attributes[:current_release_date_attributes][:creator_id] = current_user.id
+    end
 
     current_user.statistics_announcements.new(attributes)
   end
