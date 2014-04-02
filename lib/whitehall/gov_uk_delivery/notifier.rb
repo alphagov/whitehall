@@ -52,12 +52,7 @@ module Whitehall
       end
 
       def notification_date
-        case edition
-        when Speech
-          edition.major_change_published_at
-        else
-          edition.public_timestamp
-        end
+        edition.public_timestamp
       end
     end
   end
