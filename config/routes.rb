@@ -194,7 +194,7 @@ Whitehall::Application.routes.draw do
             put :order, on: :collection
           end
         end
-        resources :policy_groups, except: [:show] do
+        resources :policy_groups, path: 'groups', except: [:show] do
           resources :attachments do
             put :order, on: :collection
           end
