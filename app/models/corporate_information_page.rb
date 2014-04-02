@@ -3,9 +3,9 @@ class CorporateInformationPage < Edition
   include Searchable
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
-  has_one :organisation, include: :translations, through: :edition_organisation
+  has_one :organisation, include: :translations, through: :edition_organisation, autosave: false
   has_one :edition_worldwide_organisation, foreign_key: :edition_id, dependent: :destroy
-  has_one :worldwide_organisation, through: :edition_worldwide_organisation
+  has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
   delegate :slug, :display_type_key, to: :corporate_information_page_type
 
