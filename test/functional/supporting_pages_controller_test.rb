@@ -211,14 +211,14 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_select "h1", text: supporting_page.title
   end
 
-  view_test "show displays the policy group responsible for this policy" do
+  view_test "show displays the group responsible for this policy" do
     policy_group = create(:policy_group, email: 'policy-group@example.com')
     policy = create(:published_policy, policy_groups: [policy_group])
     supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select ".document-policy-group a[href='#{policy_group_path(policy_group)}']", text: 'policy-group-name'
+    assert_select "#{policy_group_selector} a[href='#{policy_group_path(policy_group)}']", text: 'policy-group-name'
 
   end
 

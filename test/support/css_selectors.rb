@@ -102,6 +102,6 @@ module CssSelectors
   end
 
   def policy_group_selector
-    ".policy_group"
+    ".document-policy-groups"
   end
 end
