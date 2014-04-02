@@ -100,8 +100,8 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     get :show, id: announcement.slug
 
-    assert response.redirect?
-    assert_equal publication_url(statistics), response.redirect_url
+    assert_equal 301, response.status
+    assert_equal public_document_url(statistics), response.redirect_url
   end
 
   test "#show sets cache control max-age to Whitehall::default_cache_max_age if neither announcement's expected release date and it's linked document's publication date are within the window" do

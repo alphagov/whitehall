@@ -41,6 +41,10 @@ class PublicFacingController < ApplicationController
     @acceptable_formats ||= {}
   end
 
+  def render_not_found
+    render text: "Not found", status: :not_found
+  end
+
   private
 
   def log_error_and_render_500(exception)

@@ -1,4 +1,6 @@
 class StatisticsAnnouncementsController < PublicFacingController
+  include PublicDocumentRoutesHelper
+
   enable_request_formats(index: [:js])
 
   def index
@@ -13,9 +15,9 @@ class StatisticsAnnouncementsController < PublicFacingController
   def show
     @announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(params[:id])
     if @announcement.nil?
-      render text: "Not found", status: :not_found
+      render_not_found
     elsif @announcement.publication.try :published?
-      redirect_to publication_path(@announcement.publication)
+      redirect_to public_document_url(@announcement.publication), status: :moved_permanently
     else
       expire_cache_for_show_on_release(@announcement)
     end
