@@ -130,7 +130,6 @@ Whitehall::Application.routes.draw do
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true
 
-    resources :policy_teams, path: 'policy-teams', only: [:index, :show]
     resources :policy_groups, path: 'groups', only: [:index, :show]
     resources :operational_fields, path: 'fields-of-operation', only: [:index, :show]
     resources :worldwide_organisations, path: 'world/organisations', only: [:show, :index], localised: true do
@@ -195,7 +194,6 @@ Whitehall::Application.routes.draw do
             put :order, on: :collection
           end
         end
-        resources :policy_teams, except: [:show]
         resources :policy_groups, except: [:show] do
           resources :attachments do
             put :order, on: :collection

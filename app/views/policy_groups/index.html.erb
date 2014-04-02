@@ -13,13 +13,13 @@
   <div class="inner-block">
     <section class="simple-alphabetical-list">
     <% if @policy_groups.any? %>
-      <% @policy_groups.group_by { |team| (team.name || '-').first.upcase }.each do |letter, entries| %>
+      <% @policy_groups.group_by { |group| (group.name || '-').first.upcase }.each do |letter, entries| %>
         <div class="alphabetical-row">
           <h2 class="alphabetical-list-letter"><%= letter %></h2>
           <ul>
-            <% entries.each do |team| %>
-              <%= content_tag_for :li, team do %>
-                <% link_to team.name, team %>
+            <% entries.each do |group| %>
+              <%= content_tag_for :li, group do %>
+                <% link_to group.name, group %>
               <% end %>
             <% end %>
           </ul>
