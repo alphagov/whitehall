@@ -26,7 +26,7 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
 
     gds_ig_team_user = User.find_by_name!('GDS Inside Government Team')
     transaction do
-      OldCorporateInformationPage.includes(:organisation).each do |old_cip|
+      OldCorporateInformationPage.includes(:organisation).find_each do |old_cip|
         org = old_cip.organisation
         puts "Migrating #{org.name}: #{old_cip.slug} (#{old_cip.id})"
         doc = Document.create!(document_type: 'CorporateInformationPage',
@@ -50,7 +50,10 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
             organisation: org
           )
         else
-          new_cip.worldwide_organisations << org
+          EditionWorldwideOrganisation.create!(
+            edition: new_cip,
+            worldwide_organisation: org
+          )
         end
         old_cip.translations.each do |old_trans|
           unless old_trans.locale == :en
@@ -85,6 +88,9 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
             locale: old_cip.locale
           )
         end
+        # The unique identifier in the search index is the page URL, which has
+        # not changed in this migration, so we can just trigger an update.
+        new_cip.update_in_search_index
       end
     end
   end
