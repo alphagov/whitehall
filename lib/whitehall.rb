@@ -178,7 +178,6 @@ module Whitehall
       Person,
       Topic,
       TopicalEvent,
-      CorporateInformationPage,
       OperationalField,
       PolicyGroup,
       TakePartPage,
