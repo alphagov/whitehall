@@ -58,18 +58,26 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_deleted_from_search_index announcement
   end
 
-  test 'only valid when associated publication is a statistical publications' do
-    announcement = build(:statistics_announcement)
+  test 'only valid when associated publication is of a matching type' do
+    statistics          = create(:draft_statistics)
+    national_statistics = create(:draft_national_statistics)
+    policy_paper        = create(:draft_policy_paper)
 
-    announcement.publication = create(:draft_national_statistics)
+    announcement   = build(:statistics_announcement, publication_type_id: PublicationType::Statistics.id)
+
+    announcement.publication = statistics
     assert announcement.valid?
 
-    announcement.publication = create(:published_statistics)
-    assert announcement.valid?
-
-    announcement.publication = create(:draft_policy_paper)
+    announcement.publication = national_statistics
     refute announcement.valid?
-    assert_equal ["must be statistics"], announcement.errors[:publication]
+    assert_equal ["type does not match: must be statistics"], announcement.errors[:publication]
+
+    announcement.publication_type_id = PublicationType::NationalStatistics.id
+    assert announcement.valid?
+
+    announcement.publication = policy_paper
+    refute announcement.valid?
+    assert_equal ["type does not match: must be national statistics"], announcement.errors[:publication]
   end
 
   test '#most_recent_change_note returns the most recent change note' do

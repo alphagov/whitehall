@@ -10,7 +10,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates
 
-  validate  :publication_is_statistics, if: :publication
+  validate  :publication_is_matching_type, if: :publication
   validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
   validates :publication_type_id,
               inclusion: {
@@ -90,7 +90,13 @@ private
       last
   end
 
-  def publication_is_statistics
-    errors[:publication] << "must be statistics" unless publication.statistics?
+  def publication_is_matching_type
+    unless publication.publication_type == publication_type
+      errors[:publication] << "type does not match: must be #{type_string}"
+    end
+  end
+
+  def type_string
+    publication_type == PublicationType::NationalStatistics ? 'national statistics' : 'statistics'
   end
 end
