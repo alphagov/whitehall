@@ -270,7 +270,7 @@ class Edition < ActiveRecord::Base
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
     topics: nil,
-    only: :published_and_available_in_english,
+    only: :search_only,
     index_after: [],
     unindex_after: [],
     search_format_types: :search_format_types,
@@ -288,6 +288,10 @@ class Edition < ActiveRecord::Base
 
   def search_format_types
     [Edition.search_format_type]
+  end
+
+  def self.search_only
+    published_and_available_in_english
   end
 
   def refresh_index_if_required

@@ -20,10 +20,16 @@ class CorporateInformationPage < Edition
   end
   delegate :alternative_format_contact_email, :acronym, to: :owning_organisation
 
+  validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
 
   def search_title
     title_prefix_organisation_name
+  end
+
+  def self.search_only
+    # Ensure only CIPs associated with a live Organisation are indexed in search.
+    super.joins(:organisation).where(organisations: {govuk_status: "live"})
   end
 
   def title_required?
