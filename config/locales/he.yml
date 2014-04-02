@@ -51,12 +51,11 @@ he:
         two:
         many:
         other: ארגונים גלובאליים
-      advisory_groups: קבוצות ייעוץ
       applies_to_nations: מתייחס ל
       field_of_operation: שדה פעולה
+      groups: קבוצות ייעוץ
       live_data: מידע פעיל
       location:
-      policy_team: צוות מדיניות
     type:
       announcement:
         one: הודעה
@@ -511,16 +510,7 @@ he:
         file:
       detailed_guide:
         primary_mainstream_category: קטגוריית פרטים ראשית
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

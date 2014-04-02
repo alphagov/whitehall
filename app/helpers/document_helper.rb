@@ -282,7 +282,7 @@ Details of document required:
     end
     if document.respond_to?(:policy_groups) && document.policy_groups.any?
       metadata << {
-        title: t('document.headings.advisory_groups'),
+        title: t('document.headings.groups'),
         data: array_of_links_to_policy_groups(document.policy_groups),
         classes: ["document-policy-groups"]
       }

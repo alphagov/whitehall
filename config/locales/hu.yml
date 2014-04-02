@@ -20,16 +20,7 @@ hu:
         file:
       detailed_guide:
         primary_mainstream_category: Részletes utasításkategóriák
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -109,7 +100,6 @@ hu:
       published:
       updated:
     headings:
-      advisory_groups: Tanácsadó testületek
       applies_to_nations: 'A következő nemzetekre vonatkozik:'
       attachments:
         one: Dokumentum
@@ -118,6 +108,7 @@ hu:
         one: Sorozatok
         other:
       field_of_operation: Működési terület
+      groups: Tanácsadó testületek
       live_data: Élő adatok
       location:
       ministers:
@@ -129,7 +120,6 @@ hu:
       policies:
         one: Szakpolitika
         other: Szakpolitikák
-      policy_team: Politikai csoport
       sectors:
         one:
         other:
