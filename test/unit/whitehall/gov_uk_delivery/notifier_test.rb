@@ -105,10 +105,45 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
   end
 
   test '#edition_published! still notifies speeches that were delivered in the past' do
-    speech = create(:draft_speech, delivered_on: 1.day.ago)
+    speech = create(:draft_speech, delivered_on: 2.days.ago)
     force_publish(speech)
     notifier = notifier_for(speech)
     notifier.expects(:notify_govuk_delivery).once
+
+    notifier.edition_published!
+  end
+
+  test '#edition_published! does not notify a first-published speech that was delivered more than 72 hours ago' do
+    speech = create(:draft_speech, delivered_on: 73.hours.ago)
+    force_publish(speech)
+    notifier = notifier_for(speech)
+    notifier.expects(:notify_govuk_delivery).never
+
+    notifier.edition_published!
+  end
+
+  test 'major changes to old speeches still generate a notification' do
+    speech = create(:draft_speech, delivered_on: 30.days.ago)
+    Timecop.travel(10.days.ago) { force_publish(speech) }
+
+    new_edition = speech.create_draft(create(:policy_writer))
+    new_edition.change_note = 'Some major changes'
+    force_publish(new_edition)
+    notifier = notifier_for(new_edition)
+    notifier.expects(:notify_govuk_delivery).once
+
+    notifier.edition_published!
+  end
+
+  test 'minor changes to old speeches do not generate a notification' do
+    speech = create(:draft_speech, delivered_on: 30.days.ago)
+    Timecop.travel(10.days.ago) { force_publish(speech) }
+
+    new_edition = speech.create_draft(create(:policy_writer))
+    new_edition.minor_change = true
+    force_publish(new_edition)
+    notifier = notifier_for(new_edition)
+    notifier.expects(:notify_govuk_delivery).never
 
     notifier.edition_published!
   end

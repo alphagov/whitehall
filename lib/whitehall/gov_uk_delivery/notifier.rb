@@ -32,6 +32,7 @@ module Whitehall
         edition_type_is_deliverable? &&
         major_change? &&
         published_today? &&
+        !outdated_speech? &&
         available_in_english?
       end
 
@@ -44,7 +45,11 @@ module Whitehall
       end
 
       def published_today?
-        Time.zone.now.to_date == notification_date.to_date
+        Date.today == notification_date.to_date
+      end
+
+      def outdated_speech?
+        edition.is_a?(Speech) && edition.first_published_version? && edition.delivered_on < 72.hours.ago
       end
 
       def available_in_english?
