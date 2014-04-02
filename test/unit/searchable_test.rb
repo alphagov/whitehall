@@ -81,43 +81,4 @@ class SearchableTest < ActiveSupport::TestCase
     assert searchable_topics.include?(published_topic)
     refute searchable_topics.include?(draft_topic)
   end
-
-  test 'Delete.later will enqueue an indexing job with the link for the object and the index to remove it from onto the rummager work queue' do
-    s = SearchableTestTopic.create(name: 'woo', state: 'draft')
-    Searchable::Delete.expects(:new).with(s.name, :government).returns :a_deletion_job
-    Delayed::Job.expects(:enqueue).with(:a_deletion_job, queue: Whitehall.rummager_work_queue_name)
-    Searchable::Delete.later(s)
-  end
-
-  test 'Index#perform will raise if the supplied class name is not searchable' do
-    class NonExistentClass; end
-    Whitehall.stubs(:searchable_classes).returns([NonExistentClass])
-    index_job = Searchable::Index.new('SearchableTest::SearchableTestTopic', 2_000)
-    assert_raise(ArgumentError) { index_job.perform }
-  end
-
-  test 'Index#perform will raise if the supplied object does not exist' do
-    index_job = Searchable::Index.new('SearchableTest::SearchableTestTopic', 2_000)
-    assert_raise(ActiveRecord::RecordNotFound) { index_job.perform }
-  end
-
-  test 'Index#perform will not index the object if it is not in searchable_instances' do
-    s = SearchableTestTopic.create(name: 'woo', state: 'draft')
-    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add_batch).never
-    index_job = Searchable::Index.new(s.class.name, s.id)
-    index_job.perform
-  end
-
-  test 'Index#perform will index the object if it is contained in searchable_instances' do
-    s = SearchableTestTopic.create(name: 'woo', state: 'published')
-    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add_batch).once
-    index_job = Searchable::Index.new(s.class.name, s.id)
-    index_job.perform
-  end
-
-  test 'Delete#perform will remove the link from the index' do
-    Whitehall::SearchIndex.indexer_class.any_instance.expects(:delete).with('woo').once
-    delete_job = Searchable::Delete.new('woo', :government)
-    delete_job.perform
-  end
 end

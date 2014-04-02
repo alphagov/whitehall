@@ -1,8 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 
 require "rails"
+require 'active_record'
 
-unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present? || ENV["DISABLE_ACTIVE_RECORD"].present?
+unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present?
   require "active_record/railtie"
 end
 require "action_controller/railtie"

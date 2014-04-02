@@ -119,11 +119,6 @@ GEM
       debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.4)
-    delayed_job (4.0.0)
-      activesupport (>= 3.0, < 4.1)
-    delayed_job_active_record (4.0.0)
-      activerecord (>= 3.0, < 4.1)
-      delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
     domain_name (0.5.18)
       unf (>= 0.0.5, < 1.0.0)
@@ -388,8 +383,6 @@ DEPENDENCIES
   cucumber-rails (~> 1.4)
   database_cleaner (= 1.0.1)
   debugger
-  delayed_job (~> 4.0.0)
-  delayed_job_active_record
   equivalent-xml (= 0.3.0)
   factory_girl
   friendly_id (= 4.0.9)

@@ -4,8 +4,6 @@ gem 'rake', '10.1.0'
 gem 'rails', '3.2.17'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
-gem 'delayed_job', '~> 4.0.0'
-gem 'delayed_job_active_record'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
