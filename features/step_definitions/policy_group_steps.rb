@@ -24,7 +24,7 @@ Then /^I should see a link to the policy group "([^"]*)"$/ do |group_name|
 end
 
 When /^I visit the policy group "([^"]*)"$/ do |group_name|
-  group = Policy.where(name: group_name).first
+  group = PolicyGroup.where(name: group_name).first
   visit policy_group_path(group)
 end
 
