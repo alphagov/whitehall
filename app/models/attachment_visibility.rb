@@ -37,7 +37,7 @@ class AttachmentVisibility
   end
 
   def visible?
-    visible_edition? || visible_corporate_information_page? || visible_policy_group? || visible_consultation_response?
+    visible_edition? || visible_policy_group? || visible_consultation_response?
   end
 
   def unpublished_edition
@@ -53,7 +53,7 @@ class AttachmentVisibility
   end
 
   def visible_attachable
-    visible_edition || visible_consultation_response || visible_corporate_information_page || visible_policy_group
+    visible_edition || visible_consultation_response || visible_policy_group
   end
 
   def visible_edition
@@ -64,10 +64,6 @@ class AttachmentVisibility
     if visible_consultation_response?
       Response.where(edition_id: consultation_ids).last
     end
-  end
-
-  def visible_corporate_information_page
-    visible_corporate_information_page_scope.last
   end
 
   def visible_policy_group
@@ -82,10 +78,6 @@ class AttachmentVisibility
 
   def visible_edition?
     visible_edition_scope.exists?
-  end
-
-  def visible_corporate_information_page?
-    visible_corporate_information_page_scope.exists?
   end
 
   def visible_policy_group?
@@ -110,10 +102,6 @@ class AttachmentVisibility
     else
       Edition.publicly_visible.where(id: consultation_ids)
     end
-  end
-
-  def visible_corporate_information_page_scope
-    CorporateInformationPage.joins(:attachments).where(attachments: { attachment_data_id: id })
   end
 
   def visible_policy_group_scope
