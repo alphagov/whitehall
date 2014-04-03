@@ -120,6 +120,9 @@ class OrganisationType
     LISTING_ORDER.index(key)
   end
 
+  def allowed_promotional?
+    DATA[key][:allowed_promotional]
+  end
   def executive_office?
     key == :executive_office
   end

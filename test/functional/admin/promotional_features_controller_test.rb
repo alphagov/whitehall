@@ -8,7 +8,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  test "GET :index returns a 404 if the organisation is not an executive office" do
+  test "GET :index returns a 404 if the organisation is not allowed promotional" do
     organisation = create(:ministerial_department)
 
     assert_raise ActiveRecord::RecordNotFound do
@@ -16,7 +16,7 @@ class Admin::PromotionalFeaturesControllerTest < ActionController::TestCase
     end
   end
 
-  test "GET :index loads the executive office and renders the index template" do
+  test "GET :index loads the promotional organisation and renders the index template" do
     create(:promotional_feature, organisation: @organisation)
     get :index, organisation_id: @organisation
 

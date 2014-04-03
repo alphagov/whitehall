@@ -1,5 +1,5 @@
 class Admin::PromotionalFeaturesController < Admin::BaseController
-  before_filter :load_executive_office
+  before_filter :load_organisation
   before_filter :load_promotional_feature, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -42,8 +42,8 @@ class Admin::PromotionalFeaturesController < Admin::BaseController
 
   private
 
-  def load_executive_office
-    @organisation = Organisation.executive_offices.find(params[:organisation_id])
+  def load_organisation
+    @organisation = Organisation.allowed_promotional.find(params[:organisation_id])
   end
 
   def load_promotional_feature
