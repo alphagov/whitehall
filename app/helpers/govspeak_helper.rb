@@ -186,6 +186,14 @@ module GovspeakHelper
       policy = Policy.unscoped.find_by_id($1)
       supporting_page = EditionedSupportingPageMapping.find_by_old_supporting_page_id($2).try(:new_supporting_page)
       replacement_html_for_edition_link(anchor, supporting_page, policy_id: policy.document, &block)
+    elsif path[%r{/admin/organisations/([\w-]+)/corporate_information_pages/(\d+)$}]
+      organisation = Organisation.find_by_slug($1)
+      corporate_info_page = organisation.corporate_information_pages.find($2)
+      replacement_html_for_edition_link(anchor, corporate_info_page, &block)
+    elsif path[%r{/admin/worldwide_organisations/([\w-]+)/corporate_information_pages/(\d+)$}]
+      organisation = WorldwideOrganisation.find_by_slug($1)
+      corporate_info_page = organisation.corporate_information_pages.find($2)
+      replacement_html_for_edition_link(anchor, corporate_info_page, &block)
     elsif path[%r{/admin/(?:#{edition_path_pattern})/(\d+)$}]
       edition = Edition.unscoped.find_by_id($1)
       replacement_html_for_edition_link(anchor, edition, &block)
