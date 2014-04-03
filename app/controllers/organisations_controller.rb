@@ -29,9 +29,9 @@ class OrganisationsController < PublicFacingController
 
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 
-          if @organisation.organisation_type.executive_office?
+          if @organisation.organisation_type.allowed_promotional?
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
-            render 'show-executive-office'
+            render 'show-promotional'
           else
             @policies = latest_presenters(@organisation.published_policies, translated: true)
             @topics = @organisation.topics
