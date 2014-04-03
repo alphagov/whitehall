@@ -324,7 +324,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:type)
+    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
   end
 
   def build_corporate_information_page(params)
