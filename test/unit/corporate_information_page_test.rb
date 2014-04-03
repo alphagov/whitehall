@@ -9,60 +9,47 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     end
   end
 
-  should_be_invalid_without(:corporate_information_page, :type)
+  should_be_invalid_without(:corporate_information_page, :corporate_information_page_type)
   should_be_invalid_without(:corporate_information_page, :body)
-  should_be_invalid_without(:corporate_information_page, :organisation)
+
+  test 'should be invalid if has both organisation and worldwide org' do
+    organisation = create(:organisation)
+    worldwide_org = create(:worldwide_organisation)
+    corporate_information_page = build(:corporate_information_page,
+                                       organisation: organisation,
+                                       worldwide_organisation: worldwide_org)
+    refute corporate_information_page.valid?
+  end
 
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page,
-      type: CorporateInformationPageType::TermsOfReference,
+      corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
       organisation: organisation)
 
-    assert_equal "#{organisation.name} - #{corporate_information_page.title}", corporate_information_page.search_index['title']
+    assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index['title']
     assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']
   end
 
-  test "should be invalid if same type already exists for this organisation" do
-    organisation = create(:organisation)
-    first = create(:corporate_information_page,
-      type: CorporateInformationPageType::TermsOfReference,
-      organisation: organisation)
-    second = build(:corporate_information_page,
-      type: CorporateInformationPageType::TermsOfReference,
-      organisation: organisation)
-    refute second.valid?
-  end
-
-  test "should be valid if same type already exists for another organisation" do
-    first = create(:corporate_information_page,
-      type: CorporateInformationPageType::TermsOfReference,
-      organisation: create(:organisation))
-    second = build(:corporate_information_page,
-      type: CorporateInformationPageType::TermsOfReference,
-      organisation: create(:organisation))
-    assert second.valid?
-  end
-
   test "should derive title from type" do
-    corporate_information_page = build(:corporate_information_page, type: CorporateInformationPageType::TermsOfReference)
+    corporate_information_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
     assert_equal "Terms of reference", corporate_information_page.title
   end
 
-  test "should derive title from type and interpolate orgnisation acronym" do
+  test "should derive title from type and interpolate organisation acronym" do
     organisation = build(:organisation, acronym: "DCLG")
-    corporate_information_page = build(:corporate_information_page, organisation: organisation, type: CorporateInformationPageType::Recruitment)
+    corporate_information_page = build(:corporate_information_page, organisation: organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
     assert_equal "Working for DCLG", corporate_information_page.title
   end
 
-  test "should derive title from type and interpolate orgnisation name if no acronym" do
+  test "should derive title from type and interpolate organisation name if no acronym" do
     organisation = build(:organisation, acronym: nil, name: "Department for Communities and Local Government")
-    corporate_information_page = build(:corporate_information_page, organisation: organisation, type: CorporateInformationPageType::Recruitment)
+    corporate_information_page = build(:corporate_information_page, organisation: organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)
     assert_equal "Working for Department for Communities and Local Government", corporate_information_page.title
   end
 
   test "should derive slug from type" do
-    corporate_information_page = build(:corporate_information_page, type: CorporateInformationPageType::TermsOfReference)
+    corporate_information_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
     assert_equal "terms-of-reference", corporate_information_page.slug
   end
 
@@ -119,11 +106,11 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     }
 
     by_menu_heading.values.flatten.each do |type|
-      corporate_information_page = create(:corporate_information_page, organisation: organisation, type: type)
+      create(:corporate_information_page, organisation: organisation, corporate_information_page_type: type)
     end
 
     by_menu_heading.keys.each do |menu_heading|
-      assert_same_elements by_menu_heading[menu_heading], organisation.corporate_information_pages.by_menu_heading(menu_heading).map(&:type)
+      assert_same_elements by_menu_heading[menu_heading], organisation.corporate_information_pages.by_menu_heading(menu_heading).map(&:corporate_information_page_type)
     end
   end
 
@@ -133,29 +120,26 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     transitioning_org = create(:organisation, govuk_status: 'transitioning')
     live_org = create(:organisation, govuk_status: 'live')
 
+    c1 = create(:corporate_information_page, :published, organisation: joining_org)
+    c2 = create(:corporate_information_page, :published, organisation: exempt_org)
+    c3 = create(:corporate_information_page, :published, organisation: transitioning_org)
+    c4 = create(:corporate_information_page, :published, organisation: live_org)
 
-    c1 = build(:corporate_information_page, organisation: joining_org)
-    c2 = build(:corporate_information_page, organisation: exempt_org)
-    c3 = build(:corporate_information_page, organisation: transitioning_org)
-    c4 = build(:corporate_information_page, organisation: live_org)
     Whitehall::SearchIndex.expects(:add).with(c1).never
-    c1.save
-
     Whitehall::SearchIndex.expects(:add).with(c2).never
-    c2.save
-
     Whitehall::SearchIndex.expects(:add).with(c3).never
-    c3.save
-
     Whitehall::SearchIndex.expects(:add).with(c4).once
-    c4.save
+    c1.update_in_search_index
+    c2.update_in_search_index
+    c3.update_in_search_index
+    c4.update_in_search_index
   end
 
   test 'until we launch worldwide will not be indexed if the org it belongs to is a worldwide org' do
     world_org = create(:worldwide_organisation)
 
-    corp_page = build(:corporate_information_page, organisation: world_org)
+    corp_page = create(:corporate_information_page, organisation: nil, worldwide_organisation: world_org)
     Whitehall::SearchIndex.expects(:add).with(corp_page).never
-    corp_page.save
+    corp_page.update_in_search_index
   end
 end
