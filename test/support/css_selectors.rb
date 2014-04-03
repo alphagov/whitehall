@@ -101,7 +101,7 @@ module CssSelectors
     ".preview_version"
   end
 
-  def policy_team_selector
-    "#policy_team"
+  def policy_group_selector
+    ".document-policy-groups"
   end
 end

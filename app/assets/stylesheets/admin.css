@@ -6,6 +6,7 @@
  *= require ./vendor/bootstrap
  *= require ./vendor/chosen
  *= require ./vendor/jquery-ui
+ *= require ./vendor/jquery.highlighttextarea.css
  *= require ./shared/helpers/_magna-charta.scss
  *= require ./admin/base
 */

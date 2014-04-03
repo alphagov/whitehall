@@ -55,19 +55,19 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select ".supporting_pages .supporting_page"
   end
 
-  view_test "show does not display the policy team section if no policy team is associated with the policy" do
+  view_test "show does not display the group section if no group is associated with the policy" do
     draft_policy = create(:draft_policy)
 
     get :show, id: draft_policy
 
-    refute_select policy_team_selector
+    refute_select policy_group_selector
   end
 
-  view_test "new should display policy team field" do
+  view_test "new should display policy group field" do
     get :new
 
     assert_select "form#new_edition" do
-      assert_select "select[name='edition[policy_team_ids][]']"
+      assert_select "select[name='edition[policy_group_ids][]']"
     end
   end
 

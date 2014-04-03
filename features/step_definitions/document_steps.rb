@@ -1,6 +1,8 @@
-Given /^a draft (document|publication|policy|news article|consultation|speech) "([^"]*)" exists$/ do |document_type, title|
+Given /^a draft (document|publication|policy|news article|consultation|speech) "([^"]*)"(?: with summary "([^"]*)")? exists$/ do |document_type, title, summary|
   document_type = 'policy' if document_type == 'document'
-  create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title)
+  attributes = { title: title }
+  attributes.merge!(summary: summary) if summary
+  create("draft_#{document_class(document_type).name.underscore}".to_sym, attributes)
 end
 
 Given /^a published (publication|policy|news article|consultation|speech|detailed guide) "([^"]*)" exists$/ do |document_type, title|
@@ -131,6 +133,10 @@ When /^I preview the document$/ do
   click_link "Preview on website"
 end
 
+When(/^I view the document$/) do
+  visit public_document_path(@document)
+end
+
 When /^I submit (#{THE_DOCUMENT})$/ do |edition|
   visit_edition_admin edition.title
   click_button "Submit for 2nd eyes"
@@ -259,4 +265,10 @@ end
 Then /^my attempt to save it should fail with error "([^"]*)"/ do |error_message|
   click_button "Save"
   assert page.has_css?(".errors li", text: error_message)
+end
+
+When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
+  document_type = document_type.gsub(' ', '_')
+  document = document_type.classify.constantize.find_by_title(title)
+  visit send("edit_admin_#{document_type}_path", document)
 end

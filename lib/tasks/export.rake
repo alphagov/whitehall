@@ -140,4 +140,29 @@ namespace :export do
     end
   end
 
+  desc "Exports mappings between organisations and analytics keys"
+  task :organisation_analytics => :environment do
+    puts 'Mappings orgs to analytics keys...'
+    path = 'tmp/organisation-analytics.csv'
+    puts "Generating CSV in #{path}"
+
+    CSV.open(path, 'w') do |csv|
+      csv << [
+        'Name',
+        'Acronym',
+        'Slug',
+        'Analytics key'
+      ]
+
+      Organisation.all.each do |org|
+        csv << [
+          org.name,
+          org.acronym,
+          org.slug,
+          org.analytics_identifier
+        ]
+      end
+    end
+  end
+
 end

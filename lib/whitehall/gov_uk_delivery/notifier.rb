@@ -28,7 +28,11 @@ module Whitehall
     protected
 
       def should_notify_govuk_delivery?
-        edition_type_is_deliverable? && major_change? && published_today? && available_in_english?
+        edition.published? &&
+        edition_type_is_deliverable? &&
+        major_change? &&
+        published_today? &&
+        available_in_english?
       end
 
       def edition_type_is_deliverable?

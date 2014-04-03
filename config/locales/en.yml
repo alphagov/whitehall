@@ -74,9 +74,7 @@ en:
         <<: *nested_attachment_field_names
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         <<: *nested_attachment_data_field_names
-      policy_advisory_group/policy_group_attachments/attachment:
-        <<: *nested_attachment_field_names
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         <<: *nested_attachment_data_field_names
       response/consultation_response_attachments/attachment:
         <<: *nested_attachment_field_names
@@ -105,8 +103,7 @@ en:
     headings:
       field_of_operation: Field of operation
       applies_to_nations: Applies to
-      policy_team: Teams
-      advisory_groups: Advisory groups
+      groups: Groups
       document_collection:
         one: Collection
         other: Collections
@@ -136,6 +133,9 @@ en:
       attachments:
         one: Document
         other: Documents
+      sectors:
+        one: Sector
+        other: Sectors
     type:
       announcement:
         one: Announcement

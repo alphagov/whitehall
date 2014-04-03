@@ -77,6 +77,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal %{<a href="#{attachment.url}">#{File.basename(attachment.filename)}</a>}, link_to_attachment(attachment)
   end
 
+  test '#link_to_attachment truncates filename if :truncate is true' do
+    attachment = create(:file_attachment, file: File.open(Rails.root.join('test', 'fixtures', 'consultation_uploader_test_sample.csv')))
+    assert_equal %{<a href="#{attachment.url}">consultation_uploader_test_...</a>}, link_to_attachment(attachment, truncate: true)
+  end
+
   test "should format into paragraphs" do
     assert_equal "", format_in_paragraphs(nil)
     assert_equal "", format_in_paragraphs("")

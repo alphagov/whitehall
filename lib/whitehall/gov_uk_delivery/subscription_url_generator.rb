@@ -148,7 +148,7 @@ module Whitehall
           appointments += edition.role_appointments
         end
 
-        if edition.respond_to?(:role_appointment)
+        if edition.respond_to?(:role_appointment) && edition.role_appointment.present?
           appointments << edition.role_appointment
         end
 

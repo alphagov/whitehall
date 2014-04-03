@@ -6,16 +6,6 @@ class UserTest < ActiveSupport::TestCase
     refute user.valid?
   end
 
-  test 'should be invalid with an invalid email address' do
-    user = build(:user, email: "invalid-email-address")
-    refute user.valid?
-  end
-
-  test 'should be valid without an email address' do
-    user = build(:user, email: nil)
-    assert user.valid?
-  end
-
   test 'should be a departmental editor if has whitehall Editor role' do
     user = build(:user, permissions: [User::Permissions::DEPARTMENTAL_EDITOR])
     assert user.departmental_editor?

@@ -362,6 +362,11 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', edition.document.slug
   end
 
+  test "should not include ellipsis in the slug" do
+    edition = create(:edition, title: "Something… going on")
+    assert_equal 'something-going-on', edition.document.slug
+  end
+
   test "is filterable by edition type" do
     policy = create(:policy)
     publication = create(:publication)
@@ -440,7 +445,7 @@ class EditionTest < ActiveSupport::TestCase
   test "should remove published edition from search index when it's unpublished" do
     policy = create(:published_policy)
 
-    Searchable::Delete.expects(:later).with(policy)
+    Whitehall::SearchIndex.expects(:delete).with(policy)
     policy.unpublishing = build(:unpublishing)
     Whitehall.edition_services.unpublisher(policy).perform!
   end

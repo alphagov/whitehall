@@ -15,7 +15,8 @@ module Whitehall::DocumentFilter
                                          publication_type
                                          announcement_type
                                          publication_filter_option
-                                         announcement_filter_option)
+                                         announcement_filter_option
+                                         announcement_type_option)
 
 
     def initialize(unclean_params)

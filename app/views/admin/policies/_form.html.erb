@@ -14,8 +14,7 @@
 
     <fieldset>
       <legend>Who's working on this?</legend>
-      <%= render partial: 'policy_team_fields', locals: { form: form } %>
-      <%= render partial: 'policy_advisory_group_fields', locals: { form: form, edition: edition } %>
+      <%= render partial: 'policy_group_fields', locals: { form: form, edition: edition } %>
     </fieldset>
 
     <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>

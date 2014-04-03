@@ -1,15 +1,18 @@
-# @abstract
 class PolicyGroup < ActiveRecord::Base
   include Searchable
+  include ::Attachable
 
   validates :email, email_format: true, allow_blank: true
   validates :name, presence: true
+
+  validates_with SafeHtmlValidator
+  validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
   has_many :edition_policy_groups
   has_many :policies, through: :edition_policy_groups, source: :edition
 
   def has_summary?
-    false
+    true
   end
 
   extend FriendlyId
@@ -25,7 +28,6 @@ class PolicyGroup < ActiveRecord::Base
              description: :summary
 
   def search_link
-    raise NotImplementedError, '#search_link must be implemented in PolicyGroup subclasses, PolicyGroup can\'t be indexed directly.'
+    Whitehall.url_maker.policy_group_path(slug)
   end
-
 end

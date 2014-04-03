@@ -29,7 +29,7 @@ module Whitehall
               organisation:   (edition.lead_organisations || edition.worldwide_organisations).first.name,
               content_type:   edition.type,
               bad_link_count: bad_links.size,
-              bad_links:      bad_links.join("\n")
+              bad_links:      bad_links.join("\n\r")
             }
 
             csv << data.values

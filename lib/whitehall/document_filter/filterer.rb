@@ -104,10 +104,15 @@ module Whitehall::DocumentFilter
 
     def parse_date(date)
       date = Chronic.parse(date, endian_precedence: :little)
-      date.to_date if date
+      date.to_date if date && date_is_not_ancient?(date)
     rescue NoMethodError
       #Rescue from a bug in Chronic which throws exceptions with certain specifc date strings (eg. 't')
       nil
+    end
+
+    # Rummager does not like really old dates in queries
+    def date_is_not_ancient?(date)
+      date > Date.new(1900)
     end
   end
 end

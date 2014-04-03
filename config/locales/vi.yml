@@ -20,16 +20,7 @@ vi:
         file:
       detailed_guide:
         primary_mainstream_category: Hạng mục hướng dẫn chi tiết sơ cấp
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -108,7 +99,6 @@ vi:
       published:
       updated:
     headings:
-      advisory_groups: Nhóm tham vấn
       applies_to_nations: Áp dụngng cho
       attachments:
         one: Tài liệu
@@ -117,6 +107,7 @@ vi:
         one: Chuỗi
         other:
       field_of_operation: Lĩnh vực hoạt động
+      groups: Nhóm tham vấn
       live_data: Dữ liệu cập nhật
       location:
       ministers:
@@ -128,7 +119,9 @@ vi:
       policies:
         one: Chính sách
         other: Các chính sách
-      policy_team: Nhóm chính sách
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

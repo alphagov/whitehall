@@ -259,7 +259,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should add organisation to search index on creating' do
     organisation = build(:organisation)
 
-    Searchable::Index.expects(:later).with(organisation)
+    Whitehall::SearchIndex.expects(:add).with(organisation)
 
     organisation.save
   end
@@ -267,7 +267,7 @@ class OrganisationTest < ActiveSupport::TestCase
   test 'should add organisation to search index on updating' do
     organisation = create(:organisation)
 
-    Searchable::Index.expects(:later).with(organisation)
+    Whitehall::SearchIndex.expects(:add).with(organisation)
 
     organisation.name = 'Ministry of Junk'
     organisation.save
@@ -275,7 +275,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should remove organisation from search index on destroying' do
     organisation = create(:organisation)
-    Searchable::Delete.expects(:later).with(organisation)
+    Whitehall::SearchIndex.expects(:delete).with(organisation)
     organisation.destroy
   end
 

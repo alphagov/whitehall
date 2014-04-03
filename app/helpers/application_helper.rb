@@ -41,7 +41,9 @@ module ApplicationHelper
 
   def link_to_attachment(attachment, options = {})
     return unless attachment
-    link_to (attachment.html? ? 'HTML attachment' : attachment.filename), attachment.url(options)
+    name = (attachment.html? ? 'HTML attachment' : attachment.filename)
+    name = truncate(name) if options[:truncate]
+    link_to name, attachment.url(options)
   end
 
   def role_appointment(appointment, link = false)
@@ -275,7 +277,7 @@ module ApplicationHelper
       end
     when "world_locations", "worldwide_priorities", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
       world_locations_path(locale: :en)
-    when "policies", "supporting_pages", "policy_advisory_groups", "policy_teams"
+    when "policies", "supporting_pages", "policy_groups"
       policies_path
     when "take_part_pages"
       get_involved_path

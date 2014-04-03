@@ -1,0 +1,15 @@
+<% page_title "Edit " + @policy_group.email %>
+
+<div class="span8">
+  <section>
+    <h1>Edit group</h1>
+    <p class="warning">Warning: changes to groups appear instantly on the live site.</p>
+    <%= tab_navigation_for(@policy_group) do %>
+      <%= render "form", policy_group: @policy_group %>
+    <% end %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= simple_formatting_sidebar %>
+</div>

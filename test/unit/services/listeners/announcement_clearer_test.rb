@@ -6,17 +6,16 @@ class AnnouncementClearerTest < ActiveSupport::TestCase
     statistics = create(:published_statistics,
       statistics_announcement: announcement)
 
+    Whitehall::SearchIndex.expects(:delete).with(announcement)
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
-
-    assert_deleted_from_search_index announcement
   end
 
-  test '#clear! does nothing if the edition does not have an announcement' do
+  test '#clear! does not raise an error if the edition does not have an announcement' do
     statistics = create(:published_statistics)
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
   end
 
-  test '#clear! does nothing if the edition is not a statistial publication' do
+  test '#clear! does not raise an error if the edition is not a statistial publication' do
     statistics = create(:published_case_study)
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
   end

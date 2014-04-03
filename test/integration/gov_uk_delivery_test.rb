@@ -7,43 +7,38 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
   setup do
     # Use the real GovUkDelivery client
     Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'))
-    Delayed::Job.destroy_all
   end
 
   test "Publishing a policy calls govuk-delivery API" do
-    without_delay! do
-      Edition::AuditTrail.whodunnit = create(:user)
-      policy = create(:submitted_policy, topics: [create(:topic), create(:topic)])
-      policy.first_published_at = Time.zone.now
-      policy.major_change_published_at = Time.zone.now
-      Whitehall::GovUkDelivery::SubscriptionUrlGenerator.any_instance.stubs(:subscription_urls).returns(['http://example.com/feed'])
-      Whitehall::GovUkDelivery::EmailFormatter.any_instance.stubs(:email_body).returns('body')
+    Edition::AuditTrail.whodunnit = create(:user)
+    policy = create(:submitted_policy, topics: [create(:topic), create(:topic)])
+    policy.first_published_at = Time.zone.now
+    policy.major_change_published_at = Time.zone.now
+    Whitehall::GovUkDelivery::SubscriptionUrlGenerator.any_instance.stubs(:subscription_urls).returns(['http://example.com/feed'])
+    Whitehall::GovUkDelivery::EmailFormatter.any_instance.stubs(:email_body).returns('body')
 
-      expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
-      stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
-      stub_panopticon_registration(policy)
+    expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
+    stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
+    stub_panopticon_registration(policy)
 
-      assert Whitehall.edition_services.publisher(policy).perform!
-      assert_requested stub
-    end
+    assert Whitehall.edition_services.publisher(policy).perform!
+    assert_requested stub
   end
 
   test "API 400 errors calls don't block publishing" do
-    without_delay! do
-      Edition::AuditTrail.whodunnit = create(:user)
-      policy = create(:submitted_policy, topics: [create(:topic), create(:topic)])
-      policy.first_published_at = Time.zone.now
-      policy.major_change_published_at = Time.zone.now
-      Whitehall::GovUkDelivery::SubscriptionUrlGenerator.any_instance.stubs(:subscription_urls).returns(['http://example.com/feed'])
-      Whitehall::GovUkDelivery::EmailFormatter.any_instance.stubs(:email_body).returns('body')
+    Edition::AuditTrail.whodunnit = create(:user)
+    policy = create(:submitted_policy, topics: [create(:topic), create(:topic)])
+    policy.first_published_at = Time.zone.now
+    policy.major_change_published_at = Time.zone.now
+    Whitehall::GovUkDelivery::SubscriptionUrlGenerator.any_instance.stubs(:subscription_urls).returns(['http://example.com/feed'])
+    Whitehall::GovUkDelivery::EmailFormatter.any_instance.stubs(:email_body).returns('body')
 
-      expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
-      stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
-      stub_panopticon_registration(policy)
+    expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
+    stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
+    stub_panopticon_registration(policy)
 
-      assert Whitehall.edition_services.publisher(policy).perform!
-      assert_requested stub
-    end
+    assert Whitehall.edition_services.publisher(policy).perform!
+    assert_requested stub
   end
 
   private

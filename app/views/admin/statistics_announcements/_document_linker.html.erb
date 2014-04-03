@@ -1,4 +1,4 @@
-<% initialise_script 'GOVUK.documentFinder', type: 'publication', subtypes: PublicationType.statistical.map(&:id), state: 'not_published' %>
+<% initialise_script 'GOVUK.documentFinder', type: 'publication', subtypes: [statistics_announcement.publication_type_id], state: 'not_published' %>
 <% initialise_script 'GOVUK.statisticsAnnouncementLinker' %>
 
 <%= form_for [:admin, statistics_announcement], html: { style: 'display:none' } do |form| %>

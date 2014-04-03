@@ -1,0 +1,13 @@
+<% page_title "New group" %>
+
+<div class="span8">
+  <section>
+    <h1>New group</h1>
+    <p class="warning">Warning: changes to groups appear instantly on the live site.</p>
+    <%= render "form", policy_group: @policy_group %>
+  </section>
+</div>
+
+<div class="span4">
+  <%= simple_formatting_sidebar %>
+</div>

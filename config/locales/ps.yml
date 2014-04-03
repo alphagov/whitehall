@@ -16,6 +16,9 @@ ps:
       policies:
         one: پالیسي
         other: پالیسی ګانې
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ ps:
       worldwide_organisations:
         one: نړیواله اداره
         other: نړیواله اداری
-      advisory_groups: مشورتی ګروپونه
       applies_to_nations: پورې اړه لری
       field_of_operation: د کړنو څانګه
+      groups: مشورتی ګروپونه
       live_data: ژوندې اطلاعات
       location:
-      policy_team: د پالیسی ټیم
     type:
       announcement:
         one: خبرتیا
@@ -372,16 +374,7 @@ ps:
         file:
       detailed_guide:
         primary_mainstream_category: د مفصل لومړني لارښونې کتګوري
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

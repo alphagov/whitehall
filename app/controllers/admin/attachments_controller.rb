@@ -2,6 +2,8 @@ class Admin::AttachmentsController < Admin::BaseController
   before_filter :limit_attachable_access, if: :attachable_is_an_edition?
   before_filter :check_attachable_allows_html_attachments, if: :html?
 
+  rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
+
   def index; end
 
   def order
@@ -27,6 +29,22 @@ class Admin::AttachmentsController < Admin::BaseController
       redirect_to attachable_attachments_path(attachable), notice: message
     else
       render :edit
+    end
+  end
+
+  def update_many
+    errors = {}
+    params[:attachments].each do |id, attributes|
+      attachment = attachable.attachments.find(id)
+      if !attachment.update_attributes(attributes.slice(:title))
+        errors[id] = attachment.errors.full_messages
+      end
+    end
+
+    if errors.empty?
+      render json: {result: :success}
+    else
+      render json: {result: :failure, errors: errors }, status: :unprocessable_entity
     end
   end
 
@@ -120,5 +138,13 @@ private
 
     @edition = attachable
     prevent_modification_of_unmodifiable_edition
+  end
+
+  def handle_duplicate_key_errors_caused_by_double_create_requests(exception)
+    if action_name == 'create' && exception.message =~ /Duplicate entry .+ for key 'no_duplicate_attachment_orderings'/
+      redirect_to attachable_attachments_path(attachable), notice: "Attachment '#{attachment.title}' uploaded"
+    else
+      raise
+    end
   end
 end

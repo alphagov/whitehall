@@ -1,0 +1,27 @@
+.statistics-announcements-show {
+  #document-finder {
+    margin: 10px 0 20px;
+
+    label {
+      display: block;
+    }
+
+    input#title {
+      width: 40%;
+      margin-left: 0;
+    }
+
+    .document-finder-fields img.js-loader {
+      right: 5.3em;
+    }
+  }
+
+  ul.release-date-changes {
+    margin-left: 0;
+    li {
+      overflow: hidden;
+      margin-bottom: 1em;
+      list-style: none;
+    }
+  }
+}

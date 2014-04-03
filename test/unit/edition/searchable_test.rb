@@ -35,7 +35,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:submitted_edition)
     stub_panopticon_registration(edition)
     Whitehall.stubs(:searchable_classes).returns([edition.class])
-    Searchable::Index.expects(:later).with(edition)
+    Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.publisher(edition).perform!
   end
@@ -46,7 +46,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     I18n.locale = I18n.default_locale
     stub_panopticon_registration(french_edition)
     Whitehall.stubs(:searchable_classes).returns([french_edition.class])
-    Searchable::Index.expects(:later).with(french_edition).never
+    Whitehall::SearchIndex.expects(:add).with(french_edition).never
 
     Whitehall.edition_services.publisher(french_edition).perform!
   end
@@ -55,7 +55,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     slug = edition.document.slug
 
-    Searchable::Delete.expects(:later).with(edition).never
+    Whitehall::SearchIndex.expects(:delete).with(edition).never
 
     new_edition = edition.create_draft(create(:policy_writer))
     new_edition.change_note = "change-note"
@@ -66,7 +66,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     slug = edition.document.slug
 
-    Searchable::Delete.expects(:later).with(edition)
+    Whitehall::SearchIndex.expects(:delete).with(edition)
     edition.unpublishing = build(:unpublishing)
     Whitehall.edition_services.unpublisher(edition).perform!
   end

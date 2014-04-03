@@ -29,7 +29,6 @@
   }
   h2 {
     @include ig-core-27;
-    color: lighten($text-colour, 20%);
     margin-top: $gutter;
     @include media(tablet) {
       margin-top: $gutter-half;

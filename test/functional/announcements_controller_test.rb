@@ -10,14 +10,12 @@ class AnnouncementsControllerTest < ActionController::TestCase
   should_return_json_suitable_for_the_document_filter :speech
 
   view_test "index shows a mix of news and speeches" do
-    without_delay! do
-      announced_today = [create(:published_news_article), create(:published_speech)]
+    announced_today = [create(:published_news_article), create(:published_speech)]
 
-      get :index
+    get :index
 
-      assert_select_object announced_today[0]
-      assert_select_object announced_today[1]
-    end
+    assert_select_object announced_today[0]
+    assert_select_object announced_today[1]
   end
 
   test "index sets Cache-Control: max-age to the time of the next scheduled publication" do
@@ -33,81 +31,71 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows which type a record is" do
-    without_delay! do
-      announced_today = [
-        create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
-        create(:published_speech),
-        create(:published_speech, speech_type: SpeechType::WrittenStatement),
-      ]
+    announced_today = [
+      create(:published_news_article, news_article_type: NewsArticleType::NewsStory),
+      create(:published_speech),
+      create(:published_speech, speech_type: SpeechType::WrittenStatement),
+    ]
 
-      get :index
+    get :index
 
-      assert_select_object announced_today[0] do
-        assert_select ".display-type", text: "News story"
-      end
-      assert_select_object announced_today[1] do
-        assert_select ".display-type", text: "Speech"
-      end
-      assert_select_object announced_today[2] do
-        assert_select ".display-type", text: "Statement to Parliament"
-      end
+    assert_select_object announced_today[0] do
+      assert_select ".display-type", text: "News story"
+    end
+    assert_select_object announced_today[1] do
+      assert_select ".display-type", text: "Speech"
+    end
+    assert_select_object announced_today[2] do
+      assert_select ".display-type", text: "Statement to Parliament"
     end
   end
 
   view_test "index shows the date on which a speech was first published" do
-    without_delay! do
-      first_published_at = Date.parse("1999-12-31")
-      speech = create(:published_speech, first_published_at: first_published_at)
+    first_published_at = Date.parse("1999-12-31")
+    speech = create(:published_speech, first_published_at: first_published_at)
 
-      get :index
+    get :index
 
-      assert_select_object(speech) do
-        assert_select "abbr.public_timestamp[title=?]", first_published_at.to_datetime.iso8601
-      end
+    assert_select_object(speech) do
+      assert_select "abbr.public_timestamp[title=?]", first_published_at.to_datetime.iso8601
     end
   end
 
   view_test "index shows the time when a news article was first published" do
-    without_delay! do
-      first_published_at = Time.zone.parse("2001-01-01 01:01")
-      news_article = create(:published_news_article, first_published_at: first_published_at)
+    first_published_at = Time.zone.parse("2001-01-01 01:01")
+    news_article = create(:published_news_article, first_published_at: first_published_at)
 
-      get :index
+    get :index
 
-      assert_select_object(news_article) do
-        assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
-      end
+    assert_select_object(news_article) do
+      assert_select "abbr.public_timestamp[title=?]", first_published_at.iso8601
     end
   end
 
   view_test "index shows related organisations for each type of article" do
-    without_delay! do
-      first_org = create(:organisation, name: 'first-org', acronym: "FO")
-      second_org = create(:organisation, name: 'second-org', acronym: "SO")
-      news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
-      speech = create(:published_speech, delivered_on: 5.days.ago, organisations: [second_org])
+    first_org = create(:organisation, name: 'first-org', acronym: "FO")
+    second_org = create(:organisation, name: 'second-org', acronym: "SO")
+    news_article = create(:published_news_article, first_published_at: 4.days.ago, organisations: [first_org, second_org])
+    speech = create(:published_speech, delivered_on: 5.days.ago, organisations: [second_org])
 
-      get :index
+    get :index
 
-      assert_select_object news_article do
-        assert_select ".organisations", text: "#{first_org.acronym} and #{second_org.acronym}", count: 1
-      end
+    assert_select_object news_article do
+      assert_select ".organisations", text: "#{first_org.acronym} and #{second_org.acronym}", count: 1
+    end
 
-      assert_select_object speech do
-        assert_select ".organisations", text: second_org.acronym, count: 1
-      end
+    assert_select_object speech do
+      assert_select ".organisations", text: second_org.acronym, count: 1
     end
   end
 
   view_test "index shows articles in reverse chronological order" do
-    without_delay! do
-      oldest = create(:published_speech, first_published_at: 5.days.ago)
-      newest = create(:published_news_article, first_published_at: 4.days.ago)
+    oldest = create(:published_speech, first_published_at: 5.days.ago)
+    newest = create(:published_news_article, first_published_at: 4.days.ago)
 
-      get :index
+    get :index
 
-      assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
-    end
+    assert_select "#{record_css_selector(newest)} + #{record_css_selector(oldest)}"
   end
 
   view_test "index shows selected announcement type filter option in the title" do
@@ -146,34 +134,30 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index shows only the first page of news articles or speeches" do
-    without_delay! do
-      news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-      speeches = (3..4).map { |n| create(:published_speech, first_published_at: n.days.ago) }
+    news = (1..2).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
+    speeches = (3..4).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
-      with_number_of_documents_per_page(3) do
-        get :index
-      end
+    with_number_of_documents_per_page(3) do
+      get :index
+    end
 
-      assert_documents_appear_in_order_within("#announcements-container", news + speeches[0..0])
-      (speeches[1..2]).each do |speech|
-        refute_select_object(speech)
-      end
+    assert_documents_appear_in_order_within("#announcements-container", news + speeches[0..0])
+    (speeches[1..2]).each do |speech|
+      refute_select_object(speech)
     end
   end
 
   view_test "index shows the requested page" do
-    without_delay! do
-      news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
-      speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
+    news = (1..3).map { |n| create(:published_news_article, first_published_at: n.days.ago) }
+    speeches = (4..6).map { |n| create(:published_speech, first_published_at: n.days.ago) }
 
-      with_number_of_documents_per_page(4) do
-        get :index, page: 2
-      end
+    with_number_of_documents_per_page(4) do
+      get :index, page: 2
+    end
 
-      assert_documents_appear_in_order_within("#announcements-container", speeches[1..2])
-      (news + speeches[0..0]).each do |speech|
-        refute_select_object(speech)
-      end
+    assert_documents_appear_in_order_within("#announcements-container", speeches[1..2])
+    (news + speeches[0..0]).each do |speech|
+      refute_select_object(speech)
     end
   end
 
@@ -208,17 +192,26 @@ class AnnouncementsControllerTest < ActionController::TestCase
   end
 
   view_test "index generates an atom feed with entries for announcements matching the current filter" do
-    without_delay! do
-      org = create(:organisation, name: "org-name")
-      other_org = create(:organisation, name: "other-org")
-      news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
-      speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
+    org = create(:organisation, name: "org-name")
+    other_org = create(:organisation, name: "other-org")
+    news = create(:published_news_article, organisations: [org], first_published_at: 1.week.ago)
+    speech = create(:published_speech, organisations: [other_org], delivered_on: 3.days.ago)
 
-      get :index, format: :atom, departments: [org.to_param]
+    get :index, format: :atom, departments: [org.to_param]
 
-      assert_select_atom_feed do
-        assert_select_atom_entries([news])
-      end
+    assert_select_atom_feed do
+      assert_select_atom_entries([news])
+    end
+  end
+
+  view_test "index generates an atom feed with the legacy announcement_type_option param set" do
+    news = create(:published_news_story, first_published_at: 1.week.ago)
+    speech = create(:published_speech, delivered_on: 3.days.ago)
+
+    get :index, format: :atom, announcement_type_option: 'news-stories'
+
+    assert_select_atom_feed do
+      assert_select_atom_entries([news])
     end
   end
 

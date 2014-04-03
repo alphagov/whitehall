@@ -26,6 +26,11 @@ be:
         few:
         many:
         other: Напрамкі дзейнасці
+      sectors:
+        one:
+        few:
+        many:
+        other:
       topical_events:
         one:
         few:
@@ -46,12 +51,11 @@ be:
         few:
         many:
         other: Сусветныя арганізацыі
-      advisory_groups: Кансультацыйныя групы
       applies_to_nations: У адносінах да
       field_of_operation: Сфера дзейнасці
+      groups: Кансультацыйныя групы
       live_data: Бягучая інфармацыя
       location:
-      policy_team: 'Палітычны аддзел '
     type:
       announcement:
         one: Аб'ява
@@ -506,16 +510,7 @@ be:
         file:
       detailed_guide:
         primary_mainstream_category: 'Першасная катэгорыя падрабязнага кіраўніцтва '
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

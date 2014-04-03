@@ -25,7 +25,7 @@ Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree
 
 - Titles and navigation links should only capitalise first letter, not every word.
 - URLs should use hyphens, not underscores.
-- Follow the [style guide](https://www.gov.uk/designprinciples/styleguide).
+- Follow the [style guide](https://www.gov.uk/design-principles/style-guide).
 
 ## Code ##
 

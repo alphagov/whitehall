@@ -16,6 +16,9 @@ sw:
       policies:
         one:
         other:
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ sw:
       worldwide_organisations:
         one:
         other:
-      advisory_groups:
       applies_to_nations:
       field_of_operation:
+      groups:
       live_data:
       location:
-      policy_team:
     type:
       announcement:
         one:
@@ -370,16 +372,7 @@ sw:
         file:
       detailed_guide:
         primary_mainstream_category:
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
