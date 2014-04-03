@@ -8,4 +8,6 @@ FactoryGirl.define do
 
   trait :with_alternative_format_provider do
   end
+
+  factory :published_corporate_information_page, parent: :corporate_information_page, traits: [:published]
 end
