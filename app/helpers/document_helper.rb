@@ -4,7 +4,7 @@ module DocumentHelper
   include DocumentCollectionHelper
   include MinisterialRolesHelper
   include PolicyHelper
-  include PolicyAdvisoryGroupsHelper
+  include PolicyGroupsHelper
   include RoleAppointmentsHelper
   include TopicsHelper
   include TranslationHelper
@@ -280,18 +280,11 @@ Details of document required:
         classes: ['document-inapplicable-nations']
       }
     end
-    if document.respond_to?(:policy_teams) && document.policy_teams.any?
+    if document.respond_to?(:policy_groups) && document.policy_groups.any?
       metadata << {
-        title: t('document.headings.policy_team'),
-        data: document.policy_teams.map { |policy_team| link_to(policy_team.name, policy_team) },
-        classes: ["document-policy-team"]
-      }
-    end
-    if document.respond_to?(:policy_advisory_groups) && document.policy_advisory_groups.any?
-      metadata << {
-        title: t('document.headings.advisory_groups'),
-        data: array_of_links_to_policy_advisory_groups(document.policy_advisory_groups),
-        classes: ["document-policy-advisory-groups"]
+        title: t('document.headings.groups'),
+        data: array_of_links_to_policy_groups(document.policy_groups),
+        classes: ["document-policy-groups"]
       }
     end
     if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?

@@ -20,16 +20,7 @@ az:
         file:
       detailed_guide:
         primary_mainstream_category: Ilkin qaydalar kateqoriyasi
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -106,7 +97,6 @@ az:
       published:
       updated:
     headings:
-      advisory_groups: Məsləhətçi qruplar
       applies_to_nations: tətbiq olunur
       attachments:
         one:
@@ -115,6 +105,7 @@ az:
         one: növlər
         other:
       field_of_operation: əməliyyat sahəsi
+      groups: Məsləhətçi qruplar
       live_data: canlı məlumat
       location:
       ministers:
@@ -126,7 +117,6 @@ az:
       policies:
         one: siyasət
         other: siyasəti
-      policy_team: siyasət komandası
       sectors:
         one:
         other:

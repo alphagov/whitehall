@@ -20,16 +20,7 @@ ja:
         file:
       detailed_guide:
         primary_mainstream_category: 主要説明カテゴリー
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -107,7 +98,6 @@ ja:
       published:
       updated:
     headings:
-      advisory_groups: 諮問グループ
       applies_to_nations: 対象国
       attachments:
         one: お知らせ
@@ -116,6 +106,7 @@ ja:
         one: シリーズ
         other:
       field_of_operation: 担当分野
+      groups: 諮問グループ
       live_data: 実データ
       location:
       ministers:
@@ -127,7 +118,6 @@ ja:
       policies:
         one: 政策
         other: 政策
-      policy_team: 政策チーム
       sectors:
         one:
         other:

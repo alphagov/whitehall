@@ -51,12 +51,11 @@ sr:
         few:
         many:
         other: svetske organizacije
-      advisory_groups: savetodavne grupe
       applies_to_nations: Odnosi se na
       field_of_operation: polje delovanja
+      groups: savetodavne grupe
       live_data: aktivni podaci
       location:
-      policy_team: politički tim
     type:
       announcement:
         one: Najava
@@ -515,16 +514,7 @@ sr:
         file:
       detailed_guide:
         primary_mainstream_category:
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

@@ -39,12 +39,8 @@ module Admin::UrlHelper
     admin_header_link "World locations", admin_world_locations_path
   end
 
-  def admin_policy_teams_header_link
-    admin_header_link "Teams", admin_policy_teams_path
-  end
-
-  def admin_policy_advisory_groups_header_link
-    admin_header_link "Groups", admin_policy_advisory_groups_path
+  def admin_policy_groups_header_link
+    admin_header_link "Groups", admin_policy_groups_path
   end
 
   def admin_imports_header_link

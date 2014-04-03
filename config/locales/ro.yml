@@ -41,12 +41,11 @@ ro:
         one: Organizație
         few:
         other: Organizații
-      advisory_groups: 'Grupuri cu rol consultativ '
       applies_to_nations: Se adresează
       field_of_operation: Domeniu de activitate
+      groups: 'Grupuri cu rol consultativ '
       live_data: Informaţii în timp real
       location:
-      policy_team: 'Echipa '
     type:
       announcement:
         one: Știre
@@ -443,16 +442,7 @@ ro:
         file:
       detailed_guide:
         primary_mainstream_category: 'Ghid detaliat '
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

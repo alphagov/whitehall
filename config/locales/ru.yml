@@ -51,12 +51,11 @@ ru:
         few:
         many:
         other: Всемирные организации
-      advisory_groups: Консультативные группы
       applies_to_nations: Применимо к
       field_of_operation: Сфера деятельности
+      groups: Консультативные группы
       live_data: Обновленная информация
       location:
-      policy_team: Команда стратегического планирования
     type:
       announcement:
         one: Объявление
@@ -511,16 +510,7 @@ ru:
         file:
       detailed_guide:
         primary_mainstream_category: Основная категория подробной инструкции
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

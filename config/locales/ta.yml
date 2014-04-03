@@ -31,12 +31,11 @@ ta:
       worldwide_organisations:
         one: உலகளாவிய ஸ்தாபனம்
         other: உலகளாவிய ஸ்தாபனங்கள்
-      advisory_groups: ஆலோசனைக் குழுக்கள்
       applies_to_nations: பிரயோகமாகிறது
       field_of_operation: செயற்பாட்டுத் துறை
+      groups: ஆலோசனைக் குழுக்கள்
       live_data: நேரடித் தரவு
       location:
-      policy_team: கொள்கை அணி
     type:
       announcement:
         one: அறிவிப்பு
@@ -373,16 +372,7 @@ ta:
         file:
       detailed_guide:
         primary_mainstream_category: முதனிலை விளக்க வழிகாட்டல் வகை
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

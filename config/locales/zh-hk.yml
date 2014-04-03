@@ -20,16 +20,7 @@ zh-hk:
         file:
       detailed_guide:
         primary_mainstream_category: 主要細節指引類
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -106,7 +97,6 @@ zh-hk:
       published:
       updated:
     headings:
-      advisory_groups: 諮詢小組
       applies_to_nations: 適用於
       attachments:
         one: 文件
@@ -115,6 +105,7 @@ zh-hk:
         one: 系列
         other:
       field_of_operation: 運用領域
+      groups: 諮詢小組
       live_data: 即時資料
       location:
       ministers:
@@ -126,7 +117,6 @@ zh-hk:
       policies:
         one: 政策
         other: 其他政策
-      policy_team: 政治組
       sectors:
         one:
         other:

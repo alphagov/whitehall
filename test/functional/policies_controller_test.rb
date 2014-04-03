@@ -191,17 +191,11 @@ That's all
     end
   end
 
-  view_test "show displays the policy team responsible for this policy" do
-    policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
-    policy = create(:published_policy, policy_teams: [policy_team])
+  view_test "show displays the policy group responsible for this policy" do
+    policy_group = create(:policy_group, name: 'policy-group', email: 'policy-group@example.com')
+    policy = create(:published_policy, policy_groups: [policy_group])
     get :show, id: policy.document
-    assert_select ".meta a[href='#{policy_team_path(policy_team)}']", text: 'policy-team'
-  end
-
-  view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
-    policy = create(:published_policy)
-    get :show, id: policy.document
-    refute_select '#policy_team'
+    assert_select ".meta a[href='#{policy_group_path(policy_group)}']", text: 'policy-group'
   end
 
   view_test "activity displays the date that the policy was updated" do

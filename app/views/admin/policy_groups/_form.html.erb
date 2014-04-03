@@ -1,0 +1,24 @@
+<%= form_for [:admin, policy_group] do |policy_group_form| %>
+  <%= policy_group_form.errors %>
+
+  <fieldset>
+    <%= policy_group_form.text_field :name %>
+    <%= policy_group_form.text_field :email %>
+    <%= policy_group_form.text_area :summary %>
+    <%= policy_group_form.text_area :description, class: "previewable" %>
+  </fieldset>
+
+  <h3>Attachments</h3>
+  <% if policy_group.persisted? %>
+    <%= render 'admin/attachments/markdown_codes', attachable: policy_group %>
+  <% else %>
+    <p>
+      If you'd like to add an attachment to this group,
+      please save it first. You'll then find a new tab at the top of the page
+      that you can use to upload, edit and delete attachments.
+    </p>
+  <% end %>
+
+  <p class="warning">Warning: changes to groups appear instantly on the live site.</p>
+  <%= policy_group_form.save_or_cancel cancel: admin_policy_groups_path %>
+<% end %>

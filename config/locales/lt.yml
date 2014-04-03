@@ -41,12 +41,11 @@ lt:
         one: Pasaulinė organizacija
         few:
         other: Pasaulinės organizacijos
-      advisory_groups: Patariamosios grupės
       applies_to_nations: Susiję su
       field_of_operation: Veiklos laukas
+      groups: Patariamosios grupės
       live_data: Naujausi duomenys
       location:
-      policy_team: Politikos komanda
     type:
       announcement:
         one: Pranešimas
@@ -442,16 +441,7 @@ lt:
         file:
       detailed_guide:
         primary_mainstream_category: Pagrindinės kategorijos
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

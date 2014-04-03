@@ -31,12 +31,11 @@ bg:
       worldwide_organisations:
         one: Разпространена по целия свят организация
         other: Разпространени по целия свят организации
-      advisory_groups: Консултативни групи
       applies_to_nations: Отнася се към
       field_of_operation: Поле на операцията
+      groups: Консултативни групи
       live_data: Реална информация
       location:
-      policy_team: Екип по политики
     type:
       announcement:
         one: Съобщение
@@ -374,16 +373,7 @@ bg:
         file:
       detailed_guide:
         primary_mainstream_category: Първоначална  категория с подробни указания
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

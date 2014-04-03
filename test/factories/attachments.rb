@@ -2,7 +2,7 @@ FactoryGirl.define do
   sequence(:attachment_ordering)
 
   trait :abstract_attachment do
-    attachable { build :policy_advisory_group }
+    attachable { build :policy_group }
   end
 
   factory :file_attachment, traits: [:abstract_attachment] do

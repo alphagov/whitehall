@@ -237,7 +237,7 @@ module ApplicationHelper
     when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
-      elsif parameters[:publication_filter_option] == 'statistics' || 
+      elsif parameters[:publication_filter_option] == 'statistics' ||
             parameters[:controller] == 'statistical_data_sets' ||
             @document && @document.try(:statistics?)
         publications_path(publication_filter_option: 'statistics')
@@ -258,7 +258,7 @@ module ApplicationHelper
       end
     when "world_locations", "worldwide_priorities", "world_location_news_articles", "worldwide_organisations", "worldwide_offices"
       world_locations_path(locale: :en)
-    when "policies", "supporting_pages", "policy_advisory_groups", "policy_teams"
+    when "policies", "supporting_pages", "policy_groups"
       policies_path
     when "take_part_pages"
       get_involved_path

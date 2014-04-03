@@ -19,8 +19,7 @@ class Policy < Edition
 
 
   has_many :edition_policy_groups, foreign_key: :edition_id
-  has_many :policy_teams, through: :edition_policy_groups, class_name: 'PolicyTeam', source: :policy_group
-  has_many :policy_advisory_groups, through: :edition_policy_groups, class_name: 'PolicyAdvisoryGroup', source: :policy_group
+  has_many :policy_groups, through: :edition_policy_groups
 
   def self.having_announcements
     where("EXISTS (
@@ -60,10 +59,6 @@ class Policy < Edition
 
   def update_published_related_publication_count
     update_column(:published_related_publication_count, published_related_publications.count)
-  end
-
-  def policy_team
-    policy_teams.first
   end
 
   def translatable?
