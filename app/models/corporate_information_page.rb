@@ -1,5 +1,6 @@
 class CorporateInformationPage < Edition
   include ::Attachable
+  include Edition::AlternativeFormatProvider
   include Searchable
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
