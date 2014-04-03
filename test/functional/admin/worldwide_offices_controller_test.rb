@@ -241,7 +241,12 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
           id: office.contact.id,
           title: "Head office",
           contact_numbers_attributes: {
-            "0" => {id: contact_number.id, label: "", number: "" }
+            "0" => {
+              id: contact_number.id,
+              label: contact_number.label,
+              number: contact_number.number,
+              _destroy: 'true'
+            }
           }
         },
       },
