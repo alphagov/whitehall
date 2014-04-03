@@ -231,6 +231,26 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
     assert_equal ["Main phone: 5678"], office.contact.reload.contact_numbers.reload.map { |cn| "#{cn.label}: #{cn.number}" }
   end
 
+  test "PUT :update deletes contact numbers that have only blank fields" do
+    worldwide_organisation, office = create_worldwide_organisation_and_office
+    contact_number = office.contact.contact_numbers.create(label: "Phone", number: "1234")
+
+    put :update,
+      worldwide_office: {
+        contact_attributes: {
+          id: office.contact.id,
+          title: "Head office",
+          contact_numbers_attributes: {
+            "0" => {id: contact_number.id, label: "", number: "" }
+          }
+        },
+      },
+      id: office,
+      worldwide_organisation_id: worldwide_organisation
+
+    refute ContactNumber.exists?(contact_number)
+  end
+
   test "POST on :remove_from_home_page removes office from the home page of the worldwide organisation" do
     worldwide_organisation, office = create_worldwide_organisation_and_office
     worldwide_organisation.add_office_to_home_page!(office)

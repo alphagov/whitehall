@@ -72,7 +72,7 @@ private
                     :id, :title, :contact_type_id, :comments, :recipient,
                     :street_address, :locality, :region, :postal_code,
                     :country_id, :email, :contact_form_url,
-                    contact_numbers_attributes: [:id, :label, :number]])
+                    contact_numbers_attributes: [:id, :label, :number, :_destroy]])
   end
 
   def destroy_blank_contact_numbers
@@ -80,7 +80,9 @@ private
       attributes.except(:id).values.all?(&:blank?)
     end
 
-    blank_numbers.each { |_, attributes| attributes[:_destroy] = "1" }
+    blank_numbers.each do |id, attributes|
+      params[:worldwide_office][:contact_attributes][:contact_numbers_attributes][id][:_destroy] = "1"
+    end
   end
 
   def contact_number_params
