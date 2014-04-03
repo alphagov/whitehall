@@ -250,8 +250,9 @@ class Import < ActiveRecord::Base
     end
   end
 
-  def document_imported_after(document)
-    documents[documents.index(document).next]
+  def document_imported_before(document)
+    document_index = documents.index(document)
+    document_index > 0 ? documents[document_index - 1] : nil
   end
 
   def self.use_separate_connection

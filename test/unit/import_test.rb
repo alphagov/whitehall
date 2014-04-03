@@ -214,7 +214,7 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
-  test "#document_imported_after returns the next document imported" do
+  test "#document_imported_before returns the previous document imported" do
     example_url = 'http://example.com/1'
     import = perform_import(csv_data: consultation_csv_sample(
       {"old_url" => "http://example.br"},
@@ -222,7 +222,17 @@ class ImportTest < ActiveSupport::TestCase
     ))
 
     first_document, second_document = *import.documents
-    assert_equal second_document, import.document_imported_after(first_document)
+    assert_equal first_document, import.document_imported_before(second_document)
+  end
+
+  test "#document_imported_before returns nil when passed the first imported document to prevent looping" do
+    example_url = 'http://example.com/1'
+    import = perform_import(csv_data: consultation_csv_sample(
+      {"old_url" => "http://example.br"},
+      [{"old_url" => "http://example.fr"}]
+    ))
+
+    assert_nil import.document_imported_before(import.documents.first)
   end
 
   test 'logs failure if save unsuccessful' do
@@ -380,28 +390,33 @@ class ImportTest < ActiveSupport::TestCase
     assert import.force_publishable?
   end
 
-  test 'force_publish! will create and enqueue a new ForcePublicationAttempt' do
-    import = perform_import
-    import.imported_editions.map { |e| e.convert_to_draft! }
+  test 'force_publish! will create and enqueue a new ImportForcePublicationAttemptWorker job' do
+    Sidekiq::Testing.fake! do
+      import = perform_import
+      import.imported_editions.map { |e| e.convert_to_draft! }
 
-    import.force_publish!
-    attempt = import.force_publication_attempts.first
-    assert_not_nil attempt
-    assert_equal Time.zone.now, attempt.enqueued_at
+      import.force_publish!
+      assert attempt = import.force_publication_attempts.first
+      assert_equal Time.zone.now, attempt.enqueued_at
+
+      assert_equal 1, ImportForcePublicationAttemptWorker.jobs.size
+    end
   end
 
   test 'most_recent_force_publication_attempt is the last created ForcePublicationAttempt' do
-    import = perform_import
-    import.imported_editions.map { |e| e.convert_to_draft! }
+    Sidekiq::Testing.fake! do
+      import = perform_import
+      import.imported_editions.map { |e| e.convert_to_draft! }
 
-    import.force_publish!
-    attempt1 = import.force_publication_attempts.first
-    import.force_publish!
-    attempt2 = import.force_publication_attempts.last
-    import.force_publish!
-    attempt3 = import.force_publication_attempts.last
+      import.force_publish!
+      import.force_publish!
+      import.force_publish!
 
-    assert_equal attempt3, import.most_recent_force_publication_attempt
+      assert_equal 3, import.force_publication_attempts.size
+      attempt3 = import.force_publication_attempts.last
+
+      assert_equal attempt3, import.most_recent_force_publication_attempt
+    end
   end
 
   test "#destroy also destroys all imported documents" do

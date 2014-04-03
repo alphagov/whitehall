@@ -4,7 +4,7 @@ module DocumentHelper
   include DocumentCollectionHelper
   include MinisterialRolesHelper
   include PolicyHelper
-  include PolicyAdvisoryGroupsHelper
+  include PolicyGroupsHelper
   include RoleAppointmentsHelper
   include TopicsHelper
   include TranslationHelper
@@ -188,7 +188,7 @@ Details of document required:
     link_to native_language_name_for(locale), locale: locale
   end
 
-  def document_metadata(document, policies = [], topics = [], links_only = false)
+  def document_metadata(document, policies = [], topics = [], sector_tag_finder = nil, links_only = false)
     metadata = []
     if policies.any?
       metadata << {
@@ -209,6 +209,13 @@ Details of document required:
         title: t('document.headings.topical_events', count: document.topical_events.length),
         data: array_of_links_to_topical_events(document.topical_events),
         classes: ['document-topical-events']
+      }
+    end
+    if sector_tag_finder && (all_sectors = sector_tag_finder.sectors_and_subsectors).any?
+      metadata << {
+        title: t('document.headings.sectors', count: all_sectors.length),
+        data: array_of_links_to_sectors(all_sectors),
+        classes: ['document-sectors']
       }
     end
     if !(document.respond_to?(:statistics?) && document.statistics?)
@@ -273,18 +280,11 @@ Details of document required:
         classes: ['document-inapplicable-nations']
       }
     end
-    if document.respond_to?(:policy_teams) && document.policy_teams.any?
+    if document.respond_to?(:policy_groups) && document.policy_groups.any?
       metadata << {
-        title: t('document.headings.policy_team'),
-        data: document.policy_teams.map { |policy_team| link_to(policy_team.name, policy_team) },
-        classes: ["document-policy-team"]
-      }
-    end
-    if document.respond_to?(:policy_advisory_groups) && document.policy_advisory_groups.any?
-      metadata << {
-        title: t('document.headings.advisory_groups'),
-        data: array_of_links_to_policy_advisory_groups(document.policy_advisory_groups),
-        classes: ["document-policy-advisory-groups"]
+        title: t('document.headings.groups'),
+        data: array_of_links_to_policy_groups(document.policy_groups),
+        classes: ["document-policy-groups"]
       }
     end
     if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?

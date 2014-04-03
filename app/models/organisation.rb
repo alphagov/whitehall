@@ -334,6 +334,104 @@ class Organisation < ActiveRecord::Base
     name
   end
 
+  def alternate_style_top_tasks
+    case slug
+    when 'driver-and-vehicle-licensing-agency'
+      {
+        services_in: [
+          {
+            path: '/browse/driving',
+            text: 'Driving and transport',
+          }
+        ],
+        prominent: [
+          {
+            path: '/tax-disc',
+            text: 'Get a tax disc for your vehicle',
+            description: 'You will need your numberplate, a credit/debit card and either your tax disc renewal reminder or your vehicle logbook.'
+          },
+          {
+            path: '/vehicle-registration-certificate-v5c-log-book',
+            text: 'Get a V5C (logbook)',
+            description: 'Apply by phone or post to get a replacement V5C vehicle registration certificate (log book). There is a £25 fee.'
+          }
+        ],
+        top_tasks: [
+          {
+            path: '/register-sorn-statutory-off-road-notification',
+            text: 'Make a SORN'
+          },
+          {
+            path: '/change-address-driving-licence',
+            text: 'Change the address on your driving licence'
+          },
+          {
+            path: '/get-vehicle-information-from-dvla',
+            text: 'Get vehicle information from DVLA'
+          }
+        ]
+      }
+    when 'uk-visas-and-immigration'
+      {
+        services_in: [
+          {
+            path: '/immigration-operational-guidance',
+            text: "UKVI's operational guidance"
+          },
+          {
+            path: '/government/collections/immigration-rules',
+            text: 'The current Immigration Rules'
+          },
+        ],
+        prominent: [
+          {
+            path: '/visas-immigration',
+            text: 'Visas, settlement and asylum',
+            description: 'Information on different UK visas, how to settle in the UK and claiming asylum.'
+          },
+          {
+            path: '/browse/visas-immigration/eu-eea-commonwealth',
+            text: 'European nationals',
+            description: 'Living and working in the UK for EU and EEA nationals, their partners and family.'
+          },
+          {
+            path: '/browse/citizenship/citizenship',
+            text: 'British citizenship',
+            description: 'How to become a British citizen and types of UK nationality.'
+          }
+        ]
+      }
+    when 'environment-agency'
+      {
+        services_in: [
+          {
+            path: '/environmental-management',
+            text: 'Comply with environmental regulations'
+          },
+        ],
+        prominent: [
+          {
+            path: '/check-if-youre-at-risk-of-flooding',
+            text: 'Flood warnings',
+            description: 'Check flood warnings in your area'
+          },
+          {
+            path: '/browse/environment-countryside/recycling-waste-management',
+            text: 'Business and commercial waste',
+            description: 'What to do with waste you produce in your business'
+          },
+          {
+            path: '/browse/environment-countryside',
+            text: 'Environment, boating and fishing',
+            description: 'Buy your rod licence online and register your boat'
+          },
+        ]
+      }
+    else
+      {}  
+    end
+  end
+
   private
 
   def sub_organisations_must_have_a_parent

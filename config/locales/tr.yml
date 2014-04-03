@@ -20,16 +20,7 @@ tr:
         file:
       detailed_guide:
         primary_mainstream_category: Ayrıntılı Temel Kılavuz Kategorisi
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -108,7 +99,6 @@ tr:
       published:
       updated:
     headings:
-      advisory_groups: Danışma Grubu
       applies_to_nations: Uygulandığı Alanlar
       attachments:
         one: Belge
@@ -117,6 +107,7 @@ tr:
         one: Seriler
         other:
       field_of_operation: Faaliyet Alanı
+      groups: Danışma Grubu
       live_data: Canlı veri
       location:
       ministers:
@@ -128,7 +119,9 @@ tr:
       policies:
         one: Politika
         other: Politikalar
-      policy_team: Politika Takımı
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

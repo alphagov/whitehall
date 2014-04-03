@@ -92,11 +92,6 @@ module Whitehall::DocumentFilter
       assert_equal filtered_scope, filter.documents
     end
 
-    test "keywords param sets the keywords attribute" do
-      filter = Whitehall::DocumentFilter::Mysql.new(keywords: "alpha beta")
-      assert_equal %w(alpha beta), filter.keywords
-    end
-
     test "keywords param does not filter if no keywords were given" do
       document_scope.expects(:with_title_or_summary_containing).never
       create_filter(document_scope, keywords: '')
@@ -113,20 +108,6 @@ module Whitehall::DocumentFilter
       create_filter(document_scope, {})
     end
 
-    test "defaults pagination to the first page if a page is not specified" do
-      filtered_scope = stub_document_scope('filtered scope')
-      document_scope.expects(:page).with(1).returns(filtered_scope)
-      filter = create_filter(document_scope, page: nil)
-    end
-
-    test "strips leading and trailing spaces from keywords" do
-      filtered_scope = stub_document_scope('filtered scope')
-      document_scope.expects(:with_title_or_summary_containing).with("alpha", "beta").returns(filtered_scope)
-      filter = create_filter(document_scope, keywords: " alpha   beta ")
-
-      assert_equal filtered_scope, filter.documents
-    end
-
     test "date param allows filtering after a date" do
       document_scope.expects(:published_after).with(Date.new(2012, 1, 1)).returns(document_scope)
       create_filter(document_scope, from_date: "2012-01-01 12:23:45")
@@ -135,15 +116,6 @@ module Whitehall::DocumentFilter
     test "date param allows filtering before a date" do
       document_scope.expects(:published_before).with(Date.new(2012, 1, 1)).returns(document_scope)
       create_filter(document_scope, to_date: "2012-01-01 12:23:45")
-    end
-
-    test "date param sets date attribute" do
-      assert_equal Date.new(2012, 1, 1),Whitehall::DocumentFilter::Mysql.new(from_date: "2012-01-01 12:23:45").from_date
-      assert_equal Date.new(2012, 1, 1), Whitehall::DocumentFilter::Mysql.new(to_date: "2012-01-01 12:23:45").to_date
-    end
-
-    test "invalid date param sets date attribute to nil" do
-      assert_equal nil, Whitehall::DocumentFilter::Mysql.new(from_date: "invalid-date").from_date
     end
 
     test "publication_type param filters by publication type" do
@@ -165,20 +137,6 @@ module Whitehall::DocumentFilter
 
       filter = create_filter(document_scope, publication_filter_option: publication_filter_option.slug)
       assert_equal filtered_scope, filter.documents
-    end
-
-    test "publication_filter_option param sets #selected_publication_filter_option" do
-      publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
-      filter = create_filter(document_scope, publication_filter_option: publication_filter_option.slug)
-
-      assert_equal publication_filter_option, filter.selected_publication_filter_option
-    end
-
-    test "publication_type param also sets #selected_publication_filter_option to keep old links working" do
-      publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
-      filter = create_filter(document_scope, publication_type: publication_filter_option.slug)
-
-      assert_equal publication_filter_option, filter.selected_publication_filter_option
     end
 
     test "can filter publications by location" do
@@ -247,13 +205,6 @@ module Whitehall::DocumentFilter
 
       filter = create_filter(Announcement.published, announcement_filter_option: "statements")
       assert_equal [statement.id], filter.documents.map(&:id)
-    end
-
-    test "publication_filter_option overwrites older publication_type param" do
-      publication_filter_option = stub_publication_filter_option("testing filter option - statistics")
-      filter = create_filter(document_scope, publication_type: 'foobar', publication_filter_option: publication_filter_option.slug)
-
-      assert_equal publication_filter_option, filter.selected_publication_filter_option
     end
 
     test "if page param given, returns a page of documents using page size of 20" do

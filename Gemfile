@@ -4,8 +4,6 @@ gem 'rake', '10.1.0'
 gem 'rails', '3.2.17'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
-gem 'delayed_job', '~> 4.0.0'
-gem 'delayed_job_active_record'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
@@ -25,7 +23,7 @@ gem 'addressable'
 gem 'unicorn', '4.6.2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '8.4.1'
+gem 'gds-api-adapters', '10.3.0'
 gem 'whenever', '0.9.0', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'
@@ -38,10 +36,10 @@ gem 'chronic'
 gem 'jbuilder'
 gem 'rack_strip_client_ip', '0.0.1'
 gem 'invalid_utf8_rejector', '~> 0.0.1'
-gem 'sidekiq', '2.14.1'
+gem 'sidekiq', '2.17.7'
 gem 'raindrops', '0.11.0'
 gem 'airbrake', '3.1.15'
-gem 'bad_link_finder', '~> 0.3.1'
+gem 'bad_link_finder', '0.3.2'
 
 # This sanitize fork branch fizes an issue with sanitize seeing colons in ids (when used as anchor tag references in an href)
 # as links with protocols. This has been fixed and merged in rgrove's Sanitize, but will only be released with version 2.1.
@@ -71,6 +69,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'thin', '1.5.1'
   gem 'newrelic_rpm'
   gem 'quiet_assets'

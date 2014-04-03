@@ -31,6 +31,7 @@
       $(document).trigger('govuk.hideDepartmentChildren.hideAll');
       filter.$filterItems.hide();
       $(itemsToShow).show();
+      filter.hideTransitionStateVisualisations(search);
       filter.hideEmptyBlocks(itemsToShow);
       filter.track(search);
     },
@@ -39,7 +40,7 @@
       filter._trackTimeout = root.setTimeout(function(){
         var pagePath = window.location.pathname.split('/').pop();
         if(pagePath){
-          window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', search, pagePath, true]);
+          window._gaq && _gaq.push(['_trackEvent', 'edd_inside_gov', search, pagePath, 0, true]);
         }
       }, 1000);
     },
@@ -94,6 +95,15 @@
       }
 
       return filter._terms
+    },
+    hideTransitionStateVisualisations: function(search){
+      if(search === ""){
+        // show visualisations
+        $(".transition-state-visualisation").show();
+      } else {
+        // hide visualisations
+        $(".transition-state-visualisation").hide();
+      }
     }
   };
 

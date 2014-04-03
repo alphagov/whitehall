@@ -145,7 +145,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_attachment returns the attachment associated with a policy group' do
-    advisory_group  = create(:policy_advisory_group, attachments: [
+    group  = create(:policy_group, attachments: [
       attachment = build(:file_attachment)
     ])
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)

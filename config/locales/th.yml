@@ -20,16 +20,7 @@ th:
         file:
       detailed_guide:
         primary_mainstream_category: หมวดคู่มือเบื้องต้นอย่างละเอียด
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -107,7 +98,6 @@ th:
       published:
       updated:
     headings:
-      advisory_groups: กลุ่มที่ปรึกษา
       applies_to_nations: นำไปใช้กับ
       attachments:
         one: เอกสาร
@@ -116,6 +106,7 @@ th:
         one: ตอน
         other:
       field_of_operation: ลักษณะงาน
+      groups: กลุ่มที่ปรึกษา
       live_data: ข้อมูลสด
       location:
       ministers:
@@ -127,7 +118,9 @@ th:
       policies:
         one: นโยบาย
         other: นโยบาย
-      policy_team: ทีมนโยบาย
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

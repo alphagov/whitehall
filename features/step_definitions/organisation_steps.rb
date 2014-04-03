@@ -207,7 +207,6 @@ Then(/^I should see the ministerial departments including their sub\-organisatio
     end
     within "header" do
       assert page.has_content? "1"
-      assert page.has_content? "All live on GOV.UK"
     end
   end
 end

@@ -77,12 +77,12 @@ module Searchable
 
     def update_in_search_index
       if can_index_in_search?
-        Searchable::Index.later(self)
+        Whitehall::SearchIndex.add(self)
       end
     end
 
     def remove_from_search_index
-      Searchable::Delete.later(self)
+      Whitehall::SearchIndex.delete(self)
     end
 
     def rummager_index
@@ -93,7 +93,7 @@ module Searchable
       def reindex_all
         searchable_instances
           .select { |instance| Whitehall.searchable_classes.include?(instance.class) }
-          .each { |instance|  Searchable::Index.later(instance) }
+          .each { |instance|  Whitehall::SearchIndex.add(instance) }
       end
 
       def searchable_instances
@@ -107,47 +107,6 @@ module Searchable
           end
         end
       end
-    end
-  end
-
-  class Index < Struct.new(:searchable_class_name, :searchable_id)
-    def allowed_class_names
-      Whitehall.searchable_classes.map(&:name)
-    end
-
-    def searchable_class
-      if allowed_class_names.include?(searchable_class_name)
-        searchable_class_name.constantize
-      else
-        raise ArgumentError, "#{searchable_class_name} is not an allowed class for searching"
-      end
-    end
-
-    def searchable_instance
-      @searchable_instance ||= searchable_class.find(searchable_id)
-    end
-
-    def self.later(object)
-      job = new(object.class.name, object.id)
-      Delayed::Job.enqueue job, queue: Whitehall.rummager_work_queue_name
-    end
-
-    def perform
-      if searchable_instance.can_index_in_search?
-        index = Whitehall::SearchIndex.for(searchable_instance.rummager_index)
-        index.add(searchable_instance.search_index)
-      end
-    end
-  end
-
-  class Delete < Struct.new(:link, :index)
-    def self.later(object)
-      job = new(object.searchable_options[:link].call(object), object.rummager_index)
-      Delayed::Job.enqueue job, queue: Whitehall.rummager_work_queue_name
-    end
-
-    def perform
-      Whitehall::SearchIndex.for(index).delete(link)
     end
   end
 end

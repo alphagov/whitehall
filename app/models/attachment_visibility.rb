@@ -117,7 +117,7 @@ class AttachmentVisibility
   end
 
   def visible_policy_group_scope
-    PolicyAdvisoryGroup.joins(:attachments).where(attachments: { attachment_data_id: id })
+    PolicyGroup.joins(:attachments).where(attachments: { attachment_data_id: id })
   end
 
   def consultation_ids

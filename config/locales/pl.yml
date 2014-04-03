@@ -26,6 +26,11 @@ pl:
         few:
         many:
         other: Polityki
+      sectors:
+        one:
+        few:
+        many:
+        other:
       topical_events:
         one:
         few:
@@ -46,12 +51,11 @@ pl:
         few:
         many:
         other: Organizacje na świecie
-      advisory_groups: Grupy doradcze
       applies_to_nations: Dotyczy
       field_of_operation: Obszar działania
+      groups: Grupy doradcze
       live_data: Dane pobierane na żywo
       location:
-      policy_team: Dział polityczny
     type:
       announcement:
         one: Ogłoszenie
@@ -506,16 +510,7 @@ pl:
         file:
       detailed_guide:
         primary_mainstream_category: Podstawowa kategoria szczegółowych wytycznych
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

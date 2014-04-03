@@ -20,16 +20,7 @@ ms:
         file:
       detailed_guide:
         primary_mainstream_category:
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -106,7 +97,6 @@ ms:
       published:
       updated:
     headings:
-      advisory_groups:
       applies_to_nations:
       attachments:
         one:
@@ -115,6 +105,7 @@ ms:
         one:
         other:
       field_of_operation:
+      groups:
       live_data:
       location:
       ministers:
@@ -126,7 +117,9 @@ ms:
       policies:
         one:
         other:
-      policy_team:
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

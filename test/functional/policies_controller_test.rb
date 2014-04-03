@@ -17,15 +17,13 @@ class PoliciesControllerTest < ActionController::TestCase
   should_not_show_share_links_for :policy
 
   view_test "index only lists documents in the given locale" do
-    without_delay! do
-      english_policy = create(:published_policy)
-      french_policy = create(:published_policy, translated_into: [:fr])
+    english_policy = create(:published_policy)
+    french_policy = create(:published_policy, translated_into: [:fr])
 
-      get :index, locale: 'fr'
+    get :index, locale: 'fr'
 
-      assert_select_object french_policy
-      refute_select_object english_policy
-    end
+    assert_select_object french_policy
+    refute_select_object english_policy
   end
 
   view_test "index for non-english locales does not yet allow any filtering" do
@@ -193,17 +191,11 @@ That's all
     end
   end
 
-  view_test "show displays the policy team responsible for this policy" do
-    policy_team = create(:policy_team, name: 'policy-team', email: 'policy-team@example.com')
-    policy = create(:published_policy, policy_teams: [policy_team])
+  view_test "show displays the policy group responsible for this policy" do
+    policy_group = create(:policy_group, name: 'policy-group', email: 'policy-group@example.com')
+    policy = create(:published_policy, policy_groups: [policy_group])
     get :show, id: policy.document
-    assert_select ".meta a[href='#{policy_team_path(policy_team)}']", text: 'policy-team'
-  end
-
-  view_test "show doesn't display the policy team section if the policy isn't associated with a policy team" do
-    policy = create(:published_policy)
-    get :show, id: policy.document
-    refute_select '#policy_team'
+    assert_select ".meta a[href='#{policy_group_path(policy_group)}']", text: 'policy-group'
   end
 
   view_test "activity displays the date that the policy was updated" do

@@ -5,7 +5,7 @@ class DupFilenameAttachmentFixerTest < ActiveSupport::TestCase
   include DataHygiene
 
   setup do
-    @attachable = create(:policy_advisory_group)
+    @attachable = create(:policy_group)
     @attachments = [
       @attachment_1 = build(:file_attachment, attachable: @attachable, file: file_fixture('whitepaper.pdf')),
       @attachment_2 = build(:file_attachment, attachable: @attachable, file: file_fixture('whitepaper.pdf')),

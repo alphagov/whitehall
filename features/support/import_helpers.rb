@@ -35,10 +35,6 @@ module ImportHelpers
       create(:departmental_editor, name: 'GDS Inside Government Team')
     end
   end
-
-  def run_last_force_publishing_attempt(for_import)
-    for_import.most_recent_force_publication_attempt.perform
-  end
 end
 
 World(ImportHelpers)
@@ -48,6 +44,7 @@ DatabaseCleaner.clean_with :truncation # clean once to ensure clean slate
 
 Before('@import') do
   Import.use_separate_connection
+  make_sure_gds_team_user_exists
 end
 
 After('@import') do

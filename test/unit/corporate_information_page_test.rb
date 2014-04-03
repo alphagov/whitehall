@@ -138,16 +138,16 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     c2 = build(:corporate_information_page, organisation: exempt_org)
     c3 = build(:corporate_information_page, organisation: transitioning_org)
     c4 = build(:corporate_information_page, organisation: live_org)
-    Searchable::Index.expects(:later).with(c1).never
+    Whitehall::SearchIndex.expects(:add).with(c1).never
     c1.save
 
-    Searchable::Index.expects(:later).with(c2).never
+    Whitehall::SearchIndex.expects(:add).with(c2).never
     c2.save
 
-    Searchable::Index.expects(:later).with(c3).never
+    Whitehall::SearchIndex.expects(:add).with(c3).never
     c3.save
 
-    Searchable::Index.expects(:later).with(c4).once
+    Whitehall::SearchIndex.expects(:add).with(c4).once
     c4.save
   end
 
@@ -155,7 +155,7 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     world_org = create(:worldwide_organisation)
 
     corp_page = build(:corporate_information_page, organisation: world_org)
-    Searchable::Index.expects(:later).with(corp_page).never
+    Whitehall::SearchIndex.expects(:add).with(corp_page).never
     corp_page.save
   end
 end

@@ -16,6 +16,9 @@ es-419:
       policies:
         one: Política
         other: Políticas
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ es-419:
       worldwide_organisations:
         one: Organización mundial
         other: Organizaciones mundiales
-      advisory_groups: Grupos de consulta
       applies_to_nations: Se aplica a
       field_of_operation: Terreno de operaciones
+      groups: Grupos de consulta
       live_data: Datos activos
       location:
-      policy_team: Equipo de política
     type:
       announcement:
         one: Novedades
@@ -370,16 +372,7 @@ es-419:
         file:
       detailed_guide:
         primary_mainstream_category: Categoría de orientación principal en detalle
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

@@ -39,11 +39,6 @@ When /^I force publish the import$/ do
   assert page.has_css?('.flash.notice', text: "Import #{@force_publish_import.id} queued for force publishing!")
 end
 
-When /^the force publish import background processor runs$/ do
-  make_sure_gds_team_user_exists
-  run_last_force_publishing_attempt(@force_publish_import)
-end
-
 Then /^I cannot force publish the import(?: again)?$/ do
   visit admin_imports_path
 

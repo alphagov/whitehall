@@ -16,6 +16,9 @@ el:
       policies:
         one: Πολιτική
         other: Πολιτικές
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ el:
       worldwide_organisations:
         one: Διεθνής οργανισμός
         other: Διεθνείς οργανισμοί
-      advisory_groups: Συμβουλευτικές ομάδες
       applies_to_nations: Ισχύει
       field_of_operation: Πεδίο δράσης
+      groups: Συμβουλευτικές ομάδες
       live_data: Ροή δεδομένων
       location:
-      policy_team: Ομάδα πολιτικής
     type:
       announcement:
         one: Ανακοίνωση
@@ -371,16 +373,7 @@ el:
         file:
       detailed_guide:
         primary_mainstream_category: Βασική κατηγορία οδηγιών
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

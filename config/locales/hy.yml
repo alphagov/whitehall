@@ -16,6 +16,9 @@ hy:
       policies:
         one: Քաղաքականություն
         other: Քաղաքականություններ
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ hy:
       worldwide_organisations:
         one: Համաշխարհային կազմակերպություն
         other: Համաշխարհային կազմակերպություններ
-      advisory_groups: Խորհրդակցական խմբեր
       applies_to_nations: Վերաբերվում է
       field_of_operation: Գործունեության ոլորտ
+      groups: Խորհրդակցական խմբեր
       live_data: առկա տեղեկատվություն
       location:
-      policy_team: Քաղաքական թիմ
     type:
       announcement:
         one: Հայտարարություն
@@ -370,16 +372,7 @@ hy:
         file:
       detailed_guide:
         primary_mainstream_category: Ուղեցույցի առաջնային մանրամասն կատեգորիա
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

@@ -1,30 +1,41 @@
-<aside class="heading-extra">
-  <p class="all-services">View all services in:</p>
-  <ul class="top-tasks">
-    <li><a href="https://www.gov.uk/browse/driving">Driving and transport</a></li>
-  </ul>
-</aside>
+<% if links[:services_in] %>
+  <aside class="heading-extra">
+    <p class="all-services">View all services in:</p>
+    <ul class="top-tasks">
+      <% links[:services_in].each do |link| %>
+        <li>
+          <%= link_to link[:text], link[:path] %>
+        </li>
+      <% end %>
+    </ul>
+  </aside>
+<% end -%>
 
-<section class="prominent-top-tasks">
-  <article>
-    <div class="content">
-      <h2><a href="https://www.gov.uk/tax-disc">Get a tax disc for your vehicle</a></h2>
-      <p>You will need your numberplate, a credit/debit card and either your tax disc renewal reminder or your vehicle logbook.</p>
-    </div>
-  </article>
-  <article>
-    <div class="content">
-      <h2><a href="https://www.gov.uk/vehicle-registration-certificate-v5c-log-book">Get a V5C (logbook)</a></h2>
-      <p>Apply by phone or post to get a replacement V5C vehicle registration certificate (log book). There is a &pound;25 fee.</p>
-    </div>
-  </article>
-  <article>
-    <div class="content">
-      <ul class="top-tasks">
-        <li><a href="https://www.gov.uk/register-sorn-statutory-off-road-notification">Make a SORN </a></li>
-        <li><a href="https://www.gov.uk/change-address-driving-licence">Change the address on your driving licence </a></li>
-        <li><a href="https://www.gov.uk/get-vehicle-information-from-dvla">Get vehicle information from DVLA </a></li>
-      </ul>
-    </div>
-  </article>
-</section>
+<% if links[:prominent] || links[:top_tasks] %>
+  <section class="prominent-top-tasks">
+    <% links[:prominent].each do |prominent_link| %>
+      <article>
+        <div class="content">
+          <h2>
+            <%= link_to prominent_link[:text], prominent_link[:path] %>
+          </h2>
+          <p><%= prominent_link[:description] %></p>
+        </div>
+      </article>
+    <% end -%>
+
+    <% if links[:top_tasks] %> 
+      <article>
+        <div class="content">
+          <ul class="top-tasks">
+            <% links[:top_tasks].each do |top_task| %>
+              <li>
+                <%= link_to top_task[:text], top_task[:path] %> 
+              </li>
+            <% end -%>
+          </ul>
+        </div>
+      </article>
+    <% end -%>
+  </section>
+<% end -%>

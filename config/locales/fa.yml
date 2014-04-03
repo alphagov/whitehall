@@ -20,16 +20,7 @@ fa:
         file:
       detailed_guide:
         primary_mainstream_category: دسته بندی راهنمایی های اولیه
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -108,7 +99,6 @@ fa:
       published:
       updated:
     headings:
-      advisory_groups: گروه های مشاوره ای
       applies_to_nations: در ارتباط با
       attachments:
         one: مدرک
@@ -117,6 +107,7 @@ fa:
         one: ردیف
         other:
       field_of_operation: میدان عمل
+      groups: گروه های مشاوره ای
       live_data: 'داده های لحظه ای '
       location:
       ministers:
@@ -128,7 +119,9 @@ fa:
       policies:
         one: سیاست
         other: سیاست ها
-      policy_team: تیم سیاست گذاری
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

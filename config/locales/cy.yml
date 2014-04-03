@@ -36,6 +36,13 @@ cy:
         few:
         many:
         other: Polisïau
+      sectors:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       topical_events:
         zero:
         one:
@@ -64,12 +71,11 @@ cy:
         few:
         many:
         other: Sefydliadau byd-eang
-      advisory_groups: Grwpiau cynghori
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
+      groups: Grwpiau cynghori
       live_data: Data byw
       location:
-      policy_team: Tîm polisi
     type:
       announcement:
         zero:
@@ -644,16 +650,7 @@ cy:
         file:
       detailed_guide:
         primary_mainstream_category: Prif gategori cyfarwyddyd manwl
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

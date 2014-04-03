@@ -223,6 +223,17 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'not_live'
   end
 
+  view_test "showing a closed organisation does not render the parent_organisations or the url" do
+    organisation = create(:organisation, govuk_status: 'closed')
+
+    get :show, id: organisation
+
+    assert_template 'not_live'
+    refute_select ".parent_organisations"
+    refute_select ".url_link"
+  end
+
+
   view_test "doesn't show a thumbnail if the organisation has no url" do
     organisation = create(:organisation, govuk_status: 'exempt', url: '')
 
@@ -231,6 +242,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".description a[href=?]", organisation.url
     assert_select ".thumbnail", false
   end
+
+  view_test "doesn't show a thumbnail if the organisation is closed" do
+    organisation = create(:organisation, govuk_status: 'closed', url: 'http://madeup-url.com')
+
+    get :show, id: organisation
+
+    refute_select ".description a[href=?]", organisation.url
+    assert_select ".thumbnail", false
+  end
+
 
   view_test "should not display an empty published policies section" do
     organisation = create(:organisation)

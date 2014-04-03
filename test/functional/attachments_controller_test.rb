@@ -44,7 +44,7 @@ class AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'attachments on policy groups are always visible' do
-    attachment = create(:file_attachment, attachable: create(:policy_advisory_group))
+    attachment = create(:file_attachment, attachable: create(:policy_group))
     attachment_data = attachment.attachment_data
 
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
@@ -204,7 +204,7 @@ class AttachmentsControllerTest < ActionController::TestCase
 
 
   test "preview is not possible on CSV attachments on non-Editions" do
-    attachment      = create(:csv_attachment, attachable: create(:policy_advisory_group))
+    attachment      = create(:csv_attachment, attachable: create(:policy_group))
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 

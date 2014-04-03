@@ -21,6 +21,10 @@ cs:
         one: Politika
         few:
         other: Politiky
+      sectors:
+        one:
+        few:
+        other:
       topical_events:
         one:
         few:
@@ -37,12 +41,11 @@ cs:
         one: Světová organizace
         few:
         other: Světové organizace
-      advisory_groups: Poradní skupiny
       applies_to_nations: Týká se
       field_of_operation: Oblast působnosti
+      groups: Poradní skupiny
       live_data: Aktuální data
       location:
-      policy_team: Odpovědný tým
     type:
       announcement:
         one: Oznámení
@@ -438,16 +441,7 @@ cs:
         file:
       detailed_guide:
         primary_mainstream_category: Návod
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

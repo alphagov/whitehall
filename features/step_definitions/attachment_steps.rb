@@ -36,7 +36,7 @@ Then /^the virus checked image will be available for viewing$/ do
 end
 
 When(/^I start editing the attachments from the .*? page$/) do
-  click_on 'Edit attachments'
+  click_on 'Modify attachments'
 end
 
 When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/) do |title, fixture_file_name|
@@ -56,7 +56,7 @@ end
 
 When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
-  click_on 'Edit attachments'
+  click_on 'Modify attachments'
   click_on 'Upload new file attachment'
   attach_file 'File', Rails.root+"test/fixtures/greenpaper.pdf"
   click_on 'Save'

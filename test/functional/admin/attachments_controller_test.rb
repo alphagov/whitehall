@@ -28,7 +28,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       consultation_outcome: :response_id,
       consultation_public_feedback: :response_id,
       corporate_information_page: :corporate_information_page_id,
-      policy_advisory_group: :policy_advisory_group_id,
+      policy_group: :policy_group_id,
     }
   end
 
@@ -72,6 +72,15 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       assert_response :redirect
       refute Attachment.exists?(attachment), 'attachment should have been deleted'
     end
+  end
+
+  test "POST :create handles duplicate ordering key exceptions" do
+    attachable = create(:edition)
+    FileAttachment.any_instance.expects(:save).raises(Mysql2::Error, "Duplicate entry 'GenericEdition-1234-56' for key 'no_duplicate_attachment_orderings'")
+
+    post :create, edition_id: attachable.id, attachment: valid_attachment_params
+
+    assert_redirected_to admin_edition_attachments_url(attachable)
   end
 
   view_test 'GET :index shows html attachments' do
@@ -215,6 +224,32 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     refute_equal old_data, attachment.attachment_data
     assert_equal attachment.attachment_data, old_data.replaced_by
     assert_equal 'whitepaper.pdf',  attachment.filename
+  end
+
+  test "PUT :update_many changes attributes of multiple attachments" do
+    files = Dir.glob(Rails.root.join('test', 'fixtures', '*.csv')).take(4)
+    files.each_with_index do |f, i|
+      create(:file_attachment, title: "attachment_%s" % i, attachable: @edition, file: File.open(f))
+    end
+    attachments = @edition.reload.attachments
+
+    # append '_' to every attachment title in the collection
+    new_data = attachments.map {|a| [ a.id.to_s, { title: a.title + '_' } ] }
+    put :update_many, edition_id: @edition, attachments: Hash[new_data]
+
+    @edition.reload.attachments.each do |attachment|
+      assert_match(/.+_$/, attachment.title)
+    end
+  end
+
+  test "update_many returns validation errors in JSON" do
+    attachment = create(:file_attachment, attachable: @edition)
+
+    new_data = { attachment.id.to_s => { title: "" } }
+    put :update_many, edition_id: @edition, attachments: new_data
+
+    response_json = JSON.parse(@response.body)
+    assert_equal ["Title can't be blank"], response_json["errors"][attachment.id.to_s]
   end
 
   test 'attachment access is forbidden for users without access to the edition' do

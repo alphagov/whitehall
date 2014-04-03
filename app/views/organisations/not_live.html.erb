@@ -23,16 +23,17 @@
     <div class="inner-block">
       <div class="description">
         <%= govspeak_to_html @organisation.description %>
+        <% unless @organisation.closed? %>
         <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
-
         <p><%= link_to @organisation.url, @organisation.url, class: 'url-link' %></p>
+        <% end %>
       </div>
     </div>
   </div>
 
   <div class="block-3">
     <div class="inner-block">
-      <% if @organisation.url.present? %>
+      <% if !@organisation.closed? && @organisation.url.present? %>
         <section class="thumbnail">
           <%= link_to image_tag(organisation_site_thumbnail_path(@organisation), size: '287x215', alt: 'Thumbnail screenshot of website'), @organisation.url, title: "Open the current #{@organisation.name} website" %>
         </section>

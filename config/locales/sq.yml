@@ -16,6 +16,9 @@ sq:
       policies:
         one: Politike
         other: Politika
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ sq:
       worldwide_organisations:
         one: Organizate boterore
         other: Organizata boterore
-      advisory_groups: Grupe keshillues
       applies_to_nations: Zbatohet mbi
       field_of_operation: Fusha e veprimit
+      groups: Grupe keshillues
       live_data: Te dhena direkte
       location:
-      policy_team: Skuadra e politikave
     type:
       announcement:
         one: Lajmerim
@@ -370,16 +372,7 @@ sq:
         file:
       detailed_guide:
         primary_mainstream_category: kategori primare udhezimesh te detajuara
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

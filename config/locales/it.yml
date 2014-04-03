@@ -16,6 +16,9 @@ it:
       policies:
         one: Politica
         other: Politiche
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ it:
       worldwide_organisations:
         one: Organizzazione internazionale
         other: Organizzazioni internazionali
-      advisory_groups: Gruppi di consulenza
       applies_to_nations: Valido per
       field_of_operation: Settore di lavoro
+      groups: Gruppi di consulenza
       live_data: Live data
       location:
-      policy_team: Personale politico
     type:
       announcement:
         one: Annuncio
@@ -370,16 +372,7 @@ it:
         file:
       detailed_guide:
         primary_mainstream_category: Categoria principale indicazioni dettagliate
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

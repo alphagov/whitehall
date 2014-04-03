@@ -20,16 +20,7 @@ ko:
         file:
       detailed_guide:
         primary_mainstream_category: 상세 안내 카테고리
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:
@@ -107,7 +98,6 @@ ko:
       published:
       updated:
     headings:
-      advisory_groups: 자문 그룹
       applies_to_nations: 적용
       attachments:
         one: 문서
@@ -116,6 +106,7 @@ ko:
         one: 시리즈
         other:
       field_of_operation: 오퍼레이션 필드
+      groups: 자문 그룹
       live_data: 라이브 데이터
       location:
       ministers:
@@ -127,7 +118,9 @@ ko:
       policies:
         one: 정책
         other: 정책
-      policy_team: 정책팀
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:

@@ -16,6 +16,9 @@ de:
       policies:
         one: Politik
         other: Politik
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ de:
       worldwide_organisations:
         one: Weltweite Organisation
         other: Weltweite Organisationen
-      advisory_groups: Beratergruppen
       applies_to_nations: Gilt für
       field_of_operation: Einsatzbereich
+      groups: Beratergruppen
       live_data: Live-Daten
       location:
-      policy_team: Ressort
     type:
       announcement:
         one: Meldung
@@ -370,16 +372,7 @@ de:
         file:
       detailed_guide:
         primary_mainstream_category: Kategorie detaillierte Hinweise
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

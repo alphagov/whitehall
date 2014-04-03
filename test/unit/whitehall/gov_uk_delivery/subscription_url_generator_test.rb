@@ -327,6 +327,12 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     )
   end
 
+  test '#subscription_urls handles speeches that have a person override instead of a role appointment' do
+    @edition = create(:speech, role_appointment: nil, person_override: 'The Queen')
+
+    assert_subscription_urls_for_edition_include('announcements.atom')
+  end
+
   test '#subscription_urls includes relevant_to_local_government variations' do
     role_appointment = create(:ministerial_role_appointment)
     role = role_appointment.role

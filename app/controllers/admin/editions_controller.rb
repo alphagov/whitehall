@@ -129,16 +129,16 @@ class Admin::EditionsController < Admin::BaseController
     # infer the next action the user wants to take
     # from the button they pressed to submit the form
     if params[:speed_save_convert] || params[:speed_save_next]
-      next_imported_document_path
+      previously_imported_document_path
     else
       show_or_edit_path
     end
   end
 
-  def next_imported_document_path
+  def previously_imported_document_path
     import = Import.source_of(@edition.document)
-    next_document = import.document_imported_after(@edition.document) if import
-    return admin_edition_path(next_document.latest_edition) if next_document
+    previous_document = import.document_imported_before(@edition.document) if import
+    return admin_edition_path(previous_document.latest_edition) if previous_document
 
     admin_editions_path(session_filters.merge(state: :imported))
   end
@@ -184,8 +184,7 @@ class Admin::EditionsController < Admin::BaseController
       outbound_related_document_ids: [],
       role_appointment_ids: [],
       statistical_data_set_document_ids: [],
-      policy_team_ids: [],
-      policy_advisory_group_ids: [],
+      policy_group_ids: [],
       document_collection_group_ids: [],
       images_attributes: [
         :id, :alt_text, :caption, :_destroy,

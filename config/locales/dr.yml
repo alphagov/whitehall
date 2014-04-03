@@ -16,6 +16,9 @@ dr:
       policies:
         one: پالیسی
         other: پالیسی ها
+      sectors:
+        one:
+        other:
       topical_events:
         one:
         other:
@@ -28,12 +31,11 @@ dr:
       worldwide_organisations:
         one: سازمان جهانی
         other: سازمان های جهانی
-      advisory_groups: گروپ های مشورتی
       applies_to_nations: اطلاق میشود به
       field_of_operation: بخش عملیاتی
+      groups: گروپ های مشورتی
       live_data: معلومات زنده
       location:
-      policy_team: تیم پالیسی
     type:
       announcement:
         one: اعلان
@@ -370,16 +372,7 @@ dr:
         file:
       detailed_guide:
         primary_mainstream_category: کتگوری رهنمود مفصل ابتدائی
-      policy_advisory_group/policy_group_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number:
-        isbn:
-        order_url:
-        price:
-        title:
-        unique_reference:
-        unnumbered_hoc_paper:
-      policy_advisory_group/policy_group_attachments/attachment/attachment_data:
+      policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
         command_paper_number:

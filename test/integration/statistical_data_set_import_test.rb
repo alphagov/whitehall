@@ -22,9 +22,7 @@ class StatisticalDataSetImportTest < ActiveSupport::TestCase
     import = Import.create_from_file(creator, file, "statistical_data_set", organisation.id)
     assert import.valid?, import.errors.full_messages.join(", ")
 
-    without_delay! do
-      import.perform
-    end
+    import.perform
 
     assert_equal [], import.import_errors
 
