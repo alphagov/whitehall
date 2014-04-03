@@ -14,18 +14,11 @@
     togglePrecision: function() {
       if ($(this).is(':checked')) {
         StatisticsAnnouncementDateForm.fixToExactPrecision();
-      } else {
-        StatisticsAnnouncementDateForm.enablePrecision();
       };
     },
 
     fixToExactPrecision: function() {
       $('input[name="' + StatisticsAnnouncementDateForm.model_name +'[precision]"][value="0"]').prop('checked', true);
-      StatisticsAnnouncementDateForm.$precisionInputs.prop('disabled', true);
-    },
-
-    enablePrecision: function() {
-      StatisticsAnnouncementDateForm.$precisionInputs.prop('disabled', false);
     }
   };
 
