@@ -1,5 +1,3 @@
-module AddressFormatter
-  autoload :Text, 'address_formatter/text'
-  autoload :HCard, 'address_formatter/h_card'
-  autoload :Json, 'address_formatter/json'
-end
+require 'address_formatter/text'
+require 'address_formatter/h_card'
+require 'address_formatter/json'
