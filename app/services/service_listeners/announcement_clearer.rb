@@ -2,7 +2,7 @@ module ServiceListeners
   AnnouncementClearer = Struct.new(:edition) do
     def clear!
       if announced_statistics?
-        Searchable::Delete.later(statistics_announcement)
+        Whitehall::SearchIndex.delete(statistics_announcement)
       end
     end
 

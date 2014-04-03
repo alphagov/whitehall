@@ -48,14 +48,16 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
   end
 
   test 'is indexed for search after being saved' do
-    assert_indexed_for_search create(:statistics_announcement)
+    Whitehall::SearchIndex.stubs(:add)
+    Whitehall::SearchIndex.expects(:add).with { |instance| instance.is_a?(StatisticsAnnouncement) && instance.title = 'indexed announcement' }
+    create(:statistics_announcement, title: 'indexed announcement')
   end
 
   test 'is removed from search after being deleted' do
     announcement = create(:statistics_announcement)
-    announcement.destroy
 
-    assert_deleted_from_search_index announcement
+    Whitehall::SearchIndex.expects(:delete).with(announcement)
+    announcement.destroy
   end
 
   test 'only valid when associated publication is of a matching type' do
