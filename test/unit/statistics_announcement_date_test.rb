@@ -12,9 +12,9 @@ class StatisticsAnnouncementDateTest < ActiveSupport::TestCase
   test '#display_date gives exact date when precision is :exact' do
     annoucement_date = build(:statistics_announcement_date,
       precision: StatisticsAnnouncementDate::PRECISION[:exact],
-      release_date: Time.new(2013,11,10,9, 30))
+      release_date: Time.new(2013,11,10,9,30))
 
-    assert_equal '10 November 2013 09:30', annoucement_date.display_date
+    assert_equal '10 November 2013 9:30am', annoucement_date.display_date
   end
 
   test '#display_date gives month of release when precision is :one_month' do

@@ -47,7 +47,7 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert_redirected_to admin_statistics_announcement_url(@announcement)
     assert_equal new_date, @announcement.release_date
     assert @announcement.confirmed?
-    assert_equal '11 May 2013 09:30', @announcement.display_date
+    assert_equal '11 May 2013 9:30am', @announcement.display_date
     assert_equal 'Delayed due to unexpected beard growth', @announcement.last_change_note
     assert_equal @user, @announcement.statistics_announcement_dates.last.creator
   end

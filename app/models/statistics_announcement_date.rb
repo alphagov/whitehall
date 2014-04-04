@@ -11,7 +11,7 @@ class StatisticsAnnouncementDate < ActiveRecord::Base
   def display_date
     case precision
     when PRECISION[:exact]
-      release_date.to_s(:long_ordinal)
+      release_date.to_s(:date_with_time)
     when PRECISION[:one_month]
       release_date.to_s(:one_month_precision)
     when PRECISION[:two_month]
