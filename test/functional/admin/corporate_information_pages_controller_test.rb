@@ -25,9 +25,9 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     get :new, organisation_id: @organisation
 
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']" do
-      assert_select "textarea[name='corporate_information_page[body]']"
-      assert_select "textarea[name='corporate_information_page[summary]']"
-      assert_select "select[name='corporate_information_page[type_id]']"
+      assert_select "textarea[name='edition[body]']"
+      assert_select "textarea[name='edition[summary]']"
+      assert_select "select[name='edition[corporate_information_page_type_id]']"
       assert_select "input[type='submit']"
     end
   end
@@ -40,7 +40,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert page = @organisation.corporate_information_pages.last
     assert_equal "#{page.title} created successfully", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
-    assert_equal corporate_information_page_attributes[:type_id], page.type_id
+    assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
@@ -53,7 +53,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert page = organisation.corporate_information_pages.last
     assert_equal "#{page.title} created successfully", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
-    assert_equal corporate_information_page_attributes[:type_id], page.type_id
+    assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
   end
 
@@ -69,9 +69,9 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     get :edit, organisation_id: @organisation, id: corporate_information_page
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
-      assert_select "textarea[name='corporate_information_page[body]']", corporate_information_page.body
-      assert_select "textarea[name='corporate_information_page[summary]']", corporate_information_page.summary
-      assert_select "select[name='corporate_information_page[type_id]']", count: 0
+      assert_select "textarea[name='edition[body]']", corporate_information_page.body
+      assert_select "textarea[name='edition[summary]']", corporate_information_page.summary
+      assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
       assert_select "input[type='submit']"
     end
   end
@@ -94,9 +94,9 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_match /^There was a problem:/, flash[:alert]
 
     assert_select "form[action='#{admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)}']" do
-      assert_select "textarea[name='corporate_information_page[body]']", new_attributes[:body]
-      assert_select "textarea[name='corporate_information_page[summary]']", new_attributes[:summary]
-      assert_select "select[name='corporate_information_page[type_id]']", count: 0
+      assert_select "textarea[name='edition[body]']", new_attributes[:body]
+      assert_select "textarea[name='edition[summary]']", new_attributes[:summary]
+      assert_select "select[name='edition[corporate_information_page_type_id]']", count: 0
       assert_select "input[type='submit']"
     end
   end
@@ -112,7 +112,7 @@ private
   def corporate_information_page_attributes(overrides = {})
     {
       body: "This is the body",
-      type_id: CorporateInformationPageType::TermsOfReference.id,
+      corporate_information_page_type_id: CorporateInformationPageType::TermsOfReference.id,
       summary: "This is the summary"
     }.merge(overrides)
   end
