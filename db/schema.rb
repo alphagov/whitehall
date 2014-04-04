@@ -96,6 +96,9 @@ ActiveRecord::Schema.define(:version => 20140409111430) do
     t.integer  "ordering"
     t.integer  "classification_featuring_image_data_id"
     t.string   "alt_text"
+    t.string   "offsite_title"
+    t.text     "offsite_summary"
+    t.string   "offsite_url"
   end
 
   add_index "classification_featurings", ["classification_featuring_image_data_id"], :name => "index_cl_feat_on_edition_org_image_data_id"
