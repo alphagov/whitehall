@@ -22,12 +22,13 @@
 <%= contact_form.text_field :email, horizontal: true %>
 <%= contact_form.text_field :contact_form_url, horizontal: true %>
 
-<fieldset class="contact_numbers">
+<fieldset class="contact_numbers js-duplicate-fields">
   <legend>Phone numbers</legend>
   <%= contact_form.fields_for :contact_numbers, contact_form.object.contact_numbers do |contact_number_form| %>
-    <fieldset class="contact_number well">
+    <fieldset class="contact_number well js-duplicate-fields-set">
       <%= contact_number_form.text_field :label, horizontal: true %>
-       <%= contact_number_form.text_field :number, horizontal: true %>
+      <%= contact_number_form.text_field :number, horizontal: true %>
+      <%= contact_number_form.hidden_field :_destroy, class: 'js-hidden-destroy' %>
     </fieldset>
   <% end %>
 </fieldset>

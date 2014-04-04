@@ -1,7 +1,6 @@
 class Admin::WorldwideOfficesController < Admin::BaseController
   before_filter :find_worldwide_organisation
   before_filter :find_worldwide_office, only: [:edit, :update, :destroy, :add_to_home_page, :remove_from_home_page]
-  before_filter :destroy_blank_contact_numbers, only: [:create, :update]
 
   def index
   end
@@ -72,19 +71,6 @@ private
                     :id, :title, :contact_type_id, :comments, :recipient,
                     :street_address, :locality, :region, :postal_code,
                     :country_id, :email, :contact_form_url,
-                    contact_numbers_attributes: [:id, :label, :number]])
-  end
-
-  def destroy_blank_contact_numbers
-    blank_numbers = contact_number_params.select do |_, attributes|
-      attributes.except(:id).values.all?(&:blank?)
-    end
-
-    blank_numbers.each { |_, attributes| attributes[:_destroy] = "1" }
-  end
-
-  def contact_number_params
-    worldwide_office_params.fetch(:contact_attributes, {})
-                           .fetch(:contact_numbers_attributes, {})
+                    contact_numbers_attributes: [:id, :label, :number, :_destroy]])
   end
 end
