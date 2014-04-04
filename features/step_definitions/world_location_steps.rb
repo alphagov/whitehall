@@ -36,6 +36,11 @@ Given /^an? (world location|international delegation) "([^"]*)" exists with a tr
   translation.save!
 end
 
+Given(/^I have an offsite link "(.*?)" for the world location "(.*?)"$/) do |title, world_location_name|
+  world_location = WorldLocation.find_by_name(world_location_name)
+  @offsite_link = create :offsite_link, title: title, parent: world_location
+end
+
 When /^I view the (?:world location|international delegation) "([^"]*)"$/ do |name|
   world_location = WorldLocation.find_by_name!(name)
   visit world_location_path(world_location)
@@ -66,6 +71,31 @@ end
 
 When /^I feature the news article "([^"]*)" for (?:world location|international delegation) "([^"]*)"(?: with image "([^"]*)")?$/ do |news_article_title, world_location_name, image_filename|
   feature_news_article_in_world_location(news_article_title, world_location_name, image_filename)
+end
+
+When(/^I feature the offsite link "(.*?)" for  world location "(.*?)" with image "(.*?)"$/) do |offsite_link_title, world_location_name, image_filename|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  visit admin_world_location_path(world_location)
+  click_link "Features"
+  offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  within record_css_selector(offsite_link) do
+    click_link "Feature"
+  end
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :feature_alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
+When(/^I add the offsite link "(.*?)" of type "(.*?)" to the world location "(.*?)"$/) do |title, type, location_name|
+  world_location = WorldLocation.find_by_name!(location_name)
+  visit admin_world_location_path(world_location)
+  click_link "Features (English)"
+  click_link "Create an offsite link"
+  fill_in :offsite_link_title, with: title
+  select type, from: 'offsite_link_link_type'
+  fill_in :offsite_link_summary, with: "summary"
+  fill_in :offsite_link_url, with: "http://gov.uk"
+  click_button "Save"
 end
 
 When /^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/ do |name, table|
@@ -152,9 +182,25 @@ When /^I feature "([^"]*)" on the english "([^"]*)" page$/ do |title, overseas_t
   feature_news_article_in_world_location(title, overseas_territory_name)
 end
 
+When(/^I stop featuring the offsite link "(.*?)" for the world location "(.*?)"$/) do |offsite_link_name, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  visit features_admin_world_location_path(world_location)
+  offsite_link = OffsiteLink.find_by_title!(offsite_link_name)
+  within record_css_selector(offsite_link) do
+    click_on "Unfeature"
+  end
+end
+
 Then /^I should see no featured items on the french version of the "([^"]*)" page$/ do |world_location_name|
   view_world_location_in_locale(world_location_name, "Français")
   assert page.has_no_css?('.feature'), "Feature was unexpectedly present"
+end
+
+Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" world location page$/) do |title, world_location_name|
+  world_location = WorldLocation.find_by_name!(world_location_name)
+  offsite_link = OffsiteLink.find_by_title!(title)
+  visit world_location_path(world_location)
+  page.has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.id, offsite_link.id))
 end
 
 Given /^a world location "([^"]*)" exists in both english and french$/ do |name|
@@ -189,8 +235,7 @@ Then /^I should see "([^"]*)" as the title of the featured item on the french "(
   world_location = WorldLocation.find_by_name!(world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (Français)"
-  assert has_css?('.sortable a', text: expected_title)
-  assert has_css?('.table .news_article a', text: expected_title)
+  assert has_css?('.title', text: expected_title)
 end
 
 Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack of a translation$/ do |title, world_location_name|
@@ -210,4 +255,10 @@ Then /^clicking on "([^"]*)" on the french "([^"]*)" page should take me to the 
 
   assert page.has_css?('h1', text: title)
   assert page.has_css?('.available-languages li.translation span', text: 'Français')
+end
+
+Then(/^there should be nothing featured on the home page of world location "(.*?)"$/) do |name|
+  visit world_location_path(name)
+  rows = find(featured_documents_selector).all('.feature')
+  assert rows.empty?
 end

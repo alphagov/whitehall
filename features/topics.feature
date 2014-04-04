@@ -75,6 +75,17 @@ Scenario: Featuring content on a topic page
   When I feature one of the policies on the topic
   Then I should see the policy featured on the public topic page
 
+Scenario: Creating offsite content on a topic page
+  Given a topic called "Excellent Topic" exists
+  When I add the offsite link "Offsite Thing" of type "Alert" to the topic "Excellent Topic"
+  Then I should see the edit offsite link "Offsite Thing" on the "Excellent Topic" topic page
+
+Scenario: Featuring offsite content on a topic page
+  Given a topic called "Excellent Topic" exists
+  And I have an offsite link "Offsite Thing" for the topic "Excellent Topic"
+  When I feature the offsite link "Offsite Thing" for topic "Excellent Topic" with image "minister-of-funk.960x640.jpg"
+  Then I should see the offsite link featured on the public topic page
+
 Scenario: Adding top tasks
   Given a topic called "Housing prices" exists
   When I add some top tasks to the topic "Housing prices" via the admin

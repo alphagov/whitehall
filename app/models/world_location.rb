@@ -14,6 +14,7 @@ class WorldLocation < ActiveRecord::Base
             source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
+  has_many :offsite_links, as: :parent
 
   include HasFeaturedLinks
   has_featured_links :top_tasks
@@ -21,6 +22,7 @@ class WorldLocation < ActiveRecord::Base
   include Featurable
 
   accepts_nested_attributes_for :edition_world_locations
+  accepts_nested_attributes_for :offsite_links
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WL'

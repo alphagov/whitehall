@@ -1,0 +1,19 @@
+<div class="row-fluid">
+  <div class="span6">
+    <%= form_for [:admin, @parent, @offsite_link], builder: Whitehall::FormBuilder do |form| %>
+      <%= form.errors %>
+      <%= form.text_field :title, label_text: "Title", required: true %>
+      <%= form.text_area  :summary, label_text: "Summary", rows: 3, required: true %>
+      <%= form.label :link_type, "Type", required: true %>
+      <%= form.select :link_type, [["Alert", "alert"], ["Blog Post", "blog_post"], ["Campaign", "campaign"], ["Careers", "careers"], ["Service", "service"]] %>
+      <%= form.label :date, "Date"%>
+      <%= form.date_select :date, { include_blank: true }, { class: 'date' } %>
+      <%= form.text_field :url, label_text: "URL", required: true %>
+      <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocation) %>
+        <%= form.save_or_cancel cancel: polymorphic_path([:features, :admin, @parent]) %>
+      <% else %>
+        <%= form.save_or_cancel cancel: polymorphic_path([:admin, @parent, :classification_featurings]) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -53,6 +53,18 @@ Scenario: Featuring news on an topical event page
   Then I should see the featured documents in the "An Event" topical event are:
     | A speech | s465_minister-of-funk.960x640.jpg |
 
+Scenario: Creating offsite content on a topical event page
+  Given a topical event called "An Event" with description "A topical event"
+  When I add the offsite link "Offsite Thing" of type "Alert" to the topical event "An Event"
+  Then I should see the edit offsite link "Offsite Thing" on the "An Event" topical event page
+
+Scenario: Featuring offsite content on a topical event page
+  Given a topical event called "An Event" with description "A topical event"
+  And I have an offsite link "Offsite Thing" for the topical event "An Event"
+  When I feature the offsite link "Offsite Thing" for topical event "An Event" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured offsite links in the "An Event" topical event are:
+    | Offsite Thing | s465_minister-of-funk.960x640.jpg |
+
 Scenario: Featuring a document collection on an topical event page
   Given a topical event called "An Event" with description "A topical event"
   When I draft a new document collection "A document collection" relating it to topical event "An Event"

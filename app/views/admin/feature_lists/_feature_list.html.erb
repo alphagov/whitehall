@@ -1,37 +1,6 @@
 <%= render partial: 'admin/feature_lists/current_feature_list', locals: {feature_list: feature_list} %>
 
-<% unless feature_list.empty? %>
-  <p><strong>Stop featuring documents:</strong></p>
-<% end %>
-
-<table class="table">
-  <% feature_list.published_features.each do |feature| %>
-    <% edition = LocalisedModel.new(feature.document.published_edition, feature_list.locale) %>
-    <%= content_tag_for :tr, edition do %>
-      <td class="type"><%= edition.type.titleize %></td>
-      <td><%= link_to edition.title, admin_edition_path(edition) %></td>
-      <td><%=l edition.major_change_published_at.to_date %></td>
-      <td>
-        <%= button_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
-      </td>
-    <% end %>
-  <% end %>
-  <% feature_list.topical_events.each do |feature| %>
-    <%= content_tag_for :tr, feature.topical_event do %>
-      <td class="type">Topical Event</td>
-      <td><%= link_to feature.topical_event, edit_admin_topical_event_path(feature.topical_event) %></td>
-      <td><%= l feature.topical_event.start_date.to_date %> to <%= l feature.topical_event.end_date.to_date %></td>
-      <td>
-        <%= button_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
-      </td>
-    <% end %>
-  <% end %>
-
-</table>
-
-<h2>Choose new documents to feature</h2>
-<br/>
-
+<h2 class="feature-title">Feature new documents</h2>
 <div class="row-fluid">
   <div class="span2">
     <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
@@ -41,10 +10,22 @@
   </div>
 </div>
 
+<div class="feature-column">
 <% if @featurable_topical_events.any? %>
-<h2>Choose new topical event to feature</h2>
-<br/>
-<div class="row-fluid">
-  <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
-</div>
+  <h2 class="feature-title">Feature new topical events</h2>
+  <div class="row-fluid">
+    <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
+  </div>
 <% end %>
+</div>
+
+<div class="feature-column">
+<h2 class="feature-title">Feature new offsite link</h2>
+<% if @featurable_offsite_links.any? %>
+  <div class="row-fluid">
+    <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
+  </div>
+<% else %>
+  <p>There are currently no offsite links.</p>
+<% end %>
+</div>

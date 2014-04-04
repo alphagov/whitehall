@@ -96,11 +96,13 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer  "ordering"
     t.integer  "classification_featuring_image_data_id"
     t.string   "alt_text"
+    t.integer  "offsite_link_id"
   end
 
   add_index "classification_featurings", ["classification_featuring_image_data_id"], :name => "index_cl_feat_on_edition_org_image_data_id"
   add_index "classification_featurings", ["classification_id"], :name => "index_cl_feat_on_classification_id"
   add_index "classification_featurings", ["edition_id", "classification_id"], :name => "index_cl_feat_on_edition_id_and_classification_id", :unique => true
+  add_index "classification_featurings", ["offsite_link_id"], :name => "index_classification_featurings_on_offsite_link_id"
 
   create_table "classification_memberships", :force => true do |t|
     t.integer  "classification_id"
@@ -566,11 +568,13 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "started_at"
     t.datetime "ended_at"
     t.integer  "topical_event_id"
+    t.integer  "offsite_link_id"
   end
 
   add_index "features", ["document_id"], :name => "index_features_on_document_id"
   add_index "features", ["feature_list_id", "ordering"], :name => "index_features_on_feature_list_id_and_ordering", :unique => true
   add_index "features", ["feature_list_id"], :name => "index_features_on_feature_list_id"
+  add_index "features", ["offsite_link_id"], :name => "index_features_on_offsite_link_id"
   add_index "features", ["ordering"], :name => "index_features_on_ordering"
 
   create_table "financial_reports", :force => true do |t|
@@ -741,6 +745,18 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
 
   add_index "nation_inapplicabilities", ["edition_id"], :name => "index_nation_inapplicabilities_on_edition_id"
   add_index "nation_inapplicabilities", ["nation_id"], :name => "index_nation_inapplicabilities_on_nation_id"
+
+  create_table "offsite_links", :force => true do |t|
+    t.string   "title"
+    t.string   "summary"
+    t.string   "url"
+    t.string   "link_type"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.datetime "date"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "operational_fields", :force => true do |t|
     t.string   "name"
