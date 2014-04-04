@@ -187,11 +187,7 @@ module Admin::EditionsHelper
   end
 
   def form_url_for_edition(edition)
-    if edition.respond_to? :organisation
-      [:admin, edition.organisation, edition]
-    else
-      [:admin, edition]
-    end
+    [:admin, edition]
   end
 
   def tab_url_for_edition(edition)

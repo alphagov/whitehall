@@ -2,6 +2,8 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   before_filter :find_organisation
   before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
 
+  helper_method :cip_owning_organisation
+
   class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
   end
 
@@ -43,6 +45,10 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       render :new
     end
+  end
+
+  def cip_owning_organisation
+    @organisation
   end
 
 private
