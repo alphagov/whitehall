@@ -80,7 +80,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
                                                               title: "A Title",
                                                               summary: "A summary",
                                                               publication: publication,
-                                                              publication_type_id: PublicationType::NationalStatistics.id,
+                                                              publication_type_id: PublicationType::Statistics.id,
                                                               organisation: organisation,
                                                               topic: topic,
                                                               statistics_announcement_dates: [ build(:statistics_announcement_date,
@@ -96,18 +96,18 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
 
     announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(publisher_announcement.slug)
 
-    assert_equal "a-title",                                         announcement.slug
-    assert_equal "A Title",                                         announcement.title
-    assert_equal "A summary",                                       announcement.summary
-    assert_equal publication,                                       announcement.publication
-    assert_equal PublicationType::NationalStatistics.singular_name, announcement.document_type
-    assert_equal Time.zone.parse("2050-01-01 09:30:00"),            announcement.release_date
-    assert_equal "1 January 2050 09:30",                            announcement.display_date
-    assert_equal true,                                              announcement.release_date_confirmed
-    assert_equal "Change note",                                     announcement.release_date_change_note
-    assert_equal "March to April 2050",                             announcement.previous_display_date
-    assert_equal [organisation],                                    announcement.organisations
-    assert_equal [topic],                                           announcement.topics
+    assert_equal "a-title",                                 announcement.slug
+    assert_equal "A Title",                                 announcement.title
+    assert_equal "A summary",                               announcement.summary
+    assert_equal publication,                               announcement.publication
+    assert_equal PublicationType::Statistics.singular_name, announcement.document_type
+    assert_equal Time.zone.parse("2050-01-01 09:30:00"),    announcement.release_date
+    assert_equal "1 January 2050 09:30",                    announcement.display_date
+    assert_equal true,                                      announcement.release_date_confirmed
+    assert_equal "Change note",                             announcement.release_date_change_note
+    assert_equal "March to April 2050",                     announcement.previous_display_date
+    assert_equal [organisation],                            announcement.organisations
+    assert_equal [topic],                                   announcement.topics
   end
 
   test "#find_by_slug: returns nil if it can't find one" do
