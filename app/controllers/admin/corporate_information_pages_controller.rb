@@ -79,4 +79,8 @@ private
   def params_filters
     {state: 'active', type: "corporate_information_page", organisation: @organisation.id, hide_type: true, ordering: [:corporate_information_page_type_id, 'editions.state']}
   end
+
+  def saved_confirmation_notice
+    { notice: "#{@corporate_information_page.title} updated successfully" }
+  end
 end
