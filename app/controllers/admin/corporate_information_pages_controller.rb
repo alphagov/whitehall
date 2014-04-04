@@ -9,7 +9,7 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
 
   def index
     params[:state] = 'active'
-    paginator = @organisation.corporate_information_pages.page(1).per(100)
+    paginator = @organisation.corporate_information_pages.order('corporate_information_page_type_id').page(1).per(100)
     @filter = FakeEditionFilter.new paginator, "Corporate information pages", false, true
   end
 
