@@ -45,7 +45,7 @@
         </hgroup>
         <div class="js-group-body">
           <% if group.latest_editions.empty? %>
-            <p class="alert alert-info">
+            <p class="alert alert-info js-document-group" data-group-id="<%= group.id %>">
               This group doesn't have any documents in it yet &ndash; add some
               by searching for documents (above), or moving them here from another group.
             </p>
