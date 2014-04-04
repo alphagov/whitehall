@@ -21,12 +21,18 @@
     initAlertMessageTemplate();
 
     var wordsToAvoidUsed = function() {
-      var textToSearchIn = [];
-      $el.each(function() {
-        textToSearchIn.push($(this).val());
-      });
-
-      return $.distinct(textToSearchIn.join(" ").match(wordsToAvoidMatcher) || []);
+      if(options.highlightingEnabled) {
+        // use optimised way and look for highlighted words
+        return $.distinct($.map($(".highlighter span.highlight"), function(highlightedEl) {
+          return $(highlightedEl).text();
+        }));
+      } else {
+        var textToSearchIn = [];
+        $el.each(function() {
+          textToSearchIn.push($(this).val());
+        });
+        return $.distinct(textToSearchIn.join(" ").match(wordsToAvoidMatcher) || []);
+      }
     }
 
     var numberOfWordsToAvoidUsed = function() {
