@@ -15,7 +15,10 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_response :success
     assert_template :index
     assert_equal @organisation, assigns(:organisation)
-    assert_equal [corporate_information_page], assigns(:corporate_information_pages)
+    assert_equal [corporate_information_page], assigns(:filter).editions
+    assert assigns(:filter).page_title
+    assert_equal false, assigns(:filter).show_stats
+    assert assigns(:filter).hide_type
   end
 
   view_test "GET :new should display form" do
