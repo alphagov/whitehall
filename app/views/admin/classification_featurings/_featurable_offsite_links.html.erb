@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Type</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% featurable_offsite_links.each do |offsite_link| %>
+      <% next if classification_featurings.detect {|f| f.offsite_link == offsite_link } %>
+      <%= content_tag_for :tr, offsite_link do %>
+	    <td><%= link_to offsite_link.title, "todo" %></td>
+	    <td><%= offsite_link.humanized_link_type %></td>
+	    <td>
+	      <%= link_to("Feature", polymorphic_path([:new, :admin, offsite_link.parent, :classification_featuring], offsite_link_id: offsite_link.id), class: 'btn') %>
+	    </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

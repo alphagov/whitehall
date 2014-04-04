@@ -1,10 +1,11 @@
 class Feature < ActiveRecord::Base
   belongs_to :document
   belongs_to :topical_event
+  belongs_to :offsite_link
   belongs_to :feature_list
 
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
-  validates :document, presence: true, unless: -> feature { feature.topical_event_id.present? }
+  validates :document, presence: true, unless: -> feature { feature.topical_event_id.present? || feature.offsite_link_id.present? }
   validates :started_at, presence: true
   validates :image, presence: true, on: :create
   validates_with ImageValidator, method: :image, size: [960, 640], if: :image_changed?
@@ -16,6 +17,8 @@ class Feature < ActiveRecord::Base
       LocalisedModel.new(document.published_edition, locale).title
     elsif topical_event
       topical_event.name
+    elsif offsite_link
+      offsite_link.title
     else
       "Feature #{id}"
     end

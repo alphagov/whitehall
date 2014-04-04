@@ -82,4 +82,20 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_equal [feature3, feature1, feature2], @topic.reload.classification_featurings
   end
+
+  view_test "GET :new renders only image fields if featuring an edition" do
+    edition = create :edition
+    get :new, topic_id: @topic.id, edition_id: edition.id
+
+    assert_select "#classification_featuring_image_attributes_file"
+    assert_select "#classification_featuring_alt_text"
+  end
+
+  view_test "GET :new renders all fields if not featuring an edition" do
+    offsite_link = create :offsite_link
+    get :new, topic_id: @topic.id, offsite_link_id: offsite_link.id
+
+    assert_select "#classification_featuring_image_attributes_file"
+    assert_select "#classification_featuring_alt_text"
+  end
 end
