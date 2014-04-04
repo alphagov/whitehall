@@ -55,6 +55,7 @@ When(/^I change the release date on the announcement$/) do
   select_datetime '14-Dec-2014 09:30', from: 'Release date'
   check 'Confirmed date?'
   choose 'Exact'
+  fill_in 'Change note', with: 'Chnged due to delays'
   click_on 'Change date'
 end
 
@@ -80,6 +81,5 @@ Then(/^I should see the announcement listed on the list of announcements$/) do
 end
 
 Then(/^the new date is reflected on the announcement$/) do
-  ensure_path admin_statistics_announcement_path(@statistics_announcement)
-  assert page.has_content?('14 December 2014 09:30')
+  assert page.has_content?('14 December 2014 9:30am')
 end

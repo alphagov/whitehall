@@ -32,6 +32,27 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert_select "input[name='statistics_announcement_date_change[precision]'][value='1']" do |element|
       assert element[0].attributes['checked']
     end
+
+    assert_select("select#statistics_announcement_date_change_release_date_1i option[selected]") do |element|
+      assert_equal @announcement.release_date.year, element.first['value'].to_i
+    end
+
+    assert_select("select#statistics_announcement_date_change_release_date_2i option[selected]") do |element|
+      assert_equal @announcement.release_date.month, element.first['value'].to_i
+    end
+
+    assert_select("select#statistics_announcement_date_change_release_date_3i option[selected]") do |element|
+      assert_equal @announcement.release_date.day, element.first['value'].to_i
+    end
+
+    assert_select("select#statistics_announcement_date_change_release_date_4i option[selected]") do |element|
+      assert_equal @announcement.release_date.hour, element.first['value'].to_i
+    end
+
+
+    assert_select("select#statistics_announcement_date_change_release_date_5i option[selected]") do |element|
+      assert_equal @announcement.release_date.min, element.first['value'].to_i
+    end
   end
 
   test "POST :create with valid params saves the date change and redirects to the announcement" do
