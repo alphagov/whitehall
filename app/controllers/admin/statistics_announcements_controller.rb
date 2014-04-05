@@ -37,11 +37,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def destroy
-    if @statistics_announcement.destroy
-      redirect_to [:admin, @statistics_announcement], notice: "Announcement deleted successfully"
-    else
-      redirect_to [:admin, @statistics_announcement], alert: "There was a problem deleting the announcement"
-    end
+    @statistics_announcement.destroy
+    redirect_to [:admin, :statistics_announcements], notice: "Announcement deleted successfully"
   end
 
   private
