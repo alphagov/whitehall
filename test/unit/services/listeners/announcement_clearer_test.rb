@@ -15,7 +15,7 @@ class AnnouncementClearerTest < ActiveSupport::TestCase
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
   end
 
-  test '#clear! does not raise an error if the edition is not a statistial publication' do
+  test '#clear! does not raise an error if the edition is not a statistical publication' do
     statistics = create(:published_case_study)
     ServiceListeners::AnnouncementClearer.new(statistics).clear!
   end
