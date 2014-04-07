@@ -57,7 +57,7 @@ class OrganisationType
 
 
   def self.allowed_promotional_keys
-    DATA.select {|key, value| value[:allowed_promotional] }.keys
+    DATA.select {|_, attributes| attributes[:allowed_promotional] }.keys
   end
 
   def self.executive_office
