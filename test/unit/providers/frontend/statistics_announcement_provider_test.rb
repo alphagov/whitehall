@@ -101,7 +101,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal publication,                               announcement.publication
     assert_equal PublicationType::Statistics.singular_name, announcement.document_type
     assert_equal Time.zone.parse("2050-01-01 09:30:00"),    announcement.release_date
-    assert_equal "1 January 2050 09:30",                    announcement.display_date
+    assert_equal "1 January 2050 9:30am",                   announcement.display_date
     assert_equal true,                                      announcement.release_date_confirmed
     assert_equal "Change note",                             announcement.release_date_change_note
     assert_equal "March to April 2050",                     announcement.previous_display_date
