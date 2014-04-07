@@ -104,7 +104,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier.edition_published!
   end
 
-  test '#edition_published! still notifies speeches that were delivered in the past' do
+  test '#edition_published! still notifies first-published speeches that were delivered less than 72 hours ago' do
     speech = create(:draft_speech, delivered_on: 2.days.ago)
     force_publish(speech)
     notifier = notifier_for(speech)
