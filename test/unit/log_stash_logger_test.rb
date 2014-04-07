@@ -59,7 +59,6 @@ class LogStashLoggerTest < ActiveSupport::TestCase
   test "When logged thing is a message string, @message and @fields.message are the given string" do
     subject.info "This is an error"
     assert_equal "This is an error", log_entries.last["@message"]
-    assert_equal "This is an error", log_entries.last["@fields"]["message"]
   end
 
   test "When logged thing is a message string, @tags are the default tags for that logger instance" do
@@ -73,7 +72,6 @@ class LogStashLoggerTest < ActiveSupport::TestCase
     subject.error(message: "This is a message")
 
     assert_equal "This is a message", log_entries.last["@message"]
-    assert_equal "This is a message", log_entries.last["@fields"]["message"]
   end
 
   test "When logged thing is a hash, given tags are merged with default tags and logged" do
