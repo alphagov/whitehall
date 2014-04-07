@@ -943,12 +943,15 @@
   }
 }
 
-.organisations-executive-office {
-  a {
-    color: $fuschia;
-  }
-  .social-media-accounts .connect {
-    background-color: $fuschia;
+.organisations-show-promotional {
+  .number-prime-ministers-office-10-downing-street,
+  .deputy-prime-ministers-office {
+    a {
+      color: $fuschia;
+    }
+    .social-media-accounts .connect {
+      background-color: $fuschia;
+    }
   }
 
   .executive-office-header {
@@ -968,6 +971,17 @@
     background-position: $half $gutter-one-third;
     background-image: image_url("executive-office-bars/deputy-prime-ministers-office.png");
     font-family: 'Times New Roman', serif;
+  }
+  .organisation-header {
+    padding: $gutter 0 0;
+    h1 {
+      padding: 0;
+
+      @include media(tablet) {
+        float: left;
+        width: $two-thirds;
+      }
+    }
   }
 
   .block {
@@ -1008,7 +1022,8 @@
       }
     }
 
-    #featured-topics-and-policies {
+    #featured-topics-and-policies,
+    #what-we-do {
       @include media(tablet) {
         width: $two-thirds;
         float: left;
