@@ -183,12 +183,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_template 'show'
   end
 
-  test "showing a live executive office organisation renders the show external-office template" do
+  test "showing a live promotional style organisation renders the show promotional template" do
     organisation = create(:executive_office, govuk_status: 'live')
 
     get :show, id: organisation
 
-    assert_template 'show-executive-office'
+    assert_template 'show-promotional'
   end
 
   test "showing a joining organisation renders the not live template" do

@@ -240,6 +240,9 @@ sq:
       Advisory non-departmental public body:
         one: Organ keshillues publik jo-dikasterial
         other: Organe keshillues publik jo-dikasterial
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

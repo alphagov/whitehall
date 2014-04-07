@@ -240,6 +240,9 @@ hi:
       Advisory non-departmental public body:
         one: परामर्शी गैर-विभागीय सार्वजनिक निकाय
         other: परामर्शी गैर-विभागीय सार्वजनिक निकाय
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

@@ -4,8 +4,8 @@ require './app/models/organisation_type'
 
 class OrganisationTypeTest < ActiveSupport::TestCase
   test "it should take key, name and analytics_prefix as initialize arguments and expose them as properties" do
-    instance = OrganisationType.new(:some_type_key, 
-                                    name: "A Name", 
+    instance = OrganisationType.new(:some_type_key,
+                                    name: "A Name",
                                     analytics_prefix: "A prefix",
                                     agency_or_public_body: true,
                                     non_departmental_public_body: false)
@@ -72,7 +72,8 @@ class OrganisationTypeTest < ActiveSupport::TestCase
       :adhoc_advisory_group,
       :devolved_administration,
       :sub_organisation,
-      :other
+      :other,
+      :civil_service,
     ], OrganisationType.in_listing_order.map(&:key)
   end
 

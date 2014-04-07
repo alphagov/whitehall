@@ -75,6 +75,14 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     refute Organisation.listable.include?(closed_org)
   end
 
+  test "allowed_promotional should return all organisatiosn which are allowed_promotional" do
+    promotional_org = create(:organisation, organisation_type_key: :civil_service)
+    non_promotional_org = create(:sub_organisation)
+
+    assert Organisation.allowed_promotional.include?(promotional_org)
+    refute Organisation.allowed_promotional.include?(non_promotional_org)
+  end
+
   test "active_child_organisations_excluding_sub_organisations should live up to it's name and in alphabetical order" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)

@@ -348,6 +348,11 @@ ru:
         few:
         many:
         other: Консультативные вневедомственные государственные органы
+      Civil Service:
+        one:
+        few:
+        many:
+        other:
       Devolved administration:
         one:
         few:

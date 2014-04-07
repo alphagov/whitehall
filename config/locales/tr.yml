@@ -398,6 +398,9 @@ tr:
       Advisory non-departmental public body:
         one: Bakanlık dışı bağımsız kamu danışma kurumu
         other: Bakanlık dışı bağımsız kamu danışma kurumları
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

@@ -240,6 +240,9 @@ pt:
       Advisory non-departmental public body:
         one: Organização Pública Consultiva não-governamental
         other: Organizações Públicas Consultivas não governamentais
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

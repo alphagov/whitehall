@@ -1,14 +1,22 @@
 <% page_title @organisation.name %>
-<% page_class "organisations-executive-office" %>
+<% page_class "organisations-show-promotional" %>
 <% bar_colour_class organisation_brand_colour_class(@organisation) %>
 <% atom_discovery_link_tag atom_feed_url_for(@organisation), "Latest activity" %>
 
 <%= organisation_wrapper(@organisation) do %>
-  <header class="executive-office-header block">
-    <div class="inner-block">
-      <h1><%= @organisation.logo_formatted_name %></h1>
+  <% if @organisation.type.executive_office? %>
+    <header class="executive-office-header block">
+      <div class="inner-block">
+        <h1><%= @organisation.logo_formatted_name %></h1>
+      </div>
+    </header>
+  <% else %>
+    <div class="organisation-header headings-block">
+      <div class="inner-block">
+        <%= render 'header', organisation: @organisation, show_top_tasks: true, languages_available: true %>
+      </div>
     </div>
-  </header>
+  <% end %>
 
   <div class="block">
     <div class="inner-block floated-children">
@@ -22,16 +30,26 @@
 
   <div class="block feature-block">
     <div class="inner-block floated-children">
-      <section id="featured-topics-and-policies" class="promo">
-        <div class="content">
-          <h2>Featured topics and policies</h2>
-          <% if @organisation.featured_topics_and_policies_list_summary.present? %>
-            <p class="description"><%= format_with_html_line_breaks(@organisation.featured_topics_and_policies_list_summary) %></p>
-          <% end %>
-          <%= render_featured_topics_and_policies_list(@organisation.featured_topics_and_policies_list) %>
-          <p><%= link_to_all_featured_policies @organisation %></p>
-        </div>
-      </section>
+      <% if @organisation.featured_topics_and_policies_list %>
+        <section id="featured-topics-and-policies" class="promo">
+          <div class="content">
+            <h2>Featured topics and policies</h2>
+            <% if @organisation.featured_topics_and_policies_list_summary.present? %>
+              <p class="description"><%= format_with_html_line_breaks(@organisation.featured_topics_and_policies_list_summary) %></p>
+            <% end %>
+            <%= render_featured_topics_and_policies_list(@organisation.featured_topics_and_policies_list) %>
+            <p><%= link_to_all_featured_policies @organisation %></p>
+          </div>
+        </section>
+      <% else %>
+        <section id="what-we-do" class="promo">
+          <div class="content">
+            <h2>What we do</h2>
+            <p class="description"><%= @organisation.description %></p>
+            <p><%= link_to t('organisation.about.read_more'), about_organisation_path(@organisation), id: 'read_more_link' %></p>
+          </div>
+        </section>
+      <% end %>
 
       <% if @organisation.social_media_accounts.any? %>
         <div class="social-media promo">

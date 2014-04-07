@@ -240,6 +240,9 @@ it:
       Advisory non-departmental public body:
         one: Ente pubblico di consulenza non ministeriale
         other: Enti pubblici di consulenza non ministeriali
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

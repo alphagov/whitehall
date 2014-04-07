@@ -240,6 +240,9 @@ fr:
       Advisory non-departmental public body:
         one: Organisme public de conseil non-ministériel
         other: Organismes publics de conseil non-ministériels
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

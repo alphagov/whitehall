@@ -397,6 +397,9 @@ ko:
       Advisory non-departmental public body:
         one: 자문 공공기관
         other: 자문 공공기관
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

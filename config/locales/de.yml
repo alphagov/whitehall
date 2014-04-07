@@ -240,6 +240,9 @@ de:
       Advisory non-departmental public body:
         one: Keinem Ministerium unterstelltes öffentliches Beratungsorgan
         other: Keinem Ministerium unterstellte öffentliche Beratungsorgane
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:
