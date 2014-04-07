@@ -23,7 +23,7 @@
   RemoteSearchFilter.prototype.HISTORY_REPLACE_NOT_PUSH_FOR = 2000;
 
   RemoteSearchFilter.prototype.updateResultsAfterDelay = function updateResultsAfterDelay() {
-    if (this.updateDelayTimeout) window.clearTimeout(this.updateDelayTimeout);
+    if (this.updateDelayTimeout) { window.clearTimeout(this.updateDelayTimeout); }
     this.updateDelayTimeout = window.setTimeout(this.updateResults, this.UPDATE_DELAY);
   };
 
@@ -46,16 +46,18 @@
   RemoteSearchFilter.prototype.getFilterParams = function getFilterParams() {
     var paramsWithValues = [];
     $.each(this.$form.serializeArray(), function(_i, param) {
-      if ( param.value !== '' ) paramsWithValues.push(param);
+      if ( param.value !== '' ) { paramsWithValues.push(param); }
     });
     return paramsWithValues;
   };
 
   RemoteSearchFilter.prototype.urlForParams = function urlForParams(filterParams) {
-    if ( filterParams.length == 0 )
+    if ( filterParams.length == 0 ) {
       return this.searchUrl;
-    else
+    }
+    else {
       return this.searchUrl + '?' + $.param(filterParams);
+    }
   };
 
   RemoteSearchFilter.prototype.renderLoadingMessage = function renderLoadingMessage() {
@@ -66,12 +68,14 @@
   RemoteSearchFilter.prototype.pushToHistory = function pushToHistory() {
     var filterParams = this.getFilterParams();
 
-    if (this.historyReplaceDontPushTimeout)
+    if (this.historyReplaceDontPushTimeout) {
       history.replaceState(filterParams, null, this.urlForParams(filterParams));
-    else
+    }
+    else {
       history.pushState(filterParams, null, this.urlForParams(filterParams));
+    }
 
-    if (this.historyReplaceDontPushTimeout) window.clearTimeout(this.historyReplaceDontPushTimeout);
+    if (this.historyReplaceDontPushTimeout) { window.clearTimeout(this.historyReplaceDontPushTimeout); }
     this.historyReplaceDontPushTimeout = window.setTimeout($.proxy(function() {
       this.historyReplaceDontPushTimeout = null;
     }, this), this.HISTORY_REPLACE_NOT_PUSH_FOR);
@@ -92,10 +96,12 @@
 
     $('input:not([type=submit]), select', this.$form).each(function(_i, $field) {
       $field = $($field);
-      if ( typeof paramsAsHash[$field.attr('name')] === 'undefined' )
+      if ( typeof paramsAsHash[$field.attr('name')] === 'undefined' ) {
         $field.val('');
-      else
+      }
+      else {
         $field.val(paramsAsHash[$field.attr('name')]);
+      }
     });
   }
 
