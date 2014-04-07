@@ -3,49 +3,11 @@
   window.GOVUK = window.GOVUK || {};
 
   function WordsToAvoidGuide(options) {
-    var wordsToAvoid = [
-      "agenda",
-      "advancing",
-      "collaborate",
-      "combating",
-      "commit",
-      "countering",
-      "deliver",
-      "deploy",
-      "dialogue",
-      "disincentivise",
-      "drive",
-      "drive out",
-      "empower",
-      "facilitate",
-      "focusing",
-      "foster",
-      "going forward",
-      "impact",
-      "initiate",
-      "in order to",
-      "key",
-      "land",
-      "leverage",
-      "liaise",
-      "one-stop shop",
-      "overarching",
-      "pledge",
-      "progress",
-      "promote",
-      "ring fencing",
-      "robust",
-      "slimming down",
-      "streamline",
-      "strengthening",
-      "tackling",
-      "transforming",
-      "utilise"
-    ];
-    var wordsToAvoidRegexps = $.map(wordsToAvoid, function(word) {
-      // match whole-words only
-      return "\\b" + word + "\\b";
-    });
+    var $wordsToAvoidEls = $(options.wordsToAvoidList + " span.js-word-to-avoid"),
+        wordsToAvoidRegexps = $.map($wordsToAvoidEls, function(wordEl) {
+          // match whole-words only
+          return "\\b" + $(wordEl).text() + "\\b";
+        });
 
     if( window.ieVersion === undefined || window.ieVersion > 8 ){
       // in non-IE browsers or IE9+
