@@ -295,6 +295,10 @@ lt:
         one: Patariamoji nevyriausybinė organizacija
         few:
         other: Patariamosios nevyriausybinės organizacijos
+      Civil Service:
+        one:
+        few:
+        other:
       Devolved administration:
         one:
         few:

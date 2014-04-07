@@ -409,6 +409,9 @@ vi:
       Advisory non-departmental public body:
         one: Nhóm tham vấn không thuộc cơ chế công
         other: Các nhóm tham vấn không thuộc cơ chế công
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

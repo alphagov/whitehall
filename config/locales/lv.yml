@@ -241,6 +241,9 @@ lv:
       Advisory non-departmental public body:
         one: Konsultatīva kvazi autonoma sabiedriska organizācija
         other: Konsultatīvas kvazi autonomas sabiedriskas organizācijas
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

@@ -241,6 +241,9 @@ hy:
       Advisory non-departmental public body:
         one: Ոչ գերատեսչական խորհրդատվական հանրային մարմին
         other: Ոչ գերատեսչական խորհրդատվական հանրային մարմիններ
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

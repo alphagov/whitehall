@@ -349,6 +349,11 @@ pl:
         few:
         many:
         other: Nieministerialne publiczne organy doradczy
+      Civil Service:
+        one:
+        few:
+        many:
+        other:
       Devolved administration:
         one:
         few:

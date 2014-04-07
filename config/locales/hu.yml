@@ -410,6 +410,9 @@ hu:
       Advisory non-departmental public body:
         one: Nem kormányzati szervként működő tanácsadó testület
         other: Nem kormányzati szervként működő tanácsadó testületek
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

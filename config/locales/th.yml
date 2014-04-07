@@ -407,6 +407,9 @@ th:
       Advisory non-departmental public body:
         one: กลุ่มให้คำปรึกษาองค์กรอิสระ
         other: กลุ่มให้คำปรึกษาองค์กรอิสระ
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

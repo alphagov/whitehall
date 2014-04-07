@@ -241,6 +241,9 @@ dr:
       Advisory non-departmental public body:
         one: نهاد عامه مشورتی غیر تشکیلاتی
         other: نهاد های عامه مشورتی غیر تشکیلاتی
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

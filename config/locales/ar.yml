@@ -457,6 +457,13 @@ ar:
         few:
         many:
         other: هيئات استشارية عامة غير حكومية
+      Civil Service:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       Devolved administration:
         zero:
         one:

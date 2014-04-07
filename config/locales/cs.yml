@@ -295,6 +295,10 @@ cs:
         one: Poradní nevládní organizace
         few:
         other: Poradní nevládní organizace
+      Civil Service:
+        one:
+        few:
+        other:
       Devolved administration:
         one:
         few:

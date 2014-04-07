@@ -353,6 +353,11 @@ sr:
         few:
         many:
         other: savetodavna nevladina javna tela
+      Civil Service:
+        one:
+        few:
+        many:
+        other:
       Devolved administration:
         one:
         few:

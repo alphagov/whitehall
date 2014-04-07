@@ -409,6 +409,9 @@ id:
       Advisory non-departmental public body:
         one: Badan penasehat non-departemen umum
         other: Badan-badan penasehat non-departemen umum
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

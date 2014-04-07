@@ -241,6 +241,9 @@ ps:
       Advisory non-departmental public body:
         one: غیر تشکیلاتی عامه اداره
         other: غیر تشکیلاتی عامه ادارې
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

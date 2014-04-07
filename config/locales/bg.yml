@@ -242,6 +242,9 @@ bg:
       Advisory non-departmental public body:
         one: Консултативен неведомствен публичен орган
         other: Консултативни неведомствени публични органи
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

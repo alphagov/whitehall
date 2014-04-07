@@ -406,6 +406,9 @@ az:
       Advisory non-departmental public body:
         one: İctimai qrum
         other: İctimai qrumlar
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

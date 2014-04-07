@@ -349,6 +349,11 @@ be:
         few:
         many:
         other: 'Пазаведамасныя кансультатыўныя дзяржаўныя органы '
+      Civil Service:
+        one:
+        few:
+        many:
+        other:
       Devolved administration:
         one:
         few:

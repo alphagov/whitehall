@@ -439,6 +439,9 @@ en:
       Executive office:
         one: Executive office
         other: Executive offices
+      Civil Service:
+        one: Civil Service
+        other: Civil Services
     headings:
       plus_others: + others
       what_we_do: What we do

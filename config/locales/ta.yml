@@ -241,6 +241,9 @@ ta:
       Advisory non-departmental public body:
         one: ஆலோசனை திணைக்களமல்லாத அரச அமைப்பு
         other: ஆலோசனை திணைக்களமல்லாத அரச அமைப்புகள்
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:

@@ -241,6 +241,9 @@ es:
       Advisory non-departmental public body:
         one: Organismo públicoco consultivo no ministerial
         other: Organismos públicos consultivos no ministeriales
+      Civil Service:
+        one:
+        other:
       Devolved administration:
         one:
         other:
