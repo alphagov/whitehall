@@ -37,7 +37,9 @@ class ScheduledEditionsPublisher
   end
 
   def publish_edition!(edition)
+    log "Waiting to publish Edition (#{edition.id}) until #{edition.scheduled_publication.iso8601}"
     Whitehall::Wait.until edition.scheduled_publication do
+      log "About to publish Edition (#{edition.id}) at #{Time.zone.now.iso8601}"
       EditionPublishingWorker.new.perform(edition.id, publishing_robot.id)
       log_successful_publication(edition)
     end
