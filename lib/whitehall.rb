@@ -6,6 +6,7 @@ module Whitehall
 
   mattr_accessor :search_backend
   mattr_accessor :government_search_client
+  mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
   mattr_accessor :stats_collector
   mattr_accessor :public_host

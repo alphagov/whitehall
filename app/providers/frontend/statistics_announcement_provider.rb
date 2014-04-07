@@ -1,7 +1,7 @@
 module Frontend
   class StatisticsAnnouncementProvider
     def self.search(search_params = {})
-      results = source.advanced_search(prepare_search_params(search_params))
+      results = Whitehall.statistics_announcement_search_client.advanced_search(prepare_search_params(search_params))
       CollectionPage.new(build_collection(results['results']), total: results['total'], page: search_params[:page], per_page: search_params[:per_page])
     end
 
@@ -73,14 +73,6 @@ module Frontend
       params[:format] = "statistics_announcement"
 
       params
-    end
-
-    def self.source
-      if Rails.env.test? || (Rails.env.development? && ENV['RUMMAGER_HOST'].nil?)
-        DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncements
-      else
-        Whitehall.government_search_client
-      end
     end
   end
 end

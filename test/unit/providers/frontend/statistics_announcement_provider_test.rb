@@ -2,8 +2,8 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   attr_accessor :rummager_api_stub
 
   setup do
-    @mock_source ||= mock
-    Frontend::StatisticsAnnouncementProvider.stubs(:source).returns(@mock_source)
+    @mock_source = mock
+    Whitehall.stubs(:statistics_announcement_search_client).returns(@mock_source)
   end
 
   test "#search: page and per_page params are converted to strings" do
@@ -69,7 +69,6 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal 2, results.page
     assert_equal 10, results.per_page
   end
-
 
   test "#find_by_slug: finds a publisher StatisticsAnnouncement and inflates from that" do
     organisation = create(:ministerial_department)
