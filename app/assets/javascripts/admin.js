@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
+//= require extensions/jquery.distinct
 //= require vendor/jquery/jquery.player.min.js
 //= require vendor/jquery/jquery.highlighttextarea.js
 //= require vendor/jquery/jquery-debounce.js

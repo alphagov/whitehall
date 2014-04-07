@@ -21,11 +21,11 @@
         textarea.show();
         preview_link.show();
         loading_indicator.hide();
-        $(document).trigger("govuk.wordsToAvoidHighlighter.enable");
+        $(document).trigger("govuk.WordsToAvoidGuide.enable");
       }
 
       var showPreview = function() {
-        $(document).trigger("govuk.wordsToAvoidHighlighter.disable");
+        $(document).trigger("govuk.WordsToAvoidGuide.disable");
         textarea.hide();
         preview_link.hide();
         preview.enhanceYoutubeVideoLinks();
