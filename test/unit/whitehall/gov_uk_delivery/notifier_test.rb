@@ -36,7 +36,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     end
   end
 
-  test '#edition_published! will route the edition only to govuk delivery if it is not relevant to local government' do
+  test '#edition_published! routes editions to govuk delivery when they are not relevant to local government' do
     edition = build(:published_policy, relevant_to_local_government: false, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns(true)
     notifier = notifier_for(edition)
@@ -47,7 +47,7 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier.edition_published!
   end
 
-  test '#edition_published! will route the edition only to the email curation queue if it is relevant to local government' do
+  test '#edition_published! routes editions to the email curation queue when they are relevant to local government' do
     edition = build(:published_policy, relevant_to_local_government: true, public_timestamp: Time.zone.now)
     edition.stubs(:available_in_locale?).returns(true)
     notifier = notifier_for(edition)
@@ -58,23 +58,21 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier.edition_published!
   end
 
-  test '#notify_email_curation_queue creates an email curation queue item from the edition and notification date' do
-    notification_date = stub("notification date")
-    edition = build(:published_edition)
+  test '#notify_email_curation_queue creates an email curation queue item with the edition  and its public_timestamp' do
+    timestamp = Time.zone.now
+    edition = build(:published_edition, public_timestamp: timestamp)
     notifier = notifier_for(edition)
-    notifier.stubs(:notification_date).returns(notification_date)
 
-    EmailCurationQueueItem.expects(:create_from_edition).with(edition, notification_date)
+    EmailCurationQueueItem.expects(:create_from_edition).with(edition, timestamp)
     notifier.notify_email_curation_queue
   end
 
-  test '#notify_govuk_delivery notifies the Worker of the edition' do
-    notification_date = stub("notification date")
-    edition = build(:published_edition)
+  test '#notify_govuk_delivery notifies the Worker with the edition and its public_timestamp' do
+    timestamp = Time.zone.now
+    edition = build(:published_edition, public_timestamp: timestamp)
     notifier = notifier_for(edition)
-    notifier.stubs(:notification_date).returns(notification_date)
 
-    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(edition, notification_date).once
+    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(edition, timestamp).once
     notifier.notify_govuk_delivery
   end
 
@@ -97,32 +95,57 @@ class Whitehall::GovUkDelivery::NotifierTest < ActiveSupport::TestCase
     notifier.edition_published!
   end
 
-  test '#edition_published! does nothing if the edition notification date is not today' do
-    policy = create(:published_policy, topics: [create(:topic)], minor_change: false, public_timestamp: Time.zone.now)
+  test '#edition_published! does nothing if the edition was published in the past' do
+    policy = create(:published_policy, topics: [create(:topic)], minor_change: false, public_timestamp: 2.days.ago)
     notifier = notifier_for(policy)
-    notifier.stubs(:notification_date).returns 2.days.ago
     notifier.expects(:notify_email_curation_queue).never
     notifier.expects(:notify_govuk_delivery).never
 
     notifier.edition_published!
   end
 
-  test "#notification_date uses the major_change_published_at for the notification_date of speeches" do
-    speech = create(:published_speech)
-    speech.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
-    speech.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
+  test '#edition_published! still notifies first-published speeches that were delivered less than 72 hours ago' do
+    speech = create(:draft_speech, delivered_on: 2.days.ago)
+    force_publish(speech)
+    notifier = notifier_for(speech)
+    notifier.expects(:notify_govuk_delivery).once
 
-    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(speech, Time.zone.parse('2011-01-01 12:13:14')).once
-    notifier_for(speech).notify_govuk_delivery
+    notifier.edition_published!
   end
 
-  test "#notification_date uses the public_timestamp for the notification_date of other editions" do
-    policy = create(:published_policy)
-    policy.major_change_published_at = Time.zone.parse('2011-01-01 12:13:14')
-    policy.public_timestamp = Time.zone.parse('2010-12-31 12:13:14')
+  test '#edition_published! does not notify a first-published speech that was delivered more than 72 hours ago' do
+    speech = create(:draft_speech, delivered_on: 73.hours.ago)
+    force_publish(speech)
+    notifier = notifier_for(speech)
+    notifier.expects(:notify_govuk_delivery).never
 
-    Whitehall::GovUkDelivery::Worker.expects(:notify!).with(policy, Time.zone.parse('2010-12-31 12:13:14')).once
-    notifier_for(policy).notify_govuk_delivery
+    notifier.edition_published!
+  end
+
+  test 'major changes to old speeches still generate a notification' do
+    speech = create(:draft_speech, delivered_on: 30.days.ago)
+    Timecop.travel(10.days.ago) { force_publish(speech) }
+
+    new_edition = speech.create_draft(create(:policy_writer))
+    new_edition.change_note = 'Some major changes'
+    force_publish(new_edition)
+    notifier = notifier_for(new_edition)
+    notifier.expects(:notify_govuk_delivery).once
+
+    notifier.edition_published!
+  end
+
+  test 'minor changes to old speeches do not generate a notification' do
+    speech = create(:draft_speech, delivered_on: 30.days.ago)
+    Timecop.travel(10.days.ago) { force_publish(speech) }
+
+    new_edition = speech.create_draft(create(:policy_writer))
+    new_edition.minor_change = true
+    force_publish(new_edition)
+    notifier = notifier_for(new_edition)
+    notifier.expects(:notify_govuk_delivery).never
+
+    notifier.edition_published!
   end
 
   test "#edition_published! does nothing if the edition is not published" do
