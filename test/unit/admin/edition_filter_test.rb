@@ -6,7 +6,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   end
 
   test "knows which states/scopes are valid for filtering" do
-    expected_scopes = %w(imported draft submitted rejected scheduled published archived active force_published)
+    expected_scopes = %w(imported draft submitted rejected scheduled published archived active force_published not_published)
     assert_same_elements expected_scopes, Admin::EditionFilter.new(Edition, @current_user).valid_scopes
   end
 
@@ -110,6 +110,20 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     guidance = create(:publication, publication_type: PublicationType::Guidance)
     form     = create(:publication, publication_type: PublicationType::Form)
     assert_equal [guidance], Admin::EditionFilter.new(Edition, @current_user, type: "publication_#{PublicationType::Guidance.id}").editions
+  end
+
+  test "should filter by multiple publication sub-types" do
+    guidance     = create(:publication, publication_type: PublicationType::Guidance)
+    form         = create(:publication, publication_type: PublicationType::Form)
+    policy_paper = create(:publication, publication_type: PublicationType::PolicyPaper)
+
+    assert_equal [form, policy_paper],
+      Admin::EditionFilter.new(Edition, @current_user, type: "publication",
+                               subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
+
+    assert_equal [guidance],
+      Admin::EditionFilter.new(Edition, @current_user, type: "publication",
+                               subtypes: [PublicationType::Guidance.id]).editions
   end
 
   test "should filter by title" do

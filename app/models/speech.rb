@@ -17,6 +17,10 @@ class Speech < Announcement
     where(speech_type_id: subtype.id)
   end
 
+  def self.by_subtypes(subtype_ids)
+    where(speech_type_id: subtype_ids)
+  end
+
   def search_format_types
     super + [Speech.search_format_type] + speech_type.search_format_types
   end

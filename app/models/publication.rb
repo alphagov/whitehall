@@ -17,12 +17,20 @@ class Publication < Publicationesque
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
+  has_one :statistics_announcement
+  attr_accessor :statistics_announcement_id
+  after_create :assign_statistics_announcement
+
   def self.subtypes
     PublicationType.all
   end
 
   def self.by_subtype(subtype)
     where(publication_type_id: subtype.id)
+  end
+
+  def self.by_subtypes(subtype_ids)
+    where(publication_type_id: subtype_ids)
   end
 
   def self.not_statistics
@@ -111,6 +119,12 @@ class Publication < Publicationesque
 
   def allows_html_attachments?
     true
+  end
+
+  def assign_statistics_announcement
+    if statistics_announcement_id.present?
+      self.statistics_announcement = StatisticsAnnouncement.find(statistics_announcement_id)
+    end
   end
 
   private

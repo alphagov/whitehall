@@ -140,6 +140,8 @@ Whitehall::Application.routes.draw do
     get 'world/organisations/:organisation_id/office' =>redirect('/world/organisations/%{organisation_id}')
     get 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
+    resources :statistics_announcements
+
     constraints(AdminRequest) do
       namespace :admin do
         root to: 'dashboard#index', via: :get
@@ -271,6 +273,10 @@ Whitehall::Application.routes.draw do
         get '/editions/:policy_id/supporting-pages/new', constraints: {id: /(\d+)/}, to: redirect("/admin/supporting-pages/new?edition[related_policy_ids][]=%{policy_id}"), as: 'new_policy_supporting_page'
 
         get "/editions/:id" => "editions#show"
+
+        resources :statistics_announcements do
+          resources :statistics_announcement_date_changes, as: 'changes', path: 'changes'
+        end
 
         resources :suggestions, only: [:index]
 

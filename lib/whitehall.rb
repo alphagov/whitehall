@@ -179,7 +179,8 @@ module Whitehall
       CorporateInformationPage,
       OperationalField,
       PolicyGroup,
-      TakePartPage
+      TakePartPage,
+      StatisticsAnnouncement
     ]
     not_yet_searchable_classes = []
     if world_feature?

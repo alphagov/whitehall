@@ -1,0 +1,47 @@
+
+<%= form_for [:admin, statistics_announcement] do |form| %>
+  <%= form.hidden_field :publication_id %>
+  <%= form.errors %>
+
+  <%= form.label  :publication_type_id, 'Statistics type', required: true %>
+  <%= form.select :publication_type_id,
+                  options_from_collection_for_select(PublicationType.statistical, 'id', 'singular_name', statistics_announcement.publication_type_id) %>
+
+  <%= form.text_field :title, required: true %>
+  <%= form.text_area :summary, rows: 5, required: true %>
+
+  <%= form.label  :organisation_id, 'Organisation', required: true %>
+  <%= form.select :organisation_id,
+                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', statistics_announcement.organisation_id),
+                  {},
+                  class: 'chzn-select' %>
+
+  <%= form.label  :topic_id, 'Topic', required: true %>
+  <%= form.select :topic_id,
+                  options_from_collection_for_select(Topic.all, 'id', 'name', statistics_announcement.topic_id),
+                  { prompt: 'Select a topic' },
+                  class: 'chzn-select' %>
+
+
+  <% if statistics_announcement.new_record? %>
+    <%= form.fields_for :current_release_date do |fields| %>
+      <%= fields.label :release_date, "Release date", required: true %>
+      <%= fields.datetime_select :release_date, {
+          start_year: Date.today.year,
+          end_year: Date.today.year + 5,
+          minute_step: 15,
+          default: (Date.tomorrow + 9.5.hours)
+        }, { class: 'date' } %>
+
+      <%= fields.check_box :confirmed, label_text: 'Confirmed date?' %>
+
+      <p>Display precision</p>
+      <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
+        <% checked = statistics_announcement.current_release_date.precision == value %>
+        <%= fields.labelled_radio_button(key.to_s.humanize, :precision, value, checked: checked) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= form.save_or_cancel buttons: { save: 'Save announcement' }, cancel: [:admin, statistics_announcement] %>
+<% end %>

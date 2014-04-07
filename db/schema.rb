@@ -1023,6 +1023,40 @@ ActiveRecord::Schema.define(:version => 20140401132650) do
   add_index "sponsorships", ["organisation_id", "worldwide_organisation_id"], :name => "unique_sponsorships", :unique => true
   add_index "sponsorships", ["worldwide_organisation_id"], :name => "index_sponsorships_on_worldwide_organisation_id"
 
+  create_table "statistics_announcement_dates", :force => true do |t|
+    t.integer  "statistics_announcement_id"
+    t.datetime "release_date"
+    t.integer  "precision"
+    t.boolean  "confirmed"
+    t.string   "change_note"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "creator_id"
+  end
+
+  add_index "statistics_announcement_dates", ["creator_id"], :name => "index_statistics_announcement_dates_on_creator_id"
+  add_index "statistics_announcement_dates", ["statistics_announcement_id", "created_at"], :name => "statistics_announcement_release_date"
+
+  create_table "statistics_announcements", :force => true do |t|
+    t.string   "title"
+    t.string   "slug"
+    t.text     "summary"
+    t.integer  "publication_type_id"
+    t.integer  "organisation_id"
+    t.integer  "topic_id"
+    t.integer  "creator_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "publication_id"
+  end
+
+  add_index "statistics_announcements", ["creator_id"], :name => "index_statistics_announcements_on_creator_id"
+  add_index "statistics_announcements", ["organisation_id"], :name => "index_statistics_announcements_on_organisation_id"
+  add_index "statistics_announcements", ["publication_id"], :name => "index_statistics_announcements_on_publication_id"
+  add_index "statistics_announcements", ["slug"], :name => "index_statistics_announcements_on_slug"
+  add_index "statistics_announcements", ["title"], :name => "index_statistics_announcements_on_title"
+  add_index "statistics_announcements", ["topic_id"], :name => "index_statistics_announcements_on_topic_id"
+
   create_table "supporting_page_redirects", :force => true do |t|
     t.integer  "policy_document_id"
     t.integer  "supporting_page_document_id"

@@ -1,64 +1,11 @@
 .document-collection-groups {
   &.index {
-    form.document-finder {
-      margin: $gutter 0;
-      position: relative;
 
-      div.reorder-buttons {
-        position: absolute;
-        right: 0px;
-        button {
-          display: none;
-        }
-      }
-
-      h2 {
-        margin-bottom: $gutter-one-third;
-      }
-
-      label {
-        display: inline;
-      }
-
-      $spacing: 0.5em;
-
-      input#title,
-      select {
-        margin: 0 $spacing;
-      }
-
-      input#title {
-        width: 25%;
-        margin-right: 0.1em;
-      }
-
-      div.document-finder {
-        position: relative;
-        display: inline;
-
-        img.js-loader {
-          display: none;
-
-          position: absolute;
-          top: 1px;
-          right: 4.3em;
-        }
-
-        p.tip {
-          position: absolute;
-          left: 0.7em;
-          top: 2.5em;
-
-          color: #999;
-          font-size: 10px;
-        }
-      }
-
-      input.btn-mini {
-        margin-right: $spacing;
-      }
-      input.btn-info {
-        margin-left: $spacing;
+    div.reorder-buttons {
+      position: absolute;
+      right: 0px;
+      button {
+        display: none;
       }
     }
 

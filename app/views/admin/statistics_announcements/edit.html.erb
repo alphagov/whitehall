@@ -1,0 +1,10 @@
+<% content_for :page_class, 'statistics-announcements edit' %>
+<% page_title "Edit statistics announcement" %>
+
+<%= render 'warning' %>
+
+<div class="span8">
+  <h1>Edit statistics announcement</h1>
+
+  <%= render "form", statistics_announcement: @statistics_announcement %>
+</div>

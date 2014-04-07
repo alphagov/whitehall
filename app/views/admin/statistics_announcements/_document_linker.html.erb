@@ -1,0 +1,20 @@
+<% initialise_script 'GOVUK.documentFinder', type: 'publication', subtypes: [statistics_announcement.publication_type_id], state: 'not_published' %>
+<% initialise_script 'GOVUK.statisticsAnnouncementLinker' %>
+
+<%= form_for [:admin, statistics_announcement], html: { style: 'display:none' } do |form| %>
+  <%= form.hidden_field :publication_id %>
+<% end %>
+
+<%= form_tag '', id: 'document-finder', class: 'js-hidden' do %>
+  <%= hidden_field_tag :edition_id %>
+
+  <div class="document-finder-fields">
+    <%= label_tag :title, 'Find the unpublished statistics to link this announcement to:' %>
+    <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique' %>
+    <%= button_tag "Search", type: 'button', id: 'find-documents', class: 'btn btn-mini' %>
+    <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
+    <p class="tip">
+      Only the first 10 results are returned - be as specific as you can
+    </p>
+  </div>
+<% end %>

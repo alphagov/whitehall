@@ -41,6 +41,7 @@
 
 // HELPERS
 // Objects that can be used in more than one place throughout the admin
+@import "helpers/_document_finder.scss";
 @import "helpers/_document_list.scss";
 @import "helpers/_navigation_controls.scss";
 @import "helpers/_jquery_ui_overrides.scss";
@@ -58,5 +59,6 @@
 @import "views/_editions-index.scss";
 @import "views/_edition_edit_help.scss";
 @import "views/_document_collection_groups.scss";
+@import "views/_statistics_announcements-show.scss";
 @import "views/editions/confirm_unpublish.scss";
 @import "views/editions/_filter_options.scss";

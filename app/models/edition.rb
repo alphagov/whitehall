@@ -171,8 +171,13 @@ class Edition < ActiveRecord::Base
   end
 
   # used by Admin::EditionFilter
-  def self.by_subtype(type, sub_type)
-    type.by_subtype(sub_type)
+  def self.by_subtype(type, subtype)
+    type.by_subtype(subtype)
+  end
+
+  # used by Admin::EditionFilter
+  def self.by_subtypes(type, subtype_ids)
+    type.by_subtypes(subtype_ids)
   end
 
   # used by Admin::EditionFilter

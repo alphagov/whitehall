@@ -89,7 +89,7 @@ end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
   dc = DocumentCollection.find_by_title(title)
-  assert_equal public_document_path(dc), page.current_path
+  assert_path public_document_path(dc)
 end
 
 Then(/^I can see in the preview that "(.*?)" is part of the document collection$/) do |document_title|

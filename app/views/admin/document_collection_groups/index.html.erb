@@ -1,7 +1,7 @@
 <% content_for :page_class, 'document-collection-groups index' %>
 <% page_title "#{@collection.title}", "Document collections" %>
 <% initialise_script 'GOVUK.DocumentGroupOrdering', selector: '.js-document-group', post_url: admin_document_collection_update_group_memberships_path(document_collection_id: @collection.id), group_buttons: '.reorder-buttons', group_container_selector: '.js-group-container' %>
-<% initialise_script 'GOVUK.documentCollectionDocFinder' %>
+<% initialise_script 'GOVUK.documentFinder' %>
 <% initialise_script 'GOVUK.documentCollectionCheckboxSelector' %>
 
 <h1><%= @collection.title %></h1>
@@ -9,12 +9,14 @@
 <%= edition_editing_tabs(@collection) do %>
   <%= form_tag admin_document_collection_new_member_path(@collection), class: 'document-finder' do %>
     <h2>Add a document</h2>
-    <div>
-      <div class="reorder-buttons"><%= button_tag 'Reorder groups', class: 'btn btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-danger js-finish-reorder' %></div>
+    <div class="reorder-buttons">
+      <%= button_tag 'Reorder groups', class: 'btn btn-info js-reorder' %><%= button_tag 'Finish reordering', class: 'btn btn-danger js-finish-reorder' %>
+    </div>
+    <div id="document-finder">
       <label for="title">Add</label>
-      <div class="document-finder">
+      <div class="document-finder-fields">
         <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
-        <input value="Find" type="button" id="find-documents" class="btn btn-mini">
+        <%= button_tag 'Find', type: 'button', id: 'find-documents', class: 'btn btn-mini' %>
         <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
         <p class="tip">
           Only the first 10 results are returned - be as specific as you can

@@ -32,7 +32,7 @@ When(/^I publish a world location news article "(.*?)" for "(.*?)"$/) do |title,
 end
 
 Then /^I should see the world location news article listed in admin with an indication that it is in French$/ do
-  assert_equal admin_edition_path(@world_location_news_article), page.current_path
+  assert_path admin_edition_path(@world_location_news_article)
   assert page.has_content?("This document is French-only")
 end
 
