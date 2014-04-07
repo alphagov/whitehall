@@ -51,18 +51,18 @@ $uk-trade-investment-websafe: $link-colour;
 $wales-office-websafe: #7a242a;
 
 // Organisation brand colours
-// 
-// Organisation brand colours are specified manually because there is no 
-// fixed rule as to what colours organisations have. Colours are defined 
+//
+// Organisation brand colours are specified manually because there is no
+// fixed rule as to what colours organisations have. Colours are defined
 // by OrganisationBrandColour and its associated CSS class here.
 //
-// NOTE: The mixin will create a new block inside the block it is included in. 
-// The downside of this approach is it requires at least 3 elements to be 
-// able to do anything – the parent element, the element with the colour 
-// class on and the element we're actually styling. This might be simpler 
-// if we did &.foo-brand-colour #{$selector} { ... }, but that will 
+// NOTE: The mixin will create a new block inside the block it is included in.
+// The downside of this approach is it requires at least 3 elements to be
+// able to do anything – the parent element, the element with the colour
+// class on and the element we're actually styling. This might be simpler
+// if we did &.foo-brand-colour #{$selector} { ... }, but that will
 // require refactoring.
-// 
+//
 // Usage:
 //
 //   html:
@@ -83,9 +83,10 @@ $wales-office-websafe: #7a242a;
 
 
 // All organisation colours as list of (class_name, colour, websafe colour)
-$all-organisation-brand-colours: 
+$all-organisation-brand-colours:
   'attorney-generals-office' $attorney-generals-office $attorney-generals-office-websafe,
   'cabinet-office' $cabinet-office $cabinet-office-websafe,
+  'civil-service' $civil-service $civil-service,
   'department-for-business-innovation-skills' $department-for-business-innovation-skills $department-for-business-innovation-skills-websafe,
   'department-for-communities-and-local-government' $department-for-communities-and-local-government $department-for-communities-and-local-government-websafe,
   'department-for-culture-media-sport' $department-for-culture-media-sport $department-for-culture-media-sport-websafe,

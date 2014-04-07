@@ -142,4 +142,9 @@ class OrganisationBrandColour
     title: "Wales Office",
     class_name: "wales-office"
   )
+  CivilService = create(
+    id: 28,
+    title: "Civil Service",
+    class_name: "civil-service"
+  )
 end

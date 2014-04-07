@@ -944,8 +944,11 @@
 }
 
 .organisations-show-promotional {
-  .number-prime-ministers-office-10-downing-street,
-  .deputy-prime-ministers-office {
+  @include organisation-brand-colour(".social-media-link .connect", background-color, $websafe: true);
+  @include organisation-brand-colour("a", color, $websafe: true);
+
+  .cabinet-office-brand-colour.prime-ministers-office-10-downing-street,
+  .cabinet-office-brand-colour.deputy-prime-ministers-office {
     a {
       color: $fuschia;
     }
