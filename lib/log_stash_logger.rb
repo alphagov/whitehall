@@ -31,7 +31,6 @@ private
     source  = log_data.delete(:source) || ''
     tags    = default_tags + (log_data.delete(:tags) || [])
     fields  = log_data.reverse_merge({
-      message:  message,
       level:    severity,
       progname: progname
     })
