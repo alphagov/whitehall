@@ -1,0 +1,4 @@
+<%= full_width_tabs [
+  { label: "Published",         link_to: publications_filter_path(publication_filter_option: 'statistics'), current_when: params[:controller] == 'publications' },
+  { label: "Release calendar", link_to: statistics_announcements_path }
+] %>

@@ -24,10 +24,6 @@ class SupportingPagesController < PublicFacingController
   end
 
 private
-  def render_not_found
-    render text: "Not found", status: :not_found
-  end
-
   def find_policy
     if should_preview?
       @policy = Document.at_slug('Policy', params[:policy_id]).try(:latest_edition)

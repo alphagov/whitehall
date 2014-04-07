@@ -21,6 +21,11 @@ class ApplicationHelperTest < ActionView::TestCase
     include ApplicationHelper
   end
 
+  # Exposes request object to helper in tests
+  def request
+    controller.request
+  end
+
   test "should supply options with IDs and descriptions for the all ministerial appointments" do
     theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
     philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
@@ -282,6 +287,35 @@ class ApplicationHelperTest < ActionView::TestCase
     refute is_external?('/something'), 'no host'
     refute is_external?('https://www.gov.uk'), 'good host'
     refute is_external?('http://www.preview.alphagov.co.uk/something'), 'good host with path'
+  end
+
+  test "full_width_tabs should render tabs" do
+    request.stubs(:path).returns("/stationary")
+
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+      { label: "Guitar tabs", link_to: "/hipster-guitars" },
+      { label: "Document tabs", link_to: "/stationary" }
+    ]).children.first
+
+    assert_equal "nav", rendered.name
+    assert_equal "activity-navigation", rendered[:class]
+    links = rendered.css "li a"
+    assert_equal "Guitar tabs", links[0].text
+    assert_equal "/hipster-guitars", links[0][:href]
+    refute links[0][:class].to_s.include? "current"
+    assert_equal "Document tabs", links[1].text
+    assert_equal "/stationary", links[1][:href]
+    assert links[1][:class].to_s.include? "current"
+  end
+
+  test "full_width_tabs supports :current_when" do
+    rendered = Nokogiri::HTML::DocumentFragment.parse(full_width_tabs [
+      { label: "Guitar tabs", link_to: "/hipster-guitars", current_when: false },
+      { label: "Document tabs", link_to: "/stationary", current_when: true }
+    ]).children.first
+
+    refute rendered.at_xpath(".//a[.='Guitar tabs']")[:class].to_s.include? 'current'
+    assert rendered.at_xpath(".//a[.='Document tabs']")[:class].to_s.include? 'current'
   end
 
   private

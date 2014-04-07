@@ -15,6 +15,9 @@
   </div>
 </header>
 
+<%# Commented out as a 'feature flag'. Relates to viewing statistics announcements. %>
+<%#= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
+
 <div class="block-2 filter-form">
   <div class="inner-block">
     <% if Locale.current.english? %>
@@ -36,7 +39,7 @@
   </div>
 </div>
 
-<div class="block-4 filtered-results">
+<div class="block-4 filter-results-block">
   <div class="inner-block">
     <% if Locale.current.english? %>
       <%= render partial: "documents/filter_results",

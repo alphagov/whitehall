@@ -162,6 +162,7 @@ class Organisation < ActiveRecord::Base
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
   scope :closed, -> { where(govuk_status: "closed") }
+  scope :with_statistics_announcements, -> { joins("INNER JOIN statistics_announcements ON statistics_announcements.organisation_id = organisations.id").group("organisations.id") }
 
   def self.grouped_by_type(locale = I18n.locale)
     Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do

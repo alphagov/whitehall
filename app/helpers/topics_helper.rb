@@ -1,4 +1,8 @@
 module TopicsHelper
+  def topic_links_sentence(topics)
+    array_of_links_to_topics(topics).to_sentence
+  end
+
   def array_of_links_to_topics(topics)
     topics.map { |topic|
       link_to topic.name, topic_path(topic)

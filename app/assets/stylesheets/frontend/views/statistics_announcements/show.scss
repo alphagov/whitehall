@@ -1,0 +1,10 @@
+.statistics-announcements-show {
+  .release-date-change-information {
+    margin: $gutter 0;
+
+    h3 {
+        @include bold-16;
+        margin-bottom: $gutter-half;
+    }
+  }
+}

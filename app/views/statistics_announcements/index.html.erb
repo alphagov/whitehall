@@ -1,0 +1,65 @@
+<% initialise_script "GOVUK.RemoteSearchFilter", form_element: '.js-filter-form',
+                                                 results_element: '.js-filter-results',
+                                                 loading_message_holder: '.filter-results-summary',
+                                                 loading_message_text: 'Loading results&hellip;',
+                                                 search_url: statistics_announcements_path %>
+<% page_title "Statistics", "Release calendar" %>
+<% page_class "statistics-announcements-index" %>
+
+<div class="beta-notice">
+  <p><strong>BETA:</strong> This is a new service.</p>
+</div>
+
+<header class="block headings-block">
+  <div class="inner-block floated-children">
+    <%= render partial: 'shared/heading',
+              locals: { big: true,
+                        heading: "Statistics: Release calendar" } %>
+  </div>
+</header>
+
+<%= render 'upcoming_calendar_tabs' %>
+
+<div class="filter-form-block">
+  <div class="inner-block">
+    <h2>You can use the filters to show only results that match your interests.</h2>
+    <%= form_for @filter, url: statistics_announcements_path, method: :get, html: { class: "filter-form js-filter-form" } do |f| %>
+      <fieldset>
+        <div class="filter">
+          <div class="filter-inner">
+            <%= label_tag :keywords, "Contains" %>
+            <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
+          </div>
+        </div>
+        <div class="filter">
+          <div class="filter-inner">
+            <%= label_tag "organisations", "Department" %>
+            <%= select_tag "organisations[]", organisation_options_for_statistics_announcement_filter(@filter.organisation_slugs), id: "organisations", class: "single-row-select" %>
+          </div>
+        </div>
+        <div class="filter">
+          <div class="filter-inner">
+            <%= label_tag "topics", "Topic" %>
+            <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.topic_slugs), id: "topics", class: "single-row-select" %>
+          </div>
+        </div>
+        <div class="filter date-range-filter">
+          <div class="filter-inner">
+            <%= label_tag :from_date, "Published after" %>
+            <%= text_field_tag :from_date, params[:from_date], placeholder: "e.g. 01/01/2013" %>
+
+            <%= label_tag :to_date, "Published before" %>
+            <%= text_field_tag :to_date, params[:to_date], placeholder: "e.g. 30/02/2013" %>
+          </div>
+        </div>
+        <%= f.submit "Refresh results", class: "button" %>
+      </fieldset>
+    <%- end -%>
+  </div>
+</div>
+
+<div class="filter-results-block">
+  <div class="inner-block js-filter-results">
+    <%= render 'filter_results' %>
+  </div>
+</div>

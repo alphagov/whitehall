@@ -171,7 +171,24 @@ module ApplicationHelper
     render_list_of_roles(ministerial_roles, &block)
   end
 
+  def full_width_tabs(tab_data)
+    content_tag(:nav, class: "activity-navigation") {
+      content_tag(:ul) {
+        tab_data.map { | tab |
+          content_tag :li do
+            if tab[:current_when]
+              link_to tab[:label], tab[:link_to], class: ('current' if tab[:current_when])
+            else
+              link_to_with_current(tab[:label], tab[:link_to])
+            end
+          end
+        }.join.html_safe
+      }
+    }
+  end
+
   def link_to_with_current(name, path, options = {})
+    options = options.dup
     path_matcher = options.delete(:current_path) || Regexp.new("^#{Regexp.escape(path)}$")
     css_classes = [options[:class], current_link_class(path_matcher)].join(" ").strip
     options[:class] = css_classes unless css_classes.blank?
@@ -244,6 +261,8 @@ module ApplicationHelper
       else
         publications_path
       end
+    when "statistics_announcements"
+      publications_path(publication_filter_option: 'statistics')
     when "consultations", "consultation_responses"
       publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"

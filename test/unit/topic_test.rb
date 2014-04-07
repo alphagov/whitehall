@@ -181,4 +181,11 @@ class TopicTest < ActiveSupport::TestCase
     topic = build(:topic, params)
     assert topic.top_tasks.empty?
   end
+
+  test "with_statistics_announcements scopes to organisations with associated statistics_announcements" do
+    topic_with_announcement = create(:topic)
+    create(:statistics_announcement, topic: topic_with_announcement)
+    topic_without_announcement = create(:topic)
+    assert_equal [topic_with_announcement], Topic.with_statistics_announcements
+  end
 end
