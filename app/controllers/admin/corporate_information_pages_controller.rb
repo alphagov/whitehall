@@ -28,8 +28,9 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   end
 
   def destroy
-    # Linking EditionOrganisation is deleted on destroy, meaning that title can
-    # no longer be rendered, so calculate it beforehand.
+    # The title method relies on the presence of the organisation so we need to
+    # stash it before the page is destroyed, as the join model between the page
+    # and the organisation will no longer exist afterwards.
     title = @corporate_information_page.title
     if @corporate_information_page.destroy
       redirect_to [:admin, @organisation], notice: "#{title} deleted successfully"

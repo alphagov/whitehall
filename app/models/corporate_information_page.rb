@@ -36,13 +36,6 @@ class CorporateInformationPage < Edition
     false
   end
 
-  def update_document_slug
-  end
-
-  def ensure_presence_of_document
-    self.document ||= Document.new()
-  end
-
   def only_one_organisation_or_worldwide_organisation
     if organisation && worldwide_organisation
       errors.add(:base, "Only one organisation or worldwide organisation allowed")
@@ -98,5 +91,11 @@ class CorporateInformationPage < Edition
 
   def summary_required?
     false
+  end
+
+  private
+
+  def string_for_slug
+    nil
   end
 end
