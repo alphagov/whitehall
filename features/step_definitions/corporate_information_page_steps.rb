@@ -10,6 +10,14 @@ Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^
   click_button "Save"
 end
 
+Given /^I force-publish the "([^"]*)" corporate information page for the organisation "([^"]*)"$/ do |page_type, org_name|
+  organisation = Organisation.find_by_name(org_name)
+  visit admin_organisation_path(organisation)
+  click_link "Corporate information pages"
+  click_link page_type
+  publish(force: true)
+end
+
 When /^I click the "([^"]*)" link$/ do |link_text|
   click_link link_text
 end
@@ -28,6 +36,14 @@ When /^I add a "([^"]*)" corporate information page to the worldwide organisatio
   click_button "Save"
 end
 
+When /^I force-publish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/ do |page_type, org_name|
+  organisation = WorldwideOrganisation.find_by_name(org_name)
+  visit admin_worldwide_organisation_path(organisation)
+  click_link "Corporate information pages"
+  click_link page_type
+  publish(force: true)
+end
+
 Then /^I should see the corporate information on the public worldwide organisation page$/ do
   worldwide_organisation = WorldwideOrganisation.last
   info_page = worldwide_organisation.corporate_information_pages.last
@@ -41,15 +57,10 @@ When /^I translate the "([^"]*)" corporate information page for the worldwide or
   worldwide_organisation = WorldwideOrganisation.find_by_name(worldwide_org)
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link "Corporate information pages"
-  corporate_information_page_type = CorporateInformationPageType.find_by_title(corp_page)
-  corporate_information_page = worldwide_organisation.corporate_information_pages.by_type(corporate_information_page_type).first
-
-  within(record_css_selector(corporate_information_page)) do
-    click_link "Manage translations"
-  end
-
+  click_link corp_page
+  click_link "open-add-translation-modal"
   select "Français", from: "Locale"
-  click_on "Create translation"
+  click_button "Add translation"
   fill_in "Summary", with: "Le summary"
   fill_in "Body", with: "Le body"
   click_on "Save"
@@ -70,15 +81,10 @@ When /^I translate the "([^"]*)" corporate information page for the organisation
   organisation = Organisation.find_by_name(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
-  corporate_information_page_type = CorporateInformationPageType.find_by_title(corp_page)
-  corporate_information_page = organisation.corporate_information_pages.by_type(corporate_information_page_type).first
-
-  within(record_css_selector(corporate_information_page)) do
-    click_link "Manage translations"
-  end
-
+  click_link corp_page
+  click_link "open-add-translation-modal"
   select "Français", from: "Locale"
-  click_on "Create translation"
+  click_button "Add translation"
   fill_in "Summary", with: "Le summary"
   fill_in "Body", with: "Le body"
   click_on "Save"
@@ -98,14 +104,17 @@ end
 Given /^my organisation has a "(.*?)" corporate information page$/ do |page_title|
   @user.organisation ||= create(:organisation)
   page_type = CorporateInformationPageType.find_by_title(page_title)
-  create(:corporate_information_page, type: page_type,
-                                      organisation: @user.organisation)
+  create(:corporate_information_page,
+         corporate_information_page_type: page_type,
+         organisation: @user.organisation)
 end
 
 Then /^I should be able to add attachments to the "(.*?)" corporate information page$/ do |page_title|
   page_type = CorporateInformationPageType.find_by_title(page_title)
-  page = @user.organisation.corporate_information_pages.find_by_type_id(page_type.id)
+  page = @user.organisation.corporate_information_pages.find_by_corporate_information_page_type_id(page_type.id)
   attachment = upload_pdf_to_corporate_information_page(page)
+  VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
   insert_attachment_markdown_into_corporate_information_page_body(attachment, page)
+  publish(force: true)
   check_attachment_appears_on_corporate_information_page(attachment, page)
 end

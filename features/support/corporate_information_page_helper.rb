@@ -3,7 +3,8 @@ module CorporateInformationPageHelper
     visit admin_organisation_path(page.organisation)
     click_link 'Corporate information pages'
     click_link page.title
-    click_link 'Attachments'
+    save_page
+    click_link 'Modify attachments'
     upload_new_attachment(pdf_attachment, 'A PDF attachment')
   end
 
@@ -11,6 +12,7 @@ module CorporateInformationPageHelper
     visit admin_organisation_path(page.organisation)
     click_link 'Corporate information pages'
     click_link page.title
+    click_link 'Edit draft'
     markdown = find_markdown_snippet_to_insert_attachment(attachment)
     fill_in 'Body', with: page.body.to_s + "\n\n" + markdown
     click_button 'Save'
