@@ -43,6 +43,10 @@ module Admin::EditionRoutesHelper
     polymorphic_path([:admin, edition.owning_organisation, edition], *args)
   end
 
+  def admin_corporate_information_page_url(edition, *args)
+    polymorphic_url([:admin, edition.owning_organisation, edition], *args)
+  end
+
   def admin_corporate_information_pages_path(*args)
     # This is a fairly nasty hack that just happens to work.  We're relying on
     # the various admin_{things}_path helpers throughout the code, and we're
