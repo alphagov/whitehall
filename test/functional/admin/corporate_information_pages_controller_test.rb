@@ -35,9 +35,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   test "POST :create can create a corporate information page for an Organisation" do
     post :create, organisation_id: @organisation, edition: corporate_information_page_attributes
 
-    assert_redirected_to admin_organisation_corporate_information_pages_path(@organisation)
-
     assert page = @organisation.corporate_information_pages.last
+    assert_redirected_to [:admin, @organisation, page]
     assert_equal "#{page.title} created successfully", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
@@ -48,9 +47,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     organisation = create(:worldwide_organisation)
     post :create, worldwide_organisation_id: organisation, edition: corporate_information_page_attributes
 
-    assert_redirected_to admin_worldwide_organisation_corporate_information_pages_path(organisation)
-
     assert page = organisation.corporate_information_pages.last
+    assert_redirected_to [:admin, organisation, page]
     assert_equal "#{page.title} created successfully", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
