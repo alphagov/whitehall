@@ -11,6 +11,14 @@ class CorporateInformationPageType
     all.detect { |type| type.title_template == title } or raise ActiveRecord::RecordNotFound
   end
 
+  def key
+    # RegisterableEdition expects model_name_type instances to have a `key`
+    # attribute: Publication and WorldLocation for example define this to have
+    # different subtype kinds. Our use of _type is slightly different and all
+    # types have the same kind, ie CIP.
+    'corporate_information_page'
+  end
+
   def title(organisation)
     title_template % (organisation.respond_to?(:acronym) && organisation.acronym || "#{organisation.name}")
   end
