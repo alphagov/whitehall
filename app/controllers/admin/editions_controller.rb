@@ -213,7 +213,7 @@ class Admin::EditionsController < Admin::BaseController
     if params[:save_and_continue].present?
       [:edit, :admin, @edition]
     else
-      admin_edition_url(@edition)
+      admin_edition_path(@edition)
     end
   end
 

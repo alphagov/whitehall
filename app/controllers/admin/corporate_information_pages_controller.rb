@@ -20,18 +20,10 @@ class Admin::CorporateInformationPagesController < Admin::EditionsController
   def create
     @corporate_information_page = @organisation.build_corporate_information_page(new_edition_params)
     if @corporate_information_page.save
-      redirect_to [:admin, @organisation, CorporateInformationPage], notice: "#{@corporate_information_page.title} created successfully"
+      redirect_to [:admin, @organisation, @corporate_information_page], notice: "#{@corporate_information_page.title} created successfully"
     else
       flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
       render :new
-    end
-  end
-
-  def show_or_edit_path
-    if params[:save_and_continue].present?
-      [:edit, :admin, @organisation, @edition]
-    else
-      admin_corporate_information_page_path(@edition)
     end
   end
 
