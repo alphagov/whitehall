@@ -23,7 +23,7 @@ class WorldLocation < ActiveRecord::Base
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WL'
-  
+
   include TranslatableModel
   translates :name, :title, :mission_statement
 

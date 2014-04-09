@@ -429,7 +429,7 @@ class Organisation < ActiveRecord::Base
         ]
       }
     else
-      {}  
+      {}
     end
   end
 
