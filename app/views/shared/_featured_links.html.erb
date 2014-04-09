@@ -1,0 +1,5 @@
+<%= content_tag_if_not_empty(:ul, class: [type, 'featured-links']) do %>
+  <% links.each do |link| %>
+    <li><%= link_to link.title, link.url, ({rel: 'external'} if is_external?(link.url)) %></li>
+  <% end %>
+<% end %>

@@ -388,6 +388,24 @@ Then /^the top tasks for the organisation "([^"]*)" should be visible on the pub
   end
 end
 
+When /^I add some featured services and guidance to the organisation "([^"]*)" via the admin$/ do |organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit admin_organisation_path(organisation)
+  click_link "Edit"
+  within ".featured-services-and-guidance" do
+    fill_in "Url", with: "https://www.gov.uk/example/service"
+    fill_in "Title", with: "Example Service"
+  end
+  click_button "Save"
+end
+
+Then /^the featured services and guidance for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
+  visit_organisation organisation_name
+  within ".featured-services-and-guidance" do
+    assert page.has_css?("a[href='https://www.gov.uk/example/service']", "Example Service")
+  end
+end
+
 Given /^an organisation "([^"]*)" has been assigned to handle fatalities$/ do |organisation_name|
   create(:organisation, name: organisation_name, handles_fatalities: true)
 end

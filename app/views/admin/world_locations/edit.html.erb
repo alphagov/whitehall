@@ -15,7 +15,7 @@
       <%= form.check_box :active,
                 label_text: "Active (can visitors click through from the world location list?)" %>
 
-      <%= render partial: 'admin/shared/top_tasks_fields', locals: { form: form } %>
+      <%= render 'admin/shared/featured_link_fields', type: 'top_tasks', form: form %>
 
       <p class="warning">Warning: changes to worldwide locations appear instantly on the live site.</p>
       <%= form.save_or_cancel cancel: admin_world_location_path(@world_location) %>

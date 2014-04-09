@@ -16,7 +16,7 @@
       <aside class="heading-extra">
         <div class="inner-heading">
           <%= render 'shared/available_languages', object: @world_location %>
-          <%= render 'shared/top_tasks', top_tasks: @world_location.top_tasks.only_the_initial_set %>
+          <%= render 'shared/featured_links', type: 'top-tasks', links: @world_location.top_tasks.only_the_initial_set %>
         </div>
       </aside>
     </div>

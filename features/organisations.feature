@@ -69,6 +69,12 @@ Scenario: Adding top tasks
   When I add some top tasks to the organisation "Ministry of Pop" via the admin
   Then the top tasks for the organisation "Ministry of Pop" should be visible on the public site
 
+Scenario: Adding featured services and guidance
+  Given I am a GDS editor
+  And the organisation "Ministry of Pop" exists
+  When I add some featured services and guidance to the organisation "Ministry of Pop" via the admin
+  Then the featured services and guidance for the organisation "Ministry of Pop" should be visible on the public site
+
 Scenario: Managing social media links
   Given the organisation "Ministry of Pop" exists
   And a social media service "Twooter"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140401132650) do
+ActiveRecord::Schema.define(:version => 20140409111430) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -535,6 +535,15 @@ ActiveRecord::Schema.define(:version => 20140401132650) do
   add_index "featured_items", ["featured_topics_and_policies_list_id", "ordering"], :name => "idx_featured_items_on_featured_ts_and_ps_list_id_and_ordering"
   add_index "featured_items", ["featured_topics_and_policies_list_id"], :name => "index_featured_items_on_featured_topics_and_policies_list_id"
   add_index "featured_items", ["item_id", "item_type"], :name => "index_featured_items_on_item_id_and_item_type"
+
+  create_table "featured_services_and_guidance", :force => true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "featured_topics_and_policies_lists", :force => true do |t|
     t.integer  "organisation_id",                             :null => false

@@ -98,7 +98,8 @@ class Admin::OrganisationsController < Admin::BaseController
       organisation_mainstream_categories_attributes: [
         :mainstream_category_id, :ordering, :id, :_destroy
       ],
-      top_tasks_attributes: [:title, :url, :_destroy, :id]
+      top_tasks_attributes: [:title, :url, :_destroy, :id],
+      featured_services_and_guidance_attributes: [:title, :url, :_destroy, :id]
     )
   end
 

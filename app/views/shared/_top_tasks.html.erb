@@ -1,5 +1,0 @@
-<%= content_tag_if_not_empty(:ul, class: "top-tasks") do %>
-  <% top_tasks.each do |tt| %>
-    <li><%= link_to tt.title, tt.url, ({rel: 'external'} if is_external?(tt.url)) %></li>
-  <% end %>
-<% end %>

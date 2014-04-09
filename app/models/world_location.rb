@@ -15,7 +15,8 @@ class WorldLocation < ActiveRecord::Base
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
 
-  include HasTopTasks
+  include HasFeaturedLinks
+  has_featured_links :top_tasks
 
   include Featurable
 
@@ -23,7 +24,7 @@ class WorldLocation < ActiveRecord::Base
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WL'
-  
+
   include TranslatableModel
   translates :name, :title, :mission_statement
 
