@@ -12,6 +12,24 @@
     </div>
   </div>
 
+  <% if (featured_services_and_guidance = @organisation.featured_services_and_guidance).any? %>
+    <div class="heading-block">
+      <div class="inner-block">
+        <section class="featured-services-and-guidance">
+          <div class="head-section">
+            <h1>Services and guidance</h1>
+          </div>
+
+          <div class="content">
+            <%= render 'shared/featured_links',
+              type: 'top-tasks',
+              links: featured_services_and_guidance.only_the_initial_set %>
+          </div>
+        </section>
+      </div>
+    </div>
+  <% end %>
+
   <div class="block-2 <%= "has-social" if @organisation.social_media_accounts.any? %>">
     <div class="inner-block">
       <%= render partial: 'featured_items',

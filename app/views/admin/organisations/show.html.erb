@@ -76,6 +76,19 @@
               <% end %>
             </td>
           </tr>
+          <tr><th>Featured services and guidance</th>
+            <td>
+              <% if (links = @organisation.featured_services_and_guidance).any? %>
+                <ul>
+                  <% links.each do |link| %>
+                    <li><%= link_to link.title, link.url %></li>
+                  <% end %>
+                </ul>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
           <% if @organisation.default_news_image %>
             <tr><th>Default news image</th><td><%= image_tag @organisation.default_news_image.file.url(:s300) %></td></tr>
           <% end %>

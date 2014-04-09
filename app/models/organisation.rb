@@ -109,7 +109,9 @@ class Organisation < ActiveRecord::Base
 
   has_many :promotional_features
 
-  include HasTopTasks
+  include HasFeaturedLinks
+  has_featured_links :top_tasks
+  has_featured_links :featured_services_and_guidance
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles

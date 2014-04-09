@@ -39,12 +39,12 @@
         <% end %>
       </td>
     </tr>
-    <% if @classification.singleton_class.include?(HasTopTasks) %>
+    <% if @classification.respond_to?(:top_tasks) %>
       <tr>
         <th>Top Tasks</th>
         <td class="top-tasks">
           <% if @classification.top_tasks.any? %>
-            <%= render partial: 'shared/top_tasks', locals: { top_tasks: @classification.top_tasks } %>
+            <%= render 'shared/featured_links', type: 'top-tasks', links: @classification.top_tasks %>
           <% else %>
             <em>None</em>
           <% end %>

@@ -87,7 +87,11 @@
     <% end %>
   </fieldset>
 
-  <%= render partial: 'admin/shared/top_tasks_fields', locals: { form: organisation_form } %>
+  <%= render 'admin/shared/featured_link_fields', type: 'top_tasks', form: organisation_form %>
+
+  <% if current_user.gds_editor? %>
+    <%= render 'admin/shared/featured_link_fields', type: 'featured_services_and_guidance', form: organisation_form %>
+  <% end %>
 
   <fieldset>
     <%= organisation_form.text_area :about_us, class: "previewable" %>
