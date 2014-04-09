@@ -29,12 +29,11 @@
 
   RemoteSearchFilter.prototype.updateResults = function updateResults() {
     this.pushToHistory();
-    var params = this.getFilterParams();
-    params.push({name: 'xhr', value: 'true'});
-    this.getResultsFromRemote(params);
+    this.getResultsFromRemote(this.getFilterParams());
   };
 
   RemoteSearchFilter.prototype.getResultsFromRemote = function getResultsFromRemote(params) {
+    params.push({name: 'xhr', value: 'true'});
     this.renderLoadingMessage();
     $.get(this.searchUrl, params, this.handleResponse);
   };
@@ -83,8 +82,11 @@
 
   RemoteSearchFilter.prototype.onHistoryPopState = function onHistoryPopState(event) {
     var filterParams = event.state || event.originalEvent.state;
-    this.setFieldValues(filterParams);
-    this.getResultsFromRemote(filterParams);
+
+    if ( filterParams != null ) {
+      this.setFieldValues(filterParams);
+      this.getResultsFromRemote(filterParams);
+    }
   };
 
   RemoteSearchFilter.prototype.setFieldValues = function setFieldValues(filterParams) {
