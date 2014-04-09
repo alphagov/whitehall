@@ -47,241 +47,241 @@ $mellow-red;
     overflow: hidden;
 }
 
-
-// CHART STYLES
-.mc-chart {
-    font-size: $base-unit;
-    display: table;
-    width: 100%;
-    border-spacing: 0 $bar-spacing;
-    border: 1px solid $chart-border;
-    padding: $base-unit 0;
-    position: relative;
-    margin-bottom: $base-unit;
-
-    // CAPTION STYLES
-    .mc-caption{
-        display: table-caption;
+.govspeak {
+    // CHART STYLES
+    .mc-chart {
         font-size: $base-unit;
-        text-align: center;
-        caption-side: $caption-side;
-        margin: $base-unit 0;
-    }
+        display: table;
+        width: 100%;
+        border-spacing: 0 $bar-spacing;
+        border: 1px solid $chart-border;
+        padding: $base-unit 0;
+        position: relative;
+        margin-bottom: $base-unit;
 
-    // KEY STYLES
-    .mc-thead {
-        background-color: #fff;
-        display: table-header-group;
-        padding: $bar-spacing;
-        border: 1px solid $key-border;
-        .mc-th{
-            display: none; // Hide all header cells first
+        // CAPTION STYLES
+        .mc-caption{
+            display: table-caption;
+            font-size: $base-unit;
+            text-align: center;
+            caption-side: $caption-side;
+            margin: $base-unit 0;
         }
-        .mc-key-header{
-            display: block; // Show the header cells that form part of the key
-            margin-bottom: $bar-spacing;
-            margin-left: 100%;
-            padding-left: $bar-spacing;
-            border-left: $base-unit solid;
-            text-align: left;
-            font-weight: normal;
-            width: 100%;
-            &:last-child{
+
+        // KEY STYLES
+        .mc-thead {
+            background-color: #fff;
+            display: table-header-group;
+            padding: $bar-spacing;
+            border: 1px solid $key-border;
+            .mc-th{
+                display: none; // Hide all header cells first
+            }
+            .mc-key-header{
+                display: block; // Show the header cells that form part of the key
+                margin-bottom: $bar-spacing;
+                margin-left: 100%;
+                padding-left: $bar-spacing;
+                border-left: $base-unit solid;
+                text-align: left;
+                font-weight: normal;
+                width: 100%;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }
+            // Key colours
+            @for $i from 0 to length($bar-colours) {
+                .mc-key-#{$i+1} {
+                    border-left-color: nth($bar-colours, $i+1);
+                }
+            }
+        }
+        // Right and left aligned keys
+        &.right-key .mc-thead,
+        &.left-key .mc-thead{
+            position: absolute;
+            top: 100px;
+            .mc-key-header{
+                margin-left: 0;
+            }
+        }
+        &.right-key .mc-thead{
+            right: 26px;
+        }
+        &.left-key .mc-thead{
+            left: 26px;
+        }
+        // Hidden keys
+        &.no-key .mc-thead{
+            display: none;
+        }
+
+        // BAR STYLES
+        .mc-tbody{
+            display: table-row-group;
+            .mc-tr{
+                display: table-row;
+                // Bars and bar labels
+                .mc-bar-cell,
+                .mc-key-cell{
+                    padding-right: $bar-spacing;
+                    margin-right: $stack-spacing;
+                    box-sizing: border-box;
+                    border: 0 solid;
+                }
+                // Bars
+                .mc-bar-cell {
+                    display: block;
+                    text-align: left;
+                    padding: $bar-padding 0;
+                    margin-bottom: 1px;
+                    color: $white;
+                    text-indent: $bar-padding;
+                }
+                // Bar colours
+                @for $i from 0 to length($bar-colours) {
+                    .mc-bar-#{$i+1} {
+                        background-color: nth($bar-colours, $i + 1);
+                    }
+                }
+                // Negative bars
+                .mc-bar-negative {
+                    text-align: right;
+                    padding-right: $bar-padding;
+                }
+                .mc-value-overflow {
+                    text-indent: -99999px !important;
+                }
+                // Bar labels
+                .mc-key-cell {
+                    width: $label-width;
+                    text-indent: 26px;
+                    text-align: $label-align;
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+
+        // STACKED CHARTS
+        &.mc-stacked {
+            .mc-stacked-header{
+                display: none; // Hide the header for the totals column
+            }
+            .mc-th:nth-last-child(2){
                 margin-bottom: 0;
             }
+            .mc-stacked-total{
+                padding: $bar-padding 0;
+                background-color: transparent !important;
+                color: $black;
+                display: inline-block;
+                text-indent: 5px;
+            }
+            .mc-tbody .mc-bar-cell{
+                display: inline-block;
+            }
         }
-        // Key colours
-        @for $i from 0 to length($bar-colours) {
-            .mc-key-#{$i+1} {
+
+        // COMPACT CHARTS
+        &.compact{
+            .mc-td.mc-bar-cell{
+                font-size: $compact-font-size;
+                text-indent: 2px;
+                padding: 0;
+            }
+        }
+
+
+        // Charts with multiple columns get different coloured bars
+        $len: length($bar-colours);
+        @for $i from 0 to $len {
+            .mc-tr .mc-td.mc-bar-cell.mc-bar-#{$i+1} {
+                background-color: nth($bar-colours, $i + 1);
+            }
+            .mc-tr .mc-th.mc-key-#{$i+1} {
                 border-left-color: nth($bar-colours, $i+1);
             }
-        }
-    }
-    // Right and left aligned keys
-    &.right-key .mc-thead,
-    &.left-key .mc-thead{
-        position: absolute;
-        top: 100px;
-        .mc-key-header{
-            margin-left: 0;
-        }
-    }
-    &.right-key .mc-thead{
-        right: 26px;
-    }
-    &.left-key .mc-thead{
-        left: 26px;
-    }
-    // Hidden keys
-    &.no-key .mc-thead{
-        display: none;
-    }
 
-    // BAR STYLES
-    .mc-tbody{
-        display: table-row-group;
-        .mc-tr{
-            display: table-row;
-            // Bars and bar labels
-            .mc-bar-cell,
-            .mc-key-cell{
-                padding-right: $bar-spacing;
-                margin-right: $stack-spacing;
-                box-sizing: border-box;
-                border: 0 solid;
-            }
-            // Bars
-            .mc-bar-cell {
+        }
+
+        .mc-td, .mc-th {
+            padding: 0;
+            padding-right: $bar-spacing;
+            margin-right: $stack-spacing;
+            border: 0 solid;
+            &.mc-bar-cell {
                 display: block;
+                background-color: #ebebeb; // Just for testing
                 text-align: left;
                 padding: $bar-padding 0;
                 margin-bottom: 1px;
                 color: $white;
-                text-indent: $bar-padding;
-            }
-            // Bar colours
-            @for $i from 0 to length($bar-colours) {
-                .mc-bar-#{$i+1} {
-                    background-color: nth($bar-colours, $i + 1);
-                }
-            }
-            // Negative bars
-            .mc-bar-negative {
-                text-align: right;
-                padding-right: $bar-padding;
-            }
-            .mc-value-overflow {
-                text-indent: -99999px !important;
-            }
-            // Bar labels
-            .mc-key-cell {
-                width: $label-width;
-                text-indent: 26px;
-                text-align: $label-align;
-                display: table-cell;
-                vertical-align: middle;
+                text-indent: 4px;
             }
         }
-    }
-
-
-    // STACKED CHARTS
-    &.mc-stacked {
-        .mc-stacked-header{
-            display: none; // Hide the header for the totals column
+        .mc-bar-outdented {
+            span { color: #111; }
         }
-        .mc-th:nth-last-child(2){
-            margin-bottom: 0;
+        caption{
+            caption-side: $caption-side;
         }
-        .mc-stacked-total{
-            padding: $bar-padding 0;
-            background-color: transparent !important;
-            color: $black;
-            display: inline-block;
-            text-indent: 5px;
+        .mc-td.mc-key-cell {
+            width: $label-width;
+            text-indent: 26px;
+            text-align: $label-align;
+            display: table-cell;
+            vertical-align: middle;
         }
-        .mc-tbody .mc-bar-cell{
-            display: inline-block;
-        }
-    }
-
-    // COMPACT CHARTS
-    &.compact{
-        .mc-td.mc-bar-cell{
-            font-size: $compact-font-size;
-            text-indent: 2px;
-            padding: 0;
-        }
-    }
-
-
-    // Charts with multiple columns get different coloured bars
-    $len: length($bar-colours);
-    @for $i from 0 to $len {
-        .mc-tr .mc-td.mc-bar-cell.mc-bar-#{$i+1} {
-            background-color: nth($bar-colours, $i + 1);
-        }
-        .mc-tr .mc-th.mc-key-#{$i+1} {
-            border-left-color: nth($bar-colours, $i+1);
-        }
-
-    }
-
-    .mc-td, .mc-th {
-        padding: 0;
-        padding-right: $bar-spacing;
-        margin-right: $stack-spacing;
-        border: 0 solid;
-        &.mc-bar-cell {
-            display: block;
-            background-color: #ebebeb; // Just for testing
-            text-align: left;
-            padding: $bar-padding 0;
-            margin-bottom: 1px;
-            color: $white;
-            text-indent: 4px;
-        }
-    }
-    .mc-bar-outdented {
-        span { color: #111; }
-    }
-    caption{
-        caption-side: $caption-side;
-    }
-    .mc-td.mc-key-cell {
-        width: $label-width;
-        text-indent: 26px;
-        text-align: $label-align;
-        display: table-cell;
-        vertical-align: middle;
-    }
-    // OUTDENTED BAR VALUES
-    &.mc-outdented{
-        .mc-tbody{
-            .mc-tr{
-                .mc-bar-cell{
-                    color: #111;
-                }
-                .mc-bar-negative {
-                    text-align: left;
+        // OUTDENTED BAR VALUES
+        &.mc-outdented{
+            .mc-tbody{
+                .mc-tr{
+                    .mc-bar-cell{
+                        color: #111;
+                    }
+                    .mc-bar-negative {
+                        text-align: left;
+                    }
                 }
             }
         }
+
+        &.mc-negative .mc-td.mc-key-cell {
+            padding-right: 25px;
+        }
+
     }
 
-    &.mc-negative .mc-td.mc-key-cell {
+
+    .mc-outdented .mc-bar-cell.mc-bar-negative {
+        text-align: left;
+    }
+
+    // .mc-bar-cell.mc-bar-negative.mc-bar-indented {
+    //   position: relative;
+    //   span {
+    //     position: absolute;
+    //     right: 4px;
+    //   }
+    // }
+
+    .mc-chart.mc-negative .mc-td.mc-key-cell {
         padding-right: 25px;
     }
-
-}
-
-
-.mc-outdented .mc-bar-cell.mc-bar-negative {
-    text-align: left;
-}
-
-// .mc-bar-cell.mc-bar-negative.mc-bar-indented {
-//   position: relative;
-//   span {
-//     position: absolute;
-//     right: 4px;
-//   }
-// }
-
-.mc-chart.mc-negative .mc-td.mc-key-cell {
-    padding-right: 25px;
-}
-.mc-toggle-link{
-    display: block;
-    margin-top: 30px;
-}
+    .mc-toggle-link{
+        display: block;
+        margin-top: 30px;
+    }
 
 
-// Hides the original table
-.visually-hidden,
-.visually-hidden caption{
-    @include visually-hidden;
-    // It's reapplied to captions because Firefox can't hide
-    // table captions unless it's applied directly to it. Go figure.
-
+    // Hides the original table
+    .visually-hidden,
+    .visually-hidden caption{
+        @include visually-hidden;
+        // It's reapplied to captions because Firefox can't hide
+        // table captions unless it's applied directly to it. Go figure.
+    }
 }
