@@ -15,7 +15,7 @@
         <%= render 'shared/top_tasks', top_tasks: @classification.top_tasks.only_the_initial_set %>
       </aside>
 
-      <aside class="meta">
+      <aside class="meta metadata-list">
         <div class="inner-heading">
           <dl>
             <dt><%= t('document.headings.organisations', count: @classification.organisations.length) %>:</dt>
