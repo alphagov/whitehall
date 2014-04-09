@@ -1,8 +1,6 @@
 class TopicsController < ClassificationsController
   enable_request_formats show: :atom
 
-  include CacheControlHelper
-
   def show
     @classification = Topic.find(params[:id])
 
@@ -15,7 +13,7 @@ class TopicsController < ClassificationsController
         @announcements = latest_presenters(@classification.published_announcements)
         @detailed_guides = @classification.published_detailed_guides.includes(:translations, :document).limit(5)
         @related_classifications = @classification.related_classifications
-        @featured_editions = decorate_collection(@classification.classification_featurings.includes(:image, edition: [:document, :translations]).limit(5), FeaturedEditionPresenter)
+        @featurings = decorate_collection(@classification.classification_featurings.includes(:image, edition: [:document, :translations]).limit(5), ClassificationFeaturingPresenter)
 
         set_slimmer_organisations_header(@classification.importance_ordered_organisations.includes(:translations))
         set_slimmer_page_owner_header(@classification.lead_organisations.includes(:translations).first)

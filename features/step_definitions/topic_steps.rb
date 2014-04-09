@@ -1,5 +1,5 @@
 Given /^a topic called "([^"]*)" exists$/ do |name|
-  create(:topic, name: name)
+  @topic = create(:topic, name: name)
 end
 
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -186,10 +186,31 @@ When(/^I feature one of the policies on the topic$/) do
   click_button "Save"
 end
 
+When(/^I feature an offsite page on the topic$/) do
+  visit admin_topic_path(@topic)
+  click_on 'Featured documents'
+  click_on 'Feature an offsite URL'
+
+  attach_file "Select an image to be shown when featuring", jpg_image
+  fill_in "Image description (alt text)", with: "An accessible description of the image"
+  fill_in "Title", with: "A featuring title"
+  fill_in "Summary", with: "A featuring summary"
+  fill_in "URL", with: "http://www.example.com/a-featuring"
+  click_button "Save"
+end
+
 Then(/^I should see the policy featured on the public topic page$/) do
   visit topic_path(@topic)
   within('section.featured-news') do
     assert page.has_content?(@policy.title)
+  end
+end
+
+Then(/^I should see the offsite page featured on the public topic page$/) do
+  visit topic_path(@topic)
+  within('section.featured-news') do
+    assert page.has_link?("A featuring title", href: "http://www.example.com/a-featuring")
+    assert page.has_content?("A featuring summary")
   end
 end
 

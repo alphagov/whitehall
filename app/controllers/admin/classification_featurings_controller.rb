@@ -11,14 +11,19 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def new
-    @classification_featuring = @classification.classification_featurings.build(edition_id: params[:edition_id])
+    featured_edition = Edition.find(params[:edition_id]) if params[:edition_id].present?
+    @classification_featuring = @classification.classification_featurings.build(edition: featured_edition)
     @classification_featuring.build_image
   end
 
   def create
     @classification_featuring = @classification.feature(params[:classification_featuring])
     if @classification_featuring.valid?
-      flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
+      if featuring_a_document?
+        flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
+      else
+        flash[:notice] = "#{@classification_featuring.offsite_url} has been featured on #{@classification.name}"
+      end
       redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
     else
       render :new
@@ -37,6 +42,11 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     @classification_featuring.destroy
     flash[:notice] = "#{edition.title} has been unfeatured from #{@classification.name}"
     redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
+  end
+
+  helper_method :featuring_a_document?
+  def featuring_a_document?
+    @classification_featuring.edition.present?
   end
 
   private

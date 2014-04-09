@@ -1,17 +1,31 @@
 <% page_title "Feature document" %>
 
-<h2>Feature '<%= @classification_featuring.edition.title %>' within '<%= @classification.name %>'</h2>
+<h2>
+  <% if featuring_a_document? %>
+    Feature '<%= @classification_featuring.edition.title %>' within '<%= @classification.name %>'
+  <% else %>
+    Feature an offsite document within '<%= @classification.name %>'
+  <% end %>
+</h2>
 
 <div class="row-fluid">
   <div class="span6">
     <%= form_for [:admin, @classification, @classification_featuring], builder: Whitehall::FormBuilder do |form| %>
       <%= form.errors %>
-      <%= form.hidden_field :edition_id %>
 
       <%= form.fields_for :image do |image_fields| %>
         <%= image_fields.upload :file, horizontal: true, label_text: 'Select an image to be shown when featuring' %>
       <% end %>
       <%= form.text_field :alt_text, horizontal: true, label_text: "Image description (alt text)" %>
+
+      <% if featuring_a_document? %>
+        <%= form.hidden_field :edition_id %>
+      <% else %>
+        <%= form.text_field :offsite_title, label_text: "Title" %>
+        <%= form.text_area :offsite_summary, label_text: "Summary", rows: 3 %>
+        <%= form.text_field :offsite_url, label_text: "URL" %>
+      <% end %>
+
       <%= form.save_or_cancel cancel: polymorphic_path([:admin, @classification, :classification_featurings]) %>
     <% end %>
   </div>

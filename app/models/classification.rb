@@ -27,7 +27,7 @@ class Classification < ActiveRecord::Base
             order: "classification_featurings.ordering asc",
             include: { edition: :translations },
             inverse_of: :classification,
-            conditions: { editions: { state: "published" } }
+            conditions: "editions.state = 'published' or classification_featurings.edition_id is null"
 
   has_many :featured_editions,
             through: :classification_featurings,

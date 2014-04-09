@@ -116,6 +116,17 @@ class ClassificationTest < ActiveSupport::TestCase
     assert_equal topic.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
   end
 
+  test '#classification_featurings should only include offsite featurings and featurings with published editions' do
+    classification = create :topic
+    offsite_featuring = create :offsite_classification_featuring, classification: classification
+    published_featuring = create :classification_featuring, edition: create(:published_news_article), classification: classification
+    unpublished_featuring = create :classification_featuring, edition: create(:unpublished_edition), classification: classification
+
+    featurings = classification.classification_featurings
+    assert featurings.include? offsite_featuring
+    assert featurings.include? published_featuring
+    refute featurings.include? unpublished_featuring
+  end
 
   should_not_accept_footnotes_in :description
 end

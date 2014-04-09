@@ -75,6 +75,11 @@ Scenario: Featuring content on a topic page
   When I feature one of the policies on the topic
   Then I should see the policy featured on the public topic page
 
+Scenario: Featuring offsite content on a topic page
+  Given a topic called "Womping Wombats" exists
+  When I feature an offsite page on the topic
+  Then I should see the offsite page featured on the public topic page
+
 Scenario: Adding top tasks
   Given a topic called "Housing prices" exists
   When I add some top tasks to the topic "Housing prices" via the admin

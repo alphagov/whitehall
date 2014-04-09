@@ -8,10 +8,9 @@ class ClassificationFeaturing < ActiveRecord::Base
   validates :image, :alt_text, presence: true
 
   validates :classification, :ordering, presence: true
-  validates :offsite_title, :offsite_summary, presence: true, unless: ->{ edition.present? }
-  validates :offsite_url, presence: true, uri: true, unless: ->{ edition.present? }
-
-  validates :edition_id, uniqueness: { scope: :classification_id }
+  validates :offsite_title, :offsite_summary, presence: true, if: :offsite?
+  validates :offsite_url, presence: true, uri: true, if: :offsite?
+  validates :edition_id, uniqueness: { scope: :classification_id }, unless: :offsite?
 
   def title
     offsite_title || edition.title
@@ -23,5 +22,9 @@ class ClassificationFeaturing < ActiveRecord::Base
 
   def url
     offsite_url || Whitehall.url_maker.public_document_path(edition)
+  end
+
+  def offsite?
+    edition.nil?
   end
 end

@@ -1,0 +1,13 @@
+<%= content_tag_for(:article, classification_featuring, nil, class: "feature item-#{classification_featuring_counter}") do %>
+  <div class="content">
+    <span class="image-holder">
+      <%= link_to classification_featuring.image_tag(:s465), classification_featuring.url, title: t("document.read", title: classification_featuring.title), class: 'img'%>
+    </span>
+    <div class="text">
+      <h2><%= link_to classification_featuring.title, classification_featuring.url %></h2>
+      <% unless classification_featuring.summary.blank? %>
+        <p class="summary"><%= truncate(classification_featuring.summary, length: 150, separator: ' ') %></p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
