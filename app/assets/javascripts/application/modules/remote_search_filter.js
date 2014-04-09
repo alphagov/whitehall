@@ -33,9 +33,13 @@
   };
 
   RemoteSearchFilter.prototype.getResultsFromRemote = function getResultsFromRemote(params) {
-    params.push({name: 'xhr', value: 'true'});
     this.renderLoadingMessage();
-    $.get(this.searchUrl, params, this.handleResponse);
+    $.ajax({
+      type: 'get',
+      url: this.searchUrl,
+      data: params,
+      cache: false
+    }).then(this.handleResponse);
   };
 
   RemoteSearchFilter.prototype.handleResponse = function handleResponse(responseHtml, textStatus, jqXHR) {

@@ -19,23 +19,35 @@ module("remote-search-filter: ", {
 });
 
 function mockAjax(responseData) {
-  return function(params) {
-    params.success(responseData, "success", {});
+  var mockJqXhr = {
+    then: function(thenCallback) {
+      thenCallback(responseData, "success", {});
+    }
+  }
+
+  return function mockAjax(options) {
+    return mockJqXhr;
   }
 }
 
 function mockAjaxWithDelayedResponse(responseData, responseDelay) {
-  return function(params) {
-    setTimeout(function() {
-      params.success(responseData, "success", {});
-    }, responseDelay);
+  var mockJqXhr = {
+    then: function(thenCallback) {
+      setTimeout(function() {
+        thenCallback(responseData, "success", {});
+      }, responseDelay);
+    }
+  }
+
+  return function mockAjax(options) {
+    return mockJqXhr;
   }
 }
 
 test("updateResults should get results from the given url", function() {
   this.stub(window.history, 'pushState');
   this.stub(window.history, 'replaceState');
-  this.stub(jQuery, "ajax");
+  this.stub(jQuery, "ajax", mockAjax());
 
   new GOVUK.RemoteSearchFilter({search_url: "http://www.example.com/search"}).updateResults();
 
@@ -44,9 +56,7 @@ test("updateResults should get results from the given url", function() {
   equal(jQuery.ajax.args[0][0].type, "get");
 });
 
-test("updateResults should pass form data, adding in an xhr=true field", function() {
-  // xhr=true is required to prevent the browser getting confused between cached XHR and non-XHR requests.
-
+test("updateResults should pass form data", function() {
   this.stub(window.history, 'pushState');
   this.stub(window.history, 'replaceState');
   this.stub(jQuery, "ajax", mockAjax("<p>Success!</p>"));
@@ -66,10 +76,6 @@ test("updateResults should pass form data, adding in an xhr=true field", functio
     {
       "name": "a_select_field[]",
       "value": "option_2"
-    },
-    {
-      "name": "xhr",
-      "value": "true"
     }
   ]);
 });
