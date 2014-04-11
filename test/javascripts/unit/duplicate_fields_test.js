@@ -38,6 +38,16 @@ test('should increment array index of new fields', function(){
   equal('model[2][object]', this.$fieldset.find('.js-duplicate-fields-set').last().find('input').attr('name'));
 });
 
+test('should increment second array index of new fields that have more than one array index', function(){
+  this.$input.attr('name', 'model[1][attribute][0][object]');
+
+  GOVUK.duplicateFields.init();
+
+  this.$fieldset.find('a.js-add-button').trigger('click');
+
+  equal('model[1][attribute][1][object]', this.$fieldset.find('.js-duplicate-fields-set').last().find('input').attr('name'));
+});
+
 test('should update id and for attributes of new fields', function(){
   GOVUK.duplicateFields.init();
 
@@ -47,6 +57,20 @@ test('should update id and for attributes of new fields', function(){
   equal('model_2_object', newSet.find('input').attr('id'));
   equal('model_2_object', newSet.find('label').attr('for'));
 });
+
+test('should increment second index of id and for attributes of new fields', function(){
+  this.$label.attr('for', 'model_1_attribute_0_object');
+  this.$input.attr('id', 'model_1_attribute_0_object');
+  this.$input.attr('name', 'model[1][attribute][0][object]');
+  GOVUK.duplicateFields.init();
+
+  this.$fieldset.find('a.js-add-button').trigger('click');
+
+  var newSet = this.$fieldset.find('.js-duplicate-fields-set').last();
+  equal('model_1_attribute_1_object', newSet.find('input').attr('id'));
+  equal('model_1_attribute_1_object', newSet.find('label').attr('for'));
+});
+
 
 test('should hide field set when removing', function(){
   GOVUK.duplicateFields.init();

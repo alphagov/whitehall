@@ -78,23 +78,29 @@
             currentName = $el.attr('name'),
             currentId = $el.attr('id'),
             currentFor = $el.attr('for'),
-            index = false;
+            index = false,
+            arrayMatcher = /(.*)\[([0-9]+)\](.*?)$/,
+            underscoreMatcher = /(.*)_([0-9]+)_(.*?)$/,
+            matched;
 
-        if(currentName && currentName.match(/\[([0-9]+)\]/)){
-          index = parseInt(currentName.match(/\[([0-9]+)\]/)[1], 10);
-          $el.attr('name', currentName.replace('['+ index +']', '['+ (index+1) +']'));
+        if(currentName && arrayMatcher.exec(currentName)){
+          matched = arrayMatcher.exec(currentName);
+          index = parseInt(matched[2], 10);
+          $el.attr('name', matched[1] + '['+ (index+1) +']' + matched[3]);
         }
-        if(currentId && currentId.match(/_([0-9]+)_/)){
+        if(underscoreMatcher.exec(currentId)){
+          matched = underscoreMatcher.exec(currentId);
           if(index === false){
-            index = parseInt(currentId.match(/_([0-9]+)_/)[1], 10);
+            index = parseInt(matched[2], 10);
           }
-          $el.attr('id', currentId.replace('_'+ index +'_', '_'+ (index+1) +'_'));
+          $el.attr('id', matched[1] + '_'+ (index+1) +'_' + matched[3]);
         }
-        if(currentFor && currentFor.match(/_([0-9]+)_/)){
+        if(underscoreMatcher.exec(currentFor)){
+          matched = underscoreMatcher.exec(currentFor);
           if(index === false){
-            index = parseInt(currentFor.match(/_([0-9]+)_/)[1], 10);
+            index = parseInt(matched[2], 10);
           }
-          $el.attr('for', currentFor.replace('_'+ index +'_', '_'+ (index+1) +'_'));
+          $el.attr('for', matched[1] + '_'+ (index+1) +'_' + matched[3]);
         }
       });
     }
