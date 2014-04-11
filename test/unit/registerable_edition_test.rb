@@ -103,4 +103,21 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     assert_equal "statistical_data_set", registerable_edition.kind
   end
+
+  test "attaches tagged organisations' slugs as `organisation_ids`" do
+    primary_org = create(:organisation)
+    secondary_org = create(:organisation)
+
+    edition = create(:publication, lead_organisations: [primary_org], supporting_organisations: [secondary_org])
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_same_elements [primary_org, secondary_org].map(&:slug), registerable_edition.organisation_ids
+  end
+
+  class EditionWithoutOrgs < Edition; end
+  test "deals with editions which don't do organisation tagging" do
+    registerable_edition = RegisterableEdition.new(EditionWithoutOrgs.new)
+
+    assert_same_elements [], registerable_edition.organisation_ids
+  end
 end

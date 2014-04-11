@@ -135,7 +135,7 @@ GEM
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
     friendly_id (4.0.9)
-    gds-api-adapters (10.3.0)
+    gds-api-adapters (10.7.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -386,7 +386,7 @@ DEPENDENCIES
   equivalent-xml (= 0.3.0)
   factory_girl
   friendly_id (= 4.0.9)
-  gds-api-adapters (= 10.3.0)
+  gds-api-adapters (= 10.7.0)
   gds-sso (= 9.2.0)
   globalize3!
   govspeak (~> 1.2.4)

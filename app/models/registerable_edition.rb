@@ -47,4 +47,10 @@ class RegisterableEdition
   def specialist_sectors
     [edition.primary_specialist_sector_tag].compact + edition.secondary_specialist_sector_tags
   end
+
+  def organisation_ids
+    return [] unless edition.respond_to?(:organisations)
+
+    edition.organisations.pluck(:slug)
+  end
 end
