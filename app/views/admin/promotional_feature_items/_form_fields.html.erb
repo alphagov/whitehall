@@ -15,7 +15,6 @@
 
 <div class="js-duplicate-fields">
   <legend>Feature item links</legend>
-  <p class="alert alert-info">Up to a maximum of <%= PromotionalFeatureItem::LINK_LIMIT %> links.</p>
 
   <%= form.fields_for :links, form.object.links do |link| %>
     <div class="js-duplicate-fields-set well">
