@@ -1,20 +1,18 @@
 // Inconsistent with rest of gov.uk. Pending discussion, see #712
 a {
   color: $link-colour;
-  text-decoration: none;
+  text-decoration: underline;
 
   &:visited {
-    color: $link-visited-colour
+    color: $link-visited-colour;
   }
   &:hover {
     color: $link-hover-colour;
-    text-decoration: underline;
   }
   &:active {
-    color: $link-active-colour
+    color: $link-active-colour;
   }
   &:focus {
-    text-decoration: underline;
   }
   &[rel="external"] {
     @include external-link-13-no-hover;
