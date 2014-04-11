@@ -1,6 +1,7 @@
 require 'plek'
 require 'gds_api/router'
 
+# FIXME: This worker is deprecated, and should be removed once the sidekiq queue has cleared
 class RouterAddRouteWorker
   include Sidekiq::Worker
   sidekiq_options queue: :router
