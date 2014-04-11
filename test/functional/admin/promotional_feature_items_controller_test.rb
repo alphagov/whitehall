@@ -57,9 +57,14 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   end
 
   test 'PUT :update updates the item and redirects to the feature' do
-    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature)
+    link = create(:promotional_feature_link)
+    promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
+
     put :update, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item,
-                  promotional_feature_item: { summary: 'Updated summary'}
+                  promotional_feature_item: {
+                    summary: 'Updated summary',
+                    links_attributes: { '0' => { url: link.url, text: link.text, id: link.id, _destroy: false } }
+                  }
 
     assert_equal 'Updated summary', promotional_feature_item.reload.summary
     assert_redirected_to admin_organisation_promotional_feature_url(@organisation, @promotional_feature)
