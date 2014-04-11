@@ -16,6 +16,20 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal "Edition summary", registerable_edition.description
     assert_equal "live", registerable_edition.state
     assert_equal [], registerable_edition.specialist_sectors
+    assert_equal ["/#{slug}"], registerable_edition.paths
+    assert_equal [], registerable_edition.prefixes
+  end
+
+  test "does not set any routes for other formats" do
+    edition = create(:published_publication,
+                     title: "Edition title",
+                     summary: "Edition summary")
+    slug = edition.document.slug
+
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal [], registerable_edition.paths
+    assert_equal [], registerable_edition.prefixes
   end
 
   test "sets the correct slug for a publication" do

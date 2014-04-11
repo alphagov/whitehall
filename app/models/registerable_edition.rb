@@ -15,6 +15,18 @@ class RegisterableEdition
     Whitehall.url_maker.public_document_path(edition).sub(/\A\//,"")
   end
 
+  def paths
+    if kind == "detailed_guide"
+      ["/#{slug}"]
+    else
+      []
+    end
+  end
+
+  def prefixes
+    []
+  end
+
   def title
     edition.title
   end
