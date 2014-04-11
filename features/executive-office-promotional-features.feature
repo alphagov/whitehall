@@ -8,7 +8,7 @@ Feature: Promotional features for executive offices
       When I add a new promotional feature with a single item
       Then I should see the promotional feature on the organisation's page
 
-    Scenario: Deleting a promotional feaure
+    Scenario: Deleting a promotional feature
       And the executive office has a promotional feature with an item
       When I delete the promotional feature
       Then I should no longer see the promotional feature
