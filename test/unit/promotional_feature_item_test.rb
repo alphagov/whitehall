@@ -6,14 +6,6 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     refute build(:promotional_feature_item, summary: nil).valid?
   end
 
-  test "invalid without image on create" do
-    refute build(:promotional_feature_item, image: nil).valid?
-  end
-
-  test "invalid without image alt text" do
-    refute build(:promotional_feature_item, image_alt_text: nil).valid?
-  end
-
   test "limits summary to a maximum of 500 characters" do
     assert build(:promotional_feature_item, summary: string_of_length(500)).valid?
 
@@ -33,14 +25,6 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal 1, item.links.count
     assert_equal 'http://example.com', item.links.first.url
     assert_equal 'Example link', item.links.first.text
-  end
-
-  test "limits the number of promotional links" do
-    item = build(:promotional_feature_item, links: (1..PromotionalFeatureItem::LINK_LIMIT).collect { PromotionalFeatureLink.new(url: 'http://test.com', text: 'Link text') })
-    assert item.valid?
-    item.links << PromotionalFeatureLink.new(url: 'http://test.com', text: 'Link text')
-    refute item.valid?
-    assert_equal ["are limited to a maximum of #{PromotionalFeatureItem::LINK_LIMIT}"], item.errors[:links]
   end
 
   private
