@@ -19,21 +19,21 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "should populate slimmer organisations header with worldwide organisation and its sponsored organisations" do
     organisation = create(:worldwide_organisation, :translated, :with_sponsorships)
-    sponsoring_organisations = organisation.sponsoring_organisations
+    sponsoring_organisation = organisation.sponsoring_organisations.first
 
     get :show, id: organisation.id
 
-    expected_header_value = "<#{([organisation] + sponsoring_organisations).map(&:analytics_identifier).join('><')}>"
+    expected_header_value = "<#{organisation.analytics_identifier}><#{sponsoring_organisation.analytics_identifier}>"
     assert_equal expected_header_value, response.headers["X-Slimmer-Organisations"]
   end
 
   test "should set slimmer worldwide locations header" do
-    organisation = create(:worldwide_organisation, :translated)
+    world_location = create(:world_location)
+    organisation = create(:worldwide_organisation, world_locations: [world_location])
 
     get :show, id: organisation.id
 
-    expected_header_value = "<#{organisation.world_locations.map(&:analytics_identifier).join('><')}>"
-    assert_equal expected_header_value, response.headers["X-Slimmer-World-Locations"]
+    assert_equal "<#{world_location.analytics_identifier}>", response.headers["X-Slimmer-World-Locations"]
   end
 
   view_test "shows links to associated world locations" do
