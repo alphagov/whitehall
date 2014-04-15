@@ -303,4 +303,46 @@ class ConsultationTest < ActiveSupport::TestCase
     assert topical_event = consultation.topical_events.create(name: "Test", description: "Test")
     assert_equal [consultation], topical_event.consultations
   end
+
+  test "#search_index :has_official_document should be true if either the consultation or it's outcome has official document attachments" do
+    Consultation.any_instance.stubs(:search_link)
+
+    assert_equal false, build(:consultation).search_index[:has_official_document]
+
+    command_paper_consultation = build(:consultation)
+    command_paper_consultation.stubs(:has_official_document?).returns(true)
+    assert_equal true, command_paper_consultation.search_index[:has_official_document]
+
+    consultation_with_command_paper_outcome = build(:consultation, outcome: build(:consultation_outcome))
+    consultation_with_command_paper_outcome.outcome.stubs(:has_official_document?).returns(true)
+    assert_equal true, consultation_with_command_paper_outcome.search_index[:has_official_document]
+  end
+
+  test "#search_index :has_command_paper should be true if either the consultation or it's outcome has command paper attachments" do
+    Consultation.any_instance.stubs(:search_link)
+
+    assert_equal false, build(:consultation).search_index[:has_command_paper]
+
+    command_paper_consultation = build(:consultation)
+    command_paper_consultation.stubs(:has_command_paper?).returns(true)
+    assert_equal true, command_paper_consultation.search_index[:has_command_paper]
+
+    consultation_with_command_paper_outcome = build(:consultation, outcome: build(:consultation_outcome))
+    consultation_with_command_paper_outcome.outcome.stubs(:has_command_paper?).returns(true)
+    assert_equal true, consultation_with_command_paper_outcome.search_index[:has_command_paper]
+  end
+
+  test "#search_index :has_act_paper should be true if either the consultation or it's outcome has act paper attachments" do
+    Consultation.any_instance.stubs(:search_link)
+
+    assert_equal false, build(:consultation).search_index[:has_act_paper]
+
+    command_paper_consultation = build(:consultation)
+    command_paper_consultation.stubs(:has_act_paper?).returns(true)
+    assert_equal true, command_paper_consultation.search_index[:has_act_paper]
+
+    consultation_with_command_paper_outcome = build(:consultation, outcome: build(:consultation_outcome))
+    consultation_with_command_paper_outcome.outcome.stubs(:has_act_paper?).returns(true)
+    assert_equal true, consultation_with_command_paper_outcome.search_index[:has_act_paper]
+  end
 end
