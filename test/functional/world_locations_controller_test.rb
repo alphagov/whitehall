@@ -165,6 +165,13 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_equal "<#{related_organisations.map(&:analytics_identifier).join('><')}>", response.headers["X-Slimmer-Organisations"]
   end
 
+  test "GET :show does not set empty slimmer header for locations without an org" do
+    world_location = create(:world_location)
+    get :show, id: world_location.id
+
+    assert_nil response.headers["X-Slimmer-Organisations"]
+  end
+
   test "should display world_location's latest two announcements in reverse chronological order" do
     world_location = create(:world_location)
     announcement_2 = create(:published_news_article, world_locations: [world_location], first_published_at: 2.days.ago)

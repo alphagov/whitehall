@@ -68,6 +68,20 @@ class PeopleControllerTest < ActionController::TestCase
     assert_select_autodiscovery_link atom_feed_url_for(@person)
   end
 
+  test "GET :show sets the slimmer header for the person's organisation" do
+    role_appointment = create(:role_appointment, person: @person)
+    organisation = role_appointment.organisations.first
+    get :show, id: @person
+
+    assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+  end
+
+  test 'GET :show does not set the organisations slimmer header if the person is not associated with one' do
+    get :show, id: @person
+
+    assert_nil response.headers["X-Slimmer-Organisations"]
+  end
+
   view_test "#show generates an atom feed of news and speeches associated with the person" do
     person = create(:person)
     role_appointment = create(:role_appointment, person: person)

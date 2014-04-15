@@ -41,11 +41,15 @@ class ApplicationController < ActionController::Base
   end
 
   def set_slimmer_organisations_header(organisations)
-    set_slimmer_headers(organisations: "<#{organisations.map(&:analytics_identifier).join('><')}>")
+    if organisations.any?
+      set_slimmer_headers(organisations: "<#{organisations.map(&:analytics_identifier).join('><')}>")
+    end
   end
 
   def set_slimmer_world_locations_header(locations)
-    set_slimmer_headers(world_locations: "<#{locations.map(&:analytics_identifier).join('><')}>")
+    if locations.any?
+      set_slimmer_headers(world_locations: "<#{locations.map(&:analytics_identifier).join('><')}>")
+    end
   end
 
   def set_slimmer_page_owner_header(organisation)
