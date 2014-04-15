@@ -117,4 +117,10 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = build(:detailed_guide)
     assert detailed_guide.search_format_types.include?('detailed-guidance')
   end
+
+  test 'need ids can be stored on the detailed guide' do
+    detailed_guide = create(:detailed_guide, need_ids: ["1", "2", "3"])
+    detailed_guide.reload
+    assert_equal ["1", "2", "3"], detailed_guide.need_ids
+  end
 end

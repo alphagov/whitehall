@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409111430) do
+ActiveRecord::Schema.define(:version => 20140415162617) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -453,6 +453,7 @@ ActiveRecord::Schema.define(:version => 20140409111430) do
     t.datetime "opening_at"
     t.datetime "closing_at"
     t.integer  "corporate_information_page_type_id"
+    t.string   "need_ids"
   end
 
   add_index "editions", ["alternative_format_provider_id"], :name => "index_editions_on_alternative_format_provider_id"

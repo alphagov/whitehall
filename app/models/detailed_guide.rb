@@ -18,6 +18,7 @@ class DetailedGuide < Edition
     end
   end
 
+  serialize :need_ids, Array
   has_many :outbound_edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
   has_many :outbound_related_documents, through: :outbound_edition_relations, source: :document
   has_many :outbound_related_detailed_guides, through: :outbound_edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
