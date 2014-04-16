@@ -8,9 +8,9 @@ class SearchIndexAddWorker
     @id = id
 
     if searchable_instance.nil?
-      Rails.logger.warn("SearchIndexAddWorker: Could not find #{class_name} with id #{id}.")
+      Rails.logger.warn("SearchIndexAddWorker: Could not find #{class_name} with id #{id} (#{Time.zone.now.utc.to_s}).")
     elsif !searchable_instance.can_index_in_search?
-      Rails.logger.warn("SearchIndexAddWorker: Was asked to index #{class_name} with id #{id}, but it was unindexable.")
+      Rails.logger.warn("SearchIndexAddWorker: Was asked to index #{class_name} with id #{id}, but it was unindexable (#{Time.zone.now.utc.to_s}).")
     else
       index = Whitehall::SearchIndex.for(searchable_instance.rummager_index)
       index.add searchable_instance.search_index
