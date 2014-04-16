@@ -4,7 +4,7 @@ module Edition::Images
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       @edition.images.each do |a|
-        edition.images.create(a.attributes.except('id'))
+        edition.images.create!(a.attributes.except('id'))
       end
     end
   end
