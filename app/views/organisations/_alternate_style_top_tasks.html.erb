@@ -1,7 +1,7 @@
 <% if links[:services_in] %>
   <aside class="heading-extra">
     <p class="all-services">View all services in:</p>
-    <ul class="top-tasks">
+    <ul class="top-tasks featured-links">
       <% links[:services_in].each do |link| %>
         <li>
           <%= link_to link[:text], link[:path] %>
@@ -27,7 +27,7 @@
     <% if links[:top_tasks] %> 
       <article>
         <div class="content">
-          <ul class="top-tasks">
+          <ul class="top-tasks featured-links">
             <% links[:top_tasks].each do |top_task| %>
               <li>
                 <%= link_to top_task[:text], top_task[:path] %> 
