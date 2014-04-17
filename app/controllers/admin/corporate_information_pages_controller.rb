@@ -1,47 +1,26 @@
 class Admin::CorporateInformationPagesController < Admin::EditionsController
-  before_filter :find_organisation
-  before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
-
-  helper_method :cip_owning_organisation
+  prepend_before_filter :find_organisation
 
   class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
   end
 
   def index
-    params[:state] = 'active'
+    params[:state] = 'active' # Ensure that state column is displayed.
     paginator = @organisation.corporate_information_pages.order('corporate_information_page_type_id').page(1).per(100)
     @filter = FakeEditionFilter.new paginator, "Corporate information pages", false, true
-  end
-
-  def new
-    build_corporate_information_page
-  end
-
-  def create
-    @corporate_information_page = @organisation.build_corporate_information_page(new_edition_params)
-    if @corporate_information_page.save
-      redirect_to [:admin, @organisation, @corporate_information_page], notice: "#{@corporate_information_page.title} created successfully"
-    else
-      flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      render :new
-    end
   end
 
   def destroy
     # The title method relies on the presence of the organisation so we need to
     # stash it before the page is destroyed, as the join model between the page
     # and the organisation will no longer exist afterwards.
-    title = @corporate_information_page.title
-    if @corporate_information_page.destroy
-      redirect_to [:admin, @organisation], notice: "#{title} deleted successfully"
+    title = @edition.title
+    edition_deleter = Whitehall.edition_services.deleter(@edition)
+    if edition_deleter.perform!
+      redirect_to [:admin, @organisation, CorporateInformationPage], notice: "The document '#{title}' has been deleted"
     else
-      flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      render :new
+      redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
-  end
-
-  def cip_owning_organisation
-    @organisation
   end
 
 private
@@ -50,12 +29,14 @@ private
     CorporateInformationPage
   end
 
-  def find_corporate_information_page
-    @corporate_information_page = @organisation.corporate_information_pages.find(params[:id])
+  def new_edition_params
+    # Title column in db needs to be blank rather than null as with_translations
+    # excludes rows with null columns.
+    super.merge(title: '')
   end
 
-  def build_corporate_information_page
-    @corporate_information_page ||= @organisation.corporate_information_pages.build(edition_params)
+  def new_edition
+    @organisation.build_corporate_information_page(new_edition_params)
   end
 
   def find_organisation
@@ -67,13 +48,5 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
-  end
-
-  def params_filters
-    {state: 'active', type: "corporate_information_page", organisation: @organisation.id, hide_type: true, ordering: [:corporate_information_page_type_id, 'editions.state']}
-  end
-
-  def saved_confirmation_notice
-    { notice: "#{@corporate_information_page.title} updated successfully" }
   end
 end
