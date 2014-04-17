@@ -13,10 +13,10 @@ class CorporateInformationPagesController < DocumentsController
 
   def find_document_or_edition_for_public
     published_edition = @organisation.corporate_information_pages.published.for_slug!(params[:id])
-    return published_edition if published_edition.present? && published_edition.available_in_locale?(I18n.locale)
+    return published_edition if published_edition.available_in_locale?(I18n.locale)
   end
 
-  def set_slimmer_headers_for_document()
+  def set_slimmer_headers_for_document
     set_slimmer_organisations_header([@organisation])
     set_slimmer_page_owner_header(@organisation)
   end
