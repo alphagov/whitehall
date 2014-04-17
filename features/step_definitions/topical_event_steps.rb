@@ -1,5 +1,5 @@
 Given(/^a topical event called "(.*?)" with description "(.*?)"$/) do |name, description|
-  create(:topical_event,name: name, description: description)
+  @topical_event = create(:topical_event, name: name, description: description)
 end
 
 When /^I create a new topical event "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -90,6 +90,19 @@ When /^I feature the document "([^"]*)" for topical event "([^"]*)" with image "
   click_button "Save"
 end
 
+When(/^I feature an offsite page on the topical event$/) do
+  visit admin_topical_event_path(@topical_event)
+  click_on 'Features'
+  click_on 'Feature an offsite URL'
+
+  attach_file "Select an image to be shown when featuring", jpg_image
+  fill_in "Image description (alt text)", with: "An accessible description of the image"
+  fill_in "Title", with: "A featuring title"
+  fill_in "Summary", with: "A featuring summary"
+  fill_in "URL", with: "http://www.example.com/a-featuring"
+  click_button "Save"
+end
+
 Then /^I should see the featured documents in the "([^"]*)" topical event are:$/ do |name, expected_table|
   visit topical_event_path(TopicalEvent.find_by_name!(name))
   rows = find('.featured-news').all('.feature')
@@ -100,6 +113,14 @@ Then /^I should see the featured documents in the "([^"]*)" topical event are:$/
     ]
   end
   expected_table.diff!(table)
+end
+
+Then(/^I should see the offsite page featured on the public topical event page$/) do
+  visit topical_event_path(@topical_event)
+  within('section.featured-news') do
+    assert page.has_link?("A featuring title", href: "http://www.example.com/a-featuring")
+    assert page.has_content?("A featuring summary")
+  end
 end
 
 Given(/^I'm administering a topical event$/) do
