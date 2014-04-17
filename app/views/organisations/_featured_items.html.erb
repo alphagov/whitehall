@@ -10,7 +10,7 @@
   end
 %>
 <% if feature_list.any_current_features? %>
-  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %> <%= "with-featured-services-and-guidance" if featured_services_and_guidance %>" id="featured-documents">
+  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %> <%= "with-featured-services-and-guidance" if featured_services_and_guidance.any? %>" id="featured-documents">
     <% if first_feature %>
       <%= render partial: 'shared/featured',
                 locals: { feature: first_feature,
