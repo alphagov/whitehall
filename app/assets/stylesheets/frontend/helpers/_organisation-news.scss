@@ -56,4 +56,22 @@
   &.items-2 {
     @extend %contain-floats;
   }
+  @include media(tablet){
+    &.with-featured-services-and-guidance {
+      &.items-1,
+      &.items-4 {
+        .recently-updated {
+          clear: none;
+          width: $one-third;
+        }
+      }
+      &.items-1,
+      &.items-6 {
+        .recently-updated {
+          clear: both;
+          width: $two-thirds;
+        }
+      }
+    }
+  }
 }

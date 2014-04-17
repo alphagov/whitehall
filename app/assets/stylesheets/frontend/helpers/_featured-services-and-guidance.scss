@@ -1,5 +1,16 @@
 .featured-services-and-guidance {
+  margin-top: $gutter-half;
+
+  @include media(tablet){
+    margin-top: $gutter;
+  }
+
+  h2 {
+    @include bold-36;
+    margin: 0 15px;
+  }
+
   a {
-    font-size: 24px;
+    @include bold-24;
   }
 }

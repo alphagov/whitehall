@@ -1,18 +1,28 @@
 <%
   see_all_link ||= latest_path(departments: [@organisation])
+  first_feature = feature_list.current_featured.first
+  other_features_offset = 1
+  featured_services_and_guidance ||= []
+
+  if featured_services_and_guidance.any?
+    first_feature = nil
+    other_features_offset = 0
+  end
 %>
 <% if feature_list.any_current_features? %>
-  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %>" id="featured-documents">
+  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %> <%= "with-featured-services-and-guidance" if featured_services_and_guidance %>" id="featured-documents">
+    <% if first_feature %>
+      <%= render partial: 'shared/featured',
+                locals: { feature: first_feature,
+                          extra_class: 'first',
+                          show_meta: true,
+                          image_size: :s630 } %>
+    <% end %>
     <%= render partial: 'shared/featured',
-              locals: { feature: feature_list.current_featured.first,
-                        extra_class: 'first',
-                        show_meta: true,
-                        image_size: :s630 } %>
-    <%= render partial: 'shared/featured',
-               collection: feature_list.current_featured.to_a.from(1),
+               collection: feature_list.current_featured.to_a.from(other_features_offset),
+               counter_offset: other_features_offset,
                as: :feature,
-               locals: { show_meta: true,
-                         extra_class: "secondary" } %>
+               locals: { show_meta: true } %>
     <%= render partial: 'shared/recently_updated',
               locals: { recently_updated: recently_updated,
                         atom_url: atom_feed_url_for(organisation),

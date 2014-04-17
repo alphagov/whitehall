@@ -45,6 +45,7 @@ class OrganisationsController < PublicFacingController
             @special_representatives = special_representatives
             @sub_organisations = @organisation.sub_organisations
             @foi_contacts = @organisation.foi_contacts
+            @featured_services_and_guidance = @organisation.featured_services_and_guidance
           end
         else
           render action: 'not_live'
