@@ -221,10 +221,14 @@ class Admin::EditionsController < Admin::BaseController
     { notice: "The document has been saved" }
   end
 
+  def new_edition
+    edition_class.new(new_edition_params)
+  end
+
   def build_edition
     edition_locale = edition_params[:locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
-      @edition = LocalisedModel.new(edition_class.new(new_edition_params), edition_locale)
+      @edition = LocalisedModel.new(new_edition, edition_locale)
     end
   end
 
