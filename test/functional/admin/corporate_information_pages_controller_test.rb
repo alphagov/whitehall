@@ -37,7 +37,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
     assert page = @organisation.corporate_information_pages.last
     assert_redirected_to [:admin, @organisation, page]
-    assert_equal "#{page.title} created successfully", flash[:notice]
+    assert_equal "The document has been saved", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
@@ -49,7 +49,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
 
     assert page = organisation.corporate_information_pages.last
     assert_redirected_to [:admin, organisation, page]
-    assert_equal "#{page.title} created successfully", flash[:notice]
+    assert_equal "The document has been saved", flash[:notice]
     assert_equal corporate_information_page_attributes[:body], page.body
     assert_equal corporate_information_page_attributes[:corporate_information_page_type_id], page.corporate_information_page_type_id
     assert_equal corporate_information_page_attributes[:summary], page.summary
@@ -59,7 +59,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     post :create, organisation_id: @organisation, edition: corporate_information_page_attributes(body: nil)
     @organisation.reload
     assert_select "form[action='#{admin_organisation_corporate_information_pages_path(@organisation)}']"
-    assert_match /^There was a problem:/, flash[:alert]
+    assert_equal "There are some problems with the document", flash[:alert]
   end
 
   view_test "GET :edit should display form without type selector for existing corporate information page" do
@@ -81,7 +81,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     corporate_information_page.reload
     assert_equal new_attributes[:body], corporate_information_page.body
     assert_equal new_attributes[:summary], corporate_information_page.summary
-    assert_equal "#{corporate_information_page.title} updated successfully", flash[:notice]
+    assert_equal "The document has been saved", flash[:notice]
     assert_redirected_to admin_organisation_corporate_information_page_path(@organisation, corporate_information_page)
   end
 
@@ -102,8 +102,8 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
   test "PUT :delete should delete the page and redirect to the organisation" do
     corporate_information_page = create(:corporate_information_page, organisation: @organisation)
     put :destroy, organisation_id: @organisation, id: corporate_information_page
-    assert_equal "#{corporate_information_page.title} deleted successfully", flash[:notice]
-    assert_redirected_to admin_organisation_path(@organisation)
+    assert_equal "The document '#{corporate_information_page.title}' has been deleted", flash[:notice]
+    assert_redirected_to [:admin, @organisation, CorporateInformationPage]
   end
 
 private
