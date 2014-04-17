@@ -11,8 +11,7 @@
     <%= render partial: 'shared/featured',
                collection: feature_list.current_featured.to_a.from(1),
                as: :feature,
-               locals: { show_meta: true,
-                         extra_class: "secondary" } %>
+               locals: { show_meta: true } %>
     <%= render partial: 'shared/recently_updated',
               locals: { recently_updated: recently_updated,
                         atom_url: atom_feed_url_for(organisation),
