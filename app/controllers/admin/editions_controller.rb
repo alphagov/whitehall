@@ -13,6 +13,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :redirect_to_controller_for_type, only: [:show]
   before_filter :deduplicate_specialist_sectors, only: [:create, :update]
+  before_filter :build_array_out_of_need_ids_string, only: [:create, :update]
 
   def enforce_permissions!
     case action_name
@@ -202,7 +203,8 @@ class Admin::EditionsController < Admin::BaseController
       nation_inapplicabilities_attributes: [
         :id, :nation_id, :alternative_url, :excluded
       ],
-      fatality_notice_casualties_attributes: [:personal_details, :_destroy]
+      fatality_notice_casualties_attributes: [:personal_details, :_destroy],
+      need_ids: []
     ]
   end
 
@@ -354,6 +356,12 @@ class Admin::EditionsController < Admin::BaseController
   def deduplicate_specialist_sectors
     if params[:edition] && params[:edition][:secondary_specialist_sector_tags] && params[:edition][:primary_specialist_sector_tag]
       params[:edition][:secondary_specialist_sector_tags] -= [params[:edition][:primary_specialist_sector_tag]]
+    end
+  end
+
+  def build_array_out_of_need_ids_string
+    unless params[:edition].blank? || params[:edition][:need_ids].blank?
+      params[:edition][:need_ids] = params[:edition][:need_ids].split(",").map(&:strip).reject(&:blank?)
     end
   end
 end
