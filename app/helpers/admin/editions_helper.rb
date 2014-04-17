@@ -187,15 +187,19 @@ module Admin::EditionsHelper
   end
 
   def form_url_for_edition(edition)
-    [:admin, edition]
+    if edition.is_a? CorporateInformationPage
+      [:admin, edition.owning_organisation, edition]
+    else
+      [:admin, edition]
+    end
   end
 
   def tab_url_for_edition(edition)
-    if edition.respond_to? :organisation
+    if edition.is_a? CorporateInformationPage
       if edition.new_record?
         url_for([:new, :admin, @organisation, edition.class.model_name.underscore])
       else
-        url_for([:edit, :admin, edition.organisation, edition])
+        url_for([:edit, :admin, edition.owning_organisation, edition])
       end
     elsif
       if edition.new_record?
