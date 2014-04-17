@@ -86,6 +86,15 @@ class DetailedGuide < Edition
     'detailed-guidance'
   end
 
+  def has_associated_needs?
+    !associated_needs.empty?
+  end
+
+  def associated_needs
+    return [] if need_ids.empty?
+    Whitehall.need_api.needs_by_id(*need_ids).with_subsequent_pages.to_a
+  end
+
   private
 
   def related_mainstream_content_valid?

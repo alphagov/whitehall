@@ -1,6 +1,9 @@
 require "test_helper"
+require 'gds_api/test_helpers/need_api'
 
 class DetailedGuideTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::NeedApi
+
   should_allow_image_attachments
   should_be_attachable
   should_allow_inline_attachments
@@ -122,5 +125,21 @@ class DetailedGuideTest < ActiveSupport::TestCase
     detailed_guide = create(:detailed_guide, need_ids: ["1", "2", "3"])
     detailed_guide.reload
     assert_equal ["1", "2", "3"], detailed_guide.need_ids
+  end
+
+  test 'when no associated needs are present' do
+    detailed_guide = create(:detailed_guide, need_ids: [])
+    refute detailed_guide.has_associated_needs?
+    assert_equal [], detailed_guide.associated_needs
+  end
+
+  test 'when some associated needs are present' do
+    need_api_has_need_ids([ { "id" => "123" }, { "id" => "456" }])
+
+    detailed_guide = create(:detailed_guide, need_ids: [123, 456])
+
+    assert detailed_guide.has_associated_needs?
+    assert_equal "123", detailed_guide.associated_needs.first.id
+    assert_equal "456", detailed_guide.associated_needs.last.id
   end
 end

@@ -1,6 +1,9 @@
 require 'test_helper'
+require 'gds_api/test_helpers/need_api'
 
 class Admin::DetailedGuidesControllerTest < ActionController::TestCase
+  include GdsApi::TestHelpers::NeedApi
+
   setup do
     login_as create(:policy_writer, organisation: create(:organisation))
   end
@@ -44,6 +47,22 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
           assert_select "option[value='#{funk.id}']", funk.title
         end
       end
+    end
+  end
+
+  view_test "user needs associated with a detailed guide" do
+    need_api_has_need_ids([
+      { "id" => "123", "goal" => "apply for a primary school place" },
+      { "id" => "456", "goal" => "find out about becoming a British citizen" }
+    ])
+
+    detailed_guide = create(:detailed_guide, need_ids: [123, 456])
+
+    get :show, id: detailed_guide.id
+
+    assert_select "#user-needs-section" do |section|
+      assert_select "#user-need-id-123", text: "apply for a primary school place"
+      assert_select "#user-need-id-456", text: "find out about becoming a British citizen"
     end
   end
 

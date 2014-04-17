@@ -12,6 +12,7 @@ module Whitehall
   mattr_accessor :public_host
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
+  mattr_accessor :need_api
   mattr_accessor :default_cache_max_age
   mattr_accessor :organisations_transition_visualisation_feature_enabled
 
