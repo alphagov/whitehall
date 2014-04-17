@@ -2,6 +2,7 @@
   see_all_link ||= latest_path(departments: [@organisation])
   first_feature = feature_list.current_featured.first
   other_features_offset = 1
+  featured_services_and_guidance ||= []
 
   if featured_services_and_guidance.any?
     first_feature = nil
