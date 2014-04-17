@@ -91,22 +91,7 @@ module Admin::EditionActionsHelper
   private
 
   def edition_type_options_for_select(user, selected)
-    type_options_container = [
-      Policy,
-      Publication,
-      NewsArticle,
-      Consultation,
-      Speech,
-      DetailedGuide,
-      WorldwidePriority,
-      WorldLocationNewsArticle,
-      CaseStudy,
-      StatisticalDataSet,
-      FatalityNotice,
-      DocumentCollection,
-      SupportingPage,
-      CorporateInformationPage,
-    ].map do |edition_type|
+    type_options_container = Whitehall.edition_classes.map do |edition_type|
       unless edition_type == FatalityNotice && !user.can_handle_fatalities?
         [edition_type.model_name.human.pluralize, edition_type.model_name.underscore]
       end

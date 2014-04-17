@@ -155,19 +155,19 @@ module Whitehall
   def self.edition_classes
     [
       CaseStudy,
-      FatalityNotice,
-      WorldwidePriority,
-      StatisticalDataSet,
-      Policy,
       Consultation,
-      WorldLocationNewsArticle,
-      Speech,
-      DetailedGuide,
-      NewsArticle,
-      Publication,
-      DocumentCollection,
-      SupportingPage,
       CorporateInformationPage,
+      DetailedGuide,
+      DocumentCollection,
+      FatalityNotice,
+      NewsArticle,
+      Policy,
+      Publication,
+      Speech,
+      StatisticalDataSet,
+      SupportingPage,
+      WorldLocationNewsArticle,
+      WorldwidePriority,
     ]
   end
 
