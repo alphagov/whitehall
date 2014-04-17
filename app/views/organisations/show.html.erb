@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <% if (featured_services_and_guidance = @organisation.featured_services_and_guidance).any? %>
+  <% if @featured_services_and_guidance.any? %>
     <div class="heading-block">
       <div class="inner-block">
         <section class="featured-services-and-guidance" aria-describedby="featured-services-and-guidance-heading">
@@ -23,7 +23,7 @@
           <div class="content">
             <%= render 'shared/featured_links',
               type: 'top-tasks',
-              links: featured_services_and_guidance.only_the_initial_set %>
+              links: @featured_services_and_guidance.only_the_initial_set %>
           </div>
         </section>
       </div>
@@ -35,7 +35,8 @@
       <%= render partial: 'featured_items',
                 locals: { feature_list: @feature_list,
                           recently_updated: @recently_updated,
-                          organisation: @organisation } %>
+                          organisation: @organisation,
+                          featured_services_and_guidance: @featured_services_and_guidance } %>
       <section id="what-we-do" class="what-we-do">
         <div class="content">
           <% if @organisation.organisation_type.sub_organisation? %>

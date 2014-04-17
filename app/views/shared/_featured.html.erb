@@ -1,8 +1,9 @@
 <%
   extra_class ||= ""
+  offset = defined?(counter_offset) ? counter_offset : 0
   extra_classes =
     if defined?(feature_counter)
-      extra_class + " item-#{feature_counter}"
+      extra_class + " item-#{(feature_counter + offset)}"
     else
       extra_class
     end
