@@ -25,6 +25,24 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert_equal "caption-2", edition.images[1].caption
   end
 
+  test "#create_draft should not silently fail to copy images over to the new edition" do
+    image = create(:image)
+    published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
+      state: 'published',
+      major_change_published_at: Time.zone.now,
+      first_published_at: Time.zone.now,
+      images: [image]
+    ))
+    VirusScanHelpers.simulate_virus_scan
+
+    # to cause validation error on create_draft
+    image.update_attribute(:image_data_id, nil)
+
+    assert_raise ActiveRecord::RecordInvalid, "Validation failed: Image data file can't be blank" do
+      published_edition.create_draft(build(:user))
+    end
+  end
+
   test "#create_draft should include copies of image attributes" do
     image = create(:image)
     published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
