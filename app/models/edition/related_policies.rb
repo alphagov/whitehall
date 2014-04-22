@@ -13,7 +13,6 @@ module Edition::RelatedPolicies
     policy_ids = Array.wrap(policy_ids).reject(&:blank?)
     new_policies = policy_ids.map {|id| Policy.find(id).document }
     other_related_documents = self.related_documents.reject { |document| document.latest_edition.is_a?(Policy) }
-
     self.related_documents = other_related_documents + new_policies
   end
 

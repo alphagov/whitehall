@@ -8,6 +8,7 @@ class DetailedGuide < Edition
   include Edition::HasMainstreamCategories
   include Edition::HasDocumentCollections
   include Edition::Organisations
+  include Edition::RelatedPolicies
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
@@ -19,6 +20,7 @@ class DetailedGuide < Edition
 
   has_many :outbound_edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
   has_many :outbound_related_documents, through: :outbound_edition_relations, source: :document
+  has_many :outbound_related_detailed_guides, through: :outbound_edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
   has_many :latest_outbound_related_detailed_guides, through: :outbound_related_documents, source: :latest_edition, class_name: 'DetailedGuide'
   has_many :published_outbound_related_detailed_guides, through: :outbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
 

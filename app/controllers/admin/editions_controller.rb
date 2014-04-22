@@ -182,6 +182,7 @@ class Admin::EditionsController < Admin::BaseController
       topic_ids: [],
       topical_event_ids: [],
       outbound_related_document_ids: [],
+      outbound_related_detailed_guide_ids: [],
       role_appointment_ids: [],
       statistical_data_set_document_ids: [],
       policy_group_ids: [],
