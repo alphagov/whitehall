@@ -5,18 +5,17 @@
   <article id="what-we-do">
     <div class="block-1">
       <div class="inner-block">
-        <%= render partial: 'header', locals: {
-              organisation: @organisation,
-              link_to_organisation: true
-            } %>
+        <%= render_corporate_info_header_for(@organisation, @document) %>
 
         <div class="contextual-info js-stick-at-top-when-scrolling">
           <nav>
             <h1>About us</h1>
             <ol>
-              <li><%= link_to t('organisation.headings.what_we_do'), "#what-we-do" %></li>
-              <% govspeak_headers(@organisation.about_us).each do |header| %>
-                <li><%= link_to header.text, "##{header.id}" %></li>
+              <% if @document.present? %>
+                <li><%= link_to t('organisation.headings.what_we_do'), "#what-we-do" %></li>
+                <% govspeak_headers(@document.body).each do |header| %>
+                  <li><%= link_to header.text, "##{header.id}" %></li>
+                <% end %>
               <% end %>
               <% if has_any_transparency_pages?(@organisation) %>
                 <li><%= link_to t('organisation.headings.corporate_information'), "#corporate-info" %></li>
@@ -37,15 +36,17 @@
           <aside class="organisation-top-tasks">
             <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
           </aside>
-          <h1 class="main"><%= t('organisation.headings.what_we_do') %></h1>
-          <p class="description">
-            <%= @organisation.description %>
-          </p>
-          <div class="body">
-            <%= govspeak_to_html @organisation.about_us %>
-          </div>
+          <% if @document.present? %>
+            <h1 class="main"><%= t('organisation.headings.what_we_do') %></h1>
+            <p class="description">
+              <%= @document.summary %>
+            </p>
+            <div class="body">
+              <%= govspeak_to_html @document.body %>
+            </div>
+          <% end %>
           <% if has_any_transparency_pages?(@organisation) %>
-            <%= render partial: 'corporate_information',
+            <%= render partial: "#{@organisation.class.table_name}/corporate_information",
                        locals: { organisation: @organisation, show_access_our_information_header: true } %>
           <% end %>
           <% if @corporate_publications.any? %>

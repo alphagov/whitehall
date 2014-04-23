@@ -1,5 +1,6 @@
 class CorporateInformationPagesController < DocumentsController
   prepend_before_filter :find_organisation
+  before_filter :set_slimmer_headers_for_document, only: [:show, :index]
 
   def show
     @corporate_information_page = @document
@@ -9,6 +10,12 @@ class CorporateInformationPagesController < DocumentsController
     else
       render :show
     end
+  end
+
+  def index
+    params[:id] = "about"  # Set CIP slug explicitly to look up the about page.
+    @document = find_document_or_edition
+    @corporate_publications = @organisation.corporate_publications.in_reverse_chronological_order.published
   end
 
   def find_document_or_edition_for_public

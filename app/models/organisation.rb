@@ -314,7 +314,15 @@ class Organisation < ActiveRecord::Base
   end
 
   def indexable_content
-    Govspeak::Document.new("#{description} #{about_us}").to_text
+    Govspeak::Document.new("#{summary} #{body}").to_text
+  end
+
+  def summary
+    what_we_do.summary if what_we_do.present?
+  end
+
+  def body
+    what_we_do.body if what_we_do.present?
   end
 
   def search_link
@@ -342,6 +350,12 @@ class Organisation < ActiveRecord::Base
 
   def published_consultations
     published_editions.consultations
+  end
+
+  def published_corporate_information_pages
+    # Use the direct CIP relationship rather than the scope on Edition so that
+    # we can use the CIP classmethods on the returned relation.
+    corporate_information_pages.published
   end
 
   def published_detailed_guides
@@ -466,4 +480,9 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+
+  def what_we_do
+    @what ||= corporate_information_pages.published.for_slug('about')
+  end
+
 end

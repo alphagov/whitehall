@@ -45,8 +45,8 @@
         <section id="what-we-do" class="promo">
           <div class="content">
             <h2>What we do</h2>
-            <p class="description"><%= @organisation.description %></p>
-            <p><%= link_to t('organisation.about.read_more'), about_organisation_path(@organisation), id: 'read_more_link' %></p>
+            <p class="description"><%= @organisation.summary %></p>
+            <p><%= link_to t('organisation.about.read_more'), organisation_corporate_information_pages_path(@organisation), id: 'read_more_link' %></p>
           </div>
         </section>
       <% end %>
