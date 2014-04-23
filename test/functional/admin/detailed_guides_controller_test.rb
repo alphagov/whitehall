@@ -12,6 +12,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   should_allow_organisations_for :detailed_guide
   should_allow_association_with_topics :detailed_guide
+  should_allow_related_policies_for :detailed_guide
   should_allow_attached_images_for :detailed_guide
   should_prevent_modification_of_unmodifiable :detailed_guide
   should_allow_association_with_related_mainstream_content :detailed_guide

@@ -8,6 +8,7 @@ class DetailedGuidesController < DocumentsController
   def show
     @categories = @document.mainstream_categories
     @topics = @document.topics
+    @related_policies = @document.published_related_policies
   end
 
 private

@@ -3,8 +3,7 @@ class Admin::DetailedGuidesController < Admin::EditionsController
 
   before_filter :build_image, only: [:new, :edit]
 
-  private
-
+private
   def edition_class
     DetailedGuide
   end
