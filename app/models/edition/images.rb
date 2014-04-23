@@ -4,7 +4,11 @@ module Edition::Images
   class Trait < Edition::Traits::Trait
     def process_associations_after_save(edition)
       @edition.images.each do |a|
-        edition.images.create(a.attributes.except('id'))
+        image = edition.images.build(a.attributes.except('id'))
+        if image.invalid?
+          Rails.logger.warn "Ignoring errors on saving image for edition with id #{edition.id}: #{image.errors.full_messages.join(', ')}"
+        end
+        image.save(validate: false)
       end
     end
   end

@@ -62,6 +62,29 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     assert_equal image.image_data_id, new_image.image_data_id
   end
 
+  test "#create_draft should carry-over images even when there are validation errors in image data" do
+    published_edition = EditionWithImages.new(valid_edition_attributes.merge(
+      state: 'published',
+      major_change_published_at: Time.zone.now,
+      first_published_at: Time.zone.now,
+      images_attributes: [{
+        alt_text: "image smaller than 960x640",
+        caption: "some-caption",
+        image_data_attributes: {
+          file: fixture_file_upload('horrible-image.64x96.jpg')
+        }
+      }]
+    ))
+    published_edition.save(validate: false)
+    VirusScanHelpers.simulate_virus_scan
+
+    new_draft = published_edition.create_draft(build(:user))
+    new_draft.reload
+
+    assert_equal 1, new_draft.images.count
+    assert_equal new_draft.images.first.image_data, published_edition.images.first.image_data
+  end
+
   test "captions for images can be changed between versions" do
     published_edition = EditionWithImages.create!(valid_edition_attributes.merge(
       state: 'published',
