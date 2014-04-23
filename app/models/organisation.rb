@@ -121,7 +121,6 @@ class Organisation < ActiveRecord::Base
 
   validates :slug, presence: true, uniqueness: true
   validates_with SafeHtmlValidator
-  validates_with NoFootnotesInGovspeakValidator, attributes: [:description, :about_us]
   validates :name, presence: true, uniqueness: true
   validates :logo_formatted_name, presence: true
   validates :url, uri: true, allow_blank: true
@@ -143,7 +142,7 @@ class Organisation < ActiveRecord::Base
   delegate :devolved_administration?, to: :type
 
   include TranslatableModel
-  translates :name, :logo_formatted_name, :acronym, :description, :about_us
+  translates :name, :logo_formatted_name, :acronym
 
   include Featurable
 
@@ -153,7 +152,7 @@ class Organisation < ActiveRecord::Base
              acronym: :acronym,
              link: :search_link,
              content: :indexable_content,
-             description: :description,
+             description: :summary,
              boost_phrases: :acronym,
              slug: :slug,
              organisation_state: :govuk_status
