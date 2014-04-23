@@ -98,4 +98,17 @@ class WorldwideOrganisation < ActiveRecord::Base
   def build_corporate_information_page(params)
     CorporateInformationPage.new(params.merge({worldwide_organisation: self}))
   end
+
+  def summary
+    what_we_do.summary if what_we_do.present?
+  end
+
+  def body
+    what_we_do.body if what_we_do.present?
+  end
+
+  def what_we_do
+    @what ||= corporate_information_pages.published.for_slug('about')
+  end
+
 end

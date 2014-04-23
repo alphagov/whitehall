@@ -9,7 +9,7 @@
       <div class="content">
         <p class="summary"><%= @worldwide_organisation.summary %></p>
         <div class="description">
-          <%= govspeak_to_html @worldwide_organisation.description %>
+          <%= govspeak_to_html @worldwide_organisation.body %>
         </div>
       </div>
     </div>
@@ -23,17 +23,6 @@
     <% end %>
   </div>
 </section>
-
-<% if @worldwide_organisation.services.present? %>
-  <section class="block our-services" id="our-services">
-    <div class="inner-block">
-      <h1 class="keyline-header"><%= t('worldwide_organisation.headings.our_services' ) %></h1>
-      <div class="content">
-        <%= govspeak_to_html @worldwide_organisation.services %>
-      </div>
-    </div>
-  </section>
-<% end %>
 
 <% if ([@primary_role]+@other_roles).compact.any?(&:has_appointment?) %>
   <section class="block people" id="people">
