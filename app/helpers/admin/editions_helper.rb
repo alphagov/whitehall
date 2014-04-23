@@ -243,7 +243,7 @@ module Admin::EditionsHelper
 
   def edition_edit_headline(edition)
     if edition.is_a?(CorporateInformationPage)
-      "Edit &lsquo;#{edition.title}&rsquo; page for #{link_to edition.organisation.name, [:admin, edition.organisation]}".html_safe
+      "Edit &lsquo;#{edition.title}&rsquo; page for #{link_to edition.owning_organisation.name, [:admin, edition.owning_organisation]}".html_safe
     else
       "Edit #{edition.type.underscore.humanize.downcase}"
     end
