@@ -52,17 +52,17 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   view_test "user needs associated with a detailed guide" do
     need_api_has_need_ids([
-      { "id" => "123", "goal" => "apply for a primary school place" },
-      { "id" => "456", "goal" => "find out about becoming a British citizen" }
+      { "id" => "123456", "goal" => "apply for a primary school place" },
+      { "id" => "456789", "goal" => "find out about becoming a British citizen" }
     ])
 
-    detailed_guide = create(:detailed_guide, need_ids: [123, 456])
+    detailed_guide = create(:detailed_guide, need_ids: ["123456", "456789"])
 
     get :show, id: detailed_guide.id
 
     assert_select "#user-needs-section" do |section|
-      assert_select "#user-need-id-123", text: "apply for a primary school place"
-      assert_select "#user-need-id-456", text: "find out about becoming a British citizen"
+      assert_select "#user-need-id-123456", text: "apply for a primary school place"
+      assert_select "#user-need-id-456789", text: "find out about becoming a British citizen"
     end
   end
 

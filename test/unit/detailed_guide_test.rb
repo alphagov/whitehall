@@ -122,9 +122,20 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test 'need ids can be stored on the detailed guide' do
-    detailed_guide = create(:detailed_guide, need_ids: ["1", "2", "3"])
+    detailed_guide = create(:detailed_guide, need_ids: ["100001", "100002", "100003"])
     detailed_guide.reload
-    assert_equal ["1", "2", "3"], detailed_guide.need_ids
+    assert_equal ["100001", "100002", "100003"], detailed_guide.need_ids
+  end
+
+  test 'need ids ought to be six-digit integers' do
+    guide_with_invalid_need_ids = build(:detailed_guide, need_ids: ["12345", "x1234", "678905"])
+    refute guide_with_invalid_need_ids.valid?
+    refute guide_with_invalid_need_ids.errors[:need_ids].empty?
+
+    error_message = guide_with_invalid_need_ids.errors[:need_ids].first
+    assert_match /12345/, error_message
+    assert_match /x1234/, error_message
+    refute_match /678905/, error_message
   end
 
   test 'when no associated needs are present' do
@@ -134,12 +145,12 @@ class DetailedGuideTest < ActiveSupport::TestCase
   end
 
   test 'when some associated needs are present' do
-    need_api_has_need_ids([ { "id" => "123" }, { "id" => "456" }])
+    need_api_has_need_ids([ { "id" => "000123" }, { "id" => "000456" }])
 
-    detailed_guide = create(:detailed_guide, need_ids: [123, 456])
+    detailed_guide = create(:detailed_guide, need_ids: ["000123", "000456"])
 
     assert detailed_guide.has_associated_needs?
-    assert_equal "123", detailed_guide.associated_needs.first.id
-    assert_equal "456", detailed_guide.associated_needs.last.id
+    assert_equal "000123", detailed_guide.associated_needs.first.id
+    assert_equal "000456", detailed_guide.associated_needs.last.id
   end
 end

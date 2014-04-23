@@ -35,6 +35,7 @@ class DetailedGuide < Edition
 
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
+  validate :need_ids_are_six_digit_integers?
 
   class HeadingHierarchyValidator < ActiveModel::Validator
     include GovspeakHelper
@@ -106,6 +107,13 @@ class DetailedGuide < Edition
   def additional_related_mainstream_content_valid?
     if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
       errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
+    end
+  end
+
+  def need_ids_are_six_digit_integers?
+    invalid_need_ids = need_ids.reject { |need_id| need_id =~ /\A\d{6}\z/ }
+    unless invalid_need_ids.empty?
+      errors.add(:need_ids, "are invalid: #{invalid_need_ids.join(", ")}")
     end
   end
 
