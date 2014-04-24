@@ -11,6 +11,8 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def display_image
+    return '' if image_tag.blank?
+
     if model.title_url.blank?
       image_tag
     else
@@ -19,6 +21,8 @@ class PromotionalFeatureItemPresenter < Whitehall::Decorators::Decorator
   end
 
   def image_tag
+    return '' if image_url.blank?
+
     context.image_tag(image_url, alt: image_alt_text)
   end
 
