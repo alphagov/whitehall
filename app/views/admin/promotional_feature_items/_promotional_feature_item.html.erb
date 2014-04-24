@@ -1,5 +1,8 @@
 <%= content_tag_for(:section, promotional_feature_item, class: 'well') do %>
-  <%= image_tag  promotional_feature_item.image.s300.url, alt: promotional_feature_item.image_alt_text %>
+  <% unless promotional_feature_item.image.s300.url.blank? %>
+    <%= image_tag promotional_feature_item.image.s300.url, alt: promotional_feature_item.image_alt_text %>
+  <% end %>
+
   <% if promotional_feature_item.title.present? %>
     <p><%= link_to_unless promotional_feature_item.title_url.blank?, promotional_feature_item.title, promotional_feature_item.title_url %></p>
   <% end %>

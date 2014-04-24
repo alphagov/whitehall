@@ -37,6 +37,12 @@ class PromotionalFeatureItemPresenterTest < ActionView::TestCase
     assert_dom_equal %(<a href="http://external.com"><img alt="#{item.image_alt_text}" src="#{item.image_url}" /></a>), item.display_image
   end
 
+  test '#display_image returns nil if there is no image' do
+    item = item_presenter
+    item.stubs(image_url: '')
+    assert_equal '', item.display_image
+  end
+
   test '#link_list_class returns "dash-list" for single-width items' do
     assert_equal "dash-list", item_presenter.link_list_class
     assert_nil item_presenter(double_width: true).link_list_class
