@@ -37,7 +37,16 @@
   <% end %>
 
   <h2>Published documents</h2>
+  <br/>
+
+  <div class="row-fluid">
+    <div class="span2">
+      <%= render partial: 'admin/editions/filter_options', locals: { filter_by: [:title, :type, :author, :organisation], filter_action: admin_topic_classification_featurings_url(@classification) } %>
+    </div>
+    <div class="span10" id="search_results">
       <%= render partial: 'admin/classification_featurings/featured_documents' %>
+    </div>
+  </div>
 <% end %>
 
 <%= render partial: "admin/classifications/tab_wrapper", locals: { model: @classification } %>

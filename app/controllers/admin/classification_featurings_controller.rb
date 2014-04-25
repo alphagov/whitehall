@@ -3,11 +3,19 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_filter :load_featuring, only: [:edit, :destroy]
 
   def index
-    @tagged_editions = @classification.editions.published
-                                      .with_translations
-                                      .order('editions.created_at DESC')
-                                      .page(params[:page])
+    filter_params = params.slice(:page, :type, :author, :organisation, :title).
+      merge(state: 'published')
+    @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
+
+    @tagged_editions = editions_to_show
+
     @classification_featurings = @classification.classification_featurings
+
+    if request.xhr?
+      render partial: 'admin/classification_featurings/featured_documents'
+    else
+      render :index
+    end
   end
 
   def new
@@ -47,5 +55,21 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
 
   def load_featuring
     @classification_featuring = @classification.classification_featurings.find(params[:id])
+  end
+
+  def editions_to_show
+    if filter_values_set?
+      @filter.editions
+    else
+      @classification.editions.published
+                              .with_translations
+                              .order('editions.created_at DESC')
+                              .page(params[:page])
+    end
+  end
+
+  def filter_values_set?
+    # state: 'published' is always set
+    @filter.options.values.reject(&:blank?).length > 1
   end
 end
