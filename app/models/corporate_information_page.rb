@@ -23,6 +23,11 @@ class CorporateInformationPage < Edition
   validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
 
+  before_save :ensure_title_is_blank
+  def ensure_title_is_blank
+    self.title = ''
+  end
+
   def search_title
     title_prefix_organisation_name
   end

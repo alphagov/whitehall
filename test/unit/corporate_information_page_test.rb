@@ -31,6 +31,14 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']
   end
 
+  test 'title is always saved as a blank string' do
+    corporate_information_page = create(:corporate_information_page, title: nil)
+    assert_equal '', corporate_information_page.attributes['title']
+
+    corporate_information_page = create(:corporate_information_page, title: 'Should not be saved')
+    assert_equal '', corporate_information_page.attributes['title']
+  end
+
   test "should derive title from type" do
     corporate_information_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference)
     assert_equal "Terms of reference", corporate_information_page.title

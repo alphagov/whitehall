@@ -29,12 +29,6 @@ private
     CorporateInformationPage
   end
 
-  def new_edition_params
-    # Title column in db needs to be blank rather than null as with_translations
-    # excludes rows with null columns.
-    super.merge(title: '')
-  end
-
   def new_edition
     @organisation.build_corporate_information_page(new_edition_params)
   end
