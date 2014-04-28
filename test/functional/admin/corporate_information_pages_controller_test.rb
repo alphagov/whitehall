@@ -16,7 +16,7 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert_template :index
     assert_equal @organisation, assigns(:organisation)
     assert_equal [corporate_information_page], assigns(:filter).editions
-    assert assigns(:filter).page_title
+    assert_equal "Corporate information pages", assigns(:filter).page_title
     assert_equal false, assigns(:filter).show_stats
     assert assigns(:filter).hide_type
   end
