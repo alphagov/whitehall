@@ -15,6 +15,7 @@ class Edition < ActiveRecord::Base
   include Edition::ActiveEditors
   include Edition::Translatable
   include Edition::SpecialistSectors
+  serialize :need_ids, Array
 
   # This mixin should go away when we switch to a search backend for admin documents
   extend Edition::FindableByOrganisation
@@ -35,6 +36,7 @@ class Edition < ActiveRecord::Base
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true, if: :summary_required?
   validates :first_published_at, recent_date: true, allow_blank: true
+  validate :need_ids_are_six_digit_integers?
 
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
   FROZEN_STATES = %w(superseded deleted).freeze
@@ -584,6 +586,22 @@ class Edition < ActiveRecord::Base
 
   def body_required?
     true
+  end
+
+  def has_associated_needs?
+    associated_needs.any?
+  end
+
+  def associated_needs
+    return [] if need_ids.empty?
+    Whitehall.need_api.needs_by_id(*need_ids).with_subsequent_pages.to_a
+  end
+
+  def need_ids_are_six_digit_integers?
+    invalid_need_ids = need_ids.reject { |need_id| need_id =~ /\A\d{6}\z/ }
+    unless invalid_need_ids.empty?
+      errors.add(:need_ids, "are invalid: #{invalid_need_ids.join(", ")}")
+    end
   end
 
 private

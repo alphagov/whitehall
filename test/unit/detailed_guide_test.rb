@@ -1,9 +1,6 @@
 require "test_helper"
-require 'gds_api/test_helpers/need_api'
 
 class DetailedGuideTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::NeedApi
-
   should_allow_image_attachments
   should_be_attachable
   should_allow_inline_attachments
@@ -119,38 +116,5 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test 'search_format_types tags the detailed guide as detailed-guidance' do
     detailed_guide = build(:detailed_guide)
     assert detailed_guide.search_format_types.include?('detailed-guidance')
-  end
-
-  test 'need ids can be stored on the detailed guide' do
-    detailed_guide = create(:detailed_guide, need_ids: ["100001", "100002", "100003"])
-    detailed_guide.reload
-    assert_equal ["100001", "100002", "100003"], detailed_guide.need_ids
-  end
-
-  test 'need ids ought to be six-digit integers' do
-    guide_with_invalid_need_ids = build(:detailed_guide, need_ids: ["12345", "x1234", "678905"])
-    refute guide_with_invalid_need_ids.valid?
-    refute guide_with_invalid_need_ids.errors[:need_ids].empty?
-
-    error_message = guide_with_invalid_need_ids.errors[:need_ids].first
-    assert_match /12345/, error_message
-    assert_match /x1234/, error_message
-    refute_match /678905/, error_message
-  end
-
-  test 'when no associated needs are present' do
-    detailed_guide = create(:detailed_guide, need_ids: [])
-    refute detailed_guide.has_associated_needs?
-    assert_equal [], detailed_guide.associated_needs
-  end
-
-  test 'when some associated needs are present' do
-    need_api_has_need_ids([ { "id" => "000123" }, { "id" => "000456" }])
-
-    detailed_guide = create(:detailed_guide, need_ids: ["000123", "000456"])
-
-    assert detailed_guide.has_associated_needs?
-    assert_equal "000123", detailed_guide.associated_needs.first.id
-    assert_equal "000456", detailed_guide.associated_needs.last.id
   end
 end

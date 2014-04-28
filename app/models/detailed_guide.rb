@@ -18,7 +18,6 @@ class DetailedGuide < Edition
     end
   end
 
-  serialize :need_ids, Array
   has_many :outbound_edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
   has_many :outbound_related_documents, through: :outbound_edition_relations, source: :document
   has_many :outbound_related_detailed_guides, through: :outbound_edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
@@ -35,7 +34,6 @@ class DetailedGuide < Edition
 
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
-  validate :need_ids_are_six_digit_integers?
 
   class HeadingHierarchyValidator < ActiveModel::Validator
     include GovspeakHelper
@@ -87,15 +85,6 @@ class DetailedGuide < Edition
     'detailed-guidance'
   end
 
-  def has_associated_needs?
-    !associated_needs.empty?
-  end
-
-  def associated_needs
-    return [] if need_ids.empty?
-    Whitehall.need_api.needs_by_id(*need_ids).with_subsequent_pages.to_a
-  end
-
   private
 
   def related_mainstream_content_valid?
@@ -107,13 +96,6 @@ class DetailedGuide < Edition
   def additional_related_mainstream_content_valid?
     if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
       errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
-    end
-  end
-
-  def need_ids_are_six_digit_integers?
-    invalid_need_ids = need_ids.reject { |need_id| need_id =~ /\A\d{6}\z/ }
-    unless invalid_need_ids.empty?
-      errors.add(:need_ids, "are invalid: #{invalid_need_ids.join(", ")}")
     end
   end
 

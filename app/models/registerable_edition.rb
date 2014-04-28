@@ -45,11 +45,7 @@ class RegisterableEdition
   end
 
   def need_ids
-    if kind == "detailed_guide"
-      edition.need_ids
-    else
-      []
-    end
+    edition.need_ids
   end
 
   def specialist_sectors
