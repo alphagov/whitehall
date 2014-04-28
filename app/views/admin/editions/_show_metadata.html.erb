@@ -185,9 +185,7 @@
   <section id="user-needs-section">
     <h2>Associated user needs</h2>
     <ul>
-      <% @edition.associated_needs.each do |need| %>
-        <li id="user-need-id-<%= need.id %>"><%= need.goal %></li>
-      <% end %>
+      <%= render partial: 'need', collection: @edition.associated_needs %>
     </ul>
   </section>
 <% end %>
