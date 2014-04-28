@@ -25,6 +25,50 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     assert_equal 25, tagged_editions.limit_value
   end
 
+  test "GET :index assigns a filtered list to tagged_editions when given a title" do
+    create(:published_news_article, :with_topics, topics: [@topic])
+    @news_article_foo = create(:published_news_article, :with_topics, topics: [@topic], title: 'foo in the title')
+
+    get :index, topic_id: @topic, title: 'foo'
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [@news_article_foo], tagged_editions
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given an organisation" do
+    create(:published_news_article, :with_topics, topics: [@topic])
+    org = create(:organisation)
+    @news_article_foo = create(:published_news_article, :with_topics, topics: [@topic])
+    @news_article_foo.organisations << org
+
+    get :index, topic_id: @topic, organisation: org.id
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [@news_article_foo], tagged_editions
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given an author" do
+    create(:published_news_article, :with_topics, topics: [@topic])
+    @news_article_foo = create(:published_news_article, :with_topics, topics: [@topic])
+    user = create(:user)
+    create(:edition_author, edition: @news_article_foo, user: user)
+
+    get :index, topic_id: @topic, author: user.id
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [@news_article_foo], tagged_editions
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given a document type" do
+    create(:published_statistical_data_set, :with_topics, topics: [@topic])
+    @news_article_foo = create(:published_news_article, :with_topics, topics: [@topic])
+
+    get :index, topic_id: @topic, type: @news_article_foo.display_type_key
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [@news_article_foo], tagged_editions
+  end
+
   test "PUT :order saves the new order of featurings" do
     feature1 = create(:classification_featuring, classification: @topic)
     feature2 = create(:classification_featuring, classification: @topic)
