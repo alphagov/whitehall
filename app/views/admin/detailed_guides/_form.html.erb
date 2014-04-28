@@ -12,7 +12,7 @@
       <%= form.label :other_mainstream_category_ids, 'Other detailed guidance categories' %>
       <%= form.select :other_mainstream_category_ids, mainstream_category_options(edition, edition.other_mainstream_category_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose other detailed guidance categories..."} %>
 
-      <%= form.text_field :need_ids, placeholder: "Enter a comma-separated list of need ids", value: edition.need_ids.join(", ") %>
+      <%= form.text_field :need_ids, label_text: 'Need ids (enter a comma-separated list)', placeholder: "Enter a comma-separated list of need ids", value: edition.need_ids.join(", ") %>
 
       <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
 
