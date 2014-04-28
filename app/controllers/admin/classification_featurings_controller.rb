@@ -69,7 +69,6 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def filter_values_set?
-    # state: 'published' is always set
-    @filter.options.values.reject(&:blank?).length > 1
+    params.slice(:type, :author, :organisation, :title).length > 0
   end
 end
