@@ -50,6 +50,14 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     end
   end
 
+  test "associate user needs with a guide" do
+    attributes = controller_attributes_for(:detailed_guide, need_ids: "123456, 789012")
+
+    post :create, edition: attributes
+
+    assert_equal ["123456", "789012"], DetailedGuide.last.need_ids
+  end
+
   view_test "user needs associated with a detailed guide" do
     need_api_has_need_ids([
       {
