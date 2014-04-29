@@ -1,13 +1,14 @@
 module DataHygiene
   class ConvertCorporateInformationPages
 
-    def initialize
+    def initialize(logger=nil)
       @gds_ig_team_user = User.find_by_name!('GDS Inside Government Team')
+      @logger = logger
     end
 
     def convert(old_cip)
       org = old_cip.organisation
-      puts "Migrating #{org.name}: #{old_cip.slug} (#{old_cip.id})"
+      log "Migrating #{org.name}: #{old_cip.slug} (#{old_cip.id})"
       doc = Document.create!(document_type: 'CorporateInformationPage',
                              created_at: old_cip.created_at,
                              updated_at: old_cip.updated_at)
@@ -25,15 +26,17 @@ module DataHygiene
       new_cip.save!
       old_cip.translations.each do |old_trans|
         unless old_trans.locale == :en
+          log "\tMigrating :#{old_trans.locale} translation"
           new_cip.translations.create!(
             locale: old_trans.locale,
             summary: old_trans.summary,
             body: old_trans.body,
-            title: old_cip.title
+            title: ''
           )
         end
       end
       old_cip.attachments.each do |old_att|
+        log "\tMigrating attachment: #{old_att.title} (#{old_att.id})"
         # Create new Attachments, but keep existing attachment_data instances.
         # Can't set attachment_type directly, so use the class of the
         # existing instance to create the new one.
@@ -64,6 +67,10 @@ module DataHygiene
       # The unique identifier in the search index is the page URL, which has
       # not changed in this migration, so we can just trigger an update.
       new_cip.update_in_search_index
+    end
+
+    def log(msg)
+      @logger.info(msg) if @logger
     end
   end
 end

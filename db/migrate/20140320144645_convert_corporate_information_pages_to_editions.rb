@@ -22,7 +22,7 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
   Whitehall.skip_safe_html_validation = true
 
   def up
-    converter = DataHygiene::ConvertCorporateInformationPages.new
+    converter = DataHygiene::ConvertCorporateInformationPages.new(Logger.new(STDOUT))
     transaction do
       OldCorporateInformationPage.includes(:organisation).find_each do |old_cip|
         converter.convert old_cip
