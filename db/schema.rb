@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140415162617) do
+ActiveRecord::Schema.define(:version => 20140429162738) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -252,6 +252,22 @@ ActiveRecord::Schema.define(:version => 20140415162617) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",                       :default => 0
+    t.integer  "attempts",                       :default => 0
+    t.text     "handler",    :limit => 16777215
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "document_collection_group_memberships", :force => true do |t|
     t.integer  "document_id"
@@ -845,6 +861,7 @@ ActiveRecord::Schema.define(:version => 20140415162617) do
     t.string   "organisation_type_key"
     t.boolean  "foi_exempt",                              :default => false,  :null => false
     t.string   "organisation_chart_url"
+    t.string   "govuk_closed_status"
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"

@@ -131,10 +131,16 @@ class Organisation < ActiveRecord::Base
     if: :requires_alternative_format?,
     message: "can't be blank as there are editions which use this organisation as the alternative format provider"}
   validates :govuk_status, inclusion: {in: %w{live joining exempt transitioning closed}}
+  validates :govuk_closed_status, inclusion: {in: %w{no_longer_exists replaced split merged changed_name left_gov devolved}}, presence: true, if: :closed?
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
 
+  validate :exactly_one_superseding_organisation, if: Proc.new { |organisation| organisation.replaced? || organisation.merged? || organisation.changed_name? }
+  validate :at_least_two_superseding_organisations, if: :split?
+  validate :exactly_one_devolved_superseding_organisation, if: :devolved?
+
   delegate :ministerial_department?, to: :type
+  delegate :devolved_administration?, to: :type
 
   include TranslatableModel
   translates :name, :logo_formatted_name, :acronym, :description, :about_us
@@ -160,6 +166,24 @@ class Organisation < ActiveRecord::Base
 
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
+  end
+
+  def exactly_one_superseding_organisation
+    if superseding_organisations.size != 1
+      errors.add(:base, "Please add exactly one superseding organisation for this closed status.")
+    end
+  end
+
+  def at_least_two_superseding_organisations
+    if superseding_organisations.size < 2
+      errors.add(:base, "Please add at least two superseding organisations for this closed status.")
+    end
+  end
+
+  def exactly_one_devolved_superseding_organisation
+    if superseding_organisations.size != 1 || !superseding_organisations.first.devolved_administration?
+      errors.add(:base, "Please add exactly one devolved superseding organisation for this closed status.")
+    end
   end
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
@@ -248,6 +272,34 @@ class Organisation < ActiveRecord::Base
 
   def exempt?
     govuk_status == 'exempt'
+  end
+
+  def no_longer_exists?
+    govuk_closed_status == 'no_longer_exists'
+  end
+
+  def replaced?
+    govuk_closed_status == 'replaced'
+  end
+
+  def split?
+    govuk_closed_status == 'split'
+  end
+
+  def merged?
+    govuk_closed_status == 'merged'
+  end
+
+  def changed_name?
+    govuk_closed_status == 'changed_name'
+  end
+
+  def left_gov?
+    govuk_closed_status == 'left_gov'
+  end
+
+  def devolved?
+    govuk_closed_status == 'devolved'
   end
 
   def name_without_prefix

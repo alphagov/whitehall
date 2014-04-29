@@ -44,13 +44,83 @@ class OrganisationTest < ActiveSupport::TestCase
     assert new_organisation.valid?
   end
 
-  test 'should be valid if govuk status is closed' do
+  test 'should be invalid if govuk status is closed and has no govuk closed status' do
     new_organisation = build(:organisation, govuk_status: 'closed')
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk status is closed and has an invalid govuk closed status' do
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'not-known-status')
+    refute new_organisation.valid?
+  end
+
+  test 'should be valid if govuk status is closed and has a valid govuk closed status' do
+    new_organisation = build(:closed_organisation)
     assert new_organisation.valid?
   end
 
   test 'should be invalid if govuk status is not active, coming, exempt or transitioning' do
     new_organisation = build(:organisation, govuk_status: 'something-elese')
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is merged and it has no superseding organisations' do
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'merged', superseding_organisations: [])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is merged and it has more than one superseding organisation' do
+    organisation_1 = create(:organisation, name: 'Superseding 1')
+    organisation_2 = create(:organisation, name: 'Superseding 2')
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'merged', superseding_organisations: [organisation_1, organisation_2])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is replaced and it has no superseding organisations' do
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is replaced and it has more than one superseding organisation' do
+    organisation_1 = create(:organisation, name: 'Superseding 1')
+    organisation_2 = create(:organisation, name: 'Superseding 2')
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [organisation_1, organisation_2])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is name changed and it has no superseding organisations' do
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'changed_name', superseding_organisations: [])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is name changed and it has more than one superseding organisation' do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'changed_name', superseding_organisations: [organisation_1, organisation_2])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is split and it has less than two superseding organisations' do
+    organisation_1 = create(:organisation)
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'split', superseding_organisations: [organisation_1])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is devolved and it has no superseding organisations' do
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is devolved and it has more than one superseding organisation' do
+    organisation_1 = create(:organisation, name: 'Superseding 1')
+    organisation_2 = create(:organisation, name: 'Superseding 2')
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [organisation_1, organisation_2])
+    refute new_organisation.valid?
+  end
+
+  test 'should be invalid if govuk closed status is devolved and its superseding organisation is not devolved' do
+    organisation_1 = create(:organisation)
+    new_organisation = build(:organisation, govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [organisation_1])
     refute new_organisation.valid?
   end
 
@@ -63,7 +133,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'should be valid with a blank alternative_format_contact_email if the org is closed' do
-    organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com", govuk_status: 'closed')
+    organisation = create(:closed_organisation, alternative_format_contact_email: "alternative@example.com")
     create(:draft_publication, alternative_format_provider: organisation)
     assert organisation.valid?
     organisation.alternative_format_contact_email = ""
@@ -280,7 +350,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'should return search index data for all organisations' do
-    create(:organisation, name: 'Department for Culture and Sports', description: 'Sporty.', govuk_status: 'closed')
+    create(:organisation, name: 'Department for Culture and Sports', description: 'Sporty.', govuk_status: 'closed', govuk_closed_status: 'no_longer_exists')
     create(:organisation, name: 'Department of Education', description: 'Bookish.')
     create(:organisation, name: 'HMRC', description: 'Taxing.', acronym: 'hmrc')
     create(:organisation, name: 'Ministry of Defence', description: 'Defensive.', acronym: 'mod')
@@ -644,12 +714,12 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "excluding_govuk_status_closed scopes to all organisations which don't have a govuk_state of 'closed'" do
     open_org = create(:organisation, govuk_status: 'live')
-    closed_org = create(:organisation, govuk_status: 'closed')
+    closed_org = create(:closed_organisation)
     assert_equal [open_org], Organisation.excluding_govuk_status_closed
   end
   test "closed scopes to organisations which have a govuk_state of 'closed'" do
     open_org = create(:organisation, govuk_status: 'live')
-    closed_org = create(:organisation, govuk_status: 'closed')
+    closed_org = create(:closed_organisation)
     assert_equal [closed_org], Organisation.closed
   end
 

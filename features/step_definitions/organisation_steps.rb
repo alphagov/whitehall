@@ -596,6 +596,7 @@ When(/^I close the organisation "(.*?)", superseding it with the organisation "(
   organisation = Organisation.find_by_name!(org_name)
   visit edit_admin_organisation_path(organisation.slug)
   select "Closed", from: "Status on GOV.UK"
+  select "Replaced", from: "Reason for closure"
   select superseding_org_name, from: "Superseded by"
   click_on "Save"
 end
@@ -609,7 +610,7 @@ end
 
 Given(/^a closed organisation with documents which has been superseded by another$/) do
   @superseding_organisation  = create(:organisation)
-  @organisation              = create(:organisation, govuk_status: 'closed', superseding_organisations: [@superseding_organisation])
+  @organisation              = create(:organisation, govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [@superseding_organisation])
   @organisation_speech       = create(:published_speech, organisations: [@organisation])
   @organisation_consultation = create(:published_consultation, organisations: [@organisation])
   @organisation_publication  = create(:published_publication, organisations: [@organisation])
@@ -624,8 +625,9 @@ Then(/^I can see that the organisation is closed$/) do
   assert page.has_content?("#{@organisation.name} has closed")
 end
 
-Then(/^I can see that the organisation has been superseded by the other$/) do
-  assert page.has_content?("It has been replaced by #{@superseding_organisation.name}.")
+Then(/^I can see that the organisation is closed and has been superseded by the other$/) do
+  assert page.has_content?("#{@organisation.name} was replaced by")
+  assert page.has_content?("#{@superseding_organisation.name}")
 end
 
 Then(/^I can see the documents associated with that organisation$/) do

@@ -216,7 +216,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "showing a closed organisation renders the not live template" do
-    organisation = create(:organisation, govuk_status: 'closed')
+    organisation = create(:closed_organisation)
 
     get :show, id: organisation
 
@@ -224,7 +224,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "showing a closed organisation does not render the parent_organisations or the url" do
-    organisation = create(:organisation, govuk_status: 'closed')
+    organisation = create(:closed_organisation)
 
     get :show, id: organisation
 
@@ -244,7 +244,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "doesn't show a thumbnail if the organisation is closed" do
-    organisation = create(:organisation, govuk_status: 'closed', url: 'http://madeup-url.com')
+    organisation = create(:closed_organisation, url: 'http://madeup-url.com')
 
     get :show, id: organisation
 

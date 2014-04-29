@@ -21,34 +21,58 @@ module OrganisationHelper
 
   def organisation_govuk_status_description(organisation)
     if organisation.closed?
-      if organisation.closed_at.present?
-        "#{organisation.name} closed on #{absolute_date(organisation.closed_at, class: 'closed-at')}".html_safe
-      else
-        "#{organisation.name} has closed"
-      end
+      organisation_closed_govuk_status_description(organisation)
     elsif organisation.transitioning?
-      "#{organisation.name} is in the process of joining GOV.UK. In the meantime, #{link_to(organisation.url, organisation.url)} remains the official source.".html_safe
+      "#{organisation.name} is in the process of joining GOV.UK. In the meantime, #{link_to(organisation.url, organisation.url)} remains the official source."
     elsif organisation.joining?
       if organisation.url.present?
-        "#{organisation.name} currently has a #{link_to('separate website', organisation.url)} but will soon be incorporated into GOV.UK".html_safe
+        "#{organisation.name} currently has a #{link_to('separate website', organisation.url)} but will soon be incorporated into GOV.UK"
       else
         "#{organisation.name} will soon be incorporated into GOV.UK"
       end
     elsif organisation.exempt?
       if organisation.url.present?
-        "#{organisation.name} has a #{link_to('separate website', organisation.url)}".html_safe
+        "#{organisation.name} has a #{link_to('separate website', organisation.url)}"
       else
         "#{organisation.name} has no website"
       end
     end
   end
 
-  def superseding_organisations_paragraph_for(organisation)
+  def organisation_closed_govuk_status_description(organisation)
+    if organisation.no_longer_exists?
+      if organisation.closed_at.present?
+	"#{organisation.name} closed down in #{organisation.closed_at.to_s(:one_month_precision)}."
+      else
+	"#{organisation.name} has closed down."
+      end
+    elsif organisation.replaced? || organisation.split?
+      if organisation.closed_at.present?
+	"#{organisation.name} was replaced by #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}."
+      else
+	"#{organisation.name} was replaced by #{superseding_organisations_text(organisation)}."
+      end
+    elsif organisation.merged?
+      if organisation.closed_at.present?
+	"#{organisation.name} became part of #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}."
+      else
+	"#{organisation.name} is now part of #{superseding_organisations_text(organisation)}."
+      end
+    elsif organisation.changed_name?
+      "#{organisation.name} is now called #{superseding_organisations_text(organisation)}"
+    elsif organisation.left_gov?
+      "#{organisation.name} is now independent of the UK government."
+    elsif organisation.devolved?
+      "#{organisation.name} is now run by the #{superseding_organisations_text(organisation)}."
+    end
+  end
+
+  def superseding_organisations_text(organisation)
     if organisation.superseding_organisations.any?
       organisation_links = organisation.superseding_organisations.map { |org|
         link_to(org.name, organisation_path(org))
       }
-      content_tag :p, t('organisation.superseding_organisation_text', organisation_list: organisation_links.to_sentence).html_safe
+      organisation_links.to_sentence.html_safe
     end
   end
 
