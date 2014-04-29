@@ -32,6 +32,10 @@ class CorporateInformationPage < Edition
     title_prefix_organisation_name
   end
 
+  def search_index
+    super.merge("organisations" => [owning_organisation.slug] )
+  end
+
   def self.search_only
     # Ensure only CIPs associated with a live Organisation are indexed in search.
     super.joins(:organisation).where(organisations: {govuk_status: "live"})
