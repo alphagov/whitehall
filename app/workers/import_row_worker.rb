@@ -28,7 +28,7 @@ protected
 
       model = import.model_class.new(attributes)
       attachment = HtmlAttachment.new(html_attachment_attributes.merge(attachable: model))
-      model.attachments = [attachment] if attachment.valid?
+      model.attachments << attachment if attachment.valid?
 
       if model.save
         save_translation!(model, row) if row.translation_present?
