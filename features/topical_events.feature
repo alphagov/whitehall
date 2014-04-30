@@ -53,6 +53,11 @@ Scenario: Featuring news on an topical event page
   Then I should see the featured documents in the "An Event" topical event are:
     | A speech | s465_minister-of-funk.960x640.jpg |
 
+Scenario: Featuring offsite content on a topical event page
+  Given a topical event called "An Event" with description "A topical event"
+  When I feature an offsite page on the topical event
+  Then I should see the offsite page featured on the public topical event page
+
 Scenario: Featuring a document collection on an topical event page
   Given a topical event called "An Event" with description "A topical event"
   When I draft a new document collection "A document collection" relating it to topical event "An Event"

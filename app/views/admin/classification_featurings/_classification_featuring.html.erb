@@ -1,0 +1,10 @@
+<div class="well">
+  <%= label_tag "ordering[#{classification_featuring.id}]" do
+    if classification_featuring.offsite?
+      link_to("#{classification_featuring.title} (#{classification_featuring.url})", classification_featuring.url)
+    else
+      link_to(classification_featuring.title, admin_edition_path(classification_featuring.edition))
+    end
+  end %>
+  <%= text_field_tag "ordering[#{classification_featuring.id}]", classification_featuring.ordering, class: "ordering js-hidden" %>
+</div>

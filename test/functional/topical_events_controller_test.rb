@@ -14,12 +14,12 @@ class TopicalEventsControllerTest < ActionController::TestCase
     topical_event = create(:topical_event)
     news_article = create(:published_news_article)
     policy = create(:published_policy)
-    create(:classification_featuring, classification: topical_event, edition: news_article, ordering: 0)
-    create(:classification_featuring, classification: topical_event, edition: policy, ordering: 1)
+    news_article_featuring = create(:classification_featuring, classification: topical_event, edition: news_article, ordering: 0)
+    policy_featuring = create(:classification_featuring, classification: topical_event, edition: policy, ordering: 1)
 
     get :show, id: topical_event
 
-    assert_equal [news_article, policy], assigns(:featured_editions).collect(&:model)
+    assert_equal [news_article_featuring, policy_featuring], assigns(:featurings)
   end
 
   view_test "#show displays a maximum of 5 featured editions" do
@@ -31,11 +31,8 @@ class TopicalEventsControllerTest < ActionController::TestCase
     end
 
     get :show, id: topical_event
-
-    editions[0...5].each do |edition|
-      assert_select_object edition.edition
-    end
-    refute_select_object editions.last.edition
+    parsed_response = Nokogiri::HTML::Document.parse(response.body)
+    assert_equal 5, parsed_response.css('.featured-news .feature').length
   end
 
   view_test 'show has a link to the atom feed' do

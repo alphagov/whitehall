@@ -7,34 +7,26 @@
   <p>A maximum of 5 featured documents will be displayed on the live site.</p>
 
   <% if @classification_featurings.many? %>
-
     <p class="alert alert-info">
-    To change the order of your featured documents, drag them up or down and then click "Save features order".
+      To change the order of your featured documents, drag them up or down and then click "Save features order".
     </p>
 
     <%= form_tag [:order, :admin, @classification, ClassificationFeaturing], method: :put do %>
       <fieldset class="sortable">
-        <% @classification.classification_featurings.each do |classification_featuring| %>
-          <div class="well">
-            <%= label_tag "ordering[#{classification_featuring.id}]", link_to(classification_featuring.edition.title, admin_edition_path(classification_featuring.edition)) %>
-            <%= text_field_tag "ordering[#{classification_featuring.id}]", classification_featuring.ordering, class: "ordering js-hidden" %>
-          </div>
-        <% end %>
+        <%= render @classification_featurings %>
       </fieldset>
       <%= submit_tag "Save features order", class: "btn" %>
     <% end %>
 
   <% elsif @classification_featurings.any? %>
-
-    <% @classification_featurings.each do |cf| %>
-      <div class="well">
-        <%= link_to(cf.edition.title, admin_edition_path(cf.edition)) %>
-      </div>
-    <% end %>
+    <%= render @classification_featurings %>
 
   <% else %>
-    None
+    <p>Nothing has been featured yet.</p>
+
   <% end %>
+
+  <%= link_to "Feature an offsite URL", new_admin_topic_classification_featuring_path(@classification), class: "btn" %>
 
   <h2>Published documents</h2>
   <table class="table">
