@@ -8,8 +8,8 @@ class ClassificationFeaturing < ActiveRecord::Base
   validates :image, :alt_text, presence: true
 
   validates :classification, :ordering, presence: true
-  validates :offsite_title, :offsite_summary, presence: true, if: :offsite?
-  validates :offsite_url, presence: true, uri: true, if: :offsite?
+  validates :offsite_title, :offsite_summary, :offsite_url, presence: true, if: :offsite?
+  validates :offsite_url, uri: true, if: :offsite?
   validates :edition_id, uniqueness: { scope: :classification_id }, unless: :offsite?
 
   def title
