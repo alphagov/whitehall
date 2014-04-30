@@ -36,8 +36,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "#published_related_detailed_guides does not return non-published editions" do
     published_guide = create(:published_detailed_guide)
     related_draft_guide = create(:detailed_guide)
-
-    create(:edition_relation, edition_id: published_guide.id, document: related_draft_guide.document)
+    published_guide.related_documents << related_draft_guide.document
 
     assert_equal [], published_guide.reload.published_related_detailed_guides
   end
@@ -45,8 +44,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "published_related_detailed_guides returns published editions that are related to the edition's document (i.e. the inverse relationship)" do
     published_guide = create(:published_detailed_guide)
     related_guide = create(:published_detailed_guide)
-
-    create(:edition_relation, edition_id: published_guide.id, document: related_guide.document)
+    published_guide.related_documents << related_guide.document
 
     assert_equal [published_guide], related_guide.reload.published_related_detailed_guides
   end
@@ -54,10 +52,10 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "published_related_detailed_guides does not return the published edition of documents that were once related to the edition's document" do
     guide = create(:published_detailed_guide)
     related_guide = create(:published_detailed_guide)
-    create(:edition_relation, edition_id: guide.id, document: related_guide.document)
+    guide.related_documents << related_guide.document
 
     new_edition = guide.create_draft(create(:policy_writer))
-    new_edition.outbound_related_detailed_guide_ids = []
+    new_edition.related_document_ids = []
     new_edition.minor_change = true
     force_publish(new_edition)
 

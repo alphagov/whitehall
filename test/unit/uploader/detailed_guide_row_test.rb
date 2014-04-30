@@ -77,7 +77,7 @@ module Whitehall::Uploader
     test "finds related detailed guide by slug from related_detailed_guide_n column" do
       detailed_guide = create(:published_detailed_guide)
       row = new_detailed_guide_row({"related_detailed_guide_1" => detailed_guide.slug})
-      assert_equal [detailed_guide.document], row.attributes[:outbound_related_documents]
+      assert_equal [detailed_guide.document], row.attributes[:related_documents]
     end
 
     test "returns lead_organisations as an attribute" do

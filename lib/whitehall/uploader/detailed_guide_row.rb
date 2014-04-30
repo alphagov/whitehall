@@ -25,7 +25,7 @@ module Whitehall::Uploader
       fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
-    def outbound_related_documents
+    def related_documents
       Finders::SluggedModelFinder.new(Document, @logger, @line_number).find(fields(1..4, 'related_detailed_guide_#'))
     end
 
@@ -63,7 +63,7 @@ module Whitehall::Uploader
         :first_published_at,
         :lead_organisations,
         :other_mainstream_categories,
-        :outbound_related_documents,
+        :related_documents,
         :primary_mainstream_category,
         :related_mainstream_content_title,
         :related_mainstream_content_url,

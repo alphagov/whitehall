@@ -259,7 +259,7 @@ Feature: Importing new editions
       | topics                           | my-topic                      |
       | document_collections             | my-document-collection        |
       | mainstream_categories            | my-detailed-guidance-category |
-      | outbound_related_documents       | my-related-detailed-guide     |
+      | related_documents                | my-related-detailed-guide     |
 
 
   Scenario: Importing case study with related policies and document collection
