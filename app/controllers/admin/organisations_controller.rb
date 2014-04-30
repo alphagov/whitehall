@@ -24,9 +24,6 @@ class Admin::OrganisationsController < Admin::BaseController
   def show
   end
 
-  def about
-  end
-
   def people
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).
                                         merge(Role.ministerial).order(:ordering)
@@ -83,9 +80,9 @@ class Admin::OrganisationsController < Admin::BaseController
   def organisation_params
     params.require(:organisation).permit(
       :name, :acronym, :logo_formatted_name, :organisation_logo_type_id,
-      :logo, :logo_cache, :organisation_brand_colour_id, :description, :url,
+      :logo, :logo_cache, :organisation_brand_colour_id, :url,
       :organisation_type_key, :alternative_format_contact_email,
-      :govuk_status, :govuk_closed_status, :closed_at, :organisation_chart_url, :about_us,
+      :govuk_status, :govuk_closed_status, :closed_at, :organisation_chart_url,
       :foi_exempt, :ocpa_regulated, :public_meetings, :public_minutes,
       :regulatory_function, :important_board_members,
       superseding_organisation_ids: [],

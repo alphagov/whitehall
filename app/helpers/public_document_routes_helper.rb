@@ -23,17 +23,31 @@ module PublicDocumentRoutesHelper
   end
 
   def document_url(edition, options = {})
+    defaults = {}
     if edition.is_a?(CorporateInformationPage)
-      defaults = { id: edition.slug }
-      if edition.owning_organisation.is_a?(Organisation)
-        route_name = 'organisation_corporate_information_page'
-        defaults[:organisation_id] = edition.owning_organisation
+      org = edition.owning_organisation
+      # About pages are actually shown on the CIP index for an Organisation.
+      # But sub-orgs and worldwide orgs show the about text on the org page itself.
+      if edition.about_page?
+        if org.is_a?(WorldwideOrganisation) || org.organisation_type.sub_organisation?
+          return polymorphic_url(org, options)
+        else
+          route_name = 'organisation_corporate_information_pages'
+          defaults[:organisation_id] = org
+        end
       else
-        route_name = 'worldwide_organisation_corporate_information_page'
-        defaults[:worldwide_organisation_id] = edition.owning_organisation
+        defaults[:id] = edition.slug
+        if org.is_a?(Organisation)
+          route_name = 'organisation_corporate_information_page'
+          defaults[:organisation_id] = org
+        else
+          route_name = 'worldwide_organisation_corporate_information_page'
+          defaults[:id] = edition.slug
+          defaults[:worldwide_organisation_id] = org
+        end
       end
     else
-      defaults = { id: edition.document }
+      defaults[:id] = edition.document
       defaults[:policy_id] = edition.related_policies.first.document if edition.is_a?(SupportingPage)
       route_name = model_name_for_route_recognition(edition)
     end

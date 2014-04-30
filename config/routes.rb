@@ -183,7 +183,6 @@ Whitehall::Application.routes.draw do
           end
           member do
             get :features, localised: true
-            get :about
             get :people
           end
           resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]

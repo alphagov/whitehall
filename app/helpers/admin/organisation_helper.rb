@@ -31,7 +31,6 @@ module Admin::OrganisationHelper
     end
     tabs["Corporate information pages"] = admin_organisation_corporate_information_pages_path(organisation)
     tabs["More"] = {
-      "About us" => about_admin_organisation_path(organisation),
       "Social media accounts" => admin_organisation_social_media_accounts_path(organisation),
       "Governance groups" => admin_organisation_groups_path(organisation),
       "People" => people_admin_organisation_path(organisation),
