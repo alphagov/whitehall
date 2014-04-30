@@ -64,6 +64,12 @@
           a {
             font-weight: bold;
           }
+          a[rel="external"] {
+            @include external-link-16-bold-no-hover;
+            @include media(tablet) {
+              @include external-link-19-bold-no-hover;
+            }
+          }
         }
         h3 {
           @include core-19;
