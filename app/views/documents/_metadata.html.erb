@@ -5,10 +5,10 @@
 %>
 <aside class="meta metadata-list">
   <div class="inner-heading">
-    <dl>
+    <dl class="js-track-metadata-links" data-trackposition="top">
       <% if document.organisations.any?  %>
         <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-        <dd>
+        <dd data-tracktype="organisations">
           <%= render  partial: 'organisations/organisations_name_list',
                       locals: { organisations: document.sorted_organisations,
                                 lead_organisations: document.lead_organisations } %>
@@ -21,14 +21,14 @@
 
       <% document_metadata(document, policies, topics, specialist_tag_finder).each do |metadata| %>
         <dt><%= metadata[:title] %>:</dt>
-        <dd class="js-hide-other-links <%= metadata.fetch(:classes, []).join(' ') %>">
+        <dd class="js-hide-other-links <%= metadata.fetch(:classes, []).join(' ') %>" data-tracktype="<%= metadata.fetch(:classes, []).join(' ') %>">
           <%= metadata[:data].to_sentence.html_safe %>
         </dd>
       <% end %>
 
       <% if primary_mainstream_category.present? %>
         <dt>Primary category:</dt>
-        <dd>
+        <dd data-tracktype="primary-category">
           <%= link_to primary_mainstream_category.title,
                       mainstream_category_path(primary_mainstream_category)%>
         </dd>
@@ -36,7 +36,7 @@
 
       <% if document.location && document.location.present? %>
         <dt><%= t('document.headings.location') %>:</dt>
-        <dd class="location"><%= document.location %></dd>
+        <dd class="location" data-tracktype="location"><%= document.location %></dd>
       <% end %>
 
     </dl>
