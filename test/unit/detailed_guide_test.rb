@@ -24,26 +24,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal :detailed_guides, build(:detailed_guide).rummager_index
   end
 
-  test "can be related to another detailed guide" do
-    related_guide = create(:detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [related_guide.document])
-    assert_equal [related_guide], guide.reload.related_detailed_guides
-  end
-
-  test "relationships between guides work in both directions" do
-    related_guide = create(:detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [related_guide.document])
-    assert_equal [guide], related_guide.reload.related_detailed_guides
-  end
-
-  test "related detailed guides always returns latest edition of related document" do
-    published_guide = create(:published_detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [published_guide.document])
-
-    latest_edition = published_guide.create_draft(create(:policy_writer))
-    assert_equal [latest_edition], guide.reload.related_detailed_guides
-  end
-
   test "published related detailed guides returns latest published edition of related document" do
     published_guide = create(:published_detailed_guide)
     guide = create(:detailed_guide, outbound_related_documents: [published_guide.document])

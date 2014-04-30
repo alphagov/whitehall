@@ -21,13 +21,11 @@ class DetailedGuide < Edition
   has_many :outbound_edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
   has_many :outbound_related_documents, through: :outbound_edition_relations, source: :document
   has_many :outbound_related_detailed_guides, through: :outbound_edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
-  has_many :latest_outbound_related_detailed_guides, through: :outbound_related_documents, source: :latest_edition, class_name: 'DetailedGuide'
   has_many :published_outbound_related_detailed_guides, through: :outbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
 
   has_many :inbound_edition_relations, through: :document, source: :edition_relations
   has_many :inbound_related_editions, through: :inbound_edition_relations, source: :edition
   has_many :inbound_related_documents, through: :inbound_related_editions, source: :document
-  has_many :latest_inbound_related_detailed_guides, through: :inbound_related_documents, source: :latest_edition, class_name: 'DetailedGuide'
   has_many :published_inbound_related_detailed_guides, through: :inbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
 
   add_trait Trait
@@ -48,10 +46,6 @@ class DetailedGuide < Edition
 
   def rummager_index
     :detailed_guides
-  end
-
-  def related_detailed_guides
-    (latest_outbound_related_detailed_guides + latest_inbound_related_detailed_guides).uniq
   end
 
   def published_related_detailed_guides
