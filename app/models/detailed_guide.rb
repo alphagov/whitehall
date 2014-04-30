@@ -18,15 +18,9 @@ class DetailedGuide < Edition
     end
   end
 
-  has_many :outbound_edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
-  has_many :outbound_related_documents, through: :outbound_edition_relations, source: :document
-  has_many :outbound_related_detailed_guides, through: :outbound_edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
-  has_many :published_outbound_related_detailed_guides, through: :outbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
-
-  has_many :inbound_edition_relations, through: :document, source: :edition_relations
-  has_many :inbound_related_editions, through: :inbound_edition_relations, source: :edition
-  has_many :inbound_related_documents, through: :inbound_related_editions, source: :document
-  has_many :published_inbound_related_detailed_guides, through: :inbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
+  has_many :edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
+  has_many :outbound_related_documents, through: :edition_relations, source: :document
+  has_many :outbound_related_detailed_guides, through: :edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
 
   add_trait Trait
 
@@ -80,6 +74,16 @@ class DetailedGuide < Edition
   end
 
   private
+
+  # Returns the published edition of any detailed guide documents that this edition is related to.
+  def published_outbound_related_detailed_guides
+    outbound_related_detailed_guides.published.map { |document| document.published_edition }
+  end
+
+  # Returns the published editions that are related to this edition's document.
+  def published_inbound_related_detailed_guides
+    DetailedGuide.published.joins(:edition_relations).where(edition_relations: { document_id: document.id })
+  end
 
   def related_mainstream_content_valid?
     if related_mainstream_content_url.present? && related_mainstream_content_title.blank?

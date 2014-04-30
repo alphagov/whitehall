@@ -51,6 +51,19 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal [published_guide], related_guide.reload.published_related_detailed_guides
   end
 
+  test "published_related_detailed_guides does not return the published edition of documents that were once related to the edition's document" do
+    guide = create(:published_detailed_guide)
+    related_guide = create(:published_detailed_guide)
+    create(:edition_relation, edition_id: guide.id, document: related_guide.document)
+
+    new_edition = guide.create_draft(create(:policy_writer))
+    new_edition.outbound_related_detailed_guide_ids = []
+    new_edition.minor_change = true
+    force_publish(new_edition)
+
+    assert_equal [], related_guide.reload.published_related_detailed_guides
+  end
+
   test "can be associated with some content in the mainstream application" do
     refute build(:detailed_guide).has_related_mainstream_content?
     guide = build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content", related_mainstream_content_title: "Name of content")
