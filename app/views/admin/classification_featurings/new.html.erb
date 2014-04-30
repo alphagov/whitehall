@@ -21,9 +21,9 @@
       <% if featuring_a_document? %>
         <%= form.hidden_field :edition_id %>
       <% else %>
-        <%= form.text_field :offsite_title, label_text: "Title" %>
-        <%= form.text_area :offsite_summary, label_text: "Summary", rows: 3 %>
-        <%= form.text_field :offsite_url, label_text: "URL" %>
+        <%= form.text_field :offsite_title, label_text: "Title", required: true %>
+        <%= form.text_area :offsite_summary, label_text: "Summary", rows: 3, required: true %>
+        <%= form.text_field :offsite_url, label_text: "URL", required: true %>
       <% end %>
 
       <%= form.save_or_cancel cancel: polymorphic_path([:admin, @classification, :classification_featurings]) %>
