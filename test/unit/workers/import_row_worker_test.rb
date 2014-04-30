@@ -21,6 +21,32 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
     end
   end
 
+  test "can import both a normal attachment and an HTML attachment on a publication" do
+    perform_import_cleanup do
+      stub_request(:get, "http://example.com/attachment.txt").to_return(:status => 200, :body => "Some text", :headers => {})
+
+      csv_data = publication_csv_sample(  attachment_1_url: "http://example.com/attachment.txt",
+                                          attachment_1_title: 'File title',
+                                          html_title: 'HTML title',
+                                          html_body: 'body')
+
+      import = create(:import, csv_data: csv_data, data_type: "publication")
+      worker = ImportRowWorker.new(import.id, import.rows.first, 1)
+      worker.run
+
+      assert_equal [], import.import_errors
+      assert publication = Publication.first
+      assert_equal 2, publication.attachments.size
+
+      html_attachment = publication.attachments.last
+      assert_equal 'HTML title', html_attachment.title
+      assert_equal 'body', html_attachment.body
+
+      file_attachment = publication.attachments.first
+      assert_equal 'File title', file_attachment.title
+    end
+  end
+
   test "creates a new draft of a published document collection before assigning a document to it" do
     perform_import_cleanup do
       collection = create(:published_document_collection)
