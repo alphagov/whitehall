@@ -45,7 +45,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
   end
 
   test '#publish_edition! waits until the publication time before publishing' do
-    Whitehall::Wait.expects(:sleep).with(2).returns(2)
+    Whitehall::Wait.expects(:until).with(2.seconds.from_now)
     publisher = ScheduledEditionsPublisher.new(stubbed_scope)
     publisher.publish_edition!(stubbed_edition(2.seconds.from_now))
   end
