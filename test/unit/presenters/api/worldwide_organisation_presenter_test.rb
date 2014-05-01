@@ -11,6 +11,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @world_org = stub_translatable_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
                                                       offices: [@office],
                                                       access_and_opening_times: @access_times)
+    @world_org.stubs(:summary).returns('summary')
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
     stubs_helper_method(:params).returns(format: :json)
     stubs_helper_method(:govspeak_to_html).returns('govspoken')
