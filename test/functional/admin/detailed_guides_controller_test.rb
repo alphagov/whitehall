@@ -79,8 +79,15 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     get :show, id: detailed_guide.id
 
     assert_select "#user-needs-section" do |section|
-      assert_select "#user-need-id-123456", text: "As a x,\n  I need to y,\n  So that z"
-      assert_select "#user-need-id-456789", text: "As a c,\n  I need to d,\n  So that e"
+      assert_select "#user-need-id-123456" do
+        assert_select ".description", text: "As a x,\n    I need to y,\n    So that z"
+        assert_select ".maslow-url[href*=123456]"
+      end
+
+      assert_select "#user-need-id-456789" do
+        assert_select ".description", text: "As a c,\n    I need to d,\n    So that e"
+        assert_select ".maslow-url[href*=456789]"
+      end
     end
   end
 
