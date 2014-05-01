@@ -19,16 +19,6 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     refute attachment_visibility.visible?
   end
 
-  test '#visible? returns true when attachment is associated with a corporate info page' do
-    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
-      build(:file_attachment)
-    ])
-    attachment_data = info_page.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
-
-    assert attachment_visibility.visible?
-  end
-
   test '#visible? returns true when attachment is associated with a response on a published consultation' do
     response = create(:consultation_with_outcome).outcome
     response.attachments << build(:file_attachment)
@@ -102,7 +92,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_edition returns nil if the attachment is associated with a non-Edition' do
-    info_page = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
+    info_page = create(:consultation_outcome, attachments: [
       build(:file_attachment)
     ])
     attachment_visibility = AttachmentVisibility.new(info_page.attachments.first.attachment_data, nil)
@@ -130,15 +120,6 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   test '#visible_attachment returns the attachment associated with the response of the published consultation' do
     response              = create(:consultation_with_outcome).outcome
     response.attachments << attachment = build(:file_attachment)
-    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
-
-    assert_equal attachment, attachment_visibility.visible_attachment
-  end
-
-  test '#visible_attachment returns the attachment associated with a corporate information page' do
-    info_page  = create(:corporate_information_page, :with_alternative_format_provider, attachments: [
-      attachment = build(:file_attachment)
-    ])
     attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
 
     assert_equal attachment, attachment_visibility.visible_attachment

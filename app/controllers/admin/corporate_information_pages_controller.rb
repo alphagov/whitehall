@@ -1,64 +1,36 @@
-class Admin::CorporateInformationPagesController < Admin::BaseController
-  before_filter :find_organisation
-  before_filter :build_corporate_information_page, only: [:new, :create]
-  before_filter :find_corporate_information_page, only: [:edit, :update, :destroy]
+class Admin::CorporateInformationPagesController < Admin::EditionsController
+  prepend_before_filter :find_organisation
+
+  class FakeEditionFilter < Struct.new(:editions, :page_title, :show_stats, :hide_type)
+  end
 
   def index
-    @corporate_information_pages = @organisation.corporate_information_pages
-  end
-
-  def new
-    build_corporate_information_page
-  end
-
-  def create
-    build_corporate_information_page
-    if @corporate_information_page.save
-      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} created successfully"
-    else
-      flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      render :new
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @corporate_information_page.update_attributes(corporate_information_page_params)
-      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} updated successfully"
-    else
-      flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      render :new
-    end
-  rescue ActiveRecord::StaleObjectError
-    flash.now[:alert] = <<-EOF
-      This page has been saved since you opened it. Your version appears
-      at the top and the latest version appears at the bottom. Please
-      incorporate any relevant changes into your version and then save it.
-    EOF
-    @conflicting_corporate_information_page = @organisation.corporate_information_pages.find(params[:id])
-    @corporate_information_page.lock_version = @conflicting_corporate_information_page.lock_version
-    render action: "edit"
+    params[:state] = 'active' # Ensure that state column is displayed.
+    paginator = @organisation.corporate_information_pages.where('state != ?', 'superseded').order('corporate_information_page_type_id').page(1).per(100)
+    @filter = FakeEditionFilter.new paginator, "Corporate information pages", false, true
   end
 
   def destroy
-    if @corporate_information_page.destroy
-      redirect_to [:admin, @organisation], notice: "#{@corporate_information_page.title} deleted successfully"
+    # The title method relies on the presence of the organisation so we need to
+    # stash it before the page is destroyed, as the join model between the page
+    # and the organisation will no longer exist afterwards.
+    title = @edition.title
+    edition_deleter = Whitehall.edition_services.deleter(@edition)
+    if edition_deleter.perform!
+      redirect_to [:admin, @organisation, CorporateInformationPage], notice: "The document '#{title}' has been deleted"
     else
-      flash[:alert] = "There was a problem: #{@corporate_information_page.errors.full_messages.to_sentence}"
-      render :new
+      redirect_to admin_edition_path(@edition), alert: edition_deleter.failure_reason
     end
   end
 
 private
 
-  def find_corporate_information_page
-    @corporate_information_page = @organisation.corporate_information_pages.find(params[:id])
+  def edition_class
+    CorporateInformationPage
   end
 
-  def build_corporate_information_page
-    @corporate_information_page ||= @organisation.corporate_information_pages.build(corporate_information_page_params)
+  def new_edition
+    @organisation.build_corporate_information_page(new_edition_params)
   end
 
   def find_organisation
@@ -70,11 +42,5 @@ private
       else
         raise ActiveRecord::RecordNotFound
       end
-  end
-
-  def corporate_information_page_params
-    params.fetch(:corporate_information_page, {}).permit(
-      :body, :type_id, :summary, :lock_version
-    )
   end
 end

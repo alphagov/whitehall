@@ -416,14 +416,14 @@ class OrganisationTest < ActiveSupport::TestCase
   test "should be able to list unused corporate information types" do
     organisation = create(:organisation)
     types = CorporateInformationPageType.all
-    t = create(:corporate_information_page, type: types.pop, organisation: organisation)
+    t = create(:corporate_information_page, corporate_information_page_type: types.pop, organisation: organisation)
     organisation.reload
     assert_equal types, organisation.unused_corporate_information_page_types
   end
 
   test "can get a corporate information page with a particular slug" do
     organisation = create(:organisation)
-    tor = create(:corporate_information_page, type: CorporateInformationPageType::TermsOfReference, organisation: organisation)
+    tor = create(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::TermsOfReference, organisation: organisation)
     organisation.reload
     assert_equal tor, organisation.corporate_information_pages.for_slug(tor.slug)
   end

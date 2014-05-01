@@ -222,7 +222,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   end
 
   test 'allows everyone access to attachments of corporate information pages' do
-    create(:corporate_information_page, attachments: [
+    create(:corporate_information_page, :published, attachments: [
       attachment = build(:file_attachment)
     ])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)

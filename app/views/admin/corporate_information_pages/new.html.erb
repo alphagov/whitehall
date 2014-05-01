@@ -1,16 +1,12 @@
 <% page_title "New corporate information page for " + @organisation.name %>
 
-<h1>Add new corporate information page to <%= link_to @organisation.name, [:admin, @organisation] %></h1>
-<p class="warning">Warning: changes to corporate info pages appear instantly on the live site.</p>
+<div class="span8">
+  <section>
+    <h1>Add new corporate information page to <%= link_to @organisation.name, [:admin, @organisation] %></h1>
+    <%= render partial: "form", locals: {edition: @edition} %>
+  </section>
+</div>
 
-<div class="row-fluid">
-  <div class="span8">
-    <section>
-      <%= render partial: "form", locals: {disabled: false, organisation: @organisation, corporate_information_page: @corporate_information_page} %>
-    </section>
-  </div>
-
-  <div class="span4">
-    <%= simple_formatting_sidebar %>
-  </div>
+<div class="span4">
+  <%= simple_formatting_sidebar %>
 </div>

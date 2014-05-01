@@ -30,7 +30,8 @@ class Edition < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
 
-  validates :title, :creator, presence: true
+  validates :creator, presence: true
+  validates :title, presence: true, if: :title_required?
   validates :body, presence: true, if: :body_required?
   validates :summary, presence: true, if: :summary_required?
   validates :first_published_at, recent_date: true, allow_blank: true
@@ -254,7 +255,7 @@ class Edition < ActiveRecord::Base
 
   searchable(
     id: :id,
-    title: :title,
+    title: :search_title,
     link: :search_link,
     format: -> d { d.format_name.gsub(" ", "_") },
     content: :indexable_content,
@@ -269,7 +270,7 @@ class Edition < ActiveRecord::Base
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
     topics: nil,
-    only: :published_and_available_in_english,
+    only: :search_only,
     index_after: [],
     unindex_after: [],
     search_format_types: :search_format_types,
@@ -277,12 +278,20 @@ class Edition < ActiveRecord::Base
     operational_field: nil
   )
 
+  def search_title
+    title
+  end
+
   def search_link
     Whitehall.url_maker.public_document_path(self)
   end
 
   def search_format_types
     [Edition.search_format_type]
+  end
+
+  def self.search_only
+    published_and_available_in_english
   end
 
   def refresh_index_if_required
@@ -567,6 +576,10 @@ class Edition < ActiveRecord::Base
     else
       self.public_timestamp = major_change_published_at
     end
+  end
+
+  def title_required?
+    true
   end
 
   def body_required?

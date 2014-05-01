@@ -169,6 +169,7 @@ class Admin::EditionsController < Admin::BaseController
       :additional_related_mainstream_content_url,
       :additional_related_mainstream_content_title,
       :primary_specialist_sector_tag,
+      :corporate_information_page_type_id,
       secondary_specialist_sector_tags: [],
       ministerial_role_ids: [],
       lead_organisation_ids: [],
@@ -213,7 +214,7 @@ class Admin::EditionsController < Admin::BaseController
     if params[:save_and_continue].present?
       [:edit, :admin, @edition]
     else
-      admin_edition_url(@edition)
+      admin_edition_path(@edition)
     end
   end
 
@@ -221,10 +222,14 @@ class Admin::EditionsController < Admin::BaseController
     { notice: "The document has been saved" }
   end
 
+  def new_edition
+    edition_class.new(new_edition_params)
+  end
+
   def build_edition
     edition_locale = edition_params[:locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
-      @edition = LocalisedModel.new(edition_class.new(new_edition_params), edition_locale)
+      @edition = LocalisedModel.new(new_edition, edition_locale)
     end
   end
 

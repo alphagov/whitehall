@@ -42,6 +42,10 @@ module Admin
       50
     end
 
+    def hide_type
+      options[:hide_type]
+    end
+
     def show_stats
       ['published'].include?(options[:state])
     end

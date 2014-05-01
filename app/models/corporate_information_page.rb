@@ -1,84 +1,112 @@
-class CorporateInformationPage < ActiveRecord::Base
+class CorporateInformationPage < Edition
   include ::Attachable
   include Searchable
 
-  delegate :slug, :display_type_key, to: :type
-  delegate :alternative_format_contact_email, :acronym, to: :organisation
+  has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
+  has_one :organisation, include: :translations, through: :edition_organisation, autosave: false
+  has_one :edition_worldwide_organisation, foreign_key: :edition_id, dependent: :destroy
+  has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
-  belongs_to :organisation, polymorphic: true
+  delegate :slug, :display_type_key, to: :corporate_information_page_type
 
-  validates :organisation, :body, :type, presence: true
-  validates :type_id, uniqueness: { scope: [:organisation_id, :organisation_type], message: "already exists for this organisation" }
+  add_trait do
+    def process_associations_before_save(new_edition)
+      if @edition.organisation
+        new_edition.organisation = @edition.organisation
+      elsif @edition.worldwide_organisation
+        new_edition.worldwide_organisation = @edition.worldwide_organisation
+      end
+    end
+  end
+  delegate :alternative_format_contact_email, :acronym, to: :owning_organisation
 
-  include TranslatableModel
-  translates :summary, :body
+  validates :corporate_information_page_type_id, presence: true
+  validate :only_one_organisation_or_worldwide_organisation
 
-  searchable title: :title_prefix_organisation_name,
-             link: :search_link,
-             content: :indexable_content,
-             description: :summary,
-             # NOTE: when we launch world we can change this to belonging_to_live_organisations on it's own
-             only: :belonging_to_live_organisations_and_excluding_worldwide_organisations
-
-  def body_without_markup
-    Govspeak::Document.new(body).to_text
+  before_save :ensure_title_is_blank
+  def ensure_title_is_blank
+    self.title = ''
   end
 
-  def indexable_content
-    body_without_markup
+  def search_title
+    title_prefix_organisation_name
   end
 
-  def search_link
-    Whitehall.url_maker.organisation_corporate_information_page_path(organisation, slug)
+  def search_index
+    super.merge("organisations" => [owning_organisation.slug] )
+  end
+
+  def self.search_only
+    # Ensure only CIPs associated with a live Organisation are indexed in search.
+    super.joins(:organisation).where(organisations: {govuk_status: "live"})
+  end
+
+  def title_required?
+    false
+  end
+
+  def only_one_organisation_or_worldwide_organisation
+    if organisation && worldwide_organisation
+      errors.add(:base, "Only one organisation or worldwide organisation allowed")
+    end
+  end
+
+  def skip_organisation_validation?
+    true
+  end
+
+  def display_type
+    "Corporate information"
+  end
+
+  def translatable?
+    !non_english_edition?
+  end
+
+  def owning_organisation
+    organisation || worldwide_organisation
   end
 
   def self.for_slug(slug)
-    type = CorporateInformationPageType.find(slug)
-    find_by_type_id(type && type.id)
+    if type = CorporateInformationPageType.find(slug)
+      find_by_corporate_information_page_type_id(type.id)
+    end
   end
 
   def self.for_slug!(slug)
-    type = CorporateInformationPageType.find(slug)
-    find_by_type_id!(type && type.id)
+    if type = CorporateInformationPageType.find(slug)
+      find_by_corporate_information_page_type_id!(type.id)
+    end
   end
 
-  def self.belonging_to_live_organisations_and_excluding_worldwide_organisations
-    belonging_to_live_organisations.excluding_worldwide_organisations
+  def corporate_information_page_type
+    CorporateInformationPageType.find_by_id(corporate_information_page_type_id)
   end
 
-  def self.belonging_to_live_organisations
-    joins("LEFT OUTER JOIN organisations ON
-      corporate_information_pages.organisation_id = organisations.id AND
-      corporate_information_pages.organisation_type = 'Organisation'").
-    where("(#{Organisation.arel_table[:id].eq(nil).to_sql} OR #{Organisation.arel_table[:govuk_status].eq('live').to_sql})")
-  end
-
-  def self.excluding_worldwide_organisations
-    where(CorporateInformationPage.arel_table[:organisation_type].not_eq('WorldwideOrganisation'))
-  end
-
-  def type
-    CorporateInformationPageType.find_by_id(type_id)
-  end
-
-  def type=(type)
-    self.type_id = type && type.id
+  def corporate_information_page_type=(type)
+    self.corporate_information_page_type_id = type && type.id
   end
 
   def title_prefix_organisation_name
-    [organisation.name, title].join(' - ')
+    [owning_organisation.name, title].join(" \u2013 ")
   end
 
-  def title
-    type.title(organisation)
-  end
-
-  def self.by_type(*types)
-    where(type_id: types.map(&:id))
+  def title(locale=:en)
+    corporate_information_page_type.title(owning_organisation)
   end
 
   def self.by_menu_heading(menu_heading)
     type_ids = CorporateInformationPageType.by_menu_heading(menu_heading).map(&:id)
-    where(type_id: type_ids)
+    where(corporate_information_page_type_id: type_ids)
+  end
+
+  def summary_required?
+    false
+  end
+
+  private
+
+  def string_for_slug
+    nil
   end
 end

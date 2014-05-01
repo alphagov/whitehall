@@ -301,7 +301,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     default_attributes = {
       editions: Kaminari.paginate_array(attributes[:editions] || []).page(1),
       page_title: '', edition_state: '', valid?: true,
-      options: {}
+      options: {},
+      hide_type: false,
     }
     stub('edition filter', default_attributes.merge(attributes.except(:editions)))
   end

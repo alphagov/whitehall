@@ -72,7 +72,7 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
-  has_many :corporate_information_pages, as: :organisation, dependent: :destroy
+  has_many :corporate_information_pages, dependent: :destroy, through: :edition_organisations, source: :edition, class_name: "CorporateInformationPage"
 
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :social_media_accounts, as: :socialable, dependent: :destroy, include: [:social_media_service]
@@ -326,7 +326,13 @@ class Organisation < ActiveRecord::Base
   end
 
   def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:type)
+    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
+  end
+
+  def build_corporate_information_page(params)
+    # The standard organisation.corporate_info_pages.build method does not
+    # correctly set the organisation in the linking table.
+    CorporateInformationPage.new(params.merge({organisation: self}))
   end
 
   def has_published_publications_of_type?(publication_type)

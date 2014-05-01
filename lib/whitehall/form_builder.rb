@@ -214,7 +214,10 @@ module Whitehall
 
     def cancel_path(path)
       return path if path
-      if object.is_a?(Edition)
+      if object.is_a?(CorporateInformationPage)
+        object.new_record? ? @template.polymorphic_path([:admin, object.owning_organisation, CorporateInformationPage]) :
+                             @template.admin_edition_path(object)
+      elsif object.is_a?(Edition)
         object.new_record? ? @template.admin_editions_path :
                              @template.admin_edition_path(object)
       else

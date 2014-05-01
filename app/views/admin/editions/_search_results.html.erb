@@ -33,7 +33,9 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th class="type">Type</th>
+        <% unless @filter.hide_type %>
+          <th class="type">Type</th>
+        <% end %>
         <th class="title">Title</th>
         <th class="updated-by">Updated by</th>
         <th class="updated">Updated</th>
@@ -50,7 +52,9 @@
       <% end %>
       <% @filter.editions.each do |edition| %>
         <%= content_tag_for(:tr, edition, class: ('force_published' if edition.force_published?)) do %>
-          <td class="type"><%= edition_type(edition) %></td>
+          <% unless @filter.hide_type %>
+            <td class="type"><%= edition_type(edition) %></td>
+          <% end %>
           <td class="title">
             <span class="title"><%= link_to edition.title, admin_edition_path(edition), title: "View document #{edition.title}" %></span>
             <% if edition.non_english_edition? %>
@@ -74,7 +78,7 @@
             <% end %>
           </td>
           <td class="author"><%= linked_author(edition.last_author) %></td>
-          <td class="updated"><%= time_ago_in_words edition.updated_at %> ago</td>
+          <td class="updated"><span title="<%= edition.updated_at %>"><%= time_ago_in_words edition.updated_at %> ago</span></td>
           <% if viewing_all_active_editions? %>
             <td class="state"><%= edition.state.humanize %></td>
           <% end %>

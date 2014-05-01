@@ -82,6 +82,7 @@ Feature: Administering worldwide organisation
   Scenario: Adding a corporate information page to a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
     When I add a "Terms of reference" corporate information page to the worldwide organisation
+    And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     Then I should see the corporate information on the public worldwide organisation page
 
   Scenario: Adding a new translation
@@ -115,6 +116,7 @@ Feature: Administering worldwide organisation
     Given a worldwide organisation "Department of Beards in France"
     And I add a "Terms of reference" corporate information page to the worldwide organisation
     When I translate the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
+    And I force-publish the "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France"
     Then I should be able to read the translated "Terms of reference" corporate information page for the worldwide organisation "Department of Beards in France" on the site
 
   Scenario: Viewing a list of worldwide organisations
