@@ -95,6 +95,13 @@ NB: The shared mustache templates must be compiled for the tests to pass.  Take 
 
     $ bundle exec rails s
 
+Note that the app itself will respond to requests on the root URL `/` with a
+routing error: to check the app works, try visiting `/government/admin`.
+
+Also note that, on a development VM, you'll need to run
+[the `static` app](https://github.com/alphagov/static) unless you're working
+solely on the admin.
+
 ## Creating new users in Production
 
 New users will need a sign-on-o-tron account before they can access
