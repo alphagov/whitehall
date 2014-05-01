@@ -9,7 +9,7 @@
 
         <div class="contextual-info js-stick-at-top-when-scrolling">
           <nav>
-            <h1>About us</h1>
+            <h1>Contents</h1>
             <ol>
               <% if @document.present? %>
                 <li><%= link_to t('organisation.headings.what_we_do'), "#what-we-do" %></li>
@@ -37,11 +37,14 @@
             <%= render partial: 'shared/available_languages', locals: {object: @organisation, linkable: [:about, @organisation]} %>
           </aside>
           <% if @document.present? %>
-            <h1 class="main"><%= t('organisation.headings.what_we_do') %></h1>
-            <p class="description">
-              <%= @document.summary %>
-            </p>
+            <h1 class="main"><%= @document.title %></h1>
             <div class="body">
+              <div class="govspeak">
+                <h2 id="what-we-do"><%= t('organisation.headings.what_we_do') %></h2>
+                <p class="description">
+                  <%= @document.summary %>
+                </p>
+              </div>
               <%= govspeak_to_html @document.body %>
             </div>
           <% end %>

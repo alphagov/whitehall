@@ -318,11 +318,11 @@ class Organisation < ActiveRecord::Base
   end
 
   def summary
-    what_we_do.summary if what_we_do.present?
+    about_us.summary if about_us.present?
   end
 
   def body
-    what_we_do.body if what_we_do.present?
+    about_us.body if about_us.present?
   end
 
   def search_link
@@ -481,8 +481,8 @@ class Organisation < ActiveRecord::Base
     end
   end
 
-  def what_we_do
-    @what ||= corporate_information_pages.published.for_slug('about')
+  def about_us
+    @about ||= corporate_information_pages.published.for_slug('about')
   end
 
 end
