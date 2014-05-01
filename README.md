@@ -98,9 +98,26 @@ NB: The shared mustache templates must be compiled for the tests to pass.  Take 
 Note that the app itself will respond to requests on the root URL `/` with a
 routing error: to check the app works, try visiting `/government/admin`.
 
-Also note that, on a development VM, you'll need to run
-[the `static` app](https://github.com/alphagov/static) unless you're working
-solely on the admin.
+### Assets
+
+GOV.UK shares assets (eg stylesheets and JavaScript) across apps using the
+[`slimmer` gem](https://github.com/alphagov/slimmer) and the [`static`
+app](https://github.com/alphagov/static); you can either use a version of these
+running locally, or you can use the latest version deployed to Preview.
+
+If you run Whitehall with `bundle exec rails s` or `startup.sh`, it will
+default to using assets from Preview. This means you don't need to run `static`
+yourself, but you won't be able to work on the shared assets at the same time.
+You can override this by setting the `GOVUK_ASSET_ROOT` environment variable:
+
+    GOVUK_ASSET_ROOT=http://static.dev.gov.uk bundle exec rails s
+
+If you're running on a GOV.UK development VM with `foreman` or `bowler`,
+this will always point at a locally-running instance of `static`; `bowler` will
+start this up for you when you launch Whitehall.
+
+If you are only working on the Whitehall admin interface, you don't need the
+assets available.
 
 ## Creating new users in Production
 
@@ -108,12 +125,6 @@ New users will need a sign-on-o-tron account before they can access
 whitehall in production.  You can create new sign-on-o-tron accounts
 with the capistrano task in alphagov-deployment/sign-on-o-tron.  This
 will email the new user and prompt them to create their account.
-
-## Using local assets
-
-* Set `GOVUK_ASSET_ROOT` to point to your local instance of the `static` app
-  when running the `whitehall` app e.g. `GOVUK_ASSET_ROOT=http://static.dev`, this is set
-  for you within the development VM.
 
 ## Getting search running locally
 
