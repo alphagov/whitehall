@@ -69,14 +69,17 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_equal [soul], DetailedGuide.first.other_mainstream_categories
   end
 
-  test "#create associated detailed guides to edition" do
+  test "#create associates detailed guides to edition without stomping on other related documents" do
+    policy        = create(:policy)
     related_guide = create(:published_detailed_guide)
-    attributes = controller_attributes_for(:detailed_guide, related_document_ids: [related_guide.document_id])
+    attributes    = controller_attributes_for(:detailed_guide,
+                                              related_policy_ids: [policy.id],
+                                              related_detailed_guide_ids: [related_guide.id])
+
     post :create, edition: attributes
 
     assert new_guide = DetailedGuide.last
-
-    assert_equal [related_guide.document], new_guide.related_documents
+    assert_same_elements [policy.document, related_guide.document], new_guide.related_documents
   end
 
   test "#create handles legacy related detailed guides param" do

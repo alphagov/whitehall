@@ -6,6 +6,17 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
+  test "relating to detailed guides does not stomp on other related documents" do
+    policy        = create(:policy)
+    guide         = create(:detailed_guide, related_policy_ids: [policy.id])
+    related_guide = create(:detailed_guide)
+
+    guide.update_attributes(related_detailed_guide_ids: [related_guide.id])
+
+    assert_equal [policy], guide.related_policies
+    assert_same_elements [policy.document, related_guide.document], guide.related_documents
+  end
+
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
     assert article.can_be_associated_with_topics?

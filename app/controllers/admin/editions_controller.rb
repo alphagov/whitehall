@@ -181,7 +181,7 @@ class Admin::EditionsController < Admin::BaseController
       other_mainstream_category_ids: [],
       topic_ids: [],
       topical_event_ids: [],
-      related_document_ids: [],
+      related_detailed_guide_ids: [],
       role_appointment_ids: [],
       statistical_data_set_document_ids: [],
       policy_group_ids: [],

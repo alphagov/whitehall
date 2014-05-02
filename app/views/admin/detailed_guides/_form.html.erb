@@ -16,8 +16,8 @@
 
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
 
-      <%= form.label :related_document_ids, 'Related guides' %>
-      <%= form.select :related_document_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :document_id, :title, edition.related_document_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
+      <%= form.label :related_detailed_guide_ids, 'Related guides' %>
+      <%= form.select :related_detailed_guide_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :document_id, :title, edition.related_detailed_guide_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
     </fieldset>
 
     <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>

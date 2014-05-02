@@ -31,6 +31,19 @@ class DetailedGuide < Edition
     :detailed_guides
   end
 
+  def related_detailed_guide_ids
+    related_to_editions.where(type: 'DetailedGuide').map(&:id)
+  end
+
+  # Ensure that we set related detailed guides without stomping on other related documents
+  def related_detailed_guide_ids=(detailed_guide_ids)
+    detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)
+    other_related_documents   = self.related_documents.reject { |document| document.document_type == 'DetailedGuide' }
+    detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map {|guide| guide.document }
+
+    self.related_documents = other_related_documents + detailed_guide_documents
+  end
+
   def published_related_detailed_guides
     (published_outbound_related_detailed_guides + published_inbound_related_detailed_guides).uniq
   end
