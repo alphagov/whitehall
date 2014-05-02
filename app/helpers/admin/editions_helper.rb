@@ -201,7 +201,7 @@ module Admin::EditionsHelper
       else
         url_for([:edit, :admin, edition.owning_organisation, edition])
       end
-    elsif
+    else
       if edition.new_record?
         url_for([:new, :admin, edition.class.model_name.underscore])
       else
