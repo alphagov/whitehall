@@ -13,6 +13,11 @@
 
       <h2>Do you want to archive or unpublish this document?</h2>
 
+      <p>
+        Learn more about archiving and unpublishing content on our
+        <%= link_to 'publishing guide', 'http://alphagov.github.io/inside-government-admin-guide/creating-documents/delete-unpublish.html', target: '_blank' %>.
+      </p>
+
       <div class="js-unpublishing-reason">
         <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Archived.id}" do %>
           <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Archived.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Archived) %>
