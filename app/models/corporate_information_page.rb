@@ -104,6 +104,11 @@ class CorporateInformationPage < Edition
     false
   end
 
+  def can_unpublish?
+    # Prevent unpublishing/archiving of CIPs until full behaviour is worked out.
+    false
+  end
+
   private
 
   def string_for_slug
