@@ -54,9 +54,9 @@ Old Url,New Url,Status,Slug,Admin Url,State
       org_slug = corporate_information_page.organisation.slug
       assert_extraction <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
+"",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug}/about/#{corporate_information_page.slug},418,#{corporate_information_page.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/corporate_information_pages/#{corporate_information_page.id},draft
 "",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug},""
 "",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/edit,""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug}/about/#{corporate_information_page.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/corporate_information_pages/#{corporate_information_page.id}/edit,""
       EOT
     end
 

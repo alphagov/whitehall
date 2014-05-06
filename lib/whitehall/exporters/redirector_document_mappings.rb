@@ -43,6 +43,8 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
   def document_slug(edition, document)
     if edition.pre_publication? && edition.unpublishing.present?
       edition.unpublishing.slug
+    elsif edition.is_a?(CorporateInformationPage)
+      edition.slug
     else
       document.slug
     end
@@ -56,9 +58,8 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
     end
 
     slug = document_slug(edition, document)
-    edition_type_for_route = edition.class.name.underscore
     [
-      url_maker.polymorphic_url(edition_type_for_route, doc_url_args.merge(id: slug)),
+      url_maker.document_url(edition, doc_url_args.merge(id: slug)),
       slug
     ]
   end
@@ -148,14 +149,6 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
       target << row(
         url_maker.organisation_url(organisation, host: host_name),
         url_maker.edit_admin_organisation_url(organisation, host: admin_host),
-      )
-    end
-
-    CorporateInformationPage.find_each do |page|
-      organisation = page.organisation
-      target << row(
-        url_maker.organisation_corporate_information_page_url(page.slug, organisation_id: organisation, host: host_name),
-        url_maker.edit_admin_organisation_corporate_information_page_url(page, organisation_id: organisation, host: admin_host)
       )
     end
   end
