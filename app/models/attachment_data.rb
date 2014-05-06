@@ -121,8 +121,12 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def calculate_number_of_pages
-    PDFINFO_SERVICE.count_pages(path)
-  rescue
+    `identify -format %n #{path}`.strip.to_i
+  rescue Exception => e
+    if Rails.env.production?
+      Airbrake.notify_or_ignore(e,
+        error_message: 'Exception raised while calculating number of pages in PDF uploaded.')
+    end
     nil
   end
 

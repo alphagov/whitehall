@@ -88,7 +88,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test "should save attachment even if unable to count the number of pages" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-    PDFINFO_SERVICE.stubs(:count_pages).returns(nil)
+    AttachmentData.any_instance.stubs(:`).raises
     assert_nothing_raised { create(:attachment_data, file: greenpaper_pdf) }
   end
 
