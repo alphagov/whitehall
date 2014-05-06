@@ -65,7 +65,7 @@ class AttachmentUploader < WhitehallUploader
 
     def filenames
       unless @filenames
-        zipinfo_output = `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}" | grep -v /$ |awk '{print $NF}' | xargs -n1 basename`
+        zipinfo_output = `#{Whitehall.system_binaries[:zipinfo]} -1 "#{@zip_path}" | grep -v /$ | xargs -n1 basename`
         @filenames = zipinfo_output.split(/[\r\n]+/)
       end
       @filenames
