@@ -67,6 +67,10 @@ class CorporateInformationPage < Edition
     organisation || worldwide_organisation
   end
 
+  def sorted_organisations
+    [owning_organisation]
+  end
+
   def self.for_slug(slug)
     if type = CorporateInformationPageType.find(slug)
       find_by_corporate_information_page_type_id(type.id)
@@ -101,6 +105,11 @@ class CorporateInformationPage < Edition
   end
 
   def summary_required?
+    false
+  end
+
+  def can_unpublish?
+    # Prevent unpublishing/archiving of CIPs until full behaviour is worked out.
     false
   end
 
