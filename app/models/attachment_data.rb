@@ -1,3 +1,5 @@
+require "shellwords"
+
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
@@ -121,7 +123,7 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def calculate_number_of_pages
-    `identify -format %n #{path}`.strip.to_i
+    `identify -format %n #{Shellwords.shellescape(path)}`.strip.to_i
   rescue Exception => e
     if Rails.env.production?
       Airbrake.notify_or_ignore(e,
