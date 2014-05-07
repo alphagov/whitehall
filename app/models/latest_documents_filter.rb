@@ -39,6 +39,7 @@ private
     def documents_source
       subject.published_editions
              .in_reverse_chronological_order
+             .without_editions_of_type(CorporateInformationPage)
              .with_translations(I18n.locale)
     end
   end
