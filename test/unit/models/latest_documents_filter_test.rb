@@ -74,6 +74,13 @@ class OrganisationFilterTest < ActiveSupport::TestCase
     assert_equal expected, filter.documents
   end
 
+  test '#documents does not include corporate information pages' do
+    create(:corporate_information_page, :published, organisation: organisation)
+    filter = LatestDocumentsFilter::OrganisationFilter.new(organisation)
+
+    assert_equal [], filter.documents
+  end
+
 private
   def organisation
     @organisation ||= create(:organisation)
