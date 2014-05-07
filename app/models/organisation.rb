@@ -345,41 +345,6 @@ class Organisation < ActiveRecord::Base
 
   def alternate_style_top_tasks
     case slug
-    when 'driver-and-vehicle-licensing-agency'
-      {
-        services_in: [
-          {
-            path: '/browse/driving',
-            text: 'Driving and transport',
-          }
-        ],
-        prominent: [
-          {
-            path: '/tax-disc',
-            text: 'Get a tax disc for your vehicle',
-            description: 'You will need your numberplate, a credit/debit card and either your tax disc renewal reminder or your vehicle logbook.'
-          },
-          {
-            path: '/vehicle-registration-certificate-v5c-log-book',
-            text: 'Get a V5C (logbook)',
-            description: 'Apply by phone or post to get a replacement V5C vehicle registration certificate (log book). There is a £25 fee.'
-          }
-        ],
-        top_tasks: [
-          {
-            path: '/register-sorn-statutory-off-road-notification',
-            text: 'Make a SORN'
-          },
-          {
-            path: '/change-address-driving-licence',
-            text: 'Change the address on your driving licence'
-          },
-          {
-            path: '/get-vehicle-information-from-dvla',
-            text: 'Get vehicle information from DVLA'
-          }
-        ]
-      }
     when 'uk-visas-and-immigration'
       {
         services_in: [
