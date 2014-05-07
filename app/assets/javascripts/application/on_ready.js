@@ -5,8 +5,6 @@ jQuery(function($) {
 
   $('.govspeak').enhanceYoutubeVideoLinks();
 
-  $('.detailed-guides-show').trackExternalLinks();
-
   GOVUK.stickAtTopWhenScrolling.init();
 
   $('.js-toggle-change-notes').toggler({actLikeLightbox: true});
