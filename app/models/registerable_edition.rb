@@ -44,6 +44,10 @@ class RegisterableEdition
     edition.state == "published" ? "live" : "draft"
   end
 
+  def need_ids
+    edition.need_ids
+  end
+
   def specialist_sectors
     [edition.primary_specialist_sector_tag].compact + edition.secondary_specialist_sector_tags
   end

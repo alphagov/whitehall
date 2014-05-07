@@ -1,6 +1,7 @@
 class Admin::EditionsController < Admin::BaseController
   before_filter :remove_blank_parameters
   before_filter :clean_edition_parameters, only: [:create, :update]
+  before_filter :build_array_out_of_need_ids_string, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
   before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :topics]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
@@ -202,7 +203,8 @@ class Admin::EditionsController < Admin::BaseController
       nation_inapplicabilities_attributes: [
         :id, :nation_id, :alternative_url, :excluded
       ],
-      fatality_notice_casualties_attributes: [:personal_details, :_destroy]
+      fatality_notice_casualties_attributes: [:personal_details, :_destroy],
+      need_ids: []
     ]
   end
 
@@ -355,5 +357,10 @@ class Admin::EditionsController < Admin::BaseController
     if params[:edition] && params[:edition][:secondary_specialist_sector_tags] && params[:edition][:primary_specialist_sector_tag]
       params[:edition][:secondary_specialist_sector_tags] -= [params[:edition][:primary_specialist_sector_tag]]
     end
+  end
+
+  def build_array_out_of_need_ids_string
+    return if params[:edition].blank? || params[:edition][:need_ids].nil?
+    params[:edition][:need_ids] = params[:edition][:need_ids].split(",").map(&:strip).reject(&:blank?)
   end
 end

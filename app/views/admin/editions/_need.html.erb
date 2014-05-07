@@ -1,0 +1,10 @@
+<tr id="user-need-id-<%= need.id %>">
+  <td class="description">
+    As a <%= need.role %>,<br>
+    I need to <%= need.goal %>,<br>
+    So that <%= need.benefit %>
+  </td>
+  <td>
+    <%= link_to "View need in Maslow", Whitehall.maslow.need_page_url(need.id), class: "maslow-url" %>
+  </td>
+</tr>

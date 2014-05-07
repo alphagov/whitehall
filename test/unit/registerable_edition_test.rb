@@ -120,4 +120,10 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     assert_same_elements [], registerable_edition.organisation_ids
   end
+
+  test "sets the need ids for detailed guides" do
+    assert_equal ["123456"], RegisterableEdition.new(build(:detailed_guide, need_ids: ["123456"])).need_ids
+
+    assert_equal [], RegisterableEdition.new(build(:statistical_data_set)).need_ids
+  end
 end
