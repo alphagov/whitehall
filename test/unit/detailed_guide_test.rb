@@ -6,6 +6,17 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
+  test "relating to detailed guides does not stomp on other related documents" do
+    policy        = create(:policy)
+    guide         = create(:detailed_guide, related_policy_ids: [policy.id])
+    related_guide = create(:detailed_guide)
+
+    guide.update_attributes(related_detailed_guide_ids: [related_guide.id])
+
+    assert_equal [policy], guide.related_policies
+    assert_same_elements [policy.document, related_guide.document], guide.related_documents
+  end
+
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
     assert article.can_be_associated_with_topics?
@@ -24,32 +35,42 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert_equal :detailed_guides, build(:detailed_guide).rummager_index
   end
 
-  test "can be related to another detailed guide" do
-    related_guide = create(:detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [related_guide.document])
-    assert_equal [related_guide], guide.reload.related_detailed_guides
-  end
-
-  test "relationships between guides work in both directions" do
-    related_guide = create(:detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [related_guide.document])
-    assert_equal [guide], related_guide.reload.related_detailed_guides
-  end
-
-  test "related detailed guides always returns latest edition of related document" do
+  test "#published_related_detailed_guides returns latest published editions of related documents" do
     published_guide = create(:published_detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [published_guide.document])
+    related_guide = create(:published_detailed_guide)
+    related_guide.create_draft(create(:policy_writer))
+    create(:edition_relation, edition_id: published_guide.id, document: related_guide.document)
 
-    latest_edition = published_guide.create_draft(create(:policy_writer))
-    assert_equal [latest_edition], guide.reload.related_detailed_guides
+    assert_equal [related_guide], published_guide.reload.published_related_detailed_guides
   end
 
-  test "published related detailed guides returns latest published edition of related document" do
+  test "#published_related_detailed_guides does not return non-published editions" do
     published_guide = create(:published_detailed_guide)
-    guide = create(:detailed_guide, outbound_related_documents: [published_guide.document])
+    related_draft_guide = create(:detailed_guide)
+    published_guide.related_documents << related_draft_guide.document
 
-    latest_edition = published_guide.create_draft(create(:policy_writer))
-    assert_equal [published_guide], guide.reload.published_related_detailed_guides
+    assert_equal [], published_guide.reload.published_related_detailed_guides
+  end
+
+  test "published_related_detailed_guides returns published editions that are related to the edition's document (i.e. the inverse relationship)" do
+    published_guide = create(:published_detailed_guide)
+    related_guide = create(:published_detailed_guide)
+    published_guide.related_documents << related_guide.document
+
+    assert_equal [published_guide], related_guide.reload.published_related_detailed_guides
+  end
+
+  test "published_related_detailed_guides does not return the published edition of documents that were once related to the edition's document" do
+    guide = create(:published_detailed_guide)
+    related_guide = create(:published_detailed_guide)
+    guide.related_documents << related_guide.document
+
+    new_edition = guide.create_draft(create(:policy_writer))
+    new_edition.related_document_ids = []
+    new_edition.minor_change = true
+    force_publish(new_edition)
+
+    assert_equal [], related_guide.reload.published_related_detailed_guides
   end
 
   test "can be associated with some content in the mainstream application" do

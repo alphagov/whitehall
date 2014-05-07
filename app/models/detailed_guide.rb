@@ -9,28 +9,9 @@ class DetailedGuide < Edition
   include Edition::HasDocumentCollections
   include Edition::Organisations
   include Edition::RelatedPolicies
+  include Edition::RelatedDocuments
 
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
-
-  class Trait < Edition::Traits::Trait
-    def process_associations_after_save(edition)
-      edition.outbound_related_documents = @edition.outbound_related_documents
-    end
-  end
-
-  has_many :outbound_edition_relations, foreign_key: :edition_id, dependent: :destroy, class_name: 'EditionRelation'
-  has_many :outbound_related_documents, through: :outbound_edition_relations, source: :document
-  has_many :outbound_related_detailed_guides, through: :outbound_edition_relations, source: :document, conditions: { document_type: "DetailedGuide" }
-  has_many :latest_outbound_related_detailed_guides, through: :outbound_related_documents, source: :latest_edition, class_name: 'DetailedGuide'
-  has_many :published_outbound_related_detailed_guides, through: :outbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
-
-  has_many :inbound_edition_relations, through: :document, source: :edition_relations
-  has_many :inbound_related_editions, through: :inbound_edition_relations, source: :edition
-  has_many :inbound_related_documents, through: :inbound_related_editions, source: :document
-  has_many :latest_inbound_related_detailed_guides, through: :inbound_related_documents, source: :latest_edition, class_name: 'DetailedGuide'
-  has_many :published_inbound_related_detailed_guides, through: :inbound_related_documents, source: :published_edition, class_name: 'DetailedGuide'
-
-  add_trait Trait
 
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
@@ -50,8 +31,17 @@ class DetailedGuide < Edition
     :detailed_guides
   end
 
-  def related_detailed_guides
-    (latest_outbound_related_detailed_guides + latest_inbound_related_detailed_guides).uniq
+  def related_detailed_guide_ids
+    related_to_editions.where(type: 'DetailedGuide').map(&:id)
+  end
+
+  # Ensure that we set related detailed guides without stomping on other related documents
+  def related_detailed_guide_ids=(detailed_guide_ids)
+    detailed_guide_ids        = Array.wrap(detailed_guide_ids).reject(&:blank?)
+    other_related_documents   = self.related_documents.reject { |document| document.document_type == 'DetailedGuide' }
+    detailed_guide_documents  = DetailedGuide.find(detailed_guide_ids).map {|guide| guide.document }
+
+    self.related_documents = other_related_documents + detailed_guide_documents
   end
 
   def published_related_detailed_guides
@@ -86,6 +76,16 @@ class DetailedGuide < Edition
   end
 
   private
+
+  # Returns the published edition of any detailed guide documents that this edition is related to.
+  def published_outbound_related_detailed_guides
+    related_documents.published.where(document_type: 'DetailedGuide').map { |document| document.published_edition }.compact
+  end
+
+  # Returns the published editions that are related to this edition's document.
+  def published_inbound_related_detailed_guides
+    DetailedGuide.published.joins(:outbound_edition_relations).where(edition_relations: { document_id: document.id })
+  end
 
   def related_mainstream_content_valid?
     if related_mainstream_content_url.present? && related_mainstream_content_title.blank?
