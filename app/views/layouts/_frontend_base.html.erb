@@ -29,6 +29,7 @@
       <%= yield %>
     </div>
     <%= javascript_include_tag "application" %>
+    <% initialise_script "GOVUK.trackMetadataLinks" %>
     <%= javascript_tag(yield :javascript_initialisers) %>
   </body>
 </html>

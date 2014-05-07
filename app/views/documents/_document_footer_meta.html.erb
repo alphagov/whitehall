@@ -33,17 +33,17 @@
     <% end %>
   </div>
   <div class="links">
-    <dl class="primary-metadata">
+    <dl class="primary-metadata js-track-metadata-links" data-trackposition="bottom">
       <% if document.organisations.any?  %>
         <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
         <% organisations_link_array(document.lead_organisations, document.sorted_organisations, :footer).each do |item| %>
-          <dd><%= item.html_safe %></dd>
+          <dd class="organisations" data-tracktype="organisations"><%= item.html_safe %></dd>
         <% end %>
       <% end %>
       <% document_metadata(document, policies, topics, nil, links_only = true).each do |metadata| %>
         <dt><%= metadata[:title] %>:</dt>
         <% metadata[:data].each do |item| %>
-          <dd class="<%= metadata.fetch(:classes, []).join(' ') %>">
+          <dd class="<%= metadata.fetch(:classes, []).join(' ') %>" data-tracktype="<%= metadata.fetch(:classes, []).join(' ') %>">
             <%= item.html_safe %>
           </dd>
         <% end %>
