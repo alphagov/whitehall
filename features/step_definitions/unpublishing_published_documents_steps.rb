@@ -31,11 +31,24 @@ When(/^I archive the policy because it is no longer government policy$/) do
   assert_equal :archived, @policy.reload.current_state
 end
 
+When(/^I edit the public explanation for archiving$/) do
+  policy = Policy.last
+  visit admin_edition_path(policy)
+  click_on 'Edit archiving explanation'
+  fill_in 'Public explanation', with: "We believe people should shave, but the government need not enforce a policy for that"
+  click_button 'Update archiving explanation'
+end
+
+Then(/^I should see the updated explanation on the public site$/) do
+  step %{the policy should be marked as archived on the public site}
+end
+
 Then(/^the policy should be marked as archived on the public site$/) do
-  visit public_document_path(@policy)
-  assert page.has_content?(@policy.title)
+  policy = Policy.last
+  visit public_document_path(policy)
+  assert page.has_content?(policy.title)
   assert page.has_content?('This policy was archived')
-  assert page.has_content?('We no longer believe people should shave')
+  assert page.has_content?(policy.unpublishing.explanation)
 end
 
 Then(/^I should be redirected to the other page when I view the document on the public site$/) do
