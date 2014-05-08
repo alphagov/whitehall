@@ -22,7 +22,12 @@
         <% end %>
 
         <% if external %>
-          <h2 class="hosted-externally">This document is hosted on <%= link_to "another website", document.external_url, rel: "external" %></h2>
+          <div class="hosted-externally">
+            <h2>
+              <%= link_to @document.title, document.external_url, rel: "external" %>
+            </h2>
+            <span class="url"><%= document.external_url %></span>
+          </div>
         <% end %>
       </div>
     </article>
