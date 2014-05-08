@@ -8,8 +8,6 @@
   <%= form.translated_text_field :name %>
   <%= form.translated_text_field :acronym %>
   <%= form.translated_text_area  :logo_formatted_name, rows: "4", style: "width: auto" %>
-  <%= form.translated_text_area  :description %>
-  <%= form.translated_text_area  :about_us %>
 
   <%= form.save_or_cancel cancel: admin_organisation_translations_path(@translated_organisation) %>
 <% end %>

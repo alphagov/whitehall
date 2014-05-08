@@ -4,7 +4,7 @@ require "test_helper"
 class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   setup do
     login_as :gds_editor
-    @organisation = create(:organisation, name: 'Afrolasia Office', description: 'Teaching the people how to brew tea')
+    @organisation = create(:organisation, name: 'Afrolasia Office')
 
     Locale.stubs(:non_english).returns([
       Locale.new(:fr), Locale.new(:es)
@@ -79,8 +79,6 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
       fr: { name: 'Afrolasie',
             acronym: 'AFRO',
             logo_formatted_name: 'Afrolasie',
-            description: 'Enseigner aux gens comment infuser le thé',
-            about_us: 'Tout à propos de la façon dont nous enseignons aux gens pour infuser le thé'
           }
     })
 
@@ -92,14 +90,12 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
       assert_select "input[type=text][name='organisation[name]'][value='Afrolasie']"
       assert_select "input[type=text][name='organisation[acronym]'][value='AFRO']"
       assert_select "textarea[name='organisation[logo_formatted_name]']", text: 'Afrolasie'
-      assert_select "textarea[name='organisation[description]']", text: 'Enseigner aux gens comment infuser le thé'
-      assert_select "textarea[name='organisation[about_us]']", text: 'Tout à propos de la façon dont nous enseignons aux gens pour infuser le thé'
       assert_select "input[type=submit][value=Save]"
     end
   end
 
   view_test 'edit form adds right-to-left class and dir attribute for text field and areas in right-to-left languages' do
-    organisation = create(:organisation, translated_into: {ar: {name: 'الناس', description: 'تعليم الناس كيفية تحضير الشاي'}})
+    organisation = create(:organisation, translated_into: {ar: {name: 'الناس'}})
 
     get :edit, organisation_id: organisation, id: 'ar'
 
@@ -108,9 +104,6 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "fieldset[class='right-to-left']" do
         assert_select "input[type=text][name='organisation[name]'][dir='rtl'][value='الناس']"
-      end
-      assert_select "fieldset[class='right-to-left']" do
-        assert_select "textarea[name='organisation[description]'][dir='rtl']", text: 'تعليم الناس كيفية تحضير الشاي'
       end
       assert_select "input[type=submit][value=Save]"
     end
@@ -122,8 +115,6 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
         name: 'Afrolasie Bureau',
         acronym: 'AFRO',
         logo_formatted_name: 'Afrolasie Bureau',
-        description: 'Enseigner aux gens comment infuser le thé',
-        about_us: 'Tout à propos de la façon dont nous enseignons aux gens pour infuser le thé'
       }
 
     @organisation.reload
@@ -132,8 +123,6 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
       assert_equal 'Afrolasie Bureau', @organisation.name
       assert_equal 'AFRO', @organisation.acronym
       assert_equal 'Afrolasie Bureau', @organisation.logo_formatted_name
-      assert_equal 'Enseigner aux gens comment infuser le thé', @organisation.description
-      assert_equal 'Tout à propos de la façon dont nous enseignons aux gens pour infuser le thé', @organisation.about_us
     end
 
     assert_redirected_to admin_organisation_translations_path(@organisation)
@@ -144,14 +133,11 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
       organisation: {
         name: 'Afrolasie Bureau',
         logo_formatted_name: '',
-        description: 'Enseigner aux gens comment infuser le thé',
       }
 
     translation_path = admin_organisation_translation_path(@organisation, 'fr')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
-      assert_select "textarea[name='organisation[description]']", text: 'Enseigner aux gens comment infuser le thé'
-    end
+    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]"
   end
 
   test 'destroy removes translation and redirects to list of translations' do
