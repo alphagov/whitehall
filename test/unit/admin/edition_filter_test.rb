@@ -140,6 +140,15 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [newer_policy], Admin::EditionFilter.new(Edition, @current_user, from_date: 2.days.ago.to_date.to_s(:short)).editions
   end
 
+  test "can filter by classifications" do
+    topic       = create(:topic)
+    tagged_news = create(:published_news_article, topics: [topic])
+    not_tagged  = create(:published_news_article)
+    filter      = Admin::EditionFilter.new(Edition, @current_user, classification: topic.to_param)
+
+    assert_equal [tagged_news], filter.editions
+  end
+
   test "should return the editions ordered by most recent first" do
     older_policy = create(:draft_policy, updated_at: 3.days.ago)
     newer_policy = create(:draft_policy, updated_at: 1.minute.ago)

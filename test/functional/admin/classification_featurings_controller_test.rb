@@ -25,7 +25,8 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
 
   test "GET :index assigns a filtered list to tagged_editions when given a title" do
     create(:published_news_article, topics: [@topic])
-    news_article = create(:published_news_article, topics: [@topic], title: 'Specific title')
+    news_article      = create(:published_news_article, topics: [@topic], title: 'Specific title')
+    unrelated_article = create(:published_news_article, :with_topics, title: 'Specific title')
 
     get :index, topic_id: @topic, title: 'specific'
 

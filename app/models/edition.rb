@@ -236,6 +236,12 @@ class Edition < ActiveRecord::Base
     concrete_descendants.map { |model| model.search_format_type }
   end
 
+  # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
+  def self.with_classification(classification)
+    joins('INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id').
+    where("classification_memberships.classification_id" => classification.id)
+  end
+
   def skip_main_validation?
     FROZEN_STATES.include?(state)
   end

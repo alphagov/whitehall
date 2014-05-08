@@ -756,5 +756,16 @@ class EditionTest < ActiveSupport::TestCase
     refute non_local_gov_editions.include? local_gov_publication
   end
 
+  test 'Edition.with_classification returns any editions tagged with the given classification' do
+    topic_1 = create(:topic)
+    topic_2 = create(:topic)
+    news_article = create(:news_article, topics: [topic_1])
+    policy       = create(:policy, topics: [topic_1, topic_2])
+    speech       = create(:speech)
+
+    assert_equal [news_article, policy], Edition.with_classification(topic_1)
+    assert_equal [policy], Edition.with_classification(topic_2)
+  end
+
   should_not_accept_footnotes_in :body
 end
