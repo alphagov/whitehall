@@ -77,6 +77,13 @@ class AttachmentDataTest < ActiveSupport::TestCase
     assert_equal 2, attachment.number_of_pages
   end
 
+  test "should set page count for PDFs which have a space in their names" do
+    pdf_with_spaces_in_the_name = fixture_file_upload('pdf with spaces in the name.pdf')
+    attachment = create(:attachment_data, file: pdf_with_spaces_in_the_name)
+    attachment.reload
+    assert_equal 1, attachment.number_of_pages
+  end
+
   test "should set page count for PDF on update" do
     two_pages_pdf = fixture_file_upload('two-pages.pdf')
     three_pages_pdf = fixture_file_upload('three-pages.pdf')
@@ -88,7 +95,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
 
   test "should save attachment even if unable to count the number of pages" do
     greenpaper_pdf = fixture_file_upload('greenpaper.pdf')
-    PDFINFO_SERVICE.stubs(:count_pages).returns(nil)
+    AttachmentData.any_instance.stubs(:`).raises
     assert_nothing_raised { create(:attachment_data, file: greenpaper_pdf) }
   end
 
