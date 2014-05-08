@@ -253,6 +253,7 @@ Whitehall::Application.routes.draw do
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
             get :audit_trail, to: 'edition_audit_trail#index'
           end
+          resource :unpublishing, controller: 'edition_unpublishing', only: [:edit, :update]
           resources :translations, controller: "edition_translations", except: [:index, :show]
           resources :editorial_remarks, only: [:new, :create], shallow: true
           resources :fact_check_requests, only: [:show, :create, :edit, :update], shallow: true

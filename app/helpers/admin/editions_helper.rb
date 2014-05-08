@@ -331,6 +331,10 @@ module Admin::EditionsHelper
     end
   end
 
+  def archiving_or_unpublishing(edition)
+    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Archived.id ? 'archiving' : 'unpublishing'
+  end
+
   def specialist_sector_options_for_select(sectors)
     sectors.map do |sector|
       topics = sector.topics.map do |topic|
