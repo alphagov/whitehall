@@ -231,9 +231,8 @@
       @include media(tablet) {
         background-color:transparent;
         border:0.1em solid $inside-gov-secondary;
-        width:2.8em;
+        width:3.8em;
         height:3.8em;
-        padding: 0 0.5em;
         -moz-border-radius: 2em;
         -webkit-border-radius: 2em;
         border-radius: 5em;
@@ -254,6 +253,8 @@
           padding-top: 0.35em;
           font-size: 1.9em;
           font-weight: bold;
+          width:100%;
+          text-align:center;
         }
       }
 
