@@ -238,6 +238,18 @@
         -webkit-border-radius: 2em;
         border-radius: 5em;
 
+        &:hover {
+          background-color: darken($inside-gov-secondary,10%);
+          border-color: darken($inside-gov-secondary,10%);
+        }
+
+        a {
+          &:hover,
+          &:focus {
+            text-decoration: none;
+          }
+        }
+
         .count{
           padding-top: 0.35em;
           font-size: 1.9em;
@@ -258,6 +270,13 @@
       span.invert {
         background-color: $inside-gov-secondary;
         border-color: $inside-gov-secondary;
+
+        &:hover {
+          background-color: darken($inside-gov-secondary,10%);
+          border-color: darken($inside-gov-secondary,10%);
+        }
+
+
         .count a, .caption {
           color: black;
         }
