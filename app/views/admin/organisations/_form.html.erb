@@ -43,12 +43,16 @@
       <%= organisation_form.select :govuk_status, [["Currently live", "live"], ["Coming soon", "joining"], ["Exempt from joining", "exempt"], ["Currently transitioning", "transitioning"], ["Closed", "closed"]], {}, class: 'chzn-select' %>
     </p>
     <p class="js-closed-organisation-field">
-      <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
-      <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
+      <%= organisation_form.label :govuk_closed_status, "Reason for closure" %>
+      <%= organisation_form.select :govuk_closed_status, [["No longer exists", "no_longer_exists"], ["Replaced", "replaced"], ["Split into parts", "split"], ["Merged with other organisation", "merged"], ["Change of name", "changed_name"], ["Left central government", "left_gov"], ["Devolved to regional government", "devolved"]], {}, class: 'chzn-select' %>
     </p>
-    <p class="js-closed-organisation-field">
+    <p class="js-closed-organisation-field js-superseded-organisation-field">
       <%= organisation_form.label :superseding_organisation_ids, "Superseded by" %>
       <%= organisation_form.select :superseding_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.superseding_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose which organisation(s) this organisation has been superseded by..." } %>
+    </p>
+    <p class="js-closed-organisation-field">
+      <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
+      <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
     </p>
     <p>
       <%= organisation_form.text_field :organisation_chart_url %>
@@ -142,7 +146,7 @@
     <% end %>
     <% if show_consult_gds_warning %>
       Do not create organisations without consulting GDS.
-      <% end %>
+    <% end %>
   </p>
   <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>

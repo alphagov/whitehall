@@ -85,7 +85,7 @@ class Admin::OrganisationsController < Admin::BaseController
       :name, :acronym, :logo_formatted_name, :organisation_logo_type_id,
       :logo, :logo_cache, :organisation_brand_colour_id, :description, :url,
       :organisation_type_key, :alternative_format_contact_email,
-      :govuk_status, :closed_at, :organisation_chart_url, :about_us,
+      :govuk_status, :govuk_closed_status, :closed_at, :organisation_chart_url, :about_us,
       :foi_exempt, :ocpa_regulated, :public_meetings, :public_minutes,
       :regulatory_function, :important_board_members,
       superseding_organisation_ids: [],

@@ -6,7 +6,10 @@ FactoryGirl.define do
     sequence(:analytics_identifier) { |index| "T#{index}" }
     organisation_logo_type_id { OrganisationLogoType::SingleIdentity.id }
 
-    trait(:closed) { govuk_status 'closed' }
+    trait(:closed) do
+      govuk_status 'closed'
+      govuk_closed_status 'no_longer_exists'
+    end
 
     trait(:with_published_edition) {
       after :create do |organisation, evaluator|
@@ -18,6 +21,8 @@ FactoryGirl.define do
       sequence(:alternative_format_contact_email) { |n| "organisation-#{n}@example.com" }
     }
   end
+
+  factory :closed_organisation, parent: :organisation, traits: [:closed]
 
   factory :ministerial_department, parent: :organisation do
     organisation_type_key :ministerial_department

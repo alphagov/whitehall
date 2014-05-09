@@ -71,7 +71,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   end
 
   test "listable should also exclude organisations which have govuk_status of 'closed'" do
-    closed_org = create(:organisation, govuk_status: 'closed')
+    closed_org = create(:closed_organisation)
     refute Organisation.listable.include?(closed_org)
   end
 
@@ -89,7 +89,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     child_org_1 = create(:organisation, parent_organisations: [parent_org_1], name: "b second")
     child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
     child_org_3 = create(:organisation, parent_organisations: [parent_org_1], name: "a first")
-    child_org_4 = create(:organisation, parent_organisations: [parent_org_1], govuk_status: 'closed')
+    child_org_4 = create(:closed_organisation, parent_organisations: [parent_org_1])
 
     assert_equal [child_org_3, child_org_1], parent_org_1.active_child_organisations_excluding_sub_organisations
   end

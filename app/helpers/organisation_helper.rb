@@ -21,11 +21,7 @@ module OrganisationHelper
 
   def organisation_govuk_status_description(organisation)
     if organisation.closed?
-      if organisation.closed_at.present?
-        "#{organisation.name} closed on #{absolute_date(organisation.closed_at, class: 'closed-at')}".html_safe
-      else
-        "#{organisation.name} has closed"
-      end
+      organisation_closed_govuk_status_description(organisation)
     elsif organisation.transitioning?
       "#{organisation.name} is in the process of joining GOV.UK. In the meantime, #{link_to(organisation.url, organisation.url)} remains the official source.".html_safe
     elsif organisation.joining?
@@ -43,12 +39,40 @@ module OrganisationHelper
     end
   end
 
-  def superseding_organisations_paragraph_for(organisation)
+  def organisation_closed_govuk_status_description(organisation)
+    if organisation.no_longer_exists?
+      if organisation.closed_at.present?
+        "#{organisation.name} closed down in #{organisation.closed_at.to_s(:one_month_precision)}"
+      else
+        "#{organisation.name} has closed down"
+      end
+    elsif organisation.replaced? || organisation.split?
+      if organisation.closed_at.present?
+        "#{organisation.name} was replaced by #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}".html_safe
+      else
+        "#{organisation.name} was replaced by #{superseding_organisations_text(organisation)}".html_safe
+      end
+    elsif organisation.merged?
+      if organisation.closed_at.present?
+        "#{organisation.name} became part of #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}".html_safe
+      else
+        "#{organisation.name} is now part of #{superseding_organisations_text(organisation)}".html_safe
+      end
+    elsif organisation.changed_name?
+      "#{organisation.name} is now called #{superseding_organisations_text(organisation)}".html_safe
+    elsif organisation.left_gov?
+      "#{organisation.name} is now independent of the UK government"
+    elsif organisation.devolved?
+      "#{organisation.name} is now run by the #{superseding_organisations_text(organisation)}".html_safe
+    end
+  end
+
+  def superseding_organisations_text(organisation)
     if organisation.superseding_organisations.any?
       organisation_links = organisation.superseding_organisations.map { |org|
         link_to(org.name, organisation_path(org))
       }
-      content_tag :p, t('organisation.superseding_organisation_text', organisation_list: organisation_links.to_sentence).html_safe
+      organisation_links.to_sentence.html_safe
     end
   end
 

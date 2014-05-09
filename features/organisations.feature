@@ -212,6 +212,5 @@ Scenario: Admin closes an organisation, superseding it with another one
 Scenario: Citizen views a closed organisation
   Given a closed organisation with documents which has been superseded by another
   When I view the organisation
-  Then I can see that the organisation is closed
-  And I can see that the organisation has been superseded by the other
+  Then I can see that the organisation is closed and has been superseded by the other
   And I can see the documents associated with that organisation

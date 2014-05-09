@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140415162617) do
+ActiveRecord::Schema.define(:version => 20140429162738) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -845,6 +845,7 @@ ActiveRecord::Schema.define(:version => 20140415162617) do
     t.string   "organisation_type_key"
     t.boolean  "foi_exempt",                              :default => false,  :null => false
     t.string   "organisation_chart_url"
+    t.string   "govuk_closed_status"
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
