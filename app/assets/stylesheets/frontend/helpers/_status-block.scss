@@ -17,6 +17,10 @@
     margin-top: $gutter-half;
   }
 
+  a {
+    text-decoration: underline;
+  }
+
   @include media(desktop) {
     margin: 0 $gutter-half $gutter*2 $gutter-half;
     padding: $gutter-two-thirds;
