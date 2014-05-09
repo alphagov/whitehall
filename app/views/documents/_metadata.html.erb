@@ -8,7 +8,7 @@
     <dl class="js-track-metadata-links" data-trackposition="top">
       <% if document.organisations.any?  %>
         <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-        <dd data-tracktype="organisations">
+        <dd class="organisations" data-tracktype="organisations">
           <%= render  partial: 'organisations/organisations_name_list',
                       locals: { organisations: document.sorted_organisations,
                                 lead_organisations: document.lead_organisations } %>
