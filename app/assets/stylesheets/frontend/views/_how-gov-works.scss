@@ -309,12 +309,18 @@
       padding:0;
       margin-bottom: $gutter-half;
       vertical-align: middle;
+
+      &:hover {
+        background-color: darken($inside-gov-secondary,10%);
+        border-color: darken($inside-gov-secondary,10%);
+      }
+
       a {
         text-decoration: none;
         color: $black;
         &:hover,
         &:focus {
-          text-decoration: underline;
+          text-decoration: none;
         }
       }
 
