@@ -160,13 +160,15 @@ module OrganisationControllerTestHelpers
         assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(organisation) })}']"
       end
 
-      view_test "#{org_type}:show has link to corporate information pages" do
+      view_test "#{org_type}:show has link to published corporate information pages" do
         organisation = create(org_type)
-        corporate_information_page = create(:corporate_information_page, organisation: organisation)
+        corporate_information_page = create(:published_corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::TermsOfReference.id)
+        draft_corporate_information_page = create(:corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
 
         get :show, id: organisation
 
         assert_select ".corporate-information a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
+        refute_select ".corporate-information a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
       end
     end
   end
