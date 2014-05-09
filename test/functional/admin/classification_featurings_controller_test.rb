@@ -9,20 +9,63 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
   end
 
   test "GET :index assigns tagged_editions with a paginated collection of published editions related to the topic ordered by most recently created editions first" do
-    @news_article_foo = create(:published_news_article, :with_topics, topics: [@topic])
-    Timecop.travel(10.minutes) do
-      @news_article_bar = create(:published_news_article, :with_topics, topics: [@topic])
-    end
-    draft_article = create(:news_article, :with_topics, topics: [@topic])
+    news_article_1    = create(:published_news_article, topics: [@topic])
+    news_article_2    = Timecop.travel(10.minutes) { create(:published_news_article, topics: [@topic]) }
+    draft_article     = create(:news_article, topics: [@topic])
     unrelated_article = create(:news_article, :with_topics)
 
     get :index, topic_id: @topic, page: 1
 
     tagged_editions = assigns(:tagged_editions)
-    assert_equal [@news_article_bar, @news_article_foo], tagged_editions
+    assert_equal [news_article_2, news_article_1], tagged_editions
     assert_equal 1, tagged_editions.current_page
     assert_equal 1, tagged_editions.num_pages
     assert_equal 25, tagged_editions.limit_value
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given a title" do
+    create(:published_news_article, topics: [@topic])
+    news_article      = create(:published_news_article, topics: [@topic], title: 'Specific title')
+    unrelated_article = create(:published_news_article, :with_topics, title: 'Specific title')
+
+    get :index, topic_id: @topic, title: 'specific'
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [news_article], tagged_editions
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given an organisation" do
+    create(:published_news_article, topics: [@topic])
+    org = create(:organisation)
+    news_article = create(:published_news_article, topics: [@topic])
+    news_article.organisations << org
+
+    get :index, topic_id: @topic, organisation: org.id
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [news_article], tagged_editions
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given an author" do
+    create(:published_news_article, topics: [@topic])
+    news_article = create(:published_news_article, topics: [@topic])
+    user = create(:user)
+    create(:edition_author, edition: news_article, user: user)
+
+    get :index, topic_id: @topic, author: user.id
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [news_article], tagged_editions
+  end
+
+  test "GET :index assigns a filtered list to tagged_editions when given a document type" do
+    create(:published_statistical_data_set, topics: [@topic])
+    news_article = create(:published_news_article, topics: [@topic])
+
+    get :index, topic_id: @topic, type: news_article.display_type_key
+
+    tagged_editions = assigns(:tagged_editions)
+    assert_equal [news_article], tagged_editions
   end
 
   test "PUT :order saves the new order of featurings" do
