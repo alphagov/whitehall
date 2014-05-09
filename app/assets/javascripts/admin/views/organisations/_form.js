@@ -6,7 +6,7 @@
     init: function init(params) {
       $().ready(function($) {
         organisationsForm.hideClosedAtFields();
-	organisationsForm.hideSupersededByField();
+        organisationsForm.hideSupersededByField();
         organisationsForm.toggleCustomLogoField();
       });
     },
@@ -19,13 +19,13 @@
       enableClosedOrgFieldsIfClosed();
 
       function enableClosedOrgFieldsIfClosed() {
-	if ( $govUkStatusField.val() === "closed" ) {
+        if ( $govUkStatusField.val() === "closed" ) {
           enableClosedOrgFields();
-	  organisationsForm.hideSupersededByField();
-	}
-	else {
+          organisationsForm.hideSupersededByField();
+        }
+        else {
           disableClosedOrgFields();
-	}
+        }
       }
 
       function enableClosedOrgFields() {
@@ -41,31 +41,31 @@
 
     hideSupersededByField: function hideSupersededByField() {
       var $supersededField = $('.js-superseded-organisation-field'),
-	  $govUkClosedStatusField = $('#organisation_govuk_closed_status');
+          $govUkClosedStatusField = $('#organisation_govuk_closed_status');
 
       $govUkClosedStatusField.change(enableSupersededOrgFieldIfClosed);
       enableSupersededOrgFieldIfClosed();
 
       function enableSupersededOrgFieldIfClosed() {
-	  var superseded_org_fields = ['replaced', 'split', 'merged', 'changed_name', 'devolved'];
-	  if (superseded_org_fields.indexOf($govUkClosedStatusField.val()) > -1 ) {
-	      enableSupersededOrgField();
-	  }
-	  else {
-	      disabledSupersededOrgField();
-	  }
+        var superseded_org_fields = ['replaced', 'split', 'merged', 'changed_name', 'devolved'];
+        if (superseded_org_fields.indexOf($govUkClosedStatusField.val()) > -1 ) {
+          enableSupersededOrgField();
+        }
+        else {
+          disabledSupersededOrgField();
+        }
       }
 
       function enableSupersededOrgField() {
-	  $supersededField.show();
-	  $('input, select', $supersededField).removeAttr('disabled');
+        $supersededField.show();
+        $('input, select', $supersededField).removeAttr('disabled');
       }
 
       function disabledSupersededOrgField() {
-	  $supersededField.hide();
-      $('input, select', $supersededField).val('');
-      $('.search-choice', $supersededField).remove();
-	  $('input, select', $supersededField).attr('disabled', true);
+        $supersededField.hide();
+        $('input, select', $supersededField).val('');
+        $('.search-choice', $supersededField).remove();
+        $('input, select', $supersededField).attr('disabled', true);
       }
 
     },

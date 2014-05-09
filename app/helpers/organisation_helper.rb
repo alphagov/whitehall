@@ -42,21 +42,21 @@ module OrganisationHelper
   def organisation_closed_govuk_status_description(organisation)
     if organisation.no_longer_exists?
       if organisation.closed_at.present?
-	"#{organisation.name} closed down in #{organisation.closed_at.to_s(:one_month_precision)}."
+        "#{organisation.name} closed down in #{organisation.closed_at.to_s(:one_month_precision)}."
       else
-	"#{organisation.name} has closed down."
+        "#{organisation.name} has closed down."
       end
     elsif organisation.replaced? || organisation.split?
       if organisation.closed_at.present?
-	"#{organisation.name} was replaced by #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}."
+        "#{organisation.name} was replaced by #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}."
       else
-	"#{organisation.name} was replaced by #{superseding_organisations_text(organisation)}."
+        "#{organisation.name} was replaced by #{superseding_organisations_text(organisation)}."
       end
     elsif organisation.merged?
       if organisation.closed_at.present?
-	"#{organisation.name} became part of #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}."
+        "#{organisation.name} became part of #{superseding_organisations_text(organisation)} in #{organisation.closed_at.to_s(:one_month_precision)}."
       else
-	"#{organisation.name} is now part of #{superseding_organisations_text(organisation)}."
+        "#{organisation.name} is now part of #{superseding_organisations_text(organisation)}."
       end
     elsif organisation.changed_name?
       "#{organisation.name} is now called #{superseding_organisations_text(organisation)}"

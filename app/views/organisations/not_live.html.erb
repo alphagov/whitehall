@@ -13,7 +13,7 @@
   <div class="block-4">
     <div class="inner-block">
       <aside class="govuk-status status-block">
-	<h2><%= organisation_govuk_status_description(@organisation).html_safe %></h2>
+        <h2><%= organisation_govuk_status_description(@organisation).html_safe %></h2>
       </aside>
     </div>
   </div>
@@ -23,8 +23,8 @@
       <div class="description">
         <%= govspeak_to_html @organisation.description %>
         <% unless @organisation.closed? %>
-        <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
-        <p><%= link_to @organisation.url, @organisation.url, class: 'url-link' %></p>
+          <p class="parent_organisations"><%= organisation_display_name_and_parental_relationship(@organisation) %></p>
+          <p><%= link_to @organisation.url, @organisation.url, class: 'url-link' %></p>
         <% end %>
       </div>
     </div>
