@@ -34,8 +34,12 @@
 
       <%= reject_edition_button(@edition) if @edition.can_reject? && can?(:reject, @edition) %>
       <%= delete_edition_button(@edition) if @edition.can_delete? %>
-      <% if @edition.can_unpublish? && can?(:unpublish, @edition) %>
-        <%= link_to 'Archive or unpublish', confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
+      <% if can?(:unpublish, @edition) %>
+        <% if @edition.can_unpublish? %>
+          <%= link_to 'Archive or unpublish', confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
+        <% elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present? %>
+          <%= link_to "Edit #{archiving_or_unpublishing(@edition)} explanation", edit_admin_edition_unpublishing_path(@edition), class: "btn btn-primary" %>
+        <% end %>
       <% end %>
     </section>
 

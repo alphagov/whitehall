@@ -1,0 +1,24 @@
+<% edition = @unpublishing.edition
+   archiving_or_unpublishing = archiving_or_unpublishing(@unpublishing.edition)
+%>
+
+<% page_title "Edit public explanation for #{archiving_or_unpublishing}"  %>
+
+<div class="span10 edit-unpublishing-form">
+  <section>
+    <h1><%= edition.title %></h1>
+    <h2>Edit public explanation for <%= archiving_or_unpublishing %></h2>
+    <p>Reason for <%= archiving_or_unpublishing %>: <%= @unpublishing.unpublishing_reason.as_sentence %></p>
+
+    <%= form_for @unpublishing, url: admin_edition_unpublishing_path(edition) do |f| %>
+      <fieldset>
+        <%= f.text_area :explanation, rows: 5, class: "previewable", required: true,
+          label_text: %{<strong>Public explanation</strong> (this is shown on the live site)}.html_safe %>
+      </fieldset>
+      <fieldset>
+        <%= f.submit "Update #{archiving_or_unpublishing} explanation", class: "btn btn-primary" %>
+        <span class="or_cancel"> or <%= link_to 'cancel', [:admin, edition] %></span>
+      </fieldset>
+    <% end %>
+  </section>
+</div>

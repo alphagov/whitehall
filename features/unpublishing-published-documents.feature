@@ -36,3 +36,10 @@ Feature: Unpublishing published documents
     When I archive the policy because it is no longer government policy
     Then there should be an editorial remark recording the fact that the document was archived
     And the policy should be marked as archived on the public site
+
+  Scenario: Change the public explanation for archiving a document
+    Given I am a managing editor
+    And a published policy "Shaving kits for all" exists
+    And I archive the policy because it is no longer government policy
+    When I edit the public explanation for archiving
+    Then I should see the updated explanation on the public site
