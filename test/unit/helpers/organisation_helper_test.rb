@@ -111,21 +111,21 @@ class OrganisationHelperTest < ActionView::TestCase
   test '#organisation_govuk_status_description describes an organisation that no longer exists' do
     organisation = build(:closed_organisation, name: 'Beard Ministry')
 
-    assert_equal "Beard Ministry has closed down.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry has closed down", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description for an organisation that no longer exists includes the closed date if available' do
     closed_time = 1.day.ago
     organisation = build(:closed_organisation, name: 'Beard Ministry', closed_at: closed_time)
 
-    assert_equal "Beard Ministry closed down in November 2011.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry closed down in November 2011", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that has been replaced' do
     superseding_organisation = create(:organisation, name: 'Superseding organisation')
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', govuk_closed_status: 'replaced', superseding_organisations: [superseding_organisation])
 
-    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description for a replaced organisation includes the closed date if available' do
@@ -133,7 +133,7 @@ class OrganisationHelperTest < ActionView::TestCase
     superseding_organisation = create(:organisation, name: 'Superseding organisation')
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time, govuk_closed_status: 'replaced', superseding_organisations: [superseding_organisation])
 
-    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a> in November 2011.",
+    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a> in November 2011",
     organisation_govuk_status_description(organisation)
   end
 
@@ -142,7 +142,7 @@ class OrganisationHelperTest < ActionView::TestCase
     superseding_organisation_2 = create(:organisation, name: 'Superseding organisation 2')
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', govuk_closed_status: 'split', superseding_organisations: [superseding_organisation_1, superseding_organisation_2])
 
-    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a>.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a>", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description for an organisation that has been split includes the closed date if available' do
@@ -151,7 +151,7 @@ class OrganisationHelperTest < ActionView::TestCase
     closed_time = 1.day.ago
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time, govuk_closed_status: 'split', superseding_organisations: [superseding_organisation_1, superseding_organisation_2])
 
-    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a> in November 2011.",
+    assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a> in November 2011",
     organisation_govuk_status_description(organisation)
   end
 
@@ -159,7 +159,7 @@ class OrganisationHelperTest < ActionView::TestCase
     superseding_organisation = create(:organisation, name: 'Superseding organisation')
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', govuk_closed_status: 'merged', superseding_organisations: [superseding_organisation])
 
-    assert_equal "Beard Ministry is now part of <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry is now part of <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that changed its name' do
@@ -172,14 +172,14 @@ class OrganisationHelperTest < ActionView::TestCase
   test '#organisation_govuk_status_description describes an organisation that has left government' do
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', govuk_closed_status: 'left_gov')
 
-    assert_equal "Beard Ministry is now independent of the UK government.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry is now independent of the UK government", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that is devolved' do
     superseding_organisation = create(:organisation, name: 'Superseding organisation')
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [superseding_organisation])
 
-    assert_equal "Beard Ministry is now run by the <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>.", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry is now run by the <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description links to transitioning organisations' do
