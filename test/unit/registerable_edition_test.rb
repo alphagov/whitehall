@@ -114,6 +114,14 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_same_elements [primary_org, secondary_org].map(&:slug), registerable_edition.organisation_ids
   end
 
+  test "organisation_ids works with class whose organisation method is not a scope" do
+    primary_org = create(:organisation)
+
+    edition = create(:corporate_information_page, organisation: primary_org)
+    registerable_edition = RegisterableEdition.new(edition)
+    assert_same_elements [primary_org.slug], registerable_edition.organisation_ids
+  end
+
   class EditionWithoutOrgs < Edition; end
   test "deals with editions which don't do organisation tagging" do
     registerable_edition = RegisterableEdition.new(EditionWithoutOrgs.new)

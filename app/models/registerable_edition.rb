@@ -55,6 +55,6 @@ class RegisterableEdition
   def organisation_ids
     return [] unless edition.respond_to?(:organisations)
 
-    edition.organisations.pluck(:slug)
+    edition.organisations.map(&:slug)
   end
 end
