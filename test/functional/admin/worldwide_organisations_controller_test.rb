@@ -23,22 +23,18 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   test "creates a worldwide organisation" do
     post :create, worldwide_organisation: {
       name: "Organisation",
-      summary: "Summary",
-      description: "Description"
     }
 
     worldwide_organisation = WorldwideOrganisation.last
     assert_kind_of WorldwideOrganisation, worldwide_organisation
     assert_equal "Organisation", worldwide_organisation.name
-    assert_equal "Summary", worldwide_organisation.summary
-    assert_equal "Description", worldwide_organisation.description
 
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
   view_test "shows validation errors on invalid worldwide organisation" do
     post :create, worldwide_organisation: {
-      name: "Organisation",
+      name: "",
     }
 
     assert_select 'form#new_worldwide_organisation .errors'

@@ -10,7 +10,8 @@ class WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   test "sets meta description" do
-    organisation = create(:worldwide_organisation, summary: 'my summary')
+    organisation = create(:worldwide_organisation)
+    create(:about_corporate_information_page, organisation: nil, worldwide_organisation: organisation, summary: 'my summary')
 
     get :show, id: organisation.id
 

@@ -305,25 +305,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation, name: "Ministry of Sound")
     organisation_attributes = {
       name: "Ministry of Noise",
-      description: "organisation-description",
-      about_us: "organisation-about-us"
     }
 
     put :update, id: organisation, organisation: organisation_attributes
 
     organisation.reload
     assert_equal "Ministry of Noise", organisation.name
-    assert_equal "organisation-description", organisation.description
-    assert_equal "organisation-about-us", organisation.about_us
-  end
-
-  test "GET on :about loads the organisation and renders the about template" do
-    organisation = create(:organisation)
-    get :about, id: organisation
-
-    assert_response :success
-    assert_template :about
-    assert_equal organisation, assigns(:organisation)
   end
 
   test "PUT on :update handles non-departmental public body information" do

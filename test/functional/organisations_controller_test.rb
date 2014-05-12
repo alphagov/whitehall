@@ -35,14 +35,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   ### Describing :show ###
 
-  view_test "shows organisation description" do
-    organisation = create(:organisation,
-      description: "organisation-description"
-    )
-    get :show, id: organisation
-    assert_select ".organisation .description", text: "organisation-description"
-  end
-
   view_test "showing an organisation without a list of contacts doesn't try to create one" do
     # needs to be a view_test so the entire view is rendered
     organisation = create(:organisation)
@@ -236,6 +228,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "doesn't show a thumbnail if the organisation has no url" do
     organisation = create(:organisation, govuk_status: 'exempt', url: '')
+    create(:published_corporate_information_page, organisation: organisation)
 
     get :show, id: organisation
 
@@ -245,6 +238,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "doesn't show a thumbnail if the organisation is closed" do
     organisation = create(:closed_organisation, url: 'http://madeup-url.com')
+    create(:published_corporate_information_page, organisation: organisation)
 
     get :show, id: organisation
 
@@ -653,13 +647,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select special_representative_selector
   end
 
-  view_test "should place organisation brand colour css class on every organisation sub page" do
+  view_test "should place organisation brand colour css class on organisation pages" do
     organisation = create(:organisation, organisation_type: OrganisationType.ministerial_department, organisation_brand_colour_id: OrganisationBrandColour::HMGovernment.id)
 
-    [:show, :about].each do |page|
-      get page, id: organisation
-      assert_select "##{dom_id(organisation)}.#{organisation.organisation_brand_colour.class_name}-brand-colour.ministerial-department"
-    end
+    get :show, id: organisation
+    assert_select "##{dom_id(organisation)}.#{organisation.organisation_brand_colour.class_name}-brand-colour.ministerial-department"
   end
 
   view_test "should show top tasks if there are some" do
@@ -672,91 +664,11 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should set slimmer analytics headers on every organisation sub page" do
+  view_test "should set slimmer analytics headers on organisation pages" do
     organisation = create(:organisation, acronym: "ABC")
-    [:show, :about].each do |page|
-      get page, id: organisation
-      assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
-      assert_equal organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
-    end
-  end
-
-  ### Describing :about ###
-
-  view_test "should show description on organisation about subpage" do
-    organisation = create(:organisation, description: "organisation-description")
-    get :about, id: organisation
-    assert_select ".description", text: "organisation-description"
-  end
-
-  view_test "should show links to the alternate languages for a translated organisation" do
-    organisation = create(:organisation, description: "organisation-description", translated_into: [:fr])
-    get :about, id: organisation
-    expected_url = about_organisation_path(organisation, locale: :fr)
-    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
-  end
-
-  view_test "should render the about-us content using govspeak markup" do
-    organisation = create(:organisation,
-      name: "organisation-name",
-      about_us: "body-in-govspeak"
-    )
-
-    govspeak_transformation_fixture "body-in-govspeak" => "body-in-html" do
-      get :about, id: organisation
-    end
-
-    assert_select ".body", text: "body-in-html"
-  end
-
-  view_test "should display published corporate publications on about-us page" do
-    published_corporate_publication = create(:published_corporate_publication)
-    draft_corporate_publication = create(:draft_corporate_publication)
-
-    organisation = create(:organisation, editions: [
-      published_corporate_publication,
-      draft_corporate_publication
-    ])
-
-    get :about, id: organisation
-
-    assert_select_object(published_corporate_publication)
-    refute_select_object(draft_corporate_publication)
-  end
-
-  test "should display published corporate publications on about-us page in order published" do
-    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-01'))
-    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-03'))
-    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-02'))
-
-    organisation = create(:organisation, editions: [
-      old_published_corporate_publication,
-      new_published_corporate_publication,
-      middle_published_corporate_publication,
-    ])
-
-    get :about, id: organisation
-
-    assert_equal [
-      new_published_corporate_publication,
-      middle_published_corporate_publication,
-      old_published_corporate_publication
-    ], assigns(:corporate_publications)
-  end
-
-  view_test "should display link to corporate information pages on about-us page" do
-    organisation = create(:organisation)
-    corporate_information_page = create(:published_corporate_information_page, organisation: organisation)
-    draft_corporate_information_page = create(:corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
-    get :about, id: organisation
-    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
-    refute_select "a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
-  end
-
-  view_test "should not display corporate information section on about-us page if there are no corporate publications" do
-    organisation = create(:organisation)
-    get :about, id: organisation
-    refute_select "#corporate-information"
+    get :show, id: organisation
+    assert_equal "<#{organisation.analytics_identifier}>", response.headers["X-Slimmer-Organisations"]
+    assert_equal organisation.acronym.downcase, response.headers["X-Slimmer-Page-Owner"]
   end
 
   view_test "should show FOI contact information if not exempt" do
