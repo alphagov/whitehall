@@ -67,8 +67,12 @@ class CorporateInformationPage < Edition
     organisation || worldwide_organisation
   end
 
-  def sorted_organisations
+  def organisations
     [owning_organisation]
+  end
+
+  def sorted_organisations
+    organisations
   end
 
   def self.for_slug(slug)
