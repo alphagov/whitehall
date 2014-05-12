@@ -31,6 +31,13 @@
 
   }
 
+  .status-block {
+    @include core-19;
+    border-color: $inside-gov-brand;
+    margin-bottom: $gutter;
+    min-height: 0;
+  }
+
   .ministers-by-organisation {
     padding-top: ($gutter*2);
 

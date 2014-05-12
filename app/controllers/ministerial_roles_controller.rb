@@ -7,6 +7,10 @@ class MinisterialRolesController < PublicFacingController
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)
 
+    # This will be controlled publisher/admin managed feature flag, but for now
+    # be able to toggle the UI on for testing/preview
+    @is_during_reshuffle = params[:__enable_reshuffle]
+
     cabinet_roles = MinisterSorter.new(Role.with_translations.includes(:current_people)).also_attends_cabinet
     @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)
     @ministers_by_organisation = ministers_by_organisation
