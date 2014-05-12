@@ -126,16 +126,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_same_elements [policy.document, related_guide.document], new_guide.related_documents
   end
 
-  test "#create handles legacy related detailed guides param" do
-    related_guide = create(:published_detailed_guide)
-    attributes = controller_attributes_for(:detailed_guide, outbound_related_detailed_guide_ids: [related_guide.document_id])
-    post :create, edition: attributes
-
-    assert new_guide = DetailedGuide.last
-
-    assert_equal [related_guide.document], new_guide.related_documents
-  end
-
   private
 
   def controller_attributes_for(edition_type, attributes = {})
