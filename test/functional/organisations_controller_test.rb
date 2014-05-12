@@ -746,9 +746,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should display link to corporate information pages on about-us page" do
     organisation = create(:organisation)
-    corporate_information_page = create(:corporate_information_page, organisation: organisation)
+    corporate_information_page = create(:published_corporate_information_page, organisation: organisation)
+    draft_corporate_information_page = create(:corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
     get :about, id: organisation
     assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
+    refute_select "a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
   end
 
   view_test "should not display corporate information section on about-us page if there are no corporate publications" do
