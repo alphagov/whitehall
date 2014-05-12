@@ -16,6 +16,7 @@ GIT
 GIT
   remote: git://github.com/brynary/rack-test.git
   revision: 8cdb86e1d710194ce45f439915707db7fb2b27e5
+  ref: 8cdb86e1
   specs:
     rack-test (0.6.2)
       rack (>= 1.0)
