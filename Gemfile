@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.18'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -77,7 +77,7 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', github: 'brynary/rack-test'
+  gem 'rack-test', github: 'brynary/rack-test', ref: '8cdb86e1'
   gem 'factory_girl'
   gem 'mocha', '0.14.0', require: false
   gem 'timecop'
