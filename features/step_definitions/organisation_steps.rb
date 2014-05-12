@@ -125,7 +125,6 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   fill_in 'Name', with: organisation_name
   fill_in 'Acronym', with: organisation_name.split(' ').collect {|word| word.chars.first }.join
   fill_in 'Logo formatted name', with: organisation_name
-  fill_in 'Description', with: 'Not important'
   select 'Ministerial department', from: 'Organisation type'
   select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
   select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
@@ -472,11 +471,7 @@ Then /^when I view the organisation with the locale "([^"]*)" I should see:$/ do
 
   within record_css_selector(organisation) do
     assert page.has_css?('.organisation-logo', text: translation['logo formatted name']), 'Logo formatted name has not been translated'
-    assert page.has_css?('.description', text: translation['description']), 'Description has not been translated'
   end
-
-  click_link 'read_more_link'
-  assert page.has_content? translation['about us']
 end
 
 Given /^the topical event "([^"]*)" exists$/ do |name|

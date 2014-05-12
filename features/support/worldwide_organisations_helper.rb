@@ -10,9 +10,6 @@ module WorldwideOrganisationsHelper
     select translation["locale"], from: "Locale"
     click_on "Create translation"
     fill_in "Name", with: translation["name"]
-    fill_in "Summary", with: translation["summary"]
-    fill_in "Description", with: translation["description"]
-    fill_in "Services", with: translation["services"]
     click_on "Save"
   end
 
@@ -25,9 +22,6 @@ module WorldwideOrganisationsHelper
     end
 
     fill_in "Name", with: translation["name"]
-    fill_in "Summary", with: translation["summary"]
-    fill_in "Description", with: translation["description"]
-    fill_in "Services", with: translation["services"]
     click_on "Save"
   end
 end

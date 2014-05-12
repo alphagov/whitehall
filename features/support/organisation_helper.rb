@@ -9,8 +9,6 @@ module OrganisationHelper
     fill_in "Name", with: translation["name"]
     fill_in "Acronym", with: translation["acronym"]
     fill_in "Logo formatted name", with: translation["logo formatted name"]
-    fill_in "About us", with: translation["about us"]
-    fill_in "Description", with: translation["description"]
     click_on "Save"
   end
 end

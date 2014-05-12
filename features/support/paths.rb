@@ -26,7 +26,7 @@ module NavigationHelpers
 
   def visit_organisation_about_page(name)
     organisation = Organisation.find_by_name!(name)
-    visit about_organisation_path(organisation)
+    visit organisation_corporate_information_pages_path(organisation)
   end
 
   def visit_worldwide_organisation_page(name)
