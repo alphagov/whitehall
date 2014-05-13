@@ -22,7 +22,13 @@ module Whitehall
     end
 
     def self.add(instance)
-      SearchIndexAddWorker.perform_async(instance.class.name, instance.id)
+      # Note We delay the search index job to ensure that any transactions
+      # around publishing will have had time to complete. Specifically,
+      # EditionPublishingWorker publishes scheduled editions in a transaction
+      # and we want to ensure that transaction is complete before we attempt to
+      # index the edition, otherwise the edition may still be in a "scheduled"
+      # state, and SearchIndexAddWorker will not index a non-"published" edition.
+      SearchIndexAddWorker.perform_in(10.seconds, instance.class.name, instance.id)
     end
 
     def self.delete(instance)
