@@ -18,6 +18,8 @@ class CorporateInformationPagesController < DocumentsController
     @corporate_publications = @organisation.corporate_publications.in_reverse_chronological_order.published
   end
 
+private
+
   def find_document_or_edition_for_public
     published_edition = @organisation.corporate_information_pages.published.for_slug(params[:id])
     published_edition if published_edition.present? && published_edition.available_in_locale?(I18n.locale)
@@ -27,8 +29,6 @@ class CorporateInformationPagesController < DocumentsController
     set_slimmer_organisations_header([@organisation])
     set_slimmer_page_owner_header(@organisation)
   end
-
-private
 
   def find_organisation
     @organisation =
