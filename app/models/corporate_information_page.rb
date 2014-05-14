@@ -118,7 +118,7 @@ class CorporateInformationPage < Edition
   end
 
   def about_page?
-    corporate_information_page_type_id && corporate_information_page_type.slug == 'about'
+    corporate_information_page_type.try(:slug) == 'about'
   end
 
   private

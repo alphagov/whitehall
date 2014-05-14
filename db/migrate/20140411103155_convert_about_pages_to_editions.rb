@@ -1,27 +1,22 @@
+GDS_IG_TEAM_USER = User.find_by_name!('GDS Inside Government Team')
+ABOUT_TYPE = CorporateInformationPageType.find('about')
+
 class ConvertAboutPagesToEditions < ActiveRecord::Migration
-  # default title text for validation only.
   CorporateInformationPage.class_eval do
-    def title
-      "title"
-    end
     def body_required?
       false
     end
   end
   Whitehall.skip_safe_html_validation = true
-  @@gds_ig_team_user = User.find_by_name!('GDS Inside Government Team')
-  @@about_type = CorporateInformationPageType.find('about')
 
   def up
     @logger = Logger.new(STDOUT)
-    transaction do
-      Organisation.with_translations.find_each { |org| convert_org(org) }
-      WorldwideOrganisation.with_translations.find_each { |org| convert_org(org) }
-    end
+    Organisation.with_translations.find_each { |org| convert_org(org) }
+    WorldwideOrganisation.with_translations.find_each { |org| convert_org(org) }
   end
 
   def convert_org(org)
-    puts "Migrating #{org.name}"
+    @logger.info "Migrating #{org.name}"
     doc = Document.create!(document_type: 'CorporateInformationPage',
                            created_at: org.created_at,
                            updated_at: org.updated_at)
@@ -36,28 +31,16 @@ class ConvertAboutPagesToEditions < ActiveRecord::Migration
       end
     end
 
-    new_cip = CorporateInformationPage.create!(
-      created_at: org.created_at,
+    new_cip = org.build_corporate_information_page(
       updated_at: org.updated_at,
       document_id: doc.id,
-      creator: @@gds_ig_team_user,
-      title: 'What we do',
+      creator: GDS_IG_TEAM_USER,
       summary: summary,
       body: body,
-      corporate_information_page_type_id: @@about_type.id,
+      corporate_information_page_type_id: ABOUT_TYPE.id,
       major_change_published_at: org.updated_at,
       state: 'published')
-    if org.is_a? Organisation
-      EditionOrganisation.create!(
-        edition: new_cip,
-        organisation: org
-      )
-    else
-      EditionWorldwideOrganisation.create!(
-        edition: new_cip,
-        worldwide_organisation: org
-      )
-    end
+    new_cip.save!
     org.translations.each do |old_trans|
       unless old_trans.locale == :en
         if org.is_a? Organisation
@@ -83,6 +66,6 @@ class ConvertAboutPagesToEditions < ActiveRecord::Migration
   end
 
   def down
-    Edition.where(corporate_information_page_type_id: @@about_type.id).find_each {|edition| edition.document.destroy }
+    Edition.where(corporate_information_page_type_id: ABOUT_TYPE.id).find_each {|edition| edition.document.destroy }
   end
 end
