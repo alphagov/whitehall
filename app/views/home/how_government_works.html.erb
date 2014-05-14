@@ -79,13 +79,16 @@
           </div>
         </div>
       </div>
+
       <div class="full-width-section ministers">
           <h3>Ministers</h3>
+	  <% if !@is_during_reshuffle %>
           <div class="feature-ministers">
             <p>
               <span class="circle prime-minister"><span class="count"><a href="/government/ministers/prime-minister">01</a></span> <span class="caption">Prime Minister</span></span> + <span class="circle cabinet-ministers"><span class="count"><a href="/government/ministers#cabinet-ministers"><%= @cabinet_minister_count %></a></span> <span class="caption">Cabinet ministers</span></span> + <span class="circle other-ministers"><span class="count"><a href="/government/ministers#ministers-by-department"><%= @other_minister_count %></a></span> <span class="caption">Other ministers</span></span> = <span class="circle invert all-ministers"><span class="count"><a href="/government/ministers"><%= @all_ministers_count %></a></span> <span class="caption">Total ministers</span></span>
             </p>
           </div>
+	  <% end %>
           <p class="caption">Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords. They are responsible for the actions, successes and failures of their departments.</p>
           <p><%= link_to "See full list of ministers", ministerial_roles_path %></p>
       </div>
