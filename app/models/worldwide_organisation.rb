@@ -12,13 +12,14 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
   has_many :edition_worldwide_organisations, dependent: :destroy
-  has_many :corporate_information_pages, dependent: :destroy, through: :edition_worldwide_organisations, source: :edition, class_name: "CorporateInformationPage"
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
+
+  include HasCorporateInformationPages
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WO'
@@ -89,26 +90,6 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   def office_staff_roles
     roles.where(type: WorldwideOfficeStaffRole.name)
-  end
-
-  def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
-  end
-
-  def build_corporate_information_page(params)
-    CorporateInformationPage.new(params.merge({worldwide_organisation: self}))
-  end
-
-  def summary
-    about_us.summary if about_us.present?
-  end
-
-  def body
-    about_us.body if about_us.present?
-  end
-
-  def about_us
-    @about ||= corporate_information_pages.published.for_slug('about')
   end
 
 end

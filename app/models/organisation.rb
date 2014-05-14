@@ -72,8 +72,6 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
-  has_many :corporate_information_pages, dependent: :destroy, through: :edition_organisations, source: :edition, class_name: "CorporateInformationPage"
-
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :social_media_accounts, as: :socialable, dependent: :destroy, include: [:social_media_service]
 
@@ -112,6 +110,8 @@ class Organisation < ActiveRecord::Base
   include HasFeaturedLinks
   has_featured_links :top_tasks
   has_featured_links :featured_services_and_guidance
+
+  include HasCorporateInformationPages
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
@@ -317,14 +317,6 @@ class Organisation < ActiveRecord::Base
     Govspeak::Document.new("#{summary} #{body}").to_text
   end
 
-  def summary
-    about_us.summary if about_us.present?
-  end
-
-  def body
-    about_us.body if about_us.present?
-  end
-
   def search_link
     # This should be organisation_path(self), but we can't use that because friendly_id's #to_param returns
     # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
@@ -350,12 +342,6 @@ class Organisation < ActiveRecord::Base
 
   def published_consultations
     published_editions.consultations
-  end
-
-  def published_corporate_information_pages
-    # Use the direct CIP relationship rather than the scope on Edition so that
-    # we can use the CIP classmethods on the returned relation.
-    corporate_information_pages.published
   end
 
   def published_detailed_guides
@@ -388,16 +374,6 @@ class Organisation < ActiveRecord::Base
 
   def requires_alternative_format?
     (! closed?) && provides_alternative_formats?
-  end
-
-  def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
-  end
-
-  def build_corporate_information_page(params)
-    # The standard organisation.corporate_info_pages.build method does not
-    # correctly set the organisation in the linking table.
-    CorporateInformationPage.new(params.merge({organisation: self}))
   end
 
   def has_published_publications_of_type?(publication_type)
@@ -479,10 +455,6 @@ class Organisation < ActiveRecord::Base
         errors[:parent_organisations] << "must not be empty for sub-organisations"
       end
     end
-  end
-
-  def about_us
-    @about ||= corporate_information_pages.published.for_slug('about')
   end
 
 end
