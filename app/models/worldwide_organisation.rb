@@ -68,6 +68,10 @@ class WorldwideOrganisation < ActiveRecord::Base
     self.name
   end
 
+  def acronym
+    nil
+  end
+
   def main_office
     original_main_office || offices.first
   end
