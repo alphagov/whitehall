@@ -2,4 +2,12 @@
   .inner-block {
     @extend %contain-floats;
   }
+
+  .headings-block {
+    .heading-extra {
+      @include media(tablet) {
+        margin: $gutter+$gutter-half 0 $gutter 0
+      }
+    }
+  }
 }
