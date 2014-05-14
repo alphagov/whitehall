@@ -24,7 +24,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   self.analytics_prefix = 'WO'
 
   include TranslatableModel
-  translates :name, :summary, :description, :services
+  translates :name
 
   alias_method :original_main_office, :main_office
 
