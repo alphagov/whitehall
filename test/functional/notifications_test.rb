@@ -106,4 +106,15 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
 
     assert_match %r{Use "double quotes" everywhere}, mail.body.to_s
   end
+
+  test "#bad_link_reports mail includes the supplied file as an attachment" do
+    file_path = file_fixture('sample_attachment.zip').path
+    receiver  = 'test@gov.co.uk'
+    mail      = Notifications.bad_link_reports(file_path, receiver)
+
+    assert_equal ['test@gov.co.uk'], mail.to
+    assert_equal 'GOV.UK bad link reports', mail.subject
+    assert attachment = mail.attachments.first
+    assert_equal 'sample_attachment.zip', attachment.filename
+  end
 end
