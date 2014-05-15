@@ -8,9 +8,6 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       web_url: context.worldwide_organisation_url(model, host: context.public_host),
       details: {
         slug: model.slug,
-        summary: model.summary,
-        description: context.govspeak_to_html(model.description),
-        services: services_for_json,
       },
       offices: offices_as_json,
       sponsors: sponsors_as_json,
@@ -21,14 +18,6 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
     [
       [context.api_worldwide_organisation_url(model), {'rel' => 'self'}]
     ]
-  end
-
-  def services_for_json
-    if model.services.present?
-      context.govspeak_to_html(model.services)
-    else
-      ''
-    end
   end
 
   def sponsors_as_json

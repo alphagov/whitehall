@@ -119,11 +119,10 @@ Whitehall::Application.routes.draw do
       get '/series' => redirect("/publications")
 
       member do
-        get :about, localised: true
         get :consultations
         get :chiefs_of_staff, path: 'chiefs-of-staff'
       end
-      resources :corporate_information_pages, only: [:show], path: 'about'
+      resources :corporate_information_pages, only: [:show, :index], path: 'about'
       resources :groups, only: [:show]
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
@@ -184,7 +183,6 @@ Whitehall::Application.routes.draw do
           end
           member do
             get :features, localised: true
-            get :about
             get :people
           end
           resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]

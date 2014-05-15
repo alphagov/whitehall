@@ -4,8 +4,12 @@ Given /^I am viewing a world location that is translated$/ do
   world_location = create(:world_location, translated_into: [:fr])
   worldwide_organisation = create(:worldwide_organisation,
     world_locations: [world_location],
-    name: "en-organisation", summary: "en-summary",
-    translated_into: {fr: {name: "fr-organisation", summary: "fr-summary"}}
+    name: "en-organisation",
+    translated_into: {fr: {name: "fr-organisation"}}
+  )
+  create(:about_corporate_information_page, organisation: nil,
+         worldwide_organisation: worldwide_organisation,  summary: "en-summary",
+         translated_into: {fr: {summary: "fr-summary"}}
   )
   visit world_location_path(world_location)
   click_link "Français"

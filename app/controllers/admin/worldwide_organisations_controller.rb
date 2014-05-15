@@ -57,7 +57,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
 
   def worldwide_organisation_params
     params.require(:worldwide_organisation).permit(
-      :name, :summary, :description, :logo_formatted_name, :services,
+      :name, :logo_formatted_name,
       world_location_ids: [],
       sponsoring_organisation_ids: [],
       default_news_image_attributes: [:file_cache]

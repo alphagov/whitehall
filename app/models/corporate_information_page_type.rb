@@ -88,4 +88,7 @@ class CorporateInformationPageType
   AboutOurServices = create(
     id: 19, title_template: "About our services", slug: 'about-our-services', menu_heading: :other
   )
+  AboutUs = create(
+    id: 20, title_template: "About us", slug: 'about', menu_heading: :other
+  )
 end

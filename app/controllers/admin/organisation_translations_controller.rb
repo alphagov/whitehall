@@ -32,7 +32,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
 
   def organisation_params
     params.require(:organisation).permit(
-      :name, :acronym, :logo_formatted_name, :description, :about_us
+      :name, :acronym, :logo_formatted_name
     )
   end
 

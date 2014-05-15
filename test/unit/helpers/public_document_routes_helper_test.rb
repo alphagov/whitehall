@@ -47,6 +47,23 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal statistical_data_set_path(statistical_data_set.document), public_document_path(statistical_data_set)
   end
 
+  test 'returns the policy_supporting_page path for SupportingPage instances' do
+    policy = create(:policy)
+    supporting_page = create(:supporting_page, related_policies: [policy])
+    assert_equal policy_supporting_page_path(policy.document, supporting_page.document), public_document_path(supporting_page)
+  end
+
+  test 'returns the correct path for CorporateInformationPage instances' do 
+    cip = create(:corporate_information_page)
+    assert_equal organisation_corporate_information_page_path(cip.organisation, cip.slug), public_document_path(cip)
+
+    cip.corporate_information_page_type = CorporateInformationPageType::AboutUs
+    assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
+
+    cip.organisation.organisation_type = OrganisationType::sub_organisation
+    assert_equal organisation_path(cip.organisation), public_document_path(cip)
+  end
+
   test 'returns public document URL including host in production environment' do
     request.host = "whitehall.production.alphagov.co.uk"
     edition = create(:published_policy)

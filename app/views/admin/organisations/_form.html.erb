@@ -28,7 +28,6 @@
       <%= render partial: "admin/shared/default_news_image_fields", locals: {image_fields: image_fields} %>
     <% end %>
     <p>
-      <%= organisation_form.text_area :description, class: "previewable" %>
       <%= organisation_form.text_field :url %>
     </p>
     <p>
@@ -96,10 +95,6 @@
   <% if current_user.gds_editor? %>
     <%= render 'admin/shared/featured_link_fields', type: 'featured_services_and_guidance', form: organisation_form %>
   <% end %>
-
-  <fieldset>
-    <%= organisation_form.text_area :about_us, class: "previewable" %>
-  </fieldset>
 
   <% if current_user.gds_editor? && @organisation.management_roles.any? %>
     <fieldset>

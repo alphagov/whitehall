@@ -3,8 +3,8 @@ class OrganisationsController < PublicFacingController
   include Whitehall::Controllers::RolesPresenters
 
   enable_request_formats show: [:atom]
-  before_filter :load_organisation, only: [:show, :about]
-  before_filter :set_organisation_slimmer_headers, only: [:show, :about]
+  before_filter :load_organisation, only: [:show]
+  before_filter :set_organisation_slimmer_headers, only: [:show]
   skip_before_filter :set_cache_control_headers, only: [:show]
   before_filter :set_cache_max_age, only: [:show]
 
@@ -25,7 +25,7 @@ class OrganisationsController < PublicFacingController
         if @organisation.live?
           @recently_updated = recently_updated_source.with_translations(I18n.locale).limit(3)
           @feature_list = OrganisationFeatureListPresenter.new(@organisation, view_context)
-          set_meta_description(@organisation.description)
+          set_meta_description(@organisation.summary)
 
           expire_on_next_scheduled_publication(@organisation.scheduled_editions)
 
@@ -55,10 +55,6 @@ class OrganisationsController < PublicFacingController
         @documents = EditionCollectionPresenter.new(recently_updated_source.limit(10), view_context)
       end
     end
-  end
-
-  def about
-    @corporate_publications = @organisation.corporate_publications.in_reverse_chronological_order.published
   end
 
   private

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class WorldwideOrganisationTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name, :summary, :description
+  should_protect_against_xss_and_content_attacks_on :name
 
   test "should set a slug from the field name" do
     worldwide_organisation = create(:worldwide_organisation, name: 'Office Name')
@@ -11,12 +11,6 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   test 'should set an analytics identifier on create' do
     worldwide_organisation = create(:worldwide_organisation, name: 'Office name')
     assert_equal 'WO' + worldwide_organisation.id.to_s, worldwide_organisation.analytics_identifier
-  end
-
-  %w{name summary description}.each do |param|
-    test "should not be valid without a #{param}" do
-      refute build(:worldwide_organisation, param.to_sym => '').valid?
-    end
   end
 
   test 'can be associated with multiple world locations' do
@@ -200,7 +194,8 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
   end
 
   test 'search index data for a worldwide organisation includes name, summary, the correct link and format' do
-    worldwide_organisation = build(:worldwide_organisation, name: 'British Embassy to Hat land', slug: 'british-embassy-to-hat-land', summary: 'Providing assistance to uk residents in hat land')
+    worldwide_organisation = create(:worldwide_organisation, name: 'British Embassy to Hat land', slug: 'british-embassy-to-hat-land')
+    create(:published_corporate_information_page, corporate_information_page_type: CorporateInformationPageType.find('about'), worldwide_organisation: worldwide_organisation, organisation: nil, summary: 'Providing assistance to uk residents in hat land')
 
     assert_equal({'title' => worldwide_organisation.name,
                   'link' => '/government/world/organisations/british-embassy-to-hat-land',
@@ -294,7 +289,4 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     world_organisation.destroy
     refute HomePageList.exists?(h)
   end
-
-  should_not_accept_footnotes_in :description
-  should_not_accept_footnotes_in :services
 end

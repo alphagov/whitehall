@@ -23,22 +23,18 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   test "creates a worldwide organisation" do
     post :create, worldwide_organisation: {
       name: "Organisation",
-      summary: "Summary",
-      description: "Description"
     }
 
     worldwide_organisation = WorldwideOrganisation.last
     assert_kind_of WorldwideOrganisation, worldwide_organisation
     assert_equal "Organisation", worldwide_organisation.name
-    assert_equal "Summary", worldwide_organisation.summary
-    assert_equal "Description", worldwide_organisation.description
 
     assert_redirected_to admin_worldwide_organisation_path(worldwide_organisation)
   end
 
   view_test "shows validation errors on invalid worldwide organisation" do
     post :create, worldwide_organisation: {
-      name: "Organisation",
+      name: "",
     }
 
     assert_select 'form#new_worldwide_organisation .errors'
@@ -88,15 +84,17 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "shows the name summary and description of the worldwide organisation" do
-    organisation = create(:worldwide_organisation, name: "Ministry of Silly Walks in Madrid",
-      summary: "We have a nice organisation in madrid",
-      description: "# Organisation\nOur organisation is on the main road\n")
+    organisation = create(:worldwide_organisation, name: "Ministry of Silly Walks in Madrid")
+    about_us = create(:about_corporate_information_page,
+                      organisation: nil, worldwide_organisation: organisation,
+                      summary: "We have a nice organisation in madrid",
+                      body: "# Organisation\nOur organisation is on the main road\n")
 
     get :show, id: organisation
 
     assert_select_object organisation do
       assert_select "h1", organisation.name
-      assert_select ".summary", organisation.summary
+      assert_select ".summary", about_us.summary
       assert_select ".description" do
         assert_select "h1", "Organisation"
         assert_select "p", "Our organisation is on the main road"

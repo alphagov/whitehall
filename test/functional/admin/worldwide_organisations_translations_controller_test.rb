@@ -80,9 +80,6 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
     worldwide_organisation = create(:worldwide_organisation,
       translated_into: {fr: {
         name: 'Département des barbes en France',
-        summary: 'Nous nous occupons de la pilosité faciale du pays',
-        description: 'Barbes, moustaches, même rouflaquettes',
-        services: 'Montante, pommades, humide rase'
       }}
     )
 
@@ -92,9 +89,6 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
       assert_select "input[type=text][name='worldwide_organisation[name]'][value='Département des barbes en France']"
-      assert_select "textarea[name='worldwide_organisation[summary]']", text: 'Nous nous occupons de la pilosité faciale du pays'
-      assert_select "textarea[name='worldwide_organisation[description]']", text: 'Barbes, moustaches, même rouflaquettes'
-      assert_select "textarea[name='worldwide_organisation[services]']", text: 'Montante, pommades, humide rase'
       assert_select "input[type=submit][value=Save]"
     end
   end
@@ -106,27 +100,18 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
 
     assert_select "form" do
       assert_select "fieldset.right-to-left input[type=text][name='worldwide_organisation[name]']"
-      assert_select "fieldset.right-to-left textarea[name='worldwide_organisation[summary]']"
-      assert_select "fieldset.right-to-left textarea[name='worldwide_organisation[description]']"
-      assert_select "fieldset.right-to-left textarea[name='worldwide_organisation[services]']"
     end
   end
 
   view_test 'update updates translation and redirects back to the index' do
     put :update, worldwide_organisation_id: @worldwide_organisation, id: 'fr', worldwide_organisation: {
       name: 'Département des barbes en France',
-      summary: 'Nous nous occupons de la pilosité faciale du pays',
-      description: 'Barbes, moustaches, même rouflaquettes',
-      services: 'Montante, pommades, humide rase'
     }
 
     @worldwide_organisation.reload
 
     with_locale :fr do
       assert_equal 'Département des barbes en France', @worldwide_organisation.name
-      assert_equal 'Nous nous occupons de la pilosité faciale du pays', @worldwide_organisation.summary
-      assert_equal 'Barbes, moustaches, même rouflaquettes', @worldwide_organisation.description
-      assert_equal 'Montante, pommades, humide rase', @worldwide_organisation.services
     end
 
     assert_redirected_to admin_worldwide_organisation_translations_path(@worldwide_organisation)
@@ -135,14 +120,11 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
   view_test 'update re-renders form if translation is invalid' do
     put :update, worldwide_organisation_id: @worldwide_organisation, id: 'fr', worldwide_organisation: {
       name: '',
-      description: 'Barbes, moustaches, même rouflaquettes',
     }
 
     translation_path = admin_worldwide_organisation_translation_path(@worldwide_organisation, 'fr')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
-      assert_select "textarea[name='worldwide_organisation[description]']", text: 'Barbes, moustaches, même rouflaquettes'
-    end
+    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]"
   end
 
   test 'destroy removes translation and redirects to list of translations' do

@@ -72,8 +72,6 @@ class Organisation < ActiveRecord::Base
 
   has_many :users, foreign_key: :organisation_slug, primary_key: :slug, dependent: :nullify
 
-  has_many :corporate_information_pages, dependent: :destroy, through: :edition_organisations, source: :edition, class_name: "CorporateInformationPage"
-
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :social_media_accounts, as: :socialable, dependent: :destroy, include: [:social_media_service]
 
@@ -113,6 +111,8 @@ class Organisation < ActiveRecord::Base
   has_featured_links :top_tasks
   has_featured_links :featured_services_and_guidance
 
+  include HasCorporateInformationPages
+
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
   accepts_nested_attributes_for :edition_organisations
@@ -121,7 +121,6 @@ class Organisation < ActiveRecord::Base
 
   validates :slug, presence: true, uniqueness: true
   validates_with SafeHtmlValidator
-  validates_with NoFootnotesInGovspeakValidator, attributes: [:description, :about_us]
   validates :name, presence: true, uniqueness: true
   validates :logo_formatted_name, presence: true
   validates :url, uri: true, allow_blank: true
@@ -143,7 +142,7 @@ class Organisation < ActiveRecord::Base
   delegate :devolved_administration?, to: :type
 
   include TranslatableModel
-  translates :name, :logo_formatted_name, :acronym, :description, :about_us
+  translates :name, :logo_formatted_name, :acronym
 
   include Featurable
 
@@ -153,7 +152,7 @@ class Organisation < ActiveRecord::Base
              acronym: :acronym,
              link: :search_link,
              content: :indexable_content,
-             description: :description,
+             description: :summary,
              boost_phrases: :acronym,
              slug: :slug,
              organisation_state: :govuk_status
@@ -315,7 +314,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def indexable_content
-    Govspeak::Document.new("#{description} #{about_us}").to_text
+    Govspeak::Document.new("#{summary} #{body}").to_text
   end
 
   def search_link
@@ -375,16 +374,6 @@ class Organisation < ActiveRecord::Base
 
   def requires_alternative_format?
     (! closed?) && provides_alternative_formats?
-  end
-
-  def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
-  end
-
-  def build_corporate_information_page(params)
-    # The standard organisation.corporate_info_pages.build method does not
-    # correctly set the organisation in the linking table.
-    CorporateInformationPage.new(params.merge({organisation: self}))
   end
 
   def has_published_publications_of_type?(publication_type)
@@ -467,4 +456,5 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+
 end

@@ -30,4 +30,70 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     assert_select "a[href=#{worldwide_organisation_path(worldwide_organisation)}]"
     assert_select "a[href=#{world_location_path(world_location)}]"
   end
+
+  view_test "should show description on organisation about subpage" do
+    organisation = create(:organisation)
+    create(:about_corporate_information_page, organisation: organisation, summary: "organisation-description")
+    get :index, organisation_id: organisation
+    assert_select ".description", text: "organisation-description"
+  end
+
+  view_test "should show links to the alternate languages for a translated organisation" do
+    organisation = create(:organisation, translated_into: [:fr])
+    create(:about_corporate_information_page, organisation: organisation, summary: "organisation-description")
+    get :index, organisation_id: organisation
+    expected_url = organisation_corporate_information_pages_path(organisation, locale: :fr)
+    assert_select ".available-languages a[href='#{expected_url}']", text: Locale.new(:fr).native_language_name
+  end
+
+  view_test "should display published corporate publications on about-us page" do
+    published_corporate_publication = create(:published_corporate_publication)
+    draft_corporate_publication = create(:draft_corporate_publication)
+
+    organisation = create(:organisation, editions: [
+      published_corporate_publication,
+      draft_corporate_publication
+    ])
+
+    get :index, organisation_id: organisation
+
+    assert_select_object(published_corporate_publication)
+    refute_select_object(draft_corporate_publication)
+  end
+
+  test "should display published corporate publications on about-us page in order published" do
+    old_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-01'))
+    new_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-03'))
+    middle_published_corporate_publication = create(:published_corporate_publication, first_published_at: Date.parse('2012-01-02'))
+
+    organisation = create(:organisation, editions: [
+      old_published_corporate_publication,
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+    ])
+
+    get :index, organisation_id: organisation
+
+    assert_equal [
+      new_published_corporate_publication,
+      middle_published_corporate_publication,
+      old_published_corporate_publication
+    ], assigns(:corporate_publications)
+  end
+
+  view_test "should display link to corporate information pages on about-us page" do
+    organisation = create(:organisation)
+    corporate_information_page = create(:published_corporate_information_page, organisation: organisation)
+    draft_corporate_information_page = create(:corporate_information_page, organisation: organisation, corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
+    get :index, organisation_id: organisation
+    assert_select "a[href='#{organisation_corporate_information_page_path(organisation, corporate_information_page.slug)}']"
+    refute_select "a[href='#{organisation_corporate_information_page_path(organisation, draft_corporate_information_page.slug)}']"
+  end
+
+  view_test "should not display corporate information section on about-us page if there are no corporate publications" do
+    organisation = create(:organisation)
+    get :index, organisation_id: organisation
+    refute_select "#corporate-information"
+  end
+
 end

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class OrganisationTest < ActiveSupport::TestCase
-  should_protect_against_xss_and_content_attacks_on :name, :about_us, :description
+  should_protect_against_xss_and_content_attacks_on :name
 
   test 'should be invalid without a name' do
     organisation = build(:organisation, name: nil)
@@ -350,10 +350,15 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test 'should return search index data for all organisations' do
-    create(:organisation, name: 'Department for Culture and Sports', description: 'Sporty.', govuk_status: 'closed', govuk_closed_status: 'no_longer_exists')
-    create(:organisation, name: 'Department of Education', description: 'Bookish.')
-    create(:organisation, name: 'HMRC', description: 'Taxing.', acronym: 'hmrc')
-    create(:organisation, name: 'Ministry of Defence', description: 'Defensive.', acronym: 'mod')
+    about_type = CorporateInformationPageType.find('about')
+    sport = create(:organisation, name: 'Department for Culture and Sports', govuk_status: 'closed', govuk_closed_status: 'no_longer_exists')
+    create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Sporty.', organisation: sport)
+    ed = create(:organisation, name: 'Department of Education')
+    create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Bookish.', organisation: ed)
+    hmrc = create(:organisation, name: 'HMRC', acronym: 'hmrc')
+    create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Taxing.', organisation: hmrc)
+    mod = create(:organisation, name: 'Ministry of Defence', acronym: 'mod')
+    create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Defensive.', organisation: mod)
 
     results = Organisation.search_index.to_a
 
@@ -361,14 +366,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal({'title' => 'Department for Culture and Sports',
                   'link' => '/government/organisations/department-for-culture-and-sports',
                   'slug' => 'department-for-culture-and-sports',
-                  'indexable_content' => 'Sporty.',
+                  'indexable_content' => 'Sporty. Some stuff',
                   'format' => 'organisation',
                   'description' => 'Sporty.',
                   'organisation_state' => 'closed'}, results[0])
     assert_equal({'title' => 'Department of Education',
                   'link' => '/government/organisations/department-of-education',
                   'slug' => 'department-of-education',
-                  'indexable_content' => 'Bookish.',
+                  'indexable_content' => 'Bookish. Some stuff',
                   'format' => 'organisation',
                   'description' => 'Bookish.',
                   'organisation_state' => 'live'}, results[1])
@@ -376,7 +381,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'acronym' => 'hmrc',
                   'link' => '/government/organisations/hmrc',
                   'slug' => 'hmrc',
-                  'indexable_content' => 'Taxing.',
+                  'indexable_content' => 'Taxing. Some stuff',
                   'format' => 'organisation',
                   'boost_phrases' => 'hmrc',
                   'description' => 'Taxing.',
@@ -385,7 +390,7 @@ class OrganisationTest < ActiveSupport::TestCase
                   'acronym' => 'mod',
                   'link' => '/government/organisations/ministry-of-defence',
                   'slug' => 'ministry-of-defence',
-                  'indexable_content' => 'Defensive.',
+                  'indexable_content' => 'Defensive. Some stuff',
                   'format' => 'organisation',
                   'boost_phrases' => 'mod',
                   'description' => 'Defensive.',
@@ -729,7 +734,4 @@ class OrganisationTest < ActiveSupport::TestCase
     org_without_announcement = create(:organisation)
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
-
-  should_not_accept_footnotes_in(:description)
-  should_not_accept_footnotes_in(:about_us)
 end

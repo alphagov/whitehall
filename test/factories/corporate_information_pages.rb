@@ -10,4 +10,8 @@ FactoryGirl.define do
   end
 
   factory :published_corporate_information_page, parent: :corporate_information_page, traits: [:published]
+
+  factory :about_corporate_information_page, parent: :published_corporate_information_page do
+    corporate_information_page_type_id CorporateInformationPageType::AboutUs.id
+  end
 end

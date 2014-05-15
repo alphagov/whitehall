@@ -8,7 +8,6 @@ Feature: Administering worldwide organisation
 
   * Each world organisation has:
     * a unique name e.g. "British Embassy in Madrid" and a URL "/world/offices/british-embassy-in-madrid" which is generated from the name
-    * a text short summary and markdown long description.
     * multiple social media links (like orgs)
     * multiple sets of office information (like orgs)
       * with the addition of a list of services (chosen from a set) that the office provides
@@ -21,7 +20,7 @@ Feature: Administering worldwide organisation
 
   Scenario: Creating worldwide organisation
     Given the organisation "Department of Beards" exists
-    When I create a worldwide organisation "Department of Beards in France" sponsored by the "Department of Beards" with a summary, description and services
+    When I create a worldwide organisation "Department of Beards in France" sponsored by the "Department of Beards"
     Then I should see the worldwide organisation information on the public website
     And the "Department of Beards in France" logo should show correctly with the HMG crest
     And I should see that it is part of the "Department of Beards"
@@ -90,27 +89,15 @@ Feature: Administering worldwide organisation
     When I add a new translation to the worldwide organisation "Department of Beards in France" with:
       | locale      | Français                                          |
       | name        | Département des barbes en France                  |
-      | summary     | Nous nous occupons de la pilosité faciale du pays |
-      | description | Barbes, moustaches, même rouflaquettes            |
-      | services    | Montante, pommades, humide rase                   |
     Then when viewing the worldwide organisation "Department of Beards in France" with the locale "Français" I should see:
       | name        | Département des barbes en France                  |
-      | summary     | Nous nous occupons de la pilosité faciale du pays |
-      | description | Barbes, moustaches, même rouflaquettes            |
-      | services    | Montante, pommades, humide rase                   |
 
   Scenario: Editing an existing translation
     Given a worldwide organisation "Department of Beards in France" exists with a translation for the locale "Français"
     When I edit the "Français" translation for the worldwide organisation "Department of Beards in France" setting:
       | name        | Le super département des barbes en France         |
-      | summary     | Nous nous occupons de la pilosité faciale du pays |
-      | description | Barbes, moustaches, même rouflaquettes            |
-      | services    | Montante, pommades, humide rase                   |
     Then when viewing the worldwide organisation "Department of Beards in France" with the locale "Français" I should see:
       | name        | Le super département des barbes en France         |
-      | summary     | Nous nous occupons de la pilosité faciale du pays |
-      | description | Barbes, moustaches, même rouflaquettes            |
-      | services    | Montante, pommades, humide rase                   |
 
   Scenario: Translating a corporate information page for a worldwide organisation
     Given a worldwide organisation "Department of Beards in France"

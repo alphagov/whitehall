@@ -1,10 +1,7 @@
-When /^I create a worldwide organisation "([^"]*)" sponsored by the "([^"]*)" with a summary, description and services$/ do |name, sponsoring_organisation|
+When /^I create a worldwide organisation "([^"]*)" sponsored by the "([^"]*)"$/ do |name, sponsoring_organisation|
   visit new_admin_worldwide_organisation_path
   fill_in "Name", with: name
   fill_in "Logo formatted name", with: name
-  fill_in "Summary", with: "Worldwide organisation summary"
-  fill_in "Description", with: "Worldwide **organisation** description"
-  fill_in "Services", with: "## Passport renewals\n\nYou can renew your passport"
   select sponsoring_organisation, from: "Sponsoring organisations"
   click_on "Save"
 end
@@ -13,8 +10,6 @@ When /^I create a new worldwide organisation "([^"]*)" in "([^"]*)"$/ do |name, 
   visit new_admin_worldwide_organisation_path
   fill_in "Name", with: name
   fill_in "Logo formatted name", with: name
-  fill_in "Summary", with: "Worldwide organisation summary"
-  fill_in "Description", with: "Worldwide **organisation** description"
   select location, from: "World location"
   click_on "Save"
 end
@@ -23,19 +18,15 @@ When /^I create a new worldwide organisation "([^"]*)" in  "([^"]*)" sponsored b
   visit new_admin_worldwide_organisation_path
   fill_in "Name", with: name
   fill_in "Logo formatted name", with: name
-  fill_in "Summary", with: "Worldwide organisation summary"
-  fill_in "Description", with: "Worldwide **organisation** description"
   select location, from: "World location"
   select sponsoring_organisation, from: "Sponsoring organisations"
   click_on "Save"
 end
 
-
 Then /^I should see the(?: updated)? worldwide organisation information on the public website$/ do
   worldwide_organisation = WorldwideOrganisation.last
   visit worldwide_organisation_path(worldwide_organisation)
-  assert page.has_css?(".description strong", text: "organisation")
-  assert page.has_css?("#our-services h2", text: 'Passport renewals')
+  assert page.has_title?(worldwide_organisation.name)
 end
 
 Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|

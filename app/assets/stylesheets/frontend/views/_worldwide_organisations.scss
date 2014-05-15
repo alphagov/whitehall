@@ -1,5 +1,5 @@
 .worldwide-organisations-show {
-  .keyline-header {
+  .keyline-header, .description h1 {
     @include heading-36;
     border-bottom: $gutter-one-sixth solid $inside-gov-nav;
     margin-bottom: $gutter-two-thirds;

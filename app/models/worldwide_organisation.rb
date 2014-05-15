@@ -12,7 +12,6 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
   has_many :edition_worldwide_organisations, dependent: :destroy
-  has_many :corporate_information_pages, dependent: :destroy, through: :edition_worldwide_organisations, source: :edition, class_name: "CorporateInformationPage"
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
@@ -20,17 +19,18 @@ class WorldwideOrganisation < ActiveRecord::Base
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
 
+  include HasCorporateInformationPages
+
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WO'
 
   include TranslatableModel
-  translates :name, :summary, :description, :services
+  translates :name
 
   alias_method :original_main_office, :main_office
 
   validates_with SafeHtmlValidator
-  validates_with NoFootnotesInGovspeakValidator, attributes: [:description, :services]
-  validates :name, :summary, :description, presence: true
+  validates :name, presence: true
 
   extend FriendlyId
   friendly_id
@@ -96,11 +96,4 @@ class WorldwideOrganisation < ActiveRecord::Base
     roles.where(type: WorldwideOfficeStaffRole.name)
   end
 
-  def unused_corporate_information_page_types
-    CorporateInformationPageType.all - corporate_information_pages.map(&:corporate_information_page_type)
-  end
-
-  def build_corporate_information_page(params)
-    CorporateInformationPage.new(params.merge({worldwide_organisation: self}))
-  end
 end

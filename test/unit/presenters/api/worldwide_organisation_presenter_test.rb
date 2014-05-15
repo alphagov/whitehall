@@ -11,6 +11,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @world_org = stub_translatable_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
                                                       offices: [@office],
                                                       access_and_opening_times: @access_times)
+    @world_org.stubs(:summary).returns('summary')
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
     stubs_helper_method(:params).returns(format: :json)
     stubs_helper_method(:govspeak_to_html).returns('govspoken')
@@ -62,28 +63,6 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal 'world-org-slug', @presenter.as_json[:details][:slug]
   end
 
-  test "json includes summary in details hash" do
-    @world_org.stubs(:summary).returns('world-org-summary')
-    assert_equal 'world-org-summary', @presenter.as_json[:details][:summary]
-  end
-
-  test "json includes govspoken description in details hash" do
-    @world_org.stubs(:description).returns('world-org-description')
-    stubs_helper_method(:govspeak_to_html).with('world-org-description').returns('govspoken-world-org-description')
-    assert_equal 'govspoken-world-org-description', @presenter.as_json[:details][:description]
-  end
-
-  test "json includes govspoken services in details hash" do
-    @world_org.stubs(:services).returns('world-org-services')
-    stubs_helper_method(:govspeak_to_html).with('world-org-services').returns('govspoken-world-org-services')
-    assert_equal 'govspoken-world-org-services', @presenter.as_json[:details][:services]
-  end
-
-  test "json includes empty string for services if they are missing" do
-    @world_org.stubs(:services).returns(nil)
-    assert_equal '', @presenter.as_json[:details][:services]
-  end
-
   test "json includes public world organisations url as web_url" do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     assert_equal worldwide_organisation_url(@world_org, host: 'govuk.example.com'), @presenter.as_json[:web_url]
@@ -114,7 +93,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     assert_equal worldwide_organisation_worldwide_office_url(@world_org, @office, host: 'govuk.example.com'), @presenter.as_json[:offices][:main][:web_url]
   end
 
-  test 'json includes office contact comments in offices as decscription' do
+  test 'json includes office contact comments in offices as description' do
     @office.contact.stubs(:comments).returns('office-comments')
     assert_equal 'office-comments', @presenter.as_json[:offices][:main][:details][:description]
   end
