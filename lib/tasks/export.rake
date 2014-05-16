@@ -12,16 +12,14 @@ namespace :export do
 
   desc "Export mappings (for eg the Transition app to consume)"
   task :mappings => :environment do
-    ENV['FACTER_govuk_platform'] ||= "production"
-
     # Read off the MySQL slave - we want performance here and
     # non-contention as this job runs for up to 45 minutes.
-    if ENV['FACTER_govuk_platform'] == 'production'
+    if Rails.env.production?
       mysql_slave_config = ActiveRecord::Base.configurations['production_slave']
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::Mappings.new(ENV['FACTER_govuk_platform'])
+    exporter = Whitehall::Exporters::Mappings.new(Rails.env)
 
     filename = 'public/government/mappings.csv'
     temporary_filename = filename + '.new'
@@ -40,16 +38,15 @@ namespace :export do
     # XXX: Do not remove/refactor this without discussing with the
     # transition team. This is required to generate redirections from
     # old government sites to GOV.UK.
-    ENV['FACTER_govuk_platform'] ||= "production"
 
     # Read off the MySQL slave - we want performance here and
     # non-contention as this job runs for up to 45 minutes.
-    if ENV['FACTER_govuk_platform'] == 'production'
+    if Rails.env.production?
       mysql_slave_config = ActiveRecord::Base.configurations['production_slave']
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new(ENV['FACTER_govuk_platform'])
+    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new(Rails.env)
 
     CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_document_mappings.csv'), 'wb') do |csv_out|
       exporter.export(csv_out)

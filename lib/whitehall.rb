@@ -32,6 +32,7 @@ module Whitehall
   class NoConfigurationError < StandardError; end
 
   PUBLIC_HOSTS = {
+    'whitehall.test.alphagov.co.uk'       => 'www.test.alphagov.co.uk',
     'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
     'whitehall.production.alphagov.co.uk' => 'www.gov.uk',
     'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',

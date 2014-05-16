@@ -5,7 +5,6 @@ module Whitehall
   class MappingsTest < ActiveSupport::TestCase
     setup do
       @exporter = Whitehall::Exporters::Mappings.new('test')
-      ENV['FACTER_govuk_platform'] = 'preview'
     end
 
     def arrays_to_csv(arrays)
@@ -60,7 +59,7 @@ module Whitehall
       source = create(:document_source, document: publication.document, url: 'http://oldurl')
 
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
       EOT
     end
 
@@ -71,7 +70,7 @@ module Whitehall
       draft = create(:draft_publication, document: document)
 
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl,https://www.preview.alphagov.co.uk/government/publications/#{published.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{published.id},published
+        http://oldurl,https://www.test.alphagov.co.uk/government/publications/#{published.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{published.id},published
       EOT
     end
 
@@ -85,7 +84,7 @@ module Whitehall
       }
       publications.each do |state, publication|
         assert_csv_contains <<-EOT.strip_heredoc
-          http://oldurl/#{state},https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},#{state}
+          http://oldurl/#{state},https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},#{state}
         EOT
       end
     end
@@ -93,7 +92,7 @@ module Whitehall
     test "excludes deleted documents" do
       # Rationale: this thing should never have been published
       publication = publication_with_source(:deleted)
-      assert_csv_does_not_contain "https://www.preview.alphagov.co.uk/government/publications/#{publication.slug}"
+      assert_csv_does_not_contain "https://www.test.alphagov.co.uk/government/publications/#{publication.slug}"
     end
 
     test "includes archived documents" do
@@ -101,7 +100,7 @@ module Whitehall
       # published and then removed
       publication = publication_with_source(:archived)
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl/archived,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},archived
+        http://oldurl/archived,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},archived
       EOT
     end
 
@@ -110,7 +109,7 @@ module Whitehall
       # to see that there is something being worked on relating to this Old URL
       publication = publication_with_source(:access_limited)
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl/access_limited,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},draft
+        http://oldurl/access_limited,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},draft
       EOT
     end
 
@@ -126,8 +125,8 @@ module Whitehall
       source1 = create(:document_source, document: publication.document, url: 'http://oldurl1')
       source2 = create(:document_source, document: publication.document, url: 'http://oldurl2')
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl1,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
-        http://oldurl2,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl1,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl2,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
       EOT
     end
 
@@ -140,7 +139,7 @@ module Whitehall
       assert_csv_does_not_contain 'oldurl1'
       assert_csv_does_not_contain 'oldurl2'
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl3,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl3,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
       EOT
     end
 
@@ -148,7 +147,7 @@ module Whitehall
       attachment = create(:csv_attachment)
       attachment_source = create(:attachment_source, url: 'http://oldurl', attachment: attachment)
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl,https://www.preview.alphagov.co.uk#{attachment.url},"",published
+        http://oldurl,https://www.test.alphagov.co.uk#{attachment.url},"",published
       EOT
     end
 
@@ -161,7 +160,7 @@ module Whitehall
       assert_csv_does_not_contain 'oldurl1'
       assert_csv_does_not_contain 'oldurl2'
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl3,https://www.preview.alphagov.co.uk#{attachment.url},"",published
+        http://oldurl3,https://www.test.alphagov.co.uk#{attachment.url},"",published
       EOT
     end
 
@@ -170,7 +169,7 @@ module Whitehall
       attachment = create(:csv_attachment, attachable: edition)
       attachment_source = create(:attachment_source, attachment: attachment)
       assert_csv_contains <<-EOT.strip_heredoc
-        #{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment.url},"",draft
+        #{attachment_source.url},https://www.test.alphagov.co.uk#{attachment.url},"",draft
       EOT
      end
 
@@ -180,8 +179,8 @@ module Whitehall
       localised_source = create(:document_source, document: publication.document, url: 'http://oldurl/foo.es', locale: 'es')
 
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl/foo,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
-        http://oldurl/foo.es,https://www.preview.alphagov.co.uk/government/publications/#{publication.slug}.es,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl/foo,https://www.test.alphagov.co.uk/government/publications/#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        http://oldurl/foo.es,https://www.test.alphagov.co.uk/government/publications/#{publication.slug}.es,https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
       EOT
     end
 
