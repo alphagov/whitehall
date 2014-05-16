@@ -8,9 +8,8 @@
 require 'csv'
 require 'ostruct'
 
-admin_host = "whitehall-admin.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk"
-host_name = (ENV['FACTER_govuk_platform'] == 'production' ? 'www.gov.uk' : 'www.preview.alphagov.co.uk')
-protocol = (ENV['FACTER_govuk_platform'] == 'development' ? 'http': 'https')
+admin_host = "whitehall-admin.#{ENV['GOVUK_APP_DOMAIN']}"
+protocol = (Rails.env.development? ? 'http': 'https')
 
 def url_maker
   @url_maker ||= Whitehall::UrlMaker.new

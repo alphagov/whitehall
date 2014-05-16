@@ -62,7 +62,7 @@ private
   end
 
   def public_host
-    Whitehall.public_host_for("whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
+    Whitehall.public_host_for("whitehall.#{platform}.alphagov.co.uk")
   end
 
   def admin_host

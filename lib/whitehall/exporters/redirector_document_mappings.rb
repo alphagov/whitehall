@@ -16,7 +16,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
   end
 
   def public_host
-    Whitehall.public_host_for("whitehall.#{ENV['FACTER_govuk_platform']}.alphagov.co.uk")
+    Whitehall.public_host_for("whitehall.#{platform}.alphagov.co.uk")
   end
 
   def admin_host
@@ -24,7 +24,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
   end
 
   def host_name
-    platform == 'production' ? 'www.gov.uk' : 'www.preview.alphagov.co.uk'
+    platform == 'production' ? 'www.gov.uk' : "www.#{platform}.alphagov.co.uk"
   end
 
   def edition_values(edition, document, document_source=nil)

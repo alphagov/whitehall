@@ -5,7 +5,6 @@ module Whitehall
   class RedirectorDocumentMappingsTest < ActiveSupport::TestCase
     setup do
       @exporter = Whitehall::Exporters::RedirectorDocumentMappings.new('test')
-      ENV['FACTER_govuk_platform'] = 'preview'
     end
 
     def arrays_to_csv(arrays)
@@ -34,9 +33,9 @@ module Whitehall
       organisation = publication.organisations.first
       assert_extraction <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
-"",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
+"",https://www.test.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+"",https://www.test.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug},""
+"",https://www.test.alphagov.co.uk/government/organisations/#{organisation.slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{organisation.slug}/edit,""
       EOT
     end
 
@@ -45,7 +44,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       source = create(:document_source, document: article.document)
 
       assert_extraction_contains <<-EOT
-#{source.url},https://www.preview.alphagov.co.uk/government/consultations/consultation-title,301,consultation-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/consultations/#{article.id},published
+#{source.url},https://www.test.alphagov.co.uk/government/consultations/consultation-title,301,consultation-title,https://whitehall-admin.test.alphagov.co.uk/government/admin/consultations/#{article.id},published
       EOT
     end
 
@@ -54,9 +53,9 @@ Old Url,New Url,Status,Slug,Admin Url,State
       org_slug = corporate_information_page.organisation.slug
       assert_extraction <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
-"",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug}/about/#{corporate_information_page.slug},418,#{corporate_information_page.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/corporate_information_pages/#{corporate_information_page.id},draft
-"",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug},""
-"",https://www.preview.alphagov.co.uk/government/organisations/#{org_slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/edit,""
+"",https://www.test.alphagov.co.uk/government/organisations/#{org_slug}/about/#{corporate_information_page.slug},418,#{corporate_information_page.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/corporate_information_pages/#{corporate_information_page.id},draft
+"",https://www.test.alphagov.co.uk/government/organisations/#{org_slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug},""
+"",https://www.test.alphagov.co.uk/government/organisations/#{org_slug},"","",https://whitehall-admin.test.alphagov.co.uk/government/admin/organisations/#{org_slug}/edit,""
       EOT
     end
 
@@ -86,8 +85,8 @@ Old Url,New Url,Status,Slug,Admin Url,State
       publication = create(:published_publication)
       new_draft = publication.create_draft(create(:gds_editor))
       assert_extraction_contains <<-EOF.strip_heredoc
-        "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
-        "",https://www.preview.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{new_draft.id},draft
+        "",https://www.test.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},published
+        "",https://www.test.alphagov.co.uk/government/publications/#{publication.slug},301,#{publication.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{new_draft.id},draft
       EOF
     end
 
@@ -100,7 +99,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       publication.save!
       refute_equal old_slug, publication.document.slug
       assert_extraction_contains <<-EOF.strip_heredoc
-        "",https://www.preview.alphagov.co.uk/government/publications/#{unpublishing.slug},301,#{unpublishing.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},draft
+        "",https://www.test.alphagov.co.uk/government/publications/#{unpublishing.slug},301,#{unpublishing.slug},https://whitehall-admin.test.alphagov.co.uk/government/admin/publications/#{publication.id},draft
       EOF
     end
 
@@ -131,7 +130,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       attachment_source = create(:attachment_source)
       assert_extraction_contains <<-EOT
 Old Url,New Url,Status,Slug,Admin Url,State
-#{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment_source.attachment.url},301,"","",published
+#{attachment_source.url},https://www.test.alphagov.co.uk#{attachment_source.attachment.url},301,"","",published
       EOT
     end
 
@@ -147,14 +146,14 @@ Old Url,New Url,Status,Slug,Admin Url,State
       attachment = create(:csv_attachment, attachable: edition)
       attachment_source = create(:attachment_source, attachment: attachment)
       assert_extraction_contains <<-EOT
-#{attachment_source.url},https://www.preview.alphagov.co.uk#{attachment.url},301,"","",draft
+#{attachment_source.url},https://www.test.alphagov.co.uk#{attachment.url},301,"","",draft
       EOT
     end
 
     private
 
     def news_article_url(article)
-      Rails.application.routes.url_helpers.news_article_url(article.slug, host: "www.preview.alphagov.co.uk", protocol: 'https')
+      Rails.application.routes.url_helpers.news_article_url(article.slug, host: "www.test.alphagov.co.uk", protocol: 'https')
     end
 
     def news_article_admin_url(article)
