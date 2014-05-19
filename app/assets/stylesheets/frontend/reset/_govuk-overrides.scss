@@ -13,7 +13,9 @@ body.js-enabled {
   .header-proposition {
     #proposition-name,
     #proposition-links li a.active {
-      color: $inside-gov-secondary;
+      // Lighten $govuk-blue to get sufficient contrast against the header black.
+      // Consider merging header-proposition into template/toolkit, it's used in a few places now.
+      color: lighten($govuk-blue, 15%);
     }
     #proposition-menu {
       @include media(desktop){
@@ -22,14 +24,4 @@ body.js-enabled {
       }
     }
   }
-  form#search input.submit,
-  .search-toggle {
-    background-color: $inside-gov-secondary;
-    &:hover {
-      background-color: lighten($inside-gov-secondary, 5%);
-    }
-  }
-}
-#global-header-bar {
-  display: none;
 }
