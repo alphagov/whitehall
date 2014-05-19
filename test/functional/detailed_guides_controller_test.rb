@@ -28,11 +28,6 @@ class DetailedGuidesControllerTest < ActionController::TestCase
     end
   end
 
-  test "show sets search action to search detailed guides" do
-    get :show, id: create(:published_detailed_guide).document
-    assert_equal 'detailed', response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER]
-  end
-
   view_test "shows link to each section in the document navigation" do
     guide = create(:published_detailed_guide, body: %{
 ## First Section

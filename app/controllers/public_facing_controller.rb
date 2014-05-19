@@ -2,7 +2,6 @@ class PublicFacingController < ApplicationController
   helper :all
 
   before_filter :set_cache_control_headers
-  before_filter :set_search_index
   before_filter :restrict_request_formats
 
   around_filter :set_locale
@@ -58,10 +57,6 @@ class PublicFacingController < ApplicationController
 
   def set_cache_control_headers
     expires_in Whitehall.default_cache_max_age, public: true
-  end
-
-  def set_search_index
-    response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER] = 'government'
   end
 
   def restrict_request_formats

@@ -1,6 +1,5 @@
 class DetailedGuidesController < DocumentsController
   skip_before_filter :set_search_path
-  before_filter :set_search_index
   before_filter :set_breadcrumb_trail, only: [:show]
   before_filter :set_expiry, only: [:show]
   before_filter :set_analytics_format, only: [:show]
@@ -18,10 +17,6 @@ private
 
   def analytics_format
     :detailed_guidance
-  end
-
-  def set_search_index
-    response.headers[Slimmer::Headers::SEARCH_INDEX_HEADER] = 'detailed'
   end
 
   def set_slimmer_proposition
