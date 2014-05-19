@@ -19,6 +19,5 @@ end
 
 Then(/^I should see the specialist sub\-sector and its parent sector$/) do
   check_for_primary_sector_in_heading
-  check_for_primary_subsector_in_title(@document.title)
   check_for_sectors_and_subsectors_in_metadata
 end
