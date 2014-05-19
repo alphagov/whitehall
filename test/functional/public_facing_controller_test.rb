@@ -66,13 +66,6 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  test "all public facing requests should use the inside government search" do
-    with_routing_to_test_action do
-      get :test
-      assert_equal 'government', response.headers["X-Slimmer-Search-Index"]
-    end
-  end
-
   test "HTML requests are allowed by default" do
     mime_types = ["text/html", "application/xhtml+xml"]
 
