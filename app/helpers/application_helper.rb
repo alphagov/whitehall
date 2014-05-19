@@ -17,10 +17,6 @@ module ApplicationHelper
     content_for(:page_class, css_class)
   end
 
-  def bar_colour_class(css_class)
-    content_for(:bar_colour_class, css_class)
-  end
-
   def atom_discovery_link_tag(url = nil, title = nil)
     @atom_discovery_link_url = url if url.present?
     @atom_discovery_link_title = title if title.present?

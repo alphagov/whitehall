@@ -1,5 +1,5 @@
 <%= render :layout => 'layouts/frontend_base' do %>
-  <nav id="proposition-menu">
+  <nav id="proposition-menu" class="no-proposition-name">
     <ul id="proposition-links">
       <li><%= main_navigation_link_to "Departments", organisations_path %></li>
       <li><%= main_navigation_link_to "Topics", topics_path %></li>
@@ -13,7 +13,6 @@
       <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
     </ul>
   </nav>
-  <div class="whitehall-top-bar<%= content_for?(:bar_colour_class) ? " #{yield(:bar_colour_class)}" : '' %>"></div>
   <main id="content" role="main" class="whitehall-content">
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>

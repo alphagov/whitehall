@@ -7,25 +7,10 @@
   padding-bottom: $gutter;
   background: transparent;
   color: $text-colour;
-  border-bottom: $gutter-one-third solid $inside-gov-secondary;
+  border-bottom: $gutter-one-third solid $govuk-blue;
 
   @include media(desktop) {
     padding-bottom: $gutter*2;
-  }
-
-  .whitehall-top-bar {
-    border-top: $gutter-one-third solid $inside-gov-secondary;
-    max-width: $max-site-width;
-    margin: 0 $gutter-half;
-
-    @include media(tablet){
-      margin: 0 $gutter;
-    }
-    @include media($min-width: $max-site-width + $gutter*2){
-      margin: 0 auto;
-    }
-    &.prime-ministers-office-10-downing-street { border-color: $black; }
-    &.deputy-prime-ministers-office { border-color: $white; }
   }
 
   .whitehall-content {
