@@ -154,4 +154,8 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'can administer the get_involved_section' do
     assert enforcer_for(gds_editor, :get_involved_section).can?(:administer)
   end
+
+  test 'cannot administer the sitewide_settings section' do
+    assert enforcer_for(gds_editor, :sitewide_settings_section).can?(:administer)
+  end
 end

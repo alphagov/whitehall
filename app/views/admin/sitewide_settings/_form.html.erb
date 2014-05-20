@@ -1,0 +1,11 @@
+<p class="warning">Warning: changes to sitewide settings appear instantly on the live site.</p>
+<p><%= govspeak_to_html sitewide_setting.description%></p>
+<%= form_for [:admin, sitewide_setting], as: :sitewide_setting do |form| %>
+  <%= form.errors %>
+  <fieldset>
+    <p><%= form.check_box :on%></p>
+    <p><%= form.text_area :govspeak, rows: "8"%></p>
+    <p>Please check this is valid govspeak. </p>
+  </fieldset>
+  <%= form.save_or_cancel(cancel: admin_sitewide_settings_path) %>
+<% end %>

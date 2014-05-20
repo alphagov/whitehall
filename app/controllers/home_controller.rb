@@ -9,10 +9,8 @@ class HomeController < PublicFacingController
   end
 
   def how_government_works
-    # This is a hook for whoever develops the Whitehall Admin feature flag control, consider these the requirements
-    # @is_during_reshuffle hides the ministers section, as the count will be inaccurate during the reshuffle
-    @is_during_reshuffle = true
-
+    sitewide_setting = load_reshuffle_setting
+    @is_during_reshuffle = sitewide_setting.on if sitewide_setting
     @policy_count = Policy.published.count
     @non_ministerial_department_count = Organisation.non_ministerial_departments.count
     sorter = MinisterSorter.new

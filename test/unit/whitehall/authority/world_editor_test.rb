@@ -194,4 +194,9 @@ class WorldEditorTest < ActiveSupport::TestCase
 
     refute enforcer_for(user, edition).can?(:unpublish)
   end
+
+  test 'cannot administer the sitewide_settings' do
+    user = world_editor(['hat land', 'tie land'])
+    refute enforcer_for(user, :sitewide_settings_section).can?(:administer)
+  end
 end

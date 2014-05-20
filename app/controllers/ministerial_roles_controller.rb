@@ -6,12 +6,11 @@ class MinisterialRolesController < PublicFacingController
   def index
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)
-
-    # This is a hook for whoever develops the Whitehall Admin feature flag control, consider these the requirements
-    # (obviously, this should not be merged as is)
-    # @is_during_reshuffle turns on the banner, and @reshuffle_messaging is govspeak to be displayed (set via Admin)
-    @is_during_reshuffle = true
-    @reshuffle_messaging = "Some ministerial roles and responsibilities [http://example.com](changing at the moment) so the information here may change"
+    reshuffle_setting = load_reshuffle_setting
+    if reshuffle_setting
+      @is_during_reshuffle = reshuffle_setting.on
+      @reshuffle_messaging = reshuffle_setting.govspeak
+    end
 
     cabinet_roles = MinisterSorter.new(Role.with_translations.includes(:current_people)).also_attends_cabinet
     @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)

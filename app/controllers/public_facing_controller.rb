@@ -100,4 +100,8 @@ class PublicFacingController < ApplicationController
     latest = latest.limit(options[:count]) if options[:count]
     latest.empty? ? [] : decorate_collection(latest, latest.first.presenter)
   end
+
+  def load_reshuffle_setting
+    SitewideSetting.find_by_key(:minister_reshuffle_mode)
+  end
 end
