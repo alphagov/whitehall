@@ -176,7 +176,7 @@ end
 When(/^I feature one of the policies on the topic$/) do
   @policy = @topic.published_policies.last
   visit admin_topic_path(@topic)
-  click_on 'Featured documents'
+  click_on 'Features'
 
   within record_css_selector(@policy) do
     click_link "Feature"
@@ -188,7 +188,7 @@ end
 
 When(/^I feature an offsite page on the topic$/) do
   visit admin_topic_path(@topic)
-  click_on 'Featured documents'
+  click_on 'Features'
   click_on 'Feature an offsite URL'
 
   attach_file "Select an image to be shown when featuring", jpg_image
