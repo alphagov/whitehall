@@ -10,8 +10,9 @@
   <div class="span12 organisation-details">
     <section>
       <%= tab_navigation_for(@organisation) do %>
-        <%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
-      <% end %>
+	<%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
+	<%= link_to "Create an offsite link", new_admin_organisation_offsite_link_path(@organisation), class: "btn" %>
+    <% end %>
     </section>
   </div>
 </div>

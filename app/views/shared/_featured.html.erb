@@ -17,9 +17,13 @@
     </span>
     <div class="text">
       <% if show_meta %>
-        <p class="meta"><%= absolute_date(feature.time_stamp) %>
-        <% unless feature.topical_event %>
-          &mdash; <%= t_display_type feature %>
+	<p class="meta">
+	<% if feature.topical_event %>
+	  <%= absolute_date(feature.time_stamp) %>
+	<% elsif feature.offsite_link %>
+	  <%= t_display_type feature %>
+	<% else %>
+	  <%= absolute_date(feature.time_stamp) %> &mdash; <%= t_display_type feature %>
         <% end %>
         </p>
       <% end %>

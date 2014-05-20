@@ -25,6 +25,10 @@ class FeaturePresenter < Struct.new(:feature)
     feature.topical_event
   end
 
+  def offsite_link
+    feature.offsite_link
+  end
+
   def image(size)
     feature.image.url(size || :s630)
   end
@@ -34,16 +38,26 @@ class FeaturePresenter < Struct.new(:feature)
   end
 
   def time_stamp
-    feature.document ? edition.public_timestamp : topical_event.start_date
+    if feature.document
+      edition.public_timestamp
+    elsif topical_event
+      topical_event.start_date
+    end
   end
 
   def display_type_key
-    edition.display_type_key
+    if offsite_link
+      offsite_link.link_type
+    else
+      edition.display_type_key
+    end
   end
 
   def public_path
     if topical_event
       Whitehall.url_maker.topical_event_path(topical_event)
+    elsif offsite_link
+      offsite_link.url
     else
       if edition.translatable?
         Whitehall.url_maker.public_document_path(edition, locale: feature.locale)
@@ -58,6 +72,8 @@ class FeaturePresenter < Struct.new(:feature)
   def title
     if topical_event
       topical_event.name
+    elsif offsite_link
+      offsite_link.title
     else
       edition.title
     end
@@ -66,6 +82,8 @@ class FeaturePresenter < Struct.new(:feature)
   def summary
     if topical_event
       topical_event.description
+    elsif offsite_link
+      offsite_link.summary
     else
       edition.summary
     end

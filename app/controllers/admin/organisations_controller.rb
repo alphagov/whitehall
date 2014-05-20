@@ -46,6 +46,7 @@ class Admin::OrganisationsController < Admin::BaseController
       merge(state: 'published')
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active.all
+    @featurable_offsite_links = @organisation.offsite_links
 
     if request.xhr?
       render partial: 'admin/feature_lists/search_results', locals: {feature_list: @feature_list}

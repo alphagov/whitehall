@@ -261,3 +261,33 @@ fieldset.fatality-notice-casualties {
     margin-top: $gutter-two-thirds;
   }
 }
+
+.feature-list {
+  padding:12px;
+  vertical-align:middle;
+  label {
+    div {
+      float:left;
+    }
+    div:nth-of-type(1)
+    {
+      width:2%;
+    }
+    div:nth-of-type(2)
+    {
+      width:50%;
+    }
+    div:nth-of-type(3)
+    {
+      width:20%;
+    }
+    div:nth-of-type(4)
+    {
+      width:15%;
+    }
+    div:nth-of-type(5)
+    {
+      float:right;
+    }
+  }
+}

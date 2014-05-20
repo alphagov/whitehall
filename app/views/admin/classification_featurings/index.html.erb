@@ -1,42 +1,32 @@
 <% page_title "Featured items on " + @classification.name %>
 
 <% content_for :current_tab do %>
+  <h2>Currently featured</h2>
   <p class="warning">Warning: changes to featured content appear instantly on the live site.</p>
-
-  <h2>Featured documents</h2>
-  <p>A maximum of 5 featured documents will be displayed on the live site.</p>
+  <p>A maximum of 5 featured items will be displayed on the live site.</p>
 
   <% if @classification_featurings.many? %>
-
-    <p class="alert alert-info">
-    To change the order of your featured documents, drag them up or down and then click "Save features order".
+    <p>
+      To change the order of your featured documents, drag them up or down and then click "Save features order".
     </p>
 
     <%= form_tag [:order, :admin, @classification, ClassificationFeaturing], method: :put do %>
       <fieldset class="sortable">
-        <% @classification.classification_featurings.each do |classification_featuring| %>
-          <div class="well">
-            <%= label_tag "ordering[#{classification_featuring.id}]", link_to(classification_featuring.edition.title, admin_edition_path(classification_featuring.edition)) %>
-            <%= text_field_tag "ordering[#{classification_featuring.id}]", classification_featuring.ordering, class: "ordering js-hidden" %>
-          </div>
-        <% end %>
+	      <%= render @classification_featurings %>
       </fieldset>
       <%= submit_tag "Save features order", class: "btn" %>
     <% end %>
 
   <% elsif @classification_featurings.any? %>
-
-    <% @classification_featurings.each do |cf| %>
-      <div class="well">
-        <%= link_to(cf.edition.title, admin_edition_path(cf.edition)) %>
-      </div>
-    <% end %>
+    <%= render @classification_featurings %>
 
   <% else %>
-    None
+    <p>Nothing has been featured yet.</p>
+
   <% end %>
 
-  <h2>Published documents</h2>
+  <br/><br/><br/><br/>
+  <h2>Feature new documents</h2>
   <br/>
 
   <div class="row-fluid">
@@ -46,6 +36,20 @@
     <div class="span9" id="search_results">
       <%= render partial: 'admin/classification_featurings/featured_documents' %>
     </div>
+  </div>
+
+  <div class="row-fluid">
+    <br/><br/><br/><br/>
+    <h2>Feature new offsite link</h2>
+    <br/>
+    <% if @featurable_offsite_links.any? %>
+      <div class="row-fluid">
+        <%= render partial: 'admin/classification_featurings/featurable_offsite_links', locals: { classification_featurings: @classification_featurings, featurable_offsite_links: @featurable_offsite_links } %>
+      </div>
+    <% else %>
+      <p>There are currently no offsite links.</p>
+    <% end %>
+    <%= link_to "Create an offsite link", polymorphic_path([:new, :admin, @classification, :offsite_link]), class: "btn" %>
   </div>
 <% end %>
 

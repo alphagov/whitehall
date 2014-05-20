@@ -13,7 +13,7 @@ module Admin::TabbedNavHelper
   def topic_tabs(topic)
     {
       "Details" => url_for([:admin, topic]),
-      "Featured documents" => url_for([:admin, topic, :classification_featurings])
+      "Features" => url_for([:admin, topic, :classification_featurings])
     }
   end
 

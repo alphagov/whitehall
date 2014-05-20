@@ -158,7 +158,7 @@ end
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
-  click_link "Featured documents"
+  click_link "Features"
   locale = Locale.find_by_language_name("English")
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
   fill_in 'title', with: news_article_title.split.first
@@ -481,7 +481,7 @@ end
 When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |topic, organisation_name, image_filename|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
-  click_link "Featured documents"
+  click_link "Features"
   locale = Locale.find_by_language_name("English")
   topical_event = TopicalEvent.find_by_name(topic)
   within record_css_selector(topical_event) do
@@ -550,7 +550,7 @@ end
 
 When(/^I go to the organisation feature page$/) do
   visit admin_organisation_path(@organisation)
-  click_link "Featured documents"
+  click_link "Features"
 end
 
 Then(/^I can filter instantaneously the list of documents by title, author, organisation, and document type$/) do
