@@ -16,6 +16,10 @@ body.js-enabled {
       // Lighten $govuk-blue to get sufficient contrast against the header black.
       // Consider merging header-proposition into template/toolkit, it's used in a few places now.
       color: lighten($govuk-blue, 15%);
+
+      &:focus {
+        color: $black;
+      }
     }
     #proposition-menu {
       @include media(desktop){
