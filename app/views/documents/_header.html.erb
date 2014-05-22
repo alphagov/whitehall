@@ -7,7 +7,7 @@
 %>
 <%= render partial: 'shared/heading',
           locals: { type: add_sector_name(header_title, specialist_tag_finder.primary_sector_tag),
-                    heading: add_subsector_name(document.title, specialist_tag_finder.primary_subsector_tag),
+                    heading: document.title,
                     extra: true } %>
 
 <%= render('documents/archive_notice', document: document, type: document.format_name) if document.archived? %>

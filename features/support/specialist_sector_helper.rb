@@ -52,10 +52,6 @@ module SpecialistSectorHelper
     assert has_content?("Oil and gas - guidance")
   end
 
-  def check_for_primary_subsector_in_title(document_title)
-    assert has_content?("Wells - #{document_title}")
-  end
-
   def check_for_sectors_and_subsectors_in_metadata
     ['Oil and gas', 'Wells', 'Offshore', 'Fields'].each do |sector_name|
       assert has_css?('.document-sectors', text: sector_name)
