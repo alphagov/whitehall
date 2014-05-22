@@ -85,7 +85,7 @@ When /^I feature the document "([^"]*)" for topical event "([^"]*)" with image "
   within record_css_selector(edition) do
     click_link "Feature"
   end
-  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
   fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end

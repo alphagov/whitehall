@@ -165,7 +165,7 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
   within record_css_selector(news_article) do
     click_link "Feature"
   end
-  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
   fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
@@ -487,7 +487,7 @@ When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$
   within record_css_selector(topical_event) do
     click_link "Feature"
   end
-  attach_file "Select an image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
   fill_in :feature_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
