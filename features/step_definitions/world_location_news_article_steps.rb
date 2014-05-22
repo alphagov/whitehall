@@ -80,6 +80,14 @@ Then /^the worldwide organisation "([^"]+)" is listed as a producing org on the 
   end
 end
 
+Then /^the topical event "([^"]+)" is listed as a topical event on the world location news article "([^"]+)"$/ do |topical_event_name, world_news_title|
+  visit document_path(WorldLocationNewsArticle.find_by_title(world_news_title))
+  topical_event = TopicalEvent.find_by_name(topical_event_name)
+  within '.meta' do
+    assert page.has_link?(topical_event.name, href: topical_event_path(topical_event)), "should have a link to #{topical_event.name} as a topical event, but I don't"
+  end
+end
+
 Then /^the world location news article "([^"]+)" appears on the world location "([^"]+)"$/ do |world_news_title, world_location_name|
   visit world_location_path(WorldLocation.find_by_name(world_location_name))
   world_location_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)

@@ -44,6 +44,13 @@ Feature: World location news for people local to countries
     Then I should be able to associate "Spanish News" with the worldwide organisation "Spanish Department"
     When I force publish the world location news article "Spanish News"
     Then the worldwide organisation "Spanish Department" is listed as a producing org on the world location news article "Spanish News"
+    
+  Scenario: Associate a world location news article with a topical event
+    Given the topical event "French Topical Event" exists
+    When I draft a valid world location news article "French News"
+    Then I should be able to associate "French News" with the topical event "French Topical Event"
+    When I force publish the world location news article "French News"
+    Then the topical event "French Topical Event" is listed as a topical event on the world location news article "French News"
 
   @not-quite-as-fake-search
   Scenario: Associate a world location news article with a world location

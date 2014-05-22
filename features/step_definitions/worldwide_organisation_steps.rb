@@ -281,6 +281,12 @@ Then /^I should be able to associate "([^"]*)" with the worldwide organisation "
   click_on "Save"
 end
 
+Then /^I should be able to associate "([^"]*)" with the topical event "([^"]*)"$/ do |edition_title, topical_event_title|
+  begin_editing_document edition_title
+  select topical_event_title, from: "edition_topical_event_ids"
+  click_on "Save"
+end
+
 Given /^two worldwide organisations "([^"]*)" and "([^"]*)"$/ do |org1, org2|
   create(:worldwide_organisation, name: org1)
   create(:worldwide_organisation, name: org2)
