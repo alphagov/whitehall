@@ -89,6 +89,7 @@ module DocumentHelper
       "ics" => file_abbr_tag('ICS', 'iCalendar file'),
       "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
       "jpg"  => "JPEG",
+      "odp"  => file_abbr_tag('ODP', 'OpenDocument Presentation'),
       "ods"  => file_abbr_tag('ODS', 'OpenDocument Spreadsheet'),
       "odt"  => file_abbr_tag('ODT', 'OpenDocument Text document'),
       "pdf"  => file_abbr_tag('PDF', 'Portable Document Format'),
