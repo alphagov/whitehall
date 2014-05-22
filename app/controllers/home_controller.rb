@@ -9,6 +9,8 @@ class HomeController < PublicFacingController
   end
 
   def how_government_works
+    sitewide_setting = load_reshuffle_setting
+    @is_during_reshuffle = sitewide_setting.on if sitewide_setting
     @policy_count = Policy.published.count
     @non_ministerial_department_count = Organisation.non_ministerial_departments.count
     sorter = MinisterSorter.new

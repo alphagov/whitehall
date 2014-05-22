@@ -31,6 +31,17 @@
 
   }
 
+  .status-block {
+    margin: 0 0 $gutter 0;
+    border-color: $inside-gov-brand;
+    min-height: 0;
+
+    p {
+      margin: 0;
+      font-weight: normal;
+    }
+  }
+
   .ministers-by-organisation {
     padding-top: ($gutter*2);
 

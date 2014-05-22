@@ -6,6 +6,11 @@ class MinisterialRolesController < PublicFacingController
   def index
     sorter = MinisterSorter.new
     @cabinet_ministerial_roles = decorated_people_and_their_roles(sorter.cabinet_ministers)
+    reshuffle_setting = load_reshuffle_setting
+    if reshuffle_setting
+      @is_during_reshuffle = reshuffle_setting.on
+      @reshuffle_messaging = reshuffle_setting.govspeak
+    end
 
     cabinet_roles = MinisterSorter.new(Role.with_translations.includes(:current_people)).also_attends_cabinet
     @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)

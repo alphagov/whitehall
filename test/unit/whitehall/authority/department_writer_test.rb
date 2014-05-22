@@ -134,4 +134,8 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   test 'cannot administer the get_involved_section' do
     refute enforcer_for(department_writer, :get_involved_section).can?(:administer)
   end
+
+  test 'cannot administer the sitewide_settings section' do
+    refute enforcer_for(department_writer, :sitewide_settings_section).can?(:administer)
+  end
 end

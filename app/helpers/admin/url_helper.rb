@@ -79,6 +79,12 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_sitewide_settings_link
+    if can?(:administer, :sitewide_settings_section)
+      admin_header_link "Sitewide settings", admin_sitewide_settings_path
+    end
+  end
+
   def admin_header_link(name, path, path_matcher = nil, options = {})
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?

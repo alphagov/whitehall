@@ -353,6 +353,8 @@ Whitehall::Application.routes.draw do
             post :reorder, on: :collection
           end
         end
+
+        resources :sitewide_settings
       end
     end
 
