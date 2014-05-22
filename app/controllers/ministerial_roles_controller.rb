@@ -16,7 +16,6 @@ class MinisterialRolesController < PublicFacingController
     @also_attends_cabinet = decorated_people_and_their_roles(cabinet_roles)
     @ministers_by_organisation = ministers_by_organisation
     @whips_by_organisation = whips_by_organisation
-    @snippet = load_snippet
   end
 
   def show
@@ -54,12 +53,5 @@ private
       roles_presenter.remove_unfilled_roles!
       [Whitehall::WhipOrganisation.find_by_id(whip_organisation_id), roles_presenter]
     end.sort_by { |org, whips| org.sort_order }
-  end
-
-  def load_snippet
-    snippet = Snippet.find_by_key("ministerial-reshuffle")
-    if snippet && snippet.body.present?
-      snippet.body.html_safe
-    end
   end
 end

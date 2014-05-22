@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140520112953) do
+ActiveRecord::Schema.define(:version => 20140522090319) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -996,13 +996,6 @@ ActiveRecord::Schema.define(:version => 20140520112953) do
     t.text     "govspeak"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "snippets", :force => true do |t|
-    t.string   "key"
-    t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "social_media_accounts", :force => true do |t|
