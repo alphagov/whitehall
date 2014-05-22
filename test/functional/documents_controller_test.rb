@@ -105,12 +105,13 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "requests for documents in a locale it is not translated into should respond with a not_found" do
-    edition = create(:draft_publication)
-    force_publish(edition)
+  test "show redirects to english version if requested translation does not exist" do
+    login_as(:departmental_editor)
+    edition = create(:published_publication)
 
-    get :show, id: edition.document, locale: 'fr'
+    get :show, id: edition.document.slug, locale: 'fr'
 
-    assert_response :not_found
+    assert_response :redirect
+    assert_redirected_to document_path(edition, locale: I18n.default_locale)
   end
 end
