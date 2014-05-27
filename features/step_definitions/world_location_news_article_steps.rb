@@ -48,11 +48,11 @@ Then /^I should only see the world location news article on the French version o
 end
 
 Then /^I should only be able to view the world location news article article in French$/ do
-  visit public_document_path(@world_location_news_article, locale: :fr)
+  visit world_location_news_article_path(@world_location_news_article, locale: :fr)
   doc = Document.where(slug: @world_location_news_article.slug).first
   assert page.has_content?(@world_location_news_article.title)
 
-  visit public_document_path(@world_location_news_article, locale: :en)
+  visit world_location_news_article_path(@world_location_news_article, locale: :en)
   assert_equal 404, page.status_code
 end
 
