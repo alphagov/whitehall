@@ -12,6 +12,14 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   should_be_invalid_without(:corporate_information_page, :corporate_information_page_type)
   should_be_invalid_without(:corporate_information_page, :body)
 
+  test 'AboutUs pages do not require a body' do
+    corporate_information_page = build(:corporate_information_page,
+                                        body: '',
+                                        corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+
+    assert corporate_information_page.valid?
+  end
+
   test 'should be invalid if has both organisation and worldwide org' do
     organisation = create(:organisation)
     worldwide_org = create(:worldwide_organisation)

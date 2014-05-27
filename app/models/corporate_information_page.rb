@@ -28,6 +28,10 @@ class CorporateInformationPage < Edition
     self.title = ''
   end
 
+  def body_required?
+    !about_page?
+  end
+
   def search_title
     title_prefix_organisation_name
   end
