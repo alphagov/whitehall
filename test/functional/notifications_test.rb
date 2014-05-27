@@ -116,5 +116,6 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     assert_equal 'GOV.UK bad link reports', mail.subject
     assert attachment = mail.attachments.first
     assert_equal 'sample_attachment.zip', attachment.filename
+    assert_match %r{bad link reports}, mail.parts.first.body.to_s
   end
 end
