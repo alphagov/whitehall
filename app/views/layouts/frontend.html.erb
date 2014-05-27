@@ -13,7 +13,6 @@
       <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
     </ul>
   </nav>
-  <div class="whitehall-top-bar<%= content_for?(:bar_colour_class) ? " #{yield(:bar_colour_class)}" : '' %>"></div>
   <main id="content" role="main" class="whitehall-content">
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>

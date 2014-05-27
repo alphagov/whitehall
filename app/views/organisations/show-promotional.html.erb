@@ -1,6 +1,5 @@
 <% page_title @organisation.name %>
 <% page_class "organisations-show-promotional" %>
-<% bar_colour_class organisation_brand_colour_class(@organisation) %>
 <% atom_discovery_link_tag atom_feed_url_for(@organisation), "Latest activity" %>
 
 <%= organisation_wrapper(@organisation) do %>
