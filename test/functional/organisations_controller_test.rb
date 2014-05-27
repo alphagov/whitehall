@@ -449,6 +449,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "should exclude corporate information pages from Latest block" do
+    organisation = create(:organisation)
+    cip = create(:published_corporate_information_page, organisation: organisation, first_published_at: 1.day.ago.to_date)
+    publication_1 = create(:published_publication, organisations: [organisation], first_published_at: 1.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    publication_2 = create(:published_publication, organisations: [organisation], first_published_at: 2.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    publication_3 = create(:published_publication, organisations: [organisation], first_published_at: 3.day.ago.to_date, publication_type: PublicationType::NationalStatistics)
+    get :show, id: organisation
+    assert_equal [publication_1, publication_2, publication_3], assigns[:recently_updated].take(3)
+  end
+
   view_test "should display sub-organisations" do
     organisation = create(:organisation)
     sub_organisation = create(:sub_organisation, parent_organisations: [organisation])

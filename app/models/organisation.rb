@@ -336,6 +336,10 @@ class Organisation < ActiveRecord::Base
     editions.scheduled.order('scheduled_publication ASC')
   end
 
+  def published_non_corporate_information_pages
+    published_editions.without_editions_of_type(CorporateInformationPage)
+  end
+
   def published_announcements
     published_editions.announcements
   end

@@ -13,7 +13,7 @@ class OrganisationsController < PublicFacingController
   end
 
   def show
-    recently_updated_source = @organisation.published_editions.in_reverse_chronological_order
+    recently_updated_source = @organisation.published_non_corporate_information_pages.in_reverse_chronological_order
     set_expiry 5.minutes
     respond_to do |format|
       format.html do
