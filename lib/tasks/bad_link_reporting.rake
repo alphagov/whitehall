@@ -14,10 +14,13 @@ task :generate_bad_link_reports, [:mirror_directory, :reports_dir, :email_addres
 
   # Generate the reports
   Whitehall::BadLinkReporter.new(mirror_directory, reports_dir, logger).generate_reports
+  logger.info('Reports generated. Zipping...')
 
   # zip up reports
   system "zip #{report_zip_path} #{reports_dir}/*_bad_links.csv --junk-paths"
+  logger.info("Reports zipped. Emailing to #{email_address}")
 
   # email the zipped reports
   Notifications.bad_link_reports(report_zip_path, email_address).deliver
+  logger.info("Email sent.")
 end
