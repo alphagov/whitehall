@@ -80,8 +80,8 @@ class Organisation < ActiveRecord::Base
 
   has_many :financial_reports
 
-  has_and_belongs_to_many :superseding_organisations, class_name: "Organisation", foreign_key: :superseded_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseding_organisation_id
-  has_and_belongs_to_many :superseded_organisations, class_name: "Organisation", foreign_key: :superseding_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseded_organisation_id
+  has_many :superseding_organisation_associations, foreign_key: :superseded_organisation_id
+  has_many :superseding_organisations, through: :superseding_organisation_associations
 
   has_one :featured_topics_and_policies_list
   def featured_topics_and_policies_list_summary

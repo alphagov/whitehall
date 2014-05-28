@@ -44,3 +44,16 @@ Scenario: Adding a new translation
   Then when viewing the person "Giles Paxman" with the locale "Español" I should see:
     | name              | Su Majestad Embajador en España                |
     | responsibilities  | Retrato del Reino Unido en una buena luz.      |
+
+Scenario: Marking a role for an organisation as inactive
+  Given the organisation "Foreign Office" exists
+  And a role named "Chief scientific advisor" in the "Foreign Office" organisation exists
+  When I mark that role as inactive
+  Then I should see an inactive role banner on the role page
+
+Scenario: Marking a role for an organisation as replaced
+  Given the organisation "Department for Transport" exists
+  When I add a new "Minister" role named "Traffic Commissioner for Scotland" to the "Department for Transport"
+  And I add a new "Minister" role named "Super Traffic Commissioner for Scotland" to the "Department for Transport"
+  When I mark the role "Traffic Commissioner for Scotland" as replaced by "Super Traffic Commissioner for Scotland"
+  Then I should see a replaced role banner on the "Traffic Commissioner for Scotland" role page

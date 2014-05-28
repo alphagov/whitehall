@@ -93,3 +93,41 @@ Then /^I should see him listed as "([^"]*)" on the worldwide organisation page$/
     assert page.has_content?(role.name)
   end
 end
+
+Given(/^a role named "(.*?)" in the "(.*?)" organisation exists$/) do |role_name, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  create(:role, name: role_name, people: [], organisations: [organisation])
+end
+
+When(/^I mark that role as inactive$/) do
+  role = Role.last
+  visit admin_roles_path
+  click_on role.name
+  select "Inactive", from: "status"
+  select "No longer exists", from: "role[reason_for_inactivity]"
+  click_on "Save"
+end
+
+Then(/^I should see an inactive role banner on the role page$/) do
+  role = Role.last
+  visit polymorphic_path(role)
+  assert page.has_content?("#{role.name} no longer exists")
+end
+
+When(/^I mark the role "(.*?)" as replaced by "(.*?)"$/) do |role_name, replacement_role_name|
+  role = Role.find_by_name(role_name)
+  replacement_role = Role.find_by_name(replacement_role_name)
+  visit admin_roles_path
+  click_on role.name
+  select "Inactive", from: "status"
+  select "Replaced", from: "role[reason_for_inactivity]"
+  select "#{replacement_role.name}", from: "role_superseding_role_ids"
+  click_on "Save"
+end
+
+Then(/^I should see a replaced role banner on the "(.*?)" role page$/) do |role_name|
+  role = Role.find_by_name(role_name)
+  replacement_role = role.superseding_roles.first
+  visit polymorphic_path(role)
+  assert page.has_content?("#{role.name} was replaced by <a href=\"#{polymorphic_path(replacement_role)}\">#{replacement_role.name}</a>")
+end

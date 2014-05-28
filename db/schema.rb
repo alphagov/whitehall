@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140522090319) do
+ActiveRecord::Schema.define(:version => 20140528111748) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -970,6 +970,14 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   add_index "role_appointments", ["person_id"], :name => "index_role_appointments_on_person_id"
   add_index "role_appointments", ["role_id"], :name => "index_role_appointments_on_role_id"
 
+  create_table "role_supersedings", :force => true do |t|
+    t.integer "superseded_role_id"
+    t.integer "superseding_role_id"
+  end
+
+  add_index "role_supersedings", ["superseded_role_id"], :name => "index_role_supersedings_on_superseded_role_id"
+  add_index "role_supersedings", ["superseding_role_id"], :name => "index_role_supersedings_on_superseding_role_id"
+
   create_table "role_translations", :force => true do |t|
     t.integer  "role_id"
     t.string   "locale"
@@ -997,6 +1005,9 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer  "role_payment_type_id"
     t.boolean  "supports_historical_accounts", :default => false,             :null => false
     t.integer  "whip_ordering",                :default => 100
+    t.string   "status"
+    t.string   "reason_for_inactivity"
+    t.datetime "date_of_inactivity"
   end
 
   add_index "roles", ["attends_cabinet_type_id"], :name => "index_roles_on_attends_cabinet_type_id"
