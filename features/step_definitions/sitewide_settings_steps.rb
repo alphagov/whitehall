@@ -1,8 +1,10 @@
 Given(/^we are (not )?during a reshuffle$/) do |negate|
   unless negate
-    minister_reshuffle = SitewideSetting.new(:key      => :minister_reshuffle_mode,
-					     :on       => true,
-					     :govspeak => "Test minister [reshuffle](http://example.com) message")
+    minister_reshuffle = SitewideSetting.new(
+      :key      => :minister_reshuffle_mode,
+      :on       => true,
+      :govspeak => "Test minister [reshuffle](http://example.com) message"
+    )
     minister_reshuffle.save!
   end
 end
