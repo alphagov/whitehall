@@ -181,7 +181,7 @@ When(/^I feature one of the policies on the topic$/) do
   within record_css_selector(@policy) do
     click_link "Feature"
   end
-  attach_file "Select an image to be shown when featuring", jpg_image
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", jpg_image
   fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
   click_button "Save"
 end
