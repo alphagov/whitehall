@@ -36,7 +36,6 @@ end
 
 Then /^I should see the minister's name listed at the top$/ do
   visit document_path(FatalityNotice.last)
-  assert page.has_css?("dt", text: "Minister:")
   assert page.has_css?("dd", text: %r{#{@person.name}})
 end
 

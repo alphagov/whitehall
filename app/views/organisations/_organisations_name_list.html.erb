@@ -4,8 +4,5 @@
   show_hm_government = lead_organisations.length == 0
 %>
 <p class="js-hide-other-departments organisations-name-list">
-  <% if show_hm_government %>
-    <span>HM Government<%= ", " if organisations.length > 0 %></span>
-  <% end %>
-  <%= organisations_link_sentence(lead_organisations, organisations) %>
+  <%= array_of_links_to_organisations(organisations).to_sentence %>
 </p>

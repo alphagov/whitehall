@@ -217,24 +217,10 @@ module OrganisationHelper
     link_to 'See all our policies', url
   end
 
-  def organisations_link_array(lead_organisations, organisations, prefix = nil)
-    all_organisations = []
-    lead_organisations.map do |o|
-      all_organisations << { organisation: o, lead: true }
+  def array_of_links_to_organisations(organisations)
+    organisations.map do |organisation|
+      link_to organisation.name, organisation, class: 'organisation-link'
     end
-    (organisations - lead_organisations).map do |o|
-      all_organisations << { organisation: o, lead: false }
-    end
-
-    all_organisations.map do |o|
-      content_tag_for :span, o[:organisation], prefix, ({class: "lead"} if o[:lead]) do
-        link_to o[:organisation].name, o[:organisation]
-      end
-    end
-  end
-
-  def organisations_link_sentence(lead_organisations, organisations = [])
-    organisations_link_array(lead_organisations, organisations).to_sentence.html_safe
   end
 
   def organisation_count_paragraph(org_array, opts = {})

@@ -5,13 +5,13 @@ module TopicsHelper
 
   def array_of_links_to_topics(topics)
     topics.map { |topic|
-      link_to topic.name, topic_path(topic)
+      link_to topic.name, topic_path(topic), class: 'topic-link'
     }
   end
 
   def array_of_links_to_topical_events(topical_events)
     topical_events.map { |topical_event|
-      link_to topical_event.name, topical_event_path(topical_event)
+      link_to topical_event.name, topical_event_path(topical_event), class: 'topical-event-link'
     }
   end
 

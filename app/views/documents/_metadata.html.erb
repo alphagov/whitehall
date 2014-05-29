@@ -6,39 +6,28 @@
 <aside class="meta metadata-list">
   <div class="inner-heading">
     <dl class="js-track-metadata-links" data-trackposition="top">
-      <% if document.organisations.any?  %>
-        <dt><%= t('document.headings.organisations', count: document.organisations.length) %>:</dt>
-        <dd class="organisations" data-tracktype="organisations">
-          <%= render  partial: 'organisations/organisations_name_list',
-                      locals: { organisations: document.sorted_organisations,
-                                lead_organisations: document.lead_organisations } %>
-        </dd>
+      <% from = from_metadata(document) %>
+      <% if from %>
+        <dt>From:</dt>
+        <dd><%= from.to_sentence.html_safe %></dd>
       <% end %>
+
       <%= render  partial: 'document_extra_metadata',
                   locals: { document: document } %>
+
       <%= render  partial: 'documents/change_notes',
                   locals: { document: document } %>
 
-      <% document_metadata(document, policies, topics, specialist_tag_finder).each do |metadata| %>
-        <dt><%= metadata[:title] %>:</dt>
-        <dd class="js-hide-other-links <%= metadata.fetch(:classes, []).join(' ') %>" data-tracktype="<%= metadata.fetch(:classes, []).join(' ') %>">
-          <%= metadata[:data].to_sentence.html_safe %>
-        </dd>
+      <% part_of = part_of_metadata(document, policies, topics, specialist_tag_finder, primary_mainstream_category) %>
+      <% if part_of.any? %>
+        <dt>Part of:</dt>
+        <dd><%= part_of.to_sentence.html_safe %></dd>
       <% end %>
 
-      <% if primary_mainstream_category.present? %>
-        <dt>Primary category:</dt>
-        <dd data-tracktype="primary-category">
-          <%= link_to primary_mainstream_category.title,
-                      mainstream_category_path(primary_mainstream_category)%>
-        </dd>
+      <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>
+        <dt><%= t('document.headings.applies_to_nations') %></dt>
+        <dd class="inapplicable-nations"><%= only_applies_to_nations_list(document) %></dd>
       <% end %>
-
-      <% if document.location && document.location.present? %>
-        <dt><%= t('document.headings.location') %>:</dt>
-        <dd class="location" data-tracktype="location"><%= document.location %></dd>
-      <% end %>
-
     </dl>
   </div>
 </aside>

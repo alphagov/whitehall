@@ -328,7 +328,7 @@ en:
       published: Published
       updated: Updated
       full_page_history: full page history
-      page_history: Page history
+      page_history: History
   feeds:
     get_updates_to_this_list: Get updates to this list
     feed: feed
@@ -392,7 +392,7 @@ en:
     contact_form: Contact form
   read_more: Read more
   change_notes:
-    page_history: Page history
+    page_history: History
     published_at: Published %{date}
     updated_at: Updated %{date}, <span class="toggle">see all updates</span>
   organisation:

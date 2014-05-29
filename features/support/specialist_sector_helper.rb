@@ -54,7 +54,7 @@ module SpecialistSectorHelper
 
   def check_for_sectors_and_subsectors_in_metadata
     ['Oil and gas', 'Wells', 'Offshore', 'Fields'].each do |sector_name|
-      assert has_css?('.document-sectors', text: sector_name)
+      assert has_css?('dd', text: /#{sector_name}/)
     end
   end
 end

@@ -203,21 +203,9 @@ module DocumentControllerTestHelpers
 
         get :show, id: edition.document
 
-        assert_select '.document-world-locations' do
-          assert_select "a", text: first_location.name
-          assert_select "a", text: second_location.name
-          assert_select "a", text: third_location.name, count: 0
-        end
-      end
-
-      view_test "should not display an empty list of world locations for #{document_type}" do
-        edition = create("published_#{document_type}", world_locations: [])
-
-        get :show, id: edition.document
-
-        assert_select metadata_nav_selector do
-          refute_select '.world-location'
-        end
+        assert_select "a", text: first_location.name
+        assert_select "a", text: second_location.name
+        assert_select "a", text: third_location.name, count: 0
       end
     end
 

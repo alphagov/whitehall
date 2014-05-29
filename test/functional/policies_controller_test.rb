@@ -109,8 +109,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select ".document-topics a", text: first_topic.name
-    assert_select ".document-topics a", text: second_topic.name
+    assert_select "a", text: first_topic.name
+    assert_select "a", text: second_topic.name
   end
 
   view_test "should not show topics where none exist" do
@@ -128,15 +128,8 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select_object first_org do
-      assert_select "a[href='#{organisation_path(first_org)}']"
-    end
-    assert_select_object first_org do
-      assert_select "a[href='#{organisation_path(first_org)}']"
-    end
-    assert_select_object second_org do
-      assert_select "a[href='#{organisation_path(second_org)}']"
-    end
+    assert_select "a[href='#{organisation_path(first_org)}']"
+    assert_select "a[href='#{organisation_path(second_org)}']"
   end
 
   view_test "should only link to organisations once if there are only lead organisations" do
@@ -145,8 +138,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select_object first_org
-    refute_select_prefix_object first_org, 'by-type'
+    assert_select ".meta a[href=?]", organisation_path(first_org), count: 1
   end
 
   view_test "should link to ministers related to the policy" do
@@ -156,7 +148,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: edition.document
 
-    assert_select ".document-ministerial-roles a", text: "minister-name"
+    assert_select "a", text: "minister-name"
   end
 
   view_test "should use role name if no minister is in role related to the policy" do

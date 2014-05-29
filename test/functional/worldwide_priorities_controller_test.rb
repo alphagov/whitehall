@@ -42,9 +42,9 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
     get :show, id: priority.document
 
-    assert_select_object first_organisation
-    assert_select_object second_organisation
-    refute_select_object third_organisation
+    assert_select "a[href=?]", organisation_path(first_organisation)
+    assert_select "a[href=?]", organisation_path(second_organisation)
+    refute_select "a[href=?]", organisation_path(third_organisation)
   end
 
   view_test "should not display an empty list of organisations" do
