@@ -1,4 +1,4 @@
-require "shellwords"
+require 'pdf-reader'
 
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
@@ -123,7 +123,7 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def calculate_number_of_pages
-    `identify -format %n #{Shellwords.shellescape(path)}`.strip.to_i
+    PDF::Reader.new(path).page_count
   rescue Exception => e
     if Rails.env.production?
       Airbrake.notify_or_ignore(e,
