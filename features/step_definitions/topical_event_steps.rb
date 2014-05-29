@@ -139,3 +139,11 @@ end
 When /^I view that topical event page$/ do
   visit topical_event_path(@topical_event)
 end
+
+Then /^I should be able to delete the topical event "([^"]*)"$/ do |name|
+  topical_event = TopicalEvent.find_by_name!(name)
+  visit admin_topical_event_path(topical_event)
+  click_on 'Edit'
+  click_button 'Delete'
+end
+

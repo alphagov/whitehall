@@ -66,3 +66,8 @@ Scenario: Adding more information about the event
   And I add a page of information about the event
   Then I should be able to edit the event's about page
   And the information about the event should be visible on its public page
+
+Scenario: Deleting a topical event
+  Given a topical event called "An event" with description "A topical event"
+  Then I should be able to delete the topical event "An event"
+
