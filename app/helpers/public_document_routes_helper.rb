@@ -23,7 +23,13 @@ module PublicDocumentRoutesHelper
   end
 
   def document_url(edition, options = {})
-    options.reverse_merge! locale: edition.locale if edition.non_english_edition?
+    if edition.non_english_edition?
+      options[:locale] = edition.locale
+    elsif edition.translatable?
+      options[:locale] ||= best_locale_for_edition(edition)
+    else
+      options.delete(:locale)
+    end
 
     case edition
     when CorporateInformationPage
@@ -70,4 +76,13 @@ module PublicDocumentRoutesHelper
     polymorphic_url('policy_supporting_page', options)
   end
 
+  def best_locale_for_edition(edition)
+    if edition.non_english_edition?
+      edition.locale
+    elsif I18n.locale != I18n.default_locale && edition.available_in_locale?(I18n.locale)
+      I18n.locale
+    else
+      I18n.default_locale
+    end
+  end
 end

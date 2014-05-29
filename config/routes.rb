@@ -122,7 +122,7 @@ Whitehall::Application.routes.draw do
         get :consultations
         get :chiefs_of_staff, path: 'chiefs-of-staff'
       end
-      resources :corporate_information_pages, only: [:show, :index], path: 'about'
+      resources :corporate_information_pages, only: [:show, :index], path: 'about', localised: true
       resources :groups, only: [:show]
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")

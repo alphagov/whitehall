@@ -53,7 +53,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal policy_supporting_page_path(policy.document, supporting_page.document), public_document_path(supporting_page)
   end
 
-  test 'returns the correct path for CorporateInformationPage instances' do 
+  test 'returns the correct path for CorporateInformationPage instances' do
     cip = create(:corporate_information_page)
     assert_equal organisation_corporate_information_page_path(cip.organisation, cip.slug), public_document_path(cip)
 
@@ -97,5 +97,34 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     request.host = "gov.uk"
     policy = create(:policy, locale: 'fr')
     assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'fr'), public_document_url(policy)
+  end
+
+  test 'When in a foreign locale, it generates a route to the foreign version if available' do
+    request.host = "gov.uk"
+    policy = create(:policy, :translated, translated_into: [:fr])
+    I18n.with_locale(:fr) do
+      assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'fr'), public_document_url(policy)
+    end
+  end
+
+  test 'When in a foreign locale, it generates a route to the english version if no foreign version is available' do
+    request.host = "gov.uk"
+    policy = create(:policy)
+    I18n.with_locale(:fr) do
+      assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'en'), public_document_url(policy)
+    end
+  end
+
+  test 'Locale is ignored if edition is a non-tranlatable type' do
+    request.host = "gov.uk"
+    non_translatable_edition = create(:consultation)
+    refute public_document_url(non_translatable_edition, locale: 'fr').include?('fr')
+  end
+
+  test "With non-english editions, the edition's locale is always used" do
+    non_english_edition = create(:world_location_news_article, locale: "fr")
+    with_locale :de do
+      assert public_document_url(non_english_edition, locale: 'de').include? ".fr"
+    end
   end
 end

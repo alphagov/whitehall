@@ -353,10 +353,10 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     get :show, id: world_location, format: :atom, locale: 'fr'
 
-    french_translation_of_edition = LocalisedModel.new(translated_edition, :fr)
-
     assert_select_atom_feed do
-      assert_select_atom_entries([french_translation_of_edition])
+      with_locale :fr do
+        assert_select_atom_entries([translated_edition])
+      end
     end
   end
 
