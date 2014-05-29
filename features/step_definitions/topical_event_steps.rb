@@ -1,5 +1,10 @@
 Given(/^a topical event called "(.*?)" with description "(.*?)"$/) do |name, description|
-  create(:topical_event,name: name, description: description)
+  @topical_event = create(:topical_event, name: name, description: description)
+end
+
+Given(/^I have an offsite link "(.*?)" for the topical event "(.*?)"$/) do |title, topical_event_name|
+  topical_event = TopicalEvent.find_by_name(topical_event_name)
+  @offsite_link = create :offsite_link, title: title, parent: topical_event
 end
 
 When /^I create a new topical event "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -64,6 +69,17 @@ When /^I draft a new document collection "([^"]*)" relating it to topical event 
   click_button "Save"
 end
 
+When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topical event "(.*?)"$/) do |title, type, topical_event_name|
+  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  visit admin_topical_event_classification_featurings_path(topical_event)
+  click_link "Create an offsite link"
+  fill_in :offsite_link_title, with: title
+  select type, from: 'offsite_link_link_type'
+  fill_in :offsite_link_summary, with: "summary"
+  fill_in :offsite_link_url, with: "http://gov.uk"
+  click_button "Save"
+end
+
 Then /^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/ do |edition, section, topical_event_name|
   topical_event = TopicalEvent.find_by_name!(topical_event_name)
   visit topical_event_path(topical_event)
@@ -90,7 +106,19 @@ When /^I feature the document "([^"]*)" for topical event "([^"]*)" with image "
   click_button "Save"
 end
 
-Then /^I should see the featured documents in the "([^"]*)" topical event are:$/ do |name, expected_table|
+When(/^I feature the offsite link "(.*?)" for topical event "(.*?)" with image "(.*?)"$/) do |offsite_link_title, topical_event_name, image_filename|
+  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  visit admin_topical_event_classification_featurings_path(topical_event)
+  offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  within record_css_selector(offsite_link) do
+    click_link "Feature"
+  end
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
+Then /^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/ do |type, name, expected_table|
   visit topical_event_path(TopicalEvent.find_by_name!(name))
   rows = find('.featured-news').all('.feature')
   table = rows.collect do |row|
@@ -100,6 +128,13 @@ Then /^I should see the featured documents in the "([^"]*)" topical event are:$/
     ]
   end
   expected_table.diff!(table)
+end
+
+Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topical event page$/) do |title, topical_event_name|
+  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  offsite_link = OffsiteLink.find_by_title!(title)
+  visit topical_event_path(topical_event)
+  page.has_link?(title, href: edit_admin_topical_event_offsite_link_path(topical_event.id, offsite_link.id))
 end
 
 Given(/^I'm administering a topical event$/) do

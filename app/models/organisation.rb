@@ -87,6 +87,7 @@ class Organisation < ActiveRecord::Base
   def featured_topics_and_policies_list_summary
     featured_topics_and_policies_list.try(:summary)
   end
+  has_many :offsite_links, as: :parent
 
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
@@ -118,6 +119,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :edition_organisations
   accepts_nested_attributes_for :organisation_classifications, reject_if: -> attributes { attributes['classification_id'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :organisation_mainstream_categories, reject_if: -> attributes { attributes['mainstream_category_id'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :offsite_links
 
   validates :slug, presence: true, uniqueness: true
   validates_with SafeHtmlValidator

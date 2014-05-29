@@ -1,29 +1,50 @@
-<h2>Currently featured documents</h2>
+<h2>Currently featured</h2>
 <p class="warning">
   Warning: changes to features appear instantly on the live site.
 </p>
 
 <% if feature_list.features.current.any? %>
-  <p><strong>Reorder featured documents:</strong></p>
+  <% if feature_list.features.current.many? %>
+    <p>
+      To change the order of your featured documents, drag them up or down and then click "Save features order".
+    </p>
+  <% end %>
   <%= form_for feature_list, url: reorder_admin_feature_list_path(feature_list), method: :post do |form| %>
     <fieldset class="sortable">
       <% @feature_list.features.current.each do |feature| %>
-        <div class="well">
+        <div class="well feature-list">
           <%= label_tag "ordering-#{feature.id}" do %>
+            <div class="icon"><i class="icon-align-justify"></i></div>
             <% if feature.document && feature.document.published_edition %>
-              <%= link_to(feature, admin_edition_path(feature.document.published_edition)) %>
+              <div class="title"><%= link_to(feature, admin_edition_path(feature.document.published_edition)) %></div>
+              <div class="type"><%= feature.document.published_edition.type.titleize %> (document)</div>
+              <div class="date"><%=l feature.document.published_edition.major_change_published_at.to_date %></div>
+              <%= content_tag_for :div, feature.document.published_edition, class: "button" do %>
+                <%= link_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
+              <% end %>
             <% elsif feature.topical_event %>
-              <%= link_to(feature, edit_admin_topical_event_path(feature.topical_event)) %>
+              <div class="title"><%= link_to feature.topical_event, edit_admin_topical_event_path(feature.topical_event) %></div>
+              <div class="type">Topical Event</div>
+              <div class="date"><%= l feature.topical_event.start_date.to_date %> to <%= l feature.topical_event.end_date.to_date %></div>
+              <%= content_tag_for :div, feature.topical_event, class: "button" do %>
+                <%= link_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
+              <% end %>
+            <% elsif feature.offsite_link %>
+              <div class="title"><%= link_to feature.offsite_link, polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link]) %></div>
+              <div class="type"><%= feature.offsite_link.humanized_link_type %> (offsite link)</div>
+              <div class="date"></div>
+              <%= content_tag_for :div, feature.offsite_link, class: "button" do %>
+                <%= link_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
+              <% end %>
             <% else %>
               <%= feature.document ? feature.document.latest_edition : "No edition" %>
             <% end %>
           <% end %>
-
           <%= text_field_tag "ordering[#{feature.id}]", feature.ordering, id: "ordering-#{feature.id}", class: "ordering" %>
         </div>
       <% end %>
     </fieldset>
-    <%= form.submit "Update feature order", class: "btn" %>
+    <%= form.submit "Save ordering", class: "btn btn-primary btn-large" %>
   <% end %>
 <% else %>
   <p>Nothing featured yet</p>

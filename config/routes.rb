@@ -187,6 +187,7 @@ Whitehall::Application.routes.draw do
           end
           resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]
           resources :financial_reports, except: [:show]
+          resources :offsite_links
         end
         resources :corporate_information_pages, only: [] do
           resources :attachments, except: [:show] do
@@ -204,12 +205,14 @@ Whitehall::Application.routes.draw do
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end
+        resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
           resource :about_pages, path: 'about'
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end
+          resources :offsite_links
         end
 
         resources :worldwide_organisations do
@@ -315,6 +318,7 @@ Whitehall::Application.routes.draw do
             get :features, localised: true
           end
           resources :translations, controller: 'world_location_translations'
+          resources :offsite_links
         end
         resources :feature_lists, only: [:show] do
 

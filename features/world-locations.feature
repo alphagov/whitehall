@@ -30,6 +30,20 @@ Feature: Administering world location information
     When I feature "Beards" on the english "Jamestopia" page
     Then I should see no featured items on the french version of the "Jamestopia" page
 
+  Scenario: Creating offsite content on a world location page
+    Given a world location "Jamestopia" exists
+    When I add the offsite link "Offsite Thing" of type "Alert" to the world location "Jamestopia"
+    Then I should see the edit offsite link "Offsite Thing" on the "Jamestopia" world location page
+
+  Scenario: Featuring offsite content on a world location page
+    Given a world location "Jamestopia" exists
+    And I have an offsite link "Offsite Thing" for the world location "Jamestopia"
+    When I feature the offsite link "Offsite Thing" for  world location "Jamestopia" with image "minister-of-funk.960x640.jpg"
+    Then I should see the featured items of the world location "Jamestopia" are:
+      | Offsite Thing | s300_minister-of-funk.960x640.jpg |
+    When I stop featuring the offsite link "Offsite Thing" for the world location "Jamestopia"
+    Then there should be nothing featured on the home page of world location "Jamestopia"
+
   Scenario: Featuring shows the correct translation of the article on world location page
     Given a world location "Jamestopia" exists in both english and french
     And there is a news article "Beards" in english ("Barbes" in french) related to the world location

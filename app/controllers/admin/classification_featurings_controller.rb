@@ -10,6 +10,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     @tagged_editions = editions_to_show
 
     @classification_featurings = @classification.classification_featurings
+    @featurable_offsite_links = @classification.offsite_links
 
     if request.xhr?
       render partial: 'admin/classification_featurings/featured_documents'
@@ -19,14 +20,20 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   end
 
   def new
-    @classification_featuring = @classification.classification_featurings.build(edition_id: params[:edition_id])
+    featured_edition = Edition.find(params[:edition_id]) if params[:edition_id].present?
+    featured_offsite_link = OffsiteLink.find(params[:offsite_link_id]) if params[:offsite_link_id].present?
+    @classification_featuring = @classification.classification_featurings.build(edition: featured_edition, offsite_link: featured_offsite_link)
     @classification_featuring.build_image
   end
 
   def create
     @classification_featuring = @classification.feature(params[:classification_featuring])
     if @classification_featuring.valid?
-      flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
+      if featuring_a_document?
+        flash[:notice] = "#{@classification_featuring.edition.title} has been featured on #{@classification.name}"
+      else
+        flash[:notice] = "#{@classification_featuring.offsite_link.title} has been featured on #{@classification.name}"
+      end
       redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
     else
       render :new
@@ -37,14 +44,25 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     params[:ordering].each do |classification_featuring_id, ordering|
       @classification.classification_featurings.find(classification_featuring_id).update_column(:ordering, ordering)
     end
-    redirect_to polymorphic_path([:admin, @classification, :classification_featurings]), notice: 'Featured documents re-ordered'
+    redirect_to polymorphic_path([:admin, @classification, :classification_featurings]), notice: 'Featured items re-ordered'
   end
 
   def destroy
-    edition = @classification_featuring.edition
-    @classification_featuring.destroy
-    flash[:notice] = "#{edition.title} has been unfeatured from #{@classification.name}"
+    if featuring_a_document?
+      edition = @classification_featuring.edition
+      @classification_featuring.destroy
+      flash[:notice] = "#{edition.title} has been unfeatured from #{@classification.name}"
+    else
+      offsite_link = @classification_featuring.offsite_link
+      @classification_featuring.destroy
+      flash[:notice] = "#{offsite_link.title} has been unfeatured from #{@classification.name}"
+    end
     redirect_to polymorphic_path([:admin, @classification, :classification_featurings])
+  end
+
+  helper_method :featuring_a_document?
+  def featuring_a_document?
+    @classification_featuring.edition.present?
   end
 
   private

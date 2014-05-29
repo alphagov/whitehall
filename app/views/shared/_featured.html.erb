@@ -17,13 +17,19 @@
     </span>
     <div class="text">
       <% if show_meta %>
-        <p class="meta"><%= absolute_date(feature.time_stamp) %>
-        <% unless feature.topical_event %>
-          &mdash; <%= t_display_type feature %>
-        <% end %>
+        <p class="meta">
+          <% if feature.topical_event %>
+            <%= absolute_date(feature.time_stamp) %>
+          <% else %>
+            <% if feature.time_stamp %>
+            <%= absolute_date(feature.time_stamp) %> &mdash; <%= t_display_type feature %>
+            <% else %>
+              <%= t_display_type feature %>
+            <% end %>
+          <% end %>
         </p>
       <% end %>
-      <h2><%= link_to feature.title, feature.public_path %></h2>
+      <h2><%= link_to feature.title, feature.public_path, ({rel: 'external'} if is_external?(feature.public_path)) %></h2>
       <% unless feature.summary.blank? %>
         <p class="summary"><%= truncate(feature.summary, length: 150, separator: ' ') %></p>
       <% end %>

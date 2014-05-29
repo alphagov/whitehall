@@ -1,5 +1,5 @@
 Given /^a topic called "([^"]*)" exists$/ do |name|
-  create(:topic, name: name)
+  @topic = create(:topic, name: name)
 end
 
 Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -43,6 +43,11 @@ Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/)
   end
 
   create(:classification_featuring, classification: classification)
+end
+
+Given(/^I have an offsite link "(.*?)" for the topic "(.*?)"$/) do |title, topic_name|
+  topic = Topic.find_by_name(topic_name)
+  @offsite_link = create :offsite_link, title: title, parent: topic
 end
 
 When /^I create a new topic "([^"]*)" with description "([^"]*)"$/ do |name, description|
@@ -176,7 +181,7 @@ end
 When(/^I feature one of the policies on the topic$/) do
   @policy = @topic.published_policies.last
   visit admin_topic_path(@topic)
-  click_on 'Featured documents'
+  click_on 'Features'
 
   within record_css_selector(@policy) do
     click_link "Feature"
@@ -186,10 +191,40 @@ When(/^I feature one of the policies on the topic$/) do
   click_button "Save"
 end
 
+When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topic "(.*?)"$/) do |title, type, topic_name|
+  topic = Topic.find_by_name!(topic_name)
+  visit admin_topic_classification_featurings_path(topic)
+  click_link "Create an offsite link"
+  fill_in :offsite_link_title, with: title
+  select type, from: 'offsite_link_link_type'
+  fill_in :offsite_link_summary, with: "summary"
+  fill_in :offsite_link_url, with: "http://gov.uk"
+  click_button "Save"
+end
+
+When(/^I feature the offsite link "(.*?)" for topic "(.*?)" with image "(.*?)"$/) do |offsite_link_title, topic_name, image_filename|
+  topic = Topic.find_by_name!(topic_name)
+  visit admin_topic_classification_featurings_path(topic)
+  @offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  within record_css_selector(@offsite_link) do
+    click_link "Feature"
+  end
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :classification_featuring_alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
 Then(/^I should see the policy featured on the public topic page$/) do
   visit topic_path(@topic)
   within('section.featured-news') do
     assert page.has_content?(@policy.title)
+  end
+end
+
+Then(/^I should see the offsite link featured on the public topic page$/) do
+  visit topic_path(@topic)
+  within('section.featured-news') do
+    assert page.has_content?(@offsite_link.title)
   end
 end
 
@@ -211,3 +246,9 @@ Then /^the top tasks for the topic "([^"]*)" should be visible on the public sit
   end
 end
 
+Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topic page$/) do |title, topic_name|
+  topic = Topic.find_by_name!(topic_name)
+  offsite_link = OffsiteLink.find_by_title!(title)
+  visit admin_topic_path(topic)
+  page.has_link?(title, href: edit_admin_topic_offsite_link_path(topic.id, offsite_link.id))
+end

@@ -116,6 +116,11 @@ Given(/^1 live, 1 transitioning and 1 exempt non ministerial departments$/) do
   @exempt_agency =        create :organisation, organisation_type_key: :non_ministerial_department, govuk_status: 'exempt'
 end
 
+Given(/^I have an offsite link "(.*?)" for the organisation "(.*?)"$/) do |title, organisation_name|
+  organisation = Organisation.find_by_name(organisation_name)
+  @offsite_link = create :offsite_link, title: title, parent: organisation
+end
+
 When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   create(:topic, name: 'Jazz Bizniz')
   create(:mainstream_category, title: 'Jazzy Bizzle')
@@ -158,7 +163,7 @@ end
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
-  click_link "Featured documents"
+  click_link "Features"
   locale = Locale.find_by_language_name("English")
   news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
   fill_in 'title', with: news_article_title.split.first
@@ -184,6 +189,40 @@ When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, 
   organisation = Organisation.find_by_name!(name)
   visit features_admin_organisation_path(organisation)
   order_features_from(table)
+end
+
+When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)"$/) do |title, type, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit features_admin_organisation_path(organisation)
+  click_link "Create an offsite link"
+  fill_in :offsite_link_title, with: title
+  select type, from: 'offsite_link_link_type'
+  fill_in :offsite_link_summary, with: "summary"
+  fill_in :offsite_link_url, with: "http://gov.uk"
+  click_button "Save"
+end
+
+When(/^I feature the offsite link "(.*?)" for organisation "(.*?)" with image "(.*?)"$/) do |offsite_link_title, organisation_name, image_filename|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit admin_organisation_path(organisation)
+  click_link "Features"
+  offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  within record_css_selector(offsite_link) do
+    click_link "Feature"
+  end
+  attach_file "Select a 960px wide and 640px tall image to be shown when featuring", Rails.root.join("test/fixtures/#{image_filename}")
+  fill_in :feature_alt_text, with: "An accessible description of the image"
+  click_button "Save"
+end
+
+When /^I stop featuring the offsite link "([^"]*)" for "([^"]*)"$/ do |offsite_link_name, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  visit features_admin_organisation_path(organisation)
+  locale = Locale.find_by_language_name("English")
+  offsite_link = OffsiteLink.find_by_title(offsite_link_name)
+  within record_css_selector(offsite_link) do
+    click_on "Unfeature"
+  end
 end
 
 When /^I delete the organisation "([^"]*)"$/ do |name|
@@ -320,7 +359,7 @@ Then /^I should be able to view all chief professional officers for the "([^"]*)
   end
 end
 
-Then /^I should see the featured (news articles|topical events) in the "([^"]*)" organisation are:$/ do |type, name, expected_table|
+Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |type, name, expected_table|
   visit_organisation name
   rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|
@@ -330,6 +369,13 @@ Then /^I should see the featured (news articles|topical events) in the "([^"]*)"
     ]
   end
   expected_table.diff!(table)
+end
+
+Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
+  organisation = Organisation.find_by_name!(organisation_name)
+  offsite_link = OffsiteLink.find_by_title!(title)
+  visit_organisation organisation_name
+  page.has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.id, offsite_link.id))
 end
 
 Then /^there should be nothing featured on the home page of "([^"]*)"$/ do |name|
@@ -481,7 +527,7 @@ end
 When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |topic, organisation_name, image_filename|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
-  click_link "Featured documents"
+  click_link "Features"
   locale = Locale.find_by_language_name("English")
   topical_event = TopicalEvent.find_by_name(topic)
   within record_css_selector(topical_event) do
@@ -550,7 +596,7 @@ end
 
 When(/^I go to the organisation feature page$/) do
   visit admin_organisation_path(@organisation)
-  click_link "Featured documents"
+  click_link "Features"
 end
 
 Then(/^I can filter instantaneously the list of documents by title, author, organisation, and document type$/) do

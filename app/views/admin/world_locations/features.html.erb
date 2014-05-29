@@ -15,8 +15,8 @@
     <div class="span12 world-location-details">
       <section>
         <%= tab_navigation_for(@world_location) %>
-
         <%= render @feature_list, filter_by: [:title, :type, :world_location] %>
+        <%= link_to "Create an offsite link", new_admin_world_location_offsite_link_path(@world_location), class: "btn" %>
       </section>
     </div>
   </div>

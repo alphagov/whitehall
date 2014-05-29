@@ -46,7 +46,7 @@
           <% end %>
           <% if @classification.social_media_accounts.any? %>
             <%= render partial: 'shared/social_media_accounts',
-                      locals: { socialable: @classification, followus: true } %>
+                       locals: { socialable: @classification, followus: true } %>
           <% end %>
         </section>
       </div>
@@ -55,18 +55,16 @@
 
   <div class="block">
     <div class="inner-block">
-      <section class="featured-news items-<%= @featured_editions.length %>">
-        <% if @featured_editions.any? %>
-          <%= render partial: 'shared/featured_news',
-                     collection: @featured_editions,
-                     as: :edition,
-                     locals: { image_size: :s465 } %>
+      <section class="featured-news items-<%= @featurings.length %>">
+        <% if @featurings.any? %>
+          <%= render partial: 'classifications/classification_featuring',
+                   collection: @featurings %>
         <% end %>
         <%= render partial: 'shared/recently_updated',
-                    locals: { recently_updated: @recently_changed_documents,
-                              atom_url: atom_feed_url_for(@classification),
-                              extra_class: 'panel',
-                              see_all_link: latest_path(topics: [@classification]) } %>
+                   locals: { recently_updated: @recently_changed_documents,
+                           atom_url: atom_feed_url_for(@classification),
+                           extra_class: 'panel',
+                           see_all_link: latest_path(topics: [@classification]) } %>
       </section>
     </div>
   </div>
@@ -101,7 +99,7 @@
                   <h2><%= link_to detailed_guide.title, public_document_path(detailed_guide) %></h2>
                 <% end %>
               <% end %>
-            </ul>
+            </ol>
           </div>
         </section>
       <% end %>

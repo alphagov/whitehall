@@ -29,6 +29,20 @@ Scenario: Featuring news on an organisation page
   When I stop featuring the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop"
   Then there should be nothing featured on the home page of "Ministry of Pop"
 
+Scenario: Creating offsite content on an organisation page
+  Given the organisation "Ministry of Pop" exists
+  When I add the offsite link "Offsite Thing" of type "Alert" to the organisation "Ministry of Pop"
+  Then I should see the edit offsite link "Offsite Thing" on the "Ministry of Pop" organisation page
+
+Scenario: Featuring offsite content on an organisation page
+  Given the organisation "Ministry of Pop" exists
+  And I have an offsite link "Offsite Thing" for the organisation "Ministry of Pop"
+  When I feature the offsite link "Offsite Thing" for organisation "Ministry of Pop" with image "minister-of-funk.960x640.jpg"
+  Then I should see the featured offsite links in the "Ministry of Pop" organisation are:
+    | Offsite Thing | s630_minister-of-funk.960x640.jpg |
+  When I stop featuring the offsite link "Offsite Thing" for "Ministry of Pop"
+  Then there should be nothing featured on the home page of "Ministry of Pop"
+
 @javascript
 Scenario: Filtering items to feature on an organisation page
   Given an organisation and some documents exist

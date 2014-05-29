@@ -27,7 +27,7 @@ class Classification < ActiveRecord::Base
             order: "classification_featurings.ordering asc",
             include: { edition: :translations },
             inverse_of: :classification,
-            conditions: { editions: { state: "published" } }
+            conditions: "editions.state = 'published' or classification_featurings.edition_id is null"
 
   has_many :featured_editions,
             through: :classification_featurings,
@@ -44,6 +44,8 @@ class Classification < ActiveRecord::Base
   accepts_nested_attributes_for :classification_memberships
   accepts_nested_attributes_for :organisation_classifications
   accepts_nested_attributes_for :classification_featurings
+
+  has_many :offsite_links, as: :parent
 
   scope :alphabetical, -> { order("name ASC") }
   scope :randomized,   -> { order('RAND()') }
