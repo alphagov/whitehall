@@ -7,7 +7,7 @@
       <%= form.label :link_type, "Type", required: true %>
       <%= form.select :link_type, [["Alert", "alert"], ["Blog Post", "blog_post"], ["Campaign", "campaign"], ["Careers", "careers"], ["Service", "service"]] %>
       <%= form.label :date, "Date"%>
-      <%= form.date_select :date, { include_blank: true }, { class: 'date' } %>
+      <%= form.date_select :date, { include_blank: true, start_year: Date.today.year - 2, end_year: Date.today.year + 2 }, { class: 'date' } %>
       <%= form.text_field :url, label_text: "URL", required: true %>
       <% if @parent.is_a?(Organisation) || @parent.is_a?(WorldLocation) %>
         <%= form.save_or_cancel cancel: polymorphic_path([:features, :admin, @parent]) %>

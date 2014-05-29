@@ -11,21 +11,21 @@
 </div>
 
 <div class="feature-column">
-<% if @featurable_topical_events.any? %>
-  <h2 class="feature-title">Feature new topical events</h2>
-  <div class="row-fluid">
-    <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
-  </div>
-<% end %>
+  <% if @featurable_topical_events.any? %>
+    <h2 class="feature-title">Feature new topical events</h2>
+    <div class="row-fluid">
+      <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
+    </div>
+  <% end %>
 </div>
 
 <div class="feature-column">
-<h2 class="feature-title">Feature new offsite link</h2>
-<% if @featurable_offsite_links.any? %>
-  <div class="row-fluid">
-    <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
-  </div>
-<% else %>
-  <p>There are currently no offsite links.</p>
-<% end %>
+  <h2 class="feature-title">Feature new offsite link</h2>
+  <% if @featurable_offsite_links.any? %>
+    <div class="row-fluid">
+      <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
+    </div>
+  <% else %>
+    <p>There are currently no offsite links.</p>
+  <% end %>
 </div>

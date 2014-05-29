@@ -37,27 +37,27 @@ class OffsiteLinkTest < ActiveSupport::TestCase
     refute offsite_link.valid?
   end
 
-  test 'should be valid if the type an alert' do
+  test 'should be valid if the type is alert' do
     offsite_link = build(:offsite_link, link_type: 'alert')
     assert offsite_link.valid?
   end
 
-  test 'should be valid if the type an blog_post' do
+  test 'should be valid if the type is blog_post' do
     offsite_link = build(:offsite_link, link_type: 'blog_post')
     assert offsite_link.valid?
   end
 
-  test 'should be valid if the type an campaign' do
+  test 'should be valid if the type is campaign' do
     offsite_link = build(:offsite_link, link_type: 'campaign')
     assert offsite_link.valid?
   end
 
-  test 'should be valid if the type an careers' do
+  test 'should be valid if the type is careers' do
     offsite_link = build(:offsite_link, link_type: 'careers')
     assert offsite_link.valid?
   end
 
-  test 'should be valid if the type an service' do
+  test 'should be valid if the type is service' do
     offsite_link = build(:offsite_link, link_type: 'service')
     assert offsite_link.valid?
   end
