@@ -5,7 +5,7 @@ class RoleTypePresenterTest < PresenterTestCase
     expected = [
       ["Ministerial", [
         ["Cabinet minister", "cabinet_minister"],
-        ["Minister", "minister"]
+        %w(Minister minister)
       ]],
       ["Managerial", [
         ["Permanent secretary", "permanent_secretary"],
@@ -26,9 +26,9 @@ class RoleTypePresenterTest < PresenterTestCase
         ["Chief professional officer", "chief_professional_officer"],
       ]],
       ["Worldwide orgs only", [
-        ["Ambassador", "ambassador"],
+        %w(Ambassador ambassador),
         ["High commissioner", "high_commissioner"],
-        ["Governor", "governor"],
+        %w(Governor governor),
         ["Deputy head of mission", "deputy_head_of_mission"],
         ["Worldwide office staff", "worldwide_office_staff"]
       ]]

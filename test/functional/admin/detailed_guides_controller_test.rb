@@ -55,7 +55,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
     post :create, edition: attributes
 
-    assert_equal ["123456", "789012"], DetailedGuide.last.need_ids
+    assert_equal %w(123456 789012), DetailedGuide.last.need_ids
   end
 
   view_test "user needs associated with a detailed guide" do
@@ -74,7 +74,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
       }
     ])
 
-    detailed_guide = create(:detailed_guide, need_ids: ["123456", "456789"])
+    detailed_guide = create(:detailed_guide, need_ids: %w(123456 456789))
 
     get :show, id: detailed_guide.id
 

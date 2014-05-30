@@ -71,8 +71,8 @@ class TranslationExporterTest < ActiveSupport::TestCase
     assert File.file?(exported_file("fr.csv")), "should write a file"
 
     data = read_csv_data(exported_file("fr.csv"))
-    assert_equal ["Country", "Pays"], data["world_location.type.country"]
-    assert_equal ["Spain", "Espange"], data["world_location.country"]
+    assert_equal %w(Country Pays), data["world_location.type.country"]
+    assert_equal %w(Spain Espange), data["world_location.country"]
     assert_equal ["Our mission", nil], data["world_location.headings.mission"]
     assert_equal ["Offices", nil], data["world_location.headings.offices"]
   end
@@ -108,7 +108,7 @@ class TranslationExporterTest < ActiveSupport::TestCase
     assert File.file?(exported_file("ar.csv")), "should write a file"
 
     data = read_csv_data(exported_file("ar.csv"))
-    ['zero', 'one', 'two', 'few', 'many', 'other'].each do |arabic_plural_form|
+    %w(zero one two few many other).each do |arabic_plural_form|
       assert data.has_key?("ministers.#{arabic_plural_form}"), "expected plural form #{arabic_plural_form} to be present, but it's not"
     end
   end
@@ -150,7 +150,7 @@ class TranslationExporterTest < ActiveSupport::TestCase
     assert File.file?(exported_file("sk.csv")), "should write a file"
 
     data = read_csv_data(exported_file("sk.csv"))
-    assert_equal ['minister', 'min'], data['ministers.one']
+    assert_equal %w(minister min), data['ministers.one']
     assert_equal ['ministers', nil], data['ministers.other']
     assert_equal [nil, 'mini'], data['ministers.few']
   end
@@ -169,7 +169,7 @@ class TranslationExporterTest < ActiveSupport::TestCase
     assert File.file?(exported_file("uk.csv")), "should write a file"
 
     data = read_csv_data(exported_file("uk.csv"))
-    ['one', 'few', 'many', 'other'].each do |ukranian_plural_form|
+    %w(one few many other).each do |ukranian_plural_form|
       assert data.has_key?("ministers.#{ukranian_plural_form}"), "expected plural form #{ukranian_plural_form} to be present, but it's not"
     end
   end
@@ -188,10 +188,10 @@ class TranslationExporterTest < ActiveSupport::TestCase
     assert File.file?(exported_file("uk.csv")), "should write a file"
 
     data = read_csv_data(exported_file("uk.csv"))
-    ['few', 'many'].each do |ukranian_plural_form|
+    %w(few many).each do |ukranian_plural_form|
       refute data.has_key?("ministers.#{ukranian_plural_form}"), "expected plural form #{ukranian_plural_form} to be missing, but it's present"
     end
-    ['one', 'other', 'monkey'].each do |non_plural_forms|
+    %w(one other monkey).each do |non_plural_forms|
       assert data.has_key?("ministers.#{non_plural_forms}"), "expected non-plural form #{non_plural_forms} to be present, but it's not"
     end
   end

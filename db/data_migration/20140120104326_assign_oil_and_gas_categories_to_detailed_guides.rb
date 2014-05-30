@@ -1,74 +1,13 @@
 def oil_and_gas_content
   {
-    "carbon-capture-and-storage" => [
-      "oil-and-gas-licensing-for-carbon-storage--3",
-      "uk-carbon-capture-and-storage-government-funding-and-support",
-      "oil-and-gas-carbon-storage-public-register",
-    ],
-    "environment-reporting-and-regulation" => [
-      "oil-and-gas-eems-database",
-      "oil-and-gas-environmental-alerts-and-incident-reporting",
-      "oil-and-gas-environmental-data",
-      "oil-and-gas-environmental-policy",
-      "oil-and-gas-legislation-on-emissions-and-releases",
-      "oil-and-gas-offshore-emergency-response-legislation",
-      "oil-and-gas-offshore-environmental-legislation",
-      "oil-and-gas-ospar-ems-recommendation",
-      "oil-and-gas-decc-public-registers-of-enforcement-activity",
-      "oil-and-gas-uk-oil-portal",
-    ],
-    "exploration-and-production" => [
-      "oil-and-gas-decc-public-registers-of-enforcement-activity",
-      "oil-and-gas-uk-oil-portal",
-      "oil-and-gas-codes-of-practice",
-      "oil-and-gas-digital-data-exchange-format",
-      "oil-and-gas-fallow-blocks-and-discoveries",
-      "oil-and-gas-measurement-of-petroleum",
-      "oil-and-gas-operatorship",
-      "oil-and-gas-petroleum-operations-notices",
-      "oil-and-gas-review-of-uk-offshore-oil-and-gas-recovery",
-      "oil-and-gas-fields-and-field-development",
-      "oil-and-gas-geoscientific-data",
-      "oil-and-gas-uk-field-data",
-      "oil-and-gas-wells",
-      "oil-and-gas-offshore-maps-and-gis-shapefiles",
-      "oil-and-gas-onshore-maps-and-gis-shapefiles",
-      "oil-and-gas-onshore-exploration-and-production",
-    ],
-    "fields-and-wells" => [
-      "oil-and-gas-fields-and-field-development",
-      "oil-and-gas-geoscientific-data",
-      "oil-and-gas-uk-field-data",
-      "oil-and-gas-wells",
-    ],
-    "finance-and-taxation" => [
-      "extractive-industries-transparency-initiative",
-      "oil-and-gas-charging-regime-for-licensing-exploration-and-development",
-      "oil-and-gas-taxation",
-    ],
-    "infrastructure-and-decommissioning" => [
-      "oil-and-gas-decommissioning-of-offshore-installations-and-pipelines",
-      "oil-and-gas-infrastructure",
-      "oil-and-gas-project-pathfinder",
-    ],
-    "licensing" => [
-      "oil-and-gas-carbon-storage-public-register",
-      "oil-and-gas-decc-public-registers-of-enforcement-activity",
-      "oil-and-gas-wells",
-      "oil-and-gas-offshore-maps-and-gis-shapefiles",
-      "oil-and-gas-onshore-maps-and-gis-shapefiles",
-      "offshore-energy-strategic-environmental-assessment-sea-an-overview-of-the-sea-process",
-      "oil-and-gas-licence-data",
-      "oil-and-gas-licence-relinquishments",
-      "oil-and-gas-licensing-rounds",
-      "oil-and-gas-licensing-for-gas-storage-and-unloading",
-      "oil-and-gas-petroleum-licensing-guidance",
-      "oil-and-gas-uk-oil-portal",
-    ],
-    "onshore-oil-and-gas" => [
-      "oil-and-gas-onshore-maps-and-gis-shapefiles",
-      "oil-and-gas-onshore-exploration-and-production",
-    ]
+    "carbon-capture-and-storage" => %w(oil-and-gas-licensing-for-carbon-storage--3 uk-carbon-capture-and-storage-government-funding-and-support oil-and-gas-carbon-storage-public-register),
+    "environment-reporting-and-regulation" => %w(oil-and-gas-eems-database oil-and-gas-environmental-alerts-and-incident-reporting oil-and-gas-environmental-data oil-and-gas-environmental-policy oil-and-gas-legislation-on-emissions-and-releases oil-and-gas-offshore-emergency-response-legislation oil-and-gas-offshore-environmental-legislation oil-and-gas-ospar-ems-recommendation oil-and-gas-decc-public-registers-of-enforcement-activity oil-and-gas-uk-oil-portal),
+    "exploration-and-production" => %w(oil-and-gas-decc-public-registers-of-enforcement-activity oil-and-gas-uk-oil-portal oil-and-gas-codes-of-practice oil-and-gas-digital-data-exchange-format oil-and-gas-fallow-blocks-and-discoveries oil-and-gas-measurement-of-petroleum oil-and-gas-operatorship oil-and-gas-petroleum-operations-notices oil-and-gas-review-of-uk-offshore-oil-and-gas-recovery oil-and-gas-fields-and-field-development oil-and-gas-geoscientific-data oil-and-gas-uk-field-data oil-and-gas-wells oil-and-gas-offshore-maps-and-gis-shapefiles oil-and-gas-onshore-maps-and-gis-shapefiles oil-and-gas-onshore-exploration-and-production),
+    "fields-and-wells" => %w(oil-and-gas-fields-and-field-development oil-and-gas-geoscientific-data oil-and-gas-uk-field-data oil-and-gas-wells),
+    "finance-and-taxation" => %w(extractive-industries-transparency-initiative oil-and-gas-charging-regime-for-licensing-exploration-and-development oil-and-gas-taxation),
+    "infrastructure-and-decommissioning" => %w(oil-and-gas-decommissioning-of-offshore-installations-and-pipelines oil-and-gas-infrastructure oil-and-gas-project-pathfinder),
+    "licensing" => %w(oil-and-gas-carbon-storage-public-register oil-and-gas-decc-public-registers-of-enforcement-activity oil-and-gas-wells oil-and-gas-offshore-maps-and-gis-shapefiles oil-and-gas-onshore-maps-and-gis-shapefiles offshore-energy-strategic-environmental-assessment-sea-an-overview-of-the-sea-process oil-and-gas-licence-data oil-and-gas-licence-relinquishments oil-and-gas-licensing-rounds oil-and-gas-licensing-for-gas-storage-and-unloading oil-and-gas-petroleum-licensing-guidance oil-and-gas-uk-oil-portal),
+    "onshore-oil-and-gas" => %w(oil-and-gas-onshore-maps-and-gis-shapefiles oil-and-gas-onshore-exploration-and-production)
   }
 end
 

@@ -17,7 +17,7 @@ class Whitehall::Translation::Exporter
 
   def export
     csv = CSV.generate do |csv|
-      csv << CSV::Row.new(["key", "source", "translation"], ["key", "source", "translation"], true)
+      csv << CSV::Row.new(%w(key source translation), %w(key source translation), true)
       @keyed_source_data.keys.sort.each do |key|
         if key =~ /^language_names\./
           next unless key =~ /#{@target_locale}$/
@@ -41,7 +41,7 @@ class Whitehall::Translation::Exporter
   end
 
   def export_row(key, source_value, target_value)
-    CSV::Row.new(['key', 'source', 'translation'], [key, source_value, target_value])
+    CSV::Row.new(%w(key source translation), [key, source_value, target_value])
   end
 
   def translation_file_to_keyed_data(path, locale)

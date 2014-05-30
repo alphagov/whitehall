@@ -6,8 +6,8 @@ module Whitehall::Uploader
   class HeadingValidatorTest < ActiveSupport::TestCase
     test "duplicate fields are rejected" do
       validator = HeadingValidator.new
-      assert_equal ['a_duplicate_field'], validator.validate(['a_duplicate_field', 'a_duplicate_field']).duplicates
-      refute validator.valid?(['a_duplicate_field', 'a_duplicate_field'])
+      assert_equal ['a_duplicate_field'], validator.validate(%w(a_duplicate_field a_duplicate_field)).duplicates
+      refute validator.valid?(%w(a_duplicate_field a_duplicate_field))
     end
 
     test "can specify required fields as array" do
@@ -25,8 +25,8 @@ module Whitehall::Uploader
     end
 
     test "required fields are case insensitive" do
-      validator = HeadingValidator.new.required(['a_required_field', 'ANOTHER_REQUIRED_FIELD'])
-      assert_equal [], validator.validate(['a_required_FIELD', 'another_required_field']).missing
+      validator = HeadingValidator.new.required(%w(a_required_field ANOTHER_REQUIRED_FIELD))
+      assert_equal [], validator.validate(%w(a_required_FIELD another_required_field)).missing
     end
 
     test "can specify optional fields as array" do
@@ -45,7 +45,7 @@ module Whitehall::Uploader
       assert validator.valid?(['minister_1']), validator.errors(['minister_1']).join("")
       assert_equal [], validator.validate(['minister_1']).missing
       assert_equal [], validator.validate(['minister_1']).extra
-      assert_equal [], validator.validate(['minister_1', 'minister_2', 'minister_3']).extra
+      assert_equal [], validator.validate(%w(minister_1 minister_2 minister_3)).extra
       assert_equal ['foo'], validator.validate(['foo']).extra
     end
 
@@ -72,12 +72,12 @@ module Whitehall::Uploader
 
     test "can constrain minimum multiplicity of multiple fields" do
       validator = HeadingValidator.new.multiple(['attachment_#', 'attachment_#_url'], 1..2)
-      assert_equal ['attachment_1', 'attachment_1_url'], validator.validate([]).missing
+      assert_equal %w(attachment_1 attachment_1_url), validator.validate([]).missing
       refute validator.valid?([])
-      assert validator.valid?(['attachment_1', 'attachment_1_url'])
+      assert validator.valid?(%w(attachment_1 attachment_1_url))
 
       validator = HeadingValidator.new.multiple(['attachment_#', 'attachment_#_url'], 2..3)
-      assert_equal ['attachment_2', 'attachment_2_url'], validator.validate(['attachment_1', 'attachment_1_url']).missing
+      assert_equal %w(attachment_2 attachment_2_url), validator.validate(%w(attachment_1 attachment_1_url)).missing
     end
 
     test "can ignore fields" do
@@ -87,8 +87,8 @@ module Whitehall::Uploader
     end
 
     test "translatable fields are ignored if locale is not specified" do
-      validator = HeadingValidator.new.required(['a_required_field','another_required_field']).translatable('a_required_field')
-      assert_equal [], validator.errors(['a_required_field', 'another_required_field'])
+      validator = HeadingValidator.new.required(%w(a_required_field another_required_field)).translatable('a_required_field')
+      assert_equal [], validator.errors(%w(a_required_field another_required_field))
     end
 
     test "required translatable fields and translation_url are required when locale is present" do

@@ -68,7 +68,7 @@ class Edition < ActiveRecord::Base
   scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
   scope :worldwide_priorities,          -> { where(type: "WorldwidePriority") }
   scope :corporate_information_pages,   -> { where(type: "CorporateInformationPage") }
-  scope :publicly_visible,              -> { where(state: ['published', 'archived']) }
+  scope :publicly_visible,              -> { where(state: %w(published archived)) }
 
   # @!group Callbacks
   before_save :set_public_timestamp

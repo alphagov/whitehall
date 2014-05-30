@@ -68,14 +68,14 @@ class TranslationImporterTest < ActiveSupport::TestCase
   test 'imports arrays from CSV as arrays' do
     given_csv(:fr,
       [:key, :source, :translation],
-      ["fruit", ["Apples", "Bananas", "Pears"], ["Pommes", "Bananes", "Poires"]]
+      ["fruit", %w(Apples Bananas Pears), %w(Pommes Bananes Poires)]
     )
 
     Whitehall::Translation::Importer.new(:fr, csv_path(:fr), import_directory).import
 
     yaml_translation_data = YAML.load_file(File.join(import_directory, "fr.yml"))
     expected = {"fr" => {
-      "fruit" => ["Pommes", "Bananes", "Poires"]
+      "fruit" => %w(Pommes Bananes Poires)
     }}
     assert_equal expected, yaml_translation_data
   end
@@ -113,7 +113,7 @@ class TranslationImporterTest < ActiveSupport::TestCase
   test 'interprets integer strings as integers' do
     given_csv(:fr,
       [:key, :source, :translation],
-      ["price", "123", "123"]
+      %w(price 123 123)
     )
 
     Whitehall::Translation::Importer.new(:fr, csv_path(:fr), import_directory).import
@@ -150,9 +150,9 @@ class TranslationImporterTest < ActiveSupport::TestCase
 
   def given_csv(locale, header_row, *rows)
     csv = CSV.generate do |csv|
-      csv << CSV::Row.new(["key", "source", "translation"], ["key", "source", "translation"], true)
+      csv << CSV::Row.new(%w(key source translation), %w(key source translation), true)
       rows.each do |row|
-        csv << CSV::Row.new(["key", "source", "translation"], row)
+        csv << CSV::Row.new(%w(key source translation), row)
       end
     end
     File.open(csv_path(locale), "w") { |f| f.write csv.to_s }
