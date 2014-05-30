@@ -802,7 +802,7 @@ SingleSpaceBeforeFirstArg:
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterComma:

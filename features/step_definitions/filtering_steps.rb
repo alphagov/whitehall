@@ -66,8 +66,8 @@ Given(/^there are some published policies$/) do
 
   create(:published_policy, title: "A policy with the topic", topics: [topic])
   create(:published_policy, title: "A policy with the department", organisations: [department])
-  create(:published_policy, title: "A policy with both the topic and the department", topics: [topic], organisations:[department])
-  create(:published_policy, title: "A keyword one", topics: [topic], organisations:[department])
+  create(:published_policy, title: "A policy with both the topic and the department", topics: [topic], organisations: [department])
+  create(:published_policy, title: "A keyword one", topics: [topic], organisations: [department])
 end
 
 When(/^I look at the policies index page$/) do
