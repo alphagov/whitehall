@@ -119,6 +119,7 @@ UnreachableCode:
   Description: Unreachable code.
   Enabled: false
 
+# Documented
 # Supports --auto-correct
 UnusedBlockArgument:
   Description: Checks for unused block arguments.
@@ -250,6 +251,7 @@ AlignParameters:
   - with_first_parameter
   - with_fixed_indentation
 
+# Documented
 # Supports --auto-correct
 AndOr:
   Description: Use &&/|| instead of and/or.
@@ -304,6 +306,7 @@ CaseEquality:
   Description: Avoid explicit use of the case equality operator(===).
   Enabled: false
 
+# Documented
 CaseIndentation:
   Description: Indentation of when in a case/when/[else/]end.
   Enabled: true
@@ -499,6 +502,7 @@ GuardClause:
   Enabled: false
   MinBodyLength: 1
 
+# Documented
 # Supports --auto-correct
 HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
@@ -540,6 +544,7 @@ IndentationConsistency:
   Description: Keep indentation straight.
   Enabled: false
 
+# Documented
 # Supports --auto-correct
 IndentationWidth:
   Description: Use 2 spaces for indentation.
@@ -613,6 +618,7 @@ MultilineBlockChain:
   Description: Avoid multi-line chains of blocks.
   Enabled: false
 
+# Documented
 MultilineIfThen:
   Description: Never use then for multi-line if/unless.
   Enabled: true
@@ -799,11 +805,13 @@ SingleSpaceBeforeFirstArg:
     argument for method calls without parentheses.
   Enabled: false
 
+# Documented
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
   Enabled: true
 
+# Documented
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
@@ -825,11 +833,13 @@ SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
   Enabled: false
 
+# Documented
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
   Enabled: true
 
+# Documented
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
@@ -840,11 +850,13 @@ SpaceAroundEqualsInParameterDefault:
   - space
   - no_space
 
+# Documented
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
   Enabled: true
 
+# Documented
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
@@ -876,6 +888,7 @@ SpaceInsideBlockBraces:
   EnforcedStyleForEmptyBraces: no_space
   SpaceBeforeBlockParameters: true
 
+# Documented
 # Supports --auto-correct
 SpaceInsideBrackets:
   Description: No spaces after [ or before ].
@@ -891,6 +904,7 @@ SpaceInsideHashLiteralBraces:
   - space
   - no_space
 
+# Documented
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
@@ -914,6 +928,7 @@ SymbolArray:
   Description: Use %i or %I for arrays of symbols.
   Enabled: false
 
+# Documented
 Tab:
   Description: No hard tabs.
   Enabled: true
@@ -927,14 +942,16 @@ TrailingBlankLines:
   - final_newline
   - final_blank_line
 
+#Documented
 TrailingComma:
   Description: Checks for trailing comma in parameter lists and literals.
   Enabled: false
-  EnforcedStyleForMultiline: no_comma
+  EnforcedStyleForMultiline: comma
   SupportedStyles:
   - comma
   - no_comma
 
+# Documented
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
@@ -984,6 +1001,7 @@ VariableInterpolation:
   Description: Don't interpolate global, instance and class variables directly in strings.
   Enabled: false
 
+# Documented
 VariableName:
   Description: Use the configured style when naming variables.
   Enabled: true
