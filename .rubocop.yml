@@ -843,7 +843,7 @@ SpaceAroundEqualsInParameterDefault:
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceBeforeBlockBraces:

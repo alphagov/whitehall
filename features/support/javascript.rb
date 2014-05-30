@@ -75,7 +75,7 @@ private
     %{
       #{request.method}: #{request.url}
       Complete: #{request_complete}
-      Duration: #{request_complete ?(request.response_parts.last.time - request.time) : (Time.zone.now.localtime - request.time)}
+      Duration: #{request_complete ? (request.response_parts.last.time - request.time) : (Time.zone.now.localtime - request.time)}
     }
   end
 end

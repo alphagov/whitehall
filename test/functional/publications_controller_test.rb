@@ -160,7 +160,7 @@ class PublicationsControllerTest < ActionController::TestCase
       get :index
     end
 
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
   end
 
   view_test "#index highlights selected world filter options" do

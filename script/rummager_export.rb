@@ -47,12 +47,12 @@ classes_to_index.each do |klass|
       association = association.includes(sym)
     end
   end
-  i=0
+  i = 0
   association.find_each do |obj|
-    s=obj.search_index
+    s = obj.search_index
     puts %Q[{"index": {"_type": "edition", "_id": "#{s['link']}"}}]
     puts s.to_json
-    if i>0 && i%1000 == 0
+    if i > 0 && i % 1000 == 0
       logger.info " .. #{i}"
       GC.enable
       GC.start
@@ -62,5 +62,5 @@ classes_to_index.each do |klass|
     i += 1
   end
   batch_took = Time.zone.now - batch_start
-  logger.info("Export of %s complete in %.1fs rate %.2f/s (estimated %.1fs)" % [klass.name, batch_took, count/batch_took, time_remaining_this_batch])
+  logger.info("Export of %s complete in %.1fs rate %.2f/s (estimated %.1fs)" % [klass.name, batch_took, count / batch_took, time_remaining_this_batch])
 end

@@ -64,7 +64,7 @@ module Whitehall::Uploader
 
   private
     def generated_attachment_body
-      attachments.map.with_index { |_, i| "!@#{i+1}" }.join("\n\n")
+      attachments.map.with_index { |_, i| "!@#{i + 1}" }.join("\n\n")
     end
 
     def attachments_from_columns

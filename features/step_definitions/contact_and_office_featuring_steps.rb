@@ -115,7 +115,7 @@ Then /^I see the offices in my specified order including the new one under the m
 
   assert_equal @the_main_office.title, contact_headings[0]
   @the_ordered_offices.each.with_index do |contact, idx|
-    assert_equal contact.title, contact_headings[idx+1]
+    assert_equal contact.title, contact_headings[idx + 1]
   end
 end
 

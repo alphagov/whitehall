@@ -79,7 +79,7 @@ class ScheduledEditionsPublisher
   end
 
   def increment_attempt_count
-    @attempts +=1
+    @attempts += 1
   end
 
   def log_publish_run(&block)

@@ -6,7 +6,7 @@ class DuplicateAttachmentCleanupTest < ActiveSupport::TestCase
 
   test "duplicate files are replaced with a renamed copy of themselves" do
     attachable = create(:policy_group)
-    attachments =[
+    attachments = [
       attachment_1 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper.pdf')),
       attachment_2 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper.pdf')),
       attachment_3 = build(:file_attachment, attachable: attachable, file: file_fixture('whitepaper.pdf')),

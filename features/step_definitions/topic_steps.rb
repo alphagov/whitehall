@@ -98,12 +98,12 @@ When /^I set the order of the lead organisations in the "([^"]*)" topic to:$/ do
   lead_organisations = table.rows.map { |(organisation_name)| organisation_name }
   lead_organisations.each_with_index do |organisation_name, index|
     fill_in organisation_name, with: index
-    fill_in organisation_name+' is lead?', with: '1'
+    fill_in organisation_name + ' is lead?', with: '1'
   end
   other_organisations = topic.organisations.map(&:name) - lead_organisations
   other_organisations.each do |organisation_name|
     fill_in organisation_name, with: ''
-    fill_in organisation_name+' is lead?', with: '0'
+    fill_in organisation_name + ' is lead?', with: '0'
   end
   click_button "Save"
 end

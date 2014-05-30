@@ -144,9 +144,9 @@ class TopicsControllerTest < ActionController::TestCase
     get :show, id: topic
 
     assert_select "#recently-updated" do
-      assert_select_prefix_object policy_1, prefix="recent"
-      assert_select_prefix_object policy_2, prefix="recent"
-      assert_select_prefix_object news_article, prefix="recent"
+      assert_select_prefix_object policy_1, prefix = "recent"
+      assert_select_prefix_object policy_2, prefix = "recent"
+      assert_select_prefix_object news_article, prefix = "recent"
     end
 
     assert_select ".govdelivery[href='#{new_email_signups_path(email_signup: { feed: atom_feed_url_for(topic) })}']"

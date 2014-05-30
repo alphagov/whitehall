@@ -54,7 +54,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
 
     post :update, id: world_location, world_location: {
-      top_tasks_attributes: {"0" =>{
+      top_tasks_attributes: {"0" => {
         url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
       }}
@@ -71,7 +71,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     top_task = create(:top_task, linkable: world_location)
 
     post :update, id: world_location, world_location: {
-      top_tasks_attributes: {"0" =>{
+      top_tasks_attributes: {"0" => {
         id: top_task.id,
         _destroy: "1"
       }}

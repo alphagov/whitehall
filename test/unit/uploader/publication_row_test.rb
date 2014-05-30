@@ -166,7 +166,7 @@ module Whitehall::Uploader
       @attachment_cache.stubs(:fetch).with("http://example.com/attachment.pdf", @line_number).returns(File.open(Rails.root.join("test", "fixtures", "two-pages.pdf")))
 
       row = new_publication_row({
-        'attachment_1_title' =>'title',
+        'attachment_1_title' => 'title',
         'attachment_1_url' => 'http://example.com/attachment.pdf',
         'command_paper_number' => 'Cm 5861',
         'hoc_paper_number' => '123456',

@@ -85,7 +85,7 @@ module Whitehall::Uploader
   private
 
     def policy_slugs
-      row.to_hash.select {|k,_| k=~ /^policy_\d+$/ }.values
+      row.to_hash.select {|k,_| k =~ /^policy_\d+$/ }.values
     end
 
     def attachments_from_json

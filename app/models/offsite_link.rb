@@ -8,7 +8,7 @@ class OffsiteLink < ActiveRecord::Base
     begin
       host = URI.parse(url).host
       split_host = host.split(".") if host
-      if !host || split_host[split_host.length-1] != "uk" || split_host[split_host.length-2] != "gov"
+      if !host || split_host[split_host.length - 1] != "uk" || split_host[split_host.length - 2] != "gov"
         errors.add(:base, "Please enter a gov.uk URL")
       end
     rescue URI::InvalidURIError

@@ -14,7 +14,7 @@ module AdminControllerTestHelpers
         social_media_service = create(:social_media_service)
 
         post :create, type => attributes_for(type).merge(
-          social_media_accounts_attributes: {"0" =>{
+          social_media_accounts_attributes: {"0" => {
           social_media_service_id: social_media_service.id,
           url: "https://twitter.com/#!/bisgovuk"
         }}

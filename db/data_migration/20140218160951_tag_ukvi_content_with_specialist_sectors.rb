@@ -42,7 +42,7 @@ CSV.foreach("#{Rails.root}/db/data_migration/20140218160951_ukvi_guidance_mapped
     sectors = edition.specialist_sectors
     sectors += [sector_name]
     sectors = sectors.uniq
-    edition.specialist_sector_tags=(sectors)
+    edition.specialist_sector_tags = (sectors)
 
     publisher = ValidationSkippingPublisher.new(edition)
     publisher.perform!
@@ -55,7 +55,7 @@ CSV.foreach("#{Rails.root}/db/data_migration/20140218160951_ukvi_guidance_mapped
     sectors = edition.specialist_sectors
     sectors += [sector_name]
     sectors = sectors.uniq
-    edition.specialist_sector_tags=(sectors)
+    edition.specialist_sector_tags = (sectors)
     edition.save
 
     logger.info "\t\tUpdated edition: #{edition.id}"    

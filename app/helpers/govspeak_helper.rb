@@ -229,9 +229,9 @@ module GovspeakHelper
     nokogiri_doc.css('h2, h3').each do |el|
       if el.name == 'h2'
         h3_depth = 0
-        number = "#{h2_depth+=1}."
+        number = "#{h2_depth += 1}."
       else
-        number = "#{h2_depth}.#{h3_depth+=1}"
+        number = "#{h2_depth}.#{h3_depth += 1}"
       end
       el.inner_html = el.document.fragment(%{<span class="number">#{number} </span>#{el.inner_html}})
     end
