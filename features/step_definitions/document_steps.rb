@@ -84,7 +84,7 @@ Given /^a force published (document|publication|policy|news article|consultation
   publish(force: true)
 end
 
-When /^I view the (publication|policy|news article|consultation|speech|document) "([^"]*)"$/ do |document_type, title|
+When /^I view the (publication|policy|news article|consultation|speech|document) "([^"]*)"$/ do |_document_type, title|
   click_link title
 end
 
@@ -162,11 +162,11 @@ When /^I force publish (#{THE_DOCUMENT})$/ do |edition|
   publish(force: true)
 end
 
-When /^I save my changes to the (publication|policy|news article|consultation|speech)$/ do |document_type|
+When /^I save my changes to the (publication|policy|news article|consultation|speech)$/ do |_document_type|
   click_button "Save"
 end
 
-When /^I edit the (publication|policy|news article|consultation) changing the title to "([^"]*)"$/ do |document_type, new_title|
+When /^I edit the (publication|policy|news article|consultation) changing the title to "([^"]*)"$/ do |_document_type, new_title|
   fill_in "Title", with: new_title
   click_button "Save"
 end
@@ -247,7 +247,7 @@ Then /^I should see in the preview that "([^"]*)" should related to "([^"]*)" an
   assert has_content?(related_priority_2)
 end
 
-Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |document_type, new_title, latest_title|
+Then /^I should see the conflict between the (publication|policy|news article|consultation|speech) titles "([^"]*)" and "([^"]*)"$/ do |_document_type, new_title, latest_title|
   assert_equal new_title, find(".conflicting.new #edition_title").value
   assert page.has_css?(".conflicting.latest .document .title", text: latest_title)
 end

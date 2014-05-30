@@ -59,7 +59,7 @@ class Import < ActiveRecord::Base
   end
 
   def self.source_of(document)
-    joins(:document_sources => :document).where('documents.id' => document.id).first
+    joins(document_sources: :document).where('documents.id' => document.id).first
   end
 
   def enqueue!
@@ -242,7 +242,7 @@ class Import < ActiveRecord::Base
 
   def no_duplicate_old_urls
     urls = rows.map.with_index { |row, i| [i + 2, row['old_url']] }
-    duplicates = urls.group_by { |row_number, old_url| old_url }.select { |old_url, set| set.size > 1 }
+    duplicates = urls.group_by { |_row_number, old_url| old_url }.select { |_old_url, set| set.size > 1 }
     if duplicates.any?
       duplicates.each do |old_url, set|
         errors.add(:csv_data, "Duplicate old_url '#{old_url}' in rows #{set.map {|r| r[0]}.join(', ')}")

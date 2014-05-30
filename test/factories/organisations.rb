@@ -12,7 +12,7 @@ FactoryGirl.define do
     end
 
     trait(:with_published_edition) {
-      after :create do |organisation, evaluator|
+      after :create do |organisation, _evaluator|
         FactoryGirl.create(:published_publication, lead_organisations: [organisation])
       end
     }

@@ -359,7 +359,7 @@ Then /^I should be able to view all chief professional officers for the "([^"]*)
   end
 end
 
-Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |type, name, expected_table|
+Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |_type, name, expected_table|
   visit_organisation name
   rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|
