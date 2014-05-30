@@ -615,7 +615,7 @@ MultilineBlockChain:
 
 MultilineIfThen:
   Description: Never use then for multi-line if/unless.
-  Enabled: false
+  Enabled: true
 
 MultilineTernaryOperator:
   Description: 'Avoid multi-line ?: (the ternary operator); use if/unless instead.'
