@@ -828,7 +828,7 @@ SpaceAfterNot:
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
