@@ -477,7 +477,7 @@ FlipFlop:
 
 For:
   Description: Checks use of for or each in multiline loops.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: each
   SupportedStyles:
   - for
