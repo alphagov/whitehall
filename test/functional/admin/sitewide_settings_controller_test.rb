@@ -17,7 +17,7 @@ class Admin::SitewideSettingsControllerTest < ActionController::TestCase
 
   test "PUT on :update updates the sitewide setting" do
     sitewide_setting = create(:sitewide_setting)
-    put :update, id: sitewide_setting, :sitewide_setting => {:on => true, :govspeak => "govspeak text"}
+    put :update, id: sitewide_setting, sitewide_setting: {on: true, govspeak: "govspeak text"}
 
     assert_equal 'govspeak text', sitewide_setting.reload.govspeak
     assert_equal true, sitewide_setting.reload.on

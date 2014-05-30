@@ -59,7 +59,7 @@ class Import < ActiveRecord::Base
   end
 
   def self.source_of(document)
-    joins(:document_sources => :document).where('documents.id' => document.id).first
+    joins(document_sources: :document).where('documents.id' => document.id).first
   end
 
   def enqueue!

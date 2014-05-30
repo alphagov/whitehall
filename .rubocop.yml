@@ -503,7 +503,10 @@ GuardClause:
 HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
     :b => 2 }.'
-  Enabled: false
+  Enabled: true
+  Exclude:
+  - 'db/schema.rb'
+
   EnforcedStyle: ruby19
   SupportedStyles:
   - ruby19
