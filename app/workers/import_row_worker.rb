@@ -74,7 +74,7 @@ protected
     end
   end
 
-  def record_errors_for(model, row_number, translated=false)
+  def record_errors_for(model, row_number, translated = false)
     error_prefix = translated ? 'Translated ' : ''
 
     model.errors.keys.each do |attribute|

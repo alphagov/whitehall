@@ -41,7 +41,7 @@ class PromotionalFeaturePresenterTest < ActionView::TestCase
 
   private
 
-  def feature_presenter(items=[], position=0)
+  def feature_presenter(items = [], position = 0)
     PromotionalFeaturePresenter.new(build(:promotional_feature, promotional_feature_items: items), position, @view_context)
   end
 end

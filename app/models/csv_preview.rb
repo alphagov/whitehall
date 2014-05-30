@@ -6,7 +6,7 @@ class CsvPreview
 
   attr_reader :file_path, :headings, :maximum_rows
 
-  def initialize(file_path, maximum_rows=1_000)
+  def initialize(file_path, maximum_rows = 1_000)
     @maximum_rows = maximum_rows
     @file_path = file_path
     @csv = CSV.open(file_path, encoding: encoding )

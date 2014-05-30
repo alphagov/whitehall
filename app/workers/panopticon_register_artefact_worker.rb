@@ -5,7 +5,7 @@ class PanopticonRegisterArtefactWorker
   include Sidekiq::Worker
   sidekiq_options queue: :panopticon
 
-  def perform(edition_id, options={})
+  def perform(edition_id, options = {})
     edition = Edition.find(edition_id)
 
     if edition.present?

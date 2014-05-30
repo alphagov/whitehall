@@ -27,7 +27,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
     platform == 'production' ? 'www.gov.uk' : "www.#{platform}.alphagov.co.uk"
   end
 
-  def edition_values(edition, document, document_source=nil)
+  def edition_values(edition, document, document_source = nil)
     public_url, slug = document_url_and_slug(edition, document, document_source)
     [ (document_source.try(:url) || ''),
       public_url,

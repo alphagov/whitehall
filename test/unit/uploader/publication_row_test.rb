@@ -8,7 +8,7 @@ module Whitehall::Uploader
       @line_number = 1
     end
 
-    def new_publication_row(csv_data={}, logger = Logger.new($stdout))
+    def new_publication_row(csv_data = {}, logger = Logger.new($stdout))
       Whitehall::Uploader::PublicationRow.new(csv_data, @line_number, @attachment_cache, @default_organisation, logger)
     end
 

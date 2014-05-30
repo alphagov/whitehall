@@ -101,7 +101,7 @@ class BulkUpload
       false
     end
 
-    def initialize(zip_file=nil)
+    def initialize(zip_file = nil)
       @zip_file = zip_file
       store_temporarily
     end

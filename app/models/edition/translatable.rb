@@ -26,7 +26,7 @@ module Edition::Translatable
     # We are overriding globalize3's default behaviour so that editions will fallback
     # to their "primary locale", rather than the default locale. This makes it possible
     # to have non-English editions that are still valid.
-    def globalize_fallbacks(for_locale=I18n.locale)
+    def globalize_fallbacks(for_locale = I18n.locale)
       [for_locale, locale.to_sym].uniq
     end
   end

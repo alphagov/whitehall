@@ -47,7 +47,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])
   end
 
-  def build_statistics_announcement(attributes={})
+  def build_statistics_announcement(attributes = {})
     if attributes[:current_release_date_attributes]
       attributes[:current_release_date_attributes][:creator_id] = current_user.id
     end

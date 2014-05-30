@@ -78,7 +78,7 @@ class I18nKeyTest < ActiveSupport::TestCase
     end
   end
 
-  def assert_translation(instance, translation_prefix, specific_key=nil)
+  def assert_translation(instance, translation_prefix, specific_key = nil)
     key = specific_key || instance.display_type_key
     assert_nothing_raised("No translation for #{instance} (#{translation_prefix}.#{key})") do
       I18n.t("#{translation_prefix}.#{key}", count: 1)

@@ -341,7 +341,7 @@ module DocumentControllerTestHelpers
       end
     end
 
-    def should_paginate(edition_type, options={})
+    def should_paginate(edition_type, options = {})
       include DocumentFilterHelpers
       options.reverse_merge!(timestamp_key: :first_published_at)
 

@@ -2,7 +2,7 @@
 class EditionService
   attr_reader :edition, :options, :notifier
 
-  def initialize(edition, options={})
+  def initialize(edition, options = {})
     @edition = edition
     @notifier = options.delete(:notifier)
     @options = options

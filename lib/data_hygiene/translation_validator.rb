@@ -66,7 +66,7 @@ module DataHygiene
       end
     end
 
-    def flatten(translation_file, path=[])
+    def flatten(translation_file, path = [])
       translation_file.map do |key, value|
         case value
         when Hash

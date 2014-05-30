@@ -1,7 +1,7 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
 
-    def label(method, text=nil, options={}, &block)
+    def label(method, text = nil, options = {}, &block)
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
           options[:class] ||= ""
@@ -38,7 +38,7 @@ module Whitehall
        end
      end
 
-    def form_actions(options={})
+    def form_actions(options = {})
       @template.content_tag(:div, "class" => "form-actions") {
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-primary btn-large")
@@ -59,7 +59,7 @@ module Whitehall
       form_actions(options.reverse_merge(buttons: buttons))
     end
 
-    def text_field(method, options={})
+    def text_field(method, options = {})
       horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
@@ -109,7 +109,7 @@ module Whitehall
       end
     end
 
-    def upload(method, options={})
+    def upload(method, options = {})
       horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)

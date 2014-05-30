@@ -76,7 +76,7 @@ module Whitehall
 
     class PageChecker < ::BadLinkFinder::PageChecker
 
-      def initialize(page, result_cache, logger=Rails.logger)
+      def initialize(page, result_cache, logger = Rails.logger)
         super(public_host, page, result_cache, logger)
       end
 

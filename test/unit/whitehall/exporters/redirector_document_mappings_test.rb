@@ -15,7 +15,7 @@ module Whitehall
       end
     end
 
-    def assert_extraction(expected, row_skip_predicate=nil)
+    def assert_extraction(expected, row_skip_predicate = nil)
       actual = []
       @exporter.export(actual)
       assert_equal expected, arrays_to_csv(actual.reject(&row_skip_predicate))

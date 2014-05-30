@@ -20,7 +20,7 @@ end
 # And because we use the chosen jQuery extension to enhance admin form select fields, we need some
 # jiggery pokery to make sure we can select stuff in our javascript-enabled tests.
 module Capybara::DSL
-  def select(value, options={})
+  def select(value, options = {})
     if options.has_key?(:from)
       element = find(:select, options[:from], visible: :all).find(:option, value, visible: :all)
       if element.visible?
@@ -34,7 +34,7 @@ module Capybara::DSL
     end
   end
 
-  def select_from_chosen(value, options={})
+  def select_from_chosen(value, options = {})
     field = find_field(options[:from], visible: false, match: :first)
     option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{value}')\").val()")
 

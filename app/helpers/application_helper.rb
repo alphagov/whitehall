@@ -290,7 +290,7 @@ module ApplicationHelper
     end
   end
 
-  def linked_author(author, link_options={})
+  def linked_author(author, link_options = {})
     if author
       link_to(author.name, admin_author_path(author), link_options)
     else
