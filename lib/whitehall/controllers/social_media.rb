@@ -7,7 +7,7 @@ class Whitehall::Controllers::SocialMedia
 
   def destroy_blank_social_media_accounts(object_params)
     if object_params[:social_media_accounts_attributes]
-      object_params[:social_media_accounts_attributes].each do |index, account|
+      object_params[:social_media_accounts_attributes].each do |_index, account|
         if account[:social_media_service_id].blank? && account[:url].blank?
           account[:_destroy] = "1"
         end

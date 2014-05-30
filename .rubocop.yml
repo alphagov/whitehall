@@ -122,7 +122,7 @@ UnreachableCode:
 # Supports --auto-correct
 UnusedBlockArgument:
   Description: Checks for unused block arguments.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 UnusedMethodArgument:

@@ -53,7 +53,7 @@ module Whitehall
 
     private
       def duplicates(headings)
-        normalise(headings).group_by {|heading| heading}.reject {|k, list| list.size<2}.keys
+        normalise(headings).group_by {|heading| heading}.reject {|_k, list| list.size<2}.keys
       end
 
       def missing(headings)

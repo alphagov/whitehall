@@ -1,6 +1,6 @@
 require 'csv'
 
-CSV.read(ARGV[0], headers: true, header_converters: :symbol).each_with_index do |row, i|
+CSV.read(ARGV[0], headers: true, header_converters: :symbol).each_with_index do |row, _i|
   url = row[0]
   parts = url.sub('https://www.gov.uk/government/', '').split('/')
   if parts.first == 'policies'

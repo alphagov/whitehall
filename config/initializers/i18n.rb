@@ -4,7 +4,7 @@ I18n.enforce_available_locales = false
 I18n.available_locales = Whitehall.available_locales
 
 if Rails.env.development? || Rails.env.test?
-  I18n.exception_handler = lambda do |exception, locale, key, options|
+  I18n.exception_handler = lambda do |exception, _locale, _key, _options|
     raise exception.message
   end
 end

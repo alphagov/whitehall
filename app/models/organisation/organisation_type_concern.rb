@@ -50,6 +50,6 @@ module Organisation::OrganisationTypeConcern
 
   def active_child_organisations_excluding_sub_organisations_grouped_by_type
     @active_child_organisations_excluding_sub_organisations_grouped_by_type ||=
-      active_child_organisations_excluding_sub_organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
+      active_child_organisations_excluding_sub_organisations.group_by(&:organisation_type).sort_by { |type, _department| type.listing_position }
   end
 end

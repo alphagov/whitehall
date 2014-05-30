@@ -32,7 +32,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.detect { |(_url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
     assert_equal api_worldwide_organisation_url(@world_org, host: 'test.host'), url

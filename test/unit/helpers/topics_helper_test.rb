@@ -28,7 +28,7 @@ class TopicsHelperTest < ActionView::TestCase
   end
 
   test "#topic_links_sentence generates a sentence of topic links" do
-    topics = 3.times.map { |n| create(:topic) }
+    topics = Array.new(3, create(:topic))
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(topic_links_sentence(topics))
     links = rendered.css('a')

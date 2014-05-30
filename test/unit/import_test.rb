@@ -52,7 +52,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'valid if a whole row is completely blank' do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,_v| [k,'']}]
     i = new_import(csv_data: consultation_csv_sample(blank_row))
     assert i.valid?, i.errors.full_messages.join(", ")
   end
@@ -204,7 +204,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "#perform skips blank rows" do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,_v| [k,'']}]
 
     perform_import_cleanup do
       i = perform_import(csv_data: consultation_csv_sample({}, [blank_row]))
@@ -333,7 +333,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'it is not force_publishable? if it succeeded but imported no editions' do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k,v| [k,'']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k,_v| [k,'']}]
     import = perform_import(csv_data: consultation_csv_sample(blank_row))
     refute import.force_publishable?
   end

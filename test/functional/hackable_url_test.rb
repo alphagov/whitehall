@@ -57,7 +57,7 @@ class HackableUrlTest < ActiveSupport::TestCase
     env = Rack::MockRequest.env_for(path, {method: "GET"})
     request = ActionDispatch::Request.new(env)
     called = false
-    Rails.application.routes.router.recognize(request) do |r, _, params|
+    Rails.application.routes.router.recognize(request) do |_r, _, _params|
       called = true
     end
     assert called, message

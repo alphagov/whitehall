@@ -47,7 +47,7 @@ class RoleTypePresenter
 
   def self.options
     GROUPS_VS_NAMES_VS_TYPES.map do |group, names_vs_types|
-      [group, names_vs_types.map { |name, type| [name.humanize, name] }]
+      [group, names_vs_types.map { |name, _type| [name.humanize, name] }]
     end
   end
 
