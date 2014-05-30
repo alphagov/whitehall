@@ -7,14 +7,14 @@
 
   <% if @classification_featurings.many? %>
     <p>
-      To change the order of your featured documents, drag them up or down and then click "Save features order".
+      To change the order of your featured documents, drag them up or down and then click "Save ordering".
     </p>
 
     <%= form_tag [:order, :admin, @classification, ClassificationFeaturing], method: :put do %>
       <fieldset class="sortable">
         <%= render @classification_featurings %>
       </fieldset>
-      <%= submit_tag "Save features order", class: "btn" %>
+      <%= submit_tag "Save ordering", class: "btn" %>
     <% end %>
 
   <% elsif @classification_featurings.any? %>

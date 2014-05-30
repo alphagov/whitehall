@@ -6,7 +6,7 @@
 <% if feature_list.features.current.any? %>
   <% if feature_list.features.current.many? %>
     <p>
-      To change the order of your featured documents, drag them up or down and then click "Save features order".
+      To change the order of your featured documents, drag them up or down and then click "Save ordering".
     </p>
   <% end %>
   <%= form_for feature_list, url: reorder_admin_feature_list_path(feature_list), method: :post do |form| %>
