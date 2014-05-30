@@ -9,7 +9,7 @@ class CsvPreview
   def initialize(file_path, maximum_rows = 1_000)
     @maximum_rows = maximum_rows
     @file_path = file_path
-    @csv = CSV.open(file_path, encoding: encoding )
+    @csv = CSV.open(file_path, encoding: encoding)
     @headings = @csv.shift
     ensure_csv_data_is_well_formed
   rescue ArgumentError => e

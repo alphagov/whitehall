@@ -23,7 +23,7 @@ class FatalityNoticeTest < ActiveSupport::TestCase
   end
 
   test "casualties are persisted across new editions" do
-    notice = create(:published_fatality_notice, operational_field: create(:operational_field), )
+    notice = create(:published_fatality_notice, operational_field: create(:operational_field),)
     casualty = create(:fatality_notice_casualty, fatality_notice: notice)
     assert_equal 1, notice.fatality_notice_casualties.length
     new_notice = notice.create_draft(build(:user))

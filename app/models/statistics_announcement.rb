@@ -41,7 +41,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   def previous_display_date
     if last_major_change
       major_change_index = statistics_announcement_dates.index(last_major_change)
-      statistics_announcement_dates.at( major_change_index - 1 ).try(:display_date)
+      statistics_announcement_dates.at(major_change_index - 1).try(:display_date)
     end
   end
 

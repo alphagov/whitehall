@@ -25,7 +25,7 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
     perform_import_cleanup do
       stub_request(:get, "http://example.com/attachment.txt").to_return(status: 200, body: "Some text", headers: {})
 
-      csv_data = publication_csv_sample(  attachment_1_url: "http://example.com/attachment.txt",
+      csv_data = publication_csv_sample(attachment_1_url: "http://example.com/attachment.txt",
                                           attachment_1_title: 'File title',
                                           html_title: 'HTML title',
                                           html_body: 'body')

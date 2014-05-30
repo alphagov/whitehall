@@ -23,7 +23,7 @@ module Admin
         editions_without_translations.includes(:translations)
       end
 
-      paginated_editions = editions_with_translations.page(options[:page]).per( options.fetch(:per_page) { default_page_size } )
+      paginated_editions = editions_with_translations.page(options[:page]).per(options.fetch(:per_page) { default_page_size })
 
       permitted_only = paginated_editions.select do |edition|
         Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)

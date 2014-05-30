@@ -80,7 +80,7 @@ module Edition::Organisations
   end
 
   def search_index
-    super.merge("organisations" => organisations.map(&:slug) )
+    super.merge("organisations" => organisations.map(&:slug))
   end
 
   private

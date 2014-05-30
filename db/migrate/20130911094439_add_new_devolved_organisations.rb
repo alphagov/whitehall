@@ -10,7 +10,7 @@ class AddNewDevolvedOrganisations < ActiveRecord::Migration
   def up
     devolved_administrations.each do |administration|
       name, url = administration
-      Organisation.create!( name: name,
+      Organisation.create!(name: name,
                             logo_formatted_name: name,
                             organisation_type: OrganisationType.devolved_administration,
                             url: url,

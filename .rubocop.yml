@@ -894,7 +894,7 @@ SpaceInsideHashLiteralBraces:
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpecialGlobalVars:

@@ -37,7 +37,7 @@ class CorporateInformationPage < Edition
   end
 
   def search_index
-    super.merge("organisations" => [owning_organisation.slug] )
+    super.merge("organisations" => [owning_organisation.slug])
   end
 
   def self.search_only
