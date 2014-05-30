@@ -848,7 +848,7 @@ SpaceAroundOperators:
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: space
   SupportedStyles:
   - space

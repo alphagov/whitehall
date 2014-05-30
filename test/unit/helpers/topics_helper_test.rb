@@ -34,7 +34,7 @@ class TopicsHelperTest < ActionView::TestCase
     links = rendered.css('a')
 
     assert_equal topics.map(&:name),              links.map(&:text)
-    assert_equal topics.map{ |t| topic_path(t) }, links.map{ |link| link[:href] }
+    assert_equal topics.map { |t| topic_path(t) }, links.map { |link| link[:href] }
     assert_string_includes "#{topics[0].name}, #{topics[1].name} and #{topics[2].name}", rendered.text
   end
 end
