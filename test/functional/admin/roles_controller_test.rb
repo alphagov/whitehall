@@ -47,12 +47,12 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "index should order roles by organisation names versus role name" do
-    org_A = create(:organisation, name: "A")
-    org_C = create(:organisation, name: "C")
-    org_B = create(:organisation, name: "B")
-    role_A = create(:role, name: "name", organisations: [org_A])
-    role_C = create(:role, name: "name", organisations: [org_C])
-    role_B = create(:role, name: "name", organisations: [org_B])
+    org_a = create(:organisation, name: "A")
+    org_c = create(:organisation, name: "C")
+    org_b = create(:organisation, name: "B")
+    role_a = create(:role, name: "name", organisations: [org_a])
+    role_c = create(:role, name: "name", organisations: [org_c])
+    role_b = create(:role, name: "name", organisations: [org_b])
 
     get :index
 
@@ -60,60 +60,60 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   test "index should order roles by organisation names versus role type" do
-    org_A = create(:organisation, name: "A")
-    org_C = create(:organisation, name: "C")
-    org_B = create(:organisation, name: "B")
-    ministerial_role_A = create(:ministerial_role, name: "name", organisations: [org_A])
-    ministerial_role_C = create(:ministerial_role, name: "name", organisations: [org_C])
-    board_member_role = create(:board_member_role, name: "name", organisations: [org_B])
+    org_a = create(:organisation, name: "A")
+    org_c = create(:organisation, name: "C")
+    org_b = create(:organisation, name: "B")
+    ministerial_role_a = create(:ministerial_role, name: "name", organisations: [org_a])
+    ministerial_role_c = create(:ministerial_role, name: "name", organisations: [org_c])
+    board_member_role = create(:board_member_role, name: "name", organisations: [org_b])
 
     get :index
 
-    assert_equal [ministerial_role_A, board_member_role, ministerial_role_C], assigns(:roles)
+    assert_equal [ministerial_role_a, board_member_role, ministerial_role_c], assigns(:roles)
   end
 
   test "index should order roles by role type (ministers first) versus role name" do
     org = create(:organisation)
-    ministerial_role_B = create(:ministerial_role, name: "B", organisations: [org])
+    ministerial_role_b = create(:ministerial_role, name: "B", organisations: [org])
     board_member_role = create(:board_member_role, name: "A", organisations: [org])
-    ministerial_role_A = create(:ministerial_role, name: "A", organisations: [org])
+    ministerial_role_a = create(:ministerial_role, name: "A", organisations: [org])
 
     get :index
 
-    assert_equal [ministerial_role_A, ministerial_role_B, board_member_role], assigns(:roles)
+    assert_equal [ministerial_role_a, ministerial_role_b, board_member_role], assigns(:roles)
   end
 
   test "index should order roles by role type with ministers first versus role permanent secretary status" do
     org = create(:organisation)
     ministerial_role = create(:ministerial_role, name: "name", organisations: [org])
-    board_member_role_B = create(:board_member_role, name: "name", organisations: [org], permanent_secretary: false)
-    board_member_role_A = create(:board_member_role, name: "name", organisations: [org], permanent_secretary: true)
+    board_member_role_b = create(:board_member_role, name: "name", organisations: [org], permanent_secretary: false)
+    board_member_role_a = create(:board_member_role, name: "name", organisations: [org], permanent_secretary: true)
 
     get :index
 
-    assert_equal [ministerial_role, board_member_role_A, board_member_role_B], assigns(:roles)
+    assert_equal [ministerial_role, board_member_role_a, board_member_role_b], assigns(:roles)
   end
 
   test "index should order roles by permanent secretary status versus role name" do
     org = create(:organisation)
-    permanent_secretary_role_B = create(:role, name: "B", organisations: [org], permanent_secretary: true)
+    permanent_secretary_role_b = create(:role, name: "B", organisations: [org], permanent_secretary: true)
     non_permanent_secretary_role = create(:role, name: "A", organisations: [org], permanent_secretary: false)
-    permanent_secretary_role_A = create(:role, name: "A", organisations: [org], permanent_secretary: true)
+    permanent_secretary_role_a = create(:role, name: "A", organisations: [org], permanent_secretary: true)
 
     get :index
 
-    assert_equal [permanent_secretary_role_A, permanent_secretary_role_B, non_permanent_secretary_role], assigns(:roles)
+    assert_equal [permanent_secretary_role_a, permanent_secretary_role_b, non_permanent_secretary_role], assigns(:roles)
   end
 
   test "index should order roles by name all other things being equal" do
     org = create(:organisation)
-    role_A = create(:role, name: "A", organisations: [org])
-    role_C = create(:role, name: "C", organisations: [org])
-    role_B = create(:role, name: "B", organisations: [org])
+    role_a = create(:role, name: "A", organisations: [org])
+    role_c = create(:role, name: "C", organisations: [org])
+    role_b = create(:role, name: "B", organisations: [org])
 
     get :index
 
-    assert_equal [role_A, role_B, role_C], assigns(:roles)
+    assert_equal [role_a, role_b, role_c], assigns(:roles)
   end
 
   view_test "index should display a link to create a new role" do

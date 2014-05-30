@@ -986,7 +986,7 @@ VariableInterpolation:
 
 VariableName:
   Description: Use the configured style when naming variables.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
   - snake_case
