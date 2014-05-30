@@ -253,7 +253,7 @@ AlignParameters:
 # Supports --auto-correct
 AndOr:
   Description: Use &&/|| instead of and/or.
-  Enabled: false
+  Enabled: true
 
 ArrayJoin:
   Description: Use Array#join instead of Array#*.

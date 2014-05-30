@@ -52,7 +52,7 @@ classes_to_index.each do |klass|
     s=obj.search_index
     puts %Q[{"index": {"_type": "edition", "_id": "#{s['link']}"}}]
     puts s.to_json
-    if i>0 and i%1000 == 0
+    if i>0 && i%1000 == 0
       logger.info " .. #{i}"
       GC.enable
       GC.start

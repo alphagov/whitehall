@@ -31,7 +31,7 @@ private
       @policy = nil unless can_preview?(@policy)
     end
 
-    @policy ||= Policy.published_as(params[:policy_id]) or render_not_found
+    @policy ||= Policy.published_as(params[:policy_id]) || render_not_found
   end
 
   # When supporting pages were converted to editions some of the slugs had to
