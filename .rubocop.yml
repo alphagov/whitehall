@@ -938,7 +938,7 @@ TrailingComma:
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 TrivialAccessors:

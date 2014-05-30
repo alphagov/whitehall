@@ -166,7 +166,7 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
     featured_topics_and_policies_list.featured_items << current_item
     featured_topics_and_policies_list.featured_items << ended_item
     featured_topics_and_policies_list.featured_items << to_be_ended_item
-    
+
     put :update, organisation_id: org, featured_topics_and_policies_list: {
       summary: ('a' * 65_536),
       featured_items_attributes: {

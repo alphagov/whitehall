@@ -31,10 +31,10 @@ CSV.foreach("#{Rails.root}/db/data_migration/20140218160951_ukvi_guidance_mapped
     logger.info "\tCan't find #{row['name']} document with slug #{slug}: skipping."
     next
   end
-  
-  logger.info("\tFound #{row['name']} document")  
-    
-  if doc.published_edition && doc.published_edition.is_latest_edition? 
+
+  logger.info("\tFound #{row['name']} document")
+
+  if doc.published_edition && doc.published_edition.is_latest_edition?
 
     edition = doc.published_edition.create_draft(gds_user)
     edition.minor_change = true
@@ -58,7 +58,7 @@ CSV.foreach("#{Rails.root}/db/data_migration/20140218160951_ukvi_guidance_mapped
     edition.specialist_sector_tags = (sectors)
     edition.save
 
-    logger.info "\t\tUpdated edition: #{edition.id}"    
+    logger.info "\t\tUpdated edition: #{edition.id}"
   end
 
   edition.editorial_remarks.create!(

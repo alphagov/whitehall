@@ -18,7 +18,7 @@ module RoleAppointmentsHelper
 
   def find_or_create_ministerial_role(name)
     MinisterialRole.find_by_name(name) || create(:ministerial_role, name: name)
-  end  
+  end
 end
 
 World(RoleAppointmentsHelper)

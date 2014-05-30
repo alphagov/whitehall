@@ -44,7 +44,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact on the home page of the organisation if told to" do
     organisation = create(:organisation)
-    post :create, 
+    post :create,
       contact: {
         title: "Main office",
         show_on_home_page: '1',
@@ -61,7 +61,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact without adding to the home page of the organisation if told not to" do
     organisation = create(:organisation)
-    post :create, 
+    post :create,
       contact: {
         title: "Main office",
         show_on_home_page: '0',
@@ -78,7 +78,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
   test "POST on :create creates contact without adding to the home page of the organisation if no suggestion made" do
     organisation = create(:organisation)
-    post :create, 
+    post :create,
       contact: {
         title: "Main office",
         contact_type_id: ContactType::General.id
