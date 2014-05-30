@@ -32,7 +32,7 @@
             <% elsif feature.offsite_link %>
               <div class="title"><%= link_to feature.offsite_link, polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link]) %></div>
               <div class="type"><%= feature.offsite_link.humanized_link_type %> (offsite link)</div>
-              <div class="date"></div>
+              <div class="date"><%=l feature.offsite_link.date.to_date if feature.offsite_link.date %></div>
               <%= content_tag_for :div, feature.offsite_link, class: "button" do %>
                 <%= link_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
               <% end %>
