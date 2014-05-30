@@ -13,7 +13,7 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  Whitehall.detailed_edition_classes
+                     Whitehall.detailed_edition_classes
 else
   Whitehall.government_edition_classes
 end

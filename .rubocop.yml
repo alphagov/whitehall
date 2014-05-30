@@ -543,7 +543,7 @@ IndentationConsistency:
 # Supports --auto-correct
 IndentationWidth:
   Description: Use 2 spaces for indentation.
-  Enabled: false
+  Enabled: true
 
 Lambda:
   Description: Use the new lambda literal syntax for single-line blocks.

@@ -73,7 +73,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       user = login_as(:departmental_editor)
       organisation = create(:ministerial_department)
       edition = if block_given?
-        yield organisation
+                  yield organisation
       else
         create(edition_type, :draft,
           scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,

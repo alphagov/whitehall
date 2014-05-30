@@ -79,9 +79,9 @@ class Attachment < ActiveRecord::Base
 
   def store_price_in_pence
     self.price_in_pence = if price && price.to_s.empty?
-      nil
+                            nil
     elsif price
-      price.to_f * 100
+                            price.to_f * 100
     end
   end
 

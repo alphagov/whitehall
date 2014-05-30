@@ -26,7 +26,7 @@ module Whitehall
     end
 
     def errors
-       return unless object.errors.any?
+      return unless object.errors.any?
        error_list = @template.content_tag(:ul, "class" => "errors disc") do
          object.errors.full_messages.each do |msg|
            @template.concat @template.content_tag(:li, msg)

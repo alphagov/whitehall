@@ -165,7 +165,7 @@ module Whitehall
     end
 
     test "attachment sources use their visibility to populate 'State'" do
-      edition = create(:publication, :draft)
+       edition = create(:publication, :draft)
       attachment = create(:csv_attachment, attachable: edition)
       attachment_source = create(:attachment_source, attachment: attachment)
       assert_csv_contains <<-EOT.strip_heredoc

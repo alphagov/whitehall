@@ -37,7 +37,7 @@ end
 
 Given(/^a (topic|topical event) called "(.*?)" exists with featured documents$/) do |type, name|
   classification = if type == 'topic'
-    create(:topic, name: name)
+                     create(:topic, name: name)
   else
     create(:topical_event, name: name)
   end
@@ -74,7 +74,7 @@ end
 
 When /^I visit the "([^"]*)" (topic|topical event)$/ do |name, type|
   classification = if type == 'topic'
-    Topic.find_by_name!(name)
+                     Topic.find_by_name!(name)
   else
     TopicalEvent.find_by_name!(name)
   end

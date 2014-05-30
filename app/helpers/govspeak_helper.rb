@@ -204,9 +204,9 @@ module GovspeakHelper
 
   def replacement_html_for_edition_link(anchor, edition, options = {})
     new_html = if edition.present? && edition.linkable?
-      anchor.dup.tap do |anchor|
-        anchor['href'] = public_document_url(edition, options)
-      end.to_html.html_safe
+                 anchor.dup.tap do |anchor|
+                   anchor['href'] = public_document_url(edition, options)
+                 end.to_html.html_safe
     else
       anchor.inner_text
     end
