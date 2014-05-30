@@ -12,7 +12,7 @@ module Whitehall::Uploader
         .optional('json_attachments')
         .multiple("country_#", 0..4)
         .optional(%w(html_title html_body))
-        .multiple('html_body_#',0..99)
+        .multiple('html_body_#', 0..99)
         .multiple("topic_#", 0..4)
     end
 
@@ -85,7 +85,7 @@ module Whitehall::Uploader
   private
 
     def policy_slugs
-      row.to_hash.select {|k,_| k =~ /^policy_\d+$/ }.values
+      row.to_hash.select {|k, _| k =~ /^policy_\d+$/ }.values
     end
 
     def attachments_from_json

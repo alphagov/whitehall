@@ -9,7 +9,7 @@ class I18nKeyTest < ActiveSupport::TestCase
 
   test "all locale files are up-to-date" do
     default_keys = keys_in_locale_file(default_locale_file_path)
-    locale_files = Dir[Rails.root.join('config','locales','*.yml')] - [default_locale_file_path.to_s]
+    locale_files = Dir[Rails.root.join('config', 'locales', '*.yml')] - [default_locale_file_path.to_s]
 
     locale_files.each do |locale_file|
       missing_keys = default_keys - keys_in_locale_file(locale_file)
@@ -91,7 +91,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   def any_nil_values?(hash)
-    hash.detect {|_,v| v.nil? || (v.is_a?(Hash) && any_nil_values?(v)) }
+    hash.detect {|_, v| v.nil? || (v.is_a?(Hash) && any_nil_values?(v)) }
   end
 
   def keys_in_locale_file(locale_file)

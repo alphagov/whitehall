@@ -2,8 +2,8 @@ class AddNewDevolvedOrganisations < ActiveRecord::Migration
   def devolved_administrations
     [
       ['Scottish Parliament', 'http://www.scottish.parliament.uk/'],
-      ['National Assembly for Wales','http://www.assemblywales.org/'],
-      ['Northern Ireland Assembly','http://www.niassembly.gov.uk/'],
+      ['National Assembly for Wales', 'http://www.assemblywales.org/'],
+      ['Northern Ireland Assembly', 'http://www.niassembly.gov.uk/'],
     ]
   end
 

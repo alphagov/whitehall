@@ -12,7 +12,7 @@ class FeatureListTest < ActiveSupport::TestCase
   test "features are given an ordering when assigning a list" do
     feature_list = build(:feature_list, locale: :en)
     feature_list.features = [build(:feature), build(:feature)]
-    assert_equal [1,2], feature_list.features.map(&:ordering)
+    assert_equal [1, 2], feature_list.features.map(&:ordering)
     feature_list.save
   end
 

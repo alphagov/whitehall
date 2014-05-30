@@ -79,7 +79,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
   end
 
   def export(target)
-    target << ['Old Url','New Url','Status','Slug','Admin Url','State']
+    target << ['Old Url', 'New Url', 'Status', 'Slug', 'Admin Url', 'State']
     Document.find_each do |document|
       document.editions.each do |edition|
         if document.document_sources.any?

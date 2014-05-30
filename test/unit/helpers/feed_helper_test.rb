@@ -80,7 +80,7 @@ class FeedHelperTest < ActionView::TestCase
     stubs(:public_document_url).with(d2).returns '/policy_url'
     stubs(:public_document_url).with(d1).returns '/publication_url'
 
-    documents_as_feed_entries([d2,d1], builder)
+    documents_as_feed_entries([d2, d1], builder)
   end
 
   test 'documents_as_feed_entries sets the updated of the builder to the supplied feed_updated_timestamp if no documents are present' do

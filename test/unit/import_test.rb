@@ -52,7 +52,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'valid if a whole row is completely blank' do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k,_| [k,'']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k, _| [k, '']}]
     i = new_import(csv_data: consultation_csv_sample(blank_row))
     assert i.valid?, i.errors.full_messages.join(", ")
   end
@@ -147,7 +147,7 @@ class ImportTest < ActiveSupport::TestCase
   test '#perform records an error when translation data is present without a locale' do
     perform_import_cleanup do
       import = perform_import(csv_data: translated_news_article_with_missing_locale_csv, data_type: "news_article", organisation_id: organisation.id)
-      assert_equal 1 ,import.import_errors.count
+      assert_equal 1 , import.import_errors.count
       assert_match /Locale not recognised/, import.import_errors.map.first.message
     end
   end
@@ -204,7 +204,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "#perform skips blank rows" do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k,_| [k,'']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k, _| [k, '']}]
 
     perform_import_cleanup do
       i = perform_import(csv_data: consultation_csv_sample({}, [blank_row]))
@@ -333,7 +333,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'it is not force_publishable? if it succeeded but imported no editions' do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k,_| [k,'']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k, _| [k, '']}]
     import = perform_import(csv_data: consultation_csv_sample(blank_row))
     refute import.force_publishable?
   end

@@ -807,7 +807,7 @@ SpaceAfterColon:
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterControlKeyword:

@@ -3,7 +3,7 @@
 
 include ActionView::Helpers::NumberHelper
 
-file_sizes = Hash.new {|hash,key| hash[key] = []}
+file_sizes = Hash.new {|hash, key| hash[key] = []}
 
 Document.find_each do |document|
   latest_edition = document.latest_edition
