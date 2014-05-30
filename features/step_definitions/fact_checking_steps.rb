@@ -29,7 +29,7 @@ When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|
   visit links.first
 end
 
-When /^"([^"]*)" adds feedback "([^"]*)" to "([^"]*)"$/ do |fact_checker_email, comments, title|
+When /^"([^"]*)" adds feedback "([^"]*)" to "([^"]*)"$/ do |fact_checker_email, comments, _|
   fact_check_request = FactCheckRequest.find_all_by_email_address(fact_checker_email).last
   visit edit_admin_fact_check_request_path(fact_check_request)
   fill_in "Comments", with: comments
@@ -48,7 +48,7 @@ Then /^"([^"]*)" should be notified by email that "([^"]*)" has requested a fact
   assert_match /#{instructions}/, email.body.to_s
 end
 
-Then /^"([^"]*)" should be notified by email that "([^"]*)" has added a comment "([^"]*)" to "([^"]*)"$/ do |requestor_email, fact_checker_email, comment, title|
+Then /^"([^"]*)" should be notified by email that "([^"]*)" has added a comment "([^"]*)" to "([^"]*)"$/ do |requestor_email, fact_checker_email, _, title|
   assert_equal 1, unread_emails_for(requestor_email).size
   email = unread_emails_for(requestor_email).last
   assert_equal "Fact check comment added by #{fact_checker_email}: #{title}", email.subject

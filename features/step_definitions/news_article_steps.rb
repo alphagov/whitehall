@@ -15,7 +15,7 @@ Given(/^a published news article associated with the policy "(.*?)"$/) do |polic
   create(:published_news_article, related_editions: [policy])
 end
 
-Given /^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/ do |title, thing|
+Given /^a published news article "([^"]*)" which isn't explicitly associated with "([^"]*)"$/ do |title, _|
   create(:published_news_article, title: title)
 end
 
