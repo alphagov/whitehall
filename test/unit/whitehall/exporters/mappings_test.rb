@@ -165,13 +165,13 @@ module Whitehall
     end
 
     test "attachment sources use their visibility to populate 'State'" do
-       edition = create(:publication, :draft)
+      edition = create(:publication, :draft)
       attachment = create(:csv_attachment, attachable: edition)
       attachment_source = create(:attachment_source, attachment: attachment)
       assert_csv_contains <<-EOT.strip_heredoc
         #{attachment_source.url},https://www.test.alphagov.co.uk#{attachment.url},"",draft
       EOT
-     end
+    end
 
     test "maps localised sources to localised New URLs in addition to the the default mapping" do
       publication = create(:published_publication)

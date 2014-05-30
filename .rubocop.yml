@@ -15,7 +15,7 @@ AssignmentInCondition:
 
 BlockAlignment:
   Description: Align block ends correctly.
-  Enabled: false
+  Enabled: true
 
 ConditionPosition:
   Description: Checks for condition placed in a confusing position relative to the keyword.

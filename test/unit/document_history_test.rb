@@ -72,7 +72,8 @@ class DocumentHistoryTest < ActiveSupport::TestCase
                                                             published_major_version: 2,
                                                             published_minor_version: 0,
                                                             change_note: 'Some stuff was changed',
-                                                            related_policies: [policy]) }
+                                                            related_policies: [policy])
+    }
 
     history           = DocumentHistory.new(policy.document)
 
@@ -98,7 +99,8 @@ class DocumentHistoryTest < ActiveSupport::TestCase
                                                             published_major_version: 2,
                                                             published_minor_version: 0,
                                                             change_note: 'Some stuff was changed',
-                                                            related_policies: [policy]) }
+                                                            related_policies: [policy])
+    }
 
     history           = DocumentHistory.new(policy.document)
 
