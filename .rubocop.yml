@@ -916,7 +916,7 @@ SymbolArray:
 
 Tab:
   Description: No hard tabs.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 TrailingBlankLines:
