@@ -13,7 +13,12 @@
 <%= content_tag_for(:article, feature, nil, class: extra_classes.strip) do %>
   <div class="content">
     <span class="image-holder">
-      <%= link_to image_tag(feature.image(image_size), {class: 'featured-image', alt: feature.alt_text}), feature.public_path, title: I18n.t("document.read", title: feature.title), class: 'img'%>
+      <% if feature.offsite_link %>
+        <% feature_title = feature.title %>
+      <% else %>
+        <% feature_title = I18n.t("document.read", title: feature.title) %>
+      <% end %>
+      <%= link_to image_tag(feature.image(image_size), {class: 'featured-image', alt: feature.alt_text}), feature.public_path, title: feature_title, class: 'img'%>
     </span>
     <div class="text">
       <% if show_meta %>
@@ -22,7 +27,7 @@
             <%= absolute_date(feature.time_stamp) %>
           <% else %>
             <% if feature.time_stamp %>
-            <%= absolute_date(feature.time_stamp) %> &mdash; <%= t_display_type feature %>
+              <%= absolute_date(feature.time_stamp) %> &mdash; <%= t_display_type feature %>
             <% else %>
               <%= t_display_type feature %>
             <% end %>
