@@ -31,6 +31,6 @@ class LongLifeRedirect
       'Cache-control' => 'public'
     }
 
-    [ 301, headers, [body] ]
+    [301, headers, [body]]
   end
 end

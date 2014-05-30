@@ -795,7 +795,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should have associated needs when need ids are present' do
-    need_api_has_need_ids([ { "id" => "000123" }, { "id" => "000456" }])
+    need_api_has_need_ids([{ "id" => "000123" }, { "id" => "000456" }])
 
     edition = create(:edition, need_ids: %w(000123 000456))
 

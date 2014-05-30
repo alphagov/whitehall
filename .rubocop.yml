@@ -879,7 +879,7 @@ SpaceInsideBlockBraces:
 # Supports --auto-correct
 SpaceInsideBrackets:
   Description: No spaces after [ or before ].
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceInsideHashLiteralBraces:

@@ -146,7 +146,7 @@ class AttachmentUploader < WhitehallUploader
               reject { |_, ext| ext.nil? }.
               group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
               map { |shape, files|
-                [ shape, files.group_by { |_, ext| ext } ]
+                [shape, files.group_by { |_, ext| ext }]
               }
           ]
       end

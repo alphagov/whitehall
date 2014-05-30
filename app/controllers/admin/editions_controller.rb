@@ -158,7 +158,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def permitted_edition_attributes
-    [ :title, :body, :change_note, :summary, :first_published_at,
+    [:title, :body, :change_note, :summary, :first_published_at,
       :publication_type_id, :scheduled_publication, :lock_version,
       :access_limited, :alternative_format_provider_id, :opening_at,
       :closing_at, :external, :external_url, :minor_change,

@@ -495,7 +495,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    assert_publication_order [ newest, middle, oldest ]
+    assert_publication_order [newest, middle, oldest]
   end
 
   test '#index atom feed orders consultations according to opening_at (newest first)' do
@@ -505,7 +505,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    assert_publication_order [ newest, middle, oldest ]
+    assert_publication_order [newest, middle, oldest]
   end
 
   test '#index atom feed orders mixed publications and consultations according to first_published_at or opening_at (newest first)' do
@@ -515,7 +515,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, format: :atom
 
-    assert_publication_order [ newest, middle, oldest ]
+    assert_publication_order [newest, middle, oldest]
   end
 
   view_test '#index atom feed should return a valid feed if there are no matching documents' do

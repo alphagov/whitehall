@@ -34,7 +34,7 @@ private
   end
 
   def expire_cache_for_show_on_release(announcement)
-    times = [ announcement.release_date - Time.zone.now ]
+    times = [announcement.release_date - Time.zone.now]
     times << announcement.publication.scheduled_publication - Time.zone.now if announcement.publication.present? && announcement.publication.scheduled_publication.present?
     times << Whitehall.default_cache_max_age
     times.reject! { |time_span| time_span <= 0 }

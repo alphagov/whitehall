@@ -69,10 +69,10 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
 
 
   def status_variety_pack
-    [ build(:organisation, govuk_status: 'live'),
+    [build(:organisation, govuk_status: 'live'),
       build(:organisation, govuk_status: 'live'),
       build(:organisation, govuk_status: 'exempt'),
-      build(:organisation, govuk_status: 'transitioning') ]
+      build(:organisation, govuk_status: 'transitioning')]
   end
 
   test "#live_count should return the number of live ones" do
