@@ -27,14 +27,14 @@ class AddOrganisationBrandColourToOrganisations < ActiveRecord::Migration
       colour = nil
       # First, handle any exceptions to the rule
       case organisation.slug
-        when "social-mobility-and-child-poverty-commission", "forestry-commission", "forest-research"
+      when "social-mobility-and-child-poverty-commission", "forestry-commission", "forest-research"
 
-          # No brand colour
-          next
-        when "export-guarantees-advisory-council"
-          colour = OrganisationBrandColour.find("uk-export-finance")
-        when "boundary-commission-for-wales"
-          colour = OrganisationBrandColour.find("wales-office")
+        # No brand colour
+        next
+      when "export-guarantees-advisory-council"
+        colour = OrganisationBrandColour.find("uk-export-finance")
+      when "boundary-commission-for-wales"
+        colour = OrganisationBrandColour.find("wales-office")
       end
 
       # Second, see if there is a colour specifically for this org
