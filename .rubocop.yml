@@ -391,7 +391,7 @@ CyclomaticComplexity:
 # Supports --auto-correct
 DefWithParentheses:
   Description: Use def with parentheses when there are arguments.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 DeprecatedHashMethods:
