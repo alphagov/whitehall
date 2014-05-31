@@ -64,4 +64,3 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
     assert_equal "The document 'edition-title' has been deleted", flash[:notice]
   end
 end
-

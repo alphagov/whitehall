@@ -64,4 +64,3 @@ module Admin::HomePageListController
     include home_page_list_controller_methods
   end
 end
-

@@ -936,7 +936,7 @@ Tab:
 # Supports --auto-correct
 TrailingBlankLines:
   Description: Checks trailing blank lines and final newline.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: final_newline
   SupportedStyles:
   - final_newline

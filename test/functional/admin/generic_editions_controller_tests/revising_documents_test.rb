@@ -49,4 +49,3 @@ class Admin::GenericEditionsController::RevisingDocumentsTest < ActionController
     assert_select ".alert a", href: Whitehall.url_maker.admin_edition_path(new_draft)
   end
 end
-

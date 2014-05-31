@@ -30,4 +30,3 @@ Then /^I cannot click through to the most recent version of document "([^"]*)"$/
   assert page.has_css?('.alert.access-limited-latest-edition')
   assert page.has_no_content?('Go to draft')
 end
-
