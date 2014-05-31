@@ -744,7 +744,7 @@ RedundantException:
 # Supports --auto-correct
 RedundantReturn:
   Description: Don't use return where it's not required.
-  Enabled: false
+  Enabled: true
   AllowMultipleReturnValues: false
 
 # Supports --auto-correct

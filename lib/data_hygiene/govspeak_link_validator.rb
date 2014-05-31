@@ -54,7 +54,7 @@ module DataHygiene
         start_at = match.end(0)
       end
 
-      return matches
+      matches
     end
   end
 end
