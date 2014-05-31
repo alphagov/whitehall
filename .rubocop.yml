@@ -381,7 +381,7 @@ CommentIndentation:
 
 ConstantName:
   Description: Constants should use SCREAMING_SNAKE_CASE.
-  Enabled: false
+  Enabled: true
 
 CyclomaticComplexity:
   Description: Avoid complex methods.
