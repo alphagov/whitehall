@@ -6,14 +6,15 @@ class EditionUnpublisher < EditionService
   end
 
   def failure_reason
-    @failure_reason ||= if !can_transition?
-                          "An edition that is #{edition.current_state} cannot be #{past_participle}"
+    @failure_reason ||=
+    if !can_transition?
+      "An edition that is #{edition.current_state} cannot be #{past_participle}"
     elsif edition.other_draft_editions.any?
-                          "There is already a draft edition of this document. You must discard it before you can #{verb} this edition."
+      "There is already a draft edition of this document. You must discard it before you can #{verb} this edition."
     elsif edition.unpublishing.blank?
-                          "The reason for unpublishing must be present"
+      "The reason for unpublishing must be present"
     elsif !edition.unpublishing.valid?
-                          edition.unpublishing.errors.full_messages.to_sentence
+      edition.unpublishing.errors.full_messages.to_sentence
     end
   end
 

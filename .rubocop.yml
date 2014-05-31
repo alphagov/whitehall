@@ -44,7 +44,7 @@ EmptyInterpolation:
 
 EndAlignment:
   Description: Align ends correctly.
-  Enabled: false
+  Enabled: true
   AlignWith: keyword
   SupportedStyles:
   - keyword

@@ -8,9 +8,9 @@ module Admin::DefinitionListHelper
               else
                 value
               end
-    else
-      default || default_definition_list_value
-    end
+            else
+              default || default_definition_list_value
+            end
     content_tag(:dd, value)
   end
 

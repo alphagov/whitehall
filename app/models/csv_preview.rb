@@ -49,11 +49,11 @@ class CsvPreview
   def encoding
     @encoding ||= if utf_8_encoding?
                     'UTF-8'
-    elsif windows_1252_encoding?
+                  elsif windows_1252_encoding?
                     'windows-1252'
-    else
-      raise FileEncodingError, 'File encoding not recognised'
-    end
+                  else
+                    raise FileEncodingError, 'File encoding not recognised'
+                  end
   end
 
   def utf_8_encoding?

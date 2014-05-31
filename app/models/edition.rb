@@ -200,9 +200,9 @@ class Edition < ActiveRecord::Base
   def self.related_to(edition)
     related = if edition.is_a?(Policy)
                 edition.related_editions
-    else
-      edition.related_policies
-    end
+              else
+                edition.related_policies
+              end
 
     # This works around a wierd bug in ActiveRecord where an outer scope applied
     # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.

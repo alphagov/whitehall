@@ -45,15 +45,15 @@ class BadMarkdownLinkCleaner
           next
         end
 
-        new_body = if "/#{original_link}".start_with?("#{@router_prefix}/admin")
-                     new_link = "/#{original_link}"
+        new_body =
+        if "/#{original_link}".start_with?("#{@router_prefix}/admin")
+          new_link = "/#{original_link}"
           replace_link_if_required(:relative_admin_paths, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
         elsif parsed_original_link.path.start_with?("#{@router_prefix}/admin")
-                     new_link = parsed_original_link.path
+          new_link = parsed_original_link.path
           replace_link_if_required(:absolute_admin_urls, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
         elsif original_link =~ /whitehall-admin/
-
-                     new_link = parsed_original_link.dup
+          new_link = parsed_original_link.dup
           new_link.host = "www.gov.uk"
           new_link.scheme = "https"
           if new_link.query_values
@@ -62,15 +62,15 @@ class BadMarkdownLinkCleaner
           end
           replace_link_if_required(:nonadmin_preview_links, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
         elsif original_link =~ %r{^(https?://|mailto:|#)}
-                     replace_link_if_required(:probably_ok_links, body, edition_translation, original_markdown) # Not fixing
+          replace_link_if_required(:probably_ok_links, body, edition_translation, original_markdown) # Not fixing
         elsif original_link =~ /^www/
-                     new_link = "http://#{original_link}"
+          new_link = "http://#{original_link}"
           replace_link_if_required(:possibly_broken_links, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
         elsif original_link =~ /@/
-                     new_link = "mailto:#{original_link}"
+          new_link = "mailto:#{original_link}"
           replace_link_if_required(:possibly_broken_links, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
         elsif original_link =~ /^http;(.+)/
-                     new_link = "http:#{$1}"
+          new_link = "http:#{$1}"
           replace_link_if_required(:possibly_broken_links, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")
         else
           replace_link_if_required(:possibly_broken_links, body, edition_translation, original_markdown) # Not fixing

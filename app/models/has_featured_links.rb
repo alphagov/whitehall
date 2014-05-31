@@ -1,5 +1,5 @@
- module HasFeaturedLinks
-   extend ActiveSupport::Concern
+module HasFeaturedLinks
+  extend ActiveSupport::Concern
 
   module ClassMethods
     def has_featured_links(feature_type)

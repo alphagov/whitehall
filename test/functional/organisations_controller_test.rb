@@ -74,11 +74,11 @@ class OrganisationsControllerTest < ActionController::TestCase
       organisation = create(:ministerial_department)
       edition = if block_given?
                   yield organisation
-      else
-        create(edition_type, :draft,
-          scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-          organisations: [organisation])
-      end
+                else
+                  create(edition_type, :draft,
+                    scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+                    organisations: [organisation])
+                end
       assert edition.perform_force_schedule
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do

@@ -14,9 +14,9 @@ logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
                      Whitehall.detailed_edition_classes
-else
-  Whitehall.government_edition_classes
-end
+                   else
+                     Whitehall.government_edition_classes
+                   end
 
 logger.info "Counting docs to index..."
 counts_by_class = classes_to_index.each_with_object({}) do |klass, hash|

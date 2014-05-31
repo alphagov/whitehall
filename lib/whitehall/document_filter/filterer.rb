@@ -97,9 +97,9 @@ module Whitehall::DocumentFilter
       @selected ||= {}
       @selected[klass] ||= if slugs.present? && !slugs.include?("all")
                              klass.where(slug: slugs)
-      else
-        []
-      end
+                           else
+                             []
+                           end
     end
 
     def parse_date(date)

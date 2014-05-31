@@ -3,9 +3,9 @@ module Admin::SupportingPagesHelper
     supporting_page.related_policies.map do |policy|
       href = if supporting_page.published? || supporting_page.archived?
                public_document_url(supporting_page, policy_id: policy.document)
-      else
-        preview_document_path(supporting_page, policy_id: policy.document)
-      end
+             else
+               preview_document_path(supporting_page, policy_id: policy.document)
+             end
 
       [href, "View with policy: #{policy.title}"]
     end

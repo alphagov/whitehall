@@ -90,15 +90,16 @@ module OrganisationHelper
     relationship = ERB::Util.h(add_indefinite_article(type_name))
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
 
-    description = if parents.any?
-                    case type_name
-                    when 'other'
-                      "#{name} works with #{parents.to_sentence}."
-                    when 'non-ministerial department'
-                      "#{name} is #{relationship}."
-                    else
-                      "#{name} is #{relationship} of #{parents.to_sentence}."
-                    end
+    description =
+    if parents.any?
+      case type_name
+      when 'other'
+        "#{name} works with #{parents.to_sentence}."
+      when 'non-ministerial department'
+        "#{name} is #{relationship}."
+      else
+        "#{name} is #{relationship} of #{parents.to_sentence}."
+      end
     else
       "#{name} is #{relationship}."
     end
