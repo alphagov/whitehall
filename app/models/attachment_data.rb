@@ -54,16 +54,12 @@ class AttachmentData < ActiveRecord::Base
   end
 
   def read_extracted_text
-    if text_file_exists?
-      File.open(text_file_path).read
-    end
+    File.open(text_file_path).read if text_file_exists?
   end
 
   def extracted_text
-    if indexable? && File.exist?(path)
-      if Whitehall.extract_text_feature?
-        read_extracted_text
-      end
+    if indexable? && File.exist?(path) && Whitehall.extract_text_feature?
+      read_extracted_text
     end
   end
 
@@ -92,9 +88,7 @@ class AttachmentData < ActiveRecord::Base
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
-      if pdf?
-        self.number_of_pages = calculate_number_of_pages
-      end
+      self.number_of_pages = calculate_number_of_pages if pdf?
     end
   end
 

@@ -39,8 +39,6 @@ class ClassificationRelation < ActiveRecord::Base
   end
 
   def destroy_inverse_relation
-    if inverse_relation.present?
-      inverse_relation.destroy
-    end
+    inverse_relation.destroy if inverse_relation.present?
   end
 end

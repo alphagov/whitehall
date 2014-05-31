@@ -329,9 +329,7 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :case_studies, path: "case-studies", except: [:index]
-        if Rails.env.test?
-          resources :generic_editions, path: "generic-editions"
-        end
+        resources :generic_editions, path: "generic-editions" if Rails.env.test?
 
         resources :imports do
           member do

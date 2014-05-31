@@ -63,8 +63,6 @@ class HtmlAttachment < Attachment
   end
 
   def clear_slug_if_non_english_locale
-    if locale_changed? && ! sluggable_locale?
-      self.slug = nil
-    end
+    self.slug = nil if locale_changed? && ! sluggable_locale?
   end
 end

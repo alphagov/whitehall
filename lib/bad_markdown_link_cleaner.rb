@@ -21,10 +21,7 @@ class BadMarkdownLinkCleaner
 
   def clean!(edition_translation)
     new_body = replacement_body_for(edition_translation)
-
-    if new_body
-      edition_translation.update_column(:body, new_body)
-    end
+    edition_translation.update_column(:body, new_body) if new_body
   end
 
   def replacement_body_for(edition_translation)

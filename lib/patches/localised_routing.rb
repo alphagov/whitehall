@@ -29,17 +29,13 @@ class ActionDispatch::Routing::Mapper::Mapping
 
   def requirements_with_locale
     @requirements_with_locale ||= requirements_without_locale.tap do |r|
-      if localise_routing?
-        r[:locale] = LOCALE_REGEX
-      end
+      r[:locale] = LOCALE_REGEX if localise_routing?
     end
   end
 
   def defaults_with_locale
     @defaults_with_locale ||= defaults_without_locale.tap do |d|
-      if localise_routing?
-        d[:locale] = I18n.default_locale.to_s
-      end
+      d[:locale] = I18n.default_locale.to_s if localise_routing?
     end
   end
 

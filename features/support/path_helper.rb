@@ -7,9 +7,7 @@ module PathHelper
   end
 
   def ensure_path(path)
-    unless current_path == path
-      visit path
-    end
+    visit path unless current_path == path
   end
 end
 

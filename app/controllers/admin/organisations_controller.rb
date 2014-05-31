@@ -129,9 +129,7 @@ class Admin::OrganisationsController < Admin::BaseController
     return unless params[:organisation] &&
                   params[:organisation][:organisation_classifications_attributes]
     params[:organisation][:organisation_classifications_attributes].each do |p|
-      if p[:classification_id].blank?
-        p["_destroy"] = true
-      end
+      p["_destroy"] = true if p[:classification_id].blank?
     end
   end
 
@@ -139,9 +137,7 @@ class Admin::OrganisationsController < Admin::BaseController
     return unless params[:organisation] &&
                   params[:organisation][:organisation_mainstream_categories_attributes]
     params[:organisation][:organisation_mainstream_categories_attributes].each do |p|
-      if p[:mainstream_category_id].blank?
-        p["_destroy"] = true
-      end
+      p["_destroy"] = true if p[:mainstream_category_id].blank?
     end
   end
 

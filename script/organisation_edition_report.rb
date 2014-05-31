@@ -23,9 +23,7 @@ unless organisation
   exit(1)
 end
 
-if ! opts['no-bom']
-  puts "\uFEFF"
-end
+puts "\uFEFF" if !opts['no-bom']
 
 url_maker = Whitehall.url_maker
 

@@ -71,9 +71,7 @@ class PublicFacingController < ApplicationController
   end
 
   def set_expiry(duration = 30.minutes)
-    unless Rails.env.development?
-      expires_in(duration, public: true)
-    end
+    expires_in(duration, public: true) unless Rails.env.development?
   end
 
   def set_analytics_format

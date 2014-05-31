@@ -26,8 +26,6 @@ class MinisterialRoleSearchIndexObserver < ActiveRecord::Observer
   private
 
   def reindex_ministerial_roles
-    unless self.class.disabled
-      MinisterialRole.reindex_all
-    end
+    MinisterialRole.reindex_all unless self.class.disabled
   end
 end

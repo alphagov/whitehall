@@ -59,12 +59,8 @@ module Whitehall::DocumentFilter
     end
 
     def filter_by_date!
-      if @from_date.present?
-        @documents = @documents.published_after(@from_date)
-      end
-      if @to_date.present?
-        @documents = @documents.published_before(@to_date)
-      end
+      @documents = @documents.published_after(@from_date) if @from_date.present?
+      @documents = @documents.published_before(@to_date) if @to_date.present?
     end
 
     def filter_by_publication_filter_option!

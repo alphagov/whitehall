@@ -138,9 +138,7 @@ module Admin
     end
 
     def subtype_id
-      if options[:type] && options[:type][/\d+$/]
-        options[:type][/\d+$/].to_i
-      end
+      options[:type][/\d+$/].to_i if options[:type] && options[:type][/\d+$/]
     end
 
     def subtype_class

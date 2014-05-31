@@ -89,9 +89,7 @@ module Admin::UrlHelper
     path_matcher ||= Regexp.new("^#{Regexp.escape(path)}")
     if user_signed_in?
       li_class = active_link_class(path_matcher)
-      if options[:class]
-        li_class = [li_class, options[:class]].join(' ')
-      end
+      li_class = [li_class, options[:class]].join(' ') if options[:class]
       content_tag(:li, link_to(name, path), class: li_class)
     end
   end

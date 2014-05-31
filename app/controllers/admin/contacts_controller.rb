@@ -69,9 +69,7 @@ private
   end
 
   def handle_show_on_home_page_param
-    if @contactable.respond_to?(:home_page_contacts)
-      super
-    end
+    super if @contactable.respond_to?(:home_page_contacts)
   end
 
   def contact_params

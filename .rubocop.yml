@@ -518,7 +518,7 @@ HashSyntax:
 
 IfUnlessModifier:
   Description: Favor modifier if/unless usage when you have a single-line body.
-  Enabled: false
+  Enabled: true
   MaxLineLength: 80
 
 IfWithSemicolon:

@@ -26,9 +26,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
   end
 
   def path
-    if ministerial?
-      context.ministerial_role_path model
-    end
+    context.ministerial_role_path model if ministerial?
   end
 
   def link

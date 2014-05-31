@@ -20,26 +20,20 @@ When(/^I (?:also )?filter by (only )?a world location$/) do |only|
 end
 
 When(/^I (?:also )?filter by (only )?published date$/) do |only|
-  if only
-    clear_filters
-  end
+  clear_filters if only
   page.fill_in "Published after", with: "01/01/2013"
   page.fill_in "Published before", with: "01/03/2013"
   page.click_on "Refresh results"
 end
 
 def select_filter(label, value, opts = {})
-  if opts[:and_clear_others]
-    clear_filters
-  end
+  clear_filters if opts[:and_clear_others]
   page.select value, from: label
   page.click_on "Refresh results"
 end
 
 def fill_in_filter(label, value, opts = {})
-  if opts[:and_clear_others]
-    clear_filters
-  end
+  clear_filters if opts[:and_clear_others]
   page.fill_in label, with: value
   page.click_on "Refresh results"
 end

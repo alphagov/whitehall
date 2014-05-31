@@ -13,12 +13,8 @@ module DocumentHelper
   end
 
   def begin_drafting_document(options)
-    if Organisation.count == 0
-      create(:organisation)
-    end
-    if Topic.count == 0
-      create(:topic)
-    end
+    create(:organisation) if Organisation.count == 0
+    create(:topic) if Topic.count == 0
     visit admin_root_path
     # Make sure the dropdown is visible first, otherwise Capybara won't see the links
     find('li.create-new a', text: 'New document').click
@@ -155,14 +151,10 @@ module DocumentHelper
         fill_in 'reason', with: "because"
         click_button 'Force publish'
       end
-      unless options[:ignore_errors]
-        refute_flash_alerts_exist
-      end
+      refute_flash_alerts_exist unless options[:ignore_errors]
     else
       click_button "Publish"
-      unless options[:ignore_errors]
-        refute_flash_alerts_exist
-      end
+      refute_flash_alerts_exist unless options[:ignore_errors]
     end
   end
 

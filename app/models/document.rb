@@ -54,9 +54,6 @@ class Document < ActiveRecord::Base
     return if published?
 
     candidate_slug = normalize_friendly_id(new_title)
-    unless candidate_slug == slug
-      update_attributes(sluggable_string: new_title)
-    end
   end
 
   def published?
@@ -94,8 +91,6 @@ class Document < ActiveRecord::Base
   end
 
   def ensure_document_has_a_slug
-    if slug.blank?
-      update_column(:slug, id.to_s)
-    end
+    update_column(:slug, id.to_s) if slug.blank?
   end
 end

@@ -214,9 +214,7 @@ module ApplicationHelper
 
   def main_navigation_link_to(name, path, html_options = {}, &block)
     classes = (html_options[:class] || "").split
-    if current_main_navigation_path(params) == path
-      classes << "active"
-    end
+    classes << "active" if current_main_navigation_path(params) == path
     link_to(name, path, html_options.merge(class: classes.join(" ")), &block)
   end
 

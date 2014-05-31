@@ -50,9 +50,7 @@ class HomePageList < ActiveRecord::Base
     HomePageListItem.transaction do
       home_page_list_items.each do |home_page_list_item|
         new_ordering = items_in_order.index(home_page_list_item.item)
-        if new_ordering.nil?
-          new_ordering = items_in_order.size
-        end
+        new_ordering = items_in_order.size if new_ordering.nil?
         home_page_list_item.update_column(:ordering, new_ordering + 1)
       end
     end

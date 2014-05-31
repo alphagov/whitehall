@@ -22,9 +22,7 @@ class LogStashLogger < Logger
 private
 
   def render_entry(severity, time, progname, log_data)
-    if log_data.is_a? String
-      log_data = {message: log_data}
-    end
+    log_data = {message: log_data} if log_data.is_a? String
 
     log_data = log_data.symbolize_keys
     message = log_data.delete(:message) || ''

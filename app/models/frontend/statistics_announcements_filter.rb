@@ -16,9 +16,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def page=(page_number)
-    if page_number.to_i > 0
-      @page = page_number.to_i
-    end
+    @page = page_number.to_i if page_number.to_i > 0
   end
 
   def to_date=(date)

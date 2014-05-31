@@ -55,13 +55,8 @@ Whitehall::Application.configure do
 
   # This is required for Plek 1.x, but we don't want to have to set it
   # when running the tests.
-  if ENV['GOVUK_APP_DOMAIN'].blank?
-    ENV['GOVUK_APP_DOMAIN'] = 'test.gov.uk'
-  end
-
-  if ENV['GOVUK_ASSET_ROOT'].blank?
-    ENV['GOVUK_ASSET_ROOT'] = 'http://static.test.gov.uk'
-  end
+  ENV['GOVUK_APP_DOMAIN'] = 'test.gov.uk' if ENV['GOVUK_APP_DOMAIN'].blank?
+  ENV['GOVUK_ASSET_ROOT'] = 'http://static.test.gov.uk' if ENV['GOVUK_ASSET_ROOT'].blank?
 end
 
 require Rails.root.join("test/support/skip_slimmer")

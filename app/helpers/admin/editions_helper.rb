@@ -75,9 +75,7 @@ module Admin::EditionsHelper
 
   def admin_world_location_filter_options(current_user)
     options = [["All locations", ""]]
-    if current_user.world_locations.any?
-      options << ["My locations", "user"]
-    end
+    options << ["My locations", "user"] if current_user.world_locations.any?
     options + WorldLocation.ordered_by_name.map { |l| [l.name, l.id] }
   end
 

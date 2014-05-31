@@ -180,9 +180,7 @@ module OrganisationHelper
 
   def extra_board_member_class(organisation, i)
     clear_number = 3
-    if organisation.important_board_members > 1
-      clear_number = 4
-    end
+    clear_number = 4 if organisation.important_board_members > 1
     (i % clear_number == 0) ? 'clear-person' : ''
   end
 

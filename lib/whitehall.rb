@@ -25,9 +25,7 @@ module Whitehall
   end
 
   asset_host_override = Rails.root.join("config/initializers/asset_host.rb")
-  if File.exist?(asset_host_override)
-    load asset_host_override
-  end
+  load asset_host_override if File.exist?(asset_host_override)
 
   class NoConfigurationError < StandardError; end
 

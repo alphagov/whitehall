@@ -43,9 +43,7 @@ classes_to_index.each do |klass|
 
   eager_loads = [:document, :organisations, :attachments, :world_locations]
   eager_loads.each do |sym|
-    if klass.reflect_on_association(sym)
-      association = association.includes(sym)
-    end
+    association = association.includes(sym) if klass.reflect_on_association(sym)
   end
   i = 0
   association.find_each do |obj|

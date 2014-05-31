@@ -22,15 +22,11 @@ class Api::PagePresenter < Struct.new(:page, :context)
   end
 
   def previous_page_url
-    unless page.first_page?
-      url(page: page.current_page - 1)
-    end
+    url(page: page.current_page - 1) unless page.first_page?
   end
 
   def next_page_url
-    unless page.last_page?
-      url(page: page.current_page + 1)
-    end
+    url(page: page.current_page + 1) unless page.last_page?
   end
 
   def start_index

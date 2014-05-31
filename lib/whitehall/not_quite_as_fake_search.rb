@@ -93,9 +93,7 @@ module Whitehall
             raise GdsApi::HTTPErrorResponse, "cannot filter by field '#{field_name}', its type is not known"
           end
         end
-        if order && order.any?
-          results = Ordering.new(order).sort(results)
-        end
+        results = Ordering.new(order).sort(results) if order && order.any?
         {
           "total" => results.count,
           "results" => paginate(results, per_page, page)

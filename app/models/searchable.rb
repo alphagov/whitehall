@@ -76,9 +76,7 @@ module Searchable
     end
 
     def update_in_search_index
-      if can_index_in_search?
-        Whitehall::SearchIndex.add(self)
-      end
+      Whitehall::SearchIndex.add(self) if can_index_in_search?
     end
 
     def remove_from_search_index

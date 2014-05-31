@@ -34,15 +34,11 @@ module Whitehall
       end
 
       def public_date_html
-        if public_date
-          %Q(<div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;">#{public_date}</div>)
-        end
+        %Q(<div class="rss_pub_date" style="font-size: 90%; margin: 0 0 0.3em; padding: 0; color: #666666; font-style: italic;">#{public_date}</div>) if public_date
       end
 
       def public_date
-        if notification_date
-          notification_date.strftime('%e %B, %Y at %I:%M%P')
-        end
+        notification_date.strftime('%e %B, %Y at %I:%M%P') if notification_date
       end
 
       def description
@@ -50,9 +46,7 @@ module Whitehall
       end
 
       def update_information
-        unless edition.first_published_major_version?
-          "[Updated: #{edition.document.change_history.first.note}]"
-        end
+        "[Updated: #{edition.document.change_history.first.note}]" unless edition.first_published_major_version?
       end
 
       def escape(string)
