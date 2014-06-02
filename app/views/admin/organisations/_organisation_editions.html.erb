@@ -13,7 +13,7 @@
     <%= content_tag_for :tr, edition do %>
     <td class="type"><%= edition.type.titleize %></td>
     <td><%= link_to edition.title, admin_edition_path(edition) %></td>
-    <td><%=l edition.major_change_published_at.to_date %></td>
+    <td><%=localize edition.major_change_published_at.to_date %></td>
     <% association = edition.association_with_organisation(organisation) %>
     <td><%= "Featured" if association.featured? %></td>
     <td>
