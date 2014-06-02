@@ -67,7 +67,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select 'header h1', attachment.title
   end
 
-  view_test '#show previews the latest html attachment (without caching), despite the slugs matching' do
+  view_test '#show previews the latest HTML attachment (without caching), despite the slugs matching' do
     user = create(:departmental_editor)
     publication, attachment = create_edition_and_attachment
     draft = publication.create_draft(user)
@@ -80,6 +80,16 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
     assert_select 'header h1', draft_attachment.title
+  end
+
+  view_test '#show will not allow an attachment associated with a non-visible (access-limited) document to be previewed' do
+    login_as create(:departmental_editor)
+    attachment = build(:html_attachment)
+    publication = create(:draft_publication, access_limited: true, attachments: [attachment], organisations: [create(:organisation)])
+
+    assert_raise ActiveRecord::RecordNotFound do
+      get :show, publication_id: publication.document, id: attachment, preview: attachment.id
+    end
   end
 
   test '#show redirects to the edition if the edition has been unpublished' do
