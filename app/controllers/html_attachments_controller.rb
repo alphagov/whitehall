@@ -23,7 +23,7 @@ private
   def find_edition
     if previewing?
       @edition = Document.at_slug(document_class, slug_param).try(:latest_edition)
-      raise_not_found unless can_preview?(@edition)
+      render_not_found unless can_preview?(@edition)
     else
       @edition = document_class.published_as(slug_param)
     end
@@ -35,7 +35,7 @@ private
     if unpublishing = Unpublishing.from_slug(slug_param, document_class)
       redirect_to unpublishing.document_path
     else
-      raise_not_found
+      render_not_found
     end
   end
 
@@ -61,9 +61,5 @@ private
 
   def set_locale_from_attachment(&block)
     I18n.with_locale(@html_attachment.locale || I18n.default_locale, &block)
-  end
-
-  def raise_not_found
-    raise ActiveRecord::RecordNotFound, "could not find Edition with slug #{slug_param}"
   end
 end

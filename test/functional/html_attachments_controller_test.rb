@@ -34,9 +34,8 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   test '#show returns 404 if the edition is not published' do
     publication, attachment = create_edition_and_attachment(state: :draft)
 
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show, publication_id: publication.document, id: attachment
-    end
+    get :show, publication_id: publication.document, id: attachment
+    assert_response :not_found
   end
 
   test '#show returns 404 if the attachment cannot be found' do
@@ -51,9 +50,8 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     login_as create(:departmental_editor)
     attachment = create(:html_attachment)
 
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show, publication_id: 'non-existent-slug', id: 'non-existent-attachment', preview: attachment.id
-    end
+    get :show, publication_id: 'non-existent-slug', id: 'non-existent-attachment', preview: attachment.id
+    assert_response :not_found
   end
 
   view_test '#show renders the HTML attachment (without caching) on draft edition if previewing' do
@@ -87,9 +85,8 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     attachment = build(:html_attachment)
     publication = create(:draft_publication, access_limited: true, attachments: [attachment], organisations: [create(:organisation)])
 
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show, publication_id: publication.document, id: attachment, preview: attachment.id
-    end
+    get :show, publication_id: publication.document, id: attachment, preview: attachment.id
+    assert_response :not_found
   end
 
   test '#show redirects to the edition if the edition has been unpublished' do
