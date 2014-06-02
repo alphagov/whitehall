@@ -47,6 +47,15 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     end
   end
 
+  test '#show returns 404 if the trying to preview a non-existent document' do
+    login_as create(:departmental_editor)
+    attachment = create(:html_attachment)
+
+    assert_raise ActiveRecord::RecordNotFound do
+      get :show, publication_id: 'non-existent-slug', id: 'non-existent-attachment', preview: attachment.id
+    end
+  end
+
   view_test '#show renders the HTML attachment (without caching) on draft edition if previewing' do
     login_as create(:departmental_editor)
     publication, attachment = create_edition_and_attachment(state: :draft)

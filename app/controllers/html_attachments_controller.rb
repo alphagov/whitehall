@@ -21,7 +21,7 @@ private
 
   def find_edition
     if previewing?
-      @edition = Document.at_slug(document_class, slug_param).latest_edition
+      @edition = Document.at_slug(document_class, slug_param).try(:latest_edition)
     else
       @edition = document_class.published_as(slug_param)
     end
