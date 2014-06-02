@@ -15,8 +15,8 @@ jQuery(function($) {
 
   $(".js-document-filter").enableDocumentFilter();
 
-  $('.js-hide-extra-contacts').hideExtraRows({ rows: 2 });
   $('.js-hide-extra-social-media').hideExtraRows({ rows: 5 });
+  $('.js-hide-extra-metadata').hideExtraRows({ rows: 2, appendToParent: true });
 
   GOVUK.hideDepartmentChildren.init();
   GOVUK.filterListItems.init();

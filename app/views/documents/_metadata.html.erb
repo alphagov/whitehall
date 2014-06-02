@@ -9,7 +9,7 @@
       <% from = from_metadata(document) %>
       <% if from %>
         <dt>From:</dt>
-        <dd><%= from.to_sentence.html_safe %></dd>
+        <dd class="js-hide-extra-metadata"><%= from.to_sentence.html_safe %></dd>
       <% end %>
 
       <%= render  partial: 'document_extra_metadata',
@@ -21,7 +21,7 @@
       <% part_of = part_of_metadata(document, policies, topics, specialist_tag_finder, primary_mainstream_category) %>
       <% if part_of.any? %>
         <dt>Part of:</dt>
-        <dd><%= part_of.to_sentence.html_safe %></dd>
+        <dd class="js-hide-extra-metadata"><%= part_of.to_sentence.html_safe %></dd>
       <% end %>
 
       <% if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? %>

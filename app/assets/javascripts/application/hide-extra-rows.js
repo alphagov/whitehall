@@ -16,29 +16,31 @@
     }, options);
 
     this.each(function(i, el){
-      var $children = $(el).children();
+      var $children = $(el).contents(),
+          $hiddenElements = $('<span class="js-hidden" />');
 
       if ($children.length > 1) {
         // measure the height of the first element
-        var firstTop = getOffset($children.first()),
+        var $firstElement = $children.filter(function() { return this.nodeType === 1; }).first(),
+            firstTop = getOffset($firstElement),
             lineCount = 0;
 
         $children.slice(1).each(function(i, el) {
-          if((lineCount < options.rows) && getOffset($(el)) > firstTop){
+          if(el.nodeType === 1 && (lineCount < options.rows) && getOffset($(el)) > firstTop){
             firstTop = getOffset($(el));
             lineCount = lineCount + 1;
           }
           if(lineCount >= options.rows){
-            $(el).addClass('js-hidden');
+            $hiddenElements[0].appendChild(el);
           }
         });
 
-        if(lineCount >= options.rows){
+        if($hiddenElements.contents().length > 0){
           var openButton = $('<a class="show-other-content" href="#" title="Show additional content"><span class="plus">+&nbsp;</span>others</a>');
 
           openButton.on('click', function(e) {
             e.preventDefault();
-            $children.filter('.js-hidden').removeClass('js-hidden').addClass('js-shown');
+            $hiddenElements.removeClass('js-hidden').focus();
             if (options.showWrapper) {
               options.showWrapper.remove();
             }
@@ -46,6 +48,8 @@
               $(e.target).remove();
             }
           });
+
+          $(el).append($hiddenElements);
 
           if (options.showWrapper) {
             openButton = options.showWrapper.append(openButton);
