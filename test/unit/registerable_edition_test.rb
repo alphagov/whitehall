@@ -122,6 +122,14 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_same_elements [primary_org.slug], registerable_edition.organisation_ids
   end
 
+  test "does not tag worldwide organisations yet as they are not registered in Panopticon" do
+    worldwide_organisation = create(:worldwide_organisation)
+
+    edition = create(:corporate_information_page, organisation: nil, worldwide_organisation: worldwide_organisation)
+    registerable_edition = RegisterableEdition.new(edition)
+    assert_equal [], registerable_edition.organisation_ids
+  end
+
   class EditionWithoutOrgs < Edition; end
   test "deals with editions which don't do organisation tagging" do
     registerable_edition = RegisterableEdition.new(EditionWithoutOrgs.new)

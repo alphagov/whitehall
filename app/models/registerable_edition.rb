@@ -53,8 +53,14 @@ class RegisterableEdition
   end
 
   def organisation_ids
-    return [] unless edition.respond_to?(:organisations)
+    registered_organisations.map(&:slug)
+  end
 
-    edition.organisations.map(&:slug)
+  def registered_organisations
+    if edition.respond_to?(:organisations)
+      edition.organisations.reject {|organisation| organisation.is_a?(WorldwideOrganisation) }
+    else
+      []
+    end
   end
 end
