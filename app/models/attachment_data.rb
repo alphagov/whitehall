@@ -124,12 +124,8 @@ class AttachmentData < ActiveRecord::Base
 
   def calculate_number_of_pages
     PDF::Reader.new(path).page_count
-  rescue Exception => e
-    if Rails.env.production?
-      Airbrake.notify_or_ignore(e,
-        error_message: 'Exception raised while calculating number of pages in PDF uploaded.')
-    end
-    nil
+  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError => e
+    return nil
   end
 
   def file_is_not_empty
