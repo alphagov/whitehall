@@ -102,37 +102,10 @@ th:
       attachments:
         one: เอกสาร
         other: เอกสารต่างๆ
-      document_collection:
-        one: ตอน
-        other:
       field_of_operation: ลักษณะงาน
-      groups: กลุ่มที่ปรึกษา
-      live_data: ข้อมูลสด
+      from:
       location:
-      ministers:
-        one: รัฐมนตรี
-        other: รัฐมนตรี
-      organisations:
-        one: องค์กร
-        other: องค์กร
-      policies:
-        one: นโยบาย
-        other: นโยบาย
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: หัวข้อ
-        other: หัวข้อ
-      world_locations:
-        one: ที่ตั้ง
-        other: ที่ตั้ง
-      worldwide_organisations:
-        one: องค์กร
-        other: องค์กร
+      part_of:
     published: ตีพิมพ์
     read: อ่าน%{title}บทความ
     speech:

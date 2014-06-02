@@ -102,37 +102,10 @@ ja:
       attachments:
         one: お知らせ
         other: お知らせ
-      document_collection:
-        one: シリーズ
-        other:
       field_of_operation: 担当分野
-      groups: 諮問グループ
-      live_data: 実データ
+      from:
       location:
-      ministers:
-        one: 大臣
-        other: 大臣
-      organisations:
-        one: 組織
-        other: 組織
-      policies:
-        one: 政策
-        other: 政策
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: トピックス
-        other: トピックス
-      world_locations:
-        one: 地域
-        other: 地域
-      worldwide_organisations:
-        one: 組織名
-        other: 組織名
+      part_of:
     published: 掲載日
     read: '%{title} の記事を読む'
     speech:

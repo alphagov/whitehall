@@ -4,38 +4,11 @@ de:
       attachments:
         one: Dokument
         other: Dokumente
-      document_collection:
-        one: Reihe
-        other:
-      ministers:
-        one: Minister
-        other: Minister
-      organisations:
-        one: Organisation
-        other: Organisationen
-      policies:
-        one: Politik
-        other: Politik
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Thema
-        other: Themen
-      world_locations:
-        one: Vertretungen im Ausland
-        other: Vertretungen im Ausland
-      worldwide_organisations:
-        one: Weltweite Organisation
-        other: Weltweite Organisationen
       applies_to_nations: Gilt für
       field_of_operation: Einsatzbereich
-      groups: Beratergruppen
-      live_data: Live-Daten
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Meldung

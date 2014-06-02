@@ -5,47 +5,11 @@ cs:
         one: Dokument
         few:
         other: Dokumenty
-      document_collection:
-        one: Edice
-        few:
-        other:
-      ministers:
-        one: Ministr
-        few:
-        other: Ministři
-      organisations:
-        one: Organizace
-        few:
-        other: Organizace
-      policies:
-        one: Politika
-        few:
-        other: Politiky
-      sectors:
-        one:
-        few:
-        other:
-      topical_events:
-        one:
-        few:
-        other:
-      topics:
-        one: Téma
-        few:
-        other: Témata
-      world_locations:
-        one: Kde jsme
-        few:
-        other: Kde jsme
-      worldwide_organisations:
-        one: Světová organizace
-        few:
-        other: Světové organizace
       applies_to_nations: Týká se
       field_of_operation: Oblast působnosti
-      groups: Poradní skupiny
-      live_data: Aktuální data
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Oznámení

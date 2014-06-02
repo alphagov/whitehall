@@ -6,56 +6,11 @@ be:
         few:
         many:
         other: Дакументы
-      document_collection:
-        one: Серыя
-        few:
-        many:
-        other:
-      ministers:
-        one: Міністр
-        few:
-        many:
-        other: Міністры
-      organisations:
-        one: Арганізацыя
-        few:
-        many:
-        other: Арганізацыі
-      policies:
-        one: Напрамак дзейнасці
-        few:
-        many:
-        other: Напрамкі дзейнасці
-      sectors:
-        one:
-        few:
-        many:
-        other:
-      topical_events:
-        one:
-        few:
-        many:
-        other:
-      topics:
-        one: Тэма
-        few:
-        many:
-        other: Тэмы
-      world_locations:
-        one: Месцазнаходжанне ў свеце
-        few:
-        many:
-        other: 'Месцазнаходжання '
-      worldwide_organisations:
-        one: Сусветная арганізацыя
-        few:
-        many:
-        other: Сусветныя арганізацыі
       applies_to_nations: У адносінах да
       field_of_operation: Сфера дзейнасці
-      groups: Кансультацыйныя групы
-      live_data: Бягучая інфармацыя
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Аб'ява

@@ -104,37 +104,10 @@ hu:
       attachments:
         one: Dokumentum
         other: Dokumentumok
-      document_collection:
-        one: Sorozatok
-        other:
       field_of_operation: Működési terület
-      groups: Tanácsadó testületek
-      live_data: Élő adatok
+      from:
       location:
-      ministers:
-        one: Miniszter
-        other: Miniszterek
-      organisations:
-        one: Szervezet
-        other: Szervezetek
-      policies:
-        one: Szakpolitika
-        other: Szakpolitikák
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Téma
-        other: Témák
-      world_locations:
-        one: Ország
-        other: Országok
-      worldwide_organisations:
-        one: Szervezet
-        other: Szervezetek
+      part_of:
     published: közzététel dátuma
     read: 'Olvassa el a következő cikket: %{title}'
     speech:

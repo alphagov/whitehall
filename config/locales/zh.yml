@@ -101,37 +101,10 @@ zh:
       attachments:
         one: 文件
         other: 文件
-      document_collection:
-        one: 系列
-        other:
       field_of_operation: 操作区域
-      groups: 咨询小组
-      live_data: 实时数据
+      from:
       location:
-      ministers:
-        one: 首相/大臣/秘书
-        other: 首相/大臣/秘书
-      organisations:
-        one: 机构
-        other: 机构
-      policies:
-        one: 政策
-        other: 政策
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: 主题
-        other: 主题
-      world_locations:
-        one: 世界地区位置
-        other: 世界地区位置
-      worldwide_organisations:
-        one: 世界范围内的机构
-        other: 世界范围内的机构
+      part_of:
     published: 已发布
     read: 阅读%{title}文章
     speech:

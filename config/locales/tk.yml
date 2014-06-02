@@ -4,38 +4,11 @@ tk:
       attachments:
         one:
         other:
-      document_collection:
-        one:
-        other:
-      ministers:
-        one:
-        other:
-      organisations:
-        one:
-        other:
-      policies:
-        one:
-        other:
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one:
-        other:
-      world_locations:
-        one:
-        other:
-      worldwide_organisations:
-        one:
-        other:
       applies_to_nations:
       field_of_operation:
-      groups:
-      live_data:
+      from:
       location:
+      part_of:
     type:
       announcement:
         one:

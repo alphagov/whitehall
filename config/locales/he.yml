@@ -6,56 +6,11 @@ he:
         two:
         many:
         other: מסמכים
-      document_collection:
-        one: סדרות
-        two:
-        many:
-        other:
-      ministers:
-        one: שר
-        two:
-        many:
-        other: שרים
-      organisations:
-        one: ארגון
-        two:
-        many:
-        other: ארגונים
-      policies:
-        one: מדיניות
-        two:
-        many:
-        other: מדיניות
-      sectors:
-        one:
-        two:
-        many:
-        other:
-      topical_events:
-        one:
-        two:
-        many:
-        other:
-      topics:
-        one: נושא
-        two:
-        many:
-        other: נושאים
-      world_locations:
-        one: מיקום עולמי
-        two:
-        many:
-        other: מיקומים עולמיים
-      worldwide_organisations:
-        one: ארגון גלובאלי
-        two:
-        many:
-        other: ארגונים גלובאליים
       applies_to_nations: מתייחס ל
       field_of_operation: שדה פעולה
-      groups: קבוצות ייעוץ
-      live_data: מידע פעיל
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: הודעה

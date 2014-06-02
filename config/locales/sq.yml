@@ -4,38 +4,11 @@ sq:
       attachments:
         one: Dokument
         other: Dokumente
-      document_collection:
-        one: Seri
-        other:
-      ministers:
-        one: Minister
-        other: Ministra
-      organisations:
-        one: Organizate
-        other: Organizata
-      policies:
-        one: Politike
-        other: Politika
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Teme
-        other: Tema
-      world_locations:
-        one: Vendndodhje
-        other: Vendndodhje
-      worldwide_organisations:
-        one: Organizate boterore
-        other: Organizata boterore
       applies_to_nations: Zbatohet mbi
       field_of_operation: Fusha e veprimit
-      groups: Grupe keshillues
-      live_data: Te dhena direkte
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Lajmerim

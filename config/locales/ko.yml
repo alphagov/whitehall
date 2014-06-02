@@ -102,37 +102,10 @@ ko:
       attachments:
         one: 문서
         other: 문서
-      document_collection:
-        one: 시리즈
-        other:
       field_of_operation: 오퍼레이션 필드
-      groups: 자문 그룹
-      live_data: 라이브 데이터
+      from:
       location:
-      ministers:
-        one: 장관
-        other: 장관
-      organisations:
-        one: 기관
-        other: 기관
-      policies:
-        one: 정책
-        other: 정책
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: 토픽
-        other: 토픽
-      world_locations:
-        one: 세계 로케이션
-        other: 세계 로케이션
-      worldwide_organisations:
-        one: 세계 기구
-        other: 세계 기구
+      part_of:
     published: 발행
     read: '%{title} 기사를 확인하세요'
     speech:

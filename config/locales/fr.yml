@@ -4,38 +4,11 @@ fr:
       attachments:
         one: Document
         other: Documents
-      document_collection:
-        one: Série
-        other:
-      ministers:
-        one: Ministre
-        other: Ministres
-      organisations:
-        one: Organisme
-        other: Organismes
-      policies:
-        one: Priorité politique
-        other: Priorités politiques
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Sujet
-        other: Sujets
-      world_locations:
-        one: Localisation
-        other: Localisations
-      worldwide_organisations:
-        one: Représentation à l'étranger
-        other: Représentations à l'étranger
       applies_to_nations: s'appliquant à
       field_of_operation: Domaine d'activité
-      groups: Groupes d'experts
-      live_data: Données
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Annonce

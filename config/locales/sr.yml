@@ -6,56 +6,11 @@ sr:
         few:
         many:
         other: Dokumenti
-      document_collection:
-        one: serija
-        few:
-        many:
-        other:
-      ministers:
-        one: ministar
-        few:
-        many:
-        other: ministri
-      organisations:
-        one: organizacija
-        few:
-        many:
-        other: organizacije
-      policies:
-        one: politika
-        few:
-        many:
-        other: politike
-      sectors:
-        one:
-        few:
-        many:
-        other:
-      topical_events:
-        one:
-        few:
-        many:
-        other:
-      topics:
-        one: tema
-        few:
-        many:
-        other: teme
-      world_locations:
-        one: lokacija u svetu
-        few:
-        many:
-        other: lokacije u svetu
-      worldwide_organisations:
-        one: svetska organizacija
-        few:
-        many:
-        other: svetske organizacije
       applies_to_nations: Odnosi se na
       field_of_operation: polje delovanja
-      groups: savetodavne grupe
-      live_data: aktivni podaci
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Najava

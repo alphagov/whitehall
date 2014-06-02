@@ -8,7 +8,7 @@
     <dl class="js-track-metadata-links" data-trackposition="top">
       <% from = from_metadata(document) %>
       <% if from %>
-        <dt>From:</dt>
+        <dt><%= t('document.headings.from') %>:</dt>
         <dd class="js-hide-extra-metadata"><%= from.to_sentence.html_safe %></dd>
       <% end %>
 
@@ -20,7 +20,7 @@
 
       <% part_of = part_of_metadata(document, policies, topics, specialist_tag_finder, primary_mainstream_category) %>
       <% if part_of.any? %>
-        <dt>Part of:</dt>
+        <dt><%= t('document.headings.part_of') %>:</dt>
         <dd class="js-hide-extra-metadata"><%= part_of.to_sentence.html_safe %></dd>
       <% end %>
 

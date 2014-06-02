@@ -4,38 +4,11 @@ es-419:
       attachments:
         one: Documento
         other: Documentos
-      document_collection:
-        one: Series
-        other:
-      ministers:
-        one: Ministro
-        other: Ministros
-      organisations:
-        one: Organización
-        other: Organizaciones
-      policies:
-        one: Política
-        other: Políticas
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Tema
-        other: Temas
-      world_locations:
-        one: Destino central
-        other: Destinos centrales
-      worldwide_organisations:
-        one: Organización mundial
-        other: Organizaciones mundiales
       applies_to_nations: Se aplica a
       field_of_operation: Terreno de operaciones
-      groups: Grupos de consulta
-      live_data: Datos activos
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Novedades

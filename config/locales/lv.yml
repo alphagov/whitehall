@@ -4,38 +4,11 @@ lv:
       attachments:
         one: Dokuments
         other: Dokumenti
-      document_collection:
-        one: Sērija
-        other:
-      ministers:
-        one: Ministrs
-        other: Ministri
-      organisations:
-        one: Organizācija
-        other: Organizācijas
-      policies:
-        one: Darbības joma
-        other: Darbības jomas
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Tēma
-        other: Tēmas
-      world_locations:
-        one: Pasaules vieta
-        other: Pasaules vietas
-      worldwide_organisations:
-        one: Vispasaules organizācija
-        other: Vispasaules organizācijas
       applies_to_nations: Attiecas uz
       field_of_operation: Darbības lauks
-      groups: Padomdevēju grupas
-      live_data: Tiešie dati
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Paziņojums

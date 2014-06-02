@@ -4,38 +4,11 @@ ta:
       attachments:
         one: ' ஆவணம்'
         other: ஆவணங்கள்
-      document_collection:
-        one: தொடர்
-        other:
-      ministers:
-        one: அமைச்சர்
-        other: அமைச்சர்கள்
-      organisations:
-        one: ஸ்தாபனம்
-        other: ஸ்தாபனங்கள்
-      policies:
-        one: கொள்கை
-        other: கொள்கைகள்
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: தலைப்பு
-        other: தலைப்புகள்
-      world_locations:
-        one: உலக அமைவிடம்
-        other: உலக அமைவிடங்கள்
-      worldwide_organisations:
-        one: உலகளாவிய ஸ்தாபனம்
-        other: உலகளாவிய ஸ்தாபனங்கள்
       applies_to_nations: பிரயோகமாகிறது
       field_of_operation: செயற்பாட்டுத் துறை
-      groups: ஆலோசனைக் குழுக்கள்
-      live_data: நேரடித் தரவு
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: அறிவிப்பு

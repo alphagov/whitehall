@@ -4,38 +4,11 @@ hy:
       attachments:
         one: Փաստաթուղթ
         other: Փաստաթղթեր
-      document_collection:
-        one: Մի շարք
-        other:
-      ministers:
-        one: Նախարար
-        other: Նախարարներ
-      organisations:
-        one: Կազմակերպություն
-        other: Կազմակերպություններ
-      policies:
-        one: Քաղաքականություն
-        other: Քաղաքականություններ
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Թեմա
-        other: Թեմաներ
-      world_locations:
-        one: Համաշխարհային տեղաբաշխում
-        other: Համաշխարհային տեղաբաշխումներ
-      worldwide_organisations:
-        one: Համաշխարհային կազմակերպություն
-        other: Համաշխարհային կազմակերպություններ
       applies_to_nations: Վերաբերվում է
       field_of_operation: Գործունեության ոլորտ
-      groups: Խորհրդակցական խմբեր
-      live_data: առկա տեղեկատվություն
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Հայտարարություն

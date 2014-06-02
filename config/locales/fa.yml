@@ -103,37 +103,10 @@ fa:
       attachments:
         one: مدرک
         other: مدارک
-      document_collection:
-        one: ردیف
-        other:
       field_of_operation: میدان عمل
-      groups: گروه های مشاوره ای
-      live_data: 'داده های لحظه ای '
+      from:
       location:
-      ministers:
-        one: معاون وزیر
-        other: معاونین وزیر
-      organisations:
-        one: سازمان
-        other: سازمان ها
-      policies:
-        one: سیاست
-        other: سیاست ها
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: موضوع
-        other: موضوع ها
-      world_locations:
-        one: موقعیت جهانی
-        other: موقعیت های جهانی
-      worldwide_organisations:
-        one: سازمان جهانی
-        other: سازمان های جهانی
+      part_of:
     published: منتشر شده
     read: مقاله  %{title} را بخوانید
     speech:

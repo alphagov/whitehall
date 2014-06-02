@@ -4,38 +4,11 @@ ur:
       attachments:
         one: دستاویز
         other: دستاویزات
-      document_collection:
-        one: سلسلہ
-        other:
-      ministers:
-        one: وزير
-        other: وزراء
-      organisations:
-        one: ادارہ
-        other: ادارے
-      policies:
-        one: پالیسی
-        other: پالیسیاں
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: موضوع
-        other: موضوعات
-      world_locations:
-        one: محل وقوع
-        other: محل ہائے وقوع
-      worldwide_organisations:
-        one: عالمی ادارہ
-        other: عالمی ادرے
       applies_to_nations: اطلاق ہوتا ہے
       field_of_operation: کارروائی کا میدان
-      groups: مشاورتی گروپس
-      live_data: لائیو ڈیٹا
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: اعلان

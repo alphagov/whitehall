@@ -103,37 +103,10 @@ id:
       attachments:
         one: Dokumen
         other: Dokumen-dokumen
-      document_collection:
-        one: Serial
-        other:
       field_of_operation: Area operasi
-      groups: Kelompok penasehat
-      live_data: Data Live
+      from:
       location:
-      ministers:
-        one: Menteri
-        other: Menteri-menteri
-      organisations:
-        one: Organisasi
-        other: Organisasi-organisasi
-      policies:
-        one: Kebijakan
-        other: Kebijakan-kebijakan
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Topik
-        other: Topik-topik
-      world_locations:
-        one: Lokasi di dunia
-        other: Lokasi-lokasi di dunia
-      worldwide_organisations:
-        one: Organisasi di penjuru dunia
-        other: Organisasi-organisasi di penjuru dunia
+      part_of:
     published: Diterbitkan
     read: Baca artikel %{title}
     speech:

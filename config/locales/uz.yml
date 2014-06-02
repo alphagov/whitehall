@@ -4,38 +4,11 @@ uz:
       attachments:
         one: Hujjat
         other: Hujjatlar
-      document_collection:
-        one: Bir talay
-        other:
-      ministers:
-        one: Vazir
-        other: Vazirlar
-      organisations:
-        one: Tashkilot
-        other: Tashkilotlar
-      policies:
-        one: Dastur
-        other: Dasturlar
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Mavzu
-        other: Mavzular
-      world_locations:
-        one: Hududiy joylashuv
-        other: Hududiy joylashuvlar
-      worldwide_organisations:
-        one: Dunyoviy tashkilot
-        other: Dunyoviy tashkilotlar
       applies_to_nations: 'Tegishli '
       field_of_operation: Faoliyat sohasi
-      groups: Maslahatchi guruh
-      live_data: Mavjud ma'lumot
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: E'lon

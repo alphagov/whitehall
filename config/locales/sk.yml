@@ -5,47 +5,11 @@ sk:
         one:
         few:
         other:
-      document_collection:
-        one:
-        few:
-        other:
-      ministers:
-        one:
-        few:
-        other:
-      organisations:
-        one:
-        few:
-        other:
-      policies:
-        one:
-        few:
-        other:
-      sectors:
-        one:
-        few:
-        other:
-      topical_events:
-        one:
-        few:
-        other:
-      topics:
-        one:
-        few:
-        other:
-      world_locations:
-        one:
-        few:
-        other:
-      worldwide_organisations:
-        one:
-        few:
-        other:
       applies_to_nations:
       field_of_operation:
-      groups:
-      live_data:
+      from:
       location:
+      part_of:
     type:
       announcement:
         one:

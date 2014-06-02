@@ -4,38 +4,11 @@ it:
       attachments:
         one: Documento
         other: Documenti
-      document_collection:
-        one: Serie
-        other:
-      ministers:
-        one: Ministro
-        other: Ministri
-      organisations:
-        one: Ente
-        other: Enti
-      policies:
-        one: Politica
-        other: Politiche
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Argomento
-        other: Argomenti
-      world_locations:
-        one: Posizione geografica
-        other: Posizioni geografiche
-      worldwide_organisations:
-        one: Organizzazione internazionale
-        other: Organizzazioni internazionali
       applies_to_nations: Valido per
       field_of_operation: Settore di lavoro
-      groups: Gruppi di consulenza
-      live_data: Live data
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Annuncio

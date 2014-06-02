@@ -8,74 +8,11 @@ cy:
         few:
         many:
         other: Dogfennau
-      document_collection:
-        zero:
-        one: Cyfres
-        two:
-        few:
-        many:
-        other:
-      ministers:
-        zero:
-        one: Gweinidog
-        two:
-        few:
-        many:
-        other: Gweinidogion
-      organisations:
-        zero:
-        one: Sefydliad
-        two:
-        few:
-        many:
-        other: Sefydliadau
-      policies:
-        zero:
-        one: Polisi
-        two:
-        few:
-        many:
-        other: Polisïau
-      sectors:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      topical_events:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      topics:
-        zero:
-        one: Pwnc
-        two:
-        few:
-        many:
-        other: Pynciau
-      world_locations:
-        zero:
-        one: Lleoliad byd
-        two:
-        few:
-        many:
-        other: Lleoliadau byd
-      worldwide_organisations:
-        zero:
-        one: Sefydliad byd-eang
-        two:
-        few:
-        many:
-        other: Sefydliadau byd-eang
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
-      groups: Grwpiau cynghori
-      live_data: Data byw
+      from:
       location:
+      part_of:
     type:
       announcement:
         zero:
