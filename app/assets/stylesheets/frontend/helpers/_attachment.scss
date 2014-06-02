@@ -45,12 +45,7 @@ $thumbnail-width: 99px;
   }
 
   .title a {
-    text-decoration: none;
-    font-weight: bold;
-    &:hover,
-    &:focus {
-      text-decoration: underline;
-    }
+    text-decoration: underline;
   }
 
   .attachment-details {
@@ -98,13 +93,14 @@ $thumbnail-width: 99px;
   }
 
   .accessibility-warning {
+    margin-top: $gutter-one-third;
     h2 {
       @include ig-core-14;
       margin: 0;
       color: $text-colour;
     }
     .toggler {
-      display: block;
+      display: inline-block;
       color: $link-colour;
       cursor: pointer;
       &:hover,
