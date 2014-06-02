@@ -36,7 +36,7 @@
     <dl class="primary-metadata js-track-metadata-links" data-trackposition="bottom">
       <% from = from_metadata(document, true) %>
       <% if from %>
-        <dt>From</dt>
+        <dt><%= t('document.headings.from') %>:</dt>
         <% from.each do |link| %>
           <dd class="from"><%= link %></dd>
         <% end %>
@@ -44,7 +44,7 @@
 
       <% part_of = part_of_metadata(document, policies, topics) %>
       <% if part_of.any? %>
-        <dt>Part of</dt>
+        <dt><%= t('document.headings.part_of') %>:</dt>
         <% part_of.each do |link| %>
           <dd class="part-of"><%= link %></dd>
         <% end %>
