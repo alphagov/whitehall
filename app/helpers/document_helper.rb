@@ -142,10 +142,10 @@ module DocumentHelper
   def alternative_format_order_link(attachment, alternative_format_contact_email)
     attachment_info = []
     attachment_info << "Title: #{attachment.title}"
-    attachment_info << "ISBN: #{attachment.isbn}" if attachment.isbn
-    attachment_info << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference
-    attachment_info << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number
-    if attachment.hoc_paper_number
+    attachment_info << "ISBN: #{attachment.isbn}" if attachment.isbn.present?
+    attachment_info << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference.present?
+    attachment_info << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
+    if attachment.hoc_paper_number.present?
       attachment_info << "House of Commons paper number: #{attachment.hoc_paper_number}"
       attachment_info << "Parliamentary session: #{attachment.parliamentary_session}"
     end
