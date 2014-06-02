@@ -20,7 +20,11 @@ module Whitehall
       end
 
       def valid?
-        uri && recognised_url? && resource_exists? && filter_parameters_are_valid?
+        uri &&
+        recognised_url? &&
+        recognised_feed_type? &&
+        resource_exists? &&
+        filter_parameters_are_valid?
       end
 
       def feed_params
@@ -45,6 +49,10 @@ module Whitehall
         Rails.application.routes.recognize_path(uri.path)
       rescue ActionController::RoutingError
         false
+      end
+
+      def recognised_feed_type?
+        !!feed_type
       end
 
       def valid_extension?
