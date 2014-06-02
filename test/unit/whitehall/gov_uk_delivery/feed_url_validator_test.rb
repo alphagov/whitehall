@@ -177,6 +177,14 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     refute validator.valid?
   end
 
+  test 'does not validate a feed url for an unsupported type, e.g. a document collection' do
+    collection = create(:document_collection)
+    feed_url   = generic_url_maker.document_collection_url(collection)
+    validator  = FeedUrlValidator.new(feed_url)
+
+    refute validator.valid?
+  end
+
   test '#description does not fall over when the feed is bad' do
     assert_nil FeedUrlValidator.new('http://bad/feed').description
   end
