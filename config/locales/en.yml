@@ -535,10 +535,9 @@ en:
       request_a_different_format: Request a different format.
       full_help_html: |
         If you use assistive technology and need a version of this document
-        in a more accessible format please email
-        %{email}
-        quoting your address, telephone number along with the title of the
-        publication ("%{title}")%{references}.
+        in a more accessible format, please email
+        %{email}.
+        Please tell us what format you need. It will help us if you say what assistive technology you use
     see_more: See more information about this %{document_type}
   publishing:
     format_advice:
