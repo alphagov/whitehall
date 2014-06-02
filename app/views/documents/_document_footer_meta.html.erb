@@ -38,7 +38,7 @@
       <% if from %>
         <dt>From</dt>
         <% from.each do |link| %>
-          <dd><%= link %></dd>
+          <dd class="from"><%= link %></dd>
         <% end %>
       <% end %>
 
@@ -46,7 +46,7 @@
       <% if part_of.any? %>
         <dt>Part of</dt>
         <% part_of.each do |link| %>
-          <dd><%= link %></dd>
+          <dd class="part-of"><%= link %></dd>
         <% end %>
       <% end %>
     </dl>

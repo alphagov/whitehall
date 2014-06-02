@@ -11,9 +11,17 @@
         var $link = $(e.target),
             gaParams = ['_setCustomVar', 14, 'metadata_click_track', '', 3],
             $metadataBlock = $link.closest('.js-track-metadata-links'),
-            type = $link.closest('dd').data('tracktype'),
-            linkPosition = $metadataBlock.find('.'+ type + ' a').index($link) + 1, // zero offset so +1
-            position = $metadataBlock.data('trackposition');
+            type = $link.attr('class'),
+            position = $metadataBlock.data('trackposition'),
+            linkPosition, $linkParent, linkType;
+
+        if(position === 'top'){
+          linkPosition = $link.index() +1; // zero offset so +1
+        } else {
+          $linkParent = $link.closest('dd');
+          linkType = $linkParent.attr('class');
+          linkPosition = $metadataBlock.find('dd.'+linkType).index($linkParent) +1;
+        }
 
         gaParams[3] = [ type, position, linkPosition ].join('|');
 
