@@ -82,7 +82,7 @@ module Whitehall
         0.upto(args.size)
           .map { |s| args.combination(s) }
           .flat_map(&:to_a)
-          .map { |c| c.reduce({}) { |h, a| h.merge(a) } }
+          .map { |c| c.each_with_object { |h, a| h.merge(a) } }
       end
 
       def topic_slugs

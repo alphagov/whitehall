@@ -1,6 +1,6 @@
 module Admin
   class EditionFilter
-    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.reduce({}) do |lookup, klass|
+    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.each_with_object do |lookup, klass|
       lookup[klass.to_s] = klass
       lookup
     end

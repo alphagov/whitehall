@@ -11,7 +11,7 @@ FactoryGirl.define do
           when Hash
             evaluator.translated_into
           when Array
-            evaluator.translated_into.reduce({}) { |trans, locale| trans[locale] = {}; trans }
+            evaluator.translated_into.each_with_object { |trans, locale| trans[locale] = {}; trans }
           else
             {evaluator.translated_into => {}}
           end
