@@ -84,10 +84,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
 private
 
   def last_major_change
-    statistics_announcement_dates.
-      where('change_note IS NOT NULL && change_note != ?', '').
-      order(:created_at).
-      last
+    statistics_announcement_dates
+      .where('change_note IS NOT NULL && change_note != ?', '')
+      .order(:created_at)
+      .last
   end
 
   def publication_is_matching_type
