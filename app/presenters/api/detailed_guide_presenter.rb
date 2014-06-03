@@ -1,5 +1,5 @@
 class Api::DetailedGuidePresenter < Api::BasePresenter
-  def as_json(options = {})
+  def as_json(_options = {})
     {
       title: model.title,
       id: detailed_guide_url(model),

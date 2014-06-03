@@ -6,7 +6,7 @@ module Whitehall
         @errors_during = []
       end
 
-      def with_transaction(row_number, &block)
+      def with_transaction(row_number, &_block)
         ActiveRecord::Base.transaction do
           begin
             @errors_during = []

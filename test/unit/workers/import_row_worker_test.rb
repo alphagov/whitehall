@@ -78,7 +78,7 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  def perform_import_cleanup(&block)
+  def perform_import_cleanup(&_block)
     Import.use_separate_connection
     yield
   ensure

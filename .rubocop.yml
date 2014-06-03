@@ -403,7 +403,7 @@ UnusedBlockArgument:
 # Supports --auto-correct
 UnusedMethodArgument:
   Description: Checks for unused method arguments.
-  Enabled: false
+  Enabled: true
 
 UselessAssignment:
   Description: Checks for useless assignment to a local variable.

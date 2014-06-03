@@ -48,7 +48,7 @@ module ViewRendering
   end
 
   class EmptyTemplateHandler
-    def self.call(template)
+    def self.call(_template)
       %("")
     end
   end

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class Admin::EditionsHelperTest < ActionView::TestCase
-  def govspeak_embedded_contacts(*args)
+  def govspeak_embedded_contacts(*_args)
     []
   end
 

@@ -1,5 +1,5 @@
 module Whitehall::Wait
-  def until(timestamp, &block)
+  def until(timestamp, &_block)
     while timestamp > Time.zone.now
       sleep(timestamp - Time.zone.now)
     end

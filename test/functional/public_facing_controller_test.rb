@@ -166,7 +166,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
-  def with_routing_to_test_action(&block)
+  def with_routing_to_test_action(&_block)
     with_routing do |map|
       map.draw do
         get '/search' => 'search#index'

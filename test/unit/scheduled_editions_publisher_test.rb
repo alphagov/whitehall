@@ -124,7 +124,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
 
   private
 
-  def stubbed_scope(editions = nil)
+  def stubbed_scope
     Edition.scoped
   end
 

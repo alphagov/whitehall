@@ -80,7 +80,7 @@ class Consultation < Publicationesque
     opening_at.to_datetime unless opening_at.nil?
   end
 
-  def make_public_at(date)
+  def make_public_at(_date)
   end
 
   def allows_attachment_references?

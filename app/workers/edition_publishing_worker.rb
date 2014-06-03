@@ -25,7 +25,7 @@ class EditionPublishingWorker
   # contention and this code can be removed.
   # Also note that the isolation level is set for the next transaction only.
   # It will automatically revert back after the next transaction completes.
-  def perform_atomic_update(&block)
+  def perform_atomic_update(&_block)
     Edition.connection.execute "set transaction isolation level serializable"
     Edition.connection.transaction do
       yield

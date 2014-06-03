@@ -21,11 +21,11 @@ module Whitehall
         @store = store
       end
 
-      def search(*args)
+      def search(*_args)
         raise "Not implemented"
       end
 
-      def autocomplete(*args)
+      def autocomplete(*_args)
         raise "Not implemented"
       end
 

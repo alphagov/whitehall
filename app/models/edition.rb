@@ -399,7 +399,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def image_disallowed_in_body_text?(i)
+  def image_disallowed_in_body_text?(_i)
     false
   end
 
