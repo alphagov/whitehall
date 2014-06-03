@@ -71,13 +71,13 @@ org_rows.each do |row|
   govuk_status = row["Status"] == 'Pending' ? 'joining' : row["Status"].downcase
 
   organisation_type_key = case row["Type"]
-  when 'Ad-hoc advisory group'
-    'advisory_ndpb'
-  when 'Tribunal non-departmental public body'
-    'tribunal_ndpb'
-  else
-    row["Type"].downcase.tr(' ', '_')
-  end
+                          when 'Ad-hoc advisory group'
+                            'advisory_ndpb'
+                          when 'Tribunal non-departmental public body'
+                            'tribunal_ndpb'
+                          else
+                            row["Type"].downcase.tr(' ', '_')
+                          end
 
   $orgs[row["Slug"]] = {
     name: row["# Name"],

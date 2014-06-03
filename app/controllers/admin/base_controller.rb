@@ -42,7 +42,7 @@ class Admin::BaseController < ApplicationController
     end
   end
 
-  private
+private
 
   def forbidden!
     render "admin/editions/forbidden", status: 403

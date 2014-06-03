@@ -5,7 +5,7 @@ class FatalityNoticesController < DocumentsController
     set_slimmer_format_header("news")
   end
 
-  private
+private
 
   def document_class
     FatalityNotice

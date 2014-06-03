@@ -33,7 +33,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
       notice: notice_message("deleted")
   end
 
-  private
+private
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@edition.title}" #{action}.}

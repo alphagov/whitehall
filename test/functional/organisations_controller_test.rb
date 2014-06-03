@@ -71,7 +71,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       user = login_as(:departmental_editor)
       organisation = create(:ministerial_department)
       edition = if block_given?
-        yield organisation
+                  yield organisation
       else
         create(edition_type, :draft,
           scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
@@ -689,7 +689,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
   end
 
-  private
+private
 
   def assert_disclaimer_present(organisation)
     assert_select "#organisation_disclaimer" do

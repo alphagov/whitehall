@@ -33,7 +33,7 @@ class ImageUploaderTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def assert_image_size(dimensions, uploader_version)
     width, height = dimensions

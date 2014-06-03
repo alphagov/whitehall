@@ -7,7 +7,7 @@ class NewsArticlesController < DocumentsController
     set_meta_description(@document.summary)
   end
 
-  private
+private
 
   def document_class
     NewsArticle

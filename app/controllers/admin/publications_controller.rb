@@ -4,7 +4,7 @@ class Admin::PublicationsController < Admin::EditionsController
   before_filter :build_image, only: [:new, :edit]
   before_filter :pre_fill_edition_from_statistics_announcement, only: :new, if: :statistics_announcement
 
-  private
+private
 
   def edition_class
     Publication

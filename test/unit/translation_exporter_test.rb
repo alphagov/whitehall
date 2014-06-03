@@ -195,7 +195,7 @@ class TranslationExporterTest < ActiveSupport::TestCase
       assert data.has_key?("ministers.#{non_plural_forms}"), "expected non-plural form #{non_plural_forms} to be present, but it's not"
     end
   end
-  private
+private
 
   def read_csv_data(file)
     csv = CSV.read(file, headers: true)

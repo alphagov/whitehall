@@ -107,7 +107,7 @@ module Whitehall::Uploader
       assert_equal expected_attributes, row.translation_attributes
     end
 
-    private
+  private
 
     def new_speech_row(data = {})
       Whitehall::Uploader::SpeechRow.new(data, 1, @attachment_cache, @default_organisation, @logger)

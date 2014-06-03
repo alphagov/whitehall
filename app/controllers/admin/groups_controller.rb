@@ -42,7 +42,7 @@ class Admin::GroupsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def load_organisation
     @organisation = Organisation.find(params[:organisation_id])

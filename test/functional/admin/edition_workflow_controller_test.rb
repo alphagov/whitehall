@@ -303,7 +303,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
-  private
+private
 
   def submitted_edition
     @submitted_edition ||= create(:submitted_policy)

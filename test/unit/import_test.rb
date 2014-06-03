@@ -451,7 +451,7 @@ class ImportTest < ActiveSupport::TestCase
     assert_equal nil, ForcePublicationAttempt.find_by_id(force_attempt.id)
   end
 
-  private
+private
 
   def organisation
     @organisation ||= create(:organisation)

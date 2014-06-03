@@ -1,5 +1,5 @@
 class Admin::DocumentCollectionsController < Admin::EditionsController
-  private
+private
 
   def edition_class
     DocumentCollection

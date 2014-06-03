@@ -34,7 +34,7 @@ class Admin::EmailCurationQueueItemsController < Admin::BaseController
     redirect_to [:admin, EmailCurationQueueItem]
   end
 
-  private
+private
   def load_email_curation_queue_item
     @email_curation_queue_item = EmailCurationQueueItem.find(params[:id])
   end

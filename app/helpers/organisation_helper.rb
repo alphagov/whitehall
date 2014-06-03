@@ -91,14 +91,14 @@ module OrganisationHelper
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
 
     description = if parents.any?
-      case type_name
-      when 'other'
-        "#{name} works with #{parents.to_sentence}."
-      when 'non-ministerial department'
-        "#{name} is #{relationship}."
-      else
-        "#{name} is #{relationship} of #{parents.to_sentence}."
-      end
+                    case type_name
+                    when 'other'
+                      "#{name} works with #{parents.to_sentence}."
+                    when 'non-ministerial department'
+                      "#{name} is #{relationship}."
+                    else
+                      "#{name} is #{relationship} of #{parents.to_sentence}."
+                    end
     else
       "#{name} is #{relationship}."
     end

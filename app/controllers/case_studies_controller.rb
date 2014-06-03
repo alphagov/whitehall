@@ -8,7 +8,7 @@ class CaseStudiesController < DocumentsController
     @document = CaseStudyPresenter.new(@document, view_context)
   end
 
-  private
+private
 
   def document_class
     CaseStudy

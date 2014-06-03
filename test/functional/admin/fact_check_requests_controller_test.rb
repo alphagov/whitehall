@@ -256,7 +256,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
   end
 
-  private
+private
 
   def assert_last_email_body_contains(text)
     assert_match Regexp.new(Regexp.escape(text)), ActionMailer::Base.deliveries.last.body.to_s

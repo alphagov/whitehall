@@ -370,7 +370,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test 'will add a stacked, compact, negative barchart class to a marked table' do
-        input = '
+    input = '
 |col|
 |---|
 |val|
@@ -416,7 +416,7 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "span.fraction > img[alt=1/4]"
   end
 
-  private
+private
 
   def internal_preview_host
     "whitehall.preview.alphagov.co.uk"

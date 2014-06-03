@@ -37,7 +37,7 @@ class OrganisationsIndexPresenter < Array
     length - exempt_count
   end
 
-  private
+private
 
   def grouped_organisations
     @grouped_organisations ||= group_by { |org|

@@ -26,7 +26,7 @@ class WorldwideOrganisationsController < PublicFacingController
     end
   end
 
-  private
+private
 
   def load_worldwide_organisation
     @worldwide_organisation = WorldwideOrganisation.with_translations(I18n.locale).find(params[:id])

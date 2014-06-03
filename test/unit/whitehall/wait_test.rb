@@ -39,7 +39,7 @@ class WaitTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def do_some_work
     Whitehall::Random.base32

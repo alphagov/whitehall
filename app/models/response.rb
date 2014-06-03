@@ -16,7 +16,7 @@ class Response < ActiveRecord::Base
     true
   end
 
-  private
+private
 
   def has_attachments
     attachments.any?

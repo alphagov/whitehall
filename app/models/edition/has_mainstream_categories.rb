@@ -31,7 +31,7 @@ module Edition::HasMainstreamCategories
     true
   end
 
-  private
+private
 
   def avoid_duplication_between_primary_and_other_mainstream_categories
     if other_mainstream_categories.include?(primary_mainstream_category)

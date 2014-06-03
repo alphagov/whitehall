@@ -5,8 +5,8 @@ inherit_from:
 # Supports --auto-correct
 AccessModifierIndentation:
   Description: Check indentation of private/protected visibility modifiers.
-  Enabled: false
-  EnforcedStyle: indent
+  Enabled: true
+  EnforcedStyle: outdent
   SupportedStyles:
   - outdent
   - indent
@@ -28,18 +28,9 @@ Alias:
   Description: Use alias_method instead of alias.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 AndOr:
   Description: Use &&/|| instead of and/or.
-  Enabled: false
-
-AsciiComments:
-  Description: Use only ascii symbols in comments.
-  Enabled: false
-
-AsciiIdentifiers:
-  Description: Use only ascii symbols in identifiers.
   Enabled: false
 
 BlockAlignment:
@@ -49,7 +40,7 @@ BlockAlignment:
 # Documented
 CaseIndentation:
   Description: Indentation of when in a case/when/[else/]end.
-  Enabled: false
+  Enabled: true
   IndentWhenRelativeTo: case
   SupportedStyles:
   - case
@@ -82,7 +73,7 @@ CollectionMethods:
 # Supports --auto-correct
 CommentIndentation:
   Description: Indentation of comments.
-  Enabled: false
+  Enabled: true
 
 ConstantName:
   Description: Constants should use SCREAMING_SNAKE_CASE.
@@ -188,11 +179,10 @@ IfUnlessModifier:
   Enabled: false
   MaxLineLength: 80
 
-# Documented
 # Supports --auto-correct
 IndentationWidth:
   Description: Use 2 spaces for indentation.
-  Enabled: false
+  Enabled: true
 
 MethodName:
   Description: Use the configured style when naming methods.
@@ -253,13 +243,11 @@ SingleSpaceBeforeFirstArg:
     argument for method calls without parentheses.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
@@ -281,13 +269,11 @@ SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
@@ -298,13 +284,11 @@ SpaceAroundEqualsInParameterDefault:
   - space
   - no_space
 
-# Documented
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
@@ -319,19 +303,16 @@ SpaceBeforeModifierKeyword:
   Description: Put a space before the modifier keyword.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceInsideBrackets:
   Description: No spaces after [ or before ].
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
   Enabled: true
 
-# Documented
 Tab:
   Description: No hard tabs.
   Enabled: true
@@ -345,7 +326,6 @@ TrailingBlankLines:
   - final_newline
   - final_blank_line
 
-#Documented
 TrailingComma:
   Description: Checks for trailing comma in parameter lists and literals.
   Enabled: false
@@ -354,7 +334,6 @@ TrailingComma:
   - comma
   - no_comma
 
-# Documented
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
@@ -394,7 +373,6 @@ UnreachableCode:
   Description: Unreachable code.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 UnusedBlockArgument:
   Description: Checks for unused block arguments.
@@ -425,7 +403,6 @@ UselessSetterCall:
   Description: Checks for useless setter call to a local variable.
   Enabled: false
 
-# Documented
 VariableName:
   Description: Use the configured style when naming variables.
   Enabled: false

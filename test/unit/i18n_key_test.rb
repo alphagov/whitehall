@@ -61,7 +61,7 @@ class I18nKeyTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def assert_translations(type_class, translation_prefix)
     failed_types = []

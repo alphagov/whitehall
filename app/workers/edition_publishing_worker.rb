@@ -7,7 +7,7 @@ class EditionPublishingWorker
     publish_edition_as_user(edition, user) unless edition.published?
   end
 
-  private
+private
 
   def publish_edition_as_user(edition, user)
     Edition::AuditTrail.acting_as(user) do

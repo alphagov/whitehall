@@ -22,7 +22,7 @@ class Admin::SitewideSettingsController <  Admin::BaseController
     end
   end
 
-  private
+private
 
   def sitewide_settings_params
     params.require(:sitewide_setting).permit(:on, :govspeak)

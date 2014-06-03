@@ -125,7 +125,7 @@ class CorporateInformationPage < Edition
     corporate_information_page_type.try(:slug) == 'about'
   end
 
-  private
+private
 
   def string_for_slug
     nil

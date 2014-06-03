@@ -150,7 +150,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       EOT
     end
 
-    private
+  private
 
     def news_article_url(article)
       Rails.application.routes.url_helpers.news_article_url(article.slug, host: "www.test.alphagov.co.uk", protocol: 'https')

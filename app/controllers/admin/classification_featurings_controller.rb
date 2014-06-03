@@ -65,7 +65,7 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
     @classification_featuring.edition.present?
   end
 
-  private
+private
 
   def load_classification
     @classification = Classification.find(params[:topical_event_id] || params[:topic_id])

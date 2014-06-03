@@ -15,7 +15,7 @@ class RecentDateValidatorTest < ActiveSupport::TestCase
     assert response.errors[:published_on].empty?
   end
 
-  private
+private
 
   def validate(record)
     @validator.validate(record)

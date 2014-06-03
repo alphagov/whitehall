@@ -25,7 +25,7 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def load_user
     @user = User.find(params[:id])

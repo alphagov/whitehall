@@ -12,9 +12,9 @@ module DataHygiene
         link = match[1]
 
         fix = if link.first == '/'
-          unless self.class.is_internal_admin_link?(link)
-            'Please use either absolute paths for documents created in publisher, e.g. /government/admin/policies/3373, or full URLs for other GOV.UK links'
-          end
+                unless self.class.is_internal_admin_link?(link)
+                  'Please use either absolute paths for documents created in publisher, e.g. /government/admin/policies/3373, or full URLs for other GOV.UK links'
+                end
         else
           if self.class.is_internal_admin_link?("/#{link}")
             "This is an invalid admin link.  Did you mean /#{link} instead of #{link}?"

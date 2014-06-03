@@ -98,7 +98,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal topics.second.name, json_response['topics'].second['name']
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:alternative_format_provider).reverse_merge(

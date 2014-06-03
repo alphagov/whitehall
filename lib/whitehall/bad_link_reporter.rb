@@ -45,7 +45,7 @@ module Whitehall
     end
 
     def csv_report_for_organisation(organisation)
-        csv_reports[organisation.slug] ||= CsvReport.new(csv_report_path(organisation))
+      csv_reports[organisation.slug] ||= CsvReport.new(csv_report_path(organisation))
     end
 
     def csv_report_path(organisation)

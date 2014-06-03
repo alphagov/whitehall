@@ -43,7 +43,7 @@ class Whitehall::Uploader::AttachmentCache
     end
   end
 
-  private
+private
 
   class Entry
     attr_accessor :root_dir, :logger, :original_url

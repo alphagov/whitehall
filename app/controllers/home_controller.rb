@@ -34,7 +34,7 @@ class HomeController < PublicFacingController
   def history_lancaster_house
   end
 
-  private
+private
 
   def load_ministerial_department_count
     @ministerial_department_count = Organisation.ministerial_departments.count

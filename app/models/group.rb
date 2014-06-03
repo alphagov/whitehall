@@ -29,7 +29,7 @@ class Group < ActiveRecord::Base
     members.empty?
   end
 
-  private
+private
 
   def prevent_destruction_unless_destroyable
     return false unless destroyable?

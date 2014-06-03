@@ -61,7 +61,7 @@ class ScheduledEditionsPublisher
     @log_cache << message << "\n"
   end
 
-  private
+private
 
   def unpublished_editions_remaining?
     unpublished_editions_count > 0

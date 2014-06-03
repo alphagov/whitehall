@@ -9,7 +9,7 @@ class Admin::PoliciesController < Admin::EditionsController
     end
   end
 
-  private
+private
 
   def edition_class
     Policy

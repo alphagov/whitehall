@@ -3,7 +3,7 @@ class Admin::FatalityNoticesController < Admin::EditionsController
   before_filter :build_image, only: [:new, :edit]
   before_filter :build_fatality_notice_casualties, only: [:new, :edit]
 
-  private
+private
 
   def edition_class
     FatalityNotice

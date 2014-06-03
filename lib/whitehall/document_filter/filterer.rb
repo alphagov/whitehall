@@ -91,12 +91,12 @@ module Whitehall::DocumentFilter
       @include_world_location_news.to_s == '1'
     end
 
-    private
+  private
 
     def find_by_slug(klass, slugs)
       @selected ||= {}
       @selected[klass] ||= if slugs.present? && !slugs.include?("all")
-        klass.where(slug: slugs)
+                             klass.where(slug: slugs)
       else
         []
       end

@@ -43,6 +43,14 @@ ArrayJoin:
   Description: Use Array#join instead of Array#*.
   Enabled: false
 
+AsciiComments:
+  Description: Use only ascii symbols in comments.
+  Enabled: false
+
+AsciiIdentifiers:
+  Description: Use only ascii symbols in identifiers.
+  Enabled: false
+
 AssignmentInCondition:
   Description: Don't use assignment in conditions.
   Enabled: false

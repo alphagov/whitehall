@@ -54,7 +54,7 @@ class LogStashLoggerTest < ActiveSupport::TestCase
     assert_equal "Whitehall", log_entries.last["@fields"]["progname"]
   end
 
-### When logged thing is a message string
+  ### When logged thing is a message string
 
   test "When logged thing is a message string, @message and @fields.message are the given string" do
     subject.info "This is an error"
@@ -66,7 +66,7 @@ class LogStashLoggerTest < ActiveSupport::TestCase
     assert_equal ['dogtag', 'labeltag'], log_entries.last["@tags"]
   end
 
-### When logged thing is a hash
+  ### When logged thing is a hash
 
   test "When logged thing is a hash, message is logged" do
     subject.error(message: "This is a message")

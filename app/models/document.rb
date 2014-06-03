@@ -87,7 +87,7 @@ class Document < ActiveRecord::Base
     document_type.underscore.gsub('_', ' ')
   end
 
-  private
+private
 
   def destroy_all_editions
     Edition.unscoped.destroy_all(document_id: self.id)

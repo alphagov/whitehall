@@ -25,7 +25,7 @@ module Edition::Images
     true
   end
 
-  private
+private
 
   def no_substantive_attributes?(attrs)
     attrs.except(:image_data_attributes, :_destroy).values.all?(&:blank?) &&

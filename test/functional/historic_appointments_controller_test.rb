@@ -79,7 +79,7 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     end
   end
 
-  private
+private
 
   def pm_role
     @pm_role ||= create(:historic_role, name: 'Prime Minister', slug: 'prime-minister')

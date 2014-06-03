@@ -70,7 +70,7 @@ class BulkUpload
     end
   end
 
-  private
+private
 
   def find_attachment_with_file(path)
     @edition.attachments.with_filename(File.basename(path)).first
@@ -150,7 +150,7 @@ class BulkUpload
       errs.read.empty?
     end
 
-    private
+  private
 
     def contains_only_whitelisted_file_types
       if @zip_file.present? && is_a_zip? && contains_disallowed_file_types?

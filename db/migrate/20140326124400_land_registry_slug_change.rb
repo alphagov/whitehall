@@ -7,7 +7,7 @@ class LandRegistrySlugChange < ActiveRecord::Migration
     change_org_slug('land-registry', 'hm-land-registry')
   end
 
-  private
+private
 
   def change_org_slug(old_slug, new_slug)
     Organisation.transaction do

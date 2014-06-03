@@ -23,7 +23,7 @@ class MinisterialRoleSearchIndexObserver < ActiveRecord::Observer
     reindex_ministerial_roles
   end
 
-  private
+private
 
   def reindex_ministerial_roles
     unless self.class.disabled

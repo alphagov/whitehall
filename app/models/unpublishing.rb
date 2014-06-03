@@ -33,7 +33,7 @@ class Unpublishing < ActiveRecord::Base
 
   def document_path
     @document_path ||= if edition.present?
-      Whitehall.url_maker.public_document_path(edition)
+                         Whitehall.url_maker.public_document_path(edition)
     else
       # If edition is nil it's probably because it's deleted and hidden by the
       # default scope

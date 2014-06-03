@@ -32,7 +32,7 @@ class Whitehall::Translation::Importer
     end
   end
 
-  private
+private
 
   def import_yml_path
     File.join(@import_directory, "#{@locale}.yml")

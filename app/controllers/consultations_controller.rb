@@ -10,7 +10,7 @@ class ConsultationsController < DocumentsController
     expire_on_open_state_change(@document)
   end
 
-  private
+private
 
   def document_class
     Consultation

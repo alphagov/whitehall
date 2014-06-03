@@ -76,7 +76,7 @@ class Admin::OrganisationsController < Admin::BaseController
     redirect_to admin_organisations_path
   end
 
-  private
+private
 
   def organisation_params
     params.require(:organisation).permit(

@@ -10,7 +10,7 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
     include TestsForNationalApplicability
 
-    private
+  private
 
     def edition_class
       Policy

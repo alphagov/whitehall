@@ -114,7 +114,7 @@ That's all
     assert_response :success
   end
 
-  private
+private
 
   def given_two_detailed_guides_in_two_organisations
     @organisation_1, @organisation_2 = create(:organisation), create(:organisation)

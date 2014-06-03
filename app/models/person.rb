@@ -105,7 +105,7 @@ class Person < ActiveRecord::Base
     roles.any?(&:supports_historical_accounts?)
   end
 
-  private
+private
 
   def name_as_words(*elements)
     elements.select { |word|
