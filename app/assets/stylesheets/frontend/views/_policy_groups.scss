@@ -37,9 +37,6 @@
 
   .description {
     padding-bottom: $gutter-half;
-    .govspeak p:first-child {
-      @include ig-core-24;
-    }
   }
 
   .policy {
