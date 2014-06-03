@@ -14,7 +14,7 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/home.html.erb
     layouts/html_attachments.html.erb
   ).map do |f|
-    File.expand_path(Rails.root + "app/views/" + f )
+    File.expand_path(Rails.root + "app/views/" + f)
   end
 
   def test_every_page_sets_a_title

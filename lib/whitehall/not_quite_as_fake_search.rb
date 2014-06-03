@@ -125,7 +125,7 @@ module Whitehall
         end
 
         def sort(documents)
-          documents.sort {|l, r| compare(l,r)}
+          documents.sort {|l, r| compare(l, r)}
         end
 
         def validate_ordering!
@@ -216,7 +216,7 @@ module Whitehall
     private
       def normalize(document)
         document = document.stringify_keys
-        document.each_with_object({}) do |(k,v), memo|
+        document.each_with_object({}) do |(k, v), memo|
           memo[k] = case v
           when String, Array, Fixnum, TrueClass, FalseClass then v
           else v.to_s

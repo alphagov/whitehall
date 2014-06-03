@@ -42,7 +42,7 @@ class DepartmentWriterWorldLocationNewsTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(org1)
     edition = limited_world_location_news_article([org2])
     enforcer = enforcer_for(user, edition)
-    
+
     Whitehall::Authority::Rules::WorldEditionRules.actions.each do |action|
       refute enforcer.can?(action)
     end

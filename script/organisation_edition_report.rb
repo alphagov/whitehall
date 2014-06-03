@@ -23,7 +23,7 @@ unless organisation
   exit(1)
 end
 
-if ! opts['no-bom']
+if !opts['no-bom']
   puts "\uFEFF"
 end
 

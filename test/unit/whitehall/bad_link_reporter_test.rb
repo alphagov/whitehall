@@ -1,6 +1,5 @@
 require 'test_helper'
 
-
 class BadLinkReporterTest < ActiveSupport::TestCase
 
   class PageCheckerTest < ActiveSupport::TestCase
@@ -56,7 +55,7 @@ class BadLinkReporterTest < ActiveSupport::TestCase
 
       checker = Whitehall::BadLinkReporter::PageChecker.new(detailed_guide_page, result_cache)
 
-      expected_bad_links = [ 'https://www.gov.uk/bad-link',
+      expected_bad_links = ['https://www.gov.uk/bad-link',
                              'https://www.gov.uk/missing-link']
 
       assert_equal expected_bad_links, checker.raw_bad_links

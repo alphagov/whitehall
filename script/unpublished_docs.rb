@@ -9,7 +9,7 @@ require 'csv'
 require 'ostruct'
 
 admin_host = "whitehall-admin.#{ENV['GOVUK_APP_DOMAIN']}"
-protocol = (Rails.env.development? ? 'http': 'https')
+protocol = (Rails.env.development? ? 'http' : 'https')
 
 def url_maker
   @url_maker ||= Whitehall::UrlMaker.new

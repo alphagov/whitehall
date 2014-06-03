@@ -532,7 +532,7 @@ class OrganisationTest < ActiveSupport::TestCase
   end
 
   test "only sets analytics identifier if nil" do
-    organisation = build(:organisation, analytics_identifier: "FOO123" )
+    organisation = build(:organisation, analytics_identifier: "FOO123")
     organisation.save!
     assert_equal "FOO123", organisation.reload.analytics_identifier
   end

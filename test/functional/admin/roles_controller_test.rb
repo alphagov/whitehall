@@ -286,7 +286,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   test "update should inform the user when a role is updated successfully" do
     role = create(:role)
 
-    put :update, id:role, role: attributes_for(:role, name: "role-name")
+    put :update, id: role, role: attributes_for(:role, name: "role-name")
 
     assert_equal %{"role-name" updated.}, flash[:notice]
   end

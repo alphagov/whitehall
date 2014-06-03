@@ -33,7 +33,6 @@ class OrganisationType
     :civil_service,
   ]
 
-
   @@instances = {}
 
   def self.get(key)
@@ -54,7 +53,6 @@ class OrganisationType
   def self.valid_keys
     DATA.keys
   end
-
 
   def self.allowed_promotional_keys
     DATA.select {|_, attributes| attributes[:allowed_promotional] }.keys
@@ -103,7 +101,6 @@ class OrganisationType
     get :civil_service
   end
 
-
   attr_reader :key, :name, :analytics_prefix, :agency_or_public_body, :non_departmental_public_body
   alias_method :agency_or_public_body?,        :agency_or_public_body
   alias_method :non_departmental_public_body?, :non_departmental_public_body
@@ -123,45 +120,59 @@ class OrganisationType
   def allowed_promotional?
     DATA[key][:allowed_promotional]
   end
+
   def executive_office?
     key == :executive_office
   end
+
   def ministerial_department?
     key == :ministerial_department
   end
+
   def non_ministerial_department?
     key == :non_ministerial_department
   end
+
   def executive_agency?
     key == :executive_agency
   end
+
   def executive_ndpb?
     key == :executive_ndpb
   end
+
   def advisory_ndpb?
     key == :advisory_ndpb
   end
+
   def tribunal_ndpb?
     key == :tribunal_ndpb
   end
+
   def public_corporation?
     key == :public_corporation
   end
+
   def independent_monitoring_body?
     key == :independent_monitoring_body
   end
+
   def adhoc_advisory_group?
     key == :adhoc_advisory_group
   end
+
   def devolved_administration?
     key == :devolved_administration
   end
+
   def sub_organisation?
     key == :sub_organisation
   end
+
   def other?
     key == :other
   end
+
   def civil_service?
     key == :civil_service
   end

@@ -42,7 +42,7 @@ class DepartmentWriterWorldwidePriorityTest < ActiveSupport::TestCase
     user.stubs(:organisation).returns(org1)
     edition = limited_worldwide_priority([org2])
     enforcer = enforcer_for(user, edition)
-    
+
     Whitehall::Authority::Rules::WorldEditionRules.actions.each do |action|
       refute enforcer.can?(action)
     end

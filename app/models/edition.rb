@@ -43,7 +43,6 @@ class Edition < ActiveRecord::Base
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
   POST_PUBLICATION_STATES = %w(published superseded archived).freeze
 
-
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
@@ -73,7 +72,6 @@ class Edition < ActiveRecord::Base
   # @!group Callbacks
   before_save :set_public_timestamp
   # @!endgroup
-
 
   class UnmodifiableValidator < ActiveModel::Validator
     def validate(record)
@@ -416,7 +414,6 @@ class Edition < ActiveRecord::Base
   def has_consultation_participation?
     false
   end
-
 
   # @!endgroup
 

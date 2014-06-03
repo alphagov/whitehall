@@ -41,7 +41,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   def previous_display_date
     if last_major_change
       major_change_index = statistics_announcement_dates.index(last_major_change)
-      statistics_announcement_dates.at( major_change_index - 1 ).try(:display_date)
+      statistics_announcement_dates.at(major_change_index - 1).try(:display_date)
     end
   end
 
@@ -72,7 +72,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
       previous_display_date: previous_display_date }
   end
 
-  def build_statistics_announcement_date_change(attributes={})
+  def build_statistics_announcement_date_change(attributes = {})
     current_date_attributes = current_release_date.attributes.slice('release_date', 'confirmed', 'precision')
 
     StatisticsAnnouncementDateChange.new(attributes.reverse_merge(current_date_attributes)) do |change|

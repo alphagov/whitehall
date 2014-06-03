@@ -29,7 +29,7 @@ FactoryGirl.define do
         Array.wrap(evaluator.lead_organisations).each.with_index do |org, idx|
           edition.edition_organisations.build(edition: edition,
                                               organisation: org,
-                                              lead_ordering: idx+1,
+                                              lead_ordering: idx + 1,
                                               lead: true)
         end
         Array.wrap(evaluator.supporting_organisations).each do |org|

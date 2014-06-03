@@ -60,7 +60,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       worldwide_organisation_id: worldwide_organisation.id
 
     new_office = worldwide_organisation.offices.last
-    assert_equal 'Main office',new_office.contact.title
+    assert_equal 'Main office', new_office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
@@ -78,7 +78,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       worldwide_organisation_id: worldwide_organisation.id
 
     new_office = worldwide_organisation.offices.last
-    assert_equal 'Main office',new_office.contact.title
+    assert_equal 'Main office', new_office.contact.title
     refute worldwide_organisation.office_shown_on_home_page?(new_office)
   end
 
@@ -138,7 +138,6 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
 
     assert_equal "Head office", office.reload.contact.title
   end
-
 
   test "put update updates an office adding it to the home page of the world org if told to" do
     worldwide_organisation, office = create_worldwide_organisation_and_office

@@ -241,7 +241,6 @@ Then /^I should see the updated default access information$/ do
   assert page.has_css?('.govspeak p', text: 'Edited body information')
 end
 
-
 When /^I add a new translation to the worldwide organisation "([^"]*)" with:$/ do |name, table|
   worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
   add_translation_to_worldwide_organisation(worldwide_organisation, table.rows_hash)

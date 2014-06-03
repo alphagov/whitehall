@@ -862,7 +862,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-
     def should_allow_ministerial_roles_for(edition_type)
       edition_class = class_for(edition_type)
 

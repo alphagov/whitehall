@@ -10,6 +10,7 @@ class LongLifeRedirect
     @root_path << '/' unless @root_path.ends_with?('/')
     @age = age
   end
+
   def call(env)
     req = ActionDispatch::Request.new(env)
 
@@ -31,6 +32,6 @@ class LongLifeRedirect
       'Cache-control' => 'public'
     }
 
-    [ 301, headers, [body] ]
+    [301, headers, [body]]
   end
 end

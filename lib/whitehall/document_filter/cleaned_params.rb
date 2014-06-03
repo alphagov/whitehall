@@ -18,7 +18,6 @@ module Whitehall::DocumentFilter
                                          announcement_filter_option
                                          announcement_type_option)
 
-
     def initialize(unclean_params)
       @params = unclean_params.clone
 

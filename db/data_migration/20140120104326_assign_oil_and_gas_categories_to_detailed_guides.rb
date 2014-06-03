@@ -86,7 +86,6 @@ private
   end
 end
 
-
 logger = Logger.new(STDOUT)
 
 gds_user = User.find_by_name!('GDS Inside Government Team')

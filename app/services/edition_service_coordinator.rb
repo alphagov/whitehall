@@ -7,27 +7,27 @@ class EditionServiceCoordinator
     @notifier = ActiveSupport::Notifications::Fanout.new
   end
 
-  def publisher(edition, options={})
+  def publisher(edition, options = {})
     EditionPublisher.new(edition, options.merge(notifier: self))
   end
 
-  def force_publisher(edition, options={})
+  def force_publisher(edition, options = {})
     EditionForcePublisher.new(edition, options.merge(notifier: self))
   end
 
-  def scheduled_publisher(edition, options={})
+  def scheduled_publisher(edition, options = {})
     ScheduledEditionPublisher.new(edition, options.merge(notifier: self))
   end
 
-  def unpublisher(edition, options={})
+  def unpublisher(edition, options = {})
     EditionUnpublisher.new(edition, options.merge(notifier: self))
   end
 
-  def archiver(edition, options={})
+  def archiver(edition, options = {})
     EditionArchiver.new(edition, options.merge(notifier: self))
   end
 
-  def deleter(edition, options={})
+  def deleter(edition, options = {})
     EditionDeleter.new(edition, options.merge(notifier: self))
   end
 end

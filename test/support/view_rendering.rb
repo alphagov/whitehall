@@ -12,7 +12,7 @@ module ViewRendering
   module ClassMethods
     def view_test(name, &block)
       test(name, &block)
-      add_view_test("test_#{name.gsub(/\s+/,'_')}")
+      add_view_test("test_#{name.gsub(/\s+/, '_')}")
     end
 
     def view_tests

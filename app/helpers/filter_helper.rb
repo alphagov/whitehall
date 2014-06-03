@@ -13,7 +13,6 @@ module FilterHelper
     FilterDescription.new(filter, base_url, opts).render
   end
 
-
   class FilterDescription
     include ActionView::Helpers::UrlHelper
     include ActionView::Helpers::NumberHelper

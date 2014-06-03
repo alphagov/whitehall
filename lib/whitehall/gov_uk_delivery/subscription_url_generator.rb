@@ -37,7 +37,7 @@ module Whitehall
         end
       end
 
-      def edition_url(args={})
+      def edition_url(args = {})
         url_params = args.merge(format: :atom)
 
         case edition

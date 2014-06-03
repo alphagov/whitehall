@@ -26,7 +26,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                           organisation: build(:organisation),
                           topic: build(:topic),
                           publication_type_id: PublicationType.find_by_slug("statistics").id,
-                          statistics_announcement_dates: [ build(:statistics_announcement_date,
+                          statistics_announcement_dates: [build(:statistics_announcement_date,
                                                                  release_date:  "2050-03-01",
                                                                  precision: StatisticsAnnouncementDate::PRECISION[:two_month],
                                                                  confirmed: false,
@@ -35,7 +35,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                                                                  release_date:  Time.zone.parse("2050-01-01 09:30"),
                                                                  precision: StatisticsAnnouncementDate::PRECISION[:exact],
                                                                  confirmed: true,
-                                                                 change_note: 'The change note') ]
+                                                                 change_note: 'The change note')]
 
     returned_announcement_hash = subject.advanced_search(page: '1', per_page: '100')['results'].first
 
@@ -104,7 +104,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
 
   test "#advanced_search supports pagination" do
     announcements = 4.times.map do |n|
-      create :statistics_announcement, title: n, current_release_date: build(:statistics_announcement_date, release_date: (n+1).days.from_now)
+      create :statistics_announcement, title: n, current_release_date: build(:statistics_announcement_date, release_date: (n + 1).days.from_now)
 
     end
 

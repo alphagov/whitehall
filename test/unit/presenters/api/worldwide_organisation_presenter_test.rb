@@ -107,7 +107,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
     @office.contact.stubs(:contact_form_url).returns('office-contact-form-url')
     assert_equal 'office-contact-form-url', @presenter.as_json[:offices][:main][:details][:contact_form_url]
   end
-  
+
   test "json includes govspoken access_and_opening_times_body in details hash of an office" do
     @office.stubs(:access_and_opening_times_body).returns('world-office-access-and-opening-times')
     stubs_helper_method(:govspeak_to_html).with('world-office-access-and-opening-times').returns('govspoken-world-office-access-and-opening-times')

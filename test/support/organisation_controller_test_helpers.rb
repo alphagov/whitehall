@@ -116,7 +116,7 @@ module OrganisationControllerTestHelpers
 
         get :show, id: organisation
 
-        editions[0,3].each do |edition|
+        editions[0, 3].each do |edition|
           assert_select_prefix_object edition, :recent
         end
         refute_select_prefix_object editions[3], :recent

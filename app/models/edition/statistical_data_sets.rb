@@ -13,7 +13,6 @@ module Edition::StatisticalDataSets
     has_many :statistical_data_sets, through: :statistical_data_set_documents, source: :latest_edition
     has_many :published_statistical_data_sets, through: :statistical_data_set_documents, source: :published_edition, class_name: 'StatisticalDataSet'
 
-
     add_trait Trait
   end
 

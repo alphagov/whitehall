@@ -5,7 +5,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   test '#visible? returns true when attachment data is associated with a published edition' do
     edition = create(:published_publication, :with_file_attachment_not_scanned)
     attachment_data = edition.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 
     assert attachment_visibility.visible?
     assert_nil attachment_visibility.unpublished_edition
@@ -14,7 +14,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   test '#visible? returns false when edition is unpublished' do
     edition = create(:draft_publication, :with_file_attachment_not_scanned)
     attachment_data = edition.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 
     refute attachment_visibility.visible?
   end
@@ -23,7 +23,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     response = create(:consultation_with_outcome).outcome
     response.attachments << build(:file_attachment)
     attachment_data = response.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 
     assert attachment_visibility.visible?
   end
@@ -120,7 +120,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   test '#visible_attachment returns the attachment associated with the response of the published consultation' do
     response              = create(:consultation_with_outcome).outcome
     response.attachments << attachment = build(:file_attachment)
-    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
     assert_equal attachment, attachment_visibility.visible_attachment
   end
@@ -129,7 +129,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
     group  = create(:policy_group, attachments: [
       attachment = build(:file_attachment)
     ])
-    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment.attachment_data, nil)
 
     assert_equal attachment, attachment_visibility.visible_attachment
   end
@@ -137,7 +137,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   test '#unpublished_edition returns the edition for an attachment associated with an unpublished edition' do
     unpublished_edition = create(:publication, :unpublished, :with_file_attachment)
     attachment_data = unpublished_edition.attachments.first.attachment_data
-    attachment_visibility = AttachmentVisibility.new(attachment_data,nil)
+    attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 
     refute attachment_visibility.visible?
     assert_equal unpublished_edition, attachment_visibility.unpublished_edition

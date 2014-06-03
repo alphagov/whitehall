@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Edition::AppointmentTest< ActiveSupport::TestCase
+class Edition::AppointmentTest < ActiveSupport::TestCase
   class EditionWithAppointment < Edition
     include ::Edition::Appointment
 

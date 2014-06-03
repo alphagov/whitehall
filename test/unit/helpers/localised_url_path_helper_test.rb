@@ -52,24 +52,24 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
   end
 
   module FakeRouting
-    def news_article_path(object, options={})
+    def news_article_path(object, options = {})
       news_article_path_was_called(object, options)
     end
 
-    def news_article_path_was_called(object, options={})
+    def news_article_path_was_called(object, options = {})
     end
 
-    def worldwide_organisation_corporate_information_page_path(parent, page, options={})
+    def worldwide_organisation_corporate_information_page_path(parent, page, options = {})
       worldwide_organisation_corporate_information_page_path_was_called(parent, page, options)
     end
 
-    def worldwide_organisation_corporate_information_page_path_was_called(parent, page, options={})
+    def worldwide_organisation_corporate_information_page_path_was_called(parent, page, options = {})
     end
   end
 
   class FakeController
     attr_reader :params
-    def initialize(params={})
+    def initialize(params = {})
       @params = params
     end
 

@@ -53,9 +53,11 @@ class Contact < ActiveRecord::Base
   def foi?
     contact_type == ContactType::FOI
   end
+
   def media?
     contact_type == ContactType::Media
   end
+
   def general?
     contact_type == ContactType::General
   end

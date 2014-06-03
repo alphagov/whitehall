@@ -106,7 +106,7 @@ class Publication < Publicationesque
   end
 
   def has_attachments?
-    ! attachments.empty?
+    !attachments.empty?
   end
 
   def search_index

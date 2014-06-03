@@ -1,7 +1,7 @@
 module Admin::AdminGovspeakHelper
   include GovspeakHelper
 
-  def govspeak_to_admin_html(govspeak, images=[], attachments=[], alternative_format_contact_email = nil)
+  def govspeak_to_admin_html(govspeak, images = [], attachments = [], alternative_format_contact_email = nil)
     partially_processed_govspeak = govspeak_with_attachments_and_alt_format_information(govspeak, attachments, alternative_format_contact_email)
     wrapped_in_govspeak_div(bare_govspeak_to_admin_html(partially_processed_govspeak, images))
   end

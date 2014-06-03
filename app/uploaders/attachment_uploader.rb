@@ -33,7 +33,7 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def generate_thumbnail
-    get_first_page_as_png(105,140)
+    get_first_page_as_png(105, 140)
   end
 
   def pdf?(file)
@@ -146,7 +146,7 @@ class AttachmentUploader < WhitehallUploader
               reject { |file, ext| ext.nil? }.
               group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
               map { |shape, files|
-                [ shape, files.group_by { |file, ext| ext } ]
+                [shape, files.group_by { |file, ext| ext }]
               }
           ]
       end

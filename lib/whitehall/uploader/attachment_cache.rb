@@ -158,7 +158,7 @@ class Whitehall::Uploader::AttachmentCache
       # when comparing, remove the trailing . that might be present
       # from File.extname.  EXTENSION_WHITE_LIST doesn't include them
       extension.blank? ||
-      !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension.downcase.gsub(/^\./,''))
+      !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension.downcase.gsub(/^\./, ''))
     end
 
     def extension_from_file(local_path)

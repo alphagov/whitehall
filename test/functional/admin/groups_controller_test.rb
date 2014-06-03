@@ -146,7 +146,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
       }
     }
 
-    assert_equal [person], group.members(reload=true)
+    assert_equal [person], group.members(reload = true)
   end
 
   test "update should update a member" do
@@ -160,7 +160,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
       }
     }
 
-    assert_equal [person_two], group.members(reload=true)
+    assert_equal [person_two], group.members(reload = true)
   end
 
   test "update should delete a member" do
@@ -174,7 +174,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
       }
     }
 
-    assert_equal [], group.members(reload=true)
+    assert_equal [], group.members(reload = true)
   end
 
   test "update should ignore new blank members" do

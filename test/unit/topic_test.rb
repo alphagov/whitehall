@@ -81,7 +81,6 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal [], topic_2.related_classifications
   end
 
-
   test 'should return search index data suitable for Rummageable' do
     topic = create(:topic, name: "topic name", description: "topic description")
     assert_equal({

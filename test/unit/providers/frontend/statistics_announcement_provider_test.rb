@@ -82,7 +82,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
                                                               publication_type_id: PublicationType::Statistics.id,
                                                               organisation: organisation,
                                                               topic: topic,
-                                                              statistics_announcement_dates: [ build(:statistics_announcement_date,
+                                                              statistics_announcement_dates: [build(:statistics_announcement_date,
                                                                                                      release_date:  "2050-03-01",
                                                                                                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
                                                                                                      confirmed: false,
@@ -91,7 +91,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
                                                                                                      release_date:  Time.zone.parse("2050-01-01 09:30:00"),
                                                                                                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
                                                                                                      confirmed: true,
-                                                                                                     change_note: 'Change note') ]
+                                                                                                     change_note: 'Change note')]
 
     announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(publisher_announcement.slug)
 

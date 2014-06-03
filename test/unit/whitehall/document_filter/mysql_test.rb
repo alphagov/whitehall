@@ -347,13 +347,13 @@ module Whitehall::DocumentFilter
       organisation
     end
 
-    def stub_publication_type(slug, attributes={})
+    def stub_publication_type(slug, attributes = {})
       publication_type = stub("publication-type-#{slug}", {id: slug, slug: slug, pluralized_name: slug.humanize.pluralize}.merge(attributes))
       PublicationType.stubs(:find_by_slug).with(slug).returns(publication_type)
       publication_type
     end
 
-    def stub_publication_filter_option(label, attributes={})
+    def stub_publication_filter_option(label, attributes = {})
       publication_filter_option = stub("publication-filter-option-#{label}", {
         label: label.humanize.pluralize,
         slug: label,

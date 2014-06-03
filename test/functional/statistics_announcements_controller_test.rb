@@ -79,7 +79,6 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_template layout: nil, partial: 'statistics_announcements/_filter_results'
   end
 
-
   ### Describing #show
 
   test "#show assigns @announcement as a Frontend::StatisticsAnnouncement inflated from the publisher model" do

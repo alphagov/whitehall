@@ -64,8 +64,8 @@ class UnpublishingTest < ActiveSupport::TestCase
     case_study = create(:case_study)
     unpublishing = create(:unpublishing, edition: case_study, slug: 'some-slug')
 
-    refute Unpublishing.from_slug('not-a-match','CaseStudy')
-    refute Unpublishing.from_slug('some-slug','OtherDocumentType')
+    refute Unpublishing.from_slug('not-a-match', 'CaseStudy')
+    refute Unpublishing.from_slug('some-slug', 'OtherDocumentType')
     assert_equal unpublishing, Unpublishing.from_slug('some-slug', 'CaseStudy')
   end
 

@@ -21,7 +21,6 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_equal :independent_monitoring_body, organisation.organisation_type_key
   end
 
-
   ### Describing Validations ###
   test "should validate that organisation_type_key is both present and of a valid type" do
     assert_valid build(:organisation, organisation_type_key: :executive_office)
@@ -45,7 +44,6 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_invalid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: 'live')
     assert_valid build(:sub_organisation, organisation_type: OrganisationType.devolved_administration, govuk_status: 'exempt')
   end
-
 
   ### Describing Scopes ###
   test "It should have a scope for each valid OrganisationType" do

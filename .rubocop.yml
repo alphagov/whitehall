@@ -121,13 +121,13 @@ ElseLayout:
 # Supports --auto-correct
 EmptyLineBetweenDefs:
   Description: Use empty lines between defs.
-  Enabled: false
+  Enabled: true
   AllowAdjacentOneLineDefs: false
 
 # Supports --auto-correct
 EmptyLines:
   Description: Don't use several empty lines in a row.
-  Enabled: false
+  Enabled: true
 
 Encoding:
   Description: Use UTF-8 as the source file encoding.
@@ -257,42 +257,42 @@ SingleSpaceBeforeFirstArg:
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
-  Enabled: false
+  Enabled: true
 
 # Documented
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterControlKeyword:
   Description: Use spaces after if/elsif/unless/while/until/case/when.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterMethodName:
   Description: Never put a space between a method name and the opening parenthesis in
     a method definition.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
-  Enabled: false
+  Enabled: true
 
 # Documented
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
-  Enabled: false
+  Enabled: true
 
 # Documented
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
     don't have surrounding space depending on configuration.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: space
   SupportedStyles:
   - space
@@ -302,13 +302,13 @@ SpaceAroundEqualsInParameterDefault:
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
-  Enabled: false
+  Enabled: true
 
 # Documented
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: space
   SupportedStyles:
   - space
@@ -317,29 +317,29 @@ SpaceBeforeBlockBraces:
 # Supports --auto-correct
 SpaceBeforeModifierKeyword:
   Description: Put a space before the modifier keyword.
-  Enabled: false
+  Enabled: true
 
 # Documented
 # Supports --auto-correct
 SpaceInsideBrackets:
   Description: No spaces after [ or before ].
-  Enabled: false
+  Enabled: true
 
 # Documented
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
-  Enabled: false
+  Enabled: true
 
 # Documented
 Tab:
   Description: No hard tabs.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 TrailingBlankLines:
   Description: Checks trailing blank lines and final newline.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: final_newline
   SupportedStyles:
   - final_newline
@@ -358,7 +358,7 @@ TrailingComma:
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 TrivialAccessors:

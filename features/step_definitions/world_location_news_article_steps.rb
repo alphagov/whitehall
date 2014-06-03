@@ -113,7 +113,6 @@ Then /^I should be able to see the world location news article$/ do
   assert page.has_css?(record_css_selector(@world_location_news))
 end
 
-
 Given /^a draft right\-to\-left non\-English edition exists$/ do
   I18n.with_locale(:ar) do
     @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', locale: :ar)

@@ -87,7 +87,7 @@ module Whitehall::Uploader
     end
 
     test "translatable fields are ignored if locale is not specified" do
-      validator = HeadingValidator.new.required(['a_required_field','another_required_field']).translatable('a_required_field')
+      validator = HeadingValidator.new.required(['a_required_field', 'another_required_field']).translatable('a_required_field')
       assert_equal [], validator.errors(['a_required_field', 'another_required_field'])
     end
 

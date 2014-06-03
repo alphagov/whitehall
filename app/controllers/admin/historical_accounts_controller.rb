@@ -2,7 +2,6 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   before_filter :load_person
   before_filter :load_historical_account, only: [:edit, :update, :destroy]
 
-
   def index
     @historical_accounts = @person.historical_accounts.includes(roles: :translations)
   end

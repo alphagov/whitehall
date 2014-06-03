@@ -40,7 +40,6 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     new_edition_3    = Timecop.travel(1.day.ago)  { create(:published_edition,  document: document, published_major_version: 3, published_minor_version: 0, major_change_published_at: Time.zone.now, change_note: "more changes") }
     history          = DocumentHistory.new(document)
 
-
     expected = [
       [1.day.ago, 'more changes'],
       [2.day.ago, 'some changes'],

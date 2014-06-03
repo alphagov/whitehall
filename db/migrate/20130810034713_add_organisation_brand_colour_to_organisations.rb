@@ -17,7 +17,6 @@ class AddOrganisationBrandColourToOrganisations < ActiveRecord::Migration
               through: :parent_organisational_relationships
   end
 
-
   def up
     add_column :organisations, :organisation_brand_colour_id, :integer
 

@@ -7,6 +7,7 @@ class ConvertCorporateInformationPagesToEditions < ActiveRecord::Migration
     def type
       CorporateInformationPageType.find_by_id(type_id)
     end
+
     def title
       type.title(organisation)
     end

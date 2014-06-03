@@ -21,7 +21,7 @@ class RolesPresenterTest < PresenterTestCase
   end
 
   test "it decorates a collection of roles" do
-    assert_equal [  RolePresenter.new(@role1),
+    assert_equal [RolePresenter.new(@role1),
                     RolePresenter.new(@role2),
                     RolePresenter.new(@role3),
                     RolePresenter.new(@empty_role)], @presenter.decorated_collection
@@ -52,17 +52,17 @@ class RolesPresenterTest < PresenterTestCase
   test 'it can strip out roles that are not filled' do
     @presenter.remove_unfilled_roles!
 
-    assert_equal [ RolePresenter.new(@role1),
+    assert_equal [RolePresenter.new(@role1),
                    RolePresenter.new(@role2),
-                   RolePresenter.new(@role3) ], @presenter.decorated_collection
+                   RolePresenter.new(@role3)], @presenter.decorated_collection
   end
 
   test 'it can strip out roles that are not filled (even after looking at the collection)' do
     @presenter.decorated_collection
     @presenter.remove_unfilled_roles!
 
-    assert_equal [ RolePresenter.new(@role1),
+    assert_equal [RolePresenter.new(@role1),
                    RolePresenter.new(@role2),
-                   RolePresenter.new(@role3) ], @presenter.decorated_collection
+                   RolePresenter.new(@role3)], @presenter.decorated_collection
   end
 end

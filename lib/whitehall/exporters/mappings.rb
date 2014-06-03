@@ -2,7 +2,7 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
   STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + ['published'] + ['archived']
 
   def export(target)
-    target << ['Old URL','New URL','Admin URL','State']
+    target << ['Old URL', 'New URL', 'Admin URL', 'State']
     Document.find_each do |document|
       edition = document.published_edition || document.latest_edition
       if edition && STATES_TO_INCLUDE.include?(edition.state)
@@ -46,7 +46,7 @@ private
 
   def document_url(edition, document, document_source)
     doc_url_args = { id: document.slug }
-    if document_source.locale && ! Locale.new(document_source.locale).english?
+    if document_source.locale && !Locale.new(document_source.locale).english?
       doc_url_args[:locale] = document_source.locale
     end
     edition_type_for_route = edition.class.name.underscore

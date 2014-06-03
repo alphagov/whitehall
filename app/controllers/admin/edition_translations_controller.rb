@@ -61,4 +61,3 @@ class Admin::EditionTranslationsController < Admin::BaseController
     params.require(:edition).permit(:title, :summary, :body)
   end
 end
-

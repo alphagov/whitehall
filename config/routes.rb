@@ -137,7 +137,7 @@ Whitehall::Application.routes.draw do
       resources :worldwide_offices, path: 'office', only: [:show]
     end
     resources :world_locations, path: 'world', only: [:index, :show], localised: true
-    get 'world/organisations/:organisation_id/office' =>redirect('/world/organisations/%{organisation_id}')
+    get 'world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}')
     get 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')
 
     constraints(AdminRequest) do
@@ -363,7 +363,6 @@ Whitehall::Application.routes.draw do
     end
 
     get '/policy-topics' => redirect("/topics")
-
 
     get 'site/sha' => 'site#sha'
 

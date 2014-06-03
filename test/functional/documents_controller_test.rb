@@ -52,7 +52,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     assert_select "h1", "Coming soon"
     assert_response :ok
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
   end
 
   view_test "show responds with shorter cache control 'max-age' if document is scheduled for publication" do
@@ -71,7 +71,7 @@ class DocumentsControllerTest < ActionController::TestCase
     end
 
     assert_response :ok
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age/2}")
+    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
   end
 
   view_test "show responds with 'Coming soon' page and default cache control 'max-age' if document is scheduled for publication far in the future" do

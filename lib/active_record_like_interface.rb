@@ -26,7 +26,7 @@ module ActiveRecordLikeInterface
     end
   end
 
-  def initialize(options={})
+  def initialize(options = {})
     options.each do |key, value|
       self[key] = value
     end

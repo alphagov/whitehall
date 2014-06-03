@@ -73,4 +73,3 @@ class Locale < Struct.new(:code)
     code.to_s
   end
 end
-

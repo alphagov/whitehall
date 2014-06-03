@@ -101,7 +101,7 @@ class BulkUpload
       false
     end
 
-    def initialize(zip_file=nil)
+    def initialize(zip_file = nil)
       @zip_file = zip_file
       store_temporarily
     end
@@ -139,7 +139,7 @@ class BulkUpload
     end
 
     def must_be_a_zip_file
-      if @zip_file.present? && (! is_a_zip?)
+      if @zip_file.present? && (!is_a_zip?)
         errors.add(:zip_file, 'not a zip file')
       end
     end
@@ -161,7 +161,7 @@ class BulkUpload
     def contains_disallowed_file_types?
       extracted_file_paths.any? do |path|
         extension = File.extname(path).sub(/^\./, '')
-        ! AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension)
+        !AttachmentUploader::EXTENSION_WHITE_LIST.include?(extension)
       end
     end
   end

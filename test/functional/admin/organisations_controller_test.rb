@@ -42,7 +42,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       organisation_type_key: :executive_agency,
       govuk_status: 'exempt',
       top_tasks_attributes: {
-        "0" =>{
+        "0" => {
           url: "http://www.gov.uk/mainstream/something",
           title: "Something on mainstream"
         }

@@ -171,7 +171,6 @@ class RoleTest < ActiveSupport::TestCase
     assert role.translated_locales.include?(:es)
   end
 
-
   test "#historic_param maps the role to the appropriate historic role url parameter" do
     pm_role = create(:ministerial_role, name: 'Prime Minister')
     assert_equal 'past-prime-ministers', pm_role.historic_param

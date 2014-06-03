@@ -1,6 +1,5 @@
 require "test_helper"
 
-
 class PublicFacingControllerTest < ActionController::TestCase
   class TestController < PublicFacingController
     enable_request_formats json: :json, js_or_atom: [:js, :atom]

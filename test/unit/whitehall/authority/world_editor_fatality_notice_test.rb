@@ -8,6 +8,7 @@ class WorldEditorFatalityNoticeTest < ActiveSupport::TestCase
                    departmental_editor?: false, world_editor?: true,
                    organisation: o, world_locations: world_locations || [])
   end
+
   def normal_world_editor(world_locations, id = 1)
     o = OpenStruct.new(id: id, handles_fatalities?: false)
     OpenStruct.new(id: id, gds_editor?: false,

@@ -33,7 +33,7 @@ module Admin::TabbedNavHelper
 
   def tab_navigation(tabs, *extra_classes, &block)
     tabs = tab_navigation_header(tabs)
-    content_tag(:div, class: ['tabbable', *extra_classes] ) do
+    content_tag(:div, class: ['tabbable', *extra_classes]) do
       if block_given?
         tabs + content_tag(:div, class: "tab-content") { yield }
       else

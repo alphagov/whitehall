@@ -57,7 +57,7 @@ module Whitehall::DocumentFilter
 
   private
 
-    def build_filter(args={})
+    def build_filter(args = {})
       Whitehall::DocumentFilter::Filterer.new(args)
     end
   end

@@ -181,4 +181,3 @@ Then /^I should be able to delete the topical event "([^"]*)"$/ do |name|
   click_on 'Edit'
   click_button 'Delete'
 end
-
