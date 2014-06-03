@@ -54,7 +54,7 @@ class ActiveSupport::TestCase
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*_args|
-      count = count + 1
+      count += 1
     end
     yield
     count
