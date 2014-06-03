@@ -252,7 +252,7 @@ Please tell us:
 
       if document.respond_to?(:delivered_by_minister?)
         if document.person_override?
-          from << document.person_override if not links_only
+          from << document.person_override if !links_only
         else
           from << link_to_person(document.role_appointment.person)
         end
