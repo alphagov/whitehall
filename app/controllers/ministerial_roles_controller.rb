@@ -36,11 +36,11 @@ private
   end
 
   def ministers_by_organisation
-    Organisation.ministerial_departments.
-                 with_translations.
-                 with_translations_for(:ministerial_roles).
-                 includes(ministerial_roles: [:current_people]).
-                 order('organisation_roles.ordering').map do |organisation|
+    Organisation.ministerial_departments
+		 .with_translations
+		 .with_translations_for(:ministerial_roles)
+		 .includes(ministerial_roles: [:current_people])
+		 .order('organisation_roles.ordering').map do |organisation|
       roles_presenter = RolesPresenter.new(organisation.ministerial_roles, view_context)
       roles_presenter.remove_unfilled_roles!
       [organisation, roles_presenter]

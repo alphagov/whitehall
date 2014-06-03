@@ -142,10 +142,10 @@ class AttachmentUploader < WhitehallUploader
       def files_by_shape_and_allowed_extension
         @files_by_shape_and_allowed_extension ||=
           Hash[
-            files_with_extensions.
-              reject { |file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
-              map { |shape, files|
+	    files_with_extensions
+	      .reject { |file, ext| ext.nil? }
+	      .group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}
+	      .map { |shape, files|
                 [shape, files.group_by { |file, ext| ext }]
               }
           ]
@@ -157,18 +157,18 @@ class AttachmentUploader < WhitehallUploader
 
       def each_shape_has_only_one_of_each_allowed_file?
         files_by_shape_and_allowed_extension.all? do |shape, files|
-          files.
-            select { |ext, files| files.size > 1 }.
-            empty?
+	  files
+	    .select { |ext, files| files.size > 1 }
+	    .empty?
         end
       end
 
       def each_shape_has_required_files?
         files_by_shape_and_allowed_extension.all? do |shape, files|
-          files.
-            select { |ext, files| REQUIRED_EXTS.include? ext }.
-            reject { |ext, files| files.size > 1 }.
-            keys.sort == REQUIRED_EXTS.sort
+	  files
+	    .select { |ext, files| REQUIRED_EXTS.include? ext }
+	    .reject { |ext, files| files.size > 1 }
+	    .keys.sort == REQUIRED_EXTS.sort
         end
       end
 

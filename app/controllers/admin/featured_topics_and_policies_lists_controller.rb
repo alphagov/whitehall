@@ -43,9 +43,9 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
         # inspect the in-memory instances to get current ones as that
         # clobbers marking an instance as ended
         ids = FeaturedItem.where(featured_topics_and_policies_list_id: list.id).current.map(&:id)
-        list.featured_items.
-          select { |fi| ids.include?(fi.id) || fi.id.nil? }.
-          sort_by { |fi| fi.ordering || 99 }
+	list.featured_items
+	  .select { |fi| ids.include?(fi.id) || fi.id.nil? }
+	  .sort_by { |fi| fi.ordering || 99 }
       else
         list.featured_items.current.order(:ordering).to_a
       end

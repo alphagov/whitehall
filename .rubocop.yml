@@ -104,7 +104,7 @@ DefWithParentheses:
 
 DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: leading
   SupportedStyles:
   - leading
@@ -151,7 +151,7 @@ EnsureReturn:
 
 Eval:
   Description: The use of eval represents a serious security risk.
-  Enabled: false
+  Enabled: true
 
 FileName:
   Description: Use snake_case for source file names.
@@ -163,7 +163,7 @@ FileName:
 
 For:
   Description: Checks use of for or each in multiline loops.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: each
   SupportedStyles:
   - for

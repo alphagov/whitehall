@@ -25,25 +25,25 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def people
-    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role).
-                                        merge(Role.ministerial).order(:ordering)
-    @management_organisation_roles = @organisation.organisation_roles.joins(:role).
-                                        merge(Role.management).order(:ordering)
-    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role).
-                                        merge(Role.traffic_commissioner).order(:ordering)
-    @military_organisation_roles = @organisation.organisation_roles.joins(:role).
-                                        merge(Role.military).order(:ordering)
-    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role).
-                                        merge(Role.special_representative).order(:ordering)
-    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role).
-                                        merge(Role.chief_professional_officer).order(:ordering)
+    @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role)
+					.merge(Role.ministerial).order(:ordering)
+    @management_organisation_roles = @organisation.organisation_roles.joins(:role)
+					.merge(Role.management).order(:ordering)
+    @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role)
+					.merge(Role.traffic_commissioner).order(:ordering)
+    @military_organisation_roles = @organisation.organisation_roles.joins(:role)
+					.merge(Role.military).order(:ordering)
+    @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role)
+					.merge(Role.special_representative).order(:ordering)
+    @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role)
+					.merge(Role.chief_professional_officer).order(:ordering)
   end
 
   def features
     @feature_list = @organisation.load_or_create_feature_list(params[:locale])
 
-    filter_params = params.slice(:page, :type, :author, :organisation, :title).
-      merge(state: 'published')
+    filter_params = params.slice(:page, :type, :author, :organisation, :title)
+      .merge(state: 'published')
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
     @featurable_topical_events = TopicalEvent.active.all
     @featurable_offsite_links = @organisation.offsite_links

@@ -49,15 +49,11 @@ module Admin::HomePageListController
       end
 
       define_method(:extract_items_from_ordering_params) do |ids_and_orderings|
-        ids_and_orderings.
-          # convert to useful forms
-          map {|item_id, ordering| [item_type.find_by_id(item_id), ordering.to_i] }.
-          # sort by ordering
-          sort_by { |_, ordering| ordering }.
-          # discard ordering
-          map {|item, _| item }.
-          # reject any blank contacts
-          compact
+	ids_and_orderings
+	  .map {|item_id, ordering| [item_type.find_by_id(item_id), ordering.to_i] } # convert to useful forms
+	  .sort_by { |_, ordering| ordering } # sort by ordering
+	  .map {|item, _| item } # discard ordering
+	  .compact # reject any blank contacts
       end
     end
     self.before_filter :extract_show_on_home_page_param, only: [:create, :update]
