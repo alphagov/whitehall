@@ -14,7 +14,7 @@ private
   rescue => e
     if Rails.env.production?
       Airbrake.notify_or_ignore(e,
-        error_message: 'Exception raised during scheduled publishing attempt',
+        error_message: "Exception raised during scheduled publishing attempt: '#{e.message}'",
         parameters: { edition_id: edition.id }
       )
     else
