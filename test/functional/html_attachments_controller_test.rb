@@ -34,9 +34,8 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
   test '#show returns 404 if the edition is not published' do
     publication, attachment = create_edition_and_attachment(state: :draft)
 
-    assert_raise ActiveRecord::RecordNotFound do
-      get :show, publication_id: publication.document, id: attachment
-    end
+    get :show, publication_id: publication.document, id: attachment
+    assert_response :not_found
   end
 
   test '#show returns 404 if the attachment cannot be found' do
@@ -45,6 +44,14 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_raise ActiveRecord::RecordNotFound do
       get :show, publication_id: publication.document, id: 'bogus-attachment-slug'
     end
+  end
+
+  test '#show returns 404 if the trying to preview a non-existent document' do
+    login_as create(:departmental_editor)
+    attachment = create(:html_attachment)
+
+    get :show, publication_id: 'non-existent-slug', id: 'non-existent-attachment', preview: attachment.id
+    assert_response :not_found
   end
 
   view_test '#show renders the HTML attachment (without caching) on draft edition if previewing' do
@@ -58,7 +65,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select 'header h1', attachment.title
   end
 
-  view_test '#show previews the latest html attachment (without caching), despite the slugs matching' do
+  view_test '#show previews the latest HTML attachment (without caching), despite the slugs matching' do
     user = create(:departmental_editor)
     publication, attachment = create_edition_and_attachment
     draft = publication.create_draft(user)
@@ -71,6 +78,15 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
     assert_select 'header h1', draft_attachment.title
+  end
+
+  view_test '#show will not allow an attachment associated with a non-visible (access-limited) document to be previewed' do
+    login_as create(:departmental_editor)
+    attachment = build(:html_attachment)
+    publication = create(:draft_publication, access_limited: true, attachments: [attachment], organisations: [create(:organisation)])
+
+    get :show, publication_id: publication.document, id: attachment, preview: attachment.id
+    assert_response :not_found
   end
 
   test '#show redirects to the edition if the edition has been unpublished' do

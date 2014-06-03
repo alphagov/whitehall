@@ -1,5 +1,6 @@
 class HtmlAttachmentsController < PublicFacingController
   include PublicDocumentRoutesHelper
+  include PermissionsChecker
 
   layout 'html_attachments'
 
@@ -21,7 +22,8 @@ private
 
   def find_edition
     if previewing?
-      @edition = Document.at_slug(document_class, slug_param).latest_edition
+      @edition = Document.at_slug(document_class, slug_param).try(:latest_edition)
+      render_not_found unless can_preview?(@edition)
     else
       @edition = document_class.published_as(slug_param)
     end
@@ -33,13 +35,13 @@ private
     if unpublishing = Unpublishing.from_slug(slug_param, document_class)
       redirect_to unpublishing.document_path
     else
-      raise ActiveRecord::RecordNotFound, "could not find Edition with slug #{slug_param}"
+      render_not_found
     end
   end
 
   def find_html_attachment
     if previewing?
-      @html_attachment = HtmlAttachment.find(params[:preview])
+      @html_attachment = @edition.html_attachments.find(params[:preview])
     else
       @html_attachment = @edition.html_attachments.find(params[:id])
     end
