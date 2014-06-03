@@ -60,7 +60,7 @@ class BadMarkdownLinkCleaner
           new_link.host = "www.gov.uk"
           new_link.scheme = "https"
           if new_link.query_values
-            new_link.query_values = parsed_original_link.query_values.reject {|k, v| %w{cachebust preview}.include?(k)}
+            new_link.query_values = parsed_original_link.query_values.reject {|k, _| %w{cachebust preview}.include?(k)}
             new_link.query_values = nil if new_link.query_values.empty?
           end
           replace_link_if_required(:nonadmin_preview_links, body, edition_translation, original_markdown, "[#{original_text}](#{new_link}#{original_title})")

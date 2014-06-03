@@ -22,7 +22,7 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
 
   test 'links has a self link, pointing to the request-relative api location url' do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    self_link = @presenter.links.find { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.find { |(_, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
     assert_equal api_world_location_url(@location, host: 'test.host'), url

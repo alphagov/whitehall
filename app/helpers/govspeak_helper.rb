@@ -135,7 +135,7 @@ module GovspeakHelper
 
   def render_embedded_fractions(govspeak)
     return govspeak if govspeak.blank?
-    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |match|
+    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_|
       if $1.present? && $2.present?
         render(partial: 'shared/govspeak_fractions', locals: { numerator: $1, denominator: $2 })
       else

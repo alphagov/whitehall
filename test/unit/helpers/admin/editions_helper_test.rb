@@ -80,7 +80,7 @@ class Admin::EditionsHelperTest < ActionView::TestCase
     SpecialistSector.stubs(:grouped_sector_topics)
                     .raises(SpecialistSector::DataUnavailable.new)
 
-    response = specialist_sector_fields do |sectors|
+    response = specialist_sector_fields do |_|
       assert false, 'Block should not be called'
       'Some string'
     end

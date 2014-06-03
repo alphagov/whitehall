@@ -22,6 +22,6 @@ module Edition::TopicalEvents
   end
 
   def search_index
-    super.merge("topics" => topical_events.map(&:slug)) {|k, ov, nv| ov + nv}
+    super.merge("topics" => topical_events.map(&:slug)) {|_, ov, nv| ov + nv}
   end
 end

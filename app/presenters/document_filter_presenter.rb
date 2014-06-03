@@ -2,7 +2,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   extend Whitehall::Decorators::DelegateInstanceMethodsOf
   delegate_instance_methods_of Whitehall::DocumentFilter::Filterer, to: :filter
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     as_hash
   end
 
