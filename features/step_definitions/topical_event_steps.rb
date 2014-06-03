@@ -121,7 +121,7 @@ end
 Then /^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/ do |type, name, expected_table|
   visit topical_event_path(TopicalEvent.find_by_name!(name))
   rows = find('.featured-news').all('.feature')
-  table = rows.collect do |row|
+  table = rows.map do |row|
     [
       row.find('h2').text.strip,
       File.basename(row.find('.featured-image')['src'])

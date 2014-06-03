@@ -33,7 +33,7 @@ module ViewRendering
     end
 
     def find_all(*args)
-      original_path_set.find_all(*args).collect do |template|
+      original_path_set.find_all(*args).map do |template|
         ::ActionView::Template.new(
           "",
           template.identifier,

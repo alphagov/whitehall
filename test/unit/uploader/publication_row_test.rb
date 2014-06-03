@@ -136,7 +136,7 @@ module Whitehall::Uploader
       }, Logger.new(StringIO.new))
 
       attachment = FileAttachment.new(title: "first title")
-      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+      assert_equal [attachment.attributes], row.attributes[:attachments].map(&:attributes)
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
 
@@ -159,7 +159,7 @@ module Whitehall::Uploader
         isbn: "1 86192 090 3",
         unique_reference: "10/899"
       )
-      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+      assert_equal [attachment.attributes], row.attributes[:attachments].map(&:attributes)
     end
 
     test "records any parlimentary paper information to the first attachment" do
@@ -183,7 +183,7 @@ module Whitehall::Uploader
         unnumbered_hoc_paper: true,
         unnumbered_command_paper: nil
       )
-      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+      assert_equal [attachment.attributes], row.attributes[:attachments].map(&:attributes)
     end
 
     test "finds any attachments specified in JSON in the json_attachments column" do
@@ -194,7 +194,7 @@ module Whitehall::Uploader
       }, Logger.new(StringIO.new))
 
       attachment = FileAttachment.new(title: "first title")
-      assert_equal [attachment.attributes], row.attributes[:attachments].collect(&:attributes)
+      assert_equal [attachment.attributes], row.attributes[:attachments].map(&:attributes)
       assert_equal "http://example.com/attachment.pdf", row.attributes[:attachments].first.attachment_source.url
     end
 

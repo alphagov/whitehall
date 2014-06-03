@@ -4,7 +4,7 @@ class ContactType
   attr_accessor :id, :name
 
   def self.find_by_name(name)
-    all.detect { |type| type.name == name }
+    all.find { |type| type.name == name }
   end
 
   General = create(
