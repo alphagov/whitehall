@@ -56,14 +56,14 @@ class LocalisedUrlPathHelperTest < ActiveSupport::TestCase
       news_article_path_was_called(object, options)
     end
 
-    def news_article_path_was_called(object, options = {})
+    def news_article_path_was_called(_object, _options = {})
     end
 
     def worldwide_organisation_corporate_information_page_path(parent, page, options = {})
       worldwide_organisation_corporate_information_page_path_was_called(parent, page, options)
     end
 
-    def worldwide_organisation_corporate_information_page_path_was_called(parent, page, options = {})
+    def worldwide_organisation_corporate_information_page_path_was_called(_parent, _page, _options = {})
     end
   end
 

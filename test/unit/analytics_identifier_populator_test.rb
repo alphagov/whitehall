@@ -3,7 +3,7 @@ require 'test_helper'
 class AnalyticsIdentifierPopulatorTest < ActiveSupport::TestCase
 
   class TestEdition
-    def self.after_create(callback); end # behave like ActiveRecord class
+    def self.after_create(_callback); end # behave like ActiveRecord class
 
     include AnalyticsIdentifierPopulator
     self.analytics_prefix = "TE"

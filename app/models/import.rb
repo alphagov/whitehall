@@ -162,7 +162,7 @@ class Import < ActiveRecord::Base
     import_errors.count(:row_number, distinct: true)
   end
 
-  def perform(options = {})
+  def perform(_options = {})
     progress_logger.start(rows)
     rows.each_with_index do |data_row, ix|
       row_number = ix + 2

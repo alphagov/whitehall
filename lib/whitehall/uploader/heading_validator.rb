@@ -118,7 +118,7 @@ module Whitehall
           end.compact
         end
 
-        def method_missing(method, *args, &block)
+	def method_missing(method, *_args, &_block)
           @errors_by_category.fetch(method)
         end
 

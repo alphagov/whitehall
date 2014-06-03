@@ -1,5 +1,5 @@
 class Api::WorldLocationPresenter < Api::BasePresenter
-  def as_json(options = {})
+  def as_json(_options = {})
     {
       id: context.api_world_location_url(model),
       title: model.name,

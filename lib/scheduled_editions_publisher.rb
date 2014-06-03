@@ -83,7 +83,7 @@ class ScheduledEditionsPublisher
     @attempts += 1
   end
 
-  def log_publish_run(&block)
+  def log_publish_run(&_block)
     log "Starting attempt No. #{@attempts}"
     log "Time now: #{Time.zone.now}"
     log "Detected #{unpublished_editions_count} editions due to be published:"

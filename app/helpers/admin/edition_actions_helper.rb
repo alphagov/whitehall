@@ -109,13 +109,13 @@ module Admin::EditionActionsHelper
     grouped_options_for_select(subtype_options_hash, selected)
   end
 
-  def publish_edition_alerts(edition, force)
+  def publish_edition_alerts(_edition, force)
     alerts = []
     alerts << "Are you sure you want to force publish this document?" if force
     alerts.join(" ")
   end
 
-  def schedule_edition_alerts(edition, force)
+  def schedule_edition_alerts(_edition, force)
     alerts = []
     alerts << "Are you sure you want to force schedule this document for publication?" if force
     alerts.join(" ")

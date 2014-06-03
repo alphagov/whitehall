@@ -166,7 +166,7 @@ module Admin::EditionsHelper
     end
   end
 
-  def standard_edition_form(edition, &blk)
+  def standard_edition_form(edition, &_blk)
     initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.map(&:to_param)
 
     form_classes = ["edition-form js-edition-form"]
@@ -266,7 +266,7 @@ module Admin::EditionsHelper
     end
   end
 
-  def mainstream_category_options(edition, selected)
+  def mainstream_category_options(_edition, selected)
     grouped_options = MainstreamCategory.all.group_by {|c| c.parent_title}.map do |group, members|
       [group, members.map {|c| [c.title, c.id]}]
     end

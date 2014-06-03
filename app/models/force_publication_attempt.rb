@@ -14,7 +14,7 @@ class ForcePublicationAttempt < ActiveRecord::Base
     import.force_publishable_edition_count
   end
 
-  def perform(options = {})
+  def perform(_options = {})
     progress_logger.start(document_count)
 
     worker = ForcePublisher::Worker.new

@@ -1,7 +1,7 @@
 module Whitehall
   class FormBuilder < ActionView::Helpers::FormBuilder
 
-    def label(method, text = nil, options = {}, &block)
+    def label(method, text = nil, options = {}, &_block)
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
           options[:class] ||= ""
@@ -92,7 +92,7 @@ module Whitehall
       translated_input method, text_area(method, translated_input_options(options))
     end
 
-    def untranslated_text(method, options = {})
+    def untranslated_text(method, _options = {})
       english_translation = object.__send__ method, :en
       @template.content_tag(:p, "English: #{english_translation}", class: "original-translation", id: "english_#{method}")
     end

@@ -64,7 +64,7 @@ class RolePresenter < Whitehall::Decorators::Decorator
       name
     end
 
-    def image_url(size)
+    def image_url(_size)
       "blank-person.png"
     end
 
