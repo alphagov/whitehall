@@ -1,7 +1,7 @@
 module Admin::EditionsHelper
 
   def edition_type(edition)
-    if (edition.is_a?(Speech) && edition.speech_type.written_article?)
+    if edition.is_a?(Speech) && edition.speech_type.written_article?
       type = edition.speech_type.singular_name
     else
       type = edition.type.underscore.humanize

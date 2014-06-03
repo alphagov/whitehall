@@ -230,7 +230,7 @@ ParenthesesAsGroupedExpression:
 # Supports --auto-correct
 ParenthesesAroundCondition:
   Description: Don't use parentheses around the condition of an if/unless/while.
-  Enabled: false
+  Enabled: true
   AllowSafeAssignment: true
 
 # Supports --auto-correct
