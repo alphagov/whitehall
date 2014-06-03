@@ -3,6 +3,8 @@
   window.GOVUK = window.GOVUK || {};
 
   function RemoteSearchFilter(params) {
+    if (!GOVUK.support.history()) return;
+
     GOVUK.Proxifier.proxifyAllMethods(this);
 
     this.$form                  = $(params.form_element);

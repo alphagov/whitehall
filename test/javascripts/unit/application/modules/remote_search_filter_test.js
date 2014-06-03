@@ -220,3 +220,9 @@ test("the search results are reverted on history popstate", function() {
   equal($("input[name='a_text_field']").val(), "some filter text");
   equal($("select[name='a_select_field[]']").val(), "option_2");
 });
+
+test("RemoteSearchFilter ignores browsers which don't support history.pushState", function() {
+  this.stub(window.GOVUK.support, "history", function() { return false; });
+  new GOVUK.RemoteSearchFilter({form_element: 'form.filter-form'});
+  ok($('input[type=submit]').css('display') != 'none');
+});
