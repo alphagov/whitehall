@@ -8,13 +8,13 @@ FactoryGirl.define do
       if evaluator.translated_into
         extra_translations =
           case evaluator.translated_into
-          when Hash
-            evaluator.translated_into
-          when Array
-	    evaluator.translated_into.reduce({}) { |trans, locale| trans[locale] = {}; trans }
-          else
-            {evaluator.translated_into => {}}
-          end
+	  when Hash
+	    evaluator.translated_into
+	  when Array
+	    evaluator.translated_into.each_with_object { |trans, locale| trans[locale] = {}; trans }
+	  else
+	    {evaluator.translated_into => {}}
+	  end
         extra_translations.each do |(locale, locale_attributes)|
           locale_attributes ||= {}
           object.class.required_translated_attributes.each do |attribute|

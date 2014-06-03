@@ -100,7 +100,7 @@ Delegate:
 # Supports --auto-correct
 DefWithParentheses:
   Description: Use def with parentheses when there are arguments.
-  Enabled: false
+  Enabled: true
 
 DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
@@ -112,7 +112,7 @@ DotPosition:
 
 EachWithObject:
   Description: Prefer `each_with_object` over `inject` or `reduce`.
-  Enabled: false
+  Enabled: true
 
 ElseLayout:
   Description: Check for odd code arrangement in an else block.
@@ -147,7 +147,7 @@ EndAlignment:
 
 EnsureReturn:
   Description: Never use return in an ensure block.
-  Enabled: false
+  Enabled: true
 
 Eval:
   Description: The use of eval represents a serious security risk.
@@ -169,7 +169,6 @@ For:
   - for
   - each
 
-# Documented
 # Supports --auto-correct
 HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
@@ -188,7 +187,6 @@ IfUnlessModifier:
   Enabled: false
   MaxLineLength: 80
 
-# Documented
 # Supports --auto-correct
 IndentationWidth:
   Description: Use 2 spaces for indentation.
@@ -202,7 +200,6 @@ MethodName:
   - snake_case
   - camelCase
 
-# Documented
 MultilineIfThen:
   Description: Never use then for multi-line if/unless.
   Enabled: false
@@ -210,18 +207,18 @@ MultilineIfThen:
 # Supports --auto-correct
 NilComparison:
   Description: Prefer x.nil? to x == nil.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 NonNilCheck:
   Description: Checks for redundant nil checks.
-  Enabled: false
+  Enabled: true
   IncludeSemanticChanges: false
 
 # Supports --auto-correct
 Not:
   Description: Use ! instead of not.
-  Enabled: false
+  Enabled: true
 
 ParenthesesAsGroupedExpression:
   Description: Checks for method calls with a space before the opening parenthesis.

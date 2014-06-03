@@ -15,7 +15,7 @@ module AddressFormatter
 
     private
     def get_address_as_adr_value(type)
-      add_optional_type_key(type, Formatter.property_keys.reduce({}) do |adr, key|
+      add_optional_type_key(type, Formatter.property_keys.each_with_object do |adr, key|
         value = properties[key]
         adr.update(key.to_s => value.present? ? value : '')
       end)

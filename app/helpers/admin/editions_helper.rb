@@ -86,7 +86,7 @@ module Admin::EditionsHelper
   end
 
   def speech_type_label_data
-    label_data = SpeechType.all.reduce({}) do |hash, speech_type|
+    label_data = SpeechType.all.each_with_object do |hash, speech_type|
       hash.merge(speech_type.id => {
         ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
         publishedExternallyLabel: t_delivered_on(speech_type),
@@ -313,7 +313,7 @@ module Admin::EditionsHelper
   end
 
   def format_advice_map(format_type_class)
-    format_type_class.all.reduce({}) do |hash, type|
+    format_type_class.all.each_with_object do |hash, type|
       html = govspeak_to_html(t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
       hash.merge(type.id => html)
     end
