@@ -236,12 +236,12 @@ ParenthesesAroundCondition:
 # Supports --auto-correct
 RedundantReturn:
   Description: Don't use return where it's not required.
-  Enabled: false
+  Enabled: true
   AllowMultipleReturnValues: false
 
 RequireParentheses:
   Description: Use parentheses in the method call to avoid confusion about precedence.
-  Enabled: false
+  Enabled: true
 
 SelfAssignment:
   Description: 'Checks for places where self-assignment shorthand should have been used.'
