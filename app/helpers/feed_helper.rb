@@ -45,8 +45,8 @@ module FeedHelper
   end
 
   def feed_display_type_for(document)
-    return "News story" if (document.is_a?(WorldLocationNewsArticle))
-    return "Priority" if (document.is_a?(WorldwidePriority))
+    return "News story" if document.is_a?(WorldLocationNewsArticle)
+    return "Priority" if document.is_a?(WorldwidePriority)
     document.display_type
   end
 
