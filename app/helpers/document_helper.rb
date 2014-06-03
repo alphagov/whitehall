@@ -141,21 +141,26 @@ module DocumentHelper
 
   def alternative_format_order_link(attachment, alternative_format_contact_email)
     attachment_info = []
-    attachment_info << "Title: #{attachment.title}"
-    attachment_info << "ISBN: #{attachment.isbn}" if attachment.isbn.present?
-    attachment_info << "Unique reference: #{attachment.unique_reference}" if attachment.unique_reference.present?
-    attachment_info << "Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
+    attachment_info << "  Title: #{attachment.title}"
+    attachment_info << "  Original format: #{attachment.file_extension}"
+    attachment_info << "  ISBN: #{attachment.isbn}" if attachment.isbn.present?
+    attachment_info << "  Unique reference: #{attachment.unique_reference}" if attachment.unique_reference.present?
+    attachment_info << "  Command paper number: #{attachment.command_paper_number}" if attachment.command_paper_number.present?
     if attachment.hoc_paper_number.present?
-      attachment_info << "House of Commons paper number: #{attachment.hoc_paper_number}"
-      attachment_info << "Parliamentary session: #{attachment.parliamentary_session}"
+      attachment_info << "  House of Commons paper number: #{attachment.hoc_paper_number}"
+      attachment_info << "  Parliamentary session: #{attachment.parliamentary_session}"
     end
+
     mail_to alternative_format_contact_email, alternative_format_contact_email,
       subject: "Request for '#{attachment.title}' in an alternative format",
-      body: %(
-
-Details of document required:
+      body: %(Details of document required:
 
 #{attachment_info.join("\n")}
+
+Please tell us:
+
+  1. What makes this format unsuitable for you?
+  2. What format you would prefer?
       )
   end
 
