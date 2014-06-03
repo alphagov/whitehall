@@ -48,12 +48,14 @@ class OrganisationsControllerTest < ActionController::TestCase
     topic = create(:topic)
     management_role = create(:board_member_role)
     management = create(:role_appointment, role: management_role, person: create(:person))
+    contact = create(:contact)
     organisation = create(:organisation, topics: [topic], management_roles: [management_role])
     create(:sub_organisation, parent_organisations: [organisation])
     create(:published_policy, organisations: [organisation], topics: [topic])
     role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     create(:organisation_role, organisation: organisation, role: role)
     create(:corporate_information_page, organisation: organisation)
+    organisation.add_contact_to_home_page!(contact)
 
     get :show, id: organisation
 
