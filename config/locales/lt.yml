@@ -5,47 +5,11 @@ lt:
         one: Dokumentas
         few:
         other: Dokumentai
-      document_collection:
-        one: Serijos
-        few:
-        other:
-      ministers:
-        one: Ministras
-        few:
-        other: Ministrai
-      organisations:
-        one: Organizacija
-        few:
-        other: Organizacijos
-      policies:
-        one: Strategija
-        few:
-        other: Strategijos
-      sectors:
-        one:
-        few:
-        other:
-      topical_events:
-        one:
-        few:
-        other:
-      topics:
-        one: Tema
-        few:
-        other: Temos
-      world_locations:
-        one: Geografinė vieta
-        few:
-        other: Geografinės vietos
-      worldwide_organisations:
-        one: Pasaulinė organizacija
-        few:
-        other: Pasaulinės organizacijos
       applies_to_nations: Susiję su
       field_of_operation: Veiklos laukas
-      groups: Patariamosios grupės
-      live_data: Naujausi duomenys
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Pranešimas

@@ -4,38 +4,11 @@ hi:
       attachments:
         one: दस्तावेज़
         other: दस्तावेजों
-      document_collection:
-        one: श्रृंखला
-        other:
-      ministers:
-        one: मंत्री
-        other: मंत्रीगण
-      organisations:
-        one: संगठन
-        other: संगठनों
-      policies:
-        one: नीति
-        other: नीतियां
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: विषय
-        other: विषयों
-      world_locations:
-        one: वैश्विक स्थान
-        other: वैश्विक स्थान
-      worldwide_organisations:
-        one: विश्वव्यापी संगठन
-        other: विश्वव्यापी संगठन
       applies_to_nations: पर लागू
       field_of_operation: प्रचालन क्षेत्र
-      groups: सलाहकार समूह
-      live_data: सजीव आँकड़ा
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: घोषणा

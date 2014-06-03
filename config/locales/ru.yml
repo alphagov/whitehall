@@ -6,56 +6,11 @@ ru:
         few:
         many:
         other: Документы
-      document_collection:
-        one: Серии
-        few:
-        many:
-        other:
-      ministers:
-        one: Министр
-        few:
-        many:
-        other: Министры
-      organisations:
-        one: Организация
-        few:
-        many:
-        other: Организации
-      policies:
-        one: Стратегия
-        few:
-        many:
-        other: Стратегии
-      sectors:
-        one:
-        few:
-        many:
-        other:
-      topical_events:
-        one:
-        few:
-        many:
-        other:
-      topics:
-        one: Тема
-        few:
-        many:
-        other: Темы
-      world_locations:
-        one: Представительство по миру
-        few:
-        many:
-        other: Представительства по миру
-      worldwide_organisations:
-        one: Всемирная организация
-        few:
-        many:
-        other: Всемирные организации
       applies_to_nations: Применимо к
       field_of_operation: Сфера деятельности
-      groups: Консультативные группы
-      live_data: Обновленная информация
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Объявление

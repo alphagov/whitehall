@@ -4,38 +4,11 @@ el:
       attachments:
         one: Έγγραφο
         other: Έγγραφα
-      document_collection:
-        one: Σειρά
-        other:
-      ministers:
-        one: Υπουργός
-        other: Υπουργοί
-      organisations:
-        one: Οργανισμός
-        other: Οργανισμοί
-      policies:
-        one: Πολιτική
-        other: Πολιτικές
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Θέμα
-        other: Θέματα
-      world_locations:
-        one: Τοποθεσία στον κόσμο
-        other: Τοποθεσίες στον κόσμο
-      worldwide_organisations:
-        one: Διεθνής οργανισμός
-        other: Διεθνείς οργανισμοί
       applies_to_nations: Ισχύει
       field_of_operation: Πεδίο δράσης
-      groups: Συμβουλευτικές ομάδες
-      live_data: Ροή δεδομένων
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Ανακοίνωση

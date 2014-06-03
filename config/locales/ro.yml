@@ -5,47 +5,11 @@ ro:
         one: Document
         few:
         other: Documente
-      document_collection:
-        one: Seria
-        few:
-        other:
-      ministers:
-        one: Ministru
-        few:
-        other: Miniştrii
-      organisations:
-        one: Organizație
-        few:
-        other: Organizații
-      policies:
-        one: Obiectiv strategic
-        few:
-        other: Obiective strategice
-      sectors:
-        one:
-        few:
-        other:
-      topical_events:
-        one:
-        few:
-        other:
-      topics:
-        one: Temă
-        few:
-        other: Teme
-      world_locations:
-        one: Localizare
-        few:
-        other: Localizare
-      worldwide_organisations:
-        one: Organizație
-        few:
-        other: Organizații
       applies_to_nations: Se adresează
       field_of_operation: Domeniu de activitate
-      groups: 'Grupuri cu rol consultativ '
-      live_data: Informaţii în timp real
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Știre

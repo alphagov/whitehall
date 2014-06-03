@@ -23,7 +23,7 @@
             <% if @announcement.organisations.any?  %>
               <dt><%= t('document.headings.organisations', count: @announcement.organisations.length) %>:</dt>
               <dd>
-                <%= organisations_link_sentence(@announcement.organisations) %>
+                <%= array_of_links_to_organisations(@announcement.organisations).to_sentence %>
               </dd>
             <% end %>
             <% if @announcement.topics.any?  %>

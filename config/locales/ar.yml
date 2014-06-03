@@ -8,74 +8,11 @@ ar:
         few:
         many:
         other: وثائق
-      document_collection:
-        zero:
-        one: سلسة
-        two:
-        few:
-        many:
-        other:
-      ministers:
-        zero:
-        one: وزير
-        two:
-        few:
-        many:
-        other: وزراء
-      organisations:
-        zero:
-        one: مؤسسة
-        two:
-        few:
-        many:
-        other: مؤسسات
-      policies:
-        zero:
-        one: سياسة
-        two:
-        few:
-        many:
-        other: سياسات
-      sectors:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      topical_events:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      topics:
-        zero:
-        one: موضوع
-        two:
-        few:
-        many:
-        other: مواضيع
-      world_locations:
-        zero:
-        one: الموقع في العالم
-        two:
-        few:
-        many:
-        other: المواقع في العالم
-      worldwide_organisations:
-        zero:
-        one: مؤسسة في الخارج
-        two:
-        few:
-        many:
-        other: مؤسسات في الخارج
       applies_to_nations: ينطبق على
       field_of_operation: مجال العمل
-      groups: جماعات استشارية
-      live_data: بيانات حية
+      from:
       location:
+      part_of:
     type:
       announcement:
         zero:

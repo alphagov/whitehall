@@ -103,37 +103,10 @@ vi:
       attachments:
         one: Tài liệu
         other: Tài liệu
-      document_collection:
-        one: Chuỗi
-        other:
       field_of_operation: Lĩnh vực hoạt động
-      groups: Nhóm tham vấn
-      live_data: Dữ liệu cập nhật
+      from:
       location:
-      ministers:
-        one: Thứ trưởng
-        other: Các thứ trưởng
-      organisations:
-        one: Tổ chức
-        other: Tổ chức
-      policies:
-        one: Chính sách
-        other: Các chính sách
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Chủ đề
-        other: Các chủ đề
-      world_locations:
-        one: Địa điểm thế giới
-        other: Các địa điểm thế giới
-      worldwide_organisations:
-        one: Tổ chức trên toàn thế giới
-        other: Tổ chức trên toàn thế giới
+      part_of:
     published: Đã xuất bản
     read: Đọc bài có  %{title}
     speech:

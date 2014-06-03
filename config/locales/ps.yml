@@ -4,38 +4,11 @@ ps:
       attachments:
         one: سند
         other: سندونه
-      document_collection:
-        one: سلسله
-        other:
-      ministers:
-        one: وزیر
-        other: وزیران
-      organisations:
-        one: اداره
-        other: ادارې
-      policies:
-        one: پالیسي
-        other: پالیسی ګانې
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: موضوع
-        other: موضوع ګانې
-      world_locations:
-        one: نړیوال موقعیت
-        other: نړیوال موقعیتونه
-      worldwide_organisations:
-        one: نړیواله اداره
-        other: نړیواله اداری
       applies_to_nations: پورې اړه لری
       field_of_operation: د کړنو څانګه
-      groups: مشورتی ګروپونه
-      live_data: ژوندې اطلاعات
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: خبرتیا

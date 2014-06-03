@@ -21,7 +21,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     assert_select ".meta a", "Theresa May" # \s* as \s* Secretary of State \s* in \s* Home Office/
     assert_select ".delivered-on", /1 June 2011/
-    assert_select ".location", /The Guidhall/
+    assert_select "dd", /The Guidhall/
   end
 
   view_test "should display who gave the speech even if they are not appointed to the same position anymore" do
@@ -44,7 +44,7 @@ class SpeechesControllerTest < ActionController::TestCase
 
     get :show, id: published_speech.document
 
-    assert_select ".meta dd", "The Queen"
+    assert_select ".meta dd", /The Queen/
   end
 
   view_test "should display details about a transcript" do

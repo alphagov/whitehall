@@ -144,7 +144,7 @@ module ApplicationHelper
   end
 
   def link_to_person(person)
-    PersonPresenter.new(person, self).link
+    PersonPresenter.new(person, self).link(class: 'person-link')
   end
 
   def image_for_person(person)

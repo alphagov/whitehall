@@ -103,37 +103,10 @@ tr:
       attachments:
         one: Belge
         other: Belgeler
-      document_collection:
-        one: Seriler
-        other:
       field_of_operation: Faaliyet Alanı
-      groups: Danışma Grubu
-      live_data: Canlı veri
+      from:
       location:
-      ministers:
-        one: Bakan
-        other: Bakanlar
-      organisations:
-        one: Organizasyon
-        other: 'Organizasyonlar '
-      policies:
-        one: Politika
-        other: Politikalar
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Konu
-        other: Konular
-      world_locations:
-        one: Ülke
-        other: Ülkeler
-      worldwide_organisations:
-        one: 'Organizasyon '
-        other: 'Organizasyonlar '
+      part_of:
     published: Yayında
     read: '%{title} makalesini okuyunuz'
     speech:

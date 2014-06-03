@@ -4,38 +4,11 @@ pt:
       attachments:
         one: Documento
         other: Documentos
-      document_collection:
-        one: Séries
-        other:
-      ministers:
-        one: Ministro
-        other: Ministros
-      organisations:
-        one: Organização
-        other: Organizações
-      policies:
-        one: Política
-        other: Políticas
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Assunto
-        other: Assuntos
-      world_locations:
-        one: Local no Mundo
-        other: Locais no Mundo
-      worldwide_organisations:
-        one: Organização Global
-        other: Organizações Globais
       applies_to_nations: Aplica-se a
       field_of_operation: Campo de Operação
-      groups: Grupos Consultivos
-      live_data: Dados Ativos
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Anúncio

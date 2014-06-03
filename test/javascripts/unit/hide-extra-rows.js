@@ -5,7 +5,7 @@
  vars: true,
  plusplus: true
 */
-module("Hide lines past the first", {
+module("hide-extra-rows.js: Hide lines past the first", {
   setup: function(){
     var elementString = "<ul id='will-wrap' style='width: 400px;'>",
         i = 0;
@@ -21,14 +21,14 @@ module("Hide lines past the first", {
   }
 });
 
-test("Should add classes to the elements past the first line", function() {
+test("Should add elements past the first line into a js-hidden element", function() {
   var result = this.$element.hideExtraRows();
-  equal($('.js-hidden', this.$element).length, 6);
+  equal($('.js-hidden', this.$element).children().length, 6);
 });
 
-test("Should add classes to the elements past the second line", function() {
+test("Should move elements past the second line into a js-hidden element", function() {
   var result = this.$element.hideExtraRows({ rows: 2 });
-  equal($('.js-hidden', this.$element).length, 2);
+  equal($('.js-hidden', this.$element).children().length, 2);
 });
 
 test("Should add a toggle button after the parent of the passed in elements", function() {

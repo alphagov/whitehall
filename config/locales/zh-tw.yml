@@ -101,37 +101,10 @@ zh-tw:
       attachments:
         one: 文件
         other: 其他文件
-      document_collection:
-        one: 系列
-        other:
       field_of_operation: 運用領域
-      groups: 諮詢組
-      live_data: 即時資料
+      from:
       location:
-      ministers:
-        one: 部長
-        other: 其他部長
-      organisations:
-        one: 組織
-        other: 其他組織
-      policies:
-        one: 政策
-        other: 其他政策
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: 主題
-        other: 其他主題
-      world_locations:
-        one: 全球駐點
-        other: 其他全球駐點
-      worldwide_organisations:
-        one: 全球組織
-        other: 其他全球組織
+      part_of:
     published: 發行
     read: 閱讀%{title}文章
     speech:

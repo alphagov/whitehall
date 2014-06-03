@@ -4,38 +4,11 @@ dr:
       attachments:
         one: سند
         other: اسناد
-      document_collection:
-        one: سلسله
-        other:
-      ministers:
-        one: وزیر
-        other: وزرا
-      organisations:
-        one: سازمان
-        other: سازمان ها
-      policies:
-        one: پالیسی
-        other: پالیسی ها
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: موضوع
-        other: موضوعات
-      world_locations:
-        one: موقعیت جهانی
-        other: موقعیت های جهانی
-      worldwide_organisations:
-        one: سازمان جهانی
-        other: سازمان های جهانی
       applies_to_nations: اطلاق میشود به
       field_of_operation: بخش عملیاتی
-      groups: گروپ های مشورتی
-      live_data: معلومات زنده
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: اعلان

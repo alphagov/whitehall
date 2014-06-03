@@ -101,37 +101,10 @@ az:
       attachments:
         one:
         other:
-      document_collection:
-        one: növlər
-        other:
       field_of_operation: əməliyyat sahəsi
-      groups: Məsləhətçi qruplar
-      live_data: canlı məlumat
+      from:
       location:
-      ministers:
-        one: nazir
-        other: nazirlər
-      organisations:
-        one:
-        other:
-      policies:
-        one: siyasət
-        other: siyasəti
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: mövzu
-        other: mövzular
-      world_locations:
-        one: dünyada yeri
-        other: dünya üzrə məkanlar
-      worldwide_organisations:
-        one: dünyəvi təşkilat
-        other: dünyəvi təşkilatlar
+      part_of:
     published: dərc olunub
     read:
     speech:

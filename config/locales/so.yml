@@ -4,38 +4,11 @@ so:
       attachments:
         one: Dokumenti
         other: Dokumentiyo
-      document_collection:
-        one: Taxane
-        other:
-      ministers:
-        one: Wasiir
-        other: Wasiirro
-      organisations:
-        one: Urur
-        other: Ururro
-      policies:
-        one: Siyaasad
-        other: Siyaasado
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Mowduuc
-        other: Mowduucyo
-      world_locations:
-        one: Goob dunida ka mid ah
-        other: Goobo dunida ka mid ah
-      worldwide_organisations:
-        one: Urur caalami ah
-        other: Ururro caalami ah
       applies_to_nations: Waxa lagu saleeyaa
       field_of_operation: Nooca hawlgalka
-      groups: Kooxo la-talineed
-      live_data: Xog cusub
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Ogeysiis

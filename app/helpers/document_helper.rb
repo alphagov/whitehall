@@ -66,7 +66,7 @@ module DocumentHelper
   end
 
   def array_of_links_to_statistical_data_sets(data_sets)
-    data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set) }
+    data_sets.map { |data_set| link_to data_set.title, public_document_path(data_set), class: 'statistical-data-set-link' }
   end
 
   MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE = "MS Word Document"
@@ -194,126 +194,88 @@ Please tell us:
     link_to native_language_name_for(locale), locale: locale
   end
 
-  def document_metadata(document, policies = [], topics = [], sector_tag_finder = nil, links_only = false)
-    metadata = []
-    if policies.any?
-      metadata << {
-        title: t('document.headings.policies', count: policies.length),
-        data: array_of_links_to_policies(policies),
-        classes: ['document-policies']
-      }
+  def part_of_metadata(document, policies = [], topics = [], sector_tag_finder = nil, primary_mainstream_category = nil)
+    part_of = []
+
+    if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
+      part_of += array_of_links_to_document_collections(document)
     end
-    if topics.any?
-      metadata << {
-        title: t('document.headings.topics', count: topics.length),
-        data: array_of_links_to_topics(topics),
-        classes: ['document-topics']
-      }
+
+    if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any?
+      part_of += array_of_links_to_statistical_data_sets(document.published_statistical_data_sets)
     end
+
     if document.respond_to?(:topical_events) && document.topical_events.any?
-      metadata << {
-        title: t('document.headings.topical_events', count: document.topical_events.length),
-        data: array_of_links_to_topical_events(document.topical_events),
-        classes: ['document-topical-events']
-      }
+      part_of += array_of_links_to_topical_events(document.topical_events)
     end
+
     if sector_tag_finder && (all_sectors = sector_tag_finder.sectors_and_subsectors).any?
-      metadata << {
-        title: t('document.headings.sectors', count: all_sectors.length),
-        data: array_of_links_to_sectors(all_sectors),
-        classes: ['document-sectors']
-      }
+      part_of += array_of_links_to_sectors(all_sectors)
     end
+
+    if policies.any?
+      part_of += array_of_links_to_policies(policies)
+    end
+
+    if primary_mainstream_category
+      part_of << link_to(primary_mainstream_category.title,
+                         mainstream_category_path(primary_mainstream_category),
+                         class: 'primary-mainstream-category-link')
+    end
+
+    if topics.any?
+      part_of += array_of_links_to_topics(topics)
+    end
+
+    if document.respond_to?(:worldwide_priorities) && document.worldwide_priorities.any?
+      part_of += document.worldwide_priorities.map {|priority| link_to priority.title, public_document_path(priority), class: 'worldwide-priority-link' }
+    end
+
+    if document.respond_to?(:world_locations) && document.world_locations.any?
+      part_of += array_of_links_to_world_locations(document.world_locations)
+    end
+
+    part_of
+  end
+
+
+  def from_metadata(document, links_only = false)
+    from = []
+
+    if document.lead_organisations.any?
+      from += array_of_links_to_organisations(document.lead_organisations)
+    end
+
     if !(document.respond_to?(:statistics?) && document.statistics?)
       if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any?
-        metadata << {
-
-          title: t('document.headings.ministers', count: document.ministerial_roles.length),
-          data: array_of_links_to_ministers(document.ministerial_roles),
-          classes: ['document-ministerial-roles']
-        }
+        from += array_of_links_to_ministers(document.ministerial_roles)
       end
+
       if document.respond_to?(:delivered_by_minister?)
         if document.person_override?
-          if not links_only
-            metadata << {
-              title: t_delivery_title(document),
-              data: [document.person_override],
-              classes: ['document-delivered-by-minister']
-            }
-          end
+          from << document.person_override if not links_only
         else
-          metadata << {
-            title: t_delivery_title(document),
-            data: [link_to_person(document.role_appointment.person)],
-            classes: ['document-delivered-by-minister']
-          }
+          from << link_to_person(document.role_appointment.person)
         end
       end
     end
-    if document.has_operational_field?
-      metadata << {
-        title: t('document.headings.field_of_operation'),
-        data: [link_to(document.operational_field.name, document.operational_field)],
-        classes: ['document-operational-field']
-      }
-    end
+
     if document.respond_to?(:role_appointments) && document.role_appointments.any?
-      metadata << {
-        title: t('document.headings.ministers', count: document.role_appointments.length),
-        data: array_of_links_to_role_appointments(document.role_appointments),
-        classes: ['document-role-appointments']
-      }
+      from += array_of_links_to_role_appointments(document.role_appointments)
     end
-    if document.respond_to?(:world_locations) && document.world_locations.any?
-      metadata << {
-        title: t('document.headings.world_locations', count: document.world_locations.length),
-        data: array_of_links_to_world_locations(document.world_locations),
-        classes: ['document-world-locations']
-      }
-    end
+
     if document.respond_to?(:worldwide_organisations) && document.worldwide_organisations.any?
-      metadata << {
-        title: t('document.headings.worldwide_organisations', count: document.worldwide_organisations.length),
-        data: array_of_links_to_worldwide_organisations(document.worldwide_organisations),
-        classes: ['document-worldwide-organisations']
-      }
+      from += array_of_links_to_worldwide_organisations(document.worldwide_organisations)
     end
-    if document.respond_to?(:inapplicable_nations) && document.inapplicable_nations.any? && !links_only
-      metadata << {
-        title: t('document.headings.applies_to_nations'),
-        data: [only_applies_to_nations_list(document)],
-        classes: ['document-inapplicable-nations']
-      }
-    end
+
     if document.respond_to?(:policy_groups) && document.policy_groups.any?
-      metadata << {
-        title: t('document.headings.groups'),
-        data: array_of_links_to_policy_groups(document.policy_groups),
-        classes: ["document-policy-groups"]
-      }
+      from += array_of_links_to_policy_groups(document.policy_groups)
     end
-    if document.respond_to?(:part_of_published_collection?) && document.part_of_published_collection?
-      metadata << {
-        title: t('document.headings.document_collection.other'),
-        data: array_of_links_to_document_collections(document),
-        classes: ["document-document-collection"]
-      }
+
+    if (other_organisations = document.sorted_organisations - document.lead_organisations).any?
+      from += array_of_links_to_organisations(other_organisations)
     end
-    if document.respond_to?(:statistical_data_sets) && document.statistical_data_sets.any?
-      metadata << {
-        title: t('document.headings.live_data'),
-        data: array_of_links_to_statistical_data_sets(document.published_statistical_data_sets),
-        classes: ['document-statistical-data-sets']
-      }
-    end
-    if document.respond_to?(:worldwide_priorities) && document.worldwide_priorities.any?
-      metadata << {
-        title: t('document.type.worldwide_priority', count: 2), # always want the plural form for consistency
-        data: document.worldwide_priorities.map {|priority| link_to(priority.title, public_document_path(priority)) },
-        classes: ['document-worldwide-priorities']
-      }
-    end
-    metadata
+
+    from
   end
 end

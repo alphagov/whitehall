@@ -6,56 +6,11 @@ pl:
         few:
         many:
         other: Dokumenty
-      document_collection:
-        one: Seria
-        few:
-        many:
-        other:
-      ministers:
-        one: Minister
-        few:
-        many:
-        other: Ministrowie
-      organisations:
-        one: Organizacja
-        few:
-        many:
-        other: Organizacje
-      policies:
-        one: Polityka
-        few:
-        many:
-        other: Polityki
-      sectors:
-        one:
-        few:
-        many:
-        other:
-      topical_events:
-        one:
-        few:
-        many:
-        other:
-      topics:
-        one: Temat
-        few:
-        many:
-        other: Tematy
-      world_locations:
-        one: Lokalizacja na świecie
-        few:
-        many:
-        other: Lokalizacje na świecie
-      worldwide_organisations:
-        one: Organizacja na świecie
-        few:
-        many:
-        other: Organizacje na świecie
       applies_to_nations: Dotyczy
       field_of_operation: Obszar działania
-      groups: Grupy doradcze
-      live_data: Dane pobierane na żywo
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Ogłoszenie

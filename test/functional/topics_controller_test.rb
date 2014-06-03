@@ -18,7 +18,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "h1", text: topic.name
     assert_select ".govspeak", text: topic.description
     assert_equal topic.description, assigns(:meta_description)
-    assert_select_object organisation
+    assert_select "a[href=?]", organisation_path(organisation)
   end
 
   view_test "GET :show lists the published policies and their summaries" do

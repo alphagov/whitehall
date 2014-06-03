@@ -4,38 +4,11 @@ si:
       attachments:
         one: ලේඛණය
         other: ලේඛණ
-      document_collection:
-        one: කාණ්ඩය
-        other:
-      ministers:
-        one: ඇමතිතුමා
-        other: ඇමතිවරුන්
-      organisations:
-        one: සංවිධානය
-        other: සංවිධාන
-      policies:
-        one: ප්රතතිපත්තිය
-        other: ප්‍රතිපත්තීන්
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: මාතෘකාව
-        other: මාතෘකා
-      world_locations:
-        one: ලෝකයේ ස්ථානය
-        other: ලෝකයේ ස්ථාන
-      worldwide_organisations:
-        one: ලෝකයේ පිහීටි සංවිධානය
-        other: ලෝකයේ පිහීටි සංවිධාන
       applies_to_nations: අදාළ වන්නේ
       field_of_operation: ක්‍රියාත්මකවන ක්ෂස්ත්‍රය
-      groups: උපදේශන කණ්ඩායම
-      live_data: සජීව තොරතුරු
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: නිවේදනය

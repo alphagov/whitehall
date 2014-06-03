@@ -103,39 +103,12 @@ en:
     headings:
       field_of_operation: Field of operation
       applies_to_nations: Applies to
-      groups: Groups
-      document_collection:
-        one: Collection
-        other: Collections
-      live_data: Live data
+      part_of: Part of
+      from: From
       location: Location
-      world_locations:
-        one: World location
-        other: World locations
-      worldwide_organisations:
-        one: World agency
-        other: World agencies
-      policies:
-        one: Policy
-        other: Policies
-      topics:
-        one: Topic
-        other: Topics
-      topical_events:
-        one: Topical event
-        other: Topical events
-      ministers:
-        one: Minister
-        other: Ministers
-      organisations:
-        one: Organisation
-        other: Organisations
       attachments:
         one: Document
         other: Documents
-      sectors:
-        one: Sector
-        other: Sectors
     type:
       announcement:
         one: Announcement
@@ -328,7 +301,7 @@ en:
       published: Published
       updated: Updated
       full_page_history: full page history
-      page_history: Page history
+      page_history: History
   feeds:
     get_updates_to_this_list: Get updates to this list
     feed: feed
@@ -392,7 +365,7 @@ en:
     contact_form: Contact form
   read_more: Read more
   change_notes:
-    page_history: Page history
+    page_history: History
     published_at: Published %{date}
     updated_at: Updated %{date}, <span class="toggle">see all updates</span>
   organisation:

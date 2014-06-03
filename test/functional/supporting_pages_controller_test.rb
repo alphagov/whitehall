@@ -136,8 +136,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select ".document-topics a", text: first_topic.name
-    assert_select ".document-topics a", text: second_topic.name
+    assert_select "a", text: first_topic.name
+    assert_select "a", text: second_topic.name
   end
 
   view_test "should link to organisations from within the metadata navigation" do
@@ -148,12 +148,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select_object first_org do
-      assert_select "a[href='#{organisation_path(first_org)}']"
-    end
-    assert_select_object second_org do
-      assert_select "a[href='#{organisation_path(second_org)}']"
-    end
+    assert_select "a[href='#{organisation_path(first_org)}']"
+    assert_select "a[href='#{organisation_path(second_org)}']"
   end
 
   view_test "should link to ministers from within the metadata navigation" do
@@ -164,7 +160,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select ".document-ministerial-roles a", text: "minister-name"
+    assert_select "a", text: "minister-name"
   end
 
   view_test "should not apply active class to the parent policy page navigation heading" do
@@ -218,17 +214,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select "#{policy_group_selector} a[href='#{policy_group_path(policy_group)}']", text: 'policy-group-name'
+    assert_select "a[href='#{policy_group_path(policy_group)}']", text: 'policy-group-name'
 
-  end
-
-  view_test "show doesn't display the policy group section if the policy isn't associated with a policy group" do
-    policy = create(:published_policy)
-    supporting_page = create(:published_supporting_page, related_policies: [policy])
-
-    get :show, policy_id: policy.document, id: supporting_page.document
-
-    refute_select policy_group_selector
   end
 
   view_test "shows correct sub navigation when viewing supporting details" do

@@ -6,56 +6,11 @@ uk:
         few:
         many:
         other: Документи
-      document_collection:
-        one: Серія
-        few:
-        many:
-        other:
-      ministers:
-        one: Міністр
-        few:
-        many:
-        other: Міністри
-      organisations:
-        one: Організація
-        few:
-        many:
-        other: Організації
-      policies:
-        one: Політика
-        few:
-        many:
-        other: Політики
-      sectors:
-        one:
-        few:
-        many:
-        other:
-      topical_events:
-        one:
-        few:
-        many:
-        other:
-      topics:
-        one: Тема
-        few:
-        many:
-        other: Теми
-      world_locations:
-        one: Країна
-        few:
-        many:
-        other: Країни
-      worldwide_organisations:
-        one: Організація
-        few:
-        many:
-        other: Організації
       applies_to_nations: Застосовується до
       field_of_operation: Сфера діяльності
-      groups: Дорадчі групи
-      live_data: В реальному часі
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Оголошення

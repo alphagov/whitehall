@@ -4,38 +4,11 @@ bg:
       attachments:
         one: Документ
         other: Документи
-      document_collection:
-        one: Серии
-        other:
-      ministers:
-        one: Министър
-        other: Министри
-      organisations:
-        one: Организация
-        other: Организации
-      policies:
-        one: Политика
-        other: Политики
-      sectors:
-        one:
-        other:
-      topical_events:
-        one:
-        other:
-      topics:
-        one: Тема
-        other: Теми
-      world_locations:
-        one: Световно местоположение
-        other: Световни местоположения
-      worldwide_organisations:
-        one: Разпространена по целия свят организация
-        other: Разпространени по целия свят организации
       applies_to_nations: Отнася се към
       field_of_operation: Поле на операцията
-      groups: Консултативни групи
-      live_data: Реална информация
+      from:
       location:
+      part_of:
     type:
       announcement:
         one: Съобщение

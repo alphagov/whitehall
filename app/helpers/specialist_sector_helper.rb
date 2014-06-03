@@ -10,7 +10,7 @@ module SpecialistSectorHelper
 
   def array_of_links_to_sectors(sectors_and_subsectors)
     sectors_and_subsectors.map { |sector|
-      link_to sector.title, sector.web_url
+      link_to sector.title, sector.web_url, class: 'sector-link'
     }
   end
 
