@@ -75,6 +75,7 @@ group :development do
   gem 'thin', '1.5.1'
   gem 'newrelic_rpm'
   gem 'quiet_assets'
+  gem 'rubocop'
 end
 
 group :test do
