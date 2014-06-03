@@ -58,7 +58,7 @@ class Edition < ActiveRecord::Base
   scope :force_published,               -> { where(state: "published", force_published: true) }
   scope :not_published,                 -> { where(state: %w(draft submitted rejected)) }
 
-  scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
+  scope :announcements,                 -> { where(type: Announcement.concrete_descendants.map(&:name)) }
   scope :consultations,                 -> { where(type: "Consultation") }
   scope :detailed_guides,               -> { where(type: "DetailedGuide") }
   scope :policies,                      -> { where(type: "Policy") }

@@ -18,7 +18,7 @@ module Edition::NationalApplicability
 
   def nation_inapplicabilities_attributes=(attributes)
     attributes.each do |index, params|
-      existing = nation_inapplicabilities.detect { |ni| ni.nation_id == params[:nation_id].to_i }
+      existing = nation_inapplicabilities.find { |ni| ni.nation_id == params[:nation_id].to_i }
 
       if ActiveRecord::ConnectionAdapters::Column.value_to_boolean(params[:excluded])
         if existing

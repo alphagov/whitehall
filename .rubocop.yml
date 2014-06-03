@@ -71,7 +71,7 @@ ClassAndModuleChildren:
 # Supports --auto-correct
 CollectionMethods:
   Description: Preferred collection methods.
-  Enabled: false
+  Enabled: true
   PreferredMethods:
     collect: map
     collect!: map!
@@ -90,12 +90,12 @@ ConstantName:
 
 Debugger:
   Description: Check for debugger calls.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 Delegate:
   Description: Prefer delegate method for delegations.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 DefWithParentheses:

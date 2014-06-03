@@ -133,7 +133,7 @@ class Classification < ActiveRecord::Base
   end
 
   def featuring_of(edition)
-    classification_featurings.detect { |cf| cf.edition == edition }
+    classification_featurings.find { |cf| cf.edition == edition }
   end
 
   def feature(featuring_params)

@@ -25,7 +25,7 @@ counts_by_class = classes_to_index.each_with_object({}) do |klass, hash|
   hash[klass] = count
 end
 
-total_count = counts_by_class.values.inject(&:+)
+total_count = counts_by_class.values.reduce(&:+)
 
 GC.disable
 start = Time.zone.now

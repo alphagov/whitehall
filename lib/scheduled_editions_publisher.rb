@@ -28,7 +28,7 @@ class ScheduledEditionsPublisher
     Whitehall.stats_collector.increment("scheduled_publishing.call_rate")
 
     while unpublished_editions_remaining?
-      raise PublishingFailure.new(log_cache, editions.collect(&:id)) if attempt_limit_reached?
+      raise PublishingFailure.new(log_cache, editions.map(&:id)) if attempt_limit_reached?
       log_publish_run do
         editions.each { |edition| publish_edition!(edition) }
       end

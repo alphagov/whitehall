@@ -81,7 +81,7 @@ module Whitehall
       def apply_filters(keywords, params, order, per_page, page)
         results = @store.index(@index_name).values
         results = filter_by_keywords(keywords, results) unless keywords.blank?
-        results = params.keys.inject(results) do |results, field_name|
+	results = params.keys.reduce(results) do |results, field_name|
           case field_type(field_name)
           when :date
             filter_by_date_field(field_name, params[field_name], results)
@@ -121,7 +121,7 @@ module Whitehall
             else
               right.fetch(field_name) <=> left.fetch(field_name)
             end
-          end.detect { |res| res != 0 } || 0
+	  end.find { |res| res != 0 } || 0
         end
 
         def sort(documents)

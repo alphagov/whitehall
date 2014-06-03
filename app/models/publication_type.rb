@@ -20,7 +20,7 @@ class PublicationType
   end
 
   def self.find_by_slug(slug)
-    all.detect { |type| type.slug == slug }
+    all.find { |type| type.slug == slug }
   end
 
   def self.primary

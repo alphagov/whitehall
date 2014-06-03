@@ -4,7 +4,7 @@ class OrganisationBrandColour
   attr_accessor :id, :title, :class_name
 
   def self.find(class_name)
-    all.detect { |type| type.class_name == class_name } or raise ActiveRecord::RecordNotFound
+    all.find { |type| type.class_name == class_name } or raise ActiveRecord::RecordNotFound
   end
 
   AttorneyGeneralsOffice = create(

@@ -109,7 +109,7 @@ module Whitehall::Uploader
       }, Logger.new(StringIO.new))
 
       attachment = FileAttachment.new(title: "first title")
-      assert_equal [attachment.attributes], row.attachments.collect(&:attributes)
+      assert_equal [attachment.attributes], row.attachments.map(&:attributes)
       assert_equal "http://example.com/attachment.pdf", row.attachments.first.attachment_source.url
     end
 

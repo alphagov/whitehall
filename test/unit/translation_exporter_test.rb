@@ -199,7 +199,7 @@ class TranslationExporterTest < ActiveSupport::TestCase
 
   def read_csv_data(file)
     csv = CSV.read(file, headers: true)
-    csv.inject({}) { |h, row| h[row["key"]] = [row["source"], row["translation"]]; h }
+    csv.reduce({}) { |h, row| h[row["key"]] = [row["source"], row["translation"]]; h }
   end
 
   def given_locale(locale, keys)
