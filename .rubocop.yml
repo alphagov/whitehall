@@ -245,7 +245,7 @@ RequireParentheses:
 
 SelfAssignment:
   Description: 'Checks for places where self-assignment shorthand should have been used.'
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SingleSpaceBeforeFirstArg:
@@ -253,13 +253,11 @@ SingleSpaceBeforeFirstArg:
     argument for method calls without parentheses.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
@@ -281,13 +279,11 @@ SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
@@ -298,13 +294,11 @@ SpaceAroundEqualsInParameterDefault:
   - space
   - no_space
 
-# Documented
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
@@ -325,13 +319,11 @@ SpaceInsideBrackets:
   Description: No spaces after [ or before ].
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
   Enabled: true
 
-# Documented
 Tab:
   Description: No hard tabs.
   Enabled: true
@@ -345,7 +337,6 @@ TrailingBlankLines:
   - final_newline
   - final_blank_line
 
-#Documented
 TrailingComma:
   Description: Checks for trailing comma in parameter lists and literals.
   Enabled: false
@@ -354,7 +345,6 @@ TrailingComma:
   - comma
   - no_comma
 
-# Documented
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
@@ -392,7 +382,7 @@ UnderscorePrefixedVariableName:
 
 UnreachableCode:
   Description: Unreachable code.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 UnusedBlockArgument:
