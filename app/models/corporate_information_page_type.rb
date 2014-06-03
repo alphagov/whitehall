@@ -4,11 +4,11 @@ class CorporateInformationPageType
   attr_accessor :id, :title_template, :slug, :menu_heading
 
   def self.find(slug)
-    all.detect { |type| type.slug == slug } or raise ActiveRecord::RecordNotFound
+    all.find { |type| type.slug == slug } or raise ActiveRecord::RecordNotFound
   end
 
   def self.find_by_title(title)
-    all.detect { |type| type.title_template == title } or raise ActiveRecord::RecordNotFound
+    all.find { |type| type.title_template == title } or raise ActiveRecord::RecordNotFound
   end
 
   def key

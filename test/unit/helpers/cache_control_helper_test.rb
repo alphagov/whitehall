@@ -3,7 +3,7 @@ require 'test_helper'
 class CacheControlHelperTest < ActionView::TestCase
   class DummyController
     include CacheControlHelper
-    def expires_in(*args); end
+    def expires_in(*_args); end
   end
 
   setup do

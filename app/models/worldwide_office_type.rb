@@ -10,11 +10,11 @@ class WorldwideOfficeType
   end
 
   def self.find_by_name(name)
-    all.detect { |type| type.name == name }
+    all.find { |type| type.name == name }
   end
 
   def self.find_by_slug(slug)
-    all.detect { |type| type.slug == slug }
+    all.find { |type| type.slug == slug }
   end
 
   def self.in_listing_order

@@ -1,6 +1,6 @@
 class ImporterTestLogger < Logger
 
-  def info(string, line_number)
+  def info(string, _line_number)
     super(string)
   end
   alias_method :warn, :info

@@ -13,10 +13,10 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  Whitehall.detailed_edition_classes
-else
-  Whitehall.government_edition_classes
-end
+                     Whitehall.detailed_edition_classes
+                   else
+                     Whitehall.government_edition_classes
+                   end
 
 logger.info "Counting docs to index..."
 counts_by_class = classes_to_index.each_with_object({}) do |klass, hash|
@@ -25,7 +25,7 @@ counts_by_class = classes_to_index.each_with_object({}) do |klass, hash|
   hash[klass] = count
 end
 
-total_count = counts_by_class.values.inject(&:+)
+total_count = counts_by_class.values.reduce(&:+)
 
 GC.disable
 start = Time.zone.now

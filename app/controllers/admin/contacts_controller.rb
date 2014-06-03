@@ -48,7 +48,7 @@ class Admin::ContactsController < Admin::BaseController
   is_home_page_list_controller_for :contacts,
     item_type: Contact,
     contained_by: :contactable,
-    redirect_to: ->(container, item) { [:admin, container, Contact] }
+    redirect_to: ->(container, _) { [:admin, container, Contact] }
 
 private
 
@@ -61,7 +61,7 @@ private
   end
 
   def destroy_blank_contact_numbers
-    (params[:contact][:contact_numbers_attributes] || []).each do |index, attributes|
+    (params[:contact][:contact_numbers_attributes] || []).each do |_, attributes|
       if attributes.except(:id).values.all?(&:blank?)
         attributes[:_destroy] = "1"
       end

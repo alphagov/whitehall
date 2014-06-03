@@ -128,7 +128,7 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   visit new_admin_organisation_path
 
   fill_in 'Name', with: organisation_name
-  fill_in 'Acronym', with: organisation_name.split(' ').collect {|word| word.chars.first }.join
+  fill_in 'Acronym', with: organisation_name.split(' ').map {|word| word.chars.first }.join
   fill_in 'Logo formatted name', with: organisation_name
   select 'Ministerial department', from: 'Organisation type'
   select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
@@ -358,10 +358,10 @@ Then /^I should be able to view all chief professional officers for the "([^"]*)
   end
 end
 
-Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |type, name, expected_table|
+Then /^I should see the featured (news articles|topical events|offsite links) in the "([^"]*)" organisation are:$/ do |_, name, expected_table|
   visit_organisation name
   rows = find(featured_documents_selector).all('.feature')
-  table = rows.collect do |row|
+  table = rows.map do |row|
     [
       row.find('h2').text.strip,
       File.basename(row.find('.featured-image')['src'])

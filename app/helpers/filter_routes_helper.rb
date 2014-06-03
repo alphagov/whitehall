@@ -30,7 +30,7 @@ module FilterRoutesHelper
 protected
 
   def path_arguments(objects)
-    objects.reduce({}) do |out, obj|
+    objects.each_with_object do |out, obj|
       if obj.is_a? Organisation
         out[:departments] = [obj.slug]
       elsif obj.is_a? Topic

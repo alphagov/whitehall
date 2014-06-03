@@ -28,12 +28,12 @@ class TopicsHelperTest < ActionView::TestCase
   end
 
   test "#topic_links_sentence generates a sentence of topic links" do
-    topics = 3.times.map { |n| create(:topic) }
+    topics = 3.times.map { |_| create(:topic) }
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(topic_links_sentence(topics))
     links = rendered.css('a')
 
-    assert_equal topics.map(&:name),              links.map(&:text)
+    assert_equal topics.map(&:name), links.map(&:text)
     assert_equal topics.map { |t| topic_path(t) }, links.map { |link| link[:href] }
     assert_string_includes "#{topics[0].name}, #{topics[1].name} and #{topics[2].name}", rendered.text
   end

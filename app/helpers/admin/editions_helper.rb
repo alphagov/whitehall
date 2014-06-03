@@ -1,7 +1,7 @@
 module Admin::EditionsHelper
 
   def edition_type(edition)
-    if (edition.is_a?(Speech) && edition.speech_type.written_article?)
+    if edition.is_a?(Speech) && edition.speech_type.written_article?
       type = edition.speech_type.singular_name
     else
       type = edition.type.underscore.humanize
@@ -63,13 +63,13 @@ module Admin::EditionsHelper
     [
       ["All states", 'active'],
       ["Imported (pre-draft)", 'imported'],
-      ["Draft", 'draft'],
-      ["Submitted", 'submitted'],
-      ["Rejected", 'rejected'],
-      ["Scheduled", 'scheduled'],
-      ["Published", 'published'],
+      %w(Draft draft),
+      %w(Submitted submitted),
+      %w(Rejected rejected),
+      %w(Scheduled scheduled),
+      %w(Published published),
       ["Force published (not reviewed)", 'force_published'],
-      ['Archived', 'archived']
+      %w(Archived archived)
     ]
   end
 
@@ -86,7 +86,7 @@ module Admin::EditionsHelper
   end
 
   def speech_type_label_data
-    label_data = SpeechType.all.inject({}) do |hash, speech_type|
+    label_data = SpeechType.all.each_with_object do |hash, speech_type|
       hash.merge(speech_type.id => {
         ownerGroup: I18n.t("document.speech.#{speech_type.owner_key_group}"),
         publishedExternallyLabel: t_delivered_on(speech_type),
@@ -126,17 +126,17 @@ module Admin::EditionsHelper
 
     def lead_organisations_fields
       edition_organisations =
-        object.edition_organisations.
-          select { |eo| eo.lead? }.
-          sort_by { |eo| eo.lead_ordering }
+        object.edition_organisations
+          .select { |eo| eo.lead? }
+          .sort_by { |eo| eo.lead_ordering }
 
       edition_organisations_fields(edition_organisations, true)
     end
 
     def supporting_organisations_fields
       edition_organisations =
-        object.edition_organisations.
-          reject { |eo| eo.lead? }
+        object.edition_organisations
+          .reject { |eo| eo.lead? }
 
       edition_organisations_fields(edition_organisations, false)
     end
@@ -166,8 +166,8 @@ module Admin::EditionsHelper
     end
   end
 
-  def standard_edition_form(edition, &blk)
-    initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param)
+  def standard_edition_form(edition, &_blk)
+    initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.map(&:to_param)
 
     form_classes = ["edition-form js-edition-form"]
     form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
@@ -215,10 +215,10 @@ module Admin::EditionsHelper
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
       if edition.allows_attachments? && edition.persisted?
         text = if edition.attachments.count > 0
-          "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
-        else
-          "Attachments"
-        end
+                 "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
+               else
+                 "Attachments"
+               end
         tabs[text] = admin_edition_attachments_path(edition)
       end
 
@@ -266,7 +266,7 @@ module Admin::EditionsHelper
     end
   end
 
-  def mainstream_category_options(edition, selected)
+  def mainstream_category_options(_edition, selected)
     grouped_options = MainstreamCategory.all.group_by {|c| c.parent_title}.map do |group, members|
       [group, members.map {|c| [c.title, c.id]}]
     end
@@ -313,7 +313,7 @@ module Admin::EditionsHelper
   end
 
   def format_advice_map(format_type_class)
-    format_type_class.all.inject({}) do |hash, type|
+    format_type_class.all.each_with_object do |hash, type|
       html = govspeak_to_html(t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
       hash.merge(type.id => html)
     end

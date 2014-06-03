@@ -16,11 +16,11 @@ class SpeechType
   end
 
   def self.find_by_name(name)
-    all.detect { |type| type.singular_name == name }
+    all.find { |type| type.singular_name == name }
   end
 
   def self.find_by_slug(slug)
-    all.detect { |type| type.slug == slug }
+    all.find { |type| type.slug == slug }
   end
 
   def self.non_statements

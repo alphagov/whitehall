@@ -71,12 +71,12 @@ class OrganisationsControllerTest < ActionController::TestCase
       user = login_as(:departmental_editor)
       organisation = create(:ministerial_department)
       edition = if block_given?
-        yield organisation
-      else
-        create(edition_type, :draft,
-          scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-          organisations: [organisation])
-      end
+                  yield organisation
+                else
+                  create(edition_type, :draft,
+                    scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+                    organisations: [organisation])
+                end
       assert edition.perform_force_schedule
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
@@ -495,7 +495,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [senior_role, junior_role], assigns(:ministerial_roles).collect(&:model)
+    assert_equal [senior_role, junior_role], assigns(:ministerial_roles).map(&:model)
   end
 
   test "only shows ministerials roles for which there are people currently appointed" do
@@ -507,7 +507,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [assigned_role], assigns(:ministerial_roles).collect(&:model)
+    assert_equal [assigned_role], assigns(:ministerial_roles).map(&:model)
   end
 
   test "shows traffic commissioner roles in the specified order" do
@@ -519,7 +519,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).collect(&:model)
+    assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).map(&:model)
   end
 
   test "shows traffic chief professional officer roles in the specified order" do
@@ -531,7 +531,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [senior_role, junior_role], assigns(:chief_professional_officer_roles).collect(&:model)
+    assert_equal [senior_role, junior_role], assigns(:chief_professional_officer_roles).map(&:model)
   end
 
   test "shows military roles in the specified order" do
@@ -543,7 +543,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_equal [senior_role, junior_role], assigns(:military_roles).collect(&:model)
+    assert_equal [senior_role, junior_role], assigns(:military_roles).map(&:model)
   end
 
   view_test "shows links to ministers people pages" do

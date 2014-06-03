@@ -138,11 +138,11 @@ class Admin::FeaturedTopicsAndPoliciesListsControllerTest < ActionController::Te
 
     list = assigns(:featured_topics_and_policies_list)
     items = list.featured_items
-    featured_topic = items.detect { |i| i.ordering == 1 }
+    featured_topic = items.find { |i| i.ordering == 1 }
     assert_equal t, featured_topic.item
     assert featured_topic.persisted?
 
-    featured_policy = items.detect { |i| i.ordering == 2 }
+    featured_policy = items.find { |i| i.ordering == 2 }
     assert_equal p.document, featured_policy.item
     assert featured_policy.persisted?
   end

@@ -100,7 +100,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    if (params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule)
+    if params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
@@ -142,7 +142,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def archiver_or_unpublisher_for(edition)
+  def archiver_or_unpublisher_for(_edition)
     if archiving?
       Whitehall.edition_services.archiver(@edition, user: current_user, remark: "Archived", unpublishing: unpublishing_params)
     else

@@ -562,6 +562,10 @@ UnneededPercentX:
   Description: Checks for %x when `` would do.
   Enabled: false
 
+UselessAccessModifier:
+  Description: Checks for useless access modifiers.
+  Enabled: false
+
 Validation:
   Description: Use sexy validations.
   Enabled: false

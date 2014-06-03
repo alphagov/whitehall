@@ -42,7 +42,7 @@ class RenameDocumentSeriesToDocumentCollections < ActiveRecord::Migration
     end
 
     add_index "document_collection_group_memberships", ["document_id"]
-    add_index "document_collection_group_memberships", ["document_collection_group_id", "ordering"], name: "index_dc_group_memberships_on_dc_group_id_and_ordering"
+    add_index "document_collection_group_memberships", %w(document_collection_group_id ordering), name: "index_dc_group_memberships_on_dc_group_id_and_ordering"
 
     create_table "document_collection_groups", force: true do |t|
       t.references  "document_collection"
@@ -52,7 +52,7 @@ class RenameDocumentSeriesToDocumentCollections < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index "document_collection_groups", ["document_collection_id", "ordering"], name: "index_dc_groups_on_dc_id_and_ordering"
+    add_index "document_collection_groups", %w(document_collection_id ordering), name: "index_dc_groups_on_dc_id_and_ordering"
 
     migrate_all_document_series
   end

@@ -64,7 +64,7 @@ module Frontend
       release_timestamp_params = {
         from: params.delete(:from_date).try(:iso8601),
         to: params.delete(:to_date).try(:iso8601)
-      }.delete_if {|k, v| v.blank? }
+      }.delete_if {|_, v| v.blank? }
       params[:release_timestamp] = release_timestamp_params unless release_timestamp_params.empty?
 
       params[:page] = params[:page].to_s

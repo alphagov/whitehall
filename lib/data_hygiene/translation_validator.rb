@@ -14,7 +14,7 @@ module DataHygiene
       reference = load_translation_file("#{@translation_file_path}/#{reference_file_name}")
       Dir["#{@translation_file_path}/*.yml"].reject do |entry|
         File.basename(entry) == reference_file_name
-      end.inject([]) do |errors, entry|
+      end.reduce([]) do |errors, entry|
         translation_file = load_translation_file(entry)
         errors + unexpected_substitution_keys(reference, translation_file)
       end

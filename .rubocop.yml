@@ -28,7 +28,6 @@ Alias:
   Description: Use alias_method instead of alias.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 AndOr:
   Description: Use &&/|| instead of and/or.
@@ -44,7 +43,7 @@ AsciiIdentifiers:
 
 BlockAlignment:
   Description: Align block ends correctly.
-  Enabled: false
+  Enabled: true
 
 # Documented
 CaseIndentation:
@@ -71,7 +70,7 @@ ClassAndModuleChildren:
 # Supports --auto-correct
 CollectionMethods:
   Description: Preferred collection methods.
-  Enabled: false
+  Enabled: true
   PreferredMethods:
     collect: map
     collect!: map!
@@ -90,21 +89,21 @@ ConstantName:
 
 Debugger:
   Description: Check for debugger calls.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 Delegate:
   Description: Prefer delegate method for delegations.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 DefWithParentheses:
   Description: Use def with parentheses when there are arguments.
-  Enabled: false
+  Enabled: true
 
 DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: leading
   SupportedStyles:
   - leading
@@ -112,7 +111,7 @@ DotPosition:
 
 EachWithObject:
   Description: Prefer `each_with_object` over `inject` or `reduce`.
-  Enabled: false
+  Enabled: true
 
 ElseLayout:
   Description: Check for odd code arrangement in an else block.
@@ -139,7 +138,7 @@ Encoding:
 
 EndAlignment:
   Description: Align ends correctly.
-  Enabled: false
+  Enabled: true
   AlignWith: keyword
   SupportedStyles:
   - keyword
@@ -147,11 +146,11 @@ EndAlignment:
 
 EnsureReturn:
   Description: Never use return in an ensure block.
-  Enabled: false
+  Enabled: true
 
 Eval:
   Description: The use of eval represents a serious security risk.
-  Enabled: false
+  Enabled: true
 
 FileName:
   Description: Use snake_case for source file names.
@@ -163,13 +162,12 @@ FileName:
 
 For:
   Description: Checks use of for or each in multiline loops.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: each
   SupportedStyles:
   - for
   - each
 
-# Documented
 # Supports --auto-correct
 HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
@@ -188,7 +186,6 @@ IfUnlessModifier:
   Enabled: false
   MaxLineLength: 80
 
-# Documented
 # Supports --auto-correct
 IndentationWidth:
   Description: Use 2 spaces for indentation.
@@ -202,7 +199,6 @@ MethodName:
   - snake_case
   - camelCase
 
-# Documented
 MultilineIfThen:
   Description: Never use then for multi-line if/unless.
   Enabled: false
@@ -210,18 +206,18 @@ MultilineIfThen:
 # Supports --auto-correct
 NilComparison:
   Description: Prefer x.nil? to x == nil.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 NonNilCheck:
   Description: Checks for redundant nil checks.
-  Enabled: false
+  Enabled: true
   IncludeSemanticChanges: false
 
 # Supports --auto-correct
 Not:
   Description: Use ! instead of not.
-  Enabled: false
+  Enabled: true
 
 ParenthesesAsGroupedExpression:
   Description: Checks for method calls with a space before the opening parenthesis.
@@ -230,22 +226,22 @@ ParenthesesAsGroupedExpression:
 # Supports --auto-correct
 ParenthesesAroundCondition:
   Description: Don't use parentheses around the condition of an if/unless/while.
-  Enabled: false
+  Enabled: true
   AllowSafeAssignment: true
 
 # Supports --auto-correct
 RedundantReturn:
   Description: Don't use return where it's not required.
-  Enabled: false
+  Enabled: true
   AllowMultipleReturnValues: false
 
 RequireParentheses:
   Description: Use parentheses in the method call to avoid confusion about precedence.
-  Enabled: false
+  Enabled: true
 
 SelfAssignment:
   Description: 'Checks for places where self-assignment shorthand should have been used.'
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SingleSpaceBeforeFirstArg:
@@ -253,13 +249,11 @@ SingleSpaceBeforeFirstArg:
     argument for method calls without parentheses.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
@@ -281,13 +275,11 @@ SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
@@ -298,13 +290,11 @@ SpaceAroundEqualsInParameterDefault:
   - space
   - no_space
 
-# Documented
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
@@ -325,13 +315,11 @@ SpaceInsideBrackets:
   Description: No spaces after [ or before ].
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
   Enabled: true
 
-# Documented
 Tab:
   Description: No hard tabs.
   Enabled: true
@@ -345,7 +333,6 @@ TrailingBlankLines:
   - final_newline
   - final_blank_line
 
-#Documented
 TrailingComma:
   Description: Checks for trailing comma in parameter lists and literals.
   Enabled: false
@@ -354,7 +341,6 @@ TrailingComma:
   - comma
   - no_comma
 
-# Documented
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
@@ -392,38 +378,37 @@ UnderscorePrefixedVariableName:
 
 UnreachableCode:
   Description: Unreachable code.
-  Enabled: false
+  Enabled: true
 
-# Documented
 # Supports --auto-correct
 UnusedBlockArgument:
   Description: Checks for unused block arguments.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 UnusedMethodArgument:
   Description: Checks for unused method arguments.
-  Enabled: false
-
-UselessAccessModifier:
-  Description: Checks for useless access modifiers.
-  Enabled: false
+  Enabled: true
 
 UselessAssignment:
   Description: Checks for useless assignment to a local variable.
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - test/**/**
+    - features/step_definitions/**
+    - features/support/**
 
 UselessComparison:
   Description: Checks for comparison of something with itself.
-  Enabled: false
+  Enabled: true
 
 UselessElseWithoutRescue:
   Description: Checks for useless `else` in `begin..end` without `rescue`.
-  Enabled: false
+  Enabled: true
 
 UselessSetterCall:
   Description: Checks for useless setter call to a local variable.
-  Enabled: false
+  Enabled: true
 
 # Documented
 VariableName:
@@ -437,5 +422,5 @@ VariableName:
 # Supports --auto-correct
 WordArray:
   Description: Use %w or %W for arrays of words.
-  Enabled: false
+  Enabled: true
   MinSize: 0

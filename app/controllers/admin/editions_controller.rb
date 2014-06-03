@@ -261,7 +261,7 @@ class Admin::EditionsController < Admin::BaseController
       end
     end
     n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
-    (n...6).each do |i|
+    (n - 6).abs.times do
       @edition.edition_organisations.build(lead: false)
     end
   end

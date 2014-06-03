@@ -26,7 +26,7 @@ module Whitehall::Uploader
       assert_equal "An introduction to the roll call of casualties.", row.attributes[:roll_call_introduction]
     end
 
-   test "returns the mod as its organisation" do
+    test "returns the mod as its organisation" do
       row = fatality_notice_row
       assert_equal @ministry_of_defence, row.organisation
     end

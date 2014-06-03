@@ -33,15 +33,15 @@ class Unpublishing < ActiveRecord::Base
 
   def document_path
     @document_path ||= if edition.present?
-      Whitehall.url_maker.public_document_path(edition)
-    else
-      # If edition is nil it's probably because it's deleted and hidden by the
-      # default scope
-      deleted_edition = Edition.unscoped { Edition.find(edition_id) }
-      # The slug on deleted editions can be changed if its document doesn't
-      # have a published edition, so we need to use our own slug
-      Whitehall.url_maker.public_document_path(deleted_edition, id: slug)
-    end
+                         Whitehall.url_maker.public_document_path(edition)
+                       else
+                         # If edition is nil it's probably because it's deleted and hidden by the
+                         # default scope
+                         deleted_edition = Edition.unscoped { Edition.find(edition_id) }
+                         # The slug on deleted editions can be changed if its document doesn't
+                         # have a published edition, so we need to use our own slug
+                         Whitehall.url_maker.public_document_path(deleted_edition, id: slug)
+                       end
   end
 
 private

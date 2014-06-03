@@ -91,17 +91,17 @@ module OrganisationHelper
     parents = organisation.parent_organisations.map { |parent| organisation_relationship_html(parent) }
 
     description = if parents.any?
-      case type_name
-      when 'other'
-        "#{name} works with #{parents.to_sentence}."
-      when 'non-ministerial department'
-        "#{name} is #{relationship}."
-      else
-        "#{name} is #{relationship} of #{parents.to_sentence}."
-      end
-    else
-      "#{name} is #{relationship}."
-    end
+                    case type_name
+                    when 'other'
+                      "#{name} works with #{parents.to_sentence}."
+                    when 'non-ministerial department'
+                      "#{name} is #{relationship}."
+                    else
+                      "#{name} is #{relationship} of #{parents.to_sentence}."
+                    end
+                  else
+                    "#{name} is #{relationship}."
+                  end
 
     description.chomp!('.') if organisation.active_child_organisations_excluding_sub_organisations.any?
     description.html_safe
@@ -130,7 +130,7 @@ module OrganisationHelper
     'aeiou'.include?(word_or_phrase.downcase[0])
   end
 
-  def organisation_wrapper(organisation, options = {}, &block)
+  def organisation_wrapper(organisation, _options = {}, &block)
     classes = [organisation.slug, organisation_brand_colour_class(organisation)]
     classes << organisation.organisation_type.name.parameterize if organisation.respond_to?(:organisation_type)
     content_tag_for :div, organisation, class: classes.join(" ") do
@@ -175,7 +175,7 @@ module OrganisationHelper
   end
 
   def organisations_grouped_by_type(organisations)
-    organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
+    organisations.group_by(&:organisation_type).sort_by { |type, _| type.listing_position }
   end
 
   def extra_board_member_class(organisation, i)

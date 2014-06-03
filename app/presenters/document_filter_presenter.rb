@@ -2,11 +2,11 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
   extend Whitehall::Decorators::DelegateInstanceMethodsOf
   delegate_instance_methods_of Whitehall::DocumentFilter::Filterer, to: :filter
 
-  def as_json(options = nil)
-    as_hash(options)
+  def as_json(_options = nil)
+    as_hash
   end
 
-  def as_hash(options = nil)
+  def as_hash
     data = {
       count: documents.count,
       current_page: documents.current_page,

@@ -32,8 +32,8 @@ class ConvertSupportingPagesToEditions < ActiveRecord::Migration
       # Supporting pages attached to policies that are no longer published should
       # be migrated last so that we don't create unnecessary redirects for
       # published supporting pages that don't currently clash
-      OldSupportingPage.
-          joins(%(JOIN editions
+      OldSupportingPage
+          .joins(%(JOIN editions
                     ON edition_id = editions.id
                   JOIN documents
                     ON editions.document_id = documents.id
@@ -42,12 +42,12 @@ class ConvertSupportingPagesToEditions < ActiveRecord::Migration
                     AND published_policies.state = "published"
                   LEFT OUTER JOIN supporting_pages published_pages
                     ON published_pages.edition_id = published_policies.id
-                    AND published_pages.slug = supporting_pages.slug)).
-          order(%(published_policies.id IS NULL,
+                    AND published_pages.slug = supporting_pages.slug))
+          .order(%(published_policies.id IS NULL,
                   published_pages.slug IS NULL,
                   editions.id,
-                  supporting_pages.lock_version)).
-          each do |old_sp|
+                  supporting_pages.lock_version))
+          .each do |old_sp|
         begin
           if old_sp.policy.nil?
             puts "Skipping old supporting page ##{old_sp.id} due to missing policy ##{old_sp.edition_id}"

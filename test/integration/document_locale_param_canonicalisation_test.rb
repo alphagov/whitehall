@@ -11,15 +11,8 @@ class DocumentLocaleParamCanonicalisationTest < ActionDispatch::IntegrationTest
     u.to_s
   end
 
-  announcement_redir_document_types = [
-    "news_article", "speech", "fatality_notice"
-  ]
-  normal_document_types = [
-    "world_location_news_article",
-    "policy", "publication", "consultation",
-    "statistical_data_set", "worldwide_priority",
-    "case_study"
-  ]
+  announcement_redir_document_types = %w(news_article speech fatality_notice)
+  normal_document_types = %w(world_location_news_article policy publication consultation statistical_data_set worldwide_priority case_study)
 
   (announcement_redir_document_types + normal_document_types).each do |doc_type|
     test "visiting a #{doc_type} with a spurious locale=en param will redirect to remove it" do
