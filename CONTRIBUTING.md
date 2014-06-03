@@ -13,7 +13,7 @@ Frontend code should follow the [css](https://github.com/alphagov/whitehall/tree
 - Work in any way you like
 - Rebase your branch into logical commits before sending a pull request -
   follow our [Git styleguide](https://github.com/alphagov/styleguides/blob/master/git.md)
-- If you're working off the [Pivotal backlog](https://www.pivotaltracker.com/s/projects/367813),
+- If you're working off the [Pivotal backlog](https://www.pivotaltracker.com/s/projects/1008986),
   include the ticket number in the pull request details
 - Pull requests are automatically integration tested using [Travis CI](https://travis-ci.org/alphagov/whitehall),
   which will report back on whether the tests still pass on your
