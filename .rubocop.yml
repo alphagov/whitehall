@@ -58,7 +58,7 @@ CaseIndentation:
 
 ClassAndModuleCamelCase:
   Description: Use CamelCase for classes and modules.
-  Enabled: false
+  Enabled: true
 
 ClassAndModuleChildren:
   Description: Checks style of children classes and modules.
@@ -86,7 +86,7 @@ CommentIndentation:
 
 ConstantName:
   Description: Constants should use SCREAMING_SNAKE_CASE.
-  Enabled: false
+  Enabled: true
 
 Debugger:
   Description: Check for debugger calls.
@@ -155,7 +155,7 @@ Eval:
 
 FileName:
   Description: Use snake_case for source file names.
-  Enabled: false
+  Enabled: true
   Exclude:
   - '**/Rakefile'
   - '**/Gemfile'
@@ -196,7 +196,7 @@ IndentationWidth:
 
 MethodName:
   Description: Use the configured style when naming methods.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
   - snake_case
@@ -428,7 +428,7 @@ UselessSetterCall:
 # Documented
 VariableName:
   Description: Use the configured style when naming variables.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
   - snake_case
