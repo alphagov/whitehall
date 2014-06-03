@@ -122,7 +122,7 @@ class AttachmentUploader < WhitehallUploader
     end
 
     class ArcGISShapefileExaminer < Examiner
-      REQUIRED_EXTS = ['shp', 'shx', 'dbf']
+      REQUIRED_EXTS = %w(shp shx dbf)
       OPTIONAL_EXTS = ['prj', 'sbn', 'sbx', 'fbn', 'fbx', 'ain', 'aih',
                        'ixs', 'mxs', 'atx', 'shp.xml', 'cpg']
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS

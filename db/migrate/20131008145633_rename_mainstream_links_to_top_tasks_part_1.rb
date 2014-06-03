@@ -8,7 +8,7 @@ class RenameMainstreamLinksToTopTasksPart1 < ActiveRecord::Migration
       t.string   "linkable_type"
       t.integer  "linkable_id"
     end
-    add_index "top_tasks", ["linkable_id", "linkable_type"]
+    add_index "top_tasks", %w(linkable_id linkable_type)
     add_index "top_tasks", ["linkable_type"]
 
     create_table "world_location_top_tasks" do |t|

@@ -437,5 +437,5 @@ VariableName:
 # Supports --auto-correct
 WordArray:
   Description: Use %w or %W for arrays of words.
-  Enabled: false
+  Enabled: true
   MinSize: 0

@@ -85,11 +85,11 @@ module Whitehall
       end
 
       def translation_fields
-        ['locale', 'translation_url'] + @translatable_fields.map {|field| "#{field}_translation" }
+	%w(locale translation_url) + @translatable_fields.map {|field| "#{field}_translation" }
       end
 
       def required_translation_fields
-        ['locale', 'translation_url'] + (@translatable_fields & @required_fields).map {|field| "#{field}_translation" }
+	%w(locale translation_url) + (@translatable_fields & @required_fields).map {|field| "#{field}_translation" }
       end
 
       def normalise(headings)
