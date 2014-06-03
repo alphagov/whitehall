@@ -148,7 +148,7 @@ module Whitehall
         end
 
         def accepted(headings)
-          cohorts = group_into_cohorts(headings).select do |cohort_number|
+          group_into_cohorts(headings).select do |cohort_number|
             cohort_number > 0 && @acceptable_cohort_count.cover?(cohort_number)
           end.values.flatten
         end
