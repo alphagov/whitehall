@@ -23,6 +23,6 @@ class FeaturedTopicsAndPoliciesList < ActiveRecord::Base
   end
 
   def no_useful_featured_item_attributes?(attrs)
-    attrs.except(:item_type, :ordering, :featured_topics_and_policies_list).all? { |a, v| v.blank? }
+    attrs.except(:item_type, :ordering, :featured_topics_and_policies_list).all? { |_, v| v.blank? }
   end
 end

@@ -9,7 +9,7 @@ worker_processes 4
 # Preload the entire app
 preload_app true
 
-before_fork do |server, worker|
+before_fork do |_, _|
   # The following is highly recomended for Rails + "preload_app true"
   # as there's no need for the master process to hold a connection.
   defined?(ActiveRecord::Base) and
@@ -19,7 +19,7 @@ before_fork do |server, worker|
   I18n.t('activerecord')
 end
 
-after_fork do |server, worker|
+after_fork do |_, _|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
 end

@@ -91,7 +91,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   def any_nil_values?(hash)
-    hash.find {|k, v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
+    hash.find {|_, v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
   end
 
   def keys_in_locale_file(locale_file)
