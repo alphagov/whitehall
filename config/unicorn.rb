@@ -12,7 +12,7 @@ preload_app true
 before_fork do |_, _|
   # The following is highly recomended for Rails + "preload_app true"
   # as there's no need for the master process to hold a connection.
-  defined?(ActiveRecord::Base) and
+  defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.connection.disconnect!
 
   # Force translations to be loaded into memory.
@@ -20,6 +20,6 @@ before_fork do |_, _|
 end
 
 after_fork do |_, _|
-  defined?(ActiveRecord::Base) and
+  defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.establish_connection
 end

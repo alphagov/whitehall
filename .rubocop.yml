@@ -28,7 +28,6 @@ Alias:
   Description: Use alias_method instead of alias.
   Enabled: false
 
-# Documented
 # Supports --auto-correct
 AndOr:
   Description: Use &&/|| instead of and/or.
@@ -44,7 +43,7 @@ AsciiIdentifiers:
 
 BlockAlignment:
   Description: Align block ends correctly.
-  Enabled: false
+  Enabled: true
 
 # Documented
 CaseIndentation:
@@ -139,7 +138,7 @@ Encoding:
 
 EndAlignment:
   Description: Align ends correctly.
-  Enabled: false
+  Enabled: true
   AlignWith: keyword
   SupportedStyles:
   - keyword

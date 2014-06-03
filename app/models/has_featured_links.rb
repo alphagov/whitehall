@@ -1,4 +1,4 @@
- module HasFeaturedLinks
+module HasFeaturedLinks
   extend ActiveSupport::Concern
 
   module ClassMethods

@@ -9,6 +9,6 @@ ENV["DISABLE_LOGGING_IN_TEST"] = "true"
 ENV['GOVUK_APP_DOMAIN'] = 'dev.gov.uk' unless ENV['GOVUK_APP_DOMAIN']
 
 require File.expand_path('../config/application', __FILE__)
-require 'ci/reporter/rake/minitest' if Rails.env.development? or Rails.env.test?
+require 'ci/reporter/rake/minitest' if Rails.env.development? || Rails.env.test?
 
 Whitehall::Application.load_tasks

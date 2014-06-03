@@ -171,7 +171,7 @@ module Whitehall
       assert_csv_contains <<-EOT.strip_heredoc
         #{attachment_source.url},https://www.test.alphagov.co.uk#{attachment.url},"",draft
       EOT
-     end
+    end
 
     test "maps localised sources to localised New URLs in addition to the the default mapping" do
       publication = create(:published_publication)
