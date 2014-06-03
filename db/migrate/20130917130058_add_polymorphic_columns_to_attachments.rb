@@ -1,10 +1,10 @@
 class AddPolymorphicColumnsToAttachments < ActiveRecord::Migration
   REDUNDANT_TABLES = [
-    ['consultation_response_attachments', 'Response'],
-    ['corporate_information_page_attachments', 'CorporateInformationPage'],
-    ['edition_attachments', 'Edition'],
-    ['policy_group_attachments', 'PolicyGroup'],
-    ['supporting_page_attachments', 'SupportingPage']
+    %w(consultation_response_attachments Response),
+    %w(corporate_information_page_attachments CorporateInformationPage),
+    %w(edition_attachments Edition),
+    %w(policy_group_attachments PolicyGroup),
+    %w(supporting_page_attachments SupportingPage)
   ]
 
   def change

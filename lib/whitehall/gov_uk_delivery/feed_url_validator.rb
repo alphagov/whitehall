@@ -121,7 +121,7 @@ module Whitehall
           fragment_for_filter_option('publication_filter_option').downcase
         elsif feed_params['announcement_filter_option'].present?
           fragment_for_filter_option('announcement_filter_option').downcase
-        elsif ['publications', 'announcements'].include? feed_type
+        elsif %w(publications announcements).include? feed_type
           feed_type
         else
           label_for_resource
@@ -188,7 +188,7 @@ module Whitehall
       end
 
       def resource_class
-        if !['organisation', 'policy', 'topic', 'topical_event', 'person', 'role', 'world_location'].include? feed_type
+        if !%w(organisation policy topic topical_event person role world_location).include? feed_type
           raise ArgumentError.new("Can't process a feed for unknown type '#{feed_type}'")
         end
         Kernel.const_get feed_type.camelize
