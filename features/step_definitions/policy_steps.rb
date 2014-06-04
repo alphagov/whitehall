@@ -51,7 +51,7 @@ end
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
   create("published_#{document_class(document_type).name.underscore}".to_sym,
-          title: document_title, related_editions: [policy])
+         title: document_title, related_editions: [policy])
 end
 
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|

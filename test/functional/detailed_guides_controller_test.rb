@@ -52,10 +52,10 @@ That's all
 
   view_test "show includes any links to related mainstream content" do
     guide = create(:published_detailed_guide,
-      related_mainstream_content_url: "http://mainstream/content",
-      related_mainstream_content_title: "Some related mainstream content",
-      additional_related_mainstream_content_url: "http://mainstream/additional-content",
-      additional_related_mainstream_content_title: "Some additional related mainstream content"
+                   related_mainstream_content_url: "http://mainstream/content",
+                   related_mainstream_content_title: "Some related mainstream content",
+                   additional_related_mainstream_content_url: "http://mainstream/additional-content",
+                   additional_related_mainstream_content_title: "Some additional related mainstream content"
     )
 
     get :show, id: guide.document

@@ -68,7 +68,7 @@ module Edition::ScheduledPublishing
     "This edition is not scheduled for publication" if !scheduled?
   end
 
-  def unschedule_as(user)
+  def unschedule_as(_user)
     if reason = reason_to_prevent_unscheduling
       errors.add(:base, reason)
       false

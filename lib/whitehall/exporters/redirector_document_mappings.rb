@@ -30,11 +30,11 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
   def edition_values(edition, document, document_source = nil)
     public_url, slug = document_url_and_slug(edition, document, document_source)
     [(document_source.try(:url) || ''),
-      public_url,
-      http_status(edition),
-      slug,
-      url_maker.admin_edition_url(edition, host: admin_host),
-      edition.state]
+     public_url,
+     http_status(edition),
+     slug,
+     url_maker.admin_edition_url(edition, host: admin_host),
+     edition.state]
   rescue => e
     Rails.logger.error("Whitehall::Exporters::RedirectorDocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
     nil

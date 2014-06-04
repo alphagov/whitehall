@@ -61,7 +61,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   end
 
   test "#search: results are returned in a CollectionPage with the correct total, page and per_page values" do
-    @mock_source.stubs(:advanced_search).with(page: '2', per_page: '10', format: 'statistics_announcement').returns('total' => 30, 'results' => 10.times.map {|n| {"title" => "A title", "metadata" => {}} })
+    @mock_source.stubs(:advanced_search).with(page: '2', per_page: '10', format: 'statistics_announcement').returns('total' => 30, 'results' => 10.times.map {|_| {"title" => "A title", "metadata" => {}} })
 
     results = Frontend::StatisticsAnnouncementProvider.search(page: 2, per_page: 10)
 
@@ -83,15 +83,15 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
                                                               organisation: organisation,
                                                               topic: topic,
                                                               statistics_announcement_dates: [build(:statistics_announcement_date,
-                                                                                                     release_date:  "2050-03-01",
-                                                                                                     precision: StatisticsAnnouncementDate::PRECISION[:two_month],
-                                                                                                     confirmed: false,
-                                                                                                     change_note: nil),
-                                                                                               build(:statistics_announcement_date,
-                                                                                                     release_date:  Time.zone.parse("2050-01-01 09:30:00"),
-                                                                                                     precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                                                                                                     confirmed: true,
-                                                                                                     change_note: 'Change note')]
+                                                                                                    release_date:  "2050-03-01",
+                                                                                                    precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+                                                                                                    confirmed: false,
+                                                                                                    change_note: nil),
+                                                                                              build(:statistics_announcement_date,
+                                                                                                    release_date:  Time.zone.parse("2050-01-01 09:30:00"),
+                                                                                                    precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                                                                                                    confirmed: true,
+                                                                                                    change_note: 'Change note')]
 
     announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(publisher_announcement.slug)
 

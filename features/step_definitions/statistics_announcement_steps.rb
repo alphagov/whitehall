@@ -1,24 +1,24 @@
 Given(/^There are some statistics announcements$/) do
   create :statistics_announcement, title: "Womble to Wombat population ratios",
-                                            summary: "All populations of wombles and wombats by region",
-                                            publication_type_id: PublicationType::Statistics.id,
-                                            current_release_date: build(:statistics_announcement_date,
-                                                                        release_date: Time.zone.parse("2050-02-15 12:45:00"),
-                                                                        precision: StatisticsAnnouncementDate::PRECISION[:exact])
+                                   summary: "All populations of wombles and wombats by region",
+                                   publication_type_id: PublicationType::Statistics.id,
+                                   current_release_date: build(:statistics_announcement_date,
+                                                               release_date: Time.zone.parse("2050-02-15 12:45:00"),
+                                                               precision: StatisticsAnnouncementDate::PRECISION[:exact])
 
   create :statistics_announcement, title: "2055 beard lengths",
-                                            summary: "Beard lengths by region and gender - 2055",
-                                            publication_type_id: PublicationType::NationalStatistics.id,
-                                            current_release_date: build(:statistics_announcement_date,
-                                                                        release_date: Time.zone.parse("2050-05-01 12:00:00"),
-                                                                        precision: StatisticsAnnouncementDate::PRECISION[:two_month])
+                                   summary: "Beard lengths by region and gender - 2055",
+                                   publication_type_id: PublicationType::NationalStatistics.id,
+                                   current_release_date: build(:statistics_announcement_date,
+                                                               release_date: Time.zone.parse("2050-05-01 12:00:00"),
+                                                               precision: StatisticsAnnouncementDate::PRECISION[:two_month])
 
   create :statistics_announcement, title: "Wombat population in Wimbledon Common 2063",
-                                            summary: "Wombat vs Womble populations in Wimbledon Common for the year 2063",
-                                            publication_type_id: PublicationType::Statistics.id,
-                                            current_release_date: build(:statistics_announcement_date,
-                                                                        release_date: Time.zone.parse("2063-02-15 12:45:00"),
-                                                                        precision: StatisticsAnnouncementDate::PRECISION[:one_month])
+                                   summary: "Wombat vs Womble populations in Wimbledon Common for the year 2063",
+                                   publication_type_id: PublicationType::Statistics.id,
+                                   current_release_date: build(:statistics_announcement_date,
+                                                               release_date: Time.zone.parse("2063-02-15 12:45:00"),
+                                                               precision: StatisticsAnnouncementDate::PRECISION[:one_month])
 
   (1..40).each do |n|
     create :statistics_announcement, title: "Extra release announcement #{n}",

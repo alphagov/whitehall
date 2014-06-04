@@ -3,7 +3,7 @@ require 'test_helper'
 class RoleTest < ActiveSupport::TestCase
   should_protect_against_xss_and_content_attacks_on :responsibilities
 
-  ['name', 'responsibilities'].each do |column_name|
+  %w(name responsibilities).each do |column_name|
     # These tests ensure that we're excluding the name and responsibilities columns from `Role.columns`.
     # You can safely remove the test, and Role.columns, once it's been deployed and we've subsequently removed
     # these columns for real.
@@ -19,13 +19,13 @@ class RoleTest < ActiveSupport::TestCase
 
   test "should return the role and organisation name" do
     role = create(:role, name: "Treasury secretary", people: [],
-                   organisations: [create(:organisation, name: "Department of Health")])
+                         organisations: [create(:organisation, name: "Department of Health")])
     assert_equal "Treasury secretary, Department of Health", role.to_s
   end
 
   test "should return the role and all organisation names" do
     role = create(:role, name: "Treasury secretary", people: [],
-                   organisations: [
+                         organisations: [
                      create(:organisation, name: "Department of Health"),
                      create(:organisation, name: "Department for Education")])
     assert_equal "Treasury secretary, Department of Health and Department for Education", role.to_s

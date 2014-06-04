@@ -85,7 +85,7 @@ Given /^a worldwide organisation "([^"]*)"$/ do |name|
   worg.main_office = create(:worldwide_office, worldwide_organisation: worg, title: "Main office for #{name}")
 end
 
-Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/ do |name, country_name, translation|
+Given /^a worldwide organisation "([^"]*)" exists for the world location "([^"]*)" with translations into "([^"]*)"$/ do |name, _, translation|
   country = create(:world_location, translated_into: [translation])
   create(:worldwide_organisation, name: name, world_locations: [country])
 end
@@ -297,7 +297,7 @@ end
 
 Then /^I should see an alphabetical list containing "([^"]*)" and "([^"]*)"$/ do |name1, name2|
   titles = [name1, name2].sort
-  titles_by_letter = titles.group_by {|title| title[0].upcase}.sort_by {|letter, titles| letter}
+  titles_by_letter = titles.group_by {|title| title[0].upcase}.sort_by {|letter, _| letter}
 
   titles_by_letter.zip(page.all(".alphabetical-row")).each do |(letter, titles), row|
     assert row.has_css?('.alphabetical-list-letter', text: letter), "No letter #{letter} found"

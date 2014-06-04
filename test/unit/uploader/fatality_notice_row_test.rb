@@ -26,7 +26,7 @@ module Whitehall::Uploader
       assert_equal "An introduction to the roll call of casualties.", row.attributes[:roll_call_introduction]
     end
 
-   test "returns the mod as its organisation" do
+    test "returns the mod as its organisation" do
       row = fatality_notice_row
       assert_equal @ministry_of_defence, row.organisation
     end
@@ -49,8 +49,8 @@ module Whitehall::Uploader
       row = Whitehall::Uploader::FatalityNoticeRow.new(sample_row, 1, @attachment_cache, logger, @image_cache)
       filehandle = File.open(Rails.root.join("test/fixtures/example_fatality_notice_image.jpg"), 'r:binary')
       expected_image = Image.new(image_data: ImageData.new(file: filehandle),
-        alt_text: "MOD Announcement",
-        caption: "Acting Chief Petty Officer Joseph Bloggs
+                                 alt_text: "MOD Announcement",
+                                 caption: "Acting Chief Petty Officer Joseph Bloggs
       [Picture: via MOD]")
 
       assert_equal [expected_image.attributes], row.attributes[:images].map {|i| i.attributes}

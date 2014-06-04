@@ -82,7 +82,7 @@ module Whitehall
         0.upto(args.size)
           .map { |s| args.combination(s) }
           .flat_map(&:to_a)
-          .map { |c| c.inject({}) { |h, a| h.merge(a) } }
+          .map { |c| c.each_with_object { |h, a| h.merge(a) } }
       end
 
       def topic_slugs
@@ -118,7 +118,7 @@ module Whitehall
       end
 
       def filter_urls
-        department_and_topic_combos = [department_slugs, topic_slugs].inject(&:product)
+        department_and_topic_combos = [department_slugs, topic_slugs].reduce(&:product)
         department_and_topic_combos.map do |(org, topic)|
           combinatorial_args = [{departments: [org]}, {topics: [topic]}]
           combinatorial_args << filter_option if filter_option

@@ -26,9 +26,9 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
       stub_request(:get, "http://example.com/attachment.txt").to_return(status: 200, body: "Some text", headers: {})
 
       csv_data = publication_csv_sample(attachment_1_url: "http://example.com/attachment.txt",
-                                          attachment_1_title: 'File title',
-                                          html_title: 'HTML title',
-                                          html_body: 'body')
+                                        attachment_1_title: 'File title',
+                                        html_title: 'HTML title',
+                                        html_body: 'body')
 
       import = create(:import, csv_data: csv_data, data_type: "publication")
       worker = ImportRowWorker.new(import.id, import.rows.first, 1)
@@ -78,7 +78,7 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  def perform_import_cleanup(&block)
+  def perform_import_cleanup(&_block)
     Import.use_separate_connection
     yield
   ensure

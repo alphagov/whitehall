@@ -225,7 +225,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text", caption: "longer-caption-for-image",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, edition: attributes
@@ -242,7 +242,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type)
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         ImageData.any_instance.expects(:file=).once
@@ -265,7 +265,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, edition: attributes
@@ -280,7 +280,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, edition: attributes
@@ -297,7 +297,7 @@ module AdminEditionControllerTestHelpers
         attributes = controller_attributes_for(edition_type, title: "")
         attributes[:images_attributes] = {
           "0" => { alt_text: "some-alt-text",
-                  image_data_attributes: attributes_for(:image_data, file: image) }
+                   image_data_attributes: attributes_for(:image_data, file: image) }
         }
 
         post :create, edition: attributes
@@ -342,7 +342,7 @@ module AdminEditionControllerTestHelpers
         image = fixture_file_upload('minister-of-funk.960x640.jpg')
         edition = create(edition_type)
         image = create(:image, alt_text: "blah", edition: edition,
-                       image_data_attributes: attributes_for(:image_data, file: image))
+                               image_data_attributes: attributes_for(:image_data, file: image))
 
         get :edit, id: edition
 
@@ -1073,10 +1073,10 @@ module AdminEditionControllerTestHelpers
 
       test "update should allow setting of a related mainstream content url and title" do
         edition = create(edition_type,
-          related_mainstream_content_url: "http://mainstream/content",
-          related_mainstream_content_title: "Some Mainstream Content",
-          additional_related_mainstream_content_url: "http://mainstream/additional-content",
-          additional_related_mainstream_content_title: "Some Additional Mainstream Content"
+                         related_mainstream_content_url: "http://mainstream/content",
+                         related_mainstream_content_title: "Some Mainstream Content",
+                         additional_related_mainstream_content_url: "http://mainstream/additional-content",
+                         additional_related_mainstream_content_title: "Some Additional Mainstream Content"
         )
 
         put :update, id: edition, edition: {
@@ -1171,8 +1171,8 @@ module AdminEditionControllerTestHelpers
 
       test "create should record the relevant_to_local_government flag" do
         post :create, edition: controller_attributes_for(edition_type,
-          first_published_at: Date.parse("2010-10-21"),
-          relevant_to_local_government: '1'
+                                                         first_published_at: Date.parse("2010-10-21"),
+                                                         relevant_to_local_government: '1'
         )
 
         assert created_publication = edition_class.last

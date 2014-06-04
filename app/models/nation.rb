@@ -18,7 +18,7 @@ class Nation
   end
 
   def self.find_by_name!(name)
-    nation = all.detect { |n| n.name == name }
+    nation = all.find { |n| n.name == name }
     nation || raise("Couldn't find Nation with name = #{name}")
   end
 end

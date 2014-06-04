@@ -53,7 +53,7 @@ module Whitehall
 
     private
       def duplicates(headings)
-        normalise(headings).group_by {|heading| heading}.reject {|k, list| list.size < 2}.keys
+        normalise(headings).group_by {|heading| heading}.reject {|_, list| list.size < 2}.keys
       end
 
       def missing(headings)
@@ -85,11 +85,11 @@ module Whitehall
       end
 
       def translation_fields
-        ['locale', 'translation_url'] + @translatable_fields.map {|field| "#{field}_translation" }
+        %w(locale translation_url) + @translatable_fields.map {|field| "#{field}_translation" }
       end
 
       def required_translation_fields
-        ['locale', 'translation_url'] + (@translatable_fields & @required_fields).map {|field| "#{field}_translation" }
+        %w(locale translation_url) + (@translatable_fields & @required_fields).map {|field| "#{field}_translation" }
       end
 
       def normalise(headings)
@@ -118,7 +118,7 @@ module Whitehall
           end.compact
         end
 
-        def method_missing(method, *args, &block)
+        def method_missing(method, *_args, &_block)
           @errors_by_category.fetch(method)
         end
 
@@ -148,7 +148,7 @@ module Whitehall
         end
 
         def accepted(headings)
-          cohorts = group_into_cohorts(headings).select do |cohort_number|
+          group_into_cohorts(headings).select do |cohort_number|
             cohort_number > 0 && @acceptable_cohort_count.cover?(cohort_number)
           end.values.flatten
         end

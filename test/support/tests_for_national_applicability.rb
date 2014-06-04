@@ -149,7 +149,7 @@ module TestsForNationalApplicability
         excluded: (nations_vs_urls.keys.include?(nation) ? "1" : "0"),
         nation_id: nation
       }
-      if existing = existing_applicabilities.detect { |ea| ea.nation_id == nation.id }
+      if existing = existing_applicabilities.find { |ea| ea.nation_id == nation.id }
         h.merge!(id: existing.id, alternative_url: existing.alternative_url)
       end
       if nations_vs_urls[nation]

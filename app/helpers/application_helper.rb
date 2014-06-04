@@ -235,7 +235,7 @@ module ApplicationHelper
       if parameters[:action] == 'home'
         root_path
       elsif parameters[:action] == 'get_involved'
-          get_involved_path
+        get_involved_path
       else
         how_government_works_path
       end
@@ -340,7 +340,7 @@ module ApplicationHelper
     Locale.new(I18n.locale).rtl?
   end
 
-  def content_tag_if_not_empty(name, options = nil, &block)
+  def content_tag_if_not_empty(name, options = nil, &_block)
     content = capture do
       yield
     end

@@ -25,24 +25,24 @@ class BadLinkReporterTest < ActiveSupport::TestCase
     assert_equal 2, embassy_csv.size
     assert_equal ['page', 'admin link', 'format', 'bad link count', 'bad links'], embassy_csv[0]
     assert_equal ['https://www.gov.uk/news',
-                   'https://whitehall-admin.production.alphagov.co.uk/government/admin/world-location-news/99999998',
-                   'WorldLocationNewsArticle',
-                   '1',
-                   'https://www.gov.uk/missing-link'], embassy_csv[1]
+                  'https://whitehall-admin.production.alphagov.co.uk/government/admin/world-location-news/99999998',
+                  'WorldLocationNewsArticle',
+                  '1',
+                  'https://www.gov.uk/missing-link'], embassy_csv[1]
 
     hmrc_csv = CSV.read(reports_dir.join('hm-revenue-customs_bad_links.csv'))
     assert_equal 3, hmrc_csv.size
     assert_equal ['page', 'admin link', 'format', 'bad link count', 'bad links'], hmrc_csv[0]
     assert_equal ['https://www.gov.uk/detailed_guide',
-                   'https://whitehall-admin.production.alphagov.co.uk/government/admin/detailed-guides/99999999',
-                   'DetailedGuide',
-                   '2',
-                   "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
+                  'https://whitehall-admin.production.alphagov.co.uk/government/admin/detailed-guides/99999999',
+                  'DetailedGuide',
+                  '2',
+                  "https://www.gov.uk/bad-link\r\nhttps://www.gov.uk/missing-link"], hmrc_csv[1]
     assert_equal ['https://www.gov.uk/publication',
-                   'https://whitehall-admin.production.alphagov.co.uk/government/admin/publications/99999997',
-                   'Publication',
-                   '1',
-                   "https://www.gov.uk/bad-link"], hmrc_csv[2]
+                  'https://whitehall-admin.production.alphagov.co.uk/government/admin/publications/99999997',
+                  'Publication',
+                  '1',
+                  "https://www.gov.uk/bad-link"], hmrc_csv[2]
   end
 
 private

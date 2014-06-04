@@ -86,7 +86,7 @@ module Edition::Organisations
 
   def at_least_one_lead_organisation
     unless skip_organisation_validation?
-      unless edition_organisations.detect { |eo| eo.lead? }
+      unless edition_organisations.find { |eo| eo.lead? }
         errors[:lead_organisations] = "at least one required"
       end
     end
@@ -118,7 +118,7 @@ module Edition::Organisations
       # find an existing instance
       existing = existing_edition_organisations
         .reject { |eo| __edition_organisations_touched_by_lead_or_supporting_organisations_setters.include?(eo) }
-        .detect { |eo| eo.organisation_id.to_s == new_organisation_id.to_s }
+ .find { |eo| eo.organisation_id.to_s == new_organisation_id.to_s }
 
       if existing
         # and remove it from the things to look at now...

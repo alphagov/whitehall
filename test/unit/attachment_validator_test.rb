@@ -7,7 +7,7 @@ class AttachmentValidatorTest < ActiveSupport::TestCase
 
   def assert_error_message(expectation, errors)
     assert errors.any? { |message| message =~ expectation },
-        "expected error messages to contain #{expectation}"
+           "expected error messages to contain #{expectation}"
   end
 
   test 'command papers cannot have a number whilst marked as unnumbered' do

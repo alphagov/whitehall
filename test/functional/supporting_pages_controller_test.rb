@@ -170,8 +170,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
     get :show, policy_id: policy.document, id: supporting_page.document
 
     assert_select "section.contextual-info .active",
-      text: policy.title,
-      count: 0
+                  text: policy.title,
+                  count: 0
   end
 
   view_test "should apply active class to the current supporting page navigation heading" do
@@ -182,11 +182,11 @@ class SupportingPagesControllerTest < ActionController::TestCase
     get :show, policy_id: policy.document, id: supporting_page.document
 
     assert_select "section.contextual-info .active",
-      text: supporting_page.title,
-      count: 1
+                  text: supporting_page.title,
+                  count: 1
     assert_select "section.contextual-info .active",
-      text: other_supporting_page.title,
-      count: 0
+                  text: other_supporting_page.title,
+                  count: 0
   end
 
   view_test "should use supporting page title as page title" do

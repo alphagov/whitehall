@@ -38,14 +38,14 @@ module Whitehall
 
     def csv_row_for(page_checker)
       [page_checker.page_url,
-        page_checker.admin_url,
-        page_checker.edition.type,
-        page_checker.raw_bad_links.size,
-        page_checker.raw_bad_links.join("\r\n")]
+       page_checker.admin_url,
+       page_checker.edition.type,
+       page_checker.raw_bad_links.size,
+       page_checker.raw_bad_links.join("\r\n")]
     end
 
     def csv_report_for_organisation(organisation)
-        csv_reports[organisation.slug] ||= CsvReport.new(csv_report_path(organisation))
+      csv_reports[organisation.slug] ||= CsvReport.new(csv_report_path(organisation))
     end
 
     def csv_report_path(organisation)

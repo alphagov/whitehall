@@ -99,7 +99,7 @@ class RoleAppointment < ActiveRecord::Base
       other_appointments_for_same_role.where("((:my_started_at BETWEEN started_at AND ended_at) AND :my_started_at != ended_at)" +
         "OR ((started_at BETWEEN :my_started_at AND :my_ended_at) AND started_at != :my_ended_at)" +
         "OR (:my_ended_at > started_at AND ended_at IS NULL)",
-        my_started_at: started_at, my_ended_at: ended_at)
+                                             my_started_at: started_at, my_ended_at: ended_at)
     end
   end
 
@@ -118,7 +118,7 @@ class RoleAppointment < ActiveRecord::Base
   end
 
   def historical_account
-    person.historical_accounts.includes(:roles).detect { |historical_account| historical_account.roles.include?(role) }
+    person.historical_accounts.includes(:roles).find { |historical_account| historical_account.roles.include?(role) }
   end
 
   def has_historical_account?

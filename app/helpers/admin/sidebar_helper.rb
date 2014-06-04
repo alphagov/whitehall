@@ -14,7 +14,7 @@ module Admin::SidebarHelper
     end
   end
 
-  def edition_tabs(edition, options = {})
+  def edition_tabs(_edition, options = {})
     options = {editing: false, history_count: 0, remarks_count: 0}.merge(options)
     {}.tap do |tabs|
       if options[:editing]
@@ -28,22 +28,22 @@ module Admin::SidebarHelper
     end
   end
 
-  def sidebar_tabs(tabs, options = {}, &block)
+  def sidebar_tabs(tabs, options = {}, &_block)
     tab_tags = tabs.map.with_index do |(id, tab_content), index|
       link_content = case tab_content
-      when String
-        tab_content
-      when Array
-        text = tab_content[0]
-        badge_content = tab_content[1]
-        badge_type = tab_content[2]
-        if badge_content
-          badge_class = badge_type ? "badge badge-#{badge_type}" : "badge"
-          text.html_safe + " " + content_tag(:span, badge_content, class: badge_class)
-        else
-          text
-        end
-      end
+                     when String
+                       tab_content
+                     when Array
+                       text = tab_content[0]
+                       badge_content = tab_content[1]
+                       badge_type = tab_content[2]
+                       if badge_content
+                         badge_class = badge_type ? "badge badge-#{badge_type}" : "badge"
+                         text.html_safe + " " + content_tag(:span, badge_content, class: badge_class)
+                       else
+                         text
+                       end
+                     end
       link = content_tag(:a, link_content, "href" => "##{id}", "data-toggle" => "tab")
       content_tag(:li, link, class: (index == 0 ? "active" : nil))
     end

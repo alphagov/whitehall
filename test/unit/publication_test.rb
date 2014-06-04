@@ -52,7 +52,7 @@ class PublicationTest < ActiveSupport::TestCase
     assert_kind_of Attachment, published.attachments.first
     assert_not_equal published.attachments, draft.attachments
     assert_equal published.attachments.first.attachment_data,
-        draft.attachments.first.attachment_data
+                 draft.attachments.first.attachment_data
     assert_equal published.first_published_at, draft.first_published_at
     assert_equal published.publication_type, draft.publication_type
   end
@@ -196,7 +196,7 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
   test 'search_format_types includes search_format_types of the publication_type' do
     publication_type = mock
     publication_type.responds_like(SpeechType.new)
-    publication_type.stubs(:search_format_types).returns (['stuff-innit', 'other-thing'])
+    publication_type.stubs(:search_format_types).returns (%w(stuff-innit other-thing))
     publication = build(:publication)
     publication.stubs(:publication_type).returns(publication_type)
     assert publication.search_format_types.include?('stuff-innit')

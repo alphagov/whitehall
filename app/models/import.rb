@@ -136,7 +136,7 @@ class Import < ActiveRecord::Base
   end
 
   def force_publishable_editions
-    imported_editions.where(state: ['draft', 'submitted'])
+    imported_editions.where(state: %w(draft submitted))
   end
 
   def force_publishable_edition_count
@@ -162,7 +162,7 @@ class Import < ActiveRecord::Base
     import_errors.count(:row_number, distinct: true)
   end
 
-  def perform(options = {})
+  def perform(_options = {})
     progress_logger.start(rows)
     rows.each_with_index do |data_row, ix|
       row_number = ix + 2
@@ -217,7 +217,7 @@ class Import < ActiveRecord::Base
   end
 
   def valid_csv_data_encoding!
-    if (csv_data)
+    if csv_data
       errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
     end
   end
@@ -242,7 +242,7 @@ class Import < ActiveRecord::Base
 
   def no_duplicate_old_urls
     urls = rows.map.with_index { |row, i| [i + 2, row['old_url']] }
-    duplicates = urls.group_by { |row_number, old_url| old_url }.select { |old_url, set| set.size > 1 }
+    duplicates = urls.group_by { |_, old_url| old_url }.select { |_, set| set.size > 1 }
     if duplicates.any?
       duplicates.each do |old_url, set|
         errors.add(:csv_data, "Duplicate old_url '#{old_url}' in rows #{set.map {|r| r[0]}.join(', ')}")

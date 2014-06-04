@@ -8,10 +8,10 @@ class PeopleControllerTest < ActionController::TestCase
   def stub_role_appointment(role_type, options = {})
     organisation = stub_translatable_record(:organisation, organisation_type: OrganisationType.ministerial_department)
     stub_record(:role_appointment,
-      {
-        role: stub_translatable_record(role_type, organisations: [organisation]),
-        person: stub_translatable_record(:person, organisations: [organisation])
-      }.merge(options)
+                {
+                  role: stub_translatable_record(role_type, organisations: [organisation]),
+                  person: stub_translatable_record(:person, organisations: [organisation])
+                }.merge(options)
     )
   end
 

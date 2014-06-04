@@ -135,7 +135,7 @@ module GovspeakHelper
 
   def render_embedded_fractions(govspeak)
     return govspeak if govspeak.blank?
-    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |match|
+    govspeak.gsub(GovspeakHelper::FRACTION_REGEXP) do |_|
       if $1.present? && $2.present?
         render(partial: 'shared/govspeak_fractions', locals: { numerator: $1, denominator: $2 })
       else
@@ -204,12 +204,12 @@ module GovspeakHelper
 
   def replacement_html_for_edition_link(anchor, edition, options = {})
     new_html = if edition.present? && edition.linkable?
-      anchor.dup.tap do |anchor|
-        anchor['href'] = public_document_url(edition, options)
-      end.to_html.html_safe
-    else
-      anchor.inner_text
-    end
+                 anchor.dup.tap do |anchor|
+                   anchor['href'] = public_document_url(edition, options)
+                 end.to_html.html_safe
+               else
+                 anchor.inner_text
+               end
 
     block_given? ? yield(new_html, edition) : new_html
   end

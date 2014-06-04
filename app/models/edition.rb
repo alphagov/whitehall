@@ -58,7 +58,7 @@ class Edition < ActiveRecord::Base
   scope :force_published,               -> { where(state: "published", force_published: true) }
   scope :not_published,                 -> { where(state: %w(draft submitted rejected)) }
 
-  scope :announcements,                 -> { where(type: Announcement.concrete_descendants.collect(&:name)) }
+  scope :announcements,                 -> { where(type: Announcement.concrete_descendants.map(&:name)) }
   scope :consultations,                 -> { where(type: "Consultation") }
   scope :detailed_guides,               -> { where(type: "DetailedGuide") }
   scope :policies,                      -> { where(type: "Policy") }
@@ -67,7 +67,7 @@ class Edition < ActiveRecord::Base
   scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
   scope :worldwide_priorities,          -> { where(type: "WorldwidePriority") }
   scope :corporate_information_pages,   -> { where(type: "CorporateInformationPage") }
-  scope :publicly_visible,              -> { where(state: ['published', 'archived']) }
+  scope :publicly_visible,              -> { where(state: %w(published archived)) }
 
   # @!group Callbacks
   before_save :set_public_timestamp
@@ -197,10 +197,10 @@ class Edition < ActiveRecord::Base
 
   def self.related_to(edition)
     related = if edition.is_a?(Policy)
-      edition.related_editions
-    else
-      edition.related_policies
-    end
+                edition.related_editions
+              else
+                edition.related_policies
+              end
 
     # This works around a wierd bug in ActiveRecord where an outer scope applied
     # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
@@ -240,8 +240,8 @@ class Edition < ActiveRecord::Base
 
   # NOTE: this scope becomes redundant once Admin::EditionFilterer is backed by an admin-only rummager index
   def self.with_classification(classification)
-    joins('INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id').
-    where("classification_memberships.classification_id" => classification.id)
+    joins('INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id')
+    .where("classification_memberships.classification_id" => classification.id)
   end
 
   def skip_main_validation?
@@ -399,7 +399,7 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def image_disallowed_in_body_text?(i)
+  def image_disallowed_in_body_text?(_i)
     false
   end
 
@@ -422,7 +422,7 @@ class Edition < ActiveRecord::Base
       raise "Cannot create new edition based on edition in the #{state} state"
     end
     draft_attributes = attributes.except(*%w{id type state created_at updated_at change_note
-      minor_change force_published scheduled_publication})
+                                             minor_change force_published scheduled_publication})
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.valid? || !draft.errors.keys.include?(:base)

@@ -3,8 +3,8 @@ class Admin::ClassificationFeaturingsController < Admin::BaseController
   before_filter :load_featuring, only: [:edit, :destroy]
 
   def index
-    filter_params = params.slice(:page, :type, :author, :organisation, :title).
-      merge(state: 'published', classification: @classification.to_param)
+    filter_params = params.slice(:page, :type, :author, :organisation, :title)
+      .merge(state: 'published', classification: @classification.to_param)
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
 
     @tagged_editions = editions_to_show

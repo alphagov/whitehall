@@ -32,7 +32,7 @@ private
   end
 
   def roles_by_person
-    expanded_roles_and_people.reduce({}) { |result, (role, person)|
+    expanded_roles_and_people.each_with_object { |result, (role, person)|
       (result[person] ||= []) << role
       result
     }

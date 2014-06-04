@@ -58,8 +58,8 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#show should display publication metadata" do
     publication = create(:published_publication,
-      first_published_at: Date.parse("1916-05-31"),
-      publication_type_id: PublicationType::Form.id
+                         first_published_at: Date.parse("1916-05-31"),
+                         publication_type_id: PublicationType::Form.id
     )
 
     get :show, id: publication.document
@@ -70,8 +70,8 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test "#show should not render empty sector metadata" do
     publication = create(:published_publication,
-      first_published_at: Date.parse("1916-05-31"),
-      publication_type_id: PublicationType::Form.id
+                         first_published_at: Date.parse("1916-05-31"),
+                         publication_type_id: PublicationType::Form.id
     )
 
     get :show, id: publication.document
@@ -320,9 +320,9 @@ class PublicationsControllerTest < ActionController::TestCase
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")
     publication = create(:published_publication, title: "publication-title",
-                         organisations: [org, org2],
-                         first_published_at: Date.parse("2012-03-14"),
-                         publication_type: PublicationType::CorporateReport)
+                                                 organisations: [org, org2],
+                                                 first_published_at: Date.parse("2012-03-14"),
+                                                 publication_type: PublicationType::CorporateReport)
 
     get :index, format: :json
 
@@ -342,9 +342,9 @@ class PublicationsControllerTest < ActionController::TestCase
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")
     consultation = create(:published_consultation, title: "consultation-title",
-                         organisations: [org, org2],
-                         opening_at: Time.zone.parse("2012-03-14"),
-                         closing_at: Time.zone.parse("2012-03-15"))
+                                                   organisations: [org, org2],
+                                                   opening_at: Time.zone.parse("2012-03-14"),
+                                                   closing_at: Time.zone.parse("2012-03-15"))
 
     get :index, format: :json
 
@@ -528,7 +528,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
   view_test '#index atom feed should include links to download attachments' do
     publication = create(:published_publication, :with_file_attachment, title: "publication-title",
-                         body: "include the attachment:\n\n!@1")
+                                                                        body: "include the attachment:\n\n!@1")
 
     get :index, format: :atom
 
@@ -670,7 +670,7 @@ class PublicationsControllerTest < ActionController::TestCase
   private
 
   def publication_with_attachment(params = {})
-    type = params.delete(:type) { |key| :file }
+    type = params.delete(:type) { |_| :file }
     trait = "with_#{type}_attachment".to_sym
     create(:published_publication, trait, body: "!@1").tap do |publication|
       attachment = publication.attachments.first

@@ -72,7 +72,7 @@ class MainstreamCategoryTest < ActiveSupport::TestCase
     @other_category = create(:mainstream_category)
 
     create(:published_detailed_guide, primary_mainstream_category: @category,
-           other_mainstream_categories: [@other_category])
+                                      other_mainstream_categories: [@other_category])
 
     assert_same_elements [@category, @other_category], MainstreamCategory.with_published_content
   end

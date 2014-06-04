@@ -5,16 +5,16 @@ class AddOrganisationBrandColourToOrganisations < ActiveRecord::Migration
   end
   class Organisation < ActiveRecord::Base
     has_many :child_organisational_relationships,
-              foreign_key: :parent_organisation_id,
-              class_name: "OrganisationalRelationship"
+             foreign_key: :parent_organisation_id,
+             class_name: "OrganisationalRelationship"
     has_many :parent_organisational_relationships,
-              foreign_key: :child_organisation_id,
-              class_name: "OrganisationalRelationship",
-              dependent: :destroy
+             foreign_key: :child_organisation_id,
+             class_name: "OrganisationalRelationship",
+             dependent: :destroy
     has_many :child_organisations,
-              through: :child_organisational_relationships
+             through: :child_organisational_relationships
     has_many :parent_organisations,
-              through: :parent_organisational_relationships
+             through: :parent_organisational_relationships
   end
 
   def up
@@ -26,14 +26,14 @@ class AddOrganisationBrandColourToOrganisations < ActiveRecord::Migration
       colour = nil
       # First, handle any exceptions to the rule
       case organisation.slug
-        when "social-mobility-and-child-poverty-commission", "forestry-commission", "forest-research"
+      when "social-mobility-and-child-poverty-commission", "forestry-commission", "forest-research"
 
-          # No brand colour
-          next
-        when "export-guarantees-advisory-council"
-          colour = OrganisationBrandColour.find("uk-export-finance")
-        when "boundary-commission-for-wales"
-          colour = OrganisationBrandColour.find("wales-office")
+        # No brand colour
+        next
+      when "export-guarantees-advisory-council"
+        colour = OrganisationBrandColour.find("uk-export-finance")
+      when "boundary-commission-for-wales"
+        colour = OrganisationBrandColour.find("wales-office")
       end
 
       # Second, see if there is a colour specifically for this org

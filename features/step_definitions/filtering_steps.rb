@@ -291,37 +291,37 @@ Given(/^there are some published announcements$/) do
   world_location = create(:world_location, name: "A World Location")
 
   create :published_news_story, title: "News Article with keyword, topic, department, world location published within date range",
-         first_published_at: "2013-02-01",
-         topics: [topic],
-         organisations: [department],
-         world_locations: [world_location]
+                                first_published_at: "2013-02-01",
+                                topics: [topic],
+                                organisations: [department],
+                                world_locations: [world_location]
   create :published_fatality_notice, title: "Fatality Notice with keyword, topic, department, world location published within date range",
-         first_published_at: "2013-02-01",
-         topics: [topic],
-         organisations: [department],
-         world_locations: [world_location]
+                                     first_published_at: "2013-02-01",
+                                     topics: [topic],
+                                     organisations: [department],
+                                     world_locations: [world_location]
   create :published_news_story, title: "News Article without wordkey",
-         first_published_at: "2013-02-01",
-         topics: [topic],
-         organisations: [department],
-         world_locations: [world_location]
+                                first_published_at: "2013-02-01",
+                                topics: [topic],
+                                organisations: [department],
+                                world_locations: [world_location]
   create :published_news_story, title: "News Article with keyword without topic",
-         first_published_at: "2013-02-01",
-         organisations: [department],
-         world_locations: [world_location]
+                                first_published_at: "2013-02-01",
+                                organisations: [department],
+                                world_locations: [world_location]
   create :published_news_story, title: "News Article with keyword without department",
-         first_published_at: "2013-02-01",
-         topics: [topic],
-         world_locations: [world_location]
+                                first_published_at: "2013-02-01",
+                                topics: [topic],
+                                world_locations: [world_location]
   create :published_news_story, title: "News Article with keyword without world location",
-         first_published_at: "2013-02-01",
-         topics: [topic],
-         organisations: [department]
+                                first_published_at: "2013-02-01",
+                                topics: [topic],
+                                organisations: [department]
   create :published_news_story, title: "News Article with keyword published out of range",
-         first_published_at: "2013-06-01",
-         topics: [topic],
-         organisations: [department],
-         world_locations: [world_location]
+                                first_published_at: "2013-06-01",
+                                topics: [topic],
+                                organisations: [department],
+                                world_locations: [world_location]
 end
 
 When(/^I visit the announcements index page$/) do

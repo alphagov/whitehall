@@ -53,8 +53,8 @@ class ActiveSupport::TestCase
 
   def count_queries
     count = 0
-    subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
-      count = count + 1
+    subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*_args|
+      count += 1
     end
     yield
     count
@@ -62,7 +62,7 @@ class ActiveSupport::TestCase
     ActiveSupport::Notifications.unsubscribe(subscriber)
   end
 
-  def with_service(service_name, service, &block)
+  def with_service(service_name, service, &_block)
     original_service = Whitehall.send(service_name)
     Whitehall.send(:"#{service_name}=", service)
     yield

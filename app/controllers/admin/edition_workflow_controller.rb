@@ -15,13 +15,13 @@ class Admin::EditionWorkflowController < Admin::BaseController
 
   rescue_from ActiveRecord::RecordInvalid do
     redirect_to admin_edition_path(@edition),
-      alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
-             "Please edit it and try again."
+                alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
+                       "Please edit it and try again."
   end
 
   rescue_from Transitions::InvalidTransition do
     redirect_to admin_edition_path(@edition),
-      alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
+                alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
   end
 
   def enforce_permissions!
@@ -50,7 +50,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def submit
     @edition.submit!
     redirect_to admin_edition_path(@edition),
-      notice: "Your document has been submitted for review by a second pair of eyes"
+                notice: "Your document has been submitted for review by a second pair of eyes"
   end
 
   def reject
@@ -59,7 +59,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       Notifications.edition_rejected(user, @edition, admin_edition_url(@edition)).deliver
     end
     redirect_to new_admin_edition_editorial_remark_path(@edition),
-      notice: "Document rejected; please explain why in an editorial remark"
+                notice: "Document rejected; please explain why in an editorial remark"
   end
 
   def publish
@@ -91,7 +91,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     @service_object = archiver_or_unpublisher_for(@edition)
 
     if @service_object.perform!
-     redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
+      redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
       @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
@@ -100,7 +100,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    if (params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule)
+    if params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
@@ -118,7 +118,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def approve_retrospectively
     if @edition.approve_retrospectively
       redirect_to admin_edition_path(@edition),
-        notice: "Thanks for reviewing; this document is no longer marked as force-published"
+                  notice: "Thanks for reviewing; this document is no longer marked as force-published"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
@@ -127,7 +127,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def convert_to_draft
     @edition.convert_to_draft!
     redirect_to admin_editions_path(session_filters.merge(state: :imported)),
-      notice: "The imported document #{@edition.title} has been converted into a draft"
+                notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
   private
@@ -142,7 +142,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def archiver_or_unpublisher_for(edition)
+  def archiver_or_unpublisher_for(_edition)
     if archiving?
       Whitehall.edition_services.archiver(@edition, user: current_user, remark: "Archived", unpublishing: unpublishing_params)
     else

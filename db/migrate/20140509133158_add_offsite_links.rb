@@ -1,12 +1,12 @@
 class AddOffsiteLinks < ActiveRecord::Migration
   def up
     create_table :offsite_links do |t|
-      t.string   "title"
-      t.string   "summary"
-      t.string   "url"
-      t.string   "link_type"
-      t.integer  "parent_id"
-      t.string   "parent_type"
+      t.string "title"
+      t.string "summary"
+      t.string "url"
+      t.string "link_type"
+      t.integer "parent_id"
+      t.string "parent_type"
       t.datetime "date"
       t.timestamps
     end

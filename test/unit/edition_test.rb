@@ -434,14 +434,14 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index data for all published editions" do
     create(:published_policy, title: "policy-title", body: "this and that",
-           summary: "policy-summary")
+                              summary: "policy-summary")
     create(:published_publication, title: "publication-title",
-           body: "stuff and things", summary: "publication-summary")
+                                   body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     results = Edition.search_index.to_a
 
-    assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
+    assert_equal %w(policy-title publication-title), results.map {|r| r['title']}
   end
 
   test "should remove published edition from search index when it's unpublished" do
@@ -485,13 +485,13 @@ class EditionTest < ActiveSupport::TestCase
     feb        = create(:edition, :published, first_published_at: Date.parse("2011-02-01"))
     second_feb = create(:edition, :published, first_published_at: Date.parse("2011-02-01"))
 
-    assert_equal [jan, feb, second_feb].collect(&:id), Edition.published.in_chronological_order.collect(&:id)
+    assert_equal [jan, feb, second_feb].map(&:id), Edition.published.in_chronological_order.map(&:id)
 
     re_editioned_feb = feb.create_draft(create(:policy_writer))
     re_editioned_feb.minor_change = true
     force_publish(re_editioned_feb)
 
-    assert_equal [jan, re_editioned_feb, second_feb].collect(&:id), Edition.published.in_chronological_order.collect(&:id)
+    assert_equal [jan, re_editioned_feb, second_feb].map(&:id), Edition.published.in_chronological_order.map(&:id)
   end
 
   test "re-editioned documents that share a timestamp are returned in document ID order and do not jump the queue when sorted in_reverse_chronological_order" do
@@ -499,13 +499,13 @@ class EditionTest < ActiveSupport::TestCase
     feb        = create(:edition, :published, first_published_at: Date.parse("2011-02-01"))
     second_feb = create(:edition, :published, first_published_at: Date.parse("2011-02-01"))
 
-    assert_equal [second_feb, feb, jan].collect(&:id), Edition.published.in_reverse_chronological_order.collect(&:id)
+    assert_equal [second_feb, feb, jan].map(&:id), Edition.published.in_reverse_chronological_order.map(&:id)
 
     re_editioned_feb = feb.create_draft(create(:policy_writer))
     re_editioned_feb.minor_change = true
     force_publish(re_editioned_feb)
 
-    assert_equal [second_feb, re_editioned_feb, jan].collect(&:id), Edition.published.in_reverse_chronological_order.collect(&:id)
+    assert_equal [second_feb, re_editioned_feb, jan].map(&:id), Edition.published.in_reverse_chronological_order.map(&:id)
   end
 
   test ".in_reverse_chronological_order works for editions that share the same document and timestamp" do
@@ -514,7 +514,7 @@ class EditionTest < ActiveSupport::TestCase
     edition_2 = create(:superseded_edition, document: document)
     edition_3 = create(:superseded_edition, document: document)
 
-    assert_equal [edition_3, edition_2, edition_1].collect(&:id), Edition.in_reverse_chronological_order.collect(&:id)
+    assert_equal [edition_3, edition_2, edition_1].map(&:id), Edition.in_reverse_chronological_order.map(&:id)
   end
 
   test ".published_before returns editions whose first_published_at is before the given date" do
@@ -771,13 +771,13 @@ class EditionTest < ActiveSupport::TestCase
   should_not_accept_footnotes_in :body
 
   test 'need ids can be stored on the edition' do
-    edition = create(:edition, need_ids: ["100001", "100002", "100003"])
+    edition = create(:edition, need_ids: %w(100001 100002 100003))
     edition.reload
-    assert_equal ["100001", "100002", "100003"], edition.need_ids
+    assert_equal %w(100001 100002 100003), edition.need_ids
   end
 
   test 'need ids ought to be six-digit integers' do
-    edition_with_invalid_need_ids = build(:edition, need_ids: ["12345", "x1234", "678905"])
+    edition_with_invalid_need_ids = build(:edition, need_ids: %w(12345 x1234 678905))
     refute edition_with_invalid_need_ids.valid?
     refute edition_with_invalid_need_ids.errors[:need_ids].empty?
 
@@ -796,7 +796,7 @@ class EditionTest < ActiveSupport::TestCase
   test 'should have associated needs when need ids are present' do
     need_api_has_need_ids([{ "id" => "000123" }, { "id" => "000456" }])
 
-    edition = create(:edition, need_ids: ["000123", "000456"])
+    edition = create(:edition, need_ids: %w(000123 000456))
 
     assert edition.has_associated_needs?
     assert_equal "000123", edition.associated_needs.first.id

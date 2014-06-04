@@ -27,7 +27,7 @@ class AttachmentUploader < WhitehallUploader
     process :generate_thumbnail
     before :store, :set_correct_content_type
 
-    def set_correct_content_type(ignore_argument)
+    def set_correct_content_type(_ignore_argument)
       @file.content_type = "image/png"
     end
   end
@@ -69,7 +69,7 @@ class AttachmentUploader < WhitehallUploader
         @filenames = zipinfo_output.split(/[\r\n]+/)
       end
       @filenames
-    rescue ArgumentError => e
+    rescue ArgumentError
       raise NonUTF8ContentsError, "Some filenames in zip aren't UTF-8: #{zipinfo_output}"
     end
 
@@ -122,7 +122,7 @@ class AttachmentUploader < WhitehallUploader
     end
 
     class ArcGISShapefileExaminer < Examiner
-      REQUIRED_EXTS = ['shp', 'shx', 'dbf']
+      REQUIRED_EXTS = %w(shp shx dbf)
       OPTIONAL_EXTS = ['prj', 'sbn', 'sbx', 'fbn', 'fbx', 'ain', 'aih',
                        'ixs', 'mxs', 'atx', 'shp.xml', 'cpg']
       ALLOWED_EXTS = REQUIRED_EXTS + OPTIONAL_EXTS
@@ -142,33 +142,33 @@ class AttachmentUploader < WhitehallUploader
       def files_by_shape_and_allowed_extension
         @files_by_shape_and_allowed_extension ||=
           Hash[
-            files_with_extensions.
-              reject { |file, ext| ext.nil? }.
-              group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}.
-              map { |shape, files|
-                [shape, files.group_by { |file, ext| ext }]
+            files_with_extensions
+              .reject { |_, ext| ext.nil? }
+              .group_by { |file, ext| file.gsub(/\.#{Regexp.escape(ext)}\Z/, '')}
+              .map { |shape, files|
+                [shape, files.group_by { |_, ext| ext }]
               }
           ]
       end
 
       def has_no_extra_files?
-        files_with_extensions.select { |(f, e)| e.nil? }.empty?
+        files_with_extensions.select { |(_, e)| e.nil? }.empty?
       end
 
       def each_shape_has_only_one_of_each_allowed_file?
-        files_by_shape_and_allowed_extension.all? do |shape, files|
-          files.
-            select { |ext, files| files.size > 1 }.
-            empty?
+        files_by_shape_and_allowed_extension.all? do |_, files|
+          files
+            .select { |_, files| files.size > 1 }
+            .empty?
         end
       end
 
       def each_shape_has_required_files?
-        files_by_shape_and_allowed_extension.all? do |shape, files|
-          files.
-            select { |ext, files| REQUIRED_EXTS.include? ext }.
-            reject { |ext, files| files.size > 1 }.
-            keys.sort == REQUIRED_EXTS.sort
+        files_by_shape_and_allowed_extension.all? do |_, files|
+          files
+            .select { |ext, _| REQUIRED_EXTS.include? ext }
+            .reject { |_, files| files.size > 1 }
+            .keys.sort == REQUIRED_EXTS.sort
         end
       end
 
@@ -211,7 +211,7 @@ class AttachmentUploader < WhitehallUploader
         ZipFile::ArcGISShapefileExaminer.new(zip_file)
       ])
     ]
-    problem = examiners.detect { |examiner| !examiner.valid? }
+    problem = examiners.find { |examiner| !examiner.valid? }
     raise CarrierWave::IntegrityError, problem.failure_message if problem
   end
 

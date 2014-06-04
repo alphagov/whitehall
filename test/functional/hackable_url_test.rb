@@ -2,7 +2,7 @@ require "test_helper"
 
 class HackableUrlTest < ActiveSupport::TestCase
   # TODO: remove statistics_announcment exemptions after statistics have been given their own site area
-  EXEMPTIONS = ['statistics_announcements', 'statistics_announcement']
+  EXEMPTIONS = %w(statistics_announcements statistics_announcement)
 
   test "should always provide an index for resources that have a show action" do
     all_routes = Rails.application.routes.routes
@@ -57,7 +57,7 @@ class HackableUrlTest < ActiveSupport::TestCase
     env = Rack::MockRequest.env_for(path, {method: "GET"})
     request = ActionDispatch::Request.new(env)
     called = false
-    Rails.application.routes.router.recognize(request) do |r, _, params|
+    Rails.application.routes.router.recognize(request) do |_, _, _|
       called = true
     end
     assert called, message

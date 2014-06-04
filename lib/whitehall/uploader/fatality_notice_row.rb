@@ -63,8 +63,8 @@ module Whitehall::Uploader
       def build(image_attributes)
         filehandle = @image_cache.fetch(image_attributes['imgurl'])
         Image.new(image_data: ImageData.new(file: filehandle),
-          alt_text: image_attributes["imgalt"],
-          caption: image_attributes["imgcapmd"])
+                  alt_text: image_attributes["imgalt"],
+                  caption: image_attributes["imgcapmd"])
       end
     end
   end

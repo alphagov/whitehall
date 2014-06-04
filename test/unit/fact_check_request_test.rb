@@ -17,9 +17,9 @@ class FactCheckRequestTest < ActiveSupport::TestCase
   end
 
   test "sets a 16 character random key during initialization" do
-    keys = 100.times.collect { FactCheckRequest.new.key }
+    keys = 100.times.map { FactCheckRequest.new.key }
     assert_equal 100, keys.compact.uniq.size
-    assert_equal [16], keys.collect(&:length).uniq
+    assert_equal [16], keys.map(&:length).uniq
     refute_equal keys.sort, keys
     refute_equal keys.sort.reverse, keys
   end

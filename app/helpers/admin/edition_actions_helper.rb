@@ -59,10 +59,10 @@ module Admin::EditionActionsHelper
   def unschedule_edition_button(edition)
     confirm = "Are you sure you want to unschedule this edition and return it to the submitted state?"
     button_to "Unschedule",
-      unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
-      title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
-      class: "btn btn-warning",
-      confirm: confirm
+              unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
+              title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
+              class: "btn btn-warning",
+              confirm: confirm
   end
 
   def delete_edition_button(edition)
@@ -73,10 +73,10 @@ module Admin::EditionActionsHelper
   def document_creation_dropdown
     content_tag(:ul, class: "more-nav left js-hidden") do
       [Consultation, Publication, NewsArticle,
-        Speech, DetailedGuide, DocumentCollection,
-        Policy, SupportingPage, FatalityNotice,
-        WorldwidePriority, CaseStudy, StatisticalDataSet,
-        WorldLocationNewsArticle].map do |edition_type|
+       Speech, DetailedGuide, DocumentCollection,
+       Policy, SupportingPage, FatalityNotice,
+       WorldwidePriority, CaseStudy, StatisticalDataSet,
+       WorldLocationNewsArticle].map do |edition_type|
         content_tag(:li) do
           link_to edition_type.model_name.human, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
         end if can?(:create, edition_type)
@@ -109,13 +109,13 @@ module Admin::EditionActionsHelper
     grouped_options_for_select(subtype_options_hash, selected)
   end
 
-  def publish_edition_alerts(edition, force)
+  def publish_edition_alerts(_edition, force)
     alerts = []
     alerts << "Are you sure you want to force publish this document?" if force
     alerts.join(" ")
   end
 
-  def schedule_edition_alerts(edition, force)
+  def schedule_edition_alerts(_edition, force)
     alerts = []
     alerts << "Are you sure you want to force schedule this document for publication?" if force
     alerts.join(" ")

@@ -9,8 +9,8 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
                                              worldwide_organisation: nil,
                                              access_and_opening_times: @access_times)
     @world_org = stub_translatable_record(:worldwide_organisation, sponsoring_organisations: [@main_sponsor],
-                                                      offices: [@office],
-                                                      access_and_opening_times: @access_times)
+                                                                   offices: [@office],
+                                                                   access_and_opening_times: @access_times)
     @world_org.stubs(:summary).returns('summary')
     @presenter = Api::WorldwideOrganisationPresenter.new(@world_org, @view_context)
     stubs_helper_method(:params).returns(format: :json)
@@ -32,7 +32,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
     Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
+    self_link = @presenter.links.find { |(_, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
     assert_equal api_worldwide_organisation_url(@world_org, host: 'test.host'), url

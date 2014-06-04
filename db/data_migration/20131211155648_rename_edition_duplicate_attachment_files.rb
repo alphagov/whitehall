@@ -28,9 +28,9 @@ DataHygiene::DuplicateAttachmentFinder.new.editions.each do |edition|
   logger.info("Fixing attachments on edition #{edition.id}")
   new_edition = edition.create_draft(gds_user)
 
-  logger.info("\tAttachments before:\t#{edition.attachments.files.collect(&:filename).to_sentence}")
+  logger.info("\tAttachments before:\t#{edition.attachments.files.map(&:filename).to_sentence}")
   DataHygiene::DupFilenameAttachmentFixer.new(new_edition).run!
-  logger.info("\tAttachments after:\t#{new_edition.attachments.files.collect(&:filename).to_sentence}")
+  logger.info("\tAttachments after:\t#{new_edition.attachments.files.map(&:filename).to_sentence}")
 
   new_edition.minor_change = true
   new_edition.editorial_remarks.create!(author: gds_user, body: "Duplicate attachment files renamed")

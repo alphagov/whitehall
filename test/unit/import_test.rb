@@ -52,7 +52,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'valid if a whole row is completely blank' do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k, v| [k, '']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k, _| [k, '']}]
     i = new_import(csv_data: consultation_csv_sample(blank_row))
     assert i.valid?, i.errors.full_messages.join(", ")
   end
@@ -204,7 +204,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test "#perform skips blank rows" do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k, v| [k, '']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k, _| [k, '']}]
 
     perform_import_cleanup do
       i = perform_import(csv_data: consultation_csv_sample({}, [blank_row]))
@@ -238,21 +238,21 @@ class ImportTest < ActiveSupport::TestCase
   test 'logs failure if save unsuccessful' do
     perform_import_cleanup do
       import = perform_import(csv_data: consultation_csv_sample('body' => nil))
-      assert import.import_errors.detect {|e| e[:message] =~ /body: can't be blank/}
+      assert import.import_errors.find {|e| e[:message] =~ /body: can't be blank/}
     end
   end
 
   test 'logs failure if unable to parse a date' do
     perform_import_cleanup do
       i = perform_import(csv_data: consultation_csv_sample("opening_date" => "31/10/2012"))
-      assert i.import_errors.detect {|e| e[:message] =~ /Unable to parse the date/}
+      assert i.import_errors.find {|e| e[:message] =~ /Unable to parse the date/}
     end
   end
 
   test 'logs failure if unable to find an organisation' do
     perform_import_cleanup do
       i = perform_import(csv_data: consultation_csv_sample("organisation" => "does-not-exist"))
-      assert i.import_errors.detect {|e| e[:message] =~ /Unable to find Organisation/}
+      assert i.import_errors.find {|e| e[:message] =~ /Unable to find Organisation/}
     end
   end
 
@@ -333,7 +333,7 @@ class ImportTest < ActiveSupport::TestCase
   end
 
   test 'it is not force_publishable? if it succeeded but imported no editions' do
-    blank_row = Hash[minimally_valid_consultation_row.map {|k, v| [k, '']}]
+    blank_row = Hash[minimally_valid_consultation_row.map {|k, _| [k, '']}]
     import = perform_import(csv_data: consultation_csv_sample(blank_row))
     refute import.force_publishable?
   end
@@ -476,7 +476,7 @@ class ImportTest < ActiveSupport::TestCase
     end
   end
 
-  def perform_import_cleanup(&block)
+  def perform_import_cleanup(&_block)
     Import.use_separate_connection
     yield
   ensure

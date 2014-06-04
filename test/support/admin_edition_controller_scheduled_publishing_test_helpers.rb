@@ -69,8 +69,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
 
       test "create should not set scheduled_publication if scheduled_publication_active is not checked" do
         edition_attributes = controller_attributes_for(edition_type,
-          first_published_at: Date.parse("2010-10-21"),
-          publication_type_id: PublicationType::ResearchAndAnalysis.id
+                                                       first_published_at: Date.parse("2010-10-21"),
+                                                       publication_type_id: PublicationType::ResearchAndAnalysis.id
         ).merge(scheduled_publication_attributes(Time.zone.now))
 
         post :create, {scheduled_publication_active: "0", edition: edition_attributes}
@@ -82,8 +82,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
       test "create should set scheduled_publication if scheduled_publication_active is checked" do
         selected_time = Time.zone.parse("2012-01-01 09:30")
         edition_attributes = controller_attributes_for(edition_type,
-          first_published_at: Date.parse("2010-10-21"),
-          publication_type_id: PublicationType::ResearchAndAnalysis.id
+                                                       first_published_at: Date.parse("2010-10-21"),
+                                                       publication_type_id: PublicationType::ResearchAndAnalysis.id
         ).merge(scheduled_publication_attributes(selected_time))
 
         post :create, {scheduled_publication_active: "1", edition: edition_attributes}
@@ -146,8 +146,8 @@ module AdminEditionControllerScheduledPublishingTestHelpers
           first_published_at: Date.parse("2010-06-18"))
 
         put :update, id: edition,
-          edition: edition_attributes,
-          scheduled_publication_active: "1"
+                     edition: edition_attributes,
+                     scheduled_publication_active: "1"
 
         saved_edition = edition.reload
         assert_equal selected_time, saved_edition.scheduled_publication

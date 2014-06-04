@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :worldwide_priority, class: WorldwidePriority, parent: :edition_with_organisations do
     title "worldwide-priority-title"
-    body  "worldwide-priority-body"
+    body "worldwide-priority-body"
     summary "worldwide-priority-summary"
   end
 

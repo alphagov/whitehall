@@ -39,7 +39,7 @@ class BulkUpload
   end
 
   def attachments_attributes=(attributes)
-    @attachments = attributes.map do |index, params|
+    @attachments = attributes.map do |_, params|
       attachment_attrs = params.except(:attachment_data_attrs)
       data_attrs = params.fetch(:attachment_data_attributes, {})
       find_and_update_existing_attachment(attachment_attrs, data_attrs) || FileAttachment.new(params)
@@ -87,7 +87,7 @@ class BulkUpload
   end
 
   class ZipFile
-    extend  ActiveModel::Naming
+    extend ActiveModel::Naming
     include ActiveModel::Validations
     include ActiveModel::Conversion
 

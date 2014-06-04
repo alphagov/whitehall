@@ -5,16 +5,16 @@ class Organisation < ActiveRecord::Base
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   has_many :child_organisational_relationships,
-            foreign_key: :parent_organisation_id,
-            class_name: "OrganisationalRelationship"
+           foreign_key: :parent_organisation_id,
+           class_name: "OrganisationalRelationship"
   has_many :parent_organisational_relationships,
-            foreign_key: :child_organisation_id,
-            class_name: "OrganisationalRelationship",
-            dependent: :destroy
+           foreign_key: :child_organisation_id,
+           class_name: "OrganisationalRelationship",
+           dependent: :destroy
   has_many :child_organisations,
-            through: :child_organisational_relationships
+           through: :child_organisational_relationships
   has_many :parent_organisations,
-            through: :parent_organisational_relationships
+           through: :parent_organisational_relationships
 
   has_many :edition_organisations, dependent: :destroy
   has_many :editions, through: :edition_organisations
@@ -23,43 +23,43 @@ class Organisation < ActiveRecord::Base
   has_many :roles, through: :organisation_roles
   has_many :groups
   has_many :ministerial_roles,
-            class_name: 'MinisterialRole',
-            through: :organisation_roles,
-            source: :role,
-            conditions: "roles.whip_organisation_id IS null"
+           class_name: 'MinisterialRole',
+           through: :organisation_roles,
+           source: :role,
+           conditions: "roles.whip_organisation_id IS null"
   has_many :ministerial_whip_roles,
-            class_name: 'MinisterialRole',
-            through: :organisation_roles,
-            source: :role,
-            conditions: "roles.whip_organisation_id IS NOT null"
+           class_name: 'MinisterialRole',
+           through: :organisation_roles,
+           source: :role,
+           conditions: "roles.whip_organisation_id IS NOT null"
   has_many :management_roles,
-            through: :organisation_roles,
-            source: :role,
-            conditions: "type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'"
+           through: :organisation_roles,
+           source: :role,
+           conditions: "type = 'BoardMemberRole' OR type = 'ChiefScientificAdvisorRole'"
   has_many :military_roles,
-            class_name: 'MilitaryRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'MilitaryRole',
+           through: :organisation_roles,
+           source: :role
   has_many :traffic_commissioner_roles,
-            class_name: 'TrafficCommissionerRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'TrafficCommissionerRole',
+           through: :organisation_roles,
+           source: :role
   has_many :chief_professional_officer_roles,
-            class_name: 'ChiefProfessionalOfficerRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'ChiefProfessionalOfficerRole',
+           through: :organisation_roles,
+           source: :role
   has_many :special_representative_roles,
-            class_name: 'SpecialRepresentativeRole',
-            through: :organisation_roles,
-            source: :role
+           class_name: 'SpecialRepresentativeRole',
+           through: :organisation_roles,
+           source: :role
   has_many :ministerial_role_appointments,
-            class_name: 'RoleAppointment',
-            through: :ministerial_roles,
-            source: :role_appointments
+           class_name: 'RoleAppointment',
+           through: :ministerial_roles,
+           source: :role_appointments
   has_many :ministerial_whip_role_appointments,
-            class_name: 'RoleAppointment',
-            through: :ministerial_whip_roles,
-            source: :role_appointments
+           class_name: 'RoleAppointment',
+           through: :ministerial_whip_roles,
+           source: :role_appointments
 
   has_many :people, through: :roles
 
@@ -310,7 +310,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def display_name
-    [acronym, name].detect { |s| s.present? }
+    [acronym, name].find { |s| s.present? }
   end
 
   def select_name

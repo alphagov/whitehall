@@ -1,5 +1,5 @@
 module Admin::DocumentCollectionHelper
-  def document_collection_select_options(edition, user, selected_ids)
+  def document_collection_select_options(_edition, _user, selected_ids)
     options = Rails.cache.fetch("document_collection_select_options", expires_in: 30.minutes) do
       DocumentCollection.latest_edition.alphabetical.includes(:groups).flat_map  do |collection|
         collection.groups.map do |group|

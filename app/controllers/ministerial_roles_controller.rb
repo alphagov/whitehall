@@ -36,11 +36,11 @@ private
   end
 
   def ministers_by_organisation
-    Organisation.ministerial_departments.
-                 with_translations.
-                 with_translations_for(:ministerial_roles).
-                 includes(ministerial_roles: [:current_people]).
-                 order('organisation_roles.ordering').map do |organisation|
+    Organisation.ministerial_departments
+   .with_translations
+   .with_translations_for(:ministerial_roles)
+   .includes(ministerial_roles: [:current_people])
+   .order('organisation_roles.ordering').map do |organisation|
       roles_presenter = RolesPresenter.new(organisation.ministerial_roles, view_context)
       roles_presenter.remove_unfilled_roles!
       [organisation, roles_presenter]
@@ -52,6 +52,6 @@ private
       roles_presenter = RolesPresenter.new(roles.sort_by(&:whip_ordering), view_context)
       roles_presenter.remove_unfilled_roles!
       [Whitehall::WhipOrganisation.find_by_id(whip_organisation_id), roles_presenter]
-    end.sort_by { |org, whips| org.sort_order }
+    end.sort_by { |org, _| org.sort_order }
   end
 end

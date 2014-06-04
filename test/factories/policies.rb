@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :policy, class: Policy, parent: :edition, traits: [:with_organisations, :with_topics] do
     sequence(:title) { |index| "policy-title-#{index}" }
-    body    "policy-body"
+    body "policy-body"
     summary "policy-summary"
   end
 

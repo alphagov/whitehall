@@ -5,7 +5,7 @@ class EmailSignupTest < ActiveSupport::TestCase
     assert_equal feed_url("publications.atom"),
                  email_signup("publications.atom").feed
     assert_equal feed_url("publications.atom"),
-                  email_signup("publications.atom", false).feed
+                 email_signup("publications.atom", false).feed
     assert_equal feed_url("feed?relevant_to_local_government=1"),
                  email_signup("feed", true).feed
     assert_equal feed_url("publications.atom?departments[]=all&relevant_to_local_government=1"),

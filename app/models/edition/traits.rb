@@ -6,9 +6,9 @@ module Edition::Traits
       @edition = edition
     end
 
-    def process_associations_before_save(edition); end
+    def process_associations_before_save(_edition); end
 
-    def process_associations_after_save(edition); end
+    def process_associations_after_save(_edition); end
   end
 
   included do

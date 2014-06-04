@@ -11,8 +11,8 @@ class WorldwidePrioritiesControllerTest < ActionController::TestCase
 
   view_test "show displays worldwide priority details" do
     priority = create(:published_worldwide_priority,
-      title: "priority-title",
-      body: "priority-body",
+                      title: "priority-title",
+                      body: "priority-body",
     )
 
     get :show, id: priority.document

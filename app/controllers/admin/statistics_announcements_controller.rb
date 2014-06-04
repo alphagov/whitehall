@@ -3,10 +3,10 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
 
   def index
-    @statistics_announcements = StatisticsAnnouncement.
-                                  includes(:current_release_date).
-                                  order(current_release_date: :release_date).
-                                  page(params[:page])
+    @statistics_announcements = StatisticsAnnouncement
+      .includes(:current_release_date)
+      .order(current_release_date: :release_date)
+      .page(params[:page])
   end
 
   def new

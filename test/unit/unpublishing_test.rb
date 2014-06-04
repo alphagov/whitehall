@@ -90,7 +90,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     document = create(:document, slug: 'detailed-guide')
     edition = create(:detailed_guide, :draft, document: document)
     unpublishing = create(:unpublishing, edition: edition,
-                          unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
+                                         unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
 
     original_path = '/detailed-guide'
     assert_equal original_path, unpublishing.document_path
@@ -100,7 +100,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     document = create(:document, slug: 'deleted-detailed-guide')
     edition = create(:detailed_guide, :deleted, document: document)
     unpublishing = create(:unpublishing, edition: edition, slug: 'detailed-guide',
-                          unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
+                                         unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
 
     # The default scope on Edition stops deleted editions being found when an
     # unpublishing is loaded. To trigger the bug we need to reload.

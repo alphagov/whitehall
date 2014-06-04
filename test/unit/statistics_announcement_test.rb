@@ -125,21 +125,21 @@ private
     announcement = create(:statistics_announcement)
     minor_change = Timecop.travel(1.day) do
       create(:statistics_announcement_date,
-              statistics_announcement: announcement,
-              release_date: announcement.release_date + 1.week)
+             statistics_announcement: announcement,
+             release_date: announcement.release_date + 1.week)
     end
     major_change = Timecop.travel(2.days) do
       create(:statistics_announcement_date,
-              statistics_announcement: announcement,
-              release_date: announcement.release_date + 1.month,
-              change_note: 'Delayed because of census')
+             statistics_announcement: announcement,
+             release_date: announcement.release_date + 1.month,
+             change_note: 'Delayed because of census')
     end
     minor_change = Timecop.travel(3.days) do
       create(:statistics_announcement_date,
-              statistics_announcement: announcement,
-              release_date: major_change.release_date,
-              precision: StatisticsAnnouncementDate::PRECISION[:exact],
-              confirmed: true)
+             statistics_announcement: announcement,
+             release_date: major_change.release_date,
+             precision: StatisticsAnnouncementDate::PRECISION[:exact],
+             confirmed: true)
     end
 
     announcement

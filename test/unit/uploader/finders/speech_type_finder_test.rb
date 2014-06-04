@@ -9,7 +9,7 @@ class Whitehall::Uploader::Finders::SpeechTypeFinderTest < ActiveSupport::TestCa
   end
 
   def find(slug)
-Whitehall::Uploader::Finders::SpeechTypeFinder.find(slug, @log, @line_number)
+    Whitehall::Uploader::Finders::SpeechTypeFinder.find(slug, @log, @line_number)
   end
 
   test "returns the speech type found by the slug" do

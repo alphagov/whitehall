@@ -2,10 +2,10 @@ require 'cgi'
 
 class MainstreamCategory < ActiveRecord::Base
   has_many :primary_detailed_guides, class_name: "DetailedGuide",
-           foreign_key: "primary_mainstream_category_id"
+                                     foreign_key: "primary_mainstream_category_id"
   has_many :edition_mainstream_categories, dependent: :destroy
   has_many :other_detailed_guides, through: :edition_mainstream_categories,
-           source: :edition, class_name: "DetailedGuide"
+                                   source: :edition, class_name: "DetailedGuide"
 
   validates :title, :parent_title, :parent_tag, :slug, presence: true
 

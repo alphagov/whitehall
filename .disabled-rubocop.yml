@@ -2,32 +2,32 @@ AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
 
+# Type 'Style' (133):
 # Supports --auto-correct
-AlignArray:
-  Description: Align the elements of an array literal if they span more than one line.
+AccessModifierIndentation:
+  Description: Check indentation of private/protected visibility modifiers.
   Enabled: false
-
-# Supports --auto-correct
-AlignHash:
-  Description: Align the elements of a hash literal if they span more than one line.
-  Enabled: false
-  EnforcedHashRocketStyle: key
-  EnforcedColonStyle: key
-  EnforcedLastArgumentHashStyle: always_inspect
-  SupportedLastArgumentHashStyles:
-  - always_inspect
-  - always_ignore
-  - ignore_implicit
-  - ignore_explicit
-
-# Supports --auto-correct
-AlignParameters:
-  Description: Align the parameters of a method call if they span more than one line.
-  Enabled: false
-  EnforcedStyle: with_first_parameter
+  EnforcedStyle: indent
   SupportedStyles:
-  - with_first_parameter
-  - with_fixed_indentation
+  - outdent
+  - indent
+
+# Type 'Rails' (8):
+# Supports --auto-correct
+ActionFilter:
+  Description: Enforces consistent use of action filter methods.
+  Enabled: false
+  EnforcedStyle: action
+  SupportedStyles:
+  - action
+  - filter
+  Include:
+  - app/controllers/**/*.rb
+
+# Supports --auto-correct
+Alias:
+  Description: Use alias_method instead of alias.
+  Enabled: false
 
 AmbiguousOperator:
   Description: Checks for ambiguous operators in the first argument of a method invocation
@@ -39,8 +39,21 @@ AmbiguousRegexpLiteral:
     invocation without parenthesis.
   Enabled: false
 
+# Supports --auto-correct
+AndOr:
+  Description: Use &&/|| instead of and/or.
+  Enabled: false
+
 ArrayJoin:
   Description: Use Array#join instead of Array#*.
+  Enabled: false
+
+AsciiComments:
+  Description: Use only ascii symbols in comments.
+  Enabled: false
+
+AsciiIdentifiers:
+  Description: Use only ascii symbols in identifiers.
   Enabled: false
 
 AssignmentInCondition:
@@ -90,6 +103,14 @@ CharacterLiteral:
   Description: Checks for uses of character literals.
   Enabled: false
 
+ClassAndModuleChildren:
+  Description: Checks style of children classes and modules.
+  Enabled: false
+  EnforcedStyle: nested
+  SupportedStyles:
+  - nested
+  - compact
+
 ClassLength:
   Description: Avoid classes longer than 100 lines of code.
   Enabled: false
@@ -119,6 +140,11 @@ CommentAnnotation:
   - OPTIMIZE
   - HACK
   - REVIEW
+
+# Supports --auto-correct
+CommentIndentation:
+  Description: Indentation of comments.
+  Enabled: false
 
 ConditionPosition:
   Description: Checks for condition placed in a confusing position relative to the keyword.
@@ -175,6 +201,14 @@ EmptyLiteral:
   Description: Prefer literals to Array.new/Hash.new/String.new.
   Enabled: false
 
+Encoding:
+  Description: Use UTF-8 as the source file encoding.
+  Enabled: false
+  EnforcedStyle: always
+  SupportedStyles:
+  - when_needed
+  - always
+
 EndBlock:
   Description: Avoid the use of END blocks.
   Enabled: false
@@ -190,6 +224,14 @@ EndInMethod:
 EvenOdd:
   Description: Favor the use of Fixnum#even? && Fixnum#odd?
   Enabled: false
+
+FileName:
+  Description: Use snake_case for source file names.
+  Enabled: false
+  Exclude:
+  - '**/Rakefile'
+  - '**/Gemfile'
+  - '**/Capfile'
 
 FlipFlop:
   Description: Checks for flip flops
@@ -223,6 +265,11 @@ HasAndBelongsToMany:
   Enabled: false
   Include:
   - app/models/**/*.rb
+
+IfUnlessModifier:
+  Description: Favor modifier if/unless usage when you have a single-line body.
+  Enabled: false
+  MaxLineLength: 80
 
 IfWithSemicolon:
   Description: Never use if x; .... Use the ternary operator instead.
@@ -324,6 +371,10 @@ MultilineBlockChain:
   Description: Avoid multi-line chains of blocks.
   Enabled: false
 
+MultilineIfThen:
+  Description: Never use then for multi-line if/unless.
+  Enabled: false
+
 MultilineTernaryOperator:
   Description: 'Avoid multi-line ?: (the ternary operator); use if/unless instead.'
   Enabled: false
@@ -373,6 +424,10 @@ ParameterLists:
   Enabled: false
   Max: 5
   CountKeywordArgs: true
+
+ParenthesesAsGroupedExpression:
+  Description: Checks for method calls with a space before the opening parenthesis.
+  Enabled: false
 
 # Supports --auto-correct
 PercentLiteralDelimiters:
@@ -549,6 +604,40 @@ SymbolArray:
   Description: Use %i or %I for arrays of symbols.
   Enabled: false
 
+TrailingComma:
+  Description: Checks for trailing comma in parameter lists and literals.
+  Enabled: false
+  EnforcedStyleForMultiline: comma
+  SupportedStyles:
+  - comma
+  - no_comma
+
+# Supports --auto-correct
+TrivialAccessors:
+  Description: Prefer attr_* methods to trivial readers/writers.
+  Enabled: false
+  ExactNameMatch: false
+  AllowPredicates: false
+  AllowDSLWriters: false
+  Whitelist:
+  - to_ary
+  - to_a
+  - to_c
+  - to_enum
+  - to_h
+  - to_hash
+  - to_i
+  - to_int
+  - to_io
+  - to_open
+  - to_path
+  - to_proc
+  - to_r
+  - to_regexp
+  - to_str
+  - to_s
+  - to_sym
+
 UnlessElse:
   Description: Never use unless with else. Rewrite these with the positive case first.
   Enabled: false
@@ -560,6 +649,10 @@ UnneededCapitalW:
 # Supports --auto-correct
 UnneededPercentX:
   Description: Checks for %x when `` would do.
+  Enabled: false
+
+UselessAccessModifier:
+  Description: Checks for useless access modifiers.
   Enabled: false
 
 Validation:
@@ -580,11 +673,6 @@ VariableInterpolation:
 # Supports --auto-correct
 WhenThen:
   Description: Use when x then ... for one-line cases.
-  Enabled: false
-
-# Supports --auto-correct
-WhileUntilDo:
-  Description: Checks for redundant do after while or until.
   Enabled: false
 
 WhileUntilModifier:

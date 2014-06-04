@@ -1,55 +1,41 @@
 inherit_from:
   - .disabled-rubocop.yml
 
-# Type 'Style' (133):
 # Supports --auto-correct
-AccessModifierIndentation:
-  Description: Check indentation of private/protected visibility modifiers.
-  Enabled: false
-  EnforcedStyle: indent
+AlignArray:
+  Description: Align the elements of an array literal if they span more than one line.
+  Enabled: true
+
+# Supports --auto-correct
+AlignHash:
+  Description: Align the elements of a hash literal if they span more than one line.
+  Enabled: true
+  EnforcedHashRocketStyle: key
+  EnforcedColonStyle: key
+  EnforcedLastArgumentHashStyle: always_inspect
+  SupportedLastArgumentHashStyles:
+  - always_inspect
+  - always_ignore
+  - ignore_implicit
+  - ignore_explicit
+
+# Supports --auto-correct
+AlignParameters:
+  Description: Align the parameters of a method call if they span more than one line.
+  Enabled: true
+  EnforcedStyle: with_first_parameter
   SupportedStyles:
-  - outdent
-  - indent
-
-# Type 'Rails' (8):
-# Supports --auto-correct
-ActionFilter:
-  Description: Enforces consistent use of action filter methods.
-  Enabled: false
-  EnforcedStyle: action
-  SupportedStyles:
-  - action
-  - filter
-  Include:
-  - app/controllers/**/*.rb
-
-# Supports --auto-correct
-Alias:
-  Description: Use alias_method instead of alias.
-  Enabled: false
-
-# Documented
-# Supports --auto-correct
-AndOr:
-  Description: Use &&/|| instead of and/or.
-  Enabled: false
-
-AsciiComments:
-  Description: Use only ascii symbols in comments.
-  Enabled: false
-
-AsciiIdentifiers:
-  Description: Use only ascii symbols in identifiers.
-  Enabled: false
+  - with_first_parameter
+  - with_fixed_indentation
 
 BlockAlignment:
   Description: Align block ends correctly.
-  Enabled: false
+  Enabled: true
 
 # Documented
 CaseIndentation:
   Description: Indentation of when in a case/when/[else/]end.
-  Enabled: false
+  Enabled: true
   IndentWhenRelativeTo: case
   SupportedStyles:
   - case
@@ -60,18 +46,10 @@ ClassAndModuleCamelCase:
   Description: Use CamelCase for classes and modules.
   Enabled: true
 
-ClassAndModuleChildren:
-  Description: Checks style of children classes and modules.
-  Enabled: false
-  EnforcedStyle: nested
-  SupportedStyles:
-  - nested
-  - compact
-
 # Supports --auto-correct
 CollectionMethods:
   Description: Preferred collection methods.
-  Enabled: false
+  Enabled: true
   PreferredMethods:
     collect: map
     collect!: map!
@@ -79,32 +57,27 @@ CollectionMethods:
     detect: find
     find_all: select
 
-# Supports --auto-correct
-CommentIndentation:
-  Description: Indentation of comments.
-  Enabled: false
-
 ConstantName:
   Description: Constants should use SCREAMING_SNAKE_CASE.
   Enabled: true
 
 Debugger:
   Description: Check for debugger calls.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 Delegate:
   Description: Prefer delegate method for delegations.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 DefWithParentheses:
   Description: Use def with parentheses when there are arguments.
-  Enabled: false
+  Enabled: true
 
 DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: leading
   SupportedStyles:
   - leading
@@ -112,11 +85,11 @@ DotPosition:
 
 EachWithObject:
   Description: Prefer `each_with_object` over `inject` or `reduce`.
-  Enabled: false
+  Enabled: true
 
 ElseLayout:
   Description: Check for odd code arrangement in an else block.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 EmptyLineBetweenDefs:
@@ -129,17 +102,9 @@ EmptyLines:
   Description: Don't use several empty lines in a row.
   Enabled: true
 
-Encoding:
-  Description: Use UTF-8 as the source file encoding.
-  Enabled: false
-  EnforcedStyle: always
-  SupportedStyles:
-  - when_needed
-  - always
-
 EndAlignment:
   Description: Align ends correctly.
-  Enabled: false
+  Enabled: true
   AlignWith: keyword
   SupportedStyles:
   - keyword
@@ -147,29 +112,20 @@ EndAlignment:
 
 EnsureReturn:
   Description: Never use return in an ensure block.
-  Enabled: false
+  Enabled: true
 
 Eval:
   Description: The use of eval represents a serious security risk.
-  Enabled: false
-
-FileName:
-  Description: Use snake_case for source file names.
   Enabled: true
-  Exclude:
-  - '**/Rakefile'
-  - '**/Gemfile'
-  - '**/Capfile'
 
 For:
   Description: Checks use of for or each in multiline loops.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: each
   SupportedStyles:
   - for
   - each
 
-# Documented
 # Supports --auto-correct
 HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
@@ -183,16 +139,10 @@ HashSyntax:
   - ruby19
   - hash_rockets
 
-IfUnlessModifier:
-  Description: Favor modifier if/unless usage when you have a single-line body.
-  Enabled: false
-  MaxLineLength: 80
-
-# Documented
 # Supports --auto-correct
 IndentationWidth:
   Description: Use 2 spaces for indentation.
-  Enabled: false
+  Enabled: true
 
 MethodName:
   Description: Use the configured style when naming methods.
@@ -202,64 +152,53 @@ MethodName:
   - snake_case
   - camelCase
 
-# Documented
-MultilineIfThen:
-  Description: Never use then for multi-line if/unless.
-  Enabled: false
-
 # Supports --auto-correct
 NilComparison:
   Description: Prefer x.nil? to x == nil.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 NonNilCheck:
   Description: Checks for redundant nil checks.
-  Enabled: false
+  Enabled: true
   IncludeSemanticChanges: false
 
 # Supports --auto-correct
 Not:
   Description: Use ! instead of not.
-  Enabled: false
-
-ParenthesesAsGroupedExpression:
-  Description: Checks for method calls with a space before the opening parenthesis.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 ParenthesesAroundCondition:
   Description: Don't use parentheses around the condition of an if/unless/while.
-  Enabled: false
+  Enabled: true
   AllowSafeAssignment: true
 
 # Supports --auto-correct
 RedundantReturn:
   Description: Don't use return where it's not required.
-  Enabled: false
+  Enabled: true
   AllowMultipleReturnValues: false
 
 RequireParentheses:
   Description: Use parentheses in the method call to avoid confusion about precedence.
-  Enabled: false
+  Enabled: true
 
 SelfAssignment:
   Description: 'Checks for places where self-assignment shorthand should have been used.'
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SingleSpaceBeforeFirstArg:
   Description: Checks that exactly one space is used between a method name and the first
     argument for method calls without parentheses.
-  Enabled: false
+  Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
@@ -281,13 +220,11 @@ SpaceAfterNot:
   Description: Tracks redundant space after the ! operator.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
@@ -298,13 +235,11 @@ SpaceAroundEqualsInParameterDefault:
   - space
   - no_space
 
-# Documented
 # Supports --auto-correct
 SpaceAroundOperators:
   Description: Use spaces around operators.
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
@@ -325,13 +260,11 @@ SpaceInsideBrackets:
   Description: No spaces after [ or before ].
   Enabled: true
 
-# Documented
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
   Enabled: true
 
-# Documented
 Tab:
   Description: No hard tabs.
   Enabled: true
@@ -345,85 +278,48 @@ TrailingBlankLines:
   - final_newline
   - final_blank_line
 
-#Documented
-TrailingComma:
-  Description: Checks for trailing comma in parameter lists and literals.
-  Enabled: false
-  EnforcedStyleForMultiline: comma
-  SupportedStyles:
-  - comma
-  - no_comma
-
-# Documented
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
   Enabled: true
 
-# Supports --auto-correct
-TrivialAccessors:
-  Description: Prefer attr_* methods to trivial readers/writers.
-  Enabled: false
-  ExactNameMatch: false
-  AllowPredicates: false
-  AllowDSLWriters: false
-  Whitelist:
-  - to_ary
-  - to_a
-  - to_c
-  - to_enum
-  - to_h
-  - to_hash
-  - to_i
-  - to_int
-  - to_io
-  - to_open
-  - to_path
-  - to_proc
-  - to_r
-  - to_regexp
-  - to_str
-  - to_s
-  - to_sym
-
 UnderscorePrefixedVariableName:
   Description: Do not use prefix `_` for a variable that is used.
-  Enabled: false
+  Enabled: true
 
 UnreachableCode:
   Description: Unreachable code.
-  Enabled: false
+  Enabled: true
 
-# Documented
 # Supports --auto-correct
 UnusedBlockArgument:
   Description: Checks for unused block arguments.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 UnusedMethodArgument:
   Description: Checks for unused method arguments.
-  Enabled: false
-
-UselessAccessModifier:
-  Description: Checks for useless access modifiers.
-  Enabled: false
+  Enabled: true
 
 UselessAssignment:
   Description: Checks for useless assignment to a local variable.
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - test/**/**
+    - features/step_definitions/**
+    - features/support/**
 
 UselessComparison:
   Description: Checks for comparison of something with itself.
-  Enabled: false
+  Enabled: true
 
 UselessElseWithoutRescue:
   Description: Checks for useless `else` in `begin..end` without `rescue`.
-  Enabled: false
+  Enabled: true
 
 UselessSetterCall:
   Description: Checks for useless setter call to a local variable.
-  Enabled: false
+  Enabled: true
 
 # Documented
 VariableName:
@@ -435,7 +331,12 @@ VariableName:
   - camelCase
 
 # Supports --auto-correct
+WhileUntilDo:
+  Description: Checks for redundant do after while or until.
+  Enabled: true
+
+# Supports --auto-correct
 WordArray:
   Description: Use %w or %W for arrays of words.
-  Enabled: false
+  Enabled: true
   MinSize: 0

@@ -1,7 +1,7 @@
 class HistoricalAccount < ActiveRecord::Base
   belongs_to :person, inverse_of: :historical_accounts
-  has_many   :historical_account_roles
-  has_many   :roles, through: :historical_account_roles
+  has_many :historical_account_roles
+  has_many :roles, through: :historical_account_roles
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
@@ -22,7 +22,7 @@ class HistoricalAccount < ActiveRecord::Base
   end
 
   def political_parties
-    political_party_ids.collect { |id| PoliticalParty.find_by_id(id.to_i) }
+    political_party_ids.map { |id| PoliticalParty.find_by_id(id.to_i) }
   end
 
   def political_parties=(political_parties)
@@ -31,7 +31,7 @@ class HistoricalAccount < ActiveRecord::Base
   end
 
   def political_membership
-    political_parties.collect(&:membership).to_sentence
+    political_parties.map(&:membership).to_sentence
   end
 
   def role

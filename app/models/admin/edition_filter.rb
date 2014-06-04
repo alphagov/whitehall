@@ -1,6 +1,6 @@
 module Admin
   class EditionFilter
-    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.reduce({}) do |lookup, klass|
+    EDITION_TYPE_LOOKUP = Whitehall.edition_classes.each_with_object do |lookup, klass|
       lookup[klass.to_s] = klass
       lookup
     end
@@ -18,10 +18,10 @@ module Admin
       editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
 
       editions_with_translations = if locale
-        editions_without_translations.with_translations(locale)
-      else
-        editions_without_translations.includes(:translations)
-      end
+                                     editions_without_translations.with_translations(locale)
+                                   else
+                                     editions_without_translations.includes(:translations)
+                                   end
 
       paginated_editions = editions_with_translations.page(options[:page]).per(options.fetch(:per_page) { default_page_size })
 

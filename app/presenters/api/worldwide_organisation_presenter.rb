@@ -1,5 +1,5 @@
 class Api::WorldwideOrganisationPresenter < Api::BasePresenter
-  def as_json(options = {})
+  def as_json(_options = {})
     {
       id: context.api_worldwide_organisation_url(model),
       title: model.name,
@@ -54,9 +54,9 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
         access_and_opening_times: office_access_and_opening_times_as_json(office_worldwide_organisation),
         type: office_worldwide_organisation.worldwide_office_type.name
       }
-    }.merge(office_addresss_as_json(office_worldwide_organisation)).
-      merge(office_contact_numbers_as_json(office_worldwide_organisation)).
-      merge(office_services_as_json(office_worldwide_organisation))
+    }.merge(office_addresss_as_json(office_worldwide_organisation))
+      .merge(office_contact_numbers_as_json(office_worldwide_organisation))
+      .merge(office_services_as_json(office_worldwide_organisation))
   end
 
   def office_access_and_opening_times_as_json(office_worldwide_organisation)

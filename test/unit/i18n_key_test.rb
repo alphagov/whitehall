@@ -14,8 +14,8 @@ class I18nKeyTest < ActiveSupport::TestCase
     locale_files.each do |locale_file|
       missing_keys = default_keys - keys_in_locale_file(locale_file)
       assert(missing_keys.empty?,
-        "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " +
-        "rake translation:regenerate to add any missing keys?")
+             "#{locale_file} is missing '#{missing_keys.join("', '")}'. Have you run " +
+             "rake translation:regenerate to add any missing keys?")
     end
   end
 
@@ -91,7 +91,7 @@ class I18nKeyTest < ActiveSupport::TestCase
   end
 
   def any_nil_values?(hash)
-    hash.detect {|k, v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
+    hash.find {|_, v| v.nil? or (v.is_a?(Hash) && any_nil_values?(v)) }
   end
 
   def keys_in_locale_file(locale_file)

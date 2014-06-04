@@ -1,17 +1,17 @@
 class WorldLocation < ActiveRecord::Base
   has_many :edition_world_locations
   has_many :editions,
-            through: :edition_world_locations
+           through: :edition_world_locations
   has_many :published_edition_world_locations,
-            class_name: "EditionWorldLocation",
-            include: :edition,
-            conditions: { editions: { state: "published" } }
+           class_name: "EditionWorldLocation",
+           include: :edition,
+           conditions: { editions: { state: "published" } }
   has_many :published_editions,
-            through: :published_edition_world_locations,
-            source: :edition
+           through: :published_edition_world_locations,
+           source: :edition
   has_many :published_documents,
-            through: :published_editions,
-            source: :document
+           through: :published_editions,
+           source: :document
   has_many :worldwide_organisation_world_locations, dependent: :destroy
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
   has_many :offsite_links, as: :parent
@@ -54,21 +54,21 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.with_announcements
-    announcement_conditions = Edition.joins(:edition_world_locations).
-                                            published.
-                                            where(type: Announcement.sti_names).
-                                            where("edition_world_locations.world_location_id = world_locations.id").
-                                            select(1).to_sql
+    announcement_conditions = Edition.joins(:edition_world_locations)
+         .published
+         .where(type: Announcement.sti_names)
+         .where("edition_world_locations.world_location_id = world_locations.id")
+         .select(1).to_sql
 
     where("exists (#{announcement_conditions})")
   end
 
   def self.with_publications
-    publication_conditions = Edition.joins(:edition_world_locations).
-                                            published.
-                                            where(type: Publicationesque.sti_names).
-                                            where("edition_world_locations.world_location_id = world_locations.id").
-                                            select(1).to_sql
+    publication_conditions = Edition.joins(:edition_world_locations)
+         .published
+         .where(type: Publicationesque.sti_names)
+         .where("edition_world_locations.world_location_id = world_locations.id")
+         .select(1).to_sql
 
     where("exists (#{publication_conditions})")
   end
@@ -102,7 +102,7 @@ class WorldLocation < ActiveRecord::Base
   end
 
   def self.all_by_type
-    ordered_by_name.group_by(&:world_location_type).sort_by { |type, location| type.sort_order }
+    ordered_by_name.group_by(&:world_location_type).sort_by { |type, _| type.sort_order }
   end
 
   def self.countries

@@ -370,7 +370,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test 'will add a stacked, compact, negative barchart class to a marked table' do
-        input = '
+    input = '
 |col|
 |---|
 |val|

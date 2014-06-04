@@ -25,7 +25,7 @@ module DataHygiene
     end
 
     def non_editions
-      duplicate_non_edition_results.collect do |results|
+      duplicate_non_edition_results.map do |results|
         type, id = results
         type.constantize.find(id)
       end
@@ -38,7 +38,6 @@ module DataHygiene
           id, filename, _       = duplicate_info
           edition               = Edition.find(id)
           duplicate_attachments = edition.attachments.includes(:attachment_data).where(attachment_data: {carrierwave_file: filename})
-          attachment_ids        = duplicate_attachments.map(&:id)
           file_sizes            = duplicate_attachments.map(&:file_size)
           all_the_same          = file_sizes.uniq.size == 1
 
@@ -58,7 +57,7 @@ module DataHygiene
     end
 
     def edition_ids
-      duplicate_edition_results.collect(&:first)
+      duplicate_edition_results.map(&:first)
     end
 
     def duplicate_non_edition_results

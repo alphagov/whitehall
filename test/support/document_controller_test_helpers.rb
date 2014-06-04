@@ -91,7 +91,7 @@ module DocumentControllerTestHelpers
         organisation = create(:organisation, alternative_format_contact_email: "alternative@example.com")
         edition = create("published_#{document_type}", body: "!@1", attachments: [
           attachment_1 = build(:file_attachment, file: fixture_file_upload('greenpaper.pdf', 'application/pdf'), accessible: false)
-        ], alternative_format_provider: organisation)
+        ],                                             alternative_format_provider: organisation)
 
         get :show, id: edition.document
 

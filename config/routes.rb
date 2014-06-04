@@ -37,7 +37,7 @@ Whitehall::Application.routes.draw do
 
   scope Whitehall.router_prefix, shallow_path: Whitehall.router_prefix do
     external_redirect '/organisations/ministry-of-defence-police-and-guarding-agency',
-      "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
+                      "http://webarchive.nationalarchives.gov.uk/20121212174735/http://www.mod.uk/DefenceInternet/AboutDefence/WhatWeDo/SecurityandIntelligence/MDPGA/"
 
     root to: redirect("/", { prefix: '' }), via: :get, as: :main_root
     get "/how-government-works" => "home#how_government_works", as: 'how_government_works'
@@ -155,12 +155,12 @@ Whitehall::Application.routes.draw do
           resources :document_collection_groups, as: :groups, path: 'groups' do
             member { get :delete }
             resource :document_collection_group_membership, as: :members,
-                                                        path: 'members',
-                                                        only: [:destroy]
+                                                            path: 'members',
+                                                            only: [:destroy]
           end
           resource :document_collection_group_membership, as: :new_member,
-                                                      path: 'members',
-                                                      only: [:create]
+                                                          path: 'members',
+                                                          only: [:create]
           post 'groups/update_memberships' => 'document_collection_groups#update_memberships', as: :update_group_memberships
         end
         resources :organisations do
@@ -241,13 +241,13 @@ Whitehall::Application.routes.draw do
           member do
             post :submit, to: 'edition_workflow#submit'
             post :revise
-            get  :diff
+            get :diff
             post :approve_retrospectively, to: 'edition_workflow#approve_retrospectively'
             post :reject, to: 'edition_workflow#reject'
             post :publish, to: 'edition_workflow#publish'
-            get  :confirm_force_publish, to: 'edition_workflow#confirm_force_publish'
+            get :confirm_force_publish, to: 'edition_workflow#confirm_force_publish'
             post :force_publish, to: 'edition_workflow#force_publish'
-            get  :confirm_unpublish, to: 'edition_workflow#confirm_unpublish'
+            get :confirm_unpublish, to: 'edition_workflow#confirm_unpublish'
             post :unpublish, to: 'edition_workflow#unpublish'
             post :schedule, to: 'edition_workflow#schedule'
             post :unschedule, to: 'edition_workflow#unschedule'

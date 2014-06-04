@@ -18,7 +18,7 @@ module Edition::AuditTrail
     has_one :most_recent_version, class_name: 'Version', as: :item, order: 'created_at DESC, id DESC'
     has_one :last_author, through: :most_recent_version, source: :user, order: 'versions.created_at DESC, versions.id DESC'
 
-    after_create  :record_create
+    after_create :record_create
     before_update :record_update
   end
 
@@ -71,7 +71,7 @@ module Edition::AuditTrail
   end
 
   def latest_version_audit_entry_for(state)
-    edition_version_trail.reverse.detect { |audit_entry| audit_entry.version.state == state }
+    edition_version_trail.reverse.find { |audit_entry| audit_entry.version.state == state }
   end
 
   class AuditEntry
