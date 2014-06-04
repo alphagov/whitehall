@@ -11,10 +11,10 @@ class LandRegistrySlugChange < ActiveRecord::Migration
 
   def change_org_slug(old_slug, new_slug)
     Organisation.transaction do
-      if o = Organisation.where(:slug => old_slug).first
+      if o = Organisation.where(slug: old_slug).first
         puts "Changing organisation slug #{old_slug} -> #{new_slug}"
         o.update_column(:slug, new_slug)
-        User.where(:organisation_slug => old_slug).each do |user|
+        User.where(organisation_slug: old_slug).each do |user|
           user.update_column(:organisation_slug, new_slug)
         end
       end

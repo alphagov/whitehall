@@ -23,7 +23,7 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
 
   test "can import both a normal attachment and an HTML attachment on a publication" do
     perform_import_cleanup do
-      stub_request(:get, "http://example.com/attachment.txt").to_return(:status => 200, :body => "Some text", :headers => {})
+      stub_request(:get, "http://example.com/attachment.txt").to_return(status: 200, body: "Some text", headers: {})
 
       csv_data = publication_csv_sample(attachment_1_url: "http://example.com/attachment.txt",
                                           attachment_1_title: 'File title',
