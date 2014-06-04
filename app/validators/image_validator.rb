@@ -39,7 +39,7 @@ class ImageValidator < ActiveModel::Validator
   def validate_size(record, image)
     return unless @size
 
-    unless (image[:width] == @size[0] && image[:height] == @size[1])
+    unless (image[:width] >= @size[0] && image[:height] >= @size[1])
       record.errors.add(@method, "must be #{@size[0]}px wide and #{@size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall")
     end
   end

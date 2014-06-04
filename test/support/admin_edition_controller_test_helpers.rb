@@ -327,7 +327,7 @@ module AdminEditionControllerTestHelpers
 
       view_test 'creating an edition with an invalid image should show an error' do
         attributes = controller_attributes_for(edition_type)
-        invalid_image = fixture_file_upload('horrible-image.64x96.jpg')
+        invalid_image = fixture_file_upload('happy.49x49.jpg')
 
         post :create, edition: attributes.merge(
           images_attributes: {
@@ -335,7 +335,7 @@ module AdminEditionControllerTestHelpers
           }
         )
 
-        assert_select ".errors", text: "Images image data file must be 960px wide and 640px tall, but is 64px wide and 96px tall"
+        assert_select ".errors", text: "Images image data file must be 50px wide and 50px tall, but is 49px wide and 49px tall"
       end
 
       view_test 'edit displays edition image fields' do
