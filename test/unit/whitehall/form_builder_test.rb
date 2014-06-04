@@ -63,7 +63,6 @@ class FormBuilderTest < ActionView::TestCase
     assert_dom_equal expected_html, @builder.upload(:image, label_text: "Image upload")
   end
 
-
   test 'Whitehall::FormBuilder#upload renders a horizontal version' do
     expected_html = '<div class="control-group">' +
                       '<label class="control-label" for="promotional_feature_item_image">Image</label>' +

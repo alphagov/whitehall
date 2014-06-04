@@ -200,7 +200,7 @@ class ApplicationHelperTest < ActionView::TestCase
   test "should add current class to link if current page is related to link" do
     stubs(:current_main_navigation_path).returns("/some/path")
     html = main_navigation_link_to("Inner Text", "/some/path", class: "class-1 class-2")
-    anchor = Nokogiri::HTML.fragment(html)/"a"
+    anchor = Nokogiri::HTML.fragment(html) / "a"
     assert_equal "Inner Text", anchor.inner_text
     assert_equal "/some/path", anchor.attr("href").value
     classes = anchor.attr("class").value.split
@@ -212,7 +212,7 @@ class ApplicationHelperTest < ActionView::TestCase
   test "should not add current class to link if current page is not related to link" do
     stubs(:current_main_navigation_path).returns("/some/other/path")
     html = main_navigation_link_to("Inner Text", "/some/path", class: "class-1 class-2")
-    anchor = Nokogiri::HTML.fragment(html)/"a"
+    anchor = Nokogiri::HTML.fragment(html) / "a"
     assert_equal "Inner Text", anchor.inner_text
     assert_equal "/some/path", anchor.attr("href").value
     classes = anchor.attr("class").value.split

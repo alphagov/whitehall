@@ -17,7 +17,6 @@ class RenameMainstreamLinksToTopTasksPart1 < ActiveRecord::Migration
     end
     add_index "world_location_top_tasks", ["world_location_id"]
 
-
     create_table "organisation_top_tasks" do |t|
       t.integer "organisation_id"
       t.integer "top_task_id"

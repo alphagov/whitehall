@@ -71,7 +71,6 @@ class HistoricAppointmentsControllerTest < ActionController::TestCase
     assert_equal PersonPresenter.new(chancellor_account.person, @controller.view_context), assigns(:person)
   end
 
-
   test "GET on :show raises a 404 if a person does not exist with a historical account in the specified role" do
     chancellor_account = create(:historical_account, roles: [chancellor_role])
 

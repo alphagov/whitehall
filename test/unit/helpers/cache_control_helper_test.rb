@@ -33,7 +33,6 @@ class CacheControlHelperTest < ActionView::TestCase
     assert_equal Whitehall.default_cache_max_age, @controller.max_age_for(Whitehall.default_cache_max_age.from_now + 1.second)
   end
 
-
   test "#expire_on_open_state_change should expire cache when upcoming consultation opens" do
     consultation = build(:consultation, opening_at: 20.seconds.from_now, closing_at: 10.days.from_now)
     @controller.expects(:expires_in).with(20, public: true)

@@ -494,7 +494,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal [jan, re_editioned_feb, second_feb].collect(&:id), Edition.published.in_chronological_order.collect(&:id)
   end
 
-
   test "re-editioned documents that share a timestamp are returned in document ID order and do not jump the queue when sorted in_reverse_chronological_order" do
     jan        = create(:edition, :published, first_published_at: Date.parse("2011-01-01"))
     feb        = create(:edition, :published, first_published_at: Date.parse("2011-02-01"))
@@ -795,7 +794,7 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test 'should have associated needs when need ids are present' do
-    need_api_has_need_ids([ { "id" => "000123" }, { "id" => "000456" }])
+    need_api_has_need_ids([{ "id" => "000123" }, { "id" => "000456" }])
 
     edition = create(:edition, need_ids: ["000123", "000456"])
 

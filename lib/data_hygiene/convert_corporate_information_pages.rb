@@ -1,7 +1,7 @@
 module DataHygiene
   class ConvertCorporateInformationPages
 
-    def initialize(logger=nil)
+    def initialize(logger = nil)
       @gds_ig_team_user = User.find_by_name!('GDS Inside Government Team')
       @logger = logger
     end

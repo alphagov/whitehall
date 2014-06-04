@@ -34,7 +34,6 @@ class Classification < ActiveRecord::Base
             source: :edition,
             order: "classification_featurings.ordering ASC"
 
-
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 

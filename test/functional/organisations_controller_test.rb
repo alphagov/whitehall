@@ -9,7 +9,6 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_display_organisation_page_elements_for(:organisation)
   should_display_organisation_page_elements_for(:executive_office)
 
-
   ### Describing :index ###
   test "index should instanciate an OrganisationsIndexPresenter with all organisations which are listable ordered by name" do
     Organisation.stubs(:listable).returns(stub(ordered_by_name_ignoring_prefix: :some_listable_ordered_orgs))
@@ -31,7 +30,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "link[rel=alternate][type=application/json][href=#{api_organisations_url}]"
   end
-
 
   ### Describing :show ###
 
@@ -227,7 +225,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select ".url_link"
   end
 
-
   view_test "doesn't show a thumbnail if the organisation has no url" do
     organisation = create(:organisation, govuk_status: 'exempt', url: '')
     create(:published_corporate_information_page, organisation: organisation)
@@ -247,7 +244,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select ".description a[href=?]", organisation.url
     assert_select ".thumbnail", false
   end
-
 
   view_test "should not display an empty published policies section" do
     organisation = create(:organisation)

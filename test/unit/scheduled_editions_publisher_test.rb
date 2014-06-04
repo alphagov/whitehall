@@ -124,11 +124,11 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
 
   private
 
-  def stubbed_scope(editions=nil)
+  def stubbed_scope(editions = nil)
     Edition.scoped
   end
 
-  def stubbed_edition(publication_time=nil)
+  def stubbed_edition(publication_time = nil)
     stub('edition', id: 123, title: 'Edition title', scheduled_publication: (publication_time || 1.day.ago))
   end
 

@@ -3,7 +3,7 @@ Given(/^there is a topic with published documents$/) do
   department = create(:ministerial_department, name: "A Department")
 
   create(:published_policy, title: "Policy #1", topics: [@topic])
-  create(:published_policy, title: "Policy #2", topics: [@topic], organisations:[department])
+  create(:published_policy, title: "Policy #2", topics: [@topic], organisations: [department])
   create(:published_news_article, title: "News #1", topics: [@topic])
 
   @news = create(:published_news_article, title: "News #2", topics: [@topic])

@@ -5,7 +5,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   def index
     @statistics_announcements = StatisticsAnnouncement.
                                   includes(:current_release_date).
-                                  order(current_release_date: :release_date ).
+                                  order(current_release_date: :release_date).
                                   page(params[:page])
   end
 
@@ -47,7 +47,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])
   end
 
-  def build_statistics_announcement(attributes={})
+  def build_statistics_announcement(attributes = {})
     if attributes[:current_release_date_attributes]
       attributes[:current_release_date_attributes][:creator_id] = current_user.id
     end

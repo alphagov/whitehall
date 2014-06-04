@@ -82,6 +82,7 @@ class Admin::ImportsController < Admin::BaseController
   end
 
   def error_list; end
+
   def import_log; end
 
 private

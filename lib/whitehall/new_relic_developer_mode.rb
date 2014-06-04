@@ -1,6 +1,6 @@
 module Whitehall
   class NewRelicDeveloperMode
-    def initialize(app, options={})
+    def initialize(app, options = {})
       @app = app
     end
 

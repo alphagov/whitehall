@@ -160,6 +160,7 @@ module Admin::EditionsHelper
         end
       }.join.html_safe
     end
+
     def organisations_for_edition_organisations_fields
       @organisations_for_edition_organisations_fields ||= Organisation.with_translations.all
     end

@@ -8,7 +8,7 @@ class WorldwideOfficeTest < ActiveSupport::TestCase
   end
 
   test "delegates address-related methods to it's contact" do
-    contact = create( :contact_with_country,
+    contact = create(:contact_with_country,
                       latitude: "67890",
                       longitude: "12345",
                       email: "email@email.com",

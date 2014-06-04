@@ -17,7 +17,6 @@ class Policy < Edition
   has_many :published_related_announcements, through: :edition_relations, source: :edition, conditions: {document: {editions: {type: Announcement.sti_names, state: 'published'}}}
   has_many :case_studies, through: :edition_relations, source: :edition, conditions: {editions: {type: 'CaseStudy', state: 'published'}}
 
-
   has_many :edition_policy_groups, foreign_key: :edition_id
   has_many :policy_groups, through: :edition_policy_groups
 

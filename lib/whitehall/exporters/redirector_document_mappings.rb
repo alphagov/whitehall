@@ -27,14 +27,14 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
     platform == 'production' ? 'www.gov.uk' : "www.#{platform}.alphagov.co.uk"
   end
 
-  def edition_values(edition, document, document_source=nil)
+  def edition_values(edition, document, document_source = nil)
     public_url, slug = document_url_and_slug(edition, document, document_source)
-    [ (document_source.try(:url) || ''),
+    [(document_source.try(:url) || ''),
       public_url,
       http_status(edition),
       slug,
       url_maker.admin_edition_url(edition, host: admin_host),
-      edition.state ]
+      edition.state]
   rescue => e
     Rails.logger.error("Whitehall::Exporters::RedirectorDocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
     nil
@@ -79,7 +79,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings < Struct.new(:platform)
   end
 
   def export(target)
-    target << ['Old Url','New Url','Status','Slug','Admin Url','State']
+    target << ['Old Url', 'New Url', 'Status', 'Slug', 'Admin Url', 'State']
     Document.find_each do |document|
       document.editions.each do |edition|
         if document.document_sources.any?

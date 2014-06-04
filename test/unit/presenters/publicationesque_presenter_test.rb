@@ -71,4 +71,3 @@ class PublicationesquePresenterTest < PresenterTestCase
     end
   end
 end
-

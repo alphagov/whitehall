@@ -71,7 +71,7 @@ class RenameDocumentSeriesToDocumentCollections < ActiveRecord::Migration
     end
 
     elapsed_time = time_since(start)
-    puts "Migrated #{count-@failures.size}/#{total} DocumentSeries in #{elapsed_time}"
+    puts "Migrated #{count - @failures.size}/#{total} DocumentSeries in #{elapsed_time}"
     if @failures.any?
       puts "#{@failures.size} error(s)"
       @failures.each do |document_series, failure|

@@ -45,7 +45,7 @@ class EmailSignupTest < ActiveSupport::TestCase
                  EmailSignup.new(feed: feed_url).description
   end
 
-  def feed_url(feed_path="publications.atom")
+  def feed_url(feed_path = "publications.atom")
     "#{Whitehall.public_protocol}://#{Whitehall.public_host}/government/#{feed_path}"
   end
 

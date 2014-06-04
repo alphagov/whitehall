@@ -99,9 +99,11 @@ class Organisation < ActiveRecord::Base
   def home_page_contacts
     super.reject(&:foi?)
   end
+
   def contact_shown_on_home_page?(contact)
     super || (contact.foi? && contact.contactable == self)
   end
+
   def foi_contacts
     contacts.where(contact_type_id: ContactType::FOI.id)
   end
@@ -379,7 +381,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def requires_alternative_format?
-    (! closed?) && provides_alternative_formats?
+    (!closed?) && provides_alternative_formats?
   end
 
   def has_published_publications_of_type?(publication_type)

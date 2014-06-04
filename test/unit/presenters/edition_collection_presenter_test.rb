@@ -50,7 +50,7 @@ class EditionCollectionPresenterTest < PresenterTestCase
 
   test "should wrap instances within methods that return arrays" do
     collection = EditionCollectionPresenter.new([DetailedGuide.new, Policy.new], @view_context)
-    assert_kind_of PolicyPresenter, collection[1,1].first
+    assert_kind_of PolicyPresenter, collection[1, 1].first
   end
 
   test "should not wrap anything that doesn't return an array" do

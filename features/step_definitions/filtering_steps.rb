@@ -57,7 +57,6 @@ def clear_filters
   end
 end
 
-
 ### Policies
 
 Given(/^there are some published policies$/) do
@@ -66,8 +65,8 @@ Given(/^there are some published policies$/) do
 
   create(:published_policy, title: "A policy with the topic", topics: [topic])
   create(:published_policy, title: "A policy with the department", organisations: [department])
-  create(:published_policy, title: "A policy with both the topic and the department", topics: [topic], organisations:[department])
-  create(:published_policy, title: "A keyword one", topics: [topic], organisations:[department])
+  create(:published_policy, title: "A policy with both the topic and the department", topics: [topic], organisations: [department])
+  create(:published_policy, title: "A keyword one", topics: [topic], organisations: [department])
 end
 
 When(/^I look at the policies index page$/) do
@@ -99,7 +98,6 @@ Then(/^I should be able to filter policies by topic, department and keyword$/) d
   assert page.has_content? "A keyword one"
   assert page.text.match /1 policy about A Topic . by A Department . containing keyword ./
 end
-
 
 ### Publications
 
@@ -269,7 +267,6 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.text.match /1 publication published after 01\/01\/2013 published before 01\/03\/2013 ./
 end
 
-
 When(/^I select a filter option without clicking any button$/) do
   page.select "A Department", from: "Department"
 end
@@ -285,7 +282,6 @@ Then(/^the filtered publications refresh automatically$/) do
   assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 ?publication by A Department ./
 end
-
 
 ### Announcements
 
@@ -327,8 +323,6 @@ Given(/^there are some published announcements$/) do
          organisations: [department],
          world_locations: [world_location]
 end
-
-
 
 When(/^I visit the announcements index page$/) do
   visit announcements_path

@@ -202,7 +202,6 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_select 'p.preview-error', text: /This file could not be previewed/
   end
 
-
   test "preview is not possible on CSV attachments on non-Editions" do
     attachment      = create(:csv_attachment, attachable: create(:policy_group))
     attachment_data = attachment.attachment_data
@@ -222,4 +221,3 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 end
-

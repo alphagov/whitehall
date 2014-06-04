@@ -116,6 +116,5 @@ class ClassificationTest < ActiveSupport::TestCase
     assert_equal topic.importance_ordered_organisations, [first_lead_org, second_lead_org, supporting_org]
   end
 
-
   should_not_accept_footnotes_in :description
 end

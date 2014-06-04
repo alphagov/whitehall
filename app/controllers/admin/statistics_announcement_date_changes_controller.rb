@@ -22,7 +22,7 @@ private
     @statistics_announcement = StatisticsAnnouncement.find(params[:statistics_announcement_id])
   end
 
-  def build_date_change(attributes={})
+  def build_date_change(attributes = {})
     attributes[:creator_id] = current_user.id
     @statistics_announcement.build_statistics_announcement_date_change(attributes)
   end

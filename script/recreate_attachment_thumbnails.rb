@@ -3,4 +3,3 @@ Attachment.all.each do |attachment|
   attachment.file.recreate_versions!
   puts "done"
 end
-

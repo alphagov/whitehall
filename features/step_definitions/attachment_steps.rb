@@ -42,7 +42,7 @@ end
 When(/^I upload a file attachment with the title "(.*?)" and the file "(.*?)"$/) do |title, fixture_file_name|
   click_on 'Upload new file attachment'
   fill_in 'Title', with: title
-  attach_file 'File', Rails.root+"test/fixtures/#{fixture_file_name}"
+  attach_file 'File', Rails.root + "test/fixtures/#{fixture_file_name}"
   click_on 'Save'
 end
 
@@ -58,7 +58,7 @@ When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
   click_on 'Modify attachments'
   click_on 'Upload new file attachment'
-  attach_file 'File', Rails.root+"test/fixtures/greenpaper.pdf"
+  attach_file 'File', Rails.root + "test/fixtures/greenpaper.pdf"
   click_on 'Save'
 end
 

@@ -80,6 +80,7 @@ private
       redirect_to canonical_redirect_path(redir_params)
     end
   end
+
   def canonical_redirect_path(redir_params)
     url_for(redir_params)
   end

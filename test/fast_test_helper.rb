@@ -11,7 +11,6 @@
 # file first. Only when it's something that basically every test needs should
 # you add it here.
 
-
 require 'bundler/setup'
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 $LOAD_PATH.unshift File.expand_path("..", __FILE__)

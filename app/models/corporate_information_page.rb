@@ -37,7 +37,7 @@ class CorporateInformationPage < Edition
   end
 
   def search_index
-    super.merge("organisations" => [owning_organisation.slug] )
+    super.merge("organisations" => [owning_organisation.slug])
   end
 
   def self.search_only
@@ -103,7 +103,7 @@ class CorporateInformationPage < Edition
     [owning_organisation.name, title].join(" \u2013 ")
   end
 
-  def title(locale=:en)
+  def title(locale = :en)
     corporate_information_page_type.title(owning_organisation)
   end
 

@@ -4,4 +4,3 @@ When /^I select an image for the (?:detailed guide|publication)$/ do
     fill_in "Alt text", with: "minister of funk", match: :first
   end
 end
-

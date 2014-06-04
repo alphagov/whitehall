@@ -45,7 +45,7 @@ class PersonPresenter < Whitehall::Decorators::Decorator
     context.govspeak_to_html model.biography
   end
 
-  def link(options={})
+  def link(options = {})
     name = ""
     name << "<span class='person-title'>The Rt Hon</span> " if privy_counsellor?
     name << "<strong>#{name_without_privy_counsellor_prefix}</strong>"

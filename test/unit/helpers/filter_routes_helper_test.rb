@@ -26,7 +26,6 @@ class FilterRoutesHelperTest < ActionView::TestCase
       assert_equal send("#{filter}_path", departments: [organisation.slug], topics: [topic.slug], world_locations: [world_location.slug]), send("#{filter}_filter_path", organisation, topic, world_location)
     end
 
-
     test "uses optional hash to route to #{filter} filter" do
       assert_equal send("#{filter}_path", publication_type: 'transparency-data'), send("#{filter}_filter_path", publication_type: 'transparency-data')
     end

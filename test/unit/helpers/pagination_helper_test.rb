@@ -23,4 +23,3 @@ class PaginationHelperTest < ActionView::TestCase
     assert_equal "Previous page 2 of 10", link_tag.text
   end
 end
-

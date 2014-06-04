@@ -69,7 +69,7 @@ class Whitehall::Translation::Exporter
     end
   end
 
-  # if the hash is only made up of the plural keys for the locale, we 
+  # if the hash is only made up of the plural keys for the locale, we
   # assume it's a plualization set.  Note that zero is *always* an option
   # regardless of the keys fetched
   # (see https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/pluralization.rb#L34)

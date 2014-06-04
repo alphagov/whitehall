@@ -7,7 +7,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-
   ### Describing :index ###
 
   view_test "GET :index lists the topical events in alphabetial order" do
@@ -21,7 +20,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(topic_a)} + #{record_css_selector(topic_b)} + #{record_css_selector(topic_c)}"
   end
 
-
   ### Describing :show ###
 
   view_test "GET :show lists the topic's details" do
@@ -32,14 +30,12 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select 'h1', topic.name
   end
 
-
   ### Describing :new ###
 
   view_test "GET :new displays topic form" do
     get :new
     assert_select "input[name='topic[name]']"
   end
-
 
   ### Describing :create ###
 
@@ -67,7 +63,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select ".form-errors"
   end
 
-
   ### Describing :edit ###
 
   view_test "GET :edit renders the edit form" do
@@ -90,7 +85,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_select "#policy_order input[type=hidden][value=#{published_association.id}]"
     refute_select "#policy_order input[type=hidden][value=#{draft_association.id}]"
   end
-
 
   ### Describing :update ###
 
@@ -126,7 +120,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
     assert_equal 4, association.reload.ordering
   end
-
 
   ### Describing :destroy ###
 

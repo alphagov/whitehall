@@ -147,7 +147,6 @@ Then /^I should be able to see "([^"]*)" in the list of organisations$/ do |orga
   end
 end
 
-
 When /^I visit the "([^"]*)" organisation$/ do |name|
   visit_organisation name
 end
@@ -382,7 +381,6 @@ Then /^there should be nothing featured on the home page of "([^"]*)"$/ do |name
   visit_organisation name
   assert page.assert_no_selector(featured_documents_selector)
 end
-
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
   organisation = Organisation.find_by_name!(name)

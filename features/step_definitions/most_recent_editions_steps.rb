@@ -11,7 +11,7 @@ When /^someone else creates a new edition of the published document "([^"]*)" an
   new_draft = current.create_draft(random_editor)
   new_draft.organisations << org
   new_draft.access_limited = true
-  new_draft.change_note = 'Limited to '+org.name
+  new_draft.change_note = 'Limited to ' + org.name
   new_draft.save!
 end
 
@@ -30,4 +30,3 @@ Then /^I cannot click through to the most recent version of document "([^"]*)"$/
   assert page.has_css?('.alert.access-limited-latest-edition')
   assert page.has_no_content?('Go to draft')
 end
-

@@ -42,7 +42,7 @@ Given(/^There is a statistics announcement$/) do
   @announcement = create :statistics_announcement,
                          organisation: @organisation,
                          topic: @topic,
-                         statistics_announcement_dates: [ build(:statistics_announcement_date, release_date: 1.year.from_now, precision: StatisticsAnnouncementDate::PRECISION[:one_month], created_at: 10.days.ago) ],
+                         statistics_announcement_dates: [build(:statistics_announcement_date, release_date: 1.year.from_now, precision: StatisticsAnnouncementDate::PRECISION[:one_month], created_at: 10.days.ago)],
                          current_release_date: build(:statistics_announcement_date_change, release_date: 1.year.from_now + 2.months, change_note: "A change note")
   @announcement.reload # StatisticsAnnouncement doesn't get statistics_announcement_date related stuff right until after reload.
 end
@@ -92,8 +92,6 @@ Then(/^I can see the second page of all the statistics announcements$/) do
   assert page.has_content? "Extra release announcement 38"
   assert page.has_content? "Extra release announcement 40"
 end
-
-
 
 Then(/^I should only see statistics announcements for those filters$/) do
   assert page.has_content? "Womble to Wombat population ratios"

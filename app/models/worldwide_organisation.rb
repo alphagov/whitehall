@@ -45,6 +45,7 @@ class WorldwideOrganisation < ActiveRecord::Base
   def home_page_offices
     super - [main_office]
   end
+
   def office_shown_on_home_page?(office)
     super || is_main_office?(office)
   end

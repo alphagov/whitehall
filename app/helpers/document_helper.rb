@@ -238,7 +238,6 @@ Please tell us:
     part_of
   end
 
-
   def from_metadata(document, links_only = false)
     from = []
 

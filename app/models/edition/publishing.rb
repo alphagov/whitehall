@@ -55,14 +55,14 @@ module Edition::Publishing
   end
 
   def virus_check_required?
-    allows_attachments? && published? && (! skip_virus_status_check)
+    allows_attachments? && published? && (!skip_virus_status_check)
   end
 
   def attachment_passed_virus_scan!
     errors.add(:attachments, "must have passed virus scanning.") unless valid_virus_state?
   end
 
-  def build_unpublishing(attributes={})
+  def build_unpublishing(attributes = {})
     super(attributes.merge(slug: slug, document_type: type))
   end
 

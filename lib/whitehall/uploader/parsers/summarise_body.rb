@@ -36,7 +36,7 @@ class Whitehall::Uploader::Parsers::SummariseBody
 
   def truncate_to(size)
     text_to_work_with = detagged_text
-    up_to_size = text_to_work_with[0..size-1]
+    up_to_size = text_to_work_with[0..size - 1]
     rest = text_to_work_with[size..-1]
     if rest.nil?
       up_to_size

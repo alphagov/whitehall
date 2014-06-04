@@ -55,7 +55,7 @@ class RolePresenterTest < ActionView::TestCase
     speech_2 = Speech.new
     speech_2.stubs(:public_timestamp).returns(30.days.ago)
 
-    two_published_speeches = [ speech_1, speech_2 ]
+    two_published_speeches = [speech_1, speech_2]
 
     ten_published_news_articles = 10.times.map do |i|
       article = NewsArticle.new

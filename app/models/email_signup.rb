@@ -6,7 +6,7 @@ class EmailSignup
   attr_reader :feed
   validates_presence_of :feed
 
-  def initialize(attributes={})
+  def initialize(attributes = {})
     @attributes = attributes
     @feed = local_government ? add_local_government(attributes[:feed]) : attributes[:feed]
   end

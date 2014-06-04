@@ -6,6 +6,7 @@ class DepartmentWriterFatalityNoticeTest < ActiveSupport::TestCase
     o = OpenStruct.new(id: id, handles_fatalities?: true)
     OpenStruct.new(id: id, gds_editor?: false, departmental_editor?: false, organisation: o)
   end
+
   def normal_department_writer(id = 1)
     o = OpenStruct.new(id: id, handles_fatalities?: false)
     OpenStruct.new(id: id, gds_editor?: false, departmental_editor?: false, organisation: o)

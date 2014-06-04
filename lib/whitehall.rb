@@ -92,7 +92,7 @@ module Whitehall
   end
 
   def self.admin_whitelist?(request)
-    (! Rails.env.production?) || admin_hosts.include?(request.host)
+    (!Rails.env.production?) || admin_hosts.include?(request.host)
   end
 
   def self.public_host_for(request_host)

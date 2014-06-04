@@ -64,7 +64,6 @@ Then /^the consultation outcome should be viewable$/ do
   end
 end
 
-
 Then(/^the public feedback should be viewable$/) do
   select_most_recent_consultation_from_list
   view_visible_consultation_on_website

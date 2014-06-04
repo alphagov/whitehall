@@ -6,10 +6,10 @@ class CsvPreview
 
   attr_reader :file_path, :headings, :maximum_rows
 
-  def initialize(file_path, maximum_rows=1_000)
+  def initialize(file_path, maximum_rows = 1_000)
     @maximum_rows = maximum_rows
     @file_path = file_path
-    @csv = CSV.open(file_path, encoding: encoding )
+    @csv = CSV.open(file_path, encoding: encoding)
     @headings = @csv.shift
     ensure_csv_data_is_well_formed
   rescue ArgumentError => e
@@ -43,7 +43,7 @@ class CsvPreview
   end
 
   def preview_rows
-    @preview ||= File.foreach(file_path).take(maximum_rows+1).join
+    @preview ||= File.foreach(file_path).take(maximum_rows + 1).join
   end
 
   def encoding

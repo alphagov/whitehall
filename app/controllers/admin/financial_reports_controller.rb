@@ -1,7 +1,7 @@
 class Admin::FinancialReportsController < Admin::BaseController
   before_filter :load_organisation
   before_filter :load_financial_report, only: [:edit, :update, :destroy]
-  
+
   def new
     @financial_report = @organisation.financial_reports.build(year: Time.zone.now.year)
   end

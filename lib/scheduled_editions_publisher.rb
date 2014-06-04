@@ -74,12 +74,13 @@ class ScheduledEditionsPublisher
   def reset_attempt_count
     @attempts = 0
   end
+
   def attempt_limit_reached?
     @attempts >= 5
   end
 
   def increment_attempt_count
-    @attempts +=1
+    @attempts += 1
   end
 
   def log_publish_run(&block)

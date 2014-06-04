@@ -10,9 +10,11 @@ module Whitehall::Authority::Rules
         (actor.organisation && actor.organisation.handles_fatalities?)
       end
     end
+
     def can_with_a_class?(action)
       actor_can_handle_fatalities? && super
     end
+
     def can_see?
       actor_can_handle_fatalities? && super
     end

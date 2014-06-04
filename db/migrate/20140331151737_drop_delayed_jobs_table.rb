@@ -5,9 +5,9 @@ class DropDelayedJobsTable < ActiveRecord::Migration
 
   def down
     create_table :delayed_jobs do |t|
-      t.integer  :priority,   :default => 0
-      t.integer  :attempts,   :default => 0
-      t.text     :handler,    :limit => 16777215
+      t.integer  :priority,   default: 0
+      t.integer  :attempts,   default: 0
+      t.text     :handler,    limit: 16777215
       t.text     :last_error
       t.datetime :run_at
       t.datetime :locked_at

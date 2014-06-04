@@ -79,7 +79,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal [role_3], assigns(:also_attends_cabinet).map { |person, role| role.first.model }
   end
 
-
   test "shows whips separately" do
     organisation = create(:ministerial_department)
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
@@ -231,7 +230,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     first_appointment = create(:role_appointment, role: role, started_at: 9.years.ago, ended_at: 4.years.ago)
     second_appointment = create(:role_appointment, role: role, started_at: 4.years.ago, ended_at: 5.days.ago)
     get :show, id: role
-
 
     assert_select ".previous-roles" do
       assert_select_object first_appointment do

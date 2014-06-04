@@ -7,7 +7,7 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
     class Organisation < Struct.new(:analytics_identifier); end
 
     def test_organisations
-      orgs = [ Organisation.new("D1"), Organisation.new("D2") ]
+      orgs = [Organisation.new("D1"), Organisation.new("D2")]
       set_slimmer_organisations_header(orgs)
       render text: "ok"
     end

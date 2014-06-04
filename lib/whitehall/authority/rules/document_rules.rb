@@ -5,6 +5,7 @@ module Whitehall::Authority::Rules
       @actor = actor
       @subject = subject
     end
+
     def can?(action)
       if actor.gds_editor? || actor.departmental_editor?
         true
