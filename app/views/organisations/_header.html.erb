@@ -2,30 +2,12 @@
   logo_size ||= 'large'
   show_top_tasks ||= false
   link_to_organisation ||= false
-  sub_organisation = organisation.organisation_type.sub_organisation?
-  logo_size = 'medium' if sub_organisation
   languages_available ||= false
   alternate_style_top_tasks ||= {}
 %>
 
 <header class="page-header">
-  <% if sub_organisation %>
-    <div class="sub-organisation-name">
-      <ul class="organisations-icon-list">
-        <% organisation.parent_organisations.each do |organisation| %>
-          <%= content_tag_for(:li, organisation, class: organisation_brand_colour_class(organisation)) do %>
-            <%= link_to organisation_path(organisation),
-                        class: logo_classes(organisation: organisation, size: 'medium') do %>
-              <span><%= organisation_logo_name(organisation, false) %></span>
-            <% end %>
-          <% end %>
-        <% end %>
-      </ul>
-      <h1><%= link_to_if link_to_organisation, organisation.name, organisation_path(organisation) %></h1>
-    </div>
-  <% else %>
-    <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
-  <% end %>
+  <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
 
   <% if alternate_style_top_tasks.any? %>
     <%= render partial: 'organisations/alternate_style_top_tasks', locals: {links: alternate_style_top_tasks} %>
