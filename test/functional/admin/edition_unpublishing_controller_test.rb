@@ -31,7 +31,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
   test "#update shows form with error if the update was not possible" do
     unpublishing = create(:unpublishing, edition: @edition, explanation: "Content is mislidding",
-      unpublishing_reason_id: UnpublishingReason::Archived.id)
+                                         unpublishing_reason_id: UnpublishingReason::Archived.id)
 
     put :update, edition_id: @edition, unpublishing: { explanation: nil }
 

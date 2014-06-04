@@ -37,16 +37,16 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   test "create should create a new consultation" do
     attributes = controller_attributes_for(:consultation,
-      consultation_participation_attributes: {
-        link_url: "http://participation.com",
-        email: "countmein@participation.com",
-        consultation_response_form_attributes: {
-          title: "the title of the response form",
-          consultation_response_form_data_attributes: {
-            file: fixture_file_upload('two-pages.pdf')
-          }
-        }
-      }
+                                           consultation_participation_attributes: {
+                                             link_url: "http://participation.com",
+                                             email: "countmein@participation.com",
+                                             consultation_response_form_attributes: {
+                                               title: "the title of the response form",
+                                               consultation_response_form_data_attributes: {
+                                                 file: fixture_file_upload('two-pages.pdf')
+                                               }
+                                             }
+                                           }
     )
 
     post :create, edition: attributes
@@ -66,16 +66,16 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   test "create should create a new consultation without consultation participation if participation fields are all blank" do
     attributes = controller_attributes_for(:consultation,
-      consultation_participation_attributes: {
-        link_url: nil,
-        email: nil,
-        consultation_response_form_attributes: {
-          title: nil,
-          consultation_response_form_data_attributes: {
-            file: nil
-          }
-        }
-      }
+                                           consultation_participation_attributes: {
+                                             link_url: nil,
+                                             email: nil,
+                                             consultation_response_form_attributes: {
+                                               title: nil,
+                                               consultation_response_form_data_attributes: {
+                                                 file: nil
+                                               }
+                                             }
+                                           }
     )
 
     post :create, edition: attributes
@@ -86,16 +86,16 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
 
   view_test "creating a consultation with invalid data but valid form file should still display the cached form file" do
     attributes = controller_attributes_for(:consultation,
-      consultation_participation_attributes: {
-        link_url: nil,
-        email: nil,
-        consultation_response_form_attributes: {
-          title: nil,
-          consultation_response_form_data_attributes: {
-            file: fixture_file_upload('two-pages.pdf')
-          }
-        }
-      }
+                                           consultation_participation_attributes: {
+                                             link_url: nil,
+                                             email: nil,
+                                             consultation_response_form_attributes: {
+                                               title: nil,
+                                               consultation_response_form_data_attributes: {
+                                                 file: fixture_file_upload('two-pages.pdf')
+                                               }
+                                             }
+                                           }
     )
 
     post :create, edition: attributes

@@ -11,11 +11,11 @@ class AddNewDevolvedOrganisations < ActiveRecord::Migration
     devolved_administrations.each do |administration|
       name, url = administration
       Organisation.create!(name: name,
-                            logo_formatted_name: name,
-                            organisation_type: OrganisationType.devolved_administration,
-                            url: url,
-                            organisation_logo_type_id: OrganisationLogoType::NoIdentity.id,
-                            govuk_status: 'exempt')
+                           logo_formatted_name: name,
+                           organisation_type: OrganisationType.devolved_administration,
+                           url: url,
+                           organisation_logo_type_id: OrganisationLogoType::NoIdentity.id,
+                           govuk_status: 'exempt')
     end
   end
 

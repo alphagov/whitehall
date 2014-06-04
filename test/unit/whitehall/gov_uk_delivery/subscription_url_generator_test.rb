@@ -343,11 +343,11 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     policy = create(:published_policy, relevant_to_local_government: true)
 
     @edition = create(:news_article,
-      role_appointments: [role_appointment],
-      related_documents: [policy.document],
-      topics: [topic],
-      topical_events: [topical_event],
-      world_locations: [world_location]
+                      role_appointments: [role_appointment],
+                      related_documents: [policy.document],
+                      topics: [topic],
+                      topical_events: [topical_event],
+                      world_locations: [world_location]
     )
 
     assert_subscription_urls_for_edition_include(

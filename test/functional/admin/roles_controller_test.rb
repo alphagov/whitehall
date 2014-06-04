@@ -180,9 +180,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_one, org_two = create(:organisation), create(:organisation)
 
     post :create, role: attributes_for(:ministerial_role,
-      name: "role-name",
-      type: "minister",
-      organisation_ids: [org_one.id, org_two.id]
+                                       name: "role-name",
+                                       type: "minister",
+                                       organisation_ids: [org_one.id, org_two.id]
     )
 
     assert role = MinisterialRole.last
@@ -192,7 +192,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new board level manager role" do
     post :create, role: attributes_for(:board_member_role,
-      type: "board_level_manager",
+                                       type: "board_level_manager",
     )
 
     assert role = BoardMemberRole.last
@@ -200,7 +200,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new military role" do
     post :create, role: attributes_for(:military_role,
-      type: "chief_of_staff",
+                                       type: "chief_of_staff",
     )
 
     assert role = MilitaryRole.last
@@ -208,7 +208,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new special representative role" do
     post :create, role: attributes_for(:special_representative_role,
-      type: "special_representative",
+                                       type: "special_representative",
     )
 
     assert role = SpecialRepresentativeRole.last
@@ -216,7 +216,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new chief professional officer role" do
     post :create, role: attributes_for(:chief_professional_officer_role,
-      type: "chief_professional_officer",
+                                       type: "chief_professional_officer",
     )
 
     assert role = ChiefProfessionalOfficerRole.last

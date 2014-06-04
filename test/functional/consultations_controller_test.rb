@@ -61,8 +61,8 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   view_test 'show displays consultation participation link and email' do
     consultation_participation = create(:consultation_participation,
-      link_url: "http://telluswhatyouthink.com",
-      email: "contact@example.com"
+                                        link_url: "http://telluswhatyouthink.com",
+                                        email: "contact@example.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     get :show, id: published_consultation.document
@@ -81,7 +81,7 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   view_test 'show does not display consultation participation email if none available' do
     consultation_participation = create(:consultation_participation,
-      link_url: "http://telluswhatyouthink.com"
+                                        link_url: "http://telluswhatyouthink.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
     get :show, id: published_consultation.document
@@ -90,8 +90,8 @@ class ConsultationsControllerTest < ActionController::TestCase
 
   view_test 'show does not display consultation participation link if consultation finished' do
     consultation_participation = create(:consultation_participation,
-      email: "contact@example.com",
-      link_url: "http://telluswhatyouthink.com"
+                                        email: "contact@example.com",
+                                        link_url: "http://telluswhatyouthink.com"
     )
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation, opening_at: 4.days.ago, closing_at: 2.days.ago)
     get :show, id: published_consultation.document

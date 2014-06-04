@@ -1,7 +1,7 @@
 class HistoricalAccount < ActiveRecord::Base
   belongs_to :person, inverse_of: :historical_accounts
-  has_many   :historical_account_roles
-  has_many   :roles, through: :historical_account_roles
+  has_many :historical_account_roles
+  has_many :roles, through: :historical_account_roles
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body

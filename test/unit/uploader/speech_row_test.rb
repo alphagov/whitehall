@@ -50,9 +50,9 @@ module Whitehall::Uploader
       policy_3 = create(:published_policy, title: "Policy 3")
       policy_4 = create(:published_policy, title: "Policy 4")
       row = new_speech_row({"policy_1" => policy_1.slug,
-        "policy_2" => policy_2.slug,
-        "policy_3" => policy_3.slug,
-        "policy_4" => policy_4.slug
+                            "policy_2" => policy_2.slug,
+                            "policy_3" => policy_3.slug,
+                            "policy_4" => policy_4.slug
       })
 
       assert_equal [policy_1, policy_2, policy_3, policy_4], row.related_editions

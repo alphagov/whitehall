@@ -16,7 +16,7 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
   def update
     if @translated_world_location.update_attributes(world_location_params)
       redirect_to admin_world_location_translations_path(@translated_world_location),
-        notice: notice_message("saved")
+                  notice: notice_message("saved")
     else
       render action: 'edit'
     end
@@ -25,7 +25,7 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
   def destroy
     @translated_world_location.remove_translations_for(translation_locale.code)
     redirect_to admin_world_location_translations_path(@translated_world_location),
-      notice: notice_message("deleted")
+                notice: notice_message("deleted")
   end
 
   private

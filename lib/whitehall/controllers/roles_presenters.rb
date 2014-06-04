@@ -7,9 +7,9 @@ module Whitehall::Controllers::RolesPresenters
 
   def roles_presenter_for(organisation, association)
     roles = organisation.send("#{association}_roles")
-			 .with_translations
-			 .includes(:current_people)
-			 .order("organisation_roles.ordering")
+    .with_translations
+    .includes(:current_people)
+    .order("organisation_roles.ordering")
     RolesPresenter.new(roles, view_context)
   end
 end

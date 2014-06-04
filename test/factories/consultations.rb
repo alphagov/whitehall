@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :consultation, class: Consultation, parent: :edition, traits: [:with_organisations, :with_topics] do
     title "consultation-title"
-    body  "consultation-body"
+    body "consultation-body"
     opening_at { 1.day.ago }
     closing_at { 6.weeks.from_now }
     ignore do

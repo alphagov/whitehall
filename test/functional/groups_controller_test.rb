@@ -6,9 +6,9 @@ class GroupsControllerTest < ActionController::TestCase
   view_test "should display name and govspeak-ified description of group" do
     organisation = create(:organisation)
     group = create(:group,
-      name: "Defence Council",
-      description: "description-in-govspeak",
-      organisation: organisation
+                   name: "Defence Council",
+                   description: "description-in-govspeak",
+                   organisation: organisation
     )
 
     govspeak_transformation_fixture "description-in-govspeak" => "description-in-html" do

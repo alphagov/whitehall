@@ -29,7 +29,7 @@ class BadLinkReporterTest < ActiveSupport::TestCase
       checker = Whitehall::BadLinkReporter::PageChecker.new(detailed_guide_page, result_cache)
 
       assert_equal 'https://whitehall-admin.production.alphagov.co.uk/government/admin/detailed-guides/99999999',
-        checker.admin_url
+                   checker.admin_url
     end
 
     test '#organisation returns the lead organisation of the document' do
@@ -56,7 +56,7 @@ class BadLinkReporterTest < ActiveSupport::TestCase
       checker = Whitehall::BadLinkReporter::PageChecker.new(detailed_guide_page, result_cache)
 
       expected_bad_links = ['https://www.gov.uk/bad-link',
-                             'https://www.gov.uk/missing-link']
+                            'https://www.gov.uk/missing-link']
 
       assert_equal expected_bad_links, checker.raw_bad_links
     end

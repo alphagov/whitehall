@@ -41,7 +41,7 @@ module Admin::EditionsHelper
     organisations = Organisation.with_translations(:en).order(:name).excluding_govuk_status_closed || []
     closed_organisations = Organisation.with_translations(:en).closed || []
     if current_user.organisation
-        organisations = [current_user.organisation] + (organisations - [current_user.organisation])
+      organisations = [current_user.organisation] + (organisations - [current_user.organisation])
     end
 
     options_for_select([["All organisations", ""]], selected_organisation) +
@@ -126,17 +126,17 @@ module Admin::EditionsHelper
 
     def lead_organisations_fields
       edition_organisations =
-	object.edition_organisations
-	  .select { |eo| eo.lead? }
-	  .sort_by { |eo| eo.lead_ordering }
+ object.edition_organisations
+   .select { |eo| eo.lead? }
+   .sort_by { |eo| eo.lead_ordering }
 
       edition_organisations_fields(edition_organisations, true)
     end
 
     def supporting_organisations_fields
       edition_organisations =
-	object.edition_organisations
-	  .reject { |eo| eo.lead? }
+ object.edition_organisations
+   .reject { |eo| eo.lead? }
 
       edition_organisations_fields(edition_organisations, false)
     end
@@ -173,7 +173,7 @@ module Admin::EditionsHelper
     form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
 
     form_for form_url_for_edition(edition), as: :edition, builder: EditionFormBuilder,
-              html: { class: form_classes } do |form|
+                                            html: { class: form_classes } do |form|
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
@@ -215,10 +215,10 @@ module Admin::EditionsHelper
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
       if edition.allows_attachments? && edition.persisted?
         text = if edition.attachments.count > 0
-		 "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
-	       else
-		 "Attachments"
-	       end
+                 "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
+               else
+                 "Attachments"
+               end
         tabs[text] = admin_edition_attachments_path(edition)
       end
 

@@ -15,7 +15,7 @@ class Edition::HasMainstreamCategoriesTest < ActiveSupport::TestCase
   test "edition should be invalid with the same category in primary and other" do
     mainstream_category = create(:mainstream_category)
     edition = build(:draft_detailed_guide, primary_mainstream_category: mainstream_category,
-                     other_mainstream_categories: [mainstream_category])
+                                           other_mainstream_categories: [mainstream_category])
 
     refute edition.valid?
     assert edition.errors[:other_mainstream_categories].include?("should not contain the primary mainstream category")

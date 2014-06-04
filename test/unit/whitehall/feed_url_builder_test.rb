@@ -13,7 +13,7 @@ module Whitehall
     test "with :document_type as publications and other params it generate a publications atom feed url with the given params as query string" do
       filter_params = {
         document_type: 'publications',
-	departments: %w(1 2),
+        departments: %w(1 2),
         official_document_status: "command_and_act_papers"
       }
 
@@ -26,7 +26,7 @@ module Whitehall
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "all").url
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "").url
       assert_equal feed_url("publications.atom?official_document_status=something"),
-        Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "something").url
+                   Whitehall::FeedUrlBuilder.new(document_type: 'publications', official_document_status: "something").url
 
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: []).url
       assert_equal feed_url("publications.atom"), Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: ["all"]).url
@@ -36,7 +36,7 @@ module Whitehall
 
     test "it strips out invalid filter params" do
       assert_equal feed_url("publications.atom?departments%5B%5D=something"),
-        Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: ["something"], favourite_power_ranger: ["the blue one"]).url
+                   Whitehall::FeedUrlBuilder.new(document_type: 'publications', departments: ["something"], favourite_power_ranger: ["the blue one"]).url
     end
 
   protected

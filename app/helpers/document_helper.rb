@@ -152,16 +152,16 @@ module DocumentHelper
     end
 
     mail_to alternative_format_contact_email, alternative_format_contact_email,
-      subject: "Request for '#{attachment.title}' in an alternative format",
-      body: %(Details of document required:
+            subject: "Request for '#{attachment.title}' in an alternative format",
+            body: %(Details of document required:
 
-#{attachment_info.join("\n")}
+      #{attachment_info.join("\n")}
 
-Please tell us:
+      Please tell us:
 
-  1. What makes this format unsuitable for you?
-  2. What format you would prefer?
-      )
+        1. What makes this format unsuitable for you?
+        2. What format you would prefer?
+            )
   end
 
   def attachment_references(attachment)
@@ -252,7 +252,7 @@ Please tell us:
 
       if document.respond_to?(:delivered_by_minister?)
         if document.person_override?
-	  from << document.person_override if !links_only
+          from << document.person_override if !links_only
         else
           from << link_to_person(document.role_appointment.person)
         end

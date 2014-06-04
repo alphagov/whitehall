@@ -65,9 +65,9 @@ class Admin::ImportsControllerTest < ActionController::TestCase
 
   view_test "shows errors if any" do
     import = create(:import, creator: current_user,
-      import_enqueued_at: Time.zone.now,
-      import_started_at: Time.zone.now,
-      import_finished_at: Time.zone.now)
+                             import_enqueued_at: Time.zone.now,
+                             import_started_at: Time.zone.now,
+                             import_finished_at: Time.zone.now)
     import.import_errors.create(row_number: 2, message: "Policy 'blah' does not exist")
 
     get :error_list, id: import
@@ -80,11 +80,11 @@ class Admin::ImportsControllerTest < ActionController::TestCase
 
   test "can export annotated version of all rows" do
     import = create(:import, creator: current_user,
-      original_filename: "consultations.csv",
-      csv_data: consultation_csv_sample,
-      import_enqueued_at: Time.zone.now,
-      import_started_at: Time.zone.parse("2011-01-01 12:13:14"),
-      import_finished_at: Time.zone.now)
+                             original_filename: "consultations.csv",
+                             csv_data: consultation_csv_sample,
+                             import_enqueued_at: Time.zone.now,
+                             import_started_at: Time.zone.parse("2011-01-01 12:13:14"),
+                             import_finished_at: Time.zone.now)
     import.import_errors.create(row_number: 2, message: "Policy &#x27;blah&#x27; does not exist")
 
     get :annotated, id: import

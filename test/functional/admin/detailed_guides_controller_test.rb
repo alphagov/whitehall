@@ -26,10 +26,10 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
 
   view_test "new allows selection of mainstream categories" do
     funk = create(:mainstream_category,
-      title: "Funk",
-      slug: "funk",
-      parent_title: "Musical style",
-      parent_tag: "music/70s")
+                  title: "Funk",
+                  slug: "funk",
+                  parent_title: "Musical style",
+                  parent_tag: "music/70s")
 
     get :new
 
@@ -106,7 +106,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     soul = create(:mainstream_category, title: "Soul")
 
     attributes = controller_attributes_for(:detailed_guide, primary_mainstream_category_id: funk.id,
-                                           other_mainstream_category_ids: [soul.id])
+                                                            other_mainstream_category_ids: [soul.id])
 
     post :create, edition: attributes
 

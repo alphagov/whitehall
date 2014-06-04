@@ -18,7 +18,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     @social_media_account.update_attributes(social_media_account_params)
     if @social_media_account.save
       redirect_to [:admin, @socialable, SocialMediaAccount],
-        notice: "#{@social_media_account.service_name} account updated successfully"
+                  notice: "#{@social_media_account.service_name} account updated successfully"
     else
       render :edit
     end
@@ -28,7 +28,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
     @social_media_account = @socialable.social_media_accounts.build(social_media_account_params)
     if @social_media_account.save
       redirect_to [:admin, @socialable, SocialMediaAccount],
-        notice: "#{@social_media_account.service_name} account created successfully"
+                  notice: "#{@social_media_account.service_name} account created successfully"
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class Admin::SocialMediaAccountsController < Admin::BaseController
   def destroy
     if @social_media_account.destroy
       redirect_to [:admin, @socialable, SocialMediaAccount],
-        notice: "#{@social_media_account.service_name} account deleted successfully"
+                  notice: "#{@social_media_account.service_name} account deleted successfully"
     else
       render :edit
     end

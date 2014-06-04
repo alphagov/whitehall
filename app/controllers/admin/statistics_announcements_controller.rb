@@ -4,9 +4,9 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def index
     @statistics_announcements = StatisticsAnnouncement
-				  .includes(:current_release_date)
-				  .order(current_release_date: :release_date)
-				  .page(params[:page])
+      .includes(:current_release_date)
+      .order(current_release_date: :release_date)
+      .page(params[:page])
   end
 
   def new

@@ -434,9 +434,9 @@ class EditionTest < ActiveSupport::TestCase
 
   test "should return search index data for all published editions" do
     create(:published_policy, title: "policy-title", body: "this and that",
-           summary: "policy-summary")
+                              summary: "policy-summary")
     create(:published_publication, title: "publication-title",
-           body: "stuff and things", summary: "publication-summary")
+                                   body: "stuff and things", summary: "publication-summary")
     create(:draft_publication, title: "draft-publication-title", body: "bits and bobs")
 
     results = Edition.search_index.to_a

@@ -121,11 +121,11 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
   test "should include breadcrumb metadata in search index" do
     category = create(:mainstream_category,
-      slug: "manufactured-goods-trade-compliance",
-      parent_tag: "business/international-trade"
+                      slug: "manufactured-goods-trade-compliance",
+                      parent_tag: "business/international-trade"
     )
     detailed_guide = create(:published_detailed_guide,
-      primary_mainstream_category: category
+                            primary_mainstream_category: category
     )
 
     index = detailed_guide.search_index

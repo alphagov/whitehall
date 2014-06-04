@@ -46,10 +46,10 @@ class Admin::WorldwideOfficesController < Admin::BaseController
 
   extend Admin::HomePageListController
   is_home_page_list_controller_for :offices,
-    item_type: WorldwideOffice,
-    contained_by: :worldwide_organisation,
-    redirect_to: ->(container, _) { [:admin, container, WorldwideOffice] },
-    params_name: :worldwide_office
+                                   item_type: WorldwideOffice,
+                                   contained_by: :worldwide_organisation,
+                                   redirect_to: ->(container, _) { [:admin, container, WorldwideOffice] },
+                                   params_name: :worldwide_office
   def home_page_list_item
     @worldwide_office
   end

@@ -136,7 +136,7 @@ class DocumentHelperTest < ActionView::TestCase
       }
     })
     assert_dom_equal %Q(<a href="#{activity_worldwide_priority_path("a-worldwide-priority", :de)}">Deutsch</a>),
-      link_to_translation(:de)
+                     link_to_translation(:de)
   end
 
   test "part_of_metadata does not have any links for a simple document" do

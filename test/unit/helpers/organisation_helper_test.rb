@@ -139,7 +139,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time, govuk_closed_status: 'replaced', superseding_organisations: [superseding_organisation])
 
     assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a> in November 2011",
-    organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that has been split' do
@@ -157,7 +157,7 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, name: 'Beard Ministry', govuk_status: 'closed', closed_at: closed_time, govuk_closed_status: 'split', superseding_organisations: [superseding_organisation_1, superseding_organisation_2])
 
     assert_equal "Beard Ministry was replaced by <a href=\"/government/organisations/superseding-organisation-1\">Superseding organisation 1</a> and <a href=\"/government/organisations/superseding-organisation-2\">Superseding organisation 2</a> in November 2011",
-    organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that has merged' do
@@ -191,14 +191,14 @@ class OrganisationHelperTest < ActionView::TestCase
     organisation = build(:organisation, name: 'Taxidermy Commission', govuk_status: 'transitioning', url: 'http://taxidermy.uk')
 
     assert_equal 'Taxidermy Commission is in the process of joining GOV.UK. In the meantime, <a href="http://taxidermy.uk">http://taxidermy.uk</a> remains the official source.',
-      organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description links to joining organisations when a url is available' do
     organisation = build(:organisation, name: 'Parrot Office', govuk_status: 'joining', url: 'http://parrot.org')
 
     assert_equal 'Parrot Office currently has a <a href="http://parrot.org">separate website</a> but will soon be incorporated into GOV.UK',
-      organisation_govuk_status_description(organisation)
+                 organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes a joining organisation without a website' do
@@ -277,8 +277,8 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test 'basic sentence construction' do
     parent = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
     child = create(:organisation, acronym: "BLAH",
-      name: "Building Law and Hygiene", parent_organisations: [parent],
-      organisation_type: OrganisationType.executive_agency)
+                                  name: "Building Law and Hygiene", parent_organisations: [parent],
+                                  organisation_type: OrganisationType.executive_agency)
     expected = %{BLAH is an executive agency of the Department of Building Regulation.}
     assert_display_name_text child, expected
   end
@@ -286,8 +286,8 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test 'string returned is html safe' do
     parent = create(:ministerial_department, name: "Department of Economy & Trade")
     child = create(:organisation, acronym: "B&B",
-      name: "Banking & Business", parent_organisations: [parent],
-      organisation_type: OrganisationType.executive_agency)
+                                  name: "Banking & Business", parent_organisations: [parent],
+                                  organisation_type: OrganisationType.executive_agency)
     expected = %{B&amp;B is an executive agency of the Department of Economy &amp; Trade.}
     assert_display_name_text child, expected
     assert organisation_display_name_and_parental_relationship(child).html_safe?

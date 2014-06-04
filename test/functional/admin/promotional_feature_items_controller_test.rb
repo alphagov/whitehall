@@ -61,7 +61,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, links: [link])
 
     put :update, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item,
-                  promotional_feature_item: {
+                 promotional_feature_item: {
                     summary: 'Updated summary',
                     links_attributes: { '0' => { url: link.url, text: link.text, id: link.id, _destroy: false } }
                   }
@@ -74,7 +74,7 @@ class Admin::PromotionalFeatureItemsControllerTest < ActionController::TestCase
   test 'PUT :update re-renders edit if the feature item does not save' do
     promotional_feature_item = create(:promotional_feature_item, promotional_feature: @promotional_feature, summary: 'Old summary')
     put :update, organisation_id: @organisation, promotional_feature_id: @promotional_feature, id: promotional_feature_item,
-                  promotional_feature_item: { summary: ''}
+                 promotional_feature_item: { summary: ''}
 
     assert_template :edit
     assert_equal 'Old summary', promotional_feature_item.reload.summary

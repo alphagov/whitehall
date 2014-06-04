@@ -13,7 +13,7 @@ class AnalyticsIdentifierPopulatorTest < ActiveSupport::TestCase
     TestEdition.analytics_prefix = nil
 
     assert_raise RuntimeError,
-      "AnalyticsIdentifierPopulatorTest::TestEdition must assign a value to attribute analytics_prefix" do
+                 "AnalyticsIdentifierPopulatorTest::TestEdition must assign a value to attribute analytics_prefix" do
       TestEdition.new.ensure_analytics_identifier
     end
   end

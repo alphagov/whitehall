@@ -46,9 +46,9 @@ class Admin::ContactsController < Admin::BaseController
 
   extend Admin::HomePageListController
   is_home_page_list_controller_for :contacts,
-    item_type: Contact,
-    contained_by: :contactable,
-    redirect_to: ->(container, _) { [:admin, container, Contact] }
+                                   item_type: Contact,
+                                   contained_by: :contactable,
+                                   redirect_to: ->(container, _) { [:admin, container, Contact] }
 
 private
 

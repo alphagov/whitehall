@@ -32,8 +32,8 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     o1 = create(:organisation)
     o2 = create(:organisation)
     edition = create(:publication, create_default_organisation: false,
-                               lead_organisations: [o1, o2],
-                               supporting_organisations: [])
+                                   lead_organisations: [o1, o2],
+                                   supporting_organisations: [])
     edition.lead_organisations = [o2]
     assert_nothing_raised do
       edition.save!

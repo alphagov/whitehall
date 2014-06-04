@@ -16,7 +16,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
   def update
     if @translated_role.update_attributes(role_params)
       redirect_to admin_role_translations_path(@translated_role),
-        notice: notice_message("saved")
+                  notice: notice_message("saved")
     else
       render action: 'edit'
     end
@@ -25,7 +25,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
   def destroy
     @translated_role.remove_translations_for(translation_locale.code)
     redirect_to admin_role_translations_path(@translated_role),
-      notice: notice_message("deleted")
+                notice: notice_message("deleted")
   end
 
   private

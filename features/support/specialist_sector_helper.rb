@@ -43,8 +43,8 @@ module SpecialistSectorHelper
 
   def create_document_tagged_to_a_specialist_sector
     create(:published_publication, :guidance,
-            primary_specialist_sector_tag: 'oil-and-gas/wells',
-            secondary_specialist_sector_tags: ['oil-and-gas/offshore', 'oil-and-gas/fields']
+           primary_specialist_sector_tag: 'oil-and-gas/wells',
+           secondary_specialist_sector_tags: ['oil-and-gas/offshore', 'oil-and-gas/fields']
     )
   end
 

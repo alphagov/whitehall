@@ -87,7 +87,7 @@ class BulkUpload
   end
 
   class ZipFile
-    extend  ActiveModel::Naming
+    extend ActiveModel::Naming
     include ActiveModel::Validations
     include ActiveModel::Conversion
 

@@ -26,17 +26,17 @@ class Admin::OrganisationsController < Admin::BaseController
 
   def people
     @ministerial_organisation_roles = @organisation.organisation_roles.joins(:role)
-					.merge(Role.ministerial).order(:ordering)
+     .merge(Role.ministerial).order(:ordering)
     @management_organisation_roles = @organisation.organisation_roles.joins(:role)
-					.merge(Role.management).order(:ordering)
+     .merge(Role.management).order(:ordering)
     @traffic_commissioner_organisation_roles = @organisation.organisation_roles.joins(:role)
-					.merge(Role.traffic_commissioner).order(:ordering)
+     .merge(Role.traffic_commissioner).order(:ordering)
     @military_organisation_roles = @organisation.organisation_roles.joins(:role)
-					.merge(Role.military).order(:ordering)
+     .merge(Role.military).order(:ordering)
     @special_representative_organisation_roles = @organisation.organisation_roles.joins(:role)
-					.merge(Role.special_representative).order(:ordering)
+     .merge(Role.special_representative).order(:ordering)
     @chief_professional_officer_roles = @organisation.organisation_roles.joins(:role)
-					.merge(Role.chief_professional_officer).order(:ordering)
+     .merge(Role.chief_professional_officer).order(:ordering)
   end
 
   def features

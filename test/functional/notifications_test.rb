@@ -7,9 +7,9 @@ class NotificationsFactCheckRequestTest < ActionMailer::TestCase
     @policy = build(:policy, title: "<policy-title>")
     @requestor = build(:fact_check_requestor, name: "<requestor-name>")
     @request = build(:fact_check_request,
-      email_address: 'fact-checker@example.com',
-      edition: @policy,
-      requestor: @requestor
+                     email_address: 'fact-checker@example.com',
+                     edition: @policy,
+                     requestor: @requestor
     )
     @mail = Notifications.fact_check_request(@request, host: "example.com")
   end
@@ -60,13 +60,13 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   setup do
     @policy = build(:policy, title: "<policy-title>")
     @requestor = build(:fact_check_requestor,
-      name: "<requestor-name>",
-      email: "fact-check-requestor@example.com"
+                       name: "<requestor-name>",
+                       email: "fact-check-requestor@example.com"
     )
     @request = build(:fact_check_request,
-      email_address: 'fact-checker@example.com',
-      edition: @policy,
-      requestor: @requestor
+                     email_address: 'fact-checker@example.com',
+                     edition: @policy,
+                     requestor: @requestor
     )
     @mail = Notifications.fact_check_response(@request, host: "example.com")
   end

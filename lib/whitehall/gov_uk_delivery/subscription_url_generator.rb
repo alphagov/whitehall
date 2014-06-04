@@ -79,10 +79,10 @@ module Whitehall
         # turn [1,2,3] into [[], [1], [2], [3], [1,2], [1,3], [2,3], [1,2,3]]
         # then, given 1 is really {a: 1} and 2 is {b: 2} etc...
         # turn that into [{}, {a:1}, {b: 2}, {c: 3}, {a:1, b:2}, {a:1, c:3}, ...]
-	0.upto(args.size)
-	  .map { |s| args.combination(s) }
-	  .flat_map(&:to_a)
-	  .map { |c| c.each_with_object { |h, a| h.merge(a) } }
+        0.upto(args.size)
+          .map { |s| args.combination(s) }
+          .flat_map(&:to_a)
+          .map { |c| c.each_with_object { |h, a| h.merge(a) } }
       end
 
       def topic_slugs
@@ -118,7 +118,7 @@ module Whitehall
       end
 
       def filter_urls
-	department_and_topic_combos = [department_slugs, topic_slugs].reduce(&:product)
+        department_and_topic_combos = [department_slugs, topic_slugs].reduce(&:product)
         department_and_topic_combos.map do |(org, topic)|
           combinatorial_args = [{departments: [org]}, {topics: [topic]}]
           combinatorial_args << filter_option if filter_option

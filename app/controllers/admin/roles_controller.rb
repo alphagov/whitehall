@@ -3,7 +3,7 @@ class Admin::RolesController < Admin::BaseController
 
   def index
     @roles = Role.includes(:role_appointments, :current_people, :translations, organisations: [:translations])
-		  .order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
+    .order("organisation_translations.name, roles.type DESC, roles.permanent_secretary DESC, role_translations.name")
   end
 
   def new

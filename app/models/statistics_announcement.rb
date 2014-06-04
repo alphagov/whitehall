@@ -7,32 +7,32 @@ class StatisticsAnnouncement < ActiveRecord::Base
   belongs_to :topic
   belongs_to :publication
 
-  has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
+  has_one :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates
 
-  validate  :publication_is_matching_type, if: :publication
+  validate :publication_is_matching_type, if: :publication
   validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
   validates :publication_type_id,
-              inclusion: {
-                in: PublicationType.statistical.map(&:id),
-                message: 'must be a statistical type'
-              }
+            inclusion: {
+              in: PublicationType.statistical.map(&:id),
+              message: 'must be a statistical type'
+            }
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
 
   include Searchable
-  searchable  title: :title,
-              link: :public_path,
-              description: :summary,
-              display_type: :display_type,
-              slug: :slug,
-              organisations: :organisation_slugs,
-              topics: :topic_slugs,
-              release_timestamp: :release_date,
-              metadata: :search_metadata
+  searchable title: :title,
+             link: :public_path,
+             description: :summary,
+             display_type: :display_type,
+             slug: :slug,
+             organisations: :organisation_slugs,
+             topics: :topic_slugs,
+             release_timestamp: :release_date,
+             metadata: :search_metadata
 
-  delegate  :release_date, :display_date, :confirmed?,
-              to: :current_release_date
+  delegate :release_date, :display_date, :confirmed?,
+           to: :current_release_date
 
   def last_change_note
     last_major_change.try(:change_note)

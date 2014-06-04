@@ -14,8 +14,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
 
   test 'AboutUs pages do not require a body' do
     corporate_information_page = build(:corporate_information_page,
-                                        body: '',
-                                        corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+                                       body: '',
+                                       corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
 
     assert corporate_information_page.valid?
   end
@@ -32,8 +32,8 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
   test 'should return search index data suitable for Rummageable' do
     organisation = create(:organisation)
     corporate_information_page = create(:corporate_information_page,
-      corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
-      organisation: organisation)
+                                        corporate_information_page_type: CorporateInformationPageType::TermsOfReference,
+                                        organisation: organisation)
 
     assert_equal "#{organisation.name} \u2013 #{corporate_information_page.title}", corporate_information_page.search_index['title']
     assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']

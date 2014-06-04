@@ -29,6 +29,6 @@ private
 
   def date_change_params
     params.require(:statistics_announcement_date_change)
-	  .permit(:release_date, :confirmed, :precision, :change_note)
+   .permit(:release_date, :confirmed, :precision, :change_note)
   end
 end

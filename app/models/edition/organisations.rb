@@ -118,7 +118,7 @@ module Edition::Organisations
       # find an existing instance
       existing = existing_edition_organisations
         .reject { |eo| __edition_organisations_touched_by_lead_or_supporting_organisations_setters.include?(eo) }
-	.find { |eo| eo.organisation_id.to_s == new_organisation_id.to_s }
+ .find { |eo| eo.organisation_id.to_s == new_organisation_id.to_s }
 
       if existing
         # and remove it from the things to look at now...

@@ -29,10 +29,10 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index omits existing translations from create select' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
-      }
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
+                    }
     )
 
     get :index, person_id: person
@@ -44,11 +44,11 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index omits create form if no missing translations' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." },
-        es: { biography: "Ella nació. Ella vivía. Ella murió." },
-      }
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: { biography: "Elle est née. Elle a vécu. Elle est morte." },
+                      es: { biography: "Ella nació. Ella vivía. Ella murió." },
+                    }
     )
 
     get :index, person_id: person
@@ -58,10 +58,10 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index lists existing translations' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
-      }
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
+                    }
     )
 
     get :index, person_id: person
@@ -81,10 +81,10 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
   view_test 'index displays delete button for a translation' do
     person = create(:person,
-      biography: "She was born. She lived. She died.",
-      translated_into: {
-        fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
-      }
+                    biography: "She was born. She lived. She died.",
+                    translated_into: {
+                      fr: { biography: "Elle est née. Elle a vécu. Elle est morte." }
+                    }
     )
 
     get :index, person_id: person

@@ -28,12 +28,12 @@ module Whitehall
     def errors
       return unless object.errors.any?
       error_list = @template.content_tag(:ul, "class" => "errors disc") do
-       object.errors.full_messages.each do |msg|
-	 @template.concat @template.content_tag(:li, msg)
-       end
+        object.errors.full_messages.each do |msg|
+          @template.concat @template.content_tag(:li, msg)
+        end
       end
       @template.content_tag(:div, "class" => "alert alert-error form-errors") do
-       @template.concat @template.content_tag(:p, "To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:")
+        @template.concat @template.content_tag(:p, "To save the #{object.class.name.demodulize.underscore.humanize.downcase} please fix the following issues:")
        @template.concat error_list
       end
     end

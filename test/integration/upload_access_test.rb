@@ -69,10 +69,10 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows everyone access to attachments of published editions' do
     create(:published_publication,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+           alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
+           attachments: [
+             attachment = build(:file_attachment)
+           ])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     get_via_nginx attachment.url
@@ -82,10 +82,10 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows everyone access to thumbnails of attachments of published editions' do
     create(:published_publication,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+           alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
+           attachments: [
+             attachment = build(:file_attachment)
+           ])
     thumbnail_path = path_to_clean_upload(attachment.url + ".png")
     create_uploaded_file(thumbnail_path)
 
@@ -97,7 +97,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   test 'blocks general access to attachments of unpublished editions' do
     create(:draft_publication, alternative_format_provider:
       create(:organisation_with_alternative_format_contact_email),
-      attachments: [
+                               attachments: [
         attachment = build(:file_attachment)
       ])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
@@ -109,10 +109,10 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows everyone access to attachments of published consultation responses' do
     create(:published_consultation,
-      outcome: create(:consultation_outcome,
-        attachments: [
-          attachment = build(:file_attachment)
-        ])
+           outcome: create(:consultation_outcome,
+                           attachments: [
+                             attachment = build(:file_attachment)
+                           ])
       )
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
@@ -123,10 +123,10 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'blocks general access to attachments of unpublished consultation responses' do
     create(:draft_consultation,
-      outcome: create(:consultation_outcome,
-        attachments: [
-          attachment = build(:file_attachment)
-        ])
+           outcome: create(:consultation_outcome,
+                           attachments: [
+                             attachment = build(:file_attachment)
+                           ])
       )
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
@@ -172,10 +172,10 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows authenticated users access to attachments of unpublished editions' do
     create(:draft_publication,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+           alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
+           attachments: [
+             attachment = build(:file_attachment)
+           ])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))
@@ -187,12 +187,12 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'blocks authenticated users without permission from accessing attachments of limited access documents' do
     limited_access_publication = create(:draft_publication,
-      publication_type: PublicationType::NationalStatistics,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      access_limited: true,
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+                                        publication_type: PublicationType::NationalStatistics,
+                                        alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
+                                        access_limited: true,
+                                        attachments: [
+                                          attachment = build(:file_attachment)
+                                        ])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
 
     AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))
@@ -204,13 +204,13 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
 
   test 'allows authenticated users with permission to access attachments of limited access documents' do
     limited_access_publication = create(:draft_publication,
-      publication_type: PublicationType::NationalStatistics,
-      alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
-      organisations: [create(:organisation)],
-      access_limited: true,
-      attachments: [
-        attachment = build(:file_attachment)
-      ])
+                                        publication_type: PublicationType::NationalStatistics,
+                                        alternative_format_provider: create(:organisation_with_alternative_format_contact_email),
+                                        organisations: [create(:organisation)],
+                                        access_limited: true,
+                                        attachments: [
+                                          attachment = build(:file_attachment)
+                                        ])
     VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
     user_with_access = create(:user, organisation: limited_access_publication.organisations.first)
 

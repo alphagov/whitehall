@@ -13,7 +13,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test "yields the data, row by row" do
     expected_data = [['Office for Facial Hair Studies', '£12000000' , '£10000000'],
-                      ['Department of Grooming', '£15000000', '£15600000']]
+                     ['Department of Grooming', '£15000000', '£15600000']]
 
     assert_csv_data expected_data, csv_preview
   end
@@ -22,10 +22,10 @@ class CsvPreviewTest < ActiveSupport::TestCase
     iso_encoded_preview = CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/iso-8859-1.csv'))
 
     assert_equal ['ECO Lot', 'Band', 'Contract Term', 'Price Per Unit', 'Above reserve price?', 'Reserve Price (£)'],
-      iso_encoded_preview.headings
+                 iso_encoded_preview.headings
 
     expected_data = [['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '3 months', '£69.10', 'YES', nil],
-                      ['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '12 months', '£62.10', 'YES', '£40.00']]
+                     ['Carbon Saving Communities', 'Carbon Saving Band 1 [1K-3K]', '12 months', '£62.10', 'YES', '£40.00']]
 
     assert_csv_data(expected_data, iso_encoded_preview)
   end
@@ -34,7 +34,7 @@ class CsvPreviewTest < ActiveSupport::TestCase
     iso_encoded_preview = CsvPreview.new(File.open(Rails.root.join('test/fixtures/csv_encodings/windows-1252.csv')))
 
     assert_equal %w(name address1 address2 town postcode access_notes general_notes url email phone fax text_phone),
-      iso_encoded_preview.headings
+                 iso_encoded_preview.headings
   end
 
   test "raises CsvPreview::FileEncodingError if the encoding cannot be handled by the CSV library" do

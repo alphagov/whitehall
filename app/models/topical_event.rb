@@ -18,22 +18,22 @@ class TopicalEvent < Classification
   has_many :consultations, through: :classification_memberships
 
   has_many :published_announcements,
-            through: :classification_memberships,
-            class_name: "Announcement",
-            conditions: { "editions.state" => "published" },
-            source: :announcement
+           through: :classification_memberships,
+           class_name: "Announcement",
+           conditions: { "editions.state" => "published" },
+           source: :announcement
 
   has_many :published_publications,
-            through: :classification_memberships,
-            class_name: "Publication",
-            conditions: { "editions.state" => "published" },
-            source: :publication
+           through: :classification_memberships,
+           class_name: "Publication",
+           conditions: { "editions.state" => "published" },
+           source: :publication
 
   has_many :published_consultations,
-            through: :classification_memberships,
-            class_name: "Consultation",
-            conditions: { "editions.state" => "published" },
-            source: :consultation
+           through: :classification_memberships,
+           class_name: "Consultation",
+           conditions: { "editions.state" => "published" },
+           source: :consultation
 
   scope :active, -> { where("end_date > ?", Date.today) }
   scope :order_by_start_date, -> { order("start_date DESC") }

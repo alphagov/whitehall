@@ -59,7 +59,7 @@ module Whitehall
 
       test "advanced search can select documents with a field matching any item from a list of values" do
         @index.add_batch(build_documents(*%w{Foo Bar FooBar}))
-	assert_search_returns_documents %w{Foo Bar}, topics: %w(Foo-topic2 Bar-topic1)
+ assert_search_returns_documents %w{Foo Bar}, topics: %w(Foo-topic2 Bar-topic1)
       end
 
       test "advanced search can select documents with a field matching a single value" do

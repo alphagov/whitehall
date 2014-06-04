@@ -111,7 +111,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
   test 'update updates translation and redirects back to the index' do
     put :update, organisation_id: @organisation, id: 'fr',
-      organisation: {
+                 organisation: {
         name: 'Afrolasie Bureau',
         acronym: 'AFRO',
         logo_formatted_name: 'Afrolasie Bureau',
@@ -130,7 +130,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
   view_test 'update re-renders form if translation is invalid' do
     put :update, organisation_id: @organisation, id: 'fr',
-      organisation: {
+                 organisation: {
         name: 'Afrolasie Bureau',
         logo_formatted_name: '',
       }

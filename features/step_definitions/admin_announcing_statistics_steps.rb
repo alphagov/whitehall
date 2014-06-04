@@ -4,8 +4,8 @@ end
 
 Given(/^a draft statistics publication called "(.*?)"$/) do |title|
   @statistics_publication = create(:publication, :draft, access_limited: false,
-                                   publication_type_id: PublicationType::Statistics.id,
-                                   title: title)
+                                                         publication_type_id: PublicationType::Statistics.id,
+                                                         title: title)
 end
 
 When(/^I link the announcement to the publication$/) do

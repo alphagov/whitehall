@@ -102,7 +102,7 @@ class Admin::EditionsController < Admin::BaseController
       redirect_to edit_admin_edition_path(new_draft)
     else
       redirect_to edit_admin_edition_path(@edition.document.latest_edition),
-        alert: new_draft.errors.full_messages.to_sentence
+                  alert: new_draft.errors.full_messages.to_sentence
     end
   end
 
@@ -159,51 +159,51 @@ class Admin::EditionsController < Admin::BaseController
 
   def permitted_edition_attributes
     [:title, :body, :change_note, :summary, :first_published_at,
-      :publication_type_id, :scheduled_publication, :lock_version,
-      :access_limited, :alternative_format_provider_id, :opening_at,
-      :closing_at, :external, :external_url, :minor_change,
-      :roll_call_introduction, :operational_field_id, :news_article_type_id,
-      :relevant_to_local_government, :role_appointment_id, :speech_type_id,
-      :delivered_on, :location, :person_override, :locale,
-      :primary_mainstream_category_id, :related_mainstream_content_url,
-      :related_mainstream_content_title,
-      :additional_related_mainstream_content_url,
-      :additional_related_mainstream_content_title,
-      :primary_specialist_sector_tag,
-      :corporate_information_page_type_id,
-      secondary_specialist_sector_tags: [],
-      ministerial_role_ids: [],
-      lead_organisation_ids: [],
-      supporting_organisation_ids: [],
-      organisation_ids: [],
-      world_location_ids: [],
-      worldwide_organisation_ids: [],
-      worldwide_priority_ids: [],
-      related_policy_ids: [],
-      other_mainstream_category_ids: [],
-      topic_ids: [],
-      topical_event_ids: [],
-      related_detailed_guide_ids: [],
-      role_appointment_ids: [],
-      statistical_data_set_document_ids: [],
-      policy_group_ids: [],
-      document_collection_group_ids: [],
-      images_attributes: [
-        :id, :alt_text, :caption, :_destroy,
-        image_data_attributes: [:file, :file_cache]
-      ],
-      consultation_participation_attributes: [
-        :id, :link_url, :email, :postal_address,
-        consultation_response_form_attributes: [
-          :id, :title, :_destroy,
-          consultation_response_form_data_attributes: [:id, :file, :file_cache]
-        ]
-      ],
-      nation_inapplicabilities_attributes: [
-        :id, :nation_id, :alternative_url, :excluded
-      ],
-      fatality_notice_casualties_attributes: [:personal_details, :_destroy],
-      need_ids: []
+     :publication_type_id, :scheduled_publication, :lock_version,
+     :access_limited, :alternative_format_provider_id, :opening_at,
+     :closing_at, :external, :external_url, :minor_change,
+     :roll_call_introduction, :operational_field_id, :news_article_type_id,
+     :relevant_to_local_government, :role_appointment_id, :speech_type_id,
+     :delivered_on, :location, :person_override, :locale,
+     :primary_mainstream_category_id, :related_mainstream_content_url,
+     :related_mainstream_content_title,
+     :additional_related_mainstream_content_url,
+     :additional_related_mainstream_content_title,
+     :primary_specialist_sector_tag,
+     :corporate_information_page_type_id,
+     secondary_specialist_sector_tags: [],
+     ministerial_role_ids: [],
+     lead_organisation_ids: [],
+     supporting_organisation_ids: [],
+     organisation_ids: [],
+     world_location_ids: [],
+     worldwide_organisation_ids: [],
+     worldwide_priority_ids: [],
+     related_policy_ids: [],
+     other_mainstream_category_ids: [],
+     topic_ids: [],
+     topical_event_ids: [],
+     related_detailed_guide_ids: [],
+     role_appointment_ids: [],
+     statistical_data_set_document_ids: [],
+     policy_group_ids: [],
+     document_collection_group_ids: [],
+     images_attributes: [
+       :id, :alt_text, :caption, :_destroy,
+       image_data_attributes: [:file, :file_cache]
+     ],
+     consultation_participation_attributes: [
+       :id, :link_url, :email, :postal_address,
+       consultation_response_form_attributes: [
+         :id, :title, :_destroy,
+         consultation_response_form_data_attributes: [:id, :file, :file_cache]
+       ]
+     ],
+     nation_inapplicabilities_attributes: [
+       :id, :nation_id, :alternative_url, :excluded
+     ],
+     fatality_notice_casualties_attributes: [:personal_details, :_destroy],
+     need_ids: []
     ]
   end
 

@@ -50,5 +50,5 @@ end
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the priority "([^"]*)"$/ do |document_type, document_title, title|
   priority = WorldwidePriority.find_by_title!(title)
   create("published_#{document_class(document_type).name.underscore}".to_sym,
-          title: document_title, related_editions: [priority])
+         title: document_title, related_editions: [priority])
 end

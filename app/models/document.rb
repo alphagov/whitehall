@@ -11,20 +11,20 @@ class Document < ActiveRecord::Base
   has_many :editions, inverse_of: :document
   has_many :edition_relations, dependent: :destroy
 
-  has_one  :published_edition,
-           class_name: 'Edition',
-           inverse_of: :document,
-           conditions: { state: %w(published archived) }
+  has_one :published_edition,
+          class_name: 'Edition',
+          inverse_of: :document,
+          conditions: { state: %w(published archived) }
 
-  has_one  :latest_edition,
-           class_name: 'Edition',
-           inverse_of: :document,
-           conditions: %(
-             NOT EXISTS (
-               SELECT 1 FROM editions e2
-               WHERE e2.document_id = editions.document_id
-               AND e2.id > editions.id
-               AND e2.state <> 'deleted'))
+  has_one :latest_edition,
+          class_name: 'Edition',
+          inverse_of: :document,
+          conditions: %(
+            NOT EXISTS (
+              SELECT 1 FROM editions e2
+              WHERE e2.document_id = editions.document_id
+              AND e2.id > editions.id
+              AND e2.state <> 'deleted'))
 
   has_many :document_sources, dependent: :destroy
   has_many :document_collection_group_memberships

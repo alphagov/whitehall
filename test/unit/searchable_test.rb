@@ -8,7 +8,7 @@ class SearchableTest < ActiveSupport::TestCase
     self.table_name = 'classifications'
 
     include Searchable
-    searchable  link: :name, only: :published, index_after: [:save], unindex_after: [:destroy]
+    searchable link: :name, only: :published, index_after: [:save], unindex_after: [:destroy]
 
     scope :published, -> { where(state: 'published') }
   end

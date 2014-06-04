@@ -197,10 +197,10 @@ class Edition < ActiveRecord::Base
 
   def self.related_to(edition)
     related = if edition.is_a?(Policy)
-		edition.related_editions
-	      else
-		edition.related_policies
-	      end
+                edition.related_editions
+              else
+                edition.related_policies
+              end
 
     # This works around a wierd bug in ActiveRecord where an outer scope applied
     # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
@@ -422,7 +422,7 @@ class Edition < ActiveRecord::Base
       raise "Cannot create new edition based on edition in the #{state} state"
     end
     draft_attributes = attributes.except(*%w{id type state created_at updated_at change_note
-      minor_change force_published scheduled_publication})
+                                             minor_change force_published scheduled_publication})
     self.class.new(draft_attributes.merge('state' => 'draft', 'creator' => user)).tap do |draft|
       traits.each { |t| t.process_associations_before_save(draft) }
       if draft.valid? || !draft.errors.keys.include?(:base)

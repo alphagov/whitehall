@@ -145,7 +145,7 @@ class Whitehall::Uploader::AttachmentCache
         detected_type = extension_from_content_type(response) || extension_from_file(local_path)
         if detected_type
           FileUtils.mv(local_path, local_path + ".#{detected_type}")
-	  local_path += ".#{detected_type}"
+   local_path += ".#{detected_type}"
           @logger.info "Detected file type: #{detected_type}; moved to #{local_path}", @line_number
         else
           @logger.warn "Unknown file type for #{local_path}", @line_number

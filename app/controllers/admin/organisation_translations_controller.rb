@@ -16,7 +16,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   def update
     if @translated_organisation.update_attributes(organisation_params)
       redirect_to admin_organisation_translations_path(@translated_organisation),
-        notice: notice_message("saved")
+                  notice: notice_message("saved")
     else
       render action: 'edit'
     end
@@ -25,7 +25,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   def destroy
     @translated_organisation.remove_translations_for(translation_locale.code)
     redirect_to admin_organisation_translations_path(@translated_organisation),
-      notice: notice_message("deleted")
+                notice: notice_message("deleted")
   end
 
   private

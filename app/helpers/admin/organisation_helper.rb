@@ -9,8 +9,8 @@ module Admin::OrganisationHelper
         label_text = "#{role_name}<br/><strong>#{organisation_role_form.object.role.current_person_name}</strong>".html_safe
       end
       content_tag(:div,
-        organisation_role_form.text_field(:ordering, label_text: label_text, class: "ordering"),
-        class: "well"
+                  organisation_role_form.text_field(:ordering, label_text: label_text, class: "ordering"),
+                  class: "well"
       )
     end
   end

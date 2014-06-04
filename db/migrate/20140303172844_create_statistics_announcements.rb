@@ -1,13 +1,13 @@
 class CreateStatisticsAnnouncements < ActiveRecord::Migration
   def change
     create_table :statistics_announcements do |t|
-      t.string      :title
-      t.string      :slug
-      t.text        :summary
-      t.integer     :publication_type_id
-      t.references  :organisation
-      t.references  :topic
-      t.references  :creator
+      t.string :title
+      t.string :slug
+      t.text :summary
+      t.integer :publication_type_id
+      t.references :organisation
+      t.references :topic
+      t.references :creator
 
       t.timestamps
     end

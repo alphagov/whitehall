@@ -32,13 +32,13 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     person_one, person_two = create(:person), create(:person)
 
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
-      name: "group-name",
-      description: "group-description",
-      group_memberships_attributes: {
-        "0" => { person_id: person_one.id },
-        "1" => { person_id: person_two.id },
-        "2" => { person_id: "" }
-      }
+                                                                           name: "group-name",
+                                                                           description: "group-description",
+                                                                           group_memberships_attributes: {
+                                                                             "0" => { person_id: person_one.id },
+                                                                             "1" => { person_id: person_two.id },
+                                                                             "2" => { person_id: "" }
+                                                                           }
     )
 
     assert group = Group.last
@@ -56,7 +56,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
 
   test "create should inform the user when a group is created successfully" do
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
-      name: "group-name"
+                                                                           name: "group-name"
     )
 
     assert_equal %{"group-name" created.}, flash[:notice]
@@ -64,7 +64,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
 
   view_test "create with invalid data should display errors" do
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
-      name: nil
+                                                                           name: nil
     )
 
     assert_select ".form-errors"
@@ -74,11 +74,11 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     person = create(:person)
 
     post :create, organisation_id: @organisation.id, group: attributes_for(:group,
-      name: "group-name",
-      group_memberships_attributes: {
-        "0" => { person_id: person.id },
-        "1" => { person_id: person.id }
-      }
+                                                                           name: "group-name",
+                                                                           group_memberships_attributes: {
+                                                                             "0" => { person_id: person.id },
+                                                                             "1" => { person_id: person.id }
+                                                                           }
     )
 
     assert_select ".form-errors", /The same person has been added more than once/
@@ -210,7 +210,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     group = create(:group)
 
     put :update, organisation_id: @organisation.id, id: group, group: attributes_for(:group,
-      name: nil
+                                                                                     name: nil
     )
 
     assert_select ".form-errors"
@@ -221,10 +221,10 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     membership = create(:group_membership, group: group, person: person)
 
     put :update, organisation_id: @organisation.id, id: group, group: attributes_for(:group,
-      group_memberships_attributes: {
-        "0" => { id: membership.id, person_id: person.id, _destroy: 0 },
-        "1" => { person_id: person.id }
-      }
+                                                                                     group_memberships_attributes: {
+                                                                                       "0" => { id: membership.id, person_id: person.id, _destroy: 0 },
+                                                                                       "1" => { person_id: person.id }
+                                                                                     }
     )
 
     assert_select ".form-errors", /The same person has been added more than once/

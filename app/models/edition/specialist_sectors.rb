@@ -33,10 +33,10 @@ private
 
   def set_specialist_sectors(tags, primary: false)
     relation = if primary
-		 'primary_specialist_sectors'
-	       else
-		 'secondary_specialist_sectors'
-	       end
+                 'primary_specialist_sectors'
+               else
+                 'secondary_specialist_sectors'
+               end
 
     sectors = tags.reject(&:blank?).map do |tag|
       self.public_send(relation).where(tag: tag).first_or_initialize.tap do |sector|

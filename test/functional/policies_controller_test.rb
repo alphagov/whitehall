@@ -271,8 +271,8 @@ That's all
     user = login_as(:departmental_editor)
     p1 = create(:published_publication, first_published_at: Time.zone.now, related_editions: [policy])
     p2 = create(:draft_publication,
-      scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
-      related_editions: [policy])
+                scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
+                related_editions: [policy])
     p2.perform_force_schedule
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
@@ -285,8 +285,8 @@ That's all
   view_test "activity uses first_published_at to indicate when a publication was changed" do
     policy = create(:published_policy)
     edition = create(:published_publication,
-      related_editions: [policy],
-      first_published_at: Time.zone.now - 2.days)
+                     related_editions: [policy],
+                     first_published_at: Time.zone.now - 2.days)
 
     get :activity, id: policy.document
 

@@ -17,22 +17,22 @@ class Classification < ActiveRecord::Base
   has_many :organisations, through: :organisation_classifications
   has_many :classification_relations
   has_many :related_classifications,
-            through: :classification_relations,
-            before_remove: -> pa, rpa {
-              ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
-            }
+           through: :classification_relations,
+           before_remove: -> pa, rpa {
+             ClassificationRelation.relation_for(pa.id, rpa.id).destroy_inverse_relation
+           }
 
   has_many :classification_featurings,
-            foreign_key: :classification_id,
-            order: "classification_featurings.ordering asc",
-            include: { edition: :translations },
-            inverse_of: :classification,
-            conditions: "editions.state = 'published' or classification_featurings.edition_id is null"
+           foreign_key: :classification_id,
+           order: "classification_featurings.ordering asc",
+           include: { edition: :translations },
+           inverse_of: :classification,
+           conditions: "editions.state = 'published' or classification_featurings.edition_id is null"
 
   has_many :featured_editions,
-            through: :classification_featurings,
-            source: :edition,
-            order: "classification_featurings.ordering ASC"
+           through: :classification_featurings,
+           source: :edition,
+           order: "classification_featurings.ordering ASC"
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
