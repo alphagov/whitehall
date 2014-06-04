@@ -21,4 +21,15 @@
       <% end %>
     <% end %>
   <% end %>
+
+  <% if organisation.type.sub_organisation? %>
+    <p class="parent-organisations">
+      Part of
+      <%=
+        organisation.parent_organisations.map { |parent_org|
+          link_to parent_org.name, organisation_path(parent_org)
+        }.to_sentence.html_safe
+      %>
+    </p>
+  <% end %>
 </header>
