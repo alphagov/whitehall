@@ -86,7 +86,7 @@ module Edition::ScheduledPublishing
     can_force_schedule? && scheduled_publication_time_set?
   end
 
-  private
+private
 
   def scheduled_publication_is_in_the_future
     if scheduled_publication.present? && scheduled_publication < Whitehall.default_cache_max_age.from_now

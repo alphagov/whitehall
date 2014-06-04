@@ -49,7 +49,7 @@ class Notifications < ActionMailer::Base
     mail from: no_reply_email_address, to: recipient_address, subject: 'GOV.UK bad link reports'
   end
 
-  private
+private
 
   def no_reply_email_address
     name = "DO NOT REPLY"

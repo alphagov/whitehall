@@ -10,7 +10,7 @@ class PublicUploadsController < ApplicationController
     end
   end
 
-  private
+private
 
   def fail
     if image? upload_path

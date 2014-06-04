@@ -455,7 +455,7 @@ class Organisation < ActiveRecord::Base
     end
   end
 
-  private
+private
 
   def sub_organisations_must_have_a_parent
     if organisation_type && organisation_type.sub_organisation?

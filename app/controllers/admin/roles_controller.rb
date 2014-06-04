@@ -47,7 +47,7 @@ class Admin::RolesController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def load_role
     @role = Role.find(params[:id])

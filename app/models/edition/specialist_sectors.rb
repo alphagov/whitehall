@@ -33,7 +33,7 @@ private
 
   def set_specialist_sectors(tags, primary: false)
     relation = if primary
-      'primary_specialist_sectors'
+                 'primary_specialist_sectors'
     else
       'secondary_specialist_sectors'
     end

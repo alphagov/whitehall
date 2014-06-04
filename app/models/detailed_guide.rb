@@ -75,7 +75,7 @@ class DetailedGuide < Edition
     'detailed-guidance'
   end
 
-  private
+private
 
   # Returns the published edition of any detailed guide documents that this edition is related to.
   def published_outbound_related_detailed_guides

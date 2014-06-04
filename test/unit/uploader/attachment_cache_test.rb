@@ -190,7 +190,7 @@ class Whitehall::Uploader::AttachmentCacheTest < ActiveSupport::TestCase
     assert_equal "attachment.pdf", File.basename(@cache.fetch(url, @line_number).path)
   end
 
-  private
+private
 
   def assert_raise_retrieval_error_matching(message_regexp)
     yield

@@ -27,7 +27,7 @@ class PromotionalFeatureItemTest < ActiveSupport::TestCase
     assert_equal 'Example link', item.links.first.text
   end
 
-  private
+private
 
   def string_of_length(length)
     'X' * length

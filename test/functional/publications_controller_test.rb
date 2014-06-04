@@ -667,7 +667,7 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select ".translations"
   end
 
-  private
+private
 
   def publication_with_attachment(params = {})
     type = params.delete(:type) { |key| :file }

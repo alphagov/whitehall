@@ -38,7 +38,7 @@ module PersonHelper
     click_on "Save"
   end
 
-  private
+private
 
   def split_person_name(name)
     if match = /^(\w+)\s*(.*?)$/.match(name)

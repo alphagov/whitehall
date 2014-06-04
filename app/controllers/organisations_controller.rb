@@ -57,7 +57,7 @@ class OrganisationsController < PublicFacingController
     end
   end
 
-  private
+private
   def ministers
     @ministerial_roles ||= filled_roles_presenter_for(@organisation, :ministerial)
     @ministerial_roles.with_unique_people

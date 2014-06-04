@@ -15,7 +15,7 @@ class WorldwidePrioritiesController < DocumentsController
     @related_editions = @document.published_related_editions.with_translations(I18n.locale).in_reverse_chronological_order.page(params[:page]).per(40)
   end
 
-  private
+private
 
   def show_navigation?
     @document.published_related_editions.any?

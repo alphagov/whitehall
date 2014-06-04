@@ -109,7 +109,7 @@ module Whitehall::Uploader
         end
       end
 
-      private
+    private
 
       def build_attachments
         1.upto(Row::ATTACHMENT_LIMIT).map do |number|

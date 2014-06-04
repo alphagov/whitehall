@@ -34,7 +34,7 @@ class Admin::PromotionalFeatureItemsController < Admin::BaseController
     redirect_to_feature 'Feature item deleted.'
   end
 
-  private
+private
 
   def load_organisation
     @organisation = Organisation.allowed_promotional.find(params[:organisation_id])

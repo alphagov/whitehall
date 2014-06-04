@@ -270,7 +270,7 @@ class Import < ActiveRecord::Base
     ImportLog.establish_connection ActiveRecord::Base.configurations[Rails.env]
   end
 
-  private
+private
 
   def destroy_all_imported_documents
     Document.destroy_all(id: self.document_ids)

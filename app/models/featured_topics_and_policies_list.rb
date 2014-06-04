@@ -13,7 +13,7 @@ class FeaturedTopicsAndPoliciesList < ActiveRecord::Base
     featured_items.current.select { |item| item.linkable? }
   end
 
-  protected
+protected
   def next_ordering
     (featured_items.map(&:ordering).max || 0) + 1
   end

@@ -32,7 +32,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     end
   end
 
-  private
+private
 
   def tested_controllers
     Dir[Rails.root + "app/controllers/*_controller.rb"].reject do |controller|

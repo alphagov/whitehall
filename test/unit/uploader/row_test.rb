@@ -134,7 +134,7 @@ module Whitehall::Uploader
       assert_equal "translated body with absolute links", row.translated_body
     end
 
-    private
+  private
 
     def build_row(data)
       Row.new(data, 1, @attachment_cache, @default_organisation)

@@ -122,7 +122,7 @@ module TestsForNationalApplicability
     end
 
   end
-  private
+private
 
   def attributes_for_edition(attributes = {})
     controller_attributes_for(edition_class.name.underscore, attributes)

@@ -57,7 +57,7 @@ class TopicalEvent < Classification
     Whitehall.url_maker.topical_event_path(slug)
   end
 
-  private
+private
   def start_and_end_dates
     if start_date && end_date
       if more_than_a_year(start_date, end_date)

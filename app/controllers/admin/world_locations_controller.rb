@@ -30,7 +30,7 @@ class Admin::WorldLocationsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def default_filter_params
     {

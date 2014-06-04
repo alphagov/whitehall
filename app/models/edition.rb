@@ -197,7 +197,7 @@ class Edition < ActiveRecord::Base
 
   def self.related_to(edition)
     related = if edition.is_a?(Policy)
-      edition.related_editions
+                edition.related_editions
     else
       edition.related_policies
     end

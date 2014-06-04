@@ -126,7 +126,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     assert_same_elements [policy.document, related_guide.document], new_guide.related_documents
   end
 
-  private
+private
 
   def controller_attributes_for(edition_type, attributes = {})
     super.except(:primary_mainstream_category, :alternative_format_provider).reverse_merge(

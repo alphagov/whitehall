@@ -142,7 +142,7 @@ module Whitehall::Uploader
       assert_equal attachments.last, row.attachments.last
     end
 
-    private
+  private
 
     def attachments_and_attributes_for(count)
       attachments = (1..count).map {|i| stub_everything("attachment-#{i}") }

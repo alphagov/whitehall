@@ -52,7 +52,7 @@ class HtmlAttachment < Attachment
     slug.nil? || attachable.nil? || !attachable.document.published?
   end
 
-  private
+private
 
   def sluggable_locale?
     locale.blank? or locale == "en"

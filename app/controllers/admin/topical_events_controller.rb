@@ -15,7 +15,7 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
     end
   end
 
-  private
+private
 
   def model_class
     TopicalEvent

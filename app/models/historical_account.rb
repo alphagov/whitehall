@@ -38,7 +38,7 @@ class HistoricalAccount < ActiveRecord::Base
     roles.first
   end
 
-  private
+private
 
   def roles_support_historical_accounts
     unless roles.all? { |role| role.supports_historical_accounts? }

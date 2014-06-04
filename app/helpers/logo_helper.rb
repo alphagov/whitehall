@@ -18,7 +18,7 @@ module LogoHelper
 
   def organisation_logo(organisation, options = {})
     logo = if organisation.custom_logo_selected?
-      image_tag(organisation.logo.url, alt: organisation.name, class: 'organisation-logo-custom')
+             image_tag(organisation.logo.url, alt: organisation.name, class: 'organisation-logo-custom')
     else
       organisation_logo_name(organisation)
     end

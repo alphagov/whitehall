@@ -1,13 +1,13 @@
 module Admin::DefinitionListHelper
   def dd(value, default = nil, &block)
     value = if value.present?
-      if block_given?
-        capture do
-          yield(value)
-        end
-      else
-        value
-      end
+              if block_given?
+                capture do
+                  yield(value)
+                end
+              else
+                value
+              end
     else
       default || default_definition_list_value
     end

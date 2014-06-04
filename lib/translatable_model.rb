@@ -35,7 +35,7 @@ module TranslatableModel
     Locale.new(translation.locale)
   end
 
-  private
+private
 
   def non_english_translated_locale_codes
     translated_locales - [:en]

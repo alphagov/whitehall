@@ -9,7 +9,7 @@ class EditionRelation < ActiveRecord::Base
   after_create :update_published_related_edition_counts
   after_destroy :update_published_related_edition_counts
 
-  private
+private
 
   def update_published_related_edition_counts
     if document.published_edition.present? && document.published_edition.respond_to?(:update_published_related_publication_count)

@@ -30,7 +30,7 @@ class TopicalEventsController < ClassificationsController
     end
   end
 
-  private
+private
     def fetch_associated(type, presenter_class)
       editions = @classification
         .send(type)

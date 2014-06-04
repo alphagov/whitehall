@@ -54,7 +54,7 @@ module PublicDocumentRoutesHelper
     document_url(edition, options.merge(query))
   end
 
-  private
+private
 
   def build_url_for_corporate_information_page(edition, options)
     org = edition.owning_organisation

@@ -47,7 +47,7 @@ class TakePartPage < ActiveRecord::Base
     end
   end
 
-  protected
+protected
 
   def image_changed?
     changes["carrierwave_image"].present?

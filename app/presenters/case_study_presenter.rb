@@ -4,7 +4,7 @@ class CaseStudyPresenter < Whitehall::Decorators::Decorator
 
   delegate_instance_methods_of CaseStudy
 
-  private
+private
 
   def find_asset(asset)
     Rails.application.assets.find_asset(asset)

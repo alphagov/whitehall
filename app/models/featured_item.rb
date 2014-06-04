@@ -48,7 +48,7 @@ class FeaturedItem < ActiveRecord::Base
     end
   end
 
-  private
+private
 
   def set_started_at!
     self.started_at = Time.zone.now

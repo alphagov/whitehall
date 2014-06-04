@@ -30,7 +30,7 @@ class Admin::ResponsesController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_consultation
     @edition = Consultation.find(params[:consultation_id])
@@ -47,8 +47,8 @@ class Admin::ResponsesController < Admin::BaseController
 
   def response_class
     case params[:type]
-      when 'ConsultationOutcome' then ConsultationOutcome
-      when 'ConsultationPublicFeedback' then ConsultationPublicFeedback
+    when 'ConsultationOutcome' then ConsultationOutcome
+    when 'ConsultationPublicFeedback' then ConsultationPublicFeedback
     end
   end
 

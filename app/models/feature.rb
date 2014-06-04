@@ -45,7 +45,7 @@ class Feature < ActiveRecord::Base
     feature_list ? feature_list.locale : :en
   end
 
-  private
+private
 
   def set_started_at!
     self.started_at = Time.zone.now

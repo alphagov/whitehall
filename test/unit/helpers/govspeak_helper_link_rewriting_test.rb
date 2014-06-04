@@ -147,7 +147,7 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     refute_select_within_html html, "a"
   end
 
-  private
+private
 
   def internal_preview_host
     "whitehall.preview.alphagov.co.uk"

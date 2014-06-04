@@ -27,7 +27,7 @@ module HasCorporateInformationPages
     corporate_information_pages.published
   end
 
-  private
+private
 
   def about_us
     @about ||= corporate_information_pages.published.for_slug('about')

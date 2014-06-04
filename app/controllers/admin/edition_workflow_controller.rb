@@ -91,7 +91,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
     @service_object = archiver_or_unpublisher_for(@edition)
 
     if @service_object.perform!
-     redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
+      redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
     else
       @unpublishing = @edition.unpublishing
       flash.now[:alert] = @service_object.failure_reason
@@ -130,7 +130,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       notice: "The imported document #{@edition.title} has been converted into a draft"
   end
 
-  private
+private
 
   def force_publish_reason
     "Force published: #{params[:reason]}"

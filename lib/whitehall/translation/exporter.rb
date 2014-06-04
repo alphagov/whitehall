@@ -32,7 +32,7 @@ class Whitehall::Translation::Exporter
     File.open(@output_path, "w") { |f| f.write csv.to_s }
   end
 
-  private
+private
 
   def export_pluralization_rows(key, csv)
     I18n.t('i18n.plural.keys', locale: @target_locale).map(&:to_s).each do |plural_key|

@@ -28,7 +28,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
       notice: notice_message("deleted")
   end
 
-  private
+private
 
   def organisation_params
     params.require(:organisation).permit(

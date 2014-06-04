@@ -122,7 +122,7 @@ class ScheduledEditionsPublisherTest < ActiveSupport::TestCase
     publisher.log("A error message", :error)
   end
 
-  private
+private
 
   def stubbed_scope(editions = nil)
     Edition.scoped

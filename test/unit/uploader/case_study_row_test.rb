@@ -51,7 +51,7 @@ module Whitehall::Uploader
       assert_equal [organisation], row.lead_organisations
     end
 
-    private
+  private
 
     def basic_headings
       %w(old_url title summary body organisation document_collection_1 policy_1 first_published)
@@ -61,7 +61,7 @@ module Whitehall::Uploader
       CaseStudyRow.new(data, 1, @attachment_cache, @default_organisation)
     end
 
-    private
+  private
 
     def stubbed_organisation
       stub("organisation", url: "url")

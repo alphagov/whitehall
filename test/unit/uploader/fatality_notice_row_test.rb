@@ -57,7 +57,7 @@ module Whitehall::Uploader
       assert_equal [expected_image.image_data.attributes], row.attributes[:images].map {|i| i.image_data.attributes}
     end
 
-    private
+  private
 
     def fatality_notice_row(data = {})
       Whitehall::Uploader::FatalityNoticeRow.new(data, 1, @attachment_cache)

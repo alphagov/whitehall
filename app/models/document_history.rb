@@ -33,7 +33,7 @@ class DocumentHistory
     changes.first.public_timestamp
   end
 
-  private
+private
 
   def document_changes
     @document_changes ||= subsequent_changes + [first_change]

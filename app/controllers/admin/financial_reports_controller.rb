@@ -28,7 +28,7 @@ class Admin::FinancialReportsController < Admin::BaseController
     redirect_to admin_organisation_financial_reports_path(@organisation), notice: "Deleted Successfully"
   end
 
-  private
+private
   def load_financial_report
     @financial_report ||= @organisation.financial_reports.find(params[:id])
   end

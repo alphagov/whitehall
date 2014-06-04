@@ -139,7 +139,7 @@ class Role < ActiveRecord::Base
     HISTORIC_ROLE_PARAM_MAPPINGS.invert[slug]
   end
 
-  private
+private
 
   def prevent_destruction_unless_destroyable
     return false unless destroyable?

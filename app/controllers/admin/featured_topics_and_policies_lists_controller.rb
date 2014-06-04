@@ -20,7 +20,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
     end
   end
 
-  private
+private
   def fetch_topics_and_policies
     @topics = Topic.all
     @policies = Policy.published.with_translations.includes(:document)

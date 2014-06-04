@@ -41,7 +41,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     redirect_to [:admin, :statistics_announcements], notice: "Announcement deleted successfully"
   end
 
-  private
+private
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])

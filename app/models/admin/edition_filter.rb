@@ -18,7 +18,7 @@ module Admin
       editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
 
       editions_with_translations = if locale
-        editions_without_translations.with_translations(locale)
+                                     editions_without_translations.with_translations(locale)
       else
         editions_without_translations.includes(:translations)
       end
@@ -96,7 +96,7 @@ module Admin
       %w(active imported draft submitted rejected published scheduled force_published archived not_published)
     end
 
-    private
+  private
 
     def unpaginated_editions
       return @unpaginated_editions if @unpaginated_editions

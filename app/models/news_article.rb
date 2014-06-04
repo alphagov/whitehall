@@ -48,7 +48,7 @@ class NewsArticle < Newsesque
     false
   end
 
-  private
+private
 
   def only_news_article_allowed_invalid_data_can_be_awaiting_type
     unless self.can_have_some_invalid_data?

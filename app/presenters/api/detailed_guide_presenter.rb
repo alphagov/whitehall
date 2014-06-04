@@ -19,7 +19,7 @@ class Api::DetailedGuidePresenter < Api::BasePresenter
     ]
   end
 
-  private
+private
 
   def organisation_tags(model)
     model.organisations.map do |org|

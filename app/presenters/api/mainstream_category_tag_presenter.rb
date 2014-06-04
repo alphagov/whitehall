@@ -6,7 +6,7 @@ class Api::MainstreamCategoryTagPresenter < Struct.new(:categories)
     }
   end
 
-  private
+private
 
   def tag_hash(mainstream_category)
     {
