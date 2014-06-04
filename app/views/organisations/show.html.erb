@@ -268,12 +268,14 @@
   <div class="block-10">
     <div class="inner-block">
       <div class="contact-wrapper">
-        <h1 id="org-contacts" class="label"><%= t('organisation.headings.contact', name: @organisation.display_name) %></h1>
-        <div class="org-contacts">
-          <div class="addresses">
-            <%= render partial: 'contacts/contact', collection: @organisation.home_page_contacts %>
+        <% if @organisation.home_page_contacts.any? %>
+          <h1 id="org-contacts" class="label"><%= t('organisation.headings.contact', name: @organisation.display_name) %></h1>
+          <div class="org-contacts">
+            <div class="addresses">
+              <%= render partial: 'contacts/contact', collection: @organisation.home_page_contacts %>
+            </div>
           </div>
-        </div>
+        <% end %>
 
         <section id="freedom-of-information">
           <% if @organisation.foi_exempt? %>
