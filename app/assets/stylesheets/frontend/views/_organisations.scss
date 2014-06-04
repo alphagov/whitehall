@@ -820,25 +820,6 @@
       }
     }
 
-    .sub-organisation-name {
-      h2 {
-        @include ig-core-36;
-        padding-left: 0;
-        margin-top: $gutter-half;
-        a {
-          color: $black;
-        }
-        @include media(desktop) {
-          @include ig-core-48;
-        }
-      }
-      @include media(desktop) {
-        float: left;
-        margin-bottom: $gutter;
-        width: $two-thirds;
-      }
-    }
-
     @include media(desktop) {
       padding-bottom: $gutter*2;
     }
@@ -1152,16 +1133,6 @@
 
   .page-header {
     padding: $gutter-half 0;
-
-    .sub-organisation-name {
-      h2 {
-        @include ig-core-36;
-        padding-top: $gutter;
-        a {
-          color: $black;
-        }
-      }
-    }
   }
 
   .available-languages {
