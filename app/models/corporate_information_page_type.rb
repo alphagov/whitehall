@@ -7,10 +7,6 @@ class CorporateInformationPageType
     all.detect { |type| type.slug == slug } or raise ActiveRecord::RecordNotFound
   end
 
-  def self.find_by_title(title)
-    all.detect { |type| type.title_template == title } or raise ActiveRecord::RecordNotFound
-  end
-
   def key
     # RegisterableEdition expects model_name_type instances to have a `key`
     # attribute: Publication and WorldLocation for example define this to have
