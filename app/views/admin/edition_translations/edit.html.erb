@@ -8,7 +8,7 @@
       <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition), method: :put do |form| %>
         <%= form.errors %>
 
-        <%= form.translated_text_field :title %>
+        <%= form.translated_text_field :title unless @translated_edition.is_a? CorporateInformationPage %>
         <%= form.translated_text_area :summary, rows: 2, cols: 40 %>
         <%= form.translated_text_area :body %>
 
