@@ -335,7 +335,7 @@ module AdminEditionControllerTestHelpers
           }
         )
 
-        assert_select ".errors", text: "Images image data file must be 50px wide and 50px tall, but is 49px wide and 49px tall"
+        assert_select ".errors", text: "Images image data file must be between 50px and 960px wide, 50px and 640px tall, but is 49px wide and 49px tall"
       end
 
       view_test 'edit displays edition image fields' do
