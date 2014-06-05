@@ -10,7 +10,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test "returns bad links" do
-    checker   = LinksChecker.new([not_found, gone, success, success_2, failure])
+    checker   = LinksChecker.new([not_found, gone, success, success_2, failure], NullLogger.instance)
     broken_links = [not_found, gone, failure]
     checker.run
 
@@ -18,7 +18,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
   end
 
   test 'bad links are only reported once' do
-    checker   = LinksChecker.new([not_found, not_found, success])
+    checker   = LinksChecker.new([not_found, not_found, success], NullLogger.instance)
     checker.run
 
     assert_same_elements [not_found], checker.broken_links
