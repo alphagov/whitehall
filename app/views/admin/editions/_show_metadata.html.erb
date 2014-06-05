@@ -8,7 +8,7 @@
     <dd><%= @edition.state.capitalize %></dd>
     <% if @edition.respond_to?(:organisations) %>
       <dt>Organisations:</dt>
-      <dd><%= @edition.organisations.map { |o| o.name }.join(", ") %></dd>
+      <dd><%= joined_list(@edition.organisations.map { |o| o.name }) %></dd>
     <% end %>
   </dl>
   <% if @edition.non_english_edition? %>

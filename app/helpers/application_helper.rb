@@ -367,4 +367,13 @@ module ApplicationHelper
       render partial
     end
   end
+
+  def joined_list(elements)
+    separator = if elements.any? { |word| word.include?(",") }
+                  "; "
+                else
+                  ", "
+                end
+    elements.join(separator)
+  end
 end
