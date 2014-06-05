@@ -818,8 +818,6 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.string   "name"
     t.text     "logo_formatted_name"
     t.string   "acronym"
-    t.text     "description"
-    t.text     "about_us"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -1124,15 +1122,6 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   add_index "top_tasks", ["linkable_id", "linkable_type"], :name => "index_top_tasks_on_linkable_id_and_linkable_type"
   add_index "top_tasks", ["linkable_type"], :name => "index_top_tasks_on_linkable_type"
 
-  create_table "topic_suggestions", :force => true do |t|
-    t.string   "name"
-    t.integer  "edition_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "topic_suggestions", ["edition_id"], :name => "index_topic_suggestions_on_edition_id"
-
   create_table "unpublishings", :force => true do |t|
     t.integer  "edition_id"
     t.integer  "unpublishing_reason_id"
@@ -1240,8 +1229,6 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer  "worldwide_organisation_id"
     t.string   "locale"
     t.string   "name"
-    t.text     "summary"
-    t.text     "description"
     t.text     "services"
     t.datetime "created_at"
     t.datetime "updated_at"
