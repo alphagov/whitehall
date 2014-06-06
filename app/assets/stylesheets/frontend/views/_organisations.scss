@@ -317,79 +317,10 @@
         margin-bottom: $gutter;
       }
     }
-  }
 
-  .sub-organisation {
-    .headings-block {
-      .page-header {
-        .sub-organisation-name {
-          clear: both;
-          float: none;
-          width: 75%;
-
-          h1 {
-            @include heading-48;
-            clear: both;
-            font-weight: bold;
-            margin-top: $gutter-half;
-            @include media(tablet) {
-              float: left;
-              width: $two-thirds;
-            }
-          }
-
-          ul {
-            @extend %contain-floats;
-            li {
-              display: inline-block;
-              margin : 0 $gutter $gutter-one-sixth 0;
-            }
-          }
-          .organisations-icon-list {
-            margin-top: 0;
-          }
-          @include media(tablet) {
-            float: left;
-            width: $two-thirds;
-          }
-        }
-      }
-    }
-
-    .govspeak {
-      @include media(tablet) {
-        width: $two-thirds;
-      }
-    }
-
-    .organisation-news {
-      @extend %contain-floats;
-      article {
-        &.first {
-          .content {
-            .image-holder, .text {
-              display: block;
-              width: $full-width;
-              h2 {
-                @include core-19;
-              }
-              .summary {
-                @include core-14;
-              }
-            }
-          }
-          @include media(tablet) {
-            float: left;
-            width: 33.33%;
-          }
-        }
-        &.item-3 {
-          clear: none;
-        }
-        &.item-2 {
-          clear:left;
-        }
-      }
+    .parent-organisations {
+      padding-top: $gutter-one-third;
+      clear: left;
     }
   }
 
@@ -889,25 +820,6 @@
       }
     }
 
-    .sub-organisation-name {
-      h2 {
-        @include ig-core-36;
-        padding-left: 0;
-        margin-top: $gutter-half;
-        a {
-          color: $black;
-        }
-        @include media(desktop) {
-          @include ig-core-48;
-        }
-      }
-      @include media(desktop) {
-        float: left;
-        margin-bottom: $gutter;
-        width: $two-thirds;
-      }
-    }
-
     @include media(desktop) {
       padding-bottom: $gutter*2;
     }
@@ -1221,16 +1133,6 @@
 
   .page-header {
     padding: $gutter-half 0;
-
-    .sub-organisation-name {
-      h2 {
-        @include ig-core-36;
-        padding-top: $gutter;
-        a {
-          color: $black;
-        }
-      }
-    }
   }
 
   .available-languages {

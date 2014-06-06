@@ -147,16 +147,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select %Q{img[alt="#{organisation.name}"][src*="logo.png"]}
   end
 
-  view_test "#show includes the parent organisation branding on a sub-organisation" do
+  view_test "#show includes the parent organisations for sub-organisations in the header" do
     organisation = create(:organisation, logo_formatted_name: "Ministry of Jam")
-    sub_organisation = create(:sub_organisation, name: "Marmalade Inspection Board", parent_organisations: [organisation])
+    sub_organisation = create(:sub_organisation, name: "Marmalade Inspection Board", logo_formatted_name: "Marmalade Inspection Board", parent_organisations: [organisation])
 
-    get :show, id: sub_organisation
+    get :show, id: sub_organisation.slug
 
-    assert_select ".sub-organisation-name" do
-      assert_select "h1", sub_organisation.name
-      assert_select ".organisations-icon-list" do
-        assert_select_object organisation
+    assert_select ".page-header" do
+      assert_select "h1", text: sub_organisation.name
+      assert_select ".parent-organisations" do
+        assert_select "a[href=#{organisation_path(organisation)}]", text: organisation.name
       end
     end
   end

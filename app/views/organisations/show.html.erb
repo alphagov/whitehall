@@ -39,40 +39,30 @@
                           featured_services_and_guidance: @featured_services_and_guidance } %>
       <section id="what-we-do" class="what-we-do">
         <div class="content">
-          <% if @organisation.organisation_type.sub_organisation? %>
-            <% if @organisation.summary.present? %>
-              <h1 class="block-title">What we do</h1>
-              <p class="description"><%= @organisation.summary %></p>
+          <h1 class="label"><%= t('organisation.headings.what_we_do') %></h1>
+          <div class="overview">
+            <p class="description"><%= @organisation.summary %></p>
+            <p class="parent_organisations">
+              <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.active_child_organisations_excluding_sub_organisations.any? %>,
+                supported by
+                <% active_child_organisations_excluding_sub_organisations_count = @organisation.active_child_organisations_excluding_sub_organisations.count %>
+                <% if active_child_organisations_excluding_sub_organisations_count == 1 %>
+                  <%= link_to "#{active_child_organisations_excluding_sub_organisations_count} public body", organisations_path(anchor: @organisation.slug) %>.
+                <% else %>
+                  <%= link_to "#{active_child_organisations_excluding_sub_organisations_count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.
+                <% end %><% end %>
+            </p>
+            <p><%= link_to t('organisation.about.read_more'), polymorphic_path([@organisation, CorporateInformationPage]), id: 'read_more_link' %></p>
+            <% if @organisation.slug === 'department-for-international-development' %>
+              <div class="uk-aid">
+                <h2><a href="https://www.gov.uk/government/publications/uk-aid-standards-for-using-the-logo">UK aid from the British people</a></h2>
+                <p>The UK aid logo is used widely in the countries where we work,
+                on items such as health clinics, school books and emergency
+                food supplies, to publicly acknowledge development programmes
+                funded by the UK taxpayer.</p>
+              </div>
             <% end %>
-            <div class="body">
-              <%= govspeak_to_html @organisation.body %>
-            </div>
-          <% else %>
-            <h1 class="label"><%= t('organisation.headings.what_we_do') %></h1>
-            <div class="overview">
-              <p class="description"><%= @organisation.summary %></p>
-              <p class="parent_organisations">
-                <%= organisation_display_name_and_parental_relationship(@organisation) %><% if @organisation.active_child_organisations_excluding_sub_organisations.any? %>,
-                  supported by
-                  <% active_child_organisations_excluding_sub_organisations_count = @organisation.active_child_organisations_excluding_sub_organisations.count %>
-                  <% if active_child_organisations_excluding_sub_organisations_count == 1 %>
-                    <%= link_to "#{active_child_organisations_excluding_sub_organisations_count} public body", organisations_path(anchor: @organisation.slug) %>.
-                  <% else %>
-                    <%= link_to "#{active_child_organisations_excluding_sub_organisations_count} agencies and public bodies", organisations_path(anchor: @organisation.slug) %>.
-                  <% end %><% end %>
-              </p>
-              <p><%= link_to t('organisation.about.read_more'), polymorphic_path([@organisation, CorporateInformationPage]), id: 'read_more_link' %></p>
-              <% if @organisation.slug === 'department-for-international-development' %>
-                <div class="uk-aid">
-                  <h2><a href="https://www.gov.uk/government/publications/uk-aid-standards-for-using-the-logo">UK aid from the British people</a></h2>
-                  <p>The UK aid logo is used widely in the countries where we work,
-                  on items such as health clinics, school books and emergency
-                  food supplies, to publicly acknowledge development programmes
-                  funded by the UK taxpayer.</p>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
+          </div>
         </div>
       </section>
       <% if @organisation.social_media_accounts.any? %>
