@@ -26,3 +26,5 @@ Mime::Type.register "application/vnd.oasis.opendocument.spreadsheet", :ods
 Mime::Type.register "application/rdf+xml", :rdf
 
 Mime::Type.register "application/dxf", :dxf
+
+Mime::Type.register "application/gml+xml", :gml

@@ -88,6 +88,7 @@ module DocumentHelper
       "html" => file_abbr_tag('HTML', 'Hypertext Markup Language'),
       "ics" => file_abbr_tag('ICS', 'iCalendar file'),
       "eps"  => file_abbr_tag('EPS', 'Encapsulated PostScript'),
+      "gml"  => file_abbr_tag('GML', 'Geography Markup Language'),
       "jpg"  => "JPEG",
       "odp"  => file_abbr_tag('ODP', 'OpenDocument Presentation'),
       "ods"  => file_abbr_tag('ODS', 'OpenDocument Spreadsheet'),
