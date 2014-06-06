@@ -325,7 +325,7 @@ module AdminEditionControllerTestHelpers
         assert_equal "more-alt-text", image_2.alt_text
       end
 
-      view_test 'creating an edition with an invalid image should show an error' do
+      view_test 'creating an edition with an image too small should show an error' do
         attributes = controller_attributes_for(edition_type)
         invalid_image = fixture_file_upload('happy.49x49.jpg')
 
@@ -335,7 +335,20 @@ module AdminEditionControllerTestHelpers
           }
         )
 
-        assert_select ".errors", text: "Images image data file must be between 50px and 960px wide, 50px and 640px tall, but is 49px wide and 49px tall"
+        assert_select ".errors", text: "Images image data file must be at least 50px wide and 50px tall, but is 49px wide and 49px tall"
+      end
+
+      view_test 'creating an edition with an image too big should show an error' do
+        attributes = controller_attributes_for(edition_type)
+        invalid_image = fixture_file_upload('wide-field-IR-survey.1000x1000.jpg')
+
+        post :create, edition: attributes.merge(
+          images_attributes: {
+            "0" => { alt_text: "alt-text", image_data_attributes: attributes_for(:image_data, file: invalid_image) }
+          }
+        )
+
+        assert_select ".errors", text: "Images image data file must be at most 960px wide and 640px tall, but is 1000px wide and 1000px tall"
       end
 
       view_test 'edit displays edition image fields' do

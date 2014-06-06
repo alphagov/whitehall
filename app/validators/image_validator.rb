@@ -41,8 +41,14 @@ class ImageValidator < ActiveModel::Validator
   def validate_size(record, image)
     if @size && !image_exact_size?(image)
       record.errors.add(@method, exact_size_error(image) )
-    elsif @minimum_size && @maximum_size && !image_bounded_size?(image)
-      record.errors.add(@method, bounded_size_error(image) )
+    end
+
+    if @minimum_size && !image_minimum_size?(image)
+      record.errors.add(@method, minimum_size_error(image) )
+    end
+
+    if @maximum_size && !image_maximum_size?(image)
+      record.errors.add(@method, maximum_size_error(image) )
     end
   end
 
@@ -54,8 +60,11 @@ class ImageValidator < ActiveModel::Validator
     image[:width] == @size[0] && image[:height] == @size[1]
   end
 
-  def image_bounded_size?(image)
-    image[:width] >= @minimum_size[0] && image[:height] >= @minimum_size[1] &&
+  def image_minimum_size?(image)
+    image[:width] >= @minimum_size[0] && image[:height] >= @minimum_size[1]
+  end
+
+  def image_maximum_size?(image)
     image[:width] <= @maximum_size[0] && image[:height] <= @maximum_size[1]
   end
 
@@ -63,7 +72,11 @@ class ImageValidator < ActiveModel::Validator
     "must be #{@size[0]}px wide and #{@size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
   end
 
-  def bounded_size_error(image)
-    "must be between #{@minimum_size[0]}px and #{@maximum_size[0]}px wide, #{@minimum_size[1]}px and #{@maximum_size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
+  def minimum_size_error(image)
+    "must be at least #{@minimum_size[0]}px wide and #{@minimum_size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
+  end
+
+  def maximum_size_error(image)
+    "must be at most #{@maximum_size[0]}px wide and #{@maximum_size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
   end
 end
