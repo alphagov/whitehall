@@ -17,7 +17,7 @@
       </div>
 
       <div class="other-organisations">
-        <%= array_of_links_to_organisations(other_organisations).to_sentence %>
+        <%= array_of_links_to_organisations(other_organisations).to_sentence.html_safe %>
       </div>
 
     <%- end -%>
