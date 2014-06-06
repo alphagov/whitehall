@@ -7,9 +7,10 @@ class TopicsControllerTest < ActionController::TestCase
   should_be_a_public_facing_controller
 
   view_test "GET :shows lists the topic details, setting the expiry headers based on the scheduled editions" do
-    organisation = create(:organisation)
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
     policy = create(:draft_policy, :scheduled)
-    topic = create(:topic, organisations: [organisation], editions: [policy, create(:published_news_article)])
+    topic = create(:topic, organisations: [organisation_1, organisation_2], editions: [policy, create(:published_news_article)])
 
     controller.expects(:expire_on_next_scheduled_publication).with(topic.scheduled_editions)
 
@@ -18,7 +19,8 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "h1", text: topic.name
     assert_select ".govspeak", text: topic.description
     assert_equal topic.description, assigns(:meta_description)
-    assert_select "a[href=?]", organisation_path(organisation)
+    assert_select "a[href=?]", organisation_path(organisation_1)
+    assert_select "a[href=?]", organisation_path(organisation_2)
   end
 
   view_test "GET :show lists the published policies and their summaries" do

@@ -147,6 +147,22 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_select '.headings h1', attachment.title
   end
 
+  view_test "GET #preview for a CSV attachment on a public edition has links to document organiastions" do
+    org_1 = create(:organisation)
+    org_2 = create(:organisation)
+    org_3 = create(:organisation)
+    visible_edition = create(:published_publication, :with_file_attachment, attachments: [
+      attachment = build(:csv_attachment)
+    ], organisations: [org_1, org_2, org_3])
+    attachment_data = attachment.attachment_data
+
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
+    assert_select 'a[href=?]', organisation_path(org_1)
+    assert_select 'a[href=?]', organisation_path(org_2)
+    assert_select 'a[href=?]', organisation_path(org_3)
+  end
+
   test "GET #preview for a CSV attachment on a non-public edition returns a not found response" do
     unpublished_edition = create(:draft_publication, :with_file_attachment, attachments: [build(:csv_attachment)])
     attachment_data = unpublished_edition.attachments.first.attachment_data
