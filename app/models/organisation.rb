@@ -394,36 +394,6 @@ class Organisation < ActiveRecord::Base
 
   def alternate_style_top_tasks
     case slug
-    when 'uk-visas-and-immigration'
-      {
-        services_in: [
-          {
-            path: '/immigration-operational-guidance',
-            text: "UKVI's operational guidance"
-          },
-          {
-            path: '/government/collections/immigration-rules',
-            text: 'The current Immigration Rules'
-          },
-        ],
-        prominent: [
-          {
-            path: '/visas-immigration',
-            text: 'Visas, settlement and asylum',
-            description: 'Information on different UK visas, how to settle in the UK and claiming asylum.'
-          },
-          {
-            path: '/browse/visas-immigration/eu-eea-commonwealth',
-            text: 'European nationals',
-            description: 'Living and working in the UK for EU and EEA nationals, their partners and family.'
-          },
-          {
-            path: '/browse/citizenship/citizenship',
-            text: 'British citizenship',
-            description: 'How to become a British citizen and types of UK nationality.'
-          }
-        ]
-      }
     when 'environment-agency'
       {
         services_in: [
