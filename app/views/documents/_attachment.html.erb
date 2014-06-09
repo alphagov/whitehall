@@ -58,6 +58,13 @@
         <% end %>
       </p>
     <% end %>
+
+    <% if attachment.opendocument? %>
+      <p class="opendocument-help">
+        This file is in an <a rel="external" href="http://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
+      </p>
+    <% end %>
+
     <% unless attachment.accessible? %>
       <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
         <h2><%= t('attachment.accessibility.heading') %>
