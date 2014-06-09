@@ -7,9 +7,11 @@ class ImageValidator < ActiveModel::Validator
 
   def initialize(options = {})
     super
-    @method     = options[:method] || :file
-    @size       = options[:size] || nil
-    @mime_types = options[:mime_types] || DEFAULT_MIME_TYPES
+    @method       = options[:method] || :file
+    @size         = options[:size] || nil
+    @minimum_size = options[:minimum_size] || nil
+    @maximum_size = options[:maximum_size] || nil
+    @mime_types   = options[:mime_types] || DEFAULT_MIME_TYPES
   end
 
   def validate(record)
@@ -37,14 +39,44 @@ class ImageValidator < ActiveModel::Validator
   end
 
   def validate_size(record, image)
-    return unless @size
+    if @size && !image_exact_size?(image)
+      record.errors.add(@method, exact_size_error(image) )
+    end
 
-    unless (image[:width] == @size[0] && image[:height] == @size[1])
-      record.errors.add(@method, "must be #{@size[0]}px wide and #{@size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall")
+    if @minimum_size && !image_minimum_size?(image)
+      record.errors.add(@method, minimum_size_error(image) )
+    end
+
+    if @maximum_size && !image_maximum_size?(image)
+      record.errors.add(@method, maximum_size_error(image) )
     end
   end
 
   def file_for(record)
     record.public_send(@method)
+  end
+
+  def image_exact_size?(image)
+    image[:width] == @size[0] && image[:height] == @size[1]
+  end
+
+  def image_minimum_size?(image)
+    image[:width] >= @minimum_size[0] && image[:height] >= @minimum_size[1]
+  end
+
+  def image_maximum_size?(image)
+    image[:width] <= @maximum_size[0] && image[:height] <= @maximum_size[1]
+  end
+
+  def exact_size_error(image)
+    "must be #{@size[0]}px wide and #{@size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
+  end
+
+  def minimum_size_error(image)
+    "must be at least #{@minimum_size[0]}px wide and #{@minimum_size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
+  end
+
+  def maximum_size_error(image)
+    "must be at most #{@maximum_size[0]}px wide and #{@maximum_size[1]}px tall, but is #{image[:width]}px wide and #{image[:height]}px tall"
   end
 end
