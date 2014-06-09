@@ -41,7 +41,7 @@ class Role < ActiveRecord::Base
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
-  validates :status, inclusion: {in: %w{active inactive}}
+  validates :status, inclusion: { in: %w{active inactive} }
   validate :no_current_role_holder_if_inactive
   validate :valid_reason_for_inactity_when_inactive
   validate :no_reason_for_inactivity_when_active
