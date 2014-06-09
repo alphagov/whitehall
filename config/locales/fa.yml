@@ -72,6 +72,8 @@ fa:
       reference: مرجع
       unnumbered_command_paper:
       unnumbered_hoc_paper:
+    opendocument:
+      help_html:
     see_more:
   change_notes:
     page_history:
