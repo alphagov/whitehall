@@ -56,7 +56,7 @@ class Admin::RolesController < Admin::BaseController
   def role_params
     params.require(:role).permit(
       :name, :type, :whip_organisation_id, :role_payment_type_id,
-      :attends_cabinet_type_id, :responsibilities, :status, :reason_for_inactivity,
+      :attends_cabinet_type_id, :responsibilities, :status,
       :date_of_inactivity,
       organisation_ids: [],
       worldwide_organisation_ids: [],

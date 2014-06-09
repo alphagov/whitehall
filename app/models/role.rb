@@ -41,11 +41,13 @@ class Role < ActiveRecord::Base
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
-  validates :status, inclusion: { in: %w{active inactive} }
-  validate :no_current_role_holder_if_inactive
-  validate :valid_reason_for_inactity_when_inactive
-  validate :no_reason_for_inactivity_when_active
+  STATES = %w{active no_longer_exists replaced split merged}.freeze
+  STATES.each do |state|
+    define_method(:"#{state}?") { status == state }
+  end
 
+  validates :status, inclusion: { in: STATES }
+  validate :no_current_role_holder_if_inactive
   validate :exactly_one_superseding_role, if: Proc.new { |role| role.replaced? || role.merged? }
   validate :at_least_two_superseding_roles, if: :split?
   validate :no_superseding_roles, if: :no_longer_exists?
@@ -58,8 +60,12 @@ class Role < ActiveRecord::Base
   include TranslatableModel
   translates :name, :responsibilities
 
+  def inactive?
+    !active?
+  end
+
   def no_current_role_holder_if_inactive
-    if status == "inactive" && occupied?
+    if inactive? && occupied?
       errors.add(:base, "A role cannot be marked as inactive if it has current role holders")
     end
   end
@@ -79,18 +85,6 @@ class Role < ActiveRecord::Base
   def no_superseding_roles
     if superseding_roles.size > 0
       errors.add(:base, "Please remove any superseding roles for this inactive status")
-    end
-  end
-
-  def valid_reason_for_inactity_when_inactive
-    if inactive? && !%w{no_longer_exists replaced split merged}.include?(reason_for_inactivity)
-      errors.add(:reason_for_inactivity, "is not a valid reason for inactivity")
-    end
-  end
-
-  def no_reason_for_inactivity_when_active
-    if active? && !reason_for_inactivity.blank?
-      errors.add(:reason_for_inactivity, "should be empty for active roles")
     end
   end
 
@@ -187,30 +181,6 @@ class Role < ActiveRecord::Base
     HISTORIC_ROLE_PARAM_MAPPINGS.invert[slug]
   end
 
-  def active?
-    status == 'active'
-  end
-
-  def inactive?
-    status == 'inactive'
-  end
-
-  def no_longer_exists?
-    reason_for_inactivity == 'no_longer_exists'
-  end
-
-  def replaced?
-    reason_for_inactivity == 'replaced'
-  end
-
-  def split?
-    reason_for_inactivity == 'split'
-  end
-
-  def merged?
-    reason_for_inactivity == 'merged'
-  end
-
   private
 
   def prevent_destruction_unless_destroyable
@@ -220,5 +190,4 @@ class Role < ActiveRecord::Base
   def default_person_name
     "No one is assigned to this role"
   end
-
 end

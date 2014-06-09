@@ -190,114 +190,81 @@ class RoleTest < ActiveSupport::TestCase
     refute new_role.valid?
   end
 
-  test 'should be valid if status is active' do
-    new_role = build(:role, status: 'active')
-    assert new_role.valid?
-  end
-
-  test 'should be valid if status is inactive' do
-    new_role = build(:role, status: 'active')
-    assert new_role.valid?
-  end
-
-  test 'should be invalid if status is inactive and reason_for_inactivity is empty' do
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: '')
-    refute new_role.valid?
-  end
-
-  test 'should be invalid if status is active and reason_for_inactivity is not empty' do
-    new_role = build(:role, status: 'active', reason_for_inactivity: 'no_longer_exists')
-    refute new_role.valid?
-  end
-
-  test 'should be valid if status is inactive and reason_for_inactivity is no_longer_exists' do
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'no_longer_exists')
-    assert new_role.valid?
-  end
-
-  test 'should be valid if status is inactive and reason_for_inactivity is split and there are two superseding roles' do
+  test 'should be valid if status is split and there are two superseding roles' do
     superseding_role_1 = build(:role)
     superseding_role_2 = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'split', superseding_roles: [superseding_role_1, superseding_role_2])
+    new_role = build(:role, status: 'split', superseding_roles: [superseding_role_1, superseding_role_2])
     assert new_role.valid?
   end
 
-  test 'should be valid if status is inactive, reason_for_inactivity is replaced and there is a superseding role' do
+  test 'should be valid if status is replaced and there is a superseding role' do
     superseding_role = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'replaced', superseding_roles: [superseding_role])
+    new_role = build(:role, status: 'replaced', superseding_roles: [superseding_role])
     assert new_role.valid?
   end
 
-  test 'should be valid if status is inactive, reason_for_inactivity is merged and there is a superseding role' do
+  test 'should be valid if status is merged and there is a superseding role' do
     superseding_role = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'merged', superseding_roles: [superseding_role])
+    new_role = build(:role, status: 'merged', superseding_roles: [superseding_role])
     assert new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason_for_inactivity is not an expected value' do
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'notvalid')
-    refute new_role.valid?
-  end
-
-  test 'should be invalid if status is inactive and there is a current role holder' do
+  test 'should be invalid if not active there is a current role holder' do
     ada_lovelace = create(:person, forename: "Lovelace", surname: "Ada")
     ada = create(:role)
     create(:role_appointment, role: ada, person: ada_lovelace)
-    ada.status = "inactive"
-    ada.reason_for_inactivity = "no_longer_exists"
-    refute ada.valid?
+    ada.status = 'no_longer_exists'
+    refute ada.valid?, ada.errors.full_messages.inspect
   end
 
-  test 'should be valid if status is inactive and there are not current role holders' do
+  test 'should be valid if not active and there are not current role holders' do
     ada_lovelace = create(:person, forename: "Lovelace", surname: "Ada")
     ada = create(:role)
     appointment = create(:role_appointment, role: ada, person: ada_lovelace)
     appointment.ended_at = 10.minutes.ago
     appointment.save
-    ada.status = "inactive"
-    ada.reason_for_inactivity = "no_longer_exists"
+    ada.status = "no_longer_exists"
     assert ada.valid?
   end
 
-  test 'should be invalid if status is inactive and reason_for_inactivity is replaced and there are no superseding roles' do
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'replaced')
+  test 'should be invalid if status is replaced and there are no superseding roles' do
+    new_role = build(:role, status: 'replaced')
     refute new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason for closure is replaced and there are more than one superseding roles' do
+  test 'should be invalid if status is replaced and there are more than one superseding roles' do
     superseding_role_1 = build(:role)
     superseding_role_2 = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'replaced', superseding_roles: [superseding_role_1, superseding_role_2])
+    new_role = build(:role, status: 'replaced', superseding_roles: [superseding_role_1, superseding_role_2])
     refute new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason for closure is no_longer_exists and there is a superseding role' do
+  test 'should be invalid if status is no_longer_exists and there is a superseding role' do
     superseding_role = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'no_longer_exists', superseding_roles: [superseding_role])
+    new_role = build(:role, status: 'no_longer_exists', superseding_roles: [superseding_role])
     refute new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason_for_inactivity is merged and there are no superseding roles' do
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'merged')
+  test 'should be invalid if status is merged and there are no superseding roles' do
+    new_role = build(:role, status: 'merged')
     refute new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason_for_inactivity is merged and there are more than one superseding roles' do
+  test 'should be invalid if status is merged and there are more than one superseding roles' do
     superseding_role_1 = build(:role)
     superseding_role_2 = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'merged', superseding_roles: [superseding_role_1, superseding_role_2])
+    new_role = build(:role, status: 'merged', superseding_roles: [superseding_role_1, superseding_role_2])
     refute new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason_for_inactivity is split and there are no superseding roles' do
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'split')
+  test 'should be invalid if status is split and there are no superseding roles' do
+    new_role = build(:role, status: 'split')
     refute new_role.valid?
   end
 
-  test 'should be invalid if status is inactive and reason_for_inactivity is split and there is one superseding role' do
+  test 'should be invalid if status is split and there is one superseding role' do
     superseding_role = build(:role)
-    new_role = build(:role, status: 'inactive', reason_for_inactivity: 'split', superseding_roles: [superseding_role])
+    new_role = build(:role, status: 'split', superseding_roles: [superseding_role])
     refute new_role.valid?
   end
-
 end

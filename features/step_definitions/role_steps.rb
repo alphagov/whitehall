@@ -103,8 +103,7 @@ When(/^I mark that role as inactive$/) do
   role = Role.last
   visit admin_roles_path
   click_on role.name
-  select "Inactive", from: "status"
-  select "No longer exists", from: "role[reason_for_inactivity]"
+  select "No longer exists", from: "status"
   click_on "Save"
 end
 
@@ -119,8 +118,7 @@ When(/^I mark the role "(.*?)" as replaced by "(.*?)"$/) do |role_name, replacem
   replacement_role = Role.find_by_name(replacement_role_name)
   visit admin_roles_path
   click_on role.name
-  select "Inactive", from: "status"
-  select "Replaced", from: "role[reason_for_inactivity]"
+  select "Replaced", from: "status"
   select "#{replacement_role.name}", from: "role_superseding_role_ids"
   click_on "Save"
 end

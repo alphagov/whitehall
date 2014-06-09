@@ -5,22 +5,22 @@
   var rolesForm = {
     init: function init(params) {
       $().ready(function($) {
-        rolesForm.hideClosedAtFields();
-        rolesForm.hideSupersedingField();
+        rolesForm.toggleInactiveRoleField();
+        rolesForm.toggleSupersedingField();
       });
     },
 
-    hideClosedAtFields: function hideClosedAtFields() {
-      var $closedFields = $('.js-inactive-role-field'),
+    toggleInactiveRoleField: function toggleInactiveRoleField() {
+      var $inactiveFields = $('.js-inactive-role-field'),
       $statusField = $('#role_status');
 
       $statusField.change(enabledInactiveRoleFieldsIfInactive);
       enabledInactiveRoleFieldsIfInactive();
 
       function enabledInactiveRoleFieldsIfInactive() {
-        if ( $statusField.val() === "inactive" ) {
+        if ( $statusField.val() != "active" ) {
           enableInactiveRoleFields();
-          rolesForm.hideSupersedingField();
+          rolesForm.toggleSupersedingField();
         }
         else {
           disableInactiveRoleFields();
@@ -28,26 +28,26 @@
       }
 
       function enableInactiveRoleFields() {
-        $closedFields.show();
-        $('input, select', $closedFields).removeAttr('disabled');
+        $inactiveFields.show();
+        $('input, select', $inactiveFields).removeAttr('disabled');
       }
 
       function disableInactiveRoleFields() {
-        $closedFields.hide();
-        $('input, select', $closedFields).attr('disabled', true);
+        $inactiveFields.hide();
+        $('input, select', $inactiveFields).attr('disabled', true);
       }
     },
 
-    hideSupersedingField: function hideSupersedingField() {
+    toggleSupersedingField: function toggleSupersedingField() {
       var $supersedingField = $('.js-superseding-role-field'),
-      $reasonForInactivityField = $('#role_reason_for_inactivity');
+      $statusField = $('#role_status');
 
-      $reasonForInactivityField.change(enableSupersedingRoleFieldIfInactive);
+      $statusField.change(enableSupersedingRoleFieldIfInactive);
       enableSupersedingRoleFieldIfInactive();
 
       function enableSupersedingRoleFieldIfInactive() {
         var superseding_org_fields = ['replaced', 'split', 'merged'];
-        if (superseding_org_fields.indexOf($reasonForInactivityField.val()) > -1 ) {
+        if (superseding_org_fields.indexOf($statusField.val()) > -1 ) {
           enableSupersedingRoleField();
         }
         else {
@@ -57,12 +57,12 @@
 
       function enableSupersedingRoleField() {
         $supersedingField.show();
-        $('input, select', $supersedingField).removeAttr('disabled');
+        $('select', $supersedingField).removeAttr('disabled');
       }
 
       function disableSupersedingRoleField() {
         $supersedingField.hide();
-        $('input, select', $supersedingField).val('');
+        $('option', $supersedingField).removeAttr('selected');
         $('.search-choice', $supersedingField).remove();
         $('input, select', $supersedingField).attr('disabled', true);
       }

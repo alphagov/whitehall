@@ -1006,12 +1006,12 @@ ActiveRecord::Schema.define(:version => 20140528111748) do
     t.boolean  "supports_historical_accounts", :default => false,             :null => false
     t.integer  "whip_ordering",                :default => 100
     t.string   "status"
-    t.string   "reason_for_inactivity"
     t.datetime "date_of_inactivity"
   end
 
   add_index "roles", ["attends_cabinet_type_id"], :name => "index_roles_on_attends_cabinet_type_id"
   add_index "roles", ["slug"], :name => "index_roles_on_slug"
+  add_index "roles", ["status"], :name => "index_roles_on_status"
   add_index "roles", ["supports_historical_accounts"], :name => "index_roles_on_supports_historical_accounts"
 
   create_table "sitewide_settings", :force => true do |t|

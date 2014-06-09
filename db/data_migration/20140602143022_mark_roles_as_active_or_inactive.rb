@@ -1,2 +1,4 @@
-Role.all.select(&:occupied?).update_all(status: "active")
-Role.all.reject(&:occupied?).update_all(status: "inactive", reason_for_inactivity: "no_longer_exists")
+Role.joins(:current_role_appointments).update_all(status: "active")
+
+active_ids = Role.joins(:current_role_appointments).pluck(:id)
+Role.where("id NOT in (?)", active_ids).update_all(status: "no_longer_exists")
