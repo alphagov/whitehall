@@ -60,36 +60,16 @@ class Role < ActiveRecord::Base
   include TranslatableModel
   translates :name, :responsibilities
 
-  def inactive?
-    !active?
-  end
-
-  def no_current_role_holder_if_inactive
-    if inactive? && occupied?
-      errors.add(:base, "A role cannot be marked as inactive if it has current role holders")
-    end
-  end
-
-  def exactly_one_superseding_role
-    if superseding_roles.size != 1
-      errors.add(:base, "Please add exactly one superseding role for this inactive status")
-    end
-  end
-
-  def at_least_two_superseding_roles
-    if superseding_roles.size < 2
-      errors.add(:base, "Please add at least two superseding roles for this inactive status")
-    end
-  end
-
-  def no_superseding_roles
-    if superseding_roles.size > 0
-      errors.add(:base, "Please remove any superseding roles for this inactive status")
-    end
-  end
-
   def self.whip
     where(arel_table[:whip_organisation_id].not_eq(nil))
+  end
+
+  def self.also_attends_cabinet
+    where(arel_table[:attends_cabinet_type_id].not_eq(nil))
+  end
+
+  def inactive?
+    !active?
   end
 
   def role_payment_type
@@ -98,10 +78,6 @@ class Role < ActiveRecord::Base
 
   def attends_cabinet_type
     RoleAttendsCabinetType.find_by_id(attends_cabinet_type_id)
-  end
-
-  def self.also_attends_cabinet
-    where(arel_table[:attends_cabinet_type_id].not_eq(nil))
   end
 
   def footnotes(including_cabinet = false)
@@ -189,5 +165,29 @@ class Role < ActiveRecord::Base
 
   def default_person_name
     "No one is assigned to this role"
+  end
+
+    def no_current_role_holder_if_inactive
+    if inactive? && occupied?
+      errors.add(:base, "A role cannot be marked as inactive if it has current role holders")
+    end
+  end
+
+  def exactly_one_superseding_role
+    if superseding_roles.size != 1
+      errors.add(:base, "Please add exactly one superseding role for this inactive status")
+    end
+  end
+
+  def at_least_two_superseding_roles
+    if superseding_roles.size < 2
+      errors.add(:base, "Please add at least two superseding roles for this inactive status")
+    end
+  end
+
+  def no_superseding_roles
+    if superseding_roles.size > 0
+      errors.add(:base, "Please remove any superseding roles for this inactive status")
+    end
   end
 end
