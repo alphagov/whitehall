@@ -970,13 +970,13 @@ ActiveRecord::Schema.define(:version => 20140528111748) do
   add_index "role_appointments", ["person_id"], :name => "index_role_appointments_on_person_id"
   add_index "role_appointments", ["role_id"], :name => "index_role_appointments_on_role_id"
 
-  create_table "role_supersedings", :force => true do |t|
+  create_table "role_supersessions", :force => true do |t|
     t.integer "superseded_role_id"
     t.integer "superseding_role_id"
   end
 
-  add_index "role_supersedings", ["superseded_role_id"], :name => "index_role_supersedings_on_superseded_role_id"
-  add_index "role_supersedings", ["superseding_role_id"], :name => "index_role_supersedings_on_superseding_role_id"
+  add_index "role_supersessions", ["superseded_role_id"], :name => "index_role_supersessions_on_superseded_role_id"
+  add_index "role_supersessions", ["superseding_role_id"], :name => "index_role_supersessions_on_superseding_role_id"
 
   create_table "role_translations", :force => true do |t|
     t.integer  "role_id"

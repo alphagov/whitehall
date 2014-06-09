@@ -25,8 +25,8 @@ class Role < ActiveRecord::Base
   has_many :historical_account_roles
   has_many :historical_accounts, through: :historical_account_roles
 
-  has_many :superseding_role_associations, foreign_key: :superseded_role_id
-  has_many :superseding_roles, through: :superseding_role_associations
+  has_many :role_supersessions, foreign_key: :superseded_role_id
+  has_many :superseding_roles, through: :role_supersessions
 
   scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order('people.surname', 'people.forename') }
 
