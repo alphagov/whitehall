@@ -4,12 +4,6 @@ class Role < ActiveRecord::Base
                                    'past-chancellors'     => 'chancellor-of-the-exchequer',
                                    'past-foreign-secretaries' => 'foreign-secretary' }
 
-  def self.columns
-    # This is here to enable us to gracefully remove the biography column
-    # in a future commit, *after* this change has been deployed
-    super.reject { |column| ['name', 'responsibilities'].include?(column.name) }
-  end
-
   has_many :role_appointments, order: 'started_at'
   has_many :people, through: :role_appointments
 
