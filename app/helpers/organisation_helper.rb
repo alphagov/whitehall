@@ -96,6 +96,8 @@ module OrganisationHelper
         "#{name} works with #{parents.to_sentence}."
       when 'non-ministerial department'
         "#{name} is #{relationship}."
+      when 'sub-organisation'
+        "#{name} is part of #{parents.to_sentence}."
       else
         "#{name} is #{relationship} of #{parents.to_sentence}."
       end
