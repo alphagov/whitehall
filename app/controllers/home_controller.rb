@@ -2,7 +2,6 @@ class HomeController < PublicFacingController
   layout 'frontend'
 
   enable_request_formats feed: [:atom]
-  before_filter :load_ministerial_department_count, only: :how_government_works
 
   def feed
     @recently_updated = Edition.published.in_reverse_chronological_order.includes(:document).limit(10)
@@ -12,11 +11,12 @@ class HomeController < PublicFacingController
     sitewide_setting = load_reshuffle_setting
     @is_during_reshuffle = sitewide_setting.on if sitewide_setting
     @policy_count = Policy.published.count
-    @non_ministerial_department_count = Organisation.non_ministerial_departments.count
     sorter = MinisterSorter.new
     @cabinet_minister_count = sorter.cabinet_ministers.count - 1 # subtract one to discount PM
     @other_minister_count = sorter.other_ministers.count
     @all_ministers_count = @cabinet_minister_count + @other_minister_count + 1 # add one to put the PM back in
+    @ministerial_department_count = Organisation.listable.ministerial_departments.count
+    @non_ministerial_department_count = Organisation.listable.non_ministerial_departments.count
   end
 
   def get_involved
@@ -32,11 +32,5 @@ class HomeController < PublicFacingController
   end
 
   def history_lancaster_house
-  end
-
-  private
-
-  def load_ministerial_department_count
-    @ministerial_department_count = Organisation.ministerial_departments.count
   end
 end
