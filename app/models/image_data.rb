@@ -6,5 +6,5 @@ class ImageData < ActiveRecord::Base
   mount_uploader :file, ImageUploader, mount_on: :carrierwave_image
 
   validates :file, presence: true
-  validates_with ImageValidator, minimum_size: [50, 50], maximum_size: [960, 640]
+  validates_with ImageValidator, size: [960, 640]
 end
