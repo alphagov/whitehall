@@ -61,7 +61,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
 
     cip.organisation.organisation_type = OrganisationType::sub_organisation
-    assert_equal organisation_path(cip.organisation), public_document_path(cip)
+    assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
   end
 
   test 'returns public document URL including host in production environment' do
