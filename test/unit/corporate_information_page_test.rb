@@ -52,6 +52,14 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "Terms of reference", corporate_information_page.title
   end
 
+  test "should translate title" do
+    welsh_language_scheme_page = build(:corporate_information_page, corporate_information_page_type: CorporateInformationPageType::WelshLanguageScheme)
+    assert_equal "Welsh language scheme", welsh_language_scheme_page.title
+    I18n.with_locale(:cy) do
+      assert_equal "Cynllun iaith Gymraeg", welsh_language_scheme_page.title
+    end
+  end
+
   test "should derive title from type and interpolate organisation acronym" do
     organisation = build(:organisation, acronym: "DCLG")
     corporate_information_page = build(:corporate_information_page, organisation: organisation, corporate_information_page_type: CorporateInformationPageType::Recruitment)

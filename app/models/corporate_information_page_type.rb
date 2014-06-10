@@ -7,10 +7,6 @@ class CorporateInformationPageType
     all.detect { |type| type.slug == slug } or raise ActiveRecord::RecordNotFound
   end
 
-  def self.find_by_title(title)
-    all.detect { |type| type.title_template == title } or raise ActiveRecord::RecordNotFound
-  end
-
   def key
     # RegisterableEdition expects model_name_type instances to have a `key`
     # attribute: Publication and WorldLocation for example define this to have
@@ -20,7 +16,9 @@ class CorporateInformationPageType
   end
 
   def title(organisation)
-    title_template % (organisation.respond_to?(:acronym) && organisation.acronym || "#{organisation.name}")
+    organisation_name = (organisation.respond_to?(:acronym) && organisation.acronym || "#{organisation.name}")
+    translation_key = slug.gsub('-', '_')
+    I18n.t("corporate_information_page.type.#{translation_key}", organisation_name: organisation_name)
   end
 
   def self.by_menu_heading(menu_heading)
@@ -32,63 +30,63 @@ class CorporateInformationPageType
   end
 
   PersonalInformationCharter = create(
-    id: 1, title_template: "Personal information charter", slug: "personal-information-charter", menu_heading: :other,
+    id: 1, slug: "personal-information-charter", menu_heading: :other,
   )
   PublicationScheme = create(
-    id: 2, title_template: "Publication scheme", slug: "publication-scheme", menu_heading: :other,
+    id: 2, slug: "publication-scheme", menu_heading: :other,
   )
   ComplaintsProcedure = create(
-    id: 3, title_template: "Complaints procedure", slug: "complaints-procedure", menu_heading: :our_information,
+    id: 3, slug: "complaints-procedure", menu_heading: :our_information,
   )
   TermsOfReference = create(
-    id: 4, title_template: "Terms of reference", slug: "terms-of-reference", menu_heading: :our_information,
+    id: 4, slug: "terms-of-reference", menu_heading: :our_information,
   )
   OurGovernance = create(
-    id: 5, title_template: "Our governance", slug: "our-governance", menu_heading: :our_information,
+    id: 5, slug: "our-governance", menu_heading: :our_information,
   )
   Statistics = create(
-    id: 6, title_template: "Statistics at %s", slug: "statistics", menu_heading: :our_information,
+    id: 6, slug: "statistics", menu_heading: :our_information,
   )
   Procurement = create(
-    id: 7, title_template: "Procurement at %s", slug: "procurement", menu_heading: :jobs_and_contracts,
+    id: 7, slug: "procurement", menu_heading: :jobs_and_contracts,
   )
   Recruitment = create(
-    id: 8, title_template: "Working for %s", slug: "recruitment", menu_heading: :jobs_and_contracts,
+    id: 8, slug: "recruitment", menu_heading: :jobs_and_contracts,
   )
   OurEnergyUse = create(
-    id: 9, title_template: "Our energy use", slug: "our-energy-use", menu_heading: :our_information,
+    id: 9, slug: "our-energy-use", menu_heading: :our_information,
   )
   Membership = create(
-    id: 10, title_template: "Membership", slug: "membership", menu_heading: :our_information,
+    id: 10, slug: "membership", menu_heading: :our_information,
   )
   WelshLanguageScheme = create(
-    id: 11, title_template: "Welsh language scheme", slug: "welsh-language-scheme", menu_heading: :other,
+    id: 11, slug: "welsh-language-scheme", menu_heading: :other,
   )
   EqualityAndDiversity = create(
-    id: 12, title_template: "Equality and diversity", slug: "equality-and-diversity", menu_heading: :our_information,
+    id: 12, slug: "equality-and-diversity", menu_heading: :our_information,
   )
   PetitionsAndCampaigns = create(
-    id: 13, title_template: "Petitions and campaigns", slug: "petitions-and-campaigns", menu_heading: :our_information,
+    id: 13, slug: "petitions-and-campaigns", menu_heading: :our_information,
   )
   Research = create(
-    id: 14, title_template: "Research at %s", slug: "research", menu_heading: :our_information
+    id: 14, slug: "research", menu_heading: :our_information
   )
   OfficeAccessAndOpeningTimes = create(
-    id: 15, title_template: "Office access and opening times", slug: "access-and-opening", menu_heading: :our_information
+    id: 15, slug: "access-and-opening", menu_heading: :our_information
   )
   StaffNewsAndInformation = create(
-    id: 16, title_template: "Staff news and information", slug: "staff-update", menu_heading: :other
+    id: 16, slug: "staff-update", menu_heading: :other
   )
   MediaEnquiries = create(
-    id: 17, title_template: "Media enquiries", slug: 'media-enquiries', menu_heading: :our_information
+    id: 17, slug: 'media-enquiries', menu_heading: :our_information
   )
   SocialMediaUse = create(
-    id: 18, title_template: "Social media use", slug: 'social-media-use', menu_heading: :other
+    id: 18, slug: 'social-media-use', menu_heading: :other
   )
   AboutOurServices = create(
-    id: 19, title_template: "About our services", slug: 'about-our-services', menu_heading: :other
+    id: 19, slug: 'about-our-services', menu_heading: :other
   )
   AboutUs = create(
-    id: 20, title_template: "About us", slug: 'about', menu_heading: :other
+    id: 20, slug: 'about', menu_heading: :other
   )
 end

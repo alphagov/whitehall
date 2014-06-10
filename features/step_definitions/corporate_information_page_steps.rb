@@ -1,5 +1,11 @@
 # encoding: utf-8
 
+def find_corporation_information_page_type_by_title(title)
+  I18n.with_locale(:en) {
+    CorporateInformationPageType.all.detect { |type| type.title(Organisation.new) == title }
+  }
+end
+
 Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^"]*)"$/ do |page_type, org_name, body|
   organisation = Organisation.find_by_name(org_name)
   visit admin_organisation_path(organisation)
@@ -103,14 +109,14 @@ end
 
 Given /^my organisation has a "(.*?)" corporate information page$/ do |page_title|
   @user.organisation ||= create(:organisation)
-  page_type = CorporateInformationPageType.find_by_title(page_title)
+  page_type = find_corporation_information_page_type_by_title(page_title)
   create(:corporate_information_page,
          corporate_information_page_type: page_type,
          organisation: @user.organisation)
 end
 
 Then /^I should be able to add attachments to the "(.*?)" corporate information page$/ do |page_title|
-  page_type = CorporateInformationPageType.find_by_title(page_title)
+  page_type = find_corporation_information_page_type_by_title(page_title)
   page = @user.organisation.corporate_information_pages.find_by_corporate_information_page_type_id(page_type.id)
   attachment = upload_pdf_to_corporate_information_page(page)
   VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
