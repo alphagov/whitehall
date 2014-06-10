@@ -1,5 +1,5 @@
 class FileAttachment < Attachment
-  delegate :url, :content_type, :pdf?, :csv?,
+  delegate :url, :content_type, :pdf?, :csv?, :opendocument?,
     :extracted_text, :file_extension, :file_size,
     :number_of_pages, :file, :filename, :filename_without_extension, :virus_status,
     to: :attachment_data

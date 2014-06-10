@@ -17,6 +17,8 @@ class AttachmentData < ActiveRecord::Base
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
 
+  OPENDOCUMENT_EXTENSIONS = %w(ODT ODP ODF).freeze
+
   def filename
     url && File.basename(url)
   end
@@ -39,6 +41,11 @@ class AttachmentData < ActiveRecord::Base
 
   def csv?
     file_extension == "csv"
+  end
+
+  # Is in OpenDocument format? (see http://en.wikipedia.org/wiki/OpenDocument)
+  def opendocument?
+    OPENDOCUMENT_EXTENSIONS.include? file_extension.upcase
   end
 
   def indexable?
