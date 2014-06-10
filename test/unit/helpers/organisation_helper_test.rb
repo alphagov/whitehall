@@ -314,6 +314,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_relationship_type_is_described_as(:tribunal_ndpb, '{this_org_name} is a tribunal non-departmental public body of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:public_corporation, '{this_org_name} is a public corporation of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:independent_monitoring_body, '{this_org_name} is an independent monitoring body of the {parent_org_name}.')
+    assert_relationship_type_is_described_as(:sub_organisation, '{this_org_name} is part of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:other, '{this_org_name} works with the {parent_org_name}.')
   end
 
