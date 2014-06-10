@@ -90,6 +90,26 @@ class HomeControllerTest < ActionController::TestCase
     assert_select '.all-ministers .count', '4'
   end
 
+  test "how_government_works should assign @ministerial_department_count to the count of active ministerial departments" do
+    create(:ministerial_department)
+    create(:ministerial_department)
+    create(:ministerial_department, :closed)
+
+    get :how_government_works
+
+    assert_equal 2, assigns[:ministerial_department_count]
+  end
+
+  test "how_government_works should assign @non_ministerial_department_count to the count of active non-ministerial departments" do
+    create(:non_ministerial_department)
+    create(:non_ministerial_department)
+    create(:non_ministerial_department, :closed)
+
+    get :how_government_works
+
+    assert_equal 2, assigns[:non_ministerial_department_count]
+  end
+
   test "get involved has counts of open and closed consultations" do
     old = create(:published_consultation, opening_at: 2.years.ago, closing_at: 1.year.ago - 2.day)
 

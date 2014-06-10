@@ -28,6 +28,10 @@ FactoryGirl.define do
     organisation_type_key :ministerial_department
   end
 
+  factory :non_ministerial_department, parent: :organisation do
+    organisation_type_key :non_ministerial_department
+  end
+
   factory :organisation_with_alternative_format_contact_email, parent: :organisation, aliases: [:alternative_format_provider] do
     alternative_format_contact_email "alternative@example.com"
   end
