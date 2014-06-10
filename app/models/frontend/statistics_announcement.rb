@@ -21,4 +21,8 @@ class Frontend::StatisticsAnnouncement < InflatableModel
   def to_param
     slug
   end
+
+  def national_statistic?
+    document_type == "Statistics - national statistics"
+  end
 end
