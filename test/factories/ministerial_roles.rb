@@ -7,5 +7,6 @@ FactoryGirl.define do
 
   factory :ministerial_role_without_organisation, class: MinisterialRole do
     name "Parliamentary Under-Secretary of State"
+    status "active"
   end
 end
