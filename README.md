@@ -230,3 +230,32 @@ You can also read the docs on [rdoc.info](http://rdoc.info/github/alphagov/white
 ### `major_change_published_at`
 
 * date of the last major change. Major changes require change notes. This is decided by the user.
+
+## Internationalisation
+
+This is mostly standard [Rails i18n](http://guides.rubyonrails.org/i18n.html) - Translations are stored in `config/locales/`, with a `.yml` file per locale.
+
+If translation value is missing from a locale file then the EN value will be used instead.
+
+### Changing an existing translation key
+
+Edit the value of EN locale, you should then _manually_ edit all other locales to set the altered translated value to be blank.
+
+### Adding a new translation key
+
+_Manually_ create the key in `en.yml`, with the english text.
+
+Run a task to add that key to all other language files:
+```
+bundle exec rake translation:regenerate
+```
+
+#### Known issues
+
+Running the `translation:regenerate` task may alter unrelated keys in non-EN locales, usually around "one, two, few, many" keys.
+
+### Updating the locales files
+
+There are rake tasks to export and import a CSV file of translations and keys. These CSV files edited to update the translation values and then imported back in into a local file.
+
+There's no timeline for how frequently this is done, so you can expect many translation values to be missing in non EN locales.
