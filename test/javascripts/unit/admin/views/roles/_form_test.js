@@ -7,12 +7,12 @@ module("admin-roles-form", {
         <option value="merged">Merged</option>\
       </select>\
       <p class="js-inactive-role-field">\
-      	<label for="role_date_of_inactivity">Closed at?</label>\
-	      <input id="test_child">\
+        <label for="role_date_of_inactivity">Closed at?</label>\
+        <input id="test_child">\
       </p>\
       <p class="js-superseding-role-field">\
-	      <label for="superseding_role_ids">Superseding roles</label>\
-	      <select id="test_child_2">\
+        <label for="superseding_role_ids">Superseding roles</label>\
+        <select id="test_child_2">\
           <option value="12">Some organisation</option>\
         </select>\
       </p>'
