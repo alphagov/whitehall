@@ -17,8 +17,8 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/"
   end
 
-  test "visiting / on an admin host redirects to #{Whitehall.router_prefix}/admin" do
-    host! 'whitehall-admin.production.alphagov.co.uk'
+  test "visiting / on the admin host redirects to #{Whitehall.router_prefix}/admin" do
+    host! Whitehall.admin_host
     get "/"
     assert_redirected_to "#{Whitehall.router_prefix}/admin/"
   end
@@ -59,36 +59,26 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "/tour"
   end
 
-  test "admin is unreachable in preview from whitehall" do
-    host! 'whitehall.preview.alphagov.co.uk'
+  test "admin URLs are reachable when accessed via the admin host in production" do
+    admin_host = 'whitehall-admin.production.alphagov.co.uk'
+    Whitehall.stubs(:admin_host).returns(admin_host)
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    assert_raise(ActionController::RoutingError) do
-      get "/government/admin"
-    end
-  end
-
-  test "admin is reachable in preview from whitehall-admin" do
+    host! admin_host
     login_as_admin
-    host! 'whitehall-admin.preview.alphagov.co.uk'
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+
     get "/government/admin"
     assert_response :success
   end
 
-  test "admin is unreachable in production from whitehall" do
+  test "admin URLs are not reachable when accessed via non-admin hosts in production" do
+    Whitehall.stubs(:admin_host).returns('whitehall-admin.production.alphagov.co.uk')
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
     host! 'whitehall.production.alphagov.co.uk'
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+    login_as_admin
+
     assert_raise(ActionController::RoutingError) do
       get "/government/admin"
     end
-  end
-
-  test "admin is reachable in production from whitehall-admin" do
-    login_as_admin
-    host! 'whitehall-admin.production.alphagov.co.uk'
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    get "/government/admin"
-    assert_response :success
   end
 
   test "visiting a detailed guidance document redirects you to the slug at root" do

@@ -76,11 +76,8 @@ module Whitehall
     "/government"
   end
 
-  def self.admin_hosts
-    [
-      'whitehall-admin.preview.alphagov.co.uk',
-      'whitehall-admin.production.alphagov.co.uk'
-    ]
+  def self.admin_host
+    URI(Plek.new.find('whitehall-admin')).host
   end
 
   def self.public_hosts
@@ -89,10 +86,6 @@ module Whitehall
 
   def self.government_single_domain?(request)
     PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
-  end
-
-  def self.admin_whitelist?(request)
-    (!Rails.env.production?) || admin_hosts.include?(request.host)
   end
 
   def self.public_host_for(request_host)

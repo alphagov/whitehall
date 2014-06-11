@@ -285,7 +285,7 @@ module GovspeakHelper
 
   def build_govspeak_document(govspeak, images = [])
     request_host = respond_to?(:request) ? request.host : nil
-    hosts = [request_host] + Whitehall.admin_hosts + Whitehall.public_hosts
+    hosts = [request_host] + [Whitehall.admin_host] + Whitehall.public_hosts
     Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
       document.images = images.map { |i| AssetHostDecorator.new(i) }
     end
