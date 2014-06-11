@@ -31,7 +31,7 @@ Whitehall::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.slimmer.asset_host = ENV['GOVUK_ASSET_ROOT'] || "https://static.preview.alphagov.co.uk"
+  config.slimmer.asset_host = ENV['STATIC_DEV'] || Plek.new.find('static')
 
   # Disable cache in development
   config.cache_store = :null_store
