@@ -10,6 +10,12 @@ $dev-color:        $grey-2;
   margin: -4px 0 8px 15px;
 }
 
+@media (max-width: 767px) {
+  .environment-message {
+    margin-left: 10px;
+  }
+}
+
 .environment-production .environment-message {
   background-color: $production-color;
   color: #fff;
