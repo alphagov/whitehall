@@ -30,7 +30,7 @@ module Whitehall
     protected
 
       def url
-        Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol).document_url(edition)
+        Whitehall.url_maker.document_url(edition)
       end
 
       def public_date_html

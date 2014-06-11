@@ -2,12 +2,8 @@ require "csv"
 require "fileutils"
 
 namespace :export do
-
-  PUBLIC_HOST = "www.gov.uk"
-  ADMIN_HOST = "whitehall-admin.production.alphagov.co.uk"
-
   def routes_helper
-    @routes_helper ||= Whitehall::UrlMaker.new(host: PUBLIC_HOST)
+    @routes_helper ||= Whitehall.url_maker
   end
 
   desc "Export mappings (for eg the Transition app to consume)"
@@ -77,11 +73,11 @@ namespace :export do
             document.slug,
             document.display_type,
             document.latest_edition.state,
-            document.published? ? routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https") : nil,
+            document.published? ? routes_helper.public_document_url(edition) : nil,
             edition.id,
             edition.title,
             edition.state,
-            routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
+            routes_helper.admin_edition_url(edition, host: Whitehall.admin_host),
             *edition.authors.uniq.map(&:name)
           ]
         end
@@ -121,8 +117,8 @@ namespace :export do
         org.published_editions.each do |edition|
           csv << [
             org.display_name,
-            routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https"),
-            routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
+            routes_helper.public_document_url(edition),
+            routes_helper.admin_edition_url(edition, host: Whitehall.admin_host),
             edition.title,
             edition.display_type,
             edition.public_timestamp,

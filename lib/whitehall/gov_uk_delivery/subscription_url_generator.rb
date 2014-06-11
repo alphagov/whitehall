@@ -23,7 +23,7 @@ module Whitehall
       attr_reader :edition
 
       def url_maker
-        @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+        Whitehall.url_maker
       end
 
       def relevant_to_local_government?
