@@ -9,7 +9,6 @@ module Whitehall
   mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
   mattr_accessor :stats_collector
-  mattr_accessor :public_host
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
   mattr_accessor :need_api
@@ -78,6 +77,15 @@ module Whitehall
 
   def self.admin_host
     URI(Plek.new.find('whitehall-admin')).host
+  end
+
+  def self.public_host
+    Plek.new.website_uri.host
+  end
+
+  # NOOP until alphagov-deployment is updated to not set this in the
+  # public_host.rb initializer
+  def self.public_host=(_)
   end
 
   def self.public_hosts

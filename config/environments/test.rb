@@ -55,7 +55,7 @@ Whitehall::Application.configure do
 
   # These environment variables are required for Plek. Conditionally setting
   # them here means we don't have to explicitly set them just ro run tests.
-  ENV['GOVUK_APP_DOMAIN'] ||= 'test.gov.uk'
+  ENV['GOVUK_APP_DOMAIN'] ||= 'test.alphagov.co.uk'
   ENV['GOVUK_ASSET_ROOT'] ||= 'http://static.test.gov.uk'
 end
 
