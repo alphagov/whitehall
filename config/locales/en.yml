@@ -525,7 +525,7 @@ en:
         If you use assistive technology and need a version of this document
         in a more accessible format, please email
         %{email}.
-        Please tell us what format you need. It will help us if you say what assistive technology you use
+        Please tell us what format you need. It will help us if you say what assistive technology you use.
     opendocument:
       help_html: This file is in an <a rel="external" href="http://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
     see_more: See more information about this %{document_type}
