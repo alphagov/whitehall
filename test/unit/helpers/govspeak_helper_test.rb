@@ -418,16 +418,8 @@ class GovspeakHelperTest < ActionView::TestCase
 
   private
 
-  def internal_preview_host
-    "whitehall.preview.alphagov.co.uk"
-  end
-
   def public_preview_host
     "www.preview.alphagov.co.uk"
-  end
-
-  def internal_production_host
-    "whitehall.production.alphagov.co.uk"
   end
 
   def public_production_host
