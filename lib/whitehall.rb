@@ -69,7 +69,7 @@ module Whitehall
   end
 
   def self.asset_host
-    ENV['GOVUK_ASSET_ROOT'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_ROOT to be set. Perhaps you should run your task through govuk_setenv <appname>?')
+    Plek.new.asset_root
   end
 
   def self.router_prefix
