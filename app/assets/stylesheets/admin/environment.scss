@@ -1,0 +1,26 @@
+$production-color: $mellow-red;
+$preview-color:    $yellow;
+$dev-color:        $grey-2;
+
+.environment-message {
+  padding: 3px 5px;
+  line-height: 19px;
+  font-weight: bold;
+  font-size: 16px;
+  margin: -4px 0 8px 15px;
+}
+
+.environment-production .environment-message {
+  background-color: $production-color;
+  color: #fff;
+}
+
+.environment-preview .environment-message {
+  background-color: $preview-color;
+  color: #000;
+}
+
+.environment-development .environment-message {
+  background-color: $dev-color;
+  color: #000;
+}

@@ -24,7 +24,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body class="environment-<%= GovukAdminTemplate.environment_style %>">
     <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
     <header class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -35,6 +35,11 @@
             <span class="icon-bar"></span>
           </a>
           <ul class="nav website">
+            <li>
+              <div class="environment-message">
+                <%= GovukAdminTemplate.environment_label %>
+              </div>
+            </li>
             <li class="brand"><%= link_to "Dashboard", admin_root_path %></li>
             <li class="brand"><%= link_to "View website", website_home_url, class: "open_website" %></li>
           </ul>
