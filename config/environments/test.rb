@@ -53,15 +53,10 @@ Whitehall::Application.configure do
 
   config.slimmer.asset_host = "http://tests-should-not-depend-on-external-host.com"
 
-  # This is required for Plek 1.x, but we don't want to have to set it
-  # when running the tests.
-  if ENV['GOVUK_APP_DOMAIN'].blank?
-    ENV['GOVUK_APP_DOMAIN'] = 'test.gov.uk'
-  end
-
-  if ENV['GOVUK_ASSET_ROOT'].blank?
-    ENV['GOVUK_ASSET_ROOT'] = 'http://static.test.gov.uk'
-  end
+  # These environment variables are required for Plek. Conditionally setting
+  # them here means we don't have to explicitly set them just ro run tests.
+  ENV['GOVUK_APP_DOMAIN'] ||= 'test.gov.uk'
+  ENV['GOVUK_ASSET_ROOT'] ||= 'http://static.test.gov.uk'
 end
 
 require Rails.root.join("test/support/skip_slimmer")
