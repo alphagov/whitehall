@@ -62,7 +62,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes an organisation feed url' do
     organisation = create(:ministerial_department, :with_published_edition)
-    feed_url  = generic_url_maker.organisation_url(organisation)
+    feed_url  = atom_feed_maker.organisation_url(organisation)
     validator = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -71,7 +71,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes a policy feed url' do
     policy    = create(:published_policy)
-    feed_url  = generic_url_maker.activity_policy_url(policy.slug)
+    feed_url  = atom_feed_maker.activity_policy_url(policy.slug)
     validator = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -80,7 +80,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes a topic feed url' do
     topic     = create(:topic)
-    feed_url  = generic_url_maker.topic_url(topic)
+    feed_url  = atom_feed_maker.topic_url(topic)
     validator = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -89,7 +89,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes a topical event feed url' do
     topical_event = create(:topical_event)
-    feed_url      = generic_url_maker.topical_event_url(topical_event)
+    feed_url      = atom_feed_maker.topical_event_url(topical_event)
     validator     = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -98,7 +98,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes a world location feed url' do
     world_location = create(:world_location)
-    feed_url       = generic_url_maker.world_location_url(world_location)
+    feed_url       = atom_feed_maker.world_location_url(world_location)
     validator      = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -107,7 +107,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes a person feed url' do
     person = create(:person)
-    feed_url = generic_url_maker.person_url(person)
+    feed_url = atom_feed_maker.person_url(person)
     validator = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -116,7 +116,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'validates and describes a role feed url' do
     role = create(:role)
-    feed_url = generic_url_maker.ministerial_role_url(role)
+    feed_url = atom_feed_maker.ministerial_role_url(role)
     validator = FeedUrlValidator.new(feed_url)
 
     assert validator.valid?
@@ -140,31 +140,31 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
   end
 
   test 'does not validate a feed url when the resource does not exist' do
-    feed_url = generic_url_maker.topic_url('non-existant-slug')
+    feed_url = atom_feed_maker.topic_url('non-existant-slug')
 
     refute FeedUrlValidator.new(feed_url).valid?
   end
 
   test 'does not validate a feed url when the policy does not exist' do
-    feed_url = generic_url_maker.activity_policy_url('non-existant-slug')
+    feed_url = atom_feed_maker.activity_policy_url('non-existant-slug')
 
     refute FeedUrlValidator.new(feed_url).valid?
   end
 
   test 'does not validate a feed url for an unpublished policy' do
-    feed_url = generic_url_maker.activity_policy_url(create(:draft_policy).slug)
+    feed_url = atom_feed_maker.activity_policy_url(create(:draft_policy).slug)
 
     refute FeedUrlValidator.new(feed_url).valid?
   end
 
   test 'does not validate a feed url with additional parameters' do
-    feed_url = generic_url_maker.ministerial_role_url(create(:role), extra_param: 'hax')
+    feed_url = atom_feed_maker.ministerial_role_url(create(:role), extra_param: 'hax')
 
     refute FeedUrlValidator.new(feed_url).valid?
   end
 
   test 'does not validate a feed url for filtered documents with invalid filter options' do
-    feed_url   = generic_url_maker.publications_url(extra_param: 'boo')
+    feed_url   = atom_feed_maker.publications_url(extra_param: 'boo')
     validator  = FeedUrlValidator.new(feed_url)
 
     refute validator.valid?
@@ -179,7 +179,7 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'does not validate a feed url for an unsupported type, e.g. a document collection' do
     collection = create(:document_collection)
-    feed_url   = generic_url_maker.document_collection_url(collection)
+    feed_url   = atom_feed_maker.document_collection_url(collection)
     validator  = FeedUrlValidator.new(feed_url)
 
     refute validator.valid?
@@ -211,7 +211,7 @@ private
     Whitehall::FeedUrlBuilder.new(params).url
   end
 
-  def generic_url_maker
-    Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: :atom)
+  def atom_feed_maker
+    Whitehall.atom_feed_maker
   end
 end

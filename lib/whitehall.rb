@@ -242,6 +242,10 @@ module Whitehall
     @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
   end
 
+  def self.atom_feed_maker
+    @atom_feed_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom')
+  end
+
   def self.edition_services
     @edition_actions ||= EditionServiceCoordinator.new
   end
