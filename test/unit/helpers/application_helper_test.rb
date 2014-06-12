@@ -285,8 +285,8 @@ class ApplicationHelperTest < ActionView::TestCase
   test "correctly identifies external links" do
     assert is_external?('http://www.facebook.com/something'), 'wrong host'
     refute is_external?('/something'), 'no host'
-    refute is_external?('https://www.gov.uk'), 'good host'
-    refute is_external?('http://www.preview.alphagov.co.uk/something'), 'good host with path'
+    refute is_external?(Whitehall.public_root), 'good host'
+    refute is_external?("#{Whitehall.public_root}/something"), 'good host with path'
   end
 
   test "full_width_tabs should render tabs" do

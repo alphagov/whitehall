@@ -15,7 +15,7 @@ namespace :export do
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::Mappings.new(Rails.env)
+    exporter = Whitehall::Exporters::Mappings.new
 
     filename = 'public/government/mappings.csv'
     temporary_filename = filename + '.new'
@@ -42,7 +42,7 @@ namespace :export do
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new(Rails.env)
+    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new
 
     CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_document_mappings.csv'), 'wb') do |csv_out|
       exporter.export(csv_out)

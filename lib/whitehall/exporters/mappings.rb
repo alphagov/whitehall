@@ -1,4 +1,4 @@
-class Whitehall::Exporters::Mappings < Struct.new(:platform)
+class Whitehall::Exporters::Mappings
   STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + ['published'] + ['archived']
 
   def export(target)

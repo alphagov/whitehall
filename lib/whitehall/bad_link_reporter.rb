@@ -104,6 +104,8 @@ module Whitehall
 
     private
 
+      # These hosts are hardcoded because we run this on preview but want the
+      # generated URLs to be production ones.
       def public_host
         "https://www.gov.uk"
       end

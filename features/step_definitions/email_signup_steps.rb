@@ -29,59 +29,59 @@ When(/^I send the latest email in the email curation queue$/) do
 end
 
 Then(/^I should be signed up for the all publications mailing list$/) do
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/publications.atom", "publications")
+  assert_signed_up_to_mailing_list("/government/publications.atom", "publications")
 end
 
 Then(/^I should be signed up to the correspondence publications mailing list$/) do
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/publications.atom?publication_filter_option=correspondence", "correspondence")
+  assert_signed_up_to_mailing_list("/government/publications.atom?publication_filter_option=correspondence", "correspondence")
 end
 
 Then(/^I should be signed up for the all announcements mailing list$/) do
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/announcements.atom", "announcements")
+  assert_signed_up_to_mailing_list("/government/announcements.atom", "announcements")
 end
 
 Then(/^I should be signed up for the news stories mailing list$/) do
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/announcements.atom?announcement_filter_option=news-stories", "news stories")
+  assert_signed_up_to_mailing_list("/government/announcements.atom?announcement_filter_option=news-stories", "news stories")
 end
 
 Then(/^I should be signed up for the local government news stories mailing list$/) do
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/announcements.atom?announcement_filter_option=news-stories&relevant_to_local_government=1", "news stories which are relevant to local government")
+  assert_signed_up_to_mailing_list("/government/announcements.atom?announcement_filter_option=news-stories&relevant_to_local_government=1", "news stories which are relevant to local government")
 end
 
 Then(/^I should be signed up for the "(.*?)" organisation mailing list$/) do |org_name|
   org_slug = Organisation.find_by_name!(org_name).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/organisations/#{org_slug}.atom", org_name)
+  assert_signed_up_to_mailing_list("/government/organisations/#{org_slug}.atom", org_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" role mailing list$/) do |role_name|
   role_slug = Role.find_by_name!(role_name).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/ministers/#{role_slug}.atom", role_name)
+  assert_signed_up_to_mailing_list("/government/ministers/#{role_slug}.atom", role_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" person mailing list$/) do |person_name|
   names = person_name.split
   person_slug = Person.find_by_forename_and_surname!(names[0], names[1]).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/people/#{person_slug}.atom", person_name)
+  assert_signed_up_to_mailing_list("/government/people/#{person_slug}.atom", person_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" policy mailing list$/) do |policy_name|
   policy_slug = Policy.find_by_title!(policy_name).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/policies/#{policy_slug}/activity.atom", policy_name)
+  assert_signed_up_to_mailing_list("/government/policies/#{policy_slug}/activity.atom", policy_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" topical event mailing list$/) do |topical_event_name|
   topical_event_slug = TopicalEvent.find_by_name!(topical_event_name).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/topical-events/#{topical_event_slug}.atom", topical_event_name)
+  assert_signed_up_to_mailing_list("/government/topical-events/#{topical_event_slug}.atom", topical_event_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" topic mailing list$/) do |topic_name|
   topic_slug = Topic.find_by_name!(topic_name).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/topics/#{topic_slug}.atom", topic_name)
+  assert_signed_up_to_mailing_list("/government/topics/#{topic_slug}.atom", topic_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |world_location_name|
   world_location_slug = WorldLocation.find_by_name!(world_location_name).slug
-  assert_signed_up_to_mailing_list("http://www.test.alphagov.co.uk/government/world/#{world_location_slug}.atom", world_location_name)
+  assert_signed_up_to_mailing_list("/government/world/#{world_location_slug}.atom", world_location_name)
 end
 
 Then(/^a govuk_delivery notification should have been sent to the mailing list I signed up for$/) do
@@ -97,14 +97,14 @@ end
 def mock_govuk_delivery_client
   @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
     mock_client.stub :topic
-    mock_client.stub :signup_url, returns: "http://www.test.alphagov.co.uk/email_signup_url"
+    mock_client.stub :signup_url, returns: public_url("/email_signup_url")
     mock_client.stub :notify
     Whitehall.stubs(govuk_delivery_client: mock_client)
   }
 end
 
-def assert_signed_up_to_mailing_list(feed_url, description)
-  @feed_signed_up_to = feed_url
-  mock_govuk_delivery_client.assert_method_called(:topic, with: [feed_url, description])
-  mock_govuk_delivery_client.assert_method_called(:signup_url, with: [feed_url])
+def assert_signed_up_to_mailing_list(feed_path, description)
+  @feed_signed_up_to = public_url(feed_path)
+  mock_govuk_delivery_client.assert_method_called(:topic, with: [@feed_signed_up_to, description])
+  mock_govuk_delivery_client.assert_method_called(:signup_url, with: [@feed_signed_up_to])
 end
