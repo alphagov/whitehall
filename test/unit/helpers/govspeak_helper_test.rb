@@ -2,14 +2,6 @@
 require 'test_helper'
 
 class GovspeakHelperTest < ActionView::TestCase
-  include PublicDocumentRoutesHelper
-
-  setup do
-    @request  = ActionController::TestRequest.new
-    ActionController::Base.default_url_options = {}
-  end
-  attr_reader :request
-
   test "should not alter urls to other sites" do
     html = govspeak_to_html("no [change](http://external.example.com/page.html)")
     assert_select_within_html html, "a[href=?]", "http://external.example.com/page.html", text: "change"
@@ -46,25 +38,16 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "should not mark admin links as 'external'" do
-    request.host = public_preview_host
     speech = create(:published_speech)
-    url = admin_speech_url(speech, host: request.host)
+    url = admin_speech_url(speech, host: Whitehall.admin_host)
     govspeak = "this and [that](#{url}) yeah?"
     html = govspeak_to_html(govspeak)
     refute_select_within_html html, "a[rel='external']", text: "that"
   end
 
-  test "should not mark public preview links as 'external'" do
+  test "should not mark public site links as 'external'" do
     speech = create(:published_speech)
-    url = admin_speech_url(speech, host: public_preview_host)
-    govspeak = "this and [that](#{url}) yeah?"
-    html = govspeak_to_html(govspeak)
-    refute_select_within_html html, "a[rel='external']", text: "that"
-  end
-
-  test "should not mark main site links as 'external'" do
-    speech = create(:published_speech)
-    url = admin_speech_url(speech, host: public_production_host)
+    url = admin_speech_url(speech, host: Whitehall.public_host)
     govspeak = "this and [that](#{url}) yeah?"
     html = govspeak_to_html(govspeak)
     refute_select_within_html html, "a[rel='external']", text: "that"
@@ -73,7 +56,7 @@ class GovspeakHelperTest < ActionView::TestCase
   test "should rewrite admin links for editions" do
     speech = create(:published_speech)
     admin_path = admin_speech_path(speech)
-    public_url = public_document_url(speech)
+    public_url = Whitehall.url_maker.public_document_url(speech)
 
     govspeak = "this and [that](#{admin_path}) yeah?"
     html = govspeak_to_html(govspeak)
@@ -85,7 +68,7 @@ class GovspeakHelperTest < ActionView::TestCase
     supporting_page = create(:published_supporting_page, related_policies: [policy])
     EditionedSupportingPageMapping.create(old_supporting_page_id: 654321, new_supporting_page_id: supporting_page.id)
     admin_path = "/government/admin/editions/#{policy.id}/supporting-pages/654321"
-    public_url = policy_supporting_page_url(policy.document, supporting_page.document)
+    public_url = Whitehall.url_maker.policy_supporting_page_url(policy.document, supporting_page.document)
 
     govspeak = "this and [that](#{admin_path}) yeah?"
     html = govspeak_to_html(govspeak)
@@ -414,15 +397,5 @@ class GovspeakHelperTest < ActionView::TestCase
     input = "Some text [Fraction:1/4] and some text"
     html = govspeak_to_html(input)
     assert_select_within_html html, "span.fraction > img[alt=1/4]"
-  end
-
-  private
-
-  def public_preview_host
-    "www.preview.alphagov.co.uk"
-  end
-
-  def public_production_host
-    "www.gov.uk"
   end
 end
