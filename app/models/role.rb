@@ -4,6 +4,12 @@ class Role < ActiveRecord::Base
                                    'past-chancellors'     => 'chancellor-of-the-exchequer',
                                    'past-foreign-secretaries' => 'foreign-secretary' }
 
+  def self.columns
+    # This is here to enable us to gracefully remove the biography column
+    # in a future commit, *after* this change has been deployed
+    super.reject { |column| ['name', 'responsibilities'].include?(column.name) }
+  end
+
   has_many :role_appointments, order: 'started_at'
   has_many :people, through: :role_appointments
 
@@ -19,9 +25,6 @@ class Role < ActiveRecord::Base
   has_many :historical_account_roles
   has_many :historical_accounts, through: :historical_account_roles
 
-  has_many :role_supersessions, foreign_key: :superseded_role_id
-  has_many :superseding_roles, through: :role_supersessions
-
   scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order('people.surname', 'people.forename') }
 
   scope :ministerial,                -> { where(type: 'MinisterialRole') }
@@ -35,17 +38,6 @@ class Role < ActiveRecord::Base
   validates :name, presence: true
   validates_with SafeHtmlValidator
 
-  STATES = %w{active no_longer_exists replaced split merged}.freeze
-  STATES.each do |state|
-    define_method(:"#{state}?") { status == state }
-  end
-
-  validates :status, inclusion: { in: STATES }
-  validate :no_current_role_holder_if_inactive
-  validate :exactly_one_superseding_role, if: Proc.new { |role| role.replaced? || role.merged? }
-  validate :at_least_two_superseding_roles, if: :split?
-  validate :no_superseding_roles, if: :no_longer_exists?
-
   before_destroy :prevent_destruction_unless_destroyable
 
   extend FriendlyId
@@ -58,20 +50,16 @@ class Role < ActiveRecord::Base
     where(arel_table[:whip_organisation_id].not_eq(nil))
   end
 
-  def self.also_attends_cabinet
-    where(arel_table[:attends_cabinet_type_id].not_eq(nil))
-  end
-
-  def inactive?
-    !active?
-  end
-
   def role_payment_type
     RolePaymentType.find_by_id(role_payment_type_id)
   end
 
   def attends_cabinet_type
     RoleAttendsCabinetType.find_by_id(attends_cabinet_type_id)
+  end
+
+  def self.also_attends_cabinet
+    where(arel_table[:attends_cabinet_type_id].not_eq(nil))
   end
 
   def footnotes(including_cabinet = false)
@@ -159,29 +147,5 @@ class Role < ActiveRecord::Base
 
   def default_person_name
     "No one is assigned to this role"
-  end
-
-    def no_current_role_holder_if_inactive
-    if inactive? && occupied?
-      errors.add(:base, "A role cannot be marked as inactive if it has current role holders")
-    end
-  end
-
-  def exactly_one_superseding_role
-    if superseding_roles.size != 1
-      errors.add(:base, "Please add exactly one superseding role for this inactive status")
-    end
-  end
-
-  def at_least_two_superseding_roles
-    if superseding_roles.size < 2
-      errors.add(:base, "Please add at least two superseding roles for this inactive status")
-    end
-  end
-
-  def no_superseding_roles
-    if superseding_roles.size > 0
-      errors.add(:base, "Please remove any superseding roles for this inactive status")
-    end
   end
 end
