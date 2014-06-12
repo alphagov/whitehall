@@ -43,11 +43,7 @@ module Whitehall
   }
 
   def self.public_protocol
-    if Rails.env.development? || Rails.env.test?
-      'http'
-    else
-      'https'
-    end
+    Plek.new.website_uri.scheme
   end
 
   def self.available_locales
