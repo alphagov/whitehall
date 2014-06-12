@@ -1,5 +1,4 @@
 <%
-  initialise_script "GOVUK.rolesForm"
   show_instantly_live_warning ||= false
   show_consult_gds_warning ||= false
 %>
@@ -23,17 +22,6 @@
 
     <%= form.label :worldwide_organisation_ids, 'Worldwide organisations' %>
     <%= form.select :worldwide_organisation_ids, options_from_collection_for_select(WorldwideOrganisation.all, 'id', 'name', role.worldwide_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose worldwide organisations..." } %>
-    <%= form.label :status, 'Role status on Gov.uk' %>
-    <%= form.select :status, role_states_for_select %>
-
-    <p class="js-inactive-role-field js-superseding-role-field">
-      <%= form.label :superseding_role_ids, "Superseded by" %>
-      <%= form.select :superseding_role_ids, options_from_collection_for_select(Role.with_translations(:en).all - [form.object], 'id', 'name', role.superseding_role_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose which role(s) this role has been superseded by..." } %>
-    </p>
-    <p class="js-inactive-role-field">
-      <%= form.label :date_of_inactivity, {class: "check-date-valid"} %>
-      <%= form.date_select :date_of_inactivity, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
-    </p>
   </fieldset>
 
   <fieldset>

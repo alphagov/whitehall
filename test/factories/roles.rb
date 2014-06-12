@@ -8,7 +8,6 @@ FactoryGirl.define do
   factory :role_without_organisations, class: Role, traits: [:translated] do
     sequence(:name) { |index| "role-name-#{index}" }
     type ""
-    status "active"
   end
 
   factory :historic_role, parent: :ministerial_role do

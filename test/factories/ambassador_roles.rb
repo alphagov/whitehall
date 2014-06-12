@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :ambassador_role do
     name "Her Majesty's Ambassador to Spain"
-    status "active"
   end
 end
