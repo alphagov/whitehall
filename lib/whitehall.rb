@@ -55,7 +55,7 @@ module Whitehall
     "/government"
   end
 
-  def self.asset_host
+  def self.asset_root
     Plek.new.asset_root
   end
 

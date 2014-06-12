@@ -45,7 +45,7 @@ Whitehall::Application.configure do
   config.cache_store = :memory_store, { size: 32.megabytes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = Whitehall.asset_host
+  config.action_controller.asset_host = Whitehall.asset_root
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w(
