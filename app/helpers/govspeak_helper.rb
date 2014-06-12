@@ -279,12 +279,8 @@ module GovspeakHelper
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
-  def normalise_host(host)
-    Whitehall.public_host_for(host) || host
-  end
-
   def build_govspeak_document(govspeak, images = [])
-    hosts = [Whitehall.admin_host] + Whitehall.public_hosts
+    hosts = [Whitehall.admin_host, Whitehall.public_host]
     Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
       document.images = images.map { |i| AssetHostDecorator.new(i) }
     end

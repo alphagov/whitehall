@@ -328,11 +328,8 @@ module ApplicationHelper
   end
 
   def is_external?(href)
-    host = URI.parse(href).host
-    if host.nil?
-      false
-    else
-      !Whitehall.public_hosts.include?(host)
+    if host = URI.parse(href).host
+      Whitehall.public_host != host
     end
   end
 

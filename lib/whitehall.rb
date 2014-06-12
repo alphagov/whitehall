@@ -30,18 +30,6 @@ module Whitehall
 
   class NoConfigurationError < StandardError; end
 
-  PUBLIC_HOSTS = {
-    'whitehall.test.alphagov.co.uk'       => 'www.test.alphagov.co.uk',
-    'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
-    'whitehall.production.alphagov.co.uk' => 'www.gov.uk',
-    'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-    'whitehall-admin.production.alphagov.co.uk' => 'www.gov.uk',
-    'whitehall-frontend.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-    'whitehall-frontend.production.alphagov.co.uk' => 'www.gov.uk',
-    'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-    'public-api.production.alphagov.co.uk' => 'www.gov.uk'
-  }
-
   def self.public_protocol
     Plek.new.website_uri.scheme
   end
@@ -90,18 +78,6 @@ module Whitehall
   # NOOP until alphagov-deployment is updated to not set this in the
   # public_host.rb initializer
   def self.public_host=(_)
-  end
-
-  def self.public_hosts
-    PUBLIC_HOSTS.values.uniq
-  end
-
-  def self.government_single_domain?(request)
-    PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
-  end
-
-  def self.public_host_for(request_host)
-    PUBLIC_HOSTS[request_host] || request_host
   end
 
   def self.secrets

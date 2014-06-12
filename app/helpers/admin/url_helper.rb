@@ -99,8 +99,4 @@ module Admin::UrlHelper
   def active_link_class(path_matcher)
     request.path =~ path_matcher ? 'active' : ''
   end
-
-  def website_home_url
-    main_root_url(host: public_host)
-  end
 end
