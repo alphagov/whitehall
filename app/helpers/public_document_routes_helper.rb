@@ -1,9 +1,5 @@
 module PublicDocumentRoutesHelper
 
-  def public_host
-    Whitehall.public_host
-  end
-
   def document_path(edition, options = {})
     document_url(edition, options.merge(routing_type: :path))
   end

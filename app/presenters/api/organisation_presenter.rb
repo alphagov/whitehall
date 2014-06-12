@@ -5,7 +5,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
       title: model.name,
       format: model.organisation_type.name,
       updated_at: model.updated_at,
-      web_url: context.organisation_url(model, host: context.public_host),
+      web_url: context.organisation_url(model),
       details: {
         slug: model.slug,
         abbreviation: model.acronym,
@@ -31,7 +31,7 @@ private
     model.parent_organisations.map do |parent|
       {
         id: context.api_organisation_url(parent),
-        web_url: context.organisation_url(parent, host: context.public_host)
+        web_url: context.organisation_url(parent)
       }
     end
   end
@@ -40,7 +40,7 @@ private
     model.child_organisations.map do |child|
       {
         id: context.api_organisation_url(child),
-        web_url: context.organisation_url(child, host: context.public_host)
+        web_url: context.organisation_url(child)
       }
     end
   end
