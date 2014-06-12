@@ -5,15 +5,6 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   include Admin::EditionRoutesHelper
   include PublicDocumentRoutesHelper
 
-  setup do
-    @request  = ActionController::TestRequest.new
-    ActionController::Base.default_url_options = {}
-    # To mimic the setup for this helper where it is likely to be used
-    # e.g. in Admin:: prefixed controllers and admin/ views
-    @controller.lookup_context.prefixes = ['admin/base']
-  end
-  attr_reader :request
-
   test "should wrap admin output with a govspeak class" do
     html = govspeak_to_admin_html("govspeak-text")
     assert_select_within_html html, ".govspeak", text: "govspeak-text"
