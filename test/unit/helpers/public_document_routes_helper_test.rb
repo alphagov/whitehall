@@ -1,12 +1,6 @@
 require 'test_helper'
 
 class PublicDocumentRoutesHelperTest < ActionView::TestCase
-  setup do
-    @request  = ActionController::TestRequest.new
-    ActionController::Base.default_url_options = {}
-  end
-  attr_reader :request
-
   test 'uses the document to generate the route' do
     policy = create(:policy)
     assert_equal policy_path(policy.document), public_document_path(policy)
@@ -64,28 +58,14 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
   end
 
-  test 'returns public document URL including host in production environment' do
-    request.host = "whitehall.production.alphagov.co.uk"
+  test 'returns the document URL using Whitehall public_host and protocol' do
+    Whitehall.stubs(public_host: 'some.host')
+    Whitehall.stubs(public_protocol: 'http')
     edition = create(:published_policy)
-    assert_equal "www.gov.uk", URI.parse(public_document_url(edition)).host
-  end
-
-  test 'returns public document URL including host in public production environment' do
-    request.host = "www.gov.uk"
-    edition = create(:published_policy)
-    assert_equal "www.gov.uk", URI.parse(public_document_url(edition)).host
-  end
-
-  test 'returns public document URL including host in preview environment' do
-    request.host = "whitehall.preview.alphagov.co.uk"
-    edition = create(:published_policy)
-    assert_equal "www.preview.alphagov.co.uk", URI.parse(public_document_url(edition)).host
-  end
-
-  test 'returns public document URL including host in public preview environment' do
-    request.host = "www.preview.alphagov.co.uk"
-    edition = create(:published_policy)
-    assert_equal "www.preview.alphagov.co.uk", URI.parse(public_document_url(edition)).host
+    uri = URI.parse(public_document_url(edition))
+    assert_equal 'some.host', uri.host
+    assert_equal 'http', uri.scheme
+    assert_equal public_document_path(edition), uri.path
   end
 
   test 'generates an appropriate path for non-English editions' do
@@ -94,29 +74,25 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   end
 
   test 'generates an appropriate url for non-English editions' do
-    request.host = "gov.uk"
     policy = create(:policy, locale: 'fr')
-    assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'fr'), public_document_url(policy)
+    assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'fr'), public_document_url(policy)
   end
 
   test 'When in a foreign locale, it generates a route to the foreign version if available' do
-    request.host = "gov.uk"
     policy = create(:policy, :translated, translated_into: [:fr])
     I18n.with_locale(:fr) do
-      assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'fr'), public_document_url(policy)
+      assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'fr'), public_document_url(policy)
     end
   end
 
   test 'When in a foreign locale, it generates a route to the english version if no foreign version is available' do
-    request.host = "gov.uk"
     policy = create(:policy)
     I18n.with_locale(:fr) do
-      assert_equal policy_url(policy.document, host: 'gov.uk', locale: 'en'), public_document_url(policy)
+      assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'en'), public_document_url(policy)
     end
   end
 
   test 'Locale is ignored if edition is a non-tranlatable type' do
-    request.host = "gov.uk"
     non_translatable_edition = create(:consultation)
     refute public_document_url(non_translatable_edition, locale: 'fr').include?('fr')
   end

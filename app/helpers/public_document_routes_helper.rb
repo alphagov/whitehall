@@ -1,12 +1,7 @@
 module PublicDocumentRoutesHelper
-  include ActionDispatch::Routing::UrlFor
 
   def public_host
-    if defined?(request) && request
-      Whitehall.public_host_for(request.host)
-    else
-      Whitehall.public_host
-    end
+    Whitehall.public_host
   end
 
   def document_path(edition, options = {})
@@ -43,7 +38,7 @@ module PublicDocumentRoutesHelper
   end
 
   def public_document_url(edition, options = {})
-    document_url edition, {host: public_host}.merge(options)
+    document_url edition, { host: Whitehall.public_host, protocol: Whitehall.public_protocol }.merge(options)
   end
 
   def preview_document_url(edition, options = {})
