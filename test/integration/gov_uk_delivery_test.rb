@@ -6,7 +6,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
 
   setup do
     # Use the real GovUkDelivery client
-    Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.current.find('govuk-delivery'))
+    Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.new.find('govuk-delivery'))
   end
 
   test "Publishing a policy calls govuk-delivery API" do
