@@ -18,7 +18,7 @@ module Whitehall
     end
 
     def self.rummager_host
-      ENV.fetch('RUMMAGER_HOST', Plek.current.find('search'))
+      ENV.fetch('RUMMAGER_HOST', Plek.new.find('search'))
     end
 
     def self.add(instance)
