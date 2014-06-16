@@ -11,11 +11,16 @@ module Govspeak
   private
 
     def extract_links
-      Nokogiri::HTML.parse(html_from_govspeak).css('a').map { |link| link['href'] }
+      processed_govspeak.css('a').map { |link| link['href'] }
     end
 
-    def html_from_govspeak
-      Govspeak::Document.new(@govspeak).to_html
+    def processed_govspeak
+      doc = Nokogiri::HTML::Document.new
+      doc.encoding = "UTF-8"
+
+      doc.fragment(Govspeak::Document.new(@govspeak).to_html).tap do |fragment|
+        Govspeak::AdminLinkReplacer.new(fragment).replace!
+      end
     end
   end
 end

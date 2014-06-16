@@ -9,6 +9,16 @@ module Govspeak
       assert_equal expected_links, extractor.links
     end
 
+    test "converts admin edition links to public-facing URLS" do
+      speech     = create(:published_speech)
+      admin_path = Whitehall.url_maker.admin_speech_path(speech)
+      public_url = Whitehall.url_maker.public_document_url(speech)
+      extractor  = LinkExtractor.new(govspeak_with_admin_link(admin_path))
+
+      expected_links = ['http://first-link.com', public_url]
+      assert_equal expected_links, extractor.links
+    end
+
   private
 
     def govspeak_with_links
@@ -17,6 +27,15 @@ module Govspeak
 
         Here is some HTML with a [link](http://some-link.com)
         or [two](http://another-link.com)
+      HEREDOC
+    end
+
+    def govspeak_with_admin_link(admin_path)
+      <<-HEREDOC.strip_heredoc
+        ## A document
+
+        Here is some HTML with a [link](http://first-link.com)
+        Here is a link to a [document](#{admin_path})
       HEREDOC
     end
   end
