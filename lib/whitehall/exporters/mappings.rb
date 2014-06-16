@@ -22,7 +22,7 @@ class Whitehall::Exporters::Mappings
         next if fake_source_url?(attachment_source)
         if attachment_source.attachment
           path = attachment_source.attachment.url
-          attachment_url = "#{Whitehall.public_protocol}://#{Whitehall.public_host}#{path}"
+          attachment_url = "#{Whitehall.public_root}#{path}"
           visibility = AttachmentVisibility.new(attachment_source.attachment.attachment_data, nil)
           state = visibility.visible? ? 'published' : 'draft'
           target << [attachment_source.url, attachment_url, '', state]
