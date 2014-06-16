@@ -72,27 +72,27 @@ private
         "status" => "ok"
       },
       "title" => "Tax",
-      "id" => "http://gov.uk/tags/business%2Ftax.json",
+      "id" => "#{Plek.new.find('contentapi')}/tags/business%2Ftax.json",
       "web_url" => nil,
       "details" => {
         "description" => nil,
         "type" => "section"
       },
       "content_with_tag" => {
-        "id" => "http://gov.uk/with_tag.json?tag=business%2Ftax",
-        "web_url" => "https://www.preview.alphagov.co.uk/browse/business#/tax"
+        "id" => "#{Plek.new.find('contentapi')}/with_tag.json?tag=business%2Ftax",
+        "web_url" => "#{Whitehall.public_root}/browse/business#/tax"
       },
       "parent" => {
         "title" => "Business",
-        "id" => "http://gov.uk/tags/business.json",
+        "id" => "#{Plek.new.find('contentapi')}/tags/business.json",
         "web_url" => nil,
         "details" => {
           "description" => "Information about starting up and running a business in the UK, including help if you're self employed or a sole trader.",
           "type" => "section"
         },
         "content_with_tag" => {
-          "id" => "http://gov.uk/with_tag.json?tag=business",
-          "web_url" => "https://www.preview.alphagov.co.uk/browse/business"
+          "id" => "#{Plek.new.find('contentapi')}/with_tag.json?tag=business",
+          "web_url" => "#{Whitehall.public_root}/browse/business"
         },
         "parent" => nil
       }

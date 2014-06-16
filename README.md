@@ -102,19 +102,16 @@ routing error: to check the app works, try visiting `/government/admin`.
 
 GOV.UK shares assets (eg stylesheets and JavaScript) across apps using the
 [`slimmer` gem](https://github.com/alphagov/slimmer) and the [`static`
-app](https://github.com/alphagov/static); you can either use a version of these
-running locally, or you can use the latest version deployed to Preview.
+app](https://github.com/alphagov/static). Ideally, you will have a copy of
+`static` running locally (at http://static.dev.gov.uk by default) and that will
+be used to serve shared assets. This is how things will work by default if you
+are running the GOV.UK development VM with `foreman` or `bowler`.
 
-If you run Whitehall with `bundle exec rails s` or `startup.sh`, it will
-default to using assets from Preview. This means you don't need to run `static`
-yourself, but you won't be able to work on the shared assets at the same time.
-You can override this by setting the `GOVUK_ASSET_ROOT` environment variable:
+If you are running whitehall with `bundle exec rails server` and don't want to
+run a local copy of `static`, you can tell the app to use assets served
+directly from the Preview environment by setting `STATIC_DEV`:
 
-    GOVUK_ASSET_ROOT=http://static.dev.gov.uk bundle exec rails s
-
-If you're running on a GOV.UK development VM with `foreman` or `bowler`,
-this will always point at a locally-running instance of `static`; `bowler` will
-start this up for you when you launch Whitehall.
+  STATIC_DEV=https://static.preview.alphagov.co.uk bundle exec rails server
 
 If you are only working on the Whitehall admin interface, you don't need the
 assets available.

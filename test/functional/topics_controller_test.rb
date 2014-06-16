@@ -1,7 +1,6 @@
 require "test_helper"
 
 class TopicsControllerTest < ActionController::TestCase
-  include AtomTestHelpers
   include FeedHelper
 
   should_be_a_public_facing_controller

@@ -6,7 +6,7 @@ class FeedHelperTest < ActionView::TestCase
   include PublicDocumentRoutesHelper
 
   def host
-    "test.dev.gov.uk"
+    Whitehall.public_host
   end
 
   def schema_date(_)
@@ -71,8 +71,8 @@ class FeedHelperTest < ActionView::TestCase
     builder = mock('builder')
     entries = sequence('entries')
     builder.stubs(:updated)
-    builder.expects(:entry).with(d2, id: 'tag:test.dev.gov.uk,2005:Policy/14', url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
-    builder.expects(:entry).with(d1, id: 'tag:test.dev.gov.uk,2005:Publication/12', url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d2, id: "tag:#{host},2005:Policy/14", url: '/policy_url', published: 2.weeks.ago, updated: 13.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d1, id: "tag:#{host},2005:Publication/12", url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     feed_entry = sequence('feed_entry')
     expects(:document_as_feed_entry).with(d2, builder, false).in_sequence(feed_entry)
     expects(:document_as_feed_entry).with(d1, builder, false).in_sequence(feed_entry)
@@ -114,7 +114,7 @@ class FeedHelperTest < ActionView::TestCase
 
     builder.expects(:updated).with(3.days.ago)
     stubs(:public_document_url).with(d).returns '/publication_url'
-    builder.expects(:entry).with(d, id: 'tag:test.dev.gov.uk,2005:Publication/12', url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
+    builder.expects(:entry).with(d, id: "tag:#{host},2005:Publication/12", url: '/publication_url', published: 1.week.ago, updated: 3.days.ago).yields(builder).in_sequence(entries)
     expects(:document_as_feed_entry).with(d, builder, true).returns('govspoken content')
     documents_as_feed_entries([d], builder)
   end
@@ -206,6 +206,6 @@ class FeedHelperTest < ActionView::TestCase
     doc.stubs(:id).returns('33')
     d.stubs(:document).returns(doc)
 
-    assert_equal document_id(d, nil), 'tag:test.dev.gov.uk,2005:Publication/33'
+    assert_equal document_id(d, nil), "tag:#{host},2005:Publication/33"
   end
 end

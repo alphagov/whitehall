@@ -36,7 +36,7 @@ class Api::DetailedGuidePresenter < Api::BasePresenter
   end
 
   def detailed_guide_url(guide)
-    context.api_detailed_guide_url guide.document, host: context.public_host
+    context.api_detailed_guide_url guide.document
   end
 
   def related_json

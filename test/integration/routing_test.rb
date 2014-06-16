@@ -11,14 +11,13 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_select "script[src=?]", "#{Whitehall.router_prefix}/assets/application.js"
   end
 
-  test "visiting #{Whitehall.router_prefix} on frontend redirects to /" do
-    host! 'whitehall-frontend.production.alphagov.co.uk'
+  test "visiting #{Whitehall.router_prefix} when not in frontend redirects to /" do
     get "#{Whitehall.router_prefix}"
     assert_redirected_to "/"
   end
 
-  test "visiting / on an admin host redirects to #{Whitehall.router_prefix}/admin" do
-    host! 'whitehall-admin.production.alphagov.co.uk'
+  test "visiting / on the admin host redirects to #{Whitehall.router_prefix}/admin" do
+    host! Whitehall.admin_host
     get "/"
     assert_redirected_to "#{Whitehall.router_prefix}/admin/"
   end
@@ -40,55 +39,31 @@ class RoutingTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "admin links to open website points to router website in preview" do
-    host! 'whitehall.preview.alphagov.co.uk'
-    login_as_admin
-    get_via_redirect admin_root_path
-    assert_select "a.open_website[href=?]", "http://www.preview.alphagov.co.uk/government"
-  end
-
-  test "admin links to open website points to router website in production" do
-    host! 'whitehall.production.alphagov.co.uk'
-    login_as_admin
-    get_via_redirect admin_root_path
-    assert_select "a.open_website[href=?]", "http://www.gov.uk/government"
-  end
-
   test "should redirect from old tour page to mainstream tour page in case the URL has escaped into the wild" do
     get "/government/tour"
     assert_redirected_to "/tour"
   end
 
-  test "admin is unreachable in preview from whitehall" do
-    host! 'whitehall.preview.alphagov.co.uk'
+  test "admin URLs are reachable when accessed via the admin host in production" do
+    admin_host = 'whitehall-admin.production.alphagov.co.uk'
+    Whitehall.stubs(:admin_host).returns(admin_host)
     Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    assert_raise(ActionController::RoutingError) do
-      get "/government/admin"
-    end
-  end
-
-  test "admin is reachable in preview from whitehall-admin" do
+    host! admin_host
     login_as_admin
-    host! 'whitehall-admin.preview.alphagov.co.uk'
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+
     get "/government/admin"
     assert_response :success
   end
 
-  test "admin is unreachable in production from whitehall" do
+  test "admin URLs are not reachable when accessed via non-admin hosts in production" do
+    Whitehall.stubs(:admin_host).returns('whitehall-admin.production.alphagov.co.uk')
+    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
     host! 'whitehall.production.alphagov.co.uk'
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
+    login_as_admin
+
     assert_raise(ActionController::RoutingError) do
       get "/government/admin"
     end
-  end
-
-  test "admin is reachable in production from whitehall-admin" do
-    login_as_admin
-    host! 'whitehall-admin.production.alphagov.co.uk'
-    Rails.stubs(:env).returns(ActiveSupport::StringInquirer.new("production"))
-    get "/government/admin"
-    assert_response :success
   end
 
   test "visiting a detailed guidance document redirects you to the slug at root" do

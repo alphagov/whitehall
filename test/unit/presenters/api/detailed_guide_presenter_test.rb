@@ -25,11 +25,10 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the public API url' do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
-    assert_equal api_detailed_guide_url(@guide.document, host: 'govuk.example.com'), url
+    assert_equal api_detailed_guide_url(@guide.document), url
   end
 
   test "json includes document title" do
@@ -38,13 +37,11 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
   end
 
   test "json includes the public API url as id" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal api_detailed_guide_url(@guide.document, host: 'govuk.example.com'), @presenter.as_json[:id]
+    assert_equal api_detailed_guide_url(@guide.document), @presenter.as_json[:id]
   end
 
   test "json includes public guide url as web_url" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal detailed_guide_url(@guide.document, host: 'govuk.example.com'), @presenter.as_json[:web_url]
+    assert_equal Whitehall.url_maker.detailed_guide_url(@guide.document), @presenter.as_json[:web_url]
   end
 
   test "json includes the document body (without govspeak wrapper div) as html" do
@@ -53,19 +50,17 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
   end
 
   test "json includes related detailed guides as related" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     related_guide = stub_edition(:detailed_guide, organisations: [@organisation])
     @guide.stubs(:published_related_detailed_guides).returns([related_guide])
     guide_json = {
-      id: api_detailed_guide_url(related_guide.document, host: 'govuk.example.com'),
+      id: api_detailed_guide_url(related_guide.document),
       title: related_guide.title,
-      web_url: detailed_guide_url(related_guide.document, host: 'govuk.example.com')
+      web_url: Whitehall.url_maker.detailed_guide_url(related_guide.document)
     }
     assert_equal [guide_json], @presenter.as_json[:related]
   end
 
   test "json includes organisations as tags" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     guide_json = {
       title: @organisation.name,
       id: organisation_url(@organisation, format: :json),

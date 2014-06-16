@@ -3,8 +3,6 @@
 require "test_helper"
 
 class DocumentsControllerTest < ActionController::TestCase
-  include PublicDocumentRoutesHelper
-
   setup do
     DocumentsController.any_instance.stubs(document_class: Publication)
   end

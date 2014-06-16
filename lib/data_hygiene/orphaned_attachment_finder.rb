@@ -38,7 +38,7 @@ module DataHygiene
               edition.type,
               edition.title,
               edition.respond_to?(:state) && edition.state,
-              "https://whitehall-admin.production.alphagov.co.uk" + admin_path(edition),
+              admin_url(edition),
               record[:expected] - record[:actual]
             ]
           end
@@ -78,14 +78,14 @@ module DataHygiene
       editions_with_orphaned_attachments
     end
 
-    def admin_path(thing)
+    def admin_url(thing)
       case thing
       when CorporateInformationPage
-        Whitehall.url_maker.admin_organisation_corporate_information_page_path(thing.organisation, thing)
+        Whitehall.url_maker.admin_organisation_corporate_information_page_url(thing.organisation, thing)
       when SupportingPage
-        Whitehall.url_maker.admin_supporting_page_path(thing)
+        Whitehall.url_maker.admin_supporting_page_url(thing)
       when StatisticalDataSet, DetailedGuide
-        Whitehall.url_maker.admin_edition_path(thing)
+        Whitehall.url_maker.admin_edition_url(thing)
       end
     end
   end

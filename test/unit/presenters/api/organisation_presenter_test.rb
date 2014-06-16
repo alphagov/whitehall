@@ -23,16 +23,14 @@ class Api::OrganisationPresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the request-relative api organisation url' do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
-    assert_equal api_organisation_url(@organisation, host: 'test.host'), url
+    assert_equal api_organisation_url(@organisation), url
   end
 
   test "json includes request-relative api organisation url as id" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal api_organisation_url(@organisation, host: 'test.host'), @presenter.as_json[:id]
+    assert_equal api_organisation_url(@organisation), @presenter.as_json[:id]
   end
 
   test "json includes organisation name as title" do
@@ -71,23 +69,20 @@ class Api::OrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public organisation url as web_url" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal organisation_url(@organisation, host: 'govuk.example.com'), @presenter.as_json[:web_url]
+    assert_equal organisation_url(@organisation), @presenter.as_json[:web_url]
   end
 
   test "json includes request-relative api parent organisations" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     parent = stub_record(:organisation)
     @organisation.stubs(:parent_organisations).returns([parent])
-    assert_equal api_organisation_url(parent, host: 'test.host'), @presenter.as_json[:parent_organisations].first[:id]
-    assert_equal organisation_url(parent, host: 'govuk.example.com'), @presenter.as_json[:parent_organisations].first[:web_url]
+    assert_equal api_organisation_url(parent), @presenter.as_json[:parent_organisations].first[:id]
+    assert_equal organisation_url(parent), @presenter.as_json[:parent_organisations].first[:web_url]
   end
 
   test "json includes request-relative api child organisations" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     child = stub_record(:organisation)
     @organisation.stubs(:child_organisations).returns([child])
-    assert_equal api_organisation_url(child, host: 'test.host'), @presenter.as_json[:child_organisations].first[:id]
-    assert_equal organisation_url(child, host: 'govuk.example.com'), @presenter.as_json[:child_organisations].first[:web_url]
+    assert_equal api_organisation_url(child), @presenter.as_json[:child_organisations].first[:id]
+    assert_equal organisation_url(child), @presenter.as_json[:child_organisations].first[:web_url]
   end
 end

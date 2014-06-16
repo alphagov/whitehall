@@ -205,7 +205,7 @@ module GovspeakHelper
   def replacement_html_for_edition_link(anchor, edition, options = {})
     new_html = if edition.present? && edition.linkable?
       anchor.dup.tap do |anchor|
-        anchor['href'] = public_document_url(edition, options)
+        anchor['href'] = Whitehall.url_maker.public_document_url(edition, options)
       end.to_html.html_safe
     else
       anchor.inner_text
@@ -279,13 +279,8 @@ module GovspeakHelper
     govspeak_with_attachments_and_alt_format_information(edition.body, attachments, edition.alternative_format_contact_email)
   end
 
-  def normalise_host(host)
-    Whitehall.public_host_for(host) || host
-  end
-
   def build_govspeak_document(govspeak, images = [])
-    request_host = respond_to?(:request) ? request.host : nil
-    hosts = [request_host] + Whitehall.admin_hosts + Whitehall.public_hosts
+    hosts = [Whitehall.admin_host, Whitehall.public_host]
     Govspeak::Document.new(govspeak, document_domains: hosts).tap do |document|
       document.images = images.map { |i| AssetHostDecorator.new(i) }
     end
@@ -293,7 +288,7 @@ module GovspeakHelper
 
   class AssetHostDecorator < SimpleDelegator
     def url(*args)
-      (Whitehall.asset_host || "") + super(*args)
+      (Whitehall.asset_root || "") + super(*args)
     end
   end
 end

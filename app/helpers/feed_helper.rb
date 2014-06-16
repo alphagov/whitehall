@@ -2,9 +2,9 @@ module FeedHelper
 
   def atom_feed_url_for(resource)
     if resource.is_a?(Policy)
-      Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom').activity_policy_url(resource.slug)
+      Whitehall.atom_feed_maker.activity_policy_url(resource.slug)
     else
-      Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom').url_for(resource)
+      Whitehall.atom_feed_maker.url_for(resource)
     end
   end
 

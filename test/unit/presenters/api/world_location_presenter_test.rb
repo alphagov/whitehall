@@ -21,16 +21,14 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the request-relative api location url' do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
-    assert_equal api_world_location_url(@location, host: 'test.host'), url
+    assert_equal api_world_location_url(@location), url
   end
 
   test "json includes request-relative api location url as id" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal api_world_location_url(@location, host: 'test.host'), @presenter.as_json[:id]
+    assert_equal api_world_location_url(@location), @presenter.as_json[:id]
   end
 
   test "json includes location name as title" do
@@ -60,18 +58,14 @@ class Api::WorldLocationPresenterTest < PresenterTestCase
   end
 
   test "json includes public location url as web_url" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal world_location_url(@location, host: 'govuk.example.com'), @presenter.as_json[:web_url]
+    assert_equal world_location_url(@location), @presenter.as_json[:web_url]
   end
 
   test "json includes request-relative api organisations url as organisations id" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     assert_equal api_world_location_worldwide_organisations_url(@location, host: 'test.host'), @presenter.as_json[:organisations][:id]
   end
 
   test "json includes public location url (anchored on organisations) organisations web_url" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal world_location_url(@location, host: 'govuk.example.com', anchor: 'organisations'), @presenter.as_json[:organisations][:web_url]
+    assert_equal world_location_url(@location, anchor: 'organisations'), @presenter.as_json[:organisations][:web_url]
   end
-
 end

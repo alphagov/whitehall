@@ -31,16 +31,14 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'links has a self link, pointing to the request-relative api worldwide organisations url' do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
     self_link = @presenter.links.detect { |(url, attrs)| attrs['rel'] == 'self'}
     assert self_link
     url, attrs = *self_link
-    assert_equal api_worldwide_organisation_url(@world_org, host: 'test.host'), url
+    assert_equal api_worldwide_organisation_url(@world_org), url
   end
 
   test "json includes request-relative api worldwide organisations url as id" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal api_worldwide_organisation_url(@world_org, host: 'test.host'), @presenter.as_json[:id]
+    assert_equal api_worldwide_organisation_url(@world_org), @presenter.as_json[:id]
   end
 
   test "json includes world org name as title" do
@@ -64,8 +62,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public world organisations url as web_url" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal worldwide_organisation_url(@world_org, host: 'govuk.example.com'), @presenter.as_json[:web_url]
+    assert_equal worldwide_organisation_url(@world_org), @presenter.as_json[:web_url]
   end
 
   test 'json includes office sponsoring org name in sponsors array as title' do
@@ -79,8 +76,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public organisations url for sponsor in sponsors array as web_url" do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal organisation_url(@main_sponsor, host: 'govuk.example.com'), @presenter.as_json[:sponsors].first[:web_url]
+    assert_equal organisation_url(@main_sponsor), @presenter.as_json[:sponsors].first[:web_url]
   end
 
   test 'json includes office contact title in offices as title' do
@@ -89,8 +85,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes public office url in offices as web_url' do
-    Whitehall.stubs(:public_host_for).returns('govuk.example.com')
-    assert_equal worldwide_organisation_worldwide_office_url(@world_org, @office, host: 'govuk.example.com'), @presenter.as_json[:offices][:main][:web_url]
+    assert_equal worldwide_organisation_worldwide_office_url(@world_org, @office), @presenter.as_json[:offices][:main][:web_url]
   end
 
   test 'json includes office contact comments in offices as description' do

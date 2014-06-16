@@ -67,15 +67,9 @@ private
     @fact_check_request = FactCheckRequest.from_param(params[:id])
     if @fact_check_request
       @edition = Edition.unscoped.find(@fact_check_request.edition_id)
-    elsif request.host == 'whitehall.preview.alphagov.co.uk'
-      temporary_redirect_from_preview_to_production
     else
       render text: "Not found", status: :not_found
     end
-  end
-
-  def temporary_redirect_from_preview_to_production
-    redirect_to admin_fact_check_request_url(id: params[:id], host: 'whitehall.production.alphagov.co.uk')
   end
 
   def check_edition_availability

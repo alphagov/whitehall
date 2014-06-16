@@ -1,6 +1,10 @@
 class AdminRequest
   def self.matches?(request)
-    Whitehall.admin_whitelist?(request)
+    !invalid_admin_host?(request.host)
+  end
+
+  def self.invalid_admin_host?(host)
+    Rails.env.production? && Whitehall.admin_host != host
   end
 end
 
@@ -15,7 +19,7 @@ Whitehall::Application.routes.draw do
   end
 
   root to: redirect("/admin/"), constraints: lambda { |request|
-    ::Whitehall.admin_hosts.include?(request.host)
+    ::Whitehall.admin_host == request.host
   }
 
   get '/government/ministers/minister-of-state--11' => redirect('/government/people/kris-hopkins', prefix: '')

@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class Api::MainstreamCategoryTagPresenterTest < ActiveSupport::TestCase
-  include Rails.application.routes.url_helpers
-  include PublicDocumentRoutesHelper
-  include MainstreamCategoryRoutesHelper
-  Rails.application.routes.default_url_options[:host] = "example.com"
-
   test "json includes list of results" do
     results = [create(:mainstream_category), create(:mainstream_category), create(:mainstream_category)]
     results = Api::MainstreamCategoryTagPresenter.new(results)
@@ -19,7 +14,7 @@ class Api::MainstreamCategoryTagPresenterTest < ActiveSupport::TestCase
     json = results.as_json[:results].first
 
     assert_equal category.title, json[:title]
-    assert_equal mainstream_category_path(category), json[:content_with_tag][:web_url]
+    assert_equal Whitehall.url_maker.mainstream_category_path(category), json[:content_with_tag][:web_url]
   end
 
   test "json result includes description" do

@@ -2,12 +2,8 @@ require "csv"
 require "fileutils"
 
 namespace :export do
-
-  PUBLIC_HOST = "www.gov.uk"
-  ADMIN_HOST = "whitehall-admin.production.alphagov.co.uk"
-
   def routes_helper
-    @routes_helper ||= Whitehall::UrlMaker.new(host: PUBLIC_HOST)
+    @routes_helper ||= Whitehall.url_maker
   end
 
   desc "Export mappings (for eg the Transition app to consume)"
@@ -19,7 +15,7 @@ namespace :export do
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::Mappings.new(Rails.env)
+    exporter = Whitehall::Exporters::Mappings.new
 
     filename = 'public/government/mappings.csv'
     temporary_filename = filename + '.new'
@@ -46,7 +42,7 @@ namespace :export do
       ActiveRecord::Base.establish_connection(mysql_slave_config)
     end
 
-    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new(Rails.env)
+    exporter = Whitehall::Exporters::RedirectorDocumentMappings.new
 
     CSV.open(Rails.root.join('public/government/all_document_attachment_and_non_document_mappings.csv'), 'wb') do |csv_out|
       exporter.export(csv_out)
@@ -77,11 +73,11 @@ namespace :export do
             document.slug,
             document.display_type,
             document.latest_edition.state,
-            document.published? ? routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https") : nil,
+            document.published? ? routes_helper.public_document_url(edition) : nil,
             edition.id,
             edition.title,
             edition.state,
-            routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
+            routes_helper.admin_edition_url(edition, host: Whitehall.admin_host),
             *edition.authors.uniq.map(&:name)
           ]
         end
@@ -121,8 +117,8 @@ namespace :export do
         org.published_editions.each do |edition|
           csv << [
             org.display_name,
-            routes_helper.public_document_url(edition, host: PUBLIC_HOST, protocol: "https"),
-            routes_helper.admin_edition_url(edition, host: ADMIN_HOST, protocol: "https"),
+            routes_helper.public_document_url(edition),
+            routes_helper.admin_edition_url(edition, host: Whitehall.admin_host),
             edition.title,
             edition.display_type,
             edition.public_timestamp,

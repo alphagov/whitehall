@@ -36,7 +36,7 @@ When /^I tweak the title and summary to better reflect why it is interesting to 
     assert_equal @tweaked_copy_for_the_local_government_edition[:summary], page.first('tr td.summary').text
 
     within page.first('tr td.actions') do
-      assert page.has_link? 'View on website', href: document_url(@the_local_government_edition, host: public_host_for_test)
+      assert page.has_link? 'View on website', href: public_document_url(@the_local_government_edition)
     end
   end
 end
@@ -51,7 +51,7 @@ end
 
 Then /^then the policy is not listed on the email curation queue$/ do
   within '#email_curation_queue_items' do
-    assert page.has_no_link? 'View document', href: document_url(@the_local_government_edition, host: public_host_for_test)
+    assert page.has_no_link? 'View document', href: public_document_url(@the_local_government_edition)
   end
 end
 
@@ -67,7 +67,7 @@ Then /^the policy should be sent to the notification service with the tweaked co
   Whitehall.stubs(govuk_delivery_client: mock_client)
 
   mock_client.expects(:notify).with(
-    includes("http://www.example.com/government/policies.atom?relevant_to_local_government=1"),
+    includes("#{Whitehall.public_root}/government/policies.atom?relevant_to_local_government=1"),
     includes(@tweaked_copy_for_the_local_government_edition[:title]),
     includes(@tweaked_copy_for_the_local_government_edition[:summary])
   )

@@ -150,6 +150,9 @@ class ActionController::TestCase
   include CacheControlTestHelpers
   include ViewRendering
 
+  include PublicDocumentRoutesHelper
+  include Admin::EditionRoutesHelper
+
   attr_reader :current_user
 
   setup do

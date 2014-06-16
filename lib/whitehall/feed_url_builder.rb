@@ -9,9 +9,9 @@ module Whitehall
     def url
       case params[:document_type]
       when 'publications'
-        url_maker.publications_url(url_params)
+        Whitehall.url_maker.publications_url(url_params)
       when 'announcements'
-        url_maker.announcements_url(url_params)
+        Whitehall.url_maker.announcements_url(url_params)
       end
     end
 
@@ -22,10 +22,6 @@ module Whitehall
         values = Array(value)
         values.empty? || values.all?(&:blank?) || values.include?('all') || DocumentFilter::Options.new.invalid_filter_key?(key)
       }.merge(format: :atom)
-    end
-
-    def url_maker
-      UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     end
   end
 end

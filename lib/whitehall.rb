@@ -9,7 +9,6 @@ module Whitehall
   mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
   mattr_accessor :stats_collector
-  mattr_accessor :public_host
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
   mattr_accessor :need_api
@@ -31,24 +30,8 @@ module Whitehall
 
   class NoConfigurationError < StandardError; end
 
-  PUBLIC_HOSTS = {
-    'whitehall.test.alphagov.co.uk'       => 'www.test.alphagov.co.uk',
-    'whitehall.preview.alphagov.co.uk'    => 'www.preview.alphagov.co.uk',
-    'whitehall.production.alphagov.co.uk' => 'www.gov.uk',
-    'whitehall-admin.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-    'whitehall-admin.production.alphagov.co.uk' => 'www.gov.uk',
-    'whitehall-frontend.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-    'whitehall-frontend.production.alphagov.co.uk' => 'www.gov.uk',
-    'public-api.preview.alphagov.co.uk' => 'www.preview.alphagov.co.uk',
-    'public-api.production.alphagov.co.uk' => 'www.gov.uk'
-  }
-
   def self.public_protocol
-    if Rails.env.development? || Rails.env.test?
-      'http'
-    else
-      'https'
-    end
+    Plek.new.website_uri.scheme
   end
 
   def self.available_locales
@@ -68,35 +51,33 @@ module Whitehall
     }
   end
 
-  def self.asset_host
-    ENV['GOVUK_ASSET_ROOT'] || raise(NoConfigurationError, 'Expected GOVUK_ASSET_ROOT to be set. Perhaps you should run your task through govuk_setenv <appname>?')
-  end
-
   def self.router_prefix
     "/government"
   end
 
-  def self.admin_hosts
-    [
-      'whitehall-admin.preview.alphagov.co.uk',
-      'whitehall-admin.production.alphagov.co.uk'
-    ]
+  def self.asset_root
+    @asset_root ||= Plek.new.asset_root
   end
 
-  def self.public_hosts
-    PUBLIC_HOSTS.values.uniq
+  def self.admin_host
+    @admin_host ||=  URI(admin_root).host
   end
 
-  def self.government_single_domain?(request)
-    PUBLIC_HOSTS.values.include?(request.host) || request.headers["HTTP_X_GOVUK_ROUTER_REQUEST"].present?
+  def self.public_host
+    @public_host ||= Plek.new.website_uri.host
   end
 
-  def self.admin_whitelist?(request)
-    (!Rails.env.production?) || admin_hosts.include?(request.host)
+  def self.public_root
+    @public_root ||= Plek.new.website_root
   end
 
-  def self.public_host_for(request_host)
-    PUBLIC_HOSTS[request_host] || request_host
+  def self.admin_root
+    @admin_root ||= Plek.new.find('whitehall-admin')
+  end
+
+  # NOOP until alphagov-deployment is updated to not set this in the
+  # public_host.rb initializer
+  def self.public_host=(_)
   end
 
   def self.secrets
@@ -239,6 +220,10 @@ module Whitehall
 
   def self.url_maker
     @url_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol)
+  end
+
+  def self.atom_feed_maker
+    @atom_feed_maker ||= Whitehall::UrlMaker.new(host: Whitehall.public_host, protocol: Whitehall.public_protocol, format: 'atom')
   end
 
   def self.edition_services

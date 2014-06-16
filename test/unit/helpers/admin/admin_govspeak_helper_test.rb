@@ -5,15 +5,6 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   include Admin::EditionRoutesHelper
   include PublicDocumentRoutesHelper
 
-  setup do
-    @request  = ActionController::TestRequest.new
-    ActionController::Base.default_url_options = {}
-    # To mimic the setup for this helper where it is likely to be used
-    # e.g. in Admin:: prefixed controllers and admin/ views
-    @controller.lookup_context.prefixes = ['admin/base']
-  end
-  attr_reader :request
-
   test "should wrap admin output with a govspeak class" do
     html = govspeak_to_admin_html("govspeak-text")
     assert_select_within_html html, ".govspeak", text: "govspeak-text"
@@ -108,11 +99,11 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
   test "should allow attached images to be embedded in admin html" do
     images = [OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")]
     html = govspeak_to_admin_html("!!1", images)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src=" + Whitehall.asset_host + "/image.jpg]"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src=" + Whitehall.asset_root + "/image.jpg]"
   end
 
   test "prefixes embedded image urls with asset host if present" do
-    Whitehall.stubs(:asset_host).returns("https://some.cdn.com")
+    Whitehall.stubs(:asset_root).returns("https://some.cdn.com")
     edition = build(:published_news_article, body: "!!1")
     edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
     html = govspeak_edition_to_admin_html(edition)

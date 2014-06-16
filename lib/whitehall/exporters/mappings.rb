@@ -1,4 +1,4 @@
-class Whitehall::Exporters::Mappings < Struct.new(:platform)
+class Whitehall::Exporters::Mappings
   STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + ['published'] + ['archived']
 
   def export(target)
@@ -22,7 +22,7 @@ class Whitehall::Exporters::Mappings < Struct.new(:platform)
         next if fake_source_url?(attachment_source)
         if attachment_source.attachment
           path = attachment_source.attachment.url
-          attachment_url = 'https://' + public_host + path
+          attachment_url = "#{Whitehall.public_root}#{path}"
           visibility = AttachmentVisibility.new(attachment_source.attachment.attachment_data, nil)
           state = visibility.visible? ? 'published' : 'draft'
           target << [attachment_source.url, attachment_url, '', state]
@@ -39,7 +39,7 @@ private
     [
       document_source.url,
       public_url,
-      url_maker.admin_edition_url(edition, host: admin_host),
+      url_maker.admin_edition_url(edition, host: Whitehall.admin_host),
       edition.state
     ]
   end
@@ -58,14 +58,6 @@ private
   end
 
   def url_maker
-    @url_maker ||= Whitehall::UrlMaker.new(host: public_host, protocol: 'https')
-  end
-
-  def public_host
-    Whitehall.public_host_for("whitehall.#{platform}.alphagov.co.uk")
-  end
-
-  def admin_host
-    "whitehall-admin.#{platform}.alphagov.co.uk"
+    @url_maker ||= Whitehall.url_maker
   end
 end

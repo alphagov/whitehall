@@ -2,9 +2,6 @@
 require 'test_helper'
 
 class Admin::EditionTranslationsControllerTest < ActionController::TestCase
-  include Admin::EditionRoutesHelper
-  include PublicDocumentRoutesHelper
-
   setup do
     @policy_writer = login_as(:policy_writer)
   end
@@ -67,7 +64,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     assert_select "#notes"
   end
-  
+
   view_test "edit when translating corporate information pages does not allow title to be edited" do
     edition = create(:corporate_information_page)
 
