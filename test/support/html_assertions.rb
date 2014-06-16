@@ -2,6 +2,7 @@ require 'support/css_selectors'
 require 'equivalent-xml'
 
 module HtmlAssertions
+  include ActionDispatch::Assertions::SelectorAssertions
   include CssSelectors
 
   def refute_select(selector, *args)
