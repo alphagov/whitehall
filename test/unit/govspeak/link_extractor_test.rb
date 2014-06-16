@@ -4,8 +4,8 @@ module Govspeak
   class ExtractorTest < ActiveSupport::TestCase
     test "extracts links from govspeak" do
       extractor = LinkExtractor.new(govspeak_with_links)
-
       expected_links = %w(http://some-link.com http://another-link.com)
+
       assert_equal expected_links, extractor.links
     end
 
@@ -14,8 +14,15 @@ module Govspeak
       admin_path = Whitehall.url_maker.admin_speech_path(speech)
       public_url = Whitehall.url_maker.public_document_url(speech)
       extractor  = LinkExtractor.new(govspeak_with_admin_link(admin_path))
-
       expected_links = ['http://first-link.com', public_url]
+
+      assert_equal expected_links, extractor.links
+    end
+
+    test "converts absolute paths to full URLs" do
+      extractor = LinkExtractor.new(govspeak_with_paths)
+      expected_links = ['http://full.com/url', "#{Whitehall.public_root}/path-only"]
+
       assert_equal expected_links, extractor.links
     end
 
@@ -36,6 +43,15 @@ module Govspeak
 
         Here is some HTML with a [link](http://first-link.com)
         Here is a link to a [document](#{admin_path})
+      HEREDOC
+    end
+
+    def govspeak_with_paths
+      <<-HEREDOC.strip_heredoc
+        ## A document
+
+        Here is some HTML with a [complete URL link](http://full.com/url)
+        and also a [relative path](/path-only)
       HEREDOC
     end
   end

@@ -5,10 +5,14 @@ module Govspeak
     end
 
     def links
-      @links ||= extract_links
+      @links ||= convert_paths_to_urls(extract_links)
     end
 
   private
+
+    def convert_paths_to_urls(links)
+      links.map {|link| link.starts_with?('/') ? "#{Whitehall.public_root}#{link}" : link }
+    end
 
     def extract_links
       processed_govspeak.css('a').map { |link| link['href'] }
