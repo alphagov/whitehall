@@ -1,4 +1,5 @@
 module PublicDocumentRoutesHelper
+  include ActionDispatch::Routing::PolymorphicRoutes
 
   def document_path(edition, options = {})
     document_url(edition, options.merge(routing_type: :path))
