@@ -13,6 +13,9 @@ cy:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     type:
       announcement:
         zero:

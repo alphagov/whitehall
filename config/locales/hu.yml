@@ -125,6 +125,9 @@ hu:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     published: közzététel dátuma
     read: 'Olvassa el a következő cikket: %{title}'
     speech:

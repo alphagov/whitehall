@@ -109,6 +109,9 @@ en:
       attachments:
         one: Document
         other: Documents
+      policies:
+        one: Policy
+        other: Policies
     type:
       announcement:
         one: Announcement
