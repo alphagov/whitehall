@@ -56,23 +56,23 @@ module Whitehall
   end
 
   def self.asset_root
-    Plek.new.asset_root
+    @asset_root ||= Plek.new.asset_root
   end
 
   def self.admin_host
-    URI(admin_root).host
+    @admin_host ||=  URI(admin_root).host
   end
 
   def self.public_host
-    Plek.new.website_uri.host
+    @public_host ||= Plek.new.website_uri.host
   end
 
   def self.public_root
-    Plek.new.website_root
+    @public_root ||= Plek.new.website_root
   end
 
   def self.admin_root
-    Plek.new.find('whitehall-admin')
+    @admin_root ||= Plek.new.find('whitehall-admin')
   end
 
   # NOOP until alphagov-deployment is updated to not set this in the
