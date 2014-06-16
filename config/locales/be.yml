@@ -11,6 +11,9 @@ be:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     type:
       announcement:
         one: Аб'ява

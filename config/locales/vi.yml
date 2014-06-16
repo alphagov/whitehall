@@ -124,6 +124,9 @@ vi:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     published: Đã xuất bản
     read: Đọc bài có  %{title}
     speech:

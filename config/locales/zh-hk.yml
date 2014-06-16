@@ -122,6 +122,9 @@ zh-hk:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     published: 已發布
     read: 閱讀%{title}文章
     speech:

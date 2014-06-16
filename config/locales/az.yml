@@ -122,6 +122,9 @@ az:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     published: dərc olunub
     read:
     speech:

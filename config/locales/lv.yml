@@ -9,6 +9,9 @@ lv:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     type:
       announcement:
         one: Paziņojums

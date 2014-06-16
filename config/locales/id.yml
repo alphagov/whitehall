@@ -124,6 +124,9 @@ id:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     published: Diterbitkan
     read: Baca artikel %{title}
     speech:

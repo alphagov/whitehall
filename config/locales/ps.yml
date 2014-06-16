@@ -9,6 +9,9 @@ ps:
       from:
       location:
       part_of:
+      policies:
+        one:
+        other:
     type:
       announcement:
         one: خبرتیا
