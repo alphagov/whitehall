@@ -105,7 +105,7 @@ GOV.UK shares assets (eg stylesheets and JavaScript) across apps using the
 app](https://github.com/alphagov/static). Ideally, you will have a copy of
 `static` running locally (at http://static.dev.gov.uk by default) and that will
 be used to serve shared assets. This is how things will work by default if you
-are running the GOV.UK development VM with `forman` or `bowler`.
+are running the GOV.UK development VM with `foreman` or `bowler`.
 
 If you are running whitehall with `bundle exec rails server` and don't want to
 run a local copy of `static`, you can tell the app to use assets served
