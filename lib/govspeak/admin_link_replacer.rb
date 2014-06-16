@@ -14,31 +14,50 @@ module Govspeak
     end
 
     def replacement_html_for_admin_link(anchor, &block)
-      path = anchor['href']
-      edition_path_pattern = Whitehall.edition_route_path_segments.join('|')
-      if path[%r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}]
-        policy = Policy.unscoped.find_by_id($1)
-        supporting_page = EditionedSupportingPageMapping.find_by_old_supporting_page_id($2).try(:new_supporting_page)
-        replacement_html_for_edition_link(anchor, supporting_page, policy_id: policy.document, &block)
-      elsif path[%r{/admin/organisations/([\w-]+)/corporate_information_pages/(\d+)$}]
-        organisation = Organisation.find_by_slug($1)
-        corporate_info_page = organisation.corporate_information_pages.find($2)
-        replacement_html_for_edition_link(anchor, corporate_info_page, &block)
-      elsif path[%r{/admin/worldwide_organisations/([\w-]+)/corporate_information_pages/(\d+)$}]
-        organisation = WorldwideOrganisation.find_by_slug($1)
-        corporate_info_page = organisation.corporate_information_pages.find($2)
-        replacement_html_for_edition_link(anchor, corporate_info_page, &block)
-      elsif path[%r{/admin/(?:#{edition_path_pattern})/(\d+)$}]
+      case anchor['href']
+      when %r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}
+        convert_link_for_old_supporting_page(anchor, $1, $2, &block)
+      when %r{/admin/organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+        convert_link_for_corporate_information_page(anchor, $1, $2, &block)
+      when %r{/admin/worldwide_organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+        convert_link_for_worldwide_corporate_information_page(anchor, $1, $2, &block)
+      when %r{/admin/(?:#{edition_path_pattern})/(\d+)$}
         edition = Edition.unscoped.find_by_id($1)
-        replacement_html_for_edition_link(anchor, edition, &block)
+
+        convert_link_for_edition(anchor, edition, &block)
       else
-        replacement_html_for_bad_link(anchor, &block)
+        replace_bad_link(anchor, &block)
       end
     end
 
     private
 
-    def replacement_html_for_edition_link(anchor, edition, options = {})
+    def edition_path_pattern
+      Whitehall.edition_route_path_segments.join('|')
+    end
+
+    def convert_link_for_old_supporting_page(anchor, policy_slug, slug, &block)
+      policy = Policy.unscoped.find_by_id(policy_slug)
+      supporting_page = EditionedSupportingPageMapping.find_by_old_supporting_page_id(slug).try(:new_supporting_page)
+
+      convert_link_for_edition(anchor, supporting_page, policy_id: policy.document, &block)
+    end
+
+    def convert_link_for_corporate_information_page(anchor, organisation_slug, slug, &block)
+      organisation = Organisation.find_by_slug(organisation_slug)
+      corporate_info_page = organisation.corporate_information_pages.find(slug)
+
+      convert_link_for_edition(anchor, corporate_info_page, &block)
+    end
+
+    def convert_link_for_worldwide_corporate_information_page(anchor, world_org_slug, slug, &block)
+      organisation = WorldwideOrganisation.find_by_slug(world_org_slug)
+      corporate_info_page = organisation.corporate_information_pages.find(slug)
+
+      convert_link_for_edition(anchor, corporate_info_page, &block)
+    end
+
+    def convert_link_for_edition(anchor, edition, options = {})
       new_html = if edition.present? && edition.linkable?
         anchor.dup.tap do |anchor|
           anchor['href'] = Whitehall.url_maker.public_document_url(edition, options)
@@ -50,7 +69,7 @@ module Govspeak
       block_given? ? yield(new_html, edition) : new_html
     end
 
-    def replacement_html_for_bad_link(anchor)
+    def replace_bad_link(anchor)
       block_given? ? yield(anchor.inner_text, nil) : anchor.inner_text
     end
   end
