@@ -1,0 +1,28 @@
+.broken-links-report {
+  .alert {
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+
+  .icon-ok {
+    margin-right: 10px;
+  }
+
+  ul {
+    margin-bottom: 10px;
+
+    a {
+       color: inherit;
+       font-weight: bold;
+       text-decoration: underline;
+    }
+  }
+}
+
+.govspeak_help {
+  .broken-links-report {
+    form {
+      display: none;
+    }
+  }
+}

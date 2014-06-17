@@ -15,4 +15,8 @@ class LinksReport < ActiveRecord::Base
   def completed?
     completed_at.present?
   end
+
+  def in_progress?
+    !completed?
+  end
 end

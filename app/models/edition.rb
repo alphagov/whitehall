@@ -27,6 +27,7 @@ class Edition < ActiveRecord::Base
   has_many :authors, through: :edition_authors, source: :user
   has_many :email_curation_queue_items, inverse_of: :edition, dependent: :destroy
   has_many :classification_featurings, inverse_of: :edition
+  has_many :links_reports, as: :link_reportable
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
