@@ -13,6 +13,11 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     assert_equal Date.new(2010, 01, 01), build(from_date: "Jan 2010").from_date
   end
 
+  test "to_date= and from_date= assumes english date format when ambiguous" do
+    assert_equal Date.new(2010, 06, 12), build(to_date: "12/6/2010").to_date
+    assert_equal Date.new(2010, 06, 12), build(from_date: "12/6/2010").from_date
+  end
+
   test "#page= casts to integer" do
     assert build(page: '2').page.is_a? Integer
   end
