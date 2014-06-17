@@ -6,9 +6,12 @@
     </section>
   <% elsif links_report.in_progress? %>
     <section class='alert alert-info'>
-      <p>
+      <p class="loading-spinner">
         Broken link report in progress, links are being checked. Please wait.
-        <%= link_to "Refresh", admin_edition_links_report_path(links_report.link_reportable, links_report), remote: true %>
+        <%= link_to "Refresh",
+                    admin_edition_links_report_path(links_report.link_reportable, links_report),
+                    class: 'js-broken-links-refresh js-hidden',
+                    remote: true %>
       </p>
     </section>
   <% elsif links_report.broken_links? %>

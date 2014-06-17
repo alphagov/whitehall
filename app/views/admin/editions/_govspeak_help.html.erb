@@ -28,6 +28,7 @@
 
 <% if links_report.present? && links_report.broken_links? %>
   <%= render 'admin/links_reports/links_report', links_report: links_report %>
+  <% initialise_script "GOVUK.brokenLinksReport" %>
 <% end %>
 
 <h3>Formatting</h3>
