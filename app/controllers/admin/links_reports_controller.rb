@@ -5,7 +5,7 @@ class Admin::LinksReportsController < Admin::BaseController
     @links_report = LinksReport.queue_for!(@reportable)
 
     respond_to do |format|
-      format.js   { render :show }
+      format.js
       format.html { redirect_to [:admin, @reportable] }
     end
   end

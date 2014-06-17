@@ -13,7 +13,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
       xhr :post, :create, policy_id: @policy.id
 
       assert_response :success
-      assert_template :show
+      assert_template :create
 
       assert links_report = @policy.links_reports.last
       job = LinksReportWorker.jobs.last

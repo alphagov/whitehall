@@ -55,7 +55,6 @@
     <% end %>
 
     <%= render 'admin/links_reports/links_report', links_report: (@edition.links_reports.last || @edition.links_reports.build) %>
-    <% initialise_script "GOVUK.brokenLinksReport" %>
 
     <%= render partial: "history_state", locals: { edition: @edition } %>
     <% if @edition.imported? %>

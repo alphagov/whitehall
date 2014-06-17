@@ -4,11 +4,16 @@
 
   window.GOVUK.brokenLinksReport = {
     init: function init() {
-      setInterval(this.refreshBrokenLinksReport, 2000);
-    },
+      $('a.js-broken-links-refresh').each(function() {
+        var $link = $(this);
 
-    refreshBrokenLinksReport: function refreshBrokenLinksReport() {
-      $('a.js-broken-links-refresh').click();
+        window.GOVUK.smartPoller(2000, function(retry) {
+          if ( $('a.js-broken-links-refresh').length != 0 ) {
+            $link.click();
+            retry();
+          }
+        });
+      });
     }
   };
 }());
