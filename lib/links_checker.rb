@@ -22,7 +22,7 @@ class LinksChecker
   end
 
   def request(link)
-    Typhoeus::Request.new(link, followlocation: true, timeout: 3, connecttimeout: 3).tap do |request|
+    Typhoeus::Request.new(link, followlocation: true, timeout: 10, connecttimeout: 10).tap do |request|
       request.on_failure do |response|
         @broken_links << link
         logger.info("Broken link found (#{response.code} - #{response.return_message}) #{link}")
