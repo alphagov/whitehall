@@ -6,13 +6,12 @@
     </section>
   <% elsif links_report.in_progress? %>
     <section class='alert alert-info'>
-      <p class="loading-spinner">
-        Broken link report in progress, links are being checked. Please wait.
-        <%= link_to "Refresh",
-                    admin_edition_links_report_path(links_report.link_reportable, links_report),
-                    class: 'js-broken-links-refresh js-hidden',
-                    remote: true %>
-      </p>
+      <%= image_tag('admin/ajax_loader_blue_32.gif', width: 24, height: 24, class: 'pull-left loading-icon') %>
+      Broken link report in progress.<br />Please wait.
+      <%= link_to "Refresh",
+                  admin_edition_links_report_path(links_report.link_reportable, links_report),
+                  class: 'js-broken-links-refresh js-hidden',
+                  remote: true %>
     </section>
   <% elsif links_report.broken_links? %>
     <section class='alert'>
