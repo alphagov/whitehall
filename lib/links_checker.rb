@@ -14,9 +14,11 @@ class LinksChecker
   end
 
   def run
+    hydra = Typhoeus::Hydra.new(max_concurrency: 5)
     links.each do |link|
-      request(link).run
+      hydra.queue request(link)
     end
+    hydra.run
   end
 
   def request(link)
