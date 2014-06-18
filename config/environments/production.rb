@@ -54,18 +54,22 @@ Whitehall::Application.configure do
     admin-ie7.css
     admin-ie6.css
     frontend/base.css
+    frontend/base-ie9.css
     frontend/base-ie8.css
     frontend/base-ie7.css
     frontend/base-ie6.css
     frontend/base-rtl.css
+    frontend/base-rtl-ie9.css
     frontend/base-rtl-ie8.css
     frontend/base-rtl-ie7.css
     frontend/base-rtl-ie6.css
     frontend/html-publication.css
+    frontend/html-publication-ie9.css
     frontend/html-publication-ie8.css
     frontend/html-publication-ie7.css
     frontend/html-publication-ie6.css
     frontend/html-publication-rtl.css
+    frontend/html-publication-rtl-ie9.css
     frontend/html-publication-rtl-ie8.css
     frontend/html-publication-rtl-ie7.css
     frontend/html-publication-rtl-ie6.css
