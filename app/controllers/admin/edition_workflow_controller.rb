@@ -9,17 +9,20 @@ class Admin::EditionWorkflowController < Admin::BaseController
   before_filter :set_minor_change_flag
   before_filter :ensure_reason_given_for_force_publishing, only: :force_publish
 
-  rescue_from ActiveRecord::StaleObjectError do
+  rescue_from ActiveRecord::StaleObjectError do |exception|
+    notify_airbrake(exception)
     redirect_to admin_edition_path(@edition), alert: "This document has been edited since you viewed it; you are now viewing the latest version"
   end
 
-  rescue_from ActiveRecord::RecordInvalid do
+  rescue_from ActiveRecord::RecordInvalid do |exception|
+    notify_airbrake(exception)
     redirect_to admin_edition_path(@edition),
       alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is invalid (#{@edition.errors.full_messages.to_sentence}). " +
              "Please edit it and try again."
   end
 
-  rescue_from Transitions::InvalidTransition do
+  rescue_from Transitions::InvalidTransition do |exception|
+    notify_airbrake(exception)
     redirect_to admin_edition_path(@edition),
       alert: "Unable to #{action_name_as_human_interaction(params[:action])} because it is not ready yet. Please try again."
   end
