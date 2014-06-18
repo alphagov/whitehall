@@ -33,7 +33,7 @@
           @include right-to-left {
             padding: $gutter-one-third 0 0 $gutter-half;
           }
-          @include media(tablet){
+          @include media(tablet) {
             padding: 0;
           }
 
@@ -48,7 +48,7 @@
         @include right-to-left {
           float: right;
         }
-        @include media(tablet){
+        @include media(tablet) {
           float: none;
           width: $full-width;
         }
@@ -63,6 +63,9 @@
           padding-top: 0;
           a {
             font-weight: bold;
+            &[rel=external] {
+              @include external-link-19-bold-no-hover;
+            }
           }
         }
         h3 {
