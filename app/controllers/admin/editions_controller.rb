@@ -75,6 +75,11 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     if @edition.edit_as(current_user, edition_params)
+
+      if @edition.links_reports.last
+        LinksReport.queue_for!(@edition)
+      end
+
       @edition.convert_to_draft! if params[:speed_save_convert]
       redirect_to after_update_path, saved_confirmation_notice
     else

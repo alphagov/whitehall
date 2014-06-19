@@ -16,3 +16,16 @@ Then(/^I should a list of the broken links$/) do
   assert page.has_content?("some links that may not be responding:")
   assert page.has_link?(@broken_link, href: @broken_link)
 end
+
+When(/^I correct the broken links$/) do
+  fixed_link = 'http://fixed-link.com'
+  stub_request(:get, fixed_link).to_return(status: 200)
+
+  click_on "Edit draft"
+  fill_in  "Body", with: govspeak_with_links(fixed_link, @working_link)
+  click_on "Save"
+end
+
+Then(/^I should see that the document has no broken links$/) do
+  assert page.has_content?("Edition contains no broken links")
+end
