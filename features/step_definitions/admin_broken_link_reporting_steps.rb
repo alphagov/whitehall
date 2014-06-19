@@ -13,6 +13,6 @@ When(/^I check the document for broken links$/) do
 end
 
 Then(/^I should a list of the broken links$/) do
-  assert page.has_content?("We've found some links that may not be responding:")
+  assert page.has_content?("some links that may not be responding:")
   assert page.has_link?(@broken_link, href: @broken_link)
 end
