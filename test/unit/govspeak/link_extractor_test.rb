@@ -26,6 +26,11 @@ module Govspeak
       assert_equal expected_links, extractor.links
     end
 
+    test "ignores mailto links" do
+      extractor = LinkExtractor.new("A [mailto](mailto:email@domain.com) and a [link](http://example.com)")
+      assert_equal ['http://example.com'], extractor.links
+    end
+
   private
 
     def govspeak_with_links
