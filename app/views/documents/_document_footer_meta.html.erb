@@ -7,11 +7,10 @@
   <div class="history">
     <dl class="primary-metadata">
       <dt><%= t('document.footer_meta.published') %>:</dt>
-      <% if document.state != 'published' %>
+      <% if document.pre_publication? %>
         <dd>Preview</dd>
       <% else %>
         <dd><%= absolute_date(history.last.public_timestamp) %></dd>
-
         <% unless history.newly_published? %>
           <dt><%= t('document.footer_meta.updated') %>:</dt>
           <dd><%= absolute_date(history.first.public_timestamp) %></dd>
