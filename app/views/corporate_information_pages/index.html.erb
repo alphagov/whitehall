@@ -45,7 +45,7 @@
                   <%= @document.summary %>
                 </p>
               </div>
-              <%= govspeak_to_html @document.body %>
+              <%= govspeak_edition_to_html @document %>
             </div>
           <% end %>
           <% if has_any_transparency_pages?(@organisation) %>
