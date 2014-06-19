@@ -282,7 +282,8 @@ class Edition < ActiveRecord::Base
     unindex_after: [],
     search_format_types: :search_format_types,
     attachments: nil,
-    operational_field: nil
+    operational_field: nil,
+    specialist_sectors: :specialist_sector_tags,
   )
 
   def search_title
@@ -295,6 +296,10 @@ class Edition < ActiveRecord::Base
 
   def search_format_types
     [Edition.search_format_type]
+  end
+
+  def specialist_sector_tags
+    specialist_sectors.map(&:tag)
   end
 
   def self.search_only

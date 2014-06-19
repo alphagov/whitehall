@@ -426,6 +426,27 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "header some text", policy.indexable_content
   end
 
+  test "#specialist_sector_tags should return an array of specialist sector tags for editions" do
+    example_specialist_sector = create(
+      :specialist_sector,
+      tag: "sector/subsector"
+    )
+
+    edition = create(
+      :published_edition,
+      title: "edition-title",
+      specialist_sectors: [example_specialist_sector]
+    )
+
+    assert_equal ["sector/subsector"], edition.specialist_sector_tags
+  end
+
+  test "#specialist_sector_tags should return an empty array for editions without specialist sectors" do
+    edition_without_specialist_sectors = create(:edition, specialist_sectors: [])
+
+    assert_equal [], edition_without_specialist_sectors.specialist_sector_tags
+  end
+
   test "should use the result of #indexable_content for the content of #search_index" do
     policy = create(:published_policy, title: "policy-title")
     policy.stubs(:indexable_content).returns("some augmented searchable content")
