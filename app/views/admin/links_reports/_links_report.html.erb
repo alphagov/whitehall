@@ -1,8 +1,8 @@
 <div class="broken-links-report">
   <% if links_report.new_record? %>
     <section class='alert alert-info'>
-      <p>Check edition for broken links. The report will take a few moments to complete.</p>
-      <%= render 'admin/links_reports/form', reportable: links_report.link_reportable, button_text: 'Find broken links' %>
+      <p>Check this document for broken links. The report will take a few moments to complete.</p>
+      <%= render 'admin/links_reports/form', reportable: links_report.link_reportable, button_text: 'Check for broken links' %>
     </section>
   <% elsif links_report.in_progress? %>
     <section class='alert alert-info'>
@@ -15,7 +15,7 @@
     </section>
   <% elsif links_report.broken_links? %>
     <section class='alert'>
-      <p>We’ve found some links that may not be responding:</p>
+      <p>We’ve found links in this document that may be broken:</p>
       <ul>
         <% links_report.broken_links.each do |link| %>
           <li><%= link_to link.truncate(50), link, title: link %></li>
@@ -25,7 +25,7 @@
     </section>
   <% else %>
     <section class='alert alert-success'>
-      <p><span class="icon icon-ok"></span> Edition contains no broken links.</p>
+      <p><span class="icon icon-ok"></span> This document contains no broken links.</p>
       <%= render 'admin/links_reports/form', reportable: links_report.link_reportable, button_text: 'Check again' %>
     </section>
   <% end %>
