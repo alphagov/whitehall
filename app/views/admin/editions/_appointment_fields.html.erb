@@ -1,6 +1,6 @@
 <%= form.label :role_appointment_ids, 'Ministers' %>
 <%= form.select :role_appointment_ids,
-                options_from_collection_for_select(ministerial_appointment_options, :first, :last, edition.role_appointment_ids),
+                options_for_select(cached_ministerial_appointment_options, edition.role_appointment_ids),
                 { include_blank: true },
                 multiple: true,
                 class: 'chzn-select',

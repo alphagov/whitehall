@@ -34,7 +34,8 @@ Whitehall::Application.configure do
   config.slimmer.asset_host = ENV['STATIC_DEV'] || Plek.new.find('static')
 
   # Disable cache in development
-  config.cache_store = :null_store
+  # config.cache_store = :null_store
+  config.cache_store = :memory_store, { size: 32.megabytes }
 
   if ENV['SHOW_PRODUCTION_IMAGES']
     orig_host = config.asset_host

@@ -59,7 +59,7 @@ module ApplicationHelper
 
   def role_appointment_options(filter = RoleAppointment)
     filter.includes(:person).with_translations_for(:organisations).with_translations_for(:role).alphabetical_by_person.map do |appointment|
-      [appointment.id, "#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.organisations.map(&:name).to_sentence}"]
+      ["#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.organisations.map(&:name).to_sentence}", appointment.id]
     end
   end
 
@@ -79,13 +79,13 @@ module ApplicationHelper
     Policy.latest_edition.with_translations.includes(:topics).active.map do |policy|
       parts = [policy.title]
       parts << "(#{policy.topics.map(&:name).to_sentence})" if policy.topics.any?
-      [policy.id, parts.join(" ")]
+      [parts.join(" "), policy.id]
     end
   end
 
   def related_policy_options_excluding(policies)
     related_policy_options.select do |po|
-      !policies.map(&:id).include?(po.first)
+      !policies.map(&:id).include?(po.last)
     end
   end
 
