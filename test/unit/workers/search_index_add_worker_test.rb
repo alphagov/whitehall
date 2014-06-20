@@ -17,15 +17,17 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
 
   test '#perform indexes searchable instances' do
     published_publication = create(:published_publication)
+    attributes_for_indexing_mock = mock()
 
-    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add_batch).once
+    Publication.any_instance.stubs(:search_index).returns(attributes_for_indexing_mock)
+    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).with(attributes_for_indexing_mock)
     SearchIndexAddWorker.new.perform(published_publication.class.name, published_publication.id)
   end
 
   test '#perform does not index non-searchable instances and logs a warning' do
     draft_publication = create(:draft_publication)
 
-    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add_batch).never
+    Whitehall::SearchIndex.indexer_class.any_instance.expects(:add).never
     Rails.logger.expects(:warn).once
     SearchIndexAddWorker.new.perform(draft_publication.class.name, draft_publication.id)
   end
