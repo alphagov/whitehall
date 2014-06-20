@@ -41,7 +41,7 @@ gem 'raindrops', '0.11.0'
 gem 'airbrake', '3.1.15'
 gem 'bad_link_finder', '0.3.3'
 gem 'pdf-reader', '1.3.3'
-gem 'typhoeus'
+gem 'typhoeus', '0.6.8'
 
 # This sanitize fork branch fizes an issue with sanitize seeing colons in ids (when used as anchor tag references in an href)
 # as links with protocols. This has been fixed and merged in rgrove's Sanitize, but will only be released with version 2.1.

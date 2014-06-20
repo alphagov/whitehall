@@ -466,7 +466,7 @@ DEPENDENCIES
   thin (= 1.5.1)
   timecop
   transitions
-  typhoeus
+  typhoeus (= 0.6.8)
   uglifier
   unicorn (= 4.6.2)
   validates_email_format_of
