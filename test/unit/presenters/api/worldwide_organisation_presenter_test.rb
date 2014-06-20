@@ -62,7 +62,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public world organisations url as web_url" do
-    assert_equal worldwide_organisation_url(@world_org), @presenter.as_json[:web_url]
+    assert_equal Whitehall.url_maker.worldwide_organisation_url(@world_org), @presenter.as_json[:web_url]
   end
 
   test 'json includes office sponsoring org name in sponsors array as title' do
@@ -76,7 +76,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public organisations url for sponsor in sponsors array as web_url" do
-    assert_equal organisation_url(@main_sponsor), @presenter.as_json[:sponsors].first[:web_url]
+    assert_equal Whitehall.url_maker.organisation_url(@main_sponsor), @presenter.as_json[:sponsors].first[:web_url]
   end
 
   test 'json includes office contact title in offices as title' do
@@ -85,7 +85,7 @@ class Api::WorldwideOrganisationPresenterTest < PresenterTestCase
   end
 
   test 'json includes public office url in offices as web_url' do
-    assert_equal worldwide_organisation_worldwide_office_url(@world_org, @office), @presenter.as_json[:offices][:main][:web_url]
+    assert_equal Whitehall.url_maker.worldwide_organisation_worldwide_office_url(@world_org, @office), @presenter.as_json[:offices][:main][:web_url]
   end
 
   test 'json includes office contact comments in offices as description' do

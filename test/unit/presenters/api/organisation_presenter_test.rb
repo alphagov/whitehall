@@ -69,20 +69,20 @@ class Api::OrganisationPresenterTest < PresenterTestCase
   end
 
   test "json includes public organisation url as web_url" do
-    assert_equal organisation_url(@organisation), @presenter.as_json[:web_url]
+    assert_equal Whitehall.url_maker.organisation_url(@organisation), @presenter.as_json[:web_url]
   end
 
   test "json includes request-relative api parent organisations" do
     parent = stub_record(:organisation)
     @organisation.stubs(:parent_organisations).returns([parent])
     assert_equal api_organisation_url(parent), @presenter.as_json[:parent_organisations].first[:id]
-    assert_equal organisation_url(parent), @presenter.as_json[:parent_organisations].first[:web_url]
+    assert_equal Whitehall.url_maker.organisation_url(parent), @presenter.as_json[:parent_organisations].first[:web_url]
   end
 
   test "json includes request-relative api child organisations" do
     child = stub_record(:organisation)
     @organisation.stubs(:child_organisations).returns([child])
     assert_equal api_organisation_url(child), @presenter.as_json[:child_organisations].first[:id]
-    assert_equal organisation_url(child), @presenter.as_json[:child_organisations].first[:web_url]
+    assert_equal Whitehall.url_maker.organisation_url(child), @presenter.as_json[:child_organisations].first[:web_url]
   end
 end

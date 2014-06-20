@@ -5,14 +5,14 @@ class Api::WorldLocationPresenter < Api::BasePresenter
       title: model.name,
       format: model.display_type,
       updated_at: model.updated_at,
-      web_url: context.world_location_url(model),
+      web_url: Whitehall.url_maker.world_location_url(model),
       details: {
         slug: model.slug,
         iso2: model.iso2,
       },
       organisations: {
         id: context.api_world_location_worldwide_organisations_url(model),
-        web_url: context.world_location_url(model, anchor: 'organisations'),
+        web_url: Whitehall.url_maker.world_location_url(model, anchor: 'organisations'),
       }
     }
   end

@@ -26,7 +26,7 @@ class Api::DetailedGuidePresenter < Api::BasePresenter
       {
         title: org.name,
         id: context.organisation_url(org, format: :json),
-        web_url: context.organisation_url(org),
+        web_url: Whitehall.url_maker.organisation_url(org),
         details: {
           type: "organisation",
           short_description: org.acronym

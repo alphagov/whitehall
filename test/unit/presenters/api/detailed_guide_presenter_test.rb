@@ -64,7 +64,7 @@ class Api::DetailedGuidePresenterTest < PresenterTestCase
     guide_json = {
       title: @organisation.name,
       id: organisation_url(@organisation, format: :json),
-      web_url: organisation_url(@organisation),
+      web_url: Whitehall.url_maker.organisation_url(@organisation),
       details: {
         type: 'organisation',
         short_description: @organisation.acronym
