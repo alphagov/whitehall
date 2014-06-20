@@ -5,7 +5,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       title: model.name,
       format: 'Worldwide Organisation',
       updated_at: model.updated_at,
-      web_url: context.worldwide_organisation_url(model),
+      web_url: Whitehall.url_maker.worldwide_organisation_url(model),
       details: {
         slug: model.slug,
       },
@@ -27,7 +27,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
   def sponsor_as_json(sponsor)
     {
       title: sponsor.name,
-      web_url: context.organisation_url(sponsor),
+      web_url: Whitehall.url_maker.organisation_url(sponsor),
       details: {
         acronym: sponsor.acronym || ''
       }
@@ -46,7 +46,7 @@ class Api::WorldwideOrganisationPresenter < Api::BasePresenter
       title: office_worldwide_organisation.contact.title,
       format: 'World Office',
       updated_at: office_worldwide_organisation.updated_at,
-      web_url: context.worldwide_organisation_worldwide_office_url(model, office_worldwide_organisation),
+      web_url: Whitehall.url_maker.worldwide_organisation_worldwide_office_url(model, office_worldwide_organisation),
       details: {
         email: office_worldwide_organisation.contact.email || '',
         description: office_worldwide_organisation.contact.comments || '',
