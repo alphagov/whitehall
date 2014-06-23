@@ -1,0 +1,131 @@
+AmbiguousOperator:
+  Description: >-
+     Checks for ambiguous operators in the first argument of a
+     method invocation without parentheses.
+  Enabled: false
+
+AmbiguousRegexpLiteral:
+  Description: >-
+    Checks for ambiguous regexp literals in the first argument of
+    a method invocation without parenthesis.
+  Enabled: false
+
+AssignmentInCondition:
+  Description: "Don't use assignment in conditions."
+  Enabled: false
+
+ConditionPosition:
+  Description: 'Checks for condition placed in a confusing position relative to the keyword.'
+  Enabled: false
+
+Debugger:
+  Description: 'Check for debugger calls.'
+  Enabled: false
+
+DeprecatedClassMethods:
+  Description: 'Check for deprecated class method calls.'
+  Enabled: false
+
+EmptyEnsure:
+  Description: 'Checks for empty ensure block.'
+  Enabled: false
+
+EmptyInterpolation:
+  Description: 'Checks for empty string interpolation.'
+  Enabled: false
+
+EndInMethod:
+  Description: 'END blocks should not be placed inside method definitions.'
+  Enabled: false
+
+EnsureReturn:
+  Description: 'Never use return in an ensure block.'
+  Enabled: false
+
+Eval:
+  Description: 'The use of eval represents a serious security risk.'
+  Enabled: false
+
+HandleExceptions:
+  Description: "Don't suppress exception."
+  Enabled: false
+
+InvalidCharacterLiteral:
+  Description: >-
+    Checks for invalid character literals with a non-escaped
+    whitespace character.
+  Enabled: false
+
+LiteralInCondition:
+  Description: 'Checks of literals used in conditions.'
+  Enabled: false
+
+LiteralInInterpolation:
+  Description: 'Checks for literals used in interpolation.'
+  Enabled: false
+
+Loop:
+  Description: >-
+    Use Kernel#loop with break rather than begin/end/until or
+    begin/end/while for post-loop tests.
+  Enabled: false
+
+ParenthesesAsGroupedExpression:
+  Description: >-
+    Checks for method calls with a space before the opening
+    parenthesis.
+  Enabled: false
+
+RequireParentheses:
+  Description: >-
+    Use parentheses in the method call to avoid confusion
+    about precedence.
+  Enabled: false
+
+ShadowingOuterLocalVariable:
+  Description: >-
+    Do not use the same name as outer local variable
+    for block arguments or block local variables.
+  Enabled: false
+
+SpaceBeforeFirstArg:
+  Description: >-
+    Put a space between a method name and the first argument
+    in a method call without parentheses.
+  Enabled: false
+
+UnderscorePrefixedVariableName:
+  Description: 'Do not use prefix `_` for a variable that is used.'
+  Enabled: false
+
+UnusedMethodArgument:
+  Description: 'Checks for unused method arguments.'
+  Enabled: false
+
+UnreachableCode:
+  Description: 'Unreachable code.'
+  Enabled: false
+
+UselessAccessModifier:
+  Description: 'Checks for useless access modifiers.'
+  Enabled: false
+
+UselessAssignment:
+  Description: 'Checks for useless assignment to a local variable.'
+  Enabled: false
+
+UselessComparison:
+  Description: 'Checks for comparison of something with itself.'
+  Enabled: false
+
+UselessElseWithoutRescue:
+  Description: 'Checks for useless `else` in `begin..end` without `rescue`.'
+  Enabled: false
+
+UselessSetterCall:
+  Description: 'Checks for useless setter call to a local variable.'
+  Enabled: false
+
+Void:
+  Description: 'Possible use of operator/literal/variable in void context.'
+  Enabled: false

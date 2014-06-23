@@ -1,0 +1,33 @@
+##################### Rails ##################################
+
+ActionFilter:
+  Description: 'Enforces consistent use of action filter methods.'
+  Enabled: false
+
+DefaultScope:
+  Description: 'Checks if the argument passed to default_scope is a block.'
+  Enabled: false
+
+Delegate:
+  Description: 'Prefer delegate method for delegations.'
+  Enabled: false
+
+HasAndBelongsToMany:
+  Description: 'Prefer has_many :through to has_and_belongs_to_many.'
+  Enabled: false
+
+Output:
+  Description: 'Checks for calls to puts, print, etc.'
+  Enabled: false
+
+ReadWriteAttribute:
+  Description: 'Checks for read_attribute(:attr) and write_attribute(:attr, val).'
+  Enabled: false
+
+ScopeArgs:
+  Description: 'Checks the arguments of ActiveRecord scopes.'
+  Enabled: false
+
+Validation:
+  Description: 'Use sexy validations.'
+  Enabled: false

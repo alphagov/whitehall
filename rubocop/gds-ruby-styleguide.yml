@@ -1,0 +1,318 @@
+############
+## General
+############
+
+BlockAlignment:
+  Description: 'Align block ends correctly.'
+  Enabled: true
+
+CaseIndentation:
+  Description: Indentation of when in a case/when/[else/]end.
+  Enabled: true
+  IndentWhenRelativeTo: case
+  SupportedStyles:
+  - case
+  - end
+  IndentOneStep: false
+
+ElseLayout:
+  Description: 'Check for odd code arrangement in an else block.'
+  Enabled: true
+
+# Supports --auto-correct
+EmptyLineBetweenDefs:
+  Description: Use empty lines between defs.
+  Enabled: true
+  AllowAdjacentOneLineDefs: false
+
+EmptyLines:
+  Description: "Don't use several empty lines in a row."
+  Enabled: true
+
+EndAlignment:
+  Description: 'Align ends correctly.'
+  Enabled: true
+
+EndOfLine:
+  Description: 'Use Unix-style line endings.'
+  Enabled: true
+
+# Supports --auto-correct
+IndentationWidth:
+  Description: Use 2 spaces for indentation.
+  Enabled: true
+
+# Supports --auto-correct
+IndentationConsistency:
+  Description: Keep indentation straight.
+  Enabled: true
+
+LineLength:
+  Description: Limit lines to 80 characters.
+  Enabled: false
+  Max: 80
+
+# Supports --auto-correct
+SpaceAroundOperators:
+  Description: Use spaces around operators.
+  Enabled: true
+
+# Supports --auto-correct
+SpaceBeforeBlockBraces:
+  Description: Checks that the left block brace has or doesn't have space before it.
+  Enabled: true
+  EnforcedStyle: space
+  SupportedStyles:
+  - space
+  - no_space
+
+# Supports --auto-correct
+SpaceAfterSemicolon:
+  Description: Use spaces after semicolons.
+  Enabled: true
+
+# Supports --auto-correct
+SpaceAfterColon:
+  Description: Use spaces after colons.
+  Enabled: true
+
+# Supports --auto-correct
+SpaceAfterComma:
+  Description: Use spaces after commas.
+  Enabled: true
+
+# Supports --auto-correct
+SpaceInsideBrackets:
+  Description: No spaces after [ or before ].
+  Enabled: true
+
+# Supports --auto-correct
+SpaceInsideParens:
+  Description: No spaces after ( or before ).
+  Enabled: true
+
+Tab:
+  Description: No hard tabs.
+  Enabled: true
+
+# Supports --auto-correct
+TrailingWhitespace:
+  Description: Avoid trailing whitespace.
+  Enabled: true
+
+# Supports --auto-correct
+TrailingBlankLines:
+  Description: Checks trailing blank lines and final newline.
+  Enabled: true
+  EnforcedStyle: final_newline
+  SupportedStyles:
+  - final_newline
+  - final_blank_line
+
+## Syntax
+
+# Supports --auto-correct
+AndOr:
+  Description: Use &&/|| instead of and/or.
+  Enabled: true
+
+# Supports --auto-correct
+DefWithParentheses:
+  Description: Use def with parentheses when there are arguments.
+  Enabled: true
+
+For:
+  Description: Checks use of for or each in multiline loops.
+  Enabled: true
+  EnforcedStyle: each
+  SupportedStyles:
+  - for
+  - each
+
+IfUnlessModifier:
+  Description: Favor modifier if/unless usage when you have a single-line body.
+  Enabled: true
+  MaxLineLength: 80
+
+MethodCalledOnDoEndBlock:
+  Description: Avoid chaining a method call on a do...end block.
+  Enabled: true
+
+MethodCallParentheses:
+  Description: 'Do not use parentheses for method calls with no arguments.'
+  Enabled: true
+
+MultilineBlockChain:
+  Description: Avoid multi-line chains of blocks.
+  Enabled: true
+
+MultilineIfThen:
+  Description: Never use then for multi-line if/unless.
+  Enabled: true
+
+MultilineTernaryOperator:
+  Description: 'Avoid multi-line ?: (the ternary operator); use if/unless instead.'
+  Enabled: true
+
+NestedTernaryOperator:
+  Description: Use one expression per branch in a ternary operator.
+  Enabled: true
+
+OneLineConditional:
+  Description: Favor the ternary operator(?:) over if/then/else/end constructs.
+  Enabled: true
+
+# Supports --auto-correct
+ParenthesesAroundCondition:
+  Description: Don't use parentheses around the condition of an if/unless/while.
+  Enabled: true
+  AllowSafeAssignment: true
+
+# Supports --auto-correct
+RedundantReturn:
+  Description: Don't use return where it's not required.
+  Enabled: true
+  AllowMultipleReturnValues: false
+
+# Supports --auto-correct
+SpaceAfterMethodName:
+  Description: Never put a space between a method name and the opening parenthesis in
+    a method definition.
+  Enabled: true
+
+# Supports --auto-correct
+SpaceAroundEqualsInParameterDefault:
+  Description: Checks that the equals signs in parameter default assignments have or
+    don't have surrounding space depending on configuration.
+  Enabled: true
+  EnforcedStyle: space
+  SupportedStyles:
+  - space
+  - no_space
+
+UnlessElse:
+  Description: Never use unless with else. Rewrite these with the positive case first.
+  Enabled: true
+
+# Supports --auto-correct
+UnusedBlockArgument:
+  Description: Checks for unused block arguments.
+  Enabled: true
+
+## Naming
+
+ClassAndModuleCamelCase:
+  Description: Use CamelCase for classes and modules.
+  Enabled: true
+
+# Supports --auto-correct
+ClassMethods:
+  Description: Use self when defining module/class methods.
+  Enabled: true
+
+ClassVars:
+  Description: Avoid the use of class variables.
+  Enabled: true
+
+ConstantName:
+  Description: Constants should use SCREAMING_SNAKE_CASE.
+  Enabled: true
+
+MethodName:
+  Description: Use the configured style when naming methods.
+  Enabled: true
+  EnforcedStyle: snake_case
+  SupportedStyles:
+  - snake_case
+  - camelCase
+
+# Supports --auto-correct
+TrivialAccessors:
+  Description: Prefer attr_* methods to trivial readers/writers.
+  Enabled: true
+  ExactNameMatch: false
+  AllowPredicates: false
+  AllowDSLWriters: false
+  Whitelist:
+  - to_ary
+  - to_a
+  - to_c
+  - to_enum
+  - to_h
+  - to_hash
+  - to_i
+  - to_int
+  - to_io
+  - to_open
+  - to_path
+  - to_proc
+  - to_r
+  - to_regexp
+  - to_str
+  - to_s
+  - to_sym
+
+VariableName:
+  Description: Use the configured style when naming variables.
+  Enabled: true
+  EnforcedStyle: snake_case
+  SupportedStyles:
+  - snake_case
+  - camelCase
+
+## Exceptions
+
+# Supports --auto-correct
+RescueException:
+  Description: Avoid rescuing the Exception class.
+  Enabled: true
+
+## Collections
+
+# Supports --auto-correct
+AlignArray:
+  Description: Align the elements of an array literal if they span more than one line.
+  Enabled: true
+
+# Supports --auto-correct
+HashSyntax:
+  Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
+    :b => 2 }.'
+  Enabled: true
+  Exclude:
+  - 'db/schema.rb'
+
+  EnforcedStyle: ruby19
+  SupportedStyles:
+  - ruby19
+  - hash_rockets
+
+TrailingComma:
+  Description: Checks for trailing comma in parameter lists and literals.
+  Enabled: true
+  EnforcedStyleForMultiline: comma
+  SupportedStyles:
+  - comma
+  - no_comma
+
+# Supports --auto-correct
+WordArray:
+  Description: Use %w or %W for arrays of words.
+  Enabled: true
+  MinSize: 0
+
+## Strings
+
+# Supports --auto-correct
+StringConversionInInterpolation:
+  Description: Checks for Object#to_s usage in string interpolation.
+  Enabled: true
+
+# Supports --auto-correct
+StringLiterals:
+  Description: Checks if uses of quotes match the configured preference.
+  Enabled: true
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+  - single_quotes
+  - double_quotes
