@@ -20,15 +20,15 @@ class DocumentFilterHelperTest < ActionView::TestCase
   end
 
   test "remove_filter_from_params removes filter from params" do
-    stubs(:params).returns({ first: 'one', second: ['two', 'three'] })
+    stubs(:params).returns({ first: 'one', second: %w(two three) })
 
-    assert_equal ({ first: nil, second: ['two', 'three'] }), remove_filter_from_params(:first)
+    assert_equal ({ first: nil, second: %w(two three) }), remove_filter_from_params(:first)
     assert_equal ({ first: 'one', second: ['three'] }), remove_filter_from_params(:second, 'two')
   end
 
   test "filter_results_selections gets objects ready for mustache" do
     topic = build(:topic, slug: 'my-slug')
-    stubs(:params).returns({ controller: 'announcements', action: 'index', "topics" => ['my-slug', 'three'] })
+    stubs(:params).returns({ controller: 'announcements', action: 'index', "topics" => %w(my-slug three) })
 
     assert_equal [{ name: topic.name, value: topic.slug, url: announcements_path(topics: ['three']), joining: '' }], filter_results_selections([topic], 'topics')
   end

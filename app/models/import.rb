@@ -136,7 +136,7 @@ class Import < ActiveRecord::Base
   end
 
   def force_publishable_editions
-    imported_editions.where(state: ['draft', 'submitted'])
+    imported_editions.where(state: %w(draft submitted))
   end
 
   def force_publishable_edition_count
