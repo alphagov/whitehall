@@ -171,7 +171,7 @@ ParenthesesAroundCondition:
 # Supports --auto-correct
 RedundantReturn:
   Description: Don't use return where it's not required.
-  Enabled: false
+  Enabled: true
   AllowMultipleReturnValues: false
 
 # Supports --auto-correct
@@ -184,7 +184,7 @@ SpaceAfterMethodName:
 SpaceAroundEqualsInParameterDefault:
   Description: Checks that the equals signs in parameter default assignments have or
     don't have surrounding space depending on configuration.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: space
   SupportedStyles:
   - space
@@ -216,11 +216,11 @@ ClassVars:
 
 ConstantName:
   Description: Constants should use SCREAMING_SNAKE_CASE.
-  Enabled: false
+  Enabled: true
 
 MethodName:
   Description: Use the configured style when naming methods.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
   - snake_case
@@ -278,7 +278,7 @@ AlignArray:
 HashSyntax:
   Description: 'Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax { :a => 1,
     :b => 2 }.'
-  Enabled: false
+  Enabled: true
   Exclude:
   - 'db/schema.rb'
 
