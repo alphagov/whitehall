@@ -35,7 +35,7 @@ EndAlignment:
 
 EndOfLine:
   Description: 'Use Unix-style line endings.'
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 IndentationWidth:
@@ -60,7 +60,7 @@ SpaceAroundOperators:
 # Supports --auto-correct
 SpaceBeforeBlockBraces:
   Description: Checks that the left block brace has or doesn't have space before it.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: space
   SupportedStyles:
   - space
@@ -69,36 +69,36 @@ SpaceBeforeBlockBraces:
 # Supports --auto-correct
 SpaceAfterSemicolon:
   Description: Use spaces after semicolons.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterColon:
   Description: Use spaces after colons.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAfterComma:
   Description: Use spaces after commas.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceInsideBrackets:
   Description: No spaces after [ or before ].
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceInsideParens:
   Description: No spaces after ( or before ).
-  Enabled: false
+  Enabled: true
 
 Tab:
   Description: No hard tabs.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 TrailingWhitespace:
   Description: Avoid trailing whitespace.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 TrailingBlankLines:

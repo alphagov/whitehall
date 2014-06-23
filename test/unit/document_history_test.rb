@@ -65,7 +65,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     policy            = Timecop.travel(5.days.ago) { create(:policy, :superseded, first_published_at: Time.zone.now, change_note: nil) }
     support_page_1    = Timecop.travel(4.days.ago) { create(:supporting_page, :superseded, first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
     support_page_2    = Timecop.travel(3.days.ago) { create(:supporting_page, :published, first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
-    support_page_1_2  = Timecop.travel(2.days.ago) { 
+    support_page_1_2  = Timecop.travel(2.days.ago) {
       create(
         :supporting_page,
         :published,
@@ -75,7 +75,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
         published_minor_version: 0,
         change_note: 'Some stuff was changed',
         related_policies: [policy]
-      ) 
+      )
     }
 
     history           = DocumentHistory.new(policy.document)
@@ -94,9 +94,9 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     policy            = Timecop.travel(5.days.ago) { create(:policy, :superseded, first_published_at: Time.zone.now, change_note: nil) }
     migrated_page     = Timecop.travel(5.days.ago) { create(:supporting_page, :superseded, first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
     support_page_2    = Timecop.travel(3.days.ago) { create(:supporting_page, :published,  title: 'New supporting page', first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
-    support_page_1_2  = Timecop.travel(2.days.ago) { 
+    support_page_1_2  = Timecop.travel(2.days.ago) {
       create(
-        :supporting_page, 
+        :supporting_page,
         :published,
         document: migrated_page.document,
         first_published_at: migrated_page.public_timestamp,
