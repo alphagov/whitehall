@@ -17,17 +17,17 @@ CaseIndentation:
 
 ElseLayout:
   Description: 'Check for odd code arrangement in an else block.'
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 EmptyLineBetweenDefs:
   Description: Use empty lines between defs.
-  Enabled: false
+  Enabled: true
   AllowAdjacentOneLineDefs: false
 
 EmptyLines:
   Description: "Don't use several empty lines in a row."
-  Enabled: false
+  Enabled: true
 
 EndAlignment:
   Description: 'Align ends correctly.'
