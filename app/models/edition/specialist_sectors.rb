@@ -29,6 +29,10 @@ module Edition::SpecialistSectors
     set_specialist_sectors(sector_tags, primary: false)
   end
 
+  def specialist_sector_tags
+    searchable_specialist_sector_tags
+  end
+
 private
 
   def set_specialist_sectors(tags, primary: false)
@@ -45,5 +49,9 @@ private
     end
 
     self.public_send("#{relation}=", sectors)
+  end
+
+  def searchable_specialist_sector_tags
+    Array(primary_specialist_sector_tag).concat(secondary_specialist_sector_tags)
   end
 end

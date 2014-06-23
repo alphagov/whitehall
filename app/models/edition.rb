@@ -298,10 +298,6 @@ class Edition < ActiveRecord::Base
     [Edition.search_format_type]
   end
 
-  def specialist_sector_tags
-    searchable_specialist_sector_tags.flatten
-  end
-
   def self.search_only
     published_and_available_in_english
   end
@@ -621,13 +617,5 @@ private
 
   def summary_required?
     true
-  end
-
-  def searchable_specialist_sector_tags
-    [primary_specialist_sector_tag_for_export, secondary_specialist_sector_tags]
-  end
-
-  def primary_specialist_sector_tag_for_export
-    try(:primary_specialist_sector_tag) || []
   end
 end

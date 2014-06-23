@@ -426,33 +426,6 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "header some text", policy.indexable_content
   end
 
-  test "#specialist_sector_tags should return tags ordered from primary to secondary" do
-    expected_primary_specialist_sector_tag = "primary_sector/subsector"
-    expected_secondary_specialist_sector_tags = ["secondary_sector/subsector"]
-
-    edition = create(
-      :published_edition,
-      title: "edition-title",
-      primary_specialist_sector_tag: expected_primary_specialist_sector_tag,
-      secondary_specialist_sector_tags: expected_secondary_specialist_sector_tags,
-    )
-
-    assert_equal(
-      ["primary_sector/subsector", "secondary_sector/subsector"],
-      edition.specialist_sector_tags
-    )
-  end
-
-  test "#specialist_sector_tags should return an empty array for editions without specialist sectors" do
-    edition_without_specialist_sectors = create(
-      :edition,
-      primary_specialist_sector_tag: nil,
-      secondary_specialist_sector_tags: [],
-    )
-
-    assert_equal [], edition_without_specialist_sectors.specialist_sector_tags
-  end
-
   test "should use the result of #indexable_content for the content of #search_index" do
     policy = create(:published_policy, title: "policy-title")
     policy.stubs(:indexable_content).returns("some augmented searchable content")
