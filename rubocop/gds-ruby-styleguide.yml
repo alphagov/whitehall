@@ -8,7 +8,7 @@ BlockAlignment:
 
 CaseIndentation:
   Description: Indentation of when in a case/when/[else/]end.
-  Enabled: false
+  Enabled: true
   IndentWhenRelativeTo: case
   SupportedStyles:
   - case
