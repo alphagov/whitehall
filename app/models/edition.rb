@@ -282,7 +282,8 @@ class Edition < ActiveRecord::Base
     unindex_after: [],
     search_format_types: :search_format_types,
     attachments: nil,
-    operational_field: nil
+    operational_field: nil,
+    specialist_sectors: :specialist_sector_tags,
   )
 
   def search_title

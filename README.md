@@ -184,6 +184,29 @@ then
     (cd ../rummager && bundle exec ./bin/bulk_load government) < government.dump
     (cd ../rummager && bundle exec ./bin/bulk_load detailed) < detailed.dump
 
+## Search indexing paths
+
+There are currently two paths for whitehall searchable classes to be indexed.
+For a list of searchable classes, please refer to `Whitehall.edition_classes`
+(in lib/whitehall.rb).
+
+Indexing for searchable classes that inherit from `Edition` is triggered via the
+`ServiceListeners::SearchIndexer` listening to the `force_publish` and `publish`
+events. Since `Edition` sets the `index_after` key in its searchable options hash to
+`[]`, classes inheriting from it don't trigger indexing when saved.
+
+To trigger indexing for an instance of these classes in unit/integration tests,
+create an instance in a valid publishing state ('submitted', 'rejected') and
+call `EditionService.new(your_instance).perform!`.
+
+Indexing for additional searchable classes is triggered by save. This behaviour
+is defined in `Searchable.searchable_options`, where the `index_after` is set to
+`:save` as a default.
+
+To trigger indexing for an instance of these classes in unit/integration tests,
+create an instance in a valid publishing state ('submitted', 'rejected') and
+call `save!` on it.
+
 ## Specifying a different endpoint for the GDS Content API
 
 Whitehall uses the GDS Content API to serve categorisation for

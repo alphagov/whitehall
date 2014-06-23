@@ -11,6 +11,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal "generic_edition", edition.search_index["format"]
     assert_equal edition.summary, edition.search_index["description"]
     assert_equal edition.id, edition.search_index["id"]
+    assert_equal edition.specialist_sector_tags, edition.search_index["specialist_sectors"]
     assert_equal nil, edition.search_index["organisations"]
     assert_equal nil, edition.search_index["people"]
     assert_equal nil, edition.search_index["publication_type"]
