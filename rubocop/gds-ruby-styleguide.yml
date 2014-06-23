@@ -165,7 +165,7 @@ OneLineConditional:
 # Supports --auto-correct
 ParenthesesAroundCondition:
   Description: Don't use parentheses around the condition of an if/unless/while.
-  Enabled: false
+  Enabled: true
   AllowSafeAssignment: true
 
 # Supports --auto-correct
@@ -178,7 +178,7 @@ RedundantReturn:
 SpaceAfterMethodName:
   Description: Never put a space between a method name and the opening parenthesis in
     a method definition.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 SpaceAroundEqualsInParameterDefault:
