@@ -299,7 +299,7 @@ class Edition < ActiveRecord::Base
   end
 
   def specialist_sector_tags
-    specialist_sectors.map(&:tag)
+    searchable_specialist_sector_tags.flatten
   end
 
   def self.search_only
@@ -621,5 +621,13 @@ private
 
   def summary_required?
     true
+  end
+
+  def searchable_specialist_sector_tags
+    [primary_specialist_sector_tag_for_export, secondary_specialist_sector_tags]
+  end
+
+  def primary_specialist_sector_tag_for_export
+    try(:primary_specialist_sector_tag) || []
   end
 end
