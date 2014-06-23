@@ -203,7 +203,7 @@ UnusedBlockArgument:
 
 ClassAndModuleCamelCase:
   Description: Use CamelCase for classes and modules.
-  Enabled: false
+  Enabled: true
 
 # Supports --auto-correct
 ClassMethods:
@@ -254,7 +254,7 @@ TrivialAccessors:
 
 VariableName:
   Description: Use the configured style when naming variables.
-  Enabled: false
+  Enabled: true
   EnforcedStyle: snake_case
   SupportedStyles:
   - snake_case
