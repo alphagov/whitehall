@@ -1,0 +1,381 @@
+AccessModifierIndentation:
+  Description: Check indentation of private/protected visibility modifiers.
+  Enabled: false
+
+AccessorMethodName:
+  Description: Check the naming of accessor methods for get_/set_.
+  Enabled: false
+
+Alias:
+  Description: 'Use alias_method instead of alias.'
+  Enabled: false
+
+AlignHash:
+  Description: >-
+    Align the elements of a hash literal if they span more than
+    one line.
+  Enabled: false
+
+AlignParameters:
+  Description: >-
+    Align the parameters of a method call if they span more
+    than one line.
+  Enabled: false
+
+ArrayJoin:
+  Description: 'Use Array#join instead of Array#*.'
+  Enabled: false
+
+AsciiComments:
+  Description: 'Use only ascii symbols in comments.'
+  Enabled: false
+
+AsciiIdentifiers:
+  Description: 'Use only ascii symbols in identifiers.'
+  Enabled: false
+
+Attr:
+  Description: 'Checks for uses of Module#attr.'
+  Enabled: false
+
+BeginBlock:
+  Description: 'Avoid the use of BEGIN blocks.'
+  Enabled: false
+
+BlockComments:
+  Description: 'Do not use block comments.'
+  Enabled: false
+
+BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  Enabled: false
+
+Blocks:
+  Description: >-
+    Avoid using {...} for multi-line blocks (multiline chaining is
+    always ugly).
+    Prefer {...} over do...end for single-line blocks.
+  Enabled: false
+
+BracesAroundHashParameters:
+  Description: 'Enforce braces style inside hash parameters.'
+  Enabled: false
+
+CaseEquality:
+  Description: 'Avoid explicit use of the case equality operator(===).'
+  Enabled: false
+
+CharacterLiteral:
+  Description: 'Checks for uses of character literals.'
+  Enabled: false
+
+ClassAndModuleChildren:
+  Description: 'Checks style of children classes and modules.'
+  Enabled: false
+
+ClassLength:
+  Description: 'Avoid classes longer than 100 lines of code.'
+  Enabled: false
+
+CollectionMethods:
+  Description: 'Preferred collection methods.'
+  Enabled: false
+
+ColonMethodCall:
+  Description: 'Do not use :: for method call.'
+  Enabled: false
+
+CommentAnnotation:
+  Description: >-
+    Checks formatting of special comments
+    (TODO, FIXME, OPTIMIZE, HACK, REVIEW).
+  Enabled: false
+
+CommentIndentation:
+  Description: 'Indentation of comments.'
+  Enabled: false
+
+CyclomaticComplexity:
+  Description: 'Avoid complex methods.'
+  Enabled: false
+
+DeprecatedHashMethods:
+  Description: 'Checks for use of deprecated Hash methods.'
+  Enabled: false
+
+Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
+
+DotPosition:
+  Description: 'Checks the position of the dot in multi-line method calls.'
+  Enabled: false
+
+DoubleNegation:
+  Description: 'Checks for uses of double negation (!!).'
+  Enabled: false
+
+EachWithObject:
+  Description: 'Prefer `each_with_object` over `inject` or `reduce`.'
+  Enabled: false
+
+EmptyLinesAroundAccessModifier:
+  Description: "Keep blank lines around access modifiers."
+  Enabled: false
+
+EmptyLinesAroundBody:
+  Description: "Keeps track of empty lines around expression bodies."
+  Enabled: false
+
+EmptyLiteral:
+  Description: 'Prefer literals to Array.new/Hash.new/String.new.'
+  Enabled: false
+
+Encoding:
+  Description: 'Use UTF-8 as the source file encoding.'
+  Enabled: false
+
+EndBlock:
+  Description: 'Avoid the use of END blocks.'
+  Enabled: false
+
+EvenOdd:
+  Description: 'Favor the use of Fixnum#even? && Fixnum#odd?'
+  Enabled: false
+
+FileName:
+  Description: 'Use snake_case for source file names.'
+  Enabled: false
+
+FlipFlop:
+  Description: 'Checks for flip flops'
+  Enabled: false
+
+FormatString:
+  Description: 'Enforce the use of Kernel#sprintf, Kernel#format or String#%.'
+  Enabled: false
+
+GlobalVars:
+  Description: 'Do not introduce global variables.'
+  Enabled: false
+
+GuardClause:
+  Description: 'Check for conditionals that can be replaced with guard clauses'
+  Enabled: false
+
+IfWithSemicolon:
+  Description: 'Never use if x; .... Use the ternary operator instead.'
+  Enabled: false
+
+IndentArray:
+  Description: >-
+    Checks the indentation of the first element in an array
+    literal.
+  Enabled: false
+
+IndentHash:
+  Description: 'Checks the indentation of the first key in a hash literal.'
+  Enabled: false
+
+Lambda:
+  Description: 'Use the new lambda literal syntax for single-line blocks.'
+  Enabled: false
+
+LambdaCall:
+  Description: 'Use lambda.call(...) instead of lambda.(...).'
+  Enabled: false
+
+LeadingCommentSpace:
+  Description: 'Comments should start with a space.'
+  Enabled: false
+
+LineEndConcatenation:
+  Description: >-
+    Use \ instead of + or << to concatenate two string literals at
+    line end.
+  Enabled: false
+
+MethodDefParentheses:
+  Description: >-
+    Checks if the method definitions have or don't have
+    parentheses.
+  Enabled: false
+
+MethodLength:
+  Description: 'Avoid methods longer than 10 lines of code.'
+  Enabled: false
+
+ModuleFunction:
+  Description: 'Checks for usage of `extend self` in modules.'
+  Enabled: false
+
+NegatedIf:
+  Description: >-
+    Favor unless over if for negative conditions
+    (or control flow or).
+  Enabled: false
+
+NegatedWhile:
+  Description: 'Favor until over while for negative conditions.'
+  Enabled: false
+
+Next:
+  Description: 'Use `next` to skip iteration instead of a condition at the end.'
+  Enabled: false
+
+NilComparison:
+  Description: 'Prefer x.nil? to x == nil.'
+  Enabled: false
+
+NonNilCheck:
+  Description: 'Checks for redundant nil checks.'
+  Enabled: false
+
+Not:
+  Description: 'Use ! instead of not.'
+  Enabled: false
+
+NumericLiterals:
+  Description: >-
+    Add underscores to large numeric literals to improve their
+    readability.
+  Enabled: false
+
+OpMethod:
+  Description: 'When defining binary operators, name the argument other.'
+  Enabled: false
+
+ParameterLists:
+  Description: 'Avoid parameter lists longer than three or four parameters.'
+  Enabled: false
+
+PercentLiteralDelimiters:
+  Description: 'Use `%`-literal delimiters consistently'
+  Enabled: false
+
+PerlBackrefs:
+  Description: 'Avoid Perl-style regex back references.'
+  Enabled: false
+
+PredicateName:
+  Description: 'Check the names of predicate methods.'
+  Enabled: false
+
+Proc:
+  Description: 'Use proc instead of Proc.new.'
+  Enabled: false
+
+RaiseArgs:
+  Description: 'Checks the arguments passed to raise/fail.'
+  Enabled: false
+
+RedundantBegin:
+  Description: "Don't use begin blocks when they are not needed."
+  Enabled: false
+
+RedundantException:
+  Description: "Checks for an obsolete RuntimeException argument in raise/fail."
+  Enabled: false
+
+RedundantSelf:
+  Description: "Don't use self where it's not needed."
+  Enabled: false
+
+RegexpLiteral:
+  Description: >-
+    Use %r for regular expressions matching more than
+    `MaxSlashes` '/' characters.
+    Use %r only for regular expressions matching more than
+    `MaxSlashes` '/' character.
+  Enabled: false
+
+RescueModifier:
+  Description: 'Avoid using rescue in its modifier form.'
+  Enabled: false
+
+SelfAssignment:
+  Description: 'Checks for places where self-assignment shorthand should have been used.'
+  Enabled: false
+
+Semicolon:
+  Description: "Don't use semicolons to terminate expressions."
+  Enabled: false
+
+SignalException:
+  Description: 'Checks for proper usage of fail and raise.'
+  Enabled: false
+
+SingleLineBlockParams:
+  Description: 'Enforces the names of some block params.'
+  Enabled: false
+
+SingleLineMethods:
+  Description: 'Avoid single-line methods.'
+  Enabled: false
+
+SingleSpaceBeforeFirstArg:
+  Description: >-
+    Checks that exactly one space is used between a method name
+    and the first argument for method calls without parentheses.
+  Enabled: false
+
+SpaceAfterControlKeyword:
+  Description: 'Use spaces after if/elsif/unless/while/until/case/when.'
+  Enabled: false
+
+SpaceAfterNot:
+  Description: Tracks redundant space after the ! operator.
+  Enabled: false
+
+SpaceBeforeComment:
+  Description: >-
+    Checks for missing space between code and a comment on the
+    same line.
+  Enabled: false
+
+SpaceInsideBlockBraces:
+  Description: >-
+    Checks that block braces have or don't have surrounding space.
+    For blocks taking parameters, checks that the left brace has
+    or doesn't have trailing space.
+  Enabled: false
+
+SpaceBeforeModifierKeyword:
+  Description: 'Put a space before the modifier keyword.'
+  Enabled: false
+
+SpaceInsideHashLiteralBraces:
+  Description: "Use spaces inside hash literal braces - or don't."
+  Enabled: false
+
+SpecialGlobalVars:
+  Description: 'Avoid Perl-style global variables.'
+  Enabled: false
+
+UnneededCapitalW:
+  Description: 'Checks for %W when interpolation is not needed.'
+  Enabled: false
+
+UnneededPercentX:
+  Description: 'Checks for %x when `` would do.'
+  Enabled: false
+
+VariableInterpolation:
+  Description: >-
+    Don't interpolate global, instance and class variables
+    directly in strings.
+  Enabled: false
+
+WhenThen:
+  Description: 'Use when x then ... for one-line cases.'
+  Enabled: false
+
+WhileUntilDo:
+  Description: 'Checks for redundant do after while or until.'
+  Enabled: false
+
+WhileUntilModifier:
+  Description: >-
+    Favor modifier while/until usage when you have a
+    single-line body.
+  Enabled: false

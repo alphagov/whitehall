@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at"
   end
 
-  add_index "access_and_opening_times", ["accessible_id", "accessible_type"], :name => "accessible_index"
+  add_index "access_and_opening_times", %w(accessible_id accessible_type), :name => "accessible_index"
 
   create_table "attachment_data", :force => true do |t|
     t.string   "carrierwave_file"
@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.string   "locale"
   end
 
-  add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
-  add_index "attachments", ["attachable_type", "attachable_id", "ordering"], :name => "no_duplicate_attachment_orderings", :unique => true
+  add_index "attachments", %w(attachable_id attachable_type), :name => "index_attachments_on_attachable_id_and_attachable_type"
+  add_index "attachments", %w(attachable_type attachable_id ordering), :name => "no_duplicate_attachment_orderings", :unique => true
   add_index "attachments", ["attachment_data_id"], :name => "index_attachments_on_attachment_data_id"
   add_index "attachments", ["ordering"], :name => "index_attachments_on_ordering"
 
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
 
   add_index "classification_featurings", ["classification_featuring_image_data_id"], :name => "index_cl_feat_on_edition_org_image_data_id"
   add_index "classification_featurings", ["classification_id"], :name => "index_cl_feat_on_classification_id"
-  add_index "classification_featurings", ["edition_id", "classification_id"], :name => "index_cl_feat_on_edition_id_and_classification_id", :unique => true
+  add_index "classification_featurings", %w(edition_id classification_id), :name => "index_cl_feat_on_edition_id_and_classification_id", :unique => true
   add_index "classification_featurings", ["offsite_link_id"], :name => "index_classification_featurings_on_offsite_link_id"
 
   create_table "classification_memberships", :force => true do |t|
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   end
 
   add_index "contacts", ["contact_type_id"], :name => "index_contacts_on_contact_type_id"
-  add_index "contacts", ["contactable_id", "contactable_type"], :name => "index_contacts_on_contactable_id_and_contactable_type"
+  add_index "contacts", %w(contactable_id contactable_type), :name => "index_contacts_on_contactable_id_and_contactable_type"
 
   create_table "corporate_information_page_translations", :force => true do |t|
     t.integer  "corporate_information_page_id"
@@ -241,7 +241,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.string   "organisation_type"
   end
 
-  add_index "corporate_information_pages", ["organisation_id", "organisation_type", "type_id"], :name => "index_corporate_information_pages_on_polymorphic_columns", :unique => true
+  add_index "corporate_information_pages", %w(organisation_id organisation_type type_id), :name => "index_corporate_information_pages_on_polymorphic_columns", :unique => true
 
   create_table "data_migration_records", :force => true do |t|
     t.string "version"
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at",                   :null => false
   end
 
-  add_index "document_collection_group_memberships", ["document_collection_group_id", "ordering"], :name => "index_dc_group_memberships_on_dc_group_id_and_ordering"
+  add_index "document_collection_group_memberships", %w(document_collection_group_id ordering), :name => "index_dc_group_memberships_on_dc_group_id_and_ordering"
   add_index "document_collection_group_memberships", ["document_id"], :name => "index_document_collection_group_memberships_on_document_id"
 
   create_table "document_collection_groups", :force => true do |t|
@@ -275,7 +275,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at",             :null => false
   end
 
-  add_index "document_collection_groups", ["document_collection_id", "ordering"], :name => "index_dc_groups_on_dc_id_and_ordering"
+  add_index "document_collection_groups", %w(document_collection_id ordering), :name => "index_dc_groups_on_dc_id_and_ordering"
 
   create_table "document_sources", :force => true do |t|
     t.integer "document_id"
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.string   "document_type"
   end
 
-  add_index "documents", ["slug", "document_type"], :name => "index_documents_on_slug_and_document_type", :unique => true
+  add_index "documents", %w(slug document_type), :name => "index_documents_on_slug_and_document_type", :unique => true
 
   create_table "edition_authors", :force => true do |t|
     t.integer  "edition_id"
@@ -336,7 +336,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer  "lead_ordering"
   end
 
-  add_index "edition_organisations", ["edition_id", "organisation_id"], :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
+  add_index "edition_organisations", %w(edition_id organisation_id), :name => "index_edition_organisations_on_edition_id_and_organisation_id", :unique => true
   add_index "edition_organisations", ["organisation_id"], :name => "index_edition_organisations_on_organisation_id"
 
   create_table "edition_policy_groups", :force => true do |t|
@@ -390,7 +390,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at"
   end
 
-  add_index "edition_world_locations", ["edition_id", "world_location_id"], :name => "idx_edition_world_locations_on_edition_and_world_location_ids", :unique => true
+  add_index "edition_world_locations", %w(edition_id world_location_id), :name => "idx_edition_world_locations_on_edition_and_world_location_ids", :unique => true
   add_index "edition_world_locations", ["edition_id"], :name => "index_edition_world_locations_on_edition_id"
   add_index "edition_world_locations", ["world_location_id"], :name => "index_edition_world_locations_on_world_location_id"
 
@@ -466,12 +466,12 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   add_index "editions", ["opening_at"], :name => "index_editions_on_opening_at"
   add_index "editions", ["operational_field_id"], :name => "index_editions_on_operational_field_id"
   add_index "editions", ["primary_mainstream_category_id"], :name => "index_editions_on_primary_mainstream_category_id"
-  add_index "editions", ["public_timestamp", "document_id"], :name => "index_editions_on_public_timestamp_and_document_id"
+  add_index "editions", %w(public_timestamp document_id), :name => "index_editions_on_public_timestamp_and_document_id"
   add_index "editions", ["public_timestamp"], :name => "index_editions_on_public_timestamp"
   add_index "editions", ["publication_type_id"], :name => "index_editions_on_publication_type_id"
   add_index "editions", ["role_appointment_id"], :name => "index_editions_on_role_appointment_id"
   add_index "editions", ["speech_type_id"], :name => "index_editions_on_speech_type_id"
-  add_index "editions", ["state", "type"], :name => "index_editions_on_state_and_type"
+  add_index "editions", %w(state type), :name => "index_editions_on_state_and_type"
   add_index "editions", ["state"], :name => "index_editions_on_state"
   add_index "editions", ["type"], :name => "index_editions_on_type"
 
@@ -525,7 +525,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at"
   end
 
-  add_index "feature_lists", ["featurable_id", "featurable_type", "locale"], :name => "featurable_lists_unique_locale_per_featurable", :unique => true
+  add_index "feature_lists", %w(featurable_id featurable_type locale), :name => "featurable_lists_unique_locale_per_featurable", :unique => true
 
   create_table "featured_items", :force => true do |t|
     t.integer  "item_id",                              :null => false
@@ -536,9 +536,9 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "ended_at"
   end
 
-  add_index "featured_items", ["featured_topics_and_policies_list_id", "ordering"], :name => "idx_featured_items_on_featured_ts_and_ps_list_id_and_ordering"
+  add_index "featured_items", %w(featured_topics_and_policies_list_id ordering), :name => "idx_featured_items_on_featured_ts_and_ps_list_id_and_ordering"
   add_index "featured_items", ["featured_topics_and_policies_list_id"], :name => "index_featured_items_on_featured_topics_and_policies_list_id"
-  add_index "featured_items", ["item_id", "item_type"], :name => "index_featured_items_on_item_id_and_item_type"
+  add_index "featured_items", %w(item_id item_type), :name => "index_featured_items_on_item_id_and_item_type"
 
   create_table "featured_services_and_guidance", :force => true do |t|
     t.string   "url"
@@ -572,7 +572,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   end
 
   add_index "features", ["document_id"], :name => "index_features_on_document_id"
-  add_index "features", ["feature_list_id", "ordering"], :name => "index_features_on_feature_list_id_and_ordering", :unique => true
+  add_index "features", %w(feature_list_id ordering), :name => "index_features_on_feature_list_id_and_ordering", :unique => true
   add_index "features", ["feature_list_id"], :name => "index_features_on_feature_list_id"
   add_index "features", ["offsite_link_id"], :name => "index_features_on_offsite_link_id"
   add_index "features", ["ordering"], :name => "index_features_on_ordering"
@@ -584,7 +584,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer "year"
   end
 
-  add_index "financial_reports", ["organisation_id", "year"], :name => "index_financial_reports_on_organisation_id_and_year", :unique => true
+  add_index "financial_reports", %w(organisation_id year), :name => "index_financial_reports_on_organisation_id_and_year", :unique => true
   add_index "financial_reports", ["organisation_id"], :name => "index_financial_reports_on_organisation_id"
   add_index "financial_reports", ["year"], :name => "index_financial_reports_on_year"
 
@@ -658,9 +658,9 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at"
   end
 
-  add_index "home_page_list_items", ["home_page_list_id", "ordering"], :name => "index_home_page_list_items_on_home_page_list_id_and_ordering"
+  add_index "home_page_list_items", %w(home_page_list_id ordering), :name => "index_home_page_list_items_on_home_page_list_id_and_ordering"
   add_index "home_page_list_items", ["home_page_list_id"], :name => "index_home_page_list_items_on_home_page_list_id"
-  add_index "home_page_list_items", ["item_id", "item_type"], :name => "index_home_page_list_items_on_item_id_and_item_type"
+  add_index "home_page_list_items", %w(item_id item_type), :name => "index_home_page_list_items_on_item_id_and_item_type"
 
   create_table "home_page_lists", :force => true do |t|
     t.integer  "owner_id",   :null => false
@@ -670,7 +670,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at"
   end
 
-  add_index "home_page_lists", ["owner_id", "owner_type", "name"], :name => "index_home_page_lists_on_owner_id_and_owner_type_and_name", :unique => true
+  add_index "home_page_lists", %w(owner_id owner_type name), :name => "index_home_page_lists_on_owner_id_and_owner_type_and_name", :unique => true
 
   create_table "image_data", :force => true do |t|
     t.string   "carrierwave_image"
@@ -779,7 +779,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   end
 
   add_index "organisation_classifications", ["classification_id"], :name => "index_org_classifications_on_classification_id"
-  add_index "organisation_classifications", ["organisation_id", "ordering"], :name => "index_org_classifications_on_organisation_id_and_ordering", :unique => true
+  add_index "organisation_classifications", %w(organisation_id ordering), :name => "index_org_classifications_on_organisation_id_and_ordering", :unique => true
   add_index "organisation_classifications", ["organisation_id"], :name => "index_org_classifications_on_organisation_id"
 
   create_table "organisation_mainstream_categories", :force => true do |t|
@@ -791,7 +791,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   end
 
   add_index "organisation_mainstream_categories", ["mainstream_category_id"], :name => "index_org_mainstream_cats_on_mainstream_cat_id"
-  add_index "organisation_mainstream_categories", ["organisation_id", "mainstream_category_id"], :name => "index_org_mainstream_cats_on_org_id_and_mainstream_cat_id", :unique => true
+  add_index "organisation_mainstream_categories", %w(organisation_id mainstream_category_id), :name => "index_org_mainstream_cats_on_org_id_and_mainstream_cat_id", :unique => true
   add_index "organisation_mainstream_categories", ["organisation_id"], :name => "index_org_mainstream_cats_on_org_id"
 
   create_table "organisation_roles", :force => true do |t|
@@ -943,7 +943,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "created_at", :null => false
   end
 
-  add_index "recent_edition_openings", ["edition_id", "editor_id"], :name => "index_recent_edition_openings_on_edition_id_and_editor_id", :unique => true
+  add_index "recent_edition_openings", %w(edition_id editor_id), :name => "index_recent_edition_openings_on_edition_id_and_editor_id", :unique => true
 
   create_table "responses", :force => true do |t|
     t.integer  "edition_id"
@@ -954,7 +954,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.string   "type"
   end
 
-  add_index "responses", ["edition_id", "type"], :name => "index_responses_on_edition_id_and_type"
+  add_index "responses", %w(edition_id type), :name => "index_responses_on_edition_id_and_type"
   add_index "responses", ["edition_id"], :name => "index_responses_on_edition_id"
 
   create_table "role_appointments", :force => true do |t|
@@ -1039,7 +1039,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.boolean  "primary",    :default => false
   end
 
-  add_index "specialist_sectors", ["edition_id", "tag"], :name => "index_specialist_sectors_on_edition_id_and_tag", :unique => true
+  add_index "specialist_sectors", %w(edition_id tag), :name => "index_specialist_sectors_on_edition_id_and_tag", :unique => true
 
   create_table "sponsorships", :force => true do |t|
     t.integer  "organisation_id"
@@ -1048,7 +1048,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at"
   end
 
-  add_index "sponsorships", ["organisation_id", "worldwide_organisation_id"], :name => "unique_sponsorships", :unique => true
+  add_index "sponsorships", %w(organisation_id worldwide_organisation_id), :name => "unique_sponsorships", :unique => true
   add_index "sponsorships", ["worldwide_organisation_id"], :name => "index_sponsorships_on_worldwide_organisation_id"
 
   create_table "statistics_announcement_dates", :force => true do |t|
@@ -1063,7 +1063,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
   end
 
   add_index "statistics_announcement_dates", ["creator_id"], :name => "index_statistics_announcement_dates_on_creator_id"
-  add_index "statistics_announcement_dates", ["statistics_announcement_id", "created_at"], :name => "statistics_announcement_release_date"
+  add_index "statistics_announcement_dates", %w(statistics_announcement_id created_at), :name => "statistics_announcement_release_date"
 
   create_table "statistics_announcements", :force => true do |t|
     t.string   "title"
@@ -1093,7 +1093,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "updated_at",                  :null => false
   end
 
-  add_index "supporting_page_redirects", ["policy_document_id", "original_slug"], :name => "index_supporting_page_redirects_on_policy_and_slug", :unique => true
+  add_index "supporting_page_redirects", %w(policy_document_id original_slug), :name => "index_supporting_page_redirects_on_policy_and_slug", :unique => true
 
   create_table "take_part_pages", :force => true do |t|
     t.string   "title",                                 :null => false
@@ -1119,7 +1119,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer  "linkable_id"
   end
 
-  add_index "top_tasks", ["linkable_id", "linkable_type"], :name => "index_top_tasks_on_linkable_id_and_linkable_type"
+  add_index "top_tasks", %w(linkable_id linkable_type), :name => "index_top_tasks_on_linkable_id_and_linkable_type"
   add_index "top_tasks", ["linkable_type"], :name => "index_top_tasks_on_linkable_type"
 
   create_table "unpublishings", :force => true do |t|
@@ -1142,7 +1142,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.integer "world_location_id"
   end
 
-  add_index "user_world_locations", ["user_id", "world_location_id"], :name => "index_user_world_locations_on_user_id_and_world_location_id", :unique => true
+  add_index "user_world_locations", %w(user_id world_location_id), :name => "index_user_world_locations_on_user_id_and_world_location_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -1168,7 +1168,7 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.text     "state"
   end
 
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+  add_index "versions", %w(item_type item_id), :name => "index_versions_on_item_type_and_item_id"
 
   create_table "world_location_translations", :force => true do |t|
     t.integer  "world_location_id"

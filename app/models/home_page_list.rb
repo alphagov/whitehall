@@ -17,7 +17,7 @@ class HomePageList < ActiveRecord::Base
     owner = opts[:owned_by]
     name = opts[:called]
     build_if_missing = opts.has_key?(:build_if_missing) ? opts[:build_if_missing] : true
-    raise ArgumentError, "Must supply owned_by: and called: options" if (owner.nil? || name.nil?)
+    raise ArgumentError, "Must supply owned_by: and called: options" if owner.nil? || name.nil?
     scoping = where(owner_id: owner.id, owner_type: owner.class, name: name)
     if list = scoping.first
       list

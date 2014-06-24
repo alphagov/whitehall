@@ -115,7 +115,7 @@ module Whitehall
         options = filter_options.for(:publication_type)
         assert_equal ["All publication types", "all"], options.all
         assert_equal [], options.ungrouped
-        assert_include options.grouped.values.flatten(1), ["Statistics", "statistics"]
+        assert_include options.grouped.values.flatten(1), %w(Statistics statistics)
       end
 
       test "can get the list of options for announcement_type" do

@@ -7,4 +7,4 @@ Time::DATE_FORMATS[:one_month_precision] = "%B %Y"
 Time::DATE_FORMATS[:two_month_precision] = lambda do |time|
    opening_month = time.strftime("%B")
    (time + 1.month).strftime("#{opening_month} to %B %Y").strip
-  end
+end

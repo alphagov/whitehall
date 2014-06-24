@@ -1,7 +1,7 @@
 module Admin::EditionsHelper
 
   def edition_type(edition)
-    if (edition.is_a?(Speech) && edition.speech_type.written_article?)
+    if edition.is_a?(Speech) && edition.speech_type.written_article?
       type = edition.speech_type.singular_name
     else
       type = edition.type.underscore.humanize
@@ -63,13 +63,13 @@ module Admin::EditionsHelper
     [
       ["All states", 'active'],
       ["Imported (pre-draft)", 'imported'],
-      ["Draft", 'draft'],
-      ["Submitted", 'submitted'],
-      ["Rejected", 'rejected'],
-      ["Scheduled", 'scheduled'],
-      ["Published", 'published'],
+      %w(Draft draft),
+      %w(Submitted submitted),
+      %w(Rejected rejected),
+      %w(Scheduled scheduled),
+      %w(Published published),
       ["Force published (not reviewed)", 'force_published'],
-      ['Archived', 'archived']
+      %w(Archived archived)
     ]
   end
 

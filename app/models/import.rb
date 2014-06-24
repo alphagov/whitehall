@@ -136,7 +136,7 @@ class Import < ActiveRecord::Base
   end
 
   def force_publishable_editions
-    imported_editions.where(state: ['draft', 'submitted'])
+    imported_editions.where(state: %w(draft submitted))
   end
 
   def force_publishable_edition_count
@@ -217,7 +217,7 @@ class Import < ActiveRecord::Base
   end
 
   def valid_csv_data_encoding!
-    if (csv_data)
+    if csv_data
       errors.add(:csv_data, "Invalid #{csv_data.encoding} character encoding") unless valid_csv_data_encoding?
     end
   end
