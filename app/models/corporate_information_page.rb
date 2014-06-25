@@ -116,11 +116,6 @@ class CorporateInformationPage < Edition
     false
   end
 
-  def can_unpublish?
-    # Prevent unpublishing/archiving of CIPs until full behaviour is worked out.
-    false
-  end
-
   def about_page?
     corporate_information_page_type.try(:slug) == 'about'
   end
