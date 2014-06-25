@@ -47,6 +47,6 @@ class OrganisationLogoType
     id: 13, title: "UK Atomic Energy Authority", class_name: "ukaea"
   )
   CustomLogo = create(
-    id: 14, title: "Use custom logo for exempt organisation", class_name: "custom"
+    id: 14, title: "Use custom logo for organisations exempt from the single identity", class_name: "custom"
   )
 end
