@@ -96,4 +96,34 @@ class CorporateInformationPagesControllerTest < ActionController::TestCase
     refute_select "#corporate-information"
   end
 
+  test 'finds unpublishing for a corporate information page' do
+    organisation = create(:organisation)
+    cip = create(:corporate_information_page, :unpublished, organisation: organisation)
+    alternative_url = Whitehall.url_maker.root_url
+    cip.unpublishing.update_attributes!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
+
+    get :show, organisation_id: cip.organisation, id: cip.slug
+    assert_response :redirect
+    assert_redirected_to alternative_url
+  end
+
+  test 'unpublishing is specific to the organisation' do
+    organisation = create(:organisation)
+    organisation_2 = create(:organisation, slug: 'another_organisation')
+    cip = create(:corporate_information_page, :unpublished, organisation: organisation)
+    alternative_url = Whitehall.url_maker.root_url
+    cip.unpublishing.update_attributes!(redirect: true, slug: cip.slug, alternative_url: alternative_url)
+    draft_cip = create(:corporate_information_page, organisation: organisation_2)
+
+    # Even though the Unpublishing has the same slug as the draft CIP, we should
+    # only find it for the unpublished one.
+    assert_equal draft_cip.slug, cip.unpublishing.slug
+
+    get :show, organisation_id: organisation, id: cip.slug
+    assert_response :redirect
+
+    get :show, organisation_id: organisation_2, id: cip.slug
+    assert_response 404
+  end
+
 end

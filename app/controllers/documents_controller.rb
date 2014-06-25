@@ -34,7 +34,7 @@ private
       if @document = document_class.scheduled_for_publication_as(params[:id])
         expire_on_next_scheduled_publication([@document])
         render :coming_soon
-      elsif @unpublishing = Unpublishing.from_slug(params[:id], document_class)
+      elsif @unpublishing = find_unpublishing
         if @unpublishing.redirect?
           redirect_to @unpublishing.alternative_url
         else
@@ -47,6 +47,10 @@ private
         render text: "Not found", status: :not_found
       end
     end
+  end
+
+  def find_unpublishing
+    Unpublishing.from_slug(params[:id], document_class)
   end
 
   def find_document_or_edition
