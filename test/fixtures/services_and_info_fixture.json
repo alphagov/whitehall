@@ -1,0 +1,34 @@
+{
+  "start": 0,
+  "facets": {
+    "specialist_sectors":
+    { "documents_with_no_value": 0,
+      "missing_options": 0,
+      "total_options": 4,
+      "options": [{
+        "documents": 7,
+        "value": {
+          "slug": "immigration-operational-guidance/asylum-policy",
+          "link": "/immigration-operational-guidance/asylum-policy",
+          "title": "Asylum policy",
+          "parent_title": "Immigration operational guidance",
+          "examples": [{
+            "link": "/a-document-about-asylum-policy",
+            "title": "A document about asylum policy"
+          }]
+        }
+      },
+      {
+        "documents": 4,
+        "value": {
+          "slug": "oil-and-gas/licensing",
+          "link": "/oil-and-gas/licensing",
+          "title": "Licensing",
+          "parent_title": "Oil and gas",
+          "examples": []
+        }
+      }
+      ]
+    }
+  }
+}
