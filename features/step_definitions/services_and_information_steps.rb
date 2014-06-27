@@ -9,7 +9,7 @@ Then(/^I can see a link to a "(.*?)" for the "(.*?)" organisation$/) do |link_ti
 end
 
 Then(/^I should see a list of documents related to the Cabinet Office org grouped by sector$/) do
-  specialist_subsectors_returned_by_fixture  = ["Asylum policy", "Licensing"]
+  specialist_subsectors_returned_by_fixture  = ["Waste", "Environmental permits"]
 
   specialist_subsectors_returned_by_fixture.each do |subsector|
     assert page.has_content?(subsector), "Sector information not present on page"

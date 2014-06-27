@@ -1,34 +1,71 @@
 {
+  "results": [ ],
+  "total": 3138,
   "start": 0,
   "facets": {
-    "specialist_sectors":
-    { "documents_with_no_value": 0,
-      "missing_options": 0,
-      "total_options": 4,
-      "options": [{
-        "documents": 7,
+    "specialist_sectors": {
+      "options": [
+      {
         "value": {
-          "slug": "immigration-operational-guidance/asylum-policy",
-          "link": "/immigration-operational-guidance/asylum-policy",
-          "title": "Asylum policy",
-          "parent_title": "Immigration operational guidance",
-          "examples": [{
-            "link": "/a-document-about-asylum-policy",
-            "title": "A document about asylum policy"
-          }]
-        }
+          "title": "Waste",
+          "slug": "environmental-management/waste",
+          "example_info": {
+            "total": 49,
+            "examples": [
+            {
+              "title": "Register as a waste carrier, broker or dealer (England)",
+              "link": "/waste-carrier-or-broker-registration"
+            },
+            {
+              "title": "Hazardous waste producer registration (England and Wales)",
+              "link": "/hazardous-waste-producer-registration"
+            },
+            {
+              "title": "Check if you need an environmental permit",
+              "link": "/environmental-permit-check-if-you-need-one"
+            },
+            {
+              "title": "Classify different types of waste",
+              "link": "/how-to-classify-different-types-of-waste"
+            }
+            ]
+          }
+        },
+        "documents": 47
       },
       {
-        "documents": 4,
         "value": {
-          "slug": "oil-and-gas/licensing",
-          "link": "/oil-and-gas/licensing",
-          "title": "Licensing",
-          "parent_title": "Oil and gas",
-          "examples": []
-        }
+          "title": "Environmental permits",
+          "slug": "environmental-management/environmental-permits",
+          "example_info": {
+            "total": 47,
+            "examples": [
+            {
+              "title": "Check if you need an environmental permit",
+              "link": "/environmental-permit-check-if-you-need-one"
+            },
+            {
+              "title": "Environmental permit: how to apply",
+              "link": "/environmental-permit-how-to-apply"
+            },
+            {
+              "title": "Standard rules: environmental permitting",
+              "link": "/government/collections/standard-rules-environmental-permitting"
+            },
+            {
+              "title": "Environmental permitting (EP) charges scheme: April 2014 to March 2015",
+              "link": "/government/publications/environmental-permitting-ep-charges-scheme-april-2014-to-march-2015"
+            }
+            ]
+          }
+        },
+        "documents": 47
       }
-      ]
+      ],
+        "documents_with_no_value": 2900,
+        "total_options": 17,
+        "missing_options": 0
     }
-  }
+  },
+  "suggested_queries": [ ]
 }
