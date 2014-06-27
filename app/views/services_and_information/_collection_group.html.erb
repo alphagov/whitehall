@@ -1,0 +1,7 @@
+<h2><%= collection_group.title %></h2>
+<ol>
+  <% collection_group.examples.each_with_index do |example, index| -%>
+  <li><%= link_to collection_group.title_for_example_at(index), collection_group.link_for_example_at(index) %></li>
+  <% end %>
+  <li><%= link_to "+ #{pluralize(collection_group.document_count, "other")}", collection_group.subsector_link %></li>
+</ol>

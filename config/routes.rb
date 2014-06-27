@@ -130,6 +130,8 @@ Whitehall::Application.routes.draw do
       resources :groups, only: [:show]
     end
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
+    get "/organisations/:organisation_id/services_and_information" => 'services_and_information#show',
+      as: :services_and_information
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true

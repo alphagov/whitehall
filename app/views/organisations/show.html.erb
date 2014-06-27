@@ -29,6 +29,8 @@
     </div>
   <% end %>
 
+  <%= link_to "Full list of topics", services_and_information_path(@organisation) %>
+
   <div class="block-2 <%= "has-social" if @organisation.social_media_accounts.any? %>">
     <div class="inner-block">
       <%= render partial: 'featured_items',
