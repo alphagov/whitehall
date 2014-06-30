@@ -34,9 +34,9 @@ class ApplicationHelperTest < ActionView::TestCase
     options = role_appointment_options
 
     assert_equal 3, options.length
-    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, in Ministry of Defence"]
-    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, as Secretary of State (01 January 2010 to 01 January 2011), in Home Office"]
-    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, in Home Office"]
+    assert options.include? ["Philip Hammond, Secretary of State, in Ministry of Defence", philip_hammond_appointment.id]
+    assert options.include? ["Philip Hammond, as Secretary of State (01 January 2010 to 01 January 2011), in Home Office", philip_hammond_home_secretary_appointment.id]
+    assert options.include? ["Theresa May, Secretary of State, in Home Office", theresa_may_appointment.id]
   end
 
   test "should supply options with IDs and descriptions for all the ministerial roles" do
@@ -65,7 +65,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     options = role_appointment_options
     assert_equal 1, options.length
-    assert options.include? [appointment.id, "Joe Bloggs, Role, in Org"]
+    assert options.include? ["Joe Bloggs, Role, in Org", appointment.id]
   end
 
   test '#link_to_attachment returns nil when attachment is nil' do
@@ -225,7 +225,7 @@ class ApplicationHelperTest < ActionView::TestCase
     topic = build(:topic, name: "Topic")
     policy = create(:policy, title: "Policy title", topics: [topic])
     excluded = create(:policy, title: "Excluded", topics: [topic])
-    assert_equal [[policy.id, "Policy title (Topic)"]], related_policy_options_excluding([excluded])
+    assert_equal [["Policy title (Topic)", policy.id]], related_policy_options_excluding([excluded])
   end
 
   test "#policies_for_editions_organisations returns all active policies that map to an organisation the edition is in" do
@@ -241,7 +241,7 @@ class ApplicationHelperTest < ActionView::TestCase
     third_topic = build(:topic, name: "Third topic")
     policy = create(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
     options = related_policy_options
-    assert_equal [[policy.id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
+    assert_equal [["Policy title (First topic, Second topic and Third topic)", policy.id]], related_policy_options
   end
 
   test "skips asset host for image paths if user signed in and image in uploads" do

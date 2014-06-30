@@ -103,10 +103,12 @@ module Admin::EditionsHelper
   end
 
   class EditionFormBuilder < Whitehall::FormBuilder
+    include Admin::FormFieldCachingHelper
+
     def alternative_format_provider_select(alternative_format_required, default_organisation)
       if object.respond_to?(:alternative_format_provider)
         select_options = @template.options_for_select(
-          organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
+          cached_alternative_format_provider_options,
           selected: object.alternative_format_provider_id || default_organisation.try(:id),
           disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
@@ -145,7 +147,7 @@ module Admin::EditionsHelper
     def edition_organisations_fields(edition_organisations, lead = true)
       field_identifier = lead ? 'lead' : 'supporting'
       edition_organisations.map.with_index { |eo, idx|
-        select_options = @template.options_from_collection_for_select(organisations_for_edition_organisations_fields, 'id', 'select_name', eo.organisation_id)
+        select_options = @template.options_for_select(cached_organisation_options, eo.organisation_id)
         @template.label_tag "edition_#{field_identifier}_organisation_ids_#{idx + 1}" do
           [
             "Organisation #{idx + 1}",
@@ -162,7 +164,9 @@ module Admin::EditionsHelper
     end
 
     def organisations_for_edition_organisations_fields
-      @organisations_for_edition_organisations_fields ||= Organisation.with_translations.all
+      Rails.cache.fetch("edition_options/organisations", expires_in: 30.minutes) do
+        Organisation.with_translations.all
+      end
     end
   end
 

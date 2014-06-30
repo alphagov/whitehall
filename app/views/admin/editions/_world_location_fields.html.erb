@@ -5,7 +5,7 @@
 <%= form.label :world_location_ids, "Select the world locations this #{edition.format_name.titleize.downcase} is about", mandatory: world_location_mandatory %>
 
 <%= form.select :world_location_ids,
-                options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', edition.world_location_ids),
+                options_for_select(cached_world_location_options, edition.world_location_ids),
                 { include_blank: true },
                 multiple: true,
                 class: 'chzn-select',
