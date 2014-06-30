@@ -1,5 +1,10 @@
 module Govspeak
   class AdminLinkReplacer
+    ADMIN_EDITION_PATH = %r{/admin/(?:#{Whitehall.edition_route_path_segments.join('|')})/(\d+)$}
+    ADMIN_SUPPORTING_PAGE_PATH  = %r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}
+    ADMIN_ORGANISATION_CIP_PATH = %r{/admin/organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+    ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH = %r{/admin/worldwide_organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+
     def initialize(nokogiri_fragment)
       @nokogiri_fragment = nokogiri_fragment
     end
@@ -15,15 +20,14 @@ module Govspeak
 
     def replacement_html_for_admin_link(anchor, &block)
       case anchor['href']
-      when %r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}
+      when ADMIN_SUPPORTING_PAGE_PATH
         convert_link_for_old_supporting_page(anchor, $1, $2, &block)
-      when %r{/admin/organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+      when ADMIN_ORGANISATION_CIP_PATH
         convert_link_for_corporate_information_page(anchor, $1, $2, &block)
-      when %r{/admin/worldwide_organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+      when ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH
         convert_link_for_worldwide_corporate_information_page(anchor, $1, $2, &block)
-      when %r{/admin/(?:#{edition_path_pattern})/(\d+)$}
+      when ADMIN_EDITION_PATH
         edition = Edition.unscoped.find_by_id($1)
-
         convert_link_for_edition(anchor, edition, &block)
       else
         replace_bad_link(anchor, &block)
@@ -31,10 +35,6 @@ module Govspeak
     end
 
     private
-
-    def edition_path_pattern
-      Whitehall.edition_route_path_segments.join('|')
-    end
 
     def convert_link_for_old_supporting_page(anchor, policy_slug, slug, &block)
       policy = Policy.unscoped.find_by_id(policy_slug)
