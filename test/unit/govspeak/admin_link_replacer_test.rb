@@ -38,10 +38,10 @@ module Govspeak
     end
 
     test 'rewrites admin links to published corporate information pages' do
-      cip = create(:published_corporate_information_page)
+      cip        = create(:published_corporate_information_page)
       admin_path = Whitehall.url_maker.polymorphic_path([:admin, cip.organisation, cip])
       public_url = Whitehall.url_maker.public_document_url(cip)
-      fragment = govspeak_to_nokogiri_fragment("Here is a link to an [info page](#{admin_path})")
+      fragment   = govspeak_to_nokogiri_fragment("Here is a link to an [info page](#{admin_path})")
 
       AdminLinkReplacer.new(fragment).replace!
 
@@ -61,7 +61,7 @@ module Govspeak
     end
 
     test 'replaces other types of admin links with plain text' do
-      topic = create(:topic)
+      topic    = create(:topic)
       fragment = govspeak_to_nokogiri_fragment("Here is an [admin link that should not link](/government/admin/topics/#{topic.id})")
 
       AdminLinkReplacer.new(fragment).replace!
@@ -73,7 +73,7 @@ module Govspeak
   private
 
     def govspeak_to_nokogiri_fragment(govspeak)
-      doc        = Nokogiri::HTML::Document.new
+      doc = Nokogiri::HTML::Document.new
       doc.encoding = "UTF-8"
       doc.fragment(Govspeak::Document.new(govspeak).to_html)
     end
