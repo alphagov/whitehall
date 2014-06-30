@@ -2,17 +2,19 @@
   "use strict";
   window.GOVUK = window.GOVUK || {};
 
-  window.GOVUK.smartPoller = function(wait, poller) {
-    var max_wait = 10000000;
+  window.GOVUK.smartPoller = function(wait, polledFunction) {
+    var maxWait = 10000000;
 
-    ( function startPoller() {
-        setTimeout(function() {
-          poller.call(this, startPoller)
-        }, wait);
+    function startPoller() {
+      setTimeout(function() {
+        polledFunction(startPoller)
+      }, wait);
 
-      if ( wait < max_wait ) {
-        wait = wait * 1.5
+      if ( wait < maxWait ) {
+        wait = wait * 1.5;
       };
-    })();
+    }
+
+    startPoller();
   }
 }());
