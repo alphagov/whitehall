@@ -18,34 +18,39 @@
 <%# Commented out as a 'feature flag'. Relates to viewing statistics announcements. %>
 <%#= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
 
+<div class="filtered-index">
+  <div class="block-2 filter-form-block">
+    <div class="inner-block">
+      <% if Locale.current.english? %>
+        <%= render partial: "documents/filter_form",
+                   locals: {
+                     document_type: :publication,
+                     filters: [
+                       :keyword, :date, :publication_type, :locations,
+                       :department, :topic, :official_document_status
+                     ]
+                   } %>
+      <% else %>
+        <%= render partial: "documents/filter_form",
+                   locals: {
+                     document_type: :publication,
+                     filters: [ :locations ]
+                   } %>
+      <% end %>
+    </div>
+  </div>
 
-<% if Locale.current.english? %>
-  <%= render partial: "documents/filter_form",
-             locals: {
-               document_type: :publication,
-               filters: [
-                 :keyword, :date, :publication_type, :locations,
-                 :department, :topic, :official_document_status
-               ]
-             } %>
-<% else %>
-  <%= render partial: "documents/filter_form",
-             locals: {
-               document_type: :publication,
-               filters: [ :locations ]
-             } %>
-<% end %>
-
-<div class="block-4 filter-results-block">
-  <div class="inner-block">
-    <% if Locale.current.english? %>
-      <%= render partial: "documents/filter_results",
-                locals: { filter: @filter,
-                          result_type: "publication" } %>
-    <% end %>
-    <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
-    <div class="filter-results js-filter-results" id="publications-container" aria-live="polite">
-      <%= render_mustache('documents/filter_table', @filter.as_hash) %>
+  <div class="block-4 filter-results-block">
+    <div class="inner-block">
+      <% if Locale.current.english? %>
+        <%= render partial: "documents/filter_results",
+                  locals: { filter: @filter,
+                            result_type: "publication" } %>
+      <% end %>
+      <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
+      <div class="filter-results js-filter-results" id="publications-container" aria-live="polite">
+        <%= render_mustache('documents/filter_table', @filter.as_hash) %>
+      </div>
     </div>
   </div>
 </div>

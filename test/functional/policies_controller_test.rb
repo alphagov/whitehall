@@ -30,7 +30,7 @@ class PoliciesControllerTest < ActionController::TestCase
     get :index, locale: 'fr'
 
     assert_select '.filter', count: 1
-    assert_select '#filter-submit'
+    assert_select '.filter .submit'
   end
 
   view_test "index for non-english locales skips results summary" do
