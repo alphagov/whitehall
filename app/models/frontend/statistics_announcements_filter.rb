@@ -82,7 +82,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def result_count
-    results.count
+    results.total
   end
 
   def next_page_params

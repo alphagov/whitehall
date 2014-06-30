@@ -77,7 +77,9 @@ When(/^I click on the first statistics announcement$/) do
 end
 
 Then(/^I can see the first page of all the statistics announcements$/) do
-
+  within '.filter-results-summary' do
+    assert page.has_content? "43 release announcements"
+  end
   assert page.has_content? "Womble to Wombat population ratios"
   assert page.has_content? "2055 beard lengths"
   assert page.has_content? "Wombat population in Wimbledon Common 2063"
