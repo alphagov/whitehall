@@ -44,7 +44,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           params = $form.serializeArray();
 
       $submitButton.addClass('disabled');
-      $(".filter-results-summary").find('.selections').text("Loading results…");
+      $(".filter-results-summary").text("Loading results…");
       $(".feeds").addClass('js-hidden');
       documentFilter.loading = true;
       // TODO: make a spinny updating thing
@@ -78,14 +78,14 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       return url.replace(reg, '&')
     },
     liveResultSummary: function(data){
-      var $selections = $('.selections'),
+      var $filterSummary = $('.filter-results-summary'),
           $title = $('.headings-block h1'),
           summary = '',
           formStatus = documentFilter.currentPageState(),
           context = {},
           i, _i, j, _j, field;
 
-      $selections.html('');
+      $filterSummary.html('');
       $title.find('span').remove();
 
       if (!data.result_type) {
@@ -181,7 +181,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
         }
       }
 
-      $selections.mustache('documents/_filter_selections', context);
+      $filterSummary.mustache('documents/_filter_selections', context);
     },
     removeFilters: function(field, removed){
       var selects = ['topics', 'departments', 'world_locations', 'official_document_status'],
@@ -306,8 +306,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           documentFilter.removeFilters($(this).data('field'), $(this).data("val"));
         });
 
-        $(".submit").addClass("js-hidden");
-
+        $form.find("input[type=submit]").addClass("js-hidden");
       }
     });
     return this;

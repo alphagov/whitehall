@@ -256,7 +256,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test 'index for non-english locales only allows filtering by world location' do
     get :index, locale: 'fr'
 
-    assert_select '.filter', count: 2
+    assert_select '.filter', count: 1
     assert_select "select#world_locations"
   end
 

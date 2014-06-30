@@ -19,7 +19,7 @@
 <%#= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
 
 <div class="filtered-index">
-  <div class="block-2 filter-form-block">
+  <div class="filter-form-block">
     <div class="inner-block">
       <% if Locale.current.english? %>
         <%= render partial: "documents/filter_form",
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="block-4 filter-results-block">
+  <div class="filter-results-block">
     <div class="inner-block">
       <% if Locale.current.english? %>
         <%= render partial: "documents/filter_results",
@@ -48,7 +48,7 @@
                             result_type: "publication" } %>
       <% end %>
       <%= render 'shared/feeds', atom_url: filter_atom_feed_url %>
-      <div class="filter-results js-filter-results" id="publications-container" aria-live="polite">
+      <div class="filter-results js-filter-results" aria-live="polite">
         <%= render_mustache('documents/filter_table', @filter.as_hash) %>
       </div>
     </div>

@@ -11,7 +11,7 @@
 </header>
 
 <div class="filtered-index">
-  <div class="block-2 filter-form-block">
+  <div class="filter-form-block">
     <div class="inner-block">
       <% if Locale.current.english? %>
         <%= render partial: "documents/filter_form",
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="block-4 filter-results-block">
+  <div class="filter-results-block">
     <div class="inner-block">
       <% if Locale.current.english? %>
         <%= render partial: "documents/filter_results",

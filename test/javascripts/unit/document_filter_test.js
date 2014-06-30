@@ -25,10 +25,8 @@ module("Document filter", {
     this.feedLinks = $('<div class="feeds"><a class="feed">feed</a> <a class="govdelivery">email</a></div>');
     $('#qunit-fixture').append(this.feedLinks);
 
-    this.resultsCount = $('<div class="filter-results-summary"><h3 class="selections"></h3></div>');
-    $('#qunit-fixture').append(this.resultsCount);
-
-    this.selections = this.resultsCount.find('.selections');
+    this.resultsSummary = $('<div class="filter-results-summary"></div>');
+    $('#qunit-fixture').append(this.resultsSummary);
 
     this.ajaxData = {
       "next_page?": true,
@@ -308,7 +306,7 @@ test("should create live count value", function(){
   var data = { total_count: 1337 };
 
   window.GOVUK.documentFilter.liveResultSummary(data);
-  ok(this.resultsCount.text().indexOf('1,337 results') > -1, 'should display 1,337 results');
+  ok(this.resultsSummary.text().indexOf('1,337 results') > -1, 'should display 1,337 results');
 });
 
 test("should update selections to match filters", function(){
@@ -342,21 +340,21 @@ test("should update selections to match filters", function(){
 
   window.GOVUK.documentFilter.liveResultSummary(data, formStatus);
 
-  ok(this.selections.find('.topics-selections strong').text().indexOf('my-title') > -1);
-  equals(this.selections.find('.topics-selections a').attr('data-val'), 'my-value');
-  equals(this.selections.text().match(/after.from-date/).length, 1, 'not from my-date');
-  equals(this.selections.text().match(/before.to-date/).length, 1, 'not to my-date');
+  ok(this.resultsSummary.find('.topics-selections strong').text().indexOf('my-title') > -1);
+  equals(this.resultsSummary.find('.topics-selections a').attr('data-val'), 'my-value');
+  equals(this.resultsSummary.text().match(/after.from-date/).length, 1, 'not from my-date');
+  equals(this.resultsSummary.text().match(/before.to-date/).length, 1, 'not to my-date');
   stub.restore();
 });
 
 test("should request removal from document filters", function(){
-  this.selections.append('<a href="#" data-field="topics" data-val="something">hello</a>');
+  this.resultsSummary.append('<a href="#" data-field="topics" data-val="something">hello</a>');
 
   var stub = sinon.stub(GOVUK.documentFilter, "removeFilters");
 
   this.filterForm.enableDocumentFilter();
 
-  this.selections.find('a').click();
+  this.resultsSummary.find('a').click();
 
   if(stub.getCall(0)){
     equal(stub.getCall(0).args[0], 'topics')

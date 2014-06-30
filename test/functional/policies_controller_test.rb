@@ -29,8 +29,7 @@ class PoliciesControllerTest < ActionController::TestCase
   view_test "index for non-english locales does not yet allow any filtering" do
     get :index, locale: 'fr'
 
-    assert_select '.filter', count: 1
-    assert_select '.filter .submit'
+    refute_select '.filter'
   end
 
   view_test "index for non-english locales skips results summary" do
