@@ -15,6 +15,7 @@
     </section>
   <% elsif links_report.broken_links? %>
     <section class='alert'>
+      <h3>Broken links</h3>
       <p>We’ve found links in this document that may be broken:</p>
       <ul>
         <% links_report.broken_links.each do |link| %>
