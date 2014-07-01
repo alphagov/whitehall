@@ -54,6 +54,8 @@
       </section>
     <% end %>
 
+    <%= render 'admin/links_reports/links_report', links_report: (@edition.links_reports.last || @edition.links_reports.build) %>
+
     <%= render partial: "history_state", locals: { edition: @edition } %>
     <% if @edition.imported? %>
       <%= render partial: 'speed_tagging' %>

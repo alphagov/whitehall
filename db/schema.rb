@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140522090319) do
+ActiveRecord::Schema.define(:version => 20140603142455) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -722,6 +722,19 @@ ActiveRecord::Schema.define(:version => 20140522090319) do
     t.datetime "import_enqueued_at"
     t.integer  "organisation_id"
   end
+
+  create_table "links_reports", :force => true do |t|
+    t.text     "links"
+    t.text     "broken_links"
+    t.string   "status"
+    t.string   "link_reportable_type"
+    t.integer  "link_reportable_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "links_reports", ["link_reportable_id", "link_reportable_type"], :name => "link_reportable_index"
 
   create_table "mainstream_categories", :force => true do |t|
     t.string   "slug"
