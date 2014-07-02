@@ -19,26 +19,18 @@
 <%#= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
 
 <div class="filtered-index">
-  <div class="filter-form-block">
-    <div class="inner-block">
-      <% if Locale.current.english? %>
-        <%= render partial: "documents/filter_form",
-                   locals: {
-                     document_type: :publication,
-                     filters: [
-                       :keyword, :date, :publication_type, :locations,
-                       :department, :topic, :official_document_status
-                     ]
-                   } %>
-      <% else %>
-        <%= render partial: "documents/filter_form",
-                   locals: {
-                     document_type: :publication,
-                     filters: [ :locations ]
-                   } %>
-      <% end %>
-    </div>
-  </div>
+  <%= render partial: "documents/filter_form",
+             locals: {
+               document_type: :publication,
+               filters: if Locale.current.english?
+                          [
+                            :keyword, :date, :publication_type, :locations,
+                            :department, :topic, :official_document_status
+                          ]
+                        else
+                          [ :locations ]
+                        end
+             } %>
 
   <div class="filter-results-block">
     <div class="inner-block">

@@ -11,19 +11,15 @@
 </header>
 
 <div class="filtered-index">
-  <div class="filter-form-block">
-    <div class="inner-block">
-      <% if Locale.current.english? %>
-        <%= render partial: "documents/filter_form",
-                   locals: {
-                     document_type: :policy,
-                     filters: [ :keyword, :department, :topic, :relevant_to_local_government ]
-                   } %>
-      <% else %>
-        <%= render partial: "documents/filter_form", locals: { document_type: :policy } %>
-      <% end %>
-    </div>
-  </div>
+  <%= render partial: "documents/filter_form",
+             locals: {
+               document_type: :policy,
+               filters: if Locale.current.english?
+                          [ :keyword, :department, :topic, :relevant_to_local_government ]
+                        else
+                          []
+                        end
+             } %>
 
   <div class="filter-results-block">
     <div class="inner-block">
