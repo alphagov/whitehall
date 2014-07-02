@@ -39,7 +39,6 @@ gem 'invalid_utf8_rejector', '~> 0.0.1'
 gem 'sidekiq', '2.17.7'
 gem 'raindrops', '0.11.0'
 gem 'airbrake', '3.1.15'
-gem 'bad_link_finder', '0.3.3'
 gem 'pdf-reader', '1.3.3'
 gem 'typhoeus', '0.6.8'
 
