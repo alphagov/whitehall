@@ -24,6 +24,21 @@ class LinkCheckerTest < ActiveSupport::TestCase
     assert_same_elements [not_found], checker.broken_links
   end
 
+  test 'authed domains are requested with authentication' do
+    begin
+      current_authed_domains = LinksChecker.authed_domains
+      LinksChecker.authed_domains = { 'www.requires-auth.com' => 'user:password' }
+      stub_request(:get, 'user:password@www.requires-auth.com/authed_page').to_return(status: 400)
+
+      checker   = LinksChecker.new(['http://www.requires-auth.com/authed_page'], NullLogger.instance)
+      checker.run
+
+      assert_same_elements ['http://www.requires-auth.com/authed_page'], checker.broken_links
+    ensure
+      LinksChecker.authed_domains = current_authed_domains
+    end
+  end
+
 private
 
   def stub_link_check(url, code)
@@ -31,22 +46,22 @@ private
   end
 
   def not_found
-    'www.example.com/not_found'
+    'http://www.example.com/not_found'
   end
 
   def gone
-    'www.example.com/gone'
+    'http://www.example.com/gone'
    end
 
   def success
-    'www.example.com/success'
+    'http://www.example.com/success'
   end
 
   def success_2
-    'www.example.com/another_success'
+    'http://www.example.com/another_success'
   end
 
   def failure
-    'www.example.com/failure'
+    'http://www.example.com/failure'
   end
 end
