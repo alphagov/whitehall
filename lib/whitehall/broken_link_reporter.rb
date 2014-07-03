@@ -70,10 +70,10 @@ module Whitehall
       end
 
       def lead_organisation
-        if edition.lead_organisations.any?
-          edition.lead_organisations.first
-        else
+        if edition.respond_to?(:worldwide_organisations)
           edition.worldwide_organisations.first
+        else
+          edition.lead_organisations.first || edition.organisations.first
         end
       end
 
