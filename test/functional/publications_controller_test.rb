@@ -306,9 +306,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index for non-english locales only allows filtering by world location' do
     get :index, locale: 'fr'
 
-    assert_select '.filter', count: 2
-    assert_select '#location-filter'
-    assert_select '#filter-submit'
+    assert_select '.filter', count: 1
+    assert_select '.filter #world_locations'
   end
 
   view_test '#index for non-english locales skips results summary' do

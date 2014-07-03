@@ -141,7 +141,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       get :index
     end
 
-    assert_documents_appear_in_order_within("#announcements-container", news + speeches[0..0])
+    assert_documents_appear_in_order_within(".filter-results", news + speeches[0..0])
     (speeches[1..2]).each do |speech|
       refute_select_object(speech)
     end
@@ -155,7 +155,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
       get :index, page: 2
     end
 
-    assert_documents_appear_in_order_within("#announcements-container", speeches[1..2])
+    assert_documents_appear_in_order_within(".filter-results", speeches[1..2])
     (news + speeches[0..0]).each do |speech|
       refute_select_object(speech)
     end
@@ -256,9 +256,8 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test 'index for non-english locales only allows filtering by world location' do
     get :index, locale: 'fr'
 
-    assert_select '.filter', count: 2
-    assert_select '#location-filter'
-    assert_select '#filter-submit'
+    assert_select '.filter', count: 1
+    assert_select "select#world_locations"
   end
 
   view_test 'index for non-english locales skips results summary' do
