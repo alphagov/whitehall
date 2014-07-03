@@ -48,6 +48,7 @@
   @import "helpers/_announcements.scss";
   @import "helpers/_archive-notice.scss";
   @import "helpers/_attachment.scss";
+  @import "helpers/_available_languages.scss";
   @import "helpers/_beta-notice.scss";
   @import "helpers/_browse.scss";
   @import "helpers/_change-notes.scss";
@@ -137,6 +138,7 @@
   @import "views/_worldwide_priorities.scss";
   @import "views/_take-part-pages.scss";
   @import "views/_topical-events.scss";
+  @import "views/corporate_information_pages/show.scss";
   @import "views/organisations/_transition_state_visualisation.scss";
   @import "views/statistics_announcements/index.scss";
   @import "views/statistics_announcements/show.scss";

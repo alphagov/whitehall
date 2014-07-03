@@ -11,12 +11,10 @@
     </div>
     <div class="block-2">
       <div class="inner-block">
+        <%= render 'shared/available_languages', object: @corporate_information_page %>
         <%= content_tag :p, class: 'homepage-link' do %>
           <%= link_to "#{@organisation.name} homepage", organisation_path(@organisation) %>
         <% end %>
-        <aside class="organisation-top-tasks">
-          <%= render 'shared/available_languages', object: @corporate_information_page %>
-        </aside>
         <h1 class="main"><%= @corporate_information_page.title %></h1>
         <p class="description">
           <%= @corporate_information_page.summary %>
