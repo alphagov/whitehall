@@ -61,6 +61,30 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
   end
 
 
+  test 'does not blow up if a document does not have any organisations' do
+    stub_request(:any, 'https://www.gov.uk/good-link').to_return(status: 200)
+    stub_request(:any, 'https://www.gov.uk/missing-link').to_return(status: 404)
+
+    speech = create(:published_speech,
+                    person_override: "The Queen",
+                    body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)",
+                    role_appointment: nil,
+                    create_default_organisation: false)
+
+    Dir.mkdir(reports_dir) unless File.directory?(reports_dir)
+    Whitehall::BrokenLinkReporter.new(reports_dir.to_s, NullLogger.instance).generate_reports
+
+    csv = CSV.read(reports_dir.join('no-organisation_broken_links.csv'))
+    assert_equal 2, csv.size
+    assert_equal ['page', 'admin link', 'format', 'broken link count', 'broken links'], csv[0]
+    assert_equal [ "https://www.gov.uk#{Whitehall.url_maker.speech_path(speech.slug)}",
+                   "https://whitehall-admin.production.alphagov.co.uk#{Whitehall.url_maker.admin_speech_path(speech)}",
+                   'Speech',
+                   '1',
+                   'https://www.gov.uk/missing-link'], csv[1]
+
+  end
+
 private
 
   def reports_dir

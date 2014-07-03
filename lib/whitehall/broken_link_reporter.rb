@@ -39,11 +39,12 @@ module Whitehall
     end
 
     def csv_for_organisation(organisation)
-        csv_reports[organisation.slug] ||= CsvReport.new(csv_report_path(organisation))
+      slug = organisation.try(:slug) || 'no-organisation'
+      csv_reports[slug] ||= CsvReport.new(csv_report_path(slug))
     end
 
-    def csv_report_path(organisation)
-      Pathname.new(@csv_reports_dir).join("#{organisation.slug}_broken_links.csv")
+    def csv_report_path(file_prefix)
+      Pathname.new(@csv_reports_dir).join("#{file_prefix}_broken_links.csv")
     end
 
     def close_reports
