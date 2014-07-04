@@ -540,6 +540,21 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test '#index atom feed should render fractions' do
+    publication = create(:published_publication, body: "My favourite fraction is [Fraction:1/4].")
+
+    get :index, format: :atom
+
+    assert_select_atom_feed do
+      assert_select 'feed > entry' do
+        assert_select "content" do |content|
+          assert content[0].to_s.include?("1_4.png"), "publication body should render fractions"
+          assert content[0].to_s.include?("alt=\"1/4\""), "publication body should render fraction alt text"
+        end
+      end
+    end
+  end
+
   view_test '#index should show relevant document collection information' do
     editor = create(:departmental_editor)
     publication = create(:draft_publication)
