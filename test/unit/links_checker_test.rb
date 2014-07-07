@@ -9,7 +9,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
     stub_link_check(failure, 500)
   end
 
-  test "returns bad links" do
+  test "returns broken links" do
     checker   = LinksChecker.new([not_found, gone, success, success_2, failure], NullLogger.instance)
     broken_links = [not_found, gone, failure]
     checker.run
@@ -17,7 +17,7 @@ class LinkCheckerTest < ActiveSupport::TestCase
     assert_same_elements broken_links, checker.broken_links
   end
 
-  test 'bad links are only reported once' do
+  test 'broken links are only reported once' do
     checker   = LinksChecker.new([not_found, not_found, success], NullLogger.instance)
     checker.run
 
@@ -37,6 +37,15 @@ class LinkCheckerTest < ActiveSupport::TestCase
     ensure
       LinksChecker.authed_domains = current_authed_domains
     end
+  end
+
+  test 'bad URIs do not cause link checker to fall over' do
+    bad_link = 'http://wales.gov.uk/?lang=en}'
+    stub_link_check(bad_link, 500)
+    checker   = LinksChecker.new([bad_link], NullLogger.instance)
+    checker.run
+
+    assert_equal [bad_link], checker.broken_links
   end
 
 private

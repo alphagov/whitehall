@@ -43,6 +43,8 @@ private
     else
       default_options
     end
+  rescue URI::InvalidURIError
+    default_options
   end
 
   def userpwd_for(host)
