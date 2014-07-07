@@ -3,7 +3,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address] => [:environm
   begin
     reports_dir     = args[:reports_dir]
     email_address   = args[:email_address]
-    report_zip_name = 'broken_link_reports.zip'
+    report_zip_name = "broken-link-reports-#{Date.today.strftime}.zip"
     report_zip_path = Pathname.new(reports_dir).join(report_zip_name)
     logger          = Logger.new(Rails.root.join('log/broken_link_reporting.log'))
 
