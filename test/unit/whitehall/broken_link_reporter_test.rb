@@ -17,36 +17,36 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
         checker.admin_url
     end
 
-    test '#lead_organisation returns the lead organisation of the document' do
+    test '#organisation returns the lead organisation of the document' do
       organisation   = create(:organisation)
       detailed_guide = create(:detailed_guide, lead_organisations: [organisation])
       checker        = Whitehall::BrokenLinkReporter::EditionChecker.new(detailed_guide)
 
-      assert_equal organisation, checker.lead_organisation
+      assert_equal organisation, checker.organisation
     end
 
-    test '#lead_organisation returns a worldwide organisation for documents that have them' do
+    test '#organisation returns a worldwide organisation for documents that have them' do
       worldwide_organisation = create(:worldwide_organisation)
       world_news_article     = create(:world_location_news_article, worldwide_organisations: [worldwide_organisation])
       checker                = Whitehall::BrokenLinkReporter::EditionChecker.new(world_news_article)
 
-      assert_equal worldwide_organisation, checker.lead_organisation
+      assert_equal worldwide_organisation, checker.organisation
     end
 
-    test '#lead_organisation returns the first organisation for documents that do not have any lead organisations' do
+    test '#organisation returns the first organisation for documents that do not have any lead organisations' do
       speech = create(:speech, person_override: "The Queen", role_appointment: nil, create_default_organisation: false)
       organisation = create(:organisation)
       speech.organisations << organisation
       checker = Whitehall::BrokenLinkReporter::EditionChecker.new(speech)
 
-      assert_equal organisation, checker.lead_organisation
+      assert_equal organisation, checker.organisation
     end
 
-    test '#lead_organisation returns the first organisation for a supporting page' do
+    test '#organisation returns the first organisation for a supporting page' do
       supporting_page = create(:supporting_page)
       checker = Whitehall::BrokenLinkReporter::EditionChecker.new(supporting_page)
 
-      assert_equal supporting_page.organisations.first, checker.lead_organisation
+      assert_equal supporting_page.organisations.first, checker.organisation
     end
 
     test '#check_links creates and runs a LinksReport for the edition' do

@@ -17,7 +17,7 @@ module Whitehall
         checker.check_links
 
         if checker.broken_links.any?
-          csv_for_organisation(checker.lead_organisation) << csv_row_for(checker)
+          csv_for_organisation(checker.organisation) << csv_row_for(checker)
         end
       end
 
@@ -70,7 +70,7 @@ module Whitehall
         edition.type
       end
 
-      def lead_organisation
+      def organisation
         if edition.respond_to?(:worldwide_organisations)
           edition.worldwide_organisations.first
         elsif edition.is_a?(SupportingPage)
