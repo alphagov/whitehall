@@ -73,6 +73,8 @@ module Whitehall
       def lead_organisation
         if edition.respond_to?(:worldwide_organisations)
           edition.worldwide_organisations.first
+        elsif edition.is_a?(SupportingPage)
+          edition.organisations.first
         else
           edition.lead_organisations.first || edition.organisations.first
         end
