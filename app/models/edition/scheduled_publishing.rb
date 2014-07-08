@@ -17,20 +17,6 @@ module Edition::ScheduledPublishing
     end
   end
 
-  def reason_to_prevent_scheduling
-    if !valid?
-      "This edition is invalid. Edit the edition to fix validation problems"
-    elsif scheduled?
-      "This edition is already scheduled for publication"
-    elsif !can_schedule?
-      "This edition has been #{current_state}"
-    elsif scheduled_publication.blank?
-      "This edition does not have a scheduled publication date set"
-    elsif DataHygiene::GovspeakLinkValidator.new(body).errors.any?
-      "This edition contains bad links"
-    end
-  end
-
   def reason_to_prevent_force_scheduling
     if !valid?
       "This edition is invalid. Edit the edition to fix validation problems"
@@ -42,15 +28,6 @@ module Edition::ScheduledPublishing
       "This edition does not have a scheduled publication date set"
     elsif DataHygiene::GovspeakLinkValidator.new(body).errors.any?
       "This edition contains bad links"
-    end
-  end
-
-  def perform_schedule
-    if reason = reason_to_prevent_scheduling
-      errors.add(:base, reason)
-      false
-    else
-      schedule!
     end
   end
 

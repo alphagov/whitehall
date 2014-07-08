@@ -27,6 +27,17 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, publisher.notifier
   end
 
+  test "prepares an EditionScheduler with it's notifier" do
+    edition = stub(:edition)
+    options = { one: 1, two: 2 }
+    scheduler = @service_coordinator.scheduler(edition, options)
+
+    assert scheduler.is_a?(EditionScheduler)
+    assert_equal edition, scheduler.edition
+    assert_equal options, scheduler.options
+    assert_equal @service_coordinator, scheduler.notifier
+  end
+
   test "prepares an EditionUnpublisher with it's notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }

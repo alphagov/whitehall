@@ -53,48 +53,17 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
-  test "is not schedulable if already scheduled" do
-    edition = build(:scheduled_edition, scheduled_publication: 1.day.from_now)
-    assert_equal "This edition is already scheduled for publication", edition.reason_to_prevent_scheduling
-  end
-
-  test "is not schedulable if the edition is invalid" do
-    edition = build(:submitted_edition, scheduled_publication: 1.day.from_now, title: nil)
-    assert_equal "This edition is invalid. Edit the edition to fix validation problems", edition.reason_to_prevent_scheduling
-  end
-
-  test "is schedulable if submitted with a scheduled_publication date" do
-    edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
-    assert_nil edition.reason_to_prevent_scheduling
-  end
-
-  test "#reason_to_prevent_scheduling reports bad links in the edition" do
-    edition = build(:edition, :submitted, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
-    assert_equal "This edition contains bad links", edition.reason_to_prevent_scheduling
-  end
-
   test "#reason_to_prevent_force_scheduling reports bad links in the edition" do
     edition = build(:edition, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
     assert_equal "This edition contains bad links", edition.reason_to_prevent_force_scheduling
   end
 
-  test "scheduling returns true and marks edition as scheduled" do
-    edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
-    assert edition.perform_schedule
-    assert edition.reload.scheduled?
-  end
 
   test "force scheduling returns true, marks edition as scheduled and sets forced flag" do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
     assert edition.perform_force_schedule
     assert edition.reload.scheduled?
     assert edition.force_published
-  end
-
-  test "scheduling returns false and adds reason for failure if can't be scheduled" do
-    edition = build(:imported_edition)
-    refute edition.perform_schedule
-    assert_equal ['This edition has been imported'], edition.errors.full_messages
   end
 
   test "is unschedulable only if scheduled" do

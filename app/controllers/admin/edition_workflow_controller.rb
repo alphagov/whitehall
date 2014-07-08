@@ -100,10 +100,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    if @edition.perform_schedule
+    edition_scheduler = Whitehall.edition_services.scheduler(@edition)
+    if edition_scheduler.perform!
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: edition_scheduler.failure_reason
     end
   end
 
