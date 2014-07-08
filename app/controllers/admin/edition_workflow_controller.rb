@@ -30,7 +30,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
       enforce_permission!(:update, @edition)
     when 'reject'
       enforce_permission!(:reject, @edition)
-    when 'publish', 'schedule'
+    when 'publish', 'schedule', 'force_schedule'
       if params[:force].present?
         enforce_permission!(:force_publish, @edition)
       else
@@ -100,8 +100,16 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    if (params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule)
+    if @edition.perform_schedule
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
+    else
+      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+    end
+  end
+
+  def force_schedule
+    if @edition.perform_force_schedule
+      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been force scheduled for publication"
     else
       redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
     end
