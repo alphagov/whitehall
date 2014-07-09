@@ -16,16 +16,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
     end
   end
 
-  test 'can force scheduled a draft edition' do
-    edition = create(:draft_edition, scheduled_publication: 1.day.from_now)
-    assert edition.perform_force_schedule
-  end
-
-  test 'can force schedule a submitted edition' do
-    edition = create(:draft_edition, scheduled_publication: 1.day.from_now)
-    assert edition.perform_force_schedule
-  end
-
   test "scheduled_publication can be in the past when rejecting" do
     edition = create(:edition, :submitted, scheduled_publication: Whitehall.default_cache_max_age.from_now)
     Timecop.freeze(Whitehall.default_cache_max_age.from_now + 1.minute) do
@@ -51,19 +41,6 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
       edition.scheduled_publication = Whitehall.default_cache_max_age.from_now
       assert edition.valid?
     end
-  end
-
-  test "#reason_to_prevent_force_scheduling reports bad links in the edition" do
-    edition = build(:edition, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
-    assert_equal "This edition contains bad links", edition.reason_to_prevent_force_scheduling
-  end
-
-
-  test "force scheduling returns true, marks edition as scheduled and sets forced flag" do
-    edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
-    assert edition.perform_force_schedule
-    assert edition.reload.scheduled?
-    assert edition.force_published
   end
 
   test "is unschedulable only if scheduled" do
@@ -105,8 +82,7 @@ class Edition::ScheduledPublishingTest < ActiveSupport::TestCase
   end
 
   test ".scheduled_for_publication_as returns edition if edition is scheduled" do
-    edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
-    assert edition.perform_force_schedule
+    edition = create(:scheduled_publication, scheduled_publication: 1.day.from_now)
     assert_equal edition, Publication.scheduled_for_publication_as(edition.document.to_param)
   end
 

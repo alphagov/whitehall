@@ -109,10 +109,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def force_schedule
-    if @edition.perform_force_schedule
+    force_scheduler = Whitehall.edition_services.force_scheduler(@edition)
+    if force_scheduler.perform!
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been force scheduled for publication"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: force_scheduler.failure_reason
     end
   end
 

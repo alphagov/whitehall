@@ -106,9 +106,8 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test "should return scheduled edition" do
-    publication = create(:draft_publication, scheduled_publication: 1.day.from_now)
-    publication.perform_force_schedule
-    document = publication.document.reload
+    publication = create(:scheduled_publication, scheduled_publication: 1.day.from_now)
+    document = publication.document
 
     assert_equal publication, document.scheduled_edition
   end

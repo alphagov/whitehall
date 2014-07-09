@@ -272,7 +272,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#scheduled_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { publication.perform_force_schedule }
+    acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
     assert_equal editor, publication.scheduled_by
   end
 
@@ -281,7 +281,7 @@ class EditionTest < ActiveSupport::TestCase
     robot = create(:scheduled_publishing_robot)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
     stub_panopticon_registration(publication)
-    acting_as(editor) { publication.perform_force_schedule }
+    acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
     Timecop.freeze publication.scheduled_publication do
       acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
       acting_as(editor) do

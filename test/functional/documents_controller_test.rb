@@ -40,9 +40,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   view_test "show responds with 'Coming soon' page and shorter cache control 'max-age' if document is scheduled for publication" do
-    login_as(:departmental_editor)
-    edition = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    edition.perform_force_schedule
+    edition = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: edition.document
@@ -55,14 +53,13 @@ class DocumentsControllerTest < ActionController::TestCase
 
   view_test "show responds with shorter cache control 'max-age' if document is scheduled for publication" do
     user = login_as(:departmental_editor)
-
     edition = create(:published_publication)
     new_draft = edition.create_draft(user)
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
     new_draft.save_as(user)
     new_draft.scheduled_publication = Time.zone.now + Whitehall.default_cache_max_age * 2
-    new_draft.perform_force_schedule
+    EditionForceScheduler.new(new_draft).perform!
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: new_draft.document
@@ -73,9 +70,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   view_test "show responds with 'Coming soon' page and default cache control 'max-age' if document is scheduled for publication far in the future" do
-    login_as(:departmental_editor)
-    edition = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 10)
-    edition.perform_force_schedule
+    edition = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 10)
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: edition.document

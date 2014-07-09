@@ -70,16 +70,14 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   def self.sets_cache_control_max_age_to_time_of_next_scheduled(edition_type)
     test "#show sets Cache-Control: max-age to the time of the next scheduled #{edition_type}" do
-      user = login_as(:departmental_editor)
       organisation = create(:ministerial_department)
       edition = if block_given?
         yield organisation
       else
-        create(edition_type, :draft,
+        create(edition_type, :scheduled,
           scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2,
           organisations: [organisation])
       end
-      assert edition.perform_force_schedule
 
       Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
         get :show, id: organisation
