@@ -2,11 +2,17 @@ require 'test_helper'
 
 class EditionSchedulerTest < ActiveSupport::TestCase
 
-  test '#perform! with a valid (submitted) schedulable edition transitions the edition' do
+  test '#perform! with a valid (submitted) schedulable edition transitions the edition and queues a publish job' do
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now)
 
-    assert EditionScheduler.new(edition).perform!
-    assert edition.scheduled?
+    Sidekiq::Testing.fake! do
+      assert EditionScheduler.new(edition).perform!
+      assert edition.scheduled?
+
+      assert job = ScheduledPublishingWorker.jobs.last
+      assert_equal edition.id, job["args"].first
+      assert_equal edition.scheduled_publication.to_i, job["at"].to_i
+    end
   end
 
   %w(published draft imported rejected superseded scheduled).each do |state|
