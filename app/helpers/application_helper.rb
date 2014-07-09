@@ -247,6 +247,8 @@ module ApplicationHelper
       announcements_path
     when "topics", "classifications", "topical_events", "about_pages"
       topics_path
+    when "statistics", "statistics_announcements"
+      statistics_path
     when "publications", "statistical_data_sets"
       if parameters[:publication_filter_option] == 'consultations'
         publications_path(publication_filter_option: 'consultations')
@@ -257,8 +259,6 @@ module ApplicationHelper
       else
         publications_path
       end
-    when "statistics_announcements"
-      publications_path(publication_filter_option: 'statistics')
     when "consultations", "consultation_responses"
       publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"

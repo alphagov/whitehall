@@ -88,13 +88,12 @@ Whitehall::Application.routes.draw do
     resources :publications, only: [:index, :show], localised: true
     get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
-    resources :statistics, only: [:index, :show], localised: true
-
     resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
     resources :speeches, only: [:show], localised: true
     resources :statistical_data_sets, path: 'statistical-data-sets', only: [:index, :show]
     get "/speeches" => redirect("/announcements")
     resources :statistics_announcements, path: 'statistics/announcements', only: [:index, :show]
+    resources :statistics, only: [:index, :show], localised: true
     resources :world_location_news_articles, path: 'world-location-news', only: [:index, :show], localised: true
 
     resources :worldwide_priorities, path: "priority", only: [:index, :show], localised: true do
