@@ -118,10 +118,11 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def unschedule
-    if @edition.unschedule_as(current_user)
+    unscheduler = Whitehall.edition_services.unscheduler(@edition)
+    if unscheduler.perform!
       redirect_to admin_editions_path(state: :submitted), notice: "The document #{@edition.title} has been unscheduled"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: unscheduler.failure_reason
     end
   end
 

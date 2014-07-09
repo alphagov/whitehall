@@ -12,18 +12,4 @@ module Edition::ScheduledPublishing
       document && document.scheduled_edition
     end
   end
-
-  def reason_to_prevent_unscheduling
-    "This edition is not scheduled for publication" if !scheduled?
-  end
-
-  def unschedule_as(user)
-    if reason = reason_to_prevent_unscheduling
-      errors.add(:base, reason)
-      false
-    else
-      self.force_published = false
-      unschedule!
-    end
-  end
 end
