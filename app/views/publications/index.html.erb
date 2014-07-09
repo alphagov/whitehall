@@ -15,8 +15,7 @@
   </div>
 </header>
 
-<%# Commented out as a 'feature flag'. Relates to viewing statistics announcements. %>
-<%#= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
+<%= render 'statistics_announcements/upcoming_calendar_tabs' if params[:publication_filter_option] == "statistics"  %>
 
 <div class="filtered-index">
   <%= render partial: "documents/filter_form",

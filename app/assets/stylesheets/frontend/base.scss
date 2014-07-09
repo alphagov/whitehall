@@ -138,8 +138,9 @@
   @import "views/_topical-events.scss";
   @import "views/corporate_information_pages/show.scss";
   @import "views/organisations/_transition_state_visualisation.scss";
-  @import "views/statistics_announcements/index.scss";
-  @import "views/statistics_announcements/show.scss";
+  @import "views/publications/_index.scss";
+  @import "views/statistics_announcements/_index.scss";
+  @import "views/statistics_announcements/_show.scss";
 }
 
 
