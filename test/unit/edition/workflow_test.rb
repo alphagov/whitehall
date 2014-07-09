@@ -44,19 +44,6 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  test "should allow a submitted edition to be scheduled if it has a scheduled date" do
-    edition = create("submitted_edition", scheduled_publication: 1.day.from_now)
-    edition.schedule!
-    refute edition.published?
-    assert edition.scheduled?
-  end
-
-  test "should prevent a submitted edition from being scheduled if it does not have a scheduled date" do
-    edition = create("submitted_edition", scheduled_publication: nil)
-    edition.schedule!
-    refute edition.scheduled?
-  end
-
   [:draft, :submitted, :scheduled, :rejected, :deleted].each do |state|
     test "should prevent a #{state} edition being superseded" do
       edition = create("#{state}_edition")

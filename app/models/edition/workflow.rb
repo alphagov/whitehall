@@ -48,11 +48,11 @@ module Edition::Workflow
       end
 
       event :schedule do
-        transitions from: :submitted, to: :scheduled, guard: :scheduled_publication_time_set?
+        transitions from: :submitted, to: :scheduled
       end
 
       event :force_schedule do
-        transitions from: [:draft, :submitted], to: :scheduled, guard: :scheduled_publication_time_set?
+        transitions from: [:draft, :submitted], to: :scheduled
       end
 
       event :unschedule do
@@ -104,15 +104,5 @@ module Edition::Workflow
     if existing_edition = document.non_published_edition
       errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
-  end
-
-private
-
-  def scheduled_publication_time_not_set?
-    !scheduled_publication_time_set?
-  end
-
-  def scheduled_publication_time_set?
-    scheduled_publication.present?
   end
 end
