@@ -14,8 +14,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
       edition = create(:"#{state}_edition", scheduled_publication: 1.day.from_now)
       scheduler = EditionScheduler.new(edition)
 
-      refute scheduler.perform!
-      assert_equal state, edition.state
+      refute scheduler.can_perform?
       assert_equal "An edition that is #{state} cannot be scheduled", scheduler.failure_reason
     end
   end
@@ -25,8 +24,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     edition.title = nil
     scheduler = EditionScheduler.new(edition)
 
-    refute scheduler.perform!
-    refute edition.scheduled?
+    refute scheduler.can_perform?
     assert_equal "This edition is invalid: Title can't be blank", scheduler.failure_reason
   end
 
@@ -34,8 +32,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     edition = create(:submitted_edition)
     scheduler = EditionScheduler.new(edition)
 
-    refute scheduler.perform!
-    refute edition.scheduled?
+    refute scheduler.can_perform?
     assert_equal "This edition does not have a scheduled publication date set", scheduler.failure_reason
   end
 
@@ -54,8 +51,7 @@ class EditionSchedulerTest < ActiveSupport::TestCase
     edition = create(:submitted_edition, scheduled_publication: 1.day.from_now, body: "[Example](government/admin/editions/12324)")
     scheduler = EditionScheduler.new(edition)
 
-    refute scheduler.perform!
-    refute edition.scheduled?
+    refute scheduler.can_perform?
     assert_equal "This edition contains bad links", scheduler.failure_reason
   end
 end
