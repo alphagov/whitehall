@@ -26,12 +26,4 @@ module Edition::ScheduledPublishing
       unschedule!
     end
   end
-
-  def schedulable?
-    can_schedule? && scheduled_publication_time_set?
-  end
-
-  def force_schedulable?
-    can_force_schedule? && scheduled_publication_time_set?
-  end
 end

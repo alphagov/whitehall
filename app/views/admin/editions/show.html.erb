@@ -17,9 +17,9 @@
         <%= unschedule_edition_button(@edition) %>
       <% end %>
 
-      <% if @edition.schedulable? && can?(:publish, @edition) %>
+      <% if scheduler.can_perform? && can?(:publish, @edition) %>
         <%= schedule_edition_form(@edition) %>
-      <% elsif @edition.force_schedulable? && can?(:force_publish, @edition) %>
+      <% elsif force_scheduler.can_perform? && can?(:force_publish, @edition) %>
         <%= schedule_edition_form(@edition, force: true) %>
       <% end %>
 
