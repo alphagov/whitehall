@@ -36,4 +36,26 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
       assert_equal edition.scheduled_publication.to_i, job["at"].to_i
     end
   end
+
+  test '.dequeue removes a job for a scheduled edition' do
+    control = create(:scheduled_edition)
+    edition = create(:scheduled_edition)
+
+    Sidekiq::Testing.disable! do
+      Sidekiq::ScheduledSet.new.clear
+      ScheduledPublishingWorker.queue(edition)
+      ScheduledPublishingWorker.queue(control)
+
+      assert_equal 2, Sidekiq::ScheduledSet.new.size
+
+      ScheduledPublishingWorker.dequeue(edition)
+
+      assert_equal 1, Sidekiq::ScheduledSet.new.size
+
+      assert Sidekiq::ScheduledSet.new.detect { |job|
+        control.id == job['args'].first &&
+        control.scheduled_publication.to_i == job.at.to_i
+      }
+    end
+  end
 end

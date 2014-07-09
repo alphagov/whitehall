@@ -17,5 +17,10 @@ private
     edition.force_published = false
     super
   end
+
+  def fire_transition!
+    super
+    ScheduledPublishingWorker.dequeue(edition)
+  end
 end
 
