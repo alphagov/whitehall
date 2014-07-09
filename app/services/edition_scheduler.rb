@@ -14,8 +14,16 @@ class EditionScheduler < EditionService
       "An edition that is #{edition.current_state} cannot be #{past_participle}"
     elsif edition.scheduled_publication.blank?
       "This edition does not have a scheduled publication date set"
+    elsif scheduled_publication_is_not_within_cache_limit?
+      "Scheduled publication date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
     elsif DataHygiene::GovspeakLinkValidator.new(edition.body).errors.any?
       "This edition contains bad links"
     end
+  end
+
+private
+
+  def scheduled_publication_is_not_within_cache_limit?
+    edition.scheduled_publication < Whitehall.default_cache_max_age.from_now
   end
 end

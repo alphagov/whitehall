@@ -1,10 +1,6 @@
 module Edition::ScheduledPublishing
   extend ActiveSupport::Concern
 
-  included do
-    validate :scheduled_publication_is_in_the_future, if: :scheduled_publication_must_be_in_the_future?
-  end
-
   module ClassMethods
     def due_for_publication(within_time = 0)
       cutoff = Time.zone.now + within_time
@@ -37,17 +33,5 @@ module Edition::ScheduledPublishing
 
   def force_schedulable?
     can_force_schedule? && scheduled_publication_time_set?
-  end
-
-  private
-
-  def scheduled_publication_is_in_the_future
-    if scheduled_publication.present? && scheduled_publication < Whitehall.default_cache_max_age.from_now
-      errors[:scheduled_publication] << "date must be at least #{Whitehall.default_cache_max_age / 60} minutes from now"
-    end
-  end
-
-  def scheduled_publication_must_be_in_the_future?
-    (draft? && state_was == 'draft') || submitted? || (state_was == 'rejected' && rejected?)
   end
 end
