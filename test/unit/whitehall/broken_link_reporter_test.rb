@@ -49,6 +49,13 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
       assert_equal supporting_page.organisations.first, checker.organisation
     end
 
+    test '#organisation returns the owning organisation for a corporate information page' do
+      corporate_information_page = create(:corporate_information_page)
+      checker = Whitehall::BrokenLinkReporter::EditionChecker.new(corporate_information_page)
+
+      assert_equal corporate_information_page.owning_organisation, checker.organisation
+    end
+
     test '#check_links creates and runs a LinksReport for the edition' do
       detailed_guide = create(:detailed_guide,
                               body: "[good](https://www.gov.uk/good-link)")

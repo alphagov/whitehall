@@ -73,10 +73,10 @@ module Whitehall
       def organisation
         if edition.respond_to?(:worldwide_organisations)
           edition.worldwide_organisations.first
-        elsif edition.is_a?(SupportingPage)
-          edition.organisations.first
-        else
+        elsif edition.respond_to?(:lead_organisations)
           edition.lead_organisations.first || edition.organisations.first
+        else
+          edition.organisations.first
         end
       end
 
