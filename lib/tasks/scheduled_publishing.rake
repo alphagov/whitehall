@@ -23,14 +23,5 @@ namespace :publishing do
         puts "%6s  %-25s  %s" % [edition.id, edition.scheduled_publication.to_s, edition.title]
       end
     end
-
-    desc "Publish all editions due for publication"
-    task :publish => :environment do
-      begin
-        ScheduledEditionsPublisher.publish_all_due_editions
-      rescue ScheduledEditionsPublisher::PublishingFailure => exception
-        Airbrake.notify_or_ignore(exception, parameters: { unpublished_editions: exception.unpublished_edition_ids })
-      end
-    end
   end
 end
