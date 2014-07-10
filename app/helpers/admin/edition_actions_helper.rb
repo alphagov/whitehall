@@ -37,23 +37,38 @@ module Admin::EditionActionsHelper
 
   def publish_edition_form(edition, options = {})
     button_title = "Publish #{edition.title}"
-    confirm = publish_edition_alerts(edition, options[:force])
+
     if options[:force]
-      confirm_force_publish_path = confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version)
-      link_to "Force publish", confirm_force_publish_path, {class: "btn force-publish", "data-toggle" => "modal", "data-target" => "#forcePublishModal"}
+      link_to("Force publish",
+              confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
+              confirm: "Are you sure you want to force publish this document?",
+              title: button_title,
+              class: "btn force-publish",
+              "data-toggle" => "modal",
+              "data-target" => "#forcePublishModal")
     else
-      button_to "Publish", publish_admin_edition_path(edition, options.merge(lock_version: edition.lock_version)), confirm: confirm, title: button_title, class: "btn btn-success publish"
+      button_to("Publish",
+                publish_admin_edition_path(edition, lock_version: edition.lock_version),
+                title: button_title,
+                class: "btn btn-success publish")
     end
   end
 
   def schedule_edition_form(edition, options = {})
-    url = schedule_admin_edition_path(edition, options.slice(:force).merge(lock_version: edition.lock_version))
-    button_text = options[:force] ? "Force schedule" : "Schedule"
     button_title = "Schedule #{edition.title} for publication on #{l edition.scheduled_publication, format: :long}"
-    confirm = schedule_edition_alerts(edition, options[:force])
-    css_classes = ["btn"]
-    css_classes << (options[:force] ? "btn-warning" : "btn-success")
-    button_to button_text, url, confirm: confirm, title: button_title, class: css_classes.join(" ")
+
+    if options[:force]
+      button_to("Force schedule",
+                force_schedule_admin_edition_path(edition, lock_version: edition.lock_version),
+                confirm: "Are you sure you want to force schedule this document for publication?",
+                title: button_title,
+                class: "btn btn-warning")
+    else
+      button_to("Schedule",
+                schedule_admin_edition_path(edition, lock_version: edition.lock_version),
+                title: button_title,
+                class: "btn btn-success")
+    end
   end
 
   def unschedule_edition_button(edition)
@@ -107,17 +122,5 @@ module Admin::EditionActionsHelper
       'Speech sub-types' => SpeechType.all.map { |sub_type| [sub_type.plural_name, "speech_#{sub_type.id}"] }
     }
     grouped_options_for_select(subtype_options_hash, selected)
-  end
-
-  def publish_edition_alerts(edition, force)
-    alerts = []
-    alerts << "Are you sure you want to force publish this document?" if force
-    alerts.join(" ")
-  end
-
-  def schedule_edition_alerts(edition, force)
-    alerts = []
-    alerts << "Are you sure you want to force schedule this document for publication?" if force
-    alerts.join(" ")
   end
 end

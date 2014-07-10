@@ -104,6 +104,39 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal 'My new version', version_3.most_recent_change_note
   end
 
+    test "can find editions due for publication" do
+    due_in_one_day = create(:edition, :scheduled, scheduled_publication: 1.day.from_now)
+    due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
+    already_published = create(:edition, :published, scheduled_publication: 1.day.from_now)
+    Timecop.freeze 1.day.from_now do
+      assert_equal [due_in_one_day], Edition.due_for_publication
+    end
+    Timecop.freeze 2.days.from_now do
+      assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication
+    end
+  end
+
+  test "can find editions due for publication within a certain time span" do
+    due_in_one_day = create(:edition, :scheduled, scheduled_publication: 1.day.from_now)
+    due_in_two_days = create(:edition, :scheduled, scheduled_publication: 2.days.from_now)
+    assert_equal [due_in_one_day], Edition.due_for_publication(1.day)
+    assert_equal [due_in_one_day, due_in_two_days], Edition.due_for_publication(2.days)
+  end
+
+  test ".scheduled_for_publication_as returns edition if edition is scheduled" do
+    edition = create(:scheduled_publication, scheduled_publication: 1.day.from_now)
+    assert_equal edition, Publication.scheduled_for_publication_as(edition.document.to_param)
+  end
+
+  test ".scheduled_for_publication_as returns nil if edition is not scheduled" do
+    edition = create(:draft_publication, scheduled_publication: 1.day.from_now)
+    assert_nil Edition.scheduled_for_publication_as(edition.document.to_param)
+  end
+
+  test ".scheduled_for_publication_as returns nil if document is unknown" do
+    assert_nil Edition.scheduled_for_publication_as('unknown')
+  end
+
   test "should return a list of editions in a topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
@@ -272,7 +305,7 @@ class EditionTest < ActiveSupport::TestCase
   test "#scheduled_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { publication.perform_force_schedule }
+    acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
     assert_equal editor, publication.scheduled_by
   end
 
@@ -281,7 +314,7 @@ class EditionTest < ActiveSupport::TestCase
     robot = create(:scheduled_publishing_robot)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
     stub_panopticon_registration(publication)
-    acting_as(editor) { publication.perform_force_schedule }
+    acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
     Timecop.freeze publication.scheduled_publication do
       acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
       acting_as(editor) do

@@ -31,12 +31,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
     when 'reject'
       enforce_permission!(:reject, @edition)
     when 'publish', 'schedule'
-      if params[:force].present?
-        enforce_permission!(:force_publish, @edition)
-      else
-        enforce_permission!(:publish, @edition)
-      end
-    when 'force_publish', 'confirm_force_publish'
+      enforce_permission!(:publish, @edition)
+    when 'force_publish', 'confirm_force_publish', 'force_schedule'
       enforce_permission!(:force_publish, @edition)
     when 'unpublish', 'confirm_unpublish'
       enforce_permission!(:unpublish, @edition)
@@ -100,18 +96,29 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def schedule
-    if (params[:force].present? ? @edition.perform_force_schedule : @edition.perform_schedule)
+    edition_scheduler = Whitehall.edition_services.scheduler(@edition)
+    if edition_scheduler.perform!
       redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been scheduled for publication"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: edition_scheduler.failure_reason
+    end
+  end
+
+  def force_schedule
+    force_scheduler = Whitehall.edition_services.force_scheduler(@edition)
+    if force_scheduler.perform!
+      redirect_to admin_editions_path(state: :scheduled), notice: "The document #{@edition.title} has been force scheduled for publication"
+    else
+      redirect_to admin_edition_path(@edition), alert: force_scheduler.failure_reason
     end
   end
 
   def unschedule
-    if @edition.unschedule_as(current_user)
+    unscheduler = Whitehall.edition_services.unscheduler(@edition)
+    if unscheduler.perform!
       redirect_to admin_editions_path(state: :submitted), notice: "The document #{@edition.title} has been unscheduled"
     else
-      redirect_to admin_edition_path(@edition), alert: @edition.errors.full_messages.to_sentence
+      redirect_to admin_edition_path(@edition), alert: unscheduler.failure_reason
     end
   end
 

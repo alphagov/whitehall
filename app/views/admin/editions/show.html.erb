@@ -17,9 +17,9 @@
         <%= unschedule_edition_button(@edition) %>
       <% end %>
 
-      <% if @edition.schedulable? && can?(:publish, @edition) %>
+      <% if scheduler.can_perform? && can?(:publish, @edition) %>
         <%= schedule_edition_form(@edition) %>
-      <% elsif @edition.force_schedulable? && can?(:force_publish, @edition) %>
+      <% elsif force_scheduler.can_perform? && can?(:force_publish, @edition) %>
         <%= schedule_edition_form(@edition, force: true) %>
       <% end %>
 
@@ -43,15 +43,23 @@
       <% end %>
     </section>
 
-    <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
-      <section class='alert'>
-        <p>You can't force-publish this edition because:</p>
-        <ul>
-          <% force_publisher.failure_reasons.each do |reason| %>
-            <li><%= reason %></li>
-          <% end %>
-        </ul>
-      </section>
+    <% if @edition.scheduled_publication %>
+      <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
+        <section class='alert'>
+          <p>This edition cannot be scheduled because: <%= force_scheduler.failure_reason %></p>
+        </section>
+      <% end %>
+    <% else %>
+      <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
+        <section class='alert'>
+          <p>This edition cannot be force-published because:</p>
+          <ul>
+            <% force_publisher.failure_reasons.each do |reason| %>
+              <li><%= reason %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
     <% end %>
 
     <%= render 'admin/links_reports/links_report', links_report: (@edition.links_reports.last || @edition.links_reports.build) %>

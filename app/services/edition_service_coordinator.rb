@@ -15,6 +15,18 @@ class EditionServiceCoordinator
     EditionForcePublisher.new(edition, options.merge(notifier: self))
   end
 
+  def scheduler(edition, options = {})
+    EditionScheduler.new(edition, options.merge(notifier: self))
+  end
+
+  def force_scheduler(edition, options = {})
+    EditionForceScheduler.new(edition, options.merge(notifier: self))
+  end
+
+  def unscheduler(edition, options = {})
+    EditionUnscheduler.new(edition, options.merge(notifier: self))
+  end
+
   def scheduled_publisher(edition, options = {})
     ScheduledEditionPublisher.new(edition, options.merge(notifier: self))
   end

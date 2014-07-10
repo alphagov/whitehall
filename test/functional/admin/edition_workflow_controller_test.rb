@@ -73,16 +73,6 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
   end
 
-  test 'schedule passes through the force flag' do
-    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-
-    post :schedule, id: draft_edition, force: true, lock_version: draft_edition.lock_version
-
-    assert_redirected_to admin_editions_path(state: :scheduled)
-    assert draft_edition.reload.scheduled?
-    assert draft_edition.force_published?
-  end
-
   test 'schedule redirects back to the edition with an error message if scheduling reports a failure' do
     scheduled_edition = create(:submitted_policy)
     post :schedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
@@ -106,6 +96,15 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
     assert_response :unprocessable_entity
     assert_equal 'All workflow actions require a lock version', response.body
+  end
+
+  test 'POST :force_schedule force schedules the edition' do
+    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    post :force_schedule, id: draft_edition, lock_version: draft_edition.lock_version
+
+    assert_redirected_to admin_editions_path(state: :scheduled)
+    assert draft_edition.reload.scheduled?
+    assert draft_edition.force_published?
   end
 
   test 'unschedule unschedules the given edition on behalf of the current user' do

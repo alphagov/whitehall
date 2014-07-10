@@ -10,7 +10,6 @@ class Edition < ActiveRecord::Base
   include Edition::LimitedAccess
   include Edition::Workflow
   include Edition::Publishing
-  include Edition::ScheduledPublishing
   include Edition::AuditTrail
   include Edition::ActiveEditors
   include Edition::Translatable
@@ -243,6 +242,16 @@ class Edition < ActiveRecord::Base
   def self.with_classification(classification)
     joins('INNER JOIN classification_memberships ON classification_memberships.edition_id = editions.id').
     where("classification_memberships.classification_id" => classification.id)
+  end
+
+  def self.due_for_publication(within_time = 0)
+    cutoff = Time.zone.now + within_time
+    scheduled.where(arel_table[:scheduled_publication].lteq(cutoff))
+  end
+
+  def self.scheduled_for_publication_as(slug)
+    document = Document.at_slug(document_type, slug)
+    document && document.scheduled_edition
   end
 
   def skip_main_validation?

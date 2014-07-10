@@ -254,6 +254,7 @@ Whitehall::Application.routes.draw do
             get  :confirm_unpublish, to: 'edition_workflow#confirm_unpublish'
             post :unpublish, to: 'edition_workflow#unpublish'
             post :schedule, to: 'edition_workflow#schedule'
+            post :force_schedule, to: 'edition_workflow#force_schedule'
             post :unschedule, to: 'edition_workflow#unschedule'
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
             get :audit_trail, to: 'edition_audit_trail#index'

@@ -357,6 +357,16 @@ class Admin::EditionsController < Admin::BaseController
   end
   helper_method :force_publisher
 
+  def scheduler
+    @scheduler ||= Whitehall.edition_services.scheduler(@edition)
+  end
+  helper_method :scheduler
+
+  def force_scheduler
+    @force_scheduler ||= Whitehall.edition_services.force_scheduler(@edition)
+  end
+  helper_method :force_scheduler
+
   def deduplicate_specialist_sectors
     if params[:edition] && params[:edition][:secondary_specialist_sector_tags] && params[:edition][:primary_specialist_sector_tag]
       params[:edition][:secondary_specialist_sector_tags] -= [params[:edition][:primary_specialist_sector_tag]]

@@ -56,10 +56,9 @@ class DocumentCollectionsControllerTest < ActionController::TestCase
   end
 
   test "GET #show sets Cache-Control: max-age to the time of the next scheduled publication in the collection" do
-    user = login_as(:departmental_editor)
     collection = create(:published_document_collection, :with_group)
-    publication = create(:draft_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
-    publication.reload.perform_force_schedule
+    publication = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+
     collection.groups.first.documents << publication.document
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
