@@ -1,3 +1,5 @@
+require 'sidekiq/api'
+
 class ScheduledPublishingWorker
   class ScheduledPublishingFailure < StandardError; end
 
