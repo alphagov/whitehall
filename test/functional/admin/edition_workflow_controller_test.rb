@@ -66,11 +66,13 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'schedule schedules the given edition on behalf of the current user' do
     submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-    post :schedule, id: submitted_edition, lock_version: submitted_edition.lock_version
+    Sidekiq::Testing.fake! do
+      post :schedule, id: submitted_edition, lock_version: submitted_edition.lock_version
 
-    assert_redirected_to admin_editions_path(state: :scheduled)
-    assert submitted_edition.reload.scheduled?
-    assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
+      assert_redirected_to admin_editions_path(state: :scheduled)
+      assert submitted_edition.reload.scheduled?
+      assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
+    end
   end
 
   test 'schedule redirects back to the edition with an error message if scheduling reports a failure' do
@@ -99,12 +101,14 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'POST :force_schedule force schedules the edition' do
-    draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-    post :force_schedule, id: draft_edition, lock_version: draft_edition.lock_version
+    Sidekiq::Testing.fake! do
+      draft_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+      post :force_schedule, id: draft_edition, lock_version: draft_edition.lock_version
 
-    assert_redirected_to admin_editions_path(state: :scheduled)
-    assert draft_edition.reload.scheduled?
-    assert draft_edition.force_published?
+      assert_redirected_to admin_editions_path(state: :scheduled)
+      assert draft_edition.reload.scheduled?
+      assert draft_edition.force_published?
+    end
   end
 
   test 'unschedule unschedules the given edition on behalf of the current user' do
