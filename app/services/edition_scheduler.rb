@@ -10,7 +10,7 @@ class EditionScheduler < EditionService
   def failure_reason
     @failure_reason ||= if !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
-     elsif !can_transition?
+    elsif !can_transition?
       "An edition that is #{edition.current_state} cannot be #{past_participle}"
     elsif edition.scheduled_publication.blank?
       "This edition does not have a scheduled publication date set"
