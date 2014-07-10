@@ -30,13 +30,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
       enforce_permission!(:update, @edition)
     when 'reject'
       enforce_permission!(:reject, @edition)
-    when 'publish', 'schedule', 'force_schedule'
-      if params[:force].present?
-        enforce_permission!(:force_publish, @edition)
-      else
-        enforce_permission!(:publish, @edition)
-      end
-    when 'force_publish', 'confirm_force_publish'
+    when 'publish', 'schedule'
+      enforce_permission!(:publish, @edition)
+    when 'force_publish', 'confirm_force_publish', 'force_schedule'
       enforce_permission!(:force_publish, @edition)
     when 'unpublish', 'confirm_unpublish'
       enforce_permission!(:unpublish, @edition)
