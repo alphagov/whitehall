@@ -28,10 +28,10 @@ class ServicesAndInformationCollection
   end
 
   def title_for_example_at(index)
-    examples[index][:title]
+    examples[index]["title"]
   end
 
   def link_for_example_at(index)
-    examples[index][:link]
+    examples[index]["link"]
   end
 end
