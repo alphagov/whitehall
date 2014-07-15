@@ -1,4 +1,7 @@
 require 'sidekiq/testing'
+require_relative '../../test/support/sidekiq_test_helpers'
+
+include SidekiqTestHelpers
 
 Around("@without-delay, @not-quite-as-fake-search") do |scenario, block|
   Sidekiq::Testing.inline! do
@@ -7,8 +10,7 @@ Around("@without-delay, @not-quite-as-fake-search") do |scenario, block|
 end
 
 Around("@disable-sidekiq-test-mode") do |scenario, block|
-  Sidekiq::Testing.disable! do
-    Sidekiq::ScheduledSet.new.clear
+  with_real_sidekiq do
     block.call
   end
 end

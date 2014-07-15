@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
+  include SidekiqTestHelpers
+
   setup do
     @publishing_robot = create(:scheduled_publishing_robot)
   end
@@ -41,8 +43,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
     control = create(:scheduled_edition)
     edition = create(:scheduled_edition)
 
-    Sidekiq::Testing.disable! do
-      Sidekiq::ScheduledSet.new.clear
+    with_real_sidekiq do
       ScheduledPublishingWorker.queue(edition)
       ScheduledPublishingWorker.queue(control)
 
@@ -60,9 +61,7 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
   end
 
   test '.queue_size returns the number of queued ScheduledPublishingWorker jobs' do
-    Sidekiq::Testing.disable! do
-      Sidekiq::ScheduledSet.new.clear
-
+    with_real_sidekiq do
       ScheduledPublishingWorker.perform_at(1.day.from_now, 'null')
       assert_equal 1, ScheduledPublishingWorker.queue_size
 
@@ -71,10 +70,8 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
     end
   end
 
-    test '.queued_edition_ids returns the edition ids of the currently queued jobs' do
-    Sidekiq::Testing.disable! do
-      Sidekiq::ScheduledSet.new.clear
-
+  test '.queued_edition_ids returns the edition ids of the currently queued jobs' do
+    with_real_sidekiq do
       ScheduledPublishingWorker.perform_at(1.day.from_now, '3')
       ScheduledPublishingWorker.perform_at(2.days.from_now, '6')
 
