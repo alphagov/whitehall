@@ -4,6 +4,7 @@ class ScheduledPublishingWorker
   class ScheduledPublishingFailure < StandardError; end
 
   include Sidekiq::Worker
+  sidekiq_options queue: :scheduled_publishing
 
   def self.queue(edition)
     perform_at(edition.scheduled_publication, edition.id)
