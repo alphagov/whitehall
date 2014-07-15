@@ -16,6 +16,14 @@ class ScheduledPublishingWorker
     end.map(&:delete)
   end
 
+  def self.queue_size
+    Sidekiq::ScheduledSet.new.count { |job| job['class'] == name }
+  end
+
+  def self.queued_edition_ids
+    Sidekiq::ScheduledSet.new.map { |job| job['args'][0] }
+  end
+
   def perform(edition_id)
     edition = Edition.find(edition_id)
     publisher = Whitehall.edition_services.scheduled_publisher(edition)

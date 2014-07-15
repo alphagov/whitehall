@@ -58,4 +58,27 @@ class ScheduledPublishingWorkerTest < ActiveSupport::TestCase
       }
     end
   end
+
+  test '.queue_size returns the number of queued ScheduledPublishingWorker jobs' do
+    Sidekiq::Testing.disable! do
+      Sidekiq::ScheduledSet.new.clear
+
+      ScheduledPublishingWorker.perform_at(1.day.from_now, 'null')
+      assert_equal 1, ScheduledPublishingWorker.queue_size
+
+      ScheduledPublishingWorker.perform_at(2.days.from_now, 'null')
+      assert_equal 2, ScheduledPublishingWorker.queue_size
+    end
+  end
+
+    test '.queued_edition_ids returns the edition ids of the currently queued jobs' do
+    Sidekiq::Testing.disable! do
+      Sidekiq::ScheduledSet.new.clear
+
+      ScheduledPublishingWorker.perform_at(1.day.from_now, '3')
+      ScheduledPublishingWorker.perform_at(2.days.from_now, '6')
+
+      assert_equal ['3', '6'], ScheduledPublishingWorker.queued_edition_ids
+    end
+  end
 end
