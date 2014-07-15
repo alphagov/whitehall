@@ -33,6 +33,7 @@ module Whitehall
     def csv_row_for(checker)
       [checker.public_url,
         checker.admin_url,
+        checker.timestamp,
         checker.edition_type,
         checker.broken_links.size,
         checker.broken_links.join("\r\n")]
@@ -80,6 +81,10 @@ module Whitehall
         end
       end
 
+      def timestamp
+        edition.public_timestamp.to_s
+      end
+
       def links
         @links ||= Govspeak::LinkExtractor.new(edition.body).links
       end
@@ -125,7 +130,7 @@ module Whitehall
       end
 
       def headings
-        ["page", "admin link", "format", "broken link count", "broken links"]
+        ["page", "admin link", "public timestamp", "format", "broken link count", "broken links"]
       end
     end
   end

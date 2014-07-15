@@ -56,6 +56,13 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
       assert_equal corporate_information_page.owning_organisation, checker.organisation
     end
 
+    test '#timestamp returns the public_timestamp as a string' do
+      edition = create(:published_edition)
+      checker = Whitehall::BrokenLinkReporter::EditionChecker.new(edition)
+
+      assert_equal edition.public_timestamp.to_s, checker.timestamp
+    end
+
     test '#check_links creates and runs a LinksReport for the edition' do
       detailed_guide = create(:detailed_guide,
                               body: "[good](https://www.gov.uk/good-link)")
