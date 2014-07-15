@@ -52,6 +52,6 @@ private
   end
 
   def default_options
-    { followlocation: true, timeout: 10, connecttimeout: 10 }
+    { followlocation: true, forbid_reuse: true, timeout: 10, connecttimeout: 10 }
   end
 end

@@ -42,11 +42,11 @@ class Notifications < ActionMailer::Base
     mail from: no_reply_email_address, to: @author.email, subject: subject
   end
 
-  def bad_link_reports(zip_path, recipient_address)
+  def broken_link_reports(zip_path, recipient_address)
     filename = File.basename(zip_path)
     attachments[filename] = File.read(zip_path)
 
-    mail from: no_reply_email_address, to: recipient_address, subject: 'GOV.UK bad link reports'
+    mail from: no_reply_email_address, to: recipient_address, subject: 'GOV.UK broken link reports'
   end
 
   private
