@@ -24,7 +24,7 @@
       showOrHideChangeNotes();
 
       function showOrHideChangeNotes() {
-        if ($minor_change_radio_button.attr('checked')){
+        if ($minor_change_radio_button.prop('checked')){
           $change_notes_section.slideUp(200);
         }
         else {
