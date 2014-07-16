@@ -1,12 +1,11 @@
 require 'whitehall/document_filter/filterer'
+
 module Whitehall
   module NotQuiteAsFakeSearch
     def self.stop_faking_it_quite_so_much!
       store = Whitehall::NotQuiteAsFakeSearch::Store.new
       SearchIndex.indexer_class.store = store
       Whitehall.government_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
-        Whitehall.government_search_index_path, store)
-      Whitehall.unified_search_client = Whitehall::NotQuiteAsFakeSearch::GdsApiRummager.new(
         Whitehall.government_search_index_path, store)
       Whitehall.search_backend = Whitehall::DocumentFilter::Rummager
     end
@@ -41,10 +40,6 @@ module Whitehall
         page      = params.delete("page").to_i
 
         apply_filters(keywords, params, order, per_page, page)
-      end
-
-      def unified_search(params)
-        File.read(Rails.root.join("test", "fixtures", "services_and_info_fixture.json"))
       end
 
     private

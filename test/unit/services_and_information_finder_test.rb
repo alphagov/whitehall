@@ -5,7 +5,7 @@ class ServicesAndInformationFinderTest < ActiveSupport::TestCase
     organisation = build_stubbed(:organisation)
     search_client = mock()
     expected_search_query = {
-      filter_organisations: [organisation.name],
+      filter_organisations: [organisation.slug],
       facet_specialist_sectors: "1000,examples:4,example_scope:global",
     }
 

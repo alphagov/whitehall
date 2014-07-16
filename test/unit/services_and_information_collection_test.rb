@@ -22,7 +22,7 @@ class ServicesAndInformationCollectionTest < ActiveSupport::TestCase
     collection = ServicesAndInformationCollection.new(
       title: "Example subsector",
       subsector_link: "/example-subsector",
-      examples: [ { title: "Example document", link: "/example-document" } ],
+      examples: [ { "title" => "Example document", "link" => "/example-document" } ],
       document_count: 1
     )
 
@@ -33,7 +33,7 @@ class ServicesAndInformationCollectionTest < ActiveSupport::TestCase
     collection = ServicesAndInformationCollection.new(
       title: "Example subsector",
       subsector_link: "/example-subsector",
-      examples: [ { title: "Example document", link: "/example-document" } ],
+      examples: [ { "title" => "Example document", "link" => "/example-document" } ],
       document_count: 1
     )
 

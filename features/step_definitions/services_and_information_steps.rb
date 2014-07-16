@@ -1,5 +1,6 @@
 When(/^I click the link to the full list of topics for that organisation$/) do
-  click_link "Full list of topics"
+  stub_rummager_response
+  click_link 'Full list of topics'
 end
 
 Then(/^I can see a link to a "(.*?)" for the "(.*?)" organisation$/) do |link_title, org_name|
@@ -8,10 +9,10 @@ Then(/^I can see a link to a "(.*?)" for the "(.*?)" organisation$/) do |link_ti
   assert page.has_link?(link_title, href: services_and_information_path(organisation))
 end
 
-Then(/^I should see a list of documents related to the Cabinet Office org grouped by sector$/) do
-  specialist_subsectors_returned_by_fixture  = ["Waste", "Environmental permits"]
+Then(/^I should see a list of documents related to the Cabinet Office org grouped by sector title$/) do
+  titles_returned_by_stubbed_response = ["Waste", "Environmental permits"]
 
-  specialist_subsectors_returned_by_fixture.each do |subsector|
-    assert page.has_content?(subsector), "Sector information not present on page"
+  titles_returned_by_stubbed_response.each do |title|
+    assert page.has_content?(title), "Sector title not present on page"
   end
 end
