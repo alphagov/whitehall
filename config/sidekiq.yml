@@ -1,5 +1,5 @@
 :verbose: false
-:concurrency:  4
+:concurrency:  2
 :queues:
   - [imports, 2]
   - [router, 4]
