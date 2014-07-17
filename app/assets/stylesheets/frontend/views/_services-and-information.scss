@@ -1,0 +1,15 @@
+.services-and-information-show {
+  .browse-container {
+    h2 {
+      @include bold-19;
+    }
+    ol {
+      list-style: none;
+      margin-bottom: $gutter*2;
+      li {
+        @include bold-19;
+        padding-bottom: $gutter-one-third;
+      }
+    }
+  }
+}
