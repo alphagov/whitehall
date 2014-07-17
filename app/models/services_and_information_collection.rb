@@ -8,10 +8,6 @@ class ServicesAndInformationCollection
     @title = params.fetch(:title)
   end
 
-  def to_partial_path
-    "services_and_information/collection_group"
-  end
-
   def self.build_collection_group_from(search_results)
     search_results.map do |content_group|
       self.new_collection_group_from(content_group)

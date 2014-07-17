@@ -23,13 +23,13 @@
             <%= render 'shared/featured_links',
               type: 'top-tasks',
               links: @featured_services_and_guidance.only_the_initial_set %>
+            <%= link_to "Full list of topics", services_and_information_path(@organisation) %>
           </div>
         </section>
       </div>
     </div>
   <% end %>
 
-  <%= link_to "Full list of topics", services_and_information_path(@organisation) %>
 
   <div class="block-2 <%= "has-social" if @organisation.social_media_accounts.any? %>">
     <div class="inner-block">

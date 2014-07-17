@@ -1,5 +1,4 @@
 require 'whitehall/document_filter/filterer'
-
 module Whitehall
   module NotQuiteAsFakeSearch
     def self.stop_faking_it_quite_so_much!

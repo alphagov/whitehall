@@ -1,7 +1,7 @@
 Feature: Services and information page for organisations
 
 Background:
-  Given the organisation "Cabinet Office" exists
+  Given the organisation "Cabinet Office" exists with featured services and guidance
 
 Scenario: Organisation page links to a services and information page for that org
   When I visit the "Cabinet Office" organisation
