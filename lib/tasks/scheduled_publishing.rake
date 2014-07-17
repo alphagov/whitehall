@@ -13,6 +13,20 @@ namespace :publishing do
         previous = edition
       end
     end
+
+    desc "Queues missing jobs for any due scheduled editions"
+    task :queue_missing_jobs => :environment do
+      scheduled_scope = Edition.scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now))
+      queued_ids      = ScheduledPublishingWorker.queued_edition_ids
+      missing_jobs    = scheduled_scope.select { |edition| !queued_ids.include?(edition.id) }
+      puts "#{scheduled_scope.count} editions scheduled for publication, of which #{missing_jobs.size} do not have a job."
+
+      puts "Queueing missing jobs..."
+      missing_jobs.each do |edition|
+        ScheduledPublishingWorker.queue(edition)
+        puts "#{edition.id} queued"
+      end
+    end
   end
 
   namespace :due do
