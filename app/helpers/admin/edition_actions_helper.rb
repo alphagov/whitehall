@@ -86,7 +86,7 @@ module Admin::EditionActionsHelper
 
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
-    content_tag(:ul, class: "more-nav left js-hidden") do
+    content_tag(:ul, class: "more-nav unstyled js-hidden") do
       [Consultation, Publication, NewsArticle,
         Speech, DetailedGuide, DocumentCollection,
         Policy, SupportingPage, FatalityNotice,

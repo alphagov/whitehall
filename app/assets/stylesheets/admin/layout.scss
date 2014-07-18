@@ -23,7 +23,6 @@ body {
 }
 
 #global-nav {
-  clear: both;
   @extend %contain-floats;
 
   .toggler {
@@ -44,316 +43,101 @@ body {
   }
 }
 
+.visuallyhidden {
+  position: absolute;
+  left: -9999em;
+}
 
-.navbar {
+.masthead {
   @extend %contain-floats;
+  background: #6d6d6d;
   margin-bottom: $gutter;
-  nav {
-    clear: both;
-    position: relative;
+  padding: 0 15px;
+}
 
-    @include media(tablet){
-      clear: none;
-      background: transparent;
-      position: static;
-      margin: 0;
-    }
+.masthead-details {
+  padding: $gutter/2 0 0;
+}
 
-    li {
-      display: block;
+.masthead-details a {
+  color: #fff;
+  font-size: 14px;
+}
 
-      @include media(desktop){
-        float: left;
-        text-align: center;
-      }
-      .toggler {
-        &:focus {
-          text-decoration: none;
-          outline: none;
-        }
-      }
-      &.user-org {
-        display: none;
-        @include media(desktop){
-          display: block;
-        }
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-    .nav {
-      float: none;
-      margin: 0;
-      width: auto;
-      li {
-        color: $white;
-        background-color: $black;
-        margin: 0 0 3px 0;
-        width: 100%;
-        a {
-          font-size: 16px;
-          display: block;
-          color: $white;
-          height: 40px;
-          padding-top: $gutter-one-third;
-          vertical-align: middle;
-          @include media(desktop) {
-            display: table-cell;
-            width: 16%;
-          }
-          @include ie-lte(7) {
-            width: auto;
-          }
-        }
-        &:last-child {
-          margin-right: 0;
-        }
-        &.active {
-          a, span {
-            color: $black;
-            background-color: $grey-2;
-          }
-        }
-        &:hover,
-        &.active:hover {
-          a, span {
-            color: $black;
-            background-color: $light-blue-50;
-          }
-        }
-        @include media(desktop) {
-          margin: 0 0.23% 0 0;
-          width: 16.4%;
-        }
-      }
-      @include media(desktop) {
-        margin: 0 $gutter-half;
-      }
-    }
-  }
-  .visuallyhidden {
-    position: absolute;
-    left: -9999em;
-    @include ie(6) {
-      left: 0;
-    }
-  }
-  .nav.pull-right {
-    color: $white;
-    clear: both;
-    float: none;
-    width: auto;
-    li {
-      a {
-        font-size: 14px;
-        color: $white;
-        padding: 0 $gutter-one-third $gutter-one-third;
-        &:after {
-          content: "|";
-          margin-left: $gutter-half;
-        }
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-      .session-info-wrapper {
-        padding: 0 $gutter-two-thirds;
-        float: right;
-        @include media(desktop) {
-          float: left;
-        }
-      }
-      &:first-child a {
-        padding-left: 0;
-      }
-      &:last-child a:after {
-        content: "";
-      }
-    }
+.masthead-tabs {
+  position: relative;
+}
 
-    @include media(tablet) {
-      clear: none;
-      float: right;
-      margin: 0 $gutter-one-third 0 0;
-    }
-  }
-  .website {
-    li {
-      &.brand {
-        margin-left: 0;
-        padding: 0 0 0 $gutter-one-third;
-        a {
-          font-size: 16px;
-          color: $white;
-          padding: 0;
-          &:after {
-            content: "|";
-            margin-left: $gutter-two-thirds;
-          }
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-        @include media(tablet) {
-          padding-left: $gutter-two-thirds;
-        }
-      }
-      &:last-child a:after {
-        content: "";
-      }
-    }
+.masthead-tabs > li {
+  margin-right: 0.32%;
+  width: 16.4%;
+  float: left;
 
-
-    @include media(tablet) {
-      width: auto;
-    }
-  }
-  .navbar-inner {
-    background: #6d6d6d;
-    .container-fluid {
-      background: none;
-      padding: $gutter-half 0 $gutter-half 0;
-    }
-    .nav-collapse {
-      .dropdown-menu {
-        @include border-radius(0);
-        background-color: $light-blue-50;
-        width: 100%;
-        li {
-          float: left;
-          background: none;
-          a {
-            font-size: 16px;
-            color: $black;
-            padding: 2px $gutter-two-thirds 0 $gutter-one-third;
-            height: auto;
-            width: auto;
-            &:hover {
-              color: $white;
-            }
-          }
-        }
-      }
-      .more-nav {
-        @extend %contain-floats;
-        @include box-shadow(0 5px 10px rgba(0,0,0,0.2));
-        clear: both;
-        background-color: $light-blue-50;
-        margin-left: 0;
-        padding: $gutter-one-third;
-        position: absolute;
-        top: 61px;
-        width: auto;
-        z-index: 10;
-        li {
-          background: none;
-          float: left;
-          margin: 0;
-          width: 50%;
-          a {
-            font-size: 16px;
-            color: $link-colour;
-            background: none;
-            height: auto;
-            padding: $gutter-one-sixth;
-            text-align: left;
-            width: auto;
-          }
-          @include media(tablet) {
-            width: 33.33%;
-          }
-        }
-        @include ie(6) {
-          background-color: $grey-2;
-          position: static;
-          li {
-            width: 33.33%;
-            a {
-              color: $black;
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-      .right {
-        top: auto;
-      }
-      @include media(desktop) {
-        .more-nav {
-          width: 48.2%;
-        }
-        .open {
-          .left {
-            left: 0;
-          }
-        }
-        .right {
-          right: $gutter-one-sixth;
-          top: 61px;
-        }
-      }
-    }
+  &:last-child {
+    margin-right: 0;
   }
 }
 
+.masthead-tabs > li > a {
+  color: $white;
+  font-size: 16px;
+  height: 40px;
+  padding: 10px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  width: 16%;
 
-
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: static;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
-@include ie(6){
-  .navbar .nav li {
-    display: block;
-    float: left;
+.masthead-tabs > li:hover > a,
+.masthead-tabs > li.active > a {
+  color: $black;
+}
 
-    a {
-      display: block;
-      float: none;
-      padding: 9px 10px 11px;
-    }
-  }
-  .session_info .navbar-text {
-    span {
-      display: inline;
-    }
-    a {
-      padding: 0;
-      display: inline !important;
-    }
+.masthead-tabs > li {
+  background: $black;
+
+  &.active {
+    color: $black;
+    background-color: $grey-2;
   }
 
-  .nav-tabs {
-    li {
-      float: left;
-      a {
-        display: block;
-        padding: 8px 12px;
-        line-height: 18px;
-        border: 1px solid #fff;
-        margin-right: 2px;
-      }
-      &.active {
-        background: transparent;
-        a {
-          background: transparent;
-          border-color: #ddd #ddd #fff;
-          color: #555;
-        }
-      }
-    }
+  &:hover,
+  &.active:hover {
+    background-color: $light-blue-50;
+    color: $black;
   }
-  .tab-content {
-    .tab-pane {
-      display: none;
-      background: #fff;
-    }
-    .active {
-      display: block;
-    }
-  }
+}
+
+.more-nav {
+  @extend %contain-floats;
+  position: absolute;
+  background: $light-blue-50;
+  width: 48.2%;
+  z-index: 10;
+  padding: $gutter-one-third;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.more-nav-right {
+  right: 0;
+}
+
+.more-nav a {
+  color: $link-colour;
+  padding: $gutter-one-sixth;
+  display: inline-block;
+}
+
+.more-nav > li {
+  width: 33.33%;
+  display: block;
+  float: left;
 }
 
 .tabbable ul.actions {

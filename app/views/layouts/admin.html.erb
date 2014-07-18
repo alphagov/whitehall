@@ -27,72 +27,58 @@
 
   <body class="environment-<%= GovukAdminTemplate.environment_style %>">
     <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-    <header class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <ul class="nav website">
+    <header class="masthead">
+      <div class="masthead-details container-fluid">
+        <ul class="list-inline pull-left">
+          <li>
+            <div class="environment-message">
+              <%= GovukAdminTemplate.environment_label %>
+            </div>
+          </li>
+          <li><%= link_to "Dashboard", admin_root_path %></li>
+          <li><%= link_to "View website", Whitehall.public_root, class: "open_website" %></li>
+        </ul>
+        <ul class="list-inline pull-right">
+          <% if user_signed_in? %>
             <li>
-              <div class="environment-message">
-                <%= GovukAdminTemplate.environment_label %>
-              </div>
+              <%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %>
             </li>
-            <li class="brand"><%= link_to "Dashboard", admin_root_path %></li>
-            <li class="brand"><%= link_to "View website", Whitehall.public_root, class: "open_website" %></li>
-          </ul>
-
-          <ul class="nav pull-right">
-            <% if user_signed_in? %>
-              <li>
-                <%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %>
-              </li>
-              <li>
-                <%= link_to "Logout", "/auth/gds/sign_out" %>
-              </li>
-            <% end %>
-            <%= admin_users_header_link  %>
-            <%= admin_imports_header_link %>
-          </ul>
-        </div>
-
-         <div id="global-nav">
-            <nav class="nav-collapse">
-              <ul class="nav">
-                <li class="js-create-new create-new">
-                  <a href="#navigation" class="toggler">New document</a>
-                  <%= document_creation_dropdown %>
-                </li>
-                <%= admin_documents_header_link %>
-                <%= admin_statistics_announcements_link if user_can_see_stats_announcements? %>
-                <%= admin_featured_header_link %>
-                <%= admin_user_organisation_header_link %>
-                <li class="js-more-nav"><a href="#navigation" class="toggler">More</a>
-                  <ul class="more-nav right js-hidden">
-                    <%= admin_organisations_header_link %>
-                    <%= admin_policy_groups_header_link %>
-                    <%= admin_roles_header_link %>
-                    <%= admin_people_header_link %>
-                    <%= admin_topics_header_link %>
-                    <%= admin_topical_events_header_link %>
-                    <%= admin_worldwide_organisations_header_link %>
-                    <%= admin_world_locations_header_link %>
-                    <%= admin_fields_of_operation_header_link %>
-                    <%= admin_email_curation_queue_link %>
-                    <%= admin_cabinet_ministers_link %>
-                    <%= admin_get_involved_link %>
-                    <%= admin_sitewide_settings_link %>
-                  </ul>
-                </li>
-              </ul>
-            </nav><!--/.nav-collapse -->
-          </div>
-
+            <li>
+              <%= link_to "Logout", "/auth/gds/sign_out" %>
+            </li>
+          <% end %>
+          <%= admin_users_header_link  %>
+          <%= admin_imports_header_link %>
+        </ul>
       </div>
-
+      <ul id="global-nav" class="masthead-tabs unstyled">
+        <li class="js-create-new create-new">
+          <a href="#navigation" class="toggler">New document</a>
+          <%= document_creation_dropdown %>
+        </li>
+        <%= admin_documents_header_link %>
+        <%= admin_statistics_announcements_link if user_can_see_stats_announcements? %>
+        <%= admin_featured_header_link %>
+        <%= admin_user_organisation_header_link %>
+        <li class="js-more-nav">
+          <a href="#navigation" class="toggler">More</a>
+          <ul class="more-nav more-nav-right js-hidden unstyled">
+            <%= admin_organisations_header_link %>
+            <%= admin_policy_groups_header_link %>
+            <%= admin_roles_header_link %>
+            <%= admin_people_header_link %>
+            <%= admin_topics_header_link %>
+            <%= admin_topical_events_header_link %>
+            <%= admin_worldwide_organisations_header_link %>
+            <%= admin_world_locations_header_link %>
+            <%= admin_fields_of_operation_header_link %>
+            <%= admin_email_curation_queue_link %>
+            <%= admin_cabinet_ministers_link %>
+            <%= admin_get_involved_link %>
+            <%= admin_sitewide_settings_link %>
+          </ul>
+        </li>
+      </ul>
       <section class="notices">
         <%= render partial: "shared/notices" %>
       </section>
