@@ -133,7 +133,7 @@ class StatisticsControllerTest < ActionController::TestCase
     json = results.first
     assert_equal "statistics-title", json["title"]
     assert_equal statistics_publication.id, json["id"]
-    assert_equal publication_path(statistics_publication.document), json["url"]
+    assert_equal statistic_path(statistics_publication.document), json["url"]
     assert_equal "org-name and other-org", json["organisations"]
     assert_equal %{<abbr class="public_timestamp" title="2012-03-14T00:00:00+00:00">14 March 2012</abbr>}, json["display_date_microformat"]
     assert_equal "Statistics", json["display_type"]
