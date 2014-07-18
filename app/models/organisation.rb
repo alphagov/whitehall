@@ -399,39 +399,6 @@ class Organisation < ActiveRecord::Base
     name
   end
 
-  def alternate_style_top_tasks
-    case slug
-    when 'environment-agency'
-      {
-        services_in: [
-          {
-            path: '/environmental-management',
-            text: 'Comply with environmental regulations'
-          },
-        ],
-        prominent: [
-          {
-            path: '/check-if-youre-at-risk-of-flooding',
-            text: 'Flood warnings',
-            description: 'Check flood warnings in your area'
-          },
-          {
-            path: '/browse/environment-countryside/recycling-waste-management',
-            text: 'Business and commercial waste',
-            description: 'What to do with waste you produce in your business'
-          },
-          {
-            path: '/browse/environment-countryside',
-            text: 'Environment, boating and fishing',
-            description: 'Buy your rod licence online and register your boat'
-          },
-        ]
-      }
-    else
-      {}
-    end
-  end
-
   private
 
   def sub_organisations_must_have_a_parent
