@@ -18,8 +18,9 @@ private
 
   def search_query
     {
+      count: 0,
       filter_organisations: [organisation.slug],
-      facet_specialist_sectors: "1000,examples:4,example_scope:global"
+      facet_specialist_sectors: "1000,examples:4,example_scope:global",
     }
   end
 end
