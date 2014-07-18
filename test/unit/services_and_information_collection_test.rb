@@ -22,21 +22,21 @@ class ServicesAndInformationCollectionTest < ActiveSupport::TestCase
     collection = ServicesAndInformationCollection.new(
       title: "Example subsector",
       subsector_link: "/example-subsector",
-      examples: [ { "title" => "Example document", "link" => "/example-document" } ],
+      examples: [ { title: "A document title", link: "/a-document-link" } ],
       document_count: 1
     )
 
-    assert_equal "Example document", collection.title_for_example_at(0)
+    assert_equal "A document title", collection.title_for_example_at(0)
   end
 
   test "#link_for_example_at returns the link for the example specified by index" do
     collection = ServicesAndInformationCollection.new(
       title: "Example subsector",
       subsector_link: "/example-subsector",
-      examples: [ { "title" => "Example document", "link" => "/example-document" } ],
+      examples: [ { title: "A document title", link: "/a-document-link" } ],
       document_count: 1
     )
 
-    assert_equal "/example-document", collection.link_for_example_at(0)
+    assert_equal "/a-document-link", collection.link_for_example_at(0)
   end
 end

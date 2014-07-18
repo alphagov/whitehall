@@ -1,15 +1,10 @@
-When(/^I click the link to the full list of topics for that organisation$/) do
+When(/^I view the services and information page for the "(.*?)" organisation$/) do |org_name|
+  org = Organisation.find_by_name(org_name)
   stub_rummager_response
-  click_link 'Full list of topics'
+  visit services_and_information_path(org)
 end
 
-Then(/^I can see a link to a "(.*?)" for the "(.*?)" organisation$/) do |link_title, org_name|
-  organisation = Organisation.find_by_name(org_name)
-
-  assert page.has_link?(link_title, href: services_and_information_path(organisation))
-end
-
-Then(/^I should see a list of documents related to the Cabinet Office org grouped by sector title$/) do
+Then(/^I should see a list of sub\-sectors in which some documents are related to the Cabinet Office organisation, with a list of documents in each sub\-sector$/) do
   titles_returned_by_stubbed_response = ["Waste", "Environmental permits"]
 
   titles_returned_by_stubbed_response.each do |title|
