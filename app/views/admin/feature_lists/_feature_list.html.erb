@@ -2,7 +2,7 @@
 
 <h2 class="feature-title">Feature new documents</h2>
 <div class="row-fluid">
-  <div class="span2">
+  <div class="span2 span2-responsive">
     <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
   <div class="span10" id="search_results">
