@@ -101,37 +101,4 @@
       text-decoration: underline;
     }
   }
-
-  .prominent-top-tasks {
-    @extend %contain-floats;
-    clear: both;
-    article {
-      @include media(tablet) {
-        float: left;
-        padding: $gutter 0;
-        width: $one-third;
-      }
-      .content {
-        padding: 0 0 $gutter-two-thirds 0;
-
-        h2 {
-          @include core-19;
-          font-weight: bold;
-        }
-        ul li {
-          font-weight: bold;
-          line-height: 1.25;
-          list-style: none;
-          padding: 0 0 $gutter-one-sixth 0;
-        }
-        @include media(tablet) {
-          padding: $gutter-half;
-        }
-      }
-    }
-    @include media(tablet) {
-      margin: 0 -$gutter-half;
-    }
-  }
-
 }

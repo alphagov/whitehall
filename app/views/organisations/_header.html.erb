@@ -3,22 +3,17 @@
   show_top_tasks ||= false
   link_to_organisation ||= false
   languages_available ||= false
-  alternate_style_top_tasks ||= {}
 %>
 
 <header class="page-header">
   <h1><%= organisation_logo(organisation, linked: link_to_organisation, size: logo_size) %></h1>
 
-  <% if alternate_style_top_tasks.any? %>
-    <%= render partial: 'organisations/alternate_style_top_tasks', locals: {links: alternate_style_top_tasks} %>
-  <% else %>
-    <%= content_tag_if_not_empty :aside, class: "heading-extra" do %>
-      <% if languages_available %>
-        <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
-      <% end %>
-      <% if show_top_tasks %>
-        <%= render 'shared/featured_links', type: 'top-tasks', links: organisation.top_tasks.only_the_initial_set %>
-      <% end %>
+  <%= content_tag_if_not_empty :aside, class: "heading-extra" do %>
+    <% if languages_available %>
+      <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
+    <% end %>
+    <% if show_top_tasks %>
+      <%= render 'shared/featured_links', type: 'top-tasks', links: organisation.top_tasks.only_the_initial_set %>
     <% end %>
   <% end %>
 
