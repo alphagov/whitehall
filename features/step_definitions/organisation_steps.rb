@@ -17,6 +17,11 @@ Given(/^the organisation "(.*?)" exists with a featured article$/) do |name|
   create(:feature_list, featurable: org, features: [create(:feature, document: create(:published_news_article).document)])
 end
 
+Given(/^the organisation "(.*?)" exists with featured services and guidance$/) do |name|
+  org = create(:organisation, name: name)
+  create(:featured_services_and_guidance, linkable: org)
+end
+
 Given /^the executive office "([^"]*)" exists$/ do |name|
   create(:executive_office, name: name)
 end
