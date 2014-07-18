@@ -15,12 +15,6 @@ body {
   padding-bottom: $gutter+$gutter-one-third;
 }
 
-.row-fluid {
-  .nav li + .nav-header {
-    clear: both;
-  }
-}
-
 .row-fluid .span2-responsive {
   width: 100%;
   @include media(desktop) {
