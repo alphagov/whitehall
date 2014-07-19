@@ -68,7 +68,7 @@ body {
   position: relative;
 }
 
-.masthead-tabs > li {
+.masthead-tab-item {
   margin-right: 0.32%;
   width: 16.4%;
   float: left;
@@ -78,7 +78,7 @@ body {
   }
 }
 
-.masthead-tabs > li > a {
+.masthead-tab-item > a {
   color: $white;
   font-size: 16px;
   height: 40px;
@@ -93,12 +93,12 @@ body {
   }
 }
 
-.masthead-tabs > li:hover > a,
-.masthead-tabs > li.active > a {
+.masthead-tab-item:hover > a,
+.masthead-tab-item.active > a {
   color: $black;
 }
 
-.masthead-tabs > li {
+.masthead-tab-item {
   background: $black;
 
   &.active {
@@ -128,13 +128,13 @@ body {
   right: 0;
 }
 
-.more-nav a {
+.masthead-menu-item a {
   color: $link-colour;
   padding: $gutter-one-sixth;
   display: inline-block;
 }
 
-.more-nav > li {
+.masthead-menu-item {
   width: 33.33%;
   display: block;
   float: left;
