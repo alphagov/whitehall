@@ -152,7 +152,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.text.match /1 publication by A Department . containing keyword ./
 
   select_filter "Publication type", "Guidance", and_clear_others: true
-puts page.body
+
   assert page.has_no_content? "Publication with keyword"
   assert page.has_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
