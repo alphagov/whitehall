@@ -383,7 +383,7 @@ class RoleAppointmentTest < ActiveSupport::TestCase
   test "can return only appointments for ministerial roles" do
     pm = create(:ministerial_role)
     deputy_pm = create(:ministerial_role)
-    some_other_role = create(:role)
+    some_other_role = create(:ambassador_role)
     first_pm_appt = create(:role_appointment, role: pm, started_at: 10.days.ago, ended_at: 9.days.ago)
     deputy_pm_appt = create(:role_appointment, role: deputy_pm, started_at: 12.days.ago)
     other_appt = create(:role_appointment, role: some_other_role, started_at: 3.days.ago)

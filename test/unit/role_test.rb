@@ -65,7 +65,7 @@ class RoleTest < ActiveSupport::TestCase
   end
 
   test "should indicate that the role is vacant" do
-    role = create(:role, people: [])
+    role = create(:board_member_role, people: [])
     assert_equal "No one is assigned to this role", role.current_person_name
   end
 

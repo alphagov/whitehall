@@ -237,7 +237,7 @@ class PersonTest < ActiveSupport::TestCase
 
   test '#without_current_ministerial_roles finds people with current role that is not ministerial' do
     person = create(:person)
-    create(:role_appointment, person: person)
+    create(:board_member_role_appointment, person: person)
 
     assert_includes Person.without_a_current_ministerial_role, person
   end
