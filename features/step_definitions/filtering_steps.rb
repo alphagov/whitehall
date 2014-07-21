@@ -4,7 +4,7 @@ When(/^I (?:also )?filter by (only )?a keyword$/) do |only|
 end
 
 When(/^I (?:also )?filter by (only )?a publication type$/) do |only|
-  select_filter "Publication type", "Statistics", !!only
+  select_filter "Publication type", "Guidance", !!only
 end
 
 When(/^I (?:also )?filter by (only )?a topic$/) do |only|
@@ -107,7 +107,7 @@ Given(/^there are some published publications$/) do
   world_location = create(:world_location, name: "A World Location")
 
   create :published_publication, title: "Publication with keyword"
-  create :published_statistics, title: "Statistics publication"
+  create :published_guidance, title: "Guidance publication"
   create :published_publication, title: "Publication with the topic", topics: [topic]
   create :published_publication, title: "Publication with the department and keyword", organisations: [department]
   create :published_publication, :with_command_paper, title: "Publication which is a command paper"
@@ -126,7 +126,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   fill_in_filter "Contains", "keyword"
 
   assert page.has_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -140,7 +140,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   select_filter "Department", "A Department"
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -151,10 +151,10 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication by A Department . containing keyword ./
 
-  select_filter "Publication type", "Statistics", and_clear_others: true
-
+  select_filter "Publication type", "Guidance", and_clear_others: true
+puts page.body
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_content? "Statistics publication"
+  assert page.has_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -163,12 +163,11 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   assert page.has_no_content? "Publication published too early"
   assert page.has_no_content? "Publication published too late"
   assert page.has_no_content? "Publication published within date range"
-  assert page.text.match /1 publication/
 
   select_filter "Topic", "A Topic", and_clear_others: true
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -182,7 +181,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   select_filter "Department", "A Department", and_clear_others: true
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -196,7 +195,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   select_filter "Official document status", "Command papers only", and_clear_others: true
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_content? "Publication which is a command paper"
@@ -210,7 +209,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   select_filter "Official document status", "Act papers only", and_clear_others: true
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -224,7 +223,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   select_filter "Official document status", "Command or act papers", and_clear_others: true
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_content? "Publication which is a command paper"
@@ -238,7 +237,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   select_filter "World locations", "A World Location", and_clear_others: true
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -255,7 +254,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   page.click_on "Refresh results"
 
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_no_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication which is a command paper"
@@ -273,7 +272,7 @@ end
 
 Then(/^the filtered publications refresh automatically$/) do
   assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Statistics publication"
+  assert page.has_no_content? "Guidance publication"
   assert page.has_no_content? "Publication with the topic"
   assert page.has_content? "Publication with the department and keyword"
   assert page.has_no_content? "Publication with the world location"

@@ -19,6 +19,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     renderTable: function(data) {
       $('.js-filter-results').mustache('documents-_filter_table', data);
     },
+    renderStatisticsNotice: function() {
+      $(".filter-results-summary").empty();
+      $('.js-filter-results').mustache('documents-_statistics_notice');
+    },
     updateAtomFeed: function(data) {
       if (data.atom_feed_url) {
         $(".feeds .feed").attr("href", data.atom_feed_url);
@@ -56,10 +60,14 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
           documentFilter.loading = false;
         },
         success: function(data) {
-          documentFilter.updateFeeds(data);
-          if (data.results) {
-            documentFilter.renderTable(data);
-            documentFilter.liveResultSummary(data);
+          if (data['statistics?']) {
+            documentFilter.renderStatisticsNotice();
+          } else {
+            documentFilter.updateFeeds(data);
+            if (data.results) {
+              documentFilter.renderTable(data);
+              documentFilter.liveResultSummary(data);
+            }
           }
 
           var newUrl = url + "?" + $form.serialize();

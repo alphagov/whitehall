@@ -12,6 +12,7 @@ class DocumentFilterPresenter < Struct.new(:filter, :context, :document_decorato
       current_page: documents.current_page,
       total_pages: documents.total_pages,
       total_count: documents.total_count,
+      statistics?: context.params[:publication_filter_option] == 'statistics',
       results: documents.map { |d| d.as_hash },
       results_any?: documents.any?,
       result_type: result_type,
