@@ -5,9 +5,9 @@ FactoryGirl.define do
     end
   end
 
-  factory :role_without_organisations, class: Role, traits: [:translated] do
+  factory :role_without_organisations, class: MinisterialRole, traits: [:translated] do
     sequence(:name) { |index| "role-name-#{index}" }
-    type ""
+    role_type "minister"
   end
 
   factory :historic_role, parent: :ministerial_role do
