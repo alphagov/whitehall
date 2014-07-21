@@ -315,7 +315,7 @@
 
             // now make the textarea transparent to see the highlighter throught
             this.$textarea.css({
-                'background': 'none',
+                'background': 'none'
             });
 
             // display highlighter text for debuging
