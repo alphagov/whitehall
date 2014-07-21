@@ -48,6 +48,8 @@ body {
   left: -9999em;
 }
 
+$collapse-tabs-width: 710px;
+
 .masthead {
   @extend %contain-floats;
   background: #6d6d6d;
@@ -72,6 +74,18 @@ body {
   margin-right: 0.32%;
   width: 16.4%;
   float: left;
+  background: $black;
+
+  &.active {
+    color: $black;
+    background-color: $grey-2;
+  }
+
+  &:hover,
+  &.active:hover {
+    background-color: $light-blue-50;
+    color: $black;
+  }
 
   &:last-child {
     margin-right: 0;
@@ -107,6 +121,12 @@ body {
   &:hover {
     text-decoration: none;
   }
+
+  @media (max-width: $collapse-tabs-width) {
+    text-align: left;
+    padding: 5px 15px;
+  }
+
   @include ie-lte(7) {
     display: block;
   }
@@ -115,21 +135,6 @@ body {
 .masthead-tab-item:hover > a,
 .masthead-tab-item.active > a {
   color: $black;
-}
-
-.masthead-tab-item {
-  background: $black;
-
-  &.active {
-    color: $black;
-    background-color: $grey-2;
-  }
-
-  &:hover,
-  &.active:hover {
-    background-color: $light-blue-50;
-    color: $black;
-  }
 }
 
 .masthead-menu {
@@ -141,16 +146,28 @@ body {
   padding: $gutter-one-third;
   font-size: 16px;
   line-height: 18px;
+
+  @media (max-width: $collapse-tabs-width) {
+    width: auto;
+  }
 }
 
 .masthead-menu-right {
   right: 0;
+
+  @media (max-width: $collapse-tabs-width) {
+    right: auto;
+  }
 }
 
 .masthead-menu-item {
   width: 33.33%;
   display: block;
   float: left;
+
+  @media (max-width: $collapse-tabs-width) {
+    width: 50%;
+  }
 }
 
 .masthead-menu-item a {
