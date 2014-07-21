@@ -316,8 +316,8 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   test '#index for statistics document type redirect to statistics index' do
-    get :index, publication_filter_option: 'statistics'
-    assert_redirected_to statistics_path
+    get :index, publication_filter_option: 'statistics', keywords: 'wombles'
+    assert_redirected_to statistics_path(keywords: 'wombles')
   end
 
   view_test "#index requested as JSON includes data for publications" do
