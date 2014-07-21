@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140709141929) do
+ActiveRecord::Schema.define(:version => 20140718100954) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -999,16 +999,16 @@ ActiveRecord::Schema.define(:version => 20140709141929) do
   create_table "roles", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",                         :default => "MinisterialRole", :null => false
+    t.string   "type",                                            :null => false
     t.boolean  "permanent_secretary",          :default => false
-    t.boolean  "cabinet_member",               :default => false,             :null => false
+    t.boolean  "cabinet_member",               :default => false, :null => false
     t.string   "slug"
-    t.boolean  "chief_of_the_defence_staff",   :default => false,             :null => false
+    t.boolean  "chief_of_the_defence_staff",   :default => false, :null => false
     t.integer  "whip_organisation_id"
     t.integer  "seniority",                    :default => 100
     t.integer  "attends_cabinet_type_id"
     t.integer  "role_payment_type_id"
-    t.boolean  "supports_historical_accounts", :default => false,             :null => false
+    t.boolean  "supports_historical_accounts", :default => false, :null => false
     t.integer  "whip_ordering",                :default => 100
   end
 
