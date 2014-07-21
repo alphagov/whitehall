@@ -76,6 +76,22 @@ body {
   &:last-child {
     margin-right: 0;
   }
+
+  @media (max-width: $collapse-tabs-width) {
+    float: none;
+    width: auto;
+    margin: 0;
+    border-bottom: 1px solid #6d6d6d;
+  }
+
+  @include ie-lte(8) {
+
+    // Prevent wrapping of tabs
+    width: 16%;
+
+    // Move tabs down to sit on content correctly
+    margin-bottom: -8px;
+  }
 }
 
 .masthead-tab-item > a {
@@ -90,6 +106,9 @@ body {
 
   &:hover {
     text-decoration: none;
+  }
+  @include ie-lte(7) {
+    display: block;
   }
 }
 
