@@ -315,6 +315,11 @@ class PublicationsControllerTest < ActionController::TestCase
     refute_select '.filter-results-summary'
   end
 
+  test '#index for statistics document type redirect to statistics index' do
+    get :index, publication_filter_option: 'statistics'
+    assert_redirected_to statistics_path
+  end
+
   view_test "#index requested as JSON includes data for publications" do
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")
