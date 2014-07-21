@@ -26,7 +26,7 @@ namespace :router do
     MainstreamCategory.find_each do |category|
       path = "/browse/" + category.path
       @logger.info "Registering detailed guidance category '#{path}'"
-      @router_api.add_route(path, "exact", @application_id, skip_commit: true)
+      @router_api.add_route(path, "exact", @application_id)
     end
     @logger.info "Detailed guidance categories registered, reloading routes..."
     @router_api.commit_routes
@@ -37,7 +37,7 @@ namespace :router do
     DetailedGuide.published.includes(:document).each do |guide|
       path = "/#{guide.slug}"
       @logger.info "Registering detailed guide #{path}..."
-      @router_api.add_route(path, "exact", @application_id, skip_commit: true)
+      @router_api.add_route(path, "exact", @application_id)
     end
     @logger.info "Guides registered, reloading routes..."
     @router_api.commit_routes
@@ -48,7 +48,7 @@ namespace :router do
     Unpublishing.where(document_type: DetailedGuide.name).each do |unpublishing|
       path = "/#{unpublishing.slug}"
       @logger.info "Registering detailed guide unpublishing #{path}..."
-      @router_api.add_route(path, "exact", @application_id, skip_commit: true)
+      @router_api.add_route(path, "exact", @application_id)
     end
     @logger.info "Guides unpublishings registered, reloading routes..."
     @router_api.commit_routes
