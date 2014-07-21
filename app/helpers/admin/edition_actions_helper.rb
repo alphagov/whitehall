@@ -86,14 +86,23 @@ module Admin::EditionActionsHelper
 
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
-    content_tag(:ul, class: "more-nav unstyled js-hidden") do
+    content_tag(:ul,
+      class: "more-nav unstyled js-hidden",
+      id: 'new-document-menu',
+      role: 'menu',
+      'aria-labelledby' => 'new-document-label'
+    ) do
       [Consultation, Publication, NewsArticle,
         Speech, DetailedGuide, DocumentCollection,
         Policy, SupportingPage, FatalityNotice,
         WorldwidePriority, CaseStudy, StatisticalDataSet,
         WorldLocationNewsArticle].map do |edition_type|
         content_tag(:li, class: 'masthead-menu-item') do
-          link_to edition_type.model_name.human, polymorphic_path([:new, :admin, edition_type.name.underscore]), title: "Create #{edition_type.model_name.human.titleize}"
+          link_to(edition_type.model_name.human,
+            polymorphic_path([:new, :admin, edition_type.name.underscore]),
+            title: "Create #{edition_type.model_name.human.titleize}",
+            role: 'menuitem'
+          )
         end if can?(:create, edition_type)
       end.compact.join.html_safe
     end

@@ -86,7 +86,7 @@ module Admin::UrlHelper
   end
 
   def admin_header_menu_link(name, path)
-    content_tag(:li, link_to(name, path), class: 'masthead-menu-item')
+    content_tag(:li, link_to(name, path, role: 'menuitem'), class: 'masthead-menu-item')
   end
 
   def admin_header_link(name, path, path_matcher = nil, options = {})
