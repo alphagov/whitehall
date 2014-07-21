@@ -3,14 +3,13 @@
   show_consult_gds_warning ||= false
 %>
 
-<% role_type = role.type %>
-<%= form_for [:admin, role.becomes(Role)], as: :role do |form| %>
+<%= form_for role, as: :role, url: role_url_for(role) do |form| %>
   <%= form.errors %>
 
   <fieldset>
     <%= form.text_field :name, label_text: 'Role title' %>
-    <%= form.label :type %>
-    <%= form.select :type, grouped_options_for_select(role_type_options, role_type_option_value_for(role, role_type)) %>
+    <%= form.label :role_type %>
+    <%= form.select :role_type, grouped_options_for_select(role_type_options, role_type_option_value_for(role, role.type)), { include_blank: true } %>
     <%= form.label :organisation_ids, 'Organisations' %>
     <%= form.select :organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all, 'id', 'select_name', role.organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations..." } %>
     <%= form.label :whip_organisation_id, 'Whip Organisation' %>
