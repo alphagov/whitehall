@@ -113,7 +113,7 @@ body {
   }
 }
 
-.more-nav {
+.masthead-menu {
   @extend %contain-floats;
   position: absolute;
   background: $light-blue-50;
@@ -124,20 +124,20 @@ body {
   line-height: 18px;
 }
 
-.more-nav-right {
+.masthead-menu-right {
   right: 0;
-}
-
-.masthead-menu-item a {
-  color: $link-colour;
-  padding: $gutter-one-sixth;
-  display: inline-block;
 }
 
 .masthead-menu-item {
   width: 33.33%;
   display: block;
   float: left;
+}
+
+.masthead-menu-item a {
+  color: $link-colour;
+  padding: $gutter-one-sixth;
+  display: inline-block;
 }
 
 .tabbable ul.actions {
