@@ -270,6 +270,14 @@ When(/^I select a filter option without clicking any button$/) do
   page.select "A Department", from: "Department"
 end
 
+When(/^I select the (.*) publication type option without clicking any button$/) do |publication_type|
+  page.select publication_type, from: "Publication type"
+end
+
+Then /^I should be notified that statistics have moved$/ do
+  assert page.has_content?("Statistics publications have moved")
+end
+
 Then(/^the filtered publications refresh automatically$/) do
   assert page.has_no_content? "Publication with keyword"
   assert page.has_no_content? "Guidance publication"
