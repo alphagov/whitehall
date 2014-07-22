@@ -3,6 +3,3 @@ class StatisticsFilterJsonPresenter < DocumentFilterPresenter
     "statistic"
   end
 end
-
-
-
