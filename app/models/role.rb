@@ -74,16 +74,16 @@ class Role < ActiveRecord::Base
     end
   end
 
-  attr_accessor :role_type
+  def role_type
+    RoleTypePresenter.option_value_for(self, self.type)
+  end
 
   def role_type=(role_type)
     @role_type = role_type
     unless role_type.blank?
       role_attributes = RoleTypePresenter.role_attributes_from(role_type)
-      self.type = role_attributes.delete(:type)
-      self.cabinet_member = role_attributes.delete :cabinet_member
-      self.permanent_secretary = role_attributes.delete :permanent_secretary
-      self.chief_of_the_defence_staff = role_attributes.delete :chief_of_the_defence_staff
+      self.type = role_attributes[:type]
+      self.attributes = role_attributes.except(:type)
     end
   end
 

@@ -61,6 +61,6 @@ class RoleTypePresenter
 
   def self.role_attributes_from(role_type_name)
     role_type = NAMES_VS_TYPES[role_type_name]
-    role_type.try(:attributes) || {}
+    (role_type.try(:attributes) || {}).dup
   end
 end
