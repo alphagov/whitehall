@@ -22,6 +22,10 @@ Given(/^the organisation "(.*?)" exists with featured services and guidance$/) d
   create(:featured_services_and_guidance, linkable: org)
 end
 
+Given(/^the organisation "(.*?)" exists with no featured services and guidance$/) do |name|
+  create(:organisation, name: name)
+end
+
 Given /^the executive office "([^"]*)" exists$/ do |name|
   create(:executive_office, name: name)
 end

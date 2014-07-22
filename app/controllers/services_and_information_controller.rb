@@ -3,10 +3,22 @@ class ServicesAndInformationController < PublicFacingController
   before_filter :set_organisation_slimmer_headers, only: [:show]
 
   def show
-    @collection_groups = build_services_and_information_collection_group
+    if organisation_has_services_and_information_content?
+      collection_groups
+    else
+      render status: 404
+    end
   end
 
 private
+
+  def organisation_has_services_and_information_content?
+    !collection_groups.blank?
+  end
+
+  def collection_groups
+    @collection_groups ||= build_services_and_information_collection_group
+  end
 
   def load_organisation
     @organisation = Organisation.with_translations(I18n.locale).find(params[:organisation_id])
