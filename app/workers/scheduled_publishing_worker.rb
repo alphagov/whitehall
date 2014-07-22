@@ -17,11 +17,11 @@ class ScheduledPublishingWorker
   end
 
   def self.queue_size
-    Sidekiq::ScheduledSet.new.count { |job| job['class'] == name }
+    queued_jobs.size
   end
 
   def self.queued_edition_ids
-    Sidekiq::ScheduledSet.new.map { |job| job['args'][0] }
+    queued_jobs.map { |job| job['args'][0] }
   end
 
   def perform(edition_id)
@@ -34,6 +34,10 @@ class ScheduledPublishingWorker
   end
 
 private
+
+  def self.queued_jobs
+    Sidekiq::ScheduledSet.new.select { |job| job['class'] == name }
+  end
 
   def publishing_robot
     User.where(name: "Scheduled Publishing Robot", uid: nil).first
