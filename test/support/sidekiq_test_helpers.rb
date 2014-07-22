@@ -1,3 +1,5 @@
+require 'sidekiq/api'
+
 module SidekiqTestHelpers
   def with_real_sidekiq(&block)
     Sidekiq::Testing.disable! do
