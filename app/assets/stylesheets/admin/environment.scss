@@ -7,12 +7,10 @@ $dev-color:        $grey-2;
   line-height: 19px;
   font-weight: bold;
   font-size: 16px;
-  margin: -4px 0 8px 15px;
-}
+  margin: -4px 0 8px 0;
 
-@media (max-width: 767px) {
-  .environment-message {
-    margin-left: 10px;
+  @include ie-lte(7) {
+    margin: 0;
   }
 }
 
