@@ -59,6 +59,9 @@ $collapse-tabs-width: 710px;
 
 .masthead-details {
   padding: $gutter/2 0 0;
+  @include ie-lte(7) {
+    margin-bottom: $gutter/2;
+  }
 }
 
 .masthead-details a {
