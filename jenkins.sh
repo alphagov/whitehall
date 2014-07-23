@@ -32,6 +32,11 @@ github_status pending "is running on Jenkins"
 # Ensure there are no artefacts left over from previous builds
 git clean -fdx
 
+# Try to merge master into the current branch, and abort if it doesn't exit
+# cleanly (ie there are conflicts). This will be a noop if the current branch
+# is master.
+git merge --no-commit origin/master || git merge --abort
+
 # Generate directories for upload tests
 mkdir -p ./incoming-uploads
 mkdir -p ./clean-uploads
