@@ -2,6 +2,7 @@ class SitewideSetting < ActiveRecord::Base
   validates :govspeak, presence: true, if: :on
   validates :key, presence: true
   validates_uniqueness_of :key
+  validates_with SafeHtmlValidator
 
   def human_status
     on ? "On" : "Off"
