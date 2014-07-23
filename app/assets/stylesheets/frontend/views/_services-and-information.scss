@@ -10,6 +10,9 @@
         @include bold-19;
         padding-bottom: $gutter-one-third;
       }
+      .other {
+        text-decoration: underline;
+      }
     }
   }
 }
