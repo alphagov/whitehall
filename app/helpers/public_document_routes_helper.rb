@@ -29,8 +29,12 @@ module PublicDocumentRoutesHelper
     when SupportingPage
       build_url_for_supporting_page(edition, options)
     else
-      polymorphic_url(edition.to_model.class.name.underscore,
-                      options.reverse_merge(id: edition.document))
+      path_name = if edition.is_a?(Publication) && edition.statistics?
+                    "statistic"
+                  else
+                    edition.to_model.class.name.underscore
+                  end
+      polymorphic_url(path_name, options.reverse_merge(id: edition.document))
     end
   end
 

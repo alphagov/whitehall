@@ -26,6 +26,13 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal news_article_path(news_article.document), public_document_path(news_article)
   end
 
+  test 'returns the statistic_path for Publications which are Statistics or NationalStatistics' do
+    statistics = create(:publication, :statistics)
+    assert_equal statistic_path(statistics.document), public_document_path(statistics)
+    national_statistics = create(:publication, :national_statistics)
+    assert_equal statistic_path(national_statistics.document), public_document_path(national_statistics)
+  end
+
   test 'returns the speech_path for Speech instances' do
     speech = create(:speech)
     assert_equal speech_path(speech.document), public_document_path(speech)

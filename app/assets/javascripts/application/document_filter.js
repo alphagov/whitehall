@@ -19,6 +19,10 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     renderTable: function(data) {
       $('.js-filter-results').mustache('documents-_filter_table', data);
     },
+    showStatisticsNotice: function() {
+      $(".filter-results-summary").empty();
+      $('.js-filter-results').html($('#statistics-moved-notice').text());
+    },
     updateAtomFeed: function(data) {
       if (data.atom_feed_url) {
         $(".feeds .feed").attr("href", data.atom_feed_url);
@@ -35,13 +39,29 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       documentFilter.updateAtomFeed(data);
       documentFilter.updateEmailSignup(data);
     },
+    updateHistory: function(url) {
+      history.pushState(documentFilter.currentPageState(), null, url);
+    },
+    updateTracking: function(url) {
+      window._gaq && _gaq.push(['_trackPageview', url]);
+    },
     submitFilters: function(e){
       e.preventDefault();
       var $form = documentFilter.$form,
           $submitButton = $form.find('input[type=submit]'),
           url = $form.attr('action'),
           jsonUrl = url + ".json",
-          params = $form.serializeArray();
+          params = $form.serializeArray(),
+          newUrl = url + "?" + $form.serialize(),
+          publicationType = $form.find('#publication_filter_option option:selected').val();
+
+      if (publicationType == 'statistics') {
+        $(".feeds").addClass('js-hidden');
+        documentFilter.showStatisticsNotice();
+        documentFilter.updateHistory(newUrl);
+        documentFilter.updateTracking(newUrl);
+        return;
+      }
 
       $submitButton.addClass('disabled');
       $(".filter-results-summary").text("Loading results…");
@@ -62,9 +82,8 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
             documentFilter.liveResultSummary(data);
           }
 
-          var newUrl = url + "?" + $form.serialize();
-          history.pushState(documentFilter.currentPageState(), null, newUrl);
-          window._gaq && _gaq.push(['_trackPageview', newUrl]);
+          documentFilter.updateHistory(newUrl);
+          documentFilter.updateTracking(newUrl);
         },
         error: function() {
           $submitButton.removeAttr('disabled');

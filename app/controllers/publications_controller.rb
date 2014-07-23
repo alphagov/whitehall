@@ -1,8 +1,9 @@
 class PublicationsController < DocumentsController
   enable_request_formats index: [:json, :atom]
+  before_filter :expire_cache_when_next_publication_published
+  before_filter :redirect_statistics, only: [:index]
 
   def index
-    expire_on_next_scheduled_publication(scheduled_publications)
     @filter = build_document_filter
     @filter.publications_search
 
@@ -27,9 +28,14 @@ class PublicationsController < DocumentsController
   end
 
 private
+  def expire_cache_when_next_publication_published
+    expire_on_next_scheduled_publication(Publicationesque.scheduled.order("scheduled_publication asc"))
+  end
 
-  def scheduled_publications
-    Publicationesque.scheduled.order("scheduled_publication asc")
+  def redirect_statistics
+    if !request.xhr? and params[:publication_filter_option] == 'statistics'
+      redirect_to statistics_path(params.except(:publication_filter_option, :controller, :action)), status: :moved_permanently
+    end
   end
 
   def document_class

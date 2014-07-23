@@ -65,3 +65,10 @@ Feature: Filtering Documents
     When I filter the publications list by "Statistics"
     Then I should see "Road accidents" in the result list
     And I should see "National road accidents" in the result list
+
+  @javascript
+  Scenario: User filters by "Statistics" which returns statistics and national statistics
+    Given a published publication "Road accidents" with type "Statistics"
+    When I visit the publications index page
+    When I select the Statistics publication type option without clicking any button
+    Then I should be notified that statistics have moved

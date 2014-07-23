@@ -3,21 +3,19 @@
                                                  loading_message_holder: '.filter-results-summary',
                                                  loading_message_text: 'Loading results&hellip;',
                                                  search_url: statistics_announcements_path %>
-<% page_title "Statistics", "Release calendar" %>
+<% page_title "Statistics", "release calendar" %>
 <% page_class "statistics-announcements-index" %>
-
-<div class="beta-notice">
-  <p><strong>BETA:</strong> This is a new service.</p>
-</div>
 
 <header class="block headings-block">
   <div class="inner-block floated-children">
     <%= render partial: 'shared/heading',
               locals: { big: true,
-                        heading: "Statistics: Release calendar" } %>
+                        heading: "Statistics: release calendar" } %>
   </div>
 </header>
 
+<%= render 'shared/beta_notice' %>
+<%= render 'statistics/impartiality' %>
 <%= render 'upcoming_calendar_tabs' %>
 
 <div class="filtered-index">
