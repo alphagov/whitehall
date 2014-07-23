@@ -23,6 +23,11 @@ class EditionScheduler < EditionService
 
 private
 
+  def fire_transition!
+    super
+    ScheduledPublishingWorker.queue(edition)
+  end
+
   def scheduled_publication_is_not_within_cache_limit?
     edition.scheduled_publication < Whitehall.default_cache_max_age.from_now
   end

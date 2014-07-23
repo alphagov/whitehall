@@ -298,28 +298,34 @@ class EditionTest < ActiveSupport::TestCase
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
     stub_panopticon_registration(publication)
-    acting_as(editor) { Whitehall.edition_services.publisher(publication).perform! }
+    Sidekiq::Testing.fake! do
+      acting_as(editor) { Whitehall.edition_services.publisher(publication).perform! }
+    end
     assert_equal editor, publication.published_by
   end
 
   test "#scheduled_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
+    Sidekiq::Testing.fake! do
+      acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
+    end
     assert_equal editor, publication.scheduled_by
   end
 
   test "#scheduled_by ignores activity on previous editions" do
-    editor = create(:departmental_editor)
-    robot = create(:scheduled_publishing_robot)
-    publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
-    stub_panopticon_registration(publication)
-    acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
-    Timecop.freeze publication.scheduled_publication do
-      acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
-      acting_as(editor) do
-        new_draft = publication.create_draft(editor)
-        assert_equal nil, new_draft.scheduled_by
+    Sidekiq::Testing.fake! do
+      editor = create(:departmental_editor)
+      robot = create(:scheduled_publishing_robot)
+      publication = create(:submitted_publication, scheduled_publication: 1.day.from_now)
+      stub_panopticon_registration(publication)
+      acting_as(editor) { Whitehall.edition_services.force_scheduler(publication).perform! }
+      Timecop.freeze publication.scheduled_publication do
+        acting_as(robot) { Whitehall.edition_services.scheduled_publisher(publication).perform! }
+        acting_as(editor) do
+          new_draft = publication.create_draft(editor)
+          assert_equal nil, new_draft.scheduled_by
+        end
       end
     end
   end

@@ -57,9 +57,10 @@ class DocumentsControllerTest < ActionController::TestCase
     new_draft = edition.create_draft(user)
     new_draft.title = "Second Title"
     new_draft.change_note = "change-note"
-    new_draft.save_as(user)
     new_draft.scheduled_publication = Time.zone.now + Whitehall.default_cache_max_age * 2
-    EditionForceScheduler.new(new_draft).perform!
+    new_draft.force_schedule
+    assert new_draft.save_as(user)
+    assert new_draft.scheduled?
 
     Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
       get :show, id: new_draft.document

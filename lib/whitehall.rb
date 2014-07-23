@@ -8,7 +8,6 @@ module Whitehall
   mattr_accessor :government_search_client
   mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
-  mattr_accessor :stats_collector
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
   mattr_accessor :need_api

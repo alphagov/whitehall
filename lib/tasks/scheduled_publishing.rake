@@ -13,6 +13,20 @@ namespace :publishing do
         previous = edition
       end
     end
+
+    desc "Queues missing jobs for any due scheduled editions"
+    task :queue_missing_jobs => :environment do
+      scheduled_scope = Edition.scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now))
+      queued_ids      = ScheduledPublishingWorker.queued_edition_ids
+      missing_jobs    = scheduled_scope.select { |edition| !queued_ids.include?(edition.id) }
+      puts "#{scheduled_scope.count} editions scheduled for publication, of which #{missing_jobs.size} do not have a job."
+
+      puts "Queueing missing jobs..."
+      missing_jobs.each do |edition|
+        ScheduledPublishingWorker.queue(edition)
+        puts "#{edition.id} queued"
+      end
+    end
   end
 
   namespace :due do
@@ -21,15 +35,6 @@ namespace :publishing do
       puts "%6s  %-25s  %s" % ["ID", "Scheduled date", "Title"]
       Edition.due_for_publication.each do |edition|
         puts "%6s  %-25s  %s" % [edition.id, edition.scheduled_publication.to_s, edition.title]
-      end
-    end
-
-    desc "Publish all editions due for publication"
-    task :publish => :environment do
-      begin
-        ScheduledEditionsPublisher.publish_all_due_editions
-      rescue ScheduledEditionsPublisher::PublishingFailure => exception
-        Airbrake.notify_or_ignore(exception, parameters: { unpublished_editions: exception.unpublished_edition_ids })
       end
     end
   end

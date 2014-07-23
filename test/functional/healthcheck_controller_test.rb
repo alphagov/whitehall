@@ -1,15 +1,32 @@
-require "test_helper"
+require 'test_helper'
 
 class HealthcheckControllerTest < ActionController::TestCase
-  test "returns success on request" do
+  include SidekiqTestHelpers
+
+  test 'returns success on request' do
     get :check
-    assert_equal 200, response.status
+    assert_response :success
   end
 
-  test "raises 500 on lack of database" do
-    Edition.stubs(:count).raises(Mysql2::Error.new('Database has gone away'))
-    assert_raise Mysql2::Error do
+  test 'includes an OK health check status when scheduled queue matches number of scheduled editions' do
+    with_real_sidekiq do
+      edition = create(:scheduled_edition)
+      ScheduledPublishingWorker.queue(edition)
+
       get :check
+      assert_equal 'ok', json_response['status']
+      assert_equal 'ok', json_response['checks']['scheduled_queue']['status']
+    end
+  end
+
+  test 'includes WARNING health check status when scheduled queue does not match the number of scheduled editions' do
+    with_real_sidekiq do
+      edition = create(:scheduled_edition)
+
+      get :check
+      assert_equal 'warning', json_response['status']
+      assert_equal 'warning', json_response['checks']['scheduled_queue']['status']
+      assert_equal '1 scheduled edition(s); 0 job(s) queued', json_response['checks']['scheduled_queue']['message']
     end
   end
 end
