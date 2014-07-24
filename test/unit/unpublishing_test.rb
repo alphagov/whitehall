@@ -69,6 +69,15 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal unpublishing, Unpublishing.from_slug('some-slug', 'CaseStudy')
   end
 
+  test 'Unpublishing.from_slug returns the most recent unpublishing' do
+    case_study          = create(:published_case_study)
+    first_unpublishing  = create(:unpublishing, edition: case_study, slug: case_study.slug)
+    new_edition         = case_study.create_draft(create(:user))
+    second_unpublishing = create(:unpublishing, edition: new_edition, slug: new_edition.slug)
+
+    assert_equal second_unpublishing, Unpublishing.from_slug(new_edition.slug, 'CaseStudy')
+  end
+
   test 'alternative_url is required if the reason is Consolidated' do
     unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Consolidated.id, alternative_url: nil)
     refute unpublishing.valid?

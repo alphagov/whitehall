@@ -12,7 +12,7 @@ class Unpublishing < ActiveRecord::Base
   validate :redirect_not_circular
 
   def self.from_slug(slug, type)
-    where(slug: slug, document_type: type.to_s).first
+    where(slug: slug, document_type: type.to_s).last
   end
 
   def redirect?
