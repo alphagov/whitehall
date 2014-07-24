@@ -50,9 +50,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
     org_a = create(:organisation, name: "A")
     org_c = create(:organisation, name: "C")
     org_b = create(:organisation, name: "B")
-    role_a = create(:role, name: "name", organisations: [org_a])
-    role_c = create(:role, name: "name", organisations: [org_c])
-    role_b = create(:role, name: "name", organisations: [org_b])
+    role_a = create(:ministerial_role, name: "name", organisations: [org_a])
+    role_c = create(:ministerial_role, name: "name", organisations: [org_c])
+    role_b = create(:ministerial_role, name: "name", organisations: [org_b])
 
     get :index
 
@@ -96,9 +96,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "index should order roles by permanent secretary status versus role name" do
     org = create(:organisation)
-    permanent_secretary_role_b = create(:role, name: "B", organisations: [org], permanent_secretary: true)
-    non_permanent_secretary_role = create(:role, name: "A", organisations: [org], permanent_secretary: false)
-    permanent_secretary_role_a = create(:role, name: "A", organisations: [org], permanent_secretary: true)
+    permanent_secretary_role_b = create(:board_member_role, name: "B", organisations: [org], permanent_secretary: true)
+    non_permanent_secretary_role = create(:board_member_role, name: "A", organisations: [org], permanent_secretary: false)
+    permanent_secretary_role_a = create(:board_member_role, name: "A", organisations: [org], permanent_secretary: true)
 
     get :index
 
@@ -107,9 +107,9 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "index should order roles by name all other things being equal" do
     org = create(:organisation)
-    role_a = create(:role, name: "A", organisations: [org])
-    role_c = create(:role, name: "C", organisations: [org])
-    role_b = create(:role, name: "B", organisations: [org])
+    role_a = create(:board_member_role, name: "A", organisations: [org])
+    role_c = create(:board_member_role, name: "C", organisations: [org])
+    role_b = create(:board_member_role, name: "B", organisations: [org])
 
     get :index
 
@@ -125,8 +125,8 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   view_test "index should display links to edit an existing role" do
-    role_one = create(:role)
-    role_two = create(:role)
+    role_one = create(:board_member_role)
+    role_two = create(:military_role)
 
     get :index
 
@@ -139,7 +139,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
   end
 
   view_test "index should display link to manage translations for worldwide roles" do
-    role = create(:role)
+    role = create(:ministerial_role)
     get :index
 
     assert_select_object role do
@@ -170,7 +170,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     assert_select "form[action='#{admin_roles_path}']" do
       assert_select "input[name='role[name]'][type='text']"
-      assert_select "select[name='role[type]']"
+      assert_select "select[name='role[role_type]']"
       assert_select "select[name*='role[organisation_ids]']"
       assert_select "input[type='submit']"
     end
@@ -181,7 +181,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     post :create, role: attributes_for(:ministerial_role,
       name: "role-name",
-      type: "minister",
+      role_type: "minister",
       organisation_ids: [org_one.id, org_two.id]
     )
 
@@ -192,7 +192,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new board level manager role" do
     post :create, role: attributes_for(:board_member_role,
-      type: "board_level_manager",
+      role_type: "board_level_manager",
     )
 
     assert role = BoardMemberRole.last
@@ -200,7 +200,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new military role" do
     post :create, role: attributes_for(:military_role,
-      type: "chief_of_staff",
+      role_type: "chief_of_staff",
     )
 
     assert role = MilitaryRole.last
@@ -208,7 +208,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new special representative role" do
     post :create, role: attributes_for(:special_representative_role,
-      type: "special_representative",
+      role_type: "special_representative",
     )
 
     assert role = SpecialRepresentativeRole.last
@@ -216,7 +216,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   test "create should create a new chief professional officer role" do
     post :create, role: attributes_for(:chief_professional_officer_role,
-      type: "chief_professional_officer",
+      role_type: "chief_professional_officer",
     )
 
     assert role = ChiefProfessionalOfficerRole.last
@@ -248,7 +248,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     assert_select "form[action='#{admin_role_path(role)}']" do
       assert_select "input[name='role[name]'][value='role-name']"
-      assert_select "select[name='role[type]']" do
+      assert_select "select[name='role[role_type]']" do
         assert_select "option[selected='selected'][value='permanent_secretary']"
       end
       assert_select "select[name*='role[organisation_ids]']" do
@@ -264,7 +264,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
     put :update, id: role, role: {
       name: "new-name",
-      type: "permanent_secretary",
+      role_type: "permanent_secretary",
       organisation_ids: [org_two.id]
     }
 

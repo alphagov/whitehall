@@ -7,13 +7,11 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def new
-    @role = MinisterialRole.new(cabinet_member: true)
+    @role = Role.new
   end
 
   def create
-    attributes = RoleTypePresenter.role_attributes_from(role_params)
-    @role = Role.new(attributes.except(:type))
-    @role.type = attributes.delete(:type) || MinisterialRole.name
+    @role = Role.new(role_params)
     if @role.save
       redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
     else
@@ -26,11 +24,7 @@ class Admin::RolesController < Admin::BaseController
   end
 
   def update
-    attributes = RoleTypePresenter.role_attributes_from(role_params)
-    if new_type = attributes.delete(:type)
-      @role.type = new_type
-    end
-    if @role.update_attributes(attributes)
+    if @role.update_attributes(role_params)
       redirect_to admin_roles_path, notice: %{"#{@role.name}" updated.}
     else
       render action: "edit"
@@ -55,7 +49,7 @@ class Admin::RolesController < Admin::BaseController
 
   def role_params
     params.require(:role).permit(
-      :name, :type, :whip_organisation_id, :role_payment_type_id,
+      :name, :role_type, :whip_organisation_id, :role_payment_type_id,
       :attends_cabinet_type_id, :responsibilities,
       organisation_ids: [],
       worldwide_organisation_ids: []

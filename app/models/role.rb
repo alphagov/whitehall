@@ -36,6 +36,7 @@ class Role < ActiveRecord::Base
   scope :chief_professional_officer, -> { where(type: 'ChiefProfessionalOfficerRole') }
 
   validates :name, presence: true
+  validates :type, presence: true
   validates_with SafeHtmlValidator
 
   before_destroy :prevent_destruction_unless_destroyable
@@ -70,6 +71,19 @@ class Role < ActiveRecord::Base
       note.join(". ")
     else
       role_payment_type.name if role_payment_type
+    end
+  end
+
+  def role_type
+    RoleTypePresenter.option_value_for(self, self.type)
+  end
+
+  def role_type=(role_type)
+    @role_type = role_type
+    unless role_type.blank?
+      role_attributes = RoleTypePresenter.role_attributes_from(role_type)
+      self.type = role_attributes[:type]
+      self.attributes = role_attributes.except(:type)
     end
   end
 

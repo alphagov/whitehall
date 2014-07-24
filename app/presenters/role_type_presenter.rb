@@ -46,18 +46,21 @@ class RoleTypePresenter
   DEFAULT_NAME, DEFAULT_TYPE = NAMES_VS_TYPES.first
 
   def self.options
-    GROUPS_VS_NAMES_VS_TYPES.map do |group, names_vs_types|
+    options = GROUPS_VS_NAMES_VS_TYPES.map do |group, names_vs_types|
       [group, names_vs_types.map { |name, type| [name.humanize, name] }]
     end
+    # Put ministers at the end of the list.
+    ministerial = options.find_index { |opt| opt[0] == 'Ministerial' }
+    options.append(options.delete_at(ministerial))
   end
 
   def self.option_value_for(role, role_type)
     role_type = RoleType.new(role_type, role.cabinet_member?, role.permanent_secretary?, role.chief_of_the_defence_staff?)
-    NAMES_VS_TYPES.invert[role_type] || DEFAULT_NAME
+    NAMES_VS_TYPES.invert[role_type]
   end
 
-  def self.role_attributes_from(params)
-    role_type = NAMES_VS_TYPES[params[:type]] || DEFAULT_TYPE
-    params.merge(role_type.attributes)
+  def self.role_attributes_from(role_type_name)
+    role_type = NAMES_VS_TYPES[role_type_name]
+    (role_type.try(:attributes) || {}).dup
   end
 end

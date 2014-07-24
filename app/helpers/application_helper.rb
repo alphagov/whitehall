@@ -139,10 +139,6 @@ module ApplicationHelper
     RoleTypePresenter.options
   end
 
-  def role_type_option_value_for(role, role_type)
-    RoleTypePresenter.option_value_for(role, role_type)
-  end
-
   def link_to_person(person)
     PersonPresenter.new(person, self).link(class: 'person-link')
   end
