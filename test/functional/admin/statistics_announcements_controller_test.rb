@@ -7,21 +7,6 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     @topic = create(:topic)
   end
 
-  test 'only gds editors and ONS users have access' do
-    login_as(:policy_writer)
-    get :index
-    assert_response :forbidden
-
-    login_as(:gds_editor)
-    get :index
-    assert_response :success
-
-    ons_user = create(:user, organisation: create(:organisation, name: 'Office for National Statistics'))
-    login_as(ons_user)
-    get :index
-    assert_response :success
-  end
-
   view_test "GET :new renders a new announcement form" do
     get :new
 

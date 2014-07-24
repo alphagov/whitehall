@@ -6,9 +6,7 @@ module Admin::UrlHelper
   end
 
   def admin_statistics_announcements_link
-    if user_can_see_stats_announcements?
-      admin_header_link "Statistics announcements", admin_statistics_announcements_path
-    end
+    admin_header_link "Statistics announcements", admin_statistics_announcements_path
   end
 
   def admin_topics_header_menu_link
