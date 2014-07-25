@@ -5,7 +5,7 @@
   <% if form.object.document %>
   <%= form.text_field :slug, disabled: true %>
   <% end %>
-  <%= form.text_field :title %>
+  <%= form.text_field :title, required: true %>
   <div class="title-length-info">Title text should be 65 characters or fewer and the slug will be truncated past 150. <span class="count"></span></div>
 
   <%= form.text_area :summary, rows: 2, class: 'js-summary-length-counting', data: { 'count-message-threshold' => 140, 'count-message-selector' => '.summary-length-info' }, required: form.object.summary_required? %>
