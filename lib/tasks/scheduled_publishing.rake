@@ -40,7 +40,17 @@ namespace :publishing do
   end
 
   namespace :overdue do
-    desc "Publishes any scheduled editions that are more than a minute past their due date"
+    desc "List scheduled editions overdue for publication by more than one minute"
+    task :list => :environment do
+      overdue_editions = Edition.scheduled.where(Edition.arel_table[:scheduled_publication].lteq(Time.zone.now - 1.minute))
+
+      puts "%6s  %-25s  %s" % ["ID", "Scheduled date", "Title"]
+      overdue_editions.each do |edition|
+        puts "%6s  %-25s  %s" % [edition.id, edition.scheduled_publication.to_s, edition.title]
+      end
+    end
+
+    desc "Publishes scheduled editions overdue for publication by more than one minute"
     task :publish => :environment do
       overdue_editions = Edition.scheduled.where(Edition.arel_table[:scheduled_publication].lteq(Time.zone.now - 1.minute))
 
