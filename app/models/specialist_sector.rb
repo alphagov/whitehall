@@ -20,13 +20,13 @@ private
   end
 
   def self.fetch_sectors
-    Whitehall.content_api.tags('specialist_sector')
+    Whitehall.content_api.tags('specialist_sector', draft: true)
   rescue
     raise DataUnavailable.new
   end
 
   def self.sector_topic_from_tag(tag)
-    OpenStruct.new(slug: slug_for_sector_tag(tag), title: tag.title)
+    OpenStruct.new(slug: slug_for_sector_tag(tag), title: tag.title, draft?: (tag.state == 'draft'))
   end
 
   def self.slug_for_sector_tag(tag)

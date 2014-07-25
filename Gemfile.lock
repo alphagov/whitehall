@@ -137,7 +137,7 @@ GEM
       eventmachine (>= 0.12.0)
     ffi (1.9.0)
     friendly_id (4.0.9)
-    gds-api-adapters (12.4.1)
+    gds-api-adapters (12.4.2)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -402,7 +402,7 @@ DEPENDENCIES
   equivalent-xml (= 0.3.0)
   factory_girl
   friendly_id (= 4.0.9)
-  gds-api-adapters (= 12.4.1)
+  gds-api-adapters (= 12.4.2)
   gds-sso (= 9.3.0)
   globalize3!
   govspeak (~> 1.6.2)

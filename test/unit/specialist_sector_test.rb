@@ -31,8 +31,8 @@ class SpecialistSectorTest < ActiveSupport::TestCase
       slug: 'oil-and-gas',
       title: 'Oil and Gas',
       topics: [
-        OpenStruct.new(slug: 'oil-and-gas/wells', title: 'Wells'),
-        OpenStruct.new(slug: 'oil-and-gas/fields', title: 'Fields')
+        OpenStruct.new(slug: 'oil-and-gas/wells', title: 'Wells', draft?: false),
+        OpenStruct.new(slug: 'oil-and-gas/fields', title: 'Fields', draft?: false)
       ]
     )
 
@@ -40,8 +40,8 @@ class SpecialistSectorTest < ActiveSupport::TestCase
       slug: 'tax',
       title: 'Tax',
       topics: [
-        OpenStruct.new(slug: 'tax/income-tax', title: 'Income Tax'),
-        OpenStruct.new(slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax')
+        OpenStruct.new(slug: 'tax/income-tax', title: 'Income Tax', draft?: false),
+        OpenStruct.new(slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax', draft?: false)
       ]
     )
 

@@ -15,3 +15,4 @@ Feature: Tagging content with specialist sectors
     Given there is a document tagged to specialist sectors
     When I view the document
     Then I should see the specialist sub-sector and its parent sector
+    And I should not see draft specialist sectors

@@ -21,3 +21,7 @@ Then(/^I should see the specialist sub\-sector and its parent sector$/) do
   check_for_primary_sector_in_heading
   check_for_sectors_and_subsectors_in_metadata
 end
+
+Then(/^I should not see draft specialist sectors$/) do
+  check_for_absence_of_draft_sectors_and_subsectors_in_metadata
+end
