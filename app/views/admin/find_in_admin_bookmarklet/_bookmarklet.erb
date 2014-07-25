@@ -47,7 +47,7 @@ function get_mapping() {
 
 function nav_to_backend() {
   var mapping = get_mapping();
-  if (mapping) window.location = "<%= Whitehall.admin_root %>/" + mapping.path_builder(mapping.id_finder());
+  if (mapping) window.location = "<%= Whitehall.admin_root + Whitehall.router_prefix %>/admin/" + mapping.path_builder(mapping.id_finder());
 }
 
 nav_to_backend();
