@@ -26,6 +26,8 @@ class ScheduledPublishingWorker
 
   def perform(edition_id)
     edition = Edition.find(edition_id)
+    return if edition.published?
+
     publisher = Whitehall.edition_services.scheduled_publisher(edition)
 
     Edition::AuditTrail.acting_as(publishing_robot) do
