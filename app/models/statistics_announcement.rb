@@ -20,6 +20,11 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_release_date, reject_if: :persisted?
 
+  scope :with_title_containing, -> *keywords {
+    pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
+    where("title REGEXP :pattern OR slug = :slug", pattern: pattern, slug: keywords)
+  }
+
   include Searchable
   searchable  title: :title,
               link: :public_path,

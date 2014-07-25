@@ -1,0 +1,13 @@
+<%= form_tag admin_statistics_announcements_path, class: "filter-options", method: :get do %>
+  <h2>Search</h2>
+
+  <div class="filter-grouping">
+    <%= label_tag :search_title, 'Title or slug' %>
+    <div class="btn-enter-wrapper">
+      <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
+    </div>
+  </div>
+
+  <%= submit_tag "Search" %>
+  <p><%= link_to "Reset", admin_statistics_announcements_path %></p>
+<% end %>

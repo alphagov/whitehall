@@ -59,6 +59,12 @@ When(/^I change the release date on the announcement$/) do
   click_on 'Change date'
 end
 
+When(/^I search for announcements containing "(.*?)"$/) do |keyword|
+  visit admin_statistics_announcements_path
+  fill_in 'Title or slug', with: keyword
+  click_on 'Search'
+end
+
 Then(/^the document fields are pre\-filled based on the announcement$/) do
   assert page.has_css?("input[id=edition_title][value='#{@statistics_announcement.title}']")
   assert page.has_css?("textarea[id=edition_summary]", text: @statistics_announcement.summary)
@@ -78,6 +84,11 @@ Then(/^I should see the announcement listed on the list of announcements$/) do
   ensure_path admin_statistics_announcements_path
 
   assert page.has_content?(announcement.title)
+end
+
+Then(/^I should (see|only see) a statistics announcement called "(.*?)"$/) do |single_or_multiple, title|
+  assert page.has_css?("tr.statistics_announcement", count: 1) if single_or_multiple == 'only see'
+  assert page.has_css?("tr.statistics_announcement", text: title)
 end
 
 Then(/^the new date is reflected on the announcement$/) do
