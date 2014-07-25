@@ -14,7 +14,7 @@ namespace :publishing do
       end
     end
 
-    desc "Queues missing jobs for any due scheduled editions"
+    desc "Queues missing jobs for any future-scheduled editions"
     task :queue_missing_jobs => :environment do
       scheduled_scope = Edition.scheduled.where(Edition.arel_table[:scheduled_publication].gteq(Time.zone.now))
       queued_ids      = ScheduledPublishingWorker.queued_edition_ids
@@ -35,6 +35,18 @@ namespace :publishing do
       puts "%6s  %-25s  %s" % ["ID", "Scheduled date", "Title"]
       Edition.due_for_publication.each do |edition|
         puts "%6s  %-25s  %s" % [edition.id, edition.scheduled_publication.to_s, edition.title]
+      end
+    end
+  end
+
+  namespace :overdue do
+    desc "Publishes any scheduled editions that are more than a minute past their due date"
+    task :publish => :environment do
+      overdue_editions = Edition.scheduled.where(Edition.arel_table[:scheduled_publication].lteq(Time.zone.now - 1.minute))
+
+      overdue_editions.each do |edition|
+        puts "Publishing overdue scheduled edition #{edition.id}"
+        ScheduledPublishingWorker.new.perform(edition.id)
       end
     end
   end
