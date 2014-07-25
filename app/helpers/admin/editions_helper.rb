@@ -351,6 +351,7 @@ module Admin::EditionsHelper
       yield(SpecialistSector.grouped_sector_topics)
     end
   rescue SpecialistSector::DataUnavailable
-    # silently return nothing
+    Rails.logger.warn("WARNING: Could not retrieve specialist sectors")
+    nil
   end
 end
