@@ -22,7 +22,7 @@
         return false;
       });
 
-      $('.large-data-link.loaded h2').live('click', function() {
+      $('.import').on('click', '.large-data-link.loaded h2', function() {
         $(this).nextAll().slideToggle('fast');
       });
     }
