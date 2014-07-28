@@ -81,7 +81,12 @@ class Admin::ImportsController < Admin::BaseController
     end
   end
 
-  def error_list; end
+  def error_list
+    respond_to do |format|
+      format.html
+      format.js { render layout: false }
+    end
+  end
 
   def import_log; end
 
