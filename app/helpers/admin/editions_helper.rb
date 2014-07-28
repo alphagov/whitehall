@@ -339,7 +339,13 @@ module Admin::EditionsHelper
   def specialist_sector_options_for_select(sectors)
     sectors.map do |sector|
       topics = sector.topics.map do |topic|
-        ["#{sector.title}: #{topic.title}", topic.slug]
+        if topic.draft?
+          topic_title = "#{topic.title} (draft)"
+        else
+          topic_title = topic.title
+        end
+
+        ["#{sector.title}: #{topic_title}", topic.slug]
       end
 
       [sector.title, topics]
@@ -351,6 +357,7 @@ module Admin::EditionsHelper
       yield(SpecialistSector.grouped_sector_topics)
     end
   rescue SpecialistSector::DataUnavailable
-    # silently return nothing
+    Rails.logger.warn("WARNING: Could not retrieve specialist sectors")
+    nil
   end
 end

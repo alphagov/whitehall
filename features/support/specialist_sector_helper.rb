@@ -4,15 +4,17 @@ module SpecialistSectorHelper
   include GdsApi::TestHelpers::ContentApi
 
   def stub_specialist_sectors
-    parent_tag = { slug: 'oil-and-gas', title: 'Oil and Gas' }
+    oil_and_gas = { slug: 'oil-and-gas', title: 'Oil and Gas' }
     sector_tags = [
-      parent_tag,
-      { slug: 'oil-and-gas/wells', title: 'Wells', parent: parent_tag },
-      { slug: 'oil-and-gas/fields', title: 'Fields', parent: parent_tag },
-      { slug: 'oil-and-gas/offshore', title: 'Offshore', parent: parent_tag }
+      oil_and_gas,
+      { slug: 'oil-and-gas/wells', title: 'Wells', parent: oil_and_gas },
+      { slug: 'oil-and-gas/fields', title: 'Fields', parent: oil_and_gas },
+      { slug: 'oil-and-gas/offshore', title: 'Offshore', parent: oil_and_gas }
     ]
 
-    content_api_has_tags('specialist_sector', sector_tags)
+    distillation = { slug: 'oil-and-gas/distillation', title: 'Distillation', parent: oil_and_gas }
+
+    content_api_has_draft_and_live_tags(type: 'specialist_sector', live: sector_tags, draft: [distillation])
   end
 
   def stub_content_api_tags(document)
@@ -28,13 +30,15 @@ module SpecialistSectorHelper
     select 'Oil and Gas: Wells', from: 'Primary specialist sector'
     select 'Oil and Gas: Offshore', from: 'Additional specialist sectors'
     select 'Oil and Gas: Fields', from: 'Additional specialist sectors'
+    select 'Oil and Gas: Distillation (draft)', from: 'Additional specialist sectors'
   end
 
   def assert_specialist_sectors_were_saved
     assert has_css?('.flash.notice')
     click_on 'Edit draft'
     assert_equal 'oil-and-gas/wells', find_field('Primary specialist sector').value
-    assert_equal ['oil-and-gas/offshore', 'oil-and-gas/fields'].to_set, find_field('Additional specialist sectors').value.to_set
+    assert_equal ['oil-and-gas/offshore', 'oil-and-gas/fields', 'oil-and-gas/distillation'].to_set,
+                 find_field('Additional specialist sectors').value.to_set
   end
 
   def save_document
@@ -56,6 +60,10 @@ module SpecialistSectorHelper
     ['Oil and gas', 'Wells', 'Offshore', 'Fields'].each do |sector_name|
       assert has_css?('dd', text: sector_name, exact: false)
     end
+  end
+
+  def check_for_absence_of_draft_sectors_and_subsectors_in_metadata
+    refute has_css?('dd', text: 'Distillation', exact: false)
   end
 end
 

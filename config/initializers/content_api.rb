@@ -5,7 +5,7 @@ class GdsApi::ContentApi::Fake
     {}
   end
 
-  def tags(tag_type)
+  def tags(tag_type, options = {})
     []
   end
 
