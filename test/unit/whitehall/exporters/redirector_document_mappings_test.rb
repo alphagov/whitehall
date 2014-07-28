@@ -94,6 +94,7 @@ Old Url,New Url,Status,Slug,Admin Url,State
       publication = create(:published_publication)
       old_slug = publication.document.slug
       unpublishing = publication.unpublishing = create(:unpublishing)
+      stub_panopticon_registration(publication)
       Whitehall.edition_services.unpublisher(publication).perform!
       publication.title = "This is a new title"
       publication.save!
