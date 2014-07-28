@@ -41,7 +41,11 @@ class RegisterableEdition
   end
 
   def state
-    edition.state == "published" ? "live" : "draft"
+    if archivable?
+      "archived"
+    else
+      edition.state == "published" ? "live" : "draft"
+    end
   end
 
   def need_ids
@@ -62,5 +66,11 @@ class RegisterableEdition
     else
       []
     end
+  end
+
+private
+
+  def archivable?
+    edition.state == "archived" || edition.state == "deleted"
   end
 end
