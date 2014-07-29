@@ -18,11 +18,13 @@
       <aside class="meta metadata-list">
         <div class="inner-heading">
           <dl>
-            <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
-            <dd>
-              <%= render  partial: 'organisations/organisations_name_list',
-                          locals: { lead_organisations: @ministerial_role.organisations } %>
-            </dd>
+            <% if @ministerial_role.organisations.any? %>
+              <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
+              <dd>
+                <%= render  partial: 'organisations/organisations_name_list',
+                            locals: { organisations: @ministerial_role.organisations } %>
+              </dd>
+            <% end %>
             <% if @ministerial_role.occupied? %>
               <dt><%= t('roles.headings.current_holder') %>:</dt>
               <dd><%= link_to @ministerial_role.current_person.name, @ministerial_role.current_person %></dd>
