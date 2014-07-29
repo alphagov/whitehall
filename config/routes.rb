@@ -381,6 +381,9 @@ Whitehall::Application.routes.draw do
   get 'healthcheck' => 'healthcheck#check'
   get 'healthcheck/overdue' => 'healthcheck#overdue'
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   # XXX: we use a blank prefix here because redirect has been
   # overridden further up in the routes
   get '/specialist/:id', constraints: {id: /[A-z0-9\-]+/}, to: redirect("/%{id}", prefix: '')
@@ -393,4 +396,5 @@ Whitehall::Application.routes.draw do
   get '/government/uploads/*path.:extension' => "public_uploads#show"
 
   mount TestTrack::Engine => "test" if Rails.env.test?
+
 end
