@@ -23,3 +23,6 @@
 .yardoc/
 /doc/
 /failures
+app/assets/images/fractions/1_x.png
+
+app/assets/images/fractions/1_y.png
