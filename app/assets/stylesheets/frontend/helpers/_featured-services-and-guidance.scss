@@ -1,4 +1,4 @@
-.featured-services-and-guidance {
+.heading-block .featured-services-and-guidance {
   margin-top: $gutter-half;
 
   @include media(tablet){
@@ -12,5 +12,11 @@
 
   a {
     @include bold-24;
+  }
+
+  .content .see-all {
+    @include media(tablet){
+      padding-left: $gutter-two-thirds;
+    }
   }
 }

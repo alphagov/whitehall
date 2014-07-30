@@ -23,6 +23,7 @@
             <%= render 'shared/featured_links',
               type: 'top-tasks',
               links: @featured_services_and_guidance.only_the_initial_set %>
+            <p class="see-all"><%= link_to 'See all topics', services_and_information_path(@organisation) %></p>
           </div>
         </section>
       </div>
