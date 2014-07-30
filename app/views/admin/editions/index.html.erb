@@ -4,7 +4,8 @@
     <div class="span3">
       <%= render partial: 'filter_options', locals: {filter_action: admin_editions_path} %>
     </div>
-
-    <%= render 'search_results' %>
+    <div class="span9" id="search_results">
+      <%= render 'search_results' %>
+    </div>
   </div>
 </section>

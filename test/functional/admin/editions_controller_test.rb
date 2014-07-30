@@ -47,7 +47,8 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     xhr :get, :index, state: :active
     response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
 
-    assert_equal "search_results", response_html.children[0].attr(:id)
+    assert_equal "h1", response_html.children[0].node_name()
+    assert_match "Everyone's documents", response_html.children[0].text()
   end
 
   test "diffing against a previous version" do
