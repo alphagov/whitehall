@@ -2,10 +2,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
 
   def index
-    @statistics_announcements = StatisticsAnnouncement.
-                                  includes(:current_release_date).
-                                  order(current_release_date: :release_date).
-                                  page(params[:page])
+    @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
+    @statistics_announcements = @filter.statistics_announcements
   end
 
   def new
@@ -58,5 +56,9 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     params.require(:statistics_announcement).permit(
       :title, :summary, :organisation_id, :topic_id, :publication_type_id, :publication_id,
       current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
+  end
+
+  def filter_params
+    params.slice(:title, :page, :per_page)
   end
 end

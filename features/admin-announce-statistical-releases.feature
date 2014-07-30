@@ -23,6 +23,13 @@ Feature: Announcing a upcoming statistics release
     When I change the release date on the announcement
     Then the new date is reflected on the announcement
 
+  Scenario: searching for a statistics announcement
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And a statistics announcement called "MQ5 statistics" exists
+    And a statistics announcement called "PQ3 statistics" exists
+    When I search for announcements containing "MQ5"
+    And I should only see a statistics announcement called "MQ5 statistics"
+
   @javascript
   Scenario: linking a document to a statistics announcement
     Given I am a GDS editor in the organisation "Department for Beards"

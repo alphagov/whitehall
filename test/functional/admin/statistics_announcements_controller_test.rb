@@ -45,14 +45,6 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     refute StatisticsAnnouncement.any?
   end
 
-  view_test "GET :index renders a table of statistics announcements" do
-    announcement = create(:statistics_announcement)
-    get :index
-
-    assert_response :success
-    assert_select 'table.statistics-announcements tr td a', text: announcement.title
-  end
-
   view_test "GET :show renders the details of the announcement" do
     announcement = create(:statistics_announcement)
     get :show, id: announcement

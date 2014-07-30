@@ -82,6 +82,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal ["type does not match: must be national statistics"], announcement.errors[:publication]
   end
 
+  test ".with_title_containing returns statistics announcements matching provided title" do
+    match = create(:statistics_announcement, title: "MQ5 statistics")
+    no_match = create(:statistics_announcement, title: "PQ6 statistics")
+
+    assert_equal [match], StatisticsAnnouncement.with_title_containing("mq5")
+  end
+
   test '#most_recent_change_note returns the most recent change note' do
     announcement    = create_announcement_with_changes
 
