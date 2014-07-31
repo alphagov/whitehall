@@ -21,8 +21,7 @@
             <dt><%= t('document.headings.organisations', count: @classification.organisations.length) %>:</dt>
             <dd>
               <%= render  partial: 'organisations/organisations_name_list',
-                          locals: { organisations: @classification.organisations,
-                                    lead_organisations: @classification.lead_organisations } %>
+                          locals: { organisations: @classification.organisations } %>
             </dd>
             <% if @related_classifications.any? %>
               <dt>Related topics:</dt>

@@ -1,7 +1,5 @@
 <%
-  lead_organisations ||= []
   organisations ||= []
-  show_hm_government = lead_organisations.length == 0
 %>
 <p class="js-hide-other-departments organisations-name-list">
   <%= array_of_links_to_organisations(organisations).to_sentence.html_safe %>
