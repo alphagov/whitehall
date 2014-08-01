@@ -8,7 +8,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
-gem 'govspeak', '~> 1.6.2'
+gem 'govspeak', '~> 2.0.0' 
 gem 'kramdown', '~> 0.13.8'
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.9'
@@ -41,13 +41,6 @@ gem 'raindrops', '0.11.0'
 gem 'airbrake', '3.1.15'
 gem 'pdf-reader', '1.3.3'
 gem 'typhoeus', '0.6.8'
-
-# This sanitize fork branch fizes an issue with sanitize seeing colons in ids (when used as anchor tag references in an href)
-# as links with protocols. This has been fixed and merged in rgrove's Sanitize, but will only be released with version 2.1.
-# Once that version is released and govspeak's gemspec has been updated to require it, this requirement is no longer required.
-# https://github.com/rgrove/sanitize/commit/d7f34f72b82ff6bb6ea795e516125fb999c8f828
-# https://github.com/alphagov/govspeak/blob/master/Gemfile
-gem 'sanitize', github: 'alphagov/sanitize', branch: '2.0.6-plus-colons-in-anchor-hrefs'
 
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'
