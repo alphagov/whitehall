@@ -73,7 +73,7 @@ class RegisterableEdition
 private
 
   def archivable?
-    (edition.state == "archived" || edition.state == "deleted") || (edition.state == "draft" && edition.unpublishing != nil)
+    (edition.state == "archived" || edition.state == "deleted") || edition.unpublishing != nil
   end
 
   def published?

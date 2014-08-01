@@ -64,12 +64,12 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal "archived", registerable_edition.state
   end
 
-  test "sets the state to archived if the edition has been unpublished" do
-    edition = create(:published_edition)
-    edition.unpublishing = create(:unpublishing)
+  test "sets the state to archived if the edition is unpublished" do
+    edition = create(:unpublished_edition)
     registerable_edition = RegisterableEdition.new(edition)
 
     assert_equal "archived", registerable_edition.state
+    assert_equal "draft", edition.state
   end
 
   test "attaches specialist sector tags based on specialist sectors" do
