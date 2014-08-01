@@ -41,10 +41,9 @@ class RegisterableEdition
   end
 
   def state
-    case edition.state
-    when "archived", "deleted"
+    if archivable?
       "archived"
-    when "published"
+    elsif published?
       "live"
     else
       "draft"
@@ -69,5 +68,15 @@ class RegisterableEdition
     else
       []
     end
+  end
+
+private
+
+  def archivable?
+    (edition.state == "archived" || edition.state == "deleted") || (edition.state == "draft" && edition.unpublishing != nil)
+  end
+
+  def published?
+    edition.state == "published"
   end
 end

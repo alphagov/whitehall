@@ -483,7 +483,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
   end
 
-  test "should remove published edition from search index when it's unpublished" do
+  test "should remove published edition from search index and update edition state in Panopticon when it's unpublished" do
     policy = create(:published_policy)
     mock_registrar = mock(register!: true)
 

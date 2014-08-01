@@ -43,8 +43,3 @@ Feature: Unpublishing published documents
     And I archive the policy because it is no longer government policy
     When I edit the public explanation for archiving
     Then I should see the updated explanation on the public site
-
- Scenario: Re-registering the document as unpublished
-    Given I am a managing editor
-    And a published policy "Shaving kits for all" exists
-    Then unpublishing the document re-registers it to reflect the change

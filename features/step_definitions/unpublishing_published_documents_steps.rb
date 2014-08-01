@@ -98,10 +98,3 @@ Then /^I should be redirected to the new url when I view the document on the pub
   visit public_document_path(edition)
   assert_current_url edition.unpublishing.alternative_url
 end
-
-Then(/^unpublishing the document re\-registers it to reflect the change$/) do
-  policy = create(:published_policy)
-  mock_registrar = mock(register!: true)
-  ServiceListeners::PanopticonRegistrar.expects(:new).with(policy).returns(mock_registrar)
-  unpublish_edition(policy)
-end
