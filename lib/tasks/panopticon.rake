@@ -64,4 +64,24 @@ namespace :panopticon do
       end
     end
   end
+
+  desc "Re-register archived and not superseded content with Panopticon"
+  task :re_register_archived_and_not_superseded_content => :environment do
+    logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
+
+    archived_editions = Edition.archived
+    not_superseded_editions = Edition.archived.map(&:document).map(&:latest_edition).reject(&:archived?)
+    editions_to_re_register = archived_editions + not_superseded_editions
+
+    editions_to_re_register.each do |edition|
+      artefact = RegisterableEdition.new(edition)
+      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+
+      begin
+        registerer.register(artefact)
+      rescue GdsApi::HTTPErrorResponse => e
+        logger.error "Failed to re-register /#{edition.slug} with #{e.code}: #{e.error_details}"
+      end
+    end
+  end
 end
