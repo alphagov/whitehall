@@ -52,6 +52,9 @@ gem 'sanitize', github: 'alphagov/sanitize', branch: '2.0.6-plus-colons-in-ancho
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'
 
+# for sidekiq monitoring
+gem 'sinatra', '>= 1.3.0', :require => nil
+
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'

@@ -8,3 +8,17 @@ end
 Sidekiq.configure_client do |config|
   config.redis = redis_config
 end
+
+# make sidekiq web responses bypass slimmer
+require 'sidekiq/web'
+module Sidekiq
+  class Web < Sinatra::Base
+
+    def erb_with_skip_slimmer_header(*args)
+      headers("X-Slimmer-Skip" => 1)
+      erb_without_skip_slimmer_header(*args)
+    end
+    alias_method_chain :erb, :skip_slimmer_header
+
+  end
+end
