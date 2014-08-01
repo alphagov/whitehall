@@ -41,7 +41,7 @@ class RegisterableEdition
   end
 
   def state
-    if archivable?
+    if no_longer_published?
       "archived"
     elsif published?
       "live"
@@ -72,7 +72,7 @@ class RegisterableEdition
 
 private
 
-  def archivable?
+  def no_longer_published?
     (edition.state == "archived" || edition.state == "deleted") || edition.unpublishing != nil
   end
 
