@@ -407,7 +407,7 @@ class Organisation < ActiveRecord::Base
 
   def organisations_with_services_and_information_link
     [
-      'uk-visas-and-immigration',
+      'maritime-and-coastguard-agency',
     ]
   end
 
