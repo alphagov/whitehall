@@ -111,7 +111,7 @@ If you are running whitehall with `bundle exec rails server` and don't want to
 run a local copy of `static`, you can tell the app to use assets served
 directly from the Preview environment by setting `STATIC_DEV`:
 
-  STATIC_DEV=https://static.preview.alphagov.co.uk bundle exec rails server
+  STATIC_DEV=https://assets-origin.preview.alphagov.co.uk bundle exec rails server
 
 If you are only working on the Whitehall admin interface, you don't need the
 assets available.
