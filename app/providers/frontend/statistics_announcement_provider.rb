@@ -61,11 +61,10 @@ module Frontend
     def self.prepare_search_params(params)
       params = params.dup
 
-      release_timestamp_params = {
-        from: params.delete(:from_date).try(:iso8601),
+      params[:release_timestamp] = {
+        from: (params.delete(:from_date) || Time.zone.now).try(:iso8601),
         to: params.delete(:to_date).try(:iso8601)
       }.delete_if {|k, v| v.blank? }
-      params[:release_timestamp] = release_timestamp_params unless release_timestamp_params.empty?
 
       params[:page] = params[:page].to_s
       params[:per_page] = params[:per_page].to_s
