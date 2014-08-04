@@ -21,7 +21,7 @@
             <dt><%= t('document.headings.organisations', count: @ministerial_role.organisations.count) %>:</dt>
             <dd>
               <%= render  partial: 'organisations/organisations_name_list',
-                          locals: { lead_organisations: @ministerial_role.organisations } %>
+                          locals: { organisations: @ministerial_role.organisations } %>
             </dd>
             <% if @ministerial_role.occupied? %>
               <dt><%= t('roles.headings.current_holder') %>:</dt>
