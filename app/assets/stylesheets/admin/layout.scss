@@ -57,11 +57,22 @@ $collapse-tabs-width: 710px;
   padding: 0 15px;
 }
 
+.masthead .navbar-brand {
+  background-image: image-url('admin/header-crown.png');
+  background-repeat: no-repeat;
+  background-position: 0 15px;
+  color: #fff;
+  font-family: "GillSans", "Gill Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 20px;
+  margin-left: 0;
+  padding: $default-vertical-padding 10px 0 2.3em;
+  min-height: 37px;
+  display: block;
+  float: left;
+}
+
 .masthead-details {
-  padding: $gutter/2 0 0;
-  @include ie-lte(7) {
-    margin-bottom: $gutter/2;
-  }
+  padding: 0;
 }
 
 .masthead-details a {
