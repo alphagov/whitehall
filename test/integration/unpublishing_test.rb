@@ -1,43 +1,44 @@
 require "test_helper"
-require 'gds_api/panopticon'
-require 'gds_api/test_helpers/panopticon'
+require "gds_api/panopticon"
+require "gds_api/test_helpers/panopticon"
 
 class UnpublishingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Panopticon
 
+  setup do
+    @published_edition = create(:published_edition)
+    @registerable = RegisterableEdition.new(@published_edition)
+    @request = stub_artefact_registration(@registerable.slug)
+  end
+
   test "When unpublishing an edition, its state reverts to draft in Whitehall" do
-    published_policy = create(:published_policy)
-    published_policy.unpublishing = create(:unpublishing)
-    stub_artefact_registration(RegisterableEdition.new(published_policy).slug)
+    unpublish(@published_edition, unpublishing_params)
 
-    Whitehall.edition_services.unpublisher(published_policy).perform!
+    @published_edition.reload
 
-    published_policy.reload
-    assert_equal 'draft', published_policy.state
-    refute_nil published_policy.unpublishing
+    assert_equal "draft", @published_edition.state
+    refute_nil @published_edition.unpublishing
   end
 
   test "When unpublishing an edition, it is removed from the search index" do
-    published_policy = create(:published_policy)
-    published_policy.unpublishing = build(:unpublishing)
-    registerable = RegisterableEdition.new(published_policy)
-    stub_artefact_registration(registerable.slug)
+    Whitehall::SearchIndex.expects(:delete).with(@published_edition)
 
-    Whitehall::SearchIndex.expects(:delete).with(published_policy)
-    Whitehall.edition_services.unpublisher(published_policy).perform!
-
+    unpublish(@published_edition, unpublishing_params)
   end
 
   test "When unpublishing an edition, its state is updated in Panopticon" do
-    published_policy = create(:published_policy)
-    published_policy.unpublishing = create(:unpublishing)
+    unpublish(@published_edition, unpublishing_params)
 
-    registerable = RegisterableEdition.new(published_policy)
-    request = stub_artefact_registration(registerable.slug)
+    assert_requested @request
+    assert_equal "archived", @registerable.state
+  end
 
-    Whitehall.edition_services.unpublisher(published_policy).perform!
+private
+  def unpublish(edition, params)
+    Whitehall.edition_services.unpublisher(edition, unpublishing: params).perform!
+  end
 
-    assert_requested request
-    assert_equal 'archived', registerable.state
+  def unpublishing_params
+    { unpublishing_reason_id: UnpublishingReason::PublishedInError.id, explanation: "Published by mistake" }
   end
 end
