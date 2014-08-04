@@ -115,6 +115,10 @@ class GovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "h2"
   end
 
+  test "should return an empty string if nil edition" do
+    assert_equal '', govspeak_edition_to_html(nil)
+  end
+
   test "should optionally not wrap output in a govspeak class" do
     document = build(:published_policy, body: "govspeak-text")
     html = bare_govspeak_edition_to_html(document)
