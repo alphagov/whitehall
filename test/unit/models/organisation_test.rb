@@ -739,4 +739,25 @@ class OrganisationTest < ActiveSupport::TestCase
     org_without_announcement = create(:organisation)
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
+
+  test "#has_services_and_information_link? returns true if slug is in the whitelist" do
+    org = create(:organisation)
+
+    list = [
+      org.slug
+    ]
+    org.stubs(:organisations_with_services_and_information_link).returns(list)
+
+    assert org.has_services_and_information_link?
+  end
+
+  test "#has_services_and_information_link? returns false if slug is not in the whitelist" do
+    list = [
+      'a-slug'
+    ]
+    org = create(:organisation)
+    org.stubs(:organisations_with_services_and_information_link).returns(list)
+
+    refute org.has_services_and_information_link?
+  end
 end

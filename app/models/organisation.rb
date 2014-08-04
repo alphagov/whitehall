@@ -395,11 +395,21 @@ class Organisation < ActiveRecord::Base
     published_editions.where(publication_type_id: publication_type.id).any?
   end
 
+  def has_services_and_information_link?
+    organisations_with_services_and_information_link.include?(slug)
+  end
+
   def to_s
     name
   end
 
   private
+
+  def organisations_with_services_and_information_link
+    [
+      'maritime-and-coastguard-agency',
+    ]
+  end
 
   def sub_organisations_must_have_a_parent
     if organisation_type && organisation_type.sub_organisation?
