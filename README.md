@@ -136,13 +136,20 @@ To use a local copy of Rummager you'll need to:
 * [elasticsearch](http://www.elasticsearch.org/);
 * Set the environment variable `RUMMAGER_HOST` to point to the local
   instance of Rummager (e.g. `export
-  RUMMAGER_HOST=http://rummager.dev` in `.powrc`);
+  RUMMAGER_HOST=http://search.dev.gov.uk` in `.powrc`);
 * You'll also need to set `RUMMAGER_HOST` when using the Rummager rake
   tasks (ie. when building search index)
 * Run the `rummager` and `frontend` applications to view results. You
   just need the `rummager` app to index results.
 
 ### Rebuilding whitehall search index
+
+The easiest way to get a search index is to replicate it from the preview
+environment.  This will not contain local changes to your content, but will be
+enough for many tests.  To fetch the replica, use the "replicate-data-local"
+script from the `development` project (as documented in that project's README).
+If you need to have local changes in your dev environment copied into the
+search index, you will actually need to rebuild the search index.
 
 The whitehall search index is called 'government'. Rebuilding of the whitehall
 search index can now be done with a bulk data dump. This also supports
