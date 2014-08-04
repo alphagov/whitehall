@@ -37,19 +37,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
                                                                                   precision: StatisticsAnnouncementDate::PRECISION[:exact],
                                                                                   confirmed: true)
 
-      old_announcement = create :statistics_announcement, title: "Average moustache lengths 2013",
-                                                          publication_type_id: PublicationType::NationalStatistics.id,
-                                                          organisation: organisation,
-                                                          topic: topic,
-                                                          current_release_date: build(:statistics_announcement_date,
-                                                                                      release_date: Time.zone.parse("2013-01-01 09:30:00"),
-                                                                                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                                                                                      confirmed: true)
-
-
       get :index
-
-      assert_equal 1, assigns(:filter).results.size
 
       rendered = Nokogiri::HTML::Document.parse(response.body)
       list_item = rendered.css('.document-list li').first
