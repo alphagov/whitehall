@@ -52,7 +52,7 @@ $collapse-tabs-width: 710px;
 
 .masthead {
   @extend %contain-floats;
-  background: #6d6d6d;
+  background: #222;
   margin-bottom: $gutter;
   padding: 0 15px;
 }
@@ -77,7 +77,7 @@ $collapse-tabs-width: 710px;
   margin-right: 0.32%;
   width: 16.4%;
   float: left;
-  background: $black;
+  background: #6d6d6d;
 
   &.active {
     color: $black;
@@ -98,7 +98,7 @@ $collapse-tabs-width: 710px;
     float: none;
     width: auto;
     margin: 0;
-    border-bottom: 1px solid #6d6d6d;
+    border-bottom: 1px solid #222;
   }
 
   @include ie-lte(8) {
