@@ -1,4 +1,5 @@
 require 'ostruct'
+require_relative "../data_hygiene/registerable_edition_builder_for_unpublished_editions.rb"
 
 namespace :panopticon do
   require 'gds_api/panopticon'
@@ -69,24 +70,15 @@ namespace :panopticon do
   task :re_register_unpublished_content => :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
-    unpublished_editions =
-      Unpublishing.
-      includes(:edition).
-      map(&:edition).
-      compact.
-      reject { |edition| ["archived", "deleted"].include?(edition.state) }
+    registerable_editions = RegisterableEditionBuilderForUnpublishedEditions.build
 
-
-    editions_to_re_register = unpublished_editions.map(&:document).map(&:latest_edition)
-
-    editions_to_re_register.each do |edition|
-      artefact = RegisterableEdition.new(edition)
-      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: artefact.kind)
+    registerable_editions.each do |registerable_edition|
+      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
 
       begin
-        registerer.register(artefact)
+        registerer.register(registerable_edition)
       rescue GdsApi::HTTPErrorResponse => e
-        logger.error "Failed to re-register /#{edition.slug} with #{e.code}: #{e.error_details}"
+        logger.error "Failed to re-register /#{registerable_edition.slug} with #{e.code}: #{e.error_details}"
       end
     end
   end
