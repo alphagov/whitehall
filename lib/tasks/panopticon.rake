@@ -65,13 +65,19 @@ namespace :panopticon do
     end
   end
 
-  desc "Re-register archived and not superseded content with Panopticon"
-  task :re_register_archived_and_not_superseded_content => :environment do
+  desc "Re-register unpublished content with Panopticon"
+  task :re_register_unpublished_content => :environment do
     logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
 
-    archived_editions = Edition.archived
-    not_superseded_editions = Edition.archived.map(&:document).map(&:latest_edition).reject(&:archived?)
-    editions_to_re_register = archived_editions + not_superseded_editions
+    unpublished_editions =
+      Unpublishing.
+      includes(:edition).
+      map(&:edition).
+      compact.
+      reject { |edition| ["archived", "deleted"].include?(edition.state) }
+
+
+    editions_to_re_register = unpublished_editions.map(&:document).map(&:latest_edition)
 
     editions_to_re_register.each do |edition|
       artefact = RegisterableEdition.new(edition)
