@@ -11,6 +11,8 @@ module GovspeakHelper
   end
 
   def govspeak_edition_to_html(edition)
+    return '' unless edition
+
     wrapped_in_govspeak_div(bare_govspeak_edition_to_html(edition))
   end
 
