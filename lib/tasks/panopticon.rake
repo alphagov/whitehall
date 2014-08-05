@@ -77,6 +77,7 @@ namespace :panopticon do
 
       begin
         registerer.register(registerable_edition)
+        logger.info "Re-registered as \"#{registerable_edition.state}\" - /#{registerable_edition.slug}"
       rescue GdsApi::HTTPErrorResponse => e
         logger.error "Failed to re-register /#{registerable_edition.slug} with #{e.code}: #{e.error_details}"
       end
