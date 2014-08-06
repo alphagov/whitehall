@@ -8,15 +8,15 @@ module Admin
     end
 
     def statistics_announcements
-      results = unfiltered_results
-      results = results.with_title_containing(options[:title]) if options[:title]
-
-      results
+      scope = unfiltered_scope
+      scope = scope.with_title_containing(options[:title]) if options[:title]
+      scope = scope.where(organisation_id: options[:organisation_id]) if options[:organisation_id].present?
+      scope
     end
 
     private
 
-    def unfiltered_results
+    def unfiltered_scope
       StatisticsAnnouncement.includes(:current_release_date)
                             .order(current_release_date: :release_date)
                             .page(options[:page])
