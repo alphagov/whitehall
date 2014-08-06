@@ -50,6 +50,28 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal "draft", registerable_edition.state
   end
 
+  test "sets the state to archived if the edition has been archived" do
+    edition = create(:archived_edition)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "archived", registerable_edition.state
+  end
+
+  test "sets the state to archived if the edition has been deleted" do
+    edition = create(:deleted_edition)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "archived", registerable_edition.state
+  end
+
+  test "sets the state to archived if the edition is unpublished" do
+    edition = create(:unpublished_edition)
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_equal "archived", registerable_edition.state
+    assert_equal "draft", edition.state
+  end
+
   test "attaches specialist sector tags based on specialist sectors" do
     expected_primary_tag = "oil-and-gas/taxation"
     expected_secondary_tags = ["oil-and-gas/licensing", "oil-and-gas/fields-and-wells"]

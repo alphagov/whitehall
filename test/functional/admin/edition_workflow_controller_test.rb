@@ -225,6 +225,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
         unpublishing_reason_id: UnpublishingReason::PublishedInError.id,
         explanation: 'Was classified'
       }
+    stub_panopticon_registration(published_edition)
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
     assert_redirected_to admin_policy_path(published_edition)
@@ -238,6 +239,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
         unpublishing_reason_id: UnpublishingReason::Archived.id,
         explanation: 'No longer government policy'
       }
+    stub_panopticon_registration(published_edition)
     post :unpublish, id: published_edition, lock_version: published_edition.lock_version, unpublishing: unpublish_params
 
     assert_redirected_to admin_policy_path(published_edition)
