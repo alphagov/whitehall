@@ -15,8 +15,14 @@
 @import "frontend/styleguide/_colours.scss";
 @import "frontend/styleguide/_right-to-left.scss";
 
+// GOVUK_ADMIN_TEMPLATE
+// Styles ported from the admin template
+// https://github.com/alphagov/govuk_admin_template
+@import "govuk_admin_template/theme.scss";
+@import "govuk_admin_template/mixins.scss";
+@import "govuk_admin_template/base.scss";
 
-
+// COMPONENTS
 @import "alerts.scss";
 @import "document.scss";
 @import "environment.scss";
