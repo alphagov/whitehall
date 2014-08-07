@@ -30,6 +30,6 @@
 
     <%= form.text_area :change_note, rows: 5 %>
 
-    <%= form.save_or_cancel buttons: { save: 'Change date' }, cancel: [:admin, @statistics_announcement] %>
+    <%= form.save_or_cancel_buttons buttons: { save: 'Publish change of date' }, cancel: [:admin, @statistics_announcement] %>
   <% end %>
 </div>

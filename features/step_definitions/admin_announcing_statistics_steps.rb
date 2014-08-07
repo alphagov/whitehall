@@ -60,7 +60,7 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   select organisation.name, from: :statistics_announcement_organisation_id
   select topic.name, from: :statistics_announcement_topic_id
 
-  click_on 'Save announcement'
+  click_on 'Publish announcement'
 end
 
 When(/^I draft a document from the announcement$/) do
@@ -80,8 +80,8 @@ When(/^I change the release date on the announcement$/) do
   select_datetime '14-Dec-2014 09:30', from: 'Release date'
   check 'Confirmed date?'
   choose 'Exact'
-  fill_in 'Change note', with: 'Chnged due to delays'
-  click_on 'Change date'
+  fill_in 'Change note', with: 'Changed due to delays'
+  click_on 'Publish change of date'
 end
 
 When(/^I search for announcements containing "(.*?)"$/) do |keyword|
