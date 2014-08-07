@@ -61,3 +61,36 @@ $form-large-font-size: 14px;
   }
 
 }
+
+/* ==========================================================================
+   Block labels
+   * Based on http://govuk-elements.herokuapp.com/#guide-forms
+   ========================================================================== */
+
+.block-label {
+  background: $gray-lighter;
+  border: 1px solid $gray-lighter;
+  padding: $default-vertical-margin 20px $default-vertical-margin 45px;
+  position: relative;
+  margin-top: 10px;
+
+  .form-large & {
+    font-weight: normal;
+  }
+
+  input {
+    position: absolute;
+    top: $default-vertical-margin;
+    left: $default-horizontal-margin * 2;
+    cursor: pointer;
+  }
+}
+
+.inline-block-labels {
+  @extend %contain-floats;
+
+  .block-label {
+    float: left;
+    margin-right: $default-horizontal-margin;
+  }
+}

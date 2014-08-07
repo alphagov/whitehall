@@ -30,79 +30,111 @@
 <div class="row-fluid">
   <div class="span6">
     <p class="lead">A default form with fieldset, legend, labels and inputs.</p>
-    <form>
-      <fieldset>
-        <legend>Legend in first fieldset</legend>
-        <label for="an-input">Label name</label>
-        <input id="an-input" type="text" placeholder="Type something…">
+  </div>
+  <form class="span6">
+    <fieldset>
+      <legend>Legend in fieldset</legend>
+      <label for="an-input">Label name</label>
+      <input id="an-input" type="text" placeholder="Type something…">
+      <span class="help-block">Example block-level help text here.</span>
+      <label class="checkbox">
+        <input type="checkbox"> Check me out
+      </label>
+      <label class="radio">
+        <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
+        Option one is this and that—be sure to include why it's great
+      </label>
+      <label class="radio">
+        <input type="radio" name="options-radios" id="options-radios2" value="option2">
+        Option two can be something else and selecting it will deselect option one
+      </label>
+    </fieldset>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="add-left-margin btn">Cancel</button>
+      <button type="submit" class="add-left-margin btn btn-large">Large button</button>
+    </div>
+  </form>
+</div>
+<div class="row-fluid">
+  <div class="span6">
+    <p class="lead">A <code>form-large</code> form that emulates govuk_admin_template.</p>
+  </div>
+  <form class="span6 form-large">
+    <fieldset>
+      <legend>Legend in fieldset</legend>
+      <div class="form-group">
+        <label for="an-input-3">Label name</label>
+        <input id="an-input-3" type="text" placeholder="Type something…" class="form-control">
         <span class="help-block">Example block-level help text here.</span>
-        <label class="checkbox">
+      </div>
+      <div class="form-group checkbox">
+        <label>
           <input type="checkbox"> Check me out
         </label>
-      </fieldset>
-      <fieldset>
-        <legend>Legend in second fieldset</legend>
-        <label for="an-input-2">Label name</label>
-        <input id="an-input-2" type="text" placeholder="Type something…">
-        <span class="help-block">Example block-level help text here.</span>
-        <label class="radio">
+      </div>
+      <div class="radio">
+        <label>
           <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
           Option one is this and that—be sure to include why it's great
         </label>
-        <label class="radio">
+        <label>
           <input type="radio" name="options-radios" id="options-radios2" value="option2">
           Option two can be something else and selecting it will deselect option one
         </label>
-      </fieldset>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-success">Submit</button>
-        <button type="submit" class="add-left-margin btn">Cancel</button>
-        <button type="submit" class="add-left-margin btn btn-large">Large button</button>
       </div>
-    </form>
+    </fieldset>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success">Submit form</button>
+      <button type="submit" class="add-left-margin btn">Cancel</button>
+      <button type="submit" class="add-left-margin btn btn-large">Large button</button>
+    </div>
+  </form>
+</div>
+
+<h3 class="add-bottom-margin">Block labels</h3>
+<form class="row-fluid form-large">
+  <div class="span6">
+    <div class="bold">
+      Default
+    </div>
+    <div>
+      <label class="block-label">
+        <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
+        Option one is this and that—be sure to include why it's great
+      </label>
+      <label class="block-label">
+        <input type="radio" name="options-radios" id="options-radios2" value="option2">
+        Option two can be something else and selecting it will deselect option one
+      </label>
+      <label class="block-label">
+        <input type="radio" name="options-radios" id="options-radios2" value="option2">
+        Option three can be something else <br/>
+        <span class="muted">and selecting it will deselect option one</span>
+      </label>
+    </div>
   </div>
   <div class="span6">
-    <p class="lead">A <code>form-large</code> form that emulates govuk_admin_template.</p>
-    <form class="form-large">
-      <fieldset>
-        <legend>Legend in first fieldset</legend>
-        <div class="form-group">
-          <label for="an-input-3">Label name</label>
-          <input id="an-input-3" type="text" placeholder="Type something…" class="form-control">
-          <span class="help-block">Example block-level help text here.</span>
-        </div>
-        <div class="form-group checkbox">
-          <label>
-            <input type="checkbox"> Check me out
-          </label>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>Legend in second fieldset</legend>
-        <div class="form-group">
-          <label for="an-input-4">Label name</label>
-          <input id="an-input-4" type="text" placeholder="Type something…" class="form-control">
-          <span class="help-block">Example block-level help text here.</span>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
-            Option one is this and that—be sure to include why it's great
-          </label>
-          <label>
-            <input type="radio" name="options-radios" id="options-radios2" value="option2">
-            Option two can be something else and selecting it will deselect option one
-          </label>
-        </div>
-      </fieldset>
-      <div class="form-actions">
-        <button type="submit" class="btn btn-success">Submit form</button>
-        <button type="submit" class="add-left-margin btn">Cancel</button>
-        <button type="submit" class="add-left-margin btn btn-large">Large button</button>
-      </div>
-    </form>
+    <div class="bold">
+      Inline
+    </div>
+    <div class="inline-block-labels">
+      <label class="block-label">
+        <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
+        Step inline
+      </label>
+      <label class="block-label">
+        <input type="radio" name="options-radios" id="options-radios2" value="option2">
+        Step in time
+      </label>
+      <label class="block-label">
+        <input type="radio" name="options-radios" id="options-radios2" value="option2">
+        Step in time<br/>
+        <span class="muted">On another line</span>
+      </label>
+    </div>
   </div>
-</div>
+</form>
 
 <hr />
 
