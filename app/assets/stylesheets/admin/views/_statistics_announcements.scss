@@ -10,7 +10,7 @@
 .stats-announce-item {
   color: #999;
   font-weight: normal;
-  font-size: 23px;
+  font-size: (23/30) * 1em;
   line-height: 1.5;
 }
 
@@ -22,4 +22,33 @@
   font-size: 16px;
   line-height: 1.5;
   @include add-bottom-margin;
+}
+
+.stats-linked-document {
+  @include add-vertical-margins;
+  border: 1px solid $table-border-color;
+  border-radius: $border-radius-base;
+  padding: $default-vertical-margin;
+}
+
+.stats-document-finder {
+  @include remove-top-margin('!important');
+
+  .document-finder-fields .js-loader {
+    right: 6.3em !important;
+  }
+}
+
+#document-finder.stats-document-finder label {
+  display: block;
+}
+
+#document-finder.stats-document-finder #title {
+  margin-left: 0;
+  width: 50%;
+}
+
+#document-finder.stats-document-finder p.tip {
+  font-size: 1em;
+  left: 0;
 }

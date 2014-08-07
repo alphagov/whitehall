@@ -1,21 +1,31 @@
 <% if publication = statistics_announcement.publication %>
 
-  <div class="alert alert-info" style="margin: 10px 0 5px 0">
-    <p class="js-document-announcement-linker">
-      This announcement is linked to the <%= publication.current_state %> document <%= link_to publication.title, [:admin, publication] %>
+  <div class="stats-linked-document">
+    <h3>
+      <div class="stats-announce-item">
+        Announcement connected to <%= publication.current_state %> document
+      </div>
+      <div class="stats-announce-action">
+        <%= link_to publication.title, [:admin, publication] %>
+      </div>
+    </h3>
+    <hr />
+    <p>
+      <% if publication.pre_publication? %>
+      When the connected document is published this announcement will redirect to it.
+      <% else %>
+      The connected document replaced this announcement on <%= publication.public_timestamp.to_s(:long_ordinal) %>.
+      <% end %>
+      <span class="js-document-announcement-linker"></span>
     </p>
     <%= render "document_linker", statistics_announcement: statistics_announcement %>
   </div>
-
-  <% if publication.pre_publication? %>
-    <p style="font-style: italic;margin-bottom: 20px">The above document will automatically replace this announcement when published.</p>
-  <% else %>
-    <p style="font-style: italic;margin-bottom: 20px">The above document replaced this announcement on <%= publication.public_timestamp.to_s(:long_ordinal) %>.</p>
-  <% end %>
-
 <% else %>
-  <div class="alert">
-    <p>This announcement is not yet linked to a document.</p>
+  <div class="alert add-vertical-margins">
+    <h3>
+      Connect a draft publication to this announcement
+    </h3>
+    <p>When the connected document is published this announcement will redirect to it.</p>
     <p class="js-document-announcement-linker">
       <%= link_to "Draft new document", new_admin_publication_path(statistics_announcement_id: statistics_announcement) %>
     </p>

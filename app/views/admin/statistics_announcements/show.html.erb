@@ -50,9 +50,9 @@
 
 <div class="span4">
   <h3 class="add-vertical-margins">History</h3>
-  <ul class="release-date-changes">
+  <ul class="unstyled">
     <% @statistics_announcement.statistics_announcement_dates.reverse.each do |previous_date| %>
-      <li>
+      <li class="add-bottom-margin">
         Release date set to &ldquo;<%= previous_date.display_date %>&rdquo;<br />
         <%= previous_date.creator ? linked_author(previous_date.creator) : "User (removed) "%>
         <%= absolute_time(previous_date.created_at, class: "created_at") %>

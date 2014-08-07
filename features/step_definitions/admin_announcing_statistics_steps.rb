@@ -35,7 +35,7 @@ end
 
 When(/^I link the announcement to the publication$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
-  click_on 'Link to an existing draft document'
+  click_on 'connect an existing draft'
 
   fill_in 'title', with: "statistics"
   click_on 'Search'
@@ -44,7 +44,7 @@ end
 
 Then(/^I should see that the announcement is linked to the publication$/) do
   assert_path admin_statistics_announcement_path(@statistics_announcement)
-  assert page.has_content?("This announcement is linked to the draft document #{@statistics_publication.title}")
+  assert page.has_content?("Announcement connected to draft document #{@statistics_publication.title}")
 end
 
 When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |announcement_title|
