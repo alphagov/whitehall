@@ -11,25 +11,27 @@
     </div>
   </h1>
 
-  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
+  <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement), html: {class: 'form-large'} do |form| %>
     <%= form.errors %>
 
-    <%= form.label :release_date, "Release date", required: true %>
-    <%= form.datetime_select :release_date, {
-        start_year: Date.today.year,
-        end_year: Date.today.year + 5,
-        minute_step: 15,
-      }, { class: 'date' } %>
-
-    <%= form.check_box :confirmed, label_text: 'Confirmed date?' %>
-
-    <p>Display precision</p>
-    <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-      <%= form.labelled_radio_button(key.to_s.humanize, :precision, value) %>
-    <% end %>
-
-    <%= form.text_area :change_note, rows: 5 %>
-
+    <div class="form-group">
+      <%= form.label :release_date, "Release date", required: true %>
+      <%= form.datetime_select :release_date, {
+          start_year: Date.today.year,
+          end_year: Date.today.year + 5,
+          minute_step: 15,
+        }, { class: 'date form-control' } %>
+      <%= form.check_box :confirmed, label_text: 'Confirmed date?' %>
+    </div>
+    <div class="form-group">
+      <div class="bold add-label-margin">Display precision</div>
+      <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
+        <%= form.labelled_radio_button(key.to_s.humanize, :precision, value) %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= form.text_area :change_note, rows: 5, class: 'form-control' %>
+    </div>
     <%= form.save_or_cancel_buttons buttons: { save: 'Publish change of date' }, cancel: [:admin, @statistics_announcement] %>
   <% end %>
 </div>
