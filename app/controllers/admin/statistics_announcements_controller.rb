@@ -1,6 +1,6 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation]
-  before_filter :cancelled_announcements_cannot_be_cancelled, only: [:cancel, :publish_cancellation]
+  before_filter :redirect_to_show_if_cancelled, only: [:cancel, :publish_cancellation]
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
@@ -51,7 +51,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])
   end
 
-  def cancelled_announcements_cannot_be_cancelled
+  def redirect_to_show_if_cancelled
     redirect_to [:admin, @statistics_announcement] if @statistics_announcement.cancelled?
   end
 
