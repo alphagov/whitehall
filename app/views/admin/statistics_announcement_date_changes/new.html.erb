@@ -1,10 +1,15 @@
 <% initialise_script "GOVUK.StatisticsAnnouncementDateForm", 'statistics_announcement_date_change' %>
 <% page_title "Change statistics announcement release date" %>
 
-<%= render 'admin/statistics_announcements/warning' %>
-
 <div class="span8">
-  <h1><%= @statistics_announcement.title %></h1>
+  <h1>
+    <div class="stats-announce-item">
+      <%= @statistics_announcement.title %>
+    </div>
+    <div class="stats-announce-action">
+      Change release date
+    </div>
+  </h1>
 
   <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement) do |form| %>
     <%= form.errors %>
