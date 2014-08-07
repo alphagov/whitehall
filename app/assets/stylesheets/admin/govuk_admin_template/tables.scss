@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+.table-header {
+  background-color: $gray-lighter;
+}
+
+.table-header-secondary {
+  background-color: $table-bg-accent;
+  font-weight: bold;
+}
+
+.table-header th,
+.table-header-secondary th {
+  border-bottom: 2px solid #ccc;
+}
+
+thead .table-header-secondary td {
+  border-bottom: 1px solid #ccc;
+}

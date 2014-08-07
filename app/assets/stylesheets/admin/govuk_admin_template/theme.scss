@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Margins
+   SASS variables
    https://github.com/alphagov/govuk_admin_template/blob/master/app/assets/stylesheets/govuk_admin_template/theme.css.scss
    ========================================================================== */
 
@@ -8,5 +8,8 @@ $default-vertical-padding:  $default-vertical-margin;
 $default-horizontal-margin: 10px;
 $default-label-margin:      5px;
 
+// Variables that usually come from Bootstrap
+$gray-lighter: #eee;
 $gray-light: #999;
 $gray: #555;
+$table-bg-accent: #f9f9f9;
