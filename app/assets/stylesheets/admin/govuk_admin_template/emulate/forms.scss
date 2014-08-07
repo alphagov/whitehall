@@ -84,6 +84,11 @@ $form-large-font-size: 14px;
     left: $default-horizontal-margin * 2;
     cursor: pointer;
   }
+
+  .label-title {
+    display: block;
+    @include add-label-margin;
+  }
 }
 
 .inline-block-labels {

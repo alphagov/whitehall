@@ -23,10 +23,12 @@
         }, { class: 'date form-control' } %>
       <%= form.check_box :confirmed, label_text: 'Confirmed date?' %>
     </div>
-    <div class="form-group">
-      <div class="bold add-label-margin">Display precision</div>
+    <div class="form-group inline-block-labels">
+      <div class="bold">Display precision</div>
       <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-        <%= form.labelled_radio_button(key.to_s.humanize, :precision, value) %>
+        <label class="block-label">
+          <%= form.radio_button(:precision, value) %> <%= key.to_s.humanize %>
+        </label>
       <% end %>
     </div>
     <div class="form-group">

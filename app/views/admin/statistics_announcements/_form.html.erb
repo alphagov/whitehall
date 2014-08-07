@@ -4,8 +4,17 @@
 
   <div class="form-group">
     <%= form.label  :publication_type_id, 'Statistics type', required: true %>
-    <%= form.select :publication_type_id,
-                  options_from_collection_for_select(PublicationType.statistical, 'id', 'singular_name', statistics_announcement.publication_type_id), class: 'form-control' %>
+    <label class="block-label">
+      <%= form.radio_button(:publication_type_id, PublicationType::Statistics.id) %>
+      <span class="label-title">Statistics</span>
+      <span class="muted">Official statistics produced by government.</span>
+    </label>
+    <label class="block-label">
+      <%= form.radio_button(:publication_type_id, PublicationType::NationalStatistics.id) %>
+      <span class="label-title">National Statistics</span>
+      <span class="muted">Official statistics approved by the UK Statistics Authority.<br/>
+      The National Statistics logo will display on this announcement.</span>
+    </label>
   </div>
   <div class="form-group">
     <%= form.text_field :title, required: true, class: 'form-control' %>
@@ -42,11 +51,13 @@
         <%= fields.check_box :confirmed, label_text: 'Confirmed date?' %>
       </div>
       <hr />
-      <div class="form-group">
+      <div class="form-group inline-block-labels">
         <div class="bold add-label-margin">Display precision</div>
         <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
           <% checked = statistics_announcement.current_release_date.precision == value %>
-          <%= fields.labelled_radio_button(key.to_s.humanize, :precision, value, checked: checked) %>
+          <label class="block-label">
+            <%= fields.radio_button(:precision, value) %> <%= key.to_s.humanize %>
+          </label>
         <% end %>
       </div>
     <% end %>

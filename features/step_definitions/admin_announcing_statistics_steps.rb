@@ -53,7 +53,7 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
 
   ensure_path admin_statistics_announcements_path
   click_on "Create announcement"
-  select 'Statistics', from: :statistics_announcement_publication_type_id
+  choose 'statistics_announcement_publication_type_id_5' # Statistics
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
   select_date 1.year.from_now.to_s, from: "Release date"
