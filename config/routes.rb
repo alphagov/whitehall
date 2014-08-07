@@ -285,6 +285,8 @@ Whitehall::Application.routes.draw do
         get "/editions/:id" => "editions#show"
 
         resources :statistics_announcements do
+          get :cancel, on: :member
+          post :publish_cancellation, on: :member
           resources :statistics_announcement_date_changes, as: 'changes', path: 'changes'
         end
 

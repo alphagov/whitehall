@@ -126,6 +126,23 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal current_date.release_date, date_change.release_date
   end
 
+  test '#cancel! cancels an announcement' do
+    announcement = create(:statistics_announcement)
+    announcement.cancel!("Reason for cancellation", announcement.creator)
+
+    assert announcement.cancelled?
+    assert_equal "Reason for cancellation", announcement.cancellation_reason
+    assert_equal announcement.creator, announcement.cancelled_by
+    assert_equal Time.zone.now, announcement.cancelled_at
+  end
+
+  test 'cannot cancel without a reason' do
+    announcement = create(:statistics_announcement)
+
+    refute announcement.cancel!('', announcement.creator)
+    assert_match /must be provided when cancelling an announcement/, announcement.errors[:cancellation_reason].first
+  end
+
 private
 
   def create_announcement_with_changes

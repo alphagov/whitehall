@@ -86,6 +86,30 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_select "ul.errors li", text: "Title can&#x27;t be blank"
   end
 
+  test "POST :publish_cancellation cancels the announcement" do
+    announcement = create(:statistics_announcement)
+    post :publish_cancellation,
+          id: announcement.id,
+          statistics_announcement: { cancellation_reason: "Reason" }
+
+    assert_redirected_to [:admin, announcement]
+    assert announcement.reload.cancelled?
+    assert_equal "Reason", announcement.cancellation_reason
+    assert_equal Time.zone.now, announcement.cancelled_at
+  end
+
+  test "cancelled announcements cannot be cancelled" do
+    announcement = create(:cancelled_statistics_announcement)
+
+    get :cancel, id: announcement
+    assert_redirected_to [:admin, announcement]
+
+    post :publish_cancellation,
+          id: announcement.id,
+          statistics_announcement: { cancellation_reason: "Reason" }
+    assert_redirected_to [:admin, announcement]
+  end
+
   test "DELETE :destroy deletes the announcement" do
     announcement = create(:statistics_announcement)
     delete :destroy, id: announcement.id

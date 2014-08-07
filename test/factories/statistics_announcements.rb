@@ -9,4 +9,9 @@ FactoryGirl.define do
     association :topic
     association :creator, factory: :policy_writer
   end
+
+  factory :cancelled_statistics_announcement, parent: :statistics_announcement do
+    cancellation_reason "Cancelled for a reason"
+    cancelled_at Time.zone.now
+  end
 end

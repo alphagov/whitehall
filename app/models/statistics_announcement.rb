@@ -3,6 +3,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   friendly_id :title
 
   belongs_to :creator, class_name: 'User'
+  belongs_to :cancelled_by, class_name: 'User'
   belongs_to :organisation
   belongs_to :topic
   belongs_to :publication
@@ -12,6 +13,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   validate  :publication_is_matching_type, if: :publication
   validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
+  validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
                 in: PublicationType.statistical.map(&:id),
@@ -84,6 +86,17 @@ class StatisticsAnnouncement < ActiveRecord::Base
       change.statistics_announcement = self
       change.current_release_date = current_release_date
     end
+  end
+
+  def cancel!(reason, user)
+    self.cancellation_reason = reason
+    self.cancelled_at = Time.zone.now
+    self.cancelled_by = user
+    self.save
+  end
+
+  def cancelled?
+    cancelled_at.present?
   end
 
 private

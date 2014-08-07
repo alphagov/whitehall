@@ -1,5 +1,6 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
+  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :destroy]
+  before_filter :cancelled_announcements_cannot_be_cancelled, only: [:cancel, :publish_cancellation]
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
@@ -33,6 +34,17 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
+  def cancel
+  end
+
+  def publish_cancellation
+    if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement has been cancelled"
+    else
+      render :cancel
+    end
+  end
+
   def destroy
     @statistics_announcement.destroy
     redirect_to [:admin, :statistics_announcements], notice: "Announcement deleted successfully"
@@ -42,6 +54,10 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])
+  end
+
+  def cancelled_announcements_cannot_be_cancelled
+    redirect_to [:admin, @statistics_announcement] if @statistics_announcement.cancelled?
   end
 
   def build_statistics_announcement(attributes = {})

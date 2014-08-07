@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140718100954) do
+ActiveRecord::Schema.define(:version => 20140807095731) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1089,8 +1089,12 @@ ActiveRecord::Schema.define(:version => 20140718100954) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "publication_id"
+    t.text     "cancellation_reason"
+    t.datetime "cancelled_at"
+    t.integer  "cancelled_by_id"
   end
 
+  add_index "statistics_announcements", ["cancelled_by_id"], :name => "index_statistics_announcements_on_cancelled_by_id"
   add_index "statistics_announcements", ["creator_id"], :name => "index_statistics_announcements_on_creator_id"
   add_index "statistics_announcements", ["organisation_id"], :name => "index_statistics_announcements_on_organisation_id"
   add_index "statistics_announcements", ["publication_id"], :name => "index_statistics_announcements_on_publication_id"
