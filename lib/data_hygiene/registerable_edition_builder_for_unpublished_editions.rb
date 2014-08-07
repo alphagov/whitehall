@@ -22,8 +22,8 @@ private
   end
 
   def self.set_to_register
-    edition_set.reject do |edition|
-      edition.related_policies.empty? if edition.respond_to?(:related_policies)
+    edition_set.delete_if do |edition|
+      edition.is_a?(SupportingPage) && edition.related_policies.empty?
     end
   end
 end

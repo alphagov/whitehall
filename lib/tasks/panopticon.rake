@@ -1,5 +1,5 @@
 require 'ostruct'
-require_relative "../data_hygiene/registerable_edition_builder_for_unpublished_editions.rb"
+require "data_hygiene/registerable_edition_builder_for_unpublished_editions"
 
 namespace :panopticon do
   require 'gds_api/panopticon'
