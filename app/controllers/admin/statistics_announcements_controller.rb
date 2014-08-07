@@ -1,5 +1,5 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation]
+  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :cancel_reason]
   before_filter :redirect_to_show_if_cancelled, only: [:cancel, :publish_cancellation]
 
   def index
@@ -65,7 +65,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(
-      :title, :summary, :organisation_id, :topic_id, :publication_type_id, :publication_id,
+      :title, :summary, :organisation_id, :topic_id, :publication_type_id,
+      :publication_id, :cancellation_reason,
       current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
   end
 

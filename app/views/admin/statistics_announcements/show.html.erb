@@ -51,9 +51,11 @@
 
   <div class="form-large form-actions">
     <%= link_to "Edit announcement details", [:edit, :admin, @statistics_announcement], class: "btn add-right-margin"%>
-    <% unless  @statistics_announcement.cancelled? %>
-      <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn"%>
-      <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "btn" %>
+    <% if  @statistics_announcement.cancelled? %>
+      <%= link_to "Edit cancellation reason", [:cancel_reason, :admin, @statistics_announcement], class: 'btn btn-default' %>
+    <% else %>
+      <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn btn-default" %>
+      <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "pull-right btn btn-default" %>
     <% end %>
   </div>
 </div>

@@ -51,3 +51,9 @@ Feature: Statistical release announcements
     And a statistics announcement called "Beard grooming spending 2014" exists
     When I cancel the statistics announcement
     Then I should see that the statistics announcement ha been cancelled
+
+  Scenario: editing a cancellation reason
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And a cancelled statistics announcement exists
+    When I change the cancellation reason
+    Then I should see the updated cancellation reason
