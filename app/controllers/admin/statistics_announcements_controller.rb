@@ -1,5 +1,5 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :destroy]
+  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation]
   before_filter :cancelled_announcements_cannot_be_cancelled, only: [:cancel, :publish_cancellation]
 
   def index
@@ -43,11 +43,6 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     else
       render :cancel
     end
-  end
-
-  def destroy
-    @statistics_announcement.destroy
-    redirect_to [:admin, :statistics_announcements], notice: "Announcement deleted successfully"
   end
 
   private

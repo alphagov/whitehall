@@ -109,13 +109,4 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
           statistics_announcement: { cancellation_reason: "Reason" }
     assert_redirected_to [:admin, announcement]
   end
-
-  test "DELETE :destroy deletes the announcement" do
-    announcement = create(:statistics_announcement)
-    delete :destroy, id: announcement.id
-
-    assert_redirected_to admin_statistics_announcements_url
-    refute StatisticsAnnouncement.exists?(announcement)
-    assert_equal "Announcement deleted successfully", flash[:notice]
-  end
 end
