@@ -13,14 +13,14 @@
   <div class="form-group">
     <%= form.text_area :summary, rows: 5, required: true, class: 'form-control' %>
   </div>
-  <div class="form-group">
+  <div class="form-group stats-chosen-wrapper">
     <%= form.label  :organisation_id, 'Organisation', required: true %>
     <%= form.select :organisation_id,
                   options_from_collection_for_select(Organisation.with_translations, 'id', 'name', statistics_announcement.organisation_id),
                   {},
                   class: 'chzn-select' %>
   </div>
-  <div class="form-group">
+  <div class="form-group stats-chosen-wrapper">
     <%= form.label  :topic_id, 'Topic', required: true %>
     <%= form.select :topic_id,
                   options_from_collection_for_select(Topic.all, 'id', 'name', statistics_announcement.topic_id),
