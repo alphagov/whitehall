@@ -30,7 +30,9 @@ $form-large-font-size: 14px;
   }
 
   .checkbox label,
-  .radio label {
+  label.checkbox,
+  .radio label,
+  label.radio {
     font-weight: normal;
     margin-top: 10px;
     margin-bottom: 10px;
