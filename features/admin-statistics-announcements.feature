@@ -1,4 +1,4 @@
-Feature: Announcing a upcoming statistics release
+Feature: Statistical release announcements
 
   As an publisher of government statistics
   I want to be able to announce upcoming statistics publications
@@ -45,3 +45,9 @@ Feature: Announcing a upcoming statistics release
     And a statistics announcement called "January's beard statistics" exists
     When I link the announcement to the publication
     Then I should see that the announcement is linked to the publication
+
+  Scenario: cancelling a statistics announcement
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And a statistics announcement called "Beard grooming spending 2014" exists
+    When I cancel the statistics announcement
+    Then I should see that the statistics announcement ha been cancelled

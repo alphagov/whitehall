@@ -91,6 +91,21 @@ When(/^I search for announcements containing "(.*?)"$/) do |keyword|
   click_on 'Search'
 end
 
+When(/^I cancel the statistics announcement$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+  click_on "Cancel statistics release"
+
+  fill_in "Official reason for cancellation", with: 'Cancelled because: reasons'
+  click_on "Publish cancellation"
+end
+
+Then(/^I should see that the statistics announcement ha been cancelled$/) do
+  ensure_path admin_statistics_announcement_path(@statistics_announcement)
+
+  assert page.has_content?("Statistics cancelled")
+  assert page.has_content?("Cancelled because: reason")
+end
+
 Then(/^the document fields are pre\-filled based on the announcement$/) do
   assert page.has_css?("input[id=edition_title][value='#{@statistics_announcement.title}']")
   assert page.has_css?("textarea[id=edition_summary]", text: @statistics_announcement.summary)
