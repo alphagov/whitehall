@@ -6,6 +6,13 @@
     <div class="btn-enter-wrapper">
       <%= search_field_tag :title, @filter.options[:title], id: 'search_title', placeholder: 'Search title' %>
     </div>
+
+    <%= label_tag :organisation_id %>
+    <div class="btn-enter-wrapper">
+      <%= select_tag :organisation_id,
+                     admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
+                     class: "chzn-select" %>
+    </div>
   </div>
 
   <%= submit_tag "Search" %>

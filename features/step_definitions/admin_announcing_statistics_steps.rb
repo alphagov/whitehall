@@ -8,6 +8,31 @@ Given(/^a draft statistics publication called "(.*?)"$/) do |title|
                                    title: title)
 end
 
+Given(/^there is a statistics announcement by my organisation$/) do
+  @organisation_announcement = create(:statistics_announcement, organisation: @user.organisation)
+end
+
+Given(/^there is a statistics announcement by another organistion$/) do
+  @other_organisation_announcement = create(:statistics_announcement)
+end
+
+Then(/^I should see my organisation's statistics announcements on the statistical announcements page by default$/) do
+  visit admin_statistics_announcements_path
+
+  assert page.has_css?("tr.statistics_announcement", text: @organisation_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @other_organisation_announcement.title)
+end
+
+When(/^I filter statistics announcements by the other organisation$/) do
+  select @other_organisation_announcement.organisation.name, from: 'Organisation'
+  click_on "Search"
+end
+
+Then(/^I should only see the statistics announcement of the other organisation$/) do
+  assert page.has_css?("tr.statistics_announcement", text: @other_organisation_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @organisation_announcement.title)
+end
+
 When(/^I link the announcement to the publication$/) do
   visit admin_statistics_announcement_path(@statistics_announcement)
   click_on 'Link to an existing draft document'
@@ -62,6 +87,7 @@ end
 When(/^I search for announcements containing "(.*?)"$/) do |keyword|
   visit admin_statistics_announcements_path
   fill_in 'Title or slug', with: keyword
+  select "All organisations", from: "Organisation"
   click_on 'Search'
 end
 
@@ -72,7 +98,7 @@ end
 
 Then(/^the document becomes linked to the announcement$/) do
   assert publication = Publication.last, "No publication found!"
-  visit admin_statistics_announcements_path
+  visit admin_statistics_announcements_path(organisation_id: '')
 
   within record_css_selector(@statistics_announcement) do
     assert page.has_link? publication.title, href: admin_publication_path(publication)
