@@ -24,7 +24,11 @@
   <dl class="stats-details dl-horizontal">
     <dt>Release date:</dt>
     <dd>
-      <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
+      <% if @statistics_announcement.cancelled? %>
+        <span style="text-decoration: line-through"><%= @statistics_announcement.release_date.to_s(:date_with_time) %></span> (Cancelled)
+      <% else %>
+        <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
+      <% end %>
     </dd>
     <dt>Display date:</dt>
     <dd>
