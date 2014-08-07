@@ -30,6 +30,14 @@ Feature: Announcing a upcoming statistics release
     When I search for announcements containing "MQ5"
     And I should only see a statistics announcement called "MQ5 statistics"
 
+  Scenario: filtering statistics announcements by organisation
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And there is a statistics announcement by my organisation
+    And there is a statistics announcement by another organistion
+    Then I should see my organisation's statistics announcements on the statistical announcements page by default
+    When I filter statistics announcements by the other organisation
+    Then I should only see the statistics announcement of the other organisation
+
   @javascript
   Scenario: linking a document to a statistics announcement
     Given I am a GDS editor in the organisation "Department for Beards"

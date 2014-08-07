@@ -2,8 +2,8 @@ require 'test_helper'
 
 class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   setup do
-    @user = login_as(:gds_editor)
     @organisation = create(:organisation)
+    @user = login_as create(:gds_editor, organisation: @organisation)
     @topic = create(:topic)
   end
 
@@ -12,6 +12,15 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_select "input[name='statistics_announcement[title]']"
+  end
+
+  test "GET :index filters announcements by the current user's organisation by default" do
+    @organsation_announcement = create(:statistics_announcement, organisation: @organisation)
+    @other_announcement       = create(:statistics_announcement)
+
+    get :index
+
+    assert_equal [@organsation_announcement], assigns(:statistics_announcements)
   end
 
   test "POST :create saves the announcement to the database and redirects to the dashboard" do
