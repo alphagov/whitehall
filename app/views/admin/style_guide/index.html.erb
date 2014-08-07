@@ -26,17 +26,15 @@
 </div>
 <hr />
 
-<h2>Forms</h2>
+<h2 class="add-bottom-margin">Forms</h2>
 <div class="row-fluid">
   <div class="span6">
     <p class="lead">A default form with fieldset, legend, labels and inputs.</p>
-  </div>
-  <div class="span6 well">
     <form>
       <fieldset>
         <legend>Legend in first fieldset</legend>
-        <label>Label name</label>
-        <input type="text" placeholder="Type something…">
+        <label for="an-input">Label name</label>
+        <input id="an-input" type="text" placeholder="Type something…">
         <span class="help-block">Example block-level help text here.</span>
         <label class="checkbox">
           <input type="checkbox"> Check me out
@@ -44,20 +42,63 @@
       </fieldset>
       <fieldset>
         <legend>Legend in second fieldset</legend>
-        <label>Label name</label>
-        <input type="text" placeholder="Type something…">
+        <label for="an-input-2">Label name</label>
+        <input id="an-input-2" type="text" placeholder="Type something…">
         <span class="help-block">Example block-level help text here.</span>
         <label class="radio">
-          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+          <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
           Option one is this and that—be sure to include why it's great
         </label>
         <label class="radio">
-          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+          <input type="radio" name="options-radios" id="options-radios2" value="option2">
           Option two can be something else and selecting it will deselect option one
         </label>
       </fieldset>
       <div class="form-actions">
-        <button type="submit" class="btn">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" class="add-left-margin btn">Cancel</button>
+        <button type="submit" class="add-left-margin btn btn-large">Large button</button>
+      </div>
+    </form>
+  </div>
+  <div class="span6">
+    <p class="lead">A <code>form-large</code> form that emulates govuk_admin_template.</p>
+    <form class="form-large">
+      <fieldset>
+        <legend>Legend in first fieldset</legend>
+        <div class="form-group">
+          <label for="an-input-3">Label name</label>
+          <input id="an-input-3" type="text" placeholder="Type something…" class="form-control">
+          <span class="help-block">Example block-level help text here.</span>
+        </div>
+        <div class="form-group checkbox">
+          <label>
+            <input type="checkbox"> Check me out
+          </label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Legend in second fieldset</legend>
+        <div class="form-group">
+          <label for="an-input-4">Label name</label>
+          <input id="an-input-4" type="text" placeholder="Type something…" class="form-control">
+          <span class="help-block">Example block-level help text here.</span>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="options-radios" id="options-radios1" value="option1" checked>
+            Option one is this and that—be sure to include why it's great
+          </label>
+          <label>
+            <input type="radio" name="options-radios" id="options-radios2" value="option2">
+            Option two can be something else and selecting it will deselect option one
+          </label>
+        </div>
+      </fieldset>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success">Submit form</button>
+        <button type="submit" class="add-left-margin btn">Cancel</button>
+        <button type="submit" class="add-left-margin btn btn-large">Large button</button>
       </div>
     </form>
   </div>
