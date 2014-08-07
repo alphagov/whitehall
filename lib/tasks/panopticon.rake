@@ -76,6 +76,7 @@ namespace :panopticon do
       registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
 
       begin
+        logger.info "About to register #{registerable_edition.edition.id}"
         registerer.register(registerable_edition)
         logger.info "Re-registered as \"#{registerable_edition.state}\" - /#{registerable_edition.slug}"
       rescue GdsApi::HTTPErrorResponse => e
