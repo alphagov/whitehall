@@ -39,7 +39,10 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
         confirmed: announcement.confirmed?,
         display_date: announcement.display_date,
         change_note: announcement.last_change_note,
-        previous_display_date: announcement.previous_display_date
+        previous_display_date: announcement.previous_display_date,
+        cancelled: announcement.cancelled?,
+        cancelled_at: announcement.cancelled_at,
+        cancellation_reason: announcement.cancellation_reason,
       }
     }
 
@@ -146,7 +149,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 private
 
   def create_announcement_with_changes
-    announcement = create(:statistics_announcement)
+    announcement = create(:cancelled_statistics_announcement)
     minor_change = Timecop.travel(1.day) do
       create(:statistics_announcement_date,
               statistics_announcement: announcement,
