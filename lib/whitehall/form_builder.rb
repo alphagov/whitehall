@@ -54,6 +54,15 @@ module Whitehall
       form_actions(options.reverse_merge(buttons: { save: 'Save' }))
     end
 
+    def save_or_cancel_buttons(options = {})
+      @template.content_tag(:div, "class" => "form-actions") {
+        options[:buttons].each do |name, value|
+          @template.concat submit(value, name: name, class: "btn btn-large btn-primary")
+        end
+        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-large add-left-gutter')
+      }
+    end
+
     def save_or_continue_or_cancel(options = {})
       buttons = { save: 'Save', save_and_continue: 'Save and continue editing' }
       form_actions(options.reverse_merge(buttons: buttons))

@@ -51,8 +51,16 @@ a.inherit:visited,
   @include add-right-margin('!important');
 }
 
+.add-right-gutter {
+  @include add-right-gutter('!important');
+}
+
 .add-left-margin {
   @include add-left-margin('!important');
+}
+
+.add-left-gutter {
+  @include add-left-gutter('!important');
 }
 
 .dl-spaced dd {

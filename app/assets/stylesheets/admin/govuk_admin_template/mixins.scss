@@ -27,6 +27,14 @@
   margin-left: $default-horizontal-margin #{$important};
 }
 
+@mixin add-right-gutter($important: "") {
+  margin-right: $default-horizontal-margin * 2 #{$important};
+}
+
+@mixin add-left-gutter($important: "") {
+  margin-left: $default-horizontal-margin * 2 #{$important};
+}
+
 @mixin add-label-margin {
   margin-bottom: $default-label-margin;
 }
