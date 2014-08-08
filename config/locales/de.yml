@@ -4,15 +4,18 @@ de:
       attachments:
         one: Dokument
         other: Dokumente
+      policies:
+        one:
+        other:
       applies_to_nations: Gilt für
       field_of_operation: Einsatzbereich
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Meldung
         other: Meldungen
@@ -50,6 +53,7 @@ de:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Detaillierte Hinweise
         other: Detaillierte Hinweise
         see_all: Alle unsere Detaillierte Hinweise
@@ -85,10 +89,6 @@ de:
         one: Folgenabschätzung
         other: Folgenabschätzungen
         see_all: Alle unsere Folgenabschätzungen
-      imported:
-        one: importiert - Warten auf Dokumententyp
-        other: importiert - Warten auf Dokumententyp
-        see_all: Alle unsere importiert - Warten auf Dokumententyp
       independent_report:
         one: Unabhängiger Bericht
         other: Unabhängige Berichte

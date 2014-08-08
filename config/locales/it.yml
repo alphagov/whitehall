@@ -4,15 +4,18 @@ it:
       attachments:
         one: Documento
         other: Documenti
+      policies:
+        one:
+        other:
       applies_to_nations: Valido per
       field_of_operation: Settore di lavoro
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Annuncio
         other: Annunci
@@ -50,6 +53,7 @@ it:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Indicazione dettagliata
         other: Indicazioni dettagliate
         see_all: Vedi tutte le nostre indicazioni dettagliate
@@ -85,10 +89,6 @@ it:
         one: Valutazione impatto
         other: Valutazioni impatto
         see_all: Vedi tutte le nostre valutazioni impatto
-      imported:
-        one: importato - in attesa
-        other: importato - in attesa
-        see_all: Vedi tutte le nostre importato - in attesa
       independent_report:
         one: Relazione indipendente
         other: Relazioni indipendenti

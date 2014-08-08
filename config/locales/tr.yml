@@ -176,6 +176,7 @@ tr:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
         see_all: Tamamını görüntüle
@@ -214,7 +215,6 @@ tr:
       imported:
         one: Alındı - Kategorize edilecek
         other: Alındı - Kategorize edilecek
-        see_all: Tamamını görüntüle
       independent_report:
         one: Bağımsız rapor
         other: Bağımsız raporlar

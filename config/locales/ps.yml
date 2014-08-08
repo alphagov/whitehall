@@ -4,15 +4,18 @@ ps:
       attachments:
         one: سند
         other: سندونه
+      policies:
+        one:
+        other:
       applies_to_nations: پورې اړه لری
       field_of_operation: د کړنو څانګه
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: خبرتیا
         other: خبرتیاوې
@@ -50,6 +53,7 @@ ps:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
         see_all: ټول وګوری مفصلی لارښوونی
@@ -85,10 +89,6 @@ ps:
         one: د تاثیراتو څیړنه
         other: د تاثیراتو څیړنی
         see_all: ټول وګوری د تاثیراتو څیړنی
-      imported:
-        one: وارد شوی - د انتظار نمونه
-        other: وارد شوی - د انتظار نمونه
-        see_all: ټول وګوری وارد شوی - د انتظار نمونه
       independent_report:
         one: آزاد راپور
         other: آزاد راپورونه

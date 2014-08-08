@@ -4,15 +4,18 @@ tk:
       attachments:
         one:
         other:
+      policies:
+        one:
+        other:
       applies_to_nations:
       field_of_operation:
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one:
         other:
@@ -50,6 +53,7 @@ tk:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one:
         other:
         see_all:
@@ -82,10 +86,6 @@ tk:
         other:
         see_all:
       impact_assessment:
-        one:
-        other:
-        see_all:
-      imported:
         one:
         other:
         see_all:

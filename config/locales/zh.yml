@@ -174,6 +174,7 @@ zh:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: 详细指导
         other: 详细指导
         see_all: 查阅我们所有的详细指导
@@ -212,7 +213,6 @@ zh:
       imported:
         one: 导入 - 正在等待的类型
         other: 导入 - 正在等待的类型
-        see_all: 查阅我们所有的导入 - 正在等待的类型
       independent_report:
         one: 独立报告
         other: 独立报告

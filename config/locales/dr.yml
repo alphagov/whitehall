@@ -4,15 +4,18 @@ dr:
       attachments:
         one: سند
         other: اسناد
+      policies:
+        one:
+        other:
       applies_to_nations: اطلاق میشود به
       field_of_operation: بخش عملیاتی
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: اعلان
         other: اعلانات
@@ -50,6 +53,7 @@ dr:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: ' رهنمود مفصل'
         other: رهنمود های مفصل
         see_all: همه را ببینید رهنمود های مفصل
@@ -85,10 +89,6 @@ dr:
         one: بررسی تاثیرات
         other: بررسی های تاثیرات
         see_all: همه را ببینید بررسی های تاثیرات
-      imported:
-        one: وارد شده- نوع انتظار
-        other: وارد شده - نوع انتظار
-        see_all: همه را ببینید وارد شده - نوع انتظار
       independent_report:
         one: گزارش آزاد
         other: گزارش های آزاد

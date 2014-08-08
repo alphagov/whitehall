@@ -175,6 +175,7 @@ ja:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: 詳細説明
         other: 詳細説明
         see_all: 詳細説明 を全て見る
@@ -213,7 +214,6 @@ ja:
       imported:
         one: 確認中
         other: 確認中
-        see_all: 確認中 を全て見る
       independent_report:
         one: 第三者機関によるレポート
         other: 第三者機関によるレポート

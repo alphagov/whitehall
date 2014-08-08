@@ -4,15 +4,18 @@ es:
       attachments:
         one: Documento
         other: Documentos
+      policies:
+        one:
+        other:
       applies_to_nations: Sirve para
       field_of_operation: Ãmbito de actuación
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Anuncio
         other: Anuncios
@@ -50,6 +53,7 @@ es:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Orientación detallada
         other: Orientación detallada
         see_all: Ver toda nuestra orientación detallada
@@ -85,10 +89,6 @@ es:
         one: Evaluación del impacto
         other: Evaluaciones del impacto
         see_all: Ver toda nuestra evaluaciones del impacto
-      imported:
-        one: Importado - esperando prototipo
-        other: Importado - esperando prototipo
-        see_all: Ver toda nuestra importado - esperando prototipo
       independent_report:
         one: Informe independiente
         other: Informes independientes

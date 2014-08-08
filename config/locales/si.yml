@@ -4,15 +4,18 @@ si:
       attachments:
         one: ලේඛණය
         other: ලේඛණ
+      policies:
+        one:
+        other:
       applies_to_nations: අදාළ වන්නේ
       field_of_operation: ක්‍රියාත්මකවන ක්ෂස්ත්‍රය
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: නිවේදනය
         other: නිවේදන
@@ -50,6 +53,7 @@ si:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
         see_all: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
@@ -85,10 +89,6 @@ si:
         one: ප්‍රතිපල ඇගයීම
         other: ප්‍රතිපල ඇගයීම්
         see_all: අපගේ සියලු ප්‍රතිපල ඇගයීම් බලන්න
-      imported:
-        one: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
-        other: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
-        see_all: අපගේ සියලු ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න බලන්න
       independent_report:
         one: ස්වාධීන වාර්තාව
         other: ස්වාධීන වාර්තා

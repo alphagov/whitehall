@@ -177,6 +177,7 @@ hu:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Részletes útmutató
         other: Részletes útmutató
         see_all: ' részletes útmutató - mindegyik megtekintése'
@@ -215,7 +216,6 @@ hu:
       imported:
         one: Importálva
         other: Importálva
-        see_all: ' importálva - mindegyik megtekintése'
       independent_report:
         one: Független beszámoló
         other: Független beszámolók

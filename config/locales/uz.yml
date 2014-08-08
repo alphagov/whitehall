@@ -4,15 +4,18 @@ uz:
       attachments:
         one: Hujjat
         other: Hujjatlar
+      policies:
+        one:
+        other:
       applies_to_nations: 'Tegishli '
       field_of_operation: Faoliyat sohasi
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: E'lon
         other: E'lonlar
@@ -50,6 +53,7 @@ uz:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
         see_all: Bizning butun batafsil ko'mak ko'ring
@@ -85,10 +89,6 @@ uz:
         one: Ta'sir etuvchi omillar tahlili
         other: Ta'sir etuvchi omillar tahlillari
         see_all: Bizning butun ta'sir etuvchi omillar tahlillari ko'ring
-      imported:
-        one: 'yuklandi - kutilmoqda '
-        other: 'yuklandi - kutilmoqda '
-        see_all: Bizning butun yuklandi - kutilmoqda  ko'ring
       independent_report:
         one: Mustaqil hisobot
         other: Mustaqil hisobotlar

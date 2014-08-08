@@ -176,6 +176,7 @@ id:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Panduan lebih lanjut
         other: Panduan lebih lanjut
         see_all: Lihat semua panduan lebih lanjut
@@ -214,7 +215,6 @@ id:
       imported:
         one: Diimpor-menunggu tipe
         other: Diimpor-menunggu tipe
-        see_all: Lihat semua diimpor-menunggu tipe
       independent_report:
         one: Laporan independen
         other: Laporan-laporan independen

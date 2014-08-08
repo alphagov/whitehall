@@ -4,15 +4,18 @@ lv:
       attachments:
         one: Dokuments
         other: Dokumenti
+      policies:
+        one:
+        other:
       applies_to_nations: Attiecas uz
       field_of_operation: Darbības lauks
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Paziņojums
         other: Paziņojumi
@@ -50,6 +53,7 @@ lv:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Detalizētas norādes
         other: Detalizētas norādes
         see_all: Skatīt visas detalizētas norādes
@@ -85,10 +89,6 @@ lv:
         one: Ietekmes novērtējums
         other: Ietekmes novērtējumi
         see_all: Skatīt visas ietekmes novērtējumi
-      imported:
-        one: importēts-gaidīšanas režīmā
-        other: importēts-gaidīšanas režīmā
-        see_all: Skatīt visas importēts-gaidīšanas režīmā
       independent_report:
         one: Neatkarīgs ziņojums
         other: Neatkarīgi ziņojumi

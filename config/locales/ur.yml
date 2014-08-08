@@ -4,15 +4,18 @@ ur:
       attachments:
         one: دستاویز
         other: دستاویزات
+      policies:
+        one:
+        other:
       applies_to_nations: اطلاق ہوتا ہے
       field_of_operation: کارروائی کا میدان
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: اعلان
         other: اعلانات
@@ -50,6 +53,7 @@ ur:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
         see_all: تما م دیکھئیے مفصل رہنمائی
@@ -85,10 +89,6 @@ ur:
         one: اثرات کا تجزیہ
         other: اثرات کے تجزیے
         see_all: تما م دیکھئیے اثرات کے تجزیے
-      imported:
-        one: امپورٹڈ- نوع کا انتظار
-        other: امپورٹڈ- نوع کا انتظار
-        see_all: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
       independent_report:
         one: غیر جانبدار رپورٹ
         other: غیر جانبداررپورٹس

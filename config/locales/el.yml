@@ -4,15 +4,18 @@ el:
       attachments:
         one: Έγγραφο
         other: Έγγραφα
+      policies:
+        one:
+        other:
       applies_to_nations: Ισχύει
       field_of_operation: Πεδίο δράσης
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Ανακοίνωση
         other: Ανακοινώσεις
@@ -50,6 +53,7 @@ el:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Οδηγίες
         other: Οδηγίες
         see_all: Δείτε τα Οδηγίες
@@ -85,10 +89,6 @@ el:
         one: Αξιολόγηση αποτελέσματος
         other: Αξιολογήσεις αποτελέσματος
         see_all: Δείτε τα Αξιολογήσεις αποτελέσματος
-      imported:
-        one: ' εισηγμένο  - σε αναμονή'
-        other: εισηγμένα - σε αναμονή
-        see_all: Δείτε τα εισηγμένα - σε αναμονή
       independent_report:
         one: Έκθεση ανεξάρτητης αρχής
         other: Εκθέσεις ανεξάρτητων αρχών

@@ -4,15 +4,18 @@ es-419:
       attachments:
         one: Documento
         other: Documentos
+      policies:
+        one:
+        other:
       applies_to_nations: Se aplica a
       field_of_operation: Terreno de operaciones
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Novedades
         other: Novedades
@@ -50,6 +53,7 @@ es-419:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Orientación detallada
         other: Orientación detallada
         see_all: Vea todos nuestros orientación detallada
@@ -85,10 +89,6 @@ es-419:
         one: Evaluación del impacto
         other: Evaluaciones del impacto
         see_all: Vea todos nuestros evaluaciones del impacto
-      imported:
-        one: Importado - esperando tipo
-        other: Importado - esperando tipo
-        see_all: Vea todos nuestros importado - esperando tipo
       independent_report:
         one: Reporte independiente
         other: Reportes independientes

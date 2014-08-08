@@ -4,15 +4,18 @@ ta:
       attachments:
         one: ' ஆவணம்'
         other: ஆவணங்கள்
+      policies:
+        one:
+        other:
       applies_to_nations: பிரயோகமாகிறது
       field_of_operation: செயற்பாட்டுத் துறை
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: அறிவிப்பு
         other: அறிவிப்புகள்
@@ -50,6 +53,7 @@ ta:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: விளக்கமான வழிகாட்டல்
         other: விளக்கமான வழிகாட்டல்
         see_all: எங்களது அனைத்து விளக்கமான வழிகாட்டல் பார்க்கவும்
@@ -85,10 +89,6 @@ ta:
         one: தாக்க மதிப்பீடு
         other: தாக்க மதிப்பீடுகள்
         see_all: எங்களது அனைத்து தாக்க மதிப்பீடுகள் பார்க்கவும்
-      imported:
-        one: இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை
-        other: இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை
-        see_all: எங்களது அனைத்து இறக்குமதி செய்யப்பட்ட - எதிர்பார்க்கும் வகை பார்க்கவும்
       independent_report:
         one: சுயாதீன அறிக்கை
         other: சுயாதீன அறிக்கைகள்

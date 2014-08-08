@@ -176,6 +176,7 @@ vi:
         other:
         see_all:
       detailed_guidance:
+        contents:
         one: Hướng dẫn chi tiết
         other: Hướng dẫn chi tiết
         see_all: Xem tất cả hướng dẫn chi tiết của chúng tôi
@@ -214,7 +215,6 @@ vi:
       imported:
         one: Loại tài liệu đính kèm
         other: Loại tài liệu đính kèm
-        see_all: Xem tất cả loại tài liệu đính kèm của chúng tôi
       independent_report:
         one: Báo cáo độc lập
         other: Các báo cáo độc lập
