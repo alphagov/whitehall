@@ -3,12 +3,12 @@
 
 <div class="stats-form-wrapper">
   <h1>
-    <div class="stats-announce-item">
+    <span class="stats-small-heading">
       <%= @statistics_announcement.title %>
-    </div>
-    <div class="stats-announce-action">
+    </span>
+    <span class="stats-heading">
       Change release date
-    </div>
+    </span>
   </h1>
 
   <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement), html: {class: 'form-large'} do |form| %>

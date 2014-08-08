@@ -11,15 +11,17 @@
   margin: $default-label-margin 0;
 }
 
-.stats-announce-action {
+.stats-heading {
   margin-bottom: $default-vertical-margin;
+  display: block;
 }
 
-.stats-announce-item {
+.stats-small-heading {
   color: #999;
   font-weight: normal;
   font-size: (23/30) * 1em;
   line-height: 1.5;
+  display: block;
 }
 
 .stats-details dt {

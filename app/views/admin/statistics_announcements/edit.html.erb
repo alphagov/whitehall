@@ -3,12 +3,12 @@
 
 <div class="stats-form-wrapper">
   <h1>
-    <div class="stats-announce-item">
+    <span class="stats-small-heading">
       <%= @statistics_announcement.title %>
-    </div>
-    <div class="stats-announce-action">
+    </span>
+    <span class="stats-heading">
       Edit statistics announcement
-    </div>
+    </span>
   </h1>
   <%= render "form", statistics_announcement: @statistics_announcement %>
 </div>
