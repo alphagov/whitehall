@@ -44,7 +44,7 @@ class RegisterableEditionTest < ActiveSupport::TestCase
   end
 
   test "sets the correct slug for a deleted edition" do
-    publication = create(:publication)
+    publication = create(:publication, title: "Edition title")
 
     Whitehall.edition_services.deleter(publication).perform!
 
@@ -52,8 +52,8 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     registerable_edition = RegisterableEdition.new(publication)
 
-    assert_match /^deleted-/, whitehall_publication_slug
-    refute_match /deleted-/, registerable_edition.slug
+    assert_equal "deleted-edition-title", whitehall_publication_slug
+    assert_equal "government/publications/edition-title", registerable_edition.slug
   end
 
   test "sets the state to draft if the edition isn't published" do
