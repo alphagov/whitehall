@@ -1,4 +1,5 @@
 require 'ostruct'
+require "data_hygiene/registerable_edition_builder_for_unpublished_editions"
 
 namespace :panopticon do
   require 'gds_api/panopticon'
@@ -61,6 +62,25 @@ namespace :panopticon do
         registerer.register(artefact)
       rescue GdsApi::HTTPErrorResponse => e
         logger.error "Failed to register /#{edition.slug} with #{e.code}: #{e.error_details}"
+      end
+    end
+  end
+
+  desc "Re-register unpublished content with Panopticon"
+  task :re_register_unpublished_content => :environment do
+    logger = GdsApi::Base.logger = Logger.new(STDERR).tap { |l| l.level = Logger::INFO }
+
+    registerable_editions = RegisterableEditionBuilderForUnpublishedEditions.build
+
+    registerable_editions.each do |registerable_edition|
+      registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
+
+      begin
+        logger.info "About to register #{registerable_edition.edition.id}"
+        registerer.register(registerable_edition)
+        logger.info "Re-registered as \"#{registerable_edition.state}\" - /#{registerable_edition.slug}"
+      rescue GdsApi::HTTPErrorResponse => e
+        logger.error "Failed to re-register /#{registerable_edition.slug} with #{e.code}: #{e.error_details}"
       end
     end
   end
