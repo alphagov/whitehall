@@ -1,4 +1,4 @@
-Given(/^There are some statistics announcements$/) do
+Given(/^there are some statistics announcements$/) do
   create :statistics_announcement, title: "Womble to Wombat population ratios",
                                             summary: "All populations of wombles and wombats by region",
                                             publication_type_id: PublicationType::Statistics.id,
@@ -26,7 +26,7 @@ Given(/^There are some statistics announcements$/) do
   end
 end
 
-Given(/^There are some statisics announcments for various departments and topics$/) do
+Given(/^there are some statistics announcements for various departments and topics$/) do
   @department = create :ministerial_department
   @topic = create :topic
 
@@ -36,7 +36,7 @@ Given(/^There are some statisics announcments for various departments and topics
 
 end
 
-Given(/^There is a statistics announcement$/) do
+Given(/^there is a statistics announcement$/) do
   @organisation = create :ministerial_department
   @topic = create :topic
   @announcement = create :statistics_announcement,

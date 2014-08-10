@@ -50,7 +50,7 @@ Feature: Statistical release announcements
     Given I am a GDS editor in the organisation "Department for Beards"
     And a statistics announcement called "Beard grooming spending 2014" exists
     When I cancel the statistics announcement
-    Then I should see that the statistics announcement ha been cancelled
+    Then I should see that the statistics announcement has been cancelled
 
   Scenario: editing a cancellation reason
     Given I am a GDS editor in the organisation "Department for Beards"
