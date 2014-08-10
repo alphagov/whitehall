@@ -14,8 +14,12 @@ class Frontend::StatisticsAnnouncement < InflatableModel
     @cancellation_date = parse_date(date_value)
   end
 
-  def display_date_with_confirmed_status
-    display_date + (release_date_confirmed ? " (confirmed)" : " (provisional)")
+  def display_date_with_status
+    if state == "confirmed"
+      display_date
+    else
+      "#{display_date} (#{state})"
+    end
   end
 
   def to_partial_path

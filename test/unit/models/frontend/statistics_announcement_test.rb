@@ -17,14 +17,19 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "February 01, 2016 10:45", announcement.cancellation_date.to_s(:long)
   end
 
-  test "#display_date_with_confirmed_status appends (confirmed) to confirmed announcements" do
-    announcement =  build_announcement(display_date: "March 12 2015", release_date_confirmed: true)
-    assert_equal "March 12 2015 (confirmed)", announcement.display_date_with_confirmed_status
+  test "#display_date_with_status returns a confirmed date" do
+    announcement =  build_announcement(display_date: "March 12 2015", state: "confirmed")
+    assert_equal "March 12 2015", announcement.display_date_with_status
   end
 
-  test "#display_date_with_confirmed_status appends (provisional) to unconfirmed announcements" do
-    announcement =  build_announcement(display_date: "March 12 2015", release_date_confirmed: false)
-    assert_equal "March 12 2015 (provisional)", announcement.display_date_with_confirmed_status
+  test "#display_date_with_status appends (provisional) to unconfirmed announcements" do
+    announcement =  build_announcement(display_date: "March 12 2015", state: "provisional")
+    assert_equal "March 12 2015 (provisional)", announcement.display_date_with_status
+  end
+
+  test "#disply_date_with_status appends (cancelled) to cancelled announcements" do
+    announcement =  build_announcement(display_date: "March 12 2015", state: "cancelled")
+    assert_equal "March 12 2015 (cancelled)", announcement.display_date_with_status
   end
 
   test "it identifies by it's slug" do
