@@ -6,6 +6,10 @@ class Frontend::StatisticsAnnouncement < InflatableModel
                 :organisations, :topics,
                 :state, :cancellation_reason, :cancellation_date
 
+  def cancelled?
+    state == "cancelled"
+  end
+
   def release_date=(date_value)
     @release_date = parse_date(date_value)
   end

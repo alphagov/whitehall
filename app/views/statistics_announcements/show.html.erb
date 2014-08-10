@@ -17,8 +17,15 @@
       <aside class="meta metadata-list">
         <div class="inner-heading">
           <dl>
-            <dt>Release date:</dt>
-            <dd><%= @announcement.display_date_with_status %></dd>
+            <% if @announcement.cancelled? %>
+              <dt>Proposed release date:</dt>
+              <dd><%= @announcement.display_date %></dd>
+              <dt>Cancellation date:</dt>
+              <dd><%= absolute_time(@announcement.cancellation_date) %></dd>
+            <% else %>
+              <dt>Release date:</dt>
+              <dd><%= @announcement.display_date_with_status %></dd>
+            <% end %>
 
             <% if @announcement.organisations.any?  %>
               <dt><%= t('document.headings.organisations', count: @announcement.organisations.length) %>:</dt>
@@ -40,6 +47,13 @@
 
   <div>
     <div class="inner-block">
+      <% if @announcement.cancelled? %>
+        <div class="status-block">
+          <h2>Stastistics release cancelled</h2>
+          <p><%= @announcement.cancellation_reason %></p>
+        </div>
+      <% end %>
+
       <div class="summary">
         <p><%= @announcement.summary %></p>
       </div>
