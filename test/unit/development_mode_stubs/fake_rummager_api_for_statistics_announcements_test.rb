@@ -49,6 +49,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     assert_equal [announcement.topic.slug],        returned_announcement_hash["topics"]
     assert_equal "2050-01-01T09:30:00+00:00",      returned_announcement_hash["release_timestamp"]
     assert_equal true,                             returned_announcement_hash["metadata"]["confirmed"]
+    assert_equal "confirmed",                      returned_announcement_hash["statistics_announcement_state"]
     assert_equal "The change note",                returned_announcement_hash["metadata"]["change_note"]
     assert_equal "1 January 2050 9:30am",          returned_announcement_hash["metadata"]["display_date"]
     assert_equal "March to April 2050",            returned_announcement_hash["metadata"]["previous_display_date"]

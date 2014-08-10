@@ -53,11 +53,14 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
       "display_type" => "Statistics",
       "search_format_types" => ["statistics_announcement"],
       "format" => "statistics_announcement",
+      "statistics_announcement_state" => "cancelled",
       "metadata" => {
         "display_date" => "About now",
         "confirmed" => false,
         "change_note" => "Change is good",
-        "previous_display_date" => 1.year.ago
+        "previous_display_date" => 1.year.ago,
+        "cancellation_reason" => "Cancel reason",
+        "cancelled_at" => 1.week.ago,
       }
     }])
 
@@ -74,6 +77,9 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal 1.year.ago,       release_announcement.previous_display_date
     assert_equal organisation,     release_announcement.organisations.first
     assert_equal topic,            release_announcement.topics.first
+    assert_equal "cancelled",      release_announcement.state
+    assert_equal "Cancel reason",  release_announcement.cancellation_reason
+    assert_equal 1.week.ago,       release_announcement.cancellation_date
   end
 
   test "#search: results are returned in a CollectionPage with the correct total, page and per_page values" do
@@ -98,6 +104,8 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
                                                               publication_type_id: PublicationType::Statistics.id,
                                                               organisation: organisation,
                                                               topic: topic,
+                                                              cancellation_reason: "Cancelled for reasons",
+                                                              cancelled_at: 1.day.ago,
                                                               statistics_announcement_dates: [build(:statistics_announcement_date,
                                                                                                      release_date:  "2050-03-01",
                                                                                                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
@@ -123,6 +131,9 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
     assert_equal "March to April 2050",                     announcement.previous_display_date
     assert_equal [organisation],                            announcement.organisations
     assert_equal [topic],                                   announcement.topics
+    assert_equal "cancelled",                               announcement.state
+    assert_equal "Cancelled for reasons",                   announcement.cancellation_reason
+    assert_equal 1.day.ago,                                 announcement.cancellation_date
   end
 
   test "#find_by_slug: returns nil if it can't find one" do

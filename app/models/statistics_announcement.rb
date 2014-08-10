@@ -36,6 +36,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
               organisations: :organisation_slugs,
               topics: :topic_slugs,
               release_timestamp: :release_date,
+              statistics_announcement_state: :state,
               metadata: :search_metadata
 
   delegate  :release_date, :display_date, :confirmed?,
@@ -77,7 +78,6 @@ class StatisticsAnnouncement < ActiveRecord::Base
       display_date: display_date,
       change_note: last_change_note,
       previous_display_date: previous_display_date,
-      cancelled: cancelled?,
       cancelled_at: cancelled_at,
       cancellation_reason: cancellation_reason,
      }
@@ -101,6 +101,16 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   def cancelled?
     cancelled_at.present?
+  end
+
+  def state
+    if cancelled?
+      'cancelled'
+    elsif confirmed?
+      'confirmed'
+    else
+      'provisional'
+    end
   end
 
 private

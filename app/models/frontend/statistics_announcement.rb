@@ -3,11 +3,15 @@ class Frontend::StatisticsAnnouncement < InflatableModel
                 :publication, :document_type,
                 :release_date, :display_date, :release_date_confirmed,
                 :release_date_change_note, :previous_display_date,
-                :organisations, :topics
+                :organisations, :topics,
+                :state, :cancellation_reason, :cancellation_date
 
   def release_date=(date_value)
-    date_value = Time.zone.parse(date_value) if date_value.is_a? String
-    @release_date = date_value
+    @release_date = parse_date(date_value)
+  end
+
+  def cancellation_date=(date_value)
+    @cancellation_date = parse_date(date_value)
   end
 
   def display_date_with_confirmed_status
@@ -24,5 +28,11 @@ class Frontend::StatisticsAnnouncement < InflatableModel
 
   def national_statistic?
     document_type == "Statistics - national statistics"
+  end
+
+private
+
+  def parse_date(date_value)
+    date_value.is_a?(String) ? Time.zone.parse(date_value) : date_value
   end
 end

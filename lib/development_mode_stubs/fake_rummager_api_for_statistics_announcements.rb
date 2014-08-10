@@ -51,11 +51,14 @@ module DevelopmentModeStubs
         "display_type" => announcement.publication_type.singular_name,
         "search_format_types" => ["statistics_announcement"],
         "format" => "statistics_announcement",
+        "statistics_announcement_state" => announcement.state,
         "metadata" => {
           "confirmed" => announcement.current_release_date.confirmed,
           "display_date" => announcement.current_release_date.display_date,
           "change_note" => announcement.last_change_note,
-          "previous_display_date" => announcement.previous_display_date
+          "previous_display_date" => announcement.previous_display_date,
+          "cancellation_reason" => announcement.cancellation_reason,
+          "cancellation_date" => announcement.cancelled_at,
         }
       }
     end
