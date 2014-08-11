@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-actions">
-      <p>Cancelled announcements will show on GOV.UK until one month after their release date. The cancellation reason will be visible on the announcement.</p>
+      <p class="add-bottom-margin">Cancelling an announcement cannot be undone. The cancelled announcement will remain on GOV.UK.</p>
       <%= form.submit "Update cancellation reason", class: "btn btn-large btn-danger add-right-margin" %>
       <%= link_to "Don’t update", [:admin, @statistics_announcement], class: "btn btn-large" %>
     </div>
