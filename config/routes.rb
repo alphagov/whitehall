@@ -368,6 +368,8 @@ Whitehall::Application.routes.draw do
         end
 
         resources :sitewide_settings
+
+        get '/style-guide' => 'style_guide#index'
       end
     end
 

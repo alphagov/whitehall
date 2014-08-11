@@ -1,0 +1,53 @@
+@mixin add-vertical-margins($important: "") {
+  @include add-top-margin($important);
+  @include add-bottom-margin($important);
+}
+
+@mixin add-top-margin($important: "") {
+  margin-top: $default-vertical-margin #{$important};
+}
+
+@mixin remove-top-margin($important: "") {
+  margin-top: 0 #{$important};
+}
+
+@mixin add-bottom-margin($important: "") {
+  margin-bottom: $default-vertical-margin #{$important};
+}
+
+@mixin remove-bottom-margin($important: "") {
+  margin-bottom: 0 #{$important};
+}
+
+@mixin add-right-margin($important: "") {
+  margin-right: $default-horizontal-margin #{$important};
+}
+
+@mixin add-left-margin($important: "") {
+  margin-left: $default-horizontal-margin #{$important};
+}
+
+@mixin add-right-gutter($important: "") {
+  margin-right: $default-horizontal-margin * 2 #{$important};
+}
+
+@mixin add-left-gutter($important: "") {
+  margin-left: $default-horizontal-margin * 2 #{$important};
+}
+
+@mixin add-label-margin {
+  margin-bottom: $default-label-margin;
+}
+
+@mixin add-vertical-padding($important: "") {
+  @include add-top-padding($important);
+  @include add-bottom-padding($important);
+}
+
+@mixin add-top-padding($important: "") {
+  padding-top: $default-vertical-padding #{$important};
+}
+
+@mixin add-bottom-padding($important: "") {
+  padding-bottom: $default-vertical-padding #{$important};
+}

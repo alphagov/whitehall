@@ -59,7 +59,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     get :show, id: announcement
 
     assert_response :success
-    assert_select 'h1', text: announcement.title
+    assert_select 'h1 .stats-heading', text: announcement.title
   end
 
   view_test "GET :edit renders the edit form for the  announcement" do

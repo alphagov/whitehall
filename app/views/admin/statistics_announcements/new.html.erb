@@ -1,10 +1,9 @@
 <% initialise_script "GOVUK.StatisticsAnnouncementDateForm", 'statistics_announcement[current_release_date_attributes]' %>
 <% page_title "New statistics announcement" %>
 
-<%= render 'warning' %>
-
-<div class="span8">
+<div class="stats-form-wrapper">
   <h1>New statistics announcement</h1>
-  <p>Use this to make an announcement for a forthcoming statistics release. Statistics announcements are listed <%= link_to 'here' %>.</p>
+  <p class="stats-subtitle muted">Make an announcement for a forthcoming statistics release.</p>
+  <%= render 'warning' %>
   <%= render "form", statistics_announcement: @statistics_announcement %>
 </div>
