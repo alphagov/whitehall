@@ -1,5 +1,11 @@
 .stats-form-wrapper {
   max-width: 820px;
+
+  .form-actions p {
+    font-size: 16px;
+    margin: 0 0 30px;
+    line-height: 24px;
+  }
 }
 
 .stats-chosen-wrapper {

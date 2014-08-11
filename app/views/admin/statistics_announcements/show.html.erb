@@ -13,9 +13,9 @@
   <%= link_to "View announcement on GOV.UK", @statistics_announcement %>
 
   <% if @statistics_announcement.cancelled? %>
-    <div class="alert alert-danger" style="margin-bottom: 30px; padding: 15px 20px;">
+    <div class="alert alert-danger">
       <h2>Statistics cancelled</h2>
-      <p style="font-size: 16px; margin-bottom: 10px; line-height: 20px"><%= @statistics_announcement.cancellation_reason %></p>
+      <p><%= @statistics_announcement.cancellation_reason %></p>
     </div>
   <% end %>
 
@@ -58,8 +58,8 @@
     <% if  @statistics_announcement.cancelled? %>
       <%= link_to "Edit cancellation reason", [:cancel_reason, :admin, @statistics_announcement], class: 'btn btn-default' %>
     <% else %>
-      <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn btn-default" %>
-      <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "pull-right btn btn-default" %>
+      <%= link_to "Change release date", new_admin_statistics_announcement_change_path(@statistics_announcement), class: "btn"%>
+      <%= link_to "Cancel statistics release", [:cancel, :admin, @statistics_announcement], class: "btn pull-right" %>
     <% end %>
   </div>
 </div>

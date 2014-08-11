@@ -1,29 +1,27 @@
 <% content_for :page_class, 'statistics-announcements edit' %>
 <% page_title "Cancel statistics release" %>
 
-<div class="span8">
+<div class="stats-form-wrapper">
+  <h1>
+    <span class="stats-small-heading">
+      <%= @statistics_announcement.title %>
+    </span>
+    <span class="stats-heading">
+      Cancel statistics release
+    </span>
+  </h1>
 
-  <style>
-    label {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-  </style>
-
-  <h1>Cancel statistics release</h1>
-  <p style="font-size: 27px; line-height: 30px; margin-bottom: 30px; color: #777"><%= @statistics_announcement.title %></p>
-
-  <%= form_for [:publish_cancellation, :admin, @statistics_announcement], method: :post do |form| %>
+  <%= form_for [:publish_cancellation, :admin, @statistics_announcement], method: :post, html: {class: 'form-large'} do |form| %>
     <%= form.errors %>
 
     <div class="form-group">
       <%= form.text_area :cancellation_reason, rows: 5, required: true, label_text: 'Official reason for cancellation' %>
     </div>
 
-    <div class="form-actions" style="margin-top: 30px">
-      <p style="font-size: 16px; margin: 0 0 30px; line-height: 24px">Cancelled announcements will show on GOV.UK until one month after their release date. The cancellation reason will be visible on the announcement.</p>
-      <%= form.submit "Publish cancellation", class: "btn btn-large btn-danger" %>
-      <%= link_to "Don’t cancel", [:admin, @statistics_announcement], class: "btn btn-large btn-default", style: "margin-left: 10px" %>
+    <div class="form-actions">
+      <p>Cancelled announcements will show on GOV.UK until one month after their release date. The cancellation reason will be visible on the announcement.</p>
+      <%= form.submit "Publish cancellation", class: "btn btn-large btn-danger add-right-margin" %>
+      <%= link_to "Don’t cancel", [:admin, @statistics_announcement], class: "btn btn-large" %>
     </div>
   <% end %>
 </div>
