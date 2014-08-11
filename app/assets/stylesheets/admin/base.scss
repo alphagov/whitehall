@@ -18,11 +18,11 @@
 // GOVUK_ADMIN_TEMPLATE
 // Styles ported from the admin template
 // https://github.com/alphagov/govuk_admin_template
-@import "govuk_admin_template/theme.scss";
-@import "govuk_admin_template/mixins.scss";
-@import "govuk_admin_template/base.scss";
-@import "govuk_admin_template/tables.scss";
-@import "govuk_admin_template/emulate/forms.scss";
+@import "govuk_admin_template/_theme.scss";
+@import "govuk_admin_template/_mixins.scss";
+@import "govuk_admin_template/_base.scss";
+@import "govuk_admin_template/_tables.scss";
+@import "govuk_admin_template/emulate/_forms.scss";
 
 // COMPONENTS
 @import "alerts.scss";
