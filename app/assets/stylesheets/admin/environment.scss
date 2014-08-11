@@ -8,7 +8,7 @@ $dev-color:        $grey-2;
   line-height: 19px;
   font-weight: bold;
   font-size: 16px;
-  margin: 16px 10px 0;
+  margin: 16px 15px 0 10px;
   float: left;
 }
 
@@ -25,4 +25,16 @@ $dev-color:        $grey-2;
 .environment-development .environment-message {
   background-color: $dev-color;
   color: #000;
+}
+
+.environment-production .masthead {
+  border-top-color: $production-color;
+}
+
+.environment-preview .masthead {
+  border-top-color: $preview-color;
+}
+
+.environment-development .masthead {
+  border-top-color: $dev-color;
 }
