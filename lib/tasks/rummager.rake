@@ -30,6 +30,17 @@ namespace :rummager do
       index.add_batch(Consultation.published.closed_since(25.hours.ago).map(&:search_index))
       index.commit
     end
+
+    desc "reindexes upcoming statistics announcements"
+    task :statistics_announcements => :environment do
+      index = Whitehall::SearchIndex.for(:government)
+      upcoming_announcements = StatisticsAnnouncement.
+                                includes(:current_release_date).
+                                where("statistics_announcement_dates.release_date > ?", Time.zone.now)
+
+      index.add_batch(upcoming_announcements.map(&:search_index))
+      index.commit
+    end
   end
 
   desc "removes and re-indexes all searchable whitehall content"
