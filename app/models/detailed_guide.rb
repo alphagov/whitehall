@@ -11,9 +11,6 @@ class DetailedGuide < Edition
   include Edition::RelatedPolicies
   include Edition::RelatedDocuments
 
-  include TranslatableModel
-  translates :title, :summary, :body
-
   delegate :section, :subsection, :subsubsection, to: :primary_mainstream_category, allow_nil: true
 
   validate :related_mainstream_content_valid?
