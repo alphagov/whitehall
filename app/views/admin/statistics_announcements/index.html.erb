@@ -45,7 +45,10 @@
         <tbody>
           <% @statistics_announcements.each do |statistics_announcement| %>
             <%= content_tag_for :tr, statistics_announcement do %>
-              <td><%= link_to statistics_announcement.title, [:admin, statistics_announcement] %></td>
+              <td>
+                <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
+                <%= content_tag(:span, "cancelled", class: "badge badge-important add-left-margin") if statistics_announcement.cancelled? %>
+              </td>
               <td>
                 <% if publication = statistics_announcement.publication %>
                   <%= link_to(publication.title, [:admin, publication]) %>
