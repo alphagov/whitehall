@@ -156,7 +156,7 @@ module Whitehall
   end
 
   def self.searchable_classes
-    additional_classes = [
+    [
       Organisation,
       MinisterialRole,
       Person,
@@ -165,21 +165,10 @@ module Whitehall
       OperationalField,
       PolicyGroup,
       TakePartPage,
-      StatisticsAnnouncement
-    ]
-    not_yet_searchable_classes = []
-    if world_feature?
-      additional_classes += [
-        WorldLocation,
-        WorldwideOrganisation
-      ]
-    else
-      not_yet_searchable_classes += [
-        WorldLocationNewsArticle,
-        WorldwidePriority
-      ]
-    end
-    additional_classes + edition_classes - not_yet_searchable_classes
+      StatisticsAnnouncement,
+      WorldLocation,
+      WorldwideOrganisation,
+    ] + edition_classes
   end
 
   def self.edition_route_path_segments
@@ -200,14 +189,6 @@ module Whitehall
       news: "news",
       detailed_guidance: "detailed_guidance"
     }[format]
-  end
-
-  def self.local_government_features?
-    true
-  end
-
-  def self.world_feature?
-    true
   end
 
   def self.extract_text_feature?
