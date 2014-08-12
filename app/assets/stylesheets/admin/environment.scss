@@ -4,14 +4,12 @@ $dev-color:        $grey-2;
 
 .environment-message {
   padding: 3px 5px;
+  border-radius: 3px;
   line-height: 19px;
   font-weight: bold;
   font-size: 16px;
-  margin: -4px 0 8px 0;
-
-  @include ie-lte(7) {
-    margin: 0;
-  }
+  margin: 16px 15px 0 10px;
+  float: left;
 }
 
 .environment-production .environment-message {
@@ -27,4 +25,16 @@ $dev-color:        $grey-2;
 .environment-development .environment-message {
   background-color: $dev-color;
   color: #000;
+}
+
+.environment-production .masthead {
+  border-top-color: $production-color;
+}
+
+.environment-preview .masthead {
+  border-top-color: $preview-color;
+}
+
+.environment-development .masthead {
+  border-top-color: $dev-color;
 }
