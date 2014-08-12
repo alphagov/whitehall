@@ -29,12 +29,12 @@
             <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
           </div>
           <div class="filter">
-            <%= label_tag "organisations", "Department" %>
-            <%= select_tag "organisations[]", organisation_options_for_statistics_announcement_filter(@filter.organisation_slugs), id: "organisations", class: "single-row-select" %>
-          </div>
-          <div class="filter">
             <%= label_tag "topics", "Topic" %>
             <%= select_tag "topics[]", topic_options_for_statistics_announcement_filter(@filter.topic_slugs), id: "topics", class: "single-row-select" %>
+          </div>
+          <div class="filter">
+            <%= label_tag "organisations", "Department" %>
+            <%= select_tag "organisations[]", organisation_options_for_statistics_announcement_filter(@filter.organisation_slugs), id: "organisations", class: "single-row-select" %>
           </div>
           <div class="filter date-range-filter">
             <%= label_tag :from_date, "Published after" %>
