@@ -18,7 +18,7 @@
         <div class="inner-heading">
           <dl>
             <% if @announcement.cancelled? %>
-              <dt>Proposed release date:</dt>
+              <dt>Proposed release:</dt>
               <dd><%= @announcement.display_date %></dd>
               <dt>Cancellation date:</dt>
               <dd><%= absolute_time(@announcement.cancellation_date) %></dd>

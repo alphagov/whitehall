@@ -114,14 +114,14 @@ end
 Then(/^I should see the updated cancellation reason$/) do
   assert_path admin_statistics_announcement_path(@statistics_announcement)
 
-  assert page.has_content?("Statistics cancelled")
+  assert page.has_content?("Statistics release cancelled")
   assert page.has_content?("Updated cancellation reason")
 end
 
 Then(/^I should see that the statistics announcement has been cancelled$/) do
   ensure_path admin_statistics_announcement_path(@statistics_announcement)
 
-  assert page.has_content?("Statistics cancelled")
+  assert page.has_content?("Statistics release cancelled")
   assert page.has_content?("Cancelled because: reason")
 end
 
