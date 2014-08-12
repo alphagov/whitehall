@@ -25,7 +25,7 @@
     <dt>Release date:</dt>
     <dd>
       <% if @statistics_announcement.cancelled? %>
-        <span style="text-decoration: line-through"><%= @statistics_announcement.release_date.to_s(:date_with_time) %></span> (Cancelled)
+        <del><%= @statistics_announcement.release_date.to_s(:date_with_time) %></del> (Cancelled)
       <% else %>
         <%= @statistics_announcement.release_date.to_s(:date_with_time) %>
       <% end %>
