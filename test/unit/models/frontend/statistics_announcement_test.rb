@@ -17,9 +17,9 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "February 01, 2016 10:45", announcement.cancellation_date.to_s(:long)
   end
 
-  test "#display_date_with_status returns a confirmed date" do
+  test "#display_date_with_status appends (confirmed) to confirmed announcements" do
     announcement =  build_announcement(display_date: "March 12 2015", state: "confirmed")
-    assert_equal "March 12 2015", announcement.display_date_with_status
+    assert_equal "March 12 2015 (confirmed)", announcement.display_date_with_status
   end
 
   test "#display_date_with_status appends (provisional) to unconfirmed announcements" do

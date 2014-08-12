@@ -19,11 +19,7 @@ class Frontend::StatisticsAnnouncement < InflatableModel
   end
 
   def display_date_with_status
-    if state == "confirmed"
-      display_date
-    else
-      "#{display_date} (#{state})"
-    end
+    "#{display_date} (#{state})"
   end
 
   def to_partial_path
