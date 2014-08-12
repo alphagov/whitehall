@@ -17,9 +17,9 @@ cy:
         other:
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
-      from:
+      from: O
       location:
-      part_of:
+      part_of: Rhan o
     type:
       imported:
         zero:
@@ -65,10 +65,16 @@ cy:
         other:
         see_all:
       detailed_guidance:
-        contents:
+        categories: Pob cyfarwyddyd manwl am
+        contents: Cynnwys
+        more: Mwy fel hyn
         one: Cyfarwyddyd manwl
         other: Cyfarwyddyd manwl
+        part_of_published_collection: Mae hwn yn rhan o gasgliad
+        published_related_detailed_guides: Canllawiau manwl cysylltiedig
+        related_mainstream_content: Gormod o fanylder?<br/>Gweler y canllawiau cyflym hyn
         see_all: Gweld ein holl cyfarwyddyd manwl
+        see_more_like_this: Gweler mwy fel hyn
       document_collection:
         one: Cyfres
         other:
@@ -493,7 +499,7 @@ cy:
       help_html:
     see_more:
   change_notes:
-    page_history:
+    page_history: Hanes
     published_at:
     updated_at:
   contact:

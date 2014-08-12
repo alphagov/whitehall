@@ -146,6 +146,12 @@ en:
         other: Guidance
         see_all: See all our guidance
         contents: Contents
+        published_related_detailed_guides: Related detailed guidance
+        part_of_published_collection: This is part of a collection
+        categories: All detailed guidance about
+        more: More like this
+        related_mainstream_content: Too much detail?<br/>See these quick guides
+        see_more_like_this: See more like this
       document_collection:
         one: Collection
         other: Collections
