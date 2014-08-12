@@ -4,7 +4,7 @@ require 'ostruct'
 class ManagingEditorTest < ActiveSupport::TestCase
   def managing_editor(id = 1)
     OpenStruct.new(id: id, gds_editor?: false, departmental_editor?: false, managing_editor?: true,
-                   organisation: nil, can_force_publish_anything?: false)
+                   organisation: build(:organisation), can_force_publish_anything?: false)
   end
 
   include AuthorityTestHelper
@@ -154,5 +154,15 @@ class ManagingEditorTest < ActiveSupport::TestCase
 
   test 'cannot administer the sitewide_settings' do
     refute enforcer_for(managing_editor, :sitewide_settings_section).can?(:administer)
+  end
+
+  test 'can manage services and guidance for their organisation' do
+    user = managing_editor
+
+    editors_org = user.organisation
+    other_org = build(:organisation)
+
+    assert enforcer_for(user, editors_org).can?(:manage_services_and_guidance)
+    refute enforcer_for(user, other_org).can?(:manage_services_and_guidance)
   end
 end

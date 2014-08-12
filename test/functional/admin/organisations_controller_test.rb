@@ -346,4 +346,20 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_equal 'New title', top_task.reload.title
   end
+
+  view_test "Prevents unauthorized management of featured services and guidance" do
+    organisation = create(:organisation)
+
+    get :edit, id: organisation
+    refute_select "legend", text: "Featured services and guidance"
+
+    managing_editor = create(:managing_editor, organisation: organisation)
+    login_as(managing_editor)
+    get :edit, id: organisation
+    assert_select "legend", text: "Featured services and guidance"
+
+    login_as(:gds_editor)
+    get :edit, id: organisation
+    assert_select "legend", text: "Featured services and guidance"
+  end
 end
