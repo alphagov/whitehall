@@ -124,7 +124,7 @@ module Whitehall
 
   def self.government_search_index
     Enumerator.new do |y|
-      government_edition_classes.each do |klass|
+      searchable_classes_for_government_index.each do |klass|
         klass.search_index.each do |search_index_entry|
           y << search_index_entry
         end
@@ -175,12 +175,12 @@ module Whitehall
     %w(news speeches policies publications consultations priority detailed-guides case-studies statistical-data-sets fatalities world-location-news collections supporting-pages)
   end
 
-  def self.government_edition_classes
-    (searchable_classes - detailed_edition_classes).uniq
+  def self.searchable_classes_for_government_index
+    searchable_classes - searchable_classes_for_detailed_guides_index
   end
 
-  def self.detailed_edition_classes
-    ([DetailedGuide] - DetailedGuide.descendants).uniq
+  def self.searchable_classes_for_detailed_guides_index
+    [DetailedGuide]
   end
 
   def self.analytics_format(format)
