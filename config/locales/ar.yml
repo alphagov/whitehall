@@ -65,10 +65,16 @@ ar:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: توجيه مفصل
         other: توجيهات مفصل
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: اطلع على كافة توجيهات مفصل
+        see_more_like_this:
       document_collection:
         one: سلسة
         other:

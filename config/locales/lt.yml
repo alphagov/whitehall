@@ -56,10 +56,16 @@ lt:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Detalesnė informacija
         other: Detalesnė informacija
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Pažiūrėkite  mūsų detalesnė informacija
+        see_more_like_this:
       document_collection:
         one: Serijos
         other:

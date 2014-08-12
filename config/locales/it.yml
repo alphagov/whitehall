@@ -53,10 +53,16 @@ it:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Indicazione dettagliata
         other: Indicazioni dettagliate
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Vedi tutte le nostre indicazioni dettagliate
+        see_more_like_this:
       document_collection:
         one: Serie
         other:

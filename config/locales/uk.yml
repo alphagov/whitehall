@@ -59,10 +59,16 @@ uk:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Детальні інструкції
         other: Детальні інструкції
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Дивіться всі наші Детальні інструкції
+        see_more_like_this:
       document_collection:
         one: Серія
         other:

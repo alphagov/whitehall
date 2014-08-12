@@ -53,10 +53,16 @@ de:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Detaillierte Hinweise
         other: Detaillierte Hinweise
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Alle unsere Detaillierte Hinweise
+        see_more_like_this:
       document_collection:
         one: Reihe
         other:

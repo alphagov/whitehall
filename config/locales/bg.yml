@@ -53,10 +53,16 @@ bg:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Подробна насока
         other: Подробни насоки
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Вижте всички наши Подробни насоки
+        see_more_like_this:
       document_collection:
         one: Серии
         other:

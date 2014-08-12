@@ -53,10 +53,16 @@ el:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Οδηγίες
         other: Οδηγίες
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Δείτε τα Οδηγίες
+        see_more_like_this:
       document_collection:
         one: Σειρά
         other:

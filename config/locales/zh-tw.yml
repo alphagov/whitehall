@@ -174,10 +174,16 @@ zh-tw:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: 詳細指引
         other: 詳細指引
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: 查閱我們所有的詳細指引
+        see_more_like_this:
       document_collection:
         one: 系列
         other:

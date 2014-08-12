@@ -175,10 +175,16 @@ ja:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: 詳細説明
         other: 詳細説明
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: 詳細説明 を全て見る
+        see_more_like_this:
       document_collection:
         one: シリーズ
         other:

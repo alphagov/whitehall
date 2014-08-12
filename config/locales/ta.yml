@@ -53,10 +53,16 @@ ta:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: விளக்கமான வழிகாட்டல்
         other: விளக்கமான வழிகாட்டல்
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: எங்களது அனைத்து விளக்கமான வழிகாட்டல் பார்க்கவும்
+        see_more_like_this:
       document_collection:
         one: தொடர்
         other:

@@ -53,10 +53,16 @@ hi:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: विस्तृत मार्गदर्शन
         other: विस्तृत मार्गदर्शन
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: देखें हमारे सभी विस्तृत मार्गदर्शन
+        see_more_like_this:
       document_collection:
         one: श्रृंखला
         other:

@@ -53,10 +53,16 @@ sq:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Udhezim i detajuar
         other: Udhezim i detajuar
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Shiko te gjitha udhezim i detajuar
+        see_more_like_this:
       document_collection:
         one: Seri
         other:

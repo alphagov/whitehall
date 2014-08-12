@@ -59,10 +59,16 @@ sr:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: detaljno uputstvo
         other: detaljno uputstvo
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Pogledajte sve naše detaljno uputstvo
+        see_more_like_this:
       document_collection:
         one: serija
         other:

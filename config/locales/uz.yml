@@ -53,10 +53,16 @@ uz:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: Bizning butun batafsil ko'mak ko'ring
+        see_more_like_this:
       document_collection:
         one: Bir talay
         other:

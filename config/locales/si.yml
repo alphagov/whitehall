@@ -53,10 +53,16 @@ si:
         other:
         see_all:
       detailed_guidance:
+        categories:
         contents:
+        more:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
+        part_of_published_collection:
+        published_related_detailed_guides:
+        related_mainstream_content:
         see_all: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
+        see_more_like_this:
       document_collection:
         one: කාණ්ඩය
         other:
