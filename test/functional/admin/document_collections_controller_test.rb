@@ -41,7 +41,8 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
           summary: "collection-summary",
           body: "collection-body",
           lead_organisation_ids: [@organisation.id],
-          topic_ids: [@topic.id]
+          topic_ids: [@topic.id],
+          document_new: true
         }
 
     assert_equal 1, DocumentCollection.count

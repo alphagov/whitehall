@@ -117,6 +117,25 @@ fieldset.contact_number {
   }
 }
 
+.first_published_date {
+  .extra-label {
+    margin-top: 13px;
+    font-weight: bold;
+  }
+  label.radio {
+    margin-top: 13px;
+  }
+  .edit, .explanation {
+    .js-enabled & {
+      display: none;
+    }
+  }
+  .existing-first-published span {
+    font-weight: bold;
+  }
+}
+
+
 .contacts-admin {
   max-width: 600px;
 

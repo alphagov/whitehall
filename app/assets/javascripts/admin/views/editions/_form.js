@@ -10,6 +10,7 @@
       this.showChangeNotesIfMajorChange();
       this.showFormatAdviceForSelectedSubtype();
       this.setupNonEnglishSupport();
+      this.toggleFirstPublishedDate();
 
       GOVUK.formChangeProtection.init($('#edit_edition'), 'You have unsaved changes that will be lost if you leave this page.');
     },
@@ -94,6 +95,29 @@
         });
       })
 
+    },
+
+    toggleFirstPublishedDate: function() {
+      // datetime_select can't set defaults if include_blank is true, so do it here.
+      $('.js-show-first-published').find('#edition_first_published_at_4i, #edition_first_published_at_5i').val('00');
+      var $first_published = $('.first_published_date .js-show-first-published');
+      var $previously_published_button = $('#edition_document_new_false');
+      var $radio_buttons = $('.first_published_date input[type=radio]');
+
+      function showOrHideDateSelector() {
+        if ($previously_published_button.prop('checked')){
+          $first_published.show();
+        } else {
+          $first_published.hide();
+        }
+      }
+      $radio_buttons.on('change', showOrHideDateSelector);
+      showOrHideDateSelector();
+
+      $('.existing-first-published a').on('click', function(e) {
+        $(this).parent().hide().next().show();
+        return false;
+      });
     }
   }
 
