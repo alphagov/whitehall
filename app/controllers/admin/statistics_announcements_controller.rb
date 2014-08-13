@@ -15,7 +15,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     @statistics_announcement = build_statistics_announcement(statistics_announcement_params)
 
     if @statistics_announcement.save
-      redirect_to [:admin, @statistics_announcement], notice: "Announcement saved successfully"
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement published successfully"
     else
       render :new
     end
