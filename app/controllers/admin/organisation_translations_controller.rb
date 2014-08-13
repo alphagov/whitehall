@@ -8,15 +8,6 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   def index
   end
 
-  def update
-    if @translated_organisation.update_attributes(organisation_params)
-      redirect_to admin_organisation_translations_path(@translated_organisation),
-        notice: notice_message("saved")
-    else
-      render action: 'edit'
-    end
-  end
-
   def destroy
     @translated_organisation.remove_translations_for(translation_locale.code)
     redirect_to admin_organisation_translations_path(@translated_organisation),
@@ -27,6 +18,14 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
 
   def create_redirect_path
     edit_admin_organisation_translation_path(@organisation, id: translation_locale)
+  end
+
+  def update_attributes
+    @translated_organisation.update_attributes(organisation_params)
+  end
+
+  def update_redirect_path
+    admin_organisation_translations_path(@translated_organisation)
   end
 
   def organisation_params
