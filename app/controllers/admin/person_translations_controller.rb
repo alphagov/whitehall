@@ -5,9 +5,6 @@ class Admin::PersonTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_people, except: [:index]
   helper_method :translation_locale
 
-  def index
-  end
-
   private
 
   def create_redirect_path

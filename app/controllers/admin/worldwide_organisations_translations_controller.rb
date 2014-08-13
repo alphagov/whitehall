@@ -5,9 +5,6 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
   before_filter :load_translated_and_english_worldwide_organisations, except: [:index]
   helper_method :translation_locale
 
-  def index
-  end
-
   private
 
   def create_redirect_path

@@ -1,6 +1,9 @@
 module Admin::TranslationsControllerConcerns
   extend ActiveSupport::Concern
 
+  def index
+  end
+
   def create
     redirect_to create_redirect_path
   end
