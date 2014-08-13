@@ -39,9 +39,14 @@ class CsvPreviewTest < ActiveSupport::TestCase
 
   test "raises CsvPreview::FileEncodingError if the encoding cannot be handled by the CSV library" do
     CSV.expects(:open).raises(ArgumentError, 'invalid byte sequence in UTF-8')
-
     assert_raise CsvPreview::FileEncodingError do
       CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/utf-8.csv'))
+    end
+  end
+
+  test "handles UTF-8 conversion errors caused by unrecognised characters" do
+    assert_raise CsvPreview::FileEncodingError do
+      CsvPreview.new(Rails.root.join('test/fixtures/csv_encodings/strange-encoding.csv'))
     end
   end
 
