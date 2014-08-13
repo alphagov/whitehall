@@ -1,13 +1,11 @@
 class Admin::PersonTranslationsController < Admin::BaseController
+  include Admin::TranslationsControllerConcerns
+
   before_filter :load_person
   before_filter :load_translated_and_english_people, except: [:index]
   helper_method :translation_locale
 
   def index
-  end
-
-  def create
-    redirect_to edit_admin_person_translation_path(@person, id: translation_locale)
   end
 
   def edit
@@ -29,6 +27,10 @@ class Admin::PersonTranslationsController < Admin::BaseController
   end
 
   private
+
+  def create_redirect_path
+    edit_admin_person_translation_path(@person, id: translation_locale)
+  end
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@person.name}" #{action}.}

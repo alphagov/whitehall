@@ -1,11 +1,9 @@
 class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
+  include Admin::TranslationsControllerConcerns
+
   before_filter :find_organisation, :find_office
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
-
-  def create
-    redirect_to edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale)
-  end
 
   def edit
   end
@@ -26,6 +24,11 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   end
 
 private
+
+  def create_redirect_path
+    edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale)
+  end
+
   def translation_locale
     Locale.new(params[:translation_locale] || params[:id])
   end

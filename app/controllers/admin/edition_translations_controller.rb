@@ -1,4 +1,6 @@
 class Admin::EditionTranslationsController < Admin::BaseController
+  include Admin::TranslationsControllerConcerns
+
   before_filter :find_edition
   before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
   before_filter :enforce_permissions!
@@ -8,10 +10,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   def enforce_permissions!
     enforce_permission!(:update, @edition)
-  end
-
-  def create
-    redirect_to edit_admin_edition_translation_path(@edition, id: translation_locale)
   end
 
   def edit
@@ -34,6 +32,10 @@ class Admin::EditionTranslationsController < Admin::BaseController
   end
 
   private
+
+  def create_redirect_path
+    edit_admin_edition_translation_path(@edition, id: translation_locale)
+  end
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@edition.title}" #{action}.}

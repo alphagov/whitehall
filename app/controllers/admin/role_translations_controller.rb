@@ -1,13 +1,11 @@
 class Admin::RoleTranslationsController < Admin::BaseController
+  include Admin::TranslationsControllerConcerns
+
   before_filter :load_role
   before_filter :load_translated_and_english_roles, except: [:index]
   helper_method :translation_locale
 
   def index
-  end
-
-  def create
-    redirect_to edit_admin_role_translation_path(@role, id: translation_locale)
   end
 
   def edit
@@ -29,6 +27,10 @@ class Admin::RoleTranslationsController < Admin::BaseController
   end
 
   private
+
+  def create_redirect_path
+    edit_admin_role_translation_path(@role, id: translation_locale)
+  end
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@role.name}" #{action}.}

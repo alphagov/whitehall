@@ -1,13 +1,11 @@
 class Admin::OrganisationTranslationsController < Admin::BaseController
+  include Admin::TranslationsControllerConcerns
+
   before_filter :load_organisation
   before_filter :load_translated_and_english_organisations, except: [:index]
   helper_method :translation_locale
 
   def index
-  end
-
-  def create
-    redirect_to edit_admin_organisation_translation_path(@organisation, id: translation_locale)
   end
 
   def edit
@@ -29,6 +27,10 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   end
 
   private
+
+  def create_redirect_path
+    edit_admin_organisation_translation_path(@organisation, id: translation_locale)
+  end
 
   def organisation_params
     params.require(:organisation).permit(

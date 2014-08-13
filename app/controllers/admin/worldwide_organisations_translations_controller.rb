@@ -1,13 +1,11 @@
 class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseController
+  include Admin::TranslationsControllerConcerns
+
   before_filter :load_worldwide_organisation
   before_filter :load_translated_and_english_worldwide_organisations, except: [:index]
   helper_method :translation_locale
 
   def index
-  end
-
-  def create
-    redirect_to edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: translation_locale)
   end
 
   def edit
@@ -29,6 +27,10 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
   end
 
   private
+
+  def create_redirect_path
+    edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: translation_locale)
+  end
 
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{@worldwide_organisation.name}" #{action}.}
