@@ -25,10 +25,6 @@ private
     admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
-  def translation_locale
-    Locale.new(params[:translation_locale] || params[:id])
-  end
-
   def find_organisation
     @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
   end

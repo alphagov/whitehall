@@ -42,10 +42,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @english_edition = LocalisedModel.new(@edition, :en)
   end
 
-  def translation_locale
-    @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
-  end
-
   def find_edition
     @edition ||= Edition.find(params[:edition_id])
   end

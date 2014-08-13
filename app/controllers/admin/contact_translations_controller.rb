@@ -25,10 +25,6 @@ private
     admin_organisation_contacts_path(@contactable)
   end
 
-  def translation_locale
-    Locale.new(params[:translation_locale] || params[:id])
-  end
-
   def find_contactable
     @contactable = Organisation.find(params[:organisation_id])
   end

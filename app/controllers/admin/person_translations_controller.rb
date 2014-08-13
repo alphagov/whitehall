@@ -37,10 +37,6 @@ class Admin::PersonTranslationsController < Admin::BaseController
     @english_person = LocalisedModel.new(@person, :en)
   end
 
-  def translation_locale
-    @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
-  end
-
   def load_person
     @person ||= Person.find(params[:person_id])
   end

@@ -37,10 +37,6 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     @english_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, :en)
   end
 
-  def translation_locale
-    @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
-  end
-
   def load_worldwide_organisation
     @worldwide_organisation ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
   end
