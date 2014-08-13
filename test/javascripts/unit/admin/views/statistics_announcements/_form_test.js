@@ -90,7 +90,8 @@ module("admin-statistics-announcement-form", {
       <input class="qunit-two-month-date" name="form_name[precision]" type="radio" value="2" />\
       <span class="js-example-exact"></span>\
       <span class="js-example-one-month"></span>\
-      <span class="js-example-two-month"></span>'
+      <span class="js-example-two-month"></span>\
+      <label class="js-label-one-month"></label>'
     );
 
     GOVUK.StatisticsAnnouncementDateForm.init("form_name");
@@ -116,9 +117,9 @@ test("it updates example dates when dates change", function() {
 
 test("it updates example dates when dates are confirmed", function() {
   $('input[name="form_name[confirmed]"]').val("1").trigger('click');
-  equal($('.js-example-exact').text(), "1 January 2014 12:00am");
-  equal($('.js-example-one-month').text(), "January 2014");
-  equal($('.js-example-two-month').text(), "January to February 2014");
+  equal($('.js-example-exact').text(), "1 January 2014 12:00am (confirmed)");
+  equal($('.js-example-one-month').text(), "January 2014 (confirmed)");
+  equal($('.js-example-two-month').text(), "January to February 2014 (confirmed)");
 });
 
 test("it handles a two month range over the end of a year, and increments the year", function() {
@@ -138,7 +139,31 @@ test("it's handling of incorrect dates matches rails", function() {
 test("it updates the date precision to exact when confirming a date", function() {
   $('.qunit-two-month-date').prop('checked', true);
   ok($('.qunit-two-month-date').prop('checked'));
-  $('input[name="form_name[confirmed]"]').val("1").trigger('click');
+  confirmDate();
   ok($('.qunit-exact-date').prop('checked'));
   equal($('input[name="form_name[precision]"]').val(), 0);
 });
+
+test("it locks (and unlocks) the date precision when confirming a date", function() {
+  confirmDate();
+  ok($('input[name="form_name[precision]"]').prop('disabled'));
+
+  unconfirmDate();
+  ok(!$('input[name="form_name[precision]"]').prop('disabled'));
+});
+
+test("it hides (and shows) date precision fields when confirming a date", function() {
+  confirmDate();
+  equal($('.js-label-one-month').attr('style').trim(), 'display: none;');
+
+  unconfirmDate();
+  equal($('.js-label-one-month').attr('style').trim(), 'display: inline;');
+});
+
+function confirmDate() {
+  $('input[name="form_name[confirmed]"]').val("1").trigger('click');
+}
+
+function unconfirmDate() {
+  $('input[name="form_name[confirmed]"]').val("0").trigger('click');
+}

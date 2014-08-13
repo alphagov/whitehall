@@ -26,10 +26,11 @@
     <div class="form-group">
       <div class="bold">Display date</div>
       <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-        <label class="block-label">
+        <% key_class = key.to_s.sub(/_/, '-') %>
+        <label class="block-label js-label-<%= key_class %>">
           <%= form.radio_button(:precision, value) %>
           <span class="label-title"><%= key.to_s.humanize %></span>
-          <span class="muted js-example-<%= key.to_s.sub(/_/, '-') %>"></span>
+          <span class="muted js-example-<%= key_class %>"></span>
         </label>
       <% end %>
     </div>
