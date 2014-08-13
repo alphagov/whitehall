@@ -8,4 +8,7 @@ private
     SupportingPage
   end
 
+  def unset_document_new
+  end
+
 end

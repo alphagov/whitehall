@@ -14,4 +14,7 @@ class Admin::PoliciesController < Admin::EditionsController
   def edition_class
     Policy
   end
+
+  def unset_document_new
+  end
 end

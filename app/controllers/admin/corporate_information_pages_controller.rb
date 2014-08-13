@@ -43,4 +43,7 @@ private
         raise ActiveRecord::RecordNotFound
       end
   end
+
+  def unset_document_new
+  end
 end

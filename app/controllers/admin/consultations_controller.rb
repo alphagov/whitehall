@@ -38,4 +38,7 @@ class Admin::ConsultationsController < Admin::EditionsController
     end
   end
 
+  def unset_document_new
+  end
+
 end

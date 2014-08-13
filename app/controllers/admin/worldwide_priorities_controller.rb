@@ -6,4 +6,7 @@ class Admin::WorldwidePrioritiesController < Admin::EditionsController
   def edition_class
     WorldwidePriority
   end
+
+  def unset_document_new
+  end
 end
