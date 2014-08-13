@@ -28,7 +28,8 @@ class StatisticsAnnouncement < ActiveRecord::Base
   }
 
   include Searchable
-  searchable  title: :title,
+  searchable  only: :unpublished,
+              title: :title,
               link: :public_path,
               description: :summary,
               display_type: :display_type,
@@ -41,6 +42,12 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date
+
+
+  def self.unpublished
+    includes(:publication).
+      where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
+  end
 
   def last_change_note
     last_major_change.try(:change_note)

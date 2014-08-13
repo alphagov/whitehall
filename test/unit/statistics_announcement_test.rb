@@ -170,6 +170,18 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_match /must be provided when cancelling an announcement/, announcement.errors[:cancellation_reason].first
   end
 
+  test "an announcement that has a publiction that is post-publishing is not indexable in search" do
+    announcement = create(:statistics_announcement, publication: create(:published_statistics))
+
+    Whitehall::SearchIndex.expects(:add).never
+    announcement.update_in_search_index
+
+    announcement.publication.supersede!
+
+    Whitehall::SearchIndex.expects(:add).never
+    announcement.update_in_search_index
+  end
+
 private
 
   def create_announcement_with_changes
