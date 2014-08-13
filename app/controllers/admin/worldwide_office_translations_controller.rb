@@ -41,8 +41,8 @@ private
     @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end
 
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@contact.title}" #{action}.}
+  def translated_thing
+    @contact.title
   end
 
   def contact_params

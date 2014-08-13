@@ -30,8 +30,8 @@ class Admin::PersonTranslationsController < Admin::BaseController
     admin_person_translations_path(@translated_person)
   end
 
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@person.name}" #{action}.}
+  def translated_thing
+    @person.name
   end
 
   def load_translated_and_english_people

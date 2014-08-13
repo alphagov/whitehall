@@ -35,8 +35,8 @@ class Admin::EditionTranslationsController < Admin::BaseController
     admin_edition_path(@edition)
   end
 
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@edition.title}" #{action}.}
+  def translated_thing
+    @edition.title
   end
 
   def load_translated_and_english_edition

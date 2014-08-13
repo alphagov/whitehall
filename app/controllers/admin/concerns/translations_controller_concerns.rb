@@ -25,6 +25,14 @@ module Admin::TranslationsControllerConcerns
     @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
   end
 
+  def notice_message(action)
+    %{#{translation_locale.english_language_name} translation for "#{translated_thing}" #{action}.}
+  end
+
+  def translated_thing
+    raise
+  end
+
   def create_redirect_path
     raise "create_redirect_path should be overridden in the including controller"
   end

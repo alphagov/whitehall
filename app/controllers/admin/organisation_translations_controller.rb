@@ -36,8 +36,8 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     )
   end
 
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@organisation.name}" #{action}.}
+  def translated_thing
+    @organisation.name
   end
 
   def load_translated_and_english_organisations

@@ -30,8 +30,8 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
     admin_world_location_translations_path(@translated_world_location)
   end
 
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@world_location.name}" #{action}.}
+  def translated_thing
+    @world_location.name
   end
 
   def load_translated_and_english_world_locations

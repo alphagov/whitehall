@@ -30,8 +30,8 @@ class Admin::RoleTranslationsController < Admin::BaseController
     admin_role_translations_path(@translated_role)
   end
 
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@role.name}" #{action}.}
+  def translated_thing
+    @role.name
   end
 
   def load_translated_and_english_roles
