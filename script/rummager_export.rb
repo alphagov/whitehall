@@ -13,9 +13,9 @@ require 'config/environment'
 logger.info "Booted"
 
 classes_to_index = if ARGV.include?("--detailed")
-  Whitehall.detailed_edition_classes
+  Whitehall.searchable_classes_for_detailed_guides_index
 else
-  Whitehall.government_edition_classes
+  Whitehall.searchable_classes_for_government_index
 end
 
 logger.info "Counting docs to index..."

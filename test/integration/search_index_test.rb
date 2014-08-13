@@ -8,6 +8,11 @@ class SearchIndexTest < ActiveSupport::TestCase
     edition_types.each {|t| assert search_index.include?(t.name.to_sym)}
   end
 
+  test "Whitehall.government_search_index excludes DetailedGuide" do
+    DetailedGuide.stubs(search_index: ['a detailed guide'])
+    refute Whitehall.government_search_index.include?('a detailed guide')
+  end
+
   test "Whitehall.government_search_index includes WorldwidePriorities" do
     WorldwidePriority.stubs(search_index: ['worldwide_priorities_index'])
     assert Whitehall.government_search_index.include?('worldwide_priorities_index')

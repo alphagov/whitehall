@@ -1,5 +1,5 @@
 namespace :rummager do
-  desc "Add all published documents to the search index without removing them all first"
+  desc "indexes all published searchable whitehall content"
   task :index => ['rummager:index:detailed', 'rummager:index:government']
 
   task :warn_about_no_op do
@@ -9,21 +9,22 @@ namespace :rummager do
   end
 
   namespace :index do
-    desc "indexes only government documents"
+    desc "indexes all published searchable content for the main government index (i.e. excluding detailed guides)"
     task :government => [:environment, :warn_about_no_op] do
       index = Whitehall::SearchIndex.for(:government)
       index.add_batch(Whitehall.government_search_index)
       index.commit
     end
 
-    desc "indexes only detailed guidance documents"
+    desc "indexes all published detailed guiudes"
     task :detailed => [:environment, :warn_about_no_op] do
       index = Whitehall::SearchIndex.for(:detailed_guides)
       index.add_batch(Whitehall.detailed_guidance_search_index)
       index.commit
     end
 
-    desc "reindex consultations which closed in the past day"
+    # NOTE: Run daily to ensure consultation state is reflected in the search results
+    desc "indexes consultations which closed in the past day"
     task :closed_consultations => [:environment, :warn_about_no_op] do
       index = Whitehall::SearchIndex.for(:government)
       index.add_batch(Consultation.published.closed_since(25.hours.ago).map(&:search_index))
@@ -31,7 +32,7 @@ namespace :rummager do
     end
   end
 
-  desc "Remove all documents from the search index and then add all published documents"
+  desc "removes and re-indexes all searchable whitehall content"
   task :reset => ['rummager:reset:detailed', 'rummager:reset:government']
 
   namespace :reset do
