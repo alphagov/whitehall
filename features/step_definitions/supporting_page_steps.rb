@@ -1,3 +1,7 @@
+Given(/^a published supporting page exists$/) do
+  @edition = create(:published_supporting_page)
+end
+
 When /^I add a supporting page "([^"]*)" to the "([^"]*)" policy$/ do |supporting_title, policy_title|
   policy = Policy.find_by_title!(policy_title)
   visit admin_edition_path(policy)

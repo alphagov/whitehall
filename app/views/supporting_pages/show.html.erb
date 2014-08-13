@@ -1,12 +1,12 @@
-<% page_title edition_page_title(@supporting_page), @policy.title, "Policies " %>
+<% page_title edition_page_title(@document), @policy.title, "Policies " %>
 
-<%= content_tag_for :article, @document, nil, class: "document_page #{@document.type.downcase}" do %>
+<%= content_tag_for :article, @policy, nil, class: "document_page #{@policy.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render "documents/header",
-                 document: @document,
+                 document: @policy,
                  header_title: 'Policy',
-                 topics: @document.topics %>
+                 topics: @policy.topics %>
     </div>
   </header>
 
@@ -21,16 +21,16 @@
   <div class="block-2">
     <div class="inner-block">
       <%= render "document_contextual" %>
-      <%= national_statistics_logo(@document) %>
+      <%= national_statistics_logo(@policy) %>
     </div>
   </div>
 
   <div class="block-3">
     <div class="inner-block">
     <h2>Supporting detail:</h2>
-      <h1 class="supporting-page-title"><%= @supporting_page.title %></h1>
+      <h1 class="supporting-page-title"><%= @document.title %></h1>
 
-      <%= render 'documents/archive_notice', document: @supporting_page, type: '' if @supporting_page.archived? %>
+      <%= render 'documents/archive_notice', document: @document, type: '' if @document.archived? %>
 
       <%= render "document_content" %>
     </div>

@@ -4,7 +4,7 @@
       <a href="#contents" class="js-showhide contents-toggle">Show all detail pages</a>
       <ul id="contents">
         <% @policy.published_supporting_pages.each do |supporting_page| %>
-          <% options = {class: "active"} if supporting_page == @supporting_page %>
+          <% options = {class: "active"} if supporting_page == @document %>
           <%= content_tag :li, options do %>
             <%= link_to supporting_page.title, public_document_path(supporting_page, policy_id: @policy.document) %>
           <% end %>
