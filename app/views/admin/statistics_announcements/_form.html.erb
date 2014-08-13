@@ -54,7 +54,6 @@
       <div class="form-group">
         <div class="bold add-label-margin">Display date</div>
         <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-          <% checked = statistics_announcement.current_release_date.precision == value %>
           <label class="block-label">
             <%= fields.radio_button(:precision, value) %>
             <span class="label-title"><%= key.to_s.humanize %></span>
