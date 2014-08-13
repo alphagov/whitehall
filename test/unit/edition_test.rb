@@ -843,4 +843,32 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "000123", edition.associated_needs.first.id
     assert_equal "000456", edition.associated_needs.last.id
   end
+
+  test 'should provide a default value for document_new' do
+    edition = build(:edition, document_new: nil)
+    assert_nil edition.document_new
+
+    edition.save
+    assert edition.document_new
+
+    edition.first_published_at = Time.zone.now
+    refute edition.document_new
+
+    edition.state = :imported
+    refute edition.document_new
+  end
+
+  test 'should validate presence of document_new and first_published_at' do
+    edition = build(:edition, document_new: 'unset')
+    refute edition.valid?
+    assert_equal "You must specify if the document is new", edition.errors.full_messages.first
+
+    edition.document_new = 'false'
+    refute edition.valid?
+    assert_equal "First published at can't be blank", edition.errors.full_messages.first
+
+    edition.first_published_at = Time.zone.now
+    assert edition.valid?
+  end
+
 end
