@@ -5,9 +5,6 @@ class Admin::ContactTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
-  def edit
-  end
-
   def update
     if @translated_contact.update_attributes(contact_params)
       redirect_to admin_organisation_contacts_path(@contactable),

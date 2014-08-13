@@ -12,9 +12,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
     enforce_permission!(:update, @edition)
   end
 
-  def edit
-  end
-
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
     if @translated_edition.update_attributes(edition_params)

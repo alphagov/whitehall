@@ -8,9 +8,6 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
   def index
   end
 
-  def edit
-  end
-
   def update
     if @translated_world_location.update_attributes(world_location_params)
       redirect_to admin_world_location_translations_path(@translated_world_location),

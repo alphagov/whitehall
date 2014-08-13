@@ -8,9 +8,6 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
   def index
   end
 
-  def edit
-  end
-
   def update
     if @translated_organisation.update_attributes(organisation_params)
       redirect_to admin_organisation_translations_path(@translated_organisation),

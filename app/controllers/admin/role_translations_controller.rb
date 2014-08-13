@@ -8,9 +8,6 @@ class Admin::RoleTranslationsController < Admin::BaseController
   def index
   end
 
-  def edit
-  end
-
   def update
     if @translated_role.update_attributes(role_params)
       redirect_to admin_role_translations_path(@translated_role),

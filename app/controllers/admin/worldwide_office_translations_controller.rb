@@ -5,9 +5,6 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
-  def edit
-  end
-
   def update
     if @translated_contact.update_attributes(contact_params)
       redirect_to admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation),
