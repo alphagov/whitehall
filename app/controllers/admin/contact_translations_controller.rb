@@ -5,12 +5,6 @@ class Admin::ContactTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
-  def destroy
-    @contact.remove_translations_for(translation_locale.code)
-    redirect_to admin_organisation_contacts_path(@contactable),
-                notice: notice_message("deleted")
-  end
-
 private
 
   def create_redirect_path
@@ -22,6 +16,14 @@ private
   end
 
   def update_redirect_path
+    admin_organisation_contacts_path(@contactable)
+  end
+
+  def remove_translations
+    @contact.remove_translations_for(translation_locale.code)
+  end
+
+  def destroy_redirect_path
     admin_organisation_contacts_path(@contactable)
   end
 

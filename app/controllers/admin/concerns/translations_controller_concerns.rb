@@ -16,6 +16,11 @@ module Admin::TranslationsControllerConcerns
     end
   end
 
+  def destroy
+    remove_translations
+    redirect_to destroy_redirect_path, notice: notice_message("deleted")
+  end
+
   def translation_locale
     @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
   end
@@ -30,5 +35,13 @@ module Admin::TranslationsControllerConcerns
 
   def update_redirect_path
     raise "update_redirect_path should be overridden in the including controller"
+  end
+
+  def remove_translations
+    raise
+  end
+
+  def destroy_redirect_path
+    raise
   end
 end

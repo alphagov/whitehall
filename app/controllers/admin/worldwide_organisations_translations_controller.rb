@@ -8,12 +8,6 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
   def index
   end
 
-  def destroy
-    @translated_worldwide_organisation.remove_translations_for(translation_locale.code)
-    redirect_to admin_worldwide_organisation_translations_path(@translated_worldwide_organisation),
-      notice: notice_message("deleted")
-  end
-
   private
 
   def create_redirect_path
@@ -22,6 +16,14 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
 
   def update_attributes
     @translated_worldwide_organisation.update_attributes(worldwide_organisation_params)
+  end
+
+  def remove_translations
+    @translated_worldwide_organisation.remove_translations_for(translation_locale.code)
+  end
+
+  def destroy_redirect_path
+    admin_worldwide_organisation_translations_path(@translated_worldwide_organisation)
   end
 
   def update_redirect_path

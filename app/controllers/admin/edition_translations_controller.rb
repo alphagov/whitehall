@@ -12,12 +12,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
     enforce_permission!(:update, @edition)
   end
 
-  def destroy
-    @translated_edition.remove_translations_for(translation_locale.code)
-    redirect_to admin_edition_path(@translated_edition),
-      notice: notice_message("deleted")
-  end
-
   private
 
   def create_redirect_path
@@ -27,6 +21,14 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def update_attributes
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
     @translated_edition.update_attributes(edition_params)
+  end
+
+  def remove_translations
+    @translated_edition.remove_translations_for(translation_locale.code)
+  end
+
+  def destroy_redirect_path
+    admin_edition_path(@translated_edition)
   end
 
   def update_redirect_path

@@ -8,12 +8,6 @@ class Admin::PersonTranslationsController < Admin::BaseController
   def index
   end
 
-  def destroy
-    @translated_person.remove_translations_for(translation_locale.code)
-    redirect_to admin_person_translations_path(@translated_person),
-      notice: notice_message("deleted")
-  end
-
   private
 
   def create_redirect_path
@@ -22,6 +16,14 @@ class Admin::PersonTranslationsController < Admin::BaseController
 
   def update_attributes
     @translated_person.update_attributes(person_params)
+  end
+
+  def remove_translations
+    @translated_person.remove_translations_for(translation_locale.code)
+  end
+
+  def destroy_redirect_path
+    admin_person_translations_path(@translated_person)
   end
 
   def update_redirect_path
