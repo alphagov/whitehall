@@ -28,28 +28,4 @@ module Admin::TranslationsControllerConcerns
   def notice_message(action)
     %{#{translation_locale.english_language_name} translation for "#{translated_thing}" #{action}.}
   end
-
-  def translated_thing
-    raise
-  end
-
-  def create_redirect_path
-    raise "create_redirect_path should be overridden in the including controller"
-  end
-
-  def update_attributes
-    raise "update_attributes should be overridden in the including controller"
-  end
-
-  def update_redirect_path
-    raise "update_redirect_path should be overridden in the including controller"
-  end
-
-  def remove_translations
-    raise
-  end
-
-  def destroy_redirect_path
-    raise
-  end
 end
