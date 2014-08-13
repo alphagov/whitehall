@@ -1,5 +1,5 @@
 class SupportingPagesController < DocumentsController
-  prepend_before_filter :redirect_if_required, :find_policy
+  prepend_before_filter :redirect_legacy_supporting_page_slugs, :find_policy
   before_filter :set_analytics_format, only: [:show]
 
   def index
@@ -35,10 +35,7 @@ private
     @policy ||= Policy.published_as(params[:policy_id]) or render_not_found
   end
 
-  # When supporting pages were converted to editions some of the slugs had to
-  # be changed. The changes are kept in the supporting_page_redirects table in
-  # the database.
-  def redirect_if_required
+  def redirect_legacy_supporting_page_slugs
     redirect = SupportingPageRedirect.find_by_policy_document_id_and_original_slug(@policy.document.id, params[:id])
     redirect_to redirect.destination if redirect
   end
