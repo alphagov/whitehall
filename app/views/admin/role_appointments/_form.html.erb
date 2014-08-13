@@ -13,11 +13,11 @@
 <% end %>
 
 <%= form.label :started_at %>
-<%= form.date_select :started_at, { include_blank: true, start_year: 1700 }, { :class => "date" } %>
+<%= form.date_select :started_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date" } %>
 
 <% if params[:make_current].blank? %>
   <%= form.label :ended_at %>
-  <%= form.date_select :ended_at, { include_blank: true, start_year: 1700 }, { :class => "date" } %>
+  <%= form.date_select :ended_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date" } %>
 <% end %>
 
 <% if params[:make_current] %>
