@@ -8,7 +8,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
-gem 'govspeak', '~> 3.0', '>= 3.1.1'
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.9'
 gem 'babosa'
@@ -44,6 +43,12 @@ gem 'bootstrap-sass', '2.3.2.2'
 
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'
+
+if ENV['GOVSPEAK_DEV']
+  gem 'govspeak', path: '../govspeak'
+else
+  gem 'govspeak', '~> 3.0', '>= 3.1.1'
+end
 
 group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
