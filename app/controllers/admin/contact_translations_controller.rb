@@ -10,16 +10,8 @@ class Admin::ContactTranslationsController < Admin::BaseController
     edit_admin_organisation_contact_translation_path(@contactable, @contact, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_contact.update_attributes(contact_params)
-  end
-
   def update_redirect_path
     admin_organisation_contacts_path(@contactable)
-  end
-
-  def remove_translations
-    @contact.remove_translations_for(translation_locale.code)
   end
 
   def destroy_redirect_path
@@ -40,7 +32,11 @@ class Admin::ContactTranslationsController < Admin::BaseController
     @contact.title
   end
 
-  def contact_params
+  def translatable_item
+    @translated_contact
+  end
+
+  def translation_params
     params.require(:contact).permit(
       :title, :comments, :recipient, :street_address, :locality, :region,
       :email, :contact_form_url,

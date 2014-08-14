@@ -10,7 +10,7 @@ module Admin::TranslationsControllerConcern
   end
 
   def update
-    if update_attributes
+    if translatable_item.update_attributes(translation_params)
       redirect_to update_redirect_path, notice: notice_message("saved")
     else
       render action: 'edit'
@@ -18,7 +18,7 @@ module Admin::TranslationsControllerConcern
   end
 
   def destroy
-    remove_translations
+    translatable_item.remove_translations_for(translation_locale.code)
     redirect_to destroy_redirect_path, notice: notice_message("deleted")
   end
 

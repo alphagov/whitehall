@@ -10,14 +10,6 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     edit_admin_organisation_translation_path(@organisation, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_organisation.update_attributes(organisation_params)
-  end
-
-  def remove_translations
-    @translated_organisation.remove_translations_for(translation_locale.code)
-  end
-
   def destroy_redirect_path
     admin_organisation_translations_path(@translated_organisation)
   end
@@ -26,10 +18,14 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     admin_organisation_translations_path(@translated_organisation)
   end
 
-  def organisation_params
+  def translation_params
     params.require(:organisation).permit(
       :name, :acronym, :logo_formatted_name
     )
+  end
+
+  def translatable_item
+    @translated_organisation
   end
 
   def translated_item

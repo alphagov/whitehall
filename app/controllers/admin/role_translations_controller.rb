@@ -10,20 +10,16 @@ class Admin::RoleTranslationsController < Admin::BaseController
     edit_admin_role_translation_path(@role, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_role.update_attributes(role_params)
-  end
-
-  def remove_translations
-    @translated_role.remove_translations_for(translation_locale.code)
-  end
-
   def destroy_redirect_path
     admin_role_translations_path(@translated_role)
   end
 
   def update_redirect_path
     admin_role_translations_path(@translated_role)
+  end
+
+  def translatable_item
+    @translated_role
   end
 
   def translated_item
@@ -39,7 +35,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     @role ||= Role.find(params[:role_id])
   end
 
-  def role_params
+  def translation_params
     params.require(:role).permit(:name, :responsibilities)
   end
 end

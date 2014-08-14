@@ -10,14 +10,6 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
     edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_contact.update_attributes(contact_params)
-  end
-
-  def remove_translations
-    @contact.remove_translations_for(translation_locale.code)
-  end
-
   def destroy_redirect_path
     admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
@@ -37,11 +29,15 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
     @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end
 
+  def translatable_item
+    @translated_contact
+  end
+
   def translated_item
     @contact.title
   end
 
-  def contact_params
+  def translation_params
     params.require(:contact)
           .permit(:title, :comments, :recipient, :street_address, :locality,
                   :region, :email, :contact_form_url,

@@ -10,20 +10,16 @@ class Admin::PersonTranslationsController < Admin::BaseController
     edit_admin_person_translation_path(@person, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_person.update_attributes(person_params)
-  end
-
-  def remove_translations
-    @translated_person.remove_translations_for(translation_locale.code)
-  end
-
   def destroy_redirect_path
     admin_person_translations_path(@translated_person)
   end
 
   def update_redirect_path
     admin_person_translations_path(@translated_person)
+  end
+
+  def translatable_item
+    @translated_person
   end
 
   def translated_item
@@ -39,7 +35,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
     @person ||= Person.find(params[:person_id])
   end
 
-  def person_params
+  def translation_params
     params.require(:person).permit(:biography)
   end
 end

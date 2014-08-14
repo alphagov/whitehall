@@ -5,19 +5,15 @@ class Admin::EditionTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
   helper_method :translation_locale
 
+  def update
+    @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
+    super
+  end
+
   private
 
   def create_redirect_path
     edit_admin_edition_translation_path(@edition, id: translation_locale)
-  end
-
-  def update_attributes
-    @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
-    @translated_edition.update_attributes(edition_params)
-  end
-
-  def remove_translations
-    @translated_edition.remove_translations_for(translation_locale.code)
   end
 
   def destroy_redirect_path
@@ -26,6 +22,10 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   def update_redirect_path
     admin_edition_path(@edition)
+  end
+
+  def translatable_item
+    @translated_edition
   end
 
   def translated_item
@@ -43,13 +43,12 @@ class Admin::EditionTranslationsController < Admin::BaseController
     limit_edition_access!
   end
 
-
   def fetch_edition_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse
     @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
   end
 
-  def edition_params
+  def translation_params
     params.require(:edition).permit(:title, :summary, :body)
   end
 end

@@ -10,20 +10,16 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_worldwide_organisation.update_attributes(worldwide_organisation_params)
-  end
-
-  def remove_translations
-    @translated_worldwide_organisation.remove_translations_for(translation_locale.code)
-  end
-
   def destroy_redirect_path
     admin_worldwide_organisation_translations_path(@translated_worldwide_organisation)
   end
 
   def update_redirect_path
     admin_worldwide_organisation_translations_path(@translated_worldwide_organisation)
+  end
+
+  def translatable_item
+    @translated_worldwide_organisation
   end
 
   def translated_item
@@ -39,7 +35,7 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     @worldwide_organisation ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
   end
 
-  def worldwide_organisation_params
+  def translation_params
     params.require(:worldwide_organisation).permit(
       :name, :summary, :description, :services
     )

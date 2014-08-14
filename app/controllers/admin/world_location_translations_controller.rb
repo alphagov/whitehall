@@ -10,20 +10,16 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
     edit_admin_world_location_translation_path(@world_location, id: translation_locale)
   end
 
-  def update_attributes
-    @translated_world_location.update_attributes(world_location_params)
-  end
-
-  def remove_translations
-    @translated_world_location.remove_translations_for(translation_locale.code)
-  end
-
   def destroy_redirect_path
     admin_world_location_translations_path(@translated_world_location)
   end
 
   def update_redirect_path
     admin_world_location_translations_path(@translated_world_location)
+  end
+
+  def translatable_item
+    @translated_world_location
   end
 
   def translated_item
@@ -39,7 +35,7 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
     @world_location ||= WorldLocation.find(params[:world_location_id])
   end
 
-  def world_location_params
+  def translation_params
     params.require(:world_location).permit(:name, :mission_statement, :title)
   end
 end
