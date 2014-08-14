@@ -1,16 +1,10 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcerns
 
-  before_filter :find_edition
   before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
-  before_filter :enforce_permissions!
-  before_filter :limit_edition_access!
   before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
+  before_filter :limit_edition_access!
   helper_method :translation_locale
-
-  def enforce_permissions!
-    enforce_permission!(:update, @edition)
-  end
 
   private
 
@@ -44,9 +38,11 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @english_edition = LocalisedModel.new(@edition, :en)
   end
 
-  def find_edition
+  def load_things
     @edition ||= Edition.find(params[:edition_id])
+    enforce_permission!(:update, @edition)
   end
+
 
   def fetch_edition_version_and_remark_trails
     @edition_remarks = @edition.document_remarks_trail.reverse

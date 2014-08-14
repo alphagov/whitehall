@@ -1,6 +1,10 @@
 module Admin::TranslationsControllerConcerns
   extend ActiveSupport::Concern
 
+  included do
+    before_filter :load_things
+  end
+
   def index
   end
 

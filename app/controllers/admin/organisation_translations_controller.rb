@@ -1,7 +1,6 @@
 class Admin::OrganisationTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcerns
 
-  before_filter :load_organisation
   before_filter :load_translated_and_english_organisations, except: [:index]
   helper_method :translation_locale
 
@@ -42,7 +41,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     @english_organisation = LocalisedModel.new(@organisation, :en)
   end
 
-  def load_organisation
+  def load_things
     @organisation ||= Organisation.find(params[:organisation_id])
   end
 end

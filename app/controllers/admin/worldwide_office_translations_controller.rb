@@ -1,7 +1,6 @@
 class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcerns
 
-  before_filter :find_organisation, :find_office
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
@@ -27,11 +26,8 @@ private
     admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
-  def find_organisation
+  def load_things
     @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
-  end
-
-  def find_office
     @worldwide_office = @worldwide_organisation.offices.find(params[:worldwide_office_id])
     @contact = @worldwide_office.contact
   end

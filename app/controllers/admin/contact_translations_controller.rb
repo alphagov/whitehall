@@ -1,7 +1,6 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcerns
 
-  before_filter :find_contactable, :find_contact
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
@@ -27,11 +26,8 @@ private
     admin_organisation_contacts_path(@contactable)
   end
 
-  def find_contactable
+  def load_things
     @contactable = Organisation.find(params[:organisation_id])
-  end
-
-  def find_contact
     @contact = @contactable.contacts.find(params[:contact_id])
   end
 

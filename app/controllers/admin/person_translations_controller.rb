@@ -1,7 +1,6 @@
 class Admin::PersonTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcerns
 
-  before_filter :load_person
   before_filter :load_translated_and_english_people, except: [:index]
   helper_method :translation_locale
 
@@ -36,7 +35,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
     @english_person = LocalisedModel.new(@person, :en)
   end
 
-  def load_person
+  def load_things
     @person ||= Person.find(params[:person_id])
   end
 
