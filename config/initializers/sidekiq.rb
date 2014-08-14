@@ -6,5 +6,5 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = redis_config
+  config.redis = redis_config.merge({ timeout: 2 })
 end
