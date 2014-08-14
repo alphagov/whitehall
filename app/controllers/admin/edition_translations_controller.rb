@@ -29,7 +29,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
     admin_edition_path(@edition)
   end
 
-  def translated_thing
+  def translated_item
     @edition.title
   end
 
@@ -38,7 +38,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @english_edition = LocalisedModel.new(@edition, :en)
   end
 
-  def load_things
+  def load_items
     @edition ||= Edition.find(params[:edition_id])
     enforce_permission!(:update, @edition)
   end

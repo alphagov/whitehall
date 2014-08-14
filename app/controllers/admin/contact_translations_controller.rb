@@ -4,7 +4,7 @@ class Admin::ContactTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
-private
+  private
 
   def create_redirect_path
     edit_admin_organisation_contact_translation_path(@contactable, @contact, id: translation_locale)
@@ -26,7 +26,7 @@ private
     admin_organisation_contacts_path(@contactable)
   end
 
-  def load_things
+  def load_items
     @contactable = Organisation.find(params[:organisation_id])
     @contact = @contactable.contacts.find(params[:contact_id])
   end
@@ -36,7 +36,7 @@ private
     @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end
 
-  def translated_thing
+  def translated_item
     @contact.title
   end
 

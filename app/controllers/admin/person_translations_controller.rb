@@ -26,7 +26,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
     admin_person_translations_path(@translated_person)
   end
 
-  def translated_thing
+  def translated_item
     @person.name
   end
 
@@ -35,7 +35,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
     @english_person = LocalisedModel.new(@person, :en)
   end
 
-  def load_things
+  def load_items
     @person ||= Person.find(params[:person_id])
   end
 

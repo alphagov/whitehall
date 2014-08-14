@@ -26,7 +26,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     admin_role_translations_path(@translated_role)
   end
 
-  def translated_thing
+  def translated_item
     @role.name
   end
 
@@ -35,7 +35,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     @english_role = LocalisedModel.new(@role, :en)
   end
 
-  def load_things
+  def load_items
     @role ||= Role.find(params[:role_id])
   end
 

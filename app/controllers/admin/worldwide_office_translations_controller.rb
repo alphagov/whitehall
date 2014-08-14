@@ -4,7 +4,7 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
-private
+  private
 
   def create_redirect_path
     edit_admin_worldwide_organisation_worldwide_office_translation_path(@worldwide_organisation, @worldwide_office, id: translation_locale)
@@ -26,7 +26,7 @@ private
     admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
-  def load_things
+  def load_items
     @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
     @worldwide_office = @worldwide_organisation.offices.find(params[:worldwide_office_id])
     @contact = @worldwide_office.contact
@@ -37,7 +37,7 @@ private
     @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end
 
-  def translated_thing
+  def translated_item
     @contact.title
   end
 

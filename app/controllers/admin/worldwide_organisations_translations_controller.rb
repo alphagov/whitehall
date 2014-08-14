@@ -26,7 +26,7 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     admin_worldwide_organisation_translations_path(@translated_worldwide_organisation)
   end
 
-  def translated_thing
+  def translated_item
     @worldwide_organisation.name
   end
 
@@ -35,7 +35,7 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     @english_worldwide_organisation = LocalisedModel.new(@worldwide_organisation, :en)
   end
 
-  def load_things
+  def load_items
     @worldwide_organisation ||= WorldwideOrganisation.find(params[:worldwide_organisation_id])
   end
 

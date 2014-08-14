@@ -2,17 +2,11 @@ module Admin::TranslationsControllerConcerns
   extend ActiveSupport::Concern
 
   included do
-    before_filter :load_things
-  end
-
-  def index
+    before_filter :load_items
   end
 
   def create
     redirect_to create_redirect_path
-  end
-
-  def edit
   end
 
   def update
@@ -33,6 +27,6 @@ module Admin::TranslationsControllerConcerns
   end
 
   def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{translated_thing}" #{action}.}
+    %{#{translation_locale.english_language_name} translation for "#{translated_item}" #{action}.}
   end
 end

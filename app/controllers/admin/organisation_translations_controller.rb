@@ -32,7 +32,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     )
   end
 
-  def translated_thing
+  def translated_item
     @organisation.name
   end
 
@@ -41,7 +41,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     @english_organisation = LocalisedModel.new(@organisation, :en)
   end
 
-  def load_things
+  def load_items
     @organisation ||= Organisation.find(params[:organisation_id])
   end
 end
