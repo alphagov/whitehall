@@ -123,7 +123,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
     get :show, policy_id: policy.document, id: draft_supporting_page.document
 
     assert_response :success
-    assert_equal supporting_page, assigns(:supporting_page)
+    assert_equal supporting_page, assigns(:document)
   end
 
   view_test "should link to topics" do
