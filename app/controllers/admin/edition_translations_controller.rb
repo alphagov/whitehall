@@ -3,7 +3,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
 
   before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
   before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
-  before_filter :limit_edition_access!
   helper_method :translation_locale
 
   private
@@ -41,6 +40,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
   def load_translatable_items
     @edition ||= Edition.find(params[:edition_id])
     enforce_permission!(:update, @edition)
+    limit_edition_access!
   end
 
 
