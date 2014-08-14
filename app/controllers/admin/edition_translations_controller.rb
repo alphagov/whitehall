@@ -1,5 +1,5 @@
 class Admin::EditionTranslationsController < Admin::BaseController
-  include Admin::TranslationsControllerConcerns
+  include Admin::TranslationsControllerConcern
 
   before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
   before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]

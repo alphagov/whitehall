@@ -1,4 +1,4 @@
-module Admin::TranslationsControllerConcerns
+module Admin::TranslationsControllerConcern
   extend ActiveSupport::Concern
 
   included do

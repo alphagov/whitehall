@@ -1,5 +1,5 @@
 class Admin::PersonTranslationsController < Admin::BaseController
-  include Admin::TranslationsControllerConcerns
+  include Admin::TranslationsControllerConcern
 
   before_filter :load_translated_and_english_people, except: [:index]
   helper_method :translation_locale

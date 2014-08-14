@@ -1,5 +1,5 @@
 class Admin::WorldLocationTranslationsController < Admin::BaseController
-  include Admin::TranslationsControllerConcerns
+  include Admin::TranslationsControllerConcern
 
   before_filter :load_translated_and_english_world_locations, except: [:index]
   helper_method :translation_locale
