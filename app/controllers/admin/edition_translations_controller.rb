@@ -1,8 +1,6 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
-  before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
   helper_method :translation_locale
 
   def update
@@ -32,7 +30,9 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @edition.title
   end
 
-  def load_translated_and_english_edition
+  def load_translated_models
+    @edition_remarks = @edition.document_remarks_trail.reverse
+    @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
     @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
     @english_edition = LocalisedModel.new(@edition, :en)
   end
@@ -41,11 +41,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @edition ||= Edition.find(params[:edition_id])
     enforce_permission!(:update, @edition)
     limit_edition_access!
-  end
-
-  def fetch_edition_version_and_remark_trails
-    @edition_remarks = @edition.document_remarks_trail.reverse
-    @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
   end
 
   def translation_params

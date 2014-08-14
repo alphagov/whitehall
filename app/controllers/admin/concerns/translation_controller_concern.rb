@@ -3,6 +3,7 @@ module Admin::TranslationsControllerConcern
 
   included do
     before_filter :load_translatable_items
+    before_filter :load_translated_models, except: [:index]
   end
 
   def create

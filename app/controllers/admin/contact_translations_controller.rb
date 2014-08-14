@@ -1,7 +1,6 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  before_filter :load_translated_and_english_contact, except: :create
   helper_method :translation_locale
 
   private
@@ -23,7 +22,7 @@ class Admin::ContactTranslationsController < Admin::BaseController
     @contact = @contactable.contacts.find(params[:contact_id])
   end
 
-  def load_translated_and_english_contact
+  def load_translated_models
     @translated_contact = LocalisedModel.new(@contact, translation_locale.code, [:contact_numbers])
     @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end

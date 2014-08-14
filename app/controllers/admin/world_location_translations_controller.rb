@@ -1,7 +1,6 @@
 class Admin::WorldLocationTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  before_filter :load_translated_and_english_world_locations, except: [:index]
   helper_method :translation_locale
 
   private
@@ -26,7 +25,7 @@ class Admin::WorldLocationTranslationsController < Admin::BaseController
     @world_location.name
   end
 
-  def load_translated_and_english_world_locations
+  def load_translated_models
     @translated_world_location = LocalisedModel.new(@world_location, translation_locale.code)
     @english_world_location = LocalisedModel.new(@world_location, :en)
   end

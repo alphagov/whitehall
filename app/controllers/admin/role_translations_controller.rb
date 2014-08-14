@@ -1,7 +1,6 @@
 class Admin::RoleTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  before_filter :load_translated_and_english_roles, except: [:index]
   helper_method :translation_locale
 
   private
@@ -26,7 +25,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     @role.name
   end
 
-  def load_translated_and_english_roles
+  def load_translated_models
     @translated_role = LocalisedModel.new(@role, translation_locale.code)
     @english_role = LocalisedModel.new(@role, :en)
   end
