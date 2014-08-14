@@ -26,7 +26,7 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
     admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
-  def load_items
+  def load_translatable_items
     @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
     @worldwide_office = @worldwide_organisation.offices.find(params[:worldwide_office_id])
     @contact = @worldwide_office.contact

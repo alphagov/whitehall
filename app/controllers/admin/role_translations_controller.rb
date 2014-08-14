@@ -35,7 +35,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     @english_role = LocalisedModel.new(@role, :en)
   end
 
-  def load_items
+  def load_translatable_items
     @role ||= Role.find(params[:role_id])
   end
 

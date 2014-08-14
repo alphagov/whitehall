@@ -26,7 +26,7 @@ class Admin::ContactTranslationsController < Admin::BaseController
     admin_organisation_contacts_path(@contactable)
   end
 
-  def load_items
+  def load_translatable_items
     @contactable = Organisation.find(params[:organisation_id])
     @contact = @contactable.contacts.find(params[:contact_id])
   end

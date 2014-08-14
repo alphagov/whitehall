@@ -2,7 +2,7 @@ module Admin::TranslationsControllerConcerns
   extend ActiveSupport::Concern
 
   included do
-    before_filter :load_items
+    before_filter :load_translatable_items
   end
 
   def create

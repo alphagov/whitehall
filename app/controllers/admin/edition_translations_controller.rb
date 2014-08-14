@@ -38,7 +38,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @english_edition = LocalisedModel.new(@edition, :en)
   end
 
-  def load_items
+  def load_translatable_items
     @edition ||= Edition.find(params[:edition_id])
     enforce_permission!(:update, @edition)
   end
