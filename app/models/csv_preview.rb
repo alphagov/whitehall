@@ -14,10 +14,12 @@ class CsvPreview
     ensure_csv_data_is_well_formed
   rescue ArgumentError => e
     if e.message =~ /invalid byte sequence/
-      raise FileEncodingError, 'File encoding not recognised'
+      raise_encoding_error
     else
       raise
     end
+  rescue Encoding::UndefinedConversionError
+    raise_encoding_error
   end
 
   def each_row
@@ -41,6 +43,8 @@ class CsvPreview
     @csv.rewind
     @csv.shift
   end
+
+private
 
   def preview_rows
     @preview ||= File.foreach(file_path).take(maximum_rows + 1).join
@@ -71,5 +75,9 @@ class CsvPreview
     # We iterate over the CSV data to ensure all the data is sound and won't
     # cause errors later when it's iterated over.
     each_row {}
+  end
+
+  def raise_encoding_error
+    raise FileEncodingError, 'File encoding not recognised'
   end
 end
