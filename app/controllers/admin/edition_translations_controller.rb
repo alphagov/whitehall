@@ -1,8 +1,6 @@
 class Admin::EditionTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  helper_method :translation_locale
-
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
     super
@@ -37,7 +35,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @english_edition = LocalisedModel.new(@edition, :en)
   end
 
-  def load_translatable_items
+  def load_translatable_item
     @edition ||= Edition.find(params[:edition_id])
     enforce_permission!(:update, @edition)
     limit_edition_access!

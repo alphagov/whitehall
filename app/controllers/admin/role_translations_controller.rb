@@ -1,8 +1,6 @@
 class Admin::RoleTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  helper_method :translation_locale
-
   private
 
   def create_redirect_path
@@ -30,7 +28,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     @english_role = LocalisedModel.new(@role, :en)
   end
 
-  def load_translatable_items
+  def load_translatable_item
     @role ||= Role.find(params[:role_id])
   end
 

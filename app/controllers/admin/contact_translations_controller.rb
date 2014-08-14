@@ -1,8 +1,6 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  helper_method :translation_locale
-
   private
 
   def create_redirect_path
@@ -17,7 +15,7 @@ class Admin::ContactTranslationsController < Admin::BaseController
     admin_organisation_contacts_path(@contactable)
   end
 
-  def load_translatable_items
+  def load_translatable_item
     @contactable = Organisation.find(params[:organisation_id])
     @contact = @contactable.contacts.find(params[:contact_id])
   end

@@ -1,8 +1,6 @@
 class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
   include Admin::TranslationsControllerConcern
 
-  helper_method :translation_locale
-
   private
 
   def create_redirect_path
@@ -17,7 +15,7 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
     admin_worldwide_organisation_worldwide_offices_path(@worldwide_organisation)
   end
 
-  def load_translatable_items
+  def load_translatable_item
     @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
     @worldwide_office = @worldwide_organisation.offices.find(params[:worldwide_office_id])
     @contact = @worldwide_office.contact
