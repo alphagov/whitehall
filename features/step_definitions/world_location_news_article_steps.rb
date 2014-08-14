@@ -24,7 +24,6 @@ When(/^I publish a world location news article "(.*?)" for "(.*?)"$/) do |title,
 
   select location_name, from: "Select the world locations this world location news article is about"
   select world_organisation.name, from: "Select the worldwide organisations associated with this world location news article"
-  select_date Date.today.to_s, from: "First published"
 
   click_button "Save"
 

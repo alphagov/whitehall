@@ -634,7 +634,7 @@ class Edition < ActiveRecord::Base
 
   def old_documents_have_date
     if document_new == 'unset'
-      errors[:base] << 'You must specify if the document is new' 
+      errors[:base] << 'You must specify if the document is new'
     elsif document_new == 'false'  # not a real field, so isn't converted to bool
       errors.add(:first_published_at, "can't be blank") if first_published_at.blank?
     end

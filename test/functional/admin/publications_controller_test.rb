@@ -69,6 +69,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
   end
 
+  test "should validate document_new field on create" do
+    post :create, edition: controller_attributes_for(:publication).except(:document_new)
+    assert_equal "You must specify if the document is new", assigns(:edition).errors.full_messages.last
+  end
+
+  test "should validate first_published_at field on create if document_new is false" do
+    post :create, edition: (controller_attributes_for(:publication).merge(document_new: 'false'))
+    assert_equal "First published at can't be blank", assigns(:edition).errors.full_messages.last
+  end
+
   view_test "edit displays publication fields" do
     publication = create(:publication)
 
