@@ -2,6 +2,8 @@ class Organisation < ActiveRecord::Base
   include Searchable
   include Organisation::OrganisationTypeConcern
 
+  DEFAULT_JOBS_URL = 'https://www.civilservicejobs.service.gov.uk/csr'
+
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 
   has_many :child_organisational_relationships,
@@ -127,8 +129,7 @@ class Organisation < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :name, presence: true, uniqueness: true
   validates :logo_formatted_name, presence: true
-  validates :url, uri: true, allow_blank: true
-  validates :organisation_chart_url, uri: true, allow_blank: true
+  validates :url, :organisation_chart_url, :custom_jobs_url, uri: true, allow_blank: true
   validates :alternative_format_contact_email, email_format: {allow_blank: true}
   validates :alternative_format_contact_email, presence: {
     if: :requires_alternative_format?,
@@ -322,6 +323,10 @@ class Organisation < ActiveRecord::Base
 
   def select_name
     [name, ("(#{acronym})" if acronym.present?)].compact.join(' ')
+  end
+
+  def jobs_url
+    custom_jobs_url.present? ? custom_jobs_url : DEFAULT_JOBS_URL
   end
 
   def indexable_content
