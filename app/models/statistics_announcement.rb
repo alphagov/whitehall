@@ -3,6 +3,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   friendly_id :title
 
   belongs_to :creator, class_name: 'User'
+  belongs_to :cancelled_by, class_name: 'User'
   belongs_to :organisation
   belongs_to :topic
   belongs_to :publication
@@ -12,6 +13,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   validate  :publication_is_matching_type, if: :publication
   validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
+  validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
                 in: PublicationType.statistical.map(&:id),
@@ -26,7 +28,8 @@ class StatisticsAnnouncement < ActiveRecord::Base
   }
 
   include Searchable
-  searchable  title: :title,
+  searchable  only: :without_published_publication,
+              title: :title,
               link: :public_path,
               description: :summary,
               display_type: :display_type,
@@ -34,10 +37,17 @@ class StatisticsAnnouncement < ActiveRecord::Base
               organisations: :organisation_slugs,
               topics: :topic_slugs,
               release_timestamp: :release_date,
+              statistics_announcement_state: :state,
               metadata: :search_metadata
 
   delegate  :release_date, :display_date, :confirmed?,
               to: :current_release_date
+
+
+  def self.without_published_publication
+    includes(:publication).
+      where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
+  end
 
   def last_change_note
     last_major_change.try(:change_note)
@@ -74,7 +84,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
     { confirmed: confirmed?,
       display_date: display_date,
       change_note: last_change_note,
-      previous_display_date: previous_display_date }
+      previous_display_date: previous_display_date,
+      cancelled_at: cancelled_at,
+      cancellation_reason: cancellation_reason,
+     }
   end
 
   def build_statistics_announcement_date_change(attributes = {})
@@ -83,6 +96,27 @@ class StatisticsAnnouncement < ActiveRecord::Base
     StatisticsAnnouncementDateChange.new(attributes.reverse_merge(current_date_attributes)) do |change|
       change.statistics_announcement = self
       change.current_release_date = current_release_date
+    end
+  end
+
+  def cancel!(reason, user)
+    self.cancellation_reason = reason
+    self.cancelled_at = Time.zone.now
+    self.cancelled_by = user
+    self.save
+  end
+
+  def cancelled?
+    cancelled_at.present?
+  end
+
+  def state
+    if cancelled?
+      'cancelled'
+    elsif confirmed?
+      'confirmed'
+    else
+      'provisional'
     end
   end
 

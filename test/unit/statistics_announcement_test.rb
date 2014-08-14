@@ -35,11 +35,16 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'display_type' => announcement.display_type,
       'slug' => announcement.slug,
       'release_timestamp' => announcement.release_date,
+      'statistics_announcement_state' => announcement.state,
       'metadata' => {
+        # TODO: the "confirmed" metadata becomes redundant once all entries are
+        # updated with a "statistics_announcement_state". Get rid.
         confirmed: announcement.confirmed?,
         display_date: announcement.display_date,
         change_note: announcement.last_change_note,
-        previous_display_date: announcement.previous_display_date
+        previous_display_date: announcement.previous_display_date,
+        cancelled_at: announcement.cancelled_at,
+        cancellation_reason: announcement.cancellation_reason,
       }
     }
 
@@ -126,10 +131,61 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal current_date.release_date, date_change.release_date
   end
 
+  test '#cancel! cancels an announcement' do
+    announcement = create(:statistics_announcement)
+    announcement.cancel!("Reason for cancellation", announcement.creator)
+
+    assert announcement.cancelled?
+    assert_equal "Reason for cancellation", announcement.cancellation_reason
+    assert_equal announcement.creator, announcement.cancelled_by
+    assert_equal Time.zone.now, announcement.cancelled_at
+  end
+
+  test 'a cancelled announcement is in a "cancelled" state, even when previously confirmed' do
+    announcement = build(:cancelled_statistics_announcement)
+    assert_equal "cancelled", announcement.state
+
+    announcement.current_release_date.confirmed = true
+    assert_equal "cancelled", announcement.state
+  end
+
+  test 'a provisional announcement is in a "provisional" state' do
+    announcement = build(:statistics_announcement,
+      current_release_date: build(:statistics_announcement_date, confirmed: false))
+
+    assert_equal "provisional", announcement.state
+  end
+
+  test 'a confirmed announcement is in a "confirmed" state' do
+    announcement = build(:statistics_announcement,
+      current_release_date: build(:statistics_announcement_date, confirmed: true))
+
+    assert_equal "confirmed", announcement.state
+  end
+
+  test 'cannot cancel without a reason' do
+    announcement = create(:statistics_announcement)
+
+    refute announcement.cancel!('', announcement.creator)
+    assert_match /must be provided when cancelling an announcement/, announcement.errors[:cancellation_reason].first
+  end
+
+  test "an announcement that has a publiction that is post-publishing is not indexable in search" do
+    announcement = create(:statistics_announcement, publication: create(:published_statistics))
+
+    Whitehall::SearchIndex.expects(:add).never
+    announcement.update_in_search_index
+
+    announcement.publication.supersede!
+
+    Whitehall::SearchIndex.expects(:add).never
+    announcement.update_in_search_index
+  end
+
 private
 
   def create_announcement_with_changes
-    announcement = create(:statistics_announcement)
+    announcement = create(:cancelled_statistics_announcement)
     minor_change = Timecop.travel(1.day) do
       create(:statistics_announcement_date,
               statistics_announcement: announcement,

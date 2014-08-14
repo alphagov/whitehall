@@ -1,5 +1,5 @@
-Given(/^There are some statistics$/) do
-  # 3 Custom ones are most recent, followed buy the extras - larges number most recent
+Given(/^there are some statistics$/) do
+  # 3 Custom ones are most recent, followed by the extras - largest number most recent
 
   create :published_statistics, title: "Womble to Wombat population ratios",
                                 first_published_at: Time.zone.parse("2055-02-15 12:45:00")
@@ -61,7 +61,7 @@ When(/^I should only see statistics matching the given keyword, from date and to
   assert_equal 1, page.all(".document-list .document-row").length
 end
 
-Given(/^There are some statisics for various departments and topics$/) do
+Given(/^there are some statisics for various departments and topics$/) do
   beard_topic = create(:topic, name: 'Beards')
   wombat_topic = create(:topic, name: 'Wombats')
 
@@ -98,7 +98,7 @@ Then(/^I should only see statistics for the selected departments and topics$/) d
   end
 end
 
-Given(/^There is a statistics publication$/) do
+Given(/^there is a statistics publication$/) do
   @statistics_publication = create :published_statistics
 end
 

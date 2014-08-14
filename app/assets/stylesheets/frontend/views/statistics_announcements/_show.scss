@@ -11,4 +11,13 @@
         margin-bottom: $gutter-half;
     }
   }
+
+  .status-block {
+    border-color: $inside-gov-brand;
+    margin-left: 0;
+
+    p {
+      font-weight: normal;
+    }
+  }
 }

@@ -16,6 +16,10 @@ Given(/^there is a statistics announcement by another organistion$/) do
   @other_organisation_announcement = create(:statistics_announcement)
 end
 
+Given(/^a cancelled statistics announcement exists$/) do
+  @statistics_announcement = create(:cancelled_statistics_announcement)
+end
+
 Then(/^I should see my organisation's statistics announcements on the statistical announcements page by default$/) do
   visit admin_statistics_announcements_path
 
@@ -89,6 +93,36 @@ When(/^I search for announcements containing "(.*?)"$/) do |keyword|
   fill_in 'Title or slug', with: keyword
   select "All organisations", from: "Organisation"
   click_on 'Search'
+end
+
+When(/^I cancel the statistics announcement$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+  click_on "Cancel statistics release"
+
+  fill_in "Official reason for cancellation", with: 'Cancelled because: reasons'
+  click_on "Publish cancellation"
+end
+
+When(/^I change the cancellation reason$/) do
+  visit admin_statistics_announcement_path(@statistics_announcement)
+
+  click_on "Edit cancellation reason"
+  fill_in "Official reason for cancellation", with: 'Updated cancellation reason'
+  click_on "Update cancellation reason"
+end
+
+Then(/^I should see the updated cancellation reason$/) do
+  assert_path admin_statistics_announcement_path(@statistics_announcement)
+
+  assert page.has_content?("Statistics release cancelled")
+  assert page.has_content?("Updated cancellation reason")
+end
+
+Then(/^I should see that the statistics announcement has been cancelled$/) do
+  ensure_path admin_statistics_announcement_path(@statistics_announcement)
+
+  assert page.has_content?("Statistics release cancelled")
+  assert page.has_content?("Cancelled because: reason")
 end
 
 Then(/^the document fields are pre\-filled based on the announcement$/) do

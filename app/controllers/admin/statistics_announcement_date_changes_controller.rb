@@ -1,5 +1,6 @@
 class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
   before_filter :find_statistics_announcement
+  before_filter :redirect_to_announcement_if_cancelled
 
   def new
     @statistics_announcement_date_change = build_date_change
@@ -16,6 +17,10 @@ class Admin::StatisticsAnnouncementDateChangesController < Admin::BaseController
   end
 
 private
+
+  def redirect_to_announcement_if_cancelled
+    redirect_to [:admin, @statistics_announcement] if @statistics_announcement.cancelled?
+  end
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.find(params[:statistics_announcement_id])

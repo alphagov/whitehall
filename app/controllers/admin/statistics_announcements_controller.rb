@@ -1,5 +1,6 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
-  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :destroy]
+  before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :cancel_reason]
+  before_filter :redirect_to_show_if_cancelled, only: [:cancel, :publish_cancellation]
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
@@ -33,15 +34,25 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  def destroy
-    @statistics_announcement.destroy
-    redirect_to [:admin, :statistics_announcements], notice: "Announcement deleted successfully"
+  def cancel
+  end
+
+  def publish_cancellation
+    if @statistics_announcement.cancel!(params[:statistics_announcement][:cancellation_reason], current_user)
+      redirect_to [:admin, @statistics_announcement], notice: "Announcement has been cancelled"
+    else
+      render :cancel
+    end
   end
 
   private
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])
+  end
+
+  def redirect_to_show_if_cancelled
+    redirect_to [:admin, @statistics_announcement] if @statistics_announcement.cancelled?
   end
 
   def build_statistics_announcement(attributes = {})
@@ -54,7 +65,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(
-      :title, :summary, :organisation_id, :topic_id, :publication_type_id, :publication_id,
+      :title, :summary, :organisation_id, :topic_id, :publication_type_id,
+      :publication_id, :cancellation_reason,
       current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
   end
 
