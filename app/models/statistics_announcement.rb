@@ -28,7 +28,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   }
 
   include Searchable
-  searchable  only: :unpublished,
+  searchable  only: :without_published_publication,
               title: :title,
               link: :public_path,
               description: :summary,
@@ -44,7 +44,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
               to: :current_release_date
 
 
-  def self.unpublished
+  def self.without_published_publication
     includes(:publication).
       where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
   end
