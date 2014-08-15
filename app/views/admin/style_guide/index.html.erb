@@ -4,10 +4,10 @@
   <h1>Whitehall admin style guide</h1>
 </div>
 
-<p class="lead">Whitehall admin UI is powered by bootstrap 2.0.3 with some help from the <a href="https://github.com/alphagov/govuk_frontend_toolkit">govuk_frontend_toolkit</a>. There are currently none of the standard bootstrap mixins. This guide partially documents how we use bootstrap, where whitehall styles have diverged from default styles and any custom styles needed to fill in the gaps.</p>
+<p class="lead">Whitehall admin UI is powered by <a href="http://getbootstrap.com/2.3.2/">bootstrap 2.3.2</a> (using the <a href="https://github.com/twbs/bootstrap-sass/tree/v2.3.2.2">bootstrap-sass gem</a>) with some help from the <a href="https://github.com/alphagov/govuk_frontend_toolkit">govuk_frontend_toolkit</a>. This guide partially documents how we use bootstrap, where whitehall styles have diverged from default styles and any custom styles needed to fill in the gaps.</p>
 
 <h2>Grid</h2>
-<p class="lead">The bootstrap grid being used relies on <code>first-child</code> and <code>last-child</code> pseudo selectors to work. It is an <a href="http://getbootstrap.com/2.3.2/scaffolding.html#gridSystem">early version of the 2.3.2 grid</a>, but it is fragile, and must be wrapped in <code>row-fluid</code>.</p>
+<p class="lead">Whitehall uses the <a href="http://getbootstrap.com/2.3.2/scaffolding.html#fluidGridSystem">bootstrap 2.3.2 fluid grid</a>.</p>
 
 <style>
   .grid-example {
