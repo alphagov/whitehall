@@ -3,6 +3,12 @@
     height: auto;
   }
 
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 27px;
+  }
+
   .js-enabled & .collapse {
     height: 0;
   }
