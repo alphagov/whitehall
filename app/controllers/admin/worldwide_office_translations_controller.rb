@@ -30,7 +30,7 @@ class Admin::WorldwideOfficeTranslationsController < Admin::BaseController
     @translated_contact
   end
 
-  def translated_item
+  def translated_item_name
     @contact.title
   end
 

@@ -29,6 +29,6 @@ module Admin::TranslationsControllerConcern
   end
 
   def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{translated_item}" #{action}.}
+    %{#{translation_locale.english_language_name} translation for "#{translated_item_name}" #{action}.}
   end
 end

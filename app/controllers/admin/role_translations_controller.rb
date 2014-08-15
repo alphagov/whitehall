@@ -19,7 +19,7 @@ class Admin::RoleTranslationsController < Admin::BaseController
     @translated_role
   end
 
-  def translated_item
+  def translated_item_name
     @role.name
   end
 

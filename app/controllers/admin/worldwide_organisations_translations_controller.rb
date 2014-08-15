@@ -19,7 +19,7 @@ class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseControlle
     @translated_worldwide_organisation
   end
 
-  def translated_item
+  def translated_item_name
     @worldwide_organisation.name
   end
 

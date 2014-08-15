@@ -25,7 +25,7 @@ class Admin::ContactTranslationsController < Admin::BaseController
     @english_contact = LocalisedModel.new(@contact, :en, [:contact_numbers])
   end
 
-  def translated_item
+  def translated_item_name
     @contact.title
   end
 

@@ -19,7 +19,7 @@ class Admin::PersonTranslationsController < Admin::BaseController
     @translated_person
   end
 
-  def translated_item
+  def translated_item_name
     @person.name
   end
 

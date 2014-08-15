@@ -24,7 +24,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @translated_edition
   end
 
-  def translated_item
+  def translated_item_name
     @edition.title
   end
 

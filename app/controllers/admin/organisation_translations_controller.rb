@@ -25,7 +25,7 @@ class Admin::OrganisationTranslationsController < Admin::BaseController
     @translated_organisation
   end
 
-  def translated_item
+  def translated_item_name
     @organisation.name
   end
 
