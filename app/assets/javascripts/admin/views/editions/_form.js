@@ -97,26 +97,31 @@
 
     },
 
-    toggleFirstPublishedDate: function() {
+    toggleFirstPublishedDate: function toggleFirstPublishedDate() {
       // datetime_select can't set defaults if include_blank is true, so do it here.
-      $('.js-show-first-published').find('#edition_first_published_at_4i, #edition_first_published_at_5i').val('00');
-      var $first_published = $('.first_published_date .js-show-first-published');
-      var $previously_published_button = $('#edition_document_new_false');
-      var $radio_buttons = $('.first_published_date input[type=radio]');
+      $('#edition_first_published_at_4i, #edition_first_published_at_5i').each(function(index) {
+        var $this = $(this);
+        if ($this.val() == '') {
+          $this.val('00');
+        }
+      });
+      var $firstPublished = $('.first-published-date .js-show-first-published');
+      var $previouslyPublished_button = $('#edition_document_new_false');
+      var $radioButtons = $('.first-published-date input[type=radio]');
 
       function showOrHideDateSelector() {
-        if ($previously_published_button.prop('checked')){
-          $first_published.show();
+        if ($previouslyPublished_button.prop('checked')){
+          $firstPublished.show();
         } else {
-          $first_published.hide();
+          $firstPublished.hide();
         }
       }
-      $radio_buttons.on('change', showOrHideDateSelector);
+      $radioButtons.on('change', showOrHideDateSelector);
       showOrHideDateSelector();
 
-      $('.existing-first-published a').on('click', function(e) {
+      $('.js-existing-first-published a').on('click', function(e) {
         $(this).parent().hide().next().show();
-        return false;
+        e.preventDefault();
       });
     }
   }

@@ -861,7 +861,7 @@ class EditionTest < ActiveSupport::TestCase
   test 'should validate presence of document_new and first_published_at' do
     edition = build(:edition, document_new: 'unset')
     refute edition.valid?
-    assert_equal "You must specify if the document is new", edition.errors.full_messages.first
+    assert_equal "You must specify whether the document has been published before", edition.errors.full_messages.first
 
     edition.document_new = 'false'
     refute edition.valid?

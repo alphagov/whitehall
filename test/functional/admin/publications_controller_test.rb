@@ -71,7 +71,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
   test "should validate document_new field on create" do
     post :create, edition: controller_attributes_for(:publication).except(:document_new)
-    assert_equal "You must specify if the document is new", assigns(:edition).errors.full_messages.last
+    assert_equal "You must specify whether the document has been published before", assigns(:edition).errors.full_messages.last
   end
 
   test "should validate first_published_at field on create if document_new is false" do

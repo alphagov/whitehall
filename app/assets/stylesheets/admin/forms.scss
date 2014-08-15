@@ -117,7 +117,7 @@ fieldset.contact_number {
   }
 }
 
-.first_published_date {
+.first-published-date {
   .extra-label {
     margin-top: 13px;
     font-weight: bold;
@@ -130,8 +130,11 @@ fieldset.contact_number {
       display: none;
     }
   }
-  .existing-first-published span {
+  &.form-errors label {
     font-weight: bold;
+  }
+  .show-first-published {
+    margin-left: 20px;
   }
 }
 

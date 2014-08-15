@@ -619,6 +619,8 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  attr_accessor :has_first_published_error
+
   attr_writer :document_new
   def document_new
     if @document_new.present?
@@ -634,9 +636,11 @@ class Edition < ActiveRecord::Base
 
   def old_documents_have_date
     if document_new == 'unset'
-      errors[:base] << 'You must specify if the document is new'
+      errors[:base] << 'You must specify whether the document has been published before'
+      @has_first_published_error = true
     elsif document_new == 'false'  # not a real field, so isn't converted to bool
       errors.add(:first_published_at, "can't be blank") if first_published_at.blank?
+      @has_first_published_error = true
     end
   end
 

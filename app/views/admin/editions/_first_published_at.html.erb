@@ -1,5 +1,5 @@
 <% if edition.published_major_version.nil? %>
-  <fieldset class="first_published_date well">
+  <fieldset class="first-published-date well <% if edition.has_first_published_error %>alert-error form-errors field_with_errors<% end %>">
   <p class="required">This document <span>*</span></p>
   <%= form.label :document_new_true, class: 'radio' do %>
     <%= form.radio_button(:document_new, true, disabled: edition.imported?) %>
@@ -11,7 +11,7 @@
     has previously been published on another website.
   <% end %>
 
-  <div class="js-show-first-published">
+  <div class="js-show-first-published show-first-published">
     <% if edition.imported? %>
       <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required extra-label' %>
     <% else %>
@@ -22,11 +22,11 @@
   </div>
   </fieldset>
 <% else %>
-  <fieldset class="first_published_date">
-  <p>First published</p>
-  <p class="existing-first-published"><span><%= edition.first_published_at.strftime('%I:%M%P, %d %B %Y') %></span> <a href="#">Edit date</a></p>
+  <fieldset class="first-published-date">
+  <%= form.label :first_published_at, "First published" %>
+  <p class="js-existing-first-published"><strong><%= edition.first_published_at.strftime('%I:%M%P, %d %B %Y') %></strong> &mdash; <a href="#">Edit date</a></p>
   <div class="edit">
-    <%= form.datetime_select :first_published_at, { start_year: Date.today.year, end_year: 1945 }, { class: 'date js_first_published_at_edit' } %>
+    <%= form.datetime_select :first_published_at, { start_year: Date.today.year, end_year: 1945 }, { class: 'date js-first-published-at-edit' } %>
   </div>
   </fieldset>
 <% end %>
