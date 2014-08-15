@@ -32,7 +32,6 @@ class Admin::EditionTranslationsController < Admin::BaseController
     @edition_remarks = @edition.document_remarks_trail.reverse
     @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
     @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
-    @english_edition = LocalisedModel.new(@edition, :en)
   end
 
   def load_translatable_item
