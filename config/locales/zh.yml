@@ -174,15 +174,15 @@ zh:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: 详细指导
         other: 详细指导
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: 查阅我们所有的详细指导
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: 系列
@@ -219,6 +219,7 @@ zh:
       imported:
         one: 导入 - 正在等待的类型
         other: 导入 - 正在等待的类型
+        see_all: 查阅我们所有的导入 - 正在等待的类型
       independent_report:
         one: 独立报告
         other: 独立报告

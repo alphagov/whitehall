@@ -4,18 +4,15 @@ hy:
       attachments:
         one: Փաստաթուղթ
         other: Փաստաթղթեր
-      policies:
-        one:
-        other:
       applies_to_nations: Վերաբերվում է
       field_of_operation: Գործունեության ոլորտ
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
@@ -53,15 +50,15 @@ hy:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: Մանրամասն ուղեցույց
         other: Մանրամասն ուղեցույցեր
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Մի շարք
@@ -95,6 +92,10 @@ hy:
         one: Ազդեցության գնահատում
         other: Ազդեցության գնահատումներ
         see_all: Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը
+      imported:
+        one: Ներկրված - սպասման տեսակ
+        other: Ներկրված - սպասման տեսակներ
+        see_all: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
       independent_report:
         one: Անկախ հաշվետվություն
         other: Անկախ հաշվետվություններ

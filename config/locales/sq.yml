@@ -4,18 +4,15 @@ sq:
       attachments:
         one: Dokument
         other: Dokumente
-      policies:
-        one:
-        other:
       applies_to_nations: Zbatohet mbi
       field_of_operation: Fusha e veprimit
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one: Lajmerim
         other: Lajmerime
@@ -53,15 +50,15 @@ sq:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: Udhezim i detajuar
         other: Udhezim i detajuar
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Shiko te gjitha udhezim i detajuar
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Seri
@@ -95,6 +92,10 @@ sq:
         one: Vleresim i ndikimit
         other: Vleresime te ndikimit
         see_all: Shiko te gjitha vleresime te ndikimit
+      imported:
+        one: Importuar - tipi pritje
+        other: Importuar - tipi pritje
+        see_all: Shiko te gjitha importuar - tipi pritje
       independent_report:
         one: Raport i pavarur
         other: Raporte te pavarur

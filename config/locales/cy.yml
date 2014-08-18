@@ -8,56 +8,77 @@ cy:
         few:
         many:
         other: Dogfennau
-      policies:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
       from: O
       location:
       part_of: Rhan o
+      policies:
+        one:
+        other:
     type:
-      imported:
+      announcement:
+        zero:
+        one: Cyhoeddiad
+        two:
+        few:
+        many:
+        other: Cyhoeddiadau
+        see_all: Gweld ein holl cyhoeddiadau
+      authored_article:
         zero:
         one:
         two:
         few:
         many:
         other:
-      announcement:
-        one: Cyhoeddiad
-        other: Cyhoeddiadau
-        see_all: Gweld ein holl cyhoeddiadau
-      authored_article:
-        one:
-        other:
         see_all:
       case_study:
+        zero:
         one: Astudiaeth achos
+        two:
+        few:
+        many:
         other: Astudiaethau achos
         see_all: Gweld ein holl astudiaethau achos
       closed_consultation:
+        zero:
         one: Ymgynghoriad ar gau
+        two:
+        few:
+        many:
         other: Ymgynghoriadau ar gau
         see_all: Gweld ein holl ymgynghoriadau ar gau
       consultation:
+        zero:
         one: Ymgynghoriad
+        two:
+        few:
+        many:
         other: Ymgynghoriadau
         see_all: Gweld ein holl ymgynghoriadau
       consultation_outcome:
+        zero:
         one: Canlyniad ymgynghoriad
+        two:
+        few:
+        many:
         other: Canlyniadau ymgynghoriadau
         see_all: Gweld ein holl canlyniadau ymgynghoriadau
       corporate_report:
+        zero:
         one: Adroddiad corfforaethol
+        two:
+        few:
+        many:
         other: Adroddiadau corfforaethol
         see_all: Gweld ein holl adroddiadau corfforaethol
       correspondence:
+        zero:
         one: Gohebiaeth
+        two:
+        few:
+        many:
         other: Gohebiaeth
         see_all: Gweld ein holl gohebiaeth
       decision:
@@ -68,7 +89,11 @@ cy:
         categories: Pob cyfarwyddyd manwl am
         contents: Cynnwys
         more: Mwy fel hyn
+        zero:
         one: Cyfarwyddyd manwl
+        two:
+        few:
+        many:
         other: Cyfarwyddyd manwl
         part_of_published_collection: Mae hwn yn rhan o gasgliad
         published_related_detailed_guides: Canllawiau manwl cysylltiedig
@@ -76,59 +101,123 @@ cy:
         see_all: Gweld ein holl cyfarwyddyd manwl
         see_more_like_this: Gweler mwy fel hyn
       document_collection:
+        zero:
         one: Cyfres
+        two:
+        few:
+        many:
         other:
         see_all:
       draft_text:
+        zero:
         one: Testun drafft
+        two:
+        few:
+        many:
         other: Testun drafft
         see_all: Gweld ein holl testun drafft
       fatality_notice:
+        zero:
         one: Hysbysiad marwolaeth
+        two:
+        few:
+        many:
         other: Hysbysiadau marwolaeth
         see_all: Gweld ein holl hysbysiadau marwolaeth
       foi_release:
+        zero:
         one: Datganiad Rhyddid Gwybodaeth
+        two:
+        few:
+        many:
         other: Datganiadau Rhyddid Gwybodaeth
         see_all: Gweld ein holl datganiadau rhyddid gwybodaeth
       form:
+        zero:
         one: Ffurflen
+        two:
+        few:
+        many:
         other: Ffurflenni
         see_all: Gweld ein holl ffurflenni
       government_response:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
         see_all:
       guidance:
+        zero:
         one: Cyfarwyddyd
+        two:
+        few:
+        many:
         other: Cyfarwyddyd
         see_all: Gweld ein holl cyfarwyddyd
       impact_assessment:
+        zero:
         one: Asesiad o'r effaith
+        two:
+        few:
+        many:
         other: Asesiadau o'r effaith
         see_all: Gweld ein holl asesiadau o'r effaith
+      imported:
+        zero:
+        one: wedi mewngludo - yn disgwyl math
+        two:
+        few:
+        many:
+        other: wedi mewngludo - yn disgwyl math
+        see_all: Gweld ein holl wedi mewngludo - yn disgwyl math
       independent_report:
+        zero:
         one: Adroddiad annibynnol
+        two:
+        few:
+        many:
         other: Adroddiadau annibynnol
         see_all: Gweld ein holl adroddiadau annibynnol
       international_treaty:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
         see_all:
       map:
+        zero:
         one: Map
+        two:
+        few:
+        many:
         other: Mapiau
         see_all: Gweld ein holl mapiau
       national_statistics:
+        zero:
         one: Ystadegau - ystadegau gwladol
+        two:
+        few:
+        many:
         other: Ystadegau - ystadegau gwladol
         see_all: Gweld ein holl ystadegau - ystadegau gwladol
       news_article:
+        zero:
         one: Erthygl newyddion
+        two:
+        few:
+        many:
         other: Erthyglau newyddion
         see_all: Gweld ein holl erthyglau newyddion
       news_story:
+        zero:
         one: Stori newyddion
+        two:
+        few:
+        many:
         other: Straeon newyddion
         see_all: Gweld ein holl straeon newyddion
       notice:
@@ -136,75 +225,147 @@ cy:
         other:
         see_all:
       open_consultation:
+        zero:
         one: Ymgynghoriad ar agor
+        two:
+        few:
+        many:
         other: Ymgynghoriadau ar agor
         see_all: Gweld ein holl ymgynghoriadau ar agor
       oral_statement:
+        zero:
         one: Datganiad llafar i'r senedd
+        two:
+        few:
+        many:
         other: Datganiadau llafar i'r senedd
         see_all: Gweld ein holl datganiadau llafar i'r senedd
       policy:
+        zero:
         one: Polisi
+        two:
+        few:
+        many:
         other: Polisïau
         see_all: Gweld ein holl polisïau
       policy_paper:
+        zero:
         one: Papur polisi
+        two:
+        few:
+        many:
         other: Papurau polisi
         see_all: Gweld ein holl papurau polisi
       press_release:
+        zero:
         one: Datganiad i'r wasg
+        two:
+        few:
+        many:
         other: Datganiadau i'r wasg
         see_all: Gweld ein holl datganiadau i'r wasg
       promotional:
+        zero:
         one: Deunydd hyrwyddo
+        two:
+        few:
+        many:
         other: Deunydd hyrwyddo
         see_all: Gweld ein holl deunydd hyrwyddo
       publication:
+        zero:
         one: Cyhoeddiad
+        two:
+        few:
+        many:
         other: Cyhoeddiadau
         see_all: Gweld ein holl cyhoeddiadau
       research:
+        zero:
         one: Ymchwil a dadansoddiad
+        two:
+        few:
+        many:
         other: Ymchwil a dadansoddiad
         see_all: Gweld ein holl ymchwil a dadansoddiad
       speaking_notes:
+        zero:
         one: Nodiadau siarad
+        two:
+        few:
+        many:
         other: Nodiadau siarad
         see_all: Gweld ein holl nodiadau siarad
       speech:
+        zero:
         one: Araith
+        two:
+        few:
+        many:
         other: Areithiau
         see_all: Gweld ein holl areithiau
       statement_to_parliament:
+        zero:
         one: Datganiad i'r senedd
+        two:
+        few:
+        many:
         other: Datganiadau i'r senedd
         see_all: Gweld ein holl datganiadau i'r senedd
       statistical_data_set:
+        zero:
         one: Set data ystadegol
+        two:
+        few:
+        many:
         other: Setiau data ystadegol
         see_all: Gweld ein holl setiau data ystadegol
       statistics:
+        zero:
         one: Ystadegau
+        two:
+        few:
+        many:
         other: Ystadegau
         see_all: Gweld ein holl ystadegau
       statutory_guidance:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
         see_all:
       transcript:
+        zero:
         one: Trawsgrifiad
+        two:
+        few:
+        many:
         other: Trawsgrifiadau
         see_all: Gweld ein holl trawsgrifiadau
       transparency:
+        zero:
         one: Data tryloywder
+        two:
+        few:
+        many:
         other: Data tryloywder
         see_all: Gweld ein holl data tryloywder
       worldwide_priority:
+        zero:
         one: Blaenoriaeth fyd-eang
+        two:
+        few:
+        many:
         other: Blaenoriaethau byd-eang
         see_all: Gweld ein holl blaenoriaethau byd-eang
       written_statement:
+        zero:
         one: Datganiad ysgrifenedig i'r Senedd
+        two:
+        few:
+        many:
         other: Datganiadau ysgrifenedig i'r Senedd
         see_all: Gweld ein holl datganiadau ysgrifenedig i'r senedd
     contents: Cynnwys
@@ -499,7 +660,7 @@ cy:
       help_html:
     see_more:
   change_notes:
-    page_history: Hanes
+    page_history:
     published_at:
     updated_at:
   contact:

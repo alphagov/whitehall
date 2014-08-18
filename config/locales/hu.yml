@@ -177,15 +177,15 @@ hu:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: Részletes útmutató
         other: Részletes útmutató
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: ' részletes útmutató - mindegyik megtekintése'
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Sorozatok
@@ -222,6 +222,7 @@ hu:
       imported:
         one: Importálva
         other: Importálva
+        see_all: ' importálva - mindegyik megtekintése'
       independent_report:
         one: Független beszámoló
         other: Független beszámolók

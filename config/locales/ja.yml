@@ -175,15 +175,15 @@ ja:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: 詳細説明
         other: 詳細説明
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: 詳細説明 を全て見る
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: シリーズ
@@ -220,6 +220,7 @@ ja:
       imported:
         one: 確認中
         other: 確認中
+        see_all: 確認中 を全て見る
       independent_report:
         one: 第三者機関によるレポート
         other: 第三者機関によるレポート

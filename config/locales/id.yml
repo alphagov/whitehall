@@ -176,15 +176,15 @@ id:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: Panduan lebih lanjut
         other: Panduan lebih lanjut
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Lihat semua panduan lebih lanjut
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Serial
@@ -221,6 +221,7 @@ id:
       imported:
         one: Diimpor-menunggu tipe
         other: Diimpor-menunggu tipe
+        see_all: Lihat semua diimpor-menunggu tipe
       independent_report:
         one: Laporan independen
         other: Laporan-laporan independen

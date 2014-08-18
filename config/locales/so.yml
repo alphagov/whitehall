@@ -4,18 +4,15 @@ so:
       attachments:
         one: Dokumenti
         other: Dokumentiyo
-      policies:
-        one:
-        other:
       applies_to_nations: Waxa lagu saleeyaa
       field_of_operation: Nooca hawlgalka
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one: Ogeysiis
         other: Ogeysiisyo
@@ -53,15 +50,15 @@ so:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one: Hagid faahfaahsan
         other: Hagid faahfaahsan
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Fiiri dhammaan hagid faahfaahsan yadeenna
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Taxane
@@ -95,6 +92,10 @@ so:
         one: Daraasad saameyn ku saabsan
         other: Daraasado saameyn ku saabsan
         see_all: Fiiri dhammaan daraasado saameyn ku saabsan yadeenna
+      imported:
+        one: La soo waaridey - nooca sugitaanka
+        other: La soo waaridey - nooca sugitaanka
+        see_all: Fiiri dhammaan la soo waaridey - nooca sugitaanka yadeenna
       independent_report:
         one: Warbixin madax bannaan
         other: Warbixinno madax bannaan

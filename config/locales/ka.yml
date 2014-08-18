@@ -174,15 +174,15 @@ ka:
         other:
         see_all:
       detailed_guidance:
-        categories:
-        contents:
-        more:
         one:
         other:
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all:
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one:
@@ -219,6 +219,7 @@ ka:
       imported:
         one:
         other:
+        see_all:
       independent_report:
         one:
         other:
