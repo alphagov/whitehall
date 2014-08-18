@@ -1,5 +1,5 @@
 class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseController
-  include Admin::TranslationsControllerConcern
+  include TranslationControllerConcern
 
   private
 

@@ -1,5 +1,5 @@
 class Admin::EditionTranslationsController < Admin::BaseController
-  include Admin::TranslationsControllerConcern
+  include TranslationControllerConcern
 
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?

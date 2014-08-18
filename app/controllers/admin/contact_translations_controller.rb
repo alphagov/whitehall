@@ -1,5 +1,5 @@
 class Admin::ContactTranslationsController < Admin::BaseController
-  include Admin::TranslationsControllerConcern
+  include TranslationControllerConcern
 
   private
 
