@@ -279,7 +279,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "BLAH",
       name: "Building Law and Hygiene", parent_organisations: [parent],
       organisation_type: OrganisationType.executive_agency)
-    expected = %{BLAH is an executive agency of the Department of Building Regulation.}
+    expected = %{BLAH is an executive agency, sponsored by the Department of Building Regulation.}
     assert_display_name_text child, expected
   end
 
@@ -288,7 +288,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     child = create(:organisation, acronym: "B&B",
       name: "Banking & Business", parent_organisations: [parent],
       organisation_type: OrganisationType.executive_agency)
-    expected = %{B&amp;B is an executive agency of the Department of Economy &amp; Trade.}
+    expected = %{B&amp;B is an executive agency, sponsored by the Department of Economy &amp; Trade.}
     assert_display_name_text child, expected
     assert organisation_display_name_and_parental_relationship(child).html_safe?
   end
@@ -308,10 +308,10 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   test 'relationship types are described correctly' do
     assert_relationship_type_is_described_as(:ministerial_department, '{this_org_name} is a ministerial department of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:non_ministerial_department, '{this_org_name} is a non-ministerial department.')
-    assert_relationship_type_is_described_as(:executive_agency, '{this_org_name} is an executive agency of the {parent_org_name}.')
-    assert_relationship_type_is_described_as(:executive_ndpb, '{this_org_name} is an executive non-departmental public body of the {parent_org_name}.')
-    assert_relationship_type_is_described_as(:advisory_ndpb, '{this_org_name} is an advisory non-departmental public body of the {parent_org_name}.')
-    assert_relationship_type_is_described_as(:tribunal_ndpb, '{this_org_name} is a tribunal non-departmental public body of the {parent_org_name}.')
+    assert_relationship_type_is_described_as(:executive_agency, '{this_org_name} is an executive agency, sponsored by the {parent_org_name}.')
+    assert_relationship_type_is_described_as(:executive_ndpb, '{this_org_name} is an executive non-departmental public body, sponsored by the {parent_org_name}.')
+    assert_relationship_type_is_described_as(:advisory_ndpb, '{this_org_name} is an advisory non-departmental public body, sponsored by the {parent_org_name}.')
+    assert_relationship_type_is_described_as(:tribunal_ndpb, '{this_org_name} is a tribunal non-departmental public body, sponsored by the {parent_org_name}.')
     assert_relationship_type_is_described_as(:public_corporation, '{this_org_name} is a public corporation of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:independent_monitoring_body, '{this_org_name} is an independent monitoring body of the {parent_org_name}.')
     assert_relationship_type_is_described_as(:other, '{this_org_name} works with the {parent_org_name}.')
