@@ -760,4 +760,16 @@ class OrganisationTest < ActiveSupport::TestCase
 
     refute org.has_services_and_information_link?
   end
+
+  test '#jobs_url defaults to the default jobs url' do
+    organisation = build(:organisation)
+    assert_equal Organisation::DEFAULT_JOBS_URL, organisation.jobs_url
+  end
+
+  test '#jobs_url can be overridden' do
+    organisation = build(:organisation, custom_jobs_url: 'http://jobs.com/')
+
+    assert organisation.valid?
+    assert_equal 'http://jobs.com/', organisation.jobs_url
+  end
 end
