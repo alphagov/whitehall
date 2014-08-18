@@ -44,6 +44,7 @@ module Whitehall::Authority
     'WorldLocationNewsArticle' => Rules::WorldEditionRules,
     'WorldwidePriority' => Rules::WorldEditionRules,
     'MinisterialRole' => Rules::MinisterialRoleRules,
-    'PolicyGroup' => Rules::PolicyGroupRules
+    'PolicyGroup' => Rules::PolicyGroupRules,
+    'Organisation' => Rules::OrganisationRules
   }
 end
