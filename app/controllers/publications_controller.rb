@@ -23,7 +23,10 @@ class PublicationsController < DocumentsController
   end
 
   def show
-    @related_policies = @document.statistics? ? [] : @document.published_related_policies
+    if @document.statistics?
+      redirect_to public_document_path(@document), status: :moved_permanently
+    end
+    @related_policies = @document.published_related_policies
     set_meta_description(@document.summary)
   end
 
