@@ -187,6 +187,13 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_equal "Beard Ministry is now run by the <a href=\"/government/organisations/superseding-organisation\">Superseding organisation</a>", organisation_govuk_status_description(organisation)
   end
 
+  test '#organisation_govuk_status_description describes an organisation which is closed and devolved to regional government, and superseeded by a devolved administration' do
+    superseeding_administration = create(:devolved_administration, name: 'Scottish Government')
+    organisation = create(:organisation, name: 'Creative Scotland', govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [superseeding_administration])
+
+    assert_equal "Creative Scotland is a body of the <a href=\"/government/organisations/scottish-government\">Scottish Government</a>", organisation_govuk_status_description(organisation)
+  end
+
   test '#organisation_govuk_status_description links to transitioning organisations' do
     organisation = build(:organisation, name: 'Taxidermy Commission', govuk_status: 'transitioning', url: 'http://taxidermy.uk')
 

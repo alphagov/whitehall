@@ -312,6 +312,10 @@ class Organisation < ActiveRecord::Base
     govuk_closed_status == 'devolved'
   end
 
+  def superseded_by_devolved_administration?
+    devolved? && superseding_organisations.map(&:organisation_type_key).include?(:devolved_administration)
+  end
+
   def name_without_prefix
     name.gsub(/^The/, "").strip
   end
