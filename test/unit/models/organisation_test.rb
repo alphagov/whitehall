@@ -207,6 +207,15 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [parent.id], Organisation.parent_organisations.map(&:id)
   end
 
+  test "considers itself as superseded_by_devolved_administration if it's devolved and any of it's superseding organisations are devolved administrations" do
+    devolved_administration = build :devolved_administration
+    other_organisation = build :organisation
+
+    refute build(:closed_organisation, govuk_closed_status: 'devolved', superseding_organisations: [other_organisation]).superseded_by_devolved_administration?
+    refute build(:closed_organisation, govuk_closed_status: 'no_longer_exists', superseding_organisations: [other_organisation, devolved_administration]).superseded_by_devolved_administration?
+    assert build(:closed_organisation, govuk_closed_status: 'devolved', superseding_organisations: [other_organisation, devolved_administration]).superseded_by_devolved_administration?
+  end
+
   test '#ministerial_roles includes all ministerial roles' do
     minister = create(:ministerial_role)
     organisation = create(:organisation, roles:  [minister])

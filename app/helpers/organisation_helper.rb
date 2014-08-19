@@ -63,7 +63,11 @@ module OrganisationHelper
     elsif organisation.left_gov?
       "#{organisation.name} is now independent of the UK government"
     elsif organisation.devolved?
-      "#{organisation.name} is now run by the #{superseding_organisations_text(organisation)}".html_safe
+      if organisation.superseded_by_devolved_administration?
+        "#{organisation.name} is a body of the #{superseding_organisations_text(organisation)}".html_safe
+      else
+        "#{organisation.name} is now run by the #{superseding_organisations_text(organisation)}".html_safe
+      end
     end
   end
 
@@ -98,6 +102,8 @@ module OrganisationHelper
         "#{name} is #{relationship}."
       when 'sub-organisation'
         "#{name} is part of #{parents.to_sentence}."
+      when 'executive non-departmental public body', 'advisory non-departmental public body', 'tribunal non-departmental public body', 'executive agency'
+        "#{name} is #{relationship}, sponsored by #{parents.to_sentence}."
       else
         "#{name} is #{relationship} of #{parents.to_sentence}."
       end
