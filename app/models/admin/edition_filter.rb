@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 module Admin
   class EditionFilter
     EDITION_TYPE_LOOKUP = Whitehall.edition_classes.reduce({}) do |lookup, klass|
@@ -171,18 +173,18 @@ module Admin
       if author && author == @current_user
         "My"
       elsif author
-        "#{author.name}'s"
+        "#{author.name}’s"
       elsif organisation && organisation == @current_user.organisation
-        "My department's"
+        "My department’s"
       elsif organisation
-        "#{organisation.name}'s"
+        "#{organisation.name}’s"
       else
-        "Everyone's"
+        "Everyone’s"
       end
     end
 
     def title_matches
-      " that match '#{options[:title]}'" if options[:title].present?
+      " that match ‘#{options[:title]}’" if options[:title].present?
     end
 
     def edition_state
