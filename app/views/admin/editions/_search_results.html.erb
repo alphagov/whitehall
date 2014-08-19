@@ -9,17 +9,17 @@
     <div class="publishing-stats">
       <% if @filter.show_stats %>
         <div class="stat">
-          <strong><%= number_with_delimiter(@filter.published_count) %></strong> published documents
+          <%= pluralize(number_with_delimiter(@filter.published_count), "published document") %>
         </div>
         <div class="stat">
-          <strong><%= number_with_delimiter(@filter.force_published_count) %></strong> force published
+          <%= number_with_delimiter(@filter.force_published_count) %> force published
         </div>
         <div class="stat">
-        <strong><%= @filter.force_published_percentage %>%</strong> force published
+          <%= @filter.force_published_percentage %>% force published
         </div>
         <% else %>
         <div class="stat">
-          <strong><%= number_with_delimiter(@filter.editions.total_count) %></strong> documents
+          <%= pluralize(number_with_delimiter(@filter.editions.total_count), "document") %>
         </div>
       <% end %>
     </div>
