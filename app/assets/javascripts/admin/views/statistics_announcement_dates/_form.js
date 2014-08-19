@@ -17,6 +17,7 @@
       this.$oneMonthExample = $('.js-example-one-month');
       this.$twoMonthExample = $('.js-example-two-month');
       this.$provisionalLabels = $('.js-label-one-month, .js-label-two-month');
+      this.$confirmedLabel = $('.js-label-exact');
       this.$releaseDateInputs.on('change', this.generateExampleDates);
 
       this.$confirmedCheckbox.on('click', this.togglePrecision);
@@ -28,9 +29,9 @@
 
       if ($(this).is(':checked')) {
         that.fixToExactPrecision();
-        that.disablePrecisionChoice();
+        that.hidePrecisionChoice();
       } else {
-        that.enablePrecisionChoice();
+        that.showPrecisionChoice();
       }
 
       that.generateExampleDates();
@@ -128,16 +129,16 @@
       $('input[name="' + that.model_name +'[precision]"][value="0"]').prop('checked', true);
     },
 
-    disablePrecisionChoice: function() {
+    hidePrecisionChoice: function() {
       var that = StatisticsAnnouncementDateForm;
-      $('input[name="' + that.model_name +'[precision]"]').prop('disabled', true);
       that.$provisionalLabels.hide();
+      that.$confirmedLabel.addClass('block-label-read-only');
     },
 
-    enablePrecisionChoice: function() {
+    showPrecisionChoice: function() {
       var that = StatisticsAnnouncementDateForm;
-      $('input[name="' + that.model_name +'[precision]"]').prop('disabled', false);
       that.$provisionalLabels.show();
+      that.$confirmedLabel.removeClass('block-label-read-only');
     }
   };
 

@@ -91,7 +91,8 @@ module("admin-statistics-announcement-form", {
       <span class="js-example-exact"></span>\
       <span class="js-example-one-month"></span>\
       <span class="js-example-two-month"></span>\
-      <label class="js-label-one-month"></label>'
+      <label class="js-label-one-month"></label>\
+      <label class="js-label-exact"></label>'
     );
 
     GOVUK.StatisticsAnnouncementDateForm.init("form_name");
@@ -144,20 +145,14 @@ test("it updates the date precision to exact when confirming a date", function()
   equal($('input[name="form_name[precision]"]').val(), 0);
 });
 
-test("it locks (and unlocks) the date precision when confirming a date", function() {
-  confirmDate();
-  ok($('input[name="form_name[precision]"]').prop('disabled'));
-
-  unconfirmDate();
-  ok(!$('input[name="form_name[precision]"]').prop('disabled'));
-});
-
 test("it hides (and shows) date precision fields when confirming a date", function() {
   confirmDate();
   equal($('.js-label-one-month').attr('style').trim(), 'display: none;');
+  ok($('.js-label-exact').hasClass('block-label-read-only'));
 
   unconfirmDate();
   equal($('.js-label-one-month').attr('style').trim(), 'display: inline;');
+  ok(!$('.js-label-exact').hasClass('block-label-read-only'));
 });
 
 function confirmDate() {
