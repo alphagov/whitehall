@@ -26,6 +26,14 @@ Given(/^there are some statistics announcements$/) do
   end
 end
 
+Given(/^there is a cancelled statistics announcement, originally due to be published a few days ago$/) do
+  create :cancelled_statistics_announcement,
+         title: "Cancelled statistics announcement",
+         current_release_date: build(:statistics_announcement_date,
+                                     release_date: 5.days.ago,
+                                     precision: StatisticsAnnouncementDate::PRECISION[:exact])
+end
+
 Given(/^there are some statistics announcements for various departments and topics$/) do
   @department = create :ministerial_department
   @topic = create :topic
@@ -76,17 +84,18 @@ When(/^I click on the first statistics announcement$/) do
   within(".filter-results") { click_on @announcement.title }
 end
 
-Then(/^I can see the first page of all the statistics announcements$/) do
+Then(/^I can see the first page of all the statistics announcements, including the cancelled announcement$/) do
   within '.filter-results-summary' do
-    assert page.has_content? "43 release announcements"
+    assert page.has_content? "44 release announcements"
   end
+  assert page.has_content? "Cancelled statistics announcement"
   assert page.has_content? "Womble to Wombat population ratios"
   assert page.has_content? "2055 beard lengths"
   assert page.has_content? "Wombat population in Wimbledon Common 2063"
   assert page.has_content? "Extra release announcement 1"
   assert page.has_content? "Extra release announcement 37"
   assert page.has_no_content? "Extra release announcement 38"
-  assert_equal 40, page.all(".document-list .document-row").length
+  assert_equal 41, page.all(".document-list .document-row").length
 end
 
 Then(/^I can see the second page of all the statistics announcements$/) do

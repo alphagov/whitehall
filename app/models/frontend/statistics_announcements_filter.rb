@@ -78,7 +78,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def results
-    @results ||= provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
+    @results ||= get_results
   end
 
   def result_count
@@ -102,6 +102,20 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
 private
+  def get_results
+    results = provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
+    if page == 1 && from_date.nil?
+      cancelled_results = provider.search(valid_filter_params.merge(page: page,
+                                                                    per_page: RESULTS_PER_PAGE,
+                                                                    statistics_announcement_state: 'cancelled',
+                                                                    from_date: 1.month.ago.to_date,
+                                                                    to_date: Time.zone.now.to_date))
+      CollectionPage.new(cancelled_results.concat(results), page: 1, per_page: RESULTS_PER_PAGE, total: results.total + cancelled_results.total)
+    else
+      results
+    end
+  end
+
   def provider
     Frontend::StatisticsAnnouncementProvider
   end

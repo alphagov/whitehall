@@ -1,3 +1,4 @@
+require 'test_helper'
 
 class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < ActiveSupport::TestCase
   def subject
@@ -61,6 +62,13 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     announcement_3 = create :statistics_announcement, title: "Fishslice", summary: "Fishslice"
 
     assert_equal ["Wombats", "Womble's troubles"], matched_titles(keywords: "wombat")
+  end
+
+  test "#advanced_search with statistics_announcement_state returns release announcements before the given date" do
+    announcement_1 = create :statistics_announcement, title: "Unwanted release announcement"
+    announcement_2 = create :cancelled_statistics_announcement, title: "Wanted release announcement"
+
+    assert_equal ["Wanted release announcement"], matched_titles(statistics_announcement_state: 'cancelled')
   end
 
   test "#advanced_search with release_timestamp[:from] returns release announcements after the given date" do
