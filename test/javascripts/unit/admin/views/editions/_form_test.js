@@ -18,12 +18,12 @@ module("admin-edition-form: ", {
         '</fieldset>' +
         '<fieldset class="first-published-date well">' +
           '<p class="required">This document <span>*</span></p>' +
-          '<label class="radio" for="edition_document_new_true">' +
-            '<input id="edition_document_new_true" name="edition[document_new]" type="radio" value="true">' +
+          '<label class="radio" for="edition_previously_published_false">' +
+            '<input id="edition_previously_published_false" name="edition[previously_published]" type="radio" value="true">' +
             'has never been published before. It is new.' +
         '</label>' +
-          '<label class="radio" for="edition_document_new_false">' +
-            '<input id="edition_document_new_false" name="edition[document_new]" type="radio" value="false">' +
+          '<label class="radio" for="edition_previously_published_true">' +
+            '<input id="edition_previously_published_true" name="edition[previously_published]" type="radio" value="false">' +
             'has previously been published on another website.' +
         '</label>' +
           '<div class="js-show-first-published" style="display: none;">' +
@@ -133,12 +133,12 @@ test("first_published time fields default to 00 if not set", function() {
   equal($('#edition_first_published_at_3i').val(), '', 'empty day field not changed');
 });
 
-test("document_new radio buttons toggle visibility of first_published date selector", function() {
+test("previously_published radio buttons toggle visibility of first_published date selector", function() {
   ok($('.js-show-first-published').is(':hidden'), 'date selector hidden by default');
-  $('#edition_document_new_false').click();
+  $('#edition_previously_published_true').click();
   ok($('.js-show-first-published').is(':visible'), 'date selector shown when "previously published" selected');
 
-  $('#edition_document_new_true').click();
+  $('#edition_previously_published_false').click();
   ok($('.js-show-first-published').is(':hidden'), 'date selector hidden when "document is new" selected');
 });
 

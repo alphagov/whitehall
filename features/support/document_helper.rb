@@ -44,10 +44,10 @@ module DocumentHelper
         select options[:primary_mainstream_category].title, from: "Primary detailed guidance category"
       end
 
-      case options[:document_new]
-      when true
-        choose 'has never been published before. It is new.'
+      case options[:previously_published]
       when false
+        choose 'has never been published before. It is new.'
+      when true
         choose 'has previously been published on another website.'
       end
 
@@ -69,7 +69,7 @@ module DocumentHelper
   end
 
   def begin_drafting_news_article(options)
-    begin_drafting_document(options.merge(type: "news_article", document_new: true))
+    begin_drafting_document(options.merge(type: "news_article", previously_published: false))
     fill_in_news_article_fields(options.slice(:first_published, :announcement_type))
   end
 
@@ -80,7 +80,7 @@ module DocumentHelper
   end
 
   def begin_drafting_world_location_news_article(options)
-    begin_drafting_document(options.merge(type: "world_location_news_article", document_new: true))
+    begin_drafting_document(options.merge(type: "world_location_news_article", previously_published: false))
   end
 
   def begin_drafting_publication(title, options = {})
@@ -91,7 +91,7 @@ module DocumentHelper
   end
 
   def begin_drafting_statistical_data_set(options)
-    begin_drafting_document options.merge(type: 'statistical_data_set', document_new: true)
+    begin_drafting_document options.merge(type: 'statistical_data_set', previously_published: false)
   end
 
   def begin_drafting_speech(options)
@@ -100,7 +100,7 @@ module DocumentHelper
     role = create(:ministerial_role, name: "Attorney General", organisations: [organisation])
     role_appointment = create(:role_appointment, person: person, role: role, started_at: Date.parse('2010-01-01'))
     speech_type = SpeechType::Transcript
-    begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content", document_new: true)
+    begin_drafting_document options.merge(type: 'speech', summary: "Some summary of the content", previously_published: false)
     select speech_type.singular_name, from: "Speech type"
     select "Colonel Mustard, Attorney General", from: "Speaker"
     select_date 1.day.ago.to_s, from: "Delivered on"
@@ -108,7 +108,7 @@ module DocumentHelper
   end
 
   def begin_drafting_document_collection(options)
-    begin_drafting_document options.merge(type: 'document_collection', document_new: true)
+    begin_drafting_document options.merge(type: 'document_collection', previously_published: false)
   end
 
   def pdf_attachment

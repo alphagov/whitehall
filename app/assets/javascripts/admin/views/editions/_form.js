@@ -106,7 +106,7 @@
         }
       });
       var $firstPublished = $('.first-published-date .js-show-first-published');
-      var $previouslyPublished_button = $('#edition_document_new_false');
+      var $previouslyPublished_button = $('#edition_previously_published_true');
       var $radioButtons = $('.first-published-date input[type=radio]');
 
       function showOrHideDateSelector() {

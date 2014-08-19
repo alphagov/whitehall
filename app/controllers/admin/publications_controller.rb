@@ -21,7 +21,7 @@ class Admin::PublicationsController < Admin::EditionsController
     @edition.publication_type = statistics_announcement.publication_type
     @edition.topics = [statistics_announcement.topic]
     @edition.scheduled_publication = statistics_announcement.release_date
-    @edition.document_new = true
+    @edition.previously_published = "false"
   end
 
   def statistics_announcement

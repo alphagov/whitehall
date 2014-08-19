@@ -42,7 +42,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
           body: "collection-body",
           lead_organisation_ids: [@organisation.id],
           topic_ids: [@topic.id],
-          document_new: true
+          previously_published: false
         }
 
     assert_equal 1, DocumentCollection.count

@@ -844,26 +844,36 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal "000456", edition.associated_needs.last.id
   end
 
-  test 'should provide a default value for document_new' do
-    edition = build(:edition, document_new: nil)
-    assert_nil edition.document_new
-
-    edition.save
-    assert edition.document_new
-
-    edition.first_published_at = Time.zone.now
-    refute edition.document_new
-
-    edition.state = :imported
-    refute edition.document_new
+  test 'previously_published returns nil for new edition' do
+    edition = build(:edition, previously_published: nil)
+    assert_nil edition.previously_published
   end
 
-  test 'should validate presence of document_new and first_published_at' do
-    edition = build(:edition, document_new: 'unset')
+  test 'previously_published returns true for edition with first_published_at timestamp' do
+    edition = create(:edition)
+    refute edition.previously_published
+
+    edition.first_published_at = Time.zone.now
+    assert edition.previously_published
+  end
+
+  test 'previously_published always returns true for an imported edition' do
+    edition = create(:edition, state: :imported)
+    assert edition.previously_published
+  end
+
+  test 'previously_published validation depends on trigger' do
+    edition = build(:edition, previously_published: nil)
+    assert edition.valid?
+
+    edition.trigger_previously_published_validations
     refute edition.valid?
     assert_equal "You must specify whether the document has been published before", edition.errors.full_messages.first
+  end
 
-    edition.document_new = 'false'
+  test 'first_published_at required when previously_published is true' do
+    edition = build(:edition, previously_published: 'true')
+    edition.trigger_previously_published_validations
     refute edition.valid?
     assert_equal "First published at can't be blank", edition.errors.full_messages.first
 

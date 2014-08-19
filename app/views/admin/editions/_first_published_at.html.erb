@@ -1,13 +1,13 @@
 <% if edition.published_major_version.nil? %>
   <fieldset class="first-published-date well <% if edition.has_first_published_error %>alert-error form-errors field_with_errors<% end %>">
   <p class="required">This document <span>*</span></p>
-  <%= form.label :document_new_true, class: 'radio' do %>
-    <%= form.radio_button(:document_new, true, disabled: edition.imported?) %>
+  <%= form.label :previously_published_false, class: 'radio' do %>
+    <%= form.radio_button(:previously_published, false, disabled: edition.imported?) %>
     has never been published before. It is new.
   <% end %>
 
-  <%= form.label :document_new_false, class: 'radio' do %>
-    <%= form.radio_button(:document_new, false, disabled: edition.imported?) %>
+  <%= form.label :previously_published_true, class: 'radio' do %>
+    <%= form.radio_button(:previously_published, true, disabled: edition.imported?) %>
     has previously been published on another website.
   <% end %>
 

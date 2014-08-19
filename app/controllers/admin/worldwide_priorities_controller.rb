@@ -7,6 +7,7 @@ class Admin::WorldwidePrioritiesController < Admin::EditionsController
     WorldwidePriority
   end
 
-  def unset_document_new
+  def document_can_be_previously_published
+    false
   end
 end

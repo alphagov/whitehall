@@ -38,7 +38,8 @@ class Admin::ConsultationsController < Admin::EditionsController
     end
   end
 
-  def unset_document_new
+  def document_can_be_previously_published
+    false
   end
 
 end

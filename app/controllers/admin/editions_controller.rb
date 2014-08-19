@@ -14,7 +14,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :redirect_to_controller_for_type, only: [:show]
   before_filter :deduplicate_specialist_sectors, only: [:create, :update]
-  before_filter :unset_document_new, only: [:new, :create]
+  before_filter :trigger_previously_published_validations, only: [:create], if: :document_can_be_previously_published
 
   def enforce_permissions!
     case action_name
@@ -167,7 +167,7 @@ class Admin::EditionsController < Admin::BaseController
     [:title, :body, :change_note, :summary, :first_published_at,
       :publication_type_id, :scheduled_publication, :lock_version,
       :access_limited, :alternative_format_provider_id, :opening_at,
-      :closing_at, :external, :external_url, :minor_change, :document_new,
+      :closing_at, :external, :external_url, :minor_change, :previously_published,
       :roll_call_introduction, :operational_field_id, :news_article_type_id,
       :relevant_to_local_government, :role_appointment_id, :speech_type_id,
       :delivered_on, :location, :person_override, :locale,
@@ -379,7 +379,11 @@ class Admin::EditionsController < Admin::BaseController
     params[:edition][:need_ids] = params[:edition][:need_ids].split(",").map(&:strip).reject(&:blank?)
   end
 
-  def unset_document_new
-    @edition.document_new ||= 'unset'
+  def trigger_previously_published_validations
+    @edition.trigger_previously_published_validations
+  end
+
+  def document_can_be_previously_published
+    true
   end
 end
