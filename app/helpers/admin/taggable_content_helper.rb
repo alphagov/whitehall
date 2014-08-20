@@ -15,4 +15,16 @@ module Admin::TaggableContentHelper
     update_timestamps = Topic.pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-topics-#{update_timestamps}"
   end
+
+  # Cache fragments of a view if condition is true.
+  # Note: taken from Rails 4
+  def cache_if(condition, name = {}, options = nil, &block)
+    if condition
+      cache(name, options, &block)
+    else
+      yield
+    end
+
+    nil
+  end
 end
