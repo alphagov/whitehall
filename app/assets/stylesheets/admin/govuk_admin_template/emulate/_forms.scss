@@ -91,6 +91,20 @@ $form-large-font-size: 14px;
   }
 }
 
+.block-label-read-only {
+  cursor: inherit;
+  padding-left: 20px;
+
+  input {
+    visibility: hidden;
+  }
+
+  // Added specificity needed
+  .form-large & {
+    cursor: inherit;
+  }
+}
+
 .inline-block-labels {
   @extend %contain-floats;
 

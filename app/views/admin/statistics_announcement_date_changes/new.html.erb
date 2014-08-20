@@ -13,26 +13,7 @@
 
   <%= form_for @statistics_announcement_date_change, url: admin_statistics_announcement_changes_path(@statistics_announcement), html: {class: 'form-large'} do |form| %>
     <%= form.errors %>
-
-    <div class="form-group">
-      <%= form.label :release_date, "Release date", required: true %>
-      <%= form.datetime_select :release_date, {
-          start_year: Date.today.year,
-          end_year: Date.today.year + 5,
-          minute_step: 15,
-        }, { class: 'date form-control' } %>
-      <%= form.check_box :confirmed, label_text: 'Confirmed date?' %>
-    </div>
-    <div class="form-group">
-      <div class="bold">Display date</div>
-      <% StatisticsAnnouncementDate::PRECISION.each do |key, value| %>
-        <label class="block-label">
-          <%= form.radio_button(:precision, value) %>
-          <span class="label-title"><%= key.to_s.humanize %></span>
-          <span class="muted js-example-<%= key.to_s.sub(/_/, '-') %>"></span>
-        </label>
-      <% end %>
-    </div>
+    <%= render '/admin/statistics_announcements/release_date', form: form %>
     <div class="form-group">
       <%= form.text_area :change_note, rows: 5, class: 'form-control', label_text: 'Public change note' %>
     </div>
