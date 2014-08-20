@@ -1,3 +1,4 @@
+#encoding: UTF-8
 require 'test_helper'
 
 class Admin::EditionFilterTest < ActiveSupport::TestCase
@@ -168,46 +169,46 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
 
   test "should generate page title when there are no filter options" do
     filter = Admin::EditionFilter.new(Edition, build(:user))
-    assert_equal "Everyone's documents", filter.page_title
+    assert_equal "Everyone’s documents", filter.page_title
   end
 
   test "should generate page title when we're displaying active documents" do
     filter = Admin::EditionFilter.new(Edition, build(:user), state: 'active')
-    assert_equal "Everyone's documents", filter.page_title
+    assert_equal "Everyone’s documents", filter.page_title
   end
 
   test "should generate page title when filtering by document state" do
     filter = Admin::EditionFilter.new(Edition, build(:user), state: 'draft')
-    assert_equal "Everyone's draft documents", filter.page_title
+    assert_equal "Everyone’s draft documents", filter.page_title
   end
 
   test "should generate page title when filtering by document type" do
     filter = Admin::EditionFilter.new(Edition, build(:user), type: 'news_article')
-    assert_equal "Everyone's news articles", filter.page_title
+    assert_equal "Everyone’s news articles", filter.page_title
   end
 
   test "should generate page title when filtering by document sub-type" do
     filter = Admin::EditionFilter.new(Edition, build(:user), type: 'news_article_1')
-    assert_equal "Everyone's news stories", filter.page_title
+    assert_equal "Everyone’s news stories", filter.page_title
   end
 
   test "should generate page title when filtering by any organisation" do
     organisation = create(:organisation, name: "Cabinet Office")
     filter = Admin::EditionFilter.new(Edition, build(:user), organisation: organisation.to_param)
-    assert_equal "Cabinet Office's documents", filter.page_title
+    assert_equal "Cabinet Office’s documents", filter.page_title
   end
 
   test "should generate page title when filtering by my organisation" do
     organisation = create(:organisation)
     user = create(:user, organisation: organisation)
     filter = Admin::EditionFilter.new(Edition, user, organisation: organisation.to_param)
-    assert_equal "My department's documents", filter.page_title
+    assert_equal "My department’s documents", filter.page_title
   end
 
   test "should generate page title when filtering by any author" do
     user = create(:user, name: 'John Doe')
     filter = Admin::EditionFilter.new(Edition, build(:user), author: user.to_param)
-    assert_equal "John Doe's documents", filter.page_title
+    assert_equal "John Doe’s documents", filter.page_title
   end
 
   test "should generate page title when filtering by my documents" do
@@ -219,33 +220,33 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "should generate page title when filtering by document state, document type and organisation" do
     organisation = create(:organisation, name: 'Cabinet Office')
     filter = Admin::EditionFilter.new(Edition, build(:user), state: 'published', type: 'consultation', organisation: organisation.to_param)
-    assert_equal "Cabinet Office's published consultations", filter.page_title
+    assert_equal "Cabinet Office’s published consultations", filter.page_title
   end
 
   test "should generate page title when filtering by document state, document type and author" do
     user = create(:user, name: 'John Doe')
     filter = Admin::EditionFilter.new(Edition, build(:user), state: 'rejected', type: 'speech', author: user.to_param)
-    assert_equal "John Doe's rejected speeches", filter.page_title
+    assert_equal "John Doe’s rejected speeches", filter.page_title
   end
 
   test "should generate page title when filtering by title" do
     filter = Admin::EditionFilter.new(Edition, build(:user), title: 'test')
-    assert_equal "Everyone's documents that match 'test'", filter.page_title
+    assert_equal "Everyone’s documents that match ‘test’", filter.page_title
   end
 
   test "should generate page title when filtering by world location" do
     location = create(:world_location, name: 'Spain')
     filter = Admin::EditionFilter.new(Edition, build(:user), world_location: location.to_param)
-    assert_equal "Everyone's documents about Spain", filter.page_title
+    assert_equal "Everyone’s documents about Spain", filter.page_title
   end
 
   test "should generate page title for from date" do
     filter = Admin::EditionFilter.new(Edition, build(:user), from_date: '09/11/2011')
-    assert_equal "Everyone's documents after 09/11/2011", filter.page_title
+    assert_equal "Everyone’s documents after 09/11/2011", filter.page_title
   end
 
   test "should generate page title for to date" do
     filter = Admin::EditionFilter.new(Edition, build(:user), to_date: '09/11/2011')
-    assert_equal "Everyone's documents before 09/11/2011", filter.page_title
+    assert_equal "Everyone’s documents before 09/11/2011", filter.page_title
   end
 end

@@ -1,3 +1,4 @@
+#encoding: UTF-8
 require 'test_helper'
 
 class Admin::EditionsControllerTest < ActionController::TestCase
@@ -48,7 +49,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     response_html = Nokogiri::HTML::DocumentFragment.parse(response.body)
 
     assert_equal "h1", response_html.children[0].node_name()
-    assert_match "Everyone's documents", response_html.children[0].text()
+    assert_match "Everyone’s documents", response_html.children[0].text()
   end
 
   test "diffing against a previous version" do

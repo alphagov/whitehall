@@ -1,26 +1,32 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Title</th>
-      <th>Published</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% featurable_editions.each do |edition| %>
-      <% edition = LocalisedModel.new(edition, feature_list.locale) %>
-      <% next if feature_list.features.current.detect {|f| f.document == edition.document } %>
-      <%= content_tag_for :tr, edition do %>
-        <td class="type"><%= edition.type.titleize %></td>
-        <td><%= link_to edition.title, admin_edition_path(edition) %></td>
-        <td><%=localize edition.major_change_published_at.to_date %></td>
-        <td>
-          <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: edition), class: 'btn') %>
-        </td>
+<% if featurable_editions.present? %>
+  <table class="table table-striped">
+    <thead>
+      <tr class="table-header">
+        <th>Type</th>
+        <th>Title</th>
+        <th>Published</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% featurable_editions.each do |edition| %>
+        <% edition = LocalisedModel.new(edition, feature_list.locale) %>
+        <% next if feature_list.features.current.detect {|f| f.document == edition.document } %>
+        <%= content_tag_for :tr, edition do %>
+          <td class="type"><%= edition.type.titleize %></td>
+          <td><%= link_to edition.title, admin_edition_path(edition) %></td>
+          <td><%=localize edition.major_change_published_at.to_date %></td>
+          <td>
+            <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: edition), class: 'btn') %>
+          </td>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate featurable_editions, theme: 'twitter-bootstrap' %>
+    </tbody>
+  </table>
+  <%= paginate featurable_editions, theme: 'twitter-bootstrap' %>
+<% else %>
+  <div class="no-content no-content-bordered">
+    No documents found
+  </div>
+<% end %>

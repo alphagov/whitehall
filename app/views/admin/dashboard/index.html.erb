@@ -35,7 +35,7 @@
   <% if current_user.organisation %>
     <div class="span6 force-published-documents">
       <h2>
-        <%= organisation_acronym_or_name(current_user.organisation) %>'s
+        <%= organisation_acronym_or_name(current_user.organisation) %>’s
         force-published documents
       </h2>
       <%= render partial: 'document_table', locals: { documents: @force_published_documents, title: 'force published documents' } %>

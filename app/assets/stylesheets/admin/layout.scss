@@ -15,13 +15,6 @@ body {
   padding-bottom: $gutter+$gutter-one-third;
 }
 
-.row-fluid .span2-responsive {
-  width: 100%;
-  @include media(desktop) {
-    width: 14%;
-  }
-}
-
 #global-nav {
   @extend %contain-floats;
 

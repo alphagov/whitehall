@@ -4,7 +4,7 @@
   raise "filter action required" unless defined?(filter_action)
 %>
 <form class="filter-options js-editions-filter-form" method="get" action="<%= filter_action %>">
-  <h2>Filter list by:</h2>
+  <h2 class="remove-top-margin">Filter by</h2>
 
   <% if filter_by.include?(:title) %>
     <div class="filter-grouping" id="title_filter">
@@ -62,16 +62,16 @@
       <h3>Date (last updated)</h3>
       <%= label_tag :from_date, "From" %>
       <div class="btn-enter-wrapper">
-        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date', placeholder: "e.g. 23/07/2013" %>
+        <%= text_field_tag :from_date, @filter.options[:from_date], class: 'date', placeholder: "eg 23/07/2013" %>
         <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
       </div>
       <%= label_tag :to_date, "To" %>
       <div class="btn-enter-wrapper">
-        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date', placeholder: "e.g. 23/08/2013" %>
+        <%= text_field_tag :to_date, @filter.options[:to_date], class: 'date', placeholder: "eg 23/08/2013" %>
         <%= submit_tag "enter", class: "btn-enter js-btn-enter js-hidden" %>
       </div>
     </div>
   <% end %>
-  <%= submit_tag "Search" %>
+  <%= submit_tag "Search", class: 'btn add-bottom-margin' %>
   <p><a href="?state=active">Reset all fields</a></p>
 </form>
