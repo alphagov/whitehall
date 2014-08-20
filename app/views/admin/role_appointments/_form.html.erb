@@ -2,7 +2,7 @@
 
 <%= form.label :person_id, 'Person' %>
 <%= form.select :person_id,
-                options_from_collection_for_select(Person.all, 'id', 'name', form.object.person_id),
+                options_from_collection_for_select(Person.all, 'id', 'name_and_disambiguator', form.object.person_id),
                 {include_blank: true},
                 class: 'chzn-select',
                 data: { placeholder: "Choose person..." },

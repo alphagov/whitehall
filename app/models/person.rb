@@ -105,6 +105,13 @@ class Person < ActiveRecord::Base
     roles.any?(&:supports_historical_accounts?)
   end
 
+  def name_and_disambiguator
+    role = roles.try(:first).try(:name)
+    organisation = organisations.try(:first).try(:name)
+
+    [name, role, organisation].compact.join(' - ')
+  end
+
   private
 
   def name_as_words(*elements)
