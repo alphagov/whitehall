@@ -2,12 +2,15 @@
   background-color: #f5f5f5;
   margin-top: 0;
   padding: $gutter-one-sixth $gutter-one-third;
+
   h2 {
     font-size: 19px;
   }
+
   .filter-grouping {
     border-top: 1px solid #ddd;
     padding: $gutter-one-sixth 0 $gutter-one-third 0;
+
     label,
     h3 {
       font-size: 14px;
@@ -20,10 +23,12 @@
       width: 95%;
       padding: 6px;
     }
+
     // to align btn-enter with input
     .btn-enter-wrapper {
       position: relative;
     }
+
     input.btn-enter {
       position: absolute;
       top: 4px;
