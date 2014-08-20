@@ -1,21 +1,14 @@
-section.govspeak_help {
-  font-size: 0.7;
-  background: #fff;
-  overflow: auto;
-  width: 97.4%;
-
-  .g1 pre {
-    background: #eee;
-    padding: 0.5em 1em;
-  }
-
-  a {
-    cursor: pointer;
-  }
-
+.govspeak_help {
   .collapse {
     height: auto;
   }
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 27px;
+  }
+
   .js-enabled & .collapse {
     height: 0;
   }

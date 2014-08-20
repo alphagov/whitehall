@@ -1,7 +1,7 @@
 module PolicyGroupHelper
   def upload_pdf_to_policy_group(group)
     visit edit_admin_policy_group_path(group)
-    click_link 'Attachments'
+    first(:link, 'Attachments').click
     upload_new_attachment(pdf_attachment, 'A PDF attachment')
   end
 

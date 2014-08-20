@@ -5,7 +5,7 @@ When(/^I make unsaved changes to the news article$/) do
 end
 
 When(/^I attempt to visit the attachments page$/) do
-  click_on 'Attachments'
+  first(:link, 'Attachments').click
 end
 
 Then(/^I should stay on the edit screen for the news article$/) do
@@ -17,7 +17,7 @@ When(/^I save my changes$/) do
 end
 
 Then(/^I can visit the attachments page$/) do
-  click_on 'Attachments'
+  first(:link, 'Attachments').click
   assert_path admin_edition_attachments_path(@news_article)
 end
 

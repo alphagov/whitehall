@@ -32,11 +32,11 @@
         <div class="environment-message">
           <%= GovukAdminTemplate.environment_label %>
         </div>
-        <ul class="list-inline pull-left add-top-margin">
+        <ul class="inline pull-left add-top-margin">
           <li><%= link_to "Dashboard", admin_root_path %></li>
           <li><%= link_to "View website", Whitehall.public_root, class: "open_website" %></li>
         </ul>
-        <ul class="list-inline pull-right add-top-margin">
+        <ul class="inline pull-right add-top-margin">
           <% if user_signed_in? %>
             <li>
               <%= link_to current_user.name, admin_user_path(current_user), id: "#user_settings" %>

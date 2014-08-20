@@ -32,7 +32,7 @@
 
 <h3>Formatting</h3>
 <p>For details, see <a href="https://alphagov.github.io/inside-government-admin-guide/creating-documents/markdown.html">Using govspeak on GOV.UK</a></p>
-<h3><a data-toggle="collapse" data-target="#govspeak-headings">Headings</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-headings">Headings</a></h3>
 <div class="collapse" id="govspeak-headings">
   <pre>## Top level heading - H2
 ### Second level heading - H3
@@ -41,7 +41,7 @@
 Don't use a single # - this is H1 and is for the title only</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-links">Links</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-links">Links</a></h3>
 <div class="collapse" id="govspeak-links">
   <p>
     All documents created in the publisher - policies, publications, news, speeches, detailed guides etc -
@@ -75,7 +75,7 @@ Stocks of some fish species are very low. For example, stocks of European Eel ha
   <pre>[Sample link text](https://www.gov.uk/government/policies/managing-freshwater-fisheries#eel-decline)</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-bullets">Bullets</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-bullets">Bullets</a></h3>
 <div class="collapse" id="govspeak-bullets">
   <pre>* item 1
 * item 2
@@ -84,7 +84,7 @@ Stocks of some fish species are very low. For example, stocks of European Eel ha
 (to indent, add 2 spaces)</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-numbered-list">Numbered list</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-numbered-list">Numbered list</a></h3>
 <div class="collapse" id="govspeak-numbered-list">
   <pre>1. item 1
 2. item 2
@@ -94,7 +94,7 @@ Stocks of some fish species are very low. For example, stocks of European Eel ha
 (to indent, add 2 spaces)</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-images">Images</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-images">Images</a></h3>
 <div class="collapse" id="govspeak-images">
   <p>First upload your image(s), then:</p>
   <pre>!!<em>n</em></pre>
@@ -102,7 +102,7 @@ Stocks of some fish species are very low. For example, stocks of European Eel ha
   <pre>!!1</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-video-links">Video links</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-video-links">Video links</a></h3>
 <div class="collapse" id="govspeak-video-links">
   <p>Use the title of the video and the URL of the YouTube page that shows the video for watching. Don’t use the embed code or the 'Share this video' URL:</p>
   <pre>[title of video](youtube-video-url)</pre>
@@ -112,7 +112,7 @@ Stocks of some fish species are very low. For example, stocks of European Eel ha
 </div>
 
 <% unless hide_inline_attachments_help %>
-  <h3><a data-toggle="collapse" data-target="#govspeak-attachments">Attachments</a></h3>
+  <h3><a data-toggle="collapse" href="#govspeak-attachments">Attachments</a></h3>
   <div class="collapse" id="govspeak-attachments">
     <% if show_attachments_tab_help %>
       <p>Upload your attachment(s) on the 'Attachments' tab (you must save a draft edition to make the tab visible).</p>
@@ -130,7 +130,7 @@ Stocks of some fish species are very low. For example, stocks of European Eel ha
   </div>
 <% end %>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-tables">Tables</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-tables">Tables</a></h3>
 <div class="collapse" id="govspeak-tables">
   <p>Tables can be inserted by splitting your content into cells:</p>
   <pre>| name | colour |
@@ -145,7 +145,7 @@ apple | green
 banana | yellow</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-charts">Charts</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-charts">Charts</a></h3>
 <div class="collapse" id="govspeak-charts">
   <p>Numeric data can be shown as a simple bar chart. Grouped bars are used for multiple columns.</p>
   <pre>Department   | Short Speeches | Long Speeches
@@ -157,9 +157,9 @@ Department 3 | 18             | 2
   <p>Stacked bars can be created. The final column is used to display the total.</p>
   <pre>Department | Short Speeches | Long Speeches | Total
 -|-|-|-
-Dept 1     | 6              | 6             | 12 
-Dept 2     | 6              | 8             | 14 
-Dept 3     | 18             | 2             | 20 
+Dept 1     | 6              | 6             | 12
+Dept 2     | 6              | 8             | 14
+Dept 3     | 18             | 2             | 20
 {barchart stacked}</pre>
   <p>Large graphs can be displayed compactly to save space.</p>
   <pre>Department   | Short Speeches | Long Speeches
@@ -175,26 +175,26 @@ Department 6 | 11             | 1
   <pre>Department   | Change in Number of Buildings
 -|-
 Department 1 | -12
-Department 1 | 3  
-Department 1 | -4 
-Department 1 | 2  
+Department 1 | 3
+Department 1 | -4
+Department 1 | 2
 {barchart negative}</pre>
   <p>All effects can be combined.</p>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-cta">Call to action</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-cta">Call to action</a></h3>
 <div class="collapse" id="govspeak-cta">
   <pre>$CTA
 [Use the trade tariff tool to find commodity codes.](https://www.gov.uk/trade-tariff)
 $CTA</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-acronyms">Acronyms</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-acronyms">Acronyms</a></h3>
 <div class="collapse" id="govspeak-acronyms">
   <pre>*[DWP]: Department for Work and Pensions</pre>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-blockquotes">Blockquotes</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-blockquotes">Blockquotes</a></h3>
 <div class="collapse" id="govspeak-blockquotes">
   <pre>As the Prime Minister said:
 
@@ -204,7 +204,7 @@ $CTA</pre>
   <p>The > in the line space is important. If you leave it out you will get 2 separate quotes, not 1 running quote.</p>
 </div>
 
-<h3><a data-toggle="collapse" data-target="#govspeak-addresses">Addresses</a></h3>
+<h3><a data-toggle="collapse" href="#govspeak-addresses">Addresses</a></h3>
 <div class="collapse" id="govspeak-addresses">
   <pre>$A
 Address
@@ -220,7 +220,7 @@ $A</pre>
 </div>
 
 <% if show_footnote_help %>
-  <h3><a data-toggle="collapse" data-target="#govspeak-footnotes">Footnotes</a></h3>
+  <h3><a data-toggle="collapse" href="#govspeak-footnotes">Footnotes</a></h3>
   <div class="collapse" id="govspeak-footnotes">
     <pre>Footnotes can be added[^1].
 
