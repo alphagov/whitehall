@@ -1,7 +1,7 @@
 class Admin::ContactTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
-  private
+private
 
   def create_redirect_path
     edit_admin_organisation_contact_translation_path(@contactable, @contact, id: translation_locale)

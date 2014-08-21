@@ -177,6 +177,7 @@ hu:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Részletes útmutató
         other: Részletes útmutató
         see_all: ' részletes útmutató - mindegyik megtekintése'

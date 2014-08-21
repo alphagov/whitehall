@@ -50,6 +50,7 @@ el:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Οδηγίες
         other: Οδηγίες
         see_all: Δείτε τα Οδηγίες

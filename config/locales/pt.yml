@@ -50,6 +50,7 @@ pt:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Guia detalhado
         other: Guias detalhados
         see_all: Veja todos os nossos guias detalhados

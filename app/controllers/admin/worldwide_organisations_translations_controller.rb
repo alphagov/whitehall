@@ -1,7 +1,7 @@
 class Admin::WorldwideOrganisationsTranslationsController < Admin::BaseController
   include TranslationControllerConcern
 
-  private
+private
 
   def create_redirect_path
     edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, id: translation_locale)

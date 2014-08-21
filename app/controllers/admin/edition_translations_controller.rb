@@ -6,7 +6,7 @@ class Admin::EditionTranslationsController < Admin::BaseController
     super
   end
 
-  private
+private
 
   def create_redirect_path
     edit_admin_edition_translation_path(@edition, id: translation_locale)

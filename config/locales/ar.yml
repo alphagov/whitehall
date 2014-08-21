@@ -87,6 +87,7 @@ ar:
         see_all:
       detailed_guidance:
         zero:
+        back_to_contents:
         one: توجيه مفصل
         two:
         few:

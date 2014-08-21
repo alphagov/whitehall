@@ -50,6 +50,7 @@ es-419:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Orientación detallada
         other: Orientación detallada
         see_all: Vea todos nuestros orientación detallada
@@ -598,7 +599,7 @@ es-419:
     find_out_more: Vea el perfil completo y todos los datos de contacto
     headings:
       about_us: Sobre nosotros
-      contact_us: Comuníquese con nostros
+      contact_us: Comuníquese con nosotros
       corporate_information: Información institucional
       follow_us: Síganos en
       our_people: Nuestra gente

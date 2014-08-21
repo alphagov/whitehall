@@ -175,6 +175,7 @@ ko:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: 상세 안내
         other: 상세 안내
         see_all: 상세 안내 모두 둘러보기
