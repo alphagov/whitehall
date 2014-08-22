@@ -75,6 +75,10 @@ class DetailedGuide < Edition
     'detailed-guidance'
   end
 
+  def translatable?
+    true
+  end
+
   private
 
   # Returns the published edition of any detailed guide documents that this edition is related to.

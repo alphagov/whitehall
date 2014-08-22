@@ -50,9 +50,17 @@ ta:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: விளக்கமான வழிகாட்டல்
         other: விளக்கமான வழிகாட்டல்
         see_all: எங்களது அனைத்து விளக்கமான வழிகாட்டல் பார்க்கவும்
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
+        see_more_like_this:
       document_collection:
         one: தொடர்
         other:

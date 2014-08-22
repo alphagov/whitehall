@@ -1,53 +1,38 @@
 class Admin::WorldLocationTranslationsController < Admin::BaseController
-  before_filter :load_world_location
-  before_filter :load_translated_and_english_world_locations, except: [:index]
-  helper_method :translation_locale
+  include TranslationControllerConcern
 
-  def index
+private
+
+  def create_redirect_path
+    edit_admin_world_location_translation_path(@world_location, id: translation_locale)
   end
 
-  def create
-    redirect_to edit_admin_world_location_translation_path(@world_location, id: translation_locale)
+  def destroy_redirect_path
+    admin_world_location_translations_path(@translated_world_location)
   end
 
-  def edit
+  def update_redirect_path
+    admin_world_location_translations_path(@translated_world_location)
   end
 
-  def update
-    if @translated_world_location.update_attributes(world_location_params)
-      redirect_to admin_world_location_translations_path(@translated_world_location),
-        notice: notice_message("saved")
-    else
-      render action: 'edit'
-    end
+  def translatable_item
+    @translated_world_location
   end
 
-  def destroy
-    @translated_world_location.remove_translations_for(translation_locale.code)
-    redirect_to admin_world_location_translations_path(@translated_world_location),
-      notice: notice_message("deleted")
+  def translated_item_name
+    @world_location.name
   end
 
-  private
-
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@world_location.name}" #{action}.}
-  end
-
-  def load_translated_and_english_world_locations
+  def load_translated_models
     @translated_world_location = LocalisedModel.new(@world_location, translation_locale.code)
     @english_world_location = LocalisedModel.new(@world_location, :en)
   end
 
-  def translation_locale
-    @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
-  end
-
-  def load_world_location
+  def load_translatable_item
     @world_location ||= WorldLocation.find(params[:world_location_id])
   end
 
-  def world_location_params
+  def translation_params
     params.require(:world_location).permit(:name, :mission_statement, :title)
   end
 end

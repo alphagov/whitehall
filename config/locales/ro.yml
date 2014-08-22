@@ -59,10 +59,18 @@ ro:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Mai multe detalii
         few:
         other: Mai multe detalii
         see_all: Toate mai multe detalii
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
+        see_more_like_this:
       document_collection:
         one: Seria
         few:

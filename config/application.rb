@@ -35,6 +35,7 @@ module Whitehall
       #{config.root}/app/validators
       #{config.root}/app/workers
       #{config.root}/lib
+      #{config.root}/app/concerns
     )
 
     # Only load the plugins named here, in the order given (default is alphabetical).

@@ -1,63 +1,46 @@
 class Admin::EditionTranslationsController < Admin::BaseController
-  before_filter :find_edition
-  before_filter :fetch_edition_version_and_remark_trails, only: [:new, :create, :edit, :update]
-  before_filter :enforce_permissions!
-  before_filter :limit_edition_access!
-  before_filter :load_translated_and_english_edition, only: [:edit, :update, :destroy]
-  helper_method :translation_locale
-
-  def enforce_permissions!
-    enforce_permission!(:update, @edition)
-  end
-
-  def create
-    redirect_to edit_admin_edition_translation_path(@edition, id: translation_locale)
-  end
-
-  def edit
-  end
+  include TranslationControllerConcern
 
   def update
     @translated_edition.change_note = 'Added translation' unless @translated_edition.change_note.present?
-    if @translated_edition.update_attributes(edition_params)
-      redirect_to admin_edition_path(@edition),
-        notice: notice_message("saved")
-    else
-      render :edit
-    end
+    super
   end
 
-  def destroy
-    @translated_edition.remove_translations_for(translation_locale.code)
-    redirect_to admin_edition_path(@translated_edition),
-      notice: notice_message("deleted")
+private
+
+  def create_redirect_path
+    edit_admin_edition_translation_path(@edition, id: translation_locale)
   end
 
-  private
-
-  def notice_message(action)
-    %{#{translation_locale.english_language_name} translation for "#{@edition.title}" #{action}.}
+  def destroy_redirect_path
+    admin_edition_path(@translated_edition)
   end
 
-  def load_translated_and_english_edition
-    @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
-    @english_edition = LocalisedModel.new(@edition, :en)
+  def update_redirect_path
+    admin_edition_path(@edition)
   end
 
-  def translation_locale
-    @translation_locale ||= Locale.new(params[:translation_locale] || params[:id])
+  def translatable_item
+    @translated_edition
   end
 
-  def find_edition
-    @edition ||= Edition.find(params[:edition_id])
+  def translated_item_name
+    @edition.title
   end
 
-  def fetch_edition_version_and_remark_trails
+  def load_translated_models
     @edition_remarks = @edition.document_remarks_trail.reverse
     @edition_history = Kaminari.paginate_array(@edition.document_version_trail.reverse).page(params[:page]).per(30)
+    @translated_edition = LocalisedModel.new(@edition, translation_locale.code)
   end
 
-  def edition_params
+  def load_translatable_item
+    @edition ||= Edition.find(params[:edition_id])
+    enforce_permission!(:update, @edition)
+    limit_edition_access!
+  end
+
+  def translation_params
     params.require(:edition).permit(:title, :summary, :body)
   end
 end

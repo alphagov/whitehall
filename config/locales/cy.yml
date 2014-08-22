@@ -10,9 +10,9 @@ cy:
         other: Dogfennau
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
-      from:
+      from: O
       location:
-      part_of:
+      part_of: Rhan o
       policies:
         one:
         other:
@@ -86,13 +86,21 @@ cy:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents: Yn ôl i'r cynnwys
+        categories: Pob arweiniad manwl am
+        contents: Cynnwys
+        more: Mwy sy’n debyg i hyn
         zero:
         one: Cyfarwyddyd manwl
         two:
         few:
         many:
         other: Cyfarwyddyd manwl
-        see_all: Gweld ein holl cyfarwyddyd manwl
+        part_of_published_collection: Mae hyn yn rhan o gasgliad
+        published_related_detailed_guides: Arweiniad manwl perthnasol
+        related_mainstream_content: Gormod o fanylion?<br/>Edrychwch ar y canllawiau cyflym hyn
+        see_all: Pob arweiniad manwl am
+        see_more_like_this: Gweld mwy sy’n debyg i hyn
       document_collection:
         zero:
         one: Cyfres
@@ -363,8 +371,8 @@ cy:
         see_all: Gweld ein holl datganiadau ysgrifenedig i'r senedd
     contents: Cynnwys
     footer_meta:
-      full_page_history:
-      page_history:
+      full_page_history: Hanes
+      page_history: Hanes
       published:
       updated:
     published: cyhoeddwyd
@@ -653,7 +661,7 @@ cy:
       help_html:
     see_more:
   change_notes:
-    page_history:
+    page_history: Hanes
     published_at:
     updated_at:
   contact:

@@ -59,10 +59,18 @@ cs:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Podrobný návod
         few:
         other: Podrobný návod
         see_all: Podívejte se na
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
+        see_more_like_this:
       document_collection:
         one: Edice
         few:

@@ -50,9 +50,17 @@ sq:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Udhezim i detajuar
         other: Udhezim i detajuar
         see_all: Shiko te gjitha udhezim i detajuar
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
+        see_more_like_this:
       document_collection:
         one: Seri
         other:

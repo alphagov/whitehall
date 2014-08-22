@@ -87,12 +87,20 @@ ar:
         see_all:
       detailed_guidance:
         zero:
+        back_to_contents:
         one: توجيه مفصل
         two:
         few:
         many:
         other: توجيهات مفصل
         see_all: اطلع على كافة توجيهات مفصل
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
+        see_more_like_this:
       document_collection:
         zero:
         one: سلسة

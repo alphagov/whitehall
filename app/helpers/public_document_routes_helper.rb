@@ -73,9 +73,7 @@ module PublicDocumentRoutesHelper
   end
 
   def best_locale_for_edition(edition)
-    if edition.non_english_edition?
-      edition.locale
-    elsif I18n.locale != I18n.default_locale && edition.available_in_locale?(I18n.locale)
+    if I18n.locale != I18n.default_locale && edition.available_in_locale?(I18n.locale)
       I18n.locale
     else
       I18n.default_locale

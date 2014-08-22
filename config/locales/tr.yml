@@ -176,9 +176,17 @@ tr:
         other:
         see_all:
       detailed_guidance:
+        back_to_contents:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
         see_all: Tamamını görüntüle
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
+        see_more_like_this:
       document_collection:
         one: Seriler
         other:
