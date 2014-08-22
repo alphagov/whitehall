@@ -105,11 +105,12 @@ class Person < ActiveRecord::Base
     roles.any?(&:supports_historical_accounts?)
   end
 
-  def name_and_disambiguator
-    role = roles.try(:first).try(:name)
-    organisation = organisations.try(:first).try(:name)
+  def name_with_disambiguator
+    role = current_roles.first
+    role_name = role.try(:name)
+    organisation = role.organisations.first.try(:name) if role
 
-    [name, role, organisation].compact.join(' - ')
+    [name, role_name, organisation].compact.join(' – ')
   end
 
   private
