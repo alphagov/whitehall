@@ -91,6 +91,8 @@ class Organisation < ActiveRecord::Base
   end
   has_many :offsite_links, as: :parent
 
+  serialize :short_urls, Array
+
   # I'm trying to use a domain centric design rather than a persistence
   # centric design, so I do not want to expose a has_many :home_page_lists
   # and all that this implies. I really only want to expose a list of
