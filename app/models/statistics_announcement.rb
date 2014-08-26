@@ -9,7 +9,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   belongs_to :publication
 
   has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
-  has_many :statistics_announcement_dates
+  has_many :statistics_announcement_dates, dependent: :destroy
 
   validate  :publication_is_matching_type, if: :publication
   validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
