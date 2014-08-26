@@ -6,6 +6,7 @@ class Api::OrganisationPresenter < Api::BasePresenter
       format: model.organisation_type.name,
       updated_at: model.updated_at,
       web_url: Whitehall.url_maker.organisation_url(model),
+      short_urls: model.short_urls,
       details: {
         slug: model.slug,
         abbreviation: model.acronym,

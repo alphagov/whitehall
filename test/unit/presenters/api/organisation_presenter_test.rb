@@ -72,6 +72,11 @@ class Api::OrganisationPresenterTest < PresenterTestCase
     assert_equal Whitehall.url_maker.organisation_url(@organisation), @presenter.as_json[:web_url]
   end
 
+  test "json includes short_urls" do
+    @organisation.stubs(:short_urls).returns(["/org"])
+    assert_equal ["/org"], @presenter.as_json[:short_urls]
+  end
+
   test "json includes request-relative api parent organisations" do
     parent = stub_record(:organisation)
     @organisation.stubs(:parent_organisations).returns([parent])
