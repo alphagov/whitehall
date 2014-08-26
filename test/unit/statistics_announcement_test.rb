@@ -65,6 +65,13 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     announcement.destroy
   end
 
+  test 'a destroyed announcement can still generate a searchable link so it can be removed from the search index' do
+    announcement = create(:statistics_announcement)
+    announcement.reload.destroy
+
+    assert_equal Whitehall.url_maker.statistics_announcement_path(announcement), announcement.search_index['link']
+  end
+
   test 'only valid when associated publication is of a matching type' do
     statistics          = create(:draft_statistics)
     national_statistics = create(:draft_national_statistics)
