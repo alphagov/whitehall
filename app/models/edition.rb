@@ -619,6 +619,36 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  attr_accessor :has_first_published_error
+
+  attr_writer :previously_published
+  def previously_published
+    if @previously_published.present?
+      @previously_published
+    elsif imported?
+      true
+    elsif !new_record?
+      first_published_at.present?
+    end
+  end
+
+  def trigger_previously_published_validations
+    @validate_previously_published = true
+  end
+
+  validate :previously_published_documents_have_date
+
+  def previously_published_documents_have_date
+    return unless @validate_previously_published
+    if @previously_published.nil?
+      errors[:base] << 'You must specify whether the document has been published before'
+      @has_first_published_error = true
+    elsif previously_published == 'true'  # not a real field, so isn't converted to bool
+      errors.add(:first_published_at, "can't be blank") if first_published_at.blank?
+      @has_first_published_error = true
+    end
+  end
+
 private
 
   def enforcer(user)

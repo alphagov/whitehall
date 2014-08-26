@@ -17,7 +17,8 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
                               locale: 'fr',
                               world_location_ids: [@world_location.id],
                               worldwide_organisation_ids: [@worldwide_organisation.id],
-                              topic_ids: [create(:topic).id]
+                              topic_ids: [create(:topic).id],
+                              previously_published: false
                             }
     edition = Edition.last
     assert_redirected_to admin_world_location_news_article_path(edition)
@@ -42,7 +43,8 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
                               locale: '',
                               world_location_ids: [@world_location.id],
                               worldwide_organisation_ids: [@worldwide_organisation.id],
-                              topic_ids: [create(:topic).id]
+                              topic_ids: [create(:topic).id],
+                              previously_published: false
                             }
 
     assert edition = Edition.find_by_title('Article title')

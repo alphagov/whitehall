@@ -16,6 +16,8 @@
   <%= render partial: "additional_significant_fields", locals: {form: form, edition: form.object} %>
 <% end %>
 
+<%= render partial: 'first_published_at', locals: { form: form, edition: edition } %>
+
 <% if form.object.allows_image_attachments? %>
   <%= render partial: "image_fields", locals: {form: form, edition: form.object} %>
 <% end %>

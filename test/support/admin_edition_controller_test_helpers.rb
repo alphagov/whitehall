@@ -939,7 +939,7 @@ module AdminEditionControllerTestHelpers
 
         admin_editions_path = send("admin_#{edition_type.to_s.tableize}_path")
         assert_select "form#new_edition[action='#{admin_editions_path}']" do
-          assert_select "label[for=edition_first_published_at]", text: "First published"
+          assert_select "label[for=edition_first_published_at]", text: "Its original publication date was *"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end
@@ -951,7 +951,7 @@ module AdminEditionControllerTestHelpers
 
         admin_edition_path = send("admin_#{edition_type}_path", edition)
         assert_select "form#edit_edition[action='#{admin_edition_path}']" do
-          assert_select "label[for=edition_first_published_at]", text: "First published"
+          assert_select "label[for=edition_first_published_at]", text: "Its original publication date was *"
           assert_select "select[name*='edition[first_published_at']", count: 5
         end
       end

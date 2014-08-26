@@ -14,4 +14,8 @@ class Admin::PoliciesController < Admin::EditionsController
   def edition_class
     Policy
   end
+
+  def document_can_be_previously_published
+    false
+  end
 end

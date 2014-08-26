@@ -43,4 +43,8 @@ private
         raise ActiveRecord::RecordNotFound
       end
   end
+
+  def document_can_be_previously_published
+    false
+  end
 end

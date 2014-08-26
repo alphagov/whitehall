@@ -69,6 +69,16 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal PublicationType::ResearchAndAnalysis, created_publication.publication_type
   end
 
+  test "should validate previously_published field on create" do
+    post :create, edition: controller_attributes_for(:publication).except(:previously_published)
+    assert_equal "You must specify whether the document has been published before", assigns(:edition).errors.full_messages.last
+  end
+
+  test "should validate first_published_at field on create if previously_published is true" do
+    post :create, edition: (controller_attributes_for(:publication).merge(previously_published: 'true'))
+    assert_equal "First published at can't be blank", assigns(:edition).errors.full_messages.last
+  end
+
   view_test "edit displays publication fields" do
     publication = create(:publication)
 
