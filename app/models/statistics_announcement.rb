@@ -41,7 +41,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
               metadata: :search_metadata
 
   delegate  :release_date, :display_date, :confirmed?,
-              to: :current_release_date
+              to: :current_release_date, allow_nil: true
 
 
   def self.without_published_publication
