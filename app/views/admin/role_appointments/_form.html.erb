@@ -2,7 +2,7 @@
 
 <%= form.label :person_id, 'Person' %>
 <%= form.select :person_id,
-                options_for_select( disambiguate_names(Person.all) ),
+                options_for_select(disambiguated_people_names, form.object.person_id),
                 {include_blank: true},
                 class: 'chzn-select',
                 data: { placeholder: "Choose person..." },
