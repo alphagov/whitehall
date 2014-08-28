@@ -8,7 +8,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
-gem 'govspeak', '~> 2.0'
+gem 'govspeak', '~> 3.0', '>= 3.1.1'
 gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.9'
 gem 'babosa'
