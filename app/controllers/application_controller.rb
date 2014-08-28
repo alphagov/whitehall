@@ -55,6 +55,14 @@ class ApplicationController < ActionController::Base
   def set_slimmer_page_owner_header(organisation)
     identifier = page_owner_identifier_for(organisation)
     set_slimmer_headers(page_owner: identifier) if identifier
+    set_slimmer_search_parameter_header(organisation) if organisation
+  end
+
+  def set_slimmer_search_parameter_header(organisation)
+    organisation = organisation.is_a?(WorldwideOrganisation) ? organisation.sponsoring_organisation : organisation
+    if organisation && organisation.has_scoped_search?
+      set_slimmer_headers(search_parameters: {filter_organisations: [organisation.slug]}.to_json)
+    end
   end
 
   def page_owner_identifier_for(organisation)
