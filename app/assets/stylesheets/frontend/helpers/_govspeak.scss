@@ -94,6 +94,14 @@
     }
   }
 
+  ol.legislative-list {
+    list-style: none;
+    margin-left: 0;
+    ol {
+      list-style: none;
+    }
+  }
+
   ul {
     list-style: disc;
     list-style-position: outside;

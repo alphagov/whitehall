@@ -224,6 +224,13 @@
       ol {
         list-style-type: decimal;
       }
+      ol.legislative-list {
+        list-style: none;
+        margin-left: 0;
+        ol {
+          list-style: none;
+        }
+      }
       table, img {
         margin: $gutter-half 0;
         width: $full-width;
