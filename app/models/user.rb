@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
     WORLD_WRITER = 'World Writer'
     WORLD_EDITOR = 'World Editor'
     FORCE_PUBLISH_ANYTHING = 'Force publish anything'
+    GDS_ADMIN = 'GDS Admin'
   end
 
   def role
@@ -54,6 +55,10 @@ class User < ActiveRecord::Base
 
   def world_writer?
     has_permission?(Permissions::WORLD_WRITER)
+  end
+
+  def gds_admin?
+    has_permission?(Permissions::GDS_ADMIN)
   end
 
   def scheduled_publishing_robot?
