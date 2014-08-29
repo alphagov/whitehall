@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::OrganisationsControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :gds_admin
   end
 
   should_be_an_admin_controller
@@ -19,6 +19,29 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template :index
     assert_equal [org1, org2], assigns(:organisations)
+  end
+
+  test "GET on :new denied if not a gds admin" do
+    login_as :policy_writer
+    get :new
+    assert_response :forbidden
+  end
+
+  test "POST on :create denied if not a gds admin" do
+    login_as :policy_writer
+    post :create, organisation: {}
+    assert_response :forbidden
+  end
+
+  view_test "Link to create organisation does not show if not a gds admin" do
+    login_as :policy_writer
+    get :index
+    refute_select ".actions a", text: "Create organisation"
+  end
+
+  view_test "Link to create organisation shows if a gds admin" do
+    get :index
+    assert_select ".actions a", text: "Create organisation"
   end
 
   test "POST on :create saves the organisation and its associations" do
@@ -348,6 +371,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "Prevents unauthorized management of featured services and guidance" do
+    login_as :policy_writer
     organisation = create(:organisation)
 
     get :edit, id: organisation
