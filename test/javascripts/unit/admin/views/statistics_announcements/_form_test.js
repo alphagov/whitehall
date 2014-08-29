@@ -129,7 +129,7 @@ test("it handles a two month range over the end of a year, and increments the ye
   equal($('.js-example-two-month').text(), "December to January 2015 (provisional)");
 });
 
-test("it's handling of incorrect dates matches rails", function() {
+test("its handling of incorrect dates matches rails", function() {
   // Feb 31
   $('select[name="form_name[release_date(2i)]"]').val('2');
   $('select[name="form_name[release_date(3i)]"]').val('31').trigger('change');
