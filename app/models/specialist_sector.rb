@@ -14,6 +14,10 @@ class SpecialistSector < ActiveRecord::Base
     end
   end
 
+  def edition
+    Edition.unscoped { super }
+  end
+
 private
   def self.nested_sectors
     fetch_sectors.select(&:parent).group_by(&:parent)
