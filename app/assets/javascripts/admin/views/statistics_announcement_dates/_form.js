@@ -46,31 +46,35 @@
     },
 
     getDateFromRecentDateFields: function() {
-      var date = new Date();
+      var year,
+          month,
+          day,
+          hours,
+          minutes;
 
       StatisticsAnnouncementDateForm.$releaseDateInputs.each(function(i) {
         var value = parseInt($(this).val(), 10);
 
         switch(i) {
           case 0:
-            date.setFullYear(value);
+            year = value;
             break;
           case 1:
-            date.setMonth(value - 1);
+            month = value - 1;
             break;
           case 2:
-            date.setDate(value);
+            day = value;
             break;
           case 3:
-            date.setHours(value);
+            hours = value;
             break;
           case 4:
-            date.setMinutes(value);
+            minutes = value;
             break;
         }
       });
 
-      return date;
+      return new Date(year, month, day, hours, minutes);
     },
 
     updateExampleDates: function(date, status) {
