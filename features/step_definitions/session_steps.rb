@@ -29,6 +29,11 @@ Given /^I am (?:an?) (writer|editor|GDS editor) in the organisation "([^"]*)"$/ 
   login_as @user
 end
 
+Given /^I have the "(.*?)" permission$/ do |perm|
+  @user.permissions << perm
+  @user.save
+end
+
 Given /^I am a visitor$/ do
   User.stubs(:first).returns(nil)
 end

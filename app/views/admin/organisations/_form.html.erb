@@ -142,9 +142,6 @@
     <% if show_instantly_live_warning %>
       Warning: changes to organisations appear instantly on the live site.
     <% end %>
-    <% if show_consult_gds_warning %>
-      Do not create organisations without consulting GDS.
-    <% end %>
   </p>
   <%= organisation_form.save_or_cancel(cancel: (@organisation.persisted? ? admin_organisation_path(@organisation) : admin_organisations_path)) %>
 <% end %>

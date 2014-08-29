@@ -4,6 +4,7 @@ Background:
   Given I am an admin called "Jane"
 
 Scenario: Adding an Organisation
+  Given I have the "GDS Admin" permission
   When I add a new organisation called "Ministry of Jazz"
   Then I should be able to see "Ministry of Jazz" in the list of organisations
 

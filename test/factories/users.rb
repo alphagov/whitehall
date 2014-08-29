@@ -35,6 +35,11 @@ FactoryGirl.define do
     permissions { [User::Permissions::SIGNIN, User::Permissions::PUBLISH_SCHEDULED_EDITIONS] }
   end
 
+  factory :gds_admin, parent: :user do
+    permissions { [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR,
+                   User::Permissions::GDS_ADMIN] }
+  end
+
   factory :gds_editor, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::GDS_EDITOR] }
   end
