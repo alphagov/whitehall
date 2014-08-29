@@ -408,6 +408,10 @@ class Organisation < ActiveRecord::Base
     organisations_with_services_and_information_link.include?(slug)
   end
 
+  def has_scoped_search?
+    organisations_with_scoped_search.include?(slug)
+  end
+
   def to_s
     name
   end
@@ -417,6 +421,12 @@ class Organisation < ActiveRecord::Base
   def organisations_with_services_and_information_link
     [
       'maritime-and-coastguard-agency',
+    ]
+  end
+
+  def organisations_with_scoped_search
+    [
+      'land-registry',
     ]
   end
 
