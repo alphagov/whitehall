@@ -1,3 +1,4 @@
+
 class Frontend::StatisticsAnnouncementsFilter < FormObject
   named "StatisticsAnnouncementsFilter"
   attr_accessor :keywords,
@@ -78,7 +79,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def results
-    @results ||= provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
+    @results ||= get_results
   end
 
   def result_count
@@ -102,6 +103,33 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
 private
+  def get_results
+    results = provider.search(valid_filter_params.merge(page: page, per_page: RESULTS_PER_PAGE))
+    if should_include_cancellations_within_preceding_month?
+      prepend_results_to(results, get_cancelled_announcements_within_preceding_month)
+    else
+      results
+    end
+  end
+
+  def should_include_cancellations_within_preceding_month?
+    page == 1 && from_date.nil?
+  end
+
+  def get_cancelled_announcements_within_preceding_month
+    provider.search(valid_filter_params.merge(page: page,
+                                              per_page: RESULTS_PER_PAGE,
+                                              statistics_announcement_state: 'cancelled',
+                                              from_date: 1.month.ago.to_date,
+                                              to_date: Time.zone.now.to_date))
+  end
+
+  def prepend_results_to(result_set, prepended_set)
+    CollectionPage.new(prepended_set.concat(result_set), page: 1,
+                                                         per_page: RESULTS_PER_PAGE,
+                                                         total: result_set.total + prepended_set.total)
+  end
+
   def provider
     Frontend::StatisticsAnnouncementProvider
   end

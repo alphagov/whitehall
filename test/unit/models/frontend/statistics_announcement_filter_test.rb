@@ -75,22 +75,41 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
 
   test "#results should ask the provider for results, using #valid_filter_params + pagination params as search terms" do
     stub_provider = mock
-    stub_provider.stubs(:search).with({keywords: "keyword", page: 1, per_page: 40}).returns(:some_results)
+    stub_provider.stubs(:search).with({keywords: "keyword", page: 2, per_page: 40}).returns(:some_results)
 
-    filter = build(keywords: "keyword", page: 1)
+    filter = build(keywords: "keyword", page: 2)
     filter.stubs(:provider).returns(stub_provider)
 
     assert_equal :some_results, filter.results
   end
 
+  test "When on page 1 and no from date has been give, #results also fetches statistics announcements between one month ago and now, and prepends those results returning them in a new CollectionPage" do
+    normal_resultset = CollectionPage.new([:an_announcement, :another_announcement], total: 10, page: 1, per_page: 2)
+    cancelled_and_past_resultset = CollectionPage.new([:a_cancelled_announcement, :another_cancelled_announcement], total: 2, page: 1, per_page: 100)
+
+    stub_provider = mock
+    stub_provider.stubs(:search).with({page: 1, per_page: 40}).returns(normal_resultset)
+    stub_provider.stubs(:search).with({page: 1, per_page: 40, statistics_announcement_state: 'cancelled', from_date: 1.month.ago.to_date, to_date: Time.zone.now.to_date}).returns(cancelled_and_past_resultset)
+
+    filter = build
+    filter.stubs(:provider).returns(stub_provider)
+
+    resultset = filter.results
+
+    assert_equal [:a_cancelled_announcement, :another_cancelled_announcement, :an_announcement, :another_announcement], filter.results
+    assert_equal 12, resultset.total
+    assert_equal 1, resultset.page
+    assert_equal 40, resultset.per_page
+  end
+
   test "#next_page_params returns valid_filter_params with the page number incremented by 1" do
-    filter = build(keywords: "keyword", page: 1)
+    filter = build(keywords: "keyword", page: 2)
 
     stub_provider = mock
     stub_provider.stubs(:search).returns((1..50).to_a)
     filter.stubs(:provider).returns(stub_provider)
 
-    assert_equal({ keywords: 'keyword', page: 2 }, filter.next_page_params)
+    assert_equal({ keywords: 'keyword', page: 3 }, filter.next_page_params)
   end
 
   test "#previous_page_params returns valid_filter_params with the page number incremented by 1" do

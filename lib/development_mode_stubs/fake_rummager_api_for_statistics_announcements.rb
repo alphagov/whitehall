@@ -18,6 +18,9 @@ module DevelopmentModeStubs
         scope = scope.where("statistics_announcement_dates.release_date > ?", params[:release_timestamp][:from]) if params[:release_timestamp][:from].present?
         scope = scope.where("statistics_announcement_dates.release_date < ?", params[:release_timestamp][:to]) if params[:release_timestamp][:to].present?
       end
+      if params[:statistics_announcement_state] == 'cancelled'
+        scope = scope.where("cancelled_at IS NOT NULL")
+      end
 
       scope = scope.group("statistics_announcements.id")
       count = scope.length
