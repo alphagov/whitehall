@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+require 'optparse'
+
+options = {}
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: ./script/dedupe_stats_announcement duplicate-announcement-slug authoritative-announcement-slug"
+  opts.separator ""
+  opts.separator <<-EOS
+Destroys the duplicate statistics announcement matching the duplicate slug
+and registers a redirect to the statistics announcement matching the
+authoritative slug.
+  EOS
+  opts.separator ""
+  opts.separator "Specific options:"
+
+  opts.on('-n', '--noop', 'Output actions without invoking them') do
+    options[:noop]    = true
+    options[:verbose] = true
+  end
+end
+parser.parse!
+
+duplicate_slug, authoritative_slug = ARGV
+
+unless duplicate_slug && authoritative_slug
+  puts parser.help
+  exit(-1)
+end
+
+puts "Performing operation as NOOP" if options[:noop]
+
+require File.expand_path('../../config/application',  __FILE__)
+Rails.application.require_environment!
+
+duplicate_announcement = StatisticsAnnouncement.find(duplicate_slug)
+authoritative_announcement = StatisticsAnnouncement.find(authoritative_slug)
+logger = Logger.new(STDOUT)
+
+DataHygiene::DuplicateStatisticsAnnouncement.new(duplicate_announcement, logger, options[:noop]).destroy_and_redirect_to(authoritative_announcement)
+
+puts "For completeness, the above redirect should also be added to router-data"
