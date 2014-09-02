@@ -44,8 +44,7 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     post :create, statistics_announcement_id: @announcement, statistics_announcement_date_change: {
       release_date: new_date,
       confirmed: '1',
-      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-      change_note: 'Delayed due to unexpected beard growth'
+      precision: StatisticsAnnouncementDate::PRECISION[:exact]
     }
 
     @announcement.reload
@@ -53,7 +52,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert_equal new_date, @announcement.release_date
     assert @announcement.confirmed?
     assert_equal '11 May 2013 9:30am', @announcement.display_date
-    assert_equal 'Delayed due to unexpected beard growth', @announcement.last_change_note
     assert_equal @user, @announcement.statistics_announcement_dates.last.creator
   end
 end

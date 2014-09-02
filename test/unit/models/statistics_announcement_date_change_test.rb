@@ -1,63 +1,29 @@
 require 'test_helper'
 
 class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
-  test "change note required if changing an exact date" do
+  test "a change to a confirmed release date requires a change note" do
     current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:exact])
+                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                      confirmed: true)
 
     new_date      = build(:statistics_announcement_date_change,
                       current_release_date: current_date,
                       precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                      confirmed: true,
                       release_date: (current_date.release_date + 1.day))
 
     refute new_date.valid?
     assert_match /required/, new_date.errors[:change_note].first
   end
 
-  test "change note required if changing date beyond a one-month precision" do
+  test "unconfirming a confirmed release date requires a change note" do
     current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      confirmed: false)
+                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
+                      confirmed: true)
 
     new_date      = build(:statistics_announcement_date_change,
                       current_release_date: current_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      release_date: current_date.release_date + 3.weeks,
-                      confirmed: false)
-
-    assert new_date.valid?
-    new_date.release_date = current_date.release_date + 1.month
-
-    refute new_date.valid?
-    assert_match /required/, new_date.errors[:change_note].first
-  end
-
-  test "change note required if changing date beyond a two-month precision" do
-    current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
-                      confirmed: false)
-
-    new_date      = build(:statistics_announcement_date_change,
-                      current_release_date: current_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
-                      release_date: current_date.release_date + 6.weeks,
-                      confirmed: false)
-
-    assert new_date.valid?
-    new_date.release_date = current_date.release_date + 2.months
-
-    refute new_date.valid?
-    assert_match /required/, new_date.errors[:change_note].first
-  end
-
-  test "change note required if reducing precision" do
-    current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      confirmed: false)
-
-    new_date      = build(:statistics_announcement_date_change,
-                      current_release_date: current_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
+                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
                       release_date: current_date.release_date,
                       confirmed: false)
 
@@ -65,60 +31,24 @@ class StatisticsAnnouncementDateChangeTest < ActiveSupport::TestCase
     assert_match /required/, new_date.errors[:change_note].first
   end
 
-  test "change note should not be provided if date is not making a major change" do
-    current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:two_month],
-                      confirmed: false)
+  test "a change to a provisional release date is valid and ignores the change note" do
+    announcement = create(:statistics_announcement)
+    new_date     = announcement.build_statistics_announcement_date_change(
+                    release_date: (announcement.release_date + 1.year),
+                    change_note: 'Not required so will be ignored')
 
-    new_date      = build(:statistics_announcement_date_change,
-                      current_release_date: current_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      release_date: current_date.release_date,
-                      confirmed: false,
-                      change_note: 'This change note is not required.')
-
-    refute new_date.valid?
-    assert_match /only required for significant changes/, new_date.errors[:change_note].first
+    assert new_date.save
+    assert_nil new_date.reload.change_note
   end
 
-  test "valid if improving precision of date" do
-    current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      confirmed: false)
-
-    new_date      = build(:statistics_announcement_date_change,
-                      current_release_date: current_date,
+  test "improving the precision of provisional date is valid and ignores the change note" do
+    announcement = create(:statistics_announcement)
+    new_date     = announcement.build_statistics_announcement_date_change(
                       precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                      release_date: current_date.release_date)
+                      release_date: announcement.release_date + 2.months)
 
-    assert new_date.valid?
-  end
-
-  test "valid if improving precision and changing date within previous precision" do
-    current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      confirmed: false)
-
-    new_date      = build(:statistics_announcement_date_change,
-                      current_release_date: current_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                      release_date: current_date.release_date + 3.weeks)
-
-    assert new_date.valid?
-  end
-
-  test "change note required if improving precision, but changing date beyond previous precision" do
-    current_date  = build(:statistics_announcement_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:one_month],
-                      confirmed: false)
-
-    new_date      = build(:statistics_announcement_date_change,
-                      current_release_date: current_date,
-                      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-                      release_date: current_date.release_date + 5.weeks)
-
-    refute new_date.valid?
-    assert_match /required/, new_date.errors[:change_note].first
+    assert new_date.save
+    assert_nil new_date.reload.change_note
   end
 
   test "saving a date change updates the announcement in the search index" do
