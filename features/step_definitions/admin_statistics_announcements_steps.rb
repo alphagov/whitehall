@@ -84,7 +84,6 @@ When(/^I change the release date on the announcement$/) do
   select_datetime '14-Dec-2014 09:30', from: 'Release date'
   check 'Confirmed date?'
   choose 'Exact'
-  fill_in 'Public change note', with: 'Changed due to delays'
   click_on 'Publish change of date'
 end
 
