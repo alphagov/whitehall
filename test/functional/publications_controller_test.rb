@@ -295,7 +295,7 @@ class PublicationsControllerTest < ActionController::TestCase
   test '#show for statistics document type redirect to statistic#show' do
     publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id)
     get :show, id: publication.document
-    assert_redirected_to public_document_path(publication)
+    assert_redirected_to statistic_path(publication.slug)
   end
 
   test '#index for statistics document type redirect to statistics index' do
