@@ -235,10 +235,13 @@ class AttachmentUploaderZipFileTest < ActiveSupport::TestCase
     # folders.zip contains the following file structure:
     # folder/
     #  |-- text.txt
+    #  |-- text with spaces.txt
     #  +-- another-folder/
     #       +-- more-text.txt
     #
     zipfile = AttachmentUploader::ZipFile.new(Rails.root.join('test/fixtures/folders.zip'))
-    assert_same_elements %w(text.txt more-text.txt), zipfile.filenames
+
+    assert_same_elements ['text.txt', 'text with spaces.txt', 'more-text.txt'],
+      zipfile.filenames
   end
 end
