@@ -13,17 +13,7 @@ private
   end
 
   def changing_a_confirmed_date?
-    if current_release_date.confirmed?
-      !confirmed? || changing_release_date? || reducing_precision?
-    end
-  end
-
-  def reducing_precision?
-    precision > current_release_date.precision
-  end
-
-  def changing_release_date?
-    current_release_date.release_date != release_date
+    current_release_date.confirmed?
   end
 
   def update_announcement_in_search_index
