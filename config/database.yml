@@ -15,6 +15,13 @@ test: &test
   username: whitehall
   password: whitehall
 
+benchmark:
+  encoding: utf8
+  adapter: mysql2
+  database: whitehall_benchmark
+  username: whitehall
+  password: whitehall
+
 production:
   encoding: utf8
   adapter: mysql2
