@@ -15,7 +15,9 @@
     <%= form.errors %>
     <%= render '/admin/statistics_announcements/release_date', form: form %>
     <div class="form-group">
-      <%= form.text_area :change_note, rows: 5, class: 'form-control', label_text: 'Public change note' %>
+      <% if @statistics_announcement.confirmed? %>
+        <%= form.text_area :change_note, required: true, rows: 5, class: 'form-control', label_text: 'Public change note' %>
+      <% end %>
     </div>
     <%= form.save_or_cancel_buttons buttons: { save: 'Publish change of date' }, cancel: [:admin, @statistics_announcement] %>
   <% end %>

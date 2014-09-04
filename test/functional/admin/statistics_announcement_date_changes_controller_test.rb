@@ -39,13 +39,25 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     end
   end
 
+  view_test "GET :new only shows change notes field when the release date is confirmed" do
+    get :new, statistics_announcement_id: @announcement
+
+    assert_response :success
+    refute_select('textarea#statistics_announcement_date_change_change_note')
+
+    @announcement.current_release_date.update_attribute(:confirmed, true)
+    get :new, statistics_announcement_id: @announcement
+
+    assert_response :success
+    assert_select('textarea#statistics_announcement_date_change_change_note')
+  end
+
   test "POST :create with valid params saves the date change and redirects to the announcement" do
     new_date = Time.zone.local(2013, 05, 11, 9, 30)
     post :create, statistics_announcement_id: @announcement, statistics_announcement_date_change: {
       release_date: new_date,
       confirmed: '1',
-      precision: StatisticsAnnouncementDate::PRECISION[:exact],
-      change_note: 'Delayed due to unexpected beard growth'
+      precision: StatisticsAnnouncementDate::PRECISION[:exact]
     }
 
     @announcement.reload
@@ -53,7 +65,6 @@ class Admin::StatisticsAnnouncementDateChangesControllerTest < ActionController:
     assert_equal new_date, @announcement.release_date
     assert @announcement.confirmed?
     assert_equal '11 May 2013 9:30am', @announcement.display_date
-    assert_equal 'Delayed due to unexpected beard growth', @announcement.last_change_note
     assert_equal @user, @announcement.statistics_announcement_dates.last.creator
   end
 end
