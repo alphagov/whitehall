@@ -6,7 +6,12 @@ categories.each do |category|
   guides = category.detailed_guides
   puts "\t removing association to category from #{guides.count} guides"
   guides.each do |guide|
-    guide.update_attribute :primary_mainstream_category_id, nil
+    if guide.primary_mainstream_category_id == category.id
+      guide.update_attribute :primary_mainstream_category_id, nil
+    elsif guide.other_mainstream_category_ids.include? category.id
+      new_ids = guide.other_mainstream_category_ids.reject { |id| id == category.id }
+      guide.update_attribute :other_mainstream_category_ids, new_ids
+    end
   end
   puts "\t destroying category: \t #{old_path} 💥🔫"
   category.destroy
