@@ -83,27 +83,6 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_select "#{record_css_selector(doc)}.featured"
   end
 
-  view_test "#show should display a National Statistic badge on the appropriate documents" do
-    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
-    get :show, id: publication.document
-
-    assert_match /National statistics/, response.body
-  end
-
-  view_test "#show not link policies to national statistics publications" do
-    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id, related_editions: [create(:published_policy)])
-    get :show, id: publication.document
-
-    refute_select ".policies"
-  end
-
-  view_test "#show not link policies to general statistics publications" do
-    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id, related_editions: [create(:published_policy)])
-    get :show, id: publication.document
-
-    refute_select ".policies"
-  end
-
   view_test "#show should show ministers linked to publications" do
     minister = create(:ministerial_role)
     publication = create(:published_publication, ministerial_roles: [minister])
@@ -311,6 +290,12 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test '#index for non-english locales skips results summary' do
     get :index, locale: 'fr'
     refute_select '.filter-results-summary'
+  end
+
+  test '#show for statistics document type redirect to statistic#show' do
+    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id)
+    get :show, id: publication.document
+    assert_redirected_to statistic_path(publication.slug)
   end
 
   test '#index for statistics document type redirect to statistics index' do

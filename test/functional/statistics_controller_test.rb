@@ -174,4 +174,17 @@ class StatisticsControllerTest < ActionController::TestCase
     assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
   end
 
+  view_test "#show displays a badge when the publication is national statistics" do
+    publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
+    get :show, id: publication.document
+
+    assert_match /National statistics/, response.body
+  end
+
+  view_test "#show does not show a badge when publication is not national statistics" do
+    publication = create(:published_publication, publication_type_id: PublicationType::Statistics.id)
+    get :show, id: publication.document
+
+    refute_match /National statistics/, response.body
+  end
 end
