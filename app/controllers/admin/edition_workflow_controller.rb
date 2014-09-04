@@ -61,7 +61,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
   def publish
     edition_publisher = Whitehall.edition_services.publisher(@edition)
     if edition_publisher.perform!
-      redirect_to admin_editions_path(state: :published), notice: "The document #{@edition.title} has been published"
+      redirect_to admin_editions_path(session_filters || { state: :published }),
+        notice: "The document #{@edition.title} has been published"
     else
       redirect_to admin_edition_path(@edition), alert: edition_publisher.failure_reason
     end

@@ -7,11 +7,13 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     @user = login_as(:departmental_editor)
   end
 
-  test 'publish publishes the given edition on behalf of the current user' do
+  test 'publish publishes the given edition on behalf of the current user and redirects back to filtered search view' do
+    session[:document_filters] = session_filters = {"type"=>"policy", "state"=>"submitted", "page"=>"3" }
+
     stub_panopticon_registration(submitted_edition)
     post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
 
-    assert_redirected_to admin_editions_path(state: :published)
+    assert_redirected_to admin_editions_path(session_filters)
     assert_equal "The document #{submitted_edition.title} has been published", flash[:notice]
     assert submitted_edition.reload.published?
     assert_equal @user, submitted_edition.published_by
