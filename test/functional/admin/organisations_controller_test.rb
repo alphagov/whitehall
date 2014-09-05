@@ -36,12 +36,12 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   view_test "Link to create organisation does not show if not a gds admin" do
     login_as :policy_writer
     get :index
-    refute_select ".actions a", text: "Create organisation"
+    refute_select ".btn", text: "Create organisation"
   end
 
   view_test "Link to create organisation shows if a gds admin" do
     get :index
-    assert_select ".actions a", text: "Create organisation"
+    assert_select ".btn", text: "Create organisation"
   end
 
   test "POST on :create saves the organisation and its associations" do

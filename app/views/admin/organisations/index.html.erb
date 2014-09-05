@@ -1,15 +1,13 @@
 <% page_title "Organisations" %>
-<nav class="actions">
-  <% if can?(:create, Organisation) %>
-    <%= link_to "Create organisation", new_admin_organisation_path, class: "btn new_resource", title: "Create an organisation" %>
-  <% end %>
-</nav>
+<h1>Organisations</h1>
 
-<h1>Organisation</h1>
+<% if can?(:create, Organisation) %>
+  <%= link_to "Create organisation", new_admin_organisation_path, class: "btn new_resource add-top-margin", title: "Create an organisation" %>
+<% end %>
 
-<table class="organisations table table-striped">
+<table class="organisations table table-striped table-bordered add-top-margin">
   <thead>
-    <tr>
+    <tr class="table-header">
       <th width="10%">Acronym</th>
       <th width="30%">Name</th>
       <th width="30%">Type</th>
