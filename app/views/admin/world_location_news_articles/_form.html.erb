@@ -1,15 +1,15 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
-    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+    <%= render 'inline_attachments_info', form: form, edition: edition %>
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition, world_location_required: true } %>
-      <%= render partial: 'worldwide_organisation_fields', locals: { form: form, edition: edition, worldwide_organisation_required: true } %>
-      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+      <%= render 'topic_fields', form: form, edition: edition %>
+      <%= render 'topical_event_fields', form: form, edition: edition %>
+      <%= render 'specialist_sector_fields', form: form, edition: edition %>
+      <%= render 'world_location_fields', form: form, edition: edition, world_location_required: true %>
+      <%= render 'worldwide_organisation_fields', form: form, edition: edition, worldwide_organisation_required: true %>
+      <%= render 'worldwide_priority_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% end %>

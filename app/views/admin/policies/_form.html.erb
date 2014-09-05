@@ -2,22 +2,22 @@
   <%= standard_edition_form(edition) do |form| %>
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition, alternative_format_required: true } %>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+      <%= render 'organisation_fields', form: form, edition: edition, alternative_format_required: true %>
+      <%= render 'topic_fields', form: form, edition: edition %>
+      <%= render 'topical_event_fields', form: form, edition: edition %>
+      <%= render 'specialist_sector_fields', form: form, edition: edition %>
+      <%= render 'minister_fields', form: form, edition: edition %>
+      <%= render 'world_location_fields', form: form, edition: edition %>
+      <%= render 'worldwide_priority_fields', form: form, edition: edition %>
     </fieldset>
 
     <fieldset>
       <legend>Who's working on this?</legend>
-      <%= render partial: 'policy_group_fields', locals: { form: form, edition: edition } %>
+      <%= render 'policy_group_fields', form: form, edition: edition %>
     </fieldset>
 
-    <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+    <%= render 'nation_fields', form: form, edition: edition %>
 
-    <%= render partial: 'local_government_fields', locals: { form: form, edition: edition } %>
+    <%= render 'local_government_fields', form: form, edition: edition %>
   <% end %>
 <% end %>
