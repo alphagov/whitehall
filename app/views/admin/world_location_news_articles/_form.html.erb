@@ -4,12 +4,16 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render 'topic_fields', form: form, edition: edition %>
+
+      <div class="important-associations">
+        <%= render 'topic_fields', form: form, edition: edition %>
+      </div>
+
       <%= render 'topical_event_fields', form: form, edition: edition %>
-      <%= render 'specialist_sector_fields', form: form, edition: edition %>
-      <%= render 'world_location_fields', form: form, edition: edition, world_location_required: true %>
       <%= render 'worldwide_organisation_fields', form: form, edition: edition, worldwide_organisation_required: true %>
       <%= render 'worldwide_priority_fields', form: form, edition: edition %>
+      <%= render 'world_location_fields', form: form, edition: edition, world_location_required: true %>
+      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% end %>

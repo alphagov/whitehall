@@ -2,13 +2,17 @@
   <%= standard_edition_form(edition) do |form| %>
     <fieldset>
       <legend>Associations</legend>
-      <%= render 'organisation_fields', form: form, edition: edition, alternative_format_required: true %>
-      <%= render 'topic_fields', form: form, edition: edition %>
-      <%= render 'topical_event_fields', form: form, edition: edition %>
-      <%= render 'specialist_sector_fields', form: form, edition: edition %>
+
+      <div class="important-associations">
+        <%= render 'topic_fields', form: form, edition: edition %>
+      </div>
+
       <%= render 'minister_fields', form: form, edition: edition %>
+      <%= render 'topical_event_fields', form: form, edition: edition %>
       <%= render 'world_location_fields', form: form, edition: edition %>
       <%= render 'worldwide_priority_fields', form: form, edition: edition %>
+      <%= render 'organisation_fields', form: form, edition: edition, alternative_format_required: true %>
+      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
 
     <fieldset>

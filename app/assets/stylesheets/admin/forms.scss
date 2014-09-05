@@ -22,6 +22,14 @@ form {
       width: 98%;
     }
 
+    .important-associations {
+      margin-bottom: 20px;
+
+      fieldset {
+        margin-top: 0;
+      }
+    }
+
     legend {
       border-top: 1px solid #EEE;
       border-bottom: none;
