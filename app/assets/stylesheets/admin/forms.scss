@@ -31,8 +31,10 @@ form {
     }
 
     legend {
+      padding-top: 27px;
       border-top: 1px solid #EEE;
       border-bottom: none;
+      margin-bottom: 0;
 
       .add_new {
         margin-left: 3em;
