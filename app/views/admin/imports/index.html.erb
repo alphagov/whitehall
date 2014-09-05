@@ -1,17 +1,14 @@
 <% page_title "Imports" %>
 
 <section>
-  <nav class="actions">
-    <%= link_to "New import", new_admin_import_path, class: "btn new_resource" %>
-  </nav>
-
   <h1>Imports</h1>
+  <%= link_to "New import", new_admin_import_path, class: "btn new_resource add-top-margin" %>
 
   <%= paginate @imports, theme: 'twitter-bootstrap' %>
 
-  <table class="table table-striped">
+  <table class="table table-striped table-bordered">
     <thead>
-      <tr>
+      <tr class="table-header">
         <th>Started</th>
         <th>Creator</th>
         <th>Type</th>

@@ -1,15 +1,13 @@
 <% page_title "People" %>
 <section>
-  <nav class="actions">
-    <%= link_to "Create person", new_admin_person_path, class: "btn new_resource", title: "Create a Person" %>
-    <p class="warning">Do not create ministerial people without consulting GDS.</p>
-  </nav>
 
   <h1>People</h1>
+  <p class="warning remove-top-margin">Do not create ministerial people without consulting GDS.</p>
+  <%= link_to "Create person", new_admin_person_path, class: "btn new_resource", title: "Create a Person" %>
 
-  <table class="people table table-striped">
+  <table class="people table table-striped table-bordered add-top-margin">
     <thead>
-      <tr>
+      <tr class="table-header">
         <th>Name</th>
         <th>Biography</th>
       </tr>

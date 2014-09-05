@@ -1,14 +1,11 @@
 <% page_title "Worldwide organisation" %>
 
-<nav class="actions">
-  <%= link_to "Create worldwide organisation", new_admin_worldwide_organisation_path, class: "btn new_resource", title: "Create a worldwide office" %>
-</nav>
-
 <h1>Worldwide organisations</h1>
+<%= link_to "Create worldwide organisation", new_admin_worldwide_organisation_path, class: "btn add-top-margin new_resource", title: "Create a worldwide office" %>
 
-<table class="worldwide_organisation table table-striped">
+<table class="worldwide_organisation table table-striped table-bordered add-top-margin">
   <thead>
-    <tr>
+    <tr class="table-header">
       <th width="40%">Name</th>
       <th width="15%">Translations</th>
       <th width="20%">Location(s)</th>

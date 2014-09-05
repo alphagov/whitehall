@@ -26,15 +26,11 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   view_test "show displays edit if you are able to edit the record" do
     get :show, id: @user.id
-    assert_select ".actions" do
-      refute_select "a[href='#{edit_admin_user_path(@user)}']"
-    end
+    refute_select "a[href='#{edit_admin_user_path(@user)}']"
 
     login_as create(:gds_editor)
     get :show, id: @user.id
-    assert_select ".actions" do
-      assert_select "a[href='#{edit_admin_user_path(@user)}']"
-    end
+    assert_select "a[href='#{edit_admin_user_path(@user)}']"
   end
 
   test "edit only works if you are a GDS editor" do

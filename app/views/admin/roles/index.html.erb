@@ -1,15 +1,12 @@
 <% page_title "Roles" %>
-
-<nav class="actions">
-  <%= link_to "Create role", new_admin_role_path, class: "btn new_resource", title: "Create a Role" %>
-  <p class="warning">Do not create ministerial roles without consulting GDS.</p>
-</nav>
-
 <h1>Roles</h1>
+<p class="warning remove-top-margin">Do not create ministerial roles without consulting GDS.</p>
 
-<table class="roles table table-striped">
+<%= link_to "Create role", new_admin_role_path, class: "btn new_resource", title: "Create a Role" %>
+
+<table class="roles table table-striped table-bordered add-top-margin">
   <thead>
-    <tr>
+    <tr class="table-header">
       <th width="30%">Name</th>
       <th width="15%">Organisations</th>
       <th>Role type</th>

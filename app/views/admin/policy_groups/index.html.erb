@@ -1,15 +1,14 @@
 <% page_title "Groups" %>
 <section>
-  <nav class="actions">
-    <%= link_to "Create group", new_admin_policy_group_path, class: "btn new_resource", title: "Create a group" %>
-    <p class="warning">Do not create groups without consulting GDS.</p>
-  </nav>
-
   <h1>Groups</h1>
+  <p class="warning remove-top-margin">Do not create groups without consulting GDS.</p>
 
-  <table class="policy_groups table table-striped">
+  <%= link_to "Create group", new_admin_policy_group_path, class: "btn new_resource", title: "Create a group" %>
+
+
+  <table class="policy_groups table table-striped table-bordered add-top-margin">
     <thead>
-      <tr>
+      <tr class="table-header">
         <th width="30%">Name</th>
         <th>Email</th>
         <th></th>
