@@ -65,6 +65,7 @@ group :development, :test do
   gem 'debugger'
   gem 'parallel_tests'
   gem 'test-queue'
+  gem 'ruby-prof'
 end
 
 group :development do
