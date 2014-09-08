@@ -150,6 +150,7 @@ Scenario: Viewing the organisations index and seeing organisations grouped into 
   And I should see the agencies and government bodies listed with count
   And I should see the public corporations listed with count
   And I should see the devolved administrations listed with count
+  And I should see the high profile groups listed with count
 
 Scenario: Viewing the organisations index and seeing a visualisation of the number of agencies and public bodies live on govuk
   Given 1 live, 1 transitioning and 1 exempt executive agencies

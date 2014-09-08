@@ -60,16 +60,12 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     end
   end
 
-  test "listable should return all organisations which are not sub organisations" do
-    top_level_org = create(:organisation, organisation_type_key: :executive_office)
-    sub_org = create(:sub_organisation)
-
-    assert Organisation.listable.include?(top_level_org)
-    refute Organisation.listable.include?(sub_org)
-  end
-
-  test "listable should also exclude organisations which have govuk_status of 'closed'" do
+  test "listable should return all organisations which are not 'closed'" do
+    ministerial_department = create(:ministerial_department)
+    sub_organisation = create(:sub_organisation)
     closed_org = create(:closed_organisation)
+    assert Organisation.listable.include?(ministerial_department)
+    assert Organisation.listable.include?(sub_organisation)
     refute Organisation.listable.include?(closed_org)
   end
 

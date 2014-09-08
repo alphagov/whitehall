@@ -25,6 +25,10 @@ class OrganisationsIndexPresenter < Array
     self.class.new(grouped_organisations[:devolved_administration] || [])
   end
 
+  def high_profile_groups
+    self.class.new(grouped_organisations[:high_profile_group] || [])
+  end
+
   def live_count
     @live_count ||= count(&:live?)
   end
@@ -43,6 +47,8 @@ class OrganisationsIndexPresenter < Array
     @grouped_organisations ||= group_by { |org|
       if org.type.agency_or_public_body?
         :agencies_and_government_bodies
+      elsif org.type.sub_organisation?
+        :high_profile_group
       else
         org.type.key
       end

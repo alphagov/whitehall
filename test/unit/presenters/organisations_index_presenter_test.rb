@@ -67,6 +67,18 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
     assert subject.agencies_and_government_bodies.is_a? OrganisationsIndexPresenter
   end
 
+  test "#high_profile_groups should return all organisations whose type is sub_organisation" do
+    ministerial_department = build(:ministerial_department)
+    high_profile_group = build(:sub_organisation, parent_organisations: [ministerial_department])
+
+    subject = OrganisationsIndexPresenter.new([high_profile_group, ministerial_department])
+
+    assert subject.high_profile_groups.include?(high_profile_group)
+    refute subject.high_profile_groups.include?(ministerial_department)
+
+    assert subject.high_profile_groups.is_a?(OrganisationsIndexPresenter)
+  end
+
   def status_variety_pack
     [build(:organisation, govuk_status: 'live'),
       build(:organisation, govuk_status: 'live'),
