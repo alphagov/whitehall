@@ -18,7 +18,7 @@ test: &test
 benchmark:
   encoding: utf8
   adapter: mysql2
-  database: whitehall_benchmark
+  database: whitehall_development
   username: whitehall
   password: whitehall
 
