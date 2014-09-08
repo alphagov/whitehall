@@ -22,9 +22,19 @@ form {
       width: 98%;
     }
 
+    .important-associations {
+      margin-bottom: 20px;
+
+      fieldset {
+        margin-top: 0;
+      }
+    }
+
     legend {
+      padding-top: 27px;
       border-top: 1px solid #EEE;
       border-bottom: none;
+      margin-bottom: 0;
 
       .add_new {
         margin-left: 3em;

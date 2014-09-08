@@ -1,18 +1,21 @@
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
-
-    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+    <%= render 'inline_attachments_info', form: form, edition: edition %>
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'appointment_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'world_location_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
+
+      <div class="important-associations">
+        <%= render 'related_policy_fields', form: form, edition: edition %>
+        <%= render 'topic_fields', form: form, edition: edition %>
+      </div>
+
+      <%= render 'appointment_fields', form: form, edition: edition %>
+      <%= render 'topical_event_fields', form: form, edition: edition %>
+      <%= render 'worldwide_priority_fields', form: form, edition: edition %>
+      <%= render 'world_location_fields', form: form, edition: edition %>
+      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% end %>

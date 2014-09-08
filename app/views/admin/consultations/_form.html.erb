@@ -1,7 +1,6 @@
 <%= consultation_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
-
-    <%= render partial: 'external_fields', locals: { form: form, edition: edition } %>
+    <%= render 'external_fields', form: form, edition: edition %>
 
     <div class="js-external-url-set">
       <fieldset>
@@ -27,22 +26,27 @@
     </div>
 
     <div class="js-external-url-set">
-      <%= render partial: 'html_version_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
+      <%= render 'html_version_fields', form: form, edition: edition %>
+      <%= render 'inline_attachments_info', form: form, edition: edition %>
     </div>
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-      <div class="js-external-url-set">
-        <%= render partial: 'minister_fields', locals: { form: form, edition: edition } %>
-        <%= render partial: 'topical_event_fields', locals: { form: form, edition: edition } %>
-        <%= render partial: 'worldwide_priority_fields', locals: { form: form, edition: edition } %>
-        <%= render partial: 'nation_fields', locals: { form: form, edition: edition } %>
+
+      <div class="important-associations">
+        <%= render 'related_policy_fields', form: form, edition: edition %>
+        <%= render 'topic_fields', form: form, edition: edition %>
       </div>
+
+      <div class="js-external-url-set">
+        <%= render 'minister_fields', form: form, edition: edition %>
+        <%= render 'topical_event_fields', form: form, edition: edition %>
+        <%= render 'worldwide_priority_fields', form: form, edition: edition %>
+        <%= render 'nation_fields', form: form, edition: edition %>
+      </div>
+
+      <%= render 'organisation_fields', form: form, edition: edition %>
+      <%= render 'specialist_sector_fields', form: form, edition: edition %>
     </fieldset>
   <% end %>
 <% end %>

@@ -12,17 +12,17 @@ class SpecialistSectorTest < ActiveSupport::TestCase
     use_fake_content_api
   end
 
-  test '.grouped_sector_topics should return specialist sector tags grouped under parents' do
+  test '.grouped_sector_topics should return specialist sector tags grouped under sorted parents' do
     oil_and_gas = { slug: 'oil-and-gas', title: 'Oil and Gas' }
     tax = { slug: 'tax', title: 'Tax' }
 
     sector_tags = [
+      tax,
+      { slug: 'tax/income-tax', title: 'Income Tax', parent: tax },
+      { slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax', parent: tax },
       oil_and_gas,
       { slug: 'oil-and-gas/wells', title: 'Wells', parent: oil_and_gas },
       { slug: 'oil-and-gas/fields', title: 'Fields', parent: oil_and_gas },
-      tax,
-      { slug: 'tax/income-tax', title: 'Income Tax', parent: tax },
-      { slug: 'tax/capital-gains-tax', title: 'Capital Gains Tax', parent: tax }
     ]
 
     content_api_has_tags('specialist_sector', sector_tags)
