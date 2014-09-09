@@ -27,7 +27,7 @@ require 'rails/performance_test_help'
 class ActionDispatch::PerformanceTest
   include Warden::Test::Helpers
 
-  self.profile_options = { :runs => 5, :metrics => [:wall_time],
+  self.profile_options = { :runs => 10, :metrics => [:wall_time],
                            :output => 'tmp/performance', :formats => [:flat] }
 
 private
