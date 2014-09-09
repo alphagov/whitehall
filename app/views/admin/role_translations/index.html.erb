@@ -1,20 +1,18 @@
 <% page_title @role.name + " translations" %>
-<section>
-  <nav class="actions">
-    <% if @role.missing_translations.any? %>
-      <%= form_tag admin_role_translations_path(@role) do %>
-        <%= label_tag :translation_locale, 'Locale' %>
-        <%= select_locale :translation_locale, @role.missing_translations %>
-        <%= submit_tag "Create translation", class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-  </nav>
-</section>
 
 <h1>Translations for <%= @role.name %></h1>
-<table id="role-translations" class="table table-striped">
+
+<% if @role.missing_translations.any? %>
+  <%= form_tag admin_role_translations_path(@role) do %>
+    <%= label_tag :translation_locale, 'Locale' %>
+    <%= select_locale :translation_locale, @role.missing_translations %>
+    <%= submit_tag "Create translation", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
+<table id="role-translations" class="table table-striped table-bordered add-top-margin">
   <thead>
-    <tr>
+    <tr class="table-header">
       <th>Locale</th>
       <th>Actions</th>
     </tr>

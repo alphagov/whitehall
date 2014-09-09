@@ -1,14 +1,11 @@
 <% page_title "Fields of operation" %>
 <section>
-  <nav class="actions">
-    <%= link_to "Add field of operation", new_admin_operational_field_path, class: "btn new_resource", title: "Add field of operation" %>
-  </nav>
-
   <h1>Fields of operation</h1>
+  <%= link_to "Add field of operation", new_admin_operational_field_path, class: "btn new_resource add-top-margin", title: "Add field of operation" %>
 
-  <table class="fields_of_operation table table-striped">
+  <table class="fields_of_operation table table-striped table-bordered add-top-margin">
     <thead>
-      <tr>
+      <tr class="table-header">
         <th width="30%">Name</th>
       </tr>
     </thead>

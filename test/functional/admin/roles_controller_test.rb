@@ -118,10 +118,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
 
   view_test "index should display a link to create a new role" do
     get :index
-
-    assert_select ".actions" do
-      assert_select "a[href='#{new_admin_role_path}']"
-    end
+    assert_select "a[href='#{new_admin_role_path}']"
   end
 
   view_test "index should display links to edit an existing role" do
