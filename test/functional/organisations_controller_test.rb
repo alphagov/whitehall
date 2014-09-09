@@ -17,14 +17,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal :some_presented_organisations, assigns(:organisations)
   end
 
-  view_test "index shouldn't include sub-organisations" do
-    sub_organisation = create(:sub_organisation)
-
-    get :index
-
-    refute_select_object(sub_organisation)
-  end
-
   view_test "should include a rel='alternate' link to JSON representation of organisations" do
     get :index
 

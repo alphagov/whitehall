@@ -21,7 +21,7 @@ module Organisation::OrganisationTypeConcern
     }
 
     scope :listable, -> {
-      excluding_govuk_status_closed.with_translations.where("organisation_type_key != 'sub_organisation'")
+      excluding_govuk_status_closed.with_translations
     }
 
     scope :allowed_promotional, -> {

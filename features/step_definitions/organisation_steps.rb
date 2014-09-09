@@ -107,6 +107,7 @@ Given(/^some organisations of every type exist$/) do
   @independent_monitoring_body =  create :organisation, organisation_type_key: :independent_monitoring_body
   @adhoc_advisory_group =         create :organisation, organisation_type_key: :adhoc_advisory_group
   @devolved_administration =      create :organisation, organisation_type_key: :devolved_administration, govuk_status: "exempt"
+  @sub_organisation =             create :organisation, organisation_type_key: :sub_organisation, parent_organisations: [@ministerial_department]
   @other_organisation =           create :organisation, organisation_type_key: :other
 
   @child_org_1 = create :organisation, parent_organisations: [@ministerial_department]
@@ -299,6 +300,15 @@ end
 Then(/^I should see the devolved administrations listed with count$/) do
   within "#devolved-administrations" do
     assert page.has_link?(@devolved_administration.name, href: organisation_path(@devolved_administration))
+    within "header" do
+      assert page.has_content? "1"
+    end
+  end
+end
+
+Then(/^I should see the high profile groups listed with count$/) do
+  within "#high-profile-groups" do
+    assert page.has_link?(@sub_organisation.name, href: organisation_path(@sub_organisation))
     within "header" do
       assert page.has_content? "1"
     end
