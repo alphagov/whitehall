@@ -40,6 +40,7 @@ gem 'airbrake', '3.1.15'
 gem 'pdf-reader', '1.3.3'
 gem 'typhoeus', '0.6.8'
 gem 'bootstrap-sass', '2.3.2.2'
+gem 'dalli'
 
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'
