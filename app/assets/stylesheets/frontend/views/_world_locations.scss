@@ -282,3 +282,45 @@
     }
   }
 }
+
+.embassies {
+  .headings-block .heading-big h1,
+  .headings-block .heading-big-with-extra h1 {
+    max-width:620px;
+  }
+
+  span.a-z-heading {
+
+    display:none;
+
+    @include media(desktop) {
+      display:block;
+      width: 12%;
+    }
+
+    h1 {
+      @include bold-36;
+      margin-bottom:15px;
+      width: 100%;
+      margin-left:0;
+    }
+  }
+
+  ol {
+    list-style:none;
+    display:inline-block;
+    float:none;
+    width:100%;
+
+    li {
+      width:100%;
+    }
+  }
+
+  span.location_name,
+  span.embassy_locality {
+    @include bold-24;
+    display:block;
+    width:100%;
+  }
+}
