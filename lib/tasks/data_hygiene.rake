@@ -58,3 +58,18 @@ task :specialist_sector_cleanup => :environment do
     puts "The sector '#{slug}' has not been tagged to any editions"
   end
 end
+
+desc "Move content from one topic to another"
+task :move_content_to_new_topic => :environment do
+  require "data_hygiene/topic_retagger"
+
+  source_topic_id = ENV['SOURCE']
+  destination_topic_id = ENV['DESTINATION']
+
+  if source_topic_id == destination_topic_id
+    puts "Source and destination topics are the same"
+    exit
+  end
+
+  TopicRetagger.new(source_topic_id, destination_topic_id).retag
+end
