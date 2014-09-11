@@ -102,6 +102,16 @@ module Admin::EditionsHelper
       })
   end
 
+  def lead_organisation_id_at_index(edition, index)
+    edition.edition_organisations.
+            select { |eo| eo.lead? }.
+            sort_by { |eo| eo.lead_ordering }[index].organisation_id
+  end
+
+  def supporting_organisation_id_at_index(edition, index)
+    edition.edition_organisations.reject { |eo| eo.lead? }[index].organisation_id
+  end
+
   class EditionFormBuilder < Whitehall::FormBuilder
     def alternative_format_provider_select(default_organisation)
       if object.respond_to?(:alternative_format_provider)
@@ -122,43 +132,6 @@ module Admin::EditionsHelper
             end
         end
       end
-    end
-
-    def lead_organisations_fields
-      edition_organisations =
-        object.edition_organisations.
-          select { |eo| eo.lead? }.
-          sort_by { |eo| eo.lead_ordering }
-
-      edition_organisations_fields(edition_organisations, true)
-    end
-
-    def supporting_organisations_fields
-      edition_organisations =
-        object.edition_organisations.
-          reject { |eo| eo.lead? }
-
-      edition_organisations_fields(edition_organisations, false)
-    end
-
-    protected
-    def edition_organisations_fields(edition_organisations, lead = true)
-      field_identifier = lead ? 'lead' : 'supporting'
-      edition_organisations.map.with_index { |eo, idx|
-        select_options = @template.options_from_collection_for_select(organisations_for_edition_organisations_fields, 'id', 'select_name', eo.organisation_id)
-        @template.label_tag "edition_#{field_identifier}_organisation_ids_#{idx + 1}" do
-          [
-            "Organisation #{idx + 1}",
-            @template.select_tag("edition[#{field_identifier}_organisation_ids][]",
-                                 select_options,
-                                 include_blank: true,
-                                 multiple: false,
-                                 class: 'chzn-select-non-ie',
-                                 data: { placeholder: "Choose a #{field_identifier} organisation which produced this document..." },
-                                 id: "edition_#{field_identifier}_organisation_ids_#{idx + 1}"),
-          ].join.html_safe
-        end
-      }.join.html_safe
     end
 
     def organisations_for_edition_organisations_fields
