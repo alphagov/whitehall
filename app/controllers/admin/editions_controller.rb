@@ -8,8 +8,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
   before_filter :detect_other_active_editors, only: [:edit]
-  before_filter :build_default_organisation, only: :new
-  before_filter :set_default_edition_locations, only: :new
+  before_filter :set_edition_defaults, only: :new
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :redirect_to_controller_for_type, only: [:show]
@@ -252,6 +251,11 @@ class Admin::EditionsController < Admin::BaseController
 
   def build_edition_dependencies
     build_image
+  end
+
+  def set_edition_defaults
+    build_default_organisation
+    set_default_edition_locations
   end
 
   def build_default_organisation
