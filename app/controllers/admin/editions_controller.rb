@@ -9,6 +9,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :build_edition, only: [:new, :create]
   before_filter :detect_other_active_editors, only: [:edit]
   before_filter :set_edition_defaults, only: :new
+  before_filter :build_blank_image, only: [:new, :edit]
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :redirect_to_controller_for_type, only: [:show]
@@ -250,7 +251,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition_dependencies
-    build_image
+    build_blank_image
   end
 
   def set_edition_defaults
@@ -280,10 +281,8 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def build_image
-    return unless @edition.allows_image_attachments?
-
-    unless @edition.images.any?(&:new_record?)
+  def build_blank_image
+    if @edition.allows_image_attachments? && @edition.images.none?(&:new_record?)
       image = @edition.images.build
       image.build_image_data
     end
