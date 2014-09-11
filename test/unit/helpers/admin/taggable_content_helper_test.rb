@@ -25,4 +25,16 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       ['Event C', event_c.id],
     ], taggable_topical_events_container
   end
+
+  test '#taggable_organisations_container returns an array of select_name/ID pairs for all Organisations' do
+    organisation_c = create(:organisation, name: 'Organisation C', acronym: "OC")
+    organisation_b = create(:organisation, name: 'Organisation B', acronym: "OB")
+    organisation_a = create(:organisation, name: 'Organisation A', acronym: "OA")
+
+    assert_equal [
+      ['Organisation A (OA)', organisation_a.id],
+      ['Organisation B (OB)', organisation_b.id],
+      ['Organisation C (OC)', organisation_c.id],
+    ], taggable_organisations_container
+  end
 end
