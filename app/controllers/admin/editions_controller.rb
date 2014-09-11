@@ -7,8 +7,8 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
-  before_filter :build_edition_organisations, only: [:new, :edit]
   before_filter :detect_other_active_editors, only: [:edit]
+  before_filter :build_default_organisation, only: :new
   before_filter :set_default_edition_locations, only: :new
   before_filter :enforce_permissions!
   before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
@@ -252,23 +252,11 @@ class Admin::EditionsController < Admin::BaseController
 
   def build_edition_dependencies
     build_image
-    build_edition_organisations
   end
 
-  def build_edition_organisations
-    return unless @edition.can_be_related_to_organisations?
-
-    n = @edition.edition_organisations.select { |eo| eo.lead? }.count
-    (n...4).each do |i|
-      if i == 0 && current_user.organisation
-        @edition.edition_organisations.build(lead_ordering: i, lead: true, organisation: current_user.organisation)
-      else
-        @edition.edition_organisations.build(lead_ordering: i, lead: true)
-      end
-    end
-    n = @edition.edition_organisations.reject { |eo| eo.lead? }.count
-    (n...6).each do |i|
-      @edition.edition_organisations.build(lead: false)
+  def build_default_organisation
+    if @edition.can_be_related_to_organisations?
+      @edition.edition_organisations.build(lead_ordering: 0, lead: true, organisation: current_user.organisation)
     end
   end
 

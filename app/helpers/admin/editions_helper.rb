@@ -105,11 +105,11 @@ module Admin::EditionsHelper
   def lead_organisation_id_at_index(edition, index)
     edition.edition_organisations.
             select { |eo| eo.lead? }.
-            sort_by { |eo| eo.lead_ordering }[index].organisation_id
+            sort_by { |eo| eo.lead_ordering }[index].try(:organisation_id)
   end
 
   def supporting_organisation_id_at_index(edition, index)
-    edition.edition_organisations.reject { |eo| eo.lead? }[index].organisation_id
+    edition.edition_organisations.reject { |eo| eo.lead? }[index].try(:organisation_id)
   end
 
   class EditionFormBuilder < Whitehall::FormBuilder
