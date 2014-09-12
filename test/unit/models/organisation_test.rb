@@ -207,6 +207,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [parent.id], Organisation.parent_organisations.map(&:id)
   end
 
+  test '#has_child_organisation returns true if argument is a child of self' do
+    child_org = create(:organisation)
+    parent_org = create(:organisation, child_organisations: [child_org])
+
+    assert parent_org.has_child_organisation?(child_org)
+    refute child_org.has_child_organisation?(parent_org)
+  end
+
   test "considers itself as superseded_by_devolved_administration if it's devolved and any of it's superseding organisations are devolved administrations" do
     devolved_administration = build :devolved_administration
     other_organisation = build :organisation

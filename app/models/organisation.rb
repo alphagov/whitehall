@@ -412,6 +412,10 @@ class Organisation < ActiveRecord::Base
     organisations_with_scoped_search.include?(slug)
   end
 
+  def has_child_organisation?(child)
+    child_organisations.exists?(id: child.id)
+  end
+
   def to_s
     name
   end
