@@ -303,6 +303,18 @@ class PublicationsControllerTest < ActionController::TestCase
     assert_redirected_to statistics_path(keywords: 'wombles')
   end
 
+  view_test '#index for regulation displays only regulation type documents' do
+    regulation = create(:published_publication, publication_type_id: PublicationType::Regulation.id)
+    guidance = create(:published_publication, publication_type_id: PublicationType::Guidance.id)
+    corporate_report = create(:published_publication, publication_type_id: PublicationType::CorporateReport.id)
+
+    get :index, publication_filter_option: 'regulations'
+
+    assert_select_object(regulation)
+    refute_select_object(guidance)
+    refute_select_object(corporate_report)
+  end
+
   view_test "#index requested as JSON includes data for publications" do
     org = create(:organisation, name: "org-name")
     org2 = create(:organisation, name: "other-org")

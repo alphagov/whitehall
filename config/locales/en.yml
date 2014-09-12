@@ -181,6 +181,10 @@ en:
         one: Statutory guidance
         other: Statutory guidance
         see_all: See all our statutory guidance
+      regulation:
+        one: Regulation
+        other: Regulations
+        see_all: See all our regulations
       impact_assessment:
         one: Impact assessment
         other: Impact assessments
@@ -582,6 +586,8 @@ en:
             Do *not* use for: statutory guidance (use the "statutory guidance" publication type) or guidance about completing a form (attach to same publication as the form itself).
         statutory_guidance:
           intended_use: Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the "guidance" sub-type).
+        regulation:
+          intended_use: Rules or directives that are made and maintained by government.
         form:
           intended_use: Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (ie no need to create a separate "guidance" publication for form instructions).
         statistics:

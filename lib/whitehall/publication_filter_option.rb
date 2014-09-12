@@ -6,7 +6,7 @@ module Whitehall
     OpenConsultation    = create(id: 2, label: "Open consultations", search_format_types: ['consultation-open'], publication_types: [], edition_types: ['Consultation'], group_key: 'Consultations')
     ClosedConsultation  = create(id: 3, label: "Closed consultations", search_format_types: ['consultation-closed', 'consultation-outcome'], publication_types: [], edition_types: ['Consultation'], group_key: 'Consultations')
     PolicyPaper         = create(id: 5, label: "Policy papers", search_format_types: PublicationType::PolicyPaper.search_format_types, publication_types: [PublicationType::PolicyPaper], group_key: 'Policy and guidance')
-    Guidance            = create(id: 6, label: "Guidance", search_format_types: ['publication-guidance', 'publication-statutory-guidance'], publication_types: [PublicationType::Guidance, PublicationType::StatutoryGuidance], group_key: 'Policy and guidance')
+    Guidance            = create(id: 6, label: "Guidance", search_format_types: PublicationType::Guidance.search_format_types, publication_types: [PublicationType::Guidance, PublicationType::StatutoryGuidance], group_key: 'Policy and guidance')
     ImpactAssessment    = create(id: 7, label: "Impact assessments", search_format_types: PublicationType::ImpactAssessment.search_format_types, publication_types: [PublicationType::ImpactAssessment], group_key: 'Policy and guidance')
     IndependentReport   = create(id: 8, label: "Independent reports", search_format_types: PublicationType::IndependentReport.search_format_types, publication_types: [PublicationType::IndependentReport], group_key: 'Policy and guidance')
     Correspondence      = create(id: 9, label: "Correspondence", search_format_types: PublicationType::Correspondence.search_format_types, publication_types: [PublicationType::Correspondence], group_key: 'Policy and guidance')
@@ -21,5 +21,6 @@ module Whitehall
     PromotionalMaterial = create(id: 18, label: "Promotional material", search_format_types: PublicationType::PromotionalMaterial.search_format_types, publication_types: [PublicationType::PromotionalMaterial], group_key: 'Other')
     Notice              = create(id: 20, label: "Notices", search_format_types: PublicationType::Notice.search_format_types, publication_types: [PublicationType::Notice], group_key: 'Other')
     Decision            = create(id: 21, label: "Decisions", search_format_types: PublicationType::Decision.search_format_types, publication_types: [PublicationType::Decision], group_key: 'Other')
+    Regulation          = create(id: 22, label: "Regulations", search_format_types: PublicationType::Regulation.search_format_types, publication_types: [PublicationType::Regulation], group_key: 'Other')
   end
 end
