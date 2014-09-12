@@ -1,12 +1,15 @@
 require 'test_helper'
 require 'data_hygiene/topic_retagger'
+require "gds_api/panopticon"
+require 'gds_api/test_helpers/panopticon'
 
 class TopicRetaggerTest < ActiveSupport::TestCase
   include DataHygiene
+  include GdsApi::TestHelpers::Panopticon
 
   setup do
-    @published_edition = create(:published_edition)
-    @draft_edition = create(:draft_edition)
+    @published_edition = create(:published_publication)
+    @draft_edition = create(:draft_publication)
     @gds_user = create(:user, email: 'govuk-whitehall@digital.cabinet-office.gov.uk')
   end
 
@@ -22,15 +25,28 @@ class TopicRetaggerTest < ActiveSupport::TestCase
     end
   end
 
+  def stub_registration(edition, sectors)
+    registerable = RegisterableEdition.new(@published_edition)
+    panopticon_request = stub_artefact_registration(
+      registerable.slug,
+      hash_including(specialist_sectors: ["oil-and-gas/really-far-out"]),
+      true
+    )
+    Whitehall::SearchIndex.expects(:add).with(@published_edition)
+    panopticon_request
+  end
+
   test "#retag updates the taggings" do
     create(:specialist_sector, tag: 'oil-and-gas/offshore', edition: @draft_edition)
     create(:specialist_sector, tag: 'oil-and-gas/offshore', edition: @published_edition)
-    stub_panopticon_registration(@published_edition)
+
+    panopticon_request = stub_registration(@published_edition, ["oil-and-gas/really-far-out"])
 
     tagger = TopicRetagger.new('oil-and-gas/offshore', 'oil-and-gas/really-far-out')
     stub_logging(tagger)
     tagger.retag
 
+    assert_requested panopticon_request
     [@published_edition, @draft_edition].each do |edition|
       edition.reload
       assert edition.editorial_remarks.any?

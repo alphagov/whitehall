@@ -42,9 +42,12 @@ private
   def register_editions(editions)
     editions.each do |edition|
       log "registering '#{edition.slug}'"
+      edition.reload
       registerable_edition = RegisterableEdition.new(edition)
       registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
       registerer.register(registerable_edition)
+
+      ServiceListeners::SearchIndexer.new(edition).index!
     end
   end
 
