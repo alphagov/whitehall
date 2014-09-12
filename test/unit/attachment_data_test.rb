@@ -174,6 +174,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   end
 
   test "should return extracted_text if text file present" do
+    Whitehall.stubs(:extract_text_feature?).returns(true)
     test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
     attachment = build(:attachment_data, file: test_pdf)
     attachment.stubs(:read_extracted_text).returns "\nThis is a test pdf.\n\n\n"

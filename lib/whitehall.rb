@@ -192,7 +192,7 @@ module Whitehall
   end
 
   def self.extract_text_feature?
-    (ENV['WHITEHALL_EXTRACT_TEXT_FEATURE'] || true).to_s =~ /^(1|true)$/
+    false
   end
 
   def self.rummager_work_queue_name
