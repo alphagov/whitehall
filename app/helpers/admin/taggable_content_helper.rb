@@ -3,7 +3,7 @@
 module Admin::TaggableContentHelper
 
   # Returns an Array that represents the current set of taggable topics.
-  # Each element of the array consists of two value: the name and ID of the
+  # Each element of the array consists of two values: the name and ID of the
   # topic.
   def taggable_topics_container
     Rails.cache.fetch(taggable_topics_cache_digest) do
@@ -38,12 +38,15 @@ module Admin::TaggableContentHelper
 
   # Returns an MD5 digest representing the current set of taggable topical
   # events. This will change if any of the Topics should change or if a new
-  # topic is added.
+  # topic event is added.
   def taggable_topical_events_cache_digest
     update_timestamps = TopicalEvent.order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-topical-events-#{update_timestamps}"
   end
 
+  # Returns an MD5 digest representing the current set of taggable
+  # organisations. This will change if any of the Topics should change or if a
+  # new organisation is added.
   def taggable_organisations_cache_digest
     @taggable_organisations_cache_digest ||= begin
       update_timestamps = Organisation.order(:id).pluck(:updated_at).map(&:to_i).join
