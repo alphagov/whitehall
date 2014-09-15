@@ -102,12 +102,20 @@ module Admin::EditionsHelper
       })
   end
 
+  # Because of the unusual way lead organisations and supporting organisations
+  # are managed through the single has_many through :organisations association,
+  # We have to go through the join model to identify selected organisations
+  # when rendering editions' organisation select fields. See the
+  # Edition::Organisations mixin module to see why this is required.
   def lead_organisation_id_at_index(edition, index)
     edition.edition_organisations.
             select { |eo| eo.lead? }.
             sort_by { |eo| eo.lead_ordering }[index].try(:organisation_id)
   end
 
+  # As above for the lead_organisation_id_at_index helper, this helper is
+  # required to identify the selected supporting organisation at a given index
+  # in the list supporting organisations for the edition.
   def supporting_organisation_id_at_index(edition, index)
     edition.edition_organisations.reject { |eo| eo.lead? }[index].try(:organisation_id)
   end
