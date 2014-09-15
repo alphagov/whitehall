@@ -52,28 +52,6 @@ class AttachmentData < ActiveRecord::Base
     AttachmentUploader::INDEXABLE_TYPES.include?(file_extension)
   end
 
-  def text_file_path
-    path.gsub(/\.[^\.]+$/, ".txt")
-  end
-
-  def text_file_exists?
-    File.exist?(text_file_path)
-  end
-
-  def read_extracted_text
-    if text_file_exists?
-      File.open(text_file_path).read
-    end
-  end
-
-  def extracted_text
-    if indexable? && File.exist?(path)
-      if Whitehall.extract_text_feature?
-        read_extracted_text
-      end
-    end
-  end
-
   def virus_status
     if File.exists?(infected_path)
       :infected

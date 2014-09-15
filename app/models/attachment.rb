@@ -75,6 +75,17 @@ class Attachment < ActiveRecord::Base
     Locale.new(locale).rtl?
   end
 
+  # potentially overridden/extended in subclasses.
+  def search_index
+    {
+      title: title,
+      isbn: isbn,
+      command_paper_number: command_paper_number,
+      unique_reference: unique_reference,
+      hoc_paper_number: hoc_paper_number
+    }
+  end
+
   private
 
   def store_price_in_pence

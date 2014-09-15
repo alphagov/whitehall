@@ -85,27 +85,35 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal @greenpaper_pdf.url(:thumbnail), edition.thumbnail_url
   end
 
-  test 'should include attachment content into the #search_index' do
-    test_pdf = fixture_file_upload('simple.pdf', 'application/pdf')
-
+  test 'should include attachment details into the #search_index' do
     edition = create(:publication, :with_file_attachment, attachments: [
-      attachment = build(:file_attachment, file: test_pdf, title: "The title of the attachment",
+      attachment = build(:file_attachment, title: "The title of the attachment",
                                            hoc_paper_number: "1234", parliamentary_session: '2013-14',
                                            command_paper_number: "Cm. 1234", unique_reference: "w123",
                                            isbn: "0140620222"
       )
     ])
 
-    attachment.stubs(:extracted_text).returns "\nThis is a test pdf.\n\n\n"
-
     index = edition.attachments.to_a.index { |attachment| attachment.kind_of?(FileAttachment) }
 
     assert_equal "The title of the attachment", edition.search_index['attachments'][index][:title]
-    assert_equal "\nThis is a test pdf.\n\n\n", edition.search_index['attachments'][index][:content]
     assert_equal attachment.isbn, edition.search_index['attachments'][index][:isbn]
     assert_equal attachment.unique_reference, edition.search_index['attachments'][index][:unique_reference]
     assert_equal attachment.command_paper_number, edition.search_index['attachments'][index][:command_paper_number]
     assert_equal attachment.hoc_paper_number, edition.search_index['attachments'][index][:hoc_paper_number]
+  end
+
+  test 'should include html_attachment content into the #search_index' do
+    edition = create(:publication, :with_html_attachment, attachments: [
+      build(:html_attachment, title: "The title of the HTML attachment",
+                                           unique_reference: "w123",
+                                           body: "##Test HTML attachment"
+      )
+    ])
+
+    assert_equal "The title of the HTML attachment", edition.search_index['attachments'][0][:title]
+    assert_equal "w123", edition.search_index['attachments'][0][:unique_reference]
+    assert_equal "Test HTML attachment", edition.search_index['attachments'][0][:content]
   end
 
   test '#reorder_attachments should update the ordering of its attachments' do
