@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConsularServicesLocationTest < ActiveSupport::TestCase
+class EmbassyTest < ActiveSupport::TestCase
 
   setup do
     @narnia = create(:world_location, :with_worldwide_organisations, name: "Narnia")
@@ -14,9 +14,8 @@ class ConsularServicesLocationTest < ActiveSupport::TestCase
   end
 
   test "initialization and method delegation" do
-    location = ConsularServicesLocation.new(@narnia)
+    location = Embassy.new(@narnia)
     assert_equal "Narnia", location.name
-    assert_equal [@narnia_org], location.worldwide_organisations
   end
 
   test "offices" do
@@ -25,16 +24,13 @@ class ConsularServicesLocationTest < ActiveSupport::TestCase
                                  worldwide_organisation: @narnia_org,
                                  worldwide_office_type: WorldwideOfficeType::Other)
 
-    location = ConsularServicesLocation.new(@narnia)
-
-    assert_equal [@narnia_org.main_office], location.offices
-  end
-
-  test "consular_services?" do
     legoland = create(:world_location, :with_worldwide_organisations, name: "Legoland")
 
-    assert ConsularServicesLocation.new(@narnia).consular_services?
-    refute ConsularServicesLocation.new(legoland).consular_services?
+    location = Embassy.new(@narnia)
+
+    assert Embassy.new(@narnia).offices.any?
+    assert_equal [@narnia_org.main_office], location.offices
+    assert Embassy.new(legoland).offices.empty?
   end
 
   test "remote_services_office and remote_services_country" do
@@ -51,10 +47,10 @@ class ConsularServicesLocationTest < ActiveSupport::TestCase
                                 worldwide_organisation: toytown_org,
                                 worldwide_office_type: WorldwideOfficeType::Embassy)
 
-    location = ConsularServicesLocation.new(toytown)
+    location = Embassy.new(toytown)
 
-    assert_equal "Legoland", location.remote_services_country
-    assert_equal "British Embassy Legoland", location.remote_services_office
+    assert_equal "Legoland", location.remote_services_country.name
+    assert_equal "British Embassy Legoland", location.offices.first.title
   end
 
 end
