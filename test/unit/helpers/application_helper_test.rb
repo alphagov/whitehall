@@ -34,9 +34,9 @@ class ApplicationHelperTest < ActionView::TestCase
     options = role_appointment_options
 
     assert_equal 3, options.length
-    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, in Ministry of Defence"]
-    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, as Secretary of State (01 January 2010 to 01 January 2011), in Home Office"]
-    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, in Home Office"]
+    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, Ministry of Defence"]
+    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, Secretary of State (01 January 2010 to 01 January 2011), Home Office"]
+    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, Home Office"]
   end
 
   test "should supply options with IDs and descriptions for all the ministerial roles" do
@@ -48,8 +48,8 @@ class ApplicationHelperTest < ActionView::TestCase
     options = ministerial_role_options
 
     assert_equal 2, options.length
-    assert options.include? [defence_secretary.id, "Secretary of State, in Ministry of Defence (Philip Hammond)"]
-    assert options.include? [home_secretary.id, "Secretary of State, in Home Office (Theresa May)"]
+    assert options.include? [defence_secretary.id, "Secretary of State, Ministry of Defence (Philip Hammond)"]
+    assert options.include? [home_secretary.id, "Secretary of State, Home Office (Theresa May)"]
   end
 
   test "ministerial_appointment_options should not include non-ministerial appointments" do
@@ -65,7 +65,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
     options = role_appointment_options
     assert_equal 1, options.length
-    assert options.include? [appointment.id, "Joe Bloggs, Role, in Org"]
+    assert options.include? [appointment.id, "Joe Bloggs, Role, Org"]
   end
 
   test '#link_to_attachment returns nil when attachment is nil' do
@@ -269,7 +269,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   test "#text_for_role_appointment includes the time served for past appointments" do
     ra = build(:role_appointment, role: build(:role, name: "my role"), ended_at: 1.day.ago)
-    assert_equal "as my role (10 November 2011 to 10 November 2011)", text_for_role_appointment(ra)
+    assert_equal "my role (10 November 2011 to 10 November 2011)", text_for_role_appointment(ra)
   end
 
   test "correctly identifies external links" do

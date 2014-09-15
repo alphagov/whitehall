@@ -46,7 +46,7 @@ module ApplicationHelper
     if appointment.current?
       appointment.role.name
     else
-      "as #{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
+      "#{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
     end
   end
 
@@ -56,7 +56,7 @@ module ApplicationHelper
 
   def role_appointment_options(filter = RoleAppointment)
     filter.includes(:person).with_translations_for(:organisations).with_translations_for(:role).alphabetical_by_person.map do |appointment|
-      [appointment.id, "#{appointment.person.name}, #{text_for_role_appointment(appointment)}, in #{appointment.organisations.map(&:name).to_sentence}"]
+      [appointment.id, "#{appointment.person.name}, #{text_for_role_appointment(appointment)}, #{appointment.organisations.map(&:name).to_sentence}"]
     end
   end
 
@@ -68,7 +68,7 @@ module ApplicationHelper
 
   def ministerial_role_options
     MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
-      [role.id, "#{role.name}, in #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]
+      [role.id, "#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]
     end
   end
 
