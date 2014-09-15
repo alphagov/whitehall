@@ -3,6 +3,7 @@ module Whitehall
   autoload :RandomKey, 'whitehall/random_key'
   autoload :FormBuilder, 'whitehall/form_builder'
   autoload :Uploader, 'whitehall/uploader'
+  autoload :UrlMaker, 'whitehall/url_maker'
 
   mattr_accessor :search_backend
   mattr_accessor :government_search_client
