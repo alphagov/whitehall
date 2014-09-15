@@ -164,11 +164,6 @@ locking the index for writes (so that index write workers queue up waiting for
 the new index to come online during indexing, avoiding data loss during
 reindex), and seamlessly switching to the new index on completion.
 
-One other caveat is the attachment text extraction feature. This is controlled
-by the `Whitehall.extract_text_feature?` feature flag (and
-WHITEHALL_EXTRACT_TEXT_FEATURE env var). You may wish to disable this feature
-in development if you don't have local copies of the attachment files.
-
 Steps:
 
 1. Make sure you have created the rummager indices by running the
@@ -180,11 +175,6 @@ following task from the rummager repo:
 
     WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb > government.dump
     WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb --detailed > detailed.dump
-
-or if you want to allow the text extraction feature
-
-    bundle exec ./script/rummager_export.rb > government.dump
-    bundle exec ./script/rummager_export.rb --detailed > detailed.dump
 
 then
 

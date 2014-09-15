@@ -80,20 +80,7 @@ module Attachable
   end
 
   def search_index
-    super.merge("attachments" => extracted_attachments)
-  end
-
-  def extracted_attachments
-    attachments.map do |attachment|
-      {
-        title: attachment.title,
-        content: attachment.extracted_text,
-        isbn: attachment.isbn,
-        command_paper_number: attachment.command_paper_number,
-        unique_reference: attachment.unique_reference,
-        hoc_paper_number: attachment.hoc_paper_number
-      }
-    end
+    super.merge("attachments" => attachments.map(&:search_index))
   end
 
   def next_ordering

@@ -192,10 +192,6 @@ module Whitehall
     }[format]
   end
 
-  def self.extract_text_feature?
-    false
-  end
-
   def self.rummager_work_queue_name
     'rummager-delayed-indexing'
   end

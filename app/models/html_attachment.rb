@@ -57,6 +57,12 @@ class HtmlAttachment < Attachment
     slug.nil? || attachable.nil? || !attachable.document.published?
   end
 
+  def search_index
+    super.merge({
+      content: extracted_text,
+    })
+  end
+
   private
 
   def sluggable_locale?
