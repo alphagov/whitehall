@@ -420,6 +420,9 @@ class Organisation < ActiveRecord::Base
 
   def organisations_with_services_and_information_link
     [
+      'charity-commission',
+      'environment-agency',
+      'marine-management-organisation',
       'maritime-and-coastguard-agency',
     ]
   end
