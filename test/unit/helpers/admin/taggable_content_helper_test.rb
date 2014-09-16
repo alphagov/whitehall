@@ -61,6 +61,30 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_ministerial_role_appointments_container
   end
 
+  test '#taggable_role_appointments_container returns an array of label/ID pairs for all role appointments' do
+    ministry        = create(:organisation, name: 'Ministry for Funk')
+    minister        = create(:ministerial_role, name: 'Minister of Funk', organisations: [ministry])
+    board_member    = create(:board_member_role, name: 'Board Member', organisations: [ministry])
+
+    brown   = create(:person, surname: 'Brown', forename: 'James')
+    clinton = create(:person, surname: 'Clinton', forename: 'George')
+    richard = create(:person, surname: 'Richard', forename: 'Little')
+
+    minister_appointment      = create(:role_appointment, role: minister, person: brown)
+    board_member_appointment = create(:role_appointment, role: board_member, person: clinton)
+    old_minister_appointment  = create(:role_appointment,
+                                          role: minister,
+                                          person: richard,
+                                          started_at: Date.new(1932, 12, 5),
+                                          ended_at: Date.new(1972, 5, 14))
+
+    assert_equal [
+      ['James Brown, Minister of Funk, Ministry for Funk', minister_appointment.id],
+      ['George Clinton, Board Member, Ministry for Funk', board_member_appointment.id],
+      ['Little Richard, Minister of Funk (05 December 1932 to 14 May 1972), Ministry for Funk', old_minister_appointment.id],
+    ], taggable_role_appointments_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)
@@ -72,13 +96,18 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
   end
 
   test '#taggable_ministerial_role_appointments_cache_digest changes when a filled ministerial role is updated' do
-    role_appointment = Timecop.travel 1.year.ago do
-      create(:ministerial_role_appointment, started_at: 1.day.ago)
-    end
-    role = role_appointment.role
+    Timecop.travel 1.year.ago
+    mininsterial_role_appointment = create(:ministerial_role_appointment)
+    other_role_appointment = create(:board_member_role_appointment)
+    minister_role = mininsterial_role_appointment.role
+    other_role = other_role_appointment.role
     current_cache_digest = taggable_ministerial_role_appointments_cache_digest
-    role.update_attributes!(name: 'Updated the Role name')
+    Timecop.return
 
+    other_role.update_attributes!(name: 'Updated the Board Member Role name')
+    assert_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
+
+    minister_role.update_attributes!(name: 'Updated the Role name')
     refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
 
@@ -91,5 +120,21 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     person.update_attributes!(surname: 'Smith')
 
     refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
+  end
+
+  test '#taggable_role_appointments_cache_digest changes when any filled role is updated' do
+    Timecop.travel 1.year.ago
+    mininsterial_role_appointment = create(:ministerial_role_appointment)
+    other_role_appointment = create(:board_member_role_appointment)
+    minister_role = mininsterial_role_appointment.role
+    other_role = other_role_appointment.role
+    current_cache_digest = taggable_role_appointments_cache_digest
+    Timecop.return
+
+    other_role.update_attributes!(name: 'Updated the Board Member Role name')
+    refute_equal current_cache_digest, taggable_role_appointments_cache_digest
+
+    minister_role.update_attributes!(name: 'Updated the Role name')
+    refute_equal current_cache_digest, taggable_role_appointments_cache_digest
   end
 end

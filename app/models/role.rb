@@ -40,6 +40,7 @@ class Role < ActiveRecord::Base
   validates_with SafeHtmlValidator
 
   before_destroy :prevent_destruction_unless_destroyable
+  after_update :touch_role_appointments
 
   extend FriendlyId
   friendly_id
@@ -161,5 +162,12 @@ class Role < ActiveRecord::Base
 
   def default_person_name
     "No one is assigned to this role"
+  end
+
+  # Whenever a ministerial role is updated, we want touch the updated_at
+  # timestamps of any associated role appointments so that the cache digest for
+  # the taggable_ministerial_role_appointments_container gets invalidated.
+  def touch_role_appointments
+    role_appointments.update_all updated_at: Time.zone.now
   end
 end

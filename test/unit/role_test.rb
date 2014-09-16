@@ -180,4 +180,15 @@ class RoleTest < ActiveSupport::TestCase
 
     assert_nil create(:role, name: 'Another role').historic_param
   end
+
+  test 'touches any role appointments after being updated' do
+    role = create(:role)
+    role_appointment = create(:role_appointment, role: role)
+
+    Timecop.freeze 1.month do
+      role.update_attributes!(name: 'Name change')
+
+      assert_equal Time.zone.now, role_appointment.reload.updated_at
+    end
+  end
 end

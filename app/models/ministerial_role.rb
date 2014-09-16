@@ -7,8 +7,6 @@ class MinisterialRole < Role
   has_many :policies, through: :edition_ministerial_roles, source: :edition, conditions: { "editions.type" => Policy }
   has_many :news_articles, through: :role_appointments, conditions: { "editions.type" => NewsArticle }, uniq: true
 
-  after_update :touch_role_appointments
-
   def published_policies(options = {})
     policies
       .latest_published_edition
@@ -61,12 +59,5 @@ class MinisterialRole < Role
 private
   def default_person_name
     name
-  end
-
-  # Whenever a ministerial role is updated, we want touch the updated_at
-  # timestamps of any associated role appointments so that the cache digest for
-  # the taggable_ministerial_role_appointments_container gets invalidated.
-  def touch_role_appointments
-    role_appointments.update_all updated_at: Time.zone.now
   end
 end

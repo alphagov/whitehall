@@ -167,15 +167,4 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     role = create(:ministerial_role, name: "Minister of Importance", people: [])
     assert_equal "Minister of Importance", role.current_person_name
   end
-
-  test 'touches any role appointments after being updated' do
-    role = create(:ministerial_role)
-    role_appointment = create(:role_appointment, role: role)
-
-    Timecop.freeze 1.month do
-      role.update_attributes!(name: 'Name change')
-
-      assert_equal Time.zone.now, role_appointment.reload.updated_at
-    end
-  end
 end

@@ -26,19 +26,6 @@ class ApplicationHelperTest < ActionView::TestCase
     controller.request
   end
 
-  test "should supply options with IDs and descriptions for the all ministerial appointments" do
-    theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
-    philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
-    philip_hammond_home_secretary_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
-
-    options = role_appointment_options
-
-    assert_equal 3, options.length
-    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, Ministry of Defence"]
-    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, Secretary of State (01 January 2010 to 01 January 2011), Home Office"]
-    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, Home Office"]
-  end
-
   test "should supply options with IDs and descriptions for all the ministerial roles" do
     theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
     philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
@@ -50,17 +37,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 2, options.length
     assert options.include? [defence_secretary.id, "Secretary of State, Ministry of Defence (Philip Hammond)"]
     assert options.include? [home_secretary.id, "Secretary of State, Home Office (Theresa May)"]
-  end
-
-  test "role_appointment_options should all appointments" do
-    organisation = create(:organisation, name: "Org")
-    role = create(:role, organisations: [organisation], name: "Role")
-    person = create(:person, forename: "Joe", surname: "Bloggs")
-    appointment = create(:board_member_role_appointment, role: role, person: person)
-
-    options = role_appointment_options
-    assert_equal 1, options.length
-    assert options.include? [appointment.id, "Joe Bloggs, Role, Org"]
   end
 
   test '#link_to_attachment returns nil when attachment is nil' do

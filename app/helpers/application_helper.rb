@@ -50,12 +50,6 @@ module ApplicationHelper
     end
   end
 
-  def role_appointment_options(filter = RoleAppointment)
-    filter.includes(:person).with_translations_for(:organisations).with_translations_for(:role).alphabetical_by_person.map do |appointment|
-      [appointment.id, "#{appointment.person.name}, #{text_for_role_appointment(appointment)}, #{appointment.organisations.map(&:name).to_sentence}"]
-    end
-  end
-
   def statistical_data_set_options
     StatisticalDataSet.with_translations.latest_edition.map do |data_set|
       [data_set.document_id, data_set.title]
