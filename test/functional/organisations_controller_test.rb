@@ -35,13 +35,12 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "provides ids for links with fragment identifiers to jump to relevent sections" do
-    topic = create(:topic)
     management_role = create(:board_member_role)
     management = create(:role_appointment, role: management_role, person: create(:person))
     contact = create(:contact)
-    organisation = create(:organisation, topics: [topic], management_roles: [management_role])
+    organisation = create(:organisation, management_roles: [management_role])
     create(:sub_organisation, parent_organisations: [organisation])
-    create(:published_policy, organisations: [organisation], topics: [topic])
+    create(:published_policy, organisations: [organisation])
     role = create(:ministerial_role, role_appointments: [create(:role_appointment)])
     create(:organisation_role, organisation: organisation, role: role)
     create(:corporate_information_page, organisation: organisation)
@@ -56,7 +55,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#org-contacts'
     assert_select '#people'
     assert_select '#policies'
-    assert_select '#topics'
     assert_select '#what-we-do'
   end
 
@@ -263,25 +261,17 @@ class OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "should display link to policies filter if there are many policies" do
-    topic_1 = create(:topic)
-    topic_2 = create(:topic)
-    organisation = create(:organisation, topics: [topic_1, topic_2])
-    create(:published_policy, organisations: [organisation], topics: [topic_1])
-    create(:published_policy, organisations: [organisation], topics: [topic_2])
-    create(:published_policy, organisations: [organisation], topics: [topic_2])
-    create(:published_policy, organisations: [organisation], topics: [topic_1])
+    organisation = create(:organisation)
+    create(:published_policy, organisations: [organisation])
+    create(:published_policy, organisations: [organisation])
+    create(:published_policy, organisations: [organisation])
+    create(:published_policy, organisations: [organisation])
 
     get :show, id: organisation
 
     assert_select '#policies' do
       assert_select "a[href='#{policies_filter_path(organisation)}']"
     end
-  end
-
-  view_test "should not display an empty topics section" do
-    organisation = create(:organisation)
-    get :show, id: organisation
-    assert_select "#topics", count: 0
   end
 
   view_test "should display the organisation's policies with content" do
