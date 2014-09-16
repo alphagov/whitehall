@@ -50,10 +50,6 @@ module ApplicationHelper
     end
   end
 
-  def ministerial_appointment_options
-    role_appointment_options(RoleAppointment.for_ministerial_roles)
-  end
-
   def role_appointment_options(filter = RoleAppointment)
     filter.includes(:person).with_translations_for(:organisations).with_translations_for(:role).alphabetical_by_person.map do |appointment|
       [appointment.id, "#{appointment.person.name}, #{text_for_role_appointment(appointment)}, #{appointment.organisations.map(&:name).to_sentence}"]

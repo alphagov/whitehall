@@ -49,6 +49,7 @@ class Person < ActiveRecord::Base
   delegate :url, to: :image, prefix: :image
 
   before_destroy :prevent_destruction_if_appointed
+  after_update :touch_role_appointments
 
   def search_link
     Whitehall.url_maker.person_path(slug)
@@ -132,5 +133,12 @@ class Person < ActiveRecord::Base
 
   def prevent_destruction_if_appointed
     return false unless destroyable?
+  end
+
+  # Whenever a person is updated, we want touch the updated_at timestamps of
+  # any associated role appointments so that the cache digest for the
+  # taggable_ministerial_role_appointments_container gets invalidated.
+  def touch_role_appointments
+    role_appointments.update_all updated_at: Time.zone.now
   end
 end

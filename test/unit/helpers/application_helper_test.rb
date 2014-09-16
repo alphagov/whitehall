@@ -52,11 +52,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert options.include? [home_secretary.id, "Secretary of State, Home Office (Theresa May)"]
   end
 
-  test "ministerial_appointment_options should not include non-ministerial appointments" do
-    appointment = create(:board_member_role_appointment)
-    assert_equal 0, ministerial_appointment_options.length
-  end
-
   test "role_appointment_options should all appointments" do
     organisation = create(:organisation, name: "Org")
     role = create(:role, organisations: [organisation], name: "Role")
@@ -260,16 +255,6 @@ class ApplicationHelperTest < ActionView::TestCase
     view = TestView.new
     view.stubs(:user_signed_in?).returns(false)
     assert_equal 'assets.example.com/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
-  end
-
-  test "#text_for_role_appointment returns the role name for current appointments" do
-    ra = build(:role_appointment, role: build(:role, name: "my role"))
-    assert_equal "my role", text_for_role_appointment(ra)
-  end
-
-  test "#text_for_role_appointment includes the time served for past appointments" do
-    ra = build(:role_appointment, role: build(:role, name: "my role"), ended_at: 1.day.ago)
-    assert_equal "my role (10 November 2011 to 10 November 2011)", text_for_role_appointment(ra)
   end
 
   test "correctly identifies external links" do

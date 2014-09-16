@@ -259,4 +259,15 @@ class PersonTest < ActiveSupport::TestCase
     create(:historic_role_appointment, person: person)
     assert person.reload.can_have_historical_accounts?
   end
+
+  test 'touches any person appointments after being updated' do
+    person = create(:person)
+    role_appointment = create(:role_appointment, person: person)
+
+    Timecop.freeze 1.month do
+      person.update_attributes!(surname: 'Smith')
+
+      assert_equal Time.zone.now, role_appointment.reload.updated_at
+    end
+  end
 end
