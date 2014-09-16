@@ -80,17 +80,6 @@
     </div>
   </div>
 
-  <% if @topics.any? %>
-    <div class="block-6">
-      <div class="inner-block">
-        <section id="topics">
-          <h1 class="label"><%= t('organisation.headings.our_topics') %></h1>
-          <%= render partial: "classifications/list_description", locals: {topics: @topics, organisation: @organisation} %>
-        </section>
-      </div>
-    </div>
-  <% end %>
-
   <% if @mainstream_categories.any? %>
     <div class="block-6">
       <div class="inner-block">
