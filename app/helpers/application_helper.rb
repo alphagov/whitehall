@@ -42,14 +42,11 @@ module ApplicationHelper
     link_to name, attachment.url(options)
   end
 
-  def role_appointment(appointment, link = false)
-    link = false unless appointment.role.ministerial?
-    role_text = (link ? link_to(appointment.role.name, appointment.role) : appointment.role.name)
+  def text_for_role_appointment(appointment)
     if appointment.current?
-      role_text.html_safe
+      appointment.role.name
     else
-      ended = appointment.ended_at ? l(appointment.ended_at.to_date) : 'present'
-      "as #{role_text} (#{l(appointment.started_at.to_date)} to #{ended})".html_safe
+      "as #{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
     end
   end
 
@@ -59,7 +56,7 @@ module ApplicationHelper
 
   def role_appointment_options(filter = RoleAppointment)
     filter.includes(:person).with_translations_for(:organisations).with_translations_for(:role).alphabetical_by_person.map do |appointment|
-      [appointment.id, "#{appointment.person.name}, #{role_appointment(appointment)}, in #{appointment.organisations.map(&:name).to_sentence}"]
+      [appointment.id, "#{appointment.person.name}, #{text_for_role_appointment(appointment)}, in #{appointment.organisations.map(&:name).to_sentence}"]
     end
   end
 

@@ -48,7 +48,7 @@
             <label class="checkbox">
               <%= check_box_tag 'edition[role_appointment_ids][]', role_appointment.id, @edition.role_appointments.include?(role_appointment) %>
               <%= RoleAppointmentPresenter.new(role_appointment, self).person.name %>
-              <span class="muted"><%= role_appointment(role_appointment) %></span>
+              <span class="muted"><%= text_for_role_appointment(role_appointment) %></span>
             </label>
           <% end %>
         <% end %>

@@ -262,24 +262,14 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 'assets.example.com/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
   end
 
-  test "role appointment should show the role name" do
+  test "#text_for_role_appointment returns the role name for current appointments" do
     ra = build(:role_appointment, role: build(:role, name: "my role"))
-    assert_equal "my role", role_appointment(ra)
+    assert_equal "my role", text_for_role_appointment(ra)
   end
 
-  test "past role appointment should be reflected in the text" do
+  test "#text_for_role_appointment includes the time served for past appointments" do
     ra = build(:role_appointment, role: build(:role, name: "my role"), ended_at: 1.day.ago)
-    assert_equal "as my role (10 November 2011 to 10 November 2011)", role_appointment(ra)
-  end
-
-  test "should link to role page" do
-    ra = build(:ministerial_role_appointment)
-    assert_match %r{<a href=.*ministers.*>#{ra.role.name}</a>}, role_appointment(ra, true)
-  end
-
-  test "non-ministerial role appointments should never link to page (as pages don't exist)" do
-    ra = build(:board_member_role_appointment)
-    assert_equal ra.role.name, role_appointment(ra, true)
+    assert_equal "as my role (10 November 2011 to 10 November 2011)", text_for_role_appointment(ra)
   end
 
   test "correctly identifies external links" do

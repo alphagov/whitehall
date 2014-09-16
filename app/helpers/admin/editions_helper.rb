@@ -102,15 +102,33 @@ module Admin::EditionsHelper
       })
   end
 
+  # Because of the unusual way lead organisations and supporting organisations
+  # are managed through the single has_many through :organisations association,
+  # We have to go through the join model to identify selected organisations
+  # when rendering editions' organisation select fields. See the
+  # Edition::Organisations mixin module to see why this is required.
+  def lead_organisation_id_at_index(edition, index)
+    edition.edition_organisations.
+            select { |eo| eo.lead? }.
+            sort_by { |eo| eo.lead_ordering }[index].try(:organisation_id)
+  end
+
+  # As above for the lead_organisation_id_at_index helper, this helper is
+  # required to identify the selected supporting organisation at a given index
+  # in the list supporting organisations for the edition.
+  def supporting_organisation_id_at_index(edition, index)
+    edition.edition_organisations.reject { |eo| eo.lead? }[index].try(:organisation_id)
+  end
+
   class EditionFormBuilder < Whitehall::FormBuilder
-    def alternative_format_provider_select(alternative_format_required, default_organisation)
+    def alternative_format_provider_select(default_organisation)
       if object.respond_to?(:alternative_format_provider)
         select_options = @template.options_for_select(
           organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
           selected: object.alternative_format_provider_id || default_organisation.try(:id),
           disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id))
         @template.content_tag(:div, class: 'control-group') do
-          label(:alternative_format_provider_id, "Email address for ordering attached files in an alternative format", required: alternative_format_required) +
+          label(:alternative_format_provider_id, "Email address for ordering attached files in an alternative format", required: object.alternative_format_provider_required?) +
             @template.content_tag(:div, class: 'controls') do
               select(
                 :alternative_format_provider_id,
@@ -122,43 +140,6 @@ module Admin::EditionsHelper
             end
         end
       end
-    end
-
-    def lead_organisations_fields
-      edition_organisations =
-        object.edition_organisations.
-          select { |eo| eo.lead? }.
-          sort_by { |eo| eo.lead_ordering }
-
-      edition_organisations_fields(edition_organisations, true)
-    end
-
-    def supporting_organisations_fields
-      edition_organisations =
-        object.edition_organisations.
-          reject { |eo| eo.lead? }
-
-      edition_organisations_fields(edition_organisations, false)
-    end
-
-    protected
-    def edition_organisations_fields(edition_organisations, lead = true)
-      field_identifier = lead ? 'lead' : 'supporting'
-      edition_organisations.map.with_index { |eo, idx|
-        select_options = @template.options_from_collection_for_select(organisations_for_edition_organisations_fields, 'id', 'select_name', eo.organisation_id)
-        @template.label_tag "edition_#{field_identifier}_organisation_ids_#{idx + 1}" do
-          [
-            "Organisation #{idx + 1}",
-            @template.select_tag("edition[#{field_identifier}_organisation_ids][]",
-                                 select_options,
-                                 include_blank: true,
-                                 multiple: false,
-                                 class: 'chzn-select-non-ie',
-                                 data: { placeholder: "Choose a #{field_identifier} organisation which produced this document..." },
-                                 id: "edition_#{field_identifier}_organisation_ids_#{idx + 1}"),
-          ].join.html_safe
-        end
-      }.join.html_safe
     end
 
     def organisations_for_edition_organisations_fields

@@ -1,6 +1,3 @@
-<%
-  alternative_format_required = false unless defined?(:alternative_format_required)
-%>
 <fieldset id="edition_attachment_fields" class="attachments">
   <legend>Attachments</legend>
   <% if edition.new_record? %>
@@ -13,5 +10,5 @@
     <%= render 'admin/attachments/markdown_codes', attachable: edition %>
   <% end %>
 
-  <%= form.alternative_format_provider_select(alternative_format_required, current_user.organisation) %>
+  <%= form.alternative_format_provider_select(current_user.organisation) %>
 </fieldset>

@@ -41,8 +41,8 @@ Whitehall::Application.configure do
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
 
-  # Use per-process in memory store in production
-  config.cache_store = :memory_store, { size: 32.megabytes }
+  # Use memcache store to mimic in production
+  config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = Whitehall.asset_root
