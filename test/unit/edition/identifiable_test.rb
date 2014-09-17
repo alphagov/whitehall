@@ -126,4 +126,13 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     document = edition2.document
     assert_equal document.id.to_s, document.slug
   end
+
+  test 'updating an edition updates the parent document timestamp' do
+    edition = create(:edition)
+
+    Timecop.travel 1.month do
+      edition.update_attributes!(title: 'Title updated')
+      assert_equal edition.updated_at.to_i, edition.document.updated_at.to_i
+    end
+  end
 end

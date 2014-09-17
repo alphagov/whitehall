@@ -2,7 +2,7 @@ module Edition::Identifiable
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :document
+    belongs_to :document, touch: true
     validates :document, presence: true
     before_validation :ensure_presence_of_document, on: :create
     before_validation :update_document_slug, on: :update

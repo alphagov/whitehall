@@ -120,14 +120,14 @@ module Admin::TaggableContentHelper
   # Returns an MD5 digest representing all the detailed guides. This wil change
   # if any detailed guides are added or updated.
   def taggable_detailed_guides_cache_digest
-    update_timestamps = DetailedGuide.order(:id).pluck(:updated_at).map(&:to_i).join
+    update_timestamps = Document.where(document_type: DetailedGuide).order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-detailed-guides-#{update_timestamps}"
   end
 
   # Returns an MD5 digest representing the taggable statistical data sets. This
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
-    update_timestamps = StatisticalDataSet.order(:id).pluck(:updated_at).map(&:to_i).join
+    update_timestamps = Document.where(document_type: StatisticalDataSet).order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-statistical-data-sets-#{update_timestamps}"
   end
 
