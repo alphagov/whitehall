@@ -1,6 +1,6 @@
 class Admin::OrganisationsController < Admin::BaseController
   before_filter :load_organisation, except: [:index, :new, :create]
-  before_filter :enforce_permissions!, only: [:new, :create]
+  before_filter :enforce_permissions!, only: [:new, :create, :edit, :update]
 
   def index
     @organisations = Organisation.alphabetical
@@ -80,7 +80,12 @@ class Admin::OrganisationsController < Admin::BaseController
   private
 
   def enforce_permissions!
-    enforce_permission!(:create, Organisation)
+    case action_name
+    when 'new', 'create'
+      enforce_permission!(:create, Organisation)
+    when 'edit', 'update'
+      enforce_permission!(:edit, @organisation)
+    end
   end
 
   def organisation_params

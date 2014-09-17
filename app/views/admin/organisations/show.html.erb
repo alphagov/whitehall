@@ -95,9 +95,11 @@
           <% end %>
         </table>
 
-        <div class="form-actions">
-          <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary"%>
-        </div>
+        <% if can?(:edit, @organisation) %>
+          <div class="form-actions">
+            <%= link_to "Edit", edit_admin_organisation_path(@organisation), class: "btn btn-large btn-primary"%>
+          </div>
+        <% end %>
       <% end %>
     </section>
   </div>

@@ -1,5 +1,6 @@
-Given /^there is an organisation with no mainstream categories defined$/ do
-  @the_organisation = create(:ministerial_department)
+Given /^the organisation "(.*?)" has no mainstream categories defined$/ do |name|
+  @the_organisation = Organisation.find_by_name(name)
+  @the_organisation.mainstream_categories.clear
 end
 
 Then /^the public page for the organisation says nothing about mainstream categories$/ do

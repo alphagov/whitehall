@@ -1,7 +1,7 @@
 Feature: Administering Organisations
 
 Background:
-  Given I am an admin called "Jane"
+  Given I am an admin in the organisation "Ministry of Pop"
 
 Scenario: Adding an Organisation
   Given I have the "GDS Admin" permission
@@ -9,12 +9,12 @@ Scenario: Adding an Organisation
   Then I should be able to see "Ministry of Jazz" in the list of organisations
 
 Scenario: Adding a sponsoring organisation
-  Given two organisations "Association of Krunk" and "Administration for the Proliferation of Krunk" exist
+  Given I am an admin in the organisation "Administration for the Proliferation of Krunk"
+  And the organisation "Association of Krunk" exists
   When I choose "Association of Krunk" as a sponsoring organisation of "Administration for the Proliferation of Krunk"
-  Then I should "Association of Krunk" listed as a sponsoring organisation of "Administration for the Proliferation of Krunk"
+  Then I should see "Association of Krunk" listed as a sponsoring organisation of "Administration for the Proliferation of Krunk"
 
 Scenario: Administering organisation contact details
-  Given the organisation "Ministry of Pop" exists
   When I visit the organisation admin page for "Ministry of Pop"
   And I add a new contact "Main office" with address "1 Acacia Avenue"
   Then I should see the "Main office" contact in the admin interface with address "1 Acacia Avenue"
@@ -22,7 +22,6 @@ Scenario: Administering organisation contact details
   Then I should see the "Main office" contact in the admin interface with address "1 Acacia Road"
 
 Scenario: Featuring news on an organisation page
-  Given the organisation "Ministry of Pop" exists
   And a published news article "You must buy the X-Factor single, says Queen" was produced by the "Ministry of Pop" organisation
   When I feature the news article "You must buy the X-Factor single, says Queen" for "Ministry of Pop" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured news articles in the "Ministry of Pop" organisation are:
@@ -31,12 +30,10 @@ Scenario: Featuring news on an organisation page
   Then there should be nothing featured on the home page of "Ministry of Pop"
 
 Scenario: Creating offsite content on an organisation page
-  Given the organisation "Ministry of Pop" exists
   When I add the offsite link "Offsite Thing" of type "Alert" to the organisation "Ministry of Pop"
   Then I should see the edit offsite link "Offsite Thing" on the "Ministry of Pop" organisation page
 
 Scenario: Featuring offsite content on an organisation page
-  Given the organisation "Ministry of Pop" exists
   And I have an offsite link "Offsite Thing" for the organisation "Ministry of Pop"
   When I feature the offsite link "Offsite Thing" for organisation "Ministry of Pop" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured offsite links in the "Ministry of Pop" organisation are:
@@ -51,7 +48,6 @@ Scenario: Filtering items to feature on an organisation page
   Then I can filter instantaneously the list of documents by title, author, organisation, and document type
 
 Scenario: Featuring a topical event on an organisation page
-  Given the organisation "Ministry of Pop" exists
   And the topical event "G8" exists
   When I feature the topical event "G8" for "Ministry of Pop" with image "minister-of-funk.960x640.jpg"
   Then I should see the featured topical events in the "Ministry of Pop" organisation are:
@@ -60,7 +56,6 @@ Scenario: Featuring a topical event on an organisation page
   Then there should be nothing featured on the home page of "Ministry of Pop"
 
 Scenario: Defining the order of featured news on an organisation page
-  Given the organisation "Ministry of Pop" exists
   And a published news article "You must buy the X-Factor single, says Queen" was produced by the "Ministry of Pop" organisation
   And a published news article "Bringing back the Charleston" was produced by the "Ministry of Pop" organisation
   And I feature the news article "Bringing back the Charleston" for "Ministry of Pop"
@@ -73,26 +68,22 @@ Scenario: Defining the order of featured news on an organisation page
     |Bringing back the Charleston|
 
 Scenario: Requesting publications in alternative format
-  Given the organisation "Ministry of Pop" exists
   And I set the alternative format contact email of "Ministry of Pop" to "alternative.format@ministry-of-pop.gov.uk"
   And a published publication "Charleston styles today" with a PDF attachment and alternative format provider "Ministry of Pop"
   When I visit the publication "Charleston styles today"
   Then I should see a mailto link for the alternative format contact email "alternative.format@ministry-of-pop.gov.uk"
 
 Scenario: Adding top tasks
-  Given the organisation "Ministry of Pop" exists
   When I add some top tasks to the organisation "Ministry of Pop" via the admin
   Then the top tasks for the organisation "Ministry of Pop" should be visible on the public site
 
 Scenario: Adding featured services and guidance
-  Given I am a GDS editor
-  And the organisation "Ministry of Pop" exists
+  Given I am a GDS editor in the organisation "Ministry of Pop"
   When I add some featured services and guidance to the organisation "Ministry of Pop" via the admin
   Then the featured services and guidance for the organisation "Ministry of Pop" should be visible on the public site
 
 Scenario: Managing social media links
-  Given the organisation "Ministry of Pop" exists
-  And a social media service "Twooter"
+  Given a social media service "Twooter"
   And a social media service "Facebark"
   When I add a "Twooter" social media link "http://twooter.com/beards-in-france" to the organisation
   And I add a "Facebark" social media link "http://facebark.com/beards-in-france" with the title "Beards on Facebark!" to the organisation
@@ -100,8 +91,7 @@ Scenario: Managing social media links
   And the "Facebark" social link called "Beards on Facebark!" should be shown on the public website for the organisation
 
 Scenario: Managing mainstream categories
-  Given I am an admin called "Jane"
-  And there is an organisation with no mainstream categories defined
+  Given the organisation "Ministry of Pop" has no mainstream categories defined
   Then the public page for the organisation says nothing about mainstream categories
   But the admin page for the organisation says it has no mainstream categories
   And there are some mainstream categories
@@ -208,8 +198,7 @@ Scenario: Organisation page lists promotional features for executive offices
   Then I should see the promotional feature on the executive office page
 
 Scenario: deleting an organisation with no children or roles
-  Given I am an editor
-  And the organisation "Department of Fun" exists
+  Given I am an editor in the organisation "Department of Fun"
   When I delete the organisation "Department of Fun"
   Then there should not be an organisation called "Department of Fun"
 
@@ -220,7 +209,7 @@ Scenario: DFID shows link to uk aid information
   And I can not see information about uk aid on the "Cabinet Office" page
 
 Scenario: Admin closes an organisation, superseding it with another one
-  Given the organisation "Department of wombat population control" exists
+  Given I am an editor in the organisation "Department of wombat population control"
   And the organisation "Wimbledon council of wombat population control" exists
   When I close the organisation "Department of wombat population control", superseding it with the organisation "Wimbledon council of wombat population control"
   Then I can see that the organisation "Department of wombat population control" has been superseded with the organisaion "Wimbledon council of wombat population control"

@@ -267,7 +267,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "GET on :edit allows entry of important board members only data to gds editors" do
-    login_as :gds_editor
+    organisation = create(:organisation)
+    user = create(:gds_editor, organisation: organisation)
     junior_board_member_role = create(:board_member_role)
     senior_board_member_role = create(:board_member_role)
 
@@ -371,8 +372,9 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "Prevents unauthorized management of featured services and guidance" do
-    login_as :policy_writer
     organisation = create(:organisation)
+    policy_writer = create(:policy_writer, organisation: organisation)
+    login_as(policy_writer)
 
     get :edit, id: organisation
     refute_select "legend", text: "Featured services and guidance"
@@ -382,8 +384,27 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :edit, id: organisation
     assert_select "legend", text: "Featured services and guidance"
 
-    login_as(:gds_editor)
+    gds_editor = create(:gds_editor, organisation: organisation)
+    login_as(gds_editor)
     get :edit, id: organisation
     assert_select "legend", text: "Featured services and guidance"
   end
+
+  test "Non-admins can only edit their own organisations or children" do
+    organisation = create(:organisation)
+    gds_editor = create(:gds_editor, organisation: organisation)
+    login_as(gds_editor)
+
+    get :edit, id: organisation
+    assert_response :success
+
+    organisation2 = create(:organisation)
+    get :edit, id: organisation2
+    assert_response 403
+
+    organisation2.parent_organisations << organisation
+    get :edit, id: organisation2
+    assert_response :success
+  end
+
 end
