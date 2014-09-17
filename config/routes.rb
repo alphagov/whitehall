@@ -143,6 +143,9 @@ Whitehall::Application.routes.draw do
       resources :corporate_information_pages, only: [:show], path: 'about', localised: true
       resources :worldwide_offices, path: 'office', only: [:show]
     end
+    
+    resources :embassies, path: 'world/embassies', only: [:index]
+
     resources :world_locations, path: 'world', only: [:index, :show], localised: true
     get 'world/organisations/:organisation_id/office' => redirect('/world/organisations/%{organisation_id}')
     get 'world/organisations/:organisation_id/about' => redirect('/world/organisations/%{organisation_id}')

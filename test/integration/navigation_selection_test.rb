@@ -14,6 +14,7 @@ class NavigationSelectionTest < ActiveSupport::TestCase
     document_collections
     documents
     email_signups
+    embassies
     healthcheck
     mainstream_categories
     people

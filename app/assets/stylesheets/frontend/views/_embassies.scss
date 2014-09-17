@@ -1,0 +1,88 @@
+.embassies-index {
+  .headings-block .heading h1,
+  .headings-block .heading-big-with-extra h1 {
+    max-width:620px;
+  }
+
+  span.a-z-heading {
+    display:none;
+
+    @include media(tablet) {
+      display:block;
+      width: 18%;
+    }
+
+    h1 {
+      @include bold-36;
+      margin-bottom:15px;
+      width: 100%;
+      margin-left:0;
+    }
+  }
+
+  ol.locations {
+    list-style:none;
+    display:inline-block;
+    float:none;
+    width:100%;
+    margin:20px 0 0 0;
+
+    @include media(tablet) {
+      width: 82%;
+      margin:-50px 0 0 18%;
+    }
+
+    li {
+      width:100%;
+      margin-bottom:20px;
+      display: inline-block;
+      border-bottom: 1px solid $grey-2;
+    }
+
+    p {
+      margin-bottom:20px;
+    }
+
+    h2,
+    h3 {
+      @include bold-24;
+      display:block;
+    }
+
+    h2 {
+      margin-bottom:10px;
+      width: 100%;
+
+      @include media(tablet) {
+        clear: both;
+        float: left;
+        position: relative;
+        width: 31.33333%;
+        margin-right:2%;
+      }
+    }
+
+    h3 {
+      margin-bottom:6px;
+    }
+
+    ul {
+
+      @include media(tablet) {
+        display:inline-block;
+        float:left;
+        width:66.66666%;
+        margin-left:0;
+      }
+
+      li {
+        border:none;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      @include bold-19;
+    }
+  }
+}
