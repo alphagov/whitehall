@@ -56,18 +56,6 @@ module ApplicationHelper
     end
   end
 
-  def related_policy_options
-    Policy.latest_edition.with_translations.includes(:topics).active.map do |policy|
-      [policy.id, policy.title_with_topics]
-    end
-  end
-
-  def related_policy_options_excluding(policies)
-    related_policy_options.select do |po|
-      !policies.map(&:id).include?(po.first)
-    end
-  end
-
   def policies_for_editions_organisations(edition)
     Policy.in_organisation(edition.organisations).latest_edition.active
   end

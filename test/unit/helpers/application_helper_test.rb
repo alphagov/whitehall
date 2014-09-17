@@ -192,27 +192,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert classes.include?("class-2")
   end
 
-  test "#related_policy_options_excluding excludes a set of policies" do
-    topic = build(:topic, name: "Topic")
-    policy = create(:policy, title: "Policy title", topics: [topic])
-    excluded = create(:policy, title: "Excluded", topics: [topic])
-    assert_equal [[policy.id, "Policy title (Topic)"]], related_policy_options_excluding([excluded])
-  end
-
   test "#policies_for_editions_organisations returns all active policies that map to an organisation the edition is in" do
     publication = create(:imported_publication)
     policy = create(:published_policy, organisations: [publication.organisations.first])
     another = create(:published_policy)
     assert_equal [policy], policies_for_editions_organisations(publication)
-  end
-
-  test "generates related policy option as title with topics" do
-    first_topic = build(:topic, name: "First topic")
-    second_topic = build(:topic, name: "Second topic")
-    third_topic = build(:topic, name: "Third topic")
-    policy = create(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
-    options = related_policy_options
-    assert_equal [[policy.id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
   end
 
   test "skips asset host for image paths if user signed in and image in uploads" do

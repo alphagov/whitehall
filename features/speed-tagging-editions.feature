@@ -44,7 +44,6 @@ Feature: Speed tagging editions
     Given a published policy "Beard taxes" for the organisation "Treasury"
     When I go to speed tag a newly imported publication for "DCLG"
     Then I can choose "Beard taxes" from an additional list of policies
-    But I can't select "Local beards" from the additional list
 
   Scenario: Speed tagging shows speech required fields
     When I go to speed tag a newly imported speech "Written statement on Beards"
