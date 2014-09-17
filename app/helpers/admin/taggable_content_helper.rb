@@ -80,6 +80,17 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable policies. Each element of the
+  # array consists of two values: the policy title (including topics) and its
+  # ID.
+  def taggable_policies_container
+    Rails.cache.fetch(taggable_policies_cache_digest) do
+      Policy.latest_edition.with_translations.includes(:topics).active.map do |policy|
+        [policy.title_with_topics, policy.id]
+      end
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -145,6 +156,11 @@ module Admin::TaggableContentHelper
   def taggable_worldwide_priorities_cache_digest
     update_timestamps = Document.where(document_type: WorldwidePriority).order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-worldwide-priorities-#{update_timestamps}"
+  end
+
+  def taggable_policies_cache_digest
+    update_timestamps = Document.where(document_type: Policy).order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-policies-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4

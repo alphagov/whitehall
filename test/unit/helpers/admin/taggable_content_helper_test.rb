@@ -123,6 +123,18 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_worldwide_priorities_container
   end
 
+  test '#taggable_policies_container returns an array of label/ID pairs for all policies' do
+    topic      = create(:topic, name: 'Topic')
+    policy_1   = create(:draft_policy, title: 'Policy 1', topics: [topic])
+    superseded = create(:superseded_policy)
+    policy_2   = create(:published_policy, title: 'Policy 2', document: superseded.document, topics: [topic])
+
+    assert_equal [
+      ['Policy 1 (Topic)', policy_1.id],
+      ['Policy 2 (Topic)', policy_2.id],
+    ], taggable_policies_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)
