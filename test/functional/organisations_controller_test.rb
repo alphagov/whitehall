@@ -10,7 +10,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_display_organisation_page_elements_for(:executive_office)
 
   ### Describing :index ###
-  test "index should instanciate an OrganisationsIndexPresenter with all organisations which are listable ordered by name" do
+  test "index should instantiate an OrganisationsIndexPresenter with all organisations which are listable ordered by name" do
     Organisation.stubs(:listable).returns(stub(ordered_by_name_ignoring_prefix: :some_listable_ordered_orgs))
     OrganisationsIndexPresenter.expects(:new).with(:some_listable_ordered_orgs).returns(:some_presented_organisations)
     get :index
