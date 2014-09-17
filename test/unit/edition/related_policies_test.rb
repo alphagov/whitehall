@@ -19,4 +19,26 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal [worldwide_priority], edition.worldwide_priorities
     assert_equal [new_policy], edition.related_policies
   end
+
+  test '#related_policy_ids returns the related policy ids for a persisted record' do
+    policy = create(:policy)
+    edition = create(:news_article, related_documents: [policy.document])
+
+    assert_equal [policy.id], edition.related_policy_ids
+  end
+
+  test '#releated_policy_ids returns the related policy ids for a non-persisted record' do
+    policy = create(:policy)
+    edition = build(:news_article, related_documents: [policy.document])
+
+    assert_equal [policy.id], edition.related_policy_ids
+  end
+
+  test '#related_policy_ids returns the related policy ids when set with the setter' do
+    policy = create(:policy)
+    edition = build(:news_article)
+    edition.related_policy_ids = [policy.id]
+
+    assert_equal [policy.id], edition.related_policy_ids
+  end
 end
