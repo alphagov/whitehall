@@ -71,6 +71,15 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable published worldwide
+  # priorities. Each element of the array consists of two values: the
+  # worldwide priority title and its ID.
+  def taggable_worldwide_priorities_container
+    Rails.cache.fetch(taggable_worldwide_priorities_cache_digest) do
+      WorldwidePriority.alphabetical.published.map {|w| [w.title, w.id] }
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -129,6 +138,13 @@ module Admin::TaggableContentHelper
   def taggable_statistical_data_sets_cache_digest
     update_timestamps = Document.where(document_type: StatisticalDataSet).order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-statistical-data-sets-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing the taggable worldwide priorities. This
+  # will change if any worldwide priorities are added or updated.
+  def taggable_worldwide_priorities_cache_digest
+    update_timestamps = Document.where(document_type: WorldwidePriority).order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-worldwide-priorities-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4
