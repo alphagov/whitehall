@@ -15,6 +15,10 @@ module Edition::Topics
     super.merge("topics" => topics.map(&:slug)) { |_, ov, nv| ov + nv }
   end
 
+  def title_with_topics
+    "#{title} (#{topics.map(&:name).to_sentence})"
+  end
+
   module ClassMethods
     def in_topic(topic)
       joins(:classification_memberships).where("classification_memberships.classification_id" => topic)
