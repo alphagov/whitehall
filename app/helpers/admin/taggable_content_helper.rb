@@ -51,6 +51,15 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the current set of taggable detauled
+  # guides. Each element of the array consists of two values: the guide title
+  # and its ID.
+  def taggable_detailed_guides_container
+    Rails.cache.fetch(taggable_detailed_guides_cache_digest) do
+      DetailedGuide.alphabetical.latest_edition.active.map {|d| [d.title, d.id] }
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -95,6 +104,13 @@ module Admin::TaggableContentHelper
   def taggable_role_appointments_cache_digest
     update_timestamps = RoleAppointment.order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-role-appointments-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing all the detailed guides. This wil change
+  # if any detailed guides are added or updated.
+  def taggable_detailed_guides_cache_digest
+    update_timestamps = DetailedGuide.order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-detailed-guides-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4

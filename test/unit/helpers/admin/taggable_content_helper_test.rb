@@ -85,6 +85,19 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_role_appointments_container
   end
 
+  test '#taggable_detailed_guides_container returns an array of label/ID pairs for all active detailed guides' do
+    guide_b = create(:published_detailed_guide, title: 'Guide B')
+    guide_a = create(:draft_detailed_guide, title: 'Guide A')
+    guide_x = create(:superseded_detailed_guide, title: 'Guide X')
+    guide_c = create(:submitted_detailed_guide, title: 'Guide C')
+
+    assert_equal [
+      [guide_a.title, guide_a.id],
+      [guide_b.title, guide_b.id],
+      [guide_c.title, guide_c.id],
+    ], taggable_detailed_guides_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)
