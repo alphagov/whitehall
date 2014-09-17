@@ -181,10 +181,6 @@ en:
         one: Statutory guidance
         other: Statutory guidance
         see_all: See all our statutory guidance
-      regulation:
-        one: Regulation
-        other: Regulations
-        see_all: See all our regulations
       impact_assessment:
         one: Impact assessment
         other: Impact assessments
@@ -264,6 +260,10 @@ en:
         one: Research and analysis
         other: Research and analysis
         see_all: See all our research and analysis
+      regulation:
+        one: Regulation
+        other: Regulations
+        see_all: See all our regulations
       speaking_notes:
         one: Speaking notes
         other: Speaking notes
