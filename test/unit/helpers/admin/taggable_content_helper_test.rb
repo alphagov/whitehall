@@ -98,6 +98,18 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_detailed_guides_container
   end
 
+  test '#taggable_statistical_data_sets_container returns an array of label/Document ID pairs for all statistical data sets' do
+    data_set_1 = create(:draft_statistical_data_set)
+    data_set_2 = create(:published_statistical_data_set)
+    data_set_3 = create(:submitted_statistical_data_set)
+
+    assert_equal [
+      [data_set_1.title, data_set_1.document_id],
+      [data_set_2.title, data_set_2.document_id],
+      [data_set_3.title, data_set_3.document_id],
+    ], taggable_statistical_data_sets_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)

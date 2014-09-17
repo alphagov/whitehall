@@ -50,12 +50,6 @@ module ApplicationHelper
     end
   end
 
-  def statistical_data_set_options
-    StatisticalDataSet.with_translations.latest_edition.map do |data_set|
-      [data_set.document_id, data_set.title]
-    end
-  end
-
   def ministerial_role_options
     MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
       [role.id, "#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]

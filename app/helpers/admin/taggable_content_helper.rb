@@ -60,6 +60,17 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the current set of taggable statistical
+  # data sets. Each elements of the array consists of two values: the data
+  # set title and its ID.
+  def taggable_statistical_data_sets_container
+    Rails.cache.fetch(taggable_statistical_data_sets_cache_digest) do
+      StatisticalDataSet.with_translations.latest_edition.map do |data_set|
+        [data_set.title, data_set.document_id]
+      end
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -111,6 +122,13 @@ module Admin::TaggableContentHelper
   def taggable_detailed_guides_cache_digest
     update_timestamps = DetailedGuide.order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-detailed-guides-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing the taggable statistical data sets. This
+  # will change if any statistical data set is added or updated.
+  def taggable_statistical_data_sets_cache_digest
+    update_timestamps = StatisticalDataSet.order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-statistical-data-sets-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4
