@@ -1,9 +1,6 @@
-<%
-  world_location_mandatory ||= false
-%>
+<% required = false unless defined?(required) %>
 
-<%= form.label :world_location_ids, "Select the world locations this #{edition.format_name.titleize.downcase} is about", mandatory: world_location_mandatory %>
-
+<%= form.label :world_location_ids, "Select the world locations this #{edition.format_name.titleize.downcase} is about", required: required %>
 <%= form.select :world_location_ids,
                 options_from_collection_for_select(WorldLocation.ordered_by_name, 'id', 'name', edition.world_location_ids),
                 { include_blank: true },

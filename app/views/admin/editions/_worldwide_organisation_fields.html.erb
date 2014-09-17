@@ -1,9 +1,6 @@
-<%
-  worldwide_organisation_mandatory ||= false
-%>
+<% required = false unless defined?(required) %>
 
-<%= form.label :worldwide_organisation_ids, "Select the worldwide organisations associated with this #{edition.format_name.titleize.downcase}", mandatory: worldwide_organisation_mandatory %>
-
+<%= form.label :worldwide_organisation_ids, "Select the worldwide organisations associated with this #{edition.format_name.titleize.downcase}", required: required %>
 <%= form.select :worldwide_organisation_ids,
                 options_from_collection_for_select(WorldwideOrganisation.with_translations.all, 'id', 'name', edition.worldwide_organisation_ids),
                 { include_blank: true },
