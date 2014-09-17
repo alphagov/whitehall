@@ -4,15 +4,18 @@ tk:
       attachments:
         one:
         other:
+      policies:
+        one:
+        other:
       applies_to_nations:
       field_of_operation:
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one:
         other:
@@ -51,15 +54,15 @@ tk:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one:
         other:
-        see_all:
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all:
         see_more_like_this:
       document_collection:
         one:
@@ -90,10 +93,6 @@ tk:
         other:
         see_all:
       impact_assessment:
-        one:
-        other:
-        see_all:
-      imported:
         one:
         other:
         see_all:
@@ -150,6 +149,10 @@ tk:
         other:
         see_all:
       publication:
+        one:
+        other:
+        see_all:
+      regulation:
         one:
         other:
         see_all:
@@ -538,6 +541,8 @@ tk:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

@@ -175,15 +175,15 @@ zh-hk:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: 詳細指引
         other: 其他詳細指引
-        see_all: 查閱我們所有的其他詳細指引
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: 查閱我們所有的其他詳細指引
         see_more_like_this:
       document_collection:
         one: 系列
@@ -220,7 +220,6 @@ zh-hk:
       imported:
         one: 輸入-等待類型中
         other: 輸入-等待類型中
-        see_all: 查閱我們所有的輸入-等待類型中
       independent_report:
         one: 獨立報告
         other: 其他獨立報告
@@ -277,6 +276,10 @@ zh-hk:
         one: 出版物
         other: 其他出版物
         see_all: 查閱我們所有的其他出版物
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: 研究與分析
         other: 其他研究與分析
@@ -506,6 +509,8 @@ zh-hk:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

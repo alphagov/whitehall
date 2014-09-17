@@ -4,15 +4,18 @@ hi:
       attachments:
         one: दस्तावेज़
         other: दस्तावेजों
+      policies:
+        one:
+        other:
       applies_to_nations: पर लागू
       field_of_operation: प्रचालन क्षेत्र
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: घोषणा
         other: घोषणाएं
@@ -51,15 +54,15 @@ hi:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: विस्तृत मार्गदर्शन
         other: विस्तृत मार्गदर्शन
-        see_all: देखें हमारे सभी विस्तृत मार्गदर्शन
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: देखें हमारे सभी विस्तृत मार्गदर्शन
         see_more_like_this:
       document_collection:
         one: श्रृंखला
@@ -93,10 +96,6 @@ hi:
         one: प्रभाव का आंकलन
         other: प्रभाव का आंकलन
         see_all: देखें हमारे सभी प्रभाव का आंकलन
-      imported:
-        one: आयातित - प्रतीक्षा का प्रकार
-        other: आयातित - प्रतीक्षा का प्रकार
-        see_all: देखें हमारे सभी आयातित - प्रतीक्षा का प्रकार
       independent_report:
         one: स्वतंत्र रिपोर्ट
         other: स्वतंत्र रिपोर्टें
@@ -153,6 +152,10 @@ hi:
         one: प्रकाशन
         other: प्रकाशन
         see_all: देखें हमारे सभी प्रकाशन
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: अनुसंधान एवं विश्लेषण
         other: अनुसंधान एवं विश्लेषण
@@ -542,6 +545,8 @@ hi:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:
