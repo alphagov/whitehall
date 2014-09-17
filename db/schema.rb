@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140820093930) do
+ActiveRecord::Schema.define(:version => 20140917142641) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -295,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20140820093930) do
     t.string   "document_type"
   end
 
+  add_index "documents", ["document_type"], :name => "index_documents_on_document_type"
   add_index "documents", ["slug", "document_type"], :name => "index_documents_on_slug_and_document_type", :unique => true
 
   create_table "edition_authors", :force => true do |t|
