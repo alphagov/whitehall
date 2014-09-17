@@ -30,4 +30,8 @@ class ServicesAndInformationCollection
   def link_for_example_at(index)
     examples[index][:link]
   end
+
+  def more_documents?
+    @document_count > @examples.count
+  end
 end

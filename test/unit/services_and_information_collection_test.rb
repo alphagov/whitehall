@@ -39,4 +39,23 @@ class ServicesAndInformationCollectionTest < ActiveSupport::TestCase
 
     assert_equal "/a-document-link", collection.link_for_example_at(0)
   end
+
+  test "#more_documents? indicates whether there are more documents than the examples given" do
+    collection_with_same = ServicesAndInformationCollection.new(
+      title: "Example subsector",
+      subsector_link: "/example-subsector",
+      examples: [ { title: "A document title", link: "/a-document-link" } ],
+      document_count: 1
+    )
+
+    collection_with_more = ServicesAndInformationCollection.new(
+      title: "Example subsector",
+      subsector_link: "/example-subsector",
+      examples: [ { title: "A document title", link: "/a-document-link" } ],
+      document_count: 2
+    )
+
+    refute collection_with_same.more_documents?
+    assert collection_with_more.more_documents?
+  end
 end
