@@ -26,19 +26,6 @@ class ApplicationHelperTest < ActionView::TestCase
     controller.request
   end
 
-  test "should supply options with IDs and descriptions for all the ministerial roles" do
-    theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
-    philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
-    home_secretary = theresa_may_appointment.role
-    defence_secretary = philip_hammond_appointment.role
-
-    options = ministerial_role_options
-
-    assert_equal 2, options.length
-    assert options.include? [defence_secretary.id, "Secretary of State, Ministry of Defence (Philip Hammond)"]
-    assert options.include? [home_secretary.id, "Secretary of State, Home Office (Theresa May)"]
-  end
-
   test '#link_to_attachment returns nil when attachment is nil' do
     assert_nil link_to_attachment(nil)
   end

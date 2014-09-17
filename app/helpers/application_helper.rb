@@ -50,12 +50,6 @@ module ApplicationHelper
     end
   end
 
-  def ministerial_role_options
-    MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
-      [role.id, "#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]
-    end
-  end
-
   def policies_for_editions_organisations(edition)
     Policy.in_organisation(edition.organisations).latest_edition.active
   end

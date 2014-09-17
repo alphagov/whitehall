@@ -1,7 +1,9 @@
-<%= form.label :ministerial_role_ids, 'Ministers' %>
-<%= form.select :ministerial_role_ids,
-                options_from_collection_for_select(ministerial_role_options, :first, :last, edition.ministerial_role_ids),
-                { include_blank: true },
-                multiple: true,
-                class: 'chzn-select',
-                data: { placeholder: "Choose ministers..."} %>
+<%= cache_if edition.ministerial_role_ids.empty?, taggable_ministerial_roles_cache_digest do %>
+  <%= form.label :ministerial_role_ids, 'Ministers' %>
+  <%= form.select :ministerial_role_ids,
+                  options_for_select(taggable_ministerial_roles_container, edition.ministerial_role_ids),
+                  { include_blank: true },
+                  multiple: true,
+                  class: 'chzn-select',
+                  data: { placeholder: "Choose ministers..."} %>
+<% end %>

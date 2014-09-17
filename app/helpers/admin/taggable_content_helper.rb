@@ -30,10 +30,10 @@ module Admin::TaggableContentHelper
   end
 
   # Returns an Array that represents the current set of taggable ministerial
-  # roles (both past and present). Each element of the array consists fo two
-  # values: a selectable label (consisting of the person, the role, the date
-  # the role was held if it's in the past, and the organisations the person
-  # belongs to) and the ID of the role appointment.
+  # role appointments (both past and present). Each element of the array
+  # consists fo two values: a selectable label (consisting of the person, the
+  # role, the date the role was held if it's in the past, and the organisations
+  # the person belongs to) and the ID of the role appointment.
   def taggable_ministerial_role_appointments_container
     Rails.cache.fetch(taggable_ministerial_role_appointments_cache_digest) do
       role_appointments_container_for(RoleAppointment.for_ministerial_roles)
@@ -41,13 +41,24 @@ module Admin::TaggableContentHelper
   end
 
   # Returns an Array that represents the current set of taggable roles (both
-  # past and present). Each element of the array consists fo two values: a
+  # past and present). Each element of the array consists of two values: a
   # selectable label (consisting of the person, the role, the date the role was
   # held if it's in the past, and the organisations the person belongs to) and
   # the ID of the role appointment.
   def taggable_role_appointments_container
     Rails.cache.fetch(taggable_role_appointments_cache_digest) do
       role_appointments_container_for(RoleAppointment)
+    end
+  end
+
+  # Returns an Array that represents the taggable ministerial roles. Each
+  # element of the array consists of two values: the name of the ministerial
+  # role with the organisation and current holder and its ID.
+  def taggable_ministerial_roles_container
+    Rails.cache.fetch(taggable_ministerial_roles_cache_digest) do
+      MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
+        ["#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})", role.id]
+      end
     end
   end
 
@@ -139,10 +150,18 @@ module Admin::TaggableContentHelper
 
   # Returns an MD5 digest representing the current set of taggable ministerial
   # role appointments. This will change if any role appointments are added or
-  # changed, and also if an occupied MinisterialRole is updated.
+  # changed, and also if an occupied Role is updated.
   def taggable_role_appointments_cache_digest
     update_timestamps = RoleAppointment.order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-role-appointments-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing the current set of taggable ministerial
+  # rile appointments. THis will change if any ministerial role is added or
+  # updated.
+  def taggable_ministerial_roles_cache_digest
+    update_timestamps = MinisterialRole.order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-ministerial-roles-#{update_timestamps}"
   end
 
   # Returns an MD5 digest representing all the detailed guides. This wil change

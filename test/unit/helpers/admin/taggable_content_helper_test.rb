@@ -85,6 +85,22 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_role_appointments_container
   end
 
+  test '#taggable_ministerial_roles_container returns an array of label/ID pairs for all the ministerial roles' do
+    create(:board_member_role)
+    minister_b = create(:ministerial_role, name: 'Minister B', organisations: [create(:organisation, name: 'Jazz Ministry')])
+    minister_a = create(:ministerial_role, name: 'Minister A', organisations: minister_b.organisations)
+    minister_c = create(:ministerial_role, name: 'Minister C', organisations: [create(:organisation, name: 'Ministry of Outer Space')])
+
+    create(:role_appointment, role: minister_a, person: create(:person, forename: 'Sun', surname: 'Ra'))
+    create(:role_appointment, role: minister_c, person: create(:person, forename: 'George', surname: 'Clinton'))
+
+    assert_equal [
+      ["Minister B, Jazz Ministry (Minister B)", minister_b.id],
+      ["Minister C, Ministry of Outer Space (George Clinton)", minister_c.id],
+      ["Minister A, Jazz Ministry (Sun Ra)", minister_a.id],
+    ], taggable_ministerial_roles_container
+  end
+
   test '#taggable_detailed_guides_container returns an array of label/ID pairs for all active detailed guides' do
     guide_b = create(:published_detailed_guide, title: 'Guide B')
     guide_a = create(:draft_detailed_guide, title: 'Guide A')
