@@ -175,15 +175,15 @@ ms:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one:
         other:
-        see_all:
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all:
         see_more_like_this:
       document_collection:
         one:
@@ -220,7 +220,6 @@ ms:
       imported:
         one:
         other:
-        see_all:
       independent_report:
         one:
         other:
@@ -274,6 +273,10 @@ ms:
         other:
         see_all:
       publication:
+        one:
+        other:
+        see_all:
+      regulation:
         one:
         other:
         see_all:
@@ -506,6 +509,8 @@ ms:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

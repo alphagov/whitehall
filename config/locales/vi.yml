@@ -177,15 +177,15 @@ vi:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Hướng dẫn chi tiết
         other: Hướng dẫn chi tiết
-        see_all: Xem tất cả hướng dẫn chi tiết của chúng tôi
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Xem tất cả hướng dẫn chi tiết của chúng tôi
         see_more_like_this:
       document_collection:
         one: Chuỗi
@@ -222,7 +222,6 @@ vi:
       imported:
         one: Loại tài liệu đính kèm
         other: Loại tài liệu đính kèm
-        see_all: Xem tất cả loại tài liệu đính kèm của chúng tôi
       independent_report:
         one: Báo cáo độc lập
         other: Các báo cáo độc lập
@@ -279,6 +278,10 @@ vi:
         one: Tài liệu truyền thông
         other: Tài liệu truyền thông
         see_all: Xem tất cả tài liệu truyền thông của chúng tôi
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: Nghiên cứu và phân tích
         other: Nghiên cứu và phân tích
@@ -509,6 +512,8 @@ vi:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

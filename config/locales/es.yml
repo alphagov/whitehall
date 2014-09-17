@@ -4,15 +4,18 @@ es:
       attachments:
         one: Documento
         other: Documentos
+      policies:
+        one:
+        other:
       applies_to_nations: Sirve para
       field_of_operation: Ãmbito de actuación
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Anuncio
         other: Anuncios
@@ -51,15 +54,15 @@ es:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Orientación detallada
         other: Orientación detallada
-        see_all: Ver toda nuestra orientación detallada
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Ver toda nuestra orientación detallada
         see_more_like_this:
       document_collection:
         one: Series
@@ -93,10 +96,6 @@ es:
         one: Evaluación del impacto
         other: Evaluaciones del impacto
         see_all: Ver toda nuestra evaluaciones del impacto
-      imported:
-        one: Importado - esperando prototipo
-        other: Importado - esperando prototipo
-        see_all: Ver toda nuestra importado - esperando prototipo
       independent_report:
         one: Informe independiente
         other: Informes independientes
@@ -153,6 +152,10 @@ es:
         one: Publicaciones
         other: Publicación
         see_all: Ver toda nuestra publicación
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: Investigación y análisis
         other: Investigación y análisis
@@ -541,6 +544,8 @@ es:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

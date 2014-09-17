@@ -177,15 +177,15 @@ id:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Panduan lebih lanjut
         other: Panduan lebih lanjut
-        see_all: Lihat semua panduan lebih lanjut
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Lihat semua panduan lebih lanjut
         see_more_like_this:
       document_collection:
         one: Serial
@@ -222,7 +222,6 @@ id:
       imported:
         one: Diimpor-menunggu tipe
         other: Diimpor-menunggu tipe
-        see_all: Lihat semua diimpor-menunggu tipe
       independent_report:
         one: Laporan independen
         other: Laporan-laporan independen
@@ -279,6 +278,10 @@ id:
         one: Publikasi
         other: Publikasi-publikasi
         see_all: Lihat semua publikasi-publikasi
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: Riset dan analisis
         other: Riset dan analisis
@@ -509,6 +512,8 @@ id:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

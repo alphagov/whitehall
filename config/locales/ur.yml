@@ -4,15 +4,18 @@ ur:
       attachments:
         one: دستاویز
         other: دستاویزات
+      policies:
+        one:
+        other:
       applies_to_nations: اطلاق ہوتا ہے
       field_of_operation: کارروائی کا میدان
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: اعلان
         other: اعلانات
@@ -51,15 +54,15 @@ ur:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: مفصل رہنمائی
         other: مفصل رہنمائی
-        see_all: تما م دیکھئیے مفصل رہنمائی
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: تما م دیکھئیے مفصل رہنمائی
         see_more_like_this:
       document_collection:
         one: سلسلہ
@@ -93,10 +96,6 @@ ur:
         one: اثرات کا تجزیہ
         other: اثرات کے تجزیے
         see_all: تما م دیکھئیے اثرات کے تجزیے
-      imported:
-        one: امپورٹڈ- نوع کا انتظار
-        other: امپورٹڈ- نوع کا انتظار
-        see_all: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
       independent_report:
         one: غیر جانبدار رپورٹ
         other: غیر جانبداررپورٹس
@@ -153,6 +152,10 @@ ur:
         one: مطبوعہ
         other: مطبوعات
         see_all: تما م دیکھئیے مطبوعات
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: تحقیق وتجزیہ
         other: تحقیق وتجزیہ
@@ -542,6 +545,8 @@ ur:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

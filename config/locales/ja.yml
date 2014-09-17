@@ -176,15 +176,15 @@ ja:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: 詳細説明
         other: 詳細説明
-        see_all: 詳細説明 を全て見る
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: 詳細説明 を全て見る
         see_more_like_this:
       document_collection:
         one: シリーズ
@@ -221,7 +221,6 @@ ja:
       imported:
         one: 確認中
         other: 確認中
-        see_all: 確認中 を全て見る
       independent_report:
         one: 第三者機関によるレポート
         other: 第三者機関によるレポート
@@ -278,6 +277,10 @@ ja:
         one: 出版物
         other: 出版物
         see_all: 出版物 を全て見る
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: 調査と分析
         other: 調査と分析
@@ -507,6 +510,8 @@ ja:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

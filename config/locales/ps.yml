@@ -4,15 +4,18 @@ ps:
       attachments:
         one: سند
         other: سندونه
+      policies:
+        one:
+        other:
       applies_to_nations: پورې اړه لری
       field_of_operation: د کړنو څانګه
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: خبرتیا
         other: خبرتیاوې
@@ -51,15 +54,15 @@ ps:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
-        see_all: ټول وګوری مفصلی لارښوونی
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: ټول وګوری مفصلی لارښوونی
         see_more_like_this:
       document_collection:
         one: سلسله
@@ -93,10 +96,6 @@ ps:
         one: د تاثیراتو څیړنه
         other: د تاثیراتو څیړنی
         see_all: ټول وګوری د تاثیراتو څیړنی
-      imported:
-        one: وارد شوی - د انتظار نمونه
-        other: وارد شوی - د انتظار نمونه
-        see_all: ټول وګوری وارد شوی - د انتظار نمونه
       independent_report:
         one: آزاد راپور
         other: آزاد راپورونه
@@ -153,6 +152,10 @@ ps:
         one: خپرونه
         other: خپرونې
         see_all: ټول وګوری خپرونې
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: څیړنه او تجزیه
         other: ځیړنه او تجزیه
@@ -543,6 +546,8 @@ ps:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:

@@ -4,15 +4,18 @@ uz:
       attachments:
         one: Hujjat
         other: Hujjatlar
+      policies:
+        one:
+        other:
       applies_to_nations: 'Tegishli '
       field_of_operation: Faoliyat sohasi
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: E'lon
         other: E'lonlar
@@ -51,15 +54,15 @@ uz:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Batafsil ko'mak
         other: Batafsil ko'mak
-        see_all: Bizning butun batafsil ko'mak ko'ring
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Bizning butun batafsil ko'mak ko'ring
         see_more_like_this:
       document_collection:
         one: Bir talay
@@ -93,10 +96,6 @@ uz:
         one: Ta'sir etuvchi omillar tahlili
         other: Ta'sir etuvchi omillar tahlillari
         see_all: Bizning butun ta'sir etuvchi omillar tahlillari ko'ring
-      imported:
-        one: 'yuklandi - kutilmoqda '
-        other: 'yuklandi - kutilmoqda '
-        see_all: Bizning butun yuklandi - kutilmoqda  ko'ring
       independent_report:
         one: Mustaqil hisobot
         other: Mustaqil hisobotlar
@@ -153,6 +152,10 @@ uz:
         one: Nashr
         other: Nashrlar
         see_all: Bizning butun nashrlar ko'ring
+      regulation:
+        one:
+        other:
+        see_all:
       research:
         one: Tadqiqot va tahlilllar
         other: Tadqiqot va tahlilllar
@@ -541,6 +544,8 @@ uz:
         promotional:
           intended_use:
         publication:
+          intended_use:
+        regulation:
           intended_use:
         research:
           intended_use:
