@@ -123,6 +123,18 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_worldwide_priorities_container
   end
 
+  test '#taggable_world_locations_container returns an array of label/ID pairs for all world locations' do
+    location_a = create(:world_location, name: 'Andora')
+    location_c = create(:world_location, name: 'Croatia')
+    location_b = create(:world_location, name: 'Brazil')
+
+    assert_equal [
+      ['Andora', location_a.id],
+      ['Brazil', location_b.id],
+      ['Croatia', location_c.id],
+      ], taggable_world_locations_container
+  end
+
   test '#taggable_policies_container returns an array of label/ID pairs for all policies' do
     topic      = create(:topic, name: 'Topic')
     policy_1   = create(:draft_policy, title: 'Policy 1', topics: [topic])

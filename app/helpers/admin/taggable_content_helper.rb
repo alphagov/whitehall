@@ -91,6 +91,14 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable world locations. Each element
+  # of the array consists of two values: the location name and its ID
+  def taggable_world_locations_container
+    Rails.cache.fetch(taggable_world_locations_cache_digest) do
+      WorldLocation.ordered_by_name.map {|w| [w.name, w.id] }
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -158,9 +166,18 @@ module Admin::TaggableContentHelper
     Digest::MD5.hexdigest "taggable-worldwide-priorities-#{update_timestamps}"
   end
 
+  # Returns an MD5 digest representing the taggable policies. This will change
+  # if any policies are added or updated.
   def taggable_policies_cache_digest
     update_timestamps = Document.where(document_type: Policy).order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-policies-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing the taggable world locations. This will
+  # change if any world locations are added or updated.
+  def taggable_world_locations_cache_digest
+    update_timestamps = WorldLocation.order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-world-locations-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4
