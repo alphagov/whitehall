@@ -6,6 +6,6 @@
         class: ['chzn-select', 'subtype'],
         data: {
           placeholder: "Choose News article type...",
-          :'format-advice' => format_advice_map(NewsArticleType).to_json
+          :'format-advice' => NewsArticleType::FORMAT_ADVICE
         } %>
 </div>

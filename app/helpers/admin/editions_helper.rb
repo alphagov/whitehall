@@ -293,13 +293,6 @@ module Admin::EditionsHelper
     content_tag(:p, parts.join(', ')) if parts.any?
   end
 
-  def format_advice_map(format_type_class)
-    format_type_class.all.inject({}) do |hash, type|
-      html = govspeak_to_html(t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
-      hash.merge(type.id => html)
-    end
-  end
-
   def translation_preview_links(edition)
     links = []
 

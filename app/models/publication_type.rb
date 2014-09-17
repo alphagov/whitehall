@@ -5,6 +5,30 @@ require 'active_support/core_ext/string/inflections.rb'
 class PublicationType
   include ActiveRecordLikeInterface
 
+  FORMAT_ADVICE = {
+    1 => "<div class=\"govspeak\"><p>Publications that relate to the setting and delivery of government policy. Includes white papers, strategies, operational plans, action plans, implementation plans (excludes consultations, research and impact assessments, or internal procedural “policies”).</p></div>",
+    2 => "<div class=\"govspeak\"><p>Cost-benefit analyses and other assessments of the impact of proposed initiatives, or changes to regulations or legislation.</p></div>",
+    3 => "<div class=\"govspeak\"><p>Non-statutory guidance publications. Includes: manuals, handbooks and other documents that offer advice.</p><p>Do <em>not</em> use for: statutory guidance (use the “statutory guidance” publication type) or guidance about completing a form (attach to same publication as the form itself).</p></div>",
+    4 => "<div class=\"govspeak\"><p>Pro-forma or form documents that need to be completed by the user. Can include guidance on how to fill in forms (ie no need to create a separate “guidance” publication for form instructions).</p></div>",
+    5 => "<div class=\"govspeak\"><p>Official statistics, of the kind governed by the UK Statistics Authority and produced by members of the Government Statistical Service.</p></div>",
+    6 => "<div class=\"govspeak\"><p>Research and evaluation papers. Can be conducted by government, commissioned by government or independent of government.</p></div>",
+    7 => "<div class=\"govspeak\"><p>Publications about what an organisation does (eg business plans, annual reports, accounts), or any plans that affect the organisation (eg structural reform plans, efficiency reviews). Corporate reports are shown automatically on the organisation’s “What we do” page.</p></div>",
+    8 => "<div class=\"govspeak\"><p>Ministerial or departmental responses (eg to campaign letters), announcements, or statements;regularly issued circulars or bulletins (eg fire service circulars), official correspondence to professionals (eg “Dear chief planning officer” letters);letters to individuals or organisations that are published to share with a wider audience than their original recipient;online versions of e-bulletins or newsletters.</p><p>Do <em>not</em> use for: minutes, agendas or other meeting papers. Attach them to relevant “policy detail”, “team” or “our governance” pages instead.</p></div>",
+    10 => "<div class=\"govspeak\"><p>Information made available about departmental operations with the intent of making government more transparent.Includes organisation charts, staff survey results, departmental spending, salaries, contracts, meetings with ministers, etc.</p><p>Do <em>not</em> use for: FOI responses.</p></div>",
+    12 => "<div class=\"govspeak\"><p>Responses to Freedom of Information requests. Ensure the title describes specifically what the request is about.</p></div>",
+    13 =>"<div class=\"govspeak\"><p>Leaflets, posters, fact sheets and marketing collateral.</p></div>",
+    14 => "<div class=\"govspeak\"><p>Reviews, inquiries and other reports commissioned from or conducted by independent (ie non-governmental) bodies for consideration by the government.</p></div>",
+    15 => "<div class=\"govspeak\"><p>Official statistics that have been produced in accordance with the Code of Practice for Official Statistics, which is indicated using the National Statistics quality mark.</p></div>",
+    17 => "<div class=\"govspeak\"><p>Drawn maps and geographical data.</p></div>",
+    18 => "<div class=\"govspeak\"><p>Treaties and memoranda of understanding between the UK and other nations.</p></div>",
+    19 => "<div class=\"govspeak\"><p>Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the “guidance” sub-type).</p></div>",
+    20 => "<div class=\"govspeak\"><p>Notices or notifications that government is required to provide.</p></div>",
+    21 => "<div class=\"govspeak\"><p>Government decisions or judgements.</p></div>",
+    22 => "<p>Rules or directives that are made and maintained by government.</p>",
+    999 => "<div class=\"govspeak\"><p>DO NOT USE. This is a legacy category for content created before sub-types existed.</p></div>",
+    1000 => "<div class=\"govspeak\"><p>DO NOT USE. This is a holding category for content that has been imported automatically.</p></div>",
+  }.to_json.freeze
+
   attr_accessor :id, :singular_name, :plural_name, :prevalence, :access_limited_by_default, :key, :additional_search_format_types
 
   def self.access_limitable

@@ -5,6 +5,14 @@ require 'active_support/core_ext/string/inflections.rb'
 class NewsArticleType
   include ActiveRecordLikeInterface
 
+  FORMAT_ADVICE = {
+    1 => "<div class=\"govspeak\"><p>News written exclusively for GOV.UK which users need, can act on and can’t get from other sources. Avoid duplicating press releases.</p></div>",
+    2 => "<div class=\"govspeak\"><p>Unedited press releases as sent to the media, and official statements from the organisation or a minister.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p></div>",
+    3 => "<div class=\"govspeak\"><p>Government statements in response to media coverage, such as rebuttals and ‘myth busters’.</p><p>Do <em>not</em> use for: statements to Parliament. Use the “Speech” format for those.</p></div>",
+    999 => "<div class=\"govspeak\"><p>DO NOT USE. This is a legacy category for content created before sub-types existed.</p></div>",
+    1000 => "<div class=\"govspeak\"><p>DO NOT USE. This is a holding category for content that has been imported automatically.</p></div>",
+  }.to_json.freeze
+
   attr_accessor :id, :singular_name, :plural_name, :prevalence, :key
 
   def slug
