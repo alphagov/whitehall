@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :detailed_guide, class: DetailedGuide, parent: :edition, traits: [:with_organisations, :with_topics] do
-    title "detailed-guide-title"
+    sequence(:title) { |index| "detailed-guide-title-#{index}" }
     body  "detailed-guide-body"
     primary_mainstream_category { FactoryGirl.build(:mainstream_category) }
   end
