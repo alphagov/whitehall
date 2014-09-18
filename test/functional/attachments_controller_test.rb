@@ -28,6 +28,8 @@ class AttachmentsControllerTest < ActionController::TestCase
 
     assert_redirected_to replacement.url
     assert_equal 301, response.status
+    assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
+    assert_cache_control("public")
   end
 
   test 'document attachments that are visible are sent to the browser inline with default caching' do
