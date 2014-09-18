@@ -177,15 +177,15 @@ fa:
         see_all:
       detailed_guidance:
         back_to_contents:
-        categories:
-        contents:
-        more:
         one: راهنمای تفصیلی
         other: راهنمای تفصیلی
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: تمامی راهنمای تفصیلی ما را مشاهده کنید
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: ردیف
@@ -222,6 +222,7 @@ fa:
       imported:
         one: منتقل شده - در انتظار دسته بندی
         other: منتقل شده - در انتظار دسته بندی
+        see_all: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
       independent_report:
         one: گزارش مستقل
         other: گزارش های مستقل

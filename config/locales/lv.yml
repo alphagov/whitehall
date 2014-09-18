@@ -4,18 +4,15 @@ lv:
       attachments:
         one: Dokuments
         other: Dokumenti
-      policies:
-        one:
-        other:
       applies_to_nations: Attiecas uz
       field_of_operation: Darbības lauks
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one: Paziņojums
         other: Paziņojumi
@@ -54,15 +51,15 @@ lv:
         see_all:
       detailed_guidance:
         back_to_contents:
-        categories:
-        contents:
-        more:
         one: Detalizētas norādes
         other: Detalizētas norādes
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Skatīt visas detalizētas norādes
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Sērija
@@ -96,6 +93,10 @@ lv:
         one: Ietekmes novērtējums
         other: Ietekmes novērtējumi
         see_all: Skatīt visas ietekmes novērtējumi
+      imported:
+        one: importēts-gaidīšanas režīmā
+        other: importēts-gaidīšanas režīmā
+        see_all: Skatīt visas importēts-gaidīšanas režīmā
       independent_report:
         one: Neatkarīgs ziņojums
         other: Neatkarīgi ziņojumi

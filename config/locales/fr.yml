@@ -4,18 +4,15 @@ fr:
       attachments:
         one: Document
         other: Documents
-      policies:
-        one:
-        other:
       applies_to_nations: s'appliquant à
       field_of_operation: Domaine d'activité
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one: Annonce
         other: Annonces
@@ -54,15 +51,15 @@ fr:
         see_all:
       detailed_guidance:
         back_to_contents:
-        categories:
-        contents:
-        more:
         one: Instructions détaillées
         other: Instructions détaillées
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Voir toutes nos instructions détaillées
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Série
@@ -96,6 +93,10 @@ fr:
         one: Evaluation des impacts
         other: Evaluations des impacts
         see_all: Voir toutes nos evaluations des impacts
+      imported:
+        one: Importé
+        other: Importé
+        see_all: Voir toutes nos importé
       independent_report:
         one: Rapport indépendant
         other: Rapports indépendants

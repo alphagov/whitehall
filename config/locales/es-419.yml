@@ -4,18 +4,15 @@ es-419:
       attachments:
         one: Documento
         other: Documentos
-      policies:
-        one:
-        other:
       applies_to_nations: Se aplica a
       field_of_operation: Terreno de operaciones
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one: Novedades
         other: Novedades
@@ -54,15 +51,15 @@ es-419:
         see_all:
       detailed_guidance:
         back_to_contents:
-        categories:
-        contents:
-        more:
         one: Orientación detallada
         other: Orientación detallada
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: Vea todos nuestros orientación detallada
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: Series
@@ -96,6 +93,10 @@ es-419:
         one: Evaluación del impacto
         other: Evaluaciones del impacto
         see_all: Vea todos nuestros evaluaciones del impacto
+      imported:
+        one: Importado - esperando tipo
+        other: Importado - esperando tipo
+        see_all: Vea todos nuestros importado - esperando tipo
       independent_report:
         one: Reporte independiente
         other: Reportes independientes
