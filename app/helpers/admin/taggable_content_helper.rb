@@ -132,6 +132,15 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable worldwide organisations.
+  # Each element of the array consists of two values: the name of the worldwide
+  # organisation and its ID.
+  def taggable_worldwide_organisations_container
+    Rails.cache.fetch(taggable_worldwide_organisations_cache_digest) do
+      WorldwideOrganisation.with_translations.all.map {|wo| [wo.name, wo.id] }
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -234,6 +243,13 @@ module Admin::TaggableContentHelper
   def taggable_document_collection_groups_cache_digest
     update_timestamps = Document.where(document_type: DocumentCollection).order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-document-collection-groups-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing the taggable worldwide organisations.
+  # THis will change if any worldwide organisations are added or updated.
+  def taggable_worldwide_organisations_cache_digest
+    update_timestamps = WorldwideOrganisation.order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-worldwide-organisations-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4
