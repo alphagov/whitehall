@@ -48,7 +48,7 @@ class PublicUploadsController < ApplicationController
   end
 
   def expires_headers
-    expires_in(Whitehall.default_cache_max_age, public: true)
+    expires_in(Whitehall.uploads_cache_max_age, public: true)
   end
 
   def upload_path

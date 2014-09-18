@@ -38,7 +38,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     get_show attachment_data
 
     assert_response :success
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age}")
+    assert_cache_control("max-age=#{Whitehall.uploads_cache_max_age}")
     assert_match /^inline;/, response.headers['Content-Disposition']
     assert_match attachment_data.filename, response.headers['Content-Disposition']
   end

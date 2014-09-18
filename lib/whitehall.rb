@@ -16,6 +16,7 @@ module Whitehall
   mattr_accessor :default_cache_max_age
   mattr_accessor :organisations_transition_visualisation_feature_enabled
   mattr_accessor :unified_search_client
+  mattr_accessor :uploads_cache_max_age
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
