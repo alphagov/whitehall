@@ -175,6 +175,20 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_alternative_format_providers_container
   end
 
+  test '#taggable_document_collection_groups_container returns an array of label/ID pairs for document collection groups' do
+    group1 = create(:document_collection_group, heading: 'Group 1')
+    group2 = create(:document_collection_group, heading: 'Group 2')
+    group3 = create(:document_collection_group, heading: 'Group 3')
+    collection1 = create(:document_collection, title: 'Collection 1', groups: [group1])
+    collection2 = create(:document_collection, title: 'Collection 2', groups: [group2, group3])
+
+    assert_equal [
+      ["Collection 1 (Group 1)", group1.id],
+      ["Collection 2 (Group 2)", group2.id],
+      ["Collection 2 (Group 3)", group3.id],
+    ], taggable_document_collection_groups_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)

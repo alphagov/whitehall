@@ -111,12 +111,23 @@ module Admin::TaggableContentHelper
   end
 
   # Returns an Array that represents the taggable alternative format providers.
-  # Each element of the array consists fo two values: the label (organisation
+  # Each element of the array consists of two values: the label (organisation
   # and the email address if avaiable) and the ID of the organisation.
   def taggable_alternative_format_providers_container
     Rails.cache.fetch(taggable_alternative_format_providers_cache_digest) do
       Organisation.alphabetical.map do |o|
         ["#{o.name} (#{o.alternative_format_contact_email.blank? ? "-" : o.alternative_format_contact_email})", o.id]
+      end
+    end
+  end
+
+  # Returns an Array representing the taggable document collections and their
+  # groups. Each element of the array consists of two values: the
+  # collection/group name and the ID of the group.
+  def taggable_document_collection_groups_container
+    Rails.cache.fetch(taggable_document_collection_groups_cache_digest) do
+      DocumentCollection.latest_edition.alphabetical.includes(:groups).flat_map  do |collection|
+        collection.groups.map { |group| ["#{collection.title} (#{group.heading})", group.id] }
       end
     end
   end
@@ -215,6 +226,14 @@ module Admin::TaggableContentHelper
   # changed.
   def taggable_alternative_format_providers_cache_digest
     "#{taggable_organisations_cache_digest}-alternative-format-providers"
+  end
+
+  # Returns an MD5 digest representing the taggable document collection
+  # groups. This will change if any document collection or group within
+  # the collection is changed or any new ones are added.
+  def taggable_document_collection_groups_cache_digest
+    update_timestamps = Document.where(document_type: DocumentCollection).order(:id).pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-document-collection-groups-#{update_timestamps}"
   end
 
   # Note: Taken from Rails 4
