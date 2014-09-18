@@ -163,6 +163,18 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_policies_container
   end
 
+  test '#taggable_alternative_format_providers_container returns an array of label/ID pairs for organisation alternative format providers' do
+    organisation_h = create(:organisation, name: 'Department for Hair and Makeup')
+    organisation_m = create(:organisation, alternative_format_contact_email: 'barry@strange-fruit.uk', name: 'Ministry of Strange Fruit')
+    organisation_t = create(:organisation, alternative_format_contact_email: 'lee.perry@melodica.uk', name: 'Department for the Preseveration of Melodicas')
+
+    assert_equal [
+      ['Department for Hair and Makeup (-)', organisation_h.id],
+      ['Department for the Preseveration of Melodicas (lee.perry@melodica.uk)', organisation_t.id],
+      ['Ministry of Strange Fruit (barry@strange-fruit.uk)', organisation_m.id],
+    ], taggable_alternative_format_providers_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)

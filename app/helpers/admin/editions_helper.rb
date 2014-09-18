@@ -120,10 +120,6 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject { |eo| eo.lead? }[index].try(:organisation_id)
   end
 
-  def organisations_for_edition_organisations_fields
-    @organisations_for_edition_organisations_fields ||= Organisation.with_translations.all
-  end
-
   def standard_edition_form(edition, &blk)
     initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 

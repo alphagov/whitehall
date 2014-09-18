@@ -18,9 +18,9 @@
       <div class="controls">
         <%= form.select(:alternative_format_provider_id,
                         options_for_select(
-                          organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
+                          taggable_alternative_format_providers_container,
                           selected: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
-                          disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id)
+                          disabled: taggable_alternative_format_providers_container.select { |o| o[0].end_with?('(-)') }.map(&:last)
                         ),
                         { include_blank: true, multiple: false },
                         class: 'chzn-select',

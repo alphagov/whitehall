@@ -110,6 +110,17 @@ module Admin::TaggableContentHelper
     end
   end
 
+  # Returns an Array that represents the taggable alternative format providers.
+  # Each element of the array consists fo two values: the label (organisation
+  # and the email address if avaiable) and the ID of the organisation.
+  def taggable_alternative_format_providers_container
+    Rails.cache.fetch(taggable_alternative_format_providers_cache_digest) do
+      Organisation.alphabetical.map do |o|
+        ["#{o.name} (#{o.alternative_format_contact_email.blank? ? "-" : o.alternative_format_contact_email})", o.id]
+      end
+    end
+  end
+
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
@@ -197,6 +208,13 @@ module Admin::TaggableContentHelper
   def taggable_world_locations_cache_digest
     update_timestamps = WorldLocation.order(:id).pluck(:updated_at).map(&:to_i).join
     Digest::MD5.hexdigest "taggable-world-locations-#{update_timestamps}"
+  end
+
+  # Returns an MD5 digest representing the taggable alternative format
+  # providers. This will change if any alternative format providers are
+  # changed.
+  def taggable_alternative_format_providers_cache_digest
+    "#{taggable_organisations_cache_digest}-alternative-format-providers"
   end
 
   # Note: Taken from Rails 4
