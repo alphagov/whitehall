@@ -173,8 +173,8 @@ following task from the rummager repo:
 
 2. Run the bulk export and load:
 
-    WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb > government.dump
-    WHITEHALL_EXTRACT_TEXT_FEATURE=false bundle exec ./script/rummager_export.rb --detailed > detailed.dump
+    bundle exec ./script/rummager_export.rb > government.dump
+    bundle exec ./script/rummager_export.rb --detailed > detailed.dump
 
 then
 
