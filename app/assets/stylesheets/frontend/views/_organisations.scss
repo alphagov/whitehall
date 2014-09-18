@@ -1075,6 +1075,9 @@
         .type {
           display: block;
         }
+        &.comments {
+          clear: both;
+        }
       }
       .comment {
         margin-bottom: $gutter-half;
