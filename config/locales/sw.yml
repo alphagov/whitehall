@@ -4,18 +4,15 @@ sw:
       attachments:
         one:
         other:
-      policies:
-        one:
-        other:
       applies_to_nations:
       field_of_operation:
       from:
       location:
       part_of:
-    type:
-      imported:
+      policies:
         one:
         other:
+    type:
       announcement:
         one:
         other:
@@ -54,15 +51,15 @@ sw:
         see_all:
       detailed_guidance:
         back_to_contents:
-        categories:
-        contents:
-        more:
         one:
         other:
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all:
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one:
@@ -93,6 +90,10 @@ sw:
         other:
         see_all:
       impact_assessment:
+        one:
+        other:
+        see_all:
+      imported:
         one:
         other:
         see_all:

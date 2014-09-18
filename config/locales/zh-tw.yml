@@ -175,15 +175,15 @@ zh-tw:
         see_all:
       detailed_guidance:
         back_to_contents:
-        categories:
-        contents:
-        more:
         one: 詳細指引
         other: 詳細指引
-        part_of_published_collection:
-        published_related_detailed_guides:
-        related_mainstream_content:
         see_all: 查閱我們所有的詳細指引
+        contents:
+        published_related_detailed_guides:
+        part_of_published_collection:
+        categories:
+        more:
+        related_mainstream_content:
         see_more_like_this:
       document_collection:
         one: 系列
@@ -220,6 +220,7 @@ zh-tw:
       imported:
         one: 輸入 - 等待中
         other: 輸入 - 等待中
+        see_all: 查閱我們所有的輸入 - 等待中
       independent_report:
         one: 獨立報告
         other: 其他獨立報告
