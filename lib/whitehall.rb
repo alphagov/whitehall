@@ -14,6 +14,7 @@ module Whitehall
   mattr_accessor :need_api
   mattr_accessor :maslow
   mattr_accessor :default_cache_max_age
+  mattr_accessor :uploads_cache_max_age
   mattr_accessor :organisations_transition_visualisation_feature_enabled
   mattr_accessor :unified_search_client
 
