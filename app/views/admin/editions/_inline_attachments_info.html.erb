@@ -10,5 +10,25 @@
     <%= render 'admin/attachments/markdown_codes', attachable: edition %>
   <% end %>
 
-  <%= form.alternative_format_provider_select(current_user.organisation) %>
+  <% if edition.respond_to?(:alternative_format_provider) %>
+    <div class="control-group">
+      <%= form.label(:alternative_format_provider_id,
+                     "Email address for ordering attachment files in an alternative format",
+                     required: edition.alternative_format_provider_required?) %>
+      <div class="controls">
+        <%= form.select(:alternative_format_provider_id,
+                        options_for_select(
+                          organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
+                          selected: (edition.alternative_format_provider_id || current_user.organisation.try(:id)),
+                          disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id)
+                        ),
+                        { include_blank: true, multiple: false },
+                        class: 'chzn-select',
+                        data: { placeholder: "Choose which organisation will provide alternative formats..." }) %>
+        <p class="help-block">
+          If the email address you need isn't here, it should be added to the relevant Department or Agency
+        </p>
+      </div>
+    </div>
+  <% end %>
 </fieldset>

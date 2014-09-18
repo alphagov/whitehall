@@ -21,7 +21,7 @@
   <% end %>
 
 
-  <%= form_for [:admin, @edition], as: :edition, builder: Admin::EditionsHelper::EditionFormBuilder do |form| %>
+  <%= form_for [:admin, @edition], as: :edition do |form| %>
 
     <%= form.text_field :title %>
     <div class="title-length-info">Title text should be 65 characters or fewer and the slug will be truncated past 150. <span class="count"></span></div>
