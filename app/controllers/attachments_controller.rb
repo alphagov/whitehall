@@ -28,6 +28,7 @@ private
     if edition = attachment_visibility.unpublished_edition
       redirect_to public_document_path(edition, id: edition.unpublishing.slug)
     elsif replacement = attachment_data.replaced_by
+      expires_headers
       redirect_to replacement.url, status: 301
     else
       super
