@@ -8,7 +8,7 @@ Feature: Speed tagging editions
   - should only present ministers which are associated with the org of the doc being imported
   - should present mandatory data elements for that document type. (i.e. speech type, publication subtype)
   - should include first published at fields for news articles and statistical data sets
-  - should include opening and closing dates for consulations
+  - should include opening and closing dates for consultations
   - should include delivered on date for speeches
   - should include publication date for publications
 
