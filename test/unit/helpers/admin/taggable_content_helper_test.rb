@@ -206,8 +206,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
       create(:ministerial_role_appointment, started_at: 1.day.ago)
     end
     current_cache_digest = taggable_ministerial_role_appointments_cache_digest
-    role_appointment.update_attributes!(ended_at: 1.minute.ago)
 
+    clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
+    role_appointment.update_attributes!(ended_at: 1.minute.ago)
     refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
 
@@ -220,9 +221,11 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     current_cache_digest = taggable_ministerial_role_appointments_cache_digest
     Timecop.return
 
+    clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
     other_role.update_attributes!(name: 'Updated the Board Member Role name')
     assert_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
 
+    clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
     minister_role.update_attributes!(name: 'Updated the Role name')
     refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
@@ -233,8 +236,9 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     end
     person = role_appointment.person
     current_cache_digest = taggable_ministerial_role_appointments_cache_digest
-    person.update_attributes!(surname: 'Smith')
 
+    clear_memoization_for("taggable_ministerial_role_appointments_cache_digest")
+    person.update_attributes!(surname: 'Smith')
     refute_equal current_cache_digest, taggable_ministerial_role_appointments_cache_digest
   end
 
@@ -247,10 +251,21 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     current_cache_digest = taggable_role_appointments_cache_digest
     Timecop.return
 
+    clear_memoization_for("taggable_role_appointments_cache_digest")
     other_role.update_attributes!(name: 'Updated the Board Member Role name')
     refute_equal current_cache_digest, taggable_role_appointments_cache_digest
 
+    clear_memoization_for("taggable_role_appointments_cache_digest")
     minister_role.update_attributes!(name: 'Updated the Role name')
     refute_equal current_cache_digest, taggable_role_appointments_cache_digest
+  end
+
+private
+
+  # The cache digest calculations are memoized in the helper methods, which
+  # means we need to clear the stored value if we want to test that they
+  # are recalculated correctly between requests
+  def clear_memoization_for(digest_name)
+    remove_instance_variable("@_#{digest_name}".to_sym)
   end
 end

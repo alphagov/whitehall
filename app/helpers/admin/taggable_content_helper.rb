@@ -144,112 +144,97 @@ module Admin::TaggableContentHelper
   # Returns an MD5 digest representing the current set of taggable topics. This
   # will change if any of the Topics should change or if a new topic is added.
   def taggable_topics_cache_digest
-    update_timestamps = Topic.order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-topics-#{update_timestamps}"
+    @_taggable_topics_cache_digest ||= calculate_digest(Topic.order(:id), 'topics')
   end
 
   # Returns an MD5 digest representing the current set of taggable topical
   # events. This will change if any of the Topics should change or if a new
   # topic event is added.
   def taggable_topical_events_cache_digest
-    update_timestamps = TopicalEvent.order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-topical-events-#{update_timestamps}"
+    @_taggable_topical_events_cache_digest ||=  calculate_digest(TopicalEvent.order(:id), 'topical-events')
   end
 
   # Returns an MD5 digest representing the current set of taggable
   # organisations. This will change if any of the Topics should change or if a
   # new organisation is added.
   def taggable_organisations_cache_digest
-    @taggable_organisations_cache_digest ||= begin
-      update_timestamps = Organisation.order(:id).pluck(:updated_at).map(&:to_i).join
-      Digest::MD5.hexdigest "taggable-organisations-#{update_timestamps}"
-    end
+    @_taggable_organisations_cache_digest ||= calculate_digest(Organisation.order(:id), 'organisations')
   end
 
   # Returns an MD5 digest representing the current set of taggable ministerial
   # role appointments. This will change if any role appointments are added or
   # changed, and also if an occupied MinisterialRole is updated.
   def taggable_ministerial_role_appointments_cache_digest
-    update_timestamps = RoleAppointment.
-                          joins(:role).
-                          where(roles: { type: MinisterialRole}).
-                          order("role_appointments.id").
-                          pluck(:updated_at).
-                          map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-ministerial-role-appointments-#{update_timestamps}"
+    @_taggable_ministerial_role_appointments_cache_digest ||= begin
+      calculate_digest(RoleAppointment.
+                        joins(:role).
+                        where(roles: { type: MinisterialRole}).
+                        order("role_appointments.id"), 'ministerial-role-appointments')
+    end
   end
 
   # Returns an MD5 digest representing the current set of taggable ministerial
   # role appointments. This will change if any role appointments are added or
   # changed, and also if an occupied Role is updated.
   def taggable_role_appointments_cache_digest
-    update_timestamps = RoleAppointment.order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-role-appointments-#{update_timestamps}"
+    @_taggable_role_appointments_cache_digest ||= calculate_digest(RoleAppointment.order(:id), 'role-appointments')
   end
 
   # Returns an MD5 digest representing the current set of taggable ministerial
   # rile appointments. THis will change if any ministerial role is added or
   # updated.
   def taggable_ministerial_roles_cache_digest
-    update_timestamps = MinisterialRole.order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-ministerial-roles-#{update_timestamps}"
+    @_taggable_ministerial_roles_cache_digest ||= calculate_digest(MinisterialRole.order(:id), 'ministerial-roles')
   end
 
   # Returns an MD5 digest representing all the detailed guides. This wil change
   # if any detailed guides are added or updated.
   def taggable_detailed_guides_cache_digest
-    update_timestamps = Document.where(document_type: DetailedGuide).order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-detailed-guides-#{update_timestamps}"
+    @_taggable_detailed_guides_cache_digest ||= calculate_digest(Document.where(document_type: DetailedGuide).order(:id), 'detailed-guides')
   end
 
   # Returns an MD5 digest representing the taggable statistical data sets. This
   # will change if any statistical data set is added or updated.
   def taggable_statistical_data_sets_cache_digest
-    update_timestamps = Document.where(document_type: StatisticalDataSet).order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-statistical-data-sets-#{update_timestamps}"
+    @_taggable_statistical_data_sets_cache_digest ||= calculate_digest(Document.where(document_type: StatisticalDataSet).order(:id), 'statistical-data-sets')
   end
 
   # Returns an MD5 digest representing the taggable worldwide priorities. This
   # will change if any worldwide priorities are added or updated.
   def taggable_worldwide_priorities_cache_digest
-    update_timestamps = Document.where(document_type: WorldwidePriority).order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-worldwide-priorities-#{update_timestamps}"
+    @_taggable_worldwide_priorities_cache_digest ||= calculate_digest(Document.where(document_type: WorldwidePriority).order(:id), 'worldwide-priorities')
   end
 
   # Returns an MD5 digest representing the taggable policies. This will change
   # if any policies are added or updated.
   def taggable_policies_cache_digest
-    update_timestamps = Document.where(document_type: Policy).order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-policies-#{update_timestamps}"
+    @_taggable_policies_cache_digest ||= calculate_digest(Document.where(document_type: Policy).order(:id), 'policies')
   end
 
   # Returns an MD5 digest representing the taggable world locations. This will
   # change if any world locations are added or updated.
   def taggable_world_locations_cache_digest
-    update_timestamps = WorldLocation.order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-world-locations-#{update_timestamps}"
+    @_taggable_world_locations_cache_digest ||= calculate_digest(WorldLocation.order(:id), 'world-locations')
   end
 
   # Returns an MD5 digest representing the taggable alternative format
   # providers. This will change if any alternative format providers are
   # changed.
   def taggable_alternative_format_providers_cache_digest
-    "#{taggable_organisations_cache_digest}-alternative-format-providers"
+    @_taggable_alternative_format_providers_cache_digest ||= calculate_digest(Organisation.order(:id), 'alternative-format-providers')
   end
 
   # Returns an MD5 digest representing the taggable document collection
   # groups. This will change if any document collection or group within
   # the collection is changed or any new ones are added.
   def taggable_document_collection_groups_cache_digest
-    update_timestamps = Document.where(document_type: DocumentCollection).order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-document-collection-groups-#{update_timestamps}"
+    @_taggable_document_collection_groups_cache_digest ||= calculate_digest(Document.where(document_type: DocumentCollection).order(:id), 'document-collection-groups')
   end
 
   # Returns an MD5 digest representing the taggable worldwide organisations.
-  # THis will change if any worldwide organisations are added or updated.
+  # This will change if any worldwide organisations are added or updated.
   def taggable_worldwide_organisations_cache_digest
-    update_timestamps = WorldwideOrganisation.order(:id).pluck(:updated_at).map(&:to_i).join
-    Digest::MD5.hexdigest "taggable-worldwide-organisations-#{update_timestamps}"
+    @_taggable_worldwide_organisations_cache_digest ||= calculate_digest(WorldwideOrganisation.order(:id), 'worldwide-organisations')
   end
 
   # Note: Taken from Rails 4
@@ -264,6 +249,11 @@ module Admin::TaggableContentHelper
   end
 
 private
+
+  def calculate_digest(scope, digest_name)
+    update_timestamps = scope.pluck(:updated_at).map(&:to_i).join
+    Digest::MD5.hexdigest "taggable-#{digest_name}-#{update_timestamps}"
+  end
 
   def role_appointments_container_for(scope)
     scope.
