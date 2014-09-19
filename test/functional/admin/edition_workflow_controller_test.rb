@@ -67,13 +67,16 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
-    submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    edition = draft_edition
+    edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    editor = create(:departmental_editor)
+    acting_as(editor) { draft_edition.submit! }
     Sidekiq::Testing.fake! do
-      post :schedule, id: submitted_edition, lock_version: submitted_edition.lock_version
+      post :schedule, id: edition, lock_version: edition.lock_version
 
       assert_redirected_to admin_editions_path(state: :scheduled)
-      assert submitted_edition.reload.scheduled?
-      assert_equal "The document #{submitted_edition.title} has been scheduled for publication", flash[:notice]
+      assert edition.reload.scheduled?
+      assert_equal "The document #{edition.title} has been scheduled for publication", flash[:notice]
     end
   end
 
@@ -86,12 +89,15 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule redirects back to the edition with an error message if the edition is stale' do
-    old_lock_version = submitted_edition.lock_version
-    submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-    submitted_edition.touch
-    post :schedule, id: submitted_edition, lock_version: old_lock_version
+    edition = draft_edition
+    old_lock_version = edition.lock_version
+    edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    edition.touch
+    editor = create(:departmental_editor)
+    acting_as(editor) { draft_edition.submit! }
+    post :schedule, id: edition, lock_version: old_lock_version
 
-    assert_redirected_to admin_policy_path(submitted_edition)
+    assert_redirected_to admin_policy_path(edition)
     assert_equal 'This document has been edited since you viewed it; you are now viewing the latest version', flash[:alert]
   end
 

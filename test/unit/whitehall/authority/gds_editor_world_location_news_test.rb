@@ -71,9 +71,11 @@ class GDSEditorWorldLocationNewsTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_world_location_news_article).can?(:publish)
   end
 
-  test 'cannot publish a world location news article we created' do
+  test 'cannot publish a world location news article we submitted' do
     me = gds_editor
-    refute enforcer_for(me, normal_world_location_news_article(me)).can?(:publish)
+    edition = normal_world_location_news_article(me)
+    edition.stubs(:latest_version_audit_entry_for).returns(OpenStruct.new(actor: me))
+    refute enforcer_for(me, edition).can?(:publish)
   end
 
   test 'can reject a world location news article' do
