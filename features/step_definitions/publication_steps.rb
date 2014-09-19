@@ -188,3 +188,16 @@ When /^I publish a new publication of the type "([^"]*)" called "([^"]*)"$/ do |
   click_button "Save"
   publish(force: true)
 end
+
+Then /^I should not be able to publish the publication "([^"]*)"$/ do |title|
+  visit_edition_admin title
+  refute page.has_button?('Publish')
+end
+
+Given /^"([^"]*)" submits the publication "([^"]*)"$/ do |user_name, title|
+  user = User.find_by_name(user_name)
+  as_user(user) do
+    visit_edition_admin title
+    click_button "Submit for 2nd eyes"
+  end
+end

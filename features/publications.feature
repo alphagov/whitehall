@@ -46,6 +46,22 @@ Scenario: Publishing a submitted publication
   Then I should see the publication "Standard Beard Lengths" in the list of published documents
   And the publication "Standard Beard Lengths" should be visible to the public
 
+Scenario: Publishing an edition I submitted is forbidden
+  Given I am an editor
+  And there is a user called "Beardy"
+  And "Beardy" drafts a new publication "Britain's Hairiest Ministers"
+  When I submit the publication "Britain's Hairiest Ministers"
+  Then I should not be able to publish the publication "Britain's Hairiest Ministers"
+
+@not-quite-as-fake-search
+Scenario: Publishing an edition I created but did not submit
+  Given I am an editor
+  And there is a user called "Beardy"
+  And I draft a new publication "Britain's Hairiest Ministers"
+  When "Beardy" submits the publication "Britain's Hairiest Ministers"
+  And I publish the publication "Britain's Hairiest Ministers"
+  Then I should see the publication "Britain's Hairiest Ministers" in the list of published documents
+
 Scenario: Publishing a corporate publication
   Given I am an editor
   And the organisation "Ministry of Hair" exists
