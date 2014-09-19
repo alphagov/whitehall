@@ -4,15 +4,18 @@ de:
       attachments:
         one: Dokument
         other: Dokumente
+      policies:
+        one:
+        other:
       applies_to_nations: Gilt für
       field_of_operation: Einsatzbereich
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Meldung
         other: Meldungen
@@ -51,15 +54,15 @@ de:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Detaillierte Hinweise
         other: Detaillierte Hinweise
-        see_all: Alle unsere Detaillierte Hinweise
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Alle unsere Detaillierte Hinweise
         see_more_like_this:
       document_collection:
         one: Reihe
@@ -93,10 +96,6 @@ de:
         one: Folgenabschätzung
         other: Folgenabschätzungen
         see_all: Alle unsere Folgenabschätzungen
-      imported:
-        one: importiert - Warten auf Dokumententyp
-        other: importiert - Warten auf Dokumententyp
-        see_all: Alle unsere importiert - Warten auf Dokumententyp
       independent_report:
         one: Unabhängiger Bericht
         other: Unabhängige Berichte
@@ -421,6 +420,7 @@ de:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Kontaktformular

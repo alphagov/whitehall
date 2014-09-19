@@ -4,15 +4,18 @@ si:
       attachments:
         one: ලේඛණය
         other: ලේඛණ
+      policies:
+        one:
+        other:
       applies_to_nations: අදාළ වන්නේ
       field_of_operation: ක්‍රියාත්මකවන ක්ෂස්ත්‍රය
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: නිවේදනය
         other: නිවේදන
@@ -51,15 +54,15 @@ si:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
-        see_all: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
         see_more_like_this:
       document_collection:
         one: කාණ්ඩය
@@ -93,10 +96,6 @@ si:
         one: ප්‍රතිපල ඇගයීම
         other: ප්‍රතිපල ඇගයීම්
         see_all: අපගේ සියලු ප්‍රතිපල ඇගයීම් බලන්න
-      imported:
-        one: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
-        other: ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න
-        see_all: අපගේ සියලු ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න බලන්න
       independent_report:
         one: ස්වාධීන වාර්තාව
         other: ස්වාධීන වාර්තා
@@ -421,6 +420,7 @@ si:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: තොරතුරු පෝරමය

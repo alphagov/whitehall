@@ -79,6 +79,7 @@ hu:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Kapcsolati űrlap
@@ -178,15 +179,15 @@ hu:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Részletes útmutató
         other: Részletes útmutató
-        see_all: ' részletes útmutató - mindegyik megtekintése'
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: ' részletes útmutató - mindegyik megtekintése'
         see_more_like_this:
       document_collection:
         one: Sorozatok
@@ -223,7 +224,6 @@ hu:
       imported:
         one: Importálva
         other: Importálva
-        see_all: ' importálva - mindegyik megtekintése'
       independent_report:
         one: Független beszámoló
         other: Független beszámolók

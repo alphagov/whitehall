@@ -65,7 +65,7 @@ class PublicationsControllerTest < ActionController::TestCase
     get :show, id: publication.document
 
     assert_select ".type", text: /Form/
-    assert_select ".change-notes .published-at", text: "31 May 1916"
+    assert_select ".meta .date", text: "31 May 1916"
   end
 
   view_test "#show should not render empty sector metadata" do

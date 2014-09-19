@@ -396,8 +396,9 @@ en:
   read_more: Read more
   change_notes:
     page_history: History
-    published_at: Published %{date}
-    updated_at: Updated %{date}, <span class="toggle">see all updates</span>
+    published_at: First published
+    updated_at: Last updated
+    see_all_updates: see all updates
   organisation:
     type:
       Ministerial department:
