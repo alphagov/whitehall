@@ -25,7 +25,6 @@
 
           <% if embassy.remote_services_country -%>
             <li>
-              <h3><%= embassy.offices.first.contact.locality %></h3>
               <p><%= embassy.name %> doesn't have consular services, you need to go to the <%= embassy.offices.first.title %> in <%= embassy.remote_services_country %>.</p>
               <%= link_to(embassy.offices.first.title, worldwide_organisation_path(embassy.offices.first.slug)) %>
             </li>
