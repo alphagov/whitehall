@@ -478,8 +478,6 @@ si:
     headings:
       detail: විස්තර
   read_more: තව කියවන්න
-  shared:
-    see_all: අපගේ සියලු %{type} බලන්න
   social_media:
     follow_us:
   support:

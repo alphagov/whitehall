@@ -460,8 +460,6 @@ hu:
     policies_responsible_with_person:
     previous_holders:
     read_more:
-  shared:
-    see_all: ' %{type} - mindegyik megtekintése'
   social_media:
     follow_us:
   support:

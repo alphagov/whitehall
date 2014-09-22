@@ -730,8 +730,6 @@ cy:
     headings:
       detail: Manylyn
   read_more: Darllen mwy
-  shared:
-    see_all: Gweld ein holl %{type}
   social_media:
     follow_us: Dilynwch ni
   support:

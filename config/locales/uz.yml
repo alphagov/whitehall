@@ -478,8 +478,6 @@ uz:
     headings:
       detail: Tafsilot
   read_more: Ko'proq ma'lumotga ega bo'ling
-  shared:
-    see_all: Bizning butun %{type} ko'ring
   social_media:
     follow_us:
   support:

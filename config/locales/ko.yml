@@ -457,8 +457,6 @@ ko:
     policies_responsible_with_person:
     previous_holders:
     read_more:
-  shared:
-    see_all: '%{type} 모두 둘러보기'
   social_media:
     follow_us:
   support:

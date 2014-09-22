@@ -480,8 +480,6 @@ so:
     headings:
       detail: Faahfaahin
   read_more: Sii akhri
-  shared:
-    see_all: Fiiri dhammaan %{type} yadeenna
   social_media:
     follow_us:
   support:

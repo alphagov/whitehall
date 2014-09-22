@@ -604,8 +604,6 @@ pl:
     headings:
       detail: Szczegóły
   read_more: Czytaj więcej
-  shared:
-    see_all: Zobacz wszystkie nasze %{type}
   social_media:
     follow_us:
   support:

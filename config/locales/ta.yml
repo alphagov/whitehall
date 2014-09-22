@@ -480,8 +480,6 @@ ta:
     headings:
       detail: விபரம்
   read_more: மேலும் வாசிக்கவும்
-  shared:
-    see_all: எங்களது அனைத்து %{type} பார்க்கவும்
   social_media:
     follow_us:
   support:

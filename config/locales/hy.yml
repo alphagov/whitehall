@@ -479,8 +479,6 @@ hy:
     headings:
       detail: Տվյալ
   read_more: Կարդալ ավելին
-  shared:
-    see_all: Տես՝ մեր բոլոր %{type} -ը
   social_media:
     follow_us:
   support:

@@ -478,8 +478,6 @@ pt:
     headings:
       detail: Detalhes
   read_more: Leia mais
-  shared:
-    see_all: Veja todos os nossos %{type}
   social_media:
     follow_us:
   support:

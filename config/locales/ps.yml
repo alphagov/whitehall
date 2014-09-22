@@ -480,8 +480,6 @@ ps:
     headings:
       detail: تفصیل
   read_more: نور ووایاست
-  shared:
-    see_all: ټول وګوری %{type}
   social_media:
     follow_us:
   support:

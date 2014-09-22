@@ -479,8 +479,6 @@ sq:
     headings:
       detail: Detaj
   read_more: Lexo me shume
-  shared:
-    see_all: Shiko te gjitha %{type}
   social_media:
     follow_us:
   support:

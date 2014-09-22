@@ -601,8 +601,6 @@ ru:
     headings:
       detail: Детали
   read_more: Подробнее
-  shared:
-    see_all: Посмотреть все наши %{type}
   social_media:
     follow_us:
   support:

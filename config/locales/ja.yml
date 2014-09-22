@@ -457,8 +457,6 @@ ja:
     policies_responsible_with_person:
     previous_holders:
     read_more:
-  shared:
-    see_all: '%{type} を全て見る'
   social_media:
     follow_us:
   support:

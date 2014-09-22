@@ -477,8 +477,6 @@ lv:
     headings:
       detail: Sīkāk
   read_more: Lasīt vairāk
-  shared:
-    see_all: Skatīt visas %{type}
   social_media:
     follow_us:
   support:

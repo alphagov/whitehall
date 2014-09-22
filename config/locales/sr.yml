@@ -607,8 +607,6 @@ sr:
     headings:
       detail: Detalj
   read_more: Pročitajte više
-  shared:
-    see_all: Pogledajte sve naše %{type}
   social_media:
     follow_us:
   support:

@@ -726,8 +726,6 @@ ar:
     headings:
       detail: تفاصيل
   read_more: اقرأ المزيد
-  shared:
-    see_all: اطلع على كافة %{type}
   social_media:
     follow_us:
   support:

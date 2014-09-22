@@ -539,8 +539,6 @@ ro:
     headings:
       detail: 'Mai multe '
   read_more: Află mai multe
-  shared:
-    see_all: Toate %{type}
   social_media:
     follow_us:
   support:

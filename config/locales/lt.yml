@@ -540,8 +540,6 @@ lt:
     headings:
       detail: Detalesnė informacija
   read_more: Skaitykite daugiau
-  shared:
-    see_all: Pažiūrėkite  mūsų %{type}
   social_media:
     follow_us:
   support:

@@ -479,8 +479,6 @@ fr:
     headings:
       detail: Détail
   read_more: En savoir plus
-  shared:
-    see_all: Voir toutes nos %{type}
   social_media:
     follow_us:
   support:
