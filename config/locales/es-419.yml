@@ -4,14 +4,14 @@ es-419:
       attachments:
         one: Documento
         other: Documentos
+      policies:
+        one:
+        other:
       applies_to_nations: Se aplica a
       field_of_operation: Terreno de operaciones
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Novedades
@@ -397,6 +397,15 @@ es-419:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Puede utilizar los filtros para mostrar&nbsp;sólo resultados que
       coincidan con sus&nbsp;intereses
@@ -434,6 +443,51 @@ es-419:
     headings:
       detail: Detalle
   read_more: Lea más
+  see_all:
+    announcement: Vea todos nuestros novedades
+    authored_article: Vea todos nuestros artículos con autor
+    case_study: Vea todos nuestros casos de estudio
+    closed_consultation: Vea todos nuestros consultas cerradas
+    consultation: Vea todos nuestros consultas
+    consultation_outcome: Vea todos nuestros resultados de la consulta
+    corporate_report: Vea todos nuestros reportes institucionales
+    correspondence: Vea todos nuestros correspondencias
+    decision:
+    detailed_guidance: Vea todos nuestros orientación detallada
+    document_collection:
+    draft_text: Vea todos nuestros borradores
+    fatality_notice: Vea todos nuestros avisos de defunción
+    foi_release: Vea todos nuestros boletines de foi
+    form: Vea todos nuestros formularios
+    government_response: Vea todos nuestros respuestas del gobierno
+    guidance: Vea todos nuestros instrucciones
+    impact_assessment: Vea todos nuestros evaluaciones del impacto
+    imported: Vea todos nuestros importado - esperando tipo
+    international_treaty:
+    map: Vea todos nuestros mapas
+    national_statistics: Vea todos nuestros estadísticas - cifras nacionales
+    news_article: Vea todos nuestros artículos
+    news_story: Vea todos nuestros noticias
+    notice:
+    open_consultation: Vea todos nuestros consultas abiertas
+    oral_statement: Vea todos nuestros declaraciones orales al parlamento
+    policy: Vea todos nuestros políticas
+    policy_paper: Vea todos nuestros informes sobre políticas gubernamentales
+    press_release: Vea todos nuestros gacetillas de prensa
+    promotional: Vea todos nuestros material promocional
+    publication: Vea todos nuestros publicaciones
+    regulation:
+    research: Vea todos nuestros investigación y análisis
+    speaking_notes: Vea todos nuestros anotaciones
+    speech: Vea todos nuestros discursos
+    statement_to_parliament: Vea todos nuestros declaraciones al parlamento
+    statistical_data_set: Vea todos nuestros conjuntos de datos estadísticos
+    statistics: Vea todos nuestros estadísticas
+    statutory_guidance:
+    transcript: Vea todos nuestros transcripciones
+    transparency: Vea todos nuestros datos sobre transparencia
+    worldwide_priority: Vea todos nuestros prioridades en todo el mundo
+    written_statement: Vea todos nuestros declaraciones escritas al parlamento
   social_media:
     follow_us:
   support:
@@ -462,58 +516,3 @@ es-419:
       our_services: Nuestros servicios
     location: Ubicación
     part_of: Parte de
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Vea todos nuestros novedades
-    authored_article: Vea todos nuestros artículos con autor
-    case_study: Vea todos nuestros casos de estudio
-    closed_consultation: Vea todos nuestros consultas cerradas
-    consultation: Vea todos nuestros consultas
-    consultation_outcome: Vea todos nuestros resultados de la consulta
-    corporate_report: Vea todos nuestros reportes institucionales
-    correspondence: Vea todos nuestros correspondencias
-    decision:
-    detailed_guidance: Vea todos nuestros orientación detallada
-    document_collection:
-    draft_text: Vea todos nuestros borradores
-    fatality_notice: Vea todos nuestros avisos de defunción
-    foi_release: Vea todos nuestros boletines de foi
-    form: Vea todos nuestros formularios
-    government_response: Vea todos nuestros respuestas del gobierno
-    guidance: Vea todos nuestros instrucciones
-    impact_assessment: Vea todos nuestros evaluaciones del impacto
-    imported: Vea todos nuestros importado - esperando tipo
-    independent_report: Vea todos nuestros reportes independientes
-    international_treaty:
-    map: Vea todos nuestros mapas
-    national_statistics: Vea todos nuestros estadísticas - cifras nacionales
-    news_article: Vea todos nuestros artículos
-    news_story: Vea todos nuestros noticias
-    notice:
-    open_consultation: Vea todos nuestros consultas abiertas
-    oral_statement: Vea todos nuestros declaraciones orales al parlamento
-    policy: Vea todos nuestros políticas
-    policy_paper: Vea todos nuestros informes sobre políticas gubernamentales
-    press_release: Vea todos nuestros gacetillas de prensa
-    promotional: Vea todos nuestros material promocional
-    publication: Vea todos nuestros publicaciones
-    regulation:
-    research: Vea todos nuestros investigación y análisis
-    speaking_notes: Vea todos nuestros anotaciones
-    speech: Vea todos nuestros discursos
-    statement_to_parliament: Vea todos nuestros declaraciones al parlamento
-    statistical_data_set: Vea todos nuestros conjuntos de datos estadísticos
-    statistics: Vea todos nuestros estadísticas
-    statutory_guidance:
-    transcript: Vea todos nuestros transcripciones
-    transparency: Vea todos nuestros datos sobre transparencia
-    worldwide_priority: Vea todos nuestros prioridades en todo el mundo
-    written_statement: Vea todos nuestros declaraciones escritas al parlamento

@@ -107,6 +107,15 @@ ja:
     formats:
       default: '%Y %B %d'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -412,6 +421,51 @@ ja:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: ニュース を全て見る
+    authored_article: authored articles を全て見る
+    case_study: ケーススタディ を全て見る
+    closed_consultation: 非公開協議 を全て見る
+    consultation: 協議 を全て見る
+    consultation_outcome: 協議結果 を全て見る
+    corporate_report: 事業報告 を全て見る
+    correspondence: 通信文書 を全て見る
+    decision:
+    detailed_guidance: 詳細説明 を全て見る
+    document_collection:
+    draft_text: 草稿 を全て見る
+    fatality_notice: 死亡告示 を全て見る
+    foi_release: 情報公開に関するニュース を全て見る
+    form: フォーム を全て見る
+    government_response: レスポンス を全て見る
+    guidance: ガイダンス を全て見る
+    impact_assessment: 影響評価 を全て見る
+    imported: 確認中 を全て見る
+    international_treaty:
+    map: 地図 を全て見る
+    national_statistics: 国家統計 を全て見る
+    news_article: ニュース を全て見る
+    news_story: ニュース を全て見る
+    notice:
+    open_consultation: 公開協議 を全て見る
+    oral_statement: 議会に対する口頭陳述 を全て見る
+    policy: 政策 を全て見る
+    policy_paper: 政策文書 を全て見る
+    press_release: 新聞発表 を全て見る
+    promotional: 宣伝資料 を全て見る
+    publication: 出版物 を全て見る
+    regulation:
+    research: 調査と分析 を全て見る
+    speaking_notes: キーポイント を全て見る
+    speech: スピーチ を全て見る
+    statement_to_parliament: 閣僚声明 を全て見る
+    statistical_data_set: 統計データセット を全て見る
+    statistics: 統計 を全て見る
+    statutory_guidance:
+    transcript: スピーチ全文 を全て見る
+    transparency: 透明性データ を全て見る
+    worldwide_priority: 優先事項 を全て見る
+    written_statement: 閣僚声明文 を全て見る
   social_media:
     follow_us:
   support:
@@ -456,58 +510,3 @@ ja:
       our_services: 業務内容
     location: アクセス
     part_of: 所属
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: ニュース を全て見る
-    authored_article: authored articles を全て見る
-    case_study: ケーススタディ を全て見る
-    closed_consultation: 非公開協議 を全て見る
-    consultation: 協議 を全て見る
-    consultation_outcome: 協議結果 を全て見る
-    corporate_report: 事業報告 を全て見る
-    correspondence: 通信文書 を全て見る
-    decision:
-    detailed_guidance: 詳細説明 を全て見る
-    document_collection:
-    draft_text: 草稿 を全て見る
-    fatality_notice: 死亡告示 を全て見る
-    foi_release: 情報公開に関するニュース を全て見る
-    form: フォーム を全て見る
-    government_response: レスポンス を全て見る
-    guidance: ガイダンス を全て見る
-    impact_assessment: 影響評価 を全て見る
-    imported: 確認中 を全て見る
-    independent_report: 第三者機関によるレポート を全て見る
-    international_treaty:
-    map: 地図 を全て見る
-    national_statistics: 国家統計 を全て見る
-    news_article: ニュース を全て見る
-    news_story: ニュース を全て見る
-    notice:
-    open_consultation: 公開協議 を全て見る
-    oral_statement: 議会に対する口頭陳述 を全て見る
-    policy: 政策 を全て見る
-    policy_paper: 政策文書 を全て見る
-    press_release: 新聞発表 を全て見る
-    promotional: 宣伝資料 を全て見る
-    publication: 出版物 を全て見る
-    regulation:
-    research: 調査と分析 を全て見る
-    speaking_notes: キーポイント を全て見る
-    speech: スピーチ を全て見る
-    statement_to_parliament: 閣僚声明 を全て見る
-    statistical_data_set: 統計データセット を全て見る
-    statistics: 統計 を全て見る
-    statutory_guidance:
-    transcript: スピーチ全文 を全て見る
-    transparency: 透明性データ を全て見る
-    worldwide_priority: 優先事項 を全て見る
-    written_statement: 閣僚声明文 を全て見る

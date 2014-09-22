@@ -6,14 +6,16 @@ be:
         few:
         many:
         other: Дакументы
+      policies:
+        one:
+        few:
+        many:
+        other:
       applies_to_nations: У адносінах да
       field_of_operation: Сфера дзейнасці
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Аб'ява
@@ -524,6 +526,15 @@ be:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
       якія вас цікавяць.
@@ -562,6 +573,51 @@ be:
     headings:
       detail: Падрабязней
   read_more: Чытаць Падрабязней
+  see_all:
+    announcement: Паглядзець усе Аб'явы
+    authored_article: Паглядзець усе Аўтарскія артыкулы
+    case_study: Паглядзець усе Тэматычныя даследаванні
+    closed_consultation: Паглядзець усе Закрытыя кансультацыі
+    consultation: Паглядзець усе Кансультацыі
+    consultation_outcome: Паглядзець усе Вынікі кансультацыі
+    corporate_report: Паглядзець усе Карпаратыўныя справаздачы
+    correspondence: Паглядзець усе Перапіска
+    decision: Паглядзець усе Падрабязнае кіраўніцтва
+    detailed_guidance:
+    document_collection: Паглядзець усе Чарнавікі
+    draft_text:
+    fatality_notice: Паглядзець усе Паведамленні
+    foi_release: Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі
+    form: Паглядзець усе Формы
+    government_response: Паглядзець усе Адказы ўрада
+    guidance: Паглядзець усе Кіраўніцтва
+    impact_assessment: Паглядзець усе Ацэнкі ўплыву
+    imported: Паглядзець усе імпартавана - чаканне тыпу
+    international_treaty: Паглядзець усе Карты
+    map:
+    national_statistics: Паглядзець усе Статыстыка - нацыянальная статыстыка
+    news_article: Паглядзець усе Артыкулы
+    news_story: Паглядзець усе Навіны
+    notice: Паглядзець усе Адкрытыя кансультацыі
+    open_consultation:
+    oral_statement: Паглядзець усе Вусныя даклады ў парламенце
+    policy: Паглядзець усе Напрамкі дзейнасці
+    policy_paper: Паглядзець усе Праграмныя дакументы
+    press_release: Паглядзець усе Прэс-рэлізы
+    promotional: Паглядзець усе Рэкламныя матэрыялы
+    publication: Паглядзець усе Публікацыі
+    regulation: Паглядзець усе Даследаванні і аналіз
+    research:
+    speaking_notes: Паглядзець усе Нататкі да выступу
+    speech: Паглядзець усе Выступы
+    statement_to_parliament: Паглядзець усе Заявы ў парламенце
+    statistical_data_set: Паглядзець усе Статыстычныя дадзеныя
+    statistics: Паглядзець усе Статыстыка
+    statutory_guidance: Паглядзець усе Поўны тэкст
+    transcript:
+    transparency: Паглядзець усе Адкрытыя дадзеныя
+    worldwide_priority: Паглядзець усе Сусветныя прыярытэты
+    written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце
   social_media:
     follow_us:
   support:
@@ -589,52 +645,3 @@ be:
       our_services: Нашы паслугі
     location: Месцазнаходжанне
     part_of: Частка
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Паглядзець усе Аб'явы
-    authored_article: Паглядзець усе Аўтарскія артыкулы
-    case_study: Паглядзець усе Тэматычныя даследаванні
-    closed_consultation: Паглядзець усе Закрытыя кансультацыі
-    consultation: Паглядзець усе Кансультацыі
-    consultation_outcome: Паглядзець усе Вынікі кансультацыі
-    corporate_report: Паглядзець усе Карпаратыўныя справаздачы
-    correspondence: Паглядзець усе Перапіска
-    decision: Паглядзець усе Падрабязнае кіраўніцтва
-    document_collection: Паглядзець усе Чарнавікі
-    fatality_notice: Паглядзець усе Паведамленні
-    foi_release: Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі
-    form: Паглядзець усе Формы
-    government_response: Паглядзець усе Адказы ўрада
-    guidance: Паглядзець усе Кіраўніцтва
-    impact_assessment: Паглядзець усе Ацэнкі ўплыву
-    imported: Паглядзець усе імпартавана - чаканне тыпу
-    independent_report: Паглядзець усе Незалежныя справаздачы
-    international_treaty: Паглядзець усе Карты
-    national_statistics: Паглядзець усе Статыстыка - нацыянальная статыстыка
-    news_article: Паглядзець усе Артыкулы
-    news_story: Паглядзець усе Навіны
-    notice: Паглядзець усе Адкрытыя кансультацыі
-    oral_statement: Паглядзець усе Вусныя даклады ў парламенце
-    policy: Паглядзець усе Напрамкі дзейнасці
-    policy_paper: Паглядзець усе Праграмныя дакументы
-    press_release: Паглядзець усе Прэс-рэлізы
-    promotional: Паглядзець усе Рэкламныя матэрыялы
-    publication: Паглядзець усе Публікацыі
-    regulation: Паглядзець усе Даследаванні і аналіз
-    speaking_notes: Паглядзець усе Нататкі да выступу
-    speech: Паглядзець усе Выступы
-    statement_to_parliament: Паглядзець усе Заявы ў парламенце
-    statistical_data_set: Паглядзець усе Статыстычныя дадзеныя
-    statistics: Паглядзець усе Статыстыка
-    statutory_guidance: Паглядзець усе Поўны тэкст
-    transparency: Паглядзець усе Адкрытыя дадзеныя
-    worldwide_priority: Паглядзець усе Сусветныя прыярытэты
-    written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце

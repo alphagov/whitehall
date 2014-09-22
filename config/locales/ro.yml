@@ -5,14 +5,15 @@ ro:
         one: Document
         few:
         other: Documente
+      policies:
+        one:
+        few:
+        other:
       applies_to_nations: Se adresează
       field_of_operation: Domeniu de activitate
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Știre
@@ -48,6 +49,7 @@ ro:
         other: Similarităţi
       decision:
         one:
+        few:
         other:
       detailed_guidance:
         one: Mai multe detalii
@@ -115,6 +117,7 @@ ro:
         other: Știri
       notice:
         one:
+        few:
         other:
       open_consultation:
         one: Dezbatere
@@ -146,6 +149,7 @@ ro:
         other: Publicații
       regulation:
         one:
+        few:
         other:
       research:
         one: Analiză și cercetare
@@ -458,6 +462,15 @@ ro:
     formats:
       default:
       long_ordinal:
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Personalizează căutarea
     no_results:
@@ -494,6 +507,51 @@ ro:
     headings:
       detail: 'Mai multe '
   read_more: Află mai multe
+  see_all:
+    announcement: Toate Știri
+    authored_article: 'Toate articol '
+    case_study: Toate studii de caz
+    closed_consultation: Toate dezbateri
+    consultation: Toate dezbateri
+    consultation_outcome: Toate concluziile dezbaterii
+    corporate_report: Toate rapoarte
+    correspondence: Toate similarităţi
+    decision:
+    detailed_guidance: Toate mai multe detalii
+    document_collection:
+    draft_text: Toate versiuni preliminare
+    fatality_notice: Toate anunțuri privind decese
+    foi_release: 'Toate acces la informații publice '
+    form: Toate formulare
+    government_response: 'Toate documente de poziție '
+    guidance: Toate mai multe detalii
+    impact_assessment: 'Toate evaluarea impactului '
+    imported:
+    international_treaty:
+    map: Toate hărţi
+    national_statistics: Toate statistici - statistici naționale
+    news_article: Toate Știri
+    news_story: Toate Știri
+    notice:
+    open_consultation: Toate dezbateri
+    oral_statement: 'Toate declarații verbale în fața parlamentului '
+    policy: Toate obiective strategic
+    policy_paper:
+    press_release: Toate Știri
+    promotional: Toate materiale promoționale
+    publication: Toate publicații
+    regulation:
+    research: Toate analiză și cercetare
+    speaking_notes: 'Toate note '
+    speech: Toate discursuri
+    statement_to_parliament: Toate declarații în parlament
+    statistical_data_set: Toate date statistice
+    statistics: Toate statistici
+    statutory_guidance:
+    transcript: Toate transcrieri
+    transparency:
+    worldwide_priority: Toate priorități
+    written_statement: 'Toate declarații scrise către parlament '
   social_media:
     follow_us:
   support:
@@ -522,58 +580,3 @@ ro:
       our_services: 'Servicii '
     location: Țară
     part_of: Parte din
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Toate Știri
-    authored_article: 'Toate articol '
-    case_study: Toate studii de caz
-    closed_consultation: Toate dezbateri
-    consultation: Toate dezbateri
-    consultation_outcome: Toate concluziile dezbaterii
-    corporate_report: Toate rapoarte
-    correspondence: Toate similarităţi
-    decision:
-    detailed_guidance: Toate mai multe detalii
-    document_collection:
-    draft_text: Toate versiuni preliminare
-    fatality_notice: Toate anunțuri privind decese
-    foi_release: 'Toate acces la informații publice '
-    form: Toate formulare
-    government_response: 'Toate documente de poziție '
-    guidance: Toate mai multe detalii
-    impact_assessment: 'Toate evaluarea impactului '
-    imported:
-    independent_report: Toate rapoarte independente
-    international_treaty:
-    map: Toate hărţi
-    national_statistics: Toate statistici - statistici naționale
-    news_article: Toate Știri
-    news_story: Toate Știri
-    notice:
-    open_consultation: Toate dezbateri
-    oral_statement: 'Toate declarații verbale în fața parlamentului '
-    policy: Toate obiective strategic
-    policy_paper:
-    press_release: Toate Știri
-    promotional: Toate materiale promoționale
-    publication: Toate publicații
-    regulation:
-    research: Toate analiză și cercetare
-    speaking_notes: 'Toate note '
-    speech: Toate discursuri
-    statement_to_parliament: Toate declarații în parlament
-    statistical_data_set: Toate date statistice
-    statistics: Toate statistici
-    statutory_guidance:
-    transcript: Toate transcrieri
-    transparency:
-    worldwide_priority: Toate priorități
-    written_statement: 'Toate declarații scrise către parlament '

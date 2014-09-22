@@ -8,14 +8,18 @@ cy:
         few:
         many:
         other: Dogfennau
+      policies:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
       from: O
       location:
       part_of: Rhan o
-      policies:
-        one:
-        other:
     type:
       announcement:
         zero:
@@ -74,7 +78,11 @@ cy:
         many:
         other: Gohebiaeth
       decision:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
       detailed_guidance:
         zero:
@@ -189,7 +197,11 @@ cy:
         many:
         other: Straeon newyddion
       notice:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
       open_consultation:
         zero:
@@ -647,6 +659,16 @@ cy:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents: Yn ôl i'r cynnwys
+    categories: Pob arweiniad manwl am Cynnwys
+    contents: Cynnwys
+    more: Mwy sy’n debyg i hyn
+    part_of_published_collection: Mae hyn yn rhan o gasgliad
+    published_related_detailed_guides: Arweiniad manwl perthnasol
+    related_mainstream_content: Gormod o fanylion?<br/>Edrychwch ar y canllawiau cyflym
+      hyn
+    see_more_like_this: Gweld mwy sy’n debyg i hyn
   document_filters:
     description: Gallwch ddefnyddio'r hidlyddion i ddangos y canlyniadau sydd o ddiddordeb
       i chi
@@ -685,6 +707,51 @@ cy:
     headings:
       detail: Manylyn
   read_more: Darllen mwy
+  see_all:
+    announcement: Gweld ein holl cyhoeddiadau
+    authored_article:
+    case_study: Gweld ein holl astudiaethau achos
+    closed_consultation: Gweld ein holl ymgynghoriadau ar gau
+    consultation: Gweld ein holl ymgynghoriadau
+    consultation_outcome: Gweld ein holl canlyniadau ymgynghoriadau
+    corporate_report: Gweld ein holl adroddiadau corfforaethol
+    correspondence: Gweld ein holl gohebiaeth
+    decision:
+    detailed_guidance: Pob arweiniad manwl am
+    document_collection:
+    draft_text: Gweld ein holl testun drafft
+    fatality_notice: Gweld ein holl hysbysiadau marwolaeth
+    foi_release: Gweld ein holl datganiadau rhyddid gwybodaeth
+    form: Gweld ein holl ffurflenni
+    government_response:
+    guidance: Gweld ein holl cyfarwyddyd
+    impact_assessment: Gweld ein holl asesiadau o'r effaith
+    imported: Gweld ein holl wedi mewngludo - yn disgwyl math
+    international_treaty:
+    map: Gweld ein holl mapiau
+    national_statistics: Gweld ein holl ystadegau - ystadegau gwladol
+    news_article: Gweld ein holl erthyglau newyddion
+    news_story: Gweld ein holl straeon newyddion
+    notice:
+    open_consultation: Gweld ein holl ymgynghoriadau ar agor
+    oral_statement: Gweld ein holl datganiadau llafar i'r senedd
+    policy: Gweld ein holl polisïau
+    policy_paper: Gweld ein holl papurau polisi
+    press_release: Gweld ein holl datganiadau i'r wasg
+    promotional: Gweld ein holl deunydd hyrwyddo
+    publication: Gweld ein holl cyhoeddiadau
+    regulation:
+    research: Gweld ein holl ymchwil a dadansoddiad
+    speaking_notes: Gweld ein holl nodiadau siarad
+    speech: Gweld ein holl areithiau
+    statement_to_parliament: Gweld ein holl datganiadau i'r senedd
+    statistical_data_set: Gweld ein holl setiau data ystadegol
+    statistics: Gweld ein holl ystadegau
+    statutory_guidance:
+    transcript: Gweld ein holl trawsgrifiadau
+    transparency: Gweld ein holl data tryloywder
+    worldwide_priority: Gweld ein holl blaenoriaethau byd-eang
+    written_statement: Gweld ein holl datganiadau ysgrifenedig i'r senedd
   social_media:
     follow_us: Dilynwch ni
   support:
@@ -712,58 +779,3 @@ cy:
       our_services: Ein gwasanaethau
     location: Lleoliad
     part_of: Rhan o
-  detailed_guidance:
-    back_to_contents: Yn ôl i'r cynnwys
-    categories: Pob arweiniad manwl am Cynnwys
-    contents: Cynnwys
-    more: Mwy sy’n debyg i hyn
-    part_of_published_collection: Mae hyn yn rhan o gasgliad
-    published_related_detailed_guides: Arweiniad manwl perthnasol
-    related_mainstream_content: Gormod o fanylion?<br/>Edrychwch ar y canllawiau cyflym hyn
-    see_more_like_this: Gweld mwy sy’n debyg i hyn
-  see_all:
-    announcement: Gweld ein holl cyhoeddiadau
-    authored_article:
-    case_study: Gweld ein holl astudiaethau achos
-    closed_consultation: Gweld ein holl ymgynghoriadau ar gau
-    consultation: Gweld ein holl ymgynghoriadau
-    consultation_outcome: Gweld ein holl canlyniadau ymgynghoriadau
-    corporate_report: Gweld ein holl adroddiadau corfforaethol
-    correspondence: Gweld ein holl gohebiaeth
-    decision:
-    detailed_guidance: Pob arweiniad manwl am
-    document_collection:
-    draft_text: Gweld ein holl testun drafft
-    fatality_notice: Gweld ein holl hysbysiadau marwolaeth
-    foi_release: Gweld ein holl datganiadau rhyddid gwybodaeth
-    form: Gweld ein holl ffurflenni
-    government_response:
-    guidance: Gweld ein holl cyfarwyddyd
-    impact_assessment: Gweld ein holl asesiadau o'r effaith
-    imported: Gweld ein holl wedi mewngludo - yn disgwyl math
-    independent_report: Gweld ein holl adroddiadau annibynnol
-    international_treaty:
-    map: Gweld ein holl mapiau
-    national_statistics: Gweld ein holl ystadegau - ystadegau gwladol
-    news_article: Gweld ein holl erthyglau newyddion
-    news_story: Gweld ein holl straeon newyddion
-    notice:
-    open_consultation: Gweld ein holl ymgynghoriadau ar agor
-    oral_statement: Gweld ein holl datganiadau llafar i'r senedd
-    policy: Gweld ein holl polisïau
-    policy_paper: Gweld ein holl papurau polisi
-    press_release: Gweld ein holl datganiadau i'r wasg
-    promotional: Gweld ein holl deunydd hyrwyddo
-    publication: Gweld ein holl cyhoeddiadau
-    regulation:
-    research: Gweld ein holl ymchwil a dadansoddiad
-    speaking_notes: Gweld ein holl nodiadau siarad
-    speech: Gweld ein holl areithiau
-    statement_to_parliament: Gweld ein holl datganiadau i'r senedd
-    statistical_data_set: Gweld ein holl setiau data ystadegol
-    statistics: Gweld ein holl ystadegau
-    statutory_guidance:
-    transcript: Gweld ein holl trawsgrifiadau
-    transparency: Gweld ein holl data tryloywder
-    worldwide_priority: Gweld ein holl blaenoriaethau byd-eang
-    written_statement: Gweld ein holl datganiadau ysgrifenedig i'r senedd

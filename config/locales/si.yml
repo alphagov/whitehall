@@ -4,14 +4,14 @@ si:
       attachments:
         one: ලේඛණය
         other: ලේඛණ
+      policies:
+        one:
+        other:
       applies_to_nations: අදාළ වන්නේ
       field_of_operation: ක්‍රියාත්මකවන ක්ෂස්ත්‍රය
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: නිවේදනය
@@ -397,6 +397,15 @@ si:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: ඔබේ රුචිකත්වයන්ට පමණක් ගැලපෙන ප්‍රතිපල ලබාගැනීමට පෙරනය භාවිතා කරන්න
     no_results:
@@ -433,6 +442,51 @@ si:
     headings:
       detail: විස්තර
   read_more: තව කියවන්න
+  see_all:
+    announcement: අපගේ සියලු නිවේදන බලන්න
+    authored_article: අපගේ සියලු රචිත ලිපි බලන්න
+    case_study: අපගේ සියලු සිද්ධීන්  අධ්යයයනය බලන්න
+    closed_consultation: අපගේ සියලු සංවෘත බලන්න
+    consultation: අපගේ සියලු මත විමසුම් බලන්න
+    consultation_outcome: අපගේ සියලු මත විමසුමේ ප්‍රතිපලයන් බලන්න
+    corporate_report: අපගේ සියලු සංවිධාන වාර්තා බලන්න
+    correspondence: අපගේ සියලු ලිපි ගනුදෙනු බලන්න
+    decision:
+    detailed_guidance: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
+    document_collection:
+    draft_text: අපගේ සියලු අශෝදිත වැකි බලන්න
+    fatality_notice: අපගේ සියලු තීරණාත්මක  දැන්වීම් බලන්න
+    foi_release: අපගේ සියලු එෆ්. ඉ. ඕ. දැන්වීම් බලන්න
+    form: අපගේ සියලු පෝරම බලන්න
+    government_response: අපගේ සියලු ආණ්ඩුවේ ප්‍රතිචාර බලන්න
+    guidance: අපගේ සියලු උපදෙස් බලන්න
+    impact_assessment: අපගේ සියලු ප්‍රතිපල ඇගයීම් බලන්න
+    imported: අපගේ සියලු ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න බලන්න
+    international_treaty:
+    map: අපගේ සියලු සිතියම් බලන්න
+    national_statistics: අපගේ සියලු සංඛ්යාන - ජාතික සංඛ්යාන බලන්න
+    news_article: අපගේ සියලු පුවත් ලිපි බලන්න
+    news_story: අපගේ සියලු පුවත් වාර්තා බලන්න
+    notice:
+    open_consultation: අපගේ සියලු විවෘත මත විමසුම් බලන්න
+    oral_statement: අපගේ සියලු පාර්ලිමේන්තුවේ වාචික ප්රේකාශ බලන්න
+    policy: අපගේ සියලු ප්‍රතිපත්තීන් බලන්න
+    policy_paper: අපගේ සියලු ප්‍රතිපත්ති  ලිපි බලන්න
+    press_release: අපගේ සියලු මාධ්යි නිවේදන බලන්න
+    promotional: අපගේ සියලු ප්ර්චාරණ ද්රිච්ය බලන්න
+    publication: අපගේ සියලු ප්ර්කාශන බලන්න
+    regulation:
+    research: අපගේ සියලු පර්යේෂණ සහ විශ්ලේෂණ බලන්න
+    speaking_notes: අපගේ සියලු දේශනයට අදාළ සටහන් බලන්න
+    speech: අපගේ සියලු කථා බලන්න
+    statement_to_parliament: අපගේ සියලු පාර්ලිමේන්තුවට කල ප්‍රකාශ බලන්න
+    statistical_data_set: අපගේ සියලු සංඛ්යාන දත්ත සමූහ බලන්න
+    statistics: අපගේ සියලු සංඛ්යාන බලන්න
+    statutory_guidance:
+    transcript: අපගේ සියලු  අනුපත් බලන්න
+    transparency: අපගේ සියලු විනිවිධභාවයේ දත්ත බලන්න
+    worldwide_priority: අපගේ සියලු ලෝක ප්‍රමුඛතා බලන්න
+    written_statement: අපගේ සියලු පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ බලන්න
   social_media:
     follow_us:
   support:
@@ -459,58 +513,3 @@ si:
       our_services: අපේ සේවාවන්
     location: ස්ථානය
     part_of: ' කොටසක්'
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: අපගේ සියලු නිවේදන බලන්න
-    authored_article: අපගේ සියලු රචිත ලිපි බලන්න
-    case_study: අපගේ සියලු සිද්ධීන්  අධ්යයයනය බලන්න
-    closed_consultation: අපගේ සියලු සංවෘත බලන්න
-    consultation: අපගේ සියලු මත විමසුම් බලන්න
-    consultation_outcome: අපගේ සියලු මත විමසුමේ ප්‍රතිපලයන් බලන්න
-    corporate_report: අපගේ සියලු සංවිධාන වාර්තා බලන්න
-    correspondence: අපගේ සියලු ලිපි ගනුදෙනු බලන්න
-    decision:
-    detailed_guidance: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
-    document_collection:
-    draft_text: අපගේ සියලු අශෝදිත වැකි බලන්න
-    fatality_notice: අපගේ සියලු තීරණාත්මක  දැන්වීම් බලන්න
-    foi_release: අපගේ සියලු එෆ්. ඉ. ඕ. දැන්වීම් බලන්න
-    form: අපගේ සියලු පෝරම බලන්න
-    government_response: අපගේ සියලු ආණ්ඩුවේ ප්‍රතිචාර බලන්න
-    guidance: අපගේ සියලු උපදෙස් බලන්න
-    impact_assessment: අපගේ සියලු ප්‍රතිපල ඇගයීම් බලන්න
-    imported: අපගේ සියලු ගෙන්වන ලද - ටයිප් කිරීමට මදක් ඉන්න බලන්න
-    independent_report: අපගේ සියලු ස්වාධීන වාර්තා බලන්න
-    international_treaty:
-    map: අපගේ සියලු සිතියම් බලන්න
-    national_statistics: අපගේ සියලු සංඛ්යාන - ජාතික සංඛ්යාන බලන්න
-    news_article: අපගේ සියලු පුවත් ලිපි බලන්න
-    news_story: අපගේ සියලු පුවත් වාර්තා බලන්න
-    notice:
-    open_consultation: අපගේ සියලු විවෘත මත විමසුම් බලන්න
-    oral_statement: අපගේ සියලු පාර්ලිමේන්තුවේ වාචික ප්රේකාශ බලන්න
-    policy: අපගේ සියලු ප්‍රතිපත්තීන් බලන්න
-    policy_paper: අපගේ සියලු ප්‍රතිපත්ති  ලිපි බලන්න
-    press_release: අපගේ සියලු මාධ්යි නිවේදන බලන්න
-    promotional: අපගේ සියලු ප්ර්චාරණ ද්රිච්ය බලන්න
-    publication: අපගේ සියලු ප්ර්කාශන බලන්න
-    regulation:
-    research: අපගේ සියලු පර්යේෂණ සහ විශ්ලේෂණ බලන්න
-    speaking_notes: අපගේ සියලු දේශනයට අදාළ සටහන් බලන්න
-    speech: අපගේ සියලු කථා බලන්න
-    statement_to_parliament: අපගේ සියලු පාර්ලිමේන්තුවට කල ප්‍රකාශ බලන්න
-    statistical_data_set: අපගේ සියලු සංඛ්යාන දත්ත සමූහ බලන්න
-    statistics: අපගේ සියලු සංඛ්යාන බලන්න
-    statutory_guidance:
-    transcript: අපගේ සියලු  අනුපත් බලන්න
-    transparency: අපගේ සියලු විනිවිධභාවයේ දත්ත බලන්න
-    worldwide_priority: අපගේ සියලු ලෝක ප්‍රමුඛතා බලන්න
-    written_statement: අපගේ සියලු පාර්ලිමේන්තුවට කල ලිඛිත ප්‍රකාශ බලන්න

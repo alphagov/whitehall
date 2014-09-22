@@ -108,6 +108,15 @@ fa:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -414,6 +423,51 @@ fa:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: تمامی اعلامیه ها ما را مشاهده کنید
+    authored_article: تمامی مقالات ما را مشاهده کنید
+    case_study: تمامی مطالعه های موردی ما را مشاهده کنید
+    closed_consultation: تمامی رایزنی های بسته ما را مشاهده کنید
+    consultation: تمامی رایزنی ها ما را مشاهده کنید
+    consultation_outcome: تمامی نتایج رایزنی ما را مشاهده کنید
+    corporate_report: تمامی گزارش های سازمانی ما را مشاهده کنید
+    correspondence: تمامی مکاتبات ما را مشاهده کنید
+    decision:
+    detailed_guidance: تمامی راهنمای تفصیلی ما را مشاهده کنید
+    document_collection:
+    draft_text: تمامی متون پیش نویس ما را مشاهده کنید
+    fatality_notice: تمامی اطلاعیه تلفات ما را مشاهده کنید
+    foi_release: تمامی انتشار آزاد اطلاعات ما را مشاهده کنید
+    form: تمامی فرم ها ما را مشاهده کنید
+    government_response: تمامی جوابیه های دولت ما را مشاهده کنید
+    guidance: تمامی راهنمایی ما را مشاهده کنید
+    impact_assessment: تمامی ارزیابی های تاثیرات ما را مشاهده کنید
+    imported: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
+    international_treaty:
+    map: تمامی نقشه ها ما را مشاهده کنید
+    national_statistics: تمامی آمار - آمار ملی ما را مشاهده کنید
+    news_article: تمامی مقالات خبری ما را مشاهده کنید
+    news_story: تمامی اخبار ما را مشاهده کنید
+    notice:
+    open_consultation: تمامی رایزنی های باز ما را مشاهده کنید
+    oral_statement: تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید
+    policy: تمامی سیاست ها ما را مشاهده کنید
+    policy_paper: تمامی مقاله های سیاسی ما را مشاهده کنید
+    press_release: تمامی بیانیه ها ما را مشاهده کنید
+    promotional: تمامی مطالب تبلیغاتی ما را مشاهده کنید
+    publication: تمامی نشریات ما را مشاهده کنید
+    regulation:
+    research: تمامی پژوهش و تحلیل ما را مشاهده کنید
+    speaking_notes: تمامی موضوعات سخنرانی ما را مشاهده کنید
+    speech: تمامی سخنرانی ها ما را مشاهده کنید
+    statement_to_parliament: تمامی گزارش ها به پارلمان ما را مشاهده کنید
+    statistical_data_set: تمامی بسته های داده های آماری ما را مشاهده کنید
+    statistics: تمامی آمار ما را مشاهده کنید
+    statutory_guidance:
+    transcript: تمامی رونوشت ها ما را مشاهده کنید
+    transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
+    worldwide_priority: تمامی اولویت های جهانی ما را مشاهده کنید
+    written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید
   social_media:
     follow_us:
   support:
@@ -460,58 +514,3 @@ fa:
       our_services: خدمات ما
     location: مکان
     part_of: بخشی از
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: تمامی اعلامیه ها ما را مشاهده کنید
-    authored_article: تمامی مقالات ما را مشاهده کنید
-    case_study: تمامی مطالعه های موردی ما را مشاهده کنید
-    closed_consultation: تمامی رایزنی های بسته ما را مشاهده کنید
-    consultation: تمامی رایزنی ها ما را مشاهده کنید
-    consultation_outcome: تمامی نتایج رایزنی ما را مشاهده کنید
-    corporate_report: تمامی گزارش های سازمانی ما را مشاهده کنید
-    correspondence: تمامی مکاتبات ما را مشاهده کنید
-    decision:
-    detailed_guidance: تمامی راهنمای تفصیلی ما را مشاهده کنید
-    document_collection:
-    draft_text: تمامی متون پیش نویس ما را مشاهده کنید
-    fatality_notice: تمامی اطلاعیه تلفات ما را مشاهده کنید
-    foi_release: تمامی انتشار آزاد اطلاعات ما را مشاهده کنید
-    form: تمامی فرم ها ما را مشاهده کنید
-    government_response: تمامی جوابیه های دولت ما را مشاهده کنید
-    guidance: تمامی راهنمایی ما را مشاهده کنید
-    impact_assessment: تمامی ارزیابی های تاثیرات ما را مشاهده کنید
-    imported: تمامی منتقل شده - در انتظار دسته بندی ما را مشاهده کنید
-    independent_report: تمامی گزارش های مستقل ما را مشاهده کنید
-    international_treaty:
-    map: تمامی نقشه ها ما را مشاهده کنید
-    national_statistics: تمامی آمار - آمار ملی ما را مشاهده کنید
-    news_article: تمامی مقالات خبری ما را مشاهده کنید
-    news_story: تمامی اخبار ما را مشاهده کنید
-    notice:
-    open_consultation: تمامی رایزنی های باز ما را مشاهده کنید
-    oral_statement: تمامی گزارش های شفاهی به پارلمان ما را مشاهده کنید
-    policy: تمامی سیاست ها ما را مشاهده کنید
-    policy_paper: تمامی مقاله های سیاسی ما را مشاهده کنید
-    press_release: تمامی بیانیه ها ما را مشاهده کنید
-    promotional: تمامی مطالب تبلیغاتی ما را مشاهده کنید
-    publication: تمامی نشریات ما را مشاهده کنید
-    regulation:
-    research: تمامی پژوهش و تحلیل ما را مشاهده کنید
-    speaking_notes: تمامی موضوعات سخنرانی ما را مشاهده کنید
-    speech: تمامی سخنرانی ها ما را مشاهده کنید
-    statement_to_parliament: تمامی گزارش ها به پارلمان ما را مشاهده کنید
-    statistical_data_set: تمامی بسته های داده های آماری ما را مشاهده کنید
-    statistics: تمامی آمار ما را مشاهده کنید
-    statutory_guidance:
-    transcript: تمامی رونوشت ها ما را مشاهده کنید
-    transparency: تمامی داده های شفاف سازی ما را مشاهده کنید
-    worldwide_priority: تمامی اولویت های جهانی ما را مشاهده کنید
-    written_statement: تمامی گزارش های کتبی به پارلمان ما را مشاهده کنید

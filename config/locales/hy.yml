@@ -4,14 +4,14 @@ hy:
       attachments:
         one: Փաստաթուղթ
         other: Փաստաթղթեր
+      policies:
+        one:
+        other:
       applies_to_nations: Վերաբերվում է
       field_of_operation: Գործունեության ոլորտ
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Հայտարարություն
@@ -397,6 +397,15 @@ hy:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Դուք կարող եք օգտագործել ֆիլտրերը պահպանելու համար միայն ձեզ հետաքրքրող
       արդյունքները
@@ -434,6 +443,52 @@ hy:
     headings:
       detail: Տվյալ
   read_more: Կարդալ ավելին
+  see_all:
+    announcement: Տես՝ մեր բոլոր Հայտարարություններ -ը
+    authored_article: Տես՝ մեր բոլոր Հեղինակային հոդվածներ -ը
+    case_study: Տես՝ մեր բոլոր Թեմատիկ ուսումնասիրություններ -ը
+    closed_consultation: Տես՝ մեր բոլոր Փակ խորհրդատվություններ -ը
+    consultation: Տես՝ մեր բոլոր Խորհրդատվություններ -ը
+    consultation_outcome: Տես՝ մեր բոլոր Խորհրդատվության արդյունքներ -ը
+    corporate_report: Տես՝ մեր բոլոր Կորպորատիվ հաշվետվություններ -ը
+    correspondence: Տես՝ մեր բոլոր Նամակագրություններ -ը
+    decision:
+    detailed_guidance: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
+    document_collection:
+    draft_text: Տես՝ մեր բոլոր Սևագիր տեքստեր -ը
+    fatality_notice: Տես՝ մեր բոլոր Մահվան ծանուցումներ -ը
+    foi_release: Տես՝ մեր բոլոր Ազատ տեղեկատվության հաղորդագրություններ -ը
+    form: Տես՝ մեր բոլոր Ձևաթղթեր -ը
+    government_response: Տես՝ մեր բոլոր Կառավարության արձագանքներ -ը
+    guidance: Տես՝ մեր բոլոր Ուղեցույցեր -ը
+    impact_assessment: Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը
+    imported: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
+    international_treaty:
+    map: Տես՝ մեր բոլոր Քարտեզներ -ը
+    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ
+      -ը
+    news_article: Տես՝ մեր բոլոր Տեղեկատվական հոդվածներ -ը
+    news_story: Տես՝ մեր բոլոր Լուրեր -ը
+    notice:
+    open_consultation: Տես՝ մեր բոլոր Բաց խորհրդատվություններ -ը
+    oral_statement: Տես՝ մեր բոլոր Բանավոր դիմումներ խորհրդարան -ը
+    policy: Տես՝ մեր բոլոր Քաղաքականություններ -ը
+    policy_paper: Տես՝ մեր բոլոր Ծրագրային փաստաթղթեր -ը
+    press_release: Տես՝ մեր բոլոր Մամլո հաղորդագրություններ -ը
+    promotional: Տես՝ մեր բոլոր Քարոզչական նյութներ -ը
+    publication: Տես՝ մեր բոլոր Հրապարակումներ -ը
+    regulation:
+    research: Տես՝ մեր բոլոր Հետազոտություններ և վերլուծություններ -ը
+    speaking_notes: Տես՝ մեր բոլոր Խոսքի գրառումներ -ը
+    speech: Տես՝ մեր բոլոր Ելույթներ -ը
+    statement_to_parliament: Տես՝ մեր բոլոր Դիմումներ խորհրդարան -ը
+    statistical_data_set: Տես՝ մեր բոլոր Վիճակագրական տվյալներ -ը
+    statistics: Տես՝ մեր բոլոր Վիճակագրություն -ը
+    statutory_guidance:
+    transcript: Տես՝ մեր բոլոր Վերծանումներ -ը
+    transparency: Տես՝ մեր բոլոր Բաց տեղեկատվություններ -ը
+    worldwide_priority: Տես՝ մեր բոլոր Համաշխարհային առաջնայնություններ -ը
+    written_statement: Տես՝ մեր բոլոր Գրավոր դիմումներ խորհրդարան -ը
   social_media:
     follow_us:
   support:
@@ -462,58 +517,3 @@ hy:
       our_services: Մեր ծառայությունները
     location: Տարածք
     part_of: Մաս
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Տես՝ մեր բոլոր Հայտարարություններ -ը
-    authored_article: Տես՝ մեր բոլոր Հեղինակային հոդվածներ -ը
-    case_study: Տես՝ մեր բոլոր Թեմատիկ ուսումնասիրություններ -ը
-    closed_consultation: Տես՝ մեր բոլոր Փակ խորհրդատվություններ -ը
-    consultation: Տես՝ մեր բոլոր Խորհրդատվություններ -ը
-    consultation_outcome: Տես՝ մեր բոլոր Խորհրդատվության արդյունքներ -ը
-    corporate_report: Տես՝ մեր բոլոր Կորպորատիվ հաշվետվություններ -ը
-    correspondence: Տես՝ մեր բոլոր Նամակագրություններ -ը
-    decision:
-    detailed_guidance: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
-    document_collection:
-    draft_text: Տես՝ մեր բոլոր Սևագիր տեքստեր -ը
-    fatality_notice: Տես՝ մեր բոլոր Մահվան ծանուցումներ -ը
-    foi_release: Տես՝ մեր բոլոր Ազատ տեղեկատվության հաղորդագրություններ -ը
-    form: Տես՝ մեր բոլոր Ձևաթղթեր -ը
-    government_response: Տես՝ մեր բոլոր Կառավարության արձագանքներ -ը
-    guidance: Տես՝ մեր բոլոր Ուղեցույցեր -ը
-    impact_assessment: Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը
-    imported: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
-    independent_report: Տես՝ մեր բոլոր Անկախ հաշվետվություններ -ը
-    international_treaty:
-    map: Տես՝ մեր բոլոր Քարտեզներ -ը
-    national_statistics: Տես՝ մեր բոլոր Վիճակագրություն-ազգային վիճակագրություններ -ը
-    news_article: Տես՝ մեր բոլոր Տեղեկատվական հոդվածներ -ը
-    news_story: Տես՝ մեր բոլոր Լուրեր -ը
-    notice:
-    open_consultation: Տես՝ մեր բոլոր Բաց խորհրդատվություններ -ը
-    oral_statement: Տես՝ մեր բոլոր Բանավոր դիմումներ խորհրդարան -ը
-    policy: Տես՝ մեր բոլոր Քաղաքականություններ -ը
-    policy_paper: Տես՝ մեր բոլոր Ծրագրային փաստաթղթեր -ը
-    press_release: Տես՝ մեր բոլոր Մամլո հաղորդագրություններ -ը
-    promotional: Տես՝ մեր բոլոր Քարոզչական նյութներ -ը
-    publication: Տես՝ մեր բոլոր Հրապարակումներ -ը
-    regulation:
-    research: Տես՝ մեր բոլոր Հետազոտություններ և վերլուծություններ -ը
-    speaking_notes: Տես՝ մեր բոլոր Խոսքի գրառումներ -ը
-    speech: Տես՝ մեր բոլոր Ելույթներ -ը
-    statement_to_parliament: Տես՝ մեր բոլոր Դիմումներ խորհրդարան -ը
-    statistical_data_set: Տես՝ մեր բոլոր Վիճակագրական տվյալներ -ը
-    statistics: Տես՝ մեր բոլոր Վիճակագրություն -ը
-    statutory_guidance:
-    transcript: Տես՝ մեր բոլոր Վերծանումներ -ը
-    transparency: Տես՝ մեր բոլոր Բաց տեղեկատվություններ -ը
-    worldwide_priority: Տես՝ մեր բոլոր Համաշխարհային առաջնայնություններ -ը
-    written_statement: Տես՝ մեր բոլոր Գրավոր դիմումներ խորհրդարան -ը

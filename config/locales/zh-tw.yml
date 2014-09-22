@@ -106,6 +106,15 @@ zh-tw:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -411,6 +420,51 @@ zh-tw:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: 查閱我們所有的其他公告
+    authored_article: 查閱我們所有的撰寫其他文章
+    case_study: 查閱我們所有的其他案例研究
+    closed_consultation: 查閱我們所有的其他專屬諮詢
+    consultation: 查閱我們所有的其他諮詢
+    consultation_outcome: 查閱我們所有的其他諮詢結果
+    corporate_report: 查閱我們所有的其他公司報告
+    correspondence: 查閱我們所有的對應
+    decision:
+    detailed_guidance: 查閱我們所有的詳細指引
+    document_collection:
+    draft_text: 查閱我們所有的其他內容
+    fatality_notice: 查閱我們所有的安全事故通知
+    foi_release: 查閱我們所有的其他政府公開訊息
+    form: 查閱我們所有的其他表格
+    government_response: 查閱我們所有的政府其他回應
+    guidance: 查閱我們所有的指引
+    impact_assessment: 查閱我們所有的其他影響評估
+    imported: 查閱我們所有的輸入 - 等待中
+    international_treaty:
+    map: 查閱我們所有的其他地圖
+    national_statistics: 查閱我們所有的國家統計數據
+    news_article: 查閱我們所有的其他新聞
+    news_story: 查閱我們所有的其他新聞
+    notice:
+    open_consultation: 查閱我們所有的其他公開諮詢
+    oral_statement: 查閱我們所有的其他議會口頭聲明
+    policy: 查閱我們所有的其他政策
+    policy_paper: 查閱我們所有的其他政策報告
+    press_release: 查閱我們所有的其他新聞稿
+    promotional: 查閱我們所有的宣傳資料
+    publication: 查閱我們所有的其他發行物
+    regulation:
+    research: 查閱我們所有的研究與分析
+    speaking_notes: 查閱我們所有的演講稿
+    speech: 查閱我們所有的其他演講
+    statement_to_parliament: 查閱我們所有的議會聲明
+    statistical_data_set: 查閱我們所有的其他統計數據料
+    statistics: 查閱我們所有的統計
+    statutory_guidance:
+    transcript: 查閱我們所有的其他談話副本
+    transparency: 查閱我們所有的透明化數據
+    worldwide_priority: 查閱我們所有的全球性的其他工作重點
+    written_statement: 查閱我們所有的提交國會的其他書面聲明
   social_media:
     follow_us:
   support:
@@ -455,58 +509,3 @@ zh-tw:
       our_services: 我們的服務
     location: 位置
     part_of: 隸屬於
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: 查閱我們所有的其他公告
-    authored_article: 查閱我們所有的撰寫其他文章
-    case_study: 查閱我們所有的其他案例研究
-    closed_consultation: 查閱我們所有的其他專屬諮詢
-    consultation: 查閱我們所有的其他諮詢
-    consultation_outcome: 查閱我們所有的其他諮詢結果
-    corporate_report: 查閱我們所有的其他公司報告
-    correspondence: 查閱我們所有的對應
-    decision:
-    detailed_guidance: 查閱我們所有的詳細指引
-    document_collection:
-    draft_text: 查閱我們所有的其他內容
-    fatality_notice: 查閱我們所有的安全事故通知
-    foi_release: 查閱我們所有的其他政府公開訊息
-    form: 查閱我們所有的其他表格
-    government_response: 查閱我們所有的政府其他回應
-    guidance: 查閱我們所有的指引
-    impact_assessment: 查閱我們所有的其他影響評估
-    imported: 查閱我們所有的輸入 - 等待中
-    independent_report: 查閱我們所有的其他獨立報告
-    international_treaty:
-    map: 查閱我們所有的其他地圖
-    national_statistics: 查閱我們所有的國家統計數據
-    news_article: 查閱我們所有的其他新聞
-    news_story: 查閱我們所有的其他新聞
-    notice:
-    open_consultation: 查閱我們所有的其他公開諮詢
-    oral_statement: 查閱我們所有的其他議會口頭聲明
-    policy: 查閱我們所有的其他政策
-    policy_paper: 查閱我們所有的其他政策報告
-    press_release: 查閱我們所有的其他新聞稿
-    promotional: 查閱我們所有的宣傳資料
-    publication: 查閱我們所有的其他發行物
-    regulation:
-    research: 查閱我們所有的研究與分析
-    speaking_notes: 查閱我們所有的演講稿
-    speech: 查閱我們所有的其他演講
-    statement_to_parliament: 查閱我們所有的議會聲明
-    statistical_data_set: 查閱我們所有的其他統計數據料
-    statistics: 查閱我們所有的統計
-    statutory_guidance:
-    transcript: 查閱我們所有的其他談話副本
-    transparency: 查閱我們所有的透明化數據
-    worldwide_priority: 查閱我們所有的全球性的其他工作重點
-    written_statement: 查閱我們所有的提交國會的其他書面聲明

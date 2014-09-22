@@ -4,14 +4,14 @@ pt:
       attachments:
         one: Documento
         other: Documentos
+      policies:
+        one:
+        other:
       applies_to_nations: Aplica-se a
       field_of_operation: Campo de Operação
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Anúncio
@@ -396,6 +396,15 @@ pt:
     formats:
       default: '%e %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Você pode usar filtros para ver &nbsp; apenas os resultados que lhe
       &nbsp; interessam
@@ -433,6 +442,51 @@ pt:
     headings:
       detail: Detalhes
   read_more: Leia mais
+  see_all:
+    announcement: Veja todos os nossos anúncios
+    authored_article: Veja todos os nossos artigos
+    case_study: Veja todos os nossos estudos de caso
+    closed_consultation: Veja todos os nossos consultas fechadas
+    consultation: Veja todos os nossos consultas
+    consultation_outcome: Veja todos os nossos resultados de consultas
+    corporate_report: Veja todos os nossos relatórios corporativos
+    correspondence: Veja todos os nossos correspondências
+    decision:
+    detailed_guidance: Veja todos os nossos guias detalhados
+    document_collection:
+    draft_text: Veja todos os nossos textos preliminares
+    fatality_notice: Veja todos os nossos avisos de falecimento
+    foi_release: Veja todos os nossos comunicados sobre pedidos de acesso a informação
+    form: Veja todos os nossos formulários
+    government_response: Veja todos os nossos respostas governamentais
+    guidance: Veja todos os nossos instruções
+    impact_assessment: Veja todos os nossos relatórios de impacto
+    imported: Veja todos os nossos importados - esperando tipo
+    international_treaty:
+    map: Veja todos os nossos mapas
+    national_statistics: Veja todos os nossos estatísticas - estatísticas nacionais
+    news_article: Veja todos os nossos notícias - artigos
+    news_story: Veja todos os nossos notícias
+    notice:
+    open_consultation: Veja todos os nossos consultas abertas
+    oral_statement: Veja todos os nossos declarações verbais ao parlamento
+    policy: Veja todos os nossos políticas
+    policy_paper: Veja todos os nossos relatórios sobre políticas
+    press_release: Veja todos os nossos comunicados de imprensa
+    promotional: Veja todos os nossos materiais promocionais
+    publication: Veja todos os nossos publicações
+    regulation:
+    research: Veja todos os nossos pesquisas e análises
+    speaking_notes: Veja todos os nossos notas de discursos
+    speech: Veja todos os nossos discursos
+    statement_to_parliament: Veja todos os nossos declarações ao parlamento
+    statistical_data_set: Veja todos os nossos conjuntos de dados estatísticos
+    statistics: Veja todos os nossos estatísticas
+    statutory_guidance:
+    transcript: Veja todos os nossos transcrições
+    transparency: Veja todos os nossos dados de transparência
+    worldwide_priority: Veja todos os nossos prioridades globais
+    written_statement: Veja todos os nossos declarações escritas ao parlamento
   social_media:
     follow_us:
   support:
@@ -461,58 +515,3 @@ pt:
       our_services: Nossos serviços
     location: Localização
     part_of: Parte de
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Veja todos os nossos anúncios
-    authored_article: Veja todos os nossos artigos
-    case_study: Veja todos os nossos estudos de caso
-    closed_consultation: Veja todos os nossos consultas fechadas
-    consultation: Veja todos os nossos consultas
-    consultation_outcome: Veja todos os nossos resultados de consultas
-    corporate_report: Veja todos os nossos relatórios corporativos
-    correspondence: Veja todos os nossos correspondências
-    decision:
-    detailed_guidance: Veja todos os nossos guias detalhados
-    document_collection:
-    draft_text: Veja todos os nossos textos preliminares
-    fatality_notice: Veja todos os nossos avisos de falecimento
-    foi_release: Veja todos os nossos comunicados sobre pedidos de acesso a informação
-    form: Veja todos os nossos formulários
-    government_response: Veja todos os nossos respostas governamentais
-    guidance: Veja todos os nossos instruções
-    impact_assessment: Veja todos os nossos relatórios de impacto
-    imported: Veja todos os nossos importados - esperando tipo
-    independent_report: Veja todos os nossos relatórios independentes
-    international_treaty:
-    map: Veja todos os nossos mapas
-    national_statistics: Veja todos os nossos estatísticas - estatísticas nacionais
-    news_article: Veja todos os nossos notícias - artigos
-    news_story: Veja todos os nossos notícias
-    notice:
-    open_consultation: Veja todos os nossos consultas abertas
-    oral_statement: Veja todos os nossos declarações verbais ao parlamento
-    policy: Veja todos os nossos políticas
-    policy_paper: Veja todos os nossos relatórios sobre políticas
-    press_release: Veja todos os nossos comunicados de imprensa
-    promotional: Veja todos os nossos materiais promocionais
-    publication: Veja todos os nossos publicações
-    regulation:
-    research: Veja todos os nossos pesquisas e análises
-    speaking_notes: Veja todos os nossos notas de discursos
-    speech: Veja todos os nossos discursos
-    statement_to_parliament: Veja todos os nossos declarações ao parlamento
-    statistical_data_set: Veja todos os nossos conjuntos de dados estatísticos
-    statistics: Veja todos os nossos estatísticas
-    statutory_guidance:
-    transcript: Veja todos os nossos transcrições
-    transparency: Veja todos os nossos dados de transparência
-    worldwide_priority: Veja todos os nossos prioridades globais
-    written_statement: Veja todos os nossos declarações escritas ao parlamento

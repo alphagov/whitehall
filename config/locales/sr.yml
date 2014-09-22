@@ -6,14 +6,16 @@ sr:
         few:
         many:
         other: Dokumenti
+      policies:
+        one:
+        few:
+        many:
+        other:
       applies_to_nations: Odnosi se na
       field_of_operation: polje delovanja
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Najava
@@ -57,6 +59,8 @@ sr:
         other: prepiske
       decision:
         one:
+        few:
+        many:
         other:
       detailed_guidance:
         one: detaljno uputstvo
@@ -140,6 +144,8 @@ sr:
         other: Vesti
       notice:
         one:
+        few:
+        many:
         other:
       open_consultation:
         one: Otvorene konsultacije
@@ -521,6 +527,15 @@ sr:
     formats:
       default:
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Možete iskoristiti filter da biste videli rezultate u skladu sa vašim
       interesovanjima
@@ -558,6 +573,52 @@ sr:
     headings:
       detail: Detalj
   read_more: Pročitajte više
+  see_all:
+    announcement: Pogledajte sve naše najave
+    authored_article: Pogledajte sve naše autorski članci
+    case_study: Pogledajte sve naše studije slučajeva
+    closed_consultation: Pogledajte sve naše zatvorene konsultacije
+    consultation: Pogledajte sve naše konsultacije
+    consultation_outcome: Pogledajte sve naše ishodi konsultacija
+    corporate_report: Pogledajte sve naše organizacioni izveštaji
+    correspondence: Pogledajte sve naše prepiske
+    decision:
+    detailed_guidance: Pogledajte sve naše detaljno uputstvo
+    document_collection:
+    draft_text: Pogledajte sve naše nacrti tekstova
+    fatality_notice: Pogledajte sve naše obaveštenja o smrtnim slučajevima
+    foi_release: Pogledajte sve naše odgovori na zahteve za pristup informacijama
+      od javnog značaja
+    form: Pogledajte sve naše formulari
+    government_response: Pogledajte sve naše odgovori vlade
+    guidance: Pogledajte sve naše uputstvo
+    impact_assessment: Pogledajte sve naše procene efekata
+    imported: Pogledajte sve naše uvezeno - utvrđivanje tipa
+    international_treaty:
+    map: Pogledajte sve naše mape
+    national_statistics: Pogledajte sve naše statistika - nacionalna statistika
+    news_article: Pogledajte sve naše vesti
+    news_story: Pogledajte sve naše vesti
+    notice:
+    open_consultation: Pogledajte sve naše otvorene konsultacije
+    oral_statement: Pogledajte sve naše usmena obraćanja parlamentu
+    policy: Pogledajte sve naše politike
+    policy_paper: Pogledajte sve naše predlozi politika
+    press_release: Pogledajte sve naše saopštenja za medije
+    promotional: Pogledajte sve naše promotivni materijal
+    publication: Pogledajte sve naše publikacije
+    regulation:
+    research: Pogledajte sve naše istraživanje i analiza
+    speaking_notes: Pogledajte sve naše teze za govor
+    speech: Pogledajte sve naše govori
+    statement_to_parliament: Pogledajte sve naše obraćanje parlamentu
+    statistical_data_set: Pogledajte sve naše set statističkih podataka
+    statistics: Pogledajte sve naše statistika
+    statutory_guidance:
+    transcript: Pogledajte sve naše transkripti
+    transparency: Pogledajte sve naše podaci o transparentnosti
+    worldwide_priority: Pogledajte sve naše globalni prioriteti
+    written_statement: Pogledajte sve naše pisane predstavke parlamentu
   social_media:
     follow_us:
   support:
@@ -585,58 +646,3 @@ sr:
       our_services: Naše usluge
     location: Lokacija
     part_of: Deo
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Pogledajte sve naše najave
-    authored_article: Pogledajte sve naše autorski članci
-    case_study: Pogledajte sve naše studije slučajeva
-    closed_consultation: Pogledajte sve naše zatvorene konsultacije
-    consultation: Pogledajte sve naše konsultacije
-    consultation_outcome: Pogledajte sve naše ishodi konsultacija
-    corporate_report: Pogledajte sve naše organizacioni izveštaji
-    correspondence: Pogledajte sve naše prepiske
-    decision:
-    detailed_guidance: Pogledajte sve naše detaljno uputstvo
-    document_collection:
-    draft_text: Pogledajte sve naše nacrti tekstova
-    fatality_notice: Pogledajte sve naše obaveštenja o smrtnim slučajevima
-    foi_release: Pogledajte sve naše odgovori na zahteve za pristup informacijama od javnog značaja
-    form: Pogledajte sve naše formulari
-    government_response: Pogledajte sve naše odgovori vlade
-    guidance: Pogledajte sve naše uputstvo
-    impact_assessment: Pogledajte sve naše procene efekata
-    imported: Pogledajte sve naše uvezeno - utvrđivanje tipa
-    independent_report: Pogledajte sve naše nezavisni izveštaj
-    international_treaty:
-    map: Pogledajte sve naše mape
-    national_statistics: Pogledajte sve naše statistika - nacionalna statistika
-    news_article: Pogledajte sve naše vesti
-    news_story: Pogledajte sve naše vesti
-    notice:
-    open_consultation: Pogledajte sve naše otvorene konsultacije
-    oral_statement: Pogledajte sve naše usmena obraćanja parlamentu
-    policy: Pogledajte sve naše politike
-    policy_paper: Pogledajte sve naše predlozi politika
-    press_release: Pogledajte sve naše saopštenja za medije
-    promotional: Pogledajte sve naše promotivni materijal
-    publication: Pogledajte sve naše publikacije
-    regulation:
-    research: Pogledajte sve naše istraživanje i analiza
-    speaking_notes: Pogledajte sve naše teze za govor
-    speech: Pogledajte sve naše govori
-    statement_to_parliament: Pogledajte sve naše obraćanje parlamentu
-    statistical_data_set: Pogledajte sve naše set statističkih podataka
-    statistics: Pogledajte sve naše statistika
-    statutory_guidance:
-    transcript: Pogledajte sve naše transkripti
-    transparency: Pogledajte sve naše podaci o transparentnosti
-    worldwide_priority: Pogledajte sve naše globalni prioriteti
-    written_statement: Pogledajte sve naše pisane predstavke parlamentu

@@ -4,14 +4,14 @@ ur:
       attachments:
         one: دستاویز
         other: دستاویزات
+      policies:
+        one:
+        other:
       applies_to_nations: اطلاق ہوتا ہے
       field_of_operation: کارروائی کا میدان
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: اعلان
@@ -397,6 +397,15 @@ ur:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: آپ صرف اپنی دلچسپی &nbsp;کے نتائج دیکھنے&nbsp;کے لئے فلٹرزاستعمال
       کر سکتے ہیں
@@ -434,6 +443,51 @@ ur:
     headings:
       detail: تفصیل
   read_more: آگے پڑھئیے
+  see_all:
+    announcement: تما م دیکھئیے اعلانات
+    authored_article: تما م دیکھئیے تحریر کردہ مضامین
+    case_study: تما م دیکھئیے کیس اسٹڈیز
+    closed_consultation: تما م دیکھئیے  مشاورت ختم
+    consultation: تما م دیکھئیے مشاورت
+    consultation_outcome: تما م دیکھئیے مشاورت کے نتائج
+    corporate_report: تما م دیکھئیے کارپوریٹ رپورٹس
+    correspondence: تما م دیکھئیے مراسلات
+    decision:
+    detailed_guidance: تما م دیکھئیے مفصل رہنمائی
+    document_collection:
+    draft_text: تما م دیکھئیے ڈرافٹ متن
+    fatality_notice: تما م دیکھئیے وفات کی اطلاعات
+    foi_release: تما م دیکھئیے آزادئی معلومات کی اشاعت
+    form: تما م دیکھئیے فارمز
+    government_response: تما م دیکھئیے حکومتی جوابی اقدامات
+    guidance: تما م دیکھئیے رہنمائی
+    impact_assessment: تما م دیکھئیے اثرات کے تجزیے
+    imported: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
+    international_treaty:
+    map: تما م دیکھئیے نقشے
+    national_statistics: تما م دیکھئیے شماریات- قومی اعدادوشمار
+    news_article: تما م دیکھئیے نیوزآرٹیکلز
+    news_story: تما م دیکھئیے نیوزاسٹوریز
+    notice:
+    open_consultation: تما م دیکھئیے جاری مشاورت
+    oral_statement: تما م دیکھئیے پارلیمنٹ میں زبانی بیانات
+    policy: تما م دیکھئیے پالیسیاں
+    policy_paper: تما م دیکھئیے پالیسی پیپرز
+    press_release: تما م دیکھئیے پریس ریلیزز
+    promotional: تما م دیکھئیے تشہیری مواد
+    publication: تما م دیکھئیے مطبوعات
+    regulation:
+    research: تما م دیکھئیے تحقیق وتجزیہ
+    speaking_notes: تما م دیکھئیے تقریری نوٹ
+    speech: تما م دیکھئیے تقاریر
+    statement_to_parliament: تما م دیکھئیے پارلیمنٹ میں بیانات
+    statistical_data_set: تما م دیکھئیے  شماریاتی ڈیٹا سیٹس
+    statistics: تما م دیکھئیے اعدادو شمار
+    statutory_guidance:
+    transcript: تما م دیکھئیے ٹرانسکرپٹس
+    transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
+    worldwide_priority: تما م دیکھئیے عالمی ترجیحات
+    written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات
   social_media:
     follow_us:
   support:
@@ -462,58 +516,3 @@ ur:
       our_services: ہماری خدمات
     location: مقام
     part_of: حصہ
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: تما م دیکھئیے اعلانات
-    authored_article: تما م دیکھئیے تحریر کردہ مضامین
-    case_study: تما م دیکھئیے کیس اسٹڈیز
-    closed_consultation: تما م دیکھئیے  مشاورت ختم
-    consultation: تما م دیکھئیے مشاورت
-    consultation_outcome: تما م دیکھئیے مشاورت کے نتائج
-    corporate_report: تما م دیکھئیے کارپوریٹ رپورٹس
-    correspondence: تما م دیکھئیے مراسلات
-    decision:
-    detailed_guidance: تما م دیکھئیے مفصل رہنمائی
-    document_collection:
-    draft_text: تما م دیکھئیے ڈرافٹ متن
-    fatality_notice: تما م دیکھئیے وفات کی اطلاعات
-    foi_release: تما م دیکھئیے آزادئی معلومات کی اشاعت
-    form: تما م دیکھئیے فارمز
-    government_response: تما م دیکھئیے حکومتی جوابی اقدامات
-    guidance: تما م دیکھئیے رہنمائی
-    impact_assessment: تما م دیکھئیے اثرات کے تجزیے
-    imported: تما م دیکھئیے امپورٹڈ- نوع کا انتظار
-    independent_report: تما م دیکھئیے غیر جانبداررپورٹس
-    international_treaty:
-    map: تما م دیکھئیے نقشے
-    national_statistics: تما م دیکھئیے شماریات- قومی اعدادوشمار
-    news_article: تما م دیکھئیے نیوزآرٹیکلز
-    news_story: تما م دیکھئیے نیوزاسٹوریز
-    notice:
-    open_consultation: تما م دیکھئیے جاری مشاورت
-    oral_statement: تما م دیکھئیے پارلیمنٹ میں زبانی بیانات
-    policy: تما م دیکھئیے پالیسیاں
-    policy_paper: تما م دیکھئیے پالیسی پیپرز
-    press_release: تما م دیکھئیے پریس ریلیزز
-    promotional: تما م دیکھئیے تشہیری مواد
-    publication: تما م دیکھئیے مطبوعات
-    regulation:
-    research: تما م دیکھئیے تحقیق وتجزیہ
-    speaking_notes: تما م دیکھئیے تقریری نوٹ
-    speech: تما م دیکھئیے تقاریر
-    statement_to_parliament: تما م دیکھئیے پارلیمنٹ میں بیانات
-    statistical_data_set: تما م دیکھئیے  شماریاتی ڈیٹا سیٹس
-    statistics: تما م دیکھئیے اعدادو شمار
-    statutory_guidance:
-    transcript: تما م دیکھئیے ٹرانسکرپٹس
-    transparency: تما م دیکھئیے ٹرانسپیرنسی ڈیٹا
-    worldwide_priority: تما م دیکھئیے عالمی ترجیحات
-    written_statement: تما م دیکھئیے پارلیمنٹ میں تحریری بیانات

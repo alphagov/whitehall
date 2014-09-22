@@ -4,14 +4,14 @@ sq:
       attachments:
         one: Dokument
         other: Dokumente
+      policies:
+        one:
+        other:
       applies_to_nations: Zbatohet mbi
       field_of_operation: Fusha e veprimit
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Lajmerim
@@ -397,6 +397,15 @@ sq:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Ju mund te perdorni filtrat per te treguar&nbsp; vetem rezultatet
       qe perputhen me interesin tuaj&nbsp;
@@ -434,6 +443,51 @@ sq:
     headings:
       detail: Detaj
   read_more: Lexo me shume
+  see_all:
+    announcement: Shiko te gjitha lajmerime
+    authored_article: Shiko te gjitha artikuj autoresh
+    case_study: Shiko te gjitha raste studimi
+    closed_consultation: Shiko te gjitha konsultime te mbyllur
+    consultation: Shiko te gjitha konsultime
+    consultation_outcome: Shiko te gjitha rezultatet e konsultimit
+    corporate_report: Shiko te gjitha raporte te organizates
+    correspondence: Shiko te gjitha korrespondencat
+    decision:
+    detailed_guidance: Shiko te gjitha udhezim i detajuar
+    document_collection:
+    draft_text: Shiko te gjitha draft tekste
+    fatality_notice: Shiko te gjitha njoftime fataliteti
+    foi_release: Shiko te gjitha njoftime mbi lirine e informacionit
+    form: Shiko te gjitha forma
+    government_response: Shiko te gjitha reagime qeveritare
+    guidance: Shiko te gjitha udhezime
+    impact_assessment: Shiko te gjitha vleresime te ndikimit
+    imported: Shiko te gjitha importuar - tipi pritje
+    international_treaty:
+    map: Shiko te gjitha harta
+    national_statistics: Shiko te gjitha statistika - statistika kombetare
+    news_article: Shiko te gjitha artikuj lajme
+    news_story: Shiko te gjitha ngjarje
+    notice:
+    open_consultation: Shiko te gjitha konsultime te hapur
+    oral_statement: Shiko te gjitha deklarata per parlamentin
+    policy: Shiko te gjitha politika
+    policy_paper: Shiko te gjitha dokumente politikash
+    press_release: Shiko te gjitha njoftime shtypi
+    promotional: Shiko te gjitha material promovues
+    publication: Shiko te gjitha publikime
+    regulation:
+    research: Shiko te gjitha kerkime dhe analiza
+    speaking_notes: Shiko te gjitha pika fjalimi
+    speech: Shiko te gjitha fjalime
+    statement_to_parliament: Shiko te gjitha deklarata per parlamentin
+    statistical_data_set: Shiko te gjitha grupe te dhenash stasistikore
+    statistics: Shiko te gjitha statistika
+    statutory_guidance:
+    transcript: Shiko te gjitha transkripte
+    transparency: Shiko te gjitha te dhena per transparencen
+    worldwide_priority: Shiko te gjitha prioritete globale
+    written_statement: Shiko te gjitha deklarata me shkrim per parlamentin
   social_media:
     follow_us:
   support:
@@ -461,58 +515,3 @@ sq:
       our_services: Sherbimet tona
     location: Vendndodhja
     part_of: Pjese e
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Shiko te gjitha lajmerime
-    authored_article: Shiko te gjitha artikuj autoresh
-    case_study: Shiko te gjitha raste studimi
-    closed_consultation: Shiko te gjitha konsultime te mbyllur
-    consultation: Shiko te gjitha konsultime
-    consultation_outcome: Shiko te gjitha rezultatet e konsultimit
-    corporate_report: Shiko te gjitha raporte te organizates
-    correspondence: Shiko te gjitha korrespondencat
-    decision:
-    detailed_guidance: Shiko te gjitha udhezim i detajuar
-    document_collection:
-    draft_text: Shiko te gjitha draft tekste
-    fatality_notice: Shiko te gjitha njoftime fataliteti
-    foi_release: Shiko te gjitha njoftime mbi lirine e informacionit
-    form: Shiko te gjitha forma
-    government_response: Shiko te gjitha reagime qeveritare
-    guidance: Shiko te gjitha udhezime
-    impact_assessment: Shiko te gjitha vleresime te ndikimit
-    imported: Shiko te gjitha importuar - tipi pritje
-    independent_report: Shiko te gjitha raporte te pavarur
-    international_treaty:
-    map: Shiko te gjitha harta
-    national_statistics: Shiko te gjitha statistika - statistika kombetare
-    news_article: Shiko te gjitha artikuj lajme
-    news_story: Shiko te gjitha ngjarje
-    notice:
-    open_consultation: Shiko te gjitha konsultime te hapur
-    oral_statement: Shiko te gjitha deklarata per parlamentin
-    policy: Shiko te gjitha politika
-    policy_paper: Shiko te gjitha dokumente politikash
-    press_release: Shiko te gjitha njoftime shtypi
-    promotional: Shiko te gjitha material promovues
-    publication: Shiko te gjitha publikime
-    regulation:
-    research: Shiko te gjitha kerkime dhe analiza
-    speaking_notes: Shiko te gjitha pika fjalimi
-    speech: Shiko te gjitha fjalime
-    statement_to_parliament: Shiko te gjitha deklarata per parlamentin
-    statistical_data_set: Shiko te gjitha grupe te dhenash stasistikore
-    statistics: Shiko te gjitha statistika
-    statutory_guidance:
-    transcript: Shiko te gjitha transkripte
-    transparency: Shiko te gjitha te dhena per transparencen
-    worldwide_priority: Shiko te gjitha prioritete globale
-    written_statement: Shiko te gjitha deklarata me shkrim per parlamentin

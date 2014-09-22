@@ -4,14 +4,14 @@ ps:
       attachments:
         one: سند
         other: سندونه
+      policies:
+        one:
+        other:
       applies_to_nations: پورې اړه لری
       field_of_operation: د کړنو څانګه
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: خبرتیا
@@ -398,6 +398,15 @@ ps:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: تاسې کولای شي  د فیلترونه څخه یوازې د هغو پایلو د ښودلو په خاطر کار
       واخلۍ چې ستاسې لپاره په زړه پوری وی
@@ -435,6 +444,51 @@ ps:
     headings:
       detail: تفصیل
   read_more: نور ووایاست
+  see_all:
+    announcement: ټول وګوری خبرتیاوې
+    authored_article: ټول وګوری تالیف شوي مضامین
+    case_study: ټول وګوری مودری څیړنی
+    closed_consultation: ټول وګوری محرمه مشوری
+    consultation: ټول وګوری مشوری
+    consultation_outcome: ټول وګوری د مشورو پایله
+    corporate_report: ټول وګوری متحد راپورونه
+    correspondence: ټول وګوری ارتباطات ساتنه
+    decision:
+    detailed_guidance: ټول وګوری مفصلی لارښوونی
+    document_collection:
+    draft_text: ټول وګوری مسودی
+    fatality_notice: ټول وګوری دمړینی خبرتیاوی
+    foi_release: ټول وګوری د بیان د آزادی خپرونی
+    form: ټول وګوری فارمونه
+    government_response: ټول وګوری د دولت ځوابونه
+    guidance: ټول وګوری رهنمایی
+    impact_assessment: ټول وګوری د تاثیراتو څیړنی
+    imported: ټول وګوری وارد شوی - د انتظار نمونه
+    international_treaty:
+    map: ټول وګوری نقشی
+    national_statistics: ټول وګوری شمیرنه - ملی شمیرنې
+    news_article: ټول وګوری خبری مقالی
+    news_story: ټول وګوری خبری راپورونه
+    notice:
+    open_consultation: ټول وګوری آزادې مشورې
+    oral_statement: ټول وګوری پارلمان ته شفاهی اعلامیی
+    policy: ټول وګوری پالیسی ګانی
+    policy_paper: ټول وګوری د پالیسې سندونه
+    press_release: ټول وګوری مطبوعاتی خبرپاڼې
+    promotional: ټول وګوری روزونکی مواد
+    publication: ټول وګوری خپرونې
+    regulation:
+    research: ټول وګوری ځیړنه او تجزیه
+    speaking_notes: ټول وګوری د وینا یادښتونه
+    speech: ټول وګوری ویناوې
+    statement_to_parliament: ټول وګوری پارلمان ته اعلامیې
+    statistical_data_set: ټول وګوری د شمیرنې اطلاعات
+    statistics: ټول وګوری شمیرنه
+    statutory_guidance:
+    transcript: ټول وګوری لیکنې
+    transparency: ټول وګوری د روڼوالي اطلاعات
+    worldwide_priority: ټول وګوری نړیوال لومړیتوبونه
+    written_statement: ټول وګوری پارلمان ته لیکلې اعلامیې
   social_media:
     follow_us:
   support:
@@ -463,58 +517,3 @@ ps:
       our_services: زموږ خدمتونه
     location: موقعیت
     part_of: یوه برخه د
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: ټول وګوری خبرتیاوې
-    authored_article: ټول وګوری تالیف شوي مضامین
-    case_study: ټول وګوری مودری څیړنی
-    closed_consultation: ټول وګوری محرمه مشوری
-    consultation: ټول وګوری مشوری
-    consultation_outcome: ټول وګوری د مشورو پایله
-    corporate_report: ټول وګوری متحد راپورونه
-    correspondence: ټول وګوری ارتباطات ساتنه
-    decision:
-    detailed_guidance: ټول وګوری مفصلی لارښوونی
-    document_collection:
-    draft_text: ټول وګوری مسودی
-    fatality_notice: ټول وګوری دمړینی خبرتیاوی
-    foi_release: ټول وګوری د بیان د آزادی خپرونی
-    form: ټول وګوری فارمونه
-    government_response: ټول وګوری د دولت ځوابونه
-    guidance: ټول وګوری رهنمایی
-    impact_assessment: ټول وګوری د تاثیراتو څیړنی
-    imported: ټول وګوری وارد شوی - د انتظار نمونه
-    independent_report: ټول وګوری آزاد راپورونه
-    international_treaty:
-    map: ټول وګوری نقشی
-    national_statistics: ټول وګوری شمیرنه - ملی شمیرنې
-    news_article: ټول وګوری خبری مقالی
-    news_story: ټول وګوری خبری راپورونه
-    notice:
-    open_consultation: ټول وګوری آزادې مشورې
-    oral_statement: ټول وګوری پارلمان ته شفاهی اعلامیی
-    policy: ټول وګوری پالیسی ګانی
-    policy_paper: ټول وګوری د پالیسې سندونه
-    press_release: ټول وګوری مطبوعاتی خبرپاڼې
-    promotional: ټول وګوری روزونکی مواد
-    publication: ټول وګوری خپرونې
-    regulation:
-    research: ټول وګوری ځیړنه او تجزیه
-    speaking_notes: ټول وګوری د وینا یادښتونه
-    speech: ټول وګوری ویناوې
-    statement_to_parliament: ټول وګوری پارلمان ته اعلامیې
-    statistical_data_set: ټول وګوری د شمیرنې اطلاعات
-    statistics: ټول وګوری شمیرنه
-    statutory_guidance:
-    transcript: ټول وګوری لیکنې
-    transparency: ټول وګوری د روڼوالي اطلاعات
-    worldwide_priority: ټول وګوری نړیوال لومړیتوبونه
-    written_statement: ټول وګوری پارلمان ته لیکلې اعلامیې

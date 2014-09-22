@@ -8,14 +8,18 @@ ar:
         few:
         many:
         other: وثائق
+      policies:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       applies_to_nations: ينطبق على
       field_of_operation: مجال العمل
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         zero:
@@ -74,7 +78,11 @@ ar:
         many:
         other: مراسلات
       decision:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
       detailed_guidance:
         zero:
@@ -189,7 +197,11 @@ ar:
         many:
         other: قصص إخبارية
       notice:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
       open_consultation:
         zero:
@@ -644,6 +656,15 @@ ar:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
       اهتماماتك
@@ -681,6 +702,51 @@ ar:
     headings:
       detail: تفاصيل
   read_more: اقرأ المزيد
+  see_all:
+    announcement: اطلع على كافة إعلانات
+    authored_article: اطلع على كافة مقالات مرخصة
+    case_study: اطلع على كافة دراسات حالة
+    closed_consultation: اطلع على كافة مشاورات منتهية
+    consultation: اطلع على كافة مشاورات
+    consultation_outcome: اطلع على كافة نتائج المشاورات
+    corporate_report: اطلع على كافة تقارير الوزارة
+    correspondence: اطلع على كافة مراسلات
+    decision:
+    detailed_guidance: اطلع على كافة توجيهات مفصل
+    document_collection:
+    draft_text: اطلع على كافة مسودة النصوص
+    fatality_notice: اطلع على كافة إشعارات وفاة
+    foi_release: اطلع على كافة نشرات وفق حرية الحصول على المعلومات
+    form: اطلع على كافة نماذج
+    government_response: اطلع على كافة ردود من الحكومة
+    guidance: اطلع على كافة توجيهات
+    impact_assessment: اطلع على كافة تقييمات التأثير
+    imported: اطلع على كافة استلم - بانتظار الطباعة
+    international_treaty:
+    map: اطلع على كافة خرائط
+    national_statistics: اطلع على كافة إحصائيات - إحصائيات محلية
+    news_article: اطلع على كافة مقالات إخبارية
+    news_story: اطلع على كافة قصص إخبارية
+    notice:
+    open_consultation: اطلع على كافة مشاورات جارية
+    oral_statement: اطلع على كافة تصريحات شفهية للبرلمان
+    policy: اطلع على كافة سياسات
+    policy_paper: اطلع على كافة ورقة عن السياسات
+    press_release: اطلع على كافة بيانات صحفية
+    promotional: اطلع على كافة مواد ترويجية
+    publication: اطلع على كافة مطبوعات
+    regulation:
+    research: اطلع على كافة بحوث وتحليلات
+    speaking_notes: اطلع على كافة مذكرات كلامية
+    speech: اطلع على كافة كلمات
+    statement_to_parliament: اطلع على كافة تصريحات للبرلمان
+    statistical_data_set: اطلع على كافة مجموعات بيانات إحصائية
+    statistics: اطلع على كافة إحصائيات
+    statutory_guidance:
+    transcript: اطلع على كافة نصوص منسوخة
+    transparency: اطلع على كافة بيانات تتعلق بالشفافية
+    worldwide_priority: اطلع على كافة أولويات في الخارج
+    written_statement: اطلع على كافة تصريحات خطية
   social_media:
     follow_us:
   support:
@@ -708,58 +774,3 @@ ar:
       our_services: خدماتنا
     location: موقع
     part_of: جزء من
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: اطلع على كافة إعلانات
-    authored_article: اطلع على كافة مقالات مرخصة
-    case_study: اطلع على كافة دراسات حالة
-    closed_consultation: اطلع على كافة مشاورات منتهية
-    consultation: اطلع على كافة مشاورات
-    consultation_outcome: اطلع على كافة نتائج المشاورات
-    corporate_report: اطلع على كافة تقارير الوزارة
-    correspondence: اطلع على كافة مراسلات
-    decision:
-    detailed_guidance: اطلع على كافة توجيهات مفصل
-    document_collection:
-    draft_text: اطلع على كافة مسودة النصوص
-    fatality_notice: اطلع على كافة إشعارات وفاة
-    foi_release: اطلع على كافة نشرات وفق حرية الحصول على المعلومات
-    form: اطلع على كافة نماذج
-    government_response: اطلع على كافة ردود من الحكومة
-    guidance: اطلع على كافة توجيهات
-    impact_assessment: اطلع على كافة تقييمات التأثير
-    imported: اطلع على كافة استلم - بانتظار الطباعة
-    independent_report: اطلع على كافة تقارير مستقلة
-    international_treaty:
-    map: اطلع على كافة خرائط
-    national_statistics: اطلع على كافة إحصائيات - إحصائيات محلية
-    news_article: اطلع على كافة مقالات إخبارية
-    news_story: اطلع على كافة قصص إخبارية
-    notice:
-    open_consultation: اطلع على كافة مشاورات جارية
-    oral_statement: اطلع على كافة تصريحات شفهية للبرلمان
-    policy: اطلع على كافة سياسات
-    policy_paper: اطلع على كافة ورقة عن السياسات
-    press_release: اطلع على كافة بيانات صحفية
-    promotional: اطلع على كافة مواد ترويجية
-    publication: اطلع على كافة مطبوعات
-    regulation:
-    research: اطلع على كافة بحوث وتحليلات
-    speaking_notes: اطلع على كافة مذكرات كلامية
-    speech: اطلع على كافة كلمات
-    statement_to_parliament: اطلع على كافة تصريحات للبرلمان
-    statistical_data_set: اطلع على كافة مجموعات بيانات إحصائية
-    statistics: اطلع على كافة إحصائيات
-    statutory_guidance:
-    transcript: اطلع على كافة نصوص منسوخة
-    transparency: اطلع على كافة بيانات تتعلق بالشفافية
-    worldwide_priority: اطلع على كافة أولويات في الخارج
-    written_statement: اطلع على كافة تصريحات خطية

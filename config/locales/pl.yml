@@ -6,14 +6,16 @@ pl:
         few:
         many:
         other: Dokumenty
+      policies:
+        one:
+        few:
+        many:
+        other:
       applies_to_nations: Dotyczy
       field_of_operation: Obszar działania
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Ogłoszenie
@@ -57,6 +59,8 @@ pl:
         other: Korespondencje
       decision:
         one:
+        few:
+        many:
         other:
       detailed_guidance:
         one: Szczegółowe wskazówki
@@ -140,6 +144,8 @@ pl:
         other: Aktualności
       notice:
         one:
+        few:
+        many:
         other:
       open_consultation:
         one: Konsultacje otwarte
@@ -522,6 +528,15 @@ pl:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Można skorzystać z filtrów by pokazać&nbsp;tylko te wyniki,którymi
       są Państwo&nbsp;zainteresowani
@@ -559,6 +574,51 @@ pl:
     headings:
       detail: Szczegóły
   read_more: Czytaj więcej
+  see_all:
+    announcement: Zobacz wszystkie nasze ogłoszenia
+    authored_article: Zobacz wszystkie nasze dokumenty utworzone przez
+    case_study: Zobacz wszystkie nasze studia przypadku
+    closed_consultation: Zobacz wszystkie nasze konsultacje zamknięte
+    consultation: Zobacz wszystkie nasze konsultacje
+    consultation_outcome: Zobacz wszystkie nasze wyniki konsultacji
+    corporate_report: Zobacz wszystkie nasze raporty korporacyjne
+    correspondence: Zobacz wszystkie nasze korespondencje
+    decision:
+    detailed_guidance: Zobacz wszystkie nasze szczegółowe wskazówki
+    document_collection:
+    draft_text: Zobacz wszystkie nasze teksty robocze
+    fatality_notice: Zobacz wszystkie nasze informacje o śmierci
+    foi_release: Zobacz wszystkie nasze informacje zgodnie z ustawą o wolności informacji
+    form: Zobacz wszystkie nasze formularze
+    government_response: Zobacz wszystkie nasze odpowiedzi rządu
+    guidance: Zobacz wszystkie nasze wskazówki
+    impact_assessment: Zobacz wszystkie nasze oceny oddziaływania
+    imported: Zobacz wszystkie nasze zaimportowany - oczekuje typu
+    international_treaty:
+    map: Zobacz wszystkie nasze mapy
+    national_statistics: Zobacz wszystkie nasze statystyki - statystyki narodowe
+    news_article: Zobacz wszystkie nasze artykuły prasowe
+    news_story: Zobacz wszystkie nasze aktualności
+    notice:
+    open_consultation: Zobacz wszystkie nasze konsultacje otwarte
+    oral_statement: Zobacz wszystkie nasze ustne oświadczenia przed parlamentem
+    policy: Zobacz wszystkie nasze polityki
+    policy_paper: Zobacz wszystkie nasze dokumenty programowe
+    press_release: Zobacz wszystkie nasze informacje prasowe
+    promotional: Zobacz wszystkie nasze materiał promocyjny
+    publication: Zobacz wszystkie nasze publikacje
+    regulation:
+    research: Zobacz wszystkie nasze badania i analiza
+    speaking_notes: Zobacz wszystkie nasze notatki do prelekcji
+    speech: Zobacz wszystkie nasze przemówienia
+    statement_to_parliament: Zobacz wszystkie nasze wystapienia przed parlamentem
+    statistical_data_set: Zobacz wszystkie nasze zestawy danych statystycznych
+    statistics: Zobacz wszystkie nasze statystyki
+    statutory_guidance:
+    transcript: Zobacz wszystkie nasze transkrypcje
+    transparency: Zobacz wszystkie nasze dane o transparentności
+    worldwide_priority: Zobacz wszystkie nasze Światowe priorytety
+    written_statement: Zobacz wszystkie nasze pisemne oświadczenia przed parlamentem
   social_media:
     follow_us:
   support:
@@ -587,58 +647,3 @@ pl:
       our_services: Nasze usługi
     location: Lokalizacja
     part_of: Część
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Zobacz wszystkie nasze ogłoszenia
-    authored_article: Zobacz wszystkie nasze dokumenty utworzone przez
-    case_study: Zobacz wszystkie nasze studia przypadku
-    closed_consultation: Zobacz wszystkie nasze konsultacje zamknięte
-    consultation: Zobacz wszystkie nasze konsultacje
-    consultation_outcome: Zobacz wszystkie nasze wyniki konsultacji
-    corporate_report: Zobacz wszystkie nasze raporty korporacyjne
-    correspondence: Zobacz wszystkie nasze korespondencje
-    decision:
-    detailed_guidance: Zobacz wszystkie nasze szczegółowe wskazówki
-    document_collection:
-    draft_text: Zobacz wszystkie nasze teksty robocze
-    fatality_notice: Zobacz wszystkie nasze informacje o śmierci
-    foi_release: Zobacz wszystkie nasze informacje zgodnie z ustawą o wolności informacji
-    form: Zobacz wszystkie nasze formularze
-    government_response: Zobacz wszystkie nasze odpowiedzi rządu
-    guidance: Zobacz wszystkie nasze wskazówki
-    impact_assessment: Zobacz wszystkie nasze oceny oddziaływania
-    imported: Zobacz wszystkie nasze zaimportowany - oczekuje typu
-    independent_report: Zobacz wszystkie nasze niezależne raporty
-    international_treaty:
-    map: Zobacz wszystkie nasze mapy
-    national_statistics: Zobacz wszystkie nasze statystyki - statystyki narodowe
-    news_article: Zobacz wszystkie nasze artykuły prasowe
-    news_story: Zobacz wszystkie nasze aktualności
-    notice:
-    open_consultation: Zobacz wszystkie nasze konsultacje otwarte
-    oral_statement: Zobacz wszystkie nasze ustne oświadczenia przed parlamentem
-    policy: Zobacz wszystkie nasze polityki
-    policy_paper: Zobacz wszystkie nasze dokumenty programowe
-    press_release: Zobacz wszystkie nasze informacje prasowe
-    promotional: Zobacz wszystkie nasze materiał promocyjny
-    publication: Zobacz wszystkie nasze publikacje
-    regulation:
-    research: Zobacz wszystkie nasze badania i analiza
-    speaking_notes: Zobacz wszystkie nasze notatki do prelekcji
-    speech: Zobacz wszystkie nasze przemówienia
-    statement_to_parliament: Zobacz wszystkie nasze wystapienia przed parlamentem
-    statistical_data_set: Zobacz wszystkie nasze zestawy danych statystycznych
-    statistics: Zobacz wszystkie nasze statystyki
-    statutory_guidance:
-    transcript: Zobacz wszystkie nasze transkrypcje
-    transparency: Zobacz wszystkie nasze dane o transparentności
-    worldwide_priority: Zobacz wszystkie nasze Światowe priorytety
-    written_statement: Zobacz wszystkie nasze pisemne oświadczenia przed parlamentem

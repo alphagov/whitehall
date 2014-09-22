@@ -4,14 +4,14 @@ dr:
       attachments:
         one: سند
         other: اسناد
+      policies:
+        one:
+        other:
       applies_to_nations: اطلاق میشود به
       field_of_operation: بخش عملیاتی
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: اعلان
@@ -396,6 +396,15 @@ dr:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: شما میتوانید از فیلتر ها جهت نشان دادن و nbsp استفاده نمایید. تنها
       نتایجی که با منفعت های شما و nbsp تطابق دارند
@@ -433,6 +442,51 @@ dr:
     headings:
       detail: تفصیل
   read_more: بیشتر بخوانید
+  see_all:
+    announcement: همه را ببینید اعلانات
+    authored_article: همه را ببینید مقاله های نوشته شده
+    case_study: همه را ببینید بررسی های موردی
+    closed_consultation: همه را ببینید مشوره های محرم
+    consultation: همه را ببینید مشوره ها
+    consultation_outcome: همه را ببینید نتایج مشوره
+    corporate_report: همه را ببینید گزارشات توحیدی
+    correspondence: همه را ببینید مطابقت ها
+    decision:
+    detailed_guidance: همه را ببینید رهنمود های مفصل
+    document_collection:
+    draft_text: همه را ببینید متون مسوده
+    fatality_notice: همه را ببینید اخبار مرگ و میر
+    foi_release: همه را ببینید نشریه های آزادی بیان
+    form: همه را ببینید فورمه ها
+    government_response: همه را ببینید جوابدهی های دولت
+    guidance: همه را ببینید رهنمود
+    impact_assessment: همه را ببینید بررسی های تاثیرات
+    imported: همه را ببینید وارد شده - نوع انتظار
+    international_treaty:
+    map: همه را ببینید نقشه ها
+    national_statistics: همه را ببینید احصایه ها - احصایه های ملی
+    news_article: همه را ببینید مقاله خبری
+    news_story: همه را ببینید گزارش های خبری
+    notice:
+    open_consultation: همه را ببینید مشاورت های باز
+    oral_statement: همه را ببینید بیانیه های شفایی به پارلمان
+    policy: همه را ببینید پالیسی ها
+    policy_paper: همه را ببینید سندهای پالیسی
+    press_release: همه را ببینید اعلامیه های مصبوعاتی
+    promotional: همه را ببینید مواد تعلیمی
+    publication: همه را ببینید نشریات
+    regulation:
+    research: همه را ببینید تحقیق و تجزیه
+    speaking_notes: همه را ببینید یادداشت سخنرانی
+    speech: همه را ببینید سخنرانی ها
+    statement_to_parliament: همه را ببینید بیانیه ها به پارلمان
+    statistical_data_set: همه را ببینید ارقام احصائیوی
+    statistics: همه را ببینید احصائیه ها
+    statutory_guidance:
+    transcript: همه را ببینید نسخه ها
+    transparency: همه را ببینید ارقام شفافیت
+    worldwide_priority: همه را ببینید اولویت های جهانی
+    written_statement: همه را ببینید بیانیه های تحریری به پارلمان
   social_media:
     follow_us:
   support:
@@ -460,58 +514,3 @@ dr:
       our_services: خدمات ما
     location: موقعیت
     part_of: بخشی از
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: همه را ببینید اعلانات
-    authored_article: همه را ببینید مقاله های نوشته شده
-    case_study: همه را ببینید بررسی های موردی
-    closed_consultation: همه را ببینید مشوره های محرم
-    consultation: همه را ببینید مشوره ها
-    consultation_outcome: همه را ببینید نتایج مشوره
-    corporate_report: همه را ببینید گزارشات توحیدی
-    correspondence: همه را ببینید مطابقت ها
-    decision:
-    detailed_guidance: همه را ببینید رهنمود های مفصل
-    document_collection:
-    draft_text: همه را ببینید متون مسوده
-    fatality_notice: همه را ببینید اخبار مرگ و میر
-    foi_release: همه را ببینید نشریه های آزادی بیان
-    form: همه را ببینید فورمه ها
-    government_response: همه را ببینید جوابدهی های دولت
-    guidance: همه را ببینید رهنمود
-    impact_assessment: همه را ببینید بررسی های تاثیرات
-    imported: همه را ببینید وارد شده - نوع انتظار
-    independent_report: همه را ببینید گزارش های آزاد
-    international_treaty:
-    map: همه را ببینید نقشه ها
-    national_statistics: همه را ببینید احصایه ها - احصایه های ملی
-    news_article: همه را ببینید مقاله خبری
-    news_story: همه را ببینید گزارش های خبری
-    notice:
-    open_consultation: همه را ببینید مشاورت های باز
-    oral_statement: همه را ببینید بیانیه های شفایی به پارلمان
-    policy: همه را ببینید پالیسی ها
-    policy_paper: همه را ببینید سندهای پالیسی
-    press_release: همه را ببینید اعلامیه های مصبوعاتی
-    promotional: همه را ببینید مواد تعلیمی
-    publication: همه را ببینید نشریات
-    regulation:
-    research: همه را ببینید تحقیق و تجزیه
-    speaking_notes: همه را ببینید یادداشت سخنرانی
-    speech: همه را ببینید سخنرانی ها
-    statement_to_parliament: همه را ببینید بیانیه ها به پارلمان
-    statistical_data_set: همه را ببینید ارقام احصائیوی
-    statistics: همه را ببینید احصائیه ها
-    statutory_guidance:
-    transcript: همه را ببینید نسخه ها
-    transparency: همه را ببینید ارقام شفافیت
-    worldwide_priority: همه را ببینید اولویت های جهانی
-    written_statement: همه را ببینید بیانیه های تحریری به پارلمان

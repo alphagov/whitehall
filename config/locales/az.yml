@@ -106,6 +106,15 @@ az:
     formats:
       default:
       long_ordinal:
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -411,6 +420,51 @@ az:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: Bax bütün növ
+    authored_article:
+    case_study: Bax bütün növ
+    closed_consultation: Bax bütün növ
+    consultation: Bax bütün növ
+    consultation_outcome: Bax bütün növ
+    corporate_report: Bax bütün növ
+    correspondence: Bax bütün növ
+    decision:
+    detailed_guidance: Bax bütün növ
+    document_collection:
+    draft_text: Bax bütün növ
+    fatality_notice: Bax bütün növ
+    foi_release: Bax bütün növ
+    form: Bax bütün növ
+    government_response:
+    guidance: Bax bütün növ
+    impact_assessment: Bax bütün növ
+    imported:
+    international_treaty:
+    map: Bax bütün növ
+    national_statistics: Bax bütün növ
+    news_article: Bax bütün növ
+    news_story: Bax bütün növ
+    notice:
+    open_consultation: Bax bütün növ
+    oral_statement: Bax bütün növ
+    policy: Bax bütün növ
+    policy_paper: Bax bütün növ
+    press_release: Bax bütün növ
+    promotional: Bax bütün növ
+    publication: Bax bütün növ
+    regulation:
+    research: Bax bütün növ
+    speaking_notes: Bax bütün növ
+    speech: Bax bütün növ
+    statement_to_parliament: Bax bütün növ
+    statistical_data_set: Bax bütün növ
+    statistics: Bax bütün növ
+    statutory_guidance:
+    transcript: Bax bütün növ
+    transparency: Bax bütün növ
+    worldwide_priority: Bax bütün növ
+    written_statement: Bax bütün növ
   social_media:
     follow_us:
   support:
@@ -455,58 +509,3 @@ az:
       our_services: Bizim xidmətlər
     location: Məkan
     part_of: Hissə
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Bax bütün növ
-    authored_article:
-    case_study: Bax bütün növ
-    closed_consultation: Bax bütün növ
-    consultation: Bax bütün növ
-    consultation_outcome: Bax bütün növ
-    corporate_report: Bax bütün növ
-    correspondence: Bax bütün növ
-    decision:
-    detailed_guidance: Bax bütün növ
-    document_collection:
-    draft_text: Bax bütün növ
-    fatality_notice: Bax bütün növ
-    foi_release: Bax bütün növ
-    form: Bax bütün növ
-    government_response:
-    guidance: Bax bütün növ
-    impact_assessment: Bax bütün növ
-    imported:
-    independent_report: Bax bütün növ
-    international_treaty:
-    map: Bax bütün növ
-    national_statistics: Bax bütün növ
-    news_article: Bax bütün növ
-    news_story: Bax bütün növ
-    notice:
-    open_consultation: Bax bütün növ
-    oral_statement: Bax bütün növ
-    policy: Bax bütün növ
-    policy_paper: Bax bütün növ
-    press_release: Bax bütün növ
-    promotional: Bax bütün növ
-    publication: Bax bütün növ
-    regulation:
-    research: Bax bütün növ
-    speaking_notes: Bax bütün növ
-    speech: Bax bütün növ
-    statement_to_parliament: Bax bütün növ
-    statistical_data_set: Bax bütün növ
-    statistics: Bax bütün növ
-    statutory_guidance:
-    transcript: Bax bütün növ
-    transparency: Bax bütün növ
-    worldwide_priority: Bax bütün növ
-    written_statement: Bax bütün növ

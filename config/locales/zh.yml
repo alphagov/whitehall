@@ -106,6 +106,15 @@ zh:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -411,6 +420,51 @@ zh:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: 查阅我们所有的公告
+    authored_article: 查阅我们所有的撰写的文章
+    case_study: 查阅我们所有的实例研究
+    closed_consultation: 查阅我们所有的已办结的咨询
+    consultation: 查阅我们所有的咨询
+    consultation_outcome: 查阅我们所有的咨询结果
+    corporate_report: 查阅我们所有的政府报告
+    correspondence: 查阅我们所有的交流
+    decision:
+    detailed_guidance: 查阅我们所有的详细指导
+    document_collection:
+    draft_text: 查阅我们所有的草拟稿件
+    fatality_notice: 查阅我们所有的死亡通告
+    foi_release: 查阅我们所有的资讯自由(foi)信息发布
+    form: 查阅我们所有的表格
+    government_response: 查阅我们所有的政府反应
+    guidance: 查阅我们所有的指导
+    impact_assessment: 查阅我们所有的影响评估
+    imported: 查阅我们所有的导入 - 正在等待的类型
+    international_treaty:
+    map: 查阅我们所有的地图
+    national_statistics: 查阅我们所有的统计数据 - 国家数据
+    news_article: 查阅我们所有的新闻文章
+    news_story: 查阅我们所有的新闻报道
+    notice:
+    open_consultation: 查阅我们所有的公开咨询
+    oral_statement: 查阅我们所有的对议会的口头声明
+    policy: 查阅我们所有的政策
+    policy_paper: 查阅我们所有的政策文件
+    press_release: 查阅我们所有的新闻稿
+    promotional: 查阅我们所有的宣传材料
+    publication: 查阅我们所有的发布的报告
+    regulation:
+    research: 查阅我们所有的研究及分析
+    speaking_notes: 查阅我们所有的演讲稿
+    speech: 查阅我们所有的演讲
+    statement_to_parliament: 查阅我们所有的对议会的声明
+    statistical_data_set: 查阅我们所有的统计数据集
+    statistics: 查阅我们所有的统计数据
+    statutory_guidance:
+    transcript: 查阅我们所有的副本
+    transparency: 查阅我们所有的透明化数据
+    worldwide_priority: 查阅我们所有的世界范围内的工作重点
+    written_statement: 查阅我们所有的对议会的书面声明
   social_media:
     follow_us:
   support:
@@ -455,58 +509,3 @@ zh:
       our_services: 我们的服务
     location: 位置
     part_of: 隶属于
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: 查阅我们所有的公告
-    authored_article: 查阅我们所有的撰写的文章
-    case_study: 查阅我们所有的实例研究
-    closed_consultation: 查阅我们所有的已办结的咨询
-    consultation: 查阅我们所有的咨询
-    consultation_outcome: 查阅我们所有的咨询结果
-    corporate_report: 查阅我们所有的政府报告
-    correspondence: 查阅我们所有的交流
-    decision:
-    detailed_guidance: 查阅我们所有的详细指导
-    document_collection:
-    draft_text: 查阅我们所有的草拟稿件
-    fatality_notice: 查阅我们所有的死亡通告
-    foi_release: 查阅我们所有的资讯自由(foi)信息发布
-    form: 查阅我们所有的表格
-    government_response: 查阅我们所有的政府反应
-    guidance: 查阅我们所有的指导
-    impact_assessment: 查阅我们所有的影响评估
-    imported: 查阅我们所有的导入 - 正在等待的类型
-    independent_report: 查阅我们所有的独立报告
-    international_treaty:
-    map: 查阅我们所有的地图
-    national_statistics: 查阅我们所有的统计数据 - 国家数据
-    news_article: 查阅我们所有的新闻文章
-    news_story: 查阅我们所有的新闻报道
-    notice:
-    open_consultation: 查阅我们所有的公开咨询
-    oral_statement: 查阅我们所有的对议会的口头声明
-    policy: 查阅我们所有的政策
-    policy_paper: 查阅我们所有的政策文件
-    press_release: 查阅我们所有的新闻稿
-    promotional: 查阅我们所有的宣传材料
-    publication: 查阅我们所有的发布的报告
-    regulation:
-    research: 查阅我们所有的研究及分析
-    speaking_notes: 查阅我们所有的演讲稿
-    speech: 查阅我们所有的演讲
-    statement_to_parliament: 查阅我们所有的对议会的声明
-    statistical_data_set: 查阅我们所有的统计数据集
-    statistics: 查阅我们所有的统计数据
-    statutory_guidance:
-    transcript: 查阅我们所有的副本
-    transparency: 查阅我们所有的透明化数据
-    worldwide_priority: 查阅我们所有的世界范围内的工作重点
-    written_statement: 查阅我们所有的对议会的书面声明

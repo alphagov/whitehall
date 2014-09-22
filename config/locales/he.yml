@@ -6,14 +6,16 @@ he:
         two:
         many:
         other: מסמכים
+      policies:
+        one:
+        two:
+        many:
+        other:
       applies_to_nations: מתייחס ל
       field_of_operation: שדה פעולה
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: הודעה
@@ -57,6 +59,8 @@ he:
         other: תכתובות
       decision:
         one:
+        two:
+        many:
         other:
       detailed_guidance:
         one: מדריך מפורט
@@ -140,6 +144,8 @@ he:
         other: חדשות
       notice:
         one:
+        two:
+        many:
         other:
       open_consultation:
         one: דיון פתוח
@@ -521,6 +527,15 @@ he:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: ניתן לעשות שימוש בפילטרים כדי לראות תוצאות ממוקדות
     no_results:
@@ -557,6 +572,51 @@ he:
     headings:
       detail: פרטים
   read_more: קרא עוד
+  see_all:
+    announcement: ראה כל הודעות
+    authored_article: ראה כל מאמרים מאושרים
+    case_study: ראה כל מקרי בוחן
+    closed_consultation: ראה כל דיונים סגורים
+    consultation: ראה כל דיונים
+    consultation_outcome: ראה כל תוצאות דיונים
+    corporate_report: ראה כל דו"חות משותפים
+    correspondence: ראה כל תכתובות
+    decision:
+    detailed_guidance: ראה כל מדריך מפורט
+    document_collection:
+    draft_text: ראה כל טיוטות
+    fatality_notice: ראה כל הודעות פטירה
+    foi_release: ראה כל פרסומי חופש מידע
+    form: ראה כל טפסים
+    government_response: ראה כל תגובות ממשלתיות
+    guidance: ראה כל הדרכה
+    impact_assessment: ראה כל הערכת השפעות
+    imported: ראה כל יבוא- המתנה לסוג
+    international_treaty:
+    map: ראה כל מפות
+    national_statistics: ראה כל סטטיסטיקות- סטטסטיקה לאומית
+    news_article: ראה כל מאמרי חדשות
+    news_story: ראה כל חדשות
+    notice:
+    open_consultation: ראה כל דיון פתוח
+    oral_statement: ראה כל הצהרות בעל פה לפרלמנט
+    policy: ראה כל מדיניות
+    policy_paper: ראה כל ניירות מדיניות
+    press_release: ראה כל הודעות לעיתונות
+    promotional: ראה כל חומר פרסומי
+    publication: ראה כל פרסומים
+    regulation:
+    research: ראה כל מחקר וניתוח
+    speaking_notes: ראה כל נאומים
+    speech: ראה כל נאומים
+    statement_to_parliament: ראה כל הצהרות לפרלמנט
+    statistical_data_set: ראה כל מידע סטטיסטי
+    statistics: ראה כל נתונים
+    statutory_guidance:
+    transcript: ראה כל תמלולים
+    transparency: ראה כל שקיפות מידע
+    worldwide_priority: ראה כל עדיפות גלובאלית
+    written_statement: ראה כל הצהרות בכתב לפרלמנט
   social_media:
     follow_us:
   support:
@@ -583,58 +643,3 @@ he:
       our_services: השירותים שלנו
     location: מיקום
     part_of: חלק מ
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: ראה כל הודעות
-    authored_article: ראה כל מאמרים מאושרים
-    case_study: ראה כל מקרי בוחן
-    closed_consultation: ראה כל דיונים סגורים
-    consultation: ראה כל דיונים
-    consultation_outcome: ראה כל תוצאות דיונים
-    corporate_report: ראה כל דו"חות משותפים
-    correspondence: ראה כל תכתובות
-    decision:
-    detailed_guidance: ראה כל מדריך מפורט
-    document_collection:
-    draft_text: ראה כל טיוטות
-    fatality_notice: ראה כל הודעות פטירה
-    foi_release: ראה כל פרסומי חופש מידע
-    form: ראה כל טפסים
-    government_response: ראה כל תגובות ממשלתיות
-    guidance: ראה כל הדרכה
-    impact_assessment: ראה כל הערכת השפעות
-    imported: ראה כל יבוא- המתנה לסוג
-    independent_report: ראה כל דו"ות עצמאיים
-    international_treaty:
-    map: ראה כל מפות
-    national_statistics: ראה כל סטטיסטיקות- סטטסטיקה לאומית
-    news_article: ראה כל מאמרי חדשות
-    news_story: ראה כל חדשות
-    notice:
-    open_consultation: ראה כל דיון פתוח
-    oral_statement: ראה כל הצהרות בעל פה לפרלמנט
-    policy: ראה כל מדיניות
-    policy_paper: ראה כל ניירות מדיניות
-    press_release: ראה כל הודעות לעיתונות
-    promotional: ראה כל חומר פרסומי
-    publication: ראה כל פרסומים
-    regulation:
-    research: ראה כל מחקר וניתוח
-    speaking_notes: ראה כל נאומים
-    speech: ראה כל נאומים
-    statement_to_parliament: ראה כל הצהרות לפרלמנט
-    statistical_data_set: ראה כל מידע סטטיסטי
-    statistics: ראה כל נתונים
-    statutory_guidance:
-    transcript: ראה כל תמלולים
-    transparency: ראה כל שקיפות מידע
-    worldwide_priority: ראה כל עדיפות גלובאלית
-    written_statement: ראה כל הצהרות בכתב לפרלמנט

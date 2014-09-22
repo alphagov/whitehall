@@ -4,14 +4,14 @@ el:
       attachments:
         one: Έγγραφο
         other: Έγγραφα
+      policies:
+        one:
+        other:
       applies_to_nations: Ισχύει
       field_of_operation: Πεδίο δράσης
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Ανακοίνωση
@@ -399,6 +399,15 @@ el:
     formats:
       default:
       long_ordinal:
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Χρησιμοποιήστε τα φίλτρα για εξειδίκευση αποτελεσμάτων
     no_results:
@@ -435,6 +444,51 @@ el:
     headings:
       detail: Λεπτομέρεια
   read_more: Διαβάστε περισσότερα
+  see_all:
+    announcement: Δείτε τα Ανακοινώσεις
+    authored_article: Δείτε τα Κείμενα συντακτών
+    case_study: Δείτε τα Παραδείγματα
+    closed_consultation: Δείτε τα Κλειστές διαβουλεύσεις
+    consultation: Δείτε τα Διαβουλεύσεις
+    consultation_outcome: Δείτε τα Αποτελέσματα διαβούλευσης
+    corporate_report: Δείτε τα Εκθέσεις Οργανισμού
+    correspondence: Δείτε τα Αλληλογραφία
+    decision:
+    detailed_guidance: Δείτε τα Οδηγίες
+    document_collection:
+    draft_text: Δείτε τα Προσχέδια
+    fatality_notice: Δείτε τα Ανακοινώσεις θανάτων
+    foi_release: Δείτε τα Δημοσιοποίηση
+    form: Δείτε τα Έντυπα
+    government_response: Δείτε τα Οι θέσεις της Κυβέρνησης
+    guidance: Δείτε τα Οδηγίες
+    impact_assessment: Δείτε τα Αξιολογήσεις αποτελέσματος
+    imported: Δείτε τα εισηγμένα - σε αναμονή
+    international_treaty:
+    map: Δείτε τα Χάρτες
+    national_statistics: Δείτε τα Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
+    news_article: Δείτε τα Ειδήσεις
+    news_story: Δείτε τα Νέα
+    notice:
+    open_consultation: Δείτε τα Ανοιχτές διαβουλεύσεις
+    oral_statement: 'Δείτε τα Δηλώσεις στη Βουλή '
+    policy: Δείτε τα Πολιτικές
+    policy_paper: Δείτε τα Κείμενα πολιτικής
+    press_release: Δείτε τα Δελτία Τύπου
+    promotional: Δείτε τα Προωθητικό υλικό
+    publication: Δείτε τα Εκδόσεις
+    regulation:
+    research: Δείτε τα Έρευνα και ανάλυση
+    speaking_notes: Δείτε τα Βασικά σημεία ομιλίας
+    speech: Δείτε τα Ομιλίες
+    statement_to_parliament: 'Δείτε τα Δηλώσεις στη Βουλή '
+    statistical_data_set: Δείτε τα Στατιστικά στοιχεία
+    statistics: Δείτε τα Στατιστικά στοιχεία
+    statutory_guidance:
+    transcript: Δείτε τα Απομαγνητοφωνήσεις
+    transparency: Δείτε τα Στοιχεία διαφάνειας
+    worldwide_priority: Δείτε τα Παγκόσμιες προτεραιότητες
+    written_statement: Δείτε τα Γραπτές δηλώσεις στη Βουλή
   social_media:
     follow_us:
   support:
@@ -463,58 +517,3 @@ el:
       our_services: Οι υπηρεσίες μας
     location: Χώρα
     part_of: Μέρος του
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Δείτε τα Ανακοινώσεις
-    authored_article: Δείτε τα Κείμενα συντακτών
-    case_study: Δείτε τα Παραδείγματα
-    closed_consultation: Δείτε τα Κλειστές διαβουλεύσεις
-    consultation: Δείτε τα Διαβουλεύσεις
-    consultation_outcome: Δείτε τα Αποτελέσματα διαβούλευσης
-    corporate_report: Δείτε τα Εκθέσεις Οργανισμού
-    correspondence: Δείτε τα Αλληλογραφία
-    decision:
-    detailed_guidance: Δείτε τα Οδηγίες
-    document_collection:
-    draft_text: Δείτε τα Προσχέδια
-    fatality_notice: Δείτε τα Ανακοινώσεις θανάτων
-    foi_release: Δείτε τα Δημοσιοποίηση
-    form: Δείτε τα Έντυπα
-    government_response: Δείτε τα Οι θέσεις της Κυβέρνησης
-    guidance: Δείτε τα Οδηγίες
-    impact_assessment: Δείτε τα Αξιολογήσεις αποτελέσματος
-    imported: Δείτε τα εισηγμένα - σε αναμονή
-    independent_report: Δείτε τα Εκθέσεις ανεξάρτητων αρχών
-    international_treaty:
-    map: Δείτε τα Χάρτες
-    national_statistics: Δείτε τα Στατιστικά στοιχεία- εθνικά στατιστικά στοιχεία
-    news_article: Δείτε τα Ειδήσεις
-    news_story: Δείτε τα Νέα
-    notice:
-    open_consultation: Δείτε τα Ανοιχτές διαβουλεύσεις
-    oral_statement: 'Δείτε τα Δηλώσεις στη Βουλή '
-    policy: Δείτε τα Πολιτικές
-    policy_paper: Δείτε τα Κείμενα πολιτικής
-    press_release: Δείτε τα Δελτία Τύπου
-    promotional: Δείτε τα Προωθητικό υλικό
-    publication: Δείτε τα Εκδόσεις
-    regulation:
-    research: Δείτε τα Έρευνα και ανάλυση
-    speaking_notes: Δείτε τα Βασικά σημεία ομιλίας
-    speech: Δείτε τα Ομιλίες
-    statement_to_parliament: 'Δείτε τα Δηλώσεις στη Βουλή '
-    statistical_data_set: Δείτε τα Στατιστικά στοιχεία
-    statistics: Δείτε τα Στατιστικά στοιχεία
-    statutory_guidance:
-    transcript: Δείτε τα Απομαγνητοφωνήσεις
-    transparency: Δείτε τα Στοιχεία διαφάνειας
-    worldwide_priority: Δείτε τα Παγκόσμιες προτεραιότητες
-    written_statement: Δείτε τα Γραπτές δηλώσεις στη Βουλή

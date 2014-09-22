@@ -109,6 +109,15 @@ hu:
     formats:
       default: '%Y %B %d'
       long_ordinal: '%Y %B %e'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -415,6 +424,51 @@ hu:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: ' bejelentések - mindegyik megtekintése'
+    authored_article: ' publicisztikák - mindegyik megtekintése'
+    case_study: ' esettanulmányok - mindegyik megtekintése'
+    closed_consultation: ' lezárt konzultációk - mindegyik megtekintése'
+    consultation: ' konzultációk - mindegyik megtekintése'
+    consultation_outcome: ' konzultációs eredmények - mindegyik megtekintése'
+    corporate_report: ' testületi beszámolók - mindegyik megtekintése'
+    correspondence: ' levelezések - mindegyik megtekintése'
+    decision:
+    detailed_guidance: ' részletes útmutató - mindegyik megtekintése'
+    document_collection:
+    draft_text: ' szövegtervezetek - mindegyik megtekintése'
+    fatality_notice: ' halálesettel kapcsolatos értesítések - mindegyik megtekintése'
+    foi_release: ' információhoz való joggal kapcsolatos közlemények - mindegyik megtekintése'
+    form: ' Űrlapok - mindegyik megtekintése'
+    government_response: ' kormányválaszok - mindegyik megtekintése'
+    guidance: ' Útmutató - mindegyik megtekintése'
+    impact_assessment: ' hatásvizsgálatok - mindegyik megtekintése'
+    imported: ' importálva - mindegyik megtekintése'
+    international_treaty:
+    map: ' térképek - mindegyik megtekintése'
+    national_statistics: ' statisztikák - nemzeti adatok - mindegyik megtekintése'
+    news_article: ' cikkek - mindegyik megtekintése'
+    news_story: ' hírek - mindegyik megtekintése'
+    notice:
+    open_consultation: ' nyílt konzultációk - mindegyik megtekintése'
+    oral_statement: ' parlamenti felszólalások - mindegyik megtekintése'
+    policy: ' szakpolitikák - mindegyik megtekintése'
+    policy_paper: ' szakpolitikai dokumentumok - mindegyik megtekintése'
+    press_release: ' sajtóközlemények - mindegyik megtekintése'
+    promotional: ' promóciós anyagok - mindegyik megtekintése'
+    publication: ' kiadványok - mindegyik megtekintése'
+    regulation:
+    research: ' kutatás és elemzés - mindegyik megtekintése'
+    speaking_notes: ' feljegyzések - mindegyik megtekintése'
+    speech: ' beszédek - mindegyik megtekintése'
+    statement_to_parliament: ' parlamenti nyilatkozatok - mindegyik megtekintése'
+    statistical_data_set: ' statisztikai adatcsoportok - mindegyik megtekintése'
+    statistics: ' statisztikák - mindegyik megtekintése'
+    statutory_guidance:
+    transcript: ' Átiratok - mindegyik megtekintése'
+    transparency: ' Átláthatósági adatok - mindegyik megtekintése'
+    worldwide_priority: ' globális prioritások - mindegyik megtekintése'
+    written_statement: ' Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése'
   social_media:
     follow_us:
   support:
@@ -462,58 +516,3 @@ hu:
       our_services: Szolgáltatásaink
     location: Ország
     part_of: Felettes szervezet
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: ' bejelentések - mindegyik megtekintése'
-    authored_article: ' publicisztikák - mindegyik megtekintése'
-    case_study: ' esettanulmányok - mindegyik megtekintése'
-    closed_consultation: ' lezárt konzultációk - mindegyik megtekintése'
-    consultation: ' konzultációk - mindegyik megtekintése'
-    consultation_outcome: ' konzultációs eredmények - mindegyik megtekintése'
-    corporate_report: ' testületi beszámolók - mindegyik megtekintése'
-    correspondence: ' levelezések - mindegyik megtekintése'
-    decision:
-    detailed_guidance: ' részletes útmutató - mindegyik megtekintése'
-    document_collection:
-    draft_text: ' szövegtervezetek - mindegyik megtekintése'
-    fatality_notice: ' halálesettel kapcsolatos értesítések - mindegyik megtekintése'
-    foi_release: ' információhoz való joggal kapcsolatos közlemények - mindegyik megtekintése'
-    form: ' Űrlapok - mindegyik megtekintése'
-    government_response: ' kormányválaszok - mindegyik megtekintése'
-    guidance: ' Útmutató - mindegyik megtekintése'
-    impact_assessment: ' hatásvizsgálatok - mindegyik megtekintése'
-    imported: ' importálva - mindegyik megtekintése'
-    independent_report: ' független beszámolók - mindegyik megtekintése'
-    international_treaty:
-    map: ' térképek - mindegyik megtekintése'
-    national_statistics: ' statisztikák - nemzeti adatok - mindegyik megtekintése'
-    news_article: ' cikkek - mindegyik megtekintése'
-    news_story: ' hírek - mindegyik megtekintése'
-    notice:
-    open_consultation: ' nyílt konzultációk - mindegyik megtekintése'
-    oral_statement: ' parlamenti felszólalások - mindegyik megtekintése'
-    policy: ' szakpolitikák - mindegyik megtekintése'
-    policy_paper: ' szakpolitikai dokumentumok - mindegyik megtekintése'
-    press_release: ' sajtóközlemények - mindegyik megtekintése'
-    promotional: ' promóciós anyagok - mindegyik megtekintése'
-    publication: ' kiadványok - mindegyik megtekintése'
-    regulation:
-    research: ' kutatás és elemzés - mindegyik megtekintése'
-    speaking_notes: ' feljegyzések - mindegyik megtekintése'
-    speech: ' beszédek - mindegyik megtekintése'
-    statement_to_parliament: ' parlamenti nyilatkozatok - mindegyik megtekintése'
-    statistical_data_set: ' statisztikai adatcsoportok - mindegyik megtekintése'
-    statistics: ' statisztikák - mindegyik megtekintése'
-    statutory_guidance:
-    transcript: ' Átiratok - mindegyik megtekintése'
-    transparency: ' Átláthatósági adatok - mindegyik megtekintése'
-    worldwide_priority: ' globális prioritások - mindegyik megtekintése'
-    written_statement: ' Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése'

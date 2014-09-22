@@ -5,14 +5,15 @@ cs:
         one: Dokument
         few:
         other: Dokumenty
+      policies:
+        one:
+        few:
+        other:
       applies_to_nations: Týká se
       field_of_operation: Oblast působnosti
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Oznámení
@@ -48,6 +49,7 @@ cs:
         other: Korespondence
       decision:
         one:
+        few:
         other:
       detailed_guidance:
         one: Podrobný návod
@@ -115,6 +117,7 @@ cs:
         other: Zprávy
       notice:
         one:
+        few:
         other:
       open_consultation:
         one: Otevřená konzultace
@@ -460,6 +463,15 @@ cs:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
@@ -496,6 +508,51 @@ cs:
     headings:
       detail: Více
   read_more: Více
+  see_all:
+    announcement: Podívejte se na
+    authored_article: Podívejte se na
+    case_study: Podívejte se na
+    closed_consultation: Podívejte se na
+    consultation: Podívejte se na
+    consultation_outcome: Podívejte se na
+    corporate_report: Podívejte se na
+    correspondence: Podívejte se na
+    decision:
+    detailed_guidance: Podívejte se na
+    document_collection:
+    draft_text: Podívejte se na
+    fatality_notice: Podívejte se na
+    foi_release: Podívejte se na
+    form: Podívejte se na
+    government_response: Podívejte se na
+    guidance: Podívejte se na
+    impact_assessment: Podívejte se na
+    imported: Podívejte se na
+    international_treaty:
+    map: Podívejte se na
+    national_statistics: Podívejte se na
+    news_article: Podívejte se na
+    news_story: Podívejte se na
+    notice:
+    open_consultation: Podívejte se na
+    oral_statement: Podívejte se na
+    policy: Podívejte se na
+    policy_paper: Podívejte se na
+    press_release: Podívejte se na
+    promotional: Podívejte se na
+    publication: Podívejte se na
+    regulation:
+    research: Podívejte se na
+    speaking_notes: Podívejte se na
+    speech: Podívejte se na
+    statement_to_parliament: Podívejte se na
+    statistical_data_set: Podívejte se na
+    statistics: Podívejte se na
+    statutory_guidance:
+    transcript: Podívejte se na
+    transparency: Podívejte se na
+    worldwide_priority: Podívejte se na
+    written_statement: Podívejte se na
   social_media:
     follow_us:
   support:
@@ -523,58 +580,3 @@ cs:
       our_services: Naše služby
     location: Kde nás najdete
     part_of: Jsme součást
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Podívejte se na
-    authored_article: Podívejte se na
-    case_study: Podívejte se na
-    closed_consultation: Podívejte se na
-    consultation: Podívejte se na
-    consultation_outcome: Podívejte se na
-    corporate_report: Podívejte se na
-    correspondence: Podívejte se na
-    decision:
-    detailed_guidance: Podívejte se na
-    document_collection:
-    draft_text: Podívejte se na
-    fatality_notice: Podívejte se na
-    foi_release: Podívejte se na
-    form: Podívejte se na
-    government_response: Podívejte se na
-    guidance: Podívejte se na
-    impact_assessment: Podívejte se na
-    imported: Podívejte se na
-    independent_report: Podívejte se na
-    international_treaty:
-    map: Podívejte se na
-    national_statistics: Podívejte se na
-    news_article: Podívejte se na
-    news_story: Podívejte se na
-    notice:
-    open_consultation: Podívejte se na
-    oral_statement: Podívejte se na
-    policy: Podívejte se na
-    policy_paper: Podívejte se na
-    press_release: Podívejte se na
-    promotional: Podívejte se na
-    publication: Podívejte se na
-    regulation:
-    research: Podívejte se na
-    speaking_notes: Podívejte se na
-    speech: Podívejte se na
-    statement_to_parliament: Podívejte se na
-    statistical_data_set: Podívejte se na
-    statistics: Podívejte se na
-    statutory_guidance:
-    transcript: Podívejte se na
-    transparency: Podívejte se na
-    worldwide_priority: Podívejte se na
-    written_statement: Podívejte se na

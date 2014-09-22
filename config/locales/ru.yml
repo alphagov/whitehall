@@ -6,14 +6,16 @@ ru:
         few:
         many:
         other: Документы
+      policies:
+        one:
+        few:
+        many:
+        other:
       applies_to_nations: Применимо к
       field_of_operation: Сфера деятельности
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Объявление
@@ -57,6 +59,8 @@ ru:
         other: Корреспонденция
       decision:
         one:
+        few:
+        many:
         other:
       detailed_guidance:
         one: Подробное руководство
@@ -140,6 +144,8 @@ ru:
         other: Новостные заметки
       notice:
         one:
+        few:
+        many:
         other:
       open_consultation:
         one: Открытая консультация
@@ -519,6 +525,15 @@ ru:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Чтобы увидеть результаты, соответствующие Вашим требовниям, используйте
       фильтры
@@ -556,6 +571,51 @@ ru:
     headings:
       detail: Детали
   read_more: Подробнее
+  see_all:
+    announcement: Посмотреть все наши Объявления
+    authored_article: Посмотреть все наши Авторские статьи
+    case_study: Посмотреть все наши Ситуационные анализы
+    closed_consultation: Посмотреть все наши Закрытые консультации
+    consultation: Посмотреть все наши Консультации
+    consultation_outcome: Посмотреть все наши Результаты консультаций
+    corporate_report: Посмотреть все наши Корпоративные отчеты
+    correspondence: Посмотреть все наши Корреспонденция
+    decision:
+    detailed_guidance: Посмотреть все наши Подробное руководство
+    document_collection:
+    draft_text: Посмотреть все наши Проект текстов
+    fatality_notice: Посмотреть все наши Уведомления о несчастных случаях
+    foi_release: 'Посмотреть все наши Свобода распространения информации '
+    form: Посмотреть все наши Формы
+    government_response: Посмотреть все наши Ответы правительства
+    guidance: Посмотреть все наши Руководство
+    impact_assessment: Посмотреть все наши Оценки воздействия
+    imported: Посмотреть все наши импортировано - тип ожидания
+    international_treaty:
+    map: Посмотреть все наши Карты
+    national_statistics: Посмотреть все наши Статистика - национальная статистика
+    news_article: Посмотреть все наши Новостные статьи
+    news_story: Посмотреть все наши Новостные заметки
+    notice:
+    open_consultation: Посмотреть все наши Открытые консультации
+    oral_statement: Посмотреть все наши Устные заявления парламенту
+    policy: Посмотреть все наши Политика
+    policy_paper: Посмотреть все наши Директивные документы
+    press_release: Посмотреть все наши Пресс-релизы
+    promotional: Посмотреть все наши Рекламные материалы
+    publication: Посмотреть все наши Публикации
+    regulation:
+    research: Посмотреть все наши Исследования и аналитика
+    speaking_notes: Посмотреть все наши Тезисы выступления
+    speech: Посмотреть все наши Тексты выступлений
+    statement_to_parliament: Посмотреть все наши Заявления парламенту
+    statistical_data_set: Посмотреть все наши Статистические данные
+    statistics: Посмотреть все наши Статистика
+    statutory_guidance:
+    transcript: Посмотреть все наши Тексты
+    transparency: Посмотреть все наши Прозрачность данных
+    worldwide_priority: Посмотреть все наши Мировые приоритеты
+    written_statement: Посмотреть все наши Письменные заявления парламенту
   social_media:
     follow_us:
   support:
@@ -584,58 +644,3 @@ ru:
       our_services: Наши услуги
     location: Расположение
     part_of: Является частью
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Посмотреть все наши Объявления
-    authored_article: Посмотреть все наши Авторские статьи
-    case_study: Посмотреть все наши Ситуационные анализы
-    closed_consultation: Посмотреть все наши Закрытые консультации
-    consultation: Посмотреть все наши Консультации
-    consultation_outcome: Посмотреть все наши Результаты консультаций
-    corporate_report: Посмотреть все наши Корпоративные отчеты
-    correspondence: Посмотреть все наши Корреспонденция
-    decision:
-    detailed_guidance: Посмотреть все наши Подробное руководство
-    document_collection:
-    draft_text: Посмотреть все наши Проект текстов
-    fatality_notice: Посмотреть все наши Уведомления о несчастных случаях
-    foi_release: 'Посмотреть все наши Свобода распространения информации '
-    form: Посмотреть все наши Формы
-    government_response: Посмотреть все наши Ответы правительства
-    guidance: Посмотреть все наши Руководство
-    impact_assessment: Посмотреть все наши Оценки воздействия
-    imported: Посмотреть все наши импортировано - тип ожидания
-    independent_report: Посмотреть все наши Независимые отчеты
-    international_treaty:
-    map: Посмотреть все наши Карты
-    national_statistics: Посмотреть все наши Статистика - национальная статистика
-    news_article: Посмотреть все наши Новостные статьи
-    news_story: Посмотреть все наши Новостные заметки
-    notice:
-    open_consultation: Посмотреть все наши Открытые консультации
-    oral_statement: Посмотреть все наши Устные заявления парламенту
-    policy: Посмотреть все наши Политика
-    policy_paper: Посмотреть все наши Директивные документы
-    press_release: Посмотреть все наши Пресс-релизы
-    promotional: Посмотреть все наши Рекламные материалы
-    publication: Посмотреть все наши Публикации
-    regulation:
-    research: Посмотреть все наши Исследования и аналитика
-    speaking_notes: Посмотреть все наши Тезисы выступления
-    speech: Посмотреть все наши Тексты выступлений
-    statement_to_parliament: Посмотреть все наши Заявления парламенту
-    statistical_data_set: Посмотреть все наши Статистические данные
-    statistics: Посмотреть все наши Статистика
-    statutory_guidance:
-    transcript: Посмотреть все наши Тексты
-    transparency: Посмотреть все наши Прозрачность данных
-    worldwide_priority: Посмотреть все наши Мировые приоритеты
-    written_statement: Посмотреть все наши Письменные заявления парламенту

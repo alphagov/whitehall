@@ -107,6 +107,15 @@ th:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -412,6 +421,51 @@ th:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: ดูทั้งหมดข่าวสาร
+    authored_article: ดูทั้งหมดบทความที่เขียน
+    case_study: ดูทั้งหมดกรณีศึกษา
+    closed_consultation: ดูทั้งหมดการศึกษาแบบปิด
+    consultation: ดูทั้งหมดการปรึกษา
+    consultation_outcome: ดูทั้งหมดผลการปรึกษา
+    corporate_report: ดูทั้งหมดรายงานบริษัท
+    correspondence: ดูทั้งหมดจดหมาย
+    decision:
+    detailed_guidance: ดูทั้งหมดคู่มือโดยละเอียด
+    document_collection:
+    draft_text: ดูทั้งหมดร่างข้อความ
+    fatality_notice: ดูทั้งหมดการแจ้งมรณะกรรม
+    foi_release: ดูทั้งหมดข้อมูลที่เปิดเผยได้
+    form: ดูทั้งหมดแบบฟอร์ม
+    government_response: ดูทั้งหมดการตอบสนองของรัฐบาล
+    guidance: ดูทั้งหมดคู่มือ
+    impact_assessment: ดูทั้งหมดการประเมินผลกระทบ
+    imported: ดูทั้งหมดประเภทรอนำเข้า
+    international_treaty:
+    map: ดูทั้งหมดแผนที่
+    national_statistics: ดูทั้งหมดสถิติ-สถิติแห่งชาติ
+    news_article: ดูทั้งหมดบทความข่าว
+    news_story: ดูทั้งหมดข่าว
+    notice:
+    open_consultation: ดูทั้งหมดการให้คำปรึกษาเปิด
+    oral_statement: ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา
+    policy: ดูทั้งหมดนโยบาย
+    policy_paper: ดูทั้งหมดเอกสารนโยบาย
+    press_release: ดูทั้งหมดข่าวประชาสัมพันธ์
+    promotional: ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์
+    publication: ดูทั้งหมดสิ่งพิมพ์
+    regulation:
+    research: ดูทั้งหมดบทวิจัยและบทวิเคราะห์
+    speaking_notes: ดูทั้งหมดประเด็นการพูด
+    speech: ดูทั้งหมดสุนทรพจน์
+    statement_to_parliament: ดูทั้งหมดแถลงการณ์ต่อรัฐสภา
+    statistical_data_set: ดูทั้งหมดชุดข้อมูลสถิติ
+    statistics: ดูทั้งหมดสถิติ
+    statutory_guidance:
+    transcript: ดูทั้งหมดสำเนา
+    transparency: ดูทั้งหมดข้อมูลโปร่งใส
+    worldwide_priority: ดูทั้งหมดนโยบายสำคัญที่ใช้ทั่วโลก
+    written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '
   social_media:
     follow_us:
   support:
@@ -457,58 +511,3 @@ th:
       our_services: บริการของเรา
     location: ที่ตั้ง
     part_of: ส่วนของ
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: ดูทั้งหมดข่าวสาร
-    authored_article: ดูทั้งหมดบทความที่เขียน
-    case_study: ดูทั้งหมดกรณีศึกษา
-    closed_consultation: ดูทั้งหมดการศึกษาแบบปิด
-    consultation: ดูทั้งหมดการปรึกษา
-    consultation_outcome: ดูทั้งหมดผลการปรึกษา
-    corporate_report: ดูทั้งหมดรายงานบริษัท
-    correspondence: ดูทั้งหมดจดหมาย
-    decision:
-    detailed_guidance: ดูทั้งหมดคู่มือโดยละเอียด
-    document_collection:
-    draft_text: ดูทั้งหมดร่างข้อความ
-    fatality_notice: ดูทั้งหมดการแจ้งมรณะกรรม
-    foi_release: ดูทั้งหมดข้อมูลที่เปิดเผยได้
-    form: ดูทั้งหมดแบบฟอร์ม
-    government_response: ดูทั้งหมดการตอบสนองของรัฐบาล
-    guidance: ดูทั้งหมดคู่มือ
-    impact_assessment: ดูทั้งหมดการประเมินผลกระทบ
-    imported: ดูทั้งหมดประเภทรอนำเข้า
-    independent_report: ดูทั้งหมดรายงานอิสระ
-    international_treaty:
-    map: ดูทั้งหมดแผนที่
-    national_statistics: ดูทั้งหมดสถิติ-สถิติแห่งชาติ
-    news_article: ดูทั้งหมดบทความข่าว
-    news_story: ดูทั้งหมดข่าว
-    notice:
-    open_consultation: ดูทั้งหมดการให้คำปรึกษาเปิด
-    oral_statement: ดูทั้งหมดแถลงการณ์ด้วยวาจาต่อรัฐสภา
-    policy: ดูทั้งหมดนโยบาย
-    policy_paper: ดูทั้งหมดเอกสารนโยบาย
-    press_release: ดูทั้งหมดข่าวประชาสัมพันธ์
-    promotional: ดูทั้งหมดเอกสารเพือการประชาสัมพันธ์
-    publication: ดูทั้งหมดสิ่งพิมพ์
-    regulation:
-    research: ดูทั้งหมดบทวิจัยและบทวิเคราะห์
-    speaking_notes: ดูทั้งหมดประเด็นการพูด
-    speech: ดูทั้งหมดสุนทรพจน์
-    statement_to_parliament: ดูทั้งหมดแถลงการณ์ต่อรัฐสภา
-    statistical_data_set: ดูทั้งหมดชุดข้อมูลสถิติ
-    statistics: ดูทั้งหมดสถิติ
-    statutory_guidance:
-    transcript: ดูทั้งหมดสำเนา
-    transparency: ดูทั้งหมดข้อมูลโปร่งใส
-    worldwide_priority: ดูทั้งหมดนโยบายสำคัญที่ใช้ทั่วโลก
-    written_statement: 'ดูทั้งหมดแถลงการเป็นลายลักษณ์อักษรต่อรัฐสภา '

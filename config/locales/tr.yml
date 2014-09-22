@@ -108,6 +108,15 @@ tr:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -413,6 +422,51 @@ tr:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: Tamamını görüntüle
+    authored_article: Tamamını görüntüle
+    case_study: Tamamını görüntüle
+    closed_consultation: Tamamını görüntüle
+    consultation: Tamamını görüntüle
+    consultation_outcome: Tamamını görüntüle
+    corporate_report: Tamamını görüntüle
+    correspondence: Tamamını görüntüle
+    decision:
+    detailed_guidance: Tamamını görüntüle
+    document_collection:
+    draft_text: Tamamını görüntüle
+    fatality_notice: Tamamını görüntüle
+    foi_release: Tamamını görüntüle
+    form: Tamamını görüntüle
+    government_response: Tamamını görüntüle
+    guidance: Tamamını görüntüle
+    impact_assessment: Tamamını görüntüle
+    imported: Tamamını görüntüle
+    international_treaty:
+    map: Tamamını görüntüle
+    national_statistics: Tamamını görüntüle
+    news_article: Tamamını görüntüle
+    news_story: Tamamını görüntüle
+    notice:
+    open_consultation: Tamamını görüntüle
+    oral_statement: Tamamını görüntüle
+    policy: Tamamını görüntüle
+    policy_paper: Tamamını görüntüle
+    press_release: Tamamını görüntüle
+    promotional: Tamamını görüntüle
+    publication: Tamamını görüntüle
+    regulation:
+    research: Tamamını görüntüle
+    speaking_notes: Tamamını görüntüle
+    speech: Tamamını görüntüle
+    statement_to_parliament: Tamamını görüntüle
+    statistical_data_set: Tamamını görüntüle
+    statistics: Tamamını görüntüle
+    statutory_guidance:
+    transcript: Tamamını görüntüle
+    transparency: Tamamını görüntüle
+    worldwide_priority: Tamamını görüntüle
+    written_statement: Tamamını görüntüle
   social_media:
     follow_us:
   support:
@@ -461,58 +515,3 @@ tr:
       our_services: Hizmetlerimiz
     location: Konum
     part_of: X'in parçası
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Tamamını görüntüle
-    authored_article: Tamamını görüntüle
-    case_study: Tamamını görüntüle
-    closed_consultation: Tamamını görüntüle
-    consultation: Tamamını görüntüle
-    consultation_outcome: Tamamını görüntüle
-    corporate_report: Tamamını görüntüle
-    correspondence: Tamamını görüntüle
-    decision:
-    detailed_guidance: Tamamını görüntüle
-    document_collection:
-    draft_text: Tamamını görüntüle
-    fatality_notice: Tamamını görüntüle
-    foi_release: Tamamını görüntüle
-    form: Tamamını görüntüle
-    government_response: Tamamını görüntüle
-    guidance: Tamamını görüntüle
-    impact_assessment: Tamamını görüntüle
-    imported: Tamamını görüntüle
-    independent_report: Tamamını görüntüle
-    international_treaty:
-    map: Tamamını görüntüle
-    national_statistics: Tamamını görüntüle
-    news_article: Tamamını görüntüle
-    news_story: Tamamını görüntüle
-    notice:
-    open_consultation: Tamamını görüntüle
-    oral_statement: Tamamını görüntüle
-    policy: Tamamını görüntüle
-    policy_paper: Tamamını görüntüle
-    press_release: Tamamını görüntüle
-    promotional: Tamamını görüntüle
-    publication: Tamamını görüntüle
-    regulation:
-    research: Tamamını görüntüle
-    speaking_notes: Tamamını görüntüle
-    speech: Tamamını görüntüle
-    statement_to_parliament: Tamamını görüntüle
-    statistical_data_set: Tamamını görüntüle
-    statistics: Tamamını görüntüle
-    statutory_guidance:
-    transcript: Tamamını görüntüle
-    transparency: Tamamını görüntüle
-    worldwide_priority: Tamamını görüntüle
-    written_statement: Tamamını görüntüle

@@ -4,14 +4,14 @@ fr:
       attachments:
         one: Document
         other: Documents
+      policies:
+        one:
+        other:
       applies_to_nations: s'appliquant à
       field_of_operation: Domaine d'activité
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Annonce
@@ -397,6 +397,15 @@ fr:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%B %d, %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Vous pouvez utiliser les filtres pour afficher uniquement les résultats
       qui correspondent à vos intérêts
@@ -434,6 +443,51 @@ fr:
     headings:
       detail: Détail
   read_more: En savoir plus
+  see_all:
+    announcement: Voir toutes nos annonces
+    authored_article: Voir toutes nos articles signés
+    case_study: Voir toutes nos etudes de cas
+    closed_consultation: Voir toutes nos consultations closes
+    consultation: Voir toutes nos consultations
+    consultation_outcome: Voir toutes nos résultats de la consultation
+    corporate_report: Voir toutes nos rapports d'activité
+    correspondence: Voir toutes nos correspondances
+    decision:
+    detailed_guidance: Voir toutes nos instructions détaillées
+    document_collection:
+    draft_text: Voir toutes nos projets de textes
+    fatality_notice: Voir toutes nos avis de décès
+    foi_release: Voir toutes nos communiqués freedom of information
+    form: Voir toutes nos formulaires
+    government_response: Voir toutes nos réponses du gouvernement
+    guidance: Voir toutes nos instructions
+    impact_assessment: Voir toutes nos evaluations des impacts
+    imported: Voir toutes nos importé
+    international_treaty:
+    map: Voir toutes nos cartes
+    national_statistics: Voir toutes nos statistiques - statistiques nationales
+    news_article: Voir toutes nos actualités
+    news_story: Voir toutes nos actualités
+    notice:
+    open_consultation: Voir toutes nos consultations ouvertes
+    oral_statement: Voir toutes nos déclarations orales au parlement
+    policy: Voir toutes nos priorités politiques
+    policy_paper: Voir toutes nos documents d'orientation
+    press_release: Voir toutes nos communiqués de presse
+    promotional: Voir toutes nos matériel promotionnel
+    publication: Voir toutes nos publications
+    regulation:
+    research: Voir toutes nos recherche et analyse
+    speaking_notes: Voir toutes nos notes d'allocution
+    speech: Voir toutes nos discours
+    statement_to_parliament: Voir toutes nos déclarations au parlement
+    statistical_data_set: Voir toutes nos ensembles de données statistiques
+    statistics: Voir toutes nos statistiques
+    statutory_guidance:
+    transcript: Voir toutes nos transcriptions
+    transparency: Voir toutes nos transparence des données
+    worldwide_priority: Voir toutes nos priorités internationales
+    written_statement: Voir toutes nos communiqués
   social_media:
     follow_us:
   support:
@@ -462,58 +516,3 @@ fr:
       our_services: Nos services
     location: Pays
     part_of: Organisme de référence
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Voir toutes nos annonces
-    authored_article: Voir toutes nos articles signés
-    case_study: Voir toutes nos etudes de cas
-    closed_consultation: Voir toutes nos consultations closes
-    consultation: Voir toutes nos consultations
-    consultation_outcome: Voir toutes nos résultats de la consultation
-    corporate_report: Voir toutes nos rapports d'activité
-    correspondence: Voir toutes nos correspondances
-    decision:
-    detailed_guidance: Voir toutes nos instructions détaillées
-    document_collection:
-    draft_text: Voir toutes nos projets de textes
-    fatality_notice: Voir toutes nos avis de décès
-    foi_release: Voir toutes nos communiqués freedom of information
-    form: Voir toutes nos formulaires
-    government_response: Voir toutes nos réponses du gouvernement
-    guidance: Voir toutes nos instructions
-    impact_assessment: Voir toutes nos evaluations des impacts
-    imported: Voir toutes nos importé
-    independent_report: Voir toutes nos rapports indépendants
-    international_treaty:
-    map: Voir toutes nos cartes
-    national_statistics: Voir toutes nos statistiques - statistiques nationales
-    news_article: Voir toutes nos actualités
-    news_story: Voir toutes nos actualités
-    notice:
-    open_consultation: Voir toutes nos consultations ouvertes
-    oral_statement: Voir toutes nos déclarations orales au parlement
-    policy: Voir toutes nos priorités politiques
-    policy_paper: Voir toutes nos documents d'orientation
-    press_release: Voir toutes nos communiqués de presse
-    promotional: Voir toutes nos matériel promotionnel
-    publication: Voir toutes nos publications
-    regulation:
-    research: Voir toutes nos recherche et analyse
-    speaking_notes: Voir toutes nos notes d'allocution
-    speech: Voir toutes nos discours
-    statement_to_parliament: Voir toutes nos déclarations au parlement
-    statistical_data_set: Voir toutes nos ensembles de données statistiques
-    statistics: Voir toutes nos statistiques
-    statutory_guidance:
-    transcript: Voir toutes nos transcriptions
-    transparency: Voir toutes nos transparence des données
-    worldwide_priority: Voir toutes nos priorités internationales
-    written_statement: Voir toutes nos communiqués

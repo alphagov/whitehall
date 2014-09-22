@@ -4,14 +4,14 @@ de:
       attachments:
         one: Dokument
         other: Dokumente
+      policies:
+        one:
+        other:
       applies_to_nations: Gilt für
       field_of_operation: Einsatzbereich
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Meldung
@@ -397,6 +397,15 @@ de:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Mit Hilfe der Filter erhalten Sie nur Ergebnisse, die Ihrem Interesse
       entsprechen.
@@ -434,6 +443,51 @@ de:
     headings:
       detail: Details
   read_more: Mehr dazu
+  see_all:
+    announcement: Alle unsere Meldungen
+    authored_article: Alle unsere Namensartikel
+    case_study: Alle unsere Fallstudien
+    closed_consultation: Alle unsere Abgeschlossene Konsultationen
+    consultation: Alle unsere Konsultationen
+    consultation_outcome: Alle unsere Konsultationsergebnisse
+    corporate_report: Alle unsere Geschäftsberichte
+    correspondence: Alle unsere Korrespondenz
+    decision:
+    detailed_guidance: Alle unsere Detaillierte Hinweise
+    document_collection:
+    draft_text: Alle unsere Entwürfe
+    fatality_notice: Alle unsere Bekanntgabe von Todesfällen
+    foi_release: Alle unsere Freigabe gemäß Freedom of Information Act
+    form: Alle unsere Formulare
+    government_response: Alle unsere Antworten der Regierung
+    guidance: Alle unsere Hinweise
+    impact_assessment: Alle unsere Folgenabschätzungen
+    imported: Alle unsere importiert - Warten auf Dokumententyp
+    international_treaty:
+    map: Alle unsere Karten
+    national_statistics: Alle unsere Statistik - Nationale Statistik
+    news_article: Alle unsere Artikel
+    news_story: Alle unsere Meldungen
+    notice:
+    open_consultation: Alle unsere Laufende Konsultationen
+    oral_statement: Alle unsere Mündliche Erklärungen vor dem Parlament
+    policy: Alle unsere Politik
+    policy_paper: Alle unsere Grundsatzpapiere
+    press_release: Alle unsere Pressemitteilungen
+    promotional: Alle unsere Werbematerial
+    publication: Alle unsere Veröffentlichungen
+    regulation:
+    research: Alle unsere Forschung und Analyse
+    speaking_notes: Alle unsere Redenotizen
+    speech: Alle unsere Reden
+    statement_to_parliament: Alle unsere Erklärungen vor dem Parlament
+    statistical_data_set: Alle unsere Statistische Datensätze
+    statistics: Alle unsere Statistiken
+    statutory_guidance:
+    transcript: Alle unsere Mitschriften
+    transparency: Alle unsere Transparenz-Daten
+    worldwide_priority: Alle unsere Außenpolitische Prioritäten
+    written_statement: Alle unsere Schriftliche Erklärungen vor dem Parlament
   social_media:
     follow_us:
   support:
@@ -462,58 +516,3 @@ de:
       our_services: Unsere Dienstleistungen
     location: Standort
     part_of: Teil von
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Alle unsere Meldungen
-    authored_article: Alle unsere Namensartikel
-    case_study: Alle unsere Fallstudien
-    closed_consultation: Alle unsere Abgeschlossene Konsultationen
-    consultation: Alle unsere Konsultationen
-    consultation_outcome: Alle unsere Konsultationsergebnisse
-    corporate_report: Alle unsere Geschäftsberichte
-    correspondence: Alle unsere Korrespondenz
-    decision:
-    detailed_guidance: Alle unsere Detaillierte Hinweise
-    document_collection:
-    draft_text: Alle unsere Entwürfe
-    fatality_notice: Alle unsere Bekanntgabe von Todesfällen
-    foi_release: Alle unsere Freigabe gemäß Freedom of Information Act
-    form: Alle unsere Formulare
-    government_response: Alle unsere Antworten der Regierung
-    guidance: Alle unsere Hinweise
-    impact_assessment: Alle unsere Folgenabschätzungen
-    imported: Alle unsere importiert - Warten auf Dokumententyp
-    independent_report: Alle unsere Unabhängige Berichte
-    international_treaty:
-    map: Alle unsere Karten
-    national_statistics: Alle unsere Statistik - Nationale Statistik
-    news_article: Alle unsere Artikel
-    news_story: Alle unsere Meldungen
-    notice:
-    open_consultation: Alle unsere Laufende Konsultationen
-    oral_statement: Alle unsere Mündliche Erklärungen vor dem Parlament
-    policy: Alle unsere Politik
-    policy_paper: Alle unsere Grundsatzpapiere
-    press_release: Alle unsere Pressemitteilungen
-    promotional: Alle unsere Werbematerial
-    publication: Alle unsere Veröffentlichungen
-    regulation:
-    research: Alle unsere Forschung und Analyse
-    speaking_notes: Alle unsere Redenotizen
-    speech: Alle unsere Reden
-    statement_to_parliament: Alle unsere Erklärungen vor dem Parlament
-    statistical_data_set: Alle unsere Statistische Datensätze
-    statistics: Alle unsere Statistiken
-    statutory_guidance:
-    transcript: Alle unsere Mitschriften
-    transparency: Alle unsere Transparenz-Daten
-    worldwide_priority: Alle unsere Außenpolitische Prioritäten
-    written_statement: Alle unsere Schriftliche Erklärungen vor dem Parlament

@@ -4,14 +4,14 @@ so:
       attachments:
         one: Dokumenti
         other: Dokumentiyo
+      policies:
+        one:
+        other:
       applies_to_nations: Waxa lagu saleeyaa
       field_of_operation: Nooca hawlgalka
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Ogeysiis
@@ -398,6 +398,15 @@ so:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Filtarradan shaandheynta ayaad adeegsan kartaa si aad u aragto keliya
       natiijooyinka waafaqsan waxa aad daneyneyso
@@ -435,6 +444,51 @@ so:
     headings:
       detail: Faahfaahin
   read_more: Sii akhri
+  see_all:
+    announcement: Fiiri dhammaan ogeysiisyo yadeenna
+    authored_article: Fiiri dhammaan maqaallo la qorey yadeenna
+    case_study: Fiiri dhammaan daraasado xaalado gaar ah yadeenna
+    closed_consultation: Fiiri dhammaan wadatashiyo albaabadu u xiran yihiin yadeenna
+    consultation: Fiiri dhammaan wadatashiyo yadeenna
+    consultation_outcome: Fiiri dhammaan natiijooyin ka dhashey wadatashiyo yadeenna
+    corporate_report: Fiiri dhammaan warbixinno sharikaad yadeenna
+    correspondence: Fiiri dhammaan waraaqo is-dhaafsi yadeenna
+    decision:
+    detailed_guidance: Fiiri dhammaan hagid faahfaahsan yadeenna
+    document_collection:
+    draft_text: Fiiri dhammaan qoraallo qabyo ah yadeenna
+    fatality_notice: Fiiri dhammaan ogeysiisyo geeri yadeenna
+    foi_release: Fiiri dhammaan soo saarista foi-yo yadeenna
+    form: Fiiri dhammaan foomam yadeenna
+    government_response: Fiiri dhammaan jawaabo dowladeed yadeenna
+    guidance: Fiiri dhammaan hagid yadeenna
+    impact_assessment: Fiiri dhammaan daraasado saameyn ku saabsan yadeenna
+    imported: Fiiri dhammaan la soo waaridey - nooca sugitaanka yadeenna
+    international_treaty:
+    map: Fiiri dhammaan khariidado yadeenna
+    national_statistics: Fiiri dhammaan istaatistik - istaatistik qaran yadeenna
+    news_article: Fiiri dhammaan maqaallo wareed yadeenna
+    news_story: Fiiri dhammaan sheekooyin wareed yadeenna
+    notice:
+    open_consultation: Fiiri dhammaan wada-tashiyo furan yadeenna
+    oral_statement: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
+    policy: Fiiri dhammaan siyaasado yadeenna
+    policy_paper: Fiiri dhammaan waraaqo qeexaya siyaasadda yadeenna
+    press_release: Fiiri dhammaan war-saxaafadeedyo yadeenna
+    promotional: Fiiri dhammaan agab xayeysiin ah yadeenna
+    publication: Fiiri dhammaan daabacaado yadeenna
+    regulation:
+    research: Fiiri dhammaan cilmi-baaris iyo lafaguris yadeenna
+    speaking_notes: Fiiri dhammaan qoraallo hadal jeedin yadeenna
+    speech: Fiiri dhammaan hadallo yadeenna
+    statement_to_parliament: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
+    statistical_data_set: Fiiri dhammaan xirmooyin xog istaatistik ah yadeenna
+    statistics: Fiiri dhammaan istaatistik yadeenna
+    statutory_guidance:
+    transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
+    transparency: Fiiri dhammaan xog daahfurnaan yadeenna
+    worldwide_priority: Fiiri dhammaan muhiimado caalami ah yadeenna
+    written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna
   social_media:
     follow_us:
   support:
@@ -464,58 +518,3 @@ so:
       our_services: Adeegyadeenna
     location: Goob
     part_of: Qayb ka mid ah
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Fiiri dhammaan ogeysiisyo yadeenna
-    authored_article: Fiiri dhammaan maqaallo la qorey yadeenna
-    case_study: Fiiri dhammaan daraasado xaalado gaar ah yadeenna
-    closed_consultation: Fiiri dhammaan wadatashiyo albaabadu u xiran yihiin yadeenna
-    consultation: Fiiri dhammaan wadatashiyo yadeenna
-    consultation_outcome: Fiiri dhammaan natiijooyin ka dhashey wadatashiyo yadeenna
-    corporate_report: Fiiri dhammaan warbixinno sharikaad yadeenna
-    correspondence: Fiiri dhammaan waraaqo is-dhaafsi yadeenna
-    decision:
-    detailed_guidance: Fiiri dhammaan hagid faahfaahsan yadeenna
-    document_collection:
-    draft_text: Fiiri dhammaan qoraallo qabyo ah yadeenna
-    fatality_notice: Fiiri dhammaan ogeysiisyo geeri yadeenna
-    foi_release: Fiiri dhammaan soo saarista foi-yo yadeenna
-    form: Fiiri dhammaan foomam yadeenna
-    government_response: Fiiri dhammaan jawaabo dowladeed yadeenna
-    guidance: Fiiri dhammaan hagid yadeenna
-    impact_assessment: Fiiri dhammaan daraasado saameyn ku saabsan yadeenna
-    imported: Fiiri dhammaan la soo waaridey - nooca sugitaanka yadeenna
-    independent_report: Fiiri dhammaan warbixinno madax bannaan yadeenna
-    international_treaty:
-    map: Fiiri dhammaan khariidado yadeenna
-    national_statistics: Fiiri dhammaan istaatistik - istaatistik qaran yadeenna
-    news_article: Fiiri dhammaan maqaallo wareed yadeenna
-    news_story: Fiiri dhammaan sheekooyin wareed yadeenna
-    notice:
-    open_consultation: Fiiri dhammaan wada-tashiyo furan yadeenna
-    oral_statement: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
-    policy: Fiiri dhammaan siyaasado yadeenna
-    policy_paper: Fiiri dhammaan waraaqo qeexaya siyaasadda yadeenna
-    press_release: Fiiri dhammaan war-saxaafadeedyo yadeenna
-    promotional: Fiiri dhammaan agab xayeysiin ah yadeenna
-    publication: Fiiri dhammaan daabacaado yadeenna
-    regulation:
-    research: Fiiri dhammaan cilmi-baaris iyo lafaguris yadeenna
-    speaking_notes: Fiiri dhammaan qoraallo hadal jeedin yadeenna
-    speech: Fiiri dhammaan hadallo yadeenna
-    statement_to_parliament: Fiiri dhammaan hadallo loo jeediyo baarlamaanka yadeenna
-    statistical_data_set: Fiiri dhammaan xirmooyin xog istaatistik ah yadeenna
-    statistics: Fiiri dhammaan istaatistik yadeenna
-    statutory_guidance:
-    transcript: Fiiri dhammaan qoraallo la soo guuriyey yadeenna
-    transparency: Fiiri dhammaan xog daahfurnaan yadeenna
-    worldwide_priority: Fiiri dhammaan muhiimado caalami ah yadeenna
-    written_statement: Fiiri dhammaan hadallo qoran oo loo gudbiyo baarlamaanka yadeenna

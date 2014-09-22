@@ -107,6 +107,15 @@ ko:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document:
     contents:
     footer_meta:
@@ -412,6 +421,51 @@ ko:
     policies_responsible_with_person:
     previous_holders:
     read_more:
+  see_all:
+    announcement: 공지 모두 둘러보기
+    authored_article: 기사 모두 둘러보기
+    case_study: 케이스 스터디 모두 둘러보기
+    closed_consultation: 비공개 협의 모두 둘러보기
+    consultation: 협의 모두 둘러보기
+    consultation_outcome: 협의 결과 모두 둘러보기
+    corporate_report: 기업 레포트 모두 둘러보기
+    correspondence: 서신 모두 둘러보기
+    decision:
+    detailed_guidance: 상세 안내 모두 둘러보기
+    document_collection:
+    draft_text: 드래프트 택스트 모두 둘러보기
+    fatality_notice: 사상자 공지 모두 둘러보기
+    foi_release: foi 보도자료 모두 둘러보기
+    form: 문서 모두 둘러보기
+    government_response: 정부 대책 모두 둘러보기
+    guidance: 안내 모두 둘러보기
+    impact_assessment: 임팩트 평가 모두 둘러보기
+    imported: 수입 - 대기 모두 둘러보기
+    international_treaty:
+    map: 지도 모두 둘러보기
+    national_statistics: 통계 - 국가 통계 모두 둘러보기
+    news_article: 뉴스 모두 둘러보기
+    news_story: 뉴스 스토리 모두 둘러보기
+    notice:
+    open_consultation: 오픈 컨설테이션 모두 둘러보기
+    oral_statement: 의회로 구두 성명 모두 둘러보기
+    policy: 정책 모두 둘러보기
+    policy_paper: 정책 논문 모두 둘러보기
+    press_release: 보도자료 모두 둘러보기
+    promotional: 홍보물 모두 둘러보기
+    publication: 간행물 모두 둘러보기
+    regulation:
+    research: 리써치 및 분석 모두 둘러보기
+    speaking_notes: 요점사항 모두 둘러보기
+    speech: 연설문 모두 둘러보기
+    statement_to_parliament: 의회로 성명 모두 둘러보기
+    statistical_data_set: 통계 데이터 세트 모두 둘러보기
+    statistics: 통계 모두 둘러보기
+    statutory_guidance:
+    transcript: 트랜스크립트 모두 둘러보기
+    transparency: 투명성 데이타 모두 둘러보기
+    worldwide_priority: 세계 우선과제 모두 둘러보기
+    written_statement: 의회로 서면 성명 모두 둘러보기
   social_media:
     follow_us:
   support:
@@ -456,58 +510,3 @@ ko:
       our_services: 서비스
     location: 로케이션
     part_of: 파트
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: 공지 모두 둘러보기
-    authored_article: 기사 모두 둘러보기
-    case_study: 케이스 스터디 모두 둘러보기
-    closed_consultation: 비공개 협의 모두 둘러보기
-    consultation: 협의 모두 둘러보기
-    consultation_outcome: 협의 결과 모두 둘러보기
-    corporate_report: 기업 레포트 모두 둘러보기
-    correspondence: 서신 모두 둘러보기
-    decision:
-    detailed_guidance: 상세 안내 모두 둘러보기
-    document_collection:
-    draft_text: 드래프트 택스트 모두 둘러보기
-    fatality_notice: 사상자 공지 모두 둘러보기
-    foi_release: foi 보도자료 모두 둘러보기
-    form: 문서 모두 둘러보기
-    government_response: 정부 대책 모두 둘러보기
-    guidance: 안내 모두 둘러보기
-    impact_assessment: 임팩트 평가 모두 둘러보기
-    imported: 수입 - 대기 모두 둘러보기
-    independent_report: 독립 레포트 모두 둘러보기
-    international_treaty:
-    map: 지도 모두 둘러보기
-    national_statistics: 통계 - 국가 통계 모두 둘러보기
-    news_article: 뉴스 모두 둘러보기
-    news_story: 뉴스 스토리 모두 둘러보기
-    notice:
-    open_consultation: 오픈 컨설테이션 모두 둘러보기
-    oral_statement: 의회로 구두 성명 모두 둘러보기
-    policy: 정책 모두 둘러보기
-    policy_paper: 정책 논문 모두 둘러보기
-    press_release: 보도자료 모두 둘러보기
-    promotional: 홍보물 모두 둘러보기
-    publication: 간행물 모두 둘러보기
-    regulation:
-    research: 리써치 및 분석 모두 둘러보기
-    speaking_notes: 요점사항 모두 둘러보기
-    speech: 연설문 모두 둘러보기
-    statement_to_parliament: 의회로 성명 모두 둘러보기
-    statistical_data_set: 통계 데이터 세트 모두 둘러보기
-    statistics: 통계 모두 둘러보기
-    statutory_guidance:
-    transcript: 트랜스크립트 모두 둘러보기
-    transparency: 투명성 데이타 모두 둘러보기
-    worldwide_priority: 세계 우선과제 모두 둘러보기
-    written_statement: 의회로 서면 성명 모두 둘러보기

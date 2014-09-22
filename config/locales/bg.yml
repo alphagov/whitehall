@@ -4,14 +4,14 @@ bg:
       attachments:
         one: Документ
         other: Документи
+      policies:
+        one:
+        other:
       applies_to_nations: Отнася се към
       field_of_operation: Поле на операцията
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Съобщение
@@ -400,6 +400,15 @@ bg:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Можете да използвате филтрите, за да видите резултатите, които пасват
       на вашето търсене
@@ -437,6 +446,51 @@ bg:
     headings:
       detail: Подробности
   read_more: Прочетете повече
+  see_all:
+    announcement: Вижте всички наши Съобщения
+    authored_article: Вижте всички наши Авторски статии
+    case_study: Вижте всички наши Казуси
+    closed_consultation: Вижте всички наши Затворени консултации
+    consultation: Вижте всички наши Консултации
+    consultation_outcome: Вижте всички наши Резултат от консултациите
+    corporate_report: Вижте всички наши Корпоративни доклади
+    correspondence: Вижте всички наши Кореспонденции
+    decision:
+    detailed_guidance: Вижте всички наши Подробни насоки
+    document_collection:
+    draft_text: Вижте всички наши Чернови
+    fatality_notice: Вижте всички наши Уведомления за кончина
+    foi_release: Вижте всички наши Съобщения във връзка със свободен достъп до информация
+    form: Вижте всички наши Формуляри
+    government_response: Вижте всички наши Отговори на правителството
+    guidance: Вижте всички наши Насоки
+    impact_assessment: Вижте всички наши Оценки на влиянието
+    imported: Вижте всички наши импортирано-очаква тип
+    international_treaty:
+    map: Вижте всички наши Карти
+    national_statistics: Вижте всички наши Статистики- национални статистики
+    news_article: Вижте всички наши Новинарски статии
+    news_story: Вижте всички наши Новини
+    notice:
+    open_consultation: Вижте всички наши Отворени консултации
+    oral_statement: Вижте всички наши Устни изказвания в Парламента
+    policy: Вижте всички наши Политики
+    policy_paper: Вижте всички наши Документи, залагащи политика
+    press_release: Вижте всички наши Съобщения до медиите
+    promotional: Вижте всички наши Промоционален материал
+    publication: Вижте всички наши Публикации
+    regulation:
+    research: Вижте всички наши Проучване и анализи
+    speaking_notes: Вижте всички наши Устни ноти
+    speech: Вижте всички наши Речи
+    statement_to_parliament: Вижте всички наши Изявления в парламента
+    statistical_data_set: Вижте всички наши Набори от статистически данни
+    statistics: Вижте всички наши Статистики
+    statutory_guidance:
+    transcript: Вижте всички наши Преписи
+    transparency: Вижте всички наши Информация за прозрачността
+    worldwide_priority: Вижте всички наши Глобални приоритети
+    written_statement: Вижте всички наши Писмени изявления до парламента
   social_media:
     follow_us:
   support:
@@ -465,58 +519,3 @@ bg:
       our_services: Нашите услуги
     location: Местоположение
     part_of: Част от
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Вижте всички наши Съобщения
-    authored_article: Вижте всички наши Авторски статии
-    case_study: Вижте всички наши Казуси
-    closed_consultation: Вижте всички наши Затворени консултации
-    consultation: Вижте всички наши Консултации
-    consultation_outcome: Вижте всички наши Резултат от консултациите
-    corporate_report: Вижте всички наши Корпоративни доклади
-    correspondence: Вижте всички наши Кореспонденции
-    decision:
-    detailed_guidance: Вижте всички наши Подробни насоки
-    document_collection:
-    draft_text: Вижте всички наши Чернови
-    fatality_notice: Вижте всички наши Уведомления за кончина
-    foi_release: Вижте всички наши Съобщения във връзка със свободен достъп до информация
-    form: Вижте всички наши Формуляри
-    government_response: Вижте всички наши Отговори на правителството
-    guidance: Вижте всички наши Насоки
-    impact_assessment: Вижте всички наши Оценки на влиянието
-    imported: Вижте всички наши импортирано-очаква тип
-    independent_report: Вижте всички наши Независими доклади
-    international_treaty:
-    map: Вижте всички наши Карти
-    national_statistics: Вижте всички наши Статистики- национални статистики
-    news_article: Вижте всички наши Новинарски статии
-    news_story: Вижте всички наши Новини
-    notice:
-    open_consultation: Вижте всички наши Отворени консултации
-    oral_statement: Вижте всички наши Устни изказвания в Парламента
-    policy: Вижте всички наши Политики
-    policy_paper: Вижте всички наши Документи, залагащи политика
-    press_release: Вижте всички наши Съобщения до медиите
-    promotional: Вижте всички наши Промоционален материал
-    publication: Вижте всички наши Публикации
-    regulation:
-    research: Вижте всички наши Проучване и анализи
-    speaking_notes: Вижте всички наши Устни ноти
-    speech: Вижте всички наши Речи
-    statement_to_parliament: Вижте всички наши Изявления в парламента
-    statistical_data_set: Вижте всички наши Набори от статистически данни
-    statistics: Вижте всички наши Статистики
-    statutory_guidance:
-    transcript: Вижте всички наши Преписи
-    transparency: Вижте всички наши Информация за прозрачността
-    worldwide_priority: Вижте всички наши Глобални приоритети
-    written_statement: Вижте всички наши Писмени изявления до парламента

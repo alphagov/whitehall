@@ -4,14 +4,14 @@ sw:
       attachments:
         one:
         other:
+      policies:
+        one:
+        other:
       applies_to_nations:
       field_of_operation:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one:
@@ -394,6 +394,15 @@ sw:
     formats:
       default:
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description:
     no_results:
@@ -430,6 +439,51 @@ sw:
     headings:
       detail:
   read_more:
+  see_all:
+    announcement:
+    authored_article:
+    case_study:
+    closed_consultation:
+    consultation:
+    consultation_outcome:
+    corporate_report:
+    correspondence:
+    decision:
+    detailed_guidance:
+    document_collection:
+    draft_text:
+    fatality_notice:
+    foi_release:
+    form:
+    government_response:
+    guidance:
+    impact_assessment:
+    imported:
+    international_treaty:
+    map:
+    national_statistics:
+    news_article:
+    news_story:
+    notice:
+    open_consultation:
+    oral_statement:
+    policy:
+    policy_paper:
+    press_release:
+    promotional:
+    publication:
+    regulation:
+    research:
+    speaking_notes:
+    speech:
+    statement_to_parliament:
+    statistical_data_set:
+    statistics:
+    statutory_guidance:
+    transcript:
+    transparency:
+    worldwide_priority:
+    written_statement:
   social_media:
     follow_us:
   support:
@@ -455,57 +509,3 @@ sw:
       our_services:
     location:
     part_of:
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement:
-    case_study:
-    closed_consultation:
-    consultation:
-    consultation_outcome:
-    corporate_report:
-    correspondence:
-    detailed_guidance:
-    document_collection:
-    draft_text:
-    fatality_notice:
-    foi_release:
-    form:
-    guidance:
-    statutory_guidance:
-    impact_assessment:
-    imported:
-    international_treaty:
-    map:
-    notice:
-    decision:
-    worldwide_priority:
-    national_statistics:
-    news_article:
-    news_story:
-    open_consultation:
-    oral_statement:
-    policy:
-    policy_paper:
-    press_release:
-    promotional:
-    publication:
-    government_response:
-    research:
-    regulation:
-    speaking_notes:
-    speech:
-    statement_to_parliament:
-    statistical_data_set:
-    statistics:
-    transcript:
-    transparency:
-    written_statement:
-    authored_article:

@@ -4,14 +4,14 @@ lv:
       attachments:
         one: Dokuments
         other: Dokumenti
+      policies:
+        one:
+        other:
       applies_to_nations: Attiecas uz
       field_of_operation: Darbības lauks
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Paziņojums
@@ -396,6 +396,15 @@ lv:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Izmantojiet filtrus Jums interesējošo rezultātu atlasei&nbsp;
     no_results:
@@ -432,6 +441,51 @@ lv:
     headings:
       detail: Sīkāk
   read_more: Lasīt vairāk
+  see_all:
+    announcement: Skatīt visas paziņojumi
+    authored_article: Skatīt visas autora raksti
+    case_study: Skatīt visas piemēri
+    closed_consultation: Skatīt visas slēgta tipa konsultācijas
+    consultation: Skatīt visas konsultācijas
+    consultation_outcome: Skatīt visas konsultāciju rezultāti
+    corporate_report: Skatīt visas korporatīvie ziņojumi
+    correspondence: Skatīt visas sarakstes
+    decision:
+    detailed_guidance: Skatīt visas detalizētas norādes
+    document_collection:
+    draft_text: Skatīt visas teksta uzmetumi
+    fatality_notice: Skatīt visas nāves paziņojumi
+    foi_release: Skatīt visas informācijas atklātības datu publicēšana
+    form: Skatīt visas formas
+    government_response: Skatīt visas valdības atbildes
+    guidance: Skatīt visas norādes
+    impact_assessment: Skatīt visas ietekmes novērtējumi
+    imported: Skatīt visas importēts-gaidīšanas režīmā
+    international_treaty:
+    map: Skatīt visas kartes
+    national_statistics: Skatīt visas statistika - valsts dati
+    news_article: Skatīt visas raksti
+    news_story: Skatīt visas ziņas
+    notice:
+    open_consultation: Skatīt visas atklātas konsultācijas
+    oral_statement: Skatīt visas mutiski paziņojumi parlamentam
+    policy: Skatīt visas darbības jomas
+    policy_paper: Skatīt visas politikas dokumenti
+    press_release: Skatīt visas paziņojumi presei
+    promotional: Skatīt visas reklāmas materiāli
+    publication: Skatīt visas publikācijas
+    regulation:
+    research: Skatīt visas izpēte un analīze
+    speaking_notes: Skatīt visas runas piezīmes
+    speech: Skatīt visas runas
+    statement_to_parliament: Skatīt visas ziņojumi parlamentam
+    statistical_data_set: Skatīt visas statistikas datu kopumi
+    statistics: Skatīt visas statistika
+    statutory_guidance:
+    transcript: Skatīt visas noraksti
+    transparency: Skatīt visas atklātības dati
+    worldwide_priority: Skatīt visas pasaules mēroga prioritātes
+    written_statement: Skatīt visas rakstiski ziņojumi parlamentam
   social_media:
     follow_us:
   support:
@@ -460,58 +514,3 @@ lv:
       our_services: Pakalpojumi
     location: Atrašanās vieta
     part_of: Daļa no
-  detailed_guidance:
-    back_to_contents:
-    categories:
-    contents:
-    more:
-    part_of_published_collection:
-    published_related_detailed_guides:
-    related_mainstream_content:
-    see_more_like_this:
-  see_all:
-    announcement: Skatīt visas paziņojumi
-    authored_article: Skatīt visas autora raksti
-    case_study: Skatīt visas piemēri
-    closed_consultation: Skatīt visas slēgta tipa konsultācijas
-    consultation: Skatīt visas konsultācijas
-    consultation_outcome: Skatīt visas konsultāciju rezultāti
-    corporate_report: Skatīt visas korporatīvie ziņojumi
-    correspondence: Skatīt visas sarakstes
-    decision:
-    detailed_guidance: Skatīt visas detalizētas norādes
-    document_collection:
-    draft_text: Skatīt visas teksta uzmetumi
-    fatality_notice: Skatīt visas nāves paziņojumi
-    foi_release: Skatīt visas informācijas atklātības datu publicēšana
-    form: Skatīt visas formas
-    government_response: Skatīt visas valdības atbildes
-    guidance: Skatīt visas norādes
-    impact_assessment: Skatīt visas ietekmes novērtējumi
-    imported: Skatīt visas importēts-gaidīšanas režīmā
-    independent_report: Skatīt visas neatkarīgi ziņojumi
-    international_treaty:
-    map: Skatīt visas kartes
-    national_statistics: Skatīt visas statistika - valsts dati
-    news_article: Skatīt visas raksti
-    news_story: Skatīt visas ziņas
-    notice:
-    open_consultation: Skatīt visas atklātas konsultācijas
-    oral_statement: Skatīt visas mutiski paziņojumi parlamentam
-    policy: Skatīt visas darbības jomas
-    policy_paper: Skatīt visas politikas dokumenti
-    press_release: Skatīt visas paziņojumi presei
-    promotional: Skatīt visas reklāmas materiāli
-    publication: Skatīt visas publikācijas
-    regulation:
-    research: Skatīt visas izpēte un analīze
-    speaking_notes: Skatīt visas runas piezīmes
-    speech: Skatīt visas runas
-    statement_to_parliament: Skatīt visas ziņojumi parlamentam
-    statistical_data_set: Skatīt visas statistikas datu kopumi
-    statistics: Skatīt visas statistika
-    statutory_guidance:
-    transcript: Skatīt visas noraksti
-    transparency: Skatīt visas atklātības dati
-    worldwide_priority: Skatīt visas pasaules mēroga prioritātes
-    written_statement: Skatīt visas rakstiski ziņojumi parlamentam
