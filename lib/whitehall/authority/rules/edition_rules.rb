@@ -84,18 +84,11 @@ module Whitehall::Authority::Rules
       not_publishing_scheduled_edition_without_authority?
     end
 
-    def actor_is_not_creator?
-      subject.creator != actor
-    end
-
     def actor_is_not_publisher?
       subject.published_by != actor
     end
 
     def actor_is_not_submitter?
-      #submission = subject.latest_version_audit_entry_for("submitted")
-      #doer = submission.try(:actor) || subject.creator
-      #doer != actor
       subject.latest_version_audit_entry_for("submitted").try(:actor) != actor
     end
 
