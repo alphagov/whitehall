@@ -175,17 +175,9 @@ ko:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: 상세 안내
         other: 상세 안내
         see_all: 상세 안내 모두 둘러보기
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: 시리즈
         other:
@@ -511,3 +503,12 @@ ko:
       our_services: 서비스
     location: 로케이션
     part_of: 파트
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

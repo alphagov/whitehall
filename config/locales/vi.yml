@@ -176,17 +176,9 @@ vi:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: Hướng dẫn chi tiết
         other: Hướng dẫn chi tiết
         see_all: Xem tất cả hướng dẫn chi tiết của chúng tôi
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Chuỗi
         other:
@@ -516,3 +508,12 @@ vi:
       our_services: Dịch vụ của chúng tôi
     location: Địa điểm
     part_of: Phần của
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

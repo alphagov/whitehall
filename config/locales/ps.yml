@@ -50,17 +50,9 @@ ps:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: مفصله لارښوونه
         other: مفصلی لارښوونی
         see_all: ټول وګوری مفصلی لارښوونی
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: سلسله
         other:
@@ -518,3 +510,12 @@ ps:
       our_services: زموږ خدمتونه
     location: موقعیت
     part_of: یوه برخه د
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

@@ -50,17 +50,9 @@ so:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: Hagid faahfaahsan
         other: Hagid faahfaahsan
         see_all: Fiiri dhammaan hagid faahfaahsan yadeenna
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Taxane
         other:
@@ -519,3 +511,12 @@ so:
       our_services: Adeegyadeenna
     location: Goob
     part_of: Qayb ka mid ah
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

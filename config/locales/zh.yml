@@ -174,17 +174,9 @@ zh:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: 详细指导
         other: 详细指导
         see_all: 查阅我们所有的详细指导
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: 系列
         other:
@@ -510,3 +502,12 @@ zh:
       our_services: 我们的服务
     location: 位置
     part_of: 隶属于
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

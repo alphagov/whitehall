@@ -50,17 +50,9 @@ si:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: විස්තරාත්මක උපදෙස්
         other: විස්තරාත්මක උපදෙස්
         see_all: අපගේ සියලු විස්තරාත්මක උපදෙස් බලන්න
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: කාණ්ඩය
         other:
@@ -514,3 +506,12 @@ si:
       our_services: අපේ සේවාවන්
     location: ස්ථානය
     part_of: ' කොටසක්'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

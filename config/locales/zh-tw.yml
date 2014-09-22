@@ -174,17 +174,9 @@ zh-tw:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: 詳細指引
         other: 詳細指引
         see_all: 查閱我們所有的詳細指引
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: 系列
         other:
@@ -510,3 +502,12 @@ zh-tw:
       our_services: 我們的服務
     location: 位置
     part_of: 隸屬於
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

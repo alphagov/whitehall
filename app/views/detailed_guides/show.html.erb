@@ -45,7 +45,7 @@
       <% if @document.has_related_mainstream_content? %>
         <aside class="related-mainstream-content information-block" role="complementary">
           <div class="inner">
-            <h4><%= raw( t('document.type.detailed_guidance.related_mainstream_content') ) %></h4>
+            <h4><%= raw( t('detailed_guidance.related_mainstream_content') ) %></h4>
             <p>
               <%= link_to @document.related_mainstream_content_title, @document.related_mainstream_content_url %>
               <% if @document.has_additional_related_mainstream_content? %>
@@ -62,14 +62,14 @@
   <div class="block-4 block related-links js-back-to-content-stop">
     <div class="inner-block">
       <div class="js-back-to-content back-to-content visuallyhidden">
-        <a href="#page-navigation"><%= t('document.type.detailed_guidance.back_to_contents') %></a>
+        <a href="#page-navigation"><%= t('detailed_guidance.back_to_contents') %></a>
       </div>
       <aside id="more-like-this" class="aside-more-like-this">
-        <h1><%= t('document.type.detailed_guidance.more') %></h1>
+        <h1><%= t('detailed_guidance.more') %></h1>
         <% if @categories.any? %>
           <section id="guide-categories" class="categories">
             <div class="inner">
-              <h2><%= t('document.type.detailed_guidance.categories') %></h2>
+              <h2><%= t('detailed_guidance.categories') %></h2>
               <ul>
                 <% @categories.each do |category| %>
                   <%= content_tag_for(:li, category) do %>
@@ -84,7 +84,7 @@
         <% if @document.part_of_published_collection? %>
           <section id="document-collection" class="document-collection">
             <div class="inner">
-              <h2><%= t('document.type.detailed_guidance.part_of_published_collection') %></h2>
+              <h2><%= t('detailed_guidance.part_of_published_collection') %></h2>
               <ul>
                 <%= list_of_li_links_to_document_collections(@document) %>
               </ul>
@@ -95,7 +95,7 @@
         <% if @document.published_related_detailed_guides.any? %>
           <section class="related-guidance">
             <div class="inner">
-              <h2><%= t('document.type.detailed_guidance.published_related_detailed_guides') %></h2>
+              <h2><%= t('detailed_guidance.published_related_detailed_guides') %></h2>
               <ul class="related-detailed-guides">
                 <% @document.published_related_detailed_guides.each do |detailed_guide| %>
                   <%= content_tag_for(:li, detailed_guide) do %>

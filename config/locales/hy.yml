@@ -50,17 +50,9 @@ hy:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: Մանրամասն ուղեցույց
         other: Մանրամասն ուղեցույցեր
         see_all: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Մի շարք
         other:
@@ -517,3 +509,12 @@ hy:
       our_services: Մեր ծառայությունները
     location: Տարածք
     part_of: Մաս
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

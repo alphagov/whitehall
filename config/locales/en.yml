@@ -145,14 +145,6 @@ en:
         one: Guidance
         other: Guidance
         see_all: See all our guidance
-        contents: Contents
-        published_related_detailed_guides: Related detailed guidance
-        part_of_published_collection: This is part of a collection
-        categories: All detailed guidance about
-        more: More like this
-        related_mainstream_content: Too much detail?<br/>See these quick guides
-        see_more_like_this: See more like this
-        back_to_contents: Back to contents
       document_collection:
         one: Collection
         other: Collections
@@ -543,3 +535,12 @@ en:
     opendocument:
       help_html: This file is in an <a rel="external" href="http://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
     see_more: See more information about this %{document_type}
+  detailed_guidance:
+    back_to_contents: Back to contents
+    categories: All detailed guidance about
+    contents: Contents
+    more: More like this
+    part_of_published_collection: This is part of a collection
+    published_related_detailed_guides: Related detailed guidance
+    related_mainstream_content: Too much detail?<br/>See these quick guides
+    see_more_like_this: See more like this

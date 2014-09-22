@@ -50,17 +50,9 @@ bg:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: Подробна насока
         other: Подробни насоки
         see_all: Вижте всички наши Подробни насоки
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Серии
         other:
@@ -520,3 +512,12 @@ bg:
       our_services: Нашите услуги
     location: Местоположение
     part_of: Част от
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:

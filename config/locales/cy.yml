@@ -86,21 +86,13 @@ cy:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents: Yn ôl i'r cynnwys
-        categories: Pob arweiniad manwl am
-        contents: Cynnwys
-        more: Mwy sy’n debyg i hyn
         zero:
         one: Cyfarwyddyd manwl
         two:
         few:
         many:
         other: Cyfarwyddyd manwl
-        part_of_published_collection: Mae hyn yn rhan o gasgliad
-        published_related_detailed_guides: Arweiniad manwl perthnasol
-        related_mainstream_content: Gormod o fanylion?<br/>Edrychwch ar y canllawiau cyflym hyn
         see_all: Pob arweiniad manwl am
-        see_more_like_this: Gweld mwy sy’n debyg i hyn
       document_collection:
         zero:
         one: Cyfres
@@ -767,3 +759,12 @@ cy:
       our_services: Ein gwasanaethau
     location: Lleoliad
     part_of: Rhan o
+  detailed_guidance:
+    back_to_contents: Yn ôl i'r cynnwys
+    categories: Pob arweiniad manwl am Cynnwys
+    contents: Cynnwys
+    more: Mwy sy’n debyg i hyn
+    part_of_published_collection: Mae hyn yn rhan o gasgliad
+    published_related_detailed_guides: Arweiniad manwl perthnasol
+    related_mainstream_content: Gormod o fanylion?<br/>Edrychwch ar y canllawiau cyflym hyn
+    see_more_like_this: Gweld mwy sy’n debyg i hyn

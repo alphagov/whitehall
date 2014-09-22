@@ -50,17 +50,9 @@ pt:
         other:
         see_all:
       detailed_guidance:
-        back_to_contents:
         one: Guia detalhado
         other: Guias detalhados
         see_all: Veja todos os nossos guias detalhados
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Séries
         other:
@@ -516,3 +508,12 @@ pt:
       our_services: Nossos serviços
     location: Localização
     part_of: Parte de
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
