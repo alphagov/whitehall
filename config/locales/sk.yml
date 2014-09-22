@@ -18,225 +18,180 @@ sk:
         one:
         few:
         other:
-        see_all:
       authored_article:
         one:
         few:
         other:
-        see_all:
       case_study:
         one:
         few:
         other:
-        see_all:
       closed_consultation:
         one:
         few:
         other:
-        see_all:
       consultation:
         one:
         few:
         other:
-        see_all:
       consultation_outcome:
         one:
         few:
         other:
-        see_all:
       corporate_report:
         one:
         few:
         other:
-        see_all:
       decision:
         one:
         other:
-        see_all:
       correspondence:
         one:
         few:
         other:
-        see_all:
       detailed_guidance:
         one:
         few:
         other:
-        see_all:
       document_collection:
         one:
         few:
         other:
-        see_all:
       draft_text:
         one:
         few:
         other:
-        see_all:
       fatality_notice:
         one:
         few:
         other:
-        see_all:
       foi_release:
         one:
         few:
         other:
-        see_all:
       form:
         one:
         few:
         other:
-        see_all:
       government_response:
         one:
         few:
         other:
-        see_all:
       guidance:
         one:
         few:
         other:
-        see_all:
       impact_assessment:
         one:
         few:
         other:
-        see_all:
       imported:
         one:
         few:
         other:
-        see_all:
       independent_report:
         one:
         few:
         other:
-        see_all:
       notice:
         one:
         other:
-        see_all:
       international_treaty:
         one:
         few:
         other:
-        see_all:
       map:
         one:
         few:
         other:
-        see_all:
       national_statistics:
         one:
         few:
         other:
-        see_all:
       news_article:
         one:
         few:
         other:
-        see_all:
       news_story:
         one:
         few:
         other:
-        see_all:
       open_consultation:
         one:
         few:
         other:
-        see_all:
       oral_statement:
         one:
         few:
         other:
-        see_all:
       policy:
         one:
         few:
         other:
-        see_all:
       policy_paper:
         one:
         few:
         other:
-        see_all:
       press_release:
         one:
         few:
         other:
-        see_all:
       promotional:
         one:
         few:
         other:
-        see_all:
       publication:
         one:
         few:
         other:
-        see_all:
       regulation:
         one:
         few:
         other:
-        see_all:
       research:
         one:
         few:
         other:
-        see_all:
       speaking_notes:
         one:
         few:
         other:
-        see_all:
       speech:
         one:
         few:
         other:
-        see_all:
       statement_to_parliament:
         one:
         few:
         other:
-        see_all:
       statistical_data_set:
         one:
         few:
         other:
-        see_all:
       statistics:
         one:
         few:
         other:
-        see_all:
       statutory_guidance:
         one:
         few:
         other:
-        see_all:
       transcript:
         one:
         few:
         other:
-        see_all:
       transparency:
         one:
         few:
         other:
-        see_all:
       worldwide_priority:
         one:
         few:
         other:
-        see_all:
       written_statement:
         one:
         few:
         other:
-        see_all:
     contents:
     footer_meta:
       full_page_history:
@@ -571,3 +526,48 @@ sk:
     published_related_detailed_guides:
     related_mainstream_content:
     see_more_like_this:
+  see_all:
+    announcement:
+    case_study:
+    closed_consultation:
+    consultation:
+    consultation_outcome:
+    corporate_report:
+    correspondence:
+    detailed_guidance:
+    document_collection:
+    draft_text:
+    fatality_notice:
+    foi_release:
+    form:
+    guidance:
+    statutory_guidance:
+    impact_assessment:
+    imported:
+    international_treaty:
+    map:
+    notice:
+    decision:
+    worldwide_priority:
+    national_statistics:
+    news_article:
+    news_story:
+    open_consultation:
+    oral_statement:
+    policy:
+    policy_paper:
+    press_release:
+    promotional:
+    publication:
+    government_response:
+    research:
+    regulation:
+    speaking_notes:
+    speech:
+    statement_to_parliament:
+    statistical_data_set:
+    statistics:
+    transcript:
+    transparency:
+    written_statement:
+    authored_article:

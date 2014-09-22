@@ -14,7 +14,7 @@ module TranslationHelper
   end
 
   def t_see_all_our(type)
-    t("document.type.#{type}.see_all")
+    t("see_all.#{type}")
   end
 
   def t_delivery_title(document)
