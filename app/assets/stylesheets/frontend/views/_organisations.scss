@@ -658,14 +658,12 @@
       .comment {
         margin-bottom: $gutter-half;
       }
-      .adr, .email-url-number {
+      .adr {
+        margin: 0 0 $gutter-one-third;
         @include media(tablet) {
           float: left;
           width: 40%;
         }
-      }
-      .adr {
-        margin: 0 0 $gutter-one-third;
         span {
           display: block;
           padding-right: $gutter-half;
@@ -688,6 +686,7 @@
       &.postal-address {
         .email-url-number {
           @include media(tablet){
+            float: left;
             width: 60%;
           }
         }
