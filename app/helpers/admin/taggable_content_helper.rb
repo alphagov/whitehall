@@ -31,7 +31,7 @@ module Admin::TaggableContentHelper
 
   # Returns an Array that represents the current set of taggable ministerial
   # role appointments (both past and present). Each element of the array
-  # consists fo two values: a selectable label (consisting of the person, the
+  # consists of two values: a selectable label (consisting of the person, the
   # role, the date the role was held if it's in the past, and the organisations
   # the person belongs to) and the ID of the role appointment.
   def taggable_ministerial_role_appointments_container
