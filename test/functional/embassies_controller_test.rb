@@ -16,7 +16,8 @@ class EmbassiesControllerTest < ActionController::TestCase
     aruba = create(:world_location, :with_worldwide_organisations, name: "Aruba")
     netherlands = create(:world_location, name: "Netherlands")
     aruban_org = aruba.worldwide_organisations.first
-    aruban_contact = create(:contact, title: "British Consulate General Amsterdam", street_address: "...", country: netherlands)
+    aruban_contact = create(:contact, street_address: "...", country: netherlands)
+    aruban_org.update_attribute(:name, "British Consulate General Amsterdam")
     aruban_org.main_office = create(:worldwide_office,
                                     contact: aruban_contact,
                                     worldwide_organisation: aruban_org,

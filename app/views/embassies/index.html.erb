@@ -24,9 +24,10 @@
           <ul>
 
           <% if embassy.remote_services_country -%>
+            <% organisation = embassy.consular_services_organisations.first -%>
             <li>
-              <p><%= embassy.name %> doesn't have consular services, you need to go to the <%= embassy.offices.first.title %> in <%= embassy.remote_services_country %>.</p>
-              <%= link_to(embassy.offices.first.title, worldwide_organisation_path(embassy.offices.first.slug)) %>
+              <p><%= embassy.name %> doesn't have consular services, you need to go to the <%= organisation.name %> in <%= embassy.remote_services_country %>.</p>
+              <%= link_to(organisation.name, worldwide_organisation_path(organisation.slug)) %>
             </li>
 
           <% else -%>
