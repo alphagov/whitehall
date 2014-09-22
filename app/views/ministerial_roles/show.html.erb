@@ -98,7 +98,6 @@
       <% if @ministerial_role.published_policies.any? %>
         <section class="policy" id="policies">
           <h1><%= t('policies.heading') %></h1>
-          <p><%= policies_responsible(@ministerial_role.current_person, @ministerial_role) %></p>
 
           <%= render 'ministerial_roles/policies', role: @ministerial_role %>
 
