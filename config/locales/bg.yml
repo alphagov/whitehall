@@ -4,15 +4,18 @@ bg:
       attachments:
         one: Документ
         other: Документи
+      policies:
+        one:
+        other:
       applies_to_nations: Отнася се към
       field_of_operation: Поле на операцията
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Съобщение
         other: Съобщения
@@ -51,15 +54,15 @@ bg:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Подробна насока
         other: Подробни насоки
-        see_all: Вижте всички наши Подробни насоки
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Вижте всички наши Подробни насоки
         see_more_like_this:
       document_collection:
         one: Серии
@@ -93,10 +96,6 @@ bg:
         one: Оценка на влиянието
         other: Оценки на влиянието
         see_all: Вижте всички наши Оценки на влиянието
-      imported:
-        one: 'импортирано-очаква тип '
-        other: импортирано-очаква тип
-        see_all: Вижте всички наши импортирано-очаква тип
       independent_report:
         one: Независим доклад
         other: Независими доклади
@@ -424,6 +423,7 @@ bg:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Контактна форма

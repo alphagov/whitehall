@@ -4,15 +4,18 @@ it:
       attachments:
         one: Documento
         other: Documenti
+      policies:
+        one:
+        other:
       applies_to_nations: Valido per
       field_of_operation: Settore di lavoro
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Annuncio
         other: Annunci
@@ -51,15 +54,15 @@ it:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Indicazione dettagliata
         other: Indicazioni dettagliate
-        see_all: Vedi tutte le nostre indicazioni dettagliate
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Vedi tutte le nostre indicazioni dettagliate
         see_more_like_this:
       document_collection:
         one: Serie
@@ -93,10 +96,6 @@ it:
         one: Valutazione impatto
         other: Valutazioni impatto
         see_all: Vedi tutte le nostre valutazioni impatto
-      imported:
-        one: importato - in attesa
-        other: importato - in attesa
-        see_all: Vedi tutte le nostre importato - in attesa
       independent_report:
         one: Relazione indipendente
         other: Relazioni indipendenti
@@ -421,6 +420,7 @@ it:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Contattaci

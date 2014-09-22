@@ -40,8 +40,8 @@ class FatalityNoticesControllerTest < ActionController::TestCase
     get :show, id: updated_fatality_notice.document
 
     assert_select ".meta" do
-      assert_select ".published-at[title='#{fatality_notice.first_published_at.iso8601}']"
-      assert_select ".published-at[title='#{updated_fatality_notice.public_timestamp.iso8601}']"
+      assert_select ".date[title='#{fatality_notice.first_published_at.iso8601}']"
+      assert_select ".date[title='#{updated_fatality_notice.public_timestamp.iso8601}']"
     end
   end
 

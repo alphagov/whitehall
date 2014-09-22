@@ -78,6 +78,7 @@ id:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Formulir kontak
@@ -177,15 +178,15 @@ id:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Panduan lebih lanjut
         other: Panduan lebih lanjut
-        see_all: Lihat semua panduan lebih lanjut
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Lihat semua panduan lebih lanjut
         see_more_like_this:
       document_collection:
         one: Serial
@@ -222,7 +223,6 @@ id:
       imported:
         one: Diimpor-menunggu tipe
         other: Diimpor-menunggu tipe
-        see_all: Lihat semua diimpor-menunggu tipe
       independent_report:
         one: Laporan independen
         other: Laporan-laporan independen

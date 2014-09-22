@@ -76,6 +76,7 @@ ms:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form:
@@ -175,15 +176,15 @@ ms:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one:
         other:
-        see_all:
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all:
         see_more_like_this:
       document_collection:
         one:
@@ -220,7 +221,6 @@ ms:
       imported:
         one:
         other:
-        see_all:
       independent_report:
         one:
         other:

@@ -78,6 +78,7 @@ tr:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: İletişim Formu
@@ -177,15 +178,15 @@ tr:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Ayrıntılı Kılavuz
         other: Ayrıntılı Kılavuzlar
-        see_all: Tamamını görüntüle
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Tamamını görüntüle
         see_more_like_this:
       document_collection:
         one: Seriler
@@ -222,7 +223,6 @@ tr:
       imported:
         one: Alındı - Kategorize edilecek
         other: Alındı - Kategorize edilecek
-        see_all: Tamamını görüntüle
       independent_report:
         one: Bağımsız rapor
         other: Bağımsız raporlar

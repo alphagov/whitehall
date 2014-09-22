@@ -77,6 +77,7 @@ ko:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: 콘택트 폼
@@ -176,15 +177,15 @@ ko:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: 상세 안내
         other: 상세 안내
-        see_all: 상세 안내 모두 둘러보기
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: 상세 안내 모두 둘러보기
         see_more_like_this:
       document_collection:
         one: 시리즈
@@ -221,7 +222,6 @@ ko:
       imported:
         one: 수입 - 대기
         other: 수입 - 대기
-        see_all: 수입 - 대기 모두 둘러보기
       independent_report:
         one: 독립 레포트
         other: 독립 레포트

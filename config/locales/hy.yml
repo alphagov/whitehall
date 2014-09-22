@@ -4,15 +4,18 @@ hy:
       attachments:
         one: Փաստաթուղթ
         other: Փաստաթղթեր
+      policies:
+        one:
+        other:
       applies_to_nations: Վերաբերվում է
       field_of_operation: Գործունեության ոլորտ
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Հայտարարություն
         other: Հայտարարություններ
@@ -51,15 +54,15 @@ hy:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Մանրամասն ուղեցույց
         other: Մանրամասն ուղեցույցեր
-        see_all: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Տես՝ մեր բոլոր Մանրամասն ուղեցույցեր -ը
         see_more_like_this:
       document_collection:
         one: Մի շարք
@@ -93,10 +96,6 @@ hy:
         one: Ազդեցության գնահատում
         other: Ազդեցության գնահատումներ
         see_all: Տես՝ մեր բոլոր Ազդեցության գնահատումներ -ը
-      imported:
-        one: Ներկրված - սպասման տեսակ
-        other: Ներկրված - սպասման տեսակներ
-        see_all: Տես՝ մեր բոլոր Ներկրված - սպասման տեսակներ -ը
       independent_report:
         one: Անկախ հաշվետվություն
         other: Անկախ հաշվետվություններ
@@ -421,6 +420,7 @@ hy:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Կապի միջոց

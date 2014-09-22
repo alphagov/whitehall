@@ -76,6 +76,7 @@ zh:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: 联系表格
@@ -175,15 +176,15 @@ zh:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: 详细指导
         other: 详细指导
-        see_all: 查阅我们所有的详细指导
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: 查阅我们所有的详细指导
         see_more_like_this:
       document_collection:
         one: 系列
@@ -220,7 +221,6 @@ zh:
       imported:
         one: 导入 - 正在等待的类型
         other: 导入 - 正在等待的类型
-        see_all: 查阅我们所有的导入 - 正在等待的类型
       independent_report:
         one: 独立报告
         other: 独立报告

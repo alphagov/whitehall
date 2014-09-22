@@ -33,7 +33,6 @@ Scenario: Viewing detailed guide publishing history
   When I publish a new edition of the detailed guide "Ban Beards" with a change note "Exempted Santa Claus"
   And I publish a new edition of the detailed guide "Ban Beards" with a change note "Exempted Gimli son of Gloin"
   Then the detailed guide "Ban Beards" should be visible to the public
-  And the change notes should appear in the history for the detailed guide "Ban Beards" in reverse chronological order
 
 Scenario: Viewing a published detailed guide related to other guides
   Given a published detailed guide "Guide A" related to published detailed guides "Guide B" and "Guide C"

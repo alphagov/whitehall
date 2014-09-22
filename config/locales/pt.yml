@@ -4,15 +4,18 @@ pt:
       attachments:
         one: Documento
         other: Documentos
+      policies:
+        one:
+        other:
       applies_to_nations: Aplica-se a
       field_of_operation: Campo de Operação
       from:
       location:
       part_of:
-      policies:
+    type:
+      imported:
         one:
         other:
-    type:
       announcement:
         one: Anúncio
         other: Anúncios
@@ -51,15 +54,15 @@ pt:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: Guia detalhado
         other: Guias detalhados
-        see_all: Veja todos os nossos guias detalhados
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Veja todos os nossos guias detalhados
         see_more_like_this:
       document_collection:
         one: Séries
@@ -93,10 +96,6 @@ pt:
         one: Relatório de Impacto
         other: Relatórios de Impacto
         see_all: Veja todos os nossos relatórios de impacto
-      imported:
-        one: importado - esperando tipo
-        other: importados - esperando tipo
-        see_all: Veja todos os nossos importados - esperando tipo
       independent_report:
         one: Relatório independente
         other: Relatórios independentes
@@ -420,6 +419,7 @@ pt:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Formulário de contato

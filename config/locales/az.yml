@@ -76,6 +76,7 @@ az:
   change_notes:
     page_history:
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Əlaqə vasitəsi
@@ -175,15 +176,15 @@ az:
         see_all:
       detailed_guidance:
         back_to_contents:
+        categories:
+        contents:
+        more:
         one: ətraflı məlumat
         other: ətraflı məlumat
-        see_all: Bax bütün növ
-        contents:
-        published_related_detailed_guides:
         part_of_published_collection:
-        categories:
-        more:
+        published_related_detailed_guides:
         related_mainstream_content:
+        see_all: Bax bütün növ
         see_more_like_this:
       document_collection:
         one: növlər
@@ -220,7 +221,6 @@ az:
       imported:
         one:
         other:
-        see_all:
       independent_report:
         one: Müstəqil məruzə
         other: Müstəqil məruzələr
