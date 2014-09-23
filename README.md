@@ -267,9 +267,14 @@ Run a task to add that key to all other language files:
 bundle exec rake translation:regenerate
 ```
 
-#### Known issues
+#### Pluralised translations
 
-Running the `translation:regenerate` task may alter unrelated keys in non-EN locales, usually around "one, two, few, many" keys.
+For terms that are translatable in both singular and plural forms (e.g. document.type.publication), include "one" and "other"
+keys for the singular and plural translation of the term.
+
+Note: pluralised translation terms should only ever contain these two plural form keys in en.yml, otherwise the code that
+regenerates the other translation locale files will not recognise them as being plural translations and will not generate
+the correct pluralisation keys for the different locales.
 
 ### Updating the locales files
 
