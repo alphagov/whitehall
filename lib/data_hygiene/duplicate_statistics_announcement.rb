@@ -44,7 +44,7 @@ module DataHygiene
     end
 
     def router
-      @router ||= GdsApi::Router.new(Plek.current.find('router-api'))
+      @router ||= GdsApi::Router.new(Plek.find('router-api'))
     end
   end
 end

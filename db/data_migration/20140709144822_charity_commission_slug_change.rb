@@ -1,6 +1,6 @@
 require 'gds_api/router'
 
-router = GdsApi::Router.new(Plek.current.find('router-api'))
+router = GdsApi::Router.new(Plek.find('router-api'))
 
 old_slug = 'the-charity-commission-for-england-and-wales'
 new_slug = 'charity-commission'

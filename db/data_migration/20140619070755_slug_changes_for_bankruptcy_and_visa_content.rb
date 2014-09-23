@@ -1,6 +1,6 @@
 require 'gds_api/router'
 
-router = GdsApi::Router.new(Plek.current.find('router-api'))
+router = GdsApi::Router.new(Plek.find('router-api'))
 
 document_publications_urls = [
   %w(applying-for-a-uk-visa-in-japan apply-for-a-uk-visa-in-japan),
