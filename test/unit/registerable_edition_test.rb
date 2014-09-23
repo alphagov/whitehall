@@ -177,4 +177,28 @@ class RegisterableEditionTest < ActiveSupport::TestCase
 
     assert_equal [], RegisterableEdition.new(build(:statistical_data_set)).need_ids
   end
+
+  test "it creates an attributes hash for the publishing api" do
+    published_detailed_guide = create(:published_detailed_guide)
+    registerable_edition = RegisterableEdition.new(published_detailed_guide)
+
+    expected_attributes_for_publishing_api_hash = {
+      title: registerable_edition.title,
+      base_path: "/#{registerable_edition.slug}",
+      description: registerable_edition.description,
+      format: "placeholder",
+      need_ids: registerable_edition.need_ids,
+      public_updated_at: published_detailed_guide.public_timestamp,
+      publishing_app: "whitehall",
+      rendering_app: "whitehall-frontend",
+      routes: [ { path: "/#{registerable_edition.slug}", type: "exact" }],
+      redirects: [],
+      update_type: registerable_edition.update_type,
+      details: {
+        tags: { topics: registerable_edition.specialist_sectors }
+      }
+    }
+
+    assert_equal expected_attributes_for_publishing_api_hash, registerable_edition.attributes_for_publishing_api
+  end
 end
