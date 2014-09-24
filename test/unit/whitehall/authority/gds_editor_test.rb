@@ -78,9 +78,7 @@ class GDSEditorTest < ActiveSupport::TestCase
 
   test 'cannot publish an edition we submitted' do
     me = gds_editor
-    edition = normal_edition(me)
-    edition.stubs(:latest_version_audit_entry_for).returns(OpenStruct.new(actor: me))
-    refute enforcer_for(me, edition).can?(:publish)
+    refute enforcer_for(me, submitted_edition(me)).can?(:publish)
   end
 
   test 'cannot publish a scheduled edition' do

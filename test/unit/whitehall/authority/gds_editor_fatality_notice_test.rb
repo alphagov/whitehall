@@ -69,9 +69,7 @@ class GDSEditorFatalityNoticeTest < ActiveSupport::TestCase
 
   test 'cannot publish a fatality notice we submitted' do
     me = gds_editor
-    edition = normal_fatality_notice(me)
-    edition.stubs(:latest_version_audit_entry_for).returns(OpenStruct.new(actor: me))
-    refute enforcer_for(me, edition).can?(:publish)
+    refute enforcer_for(me, submitted_fatality_notice(me)).can?(:publish)
   end
 
   test 'can reject a fatality notice' do

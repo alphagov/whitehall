@@ -73,9 +73,7 @@ class GDSEditorWorldwidePriorityTest < ActiveSupport::TestCase
 
   test 'cannot publish a worldwide priority we submitted' do
     me = gds_editor
-    edition = normal_worldwide_priority(me)
-    edition.stubs(:latest_version_audit_entry_for).returns(OpenStruct.new(actor: me))
-    refute enforcer_for(me, edition).can?(:publish)
+    refute enforcer_for(me, submitted_worldwide_priority(me)).can?(:publish)
   end
 
   test 'can reject a worldwide priority' do
