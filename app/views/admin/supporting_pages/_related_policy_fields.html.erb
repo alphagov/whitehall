@@ -4,7 +4,7 @@
   should rarely choose more than one policy).</p>
 
   <%= form.select :related_policy_ids,
-                  options_from_related_policy_options_for_select(related_policy_options, form.object),
+                  options_for_select(taggable_policies_container, edition.related_policy_ids),
                   { include_blank: true },
                   multiple: true,
                   class: "chzn-select",

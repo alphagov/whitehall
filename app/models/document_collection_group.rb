@@ -1,5 +1,5 @@
 class DocumentCollectionGroup < ActiveRecord::Base
-  belongs_to :document_collection
+  belongs_to :document_collection, touch: true
   has_many :memberships, class_name: 'DocumentCollectionGroupMembership',
                          order: 'document_collection_group_memberships.ordering',
                          dependent: :destroy

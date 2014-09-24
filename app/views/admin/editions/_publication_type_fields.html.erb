@@ -7,6 +7,6 @@
         data: {
           placeholder: "Choose publication type...",
           access_limited_by_default_type_ids: form.object.persisted? ? [] : PublicationType.access_limitable.map(&:id),
-          :'format-advice' => format_advice_map(PublicationType).to_json
+          :'format-advice' => PublicationType::FORMAT_ADVICE
         } %>
 </div>

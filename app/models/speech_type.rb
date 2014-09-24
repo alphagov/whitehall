@@ -1,6 +1,16 @@
 class SpeechType
   include ActiveRecordLikeInterface
 
+  FORMAT_ADVICE = {
+    1 => "<p>A verbatim report of exactly what the speaker said (checked against delivery).</p>",
+    2 => "<p>A script of what the speaker was expected to say (check against delivery).</p>",
+    3 => "<p>Incomplete notes about what the speech covered.</p>",
+    4 => "<p>Very significant written statements given to Parliament by a minister.</p>",
+    5 => "<p>Very significant oral statements given to Parliament by a minister.</p>",
+    6 => "<p>Bylined articles written in the name of a minister or official (usually re-published from elsewhere).</p>",
+    1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>"
+  }.to_json.freeze
+
   attr_accessor :id, :singular_name, :plural_name, :explanation, :key, :owner_key_group, :published_externally_key, :location_relevant, :prevalence, :use_key_as_display_key
 
   def self.create(attributes)

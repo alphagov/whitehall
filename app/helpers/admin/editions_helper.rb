@@ -120,41 +120,13 @@ module Admin::EditionsHelper
     edition.edition_organisations.reject { |eo| eo.lead? }[index].try(:organisation_id)
   end
 
-  class EditionFormBuilder < Whitehall::FormBuilder
-    def alternative_format_provider_select(default_organisation)
-      if object.respond_to?(:alternative_format_provider)
-        select_options = @template.options_for_select(
-          organisations_for_edition_organisations_fields.map {|o| ["#{o.name} (#{o.alternative_format_contact_email || "-"})", o.id]},
-          selected: object.alternative_format_provider_id || default_organisation.try(:id),
-          disabled: organisations_for_edition_organisations_fields.reject { |o| o.alternative_format_contact_email.present? }.map(&:id))
-        @template.content_tag(:div, class: 'control-group') do
-          label(:alternative_format_provider_id, "Email address for ordering attached files in an alternative format", required: object.alternative_format_provider_required?) +
-            @template.content_tag(:div, class: 'controls') do
-              select(
-                :alternative_format_provider_id,
-                select_options,
-                { include_blank: true, multiple: false },
-                class: 'chzn-select',
-                data: { placeholder: "Choose which organisation will provide alternative formats..." }
-              ) + @template.content_tag(:p, "If the email address you need isn't here, it should be added to the relevant Department or Agency", class: 'help-block')
-            end
-        end
-      end
-    end
-
-    def organisations_for_edition_organisations_fields
-      @organisations_for_edition_organisations_fields ||= Organisation.with_translations.all
-    end
-  end
-
   def standard_edition_form(edition, &blk)
     initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param)
 
     form_classes = ["edition-form js-edition-form"]
     form_classes << 'js-supports-non-english' if edition.locale_can_be_changed?
 
-    form_for form_url_for_edition(edition), as: :edition, builder: EditionFormBuilder,
-              html: { class: form_classes } do |form|
+    form_for form_url_for_edition(edition), as: :edition, html: { class: form_classes } do |form|
       concat render('locale_fields', form: form, edition: edition)
       concat edition_information(@information) if @information
       concat form.errors
@@ -291,13 +263,6 @@ module Admin::EditionsHelper
       parts << "#{label}: #{value}" if value.present?
     end
     content_tag(:p, parts.join(', ')) if parts.any?
-  end
-
-  def format_advice_map(format_type_class)
-    format_type_class.all.inject({}) do |hash, type|
-      html = govspeak_to_html(t("publishing.format_advice.#{type.genus_key}.#{type.key}.intended_use"))
-      hash.merge(type.id => html)
-    end
   end
 
   def translation_preview_links(edition)

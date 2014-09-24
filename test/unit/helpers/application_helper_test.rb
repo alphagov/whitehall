@@ -26,48 +26,6 @@ class ApplicationHelperTest < ActionView::TestCase
     controller.request
   end
 
-  test "should supply options with IDs and descriptions for the all ministerial appointments" do
-    theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
-    philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
-    philip_hammond_home_secretary_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2010-01-01'), ended_at: Date.parse('2011-01-01'))
-
-    options = role_appointment_options
-
-    assert_equal 3, options.length
-    assert options.include? [philip_hammond_appointment.id, "Philip Hammond, Secretary of State, in Ministry of Defence"]
-    assert options.include? [philip_hammond_home_secretary_appointment.id, "Philip Hammond, as Secretary of State (01 January 2010 to 01 January 2011), in Home Office"]
-    assert options.include? [theresa_may_appointment.id, "Theresa May, Secretary of State, in Home Office"]
-  end
-
-  test "should supply options with IDs and descriptions for all the ministerial roles" do
-    theresa_may_appointment = appoint_minister(forename: "Theresa", surname: "May", role: "Secretary of State", organisation: "Home Office", started_at: Date.parse('2011-01-01'))
-    philip_hammond_appointment = appoint_minister(forename: "Philip", surname: "Hammond", role: "Secretary of State", organisation: "Ministry of Defence", started_at: Date.parse('2011-01-01'))
-    home_secretary = theresa_may_appointment.role
-    defence_secretary = philip_hammond_appointment.role
-
-    options = ministerial_role_options
-
-    assert_equal 2, options.length
-    assert options.include? [defence_secretary.id, "Secretary of State, in Ministry of Defence (Philip Hammond)"]
-    assert options.include? [home_secretary.id, "Secretary of State, in Home Office (Theresa May)"]
-  end
-
-  test "ministerial_appointment_options should not include non-ministerial appointments" do
-    appointment = create(:board_member_role_appointment)
-    assert_equal 0, ministerial_appointment_options.length
-  end
-
-  test "role_appointment_options should all appointments" do
-    organisation = create(:organisation, name: "Org")
-    role = create(:role, organisations: [organisation], name: "Role")
-    person = create(:person, forename: "Joe", surname: "Bloggs")
-    appointment = create(:board_member_role_appointment, role: role, person: person)
-
-    options = role_appointment_options
-    assert_equal 1, options.length
-    assert options.include? [appointment.id, "Joe Bloggs, Role, in Org"]
-  end
-
   test '#link_to_attachment returns nil when attachment is nil' do
     assert_nil link_to_attachment(nil)
   end
@@ -221,27 +179,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert classes.include?("class-2")
   end
 
-  test "#related_policy_options_excluding excludes a set of policies" do
-    topic = build(:topic, name: "Topic")
-    policy = create(:policy, title: "Policy title", topics: [topic])
-    excluded = create(:policy, title: "Excluded", topics: [topic])
-    assert_equal [[policy.id, "Policy title (Topic)"]], related_policy_options_excluding([excluded])
-  end
-
   test "#policies_for_editions_organisations returns all active policies that map to an organisation the edition is in" do
     publication = create(:imported_publication)
     policy = create(:published_policy, organisations: [publication.organisations.first])
     another = create(:published_policy)
     assert_equal [policy], policies_for_editions_organisations(publication)
-  end
-
-  test "generates related policy option as title with topics" do
-    first_topic = build(:topic, name: "First topic")
-    second_topic = build(:topic, name: "Second topic")
-    third_topic = build(:topic, name: "Third topic")
-    policy = create(:policy, title: "Policy title", topics: [first_topic, second_topic, third_topic])
-    options = related_policy_options
-    assert_equal [[policy.id, "Policy title (First topic, Second topic and Third topic)"]], related_policy_options
   end
 
   test "skips asset host for image paths if user signed in and image in uploads" do
@@ -260,16 +202,6 @@ class ApplicationHelperTest < ActionView::TestCase
     view = TestView.new
     view.stubs(:user_signed_in?).returns(false)
     assert_equal 'assets.example.com/government/uploads/path/to/my/image', view.path_to_image('/government/uploads/path/to/my/image')
-  end
-
-  test "#text_for_role_appointment returns the role name for current appointments" do
-    ra = build(:role_appointment, role: build(:role, name: "my role"))
-    assert_equal "my role", text_for_role_appointment(ra)
-  end
-
-  test "#text_for_role_appointment includes the time served for past appointments" do
-    ra = build(:role_appointment, role: build(:role, name: "my role"), ended_at: 1.day.ago)
-    assert_equal "as my role (10 November 2011 to 10 November 2011)", text_for_role_appointment(ra)
   end
 
   test "correctly identifies external links" do

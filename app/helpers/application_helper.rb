@@ -46,43 +46,7 @@ module ApplicationHelper
     if appointment.current?
       appointment.role.name
     else
-      "as #{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
-    end
-  end
-
-  def ministerial_appointment_options
-    role_appointment_options(RoleAppointment.for_ministerial_roles)
-  end
-
-  def role_appointment_options(filter = RoleAppointment)
-    filter.includes(:person).with_translations_for(:organisations).with_translations_for(:role).alphabetical_by_person.map do |appointment|
-      [appointment.id, "#{appointment.person.name}, #{text_for_role_appointment(appointment)}, in #{appointment.organisations.map(&:name).to_sentence}"]
-    end
-  end
-
-  def statistical_data_set_options
-    StatisticalDataSet.with_translations.latest_edition.map do |data_set|
-      [data_set.document_id, data_set.title]
-    end
-  end
-
-  def ministerial_role_options
-    MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
-      [role.id, "#{role.name}, in #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})"]
-    end
-  end
-
-  def related_policy_options
-    Policy.latest_edition.with_translations.includes(:topics).active.map do |policy|
-      parts = [policy.title]
-      parts << "(#{policy.topics.map(&:name).to_sentence})" if policy.topics.any?
-      [policy.id, parts.join(" ")]
-    end
-  end
-
-  def related_policy_options_excluding(policies)
-    related_policy_options.select do |po|
-      !policies.map(&:id).include?(po.first)
+      "#{appointment.role.name} (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
     end
   end
 

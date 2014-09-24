@@ -21,7 +21,7 @@
   <% end %>
 
 
-  <%= form_for [:admin, @edition], as: :edition, builder: Admin::EditionsHelper::EditionFormBuilder do |form| %>
+  <%= form_for [:admin, @edition], as: :edition do |form| %>
 
     <%= form.text_field :title %>
     <div class="title-length-info">Title text should be 65 characters or fewer and the slug will be truncated past 150. <span class="count"></span></div>
@@ -32,7 +32,7 @@
     <%= form.text_area :body, class: "previewable" %>
 
     <%= form.label :lead_organisation_ids, 'Lead Organisations:' %>
-    <%= form.select :lead_organisation_ids, options_from_collection_for_select(Organisation.scoped.includes(:translations), 'id', 'name', @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
+    <%= form.select :lead_organisation_ids, options_for_select(taggable_organisations_container, @edition.lead_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose organisations which produced this document..." } %>
 
     <%= render partial: 'required_fields_for_imported_editions', locals: { form: form, edition: form.object } %>
 
@@ -83,9 +83,7 @@
       <div class="row-fluid">
         <%= label_tag 'edition[related_policy_ids][]', 'Additional policies' %>
         <%= select_tag 'edition[related_policy_ids][]',
-          options_from_collection_for_select(
-            related_policy_options_excluding(policies_for_editions_organisations(@edition)),
-            :first, :last, @edition.related_policy_ids),
+          options_for_select(taggable_policies_container, (@edition.related_policy_ids - policies_for_editions_organisations(@edition).map(&:id))),
           include_blank: true,
           multiple: true,
           class: 'chzn-select',

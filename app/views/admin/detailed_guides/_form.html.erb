@@ -1,3 +1,7 @@
+<div class="format-advice">
+  <p><strong>Use this format for:</strong> Guidance for professional or specialist users so that they can complete a defined task.</p>
+</div>
+
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
 
@@ -18,8 +22,10 @@
 
       <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
 
-      <%= form.label :related_detailed_guide_ids, 'Related guides' %>
-      <%= form.select :related_detailed_guide_ids, options_from_collection_for_select(DetailedGuide.alphabetical.latest_edition.active, :id, :title, edition.related_detailed_guide_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
+      <% cache_if edition.related_detailed_guide_ids.empty?, taggable_detailed_guides_cache_digest do %>
+        <%= form.label :related_detailed_guide_ids, 'Related guides' %>
+        <%= form.select :related_detailed_guide_ids, options_for_select(taggable_detailed_guides_container, edition.related_detailed_guide_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose related detailed guides..."} %>
+      <% end %>
     </fieldset>
 
     <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>

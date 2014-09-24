@@ -57,7 +57,3 @@ end
 Then /^I can choose "([^"]*)" from an additional list of policies$/ do |policy_name|
   select policy_name, from: "Additional policies"
 end
-
-Then /^I can't select "([^"]*)" from the additional list$/ do |policy_name|
-  assert page.has_no_css?('option', text: policy_name)
-end
