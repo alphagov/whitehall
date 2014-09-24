@@ -89,7 +89,7 @@ module Whitehall::Authority::Rules
     end
 
     def actor_is_not_submitter?
-      subject.latest_version_audit_entry_for("submitted").try(:actor) != actor
+      subject.submitted_by != actor
     end
 
     def actor_is_not_scheduler?
