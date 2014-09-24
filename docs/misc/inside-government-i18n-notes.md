@@ -102,6 +102,7 @@ affected how we approached the story to do with showing all News Articles, for e
 * Concatenating translated strings where the translation is missing can cause you problems, as demonstrated in [Story 44102803](https://www.pivotaltracker.com/projects/367813#!/stories/44102803). The fixes for that story were in [43d57c](https://github.com/alphagov/whitehall/commit/43d57c), [a74c94](https://github.com/alphagov/whitehall/commit/a74c94) and [c527d3](https://github.com/alphagov/whitehall/commit/c527d3).
 * We had to change the database to use UTF-8 by default. Apparently it was in a mixed state of Latin-1 and UTF-8. We believe this is now fixed for everything, for all time.
     * [PR210](https://github.com/alphagov/whitehall/pull/210)
+* Terms that are translated with pluralisation keys (e.g. :one, :many, :few) should only ever contain plural-form keys, otherwise the code that exports the locale files does not recognise them as pluralised terms and does not generate the correct plural form keys. See https://github.com/alphagov/whitehall/pull/1733 for more details
 
 ## Improvements
 * Requests for content in a language that we don’t have a translation for could return a 404 with a list of available translations.

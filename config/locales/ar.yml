@@ -8,14 +8,18 @@ ar:
         few:
         many:
         other: وثائق
+      policies:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       applies_to_nations: ينطبق على
       field_of_operation: مجال العمل
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         zero:
@@ -24,7 +28,6 @@ ar:
         few:
         many:
         other: إعلانات
-        see_all: اطلع على كافة إعلانات
       authored_article:
         zero:
         one: مقال مرخص
@@ -32,7 +35,6 @@ ar:
         few:
         many:
         other: مقالات مرخصة
-        see_all: اطلع على كافة مقالات مرخصة
       case_study:
         zero:
         one: دراسة حالة
@@ -40,7 +42,6 @@ ar:
         few:
         many:
         other: دراسات حالة
-        see_all: اطلع على كافة دراسات حالة
       closed_consultation:
         zero:
         one: مشاورة منتهية
@@ -48,7 +49,6 @@ ar:
         few:
         many:
         other: مشاورات منتهية
-        see_all: اطلع على كافة مشاورات منتهية
       consultation:
         zero:
         one: مشاورة
@@ -56,7 +56,6 @@ ar:
         few:
         many:
         other: مشاورات
-        see_all: اطلع على كافة مشاورات
       consultation_outcome:
         zero:
         one: نتيجة المشاورة
@@ -64,7 +63,6 @@ ar:
         few:
         many:
         other: نتائج المشاورات
-        see_all: اطلع على كافة نتائج المشاورات
       corporate_report:
         zero:
         one: تقرير الوزارة
@@ -72,7 +70,6 @@ ar:
         few:
         many:
         other: تقارير الوزارة
-        see_all: اطلع على كافة تقارير الوزارة
       correspondence:
         zero:
         one: مراسلة
@@ -80,27 +77,20 @@ ar:
         few:
         many:
         other: مراسلات
-        see_all: اطلع على كافة مراسلات
       decision:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
-        see_all:
       detailed_guidance:
         zero:
-        back_to_contents:
         one: توجيه مفصل
         two:
         few:
         many:
         other: توجيهات مفصل
-        see_all: اطلع على كافة توجيهات مفصل
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         zero:
         one: سلسة
@@ -108,7 +98,6 @@ ar:
         few:
         many:
         other:
-        see_all:
       draft_text:
         zero:
         one: مسودة النص
@@ -116,7 +105,6 @@ ar:
         few:
         many:
         other: مسودة النصوص
-        see_all: اطلع على كافة مسودة النصوص
       fatality_notice:
         zero:
         one: إشعار وفاة
@@ -124,7 +112,6 @@ ar:
         few:
         many:
         other: إشعارات وفاة
-        see_all: اطلع على كافة إشعارات وفاة
       foi_release:
         zero:
         one: نشرة وفق حرية الحصول على المعلومات
@@ -132,7 +119,6 @@ ar:
         few:
         many:
         other: نشرات وفق حرية الحصول على المعلومات
-        see_all: اطلع على كافة نشرات وفق حرية الحصول على المعلومات
       form:
         zero:
         one: نموذج
@@ -140,7 +126,6 @@ ar:
         few:
         many:
         other: نماذج
-        see_all: اطلع على كافة نماذج
       government_response:
         zero:
         one: رد من الحكومة
@@ -148,7 +133,6 @@ ar:
         few:
         many:
         other: ردود من الحكومة
-        see_all: اطلع على كافة ردود من الحكومة
       guidance:
         zero:
         one: توجيه
@@ -156,7 +140,6 @@ ar:
         few:
         many:
         other: توجيهات
-        see_all: اطلع على كافة توجيهات
       impact_assessment:
         zero:
         one: تقييم التأثير
@@ -164,7 +147,6 @@ ar:
         few:
         many:
         other: تقييمات التأثير
-        see_all: اطلع على كافة تقييمات التأثير
       imported:
         zero:
         one: استلم - بانتظار الطباعة
@@ -172,7 +154,6 @@ ar:
         few:
         many:
         other: استلم - بانتظار الطباعة
-        see_all: اطلع على كافة استلم - بانتظار الطباعة
       independent_report:
         zero:
         one: تقرير مستقل
@@ -180,7 +161,6 @@ ar:
         few:
         many:
         other: تقارير مستقلة
-        see_all: اطلع على كافة تقارير مستقلة
       international_treaty:
         zero:
         one:
@@ -188,7 +168,6 @@ ar:
         few:
         many:
         other:
-        see_all:
       map:
         zero:
         one: خريطة
@@ -196,7 +175,6 @@ ar:
         few:
         many:
         other: خرائط
-        see_all: اطلع على كافة خرائط
       national_statistics:
         zero:
         one: إحصائية - إحصائية محلية
@@ -204,7 +182,6 @@ ar:
         few:
         many:
         other: إحصائيات - إحصائيات محلية
-        see_all: اطلع على كافة إحصائيات - إحصائيات محلية
       news_article:
         zero:
         one: مقال إخباري
@@ -212,7 +189,6 @@ ar:
         few:
         many:
         other: مقالات إخبارية
-        see_all: اطلع على كافة مقالات إخبارية
       news_story:
         zero:
         one: قصة إخبارية
@@ -220,11 +196,13 @@ ar:
         few:
         many:
         other: قصص إخبارية
-        see_all: اطلع على كافة قصص إخبارية
       notice:
+        zero:
         one:
+        two:
+        few:
+        many:
         other:
-        see_all:
       open_consultation:
         zero:
         one: مشاورة جارية
@@ -232,7 +210,6 @@ ar:
         few:
         many:
         other: مشاورات جارية
-        see_all: اطلع على كافة مشاورات جارية
       oral_statement:
         zero:
         one: تصريح شفهي للبرلمان
@@ -240,7 +217,6 @@ ar:
         few:
         many:
         other: تصريحات شفهية للبرلمان
-        see_all: اطلع على كافة تصريحات شفهية للبرلمان
       policy:
         zero:
         one: سياسة
@@ -248,7 +224,6 @@ ar:
         few:
         many:
         other: سياسات
-        see_all: اطلع على كافة سياسات
       policy_paper:
         zero:
         one: ورقة عن السياسة
@@ -256,7 +231,6 @@ ar:
         few:
         many:
         other: ورقة عن السياسات
-        see_all: اطلع على كافة ورقة عن السياسات
       press_release:
         zero:
         one: بيان صحفي
@@ -264,7 +238,6 @@ ar:
         few:
         many:
         other: بيانات صحفية
-        see_all: اطلع على كافة بيانات صحفية
       promotional:
         zero:
         one: مادة ترويجية
@@ -272,7 +245,6 @@ ar:
         few:
         many:
         other: مواد ترويجية
-        see_all: اطلع على كافة مواد ترويجية
       publication:
         zero:
         one: مطبوعة
@@ -280,7 +252,6 @@ ar:
         few:
         many:
         other: مطبوعات
-        see_all: اطلع على كافة مطبوعات
       regulation:
         zero:
         one:
@@ -288,7 +259,6 @@ ar:
         few:
         many:
         other:
-        see_all:
       research:
         zero:
         one: بحث وتحليل
@@ -296,7 +266,6 @@ ar:
         few:
         many:
         other: بحوث وتحليلات
-        see_all: اطلع على كافة بحوث وتحليلات
       speaking_notes:
         zero:
         one: مذكرات كلامية
@@ -304,7 +273,6 @@ ar:
         few:
         many:
         other: مذكرات كلامية
-        see_all: اطلع على كافة مذكرات كلامية
       speech:
         zero:
         one: كلمة
@@ -312,7 +280,6 @@ ar:
         few:
         many:
         other: كلمات
-        see_all: اطلع على كافة كلمات
       statement_to_parliament:
         zero:
         one: تصريح للبرلمان
@@ -320,7 +287,6 @@ ar:
         few:
         many:
         other: تصريحات للبرلمان
-        see_all: اطلع على كافة تصريحات للبرلمان
       statistical_data_set:
         zero:
         one: مجموعة بيانات إحصائية
@@ -328,7 +294,6 @@ ar:
         few:
         many:
         other: مجموعات بيانات إحصائية
-        see_all: اطلع على كافة مجموعات بيانات إحصائية
       statistics:
         zero:
         one: إحصائية
@@ -336,7 +301,6 @@ ar:
         few:
         many:
         other: إحصائيات
-        see_all: اطلع على كافة إحصائيات
       statutory_guidance:
         zero:
         one:
@@ -344,7 +308,6 @@ ar:
         few:
         many:
         other:
-        see_all:
       transcript:
         zero:
         one: نص منسوخ
@@ -352,7 +315,6 @@ ar:
         few:
         many:
         other: نصوص منسوخة
-        see_all: اطلع على كافة نصوص منسوخة
       transparency:
         zero:
         one: بيانات تتعلق بالشفافية
@@ -360,7 +322,6 @@ ar:
         few:
         many:
         other: بيانات تتعلق بالشفافية
-        see_all: اطلع على كافة بيانات تتعلق بالشفافية
       worldwide_priority:
         zero:
         one: أولوية في الخارج
@@ -368,7 +329,6 @@ ar:
         few:
         many:
         other: أولويات في الخارج
-        see_all: اطلع على كافة أولويات في الخارج
       written_statement:
         zero:
         one: تصريح خطي
@@ -376,7 +336,6 @@ ar:
         few:
         many:
         other: تصريحات خطية
-        see_all: اطلع على كافة تصريحات خطية
     contents:
     footer_meta:
       full_page_history:
@@ -697,6 +656,15 @@ ar:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: باستطاعتك استخدام الفلتر لعرض &nbsp; فقط النتائج التي تتطابق مع &nbsp;
       اهتماماتك
@@ -734,8 +702,51 @@ ar:
     headings:
       detail: تفاصيل
   read_more: اقرأ المزيد
-  shared:
-    see_all: اطلع على كافة %{type}
+  see_all:
+    announcement: اطلع على كافة إعلانات
+    authored_article: اطلع على كافة مقالات مرخصة
+    case_study: اطلع على كافة دراسات حالة
+    closed_consultation: اطلع على كافة مشاورات منتهية
+    consultation: اطلع على كافة مشاورات
+    consultation_outcome: اطلع على كافة نتائج المشاورات
+    corporate_report: اطلع على كافة تقارير الوزارة
+    correspondence: اطلع على كافة مراسلات
+    decision:
+    detailed_guidance: اطلع على كافة توجيهات مفصل
+    document_collection:
+    draft_text: اطلع على كافة مسودة النصوص
+    fatality_notice: اطلع على كافة إشعارات وفاة
+    foi_release: اطلع على كافة نشرات وفق حرية الحصول على المعلومات
+    form: اطلع على كافة نماذج
+    government_response: اطلع على كافة ردود من الحكومة
+    guidance: اطلع على كافة توجيهات
+    impact_assessment: اطلع على كافة تقييمات التأثير
+    imported: اطلع على كافة استلم - بانتظار الطباعة
+    international_treaty:
+    map: اطلع على كافة خرائط
+    national_statistics: اطلع على كافة إحصائيات - إحصائيات محلية
+    news_article: اطلع على كافة مقالات إخبارية
+    news_story: اطلع على كافة قصص إخبارية
+    notice:
+    open_consultation: اطلع على كافة مشاورات جارية
+    oral_statement: اطلع على كافة تصريحات شفهية للبرلمان
+    policy: اطلع على كافة سياسات
+    policy_paper: اطلع على كافة ورقة عن السياسات
+    press_release: اطلع على كافة بيانات صحفية
+    promotional: اطلع على كافة مواد ترويجية
+    publication: اطلع على كافة مطبوعات
+    regulation:
+    research: اطلع على كافة بحوث وتحليلات
+    speaking_notes: اطلع على كافة مذكرات كلامية
+    speech: اطلع على كافة كلمات
+    statement_to_parliament: اطلع على كافة تصريحات للبرلمان
+    statistical_data_set: اطلع على كافة مجموعات بيانات إحصائية
+    statistics: اطلع على كافة إحصائيات
+    statutory_guidance:
+    transcript: اطلع على كافة نصوص منسوخة
+    transparency: اطلع على كافة بيانات تتعلق بالشفافية
+    worldwide_priority: اطلع على كافة أولويات في الخارج
+    written_statement: اطلع على كافة تصريحات خطية
   social_media:
     follow_us:
   support:

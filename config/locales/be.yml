@@ -6,289 +6,242 @@ be:
         few:
         many:
         other: Дакументы
+      policies:
+        one:
+        few:
+        many:
+        other:
       applies_to_nations: У адносінах да
       field_of_operation: Сфера дзейнасці
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Аб'ява
         few:
         many:
         other: Аб'явы
-        see_all: Паглядзець усе Аб'явы
       authored_article:
         one: Аўтарскі артыкул
         few:
         many:
         other: Аўтарскія артыкулы
-        see_all: Паглядзець усе Аўтарскія артыкулы
       case_study:
         one: Тэматычнае даследаванне
         few:
         many:
         other: Тэматычныя даследаванні
-        see_all: Паглядзець усе Тэматычныя даследаванні
       closed_consultation:
         one: Закрытая кансультацыя
         few:
         many:
         other: Закрытыя кансультацыі
-        see_all: Паглядзець усе Закрытыя кансультацыі
       consultation:
         one: Кансультацыя
         few:
         many:
         other: Кансультацыі
-        see_all: Паглядзець усе Кансультацыі
       consultation_outcome:
         one: Вынік кансультацыі
         few:
         many:
         other: Вынікі кансультацыі
-        see_all: Паглядзець усе Вынікі кансультацыі
       corporate_report:
         one: Карпаратыўная справаздача
         few:
         many:
         other: Карпаратыўныя справаздачы
-        see_all: Паглядзець усе Карпаратыўныя справаздачы
       correspondence:
         one: Перапіска
         few:
         many:
         other: Перапіска
-        see_all: Паглядзець усе Перапіска
       decision:
         one:
+        few:
+        many:
         other:
-        see_all:
       detailed_guidance:
-        back_to_contents:
         one: Падрабязнае кіраўніцтва
         few:
         many:
         other: Падрабязнае кіраўніцтва
-        see_all: Паглядзець усе Падрабязнае кіраўніцтва
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Серыя
         few:
         many:
         other:
-        see_all:
       draft_text:
         one: Чарнавік
         few:
         many:
         other: Чарнавікі
-        see_all: Паглядзець усе Чарнавікі
       fatality_notice:
         one: Паведамленне
         few:
         many:
         other: Паведамленні
-        see_all: Паглядзець усе Паведамленні
       foi_release:
         one: Рэліз у межах Закона аб свабодзе інфармацыі
         few:
         many:
         other: Рэлізы ў межах Закона аб свабодзе інфармацыі
-        see_all: Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі
       form:
         one: Форма
         few:
         many:
         other: Формы
-        see_all: Паглядзець усе Формы
       government_response:
         one: Адказ ўрада
         few:
         many:
         other: Адказы ўрада
-        see_all: Паглядзець усе Адказы ўрада
       guidance:
         one: Кіраўніцтва
         few:
         many:
         other: Кіраўніцтва
-        see_all: Паглядзець усе Кіраўніцтва
       impact_assessment:
         one: Ацэнка ўплыву
         few:
         many:
         other: Ацэнкі ўплыву
-        see_all: Паглядзець усе Ацэнкі ўплыву
       imported:
         one: імпартавана - чаканне тыпу
         few:
         many:
         other: імпартавана - чаканне тыпу
-        see_all: Паглядзець усе імпартавана - чаканне тыпу
       independent_report:
         one: Незалежная справаздача
         few:
         many:
         other: Незалежныя справаздачы
-        see_all: Паглядзець усе Незалежныя справаздачы
       international_treaty:
         one:
         few:
         many:
         other:
-        see_all:
       map:
         one: Карта
         few:
         many:
         other: Карты
-        see_all: Паглядзець усе Карты
       national_statistics:
         one: Статыстыка - нацыянальная статыстыка
         few:
         many:
         other: Статыстыка - нацыянальная статыстыка
-        see_all: Паглядзець усе Статыстыка - нацыянальная статыстыка
       news_article:
         one: Артыкул
         few:
         many:
         other: Артыкулы
-        see_all: Паглядзець усе Артыкулы
       news_story:
         one: Навіны
         few:
         many:
         other: Навіны
-        see_all: Паглядзець усе Навіны
       notice:
         one:
+        few:
+        many:
         other:
-        see_all:
       open_consultation:
         one: Адкрытая кансультацыя
         few:
         many:
         other: Адкрытыя кансультацыі
-        see_all: Паглядзець усе Адкрытыя кансультацыі
       oral_statement:
         one: Вусны даклад у парламенце
         few:
         many:
         other: Вусныя даклады ў парламенце
-        see_all: Паглядзець усе Вусныя даклады ў парламенце
       policy:
         one: Напрамак дзейнасці
         few:
         many:
         other: Напрамкі дзейнасці
-        see_all: Паглядзець усе Напрамкі дзейнасці
       policy_paper:
         one: Праграмны дакумент
         few:
         many:
         other: Праграмныя дакументы
-        see_all: Паглядзець усе Праграмныя дакументы
       press_release:
         one: Прэс-рэліз
         few:
         many:
         other: Прэс-рэлізы
-        see_all: Паглядзець усе Прэс-рэлізы
       promotional:
         one: Рэкламны матэрыял
         few:
         many:
         other: Рэкламныя матэрыялы
-        see_all: Паглядзець усе Рэкламныя матэрыялы
       publication:
         one: Публікацыя
         few:
         many:
         other: Публікацыі
-        see_all: Паглядзець усе Публікацыі
       regulation:
         one:
         few:
         many:
         other:
-        see_all:
       research:
         one: Даследаванні і аналіз
         few:
         many:
         other: Даследаванні і аналіз
-        see_all: Паглядзець усе Даследаванні і аналіз
       speaking_notes:
         one: Нататкі да выступу
         few:
         many:
         other: Нататкі да выступу
-        see_all: Паглядзець усе Нататкі да выступу
       speech:
         one: Выступ
         few:
         many:
         other: Выступы
-        see_all: Паглядзець усе Выступы
       statement_to_parliament:
         one: Заява ў парламенце
         few:
         many:
         other: Заявы ў парламенце
-        see_all: Паглядзець усе Заявы ў парламенце
       statistical_data_set:
         one: Статыстычныя дадзеныя
         few:
         many:
         other: Статыстычныя дадзеныя
-        see_all: Паглядзець усе Статыстычныя дадзеныя
       statistics:
         one: Статыстыка
         few:
         many:
         other: Статыстыка
-        see_all: Паглядзець усе Статыстыка
       statutory_guidance:
         one:
         few:
         many:
         other:
-        see_all:
       transcript:
         one: Поўны тэкст
         few:
         many:
         other: Поўны тэкст
-        see_all: Паглядзець усе Поўны тэкст
       transparency:
         one: Адкрытыя дадзеныя
         few:
         many:
         other: Адкрытыя дадзеныя
-        see_all: Паглядзець усе Адкрытыя дадзеныя
       worldwide_priority:
         one: Сусветны прыярытэт
         few:
         many:
         other: Сусветныя прыярытэты
-        see_all: Паглядзець усе Сусветныя прыярытэты
       written_statement:
         one: Пісьмовая заява ў парламенце
         few:
         many:
         other: Пісьмовыя заявы ў парламенце
-        see_all: Паглядзець усе Пісьмовыя заявы ў парламенце
     contents:
     footer_meta:
       full_page_history:
@@ -573,6 +526,15 @@ be:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Вы можаце выкарыстоўваць фільтры, каб пабачыць толькі тыя вынікі,
       якія вас цікавяць.
@@ -611,8 +573,51 @@ be:
     headings:
       detail: Падрабязней
   read_more: Чытаць Падрабязней
-  shared:
-    see_all: Паглядзець усе %{type}
+  see_all:
+    announcement: Паглядзець усе Аб'явы
+    authored_article: Паглядзець усе Аўтарскія артыкулы
+    case_study: Паглядзець усе Тэматычныя даследаванні
+    closed_consultation: Паглядзець усе Закрытыя кансультацыі
+    consultation: Паглядзець усе Кансультацыі
+    consultation_outcome: Паглядзець усе Вынікі кансультацыі
+    corporate_report: Паглядзець усе Карпаратыўныя справаздачы
+    correspondence: Паглядзець усе Перапіска
+    decision: Паглядзець усе Падрабязнае кіраўніцтва
+    detailed_guidance:
+    document_collection: Паглядзець усе Чарнавікі
+    draft_text:
+    fatality_notice: Паглядзець усе Паведамленні
+    foi_release: Паглядзець усе Рэлізы ў межах Закона аб свабодзе інфармацыі
+    form: Паглядзець усе Формы
+    government_response: Паглядзець усе Адказы ўрада
+    guidance: Паглядзець усе Кіраўніцтва
+    impact_assessment: Паглядзець усе Ацэнкі ўплыву
+    imported: Паглядзець усе імпартавана - чаканне тыпу
+    international_treaty: Паглядзець усе Карты
+    map:
+    national_statistics: Паглядзець усе Статыстыка - нацыянальная статыстыка
+    news_article: Паглядзець усе Артыкулы
+    news_story: Паглядзець усе Навіны
+    notice: Паглядзець усе Адкрытыя кансультацыі
+    open_consultation:
+    oral_statement: Паглядзець усе Вусныя даклады ў парламенце
+    policy: Паглядзець усе Напрамкі дзейнасці
+    policy_paper: Паглядзець усе Праграмныя дакументы
+    press_release: Паглядзець усе Прэс-рэлізы
+    promotional: Паглядзець усе Рэкламныя матэрыялы
+    publication: Паглядзець усе Публікацыі
+    regulation: Паглядзець усе Даследаванні і аналіз
+    research:
+    speaking_notes: Паглядзець усе Нататкі да выступу
+    speech: Паглядзець усе Выступы
+    statement_to_parliament: Паглядзець усе Заявы ў парламенце
+    statistical_data_set: Паглядзець усе Статыстычныя дадзеныя
+    statistics: Паглядзець усе Статыстыка
+    statutory_guidance: Паглядзець усе Поўны тэкст
+    transcript:
+    transparency: Паглядзець усе Адкрытыя дадзеныя
+    worldwide_priority: Паглядзець усе Сусветныя прыярытэты
+    written_statement: Паглядзець усе Пісьмовыя заявы ў парламенце
   social_media:
     follow_us:
   support:

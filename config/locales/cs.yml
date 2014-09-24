@@ -5,246 +5,196 @@ cs:
         one: Dokument
         few:
         other: Dokumenty
+      policies:
+        one:
+        few:
+        other:
       applies_to_nations: Týká se
       field_of_operation: Oblast působnosti
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     type:
       announcement:
         one: Oznámení
         few:
         other: Oznámení
-        see_all: Podívejte se na
       authored_article:
         one: Autorský článek
         few:
         other: Autorské články
-        see_all: Podívejte se na
       case_study:
         one: Případová studie
         few:
         other: Případové studie
-        see_all: Podívejte se na
       closed_consultation:
         one: Uzavřená konzultace
         few:
         other: Uzavřené konzultace
-        see_all: Podívejte se na
       consultation:
         one: Konzultace
         few:
         other: Konzultace
-        see_all: Podívejte se na
       consultation_outcome:
         one: Výsledek konzultací
         few:
         other: Výsledky konzultací
-        see_all: Podívejte se na
       corporate_report:
         one: Korporátní zpráva
         few:
         other: Korporátní zprávy
-        see_all: Podívejte se na
       correspondence:
         one: Korespondence
         few:
         other: Korespondence
-        see_all: Podívejte se na
       decision:
         one:
+        few:
         other:
-        see_all:
       detailed_guidance:
-        back_to_contents:
         one: Podrobný návod
         few:
         other: Podrobný návod
-        see_all: Podívejte se na
-        contents:
-        published_related_detailed_guides:
-        part_of_published_collection:
-        categories:
-        more:
-        related_mainstream_content:
-        see_more_like_this:
       document_collection:
         one: Edice
         few:
         other:
-        see_all:
       draft_text:
         one: Koncept
         few:
         other: Koncepty
-        see_all: Podívejte se na
       fatality_notice:
         one: Hlášení závad
         few:
         other: Hlášení závad
-        see_all: Podívejte se na
       foi_release:
         one: Zpráva vydaná na základě Zákona o svobodném přístupu k informacím
         few:
         other: Zprávy vydané za základě Zákona o svobodném přístupu k informacím
-        see_all: Podívejte se na
       form:
         one: Formulář
         few:
         other: Formuláře
-        see_all: Podívejte se na
       government_response:
         one: Odpověď vlády
         few:
         other: Odpovědi vlády
-        see_all: Podívejte se na
       guidance:
         one: Návod
         few:
         other: Návody
-        see_all: Podívejte se na
       impact_assessment:
         one: Vyhodnocení dopadu
         few:
         other: Vyhodnocení dopadů
-        see_all: Podívejte se na
       imported:
         one: importováno - očekává vyřízení
         few:
         other: importováno - očekává vyřízení
-        see_all: Podívejte se na
       independent_report:
         one: Nezávislá zpráva
         few:
         other: Nezávislé zprávy
-        see_all: Podívejte se na
       international_treaty:
         one:
         few:
         other:
-        see_all:
       map:
         one: Mapa
         few:
         other: Mapy
-        see_all: Podívejte se na
       national_statistics:
         one: Statistiky - národní statistiky
         few:
         other: Statistiky - národní statistiky
-        see_all: Podívejte se na
       news_article:
         one: Nový článek
         few:
         other: Nové články
-        see_all: Podívejte se na
       news_story:
         one: Zpráva
         few:
         other: Zprávy
-        see_all: Podívejte se na
       notice:
         one:
+        few:
         other:
-        see_all:
       open_consultation:
         one: Otevřená konzultace
         few:
         other: Otevřené konzultace
-        see_all: Podívejte se na
       oral_statement:
         one: Vystoupení v  parlamentu
         few:
         other: Vystoupení v parlamentu
-        see_all: Podívejte se na
       policy:
         one: Politika
         few:
         other: Politiky
-        see_all: Podívejte se na
       policy_paper:
         one: Dokument
         few:
         other: Dokumenty
-        see_all: Podívejte se na
       press_release:
         one: Tisková zpráva
         few:
         other: Tiskové zprávy
-        see_all: Podívejte se na
       promotional:
         one: Propagační materiál
         few:
         other: Propagační materiály
-        see_all: Podívejte se na
       publication:
         one: Publikace
         few:
         other: Publikace
-        see_all: Podívejte se na
       regulation:
         one:
         few:
         other:
-        see_all:
       research:
         one: Výzkum a analýza
         few:
         other: Výzkumy a analýzy
-        see_all: Podívejte se na
       speaking_notes:
         one: Poznámky
         few:
         other: Poznámky
-        see_all: Podívejte se na
       speech:
         one: Proslov
         few:
         other: Proslovy
-        see_all: Podívejte se na
       statement_to_parliament:
         one: Prohlášení v parlamentu
         few:
         other: Prohlášení v parlamentu
-        see_all: Podívejte se na
       statistical_data_set:
         one: Statistická data
         few:
         other: Statistická data
-        see_all: Podívejte se na
       statistics:
         one: Statistika
         few:
         other: Statistiky
-        see_all: Podívejte se na
       statutory_guidance:
         one:
         few:
         other:
-        see_all:
       transcript:
         one: Přepis
         few:
         other: Přepisy
-        see_all: Podívejte se na
       transparency:
         one: Transparenost
         few:
         other: Transparentnost
-        see_all: Podívejte se na
       worldwide_priority:
         one: Světová priorita
         few:
         other: Světové priority
-        see_all: Podívejte se na
       written_statement:
         one: Písemná prohlášení do parlamentu
         few:
         other: Písemná prohlášení do parlamentu
-        see_all: Podívejte se na
     contents:
     footer_meta:
       full_page_history:
@@ -513,6 +463,15 @@ cs:
     formats:
       default: '%d %B %Y'
       long_ordinal: '%e %B %Y'
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
   document_filters:
     description: Tyto filtry Vám ukáží pouze výstupy, které se shodují s vaším zadáním.
     no_results:
@@ -549,8 +508,51 @@ cs:
     headings:
       detail: Více
   read_more: Více
-  shared:
-    see_all: Podívejte se na
+  see_all:
+    announcement: Podívejte se na
+    authored_article: Podívejte se na
+    case_study: Podívejte se na
+    closed_consultation: Podívejte se na
+    consultation: Podívejte se na
+    consultation_outcome: Podívejte se na
+    corporate_report: Podívejte se na
+    correspondence: Podívejte se na
+    decision:
+    detailed_guidance: Podívejte se na
+    document_collection:
+    draft_text: Podívejte se na
+    fatality_notice: Podívejte se na
+    foi_release: Podívejte se na
+    form: Podívejte se na
+    government_response: Podívejte se na
+    guidance: Podívejte se na
+    impact_assessment: Podívejte se na
+    imported: Podívejte se na
+    international_treaty:
+    map: Podívejte se na
+    national_statistics: Podívejte se na
+    news_article: Podívejte se na
+    news_story: Podívejte se na
+    notice:
+    open_consultation: Podívejte se na
+    oral_statement: Podívejte se na
+    policy: Podívejte se na
+    policy_paper: Podívejte se na
+    press_release: Podívejte se na
+    promotional: Podívejte se na
+    publication: Podívejte se na
+    regulation:
+    research: Podívejte se na
+    speaking_notes: Podívejte se na
+    speech: Podívejte se na
+    statement_to_parliament: Podívejte se na
+    statistical_data_set: Podívejte se na
+    statistics: Podívejte se na
+    statutory_guidance:
+    transcript: Podívejte se na
+    transparency: Podívejte se na
+    worldwide_priority: Podívejte se na
+    written_statement: Podívejte se na
   social_media:
     follow_us:
   support:
