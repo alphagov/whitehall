@@ -55,7 +55,13 @@ FactoryGirl.define do
       first_published_at { 1.year.ago }
     end
     trait(:draft) { state "draft" }
-    trait(:submitted) { state "submitted" }
+    trait(:submitted) do
+      state "submitted"
+      after :create do | edition, evaluator |
+        submitter = evaluator.respond_to?(:submitter) ? evaluator.submitter : edition.creator
+        edition.versions.create! event: 'update', whodunnit: submitter.id, state: 'submitted'
+      end
+    end
     trait(:rejected) { state "rejected" }
     trait(:published) do
       state "published"
