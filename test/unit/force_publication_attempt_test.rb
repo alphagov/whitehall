@@ -56,6 +56,7 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
 
   test "force publishable editions are force published and logged as a success" do
     stub_panopticon_registration(publishable_edition)
+    stub_publishing_api_registration_for(publishable_edition)
     stubbed_import = stub_import([publishable_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
@@ -68,17 +69,16 @@ class ForcePublicationAttemptTest < ActiveSupport::TestCase
 
   test "reports the finish time and total number of documents successfully published" do
     stub_panopticon_registration(publishable_edition)
+    stub_publishing_api_registration_for(publishable_edition)
     stubbed_import = stub_import([publishable_edition, unpublishable_edition])
     force_publish_attempt = ForcePublicationAttempt.create
     force_publish_attempt.stubs(:import).returns stubbed_import
 
-    Timecop.freeze(1.day.from_now) do
-      force_publish_attempt.perform
+    force_publish_attempt.perform
 
-      assert_equal 1, force_publish_attempt.successful_documents
-      assert_equal 1, force_publish_attempt.failed_documents
-      assert_equal Time.zone.now, force_publish_attempt.finished_at
-    end
+    assert_equal 1, force_publish_attempt.successful_documents
+    assert_equal 1, force_publish_attempt.failed_documents
+    assert_equal Time.zone.now, force_publish_attempt.finished_at
   end
 
 private
