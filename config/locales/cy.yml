@@ -629,6 +629,7 @@ cy:
   change_notes:
     page_history: Hanes
     published_at:
+    see_all_updates:
     updated_at:
   contact:
     contact_form: Ffurflen cysylltu
