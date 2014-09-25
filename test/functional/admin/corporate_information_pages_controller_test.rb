@@ -21,6 +21,16 @@ class Admin::CorporateInformationPagesControllerTest < ActionController::TestCas
     assert assigns(:filter).hide_type
   end
 
+  test "GET :index should only display latest editions" do
+    published_edition = create(:published_corporate_information_page, organisation: @organisation)
+    latest_edition = published_edition.create_draft(current_user)
+
+    get :index, organisation_id: @organisation
+
+    assert_response :success
+    assert_equal [latest_edition], assigns(:filter).editions
+  end
+
   view_test "GET :new should display form" do
     get :new, organisation_id: @organisation
 
