@@ -11,6 +11,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
     session[:document_filters] = session_filters = {"type"=>"policy", "state"=>"submitted", "page"=>"3" }
 
     stub_panopticon_registration(submitted_edition)
+    stub_publishing_api_registration_for(submitted_edition)
     post :publish, id: submitted_edition, lock_version: submitted_edition.lock_version
 
     assert_redirected_to admin_editions_path(session_filters)
@@ -52,6 +53,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   test 'POST #force_publish force publishes the edition' do
     stub_panopticon_registration(draft_edition)
+    stub_publishing_api_registration_for(draft_edition)
     post :force_publish, id: draft_edition, lock_version: draft_edition.lock_version, reason: 'Urgent change'
 
     assert_redirected_to admin_editions_path(state: :published)

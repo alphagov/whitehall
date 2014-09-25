@@ -13,16 +13,14 @@ class PublishingTest < ActiveSupport::TestCase
   end
 
   test "When publishing an edition, it is registered in the publishing api" do
-    Timecop.freeze do
-      expected_attributes = @registerable.attributes_for_publishing_api.merge(
-        public_updated_at: Time.now.iso8601
-      )
-      @request = stub_publishing_api_put_item(@registerable.base_path, expected_attributes)
+    expected_attributes = @registerable.attributes_for_publishing_api.merge(
+      public_updated_at: Time.zone.now.iso8601
+    )
+    @request = stub_publishing_api_put_item(@registerable.base_path, expected_attributes)
 
-      perform_force_publishing_for(@draft_edition)
+    perform_force_publishing_for(@draft_edition)
 
-      assert_requested @request
-    end
+    assert_requested @request
   end
 
   private

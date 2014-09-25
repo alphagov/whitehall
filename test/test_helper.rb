@@ -27,6 +27,7 @@ class ActiveSupport::TestCase
   include HtmlAssertions
   include I18nHelpers
   include PanopticonTestHelpers
+  include PublishingApiTestHelpers
   extend GovspeakValidationTestHelper
 
   setup do

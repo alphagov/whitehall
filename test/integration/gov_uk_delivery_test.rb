@@ -20,7 +20,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(created_response_hash)
     stub_panopticon_registration(policy)
-
+    stub_publishing_api_registration_for(policy)
     assert Whitehall.edition_services.publisher(policy).perform!
     assert_requested stub
   end
@@ -36,6 +36,7 @@ class GovUkDeliveryTest < ActiveSupport::TestCase
     expected_payload = { feed_urls: ['http://example.com/feed'], subject: "Policy: #{policy.title}", body: 'body' }
     stub = stub_gov_uk_delivery_post_request('notifications', expected_payload).to_return(error_response_hash)
     stub_panopticon_registration(policy)
+    stub_publishing_api_registration_for(policy)
 
     assert Whitehall.edition_services.publisher(policy).perform!
     assert_requested stub

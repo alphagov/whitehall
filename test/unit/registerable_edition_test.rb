@@ -179,7 +179,19 @@ class RegisterableEditionTest < ActiveSupport::TestCase
   end
 
   test "it creates an attributes hash for the publishing api" do
-    published_detailed_guide = create(:published_detailed_guide)
+    primary_tag = "oil-and-gas/taxation"
+    secondary_tags = ["oil-and-gas/licensing", "oil-and-gas/fields-and-wells"]
+
+    document = create(:document)
+    create(:superseded_detailed_guide, document: document)
+    published_detailed_guide = create(:published_detailed_guide,
+                                     primary_specialist_sector_tag: primary_tag,
+                                     secondary_specialist_sector_tags: secondary_tags,
+                                     minor_change: false,
+                                     change_note: "There was indeed a change",
+                                     document: document,
+                                     published_major_version: 2)
+
     registerable_edition = RegisterableEdition.new(published_detailed_guide)
 
     expected_attributes_for_publishing_api_hash = {
@@ -195,7 +207,11 @@ class RegisterableEditionTest < ActiveSupport::TestCase
       redirects: [],
       update_type: registerable_edition.update_type,
       details: {
-        tags: { topics: registerable_edition.specialist_sectors }
+        change_note: "There was indeed a change",
+        tags: {
+          browse_pages: [],
+          topics: ["oil-and-gas/taxation", "oil-and-gas/licensing", "oil-and-gas/fields-and-wells"],
+        }
       }
     }
 
