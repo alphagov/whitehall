@@ -161,7 +161,7 @@ class Organisation < ActiveRecord::Base
              description: :summary,
              boost_phrases: :acronym,
              slug: :slug,
-             organisation_state: :govuk_status
+             organisation_state: :searchable_govuk_status
 
   extend FriendlyId
   friendly_id
@@ -263,6 +263,14 @@ class Organisation < ActiveRecord::Base
 
   def sub_organisations
     child_organisations.where(organisation_type_key: :sub_organisation)
+  end
+
+  def searchable_govuk_status
+    if closed? && devolved?
+      'devolved'
+    else
+      govuk_status
+    end
   end
 
   def live?
