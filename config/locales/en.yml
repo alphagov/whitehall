@@ -343,8 +343,8 @@ en:
   change_notes:
     page_history: History
     published_at: First published
-    updated_at: Last updated
     see_all_updates: see all updates
+    updated_at: Last updated
   organisation:
     type:
       Ministerial department:
