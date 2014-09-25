@@ -25,6 +25,12 @@
     <section>
       <h1><%= edition_edit_headline(@edition) %></h1>
 
+      <% if warning = similar_slugs_warning(@edition) %>
+        <div class="alert alert-warning">
+          <p><%= warning %></p>
+        </div>
+      <% end %>
+
       <%= render "recent_openings", edition: @edition, recent_openings: @recent_openings %>
       <%= render "form", edition: @edition %>
     </section>

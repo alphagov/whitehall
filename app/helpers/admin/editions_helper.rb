@@ -306,4 +306,10 @@ module Admin::EditionsHelper
     Rails.logger.warn("WARNING: Could not retrieve specialist sectors")
     nil
   end
+
+  def similar_slugs_warning(edition)
+    if !edition.document.published? && edition.document.has_similar_slug?
+      "This title is already used on GOV.UK. Please create a unique title."
+    end
+  end
 end

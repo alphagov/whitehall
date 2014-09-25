@@ -46,6 +46,15 @@ class Document < ActiveRecord::Base
     where(document_type: document_types, slug: slug).first
   end
 
+  def has_similar_slug?
+    scope = Document.where(document_type: document_type)
+    sequence_separator = friendly_id_config.sequence_separator
+    slug_without_sequence = slug.split(sequence_separator).first
+
+    scope.where("slug IN (?) OR slug LIKE ?", [slug, slug_without_sequence].uniq,
+      slug_without_sequence + sequence_separator + '%').count > 1
+  end
+
   def should_generate_new_friendly_id?
     sluggable_string.present?
   end

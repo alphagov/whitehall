@@ -43,6 +43,12 @@
       <% end %>
     </section>
 
+    <% if warning = similar_slugs_warning(@edition) %>
+      <section class="alert alert-warning">
+        <p><%= warning %></p>
+      </section>
+    <% end %>
+
     <% if @edition.scheduled_publication %>
       <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
         <section class='alert'>

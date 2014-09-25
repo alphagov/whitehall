@@ -126,4 +126,21 @@ class DocumentTest < ActiveSupport::TestCase
   test "#humanized_document_type should return document type in a user friendly format" do
     assert_equal "document collection", build(:document, document_type: "DocumentCollection").humanized_document_type
   end
+
+  test "checks for similar slugs" do
+    existing = create(:news_article, title: "Latest news")
+    draft = create(:news_article, title: "Latest news")
+
+    assert draft.document.has_similar_slug?
+
+    distinct_draft = create(:news_article, title: "Latest news from the crime scene")
+    refute distinct_draft.document.has_similar_slug?
+  end
+
+  test "respects document_type scope while checking for similar slugs" do
+    existing = create(:news_article, title: "UK prospers")
+    draft = create(:speech, title: "UK prospers")
+
+    refute draft.document.has_similar_slug?
+  end
 end
