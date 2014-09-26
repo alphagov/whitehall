@@ -381,10 +381,12 @@ class OrganisationTest < ActiveSupport::TestCase
     create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Taxing.', organisation: hmrc)
     mod = create(:organisation, name: 'Ministry of Defence', acronym: 'mod')
     create(:published_corporate_information_page, corporate_information_page_type: about_type, summary: 'Defensive.', organisation: mod)
+    superseding_organisation = create(:devolved_administration, name: 'Devolved administration')
+    create(:organisation, name: 'Devolved organisation', acronym: 'dev', govuk_status: 'closed', govuk_closed_status: 'devolved', superseding_organisations: [superseding_organisation])
 
     results = Organisation.search_index.to_a
 
-    assert_equal 4, results.length
+    assert_equal 6, results.length
     assert_equal({'title' => 'Department for Culture and Sports',
                   'link' => '/government/organisations/department-for-culture-and-sports',
                   'slug' => 'department-for-culture-and-sports',
@@ -417,6 +419,14 @@ class OrganisationTest < ActiveSupport::TestCase
                   'boost_phrases' => 'mod',
                   'description' => 'Defensive.',
                   'organisation_state' => 'live'}, results[3])
+    assert_equal({'title' => 'Devolved organisation',
+                  'acronym' => 'dev',
+                  'link' => '/government/organisations/devolved-organisation',
+                  'slug' => 'devolved-organisation',
+                  'indexable_content' => '',
+                  'format' => 'organisation',
+                  'boost_phrases' => 'dev',
+                  'organisation_state' => 'devolved'}, results[5])
   end
 
   test '#published_announcements returns published news or speeches' do
