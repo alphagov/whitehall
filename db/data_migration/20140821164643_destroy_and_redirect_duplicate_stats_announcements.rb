@@ -1,5 +1,5 @@
 require 'gds_api/router'
-router_api = GdsApi::Router.new(Plek.current.find('router-api'))
+router_api = GdsApi::Router.new(Plek.find('router-api'))
 
 duplicate_statistics_announcements = {
   'monthly-provisional-figures-on-deaths-registered-by-area-of-usual-residence-england-and-wales-july-2014' => 'deaths-registered-by-area-of-usual-residence-in-england-and-wales-monthly-provisional-july-2014',

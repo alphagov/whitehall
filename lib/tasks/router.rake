@@ -6,14 +6,14 @@ namespace :router do
     require 'gds_api/router'
     @logger = Logger.new STDOUT
     @logger.level = Logger::DEBUG
-    @router_api = GdsApi::Router.new(Plek.new.find('router-api'))
+    @router_api = GdsApi::Router.new(Plek.find('router-api'))
     @application_id = "whitehall-frontend"
   end
 
   desc "Register the whitehall backend with the router"
   task :register_backend => :router_environment do
     @logger.info "Registering application..."
-    @router_api.add_backend(@application_id, Plek.new.find('whitehall-frontend', :force_http => true) + "/")
+    @router_api.add_backend(@application_id, Plek.find('whitehall-frontend', :force_http => true) + "/")
   end
 
   desc "Register the government prefix with the router"

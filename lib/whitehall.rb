@@ -9,6 +9,7 @@ module Whitehall
   mattr_accessor :government_search_client
   mattr_accessor :statistics_announcement_search_client
   mattr_accessor :content_api
+  mattr_accessor :publishing_api_client
   mattr_accessor :skip_safe_html_validation
   mattr_accessor :govuk_delivery_client
   mattr_accessor :need_api
@@ -74,7 +75,7 @@ module Whitehall
   end
 
   def self.admin_root
-    @admin_root ||= Plek.new.find('whitehall-admin')
+    @admin_root ||= Plek.find('whitehall-admin')
   end
 
   # NOOP until alphagov-deployment is updated to not set this in the

@@ -1,6 +1,6 @@
 require 'gds_api/router'
 
-router = GdsApi::Router.new(Plek.current.find('router-api'))
+router = GdsApi::Router.new(Plek.find('router-api'))
 
 not_found_slug = "/government/publications/vat-notice-7002-group-and-divisional-registration/vat-notice-7002-group-and-divisional-registration"
 content_at_slug = "/government/publications/vat-notice-7002-group-and-divisional-registration/vat-notice-7002-group-and-divisional-registration--2"

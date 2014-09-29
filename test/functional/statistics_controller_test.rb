@@ -145,6 +145,8 @@ class StatisticsControllerTest < ActionController::TestCase
     collection.groups.first.documents = [statistics.document]
     stub_panopticon_registration(collection)
     stub_panopticon_registration(statistics)
+    stub_publishing_api_registration_for([collection, statistics])
+
     Whitehall.edition_services.force_publisher(collection).perform!
     Whitehall.edition_services.force_publisher(statistics).perform!
     get :index
@@ -161,6 +163,7 @@ class StatisticsControllerTest < ActionController::TestCase
     collection.groups.first.documents = [statistics.document]
     stub_panopticon_registration(collection)
     stub_panopticon_registration(statistics)
+    stub_publishing_api_registration_for([collection, statistics])
     Whitehall.edition_services.force_publisher(collection).perform!
     Whitehall.edition_services.force_publisher(statistics).perform!
 

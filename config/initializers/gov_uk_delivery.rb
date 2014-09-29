@@ -6,7 +6,7 @@ unless Rails.env.production? || ENV['USE_GOVUK_DELIVERY']
     noop: true,
     stdout: Rails.env.development?
   }
-  Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.new.find('govuk-delivery'), options)
+  Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.find('govuk-delivery'), options)
 else
-  Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.new.find('govuk-delivery'))
+  Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.find('govuk-delivery'))
 end

@@ -4,5 +4,6 @@
   - [imports, 2]
   - [router, 4]
   - [panopticon, 4]
+  - [publishing_api, 4]
   - [default, 5]
   - [scheduled_publishing, 10]
