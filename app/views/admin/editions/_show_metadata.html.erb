@@ -6,6 +6,8 @@
     <dd><%= edition_type(@edition) %></dd>
     <dt>Status:</dt>
     <dd><%= @edition.state.capitalize %></dd>
+    <dt>Change type:</dt>
+    <dd><%= @edition.minor_change? ? 'Minor' : 'Major' %></dd>
     <% if @edition.respond_to?(:organisations) %>
       <dt>Organisations:</dt>
       <dd><%= joined_list(@edition.organisations.map { |o| o.name }) %></dd>
