@@ -294,12 +294,22 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil publication.reload.rejected_by
   end
 
+  test "#submitted_by uses information from the audit trail" do
+    publication = create(:draft_publication)
+    user = create(:policy_writer)
+    Edition::AuditTrail.whodunnit = user
+    publication.submit!
+    assert_equal user, publication.submitted_by
+  end
+
   test "#published_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
     stub_panopticon_registration(publication)
     Sidekiq::Testing.fake! do
-      acting_as(editor) { Whitehall.edition_services.publisher(publication).perform! }
+      acting_as(editor) do
+        Whitehall.edition_services.publisher(publication).perform!
+      end
     end
     assert_equal editor, publication.published_by
   end

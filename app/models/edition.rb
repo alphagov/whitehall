@@ -463,6 +463,11 @@ class Edition < ActiveRecord::Base
     scheduled_event && scheduled_event.actor
   end
 
+  def submitted_by
+    latest_version_audit_entry_for("submitted").try(:actor)
+  end
+
+
   def title_with_state
     "#{title} (#{state})"
   end

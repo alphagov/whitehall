@@ -67,7 +67,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule schedules the given edition on behalf of the current user' do
-    submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
+    editor = create(:departmental_editor)
+    submitted_edition(submitter: editor, scheduled_publication: 1.day.from_now)
     Sidekiq::Testing.fake! do
       post :schedule, id: submitted_edition, lock_version: submitted_edition.lock_version
 
@@ -86,9 +87,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'schedule redirects back to the edition with an error message if the edition is stale' do
-    old_lock_version = submitted_edition.lock_version
-    submitted_edition.update_attribute(:scheduled_publication, 1.day.from_now)
-    submitted_edition.touch
+    old_lock_version = submitted_edition(scheduled_publication: 1.day.from_now)
+    acting_as(submitted_edition.creator) { submitted_edition.touch }
     post :schedule, id: submitted_edition, lock_version: old_lock_version
 
     assert_redirected_to admin_policy_path(submitted_edition)
@@ -312,8 +312,8 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
 
   private
 
-  def submitted_edition
-    @submitted_edition ||= create(:submitted_policy)
+  def submitted_edition(options = {})
+    @submitted_edition ||= create(:submitted_policy, options)
   end
 
   def draft_edition

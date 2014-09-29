@@ -71,9 +71,9 @@ class GDSEditorWorldwidePriorityTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_worldwide_priority).can?(:publish)
   end
 
-  test 'cannot publish a worldwide priority we created' do
+  test 'cannot publish a worldwide priority we submitted' do
     me = gds_editor
-    refute enforcer_for(me, normal_worldwide_priority(me)).can?(:publish)
+    refute enforcer_for(me, submitted_worldwide_priority(me)).can?(:publish)
   end
 
   test 'can reject a worldwide priority' do

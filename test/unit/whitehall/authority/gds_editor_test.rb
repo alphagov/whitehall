@@ -76,9 +76,9 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, normal_edition).can?(:publish)
   end
 
-  test 'cannot publish an edition we created' do
+  test 'cannot publish an edition we submitted' do
     me = gds_editor
-    refute enforcer_for(me, normal_edition(me)).can?(:publish)
+    refute enforcer_for(me, submitted_edition(me)).can?(:publish)
   end
 
   test 'cannot publish a scheduled edition' do

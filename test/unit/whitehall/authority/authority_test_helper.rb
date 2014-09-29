@@ -19,6 +19,11 @@ module AuthorityTestHelper
       ne.stubs(:creator).returns(user)
       ne
     end
+    define_method("submitted_#{edition_type}") do |user = nil|
+      ne = FactoryGirl.build(:"submitted_#{edition_type}")
+      ne.stubs(:submitted_by).returns(user)
+      ne
+    end
     define_method("force_published_#{edition_type}") do |user|
       fpe = FactoryGirl.build(:"published_#{edition_type}", force_published: true)
       fpe.stubs(:published_by).returns(user)
