@@ -26,6 +26,18 @@ namespace :publishing do
         puts "#{edition.id} queued"
       end
     end
+
+    desc "Clears all jobs then requeues all scheduled editions (intended for use after a db restore)"
+    task :requeue_all_jobs => :environment do
+      ScheduledPublishingWorker.dequeue_all
+
+      puts "Queueing #{Edition.scheduled.count} jobs"
+      Edition.scheduled.each do |edition|
+        ScheduledPublishingWorker.queue(edition)
+        print "."
+      end
+      puts ""
+    end
   end
 
   namespace :overdue do
