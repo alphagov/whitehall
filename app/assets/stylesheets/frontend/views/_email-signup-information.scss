@@ -1,0 +1,18 @@
+.email-signup-information-show {
+
+  .heading {
+    max-width: $two-thirds;
+  }
+
+  .signup-list li {
+    list-style-type: none;
+    @include core-19;
+    margin-bottom: $gutter-two-thirds;
+    max-width: $two-thirds;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+}
