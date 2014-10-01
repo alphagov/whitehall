@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20141002105505) do
     t.text     "body",                       :limit => 2147483647
     t.boolean  "manually_numbered_headings"
     t.string   "locale"
+    t.string   "external_url"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
