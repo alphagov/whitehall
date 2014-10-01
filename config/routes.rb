@@ -133,6 +133,8 @@ Whitehall::Application.routes.draw do
     get "/organisations/:organisation_id/groups" => redirect("/organisations/%{organisation_id}")
     get "/organisations/:organisation_id/services-information" => 'services_and_information#show',
       as: :services_and_information
+    get "/organisations/:organisation_slug/email-signup" => 'email_signup_information#show',
+      as: :organisation_email_signup_information
 
     resources :ministerial_roles, path: 'ministers', only: [:index, :show], localised: true
     resources :people, only: [:index, :show], localised: true
@@ -143,7 +145,7 @@ Whitehall::Application.routes.draw do
       resources :corporate_information_pages, only: [:show], path: 'about', localised: true
       resources :worldwide_offices, path: 'office', only: [:show]
     end
-    
+
     resources :embassies, path: 'world/embassies', only: [:index]
 
     resources :world_locations, path: 'world', only: [:index, :show], localised: true
