@@ -307,9 +307,7 @@ module Admin::EditionsHelper
     nil
   end
 
-  def similar_slugs_warning(edition)
-    if !edition.document.published? && edition.document.has_similar_slug?
-      "This title is already used on GOV.UK. Please create a unique title."
-    end
+  def show_similar_slugs_warning?(edition)
+    !edition.document.published? && edition.document.similar_slug_exists?
   end
 end

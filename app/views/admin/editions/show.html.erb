@@ -43,11 +43,7 @@
       <% end %>
     </section>
 
-    <% if warning = similar_slugs_warning(@edition) %>
-      <section class="alert alert-warning">
-        <p><%= warning %></p>
-      </section>
-    <% end %>
+    <%= render('similar_slug_warning') if show_similar_slugs_warning?(@edition) %>
 
     <% if @edition.scheduled_publication %>
       <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>

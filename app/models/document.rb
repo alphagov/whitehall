@@ -46,7 +46,7 @@ class Document < ActiveRecord::Base
     where(document_type: document_types, slug: slug).first
   end
 
-  def has_similar_slug?
+  def similar_slug_exists?
     scope = Document.where(document_type: document_type)
     sequence_separator = friendly_id_config.sequence_separator
     slug_without_sequence = slug.split(sequence_separator).first

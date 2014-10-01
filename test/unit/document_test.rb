@@ -127,20 +127,20 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal "document collection", build(:document, document_type: "DocumentCollection").humanized_document_type
   end
 
-  test "checks for similar slugs" do
+  test "#similar_slug_exists? returns true if a document with a similar slug exists" do
     existing = create(:news_article, title: "Latest news")
     draft = create(:news_article, title: "Latest news")
 
-    assert draft.document.has_similar_slug?
+    assert draft.document.similar_slug_exists?
 
     distinct_draft = create(:news_article, title: "Latest news from the crime scene")
-    refute distinct_draft.document.has_similar_slug?
+    refute distinct_draft.document.similar_slug_exists?
   end
 
-  test "respects document_type scope while checking for similar slugs" do
+  test "#similar_slug_exists? scopes to documents of the same type" do
     existing = create(:news_article, title: "UK prospers")
     draft = create(:speech, title: "UK prospers")
 
-    refute draft.document.has_similar_slug?
+    refute draft.document.similar_slug_exists?
   end
 end
