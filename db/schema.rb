@@ -1092,6 +1092,15 @@ ActiveRecord::Schema.define(:version => 20141002105505) do
   add_index "statistics_announcement_dates", ["creator_id"], :name => "index_statistics_announcement_dates_on_creator_id"
   add_index "statistics_announcement_dates", ["statistics_announcement_id", "created_at"], :name => "statistics_announcement_release_date"
 
+  create_table "statistics_announcement_organisations", :id => false, :force => true do |t|
+    t.integer  "statistics_announcement_id"
+    t.integer  "organisation_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "statistics_announcement_organisations", ["statistics_announcement_id", "organisation_id"], :name => "index_on_statistics_announcement_id_and_organisation_id"
+
   create_table "statistics_announcements", :force => true do |t|
     t.string   "title"
     t.string   "slug"
