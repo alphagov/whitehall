@@ -2,10 +2,21 @@ class HtmlAttachment < Attachment
   extend FriendlyId
   friendly_id :sluggable_string
 
+  has_one :govspeak_content, autosave: true, inverse_of: :html_attachment
+
   before_validation :clear_slug_if_non_english_locale
 
-  validates :body, presence: true
+  validates :govspeak_content, :body, presence: true
   validates_with SafeHtmlValidator
+
+  accepts_nested_attributes_for :govspeak_content
+  delegate :body, to: :govspeak_content
+
+  # Note: temporary setter to deal with the form submissions made with the old
+  # code. To be cleaned up post-deploy.
+  def body=(govspeak)
+    (govspeak_content || self.build_govspeak_content).body = govspeak
+  end
 
   def accessible?
     true

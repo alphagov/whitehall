@@ -24,10 +24,12 @@ Manually number your headings as appropriate using the above numbering scheme.</
     </div>
 
     <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
-      <%= form.text_area :body, class: "previewable" %>
+      <%= form.fields_for :govspeak_content do |govspeak_fields| %>
+        <%= govspeak_fields.text_area :body, class: "previewable" %>
+      <% end %>
     <% end %>
   <% else %>
-  <%= render 'attachment_data_fields', form: form %>
+    <%= render 'attachment_data_fields', form: form %>
   <% end %>
 
   <%= hidden_field_tag :html, params[:html] %>

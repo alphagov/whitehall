@@ -3,6 +3,23 @@
 require 'test_helper'
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
+  test '#body attribute is delegated to GovspeakContent' do
+    attachment = HtmlAttachment.new
+
+    attachment.body = 'Govspeak body'
+
+    assert_equal 'Govspeak body', attachment.body
+    assert attachment.govspeak_content
+    assert_equal attachment.body, attachment.govspeak_content.body
+  end
+
+  test 'validates that a body is provided' do
+    attachment = build(:html_attachment, body: nil)
+
+    refute attachment.valid?
+    assert_equal ["can't be blank"], attachment.errors[:body]
+  end
+
   test '#url returns absolute path' do
     edition = create(:published_publication, :with_html_attachment)
     attachment = edition.attachments.first

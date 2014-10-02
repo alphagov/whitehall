@@ -11,7 +11,7 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
   end
 
   test "it should validate each changed attribute with Govspeak::HtmlValidator" do
-    test_model = HtmlAttachment.new(body: 'some body text', title: 'some title text', attachable: build(:publication))
+    test_model = build(:publication, body: 'some body text', title: 'some title text')
 
     Govspeak::HtmlValidator.expects(:new).with("some body text").returns(OpenStruct.new(valid?: false))
     Govspeak::HtmlValidator.expects(:new).with("some title text").returns(OpenStruct.new(valid?: false))
