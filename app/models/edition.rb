@@ -464,7 +464,7 @@ class Edition < ActiveRecord::Base
   end
 
   def submitted_by
-    latest_version_audit_entry_for("submitted").try(:actor)
+    most_recent_submission_audit_entry.try(:actor)
   end
 
 

@@ -303,6 +303,16 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal user, publication.submitted_by
   end
 
+  test "#submitted_by gets original submitter even if updates are made while in submitted state" do
+    submitter = create(:policy_writer)
+    publication = create(:submitted_publication, submitter: submitter)
+    reviewer = create(:policy_writer)
+    Edition::AuditTrail.whodunnit = reviewer
+    publication.body = 'updated body'
+    publication.save!
+    assert_equal submitter, publication.submitted_by
+  end
+
   test "#published_by uses information from the audit trail" do
     editor = create(:departmental_editor)
     publication = create(:submitted_publication)
