@@ -16,6 +16,11 @@ class ScheduledPublishingWorker
     end.map(&:delete)
   end
 
+  # Only used by the publishing:scheduled:requeue_all_jobs rake task.
+  def self.dequeue_all
+    queued_jobs.map(&:delete)
+  end
+
   def self.queue_size
     queued_jobs.size
   end
