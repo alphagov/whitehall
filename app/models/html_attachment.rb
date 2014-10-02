@@ -74,6 +74,14 @@ class HtmlAttachment < Attachment
     })
   end
 
+  def deep_clone
+    super.tap do |clone|
+      if govspeak_content.present?
+        clone.govspeak_content = govspeak_content.dup
+      end
+    end
+  end
+
   private
 
   def sluggable_locale?
