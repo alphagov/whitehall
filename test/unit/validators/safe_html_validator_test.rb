@@ -3,21 +3,14 @@ require 'test_helper'
 class SafeHtmlValidatorTest < ActiveSupport::TestCase
   def setup
     Whitehall.stubs(:skip_safe_html_validation).returns(false)
-    Govspeak::HtmlValidator.stubs(:new).returns(OpenStruct.new(valid?: true))
   end
 
-  def subject
-    @subject ||= SafeHtmlValidator.new({})
-  end
+  test "it marks HTML-unsafe attributes as such" do
+    test_model = build(:publication, body: '<script>alert("hax!")</script>', title: 'Safe title')
 
-  test "it should validate each changed attribute with Govspeak::HtmlValidator" do
-    test_model = build(:publication, body: 'some body text', title: 'some title text')
+    SafeHtmlValidator.new({}).validate(test_model)
 
-    Govspeak::HtmlValidator.expects(:new).with("some body text").returns(OpenStruct.new(valid?: false))
-    Govspeak::HtmlValidator.expects(:new).with("some title text").returns(OpenStruct.new(valid?: false))
-
-    subject.validate(test_model)
-
-    assert_equal 2, test_model.errors.count
+    assert_equal 1, test_model.errors.size
+    assert_equal ["cannot include invalid formatting or JavaScript"], test_model.errors[:body]
   end
 end
