@@ -5,6 +5,7 @@
     <div class="inner-block floated-children">
       <%= render  partial: "documents/header", locals: {
                   document: @document,
+                  footer_meta: true,
                   header_title: t('document.headings.policies', :count => 1),
                   topics: @document.topics } %>
     </div>
