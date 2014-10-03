@@ -13,4 +13,11 @@ class SafeHtmlValidatorTest < ActiveSupport::TestCase
     assert_equal 1, test_model.errors.size
     assert_equal ["cannot include invalid formatting or JavaScript"], test_model.errors[:body]
   end
+
+  test "span and div elements are considered safe" do
+     test_model = GovspeakContent.new(computed_html: '<div class="govspeak"><span class="number">1</span></div>')
+
+     SafeHtmlValidator.new({}).validate(test_model)
+     assert test_model.errors.empty?, test_model.errors.full_messages.inspect
+  end
 end
