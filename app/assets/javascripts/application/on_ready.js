@@ -18,7 +18,10 @@ jQuery(function($) {
   $('.js-hide-extra-social-media').hideExtraRows({ rows: 5 });
   $('.js-hide-extra-metadata').hideExtraRows({ rows: 2, appendToParent: true });
 
-  $('.see-all-updates').click(function(e) { $('#history .overlay').removeClass('visuallyhidden'); });
+  $('.see-all-updates').click(function(e) {
+    GOVUK.stickAtTopWhenScrolling.stick($('.js-stick-at-top-when-scrolling'));
+    $('#history .overlay').removeClass('visuallyhidden');
+  });
 
   GOVUK.hideDepartmentChildren.init();
   GOVUK.filterListItems.init();
