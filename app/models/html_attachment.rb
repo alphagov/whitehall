@@ -18,6 +18,12 @@ class HtmlAttachment < Attachment
     (govspeak_content || self.build_govspeak_content).body = govspeak
   end
 
+  # NOTE: until all exiting records have been migrated and have govspeak_content
+  # instances, we cannot assume one exists, hence the use `try`.
+  def precomputed_html
+    govspeak_content.try(:html)
+  end
+
   def accessible?
     true
   end

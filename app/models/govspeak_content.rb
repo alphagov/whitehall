@@ -3,4 +3,16 @@ class GovspeakContent < ActiveRecord::Base
 
   validates :body, :html_attachment, presence: true
   validates_with SafeHtmlValidator
+
+  after_save :queue_html_compute_job, if: :body_changed?
+
+  def html
+    computed_html.try(:html_safe)
+  end
+
+private
+
+  def queue_html_compute_job
+    GovspeakContentWorker.perform_async(self.id)
+  end
 end

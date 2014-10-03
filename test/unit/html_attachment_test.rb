@@ -20,6 +20,14 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal ["can't be blank"], attachment.errors[:body]
   end
 
+  test '#precomputed_html returns the computed HTML as an HTML safe string' do
+    attachment = create(:html_attachment, body: 'Some govspeak')
+
+    assert attachment.reload.precomputed_html.html_safe?
+    assert_equivalent_html "<div class=\"govspeak\"><p>Some govspeak</p></div>",
+      attachment.precomputed_html
+  end
+
   test '#deep_clone deep clones the HTML attachment and body' do
     attachment = create(:html_attachment)
 
