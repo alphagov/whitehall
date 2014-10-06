@@ -1109,7 +1109,6 @@ ActiveRecord::Schema.define(:version => 20141009101445) do
     t.string   "slug"
     t.text     "summary"
     t.integer  "publication_type_id"
-    t.integer  "organisation_id"
     t.integer  "topic_id"
     t.integer  "creator_id"
     t.datetime "created_at",          :null => false
@@ -1122,7 +1121,6 @@ ActiveRecord::Schema.define(:version => 20141009101445) do
 
   add_index "statistics_announcements", ["cancelled_by_id"], :name => "index_statistics_announcements_on_cancelled_by_id"
   add_index "statistics_announcements", ["creator_id"], :name => "index_statistics_announcements_on_creator_id"
-  add_index "statistics_announcements", ["organisation_id"], :name => "index_statistics_announcements_on_organisation_id"
   add_index "statistics_announcements", ["publication_id"], :name => "index_statistics_announcements_on_publication_id"
   add_index "statistics_announcements", ["slug"], :name => "index_statistics_announcements_on_slug"
   add_index "statistics_announcements", ["title"], :name => "index_statistics_announcements_on_title"
