@@ -3,7 +3,7 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
     Whitehall.stubs(:skip_safe_html_validation).returns(false)
   end
 
-  test "saves generated HMTL to the GovspeakContent instance" do
+  test "saves generated HTML to the GovspeakContent instance" do
     govspeak_content =  create(:html_attachment,
                           body: example_govspeak).govspeak_content
 
