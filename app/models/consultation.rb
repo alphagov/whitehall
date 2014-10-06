@@ -6,7 +6,6 @@ class Consultation < Publicationesque
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   include Edition::TopicalEvents
-  include Edition::CanBeExternal
 
   validates :opening_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }

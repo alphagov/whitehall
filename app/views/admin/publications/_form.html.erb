@@ -6,11 +6,8 @@
   <%= standard_edition_form(edition) do |form| %>
     <%= form.hidden_field :statistics_announcement_id %>
 
-    <%= render 'external_fields', form: form, edition: edition %>
-    <div class="js-external-url-set">
-      <%= render 'inline_attachments_info', form: form, edition: edition %>
-      <%= render 'html_version_fields', form: form, edition: edition %>
-    </div>
+    <%= render 'inline_attachments_info', form: form, edition: edition %>
+    <%= render 'html_version_fields', form: form, edition: edition %>
 
     <fieldset>
       <legend>Associations</legend>
