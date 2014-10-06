@@ -8,7 +8,7 @@ module DevelopmentModeStubs
       scope = scope.where("statistics_announcements.title LIKE('%#{params[:keywords]}%') or statistics_announcements.summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
       if params[:organisations].present?
         organisation_ids = Organisation.find_all_by_slug(params[:organisations]).map &:id
-        scope = scope.where(organisation_id: organisation_ids)
+        scope = scope.in_organisations(organisation_ids)
       end
       if params[:topics].present?
         topic_ids = Topic.find_all_by_slug(params[:topics]).map &:id
@@ -49,7 +49,7 @@ module DevelopmentModeStubs
         "description" => announcement.summary,
         "slug" => announcement.slug,
         "release_timestamp" => announcement.current_release_date.release_date.iso8601,
-        "organisations" => Array(announcement.organisation.try :slug),
+        "organisations" => Array(announcement.organisations_slugs),
         "topics" => Array(announcement.topic.try :slug),
         "display_type" => announcement.publication_type.singular_name,
         "search_format_types" => ["statistics_announcement"],

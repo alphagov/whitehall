@@ -24,7 +24,6 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                           title: "The title",
                           slug: 'the-title',
                           summary: "The summary",
-                          organisation: build(:organisation),
                           topic: build(:topic),
                           publication_type_id: PublicationType.find_by_slug("statistics").id,
                           statistics_announcement_dates: [build(:statistics_announcement_date,
@@ -40,20 +39,20 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
 
     returned_announcement_hash = subject.advanced_search(page: '1', per_page: '100')['results'].first
 
-    assert_equal "The title",                      returned_announcement_hash["title"]
-    assert_equal "The summary",                    returned_announcement_hash["description"]
-    assert_equal "the-title",                      returned_announcement_hash["slug"]
-    assert_equal "Statistics",                     returned_announcement_hash["display_type"]
-    assert_equal ["statistics_announcement"],      returned_announcement_hash["search_format_types"]
-    assert_equal "statistics_announcement",        returned_announcement_hash["format"]
-    assert_equal [announcement.organisation.slug], returned_announcement_hash["organisations"]
-    assert_equal [announcement.topic.slug],        returned_announcement_hash["topics"]
-    assert_equal "2050-01-01T09:30:00+00:00",      returned_announcement_hash["release_timestamp"]
-    assert_equal true,                             returned_announcement_hash["metadata"]["confirmed"]
-    assert_equal "confirmed",                      returned_announcement_hash["statistics_announcement_state"]
-    assert_equal "The change note",                returned_announcement_hash["metadata"]["change_note"]
-    assert_equal "1 January 2050 9:30am",          returned_announcement_hash["metadata"]["display_date"]
-    assert_equal "March to April 2050",            returned_announcement_hash["metadata"]["previous_display_date"]
+    assert_equal "The title", returned_announcement_hash["title"]
+    assert_equal "The summary", returned_announcement_hash["description"]
+    assert_equal "the-title", returned_announcement_hash["slug"]
+    assert_equal "Statistics", returned_announcement_hash["display_type"]
+    assert_equal ["statistics_announcement"], returned_announcement_hash["search_format_types"]
+    assert_equal "statistics_announcement", returned_announcement_hash["format"]
+    assert_equal announcement.organisations_slugs, returned_announcement_hash["organisations"]
+    assert_equal [announcement.topic.slug], returned_announcement_hash["topics"]
+    assert_equal "2050-01-01T09:30:00+00:00", returned_announcement_hash["release_timestamp"]
+    assert_equal true, returned_announcement_hash["metadata"]["confirmed"]
+    assert_equal "confirmed", returned_announcement_hash["statistics_announcement_state"]
+    assert_equal "The change note", returned_announcement_hash["metadata"]["change_note"]
+    assert_equal "1 January 2050 9:30am", returned_announcement_hash["metadata"]["display_date"]
+    assert_equal "March to April 2050", returned_announcement_hash["metadata"]["previous_display_date"]
   end
 
   test "#advanced_search with :keywords returns release announcements matching title or summary" do
@@ -90,10 +89,10 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search with organisations returns results associated with the organisations" do
-    announcement_1 = create :statistics_announcement, organisation: create(:organisation)
+    announcement_1 = create :statistics_announcement
     announcement_2 = create :statistics_announcement
 
-    assert_equal [announcement_1.title], matched_titles(organisations: [announcement_1.organisation.slug])
+    assert_equal [announcement_1.title], matched_titles(organisations: announcement_1.organisations_slugs)
   end
 
   test "#advanced_search with topics returns results associated with the topics" do

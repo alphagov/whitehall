@@ -11,7 +11,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 
   test "can filter by organisation" do
     organisation = create(:organisation)
-    match        = create(:statistics_announcement, organisation: organisation)
+    match        = create(:statistics_announcement, organisation_ids: [organisation.id])
     no_match     = create(:statistics_announcement)
     filter       = Admin::StatisticsAnnouncementFilter.new(organisation_id: organisation.id)
 

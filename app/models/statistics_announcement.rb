@@ -28,6 +28,9 @@ class StatisticsAnnouncement < ActiveRecord::Base
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
     where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
   }
+  scope :in_organisations, Proc.new { |organisation_ids| joins(:statistics_announcement_organisations)
+    .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
+  }
 
   include Searchable
   searchable  only: :without_published_publication,

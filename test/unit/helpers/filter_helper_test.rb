@@ -4,8 +4,8 @@ class FilterHelperTest < ActionView::TestCase
   test "#organisation_options_for_statistics_announcement_filter renders select options for all organisations with an associated release announcement in alphabetical order selecting passed in organisation" do
     org_1, org_2, org_3 = create(:organisation, name: "B org"), create(:organisation, name: "C org"), create(:organisation, name: "A org")
 
-    create :statistics_announcement, organisation: org_2
-    create :statistics_announcement, organisation: org_3
+    create :statistics_announcement, organisation_ids: [org_2.id]
+    create :statistics_announcement, organisation_ids: [org_3.id]
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(organisation_options_for_statistics_announcement_filter(org_3.slug))
     options = rendered.css("option")

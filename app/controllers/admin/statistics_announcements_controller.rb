@@ -8,7 +8,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def new
-    @statistics_announcement = build_statistics_announcement(organisation_id: current_user.organisation.try(:id))
+    @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
   end
 

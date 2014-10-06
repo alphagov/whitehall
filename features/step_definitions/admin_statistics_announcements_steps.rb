@@ -9,7 +9,7 @@ Given(/^a draft statistics publication called "(.*?)"$/) do |title|
 end
 
 Given(/^there is a statistics announcement by my organisation$/) do
-  @organisation_announcement = create(:statistics_announcement, organisation: @user.organisation)
+  @organisation_announcement = create(:statistics_announcement, organisation_ids: [@user.organisation.id])
 end
 
 Given(/^there is a statistics announcement by another organistion$/) do
@@ -28,7 +28,7 @@ Then(/^I should see my organisation's statistics announcements on the statistica
 end
 
 When(/^I filter statistics announcements by the other organisation$/) do
-  select @other_organisation_announcement.organisation.name, from: 'Organisation'
+  select @other_organisation_announcement.organisations.first.name, from: 'Organisation'
   click_on "Search"
 end
 
@@ -61,7 +61,7 @@ When(/^I announce an upcoming statistics publication called "(.*?)"$/) do |annou
   fill_in :statistics_announcement_title, with: announcement_title
   fill_in :statistics_announcement_summary, with: "Summary of publication"
   select_date 1.year.from_now.to_s, from: "Release date"
-  select organisation.name, from: :statistics_announcement_organisation_id
+  select organisation.name, from: :statistics_announcement_organisation_ids
   select topic.name, from: :statistics_announcement_topic_id
 
   click_on 'Publish announcement'

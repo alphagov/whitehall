@@ -102,7 +102,7 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
                                                               summary: "A summary",
                                                               publication: publication,
                                                               publication_type_id: PublicationType::Statistics.id,
-                                                              organisation: organisation,
+                                                              organisation_ids: [organisation.id],
                                                               topic: topic,
                                                               cancellation_reason: "Cancelled for reasons",
                                                               cancelled_at: 1.day.ago,
