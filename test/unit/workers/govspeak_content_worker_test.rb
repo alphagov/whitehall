@@ -51,6 +51,19 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
       govspeak_content.computed_headers_html
   end
 
+  test "handles embedded contacts" do
+    contact = create(:contact)
+
+    govspeak_content =  create(:html_attachment,
+                          body: "[Contact:#{contact.id}]").govspeak_content
+
+    GovspeakContentWorker.new.perform(govspeak_content.id)
+    govspeak_content.reload
+
+    assert_select_within_html govspeak_content.computed_body_html,
+      "div.contact#contact_#{contact.id}"
+  end
+
   test "saves generated govspeak headers HTML with manual numbering" do
     govspeak_content =  create(:html_attachment,
                           body: example_govspeak,
