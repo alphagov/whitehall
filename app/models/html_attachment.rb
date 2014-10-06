@@ -57,6 +57,10 @@ class HtmlAttachment < Attachment
     'text/html'
   end
 
+  def name_for_link
+    'HTML attachment'
+  end
+
   def url(options = {})
     options[:preview] = id if options.delete(:preview)
 

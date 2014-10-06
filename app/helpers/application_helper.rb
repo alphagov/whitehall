@@ -37,7 +37,7 @@ module ApplicationHelper
 
   def link_to_attachment(attachment, options = {})
     return unless attachment
-    name = (attachment.html? ? 'HTML attachment' : attachment.filename)
+    name = attachment.name_for_link
     name = truncate(name) if options[:truncate]
     link_to name, attachment.url(options)
   end

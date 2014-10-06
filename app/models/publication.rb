@@ -44,6 +44,10 @@ class Publication < Publicationesque
     false
   end
 
+  def allows_external_attachments?
+    true
+  end
+
   def allows_attachment_references?
     true
   end

@@ -55,6 +55,10 @@ module Attachable
     false
   end
 
+  def allows_external_attachments?
+    false
+  end
+
   def has_thumbnail?
     thumbnailable_attachments.any?
   end

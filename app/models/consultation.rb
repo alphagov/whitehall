@@ -55,6 +55,10 @@ class Consultation < Publicationesque
     false
   end
 
+  def allows_external_attachments?
+    true
+  end
+
   def not_yet_open?
     opening_at.nil? || (opening_at > Time.zone.now)
   end

@@ -74,13 +74,24 @@ private
   end
 
   def build_attachment
-    html? ? build_html_attachment : build_file_attachment
+    case params[:type]
+    when "html"
+      build_html_attachment
+    when "external"
+      build_external_attachment
+    else
+      build_file_attachment
+    end
   end
 
   def build_html_attachment
     HtmlAttachment.new(attachment_params).tap do |attachment|
       attachment.build_govspeak_content unless attachment.govspeak_content.present?
     end
+  end
+
+  def build_external_attachment
+    ExternalAttachment.new(attachment_params)
   end
 
   def build_file_attachment
@@ -93,7 +104,7 @@ private
     params.fetch(:attachment, {}).permit(
       :title, :locale, :isbn, :unique_reference, :command_paper_number,
       :unnumbered_command_paper, :hoc_paper_number, :unnumbered_hoc_paper,
-      :parliamentary_session, :order_url, :price, :accessible,
+      :parliamentary_session, :order_url, :price, :accessible, :external_url,
       govspeak_content_attributes: [:id, :body, :manually_numbered_headings],
       attachment_data_attributes: [:file, :to_replace_id, :file_cache]
     ).merge(attachable: attachable)

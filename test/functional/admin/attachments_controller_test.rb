@@ -95,7 +95,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create handles html attachments when attachable allows them' do
-    post :create, edition_id: @edition, html: 'true', attachment: valid_html_attachment_params
+    post :create, edition_id: @edition, type: 'html', attachment: valid_html_attachment_params
 
     assert_response :redirect
     assert_equal 1, @edition.reload.attachments.size
@@ -106,7 +106,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test 'POST :create ignores html attachments when attachable does not allow them' do
     attachable = create(:statistical_data_set, access_limited: false)
 
-    post :create, edition_id: attachable, html: 'true', attachment: valid_html_attachment_params
+    post :create, edition_id: attachable, type: 'html', attachment: valid_html_attachment_params
 
     assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
@@ -160,7 +160,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   view_test "GET :new for a publication includes House of Commons metadata for file attachments" do
     publication = create(:publication)
-    get :new, edition_id: publication, html: 'false'
+    get :new, edition_id: publication, type: 'file'
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
@@ -168,7 +168,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   view_test "GET :new for a publication includes House of Commons metadata for HTML attachments" do
     publication = create(:publication)
-    get :new, edition_id: publication, html: 'true'
+    get :new, edition_id: publication, type: 'html'
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"

@@ -17,7 +17,12 @@
         <% end %>
         <% if attachable.allows_html_attachments? %>
           <li>
-            <%= link_to 'Add new HTML attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], html: true) %>
+            <%= link_to 'Add new HTML attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], type: "html") %>
+          </li>
+        <% end %>
+        <% if attachable.allows_external_attachments? %>
+          <li>
+            <%= link_to 'Add new external attachment', new_polymorphic_path([:admin, typecast_for_attachable_routing(attachable), Attachment], type: "external") %>
           </li>
         <% end %>
       </ul>

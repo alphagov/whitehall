@@ -18,6 +18,10 @@ class FileAttachment < Attachment
     true
   end
 
+  def name_for_link
+    filename
+  end
+
 private
 
   # Only destroy the associated attachment_data record if no other attachments are using it

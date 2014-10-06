@@ -29,11 +29,13 @@
         <%= govspeak_fields.text_area :body, class: "previewable" %>
       <% end %>
     <% end %>
+  <% elsif attachment.is_a?(ExternalAttachment) %>
+    <%= form.text_field :external_url %>
   <% else %>
     <%= render 'attachment_data_fields', form: form %>
   <% end %>
 
-  <%= hidden_field_tag :html, params[:html] %>
+  <%= hidden_field_tag :type, params[:type] %>
 
   <%= form.save_or_cancel cancel: attachable_attachments_path(attachable) %>
 <% end %>

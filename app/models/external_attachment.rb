@@ -1,5 +1,5 @@
 class ExternalAttachment < Attachment
-  validates :external_url, presence: true
+  validates :external_url, presence: true, uri: true
 
   def accessible?
     true
@@ -24,6 +24,10 @@ class ExternalAttachment < Attachment
 
   def file_extension
     ''
+  end
+
+  def name_for_link
+    external_url
   end
 
   def could_contain_viruses?
