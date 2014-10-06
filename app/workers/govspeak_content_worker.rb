@@ -4,6 +4,7 @@ class GovspeakContentWorker
   def perform(id)
     govspeak_content = GovspeakContent.find(id)
     govspeak_content.computed_html = generate_govspeak(govspeak_content)
+    govspeak_content.computed_headers_html = generate_headers(govspeak_content)
     govspeak_content.save!
   end
 
@@ -19,6 +20,10 @@ private
     end
 
     ApplicationController.helpers.govspeak_to_html(body, images, options)
+  end
+
+  def generate_headers(govspeak_content)
+    ApplicationController.helpers.html_attachment_govspeak_headers_html(govspeak_content.html_attachment)
   end
 
   def govspeak_options(attachment)

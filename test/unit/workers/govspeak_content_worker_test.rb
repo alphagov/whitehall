@@ -39,6 +39,29 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
       govspeak_content.computed_html
   end
 
+  test "saves generated govspeak headers HTML to the GovspeakContent instance" do
+    govspeak_content =  create(:html_attachment,
+                          body: example_govspeak).govspeak_content
+
+    GovspeakContentWorker.new.perform(govspeak_content.id)
+    govspeak_content.reload
+
+    assert_equivalent_html example_headers_html,
+      govspeak_content.computed_headers_html
+  end
+
+  test "saves generated govspeak headers HTML with manual numbering" do
+    govspeak_content =  create(:html_attachment,
+                          body: example_govspeak,
+                          manually_numbered_headings: true).govspeak_content
+
+    GovspeakContentWorker.new.perform(govspeak_content.id)
+    govspeak_content.reload
+
+    assert_equivalent_html example_manually_numbered_headers_html,
+      govspeak_content.computed_headers_html
+  end
+
 private
 
   def example_govspeak
@@ -79,6 +102,22 @@ private
           </div>
         </figure>
       </div>
+    END
+  end
+
+  def example_headers_html
+    <<-END
+      <ol>
+        <li><a href="#heading">Heading</a></li>
+      </ol>
+    END
+  end
+
+  def example_manually_numbered_headers_html
+    <<-END
+      <ol class="unnumbered">
+        <li><a href="#heading">Heading</a></li>
+      </ol>
     END
   end
 end

@@ -10,6 +10,10 @@ class GovspeakContent < ActiveRecord::Base
     computed_html.try(:html_safe)
   end
 
+  def headers_html
+    computed_headers_html.try(:html_safe)
+  end
+
 private
 
   def queue_html_compute_job

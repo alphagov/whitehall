@@ -9,7 +9,7 @@ class HtmlAttachment < Attachment
   validates :govspeak_content, presence: true
 
   accepts_nested_attributes_for :govspeak_content
-  delegate :html, to: :govspeak_content, allow_nil: true, prefix: true
+  delegate :html, :headers_html, to: :govspeak_content, allow_nil: true, prefix: true
 
   # Note: temporary setter to deal with the form submissions made with the old
   # code. To be cleaned up post-deploy.

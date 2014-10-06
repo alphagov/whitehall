@@ -6,6 +6,7 @@ class CreateGovspeakContents < ActiveRecord::Migration
       t.references :html_attachment
       t.text :body, limit: MEDIUM_TEXT
       t.text :computed_html, limit: MEDIUM_TEXT
+      t.text :computed_headers_html
 
       t.timestamps
     end

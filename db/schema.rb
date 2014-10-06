@@ -605,10 +605,11 @@ ActiveRecord::Schema.define(:version => 20141002105505) do
 
   create_table "govspeak_contents", :force => true do |t|
     t.integer  "html_attachment_id"
-    t.text     "body",               :limit => 16777215
-    t.text     "computed_html",      :limit => 16777215
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.text     "body",                  :limit => 16777215
+    t.text     "computed_html",         :limit => 16777215
+    t.text     "computed_headers_html"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   add_index "govspeak_contents", ["html_attachment_id"], :name => "index_govspeak_contents_on_html_attachment_id"
