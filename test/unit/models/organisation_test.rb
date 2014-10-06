@@ -762,7 +762,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test "with_statistics_announcements scopes to organisations with associated statistics_announcements" do
     org_with_announcement = create(:organisation)
-    create(:statistics_announcement, organisation: org_with_announcement)
+    create(:statistics_announcement, organisation_ids: [org_with_announcement.id])
     org_without_announcement = create(:organisation)
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
@@ -798,5 +798,12 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert organisation.valid?
     assert_equal 'http://jobs.com/', organisation.jobs_url
+  end
+
+  test '#statistics_announcements returns all statistics_announcements associated with the organisation' do
+    organisation = create(:organisation)
+    statistics_announcement_organisations = create_list(:statistics_announcement, 2, organisation_ids: [organisation.id])
+
+    assert_equal organisation.statistics_announcements, StatisticsAnnouncementOrganisation.all.map(&:statistics_announcement)
   end
 end

@@ -30,7 +30,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'link' => announcement.public_path,
       'format' => 'statistics_announcement',
       'description' => announcement.summary,
-      'organisations' => [announcement.organisation.slug],
+      'organisations' => announcement.organisations.map(&:slug),
       'topics' => [announcement.topic.slug],
       'display_type' => announcement.display_type,
       'slug' => announcement.slug,
@@ -187,6 +187,14 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:add).never
     announcement.update_in_search_index
+  end
+
+  test "#organisations returns organisations associated with the statistics announcement" do
+    announcement = create(:statistics_announcement)
+    organisation = create(:organisation)
+    StatisticsAnnouncementOrganisation.create!(statistics_announcement: announcement, organisation: organisation)
+
+    assert_includes announcement.reload.organisations, organisation
   end
 
 private
