@@ -140,4 +140,18 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     assert_equal %w{created editorial_remark}, edition.document_audit_trail.map(&:action)
     assert_equal editorial_remark_body, edition.document_audit_trail.last.message
   end
+
+  test "latest_version_audit_entry_for returns most recent entry in a state" do
+    edition = create(:submitted_edition, creator: @user2)
+    edition.body = 'updated-body'
+    edition.save!
+    assert_equal @user, edition.latest_version_audit_entry_for('submitted').actor
+  end
+
+  test "most_recent_submission_audit_entry returns entry for submission action" do
+    edition = create(:submitted_edition, creator: @user2)
+    edition.body = 'updated-body'
+    edition.save!
+    assert_equal @user2, edition.most_recent_submission_audit_entry.actor
+  end
 end
