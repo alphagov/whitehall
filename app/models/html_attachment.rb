@@ -6,11 +6,10 @@ class HtmlAttachment < Attachment
 
   before_validation :clear_slug_if_non_english_locale
 
-  validates :govspeak_content, :body, presence: true
-  validates_with SafeHtmlValidator
+  validates :govspeak_content, presence: true
 
   accepts_nested_attributes_for :govspeak_content
-  delegate :body, to: :govspeak_content
+  delegate :html, to: :govspeak_content, allow_nil: true, prefix: true
 
   # Note: temporary setter to deal with the form submissions made with the old
   # code. To be cleaned up post-deploy.
@@ -18,10 +17,10 @@ class HtmlAttachment < Attachment
     (govspeak_content || self.build_govspeak_content).body = govspeak
   end
 
-  # NOTE: until all exiting records have been migrated and have govspeak_content
-  # instances, we cannot assume one exists, hence the use `try`.
-  def precomputed_html
-    govspeak_content.try(:html)
+  # NOTE: temporary getter to make sure we still return body content before the
+  # data has been migrated to the new delegated model
+  def body
+    govspeak_content.try(:body) || attributes['body']
   end
 
   def accessible?

@@ -3,29 +3,12 @@
 require 'test_helper'
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
-  test '#body attribute is delegated to GovspeakContent' do
-    attachment = HtmlAttachment.new
-
-    attachment.body = 'Govspeak body'
-
-    assert_equal 'Govspeak body', attachment.body
-    assert attachment.govspeak_content
-    assert_equal attachment.body, attachment.govspeak_content.body
-  end
-
-  test 'validates that a body is provided' do
-    attachment = build(:html_attachment, body: nil)
-
-    refute attachment.valid?
-    assert_equal ["can't be blank"], attachment.errors[:body]
-  end
-
-  test '#precomputed_html returns the computed HTML as an HTML safe string' do
+  test '#govspeak_content_html returns the computed HTML as an HTML safe string' do
     attachment = create(:html_attachment, body: 'Some govspeak')
 
-    assert attachment.reload.precomputed_html.html_safe?
+    assert attachment.reload.govspeak_content_html.html_safe?
     assert_equivalent_html "<div class=\"govspeak\"><p>Some govspeak</p></div>",
-      attachment.precomputed_html
+      attachment.govspeak_content_html
   end
 
   test '#deep_clone deep clones the HTML attachment and body' do
