@@ -6,7 +6,7 @@ class ExternalAttachment < Attachment
   end
 
   def html?
-    true
+    false
   end
 
   def pdf?
@@ -22,8 +22,16 @@ class ExternalAttachment < Attachment
     false
   end
 
+  def file_extension
+    ''
+  end
+
   def could_contain_viruses?
     false
+  end
+
+  def external?
+    true
   end
 
   def content_type

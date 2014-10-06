@@ -90,6 +90,10 @@ class Attachment < ActiveRecord::Base
     dup
   end
 
+  def external?
+    false
+  end
+
   private
 
   def store_price_in_pence
