@@ -26,7 +26,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   scope :with_title_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    where("title REGEXP :pattern OR slug = :slug", pattern: pattern, slug: keywords)
+    where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
   }
 
   include Searchable

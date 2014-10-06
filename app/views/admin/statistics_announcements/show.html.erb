@@ -43,8 +43,8 @@
     <% end %>
     <dt>Type:</dt>
     <dd><%= @statistics_announcement.display_type %></dd>
-    <dt>Organisation:</dt>
-    <dd><%= @statistics_announcement.organisation.name %></dd>
+    <dt>Organisations:</dt>
+    <dd><%= organisations_list(@statistics_announcement.organisations) %></dd>
     <dt>Topic:</dt>
     <dd><%= @statistics_announcement.topic.name %></dd>
   </dl>
