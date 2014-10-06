@@ -6,8 +6,8 @@ class GovspeakContent < ActiveRecord::Base
 
   after_save :queue_html_compute_job, if: :body_changed?
 
-  def html
-    computed_html.try(:html_safe)
+  def body_html
+    computed_body_html.try(:html_safe)
   end
 
   def headers_html

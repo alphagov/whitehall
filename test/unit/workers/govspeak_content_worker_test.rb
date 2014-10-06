@@ -10,7 +10,8 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
     GovspeakContentWorker.new.perform(govspeak_content.id)
     govspeak_content.reload
 
-    assert_equivalent_html example_govspeak_html, govspeak_content.computed_html
+    assert_equivalent_html example_govspeak_html,
+      govspeak_content.computed_body_html
   end
 
   test "saves generated HTML with manual numbering" do
@@ -22,7 +23,7 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
     govspeak_content.reload
 
     assert_equivalent_html example_govspeak_manually_numbered_html,
-      govspeak_content.computed_html
+      govspeak_content.computed_body_html
   end
 
   test "saves generated HTML with image interpolation" do
@@ -36,7 +37,7 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
     govspeak_content.reload
 
     assert_equivalent_html example_govspeak_with_image_html(image),
-      govspeak_content.computed_html
+      govspeak_content.computed_body_html
   end
 
   test "saves generated govspeak headers HTML to the GovspeakContent instance" do

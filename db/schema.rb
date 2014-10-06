@@ -606,7 +606,7 @@ ActiveRecord::Schema.define(:version => 20141002105505) do
   create_table "govspeak_contents", :force => true do |t|
     t.integer  "html_attachment_id"
     t.text     "body",                  :limit => 16777215
-    t.text     "computed_html",         :limit => 16777215
+    t.text     "computed_body_html",    :limit => 16777215
     t.text     "computed_headers_html"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false

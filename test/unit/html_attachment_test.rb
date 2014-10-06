@@ -3,12 +3,12 @@
 require 'test_helper'
 
 class HtmlAttachmentTest < ActiveSupport::TestCase
-  test '#govspeak_content_html returns the computed HTML as an HTML safe string' do
+  test '#govspeak_content_body_html returns the computed HTML as an HTML safe string' do
     attachment = create(:html_attachment, body: 'Some govspeak')
 
-    assert attachment.reload.govspeak_content_html.html_safe?
+    assert attachment.reload.govspeak_content_body_html.html_safe?
     assert_equivalent_html "<div class=\"govspeak\"><p>Some govspeak</p></div>",
-      attachment.govspeak_content_html
+      attachment.govspeak_content_body_html
   end
 
   test '#deep_clone deep clones the HTML attachment and body' do
