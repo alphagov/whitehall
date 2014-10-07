@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20141009101445) do
     t.string   "order_url"
     t.integer  "price_in_pence"
     t.integer  "attachment_data_id"
-    t.integer  "ordering",                                         :null => false
+    t.integer  "ordering",                 :null => false
     t.string   "hoc_paper_number"
     t.string   "parliamentary_session"
     t.boolean  "unnumbered_command_paper"
@@ -72,8 +72,6 @@ ActiveRecord::Schema.define(:version => 20141009101445) do
     t.string   "attachable_type"
     t.string   "type"
     t.string   "slug"
-    t.text     "body",                       :limit => 2147483647
-    t.boolean  "manually_numbered_headings"
     t.string   "locale"
   end
 

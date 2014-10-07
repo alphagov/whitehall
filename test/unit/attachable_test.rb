@@ -142,7 +142,7 @@ class AttachableTest < ActiveSupport::TestCase
       attachment_2 = build(:html_attachment, title: "Test HTML attachment"),
     ])
 
-    attachment_3 = HtmlAttachment.new(title: 'Title', body: "Testing")
+    attachment_3 = build(:html_attachment, title: 'Title', body: "Testing")
     publication.attachments << attachment_3
 
     assert_equal [attachment_2, attachment_3], publication.html_attachments(true)
@@ -195,7 +195,7 @@ class AttachableTest < ActiveSupport::TestCase
     attachment_2 = draft.attachments[1]
     assert attachment_2.persisted?
     assert html_attachment.id != attachment_2.id
-    assert_equal html_attachment.body, attachment_2.body
+    assert_equal html_attachment.govspeak_content.body, attachment_2.govspeak_content.body
     assert_equal html_attachment.title, attachment_2.title
   end
 end

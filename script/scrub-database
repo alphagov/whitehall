@@ -87,7 +87,7 @@ run_mysql_command "UPDATE attachments SET title='${lorem_ipsum_line}' WHERE atta
 echo "Done"
 
 echo "Anonymising html attachment data for latest access limited drafts..."
-run_mysql_command "UPDATE attachments SET body='${lorem_ipsum_paragraphs}', slug=concat('${lorem_ipsum_slug}-', id) WHERE attachable_type = 'Edition' AND attachable_id IN (${access_limited_edition_ids})" 1> /dev/null
+run_mysql_command "UPDATE attachments SET slug=concat('${lorem_ipsum_slug}-', id) WHERE attachable_type = 'Edition' AND attachable_id IN (${access_limited_edition_ids})" 1> /dev/null
 echo "Done"
 
 echo "Anonymising file names for attachments on latest access limited drafts..."

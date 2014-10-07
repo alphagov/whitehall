@@ -19,20 +19,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert attachment.id != clone.id
     assert clone.new_record?
     assert_equal attachment.title, clone.title
-    assert_equal attachment.body, clone.body
-  end
-
-  test '#deep_clone temporarily handles attachments without a GovspeakContent instance' do
-    attachment = create(:html_attachment)
-    attachment.govspeak_content.destroy
-
-    clone = attachment.reload.deep_clone
-
-    assert attachment.id != clone.id
-    assert clone.new_record?
-    assert clone.govspeak_content.present?
-    assert_equal attachment.title, clone.title
-    assert_equal attachment.body, clone.body
+    assert_equal attachment.govspeak_content_body, clone.govspeak_content_body
   end
 
   test '#url returns absolute path' do
