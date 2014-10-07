@@ -94,7 +94,7 @@ class GovspeakHelperTest < ActionView::TestCase
   end
 
   test "#html_attachment_govspeak_headers strips numbers from manually numbered HTML attachments" do
-    attachment = HtmlAttachment.new(
+    attachment = build(:html_attachment,
       body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
       manually_numbered_headings: true
     )

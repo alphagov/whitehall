@@ -12,7 +12,7 @@ private
 
   def generate_govspeak(govspeak_content)
     body = govspeak_content.body
-    options = govspeak_options(govspeak_content.html_attachment)
+    options = govspeak_options(govspeak_content)
     if govspeak_content.html_attachment.attachable.respond_to?(:images)
       images = govspeak_content.html_attachment.attachable.images
     else
@@ -26,10 +26,9 @@ private
     helpers.html_attachment_govspeak_headers_html(govspeak_content.html_attachment)
   end
 
-  def govspeak_options(attachment)
-    numbering_method = attachment.manually_numbered_headings? ? :manual : :auto
-
-    { heading_numbering: numbering_method, contact_heading_tag: 'h4' }
+  def govspeak_options(govspeak_content)
+    method = govspeak_content.manually_numbered_headings? ? :manual : :auto
+    { heading_numbering: method, contact_heading_tag: 'h4' }
   end
 
   # Because the govspeak helpers in whitehall rely on rendering partials, we

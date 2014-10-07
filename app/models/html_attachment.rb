@@ -9,7 +9,8 @@ class HtmlAttachment < Attachment
   validates :govspeak_content, presence: true
 
   accepts_nested_attributes_for :govspeak_content
-  delegate :body_html, :headers_html, to: :govspeak_content, allow_nil: true, prefix: true
+  delegate :body_html, :headers_html, :manually_numbered_headings?,
+            to: :govspeak_content, allow_nil: true, prefix: true
 
   # Note: temporary setter to deal with the form submissions made with the old
   # code. To be cleaned up post-deploy.
@@ -21,6 +22,10 @@ class HtmlAttachment < Attachment
   # data has been migrated to the new delegated model
   def body
     govspeak_content.try(:body) || attributes['body']
+  end
+
+  def manually_numbered_headings?
+    govspeak_content.try(:manually_numbered_headings?) || attributes['manually_numbered_headings']
   end
 
   def accessible?
