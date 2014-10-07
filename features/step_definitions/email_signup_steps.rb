@@ -21,13 +21,6 @@ When(/^I sign up for emails, checking the relevant to local government box$/) do
   click_on 'Create subscription'
 end
 
-When(/^I send the latest email in the email curation queue$/) do
-  visit admin_email_curation_queue_items_path
-  within page.all('.email_curation_queue_item').first do
-    click_on 'Send'
-  end
-end
-
 Then(/^I should be signed up for the all publications mailing list$/) do
   assert_signed_up_to_mailing_list("/government/publications.atom", "publications")
 end

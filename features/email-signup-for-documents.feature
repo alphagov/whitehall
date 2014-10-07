@@ -43,7 +43,4 @@ Feature: Email signup for documents
     Then I should be signed up for the local government news stories mailing list
 
     When I publish a news article "Serfdom is prooving to be an unpopular lifestyle choice, says the mayor of Penzance" associated with the policy "Re-introduce feudalism to Cornwall"
-    Then no govuk_delivery notifications should have been sent yet
-
-    When I send the latest email in the email curation queue
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for
