@@ -16,6 +16,5 @@ private
     edition.public_send(verb)
     edition.save(validate: false)
     edition.clear_slug
-    edition.destroy_email_curation_queue_items
   end
 end

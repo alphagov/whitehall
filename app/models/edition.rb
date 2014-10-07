@@ -24,7 +24,6 @@ class Edition < ActiveRecord::Base
   has_many :editorial_remarks, dependent: :destroy
   has_many :edition_authors, dependent: :destroy
   has_many :authors, through: :edition_authors, source: :user
-  has_many :email_curation_queue_items, inverse_of: :edition, dependent: :destroy
   has_many :classification_featurings, inverse_of: :edition
   has_many :links_reports, as: :link_reportable
 
@@ -264,10 +263,6 @@ class Edition < ActiveRecord::Base
 
   def clear_slug
     document.update_slug_if_possible("deleted-#{title(I18n.default_locale)}")
-  end
-
-  def destroy_email_curation_queue_items
-    email_curation_queue_items.destroy_all
   end
 
   searchable(
