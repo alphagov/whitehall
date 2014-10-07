@@ -306,4 +306,8 @@ module Admin::EditionsHelper
     Rails.logger.warn("WARNING: Could not retrieve specialist sectors")
     nil
   end
+
+  def show_similar_slugs_warning?(edition)
+    !edition.document.published? && edition.document.similar_slug_exists?
+  end
 end
