@@ -35,6 +35,7 @@ class ActiveSupport::TestCase
     Whitehall.search_backend = Whitehall::DocumentFilter::FakeSearch
     VirusScanHelpers.erase_test_files
     Sidekiq::Worker.clear_all
+    stub_default_publishing_api_put
   end
 
   teardown do
