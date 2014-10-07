@@ -6,6 +6,9 @@
   <dd><%= absolute_date(history.last.public_timestamp) %></dd>
   <% unless history.newly_published? -%>
     <dt><%= t('change_notes.updated_at') %>:</dt>
-    <dd><%= absolute_date(history.most_recent_change) %>, <a class="see-all-updates" href="#history"><%= t('change_notes.see_all_updates') %></a></dd>
+    <dd>
+      <%= absolute_date(history.most_recent_change) %>
+      <% if footer_meta -%>, <a class="see-all-updates" href="#history"><%= t('change_notes.see_all_updates') %></a><% end -%>
+    </dd>
   <% end %>
 <% end %>

@@ -4,7 +4,7 @@
 <%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
   <header class="block headings-block">
     <div class="inner-block floated-children">
-      <%= render(partial: 'documents/header', locals: { header_title: header_title, document: @document }) %>
+      <%= render(partial: 'documents/header', locals: { header_title: header_title, document: @document, footer_meta: true }) %>
     </div>
   </header>
 
