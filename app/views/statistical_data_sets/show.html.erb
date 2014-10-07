@@ -22,12 +22,13 @@
 
   <div class="block-2 ">
     <div class="inner-block">
-      <% if govspeak_headers(@document.body).any? %>
+      <% headers = govspeak_headers(@document.body) %>
+      <% if headers.any? %>
         <div class="contextual-info js-stick-at-top-when-scrolling">
           <nav>
             <h1>Contents</h1>
             <ol>
-              <% govspeak_headers(@document.body).each do |header| %>
+              <% headers.each do |header| %>
                 <li><%= link_to header.text, "##{header.id}" %></li>
               <% end %>
             </ol>
