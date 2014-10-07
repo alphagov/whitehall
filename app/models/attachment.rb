@@ -86,6 +86,10 @@ class Attachment < ActiveRecord::Base
     }
   end
 
+  def deep_clone
+    dup
+  end
+
   private
 
   def store_price_in_pence

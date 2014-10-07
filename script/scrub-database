@@ -93,3 +93,7 @@ echo "Done"
 echo "Anonymising file names for attachments on latest access limited drafts..."
 run_mysql_command "UPDATE attachment_data SET carrierwave_file='redacted.pdf' WHERE id IN (SELECT attachment_data_id FROM attachments WHERE attachments.attachable_type = 'Edition' AND attachments.attachable_id IN (${access_limited_edition_ids}))" 1> /dev/null
 echo "Done"
+
+echo "Anonymising govspeak content data for access limited editions..."
+run_mysql_command "UPDATE govspeak_contents JOIN attachments ON attachments.id = govspeak_contents.html_attachment_id JOIN editions ON attachments.attachable_id = editions.id SET govspeak_contents.body='${lorem_ipsum_paragraphs}', govspeak_contents.computed_body_html=NULL, govspeak_contents.computed_headers_html=NULL WHERE attachments.attachable_type = 'EDITION' AND editions.access_limited = 1" 1> /dev/null
+echo "Done"

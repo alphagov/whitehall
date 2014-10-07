@@ -78,7 +78,9 @@ private
   end
 
   def build_html_attachment
-    HtmlAttachment.new(attachment_params)
+    HtmlAttachment.new(attachment_params).tap do |attachment|
+      attachment.build_govspeak_content unless attachment.govspeak_content.present?
+    end
   end
 
   def build_file_attachment
@@ -89,10 +91,10 @@ private
 
   def attachment_params
     params.fetch(:attachment, {}).permit(
-      :title, :body, :locale, :isbn, :unique_reference, :command_paper_number,
+      :title, :locale, :isbn, :unique_reference, :command_paper_number,
       :unnumbered_command_paper, :hoc_paper_number, :unnumbered_hoc_paper,
       :parliamentary_session, :order_url, :price, :accessible,
-      :manually_numbered_headings,
+      govspeak_content_attributes: [:id, :body, :manually_numbered_headings],
       attachment_data_attributes: [:file, :to_replace_id, :file_cache]
     ).merge(attachable: attachable)
   end

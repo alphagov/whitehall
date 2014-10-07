@@ -48,7 +48,7 @@ gem 'strong_parameters'
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 3.0', '>= 3.1.1'
+  gem 'govspeak', '~> 3.2.0'
 end
 
 group :assets do

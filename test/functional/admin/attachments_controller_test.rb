@@ -13,7 +13,9 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   def valid_html_attachment_params
     {
       title: 'Attachment title',
-      body: 'Some **govspeak** body'
+      govspeak_content_attributes: {
+        body: 'Some **govspeak** body'
+      }
     }
   end
 
@@ -195,7 +197,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     put :update, edition_id: @edition, id: attachment.id, attachment: {
       title: 'New title',
-      body: 'New body'
+      govspeak_content_attributes: { body: 'New body', id: attachment.govspeak_content.id }
     }
     assert_equal 'New title', attachment.reload.title
     assert_equal 'New body', attachment.reload.body

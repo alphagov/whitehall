@@ -175,4 +175,27 @@ class AttachableTest < ActiveSupport::TestCase
     ])
     assert pub.has_act_paper?
   end
+
+  test 're-editioned editions deep-clones attachments' do
+    file_attachment = build(:file_attachment, attachable: nil)
+    html_attachment = build(:html_attachment, attachable: nil)
+    publication = create(:published_publication, :with_alternative_format_provider,
+                    attachments: [file_attachment, html_attachment])
+
+    draft = publication.create_draft(create(:policy_writer))
+
+    assert_equal 2, draft.attachments.size
+
+    attachment_1 = draft.attachments[0]
+    assert attachment_1.persisted?
+    assert file_attachment.id != attachment_1.id
+    assert_equal file_attachment.attachment_data, attachment_1.attachment_data
+    assert_equal file_attachment.title, attachment_1.title
+
+    attachment_2 = draft.attachments[1]
+    assert attachment_2.persisted?
+    assert html_attachment.id != attachment_2.id
+    assert_equal html_attachment.body, attachment_2.body
+    assert_equal html_attachment.title, attachment_2.title
+  end
 end

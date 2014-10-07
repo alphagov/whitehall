@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140917142641) do
+ActiveRecord::Schema.define(:version => 20141002105505) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -602,6 +602,18 @@ ActiveRecord::Schema.define(:version => 20140917142641) do
   end
 
   add_index "force_publication_attempts", ["import_id"], :name => "index_force_publication_attempts_on_import_id"
+
+  create_table "govspeak_contents", :force => true do |t|
+    t.integer  "html_attachment_id"
+    t.text     "body",                       :limit => 16777215
+    t.boolean  "manually_numbered_headings"
+    t.text     "computed_body_html",         :limit => 16777215
+    t.text     "computed_headers_html"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+  end
+
+  add_index "govspeak_contents", ["html_attachment_id"], :name => "index_govspeak_contents_on_html_attachment_id"
 
   create_table "group_memberships", :force => true do |t|
     t.integer  "group_id"

@@ -4,25 +4,25 @@ class SafeHtmlValidator < ActiveModel::Validator
 
     return if Whitehall.skip_safe_html_validation || @record.marked_for_destruction?
 
-    @record.changes.each do |field_name, (old_value, new_value)|
-      check_struct(field_name, new_value)
+    @record.changes.each do |attribute_name, (old_value, new_value)|
+      check_attribute_for_safety(attribute_name, new_value)
     end
   end
 
 private
 
-  def check_struct(field_name, value)
+  def check_attribute_for_safety(attribute_name, value)
     if value.respond_to?(:values) # e.g. Hash
-      value.values.each { |entry| check_struct(field_name, entry) }
+      value.values.each { |entry| check_attribute_for_safety(attribute_name, entry) }
     elsif value.respond_to?(:each) # e.g. Array
-      value.each { |entry| check_struct(field_name, entry) }
+      value.each { |entry| check_attribute_for_safety(attribute_name, entry) }
     elsif value.is_a?(String)
-      check_string(field_name, value)
+      check_string_is_safe(attribute_name, value)
     end
   end
 
-  def check_string(field_name, string)
-    @record.errors.add(field_name, "cannot include invalid formatting or JavaScript") if unacceptable_govspeak?(string)
+  def check_string_is_safe(attribute_name, string)
+    @record.errors.add(attribute_name, "cannot include invalid formatting or JavaScript") if unacceptable_govspeak?(string)
   end
 
   def self.cache
