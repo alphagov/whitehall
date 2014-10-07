@@ -1,7 +1,4 @@
 class HtmlAttachment < Attachment
-  extend DeprecatedColumns
-  deprecated_columns :body, :manually_numbered_headings
-
   extend FriendlyId
   friendly_id :sluggable_string
 
