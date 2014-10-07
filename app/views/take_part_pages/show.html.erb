@@ -17,16 +17,7 @@
           <%= image_tag(@take_part_page.image_url(:s300), alt: @take_part_page.image_alt_text) %>
         </span>
 
-        <% if govspeak_headers(@take_part_page.body).any? %>
-          <nav class="js-stick-at-top-when-scrolling">
-            <h1>Contents</h1>
-            <ol>
-              <% govspeak_headers(@take_part_page.body).each do |header| %>
-                <li><%= link_to header.text, "##{header.id}" %></li>
-              <% end %>
-            </ol>
-          </nav>
-        <% end %>
+        <%= render 'shared/govspeak_header_contents', headers: govspeak_headers(@take_part_page.body) %>
       </div>
     </div>
     <div class="block-2">
