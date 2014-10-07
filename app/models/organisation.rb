@@ -168,6 +168,7 @@ class Organisation < ActiveRecord::Base
 
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
+  after_save :publish_to_publishing_api
 
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
@@ -220,6 +221,10 @@ class Organisation < ActiveRecord::Base
     unless analytics_identifier.present?
       update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
     end
+  end
+
+  def publish_to_publishing_api
+    ServiceListeners::OrganisationPublishingApiRegistrar.new(self).register!
   end
 
   def organisation_logo_type
@@ -428,6 +433,14 @@ class Organisation < ActiveRecord::Base
     name
   end
 
+  def base_path
+    "/government/#{slug}"
+  end
+
+  def attributes_for_publishing_api
+    export_attributes_for_publishing_api
+  end
+
   private
 
   def organisations_with_services_and_information_link
@@ -451,6 +464,32 @@ class Organisation < ActiveRecord::Base
         errors[:parent_organisations] << "must not be empty for sub-organisations"
       end
     end
+  end
+
+  def export_attributes_for_publishing_api
+    {
+      title: name,
+      base_path: base_path,
+      description: summary,
+      format: "placeholder", # This will be updated once Whitehall uses the Content Store permanently
+      need_ids: [],
+      public_updated_at: updated_at,
+      publishing_app: "whitehall",
+      rendering_app: "whitehall-frontend",
+      routes: [ { path: base_path, type: "exact" } ], # Placeholder does not register routes but still needs to send the base path.
+      redirects: [],
+      update_type: "minor",
+      details: {
+        abbreviation: acronym,
+        logo_formatted_name: logo_formatted_name,
+        organisation_brand_colour_class_name: organisation_brand_colour.try(:class_name),
+        organisation_logo_type_class_name: organisation_logo_type.try(:class_name),
+        closed_at: closed_at,
+        govuk_status: govuk_status,
+        parent_organisations: parent_organisations,
+        child_organisations: child_organisations,
+      }
+    }
   end
 
 end
