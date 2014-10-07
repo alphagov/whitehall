@@ -91,6 +91,8 @@ class HtmlAttachment < Attachment
     super.tap do |clone|
       if govspeak_content.present?
         clone.govspeak_content = govspeak_content.dup
+      else
+        clone.build_govspeak_content(body: body, manually_numbered_headings: manually_numbered_headings)
       end
     end
   end
