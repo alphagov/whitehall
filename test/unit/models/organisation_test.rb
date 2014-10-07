@@ -799,4 +799,34 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.valid?
     assert_equal 'http://jobs.com/', organisation.jobs_url
   end
+
+  test "it creates an attributes hash for the publishing api" do
+    organisation = create(:organisation)
+
+    expected_attributes_for_publishing_api_hash = {
+      title: organisation.name,
+      base_path: "/government/#{organisation.slug}",
+      description: organisation.summary,
+      format: "placeholder",
+      need_ids: [],
+      public_updated_at: organisation.updated_at,
+      publishing_app: "whitehall",
+      rendering_app: "whitehall-frontend",
+      routes: [ { path: "/government/#{organisation.slug}", type: "exact" }],
+      redirects: [],
+      update_type: "minor",
+      details: {
+        abbreviation: organisation.acronym,
+        logo_formatted_name: organisation.logo_formatted_name,
+        organisation_brand_colour_class_name: organisation.organisation_brand_colour.try(:class_name),
+        organisation_logo_type_class_name: organisation.organisation_logo_type.try(:class_name),
+        closed_at: organisation.closed_at,
+        govuk_status: organisation.govuk_status,
+        parent_organisations: organisation.parent_organisations,
+        child_organisations: organisation.child_organisations,
+      }
+    }
+
+    assert_equal expected_attributes_for_publishing_api_hash, organisation.attributes_for_publishing_api
+  end
 end
