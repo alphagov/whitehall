@@ -3,8 +3,16 @@ module Edition::SpecialistSectors
 
   included do
     has_many :specialist_sectors, foreign_key: :edition_id, dependent: :destroy
-    has_many :primary_specialist_sectors, conditions: {primary: true}, class_name: 'SpecialistSector', foreign_key: :edition_id, dependent: :destroy
-    has_many :secondary_specialist_sectors, conditions: {primary: false}, class_name: 'SpecialistSector', foreign_key: :edition_id, dependent: :destroy
+    has_many :primary_specialist_sectors,
+                conditions: { primary: true },
+                class_name: 'SpecialistSector',
+                foreign_key: :edition_id,
+                dependent: :destroy
+    has_many :secondary_specialist_sectors,
+                conditions: { primary: false },
+                class_name: 'SpecialistSector',
+                foreign_key: :edition_id,
+                dependent: :destroy
 
     add_trait do
       def process_associations_before_save(edition)
@@ -36,15 +44,12 @@ module Edition::SpecialistSectors
 private
 
   def set_specialist_sectors(tags, primary: false)
-    relation = if primary
-      'primary_specialist_sectors'
-    else
-      'secondary_specialist_sectors'
-    end
+    relation = primary ? 'primary_specialist_sectors' : 'secondary_specialist_sectors'
 
     sectors = tags.reject(&:blank?).map do |tag|
-      self.public_send(relation).where(tag: tag).first_or_initialize.tap do |sector|
+      self.specialist_sectors.where(tag: tag).first_or_initialize.tap do |sector|
         sector.edition = self
+        sector.primary = primary
       end
     end
 
