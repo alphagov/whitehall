@@ -5,19 +5,22 @@ Feature: Managing attachments on editions
 
   Scenario: Adding and reordering attachments
     Given I am an writer
-    And I draft a new publication "Standard Beard Lengths"
-    When I start editing the attachments from the publication page
+    And I draft a new consultation "Standard Beard Lengths"
+    When I start editing the attachments from the consultation page
     And I upload a file attachment with the title "Beard Length Statistics 2014" and the file "dft_statistical_data_set_sample.csv"
     And I upload an html attachment with the title "Beard Length Graphs 2012" and the body "Example **Govspeak body**"
-    Then the publication "Standard Beard Lengths" should have 2 attachments
+    And I add an external attachment with the title "Beard Length Illustrations" and the URL "http://www.beardlengths.gov.uk"
+    Then the consultation "Standard Beard Lengths" should have 3 attachments
     When I set the order of attachments to:
       |         title                | order |
       | Beard Length Graphs 2012     |   0   |
       | Beard Length Statistics 2014 |   1   |
+      | Beard Length Illustrations   |   2   |
     Then the attachments should be in the following order:
       |         title                |
       | Beard Length Graphs 2012     |
       | Beard Length Statistics 2014 |
+      | Beard Length Illustrations   |
 
   Scenario: Replacing data on an attachment
     Given I am an editor

@@ -23,6 +23,21 @@ module AttachmentHelper
     Attachment.find_by_title(attachment_title)
   end
 
+  def create_external_attachment(url, attachment_title)
+    click_on 'Add new external attachment'
+    fill_in 'Title', with: attachment_title
+    fill_in 'External url', with: url
+    click_on 'Save'
+    Attachment.find_by_title(attachment_title)
+  end
+
+  def add_external_attachment
+    location = current_url
+    click_link "Modify attachments"
+    create_external_attachment('http://www.example.com/example', 'Example doc')
+    visit location
+  end
+
   def find_markdown_snippet_to_insert_attachment(attachment)
     find("strong:contains('#{attachment.title}') + code").text
   end

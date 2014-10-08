@@ -55,6 +55,7 @@ When /^I draft a new publication "([^"]*)" relating it to topical event "([^"]*)
   begin_drafting_publication publication_title
   select topical_event_name, from: "Topical events"
   click_button "Save"
+  add_external_attachment
 end
 
 When /^I draft a new consultation "([^"]*)" relating it to topical event "([^"]*)"$/ do |consultation_title, topical_event_name|

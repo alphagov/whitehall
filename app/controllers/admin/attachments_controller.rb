@@ -111,7 +111,7 @@ private
   end
 
   def type
-    params.fetch(:type, 'file')
+    params[:type].presence || 'file'
   end
 
   def html?

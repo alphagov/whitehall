@@ -58,6 +58,18 @@ module ModelHelpers
       end
     end
 
+    def should_allow_external_attachments
+      test "should allow external attachments" do
+        assert class_from_test_name.new.allows_external_attachments?
+      end
+    end
+
+    def should_not_allow_external_attachments
+      test "should not allow external attachments" do
+        refute class_from_test_name.new.allows_external_attachments?
+      end
+    end
+
     def should_allow_inline_attachments
       test "should allow inline attachments" do
         assert class_from_test_name.new.allows_inline_attachments?

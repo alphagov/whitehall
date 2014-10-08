@@ -7,7 +7,7 @@ class ConsultationTest < ActiveSupport::TestCase
   should_be_attachable
   should_not_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-  should_support_linking_to_external_version
+  should_allow_external_attachments
 
   [:imported, :deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do

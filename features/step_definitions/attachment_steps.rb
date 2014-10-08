@@ -54,6 +54,10 @@ When(/^I upload an html attachment with the title "(.*?)" and the body "(.*?)"$/
   click_on 'Save'
 end
 
+When(/^I add an external attachment with the title "(.*?)" and the URL "(.*?)"$/) do |title, url|
+  create_external_attachment(url, title)
+end
+
 When(/^I try and upload an attachment but there are validation errors$/) do
   ensure_path admin_publication_path(Publication.last)
   click_on 'Modify attachments'
@@ -70,8 +74,8 @@ Then(/^I should be able to submit the attachment without re\-uploading the file$
   assert_equal 'Title that was missing before', Publication.last.attachments.last.title
 end
 
-Then(/^the publication "(.*?)" should have (\d+) attachments$/) do |publication_title, expected_number_of_attachments|
-  assert_equal expected_number_of_attachments.to_i, Publication.find_by_title(publication_title).attachments.count
+Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_number_of_attachments|
+  assert_equal expected_number_of_attachments.to_i, Edition.find_by_title(title).attachments.count
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|

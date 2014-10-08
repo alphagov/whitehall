@@ -16,6 +16,7 @@ end
 When /^I draft a new publication "([^"]*)"$/ do |title|
   begin_drafting_publication(title)
   click_button "Save"
+  add_external_attachment
 end
 
 Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
@@ -23,6 +24,7 @@ Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
   as_user(user) do
     begin_drafting_publication(title)
     click_button "Save"
+    add_external_attachment
   end
 end
 
@@ -35,6 +37,7 @@ When /^I draft a new publication "([^"]*)" that does not apply to the nations:$/
     end
   end
   click_button "Save"
+  add_external_attachment
 end
 
 When /^I visit the list of publications$/ do
@@ -60,6 +63,7 @@ When /^I draft a new publication "([^"]*)" referencing the data set "([^"]*)"$/ 
   begin_drafting_publication(title)
   select data_set_name, from: "Related statistical data sets"
   click_button "Save"
+  add_external_attachment
 end
 
 Then /^I should see in the preview that "([^"]*)" is taken from the live data in "([^"]*)"$/ do |title, data_set_name|
@@ -162,30 +166,17 @@ Then /^I should see "([^"]*)" in the result list$/ do |title|
   assert page.has_css?(".filter-results h3", text: %r{#{title}})
 end
 
-When(/^I draft an external publication$/) do
-  begin_drafting_publication('An external publication')
-  check 'This publication is held on another website'
-  fill_in 'External link URL', with: 'http://example.com/publication'
-  click_button "Save"
-  @publication = Publication.last
-end
-
-Then(/^I should see in the preview that the publication is external and there is a link to the external publication$/) do
-  ensure_path admin_publication_path(@publication)
-  click_link "Preview on website"
-  assert page.has_css?(".hosted-externally a[href*='#{@publication.external_url}'][rel=external]")
-  assert page.has_content?("#{@publication.external_url}")
-end
-
 When /^I publish a new publication called "([^"]*)"$/ do |title|
   begin_drafting_publication(title, first_published: Date.today.to_s)
   click_button "Save"
+  add_external_attachment
   publish(force: true)
 end
 
 When /^I publish a new publication of the type "([^"]*)" called "([^"]*)"$/ do |publication_type, title|
   begin_drafting_publication(title, first_published: Date.today.to_s, publication_type: publication_type)
   click_button "Save"
+  add_external_attachment
   publish(force: true)
 end
 
