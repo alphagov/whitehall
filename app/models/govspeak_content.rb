@@ -16,8 +16,14 @@ class GovspeakContent < ActiveRecord::Base
 
 private
 
+  # NOTE: we delay the processing of the govspeak so as to ensure that the
+  # GovspeakContent record actually exists in the database. This is necessary
+  # because the re-editioning process (which clones HtmlAttachments, and thus
+  # GovspeakContent) takes a while, meaning the transaction may not have
+  # completed before the job is picked up, causing ActiveRecord::RecordNotFound
+  # errors.
   def queue_html_compute_job
-    GovspeakContentWorker.perform_async(self.id)
+    GovspeakContentWorker.perform_in(10.seconds, self.id)
   end
 
   def body_or_numbering_scheme_changed?
