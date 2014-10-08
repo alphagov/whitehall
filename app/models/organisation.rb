@@ -434,8 +434,10 @@ class Organisation < ActiveRecord::Base
     %w{
       charity-commission
       environment-agency
+      intellectual-property-office
       marine-management-organisation
       maritime-and-coastguard-agency
+      natural-england
     }
   end
 
