@@ -23,7 +23,7 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <%= render "document_contextual", policy: @policy, headers: govspeak_headers(@policy.body) %>
+      <%= render "document_contextual", policy: @policy, govspeak: @policy.body %>
       <%= national_statistics_logo(@document) %>
     </div>
   </div>

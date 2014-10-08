@@ -36,7 +36,7 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <%= render "document_contextual", headers: govspeak_headers(@document.body) %>
+      <%= render "document_contextual", govspeak: @document.body %>
       <%= national_statistics_logo(@document) %>
     </div>
   </div>
