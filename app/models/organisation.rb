@@ -441,7 +441,9 @@ class Organisation < ActiveRecord::Base
 
   def organisations_with_scoped_search
     [
+      'environment-agency',
       'land-registry',
+      'legal-aid-agency',
     ]
   end
 
