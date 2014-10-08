@@ -41,7 +41,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def organisations=(organisations)
-    @organisations = organisations.map { |org|
+    @organisations = Array(organisations).map { |org|
       org.is_a?(Organisation) ? org : Organisation.find_by_slug(org)
     }.compact
   end

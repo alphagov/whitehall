@@ -31,6 +31,10 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     assert_equal [org_1, org_2], build(organisations: [org_1.slug, org_2]).organisations
   end
 
+  test "organisations= handles nil" do
+    assert_equal [], build(organisations: nil).organisations
+  end
+
   test "organisation_slugs returns slugs of organisations" do
     organisation = create(:organisation)
     assert_equal [organisation.slug], build(organisations: [organisation]).organisation_slugs
