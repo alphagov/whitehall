@@ -36,7 +36,7 @@
 
   <div class="block-2">
     <div class="inner-block">
-      <%= render partial: "document_contextual", locals: {edition: @document} %>
+      <%= render "document_contextual", govspeak: @document.body %>
       <%= national_statistics_logo(@document) %>
     </div>
   </div>

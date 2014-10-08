@@ -22,11 +22,12 @@
   <div class="block-3 sidebar">
     <div class="inner-block">
       <section class="contextual-info js-stick-at-top-when-scrolling">
-        <% if govspeak_headers(@policy_group.description).any? || @policies.any? || @policy_group.email %>
+        <% headers = govspeak_headers(@policy_group.description) %>
+        <% if headers.any? || @policies.any? || @policy_group.email %>
           <h1>Contents</h1>
           <nav class="policy-parts" role="navigation">
               <ol id="document_sections">
-                <% govspeak_headers(@policy_group.description).each do |header| %>
+                <% headers.each do |header| %>
                   <li><%= link_to header.text, "##{header.id}" %></li>
                 <% end %>
                 <% if @policies.any? %>

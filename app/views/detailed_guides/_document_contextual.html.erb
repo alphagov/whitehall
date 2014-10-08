@@ -1,9 +1,10 @@
+<% headers = govspeak_headers(govspeak) %>
 <nav class="contextual-info" id="page-navigation">
-  <% if govspeak_headers(edition.body).any? %>
+  <% if headers.any? %>
     <h1><%= t('detailed_guidance.contents') %></h1>
     <nav class="detailed_guide_parts" role="navigation">
       <ol id="document_sections">
-        <% govspeak_headers(edition.body).each do |header_record| %>
+        <% headers.each do |header_record| %>
           <li>
             <%= link_to header_record.text, "##{header_record.id}" %>
           </li>

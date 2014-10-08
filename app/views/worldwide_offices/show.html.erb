@@ -4,12 +4,13 @@
 <%= render partial: 'worldwide_organisations/header', locals: { organisation: @worldwide_organisation, link_to_organisation: true, object_for_translation: @worldwide_office } %>
 <article class="block article">
   <div class="inner-block floated-children">
-    <% if govspeak_headers(@worldwide_office.access_and_opening_times_body).any? %>
+    <% headers = govspeak_headers(@worldwide_office.access_and_opening_times_body) %>
+    <% if headers.any? %>
       <nav>
         <div class="content js-stick-at-top-when-scrolling">
           <h1>Contents</h1>
           <ol>
-            <% govspeak_headers(@worldwide_office.access_and_opening_times_body).each do |header| %>
+            <% headers.each do |header| %>
               <li><%= link_to header.text, "##{header.id}" %></li>
             <% end %>
           </ol>
