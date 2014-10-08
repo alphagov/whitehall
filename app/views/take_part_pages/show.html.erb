@@ -17,7 +17,7 @@
           <%= image_tag(@take_part_page.image_url(:s300), alt: @take_part_page.image_alt_text) %>
         </span>
 
-        <%= render 'shared/govspeak_header_contents', headers: govspeak_headers(@take_part_page.body) %>
+        <%= render 'shared/govspeak_header_contents', govspeak: @take_part_page.body %>
       </div>
     </div>
     <div class="block-2">

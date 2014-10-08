@@ -6,7 +6,7 @@
     <div class="block-1">
       <div class="inner-block">
         <%= render_corporate_info_header_for(@organisation, @corporate_information_page) %>
-        <%= render 'shared/govspeak_header_contents', headers: govspeak_headers(@corporate_information_page.body) %>
+        <%= render 'shared/govspeak_header_contents', govspeak: @corporate_information_page.body %>
       </div>
     </div>
     <div class="block-2">
