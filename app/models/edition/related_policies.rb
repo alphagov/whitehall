@@ -17,7 +17,9 @@ module Edition::RelatedPolicies
   end
 
   def related_policy_ids
-    related_documents.map {|d| d.latest_edition.id }
+    related_documents.
+      find_all {|d| d.document_type == Policy.name }.
+      map {|d| d.latest_edition.try(:id) }.compact
   end
 
   def can_be_related_to_policies?

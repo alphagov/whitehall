@@ -41,4 +41,19 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
 
     assert_equal [policy.id], edition.related_policy_ids
   end
+
+  test '#related_policy_ids does not include non-policies' do
+    policy = create(:policy)
+    edition = create(:news_article,
+      related_documents: [policy.document, create(:detailed_guide).document])
+
+    assert_equal [policy.id], edition.related_policy_ids
+  end
+
+  test '#related_policy_ids does not fall over with deleted documents' do
+    policy = create(:deleted_policy)
+    edition = create(:news_article, related_documents: [policy.document])
+
+    assert_equal [], edition.related_policy_ids
+  end
 end
