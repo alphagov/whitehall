@@ -1,6 +1,6 @@
 class Admin::AttachmentsController < Admin::BaseController
   before_filter :limit_attachable_access, if: :attachable_is_an_edition?
-  before_filter :check_attachable_allows_html_attachments, if: :html?
+  before_filter :check_attachable_allows_attachment_type
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
@@ -110,12 +110,20 @@ private
     ).merge(attachable: attachable)
   end
 
-  def html?
-    params[:html] == 'true'
+  def type
+    params.fetch(:type, 'file')
   end
 
-  def check_attachable_allows_html_attachments
-    redirect_to attachable_attachments_path(attachable) unless attachable.allows_html_attachments?
+  def html?
+    type == 'html'
+  end
+
+  def external?
+    type == 'external'
+  end
+
+  def check_attachable_allows_attachment_type
+    redirect_to attachable_attachments_path(attachable) unless attachable.send("allows_#{type}_attachments?")
   end
 
   def attachable_param

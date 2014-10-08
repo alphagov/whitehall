@@ -35,6 +35,10 @@ module Attachable
     true
   end
 
+  def allows_file_attachments?
+    true
+  end
+
   def allows_attachment_references?
     false
   end

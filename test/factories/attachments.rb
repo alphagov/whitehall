@@ -38,4 +38,9 @@ FactoryGirl.define do
                  )
     end
   end
+
+  factory :external_attachment, traits: [:abstract_attachment] do
+    sequence(:title) { |index| "external-attachment-title-#{index}" }
+    external_url "http://www.google.com"
+  end
 end

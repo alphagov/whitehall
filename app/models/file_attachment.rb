@@ -10,8 +10,8 @@ class FileAttachment < Attachment
 
   validate :filename_is_unique
 
-  def html?
-    false
+  def file?
+    true
   end
 
   def could_contain_viruses?
@@ -32,7 +32,7 @@ private
   end
 
   def filename_is_unique
-    if attachable && attachable.attachments.any? { |a| !a.html? && a != self && a.filename.downcase == filename.try(:downcase) }
+    if attachable && attachable.attachments.any? { |a| a.file? && a != self && a.filename.downcase == filename.try(:downcase) }
       self.errors[:base] << "This #{attachable_model_name} already has a file called \"#{filename}\""
     end
   end

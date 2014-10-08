@@ -94,6 +94,14 @@ class Attachment < ActiveRecord::Base
     false
   end
 
+  def file?
+    false
+  end
+
+  def html?
+    false
+  end
+
   private
 
   def store_price_in_pence
