@@ -14,7 +14,9 @@ module Edition::SpecialistSectors
 
     add_trait do
       def process_associations_before_save(edition)
-        edition.specialist_sectors = @edition.specialist_sectors
+        @edition.specialist_sectors.each do |sector|
+          edition.specialist_sectors << sector.dup
+        end
       end
     end
   end
