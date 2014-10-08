@@ -6,13 +6,11 @@ module Edition::SpecialistSectors
     has_many :primary_specialist_sectors,
                 conditions: { primary: true },
                 class_name: 'SpecialistSector',
-                foreign_key: :edition_id,
-                dependent: :destroy
+                foreign_key: :edition_id
     has_many :secondary_specialist_sectors,
                 conditions: { primary: false },
                 class_name: 'SpecialistSector',
-                foreign_key: :edition_id,
-                dependent: :destroy
+                foreign_key: :edition_id
 
     add_trait do
       def process_associations_before_save(edition)
