@@ -238,4 +238,13 @@ class AttachmentsControllerTest < ActionController::TestCase
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
     assert_response :success
   end
+
+  view_test "can preview an attachment on supporting pages" do
+    supporting_page = create(:published_supporting_page)
+    attachment = create(:csv_attachment, attachable: supporting_page)
+    attachment_data = attachment.attachment_data
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+    get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+    assert_response :success
+  end
 end
