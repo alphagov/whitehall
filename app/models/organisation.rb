@@ -431,12 +431,14 @@ class Organisation < ActiveRecord::Base
   private
 
   def organisations_with_services_and_information_link
-    [
-      'charity-commission',
-      'environment-agency',
-      'marine-management-organisation',
-      'maritime-and-coastguard-agency',
-    ]
+    %w{
+      charity-commission
+      environment-agency
+      intellectual-property-office
+      marine-management-organisation
+      maritime-and-coastguard-agency
+      natural-england
+    }
   end
 
   def organisations_with_scoped_search
