@@ -94,6 +94,18 @@ Then(/^no govuk_delivery notifications should have been sent yet$/) do
   mock_govuk_delivery_client.refute_method_called(:notify)
 end
 
+When(/^I visit the "(.*?)" organisation email signup information page$/) do |org_name|
+  visit_organisation_email_signup_information_page(org_name)
+end
+
+Then(/^I should see email signup information for "(.*?)"$/) do |organisation_name|
+  assert(page.has_link?("Safety alerts", href: "/drug-device-alerts/email-signup"))
+  assert(page.has_link?("Drug safety updates", href: "/drug-safety-update/email-signup"))
+  assert(page.has_link?("News and publications from the MHRA",
+    href: "/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Forganisations%2Fmedicines-and-healthcare-products-regulatory-agency.atom")
+  )
+end
+
 def mock_govuk_delivery_client
   @mock_client ||= RetrospectiveStub.new.tap { |mock_client|
     mock_client.stub :topic

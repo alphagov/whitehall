@@ -220,7 +220,7 @@ module ApplicationHelper
       publications_path(publication_filter_option: 'consultations')
     when "ministerial_roles"
       ministerial_roles_path
-    when "organisations", "groups", "services_and_information"
+    when "organisations", "groups", "services_and_information", "email_signup_information"
       organisations_path
     when "corporate_information_pages"
       if parameters.has_key?(:worldwide_organisation_id)
