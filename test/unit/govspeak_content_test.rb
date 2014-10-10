@@ -23,10 +23,23 @@ class GovspeakContentTest < ActiveSupport::TestCase
       assert_nil govspeak_content.computed_body_html
       assert_nil govspeak_content.computed_headers_html
 
-      assert_nil govspeak_content.computed_body_html
-      assert_nil govspeak_content.computed_headers_html
       assert job = GovspeakContentWorker.jobs.last
       assert_equal [govspeak_content.id], job['args']
+    end
+  end
+
+  test "doesn't clear computed values and doesn't queue a job to re-compute the HTML when the body has not changed" do
+    govspeak_content = create(:html_attachment,
+                         body: "## A heading\nSome content").govspeak_content
+    compute_govspeak(govspeak_content)
+
+    Sidekiq::Testing.fake! do
+      govspeak_content.save!
+
+      assert_present govspeak_content.computed_body_html
+      assert_present govspeak_content.computed_headers_html
+
+      assert_empty GovspeakContentWorker.jobs
     end
   end
 
@@ -40,9 +53,9 @@ class GovspeakContentTest < ActiveSupport::TestCase
       govspeak_content.manually_numbered_headings = true
       govspeak_content.save!
 
-
       assert_nil govspeak_content.computed_body_html
       assert_nil govspeak_content.computed_headers_html
+
       assert job = GovspeakContentWorker.jobs.last
       assert_equal [govspeak_content.id], job['args']
     end

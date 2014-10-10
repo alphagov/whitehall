@@ -4,7 +4,7 @@ class GovspeakContent < ActiveRecord::Base
   validates :body, :html_attachment, presence: true
   validates_with SafeHtmlValidator
 
-  after_validation :reset_computed_html, if: :body_or_numbering_scheme_changed?
+  before_save :reset_computed_html, if: :body_or_numbering_scheme_changed?
   after_save :queue_html_compute_job, if: :body_or_numbering_scheme_changed?
 
   def body_html
