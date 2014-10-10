@@ -235,8 +235,13 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment = create(:csv_attachment, attachable: corporate_information_page)
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+
     get :preview, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
+
     assert_response :success
+    assert_select 'div.csv-preview td', text: "Office for Facial Hair Studies"
+    assert_select 'div.csv-preview td', text: "£12000000"
+    assert_select 'div.csv-preview td', text: "£10000000"
   end
 
   view_test "can preview an attachment on supporting pages" do
