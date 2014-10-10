@@ -39,4 +39,14 @@ class SupportingPageTest < ActiveSupport::TestCase
 
     assert_equal [page], SupportingPage.in_organisation(org).to_a
   end
+
+  test "returns sorted organisations" do
+    org_c = create(:organisation, name: "Organisation C")
+    org_a = create(:organisation, name: "Organisation A")
+    org_b = create(:organisation, name: "Organisation B")
+
+    policy = create(:policy, organisations: [org_b, org_a, org_c])
+    supporting_page = create(:supporting_page, related_policies: [policy])
+    assert_equal [org_a, org_b, org_c], supporting_page.sorted_organisations
+  end
 end

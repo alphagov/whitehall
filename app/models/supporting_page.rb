@@ -8,6 +8,10 @@ class SupportingPage < Edition
 
   has_many :organisations, through: :related_policies, readonly: true
 
+  def sorted_organisations
+    organisations.alphabetical
+  end
+
 private
   def at_least_one_related_policy
     unless related_documents.any? { |d| d.document_type == "Policy" }
