@@ -55,7 +55,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def topics=(topics)
-    @topics = topics.map { |topic|
+    @topics = Array(topics).map { |topic|
       topic.is_a?(Topic) ? topic : Topic.find_by_slug(topic)
     }.compact
   end

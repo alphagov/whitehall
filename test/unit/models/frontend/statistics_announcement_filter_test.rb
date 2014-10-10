@@ -45,6 +45,10 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     assert_equal [topic_1, topic_2], build(topics: [topic_1.slug, topic_2]).topics
   end
 
+  test "topics= handles nil" do
+    assert_equal [], build(topics: nil).topics
+  end
+
   test "topic_slugs returns slugs of topics" do
     topic = create(:topic)
     assert_equal [topic.slug], build(topics: [topic]).topic_slugs
