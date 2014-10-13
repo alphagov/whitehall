@@ -31,13 +31,11 @@ class PublicationTest < ActiveSupport::TestCase
     end
   end
 
-  test 'is valid for publishing without attachments or an html_version when it is external' do
+  test 'is not valid for publishing without attachments' do
     publication = build(:published_publication, attachments: [])
     refute publication.valid?
 
-    publication.external = true
-    publication.external_url = 'http://example.com'
-
+    publication = build(:published_publication, attachments: [build(:external_attachment)])
     assert publication.valid?
   end
 

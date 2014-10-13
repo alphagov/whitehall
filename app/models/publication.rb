@@ -12,7 +12,7 @@ class Publication < Publicationesque
   validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
   validates :publication_type_id, presence: true
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
-  validate :attachment_required_before_moving_out_of_draft, unless: :external?
+  validate :attachment_required_before_moving_out_of_draft
 
   after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
