@@ -8,7 +8,7 @@
         <legend class="visuallyhidden">Filter <%= document_type_plural %></legend>
 
         <% if filters.include? :keyword %>
-          <div class="filter">
+          <div id="keyword-filter" class="filter">
             <%= label_tag "keywords", "Contains", class: 'title' %>
             <%= text_field_tag :keywords, @filter.keywords, placeholder: "keywords" %>
           </div>
