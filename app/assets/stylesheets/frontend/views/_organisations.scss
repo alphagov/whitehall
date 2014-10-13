@@ -725,10 +725,10 @@
 
         @for $i from 1 through 14 {
           &:nth-child(#{$i}) {
-            background-image: image-url("icon-step-#{$i}.png");
+            background-image: image-url("icon-steps/icon-step-#{$i}.png");
 
             @include device-pixel-ratio() {
-              background-image: image-url("icon-step-#{$i}-2x.png");
+              background-image: image-url("icon-steps/icon-step-#{$i}-2x.png");
               background-size: 24px 24px;
             }
           }
