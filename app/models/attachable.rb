@@ -63,6 +63,19 @@ module Attachable
     false
   end
 
+  def allows_attachment_type?(type)
+    case type
+    when "html"
+      allows_html_attachments?
+    when "external"
+      allows_external_attachments?
+    when "file"
+      allows_file_attachments?
+    else
+      false
+    end
+  end
+
   def has_thumbnail?
     thumbnailable_attachments.any?
   end

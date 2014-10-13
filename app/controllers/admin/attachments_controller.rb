@@ -74,7 +74,7 @@ private
   end
 
   def build_attachment
-    case params[:type]
+    case type
     when "html"
       build_html_attachment
     when "external"
@@ -123,7 +123,7 @@ private
   end
 
   def check_attachable_allows_attachment_type
-    redirect_to attachable_attachments_path(attachable) unless attachable.send("allows_#{type}_attachments?")
+    redirect_to attachable_attachments_path(attachable) unless attachable.allows_attachment_type?(type)
   end
 
   def attachable_param
