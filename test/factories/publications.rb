@@ -44,6 +44,10 @@ FactoryGirl.define do
       alternative_format_provider { build(:organisation, :with_alternative_format_contact_email) }
     end
 
+    trait(:with_external_attachment) do
+      attachments { [build(:external_attachment)] }
+    end
+
     ignore do
       relevant_to_local_government { false }
     end
