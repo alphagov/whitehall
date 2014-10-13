@@ -4,15 +4,17 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   belongs_to :creator, class_name: 'User'
   belongs_to :cancelled_by, class_name: 'User'
-  belongs_to :organisation
   belongs_to :topic
   belongs_to :publication
 
   has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
+  has_many :statistics_announcement_organisations, dependent: :delete_all
+  has_many :organisations, through: :statistics_announcement_organisations
+
   validate  :publication_is_matching_type, if: :publication
-  validates :title, :summary, :organisation, :topic, :creator, :current_release_date, presence: true
+  validates :title, :summary, :organisation_ids, :topic, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
@@ -24,7 +26,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   scope :with_title_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
-    where("title REGEXP :pattern OR slug = :slug", pattern: pattern, slug: keywords)
+    where("statistics_announcements.title REGEXP :pattern OR statistics_announcements.slug = :slug", pattern: pattern, slug: keywords)
+  }
+  scope :in_organisations, Proc.new { |organisation_ids| joins(:statistics_announcement_organisations)
+    .where(statistics_announcement_organisations: { organisation_id: organisation_ids })
   }
 
   include Searchable
@@ -34,7 +39,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
               description: :summary,
               display_type: :display_type,
               slug: :slug,
-              organisations: :organisation_slugs,
+              organisations: :organisations_slugs,
               topics: :topic_slugs,
               release_timestamp: :release_date,
               statistics_announcement_state: :state,
@@ -72,8 +77,8 @@ class StatisticsAnnouncement < ActiveRecord::Base
     Whitehall.url_maker.statistics_announcement_path(self)
   end
 
-  def organisation_slugs
-    [organisation.slug]
+  def organisations_slugs
+    organisations.map(&:slug)
   end
 
   def topic_slugs

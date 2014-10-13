@@ -48,7 +48,7 @@ module Frontend
         release_date_confirmed: model.current_release_date.confirmed,
         release_date_change_note: model.current_release_date.change_note,
         previous_display_date: model.previous_display_date,
-        organisations: [model.organisation],
+        organisations: model.organisations,
         topics: [model.topic],
         state: model.state,
         cancellation_reason: model.cancellation_reason,

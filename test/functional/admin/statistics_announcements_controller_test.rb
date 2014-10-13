@@ -15,7 +15,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
   end
 
   test "GET :index filters announcements by the current user's organisation by default" do
-    @organsation_announcement = create(:statistics_announcement, organisation: @organisation)
+    @organsation_announcement = create(:statistics_announcement, organisation_ids: [@organisation.id])
     @other_announcement       = create(:statistics_announcement)
 
     get :index
@@ -28,7 +28,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
                     title: 'Beard stats 2014',
                     summary: 'Summary text',
                     publication_type_id: PublicationType::Statistics.id,
-                    organisation_id: @organisation.id,
+                    organisation_ids: [@organisation.id],
                     topic_id: @topic.id,
                     current_release_date_attributes: {
                       release_date: 1.year.from_now,
@@ -40,7 +40,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_response :redirect
     assert announcement = StatisticsAnnouncement.last
     assert_equal 'Beard stats 2014', announcement.title
-    assert_equal @organisation, announcement.organisation
+    assert_includes announcement.organisations, @organisation
     assert_equal @user, announcement.creator
     assert_equal 'November 2012', announcement.display_date
     assert_equal @user, announcement.current_release_date.creator

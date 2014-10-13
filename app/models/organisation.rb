@@ -21,6 +21,9 @@ class Organisation < ActiveRecord::Base
   has_many :edition_organisations, dependent: :destroy
   has_many :editions, through: :edition_organisations
 
+  has_many :statistics_announcement_organisations, dependent: :delete_all
+  has_many :statistics_announcements, through: :statistics_announcement_organisations
+
   has_many :organisation_roles
   has_many :roles, through: :organisation_roles
   has_many :groups
@@ -199,7 +202,8 @@ class Organisation < ActiveRecord::Base
 
   scope :excluding_govuk_status_closed, -> { where("govuk_status != 'closed'") }
   scope :closed, -> { where(govuk_status: "closed") }
-  scope :with_statistics_announcements, -> { joins("INNER JOIN statistics_announcements ON statistics_announcements.organisation_id = organisations.id").group("organisations.id") }
+  scope :with_statistics_announcements, -> { joins(:statistics_announcement_organisations)
+                                              .group('statistics_announcement_organisations.organisation_id') }
 
   def self.grouped_by_type(locale = I18n.locale)
     Rails.cache.fetch("filter_options/organisations/#{locale}", expires_in: 30.minutes) do

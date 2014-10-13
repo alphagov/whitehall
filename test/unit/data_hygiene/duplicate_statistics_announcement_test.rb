@@ -7,7 +7,7 @@ module DataHygiene
 
     test "#destroy_and_redirect_to registers a redirect and destroys the announcement" do
       announcement = create(:statistics_announcement)
-      duplicate    = create(:statistics_announcement, title: announcement.title, organisation: announcement.organisation)
+      duplicate    = create(:statistics_announcement, title: announcement.title, organisation_ids: [announcement.organisations.first.id])
 
       announcement_path = Whitehall.url_maker.statistics_announcement_path(announcement)
       duplicate_path    = Whitehall.url_maker.statistics_announcement_path(duplicate)

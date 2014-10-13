@@ -23,11 +23,10 @@
     <%= form.text_area :summary, rows: 5, required: true, class: 'form-control' %>
   </div>
   <div class="form-group stats-chosen-wrapper">
-    <%= form.label  :organisation_id, 'Organisation', required: true %>
-    <%= form.select :organisation_id,
-                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', statistics_announcement.organisation_id),
-                  {},
-                  class: 'chzn-select' %>
+    <%= form.label  :organisation_ids, 'Organisations', required: true %>
+    <%= form.select :organisation_ids,
+                  options_from_collection_for_select(Organisation.with_translations, 'id', 'name', statistics_announcement.organisation_ids),
+                  { }, multiple: true, class: 'chzn-select' %>
   </div>
   <div class="form-group stats-chosen-wrapper">
     <%= form.label  :topic_id, 'Topic', required: true %>

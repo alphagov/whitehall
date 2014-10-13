@@ -30,7 +30,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
       announcement = create :statistics_announcement, title: "Average beard lengths 2015",
                                                       publication_type_id: PublicationType::NationalStatistics.id,
-                                                      organisation: organisation,
+                                                      organisation_ids: [organisation.id],
                                                       topic: topic,
                                                       current_release_date: build(:statistics_announcement_date,
                                                                                   release_date: Time.zone.parse("2050-01-01 09:30:00"),
@@ -39,7 +39,7 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
 
       old_announcement = create :statistics_announcement, title: "Average moustache lengths 2013",
                                                           publication_type_id: PublicationType::NationalStatistics.id,
-                                                          organisation: organisation,
+                                                          organisation_ids: [organisation.id],
                                                           topic: topic,
                                                           current_release_date: build(:statistics_announcement_date,
                                                                                       release_date: Time.zone.parse("2013-01-01 09:30:00"),

@@ -10,7 +10,7 @@ module Admin
     def statistics_announcements
       scope = unfiltered_scope
       scope = scope.with_title_containing(options[:title]) if options[:title]
-      scope = scope.where(organisation_id: options[:organisation_id]) if options[:organisation_id].present?
+      scope = scope.in_organisations([options[:organisation_id]]) if options[:organisation_id].present?
       scope
     end
 

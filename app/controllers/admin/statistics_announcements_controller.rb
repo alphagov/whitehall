@@ -8,7 +8,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def new
-    @statistics_announcement = build_statistics_announcement(organisation_id: current_user.organisation.try(:id))
+    @statistics_announcement = build_statistics_announcement(organisation_ids: [current_user.organisation.try(:id)])
     @statistics_announcement.build_current_release_date(precision: StatisticsAnnouncementDate::PRECISION[:two_month])
   end
 
@@ -65,8 +65,8 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 
   def statistics_announcement_params
     params.require(:statistics_announcement).permit(
-      :title, :summary, :organisation_id, :topic_id, :publication_type_id,
-      :publication_id, :cancellation_reason,
+      :title, :summary, :topic_id, :publication_type_id,
+      :publication_id, :cancellation_reason, organisation_ids: [],
       current_release_date_attributes: [:id, :release_date, :precision, :confirmed])
   end
 
