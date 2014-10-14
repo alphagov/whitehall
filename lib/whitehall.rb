@@ -5,6 +5,7 @@ module Whitehall
   autoload :Uploader, 'whitehall/uploader'
   autoload :UrlMaker, 'whitehall/url_maker'
   autoload :ExtraQuoteRemover, 'whitehall/extra_quote_remover'
+  autoload :GovUkDelivery, 'whitehall/gov_uk_delivery'
 
   mattr_accessor :search_backend
   mattr_accessor :government_search_client
