@@ -1,3 +1,5 @@
+require 'data_hygiene/govspeak_link_validator'
+
 module Govspeak
   class AdminLinkReplacer
     ADMIN_EDITION_PATH = %r{/admin/(?:#{Whitehall.edition_route_path_segments.join('|')})/(\d+)$}
