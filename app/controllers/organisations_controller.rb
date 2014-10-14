@@ -1,6 +1,5 @@
 class OrganisationsController < PublicFacingController
   include CacheControlHelper
-  include Whitehall::Controllers::RolesPresenters
 
   enable_request_formats show: [:atom]
   before_filter :load_organisation, only: [:show]
@@ -57,7 +56,8 @@ class OrganisationsController < PublicFacingController
     end
   end
 
-  private
+private
+
   def ministers
     @ministerial_roles ||= filled_roles_presenter_for(@organisation, :ministerial)
     @ministerial_roles.with_unique_people
@@ -86,6 +86,20 @@ class OrganisationsController < PublicFacingController
   def special_representatives
     @special_representative_roles ||= roles_presenter_for(@organisation, :special_representative)
     @special_representative_roles.with_unique_people
+  end
+
+  def filled_roles_presenter_for(organisation, association)
+    roles_presenter = roles_presenter_for(organisation, association)
+    roles_presenter.remove_unfilled_roles!
+    roles_presenter
+  end
+
+  def roles_presenter_for(organisation, association)
+    roles = organisation.send("#{association}_roles").
+                         with_translations.
+                         includes(:current_people).
+                         order("organisation_roles.ordering")
+    RolesPresenter.new(roles, view_context)
   end
 
   def load_organisation
