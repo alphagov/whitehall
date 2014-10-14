@@ -141,6 +141,7 @@ class Organisation < ActiveRecord::Base
   validates :govuk_closed_status, inclusion: {in: %w{no_longer_exists replaced split merged changed_name left_gov devolved}}, presence: true, if: :closed?
   validates :organisation_logo_type_id, presence: true
   validates :logo, presence: true, if: :custom_logo_selected?
+  validates :content_id, presence: true
 
   validate :exactly_one_superseding_organisation, if: Proc.new { |organisation| organisation.replaced? || organisation.merged? || organisation.changed_name? }
   validate :at_least_two_superseding_organisations, if: :split?
@@ -169,8 +170,10 @@ class Organisation < ActiveRecord::Base
   extend FriendlyId
   friendly_id
 
+  before_validation :generate_content_id, on: :create
   before_destroy { |r| r.destroyable? }
   after_save :ensure_analytics_identifier
+  after_save :publish_to_publishing_api
 
   def custom_logo_selected?
     organisation_logo_type_id == OrganisationLogoType::CustomLogo.id
@@ -224,6 +227,10 @@ class Organisation < ActiveRecord::Base
     unless analytics_identifier.present?
       update_column(:analytics_identifier, organisation_type.analytics_prefix + self.id.to_s)
     end
+  end
+
+  def publish_to_publishing_api
+    PublishingApiRegisterOrganisationWorker.perform_async(self.id)
   end
 
   def organisation_logo_type
@@ -430,6 +437,33 @@ class Organisation < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def base_path
+    Whitehall.url_maker.organisation_path(self)
+  end
+
+  def attributes_for_publishing_api
+    {
+      content_id: content_id,
+      title: name,
+      base_path: base_path,
+      format: "placeholder", # This will be updated once Whitehall uses the Content Store permanently,
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      public_updated_at: updated_at,
+      routes: [
+        {
+          path: base_path,
+          type: "exact"
+        }
+      ],
+      update_type: "major",
+    }
+  end
+
+  def generate_content_id
+    self.content_id ||= SecureRandom.uuid
   end
 
   private

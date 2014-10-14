@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141006110852) do
+ActiveRecord::Schema.define(:version => 20141009101445) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -887,6 +887,7 @@ ActiveRecord::Schema.define(:version => 20141006110852) do
     t.string   "organisation_chart_url"
     t.string   "govuk_closed_status"
     t.string   "custom_jobs_url"
+    t.string   "content_id",                                                  :null => false
   end
 
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
@@ -1099,6 +1100,7 @@ ActiveRecord::Schema.define(:version => 20141006110852) do
     t.datetime "updated_at",                 :null => false
   end
 
+  add_index "statistics_announcement_organisations", ["organisation_id"], :name => "index_statistics_announcement_organisations_on_organisation_id"
   add_index "statistics_announcement_organisations", ["statistics_announcement_id", "organisation_id"], :name => "index_on_statistics_announcement_id_and_organisation_id"
 
   create_table "statistics_announcements", :force => true do |t|
@@ -1106,6 +1108,7 @@ ActiveRecord::Schema.define(:version => 20141006110852) do
     t.string   "slug"
     t.text     "summary"
     t.integer  "publication_type_id"
+    t.integer  "organisation_id"
     t.integer  "topic_id"
     t.integer  "creator_id"
     t.datetime "created_at",          :null => false
@@ -1114,11 +1117,11 @@ ActiveRecord::Schema.define(:version => 20141006110852) do
     t.text     "cancellation_reason"
     t.datetime "cancelled_at"
     t.integer  "cancelled_by_id"
-    t.integer  "organisation_id"
   end
 
   add_index "statistics_announcements", ["cancelled_by_id"], :name => "index_statistics_announcements_on_cancelled_by_id"
   add_index "statistics_announcements", ["creator_id"], :name => "index_statistics_announcements_on_creator_id"
+  add_index "statistics_announcements", ["organisation_id"], :name => "index_statistics_announcements_on_organisation_id"
   add_index "statistics_announcements", ["publication_id"], :name => "index_statistics_announcements_on_publication_id"
   add_index "statistics_announcements", ["slug"], :name => "index_statistics_announcements_on_slug"
   add_index "statistics_announcements", ["title"], :name => "index_statistics_announcements_on_title"
