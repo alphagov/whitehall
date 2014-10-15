@@ -887,9 +887,10 @@ ActiveRecord::Schema.define(:version => 20141009101445) do
     t.string   "organisation_chart_url"
     t.string   "govuk_closed_status"
     t.string   "custom_jobs_url"
-    t.string   "content_id",                                                  :null => false
+    t.string   "content_id"
   end
 
+  add_index "organisations", ["content_id"], :name => "index_organisations_on_content_id", :unique => true
   add_index "organisations", ["default_news_organisation_image_data_id"], :name => "index_organisations_on_default_news_organisation_image_data_id"
   add_index "organisations", ["organisation_logo_type_id"], :name => "index_organisations_on_organisation_logo_type_id"
   add_index "organisations", ["organisation_type_key"], :name => "index_organisations_on_organisation_type_key"

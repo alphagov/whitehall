@@ -1,4 +1,4 @@
-Organisation.where(content_id: "").each do |org|
+Organisation.where(content_id: nil).each do |org|
   org.content_id = SecureRandom.uuid
   if org.save
     puts "Added content_id to #{org.name}"
