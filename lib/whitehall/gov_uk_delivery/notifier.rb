@@ -9,20 +9,8 @@ module Whitehall
 
       def edition_published!
         if should_notify_govuk_delivery?
-          if edition.relevant_to_local_government?
-            notify_email_curation_queue
-          else
-            notify_govuk_delivery
-          end
+          Whitehall::GovUkDelivery::Worker.notify!(edition, notification_date)
         end
-      end
-
-      def notify_email_curation_queue
-        EmailCurationQueueItem.create_from_edition(edition, notification_date)
-      end
-
-      def notify_govuk_delivery
-        Whitehall::GovUkDelivery::Worker.notify!(edition, notification_date)
       end
 
     protected
