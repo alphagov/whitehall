@@ -2,7 +2,7 @@ module SpecialistSectorHelper
 
   def add_sector_name(title, sector_tag)
     if sector_tag
-      "#{link_to(sector_tag.title, sector_tag.web_url)} - #{title.downcase}".html_safe
+      "#{link_to(sector_tag.title, sector_tag.web_url)} &ndash; #{title.downcase}".html_safe
     else
       title
     end
