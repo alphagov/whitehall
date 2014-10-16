@@ -4,6 +4,13 @@
 
 <%= consultation_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
+    <fieldset>
+      <legend>Held on another website</legend>
+      <%= form.check_box :external, label_text: "This #{edition.class.name.humanize.downcase} is held on another website" %>
+      <div class="js-external-url">
+        <%= form.text_field :external_url, label_text: "External link URL" %>
+      </div>
+    </fieldset>
 
     <div class="js-external-url-set">
       <fieldset>
@@ -28,8 +35,10 @@
       </fieldset>
     </div>
 
-    <%= render 'html_version_fields', form: form, edition: edition %>
-    <%= render 'inline_attachments_info', form: form, edition: edition %>
+    <div class="js-external-url-set">
+      <%= render 'html_version_fields', form: form, edition: edition %>
+      <%= render 'inline_attachments_info', form: form, edition: edition %>
+    </div>
 
     <fieldset>
       <legend>Associations</legend>
@@ -39,10 +48,12 @@
         <%= render 'topic_fields', form: form, edition: edition %>
       </div>
 
-      <%= render 'minister_fields', form: form, edition: edition %>
-      <%= render 'topical_event_fields', form: form, edition: edition %>
-      <%= render 'worldwide_priority_fields', form: form, edition: edition %>
-      <%= render 'nation_fields', form: form, edition: edition %>
+      <div class="js-external-url-set">
+        <%= render 'minister_fields', form: form, edition: edition %>
+        <%= render 'topical_event_fields', form: form, edition: edition %>
+        <%= render 'worldwide_priority_fields', form: form, edition: edition %>
+        <%= render 'nation_fields', form: form, edition: edition %>
+      </div>
 
       <%= render 'organisation_fields', form: form, edition: edition %>
       <%= render 'specialist_sector_fields', form: form, edition: edition %>

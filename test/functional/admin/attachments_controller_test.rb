@@ -137,12 +137,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create handles external attachments when attachable allows them' do
-    post :create, edition_id: @edition, type: 'external', attachment: valid_external_attachment_params
+    publication = create(:publication, attachments: [])
+    post :create, edition_id: publication, type: 'external', attachment: valid_external_attachment_params
 
     assert_response :redirect
-    assert_equal 1, @edition.reload.attachments.size
-    assert_equal 'Attachment title', @edition.attachments.first.title
-    assert_equal 'http://www.somewebsite.com/somepath', @edition.attachments.first.external_url
+    assert_equal 1, publication.reload.attachments.size
+    assert_equal 'Attachment title', publication.attachments.first.title
+    assert_equal 'http://www.somewebsite.com/somepath', publication.attachments.first.external_url
   end
 
   test 'POST :create ignores external attachments when attachable does not allow them' do

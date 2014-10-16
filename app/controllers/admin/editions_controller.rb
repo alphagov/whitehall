@@ -167,7 +167,7 @@ class Admin::EditionsController < Admin::BaseController
     [:title, :body, :change_note, :summary, :first_published_at,
       :publication_type_id, :scheduled_publication, :lock_version,
       :access_limited, :alternative_format_provider_id, :opening_at,
-      :closing_at, :minor_change, :previously_published,
+      :closing_at, :external, :external_url, :minor_change, :previously_published,
       :roll_call_introduction, :operational_field_id, :news_article_type_id,
       :relevant_to_local_government, :role_appointment_id, :speech_type_id,
       :delivered_on, :location, :person_override, :locale,
