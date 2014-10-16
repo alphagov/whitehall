@@ -16,6 +16,7 @@ module Admin
     def editions(locale = nil)
       @editions ||= {}
       return @editions[locale] if @editions[locale]
+      unpaginated = options.fetch(:unpaginated, false)
 
       editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
 
@@ -25,15 +26,22 @@ module Admin
         editions_without_translations.includes(:translations)
       end
 
-      paginated_editions = editions_with_translations.page(options[:page]).per(options.fetch(:per_page) { default_page_size })
+      requested_editions = if unpaginated
+        editions_with_translations
+      else
+        editions_with_translations.page(options[:page]).per(options.fetch(:per_page) { default_page_size })
+      end
 
-      permitted_only = paginated_editions.select do |edition|
+      permitted_only = requested_editions.select do |edition|
         Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
       end
 
-      new_paginator = Kaminari.paginate_array(permitted_only, total_count: paginated_editions.total_count).page(options[:page])
-
-      @editions[locale] = new_paginator
+      if unpaginated
+        @editions[locale] = permitted_only
+      else
+        new_paginator = Kaminari.paginate_array(permitted_only, total_count: requested_editions.total_count).page(options[:page])
+        @editions[locale] = new_paginator
+      end
     end
 
     def page_title
