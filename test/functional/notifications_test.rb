@@ -118,4 +118,19 @@ class NotificationsFactCheckResponseTest < ActionMailer::TestCase
     assert_equal 'sample_attachment.zip', attachment.filename
     assert_match %r{bad link reports}, mail.parts.first.body.to_s
   end
+
+  test "#document_list uses the supplied file object as an attachment" do
+    file = file_fixture('sample.csv').read
+    receiver = 'test@gov.co.uk'
+    mail = Notifications.document_list(file, receiver, "Everyone's documents")
+    assert_equal 'document_list.csv', mail.attachments.first.filename
+    assert_match %r{list of documents}, mail.parts.first.body.to_s
+  end
+
+  test "#document_list uses the supplied title in the mail subject" do
+    file = file_fixture('sample.csv').read
+    receiver = 'test@gov.co.uk'
+    mail = Notifications.document_list(file, receiver, "Everyone's documents")
+    assert_equal "Everyone's documents from GOV.UK", mail.subject
+  end
 end
