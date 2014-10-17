@@ -33,12 +33,7 @@ Whitehall::Application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  if ENV["DISABLE_LOGGING_IN_TEST"]
-    File.open(Rails.root.join("log", "test.log"), "a") do |file|
-      file.puts "\n*NOTE* Disabling logging in an attempt to speed up the tests.\n\n"
-    end
-    config.logger = Logger.new(nil)
-  end
+  config.log_level = (ENV["LOG_LEVEL"].presence || :debug).to_sym
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
