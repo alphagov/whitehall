@@ -51,4 +51,9 @@ class ExternalAttachment < Attachment
       title: title,
     }
   end
+
+  def readable_type
+    'external'
+  end
+
 end

@@ -102,6 +102,10 @@ class Attachment < ActiveRecord::Base
     false
   end
 
+  def readable_type
+    ''
+  end
+
   private
 
   def store_price_in_pence

@@ -22,6 +22,10 @@ class FileAttachment < Attachment
     filename
   end
 
+  def readable_type
+    'file'
+  end
+
 private
 
   # Only destroy the associated attachment_data record if no other attachments are using it

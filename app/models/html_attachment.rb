@@ -98,6 +98,10 @@ class HtmlAttachment < Attachment
     end
   end
 
+  def readable_type
+    'HTML'
+  end
+
   private
 
   def sluggable_locale?
