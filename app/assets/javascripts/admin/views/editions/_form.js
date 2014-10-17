@@ -44,11 +44,11 @@
         var $container = $field.parent();
         var formatAdviceMap = $field.data('format-advice');
 
-        $container.find('.govspeak').remove();
+        $container.find('.subtype-format-advice').remove();
 
         var adviceText = formatAdviceMap[$field.val()];
         if (adviceText) {
-          var adviceHTML = '<strong class="govspeak">Use this subformat for…</strong> '+adviceText;
+          var adviceHTML = '<div class="subtype-format-advice"><strong>Use this subformat for…</strong> '+adviceText+'</div>';
           $container.append(adviceHTML);
         }
       }).change();
