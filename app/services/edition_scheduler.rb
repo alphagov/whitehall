@@ -1,3 +1,5 @@
+require 'data_hygiene/govspeak_link_validator'
+
 class EditionScheduler < EditionService
   def verb
     'schedule'

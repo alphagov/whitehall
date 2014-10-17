@@ -1,6 +1,4 @@
 class MinisterialRolesController < PublicFacingController
-  include Whitehall::Controllers::RolesPresenters
-
   enable_request_formats show: [:atom]
 
   def index
