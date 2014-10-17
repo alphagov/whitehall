@@ -5,8 +5,8 @@ FactoryGirl.define do
     publication_type_id PublicationType::Statistics.id
     organisation_ids { create(:organisation).id }
 
+    topics { FactoryGirl.build_list :topic, 1 }
     association :current_release_date, factory: :statistics_announcement_date
-    association :topic
     association :creator, factory: :policy_writer
   end
 

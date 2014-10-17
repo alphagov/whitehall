@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141009101445) do
+ActiveRecord::Schema.define(:version => 20141017125002) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1103,6 +1103,16 @@ ActiveRecord::Schema.define(:version => 20141009101445) do
 
   add_index "statistics_announcement_organisations", ["organisation_id"], :name => "index_statistics_announcement_organisations_on_organisation_id"
   add_index "statistics_announcement_organisations", ["statistics_announcement_id", "organisation_id"], :name => "index_on_statistics_announcement_id_and_organisation_id"
+
+  create_table "statistics_announcement_topics", :id => false, :force => true do |t|
+    t.integer  "statistics_announcement_id"
+    t.integer  "topic_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "statistics_announcement_topics", ["statistics_announcement_id"], :name => "index_statistics_announcement_topics_on_statistics_announcement"
+  add_index "statistics_announcement_topics", ["topic_id"], :name => "index_statistics_announcement_topics_on_topic_id"
 
   create_table "statistics_announcements", :force => true do |t|
     t.string   "title"

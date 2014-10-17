@@ -12,7 +12,7 @@ module DevelopmentModeStubs
       end
       if params[:topics].present?
         topic_ids = Topic.find_all_by_slug(params[:topics]).map &:id
-        scope = scope.where(topic_id: topic_ids)
+        scope = scope.with_topics(topic_ids)
       end
       if params[:release_timestamp].present?
         scope = scope.where("statistics_announcement_dates.release_date > ?", params[:release_timestamp][:from]) if params[:release_timestamp][:from].present?
@@ -49,8 +49,8 @@ module DevelopmentModeStubs
         "description" => announcement.summary,
         "slug" => announcement.slug,
         "release_timestamp" => announcement.current_release_date.release_date.iso8601,
-        "organisations" => Array(announcement.organisations_slugs),
-        "topics" => Array(announcement.topic.try :slug),
+        "organisations" => announcement.organisations_slugs,
+        "topics" => announcement.topic_slugs,
         "display_type" => announcement.publication_type.singular_name,
         "search_format_types" => ["statistics_announcement"],
         "format" => "statistics_announcement",

@@ -18,8 +18,8 @@ class FilterHelperTest < ActionView::TestCase
   test "#topic_options_for_statistics_announcement_filter renders select options for all topics with an associated release announcement in alphabetical order selecting passed in topic" do
     topic_1, topic_2, topic_3 = create(:topic, name: "B topic"), create(:topic, name: "C topic"), create(:topic, name: "A topic")
 
-    create :statistics_announcement, topic: topic_2
-    create :statistics_announcement, topic: topic_3
+    create :statistics_announcement, topics: [topic_2]
+    create :statistics_announcement, topics: [topic_3]
 
     rendered = Nokogiri::HTML::DocumentFragment.parse(topic_options_for_statistics_announcement_filter(topic_3.slug))
     options = rendered.css("option")
