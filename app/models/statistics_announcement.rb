@@ -16,7 +16,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication
-  validates :title, :summary, :organisation_ids, :topics, :creator, :current_release_date, presence: true
+  validates :title, :summary, :organisations, :topics, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
