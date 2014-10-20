@@ -29,7 +29,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
                     summary: 'Summary text',
                     publication_type_id: PublicationType::Statistics.id,
                     organisation_ids: [@organisation.id],
-                    topic_id: @topic.id,
+                    topic_ids: [@topic.id],
                     current_release_date_attributes: {
                       release_date: 1.year.from_now,
                       precision: StatisticsAnnouncementDate::PRECISION[:one_month],

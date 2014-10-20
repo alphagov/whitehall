@@ -24,7 +24,6 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
                           title: "The title",
                           slug: 'the-title',
                           summary: "The summary",
-                          topic: build(:topic),
                           publication_type_id: PublicationType.find_by_slug("statistics").id,
                           statistics_announcement_dates: [build(:statistics_announcement_date,
                                                                  release_date:  "2050-03-01",
@@ -46,7 +45,7 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
     assert_equal ["statistics_announcement"], returned_announcement_hash["search_format_types"]
     assert_equal "statistics_announcement", returned_announcement_hash["format"]
     assert_equal announcement.organisations_slugs, returned_announcement_hash["organisations"]
-    assert_equal [announcement.topic.slug], returned_announcement_hash["topics"]
+    assert_equal announcement.topic_slugs, returned_announcement_hash["topics"]
     assert_equal "2050-01-01T09:30:00+00:00", returned_announcement_hash["release_timestamp"]
     assert_equal true, returned_announcement_hash["metadata"]["confirmed"]
     assert_equal "confirmed", returned_announcement_hash["statistics_announcement_state"]
@@ -96,10 +95,11 @@ class DevelopmentModeStubs::FakeRummagerApiForStatisticsAnnouncementsTest < Acti
   end
 
   test "#advanced_search with topics returns results associated with the topics" do
-    announcement_1 = create :statistics_announcement, topic: create(:topic)
+    topic = create(:topic, name: 'A topic')
+    announcement_1 = create :statistics_announcement, topics: [topic]
     announcement_2 = create :statistics_announcement
 
-    assert_equal [announcement_1.title], matched_titles(topics: [announcement_1.topic.slug])
+    assert_equal [announcement_1.title], matched_titles(topics: [topic.slug])
   end
 
   test "#advanced_search returns results ordered by current_release_date's release_date" do

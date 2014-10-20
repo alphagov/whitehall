@@ -41,7 +41,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_equal statistics_announcement.title, assigns(:edition).title
     assert_equal statistics_announcement.summary, assigns(:edition).summary
     assert_equal statistics_announcement.publication_type, assigns(:edition).publication_type
-    assert_equal [statistics_announcement.topic], assigns(:edition).topics
+    assert_equal statistics_announcement.topics, assigns(:edition).topics
     assert_equal statistics_announcement.release_date.to_i, assigns(:edition).scheduled_publication.to_i
   end
 

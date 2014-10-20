@@ -23,6 +23,11 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal 'beard-statistics-2015', announcement.slug
   end
 
+  test 'must have at least one topic' do
+    announcement = build(:statistics_announcement, topics: [])
+    refute announcement.valid?
+  end
+
   test 'is search indexable' do
     announcement   = create_announcement_with_changes
     expected_indexed_content = {
@@ -31,7 +36,7 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
       'format' => 'statistics_announcement',
       'description' => announcement.summary,
       'organisations' => announcement.organisations.map(&:slug),
-      'topics' => [announcement.topic.slug],
+      'topics' => announcement.topics.map(&:slug),
       'display_type' => announcement.display_type,
       'slug' => announcement.slug,
       'release_timestamp' => announcement.release_date,
@@ -195,6 +200,19 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     StatisticsAnnouncementOrganisation.create!(statistics_announcement: announcement, organisation: organisation)
 
     assert_includes announcement.reload.organisations, organisation
+  end
+
+  test 'StatisticsAnnouncement.with_topics scope returns announcements with matching topics' do
+    topic1 = create(:topic)
+    topic2 = create(:topic)
+    announcement = create(:statistics_announcement, topics: [topic1, topic2])
+    announcement2 = create(:statistics_announcement, topics: [topic2])
+
+    assert_equal [announcement], StatisticsAnnouncement.with_topics(topic1)
+    assert_equal [announcement], StatisticsAnnouncement.with_topics(topic1.id)
+
+    assert_equal [announcement, announcement2],
+      StatisticsAnnouncement.with_topics([topic2])
   end
 
 private

@@ -49,7 +49,7 @@ module Frontend
         release_date_change_note: model.current_release_date.change_note,
         previous_display_date: model.previous_display_date,
         organisations: model.organisations,
-        topics: [model.topic],
+        topics: model.topics,
         state: model.state,
         cancellation_reason: model.cancellation_reason,
         cancellation_date: model.cancelled_at,

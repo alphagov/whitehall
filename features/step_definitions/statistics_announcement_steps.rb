@@ -38,9 +38,9 @@ Given(/^there are some statistics announcements for various departments and topi
   @department = create :ministerial_department
   @topic = create :topic
 
-  create :statistics_announcement, title: "Announcement for both department and topic", organisation_ids: [@department.id], topic: @topic
+  create :statistics_announcement, title: "Announcement for both department and topic", organisation_ids: [@department.id], topics: [@topic]
   create :statistics_announcement, title: "Announcement for department", organisation_ids: [@department.id]
-  create :statistics_announcement, title: "Announcement for topic", topic: @topic
+  create :statistics_announcement, title: "Announcement for topic", topics: [@topic]
 
 end
 
@@ -49,7 +49,7 @@ Given(/^there is a statistics announcement$/) do
   @topic = create :topic
   @announcement = create :statistics_announcement,
                          organisation_ids: [@organisation.id],
-                         topic: @topic,
+                         topics: [@topic],
                          statistics_announcement_dates: [build(:statistics_announcement_date, release_date: 1.year.from_now, precision: StatisticsAnnouncementDate::PRECISION[:one_month], created_at: 10.days.ago)],
                          current_release_date: build(:statistics_announcement_date_change, release_date: 1.year.from_now + 2.months, change_note: "A change note")
   @announcement.reload # StatisticsAnnouncement doesn't get statistics_announcement_date related stuff right until after reload.

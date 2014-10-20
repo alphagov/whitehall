@@ -37,7 +37,7 @@
             <th>Announcement title</th>
             <th>Document</th>
             <th>Organisations</th>
-            <th>Topic</th>
+            <th>Topics</th>
             <th>Display date</th>
             <th>Release date</th>
           </tr>
@@ -58,7 +58,7 @@
                 <% end %>
               </td>
               <td><%= organisations_list(statistics_announcement.organisations) %></td>
-              <td><%= statistics_announcement.topic.name %></td>
+              <td><%= statistics_announcement.topics.map(&:name).to_sentence %></td>
               <td>
                 <%= statistics_announcement.display_date %>
                 (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)

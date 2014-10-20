@@ -4,17 +4,19 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   belongs_to :creator, class_name: 'User'
   belongs_to :cancelled_by, class_name: 'User'
-  belongs_to :topic
   belongs_to :publication
 
   has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
+  has_many :statistics_announcement_topics, dependent: :delete_all
+  has_many :topics, through: :statistics_announcement_topics
+
   has_many :statistics_announcement_organisations, dependent: :delete_all
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication
-  validates :title, :summary, :organisation_ids, :topic, :creator, :current_release_date, presence: true
+  validates :title, :summary, :organisations, :topics, :creator, :current_release_date, presence: true
   validates :cancellation_reason, presence: {  message: "must be provided when cancelling an announcement" }, if: :cancelled?
   validates :publication_type_id,
               inclusion: {
@@ -54,6 +56,11 @@ class StatisticsAnnouncement < ActiveRecord::Base
       where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
   end
 
+  def self.with_topics(topic_ids)
+    joins(:statistics_announcement_topics).
+    where(statistics_announcement_topics: { topic_id: topic_ids})
+  end
+
   def last_change_note
     last_major_change.try(:change_note)
   end
@@ -82,7 +89,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
   end
 
   def topic_slugs
-    [topic.slug]
+    topics.map(&:slug)
   end
 
   def search_metadata
