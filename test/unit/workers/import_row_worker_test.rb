@@ -40,7 +40,7 @@ class ImportRowWorkerTest < ActiveSupport::TestCase
 
       html_attachment = publication.attachments.last
       assert_equal 'HTML title', html_attachment.title
-      assert_equal 'body', html_attachment.body
+      assert_equal 'body', html_attachment.govspeak_content_body
 
       file_attachment = publication.attachments.first
       assert_equal 'File title', file_attachment.title

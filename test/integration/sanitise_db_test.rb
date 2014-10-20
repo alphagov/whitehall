@@ -58,12 +58,12 @@ class SanitiseDBTest < ActiveSupport::TestCase
 
     good_attachment.reload
     assert_equal "Good title", good_attachment.title
-    assert_equal "Good body", good_attachment.body
+    assert_equal "Good body", good_attachment.govspeak_content_body
     assert_equal "good-title", good_attachment.slug
 
     bad_attachment.reload
     refute bad_attachment.title =~ /Bad title/, "Expected title to be sanitised"
-    refute bad_attachment.body =~ /Bad body/, "Expected body to be sanitised"
+    refute bad_attachment.govspeak_content_body =~ /Bad body/, "Expected body to be sanitised"
     refute bad_attachment.slug =~ /bad-title/, "Expected slug to be sanitised"
   end
 

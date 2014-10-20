@@ -38,7 +38,7 @@ module GovspeakHelper
   end
 
   def html_attachment_govspeak_headers(attachment)
-    govspeak_headers(attachment.body).tap do |headers|
+    govspeak_headers(attachment.govspeak_content_body).tap do |headers|
       if attachment.manually_numbered_headings?
         headers.each { |header| header.text = header.text.gsub(/^(\d+.?\d*\s*)/, '') }
       end

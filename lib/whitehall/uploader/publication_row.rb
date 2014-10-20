@@ -63,7 +63,7 @@ module Whitehall::Uploader
     end
 
     def html_attachment_attributes
-      { title: html_title, body: html_body }
+      { title: html_title, govspeak_content_attributes: { body: html_body } }
     end
 
   protected

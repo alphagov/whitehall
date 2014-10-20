@@ -45,7 +45,7 @@ Then /^the imported publication has an html attachment with the title "([^"]*)" 
   publication = Import.last.editions.last
   attachment = publication.attachments.first
   assert_equal html_title, attachment.title
-  assert_equal html_body, attachment.body
+  assert_equal html_body, attachment.govspeak_content_body
 end
 
 Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)" speech type and with no deliverer set$/ do |edition_count, speech_type_slug|
