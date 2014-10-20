@@ -46,7 +46,6 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     fred     = create(:person, forename: "Fred", surname: 'Flintstone')
     joe      = create(:person, forename: "Joe", surname: 'Rockhead')
     slate    = create(:person, forename: "Mr.", surname: 'Slate')
-    rita     = create(:person, forename: 'Rita', surname: 'Neville-Ness')
 
     deputy_leader_appointment  = create(:role_appointment, role: deputy, person: joe)
     current_leader_appointment = create(:role_appointment, role: leader, person: fred)
@@ -55,17 +54,31 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
                                           person: slate,
                                           started_at: Date.new(1960, 5, 12),
                                           ended_at: Date.new(1972, 5, 14))
-    subsequent_leader_appointment = create(:role_appointment,
-                                            role: leader,
-                                            person: rita,
-                                            started_at: Date.new(1972, 5, 15),
-                                            ended_at: Date.new(1980, 5, 14)) # tests role.name.dup
 
     assert_equal [
       ['Fred Flintstone, Leader, Ministry for Rocks and Bones', current_leader_appointment.id],
-      ['Rita Neville-Ness, Leader (15 May 1972 to 14 May 1980), Ministry for Rocks and Bones', subsequent_leader_appointment.id],
       ['Joe Rockhead, Deputy Leader, Ministry for Rocks and Bones', deputy_leader_appointment.id],
       ['Mr. Slate, Leader (12 May 1960 to 14 May 1972), Ministry for Rocks and Bones', old_leader_appointment.id],
+    ], taggable_ministerial_role_appointments_container
+  end
+
+  test '#taggable_ministerial_role_appointments_container does not include the dates of previous appointments for the same role in the label text' do
+    ministry = create(:organisation, name: 'Ministry for Rocks and Bones')
+    leader = create(:ministerial_role, name: 'Leader', organisations: [ministry])
+
+    joe = create(:person, forename: "Joe", surname: 'Rockhead')
+    slate = create(:person, forename: "Mr.", surname: 'Slate')
+
+    old_leader_appointment = create(:role_appointment,
+                                      role: leader,
+                                      person: joe,
+                                      started_at: Date.new(2006, 5, 12),
+                                      ended_at: Date.new(2011, 5, 11))
+    current_leader_appointment = create(:role_appointment, role: leader, person: slate)
+
+    assert_equal [
+      ['Joe Rockhead, Leader (12 May 2006 to 11 May 2011), Ministry for Rocks and Bones', old_leader_appointment.id],
+      ['Mr. Slate, Leader, Ministry for Rocks and Bones', current_leader_appointment.id],
     ], taggable_ministerial_role_appointments_container
   end
 
