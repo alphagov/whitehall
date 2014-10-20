@@ -54,14 +54,14 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location)
 
     post :update, id: world_location, world_location: {
-      top_tasks_attributes: {"0" => {
+      featured_links_attributes: {"0" => {
         url: "http://www.gov.uk/mainstream/something",
         title: "Something on mainstream"
       }}
     }
 
     assert world_location = WorldLocation.last
-    assert top_task = world_location.top_tasks.last
+    assert top_task = world_location.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", top_task.url
     assert_equal "Something on mainstream", top_task.title
   end
@@ -71,7 +71,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     top_task = create(:top_task, linkable: world_location)
 
     post :update, id: world_location, world_location: {
-      top_tasks_attributes: {"0" => {
+      featured_links_attributes: {"0" => {
         id: top_task.id,
         _destroy: "1"
       }}

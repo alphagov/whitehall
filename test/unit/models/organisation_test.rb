@@ -280,7 +280,7 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should be creatable with top task data' do
     params = {
-      top_tasks_attributes: [
+      featured_links_attributes: [
         {url: "https://www.gov.uk/blah/blah",
          title: "Blah blah"},
         {url: "https://www.gov.uk/wah/wah",
@@ -289,7 +289,7 @@ class OrganisationTest < ActiveSupport::TestCase
     }
     organisation = create(:organisation, params)
 
-    links = organisation.top_tasks
+    links = organisation.featured_links
     assert_equal 2, links.count
     assert_equal "https://www.gov.uk/blah/blah", links[0].url
     assert_equal "Blah blah", links[0].title
@@ -306,13 +306,13 @@ class OrganisationTest < ActiveSupport::TestCase
     link_5 = create(:top_task, linkable: organisation, title: '20 minutes ago', created_at: 20.minutes.ago)
     link_6 = create(:top_task, linkable: organisation, title: '2 years ago', created_at: 2.years.ago)
 
-    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.top_tasks
-    assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.top_tasks.only_the_initial_set
+    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.featured_links
+    assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.featured_links.only_the_initial_set
   end
 
   test 'should ignore blank top task attributes' do
     params = {
-      top_tasks_attributes: [
+      featured_links_attributes: [
         {url: "",
          title: ""}
       ]

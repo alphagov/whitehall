@@ -66,7 +66,7 @@
           <tr><th>Analytics identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
           <tr><th>Top tasks</th>
             <td>
-              <% if (links = @organisation.top_tasks).any? %>
+              <% if (links = @organisation.featured_links).any? %>
                 <ul>
                   <% links.each do |link| %>
                     <li><%= link_to link.title, link.url %></li>

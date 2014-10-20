@@ -1,7 +1,5 @@
 <%
-  featured_link_class = type.classify.constantize
-
-  unsorted_featured_links = form.object.send(type)
+  unsorted_featured_links = form.featured_links
 
   featured_links = if unsorted_featured_links.any?
     unsorted_featured_links.sort_by { |tt| tt.created_at || Time.current }
@@ -11,10 +9,10 @@
 %>
 
 <fieldset class="named <%= type.tr('_', '-') %> form-horizontal js-duplicate-fields">
-  <legend><%= type.humanize %></legend>
-  <p class="alert alert-info">Only the first <%= featured_link_class.default_set_size %> links will be shown on the public site.</p>
+  <legend>Featured links</legend>
+  <p class="alert alert-info">Only the first 5 links will be shown on the public site.</p>
 
-  <%= form.fields_for(type, featured_links) do |featured_links_form| %>
+  <%= form.fields_for(:featured_links, featured_links) do |featured_links_form| %>
     <div class="js-duplicate-fields-set well">
       <%= featured_links_form.text_field :title, horizontal: true %>
       <%= featured_links_form.text_field :url, horizontal: true %>

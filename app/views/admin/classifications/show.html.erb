@@ -39,12 +39,12 @@
         <% end %>
       </td>
     </tr>
-    <% if @classification.respond_to?(:top_tasks) %>
+    <% if @classification.respond_to?(:featured_links) %>
       <tr>
         <th>Top Tasks</th>
         <td class="top-tasks">
-          <% if @classification.top_tasks.any? %>
-            <%= render 'shared/featured_links', type: 'top-tasks', links: @classification.top_tasks %>
+          <% if @classification.featured_links.any? %>
+            <%= render 'shared/featured_links', type: 'top-tasks', links: @classification.featured_links %>
           <% else %>
             <em>None</em>
           <% end %>

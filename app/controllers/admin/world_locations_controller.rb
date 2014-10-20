@@ -48,7 +48,7 @@ class Admin::WorldLocationsController < Admin::BaseController
       :title,
       :active,
       :mission_statement,
-      top_tasks_attributes: [:url, :title, :id, :_destroy]
+      featured_links_attributes: [:url, :title, :id, :_destroy]
     )
   end
 end
