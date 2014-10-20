@@ -1,5 +1,6 @@
 class CreateFeaturedLinks < ActiveRecord::Migration
   class FeaturedServicesAndGuidance < ActiveRecord::Base
+    self.table_name = :featured_services_and_guidance
   end
   class TopTasks < ActiveRecord::Base
   end
@@ -19,10 +20,10 @@ class CreateFeaturedLinks < ActiveRecord::Migration
       if top_task.linkable_type == 'Organisation' && orgs_with_featured_services_and_guidance.include?(top_task.linkable_id)
         next
       end
-      FeaturedLinks.create top_task.attributes
+      FeaturedLink.create top_task.attributes
     end
     FeaturedServicesAndGuidance.all.each do |featured_link|
-      FeaturedLinks.create featured_link.attributes
+      FeaturedLink.create featured_link.attributes
     end
   end
 

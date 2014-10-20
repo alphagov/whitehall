@@ -16,8 +16,8 @@ class WorldLocation < ActiveRecord::Base
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
   has_many :offsite_links, as: :parent
 
-  include HasFeaturedLinks
-  has_featured_links :top_tasks
+  has_many :featured_links, as: :linkable, dependent: :destroy, order: :created_at
+  accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
 
   include Featurable
 
