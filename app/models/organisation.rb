@@ -117,6 +117,7 @@ class Organisation < ActiveRecord::Base
 
   has_many :featured_links, as: :linkable, dependent: :destroy, order: :created_at
   accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
+  validates :homepage_type, inclusion: {in: %w{news service}}
 
   include HasCorporateInformationPages
 
@@ -440,6 +441,14 @@ class Organisation < ActiveRecord::Base
 
   def generate_content_id
     self.content_id ||= SecureRandom.uuid
+  end
+
+  def news_priority_homepage?
+    homepage_type == 'news'
+  end
+
+  def service_priority_homepage?
+    homepage_type == 'service'
   end
 
   private
