@@ -266,7 +266,7 @@ private
   def role_appointment_label(appointment)
     organisations = appointment.organisations.map(&:name).to_sentence
     person        = appointment.person.name
-    role          = appointment.role.name
+    role          = appointment.role.name.dup
     unless appointment.current?
       role << " (#{l(appointment.started_at.to_date)} to #{l(appointment.ended_at.to_date)})"
     end
