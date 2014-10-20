@@ -9,8 +9,7 @@ class Consultation < Publicationesque
 
   validates :opening_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
-  validates :external_url, presence: { if: :external? }
-  validates :external_url, uri: true, allow_blank: true
+  validates :external_url, uri: true, allow_blank: true, presence: { if: :external? }
   validate :validate_closes_after_opens
 
   has_one :outcome, class_name: 'ConsultationOutcome', foreign_key: :edition_id, dependent: :destroy
