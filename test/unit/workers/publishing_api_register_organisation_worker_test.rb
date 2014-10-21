@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'gds_api/test_helpers/publishing_api'
 
-class PublishingApiRegisterOrganisationWorkerTest < ActiveSupport::TestCase
+class PublishingApiOrganisationWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   test "sends an organisation to the publishing api" do

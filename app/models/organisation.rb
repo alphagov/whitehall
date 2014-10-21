@@ -230,7 +230,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def publish_to_publishing_api
-    PublishingApiRegisterOrganisationWorker.perform_async(self.id)
+    PublishingApiOrganisationWorker.perform_async(self.id)
   end
 
   def organisation_logo_type
