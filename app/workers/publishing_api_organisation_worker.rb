@@ -1,6 +1,5 @@
 class PublishingApiOrganisationWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :publishing_api
 
   def perform(organisation_id, options = {})
     organisation = Organisation.find(organisation_id)

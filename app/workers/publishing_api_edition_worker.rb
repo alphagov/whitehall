@@ -1,6 +1,5 @@
 class PublishingApiEditionWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :publishing_api
 
   def perform(edition_id, options = {})
     edition = Edition.find(edition_id)
