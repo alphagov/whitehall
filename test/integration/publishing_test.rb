@@ -8,15 +8,15 @@ class PublishingTest < ActiveSupport::TestCase
 
   setup do
     @draft_edition = create(:draft_edition)
-    @registerable = RegisterableEdition.new(@draft_edition)
-    stub_artefact_registration(@registerable.slug)
+    @presenter = PublishingApiPresenters::Edition.new(@draft_edition)
+    stub_panopticon_registration(@draft_edition)
   end
 
   test "When publishing an edition, it is registered in the publishing api" do
-    expected_attributes = @registerable.attributes_for_publishing_api.merge(
+    expected_attributes = @presenter.as_json.merge(
       public_updated_at: Time.zone.now.iso8601
     )
-    @request = stub_publishing_api_put_item(@registerable.base_path, expected_attributes)
+    @request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
 
     perform_force_publishing_for(@draft_edition)
 

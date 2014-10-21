@@ -4,14 +4,11 @@ class PublishingApiRegisterArtefactWorker
 
   def perform(edition_id, options = {})
     edition = Edition.find(edition_id)
+    presenter = PublishingApiPresenters::Edition.new(edition)
 
-    if edition.present?
-      registerable_edition = RegisterableEdition.new(edition)
-      Whitehall.publishing_api_client.put_content_item(
-        registerable_edition.base_path,
-        registerable_edition.attributes_for_publishing_api
-      )
-    end
+    Whitehall.publishing_api_client.put_content_item(
+      presenter.base_path,
+      presenter.as_json
+    )
   end
-
 end

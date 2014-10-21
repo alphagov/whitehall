@@ -21,14 +21,10 @@ class RegisterableEdition
 
   def paths
     if kind == "detailed_guide"
-      [base_path]
+      ["/#{slug}"]
     else
       []
     end
-  end
-
-  def base_path
-    "/#{slug}"
   end
 
   def prefixes
@@ -75,41 +71,6 @@ class RegisterableEdition
       edition.organisations.reject {|organisation| organisation.is_a?(WorldwideOrganisation) }
     else
       []
-    end
-  end
-
-  def attributes_for_publishing_api
-    {
-      title: title,
-      base_path: base_path,
-      description: description,
-      format: "placeholder", # This will be updated once Whitehall uses the Content Store permanently
-      need_ids: need_ids,
-      public_updated_at: edition.public_timestamp,
-      publishing_app: "whitehall",
-      rendering_app: "whitehall-frontend",
-      routes: [ { path: base_path, type: "exact" } ], # Placeholder does not register routes but still needs to send the base path.
-      redirects: [],
-      update_type: update_type,
-      details: {
-        change_note: latest_change_note,
-        tags: {
-          browse_pages: [],
-          topics: specialist_sectors, # This will appear as a top-level section later on.
-        }
-      }
-    }
-  end
-
-  def latest_change_note
-    edition.most_recent_change_note
-  end
-
-  def update_type
-    if edition.minor_change?
-      "minor"
-    else
-      "major"
     end
   end
 
