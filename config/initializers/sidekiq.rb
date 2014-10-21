@@ -3,7 +3,7 @@ redis_config = YAML.load_file(Rails.root.join("config", "redis.yml")).symbolize_
 Sidekiq.configure_server do |config|
   config.redis = redis_config
   config.error_handlers << lambda do |exception, context|
-     Airbrake.notify(ex, parameters: context)
+     Airbrake.notify(exception, parameters: context)
    end
 end
 
