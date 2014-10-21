@@ -107,7 +107,6 @@ class Admin::OrganisationsController < Admin::BaseController
         :mainstream_category_id, :ordering, :id, :_destroy
       ],
       featured_links_attributes: [:title, :url, :_destroy, :id],
-      featured_services_and_guidance_attributes: [:title, :url, :_destroy, :id]
     )
   end
 

@@ -64,22 +64,9 @@
             </td>
           </tr>
           <tr><th>Analytics identifier</th><td><%= @organisation.analytics_identifier %></td></tr>
-          <tr><th>Top tasks</th>
+          <tr><th>Featured links</th>
             <td>
               <% if (links = @organisation.featured_links).any? %>
-                <ul>
-                  <% links.each do |link| %>
-                    <li><%= link_to link.title, link.url %></li>
-                  <% end %>
-                </ul>
-              <% else %>
-                None
-              <% end %>
-            </td>
-          </tr>
-          <tr><th>Featured services and guidance</th>
-            <td>
-              <% if (links = @organisation.featured_services_and_guidance).any? %>
                 <ul>
                   <% links.each do |link| %>
                     <li><%= link_to link.title, link.url %></li>

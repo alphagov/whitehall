@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <% if @featured_services_and_guidance.any? %>
+  <% if @organisation.service_priority_homepage? %>
     <div class="heading-block">
       <div class="inner-block">
         <section class="featured-services-and-guidance" aria-describedby="featured-services-and-guidance-heading">
@@ -21,8 +21,7 @@
 
           <div class="content">
             <%= render 'shared/featured_links',
-              type: 'top-tasks',
-              links: @featured_services_and_guidance.only_the_initial_set %>
+              links: @organisation.featured_links.limit(10) %>
             <% if @organisation.has_services_and_information_link? %>
               <p class="see-all">
                 <%= link_to "All #{organisation_display_name(@organisation)} services and information".html_safe,
@@ -41,7 +40,7 @@
                 locals: { feature_list: @feature_list,
                           recently_updated: @recently_updated,
                           organisation: @organisation,
-                          featured_services_and_guidance: @featured_services_and_guidance } %>
+                          featured_links: @organisation.featured_links } %>
       <section id="what-we-do" class="what-we-do">
         <div class="content">
           <h1 class="label"><%= t('organisation.headings.what_we_do') %></h1>
