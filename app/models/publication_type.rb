@@ -22,9 +22,9 @@ class PublicationType
     17 => "<p>Drawn maps and geographical data.</p>",
     18 => "<p>Treaties and memoranda of understanding between the UK and other nations.</p>",
     19 => "<p>Guidance which relevant users are legally obliged to follow. (For non-statutory guidance publications, use the “guidance” sub-type).</p>",
-    20 => "<p>Notices or notifications that government is required to provide.</p>",
-    21 => "<p>Government decisions or judgements.</p>",
-    22 => "<p>Rules or directives that are made and maintained by government.</p>",
+    20 => "<p>Permit and licence applications published temporarily for public awareness.</p>",
+    21 => "<p>Formal decisions by tribunals, regulators or adjudicators (including courts and Secretaries of State).</p>",
+    22 => "<p>Regulations imposed by an independent regulatory authority only.</p><p>Do <em>not</em> use for: statutory guidance.</p>",
     999 => "<p>DO NOT USE. This is a legacy category for content created before sub-types existed.</p>",
     1000 => "<p>DO NOT USE. This is a holding category for content that has been imported automatically.</p>",
   }.to_json.freeze
@@ -109,11 +109,11 @@ class PublicationType
   InternationalTreaty    = create(id: 18, key: "international_treaty", singular_name: "International treaty", plural_name: "International treaties", prevalence: :less_common)
   Notice                 = create(id: 20, key: "notice", singular_name: "Notice", plural_name: "Notices", prevalence: :less_common)
   Decision               = create(id: 21, key: "decision", singular_name: "Decision", plural_name: "Decisions", prevalence: :less_common)
-  Regulation             = create(id: 22, key: "regulation", singular_name: "Regulation", plural_name: "Regulations", prevalence: :less_common)
 
   # Use is discouraged
   Correspondence         = create(id: 8 , key: "correspondence", singular_name: "Correspondence", plural_name: "Correspondence", prevalence: :discouraged)
   PromotionalMaterial    = create(id: 13, key: "promotional", singular_name: "Promotional material", plural_name: "Promotional material", prevalence: :discouraged)
+  Regulation             = create(id: 22, key: "regulation", singular_name: "Regulation", plural_name: "Regulations", prevalence: :discouraged)
 
   # Temporary to allow migration
   Unknown                = create(id: 999, key: "publication", singular_name: "Publication", plural_name: "Publication", prevalence: :migration)
