@@ -4,11 +4,11 @@ class PublishingApiRegisterOrganisationWorker
 
   def perform(organisation_id, options = {})
     organisation = Organisation.find(organisation_id)
+    presenter = PublishingApiPresenters::Organisation.new(organisation)
 
     Whitehall.publishing_api_client.put_content_item(
-      organisation.base_path,
-      organisation.attributes_for_publishing_api
+      presenter.base_path,
+      presenter.as_json
     )
   end
-
 end
