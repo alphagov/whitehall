@@ -31,6 +31,16 @@ module Govspeak
       assert_equal ['http://example.com'], extractor.links
     end
 
+    test "ignores anchor links to sections on the same page" do
+      extractor = LinkExtractor.new("[Index](#index) and a [link](http://example.com)")
+      assert_equal ['http://example.com'], extractor.links
+    end
+
+    test "extracts URLs with anchor links" do
+      extractor = LinkExtractor.new("[Index](#index) and a [link](http://example.com#index)")
+      assert_equal ['http://example.com#index'], extractor.links
+    end
+
   private
 
     def govspeak_with_links
