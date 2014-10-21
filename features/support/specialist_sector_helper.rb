@@ -53,7 +53,7 @@ module SpecialistSectorHelper
   end
 
   def check_for_primary_sector_in_heading
-    assert has_content?("Oil and gas - guidance")
+    assert find("article header").has_content?("Oil and gas")
   end
 
   def check_for_sectors_and_subsectors_in_metadata
