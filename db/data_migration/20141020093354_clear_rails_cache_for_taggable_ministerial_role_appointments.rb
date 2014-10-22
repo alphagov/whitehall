@@ -1,0 +1,3 @@
+include Admin::TaggableContentHelper
+
+Rails.cache.delete(taggable_ministerial_role_appointments_cache_digest)
