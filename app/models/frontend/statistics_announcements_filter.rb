@@ -41,9 +41,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def organisations=(organisations)
-    @organisations = Array(organisations).map { |org|
-      org.is_a?(Organisation) ? org : Organisation.find_by_slug(org)
-    }.compact
+    @organisations = Organisation.where(slug: Array(organisations))
   end
 
   def organisations
@@ -55,9 +53,7 @@ class Frontend::StatisticsAnnouncementsFilter < FormObject
   end
 
   def topics=(topics)
-    @topics = Array(topics).map { |topic|
-      topic.is_a?(Topic) ? topic : Topic.find_by_slug(topic)
-    }.compact
+    @topics = Topic.where(slug: Array(topics))
   end
 
   def topics

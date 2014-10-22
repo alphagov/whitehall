@@ -28,30 +28,40 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
 
   test "organisations= parses slugs into real organisations" do
     org_1, org_2 = 2.times.map { create(:organisation) }
-    assert_equal [org_1, org_2], build(organisations: [org_1.slug, org_2]).organisations
+    assert_equal [org_1, org_2], build(organisations: [org_1.slug, org_2.slug]).organisations
   end
 
   test "organisations= handles nil" do
     assert_equal [], build(organisations: nil).organisations
   end
 
+  test "organisations= ignores any shenanigans" do
+    filter = build(organisations: [{ hax: '1'}])
+    assert_equal [], filter.organisations
+  end
+
   test "organisation_slugs returns slugs of organisations" do
     organisation = create(:organisation)
-    assert_equal [organisation.slug], build(organisations: [organisation]).organisation_slugs
+    assert_equal [organisation.slug], build(organisations: [organisation.slug]).organisation_slugs
   end
 
   test "topics= parses slugs into real topics" do
     topic_1, topic_2 = 2.times.map { create(:topic) }
-    assert_equal [topic_1, topic_2], build(topics: [topic_1.slug, topic_2]).topics
+    assert_equal [topic_1, topic_2], build(topics: [topic_1.slug, topic_2.slug]).topics
   end
 
   test "topics= handles nil" do
     assert_equal [], build(topics: nil).topics
   end
 
+  test "topics= ignores any shenanigans" do
+    filter = build(topics: [{ hax: '1'}])
+    assert_equal [], filter.topics
+  end
+
   test "topic_slugs returns slugs of topics" do
     topic = create(:topic)
-    assert_equal [topic.slug], build(topics: [topic]).topic_slugs
+    assert_equal [topic.slug], build(topics: [topic.slug]).topic_slugs
   end
 
   test "#valid_filter_params returns all attributes if all are present and valid excluding pagination parameters" do
@@ -61,8 +71,8 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     filter = build(keywords: "keyword",
                    from_date: "2020-01-01",
                    to_date: "2020-02-01",
-                   organisations: [organisation],
-                   topics: [topic],
+                   organisations: [organisation.slug],
+                   topics: [topic.slug],
                    page: 2)
 
     assert_equal({ keywords: "keyword",

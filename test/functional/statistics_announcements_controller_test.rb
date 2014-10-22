@@ -62,6 +62,11 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     end
   end
 
+  test "#index with dodgy params" do
+    get :index, topics: [{ hax: 1 }]
+    assert_response :success
+  end
+
   view_test "#index displays no results text when there aren't any results" do
     get :index
     rendered = Nokogiri::HTML::Document.parse(response.body)
