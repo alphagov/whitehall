@@ -15,7 +15,7 @@ module Govspeak
     end
 
     def extract_links
-      processed_govspeak.css('a:not([href^="mailto"])').map { |link| link['href'] }
+      processed_govspeak.css('a:not([href^="mailto"])').css('a:not([href^="#"])').map { |link| link['href'] }
     end
 
     def processed_govspeak
