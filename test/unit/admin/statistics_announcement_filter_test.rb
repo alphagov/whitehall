@@ -2,14 +2,33 @@ require 'test_helper'
 
 class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   test "returns statistics announcements in reverse date order" do
-    last_week  = create(:statistics_announcement, current_release_date: create(:statistics_announcement_date, release_date: 1.week.ago))
-    tomorrow   = create(:statistics_announcement, current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now))
-    yesterday  = create(:statistics_announcement, current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
-    last_month = create(:statistics_announcement, current_release_date: create(:statistics_announcement_date, release_date: 1.month.ago))
+    last_week  = statistics_announcement_for(1.week.ago)
+    tomorrow   = statistics_announcement_for(1.day.from_now)
+    yesterday  = statistics_announcement_for(1.day.ago)
+    last_month = statistics_announcement_for(1.month.ago)
     filter     = Admin::StatisticsAnnouncementFilter.new
 
     assert_equal [tomorrow, yesterday, last_week, last_month],
       filter.statistics_announcements
+  end
+
+  test "filtering past releases returns them in reverse date order" do
+    last_week  = statistics_announcement_for(1.week.ago)
+    future     = statistics_announcement_for(1.day.from_now)
+    last_month = statistics_announcement_for(1.month.ago)
+    filter     = Admin::StatisticsAnnouncementFilter.new(dates: 'past')
+
+    assert_equal [last_week, last_month].map(&:id), filter.statistics_announcements.map(&:id)
+  end
+
+  test "filtering future releases returns them in date order" do
+    today      = statistics_announcement_for(1.hour.from_now)
+    past       = statistics_announcement_for(1.week.ago)
+    tomorrow   = statistics_announcement_for(1.day.from_now)
+    last_month = statistics_announcement_for(1.month.ago)
+    filter     = Admin::StatisticsAnnouncementFilter.new(dates: 'future')
+
+    assert_equal [today, tomorrow].map(&:id), filter.statistics_announcements.map(&:id)
   end
 
   test "can filter by title" do
@@ -27,5 +46,12 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     filter       = Admin::StatisticsAnnouncementFilter.new(organisation_id: organisation.id)
 
     assert_equal [match], filter.statistics_announcements
+  end
+
+private
+
+  def statistics_announcement_for(datetime)
+    create(:statistics_announcement,
+      current_release_date: create(:statistics_announcement_date, release_date: datetime))
   end
 end
