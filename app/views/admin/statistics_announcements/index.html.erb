@@ -7,7 +7,7 @@
 <div class="row-fluid">
   <div class="span3 span3-responsive">
     <%= form_tag admin_statistics_announcements_path, class: "filter-options", method: :get do %>
-    <h2>Filter</h2>
+    <h2 class="remove-top-margin remove-bottom-margin">Filter</h2>
 
     <div class="filter-grouping">
       <%= label_tag :search_title, 'Title or slug' %>
@@ -54,7 +54,7 @@
         </thead>
         <tbody>
           <% @statistics_announcements.each do |statistics_announcement| %>
-            <%= content_tag_for :tr, statistics_announcement do %>
+            <%= content_tag_for :tr, statistics_announcement, class: "statistics_announcement #{'warning' unless statistics_announcement.publication}" do %>
               <td>
                 <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
                 <%= content_tag(:span, "cancelled", class: "badge badge-important add-left-margin") if statistics_announcement.cancelled? %>
@@ -64,7 +64,7 @@
                   <%= link_to(publication.title, [:admin, publication]) %>
                   (<%= publication.current_state %>)
                 <% else %>
-                  (no document)
+                  <strong>(no document)</strong>
                 <% end %>
               </td>
               <td><%= organisations_list(statistics_announcement.organisations) %></td>
