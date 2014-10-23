@@ -278,7 +278,7 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [chief_professional_officer], organisation.chief_professional_officer_roles
   end
 
-  test 'should be creatable with top task data' do
+  test 'should be creatable with featured link data' do
     params = {
       featured_links_attributes: [
         {url: "https://www.gov.uk/blah/blah",
@@ -297,20 +297,20 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "Wah wah", links[1].title
   end
 
-  test 'top tasks are returned in order of creation' do
+  test 'featured links are returned in order of creation' do
     organisation = create(:organisation)
-    link_1 = create(:top_task, linkable: organisation, title: '2 days ago', created_at: 2.days.ago)
-    link_2 = create(:top_task, linkable: organisation, title: '12 days ago', created_at: 12.days.ago)
-    link_3 = create(:top_task, linkable: organisation, title: '1 hour ago', created_at: 1.hour.ago)
-    link_4 = create(:top_task, linkable: organisation, title: '2 hours ago', created_at: 2.hours.ago)
-    link_5 = create(:top_task, linkable: organisation, title: '20 minutes ago', created_at: 20.minutes.ago)
-    link_6 = create(:top_task, linkable: organisation, title: '2 years ago', created_at: 2.years.ago)
+    link_1 = create(:featured_link, linkable: organisation, title: '2 days ago', created_at: 2.days.ago)
+    link_2 = create(:featured_link, linkable: organisation, title: '12 days ago', created_at: 12.days.ago)
+    link_3 = create(:featured_link, linkable: organisation, title: '1 hour ago', created_at: 1.hour.ago)
+    link_4 = create(:featured_link, linkable: organisation, title: '2 hours ago', created_at: 2.hours.ago)
+    link_5 = create(:featured_link, linkable: organisation, title: '20 minutes ago', created_at: 20.minutes.ago)
+    link_6 = create(:featured_link, linkable: organisation, title: '2 years ago', created_at: 2.years.ago)
 
     assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.featured_links
     assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.featured_links.only_the_initial_set
   end
 
-  test 'should ignore blank top task attributes' do
+  test 'should ignore blank featured link attributes' do
     params = {
       featured_links_attributes: [
         {url: "",

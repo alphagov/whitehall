@@ -360,9 +360,9 @@ class WorldLocationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "should show top task links if there are some" do
+  view_test "should show featured links if there are some" do
     world_location = create(:world_location)
-    top_task = create(:top_task, linkable: world_location)
+    top_task = create(:featured_link, linkable: world_location)
 
     get :show, id: world_location
 

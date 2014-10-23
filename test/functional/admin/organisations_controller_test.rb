@@ -356,19 +356,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute organisation.regulatory_function?
   end
 
-  test 'PUT on :update handles existing top task attributes' do
+  test 'PUT on :update handles existing featured link attributes' do
     organisation = create(:organisation)
-    top_task = create(:top_task, linkable: organisation)
+    featured_link = create(:featured_link, linkable: organisation)
 
     put :update, id: organisation, organisation: { featured_links_attributes: { '0' => {
-      id: top_task.id,
+      id: featured_link.id,
       title: 'New title',
-      url: top_task.url,
+      url: featured_link.url,
       _destroy: 'false'
     } } }
 
     assert_response :redirect
-    assert_equal 'New title', top_task.reload.title
+    assert_equal 'New title', featured_link.reload.title
   end
 
   view_test "Prevents unauthorized management of featured services and guidance" do
