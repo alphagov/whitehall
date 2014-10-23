@@ -36,6 +36,9 @@ module Admin
       when 'future'
         StatisticsAnnouncement.where("release_date > ?", Time.zone.now)
                               .order("release_date ASC")
+      when 'four-weeks'
+        StatisticsAnnouncement.where("release_date > ? AND release_date < ?", Time.zone.now, 4.weeks.from_now)
+                              .order("release_date ASC")
       else
         StatisticsAnnouncement.order("release_date DESC")
       end

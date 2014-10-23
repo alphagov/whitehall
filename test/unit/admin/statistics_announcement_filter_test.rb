@@ -31,6 +31,16 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     assert_equal [today, tomorrow].map(&:id), filter.statistics_announcements.map(&:id)
   end
 
+  test "filtering the next four weeks of announcements returns them in date order" do
+    today      = statistics_announcement_for(1.hour.from_now)
+    past       = statistics_announcement_for(1.week.ago)
+    tomorrow   = statistics_announcement_for(1.day.from_now)
+    two_months = statistics_announcement_for(2.month.from_now)
+    filter     = Admin::StatisticsAnnouncementFilter.new(dates: 'four-weeks')
+
+    assert_equal [today, tomorrow].map(&:id), filter.statistics_announcements.map(&:id)
+  end
+
   test "can filter only those announcements that do not have a linked publication" do
     today     = statistics_announcement_for(1.hour.from_now, publication: create(:draft_statistics))
     tomorrow  = statistics_announcement_for(1.day.from_now, publication: create(:draft_statistics))

@@ -23,6 +23,28 @@ Given(/^there are statistics announcements by my organisation$/) do
                           current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
 end
 
+
+Given(/^there are statistics announcements by my organisation that are unlinked to a publication$/) do
+  @past_announcement    = create(:statistics_announcement,
+                            organisation_ids: [@user.organisation.id],
+                            current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+
+  @tomorrow_announcement  = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now))
+  @next_week_announcement = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+
+  @next_year_announcement = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now))
+end
+
+When(/^I view the statistics announcements index page$/) do
+  visit admin_statistics_announcements_path
+end
+
 Given(/^there is a statistics announcement by another organistion$/) do
   @other_organisation_announcement = create(:statistics_announcement)
 end
@@ -191,3 +213,17 @@ Then(/^I should be able to filter only the unlinked announcements$/) do
   assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
   refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
 end
+
+Then(/^I should see a warning that there are upcoming releases without a linked publication$/) do
+  assert page.has_content?("There are 2 releases due in the next 4 weeks without a linked statistics publication.")
+end
+
+Then(/^I should be able to view these upcoming releases without a linked publication$/) do
+  click_on "2 releases"
+
+  assert page.has_css?("tr.statistics_announcement", text: @tomorrow_announcement.title)
+  assert page.has_css?("tr.statistics_announcement", text: @next_week_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @next_year_announcement.title)
+end
+
