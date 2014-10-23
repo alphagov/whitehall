@@ -43,6 +43,11 @@ Feature: Statistical release announcements
     And there are statistics announcements by my organisation
     Then I should be able to filter both past and future announcements
 
+  Scenario: filtering announcements that are not linked to a publications
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And there are statistics announcements by my organisation
+    Then I should be able to filter only the unlinked announcements
+
   @javascript
   Scenario: linking a document to a statistics announcement
     Given I am a GDS editor in the organisation "Department for Beards"

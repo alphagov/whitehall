@@ -15,11 +15,12 @@ end
 Given(/^there are statistics announcements by my organisation$/) do
   @past_announcement   = create(:statistics_announcement,
                           organisation_ids: [@user.organisation.id],
-                          current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+                          current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+                          publication: create(:draft_statistics))
 
   @future_announcement = create(:statistics_announcement,
                           organisation_ids: [@user.organisation.id],
-                          current_release_date: create(:statistics_announcement_date, release_date: 1.hour.from_now))
+                          current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
 end
 
 Given(/^there is a statistics announcement by another organistion$/) do
@@ -178,4 +179,15 @@ Then(/^I should be able to filter both past and future announcements$/) do
 
   assert page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
   refute page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
+end
+
+Then(/^I should be able to filter only the unlinked announcements$/) do
+  visit admin_statistics_announcements_path
+
+  select "All announcements", from: "Release date"
+  check "Releases without a linked statistics publication"
+  click_on "Search"
+
+  assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
 end

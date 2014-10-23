@@ -11,6 +11,7 @@ module Admin
       scope = unfiltered_scope
       scope = scope.with_title_containing(options[:title]) if options[:title].present?
       scope = scope.in_organisations([options[:organisation_id]]) if options[:organisation_id].present?
+      scope = scope.merge( unlinked_scope ) if options[:unlinked_only] == "1"
       scope = scope.merge( date_and_order_scope )
       scope
     end
@@ -21,6 +22,10 @@ module Admin
       StatisticsAnnouncement.includes(:current_release_date, :topics, publication: :translations, organisations: :translations)
                             .joins(:current_release_date)
                             .page(options[:page])
+    end
+
+    def unlinked_scope
+      StatisticsAnnouncement.where("publication_id is NULL")
     end
 
     def date_and_order_scope

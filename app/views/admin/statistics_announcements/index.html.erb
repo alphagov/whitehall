@@ -31,6 +31,12 @@
                                ], @filter.options[:dates]),
                                class: "chzn-select" %>
       </div>
+
+      <%= label_tag :unlinked_only, "Publications" %>
+      <%= label_tag :unlinked_only, class: "checkbox remove-top-margin", style: "font-weight: normal" do %>
+        <%= check_box_tag :unlinked_only, "1", @filter.options[:unlinked_only] %>
+        Releases without a linked statistics publication
+      <% end %>
     </div>
 
     <%= submit_tag 'Search', class: 'btn add-bottom-margin' %>
