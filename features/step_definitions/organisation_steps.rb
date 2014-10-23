@@ -464,6 +464,7 @@ When /^I add some featured services and guidance to the organisation "([^"]*)" v
     fill_in "Url", with: "https://www.gov.uk/example/service"
     fill_in "Title", with: "Example Service"
   end
+  choose '#organisation_homepage_type_service'
   click_button "Save"
 end
 
