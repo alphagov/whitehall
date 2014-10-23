@@ -86,7 +86,7 @@
       </table>
       <%= paginate @statistics_announcements, theme: 'twitter-bootstrap' %>
     <% else %>
-      <div class="no-content no-content-bordered">No statistics announcements found</div>
+      <div class="no-content no-content-bordered">No <%= @filter.options[:dates] %> statistics announcements found</div>
     <% end %>
   </div>
 </div>

@@ -14,13 +14,18 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_select "input[name='statistics_announcement[title]']"
   end
 
-  test "GET :index filters announcements by the current user's organisation by default" do
-    @organsation_announcement = create(:statistics_announcement, organisation_ids: [@organisation.id])
-    @other_announcement       = create(:statistics_announcement)
+  test "GET :index defaults to future-dated announcements by the current user's organisation" do
+    @future_announcement = create(:statistics_announcement,
+                            organisation_ids: [@organisation.id],
+                            current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+    @past_announcement   = create(:statistics_announcement,
+                             organisation_ids: [@organisation.id],
+                             current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+    @other_announcement  = create(:statistics_announcement)
 
     get :index
 
-    assert_equal [@organsation_announcement], assigns(:statistics_announcements)
+    assert_equal [@future_announcement], assigns(:statistics_announcements)
   end
 
   test "GET :index handles users without an organisation" do
