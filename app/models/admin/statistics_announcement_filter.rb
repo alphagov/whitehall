@@ -18,7 +18,8 @@ module Admin
 
     def unfiltered_scope
       StatisticsAnnouncement.includes(:current_release_date)
-                            .order(current_release_date: :release_date)
+                            .joins(:current_release_date)
+                            .order("release_date DESC")
                             .page(options[:page])
     end
   end
