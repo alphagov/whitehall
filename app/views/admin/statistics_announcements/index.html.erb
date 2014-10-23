@@ -60,7 +60,7 @@
         <thead>
           <tr class="table-header">
             <th>Announcement title</th>
-            <th>Document</th>
+            <th>Publication</th>
             <th>Organisations</th>
             <th>Topics</th>
             <th>Display date</th>
@@ -79,7 +79,7 @@
                   <%= link_to(publication.title, [:admin, publication]) %>
                   (<%= publication.current_state %>)
                 <% else %>
-                  <strong>(no document)</strong>
+                  <strong>(no publication)</strong>
                 <% end %>
               </td>
               <td><%= organisations_list(statistics_announcement.organisations) %></td>
