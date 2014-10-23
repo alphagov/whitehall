@@ -99,13 +99,6 @@ module Whitehall::Uploader
       end
     end
 
-    def attachments_from_columns
-      1.upto(Row::ATTACHMENT_LIMIT).map do |number|
-        next unless row["attachment_#{number}_title"] || row["attachment_#{number}_url"]
-        Builders::AttachmentBuilder.build({title: row["attachment_#{number}_title"]}, row["attachment_#{number}_url"], @attachment_cache, @logger, @line_number)
-      end.compact
-    end
-
     def apply_meta_data_to_attachment(attachment)
       attachment.order_url = row["order_url"]
       attachment.isbn = row["isbn"]
