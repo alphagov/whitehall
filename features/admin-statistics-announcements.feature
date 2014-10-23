@@ -38,6 +38,11 @@ Feature: Statistical release announcements
     When I filter statistics announcements by the other organisation
     Then I should only see the statistics announcement of the other organisation
 
+  Scenario: filtering announcements according to date
+    Given I am a GDS editor in the organisation "Department for Beards"
+    And there are statistics announcements by my organisation
+    Then I should be able to filter both past and future announcements
+
   @javascript
   Scenario: linking a document to a statistics announcement
     Given I am a GDS editor in the organisation "Department for Beards"

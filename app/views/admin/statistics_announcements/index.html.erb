@@ -21,6 +21,16 @@
                        admin_organisation_filter_options(current_user, @filter.options[:organisation_id]),
                        class: "chzn-select" %>
       </div>
+
+      <%= label_tag :dates, "Release date" %>
+      <div class="btn-enter-wrapper">
+        <%= select_tag :dates, options_for_select([
+                                 ["All announcements", nil],
+                                 ["Future releases", 'future'],
+                                 ["Past releases", 'past'],
+                               ], @filter.options[:dates]),
+                               class: "chzn-select" %>
+      </div>
     </div>
 
     <%= submit_tag 'Search', class: 'btn add-bottom-margin' %>

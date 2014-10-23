@@ -71,7 +71,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def filter_params
-    params.slice(:title, :page, :per_page, :organisation_id).
+    params.slice(:title, :page, :per_page, :organisation_id, :dates).
       reverse_merge(organisation_id: current_user.organisation.try(:id))
   end
 end
