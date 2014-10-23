@@ -1,3 +1,9 @@
-include Admin::TaggableContentHelper
+class TaggableContentCacheCleaner
+  include Admin::TaggableContentHelper
 
-Rails.cache.delete(taggable_ministerial_role_appointments_cache_digest)
+  def do
+    Rails.cache.delete(taggable_ministerial_role_appointments_cache_digest)
+  end
+end
+
+TaggableContentCacheCleaner.new.do
