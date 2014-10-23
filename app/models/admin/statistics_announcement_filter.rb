@@ -18,7 +18,7 @@ module Admin
     private
 
     def unfiltered_scope
-      StatisticsAnnouncement.includes(:current_release_date)
+      StatisticsAnnouncement.includes(:current_release_date, :topics, publication: :translations, organisations: :translations)
                             .joins(:current_release_date)
                             .page(options[:page])
     end
