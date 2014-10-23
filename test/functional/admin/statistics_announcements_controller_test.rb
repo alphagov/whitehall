@@ -23,6 +23,13 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_equal [@organsation_announcement], assigns(:statistics_announcements)
   end
 
+  test "GET :index handles users without an organisation" do
+    login_as create(:gds_editor, organisation: nil)
+    get :index
+
+    assert_response :success
+  end
+
   test "POST :create saves the announcement to the database and redirects to the dashboard" do
     post :create, statistics_announcement: {
                     title: 'Beard stats 2014',
