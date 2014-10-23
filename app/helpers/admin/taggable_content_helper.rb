@@ -6,7 +6,7 @@ module Admin::TaggableContentHelper
   # Each element of the array consists of two values: the name and ID of the
   # topic.
   def taggable_topics_container
-    Rails.cache.fetch(taggable_topics_cache_digest) do
+    Rails.cache.fetch(taggable_topics_cache_digest, expires_in: 1.day) do
       Topic.order(:name).map { |t| [t.name, t.id] }
     end
   end
@@ -15,7 +15,7 @@ module Admin::TaggableContentHelper
   # events. Each element of the array consists of two values: the name and ID
   # of the topical event.
   def taggable_topical_events_container
-    Rails.cache.fetch(taggable_topical_events_cache_digest) do
+    Rails.cache.fetch(taggable_topical_events_cache_digest, expires_in: 1.day) do
       TopicalEvent.order(:name).map { |te| [te.name, te.id] }
     end
   end
@@ -24,7 +24,7 @@ module Admin::TaggableContentHelper
   # Each element of the array consists of two values: the select_name and the
   # ID of the organisation
   def taggable_organisations_container
-    Rails.cache.fetch(taggable_organisations_cache_digest) do
+    Rails.cache.fetch(taggable_organisations_cache_digest, expires_in: 1.day) do
       Organisation.with_translations.order(:name).map { |o| [o.select_name, o.id] }
     end
   end
@@ -35,7 +35,7 @@ module Admin::TaggableContentHelper
   # role, the date the role was held if it's in the past, and the organisations
   # the person belongs to) and the ID of the role appointment.
   def taggable_ministerial_role_appointments_container
-    Rails.cache.fetch(taggable_ministerial_role_appointments_cache_digest) do
+    Rails.cache.fetch(taggable_ministerial_role_appointments_cache_digest, expires_in: 1.day) do
       role_appointments_container_for(RoleAppointment.for_ministerial_roles)
     end
   end
@@ -46,7 +46,7 @@ module Admin::TaggableContentHelper
   # held if it's in the past, and the organisations the person belongs to) and
   # the ID of the role appointment.
   def taggable_role_appointments_container
-    Rails.cache.fetch(taggable_role_appointments_cache_digest) do
+    Rails.cache.fetch(taggable_role_appointments_cache_digest, expires_in: 1.day) do
       role_appointments_container_for(RoleAppointment)
     end
   end
@@ -55,7 +55,7 @@ module Admin::TaggableContentHelper
   # element of the array consists of two values: the name of the ministerial
   # role with the organisation and current holder and its ID.
   def taggable_ministerial_roles_container
-    Rails.cache.fetch(taggable_ministerial_roles_cache_digest) do
+    Rails.cache.fetch(taggable_ministerial_roles_cache_digest, expires_in: 1.day) do
       MinisterialRole.with_translations.with_translations_for(:organisations).alphabetical_by_person.map do |role|
         ["#{role.name}, #{role.organisations.map(&:name).to_sentence} (#{role.current_person_name})", role.id]
       end
@@ -66,7 +66,7 @@ module Admin::TaggableContentHelper
   # guides. Each element of the array consists of two values: the guide title
   # and its ID.
   def taggable_detailed_guides_container
-    Rails.cache.fetch(taggable_detailed_guides_cache_digest) do
+    Rails.cache.fetch(taggable_detailed_guides_cache_digest, expires_in: 1.day) do
       DetailedGuide.alphabetical.latest_edition.active.map {|d| [d.title, d.id] }
     end
   end
@@ -75,7 +75,7 @@ module Admin::TaggableContentHelper
   # data sets. Each elements of the array consists of two values: the data
   # set title and its ID.
   def taggable_statistical_data_sets_container
-    Rails.cache.fetch(taggable_statistical_data_sets_cache_digest) do
+    Rails.cache.fetch(taggable_statistical_data_sets_cache_digest, expires_in: 1.day) do
       StatisticalDataSet.with_translations.latest_edition.map do |data_set|
         [data_set.title, data_set.document_id]
       end
@@ -86,7 +86,7 @@ module Admin::TaggableContentHelper
   # priorities. Each element of the array consists of two values: the
   # worldwide priority title and its ID.
   def taggable_worldwide_priorities_container
-    Rails.cache.fetch(taggable_worldwide_priorities_cache_digest) do
+    Rails.cache.fetch(taggable_worldwide_priorities_cache_digest, expires_in: 1.day) do
       WorldwidePriority.alphabetical.published.map {|w| [w.title, w.id] }
     end
   end
@@ -95,7 +95,7 @@ module Admin::TaggableContentHelper
   # array consists of two values: the policy title (including topics) and its
   # ID.
   def taggable_policies_container
-    Rails.cache.fetch(taggable_policies_cache_digest) do
+    Rails.cache.fetch(taggable_policies_cache_digest, expires_in: 1.day) do
       Policy.latest_edition.with_translations.includes(:topics).active.map do |policy|
         [policy.title_with_topics, policy.id]
       end
@@ -105,7 +105,7 @@ module Admin::TaggableContentHelper
   # Returns an Array that represents the taggable world locations. Each element
   # of the array consists of two values: the location name and its ID
   def taggable_world_locations_container
-    Rails.cache.fetch(taggable_world_locations_cache_digest) do
+    Rails.cache.fetch(taggable_world_locations_cache_digest, expires_in: 1.day) do
       WorldLocation.ordered_by_name.map {|w| [w.name, w.id] }
     end
   end
@@ -114,7 +114,7 @@ module Admin::TaggableContentHelper
   # Each element of the array consists of two values: the label (organisation
   # and the email address if avaiable) and the ID of the organisation.
   def taggable_alternative_format_providers_container
-    Rails.cache.fetch(taggable_alternative_format_providers_cache_digest) do
+    Rails.cache.fetch(taggable_alternative_format_providers_cache_digest, expires_in: 1.day) do
       Organisation.alphabetical.map do |o|
         ["#{o.name} (#{o.alternative_format_contact_email.blank? ? "-" : o.alternative_format_contact_email})", o.id]
       end
@@ -125,7 +125,7 @@ module Admin::TaggableContentHelper
   # groups. Each element of the array consists of two values: the
   # collection/group name and the ID of the group.
   def taggable_document_collection_groups_container
-    Rails.cache.fetch(taggable_document_collection_groups_cache_digest) do
+    Rails.cache.fetch(taggable_document_collection_groups_cache_digest, expires_in: 1.day) do
       DocumentCollection.latest_edition.alphabetical.includes(:groups).flat_map  do |collection|
         collection.groups.map { |group| ["#{collection.title} (#{group.heading})", group.id] }
       end
@@ -136,7 +136,7 @@ module Admin::TaggableContentHelper
   # Each element of the array consists of two values: the name of the worldwide
   # organisation and its ID.
   def taggable_worldwide_organisations_container
-    Rails.cache.fetch(taggable_worldwide_organisations_cache_digest) do
+    Rails.cache.fetch(taggable_worldwide_organisations_cache_digest, expires_in: 1.day) do
       WorldwideOrganisation.with_translations.all.map {|wo| [wo.name, wo.id] }
     end
   end
