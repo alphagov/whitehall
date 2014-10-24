@@ -149,13 +149,13 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     refute enforcer_for(department_editor, :sitewide_settings_section).can?(:administer)
   end
 
-  test 'cannot manage services and guidance for any organisation' do
+  test 'cannot manage featured links for any organisation' do
     user = department_editor
 
     editors_org = user.organisation
     other_org = build(:organisation)
 
-    refute enforcer_for(user, editors_org).can?(:manage_services_and_guidance)
-    refute enforcer_for(user, other_org).can?(:manage_services_and_guidance)
+    refute enforcer_for(user, editors_org).can?(:manage_featured_links)
+    refute enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 end

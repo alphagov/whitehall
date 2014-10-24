@@ -644,11 +644,11 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   view_test "should show featured links if there are some" do
     organisation = create(:organisation,)
-    top_task = create(:featured_link, linkable: organisation)
+    featured_link = create(:featured_link, linkable: organisation)
     get :show, id: organisation
 
-    assert_select '.top-tasks' do
-      assert_select "a[href='#{top_task.url}']", text: top_task.title
+    assert_select '.featured-links' do
+      assert_select "a[href='#{featured_link.url}']", text: featured_link.title
     end
   end
 

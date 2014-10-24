@@ -50,7 +50,7 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     assert_redirected_to [:admin, world_location]
   end
 
-  test "updating should be able to create a new top task" do
+  test "updating should be able to create a new featured link" do
     world_location = create(:world_location)
 
     post :update, id: world_location, world_location: {
@@ -61,22 +61,22 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
     }
 
     assert world_location = WorldLocation.last
-    assert top_task = world_location.featured_links.last
-    assert_equal "http://www.gov.uk/mainstream/something", top_task.url
-    assert_equal "Something on mainstream", top_task.title
+    assert featured_link = world_location.featured_links.last
+    assert_equal "http://www.gov.uk/mainstream/something", featured_link.url
+    assert_equal "Something on mainstream", featured_link.title
   end
 
-  test "updating should be able to destroy an existing top task" do
+  test "updating should be able to destroy an existing featured link" do
     world_location = create(:world_location)
-    top_task = create(:top_task, linkable: world_location)
+    featured_link = create(:featured_link, linkable: world_location)
 
     post :update, id: world_location, world_location: {
       featured_links_attributes: {"0" => {
-        id: top_task.id,
+        id: featured_link.id,
         _destroy: "1"
       }}
     }
 
-    refute TopTask.exists?(top_task)
+    refute FeaturedLink.exists?(featured_link)
   end
 end

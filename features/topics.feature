@@ -86,7 +86,7 @@ Scenario: Featuring offsite content on a topic page
   When I feature the offsite link "Offsite Thing" for topic "Excellent Topic" with image "minister-of-funk.960x640.jpg"
   Then I should see the offsite link featured on the public topic page
 
-Scenario: Adding top tasks
+Scenario: Adding featured links
   Given a topic called "Housing prices" exists
-  When I add some top tasks to the topic "Housing prices" via the admin
-  Then the top tasks for the topic "Housing prices" should be visible on the public site
+  When I add some featured links to the topic "Housing prices" via the admin
+  Then the featured links for the topic "Housing prices" should be visible on the public site

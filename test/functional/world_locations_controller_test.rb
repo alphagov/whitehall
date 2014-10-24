@@ -362,12 +362,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
   view_test "should show featured links if there are some" do
     world_location = create(:world_location)
-    top_task = create(:featured_link, linkable: world_location)
+    featured_link = create(:featured_link, linkable: world_location)
 
     get :show, id: world_location
 
-    assert_select '.top-tasks' do
-      assert_select "a[href='#{top_task.url}']", text: top_task.title
+    assert_select '.featured-links' do
+      assert_select "a[href='#{featured_link.url}']", text: featured_link.title
     end
   end
 end

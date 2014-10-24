@@ -73,9 +73,10 @@ Scenario: Requesting publications in alternative format
   When I visit the publication "Charleston styles today"
   Then I should see a mailto link for the alternative format contact email "alternative.format@ministry-of-pop.gov.uk"
 
-Scenario: Adding top tasks
-  When I add some top tasks to the organisation "Ministry of Pop" via the admin
-  Then the top tasks for the organisation "Ministry of Pop" should be visible on the public site
+Scenario: Adding featured links
+  Given I am a GDS editor in the organisation "Ministry of Pop"
+  When I add some featured links to the organisation "Ministry of Pop" via the admin
+  Then the featured links for the organisation "Ministry of Pop" should be visible on the public site
 
 Scenario: Adding featured services and guidance
   Given I am a GDS editor in the organisation "Ministry of Pop"

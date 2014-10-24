@@ -371,23 +371,23 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_equal 'New title', featured_link.reload.title
   end
 
-  view_test "Prevents unauthorized management of featured services and guidance" do
+  view_test "Prevents unauthorized management of homepage priority" do
     organisation = create(:organisation)
     policy_writer = create(:policy_writer, organisation: organisation)
     login_as(policy_writer)
 
     get :edit, id: organisation
-    refute_select "legend", text: "Featured services and guidance"
+    refute_select ".homepage-priority"
 
     managing_editor = create(:managing_editor, organisation: organisation)
     login_as(managing_editor)
     get :edit, id: organisation
-    assert_select "legend", text: "Featured services and guidance"
+    assert_select ".homepage-priority"
 
     gds_editor = create(:gds_editor, organisation: organisation)
     login_as(gds_editor)
     get :edit, id: organisation
-    assert_select "legend", text: "Featured services and guidance"
+    assert_select ".homepage-priority"
   end
 
   test "Non-admins can only edit their own organisations or children" do
