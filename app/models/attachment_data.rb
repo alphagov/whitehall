@@ -17,7 +17,7 @@ class AttachmentData < ActiveRecord::Base
   validate :cant_be_replaced_by_self
   after_save :handle_to_replace_id
 
-  OPENDOCUMENT_EXTENSIONS = %w(ODT ODP ODF).freeze
+  OPENDOCUMENT_EXTENSIONS = %w(ODT ODP ODS).freeze
 
   def filename
     url && File.basename(url)
