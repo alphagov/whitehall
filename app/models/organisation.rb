@@ -451,6 +451,14 @@ class Organisation < ActiveRecord::Base
     homepage_type == 'service'
   end
 
+  def visible_featured_links_count
+    if news_priority_homepage?
+      5
+    elsif service_priority_homepage?
+      10
+    end
+  end
+
   private
 
   def organisations_with_services_and_information_link
