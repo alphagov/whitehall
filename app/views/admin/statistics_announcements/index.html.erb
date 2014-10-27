@@ -50,7 +50,7 @@
 
       <h2 class="add-bottom-margin"><%= @filter.description %></h2>
 
-      <% if unlinked_announcements_count > 0 %>
+      <% if show_unlinked_announcements_warning? %>
         <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
           <%= link_to pluralize(unlinked_announcements_count, "imminent release"), admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
           need a publication
