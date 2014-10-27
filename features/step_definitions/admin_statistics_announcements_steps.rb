@@ -215,11 +215,11 @@ Then(/^I should be able to filter only the unlinked announcements$/) do
 end
 
 Then(/^I should see a warning that there are upcoming releases without a linked publication$/) do
-  assert page.has_content?("There are 2 releases due in the next 4 weeks without a linked statistics publication.")
+  assert page.has_content?("2 imminent releases need a publication")
 end
 
 Then(/^I should be able to view these upcoming releases without a linked publication$/) do
-  click_on "2 releases"
+  click_on "2 imminent releases"
 
   assert page.has_css?("tr.statistics_announcement", text: @tomorrow_announcement.title)
   assert page.has_css?("tr.statistics_announcement", text: @next_week_announcement.title)

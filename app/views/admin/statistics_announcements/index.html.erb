@@ -41,7 +41,7 @@
     </div>
 
     <%= submit_tag 'Search', class: 'btn add-bottom-margin' %>
-    <p><%= link_to "Reset", admin_statistics_announcements_path %></p>
+    <p><%= link_to "Reset all fields", admin_statistics_announcements_path %></p>
   <% end %>
   </div>
 
@@ -52,45 +52,49 @@
 
       <% if unlinked_announcements_count > 0 %>
         <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
-          There <%= unlinked_announcements_count == 1 ? "is" : "are" %>
-          <%= link_to pluralize(unlinked_announcements_count, "release"), admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
-          due in the next 4 weeks without a linked statistics publication.
+          <%= link_to pluralize(unlinked_announcements_count, "imminent release"), admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
+          need a publication
         </div>
       <% end %>
 
       <table class="statistics-announcements table table-striped">
         <thead>
           <tr class="table-header">
+            <th style="background-color: #ddd;">Release date</th>
             <th>Announcement title</th>
             <th>Publication</th>
             <th>Organisations</th>
             <th>Topics</th>
-            <th>Display date</th>
-            <th>Release date</th>
           </tr>
         </thead>
         <tbody>
           <% @statistics_announcements.each do |statistics_announcement| %>
-            <%= content_tag_for :tr, statistics_announcement, class: "statistics_announcement #{'warning' unless statistics_announcement.publication}" do %>
+            <%= content_tag_for :tr, statistics_announcement, class: "statistics_announcement" do %>
               <td>
-                <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
+                <%= statistics_announcement.release_date.to_date.strftime("%e&nbsp;%B&nbsp;%Y").html_safe %><br />
+                <%= statistics_announcement.release_date.strftime("%l:%M%P") %>
+              </td>
+              <td>
+                <strong style="font-size: 14px">
+                  <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
+                </strong>
                 <%= content_tag(:span, "cancelled", class: "badge badge-important add-left-margin") if statistics_announcement.cancelled? %>
+                <div class="muted">
+                  <%= statistics_announcement.display_date %> (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
+                </div>
               </td>
               <td>
                 <% if publication = statistics_announcement.publication %>
                   <%= link_to(publication.title, [:admin, publication]) %>
                   (<%= publication.current_state %>)
                 <% else %>
-                  <strong>(no publication)</strong>
+                  <div style="padding: 5px 8px" class="alert alert-warning remove-bottom-margin bold">
+                    No&nbsp;publication
+                  </div>
                 <% end %>
               </td>
-              <td><%= organisations_list(statistics_announcement.organisations) %></td>
+              <td><%= statistics_announcement.organisations.map(&:name).to_sentence %></td>
               <td><%= statistics_announcement.topics.map(&:name).to_sentence %></td>
-              <td>
-                <%= statistics_announcement.display_date %>
-                (<%= statistics_announcement.confirmed? ? 'confirmed' : 'provisional' %>)
-              </td>
-              <td><%= statistics_announcement.release_date.to_s(:long_ordinal) %></td>
             <% end %>
           <% end %>
         </tbody>

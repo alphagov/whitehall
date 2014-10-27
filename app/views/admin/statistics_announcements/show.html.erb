@@ -44,7 +44,7 @@
     <dt>Type:</dt>
     <dd><%= @statistics_announcement.display_type %></dd>
     <dt>Organisations:</dt>
-    <dd><%= organisations_list(@statistics_announcement.organisations) %></dd>
+    <dd><%= @statistics_announcement.organisations.map(&:name).to_sentence %></dd>
     <dt>Topics:</dt>
     <dd><%= @statistics_announcement.topics.map(&:name).to_sentence %></dd>
   </dl>
