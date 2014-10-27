@@ -99,9 +99,7 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
 private
 
   def statistics_announcement_for(datetime, attributes={})
-    create(:statistics_announcement, attributes.reverse_merge(
-      current_release_date: create(:statistics_announcement_date, release_date: datetime)
-    ))
+    create(:statistics_announcement, attributes.reverse_merge(release_date: datetime))
   end
 
   def filter(options={})
