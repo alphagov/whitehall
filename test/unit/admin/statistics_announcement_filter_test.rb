@@ -96,6 +96,42 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
       filter(organisation_id: organisation.id).title
   end
 
+  test "#description describes future statistics announcements" do
+    3.times { create(:statistics_announcement, release_date: next_week) }
+
+    assert_equal "3 statistics releases due",
+      filter(dates: 'future').description
+  end
+
+  test "#description describes past releases" do
+    2.times { create(:statistics_announcement, release_date: past_date) }
+
+    assert_equal "2 statistics released", filter(dates: 'past').description
+  end
+
+  test "#description describes all releases" do
+    2.times { create(:statistics_announcement, release_date: past_date) }
+    2.times { create(:statistics_announcement, release_date: next_week) }
+
+    assert_equal "4 statistics announcements", filter.description
+  end
+
+  test "#description describes releases due in the next four weeks" do
+    2.times { create(:statistics_announcement, release_date: next_year) }
+    3.times { create(:statistics_announcement, release_date: next_week) }
+
+    assert_equal "3 statistics releases due in four weeks",
+      filter(dates: "four-weeks").description
+  end
+
+  test "#description mentions if filtering by unlinked publications" do
+    3.times { create(:statistics_announcement) }
+    create(:statistics_announcement, publication: create(:draft_statistics))
+
+    assert_equal "3 statistics announcements (without a publication)",
+      filter(unlinked_only: '1').description
+  end
+
 private
 
   def statistics_announcement_for(datetime, attributes={})
@@ -104,5 +140,17 @@ private
 
   def filter(options={})
     Admin::StatisticsAnnouncementFilter.new(options)
+  end
+
+  def past_date
+    1.week.ago
+  end
+
+  def next_week
+    1.week.from_now
+  end
+
+  def next_year
+    2.year.from_now
   end
 end
