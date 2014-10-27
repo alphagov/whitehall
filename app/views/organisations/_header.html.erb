@@ -13,7 +13,7 @@
       <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
     <% end %>
     <% if show_featured_links %>
-      <%= render 'shared/featured_links', links: organisation.featured_links.only_the_initial_set %>
+      <%= render 'shared/featured_links', links: organisation.visible_featured_links %>
     <% end %>
   <% end %>
 

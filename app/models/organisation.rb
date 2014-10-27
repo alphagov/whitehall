@@ -455,8 +455,12 @@ class Organisation < ActiveRecord::Base
     if news_priority_homepage?
       5
     elsif service_priority_homepage?
-      10
+      7
     end
+  end
+
+  def visible_featured_links
+    featured_links.limit(visible_featured_links_count)
   end
 
   private
