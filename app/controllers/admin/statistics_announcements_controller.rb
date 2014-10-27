@@ -89,7 +89,7 @@ private
   end
 
   def filtering_imminent_unlinked_announcements?
-    @filter.options[:dates] == 'four-weeks' && @filter.options[:unlinked_only] == '1'
+    @filter.options[:dates] == 'imminent' && @filter.options[:unlinked_only] == '1'
   end
 
   def unlinked_announcements_count
@@ -97,6 +97,6 @@ private
   end
 
   def unlinked_announcements_filter
-    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: 'four-weeks', unlinked_only: '1', organisation_id: filter_params[:organisation_id])
+    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: 'imminent', unlinked_only: '1', organisation_id: filter_params[:organisation_id])
   end
 end

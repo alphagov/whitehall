@@ -28,7 +28,7 @@
                                  ["All announcements", nil],
                                  ["Future releases", 'future'],
                                  ["Past releases", 'past'],
-                                 ["Next 4 weeks", 'four-weeks'],
+                                 ["Next 2 weeks", 'imminent'],
                                ], @filter.options[:dates]),
                                class: "chzn-select" %>
       </div>
@@ -52,7 +52,7 @@
 
       <% if show_unlinked_announcements_warning? %>
         <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
-          <%= link_to pluralize(unlinked_announcements_count, "imminent release"), admin_statistics_announcements_path(dates: 'four-weeks', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
+          <%= link_to pluralize(unlinked_announcements_count, "imminent release"), admin_statistics_announcements_path(dates: 'imminent', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
           need a publication
         </div>
       <% end %>

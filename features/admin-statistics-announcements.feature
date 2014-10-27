@@ -48,7 +48,7 @@ Feature: Statistical release announcements
     And there are statistics announcements by my organisation
     Then I should be able to filter only the unlinked announcements
 
-  Scenario: viewing unlinked statistics announcements due in the next four weeks
+  Scenario: viewing unlinked statistics announcements that are imminent
     Given I am a GDS editor in the organisation "Department for Beards"
     And there are statistics announcements by my organisation that are unlinked to a publication
     When I view the statistics announcements index page

@@ -66,8 +66,8 @@ module Admin
         "#{total_count} statistics releases due"
       when "past"
         "#{total_count} statistics released"
-      when "four-weeks"
-        "#{total_count} statistics releases due in four weeks"
+      when "imminent"
+        "#{total_count} statistics releases due in two weeks"
       else
         "#{total_count} statistics announcements"
       end
@@ -97,8 +97,8 @@ module Admin
       when 'future'
         StatisticsAnnouncement.where("release_date > ?", Time.zone.now)
                               .order("release_date ASC")
-      when 'four-weeks'
-        StatisticsAnnouncement.where("release_date > ? AND release_date < ?", Time.zone.now, 4.weeks.from_now)
+      when 'imminent'
+        StatisticsAnnouncement.where("release_date > ? AND release_date < ?", Time.zone.now, 2.weeks.from_now)
                               .order("release_date ASC")
       else
         StatisticsAnnouncement.order("release_date DESC")

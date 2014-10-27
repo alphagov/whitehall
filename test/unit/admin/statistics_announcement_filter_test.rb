@@ -30,14 +30,14 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
       filter(dates: 'future').statistics_announcements.map(&:id)
   end
 
-  test "filtering the next four weeks of announcements returns them in date order" do
+  test "filtering for imminent announcements returns them in date order" do
     today      = statistics_announcement_for(1.hour.from_now)
     past       = statistics_announcement_for(1.week.ago)
     tomorrow   = statistics_announcement_for(1.day.from_now)
-    two_months = statistics_announcement_for(2.month.from_now)
+    one_month  = statistics_announcement_for(1.month.from_now)
 
     assert_equal [today, tomorrow].map(&:id),
-      filter(dates: 'four-weeks').statistics_announcements.map(&:id)
+      filter(dates: 'imminent').statistics_announcements.map(&:id)
   end
 
   test "can filter only those announcements that do not have a linked publication" do
@@ -116,12 +116,12 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
     assert_equal "4 statistics announcements", filter.description
   end
 
-  test "#description describes releases due in the next four weeks" do
+  test "#description describes imminent releases" do
     2.times { create(:statistics_announcement, release_date: next_year) }
     3.times { create(:statistics_announcement, release_date: next_week) }
 
-    assert_equal "3 statistics releases due in four weeks",
-      filter(dates: "four-weeks").description
+    assert_equal "3 statistics releases due in two weeks",
+      filter(dates: "imminent").description
   end
 
   test "#description mentions if filtering by unlinked publications" do
