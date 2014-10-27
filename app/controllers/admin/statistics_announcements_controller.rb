@@ -73,7 +73,15 @@ private
 
   def filter_params
     params.slice(:title, :page, :per_page, :organisation_id, :dates, :unlinked_only).
-      reverse_merge(organisation_id: current_user.organisation.try(:id), dates: 'future')
+      reverse_merge(filter_defaults)
+  end
+
+  def filter_defaults
+    {
+      organisation_id: current_user.organisation.try(:id),
+      dates: 'future',
+      user_id: current_user.id
+    }
   end
 
   def unlinked_announcements_count

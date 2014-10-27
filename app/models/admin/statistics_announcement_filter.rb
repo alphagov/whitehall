@@ -16,7 +16,37 @@ module Admin
       scope
     end
 
-    private
+    def title
+      "#{possessive_owner_name} statistics announcements"
+    end
+
+  private
+
+    def organisation
+      @organisation ||= Organisation.find_by_id(options[:organisation_id])
+    end
+
+    def user
+      @user ||= User.find_by_id(options[:user_id])
+    end
+
+    def possessive_owner_name
+      if organisation.nil?
+        "Everyone’s"
+      elsif user.try(:organisation) == organisation
+        "My organisation’s"
+      else
+        possessive(organisation.name)
+      end
+    end
+
+    def possessive(thing_name)
+      if thing_name.ends_with?("s")
+        "#{thing_name}’"
+      else
+        "#{thing_name}’s"
+      end
+    end
 
     def unfiltered_scope
       StatisticsAnnouncement.includes(:current_release_date, :topics, publication: :translations, organisations: :translations)

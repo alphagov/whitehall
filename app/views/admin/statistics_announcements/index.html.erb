@@ -1,5 +1,5 @@
-<% page_title "Statistics announcements" %>
-<h1>Statistics announcements</h1>
+<% page_title @filter.title %>
+<h1><%= @filter.title %></h1>
 <%= render 'warning' %>
 
 <%= link_to "Create announcement", new_admin_statistics_announcement_path, class: "btn btn-large add-bottom-margin", title: "Create a statistics announcement" %>
