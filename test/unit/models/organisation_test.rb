@@ -321,6 +321,30 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.valid?
   end
 
+  test "#visible_featurd_links_count should return the default number of links for news homepage type organisations" do
+    organisation = build(:organisation)
+
+    assert_equal FeaturedLink::DEFAULT_SET_SIZE, organisation.visible_featured_links_count
+  end
+
+  test "#visible_featurd_links_count should return 7 for service priority homepage type organisations" do
+    organisation = build(:organisation, homepage_type: 'service')
+
+    assert_equal 7, organisation.visible_featured_links_count
+  end
+
+  test "#visible_featured_links should return the correct number of featured links" do
+    news_organisation = create(:organisation, homepage_type: 'news')
+    6.times { create(:featured_link, linkable: news_organisation) }
+
+    service_organisation = create(:organisation, homepage_type: 'service')
+    8.times { create(:featured_link, linkable: service_organisation) }
+
+    assert_equal 5, news_organisation.visible_featured_links.count
+    assert_equal 7, service_organisation.visible_featured_links.count
+  end
+
+
   test "should set a slug from the organisation name" do
     organisation = create(:organisation, name: 'Love all the people')
     assert_equal 'love-all-the-people', organisation.slug
@@ -813,5 +837,19 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert organisation.valid?
     assert_equal organisation.content_id, "a random UUID"
+  end
+
+  test "#service_priority_homepage? should be true if it's homepage type is service" do
+    organisation = build(:organisation, homepage_type: 'service')
+
+    assert organisation.service_priority_homepage?
+    refute organisation.news_priority_homepage?
+  end
+
+  test "#news_priority_homepage? should be true if it's homepage type is news" do
+    organisation = build(:organisation, homepage_type: 'news')
+
+    assert organisation.news_priority_homepage?
+    refute organisation.service_priority_homepage?
   end
 end
