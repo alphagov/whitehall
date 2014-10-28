@@ -177,7 +177,7 @@ module Admin
       elsif organisation && organisation == @current_user.organisation
         "My department’s"
       elsif organisation
-        "#{organisation.name}’s"
+        organisation.name.possessive
       else
         "Everyone’s"
       end

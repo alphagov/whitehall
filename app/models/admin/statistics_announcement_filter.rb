@@ -50,15 +50,7 @@ module Admin
       elsif user.try(:organisation) == organisation
         "My organisation’s"
       else
-        possessive(organisation.name)
-      end
-    end
-
-    def possessive(thing_name)
-      if thing_name.ends_with?("s")
-        "#{thing_name}’"
-      else
-        "#{thing_name}’s"
+        organisation.name.possessive
       end
     end
 
