@@ -72,6 +72,34 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
       filter(organisation_id: organisation.id).statistics_announcements
   end
 
+  test "filter eager loads the correct date for an announcement when ordered ascending" do
+    old_date     = DateTime.new(2014, 10, 1, 9, 30)
+    new_date     = DateTime.new(2014, 10, 15, 9, 30)
+    announcement = create(:statistics_announcement, release_date: old_date)
+    date_change  = announcement.build_statistics_announcement_date_change(release_date: new_date)
+    date_change.save!
+
+    assert_equal 1,
+      filter(dates: 'future').statistics_announcements.total_count
+
+    assert_equal new_date,
+      filter(dates: 'future').statistics_announcements[0].release_date
+  end
+
+  test "filter eager loads the correct date for an announcement when ordered descending" do
+    old_date     = DateTime.new(2010, 10, 15, 9, 30)
+    new_date     = DateTime.new(2010, 10, 1, 9, 30)
+    announcement = create(:statistics_announcement, release_date: old_date)
+    date_change  = announcement.build_statistics_announcement_date_change(release_date: new_date)
+    date_change.save!
+
+    assert_equal 1,
+      filter(dates: 'past').statistics_announcements.total_count
+
+    assert_equal new_date,
+      filter(dates: 'past').statistics_announcements[0].release_date
+  end
+
   test "#title gives the high-level description for the announcements being returned, based on organisation" do
     organisation = create(:organisation, name: "Department of stuff")
 
