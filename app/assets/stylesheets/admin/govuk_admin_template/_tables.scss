@@ -19,3 +19,7 @@
 thead .table-header-secondary td {
   border-bottom: 1px solid #ccc;
 }
+
+.table-header-highlight {
+  background-color: $table-border-color;
+}
