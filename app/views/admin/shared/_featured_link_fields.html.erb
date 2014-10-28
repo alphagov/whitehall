@@ -1,16 +1,11 @@
 <%
-  unsorted_featured_links = form.object.featured_links
+  featured_links = form.object.featured_links
+  featured_links = [FeaturedLink.new] unless featured_links.any?
 
   if form.object.respond_to?(:visible_featured_links_count)
     visible_links = form.object.visible_featured_links_count
   else
     visible_links = FeaturedLink::DEFAULT_SET_SIZE
-  end
-
-  featured_links = if unsorted_featured_links.any?
-    unsorted_featured_links.sort_by { |tt| tt.created_at || Time.current }
-  else
-    [FeaturedLink.new]
   end
 %>
 
