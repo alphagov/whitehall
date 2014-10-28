@@ -45,5 +45,16 @@
     select {
       width: 100%;
     }
+
+    .checkbox {
+      label {
+        font-weight: normal;
+        line-height: 18px;
+      }
+
+      input {
+        width: auto;
+      }
+    }
   }
 }
