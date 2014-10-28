@@ -814,27 +814,4 @@ class OrganisationTest < ActiveSupport::TestCase
     assert organisation.valid?
     assert_equal organisation.content_id, "a random UUID"
   end
-
-  test "it creates an attributes hash for the publishing api" do
-    organisation = create(:organisation)
-
-    expected_attributes_for_publishing_api_hash = {
-      content_id: organisation.content_id,
-      title: organisation.name,
-      base_path: "/government/organisations/#{organisation.slug}",
-      format: "placeholder",
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      public_updated_at: organisation.updated_at,
-      routes: [
-        {
-          path: organisation.base_path,
-          type: "exact"
-        }
-      ],
-      update_type: "major",
-    }
-
-    assert_equal expected_attributes_for_publishing_api_hash, organisation.attributes_for_publishing_api
-  end
 end

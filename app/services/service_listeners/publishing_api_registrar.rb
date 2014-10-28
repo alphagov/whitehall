@@ -5,7 +5,7 @@ module ServiceListeners
     end
 
     def register!
-      PublishingApiRegisterArtefactWorker.perform_async(@edition.id)
+      PublishingApiEditionWorker.perform_async(@edition.id)
     end
   end
 end

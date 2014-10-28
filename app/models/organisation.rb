@@ -230,7 +230,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def publish_to_publishing_api
-    PublishingApiRegisterOrganisationWorker.perform_async(self.id)
+    PublishingApiOrganisationWorker.perform_async(self.id)
   end
 
   def organisation_logo_type
@@ -437,29 +437,6 @@ class Organisation < ActiveRecord::Base
 
   def to_s
     name
-  end
-
-  def base_path
-    Whitehall.url_maker.organisation_path(self)
-  end
-
-  def attributes_for_publishing_api
-    {
-      content_id: content_id,
-      title: name,
-      base_path: base_path,
-      format: "placeholder", # This will be updated once Whitehall uses the Content Store permanently,
-      publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      public_updated_at: updated_at,
-      routes: [
-        {
-          path: base_path,
-          type: "exact"
-        }
-      ],
-      update_type: "major",
-    }
   end
 
   def generate_content_id
