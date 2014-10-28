@@ -51,7 +51,7 @@
       <h2 class="add-bottom-margin"><%= @filter.description %></h2>
 
       <% if show_unlinked_announcements_warning? %>
-        <div class="alert alert-warning add-vertical-padding bold" style="font-size: 16px">
+        <div class="alert alert-warning unlinked-announcements-warning">
           <%= link_to pluralize(unlinked_announcements_count, "imminent release"), admin_statistics_announcements_path(dates: 'imminent', unlinked_only: '1', organisation_id: @filter.options[:organisation_id]), class: "link-inherit" %>
           need a publication
         </div>
@@ -75,7 +75,7 @@
                 <%= statistics_announcement.release_date.strftime("%l:%M%P") %>
               </td>
               <td>
-                <strong style="font-size: 14px">
+                <strong class="stats-announcement-title">
                   <%= link_to statistics_announcement.title, [:admin, statistics_announcement] %>
                 </strong>
                 <%= content_tag(:span, "cancelled", class: "badge badge-important add-left-margin") if statistics_announcement.cancelled? %>
@@ -88,7 +88,7 @@
                   <%= link_to(publication.title, [:admin, publication]) %>
                   (<%= publication.current_state %>)
                 <% else %>
-                  <div style="padding: 5px 8px" class="alert alert-warning remove-bottom-margin bold">
+                  <div class="no-publication-warning alert alert-warning">
                     No&nbsp;publication
                   </div>
                 <% end %>
