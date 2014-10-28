@@ -15,4 +15,9 @@ class FeaturedLinkTest < ActiveSupport::TestCase
     link = build(:featured_link, url: "not a link")
     refute link.valid?
   end
+
+  test "should be valid with a url that starts with http" do
+    link = build(:featured_link, url: "http://my.example.com/path")
+    refute link.valid?
+  end
 end
