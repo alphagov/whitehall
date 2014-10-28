@@ -27,8 +27,8 @@
         <%= select_tag :dates, options_for_select([
                                  ["All announcements", nil],
                                  ["Future releases", 'future'],
-                                 ["Past releases", 'past'],
                                  ["Next 2 weeks", 'imminent'],
+                                 ["Past releases", 'past'],
                                ], @filter.options[:dates]),
                                class: "chzn-select" %>
       </div>
