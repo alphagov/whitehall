@@ -33,11 +33,11 @@
                                class: "chzn-select" %>
       </div>
 
-      <%= label_tag :unlinked_only, "Publications" %>
-      <div class="checkbox">
+      <%= label_tag :unlinked_only, "Announcements" %>
+      <div class="checkbox add-bottom-margin">
         <%= label_tag :unlinked_only do %>
           <%= check_box_tag :unlinked_only, "1", @filter.options[:unlinked_only] %>
-          Releases without a linked statistics&nbsp;publication
+          without a linked statistics&nbsp;publication
         <% end %>
       </div>
     </div>

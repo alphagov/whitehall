@@ -207,7 +207,7 @@ Then(/^I should be able to filter only the unlinked announcements$/) do
   visit admin_statistics_announcements_path
 
   select "All announcements", from: "Release date"
-  check "Releases without a linked statistics publication"
+  check :unlinked_only
   click_on "Search"
 
   assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
@@ -226,4 +226,3 @@ Then(/^I should be able to view these upcoming releases without a linked publica
   refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
   refute page.has_css?("tr.statistics_announcement", text: @next_year_announcement.title)
 end
-
