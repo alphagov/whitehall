@@ -1,6 +1,7 @@
 class Admin::StatisticsAnnouncementsController < Admin::BaseController
   before_filter :find_statistics_announcement, only: [:show, :edit, :update, :cancel, :publish_cancellation, :cancel_reason]
   before_filter :redirect_to_show_if_cancelled, only: [:cancel, :publish_cancellation]
+  helper_method :unlinked_announcements_count, :show_unlinked_announcements_warning?
 
   def index
     @filter = Admin::StatisticsAnnouncementFilter.new(filter_params)
@@ -45,7 +46,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
     end
   end
 
-  private
+private
 
   def find_statistics_announcement
     @statistics_announcement = StatisticsAnnouncement.find(params[:id])
@@ -71,7 +72,31 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
   end
 
   def filter_params
-    params.slice(:title, :page, :per_page, :organisation_id).
-      reverse_merge(organisation_id: current_user.organisation.try(:id))
+    params.slice(:title, :page, :per_page, :organisation_id, :dates, :unlinked_only).
+      reverse_merge(filter_defaults)
+  end
+
+  def filter_defaults
+    {
+      organisation_id: current_user.organisation.try(:id),
+      dates: 'future',
+      user_id: current_user.id
+    }
+  end
+
+  def show_unlinked_announcements_warning?
+    !filtering_imminent_unlinked_announcements? && unlinked_announcements_count > 0
+  end
+
+  def filtering_imminent_unlinked_announcements?
+    @filter.options[:dates] == 'imminent' && @filter.options[:unlinked_only] == '1'
+  end
+
+  def unlinked_announcements_count
+    unlinked_announcements_filter.statistics_announcements.total_count
+  end
+
+  def unlinked_announcements_filter
+    @unlinked_announcements_filter ||= Admin::StatisticsAnnouncementFilter.new(dates: 'imminent', unlinked_only: '1', organisation_id: filter_params[:organisation_id])
   end
 end

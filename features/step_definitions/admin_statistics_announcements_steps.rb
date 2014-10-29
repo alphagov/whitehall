@@ -12,6 +12,39 @@ Given(/^there is a statistics announcement by my organisation$/) do
   @organisation_announcement = create(:statistics_announcement, organisation_ids: [@user.organisation.id])
 end
 
+Given(/^there are statistics announcements by my organisation$/) do
+  @past_announcement   = create(:statistics_announcement,
+                          organisation_ids: [@user.organisation.id],
+                          current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago),
+                          publication: create(:draft_statistics))
+
+  @future_announcement = create(:statistics_announcement,
+                          organisation_ids: [@user.organisation.id],
+                          current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+end
+
+
+Given(/^there are statistics announcements by my organisation that are unlinked to a publication$/) do
+  @past_announcement    = create(:statistics_announcement,
+                            organisation_ids: [@user.organisation.id],
+                            current_release_date: create(:statistics_announcement_date, release_date: 1.day.ago))
+
+  @tomorrow_announcement  = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.day.from_now))
+  @next_week_announcement = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.week.from_now))
+
+  @next_year_announcement = create(:statistics_announcement,
+                              organisation_ids: [@user.organisation.id],
+                              current_release_date: create(:statistics_announcement_date, release_date: 1.year.from_now))
+end
+
+When(/^I view the statistics announcements index page$/) do
+  visit admin_statistics_announcements_path
+end
+
 Given(/^there is a statistics announcement by another organistion$/) do
   @other_organisation_announcement = create(:statistics_announcement)
 end
@@ -152,4 +185,44 @@ end
 
 Then(/^the new date is reflected on the announcement$/) do
   assert page.has_content?('14 December 2014 9:30am')
+end
+
+Then(/^I should be able to filter both past and future announcements$/) do
+  visit admin_statistics_announcements_path
+
+  select "Future releases", from: "Release date"
+  click_on "Search"
+
+  assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+
+  select "Past announcements", from: "Release date"
+  click_on "Search"
+
+  assert page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
+end
+
+Then(/^I should be able to filter only the unlinked announcements$/) do
+  visit admin_statistics_announcements_path
+
+  select "All announcements", from: "Release date"
+  check :unlinked_only
+  click_on "Search"
+
+  assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+end
+
+Then(/^I should see a warning that there are upcoming releases without a linked publication$/) do
+  assert page.has_content?("2 imminent releases need a publication")
+end
+
+Then(/^I should be able to view these upcoming releases without a linked publication$/) do
+  click_on "2 imminent releases"
+
+  assert page.has_css?("tr.statistics_announcement", text: @tomorrow_announcement.title)
+  assert page.has_css?("tr.statistics_announcement", text: @next_week_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+  refute page.has_css?("tr.statistics_announcement", text: @next_year_announcement.title)
 end

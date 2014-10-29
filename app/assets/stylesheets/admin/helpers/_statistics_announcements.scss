@@ -67,3 +67,19 @@
   font-size: 1em;
   left: 0;
 }
+
+.unlinked-announcements-warning {
+  font-weight: bold;
+  padding: $default-vertical-padding;
+  font-size: 16px;
+}
+
+.no-publication-warning {
+  font-weight: bold;
+  padding: 5px 8px;
+  margin-bottom: 0;
+}
+
+.stats-announcement-title {
+  font-size: 14px;
+}
