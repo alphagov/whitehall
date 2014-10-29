@@ -28,7 +28,7 @@
                                  ["All announcements", nil],
                                  ["Future releases", 'future'],
                                  ["Next 2 weeks", 'imminent'],
-                                 ["Past releases", 'past'],
+                                 ["Past announcements", 'past'],
                                ], @filter.options[:dates]),
                                class: "chzn-select" %>
       </div>
@@ -37,7 +37,7 @@
       <div class="checkbox add-bottom-margin">
         <%= label_tag :unlinked_only do %>
           <%= check_box_tag :unlinked_only, "1", @filter.options[:unlinked_only] %>
-          without a linked statistics&nbsp;publication
+          without a linked publication
         <% end %>
       </div>
     </div>

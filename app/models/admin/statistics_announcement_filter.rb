@@ -1,5 +1,7 @@
 module Admin
   class StatisticsAnnouncementFilter
+    include ActionView::Helpers::TextHelper
+    include ActionView::Helpers::NumberHelper
 
     attr_reader :options
 
@@ -60,16 +62,20 @@ module Admin
       end
     end
 
+    def pluralized_count(singular)
+      pluralize(number_with_delimiter(total_count), singular)
+    end
+
     def date_based_description
       case options[:dates]
       when "future"
-        "#{total_count} statistics releases due"
+        pluralized_count("upcoming statistics release")
       when "past"
-        "#{total_count} statistics released"
+        pluralized_count("statistics announcement") + " in the past"
       when "imminent"
-        "#{total_count} statistics releases due in two weeks"
+        pluralized_count("statistics release") + " due in two weeks"
       else
-        "#{total_count} statistics announcements"
+        pluralized_count("statistics announcement")
       end
     end
 

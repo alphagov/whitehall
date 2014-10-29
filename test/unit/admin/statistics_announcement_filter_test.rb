@@ -125,30 +125,42 @@ class Admin::StatisticsAnnouncementFilterTest < ActiveSupport::TestCase
   end
 
   test "#description describes future statistics announcements" do
-    3.times { create(:statistics_announcement, release_date: next_week) }
+    create(:statistics_announcement, release_date: next_week)
 
-    assert_equal "3 statistics releases due",
+    assert_equal "1 upcoming statistics release",
+      filter(dates: 'future').description
+
+    2.times { create(:statistics_announcement, release_date: next_week) }
+
+    assert_equal "3 upcoming statistics releases",
       filter(dates: 'future').description
   end
 
   test "#description describes past releases" do
-    2.times { create(:statistics_announcement, release_date: past_date) }
+    create(:statistics_announcement, release_date: past_date)
+    assert_equal "1 statistics announcement in the past", filter(dates: 'past').description
 
-    assert_equal "2 statistics released", filter(dates: 'past').description
+    create(:statistics_announcement, release_date: past_date)
+    assert_equal "2 statistics announcements in the past", filter(dates: 'past').description
   end
 
   test "#description describes all releases" do
-    2.times { create(:statistics_announcement, release_date: past_date) }
-    2.times { create(:statistics_announcement, release_date: next_week) }
+    create(:statistics_announcement, release_date: past_date)
+    assert_equal "1 statistics announcement", filter.description
 
-    assert_equal "4 statistics announcements", filter.description
+    create(:statistics_announcement, release_date: next_week)
+    assert_equal "2 statistics announcements", filter.description
   end
 
   test "#description describes imminent releases" do
     2.times { create(:statistics_announcement, release_date: next_year) }
-    3.times { create(:statistics_announcement, release_date: next_week) }
 
-    assert_equal "3 statistics releases due in two weeks",
+    create(:statistics_announcement, release_date: next_week)
+    assert_equal "1 statistics release due in two weeks",
+      filter(dates: "imminent").description
+
+    create(:statistics_announcement, release_date: next_week)
+    assert_equal "2 statistics releases due in two weeks",
       filter(dates: "imminent").description
   end
 

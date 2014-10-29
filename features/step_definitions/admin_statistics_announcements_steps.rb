@@ -196,7 +196,7 @@ Then(/^I should be able to filter both past and future announcements$/) do
   assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
   refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
 
-  select "Past releases", from: "Release date"
+  select "Past announcements", from: "Release date"
   click_on "Search"
 
   assert page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
