@@ -154,4 +154,22 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
     edition.save!
     assert_equal @user2, edition.most_recent_submission_audit_entry.actor
   end
+
+  test "publication_audit_entry returns entry when first edition was published" do
+    Timecop.freeze(Time.zone.now - 3.days)
+    edition = create(:submitted_edition)
+    Timecop.freeze(Time.zone.now + 1.day)
+    edition.major_change_published_at = Time.zone.now
+    edition.publish!
+    publication_date = edition.updated_at
+    Timecop.freeze(Time.zone.now + 1.day)
+    new_edition = edition.create_draft(edition.creator)
+    new_edition.change_note = 'updated'
+    new_edition.submit!
+    new_edition.publish!
+
+    published_audit = new_edition.publication_audit_entry
+    assert_equal publication_date, published_audit.created_at
+  end
+
 end
