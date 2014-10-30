@@ -125,8 +125,6 @@ module DocumentHelper
     choose "has previously been published on another website."
     select_date first_published, from: "Its original publication date was *"
     select publication_type, from: "edition_publication_type_id"
-    check "This publication is held on another website"
-    fill_in "External link URL", with: "http://example.com/publication"
   end
 
   def visit_edition_admin(title, scope = :scoped)

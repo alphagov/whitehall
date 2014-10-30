@@ -7,6 +7,14 @@ class AttachableTest < ActiveSupport::TestCase
     assert build(:publication).allows_attachments?
   end
 
+  test "allows different attachment types" do
+    attachable = Publication.new
+    assert attachable.allows_attachment_type?('file')
+    assert attachable.allows_attachment_type?('external')
+    assert attachable.allows_attachment_type?('html')
+    refute attachable.allows_attachment_type?('unknown')
+  end
+
   test "new attachments are put to the end of the list" do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),

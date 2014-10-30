@@ -2,7 +2,6 @@
   attachments = document.attachments.for_current_locale
   title = t('document.headings.attachments', count: attachments.size) unless local_assigns.include?(:title)
   published_on = '' unless local_assigns.include?(:published_on)
-  external = false unless defined?(:external)
 %>
 <section class="attachment-full-width">
   <div class="head-section">
@@ -21,14 +20,6 @@
                      } %>
         <% end %>
 
-        <% if external %>
-          <div class="hosted-externally">
-            <h2>
-              <%= link_to @document.title, document.external_url, rel: "external" %>
-            </h2>
-            <span class="url"><%= document.external_url %></span>
-          </div>
-        <% end %>
       </div>
     </article>
   </div>

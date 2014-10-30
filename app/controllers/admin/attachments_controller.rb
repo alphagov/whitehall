@@ -1,6 +1,6 @@
 class Admin::AttachmentsController < Admin::BaseController
   before_filter :limit_attachable_access, if: :attachable_is_an_edition?
-  before_filter :check_attachable_allows_html_attachments, if: :html?
+  before_filter :check_attachable_allows_attachment_type
 
   rescue_from Mysql2::Error, with: :handle_duplicate_key_errors_caused_by_double_create_requests
 
@@ -74,13 +74,24 @@ private
   end
 
   def build_attachment
-    html? ? build_html_attachment : build_file_attachment
+    case type
+    when "html"
+      build_html_attachment
+    when "external"
+      build_external_attachment
+    else
+      build_file_attachment
+    end
   end
 
   def build_html_attachment
     HtmlAttachment.new(attachment_params).tap do |attachment|
       attachment.build_govspeak_content unless attachment.govspeak_content.present?
     end
+  end
+
+  def build_external_attachment
+    ExternalAttachment.new(attachment_params)
   end
 
   def build_file_attachment
@@ -93,18 +104,26 @@ private
     params.fetch(:attachment, {}).permit(
       :title, :locale, :isbn, :unique_reference, :command_paper_number,
       :unnumbered_command_paper, :hoc_paper_number, :unnumbered_hoc_paper,
-      :parliamentary_session, :order_url, :price, :accessible,
+      :parliamentary_session, :order_url, :price, :accessible, :external_url,
       govspeak_content_attributes: [:id, :body, :manually_numbered_headings],
       attachment_data_attributes: [:file, :to_replace_id, :file_cache]
     ).merge(attachable: attachable)
   end
 
-  def html?
-    params[:html] == 'true'
+  def type
+    params[:type].presence || 'file'
   end
 
-  def check_attachable_allows_html_attachments
-    redirect_to attachable_attachments_path(attachable) unless attachable.allows_html_attachments?
+  def html?
+    type == 'html'
+  end
+
+  def external?
+    type == 'external'
+  end
+
+  def check_attachable_allows_attachment_type
+    redirect_to attachable_attachments_path(attachable) unless attachable.allows_attachment_type?(type)
   end
 
   def attachable_param

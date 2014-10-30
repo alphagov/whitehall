@@ -6,7 +6,7 @@ class PublicationTest < ActiveSupport::TestCase
   should_not_allow_inline_attachments
   should_allow_referencing_of_statistical_data_sets
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-  should_support_linking_to_external_version
+  should_allow_external_attachments
 
   test 'imported publications are valid when the publication_type is imported-awaiting-type' do
     publication = build(:publication, state: 'imported', publication_type: PublicationType.find_by_slug('imported-awaiting-type'))
@@ -31,13 +31,11 @@ class PublicationTest < ActiveSupport::TestCase
     end
   end
 
-  test 'is valid for publishing without attachments or an html_version when it is external' do
+  test 'is not valid for publishing without attachments' do
     publication = build(:published_publication, attachments: [])
     refute publication.valid?
 
-    publication.external = true
-    publication.external_url = 'http://example.com'
-
+    publication = build(:published_publication, attachments: [build(:external_attachment)])
     assert publication.valid?
   end
 

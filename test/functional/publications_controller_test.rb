@@ -657,6 +657,15 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test '#show links to external attachments' do
+    edition = publication_with_attachment(type: :external)
+    get :show, id: edition.document
+    assert_select_object(edition.attachments.first) do
+      assert_select 'a[rel=external]', href: 'http://www.google.com'
+    end
+  end
+
+
   view_test "should show links to other available translations of the edition" do
     edition = build(:draft_publication)
     with_locale(:es) do

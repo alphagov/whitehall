@@ -179,6 +179,8 @@ Please tell us:
     attributes = []
     if attachment.html?
       attributes << content_tag(:span, 'HTML', class: 'type')
+    elsif attachment.external?
+      attributes << content_tag(:span, attachment.url, class: 'url')
     else
       attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
       attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')

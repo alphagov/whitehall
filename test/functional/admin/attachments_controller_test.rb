@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::AttachmentsControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
-  def valid_attachment_params
+  def valid_file_attachment_params
     {
       title: 'Attachment title',
       attachment_data_attributes: { file: fixture_file_upload('whitepaper.pdf') }
@@ -19,6 +19,13 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     }
   end
 
+  def valid_external_attachment_params
+    {
+      title: 'Attachment title',
+      external_url: 'http://www.somewebsite.com/somepath',
+    }
+  end
+
   setup do
     login_as :gds_editor
     @edition = create(:consultation)
@@ -29,7 +36,6 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       edition: :edition_id,
       consultation_outcome: :response_id,
       consultation_public_feedback: :response_id,
-      corporate_information_page: :corporate_information_page_id,
       policy_group: :policy_group_id,
     }
   end
@@ -57,7 +63,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     test "POST :create handles file attachments for #{type} as attachable" do
       attachable = create(type)
 
-      post :create, param_name => attachable.id, attachment: valid_attachment_params
+      post :create, param_name => attachable.id, attachment: valid_file_attachment_params
 
       assert_response :redirect
       assert_equal 1, attachable.reload.attachments.size
@@ -80,7 +86,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     attachable = create(:edition)
     FileAttachment.any_instance.expects(:save).raises(Mysql2::Error, "Duplicate entry 'GenericEdition-1234-56' for key 'no_duplicate_attachment_orderings'")
 
-    post :create, edition_id: attachable.id, attachment: valid_attachment_params
+    post :create, edition_id: attachable.id, attachment: valid_file_attachment_params
 
     assert_redirected_to admin_edition_attachments_url(attachable)
   end
@@ -95,7 +101,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test 'POST :create handles html attachments when attachable allows them' do
-    post :create, edition_id: @edition, html: 'true', attachment: valid_html_attachment_params
+    post :create, edition_id: @edition, type: 'html', attachment: valid_html_attachment_params
 
     assert_response :redirect
     assert_equal 1, @edition.reload.attachments.size
@@ -106,7 +112,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   test 'POST :create ignores html attachments when attachable does not allow them' do
     attachable = create(:statistical_data_set, access_limited: false)
 
-    post :create, edition_id: attachable, html: 'true', attachment: valid_html_attachment_params
+    post :create, edition_id: attachable, type: 'html', attachment: valid_html_attachment_params
 
     assert_response :redirect
     assert_equal 0, attachable.reload.attachments.size
@@ -119,6 +125,34 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     refute Attachment.exists?(attachment), 'attachment should have been deleted'
+  end
+
+  view_test 'GET :index shows external attachments' do
+    create(:external_attachment, title: 'An external attachment', attachable: @edition)
+
+    get :index, edition_id: @edition
+
+    assert_response :success
+    assert_select 'li span.title', text: 'An external attachment'
+  end
+
+  test 'POST :create handles external attachments when attachable allows them' do
+    publication = create(:publication, attachments: [])
+    post :create, edition_id: publication, type: 'external', attachment: valid_external_attachment_params
+
+    assert_response :redirect
+    assert_equal 1, publication.reload.attachments.size
+    assert_equal 'Attachment title', publication.attachments.first.title
+    assert_equal 'http://www.somewebsite.com/somepath', publication.attachments.first.external_url
+  end
+
+  test 'POST :create ignores external attachments when attachable does not allow them' do
+    attachable = create(:statistical_data_set, access_limited: false)
+
+    post :create, edition_id: attachable, type: 'external', attachment: valid_external_attachment_params
+
+    assert_response :redirect
+    assert_equal 0, attachable.reload.attachments.size
   end
 
   test 'Actions are unavailable on unmodifiable editions' do
@@ -160,7 +194,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   view_test "GET :new for a publication includes House of Commons metadata for file attachments" do
     publication = create(:publication)
-    get :new, edition_id: publication, html: 'false'
+    get :new, edition_id: publication, type: 'file'
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
@@ -168,7 +202,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
 
   view_test "GET :new for a publication includes House of Commons metadata for HTML attachments" do
     publication = create(:publication)
-    get :new, edition_id: publication, html: 'true'
+    get :new, edition_id: publication, type: 'html'
 
     assert_select "input[name='attachment[hoc_paper_number]']"
     assert_select "option[value='#{Attachment.parliamentary_sessions.first}']"
@@ -261,12 +295,12 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
   end
 
   test "attachments can have locales" do
-    post :create, edition_id: @edition, attachment: valid_attachment_params.merge(locale: :fr)
+    post :create, edition_id: @edition, attachment: valid_file_attachment_params.merge(locale: :fr)
     attachment = @edition.reload.attachments.first
 
     assert_equal "fr", attachment.locale
 
-    put :update, edition_id: @edition, id: attachment, attachment: valid_attachment_params.merge(locale: :es)
+    put :update, edition_id: @edition, id: attachment, attachment: valid_file_attachment_params.merge(locale: :es)
     assert_equal "es", attachment.reload.locale
   end
 

@@ -4,7 +4,13 @@
 
 <%= consultation_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
-    <%= render 'external_fields', form: form, edition: edition %>
+    <fieldset>
+      <legend>Held on another website</legend>
+      <%= form.check_box :external, label_text: "This #{edition.class.name.humanize.downcase} is held on another website" %>
+      <div class="js-external-url">
+        <%= form.text_field :external_url, label_text: "External link URL" %>
+      </div>
+    </fieldset>
 
     <div class="js-external-url-set">
       <fieldset>

@@ -3,11 +3,12 @@
   published_on ||= ""
   help_block_id = "attachment-#{attachment.id}-accessibility-help"
   attachment_link_options = attachment.accessible? ? {} : { "aria-describedby" => help_block_id }
+  attachment_link_options['rel'] = 'external' if attachment.external?
 %>
-<%= content_tag_for(:section, attachment.becomes(Attachment), class: "embedded") do %>
+<%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
   <div class="attachment-thumb">
     <% unless defined?(hide_thumbnail) && hide_thumbnail %>
-      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }) %>
+      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }).except('rel') %>
     <% end %>
   </div>
   <div class="attachment-details">

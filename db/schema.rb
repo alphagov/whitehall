@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20141017125002) do
     t.string   "type"
     t.string   "slug"
     t.string   "locale"
+    t.string   "external_url"
   end
 
   add_index "attachments", ["attachable_id", "attachable_type"], :name => "index_attachments_on_attachable_id_and_attachable_type"
