@@ -99,5 +99,5 @@ group :cucumber do
   gem 'cucumber-rails', '~> 1.4', require: false
   gem 'launchy', '~> 2.3.0'
   gem 'capybara', '~> 2.1.0'
-  gem 'poltergeist', '~> 1.3.0'
+  gem 'poltergeist', '~> 1.5.1'
 end
