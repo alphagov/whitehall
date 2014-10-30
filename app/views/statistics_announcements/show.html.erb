@@ -21,10 +21,10 @@
               <dt>Proposed release:</dt>
               <dd><%= @announcement.display_date %></dd>
               <dt>Cancellation date:</dt>
-              <dd><%= absolute_time(@announcement.cancellation_date) %></dd>
+              <dd><%= absolute_time(@announcement.cancelled_at) %></dd>
             <% else %>
               <dt>Release date:</dt>
-              <dd><%= @announcement.display_date_with_status %></dd>
+              <dd><%= @announcement.display_date %> (<%= @announcement.state %>)</dd>
             <% end %>
 
             <% if @announcement.organisations.any?  %>
@@ -58,7 +58,7 @@
         <p><%= @announcement.summary %></p>
       </div>
 
-      <% if @announcement.release_date_change_note.present? %>
+      <% if @announcement.last_change_note.present? %>
         <div class="release-date-change-information">
           <h3>The release date has been changed</h3>
           <aside class="meta metadata-list">
@@ -67,7 +67,7 @@
                 <dt>Previous date:</dt>
                 <dd><%= @announcement.previous_display_date %></dd>
                 <dt>Reason for change:</dt>
-                <dd><%= @announcement.release_date_change_note %></dd>
+                <dd><%= @announcement.last_change_note %></dd>
               </dl>
             </div>
           </aside>

@@ -13,10 +13,9 @@ class StatisticsAnnouncementsController < PublicFacingController
   end
 
   def show
-    @announcement = Frontend::StatisticsAnnouncementProvider.find_by_slug(params[:id])
-    if @announcement.nil?
-      render_not_found
-    elsif @announcement.publication.try :published?
+    @announcement = StatisticsAnnouncement.find(params[:id])
+
+    if @announcement.publication.try :published?
       redirect_to public_document_url(@announcement.publication), status: :moved_permanently
     else
       expire_cache_for_show_on_release(@announcement)

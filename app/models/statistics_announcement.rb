@@ -122,6 +122,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
     cancelled_at.present?
   end
 
+  def national_statistic?
+    publication_type == PublicationType::NationalStatistics
+  end
+
   def state
     if cancelled?
       'cancelled'
@@ -148,6 +152,6 @@ private
   end
 
   def type_string
-    publication_type == PublicationType::NationalStatistics ? 'national statistics' : 'statistics'
+    national_statistic? ? 'national statistics' : 'statistics'
   end
 end
