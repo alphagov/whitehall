@@ -28,35 +28,6 @@ When(/^I (?:also )?filter by (only )?published date$/) do |only|
   page.click_on "Refresh results"
 end
 
-def select_filter(label, value, opts = {})
-  if opts[:and_clear_others]
-    clear_filters
-  end
-  page.select value, from: label
-  page.click_on "Refresh results"
-end
-
-def fill_in_filter(label, value, opts = {})
-  if opts[:and_clear_others]
-    clear_filters
-  end
-  page.fill_in label, with: value
-  page.click_on "Refresh results"
-end
-
-def clear_filters
-  within '#document-filter' do
-    page.fill_in "Contains", with: ""                             if page.has_content?("Contains")
-    page.select "All publication types", from: "Publication type" if page.has_content?("Publication type")
-    page.select "All topics", from: "Topic"                       if page.has_content?("Topic")
-    page.select "All departments", from: "Department"             if page.has_content?("Department")
-    page.select "All documents", from: "Official document status" if page.has_content?("Official document status")
-    page.select "All locations", from: "World locations"          if page.has_content?("World locations")
-    page.fill_in "Published after", with: ""                      if page.has_content?("Published after")
-    page.fill_in "Published before", with: ""                     if page.has_content?("Published before")
-  end
-end
-
 ### Policies
 
 Given(/^there are some published policies$/) do
@@ -76,25 +47,22 @@ end
 Then(/^I should be able to filter policies by topic, department and keyword$/) do
   select_filter "Topic", "A Topic"
 
+  assert_listed_document_count 3
   assert page.has_content? "A policy with the topic"
-  assert page.has_no_content? "A policy with the department"
   assert page.has_content? "A policy with both the topic and the department"
   assert page.has_content? "A keyword one"
   assert page.text.match /3 policies about A Topic ./
 
   select_filter "Department", "A Department"
 
-  assert page.has_no_content? "A policy with the topic"
-  assert page.has_no_content? "A policy with the department"
+  assert_listed_document_count 2
   assert page.has_content? "A policy with both the topic and the department"
   assert page.has_content? "A keyword one"
   assert page.text.match /2 policies about A Topic . by A Department ./
 
   fill_in_filter "Contains", "keyword"
 
-  assert page.has_no_content? "A policy with the topic"
-  assert page.has_no_content? "A policy with the department"
-  assert page.has_no_content? "A policy with both the topic and the department"
+  assert_listed_document_count 1
   assert page.has_content? "A keyword one"
   assert page.text.match /1 policy about A Topic . by A Department . containing keyword ./
 end
@@ -125,127 +93,49 @@ end
 Then(/^I should be able to filter publications by keyword, publication type, topic, department, official document status, world location, and publication date$/) do
   fill_in_filter "Contains", "keyword"
 
+  assert_listed_document_count 2
   assert page.has_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
   assert page.has_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /2 publications containing keyword ./
 
   select_filter "Department", "A Department"
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
+  assert_listed_document_count 1
   assert page.has_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication by A Department . containing keyword ./
 
   select_filter "Publication type", "Guidance", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
+  assert_listed_document_count 1
   assert page.has_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
 
   select_filter "Topic", "A Topic", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
+  assert_listed_document_count 1
   assert page.has_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication about A Topic ./
 
   select_filter "Department", "A Department", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
+  assert_listed_document_count 1
   assert page.has_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication by A Department ./
 
   select_filter "Official document status", "Command papers only", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
+  assert_listed_document_count 1
   assert page.has_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication which are Command papers ./
 
   select_filter "Official document status", "Act papers only", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
+  assert_listed_document_count 1
   assert page.has_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication which are Act papers ./
 
   select_filter "Official document status", "Command or act papers", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
+  assert_listed_document_count 2
   assert page.has_content? "Publication which is a command paper"
   assert page.has_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /2 publications which are Command or Act papers ./
 
   select_filter "World locations", "A World Location", and_clear_others: true
-
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
+  assert_listed_document_count 1
   assert page.has_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 publication from A World Location ./
 
   clear_filters
@@ -253,15 +143,7 @@ Then(/^I should be able to filter publications by keyword, publication type, top
   page.fill_in "Published before", with: "01/03/2013"
   page.click_on "Refresh results"
 
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
-  assert page.has_no_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication which is a command paper"
-  assert page.has_no_content? "Publication which is an act paper"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
+  assert_listed_document_count 1
   assert page.has_content? "Publication published within date range"
   assert page.text.match /1 publication published after 01\/01\/2013 published before 01\/03\/2013 ./
 end
@@ -279,14 +161,8 @@ Then /^I should be notified that statistics have moved$/ do
 end
 
 Then(/^the filtered publications refresh automatically$/) do
-  assert page.has_no_content? "Publication with keyword"
-  assert page.has_no_content? "Guidance publication"
-  assert page.has_no_content? "Publication with the topic"
+  assert_listed_document_count 1
   assert page.has_content? "Publication with the department and keyword"
-  assert page.has_no_content? "Publication with the world location"
-  assert page.has_no_content? "Publication published too early"
-  assert page.has_no_content? "Publication published too late"
-  assert page.has_no_content? "Publication published within date range"
   assert page.text.match /1 ?publication by A Department ./
 end
 
@@ -348,14 +224,8 @@ Then(/^I should be able to filter announcements by keyword, announcement type, t
   end
   page.click_on "Refresh results"
 
+  assert_listed_document_count 1
   assert page.has_content? "News Article with keyword, topic, department, world location published within date range"
-  assert page.has_no_content? "Fatality Notice with keyword, topic, department, world location published within date range"
-  assert page.has_no_content? "News Article without wordkey"
-  assert page.has_no_content? "News Article with keyword without topic"
-  assert page.has_no_content? "News Article with keyword without department"
-  assert page.has_no_content? "News Article with keyword without world location"
-  assert page.has_no_content? "News Article with keyword published out of range"
-
   assert page.text.match /1 announcement about A Topic . by A Department . from A World Location . containing keyword . published after 01\/01\/2013 published before 01\/03\/2013/
 end
 
