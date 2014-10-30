@@ -39,8 +39,7 @@
       <%= render partial: 'featured_items',
                 locals: { feature_list: @feature_list,
                           recently_updated: @recently_updated,
-                          organisation: @organisation,
-                          featured_links: @organisation.featured_links } %>
+                          organisation: @organisation } %>
       <section id="what-we-do" class="what-we-do">
         <div class="content">
           <h1 class="label"><%= t('organisation.headings.what_we_do') %></h1>

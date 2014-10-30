@@ -453,7 +453,7 @@ class Organisation < ActiveRecord::Base
 
   def visible_featured_links_count
     if service_priority_homepage?
-      7
+      10
     else
       FeaturedLink::DEFAULT_SET_SIZE
     end

@@ -327,10 +327,10 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal FeaturedLink::DEFAULT_SET_SIZE, organisation.visible_featured_links_count
   end
 
-  test "#visible_featurd_links_count should return 7 for service priority homepage type organisations" do
+  test "#visible_featurd_links_count should return 10 for service priority homepage type organisations" do
     organisation = build(:organisation, homepage_type: 'service')
 
-    assert_equal 7, organisation.visible_featured_links_count
+    assert_equal 10, organisation.visible_featured_links_count
   end
 
   test "#visible_featured_links should return the correct number of featured links" do
@@ -338,10 +338,10 @@ class OrganisationTest < ActiveSupport::TestCase
     6.times { create(:featured_link, linkable: news_organisation) }
 
     service_organisation = create(:organisation, homepage_type: 'service')
-    8.times { create(:featured_link, linkable: service_organisation) }
+    11.times { create(:featured_link, linkable: service_organisation) }
 
     assert_equal 5, news_organisation.visible_featured_links.count
-    assert_equal 7, service_organisation.visible_featured_links.count
+    assert_equal 10, service_organisation.visible_featured_links.count
   end
 
 
