@@ -46,7 +46,7 @@ module Frontend
         release_date: model.current_release_date.release_date,
         display_date: model.current_release_date.display_date,
         release_date_confirmed: model.current_release_date.confirmed,
-        release_date_change_note: model.current_release_date.change_note,
+        release_date_change_note: model.last_change_note,
         previous_display_date: model.previous_display_date,
         organisations: model.organisations,
         topics: model.topics,

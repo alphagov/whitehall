@@ -139,4 +139,31 @@ class Frontend::StatisticsAnnouncementProviderTest < ActiveSupport::TestCase
   test "#find_by_slug: returns nil if it can't find one" do
     assert_equal nil, Frontend::StatisticsAnnouncementProvider.find_by_slug("not-a-slug")
   end
+
+  test "the Frontend::StatisticsAnnouncement instance returned by #from_slug correctly sets the most recent change note" do
+    announcement = create(:statistics_announcement)
+    minor_change = Timecop.travel(1.day) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: announcement.release_date + 1.week)
+    end
+    major_change = Timecop.travel(2.days) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: announcement.release_date + 1.month,
+              change_note: 'Delayed because of census')
+    end
+    minor_change = Timecop.travel(3.days) do
+      create(:statistics_announcement_date,
+              statistics_announcement: announcement,
+              release_date: major_change.release_date,
+              precision: StatisticsAnnouncementDate::PRECISION[:exact],
+              confirmed: true)
+    end
+
+    frontend_presentation = Frontend::StatisticsAnnouncementProvider.find_by_slug(announcement.slug)
+
+    assert_equal 'Delayed because of census',
+      frontend_presentation.release_date_change_note
+  end
 end
