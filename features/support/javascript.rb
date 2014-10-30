@@ -1,7 +1,7 @@
 require 'capybara/poltergeist'
-# static.preview SSL certificate is causing errors in Cucumber tests, # so we're ignoring SSL errors for now.
+# PhamtomJS 1.9.x defaults to SSLv3 which has been disabled since POODLE, so we have to override the default.
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { phantomjs_options: ['--ssl-protocol=TLSv1', '--ignore-ssl-errors=yes']})
+  Capybara::Poltergeist::Driver.new(app, { phantomjs_options: ['--ssl-protocol=TLSv1']})
 end
 Capybara.javascript_driver = :poltergeist
 
