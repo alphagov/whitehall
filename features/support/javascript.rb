@@ -1,7 +1,9 @@
 require 'capybara/poltergeist'
-# PhamtomJS 1.9.x defaults to SSLv3 which has been disabled since POODLE, so we have to override the default.
+# For now, we override the default SSLv3 PhantomJS SSL Protocol as it is not
+# supported by our servers. Note that a future release of poltergeist will likely
+# set this as the default setting.
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { phantomjs_options: ['--ssl-protocol=TLSv1']})
+  Capybara::Poltergeist::Driver.new(app, { phantomjs_options: ['--ssl-protocol=any']})
 end
 Capybara.javascript_driver = :poltergeist
 
