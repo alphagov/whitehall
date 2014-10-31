@@ -12,7 +12,7 @@
     <section>
       <%= tab_navigation_for(@organisation) do %>
         <div class="row-fluid">
-          <%= render 'search_results' %>
+          <%= render partial: 'search_results', locals: { show_export: false } %>
         </div>
         <% if @organisation.unused_corporate_information_page_types.any? %>
           <div><%= link_to "New corporate information page", new_polymorphic_path([:admin, @organisation, CorporateInformationPage.new]), class: "btn"%></div>
