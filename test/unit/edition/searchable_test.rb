@@ -51,7 +51,6 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     major.change_note = 'This was a major change'
     force_publish(major)
 
-    p major.search_index
     assert_equal "This was a major change", major.search_index["latest_change_note"]
   end
 
