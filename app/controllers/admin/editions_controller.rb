@@ -30,6 +30,8 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:update, @edition)
     when 'destroy'
       enforce_permission!(:delete, @edition)
+    when 'export', 'confirm_export'
+      enforce_permission!(:export, edition_class || Edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
     end
@@ -48,6 +50,15 @@ class Admin::EditionsController < Admin::BaseController
     else
       redirect_to default_filters
     end
+  end
+
+  def export
+    DocumentListExportWorker.perform_async(unpaginated_params, current_user.id)
+    redirect_to params_filters.merge(action: :index)
+  end
+
+  def confirm_export
+    filter
   end
 
   def show
@@ -302,6 +313,10 @@ class Admin::EditionsController < Admin::BaseController
 
   def params_filters_with_default_state
     params_filters.reverse_merge(state: 'active')
+  end
+
+  def unpaginated_params
+    params_filters_with_default_state.merge(unpaginated: true)
   end
 
   def filter

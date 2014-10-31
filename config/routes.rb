@@ -250,6 +250,10 @@ Whitehall::Application.routes.draw do
         end
 
         resources :editions, only: [:index] do
+          collection do
+            post :export
+            get :confirm_export
+          end
           member do
             post :submit, to: 'edition_workflow#submit'
             post :revise
