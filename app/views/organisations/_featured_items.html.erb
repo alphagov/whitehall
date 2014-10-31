@@ -2,15 +2,14 @@
   see_all_link ||= latest_path(departments: [@organisation])
   first_feature = feature_list.current_featured.first
   other_features_offset = 1
-  featured_services_and_guidance ||= []
 
-  if featured_services_and_guidance.any?
+  if @organisation.service_priority_homepage?
     first_feature = nil
     other_features_offset = 0
   end
 %>
 <% if feature_list.any_current_features? %>
-  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %> <%= "with-featured-services-and-guidance" if featured_services_and_guidance.any? %>" id="featured-documents">
+  <section class="organisation-news featured-news items-<%= feature_list.current_feature_count %> <%= "with-featured-links" if @organisation.service_priority_homepage? %>" id="featured-documents">
     <% if first_feature %>
       <%= render partial: 'shared/featured',
                 locals: { feature: first_feature,

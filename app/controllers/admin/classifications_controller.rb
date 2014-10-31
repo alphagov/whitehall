@@ -69,7 +69,7 @@ class Admin::ClassificationsController < Admin::BaseController
       social_media_accounts_attributes: [
         :social_media_service_id, :url, :_destroy, :id
       ],
-      top_tasks_attributes: [:title, :url, :_destroy, :id],
+      featured_links_attributes: [:title, :url, :_destroy, :id],
       organisation_classifications_attributes: [:id, :lead, :lead_ordering]
     )
   end

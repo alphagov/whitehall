@@ -278,9 +278,9 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [chief_professional_officer], organisation.chief_professional_officer_roles
   end
 
-  test 'should be creatable with top task data' do
+  test 'should be creatable with featured link data' do
     params = {
-      top_tasks_attributes: [
+      featured_links_attributes: [
         {url: "https://www.gov.uk/blah/blah",
          title: "Blah blah"},
         {url: "https://www.gov.uk/wah/wah",
@@ -289,7 +289,7 @@ class OrganisationTest < ActiveSupport::TestCase
     }
     organisation = create(:organisation, params)
 
-    links = organisation.top_tasks
+    links = organisation.featured_links
     assert_equal 2, links.count
     assert_equal "https://www.gov.uk/blah/blah", links[0].url
     assert_equal "Blah blah", links[0].title
@@ -297,22 +297,22 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal "Wah wah", links[1].title
   end
 
-  test 'top tasks are returned in order of creation' do
+  test 'featured links are returned in order of creation' do
     organisation = create(:organisation)
-    link_1 = create(:top_task, linkable: organisation, title: '2 days ago', created_at: 2.days.ago)
-    link_2 = create(:top_task, linkable: organisation, title: '12 days ago', created_at: 12.days.ago)
-    link_3 = create(:top_task, linkable: organisation, title: '1 hour ago', created_at: 1.hour.ago)
-    link_4 = create(:top_task, linkable: organisation, title: '2 hours ago', created_at: 2.hours.ago)
-    link_5 = create(:top_task, linkable: organisation, title: '20 minutes ago', created_at: 20.minutes.ago)
-    link_6 = create(:top_task, linkable: organisation, title: '2 years ago', created_at: 2.years.ago)
+    link_1 = create(:featured_link, linkable: organisation, title: '2 days ago', created_at: 2.days.ago)
+    link_2 = create(:featured_link, linkable: organisation, title: '12 days ago', created_at: 12.days.ago)
+    link_3 = create(:featured_link, linkable: organisation, title: '1 hour ago', created_at: 1.hour.ago)
+    link_4 = create(:featured_link, linkable: organisation, title: '2 hours ago', created_at: 2.hours.ago)
+    link_5 = create(:featured_link, linkable: organisation, title: '20 minutes ago', created_at: 20.minutes.ago)
+    link_6 = create(:featured_link, linkable: organisation, title: '2 years ago', created_at: 2.years.ago)
 
-    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.top_tasks
-    assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.top_tasks.only_the_initial_set
+    assert_equal [link_6, link_2, link_1, link_4, link_3, link_5], organisation.featured_links
+    assert_equal [link_6, link_2, link_1, link_4, link_3], organisation.featured_links.only_the_initial_set
   end
 
-  test 'should ignore blank top task attributes' do
+  test 'should ignore blank featured link attributes' do
     params = {
-      top_tasks_attributes: [
+      featured_links_attributes: [
         {url: "",
          title: ""}
       ]
@@ -320,6 +320,30 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = build(:organisation, params)
     assert organisation.valid?
   end
+
+  test "#visible_featurd_links_count should return the default number of links for news homepage type organisations" do
+    organisation = build(:organisation)
+
+    assert_equal FeaturedLink::DEFAULT_SET_SIZE, organisation.visible_featured_links_count
+  end
+
+  test "#visible_featurd_links_count should return 10 for service priority homepage type organisations" do
+    organisation = build(:organisation, homepage_type: 'service')
+
+    assert_equal 10, organisation.visible_featured_links_count
+  end
+
+  test "#visible_featured_links should return the correct number of featured links" do
+    news_organisation = create(:organisation, homepage_type: 'news')
+    6.times { create(:featured_link, linkable: news_organisation) }
+
+    service_organisation = create(:organisation, homepage_type: 'service')
+    11.times { create(:featured_link, linkable: service_organisation) }
+
+    assert_equal 5, news_organisation.visible_featured_links.count
+    assert_equal 10, service_organisation.visible_featured_links.count
+  end
+
 
   test "should set a slug from the organisation name" do
     organisation = create(:organisation, name: 'Love all the people')
@@ -813,5 +837,19 @@ class OrganisationTest < ActiveSupport::TestCase
 
     assert organisation.valid?
     assert_equal organisation.content_id, "a random UUID"
+  end
+
+  test "#service_priority_homepage? should be true if it's homepage type is service" do
+    organisation = build(:organisation, homepage_type: 'service')
+
+    assert organisation.service_priority_homepage?
+    refute organisation.news_priority_homepage?
+  end
+
+  test "#news_priority_homepage? should be true if it's homepage type is news" do
+    organisation = build(:organisation, homepage_type: 'news')
+
+    assert organisation.news_priority_homepage?
+    refute organisation.service_priority_homepage?
   end
 end

@@ -1,6 +1,6 @@
 <%
   logo_size ||= 'large'
-  show_top_tasks ||= false
+  show_featured_links ||= false
   link_to_organisation ||= false
   languages_available ||= false
 %>
@@ -12,8 +12,8 @@
     <% if languages_available %>
       <%= render partial: 'shared/available_languages', locals: {object: @organisation} %>
     <% end %>
-    <% if show_top_tasks %>
-      <%= render 'shared/featured_links', type: 'top-tasks', links: organisation.top_tasks.only_the_initial_set %>
+    <% if show_featured_links %>
+      <%= render 'shared/featured_links', links: organisation.visible_featured_links %>
     <% end %>
   <% end %>
 

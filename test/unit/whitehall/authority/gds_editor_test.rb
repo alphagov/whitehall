@@ -159,13 +159,13 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, :sitewide_settings_section).can?(:administer)
   end
 
-  test 'can manage services and guidance for any organisation' do
+  test 'can manage featured links for any organisation' do
     user = gds_editor
 
     editors_org = user.organisation
     other_org = build(:organisation)
 
-    assert enforcer_for(user, editors_org).can?(:manage_services_and_guidance)
-    assert enforcer_for(user, other_org).can?(:manage_services_and_guidance)
+    assert enforcer_for(user, editors_org).can?(:manage_featured_links)
+    assert enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 end

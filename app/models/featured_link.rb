@@ -1,20 +1,14 @@
-module FeaturedLink
+class FeaturedLink < ActiveRecord::Base
   extend ActiveSupport::Concern
 
-  included do
-    belongs_to :linkable, polymorphic: true
+  DEFAULT_SET_SIZE = 5
 
-    validates :url, :title, presence: true
-    validates :url, uri: true
-  end
+  belongs_to :linkable, polymorphic: true
 
-  module ClassMethods
-    def only_the_initial_set(set_size = default_set_size)
-      limit(set_size)
-    end
+  validates :url, :title, presence: true
+  validates :url, uri: true
 
-    def default_set_size
-      5
-    end
+  def self.only_the_initial_set
+    limit(DEFAULT_SET_SIZE)
   end
 end

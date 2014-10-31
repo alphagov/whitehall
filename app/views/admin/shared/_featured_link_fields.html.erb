@@ -1,20 +1,19 @@
 <%
-  featured_link_class = type.classify.constantize
+  featured_links = form.object.featured_links
+  featured_links = [FeaturedLink.new] unless featured_links.any?
 
-  unsorted_featured_links = form.object.send(type)
-
-  featured_links = if unsorted_featured_links.any?
-    unsorted_featured_links.sort_by { |tt| tt.created_at || Time.current }
+  if form.object.respond_to?(:visible_featured_links_count)
+    visible_links = form.object.visible_featured_links_count
   else
-    [featured_link_class.new]
+    visible_links = FeaturedLink::DEFAULT_SET_SIZE
   end
 %>
 
-<fieldset class="named <%= type.tr('_', '-') %> form-horizontal js-duplicate-fields">
-  <legend><%= type.humanize %></legend>
-  <p class="alert alert-info">Only the first <%= featured_link_class.default_set_size %> links will be shown on the public site.</p>
+<fieldset class="named featured-links form-horizontal js-duplicate-fields">
+  <legend>Featured links</legend>
+  <p class="alert alert-info">Only the first <%= visible_links %> links will be shown on the public site.</p>
 
-  <%= form.fields_for(type, featured_links) do |featured_links_form| %>
+  <%= form.fields_for(:featured_links, featured_links) do |featured_links_form| %>
     <div class="js-duplicate-fields-set well">
       <%= featured_links_form.text_field :title, horizontal: true %>
       <%= featured_links_form.text_field :url, horizontal: true %>

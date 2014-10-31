@@ -96,6 +96,7 @@ class Admin::OrganisationsController < Admin::BaseController
       :govuk_status, :govuk_closed_status, :closed_at, :organisation_chart_url,
       :foi_exempt, :ocpa_regulated, :public_meetings, :public_minutes,
       :regulatory_function, :important_board_members, :custom_jobs_url,
+      :homepage_type,
       superseding_organisation_ids: [],
       default_news_image_attributes: [:file, :file_cache],
       organisation_roles_attributes: [:id, :ordering],
@@ -106,8 +107,7 @@ class Admin::OrganisationsController < Admin::BaseController
       organisation_mainstream_categories_attributes: [
         :mainstream_category_id, :ordering, :id, :_destroy
       ],
-      top_tasks_attributes: [:title, :url, :_destroy, :id],
-      featured_services_and_guidance_attributes: [:title, :url, :_destroy, :id]
+      featured_links_attributes: [:title, :url, :_destroy, :id],
     )
   end
 

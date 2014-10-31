@@ -642,13 +642,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "##{dom_id(organisation)}.#{organisation.organisation_brand_colour.class_name}-brand-colour.ministerial-department"
   end
 
-  view_test "should show top tasks if there are some" do
+  view_test "should show featured links if there are some" do
     organisation = create(:organisation,)
-    top_task = create(:top_task, linkable: organisation)
+    featured_link = create(:featured_link, linkable: organisation)
     get :show, id: organisation
 
-    assert_select '.top-tasks' do
-      assert_select "a[href='#{top_task.url}']", text: top_task.title
+    assert_select '.featured-links' do
+      assert_select "a[href='#{featured_link.url}']", text: featured_link.title
     end
   end
 

@@ -115,9 +115,9 @@ class Organisation < ActiveRecord::Base
 
   has_many :promotional_features
 
-  include HasFeaturedLinks
-  has_featured_links :top_tasks
-  has_featured_links :featured_services_and_guidance
+  has_many :featured_links, as: :linkable, dependent: :destroy, order: :created_at
+  accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
+  validates :homepage_type, inclusion: {in: %w{news service}}
 
   include HasCorporateInformationPages
 
@@ -441,6 +441,26 @@ class Organisation < ActiveRecord::Base
 
   def generate_content_id
     self.content_id ||= SecureRandom.uuid
+  end
+
+  def news_priority_homepage?
+    homepage_type == 'news'
+  end
+
+  def service_priority_homepage?
+    homepage_type == 'service'
+  end
+
+  def visible_featured_links_count
+    if service_priority_homepage?
+      10
+    else
+      FeaturedLink::DEFAULT_SET_SIZE
+    end
+  end
+
+  def visible_featured_links
+    featured_links.limit(visible_featured_links_count)
   end
 
   private

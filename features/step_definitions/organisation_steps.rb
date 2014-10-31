@@ -18,8 +18,8 @@ Given(/^the organisation "(.*?)" exists with a featured article$/) do |name|
 end
 
 Given(/^the organisation "(.*?)" exists with featured services and guidance$/) do |name|
-  org = create(:organisation, name: name)
-  create(:featured_services_and_guidance, linkable: org)
+  org = create(:organisation, name: name, homepage_type: 'service')
+  create(:featured_link, linkable: org)
 end
 
 Given(/^the organisation "(.*?)" exists with no featured services and guidance$/) do |name|
@@ -143,7 +143,7 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   select 'Ministerial department', from: 'Organisation type'
   select 'Jazz Bizniz', from: 'organisation_topic_ids_0'
   select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
-  within '.top-tasks' do
+  within '.featured-links' do
     fill_in 'Title', with: 'Top task 1'
     fill_in 'Url', with: 'http://mainstream.co.uk'
   end
@@ -438,20 +438,20 @@ When /^I associate a Transparency data publication to the "([^"]*)"$/ do |name|
   publication = create(:published_publication, :transparency_data, organisations: [organisation])
 end
 
-When /^I add some top tasks to the organisation "([^"]*)" via the admin$/ do |organisation_name|
+When /^I add some featured links to the organisation "([^"]*)" via the admin$/ do |organisation_name|
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
-  within ".top-tasks" do
+  within ".featured-links" do
     fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
     fill_in "Title", with: "Tool Alpha"
   end
   click_button "Save"
 end
 
-Then /^the top tasks for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
+Then /^the featured links for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
-  within ".top-tasks" do
+  within ".featured-links" do
     assert page.has_css?("a[href='https://www.gov.uk/mainstream/tool-alpha']", "Tool Alpha")
   end
 end
@@ -460,16 +460,17 @@ When /^I add some featured services and guidance to the organisation "([^"]*)" v
   organisation = Organisation.find_by_name!(organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
-  within ".featured-services-and-guidance" do
+  within ".featured-links" do
     fill_in "Url", with: "https://www.gov.uk/example/service"
     fill_in "Title", with: "Example Service"
   end
+  choose 'organisation_homepage_type_service'
   click_button "Save"
 end
 
 Then /^the featured services and guidance for the organisation "([^"]*)" should be visible on the public site$/ do |organisation_name|
   visit_organisation organisation_name
-  within ".featured-services-and-guidance" do
+  within ".featured-links" do
     assert page.has_css?("a[href='https://www.gov.uk/example/service']", "Example Service")
   end
 end

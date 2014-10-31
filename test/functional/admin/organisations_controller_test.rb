@@ -64,7 +64,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
       parent_organisation_ids: [parent_org_1.id, parent_org_2.id],
       organisation_type_key: :executive_agency,
       govuk_status: 'exempt',
-      top_tasks_attributes: {
+      featured_links_attributes: {
         "0" => {
           url: "http://www.gov.uk/mainstream/something",
           title: "Something on mainstream"
@@ -79,7 +79,7 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert organisation.organisation_mainstream_categories.map(&:ordering).all?(&:present?), "no ordering"
     assert_equal [mainstream_category_ids[1], mainstream_category_ids[0]], organisation.organisation_mainstream_categories.sort_by(&:ordering).map(&:mainstream_category_id)
     assert_equal topic_ids, organisation.organisation_classifications.sort_by(&:ordering).map(&:classification_id)
-    assert organisation_top_task = organisation.top_tasks.last
+    assert organisation_top_task = organisation.featured_links.last
     assert_equal "http://www.gov.uk/mainstream/something", organisation_top_task.url
     assert_equal "Something on mainstream", organisation_top_task.title
     assert_same_elements [parent_org_1, parent_org_2], organisation.parent_organisations
@@ -356,38 +356,38 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     refute organisation.regulatory_function?
   end
 
-  test 'PUT on :update handles existing top task attributes' do
+  test 'PUT on :update handles existing featured link attributes' do
     organisation = create(:organisation)
-    top_task = create(:top_task, linkable: organisation)
+    featured_link = create(:featured_link, linkable: organisation)
 
-    put :update, id: organisation, organisation: { top_tasks_attributes: { '0' => {
-      id: top_task.id,
+    put :update, id: organisation, organisation: { featured_links_attributes: { '0' => {
+      id: featured_link.id,
       title: 'New title',
-      url: top_task.url,
+      url: featured_link.url,
       _destroy: 'false'
     } } }
 
     assert_response :redirect
-    assert_equal 'New title', top_task.reload.title
+    assert_equal 'New title', featured_link.reload.title
   end
 
-  view_test "Prevents unauthorized management of featured services and guidance" do
+  view_test "Prevents unauthorized management of homepage priority" do
     organisation = create(:organisation)
     policy_writer = create(:policy_writer, organisation: organisation)
     login_as(policy_writer)
 
     get :edit, id: organisation
-    refute_select "legend", text: "Featured services and guidance"
+    refute_select ".homepage-priority"
 
     managing_editor = create(:managing_editor, organisation: organisation)
     login_as(managing_editor)
     get :edit, id: organisation
-    assert_select "legend", text: "Featured services and guidance"
+    assert_select ".homepage-priority"
 
     gds_editor = create(:gds_editor, organisation: organisation)
     login_as(gds_editor)
     get :edit, id: organisation
-    assert_select "legend", text: "Featured services and guidance"
+    assert_select ".homepage-priority"
   end
 
   test "Non-admins can only edit their own organisations or children" do
