@@ -2,11 +2,11 @@ et:
   document:
     headings:
       attachments:
-        one:
-        other:
+        one: Dokument
+        other: Dokumendid
       policies:
-        one:
-        other:
+        one: Poliitika
+        other: Poliitikad
       applies_to_nations:
       field_of_operation:
       from:
@@ -14,140 +14,140 @@ et:
       part_of:
     type:
       announcement:
-        one:
-        other:
+        one: Teadaanne
+        other: Teadaanded
       authored_article:
-        one:
-        other:
+        one: Avaldatud artikkel
+        other: 'Avaldatud artiklid '
       case_study:
-        one:
-        other:
+        one: Juhtumiuuring
+        other: Juhtumiuuringud
       closed_consultation:
-        one:
-        other:
+        one: Suletud konsultatsioon
+        other: Suletud konsultatsioonid
       consultation:
-        one:
-        other:
+        one: Konsultatsioon
+        other: Konsultatsioonid
       consultation_outcome:
-        one:
-        other:
+        one: Konsultatsioonide tulemuse
+        other: Konsultatsioonide tulemused
       corporate_report:
-        one:
-        other:
+        one: Korporatiivne raport
+        other: Korporatiivsed raportid
       correspondence:
-        one:
-        other:
+        one: Kirjavahetus
+        other: Kirjavahetused
       decision:
-        one:
-        other:
+        one: Otsus
+        other: Otsused
       detailed_guidance:
-        one:
-        other:
+        one: Juhend
+        other: Juhendid
       document_collection:
-        one:
-        other:
+        one: 'Kogu '
+        other: Kogud
       draft_text:
-        one:
-        other:
+        one: Eelnõu
+        other: Eelnõud
       fatality_notice:
-        one:
-        other:
+        one: Surmateade
+        other: Surmateated
       foi_release:
-        one:
-        other:
+        one: FOI teavitus
+        other: FOI teavitused
       form:
-        one:
-        other:
+        one: Vorm
+        other: Vormid
       government_response:
-        one:
-        other:
+        one: Valitsuse vastus
+        other: Valitsuse vastused
       guidance:
-        one:
-        other:
+        one: Juhend
+        other: Juhend
       impact_assessment:
-        one:
-        other:
+        one: Mõju hinnang
+        other: Mõju hinnangud
       imported:
-        one:
-        other:
+        one: sisse - liik täpsustamisel
+        other: sisse - liik täpsustamisel
       independent_report:
-        one:
-        other:
+        one: Sõltumatu raport
+        other: Sõltumatud raportid
       international_treaty:
-        one:
-        other:
+        one: Rahvusvaheline leping
+        other: Rahvusvahelised lepingud
       map:
-        one:
-        other:
+        one: Kaart
+        other: Kaardid
       national_statistics:
-        one:
-        other:
+        one: Statistika - rahvuslikud statistikaandmed
+        other: Statistika - rahvuslikud statistikaandmed
       news_article:
-        one:
-        other:
+        one: Artikkel
+        other: Artiklid
       news_story:
-        one:
-        other:
+        one: Uudis
+        other: Uudised
       notice:
-        one:
-        other:
+        one: Teade
+        other: Teated
       open_consultation:
-        one:
-        other:
+        one: Avatud konsultatsioon
+        other: Avatud konsultatsioonid
       oral_statement:
-        one:
-        other:
+        one: Suuline avaldus parlamedis
+        other: Suulised avaldused parlamendis
       policy:
-        one:
-        other:
+        one: Poliitika
+        other: Poliitikad
       policy_paper:
-        one:
-        other:
+        one: Poliitikadokument
+        other: Poliitikadokumendid
       press_release:
-        one:
-        other:
+        one: Pressiteade
+        other: Pressiteated
       promotional:
-        one:
-        other:
+        one: Turundusmaterjal
+        other: Turundusmaterjal
       publication:
-        one:
-        other:
+        one: Publikatsioon
+        other: Publikatsioonid
       regulation:
-        one:
-        other:
+        one: Seadusandlus
+        other: Seadusandlus
       research:
-        one:
-        other:
+        one: Uuringud ja analüüs
+        other: Uuringud ja analüüs
       speaking_notes:
-        one:
-        other:
+        one: 'Kõne tekst '
+        other: 'Kõne tekst '
       speech:
-        one:
-        other:
+        one: 'Kõne  '
+        other: Kõned
       statement_to_parliament:
-        one:
-        other:
+        one: Avaldus parlamendis
+        other: Avaldused parlamendis
       statistical_data_set:
-        one:
-        other:
+        one: Statistiline andmekogu
+        other: Statistilised andmekogud
       statistics:
-        one:
-        other:
+        one: 'Statistika '
+        other: Statistika
       statutory_guidance:
-        one:
-        other:
+        one: Seadusejärgne juhis
+        other: Seadusejärgne juhis
       transcript:
-        one:
-        other:
+        one: Protokoll
+        other: Protokollid
       transparency:
-        one:
-        other:
+        one: Läbipaistvusteave
+        other: Läbipaistvusteave
       worldwide_priority:
-        one:
-        other:
+        one: Üleilmne prioriteet
+        other: Üleilmsed prioriteedid
       written_statement:
-        one:
-        other:
+        one: Kirjalik avaldus parlamendile
+        other: Kirjalikud avaldused parlamendile
     contents:
     footer_meta:
       full_page_history:
@@ -170,23 +170,23 @@ et:
   organisation:
     type:
       Ad-hoc advisory group:
-        one:
-        other:
+        one: Erakorraline nõukogu
+        other: Erakorralised nõukogud
       Advisory non-departmental public body:
-        one:
-        other:
+        one: Nõuandev mitteametkondlik avaliku sektori kogu
+        other: Nõuandvad mitteametkondlikud avaliku sektori kogud
       Civil Service:
-        one:
-        other:
+        one: Riigiamet
+        other: Riigiametid
       Devolved administration:
         one:
         other:
       Executive agency:
-        one:
-        other:
+        one: Täidesaatev amet
+        other: Täidesaatvad ametid
       Executive non-departmental public body:
-        one:
-        other:
+        one: Täidesaatev mitteametkondlik avaliku sektori kogu
+        other: Täidesaatvad mitteametkondlikud avaliku sektori kogud
       Executive office:
         one:
         other:
