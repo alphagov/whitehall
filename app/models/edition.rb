@@ -294,6 +294,7 @@ class Edition < ActiveRecord::Base
     attachments: nil,
     operational_field: nil,
     specialist_sectors: :specialist_sector_tags,
+    latest_change_note: :most_recent_change_note,
   )
 
   def search_title

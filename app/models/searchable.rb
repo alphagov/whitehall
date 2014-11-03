@@ -11,7 +11,7 @@ module Searchable
     :slug, :search_format_types, :world_locations,
     :attachments, :operational_field, :organisation_state,
     :release_timestamp, :metadata, :specialist_sectors,
-    :statistics_announcement_state
+    :statistics_announcement_state, :latest_change_note
   ]
 
   included do

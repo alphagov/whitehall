@@ -12,6 +12,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     assert_equal edition.summary, edition.search_index["description"]
     assert_equal edition.id, edition.search_index["id"]
     assert_equal edition.specialist_sector_tags, edition.search_index["specialist_sectors"]
+    assert_equal edition.most_recent_change_note, edition.search_index["latest_change_note"]
     assert_equal nil, edition.search_index["organisations"]
     assert_equal nil, edition.search_index["people"]
     assert_equal nil, edition.search_index["publication_type"]
@@ -40,6 +41,17 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     Whitehall::SearchIndex.expects(:add).with(edition)
 
     Whitehall.edition_services.publisher(edition).perform!
+  end
+
+  test "should add latest change note to search index" do
+    user  = create(:gds_editor)
+    first = create(:published_edition)
+
+    major = first.create_draft(user)
+    major.change_note = 'This was a major change'
+    force_publish(major)
+
+    assert_equal "This was a major change", major.search_index["latest_change_note"]
   end
 
   test "should not add edition to search index if it is not available in English" do
