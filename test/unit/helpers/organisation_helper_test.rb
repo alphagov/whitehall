@@ -352,18 +352,3 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
   end
 
 end
-
-class OrganisationSiteThumbnailPathTest < ActionView::TestCase
-  include OrganisationHelper
-
-  test 'organisation_site_thumbnail_path contains the organisation slug' do
-    organisation = stub('organisation', slug: 'slug')
-    assert_match %r{organisation_screenshots/slug.png}, organisation_site_thumbnail_path(organisation)
-  end
-
-  test 'organisation_site_thumbnail_path uses the placeholder image if the file does not exist' do
-    organisation = stub('organisation', slug: 'slug')
-    stubs(:image_path).raises(Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError).then.returns("return_path")
-    assert_equal "return_path", organisation_site_thumbnail_path(organisation)
-  end
-end

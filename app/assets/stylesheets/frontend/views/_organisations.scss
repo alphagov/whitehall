@@ -786,14 +786,6 @@
   @include media(desktop) {
     .block-2 {
       width: $two-thirds;
-      float: right;
-      .inner-block {
-        padding-left: $gutter-two-thirds+$gutter-one-sixth;
-      }
-    }
-    .block-3 {
-      width: $one-third;
-      float: left;
     }
     .block-4 {
       width: $full-width;
