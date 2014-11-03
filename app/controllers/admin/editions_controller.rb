@@ -53,7 +53,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def export
-    DocumentListExportWorker.perform_async(unpaginated_params, current_user.id)
+    DocumentListExportWorker.perform_async(params_filters_with_default_state, current_user.id)
     redirect_to params_filters.merge(action: :index)
   end
 
@@ -313,10 +313,6 @@ class Admin::EditionsController < Admin::BaseController
 
   def params_filters_with_default_state
     params_filters.reverse_merge(state: 'active')
-  end
-
-  def unpaginated_params
-    params_filters_with_default_state.merge(unpaginated: true)
   end
 
   def filter

@@ -256,10 +256,10 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal 2, filter.editions.count
   end
 
-  test "should not paginate editions if unpaginated is set" do
+  test "editions_for_csv should not be paginated" do
     3.times { create(:policy) }
-    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2, unpaginated: true)
-    assert_equal 3, filter.editions.count
+    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
+    assert_equal 3, filter.editions_for_csv.count
   end
 
 end
