@@ -118,7 +118,7 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     form         = create(:publication, publication_type: PublicationType::Form)
     policy_paper = create(:publication, publication_type: PublicationType::PolicyPaper)
 
-    assert_equal [form, policy_paper],
+    assert_same_elements [form, policy_paper],
       Admin::EditionFilter.new(Edition, @current_user, type: "publication",
                                subtypes: [PublicationType::PolicyPaper.id, PublicationType::Form.id]).editions
 
