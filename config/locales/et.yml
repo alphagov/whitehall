@@ -1,0 +1,512 @@
+et:
+  document:
+    headings:
+      attachments:
+        one: Dokument
+        other: Dokumendid
+      policies:
+        one: Poliitika
+        other: Poliitikad
+      applies_to_nations:
+      field_of_operation:
+      from:
+      location:
+      part_of:
+    type:
+      announcement:
+        one: Teadaanne
+        other: Teadaanded
+      authored_article:
+        one: Avaldatud artikkel
+        other: 'Avaldatud artiklid '
+      case_study:
+        one: Juhtumiuuring
+        other: Juhtumiuuringud
+      closed_consultation:
+        one: Suletud konsultatsioon
+        other: Suletud konsultatsioonid
+      consultation:
+        one: Konsultatsioon
+        other: Konsultatsioonid
+      consultation_outcome:
+        one: Konsultatsioonide tulemuse
+        other: Konsultatsioonide tulemused
+      corporate_report:
+        one: Korporatiivne raport
+        other: Korporatiivsed raportid
+      correspondence:
+        one: Kirjavahetus
+        other: Kirjavahetused
+      decision:
+        one: Otsus
+        other: Otsused
+      detailed_guidance:
+        one: Juhend
+        other: Juhendid
+      document_collection:
+        one: 'Kogu '
+        other: Kogud
+      draft_text:
+        one: Eelnõu
+        other: Eelnõud
+      fatality_notice:
+        one: Surmateade
+        other: Surmateated
+      foi_release:
+        one: FOI teavitus
+        other: FOI teavitused
+      form:
+        one: Vorm
+        other: Vormid
+      government_response:
+        one: Valitsuse vastus
+        other: Valitsuse vastused
+      guidance:
+        one: Juhend
+        other: Juhend
+      impact_assessment:
+        one: Mõju hinnang
+        other: Mõju hinnangud
+      imported:
+        one: sisse - liik täpsustamisel
+        other: sisse - liik täpsustamisel
+      independent_report:
+        one: Sõltumatu raport
+        other: Sõltumatud raportid
+      international_treaty:
+        one: Rahvusvaheline leping
+        other: Rahvusvahelised lepingud
+      map:
+        one: Kaart
+        other: Kaardid
+      national_statistics:
+        one: Statistika - rahvuslikud statistikaandmed
+        other: Statistika - rahvuslikud statistikaandmed
+      news_article:
+        one: Artikkel
+        other: Artiklid
+      news_story:
+        one: Uudis
+        other: Uudised
+      notice:
+        one: Teade
+        other: Teated
+      open_consultation:
+        one: Avatud konsultatsioon
+        other: Avatud konsultatsioonid
+      oral_statement:
+        one: Suuline avaldus parlamedis
+        other: Suulised avaldused parlamendis
+      policy:
+        one: Poliitika
+        other: Poliitikad
+      policy_paper:
+        one: Poliitikadokument
+        other: Poliitikadokumendid
+      press_release:
+        one: Pressiteade
+        other: Pressiteated
+      promotional:
+        one: Turundusmaterjal
+        other: Turundusmaterjal
+      publication:
+        one: Publikatsioon
+        other: Publikatsioonid
+      regulation:
+        one: Seadusandlus
+        other: Seadusandlus
+      research:
+        one: Uuringud ja analüüs
+        other: Uuringud ja analüüs
+      speaking_notes:
+        one: 'Kõne tekst '
+        other: 'Kõne tekst '
+      speech:
+        one: 'Kõne  '
+        other: Kõned
+      statement_to_parliament:
+        one: Avaldus parlamendis
+        other: Avaldused parlamendis
+      statistical_data_set:
+        one: Statistiline andmekogu
+        other: Statistilised andmekogud
+      statistics:
+        one: 'Statistika '
+        other: Statistika
+      statutory_guidance:
+        one: Seadusejärgne juhis
+        other: Seadusejärgne juhis
+      transcript:
+        one: Protokoll
+        other: Protokollid
+      transparency:
+        one: Läbipaistvusteave
+        other: Läbipaistvusteave
+      worldwide_priority:
+        one: Üleilmne prioriteet
+        other: Üleilmsed prioriteedid
+      written_statement:
+        one: Kirjalik avaldus parlamendile
+        other: Kirjalikud avaldused parlamendile
+    contents:
+    footer_meta:
+      full_page_history:
+      page_history:
+      published:
+      updated:
+    published:
+    read:
+    speech:
+      author_title:
+        minister:
+        speaker:
+      delivered_on:
+      delivery_title:
+        minister:
+        speaker:
+      written_on:
+    updated:
+    view:
+  organisation:
+    type:
+      Ad-hoc advisory group:
+        one: Erakorraline nõukogu
+        other: Erakorralised nõukogud
+      Advisory non-departmental public body:
+        one: Nõuandev mitteametkondlik avaliku sektori kogu
+        other: Nõuandvad mitteametkondlikud avaliku sektori kogud
+      Civil Service:
+        one: Riigiamet
+        other: Riigiametid
+      Devolved administration:
+        one:
+        other:
+      Executive agency:
+        one: Täidesaatev amet
+        other: Täidesaatvad ametid
+      Executive non-departmental public body:
+        one: Täidesaatev mitteametkondlik avaliku sektori kogu
+        other: Täidesaatvad mitteametkondlikud avaliku sektori kogud
+      Executive office:
+        one:
+        other:
+      Independent monitoring body:
+        one:
+        other:
+      Ministerial department:
+        one:
+        other:
+      Non-ministerial department:
+        one:
+        other:
+      Other:
+        one:
+        other:
+      Public corporation:
+        one:
+        other:
+      Sub-organisation:
+        one:
+        other:
+      Tribunal non-departmental public body:
+        one:
+        other:
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      organisation_chart:
+      transparency:
+    foi_exemption_html:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements:
+      our_consultations:
+      our_mainstream_categories:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      plus_others:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
+  people:
+    heading:
+      one:
+      other:
+    biography:
+    previous_roles:
+    previous_roles_in_government:
+    read_more:
+  roles:
+    heading:
+      one:
+      other:
+    headings:
+      current_holder:
+      previous_holders:
+      responsibilities:
+    ministerial:
+    policies_responsible_with_person:
+    previous_holders:
+    read_more:
+  world_location:
+    type:
+      international_delegation:
+        one:
+        other:
+      world_location:
+        one:
+        other:
+    headings:
+      announcements:
+      country:
+      documents:
+      mission:
+      organisations:
+      priorities:
+      publications:
+      quick_links:
+      related_policies:
+      statistics:
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number:
+        isbn:
+        unnumbered_hoc_paper:
+      attachment_data:
+        file:
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file:
+      detailed_guide:
+        primary_mainstream_category:
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file:
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      response/consultation_response_attachments/attachment/attachment_data:
+        file:
+      supporting_page/supporting_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number:
+        isbn:
+        order_url:
+        price:
+        title:
+        unique_reference:
+        unnumbered_hoc_paper:
+      supporting_page/supporting_page_attachments/attachment/attachment_data:
+        file:
+    nested_attachment_data_field_names:
+      file:
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number:
+      isbn:
+      order_url:
+      price:
+      title:
+      unique_reference:
+      unnumbered_hoc_paper:
+  announcements:
+    heading:
+    view_all:
+  attachment:
+    accessibility:
+      full_help_html:
+      heading:
+      request_a_different_format:
+    headings:
+      order_a_copy:
+      order_a_copy_full:
+      published:
+      reference:
+      unnumbered_command_paper:
+      unnumbered_hoc_paper:
+    opendocument:
+      help_html:
+    see_more:
+  change_notes:
+    page_history:
+    published_at:
+    see_all_updates:
+    updated_at:
+  contact:
+    contact_form:
+    email:
+  corporate_information_page:
+    type:
+      about:
+      about_our_services:
+      access_and_opening:
+      complaints_procedure:
+      equality_and_diversity:
+      media_enquiries:
+      membership:
+      our_energy_use:
+      our_governance:
+      personal_information_charter:
+      petitions_and_campaigns:
+      procurement:
+      publication_scheme:
+      recruitment:
+      research:
+      social_media_use:
+      staff_update:
+      statistics:
+      terms_of_reference:
+      welsh_language_scheme:
+  date:
+    formats:
+      default:
+      long_ordinal:
+  detailed_guidance:
+    back_to_contents:
+    categories:
+    contents:
+    more:
+    part_of_published_collection:
+    published_related_detailed_guides:
+    related_mainstream_content:
+    see_more_like_this:
+  document_filters:
+    description:
+    no_results:
+      description:
+      title:
+      tna_heading:
+      tna_link:
+    world_locations:
+      all:
+      label:
+  feeds:
+    email:
+    feed:
+    get_updates_to_this_list:
+    latest_activity:
+  i18n:
+    direction: ltr
+  language_names:
+    et:
+  latest_feed:
+    no_updates:
+    title:
+  national_statistics:
+    heading:
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading:
+    view_all:
+  publications:
+    heading:
+    headings:
+      detail:
+  read_more:
+  see_all:
+    announcement:
+    authored_article:
+    case_study:
+    closed_consultation:
+    consultation:
+    consultation_outcome:
+    corporate_report:
+    correspondence:
+    decision:
+    detailed_guidance:
+    document_collection:
+    draft_text:
+    fatality_notice:
+    foi_release:
+    form:
+    government_response:
+    guidance:
+    impact_assessment:
+    imported:
+    international_treaty:
+    map:
+    national_statistics:
+    news_article:
+    news_story:
+    notice:
+    open_consultation:
+    oral_statement:
+    policy:
+    policy_paper:
+    press_release:
+    promotional:
+    publication:
+    regulation:
+    research:
+    speaking_notes:
+    speech:
+    statement_to_parliament:
+    statistical_data_set:
+    statistics:
+    statutory_guidance:
+    transcript:
+    transparency:
+    worldwide_priority:
+    written_statement:
+  social_media:
+    follow_us:
+  support:
+    array:
+      last_word_connector:
+  time:
+    formats:
+      long_ordinal:
+  worldwide_organisation:
+    corporate_information:
+      about_our_services_html:
+      personal_information_charter_html:
+      publication_scheme_html:
+      social_media_use_html:
+      welsh_language_scheme_html:
+    find_out_more:
+    headings:
+      about_us:
+      contact_us:
+      corporate_information:
+      follow_us:
+      our_people:
+      our_services:
+    location:
+    part_of:
