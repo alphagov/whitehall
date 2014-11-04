@@ -154,14 +154,6 @@ module OrganisationHelper
     end
   end
 
-  def organisation_site_thumbnail_path(organisation)
-    begin
-      image_path("organisation_screenshots/#{organisation.slug}.png")
-    rescue Sprockets::Helpers::RailsHelper::AssetPaths::AssetNotPrecompiledError
-      image_path("thumbnail-placeholder.png")
-    end
-  end
-
   def has_any_transparency_pages?(organisation)
     organisation.corporate_information_pages.any? ||
       organisation.has_published_publications_of_type?(PublicationType::FoiRelease) ||
