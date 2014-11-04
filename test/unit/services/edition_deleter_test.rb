@@ -51,12 +51,4 @@ class EditionDeleterTest < ActiveSupport::TestCase
     edition.reload
     assert_equal 'deleted-just-a-test', edition.slug
   end
-
-  test '#perform! removes email curation queue items after deleting the edition' do
-    edition = create(:draft_edition, title: 'Just A Test')
-    item = create(:email_curation_queue_item, edition: edition)
-
-    assert EditionDeleter.new(edition).perform!
-    refute EmailCurationQueueItem.exists?(item), 'Email curation queue item should be destroyed'
-  end
 end

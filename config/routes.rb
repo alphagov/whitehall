@@ -364,10 +364,6 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :email_curation_queue_items, path: 'email-curation-queue', except: [:show, :new, :create] do
-          post :send_to_subscribers, on: :member
-        end
-
         post "preview" => "preview#preview"
 
         scope '/get-involved' do
