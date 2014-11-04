@@ -96,21 +96,16 @@ class StatisticsAnnouncementsControllerTest < ActionController::TestCase
     assert_template layout: nil, partial: 'statistics_announcements/_filter_results'
   end
 
-  ### Describing #show
-
-  test "#show assigns @announcement as a Frontend::StatisticsAnnouncement inflated from the publisher model" do
+  test "#show renders announcements that have no linked published publication" do
     announcement = create :statistics_announcement
     get :show, id: announcement.slug
-    assert assigns(:announcement).is_a?(Frontend::StatisticsAnnouncement)
+
+    assert_response :success
+    assert_template :show
     assert_equal announcement.slug, assigns(:announcement).slug
   end
 
-  test "#show responds with 404 if announcement not found" do
-    get :show, id: "not-a-slug"
-    assert_equal 404, response.status
-  end
-
-  test "#show redirects to publication show page if linked publication is already published" do
+  test "#show redirects to an announcement's linked and published publication" do
     statistics = create :published_statistics
     announcement = create :statistics_announcement, publication: statistics
 

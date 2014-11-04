@@ -5,13 +5,6 @@ module Frontend
       CollectionPage.new(build_collection(results['results']), total: results['total'], page: search_params[:page], per_page: search_params[:per_page])
     end
 
-    def self.find_by_slug(slug)
-      publisher_announcement = ::StatisticsAnnouncement.find_by_slug(slug)
-      if publisher_announcement.present?
-        build_from_publisher_model(publisher_announcement)
-      end
-    end
-
   private
     def self.build_collection(release_announcement_hashes)
       Array(release_announcement_hashes).map { | release_announcement_hash | build_from_rummager_hash(release_announcement_hash) }
@@ -33,26 +26,6 @@ module Frontend
         state: rummager_hash['statistics_announcement_state'],
         cancellation_reason: rummager_hash['metadata']['cancellation_reason'],
         cancellation_date: rummager_hash['metadata']['cancelled_at'],
-      })
-    end
-
-    def self.build_from_publisher_model(model)
-      Frontend::StatisticsAnnouncement.new({
-        slug: model.slug,
-        title: model.title,
-        summary: model.summary,
-        publication: model.publication,
-        document_type: model.display_type,
-        release_date: model.current_release_date.release_date,
-        display_date: model.current_release_date.display_date,
-        release_date_confirmed: model.current_release_date.confirmed,
-        release_date_change_note: model.current_release_date.change_note,
-        previous_display_date: model.previous_display_date,
-        organisations: model.organisations,
-        topics: model.topics,
-        state: model.state,
-        cancellation_reason: model.cancellation_reason,
-        cancellation_date: model.cancelled_at,
       })
     end
 
