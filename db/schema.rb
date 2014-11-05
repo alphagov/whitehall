@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141020104406) do
+ActiveRecord::Schema.define(:version => 20141104065736) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -485,17 +485,6 @@ ActiveRecord::Schema.define(:version => 20141020104406) do
 
   add_index "editorial_remarks", ["author_id"], :name => "index_editorial_remarks_on_author_id"
   add_index "editorial_remarks", ["edition_id"], :name => "index_editorial_remarks_on_edition_id"
-
-  create_table "email_curation_queue_items", :force => true do |t|
-    t.integer  "edition_id",        :null => false
-    t.string   "title"
-    t.text     "summary"
-    t.datetime "notification_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "email_curation_queue_items", ["edition_id"], :name => "index_email_curation_queue_items_on_edition_id"
 
   create_table "fact_check_requests", :force => true do |t|
     t.integer  "edition_id"
