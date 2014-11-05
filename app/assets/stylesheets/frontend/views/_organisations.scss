@@ -220,10 +220,62 @@
     }
   }
 
-  .block-1 {
+  .headings-block {
     padding: $gutter-one-third 0 0;
     @include media(tablet) {
       padding-bottom: $gutter-one-sixth;
+    }
+
+    .logo {
+      @include media(tablet) {
+        float: left;
+        width: $two-thirds;
+      }
+      h1 {
+        padding: 0;
+      }
+
+      .parent-organisations {
+        @include core-16;
+        padding-top: $gutter-one-third;
+      }
+    }
+
+    .heading-extra {
+      margin-bottom: 0;
+      @include media(tablet) {
+        margin-bottom: $gutter;
+      }
+    }
+
+    &.service-priority {
+      @extend %grid-row;
+      .logo {
+        @include grid-column( 1/3 );
+
+        img.organisation-logo-custom {
+          max-width: 100%;
+        }
+      }
+      .heading-extra {
+        @include grid-column( 2/3 );
+        ul {
+          margin: 0;
+          padding: 0;
+        }
+        li a,
+        .see-all{
+          @include bold-24;
+        }
+        .see-all {
+          padding-top: $gutter-one-third;
+        }
+      }
+    }
+
+    .page-header {
+      padding: $gutter-two-thirds 0 $gutter-one-third;
+      overflow: hidden;
     }
   }
 
@@ -296,32 +348,6 @@
 
   p a {
     text-decoration: underline;
-  }
-
-  .page-header {
-    padding: $gutter-two-thirds 0 $gutter-one-third;
-    overflow: hidden;
-
-    h1 {
-      padding: 0;
-
-      @include media(tablet) {
-        float: left;
-        width: $two-thirds;
-      }
-    }
-
-    .heading-extra {
-      margin-bottom: 0;
-      @include media(tablet) {
-        margin-bottom: $gutter;
-      }
-    }
-
-    .parent-organisations {
-      padding-top: $gutter-one-third;
-      clear: left;
-    }
   }
 
   .block-2 {

@@ -5,34 +5,11 @@
 
 <%= organisation_wrapper(@organisation) do %>
 
-  <div class="block-1 headings-block">
+  <div class="block-1 headings-block<%= " service-priority" if @organisation.service_priority_homepage? %>">
     <div class="inner-block">
-      <%= render 'header', organisation: @organisation, show_featured_links: @organisation.news_priority_homepage?, languages_available: true %>
+      <%= render 'header', organisation: @organisation, show_featured_links: true, languages_available: true %>
     </div>
   </div>
-
-  <% if @organisation.service_priority_homepage? %>
-    <div class="heading-block">
-      <div class="inner-block">
-        <section class="featured-services-and-guidance" aria-describedby="featured-services-and-guidance-heading">
-          <div class="head-section">
-            <h2 id="featured-services-and-guidance-heading">Services and guidance</h2>
-          </div>
-
-          <div class="content">
-            <%= render 'shared/featured_links',
-              links: @organisation.visible_featured_links %>
-            <% if @organisation.has_services_and_information_link? %>
-              <p class="see-all">
-                <%= link_to "All #{organisation_display_name(@organisation)} services and information".html_safe,
-                            services_and_information_path(@organisation) %>
-              </p>
-            <% end %>
-          </div>
-        </section>
-      </div>
-    </div>
-  <% end %>
 
   <div class="block-2 <%= "has-social" if @organisation.social_media_accounts.any? %>">
     <div class="inner-block">

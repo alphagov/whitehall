@@ -10,6 +10,7 @@
 @import "_colours.scss";
 @import "_conditionals.scss";
 @import "_css3.scss";
+@import "_grid_layout.scss";
 @import "_measurements.scss";
 @import "_typography.scss";
 @import "_shims.scss";
@@ -63,7 +64,6 @@
   @import "helpers/_headings.scss";
   @import "helpers/_featured-links.scss";
   @import "helpers/_featured_news.scss";
-  @import "helpers/_featured-services-and-guidance.scss";
   @import "helpers/_feeds.scss";
   @import "helpers/_filtered-index.scss";
   @import "helpers/_govspeak.scss";
