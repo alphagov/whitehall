@@ -89,6 +89,15 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal nil, DocumentSource.find_by_id(document_source.id)
   end
 
+  test "#destroy also destroys document collection group memberships" do
+    published_edition = create(:published_edition)
+    document_collection = create(:published_document_collection,
+      groups: [ build(:document_collection_group, documents: [published_edition.document]) ])
+
+    published_edition.document.destroy
+    assert_empty DocumentCollectionGroupMembership.where(document_id: published_edition.document.id)
+  end
+
   test "should list a single change history when sole published edition is marked as a minor change" do
     edition = create(:published_policy, minor_change: true, change_note: nil)
 
