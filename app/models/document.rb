@@ -27,7 +27,7 @@ class Document < ActiveRecord::Base
                AND e2.state <> 'deleted'))
 
   has_many :document_sources, dependent: :destroy
-  has_many :document_collection_group_memberships
+  has_many :document_collection_group_memberships, dependent: :delete_all
   has_many :document_collection_groups, through: :document_collection_group_memberships
   has_many :document_collections, through: :document_collection_groups
   has_many :features, inverse_of: :document
