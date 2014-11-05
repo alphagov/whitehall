@@ -193,6 +193,8 @@
   }
 
   .aside-more-like-this {
+    clear: both;
+
     h1 {
       @include ig-core-27;
       background: $detailed-guidance-brand;
@@ -277,4 +279,15 @@
   .heading-extra {
     padding-top: 45px;
   }
+
+  .document-footer-meta {
+    padding: $gutter;
+    .history {
+      width: $one-quarter;
+    }
+    .links {
+      width: $three-quarters;
+    }
+  }
+
 }

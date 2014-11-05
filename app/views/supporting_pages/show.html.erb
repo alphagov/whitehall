@@ -5,6 +5,7 @@
     <div class="inner-block floated-children">
       <%= render "documents/header",
                  document: @policy,
+                 footer_meta: true,
                  header_title: 'Policy',
                  topics: @policy.topics %>
     </div>
@@ -34,5 +35,8 @@
 
       <%= render "document_content" %>
     </div>
+  </div>
+  <div class="inner-block">
+    <%= render partial: 'documents/document_footer_meta', locals: { document: @policy, policies: @related_policies } %>
   </div>
 <% end %>
