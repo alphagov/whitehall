@@ -20,6 +20,19 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal [], registerable_edition.prefixes
   end
 
+  test "prepares a translated detailed guide for registration with Panopticon" do
+    edition = create(:published_detailed_guide, translated_into: [:cy, :fr],
+                     title: "Edition title",
+                     summary: "Edition summary")
+
+    slug = edition.document.slug
+
+    registerable_edition = RegisterableEdition.new(edition)
+
+    assert_same_elements ["/#{slug}", "/#{slug}.cy", "/#{slug}.fr"], registerable_edition.paths
+  end
+
+
   test "does not set any routes for other formats" do
     edition = create(:published_publication,
                      title: "Edition title",

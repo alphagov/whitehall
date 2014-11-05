@@ -21,7 +21,7 @@ class RegisterableEdition
 
   def paths
     if kind == "detailed_guide"
-      ["/#{slug}"]
+      detailed_guide_paths
     else
       []
     end
@@ -82,5 +82,9 @@ private
 
   def published?
     edition.state == "published"
+  end
+
+  def detailed_guide_paths
+    ["/#{slug}"] + edition.non_english_translations.map { |t| "/#{edition.slug}.#{t.locale}" }
   end
 end
