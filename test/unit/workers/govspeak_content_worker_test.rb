@@ -76,6 +76,10 @@ class GovspeakContentWorkerTest < ActiveSupport::TestCase
       govspeak_content.computed_headers_html
   end
 
+  test "silently handles non-existant GovspeakContent" do
+    GovspeakContentWorker.new.perform(non_existant_id = 123)
+  end
+
 private
 
   def example_govspeak
