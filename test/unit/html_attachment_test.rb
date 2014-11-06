@@ -11,6 +11,15 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
       attachment.govspeak_content_body_html
   end
 
+  test 'associated govspeak content is deleted with the html attachment' do
+    attachment = create(:html_attachment)
+    govspeak_content = attachment.govspeak_content
+
+    attachment.destroy
+
+    refute GovspeakContent.exists?(govspeak_content)
+  end
+
   test '#deep_clone deep clones the HTML attachment and body' do
     attachment = create(:html_attachment)
 

@@ -2,7 +2,8 @@ class HtmlAttachment < Attachment
   extend FriendlyId
   friendly_id :sluggable_string
 
-  has_one :govspeak_content, autosave: true, inverse_of: :html_attachment
+  has_one :govspeak_content,
+    autosave: true, inverse_of: :html_attachment, dependent: :destroy
 
   before_validation :clear_slug_if_non_english_locale
 
