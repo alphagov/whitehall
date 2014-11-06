@@ -2,7 +2,8 @@ class GovspeakContentWorker
   include Sidekiq::Worker
 
   def perform(id)
-    govspeak_content = GovspeakContent.find(id)
+    return unless govspeak_content = GovspeakContent.find_by_id(id)
+
     govspeak_content.computed_body_html = generate_govspeak(govspeak_content)
     govspeak_content.computed_headers_html = generate_headers(govspeak_content)
     govspeak_content.save!
