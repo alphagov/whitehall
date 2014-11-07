@@ -17,6 +17,10 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(gds_editor, Edition).can?(:create)
   end
 
+  test 'can export editions' do
+    assert enforcer_for(gds_editor, Edition).can?(:export)
+  end
+
   test 'can see an edition that is not access limited' do
     assert enforcer_for(gds_editor, normal_edition).can?(:see)
   end

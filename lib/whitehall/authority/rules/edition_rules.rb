@@ -101,7 +101,11 @@ module Whitehall::Authority::Rules
     end
 
     def can_with_a_class?(action)
-      [:create, :see, :export, :confirm_export].include? action
+      if [:export, :confirm_export].include? action
+        actor.gds_editor? || actor.gds_admin?
+      else
+        [:create, :see].include? action
+      end
     end
 
     def world_actor?

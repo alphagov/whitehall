@@ -1,7 +1,7 @@
 require 'unit/whitehall/authority/authority_test_helper'
 require 'ostruct'
 
-class GDSEditorTest < ActiveSupport::TestCase
+class GDSAdminTest < ActiveSupport::TestCase
   def gds_admin(id = 1)
     OpenStruct.new(id: id, gds_admin?: true, organisation: build(:organisation))
   end
@@ -18,4 +18,9 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'gds admin can create a new organisation' do
     assert enforcer_for(gds_admin, Organisation).can?(:create)
   end
+
+  test 'can export editions' do
+    assert enforcer_for(gds_admin, Edition).can?(:export)
+  end
+
 end
