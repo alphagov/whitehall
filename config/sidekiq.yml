@@ -1,5 +1,6 @@
-:verbose: false
+:verbose: true
 :concurrency:  2
+:logfile: ./log/sidekiq.json.log
 :queues:
   - [imports, 2]
   - [router, 4]
