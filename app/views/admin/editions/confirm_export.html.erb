@@ -7,7 +7,7 @@
     <ul>
       <li><%= @filter.page_title %></li>
     </ul>
-    <form action="<%= export_admin_editions_path %>?<%= @filter.options.to_param %>" method="POST">
+    <%= form_tag "#{export_admin_editions_path}?#{@filter.options.to_param}" %>
       <%= submit_tag "Export as CSV", class: 'btn' %>
 
       <%= link_to "Cancel and return to list", "#{admin_editions_path}?#{@filter.options.to_param}", class: 'btn' %>
