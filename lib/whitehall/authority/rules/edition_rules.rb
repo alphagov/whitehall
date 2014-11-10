@@ -6,7 +6,7 @@ module Whitehall::Authority::Rules
         :approve, :publish, :force_publish,
         :reject, :make_fact_check, :review_fact_check,
         :make_editorial_remark, :review_editorial_remark,
-        :limit_access, :unpublish
+        :limit_access, :unpublish, :export, :confirm_export
       ]
     end
 
@@ -101,7 +101,11 @@ module Whitehall::Authority::Rules
     end
 
     def can_with_a_class?(action)
-      [:create, :see].include? action
+      if [:export, :confirm_export].include? action
+        actor.gds_editor? || actor.gds_admin?
+      else
+        [:create, :see].include? action
+      end
     end
 
     def world_actor?

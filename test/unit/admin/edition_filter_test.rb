@@ -249,4 +249,17 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     filter = Admin::EditionFilter.new(Edition, build(:user), to_date: '09/11/2011')
     assert_equal "Everyone’s documents before 09/11/2011", filter.page_title
   end
+
+  test "should paginate editions" do
+    3.times { create(:policy) }
+    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
+    assert_equal 2, filter.editions.count
+  end
+
+  test "editions_for_csv should not be paginated" do
+    3.times { create(:policy) }
+    filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
+    assert_equal 3, filter.editions_for_csv.count
+  end
+
 end

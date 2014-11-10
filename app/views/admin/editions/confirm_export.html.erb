@@ -1,0 +1,16 @@
+<% page_title "Export: #{@filter.page_title}"  %>
+
+<div class="span8">
+  <section>
+    <h1>Export as CSV</h1>
+    <p>Please confirm you want to export the documents list. The following will be emailed to <strong><%= current_user.email %></strong>:</p>
+    <ul>
+      <li><%= @filter.page_title %></li>
+    </ul>
+    <form action="<%= export_admin_editions_path %>?<%= @filter.options.to_param %>" method="POST">
+      <%= submit_tag "Export as CSV", class: 'btn' %>
+
+      <%= link_to "Cancel and return to list", "#{admin_editions_path}?#{@filter.options.to_param}", class: 'btn' %>
+    </form>
+  </section>
+</div>

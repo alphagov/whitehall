@@ -49,6 +49,12 @@ class Notifications < ActionMailer::Base
     mail from: no_reply_email_address, to: recipient_address, subject: 'GOV.UK broken link reports'
   end
 
+  def document_list(csv, recipient_address, filter_title)
+    attachments['document_list.csv'] = csv
+
+    mail from: no_reply_email_address, to: recipient_address, subject: "#{filter_title} from GOV.UK"
+  end
+
   private
 
   def no_reply_email_address

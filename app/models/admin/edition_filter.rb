@@ -17,23 +17,22 @@ module Admin
       @editions ||= {}
       return @editions[locale] if @editions[locale]
 
-      editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
+      requested_editions = editions_with_translations(locale)
+        .page(options[:page])
+        .per(options.fetch(:per_page) { default_page_size })
 
-      editions_with_translations = if locale
-        editions_without_translations.with_translations(locale)
-      else
-        editions_without_translations.includes(:translations)
-      end
+      @editions[locale] = Kaminari.paginate_array(
+        permitted_only(requested_editions),
+        total_count: requested_editions.total_count
+      ).page(options[:page])
+    end
 
-      paginated_editions = editions_with_translations.page(options[:page]).per(options.fetch(:per_page) { default_page_size })
+    def editions_for_csv(locale = nil)
+      @editions_for_csv ||= {}
+      return @editions_for_csv[locale] if @editions_for_csv[locale]
 
-      permitted_only = paginated_editions.select do |edition|
-        Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
-      end
-
-      new_paginator = Kaminari.paginate_array(permitted_only, total_count: paginated_editions.total_count).page(options[:page])
-
-      @editions[locale] = new_paginator
+      requested_editions = editions_with_translations(locale)
+      @editions_for_csv[locale] = permitted_only(requested_editions)
     end
 
     def page_title
@@ -117,6 +116,22 @@ module Admin
       editions = editions.to_date(to_date) if to_date
 
       @unpaginated_editions = editions
+    end
+
+    def editions_with_translations(locale = nil)
+      editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
+
+      if locale
+        editions_without_translations.with_translations(locale)
+      else
+        editions_without_translations.includes(:translations)
+      end
+    end
+
+    def permitted_only(requested_editions)
+      requested_editions.select do |edition|
+        Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
+      end
     end
 
     def state
