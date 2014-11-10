@@ -132,28 +132,25 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   end
 
   def required_arcgis_file_list
-    [
-      'london.shp',
-      'london.shx',
-      'london.dbf'
-    ]
+    %w(london.shp london.shx london.dbf)
   end
 
   def optional_argis_file_list
-    [
-      'london.prj',
-      'london.sbn',
-      'london.sbx',
-      'london.fbn',
-      'london.fbx',
-      'london.ain',
-      'london.aih',
-      'london.ixs',
-      'london.mxs',
-      'london.atx',
-      'london.shp.xml',
-      'london.cpg'
-    ]
+    %w(
+      london.aih
+      london.ain
+      london.atx
+      london.avl
+      london.cpg
+      london.fbn
+      london.fbx
+      london.ixs
+      london.mxs
+      london.prj
+      london.sbn
+      london.sbx
+      london.shp.xml
+    )
   end
 
   def comprehensive_arcgis_file_list
