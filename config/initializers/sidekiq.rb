@@ -1,3 +1,6 @@
+require 'sidekiq/logging/json'
+
+Sidekiq.logger.formatter = Sidekiq::Logging::Json::Logger.new
 redis_config = YAML.load_file(Rails.root.join("config", "redis.yml")).symbolize_keys
 
 Sidekiq.configure_server do |config|
