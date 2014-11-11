@@ -57,4 +57,9 @@ class Admin::BaseController < ApplicationController
   end
   helper_method :typecast_for_attachable_routing
 
+  # Override the default Rails behaviour to raise an exception when receiving
+  # unverified requests instead of nullifying the session
+  def handle_unverified_request
+    raise ActionController::InvalidAuthenticityToken
+  end
 end
