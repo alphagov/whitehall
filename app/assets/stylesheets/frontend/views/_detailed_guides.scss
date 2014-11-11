@@ -280,13 +280,17 @@
     padding-top: 45px;
   }
 
-  .document-footer-meta {
-    padding: $gutter;
-    .history {
-      width: $one-quarter;
-    }
-    .links {
-      width: $three-quarters;
+
+  @include media(desktop) {
+    .document-footer-meta {
+      padding: $gutter;
+
+      .history {
+        width: $one-quarter;
+      }
+      .links {
+        width: $three-quarters;
+      }
     }
   }
 
