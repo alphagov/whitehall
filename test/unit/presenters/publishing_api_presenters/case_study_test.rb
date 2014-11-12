@@ -9,7 +9,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
   test "case studies are presented with barebones content for the publishing API" do
     case_study = create(:published_case_study,
                     title: 'Case study title',
-                    summary: 'The summary')
+                    summary: 'The summary',
+                    body: 'Some content')
 
     public_path = Whitehall.url_maker.public_document_path(case_study)
     expected_hash = {
@@ -27,7 +28,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       ],
       redirects: [],
       details: {
-        body: '<div class="govspeak"></div>',
+        body: "<div class=\"govspeak\"><p>Some content</p></div>",
         first_published_at: case_study.first_public_at,
         change_note: nil,
         tags: {
@@ -36,8 +37,17 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         }
       },
     }
+    presented_hash = present(case_study)
 
-    assert_equal_hash expected_hash, present(case_study)
+    assert_equal_hash expected_hash.except(:details),
+      presented_hash.except(:details)
+
+    # We test for HTML equivlance rather than string equality to get around
+    # inconsistencies with line breaks between different XML libraries
+    assert_equivalent_html expected_hash[:details].delete(:body),
+      presented_hash[:details].delete(:body)
+
+    assert_equal expected_hash[:details], presented_hash[:details]
   end
 
   def assert_equal_hash(expected, actual)

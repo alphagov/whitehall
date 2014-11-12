@@ -6,6 +6,7 @@ module Whitehall
   autoload :UrlMaker, 'whitehall/url_maker'
   autoload :ExtraQuoteRemover, 'whitehall/extra_quote_remover'
   autoload :GovUkDelivery, 'whitehall/gov_uk_delivery'
+  autoload :EditionGovspeakRenderer, 'whitehall/edition_govspeak_renderer'
 
   mattr_accessor :search_backend
   mattr_accessor :government_search_client

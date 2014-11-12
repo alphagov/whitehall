@@ -25,7 +25,7 @@ module PublishingApiPresenters
 
     def details
       {
-        body: "<div class=\"govspeak\"></div>",
+        body: body,
         first_published_at: edition.first_public_at,
         change_note: edition.most_recent_change_note,
         tags: {
@@ -33,6 +33,10 @@ module PublishingApiPresenters
           topics: specialist_sectors,
         }
       }
+    end
+
+    def body
+      Whitehall::EditionGovspeakRenderer.new(edition).body
     end
 
     def update_type
