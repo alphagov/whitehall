@@ -11,6 +11,7 @@
                   locals: {
                     header_title: t_display_type(@document),
                     document: @document,
+                    footer_meta: true,
                     policies: @related_policies,
                     topics: @document.topics,
                     primary_mainstream_category: @document.primary_mainstream_category
@@ -64,6 +65,7 @@
       <div class="js-back-to-content back-to-content visuallyhidden">
         <a href="#page-navigation"><%= t('detailed_guidance.back_to_contents') %></a>
       </div>
+      <%= render partial: 'documents/document_footer_meta', locals: { document: @document, policies: @related_policies } %>
       <aside id="more-like-this" class="aside-more-like-this">
         <h1><%= t('detailed_guidance.more') %></h1>
         <% if @categories.any? %>
