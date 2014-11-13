@@ -35,7 +35,7 @@ Feature: Importing new editions
   - title: required
   - summary: optional
   - body: required
-  - body_1..9: optional - allows long bodies to be split across multiple columns. body + body_1..9 are concatinated to form the complete body
+  - body_1..99: optional - allows long bodies to be split across multiple columns. body + body_1..99 are concatenated to form the complete body
   - organisation: required, ideally default blank to SELECTED, reject anything that is non-blank that can't be found
 
   Publications:
