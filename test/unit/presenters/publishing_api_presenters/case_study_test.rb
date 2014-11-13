@@ -29,7 +29,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       redirects: [],
       details: {
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
-        first_published_at: case_study.first_public_at,
+        first_public_at: case_study.first_public_at,
         change_note: nil,
         tags: {
           browse_pages: [],
