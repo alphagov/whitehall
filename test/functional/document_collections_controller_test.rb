@@ -57,15 +57,25 @@ class DocumentCollectionsControllerTest < ActionController::TestCase
 
   test "GET #show sets Cache-Control: max-age to the time of the next scheduled publication in the collection" do
     collection = create(:published_document_collection, :with_group)
-    publication = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    publication = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.document_collections_cache_max_age * 2)
 
     collection.groups.first.documents << publication.document
 
-    Timecop.freeze(Time.zone.now + Whitehall.default_cache_max_age * 1.5) do
+    Timecop.freeze(Time.zone.now + Whitehall.document_collections_cache_max_age * 1.5) do
       get :show, id: collection.slug
     end
 
-    assert_cache_control("max-age=#{Whitehall.default_cache_max_age / 2}")
+    assert_cache_control("max-age=#{Whitehall.document_collections_cache_max_age / 2}")
+  end
+
+  test "GET #show sets Cache-Control: max-age to Whitehall.document_collections_cache_max_age if nothing in the collection is scheduled to publish in that time period" do
+    collection = create(:published_document_collection, :with_group)
+    publication = create(:scheduled_publication, scheduled_publication: Time.zone.now + Whitehall.default_cache_max_age * 2)
+    collection.groups.first.documents << publication.document
+
+    get :show, id: collection.slug
+
+    assert_cache_control("max-age=#{Whitehall.document_collections_cache_max_age}")
   end
 end
 
