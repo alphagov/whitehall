@@ -23,14 +23,20 @@ module LeadImagePresenterHelper
     end
   end
 
-  def placeholder_image_exisits?
-    find_asset("organisation_default_news/s300_#{organisations.first.slug}.jpg")
-  end
-
   def lead_image_caption
     if images.first
       caption = images.first.caption && images.first.caption.strip
       caption.present? && caption
     end
+  end
+
+private
+
+  def placeholder_image_exisits?
+    find_asset("organisation_default_news/s300_#{organisations.first.slug}.jpg")
+  end
+
+  def find_asset(asset)
+    Rails.application.assets.find_asset(asset)
   end
 end

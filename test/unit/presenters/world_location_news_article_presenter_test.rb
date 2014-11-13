@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class WorldLocationNewsArticlePresenterTest < ActionView::TestCase
-
-  setup do
-    setup_view_context
-  end
-
   test "lead_image_path returns the world wide organisation default image" do
     image = create(:default_news_organisation_image_data)
     worldwide_organisation = create(:worldwide_organisation, default_news_image: image)
