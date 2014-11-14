@@ -4,10 +4,10 @@ class AttachmentUploaderTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   test 'should allow whitelisted file extensions' do
-    graphics = %w(png gif jpg eps ps dxf)
-    documents = %w(chm diff pdf rtf doc docx ppt pptx rdftxt odt odp ics)
-    spreadsheets = %w(csv xls xlsx xlsm ods)
-    markup = %w(gml kml sch xml xsd wsdl)
+    graphics = %w(dxf eps gif jpg png ps)
+    documents = %w(chm diff doc docx ics odp odt pdf ppt pptx rdf rtf txt)
+    spreadsheets = %w(csv ods xls xlsm xlsx)
+    markup = %w(gml kml sch wsdl xml xsd)
     containers = %w(zip)
     templates = %w(dot xlt xslt)
 
