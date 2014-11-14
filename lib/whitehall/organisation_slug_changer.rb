@@ -30,7 +30,7 @@ class Whitehall::OrganisationSlugChanger
                               "/government/organisations/#{new_slug}")
 
     logger.info "Re-registering #{new_slug} published editions in search and panopticon"
-    organisation.editions.published.each do |edition|
+    organisation.editions.published.find_each do |edition|
       ServiceListeners::SearchIndexer.new(edition).index!
       ServiceListeners::PanopticonRegistrar.new(edition).register!
     end
