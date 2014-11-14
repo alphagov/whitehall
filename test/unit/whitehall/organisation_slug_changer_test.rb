@@ -8,6 +8,8 @@ module Whitehall
       @organisation.stubs(:remove_from_search_index)
       @new_slug = 'new-slug'
       @slug_changer = OrganisationSlugChanger.new(@organisation, @new_slug, router: @router)
+      ServiceListeners::SearchIndexer.any_instance.stubs(:index!)
+      ServiceListeners::PanopticonRegistrar.any_instance.stubs(:register!)
     end
 
     test 'it removes the org from search index' do
@@ -45,11 +47,22 @@ module Whitehall
       @slug_changer.call
     end
 
-    test 're-registers any published editions associated with the organisation' do
-      Whitehall::SearchIndex.stubs(:add)
-
+    test 're-registers in search any published editions associated with the organisation' do
       edition = create(:published_publication, organisations: [@organisation])
-      Whitehall::SearchIndex.expects(:add).with(edition)
+
+      indexer = mock("indexer")
+      indexer.expects(:index!)
+      ServiceListeners::SearchIndexer.expects(:new).with(edition).returns(indexer)
+
+      @slug_changer.call
+    end
+
+    test 're-registers in panopticon any published editions associated with the organisation' do
+      edition = create(:published_publication, organisations: [@organisation])
+
+      registerer = mock("registerer")
+      registerer.expects(:register!)
+      ServiceListeners::PanopticonRegistrar.expects(:new).with(edition).returns(registerer)
 
       @slug_changer.call
     end
