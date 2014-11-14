@@ -776,6 +776,11 @@
         clear: both;
         padding: $gutter 0 $gutter-half 0;
       }
+      .contact {
+        h2 {
+          border-top: none;
+        }
+      }
     }
 
     .see-legislation {
