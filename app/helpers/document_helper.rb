@@ -79,7 +79,9 @@ module DocumentHelper
 
   def humanized_content_type(file_extension)
     file_extension_vs_humanized_content_type = {
+      "chm"  => file_abbr_tag('CHM', 'Microsoft Compiled HTML Help'),
       "csv"  => file_abbr_tag('CSV', 'Comma-separated Values'),
+      "diff" => file_abbr_tag('DIFF', 'Plain text differences'),
       "doc"  => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
       "dot"  => file_abbr_tag('DOT', 'MS Word Document Template'),
       "docx" => MS_WORD_DOCUMENT_HUMANIZED_CONTENT_TYPE,
@@ -98,14 +100,17 @@ module DocumentHelper
       "ppt"  => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
       "pptx" => MS_POWERPOINT_PRESENTATION_HUMANIZED_CONTENT_TYPE,
       "ps"   => file_abbr_tag('PS', 'PostScript'),
+      "sch"  => file_abbr_tag('SCH', 'XML based Schematic'),
       "rdf"  => file_abbr_tag('RDF', 'Resource Description Framework'),
       "rtf"  => file_abbr_tag('RTF', 'Rich Text Format'),
       "txt"  => "Plain text",
+      "wsdl" => file_abbr_tag('WDSL', 'Web Services Description Language'),
       "xls"  => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "xlsm" => file_abbr_tag('XSLM', 'MS Excel Macro-Enabled Workbook'),
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "xlt"  => file_abbr_tag('XLT', 'MS Excel Spreadsheet Template'),
       "xsd"  => file_abbr_tag('XSD', 'XML Schema'),
+      "xlst" => file_abbr_tag('XSLT', 'Extensible Stylesheet Language Transformation'),
       "zip"  => file_abbr_tag('ZIP', 'Zip archive'),
     }
     file_extension_vs_humanized_content_type[file_extension.downcase] if file_extension.present?
