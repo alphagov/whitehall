@@ -8,7 +8,8 @@ class AttachmentUploader < WhitehallUploader
   PDF_CONTENT_TYPE = 'application/pdf'
   INDEXABLE_TYPES = %w(csv doc docx ods odp odt pdf ppt pptx rdf rtf txt xls xlsx xml)
 
-  FALLBACK_THUMBNAIL_PDF = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
+  THUMBNAIL_GENERATION_TIMEOUT = 10.seconds
+  FALLBACK_PDF_THUMBNAIL = File.expand_path("../../assets/images/pub-cover.png", __FILE__)
   EXTENSION_WHITE_LIST = %w(chm csv diff doc docx dot dxf eps gif gml ics jpg kml odp ods odt pdf png ppt pptx ps rdf rtf sch txt wsdl xls xlsm xlsx xlt xml xsd xslt zip)
 
   process :set_content_type
@@ -41,11 +42,16 @@ class AttachmentUploader < WhitehallUploader
   end
 
   def get_first_page_as_png(width, height)
-    output = `#{pdf_thumbnail_command(width, height)}`
+    output = Timeout.timeout(THUMBNAIL_GENERATION_TIMEOUT) do
+      `#{pdf_thumbnail_command(width, height)}`
+    end
     unless $?.success?
       Rails.logger.warn "Error thumbnailing PDF. Exit status: #{$?.exitstatus}; Output: #{output}"
-      FileUtils.cp(FALLBACK_THUMBNAIL_PDF, path)
+      use_fallback_pdf_thumbnail
     end
+  rescue Timeout::Error => e
+    Rails.logger.warn "PDF thumbnail generation took longer than #{THUMBNAIL_GENERATION_TIMEOUT} seconds. Using fallback pdf thumbnail: #{FALLBACK_PDF_THUMBNAIL}."
+    use_fallback_pdf_thumbnail
   end
 
   def pdf_thumbnail_command(width, height)
@@ -212,6 +218,12 @@ class AttachmentUploader < WhitehallUploader
     ]
     problem = examiners.detect { |examiner| !examiner.valid? }
     raise CarrierWave::IntegrityError, problem.failure_message if problem
+  end
+
+  private
+
+  def use_fallback_pdf_thumbnail
+    FileUtils.cp(FALLBACK_PDF_THUMBNAIL, path)
   end
 
 end
