@@ -12,11 +12,6 @@ class NewsArticlePresenterTest < ActionView::TestCase
     assert_match 'placeholder', @presenter.lead_image_path
   end
 
-  test "lead_image_path returns the department's default placeholder" do
-    @presenter.stubs(:find_asset).returns(true)
-    assert_match "organisation_default_news/s300_#{@organisation.slug}.jpg", @presenter.lead_image_path
-  end
-
   test "lead_image_path returns the department default image" do
     image = create(:default_news_organisation_image_data)
     organisation = create(:organisation,
