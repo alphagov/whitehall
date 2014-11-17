@@ -1,5 +1,6 @@
 class DocumentCollectionsController < DocumentsController
   def show
+    cache_max_age(Whitehall.document_collections_cache_max_age)
     expire_on_next_scheduled_publication(@document.editions)
     @document_collection = @document
     set_meta_description(@document_collection.summary)
