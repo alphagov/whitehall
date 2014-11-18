@@ -74,7 +74,15 @@ class DocumentCollectionsControllerTest < ActionController::TestCase
     collection.groups.first.documents << publication.document
 
     get :show, id: collection.slug
+    assert_cache_control("max-age=#{Whitehall.document_collections_cache_max_age}")
+  end
 
+  test "GET #show sets Cache-Control: max-age to Whitehall.document_collections_cache_max_age if nothing in the collection is scheduled to publish ever" do
+    collection = create(:published_document_collection, :with_group)
+    publication = create(:publication)
+    collection.groups.first.documents << publication.document
+
+    get :show, id: collection.slug
     assert_cache_control("max-age=#{Whitehall.document_collections_cache_max_age}")
   end
 end
