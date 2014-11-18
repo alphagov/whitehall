@@ -1,10 +1,17 @@
 module PublishingApiPresenters
   class CaseStudy < PublishingApiPresenters::Edition
     def as_json
-      super.merge(format: "case_study")
+      super.merge(format: "case_study", links: links)
     end
 
   private
+
+    def links
+      {
+        lead_organisations: edition.lead_organisations.map(&:content_id),
+        supporting_organisations: edition.supporting_organisations.map(&:content_id)
+      }
+    end
 
     def details
       super.merge({body: body, first_public_at: edition.first_public_at}).tap do |json|
