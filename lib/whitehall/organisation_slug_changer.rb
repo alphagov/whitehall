@@ -29,10 +29,9 @@ class Whitehall::OrganisationSlugChanger
                               "exact",
                               "/government/organisations/#{new_slug}")
 
-    logger.info "Re-registering #{new_slug} published editions in search and panopticon"
+    logger.info "Re-registering #{new_slug} published editions in search"
     organisation.editions.published.find_each do |edition|
       ServiceListeners::SearchIndexer.new(edition).index!
-      ServiceListeners::PanopticonRegistrar.new(edition).register!
     end
   end
 
