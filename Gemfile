@@ -42,6 +42,7 @@ gem 'pdf-reader', '1.3.3'
 gem 'typhoeus', '0.6.8'
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
+gem 'json-schema', '2.4.1'
 
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'

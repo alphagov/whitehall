@@ -6,7 +6,14 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     PublishingApiPresenters::CaseStudy.new(edition).as_json
   end
 
-  test "case studies are presented with barebones content for the publishing API" do
+  test "presenter generates valid JSON according to the schema" do
+    case_study = create(:published_case_study)
+    presented_json = present(case_study).to_json
+
+    assert_valid_against_schema('case_study', presented_json)
+  end
+
+  test "case study presentation includes the correct values" do
     case_study = create(:published_case_study,
                     title: 'Case study title',
                     summary: 'The summary',
@@ -83,5 +90,10 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
   def assert_equal_hash(expected, actual)
     assert_equal expected, actual,
       "Hashes do not match. Differences are:\n\n#{mu_pp(expected.diff(actual))}\n"
+  end
+
+  def assert_valid_against_schema(schema_name, json)
+    validator = GovukContentSchema::Validator.new(schema_name, json)
+    assert validator.valid?, "JSON not valid against #{schema_name} schema: #{validator.errors.to_s}"
   end
 end

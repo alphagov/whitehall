@@ -176,6 +176,7 @@ GEM
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.1)
+    json-schema (2.4.1)
     jwt (1.0.0)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
@@ -415,6 +416,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-ui-rails
+  json-schema (= 2.4.1)
   kaminari
   launchy (~> 2.3.0)
   link_header
