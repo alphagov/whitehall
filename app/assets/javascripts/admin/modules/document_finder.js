@@ -12,8 +12,10 @@
     // store the selected document's id (with a name attribute of
     // 'document_id') or edition's id (with a name attribute of 'edition_id').
 
-    init: function(filter_params) {
-      this.additional_filter_params = filter_params;
+    init: function(params) {
+      this.no_results_message = params.no_results_message || 'No results matching search criteria';
+      delete params.no_results_message;
+      this.additional_filter_params = params;
       this.latest_results = null;
       this.search_term_content = '';
       this.$search_term = $('input#title');
@@ -76,11 +78,15 @@
 
     showSearchResults: function(results) {
       this.latest_results = results;
+      var no_results_message = this.no_results_message;
 
       var formatResults = function(data) {
         var results = [];
         $.each(data, function(i, result) { results.push(result.title) });
-        return results;
+        if (results.length)
+          return results;
+        else
+          return [no_results_message];
       };
 
       this.$search_term.autocomplete('option', 'source', formatResults(results));
