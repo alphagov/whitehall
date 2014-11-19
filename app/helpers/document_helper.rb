@@ -104,7 +104,7 @@ module DocumentHelper
       "rtf"  => file_abbr_tag('RTF', 'Rich Text Format'),
       "sch"  => file_abbr_tag('SCH', 'XML based Schematic'),
       "txt"  => "Plain text",
-      "wsdl" => file_abbr_tag('WDSL', 'Web Services Description Language'),
+      "wsdl" => file_abbr_tag('WSDL', 'Web Services Description Language'),
       "xls"  => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
       "xlsm" => file_abbr_tag('XSLM', 'MS Excel Macro-Enabled Workbook'),
       "xlsx" => MS_EXCEL_SPREADSHEET_HUMANIZED_CONTENT_TYPE,
