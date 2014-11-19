@@ -108,6 +108,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equal_hash expected_links_hash, presented_hash[:links]
   end
 
+private
+
   def assert_equal_hash(expected, actual)
     assert_equal expected, actual,
       "Hashes do not match. Differences are:\n\n#{mu_pp(expected.diff(actual))}\n"

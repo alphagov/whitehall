@@ -118,15 +118,27 @@
     },
     "links": {
       "type": "object",
-      "additionalProperties": {
-        "type": "array",
-        "items": {
-          "type": "string"
+      "additionalProperties": false,
+      "required": [
+        "lead_organisations"
+      ],
+      "properties": {
+        "lead_organisations": {
+          "$ref": "#/definitions/guid_list"
+        },
+        "supporting_organisations": {
+          "$ref": "#/definitions/guid_list"
         }
       }
     }
   },
   "definitions": {
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+      }
+    },
     "route": {
       "type": "object",
       "additionalProperties": false,
