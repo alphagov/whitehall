@@ -105,6 +105,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
       supporting_organisations: [supporting_org.content_id]
     }
+
+    assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal_hash expected_links_hash, presented_hash[:links]
   end
 
