@@ -43,6 +43,10 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
           topics: []
         }
       },
+      links: {
+        lead_organisations: [case_study.lead_organisations.first.content_id],
+        supporting_organisations: [],
+      }
     }
     presented_hash = present(case_study)
 
@@ -87,6 +91,23 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal_hash expected_hash, presented_hash[:details][:image]
+  end
+
+  test "links hash includes lead and supporting organisations in correct order" do
+    lead_org_1 = create(:organisation)
+    lead_org_2 = create(:organisation)
+    supporting_org = create(:organisation)
+    case_study = create(:published_case_study,
+                        lead_organisations: [lead_org_1, lead_org_2],
+                        supporting_organisations: [supporting_org])
+    presented_hash = present(case_study)
+    expected_links_hash = {
+      lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
+      supporting_organisations: [supporting_org.content_id]
+    }
+
+    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_equal_hash expected_links_hash, presented_hash[:links]
   end
 
 private
