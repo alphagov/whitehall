@@ -87,4 +87,11 @@ class Admin::EditionsHelperTest < ActionView::TestCase
 
     assert_equal nil, response
   end
+
+  test '#admin_author_filter_options excludes disabled users' do
+    current_user, another_user = *create_list(:user, 2)
+    disabled_user = create(:disabled_user)
+
+    refute_includes admin_author_filter_options(current_user), disabled_user
+  end
 end

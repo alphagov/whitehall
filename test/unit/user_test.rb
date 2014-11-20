@@ -61,6 +61,14 @@ class UserTest < ActiveSupport::TestCase
     refute user.world_writer?
   end
 
+  test 'returns enabled users' do
+    user = create(:user)
+    disabled_user = create(:disabled_user)
+
+    assert_equal 1, User.enabled.count
+    assert_include User.enabled, user
+  end
+
   test 'should not allow editing to just anyone' do
     user = build(:user)
     another_user = build(:user)

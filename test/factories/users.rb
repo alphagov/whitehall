@@ -18,6 +18,10 @@ FactoryGirl.define do
     permissions { [User::Permissions::SIGNIN] }
   end
 
+  factory :disabled_user, parent: :user do
+    disabled true
+  end
+
   factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
   end
 

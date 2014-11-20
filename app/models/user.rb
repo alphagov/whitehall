@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
+  scope :enabled, where(disabled: false)
+
   module Permissions
     SIGNIN = 'signin'
     DEPARTMENTAL_EDITOR = 'Editor'

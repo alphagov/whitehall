@@ -9,10 +9,13 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  view_test "index shows list of users" do
+  view_test "index shows list of enabled users" do
+    disabled_user = create(:disabled_user)
+
     get :index
 
     assert_select("tr:last-child td.name", text: %r{#{@user.name}})
+    refute_select("tr:last-child td.name", text: %r{#{disabled_user.name}})
   end
 
   view_test "show displays user name and email address" do
