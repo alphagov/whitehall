@@ -68,6 +68,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
     presented_hash = present(case_study)
 
+    assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal_hash expected_hash, presented_hash[:details][:image]
   end
 
@@ -84,8 +85,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
     presented_hash = present(case_study)
 
+    assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal_hash expected_hash, presented_hash[:details][:image]
   end
+
+private
 
   def assert_equal_hash(expected, actual)
     assert_equal expected, actual,
