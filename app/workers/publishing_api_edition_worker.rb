@@ -1,3 +1,4 @@
+# FIXME: This will be redundant once the existing jobs have been worked off
 class PublishingApiEditionWorker
   include Sidekiq::Worker
 
