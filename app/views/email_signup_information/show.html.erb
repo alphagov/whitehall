@@ -1,25 +1,19 @@
 <% page_title @email_signup_information.title %>
 <% page_class "email-signup-information-show" %>
 
-<header class="headings-block">
-  <div class="inner-block floated-children">
-    <div class="heading">
-      <div class="inner-heading">
-        <h1><%= @email_signup_information.title %></h1>
-      </div>
-    </div>
-  </div>
-</header>
+<div class="inner-block">
+  <h1>
+    <div class='category'>Email alert subscription</div>
+    <%= @email_signup_information.title %>
+  </h1>
+</div>
 
-<div class="signup-list">
-  <div class="inner-block">
-    <ol>
-      <% @email_signup_information.email_signup_pages.each do |page| %>
-        <li>
-          <%= link_to(page.text, page.url) %>
-          <p><%= page.description %></p>
-        </li>
-      <% end %>
-    </ol>
+<div class="inner-block">
+  <p><%= @email_signup_information.summary %></p>
+  <div class='choices'>
+    <% @email_signup_information.email_signup_pages.each do |page| %>
+    <h2><%= page.text %></h2>
+    <p><%= page.description %></p>
+    <% end %>
   </div>
 </div>
