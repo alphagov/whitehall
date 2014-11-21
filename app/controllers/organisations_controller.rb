@@ -102,7 +102,7 @@ private
   end
 
   def load_organisation
-    @organisation = Organisation.with_translations(I18n.locale).find(params[:id])
+    @organisation = Organisation.with_translations(I18n.locale).find_by_slug(params[:id])
   end
 
   def set_cache_max_age
