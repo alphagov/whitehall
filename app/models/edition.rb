@@ -288,7 +288,7 @@ class Edition < ActiveRecord::Base
     search_format_types: :search_format_types,
     attachments: nil,
     operational_field: nil,
-    specialist_sectors: :specialist_sector_tags,
+    specialist_sectors: :live_specialist_sector_tags,
     latest_change_note: :most_recent_change_note,
   )
 

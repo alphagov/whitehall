@@ -42,6 +42,24 @@ class Edition::SpecialistSectorsTest < ActiveSupport::TestCase
     assert_equal [], edition_without_specialist_sectors.specialist_sector_tags
   end
 
+  test "#live_specialist_sector_tags should filter out draft tags" do
+    live_tag = stub(
+      title: 'Live subsector',
+      slug: 'live_super/live_primary',
+      draft?: false,
+      topics: []
+    )
+
+    edition = create(:edition,
+      primary_specialist_sector_tag: 'live_super/live_primary',
+      secondary_specialist_sector_tags: ['live_super/draft_secondary'],
+    )
+
+    SpecialistSector.stubs(:live_subsectors).returns([live_tag])
+
+    assert_equal ['live_super/live_primary'], edition.live_specialist_sector_tags
+  end
+
   test "moving a secondary tag to the primary tag doesn't fail" do
     tag = "environmental-management/waste"
     publication = create(:publication, secondary_specialist_sector_tags: [tag])

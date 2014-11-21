@@ -38,7 +38,13 @@ module Edition::SpecialistSectors
   end
 
   def specialist_sector_tags
-    searchable_specialist_sector_tags
+    Array(primary_specialist_sector_tag) + secondary_specialist_sector_tags
+  end
+
+  def live_specialist_sector_tags
+    specialist_sector_tags.select do |tag|
+      live_specialist_sector_tag_slugs.include?(tag)
+    end
   end
 
 private
@@ -56,7 +62,7 @@ private
     self.public_send("#{relation}=", sectors)
   end
 
-  def searchable_specialist_sector_tags
-    Array(primary_specialist_sector_tag).concat(secondary_specialist_sector_tags)
+  def live_specialist_sector_tag_slugs
+    @live_specialist_sector_tag_slugs ||= SpecialistSector.live_subsectors.map(&:slug)
   end
 end
