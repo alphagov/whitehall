@@ -156,13 +156,15 @@ class ManagingEditorTest < ActiveSupport::TestCase
     refute enforcer_for(managing_editor, :sitewide_settings_section).can?(:administer)
   end
 
-  test 'can manage featured links for their organisation' do
+  test 'can manage featured links for their organisation and child organisation' do
     user = managing_editor
 
     editors_org = user.organisation
+    child_org = create(:organisation, parent_organisations: [editors_org])
     other_org = build(:organisation)
 
     assert enforcer_for(user, editors_org).can?(:manage_featured_links)
+    assert enforcer_for(user, child_org).can?(:manage_featured_links)
     refute enforcer_for(user, other_org).can?(:manage_featured_links)
   end
 end
