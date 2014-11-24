@@ -219,6 +219,20 @@ class AttachmentUploaderPDFTest < ActiveSupport::TestCase
 
     @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
 
+    assert_fallback_thumbnail_used(@uploader)
+  end
+
+  test "should use a generic thumbnail if conversion takes longer than 10 seconds to complete" do
+    model = stub("AR Model", id: 1)
+    @uploader = AttachmentUploader.new(model, "mounted-as")
+    @uploader.thumbnail.stubs(:pdf_thumbnail_command).raises(Timeout::Error)
+
+    @uploader.store!(fixture_file_upload('two-pages-with-content.pdf'))
+
+    assert_fallback_thumbnail_used(@uploader)
+  end
+
+  def assert_fallback_thumbnail_used(uploader)
     assert @uploader.thumbnail.path.ends_with?(".png"), "should be a png"
     generic_thumbnail_path = File.expand_path("app/assets/images/pub-cover.png")
     assert_equal File.binread(generic_thumbnail_path),
