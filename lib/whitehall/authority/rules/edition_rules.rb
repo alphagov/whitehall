@@ -102,7 +102,7 @@ module Whitehall::Authority::Rules
 
     def can_with_a_class?(action)
       if [:export, :confirm_export].include? action
-        actor.gds_editor? || actor.gds_admin?
+        actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
       else
         [:create, :see].include? action
       end
