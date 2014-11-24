@@ -50,6 +50,11 @@ Feature: Fatalities
     When I link the minister "Nick Smith" to the fatality notice
     Then I should see the minister's name listed at the top
 
+  Scenario: Writer manages casualty entries for a fatality shown on the field of operation page
+    Given there is a fatality notice titled "Death of Joe" in the field "Iraq"
+    When I add a casualty to the fatality notice
+    Then I should see a casualty listed on the field of operation page for "Iraq"
+
   Scenario: Citizen looks at field of operations information
     Given there is a fatality notice titled "Death of Joe and Jim" in the field "Iraq"
     When I look at the fatality notice titled "Death of Joe and Jim"
