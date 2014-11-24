@@ -73,3 +73,8 @@ task :move_content_to_new_topic => :environment do
 
   TopicRetagger.new(source_topic_id, destination_topic_id).retag
 end
+
+desc "Unarchive an edition (creates and publishes a draft with audit trail)"
+task :unarchive_edition, [:edition_id] => :environment do |t,args|
+  DataHygiene::EditionUnarchiver.new(args[:edition_id], Logger.new(STDOUT)).unarchive
+end
