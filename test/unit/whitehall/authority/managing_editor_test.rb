@@ -167,4 +167,8 @@ class ManagingEditorTest < ActiveSupport::TestCase
     assert enforcer_for(user, child_org).can?(:manage_featured_links)
     refute enforcer_for(user, other_org).can?(:manage_featured_links)
   end
+
+  test 'can export editions' do
+    assert enforcer_for(managing_editor, Edition).can?(:export)
+  end
 end

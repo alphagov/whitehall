@@ -158,4 +158,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
     refute enforcer_for(user, editors_org).can?(:manage_featured_links)
     refute enforcer_for(user, other_org).can?(:manage_featured_links)
   end
+
+  test 'can export editions' do
+    assert enforcer_for(department_editor, Edition).can?(:export)
+  end
 end
