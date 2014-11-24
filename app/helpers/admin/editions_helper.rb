@@ -55,7 +55,7 @@ module Admin::EditionsHelper
   end
 
   def admin_author_filter_options(current_user)
-    other_users = User.all - [current_user]
+    other_users = User.enabled.to_a - [current_user]
     [["All authors", ""], ["Me", current_user.id]] + other_users.map { |u| [u.name, u.id] }
   end
 
