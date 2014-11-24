@@ -14,7 +14,11 @@ module PublishingApiPresenters
     end
 
     def details
-      super.merge({body: body, first_public_at: edition.first_public_at}).tap do |json|
+      super.merge({
+        body: body,
+        first_public_at: edition.first_public_at,
+        change_history: edition.change_history.as_json,
+      }).tap do |json|
         json[:image] = image_details if image_available?
       end
     end

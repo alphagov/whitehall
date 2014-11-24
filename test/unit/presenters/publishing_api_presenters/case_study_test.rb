@@ -38,6 +38,9 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         body: "<div class=\"govspeak\"><p>Some content</p></div>",
         first_public_at: case_study.first_public_at,
         change_note: nil,
+        change_history: [
+          { public_timestamp: case_study.public_timestamp, note: 'change-note' }
+        ],
         tags: {
           browse_pages: [],
           topics: []
@@ -108,6 +111,21 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal_hash expected_links_hash, presented_hash[:links]
+  end
+
+  test "links hash includes full document history" do
+    original_timestamp = 2.days.ago
+    original = create(:superseded_case_study, first_published_at: original_timestamp)
+    new_timestamp = Time.zone.now
+    new_edition = create(:published_case_study, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
+    presented_hash = present(new_edition)
+    assert_valid_against_schema('case_study', presented_hash.to_json)
+    presented_history = presented_hash[:details][:change_history]
+    expected_history = [
+      { public_timestamp: new_timestamp, note: "More changes" },
+      { public_timestamp: original_timestamp, note: "change-note" }
+    ]
+    assert_equal expected_history, presented_history
   end
 
 private
