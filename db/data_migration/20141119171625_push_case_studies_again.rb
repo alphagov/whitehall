@@ -1,5 +1,5 @@
-puts "Pushing case studies to publishing API"
-CaseStudy.find_each do |case_study|
+puts "Pushing published case studies to publishing API"
+CaseStudy.published.find_each do |case_study|
   print '.'
   PublishingApiEditionWorker.perform_async(case_study.id)
 end
