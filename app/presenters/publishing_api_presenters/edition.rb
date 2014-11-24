@@ -2,7 +2,13 @@
 # "placeholder" content items. Only the specialist topics information is
 # exposed. This is to enable the email alerts service to generate alerts
 # when content is tagged to these topics.
-class PublishingApiPresenters::Edition < Struct.new(:edition)
+class PublishingApiPresenters::Edition
+  attr_reader :edition
+
+  def initialize(edition)
+    @edition = edition
+  end
+
   def base_path
     Whitehall.url_maker.public_document_path(edition)
   end
