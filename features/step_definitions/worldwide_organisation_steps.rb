@@ -120,6 +120,16 @@ Then /^the "([^"]*)" office details should be shown on the public website$/ do |
   end
 end
 
+Then(/^I should be able to remove all services from the "(.*?)" office$/) do |description|
+  worldwide_office = WorldwideOffice.joins(contact: :translations).where(contact_translations: { title: description }).first
+  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
+  available_services = worldwide_office.services.each { |service| uncheck "worldwide_office_service_ids_#{service.id}" }
+  click_on "Save"
+
+  visit edit_admin_worldwide_organisation_worldwide_office_path(worldwide_organisation_id: WorldwideOrganisation.last.id, id: worldwide_office.id)
+  available_services.each { |service| assert page.has_unchecked_field? "worldwide_office_service_ids_#{service.id}" }
+end
+
 Given /^that the world location "([^"]*)" exists$/ do |country_name|
   create(:world_location, name: country_name)
 end
