@@ -16,6 +16,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.public_document_path(edition)
 
     expected_hash = {
+      content_id: edition.document.content_id,
       title: 'The title',
       description: 'The summary',
       base_path: public_path,
