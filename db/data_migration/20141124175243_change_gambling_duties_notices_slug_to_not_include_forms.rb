@@ -1,8 +1,8 @@
-require 'gds-api/router'
+require 'gds_api/router'
 
 router = GdsApi::Router.new(Plek.find('router-api'))
 
-collection = DocumentCollection.find_by_slug('gambling-duty-forms-and-notices')
+collection = Document.where(slug: 'gambling-duty-forms-and-notices', document_type: 'DocumentCollection').first
 collection.slug = 'gambling-duty-notices'
 collection.save!
 
