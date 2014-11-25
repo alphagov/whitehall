@@ -16,7 +16,10 @@ module Edition::Identifiable
   end
 
   def ensure_presence_of_document
-    self.document ||= Document.new(sluggable_string: string_for_slug)
+    self.document ||= Document.new(
+      sluggable_string: string_for_slug,
+      content_id: SecureRandom.uuid
+    )
   end
 
   def update_document_slug

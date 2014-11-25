@@ -15,6 +15,12 @@ class Edition::IdentifiableTest < ActiveSupport::TestCase
     assert_nothing_raised(NoMethodError) { policy.valid? }
   end
 
+  test "should generate a content_id for the document of a new draft" do
+    policy = build(:policy)
+    policy.valid?
+    assert policy.document.content_id.present?
+  end
+
   test "should not allow the same slug to be used again for the same document type" do
     same_title = "same-title"
     policy_1 = create(:policy, title: same_title)
