@@ -26,13 +26,13 @@ class TopicRetaggerTest < ActiveSupport::TestCase
   end
 
   def stub_registration(edition, sectors)
-    registerable = RegisterableEdition.new(@published_edition)
+    registerable = RegisterableEdition.new(edition)
     panopticon_request = stub_artefact_registration(
       registerable.slug,
-      hash_including(specialist_sectors: ["oil-and-gas/really-far-out"]),
+      hash_including(specialist_sectors: sectors),
       true
     )
-    Whitehall::SearchIndex.expects(:add).with(@published_edition)
+    Whitehall::SearchIndex.expects(:add).with(edition)
     panopticon_request
   end
 

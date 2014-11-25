@@ -13,7 +13,7 @@ class TagChangesExporterTest < ActiveSupport::TestCase
   end
 
   test "#export - exports the tag changes to make in CSV format" do
-    TagChangesExporter.new(@topic_id_to_add, @topic_id_to_remove)
+    TagChangesExporter.new(@topic_id_to_add, @topic_id_to_remove).export
 
     assert_equal expected_parsed_export, parsed_export
   end
@@ -21,11 +21,15 @@ class TagChangesExporterTest < ActiveSupport::TestCase
   def expected_parsed_export
     [
       {
+        "id" => @publication.id.to_s,
+        "type" => @publication.type,
         "slug" => @publication.slug,
         "add_topic" => "the-new-topic",
         "remove_topic" => "the-old-topic"
       },
       {
+        "id" => @second_publication.id.to_s,
+        "type" => @second_publication.type,
         "slug" => @second_publication.slug,
         "add_topic" => "the-new-topic",
         "remove_topic" => "the-old-topic"
