@@ -1,5 +1,5 @@
 module DataHygiene
-  # Can be used to (re)publish a bunch of models to the Publishing API.
+  # Can be used to republish a bunch of models to the Publishing API.
   #
   # Usage:
   #
@@ -19,7 +19,7 @@ module DataHygiene
       logger.info "Pushing #{scope.count} #{scope.model_name} instances to the Publishing API"
       scope.find_each do |instance|
         logger << '.'
-        PublishingApiWorker.perform_async(instance.class.name, instance.id)
+        PublishingApiWorker.perform_async(instance.class.name, instance.id, update_type: "republish")
       end
     end
   end
