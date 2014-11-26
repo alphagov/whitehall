@@ -19,18 +19,25 @@ module DataHygiene
 
     def perform
       logger.info "Pushing #{scope.count} #{scope.model_name} instances to the Publishing API"
+
       scope.find_each do |instance|
-        if instance.published?
+        if publishable?(instance)
           republish(instance)
         else
           skip(instance)
         end
       end
+
       logger.info("Republished #{republished} instances")
       logger.info("Skipped #{skipped} instances (which were not published)") if skipped > 0
     end
 
   private
+
+    def publishable?(instance)
+      !instance.kind_of?(Edition) || instance.publicly_visible?
+    end
+
     def republish(instance)
       logger << '.'
       PublishingApiWorker.perform_async(instance.class.name, instance.id, update_type: "republish")
