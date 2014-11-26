@@ -3,10 +3,11 @@
 # exposed. This is to enable the email alerts service to generate alerts
 # when content is tagged to these topics.
 class PublishingApiPresenters::Edition
-  attr_reader :edition
+  attr_reader :edition, :update_type
 
-  def initialize(edition)
+  def initialize(edition, options = {})
     @edition = edition
+    @update_type = options[:update_type] || default_update_type
   end
 
   def base_path
@@ -15,6 +16,7 @@ class PublishingApiPresenters::Edition
 
   def as_json
     {
+      content_id: edition.document.content_id,
       title: edition.title,
       base_path: base_path,
       description: edition.summary,
@@ -55,7 +57,7 @@ private
     }
   end
 
-  def update_type
+  def default_update_type
     edition.minor_change? ? 'minor' : 'major'
   end
 

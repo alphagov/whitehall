@@ -2,8 +2,8 @@ require 'test_helper'
 
 class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
-  def present(edition)
-    PublishingApiPresenters::Edition.new(edition).as_json
+  def present(edition, options={})
+    PublishingApiPresenters::Edition.new(edition, options).as_json
   end
 
   test 'presents an Edition ready for adding to the publishing API' do
@@ -16,6 +16,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     public_path = Whitehall.url_maker.public_document_path(edition)
 
     expected_hash = {
+      content_id: edition.document.content_id,
       title: 'The title',
       description: 'The summary',
       base_path: public_path,
@@ -59,5 +60,12 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
   test 'minor changes are a "minor" update type' do
     edition = create(:case_study, minor_change: true)
     assert_equal 'minor', present(edition)[:update_type]
+  end
+
+  test 'update type can be overridden by passing an update_type option' do
+    update_type_override = 'republish'
+    edition = create(:case_study)
+    presented_hash = present(edition, update_type: update_type_override)
+    assert_equal update_type_override, presented_hash[:update_type]
   end
 end

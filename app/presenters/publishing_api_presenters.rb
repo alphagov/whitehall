@@ -3,8 +3,8 @@ require 'publishing_api_presenters/case_study.rb'
 require 'publishing_api_presenters/organisation.rb'
 
 module PublishingApiPresenters
-  def self.presenter_for(model)
-    presenter_class_for(model).new(model)
+  def self.presenter_for(model, options={})
+    presenter_class_for(model).new(model, options)
   end
 
   def self.presenter_class_for(model)
