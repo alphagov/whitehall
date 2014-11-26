@@ -42,15 +42,15 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     )
   end
 
-  test "passes the options to the presenter" do
-    options = {update_type: "republish"}
+  test "passes the update_type option to the presenter" do
+    update_type = "republish"
 
     edition   = create(:published_detailed_guide)
-    presenter = PublishingApiPresenters::Edition.new(edition, options)
+    presenter = PublishingApiPresenters::Edition.new(edition, update_type: update_type)
 
     stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
-    PublishingApiWorker.new.perform(edition.class.name, edition.id, options)
+    PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
 
     assert_publishing_api_put_item(
       presenter.base_path,

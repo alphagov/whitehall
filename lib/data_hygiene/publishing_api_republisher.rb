@@ -40,7 +40,7 @@ module DataHygiene
 
     def republish(instance)
       logger << '.'
-      PublishingApiWorker.perform_async(instance.class.name, instance.id, update_type: "republish")
+      PublishingApiWorker.perform_async(instance.class.name, instance.id, "republish")
       @republished += 1
     end
 
