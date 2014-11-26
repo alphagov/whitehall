@@ -4,10 +4,10 @@ module DataHygiene
   # Usage:
   #
   #   scope = CaseStudy.published
-  #   publisher = DataHygiene::PublishingApiPublisher.new(scope)
+  #   publisher = DataHygiene::PublishingApiRepublisher.new(scope)
   #   publisher.perform
   #
-  class PublishingApiPublisher
+  class PublishingApiRepublisher
     attr_reader :logger, :scope
 
     def initialize(scope, logger=Logger.new(STDOUT))

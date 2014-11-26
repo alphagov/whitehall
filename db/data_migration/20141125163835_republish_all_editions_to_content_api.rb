@@ -1,1 +1,1 @@
-DataHygiene::PublishingApiPublisher.new(Edition.published).perform
+DataHygiene::PublishingApiRepublisher.new(Edition.published).perform
