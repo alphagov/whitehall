@@ -59,10 +59,11 @@ task :specialist_sector_cleanup => :environment do
   end
 end
 
-desc "Move content from one topic to another"
-task :move_content_to_new_topic => :environment do
-  require "data_hygiene/topic_retagger"
+desc "Export csv for topic retagging"
+task topic_retagging_csv_export: :environment do
+  require "data_hygiene/tag_changes_exporter"
 
+  csv_location = ENV['CSV_LOCATION']
   source_topic_id = ENV['SOURCE']
   destination_topic_id = ENV['DESTINATION']
 
@@ -71,5 +72,24 @@ task :move_content_to_new_topic => :environment do
     exit
   end
 
-  TopicRetagger.new(source_topic_id, destination_topic_id).retag
+  unless csv_location
+    puts "No location for output"
+    exit
+  end
+
+  TagChangesExporter.new(csv_location, source_topic_id, destination_topic_id).export
+end
+
+desc "Process csv for topic retagging"
+task process_topic_retagging_csv: :environment do
+  require "data_hygiene/tag_changes_processor"
+
+  csv_location = ENV['CSV_LOCATION']
+
+  unless csv_location
+    puts "No location for output"
+    exit
+  end
+
+  TagChangesProcessor.new(csv_location).process
 end
