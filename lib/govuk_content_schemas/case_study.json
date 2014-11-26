@@ -86,6 +86,9 @@
             }
           }
         },
+        "format_display_type": {
+          "type": "string"
+        },
         "first_public_at": {
           "type": "string",
           "format": "date-time"
