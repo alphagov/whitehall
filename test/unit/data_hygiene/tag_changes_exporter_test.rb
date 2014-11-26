@@ -5,6 +5,7 @@ class TagChangesExporterTest < ActiveSupport::TestCase
   include DataHygiene
 
   def setup
+    @csv_location = "/tmp/test.csv"
     @topic_id_to_add = "the-new-topic"
     @topic_id_to_remove = "the-old-topic"
     @publication = create :publication, :published, primary_specialist_sector_tag: @topic_id_to_remove
@@ -13,7 +14,7 @@ class TagChangesExporterTest < ActiveSupport::TestCase
   end
 
   test "#export - exports the tag changes to make in CSV format" do
-    TagChangesExporter.new(@topic_id_to_add, @topic_id_to_remove).export
+    TagChangesExporter.new(@csv_location, @topic_id_to_add, @topic_id_to_remove).export
 
     assert_equal expected_parsed_export, parsed_export
   end
@@ -39,7 +40,7 @@ class TagChangesExporterTest < ActiveSupport::TestCase
 
   def parsed_export
     parsed = []
-    CSV.foreach("test.csv", headers: true) do |data|
+    CSV.foreach(@csv_location, headers: true) do |data|
       parsed << data.to_hash
     end
     parsed

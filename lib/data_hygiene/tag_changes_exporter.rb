@@ -1,5 +1,6 @@
 class TagChangesExporter
-  def initialize(topic_id_to_add, topic_id_to_remove)
+  def initialize(csv_location, topic_id_to_add, topic_id_to_remove)
+    @csv_location = csv_location
     @topic_id_to_add = topic_id_to_add
     @topic_id_to_remove = topic_id_to_remove
   end
@@ -10,10 +11,10 @@ class TagChangesExporter
 
 private
 
-  attr_reader :topic_id_to_add, :topic_id_to_remove
+  attr_reader :csv_location, :topic_id_to_add, :topic_id_to_remove
 
   def generate_csv_with_tag_changes
-    CSV.open("test.csv", "wb") do |csv|
+    CSV.open(csv_location, "wb") do |csv|
       csv << headers
       taggings.each { |tagging| csv << tagging }
     end
