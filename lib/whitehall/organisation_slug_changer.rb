@@ -28,6 +28,7 @@ class Whitehall::OrganisationSlugChanger
     router.add_redirect_route("/government/organisations/#{old_slug}",
                               "exact",
                               "/government/organisations/#{new_slug}")
+    router.commit_routes
 
     logger.info "Re-registering #{new_slug} published editions in search"
     organisation.editions.published.find_each do |edition|

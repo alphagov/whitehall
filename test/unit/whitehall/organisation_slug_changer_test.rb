@@ -3,7 +3,7 @@ require 'test_helper'
 module Whitehall
   class OrganisationSlugChangerTest < ActiveSupport::TestCase
     setup do
-      @router = stub("router", add_redirect_route: nil)
+      @router = stub("router", add_redirect_route: nil, commit_routes: nil)
       @organisation = create(:organisation)
       @organisation.stubs(:remove_from_search_index)
       @new_slug = 'new-slug'
@@ -38,11 +38,15 @@ module Whitehall
     end
 
     test 'adds redirect route' do
+      order = sequence('order')
+
       @router.expects(:add_redirect_route).with(
         "/government/organisations/#{@organisation.slug}",
         "exact",
         "/government/organisations/#{@new_slug}"
-      )
+      ).in_sequence(order)
+      @router.expects(:commit_routes).in_sequence(order)
+
       @slug_changer.call
     end
 
