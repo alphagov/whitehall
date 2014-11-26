@@ -3,11 +3,10 @@
 # organisations using content_ids and have their basic information expanded
 # out when read back out from the content store.
 class PublishingApiPresenters::Organisation
-  attr_reader :organisation, :update_type
+  attr_reader :organisation
 
-  def initialize(organisation, options = {})
+  def initialize(organisation)
     @organisation = organisation
-    @update_type = options[:update_type] || default_update_type
   end
 
   def base_path
@@ -29,12 +28,7 @@ class PublishingApiPresenters::Organisation
           type: "exact"
         }
       ],
-      update_type: update_type,
+      update_type: "major",
     }
-  end
-
-private
-  def default_update_type
-    "major"
   end
 end

@@ -1,8 +1,8 @@
 require 'test_helper'
 
 class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
-  def present(organisation, options = {})
-    PublishingApiPresenters::Organisation.new(organisation, options).as_json
+  def present(organisation)
+    PublishingApiPresenters::Organisation.new(organisation).as_json
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do
@@ -22,12 +22,5 @@ class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
     }
 
     assert_equal expected_hash, present(organisation)
-  end
-
-  test 'update type can be overridden by passing an update_type option' do
-    update_type_override = 'republish'
-    organisation = create(:organisation)
-    presented_hash = present(organisation, update_type: update_type_override)
-    assert_equal update_type_override, presented_hash[:update_type]
   end
 end

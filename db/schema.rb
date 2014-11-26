@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141125151010) do
+ActiveRecord::Schema.define(:version => 20141120074831) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -292,7 +292,6 @@ ActiveRecord::Schema.define(:version => 20141125151010) do
     t.datetime "updated_at"
     t.string   "slug"
     t.string   "document_type"
-    t.string   "content_id"
   end
 
   add_index "documents", ["document_type"], :name => "index_documents_on_document_type"
@@ -1204,11 +1203,11 @@ ActiveRecord::Schema.define(:version => 20141125151010) do
     t.text     "permissions"
     t.boolean  "remotely_signed_out", :default => false
     t.string   "organisation_slug"
-    t.boolean  "disabled",            :default => false
+    t.boolean  "disabled",           :default => false
   end
 
-  add_index "users", ["disabled"], :name => "index_users_on_disabled"
   add_index "users", ["organisation_slug"], :name => "index_users_on_organisation_slug"
+  add_index "users", ["disabled"], :name => "index_users_on_disabled"
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false
