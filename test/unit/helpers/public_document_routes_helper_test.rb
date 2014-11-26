@@ -54,6 +54,13 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal policy_supporting_page_path(policy.document, supporting_page.document), public_document_path(supporting_page)
   end
 
+  test 'returns the policy_supporting_page path for SupportingPage instances for the specified policy' do
+    first_policy = create(:policy)
+    second_policy = create(:policy)
+    supporting_page = create(:supporting_page, related_policies: [first_policy, second_policy])
+    assert_equal policy_supporting_page_path(second_policy.document, supporting_page.document), public_document_path(supporting_page, policy_id: second_policy.document)
+  end
+
   test 'returns the correct path for CorporateInformationPage instances' do
     cip = create(:corporate_information_page)
     assert_equal organisation_corporate_information_page_path(cip.organisation, cip.slug), public_document_path(cip)
