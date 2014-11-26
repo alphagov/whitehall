@@ -15,6 +15,7 @@ private
   def details
     super.merge({
       body: body,
+      format_display_type: edition.display_type_key,
       first_public_at: edition.first_public_at,
       change_history: edition.change_history.as_json,
     }).tap do |json|
