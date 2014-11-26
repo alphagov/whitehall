@@ -14,7 +14,7 @@ class Document < ActiveRecord::Base
   has_one  :published_edition,
            class_name: 'Edition',
            inverse_of: :document,
-           conditions: { state: %w(published archived) }
+           conditions: { state: Edition::PUBLICLY_VISIBLE_STATES }
 
   has_one  :latest_edition,
            class_name: 'Edition',

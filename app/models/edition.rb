@@ -41,6 +41,7 @@ class Edition < ActiveRecord::Base
   FROZEN_STATES = %w(superseded deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
   POST_PUBLICATION_STATES = %w(published superseded archived).freeze
+  PUBLICLY_VISIBLE_STATES = %w(published archived).freeze
 
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
@@ -66,7 +67,7 @@ class Edition < ActiveRecord::Base
   scope :corporate_publications,        -> { where(publication_type_id: PublicationType::CorporateReport.id) }
   scope :worldwide_priorities,          -> { where(type: "WorldwidePriority") }
   scope :corporate_information_pages,   -> { where(type: "CorporateInformationPage") }
-  scope :publicly_visible,              -> { where(state: ['published', 'archived']) }
+  scope :publicly_visible,              -> { where(state: PUBLICLY_VISIBLE_STATES) }
 
   # @!group Callbacks
   before_save :set_public_timestamp
@@ -327,6 +328,10 @@ class Edition < ActiveRecord::Base
     else
       raise "author can only be set on new records"
     end
+  end
+
+  def publicly_visible?
+    PUBLICLY_VISIBLE_STATES.include?(state)
   end
 
   # @group Overwritable permission methods
