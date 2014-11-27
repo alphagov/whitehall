@@ -25,6 +25,24 @@ class PublishingTest < ActiveSupport::TestCase
     assert_requested request
   end
 
+  test "When a translated edition is published, all translations are published with the Publishing API" do
+   I18n.with_locale :fr do
+      @draft_edition.title = "French title"
+      @draft_edition.save!
+
+      expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.iso8601)
+      @french_request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
+   end
+
+   expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.iso8601)
+   @english_request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
+
+   perform_force_publishing_for(@draft_edition)
+
+   assert_requested @english_request
+   assert_requested @french_request
+  end
+
   private
 
   def perform_force_publishing_for(edition)
