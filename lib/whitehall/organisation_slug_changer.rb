@@ -25,9 +25,19 @@ class Whitehall::OrganisationSlugChanger
     end
 
     logger.info "Creating redirect for old org URL in router"
+    logger.info "   /government/organisations/#{old_slug} => /government/organisations/#{new_slug}"
     router.add_redirect_route("/government/organisations/#{old_slug}",
                               "exact",
                               "/government/organisations/#{new_slug}")
+
+    logger.info "Creating redirect for old org CIP pages (if any) in router"
+    organisation.corporate_information_pages.published.find_each do |cip|
+      new_path = Whitehall.url_maker.public_document_path(cip)
+      old_path = new_path.sub(%r{\A/government/organisations/#{new_slug}/}, "/government/organisations/#{old_slug}/")
+      logger.info "   #{old_path} => #{new_path}"
+      router.add_redirect_route(old_path, "exact", new_path)
+    end
+
     router.commit_routes
 
     logger.info "Re-registering #{new_slug} published editions in search"
