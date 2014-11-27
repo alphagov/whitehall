@@ -6,7 +6,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
   test "registers an edition with the publishing api" do
     edition   = create(:published_detailed_guide)
-    presenter = PublishingApiPresenters::Edition.new(edition)
+    presenter = PublishingApiPresenters.presenter_for(edition)
     stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
@@ -17,7 +17,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
   test "registers case studies with their own presenter" do
     edition   = create(:published_case_study)
-    presenter = PublishingApiPresenters::CaseStudy.new(edition)
+    presenter = PublishingApiPresenters.presenter_for(edition)
     stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
@@ -28,7 +28,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
   test "registers an organisation with the publishing api" do
     organisation = create(:organisation)
-    presenter    = PublishingApiPresenters::Organisation.new(organisation)
+    presenter    = PublishingApiPresenters.presenter_for(organisation)
 
     # We need to reset because registration happens on create above
     WebMock.reset!
@@ -46,7 +46,7 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     update_type = "republish"
 
     edition   = create(:published_detailed_guide)
-    presenter = PublishingApiPresenters::Edition.new(edition, update_type: update_type)
+    presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
 
     stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
