@@ -4,7 +4,7 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
   test "republishes a model to the Publishing API" do
     organisation     = create(:organisation)
     scope            = Organisation.where(id: organisation.id)
-    presenter        = PublishingApiPresenters::Organisation.new(organisation, update_type: "republish")
+    presenter        = PublishingApiPresenters.presenter_for(organisation, update_type: "republish")
     WebMock.reset!
 
     expected_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
@@ -19,9 +19,9 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
     published = create(:published_edition)
     archived  = create(:published_edition, state: 'archived')
 
-    draft_payload = PublishingApiPresenters::Edition.new(draft, update_type: "republish").as_json
-    published_payload = PublishingApiPresenters::Edition.new(published, update_type: "republish").as_json
-    archived_payload  = PublishingApiPresenters::Edition.new(archived, update_type: "republish").as_json
+    draft_payload = PublishingApiPresenters.presenter_for(draft, update_type: "republish").as_json
+    published_payload = PublishingApiPresenters.presenter_for(published, update_type: "republish").as_json
+    archived_payload  = PublishingApiPresenters.presenter_for(archived, update_type: "republish").as_json
 
     draft_request     = stub_publishing_api_put_item(draft_payload[:base_path], draft_payload)
     published_request = stub_publishing_api_put_item(published_payload[:base_path], published_payload)

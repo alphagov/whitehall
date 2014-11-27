@@ -8,7 +8,7 @@ class PublishingTest < ActiveSupport::TestCase
 
   setup do
     @draft_edition = create(:draft_edition)
-    @presenter = PublishingApiPresenters::Edition.new(@draft_edition)
+    @presenter = PublishingApiPresenters.presenter_for(@draft_edition)
     stub_panopticon_registration(@draft_edition)
   end
 
