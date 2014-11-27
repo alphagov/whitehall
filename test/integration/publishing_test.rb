@@ -8,19 +8,21 @@ class PublishingTest < ActiveSupport::TestCase
 
   setup do
     @draft_edition = create(:draft_edition)
-    @presenter = PublishingApiPresenters::Edition.new(@draft_edition)
+    @presenter = PublishingApiPresenters.presenter_for(@draft_edition)
     stub_panopticon_registration(@draft_edition)
   end
 
-  test "When publishing an edition, it is registered in the publishing api" do
+  test "When an edition is published, it gets published with the Publishing API" do
     expected_attributes = @presenter.as_json.merge(
+      # This is to simulate what the time public timestamp will be after the
+      # edition has been published
       public_updated_at: Time.zone.now.iso8601
     )
-    @request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
+    request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
 
     perform_force_publishing_for(@draft_edition)
 
-    assert_requested @request
+    assert_requested request
   end
 
   private

@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
+class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
   def present(organisation, options = {})
-    PublishingApiPresenters::Organisation.new(organisation, options).as_json
+    PublishingApiPresenters::Placeholder.new(organisation, options).as_json
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do
@@ -13,7 +13,7 @@ class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
       content_id: organisation.content_id,
       title: "Organisation of Things",
       base_path: public_path,
-      format: "placeholder",
+      format: "placeholder_organisation",
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: organisation.updated_at,
@@ -22,6 +22,25 @@ class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
     }
 
     assert_equal expected_hash, present(organisation)
+  end
+
+  test 'presents a World Location ready for adding to the publishing API' do
+    world_location = create(:world_location, name: 'Locationia')
+    public_path = Whitehall.url_maker.world_location_path(world_location)
+
+    expected_hash = {
+      content_id: world_location.content_id,
+      title: "Locationia",
+      base_path: public_path,
+      format: "placeholder_world_location",
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      public_updated_at: world_location.updated_at,
+      routes: [ { path: public_path, type: "exact" } ],
+      update_type: "major",
+    }
+
+    assert_equal expected_hash, present(world_location)
   end
 
   test 'update type can be overridden by passing an update_type option' do

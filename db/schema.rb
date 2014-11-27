@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141125151010) do
+ActiveRecord::Schema.define(:version => 20141126143003) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1243,6 +1243,7 @@ ActiveRecord::Schema.define(:version => 20141125151010) do
     t.integer  "world_location_type_id",                                 :null => false
     t.string   "iso2",                   :limit => 2
     t.string   "analytics_identifier"
+    t.string   "content_id"
   end
 
   add_index "world_locations", ["iso2"], :name => "index_world_locations_on_iso2", :unique => true

@@ -831,14 +831,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal organisation.statistics_announcements, StatisticsAnnouncementOrganisation.all.map(&:statistics_announcement)
   end
 
-  test "generating a content_id" do
-    SecureRandom.stubs(:uuid).returns("a random UUID")
-    organisation = create(:organisation)
-
-    assert organisation.valid?
-    assert_equal organisation.content_id, "a random UUID"
-  end
-
   test "#service_priority_homepage? should be true if it's homepage type is service" do
     organisation = build(:organisation, homepage_type: 'service')
 

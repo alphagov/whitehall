@@ -151,6 +151,9 @@
         },
         "supporting_organisations": {
           "$ref": "#/definitions/guid_list"
+        },
+        "world_locations": {
+          "$ref": "#/definitions/guid_list"
         }
       }
     }
