@@ -54,8 +54,8 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     panopticon_request = stub_registration(@published_edition, [new_tag_1])
     panopticon_request2 = stub_registration(@published_edition2, [new_tag_2])
 
-    PublishingApiWorker.expects(:perform_async).with(@published_edition.class.name, @published_edition.id, update_type: :republish).once
-    PublishingApiWorker.expects(:perform_async).with(@published_edition2.class.name, @published_edition2.id, update_type: :republish).once
+    PublishingApiWorker.expects(:perform_async).with(@published_edition.class.name, @published_edition.id, update_type: 'republish').once
+    PublishingApiWorker.expects(:perform_async).with(@published_edition2.class.name, @published_edition2.id, update_type: 'republish').once
 
     processor = TagChangesProcessor.new(tag_changes_file)
 
