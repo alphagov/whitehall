@@ -1,1 +1,1 @@
-DataHygiene::PublishingApiPublisher.new(CaseStudy.published).perform
+DataHygiene::PublishingApiRepublisher.new(CaseStudy.published).perform
