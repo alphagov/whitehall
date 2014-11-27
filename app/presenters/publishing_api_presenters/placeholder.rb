@@ -19,7 +19,7 @@ class PublishingApiPresenters::Placeholder
       content_id: item.content_id,
       title: item.name,
       base_path: base_path,
-      format: "placeholder",
+      format: format,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: item.updated_at,
@@ -34,6 +34,10 @@ class PublishingApiPresenters::Placeholder
   end
 
 private
+  def format
+    "placeholder_#{item.class.name.underscore}"
+  end
+
   def default_update_type
     "major"
   end
