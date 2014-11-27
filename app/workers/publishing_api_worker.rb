@@ -1,14 +1,15 @@
 class PublishingApiWorker
   include Sidekiq::Worker
 
-  def perform(model_name, id, update_type = nil)
-    model = class_for(model_name).find(id)
+  def perform(model_name, id, update_type = nil, locale=I18n.default_locale.to_s)
+    model     = class_for(model_name).find(id)
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
-    Whitehall.publishing_api_client.put_content_item(
-      presenter.base_path,
-      presenter.as_json
-    )
+    I18n.with_locale(locale) do
+      Whitehall.publishing_api_client.put_content_item(
+        presenter.base_path,
+        presenter.as_json)
+    end
   end
 
   def class_for(model_name)
