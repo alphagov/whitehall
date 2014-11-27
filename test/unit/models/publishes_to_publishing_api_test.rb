@@ -22,19 +22,15 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     assert_equal organisation.content_id, "a random UUID"
   end
 
-  test "create triggers a PublishingApiWorker job" do
-    Sidekiq::Testing.fake! do
-      organisation = create(:organisation)
-      assert_equal 1, PublishingApiWorker.jobs.size
-    end
+  test "create publishes to Publishing API" do
+    organisation = build(:organisation)
+    Whitehall::PublishingApi.expects(:publish).with(organisation)
+    organisation.save
   end
 
-  test "update triggers a PublishingApiWorker job" do
-    Sidekiq::Testing.fake! do
-      organisation = create(:organisation)
-      PublishingApiWorker.jobs.clear
-      organisation.update_attribute(:name, 'Edited org')
-      assert_equal 1, PublishingApiWorker.jobs.size
-    end
+  test "update publishes to Publishing API" do
+    organisation = create(:organisation)
+    Whitehall::PublishingApi.expects(:publish).with(organisation)
+    organisation.update_attribute(:name, 'Edited org')
   end
 end

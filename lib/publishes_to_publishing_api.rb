@@ -13,6 +13,6 @@ module PublishesToPublishingApi
   end
 
   def publish_to_publishing_api
-    PublishingApiWorker.perform_async(self.class.name, self.id)
+    Whitehall::PublishingApi.publish(self)
   end
 end
