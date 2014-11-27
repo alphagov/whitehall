@@ -6,8 +6,8 @@ class TagChangesProcessor
 
   def process
     tag_changes_list.each do |changes|
-      @source_topic_id = changes["add_topic"]
-      @destination_topic_id = changes["remove_topic"]
+      @source_topic_id = changes["remove_topic"]
+      @destination_topic_id = changes["add_topic"]
       processor
     end
   end
