@@ -32,6 +32,8 @@ class WorldwideOrganisation < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates :name, presence: true
 
+  include PublishesToPublishingApi
+
   extend FriendlyId
   friendly_id
 

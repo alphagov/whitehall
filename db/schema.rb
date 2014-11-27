@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141126143003) do
+ActiveRecord::Schema.define(:version => 20141127124535) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1309,6 +1309,7 @@ ActiveRecord::Schema.define(:version => 20141126143003) do
     t.integer  "main_office_id"
     t.integer  "default_news_organisation_image_data_id"
     t.string   "analytics_identifier"
+    t.string   "content_id"
   end
 
   add_index "worldwide_organisations", ["default_news_organisation_image_data_id"], :name => "index_worldwide_organisations_on_image_data_id"
