@@ -1,5 +1,5 @@
 class Organisation < ActiveRecord::Base
-  include ExportsToPublishingApi
+  include PublishesToPublishingApi
   include Searchable
   include Organisation::OrganisationTypeConcern
 

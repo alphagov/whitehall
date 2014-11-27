@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'sidekiq/testing'
 
-class ExportsToPublishingApiTest < ActiveSupport::TestCase
+class PublishesToPublishingApiTest < ActiveSupport::TestCase
   # publish_to_publishing_api runs on after_commit hook, so we need to disable
   # transactions for this test to allow it to run.
   self.use_transactional_fixtures = false

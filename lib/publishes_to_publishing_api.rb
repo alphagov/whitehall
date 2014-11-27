@@ -1,4 +1,4 @@
-module ExportsToPublishingApi
+module PublishesToPublishingApi
   extend ActiveSupport::Concern
 
   included do
