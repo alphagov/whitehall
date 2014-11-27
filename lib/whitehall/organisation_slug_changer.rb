@@ -26,6 +26,7 @@ class Whitehall::OrganisationSlugChanger
 
     logger.info "Creating redirect for old org URL in router"
     logger.info "   /government/organisations/#{old_slug} => /government/organisations/#{new_slug}"
+    router_data_csv_lines = "/government/organisations/#{old_slug},/government/organisations/#{new_slug}\n"
     router.add_redirect_route("/government/organisations/#{old_slug}",
                               "exact",
                               "/government/organisations/#{new_slug}")
@@ -35,6 +36,7 @@ class Whitehall::OrganisationSlugChanger
       new_path = Whitehall.url_maker.public_document_path(cip)
       old_path = new_path.sub(%r{\A/government/organisations/#{new_slug}/}, "/government/organisations/#{old_slug}/")
       logger.info "   #{old_path} => #{new_path}"
+      router_data_csv_lines << "#{old_path},#{new_path}\n"
       router.add_redirect_route(old_path, "exact", new_path)
     end
 
@@ -44,6 +46,8 @@ class Whitehall::OrganisationSlugChanger
     organisation.editions.published.find_each do |edition|
       ServiceListeners::SearchIndexer.new(edition).index!
     end
+    logger.info "Complete.\n\nThe following entries should be added to router-data:\n"
+    logger.info router_data_csv_lines
   end
 
   def default_router
