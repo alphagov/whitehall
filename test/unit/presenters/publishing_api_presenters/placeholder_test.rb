@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class PublishingApiPresenters::OrganisationTest < ActiveSupport::TestCase
+class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
   def present(organisation, options = {})
-    PublishingApiPresenters::Organisation.new(organisation, options).as_json
+    PublishingApiPresenters::Placeholder.new(organisation, options).as_json
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do

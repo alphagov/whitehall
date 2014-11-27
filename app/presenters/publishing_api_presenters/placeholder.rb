@@ -1,28 +1,28 @@
-# For now, this is used to register data for organisations in the content
+# For now, this is used to register data for items in the content
 # store as "placeholder" content items. This is so that finders can reference
-# organisations using content_ids and have their basic information expanded
+# items using content_ids and have their basic information expanded
 # out when read back out from the content store.
-class PublishingApiPresenters::Organisation
-  attr_reader :organisation, :update_type
+class PublishingApiPresenters::Placeholder
+  attr_reader :item, :update_type
 
-  def initialize(organisation, options = {})
-    @organisation = organisation
+  def initialize(item, options = {})
+    @item = item
     @update_type = options[:update_type] || default_update_type
   end
 
   def base_path
-    Whitehall.url_maker.organisation_path(organisation)
+    Whitehall.url_maker.polymorphic_path(item)
   end
 
   def as_json
     {
-      content_id: organisation.content_id,
-      title: organisation.name,
+      content_id: item.content_id,
+      title: item.name,
       base_path: base_path,
       format: "placeholder",
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
-      public_updated_at: organisation.updated_at,
+      public_updated_at: item.updated_at,
       routes: [
         {
           path: base_path,
