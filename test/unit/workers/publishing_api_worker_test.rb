@@ -41,4 +41,22 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
       JSON.parse(presenter.as_json.to_json)
     )
   end
+
+  test "passes the update_type option to the presenter" do
+    update_type = "republish"
+
+    edition   = create(:published_detailed_guide)
+    presenter = PublishingApiPresenters::Edition.new(edition, update_type: update_type)
+
+    stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+
+    PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
+
+    assert_publishing_api_put_item(
+      presenter.base_path,
+      JSON.parse(presenter.as_json.to_json)
+    )
+
+    assert_equal 'republish', presenter.as_json[:update_type]
+  end
 end
