@@ -87,7 +87,7 @@ private
   end
 
   def register_with_publishing_api(edition)
-    PublishingApiWorker.perform_async(edition.class.name, edition.id, update_type: 'republish')
+    Whitehall::PublishingApi.republish(edition)
   end
 
   def register_with_search(edition)
