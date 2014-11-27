@@ -14,6 +14,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       title: "Organisation of Things",
       base_path: public_path,
       format: "placeholder_organisation",
+      locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: organisation.updated_at,
@@ -33,6 +34,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       title: "Locationia",
       base_path: public_path,
       format: "placeholder_world_location",
+      locale: 'en',
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: world_location.updated_at,
@@ -48,5 +50,21 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     presented_hash = present(organisation, update_type: update_type_override)
     assert_equal update_type_override, presented_hash[:update_type]
+  end
+
+  test 'is locale aware' do
+    organisation = create(:organisation)
+
+    I18n.with_locale :fr do
+      organisation.name = "French name"
+      organisation.save!
+      presented_hash = present(organisation)
+
+      assert_equal 'fr', presented_hash[:locale]
+      assert_equal 'French name', presented_hash[:title]
+      assert_equal Whitehall.url_maker.organisation_path(organisation, locale: :fr),
+        presented_hash[:base_path]
+
+    end
   end
 end

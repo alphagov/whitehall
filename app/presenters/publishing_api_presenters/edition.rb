@@ -21,6 +21,7 @@ class PublishingApiPresenters::Edition
       base_path: base_path,
       description: edition.summary,
       format: "placeholder",
+      locale: I18n.locale.to_s,
       need_ids: edition.need_ids,
       public_updated_at: edition.public_timestamp,
       update_type: update_type,

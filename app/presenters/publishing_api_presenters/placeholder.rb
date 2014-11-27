@@ -20,6 +20,7 @@ class PublishingApiPresenters::Placeholder
       title: item.name,
       base_path: base_path,
       format: format,
+      locale: I18n.locale.to_s,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       public_updated_at: item.updated_at,
