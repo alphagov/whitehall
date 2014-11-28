@@ -60,3 +60,18 @@ end
 Then /^I can create a fatality notice$/ do
   draft_fatality_notice("Fatality Notice", "Iraq")
 end
+
+When(/^I add a casualty to the fatality notice$/) do
+  begin_new_draft_document FatalityNotice.last.title
+  fill_in "Personal details", with: "Causualty"
+  choose "edition_minor_change_true"
+  click_button "Save"
+end
+
+Then(/^I should see a casualty listed on the field of operation page for "(.*?)"$/) do |field|
+  visit operational_field_path(OperationalField.find_by_name(field))
+
+  within '.fatality_notice ul.casualties' do
+    assert page.has_content?(FatalityNotice.last.title, count: 1)
+  end
+end
