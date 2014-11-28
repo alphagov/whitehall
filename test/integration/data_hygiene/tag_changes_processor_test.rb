@@ -9,6 +9,7 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::Panopticon
 
   setup do
+    @csv_file = Tempfile.new('tag_changes')
     @published_edition = create(:published_publication)
     @draft_edition = create(:draft_publication)
     @published_edition2 = create(:published_publication)
@@ -16,6 +17,10 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     @old_tag = 'oil-and-gas/offshore'
     @new_tag = 'oil-and-gas/really-far-out'
     @gds_user = create(:user, email: 'govuk-whitehall@digital.cabinet-office.gov.uk')
+  end
+
+  def tear_down
+    @csv_file.unlink
   end
 
   # Replace the `log` method on a TopicTagger with one that appends the logged
@@ -54,14 +59,12 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
   end
 
   test "#process - processes the csv file containing new and old topics" do
-    tag_changes_file = Tempfile.new('tag_changes')
-
     create(:specialist_sector, tag: @old_tag, edition: @draft_edition)
     create(:specialist_sector, tag: @old_tag, edition: @published_edition)
     create(:specialist_sector, tag: @old_tag, edition: @draft_edition2)
     create(:specialist_sector, tag: @old_tag, edition: @published_edition2)
 
-    TagChangesExporter.new(tag_changes_file, 'oil-and-gas/offshore', 'oil-and-gas/really-far-out').export
+    TagChangesExporter.new(@csv_file.path, 'oil-and-gas/offshore', 'oil-and-gas/really-far-out').export
 
     panopticon_published_edition = stub_registration(@published_edition, [@new_tag])
     panopticon_published_edition2 = stub_registration(@published_edition2, [@new_tag])
@@ -70,7 +73,7 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
 
     publishing_worker_expects([@published_edition, @published_edition2, @draft_edition, @draft_edition2])
 
-    processor = TagChangesProcessor.new(tag_changes_file)
+    processor = TagChangesProcessor.new(@csv_file.path)
 
     stub_logging(processor)
     processor.process
