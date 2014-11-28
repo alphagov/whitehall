@@ -5,7 +5,7 @@ class TagChangesExporterTest < ActiveSupport::TestCase
   include DataHygiene
 
   def setup
-    @csv_location = "/tmp/test.csv"
+    @csv_location = Tempfile.new('tag_changes')
     @topic_id_to_add = "the-new-topic"
     @topic_id_to_remove = "the-old-topic"
     @publication = create :publication, :published, primary_specialist_sector_tag: @topic_id_to_remove

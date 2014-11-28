@@ -54,7 +54,7 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
   end
 
   test "#process - processes the csv file containing new and old topics" do
-    tag_changes_file =  Rails.root.join('test', 'fixtures', 'data_hygiene', 'tag_changes.csv')
+    tag_changes_file = Tempfile.new('tag_changes')
 
     create(:specialist_sector, tag: @old_tag, edition: @draft_edition)
     create(:specialist_sector, tag: @old_tag, edition: @published_edition)

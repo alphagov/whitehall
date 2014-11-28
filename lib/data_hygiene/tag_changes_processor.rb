@@ -18,9 +18,7 @@ private
   attr_reader :csv_location
 
   def tag_changes_list
-    csv = CSV::parse(File.open(csv_location.to_s, 'r') {|f| f.read })
-    fields = csv.shift
-    csv.collect { |record| Hash[*fields.zip(record).flatten ] }
+    CSV::read(csv_location, headers: true)
   end
 
   def processor
