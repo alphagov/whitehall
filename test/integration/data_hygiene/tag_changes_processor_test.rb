@@ -2,6 +2,7 @@ require 'test_helper'
 require 'data_hygiene/tag_changes_processor'
 require "gds_api/panopticon"
 require 'gds_api/test_helpers/panopticon'
+require 'data_hygiene/tag_changes_exporter'
 
 class TopicChangesProcessorTest < ActiveSupport::TestCase
   include DataHygiene
@@ -12,7 +13,8 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     @draft_edition = create(:draft_publication)
     @published_edition2 = create(:published_publication)
     @draft_edition2 = create(:draft_publication)
-
+    @old_tag = 'oil-and-gas/offshore'
+    @new_tag = 'oil-and-gas/really-far-out'
     @gds_user = create(:user, email: 'govuk-whitehall@digital.cabinet-office.gov.uk')
   end
 
@@ -30,66 +32,74 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
 
   def stub_registration(edition, sectors)
     registerable = RegisterableEdition.new(edition)
-    panopticon_request = stub_artefact_registration(
+    stub_artefact_registration(
       registerable.slug,
       hash_including(specialist_sectors: sectors),
       true
     )
-    Whitehall::SearchIndex.expects(:add).with(edition)
-    panopticon_request
+  end
+
+  def publishing_worker_expects(editions)
+    editions.each do |edition|
+      PublishingApiWorker.expects(:perform_async).with(edition.class.name, edition.id, 'republish').once
+    end
+  end
+
+  def assert_edition_retagging(editions)
+    editions.each do |edition|
+      edition.reload
+      assert edition.editorial_remarks.any?
+      assert edition.specialist_sectors.map(&:tag) == [@new_tag]
+    end
   end
 
   test "#process - processes the csv file containing new and old topics" do
     tag_changes_file =  Rails.root.join('test', 'fixtures', 'data_hygiene', 'tag_changes.csv')
-    old_tag_1 = 'oil-and-gas/offshore'
-    new_tag_1 = 'oil-and-gas/really-far-out'
-    old_tag_2 = 'oil-and-gas/inshore'
-    new_tag_2 = 'oil-and-gas/on-the-beach'
 
-    create(:specialist_sector, tag: old_tag_1, edition: @draft_edition)
-    create(:specialist_sector, tag: old_tag_1, edition: @published_edition)
-    create(:specialist_sector, tag: old_tag_2, edition: @draft_edition2)
-    create(:specialist_sector, tag: old_tag_2, edition: @published_edition2)
+    create(:specialist_sector, tag: @old_tag, edition: @draft_edition)
+    create(:specialist_sector, tag: @old_tag, edition: @published_edition)
+    create(:specialist_sector, tag: @old_tag, edition: @draft_edition2)
+    create(:specialist_sector, tag: @old_tag, edition: @published_edition2)
 
-    panopticon_request = stub_registration(@published_edition, [new_tag_1])
-    panopticon_request2 = stub_registration(@published_edition2, [new_tag_2])
+    TagChangesExporter.new(tag_changes_file, 'oil-and-gas/offshore', 'oil-and-gas/really-far-out').export
 
-    PublishingApiWorker.expects(:perform_async).with(@published_edition.class.name, @published_edition.id, 'republish').once
-    PublishingApiWorker.expects(:perform_async).with(@published_edition2.class.name, @published_edition2.id, 'republish').once
+    panopticon_published_edition = stub_registration(@published_edition, [@new_tag])
+    panopticon_published_edition2 = stub_registration(@published_edition2, [@new_tag])
+    panopticon_draft_edition = stub_registration(@draft_edition, [@new_tag])
+    panopticon_draft_edition2 = stub_registration(@draft_edition2, [@new_tag])
+
+    publishing_worker_expects([@published_edition, @published_edition2, @draft_edition, @draft_edition2])
 
     processor = TagChangesProcessor.new(tag_changes_file)
 
     stub_logging(processor)
     processor.process
 
-    assert_requested panopticon_request
-    [@published_edition, @draft_edition].each do |edition|
-      edition.reload
-      assert edition.editorial_remarks.any?
-      assert edition.specialist_sectors.map(&:tag) == [new_tag_1]
-    end
-    assert_requested panopticon_request2
-    [@published_edition2, @draft_edition2].each do |edition|
-      edition.reload
-      assert edition.editorial_remarks.any?
-      assert edition.specialist_sectors.map(&:tag) == [new_tag_2]
-    end
+    assert_requested panopticon_published_edition
+    assert_requested panopticon_published_edition2
+    assert_requested panopticon_draft_edition
+    assert_requested panopticon_draft_edition2
+
+    assert_edition_retagging([@published_edition, @published_edition2, @draft_edition, @draft_edition2])
 
     expected_logs = [
-      %{Updating 2 taggings of editions (1 published) to change #{old_tag_1} to #{new_tag_1}},
-      %{tagging '#{@draft_edition.title}' edition #{@draft_edition.id}},
-      %{ - adding editorial remark},
+      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
       %{tagging '#{@published_edition.title}' edition #{@published_edition.id}},
       %{ - adding editorial remark},
       %{registering '#{@published_edition.title}'},
-      %{Updating 2 taggings of editions (1 published) to change #{old_tag_2} to #{new_tag_2}},
-      %{tagging '#{@draft_edition2.title}' edition #{@draft_edition2.id}},
+      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
+      %{tagging '#{@draft_edition.title}' edition #{@draft_edition.id}},
       %{ - adding editorial remark},
+      %{registering '#{@draft_edition.title}'},
+      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
       %{tagging '#{@published_edition2.title}' edition #{@published_edition2.id}},
       %{ - adding editorial remark},
       %{registering '#{@published_edition2.title}'},
+      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
+      %{tagging '#{@draft_edition2.title}' edition #{@draft_edition2.id}},
+      %{ - adding editorial remark},
+      %{registering '#{@draft_edition2.title}'},
     ]
-
     assert processor.logs == expected_logs
   end
 

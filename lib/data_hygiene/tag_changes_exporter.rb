@@ -21,16 +21,16 @@ private
   end
 
   def tagged_to_topic
-    Edition.published.joins(:specialist_sectors).where(specialist_sectors: { tag: source_topic_id })
+    Edition.joins(:specialist_sectors, :document).where(specialist_sectors: { tag: source_topic_id }).uniq
   end
 
   def headers
-    %w(id type slug add_topic remove_topic)
+    %w(document_id document_type slug add_topic remove_topic)
   end
 
   def taggings
     tagged_to_topic.each_with_object([]) do |edition, result|
-      result << [edition.id, edition.type, edition.slug, destination_topic_id, source_topic_id]
+      result << [edition.document.id, edition.document.document_type, edition.slug, destination_topic_id, source_topic_id]
     end
   end
 end

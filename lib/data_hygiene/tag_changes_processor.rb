@@ -6,6 +6,7 @@ class TagChangesProcessor
 
   def process
     tag_changes_list.each do |changes|
+      @document_id = changes["document_id"]
       @source_topic_id = changes["remove_topic"]
       @destination_topic_id = changes["add_topic"]
       processor
@@ -23,13 +24,13 @@ private
   end
 
   def processor
-    published_editions = get_published_editions
-    log "Updating #{taggings.count} taggings of editions (#{published_editions.count} published) to change #{@source_topic_id} to #{@destination_topic_id}"
-    update_taggings(taggings)
-    register_editions(published_editions)
+    edition = latest_edition
+    log "Updating #{taggings.count} taggings to change #{@source_topic_id} to #{@destination_topic_id}"
+    update_taggings
+    register_edition(edition)
   end
 
-  def update_taggings(taggings)
+  def update_taggings
     taggings.reject { |tagging| tagging.edition.nil? }.each do |tagging|
       if tagging.edition.specialist_sector_tags.include? @destination_topic_id
         remove_tagging(tagging)
@@ -60,24 +61,20 @@ private
     )
   end
 
-  def get_published_editions
-    taggings.map { |tagging|
-      tagging.edition.latest_published_edition
-    }.compact.uniq
+  def latest_edition
+    Document.find(@document_id).latest_edition
   end
 
   def taggings
-    SpecialistSector.where(tag: @source_topic_id)
+    latest_edition.specialist_sectors.where(tag: @source_topic_id).compact.uniq
   end
 
-  def register_editions(editions)
-    editions.each do |edition|
-      log "registering '#{edition.slug}'"
-      edition.reload
-      register_with_panopticon(edition)
-      register_with_publishing_api(edition)
-      register_with_search(edition)
-    end
+  def register_edition(edition)
+    log "registering '#{edition.slug}'"
+    edition.reload
+    register_with_panopticon(edition)
+    register_with_publishing_api(edition)
+    register_with_search(edition)
   end
 
   def register_with_panopticon(edition)
