@@ -24,10 +24,9 @@ private
   end
 
   def processor
-    edition = latest_edition
     log "Updating #{taggings.count} taggings to change #{@source_topic_id} to #{@destination_topic_id}"
     update_taggings
-    register_edition(edition)
+    register_edition(latest_edition)
   end
 
   def update_taggings
@@ -62,11 +61,17 @@ private
   end
 
   def latest_edition
-    Document.find(@document_id).latest_edition
+    document.latest_edition
+  end
+
+  def document
+    Document.find(@document_id)
   end
 
   def taggings
-    latest_edition.specialist_sectors.where(tag: @source_topic_id).compact.uniq
+    document.editions.flat_map { |edition|
+      edition.specialist_sectors.where(tag: @source_topic_id).compact.uniq
+    }
   end
 
   def register_edition(edition)
