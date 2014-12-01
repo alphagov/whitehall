@@ -34,7 +34,7 @@ private
   end
 
   def self.fetch_live_sectors
-    Whitehall.content_api.tags('specialist_sector', draft: false)
+    Whitehall.content_api.tags('specialist_sector', draft: false, bust_cache: true)
   rescue
     raise DataUnavailable.new
   end
