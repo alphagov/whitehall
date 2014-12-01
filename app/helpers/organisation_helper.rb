@@ -42,9 +42,9 @@ module OrganisationHelper
   def organisation_closed_govuk_status_description(organisation)
     if organisation.no_longer_exists?
       if organisation.closed_at.present?
-        "#{organisation.name} closed down in #{organisation.closed_at.to_s(:one_month_precision)}"
+        "#{organisation.name} closed in #{organisation.closed_at.to_s(:one_month_precision)}"
       else
-        "#{organisation.name} has closed down"
+        "#{organisation.name} has closed"
       end
     elsif organisation.replaced? || organisation.split?
       if organisation.closed_at.present?

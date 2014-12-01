@@ -116,14 +116,14 @@ class OrganisationHelperTest < ActionView::TestCase
   test '#organisation_govuk_status_description describes an organisation that no longer exists' do
     organisation = build(:closed_organisation, name: 'Beard Ministry')
 
-    assert_equal "Beard Ministry has closed down", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry has closed", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description for an organisation that no longer exists includes the closed date if available' do
     closed_time = 1.day.ago
     organisation = build(:closed_organisation, name: 'Beard Ministry', closed_at: closed_time)
 
-    assert_equal "Beard Ministry closed down in November 2011", organisation_govuk_status_description(organisation)
+    assert_equal "Beard Ministry closed in November 2011", organisation_govuk_status_description(organisation)
   end
 
   test '#organisation_govuk_status_description describes an organisation that has been replaced' do
