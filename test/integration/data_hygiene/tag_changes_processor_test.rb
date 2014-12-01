@@ -46,7 +46,7 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
 
   def publishing_worker_expects(editions)
     editions.each do |edition|
-      PublishingApiWorker.expects(:perform_async).with(edition.class.name, edition.id, 'republish').once
+      Whitehall::PublishingApi.expects(:republish).with(edition).once
     end
   end
 
