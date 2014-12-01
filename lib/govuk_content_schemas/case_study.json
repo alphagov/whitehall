@@ -140,6 +140,18 @@
               }
             }
           }
+        },
+        "archive_notice": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "explanation": {
+              "type": "string"
+            },
+            "archived_at": {
+              "format": "date-time"
+            }
+          }
         }
       }
     },
