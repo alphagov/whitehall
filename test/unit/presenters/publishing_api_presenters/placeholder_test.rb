@@ -25,6 +25,26 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     assert_equal expected_hash, present(organisation)
   end
 
+  test 'presents a Worldwide Organisation ready for adding to the publishing API' do
+    worldwide_org = create(:worldwide_organisation, name: 'Locationia Embassy')
+    public_path = Whitehall.url_maker.worldwide_organisation_path(worldwide_org)
+
+    expected_hash = {
+      content_id: worldwide_org.content_id,
+      title: "Locationia Embassy",
+      base_path: public_path,
+      format: "placeholder_worldwide_organisation",
+      locale: 'en',
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      public_updated_at: worldwide_org.updated_at,
+      routes: [ { path: public_path, type: "exact" } ],
+      update_type: "major",
+    }
+
+    assert_equal expected_hash, present(worldwide_org)
+  end
+
   test 'presents a World Location ready for adding to the publishing API' do
     world_location = create(:world_location, name: 'Locationia')
     public_path = Whitehall.url_maker.world_location_path(world_location)

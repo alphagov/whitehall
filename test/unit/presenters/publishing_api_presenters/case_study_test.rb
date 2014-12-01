@@ -52,7 +52,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       links: {
         lead_organisations: [case_study.lead_organisations.first.content_id],
         supporting_organisations: [],
-        world_locations: []
+        world_locations: [],
+        worldwide_organisations: []
       }
     }
     presented_hash = present(case_study)
@@ -111,7 +112,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     expected_links_hash = {
       lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
       supporting_organisations: [supporting_org.content_id],
-      world_locations: []
+      world_locations: [],
+      worldwide_organisations: []
     }
 
     assert_valid_against_schema('case_study', presented_hash.to_json)
@@ -142,6 +144,14 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equal [location.content_id], presented_hash[:links][:world_locations]
   end
 
+  test "links hash includes worldwide organisations" do
+    wworg = create(:worldwide_organisation)
+    case_study = create(:published_case_study,
+                        worldwide_organisations: [wworg])
+    presented_hash = present(case_study)
+    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_equal [wworg.content_id], presented_hash[:links][:worldwide_organisations]
+  end
 private
 
   def assert_equal_hash(expected, actual)

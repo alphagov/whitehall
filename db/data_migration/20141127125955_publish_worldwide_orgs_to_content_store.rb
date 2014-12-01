@@ -1,0 +1,1 @@
+DataHygiene::PublishingApiRepublisher.new(WorldwideOrganisation).perform

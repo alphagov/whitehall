@@ -9,7 +9,8 @@ private
     {
       lead_organisations: edition.lead_organisations.map(&:content_id),
       supporting_organisations: edition.supporting_organisations.map(&:content_id),
-      world_locations: edition.world_locations.map(&:content_id)
+      world_locations: edition.world_locations.map(&:content_id),
+      worldwide_organisations: edition.worldwide_organisations.map(&:content_id)
     }
   end
 
