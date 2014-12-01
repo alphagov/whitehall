@@ -6,7 +6,8 @@
     "base_path",
     "format",
     "publishing_app",
-    "update_type"
+    "update_type",
+    "locale"
   ],
   "properties": {
     "base_path": {
@@ -37,6 +38,9 @@
     },
     "update_type": {
       "enum": [ "major", "minor", "republish" ]
+    },
+    "locale": {
+      "type": "String"
     },
     "need_ids": {
       "type": "array",

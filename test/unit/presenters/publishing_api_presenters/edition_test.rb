@@ -21,6 +21,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       description: 'The summary',
       base_path: public_path,
       format: 'placeholder',
+      locale: 'en',
       need_ids: [],
       public_updated_at: edition.public_timestamp,
       update_type: 'major',
@@ -67,5 +68,21 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     edition = create(:case_study)
     presented_hash = present(edition, update_type: update_type_override)
     assert_equal update_type_override, presented_hash[:update_type]
+  end
+
+  test 'is locale aware' do
+    edition = create(:publication)
+
+    I18n.with_locale :ur do
+      edition.title = "Urdu title"
+      edition.save!
+      presented_hash = present(edition)
+
+      assert_equal 'ur', presented_hash[:locale]
+      assert_equal 'Urdu title', presented_hash[:title]
+      assert_equal Whitehall.url_maker.public_document_path(edition, locale: :ur),
+        presented_hash[:base_path]
+
+    end
   end
 end

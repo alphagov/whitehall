@@ -59,4 +59,20 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     assert_equal 'republish', presenter.as_json[:update_type]
   end
+
+  test "allows the locale to be overridden" do
+    organisation = create(:organisation)
+    presenter = PublishingApiPresenters.presenter_for(organisation)
+
+    I18n.with_locale(:es) do
+      organisation.name = "Spanish name"
+      organisation.save!
+
+      @spanish_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    end
+
+    PublishingApiWorker.new.perform(organisation.class.name, organisation.id, nil, 'es')
+
+    assert_requested @spanish_request
+  end
 end

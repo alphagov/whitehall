@@ -7,6 +7,10 @@ module DataHygiene
   #   publisher = DataHygiene::PublishingApiRepublisher.new(scope)
   #   publisher.perform
   #
+  # Note: when the scope passed in is for Editions, this will skip over any
+  # that are not in a publically visible state (i.e. not published or archived).
+  # Once the Publishing API has support for handling draft content, this should
+  # be updated so that draft content can be pushed to the draft stack.
   class PublishingApiRepublisher
     attr_reader :logger, :scope, :republished, :skipped
 
