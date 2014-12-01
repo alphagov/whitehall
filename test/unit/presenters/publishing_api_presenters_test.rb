@@ -9,6 +9,14 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal case_study, presenter.edition
   end
 
+  test ".presenter_for returns an unpublishing presenter for an unpublished case study" do
+    case_study = create(:draft_case_study)
+    unpublishing = create(:unpublishing, edition: case_study)
+    presenter = PublishingApiPresenters.presenter_for(case_study)
+
+    assert_equal PublishingApiPresenters::Unpublishing, presenter.class
+  end
+
   test ".presenter_for returns a generic Edition presenter for non-case studies" do
     assert_equal PublishingApiPresenters::Edition,
       PublishingApiPresenters.presenter_for(GenericEdition.new).class

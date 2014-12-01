@@ -8,12 +8,21 @@ module PublishingApiPresenters
   end
 
   def self.presenter_class_for(model)
-    if model.is_a?(::CaseStudy)
-      PublishingApiPresenters::CaseStudy
-    elsif model.is_a?(::Edition)
-      PublishingApiPresenters::Edition
+    if model.is_a?(::Edition)
+      presenter_class_for_edition(model)
     else
       PublishingApiPresenters::Placeholder
     end
   end
+
+  def self.presenter_class_for_edition(edition)
+    if !edition.publicly_visible? && edition.unpublishing.present?
+      PublishingApiPresenters::Unpublishing
+    elsif edition.is_a?(::CaseStudy)
+      PublishingApiPresenters::CaseStudy
+    else
+      PublishingApiPresenters::Edition
+    end
+  end
+
 end
