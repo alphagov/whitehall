@@ -108,3 +108,8 @@ task process_topic_retagging_csv: :environment do
 
   TagChangesProcessor.new(csv_location).process
 end
+
+desc "Unarchive an edition (creates and publishes a draft with audit trail)"
+task :unarchive_edition, [:edition_id] => :environment do |t,args|
+  DataHygiene::EditionUnarchiver.new(args[:edition_id], Logger.new(STDOUT)).unarchive
+end
