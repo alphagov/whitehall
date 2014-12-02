@@ -43,13 +43,16 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_equal [FatalityNoticePresenter.new(iraq_fatality)], assigns(:fatality_notices)
   end
 
-  test "orders the fatality notice by reverse chronological order" do
+  test "orders the fatality notice in reverse chronological order by first published date" do
     iraq = create(:operational_field)
     old_iraq_fatality = create(:published_fatality_notice, operational_field: iraq)
     new_iraq_fatality = create(:published_fatality_notice, operational_field: iraq)
 
-    old_iraq_fatality.update_column(:public_timestamp, 2.weeks.ago)
-    new_iraq_fatality.update_column(:public_timestamp, 2.days.ago)
+    old_iraq_fatality.update_column(:first_published_at, 2.weeks.ago)
+    old_iraq_fatality.update_column(:public_timestamp, 2.days.ago)
+
+    new_iraq_fatality.update_column(:first_published_at, 5.days.ago)
+    new_iraq_fatality.update_column(:public_timestamp, 3.days.ago)
 
     get :show, id: iraq
     assert_equal [
