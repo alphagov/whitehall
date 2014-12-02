@@ -51,8 +51,8 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     old_iraq_fatality.update_column(:first_published_at, 2.weeks.ago)
     old_iraq_fatality.update_column(:public_timestamp, 2.days.ago)
 
-    new_iraq_fatality.update_column(:first_published_at, 2.days.ago)
-    new_iraq_fatality.update_column(:public_timestamp, 2.weeks.ago)
+    new_iraq_fatality.update_column(:first_published_at, 5.days.ago)
+    new_iraq_fatality.update_column(:public_timestamp, 3.days.ago)
 
     get :show, id: iraq
     assert_equal [
