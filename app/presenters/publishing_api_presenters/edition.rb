@@ -16,7 +16,7 @@ class PublishingApiPresenters::Edition
 
   def as_json
     {
-      content_id: edition.document.content_id,
+      content_id: edition.content_id,
       title: edition.title,
       base_path: base_path,
       description: edition.summary,
