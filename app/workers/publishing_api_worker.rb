@@ -2,7 +2,9 @@ class PublishingApiWorker
   include Sidekiq::Worker
 
   def perform(model_name, id, update_type = nil, locale=I18n.default_locale.to_s)
-    model     = class_for(model_name).find(id)
+    model     = class_for(model_name).find_by_id(id)
+    return unless model
+
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do

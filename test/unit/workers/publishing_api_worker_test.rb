@@ -42,6 +42,10 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
     )
   end
 
+  test "fails gracefully if the model cannot be found" do
+    PublishingApiWorker.new.perform('Edition', non_existant_id = 12)
+  end
+
   test "passes the update_type option to the presenter" do
     update_type = "republish"
 
