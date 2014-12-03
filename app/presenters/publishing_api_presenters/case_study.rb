@@ -22,6 +22,7 @@ private
       change_history: edition.change_history.as_json,
     }).tap do |json|
       json[:image] = image_details if image_available?
+      json[:archive_notice] = archive_notice if edition.archived?
     end
   end
 
@@ -30,6 +31,13 @@ private
       url: Whitehall.asset_root + presented_case_study.lead_image_path,
       alt_text: presented_case_study.lead_image_alt_text,
       caption: presented_case_study.lead_image_caption,
+    }
+  end
+
+  def archive_notice
+    {
+      explanation: edition.unpublishing.explanation,
+      archived_at: edition.updated_at
     }
   end
 

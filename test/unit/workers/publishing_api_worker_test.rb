@@ -7,23 +7,21 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
   test "registers an edition with the publishing api" do
     edition   = create(:published_detailed_guide)
     presenter = PublishingApiPresenters.presenter_for(edition)
-    stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    request   = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
 
-    assert_publishing_api_put_item(presenter.base_path,
-      JSON.parse(presenter.as_json.to_json))
+    assert_requested request
   end
 
   test "registers case studies with their own presenter" do
     edition   = create(:published_case_study)
     presenter = PublishingApiPresenters.presenter_for(edition)
-    stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    request   = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id)
 
-    assert_publishing_api_put_item(presenter.base_path,
-      JSON.parse(presenter.as_json.to_json))
+    assert_requested request
   end
 
   test "registers an organisation with the publishing api" do
@@ -32,14 +30,11 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     # We need to reset because registration happens on create above
     WebMock.reset!
-    stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
     PublishingApiWorker.new.perform(organisation.class.name, organisation.id)
 
-    assert_publishing_api_put_item(
-      presenter.base_path,
-      JSON.parse(presenter.as_json.to_json)
-    )
+    assert_requested request
   end
 
   test "passes the update_type option to the presenter" do
@@ -47,17 +42,11 @@ class PublishingApiWorkerTest < ActiveSupport::TestCase
 
     edition   = create(:published_detailed_guide)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: update_type)
-
-    stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+    request   = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
     PublishingApiWorker.new.perform(edition.class.name, edition.id, update_type)
 
-    assert_publishing_api_put_item(
-      presenter.base_path,
-      JSON.parse(presenter.as_json.to_json)
-    )
-
-    assert_equal 'republish', presenter.as_json[:update_type]
+    assert_requested request
   end
 
   test "allows the locale to be overridden" do

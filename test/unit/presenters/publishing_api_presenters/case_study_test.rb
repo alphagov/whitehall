@@ -152,6 +152,24 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal [wworg.content_id], presented_hash[:links][:worldwide_organisations]
   end
+
+  test "an archived case study includes details of the archive notice" do
+    case_study = create(:published_case_study, :archived)
+    case_study.build_unpublishing(
+      unpublishing_reason_id: UnpublishingReason::Archived.id,
+      explanation: 'No longer relevant')
+
+    case_study.unpublishing.save!
+
+    archive_notice = {
+      explanation: "No longer relevant",
+      archived_at: case_study.updated_at
+    }
+
+    assert_valid_against_schema('case_study', present(case_study).to_json)
+    assert_equal archive_notice, present(case_study)[:details][:archive_notice]
+  end
+
 private
 
   def assert_equal_hash(expected, actual)
