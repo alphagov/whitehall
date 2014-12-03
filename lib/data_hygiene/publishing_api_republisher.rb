@@ -39,7 +39,7 @@ module DataHygiene
   private
 
     def publishable?(instance)
-      !instance.kind_of?(Edition) || instance.publicly_visible?
+      !instance.kind_of?(Edition) || instance.publicly_visible? || instance.unpublishing.present?
     end
 
     def republish(instance)
