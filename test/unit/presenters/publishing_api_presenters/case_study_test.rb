@@ -51,9 +51,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       },
       links: {
         lead_organisations: [case_study.lead_organisations.first.content_id],
+        related_policies: [],
         supporting_organisations: [],
         world_locations: [],
-        worldwide_organisations: []
+        worldwide_organisations: [],
+        worldwide_priorities: [],
       }
     }
     presented_hash = present(case_study)
@@ -111,9 +113,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     presented_hash = present(case_study)
     expected_links_hash = {
       lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
+      related_policies: [],
       supporting_organisations: [supporting_org.content_id],
       world_locations: [],
-      worldwide_organisations: []
+      worldwide_organisations: [],
+      worldwide_priorities: [],
     }
 
     assert_valid_against_schema('case_study', presented_hash.to_json)
@@ -151,6 +155,24 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     presented_hash = present(case_study)
     assert_valid_against_schema('case_study', presented_hash.to_json)
     assert_equal [wworg.content_id], presented_hash[:links][:worldwide_organisations]
+  end
+
+  test "links hash includes related policies" do
+    policy = create(:policy)
+    case_study = create(:published_case_study, related_policies: [policy])
+    presented_hash = present(case_study)
+
+    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_equal [policy.content_id], presented_hash[:links][:related_policies]
+  end
+
+  test "links hash includes worldwide priorities" do
+    priority = create(:worldwide_priority)
+    case_study = create(:published_case_study, worldwide_priorities: [priority])
+    presented_hash = present(case_study)
+
+    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_equal [priority.content_id], presented_hash[:links][:worldwide_priorities]
   end
 
   test "an archived case study includes details of the archive notice" do

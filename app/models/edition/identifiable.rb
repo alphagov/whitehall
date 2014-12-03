@@ -9,7 +9,7 @@ module Edition::Identifiable
     before_validation :propagate_type_to_document
   end
 
-  delegate :slug, :change_history, to: :document
+  delegate :slug, :change_history, :content_id, to: :document
 
   def linkable?
     document.published?
