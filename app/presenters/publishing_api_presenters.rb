@@ -17,7 +17,11 @@ module PublishingApiPresenters
 
   def self.presenter_class_for_edition(edition)
     if !edition.publicly_visible? && edition.unpublishing.present?
-      PublishingApiPresenters::Unpublishing
+      if edition.unpublishing.redirect
+        PublishingApiPresenters::Redirect
+      else
+        PublishingApiPresenters::Unpublishing
+      end
     elsif edition.is_a?(::CaseStudy)
       PublishingApiPresenters::CaseStudy
     else
