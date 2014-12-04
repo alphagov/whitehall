@@ -4,6 +4,7 @@ class GovukContentSchema
 
   VALID_SCHEMA_NAMES = [
     'case_study',
+    'unpublishing'
   ]
   VALID_SCHEMA_NAMES << 'test' if Rails.env.test?
 

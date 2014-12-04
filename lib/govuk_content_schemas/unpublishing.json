@@ -24,7 +24,7 @@
       "type": "string"
     },
     "format": {
-      "enum": [ "case_study" ]
+      "enum": [ "unpublishing" ]
     },
     "public_updated_at": {
       "type": "string",
@@ -64,94 +64,21 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "body",
-        "first_public_at"
+        "explanation",
+        "unpublished_at",
+        "alternative_url"
       ],
       "properties": {
-        "body": {
+        "explanation": {
           "type": "string"
         },
-        "image": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "url": {
-              "type": "string",
-              "format": "uri"
-            },
-            "alt_text": {
-              "type": "string"
-            },
-            "caption": {
-              "anyOf": [
-                { "type": "string" },
-                { "type": null }
-              ]
-            }
-          }
-        },
-        "format_display_type": {
-          "type": "string"
-        },
-        "first_public_at": {
+        "unpublished_at": {
           "type": "string",
           "format": "date-time"
         },
-        "change_note": {
-          "anyOf": [
-            { "type": "string" },
-            { "type": null }
-          ]
-        },
-        "change_history": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "public_timestamp": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "note": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "public_timestamp",
-              "note"
-            ]
-          }
-        },
-        "tags": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "browse_pages": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "topics": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "archive_notice": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "explanation": {
-              "type": "string"
-            },
-            "archived_at": {
-              "format": "date-time"
-            }
-          }
+        "alternative_url": {
+          "type": "string",
+          "format": "uri"
         }
       }
     },
@@ -165,9 +92,6 @@
         "lead_organisations": {
           "$ref": "#/definitions/guid_list"
         },
-        "related_policies": {
-          "$ref": "#/definitions/guid_list"
-        },
         "supporting_organisations": {
           "$ref": "#/definitions/guid_list"
         },
@@ -175,9 +99,6 @@
           "$ref": "#/definitions/guid_list"
         },
         "worldwide_organisations": {
-          "$ref": "#/definitions/guid_list"
-        },
-        "worldwide_priorities": {
           "$ref": "#/definitions/guid_list"
         }
       }
