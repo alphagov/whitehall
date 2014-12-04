@@ -4,17 +4,16 @@ module Whitehall
   # This should be used in preference to accessing the API adapter or
   # PublishingApiWorkers directly when publishing or republishing models to the
   # Publishing API.
+  #
+  # publish and republish return false if the model instance is not suitable for
+  # publishing to the API.
   class PublishingApi
     def self.publish(model_instance)
-      locales_for(model_instance).each do |locale|
-        PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, nil, locale)
-      end
+      do_action(model_instance, nil)
     end
 
     def self.republish(model_instance)
-      locales_for(model_instance).each do |locale|
-        PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, "republish", locale)
-      end
+      do_action(model_instance, 'republish')
     end
 
   private
@@ -25,5 +24,17 @@ module Whitehall
     def self.locales_for(model_instance)
       model_instance.translated_locales
     end
+
+    def self.do_action(model_instance, action)
+      return false unless publishable?(model_instance)
+      locales_for(model_instance).each do |locale|
+        PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, action, locale)
+      end
+    end
+
+    def self.publishable?(instance)
+      !instance.kind_of?(Edition) || instance.publicly_visible? || instance.unpublishing.present?
+    end
+
   end
 end
