@@ -24,13 +24,7 @@ module DataHygiene
     def perform
       logger.info "Pushing #{scope.count} #{scope.model_name} instances to the Publishing API"
 
-      scope.find_each do |instance|
-        if publishable?(instance)
-          republish(instance)
-        else
-          skip(instance)
-        end
-      end
+      scope.find_each { |instance| republish(instance) }
 
       logger.info("Republished #{republished} instances")
       logger.info("Skipped #{skipped} instances (which were not published)") if skipped > 0
@@ -38,19 +32,14 @@ module DataHygiene
 
   private
 
-    def publishable?(instance)
-      !instance.kind_of?(Edition) || instance.publicly_visible? || instance.unpublishing.present?
-    end
-
     def republish(instance)
-      logger << '.'
-      Whitehall::PublishingApi.republish(instance)
-      @republished += 1
-    end
-
-    def skip(instance)
-      logger << '*'
-      @skipped += 1
+      if Whitehall::PublishingApi.republish(instance)
+        logger << '.'
+        @republished += 1
+      else
+        logger << '*'
+        @skipped += 1
+      end
     end
   end
 end

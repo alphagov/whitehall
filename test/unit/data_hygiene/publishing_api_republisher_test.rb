@@ -14,23 +14,4 @@ class DataHygiene::PublishingApiRepublisherTest < ActiveSupport::TestCase
     assert_requested expected_request
   end
 
-  test "skips editions that are not publically visible" do
-    draft     = create(:draft_edition)
-    published = create(:published_edition)
-    archived  = create(:published_edition, state: 'archived')
-
-    draft_payload = PublishingApiPresenters.presenter_for(draft, update_type: "republish").as_json
-    published_payload = PublishingApiPresenters.presenter_for(published, update_type: "republish").as_json
-    archived_payload  = PublishingApiPresenters.presenter_for(archived, update_type: "republish").as_json
-
-    draft_request     = stub_publishing_api_put_item(draft_payload[:base_path], draft_payload)
-    published_request = stub_publishing_api_put_item(published_payload[:base_path], published_payload)
-    archived_request  = stub_publishing_api_put_item(archived_payload[:base_path], archived_payload)
-
-    DataHygiene::PublishingApiRepublisher.new(Edition.where(true), NullLogger.instance).perform
-
-    assert_requested published_request
-    assert_requested archived_request
-    assert_not_requested draft_request
-  end
 end
