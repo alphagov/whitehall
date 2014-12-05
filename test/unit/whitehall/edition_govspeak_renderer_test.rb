@@ -5,7 +5,7 @@ class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
     edition = build(:edition, body: 'Some content')
 
     assert_equivalent_html '<div class="govspeak"><p>Some content</p></div>',
-      render_govspeak(edition)
+      render_govspeak(edition).body
   end
 
   test "interpolates images into rendered HTML" do
@@ -14,7 +14,7 @@ class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
     edition.stubs(:images).returns([image])
 
     assert_equivalent_html govspeak_with_image_html(image),
-      render_govspeak(edition)
+      render_govspeak(edition).body
   end
 
   test "converts inline attachments" do
@@ -23,13 +23,20 @@ class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
       attachment_1 = build(:file_attachment, id: 1),
       attachment_2 = build(:file_attachment, id: 2)
     ])
-    html = render_govspeak(edition)
+    html = render_govspeak(edition).body
     assert_select_within_html html, "#attachment_#{attachment_1.id}"
     assert_select_within_html html, "#attachment_#{attachment_2.id}"
   end
 
+  test "renders govspeak in archiving_explanation" do
+    edition = build(:edition, body: 'Some content')
+    edition.unpublishing = build(:unpublishing, edition: edition, explanation: 'Some explanation')
+    assert_equivalent_html '<div class="govspeak"><p>Some explanation</p></div>',
+      render_govspeak(edition).unpublishing_explanation
+  end
+
   def render_govspeak(edition)
-    Whitehall::EditionGovspeakRenderer.new(edition).body
+    Whitehall::EditionGovspeakRenderer.new(edition)
   end
 
 private

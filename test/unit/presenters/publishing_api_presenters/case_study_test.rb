@@ -184,7 +184,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study.unpublishing.save!
 
     archive_notice = {
-      explanation: "No longer relevant",
+      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
       archived_at: case_study.updated_at
     }
 
