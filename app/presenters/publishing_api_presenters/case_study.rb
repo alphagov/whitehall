@@ -38,13 +38,17 @@ private
 
   def archive_notice
     {
-      explanation: edition.unpublishing.explanation,
+      explanation: unpublishing_explanation,
       archived_at: edition.updated_at
     }
   end
 
   def body
     Whitehall::EditionGovspeakRenderer.new(edition).body
+  end
+
+  def unpublishing_explanation
+    Whitehall::EditionGovspeakRenderer.new(edition).unpublishing_explanation
   end
 
   def image_available?

@@ -11,6 +11,10 @@ module Whitehall
       helpers.govspeak_edition_to_html(edition)
     end
 
+    def unpublishing_explanation
+      helpers.govspeak_to_html(edition.unpublishing.explanation) if edition.unpublishing.try(:explanation).present?
+    end
+
   private
 
     # Because the govspeak helpers in whitehall rely on rendering partials, we
