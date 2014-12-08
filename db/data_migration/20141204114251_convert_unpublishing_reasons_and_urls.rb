@@ -11,7 +11,7 @@ Unpublishing.where('alternative_url like "https://whitehall-admin%"').each do |u
 
   # otherwise it's a frontend URL, just substitute gov.uk
   if new_url.nil?
-    new_url = original_url.sub("https://whitehall-admin.production.alphagov.co.uk", "https://www.gov.uk")
+    new_url = original_url.sub("https://whitehall-admin.production.alphagov.co.uk", Whitehall.public_root)
   end
 
   @logger.info "Fixing unpublishing id #{unp.id}: #{original_url} => #{new_url}"
@@ -28,7 +28,7 @@ Unpublishing.where(unpublishing_reason_id: [2, 3]).each do |unp|
   reason = unp.unpublishing_reason_id
 
   if redirect
-    if url.present? && url.match('https://www.gov.uk')
+    if url.present? && url.match(Whitehall.public_root)
       unp.unpublishing_reason_id = 4
     else
       unp.redirect = false
