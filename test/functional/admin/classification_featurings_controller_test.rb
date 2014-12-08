@@ -68,6 +68,16 @@ class Admin::ClassificationFeaturingsControllerTest < ActionController::TestCase
     assert_equal [news_article], tagged_editions
   end
 
+  view_test "GET :index contains a message when no results matching search criteria were found" do
+    create(:published_news_article, topics: [@topic])
+    news_article = create(:published_news_article, topics: [@topic])
+
+    get :index, topic_id: create(:topic)
+
+    assert_equal 0, assigns(:tagged_editions).count
+    assert_match 'No documents found', response.body
+  end
+
   test "PUT :order saves the new order of featurings" do
     feature1 = create(:classification_featuring, classification: @topic)
     feature2 = create(:classification_featuring, classification: @topic)
