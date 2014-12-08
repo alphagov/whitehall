@@ -7,8 +7,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
                         first_published_at: Time.zone.now,
                         summary: 'The summary')
     @unpublishing = create(:unpublishing, edition: @case_study,
-                          explanation: 'it is rubbish',
-                          alternative_url: "#{Whitehall.public_root}/foobar")
+                          explanation: 'it is rubbish')
   end
 
   def present(edition, options = {})
@@ -41,9 +40,9 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       ],
       redirects: [],
       details: {
-        explanation: 'it is rubbish',
+        explanation: "<div class=\"govspeak\"><p>it is rubbish</p></div>",
         unpublished_at: @unpublishing.created_at,
-        alternative_url: "#{Whitehall.public_root}/foobar"
+        alternative_url: ""
       }
     }
 

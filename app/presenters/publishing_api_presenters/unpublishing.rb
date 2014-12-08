@@ -14,10 +14,15 @@ class PublishingApiPresenters::Unpublishing < PublishingApiPresenters::Edition
 
   def details
     {
-      explanation: edition.unpublishing.explanation,
+      explanation: unpublishing_explanation,
       unpublished_at: edition.unpublishing.created_at,
-      alternative_url: edition.unpublishing.alternative_url
+      alternative_url: edition.unpublishing.alternative_url || ""
     }
   end
+
+  def unpublishing_explanation
+    Whitehall::EditionGovspeakRenderer.new(edition).unpublishing_explanation
+  end
+
 
 end
