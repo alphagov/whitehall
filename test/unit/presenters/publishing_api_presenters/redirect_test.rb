@@ -9,6 +9,7 @@ class PublishingApiPresenters::RedirectTest < ActiveSupport::TestCase
                         summary: 'The summary')
     @unpublishing = create(:unpublishing, edition: @case_study,
                           explanation: 'it is rubbish',
+                          redirect: true,
                           alternative_url: "#{Whitehall.public_root}/foobar")
   end
 
@@ -28,10 +29,7 @@ class PublishingApiPresenters::RedirectTest < ActiveSupport::TestCase
     expected_hash = {
       base_path: public_path,
       format: 'redirect',
-      locale: 'en',
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      public_updated_at: @case_study.public_timestamp,
       update_type: 'major',
       redirects: [
         { path: public_path, type: 'exact', destination: '/foobar' }
