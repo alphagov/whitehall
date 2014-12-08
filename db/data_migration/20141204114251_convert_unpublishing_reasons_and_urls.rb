@@ -14,7 +14,7 @@ Unpublishing.where('alternative_url like "https://whitehall-admin%"').each do |u
     new_url = original_url.sub("https://whitehall-admin.production.alphagov.co.uk", "https://www.gov.uk")
   end
 
-  @logger.info "Fixing redirect: #{original_url} => #{new_url}"
+  @logger.info "Fixing unpublishing id #{unp.id}: #{original_url} => #{new_url}"
   unp.update_column(:alternative_url, new_url)
 end
 
@@ -38,7 +38,7 @@ Unpublishing.where(unpublishing_reason_id: [2, 3]).each do |unp|
     unp.unpublishing_reason_id = 1
   end
 
-  @logger.info "Fixing unpublishing id #{unp.id} => reason #{unp.unpublishing_reason_id}, redirect #{unp.redirect}"
+  @logger.info "Fixing unpublishing id #{unp.id}: reason #{unp.unpublishing_reason_id}, redirect #{unp.redirect}"
   # Again, need to skip validations because edition can be deleted.
   unp.save(validate: false)
 end
