@@ -18,6 +18,11 @@ Unpublishing.where('alternative_url like "https://whitehall-admin%"').each do |u
   unp.update_column(:alternative_url, new_url)
 end
 
+# Fix any alternative urls that have stray whitespace
+Unpublishing.where("alternative_url LIKE ' %'").each do |unpubishing|
+  unpubishing.update_column(:alternative_url, unpubishing.alternative_url.strip)
+end
+
 # Now fix deprecated unpublishing reasons. If they currently (after above fix)
 # redirect to a page on gov.uk, keep that redirect with reason 4 (consolidated
 # into another page), otherwise turn off redirect and use reason 1 (published in
