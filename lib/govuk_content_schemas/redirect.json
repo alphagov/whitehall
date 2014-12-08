@@ -7,7 +7,6 @@
     "format",
     "publishing_app",
     "update_type",
-    "locale",
     "redirects"
   ],
   "properties": {
@@ -17,21 +16,11 @@
     "format": {
       "enum": [ "redirect" ]
     },
-    "public_updated_at": {
-      "type": "string",
-      "format": "date-time"
-    },
     "publishing_app": {
-      "type": "string"
-    },
-    "rendering_app": {
       "type": "string"
     },
     "update_type": {
       "enum": [ "major", "minor", "republish" ]
-    },
-    "locale": {
-      "type": "String"
     },
     "redirects": {
       "type": "array",

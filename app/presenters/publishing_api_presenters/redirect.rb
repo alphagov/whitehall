@@ -14,10 +14,7 @@ class PublishingApiPresenters::Redirect
     {
       base_path: base_path,
       format: "redirect",
-      locale: I18n.locale.to_s,
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
-      public_updated_at: item.updated_at,
       redirects: [
         {
           path: base_path,
