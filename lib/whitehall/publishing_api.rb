@@ -5,11 +5,13 @@ module Whitehall
   # PublishingApiWorkers directly when publishing or republishing models to the
   # Publishing API.
   #
-  # publish and republish return false if the model instance is not suitable for
-  # publishing to the API.
+  # publish and republish raise UnpublishableInstanceError if the model instance
+  # is not suitable for publishing to the API.
+  class UnpublishableInstanceError < StandardError; end
+
   class PublishingApi
     def self.publish(model_instance)
-      do_action(model_instance, nil)
+      do_action(model_instance)
     end
 
     def self.republish(model_instance)
@@ -25,10 +27,12 @@ module Whitehall
       model_instance.translated_locales
     end
 
-    def self.do_action(model_instance, action)
-      return false unless publishable?(model_instance)
+    def self.do_action(model_instance, update_type_override=nil)
+      unless publishable?(model_instance)
+        raise UnpublishableInstanceError, "#{model_instance.class} with ID #{model_instance.id} is not publishable"
+      end
       locales_for(model_instance).each do |locale|
-        PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, action, locale)
+        PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, update_type_override, locale)
       end
     end
 
