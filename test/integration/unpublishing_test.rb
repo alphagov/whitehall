@@ -35,7 +35,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal "archived", @registerable.state
   end
 
-  test "When unpublishing an edition, it gets republished to the Publishing API with an unpublish format" do
+  test "When unpublishing an edition, it gets published to the Publishing API with an unpublish format" do
     path = Whitehall.url_maker.public_document_path(@published_edition)
     stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)

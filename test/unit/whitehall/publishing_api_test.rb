@@ -70,7 +70,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested english_request
   end
 
-  test "skips editions that are not publicly visible" do
+  test "raises error for editions that are not publicly visible" do
     draft     = create(:draft_edition)
     published = create(:published_edition)
     archived  = create(:published_edition, state: 'archived')
@@ -83,8 +83,10 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     published_request = stub_publishing_api_put_item(published_payload[:base_path], published_payload)
     archived_request  = stub_publishing_api_put_item(archived_payload[:base_path], archived_payload)
 
-    Edition.where(true).each do |edition|
-      Whitehall::PublishingApi.republish(edition)
+    Whitehall::PublishingApi.republish(published)
+    Whitehall::PublishingApi.republish(archived)
+    assert_raise Whitehall::UnpublishableInstanceError do
+      Whitehall::PublishingApi.republish(draft)
     end
 
     assert_requested published_request
