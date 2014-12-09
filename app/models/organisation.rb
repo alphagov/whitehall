@@ -458,7 +458,11 @@ class Organisation < ActiveRecord::Base
   def organisations_with_services_and_information_link
     %w{
       charity-commission
+      department-for-education
+      driver-and-vehicle-standards-agency
       environment-agency
+      high-speed-two-limited
+      hm-revenue-customs
       marine-management-organisation
       maritime-and-coastguard-agency
       natural-england
