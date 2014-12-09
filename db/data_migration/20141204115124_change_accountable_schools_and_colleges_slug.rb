@@ -13,10 +13,16 @@ policy.slug = 'making-schools-and-colleges-more-accountable-and-funding-them-fai
 policy.save!
 
 policy_documents_slugs.each do |old_slug, new_slug|
+  old_policy_document = Document.where(slug: old_slug, document_type: 'Policy').first
+  new_policy_document = Document.where(slug: new_slug, document_type: 'Policy').first
+
   router.add_redirect_route("/government/policies/#{old_slug}",
                             'exact',
                             "/government/policies/#{new_slug}")
   puts "Added redirects from #{old_slug} to #{new_slug}"
+
+  Whitehall::SearchIndex.for(:government).delete(old_policy_document.published_edition)
+
+  Whitehall::SearchIndex.for(:government).add(new_policy_document.published_edition)
 end
 
-Whitehall::SearchIndex.for(:government).delete("/government/policies/making-schools-and-colleges-more-accountable-and-giving-them-more-control-over-their-budget")
