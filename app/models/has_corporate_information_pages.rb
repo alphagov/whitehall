@@ -2,7 +2,10 @@ module HasCorporateInformationPages
   extend ActiveSupport::Concern
 
   included do
-    has_many :corporate_information_pages, dependent: :destroy, through: "edition_#{table_name}".to_sym, source: :edition, class_name: "CorporateInformationPage"
+    has_many :corporate_information_pages, through: "edition_#{table_name}".to_sym, source: :edition, class_name: "CorporateInformationPage"
+    before_destroy do |record|
+      record.corporate_information_pages.map { |cip| cip.document.destroy }
+    end
   end
 
   def summary

@@ -512,6 +512,13 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_nil user.reload.organisation_slug
   end
 
+  test 'destroys associated corporate information page documents and editions' do
+    organisation = create(:corporate_information_page).organisation
+    assert_difference %w(Organisation.count Document.count CorporateInformationPage.count), -1 do
+      organisation.destroy
+    end
+  end
+
   test 'should use full name as display_name if acronym is an empty string' do
     assert_equal 'Blah blah', build(:organisation, acronym: '', name: 'Blah blah').display_name
   end

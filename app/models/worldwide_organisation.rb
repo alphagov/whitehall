@@ -1,4 +1,6 @@
 class WorldwideOrganisation < ActiveRecord::Base
+  include HasCorporateInformationPages
+
   PRIMARY_ROLES = [AmbassadorRole, HighCommissionerRole, GovernorRole]
 
   has_many :worldwide_organisation_world_locations, dependent: :destroy
@@ -18,8 +20,6 @@ class WorldwideOrganisation < ActiveRecord::Base
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
 
   scope :ordered_by_name, ->() { with_translations(I18n.default_locale).order(translation_class.arel_table[:name]) }
-
-  include HasCorporateInformationPages
 
   include AnalyticsIdentifierPopulator
   self.analytics_prefix = 'WO'
