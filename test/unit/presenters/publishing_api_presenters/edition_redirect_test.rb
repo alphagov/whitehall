@@ -8,7 +8,6 @@ class PublishingApiPresenters::EditionRedirectTest < ActiveSupport::TestCase
                         first_published_at: Time.zone.now,
                         summary: 'The summary')
     @unpublishing = create(:unpublishing, edition: @case_study,
-                          explanation: 'it is rubbish',
                           redirect: true,
                           alternative_url: "#{Whitehall.public_root}/foobar")
   end
