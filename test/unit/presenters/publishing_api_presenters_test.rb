@@ -22,7 +22,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     unpublishing = create(:unpublishing, edition: case_study, redirect: true, alternative_url: "#{Whitehall.public_root}/foobar")
     presenter = PublishingApiPresenters.presenter_for(case_study)
 
-    assert_equal PublishingApiPresenters::Redirect, presenter.class
+    assert_equal PublishingApiPresenters::EditionRedirect, presenter.class
   end
 
   test ".presenter_for returns a generic Edition presenter for non-case studies" do

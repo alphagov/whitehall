@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PublishingApiPresenters::RedirectTest < ActiveSupport::TestCase
+class PublishingApiPresenters::EditionRedirectTest < ActiveSupport::TestCase
 
   setup do
     @case_study = create(:draft_case_study,
@@ -14,7 +14,7 @@ class PublishingApiPresenters::RedirectTest < ActiveSupport::TestCase
   end
 
   def present(edition, options = {})
-    PublishingApiPresenters::Redirect.new(edition, options).as_json
+    PublishingApiPresenters::EditionRedirect.new(edition, options).as_json
   end
 
   test "presenter generates valid JSON according to the schema" do
