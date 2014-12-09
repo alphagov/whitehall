@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141127124535) do
+ActiveRecord::Schema.define(:version => 20141209093141) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -218,29 +218,6 @@ ActiveRecord::Schema.define(:version => 20141127124535) do
 
   add_index "contacts", ["contact_type_id"], :name => "index_contacts_on_contact_type_id"
   add_index "contacts", ["contactable_id", "contactable_type"], :name => "index_contacts_on_contactable_id_and_contactable_type"
-
-  create_table "corporate_information_page_translations", :force => true do |t|
-    t.integer  "corporate_information_page_id"
-    t.string   "locale"
-    t.text     "summary"
-    t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "corporate_information_page_translations", ["corporate_information_page_id"], :name => "index_f7e11e733407448d5e73391b45406ba2c3a87a54"
-  add_index "corporate_information_page_translations", ["locale"], :name => "index_corporate_information_page_translations_on_locale"
-
-  create_table "corporate_information_pages", :force => true do |t|
-    t.integer  "lock_version"
-    t.integer  "organisation_id"
-    t.integer  "type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "organisation_type"
-  end
-
-  add_index "corporate_information_pages", ["organisation_id", "organisation_type", "type_id"], :name => "index_corporate_information_pages_on_polymorphic_columns", :unique => true
 
   create_table "data_migration_records", :force => true do |t|
     t.string "version"
