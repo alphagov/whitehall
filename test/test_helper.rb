@@ -54,6 +54,11 @@ class ActiveSupport::TestCase
     assert_select HTML::Document.new(text).root, *args, &block
   end
 
+  def assert_equal_hash(expected, actual)
+    assert_equal expected, actual,
+      "Hashes do not match. Differences are:\n\n#{mu_pp(expected.diff(actual))}\n"
+  end
+
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|
