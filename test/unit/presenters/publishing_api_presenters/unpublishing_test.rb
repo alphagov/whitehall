@@ -45,7 +45,16 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
         alternative_url: ""
       }
     }
+    presented_hash = present(@case_study)
 
-    assert_equal expected_hash, present(@case_study)
+    assert_equal_hash expected_hash.except(:details),
+      presented_hash.except(:details)
+
+    # We test for HTML equivalence rather than string equality to get around
+    # inconsistencies with line breaks between different XML libraries
+    assert_equivalent_html expected_hash[:details].delete(:explanation),
+      presented_hash[:details].delete(:explanation)
+
+    assert_equal_hash expected_hash[:details], presented_hash[:details]
   end
 end
