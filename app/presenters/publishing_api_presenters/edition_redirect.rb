@@ -29,7 +29,7 @@ class PublishingApiPresenters::EditionRedirect
 private
 
   def redirect_path
-    item.unpublishing.alternative_url.sub(Whitehall.public_root, '')
+    URI.parse(item.unpublishing.alternative_url).path
   end
 
   def default_update_type
