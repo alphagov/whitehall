@@ -50,6 +50,37 @@ module Whitehall
       @slug_changer.call
     end
 
+    test 'adds redirect route for all published CIPs' do
+      @router.unstub(:add_redirect_route) # Necessary otherwise the .never assertion below would never fail.
+      @router.stubs(:add_redirect_route).with("/government/organisations/#{@organisation.slug}", any_parameters)
+
+      about = create(:about_corporate_information_page, organisation: @organisation)
+      cip1 = create(:published_corporate_information_page, organisation: @organisation,
+                    corporate_information_page_type_id: CorporateInformationPageType::PublicationScheme.id)
+      cip2 = create(:published_corporate_information_page, organisation: @organisation,
+                    corporate_information_page_type_id: CorporateInformationPageType::ComplaintsProcedure.id)
+      draft = create(:corporate_information_page, organisation: @organisation,
+                    corporate_information_page_type_id: CorporateInformationPageType::Research.id)
+
+      @router.expects(:add_redirect_route).with(
+        "/government/organisations/#{@organisation.slug}/about",
+        "exact",
+        "/government/organisations/#{@new_slug}/about")
+      @router.expects(:add_redirect_route).with(
+        "/government/organisations/#{@organisation.slug}/about/#{cip1.slug}",
+        "exact",
+        "/government/organisations/#{@new_slug}/about/#{cip1.slug}")
+      @router.expects(:add_redirect_route).with(
+        "/government/organisations/#{@organisation.slug}/about/#{cip2.slug}",
+        "exact",
+        "/government/organisations/#{@new_slug}/about/#{cip2.slug}")
+      @router.expects(:add_redirect_route)
+        .with("/government/organisations/#{@organisation.slug}/about/#{draft.slug}", any_parameters)
+        .never
+
+      @slug_changer.call
+    end
+
     test 're-registers in search any published editions associated with the organisation' do
       edition = create(:published_publication, organisations: [@organisation])
 
