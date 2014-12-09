@@ -183,13 +183,11 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     case_study.unpublishing.save!
 
-    archive_notice = {
-      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
-      archived_at: case_study.updated_at
-    }
-
     assert_valid_against_schema('case_study', present(case_study).to_json)
-    assert_equal archive_notice, present(case_study)[:details][:archive_notice]
+    assert_equal case_study.updated_at,
+      present(case_study)[:details][:archive_notice][:archived_at]
+    assert_equivalent_html "<div class=\"govspeak\"><p>No longer relevant</p></div>",
+      present(case_study)[:details][:archive_notice][:explanation]
   end
 
 private
