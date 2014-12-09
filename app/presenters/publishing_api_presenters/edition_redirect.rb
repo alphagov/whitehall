@@ -1,4 +1,4 @@
-class PublishingApiPresenters::Redirect
+class PublishingApiPresenters::EditionRedirect
   attr_reader :item, :update_type
 
   def initialize(item, options = {})
