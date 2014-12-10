@@ -90,5 +90,15 @@ module Whitehall
 
       @slug_changer.call
     end
+
+    test 're-registers in search any statistics announcements with published publications associated with the organisation' do
+      statistics_announcement = create(:statistics_announcement, organisations: [@organisation])
+
+      indexer = mock("indexer")
+      indexer.expects(:index!)
+      ServiceListeners::SearchIndexer.expects(:new).with(statistics_announcement).returns(indexer)
+
+      @slug_changer.call
+    end
   end
 end

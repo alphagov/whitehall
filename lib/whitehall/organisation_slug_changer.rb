@@ -46,6 +46,12 @@ class Whitehall::OrganisationSlugChanger
     organisation.editions.published.find_each do |edition|
       ServiceListeners::SearchIndexer.new(edition).index!
     end
+
+    logger.info "Re-registering #{new_slug} statistics announcements without publications in search"
+    organisation.statistics_announcements.without_published_publication.find_each do |statistics_announcement|
+      ServiceListeners::SearchIndexer.new(statistics_announcement).index!
+    end
+
     logger.info "Complete.\n\nThe following entries should be added to router-data:\n"
     logger.info router_data_csv_lines
   end
