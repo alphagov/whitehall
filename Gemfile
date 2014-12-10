@@ -21,7 +21,7 @@ gem 'addressable'
 gem 'unicorn', '4.6.2'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
-gem 'gds-api-adapters', '17.0.1'
+gem 'gds-api-adapters', '17.2.0'
 gem 'whenever', '0.9.0', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.0.2'

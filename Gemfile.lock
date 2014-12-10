@@ -131,7 +131,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.0)
     friendly_id (4.0.9)
-    gds-api-adapters (17.0.1)
+    gds-api-adapters (17.2.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -406,7 +406,7 @@ DEPENDENCIES
   equivalent-xml (= 0.3.0)
   factory_girl
   friendly_id (= 4.0.9)
-  gds-api-adapters (= 17.0.1)
+  gds-api-adapters (= 17.2.0)
   gds-sso (~> 10.0)
   globalize3!
   govspeak (~> 3.2.0)
