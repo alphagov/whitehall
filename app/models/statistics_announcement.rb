@@ -9,10 +9,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
   has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
-  has_many :statistics_announcement_topics, dependent: :delete_all
+  has_many :statistics_announcement_topics, dependent: :destroy
   has_many :topics, through: :statistics_announcement_topics
 
-  has_many :statistics_announcement_organisations, dependent: :delete_all
+  has_many :statistics_announcement_organisations, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication

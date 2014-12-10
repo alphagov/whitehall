@@ -202,6 +202,20 @@ class StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_includes announcement.reload.organisations, organisation
   end
 
+  test '#destroy destroys organisation associations' do
+    statistics_announcement = create(:statistics_announcement)
+    assert_difference %w(StatisticsAnnouncement.count StatisticsAnnouncementOrganisation.count), -1 do
+      statistics_announcement.destroy
+    end
+  end
+
+  test '#destroy destroys topic associations' do
+    statistics_announcement = create(:statistics_announcement)
+    assert_difference %w(StatisticsAnnouncement.count StatisticsAnnouncementTopic.count), -1 do
+      statistics_announcement.destroy
+    end
+  end
+
   test 'StatisticsAnnouncement.with_topics scope returns announcements with matching topics' do
     topic1 = create(:topic)
     topic2 = create(:topic)
