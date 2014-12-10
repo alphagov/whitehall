@@ -126,7 +126,7 @@ private
   def example_headers_html
     <<-END
       <ol>
-        <li><a href="#heading">Heading</a></li>
+        <li class=""><a href="#heading">Heading</a></li>
       </ol>
     END
   end
@@ -134,7 +134,7 @@ private
   def example_manually_numbered_headers_html
     <<-END
       <ol class="unnumbered">
-        <li><a href="#heading">Heading</a></li>
+        <li class=""><a href="#heading">Heading</a></li>
       </ol>
     END
   end

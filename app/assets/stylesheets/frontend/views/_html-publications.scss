@@ -80,7 +80,11 @@
   .in-page-navigation {
     color: $white;
     margin: 0 0 $gutter+$gutter-one-third;
-    width: 70%;
+    width: 100%;
+    @include media(desktop) {
+      width: 70%;
+    }
+
     h2 {
       font-weight: bold;
     }
@@ -99,6 +103,21 @@
         padding-left: 0;
         li {
           list-style: none;
+          &.numbered {
+            margin-left: $gutter-two-thirds;
+            @include media(desktop) {
+              margin-left: $gutter;              
+            }
+            a {
+              .heading-number {
+                @include bold-19($tabular-numbers: true);
+                margin-left: -18px;
+                @include media(desktop) {
+                  margin-left: -20px;
+                }
+              }
+            }
+          }
         }
       }
     }

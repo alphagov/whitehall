@@ -40,7 +40,9 @@ module GovspeakHelper
   def html_attachment_govspeak_headers(attachment)
     govspeak_headers(attachment.govspeak_content_body).tap do |headers|
       if attachment.manually_numbered_headings?
-        headers.each { |header| header.text = header.text.gsub(/^(\d+.?\d*\s*)/, '') }
+        headers.each { |header|
+          header.text = header.text.gsub(/^(\d+.?\d*)\s*/, '<span class="heading-number">\1</span> ').html_safe
+        }
       end
     end
   end
@@ -48,9 +50,14 @@ module GovspeakHelper
   def html_attachment_govspeak_headers_html(attachment)
     content_tag(:ol, class: ('unnumbered' if attachment.manually_numbered_headings?)) do
       html_attachment_govspeak_headers(attachment).reduce('') do |html, header|
-        html << content_tag(:li ,link_to(header.text, "##{header.id}"))
+        css_class = header_contains_manual_numbering?(header) ? 'numbered' : ''
+        html << content_tag(:li ,link_to(header.text, "##{header.id}"), class: css_class)
       end.html_safe
     end
+  end
+
+  def header_contains_manual_numbering?(header)
+    header.text.include?('<span class="heading-number">')
   end
 
   def govspeak_embedded_contacts(govspeak)
