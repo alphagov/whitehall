@@ -99,6 +99,16 @@
         padding-left: 0;
         li {
           list-style: none;
+          &.numbered {
+            margin-left: $gutter;
+            a {
+              .heading-number {
+                @include bold-19($tabular-numbers: true);
+                position: absolute;
+                right: 92%;
+              }
+            }
+          }
         }
       }
     }
