@@ -9,10 +9,10 @@ policy = Policy.published_as(slug)
 supporting_pages = policy.published_supporting_pages
 
 # remove the old versions from the search index
-Whitehall::SearchIndex.for(:government).delete(policy)
+Whitehall::SearchIndex.delete(policy)
 
 supporting_pages.each do |supporting_page|
-  Whitehall::SearchIndex.for(:government).delete(supporting_page)
+  Whitehall::SearchIndex.delete(supporting_page)
 end
 
 # change the slug on the parent document
@@ -20,14 +20,14 @@ policy.document.slug = new_slug
 policy.document.save!
 
 # re-index the new versions
-Whitehall::SearchIndex.for(:government).add(policy)
+Whitehall::SearchIndex.add(policy)
 
 supporting_pages.each do |supporting_page|
-  Whitehall::SearchIndex.for(:government).add(supporting_page)
+  Whitehall::SearchIndex.add(supporting_page)
 end
 
 # set the redirect
-router.add_redirect_route("/government/policy/#{slug}",
-                          'exact',
-                          "/government/policy/#{new_slug}")
+router.add_redirect_route("/government/policies/#{slug}",
+                          'prefix',
+                          "/government/policies/#{new_slug}")
 router.commit_routes
