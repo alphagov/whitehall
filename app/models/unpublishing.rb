@@ -31,17 +31,16 @@ class Unpublishing < ActiveRecord::Base
     unpublishing_reason.as_sentence
   end
 
+  # Because the edition may have been deleted, we override the slug in case it
+  # has bee pre-fixed with 'deleted-'
   def document_path
-    @document_path ||= if edition.present?
-      Whitehall.url_maker.public_document_path(edition)
-    else
-      # If edition is nil it's probably because it's deleted and hidden by the
-      # default scope
-      deleted_edition = Edition.unscoped { Edition.find(edition_id) }
-      # The slug on deleted editions can be changed if its document doesn't
-      # have a published edition, so we need to use our own slug
-      Whitehall.url_maker.public_document_path(deleted_edition, id: slug)
-    end
+    Whitehall.url_maker.public_document_path(edition, id: slug)
+  end
+
+  # Because the edition may have been deleted, we need to find it unscoped to
+  # get around the default scope.
+  def edition
+    Edition.unscoped.find(edition_id) if edition_id
   end
 
 private
