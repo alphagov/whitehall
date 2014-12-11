@@ -121,7 +121,7 @@ FactoryGirl.define do
     end
 
     trait(:unpublished) do
-      after(:build) do |edition|
+      after(:create) do |edition|
         edition.unpublishing = build(:unpublishing, edition: edition)
       end
     end

@@ -79,11 +79,11 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should remove published edition from search index when it's unpublished" do
     edition = create(:published_edition)
+    create(:unpublishing, edition: edition)
     slug = edition.document.slug
     stub_panopticon_registration(edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition)
-    edition.unpublishing = build(:unpublishing)
     Whitehall.edition_services.unpublisher(edition).perform!
   end
 end

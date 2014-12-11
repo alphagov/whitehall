@@ -29,8 +29,7 @@ class Whitehall::EditionGovspeakRendererTest < ActiveSupport::TestCase
   end
 
   test "renders govspeak in archiving_explanation" do
-    edition = build(:edition, body: 'Some content')
-    edition.unpublishing = build(:unpublishing, edition: edition, explanation: 'Some explanation')
+    edition = create(:unpublishing, explanation: 'Some explanation').edition
     assert_equivalent_html '<div class="govspeak"><p>Some explanation</p></div>',
       render_govspeak(edition).unpublishing_explanation
   end

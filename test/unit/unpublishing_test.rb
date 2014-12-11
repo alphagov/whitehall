@@ -7,7 +7,9 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'is not valid without an edition' do
-    unpublishing = build(:unpublishing, edition: nil)
+    unpublishing = build(:unpublishing)
+    unpublishing.edition = nil
+
     refute unpublishing.valid?
   end
 
@@ -19,7 +21,9 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'is not valid without a slug' do
-    unpublishing = build(:unpublishing, slug: nil)
+    unpublishing = build(:unpublishing)
+    unpublishing.slug = nil
+
     refute unpublishing.valid?
   end
 
@@ -62,11 +66,11 @@ class UnpublishingTest < ActiveSupport::TestCase
 
   test 'can be retrieved by slug and document type' do
     case_study = create(:case_study)
-    unpublishing = create(:unpublishing, edition: case_study, slug: 'some-slug')
+    unpublishing = create(:unpublishing, edition: case_study)
 
-    refute Unpublishing.from_slug('not-a-match', 'CaseStudy')
-    refute Unpublishing.from_slug('some-slug', 'OtherDocumentType')
-    assert_equal unpublishing, Unpublishing.from_slug('some-slug', 'CaseStudy')
+    refute Unpublishing.from_slug('wrong-slug', 'CaseStudy')
+    refute Unpublishing.from_slug(unpublishing.slug, 'OtherDocumentType')
+    assert_equal unpublishing, Unpublishing.from_slug(unpublishing.slug, 'CaseStudy')
   end
 
   test 'Unpublishing.from_slug returns the most recent unpublishing' do
@@ -96,26 +100,26 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test '#document_path returns the URL for the unpublished edition' do
-    document = create(:document, slug: 'detailed-guide')
-    edition = create(:detailed_guide, :draft, document: document)
+    edition = create(:detailed_guide, :draft)
+    original_path = Whitehall.url_maker.public_document_path(edition)
     unpublishing = create(:unpublishing, edition: edition,
                           unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
 
-    original_path = '/detailed-guide'
     assert_equal original_path, unpublishing.document_path
   end
 
   test '#document_path returns the URL for a deleted unpublished edition' do
-    document = create(:document, slug: 'deleted-detailed-guide')
-    edition = create(:detailed_guide, :deleted, document: document)
-    unpublishing = create(:unpublishing, edition: edition, slug: 'detailed-guide',
+    edition = create(:detailed_guide)
+    original_path = Whitehall.url_maker.public_document_path(edition)
+    unpublishing = create(:unpublishing, edition: edition,
                           unpublishing_reason_id: UnpublishingReason::PublishedInError.id)
 
+
+    EditionDeleter.new(edition).perform!
     # The default scope on Edition stops deleted editions being found when an
     # unpublishing is loaded. To trigger the bug we need to reload.
     unpublishing.reload
 
-    original_path = '/detailed-guide'
     assert_equal original_path, unpublishing.document_path
   end
 

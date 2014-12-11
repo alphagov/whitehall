@@ -504,13 +504,14 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal ['policy-title', 'publication-title'], results.map {|r| r['title']}
   end
 
-  test "should remove published edition from search index and update edition state in Panopticon when it's unpublished" do
+  test "should remove published edition from search index and update edition state in Panopticon when it is unpublished" do
     policy = create(:published_policy)
+    create(:unpublishing, edition: policy)
     mock_registrar = mock(register!: true)
 
     Whitehall::SearchIndex.expects(:delete).with(policy)
     ServiceListeners::PanopticonRegistrar.expects(:new).with(policy).returns(mock_registrar)
-    policy.unpublishing = build(:unpublishing)
+
     Whitehall.edition_services.unpublisher(policy).perform!
   end
 
