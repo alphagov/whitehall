@@ -192,11 +192,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
 private
 
-  def assert_equal_hash(expected, actual)
-    assert_equal expected, actual,
-      "Hashes do not match. Differences are:\n\n#{mu_pp(expected.diff(actual))}\n"
-  end
-
   def assert_valid_against_schema(schema_name, json)
     validator = GovukContentSchema::Validator.new(schema_name, json)
     assert validator.valid?, "JSON not valid against #{schema_name} schema: #{validator.errors.to_s}"

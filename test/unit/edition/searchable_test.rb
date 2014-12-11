@@ -83,7 +83,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
     stub_panopticon_registration(edition)
 
     Whitehall::SearchIndex.expects(:delete).with(edition)
-    edition.unpublishing = build(:unpublishing)
+    edition.unpublishing = build(:unpublishing, edition: nil)
     Whitehall.edition_services.unpublisher(edition).perform!
   end
 end
