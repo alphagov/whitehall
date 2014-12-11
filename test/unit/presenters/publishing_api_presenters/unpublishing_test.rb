@@ -57,4 +57,16 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     assert_equal_hash expected_hash[:details], presented_hash[:details]
   end
+
+  test "honors the current locale when generating the base_path" do
+    french_base_path = Whitehall.url_maker.public_document_path(@case_study, locale: 'fr')
+
+    I18n.with_locale 'fr' do
+      @case_study.title = "French title"
+      @case_study.body = "French body"
+      @case_study.save!(validate: false)
+
+      assert_equal french_base_path, present(@case_study)[:base_path]
+    end
+  end
 end
