@@ -8,3 +8,4 @@ Whitehall.edition_services.subscribe("unpublish") { |event, edition, options| Se
 Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |_, edition, _| Whitehall::PublishingApi.publish(edition) }
 Whitehall.edition_services.subscribe(/^(archive)$/) { |_, edition, _| Whitehall::PublishingApi.republish(edition) }
 Whitehall.edition_services.subscribe(/^(unpublish)$/) { |_, edition, _| Whitehall::PublishingApi.publish(edition.unpublishing) }
+Whitehall.edition_services.subscribe(/^(force_schedule|schedule)$/) { |_, edition, _| Whitehall::PublishingApi.schedule(edition) }

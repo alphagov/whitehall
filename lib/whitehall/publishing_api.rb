@@ -18,6 +18,12 @@ module Whitehall
       do_action(model_instance, 'republish')
     end
 
+    def self.schedule(model_instance)
+      locales_for(model_instance).each do |locale|
+        PublishingApiScheduleWorker.perform_async(model_instance.class.name, model_instance.id, locale)
+      end
+    end
+
   private
 
     # Note: this method does not account for non-translatable models, e.g.
