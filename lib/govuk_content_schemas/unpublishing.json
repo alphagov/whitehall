@@ -65,20 +65,18 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "explanation",
-        "unpublished_at",
-        "alternative_url"
+        "unpublished_at"
       ],
       "properties": {
         "explanation": {
-          "type": "string"
+          "type": ["string", "null"]
         },
         "unpublished_at": {
           "type": "string",
           "format": "date-time"
         },
         "alternative_url": {
-          "type": "string",
+          "type": ["string", "null"],
           "format": "uri"
         }
       }
