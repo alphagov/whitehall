@@ -119,7 +119,7 @@ module Admin
     end
 
     def editions_with_translations(locale = nil)
-      editions_without_translations = unpaginated_editions.includes(:last_author).order("editions.updated_at DESC")
+      editions_without_translations = unpaginated_editions.includes(:last_author, :unpublishing).order("editions.updated_at DESC")
 
       if locale
         editions_without_translations.with_translations(locale)

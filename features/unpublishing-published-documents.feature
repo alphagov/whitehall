@@ -18,6 +18,12 @@ Feature: Unpublishing published documents
     When I unpublish the document because it was published in error
     Then I should see that the document was published in error at the original url
 
+  Scenario: Draft resulting from an unpublishing should not be deletable
+    Given I am a managing editor
+    And a published document exists with a slug that does not match the title
+    When I unpublish the document because it was published in error
+    Then I should not be able to discard the draft resulting from the unpublishing
+
   Scenario: Unpublishing a document and redirecting
     Given I am a managing editor
     And a published document "Published by accident" exists
