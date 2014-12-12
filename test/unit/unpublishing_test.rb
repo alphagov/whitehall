@@ -123,6 +123,17 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal original_path, unpublishing.document_path
   end
 
+  test '#translated_locales is delegated to the edition' do
+    edition = create(:case_study)
+    I18n.with_locale(:es) do
+      edition.title = "Spanish title"
+      edition.save!
+    end
+    unpublishing = create(:unpublishing, edition: edition)
+
+    assert_equal [:en, :es], unpublishing.translated_locales
+  end
+
   def reason
     UnpublishingReason::PublishedInError
   end

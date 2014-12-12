@@ -43,6 +43,10 @@ class Unpublishing < ActiveRecord::Base
     Edition.unscoped.find(edition_id) if edition_id
   end
 
+  def translated_locales
+    edition.translated_locales
+  end
+
 private
   def redirect_not_circular
     if alternative_url.present?
