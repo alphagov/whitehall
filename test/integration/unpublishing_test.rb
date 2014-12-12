@@ -42,7 +42,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_publishing_api_put_item(path, format: 'unpublishing')
   end
 
-  test 'When a translated edition is unpublished, an "unpublishing" is publsihed to the Publishing API for each of its translations' do
+  test 'when a translated edition is unpublished, an "unpublishing" is published to the Publishing API for each translation' do
     en_path = Whitehall.url_maker.public_document_path(@published_edition)
     fr_path = Whitehall.url_maker.public_document_path(@published_edition, locale: 'fr')
 
@@ -56,6 +56,27 @@ class UnpublishingTest < ActiveSupport::TestCase
 
     assert_publishing_api_put_item(en_path, format: 'unpublishing')
     assert_publishing_api_put_item(fr_path, format: 'unpublishing')
+  end
+
+  test 'when a translated edition is unpublished as a redirect, redirects are published to the Publishing API for each translation' do
+    en_path = Whitehall.url_maker.public_document_path(@published_edition)
+    fr_path = Whitehall.url_maker.public_document_path(@published_edition, locale: 'fr')
+
+    I18n.with_locale 'fr' do
+      @published_edition.title = "French title"
+      @published_edition.body = "French body"
+      @published_edition.save!(validate: false)
+    end
+
+    unpublishing_redirect_params = unpublishing_params.merge({
+      redirect: true,
+      alternative_url: (Whitehall.public_root + '/government/page')
+    })
+
+    unpublish(@published_edition, unpublishing_redirect_params)
+
+    assert_publishing_api_put_item(en_path, format: 'redirect')
+    assert_publishing_api_put_item(fr_path, format: 'redirect')
   end
 
 private

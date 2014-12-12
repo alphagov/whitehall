@@ -9,31 +9,11 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal case_study, presenter.edition
   end
 
-  test ".presenter_for returns an unpublishing presenter for an unpublished case study" do
-    case_study = create(:draft_case_study)
-    unpublishing = create(:unpublishing, edition: case_study)
-    presenter = PublishingApiPresenters.presenter_for(case_study)
+  test ".presenter_for returns an Unpublishing presenter for an Unpublishing" do
+    unpublishing = create(:unpublishing)
+    presenter = PublishingApiPresenters.presenter_for(unpublishing)
 
     assert_equal PublishingApiPresenters::Unpublishing, presenter.class
-  end
-
-  test ".presenter_for returns a redirect presenter when unpublishing is set to redirect automatically" do
-    case_study = create(:draft_case_study)
-    unpublishing = create(:unpublishing, edition: case_study, redirect: true, alternative_url: "#{Whitehall.public_root}/foobar")
-    presenter = PublishingApiPresenters.presenter_for(case_study)
-
-    assert_equal PublishingApiPresenters::EditionRedirect, presenter.class
-  end
-
-  test '.presenter_for returns a redirect presenter for a consolidated unpublishing' do
-    case_study = create(:draft_case_study)
-    unpublishing = create(:unpublishing,
-                    unpublishing_reason_id: UnpublishingReason::Consolidated.id,
-                    edition: case_study,
-                    alternative_url: "#{Whitehall.public_root}/other-page")
-    presenter = PublishingApiPresenters.presenter_for(case_study)
-
-    assert_equal PublishingApiPresenters::EditionRedirect, presenter.class
   end
 
   test ".presenter_for returns a generic Edition presenter for non-case studies" do

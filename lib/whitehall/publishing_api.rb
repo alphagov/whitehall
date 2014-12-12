@@ -37,8 +37,7 @@ module Whitehall
     end
 
     def self.publishable?(instance)
-      !instance.kind_of?(Edition) || instance.publicly_visible? || instance.unpublishing.present?
+      !instance.kind_of?(Edition) || instance.publicly_visible?
     end
-
   end
 end

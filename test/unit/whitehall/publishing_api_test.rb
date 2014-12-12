@@ -75,7 +75,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     published = create(:published_edition)
     archived  = create(:published_edition, state: 'archived')
 
-    draft_payload = PublishingApiPresenters.presenter_for(draft, update_type: "republish").as_json
+    draft_payload     = PublishingApiPresenters.presenter_for(draft, update_type: "republish").as_json
     published_payload = PublishingApiPresenters.presenter_for(published, update_type: "republish").as_json
     archived_payload  = PublishingApiPresenters.presenter_for(archived, update_type: "republish").as_json
 
@@ -94,18 +94,42 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_not_requested draft_request
   end
 
-  test "publishes editions that are unpublished" do
-    case_study = create(:draft_case_study,
-                        title: 'Case study title',
-                        first_published_at: Time.zone.now,
-                        summary: 'The summary')
-    unpublishing = create(:unpublishing, edition: case_study,
-                          explanation: 'it is rubbish',
-                          alternative_url: 'https://www.test.alphagov.co.uk/foobar')
-    payload = PublishingApiPresenters.presenter_for(case_study, update_type: "republish").as_json
-    request = stub_publishing_api_put_item(payload[:base_path], payload)
+  test "republishes an unpublishing" do
+    unpublishing = create(:unpublishing)
+    payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
+    request      = stub_publishing_api_put_item(payload[:base_path], payload)
 
-    Whitehall::PublishingApi.republish(case_study)
+    Whitehall::PublishingApi.republish(unpublishing)
     assert_requested request
+  end
+
+  test "publishes a redirect unpublishing" do
+    unpublishing = create(:redirect_unpublishing)
+    payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
+    request      = stub_publishing_api_put_item(payload[:base_path], payload)
+
+    Whitehall::PublishingApi.republish(unpublishing)
+    assert_requested request
+  end
+
+  test "publishes a translated edition that has been unpublished" do
+    unpublishing    = create(:unpublishing)
+    edition         = unpublishing.edition
+    english_payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
+    english_request = stub_publishing_api_put_item(english_payload[:base_path], english_payload)
+
+    german_payload, german_request = nil
+    I18n.with_locale(:de) do
+      edition.title = 'German title'
+      edition.save!
+
+      german_payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
+      german_request = stub_publishing_api_put_item(german_payload[:base_path], german_payload)
+    end
+
+    Whitehall::PublishingApi.publish(unpublishing)
+
+    assert_requested english_request
+    assert_requested german_request
   end
 end
