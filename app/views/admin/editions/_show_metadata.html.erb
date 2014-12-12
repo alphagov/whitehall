@@ -5,7 +5,12 @@
     <dt>Type of document:</dt>
     <dd><%= edition_type(@edition) %></dd>
     <dt>Status:</dt>
-    <dd><%= @edition.state.capitalize %></dd>
+    <dd>
+      <% status_text = [@edition.state.capitalize]
+         # TODO: remove unpublishing information once we have a separate state for unpublished editions
+         status_text << "unpublished #{time_ago_in_words(@edition.unpublishing.created_at)} ago" if @edition.unpublishing.present? %>
+      <%= status_text.join(', ') %>
+    </dd>
     <dt>Change type:</dt>
     <dd><%= @edition.minor_change? ? 'Minor' : 'Major' %></dd>
     <% if @edition.respond_to?(:organisations) %>
