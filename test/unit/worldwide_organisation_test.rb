@@ -65,6 +65,15 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     refute AccessAndOpeningTimes.exists?(office_access_info)
   end
 
+  test 'destroys associated corporate information page documents and editions' do
+    worldwide_organisation = create(:worldwide_organisation)
+    create(:corporate_information_page, worldwide_organisation: worldwide_organisation, organisation: nil)
+
+    assert_difference %w(WorldwideOrganisation.count Document.count CorporateInformationPage.count), -1 do
+      worldwide_organisation.destroy
+    end
+  end
+
   test "has an overridable default main office" do
     worldwide_organisation = create(:worldwide_organisation)
 

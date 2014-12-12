@@ -2,6 +2,7 @@ class Organisation < ActiveRecord::Base
   include PublishesToPublishingApi
   include Searchable
   include Organisation::OrganisationTypeConcern
+  include HasCorporateInformationPages
 
   DEFAULT_JOBS_URL = 'https://www.civilservicejobs.service.gov.uk/csr'
 
@@ -119,8 +120,6 @@ class Organisation < ActiveRecord::Base
   has_many :featured_links, as: :linkable, dependent: :destroy, order: :created_at
   accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
   validates :homepage_type, inclusion: {in: %w{news service}}
-
-  include HasCorporateInformationPages
 
   accepts_nested_attributes_for :default_news_image, reject_if: :all_blank
   accepts_nested_attributes_for :organisation_roles
