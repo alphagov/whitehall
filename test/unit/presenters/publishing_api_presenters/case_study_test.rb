@@ -6,13 +6,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     PublishingApiPresenters::CaseStudy.new(edition).as_json
   end
 
-  test "presenter generates valid JSON according to the schema" do
-    case_study = create(:published_case_study)
-    presented_json = present(case_study).to_json
-
-    assert_valid_against_schema('case_study', presented_json)
-  end
-
   test "case study presentation includes the correct values" do
     case_study = create(:published_case_study,
                     title: 'Case study title',
@@ -60,6 +53,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
     presented_hash = present(case_study)
 
+    assert_valid_against_schema(presented_hash, 'case_study')
+
     assert_equal_hash expected_hash.except(:details),
       presented_hash.except(:details)
 
@@ -82,7 +77,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
     presented_hash = present(case_study)
 
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal_hash expected_hash, presented_hash[:details][:image]
   end
 
@@ -99,7 +94,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
     presented_hash = present(case_study)
 
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal_hash expected_hash, presented_hash[:details][:image]
   end
 
@@ -120,7 +115,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       worldwide_priorities: [],
     }
 
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal_hash expected_links_hash, presented_hash[:links]
   end
 
@@ -130,7 +125,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     new_timestamp = Time.zone.now
     new_edition = create(:published_case_study, document: original.document, published_major_version: 2, change_note: "More changes", major_change_published_at: new_timestamp)
     presented_hash = present(new_edition)
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     presented_history = presented_hash[:details][:change_history]
     expected_history = [
       { public_timestamp: new_timestamp, note: "More changes" },
@@ -144,7 +139,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study,
                         world_locations: [location])
     presented_hash = present(case_study)
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal [location.content_id], presented_hash[:links][:world_locations]
   end
 
@@ -153,7 +148,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study,
                         worldwide_organisations: [wworg])
     presented_hash = present(case_study)
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal [wworg.content_id], presented_hash[:links][:worldwide_organisations]
   end
 
@@ -162,7 +157,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study, related_policies: [policy])
     presented_hash = present(case_study)
 
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal [policy.content_id], presented_hash[:links][:related_policies]
   end
 
@@ -171,7 +166,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     case_study = create(:published_case_study, worldwide_priorities: [priority])
     presented_hash = present(case_study)
 
-    assert_valid_against_schema('case_study', presented_hash.to_json)
+    assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal [priority.content_id], presented_hash[:links][:worldwide_priorities]
   end
 
@@ -183,17 +178,14 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     case_study.unpublishing.save!
 
-    assert_valid_against_schema('case_study', present(case_study).to_json)
-    assert_equal case_study.updated_at,
-      present(case_study)[:details][:archive_notice][:archived_at]
-    assert_equivalent_html "<div class=\"govspeak\"><p>No longer relevant</p></div>",
+    archive_notice = {
+      explanation: "<div class=\"govspeak\"><p>No longer relevant</p></div>",
+      archived_at: case_study.updated_at
+    }
+
+    assert_valid_against_schema(present(case_study), 'case_study')
+    assert_equal archive_notice[:archived_at], present(case_study)[:details][:archive_notice][:archived_at]
+    assert_equivalent_html archive_notice[:explanation],
       present(case_study)[:details][:archive_notice][:explanation]
-  end
-
-private
-
-  def assert_valid_against_schema(schema_name, json)
-    validator = GovukContentSchema::Validator.new(schema_name, json)
-    assert validator.valid?, "JSON not valid against #{schema_name} schema: #{validator.errors.to_s}"
   end
 end

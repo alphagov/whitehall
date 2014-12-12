@@ -59,6 +59,11 @@ class ActiveSupport::TestCase
       "Hashes do not match. Differences are:\n\n#{mu_pp(expected.diff(actual))}\n"
   end
 
+  def assert_valid_against_schema(content_item_hash, format)
+    validator = GovukContentSchema::Validator.new(format, content_item_hash.to_json)
+    assert validator.valid?, "JSON not valid against #{format} schema: #{validator.errors.to_s}"
+  end
+
   def count_queries
     count = 0
     subscriber = ActiveSupport::Notifications.subscribe("sql.active_record") do |*args|

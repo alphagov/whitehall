@@ -193,11 +193,4 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     assert_equal expected_hash, presenter.as_json
     assert_valid_against_schema(presenter.as_json, 'redirect')
   end
-
-private
-
-  def assert_valid_against_schema(content_item_hash, format)
-    validator = GovukContentSchema::Validator.new(format, content_item_hash.to_json)
-    assert validator.valid?, "JSON not valid against #{format} schema: #{validator.errors.to_s}"
-  end
 end
