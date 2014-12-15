@@ -45,24 +45,15 @@ $thumbnail-width: 99px;
   }
 
   .title a {
-    text-decoration: underline;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   .attachment-details {
     h1, h2, h3 {
-      @include ig-core-27;
-      margin: 0;
-    }
-
-    h2 {
-      padding-top: 0;
-      @include media(tablet) {
-        padding-top: 7px;
-      }
-    }
-
-    h3 {
-      font-weight: bold;
+      @include bold-24;
     }
 
     .extra-description {
