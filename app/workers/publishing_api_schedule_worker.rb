@@ -15,7 +15,7 @@ class PublishingApiScheduleWorker
   end
 
   def publish_intent
-    presenter = PublishingApiPresenters.intent_for(model)
+    presenter = PublishingApiPresenters.publish_intent_for(model)
     I18n.with_locale(locale) do
       Whitehall.publishing_api_client.put_intent(
         presenter.base_path,

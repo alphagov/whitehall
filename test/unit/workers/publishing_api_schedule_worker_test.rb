@@ -6,7 +6,7 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
 
   test "#publish_intent registers an intent with the publishing api" do
     edition = create(:scheduled_detailed_guide)
-    presenter = PublishingApiPresenters.intent_for(edition)
+    presenter = PublishingApiPresenters.publish_intent_for(edition)
     request = stub_publishing_api_put_intent(presenter.base_path, presenter.as_json)
     schedule_worker(edition, locale).publish_intent
     assert_requested request

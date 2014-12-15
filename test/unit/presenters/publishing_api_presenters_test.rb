@@ -40,11 +40,11 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal world_location, presenter.item
   end
 
-  test ".intent_for returns an Intent presenter" do
+  test ".publish_intent_for returns a PublishIntent presenter" do
     case_study = CaseStudy.new
-    presenter = PublishingApiPresenters.intent_for(case_study)
+    presenter = PublishingApiPresenters.publish_intent_for(case_study)
 
-    assert_equal PublishingApiPresenters::Intent, presenter.class
+    assert_equal PublishingApiPresenters::PublishIntent, presenter.class
     assert_equal case_study, presenter.item
   end
 

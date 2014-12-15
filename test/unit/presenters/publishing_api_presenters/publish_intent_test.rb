@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class PublishingApiPresenters::IntentTest < ActiveSupport::TestCase
+class PublishingApiPresenters::PublishIntentTest < ActiveSupport::TestCase
 
   def present(item)
-    PublishingApiPresenters::Intent.new(item).as_json
+    PublishingApiPresenters::PublishIntent.new(item).as_json
   end
 
   test 'presents an intent to publish at the schedule time' do
@@ -25,4 +25,3 @@ class PublishingApiPresenters::IntentTest < ActiveSupport::TestCase
     assert_equal expected_hash, present(item)
   end
 end
-

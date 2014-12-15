@@ -1,4 +1,4 @@
-class PublishingApiPresenters::Intent
+class PublishingApiPresenters::PublishIntent
   attr_reader :item
 
   def initialize(item)

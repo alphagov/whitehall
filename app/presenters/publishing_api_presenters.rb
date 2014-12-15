@@ -8,8 +8,8 @@ module PublishingApiPresenters
     presenter_class_for(model).new(model, options)
   end
 
-  def self.intent_for(model)
-    PublishingApiPresenters::Intent.new(model)
+  def self.publish_intent_for(model)
+    PublishingApiPresenters::PublishIntent.new(model)
   end
 
   def self.coming_soon_for(model)
