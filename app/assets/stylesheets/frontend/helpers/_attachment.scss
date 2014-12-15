@@ -62,11 +62,12 @@ $thumbnail-width: 99px;
     }
 
     .metadata {
-      @include ig-core-14;
+      @include core-14;
       margin: 0;
       .changed,
       .references {
         display: block;
+        color: $secondary-text-colour;
       }
       .unnumbered-paper {
         display: block;
