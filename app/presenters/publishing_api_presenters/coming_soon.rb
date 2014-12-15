@@ -17,6 +17,7 @@ class PublishingApiPresenters::ComingSoon
       rendering_app: 'whitehall-frontend',
       format: 'coming_soon',
       title: 'Coming soon',
+      locale: I18n.locale.to_s,
       update_type: update_type,
       details: {
         publish_time: edition.scheduled_publication,

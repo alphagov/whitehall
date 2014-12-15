@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "base_path",
+    "format",
+    "publishing_app",
+    "update_type",
+    "locale"
+  ],
+  "properties": {
+    "base_path": {
+      "type": "string"
+    },
+    "content_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "format": {
+      "enum": [ "coming_soon" ]
+    },
+    "public_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "publishing_app": {
+      "type": "string"
+    },
+    "rendering_app": {
+      "type": "string"
+    },
+    "update_type": {
+      "enum": [ "major", "minor", "republish" ]
+    },
+    "locale": {
+      "type": "String"
+    },
+    "need_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/route"
+      }
+    },
+    "redirects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/route"
+      }
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publish_time"
+      ],
+      "properties": {
+        "publish_time": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "guid_list": {
+      "type": "array",
+      "items": {
+        "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[1-5][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "type"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [ "prefix", "exact" ]
+        }
+      }
+    }
+  }
+}
