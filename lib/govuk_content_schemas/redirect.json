@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "base_path",
+    "format",
+    "publishing_app",
+    "update_type",
+    "redirects"
+  ],
+  "properties": {
+    "base_path": {
+      "type": "string"
+    },
+    "format": {
+      "enum": [ "redirect" ]
+    },
+    "publishing_app": {
+      "type": "string"
+    },
+    "update_type": {
+      "enum": [ "major", "minor", "republish" ]
+    },
+    "redirects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "type",
+          "destination"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [ "prefix", "exact" ]
+          },
+          "destination": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

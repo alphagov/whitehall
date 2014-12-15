@@ -7,3 +7,4 @@ Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |event, edit
 Whitehall.edition_services.subscribe("unpublish") { |event, edition, options| ServiceListeners::SearchIndexer.new(edition).remove! }
 Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |_, edition, _| Whitehall::PublishingApi.publish(edition) }
 Whitehall.edition_services.subscribe(/^(archive)$/) { |_, edition, _| Whitehall::PublishingApi.republish(edition) }
+Whitehall.edition_services.subscribe(/^(unpublish)$/) { |_, edition, _| Whitehall::PublishingApi.publish(edition.unpublishing) }

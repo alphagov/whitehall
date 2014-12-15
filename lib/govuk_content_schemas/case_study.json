@@ -24,7 +24,7 @@
       "type": "string"
     },
     "format": {
-      "type": "string"
+      "enum": [ "case_study" ]
     },
     "public_updated_at": {
       "type": "string",
