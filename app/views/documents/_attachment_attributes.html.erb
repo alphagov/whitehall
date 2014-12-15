@@ -1,0 +1,28 @@
+<h3 class='document-type'><%= humanized_content_type(attachment.file_extension) %></h3>
+<span class='document-size'>
+  <%= number_to_human_size(attachment.file_size) %>
+</span>
+
+
+<p class="opendocument-help">
+  <%= t('attachment.opendocument.help_html') %>
+</p>
+
+
+<% unless attachment.accessible? %>
+  <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
+    <h2><%= t('attachment.accessibility.heading') %>
+      <span class="toggler"><%= t('attachment.accessibility.request_a_different_format') %></span>
+    </h2>
+    <p class="help-block">
+      <%= t('attachment.accessibility.full_help_html',
+        email: alternative_format_order_link(attachment, alternative_format_contact_email),
+        title: attachment.title,
+        references: attachment_references(attachment)) %>
+    </p>
+  </div>
+<% end %>
+
+
+<!-- <%= attachment.inspect %> -->
+<!-- <%= attachment.public_methods %> -->

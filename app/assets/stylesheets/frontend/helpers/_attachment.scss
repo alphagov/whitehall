@@ -92,3 +92,31 @@
     font-weight: bold;
   }
 }
+
+
+.heading-block {
+  .attachment-full-width {
+    .content-two-thirds-left {
+      @include grid-column( 2/3 );
+      float: left;
+      h1 {
+        // padding-left: $gutter-half;
+        margin-bottom: $gutter-two-thirds;
+      }
+      .references {
+        display: block;
+        color: $secondary-text-colour;
+        @include core-14;
+      }
+    }
+    .content-one-third {
+      @include grid-column( 1/3 );
+    }
+    .document-type {
+      @include bold-24;
+    }
+    .document-size {
+      @include core-19($tabular-numbers: true);
+    }
+  }
+}

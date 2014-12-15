@@ -166,20 +166,6 @@ Please tell us:
     references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
   end
 
-  def attachment_attributes(attachment)
-    attributes = []
-    if attachment.html?
-      attributes << content_tag(:span, 'HTML', class: 'type')
-    elsif attachment.external?
-      attributes << content_tag(:span, attachment.url, class: 'url')
-    else
-      attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
-      attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')
-      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page") , class: 'page-length') if attachment.number_of_pages.present?
-    end
-    attributes.join(', ').html_safe
-  end
-
   def native_language_name_for(locale)
     Locale.new(locale).native_language_name
   end
