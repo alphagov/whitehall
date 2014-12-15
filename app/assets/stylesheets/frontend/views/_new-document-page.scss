@@ -20,14 +20,23 @@
     }
   }
 
+  #details {
+    margin-bottom: $gutter*2;
+    .govspeak {
+      ul {
+        margin-left: 0;
+      }
+    }
+  }
+
   .summary {
     padding-bottom: $gutter-two-thirds;
     @include media(tablet) {
-      padding-bottom: $gutter + $gutter-half;
+      padding-bottom: $gutter;
     }
 
     p {
-      @include ig-core-24;
+      @include core-24;
     }
   }
 

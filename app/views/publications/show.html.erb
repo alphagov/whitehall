@@ -16,6 +16,10 @@
   <div>
     <div class="inner-block">
       <%= render partial: "document_summary", locals: { document: @document } %>
+
+      <section id="details">
+              <%= govspeak_edition_to_html @document %>
+      </section>
     </div>
   </div>
 
@@ -23,23 +27,6 @@
     <div class="inner-block">
       <%= render partial: "documents/attachment_full_width",
                  locals: { document: @document } %>
-    </div>
-  </div>
-
-  <div class="block-3 heading-block">
-    <div class="inner-block">
-      <section id="details">
-        <div class="head-section">
-          <h1><%= t('publications.headings.detail') %></h1>
-        </div>
-        <div class="content">
-          <article>
-            <div class="body">
-              <%= govspeak_edition_to_html @document %>
-            </div>
-          </article>
-        </div>
-      </section>
     </div>
   </div>
 
