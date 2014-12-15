@@ -1,3 +1,8 @@
+# A publish intent is sent to the Publishing API to indicate that a document is
+# due to be published at a given set of routes at a given time.
+#
+# See [content_store](https://github.com/alphagov/content-store) for more
+# details on publish intents.
 class PublishingApiPresenters::PublishIntent
   attr_reader :item
 
