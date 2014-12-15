@@ -6,11 +6,6 @@
   attachment_link_options['rel'] = 'external' if attachment.external?
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
-  <div class="attachment-thumb">
-    <% unless defined?(hide_thumbnail) && hide_thumbnail %>
-      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }).except('rel') %>
-    <% end %>
-  </div>
   <div class="attachment-details">
     <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h2>
     <% unless extra_description.empty? %>

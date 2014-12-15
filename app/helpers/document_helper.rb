@@ -131,20 +131,6 @@ module DocumentHelper
     ref.join(', ').html_safe
   end
 
-  def attachment_thumbnail(attachment)
-    if attachment.pdf?
-      image_tag(attachment.file.thumbnail.url, alt: '')
-    elsif attachment.html?
-      image_tag('pub-cover-html.png', alt: '')
-    elsif %w{doc docx odt}.include? attachment.file_extension
-      image_tag('pub-cover-doc.png', alt: '')
-    elsif %w{xls xlsx ods csv}.include? attachment.file_extension
-      image_tag('pub-cover-spreadsheet.png', alt: '')
-    else
-      image_tag('pub-cover.png', alt: '')
-    end
-  end
-
   def alternative_format_order_link(attachment, alternative_format_contact_email)
     attachment_info = []
     attachment_info << "  Title: #{attachment.title}"
