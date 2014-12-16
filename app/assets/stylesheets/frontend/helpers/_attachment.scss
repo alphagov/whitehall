@@ -59,7 +59,7 @@
 
   .opendocument-help {
     margin: 0;
-    @include ig-core-14;
+    @include core-14;
     a {
       @include external-link-14;
     }
@@ -96,13 +96,13 @@
 
 .heading-block {
   .attachment-full-width {
+    h1 {
+      padding-left: $gutter-half;
+      margin-bottom: $gutter-two-thirds;
+    }
     .content-two-thirds-left {
       @include grid-column( 2/3 );
       float: left;
-      h1 {
-        // padding-left: $gutter-half;
-        margin-bottom: $gutter-two-thirds;
-      }
       .references {
         display: block;
         color: $secondary-text-colour;
