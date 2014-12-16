@@ -14,6 +14,8 @@ class PublishingApiScheduleWorker
     publish_intent
   end
 
+private
+
   def publish_intent
     presenter = PublishingApiPresenters.publish_intent_for(model)
     I18n.with_locale(locale) do

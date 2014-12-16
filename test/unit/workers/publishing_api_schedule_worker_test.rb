@@ -4,22 +4,6 @@ require 'gds_api/test_helpers/publishing_api'
 class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
-  test "#publish_intent registers an intent with the publishing api" do
-    edition = create(:scheduled_detailed_guide)
-    presenter = PublishingApiPresenters.publish_intent_for(edition)
-    request = stub_publishing_api_put_intent(presenter.base_path, presenter.as_json)
-    schedule_worker(edition, locale).publish_intent
-    assert_requested request
-  end
-
-  test "#publish_coming_soon registers a coming_soon format with the publishing api" do
-    edition = create(:scheduled_detailed_guide)
-    presenter = PublishingApiPresenters.coming_soon_for(edition)
-    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
-    schedule_worker(edition, locale).publish_coming_soon
-    assert_requested request
-  end
-
   test "#perform publishes a publish intent and a coming_soon content item for a new edition" do
     stub_default_publishing_api_put_intent
     scheduled_edition = create(:scheduled_detailed_guide)
@@ -41,6 +25,8 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
     assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
   end
 
+private
+
   def locale
     I18n.default_locale.to_s
   end
@@ -51,6 +37,4 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
       w.locale = locale
     end
   end
-
 end
-
