@@ -5,7 +5,6 @@ class PublishingApiScheduleWorker
 
   def perform(model_name, id, locale=I18n.default_locale.to_s)
     @model = class_for(model_name).find(id)
-    return unless @model
     @locale = locale
 
     # Coming soon needs to be sent first, as currently content-store deletes
