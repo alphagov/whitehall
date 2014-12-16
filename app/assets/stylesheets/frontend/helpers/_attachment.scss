@@ -1,10 +1,17 @@
 .attachment {
   position: relative;
   margin: $gutter 0;
-  padding: $gutter-half 0 0 0;
+  padding: $gutter-one-third 0 0 0;
   @extend %contain-floats;
   @include right-to-left {
+    padding: $gutter-one-third 0 0 0;
+  }
+
+  @include media(tablet) {
     padding: $gutter-half 0 0 0;
+    @include right-to-left {
+      padding: $gutter-half 0 0 0;
+    }
   }
 
   &.inline {
@@ -58,6 +65,7 @@
   }
 
   .opendocument-help {
+    clear: both;
     margin: 0;
     @include core-14;
     a {
@@ -97,26 +105,45 @@
 .heading-block {
   .attachment-full-width {
     h1 {
-      padding-left: $gutter-half;
-      margin-bottom: $gutter-two-thirds;
+      @include media(tablet) {
+        padding-left: $gutter-half;
+        margin-bottom: $gutter-two-thirds;
+      }
     }
     .content-two-thirds-left {
       @include grid-column( 2/3 );
-      float: left;
       .references {
+        @include core-14;
         display: block;
         color: $secondary-text-colour;
-        @include core-14;
       }
     }
     .content-one-third {
       @include grid-column( 1/3 );
     }
+    .content-two-thirds-left,
+    .content-one-third {
+      padding: 0;
+      @include media(tablet) {
+        padding: 0 $gutter-half;
+      }
+    }
+
     .document-type {
-      @include bold-24;
+      @include core-19;
+      float: left;
+      margin-right: 5px;
+      @include media(tablet) {
+        @include bold-24;
+        float: none;
+      }
     }
     .document-size {
       @include core-19($tabular-numbers: true);
+      float: left;
+      @include media(tablet) {
+        float: none;
+      }
     }
   }
 }
