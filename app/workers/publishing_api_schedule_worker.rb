@@ -1,17 +1,20 @@
 class PublishingApiScheduleWorker
   include Sidekiq::Worker
 
+  attr_accessor :model, :locale
+
   def perform(model_name, id, locale=I18n.default_locale.to_s)
-    model = class_for(model_name).find_by_id(id)
-    return unless model
+    @model = class_for(model_name).find(id)
+    return unless @model
+    @locale = locale
 
     # Coming soon needs to be sent first, as currently content-store deletes
     # an intent when a content item is created for that path.
-    publish_coming_soon(model, locale) if model.document.published_edition.nil?
-    publish_intent(model, locale)
+    publish_coming_soon unless @model.document.published?
+    publish_intent
   end
 
-  def publish_intent(model, locale)
+  def publish_intent
     presenter = PublishingApiPresenters.intent_for(model)
     I18n.with_locale(locale) do
       Whitehall.publishing_api_client.put_intent(
@@ -20,7 +23,7 @@ class PublishingApiScheduleWorker
     end
   end
 
-  def publish_coming_soon(model, locale)
+  def publish_coming_soon
     presenter = PublishingApiPresenters.coming_soon_for(model)
     I18n.with_locale(locale) do
       Whitehall.publishing_api_client.put_content_item(

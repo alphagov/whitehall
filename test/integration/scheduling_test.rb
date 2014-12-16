@@ -7,9 +7,7 @@ class SchedulingTest < ActiveSupport::TestCase
   setup do
     @submitted_edition = create(:submitted_edition,
                                 scheduled_publication: 1.day.from_now)
-    # Scheduling an item will enqueue the publish action, and queued actions
-    # are performed immediately in test, which will fail: so stub the worker.
-    ScheduledPublishingWorker.stubs(:queue)
+    stub_legacy_sidekiq_scheduling
     stub_default_publishing_api_put
     stub_default_publishing_api_put_intent
   end
@@ -34,7 +32,7 @@ class SchedulingTest < ActiveSupport::TestCase
     new_draft.save!
     path = Whitehall.url_maker.public_document_path(new_draft)
 
-    force_schedule(new_draft)
+    acting_as(create(:user)) { schedule(new_draft) }
     assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
   end
 
@@ -43,7 +41,9 @@ private
     Whitehall.edition_services.scheduler(edition, options).perform!
   end
 
-  def force_schedule(edition, options = {})
-    Whitehall.edition_services.force_scheduler(edition, options).perform!
+  def stub_legacy_sidekiq_scheduling
+    # Scheduling an item will enqueue the publish action, and queued actions
+    # are performed immediately in test, which will fail: so stub the worker.
+    ScheduledPublishingWorker.stubs(:queue)
   end
 end
