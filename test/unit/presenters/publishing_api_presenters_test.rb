@@ -45,7 +45,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.publish_intent_for(case_study)
 
     assert_equal PublishingApiPresenters::PublishIntent, presenter.class
-    assert_equal case_study, presenter.item
+    assert_equal case_study, presenter.edition
   end
 
   test ".coming_soon_for returns a Coming Soon presenter" do
