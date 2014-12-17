@@ -12,19 +12,14 @@ class SchedulingTest < ActiveSupport::TestCase
     stub_default_publishing_api_put_intent
   end
 
-  test "When scheduling an edition, a publish intent is sent to content-store" do
-    path = Whitehall.url_maker.public_document_path(@submitted_edition)
-    schedule(@submitted_edition)
-    assert_publishing_api_put_intent(path, publish_time: @submitted_edition.scheduled_publication.as_json)
-  end
-
-  test "When scheduling an edition that has not been published before, a coming_soon format is sent to content-store" do
+  test "scheduling a first-edition publishes a publish intent and 'coming_soon' content item to the Publishing API" do
     path = Whitehall.url_maker.public_document_path(@submitted_edition)
     schedule(@submitted_edition)
     assert_publishing_api_put_item(path, format: 'coming_soon')
+    assert_publishing_api_put_intent(path, publish_time: @submitted_edition.scheduled_publication.as_json)
   end
 
-  test "When scheduling an edition that has been published before, no coming_soon format is sent to content-store" do
+  test "scheduling a subsequent edition publishes a publish intent to the Publishing API" do
     published_edition = create(:published_edition)
     new_draft = published_edition.create_draft(published_edition.creator)
     new_draft.change_note = 'changed'
