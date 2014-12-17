@@ -115,23 +115,21 @@ module OrganisationHelper
   end
 
   def organisation_display_name_including_parental_and_child_relationships(organisation)
-    description = organisation_display_name_and_parental_relationship(organisation)
+    organisation_name = organisation_display_name_and_parental_relationship(organisation)
+    child_organisations = organisation.active_child_organisations_excluding_sub_organisations
 
-    if organisation.active_child_organisations_excluding_sub_organisations.any?
-      type_name = organisation_type_name(organisation)
-      description.chomp!('.')
-      description += (type_name != 'other') ? ", supported by " : " is supported by "
+    if child_organisations.any?
+      organisation_name.chomp!('.')
+      organisation_name += (organisation_type_name(organisation) != 'other') ? ", supported by " : " is supported by "
 
-      active_child_organisations_excluding_sub_organisations_count = organisation.active_child_organisations_excluding_sub_organisations.count
-      if active_child_organisations_excluding_sub_organisations_count == 1
-        description += link_to("#{active_child_organisations_excluding_sub_organisations_count} public body", organisations_path(anchor: organisation.slug))
-      else
-        description += link_to("#{active_child_organisations_excluding_sub_organisations_count} agencies and public bodies", organisations_path(anchor: organisation.slug))
-      end
-      description += "."
+      child_relationships_link_text = "#{child_organisations.size}"
+      child_relationships_link_text += (child_organisations.size == 1) ? " public body" : " agencies and public bodies"
+
+      organisation_name += link_to(child_relationships_link_text, organisations_path(anchor: organisation.slug))
+      organisation_name += "."
     end
 
-    description.html_safe
+    organisation_name.html_safe
   end
 
   def organisation_relationship_html(organisation)
