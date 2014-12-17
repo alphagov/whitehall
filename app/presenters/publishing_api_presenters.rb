@@ -8,6 +8,14 @@ module PublishingApiPresenters
     presenter_class_for(model).new(model, options)
   end
 
+  def self.publish_intent_for(model)
+    PublishingApiPresenters::PublishIntent.new(model)
+  end
+
+  def self.coming_soon_for(model)
+    PublishingApiPresenters::ComingSoon.new(model)
+  end
+
   def self.presenter_class_for(model)
     if model.is_a?(::Edition)
       presenter_class_for_edition(model)

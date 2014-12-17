@@ -39,4 +39,22 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApiPresenters::Placeholder, presenter.class
     assert_equal world_location, presenter.item
   end
+
+  test ".publish_intent_for returns a PublishIntent presenter" do
+    case_study = CaseStudy.new
+    presenter = PublishingApiPresenters.publish_intent_for(case_study)
+
+    assert_equal PublishingApiPresenters::PublishIntent, presenter.class
+    assert_equal case_study, presenter.item
+  end
+
+  test ".coming_soon_for returns a Coming Soon presenter" do
+    case_study = CaseStudy.new
+    presenter = PublishingApiPresenters.coming_soon_for(case_study)
+
+    assert_equal PublishingApiPresenters::ComingSoon, presenter.class
+    assert_equal case_study, presenter.edition
+  end
+
+
 end
