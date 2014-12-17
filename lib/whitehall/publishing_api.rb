@@ -24,6 +24,14 @@ module Whitehall
       end
     end
 
+    def self.unschedule(edition)
+      locales_for(edition).each do |locale|
+        base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
+        PublishingApiUnscheduleWorker.perform_async(base_path)
+        PublishingApiGoneWorker.perform_async(base_path) unless edition.document.published?
+      end
+    end
+
   private
 
     # Note: this method does not account for non-translatable models, e.g.

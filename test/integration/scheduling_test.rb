@@ -51,6 +51,34 @@ class SchedulingTest < ActiveSupport::TestCase
     assert_publishing_api_put_intent(french_path, publish_time: publish_time)
   end
 
+  test "unscheduling a scheduled first-edition removes the publish intent and replaces the 'coming_soon' with a 'gone' item" do
+    scheduled_edition = create(:scheduled_edition)
+    unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
+    base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
+
+    destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
+
+    unscheduler.perform!
+
+    assert_requested destroy_intent_request
+    assert_publishing_api_put_item(base_path, format: 'gone')
+  end
+
+  test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't publish a 'gone' item" do
+    published_edition = create(:published_edition)
+    scheduled_edition = create(:scheduled_edition, document: published_edition.document)
+
+    unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
+    base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
+
+    destroy_intent_request = stub_publishing_api_destroy_intent(base_path)
+
+    unscheduler.perform!
+
+    assert_requested destroy_intent_request
+    assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
+  end
+
 private
   def schedule(edition, options = {})
     Whitehall.edition_services.scheduler(edition, options).perform!

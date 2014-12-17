@@ -116,11 +116,13 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   end
 
   test 'unschedule unschedules the given edition on behalf of the current user' do
-    scheduled_edition = create(:scheduled_policy)
-    post :unschedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
+    Sidekiq::Testing.fake! do
+      scheduled_edition = create(:scheduled_policy)
+      post :unschedule, id: scheduled_edition, lock_version: scheduled_edition.lock_version
 
-    assert_redirected_to admin_editions_path(state: :submitted)
-    assert scheduled_edition.reload.submitted?
+      assert_redirected_to admin_editions_path(state: :submitted)
+      assert scheduled_edition.reload.submitted?
+    end
   end
 
   test 'unschedule redirects back to the edition with an error message if unscheduling reports a failure' do
