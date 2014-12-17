@@ -246,6 +246,14 @@
       @include media(tablet) {
         margin-bottom: $gutter;
       }
+      .see-all {
+        @include bold-16;
+        margin-top: $gutter-one-sixth;
+
+        @include media(tablet) {
+          margin-left: $gutter-two-thirds;
+        }
+      }
     }
 
     &.service-priority {
