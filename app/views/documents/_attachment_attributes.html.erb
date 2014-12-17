@@ -3,11 +3,11 @@
   <%= number_to_human_size(attachment.file_size)%><% if attachment.number_of_pages.present? %>, <%= pluralize(attachment.number_of_pages, 'page')%><% end %>
 </span>
 
-
-<p class="opendocument-help">
-  <%= t('attachment.opendocument.help_html') %>
-</p>
-
+<% if attachment.opendocument? %>
+  <p class="opendocument-help">
+    <%= t('attachment.opendocument.help_html') %>
+  </p>
+<% end %>
 
 <% unless attachment.accessible? %>
   <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
@@ -16,7 +16,7 @@
     </h2>
     <p class="help-block">
       <%= t('attachment.accessibility.full_help_html',
-        email: alternative_format_order_link(attachment, alternative_format_contact_email),
+        email: alertnative_order_email,
         title: attachment.title,
         references: attachment_references(attachment)) %>
     </p>

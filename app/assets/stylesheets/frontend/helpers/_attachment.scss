@@ -85,9 +85,8 @@
   }
 
   .accessibility-warning {
-    margin-top: $gutter-one-third;
     h2 {
-      @include ig-core-14;
+      @include core-14;
       margin: 0;
       color: $text-colour;
     }

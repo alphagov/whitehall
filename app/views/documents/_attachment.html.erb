@@ -53,7 +53,9 @@
   <div class="metadata">
     <%= render partial: "documents/attachment_attributes",
       locals: {
-        attachment: attachment
+        attachment: attachment,
+        help_block_id: help_block_id,
+        alertnative_order_email: alternative_format_order_link(attachment, alternative_format_contact_email)
       }
     %>
   </div>
