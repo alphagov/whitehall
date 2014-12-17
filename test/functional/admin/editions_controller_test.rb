@@ -52,6 +52,14 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_match "Everyone’s documents", response_html.children[0].text()
   end
 
+  view_test '#index should show unpublishing information' do
+    edition = create(:unpublished_edition)
+    xhr :get, :index, state: :active
+
+    assert_select 'td.title', text: /edition.title/
+    assert_select 'td.title', text: /unpublished less than a minute ago/
+  end
+
   test "diffing against a previous version" do
     policy = create(:draft_policy)
     editor = create(:departmental_editor)
@@ -298,6 +306,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_template :show
     assert_equal 'News article', imported_news_article.reload.title
   end
+
 
   def stub_edition_filter(attributes = {})
     default_attributes = {
