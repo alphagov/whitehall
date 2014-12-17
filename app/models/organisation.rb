@@ -470,6 +470,7 @@ class Organisation < ActiveRecord::Base
 
   def organisations_with_scoped_search
     [
+      'competition-and-markets-authority',
       'environment-agency',
       'land-registry',
       'legal-aid-agency',
