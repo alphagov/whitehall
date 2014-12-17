@@ -5,7 +5,7 @@ class SchedulingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
   setup do
-    @submitted_edition = create(:submitted_edition,
+    @submitted_edition = create(:submitted_case_study,
                                 scheduled_publication: 1.day.from_now)
     stub_legacy_sidekiq_scheduling
     stub_default_publishing_api_put
@@ -33,6 +33,22 @@ class SchedulingTest < ActiveSupport::TestCase
 
     assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
     assert_publishing_api_put_intent(path, publish_time: new_draft.scheduled_publication.as_json)
+  end
+
+  test "scheduling a translated edition publishes a publish intent for each translation" do
+    I18n.with_locale :fr do
+      @submitted_edition.title = "French title"
+      @submitted_edition.save!
+    end
+
+    english_path = Whitehall.url_maker.public_document_path(@submitted_edition)
+    french_path  = Whitehall.url_maker.public_document_path(@submitted_edition, locale: :fr)
+    publish_time = @submitted_edition.scheduled_publication.as_json
+
+    schedule(@submitted_edition)
+
+    assert_publishing_api_put_intent(english_path, publish_time: publish_time)
+    assert_publishing_api_put_intent(french_path, publish_time: publish_time)
   end
 
 private
