@@ -44,9 +44,26 @@
     }
 
     .references {
-      @include core-14;
       display: block;
+      @include media ( tablet ) {
+        display: inline;
+      }
+
+    }
+
+    .references,
+    .price {
       color: $secondary-text-colour;
+    }
+    .order_url {
+      text-decoration: none;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+      @include media ( tablet ) {
+        margin-left: $gutter-one-third;
+      }
     }
 
     .preview,
@@ -84,9 +101,25 @@
     }
   }
 
-  .accessibility-warning {
-    h2 {
+  .accessibility-warning,
+  .references,
+  .order_url,
+  .price {
+    @include core-16;
+    @include media(tablet) {
       @include core-14;
+    }
+  }
+
+  .accessibility-warning {
+    clear: left;
+    display: block;
+
+    @include media(tablet) {
+      display:inline-block;
+    }
+
+    h2 {
       margin: 0;
       color: $text-colour;
     }
@@ -135,6 +168,9 @@
       @include media(tablet) {
         float: none;
       }
+    }
+    .changed{
+      display: block;
     }
   }
 }
