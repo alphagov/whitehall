@@ -324,15 +324,6 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     assert_relationship_type_is_described_as(:other, '{this_org_name} works with the {parent_org_name}.')
   end
 
-  test 'organisations with active_child_organisations_excluding_sub_organisations are described without a full stop' do
-    org = create(:ministerial_department, acronym: "DBR", name: "Department of Building Regulation")
-    org.stubs(:active_child_organisations_excluding_sub_organisations).returns([:an_active_child])
-    refute organisation_display_name_and_parental_relationship(org).include? '.'
-
-    org.stubs(:active_child_organisations_excluding_sub_organisations).returns([])
-    assert organisation_display_name_and_parental_relationship(org).include? '.'
-  end
-
   test 'definite article skipped for certain parent organisations' do
     assert_definite_article_skipped 'HM Treasury'
     assert_definite_article_skipped 'Ordnance Survey'
@@ -349,6 +340,47 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
     result = organisation_display_name_and_parental_relationship(child)
     assert_match parent.name, result
     assert_match parent2.name, result
+  end
+
+  test 'single child organisation reflected as in copy' do
+    child = create(:organisation)
+    parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child])
+    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    assert description.include? '1 public body'
+  end
+
+  test 'multiple child organisations reflected as in copy' do
+    child1 = create(:organisation)
+    child2 = create(:organisation)
+    parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child1, child2])
+    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    assert description.include? '2 agencies and public bodies'
+  end
+
+  test 'organisations with children are described correctly' do
+    child1 = create(:organisation, acronym: "COO", name: "Child Organisation One")
+    parent = create(:ministerial_department, acronym: "PAN", name: "Parent Organisation Name", child_organisations: [child1])
+
+    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    assert description.include? ', supported by'
+  end
+
+  test 'organisations of type other with children are described correctly' do
+    child1 = create(:organisation, acronym: "CO", name: "Child Organisation")
+    parent = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name", child_organisations: [child1])
+
+    description = organisation_display_name_including_parental_and_child_relationships(parent)
+    assert description.include? 'is supported by'
+    refute description.include? 'is an other'
+  end
+
+  test 'organisations of type other with no relationships are described correctly' do
+    organisation = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name")
+    organisation.stubs(:active_child_organisations_excluding_sub_organisations).returns([])
+
+    description = organisation_display_name_including_parental_and_child_relationships(organisation)
+    assert description.include? 'Other Organisation Name'
+    refute description.include? 'is an other'
   end
 
 end
