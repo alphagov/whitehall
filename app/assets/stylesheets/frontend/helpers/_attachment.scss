@@ -24,7 +24,8 @@
     }
   }
 
-  .title a {
+  .title a,
+  .govspeak a {
     text-decoration: none;
     &:hover{
       text-decoration: underline;
@@ -74,15 +75,17 @@
     .preview {
       padding-right: $gutter-half;
     }
+
+    .unnumbered-paper {
+      display: block;
+    }
+
   }
 
   .metadata {
     @include grid-column( 1/3 );
     @include core-14;
     margin: 0;
-    .unnumbered-paper {
-      display: block;
-    }
     .opendocument-help {
       clear: both;
       margin: 0;
