@@ -18,9 +18,9 @@ module Whitehall
       do_action(model_instance, 'republish')
     end
 
-    def self.schedule(model_instance)
-      locales_for(model_instance).each do |locale|
-        PublishingApiScheduleWorker.perform_async(model_instance.class.name, model_instance.id, locale)
+    def self.schedule(edition)
+      locales_for(edition).each do |locale|
+        PublishingApiScheduleWorker.perform_async(edition.id, locale)
       end
     end
 
