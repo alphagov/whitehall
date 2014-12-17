@@ -32,6 +32,8 @@
   }
 
   .attachment-details {
+    @include grid-column( 2/3 );
+
     h1, h2, h3 {
       @include bold-24;
     }
@@ -41,17 +43,10 @@
       margin: 0;
     }
 
-    .metadata {
+    .references {
       @include core-14;
-      margin: 0;
-      .changed,
-      .references {
-        display: block;
-        color: $secondary-text-colour;
-      }
-      .unnumbered-paper {
-        display: block;
-      }
+      display: block;
+      color: $secondary-text-colour;
     }
 
     .preview,
@@ -64,12 +59,28 @@
     }
   }
 
-  .opendocument-help {
-    clear: both;
-    margin: 0;
+  .metadata {
+    @include grid-column( 1/3 );
     @include core-14;
-    a {
-      @include external-link-14;
+    margin: 0;
+    .unnumbered-paper {
+      display: block;
+    }
+    .opendocument-help {
+      clear: both;
+      margin: 0;
+      @include core-14;
+      a {
+        @include external-link-14;
+      }
+    }
+  }
+
+  .attachment-details,
+  .metadata {
+    padding: 0;
+    @include media(tablet) {
+      padding: 0 $gutter-half;
     }
   }
 
@@ -110,25 +121,6 @@
         margin-bottom: $gutter-two-thirds;
       }
     }
-    .content-two-thirds-left {
-      @include grid-column( 2/3 );
-      .references {
-        @include core-14;
-        display: block;
-        color: $secondary-text-colour;
-      }
-    }
-    .content-one-third {
-      @include grid-column( 1/3 );
-    }
-    .content-two-thirds-left,
-    .content-one-third {
-      padding: 0;
-      @include media(tablet) {
-        padding: 0 $gutter-half;
-      }
-    }
-
     .document-type {
       @include core-19;
       float: left;

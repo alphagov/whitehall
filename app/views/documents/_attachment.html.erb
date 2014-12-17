@@ -6,7 +6,7 @@
   attachment_link_options['rel'] = 'external' if attachment.external?
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
-  <div class="attachment-details content-two-thirds-left govspeak">
+  <div class="attachment-details govspeak">
     <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h2>
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
@@ -50,7 +50,7 @@
     <% end %>
   </div>
 
-  <div class="metadata content-one-third">
+  <div class="metadata">
     <%= render partial: "documents/attachment_attributes",
       locals: {
         attachment: attachment
