@@ -158,6 +158,7 @@ Whitehall::Application.routes.draw do
 
         namespace :api do
           post 'reindex-specialist-sector-editions/*slug', to: 'search#reindex_specialist_sector_editions', as: 'reindex_specialist_sector_editions'
+          resource :reindex_edition_by_slug, only: [:create]
         end
 
         get 'find-in-admin-bookmarklet' => 'find_in_admin_bookmarklet#index', as: :find_in_admin_bookmarklet_instructions_index
