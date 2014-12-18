@@ -131,20 +131,6 @@ module DocumentHelper
     ref.join(', ').html_safe
   end
 
-  def attachment_thumbnail(attachment)
-    if attachment.pdf?
-      image_tag(attachment.file.thumbnail.url, alt: '')
-    elsif attachment.html?
-      image_tag('pub-cover-html.png', alt: '')
-    elsif %w{doc docx odt}.include? attachment.file_extension
-      image_tag('pub-cover-doc.png', alt: '')
-    elsif %w{xls xlsx ods csv}.include? attachment.file_extension
-      image_tag('pub-cover-spreadsheet.png', alt: '')
-    else
-      image_tag('pub-cover.png', alt: '')
-    end
-  end
-
   def alternative_format_order_link(attachment, alternative_format_contact_email)
     attachment_info = []
     attachment_info << "  Title: #{attachment.title}"
@@ -178,20 +164,6 @@ Please tell us:
     references << "HC: #{attachment.hoc_paper_number} #{attachment.parliamentary_session}" if attachment.hoc_paper_number.present?
     prefix = references.size == 1 ? "and its reference" : "and its references"
     references.any? ? ", #{prefix} (" + references.join(", ") + ")" : ""
-  end
-
-  def attachment_attributes(attachment)
-    attributes = []
-    if attachment.html?
-      attributes << content_tag(:span, 'HTML', class: 'type')
-    elsif attachment.external?
-      attributes << content_tag(:span, attachment.url, class: 'url')
-    else
-      attributes << content_tag(:span, humanized_content_type(attachment.file_extension), class: 'type')
-      attributes << content_tag(:span, number_to_human_size(attachment.file_size), class: 'file-size')
-      attributes << content_tag(:span, pluralize(attachment.number_of_pages, "page") , class: 'page-length') if attachment.number_of_pages.present?
-    end
-    attributes.join(', ').html_safe
   end
 
   def native_language_name_for(locale)

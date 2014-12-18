@@ -26,7 +26,7 @@
   }
 
   p {
-    @include ig-core-19;
+    @include core-19;
     margin: $gutter-one-sixth 0;
     @include media(tablet) {
       margin: $gutter-one-third 0;

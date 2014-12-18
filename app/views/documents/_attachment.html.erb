@@ -6,78 +6,65 @@
   attachment_link_options['rel'] = 'external' if attachment.external?
 %>
 <%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
-  <div class="attachment-thumb">
-    <% unless defined?(hide_thumbnail) && hide_thumbnail %>
-      <%= link_to_unless previewable?(attachment), attachment_thumbnail(attachment), attachment.url(preview: params[:preview]), attachment_link_options.merge({ class: 'thumbnail' }).except('rel') %>
-    <% end %>
-  </div>
-  <div class="attachment-details">
+  <div class="attachment-details govspeak">
     <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h2>
+
     <% unless extra_description.empty? %>
       <p class="extra-description"><%= extra_description %></p>
     <% end %>
-    <p class="metadata">
-      <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
-        <span class="references">
-          <%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %>
-        </span>
-      <% end %>
-      <% if attachment.unnumbered_command_paper? || attachment.unnumbered_hoc_paper? %>
-        <span class="unnumbered-paper">
-          <% if attachment.unnumbered_command_paper? %>
-            <%= t('attachment.headings.unnumbered_command_paper') %>
-          <% else %>
-            <%= t('attachment.headings.unnumbered_hoc_paper') %>
-          <% end %>
-        </span>
-      <% end %>
-      <% unless published_on.blank? %>
-        <span class="changed"><%= t('attachment.headings.published') %>: <%= absolute_date(published_on) %></span>
-      <% end %>
-      <% if previewable?(attachment) %>
-        <span class="preview">
-          <strong>
-            <%= link_to "View online", preview_path_for_attachment(attachment) %>
-          </strong>
-        </span>
-        <span class="download">
-          <%= link_to attachment.url(preview: params[:preview]) do %>
-            <strong>Download <%= attachment.file_extension.upcase %></strong>
-            <%= number_to_human_size(attachment.file_size) %>
-          <% end %>
-        </span>
-      <% else %>
-        <%= attachment_attributes(attachment) %>
-      <% end %>
-    </p>
-    <% if attachment.order_url.present? %>
-      <p>
-        <%= link_to t('attachment.headings.order_a_copy'), attachment.order_url,
-            class: "order_url", title: t('attachment.headings.order_a_copy_full') %>
-        <% if attachment.price %>
-          (<span class="price"><%= number_to_currency(attachment.price, unit: "&pound;".html_safe) %></span>)
+
+    <% if previewable?(attachment) %>
+      <span class="preview">
+        <strong>
+          <%= link_to "View online", preview_path_for_attachment(attachment) %>
+        </strong>
+      </span>
+      <span class="download">
+        <%= link_to attachment.url(preview: params[:preview]) do %>
+          <strong>Download</strong>
         <% end %>
-      </p>
+      </span>
     <% end %>
 
-    <% if attachment.opendocument? %>
-      <p class="opendocument-help">
-        <%= t('attachment.opendocument.help_html') %>
-      </p>
+    <!-- Publishing/Changes information -->
+    <% unless published_on.blank? %>
+      <span class="changed"><%= t('attachment.headings.published') %>: <%= absolute_date(published_on) %></span>
     <% end %>
 
-    <% unless attachment.accessible? %>
-      <div class="accessibility-warning js-toggle-accessibility-warning" id="<%= help_block_id %>">
-        <h2><%= t('attachment.accessibility.heading') %>
-          <span class="toggler"><%= t('attachment.accessibility.request_a_different_format') %></span>
-        </h2>
-        <p class="help-block">
-          <%= t('attachment.accessibility.full_help_html',
-                email: alternative_format_order_link(attachment, alternative_format_contact_email),
-                title: attachment.title,
-                references: attachment_references(attachment)) %>
-        </p>
-      </div>
+    <% if attachment.isbn.present? or attachment.unique_reference.present? or attachment.command_paper_number.present? or attachment.hoc_paper_number.present? %>
+      <span class="references">
+        <%= t('attachment.headings.reference') %>: <%= attachment_reference(attachment) %>
+      </span>
     <% end %>
+
+    <% if attachment.order_url.present? %>
+      <%= link_to t('attachment.headings.order_a_copy'), attachment.order_url,
+          class: "order_url", title: t('attachment.headings.order_a_copy_full') %>
+      <% if attachment.price %>
+        <span class="price">(<%= number_to_currency(attachment.price, unit: "&pound;".html_safe) %>)</span>
+      <% end %>
+    <% end %>
+
+    <% if attachment.unnumbered_command_paper? || attachment.unnumbered_hoc_paper? %>
+      <span class="unnumbered-paper">
+        <% if attachment.unnumbered_command_paper? %>
+          <%= t('attachment.headings.unnumbered_command_paper') %>
+        <% else %>
+          <%= t('attachment.headings.unnumbered_hoc_paper') %>
+        <% end %>
+      </span>
+    <% end %>
+
   </div>
+
+  <div class="metadata">
+    <%= render partial: "documents/attachment_attributes",
+      locals: {
+        attachment: attachment,
+        help_block_id: help_block_id,
+        alertnative_order_email: alternative_format_order_link(attachment, alternative_format_contact_email)
+      }
+    %>
+  </div>
+
 <% end %>

@@ -1,12 +1,17 @@
-$thumbnail-width: 99px;
-
 .attachment {
   position: relative;
   margin: $gutter 0;
-  padding: $gutter-half 0 0 ($thumbnail-width + $gutter);
+  padding: $gutter-one-third 0 0 0;
   @extend %contain-floats;
   @include right-to-left {
-    padding: $gutter-half ($thumbnail-width + $gutter) 0 0;
+    padding: $gutter-one-third 0 0 0;
+  }
+
+  @include media(tablet) {
+    padding: $gutter-half 0 0 0;
+    @include right-to-left {
+      padding: $gutter-half 0 0 0;
+    }
   }
 
   &.inline {
@@ -19,66 +24,45 @@ $thumbnail-width: 99px;
     }
   }
 
-  .attachment-thumb {
-    position: relative;
-    float: left;
-    margin-top: $gutter-one-sixth;
-    margin-left: -($thumbnail-width + $gutter - $gutter-one-sixth);
-    padding-bottom: $gutter-half;
-    @include right-to-left {
-      float: right;
-      margin-left: 0;
-      margin-right: ($thumbnail-width*-1 - $gutter-half);
+  .title a,
+  .govspeak a,
+  .toggler {
+    text-decoration: none;
+    &:hover,
+    &:focus {
+      outline: none;
+      text-decoration: underline;;
     }
-
-    img {
-      display: block;
-      width: $thumbnail-width;
-      height: 140px;
-      background: white;
-      outline: $gutter-one-sixth solid transparentize($black, 0.9);
-      @include ie-lte(8) {
-        border: $gutter-one-sixth solid $grey-3;
-      }
-      @include box-shadow(0 2px 2px rgba(0,0,0,0.4));
-    }
-  }
-
-  .title a {
-    text-decoration: underline;
   }
 
   .attachment-details {
+    @include grid-column( 2/3 );
+
     h1, h2, h3 {
-      @include ig-core-27;
-      margin: 0;
-    }
-
-    h2 {
-      padding-top: 0;
-      @include media(tablet) {
-        padding-top: 7px;
-      }
-    }
-
-    h3 {
-      font-weight: bold;
+      @include bold-24;
     }
 
     .extra-description {
-      @include ig-core-19;
+      @include core-19;
       margin: 0;
     }
 
-    .metadata {
-      @include ig-core-14;
-      margin: 0;
-      .changed,
-      .references {
-        display: block;
+    .references {
+      display: block;
+      @include media ( tablet ) {
+        display: inline;
       }
-      .unnumbered-paper {
-        display: block;
+
+    }
+
+    .references,
+    .price {
+      color: $secondary-text-colour;
+    }
+
+    .order_url {
+      @include media ( tablet ) {
+        margin-left: $gutter-one-third;
       }
     }
 
@@ -90,20 +74,56 @@ $thumbnail-width: 99px;
     .preview {
       padding-right: $gutter-half;
     }
+
+    .unnumbered-paper {
+      display: block;
+    }
+
   }
 
-  .opendocument-help {
+  .metadata {
+    @include grid-column( 1/3 );
+    @include core-14;
     margin: 0;
-    @include ig-core-14;
-    a {
-      @include external-link-14;
+    .opendocument-help {
+      clear: both;
+      margin: 0;
+      a {
+        @include external-link-14;
+      }
+    }
+  }
+
+  .attachment-details,
+  .metadata {
+    padding: 0;
+    @include media(tablet) {
+      padding: 0 $gutter-half;
+    }
+  }
+
+  // This ensure these elements have font-size 14px on all formats
+  // Breaks the font mixins standards but is better for design and layout
+  .accessibility-warning,
+  .references,
+  .opendocument-help,
+  .order_url,
+  .price {
+    @include core-16;
+    @include media(tablet) {
+      @include core-14;
     }
   }
 
   .accessibility-warning {
-    margin-top: $gutter-one-third;
+    clear: left;
+    display: block;
+
+    @include media(tablet) {
+      display:inline-block;
+    }
+
     h2 {
-      @include ig-core-14;
       margin: 0;
       color: $text-colour;
     }
@@ -111,11 +131,6 @@ $thumbnail-width: 99px;
       display: inline-block;
       color: $link-colour;
       cursor: pointer;
-      &:hover,
-      &:focus {
-        outline: none;
-        text-decoration: underline;
-      }
     }
   }
   &:first-child {
@@ -125,5 +140,36 @@ $thumbnail-width: 99px;
 
   strong {
     font-weight: bold;
+  }
+}
+
+
+.heading-block {
+  .attachment-full-width {
+    h1 {
+      @include media(tablet) {
+        padding-left: $gutter-half;
+        margin-bottom: $gutter-two-thirds;
+      }
+    }
+    .document-type {
+      @include core-19;
+      float: left;
+      margin-right: 5px;
+      @include media(tablet) {
+        @include bold-24;
+        float: none;
+      }
+    }
+    .document-size {
+      @include core-19($tabular-numbers: true);
+      float: left;
+      @include media(tablet) {
+        float: none;
+      }
+    }
+    .changed{
+      display: block;
+    }
   }
 }

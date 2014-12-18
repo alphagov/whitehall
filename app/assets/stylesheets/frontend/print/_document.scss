@@ -56,22 +56,11 @@ article {
   }
   .attachment {
     clear: both;
-    .attachment-thumb,
     .attachment-details {
       float: left;
       width: 15%;
     }
-    .attachment-thumb {
-      margin: 0 $gutter*2 $gutter*2 0;
-      a {
-        img {
-          width: 100%;
-        }
-        &:after {
-          content: "";
-        }
-      }
-    }
+
     .attachment-details {
       width: 80%;
       h3 {
