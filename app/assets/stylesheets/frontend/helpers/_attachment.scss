@@ -25,10 +25,13 @@
   }
 
   .title a,
-  .govspeak a {
+  .govspeak a,
+  .toggler {
     text-decoration: none;
-    &:hover{
-      text-decoration: underline;
+    &:hover,
+    &:focus {
+      outline: none;
+      text-decoration: underline;;
     }
   }
 
@@ -56,12 +59,8 @@
     .price {
       color: $secondary-text-colour;
     }
+
     .order_url {
-      text-decoration: none;
-      &:hover,
-      &:focus {
-        text-decoration: underline;
-      }
       @include media ( tablet ) {
         margin-left: $gutter-one-third;
       }
@@ -89,7 +88,6 @@
     .opendocument-help {
       clear: both;
       margin: 0;
-      @include core-14;
       a {
         @include external-link-14;
       }
@@ -104,8 +102,11 @@
     }
   }
 
+  // This ensure these elements have font-size 14px on all formats
+  // Breaks the font mixins standards but is better for design and layout
   .accessibility-warning,
   .references,
+  .opendocument-help,
   .order_url,
   .price {
     @include core-16;
@@ -130,11 +131,6 @@
       display: inline-block;
       color: $link-colour;
       cursor: pointer;
-      &:hover,
-      &:focus {
-        outline: none;
-        text-decoration: underline;
-      }
     }
   }
   &:first-child {
