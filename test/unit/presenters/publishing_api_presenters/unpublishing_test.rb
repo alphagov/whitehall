@@ -193,4 +193,15 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     assert_equal expected_hash, presenter.as_json
     assert_valid_against_schema(presenter.as_json, 'redirect')
   end
+
+  test 'redirect representations can contain query paramters and anchor tags' do
+    alternative_path = '/page?param=1#subheading'
+    unpublishing     = create(:redirect_unpublishing,
+      alternative_url: Whitehall.public_root + alternative_path)
+
+    presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
+    presented_hash = presenter.as_json
+
+    assert_equal alternative_path, presented_hash[:redirects][0][:destination]
+  end
 end
