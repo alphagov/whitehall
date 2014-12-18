@@ -1,8 +1,9 @@
 class Admin::Api::ReindexEditionBySlugController < Admin::BaseController
-skip_before_filter :verify_authenticity_token, only: [:create]
+  skip_before_filter :verify_authenticity_token, only: [:create]
 
   def create
     documents_tagged_to_slug.map(&:update_in_search_index)
+
     render json: {
       result: 'ok',
       number_of_documents_with_slug_updated: documents_tagged_to_slug.count

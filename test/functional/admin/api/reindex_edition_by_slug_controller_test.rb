@@ -23,7 +23,7 @@ class Admin::Api::ReindexEditionBySlugControllerTest < ActionController::TestCas
     end
 
     post :create,
-    { slug: slug_to_reindex },
-    { "CONTENT_TYPE" => "application/json", "ACCEPT" => "application/json" }
+      { slug: slug_to_reindex },
+      { "CONTENT_TYPE" => "application/json", "ACCEPT" => "application/json" }
   end
 end
