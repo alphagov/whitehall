@@ -22,9 +22,9 @@
 
   #details {
     margin-bottom: $gutter*2;
-    .govspeak {
-      ul {
-        margin-left: 0;
+    @include media(tablet) {
+      .govspeak {
+        max-width: $two-thirds;
       }
     }
   }
