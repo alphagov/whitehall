@@ -35,11 +35,19 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal "archived", @registerable.state
   end
 
-  test 'When an edition is unpublished, an "unpublishing" is published to the Publishing API' do
+  test 'When a case study is unpublished, an "unpublishing" is published to the Publishing API' do
     path = Whitehall.url_maker.public_document_path(@published_edition)
     stub_panopticon_registration(@published_edition)
     unpublish(@published_edition, unpublishing_params)
     assert_publishing_api_put_item(path, format: 'unpublishing')
+  end
+
+  test 'When an edition that is not a case study is unpublished, no "unpublishing" is sent to the Publishing API' do
+    detailed_guide = create(:published_detailed_guide)
+    path = Whitehall.url_maker.public_document_path(detailed_guide)
+    stub_panopticon_registration(detailed_guide)
+    unpublish(detailed_guide, unpublishing_params)
+    assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
   end
 
   test 'when a translated edition is unpublished, an "unpublishing" is published to the Publishing API for each translation' do

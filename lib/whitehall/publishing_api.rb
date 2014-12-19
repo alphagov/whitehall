@@ -34,16 +34,25 @@ module Whitehall
     end
 
     def self.do_action(model_instance, update_type_override=nil)
-      unless publishable?(model_instance)
-        raise UnpublishableInstanceError, "#{model_instance.class} with ID #{model_instance.id} is not publishable"
-      end
+      return unless should_publish?(model_instance)
+      self.assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
         PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, update_type_override, locale)
       end
     end
 
-    def self.publishable?(instance)
-      !instance.kind_of?(Edition) || instance.publicly_visible?
+    def self.should_publish?(instance)
+      if instance.kind_of?(Unpublishing)
+        instance.edition.kind_of?(CaseStudy)
+      else
+        true
+      end
+    end
+
+    def self.assert_public_edition!(instance)
+      if instance.kind_of?(Edition) && !instance.publicly_visible?
+        raise UnpublishableInstanceError, "#{instance.class} with ID #{instance.id} is not publishable"
+      end
     end
   end
 end
