@@ -1,27 +1,21 @@
 require 'test_helper'
-require 'gds_api/test_helpers/publishing_api'
 
 class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::PublishingApi
+  test 'publishes a publish intent for the base path and publish time' do
+    base_path    = '/base_path/for/content.fr'
+    publish_time = 2.days.from_now
 
-  test "#perform publishes a publish intent and a coming_soon content item for a new edition" do
-    stub_default_publishing_api_put_intent
-    scheduled_edition = create(:scheduled_detailed_guide)
-    path = Whitehall.url_maker.public_document_path(scheduled_edition)
-    PublishingApiScheduleWorker.new.perform(scheduled_edition.id, 'en')
+    expected_payload = {
+      base_path: base_path,
+      publish_time: publish_time,
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      routes: [ { path: base_path, type: 'exact'} ]
+    }
+    expected_request = stub_publishing_api_put_intent(base_path, expected_payload)
 
-    assert_publishing_api_put_intent(path, publish_time: scheduled_edition.scheduled_publication.as_json)
-    assert_publishing_api_put_item(path, format: 'coming_soon')
-  end
+    PublishingApiScheduleWorker.new.perform(base_path, publish_time.as_json)
 
-  test "#perform publishes a publish intent but no coming_soon item when the document has previously been published" do
-    stub_default_publishing_api_put_intent
-    scheduled_edition = create(:scheduled_detailed_guide)
-    path = Whitehall.url_maker.public_document_path(scheduled_edition)
-    previous_edition = create(:published_detailed_guide, document: scheduled_edition.document)
-    PublishingApiScheduleWorker.new.perform(scheduled_edition.id, 'en')
-
-    assert_publishing_api_put_intent(path, publish_time: scheduled_edition.scheduled_publication.as_json)
-    assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
+    assert_requested expected_request
   end
 end

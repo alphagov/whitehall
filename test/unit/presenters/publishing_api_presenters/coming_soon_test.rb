@@ -2,35 +2,26 @@ require 'test_helper'
 
 class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
 
-  def present(edition)
-    PublishingApiPresenters::ComingSoon.new(edition).as_json
-  end
+  test 'presents a valid "coming_soon" content item' do
+    base_path         = '/some/path'
+    locale            = 'en'
+    publish_timestamp = 1.day.from_now
 
-  test 'coming_soon presentation includes the correct values' do
-    sched_time = 1.day.from_now
-    edition = create(:scheduled_case_study, scheduled_publication: sched_time)
-    path = Whitehall.url_maker.public_document_path(edition)
     expected_hash = {
-      base_path: path,
+      base_path: base_path,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       format: 'coming_soon',
       title: 'Coming soon',
-      locale: 'en',
+      locale: locale,
       update_type: 'major',
-      details: {
-        publish_time: sched_time
-      },
-      routes: [
-        {
-          path: path,
-          type: 'exact'
-        }
-      ]
+      details: { publish_time: publish_timestamp },
+      routes: [ { path: base_path, type: 'exact' } ]
     }
-    presented_hash = present(edition)
-    assert_equal expected_hash, presented_hash
 
-    assert_valid_against_schema(presented_hash, 'coming_soon')
+    presenter = PublishingApiPresenters::ComingSoon.new(base_path, publish_timestamp, locale)
+
+    assert_equal expected_hash, presenter.as_json
+    assert_valid_against_schema(presenter.as_json, 'coming_soon')
   end
 end

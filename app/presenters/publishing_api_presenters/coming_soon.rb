@@ -1,7 +1,7 @@
 # A temporary content format used as a splash page for scheduled documents.
 #
-# When a new document is scheduled for publication, a "coming_soon" content item
-# is pushed to the Publishing API, along with a `PublishIntent` for the
+# When a piece of content is scheduled for publication, a "coming_soon" content
+# item is pushed to the Publishing API, along with a `PublishIntent` for the
 # scheduled publication time. This is to get around the fact that the current
 # caching infrastructure will cache a 404 for 30 minutes without honouring any
 # upstream caching headers it receives. By publishing a temporary "coming soon"
@@ -13,15 +13,12 @@
 # Note this format becomes redundant once the caching infrasture is able to
 # honour caching headers on upstream 404 responses.
 class PublishingApiPresenters::ComingSoon
-  attr_reader :edition, :update_type
+  attr_reader :base_path, :publishing_timestamp, :locale
 
-  def initialize(edition, options = {})
-    @edition = edition
-    @update_type = options[:update_type] || default_update_type
-  end
-
-  def base_path
-    Whitehall.url_maker.public_document_path(edition)
+  def initialize(base_path, publishing_timestamp, locale)
+    @base_path = base_path
+    @publishing_timestamp = publishing_timestamp
+    @locale = locale
   end
 
   def as_json
@@ -31,24 +28,10 @@ class PublishingApiPresenters::ComingSoon
       rendering_app: 'whitehall-frontend',
       format: 'coming_soon',
       title: 'Coming soon',
-      locale: I18n.locale.to_s,
-      update_type: update_type,
-      details: {
-        publish_time: edition.scheduled_publication,
-      },
-      routes: [
-        {
-          path: base_path,
-          type: "exact"
-        }
-      ]
+      locale: locale,
+      update_type: 'major',
+      details: { publish_time: publishing_timestamp },
+      routes: [ { path: base_path, type: "exact" } ]
     }
   end
-
-private
-
-  def default_update_type
-    'major'
-  end
 end
-
