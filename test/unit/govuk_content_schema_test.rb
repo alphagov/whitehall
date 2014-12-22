@@ -38,6 +38,20 @@ class GovukContentSchemaTest < ActiveSupport::TestCase
     assert_match /number/, validator.errors[0]
   end
 
+  test "#schema_path uses env variable for valid schema names" do
+    ENV.stubs(:[]).with('GOVUK_CONTENT_SCHEMAS_PATH').returns('/foo/bar/baz')
+    schema_name = 'case_study'
+    schema_path = GovukContentSchema.schema_path(schema_name)
+    assert_equal '/foo/bar/baz/formats/case_study/publisher/schema.json', schema_path
+  end
+
+  test "Validator.new raises error if schema file not found" do
+    ENV.stubs(:[]).with('GOVUK_CONTENT_SCHEMAS_PATH').returns('/foo/bar/baz')
+    assert_raises GovukContentSchema::ImproperlyConfiguredError do
+      GovukContentSchema::Validator.new('case_study', valid_json)
+    end
+  end
+
 private
 
   def schema_name
