@@ -8,7 +8,7 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
     stub_default_publishing_api_put_intent
     scheduled_edition = create(:scheduled_detailed_guide)
     path = Whitehall.url_maker.public_document_path(scheduled_edition)
-    PublishingApiScheduleWorker.new.perform(scheduled_edition.class.name, scheduled_edition.id)
+    PublishingApiScheduleWorker.new.perform(scheduled_edition.id, 'en')
 
     assert_publishing_api_put_intent(path, publish_time: scheduled_edition.scheduled_publication.as_json)
     assert_publishing_api_put_item(path, format: 'coming_soon')
@@ -19,22 +19,9 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
     scheduled_edition = create(:scheduled_detailed_guide)
     path = Whitehall.url_maker.public_document_path(scheduled_edition)
     previous_edition = create(:published_detailed_guide, document: scheduled_edition.document)
-    PublishingApiScheduleWorker.new.perform(scheduled_edition.class.name, scheduled_edition.id)
+    PublishingApiScheduleWorker.new.perform(scheduled_edition.id, 'en')
 
     assert_publishing_api_put_intent(path, publish_time: scheduled_edition.scheduled_publication.as_json)
     assert_not_requested(:put, %r{#{PUBLISHING_API_ENDPOINT}/content.*})
-  end
-
-private
-
-  def locale
-    I18n.default_locale.to_s
-  end
-
-  def schedule_worker(model, locale=nil)
-    PublishingApiScheduleWorker.new.tap do |w|
-      w.model = model
-      w.locale = locale
-    end
   end
 end

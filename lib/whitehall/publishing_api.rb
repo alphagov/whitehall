@@ -18,9 +18,17 @@ module Whitehall
       do_action(model_instance, 'republish')
     end
 
-    def self.schedule(model_instance)
-      locales_for(model_instance).each do |locale|
-        PublishingApiScheduleWorker.perform_async(model_instance.class.name, model_instance.id, locale)
+    def self.schedule(edition)
+      locales_for(edition).each do |locale|
+        PublishingApiScheduleWorker.perform_async(edition.id, locale)
+      end
+    end
+
+    def self.unschedule(edition)
+      locales_for(edition).each do |locale|
+        base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
+        PublishingApiUnscheduleWorker.perform_async(base_path)
+        PublishingApiGoneWorker.perform_async(base_path) unless edition.document.published?
       end
     end
 
