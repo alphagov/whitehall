@@ -57,7 +57,7 @@ Then(/^I should see my organisation's statistics announcements on the statistica
   visit admin_statistics_announcements_path
 
   assert page.has_css?("tr.statistics_announcement", text: @organisation_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @other_organisation_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @other_organisation_announcement.title)
 end
 
 When(/^I filter statistics announcements by the other organisation$/) do
@@ -67,7 +67,7 @@ end
 
 Then(/^I should only see the statistics announcement of the other organisation$/) do
   assert page.has_css?("tr.statistics_announcement", text: @other_organisation_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @organisation_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @organisation_announcement.title)
 end
 
 When(/^I link the announcement to the publication$/) do
@@ -194,13 +194,13 @@ Then(/^I should be able to filter both past and future announcements$/) do
   click_on "Search"
 
   assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @past_announcement.title)
 
   select "Past announcements", from: "Release date"
   click_on "Search"
 
   assert page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @future_announcement.title)
 end
 
 Then(/^I should be able to filter only the unlinked announcements$/) do
@@ -211,7 +211,7 @@ Then(/^I should be able to filter only the unlinked announcements$/) do
   click_on "Search"
 
   assert page.has_css?("tr.statistics_announcement", text: @future_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @past_announcement.title)
 end
 
 Then(/^I should see a warning that there are upcoming releases without a linked publication$/) do
@@ -223,6 +223,6 @@ Then(/^I should be able to view these upcoming releases without a linked publica
 
   assert page.has_css?("tr.statistics_announcement", text: @tomorrow_announcement.title)
   assert page.has_css?("tr.statistics_announcement", text: @next_week_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @past_announcement.title)
-  refute page.has_css?("tr.statistics_announcement", text: @next_year_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @past_announcement.title)
+  assert page.has_no_css?("tr.statistics_announcement", text: @next_year_announcement.title)
 end

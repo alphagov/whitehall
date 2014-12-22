@@ -93,8 +93,8 @@ end
 Then(/^I should only see statistics for the selected departments and topics$/) do
   within('.filter-results') do
     assert page.has_content? "Average beard lengths of wombat organisations"
-    refute page.has_content? "2015 Average beard lengths figures"
-    refute page.has_content? "Wombat population levels"
+    assert page.has_no_content? "2015 Average beard lengths figures"
+    assert page.has_no_content? "Wombat population levels"
   end
 end
 

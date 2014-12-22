@@ -202,7 +202,7 @@ end
 Then(/^(#{THE_DOCUMENT}) should no longer be listed on the public site$/) do |edition|
   visit_public_index_for(edition)
   css_selector = edition.is_a?(DetailedGuide) ? 'h1.page_title' : record_css_selector(edition)
-  refute page.has_content?(edition.title)
+  assert page.has_no_content?(edition.title)
 end
 
 Then /^(#{THE_DOCUMENT}) should be visible to the public$/ do |edition|

@@ -63,7 +63,7 @@ module SpecialistSectorHelper
   end
 
   def check_for_absence_of_draft_sectors_and_subsectors_in_metadata
-    refute has_css?('dd', text: 'Distillation', exact: false)
+    assert has_no_css?('dd', text: 'Distillation', exact: false)
   end
 end
 
