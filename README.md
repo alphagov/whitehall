@@ -49,7 +49,12 @@ Otherwise set up an empty database with:
 
 ### Running tests locally
 
-Two environment variables can be (optionally) set up, typically:
+The test suite relies on the presence of the [govuk-content-schemas](http://github.com/alphagov/govuk-content-schemas)
+repository. This should either be present at the same directory level as
+the Whitehall repository, or the location must be specified explicitly via the
+`GOVUK_CONTENT_SCHEMAS_PATH` environment variable.
+
+Two other environment variables can also be (optionally) set up, typically:
 
     GOVUK_APP_DOMAIN=dev.gov.uk
     GOVUK_ASSET_ROOT=http://static.dev.gov.uk
@@ -136,7 +141,7 @@ will email the new user and prompt them to create their account.
 The Whitehall app relies on
 [Rummager](https://github.com/alphagov/rummager) for document
 indexing, and the
-[Gov.UK frontend application](https://github.com/alphagov/frontend) to
+[GOV.UK frontend application](https://github.com/alphagov/frontend) to
 serve results.
 
 To use a local copy of Rummager you'll need to:
