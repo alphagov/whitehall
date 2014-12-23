@@ -1,35 +1,19 @@
 class PublishingApiScheduleWorker
   include Sidekiq::Worker
 
-  attr_accessor :edition, :locale
+  def perform(base_path, publish_timestamp)
+    publish_intent = build_publish_intent(base_path, publish_timestamp)
 
-  def perform(id, locale)
-    @edition = Edition.find(id)
-    @locale = locale
-
-    # Coming soon needs to be sent first, as currently content-store deletes
-    # an intent when a content item is created for that path.
-    publish_coming_soon unless edition.document.published?
-    publish_publish_intent
+    Whitehall.publishing_api_client.put_intent(base_path, publish_intent)
   end
 
-private
-
-  def publish_publish_intent
-    presenter = PublishingApiPresenters.publish_intent_for(edition)
-    I18n.with_locale(locale) do
-      Whitehall.publishing_api_client.put_intent(
-        presenter.base_path,
-        presenter.as_json)
-    end
-  end
-
-  def publish_coming_soon
-    presenter = PublishingApiPresenters.coming_soon_for(edition)
-    I18n.with_locale(locale) do
-      Whitehall.publishing_api_client.put_content_item(
-        presenter.base_path,
-        presenter.as_json)
-    end
+  def build_publish_intent(base_path, publish_timestamp)
+    {
+      base_path: base_path,
+      publish_time: publish_timestamp,
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      routes: [ { path: base_path, type: 'exact'} ]
+    }
   end
 end

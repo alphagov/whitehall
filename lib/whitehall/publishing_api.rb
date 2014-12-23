@@ -19,8 +19,13 @@ module Whitehall
     end
 
     def self.schedule(edition)
+      publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
-        PublishingApiScheduleWorker.perform_async(edition.id, locale)
+        base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)
+        PublishingApiScheduleWorker.perform_async(base_path, publish_timestamp)
+        unless edition.document.published?
+          PublishingApiComingSoonWorker.perform_async(base_path, publish_timestamp, locale)
+        end
       end
     end
 

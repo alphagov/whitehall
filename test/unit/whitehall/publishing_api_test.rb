@@ -133,6 +133,52 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested german_request
   end
 
+  test "schedule for a first-edition queues jobs to push publish intents and 'coming_soon' items" do
+    timestamp = 12.hours.from_now
+    edition   = create(:draft_case_study, scheduled_publication: timestamp)
+
+    I18n.with_locale(:fr) do
+      edition.title = 'French title'
+      edition.save!
+    end
+
+    english_path = Whitehall.url_maker.public_document_path(edition)
+    french_path  = Whitehall.url_maker.public_document_path(edition, locale: :fr)
+
+    Sidekiq::Testing.fake! do
+      Whitehall::PublishingApi.schedule(edition)
+
+      assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
+      assert_equal [french_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
+
+      assert_equal [english_path, timestamp, 'en'], PublishingApiComingSoonWorker.jobs[0]['args']
+      assert_equal [french_path, timestamp, 'fr'], PublishingApiComingSoonWorker.jobs[1]['args']
+    end
+  end
+
+  test "schedule for a subsequent edition queues jobs to push publish intents, but not to publish 'coming_soon' items" do
+    timestamp = 2.hours.from_now
+    existing_edition = create(:published_case_study)
+    updated_edition = create(:draft_case_study, scheduled_publication: timestamp, document: existing_edition.document)
+
+    I18n.with_locale(:es) do
+      updated_edition.title = 'Spanish title'
+      updated_edition.save!
+    end
+
+    english_path = Whitehall.url_maker.public_document_path(updated_edition)
+    spanish_path = Whitehall.url_maker.public_document_path(updated_edition, locale: :es)
+
+    Sidekiq::Testing.fake! do
+      Whitehall::PublishingApi.schedule(updated_edition)
+
+      assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
+      assert_equal [spanish_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
+
+      assert_equal [], PublishingApiComingSoonWorker.jobs
+    end
+  end
+
   test "unschedule for a first-edition queues jobs to remove publish intents and publish 'gone' items" do
     edition = create(:scheduled_case_study)
 
@@ -156,19 +202,19 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   end
 
   test "unschedule for a subsequent edition queues jobs to remove publish intents, but not to publish 'gone' items" do
-    case_study = create(:published_case_study)
-    edition = create(:scheduled_case_study, document: case_study.document)
+    existing_edition = create(:published_case_study)
+    updated_edition = create(:scheduled_case_study, document: existing_edition.document)
 
     I18n.with_locale(:de) do
-      edition.title = 'German title'
-      edition.save!(validate: false)
+      updated_edition.title = 'German title'
+      updated_edition.save!(validate: false)
     end
 
-    english_path = Whitehall.url_maker.public_document_path(edition)
-    german_path = Whitehall.url_maker.public_document_path(edition, locale: :de)
+    english_path = Whitehall.url_maker.public_document_path(updated_edition)
+    german_path = Whitehall.url_maker.public_document_path(updated_edition, locale: :de)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule(edition)
+      Whitehall::PublishingApi.unschedule(updated_edition)
 
       assert_equal [german_path], PublishingApiUnscheduleWorker.jobs[0]['args']
       assert_equal [english_path], PublishingApiUnscheduleWorker.jobs[1]['args']
