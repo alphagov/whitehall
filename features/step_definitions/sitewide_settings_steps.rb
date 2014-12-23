@@ -15,7 +15,7 @@ end
 
 Then(/^I should (not )?see the minister counts$/) do |negate|
   if negate
-    refute page.has_css?(".feature-ministers")
+    assert page.has_no_css?(".feature-ministers")
   else
     assert page.has_css?(".feature-ministers")
   end
@@ -23,7 +23,7 @@ end
 
 Then(/^I should (not )?see a reshuffle warning message$/) do |negate|
   if negate
-    refute page.has_content?("Test minister <a rel=\"external\" href=\"http://example.com\">reshuffle</a> message")
+    assert page.has_no_content?("Test minister <a rel=\"external\" href=\"http://example.com\">reshuffle</a> message")
   else
     assert page.has_content?("Test minister reshuffle message")
   end

@@ -138,13 +138,13 @@ module DocumentHelper
   end
 
   def fill_in_change_note_if_required
-    if has_css?("textarea[name='edition[change_note]']")
+    if has_css?("textarea[name='edition[change_note]']", wait: false)
       fill_in "edition_change_note", with: "changes"
     end
   end
 
   def select_topic_if_required
-    if has_css?(".edition-topic-fields")
+    if has_css?(".edition-topic-fields", wait: false)
       within(".edition-topic-fields") do
         select Topic.first.name, from: "Topics"
       end

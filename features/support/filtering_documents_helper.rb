@@ -26,10 +26,10 @@ module FilteringDocumentsHelper
   def clear_filters
     within '#document-filter' do
       page.fill_in "Contains", with: ""
-      page.select "All publication types", from: "Publication type" if page.has_content?("Publication type")
+      page.select "All publication types", from: "Publication type" if page.has_selector?('label', text: "Publication type", wait: false)
       page.select "All topics", from: "Topic"
       page.select "All departments", from: "Department"
-      page.select "All documents", from: "Official document status" if page.has_content?("Official document status")
+      page.select "All documents", from: "Official document status" if page.has_selector?('label', text: "Official document status", wait: false)
       page.select "All locations", from: "World locations"
       page.fill_in "Published after", with: ""
       page.fill_in "Published before", with: ""

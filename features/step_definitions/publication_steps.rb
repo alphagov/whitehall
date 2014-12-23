@@ -187,7 +187,7 @@ end
 
 Then /^I should not be able to publish the publication "([^"]*)"$/ do |title|
   visit_edition_admin title
-  refute page.has_button?('Publish')
+  assert page.has_no_button?('Publish')
 end
 
 Given /^"([^"]*)" submits the publication "([^"]*)"$/ do |user_name, title|
