@@ -26,8 +26,10 @@ class GovukContentSchema
   class Validator
     def initialize(schema_name, data)
       @schema_path = GovukContentSchema.schema_path(schema_name)
-      if !File.exists?(@schema_path)
-        raise ImproperlyConfiguredError, "Schema file not found at #{@schema_path}. Ensure you have checked out a copy of the govuk-content-schemas repo, and the GOVUK_CONTENT_SCHEMAS_PATH environment var is pointing at that checkout."
+      if !Pathname(@schema_path).dirname.exist?
+        raise ImproperlyConfiguredError, "Dependency govuk-content-schemas cannot be found. Ensure it is checked out in the same parent directory as the Whitehall application (see README.md for more details)."
+      elif !File.exists?(@schema_path)
+        raise ImproperlyConfiguredError, "Schema file not found: #{@schema_path}. Mke sure it is present in govuk-content-schemas."
       end
       @data = data
     end
