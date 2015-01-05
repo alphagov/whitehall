@@ -43,8 +43,12 @@ mkdir -p ./clean-uploads
 mkdir -p ./infected-uploads
 mkdir -p ./attachment-cache
 
+# Clone govuk-content-schemas depedency for contract tests
+rm -rf tmp/govuk-content-schemas
+git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas
+
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-RAILS_ENV=test time bundle exec rake ci:setup:minitest test:in_parallel --trace
+RAILS_ENV=test GOVUK_CONTENT_SCHEMAS_PATH=tmp/govuk-content-schemas time bundle exec rake ci:setup:minitest test:in_parallel --trace
 RAILS_ENV=production SKIP_OBSERVERS_FOR_ASSET_TASKS=true time bundle exec rake assets:precompile --trace
 
 EXIT_STATUS=$?
