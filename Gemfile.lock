@@ -91,7 +91,6 @@ GEM
       builder (>= 2.1.2)
     cliver (0.3.2)
     coderay (1.1.0)
-    columnize (0.3.6)
     connection_pool (2.0.0)
     crack (0.4.0)
       safe_yaml (~> 0.9.0)
@@ -110,12 +109,6 @@ GEM
     dalli (2.7.2)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
-    debugger (1.6.2)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.3)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.4)
     diff-lcs (1.2.5)
     equivalent-xml (0.3.0)
       nokogiri (>= 1.4.3)
@@ -402,7 +395,6 @@ DEPENDENCIES
   cucumber-rails (~> 1.4)
   dalli
   database_cleaner (= 1.0.1)
-  debugger
   equivalent-xml (= 0.3.0)
   factory_girl
   friendly_id (= 4.0.9)

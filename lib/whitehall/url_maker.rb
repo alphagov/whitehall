@@ -9,7 +9,7 @@ module Whitehall
 
     def initialize(default_options = {})
       unless default_options.empty?
-        self.singleton_class.default_url_options = UrlMaker.default_url_options.merge(default_options)
+        self.default_url_options = UrlMaker.default_url_options.merge(default_options)
       end
     end
 
