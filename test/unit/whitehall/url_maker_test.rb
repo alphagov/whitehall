@@ -18,17 +18,6 @@ module Whitehall
       assert_equal 'http://gov.uk/government/get-involved/take-part/woo', maker.take_part_page_url('woo', host: 'gov.uk')
     end
 
-    test 'includes all the relevant helpers for constructing urls' do
-      # NOTE: not at all happy about this, but I don't want to write
-      # tests to ensure all the routes are available
-      assert Whitehall::UrlMaker.ancestors.include? Rails.application.routes.url_helpers
-      assert Whitehall::UrlMaker.ancestors.include? PublicDocumentRoutesHelper
-      assert Whitehall::UrlMaker.ancestors.include? MainstreamCategoryRoutesHelper
-      assert Whitehall::UrlMaker.ancestors.include? FilterRoutesHelper
-      assert Whitehall::UrlMaker.ancestors.include? Admin::EditionRoutesHelper
-      assert Whitehall::UrlMaker.ancestors.include? LocalisedUrlPathHelper
-    end
-
     test 'has an empty set of params (for the url helpers that need it)' do
       expected_params = {}
       assert_equal expected_params, Whitehall::UrlMaker.new.params
