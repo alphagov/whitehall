@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141209093141) do
+ActiveRecord::Schema.define(:version => 20141210093620) do
 
   create_table "about_pages", :force => true do |t|
     t.integer  "topical_event_id"
@@ -1070,7 +1070,7 @@ ActiveRecord::Schema.define(:version => 20141209093141) do
   add_index "statistics_announcement_dates", ["creator_id"], :name => "index_statistics_announcement_dates_on_creator_id"
   add_index "statistics_announcement_dates", ["statistics_announcement_id", "created_at"], :name => "statistics_announcement_release_date"
 
-  create_table "statistics_announcement_organisations", :id => false, :force => true do |t|
+  create_table "statistics_announcement_organisations", :force => true do |t|
     t.integer  "statistics_announcement_id"
     t.integer  "organisation_id"
     t.datetime "created_at",                 :null => false
@@ -1080,7 +1080,7 @@ ActiveRecord::Schema.define(:version => 20141209093141) do
   add_index "statistics_announcement_organisations", ["organisation_id"], :name => "index_statistics_announcement_organisations_on_organisation_id"
   add_index "statistics_announcement_organisations", ["statistics_announcement_id", "organisation_id"], :name => "index_on_statistics_announcement_id_and_organisation_id"
 
-  create_table "statistics_announcement_topics", :id => false, :force => true do |t|
+  create_table "statistics_announcement_topics", :force => true do |t|
     t.integer  "statistics_announcement_id"
     t.integer  "topic_id"
     t.datetime "created_at",                 :null => false
