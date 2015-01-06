@@ -6,7 +6,7 @@ FactoryGirl.define do
     delivered_on { Time.zone.now }
     location "speech-location"
     speech_type SpeechType::Transcript
-    ignore do
+    transient do
       relevant_to_local_government { false }
     end
 

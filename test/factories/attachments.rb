@@ -7,7 +7,7 @@ FactoryGirl.define do
 
   factory :file_attachment, traits: [:abstract_attachment] do
     sequence(:title) { |index| "file-attachment-title-#{index}" }
-    ignore do
+    transient do
       file { File.open(Rails.root.join('test', 'fixtures', 'greenpaper.pdf')) }
     end
     after(:build) do |attachment, evaluator|
@@ -16,7 +16,7 @@ FactoryGirl.define do
   end
 
   factory :csv_attachment, parent: :file_attachment do
-    ignore do
+    transient do
       file { File.open(Rails.root.join('test', 'fixtures', 'sample.csv')) }
     end
   end
@@ -24,7 +24,7 @@ FactoryGirl.define do
   factory :html_attachment, traits: [:abstract_attachment] do
     sequence(:title) { |index| "html-attachment-title-#{index}" }
 
-    ignore do
+    transient do
       body "Attachment body"
       manually_numbered_headings false
     end

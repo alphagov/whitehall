@@ -3,7 +3,7 @@ FactoryGirl.define do
     title "Something Supportive"
     body "Some supporting information"
 
-    ignore do
+    transient do
       related_policies { [] }
     end
 

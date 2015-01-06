@@ -4,7 +4,7 @@ FactoryGirl.define do
     summary "news-summary"
     body  "news-body"
     news_article_type_id { NewsArticleType::PressRelease.id }
-    ignore do
+    transient do
       relevant_to_local_government { false }
     end
 

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :statistics_announcement do
-    ignore do
+    transient do
       release_date nil
     end
 

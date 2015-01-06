@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :consultation_response_form do
-    ignore do
+    transient do
       file { File.open(File.join(Rails.root, 'test', 'fixtures', 'two-pages.pdf')) }
     end
     association :consultation_participation
