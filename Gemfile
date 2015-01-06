@@ -41,7 +41,7 @@ gem 'pdf-reader', '1.3.3'
 gem 'typhoeus', '0.6.8'
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
-gem 'json-schema', '2.4.1'
+gem 'json-schema', '2.5.0'
 
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'
@@ -72,7 +72,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'thin', '1.5.1'
+  gem 'thin', '1.6.3'
   gem 'newrelic_rpm'
   gem 'quiet_assets'
   gem 'rubocop'
@@ -81,12 +81,12 @@ end
 group :test do
   gem 'rack-test', github: 'brynary/rack-test', ref: '8cdb86e1'
   gem 'factory_girl'
-  gem 'mocha', '0.14.0', require: false
+  gem 'mocha', '1.1.0', require: false
   gem 'timecop'
   gem 'webmock', require: false
   gem 'ci_reporter'
-  gem 'database_cleaner', '1.0.1'
-  gem 'equivalent-xml', '0.3.0', require: false
+  gem 'database_cleaner', '1.4.0'
+  gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
 end
 
@@ -97,7 +97,7 @@ end
 
 group :cucumber do
   gem 'cucumber-rails', '~> 1.4', require: false
-  gem 'launchy', '~> 2.3.0'
-  gem 'capybara', '~> 2.1.0'
+  gem 'launchy', '~> 2.4.3'
+  gem 'capybara', '~> 2.4.4'
   gem 'poltergeist', '~> 1.5.1'
 end
