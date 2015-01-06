@@ -19,7 +19,7 @@ gem 'gds-sso', '~> 10.0'
 gem 'rummageable', '1.2.0'
 gem 'addressable'
 gem 'unicorn', '4.6.2'
-gem 'kaminari'
+gem 'kaminari', '0.15.1'
 gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '17.2.0'
 gem 'whenever', '0.9.4', require: false
