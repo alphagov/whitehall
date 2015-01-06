@@ -50,28 +50,6 @@
     }
   }
 
-  .replaces-businesslink {
-    @include core-16;
-    padding-top: $gutter-one-third;
-
-    @include media(tablet) {
-      float: right;
-    }
-    p {
-      margin: 0 $gutter-half;
-      color: $text-colour;
-      @include media(tablet) {
-        margin: 0 $gutter;
-      }
-    }
-    .businesslink-logo {
-      display: block;
-      width: 84px;
-      height: 33px;
-      background-image: image-url("businesslink-logo.png");
-    }
-  }
-
   .summary {
     padding-bottom: $gutter-half;
 
