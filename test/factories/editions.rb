@@ -14,7 +14,7 @@ FactoryGirl.define do
     end
 
     trait(:with_organisations) do
-      ignore do
+      transient do
         organisations { [] }
         create_default_organisation { true }
         supporting_organisations { [] }
@@ -56,7 +56,7 @@ FactoryGirl.define do
     end
     trait(:draft) { state "draft" }
     trait(:submitted) do
-      ignore do
+      transient do
         submitter nil
       end
       state "submitted"

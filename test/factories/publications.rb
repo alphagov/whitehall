@@ -48,7 +48,7 @@ FactoryGirl.define do
       attachments { [build(:external_attachment)] }
     end
 
-    ignore do
+    transient do
       relevant_to_local_government { false }
     end
 

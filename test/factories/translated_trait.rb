@@ -1,6 +1,6 @@
 FactoryGirl.define do
   trait :translated do
-    ignore do
+    transient do
       translated_into nil
     end
 
