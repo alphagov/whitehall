@@ -366,9 +366,9 @@ GEM
     typhoeus (0.6.9)
       ethon (>= 0.7.1)
     tzinfo (0.3.42)
-    uglifier (2.1.1)
+    uglifier (2.6.1)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     unicorn (4.6.2)
       kgio (~> 2.6)
       rack
