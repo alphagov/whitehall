@@ -17,7 +17,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
     formType: '',
 
     renderTable: function(data) {
-      $('.js-filter-results').mustache('documents-_filter_table', data);
+      $('.js-filter-results').mustache('documents/_filter_table', data);
     },
     showStatisticsNotice: function() {
       $(".filter-results-summary").empty();

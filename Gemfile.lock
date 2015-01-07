@@ -309,7 +309,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    shared_mustache (0.0.2)
+    shared_mustache (0.1.3)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
     sidekiq (3.3.0)
@@ -445,7 +445,7 @@ DEPENDENCIES
   rummageable (= 1.2.0)
   sass (= 3.4.9)
   sass-rails
-  shared_mustache (~> 0.0.2)
+  shared_mustache (~> 0.1.3)
   sidekiq (~> 3.3.0)
   sidekiq-logging-json (= 0.0.14)
   simplecov
