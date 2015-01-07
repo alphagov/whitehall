@@ -464,6 +464,7 @@ class Organisation < ActiveRecord::Base
       hm-revenue-customs
       marine-management-organisation
       maritime-and-coastguard-agency
+      medicines-and-healthcare-products-regulatory-agency
       natural-england
     }
   end
