@@ -151,7 +151,7 @@ GEM
       kramdown (~> 1.4.1)
       nokogiri (~> 1.5.10)
       sanitize (~> 2.1.0)
-    govuk_frontend_toolkit (2.0.1)
+    govuk_frontend_toolkit (3.1.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
     hashery (2.1.1)
@@ -413,7 +413,7 @@ DEPENDENCIES
   gds-sso (~> 10.0)
   globalize3!
   govspeak (~> 3.2.0)
-  govuk_frontend_toolkit (= 2.0.1)
+  govuk_frontend_toolkit (= 3.1.0)
   invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
   jbuilder
