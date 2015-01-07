@@ -58,7 +58,7 @@ group :assets do
   else
     gem 'govuk_frontend_toolkit', '3.1.0'
   end
-  gem 'sass', '3.2.8'
+  gem 'sass', '3.4.9'
   gem 'sass-rails'
   gem 'uglifier'
 end

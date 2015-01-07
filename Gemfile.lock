@@ -304,7 +304,7 @@ GEM
     safe_yaml (1.0.4)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
-    sass (3.2.8)
+    sass (3.4.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -443,7 +443,7 @@ DEPENDENCIES
   rubocop
   ruby-prof
   rummageable (= 1.2.0)
-  sass (= 3.2.8)
+  sass (= 3.4.9)
   sass-rails
   shared_mustache (~> 0.0.2)
   sidekiq (~> 3.3.0)
