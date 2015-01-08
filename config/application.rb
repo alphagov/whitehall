@@ -11,7 +11,7 @@ require "action_mailer/railtie"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module Whitehall
   class Application < Rails::Application
