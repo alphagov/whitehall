@@ -53,6 +53,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   def self.without_published_publication
     includes(:publication).
+      references(:editions).
       where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
   end
 

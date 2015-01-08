@@ -55,6 +55,7 @@ class Edition < ActiveRecord::Base
     in_default_locale
       .includes(:document)
       .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
+      .references(:document)
   }
 
   scope :force_published,               -> { where(state: "published", force_published: true) }
