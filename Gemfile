@@ -12,7 +12,7 @@ gem 'validates_email_format_of'
 gem 'friendly_id', '4.0.9'
 gem 'babosa'
 gem 'nokogiri'
-gem 'slimmer', '4.3.1'
+gem 'slimmer', '6.0.0'
 gem 'plek', '1.10.0'
 gem 'isbn_validation'
 gem 'gds-sso', '~> 10.0'
@@ -24,7 +24,7 @@ gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '17.2.0'
 gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
-gem 'shared_mustache', '~> 0.0.2'
+gem 'shared_mustache', '~> 0.1.3'
 gem 'rails-i18n'
 gem 'globalize3', github: 'globalize/globalize', ref: 'ab69160ad'
 gem 'link_header'
@@ -56,9 +56,9 @@ group :assets do
   if ENV['FRONTEND_TOOLKIT_DEV']
     gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
   else
-    gem 'govuk_frontend_toolkit', '2.0.1'
+    gem 'govuk_frontend_toolkit', '3.1.0'
   end
-  gem 'sass', '3.2.8'
+  gem 'sass', '3.4.9'
   gem 'sass-rails'
   gem 'uglifier'
 end

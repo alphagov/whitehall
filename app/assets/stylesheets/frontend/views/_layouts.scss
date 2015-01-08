@@ -18,17 +18,3 @@
     }
   }
 }
-
-p.report-a-problem-toggle {
-  clear: both;
-  padding: $gutter-half;
-  direction: ltr;
-  @include media(tablet) {
-    padding: $gutter;
-  }
-
-  a {
-    color: $secondary-text-colour;
-    text-decoration: underline;
-  }
-}

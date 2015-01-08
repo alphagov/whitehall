@@ -151,7 +151,7 @@ GEM
       kramdown (~> 1.4.1)
       nokogiri (~> 1.5.10)
       sanitize (~> 2.1.0)
-    govuk_frontend_toolkit (2.0.1)
+    govuk_frontend_toolkit (3.1.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
     hashery (2.1.1)
@@ -304,12 +304,12 @@ GEM
     safe_yaml (1.0.4)
     sanitize (2.1.0)
       nokogiri (>= 1.4.4)
-    sass (3.2.8)
+    sass (3.4.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    shared_mustache (0.0.2)
+    shared_mustache (0.1.3)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
     sidekiq (3.3.0)
@@ -327,12 +327,12 @@ GEM
     simplecov-html (0.8.0)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
-    slimmer (4.3.1)
+    slimmer (6.0.0)
       activesupport
       json
       nokogiri (~> 1.5.0)
       null_logger
-      plek (>= 0.1.8)
+      plek (>= 1.1.0)
       rack (>= 1.3.5)
       rest-client
     slop (3.6.0)
@@ -366,9 +366,9 @@ GEM
     typhoeus (0.6.9)
       ethon (>= 0.7.1)
     tzinfo (0.3.42)
-    uglifier (2.1.1)
+    uglifier (2.6.1)
       execjs (>= 0.3.0)
-      multi_json (~> 1.0, >= 1.0.2)
+      json (>= 1.8.0)
     unicorn (4.6.2)
       kgio (~> 2.6)
       rack
@@ -413,7 +413,7 @@ DEPENDENCIES
   gds-sso (~> 10.0)
   globalize3!
   govspeak (~> 3.2.0)
-  govuk_frontend_toolkit (= 2.0.1)
+  govuk_frontend_toolkit (= 3.1.0)
   invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
   jbuilder
@@ -443,14 +443,14 @@ DEPENDENCIES
   rubocop
   ruby-prof
   rummageable (= 1.2.0)
-  sass (= 3.2.8)
+  sass (= 3.4.9)
   sass-rails
-  shared_mustache (~> 0.0.2)
+  shared_mustache (~> 0.1.3)
   sidekiq (~> 3.3.0)
   sidekiq-logging-json (= 0.0.14)
   simplecov
   simplecov-rcov
-  slimmer (= 4.3.1)
+  slimmer (= 6.0.0)
   statsd-ruby (~> 1.2.1)
   strong_parameters
   test-queue

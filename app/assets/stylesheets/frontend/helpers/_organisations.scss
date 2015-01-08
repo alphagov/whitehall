@@ -506,6 +506,7 @@ img.organisation-logo-custom {
 
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
+  border-left: 0;
   @include media(tablet){
     font-size: 18px;
     line-height: 20px;
