@@ -11,12 +11,7 @@ require "action_mailer/railtie"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(assets: %w(development test))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
+Bundler.require(:default, Rails.env)
 
 module Whitehall
   class Application < Rails::Application
@@ -67,7 +62,6 @@ module Whitehall
     config.encoding = "utf-8"
 
     # Enable the asset pipeline
-    config.assets.enabled = true
     config.assets.initialize_on_precompile = true
 
     config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
