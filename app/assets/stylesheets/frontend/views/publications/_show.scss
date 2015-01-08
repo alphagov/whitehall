@@ -1,0 +1,120 @@
+.publications-show-page {
+  p {
+    @include core-19;
+  }
+  .govspeak ul {
+    margin-left:0px;
+  }
+
+  .heading-block {
+    h1 {
+      @include media(tablet) {
+        padding-left: $gutter-half;
+        margin-bottom: $gutter-two-thirds;
+      }
+    }
+    .document-type {
+      @include core-19;
+      float: left;
+      margin-right: 5px;
+      @include media(tablet) {
+        @include bold-24;
+        float: none;
+      }
+    }
+    .document-size {
+      @include core-19($tabular-numbers: true);
+      float: left;
+      @include media(tablet) {
+        float: none;
+      }
+    }
+    .changed{
+      display: block;
+    }
+  }
+
+  .attachment {
+
+    padding: $gutter-one-third 0 0 0;
+
+    @include media(tablet) {
+      padding: $gutter-half 0 0 0;
+      @include right-to-left {
+        padding: $gutter-half 0 0 0;
+      }
+    }
+
+    .attachment-details {
+
+      @include grid-column( 2/3 );
+
+      h1, h2, h3 {
+        @include bold-24;
+      }
+
+      .references {
+        display: block;
+        @include media ( tablet ) {
+          display: inline;
+        }
+      }
+      .references,
+      .price {
+        color: $secondary-text-colour;
+      }
+      .order_url {
+        @include media ( tablet ) {
+          margin-left: $gutter-one-third;
+        }
+      }
+      .unnumbered-paper {
+         display: block;
+      }
+    }
+
+    .title a,
+    .govspeak a,
+    .toggler {
+      text-decoration: none;
+      &:hover,
+      &:focus {
+        outline: none;
+        text-decoration: underline;
+    }
+
+    .attachment-details,
+    .metadata {
+      padding: 0;
+      @include media(tablet) {
+        padding: 0 $gutter-half;
+      }
+    }
+  }
+
+  .metadata {
+    @include grid-column( 1/3 );
+    @include core-14;
+    .opendocument-help {
+      clear: both;
+      margin: 0;
+      a {
+        @include external-link-14;
+      }
+    }
+  }
+
+    // This ensure these elements have font-size 14px on all formats
+    // Breaks the font mixins standards but is better for design and layout
+    .accessibility-warning,
+    .references,
+    .opendocument-help,
+    .order_url,
+    .price {
+      @include core-16;
+      @include media(tablet) {
+        @include core-14;
+       }
+    }
+  }
+}
