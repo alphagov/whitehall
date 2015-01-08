@@ -20,7 +20,7 @@ class DocumentCollectionGroup < ActiveRecord::Base
   end
 
   def self.visible
-    includes(:editions).where('editions.state = ?', 'published')
+    includes(:editions).references(:editions).where(editions: { state: 'published'})
   end
 
   def self.default_attributes

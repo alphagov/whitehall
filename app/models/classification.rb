@@ -10,7 +10,7 @@ class Classification < ActiveRecord::Base
              format: 'topic',
              slug: :slug
 
-  has_many :classification_memberships
+  has_many :classification_memberships, inverse_of: :classification
   has_many :editions, through: :classification_memberships
 
   has_many :organisation_classifications
