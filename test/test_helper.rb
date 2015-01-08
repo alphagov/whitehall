@@ -12,7 +12,7 @@ require 'rails/test_help'
 require 'mocha/setup'
 require 'slimmer/test'
 require 'factories'
-require 'webmock/test_unit'
+require 'webmock/minitest'
 require 'whitehall/not_quite_as_fake_search'
 require 'sidekiq/testing/inline'
 
