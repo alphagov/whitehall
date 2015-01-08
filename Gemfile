@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '3.2.18'
+gem 'rails', '4.0.13'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -9,7 +9,7 @@ gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
 gem 'validates_email_format_of'
-gem 'friendly_id', '4.0.9'
+gem 'friendly_id', '5.0.4'
 gem 'babosa'
 gem 'nokogiri'
 gem 'slimmer', '6.0.0'
@@ -26,7 +26,7 @@ gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.1.3'
 gem 'rails-i18n'
-gem 'globalize3', github: 'globalize/globalize', ref: 'ab69160ad'
+gem 'globalize', '~> 4.0.3'
 gem 'link_header'
 gem 'logstasher', '0.6.2'
 gem 'chronic'
@@ -42,9 +42,7 @@ gem 'typhoeus', '0.6.9'
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
 gem 'json-schema', '2.5.0'
-
-# Gems to smooth transition to Rails 4
-gem 'strong_parameters'
+gem 'rails-observers'
 
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'

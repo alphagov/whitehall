@@ -8,7 +8,6 @@ unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present?
 end
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "active_resource/railtie"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
 
