@@ -47,7 +47,7 @@
     </p>
     <p class="js-closed-organisation-field js-superseded-organisation-field">
       <%= organisation_form.label :superseding_organisation_ids, "Superseded by" %>
-      <%= organisation_form.select :superseding_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.superseding_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose which organisation(s) this organisation has been superseded by..." } %>
+      <%= organisation_form.select :superseding_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en) - [organisation_form.object], 'id', 'select_name', organisation.superseding_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose which organisation(s) this organisation has been superseded by..." } %>
     </p>
     <p class="js-closed-organisation-field">
       <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
@@ -65,7 +65,7 @@
     <%= hidden_field_tag "organisation[parent_organisation_ids][]", "", id: "organisation_parent_organisation_ids_default" %>
     <p>
       <%= organisation_form.label :parent_organisation_ids, 'Sponsoring organisations' %>
-      <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en).all - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
+      <%= organisation_form.select :parent_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en) - [organisation_form.object], 'id', 'select_name', organisation.parent_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose parent organisations..." } %>
     </p>
 
     <h3>Topics</h3>

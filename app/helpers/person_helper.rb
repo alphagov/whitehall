@@ -1,6 +1,6 @@
 module PersonHelper
   def disambiguated_people_names
-    people = Person.includes(:current_roles).all
+    people = Person.includes(:current_roles)
     name_counts = Hash.new(0)
 
     people.each do |p|

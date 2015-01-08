@@ -282,7 +282,7 @@ class ImportTest < ActiveSupport::TestCase
 
   test 'once run, it has access to the editions that it created via imported_editions' do
     import = perform_import
-    assert_equal [Consultation.find_by_title('title')], import.imported_editions.all
+    assert_equal [Consultation.find_by_title('title')], import.imported_editions.to_a
   end
 
   test 'imported_editions lists each imported edition once even when there are multiple document sources per edition' do
@@ -292,7 +292,7 @@ class ImportTest < ActiveSupport::TestCase
       'old_url' => '["http://example.com/1","http://example.com/2"]'
     )
     import = perform_import(csv_data: csv_data)
-    assert_equal [Consultation.find_by_title(title)], import.imported_editions.all
+    assert_equal [Consultation.find_by(title: title)], import.imported_editions.to_a
   end
 
   test 'force_publishable_edition_count counts each imported edition once even when there are multiple document sources per edition' do
