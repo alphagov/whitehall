@@ -50,16 +50,15 @@ else
   gem 'govspeak', '~> 3.2.0'
 end
 
-group :assets do
-  if ENV['FRONTEND_TOOLKIT_DEV']
-    gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
-  else
-    gem 'govuk_frontend_toolkit', '3.1.0'
-  end
-  gem 'sass', '3.4.9'
-  gem 'sass-rails'
-  gem 'uglifier'
+if ENV['FRONTEND_TOOLKIT_DEV']
+  gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
+else
+  gem 'govuk_frontend_toolkit', '3.1.0'
 end
+
+gem 'sass', '3.4.9'
+gem 'sass-rails'
+gem 'uglifier'
 
 group :development, :test do
   gem 'parallel_tests'
