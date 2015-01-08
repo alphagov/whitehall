@@ -1,54 +1,55 @@
-# This patches rails standard routing to make it easy to generate
-# localised routes.  By adding the localised: true option to a
-# rails route or resource, a :locale will be added before the
-# :format parameter, i.e:
+# This module is used to patch the standard Rails routing to make it easy to
+# generate localised routes in the format we want.  By adding the
+# `localised: true` option to a  rails route or resource, a :locale compontent
+# is added to the routing before the :format component, for example:
 #
-#     resource :documents, only: [:index], localised: true
+#   resource :documents, only: [:index], localised: true
 #
-# Will generate a route that matches:
+# This generates the following routes:
 #
 #     /documents => {locale: 'en'}
 #     /documents.fr => {locale: 'fr'}
 #     /documents.json => {locale: 'en', format: 'json'}
 #     /documents.fr.json => {locale: 'fr', format: 'json'}
+#
+module LocalisedMappingPatch
+  VALID_LOCALES_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
 
-# class ActionDispatch::Routing::Mapper::Mapping
-#   LOCALE_REGEX = Regexp.compile(Locale.non_english.map(&:code).join("|"))
+private
 
-#   def localise_routing?
-#     @localise_routing ||= @options.delete(:localised)
-#   end
+  # Add the optional :locale component to the path for localised routes. This is
+  # done first as calling `super` may add the :format component to the end.
+  def normalize_path!
+    if localised_routing?
+      @path = "#{path}(.:locale)"
+    end
 
-#   def normalize_path_with_locale(path)
-#     if localise_routing?
-#       normalize_path_without_locale "#{path}(.:locale)"
-#     else
-#       normalize_path_without_locale path
-#     end
-#   end
+    super
+  end
 
-#   def requirements_with_locale
-#     @requirements_with_locale ||= requirements_without_locale.tap do |r|
-#       if localise_routing?
-#         r[:locale] = LOCALE_REGEX
-#       end
-#     end
-#   end
+  # Add the default locale to the routing defaults for any localised routes.
+  # This will default :locale to 'en' if it isn't explicitly present.
+  def normalize_defaults!
+    super
 
-#   def defaults_with_locale
-#     @defaults_with_locale ||= defaults_without_locale.tap do |d|
-#       if localise_routing?
-#         d[:locale] = I18n.default_locale.to_s
-#       end
-#     end
-#   end
+    if localised_routing?
+      @defaults[:locale] = I18n.default_locale.to_s
+    end
+  end
 
-#   alias normalize_path_without_locale normalize_path
-#   alias normalize_path normalize_path_with_locale
+  # Add requirements for localised routes such that :locale must be one of
+  # the valid locales.
+  def normalize_requirements!
+    super
 
-#   alias requirements_without_locale requirements
-#   alias requirements requirements_with_locale
+    if localised_routing?
+      @requirements[:locale] = VALID_LOCALES_REGEX
+    end
+  end
 
-#   alias defaults_without_locale defaults
-#   alias defaults defaults_with_locale
-# end
+  def localised_routing?
+    @localise_routing ||= @options.delete(:localised)
+  end
+end
+
+ActionDispatch::Routing::Mapper::Mapping.send(:prepend, LocalisedMappingPatch)
