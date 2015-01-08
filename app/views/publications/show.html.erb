@@ -1,3 +1,4 @@
+<% page_class "publications-show-page" %>
 <% page_title edition_page_title(@document), t('publications.heading') %>
 
 <%= content_tag_for :article, @document, nil, class: "document-page #{@document.type.downcase}" do %>
@@ -21,8 +22,10 @@
 
   <div class="block-2 heading-block">
     <div class="inner-block">
-      <%= render partial: "documents/attachment_full_width",
-                 locals: { document: @document } %>
+      <%= render partial: "documents/publication_attachments",
+                 locals: {
+                  document: @document
+                 } %>
     </div>
   </div>
 
