@@ -137,7 +137,7 @@ module Admin::TaggableContentHelper
   # organisation and its ID.
   def taggable_worldwide_organisations_container
     Rails.cache.fetch(taggable_worldwide_organisations_cache_digest, expires_in: 1.day) do
-      WorldwideOrganisation.with_translations.all.map {|wo| [wo.name, wo.id] }
+      WorldwideOrganisation.with_translations.map {|wo| [wo.name, wo.id] }
     end
   end
 

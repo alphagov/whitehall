@@ -20,7 +20,7 @@ class Admin::WorldLocationsController < Admin::BaseController
       .merge(params.slice(:page, :type, :world_location, :title).symbolize_keys)
       .merge(state: 'published')
     @filter = Admin::EditionFilter.new(Edition, current_user, filter_params)
-    @featurable_topical_events = TopicalEvent.active.all
+    @featurable_topical_events = TopicalEvent.active
     @featurable_offsite_links = @world_location.offsite_links
 
     if request.xhr?

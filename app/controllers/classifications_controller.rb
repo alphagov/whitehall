@@ -4,7 +4,7 @@ class ClassificationsController < PublicFacingController
   include CacheControlHelper
 
   def index
-    @topics = Topic.alphabetical.all
-    @topical_events = TopicalEvent.active.alphabetical.all #TODO: with_assosicated_content
+    @topics = Topic.alphabetical
+    @topical_events = TopicalEvent.active.alphabetical
   end
 end

@@ -12,7 +12,7 @@ class EditionActiveRecordBugWorkaroundTest < ActiveSupport::TestCase
 
     # This has a side-effect of causing active-record to cache the
     # policy.related_to relation including the 'published' scope
-    Edition.published.related_to(policy).all
+    Edition.published.related_to(policy).load
 
     assert_equal publications, policy.related_editions
   end
