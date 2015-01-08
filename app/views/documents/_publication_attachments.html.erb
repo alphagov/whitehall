@@ -1,0 +1,19 @@
+<%
+  attachments = document.attachments.for_current_locale
+  title = t('document.headings.attachments', count: attachments.size) unless local_assigns.include?(:title)
+  published_on = '' unless local_assigns.include?(:published_on)
+%>
+<section class="publications-attachments">
+  <h1><%= title %></h1>
+  <article>
+    <% attachments.each do |attachment| %>
+      <%= render partial: "documents/publication_attachment",
+        locals: {
+          attachment: attachment,
+          alternative_format_contact_email: document.alternative_format_contact_email,
+          published_on: published_on
+        }
+      %>
+    <% end %>
+  </article>
+</section>
