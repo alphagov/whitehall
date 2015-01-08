@@ -127,12 +127,12 @@ module DocumentHelper
     select publication_type, from: "edition_publication_type_id"
   end
 
-  def visit_edition_admin(title, scope = :scoped)
+  def visit_edition_admin(title, scope = :all)
     document = Edition.send(scope).find_by_title(title)
     visit admin_edition_path(document)
   end
 
-  def visit_document_preview(title, scope = :scoped)
+  def visit_document_preview(title, scope = :all)
     document = Edition.send(scope).find_by_title(title)
     visit preview_document_path(document)
   end
