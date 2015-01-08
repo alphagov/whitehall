@@ -40,6 +40,7 @@
       }
     }
     dd {
+      margin-top: 5px;
       @include bold-24;
       // some bits of metadata are included inside of other tags which have a 
       // default style of font-weight: normal
