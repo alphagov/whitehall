@@ -99,7 +99,7 @@ class AnnouncementsControllerTest < ActionController::TestCase
   view_test "index shows selected announcement type filter option in the title" do
     get :index, announcement_filter_option: 'news-stories'
 
-    assert_select 'h1 span', ': News stories'
+    assert_select 'h1 span', ': news stories'
   end
 
   view_test "index indicates selected announcement type filter option in the filter selector" do
