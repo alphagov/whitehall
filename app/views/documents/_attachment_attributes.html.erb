@@ -1,7 +1,9 @@
 <h3 class='document-type'><%= humanized_content_type(attachment.file_extension) %></h3>
-<span class='document-size'>
-  <%= number_to_human_size(attachment.file_size)%><% if attachment.number_of_pages.present? %>, <%= pluralize(attachment.number_of_pages, 'page')%><% end %>
-</span>
+<% if attachment.respond_to?(:file_size) && attachment.respond_to?(:number_of_pages) %>
+  <span class='document-size'>
+    <%= number_to_human_size(attachment.file_size)%><% if attachment.number_of_pages.present? %>, <%= pluralize(attachment.  number_of_pages, 'page')%><% end %>
+  </span>
+<% end %>
 
 <% if attachment.opendocument? %>
   <p class="opendocument-help">
