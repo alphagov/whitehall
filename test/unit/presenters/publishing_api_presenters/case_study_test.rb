@@ -154,7 +154,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
   test "links hash includes related policies" do
     policy = create(:policy)
-    case_study = create(:published_case_study, related_policies: [policy])
+    case_study = create(:published_case_study)
+    policy.document.edition_relations.create!(edition: case_study)
     presented_hash = present(case_study)
 
     assert_valid_against_schema(presented_hash, 'case_study')
@@ -163,7 +164,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
   test "links hash includes worldwide priorities" do
     priority = create(:worldwide_priority)
-    case_study = create(:published_case_study, worldwide_priorities: [priority])
+    case_study = create(:published_case_study)
+    priority.document.edition_relations.create!(edition: case_study)
     presented_hash = present(case_study)
 
     assert_valid_against_schema(presented_hash, 'case_study')
