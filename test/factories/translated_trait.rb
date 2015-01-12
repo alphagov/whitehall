@@ -17,8 +17,10 @@ FactoryGirl.define do
           end
         extra_translations.each do |(locale, locale_attributes)|
           locale_attributes ||= {}
-          object.class.required_translated_attributes.each do |attribute|
-            locale_attributes[attribute] ||= "#{locale}-#{object.read_attribute(attribute)}"
+          object.class.translated_attribute_names.each do |attribute|
+            if object.read_attribute(attribute).present?
+              locale_attributes[attribute] ||= "#{locale}-#{object.read_attribute(attribute)}"
+            end
           end
           locale_attributes.each do |attribute, value|
             object.write_attribute(attribute, value, locale: locale)
