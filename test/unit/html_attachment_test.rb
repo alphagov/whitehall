@@ -78,7 +78,7 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     create(:html_attachment, locale: "fr")
     attachment = create(:html_attachment, locale: "ar", title: "المملكة المتحدة والمملكة العربية السعودية")
 
-    assert_blank attachment.slug
+    assert attachment.slug.blank?
     assert_equal attachment.id.to_s, attachment.to_param
   end
 
@@ -94,6 +94,6 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     attachment = create(:html_attachment, locale: "en")
 
     attachment.update_attributes!(locale: "fr")
-    assert_blank attachment.slug
+    assert attachment.slug.blank?
   end
 end
