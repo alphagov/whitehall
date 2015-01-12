@@ -83,7 +83,7 @@ module Admin
       # :current_release_date, which is the most recent one. The JOINs and the
       # GROUP combine to ensure the correct things are loaded and in the correct
       # order.
-      StatisticsAnnouncement.includes(:current_release_date, :topics, publication: :translations, organisations: :translations)
+      StatisticsAnnouncement.includes(:current_release_date, statistics_announcement_topics: :topic, publication: :translations, organisations: :translations)
                             .joins("INNER JOIN statistics_announcement_dates
                               ON (statistics_announcement_dates.statistics_announcement_id = statistics_announcements.id)")
                             .joins("LEFT OUTER JOIN statistics_announcement_dates sd2
