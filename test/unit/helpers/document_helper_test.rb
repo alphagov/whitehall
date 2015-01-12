@@ -214,7 +214,8 @@ class DocumentHelperTest < ActionView::TestCase
 
   test 'part_of_metadata generates worldwdide priorities' do
     priority = create(:published_worldwide_priority)
-    edition = create(:published_consultation, worldwide_priorities: [priority])
+    edition = create(:published_consultation)
+    priority.document.edition_relations.create!(edition: edition)
 
     metadata_links = part_of_metadata(edition).join(' ')
     assert_select_within_html metadata_links,
