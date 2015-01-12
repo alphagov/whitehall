@@ -117,10 +117,10 @@ module Admin::EditionActionsHelper
   def edition_type_options_for_select(user, selected)
     type_options_container = Whitehall.edition_classes.map do |edition_type|
       unless edition_type == FatalityNotice && !user.can_handle_fatalities?
-        [edition_type.model_name.human.pluralize, edition_type.model_name.underscore]
+        [edition_type.model_name.human.pluralize, edition_type.model_name.singular]
       end
     end
-
+ActiveModel::Name
     options_for_select(type_options_container, selected)
   end
 
