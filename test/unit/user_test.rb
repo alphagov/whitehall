@@ -66,7 +66,7 @@ class UserTest < ActiveSupport::TestCase
     disabled_user = create(:disabled_user)
 
     assert_equal 1, User.enabled.count
-    assert_include User.enabled, user
+    assert_includes User.enabled, user
   end
 
   test 'should not allow editing to just anyone' do
