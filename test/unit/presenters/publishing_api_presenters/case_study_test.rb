@@ -55,7 +55,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_valid_against_schema(presented_hash, 'case_study')
 
-    assert_equal_hash expected_hash.except(:details),
+    assert_equal expected_hash.except(:details),
       presented_hash.except(:details)
 
     # We test for HTML equivlance rather than string equality to get around
@@ -63,7 +63,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equivalent_html expected_hash[:details].delete(:body),
       presented_hash[:details].delete(:body)
 
-    assert_equal_hash expected_hash[:details], presented_hash[:details]
+    assert_equal expected_hash[:details], presented_hash[:details]
   end
 
   test "includes details of the case study image if present" do
@@ -78,7 +78,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     presented_hash = present(case_study)
 
     assert_valid_against_schema(presented_hash, 'case_study')
-    assert_equal_hash expected_hash, presented_hash[:details][:image]
+    assert_equal expected_hash, presented_hash[:details][:image]
   end
 
   test "falls back to the organisation's default news image when there is no image" do
@@ -95,7 +95,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     presented_hash = present(case_study)
 
     assert_valid_against_schema(presented_hash, 'case_study')
-    assert_equal_hash expected_hash, presented_hash[:details][:image]
+    assert_equal expected_hash, presented_hash[:details][:image]
   end
 
   test "links hash includes lead and supporting organisations in correct order" do
@@ -116,7 +116,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
 
     assert_valid_against_schema(presented_hash, 'case_study')
-    assert_equal_hash expected_links_hash, presented_hash[:links]
+    assert_equal expected_links_hash, presented_hash[:links]
   end
 
   test "links hash includes full document history" do
