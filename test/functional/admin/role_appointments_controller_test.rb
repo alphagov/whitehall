@@ -115,7 +115,7 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
   test "delete removes an appointment" do
     appointment = create(:role_appointment)
     delete :destroy, id: appointment.id
-    assert_nil RoleAppointment.find_by_id(appointment.id)
+    assert_nil RoleAppointment.find_by(id: appointment.id)
   end
 
   test "delete redirects to role edit form on success with a flash message" do

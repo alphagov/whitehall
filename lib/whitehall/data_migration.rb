@@ -20,7 +20,7 @@ module Whitehall
     end
 
     def due?
-      DataMigrationRecord.find_by_version(version).nil?
+      DataMigrationRecord.find_by(version: version).nil?
     end
 
     def run

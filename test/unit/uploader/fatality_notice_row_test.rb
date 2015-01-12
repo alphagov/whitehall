@@ -7,7 +7,7 @@ module Whitehall::Uploader
       @image_cache = stub('image cache')
       @iraq = create(:operational_field, name: "Iraq")
       @ministry_of_defence = stub('ministry_of_defence', url: 'url')
-      Organisation.stubs(:find_by_slug).with("ministry-of-defence").returns(@ministry_of_defence)
+      Organisation.stubs(:find_by).with(slug: "ministry-of-defence").returns(@ministry_of_defence)
     end
 
     test "validates row headings" do

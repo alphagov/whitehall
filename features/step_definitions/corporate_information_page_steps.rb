@@ -7,7 +7,7 @@ def find_corporation_information_page_type_by_title(title)
 end
 
 Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^"]*)"$/ do |page_type, org_name, body|
-  organisation = Organisation.find_by_name(org_name)
+  organisation = Organisation.find_by(name: org_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
   click_link "New corporate information page"
@@ -17,7 +17,7 @@ Given /^I add a "([^"]*)" corporate information page to "([^"]*)" with body "([^
 end
 
 Given /^I force-publish the "([^"]*)" corporate information page for the organisation "([^"]*)"$/ do |page_type, org_name|
-  organisation = Organisation.find_by_name(org_name)
+  organisation = Organisation.find_by(name: org_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
   click_link page_type
@@ -43,7 +43,7 @@ When /^I add a "([^"]*)" corporate information page to the worldwide organisatio
 end
 
 When /^I force-publish the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/ do |page_type, org_name|
-  organisation = WorldwideOrganisation.find_by_name(org_name)
+  organisation = WorldwideOrganisation.find_by(name: org_name)
   visit admin_worldwide_organisation_path(organisation)
   click_link "Corporate information pages"
   click_link page_type
@@ -60,7 +60,7 @@ Then /^I should see the corporate information on the public worldwide organisati
 end
 
 When /^I translate the "([^"]*)" corporate information page for the worldwide organisation "([^"]*)"$/ do |corp_page, worldwide_org|
-  worldwide_organisation = WorldwideOrganisation.find_by_name(worldwide_org)
+  worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
   visit admin_worldwide_organisation_path(worldwide_organisation)
   click_link "Corporate information pages"
   click_link corp_page
@@ -73,7 +73,7 @@ When /^I translate the "([^"]*)" corporate information page for the worldwide or
 end
 
 Then /^I should be able to read the translated "([^"]*)" corporate information page for the worldwide organisation "([^"]*)" on the site$/ do |corp_page, worldwide_org|
-  worldwide_organisation = WorldwideOrganisation.find_by_name(worldwide_org)
+  worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_org)
   visit worldwide_organisation_path(worldwide_organisation)
 
   click_link corp_page
@@ -84,7 +84,7 @@ Then /^I should be able to read the translated "([^"]*)" corporate information p
 end
 
 When /^I translate the "([^"]*)" corporate information page for the organisation "([^"]*)"$/ do |corp_page, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Corporate information pages"
   click_link corp_page
@@ -97,7 +97,7 @@ When /^I translate the "([^"]*)" corporate information page for the organisation
 end
 
 Then /^I should be able to read the translated "([^"]*)" corporate information page for the organisation "([^"]*)" on the site$/ do |corp_page, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   visit organisation_path(organisation)
 
   click_link corp_page

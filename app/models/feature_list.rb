@@ -15,7 +15,7 @@ class FeatureList < ActiveRecord::Base
     Feature.connection.transaction do
       start_at = next_ordering
       new_ordering.each.with_index do |feature_id, i|
-        feature = self.features.find_by_id!(feature_id)
+        feature = self.features.find(feature_id)
         feature.ordering = start_at + i
         feature.save!
       end

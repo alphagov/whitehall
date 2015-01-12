@@ -519,14 +519,14 @@ class EditionTest < ActiveSupport::TestCase
     edition = create(:draft_edition, creator: create(:policy_writer))
     relation = edition.edition_authors.first
     edition.destroy
-    refute EditionAuthor.find_by_id(relation.id)
+    refute EditionAuthor.find_by(id: relation.id)
   end
 
   test "#destroy should also remove the relationship to any editorial remarks" do
     edition = create(:draft_edition, editorial_remarks: [create(:editorial_remark)])
     relation = edition.editorial_remarks.first
     edition.destroy
-    refute EditorialRemark.find_by_id(relation.id)
+    refute EditorialRemark.find_by(id: relation.id)
   end
 
   test ".in_chronological_order returns editions in ascending order of first_published_at" do

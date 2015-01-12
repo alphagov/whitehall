@@ -73,7 +73,7 @@ module Searchable
     end
 
     def can_index_in_search?
-      self.class.searchable_instances.find_by_id(self.id).present? && Whitehall.searchable_classes.include?(self.class)
+      self.class.searchable_instances.find_by(id: self.id).present? && Whitehall.searchable_classes.include?(self.class)
     end
 
     def update_in_search_index

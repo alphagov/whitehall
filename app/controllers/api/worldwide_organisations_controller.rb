@@ -5,7 +5,7 @@ class Api::WorldwideOrganisationsController < PublicFacingController
   self.responder = Api::Responder
 
   def show
-    @worldwide_organisation = WorldwideOrganisation.find_by_slug(params[:id])
+    @worldwide_organisation = WorldwideOrganisation.find_by(slug: params[:id])
     if @worldwide_organisation
       respond_with Api::WorldwideOrganisationPresenter.new(@worldwide_organisation, view_context)
     else
@@ -31,6 +31,6 @@ class Api::WorldwideOrganisationsController < PublicFacingController
   end
 
   def world_location
-    @world_location ||= WorldLocation.find_by_slug(params[:world_location_id])
+    @world_location ||= WorldLocation.find_by(slug: params[:world_location_id])
   end
 end

@@ -45,9 +45,9 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     role_3 = create(:board_member_role, name: 'Chief Griller', organisations: [organisation], seniority: 3)
     role_4 = create(:ministerial_role, name: 'First Secretary of State', cabinet_member: true, organisations: [organisation], seniority: 2)
 
-    organisation.organisation_roles.find_by_role_id(role_2.id).update_column(:ordering, 3)
-    organisation.organisation_roles.find_by_role_id(role_1.id).update_column(:ordering, 2)
-    organisation.organisation_roles.find_by_role_id(role_4.id).update_column(:ordering, 1)
+    organisation.organisation_roles.find_by(role_id: role_2.id).update_column(:ordering, 3)
+    organisation.organisation_roles.find_by(role_id: role_1.id).update_column(:ordering, 2)
+    organisation.organisation_roles.find_by(role_id: role_4.id).update_column(:ordering, 1)
 
     appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
     appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)

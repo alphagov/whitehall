@@ -1,6 +1,6 @@
 When /^I add an historical account to "([^"]*)" for his role as "([^"]*)"$/ do |person_name, role_name|
   person = find_person(person_name)
-  role = Role.find_by_name(role_name)
+  role = Role.find_by(name: role_name)
 
   visit admin_person_url(person)
   click_link 'Historical accounts'

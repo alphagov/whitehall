@@ -185,7 +185,7 @@ class Import < ActiveRecord::Base
   end
 
   def import_user
-    User.find_by_name!("Automatic Data Importer")
+    User.find_by!(name: "Automatic Data Importer")
   end
 
   def headers

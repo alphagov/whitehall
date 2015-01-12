@@ -4,12 +4,12 @@ Given /^a (topic|mainstream category) with the slug "([^"]*)" exists$/ do |type,
 end
 
 When /^I import the following data as CSV as "([^"]*)" for "([^"]*)":$/ do |document_type, organisation_name, data|
-  organisation = Organisation.find_by_name(organisation_name) || create(:organisation, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create(:organisation, name: organisation_name)
   import_data_as_document_type_for_organisation(data, document_type, organisation)
 end
 
 Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" with "([^"]*)" publication type$/ do |edition_count, organisation_name, publication_sub_type_slug|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   publication_sub_type  = PublicationType.find_by_slug(publication_sub_type_slug)
   assert_equal edition_count.to_i, Edition.imported.count
 
@@ -20,7 +20,7 @@ Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" 
 end
 
 Then /^the import succeeds, creating (\d+) imported publications? for "([^"]*)" with no publication date$/ do |edition_count, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   assert_equal edition_count.to_i, Edition.imported.count
 
   edition = Edition.imported.first
@@ -35,7 +35,7 @@ Then /^the import succeeds, creating (\d+) imported publication for "([^"]*)"$/ 
   assert_equal [], Import.last.import_errors
   assert_equal edition_count.to_i, import.documents.count
 
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   edition = import.editions.last
   assert_kind_of Publication, edition
   assert_equal organisation, edition.organisations.first
@@ -59,7 +59,7 @@ Then /^the import succeeds, creating (\d+) imported speech(?:es)? with "([^"]*)"
 end
 
 Then /^the import succeeds, creating (\d+) imported speech(?:es)? for "([^"]*)" with no delivered on date$/ do |edition_count, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   assert_equal edition_count.to_i, Edition.imported.count
 
   edition = Edition.imported.first
@@ -69,7 +69,7 @@ Then /^the import succeeds, creating (\d+) imported speech(?:es)? for "([^"]*)" 
 end
 
 Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)" with "([^"]*)" news article type$/ do |edition_count, organisation_name, news_article_type_slug|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   news_article_type  = NewsArticleType.find_by_slug(news_article_type_slug)
   assert_equal edition_count.to_i, Edition.imported.count
 
@@ -80,7 +80,7 @@ Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)"
 end
 
 Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)" with no first published date$/ do |edition_count, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   assert_equal edition_count.to_i, Edition.imported.count
 
   edition = Edition.imported.first
@@ -90,7 +90,7 @@ Then /^the import succeeds, creating (\d+) imported news articles? for "([^"]*)"
 end
 
 Then /^the import succeeds, creating (\d+) imported consultations? for "([^"]*)" with no opening or closing date$/ do |edition_count, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   assert_equal edition_count.to_i, Edition.imported.count
 
   edition = Edition.imported.first
@@ -183,7 +183,7 @@ When /^I set the deliverer of the speech to "([^"]*)" from the "([^"]*)"$/ do |p
 end
 
 Then /^the speech's organisation is set to "([^"]*)"$/ do |organisation_name|
-  assert_equal Edition.last.organisations, [Organisation.find_by_name(organisation_name)]
+  assert_equal Edition.last.organisations, [Organisation.find_by(name: organisation_name)]
 end
 
 When /^I set the imported consultation's opening date to "([^"]*)"$/ do |new_opening_date|

@@ -24,7 +24,7 @@ class SpecialistSectorCleanup
       if add_note
         puts "Adding an editorial note from the GDS user"
 
-        gds_user = User.find_by_email("govuk-whitehall@digital.cabinet-office.gov.uk")
+        gds_user = User.find_by(email: "govuk-whitehall@digital.cabinet-office.gov.uk")
         edition.editorial_remarks.create!(
           author: gds_user,
           body: "Automatically untagged from old sector '#{@slug}'"

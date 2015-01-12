@@ -21,8 +21,8 @@ class PolicyTest < ActiveSupport::TestCase
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
     assert_equal published_policy.inapplicable_nations, draft_policy.inapplicable_nations
-    assert_equal "http://wales.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
-    assert_equal "http://scot.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
+    assert_equal "http://wales.gov.uk", draft_policy.nation_inapplicabilities.find_by(nation_id: Nation.wales.id).alternative_url
+    assert_equal "http://scot.gov.uk", draft_policy.nation_inapplicabilities.find_by(nation_id: Nation.scotland.id).alternative_url
   end
 
   test "should build a draft copy with references to related editions" do

@@ -1,12 +1,12 @@
 # encoding: utf-8
 
 Given(/^I visit the role page for "(.*?)"$/) do |name|
-  role = Role.find_by_name(name)
+  role = Role.find_by(name: name)
   visit polymorphic_path(role)
 end
 
 Given(/^I visit the people page for "(.*?)"$/) do |name|
-  person = Person.find_by_name(name)
+  person = Person.find_by(name: name)
   visit polymorphic_path(person)
 end
 
@@ -17,7 +17,7 @@ Given /^a person called "([^"]*)" is assigned as its ambassador "([^"]*)"$/ do |
 end
 
 Given /^an ambassador role named "([^"]*)" in the "([^"]*)" worldwide organisation$/ do |role_name, worldwide_organisation_name|
-  worldwide_organisation = WorldwideOrganisation.find_by_name!(worldwide_organisation_name)
+  worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
   create(:ambassador_role, name: role_name, worldwide_organisations: [worldwide_organisation])
 end
 
@@ -27,7 +27,7 @@ Given /^a person called "([^"]*)" appointed as "([^"]*)" with a biography in "([
     en: { biography: "english-biography" },
     locale.code => { biography: "#{locale}-biography" }
   })
-  role = Role.find_by_name!(role_name)
+  role = Role.find_by!(name: role_name)
   create(:ambassador_role_appointment, role: role, person: person)
 end
 
@@ -52,7 +52,7 @@ When /^I add a new "([^"]*)" role named "([^"]*)" to the "([^"]*)" worldwide org
 end
 
 When /^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/ do |locale_name, role_name, table|
-  role = Role.find_by_name!(role_name)
+  role = Role.find_by!(name: role_name)
   translation = table.rows_hash.stringify_keys
   locale = Locale.find_by_language_name(locale_name)
 
@@ -86,7 +86,7 @@ end
 Then /^I should see him listed as "([^"]*)" on the worldwide organisation page$/ do |role_name|
   visit worldwide_organisation_path(WorldwideOrganisation.last)
   person = Person.last
-  role = Role.find_by_name!(role_name)
+  role = Role.find_by!(name: role_name)
 
   within record_css_selector(person) do
     assert page.has_content?(person.name)

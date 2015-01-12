@@ -58,7 +58,7 @@ protected
 
   def assign_document_collections!(model, document_collection_slugs)
     document_collection_slugs.each do |slug|
-      collection_document = Document.find_by_slug(slug) or raise "Couldn't find DocumentCollection for slug '#{slug}'"
+      collection_document = Document.find_by(slug: slug) or raise "Couldn't find DocumentCollection for slug '#{slug}'"
 
       collection_draft = draft_of_collection_for_editing(collection_document)
       group = collection_draft.groups.first_or_create(DocumentCollectionGroup.default_attributes)

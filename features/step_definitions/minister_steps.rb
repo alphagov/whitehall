@@ -34,14 +34,14 @@ When /^I visit the ministers page$/ do
 end
 
 Then /^I should see that "([^"]*)" is a minister in the "([^"]*)"$/ do |minister_name, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
     assert page.has_css?('.current-appointee', text: minister_name)
   end
 end
 
 Then /^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^"]*)"$/ do |minister_name, organisation_name, role|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
     assert page.has_css?('.current-appointee', text: minister_name)
     assert page.has_css?('.role', text: role)
@@ -49,7 +49,7 @@ Then /^I should see that "([^"]*)" is a minister in the "([^"]*)" with role "([^
 end
 
 Then /^I should see that the minister is associated with the "([^"]*)"$/ do |organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   assert page.has_css?('.meta', /organisation was missing/)
 end
 
@@ -59,7 +59,7 @@ end
 
 When /^there is a reshuffle and "([^"]*)" is now "([^"]*)"$/ do |person_name, ministerial_role|
   person = find_or_create_person(person_name)
-  role = MinisterialRole.find_by_name(ministerial_role)
+  role = MinisterialRole.find_by(name: ministerial_role)
   create(:role_appointment, role: role, person: person, make_current: true)
 end
 
@@ -122,7 +122,7 @@ Given /^there are some ministers for the "([^"]*)"$/ do |organisation_name|
   zeke = create_role_appointment('Zeke Z. Zaltzman', "Minister of The End Of The Alphabet", organisation_name, 2.years.ago)
   onezero = create_role_appointment('10101010', "Minister of Numbers", organisation_name, 2.years.ago)
   @the_ministers = [aaron, marion, zeke, onezero]
-  @the_ministerial_organisation = Organisation.find_by_name(organisation_name)
+  @the_ministerial_organisation = Organisation.find_by(name: organisation_name)
 end
 
 When /^I specify an order for those ministers$/ do

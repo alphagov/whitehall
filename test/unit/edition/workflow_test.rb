@@ -54,7 +54,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should not find deleted editions by default" do
     edition = create(:deleted_edition)
-    assert_nil Edition.find_by_id(edition.id)
+    assert_nil Edition.find_by(id: edition.id)
   end
 
   [:draft, :submitted, :rejected].each do |state|

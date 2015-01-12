@@ -7,11 +7,11 @@ module DevelopmentModeStubs
       scope = ::StatisticsAnnouncement.joins(:current_release_date).order("statistics_announcement_dates.release_date ASC")
       scope = scope.where("statistics_announcements.title LIKE('%#{params[:keywords]}%') or statistics_announcements.summary LIKE('%#{params[:keywords]}%')") if params[:keywords].present?
       if params[:organisations].present?
-        organisation_ids = Organisation.find_all_by_slug(params[:organisations]).map &:id
+        organisation_ids = Organisation.where(slug: params[:organisations]).pluck(:id)
         scope = scope.in_organisations(organisation_ids)
       end
       if params[:topics].present?
-        topic_ids = Topic.find_all_by_slug(params[:topics]).map &:id
+        topic_ids = Topic.where(slug: params[:topics]).pluck(:id)
         scope = scope.with_topics(topic_ids)
       end
       if params[:release_timestamp].present?

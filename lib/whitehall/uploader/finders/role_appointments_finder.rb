@@ -3,7 +3,7 @@ class Whitehall::Uploader::Finders::RoleAppointmentsFinder
     slugs = slugs.reject { |slug| slug.blank? }
 
     people = slugs.map do |slug|
-      person = Person.find_by_slug(slug)
+      person = Person.find_by(slug: slug)
       logger.error "Unable to find Person with slug '#{slug}'", line_number unless person
       person
     end.compact

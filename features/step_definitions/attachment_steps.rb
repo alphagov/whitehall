@@ -75,12 +75,12 @@ Then(/^I should be able to submit the attachment without re\-uploading the file$
 end
 
 Then(/^the .* "(.*?)" should have (\d+) attachments$/) do |title, expected_number_of_attachments|
-  assert_equal expected_number_of_attachments.to_i, Edition.find_by_title(title).attachments.count
+  assert_equal expected_number_of_attachments.to_i, Edition.find_by(title: title).attachments.count
 end
 
 When(/^I set the order of attachments to:$/) do |attachment_order|
   attachment_order.hashes.each do |attachment_info|
-    attachment = Attachment.find_by_title(attachment_info[:title])
+    attachment = Attachment.find_by(title: attachment_info[:title])
     fill_in "ordering[#{attachment.id}]", with: attachment_info[:order]
   end
   click_on 'Save attachment order'
@@ -91,7 +91,7 @@ Then(/^the attachments should be in the following order:$/) do |attachment_list|
   attachment_ids = page.all('.existing-attachments > li').map {|element| element[:id] }
 
   attachment_list.hashes.each_with_index do |attachment_info, index|
-    attachment = Attachment.find_by_title(attachment_info[:title])
+    attachment = Attachment.find_by(title: attachment_info[:title])
 
     assert_equal "attachment_#{attachment.id}", attachment_ids[index]
   end
@@ -102,7 +102,7 @@ Given(/^a draft closed consultation "(.*?)" with an outcome exists$/) do |title|
 end
 
 When(/^I go to the outcome for the consultation "(.*?)"$/) do |title|
-  consultation = Consultation.find_by_title(title)
+  consultation = Consultation.find_by(title: title)
   visit admin_consultation_outcome_path(consultation)
 end
 
@@ -112,7 +112,7 @@ Then(/^the outcome for the consultation should have the attachment "(.*?)"$/) do
 end
 
 Given(/^the publication "(.*?)" has an html attachment "(.*?)" with the body "(.*?)"$/) do |publication_title, attachment_title, attachment_body|
-  publication = Publication.find_by_title(publication_title)
+  publication = Publication.find_by(title: publication_title)
   create(:html_attachment, attachable: publication, title: attachment_title, body: attachment_body)
 end
 

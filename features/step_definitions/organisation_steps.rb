@@ -36,7 +36,7 @@ Given /^two organisations "([^"]*)" and "([^"]*)" exist$/ do |first_organisation
 end
 
 Given /^the "([^"]*)" organisation is associated with several ministers and civil servants$/ do |organisation_name|
-  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
   3.times do |x|
     person = create(:person)
     ministerial_role = create(:ministerial_role, cabinet_member: (x == 1))
@@ -52,25 +52,25 @@ Given /^the "([^"]*)" organisation is associated with several ministers and civi
 end
 
 Given /^the "([^"]*)" organisation is associated with traffic commissioners$/ do |organisation_name|
-  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
   traffic_commissioner_role = create(:traffic_commissioner_role, name: "traffic-commissioner-role", organisations: [organisation])
   create(:role_appointment, role: traffic_commissioner_role)
 end
 
 Given /^the "([^"]*)" organisation is associated with scientific advisors$/ do |organisation_name|
-  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
   chief_scientific_advisor_role = create(:chief_scientific_advisor_role, name: "csi-role", organisations: [organisation])
   create(:role_appointment, role: chief_scientific_advisor_role)
 end
 
 Given /^the "([^"]*)" organisation is associated with chief professional officers$/ do |organisation_name|
-  organisation = Organisation.find_by_name(organisation_name) || create(:ministerial_department, name: organisation_name)
+  organisation = Organisation.find_by(name: organisation_name) || create(:ministerial_department, name: organisation_name)
   chief_professional_officer_role = create(:chief_professional_officer_role, name: "cmo-role", organisations: [organisation])
   create(:role_appointment, role: chief_professional_officer_role)
 end
 
 Given /^a submitted corporate publication "([^"]*)" about the "([^"]*)"$/ do |publication_title, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   create(:submitted_corporate_publication, title: publication_title, organisations: [organisation])
 end
 
@@ -81,14 +81,14 @@ Given /^the organisation "([^"]*)" is associated with consultations "([^"]*)" an
 end
 
 Given /^a published publication "([^"]*)" with a PDF attachment and alternative format provider "([^"]*)"$/ do |title, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   publication = create(:published_publication, :with_file_attachment, title: title, body: "!@1", organisations: [organisation], alternative_format_provider: organisation)
   @attachment_title = publication.attachments.first.title
   @attachment_filename = publication.attachments.first.filename
 end
 
 Given /^I set the alternative format contact email of "([^"]*)" to "([^"]*)"$/ do |organisation_name, email|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit edit_admin_organisation_path(organisation)
   fill_in "organisation_alternative_format_contact_email", with: email
   click_button "Save"
@@ -127,7 +127,7 @@ Given(/^1 live, 1 transitioning and 1 exempt non ministerial departments$/) do
 end
 
 Given(/^I have an offsite link "(.*?)" for the organisation "(.*?)"$/) do |title, organisation_name|
-  organisation = Organisation.find_by_name(organisation_name)
+  organisation = Organisation.find_by(name: organisation_name)
   @offsite_link = create :offsite_link, title: title, parent: organisation
 end
 
@@ -151,7 +151,7 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
 end
 
 Then /^I should be able to see "([^"]*)" in the list of organisations$/ do |organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   within record_css_selector(organisation) do
     assert page.has_content?(organisation_name)
   end
@@ -170,11 +170,11 @@ When /^I feature the news article "([^"]*)" for "([^"]*)"$/ do |news_article_tit
 end
 
 When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |news_article_title, organisation_name, image_filename|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Features"
   locale = Locale.find_by_language_name("English")
-  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
+  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by(title: news_article_title)
   fill_in 'title', with: news_article_title.split.first
   within record_css_selector(news_article) do
     click_link "Feature"
@@ -185,23 +185,23 @@ When /^I feature the news article "([^"]*)" for "([^"]*)" with image "([^"]*)"$/
 end
 
 When /^I stop featuring the news article "([^"]*)" for "([^"]*)"$/ do |news_article_title, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
   locale = Locale.find_by_language_name("English")
-  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
+  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by(title: news_article_title)
   within record_css_selector(news_article) do
     click_on "Unfeature"
   end
 end
 
 When /^I order the featured items in the "([^"]*)" organisation as:$/ do |name, table|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   visit features_admin_organisation_path(organisation)
   order_features_from(table)
 end
 
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)"$/) do |title, type, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
   click_link "Create an offsite link"
   fill_in :offsite_link_title, with: title
@@ -212,10 +212,10 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the organisation "(.*?)
 end
 
 When(/^I feature the offsite link "(.*?)" for organisation "(.*?)" with image "(.*?)"$/) do |offsite_link_title, organisation_name, image_filename|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Features"
-  offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  offsite_link = OffsiteLink.find_by(title: offsite_link_title)
   within record_css_selector(offsite_link) do
     click_link "Feature"
   end
@@ -225,17 +225,17 @@ When(/^I feature the offsite link "(.*?)" for organisation "(.*?)" with image "(
 end
 
 When /^I stop featuring the offsite link "([^"]*)" for "([^"]*)"$/ do |offsite_link_name, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
   locale = Locale.find_by_language_name("English")
-  offsite_link = OffsiteLink.find_by_title(offsite_link_name)
+  offsite_link = OffsiteLink.find_by(title: offsite_link_name)
   within record_css_selector(offsite_link) do
     click_on "Unfeature"
   end
 end
 
 When /^I delete the organisation "([^"]*)"$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   visit edit_admin_organisation_path(organisation)
   click_button "delete"
 end
@@ -352,32 +352,32 @@ Then(/^I should see metadata in the non ministerial department list indicating t
 end
 
 Then /^there should not be an organisation called "([^"]*)"$/ do |name|
-  refute Organisation.find_by_name(name)
+  refute Organisation.find_by(name: name)
 end
 
 Then /^I should be able to view all civil servants for the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   organisation.management_roles.each do |role|
     assert page.has_css?(record_css_selector(role.current_person))
   end
 end
 
 Then /^I should be able to view all ministers for the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   organisation.ministerial_roles.each do |role|
     assert page.has_css?(record_css_selector(role.current_person))
   end
 end
 
 Then /^I should be able to view all traffic commissioners for the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   organisation.traffic_commissioner_roles.each do |role|
     assert page.has_css?(record_css_selector(role.current_person))
   end
 end
 
 Then /^I should be able to view all chief professional officers for the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   organisation.chief_professional_officer_roles.each do |role|
     assert page.has_css?(record_css_selector(role.current_person))
   end
@@ -396,8 +396,8 @@ Then /^I should see the featured (news articles|topical events|offsite links) in
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" organisation page$/) do |title, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
-  offsite_link = OffsiteLink.find_by_title!(title)
+  organisation = Organisation.find_by!(name: organisation_name)
+  offsite_link = OffsiteLink.find_by!(title: title)
   visit_organisation organisation_name
   page.has_link?(title, href: edit_admin_organisation_offsite_link_path(organisation.id, offsite_link.id))
 end
@@ -408,7 +408,7 @@ Then /^there should be nothing featured on the home page of "([^"]*)"$/ do |name
 end
 
 Then /^I should only see published policies belonging to the "([^"]*)" organisation$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   editions = records_from_elements(Edition, page.all(".document"))
   assert editions.all? { |edition| organisation.editions.published.include?(edition) }
 end
@@ -434,12 +434,12 @@ Then /^I can see a link to "([^"]*)" on the "([^"]*)" about page$/ do |link_text
 end
 
 When /^I associate a Transparency data publication to the "([^"]*)"$/ do |name|
-  organisation = Organisation.find_by_name!(name)
+  organisation = Organisation.find_by!(name: name)
   publication = create(:published_publication, :transparency_data, organisations: [organisation])
 end
 
 When /^I add some featured links to the organisation "([^"]*)" via the admin$/ do |organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
   within ".featured-links" do
@@ -457,7 +457,7 @@ Then /^the featured links for the organisation "([^"]*)" should be visible on th
 end
 
 When /^I add some featured services and guidance to the organisation "([^"]*)" via the admin$/ do |organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Edit"
   within ".featured-links" do
@@ -480,7 +480,7 @@ Given /^an organisation "([^"]*)" has been assigned to handle fatalities$/ do |o
 end
 
 When /^I visit the organisation admin page for "([^"]*)"$/ do |organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
 end
 
@@ -549,11 +549,11 @@ Given /^the topical event "([^"]*)" exists$/ do |name|
 end
 
 When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$/ do |topic, organisation_name, image_filename|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit admin_organisation_path(organisation)
   click_link "Features"
   locale = Locale.find_by_language_name("English")
-  topical_event = TopicalEvent.find_by_name(topic)
+  topical_event = TopicalEvent.find_by(name: topic)
   within record_css_selector(topical_event) do
     click_link "Feature"
   end
@@ -563,18 +563,18 @@ When /^I feature the topical event "([^"]*)" for "([^"]*)" with image "([^"]*)"$
 end
 
 When /^I stop featuring the topical event "([^"]*)" for "([^"]*)"$/ do |topic, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   visit features_admin_organisation_path(organisation)
   locale = Locale.find_by_language_name("English")
-  topical_event = TopicalEvent.find_by_name(topic)
+  topical_event = TopicalEvent.find_by(name: topic)
   within record_css_selector(topical_event) do
     click_on "Unfeature"
   end
 end
 
 When /^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/ do |supporting_org_name, supported_org_name|
-  supporting_organisation = Organisation.find_by_name!(supporting_org_name)
-  supported_organisation = Organisation.find_by_name!(supported_org_name)
+  supporting_organisation = Organisation.find_by!(name: supporting_org_name)
+  supported_organisation = Organisation.find_by!(name: supported_org_name)
 
   visit admin_organisation_path(supported_organisation)
   click_on 'Edit'
@@ -583,8 +583,8 @@ When /^I choose "([^"]*)" as a sponsoring organisation of "([^"]*)"$/ do |suppor
 end
 
 Then /^I should see "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/ do |supporting_org_name, supported_org_name|
-  supporting_organisation = Organisation.find_by_name!(supporting_org_name)
-  supported_organisation = Organisation.find_by_name!(supported_org_name)
+  supporting_organisation = Organisation.find_by!(name: supporting_org_name)
+  supported_organisation = Organisation.find_by!(name: supported_org_name)
 
   ensure_path organisation_path(supported_organisation)
   within 'p.parent_organisations' do
@@ -593,14 +593,14 @@ Then /^I should see "([^"]*)" listed as a sponsoring organisation of "([^"]*)"$/
 end
 
 Then /^I can see information about uk aid on the "(.*?)" page$/ do |org_name|
-  org = Organisation.find_by_name!(org_name)
+  org = Organisation.find_by!(name: org_name)
 
   visit organisation_path(org)
   assert page.has_css?('.uk-aid')
 end
 
 Then /^I can not see information about uk aid on the "(.*?)" page$/ do |org_name|
-  org = Organisation.find_by_name!(org_name)
+  org = Organisation.find_by!(name: org_name)
 
   visit organisation_path(org)
   assert page.has_no_css?('.uk-aid')
@@ -658,7 +658,7 @@ Then(/^I can filter instantaneously the list of documents by title, author, orga
 end
 
 When(/^I close the organisation "(.*?)", superseding it with the organisation "(.*?)"$/) do |org_name, superseding_org_name|
-  organisation = Organisation.find_by_name!(org_name)
+  organisation = Organisation.find_by!(name: org_name)
   visit edit_admin_organisation_path(organisation.slug)
   select "Closed", from: "Status on GOV.UK"
   select "Replaced", from: "Reason for closure"
@@ -667,7 +667,7 @@ When(/^I close the organisation "(.*?)", superseding it with the organisation "(
 end
 
 Then(/^I can see that the organisation "(.*?)" has been superseded with the organisaion "(.*?)"$/) do |org_name, superseding_org_name|
-  organisation = Organisation.find_by_name!(org_name)
+  organisation = Organisation.find_by!(name: org_name)
   visit admin_organisation_path(organisation)
 
   assert page.has_xpath?("//th[.='Superseded by']/following-sibling::td[.='#{superseding_org_name}']")

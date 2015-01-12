@@ -10,7 +10,7 @@ class Edition::NationInapplicabilityTest < ActiveSupport::TestCase
     relation = @edition.nation_inapplicabilities.first
     @edition.destroy
 
-    refute NationInapplicability.find_by_id(relation.id)
+    refute NationInapplicability.find_by(id: relation.id)
   end
 
   test "mass-assignment of nation inapplicabilities creates new exclusions" do

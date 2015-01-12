@@ -4,8 +4,8 @@ class Whitehall::Uploader::Finders::SluggedModelFinderTest < ActiveSupport::Test
   def setup
     @model_class = stub("Model Class", name: "Model Class")
     @model_instance_1 = stub("instance 1", slug: "slug-1")
-    @model_class.stubs(:find_by_slug).returns(nil)
-    @model_class.stubs(:find_by_slug).with(@model_instance_1.slug).returns(@model_instance_1)
+    @model_class.stubs(:find_by).returns(nil)
+    @model_class.stubs(:find_by).with(slug: @model_instance_1.slug).returns(@model_instance_1)
     @log = stub_everything
     @line_number = 1
     @finder = Whitehall::Uploader::Finders::SluggedModelFinder.new(@model_class, @log, @line_number)

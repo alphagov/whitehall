@@ -46,14 +46,14 @@ module Whitehall::DocumentFilter
       Rails.cache.fetch("#{type}-#{slug}", namespace: "results", expires_in: 30.minutes, race_condition_ttl: 1.second) do
         case type
         when :organisation
-          Organisation.includes(:translations).find_by_slug(slug)
+          Organisation.includes(:translations).find_by(slug: slug)
         when :topic
-          Classification.find_by_slug(slug)
+          Classification.find_by(slug: slug)
         when :document_collection
           # Don't fall over if index refers a document which has had it's slug changed.
-          Document.find_by_slug(slug).try(:published_edition)
+          Document.find_by(slug: slug).try(:published_edition)
         when :operational_field
-          OperationalField.find_by_slug(slug)
+          OperationalField.find_by(slug: slug)
         else
           raise "Can't fetch '#{type}' -- unknown type"
         end

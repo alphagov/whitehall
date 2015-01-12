@@ -29,7 +29,7 @@ Given /^I have drafted a translatable document "([^"]*)"$/ do |title|
 end
 
 When /^I add a french translation "([^"]*)" to the "([^"]*)" document$/ do |french_title, english_title|
-  visit admin_edition_path(Edition.find_by_title!(english_title))
+  visit admin_edition_path(Edition.find_by!(title: english_title))
   click_link "open-add-translation-modal"
   select "Français", from: "Locale"
   click_button "Add translation"
@@ -40,7 +40,7 @@ When /^I add a french translation "([^"]*)" to the "([^"]*)" document$/ do |fren
 end
 
 Then /^I should see on the admin edition page that "([^"]*)" has a french translation "([^"]*)"$/ do |english_title, french_title|
-  visit admin_edition_path(Edition.find_by_title!(english_title))
+  visit admin_edition_path(Edition.find_by!(title: english_title))
   assert page.has_text?(french_title)
 end
 
@@ -53,7 +53,7 @@ Given(/^the organisation "(.*?)" is translated into Welsh and has a contact "(.*
 end
 
 When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_title, english_title|
-  contact = Contact.find_by_title(english_title)
+  contact = Contact.find_by(title: english_title)
   visit admin_organisation_contacts_path(contact.contactable)
   click_link "Add translation"
   select "Cymraeg", from: "Locale"
@@ -66,7 +66,7 @@ When(/^I add a welsh translation "(.*?)" to the "(.*?)" contact$/) do |welsh_tit
 end
 
 Then(/^I should see on the admin organisation contacts page that "(.*?)" has a welsh translation "(.*?)"$/) do |english_title, welsh_title|
-  contact = Contact.find_by_title(english_title)
+  contact = Contact.find_by(title: english_title)
   visit admin_organisation_contacts_path(contact.contactable)
   assert page.has_text?("Cymraeg (Welsh) translation")
   assert page.has_text?(welsh_title)
@@ -82,7 +82,7 @@ Given(/^the world organisation "(.*?)" is translated into French and has an offi
 end
 
 When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_title, english_title|
-  office = Contact.find_by_title(english_title).contactable
+  office = Contact.find_by(title: english_title).contactable
   visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
   click_link "Add translation"
   select "Français", from: "Locale"
@@ -95,7 +95,7 @@ When(/^I add a french translation "(.*?)" to the "(.*?)" office$/) do |french_ti
 end
 
 Then(/^I should see on the admin world organisation offices page that "(.*?)" has a french translation "(.*?)"$/) do |english_title, french_title|
-  office = Contact.find_by_title(english_title).contactable
+  office = Contact.find_by(title: english_title).contactable
   visit admin_worldwide_organisation_worldwide_offices_path(office.worldwide_organisation)
   assert page.has_text?("Français (French) translation")
   assert page.has_text?(french_title)

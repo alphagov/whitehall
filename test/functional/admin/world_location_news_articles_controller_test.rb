@@ -47,7 +47,7 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
                               previously_published: false
                             }
 
-    assert edition = Edition.find_by_title('Article title')
+    assert edition = Edition.find_by(title: 'Article title')
     assert_redirected_to admin_world_location_news_article_path(edition)
 
     assert_equal 'en', edition.locale

@@ -14,7 +14,7 @@ module WorldwideOrganisationsHelper
   end
 
   def edit_translation_for_worldwide_organisation(locale, worldwide_organisation_name, translation)
-    worldwide_organisation = WorldwideOrganisation.find_by_name!(worldwide_organisation_name)
+    worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
     visit admin_worldwide_organisations_path
 
     within record_css_selector(worldwide_organisation) do
