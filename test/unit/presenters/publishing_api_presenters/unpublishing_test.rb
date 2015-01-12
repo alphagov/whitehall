@@ -31,7 +31,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal_hash expected_hash, presenter.as_json
+    assert_equal expected_hash, presenter.as_json
     assert_valid_against_schema(presenter.as_json, 'unpublishing')
   end
 
@@ -59,7 +59,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     # inconsistencies with line breaks between different XML libraries
     assert_equivalent_html expected_details_hash.delete(:explanation),
       presented_hash[:details].delete(:explanation)
-    assert_equal_hash expected_details_hash, presented_hash[:details]
+    assert_equal expected_details_hash, presented_hash[:details]
   end
 
   test '#as_json returns a valid representation of an Unpublishing with an alternative URL' do
@@ -75,7 +75,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal_hash expected_details_hash, presenter.as_json[:details]
+    assert_equal expected_details_hash, presenter.as_json[:details]
     assert_valid_against_schema(presenter.as_json, 'unpublishing')
   end
 
@@ -127,7 +127,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
     presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-    assert_equal_hash expected_hash, presenter.as_json
+    assert_equal expected_hash, presenter.as_json
     assert_valid_against_schema(presenter.as_json, 'unpublishing')
   end
 
