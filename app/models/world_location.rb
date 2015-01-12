@@ -58,7 +58,7 @@ class WorldLocation < ActiveRecord::Base
                                             published.
                                             where(type: Announcement.sti_names).
                                             where("edition_world_locations.world_location_id = world_locations.id").
-                                            select(1).to_sql
+                                            select('*').to_sql
 
     where("exists (#{announcement_conditions})")
   end
@@ -68,7 +68,7 @@ class WorldLocation < ActiveRecord::Base
                                             published.
                                             where(type: Publicationesque.sti_names).
                                             where("edition_world_locations.world_location_id = world_locations.id").
-                                            select(1).to_sql
+                                            select('*').to_sql
 
     where("exists (#{publication_conditions})")
   end
