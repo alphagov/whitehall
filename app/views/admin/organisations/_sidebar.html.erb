@@ -6,7 +6,7 @@
         <%= button_to('delete',
                       admin_organisation_path(@organisation),
                       method: :delete,
-                      confirm: "Are you sure you want to delete #{@organisation.name}?",
+                      data: { confirm: "Are you sure you want to delete #{@organisation.name}?" },
                       class: 'btn btn-danger') %>
       <% else %>
         <p>Cannot delete</p>

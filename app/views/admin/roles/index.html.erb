@@ -27,7 +27,11 @@
         </td>
         <td class="delete">
           <% if role.destroyable? %>
-            <%= button_to 'delete', admin_role_path(role), method: :delete, class: 'btn btn-danger', confirm: "Are you sure you wish to remove this role?" %>
+            <%= button_to 'delete',
+                  admin_role_path(role),
+                  method: :delete,
+                  class: 'btn btn-danger',
+                  data: { confirm: "Are you sure you wish to remove this role?" } %>
           <% else %>
             <span>Cannot delete</span>
           <% end %>

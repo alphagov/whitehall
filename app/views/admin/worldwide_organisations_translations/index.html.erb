@@ -29,7 +29,11 @@
                     <%= link_to locale.native_language_name, edit_admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code) %> (<%= link_to "view", worldwide_organisation_path(@worldwide_organisation, locale: locale) %>)
                   </td>
                   <td class="actions">
-                    <%= button_to 'Delete', admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code), method: :delete, class: "btn btn-danger", confirm: "Are you sure you want to delete this translation?" %>
+                    <%= button_to 'Delete',
+                          admin_worldwide_organisation_translation_path(@worldwide_organisation, locale.code),
+                          method: :delete,
+                          class: "btn btn-danger",
+                          data: { confirm: "Are you sure you want to delete this translation?" } %>
                   </td>
                 </tr>
               <% end %>

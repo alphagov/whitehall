@@ -14,7 +14,7 @@ module Admin::EditionActionsHelper
         form_for [:admin, edition], {
           url: approve_retrospectively_admin_edition_path(edition, lock_version: edition.lock_version),
           method: :post} do |form|
-          concat(form.submit "Looks good", confirm: confirmation_prompt, class: "btn btn-success")
+          concat(form.submit "Looks good", data: { confirm: confirmation_prompt }, class: "btn btn-success")
         end
       end
     end
@@ -41,7 +41,7 @@ module Admin::EditionActionsHelper
     if options[:force]
       link_to("Force publish",
               confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
-              confirm: "Are you sure you want to force publish this document?",
+              data: { confirm: "Are you sure you want to force publish this document?" },
               title: button_title,
               class: "btn force-publish",
               "data-toggle" => "modal",
@@ -60,7 +60,7 @@ module Admin::EditionActionsHelper
     if options[:force]
       button_to("Force schedule",
                 force_schedule_admin_edition_path(edition, lock_version: edition.lock_version),
-                confirm: "Are you sure you want to force schedule this document for publication?",
+                data: { confirm: "Are you sure you want to force schedule this document for publication?" },
                 title: button_title,
                 class: "btn btn-warning")
     else
@@ -77,11 +77,11 @@ module Admin::EditionActionsHelper
       unschedule_admin_edition_path(edition, lock_version: edition.lock_version),
       title: "Unschedule this edition to allow changes or prevent automatic publication on #{l edition.scheduled_publication, format: :long}",
       class: "btn btn-warning",
-      confirm: confirm
+      data: { confirm: confirm }
   end
 
   def delete_edition_button(edition)
-    button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", confirm: "Are you sure you want to discard this draft?", class: "btn btn-danger"
+    button_to 'Discard draft', admin_edition_path(edition), method: :delete, title: "Delete", data: { confirm: "Are you sure you want to discard this draft?" }, class: "btn btn-danger"
   end
 
   # If adding new models also update filter_options_for_edition

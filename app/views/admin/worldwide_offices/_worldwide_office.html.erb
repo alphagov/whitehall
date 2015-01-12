@@ -37,7 +37,11 @@
     <p class="comments"><%= format_with_html_line_breaks(h(worldwide_office.comments)) %></p>
   <% end %>
 
-  <%= button_to "Delete", [:admin, worldwide_organisation, worldwide_office], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete office '#{worldwide_office.title}'?" %>
+  <%= button_to "Delete",
+        [:admin, worldwide_organisation, worldwide_office],
+        method: "delete",
+        class: "btn btn-small btn-danger",
+        data: { confirm: "Delete office '#{worldwide_office.title}'?" } %>
   <%= link_to icon("Edit"), [:edit, :admin, worldwide_organisation, worldwide_office], class: "btn" %>
   <% unless worldwide_organisation.is_main_office?(worldwide_office) %>
     <%= button_to 'Set as main office', set_main_office_admin_worldwide_organisation_path(worldwide_organisation, worldwide_organisation: {main_office_id: worldwide_office.id}), method: :put, class: 'btn btn-info' %>
@@ -73,7 +77,11 @@
       <% end %>
     <% end %>
 
-    <%= button_to "Delete", [:admin, worldwide_organisation, worldwide_office, translated_contact.translation_locale], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from worldwide office '#{worldwide_office.title}'?" %>
+    <%= button_to "Delete",
+          [:admin, worldwide_organisation, worldwide_office, translated_contact.translation_locale],
+          method: "delete",
+          class: "btn btn-small btn-danger",
+          data: { confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from worldwide office '#{worldwide_office.title}'?" } %>
     <%= link_to icon("Edit"), edit_polymorphic_path([:admin, worldwide_organisation, worldwide_office, translated_contact.translation_locale]), class: "btn btn-small" %>
   <% end %>
 <% end %>
