@@ -1,8 +1,8 @@
 class EditionRelation < ActiveRecord::Base
   belongs_to :edition
-  belongs_to :document
+  belongs_to :document, inverse_of: :edition_relations
 
-  validates :edition_id, presence: true
+  validates :edition, presence: true
   validates :document, presence: true
   validates :document_id, uniqueness: { scope: :edition_id }
 

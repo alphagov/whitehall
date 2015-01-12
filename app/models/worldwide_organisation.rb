@@ -10,10 +10,10 @@ class WorldwideOrganisation < ActiveRecord::Base
   has_many :sponsoring_organisations, through: :sponsorships, source: :organisation
   has_many :offices, class_name: 'WorldwideOffice', dependent: :destroy
   belongs_to :main_office, class_name: 'WorldwideOffice'
-  has_many :worldwide_organisation_roles, dependent: :destroy
+  has_many :worldwide_organisation_roles, inverse_of: :worldwide_organisation, dependent: :destroy
   has_many :roles, through: :worldwide_organisation_roles
   has_many :people, through: :roles
-  has_many :edition_worldwide_organisations, dependent: :destroy
+  has_many :edition_worldwide_organisations, dependent: :destroy, inverse_of: :worldwide_organisation
   has_one  :access_and_opening_times, as: :accessible, dependent: :destroy
   belongs_to :default_news_image, class_name: 'DefaultNewsOrganisationImageData', foreign_key: :default_news_organisation_image_data_id
 

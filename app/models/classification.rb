@@ -15,7 +15,7 @@ class Classification < ActiveRecord::Base
 
   has_many :organisation_classifications
   has_many :organisations, through: :organisation_classifications
-  has_many :classification_relations
+  has_many :classification_relations, inverse_of: :classification
   has_many :related_classifications,
             through: :classification_relations,
             before_remove: -> pa, rpa {

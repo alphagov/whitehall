@@ -1,8 +1,9 @@
 class DocumentCollectionGroup < ActiveRecord::Base
-  belongs_to :document_collection, touch: true
+  belongs_to :document_collection, inverse_of: :groups, touch: true
   has_many :memberships,
            -> { order('document_collection_group_memberships.ordering') } ,
            class_name: 'DocumentCollectionGroupMembership',
+           inverse_of: :document_collection_group,
            dependent: :destroy
   has_many :documents,
            -> { order('document_collection_group_memberships.ordering') },

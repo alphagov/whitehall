@@ -4,7 +4,7 @@ class WorldwidePriority < Edition
   include Edition::WorldLocations
   include Edition::WorldwideOrganisations
 
-  has_many :edition_relations, through: :document
+  has_many :edition_relations, through: :document, inverse_of: :edition
   has_many :related_editions, through: :edition_relations, source: :edition
   has_many :published_related_editions,
            -> { where(editions: { state: "published" }) },

@@ -50,7 +50,8 @@ class TopicTest < ActiveSupport::TestCase
   test "return topics bi-directionally related to specific topic" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)
-    topic = create(:topic, related_classifications: [topic_1, topic_2])
+    topic = build(:topic, related_classifications: [topic_1, topic_2])
+    topic.save!
 
     assert_equal [topic_1, topic_2], topic.related_classifications
     assert_equal [topic], topic_1.related_classifications

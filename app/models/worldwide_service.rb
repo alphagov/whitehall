@@ -1,7 +1,7 @@
 class WorldwideService < ActiveRecord::Base
 
   validates :name, :service_type_id, presence: true
-  has_many :worldwide_office_worldwide_services, dependent: :destroy
+  has_many :worldwide_office_worldwide_services, dependent: :destroy, inverse_of: :worldwide_service
   has_many :offices, through: :worldwide_office_worldwide_services, source: :worldwide_office
 
   def service_type
