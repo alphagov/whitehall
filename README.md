@@ -13,7 +13,7 @@ user-friendly manner. Documention can be found on [rdoc](http://rdoc.info/github
 
 ### Pre-requisites
 
-* Ruby >= 1.9.3
+* Ruby 2.1.4
 * Rubygems and Bundler
 * Mysql
 * Imagemagick and Ghostscript (for generating thumbnails of uploaded
