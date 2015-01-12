@@ -25,16 +25,16 @@ class LocalisedModelTest < ActiveSupport::TestCase
   end
 
   test "returns locale to original value after decorated method call" do
-    I18n.locale = :original
+    I18n.locale = :fr
     @localised_model.locale
-    assert_equal :original, I18n.locale
+    assert_equal :fr, I18n.locale
   end
 
   test "returns locale to original value even if decorated call fails" do
-    I18n.locale = :original
+    I18n.locale = :fr
     @model.stubs(:locale).raises("any error")
     assert_raise(RuntimeError) { @localised_model.locale }
-    assert_equal :original, I18n.locale
+    assert_equal :fr, I18n.locale
   end
 
   test "has same identity as decorated instance" do

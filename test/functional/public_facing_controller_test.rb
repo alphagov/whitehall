@@ -128,15 +128,15 @@ class PublicFacingControllerTest < ActionController::TestCase
 
   test "all public facing requests without a locale should use the default locale" do
     with_routing_to_test_action do
-      I18n.default_locale = :default
+      I18n.default_locale = :dr
       get :locale
-      assert_equal 'default', response.body
+      assert_equal 'dr', response.body
     end
   end
 
   test "all public facing requests with a locale should use the given locale" do
     with_routing_to_test_action do
-      I18n.default_locale = :default
+      I18n.default_locale = :tr
       get :locale, locale: 'fr'
       assert_equal 'fr', response.body
     end
@@ -144,9 +144,9 @@ class PublicFacingControllerTest < ActionController::TestCase
 
   test "all public facing requests with a locale should reset locale back to its original value after completion" do
     with_routing_to_test_action do
-      I18n.locale = :original
+      I18n.locale = :dr
       get :locale, locale: 'fr'
-      assert_equal :original, I18n.locale
+      assert_equal :dr, I18n.locale
     end
   end
 
