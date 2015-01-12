@@ -236,7 +236,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     delete :destroy, organisation_id: @organisation.id, id: group
 
     assert_redirected_to admin_organisation_path(@organisation, anchor: "groups")
-    refute Group.find_by_id(group.id)
+    refute Group.find_by(id: group.id)
     assert_equal %{"Prime Minister" destroyed.}, flash[:notice]
   end
 
@@ -246,7 +246,7 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     delete :destroy, organisation_id: @organisation.id, id: group
 
     assert_redirected_to admin_organisation_path(@organisation, anchor: "groups")
-    assert Group.find_by_id(group.id)
+    assert Group.find_by(id: group.id)
     assert_equal %{Cannot destroy a group with members.}, flash[:alert]
   end
 end

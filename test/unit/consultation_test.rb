@@ -63,8 +63,8 @@ class ConsultationTest < ActiveSupport::TestCase
     draft_consultation = published_consultation.create_draft(create(:policy_writer))
 
     assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
-    assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
-    assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
+    assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by(nation_id: Nation.wales.id).alternative_url
+    assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by(nation_id: Nation.scotland.id).alternative_url
   end
 
   test ".closed includes consultations which have run and closed already" do
@@ -142,7 +142,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
     consultation.destroy
-    assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
+    refute ConsultationParticipation.exists?(consultation_participation)
   end
 
   test "should destroy the consultation outcome when the consultation is destroyed" do

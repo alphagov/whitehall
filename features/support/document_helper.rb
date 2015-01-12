@@ -1,5 +1,5 @@
 THE_DOCUMENT = Transform(/the (document|publication|policy|news article|consultation|consultation response|speech|worldwide priority|detailed guide|announcement|world location news article|statistical data set|supporting page|document collection|corporate information page) "([^"]*)"/) do |document_type, title|
-  document_class(document_type).latest_edition.find_by_title!(title)
+  document_class(document_type).latest_edition.find_by!(title: title)
 end
 
 module DocumentHelper
@@ -128,12 +128,12 @@ module DocumentHelper
   end
 
   def visit_edition_admin(title, scope = :all)
-    document = Edition.send(scope).find_by_title(title)
+    document = Edition.send(scope).find_by(title: title)
     visit admin_edition_path(document)
   end
 
   def visit_document_preview(title, scope = :all)
-    document = Edition.send(scope).find_by_title(title)
+    document = Edition.send(scope).find_by(title: title)
     visit preview_document_path(document)
   end
 
@@ -175,7 +175,7 @@ module DocumentHelper
   end
 
   def speed_tag_publication(title)
-    edition = Edition.find_by_title(title)
+    edition = Edition.find_by(title: title)
     visit admin_edition_path(edition)
 
     assert page.has_css?('.speed-tag')
@@ -187,7 +187,7 @@ module DocumentHelper
   end
 
   def convert_to_draft(title)
-    edition = Edition.find_by_title(title)
+    edition = Edition.find_by(title: title)
     visit admin_edition_path(edition)
 
     click_on 'Convert to draft'

@@ -109,7 +109,7 @@ private
   end
 
   def gds_user
-    @gds_user ||= User.find_by_email("govuk-whitehall@digital.cabinet-office.gov.uk")
+    @gds_user ||= User.find_by(email: "govuk-whitehall@digital.cabinet-office.gov.uk")
   end
 
   def log(message)

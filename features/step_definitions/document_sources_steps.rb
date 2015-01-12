@@ -17,7 +17,7 @@ Then /^I should see the legacy url "([^"]*)"$/ do |old_url|
 end
 
 When /^I add "([^"]*)" as a legacy url to the "([^"]*)" publication$/ do |old_url, title|
-  publication = Publication.find_by_title!(title)
+  publication = Publication.find_by!(title: title)
   visit admin_edition_path(publication)
   click_link "Edit URL redirects"
   fill_in "document_sources", with: old_url
@@ -25,7 +25,7 @@ When /^I add "([^"]*)" as a legacy url to the "([^"]*)" publication$/ do |old_ur
 end
 
 When /^I change the legacy url "([^"]*)" to "([^"]*)" on the "([^"]*)" publication$/ do |old_old_url, new_old_url, title|
-  publication = Publication.find_by_title!(title)
+  publication = Publication.find_by!(title: title)
   visit admin_edition_path(publication)
   assert has_field?('document_sources', with: old_old_url)
   fill_in "document_sources", with: new_old_url
@@ -33,7 +33,7 @@ When /^I change the legacy url "([^"]*)" to "([^"]*)" on the "([^"]*)" publicati
 end
 
 When /^I remove the legacy url "([^"]*)" on the "([^"]*)" publication$/ do |old_url, title|
-  publication = Publication.find_by_title!(title)
+  publication = Publication.find_by!(title: title)
   visit admin_edition_path(publication)
   fill_in "document_sources", with: ''
   click_button 'Save'

@@ -10,7 +10,7 @@ class ForcePublisher
 
   class Worker
     def user
-      @user ||= User.find_by_name!("GDS Inside Government Team")
+      @user ||= User.find_by!(name: "GDS Inside Government Team")
     end
 
     def force_publish!(editions, reporter)
@@ -66,7 +66,7 @@ class ForcePublisher
   end
 
   def self.for_organisation(acronym, options = {})
-    organisation = Organisation.find_by_acronym!(acronym)
+    organisation = Organisation.find_by!(acronym: acronym)
     excluded_types = (options[:excluded_types] ? [*options[:excluded_types]] : []).map do |type_name|
       Object.const_get(type_name)
     end

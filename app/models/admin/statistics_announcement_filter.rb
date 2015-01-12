@@ -37,11 +37,11 @@ module Admin
     end
 
     def organisation
-      @organisation ||= Organisation.find_by_id(options[:organisation_id])
+      @organisation ||= Organisation.find_by(id: options[:organisation_id])
     end
 
     def user
-      @user ||= User.find_by_id(options[:user_id])
+      @user ||= User.find_by(id: options[:user_id])
     end
 
     def possessive_owner_name

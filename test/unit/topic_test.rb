@@ -21,8 +21,8 @@ class TopicTest < ActiveSupport::TestCase
     topic = create(:topic)
     first_policy = create(:published_policy, topics: [topic])
     second_policy = create(:published_policy, topics: [topic])
-    first_association = topic.classification_memberships.find_by_edition_id(first_policy.id)
-    second_association = topic.classification_memberships.find_by_edition_id(second_policy.id)
+    first_association = topic.classification_memberships.find_by(edition_id: first_policy.id)
+    second_association = topic.classification_memberships.find_by(edition_id: second_policy.id)
 
     topic.update_attributes(classification_memberships_attributes: {
       first_association.id => {id: first_association.id, edition_id: first_policy.id, ordering: "2"},

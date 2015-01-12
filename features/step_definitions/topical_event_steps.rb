@@ -3,7 +3,7 @@ Given(/^a topical event called "(.*?)" with description "(.*?)"$/) do |name, des
 end
 
 Given(/^I have an offsite link "(.*?)" for the topical event "(.*?)"$/) do |title, topical_event_name|
-  topical_event = TopicalEvent.find_by_name(topical_event_name)
+  topical_event = TopicalEvent.find_by(name: topical_event_name)
   @offsite_link = create :offsite_link, title: title, parent: topical_event
 end
 
@@ -16,25 +16,25 @@ When /^I create a new topical event "([^"]*)" with description "([^"]*)" and it 
 end
 
 Then /^I should not see the topical event "([^"]*)" on the topics listing$/ do |topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topics_path
   assert page.has_no_css?(record_css_selector(topical_event))
 end
 
 Then /^I should see the topical event "([^"]*)" on the frontend is archived$/ do |topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topical_event_path(topical_event)
   assert page.has_css?(".archived", text: "Archived")
 end
 
 Then /^I should see the topical event "([^"]*)" in the admin interface$/ do |topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_events_path(topical_event)
   assert page.has_css?(record_css_selector(topical_event))
 end
 
 Then /^I should see the topical event "([^"]*)" on the frontend$/ do |topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topical_event_path(topical_event)
   assert page.has_css?(record_css_selector(topical_event))
 end
@@ -71,7 +71,7 @@ When /^I draft a new document collection "([^"]*)" relating it to topical event 
 end
 
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topical event "(.*?)"$/) do |title, type, topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_event_classification_featurings_path(topical_event)
   click_link "Create an offsite link"
   fill_in :offsite_link_title, with: title
@@ -82,7 +82,7 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the topical event "(.*?
 end
 
 Then /^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consultations) section of the topical event "([^"]*)"$/ do |edition, section, topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit topical_event_path(topical_event)
   within "##{section}" do
     assert page.has_css?(record_css_selector(edition))
@@ -90,15 +90,15 @@ Then /^I should see (#{THE_DOCUMENT}) in the (announcements|publications|consult
 end
 
 Then /^(#{THE_DOCUMENT}) shows it is related to the topical event "([^"]*)" on its public page$/ do |edition, topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit public_document_path(edition)
   assert page.has_css?(".meta a", text: topical_event.name)
 end
 
 When /^I feature the document "([^"]*)" for topical event "([^"]*)" with image "([^"]*)"$/ do |news_article_title, topical_event_name, image_filename|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_event_classification_featurings_path(topical_event)
-  edition = Edition.find_by_title(news_article_title)
+  edition = Edition.find_by(title: news_article_title)
   within record_css_selector(edition) do
     click_link "Feature"
   end
@@ -108,9 +108,9 @@ When /^I feature the document "([^"]*)" for topical event "([^"]*)" with image "
 end
 
 When(/^I feature the offsite link "(.*?)" for topical event "(.*?)" with image "(.*?)"$/) do |offsite_link_title, topical_event_name, image_filename|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
   visit admin_topical_event_classification_featurings_path(topical_event)
-  offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  offsite_link = OffsiteLink.find_by(title: offsite_link_title)
   within record_css_selector(offsite_link) do
     click_link "Feature"
   end
@@ -120,7 +120,7 @@ When(/^I feature the offsite link "(.*?)" for topical event "(.*?)" with image "
 end
 
 Then /^I should see the featured (documents|offsite links) in the "([^"]*)" topical event are:$/ do |type, name, expected_table|
-  visit topical_event_path(TopicalEvent.find_by_name!(name))
+  visit topical_event_path(TopicalEvent.find_by!(name: name))
   rows = find('.featured-news').all('.feature')
   table = rows.collect do |row|
     [
@@ -132,8 +132,8 @@ Then /^I should see the featured (documents|offsite links) in the "([^"]*)" topi
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topical event page$/) do |title, topical_event_name|
-  topical_event = TopicalEvent.find_by_name!(topical_event_name)
-  offsite_link = OffsiteLink.find_by_title!(title)
+  topical_event = TopicalEvent.find_by!(name: topical_event_name)
+  offsite_link = OffsiteLink.find_by!(title: title)
   visit topical_event_path(topical_event)
   page.has_link?(title, href: edit_admin_topical_event_offsite_link_path(topical_event.id, offsite_link.id))
 end
@@ -177,7 +177,7 @@ When /^I view that topical event page$/ do
 end
 
 Then /^I should be able to delete the topical event "([^"]*)"$/ do |name|
-  topical_event = TopicalEvent.find_by_name!(name)
+  topical_event = TopicalEvent.find_by!(name: name)
   visit admin_topical_event_path(topical_event)
   click_on 'Edit'
   click_button 'Delete'

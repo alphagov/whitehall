@@ -27,7 +27,7 @@ Given /^a published speech "([^"]*)" with related published policies "([^"]*)" a
 end
 
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
-  speech = Speech.find_by_title!(original_title)
+  speech = Speech.find_by!(title: original_title)
   visit admin_edition_path(speech)
   click_link "Edit draft"
   fill_in "Title", with: new_title
@@ -55,7 +55,7 @@ When /^I draft a new speech "([^"]*)"$/ do |title|
 end
 
 When /^I visit the speech "([^"]*)"$/ do |title|
-  speech = Speech.find_by_title!(title)
+  speech = Speech.find_by!(title: title)
   visit public_document_path(speech)
 end
 

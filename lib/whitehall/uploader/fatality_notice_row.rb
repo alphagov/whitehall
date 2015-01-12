@@ -37,7 +37,7 @@ module Whitehall::Uploader
     end
 
     def organisation
-      Organisation.find_by_slug("ministry-of-defence")
+      Organisation.find_by(slug: "ministry-of-defence")
     end
 
   protected

@@ -112,7 +112,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
 
   test 'uses the frontend contacts/_contact partial when rendering embedded contacts, not the admin partial' do
     contact = build(:contact)
-    Contact.stubs(:find_by_id).with('1').returns(contact)
+    Contact.stubs(:find_by).with(id: '1').returns(contact)
     input = '[Contact:1]'
     output = govspeak_to_admin_html(input)
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
@@ -121,7 +121,7 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
 
   test 'use the frontend html version of the contact partial, even if the view context is for a different format' do
     contact = build(:contact)
-    Contact.stubs(:find_by_id).with('1').returns(contact)
+    Contact.stubs(:find_by).with(id: '1').returns(contact)
     input = '[Contact:1]'
     contact_html = render('contacts/contact', contact: contact, heading_tag: 'h3')
     @controller.lookup_context.formats = ['atom']

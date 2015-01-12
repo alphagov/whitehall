@@ -179,11 +179,11 @@ module Whitehall
 
       def label_for_resource
         if resource_class < Edition
-          if document = Document.find_by_slug(feed_object_slug)
+          if document = Document.find_by(slug: feed_object_slug)
             document.published_edition.try(:title)
           end
         else
-          resource_class.find_by_slug(feed_object_slug).try(:name)
+          resource_class.find_by(slug: feed_object_slug).try(:name)
         end
       end
 

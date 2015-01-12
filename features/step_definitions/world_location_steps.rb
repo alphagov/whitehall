@@ -22,7 +22,7 @@ Given /^an? (world location|international delegation) "([^"]*)" exists with the 
 end
 
 Given /^the (world location|international delegation) "([^"]*)" is inactive/ do |world_location_type, name|
-  world_location = WorldLocation.find_by_name(name) || create(world_location_type.gsub(' ', '_').to_sym, name: name)
+  world_location = WorldLocation.find_by(name: name) || create(world_location_type.gsub(' ', '_').to_sym, name: name)
   world_location.update_column(:active, false)
 end
 
@@ -37,12 +37,12 @@ Given /^an? (world location|international delegation) "([^"]*)" exists with a tr
 end
 
 Given(/^I have an offsite link "(.*?)" for the world location "(.*?)"$/) do |title, world_location_name|
-  world_location = WorldLocation.find_by_name(world_location_name)
+  world_location = WorldLocation.find_by(name: world_location_name)
   @offsite_link = create :offsite_link, title: title, parent: world_location
 end
 
 When /^I view the (?:world location|international delegation) "([^"]*)"$/ do |name|
-  world_location = WorldLocation.find_by_name!(name)
+  world_location = WorldLocation.find_by!(name: name)
   visit world_location_path(world_location)
 end
 
@@ -52,11 +52,11 @@ end
 
 def feature_news_article_in_world_location(news_article_title, world_location_name, image_filename = nil, locale = "English")
   image_filename ||= 'minister-of-funk.960x640.jpg'
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (#{locale})"
   locale = Locale.find_by_language_name(locale)
-  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by_title(news_article_title)
+  news_article = LocalisedModel.new(NewsArticle, locale.code).find_by(title: news_article_title)
   within ".filter-options" do
     select "All locations", from: :world_location
     click_button "Search"
@@ -74,10 +74,10 @@ When /^I feature the news article "([^"]*)" for (?:world location|international 
 end
 
 When(/^I feature the offsite link "(.*?)" for  world location "(.*?)" with image "(.*?)"$/) do |offsite_link_title, world_location_name, image_filename|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features"
-  offsite_link = OffsiteLink.find_by_title(offsite_link_title)
+  offsite_link = OffsiteLink.find_by(title: offsite_link_title)
   within record_css_selector(offsite_link) do
     click_link "Feature"
   end
@@ -87,7 +87,7 @@ When(/^I feature the offsite link "(.*?)" for  world location "(.*?)" with image
 end
 
 When(/^I add the offsite link "(.*?)" of type "(.*?)" to the world location "(.*?)"$/) do |title, type, location_name|
-  world_location = WorldLocation.find_by_name!(location_name)
+  world_location = WorldLocation.find_by!(name: location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (English)"
   click_link "Create an offsite link"
@@ -99,18 +99,18 @@ When(/^I add the offsite link "(.*?)" of type "(.*?)" to the world location "(.*
 end
 
 When /^I order the featured items of the (?:world location|international delegation) "([^"]*)" to:$/ do |name, table|
-  world_location = WorldLocation.find_by_name!(name)
+  world_location = WorldLocation.find_by!(name: name)
   visit features_admin_world_location_path(world_location)
   order_features_from(table)
 end
 
 When /^I add a new translation to the world location "([^"]*)" with:$/ do |name, table|
-  world_location = WorldLocation.find_by_name!(name)
+  world_location = WorldLocation.find_by!(name: name)
   add_translation_to_world_location(world_location, table.rows_hash)
 end
 
 When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, name, table|
-  location = WorldLocation.find_by_name!(name)
+  location = WorldLocation.find_by!(name: name)
   translation = table.rows_hash
   visit admin_world_location_path(location)
   click_link "Translations"
@@ -122,7 +122,7 @@ When /^I edit the "([^"]*)" translation for "([^"]*)" setting:$/ do |locale, nam
 end
 
 Then /^I should see the featured items of the (?:world location|international delegation) "([^"]*)" are:$/ do |name, expected_table|
-  world_location = WorldLocation.find_by_name!(name)
+  world_location = WorldLocation.find_by!(name: name)
   visit world_location_path(world_location)
   rows = find(featured_documents_selector).all('.feature')
   table = rows.collect do |row|
@@ -148,7 +148,7 @@ Then /^I should see that it is an? (world location|international delegation)$/ d
 end
 
 def view_world_location_in_locale(world_location_name, locale)
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit world_location_path(world_location)
   click_link locale
 end
@@ -167,7 +167,7 @@ Then /^I should be able to associate "([^"]+)" with the (?:world location|intern
 end
 
 When /^I click through to see all the announcements for (?:international delegation|world location) "([^"]*)"$/ do |name|
-  visit world_location_path(WorldLocation.find_by_name!(name))
+  visit world_location_path(WorldLocation.find_by!(name: name))
   within '#announcements' do
     click_link 'See all'
   end
@@ -183,9 +183,9 @@ When /^I feature "([^"]*)" on the english "([^"]*)" page$/ do |title, overseas_t
 end
 
 When(/^I stop featuring the offsite link "(.*?)" for the world location "(.*?)"$/) do |offsite_link_name, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit features_admin_world_location_path(world_location)
-  offsite_link = OffsiteLink.find_by_title!(offsite_link_name)
+  offsite_link = OffsiteLink.find_by!(title: offsite_link_name)
   within record_css_selector(offsite_link) do
     click_on "Unfeature"
   end
@@ -197,8 +197,8 @@ Then /^I should see no featured items on the french version of the "([^"]*)" pag
 end
 
 Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" world location page$/) do |title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
-  offsite_link = OffsiteLink.find_by_title!(title)
+  world_location = WorldLocation.find_by!(name: world_location_name)
+  offsite_link = OffsiteLink.find_by!(title: title)
   visit world_location_path(world_location)
   page.has_link?(title, href: edit_admin_world_location_offsite_link_path(world_location.id, offsite_link.id))
 end
@@ -227,19 +227,19 @@ Then /^I should see "([^"]*)" as the title of the feature on the french "([^"]*)
 end
 
 Then /^I should see "([^"]*)" featured on the public facing "([^"]*)" page$/ do |expected_title, name|
-  visit world_location_path(WorldLocation.find_by_name!(name))
+  visit world_location_path(WorldLocation.find_by!(name: name))
   assert page.has_css?('.feature h2', text: expected_title)
 end
 
 Then /^I should see "([^"]*)" as the title of the featured item on the french "([^"]*)" admin page$/ do |expected_title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (Français)"
   assert has_css?('.title', text: expected_title)
 end
 
 Then /^I cannot feature "([^"]*)" on the french "([^"]*)" page due to the lack of a translation$/ do |title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit admin_world_location_path(world_location)
   click_link "Features (Français)"
   fill_in 'title', with: title.split.first

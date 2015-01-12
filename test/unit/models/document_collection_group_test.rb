@@ -22,8 +22,8 @@ class DocumentSeriesGroupTest < ActiveSupport::TestCase
     assert group.documents.include? doc_3
     refute group.documents.include? doc_2
 
-    assert_equal 0, group.memberships.find_by_document_id(doc_3.id).ordering
-    assert_equal 1, group.memberships.find_by_document_id(doc_1.id).ordering
+    assert_equal 0, group.memberships.find_by(document_id: doc_3.id).ordering
+    assert_equal 1, group.memberships.find_by(document_id: doc_1.id).ordering
   end
 
   test '::published_editions should list published editions ordered by membership ordering' do

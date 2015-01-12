@@ -5,7 +5,7 @@ router = GdsApi::Router.new(Plek.find('router-api'))
 old_slug = 'the-charity-commission-for-england-and-wales'
 new_slug = 'charity-commission'
 
-if (org = Organisation.find_by_slug(old_slug))
+if (org = Organisation.find_by(slug: old_slug))
   puts "Changing org slug from #{old_slug} to #{new_slug}"
 
   # Remove document at old slug from search

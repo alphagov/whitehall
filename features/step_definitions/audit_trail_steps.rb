@@ -2,7 +2,7 @@ Given /^a document that has gone through many changes$/ do
   begin_drafting_publication('An exciting new publication')
   click_on "Save"
   assert page.has_content?('An exciting new publication')
-  @the_publication = Publication.find_by_title('An exciting new publication')
+  @the_publication = Publication.find_by(title: 'An exciting new publication')
   # fake it
   states = ['draft', 'submitted', 'published', 'superseded']
   50.times do |i|

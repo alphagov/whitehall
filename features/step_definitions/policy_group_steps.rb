@@ -43,7 +43,7 @@ Then /^I should not see the policy group "([^"]*)"$/ do |group_name|
 end
 
 Then /^I should be able to add attachments to the policy group "(.*?)"$/ do |group_name|
-  group = PolicyGroup.find_by_name(group_name)
+  group = PolicyGroup.find_by(name: group_name)
   attachment = upload_pdf_to_policy_group(group)
   insert_attachment_markdown_into_policy_group_description(attachment, group)
   check_attachment_appears_on_policy_group(attachment, group)

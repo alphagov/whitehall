@@ -62,9 +62,9 @@ Then /^I can see the log output of the force publish for my import$/ do
 end
 
 Then /^my imported documents are published$/ do
-  visit public_document_path(Edition.find_by_title('title-1'))
+  visit public_document_path(Edition.find_by(title: 'title-1'))
   assert page.has_css?('h1', 'title-1')
 
-  visit public_document_path(Edition.find_by_title('title-2'))
+  visit public_document_path(Edition.find_by(title: 'title-2'))
   assert page.has_css?('h1', 'title-2')
 end

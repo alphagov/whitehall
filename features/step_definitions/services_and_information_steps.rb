@@ -1,11 +1,11 @@
 When(/^I view the services and information page for the "(.*?)" organisation$/) do |org_name|
-  org = Organisation.find_by_name(org_name)
+  org = Organisation.find_by(name: org_name)
   stub_rummager_response
   visit services_and_information_path(org)
 end
 
 When(/^I view the services and information page for the "(.*?)" without featured services and guidance$/) do |org_name|
-  org = Organisation.find_by_name(org_name)
+  org = Organisation.find_by(name: org_name)
   stub_empty_rummager_response
   visit services_and_information_path(org)
 end

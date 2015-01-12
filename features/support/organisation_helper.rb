@@ -1,6 +1,6 @@
 module OrganisationHelper
   def find_or_create_organisation(name)
-    Organisation.find_by_name(name) || create(:organisation, name: name)
+    Organisation.find_by(name: name) || create(:organisation, name: name)
   end
 
   def fill_in_organisation_translation_form(translation)

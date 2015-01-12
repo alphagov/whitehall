@@ -102,6 +102,6 @@ class PublicFacingController < ApplicationController
   end
 
   def load_reshuffle_setting
-    SitewideSetting.find_by_key(:minister_reshuffle_mode)
+    SitewideSetting.find_by(key: :minister_reshuffle_mode)
   end
 end

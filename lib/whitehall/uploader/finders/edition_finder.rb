@@ -2,7 +2,7 @@ class Whitehall::Uploader::Finders::EditionFinder < Whitehall::Uploader::Finders
   def find(*slugs)
     slugs = slugs.reject { |slug| slug.blank? }.uniq
     slugs.collect do |slug|
-      if document = Document.where(document_type: @klass.name).find_by_slug(slug)
+      if document = Document.where(document_type: @klass.name).find_by(slug: slug)
         if document.published_edition
           document.published_edition
         elsif document.latest_edition

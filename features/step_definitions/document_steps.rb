@@ -14,38 +14,38 @@ Given /^a published document "([^"]*)" exists$/ do |title|
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  topic = Topic.find_by_name!(topic_name)
+  topic = Topic.find_by!(name: topic_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
 Given /^a submitted (publication|policy|news article|consultation|detailed guide) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  topic = Topic.find_by_name!(topic_name)
+  topic = Topic.find_by!(name: topic_name)
   create("submitted_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
 Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists in the "([^"]*)" topic$/ do |document_type, title, topic_name|
-  topic = Topic.find_by_name!(topic_name)
+  topic = Topic.find_by!(name: topic_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, topics: [topic])
 end
 
 Given /^a draft (publication|policy|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
 
 Given /^a published (publication|policy|news article|consultation) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
 end
 
 Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)"$/ do |document_type, title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, world_locations: [world_location])
 end
 
 Given /^a published (publication|policy|news article|consultation) "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)" produced (\d+) days ago$/ do |document_type, title, world_location_name, days_ago|
 
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   create("published_#{document_class(document_type).name.underscore}".to_sym, title: title, first_published_at: days_ago.to_i.days.ago, world_locations: [world_location])
 end
 
@@ -54,7 +54,7 @@ Given /^a submitted (publication|policy|news article|consultation|speech|worldwi
 end
 
 Given /^another user edits the (publication|policy|news article|consultation|speech) "([^"]*)" changing the title to "([^"]*)"$/ do |document_type, original_title, new_title|
-  edition = document_class(document_type).find_by_title!(original_title)
+  edition = document_class(document_type).find_by!(title: original_title)
   edition.update_attributes!(title: new_title)
 end
 
@@ -76,7 +76,7 @@ Given(/^a draft publication "(.*?)" with a file attachment exists$/) do |title|
 end
 
 Given /^a force published (document|publication|policy|news article|consultation|speech) "([^"]*)" was produced by the "([^"]*)" organisation$/ do |document_type, title, organisation_name|
-  organisation = Organisation.find_by_name!(organisation_name)
+  organisation = Organisation.find_by!(name: organisation_name)
   document_type = 'policy' if document_type == 'document'
   edition = create("draft_#{document_class(document_type).name.underscore}".to_sym, title: title, organisations: [organisation])
   visit admin_editions_path(state: :draft)
@@ -113,7 +113,7 @@ When(/^I filter by organisation "(.*?)" with javascript enabled$/) do |organisat
 end
 
 When /^I visit the (publication|policy|news article|consultation) "([^"]*)"$/ do |document_type, title|
-  edition = document_class(document_type).find_by_title!(title)
+  edition = document_class(document_type).find_by!(title: title)
   visit public_document_path(edition)
 end
 
@@ -125,7 +125,7 @@ When(/^I filter by title or slug "(.*?)" with javascript enabled$/) do |title_or
 end
 
 When /^I preview "([^"]*)"$/ do |title|
-  edition = Edition.find_by_title!(title)
+  edition = Edition.find_by!(title: title)
   visit preview_document_path(edition)
 end
 
@@ -253,12 +253,12 @@ Then /^I should see the conflict between the (publication|policy|news article|co
 end
 
 Then /^my attempt to publish "([^"]*)" should fail$/ do |title|
-  edition = Edition.latest_edition.find_by_title!(title)
+  edition = Edition.latest_edition.find_by!(title: title)
   assert !edition.published?
 end
 
 Then /^my attempt to publish "([^"]*)" should succeed$/ do |title|
-  edition = Edition.latest_edition.find_by_title!(title)
+  edition = Edition.latest_edition.find_by!(title: title)
   assert edition.published?
 end
 
@@ -269,6 +269,6 @@ end
 
 When(/^I am on the edit page for (.*?) "(.*?)"$/) do |document_type, title|
   document_type = document_type.gsub(' ', '_')
-  document = document_type.classify.constantize.find_by_title(title)
+  document = document_type.classify.constantize.find_by(title: title)
   visit send("edit_admin_#{document_type}_path", document)
 end

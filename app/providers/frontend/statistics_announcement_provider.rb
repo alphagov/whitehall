@@ -30,11 +30,11 @@ module Frontend
     end
 
     def self.build_organisations(org_slugs)
-      Organisation.find_all_by_slug(org_slugs)
+      Organisation.where(slug: org_slugs)
     end
 
     def self.build_topics(topic_slugs)
-      Topic.find_all_by_slug(topic_slugs)
+      Topic.where(slug: topic_slugs)
     end
 
     def self.prepare_search_params(params)

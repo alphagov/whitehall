@@ -5,7 +5,7 @@ class Api::WorldLocationsController < PublicFacingController
   self.responder = Api::Responder
 
   def show
-    @world_location = WorldLocation.find_by_slug(params[:id])
+    @world_location = WorldLocation.find_by(slug: params[:id])
     if @world_location
       respond_with Api::WorldLocationPresenter.new(@world_location, view_context)
     else

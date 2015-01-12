@@ -28,7 +28,7 @@ EOS
 end
 
 When /^I view the detailed guide$/ do
-  guide = DetailedGuide.find_by_title!("Detailed guide with pages")
+  guide = DetailedGuide.find_by!(title: "Detailed guide with pages")
   visit detailed_guide_path(guide.document)
 end
 

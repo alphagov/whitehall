@@ -36,7 +36,7 @@ Then /^I should see the world location news article listed in admin with an indi
 end
 
 Then /^I should only see the world location news article on the French version of the public "([^"]*)" location page$/ do |world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name, locale: :fr)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   visit world_location_path(world_location, locale: :fr)
   within record_css_selector(@world_location_news_article) do
     assert page.has_content?(@world_location_news_article.title)
@@ -67,28 +67,28 @@ When /^I draft a valid world location news article "([^"]*)"$/ do |title|
 end
 
 Then /^the world location news article "([^"]*)" should have been created$/ do |title|
-  refute WorldLocationNewsArticle.find_by_title(title).nil?
+  refute WorldLocationNewsArticle.find_by(title: title).nil?
 end
 
 Then /^the worldwide organisation "([^"]+)" is listed as a producing org on the world location news article "([^"]+)"$/ do |world_org_name, world_news_title|
-  visit document_path(WorldLocationNewsArticle.find_by_title(world_news_title))
-  world_org = WorldwideOrganisation.find_by_name(world_org_name)
+  visit document_path(WorldLocationNewsArticle.find_by(title: world_news_title))
+  world_org = WorldwideOrganisation.find_by(name: world_org_name)
   within '.meta' do
     assert page.has_link?(world_org.name, href: worldwide_organisation_path(world_org)), "should have a link to #{world_org.name} as a producing org, but I don't"
   end
 end
 
 Then /^the topical event "([^"]+)" is listed as a topical event on the world location news article "([^"]+)"$/ do |topical_event_name, world_news_title|
-  visit document_path(WorldLocationNewsArticle.find_by_title(world_news_title))
-  topical_event = TopicalEvent.find_by_name(topical_event_name)
+  visit document_path(WorldLocationNewsArticle.find_by(title: world_news_title))
+  topical_event = TopicalEvent.find_by(name: topical_event_name)
   within '.meta' do
     assert page.has_link?(topical_event.name, href: topical_event_path(topical_event)), "should have a link to #{topical_event.name} as a topical event, but I don't"
   end
 end
 
 Then /^the world location news article "([^"]+)" appears on the world location "([^"]+)"$/ do |world_news_title, world_location_name|
-  visit world_location_path(WorldLocation.find_by_name(world_location_name))
-  world_location_news_article = WorldLocationNewsArticle.find_by_title(world_news_title)
+  visit world_location_path(WorldLocation.find_by(name: world_location_name))
+  world_location_news_article = WorldLocationNewsArticle.find_by(title: world_news_title)
   within record_css_selector(world_location_news_article) do
     assert page.has_content?(world_location_news_article.title)
   end

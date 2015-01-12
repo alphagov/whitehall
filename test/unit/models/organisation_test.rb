@@ -627,7 +627,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)
     organisation.destroy
-    assert_nil Contact.find_by_id(contact.id)
+    assert_nil Contact.find_by(id: contact.id)
   end
 
   test "can have associated social media accounts" do
@@ -640,7 +640,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     social_media_account = create(:social_media_account, socialable: organisation)
     organisation.destroy
-    assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
+    assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
   end
 
   test "can sponsor worldwide offices" do

@@ -20,7 +20,7 @@ class SearchIndexAddWorker
 private
 
   def searchable_instance
-    @searchable_instance ||= searchable_class.find_by_id(id)
+    @searchable_instance ||= searchable_class.find_by(id: id)
   end
 
   def searchable_class
