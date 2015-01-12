@@ -1,6 +1,6 @@
 class ClassificationMembership < ActiveRecord::Base
   belongs_to :edition
-  belongs_to :classification, foreign_key: :classification_id
+  belongs_to :classification, foreign_key: :classification_id, inverse_of: :classification_memberships
   belongs_to :topical_event, foreign_key: :classification_id
   belongs_to :topic, foreign_key: :classification_id
 

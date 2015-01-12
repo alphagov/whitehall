@@ -1,6 +1,6 @@
 class OrganisationRole < ActiveRecord::Base
-  belongs_to :organisation
-  belongs_to :role
+  belongs_to :organisation, inverse_of: :organisation_roles
+  belongs_to :role, inverse_of: :organisation_roles
 
-  validates :organisation_id, :role_id, presence: true
+  validates :organisation, :role, presence: true
 end

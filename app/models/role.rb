@@ -18,13 +18,13 @@ class Role < ActiveRecord::Base
            class_name: 'RoleAppointment'
   has_many :current_people, class_name: 'Person', through: :current_role_appointments, source: :person
 
-  has_many :organisation_roles
+  has_many :organisation_roles, inverse_of: :role
   has_many :organisations, through: :organisation_roles
 
-  has_many :worldwide_organisation_roles
+  has_many :worldwide_organisation_roles, inverse_of: :role
   has_many :worldwide_organisations, through: :worldwide_organisation_roles
 
-  has_many :historical_account_roles
+  has_many :historical_account_roles, inverse_of: :role
   has_many :historical_accounts, through: :historical_account_roles
 
   scope :alphabetical_by_person,     -> { includes(:current_people, :organisations).order('people.surname', 'people.forename') }

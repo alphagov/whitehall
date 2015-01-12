@@ -10,7 +10,7 @@ module Edition::WorldwideOrganisations
   end
 
   included do
-    has_many :edition_worldwide_organisations, foreign_key: :edition_id, dependent: :destroy
+    has_many :edition_worldwide_organisations, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
     has_many :worldwide_organisations, through: :edition_worldwide_organisations
 
     validate :at_least_one_worldwide_organisations

@@ -1,6 +1,6 @@
 class EditionWorldLocation < ActiveRecord::Base
   belongs_to :edition
-  belongs_to :world_location
+  belongs_to :world_location, inverse_of: :edition_world_locations
 
   validates :edition, :world_location, presence: true
 

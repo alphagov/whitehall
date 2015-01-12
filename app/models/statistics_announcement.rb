@@ -12,10 +12,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
     inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
-  has_many :statistics_announcement_topics, dependent: :destroy
+  has_many :statistics_announcement_topics, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :topics, through: :statistics_announcement_topics
 
-  has_many :statistics_announcement_organisations, dependent: :destroy
+  has_many :statistics_announcement_organisations, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication
