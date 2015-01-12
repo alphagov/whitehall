@@ -1,6 +1,6 @@
 class HtmlAttachment < Attachment
   extend FriendlyId
-  friendly_id :sluggable_string
+  friendly_id :title, use: :scoped, scope: :attachable
 
   has_one :govspeak_content,
     autosave: true, inverse_of: :html_attachment, dependent: :destroy
