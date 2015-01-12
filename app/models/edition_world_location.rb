@@ -4,5 +4,5 @@ class EditionWorldLocation < ActiveRecord::Base
 
   validates :edition, :world_location, presence: true
 
-  scope :with_translations, -> *locales { joins(edition: :translations).merge(Edition.with_locales(*locales)).merge(Edition.with_required_attributes) }
+  scope :with_translations, -> *locales { joins(edition: :translations).merge(Edition.with_locales(*locales)) }
 end

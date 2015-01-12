@@ -25,7 +25,7 @@ module Admin::TaggableContentHelper
   # ID of the organisation
   def taggable_organisations_container
     Rails.cache.fetch(taggable_organisations_cache_digest, expires_in: 1.day) do
-      Organisation.with_translations.order(:name).map { |o| [o.select_name, o.id] }
+      Organisation.with_translations.order('organisation_translations.name').map { |o| [o.select_name, o.id] }
     end
   end
 

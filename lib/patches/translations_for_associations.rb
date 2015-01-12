@@ -14,8 +14,7 @@ module TranslationsForAssociations
     locales = translation_class.translated_locales if locales.empty?
     includes(association => :translations).
       references(association).
-      merge(translation_class.with_locales(locales)).
-      merge(association_class.with_required_attributes)
+      merge(translation_class.with_locales(locales))
   end
 end
 
