@@ -6,7 +6,10 @@ class StatisticsAnnouncement < ActiveRecord::Base
   belongs_to :cancelled_by, class_name: 'User'
   belongs_to :publication
 
-  has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
+  has_one  :current_release_date,
+    -> { order('created_at DESC') },
+    class_name: 'StatisticsAnnouncementDate',
+    inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
   has_many :statistics_announcement_topics, dependent: :destroy
