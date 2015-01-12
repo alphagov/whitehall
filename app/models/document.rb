@@ -12,19 +12,21 @@ class Document < ActiveRecord::Base
   has_many :edition_relations, dependent: :destroy
 
   has_one  :published_edition,
+           -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
            class_name: 'Edition',
-           inverse_of: :document,
-           conditions: { state: Edition::PUBLICLY_VISIBLE_STATES }
+           inverse_of: :document
 
   has_one  :latest_edition,
-           class_name: 'Edition',
-           inverse_of: :document,
-           conditions: %(
-             NOT EXISTS (
+           -> {
+             where(%(
+               NOT EXISTS (
                SELECT 1 FROM editions e2
                WHERE e2.document_id = editions.document_id
                AND e2.id > editions.id
-               AND e2.state <> 'deleted'))
+               AND e2.state <> 'deleted')))
+           },
+           class_name: 'Edition',
+           inverse_of: :document
 
   has_many :document_sources, dependent: :destroy
   has_many :document_collection_group_memberships, dependent: :delete_all

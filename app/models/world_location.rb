@@ -3,9 +3,8 @@ class WorldLocation < ActiveRecord::Base
   has_many :editions,
             through: :edition_world_locations
   has_many :published_edition_world_locations,
-            class_name: "EditionWorldLocation",
-            include: :edition,
-            conditions: { editions: { state: "published" } }
+           -> { where(editions: { state: "published" }).includes(:edition) },
+           class_name: "EditionWorldLocation"
   has_many :published_editions,
             through: :published_edition_world_locations,
             source: :edition
@@ -16,7 +15,7 @@ class WorldLocation < ActiveRecord::Base
   has_many :worldwide_organisations, through: :worldwide_organisation_world_locations
   has_many :offsite_links, as: :parent
 
-  has_many :featured_links, as: :linkable, dependent: :destroy, order: :created_at
+  has_many :featured_links, -> { order(:created_at) }, as: :linkable, dependent: :destroy
   accepts_nested_attributes_for :featured_links, reject_if: -> attributes { attributes['url'].blank? }, allow_destroy: true
 
   include Featurable
