@@ -14,7 +14,7 @@ class LocaleTest < ActiveSupport::TestCase
   end
 
   test "provides a list of all right-to-left locales" do
-    I18n.stubs(:available_locales).returns([:en, :fr, :ar, :ca, :ur])
+    I18n.stubs(:available_locales).returns([:en, :fr, :ar, :ur])
     assert_equal [Locale.new(:ar), Locale.new(:ur)], Locale.right_to_left
   end
 
