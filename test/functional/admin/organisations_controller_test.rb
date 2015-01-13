@@ -407,4 +407,16 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  view_test "GET :features copes with topical events that have no dates" do
+    topical_event = create(:topical_event)
+    organisation = create(:organisation)
+    feature_list = organisation.load_or_create_feature_list('en')
+    feature_list.features.create!(topical_event: topical_event,
+                                  image: image_fixture_file,
+                                  alt_text: 'Image alternative text')
+
+
+    get :features, id: organisation, locale: 'en'
+    assert_response :success
+  end
 end

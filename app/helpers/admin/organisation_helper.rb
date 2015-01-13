@@ -57,4 +57,11 @@ module Admin::OrganisationHelper
       'hidden'
     end
   end
+
+  def topical_event_dates_string(topical_event)
+    [
+      topical_event.start_date.try(:to_date),
+      topical_event.end_date.try(:to_date)
+    ].compact.map { |date| l(date) }.join(' to ')
+  end
 end
