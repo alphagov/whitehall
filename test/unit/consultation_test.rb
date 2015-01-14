@@ -7,7 +7,6 @@ class ConsultationTest < ActiveSupport::TestCase
   should_be_attachable
   should_not_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-  should_support_linking_to_external_version
 
   [:imported, :deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do
@@ -47,6 +46,17 @@ class ConsultationTest < ActiveSupport::TestCase
       edition = build(:consultation, state: state, closing_at: nil)
       refute edition.valid?
     end
+  end
+
+  test "external consultations must have a valid external URL" do
+    edition = build(:consultation, external: true, external_url: nil)
+
+    refute edition.valid?
+    assert_equal "can't be blank", edition.errors[:external_url].first
+
+    edition.external_url = 'bad.url'
+    refute edition.valid?
+    assert_match /not valid/, edition.errors[:external_url].first
   end
 
   test "should be invalid if the opening time is after the closing time" do
