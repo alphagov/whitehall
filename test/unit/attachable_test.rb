@@ -147,7 +147,7 @@ class AttachableTest < ActiveSupport::TestCase
   test 'has html_attachments association to fetch only HtmlAttachments' do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:html_attachment, title: "Test HTML attachment"),
+      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
     ])
 
     attachment_3 = build(:html_attachment, title: 'Title', body: "Testing")
@@ -185,8 +185,8 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 're-editioned editions deep-clones attachments' do
-    file_attachment = build(:file_attachment, attachable: nil)
-    html_attachment = build(:html_attachment, attachable: nil)
+    file_attachment = build(:file_attachment, attachable: nil, ordering: 0)
+    html_attachment = build(:html_attachment, attachable: nil, ordering: 1)
     publication = create(:published_publication, :with_alternative_format_provider,
                     attachments: [file_attachment, html_attachment])
 
