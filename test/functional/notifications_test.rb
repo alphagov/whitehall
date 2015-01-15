@@ -54,7 +54,7 @@ end
 class NotificationsFactCheckResponseTest < ActionMailer::TestCase
   enable_url_helpers
 
-  include ActionController::RecordIdentifier
+  include ActionView::RecordIdentifier
   include Admin::EditionRoutesHelper
 
   setup do
