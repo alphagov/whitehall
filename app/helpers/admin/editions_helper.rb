@@ -223,7 +223,7 @@ module Admin::EditionsHelper
     grouped_options = MainstreamCategory.all.group_by {|c| c.parent_title}.map do |group, members|
       [group, members.map {|c| [c.title, c.id]}]
     end
-    grouped_options_for_select(grouped_options, selected, "")
+    grouped_options_for_select(grouped_options, selected, { prompt: "" })
   end
 
   def warn_about_lack_of_contacts_in_body?(edition)
