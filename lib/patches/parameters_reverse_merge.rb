@@ -3,10 +3,10 @@
 # This monkey patches #reverse_merge to set the value of permitted to match the
 # original, on the basis that if you're reverse_merging into an already
 # permitted hash you are probably happy with the new keys
-class ActionController::Parameters
-  def reverse_merge(other_hash)
-    super.tap do |hash|
-      hash.permitted = permitted
-    end
-  end
-end
+# class ActionController::Parameters
+#   def reverse_merge(other_hash)
+#     super.tap do |hash|
+#       hash.permitted = permitted
+#     end
+#   end
+# end
