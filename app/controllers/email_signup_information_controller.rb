@@ -21,6 +21,6 @@ private
   end
 
   def email_signup_pages
-    EmailSignupPagesFinder.find(organisation)
+    EmailSignupPagesFinder.signup_page_for_atom_url("#{organisation.slug}.atom").signup_pages
   end
 end
