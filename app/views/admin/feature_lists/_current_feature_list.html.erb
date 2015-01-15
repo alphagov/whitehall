@@ -11,7 +11,7 @@
   <% end %>
   <%= form_for feature_list, url: reorder_admin_feature_list_path(feature_list), method: :post do |form| %>
     <fieldset class="sortable">
-      <% @feature_list.features.current.each do |feature| %>
+      <% feature_list.features.current.each do |feature| %>
         <div class="well feature-list">
           <%= label_tag "ordering-#{feature.id}" do %>
             <div class="icon"><i class="icon-align-justify"></i></div>
@@ -25,7 +25,7 @@
             <% elsif feature.topical_event %>
               <div class="title"><%= link_to feature.topical_event, edit_admin_topical_event_path(feature.topical_event) %></div>
               <div class="type">Topical Event</div>
-              <div class="date"><%= l feature.topical_event.start_date.to_date %> to <%= l feature.topical_event.end_date.to_date %></div>
+              <div class="date"><%= topical_event_dates_string(feature.topical_event) %></div>
               <%= content_tag_for :div, feature.topical_event, class: "button" do %>
                 <%= link_to('Unfeature', unfeature_admin_feature_list_feature_path(feature_list, feature), confirm: "Unfeature '#{feature}'?", method: :post, class: "btn btn-danger") %>
               <% end %>
