@@ -20,7 +20,7 @@ private
     {
       count: "0",
       filter_organisations: [organisation.slug],
-      facet_specialist_sectors: "1000,examples:4,example_scope:global,order:value.title",
+      facet_specialist_sectors: "1000,examples:4,example_scope:query,order:value.title",
     }
   end
 end
