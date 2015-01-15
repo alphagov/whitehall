@@ -16,7 +16,7 @@ class PublishingTest < ActiveSupport::TestCase
     expected_attributes = @presenter.as_json.merge(
       # This is to simulate what the time public timestamp will be after the
       # edition has been published
-      public_updated_at: Time.zone.now.iso8601
+      public_updated_at: Time.zone.now.as_json
     )
     request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
 
@@ -30,11 +30,11 @@ class PublishingTest < ActiveSupport::TestCase
       @draft_edition.title = "French title"
       @draft_edition.save!
 
-      expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.iso8601)
+      expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.as_json)
       @french_request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
    end
 
-   expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.iso8601)
+   expected_attributes = @presenter.as_json.merge(public_updated_at: Time.zone.now.as_json)
    @english_request = stub_publishing_api_put_item(@presenter.base_path, expected_attributes)
 
    perform_force_publishing_for(@draft_edition)
