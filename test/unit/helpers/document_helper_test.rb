@@ -125,15 +125,10 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "#link_to_translation should generate a link based on the current controller action with the given locale" do
     controller.stubs(:url_options).returns({
-      host: "www.example.com",
-      port: 80,
-      protocol: "http://",
-      _path_segments: {
-        action: "activity",
-        controller: "worldwide_priorities",
-        locale: "it",
-        id: "a-worldwide-priority"
-      }
+      action: "activity",
+      controller: "worldwide_priorities",
+      locale: "it",
+      id: "a-worldwide-priority"
     })
     assert_dom_equal %Q(<a href="#{activity_worldwide_priority_path("a-worldwide-priority", :de)}">Deutsch</a>),
       link_to_translation(:de)
