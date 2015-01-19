@@ -93,13 +93,13 @@ class GovspeakHelperTest < ActionView::TestCase
     ], headers
   end
 
-  test "#html_attachment_govspeak_headers strips numbers from manually numbered HTML attachments" do
+  test "#html_attachment_govspeak_headers add number markup for manually numbered HTML attachments" do
     attachment = build(:html_attachment,
       body: "## 1. First\n\n## 2. Second\n\n### 2.1 Sub",
       manually_numbered_headings: true
     )
-    expected_headings = [Govspeak::Header.new("First", 2, "first"),
-                         Govspeak::Header.new("Second", 2, "second")]
+    expected_headings = [Govspeak::Header.new("<span class=\"heading-number\">1.</span> First", 2, "first"),
+                         Govspeak::Header.new("<span class=\"heading-number\">2.</span> Second", 2, "second")]
 
     assert_equal expected_headings, html_attachment_govspeak_headers(attachment)
   end
