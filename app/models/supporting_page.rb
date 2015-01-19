@@ -6,7 +6,7 @@ class SupportingPage < Edition
 
   validate :at_least_one_related_policy
 
-  has_many :organisations, -> { readonly }, through: :related_policies
+  has_many :organisations, -> { readonly.uniq }, through: :related_policies
 
   def sorted_organisations
     organisations.alphabetical
