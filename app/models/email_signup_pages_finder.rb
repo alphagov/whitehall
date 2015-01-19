@@ -1,34 +1,29 @@
 class EmailSignupPagesFinder
-
-  def self.signup_page_for_atom_url(atom_url)
-    special_cases.find { |c| atom_url.match(c.regex) }
+  def self.find(organisation)
+    case organisation.slug
+    when "medicines-and-healthcare-products-regulatory-agency"
+      mhra_email_signup_pages
+    end
   end
 
-private
+  def self.exists_for_atom_feed?(atom_feed_url)
+    atom_feed_url.ends_with?("medicines-and-healthcare-products-regulatory-agency.atom")
+  end
 
-  def self.special_cases
+  def self.mhra_email_signup_pages
     [
       OpenStruct.new(
-        regex: /medicines-and-healthcare-products-regulatory-agency.atom$/,
-        email_signup_path: self.route_helpers.organisation_email_signup_information_path("medicines-and-healthcare-products-regulatory-agency"),
-        signup_pages: [
-          OpenStruct.new(
-            text: "Drug alerts and medical device alerts",
-            description: "Subscribe to <a href='/drug-device-alerts/email-signup'>MHRA's alerts and recalls for drugs and medical devices</a>.".html_safe,
-          ),
-          OpenStruct.new(
-            text: "Drug Safety Update",
-            description: "Subscribe to the <a href='/drug-safety-update/email-signup'>Drug Safety Update</a>, the monthly newsletter for healthcare professionals, with clinical advice on the safe use of medicines.".html_safe,
-          ),
-          OpenStruct.new(
-            text: "News and publications from the MHRA",
-            description: "Subscribe to <a href='/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Forganisations%2Fmedicines-and-healthcare-products-regulatory-agency.atom'>MHRA's new publications, statistics, consultations and announcements</a>.".html_safe,
-          ),
-        ]
-      )
+        text: "Drug alerts and medical device alerts",
+        description: "Subscribe to <a href='/drug-device-alerts/email-signup'>MHRA's alerts and recalls for drugs and medical devices</a>.".html_safe,
+      ),
+      OpenStruct.new(
+        text: "Drug Safety Update",
+        description: "Subscribe to the <a href='/drug-safety-update/email-signup'>Drug Safety Update</a>, the monthly newsletter for healthcare professionals, with clinical advice on the safe use of medicines.".html_safe,
+      ),
+      OpenStruct.new(
+        text: "News and publications from the MHRA",
+        description: "Subscribe to <a href='/government/email-signup/new?email_signup%5Bfeed%5D=https%3A%2F%2Fwww.gov.uk%2Fgovernment%2Forganisations%2Fmedicines-and-healthcare-products-regulatory-agency.atom'>MHRA's new publications, statistics, consultations and announcements</a>.".html_safe,
+      ),
     ]
   end
-
-  def self.route_helpers; Rails.application.routes.url_helpers; end
-
 end
