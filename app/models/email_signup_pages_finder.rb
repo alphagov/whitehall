@@ -1,13 +1,16 @@
 class EmailSignupPagesFinder
   def self.find(organisation)
-    case organisation.slug
-    when "medicines-and-healthcare-products-regulatory-agency"
+    if organisation.slug == mhra_slug
       mhra_email_signup_pages
     end
   end
 
   def self.exists_for_atom_feed?(atom_feed_url)
-    atom_feed_url.ends_with?("medicines-and-healthcare-products-regulatory-agency.atom")
+    atom_feed_url.ends_with?(mhra_slug + ".atom")
+  end
+
+  def self.mhra_slug
+    "medicines-and-healthcare-products-regulatory-agency"
   end
 
   def self.mhra_email_signup_pages
