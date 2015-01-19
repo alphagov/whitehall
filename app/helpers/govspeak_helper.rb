@@ -50,7 +50,7 @@ module GovspeakHelper
   def html_attachment_govspeak_headers_html(attachment)
     content_tag(:ol, class: ('unnumbered' if attachment.manually_numbered_headings?)) do
       html_attachment_govspeak_headers(attachment).reduce('') do |html, header|
-        css_class = header_contains_manual_numbering?(header) ? 'numbered' : ''
+        css_class = header_contains_manual_numbering?(header) ? 'numbered' : nil
         html << content_tag(:li ,link_to(header.text, "##{header.id}"), class: css_class)
       end.html_safe
     end
