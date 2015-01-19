@@ -87,8 +87,10 @@ Then(/^no govuk_delivery notifications should have been sent yet$/) do
   mock_govuk_delivery_client.refute_method_called(:notify)
 end
 
-When(/^I visit the "(.*?)" organisation email signup information page$/) do |org_name|
-  visit_organisation_email_signup_information_page(org_name)
+When(/^click the link for the latest email alerts$/) do
+  within '.feeds' do
+    click_on 'email'
+  end
 end
 
 Then(/^I should see email signup information for "(.*?)"$/) do |organisation_name|
