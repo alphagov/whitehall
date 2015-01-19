@@ -1,3 +1,8 @@
+# Utility class used to identify and return the information for an
+# organisation's custom email signup page.
+#
+# Only the MHRA has such a page at present and the class is hardcoded with this
+# knowledge.
 class EmailSignupPagesFinder
   def self.find(organisation)
     if organisation.slug == mhra_slug
