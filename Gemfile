@@ -69,6 +69,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'test-queue'
   gem 'ruby-prof'
+  gem 'pry-byebug'
 end
 
 group :development do
