@@ -506,7 +506,10 @@ img.organisation-logo-custom {
 
 // Non-cornforming Medium
 .organisation-logo-no-identity-medium {
-  border-left: 0;
+  // No-op attribute to stop `.organisation-logo-no-identity-medium` not being
+  // extendable, as it technically contains no attributes (as the MQ is hoisted)
+  z-index: auto;
+
   @include media(tablet){
     font-size: 18px;
     line-height: 20px;
