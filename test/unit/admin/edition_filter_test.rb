@@ -259,7 +259,9 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
   test "editions_for_csv should not be paginated" do
     3.times { create(:policy) }
     filter = Admin::EditionFilter.new(Edition, build(:user), per_page: 2)
-    assert_equal 3, filter.editions_for_csv.count
+    count = 0
+    filter.each_edition_for_csv { |unused| count += 1}
+    assert_equal 3, count
   end
 
 end
