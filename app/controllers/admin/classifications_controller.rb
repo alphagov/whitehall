@@ -24,7 +24,7 @@ class Admin::ClassificationsController < Admin::BaseController
   end
 
   def update
-    @classification = model_class.find(params[:id])
+    @classification = model_class.friendly.find(params[:id])
     if @classification.update_attributes(object_params)
       redirect_to [:admin, @classification], notice: "#{human_friendly_model_name} updated"
     else
@@ -33,7 +33,7 @@ class Admin::ClassificationsController < Admin::BaseController
   end
 
   def destroy
-    @classification = model_class.find(params[:id])
+    @classification = model_class.friendly.find(params[:id])
     @classification.delete!
     if @classification.deleted?
       redirect_to [:admin, model_class], notice: "#{human_friendly_model_name} destroyed"
@@ -51,7 +51,7 @@ class Admin::ClassificationsController < Admin::BaseController
   end
 
   def load_object
-    @classification = model_class.find(params[:id])
+    @classification = model_class.friendly.find(params[:id])
   end
 
   def model_name
