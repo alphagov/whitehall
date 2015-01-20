@@ -51,7 +51,7 @@ private
     if current_user.nil?
       super
     else
-      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+      expires_now
     end
   end
 
