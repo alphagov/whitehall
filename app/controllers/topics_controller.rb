@@ -2,7 +2,7 @@ class TopicsController < ClassificationsController
   enable_request_formats show: :atom
 
   def show
-    @classification = Topic.find(params[:id])
+    @classification = Topic.friendly.find(params[:id])
 
     respond_to do |format|
       format.html do

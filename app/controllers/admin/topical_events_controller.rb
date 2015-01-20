@@ -3,12 +3,12 @@ class Admin::TopicalEventsController < Admin::ClassificationsController
   before_filter :destroy_blank_social_media_accounts, only: [:create, :update]
 
   def update
-    @classification = model_class.find(params[:id])
+    @classification = TopicalEvent.friendly.find(params[:id])
     if @classification.update_attributes(object_params)
       if object_params[:classification_featurings_attributes]
         redirect_to [:admin, @classification, :classification_featurings], notice: "Order of featured items updated"
       else
-        redirect_to [:admin, model_class.new], notice: "#{human_friendly_model_name} updated"
+        redirect_to [:admin, TopicalEvent.new], notice: "#{human_friendly_model_name} updated"
       end
     else
       render action: "edit"
