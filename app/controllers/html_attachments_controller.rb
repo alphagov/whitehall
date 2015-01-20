@@ -14,7 +14,7 @@ private
 
   def set_cache_control_headers
     if previewing?
-      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+      expires_now
     else
       super
     end

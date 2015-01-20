@@ -277,7 +277,7 @@ module DocumentControllerTestHelpers
         login_as create(:departmental_editor)
         get :show, id: document.id, preview: draft_edition.id
         assert_response 200
-        assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
+        assert_cache_control 'no-cache'
       end
 
       test "#{document_type} preview should be hidden from public" do
@@ -299,7 +299,7 @@ module DocumentControllerTestHelpers
         get :show, id: draft.document.id, preview: draft.id
 
         assert_response 200
-        assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
+        assert_cache_control 'no-cache'
       end
 
       test "access limited #{document_type} preview should be hidden for unauthorised users" do

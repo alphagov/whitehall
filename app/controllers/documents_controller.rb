@@ -61,7 +61,7 @@ private
     return unless current_user_can_preview?
     document = document_class.with_translations(I18n.locale).find(params[:preview])
     if can_preview?(document)
-      response.headers['Cache-Control'] = 'no-cache, max-age=0, private'
+      expires_now
       document
     end
   end

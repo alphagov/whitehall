@@ -129,7 +129,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
 
     assert_response :success
-    assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
+    assert_cache_control 'no-cache'
     assert_match attachment_data.filename, response.headers['Content-Disposition']
     assert_match /^inline;/, response.headers['Content-Disposition']
   end
