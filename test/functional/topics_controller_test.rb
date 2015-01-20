@@ -155,10 +155,8 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   view_test 'GET :show for atom feed has the right elements' do
-    topic = build(:topic, id: 1)
-    policy = create(:published_policy)
-    topic.stubs(:latest).returns([policy])
-    Topic.stubs(:find).returns(topic)
+    topic = create(:topic)
+    policy = create(:published_policy, topics: [topic])
 
     get :show, id: topic, format: :atom
 
@@ -175,9 +173,7 @@ class TopicsControllerTest < ActionController::TestCase
   end
 
   test 'GET :show has a 5 minute expiry time' do
-    topic = build(:topic)
-    Topic.stubs(:find).returns(topic)
-
+    topic = create(:topic)
     get :show, id: topic
 
     assert_cache_control("max-age=#{5.minutes}")
