@@ -26,7 +26,6 @@ gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
 gem 'shared_mustache', '~> 0.1.3'
 gem 'rails-i18n'
-gem 'globalize', '~> 4.0.3'
 gem 'link_header'
 gem 'logstasher', '0.6.2'
 gem 'chronic'
@@ -43,6 +42,12 @@ gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
 gem 'json-schema', '2.5.0'
 gem 'rails-observers'
+
+if ENV['GLOBALIZE_DEV']
+  gem 'globalize', path: '../globalize'
+else
+  gem 'globalize', github: 'tekin/globalize', ref: 'transalted-model-touch-issue'
+end
 
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
