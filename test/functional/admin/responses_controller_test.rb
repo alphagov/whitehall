@@ -17,7 +17,7 @@ class Admin::ResponsesControllerTest < ActionController::TestCase
 
   test 'Access is forbidden to users who do not have access to the consultation' do
     login_as :world_editor
-    get :show, consultation_id: @consultation
+    get :show, consultation_id: @consultation, type: 'ConsultationOutcome'
     assert_response :forbidden
   end
 

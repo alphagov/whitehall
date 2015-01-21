@@ -262,51 +262,16 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should prevent viewing or modification of limited access editions which I don't have access to" do
+  test "prevents revising of access-limited editions" do
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
-    get :show, id: inaccessible
-    assert_response :forbidden
-
-    get :edit, id: inaccessible
-    assert_response :forbidden
-
-    put :update, id: inaccessible, edition: {summary: "new-summary"}
-    assert_response :forbidden
-
     post :revise, id: inaccessible
     assert_response :forbidden
-
-    delete :destroy, id: inaccessible
-    assert_response :forbidden
   end
 
-  test "should redirect to the next document imported without changing state when 'Save and Next' is clicked" do
-    first_document, second_document = *create_list(:imported_publication, 2)
-    Import.stubs(:source_of).returns(mock(document_imported_before: second_document))
-
-    first_document_latest_edition = first_document.latest_edition
-    put :update, id: first_document_latest_edition, speed_save_next: 1, edition: {
-      title: "new-title",
-      body: "new-body"
-    }
-
-    first_document_latest_edition.reload
-    assert first_document_latest_edition.imported?
-    assert_redirected_to admin_edition_path(second_document.latest_edition)
-  end
-
-  test "re-renders the show page when there are errors during speed tagging update" do
-    imported_news_article = create(:imported_news_article, title: 'News article')
-    put :update, id: imported_news_article, speed_save: 'Save', edition: { title: '' }
-
-    assert_response :success
-    assert_template :show
-    assert_equal 'News article', imported_news_article.reload.title
-  end
-
+private
 
   def stub_edition_filter(attributes = {})
     default_attributes = {

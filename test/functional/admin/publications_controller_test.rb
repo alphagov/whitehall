@@ -118,6 +118,24 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     refute_select ".force-publish"
   end
 
+  test "prevents CRUD operations on access-limited publications" do
+    my_organisation, other_organisation = create(:organisation), create(:organisation)
+    login_as(create(:user, organisation: my_organisation))
+    inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
+
+    get :show, id: inaccessible
+    assert_response :forbidden
+
+    get :edit, id: inaccessible
+    assert_response :forbidden
+
+    put :update, id: inaccessible, edition: { summary: "new-summary" }
+    assert_response :forbidden
+
+    delete :destroy, id: inaccessible
+    assert_response :forbidden
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

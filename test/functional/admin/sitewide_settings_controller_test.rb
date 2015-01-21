@@ -7,12 +7,18 @@ class Admin::SitewideSettingsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  [:index, :edit, :update].each do |action_method|
-    test "GDS editor permission required to access #{action_method}" do
+  [:edit, :update].each do |action_method|
+    test "#{action_method} action is not permitted to non-GDS editors" do
       login_as :departmental_editor
-      get action_method
-      assert_response 403
+      get action_method, id: 1
+      assert_response :forbidden
     end
+  end
+
+  test "#index action is not permitted to non-GDS editors" do
+    login_as :departmental_editor
+    get :index
+    assert_response :forbidden
   end
 
   test "PUT on :update updates the sitewide setting" do
