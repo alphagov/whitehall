@@ -14,7 +14,9 @@ class DocumentListExportWorkerTest < ActiveSupport::TestCase
   end
 
   test 'generate_csv calls presenter once for each edition' do
-    @worker.stubs(:create_filter).returns(stub(editions_for_csv: [1, 2, 3]))
+    filter = mock()
+    filter.expects(:each_edition_for_csv).multiple_yields(1, 2, 3)
+    @worker.stubs(:create_filter).returns(filter)
     @worker.stubs(:send_mail)
     DocumentListExportPresenter.expects(:new).returns(stub(row: [])).times(3)
     @worker.perform({"state" =>"draft"}, @user.id)

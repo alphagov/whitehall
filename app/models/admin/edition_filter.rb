@@ -27,12 +27,10 @@ module Admin
       ).page(options[:page])
     end
 
-    def editions_for_csv(locale = nil)
-      @editions_for_csv ||= {}
-      return @editions_for_csv[locale] if @editions_for_csv[locale]
-
-      requested_editions = editions_with_translations(locale)
-      @editions_for_csv[locale] = permitted_only(requested_editions)
+    def each_edition_for_csv(locale = nil)
+      editions_with_translations(locale).find_each do |edition|
+        yield edition if Whitehall::Authority::Enforcer.new(@current_user, edition).can?(:see)
+      end
     end
 
     def page_title
