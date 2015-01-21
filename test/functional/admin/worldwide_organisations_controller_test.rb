@@ -9,7 +9,6 @@ class Admin::WorldwideOrganisationsControllerTest < ActionController::TestCase
 
   test "shows a list of worldwide organisations" do
     organisation = create(:worldwide_organisation)
-    WorldwideOrganisation.stubs(all: [organisation])
     get :index
     assert_equal [organisation], assigns(:worldwide_organisations)
   end
