@@ -4,13 +4,14 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
   setup do
     login_as :policy_writer
     @policy = create(:policy)
+    Rails.backtrace_cleaner.remove_silencers!
   end
 
   should_be_an_admin_controller
 
   test "AJAX POST :create saves a LinksReport and queues it for processing" do
     Sidekiq::Testing.fake! do
-      xhr :post, :create, policy_id: @policy.id
+      xhr :post, :create, links_report: {}, edition_id: @policy.id
 
       assert_response :success
       assert_template :create
@@ -23,7 +24,7 @@ class Admin::LinksReportsControllerTest < ActionController::TestCase
 
   test "POST :create queues a LinksReport and redirects back to the edition" do
     Sidekiq::Testing.fake! do
-      post :create, policy_id: @policy.id
+      post :create, edition_id: @policy.id
 
       assert_redirected_to admin_policy_url(@policy)
 

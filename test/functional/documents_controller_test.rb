@@ -3,9 +3,7 @@
 require "test_helper"
 
 class DocumentsControllerTest < ActionController::TestCase
-  setup do
-    DocumentsController.any_instance.stubs(document_class: Publication)
-  end
+  tests PublicationsController
 
   test "show responds with 'not found' and default cache control 'max-age' if no document (scheduled for publication or otherwise) exists" do
     login_as(:departmental_editor)

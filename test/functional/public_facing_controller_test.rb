@@ -52,14 +52,14 @@ class PublicFacingControllerTest < ActionController::TestCase
   end
 
   test "all public facing requests are publically cacheable" do
-    with_routing_to_test_action do
+    with_routing_for_test_controller do
       get :test
       assert response.headers["Cache-Control"].split(", ").include?("public")
     end
   end
 
   test "all public facing requests are considered stale after default_cache_max_age" do
-    with_routing_to_test_action do
+    with_routing_for_test_controller do
       get :test
       assert response.headers["Cache-Control"].split(", ").include?("max-age=#{Whitehall.default_cache_max_age.to_i}")
     end
@@ -69,7 +69,7 @@ class PublicFacingControllerTest < ActionController::TestCase
     mime_types = ["text/html", "application/xhtml+xml"]
 
     mime_types.each do |type|
-      with_routing_to_test_action do
+      with_routing_for_test_controller do
         @request.env['HTTP_ACCEPT'] = type
         get :test
         assert_equal 200, response.status, "mime type #{type} should be acceptable"
@@ -79,55 +79,63 @@ class PublicFacingControllerTest < ActionController::TestCase
   end
 
   test "non-HTML requests are rejected by default" do
-    [:json, :xml, :atom].each do |format|
-      get :test, format: format
+    with_routing_for_test_controller do
+      [:json, :xml, :atom].each do |format|
+        get :test, format: format
 
-      assert_response :not_acceptable
+        assert_response :not_acceptable
+      end
     end
   end
 
   test "additional formats can be explicitly enabled" do
-    get :json
-    assert_response :success
-    assert_equal Mime::HTML, response.content_type
-    assert_equal 'html', response.body
+    with_routing_for_test_controller do
+      get :json
+      assert_response :success
+      assert_equal Mime::HTML, response.content_type
+      assert_equal 'html', response.body
 
-    get :json, format: :json
-    assert_response :success
-    assert_equal Mime::JSON, response.content_type
-    assert_equal '{}', response.body
+      get :json, format: :json
+      assert_response :success
+      assert_equal Mime::JSON, response.content_type
+      assert_equal '{}', response.body
 
-    get :json, format: :atom
-    assert_response :not_acceptable
+      get :json, format: :atom
+      assert_response :not_acceptable
+    end
   end
 
   test "multiple formats can be enabled" do
-    get :js_or_atom
-    assert_response :success
-    assert_equal Mime::HTML, response.content_type
-    assert_equal 'html', response.body
+    with_routing_for_test_controller do
+      get :js_or_atom
+      assert_response :success
+      assert_equal Mime::HTML, response.content_type
+      assert_equal 'html', response.body
 
-    get :js_or_atom, format: :js
-    assert_response :success
-    assert_equal Mime::JS, response.content_type
-    assert_equal 'javascript', response.body
+      get :js_or_atom, format: :js
+      assert_response :success
+      assert_equal Mime::JS, response.content_type
+      assert_equal 'javascript', response.body
 
-    get :js_or_atom, format: :atom
-    assert_response :success
-    assert_equal Mime::ATOM, response.content_type
-    assert_equal 'atom', response.body
+      get :js_or_atom, format: :atom
+      assert_response :success
+      assert_equal Mime::ATOM, response.content_type
+      assert_equal 'atom', response.body
 
-    get :js_or_atom, format: :json
-    assert_response :not_acceptable
+      get :js_or_atom, format: :json
+      assert_response :not_acceptable
+    end
   end
 
   test "returns an appropriate response for unrecognised/invalid request formats" do
-    get :test, format: 'atom\\'
-    assert_response :not_acceptable
+    with_routing_for_test_controller do
+      get :test, format: 'atom\\'
+      assert_response :not_acceptable
+    end
   end
 
   test "all public facing requests without a locale should use the default locale" do
-    with_routing_to_test_action do
+    with_routing_for_test_controller do
       I18n.default_locale = :dr
       get :locale
       assert_equal 'dr', response.body
@@ -135,7 +143,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   end
 
   test "all public facing requests with a locale should use the given locale" do
-    with_routing_to_test_action do
+    with_routing_for_test_controller do
       I18n.default_locale = :tr
       get :locale, locale: 'fr'
       assert_equal 'fr', response.body
@@ -143,7 +151,7 @@ class PublicFacingControllerTest < ActionController::TestCase
   end
 
   test "all public facing requests with a locale should reset locale back to its original value after completion" do
-    with_routing_to_test_action do
+    with_routing_for_test_controller do
       I18n.locale = :dr
       get :locale, locale: 'fr'
       assert_equal :dr, I18n.locale
@@ -151,27 +159,31 @@ class PublicFacingControllerTest < ActionController::TestCase
   end
 
   test "public facing controllers catch GDS API timeouts and error responses and renders a 500 response" do
-    get :api_timeout
-    assert_response :internal_server_error
-  end
-
-  test "public facing controllers catch 502 errors from GDS API and renders a 500 response" do
-    get :api_bad_gateway
-    assert_response :internal_server_error
-  end
-
-  test "public facing controllers do not catch other GDS API errors" do
-    assert_raise GdsApi::HTTPErrorResponse do
-      get :api_error
+    with_routing_for_test_controller do
+      get :api_timeout
+      assert_response :internal_server_error
     end
   end
 
-  def with_routing_to_test_action(&block)
+  test "public facing controllers catch 502 errors from GDS API and renders a 500 response" do
+    with_routing_for_test_controller do
+      get :api_bad_gateway
+      assert_response :internal_server_error
+    end
+  end
+
+  test "public facing controllers do not catch other GDS API errors" do
+    with_routing_for_test_controller do
+      assert_raise GdsApi::HTTPErrorResponse do
+        get :api_error
+      end
+    end
+  end
+
+  def with_routing_for_test_controller(&block)
     with_routing do |map|
       map.draw do
-        get '/search' => 'search#index'
-        get '/test', to: 'public_facing_controller_test/test#test'
-        get '/locale', to: 'public_facing_controller_test/test#locale'
+        get '/test/:action(.:format)', controller: 'public_facing_controller_test/test'
       end
       yield
     end
