@@ -27,6 +27,18 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments(true)
   end
 
+  test "creating a new attachable thing with multiple attachments sets the correct ordering" do
+    publication = build(:publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment),
+      attachment_2 = build(:file_attachment, file: file_fixture('whitepaper.pdf'))
+    ])
+
+    publication.save!
+    assert_equal [attachment_1, attachment_2], publication.attachments
+    assert_equal 0, attachment_1.ordering
+    assert_equal 1, attachment_2.ordering
+  end
+
   test "should be invalid if an edition has an attachment but no alternative format provider" do
     attachment = build(:file_attachment)
     publication = build(:publication, attachments: [attachment], alternative_format_provider: nil)
