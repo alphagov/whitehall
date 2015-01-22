@@ -96,7 +96,7 @@ class Import < ActiveRecord::Base
   end
 
   def success_count
-    status == :finished ? documents.count(distinct: true) : 0
+    status == :finished ? documents.distinct.count : 0
   end
 
   def most_recent_force_publication_attempt
@@ -159,7 +159,7 @@ class Import < ActiveRecord::Base
   end
 
   def number_of_rows_with_errors
-    import_errors.count(:row_number, distinct: true)
+    import_errors.distinct.count(:row_number)
   end
 
   def perform(options = {})
