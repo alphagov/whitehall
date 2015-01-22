@@ -1,0 +1,21 @@
+.html-publications-show {
+  nav.in-page-navigation {
+    display: block!important;
+  }
+  .unnumbered {
+    list-style: none;
+    li {
+      margin-left: 0;
+      padding: 0 0 $gutter-one-sixth 0;
+      .heading-number {
+        font-weight: bold;
+      }
+    }
+  }
+  // I may move this to static after a bigger review of print stylesheets
+  ul {
+    li {
+      margin-left: $gutter-two-thirds;
+    } 
+  }
+}
