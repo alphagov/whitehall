@@ -135,8 +135,8 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
         logo_formatted_name: '',
       }
 
+    refute @organisation.available_in_locale?('fr')
     translation_path = admin_organisation_translation_path(@organisation, 'fr')
-
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]"
   end
 
