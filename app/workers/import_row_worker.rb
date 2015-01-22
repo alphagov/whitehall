@@ -45,14 +45,14 @@ protected
   def save_translation!(model, row)
     translation = LocalisedModel.new(model, row.translation_locale)
 
-    if translation.update_attributes(row.translation_attributes)
-      if locale = Locale.find_by_code(row.translation_locale.to_s)
+    if locale = Locale.find_by_code(row.translation_locale.to_s)
+      if translation.update_attributes(row.translation_attributes)
         DocumentSource.create!(document: model.document, url: row.translation_url, locale: locale.code, import: import, row_number: row.line_number)
       else
-        progress_logger.error("Locale not recognised", row.line_number)
+        record_errors_for(translation, row.line_number, true)
       end
     else
-      record_errors_for(translation, row.line_number, true)
+      progress_logger.error("Locale not recognised", row.line_number)
     end
   end
 
