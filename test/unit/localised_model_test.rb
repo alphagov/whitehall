@@ -64,4 +64,16 @@ class LocalisedModelTest < ActiveSupport::TestCase
     localised_model = LocalisedModel.new(number, :es, [:contact])
     assert_equal :es, localised_model.contact.fixed_locale
   end
+
+  test "#update_attributes with invalid attributes fails" do
+    model = create(:news_article)
+    localised_model = LocalisedModel.new(model, :es)
+    refute localised_model.update_attributes(title: '')
+    assert_equal ["can't be blank"], localised_model.errors[:title]
+
+    organisation = create(:organisation)
+    localised_model = LocalisedModel.new(organisation, :fr)
+    refute localised_model.update_attributes(name: '')
+    assert_equal ["can't be blank"], localised_model.errors[:name]
+  end
 end
