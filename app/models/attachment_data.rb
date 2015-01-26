@@ -9,7 +9,7 @@ class AttachmentData < ActiveRecord::Base
 
   before_save :update_file_attributes
 
-  validates :file, presence: true
+  validates :file, presence: true, unless: :virus_scan_pending?
   validate :file_is_not_empty
 
   attr_accessor :to_replace_id
@@ -97,6 +97,8 @@ class AttachmentData < ActiveRecord::Base
     end
   end
 
+private
+
   def cant_be_replaced_by_self
     return if replaced_by.nil?
     errors.add(:base, "can't be replaced by itself") if replaced_by == self
@@ -115,5 +117,9 @@ class AttachmentData < ActiveRecord::Base
 
   def file_is_not_empty
     errors.add(:file, "is an empty file") if file.present? && file.file.size.to_i == 0
+  end
+
+  def virus_scan_pending?
+    path.present? && virus_status == :pending
   end
 end

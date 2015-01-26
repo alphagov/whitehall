@@ -56,4 +56,19 @@ class FileAttachmentTest < ActiveSupport::TestCase
     attachment_data.expects(:destroy)
     attachment.destroy
   end
+
+  test "update with empty nested attachment data attributes still works" do
+    attachment = create(:file_attachment)
+
+    params = {
+      'title' => 'Filename',
+      'attachment_data_attributes' => {
+        'file_cache' => '', 'to_replace_id' => attachment.attachment_data.id
+      }
+    }
+    attachment.reload
+
+    assert attachment.update_attributes(params), attachment.errors.full_messages.to_sentence
+    assert_equal 'Filename', attachment.title
+  end
 end
