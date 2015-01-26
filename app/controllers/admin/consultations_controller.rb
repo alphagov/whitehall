@@ -1,6 +1,4 @@
 class Admin::ConsultationsController < Admin::EditionsController
-  include Admin::EditionsController::NationalApplicability
-
   before_filter :cope_with_consultation_response_form_data_action_params, only: [:update]
 
   private
