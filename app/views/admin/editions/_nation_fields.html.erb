@@ -1,14 +1,19 @@
 <fieldset class="excluded_nations">
   <legend>Excluded nations</legend>
-  <%= form.fields_for :nation_inapplicabilities do |ni_fields| %>
-    <%= content_tag_for(:div, ni_fields.object.nation, class: 'control-group') do %>
-      <div class="control">
-        <%= ni_fields.check_box :excluded, label_text: ni_fields.object.nation.name, checked: ni_fields.object.excluded? %>
-      </div>
-      <div class="control">
-        <%= ni_fields.text_field :alternative_url %>
-        <%= ni_fields.hidden_field :nation_id %>
-      </div>
+
+  <% Nation.potentially_inapplicable.each do |nation| %>
+    <% inapplicability = edition.nation_inapplicabilities.detect {|i| i.nation == nation } || edition.nation_inapplicabilities.build(nation: nation) %>
+
+    <%= form.fields_for :nation_inapplicabilities, inapplicability do |ni_fields| %>
+      <%= content_tag_for(:div, ni_fields.object.nation, class: 'control-group') do %>
+        <div class="control">
+          <%= ni_fields.check_box :excluded, label_text: nation.name, checked: ni_fields.object.excluded? %>
+        </div>
+        <div class="control">
+          <%= ni_fields.text_field :alternative_url %>
+          <%= ni_fields.hidden_field :nation_id %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </fieldset>
