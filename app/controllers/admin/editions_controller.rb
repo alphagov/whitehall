@@ -39,7 +39,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def index
     if filter && filter.valid?
-      session[:document_filters] = params_filters
+      session[:document_filters] = params_filters.to_hash
       if request.xhr?
         render partial: 'search_results'
       else
