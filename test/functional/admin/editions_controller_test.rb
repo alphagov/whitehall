@@ -129,35 +129,36 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "should remember standard filter options" do
     get :index, state: :draft, type: 'consultation'
-    assert_equal 'consultation', session[:document_filters][:type]
+    assert_equal 'consultation', session[:document_filters]['type']
   end
 
   test "should remember author filter options" do
     get :index, state: :draft, author: current_user
-    assert_equal current_user.to_param, session[:document_filters][:author]
+    assert_equal current_user.to_param, session[:document_filters]['author']
   end
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
     get :index, state: :draft, organisation: organisation
-    assert_equal organisation.to_param, session[:document_filters][:organisation]
+    assert_equal organisation.to_param, session[:document_filters]['organisation']
   end
 
   test "should remember state filter options" do
     get :index, state: :draft
-    assert_equal 'draft', session[:document_filters][:state]
+    assert_equal 'draft', session[:document_filters]['state']
   end
 
   test "should remember title filter options" do
     get :index, title: "test"
-    assert_equal "test", session[:document_filters][:title]
+    assert_equal "test", session[:document_filters]['title']
   end
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    session[:document_filters] = { state: :submitted, author: current_user.to_param, organisation: organisation.to_param }
+    get :index, state: :draft, organisation: organisation, state: :submitted
+
     get :index
-    assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation)
   end
 
   test "index should redirect to remembered filtered options if selected filter is invalid" do
