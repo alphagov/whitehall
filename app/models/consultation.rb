@@ -16,8 +16,6 @@ class Consultation < Publicationesque
   has_one :public_feedback, class_name: 'ConsultationPublicFeedback', foreign_key: :edition_id, dependent: :destroy
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
 
-  after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
-
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
 
   scope :closed, -> { where("closing_at < ?",  Time.zone.now) }
