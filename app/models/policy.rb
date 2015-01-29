@@ -10,6 +10,11 @@ class Policy < Edition
   include Edition::WorldLocations
   include Edition::WorldwidePriorities
 
+
+  extend DeprecatedColumns
+  # FIXME: Pending migration in db/pending_migration_cleanups to remove this column
+  deprecated_columns :published_related_publication_count
+
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
   has_many :published_related_editions,
@@ -66,10 +71,6 @@ class Policy < Edition
 
   def can_apply_to_local_government?
     true
-  end
-
-  def update_published_related_publication_count
-    update_column(:published_related_publication_count, published_related_publications.count)
   end
 
   def translatable?

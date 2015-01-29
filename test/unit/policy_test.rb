@@ -106,42 +106,6 @@ class PolicyTest < ActiveSupport::TestCase
     assert_equal [case_study_1, case_study_2].to_set, edition.case_studies.to_set
   end
 
-  test "should update count of published related publicationesques for publications" do
-    policy = create(:published_policy)
-    assert_equal 0, policy.published_related_publication_count
-
-    publication = create(:published_publication)
-    edition_relation = create(:edition_relation, document: policy.document, edition: publication)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    publication.update_attributes(state: :draft)
-    assert_equal 0, policy.reload.published_related_publication_count
-
-    publication.update_attributes(state: :published)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    edition_relation.reload.destroy
-    assert_equal 0, policy.reload.published_related_publication_count
-  end
-
-  test "should update count of published related publicationesques for consultations" do
-    policy = create(:published_policy)
-    assert_equal 0, policy.published_related_publication_count
-
-    consultation = create(:published_consultation)
-    edition_relation = create(:edition_relation, document: policy.document, edition: consultation)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    consultation.update_attributes(state: :draft)
-    assert_equal 0, policy.reload.published_related_publication_count
-
-    consultation.update_attributes(state: :published)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    edition_relation.reload.destroy
-    assert_equal 0, policy.reload.published_related_publication_count
-  end
-
   test "search_index contains topics" do
     policy = create(:published_policy, :with_document, title: "my title", topics: [create(:topic)])
 
