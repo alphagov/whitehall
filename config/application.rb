@@ -3,9 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require "rails"
 require 'active_record'
 
-unless ENV["SKIP_OBSERVERS_FOR_ASSET_TASKS"].present?
-  require "active_record/railtie"
-end
+require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "rails/test_unit/railtie"
@@ -36,14 +34,10 @@ module Whitehall
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
-    # Activate observers that should always be running.
-    # Active record will be disabled when compiling assets.
-    if config.respond_to?(:active_record)
-      config.active_record.observers = [
-        :ministerial_role_search_index_observer,
-        :corporate_information_page_search_index_observer
-      ]
-    end
+    config.active_record.observers = [
+      :ministerial_role_search_index_observer,
+      :corporate_information_page_search_index_observer
+    ]
 
     config.active_record.disable_implicit_join_references = true
 
