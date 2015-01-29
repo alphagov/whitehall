@@ -45,16 +45,10 @@
 
 // Suitable for page headings
 @mixin ig-core-48 {
-  font-family: $NTA-Light;
-  font-size: 48px;
-  line-height: 1.0416666667; // 50 / 48
-  font-weight: 400;
-  text-transform: none;
+  @include core-48;
   padding-top: 12px;
   padding-bottom: 8px;
   @media (max-width: 640px) {
-    font-size: 25px;
-    line-height: (30/25);
     padding-top: 8px;
     padding-bottom: 7px;
   }
@@ -62,16 +56,10 @@
 
 // Suitable for page headings
 @mixin ig-core-36 {
-  font-family: $NTA-Light;
-  font-size: 36px;
-  line-height: 1.1111111111; // 40/36
-  font-weight: 400;
-  text-transform: none;
+  @include core-36;
   padding-top: 6px;
   padding-bottom: 9px;
   @media (max-width: 640px) {
-    font-size: 24px;
-    line-height: (25/24);
     padding-top: 8px;
     padding-bottom: 7px;
   }
@@ -79,16 +67,10 @@
 
 // Suitable for body headings
 @mixin ig-core-27 {
-  font-family: $NTA-Light;
-  font-size: 27px;
-  line-height: 1.1111111111; // 30px
-  font-weight: 400;
-  text-transform: none;
+  @include core-27;
   padding-top: 2px;
   padding-bottom: 3px;
   @media (max-width: 640px) {
-    font-size: 19px;
-    line-height: (25/19);
     padding-top: 7px;
     padding-bottom: 3px;
   }
@@ -96,16 +78,10 @@
 
 // Suitable for short body copy
 @mixin ig-core-24 {
-  font-family: $NTA-Light;
-  font-size: 24px;
-  line-height: (30/24); /* 30px */
-  font-weight: 400;
-  text-transform: none;
+  @include core-24;
   padding-top: 3px;
   padding-bottom: 2px;
   @media (max-width: 640px) {
-    font-size: 17px;
-    line-height: (25/17);
     padding-top: 7px;
     padding-bottom: 7px;
   }
@@ -113,16 +89,10 @@
 
 // Suitable for long body copy
 @mixin ig-core-19 {
-  font-family: $NTA-Light;
-  font-size: 19px;
-  line-height: (25/19); /* 25px */
-  font-weight: 400;
-  text-transform: none;
+  @include core-19;
   padding-top: 7px;
   padding-bottom: 3px;
   @media (max-width: 640px) {
-    font-size: 13px;
-    line-height: (20/13);
     padding-top: 6px;
     padding-bottom: 4px;
   }
@@ -130,16 +100,10 @@
 
 // Suitable body pullouts and asides
 @mixin ig-core-16 {
-  font-family: $NTA-Light;
-  font-size: 16px;
-  line-height: (20/16); /* 20px */
-  font-weight: 400;
-  text-transform: none;
+  @include core-16;
   padding-top: 5px;
   padding-bottom: 5px;
   @media (max-width: 640px) {
-    font-size: 13px;
-    line-height: (20/13);
     padding-top: 6px;
     padding-bottom: 4px;
   }
@@ -147,16 +111,11 @@
 
 // Suitable for captions, buttons etc
 @mixin ig-core-14 {
-  font-family: $NTA-Light;
-  font-size: 14px;
-  line-height: 1.4285714286; // 20 / 14
-  font-weight: 400;
-  text-transform: none;
+  @include core-14;
+
   padding-top: 6px;
   padding-bottom: 4px;
   @media (max-width: 640px) {
-    font-size: 12px;
-    line-height: (15/12);
     padding-top: 4px;
     padding-bottom: 1px;
   }
