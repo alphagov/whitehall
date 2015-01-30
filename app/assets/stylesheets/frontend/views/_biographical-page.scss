@@ -76,7 +76,7 @@
 
   .current-role-holder {
     h1 {
-      @include light;
+      color: $secondary-text-colour;
       .name {
         display: block;
         color: $text-colour;
