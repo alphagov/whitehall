@@ -1180,9 +1180,6 @@
   nav {
     @include ig-core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;
-    h1 {
-      @include bold;
-    }
 
     ol {
       li {
@@ -1248,15 +1245,11 @@
           @include ig-core-14;
           padding: 0;
         }
-        a {
-          @include bold;
-        }
       }
     }
     .transparency {
       a {
         @include ig-core-19;
-        @include bold;
       }
     }
   }
@@ -1278,7 +1271,6 @@
     }
     h2 {
       @include ig-core-19;
-      @include bold;
     }
   }
 }

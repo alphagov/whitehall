@@ -121,10 +121,6 @@
   }
 }
 
-@mixin bold {
-//  font-weight: 800;
-}
-
 @mixin light {
   font-weight: 400;
   color: $secondary-text-colour;

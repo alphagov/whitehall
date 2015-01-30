@@ -20,9 +20,6 @@
   nav {
     @include ig-core-16;
     padding: $gutter-two-thirds 0 $gutter;
-    h1 {
-      @include bold;
-    }
   }
   .description {
     @include ig-core-24;

@@ -138,10 +138,6 @@
   }
 
   .simple-alphabetical-list {
-    strong {
-      @include bold;
-    }
-
     .role a {
       color: $text-colour;
     }

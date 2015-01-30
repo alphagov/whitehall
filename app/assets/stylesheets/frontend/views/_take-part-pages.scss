@@ -19,9 +19,6 @@
   nav {
     @include ig-core-16;
     padding: ($gutter - $gutter-one-third) 0 $gutter;
-    h1 {
-      @include bold;
-    }
 
     ol {
       li {
