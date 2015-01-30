@@ -27,7 +27,7 @@
   <% end %>
 
   <%= form_for([:admin, @fact_check_request]) do |fact_check_form| %>
-    <%= fact_check_form.text_area :comments %>
+    <%= fact_check_form.text_area :comments, rows: 20 %>
     <%= fact_check_form.submit "Submit", class: "btn" %>
   <% end %>
 </div>

@@ -5,10 +5,10 @@
         <%= form.errors %>
 
         <%= form.translated_text_field :title %>
-        <%= form.translated_text_area :comments %>
+        <%= form.translated_text_area :comments, rows: 20 %>
 
         <%= form.translated_text_field :recipient %>
-        <%= form.translated_text_area :street_address %>
+        <%= form.translated_text_area :street_address, rows: 20 %>
         <%= form.translated_text_field :locality %>
         <%= form.translated_text_field :region %>
 

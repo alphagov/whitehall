@@ -5,7 +5,7 @@
 <%= form_for @translated_person, url: admin_person_translation_path(@translated_person, translation_locale), method: :put do |form| %>
   <%= form.errors %>
 
-  <%= form.translated_text_area :biography %>
+  <%= form.translated_text_area :biography, row: 20 %>
 
   <%= form.save_or_cancel cancel: admin_person_translations_path(@translated_person) %>
 <% end %>

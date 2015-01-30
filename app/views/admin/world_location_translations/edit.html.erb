@@ -7,7 +7,7 @@
 
   <%= form.translated_text_field :name %>
   <%= form.translated_text_field :title %>
-  <%= form.translated_text_area :mission_statement %>
+  <%= form.translated_text_area :mission_statement, row: 20 %>
 
   <%= form.save_or_cancel cancel: admin_world_location_translations_path(@translated_world_location) %>
 <% end %>
