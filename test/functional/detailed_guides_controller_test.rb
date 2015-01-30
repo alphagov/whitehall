@@ -107,6 +107,14 @@ That's all
     assert_select ".category-#{category.slug}"
   end
 
+  view_test "guides show more like this when there are categories" do
+    category = create(:mainstream_category)
+    guide = create(:published_detailed_guide, primary_mainstream_category: category)
+    get :show, id: guide.document
+
+    assert_select "#more-like-this"
+  end
+
   view_test "detailed guides without a mainstream category are successfully rendered" do
     guide = create(:published_detailed_guide, primary_mainstream_category: nil)
     get :show, id: guide.document

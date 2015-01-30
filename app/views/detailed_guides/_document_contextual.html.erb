@@ -9,9 +9,11 @@
             <%= link_to header_record.text, "##{header_record.id}" %>
           </li>
         <% end %>
-        <li class="more-like-this">
-          <%= link_to t('detailed_guidance.see_more_like_this'), "#more-like-this" %>
-        </li>
+        <% if has_more_like_this? %>
+          <li class="more-like-this">
+            <%= link_to t('detailed_guidance.see_more_like_this'), "#more-like-this" %>
+          </li>
+        <% end %>
       </ol>
     </nav>
   <% end %>
