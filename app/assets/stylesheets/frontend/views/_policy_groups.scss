@@ -43,7 +43,6 @@
     @include ig-core-19;
     list-style: none;
     border-bottom: 1px solid $border-colour;
-    @include bold;
   }
 
   .email {

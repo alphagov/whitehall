@@ -111,7 +111,6 @@
         }
       }
       strong {
-        @include bold;
         border-left: 1.3em solid #eee;
         padding-left: $gutter-one-third;
       }

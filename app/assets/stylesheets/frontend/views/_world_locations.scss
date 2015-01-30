@@ -164,7 +164,6 @@
     margin-bottom: $gutter*2;
     p {
       @include heading-24;
-      @include bold;
     }
   }
 

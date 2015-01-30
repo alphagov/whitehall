@@ -76,10 +76,9 @@
 
   .current-role-holder {
     h1 {
-      @include light;
+      color: $secondary-text-colour;
       .name {
         display: block;
-        @include bold;
         color: $text-colour;
       }
     }
