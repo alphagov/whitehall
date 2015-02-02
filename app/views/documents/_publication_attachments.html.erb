@@ -3,7 +3,7 @@
   title = t('document.headings.attachments', count: attachments.size) unless local_assigns.include?(:title)
   published_on = '' unless local_assigns.include?(:published_on)
 %>
-<section class="publications-attachments">
+<div class="publications-attachments">
   <h1><%= title %></h1>
   <article>
     <% attachments.each do |attachment| %>
@@ -16,4 +16,4 @@
       %>
     <% end %>
   </article>
-</section>
+</div>

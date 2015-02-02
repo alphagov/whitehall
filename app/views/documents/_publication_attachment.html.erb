@@ -5,7 +5,7 @@
   attachment_link_options = attachment.accessible? ? {} : { "aria-describedby" => help_block_id }
   attachment_link_options['rel'] = 'external' if attachment.external?
 %>
-<%= content_tag_for(:section, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
+<%= content_tag_for(:div, attachment.becomes(Attachment), class: attachment.external? ? "hosted-externally" : "embedded") do %>
   <div class="attachment-details govspeak">
     <h2 class="title"><%= link_to_unless previewable?(attachment), attachment.title, attachment.url(preview: params[:preview]), attachment_link_options %></h2>
 
