@@ -45,7 +45,7 @@ class PublicationsControllerTest < ActionController::TestCase
       get :show, id: publication.document
     end
 
-    assert_select ".body", text: "body-in-html"
+    assert_select "#details", text: "body-in-html"
   end
 
   view_test "#show should not explicitly say that publication applies to the whole of the UK" do
