@@ -134,6 +134,15 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert_equal [:en, :es], unpublishing.translated_locales
   end
 
+  test 'updates are propogated to publishing api' do
+    unpublishing = create(:unpublishing, unpublishing_reason_id: UnpublishingReason::Archived.id, explanation: 'Needs more work.')
+
+    new_explanation = 'This publication will be ready for publishing next week.'
+    Whitehall::PublishingApi.expects(:publish).with(responds_with(:explanation, new_explanation)).once
+
+    unpublishing.update_attribute(:explanation, new_explanation)
+  end
+
   def reason
     UnpublishingReason::PublishedInError
   end

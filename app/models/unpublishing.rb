@@ -11,6 +11,8 @@ class Unpublishing < ActiveRecord::Base
     allow_blank: true
   validate :redirect_not_circular
 
+  after_update :publish_to_publishing_api
+
   def self.from_slug(slug, type)
     where(slug: slug, document_type: type.to_s).last
   end
@@ -60,5 +62,9 @@ private
     URI.parse(alternative_url).path
   rescue URI::InvalidURIError
     nil
+  end
+
+  def publish_to_publishing_api
+    Whitehall::PublishingApi.publish(self)
   end
 end
