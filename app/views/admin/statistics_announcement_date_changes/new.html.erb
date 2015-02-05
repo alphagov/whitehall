@@ -19,6 +19,11 @@
         <%= form.text_area :change_note, required: true, rows: 5, class: 'form-control', label_text: 'Public change note' %>
       <% end %>
     </div>
+    <% if @statistics_announcement.publication %>
+      <div class="alert">
+        <span>Don’t forget to change the release date of the <%= link_to "attached publication", [:admin, @statistics_announcement.publication] %> as well.</span>
+      </div>
+    <% end %>
     <%= form.save_or_cancel_buttons buttons: { save: 'Publish change of date' }, cancel: [:admin, @statistics_announcement] %>
   <% end %>
 </div>
