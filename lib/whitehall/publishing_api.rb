@@ -10,8 +10,8 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    def self.publish(model_instance)
-      do_action(model_instance)
+    def self.publish(model_instance, update_type_override=nil)
+      do_action(model_instance, update_type_override)
     end
 
     def self.republish(model_instance)

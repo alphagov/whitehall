@@ -65,6 +65,6 @@ private
   end
 
   def publish_to_publishing_api
-    Whitehall::PublishingApi.publish(self)
+    Whitehall::PublishingApi.publish(self, 'minor')
   end
 end
