@@ -10,7 +10,7 @@ class ServiceListeners::SearchIndexerTest < ActiveSupport::TestCase
   end
 
   test '#index! does nothing if edition cannot be indexed (i.e. non-english)' do
-    non_english_edition = I18n.with_locale(:fr) { create(:world_location_news_article, :published, locale: :fr) }
+    non_english_edition = I18n.with_locale(:fr) { create(:world_location_news_article, :published, primary_locale: :fr) }
 
     Whitehall::SearchIndex.expects(:add).never
     ServiceListeners::SearchIndexer.new(non_english_edition).index!

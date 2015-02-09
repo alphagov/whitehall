@@ -114,7 +114,7 @@ end
 
 Given /^a draft right\-to\-left non\-English edition exists$/ do
   I18n.with_locale(:ar) do
-    @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', locale: :ar)
+    @edition = create(:world_location_news_article, title: 'Arabic title', body: 'Arabic body', summary: 'Arabic summary', primary_locale: :ar)
   end
 end
 

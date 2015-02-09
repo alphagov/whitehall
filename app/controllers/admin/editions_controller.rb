@@ -126,7 +126,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def diff
     audit_trail_entry = edition_class.find(params[:audit_trail_entry_id])
-    @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.locale)
+    @audit_trail_entry = LocalisedModel.new(audit_trail_entry, audit_trail_entry.primary_locale)
   end
 
   def destroy
@@ -182,7 +182,7 @@ class Admin::EditionsController < Admin::BaseController
       :closing_at, :external, :external_url, :minor_change, :previously_published,
       :roll_call_introduction, :operational_field_id, :news_article_type_id,
       :relevant_to_local_government, :role_appointment_id, :speech_type_id,
-      :delivered_on, :location, :person_override, :locale,
+      :delivered_on, :location, :person_override, :primary_locale,
       :primary_mainstream_category_id, :related_mainstream_content_url,
       :related_mainstream_content_title,
       :additional_related_mainstream_content_url,
@@ -246,7 +246,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def build_edition
-    edition_locale = edition_params[:locale] || I18n.default_locale
+    edition_locale = edition_params[:primary_locale] || I18n.default_locale
     I18n.with_locale(edition_locale) do
       @edition = LocalisedModel.new(new_edition, edition_locale)
     end
@@ -254,7 +254,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def find_edition
     edition = edition_class.find(params[:id])
-    @edition = LocalisedModel.new(edition, edition.locale)
+    @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 
   def extract_edition_information_from_errors
@@ -331,7 +331,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def clean_edition_parameters
     params[:edition][:title].strip! if params[:edition] && params[:edition][:title]
-    params[:edition].delete(:locale) if params[:edition] && params[:edition][:locale].blank?
+    params[:edition].delete(:primary_locale) if params[:edition] && params[:edition][:primary_locale].blank?
   end
 
   def clear_scheduled_publication_if_not_activated

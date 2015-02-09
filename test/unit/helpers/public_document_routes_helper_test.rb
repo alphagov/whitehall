@@ -84,12 +84,12 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   end
 
   test 'generates an appropriate path for non-English editions' do
-    policy = create(:policy, locale: 'fr')
+    policy = create(:policy, primary_locale: 'fr')
     assert_equal policy_path(policy.document, locale: 'fr'), public_document_path(policy)
   end
 
   test 'generates an appropriate url for non-English editions' do
-    policy = create(:policy, locale: 'fr')
+    policy = create(:policy, primary_locale: 'fr')
     assert_equal Whitehall.url_maker.policy_url(policy.document, locale: 'fr'), public_document_url(policy)
   end
 
@@ -113,7 +113,7 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
   end
 
   test "With non-english editions, the edition's locale is always used" do
-    non_english_edition = create(:world_location_news_article, locale: "fr")
+    non_english_edition = create(:world_location_news_article, primary_locale: "fr")
     with_locale :de do
       assert public_document_url(non_english_edition, locale: 'de').include? ".fr"
     end

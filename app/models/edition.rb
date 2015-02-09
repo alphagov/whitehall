@@ -1,6 +1,9 @@
 # The base class for all editoral content. It configures the searchable options and callbacks.
 # @abstract Using STI should not create editions directly.
 class Edition < ActiveRecord::Base
+  extend DeprecatedColumns
+  deprecated_columns :locale
+
   include Edition::Traits
 
   include Edition::NullImages

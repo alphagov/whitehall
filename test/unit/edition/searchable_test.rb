@@ -56,7 +56,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
   test "should not add edition to search index if it is not available in English" do
     I18n.locale = :fr
-    french_edition = create(:submitted_edition, title: 'French Title', body: 'French Body', locale: :fr)
+    french_edition = create(:submitted_edition, title: 'French Title', body: 'French Body', primary_locale: :fr)
     I18n.locale = I18n.default_locale
     stub_panopticon_registration(french_edition)
     stub_publishing_api_registration_for(french_edition)

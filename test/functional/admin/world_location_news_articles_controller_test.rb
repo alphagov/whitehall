@@ -14,7 +14,7 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
                               title: 'French title',
                               summary: 'Summary',
                               body: 'Body',
-                              locale: 'fr',
+                              primary_locale: 'fr',
                               world_location_ids: [@world_location.id],
                               worldwide_organisation_ids: [@worldwide_organisation.id],
                               topic_ids: [create(:topic).id],
@@ -23,7 +23,7 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
     edition = Edition.last
     assert_redirected_to admin_world_location_news_article_path(edition)
 
-    assert_equal 'fr', edition.locale
+    assert_equal 'fr', edition.primary_locale
     assert edition.available_in_locale?(:fr)
     refute edition.available_in_locale?(:en)
     assert_equal edition.document.id.to_s, edition.document.slug
@@ -40,7 +40,7 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
                               title: 'Article title',
                               summary: 'Summary',
                               body: 'Body',
-                              locale: '',
+                              primary_locale: '',
                               world_location_ids: [@world_location.id],
                               worldwide_organisation_ids: [@worldwide_organisation.id],
                               topic_ids: [create(:topic).id],
@@ -50,18 +50,18 @@ class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCas
     assert edition = Edition.find_by(title: 'Article title')
     assert_redirected_to admin_world_location_news_article_path(edition)
 
-    assert_equal 'en', edition.locale
+    assert_equal 'en', edition.primary_locale
     assert edition.available_in_locale?(:en)
     assert_equal 'article-title', edition.document.slug
   end
 
   test 'PUT :update for non-English edition does not save any additional translations' do
-    edition = I18n.with_locale(:fr) { create(:world_location_news_article, title: 'French Title', body: 'French Body', locale: :fr) }
+    edition = I18n.with_locale(:fr) { create(:world_location_news_article, title: 'French Title', body: 'French Body', primary_locale: :fr) }
 
     put :update, id: edition, edition: { title: 'New French title', world_location_ids: [@world_location.id], worldwide_organisation_ids: [@worldwide_organisation.id]}
     assert_redirected_to admin_world_location_news_article_path(edition)
 
-    assert_equal 'fr', edition.reload.locale
+    assert_equal 'fr', edition.reload.primary_locale
     refute edition.available_in_locale?(:en)
   end
 end

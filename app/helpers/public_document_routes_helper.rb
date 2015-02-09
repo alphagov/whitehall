@@ -16,7 +16,7 @@ module PublicDocumentRoutesHelper
 
   def document_url(edition, options = {})
     if edition.non_english_edition?
-      options[:locale] = edition.locale
+      options[:locale] = edition.primary_locale
     elsif edition.translatable?
       options[:locale] ||= best_locale_for_edition(edition)
     else
