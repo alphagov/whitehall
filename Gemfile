@@ -42,6 +42,7 @@ gem 'typhoeus', '0.6.9'
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
 gem 'json-schema', '2.5.0'
+gem 'rails_translation_manager', '0.0.1'
 
 # Gems to smooth transition to Rails 4
 gem 'strong_parameters'

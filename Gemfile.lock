@@ -269,6 +269,9 @@ GEM
       railties (= 3.2.18)
     rails-i18n (0.7.3)
       i18n (~> 0.5)
+    rails_translation_manager (0.0.1)
+      activesupport
+      rails-i18n
     railties (3.2.18)
       actionpack (= 3.2.18)
       activesupport (= 3.2.18)
@@ -438,6 +441,7 @@ DEPENDENCIES
   rack_strip_client_ip (= 0.0.1)
   rails (= 3.2.18)
   rails-i18n
+  rails_translation_manager (= 0.0.1)
   raindrops (= 0.11.0)
   rake (= 10.1.0)
   rubocop

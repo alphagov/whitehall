@@ -291,6 +291,8 @@ the correct pluralisation keys for the different locales.
 
 ### Updating the locales files
 
-There are rake tasks to export and import a CSV file of translations and keys. These CSV files edited to update the translation values and then imported back in into a local file.
+There are rake tasks to export and import a CSV file of translations and keys
+(provided by the [`rails_translation_manager`](https://github.com/alphagov/rails_translation_manager)
+gem. These CSV files are exported, edited and then imported back as `.yml` files.
 
 There's no timeline for how frequently this is done, so you can expect many translation values to be missing in non EN locales.
