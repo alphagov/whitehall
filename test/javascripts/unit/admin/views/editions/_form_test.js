@@ -2,9 +2,9 @@ module("admin-edition-form: ", {
   setup: function() {
     $('#qunit-fixture').append(
       '<form id="non-english" class="js-supports-non-english">' +
-        '<fieldset>' +
-          '<label for="edition_locale">Document language</label>' +
-          '<select id="edition_locale" name="edition[locale]">' +
+        '<fieldset class="js-hidden">' +
+          '<label for="edition_primary_locale">Document language</label>' +
+          '<select id="edition_primary_locale" name="edition[primary_locale]">' +
             '<option value="" selected="selected">Choose foreign language</option>' +
             '<option value="en" selected="selected">English (English)</option>' +
             '<option value="ar">العربية (Arabic)</option>' +
@@ -69,15 +69,16 @@ module("admin-edition-form: ", {
       selector: 'form#non-english',
       right_to_left_locales:["ar"]
     });
+    $('.js-hidden').hide();
   }
 });
 
-test("hides the fieldset containing the locale input fields", function () {
-  ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs has become hidden');
+test("the fieldset containing the locale input fields should initially be hidden", function () {
+  ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs is not hidden');
 });
 
-test("does not hide other fieldsets", function () {
-  ok($('form#non-english:first-child fieldset').is(':visible'), 'other fieldsets should still be visible');
+test("all other fieldsets should be visible", function () {
+  ok($('form#non-english:not(:first-child fieldset)').is(':visible'), 'other fieldsets should still be visible');
 });
 
 test("inserts a link that reveals the locale input fields when clicked", function () {
@@ -85,34 +86,34 @@ test("inserts a link that reveals the locale input fields when clicked", functio
 
   $('a.foreign-language-only').click();
   ok($('form#non-english:first-child fieldset').is(':visible'), 'fieldset containing locale inputs becomes visible');
-  ok($('form#non-english:first-child fieldset').is(':visible'), 'other fieldsets should still be visible');
+  ok($('form#non-english:not(:first-child fieldset)').is(':visible'), 'other fieldsets should still be visible');
 });
 
 test("cancelling foreign language only document hides and resets the locale fields", function () {
   $('a.foreign-language-only').click();
 
   // choose another language
-  $('#edition_locale').val('cy').change();
-  equal($('#edition_locale option:selected').val(), 'cy', 'foreign-language selected');
+  $('#edition_primary_locale').val('cy').change();
+  equal($('#edition_primary_locale option:selected').val(), 'cy', 'foreign-language selected');
 
   // reset the form
   $('a.cancel-foreign-language-only').click();
 
-  equal($('#edition_locale option:selected').val(), '', 'locale reset back to English');
+  equal($('#edition_primary_locale option:selected').val(), '', 'locale reset back to English');
   ok($('form#non-english:first-child fieldset').is(':hidden'), 'fieldset containing locale inputs has become hidden');
 });
 
 test("selecting and deselecting right-to-left languages applies the appropriate classes to the fieldsets", function () {
   $('a.foreign-language-only').click();
 
-  $('#edition_locale').val('ar').change();
+  $('#edition_primary_locale').val('ar').change();
   ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
 
-  $('#edition_locale').val('cy').change();
+  $('#edition_primary_locale').val('cy').change();
   ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');
 
   // also resets on cancel
-  $('#edition_locale').val('ar').change();
+  $('#edition_primary_locale').val('ar').change();
   ok($('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets have "right-to-left" class');
   $('a.cancel-foreign-language-only').click();
   ok(!$('form#non-english fieldset').hasClass('right-to-left'), 'form fieldsets no longer have "right-to-left" class');

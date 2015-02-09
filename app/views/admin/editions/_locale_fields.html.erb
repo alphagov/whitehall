@@ -1,5 +1,5 @@
 <% if edition.locale_can_be_changed? %>
-  <fieldset>
+  <fieldset class="js-hidden">
     <%= form.label :primary_locale, 'Document language' %>
     <%= form.select :primary_locale, options_for_foreign_language_locale(edition) %>
     <p class="warning">Warning: Foreign language only documents do not allow additional translations.</p>
