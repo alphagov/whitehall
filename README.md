@@ -166,7 +166,7 @@ search index, you will actually need to rebuild the search index.
 
 The whitehall search index is called 'government'. Rebuilding of the whitehall
 search index can now be done with a bulk data dump. This also supports
-construction of a new detatched index and seamless switchover from the
+construction of a new detached index and seamless switchover from the
 existing to the new index. There are two parts to this process, a
 `rummager_export.rb` script in whitehall which dumps the whitehall data to
 STDOUT, and a `bulk_load` script in rummager which accepts that data on STDIN
