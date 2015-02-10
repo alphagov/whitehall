@@ -36,4 +36,20 @@ class Edition::HasMainstreamCategoriesTest < ActiveSupport::TestCase
     edition.destroy
     refute EditionMainstreamCategory.find_by_id(relation.id)
   end
+
+  test "can be dissociated from a mainstream category e.g. if we delete the category" do
+    primary_mainstream_category = create(:mainstream_category)
+    other_mainstream_category = create(:mainstream_category)
+    published_guide = create(:published_detailed_guide,
+                             primary_mainstream_category: primary_mainstream_category,
+                             other_mainstream_categories: [other_mainstream_category])
+
+
+    published_guide.remove_mainstream_category(primary_mainstream_category)
+    published_guide.remove_mainstream_category(other_mainstream_category)
+
+    assert_nil published_guide.primary_mainstream_category_id
+    assert published_guide.other_mainstream_category_ids.empty?
+
+  end
 end

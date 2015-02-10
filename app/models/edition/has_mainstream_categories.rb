@@ -31,6 +31,15 @@ module Edition::HasMainstreamCategories
     true
   end
 
+  def remove_mainstream_category(category)
+    if self.primary_mainstream_category_id == category.id
+      self.update_attribute :primary_mainstream_category_id, nil
+    elsif self.other_mainstream_category_ids.include? category.id
+      new_ids = self.other_mainstream_category_ids.reject { |id| id == category.id }
+      self.update_attribute :other_mainstream_category_ids, new_ids
+    end
+  end
+
   private
 
   def avoid_duplication_between_primary_and_other_mainstream_categories
