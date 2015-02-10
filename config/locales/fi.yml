@@ -1,0 +1,522 @@
+et:
+  document:
+    headings:
+      attachments:
+        one: Dokumentti
+        other: Dokumentit
+      policies:
+        one: Politiikka
+        other: Poliitikat
+      applies_to_nations: Sovelletaan kansoihin
+      field_of_operation: Toimialat
+      from: Kelleltä
+      location: Sijainti
+      part_of: Osa
+    type:
+      announcement:
+        one: Ilmoitus
+        other: Ilmoitukset
+      authored_article:
+        one: Julkaistu artikkeli
+        other: Julkaistut artikkelit
+      case_study:
+        one: Tapaustutkimus
+        other: Tapaustutkimukset
+      closed_consultation:
+        one: Suljettu konsultaatio
+        other: Suljetut konsultaatiot
+      consultation:
+        one: Konsultaatio
+        other: Konsultaatiot
+      consultation_outcome:
+        one: Konsultaation tulos
+        other: Konsultaation tulokset
+      corporate_report:
+        one: Yritysraportti
+        other: Yritysraportit
+      correspondence:
+        one: Kirjeenvaihtaja
+        other: Kirjeenvaihtajat
+      decision:
+        one: Päätös
+        other: Päätökset
+      detailed_guidance:
+        one: Yksityiskohtainen ohjeistus
+        other: Yksityiskohtaiset ohjeistukset
+      document_collection:
+        one: Dokumenttikokoelma
+        other: Dokumenttikokoelmat
+      draft_text:
+        one: Luonnos
+        other: Luonnokset
+      fatality_notice:
+        one: Kuolemantapausilmoitus
+        other: Kuolemantapausilmoitukset
+      foi_release:
+        one: FOI-julkaisu
+        other: FOI-julkaisut
+      form:
+        one: Lomake
+        other: Lomakkeet
+      government_response:
+        one: Valtion vastaus
+        other: Valtion vastaukset
+      guidance:
+        one: Opastus
+        other: Opastukset
+      impact_assessment:
+        one: Vaikutusten arviointi
+        other: Vaikutusten arvioinnit
+      imported:
+        one: Tuotu
+        other: Tuodut
+      independent_report:
+        one: Riippumaton raportti
+        other: Riippumattomat raportit
+      international_treaty:
+        one: Kansainvälinen sopimus
+        other: Kansainväliset sopimukset
+      map:
+        one: Kartta
+        other: Kartat
+      national_statistics:
+        one: Kansallinen tilasto
+        other: Kansalliset tilastot
+      news_article:
+        one: Artikkeli
+        other: Artikkelit
+      news_story:
+        one: Uutinen
+        other: Uutiset
+      notice:
+        one: Ilmoitus
+        other: Ilmoitukset
+      open_consultation:
+        one: Avoin konsultaatio
+        other: Avoimet konsultaatiot
+      oral_statement:
+        one: Suullinen lausunto
+        other: Suulliset lausunnot
+      policy:
+        one: Politiikka
+        other: Politiikat
+      policy_paper:
+        one: Toimintamalli
+        other: Toimintamallit
+      press_release:
+        one: Lehdistötiedoite
+        other: Lehdistötiedoitteet
+      promotional:
+        one: Promootio
+        other: Promootiot
+      publication:
+        one: Julkaisu
+        other: Julkaisut
+      regulation:
+        one: Säännös
+        other: Säännökset
+      research:
+        one: Tutkimus
+        other: Tutkimukset
+      speaking_notes:
+        one: Puhujan muistiinpano
+        other: Puhujan muistiinpanot
+      speech:
+        one: Puhe
+        other: Puheet
+      statement_to_parliament:
+        one: Julkilausuma parlamentille
+        other: Julkilausumat parlamentille
+      statistical_data_set:
+        one: Tilastoitu sarja
+        other: Tilastoidut sarjat
+      statistics:
+        one: Tilasto
+        other: Tilastot
+      statutory_guidance:
+        one: Lakisääteinen ohjeistus
+        other: Lakisääteiset ohjeistukset
+      transcript:
+        one: Puhtaaksikirjoitus
+        other: Puhtaaksikirjoitukset
+      transparency:
+        one: Läpinäkyvyys
+        other: Läpinäkyvyydet
+      worldwide_priority:
+        one: Maailmanlaajuinen prioriteetti
+        other: Maailmanlaajuset prioriteetit
+      written_statement:
+        one: Kirjallinen julkilausuma
+        other: Kirjalliset julkilausumat
+    contents: Sisältö
+    footer_meta:
+      full_page_history: Kokonainen sivuhistoria
+      page_history: Sivuhistoria
+      published: Julkaistu
+      updated: Päivitetty
+    published: Julkaistu
+    read: 'Lue artikkelit: %{title} '
+    speech: Puhe
+      author_title:
+        minister: Ministeri
+        speaker: Puhuja
+      delivered_on: Toimitettu:
+      delivery_title:
+        minister: Ministeri
+        speaker: Puhuja
+      written_on: Kirjoitettu
+    updated: Päivitetty
+    view: 'Näytä: ''%{title}'''
+  organisation:
+    type:
+      Ad-hoc advisory group:
+        one: Tehtävää varten nimitetty neuvoa-antava ryhmä
+        other: Tehtävää varten nimitetyt neuvoa-antavat ryhmät
+      Advisory non-departmental public body:
+        one: Ministeriön ulkopuolinen neuvoa-antava julkinen elin 
+        other: Ministeriön ulkopuoliset neuvoa-antavat julkiset elimet
+      Civil Service:
+        one: Virkamieskunta
+        other: Virkamieskunnat
+      Devolved administration:
+        one: Hajautettu hallinto
+        other: Hajautetut hallinnot
+      Executive agency:
+        one: Toimeenpaneva laitos
+        other: Toimeenpanevat laitokset
+      Executive non-departmental public body:
+        one: Ministeriön ulkopuolinen toimeenpaneva julkinen elin
+        other: Ministeriön ulkopuoliset toimeenpanevat julkiset elimet
+      Executive office:
+        one: Toimeenpaneva virasto
+        other: Toimeenpanevat virastot
+      Independent monitoring body:
+        one: Riippumaton valvontaelin
+        other: Riippumattomat valvontaelimet
+      Ministerial department:
+        one: Ministeriö
+        other: Ministeriöt
+      Non-ministerial department:
+        one: Ministeriön ulkopuolinen virasto
+        other: Ministeriön ulkopuoliset virastot
+      Other:
+        one: Muu
+        other: Muut
+      Public corporation:
+        one: Julkisyhteisö
+        other: Julkisyhteisöt
+      Sub-organisation:
+        one: Aliorganisaatio
+        other: Aliorganisaatiot
+      Tribunal non-departmental public body:
+        one: Ministeriön ulkopuolinen tuomiovaltaa käyttävä julkinen elin
+        other: Ministeriön ulkopuoliset tuomiovaltaa käyttävät julkiset elimet
+    about:
+      read_more: Lue lisää
+    corporate_information:
+      access_our_info: Hae tietojamme
+      foi_how_to: Kuinka hakea FOI - julkaisua
+      foi_releases: FOI - julkaisu
+      jobs_and_contacts: Työpaikat ja kontaktit
+      organisation_chart: Organisaatiokaavio
+      transparency: Läpinäkyvyys
+    foi_exemption_html: FOI - poikkeus
+      Seuraavat organisaatiot eivät kuulu tiedonvapauden (FOI) piiriin. Mikäli haluat nähdä mitkä organisaatiot ovat tiedonvapauden piirissä, ole hyvä ja tutustu: <a href="%{foi_url}">lainsäädäntö</a>.
+    headings:
+      chief_professional_officers: Johtavat ammatilliset virkamiehet
+      contact: 'Ota yhteyttä: %{name}'
+      corporate_information: Tietoa yrityksille
+      corporate_reports: Yritysraportit
+      documents: Dokumentit
+      freedom_of_information_act: Laki tiedonvapaudesta (FOI)
+      making_foi_requests: Tee tiedonvapauspyyntö
+      our_announcements: Ilmoituksemme
+      our_consultations: Konsultaatiomme
+      our_mainstream_categories: 'Annamme yksityiskohtaisia tietoja seuraavissa kategorioissa:'
+      our_management: Johtomme
+      our_ministers: Ministerimme
+      our_policies: Politiikkamme
+      our_publications: Julkaisumme
+      our_senior_military_officials: Ylimmät upseerimme
+      our_services: Palvelumme
+      our_statistics: Tilastomme
+      our_topics: Aiheemme
+      plus_others: Muuta
+      special_representatives: Erityisedustajamme
+      traffic_commissioners: Liikennekomissaarimme
+      what_we_do: Mitä me teemme
+    making_foi_requests:
+      step1_html: Lue lisää tiedonvapauslaista (FOI) ja <a href="%{how_to_path}">kuinka
+        tehdä kysely</a>
+      step2_html: Tarkista <a href="%{our_releases_path}">edelliset viestimme</a>
+        nähdäksesi, onko kyselyysi vastattu
+      step3_html: 'Esitä uusi tiedustelu, ota yhteyttä meihin:'
+  people:
+    heading:
+      one: Henkilö
+      other: Henkilöt
+    biography: Ansioluettelo
+    previous_roles: Edelliset roolit
+    previous_roles_in_government: Edelliset roolit valtiolla
+    read_more: Lue lisää
+  roles:
+    heading:
+      one: Tehtävä
+      other: Tehtävät
+    headings:
+      current_holder: Nykyinen viranhaltija
+      previous_holders: Edelliset viranhaltijat
+      responsibilities: Vastuualat
+    ministerial: Ministeriöllinen
+    policies_responsible_with_person: 'Viranhaltijan vastuut: %{person}, %{role}'
+    previous_holders: 'Edelliset viranhaltijat '
+    read_more: Lue lisää
+  world_location:
+    type:
+      international_delegation:
+        one: Kansainvälinen delegaatio
+        other: Kansainväliset delegaatiot
+      world_location:
+        one: Maa
+        other: Maat
+    headings:
+      announcements: Ilmoituksemme
+      country: Maa
+      documents: Dokumentit
+      mission: Valtuuskuntamme
+      organisations: Organisaatiomme
+      priorities: Prioriteettimme
+      publications: Julkaisumme
+      quick_links: Pikalinkit
+      related_policies: Liittyvät politiikat
+      statistics: Tilastomme
+  activerecord:
+    attributes:
+      attachment:
+        hoc_paper_number: Parlamentin alahuoneen dokumentti nro.
+        isbn: ISBN
+        unnumbered_hoc_paper: Numeroimaton parlamentin alahuoneen dokumentti
+      attachment_data:
+        file: Tiedosto
+      corporate_information_page/corporate_information_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number: 'Parlamentin alahuoneen dokumentti nro. '
+        isbn: 'Liitteen ISBN-koodi '
+        order_url: Liitteen linkki
+        price: Liitteen hinta
+        title: Liitteen otsikko
+        unique_reference: Liitteen ainutlaatuinen viite
+        unnumbered_hoc_paper: Numeroimattomat parlamentin alahuoneen dokumentit
+      corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
+        file: Tiedosto
+      detailed_guide:
+        primary_mainstream_category: Ensisijainen kategoria
+      policy_group/policy_group_attachments/attachment/attachment_data:
+        file: Tiedosto
+      response/consultation_response_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number: Parlamentin alahuoneen dokumentti nro. 
+        isbn: Liitteen ISBN
+        order_url: Linkki liitteen tilaamiseen
+        price: Liitteen hinta
+        title: Liitteen otsikko
+        unique_reference: Liitteen ainutlaatuinen viite
+        unnumbered_hoc_paper: Numeroimaton parlamentin alahuoneen dokumentti
+      response/consultation_response_attachments/attachment/attachment_data:
+        file: Tiedosto
+      supporting_page/supporting_page_attachments/attachment:
+        command_paper_number:
+        hoc_paper_number: Parlamentin alahuoneen dokumentti nro.
+        isbn: 'Liitteen ISBN '
+        order_url: Linkki liitteen tilaamiseen
+        price: Liitteen hinta
+        title: Liitteen otsikko
+        unique_reference: Liitteen ainutlaatuinen viite
+        unnumbered_hoc_paper: Numeroimaton parlamentin alahuoneen dokumentti
+      supporting_page/supporting_page_attachments/attachment/attachment_data:
+        file: Tiedosto
+    nested_attachment_data_field_names:
+      file: Tiedosto
+    nested_attachment_field_names:
+      command_paper_number:
+      hoc_paper_number: Parlamentin alahuoneen dokumentti nro.
+      isbn: Liitteen ISBN
+      order_url: Linkki liitteen tilaamiseen
+      price: Liitteen hinta
+      title: Liitteen otsikko
+      unique_reference: Liitteen ainutlaatuinen viite
+      unnumbered_hoc_paper: Numeroimaton parlamentin alahuoneen dokumentti
+  announcements:
+    heading: Viestit
+    view_all: Näytä kaikki viestit
+  attachment:
+    accessibility:
+      full_help_html: 'Mikäli käytätte avustavaa tietotekniikkaa ja tarvitsette tämän dokumentin
+        vaihtoehtoisessa formaatissa, olkaa ystävällinen ja lähettäkää meille sähköpostia %{email}. Kertokaa
+        meille missä formaatissa tarvitsette kyseisen dokumentin. Meille on hyödyllistä tietää mitä
+        avustavaa teknologiaa käytätte.'
+      heading: 'Tämä tiedosto ei avaudu avustavalla tietotekniikalla'
+      request_a_different_format: Pyydä vaihtoehtoisessa formaatissa
+    headings:
+      order_a_copy: Pyydä kopio
+      order_a_copy_full: Tilaa koko julkaisu
+      published: Julkaistu
+      reference: Viite
+      unnumbered_command_paper:
+      unnumbered_hoc_paper: Numeroimaton luonnosdokumentti
+    opendocument:
+      help_html: Katso <a rel="external" href="http://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
+        formaatissa
+    see_more: 'Lue lisää: %{document_type}'
+  change_notes:
+    page_history: Sivuhistoria
+    published_at: Ensimmäinen julkaisu
+    see_all_updates: Katso kaikki päivitykset
+    updated_at: Viimeinen lisäys
+  contact:
+    contact_form: Yhteydenottolomake
+    email: Sähköposti
+  corporate_information_page:
+    type:
+      about: Tietoa meistä
+      about_our_services: Palvelumme
+      access_and_opening: Aukioloaikamme
+      complaints_procedure: Valitusprosessi
+      equality_and_diversity: Tasa-arvo ja moniarvoisuus
+      media_enquiries: Mediatiedustelut
+      membership: Jäsenyys
+      our_energy_use: Tietoa energiankäytöstämme
+      our_governance: Johtokuntamme
+      personal_information_charter: Yksityisyys
+      petitions_and_campaigns: Addressit ja kampanjat
+      procurement: Hankinta %{organisation_name}
+      publication_scheme: Julkaisuohjelma
+      recruitment: Rekrytointi %{organisation_name}
+      research: Tutkimus %{organisation_name}
+      social_media_use: Sosiaalinen media
+      staff_update: Uutiset ja tiedoitteet
+      statistics: Tilastomme %{organisation_name}
+      terms_of_reference: Viite-ehdot
+      welsh_language_scheme: Kymrin kielen hanke
+  date:
+    formats:
+      default:
+      long_ordinal:
+  detailed_guidance:
+    back_to_contents: Takaisin sisältöön
+    categories: Kategoriat
+    contents: Sisältö
+    more: Lisää vaihtoehtoja
+    part_of_published_collection: Osa julkaisukokoelmaa
+    published_related_detailed_guides: Liittyvät ohjeistukset
+    related_mainstream_content: 'Liikaa yksityiskohtia?<br/>Ts. Tarvitsetteko ytimekkäämmän opastuksen?'
+    see_more_like_this: Lisää samanlaista sisältöä
+  document_filters:
+    description: Voitte käyttää suodattimia suodattaaksenne teitä kiinnostavaa sisältöä
+    no_results:
+      description: Laajentakaa hakuanne ja yrittäkää uudestaan
+      title: Haettua dokumenttia ei löytynyt
+      tna_heading: Vanhempi sisältö
+      tna_link: Kaikki julkaistut dokumentit ennen toukokuuta 2010 eivät ole GOV.UK - sivustolla. Mikäli et löydä ennen 
+        toukokuuta 2010 julkaistua dokumenttia, katso <a href="http://webarchive.nationalarchives.gov.uk/adv_search/">The
+        National Archives</a>.
+    world_locations:
+      all: Kaikki kohteet
+      label: Kohteemme maailmalla
+  feeds:
+    email: Sähköposti
+    feed: Uutisvirta
+    get_updates_to_this_list: Tilaa uutiskirje
+    latest_activity: Viimeiset uutisemme
+  i18n:
+    direction:
+  language_names:
+    fi: Suomi
+  latest_feed:
+    no_updates: Uusimmat päivitykset
+    title: Viimeisimmät uutiset
+  national_statistics:
+    heading: Kansalliset tilastot
+  number:
+    human:
+      storage_units:
+        format:
+  policies:
+    heading: Politiikkamme
+    view_all: Näytä kaikki politiikat 
+  publications:
+    heading: Julkaisut
+    headings:
+      detail: Yksityiskohdat
+  read_more: 'Lue lisää'
+  see_all:
+    announcement: Näytä kaikki ilmoituksemme
+    authored_article: Näytä kaikki julkaistut artikkelimme
+    case_study: Näytä kaikki tapaustutkimuksemme
+    closed_consultation: Näytä kaikki suljetut konsultaatiomme
+    consultation: Näytä kaikki konsultaatiomme
+    consultation_outcome: Näytä kaikki yritykselliset ratkaisumme
+    corporate_report: Näytä kaikki yritysraporttimme
+    correspondence: Näytä kaikki kirjeenvaihtomme
+    decision: Näytä kaikki päätöksemme
+    detailed_guidance: Näytä kaikki yksityiskohtaiset ohjeistuksemme
+    document_collection: Näytä kaikki
+    draft_text: Näytä kaikki luonnostekstimme
+    fatality_notice: Näytä kaikki kuolemantapausilmoituksemme
+    foi_release: Näytä kaikki tiedonvapausjulkaisumme
+    form: 'Näytä kaikki '
+    government_response: Näytä kaikki valtion vastaukset
+    guidance: Näytä kaikki opastukset
+    impact_assessment: Näytä kaikki vaikutusarviot
+    imported: Näytä kaikki tuodut raportit
+    international_treaty: Näytä kaikki kansainväliset sopimukset
+    map: Näytä kaikki karttamme
+    national_statistics: Näytä kaikki kansalliset tilastot
+    news_article: Näytä kaikki artikkelimme
+    news_story: Näytä kaikki uutisemme
+    notice: Näytä kaikki tiedoitteemme
+    open_consultation: Näytä kaikki avoimet konsultaatiomme
+    oral_statement: Näytä kaikki suulliset lausunnot parlamentille
+    policy: Näytä kaikki politiikkamme
+    policy_paper: Näytä kaikki toimintamallimme
+    press_release: Näytä kaikki lehdistötiedoitteemme
+    promotional: Näytä kaikki promootiomme
+    publication: Näytä kaikki julkaisumme
+    regulation: Näytä kaikki säännöksemme
+    research: Näytä kaikki tutkimuksemme
+    speaking_notes: Näytä kaikki puhemuistiinpanomme
+    speech: Näytä kaikki puheemme
+    statement_to_parliament: Näytä kaikki lausunnot parlamentille
+    statistical_data_set: Näytä kaikki tilastolliset sarjat
+    statistics: Näytä kaikki tilastot
+    statutory_guidance: Näytä kaikki lainsäädännölliset ohjeistuksemme
+    transcript: Näytä kaikki protokollamme
+    transparency: Näytä kaikki läpinäkyvyystietomme
+    worldwide_priority: Näytä kaikki maailmanlaajuiset prioriteettimme
+    written_statement: Näytä kaikki kirjalliset lausunnot parlamentille
+  social_media: Sosiaalinen media
+    follow_us: Seuraa meitä
+  support:
+    array:
+      last_word_connector: ja
+  time:
+    formats:
+      long_ordinal:
+  worldwide_organisation:
+    corporate_information:
+      about_our_services_html: 'Selvitä lisäksi: %{link}'
+      personal_information_charter_html: 'Meidän %{link} selvittää kuinka käsittelemme yksityistietojasi.'
+      publication_scheme_html: 'Lue lisää julkaisuhankkeestamme: %{link}'
+      social_media_use_html: 'Lue lisää sosiaalisen median politiikastamme: %{link}'
+      welsh_language_scheme_html: 'Lue lisää kielihankkeestamme:
+        %{link}'
+    find_out_more: Täysi profiili ja kaikki kontaktit
+    headings:
+      about_us: Tietoa meistä
+      contact_us: Ota yhteyttä
+      corporate_information: Yritykselliset tiedot
+      follow_us: Seuraa meitä
+      our_people: Ihmisemme
+      our_services: Palvelumme
+    location: Asuinpaikka
+    part_of: Kuuluu
