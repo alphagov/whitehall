@@ -7,9 +7,7 @@ env
 function github_status {
   STATUS="$1"
   MESSAGE="$2"
-  if [ "$GIT_BRANCH" != "origin/master" ]; then
-    GHTOOLS_DEBUG=True gh-status alphagov/govuk-content-schemas "$GIT_COMMIT" "$STATUS" -d "Build #${BUILD_NUMBER} ${MESSAGE}" -u "$BUILD_URL" -c "content_schemas contract tests" >/dev/null
-  fi
+  gh-status alphagov/govuk-content-schemas "$SCHEMA_GIT_COMMIT" "$STATUS" -d "Build #${BUILD_NUMBER} ${MESSAGE}" -u "$BUILD_URL" -c "content_schemas contract tests" >/dev/null
 }
 
 function error_handler {
@@ -32,11 +30,11 @@ github_status pending "is running on Jenkins"
 # Ensure there are no artefacts left over from previous builds
 git clean -fdx
 
-# Clone govuk-content-schemas depedency for contract tests
+# Clone govuk-content-schemas dependency for contract tests
 rm -rf tmp/govuk-content-schemas
 git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas
 cd tmp/govuk-content-schemas
-git checkout $GIT_COMMIT
+git checkout $SCHEMA_GIT_COMMIT
 cd ../..
 
 time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
