@@ -20,7 +20,7 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "scheduling a subsequent edition publishes a publish intent to the Publishing API" do
-    published_edition = create(:published_edition)
+    published_edition = create(:published_case_study)
     new_draft = published_edition.create_draft(published_edition.creator)
     new_draft.change_note = 'changed'
     new_draft.scheduled_publication = 1.day.from_now
@@ -52,7 +52,7 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "unscheduling a scheduled first-edition removes the publish intent and replaces the 'coming_soon' with a 'gone' item" do
-    scheduled_edition = create(:scheduled_edition)
+    scheduled_edition = create(:scheduled_case_study)
     unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
     base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
 
@@ -65,8 +65,8 @@ class SchedulingTest < ActiveSupport::TestCase
   end
 
   test "unscheduling a scheduled subsequent edition removes the publish intent but doesn't publish a 'gone' item" do
-    published_edition = create(:published_edition)
-    scheduled_edition = create(:scheduled_edition, document: published_edition.document)
+    published_edition = create(:published_case_study)
+    scheduled_edition = create(:scheduled_case_study, document: published_edition.document)
 
     unscheduler       = Whitehall.edition_services.unscheduler(scheduled_edition)
     base_path         = Whitehall.url_maker.public_document_path(scheduled_edition)
