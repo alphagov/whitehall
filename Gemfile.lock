@@ -6,14 +6,6 @@ GIT
       rails (>= 3.1.0)
 
 GIT
-  remote: git://github.com/brynary/rack-test.git
-  revision: 8cdb86e1d710194ce45f439915707db7fb2b27e5
-  ref: 8cdb86e1
-  specs:
-    rack-test (0.6.2)
-      rack (>= 1.0)
-
-GIT
   remote: git://github.com/tekin/globalize.git
   revision: cd480176c812169fbf2ff1b57fefe2589f2ae77b
   ref: transalted-model-touch-issue
@@ -262,6 +254,8 @@ GEM
       rack (>= 0.4)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-test (0.6.3)
+      rack (>= 1.0)
     rack_strip_client_ip (0.0.1)
     rails (4.0.13)
       actionmailer (= 4.0.13)
@@ -441,7 +435,7 @@ DEPENDENCIES
   poltergeist (~> 1.5.1)
   pry-byebug
   quiet_assets
-  rack-test!
+  rack-test (~> 0.6.3)
   rack_strip_client_ip (= 0.0.1)
   rails (= 4.0.13)
   rails-i18n

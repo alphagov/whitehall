@@ -87,7 +87,7 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', github: 'brynary/rack-test', ref: '8cdb86e1'
+  gem 'rack-test', '~> 0.6.3'
   gem 'factory_girl'
   gem 'mocha', '1.1.0', require: false
   gem 'timecop'
