@@ -47,6 +47,10 @@ gem 'rails-observers'
 if ENV['GLOBALIZE_DEV']
   gem 'globalize', path: '../globalize'
 else
+  # Note: a fix for the issue that necessitates this fork has been merged into
+  # globalize master, but that version is only compatible with ActiveRecord 4.2
+  # and above. Once Whitehall is running on Rails 4.2, we can switch to using
+  # the main fork of globalize.
   gem 'globalize', github: 'tekin/globalize', ref: 'transalted-model-touch-issue'
 end
 
