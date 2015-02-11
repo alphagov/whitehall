@@ -8,7 +8,7 @@ function github_status {
   STATUS="$1"
   MESSAGE="$2"
   if [ "$GIT_BRANCH" != "origin/master" ]; then
-    GHTOOLS_DEBUG=True gh-status alphagov/govuk-content-schemas "$GIT_COMMIT" "$STATUS" -d "Build #${BUILD_NUMBER} ${MESSAGE}" -u "$BUILD_URL" -c "content_schemas contract tests" >/dev/null
+    gh-status alphagov/govuk-content-schemas "$GIT_COMMIT" "$STATUS" -d "Build #${BUILD_NUMBER} ${MESSAGE}" -u "$BUILD_URL" -c "content_schemas contract tests" >/dev/null
   fi
 }
 
