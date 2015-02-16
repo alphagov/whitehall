@@ -7,7 +7,6 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
     locale       = 'fr'
 
     expected_payload = {
-      base_path: base_path,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       format: 'coming_soon',

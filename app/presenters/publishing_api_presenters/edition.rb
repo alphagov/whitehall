@@ -19,7 +19,6 @@ module PublishingApiPresenters
       {
         content_id: edition.content_id,
         title: edition.title,
-        base_path: base_path,
         description: edition.summary,
         format: "placeholder",
         locale: I18n.locale.to_s,

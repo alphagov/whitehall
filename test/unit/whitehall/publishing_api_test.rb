@@ -79,9 +79,9 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     published_payload = PublishingApiPresenters.presenter_for(published, update_type: "republish").as_json
     archived_payload  = PublishingApiPresenters.presenter_for(archived, update_type: "republish").as_json
 
-    draft_request     = stub_publishing_api_put_item(draft_payload[:base_path], draft_payload)
-    published_request = stub_publishing_api_put_item(published_payload[:base_path], published_payload)
-    archived_request  = stub_publishing_api_put_item(archived_payload[:base_path], archived_payload)
+    draft_request     = stub_publishing_api_put_item(draft.search_link, draft_payload)
+    published_request = stub_publishing_api_put_item(published.search_link, published_payload)
+    archived_request  = stub_publishing_api_put_item(archived.search_link, archived_payload)
 
     Whitehall::PublishingApi.republish(published)
     Whitehall::PublishingApi.republish(archived)
@@ -97,7 +97,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test "republishes an unpublishing" do
     unpublishing = create(:unpublishing)
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
-    request      = stub_publishing_api_put_item(payload[:base_path], payload)
+    request      = stub_publishing_api_put_item(unpublishing.document_path, payload)
 
     Whitehall::PublishingApi.republish(unpublishing)
     assert_requested request
@@ -106,7 +106,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
   test "publishes a redirect unpublishing" do
     unpublishing = create(:redirect_unpublishing)
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
-    request      = stub_publishing_api_put_item(payload[:base_path], payload)
+    request      = stub_publishing_api_put_item(unpublishing.document_path, payload)
 
     Whitehall::PublishingApi.republish(unpublishing)
     assert_requested request
@@ -116,7 +116,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     unpublishing    = create(:unpublishing)
     edition         = unpublishing.edition
     english_payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
-    english_request = stub_publishing_api_put_item(english_payload[:base_path], english_payload)
+    english_request = stub_publishing_api_put_item(unpublishing.document_path, english_payload)
 
     german_payload, german_request = nil
     I18n.with_locale(:de) do
@@ -124,7 +124,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       edition.save!
 
       german_payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
-      german_request = stub_publishing_api_put_item(german_payload[:base_path], german_payload)
+      german_request = stub_publishing_api_put_item(unpublishing.document_path, german_payload)
     end
 
     Whitehall::PublishingApi.publish(unpublishing)

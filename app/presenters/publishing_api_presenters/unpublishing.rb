@@ -22,7 +22,6 @@ private
 
   def redirect_hash
     {
-      base_path: base_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       redirects: [
@@ -36,7 +35,6 @@ private
     {
       content_id: edition.content_id,
       title: edition.title,
-      base_path: base_path,
       description: edition.summary,
       format: 'unpublishing',
       locale: I18n.locale.to_s,

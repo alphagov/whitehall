@@ -9,7 +9,6 @@ private
 
   def gone_item_for(base_path)
     {
-      base_path: base_path,
       format: 'gone',
       publishing_app: 'whitehall',
       update_type: 'major',

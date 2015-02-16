@@ -8,7 +8,6 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
     publish_timestamp = 1.day.from_now
 
     expected_hash = {
-      base_path: base_path,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       format: 'coming_soon',
