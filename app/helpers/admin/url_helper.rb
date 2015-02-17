@@ -79,6 +79,10 @@ module Admin::UrlHelper
     end
   end
 
+  def admin_governments_header_menu_link
+    admin_header_menu_link "Governments", admin_governments_path
+  end
+
   def admin_header_menu_link(name, path)
     content_tag(:li, link_to(name, path, role: 'menuitem'), class: 'masthead-menu-item')
   end
