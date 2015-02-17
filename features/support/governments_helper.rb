@@ -11,6 +11,18 @@ module GovernmentsHelper
     click_on "Save"
   end
 
+  def edit_government(name:, attributes:)
+    visit admin_governments_path
+
+    click_on name
+
+    attributes.each do |attribute, value|
+      fill_in attribute.to_s.humanize, with: value
+    end
+
+    click_on "Save"
+  end
+
   def check_for_government(name:, start_date:, end_date:)
     visit admin_governments_path
 
