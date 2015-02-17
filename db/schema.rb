@@ -580,6 +580,7 @@ ActiveRecord::Schema.define(version: 20150219115527) do
   add_index "force_publication_attempts", ["import_id"], name: "index_force_publication_attempts_on_import_id", using: :btree
 
   create_table "governments", force: true do |t|
+    t.string   "slug"
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
@@ -588,6 +589,8 @@ ActiveRecord::Schema.define(version: 20150219115527) do
   end
 
   add_index "governments", ["end_date"], name: "index_governments_on_end_date", using: :btree
+  add_index "governments", ["name"], name: "index_governments_on_name", unique: true, using: :btree
+  add_index "governments", ["slug"], name: "index_governments_on_slug", unique: true, using: :btree
   add_index "governments", ["start_date"], name: "index_governments_on_start_date", using: :btree
 
   create_table "govspeak_contents", force: true do |t|
