@@ -879,6 +879,7 @@ ActiveRecord::Schema.define(version: 20150219115527) do
     t.string   "custom_jobs_url"
     t.string   "content_id"
     t.string   "homepage_type",                           default: "news"
+    t.boolean  "political",                               default: false
   end
 
   add_index "organisations", ["content_id"], name: "index_organisations_on_content_id", unique: true, using: :btree
