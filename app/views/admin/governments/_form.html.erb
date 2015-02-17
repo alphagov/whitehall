@@ -1,8 +1,8 @@
 <%= form_for [:admin, government], as: :government, html: {class: 'government-form'} do |government_form| %>
   <%= government_form.errors %>
-  <p><%= government_form.text_field :name %></p>
-  <p><%= government_form.text_field :start_date %></p>
-  <p><%= government_form.text_field :end_date %></p>
+  <p><%= government_form.text_field :name, {placeholder: "eg 2005 to 2010 Labour government"} %></p>
+  <p><%= government_form.text_field :start_date, {placeholder: "eg 2005-05-06"} %></p>
+  <p><%= government_form.text_field :end_date, {placeholder: "eg 2010-05-11"} %></p>
 
   <p class="warning">
     Warning: changes to government information will appear instantly on the live site.
