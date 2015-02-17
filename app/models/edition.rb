@@ -49,10 +49,22 @@ class Edition < ActiveRecord::Base
   }
 
   scope :with_title_containing, -> *keywords {
-    pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
+    bind_parameters = {}
+    where_clause_parts = []
+
+    keywords.map.with_index do |keyword, i|
+      parameter_name = :"pattern#{i}"
+      escaped_like_expression = keyword.gsub(/([%_])/, '%' => '\\%', '_' => '\\_')
+      bind_parameters[parameter_name] = "%#{escaped_like_expression}%"
+      where_clause_parts << "edition_translations.title LIKE :#{parameter_name}"
+    end
+
+    where_clause_parts << "documents.slug = :slug"
+    bind_parameters[:slug] = keywords
+
     in_default_locale
-    .includes(:document)
-    .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
+      .includes(:document)
+      .where(where_clause_parts.join(" OR "), bind_parameters)
   }
 
   scope :force_published,               -> { where(state: "published", force_published: true) }

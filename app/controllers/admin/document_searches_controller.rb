@@ -21,6 +21,7 @@ class Admin::DocumentSearchesController < Admin::BaseController
         .with_translations(I18n.locale)
         .limit(10)
     end
+
   private
     def filters_for(params)
       filters = []
@@ -38,7 +39,7 @@ class Admin::DocumentSearchesController < Admin::BaseController
         end
       end
 
-      filters << ->(editions) { editions.public_send(params[:state] || 'active' ) }
+      filters << ->(editions) { editions.in_state(params[:state] || 'active') }
 
       filters
     end
