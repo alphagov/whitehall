@@ -5,6 +5,14 @@ module Edition::Workflow
     def active
       where(arel_table[:state].not_eq('superseded'))
     end
+
+    def in_state(state)
+      valid_state?(state) && public_send(state)
+    end
+
+    def valid_state?(state)
+      %w(active imported draft submitted rejected published scheduled force_published archived not_published).include?(state)
+    end
   end
 
   included do

@@ -48,11 +48,13 @@ class Edition < ActiveRecord::Base
     in_default_locale.where("edition_translations.title REGEXP :pattern OR edition_translations.summary REGEXP :pattern", pattern: pattern)
   }
 
-  scope :with_title_containing, -> *keywords {
-    pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
+  scope :with_title_containing, ->(keywords) {
+    escaped_like_expression = keywords.gsub(/([%_])/, '%' => '\\%', '_' => '\\_')
+    like_clause = "%#{escaped_like_expression}%"
+
     in_default_locale
-    .includes(:document)
-    .where("edition_translations.title REGEXP :pattern OR documents.slug = :slug", pattern: pattern, slug: keywords)
+      .includes(:document)
+      .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
   }
 
   scope :force_published,               -> { where(state: "published", force_published: true) }
