@@ -305,7 +305,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def session_filters
-    session[:document_filters] || {}
+    (session[:document_filters] || {}).to_h
   end
 
   def params_filters
