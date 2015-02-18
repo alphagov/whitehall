@@ -91,10 +91,6 @@ module Admin
       end
     end
 
-    def valid_scopes
-      %w(active imported draft submitted rejected published scheduled force_published archived not_published)
-    end
-
     private
 
     def unpaginated_editions
@@ -104,7 +100,7 @@ module Admin
       editions = editions.by_type(type) if type
       editions = editions.by_subtype(type, subtype) if subtype
       editions = editions.by_subtypes(type, subtype_ids) if type && subtype_ids
-      editions = editions.public_send(state) if state
+      editions = editions.in_state(state) if state
       editions = editions.authored_by(author) if author
       editions = editions.in_organisation(organisation) if organisation
       editions = editions.with_classification(classification) if classification
@@ -133,7 +129,7 @@ module Admin
     end
 
     def state
-      options[:state] if valid_scopes.include?(options[:state])
+      options[:state] if Edition.valid_state?(options[:state])
     end
 
     def title
