@@ -1,9 +1,11 @@
 <% page_title "Governments" %>
 <h1>Governments</h1>
 
-<p>
-  <%= link_to "Create a government", new_admin_government_path %>
-</p>
+<% if can?(:create, Government) %>
+  <p>
+    <%= link_to "Create a government", new_admin_government_path %>
+  </p>
+<% end %>
 
 <table class="governments table table-striped table-bordered add-top-margin">
   <thead>
@@ -18,7 +20,11 @@
     <% @governments.each do |government| %>
       <%= content_tag_for(:tr, government) do %>
         <td>
-          <%= link_to government.name, edit_admin_government_path(government) %>
+          <% if can?(:edit, government) %>
+            <%= link_to government.name, edit_admin_government_path(government) %>
+          <% else %>
+            <%= government.name %>
+          <% end %>
         </td>
         <td>
           <%= government.start_date.to_s(:govuk_date) %>
