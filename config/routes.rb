@@ -372,6 +372,8 @@ Whitehall::Application.routes.draw do
           end
         end
 
+        resources :governments, except: [:destroy]
+
         post "preview" => "preview#preview"
 
         scope '/get-involved' do

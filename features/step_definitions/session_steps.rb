@@ -1,4 +1,4 @@
-Given /^I am (?:a|an) (writer|editor|admin|GDS editor|importer|managing editor)(?: called "([^"]*)")?$/ do |role, name|
+Given /^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managing editor)(?: called "([^"]*)")?$/ do |role, name|
   @user = case role
   when "writer"
     create(:policy_writer, name: (name || "Wally Writer"))
@@ -8,6 +8,8 @@ Given /^I am (?:a|an) (writer|editor|admin|GDS editor|importer|managing editor)(
     create(:user)
   when "GDS editor"
     create(:gds_editor)
+  when "GDS admin"
+    create(:gds_admin)
   when 'importer'
     create(:importer)
   when 'managing editor'
