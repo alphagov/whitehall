@@ -122,8 +122,8 @@ class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController
       name: '',
     }
 
+    refute @worldwide_organisation.available_in_locale?('fr')
     translation_path = admin_worldwide_organisation_translation_path(@worldwide_organisation, 'fr')
-
     assert_select "form[action=#{CGI::escapeHTML(translation_path)}]"
   end
 

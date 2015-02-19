@@ -3,8 +3,8 @@ class CorporateInformationPage < Edition
   include Searchable
 
   has_one :edition_organisation, foreign_key: :edition_id, dependent: :destroy
-  has_one :organisation, include: :translations, through: :edition_organisation, autosave: false
-  has_one :edition_worldwide_organisation, foreign_key: :edition_id, dependent: :destroy
+  has_one :organisation, -> { includes(:translations) }, through: :edition_organisation, autosave: false
+  has_one :edition_worldwide_organisation, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy
   has_one :worldwide_organisation, through: :edition_worldwide_organisation, autosave: false
 
   delegate :slug, :display_type_key, to: :corporate_information_page_type
@@ -22,11 +22,6 @@ class CorporateInformationPage < Edition
 
   validates :corporate_information_page_type_id, presence: true
   validate :only_one_organisation_or_worldwide_organisation
-
-  before_save :ensure_title_is_blank
-  def ensure_title_is_blank
-    self.title = ''
-  end
 
   def body_required?
     !about_page?
@@ -81,13 +76,13 @@ class CorporateInformationPage < Edition
 
   def self.for_slug(slug)
     if type = CorporateInformationPageType.find(slug)
-      find_by_corporate_information_page_type_id(type.id)
+      find_by(corporate_information_page_type_id: type.id)
     end
   end
 
   def self.for_slug!(slug)
     if type = CorporateInformationPageType.find(slug)
-      find_by_corporate_information_page_type_id!(type.id)
+      find_by!(corporate_information_page_type_id: type.id)
     end
   end
 

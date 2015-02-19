@@ -1,5 +1,5 @@
 Given /^the organisation "(.*?)" has no mainstream categories defined$/ do |name|
-  @the_organisation = Organisation.find_by_name(name)
+  @the_organisation = Organisation.find_by(name: name)
   @the_organisation.mainstream_categories.clear
 end
 

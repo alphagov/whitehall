@@ -302,7 +302,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     delete :destroy, id: role.id
 
     assert_redirected_to admin_roles_path
-    refute Role.find_by_id(role.id)
+    refute Role.find_by(id: role.id)
     assert_equal %{"Prime Minister" destroyed.}, flash[:notice]
   end
 
@@ -313,7 +313,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     delete :destroy, id: role.id
 
     assert_redirected_to admin_roles_path
-    assert Role.find_by_id(role.id)
+    assert Role.find_by(id: role.id)
     assert_equal "Cannot destroy a role with appointments, organisations, or documents", flash[:alert]
   end
 end

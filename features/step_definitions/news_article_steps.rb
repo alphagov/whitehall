@@ -11,7 +11,7 @@ Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title
 end
 
 Given(/^a published news article associated with the policy "(.*?)"$/) do |policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by(title: policy_title)
   create(:published_news_article, related_editions: [policy])
 end
 

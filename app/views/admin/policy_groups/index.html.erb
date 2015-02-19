@@ -21,7 +21,12 @@
           <td class="email"><%= policy_group.email %></td>
           <td>
             <% if can?(:delete, PolicyGroup) %>
-            <%= button_to 'Delete', admin_policy_group_path(policy_group), method: :delete, title: "Delete", confirm: "Are you sure you want to delete the group?", class: "btn btn-danger" %>
+            <%= button_to 'Delete',
+                  admin_policy_group_path(policy_group),
+                  method: :delete,
+                  title: "Delete",
+                  data: { confirm: "Are you sure you want to delete the group?" },
+                  class: "btn btn-danger" %>
             <% end %>
           </td>
         <% end %>

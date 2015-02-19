@@ -43,8 +43,8 @@ private
   def load_parent
     @parent = WorldLocation.find(params[:world_location_id]) if params[:world_location_id]
     @parent = Organisation.find(params[:organisation_id]) if params[:organisation_id]
-    @parent = Topic.find(params[:topic_id]) if params[:topic_id]
-    @parent = TopicalEvent.find(params[:topical_event_id]) if params[:topical_event_id]
+    @parent = Topic.friendly.find(params[:topic_id]) if params[:topic_id]
+    @parent = TopicalEvent.friendly.find(params[:topical_event_id]) if params[:topical_event_id]
   end
 
   def load_offsite_link

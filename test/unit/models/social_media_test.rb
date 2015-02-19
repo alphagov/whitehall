@@ -5,6 +5,6 @@ class SocialMediaTest < ActiveSupport::TestCase
     test_object = create(:organisation)
     social_media_account = create(:social_media_account, socialable: test_object)
     test_object.destroy
-    assert_nil SocialMediaAccount.find_by_id(social_media_account.id)
+    assert_nil SocialMediaAccount.find_by(id: social_media_account.id)
   end
 end

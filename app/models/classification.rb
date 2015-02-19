@@ -10,12 +10,12 @@ class Classification < ActiveRecord::Base
              format: 'topic',
              slug: :slug
 
-  has_many :classification_memberships
+  has_many :classification_memberships, inverse_of: :classification
   has_many :editions, through: :classification_memberships
 
   has_many :organisation_classifications
   has_many :organisations, through: :organisation_classifications
-  has_many :classification_relations
+  has_many :classification_relations, inverse_of: :classification
   has_many :related_classifications,
             through: :classification_relations,
             before_remove: -> pa, rpa {
@@ -23,16 +23,17 @@ class Classification < ActiveRecord::Base
             }
 
   has_many :classification_featurings,
+            -> { where("editions.state = 'published' or classification_featurings.edition_id is null").
+                 references(:edition).
+                 includes(edition: :translations).
+                 order("classification_featurings.ordering asc") },
             foreign_key: :classification_id,
-            order: "classification_featurings.ordering asc",
-            include: { edition: :translations },
-            inverse_of: :classification,
-            conditions: "editions.state = 'published' or classification_featurings.edition_id is null"
+            inverse_of: :classification
 
   has_many :featured_editions,
+            -> { order("classification_featurings.ordering ASC") },
             through: :classification_featurings,
-            source: :edition,
-            order: "classification_featurings.ordering ASC"
+            source: :edition
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description

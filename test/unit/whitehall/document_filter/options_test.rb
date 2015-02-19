@@ -115,13 +115,13 @@ module Whitehall
         options = filter_options.for(:publication_type)
         assert_equal ["All publication types", "all"], options.all
         assert_equal [], options.ungrouped
-        assert_include options.grouped.values.flatten(1), ["Statistics", "statistics"]
+        assert_includes options.grouped.values.flatten(1), ["Statistics", "statistics"]
       end
 
       test "can get the list of options for announcement_type" do
         options = filter_options.for(:announcement_type)
         assert_equal ["All announcement types", "all"], options.all
-        assert_include options.ungrouped, ["News stories", "news-stories"]
+        assert_includes options.ungrouped, ["News stories", "news-stories"]
         assert_equal({}, options.grouped)
       end
 
@@ -158,7 +158,7 @@ module Whitehall
       test "can get the list of options for official documents" do
         options = filter_options.for(:official_documents)
         assert_equal ["All documents", "all"], options.all
-        assert_include options.ungrouped, ['Command or act papers', 'command_and_act_papers']
+        assert_includes options.ungrouped, ['Command or act papers', 'command_and_act_papers']
         assert_equal({}, options.grouped)
       end
 
@@ -166,7 +166,7 @@ module Whitehall
         location = create(:world_location)
         options = filter_options.for(:locations)
         assert_equal ["All locations", "all"], options.all
-        assert_include options.ungrouped, [location.name, location.slug]
+        assert_includes options.ungrouped, [location.name, location.slug]
         assert_equal({}, options.grouped)
       end
     end

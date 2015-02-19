@@ -1,5 +1,5 @@
 Given /^a published publication "([^"]*)" exists that is about "([^"]*)"$/ do |publication_title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   create(:published_publication, title: publication_title, world_locations: [world_location])
 end
 
@@ -25,7 +25,7 @@ When /^I draft a new publication "([^"]*)"$/ do |title|
 end
 
 Given /^"([^"]*)" drafts a new publication "([^"]*)"$/ do |user_name, title|
-  user = User.find_by_name(user_name)
+  user = User.find_by(name: user_name)
   as_user(user) do
     begin_drafting_publication(title)
     click_button "Save"
@@ -87,12 +87,12 @@ Then /^I should see a thumbnail of the first page of the PDF$/ do
 end
 
 Then /^I should see the summary of the publication "([^"]*)"$/ do |publication_title|
-  publication = Publication.published.find_by_title!(publication_title)
+  publication = Publication.published.find_by!(title: publication_title)
   assert has_css?("#{record_css_selector(publication)} h3", publication.title)
 end
 
 Then /^I should see the summary of the draft publication "([^"]*)"$/ do |publication_title|
-  publication = Publication.find_by_title!(publication_title)
+  publication = Publication.find_by!(title: publication_title)
   assert has_css?("h1", publication.title)
 end
 
@@ -191,7 +191,7 @@ Then /^I should not be able to publish the publication "([^"]*)"$/ do |title|
 end
 
 Given /^"([^"]*)" submits the publication "([^"]*)"$/ do |user_name, title|
-  user = User.find_by_name(user_name)
+  user = User.find_by(name: user_name)
   as_user(user) do
     visit_edition_admin title
     click_button "Submit for 2nd eyes"

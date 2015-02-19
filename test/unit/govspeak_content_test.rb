@@ -36,8 +36,8 @@ class GovspeakContentTest < ActiveSupport::TestCase
     Sidekiq::Testing.fake! do
       govspeak_content.save!
 
-      assert_present govspeak_content.computed_body_html
-      assert_present govspeak_content.computed_headers_html
+      assert govspeak_content.computed_body_html.present?
+      assert govspeak_content.computed_headers_html.present?
 
       assert_empty GovspeakContentWorker.jobs
     end

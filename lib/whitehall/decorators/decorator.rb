@@ -1,7 +1,14 @@
 module Whitehall
   module Decorators
-    class Decorator < Struct.new(:model, :context)
+    class Decorator
       extend DelegateInstanceMethodsOf
+
+      attr_accessor :model, :context
+
+      def initialize(model, context = nil)
+        @model = model
+        @context = context
+      end
 
       def ==(other)
         if other.respond_to? :model

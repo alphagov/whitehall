@@ -1,11 +1,11 @@
 class ClassificationRelation < ActiveRecord::Base
-  belongs_to :classification
+  belongs_to :classification, inverse_of: :classification_relations
   belongs_to :related_classification, foreign_key: :related_classification_id, class_name: "Classification"
   belongs_to :topic, foreign_key: :classification_id, class_name: "Topic"
   belongs_to :related_topic, foreign_key: :related_classification_id, class_name: "Topic"
 
-  validates :classification_id, presence: true
-  validates :related_classification_id, presence: true
+  validates :classification, presence: true
+  validates :related_classification, presence: true
   validates :classification_id, uniqueness: { scope: :related_classification_id }
 
   class Validator < ActiveModel::Validator

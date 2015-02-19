@@ -4,23 +4,23 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   teardown { I18n.locale = I18n.default_locale }
 
   test 'locale defaults to English locale key' do
-    assert_equal 'en', Edition.new.locale
+    assert_equal 'en', Edition.new.primary_locale
   end
 
   test 'locale is validated as a locale' do
-    edition = build(:edition, locale: '123')
+    edition = build(:edition, primary_locale: '123')
     refute edition.valid?
-    assert_equal ['is not valid'], edition.errors[:locale]
+    assert_equal ['is not valid'], edition.errors[:primary_locale]
 
-    edition.locale = :fr
+    edition.primary_locale = :fr
     assert edition.valid?
-    edition.locale = 'fr'
+    edition.primary_locale = 'fr'
     assert edition.valid?
   end
 
   test 'primary_language_name returns the native English lanugage name' do
     assert_equal 'English', Edition.new.primary_language_name
-    assert_equal 'French', Edition.new(locale: :fr).primary_language_name
+    assert_equal 'French', Edition.new(primary_locale: :fr).primary_language_name
   end
 
   test 'locale_can_be_changed? returns true for a new WorldLocationNewsArticle' do
@@ -38,10 +38,10 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   end
 
   test 'right-to-left editions identify themselves' do
-    french_edition = create(:edition, locale: :fr)
+    french_edition = create(:edition, primary_locale: :fr)
     refute french_edition.rtl?
 
-    arabic_edition = create(:edition, locale: :ar)
+    arabic_edition = create(:edition, primary_locale: :ar)
     assert arabic_edition.rtl?
   end
 
@@ -62,7 +62,7 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
 
   test 'non-English editions fallback to their primary locale when localised, even with English translation' do
     I18n.locale = :fr
-    french_edition = create(:edition, title: 'French Title', body: 'French Body', locale: :fr)
+    french_edition = create(:edition, title: 'French Title', body: 'French Body', primary_locale: :fr)
 
     with_locale(:en) do
       french_edition.title = 'English Title'
@@ -76,7 +76,7 @@ class Edition::TranslatableTest < ActiveSupport::TestCase
   end
 
   test 'updating a non-English edition does not save an empty English translation' do
-    french_edition = I18n.with_locale(:fr) { create(:edition, title: 'French Title', body: 'French Body', locale: :fr) }
+    french_edition = I18n.with_locale(:fr) { create(:edition, title: 'French Title', body: 'French Body', primary_locale: :fr) }
     assert french_edition.available_in_locale?(:fr)
     refute french_edition.available_in_locale?(:en)
 

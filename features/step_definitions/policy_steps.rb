@@ -49,13 +49,13 @@ Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)"$/ do 
 end
 
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the policy "([^"]*)"$/ do |document_type, document_title, policy_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   create("published_#{document_class(document_type).name.underscore}".to_sym,
           title: document_title, related_editions: [policy])
 end
 
 When /^I reject the policy titled "([^"]*)"$/ do |policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by(title: policy_title)
   visit admin_policy_path(policy)
   click_button "Reject"
   fill_in "Remark", with: "reason-for-rejection"
@@ -75,7 +75,7 @@ When /^I edit the new edition$/ do
 end
 
 When /^I request that "([^"]*)" fact checks the policy "([^"]*)" with instructions "([^"]*)"$/ do |email, title, instructions|
-  policy = Policy.find_by_title!(title)
+  policy = Policy.find_by!(title: title)
   visit admin_editions_path(state: :draft)
   within(record_css_selector(policy)) do
     click_link title
@@ -147,47 +147,47 @@ When /^I edit the policy "([^"]*)" adding it to the "([^"]*)" topic$/ do |title,
 end
 
 When /^I publish the policy "([^"]*)" but another user edits it while I am viewing it$/ do |title|
-  policy = Policy.find_by_title!(title)
+  policy = Policy.find_by!(title: title)
   visit_edition_admin title
   policy.update_attributes!(body: 'A new body')
   publish(ignore_errors: true)
 end
 
 When /^I publish the policy "([^"]*)" without a change note$/ do |title|
-  policy = Policy.find_by_title!(title)
+  policy = Policy.find_by!(title: title)
   visit_edition_admin title
   publish(without_change_note: true)
 end
 
 When /^I visit the activity of the published policy "([^"]*)"$/ do |title|
-  policy = Policy.published.find_by_title!(title)
+  policy = Policy.published.find_by!(title: title)
   visit activity_policy_path(policy.document)
 end
 
 When /^I delete the draft policy "([^"]*)"$/ do |title|
-  policy = Policy.draft.find_by_title!(title)
+  policy = Policy.draft.find_by!(title: title)
   visit admin_edition_path(policy)
   click_button "Delete"
 end
 
 When /^I view the policy titled "([^"]*)"$/ do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   visit admin_edition_path(policy)
 end
 
 When(/^I visit the policy activity page for "(.*?)"$/) do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   visit activity_policy_path(policy.slug)
 end
 
 When /^I resubmit the policy titled "([^"]*)"$/ do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   visit admin_edition_path(policy)
   click_button "Submit"
 end
 
 When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]*)"$/ do |policy_title, new_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   visit admin_edition_path(policy)
   click_button "Create new edition"
   fill_in "Title", with: new_title
@@ -197,7 +197,7 @@ When /^I publish a new edition of the policy "([^"]*)" with the new title "([^"]
 end
 
 When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |policy_title|
-  policy = Policy.latest_edition.find_by_title!(policy_title)
+  policy = Policy.latest_edition.find_by!(title: policy_title)
   visit admin_edition_path(policy)
   click_button "Create new edition"
   choose "edition_minor_change_true"
@@ -206,7 +206,7 @@ When /^I publish a new edition of the policy "([^"]*)" as a minor change$/ do |p
 end
 
 When /^I publish a new edition of the policy "([^"]*)" with a change note "([^"]*)"$/ do |policy_title, change_note|
-  policy = Policy.latest_edition.find_by_title!(policy_title)
+  policy = Policy.latest_edition.find_by!(title: policy_title)
   visit admin_edition_path(policy)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
@@ -219,7 +219,7 @@ Then /^I should see the fact checking feedback "([^"]*)"$/ do |comments|
 end
 
 Then /^I should see the pending fact check request to "([^"]*)" for policy "([^"]*)"$/ do |email_address, title|
-  visit admin_policy_path(Policy.find_by_title!(title))
+  visit admin_policy_path(Policy.find_by!(title: title))
   assert page.has_css?(".fact_check_request.pending .from", text: email_address)
 end
 
@@ -240,7 +240,7 @@ Then /^I should see that the policy only applies to:$/ do |nation_names|
 end
 
 Then /^they should see the draft policy "([^"]*)"$/ do |title|
-  policy = Policy.draft.find_by_title!(title)
+  policy = Policy.draft.find_by!(title: title)
   assert page.has_css?('.document .title', text: policy.title)
   assert page.has_css?('.document .body', text: policy.body)
 end
@@ -251,26 +251,26 @@ Then /^I can see links to the related published policies "([^"]*)" and "([^"]*)"
 end
 
 Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |policy_title|
-  policy = Policy.published.find_by_title!(policy_title)
+  policy = Policy.published.find_by!(title: policy_title)
   visit admin_edition_path(policy)
   assert_match public_document_path(policy), find("a.public_version")[:href]
 end
 
 Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   visit admin_edition_path(policy)
   preview_path_regexp = Regexp.new(Regexp.escape(preview_document_path(policy)).gsub(/cachebust=[0-9]+/, 'cachebust=[0-9]+'))
   assert_match preview_path_regexp, find("a.preview_version")[:href]
 end
 
 Then /^I should see the policy titled "([^"]*)" in the list of documents that need work$/ do |policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by(title: policy_title)
   filter_editions_by :state, "Rejected"
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
 
 Then /^the writers who worked on the policy titled "([^"]*)" should be emailed about the rejection$/ do |policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by(title: policy_title)
   policy.authors.each do |writer|
     assert_equal 1, unread_emails_for(writer.email).size
     assert_match /The policy '#{policy_title}' was rejected by/, unread_emails_for(writer.email).first.subject
@@ -278,7 +278,7 @@ Then /^the writers who worked on the policy titled "([^"]*)" should be emailed a
 end
 
 Then /^the writers who worked on the policy titled "([^"]*)" should be emailed about the publication$/ do |policy_title|
-  policy = Policy.find_by_title(policy_title)
+  policy = Policy.find_by(title: policy_title)
   policy.authors.each do |writer|
     assert_equal 1, unread_emails_for(writer.email).size
     assert_match /The policy '#{policy_title}' has been published/, unread_emails_for(writer.email).first.subject
@@ -292,19 +292,19 @@ end
 Then /^I should see the policy titled "([^"]*)" in the list of submitted documents$/ do |policy_title|
   filter_editions_by :author, "All authors"
   filter_editions_by :state, 'Submitted'
-  policy = Policy.find_by_title!(policy_title)
+  policy = Policy.find_by!(title: policy_title)
   assert page.has_css?("#{record_css_selector(policy)}", text: policy.title)
 end
 
 Then /^I can see links to the recently changed document "([^"]*)"$/ do |title|
-  edition = Edition.find_by_title!(title)
+  edition = Edition.find_by!(title: title)
   assert page.has_css?("#recently-changed #{record_css_selector(edition)} a", text: edition.title), "#{edition.title} not found"
 end
 
 Then /^the change notes should appear in the history for the policy "([^"]*)" in reverse chronological order$/ do |title|
   visit policies_path
   click_link title
-  policy = Policy.find_by_title!(title)
+  policy = Policy.find_by!(title: title)
   document_history = policy.change_history
   change_notes = find('.change-notes').all('.note')
   assert_equal document_history.length, change_notes.length
@@ -322,12 +322,12 @@ Given /^a draft publication "([^"]*)" associated with the policy$/ do |title|
 end
 
 Then /^I should see a link to "([^"]*)" in the list of related documents$/ do |title|
-  edition = Edition.find_by_title(title)
+  edition = Edition.find_by(title: title)
   assert_match admin_edition_path(edition), page.find("#inbound-links a", text: title)[:href]
 end
 
 Then /^I should not see a link to "([^"]*)" in the list of related documents$/ do |title|
-  edition = Edition.find_by_title(title)
+  edition = Edition.find_by(title: title)
   assert page.has_no_css?("#inbound-links a", text: title), "unexpected link to '#{title}' found"
 end
 

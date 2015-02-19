@@ -1,5 +1,5 @@
 class FeatureList < ActiveRecord::Base
-  has_many :features, dependent: :destroy, order: :ordering, before_add: :ensure_ordering!
+  has_many :features, -> { order(:ordering) }, dependent: :destroy, before_add: :ensure_ordering!
   belongs_to :featurable, polymorphic: true
 
   validates_presence_of :locale
@@ -15,7 +15,7 @@ class FeatureList < ActiveRecord::Base
     Feature.connection.transaction do
       start_at = next_ordering
       new_ordering.each.with_index do |feature_id, i|
-        feature = self.features.find_by_id!(feature_id)
+        feature = self.features.find(feature_id)
         feature.ordering = start_at + i
         feature.save!
       end

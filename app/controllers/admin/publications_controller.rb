@@ -1,6 +1,4 @@
 class Admin::PublicationsController < Admin::EditionsController
-  include Admin::EditionsController::NationalApplicability
-
   before_filter :pre_fill_edition_from_statistics_announcement, only: :new, if: :statistics_announcement
 
   private

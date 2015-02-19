@@ -29,7 +29,7 @@ module Govspeak
       when ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH
         convert_link_for_worldwide_corporate_information_page(anchor, $1, $2, &block)
       when ADMIN_EDITION_PATH
-        edition = Edition.unscoped.find_by_id($1)
+        edition = Edition.unscoped.find_by(id: $1)
         convert_link_for_edition(anchor, edition, &block)
       else
         replace_bad_link(anchor, &block)
@@ -39,21 +39,21 @@ module Govspeak
     private
 
     def convert_link_for_old_supporting_page(anchor, policy_slug, slug, &block)
-      policy = Policy.unscoped.find_by_id(policy_slug)
-      supporting_page = EditionedSupportingPageMapping.find_by_old_supporting_page_id(slug).try(:new_supporting_page)
+      policy = Policy.unscoped.find_by(id: policy_slug)
+      supporting_page = EditionedSupportingPageMapping.find_by(old_supporting_page_id: slug).try(:new_supporting_page)
 
       convert_link_for_edition(anchor, supporting_page, policy_id: policy.document, &block)
     end
 
     def convert_link_for_corporate_information_page(anchor, organisation_slug, slug, &block)
-      organisation = Organisation.find_by_slug(organisation_slug)
+      organisation = Organisation.find_by(slug: organisation_slug)
       corporate_info_page = organisation.corporate_information_pages.find(slug)
 
       convert_link_for_edition(anchor, corporate_info_page, &block)
     end
 
     def convert_link_for_worldwide_corporate_information_page(anchor, world_org_slug, slug, &block)
-      organisation = WorldwideOrganisation.find_by_slug(world_org_slug)
+      organisation = WorldwideOrganisation.find_by(slug: world_org_slug)
       corporate_info_page = organisation.corporate_information_pages.find(slug)
 
       convert_link_for_edition(anchor, corporate_info_page, &block)

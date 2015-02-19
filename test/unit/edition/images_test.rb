@@ -110,7 +110,7 @@ class Edition::ImagesTest < ActiveSupport::TestCase
     image = create(:image)
     edition = EditionWithImages.create!(valid_edition_attributes.merge(images: [image]))
     edition.destroy
-    refute Image.find_by_id(image.id)
+    refute Image.find_by(id: image.id)
   end
 
   test "should indicate that it allows image attachments" do

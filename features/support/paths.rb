@@ -20,27 +20,27 @@ module NavigationHelpers
   end
 
   def visit_organisation(name)
-    organisation = Organisation.find_by_name!(name)
+    organisation = Organisation.find_by!(name: name)
     visit organisation_path(organisation)
   end
 
   def visit_organisation_about_page(name)
-    organisation = Organisation.find_by_name!(name)
+    organisation = Organisation.find_by!(name: name)
     visit organisation_corporate_information_pages_path(organisation)
   end
 
   def visit_organisation_email_signup_information_page(name)
-    organisation = Organisation.find_by_name!(name)
+    organisation = Organisation.find_by!(name: name)
     visit organisation_email_signup_information_path(organisation)
   end
 
   def visit_worldwide_organisation_page(name)
-    worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
+    worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
     visit worldwide_organisation_path(worldwide_organisation)
   end
 
   def visit_topic(name)
-    visit topic_path(Topic.find_by_name!(name))
+    visit topic_path(Topic.find_by!(name: name))
   end
 
   def visit_public_index_for(edition)

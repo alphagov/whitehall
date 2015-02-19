@@ -6,7 +6,7 @@ class TopicalEventsController < ClassificationsController
   end
 
   def show
-    @classification = TopicalEvent.find(params[:id])
+    @classification = TopicalEvent.friendly.find(params[:id])
     @policies = @classification.published_policies.includes(:translations, :document)
     @publications = fetch_associated(:published_publications, PublicationesquePresenter)
     @consultations = fetch_associated(:published_consultations, PublicationesquePresenter)

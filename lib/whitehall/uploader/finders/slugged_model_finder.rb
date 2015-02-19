@@ -8,7 +8,7 @@ class Whitehall::Uploader::Finders::SluggedModelFinder
   def find(slugs)
     slugs = slugs.reject { |slug| slug.blank? }.uniq
     slugs.collect do |slug|
-      @klass.find_by_slug(slug) || begin
+      @klass.find_by(slug: slug) || begin
         @logger.error "Unable to find #{@klass.name} with slug '#{slug}'", @line_number
         nil
       end

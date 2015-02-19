@@ -27,6 +27,18 @@ class AttachableTest < ActiveSupport::TestCase
     assert_equal [attachment_1, attachment_2, attachment_3], publication.attachments(true)
   end
 
+  test "creating a new attachable thing with multiple attachments sets the correct ordering" do
+    publication = build(:publication, :with_file_attachment, attachments: [
+      attachment_1 = build(:file_attachment),
+      attachment_2 = build(:file_attachment, file: file_fixture('whitepaper.pdf'))
+    ])
+
+    publication.save!
+    assert_equal [attachment_1, attachment_2], publication.attachments
+    assert_equal 0, attachment_1.ordering
+    assert_equal 1, attachment_2.ordering
+  end
+
   test "should be invalid if an edition has an attachment but no alternative format provider" do
     attachment = build(:file_attachment)
     publication = build(:publication, attachments: [attachment], alternative_format_provider: nil)
@@ -147,7 +159,7 @@ class AttachableTest < ActiveSupport::TestCase
   test 'has html_attachments association to fetch only HtmlAttachments' do
     publication = create(:publication, :with_file_attachment, attachments: [
       attachment_1 = build(:file_attachment, ordering: 0),
-      attachment_2 = build(:html_attachment, title: "Test HTML attachment"),
+      attachment_2 = build(:html_attachment, title: "Test HTML attachment", ordering: 1),
     ])
 
     attachment_3 = build(:html_attachment, title: 'Title', body: "Testing")
@@ -185,8 +197,8 @@ class AttachableTest < ActiveSupport::TestCase
   end
 
   test 're-editioned editions deep-clones attachments' do
-    file_attachment = build(:file_attachment, attachable: nil)
-    html_attachment = build(:html_attachment, attachable: nil)
+    file_attachment = build(:file_attachment, attachable: nil, ordering: 0)
+    html_attachment = build(:html_attachment, attachable: nil, ordering: 1)
     publication = create(:published_publication, :with_alternative_format_provider,
                     attachments: [file_attachment, html_attachment])
 

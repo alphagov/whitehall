@@ -39,7 +39,7 @@ module Whitehall
     test '#run performs the migration and saves a record for it' do
       MyData.expects(:migrate!)
       @data_migration.run
-      assert DataMigrationRecord.find_by_version(@data_migration.version)
+      assert DataMigrationRecord.find_by(version: @data_migration.version)
     end
 
     test "#run will rollback any changes if the data migration fails part way through" do
@@ -49,7 +49,7 @@ module Whitehall
       assert_no_difference('Person.count') do
         bad_migration.run
       end
-      refute DataMigrationRecord.find_by_version(bad_migration.version)
+      refute DataMigrationRecord.find_by(version: bad_migration.version)
     end
   end
 end

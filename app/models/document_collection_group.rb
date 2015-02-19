@@ -1,10 +1,16 @@
 class DocumentCollectionGroup < ActiveRecord::Base
-  belongs_to :document_collection, touch: true
-  has_many :memberships, class_name: 'DocumentCollectionGroupMembership',
-                         order: 'document_collection_group_memberships.ordering',
-                         dependent: :destroy
-  has_many :documents, through: :memberships, order: 'document_collection_group_memberships.ordering'
-  has_many :editions, through: :documents, order: 'document_collection_group_memberships.ordering'
+  belongs_to :document_collection, inverse_of: :groups, touch: true
+  has_many :memberships,
+           -> { order('document_collection_group_memberships.ordering') } ,
+           class_name: 'DocumentCollectionGroupMembership',
+           inverse_of: :document_collection_group,
+           dependent: :destroy
+  has_many :documents,
+           -> { order('document_collection_group_memberships.ordering') },
+           through: :memberships
+  has_many :editions,
+           -> { order('document_collection_group_memberships.ordering') },
+           through: :documents
 
   validates :heading, presence: true, uniqueness: { scope: :document_collection_id }
   validates_associated :memberships
@@ -20,7 +26,7 @@ class DocumentCollectionGroup < ActiveRecord::Base
   end
 
   def self.visible
-    includes(:editions).where('editions.state = ?', 'published')
+    includes(:editions).references(:editions).where(editions: { state: 'published'})
   end
 
   def self.default_attributes

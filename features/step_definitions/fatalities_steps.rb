@@ -40,7 +40,7 @@ Then /^I should see the minister's name listed at the top$/ do
 end
 
 When /^I look at the fatality notice titled "([^"]*)"$/ do |title|
-  visit document_path(FatalityNotice.find_by_title(title))
+  visit document_path(FatalityNotice.find_by(title: title))
 end
 
 Then /^I can view the field of operations information from a link in the metadata$/ do
@@ -51,7 +51,7 @@ Then /^I can view the field of operations information from a link in the metadat
 end
 
 Then /^I can see the roll call introduction of the fatality notice titled "([^"]*)"$/ do |title|
-  notice = FatalityNotice.find_by_title(title)
+  notice = FatalityNotice.find_by(title: title)
 
   assert page.has_content?(notice.roll_call_introduction)
   assert !page.has_content?(notice.summary)
@@ -69,7 +69,7 @@ When(/^I add a casualty to the fatality notice$/) do
 end
 
 Then(/^I should see a casualty listed on the field of operation page for "(.*?)"$/) do |field|
-  visit operational_field_path(OperationalField.find_by_name(field))
+  visit operational_field_path(OperationalField.find_by(name: field))
 
   within '.fatality_notice ul.casualties' do
     assert page.has_content?(FatalityNotice.last.title, count: 1)

@@ -21,8 +21,8 @@ class PolicyTest < ActiveSupport::TestCase
     draft_policy = published_policy.create_draft(create(:policy_writer))
 
     assert_equal published_policy.inapplicable_nations, draft_policy.inapplicable_nations
-    assert_equal "http://wales.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
-    assert_equal "http://scot.gov.uk", draft_policy.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
+    assert_equal "http://wales.gov.uk", draft_policy.nation_inapplicabilities.find_by(nation_id: Nation.wales.id).alternative_url
+    assert_equal "http://scot.gov.uk", draft_policy.nation_inapplicabilities.find_by(nation_id: Nation.scotland.id).alternative_url
   end
 
   test "should build a draft copy with references to related editions" do
@@ -104,42 +104,6 @@ class PolicyTest < ActiveSupport::TestCase
     case_study_3 = create(:draft_case_study, related_editions: [edition])
     random_publication = create(:published_publication, related_editions: [edition])
     assert_equal [case_study_1, case_study_2].to_set, edition.case_studies.to_set
-  end
-
-  test "should update count of published related publicationesques for publications" do
-    policy = create(:published_policy)
-    assert_equal 0, policy.published_related_publication_count
-
-    publication = create(:published_publication)
-    edition_relation = create(:edition_relation, document: policy.document, edition: publication)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    publication.update_attributes(state: :draft)
-    assert_equal 0, policy.reload.published_related_publication_count
-
-    publication.update_attributes(state: :published)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    edition_relation.reload.destroy
-    assert_equal 0, policy.reload.published_related_publication_count
-  end
-
-  test "should update count of published related publicationesques for consultations" do
-    policy = create(:published_policy)
-    assert_equal 0, policy.published_related_publication_count
-
-    consultation = create(:published_consultation)
-    edition_relation = create(:edition_relation, document: policy.document, edition: consultation)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    consultation.update_attributes(state: :draft)
-    assert_equal 0, policy.reload.published_related_publication_count
-
-    consultation.update_attributes(state: :published)
-    assert_equal 1, policy.reload.published_related_publication_count
-
-    edition_relation.reload.destroy
-    assert_equal 0, policy.reload.published_related_publication_count
   end
 
   test "search_index contains topics" do

@@ -7,7 +7,6 @@ class ConsultationTest < ActiveSupport::TestCase
   should_be_attachable
   should_not_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
-  should_support_linking_to_external_version
 
   [:imported, :deleted].each do |state|
     test "#{state} editions are valid without an opening at time" do
@@ -49,6 +48,17 @@ class ConsultationTest < ActiveSupport::TestCase
     end
   end
 
+  test "external consultations must have a valid external URL" do
+    edition = build(:consultation, external: true, external_url: nil)
+
+    refute edition.valid?
+    assert_equal "can't be blank", edition.errors[:external_url].first
+
+    edition.external_url = 'bad.url'
+    refute edition.valid?
+    assert_match /not valid/, edition.errors[:external_url].first
+  end
+
   test "should be invalid if the opening time is after the closing time" do
     consultation = build(:consultation, opening_at: 1.day.ago, closing_at: 2.days.ago)
     refute consultation.valid?
@@ -63,8 +73,8 @@ class ConsultationTest < ActiveSupport::TestCase
     draft_consultation = published_consultation.create_draft(create(:policy_writer))
 
     assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
-    assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.wales.id).alternative_url
-    assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by_nation_id(Nation.scotland.id).alternative_url
+    assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by(nation_id: Nation.wales.id).alternative_url
+    assert_equal "http://scot.gov.uk", draft_consultation.nation_inapplicabilities.find_by(nation_id: Nation.scotland.id).alternative_url
   end
 
   test ".closed includes consultations which have run and closed already" do
@@ -142,7 +152,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
     consultation.destroy
-    assert_nil ConsultationParticipation.find_by_id(consultation_participation.id)
+    refute ConsultationParticipation.exists?(consultation_participation)
   end
 
   test "should destroy the consultation outcome when the consultation is destroyed" do

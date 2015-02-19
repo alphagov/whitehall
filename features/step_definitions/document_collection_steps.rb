@@ -18,11 +18,11 @@ end
 When(/^I draft a new document collection called "(.*?)"$/) do |title|
   begin_drafting_document_collection(title: title)
   click_on "Save"
-  @document_collection = DocumentCollection.find_by_title!(title)
+  @document_collection = DocumentCollection.find_by!(title: title)
 end
 
 When(/^I add the document "(.*?)" to the document collection$/) do |document_title|
-  doc_edition = Edition.find_by_title!(document_title)
+  doc_edition = Edition.find_by!(title: document_title)
   refute @document_collection.nil?, "No document collection to act on."
 
   visit admin_document_collection_path(@document_collection)
@@ -88,7 +88,7 @@ When(/^I visit the old document series url "(.*?)"$/) do |url|
 end
 
 Then(/^I should be redirected to the "(.*?)" document collection$/) do |title|
-  dc = DocumentCollection.find_by_title(title)
+  dc = DocumentCollection.find_by(title: title)
   assert_path public_document_path(dc)
 end
 

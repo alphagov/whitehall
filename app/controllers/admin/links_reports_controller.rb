@@ -21,20 +21,6 @@ class Admin::LinksReportsController < Admin::BaseController
 private
 
   def find_reportable
-    @reportable = reportable_class.find(reportable_id)
-  end
-
-  def reportable_class
-    reportable_id_param_name.sub(/_id$/, '').classify.constantize
-  rescue NameError
-    raise ActiveRecord::RecordNotFound
-  end
-
-  def reportable_id
-    params[reportable_id_param_name]
-  end
-
-  def reportable_id_param_name
-    params.keys.find { |k| k =~ /_id$/ }
+    @reportable = Edition.find(params[:edition_id])
   end
 end

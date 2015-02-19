@@ -34,7 +34,7 @@ class Edition::HasMainstreamCategoriesTest < ActiveSupport::TestCase
     edition = create(:draft_detailed_guide, other_mainstream_categories: [mainstream_category])
     relation = edition.edition_mainstream_categories.first
     edition.destroy
-    refute EditionMainstreamCategory.find_by_id(relation.id)
+    refute EditionMainstreamCategory.find_by(id: relation.id)
   end
 
   test "can be dissociated from a mainstream category e.g. if we delete the category" do

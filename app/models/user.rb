@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
 
-  scope :enabled, where(disabled: false)
+  scope :enabled, -> { where(disabled: false) }
 
   module Permissions
     SIGNIN = 'signin'

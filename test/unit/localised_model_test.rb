@@ -25,16 +25,16 @@ class LocalisedModelTest < ActiveSupport::TestCase
   end
 
   test "returns locale to original value after decorated method call" do
-    I18n.locale = :original
+    I18n.locale = :fr
     @localised_model.locale
-    assert_equal :original, I18n.locale
+    assert_equal :fr, I18n.locale
   end
 
   test "returns locale to original value even if decorated call fails" do
-    I18n.locale = :original
+    I18n.locale = :fr
     @model.stubs(:locale).raises("any error")
     assert_raise(RuntimeError) { @localised_model.locale }
-    assert_equal :original, I18n.locale
+    assert_equal :fr, I18n.locale
   end
 
   test "has same identity as decorated instance" do
@@ -63,5 +63,17 @@ class LocalisedModelTest < ActiveSupport::TestCase
 
     localised_model = LocalisedModel.new(number, :es, [:contact])
     assert_equal :es, localised_model.contact.fixed_locale
+  end
+
+  test "#update_attributes with invalid attributes fails" do
+    model = create(:news_article)
+    localised_model = LocalisedModel.new(model, :es)
+    refute localised_model.update_attributes(title: '')
+    assert_equal ["can't be blank"], localised_model.errors[:title]
+
+    organisation = create(:organisation)
+    localised_model = LocalisedModel.new(organisation, :fr)
+    refute localised_model.update_attributes(name: '')
+    assert_equal ["can't be blank"], localised_model.errors[:name]
   end
 end

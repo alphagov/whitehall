@@ -61,7 +61,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     get :show, publication_id: publication.document, id: attachment, preview: attachment.id
 
     assert_response :success
-    assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
+    assert_cache_control 'no-cache'
     assert_select 'header h1', attachment.title
   end
 
@@ -76,7 +76,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     get :show, publication_id: draft.document, id: draft_attachment, preview: draft_attachment.id
 
     assert_response :success
-    assert_equal 'no-cache, max-age=0, private', response.headers['Cache-Control']
+    assert_cache_control 'no-cache'
     assert_select 'header h1', draft_attachment.title
   end
 

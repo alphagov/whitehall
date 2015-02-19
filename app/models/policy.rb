@@ -10,12 +10,29 @@ class Policy < Edition
   include Edition::WorldLocations
   include Edition::WorldwidePriorities
 
+
+  extend DeprecatedColumns
+  # FIXME: Pending migration in db/pending_migration_cleanups to remove this column
+  deprecated_columns :published_related_publication_count
+
   has_many :edition_relations, through: :document
   has_many :related_editions, through: :edition_relations, source: :edition
-  has_many :published_related_editions, through: :edition_relations, source: :edition, conditions: {editions: {state: 'published'}}
-  has_many :published_related_publications, through: :edition_relations, source: :edition, conditions: {editions: {type: Publicationesque.sti_names, state: 'published'}}
-  has_many :published_related_announcements, through: :edition_relations, source: :edition, conditions: {document: {editions: {type: Announcement.sti_names, state: 'published'}}}
-  has_many :case_studies, through: :edition_relations, source: :edition, conditions: {editions: {type: 'CaseStudy', state: 'published'}}
+  has_many :published_related_editions,
+           -> { where(editions: {state: 'published'}) },
+           through: :edition_relations,
+           source: :edition
+  has_many :published_related_publications,
+           -> { where(editions: {type: Publicationesque.sti_names, state: 'published'}) },
+           through: :edition_relations,
+           source: :edition
+  has_many :published_related_announcements,
+           -> { where(document: {editions: {type: Announcement.sti_names, state: 'published'}}) },
+           through: :edition_relations,
+           source: :edition
+  has_many :case_studies,
+           -> { where(editions: {type: 'CaseStudy', state: 'published'}) },
+           through: :edition_relations,
+           source: :edition
 
   has_many :edition_policy_groups, foreign_key: :edition_id
   has_many :policy_groups, through: :edition_policy_groups
@@ -35,7 +52,7 @@ class Policy < Edition
   class Trait < Edition::Traits::Trait
     def process_associations_before_save(edition)
       @edition.edition_policy_groups.each do |association|
-        edition.edition_policy_groups.build(association.attributes.except(["id", "edition_id"]))
+        edition.edition_policy_groups.build(association.attributes.except("id", "edition_id"))
       end
     end
   end
@@ -54,10 +71,6 @@ class Policy < Edition
 
   def can_apply_to_local_government?
     true
-  end
-
-  def update_published_related_publication_count
-    update_column(:published_related_publication_count, published_related_publications.count)
   end
 
   def translatable?

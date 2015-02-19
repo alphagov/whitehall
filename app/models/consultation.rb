@@ -9,14 +9,13 @@ class Consultation < Publicationesque
 
   validates :opening_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
   validates :closing_at, presence: true, unless: ->(consultation) { consultation.can_have_some_invalid_data? }
-  validates :external_url, uri: true, allow_blank: true, presence: { if: :external? }
+  validates :external_url, presence: true, if: :external?
+  validates :external_url, uri: true, allow_blank: true
   validate :validate_closes_after_opens
 
   has_one :outcome, class_name: 'ConsultationOutcome', foreign_key: :edition_id, dependent: :destroy
   has_one :public_feedback, class_name: 'ConsultationPublicFeedback', foreign_key: :edition_id, dependent: :destroy
   has_one :consultation_participation, foreign_key: :edition_id, dependent: :destroy
-
-  after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
 
   accepts_nested_attributes_for :consultation_participation, reject_if: :all_blank_or_empty_hashes
 

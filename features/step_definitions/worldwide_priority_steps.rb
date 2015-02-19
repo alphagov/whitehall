@@ -10,12 +10,12 @@ Given /^a published worldwide priority "([^"]*)" exists$/ do |title|
 end
 
 Given /^a published worldwide priority "([^"]*)" exists relating to the (?:world location|international delegation) "([^"]*)"$/ do |title, world_location_name|
-  world_location = WorldLocation.find_by_name!(world_location_name)
+  world_location = WorldLocation.find_by!(name: world_location_name)
   create(:published_worldwide_priority, title: title, world_locations: [world_location])
 end
 
 Given /^a published worldwide priority "([^"]*)" exists relating to the worldwide organisation "([^"]*)"$/ do |title, worldwide_organisation_name|
-  worldwide_organisation = WorldwideOrganisation.find_by_name!(worldwide_organisation_name)
+  worldwide_organisation = WorldwideOrganisation.find_by!(name: worldwide_organisation_name)
   create(:published_worldwide_priority, title: title, worldwide_organisations: [worldwide_organisation])
 end
 
@@ -28,7 +28,7 @@ Given /^a worldwide priority which is available in english as "([^"]*)" and in s
 end
 
 When /^I view the worldwide priority "([^"]*)"$/ do |title|
-  priority = WorldwidePriority.find_by_title!(title)
+  priority = WorldwidePriority.find_by!(title: title)
   visit document_path(priority)
 end
 
@@ -43,12 +43,12 @@ Then /^I should be able to navigate to the english translation "([^"]*)"$/ do |e
 end
 
 When /^I visit the activity of the published priority "([^"]*)"$/ do |title|
-  priority = WorldwidePriority.find_by_title!(title)
+  priority = WorldwidePriority.find_by!(title: title)
   visit activity_worldwide_priority_path(priority.document)
 end
 
 Given /^a published (publication|consultation|news article|speech) "([^"]*)" related to the priority "([^"]*)"$/ do |document_type, document_title, title|
-  priority = WorldwidePriority.find_by_title!(title)
+  priority = WorldwidePriority.find_by!(title: title)
   create("published_#{document_class(document_type).name.underscore}".to_sym,
           title: document_title, related_editions: [priority])
 end

@@ -7,7 +7,7 @@
 
   <%= form.translated_text_area :summary, rows: 2 %>
 
-  <%= form.translated_text_area :body %>
+  <%= form.translated_text_area :body, rows: 20 %>
 
   <%= form.save_or_cancel cancel: [:admin, @organisational_entity, @english_corporate_information_page] %>
 <% end %>

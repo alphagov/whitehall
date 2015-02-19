@@ -383,7 +383,7 @@ module AdminEditionControllerTestHelpers
           } }
         }
 
-        assert_select ".errors", text: "Images image data file can&#x27;t be blank"
+        assert_select ".errors", text: "Images image data file can&#39;t be blank"
 
         edition.reload
         assert_equal 0, edition.images.length

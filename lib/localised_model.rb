@@ -8,6 +8,12 @@ class LocalisedModel < BasicObject
     @model.instance_variable_set(:@errors, ::ErrorsInEnglish.new(@model))
   end
 
+  def update_attributes(attributes)
+    ::I18n.with_locale @fixed_locale do
+      @model.update_attributes(attributes.merge(locale: @fixed_locale))
+    end
+  end
+
   def method_missing(method, *args, &block)
     ::I18n.with_locale @fixed_locale do
       response = @model.__send__(method, *args, &block)

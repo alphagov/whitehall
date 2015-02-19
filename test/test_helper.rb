@@ -12,7 +12,7 @@ require 'rails/test_help'
 require 'mocha/setup'
 require 'slimmer/test'
 require 'factories'
-require 'webmock/test_unit'
+require 'webmock/minitest'
 require 'whitehall/not_quite_as_fake_search'
 require 'sidekiq/testing/inline'
 
@@ -52,11 +52,6 @@ class ActiveSupport::TestCase
 
   def assert_select_from(text, *args, &block)
     assert_select HTML::Document.new(text).root, *args, &block
-  end
-
-  def assert_equal_hash(expected, actual)
-    assert_equal expected, actual,
-      "Hashes do not match. Differences are:\n\n#{mu_pp(expected.diff(actual))}\n"
   end
 
   def assert_valid_against_schema(content_item_hash, format)

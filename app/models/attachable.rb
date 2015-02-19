@@ -2,8 +2,13 @@ module Attachable
   extend ActiveSupport::Concern
 
   included do
-    has_many :attachments, as: :attachable, order: 'attachments.ordering, attachments.id', inverse_of: :attachable
-    has_many :html_attachments, as: :attachable, order: 'attachments.ordering, attachments.id'
+    has_many :attachments,
+             -> { order('attachments.ordering, attachments.id') },
+             as: :attachable,
+             inverse_of: :attachable
+    has_many :html_attachments,
+             -> { order('attachments.ordering, attachments.id') },
+             as: :attachable
 
     if respond_to?(:add_trait)
       add_trait do
@@ -105,7 +110,7 @@ module Attachable
   end
 
   def next_ordering
-    max = attachments.maximum(:ordering)
+    max = Attachment.where(attachable_id: id, attachable_type: self.class.base_class).maximum(:ordering)
     max ? max + 1 : 0
   end
 

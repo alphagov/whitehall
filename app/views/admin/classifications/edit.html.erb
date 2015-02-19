@@ -12,7 +12,10 @@
   <section class="display_heading">
     <h1>Delete <%= human_friendly_model_name.downcase %></h1>
     <% if @classification.destroyable? %>
-      <%= button_to 'Delete', [:admin, @classification], method: :delete, confirm: "Are you sure you want to delete: #{@classification} ?", class: 'btn btn-danger' %>
+      <%= button_to 'Delete',
+            [:admin, @classification],
+            method: :delete,
+            data: { confirm: "Are you sure you want to delete: #{@classification} ?", class: 'btn btn-danger' } %>
     <% else %>
       <div class="policies_preventing_destruction">
         <p>This topic can't be deleted as it has associated policies:</p>

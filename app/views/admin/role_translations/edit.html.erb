@@ -6,7 +6,7 @@
   <%= form.errors %>
 
   <%= form.translated_text_field :name %>
-  <%= form.translated_text_area :responsibilities %>
+  <%= form.translated_text_area :responsibilities, row: 20 %>
 
   <%= form.save_or_cancel cancel: admin_role_translations_path(@translated_role) %>
 <% end %>

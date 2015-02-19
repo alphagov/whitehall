@@ -4,8 +4,8 @@
   <fieldset>
     <%= policy_group_form.text_field :name %>
     <%= policy_group_form.text_field :email %>
-    <%= policy_group_form.text_area :summary %>
-    <%= policy_group_form.text_area :description, class: "previewable" %>
+    <%= policy_group_form.text_area :summary, row: 20 %>
+    <%= policy_group_form.text_area :description, row: 20, class: "previewable" %>
   </fieldset>
 
   <h3>Attachments</h3>

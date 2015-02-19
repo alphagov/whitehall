@@ -24,7 +24,11 @@
     <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
   <% end %>
 
-  <%= button_to "Delete", [:admin, contactable, contact], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" %>
+  <%= button_to "Delete",
+        [:admin, contactable, contact],
+        method: "delete",
+        class: "btn btn-small btn-danger",
+        data: { confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" } %>
   <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn btn-small" %>
   <% if contactable.respond_to? :home_page_contacts %>
     <% unless contact.foi? %>
@@ -61,7 +65,11 @@
       <% end %>
     <% end %>
 
-    <%= button_to "Delete", [:admin, contactable, contact, translated_contact.translation_locale], method: "delete", class: "btn btn-small btn-danger", confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from contact '#{contact.title}'?" %>
+    <%= button_to "Delete",
+          [:admin, contactable, contact, translated_contact.translation_locale],
+          method: "delete",
+          class: "btn btn-small btn-danger",
+          data: { confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from contact '#{contact.title}'?" } %>
     <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]), class: "btn btn-small" %>
   <% end %>
 <% end %>

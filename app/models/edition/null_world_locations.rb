@@ -7,7 +7,7 @@ module Edition::NullWorldLocations
   # locations shouldn't be added.
 
   included do
-    has_many :edition_world_locations, foreign_key: :edition_id, dependent: :destroy, autosave: true
+    has_many :edition_world_locations, foreign_key: :edition_id, inverse_of: :edition, dependent: :destroy, autosave: true
     has_many :world_locations, through: :edition_world_locations
   end
 

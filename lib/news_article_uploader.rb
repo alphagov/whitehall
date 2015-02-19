@@ -1,7 +1,7 @@
 class NewsArticleUploader
   def initialize(options = {})
     @csv_data = options[:csv_data]
-    @creator = options[:import_as] || User.find_by_name!("Automatic Data Importer")
+    @creator = options[:import_as] || User.find_by!(name: "Automatic Data Importer")
     @row_class = Whitehall::Uploader::NewsArticleRow
     @model_class = NewsArticle
     @logger = options[:logger] || Logger.new($stdout)

@@ -5,10 +5,12 @@ class HomePageList < ActiveRecord::Base
   validates :name, presence: true,
                    uniqueness: { scope: [:owner_id, :owner_type] },
                    length: { maximum: 255 }
+
   has_many :home_page_list_items,
-           dependent: :destroy,
-           order: :ordering,
-           before_add: :ensure_ordering!
+    -> { order(:ordering) },
+     dependent: :destroy,
+     before_add: :ensure_ordering!
+
   def items
     home_page_list_items.includes(:item).map(&:item)
   end

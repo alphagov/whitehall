@@ -30,7 +30,7 @@ Then /^I should see the(?: updated)? worldwide organisation information on the p
 end
 
 Then /^the "([^"]*)" logo should show correctly with the HMG crest$/ do |name|
-  worldwide_organisation = WorldwideOrganisation.find_by_name(name)
+  worldwide_organisation = WorldwideOrganisation.find_by(name: name)
   assert page.has_css?(".organisation-logo-stacked-single-identity", text: worldwide_organisation.logo_formatted_name)
 end
 
@@ -46,7 +46,7 @@ Then /^I should see the worldwide organisation listed on the page$/ do
 end
 
 Then /^I should see the worldwide location name "([^"]*)" on the worldwide organisation page$/ do |location_name|
-  location = WorldLocation.find_by_name(location_name)
+  location = WorldLocation.find_by(name: location_name)
   worldwide_organisation = WorldwideOrganisation.last
   within record_css_selector(worldwide_organisation) do
     assert page.has_content?(location.name)
@@ -54,8 +54,8 @@ Then /^I should see the worldwide location name "([^"]*)" on the worldwide organ
 end
 
 Then /^I should see the worldwide organisation "([^"]*)" on the "([^"]*)" world location page$/ do |worldwide_organisation_name, location_name|
-  location = WorldLocation.find_by_name(location_name)
-  worldwide_organisation = WorldwideOrganisation.find_by_name(worldwide_organisation_name)
+  location = WorldLocation.find_by(name: location_name)
+  worldwide_organisation = WorldwideOrganisation.find_by(name: worldwide_organisation_name)
   visit world_location_path(location)
   within record_css_selector(worldwide_organisation) do
     assert page.has_content?(worldwide_organisation_name)
@@ -252,12 +252,12 @@ Then /^I should see the updated default access information$/ do
 end
 
 When /^I add a new translation to the worldwide organisation "([^"]*)" with:$/ do |name, table|
-  worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
+  worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
   add_translation_to_worldwide_organisation(worldwide_organisation, table.rows_hash)
 end
 
 Then /^when viewing the worldwide organisation "([^"]*)" with the locale "([^"]*)" I should see:$/ do |name, locale, table|
-  worldwide_organisation = WorldwideOrganisation.find_by_name!(name)
+  worldwide_organisation = WorldwideOrganisation.find_by!(name: name)
   translation = table.rows_hash
 
   visit world_location_path(worldwide_organisation.world_locations.first)

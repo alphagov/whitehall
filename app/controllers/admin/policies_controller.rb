@@ -1,6 +1,4 @@
 class Admin::PoliciesController < Admin::EditionsController
-  include Admin::EditionsController::NationalApplicability
-
   def topics
     respond_to do |format|
       presenters = @edition.topics.map { |topic| TopicPresenter.new(topic) }

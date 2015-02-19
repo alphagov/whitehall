@@ -1,6 +1,4 @@
-require 'test/unit'
-require 'active_support'
-require './app/models/organisation_type'
+require 'test_helper'
 
 class OrganisationTypeTest < ActiveSupport::TestCase
   test "it should take key, name and analytics_prefix as initialize arguments and expose them as properties" do

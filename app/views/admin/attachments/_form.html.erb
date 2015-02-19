@@ -26,7 +26,7 @@
        </div>
 
       <%= content_tag :fieldset, class: ("right-to-left" if form.object.rtl_locale?) do %>
-        <%= govspeak_fields.text_area :body, class: "previewable" %>
+        <%= govspeak_fields.text_area :body, rows: 20, class: "previewable" %>
       <% end %>
     <% end %>
   <% elsif attachment.is_a?(ExternalAttachment) %>

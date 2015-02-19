@@ -6,12 +6,12 @@ class LinkCheckerTest < ActiveSupport::TestCase
     stub_link_check(gone, 410)
     stub_link_check(success, 200)
     stub_link_check(success_2, 200)
-    stub_link_check(failure, 500)
+    stub_link_check(failed, 500)
   end
 
   test "returns broken links" do
-    checker   = LinksChecker.new([not_found, gone, success, success_2, failure], NullLogger.instance)
-    broken_links = [not_found, gone, failure]
+    checker   = LinksChecker.new([not_found, gone, success, success_2, failed], NullLogger.instance)
+    broken_links = [not_found, gone, failed]
     checker.run
 
     assert_same_elements broken_links, checker.broken_links
@@ -70,7 +70,7 @@ private
     'http://www.example.com/another_success'
   end
 
-  def failure
-    'http://www.example.com/failure'
+  def failed
+    'http://www.example.com/failed'
   end
 end

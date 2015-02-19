@@ -6,7 +6,7 @@ class Admin::ResponsesController < Admin::BaseController
   before_filter :find_response, only: [:edit, :update]
 
   def show
-    @response = response_class.find_by_edition_id(@edition) || response_class.new(published_on: Date.today)
+    @response = response_class.find_by(edition_id: @edition) || response_class.new(published_on: Date.today)
   end
 
   def create
@@ -37,7 +37,7 @@ class Admin::ResponsesController < Admin::BaseController
   end
 
   def find_response
-    @response = response_class.find_by_edition_id(@edition)
+    @response = response_class.find_by(edition_id: @edition)
     raise(ActiveRecord::RecordNotFound, "Could not find Response for Consulatation with ID #{@edition.id}") unless @response
   end
 

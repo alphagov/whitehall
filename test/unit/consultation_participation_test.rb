@@ -51,9 +51,7 @@ class ConsultationParticipationTest < ActiveSupport::TestCase
   end
 
   test "should be invalid if the response form's data has no file" do
-    data_attributes = attributes_for(:consultation_response_form_data, file: nil)
-    form_attributes = attributes_for(:consultation_response_form, consultation_response_form_data_attributes: data_attributes)
-    participation = build(:consultation_participation, consultation_response_form_attributes: form_attributes)
+    participation = build(:consultation_participation, consultation_response_form: build(:consultation_response_form, file: nil))
     refute participation.valid?
   end
 

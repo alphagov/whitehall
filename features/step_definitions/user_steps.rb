@@ -22,7 +22,7 @@ Then /^I cannot change my user details/ do
 end
 
 When /^I visit the admin author page for "([^"]*)"$/ do |name|
-  user = User.find_by_name(name)
+  user = User.find_by(name: name)
   visit admin_author_path(user)
 end
 

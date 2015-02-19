@@ -17,7 +17,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
         document: stub_document,
         attachments: [],
         organisations: [organisation],
-        public_timestamp: 3.days.ago
+        public_timestamp: 3.days.ago.as_json
       )
       # TODO: perhaps rethink edition factory, so this apparent duplication
       # isn't neccessary
@@ -73,7 +73,7 @@ class DocumentFilterPresenterTest < PresenterTestCase
       "url" => "/government/publications/some-doc",
       "organisations" => "Ministry of Silly",
       "display_date_microformat" => "<abbr class=\"public_timestamp\" title=\"2011-11-08T11:11:11+00:00\"> 8 November 2011</abbr>",
-      "public_timestamp" => 3.days.ago.iso8601,
+      "public_timestamp" => 3.days.ago.as_json,
       "publication_collections" => nil
       }, json['results'].first)
   end

@@ -17,7 +17,7 @@ https://github.com/alphagov/wiki/wiki/Changing-GOV.UK-URLs#changing-an-organisat
 
 task :change_organisation_slug, [:old_slug, :new_slug] => :environment do |_task, args|
   logger = Logger.new(STDOUT)
-  organisation = Organisation.find_by_slug(args[:old_slug])
+  organisation = Organisation.find_by(slug: args[:old_slug])
   if organisation
     Whitehall::OrganisationSlugChanger.new(organisation, args[:new_slug], logger: logger).call
   else

@@ -129,35 +129,36 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "should remember standard filter options" do
     get :index, state: :draft, type: 'consultation'
-    assert_equal 'consultation', session[:document_filters][:type]
+    assert_equal 'consultation', session[:document_filters]['type']
   end
 
   test "should remember author filter options" do
     get :index, state: :draft, author: current_user
-    assert_equal current_user.to_param, session[:document_filters][:author]
+    assert_equal current_user.to_param, session[:document_filters]['author']
   end
 
   test "should remember organisation filter options" do
     organisation = create(:organisation)
     get :index, state: :draft, organisation: organisation
-    assert_equal organisation.to_param, session[:document_filters][:organisation]
+    assert_equal organisation.to_param, session[:document_filters]['organisation']
   end
 
   test "should remember state filter options" do
     get :index, state: :draft
-    assert_equal 'draft', session[:document_filters][:state]
+    assert_equal 'draft', session[:document_filters]['state']
   end
 
   test "should remember title filter options" do
     get :index, title: "test"
-    assert_equal "test", session[:document_filters][:title]
+    assert_equal "test", session[:document_filters]['title']
   end
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    session[:document_filters] = { state: :submitted, author: current_user.to_param, organisation: organisation.to_param }
+    get :index, state: :draft, organisation: organisation, state: :submitted
+
     get :index
-    assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
+    assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation)
   end
 
   test "index should redirect to remembered filtered options if selected filter is invalid" do
@@ -262,51 +263,16 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     end
   end
 
-  test "should prevent viewing or modification of limited access editions which I don't have access to" do
+  test "prevents revising of access-limited editions" do
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     login_as(create(:user, organisation: my_organisation))
     inaccessible = create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation])
 
-    get :show, id: inaccessible
-    assert_response :forbidden
-
-    get :edit, id: inaccessible
-    assert_response :forbidden
-
-    put :update, id: inaccessible, edition: {summary: "new-summary"}
-    assert_response :forbidden
-
     post :revise, id: inaccessible
     assert_response :forbidden
-
-    delete :destroy, id: inaccessible
-    assert_response :forbidden
   end
 
-  test "should redirect to the next document imported without changing state when 'Save and Next' is clicked" do
-    first_document, second_document = *create_list(:imported_publication, 2)
-    Import.stubs(:source_of).returns(mock(document_imported_before: second_document))
-
-    first_document_latest_edition = first_document.latest_edition
-    put :update, id: first_document_latest_edition, speed_save_next: 1, edition: {
-      title: "new-title",
-      body: "new-body"
-    }
-
-    first_document_latest_edition.reload
-    assert first_document_latest_edition.imported?
-    assert_redirected_to admin_edition_path(second_document.latest_edition)
-  end
-
-  test "re-renders the show page when there are errors during speed tagging update" do
-    imported_news_article = create(:imported_news_article, title: 'News article')
-    put :update, id: imported_news_article, speed_save: 'Save', edition: { title: '' }
-
-    assert_response :success
-    assert_template :show
-    assert_equal 'News article', imported_news_article.reload.title
-  end
-
+private
 
   def stub_edition_filter(attributes = {})
     default_attributes = {

@@ -20,7 +20,7 @@ module AttachmentHelper
     fill_in "Title", with: attachment_title
     attach_file "File", file_path
     click_button "Save"
-    Attachment.find_by_title(attachment_title)
+    Attachment.find_by(title: attachment_title)
   end
 
   def create_external_attachment(url, attachment_title)
@@ -28,7 +28,7 @@ module AttachmentHelper
     fill_in 'Title', with: attachment_title
     fill_in 'External url', with: url
     click_on 'Save'
-    Attachment.find_by_title(attachment_title)
+    Attachment.find_by(title: attachment_title)
   end
 
   def add_external_attachment

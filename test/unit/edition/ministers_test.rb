@@ -5,6 +5,6 @@ class Edition::MinistersTest < ActiveSupport::TestCase
     edition = create(:draft_policy, ministerial_roles: [create(:ministerial_role)])
     relation = edition.edition_ministerial_roles.first
     edition.destroy
-    refute EditionMinisterialRole.find_by_id(relation.id)
+    refute EditionMinisterialRole.find_by(id: relation.id)
   end
 end

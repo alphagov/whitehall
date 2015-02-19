@@ -21,7 +21,7 @@ Given /^I start drafting a new detailed guide$/ do
 end
 
 When /^I visit the detailed guide "([^"]*)"$/ do |name|
-  guide = DetailedGuide.find_by_title!(name)
+  guide = DetailedGuide.find_by!(title: name)
   visit detailed_guide_path(guide.document)
 end
 
@@ -41,19 +41,19 @@ Given /^a mainstream category "([^"]*)" exists$/ do |title|
 end
 
 Given /^a submitted detailed guide "([^"]*)" exists in the "([^"]*)" mainstream category$/ do |title, category_title|
-  category = MainstreamCategory.find_by_title!(category_title)
+  category = MainstreamCategory.find_by!(title: category_title)
   create(:submitted_detailed_guide, title: title, primary_mainstream_category: category)
 end
 
 Then /^the detailed guide "([^"]*)" should be visible to the public in the mainstream category "([^"]*)"$/ do |title, category_title|
-  category = MainstreamCategory.find_by_title!(category_title)
-  detailed_guide = DetailedGuide.latest_edition.find_by_title!(title)
+  category = MainstreamCategory.find_by!(title: category_title)
+  detailed_guide = DetailedGuide.latest_edition.find_by!(title: title)
   visit "/browse/#{category.parent_tag}/#{category.slug}"
   assert page.has_css?(record_css_selector(detailed_guide))
 end
 
 When /^I publish a new edition of the detailed guide "([^"]*)" with a change note "([^"]*)"$/ do |guide_title, change_note|
-  guide = DetailedGuide.latest_edition.find_by_title!(guide_title)
+  guide = DetailedGuide.latest_edition.find_by!(title: guide_title)
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: change_note
@@ -62,7 +62,7 @@ When /^I publish a new edition of the detailed guide "([^"]*)" with a change not
 end
 
 Then /^the change notes should appear in the history for the detailed guide "([^"]*)" in reverse chronological order$/ do |title|
-  detailed_guide = DetailedGuide.find_by_title!(title)
+  detailed_guide = DetailedGuide.find_by!(title: title)
   visit detailed_guide_path(detailed_guide.document)
   document_history = detailed_guide.change_history
   change_notes = find('.change-notes').all('.note')
@@ -73,7 +73,7 @@ Then /^the change notes should appear in the history for the detailed guide "([^
 end
 
 When(/^I start drafting a new edition for the detailed guide "([^"]*)"$/) do |guide_title|
-  guide = DetailedGuide.latest_edition.find_by_title!(guide_title)
+  guide = DetailedGuide.latest_edition.find_by!(title: guide_title)
   visit admin_edition_path(guide)
   click_button "Create new edition"
   fill_in "edition_change_note", with: "Example change note"

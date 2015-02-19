@@ -4,13 +4,13 @@ end
 
 Given /^a published publication that's part of the "([^"]*)" document collection$/ do |document_collection_title|
   draft = create(:draft_publication)
-  document_collection = DocumentCollection.find_by_title!(document_collection_title)
+  document_collection = DocumentCollection.find_by!(title: document_collection_title)
   document_collection.groups.first.documents << draft.document
   Whitehall.edition_services.force_publisher(draft).perform!
 end
 
 Given /^a published statistical data set "([^"]*)" that's part of the "([^"]*)" document collection$/ do |data_set_title, document_collection_title|
-  document_collection = DocumentCollection.find_by_title!(document_collection_title)
+  document_collection = DocumentCollection.find_by!(title: document_collection_title)
   document_collection.groups.first.documents << create(:published_statistical_data_set, title: data_set_title).document
 end
 

@@ -16,7 +16,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     assert_equal [groups[1], groups[0], groups[2]], doc_collection.reload.groups
   end
 
-  test "editions lists all editions associated through the document collection' groups" do
+  test "editions lists all editions associated through the document collection groups" do
     doc_collection = create(:document_collection)
 
     pub_1 = create(:publication)

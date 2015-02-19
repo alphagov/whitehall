@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class UploadAccessTest < ActionDispatch::IntegrationTest
+  include CacheControlTestHelpers
+
   def path_to_clean_upload(path)
     path = File.join(Whitehall.clean_uploads_root, path.from("/government/uploads".size))
   end
@@ -41,7 +43,7 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
   def assert_sent_private_upload(upload, content_type)
     assert_equal 200, response.status
     assert_equal content_type, response.content_type
-    assert_equal "no-cache, max-age=0, private", response.header['Cache-Control']
+    assert_cache_control "no-cache"
   end
 
   test 'allows everyone access to general uploads' do

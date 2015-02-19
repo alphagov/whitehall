@@ -45,20 +45,20 @@ protected
   def save_translation!(model, row)
     translation = LocalisedModel.new(model, row.translation_locale)
 
-    if translation.update_attributes(row.translation_attributes)
-      if locale = Locale.find_by_code(row.translation_locale.to_s)
+    if locale = Locale.find_by_code(row.translation_locale.to_s)
+      if translation.update_attributes(row.translation_attributes)
         DocumentSource.create!(document: model.document, url: row.translation_url, locale: locale.code, import: import, row_number: row.line_number)
       else
-        progress_logger.error("Locale not recognised", row.line_number)
+        record_errors_for(translation, row.line_number, true)
       end
     else
-      record_errors_for(translation, row.line_number, true)
+      progress_logger.error("Locale not recognised", row.line_number)
     end
   end
 
   def assign_document_collections!(model, document_collection_slugs)
     document_collection_slugs.each do |slug|
-      collection_document = Document.find_by_slug(slug) or raise "Couldn't find DocumentCollection for slug '#{slug}'"
+      collection_document = Document.find_by(slug: slug) or raise "Couldn't find DocumentCollection for slug '#{slug}'"
 
       collection_draft = draft_of_collection_for_editing(collection_document)
       group = collection_draft.groups.first_or_create(DocumentCollectionGroup.default_attributes)

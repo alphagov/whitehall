@@ -39,12 +39,11 @@ class CorporateInformationPageTest < ActiveSupport::TestCase
     assert_equal "/government/organisations/#{organisation.slug}/about/#{corporate_information_page.slug}", corporate_information_page.search_index['link']
   end
 
-  test 'title is always saved as a blank string' do
-    corporate_information_page = create(:corporate_information_page, title: nil)
-    assert_equal '', corporate_information_page.attributes['title']
+  test 'with_translations scope loads corporate information pages despite not have titles explicitly saved' do
+    cip_1 = create(:corporate_information_page, title: nil)
+    cip_2 = create(:corporate_information_page, title: 'Should not be saved')
 
-    corporate_information_page = create(:corporate_information_page, title: 'Should not be saved')
-    assert_equal '', corporate_information_page.attributes['title']
+    assert_equal [cip_1, cip_2], CorporateInformationPage.with_translations
   end
 
   test "should derive title from type" do

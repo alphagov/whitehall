@@ -28,10 +28,10 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
 
     get :edit, edition_id: edition, id: 'fr'
 
-    assert_select "form[action=#{admin_edition_translation_path(edition, 'fr')}]" do
+    assert_select "form[action='#{admin_edition_translation_path(edition, 'fr')}']" do
       assert_select "input[type=text][name='edition[title]'][value='french-title']"
-      assert_select "textarea[name='edition[summary]'][rows=2][cols=40]", text: 'french-summary'
-      assert_select "textarea[name='edition[body]'][rows=20][cols=40]", 'french-body'
+      assert_select "textarea[name='edition[summary]']", text: 'french-summary'
+      assert_select "textarea[name='edition[body]']", 'french-body'
 
       assert_select "input[type=submit][value=Save]"
       assert_select "a[href=#{admin_edition_path(edition)}]", text: 'cancel'

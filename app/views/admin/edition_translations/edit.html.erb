@@ -10,7 +10,7 @@
 
         <%= form.translated_text_field :title unless @translated_edition.is_a? CorporateInformationPage %>
         <%= form.translated_text_area :summary, rows: 2, cols: 40 %>
-        <%= form.translated_text_area :body %>
+        <%= form.translated_text_area :body, rows: 20 %>
 
         <%= form.save_or_cancel %>
       <% end %>

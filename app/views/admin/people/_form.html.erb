@@ -19,7 +19,7 @@
     <%= person_form.file_field :image %>
   </fieldset>
   <fieldset>
-    <%= person_form.text_area :biography, class: "previewable" %>
+    <%= person_form.text_area :biography, rows: 20, class: "previewable" %>
   </fieldset>
   <p class="warning">
     <% if show_instantly_live_warning %>

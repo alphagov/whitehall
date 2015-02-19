@@ -42,38 +42,38 @@ Then(/^I should be signed up for the local government news stories mailing list$
 end
 
 Then(/^I should be signed up for the "(.*?)" organisation mailing list$/) do |org_name|
-  org_slug = Organisation.find_by_name!(org_name).slug
+  org_slug = Organisation.find_by!(name: org_name).slug
   assert_signed_up_to_mailing_list("/government/organisations/#{org_slug}.atom", org_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" role mailing list$/) do |role_name|
-  role_slug = Role.find_by_name!(role_name).slug
+  role_slug = Role.find_by!(name: role_name).slug
   assert_signed_up_to_mailing_list("/government/ministers/#{role_slug}.atom", role_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" person mailing list$/) do |person_name|
   names = person_name.split
-  person_slug = Person.find_by_forename_and_surname!(names[0], names[1]).slug
+  person_slug = Person.find_by!(forename: names[0], surname: names[1]).slug
   assert_signed_up_to_mailing_list("/government/people/#{person_slug}.atom", person_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" policy mailing list$/) do |policy_name|
-  policy_slug = Policy.find_by_title!(policy_name).slug
+  policy_slug = Policy.find_by!(title: policy_name).slug
   assert_signed_up_to_mailing_list("/government/policies/#{policy_slug}/activity.atom", policy_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" topical event mailing list$/) do |topical_event_name|
-  topical_event_slug = TopicalEvent.find_by_name!(topical_event_name).slug
+  topical_event_slug = TopicalEvent.find_by!(name: topical_event_name).slug
   assert_signed_up_to_mailing_list("/government/topical-events/#{topical_event_slug}.atom", topical_event_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" topic mailing list$/) do |topic_name|
-  topic_slug = Topic.find_by_name!(topic_name).slug
+  topic_slug = Topic.find_by!(name: topic_name).slug
   assert_signed_up_to_mailing_list("/government/topics/#{topic_slug}.atom", topic_name)
 end
 
 Then(/^I should be signed up for the "(.*?)" world location mailing list$/) do |world_location_name|
-  world_location_slug = WorldLocation.find_by_name!(world_location_name).slug
+  world_location_slug = WorldLocation.find_by!(name: world_location_name).slug
   assert_signed_up_to_mailing_list("/government/world/#{world_location_slug}.atom", world_location_name)
 end
 

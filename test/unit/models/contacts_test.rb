@@ -6,6 +6,6 @@ class ContactsTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     contact = create(:contact, contactable: organisation)
     organisation.destroy
-    assert_nil Contact.find_by_id(contact.id)
+    assert_nil Contact.find_by(id: contact.id)
   end
 end

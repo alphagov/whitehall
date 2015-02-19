@@ -7,7 +7,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   view_test "show responds with JSON representation of found world location" do
     world_location = stub_record(:world_location, slug: 'meh')
     world_location.stubs(:to_param).returns('meh')
-    WorldLocation.stubs(:find_by_slug).with(world_location.slug).returns(world_location)
+    WorldLocation.stubs(:find_by).with(slug: world_location.slug).returns(world_location)
     presenter = Api::WorldLocationPresenter.new(world_location, controller.view_context)
     presenter.stubs(:as_json).returns(location: :representation)
     Api::WorldLocationPresenter.stubs(:new).with(world_location, anything).returns(presenter)
@@ -19,7 +19,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   view_test "show includes _response_info in response" do
     world_location = stub_record(:world_location, slug: 'meh')
     world_location.stubs(:to_param).returns('meh')
-    WorldLocation.stubs(:find_by_slug).with(world_location.slug).returns(world_location)
+    WorldLocation.stubs(:find_by).with(slug: world_location.slug).returns(world_location)
     presenter = Api::WorldLocationPresenter.new(world_location, controller.view_context)
     presenter.stubs(:as_json).returns(location: :representation)
     Api::WorldLocationPresenter.stubs(:new).with(world_location, anything).returns(presenter)
@@ -29,7 +29,7 @@ class Api::WorldLocationsControllerTest < ActionController::TestCase
   end
 
   view_test "show responds with 404 if world location is not found" do
-    WorldLocation.stubs(:find_by_slug).with('unknown').returns nil
+    WorldLocation.stubs(:find_by).with(slug: 'unknown').returns nil
     get :show, id: 'unknown', format: 'json'
     assert_response :not_found
     assert_equal 'not found', json_response['_response_info']['status']

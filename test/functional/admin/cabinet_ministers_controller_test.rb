@@ -20,7 +20,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
       "#{role_2.id}" => {ordering: 1},
     }
 
-    assert_equal MinisterialRole.cabinet.order(:seniority).all, [role_1, role_2]
+    assert_equal MinisterialRole.cabinet.order(:seniority).to_a, [role_1, role_2]
   end
 
   test 'should reorder people who also attend cabinet' do
@@ -32,7 +32,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
       "#{role_2.id}" => {ordering: 1},
     }
 
-    assert_equal MinisterialRole.also_attends_cabinet.order(:seniority).all, [role_1, role_2]
+    assert_equal MinisterialRole.also_attends_cabinet.order(:seniority).to_a, [role_1, role_2]
   end
 
   test 'should reorder whips as part of the same request' do
@@ -44,7 +44,7 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
       "#{role_2.id}" => {ordering: 1},
     }
 
-    assert_equal MinisterialRole.whip.order(:seniority).all, [role_2, role_1]
-    assert_equal MinisterialRole.whip.order(:whip_ordering).all, [role_1, role_2]
+    assert_equal MinisterialRole.whip.order(:seniority).to_a, [role_2, role_1]
+    assert_equal MinisterialRole.whip.order(:whip_ordering).to_a, [role_1, role_2]
   end
 end

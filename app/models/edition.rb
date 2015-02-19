@@ -1,6 +1,9 @@
 # The base class for all editoral content. It configures the searchable options and callbacks.
 # @abstract Using STI should not create editions directly.
 class Edition < ActiveRecord::Base
+  extend DeprecatedColumns
+  deprecated_columns :locale
+
   include Edition::Traits
 
   include Edition::NullImages
@@ -55,6 +58,7 @@ class Edition < ActiveRecord::Base
     in_default_locale
       .includes(:document)
       .where("edition_translations.title LIKE :like_clause OR documents.slug = :slug", like_clause: like_clause, slug: keywords)
+      .references(:document)
   }
 
   scope :force_published,               -> { where(state: "published", force_published: true) }
@@ -204,10 +208,7 @@ class Edition < ActiveRecord::Base
       edition.related_policies
     end
 
-    # This works around a wierd bug in ActiveRecord where an outer scope applied
-    # to Edition would be applied to this association. See EditionActiveRecordBugWorkaroundTest.
-    all_after_forcing_query_execution = related.all
-    where(id: all_after_forcing_query_execution.map(&:id))
+    where(id: related.pluck(:id))
   end
 
   def self.latest_edition

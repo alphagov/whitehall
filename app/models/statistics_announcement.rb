@@ -6,13 +6,16 @@ class StatisticsAnnouncement < ActiveRecord::Base
   belongs_to :cancelled_by, class_name: 'User'
   belongs_to :publication
 
-  has_one  :current_release_date, class_name: 'StatisticsAnnouncementDate', order: 'created_at DESC', inverse_of: :statistics_announcement
+  has_one  :current_release_date,
+    -> { order('created_at DESC') },
+    class_name: 'StatisticsAnnouncementDate',
+    inverse_of: :statistics_announcement
   has_many :statistics_announcement_dates, dependent: :destroy
 
-  has_many :statistics_announcement_topics, dependent: :destroy
+  has_many :statistics_announcement_topics, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :topics, through: :statistics_announcement_topics
 
-  has_many :statistics_announcement_organisations, dependent: :destroy
+  has_many :statistics_announcement_organisations, inverse_of: :statistics_announcement, dependent: :destroy
   has_many :organisations, through: :statistics_announcement_organisations
 
   validate  :publication_is_matching_type, if: :publication
@@ -53,6 +56,7 @@ class StatisticsAnnouncement < ActiveRecord::Base
 
   def self.without_published_publication
     includes(:publication).
+      references(:editions).
       where("publication_id IS NULL || editions.state NOT IN (?)", Edition::POST_PUBLICATION_STATES)
   end
 

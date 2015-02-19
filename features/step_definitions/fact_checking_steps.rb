@@ -30,7 +30,7 @@ When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|
 end
 
 When /^"([^"]*)" adds feedback "([^"]*)" to "([^"]*)"$/ do |fact_checker_email, comments, title|
-  fact_check_request = FactCheckRequest.find_all_by_email_address(fact_checker_email).last
+  fact_check_request = FactCheckRequest.find_by(email_address: fact_checker_email)
   visit edit_admin_fact_check_request_path(fact_check_request)
   fill_in "Comments", with: comments
   click_button "Submit"

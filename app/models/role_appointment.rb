@@ -4,7 +4,10 @@ class RoleAppointment < ActiveRecord::Base
   has_many :speeches
   has_many :edition_role_appointments
   has_many :editions, through: :edition_role_appointments
-  has_many :news_articles, through: :edition_role_appointments, source: :edition, conditions: { "editions.type" => NewsArticle }
+  has_many :news_articles,
+           ->  { where("editions.type" => NewsArticle) },
+           through: :edition_role_appointments,
+           source: :edition
 
   belongs_to :role
   belongs_to :person
@@ -40,7 +43,7 @@ class RoleAppointment < ActiveRecord::Base
   scope :for_person, -> person { where(person_id: person.id) }
   scope :excluding, -> *ids { where("id NOT IN (?)", ids) }
   scope :current, -> {where(CURRENT_CONDITION) }
-  scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial) }
+  scope :for_ministerial_roles, -> { includes(role: :organisations).merge(Role.ministerial).references(:roles) }
   scope :alphabetical_by_person, -> { includes(:person).order('people.surname', 'people.forename') }
 
   after_create :make_other_current_appointments_non_current

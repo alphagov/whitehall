@@ -10,7 +10,7 @@ module Edition::Classifications
   end
 
   included do
-    has_many :classification_memberships, dependent: :destroy, foreign_key: :edition_id
+    has_many :classification_memberships, dependent: :destroy, inverse_of: :edition, foreign_key: :edition_id
 
     add_trait Trait
   end

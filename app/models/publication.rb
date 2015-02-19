@@ -14,8 +14,6 @@ class Publication < Publicationesque
   validate :only_publications_allowed_invalid_data_can_be_awaiting_type
   validate :attachment_required_before_moving_out_of_draft
 
-  after_update { |p| p.published_related_policies.each(&:update_published_related_publication_count) }
-
   has_one :statistics_announcement
   attr_accessor :statistics_announcement_id
   after_create :assign_statistics_announcement

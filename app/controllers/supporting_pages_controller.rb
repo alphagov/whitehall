@@ -36,7 +36,7 @@ private
   end
 
   def redirect_legacy_supporting_page_slugs
-    redirect = SupportingPageRedirect.find_by_policy_document_id_and_original_slug(@policy.document.id, params[:id])
+    redirect = SupportingPageRedirect.find_by(policy_document_id: @policy.document.id, original_slug: params[:id])
     redirect_to redirect.destination if redirect
   end
 

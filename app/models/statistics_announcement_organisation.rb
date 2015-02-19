@@ -1,6 +1,6 @@
 class StatisticsAnnouncementOrganisation < ActiveRecord::Base
-  belongs_to :statistics_announcement
-  belongs_to :organisation
+  belongs_to :statistics_announcement, inverse_of: :statistics_announcement_organisations
+  belongs_to :organisation, inverse_of: :statistics_announcement_organisations
 
   validates :statistics_announcement, :organisation, presence: true
 end

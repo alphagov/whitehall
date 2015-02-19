@@ -3,11 +3,11 @@ require 'csv'
 class Import < ActiveRecord::Base
   serialize :successful_rows
   has_many :document_sources
-  has_many :documents, through: :document_sources, uniq: true
-  has_many :editions, through: :documents, uniq: true
+  has_many :documents, -> { uniq }, through: :document_sources
+  has_many :editions, -> { uniq }, through: :documents
   has_many :import_errors, dependent: :destroy
   has_many :force_publication_attempts, dependent: :destroy
-  has_many :import_logs, dependent: :destroy, order: 'row_number'
+  has_many :import_logs, -> { order('row_number') }, dependent: :destroy
 
   belongs_to :creator, class_name: "User"
   belongs_to :organisation
@@ -96,7 +96,7 @@ class Import < ActiveRecord::Base
   end
 
   def success_count
-    status == :finished ? documents.count(distinct: true) : 0
+    status == :finished ? documents.distinct.count : 0
   end
 
   def most_recent_force_publication_attempt
@@ -159,7 +159,7 @@ class Import < ActiveRecord::Base
   end
 
   def number_of_rows_with_errors
-    import_errors.count(:row_number, distinct: true)
+    import_errors.distinct.count(:row_number)
   end
 
   def perform(options = {})
@@ -185,7 +185,7 @@ class Import < ActiveRecord::Base
   end
 
   def import_user
-    User.find_by_name!("Automatic Data Importer")
+    User.find_by!(name: "Automatic Data Importer")
   end
 
   def headers

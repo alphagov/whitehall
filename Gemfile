@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '3.2.18'
+gem 'rails', '4.0.13'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -9,7 +9,7 @@ gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
 gem 'validates_email_format_of'
-gem 'friendly_id', '4.0.9'
+gem 'friendly_id', '5.0.4'
 gem 'babosa'
 gem 'nokogiri'
 gem 'slimmer', '6.0.0'
@@ -24,9 +24,8 @@ gem 'bootstrap-kaminari-views'
 gem 'gds-api-adapters', '17.2.0'
 gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
-gem 'shared_mustache', '~> 0.1.3'
+gem 'shared_mustache', '~> 0.2.0'
 gem 'rails-i18n'
-gem 'globalize3', github: 'globalize/globalize', ref: 'ab69160ad'
 gem 'link_header'
 gem 'logstasher', '0.6.2'
 gem 'chronic'
@@ -43,9 +42,17 @@ gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
 gem 'json-schema', '2.5.0'
 gem 'rails_translation_manager', '0.0.1'
+gem 'rails-observers'
 
-# Gems to smooth transition to Rails 4
-gem 'strong_parameters'
+if ENV['GLOBALIZE_DEV']
+  gem 'globalize', path: '../globalize'
+else
+  # Note: a fix for the issue that necessitates this fork has been merged into
+  # globalize master, but that version is only compatible with ActiveRecord 4.2
+  # and above. Once Whitehall is running on Rails 4.2, we can switch to using
+  # the main fork of globalize.
+  gem 'globalize', github: 'tekin/globalize', ref: 'transalted-model-touch-issue'
+end
 
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
@@ -53,21 +60,21 @@ else
   gem 'govspeak', '~> 3.2.0'
 end
 
-group :assets do
-  if ENV['FRONTEND_TOOLKIT_DEV']
-    gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
-  else
-    gem 'govuk_frontend_toolkit', '3.1.0'
-  end
-  gem 'sass', '3.4.9'
-  gem 'sass-rails'
-  gem 'uglifier'
+if ENV['FRONTEND_TOOLKIT_DEV']
+  gem 'govuk_frontend_toolkit', path: '../govuk_frontend_toolkit_gem'
+else
+  gem 'govuk_frontend_toolkit', '3.1.0'
 end
+
+gem 'sass', '3.4.9'
+gem 'sass-rails'
+gem 'uglifier'
 
 group :development, :test do
   gem 'parallel_tests'
   gem 'test-queue'
   gem 'ruby-prof'
+  gem 'pry-byebug'
 end
 
 group :development do
@@ -80,7 +87,7 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', github: 'brynary/rack-test', ref: '8cdb86e1'
+  gem 'rack-test', '~> 0.6.3'
   gem 'factory_girl'
   gem 'mocha', '1.1.0', require: false
   gem 'timecop'

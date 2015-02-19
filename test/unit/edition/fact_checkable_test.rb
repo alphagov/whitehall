@@ -5,7 +5,7 @@ class Edition::FactCheckableTest < ActiveSupport::TestCase
     edition = create(:draft_policy)
     fact_check_request = create(:fact_check_request, edition: edition)
     edition.destroy
-    refute FactCheckRequest.find_by_id(fact_check_request.id)
+    refute FactCheckRequest.find_by(id: fact_check_request.id)
   end
 
   test "should list all completed fact check requests from all editions, newest first" do

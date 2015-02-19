@@ -66,7 +66,7 @@ module GovspeakHelper
     # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
     govspeak.scan(GovspeakHelper::EMBEDDED_CONTACT_REGEXP).map { |capture|
       contact_id = capture.first
-      Contact.find_by_id(contact_id)
+      Contact.find_by(id: contact_id)
     }.compact
   end
 
@@ -142,7 +142,7 @@ module GovspeakHelper
     return govspeak if govspeak.blank?
     heading_tag ||= 'h3'
     govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
-      if contact = Contact.find_by_id($1)
+      if contact = Contact.find_by(id: $1)
         render(partial: 'contacts/contact', locals: { contact: contact, heading_tag: heading_tag }, formats: ["html"])
       else
         ''

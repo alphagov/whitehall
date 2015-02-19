@@ -11,7 +11,9 @@ class Person < ActiveRecord::Base
   mount_uploader :image, ImageUploader, mount_on: :carrierwave_image
 
   has_many :role_appointments
-  has_many :current_role_appointments, class_name: 'RoleAppointment', conditions: RoleAppointment::CURRENT_CONDITION
+  has_many :current_role_appointments,
+           -> { where(RoleAppointment::CURRENT_CONDITION) },
+           class_name: 'RoleAppointment'
   has_many :speeches, through: :role_appointments
   has_many :news_articles, through: :role_appointments
 
@@ -60,7 +62,9 @@ class Person < ActiveRecord::Base
   end
 
   def self.without_a_current_ministerial_role
-    includes(:current_roles).where("(#{RoleAppointment.arel_table[:id].eq(nil).to_sql}) OR (#{Role.arel_table[:type].not_eq("MinisterialRole").to_sql})")
+    includes(:current_roles)
+      .where("(#{RoleAppointment.arel_table[:id].eq(nil).to_sql}) OR (#{Role.arel_table[:type].not_eq("MinisterialRole").to_sql})")
+      .references(:role_appointments)
   end
 
   def ministerial_roles_at(date)
