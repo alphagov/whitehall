@@ -3,7 +3,7 @@ class Admin::GovernmentsController < Admin::BaseController
   before_filter :enforce_edit_permissions!, only: [:edit, :update]
 
   def index
-    @governments = Government.order(end_date: :desc)
+    @governments = Government.order(start_date: :desc)
   end
 
   def new
