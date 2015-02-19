@@ -30,7 +30,7 @@
           <%= government.start_date.to_s(:govuk_date) %>
         </td>
         <td>
-          <%= government.end_date.to_s(:govuk_date) %>
+          <%= government.end_date.to_s(:govuk_date) if government.end_date %>
         </td>
       <% end %>
     <% end %>
