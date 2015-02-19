@@ -5,7 +5,7 @@
 %>
 <aside class="meta metadata-list">
   <div class="inner-heading">
-    <dl class="js-track-metadata-links" data-trackposition="top">
+    <dl>
       <% if (from = from_metadata(document)).any? %>
         <dt><%= t('document.headings.from') %>:</dt>
         <dd class="js-hide-extra-metadata"><%= from.to_sentence.html_safe %></dd>

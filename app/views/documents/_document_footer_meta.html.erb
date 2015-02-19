@@ -32,7 +32,7 @@
     <% end %>
   </div>
   <div class="links">
-    <dl class="primary-metadata js-track-metadata-links" data-trackposition="bottom">
+    <dl class="primary-metadata">
       <% if (from = from_metadata(document, true)).any? %>
         <dt><%= t('document.headings.from') %>:</dt>
         <% from.each do |link| %>
