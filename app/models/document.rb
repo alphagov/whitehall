@@ -11,6 +11,8 @@ class Document < ActiveRecord::Base
   has_many :editions, inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
+  belongs_to :government
+
   has_one  :published_edition,
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
            class_name: 'Edition',

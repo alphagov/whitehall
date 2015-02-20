@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219115527) do
+ActiveRecord::Schema.define(version: 20150219165949) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 20150219115527) do
     t.string   "slug"
     t.string   "document_type"
     t.string   "content_id"
+    t.integer  "government_id"
   end
 
   add_index "documents", ["document_type"], name: "index_documents_on_document_type", using: :btree
