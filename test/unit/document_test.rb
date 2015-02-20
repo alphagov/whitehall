@@ -152,4 +152,10 @@ class DocumentTest < ActiveSupport::TestCase
 
     refute draft.document.similar_slug_exists?
   end
+
+  test "current government is set on creation" do
+    current_government = FactoryGirl.create(:government, name: "2010 to 2015 Conservative and Liberal democrat coalition government", start_date: '2012-05-12')
+    document = create(:document)
+    assert_equal current_government, document.government
+  end
 end
