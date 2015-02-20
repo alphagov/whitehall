@@ -59,6 +59,11 @@
     <p>
       <%= organisation_form.text_field :custom_jobs_url  %>
     </p>
+    <% if current_user.gds_editor? %>
+      <label class="checkbox political-status">
+        <%= organisation_form.check_box :political, label_text: "Organisation publishes content associated with the current government" %>
+      </label>
+    <% end %>
   </fieldset>
   <fieldset>
     <legend>Associations</legend>

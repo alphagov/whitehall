@@ -419,4 +419,23 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
     get :features, id: organisation, locale: 'en'
     assert_response :success
   end
+
+  view_test "GDS Editors can set political status" do
+    organisation = create(:organisation)
+    policy_writer = create(:policy_writer, organisation: organisation)
+    login_as(policy_writer)
+
+    get :edit, id: organisation
+    refute_select ".political-status"
+
+    managing_editor = create(:managing_editor, organisation: organisation)
+    login_as(managing_editor)
+    get :edit, id: organisation
+    refute_select ".political-status"
+
+    gds_editor = create(:gds_editor, organisation: organisation)
+    login_as(gds_editor)
+    get :edit, id: organisation
+    assert_select ".political-status"
+  end
 end
