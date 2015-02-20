@@ -153,9 +153,18 @@ class DocumentTest < ActiveSupport::TestCase
     refute draft.document.similar_slug_exists?
   end
 
-  test "current government is set on creation" do
-    current_government = FactoryGirl.create(:government, name: "2010 to 2015 Conservative and Liberal democrat coalition government", start_date: '2012-05-12')
+  test "#ensure_document_has_government does not change existing government association" do
     document = create(:document)
-    assert_equal current_government, document.government
+    initial_government = FactoryGirl.create(:government, name: "2004 to 2009 Labour government", start_date: '2005-05-06', end_date: '2010-05-11')
+    Government.stubs(:current).returns(initial_government)
+    document.ensure_document_has_government
+
+    assert_equal initial_government, document.government
+
+    new_government = FactoryGirl.create(:government, name: "2010 to 2015 Conservative and Liberal democrat coalition government", start_date: '2012-05-12')
+    Government.stubs(:current).returns(new_government)
+    document.ensure_document_has_government
+
+    assert_equal initial_government, document.government
   end
 end
