@@ -4,7 +4,7 @@ class FormBuilderTest < ActionView::TestCase
 
   setup do
     @object = PromotionalFeatureItem.new
-    @builder = Whitehall::FormBuilder.new(:promotional_feature_item, @object, self, {}, nil)
+    @builder = Whitehall::FormBuilder.new(:promotional_feature_item, @object, self, {})
   end
 
   def hidden_image_cache_field(value = '')
