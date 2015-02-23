@@ -1,8 +1,28 @@
 require 'test_helper'
 
 class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
-  def present(organisation, options = {})
-    PublishingApiPresenters::Placeholder.new(organisation, options).as_json
+  def present(model_instance, options = {})
+    PublishingApiPresenters::Placeholder.new(model_instance, options).as_json
+  end
+
+  test 'presents a Ministerial Role ready for adding to the publishing API' do
+    ministerial_role = create(:ministerial_role, name: "Secretary of State for Silly Walks")
+    public_path = Whitehall.url_maker.ministerial_role_path(ministerial_role)
+
+    expected_hash = {
+      content_id: ministerial_role.content_id,
+      title: "Secretary of State for Silly Walks",
+      base_path: public_path,
+      format: "placeholder_ministerial_role",
+      locale: 'en',
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      public_updated_at: ministerial_role.updated_at,
+      routes: [ { path: public_path, type: "exact" } ],
+      update_type: "major",
+    }
+
+    assert_equal expected_hash, present(ministerial_role)
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do

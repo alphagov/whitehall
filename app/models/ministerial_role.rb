@@ -1,5 +1,6 @@
 class MinisterialRole < Role
   include Searchable
+  include PublishesToPublishingApi
 
   has_many :edition_ministerial_roles
   has_many :editions, through: :edition_ministerial_roles
