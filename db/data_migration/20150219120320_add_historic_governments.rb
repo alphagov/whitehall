@@ -1,5 +1,5 @@
 governments = [
-  ["2010 to 2015 Conservative and Liberal democrat coalition government", "2012-05-12"],
+  ["2010 to 2015 Conservative and Liberal democrat coalition government", "2010-05-12"]
   ["2005 to 2010 Labour government","2005-05-06","2010-05-11"],
   ["2001 to 2005 Labour government","2001-06-08","2005-05-05"],
   ["1997 to 2001 Labour government","1997-05-02","2001-06-07"],
