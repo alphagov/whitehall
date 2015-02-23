@@ -112,7 +112,7 @@ class PublicFacingControllerTest < ActionController::TestCase
       assert_equal Mime::HTML, response.content_type
       assert_equal 'html', response.body
 
-      get :js_or_atom, format: :js
+      xhr :get, :js_or_atom
       assert_response :success
       assert_equal Mime::JS, response.content_type
       assert_equal 'javascript', response.body
