@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219165949) do
+ActiveRecord::Schema.define(version: 20150223160728) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -899,6 +899,7 @@ ActiveRecord::Schema.define(version: 20150219165949) do
     t.string   "carrierwave_image"
     t.string   "slug"
     t.boolean  "privy_counsellor",  default: false
+    t.string   "content_id"
   end
 
   add_index "people", ["slug"], name: "index_people_on_slug", unique: true, using: :btree

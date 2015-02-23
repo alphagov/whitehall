@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
+  include PublishesToPublishingApi
 
   def self.columns
     # This is here to enable us to gracefully remove the biography column
