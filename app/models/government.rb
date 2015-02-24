@@ -10,4 +10,9 @@ class Government < ActiveRecord::Base
   end
 
   scope :current, -> { order(start_date: :desc).first }
+
+  def self.on_date(date)
+    return nil if date.to_date > Date.today
+    self.where('start_date <= ?', date).order(start_date: :desc).first
+  end
 end
