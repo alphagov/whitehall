@@ -65,6 +65,18 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_equal 1.week.ago, edition.major_change_published_at
   end
 
+  test '#perform! with a unpublished edition sets the government association' do
+    government = create(:government)
+    edition = create(:submitted_edition)
+
+    refute edition.document.government
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    assert_equal government, edition.document.government
+  end
+
   test '#perform! supersedes all previous editions' do
     published_edition = create(:published_edition)
     edition = published_edition.create_draft(create(:policy_writer))

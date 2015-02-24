@@ -11,6 +11,8 @@ class Document < ActiveRecord::Base
   has_many :editions, inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
 
+  belongs_to :government
+
   has_one  :published_edition,
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },
            class_name: 'Edition',
@@ -96,6 +98,12 @@ class Document < ActiveRecord::Base
 
   def humanized_document_type
     document_type.underscore.gsub('_', ' ')
+  end
+
+  def ensure_document_has_government
+    if Government.current.present? and government.nil?
+      update_column(:government_id, Government.current.id)
+    end
   end
 
   private
