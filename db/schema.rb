@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219165949) do
+ActiveRecord::Schema.define(version: 20150224083732) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -436,6 +436,7 @@ ActiveRecord::Schema.define(version: 20150219165949) do
     t.integer  "corporate_information_page_type_id"
     t.string   "need_ids"
     t.string   "primary_locale",                              default: "en",    null: false
+    t.boolean  "political",                                   default: false,   null: false
   end
 
   add_index "editions", ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id", using: :btree
