@@ -162,4 +162,8 @@ class DepartmentEditorTest < ActiveSupport::TestCase
   test 'can export editions' do
     assert enforcer_for(department_editor, Edition).can?(:export)
   end
+
+  test 'cannot mark editions as political' do
+    refute enforcer_for(department_editor, normal_edition).can?(:mark_political)
+  end
 end

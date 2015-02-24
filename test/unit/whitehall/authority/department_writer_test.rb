@@ -138,4 +138,8 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   test 'cannot administer the sitewide_settings section' do
     refute enforcer_for(department_writer, :sitewide_settings_section).can?(:administer)
   end
+
+  test 'cannot mark editions as political' do
+    refute enforcer_for(department_writer, normal_edition).can?(:mark_political)
+  end
 end

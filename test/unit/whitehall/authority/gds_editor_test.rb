@@ -172,4 +172,8 @@ class GDSEditorTest < ActiveSupport::TestCase
     assert enforcer_for(user, editors_org).can?(:manage_featured_links)
     assert enforcer_for(user, other_org).can?(:manage_featured_links)
   end
+
+  test 'can mark editions as political' do
+    assert enforcer_for(gds_editor, normal_edition).can?(:mark_political)
+  end
 end

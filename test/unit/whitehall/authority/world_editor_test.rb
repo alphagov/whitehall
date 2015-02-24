@@ -199,4 +199,9 @@ class WorldEditorTest < ActiveSupport::TestCase
     user = world_editor(['hat land', 'tie land'])
     refute enforcer_for(user, :sitewide_settings_section).can?(:administer)
   end
+
+  test 'cannot mark editions as political' do
+    user = world_editor(['hat land', 'tie land'])
+    refute enforcer_for(user, normal_edition).can?(:mark_political)
+  end
 end

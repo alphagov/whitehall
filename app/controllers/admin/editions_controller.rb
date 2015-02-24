@@ -189,6 +189,7 @@ class Admin::EditionsController < Admin::BaseController
       :additional_related_mainstream_content_title,
       :primary_specialist_sector_tag,
       :corporate_information_page_type_id,
+      :political,
       secondary_specialist_sector_tags: [],
       ministerial_role_ids: [],
       lead_organisation_ids: [],
