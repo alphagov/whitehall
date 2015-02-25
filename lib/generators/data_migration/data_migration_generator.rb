@@ -6,7 +6,7 @@ class DataMigrationGenerator < Rails::Generators::NamedBase
     Time.zone.now.utc.strftime("%Y%m%d%H%M%S")
   end
 
-  def create_migration
-    migration_template "data_migration.rb", Rails.root.join("db/data_migration", file_name)
+  def create_data_migration
+    migration_template "data_migration.rb", Rails.root.join("db/data_migration", "#{file_name}.rb")
   end
 end
