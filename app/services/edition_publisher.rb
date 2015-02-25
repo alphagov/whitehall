@@ -28,7 +28,7 @@ class EditionPublisher < EditionService
 private
 
   def prepare_edition
-    edition.access_limited  = false
+    edition.access_limited = false
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
     edition.increment_version_number
