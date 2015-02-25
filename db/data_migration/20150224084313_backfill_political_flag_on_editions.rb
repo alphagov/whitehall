@@ -15,6 +15,7 @@ POLITICAL_PUBLICATION_TYPES = [
 
 POLITICAL_ORGS = %w[
   attorney-generals-office
+  better-regulation-delivery-office
   cabinet-office
   department-for-business-enterprise-and-regulatory-reform
   department-for-business-innovation-skills
@@ -37,23 +38,34 @@ POLITICAL_ORGS = %w[
   department-of-social-security
   department-of-the-environment-transport-and-the-regions
   department-of-trade-and-industry
-  exchequer-and-audit-department
+  deputy-prime-ministers-office
+  english-partnerships
   foreign-commonwealth-office
+  government-equalities-office
   hm-treasury
   home-office
+  homes-and-communities-agency
+  housing-corporation
+  immigration-enforcement
+  infrastructure-uk
   law-officers-departments
   lord-chancellors-department
   ministry-of-defence
   ministry-of-justice
   northern-ireland-office
+  office-for-low-emission-vehicles
   office-of-the-advocate-general-for-scotland
   the-office-of-the-leader-of-the-house-of-commons
   office-of-the-leader-of-the-house-of-lords
+  open-public-services
   prime-ministers-office-10-downing-street
+  renewable-fuels-agency
   scotland-office
   scottish-office
+  the-shareholder-executive
   uk-export-finance
   wales-office
+  welsh-office
 ].freeze
 
 def has_minister?(edition)
