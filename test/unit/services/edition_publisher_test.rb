@@ -76,7 +76,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert published_edition.reload.superseded?, "expected previous edition to be superseded but it's #{published_edition.state}"
   end
 
-  test '#perform! does not choke if previoues editions are invalid' do
+  test '#perform! does not choke if previous editions are invalid' do
     published_edition = create(:published_edition)
     edition = published_edition.create_draft(create(:policy_writer))
     edition.minor_change = true
