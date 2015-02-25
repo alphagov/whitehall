@@ -111,4 +111,49 @@ class EditionPublisherTest < ActiveSupport::TestCase
     publisher = EditionPublisher.new(edition)
     refute publisher.can_perform?
   end
+
+  test '#perform! sets political flag for political content on first publish' do
+    edition = create(:submitted_edition)
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    assert edition.political?
+  end
+
+  test '#perform! does not set political flag for political content on subsequent publishes' do
+    published_edition = create(:published_edition)
+    edition = published_edition.create_draft(create(:policy_writer))
+    edition.minor_change = true
+    edition.submit!
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    refute edition.political?
+  end
+
+  test '#perform! does not set political flag for non-political content on first publish' do
+    edition = create(:submitted_edition)
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(false)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    refute edition.political?
+  end
 end

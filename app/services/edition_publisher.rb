@@ -28,6 +28,7 @@ class EditionPublisher < EditionService
 private
 
   def prepare_edition
+    flag_if_political_content!
     edition.access_limited = false
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
@@ -51,5 +52,11 @@ private
   def scheduled_for_publication?
     # Just using edition.scheduled? misses submitted editions
     edition.scheduled_publication.present?
+  end
+
+  def flag_if_political_content!
+    return if edition.previously_published
+
+    edition.political = PoliticalContentIdentifier.political?(edition)
   end
 end
