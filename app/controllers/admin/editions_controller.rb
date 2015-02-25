@@ -39,7 +39,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def index
     if filter && filter.valid?
-      session[:document_filters] = params_filters.to_hash
+      session[:document_filters] = params_filters
       if request.xhr?
         render partial: 'search_results'
       else
@@ -159,7 +159,7 @@ class Admin::EditionsController < Admin::BaseController
     previous_document = import.document_imported_before(@edition.document) if import
     return admin_edition_path(previous_document.latest_edition) if previous_document
 
-    admin_editions_path(session_filters.merge(state: :imported))
+    admin_editions_path(session_filters.merge('state' => :imported))
   end
 
   def fetch_version_and_remark_trails
@@ -309,15 +309,15 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def params_filters
-    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date)
+    params.slice(:type, :state, :organisation, :author, :page, :title, :world_location, :from_date, :to_date).to_hash
   end
 
   def params_filters_with_default_state
-    params_filters.reverse_merge(state: 'active')
+    params_filters.reverse_merge('state' => 'active')
   end
 
   def filter
-    @filter ||= Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state) if params_filters.any?
+    @filter ||= Admin::EditionFilter.new(edition_class, current_user, params_filters_with_default_state.symbolize_keys) if params_filters.any?
   end
 
   def detect_other_active_editors
