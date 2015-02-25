@@ -33,7 +33,6 @@ POLITICAL_ORGS = %w[
   department-of-constitutional-affairs
   department-of-energy-climate-change
   department-of-health
-  department-of-inland-revenue
   department-of-national-heritage
   department-of-social-security
   department-of-the-environment-transport-and-the-regions
