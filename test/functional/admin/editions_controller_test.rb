@@ -12,21 +12,21 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test 'should pass filter parameters to an edition filter' do
     stub_filter = stub_edition_filter
-    Admin::EditionFilter.expects(:new).with(anything, anything, has_entries("state" => "draft", "type" => "policy")).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, has_entries(state: "draft", type: "policy")).returns(stub_filter)
 
     get :index, state: :draft, type: :policy
   end
 
   test "should not pass blank parameters to the edition filter" do
     stub_filter = stub_edition_filter
-    Admin::EditionFilter.expects(:new).with(anything, anything, Not(has_key("author"))).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, Not(has_key(:author))).returns(stub_filter)
 
     get :index, state: :draft, author: ""
   end
 
   test 'should add state param set to "active" if none is supplied' do
     stub_filter = stub_edition_filter
-    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry("state" => "active")).returns(stub_filter)
+    Admin::EditionFilter.expects(:new).with(anything, anything, has_entry(state: "active")).returns(stub_filter)
 
     get :index, type: :policy
   end
@@ -163,8 +163,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "index should redirect to remembered filtered options if selected filter is invalid" do
     organisation = create(:organisation)
-    session[:document_filters] = { state: :submitted, author: current_user.to_param, organisation: organisation.to_param }
-    stub_edition_filter valid?: false
+    session[:document_filters] = { 'state' => 'submitted', 'author' => current_user.to_param, 'organisation' => organisation.to_param }
     get :index, author: 'invalid'
     assert_redirected_to admin_editions_path(state: :submitted, author: current_user, organisation: organisation)
   end
