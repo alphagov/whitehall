@@ -73,7 +73,7 @@ gem 'uglifier'
 
 group :development, :test do
   gem 'parallel_tests'
-  gem 'test-queue'
+  gem 'test-queue', '0.2.11'
   gem 'ruby-prof'
   gem 'pry-byebug'
 end
