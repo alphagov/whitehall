@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '4.1.10'
+gem 'rails', '4.2.0'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -60,7 +60,7 @@ end
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 3.2.0'
+  gem 'govspeak', '~> 3.3.0'
 end
 
 if ENV['FRONTEND_TOOLKIT_DEV']
