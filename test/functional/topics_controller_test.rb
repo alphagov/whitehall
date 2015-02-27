@@ -9,7 +9,9 @@ class TopicsControllerTest < ActionController::TestCase
     organisation_1 = create(:organisation)
     organisation_2 = create(:organisation)
     policy = create(:draft_policy, :scheduled)
-    topic = create(:topic, organisations: [organisation_1, organisation_2], editions: [policy, create(:published_news_article)])
+    topic = create(:topic, editions: [policy, create(:published_news_article)])
+    topic.organisations << organisation_1
+    topic.organisations << organisation_2
 
     controller.expects(:expire_on_next_scheduled_publication).with(topic.scheduled_editions)
 
@@ -190,7 +192,8 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'GET :show sets analytics organisation headers' do
     organisation = create(:organisation)
-    topic = create(:topic, organisations: [organisation])
+    topic = create(:topic)
+    topic.organisations << organisation
 
     get :show, id: topic
 
