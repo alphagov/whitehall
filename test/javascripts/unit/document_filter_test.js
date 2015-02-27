@@ -162,9 +162,9 @@ test("should render results based on successful ajax response", function() {
 
 test("should fire analytics on successful ajax response", function() {
   this.filterForm.enableDocumentFilter();
-  window._gaq = [];
+  GOVUK.analytics = { trackPageview: function() {} };
 
-  var analytics = this.spy(_gaq, "push");
+  var analytics = this.spy(GOVUK.analytics, "trackPageview");
   var server = this.sandbox.useFakeServer();
   server.respondWith(JSON.stringify(this.ajaxData));
 
@@ -399,5 +399,3 @@ test("#_pluralize pluralizes words ending in y", function() {
   equal(GOVUK.documentFilter._pluralize("fly", 1), "fly");
   equal(GOVUK.documentFilter._pluralize("fly", 2), "flies");
 });
-
-
