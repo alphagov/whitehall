@@ -1,7 +1,7 @@
 .ministers-index {
   h2 {
     @include heading-36;
-    border-bottom: $gutter-one-sixth solid $inside-gov-brand;
+    border-bottom: $gutter-one-sixth solid $govuk-blue;
     margin: 0 $gutter-half;
   }
 
