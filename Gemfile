@@ -43,6 +43,7 @@ gem 'dalli'
 gem 'json-schema', '2.5.0'
 gem 'rails_translation_manager', '0.0.1'
 gem 'rails-observers'
+gem 'sprockets', '3.0.0.beta.8'
 
 if ENV['GLOBALIZE_DEV']
   gem 'globalize', path: '../globalize'

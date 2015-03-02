@@ -38,6 +38,12 @@ html {
 // Styles for comment page elements
 
 #whitehall-wrapper {
-  @import "print/*";
+  @import "print/document.scss";
+  @import "print/documents-index.scss";
+  @import "print/heading-block.scss";
+  @import "print/html-publication.scss";
+  @import "print/index-list.scss";
+  @import "print/ministerial-roles.scss";
+  @import "print/organisations.scss";
+  @import "print/print.scss";
 }
-
