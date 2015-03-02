@@ -65,15 +65,11 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert_equal 1.week.ago, edition.major_change_published_at
   end
 
-  test '#perform! with a unpublished edition sets the government association' do
-    government = create(:government)
-    edition = create(:submitted_edition)
+  test '#perform! sets a government association for the document' do
+    government = FactoryGirl.create(:government, name: "A current government", start_date: 2.years.ago, end_date: 2.years.from_now)
+    edition    = create(:submitted_edition, first_published_at: Time.zone.now)
 
-    refute edition.document.government
-
-    publisher = EditionPublisher.new(edition)
-
-    assert publisher.perform!
+    assert EditionPublisher.new(edition).perform!
     assert_equal government, edition.document.government
   end
 
