@@ -100,12 +100,6 @@ class Document < ActiveRecord::Base
     document_type.underscore.gsub('_', ' ')
   end
 
-  def ensure_document_has_government
-    if Government.current.present? and government.nil?
-      update_column(:government_id, Government.current.id)
-    end
-  end
-
   private
 
   def destroy_all_editions

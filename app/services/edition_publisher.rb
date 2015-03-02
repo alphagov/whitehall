@@ -32,12 +32,12 @@ private
     edition.major_change_published_at = Time.zone.now unless edition.minor_change?
     edition.make_public_at(edition.major_change_published_at)
     edition.increment_version_number
-    edition.document.ensure_document_has_government
   end
 
   def fire_transition!
     super
     supersede_previous_editions!
+    update_government!
   end
 
   def supersede_previous_editions!
@@ -52,5 +52,9 @@ private
   def scheduled_for_publication?
     # Just using edition.scheduled? misses submitted editions
     edition.scheduled_publication.present?
+  end
+
+  def update_government!
+    edition.document.update_attribute(:government, Government.on_date(edition.first_public_at))
   end
 end

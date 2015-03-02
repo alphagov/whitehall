@@ -55,4 +55,19 @@ class GovernmentTest < ActiveSupport::TestCase
 
     assert_equal current_government, Government.current
   end
+
+  test "knows the active government at a date" do
+    government_current = FactoryGirl.create(:government, name: "2010 to 2015 Conservative and Liberal democrat coalition government", start_date: '2010-05-12')
+    government_in_2005 = FactoryGirl.create(:government, name: "2005 to 2010 Labour government", start_date: '2005-05-06', end_date: '2010-05-11')
+    FactoryGirl.create(:government, name: "2001 to 2005 Labour government", start_date: "2001-06-08", end_date: "2005-05-05")
+
+    assert_equal government_in_2005, Government.on_date(Date.parse("2006-01-01")), "non-current government"
+    assert_equal government_in_2005, Government.on_date(Date.parse("2010-05-11")), "last day of government"
+    assert_equal government_current, Government.on_date(Date.parse("2010-05-12")), "first day of government"
+
+    assert_nil Government.on_date(Date.parse("1900-05-12")), "non existant past government"
+    assert_nil Government.on_date(Date.parse("2020-05-12")), "future date"
+    assert_nil Government.on_date(Date.tomorrow), "tomorrow"
+    assert_equal government_current, Government.on_date(Date.today), "today (not the future)"
+  end
 end
