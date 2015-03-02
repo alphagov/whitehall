@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219165949) do
+ActiveRecord::Schema.define(version: 20150223160728) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -585,8 +585,8 @@ ActiveRecord::Schema.define(version: 20150219165949) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "governments", ["end_date"], name: "index_governments_on_end_date", using: :btree
@@ -899,6 +899,7 @@ ActiveRecord::Schema.define(version: 20150219165949) do
     t.string   "carrierwave_image"
     t.string   "slug"
     t.boolean  "privy_counsellor",  default: false
+    t.string   "content_id"
   end
 
   add_index "people", ["slug"], name: "index_people_on_slug", unique: true, using: :btree
@@ -1019,6 +1020,7 @@ ActiveRecord::Schema.define(version: 20150219165949) do
     t.integer  "role_payment_type_id"
     t.boolean  "supports_historical_accounts", default: false, null: false
     t.integer  "whip_ordering",                default: 100
+    t.string   "content_id"
   end
 
   add_index "roles", ["attends_cabinet_type_id"], name: "index_roles_on_attends_cabinet_type_id", using: :btree
