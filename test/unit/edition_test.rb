@@ -903,9 +903,22 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
-  test '#date_for_government returns first_public_at as a date' do
-    edition = create(:published_edition)
-    assert_equal edition.date_for_government, edition.first_public_at.to_date
+  test '#government returns the current government for a newly published edition' do
+    government = create(:government, start_date: 2.years.ago)
+    edition = create(:edition, first_published_at: Time.zone.now)
+    assert_equal government, edition.government
+  end
+
+  test '#government returns the historic government for a previously published edition' do
+    historic_government = create(:government, start_date: 6.years.ago, end_date: 2.years.ago)
+    current_government = create(:government, start_date: 2.years.ago + 1.day)
+    edition = create(:edition, first_published_at: 4.years.ago)
+    assert_equal historic_government, edition.government
+  end
+
+  test '#government returns nil for an edition without a first_published_at' do
+    edition = create(:edition, first_published_at: nil)
+    assert_nil edition.government
   end
 
 end

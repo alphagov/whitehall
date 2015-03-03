@@ -356,8 +356,11 @@ class ConsultationTest < ActiveSupport::TestCase
     assert_equal true, consultation_with_command_paper_outcome.search_index[:has_act_paper]
   end
 
-  test "#date_for_government returns first_public_at as date" do
-    consultation = create(:consultation)
-    assert_equal consultation.date_for_government, consultation.first_public_at.to_date
+  test "#government returns the government active on the opening_at date" do
+    historic_government = create(:government, start_date: 6.years.ago, end_date: 2.years.ago)
+    current_government = create(:government, start_date: 2.years.ago + 1.day)
+    consultation = create(:consultation, opening_at: 4.years.ago)
+
+    assert_equal historic_government, consultation.government
   end
 end
