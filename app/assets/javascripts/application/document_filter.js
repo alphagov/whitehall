@@ -43,7 +43,7 @@ if(typeof window.GOVUK === 'undefined'){ window.GOVUK = {}; }
       history.pushState(documentFilter.currentPageState(), null, url);
     },
     updateTracking: function(url) {
-      window._gaq && _gaq.push(['_trackPageview', url]);
+      GOVUK.analytics.trackPageview(url);
     },
     submitFilters: function(e){
       e.preventDefault();
