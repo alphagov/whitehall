@@ -2,7 +2,7 @@
   &.consultation-closed,
   &.consultation-responded {
     .status-block {
-      border-color: $inside-gov-brand;
+      border-color: $govuk-blue;
       margin: 0 $gutter-half ($gutter * 1.5) $gutter-half;
       @include media(tablet) {
         margin: 0 $gutter ($gutter * 1.5) $gutter;
