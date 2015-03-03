@@ -654,6 +654,10 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def date_for_government
+   first_public_at.to_date
+  end
+
 private
 
   def enforcer(user)

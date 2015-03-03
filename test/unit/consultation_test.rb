@@ -355,4 +355,9 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_with_command_paper_outcome.outcome.stubs(:has_act_paper?).returns(true)
     assert_equal true, consultation_with_command_paper_outcome.search_index[:has_act_paper]
   end
+
+  test "#date_for_government returns first_public_at as date" do
+    consultation = create(:consultation)
+    assert_equal consultation.date_for_government, consultation.first_public_at.to_date
+  end
 end

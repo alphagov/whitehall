@@ -55,6 +55,7 @@ private
   end
 
   def update_government!
-    edition.document.update_attribute(:government, Government.on_date(edition.first_public_at))
+    government = Government.on_date(edition.date_for_government)
+    edition.document.update_attribute(:government, government)
   end
 end

@@ -903,4 +903,9 @@ class EditionTest < ActiveSupport::TestCase
     assert edition.valid?
   end
 
+  test '#date_for_government returns first_public_at as a date' do
+    edition = create(:published_edition)
+    assert_equal edition.date_for_government, edition.first_public_at.to_date
+  end
+
 end

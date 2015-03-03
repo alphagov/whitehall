@@ -173,4 +173,9 @@ class SpeechTest < ActiveSupport::TestCase
   test "is not translatable when non-English" do
     refute build(:speech, primary_locale: :es).translatable?
   end
+
+  test "#date_for_government returns delivered_on as date" do
+    speech = create(:speech)
+    assert_equal speech.date_for_government, speech.delivered_on.to_date
+  end
 end

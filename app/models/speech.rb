@@ -49,7 +49,11 @@ class Speech < Announcement
     role_appointment && role_appointment.role && role_appointment.role.ministerial?
   end
 
-  private
+  def date_for_government
+    delivered_on.to_date
+  end
+
+private
 
   def skip_organisation_validation?
     can_have_some_invalid_data? || person_override.present?
