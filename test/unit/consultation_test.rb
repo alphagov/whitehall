@@ -357,10 +357,10 @@ class ConsultationTest < ActiveSupport::TestCase
   end
 
   test "#government returns the government active on the opening_at date" do
-    historic_government = create(:government, start_date: 6.years.ago, end_date: 2.years.ago)
-    current_government = create(:government, start_date: 2.years.ago + 1.day)
+    create(:current_government)
+    previous_government = create(:previous_government)
     consultation = create(:consultation, opening_at: 4.years.ago)
 
-    assert_equal historic_government, consultation.government
+    assert_equal previous_government, consultation.government
   end
 end

@@ -175,17 +175,16 @@ class SpeechTest < ActiveSupport::TestCase
   end
 
   test "#government returns the government active on the delivered_on date" do
-    historic_government = create(:government, start_date: 6.years.ago, end_date: 2.years.ago)
-    current_government = create(:government, start_date: 2.years.ago + 1.day)
+    create(:current_government)
+    previous_government = create(:previous_government)
     speech = create(:speech, first_published_at: 1.day.ago, delivered_on: 4.years.ago)
 
-    assert_equal historic_government, speech.government
+    assert_equal previous_government, speech.government
   end
 
   test '#government returns nil for an speech without a delivered_on' do
     speech = create(:imported_speech, delivered_on: nil)
     assert_nil speech.government
   end
-
 
 end
