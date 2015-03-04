@@ -415,7 +415,6 @@ ActiveRecord::Schema.define(version: 20150223160728) do
     t.string   "additional_related_mainstream_content_url"
     t.string   "additional_related_mainstream_content_title"
     t.integer  "alternative_format_provider_id"
-    t.integer  "published_related_publication_count",         default: 0,       null: false
     t.datetime "public_timestamp"
     t.integer  "primary_mainstream_category_id"
     t.datetime "scheduled_publication"
@@ -428,7 +427,6 @@ ActiveRecord::Schema.define(version: 20150223160728) do
     t.integer  "news_article_type_id"
     t.boolean  "relevant_to_local_government",                default: false
     t.string   "person_override"
-    t.string   "locale",                                      default: "en",    null: false
     t.boolean  "external",                                    default: false
     t.string   "external_url"
     t.datetime "opening_at"
@@ -442,7 +440,6 @@ ActiveRecord::Schema.define(version: 20150223160728) do
   add_index "editions", ["closing_at"], name: "index_editions_on_closing_at", using: :btree
   add_index "editions", ["document_id"], name: "index_editions_on_document_id", using: :btree
   add_index "editions", ["first_published_at"], name: "index_editions_on_first_published_at", using: :btree
-  add_index "editions", ["locale"], name: "index_editions_on_locale", using: :btree
   add_index "editions", ["opening_at"], name: "index_editions_on_opening_at", using: :btree
   add_index "editions", ["operational_field_id"], name: "index_editions_on_operational_field_id", using: :btree
   add_index "editions", ["primary_mainstream_category_id"], name: "index_editions_on_primary_mainstream_category_id", using: :btree
@@ -510,15 +507,6 @@ ActiveRecord::Schema.define(version: 20150223160728) do
   add_index "featured_items", ["item_id", "item_type"], name: "index_featured_items_on_item_id_and_item_type", using: :btree
 
   create_table "featured_links", force: true do |t|
-    t.string   "url"
-    t.string   "title"
-    t.integer  "linkable_id"
-    t.string   "linkable_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "featured_services_and_guidance", force: true do |t|
     t.string   "url"
     t.string   "title"
     t.integer  "linkable_id"
@@ -1155,18 +1143,6 @@ ActiveRecord::Schema.define(version: 20150223160728) do
 
   add_index "take_part_pages", ["ordering"], name: "index_take_part_pages_on_ordering", using: :btree
   add_index "take_part_pages", ["slug"], name: "index_take_part_pages_on_slug", unique: true, using: :btree
-
-  create_table "top_tasks", force: true do |t|
-    t.string   "url"
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "linkable_type"
-    t.integer  "linkable_id"
-  end
-
-  add_index "top_tasks", ["linkable_id", "linkable_type"], name: "index_top_tasks_on_linkable_id_and_linkable_type", using: :btree
-  add_index "top_tasks", ["linkable_type"], name: "index_top_tasks_on_linkable_type", using: :btree
 
   create_table "unpublishings", force: true do |t|
     t.integer  "edition_id"
