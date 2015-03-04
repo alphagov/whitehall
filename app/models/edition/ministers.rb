@@ -17,4 +17,8 @@ module Edition::Ministers
   def can_be_associated_with_ministers?
     true
   end
+
+  def is_associated_with_a_minister?
+    ministerial_roles.any?
+  end
 end
