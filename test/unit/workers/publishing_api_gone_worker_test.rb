@@ -5,7 +5,6 @@ class PublishingApiGoneWorkerTest < ActiveSupport::TestCase
     base_path = '/government/this-never-existed-honest'
 
     gone_payload = {
-      base_path: base_path,
       format: 'gone',
       publishing_app: 'whitehall',
       update_type: 'major',

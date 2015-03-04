@@ -18,7 +18,6 @@ class PublishingApiPresenters::Placeholder
     {
       content_id: item.content_id,
       title: item.name,
-      base_path: base_path,
       format: format,
       locale: I18n.locale.to_s,
       publishing_app: 'whitehall',

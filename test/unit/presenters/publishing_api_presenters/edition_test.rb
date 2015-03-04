@@ -19,7 +19,6 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       content_id: edition.document.content_id,
       title: 'The title',
       description: 'The summary',
-      base_path: public_path,
       format: 'placeholder',
       locale: 'en',
       need_ids: [],
@@ -81,7 +80,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       assert_equal 'ur', presented_hash[:locale]
       assert_equal 'Urdu title', presented_hash[:title]
       assert_equal Whitehall.url_maker.public_document_path(edition, locale: :ur),
-        presented_hash[:base_path]
+        presented_hash[:routes].first[:path]
 
     end
   end

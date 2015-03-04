@@ -6,7 +6,6 @@ class PublishingApiScheduleWorkerTest < ActiveSupport::TestCase
     publish_time = 2.days.from_now
 
     expected_payload = {
-      base_path: base_path,
       publish_time: publish_time,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',

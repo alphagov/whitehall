@@ -10,7 +10,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       content_id: edition.content_id,
       title: edition.title,
       description: edition.summary,
-      base_path: public_path,
       format: 'unpublishing',
       locale: 'en',
       need_ids: [],
@@ -91,7 +90,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
 
       presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-      assert_equal french_base_path, presenter.as_json[:base_path]
+      assert_equal french_base_path, presenter.as_json[:routes].first[:path]
       assert_valid_against_schema(presenter.as_json, 'unpublishing')
     end
   end
@@ -104,7 +103,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       content_id: edition.content_id,
       title: edition.title,
       description: edition.summary,
-      base_path: public_path,
       format: 'unpublishing',
       locale: 'en',
       need_ids: [],
@@ -147,7 +145,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     I18n.with_locale(:fr) do
       presenter = PublishingApiPresenters::Unpublishing.new(unpublishing)
 
-      assert_equal french_base_path, presenter.as_json[:base_path]
+      assert_equal french_base_path, presenter.as_json[:routes].first[:path]
       assert_equal 'fr', presenter.as_json[:locale]
       assert_valid_against_schema(presenter.as_json, 'unpublishing')
     end
@@ -158,7 +156,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path      = unpublishing.document_path
     alternative_path = URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
-      base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       update_type: 'major',
@@ -179,7 +176,6 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
     public_path      = unpublishing.document_path
     alternative_path = URI.parse(unpublishing.alternative_url).path
     expected_hash    = {
-      base_path: public_path,
       format: 'redirect',
       publishing_app: 'whitehall',
       update_type: 'major',

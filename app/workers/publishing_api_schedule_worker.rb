@@ -9,7 +9,6 @@ class PublishingApiScheduleWorker
 
   def build_publish_intent(base_path, publish_timestamp)
     {
-      base_path: base_path,
       publish_time: publish_timestamp,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',

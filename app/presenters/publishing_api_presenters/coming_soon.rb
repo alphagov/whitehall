@@ -23,7 +23,6 @@ class PublishingApiPresenters::ComingSoon
 
   def as_json
     {
-      base_path: base_path,
       publishing_app: 'whitehall',
       rendering_app: 'whitehall-frontend',
       format: 'coming_soon',

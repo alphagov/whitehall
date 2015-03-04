@@ -17,7 +17,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       content_id: case_study.document.content_id,
       title: 'Case study title',
       description: 'The summary',
-      base_path: public_path,
       format: 'case_study',
       locale: 'en',
       need_ids: [],

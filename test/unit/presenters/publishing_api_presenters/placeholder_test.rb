@@ -12,7 +12,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     expected_hash = {
       content_id: ministerial_role.content_id,
       title: "Secretary of State for Silly Walks",
-      base_path: public_path,
       format: "placeholder_ministerial_role",
       locale: 'en',
       publishing_app: 'whitehall',
@@ -32,7 +31,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     expected_hash = {
       content_id: organisation.content_id,
       title: "Organisation of Things",
-      base_path: public_path,
       format: "placeholder_organisation",
       locale: 'en',
       publishing_app: 'whitehall',
@@ -52,7 +50,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     expected_hash = {
       content_id: person.content_id,
       title: "Winston",
-      base_path: public_path,
       format: "placeholder_person",
       locale: 'en',
       publishing_app: 'whitehall',
@@ -72,7 +69,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     expected_hash = {
       content_id: worldwide_org.content_id,
       title: "Locationia Embassy",
-      base_path: public_path,
       format: "placeholder_worldwide_organisation",
       locale: 'en',
       publishing_app: 'whitehall',
@@ -92,7 +88,6 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
     expected_hash = {
       content_id: world_location.content_id,
       title: "Locationia",
-      base_path: public_path,
       format: "placeholder_world_location",
       locale: 'en',
       publishing_app: 'whitehall',
@@ -123,7 +118,7 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       assert_equal 'fr', presented_hash[:locale]
       assert_equal 'French name', presented_hash[:title]
       assert_equal Whitehall.url_maker.organisation_path(organisation, locale: :fr),
-        presented_hash[:base_path]
+        presented_hash[:routes].first[:path]
 
     end
   end
