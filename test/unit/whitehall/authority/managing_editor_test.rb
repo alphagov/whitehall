@@ -173,6 +173,6 @@ class ManagingEditorTest < ActiveSupport::TestCase
   end
 
   test 'can mark editions as political' do
-    assert enforcer_for(managing_editor, normal_edition).can?(:mark_political)
+    refute enforcer_for(managing_editor, normal_edition).can?(:mark_political)
   end
 end
