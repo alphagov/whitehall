@@ -7,13 +7,26 @@ class PoliticalContentIdentifier
     PublicationType::ResearchAndAnalysis,
   ].freeze
 
+  attr_reader :edition
+  def initialize(edition)
+    @edition = edition
+  end
+
   def self.political?(edition)
-    edition.is_associated_with_a_minister? || (is_political_format?(edition) && has_political_org?(edition))
+    new(edition).political?
+  end
+
+  def political?
+    is_associated_with_a_minister? || (is_political_format? && has_political_org?)
   end
 
 private
 
-  def self.is_political_format?(edition)
+  def is_associated_with_a_minister?
+    edition.is_associated_with_a_minister?
+  end
+
+  def is_political_format?
     case edition
     when Consultation, Speech, NewsArticle, WorldLocationNewsArticle
       true
@@ -24,7 +37,7 @@ private
     end
   end
 
-  def self.has_political_org?(edition)
+  def has_political_org?
     edition.can_be_related_to_organisations? &&
       edition.organisations.where(political: true).any?
   end
