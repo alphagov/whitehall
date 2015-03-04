@@ -1,4 +1,6 @@
 class Contact < ActiveRecord::Base
+  EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
+
   belongs_to :contactable, polymorphic: true
   has_many   :contact_numbers, dependent: :destroy
   has_many   :edition_dependencies, as: :dependable, dependent: :destroy
