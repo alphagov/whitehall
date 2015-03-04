@@ -1,7 +1,8 @@
 require 'delegate'
 
 module GovspeakHelper
-  EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
+  include ::Govspeak::ContactsExtractorHelpers
+
   BARCHART_REGEXP = /{barchart(.*?)}/
   SORTABLE_REGEXP = /{sortable}/
   FRACTION_REGEXP = /\[Fraction:(?<numerator>[0-9a-zA-Z]+)\/(?<denominator>[0-9a-zA-Z]+)\]/
@@ -58,16 +59,6 @@ module GovspeakHelper
 
   def header_contains_manual_numbering?(header)
     header.text.include?('<span class="heading-number">')
-  end
-
-  def govspeak_embedded_contacts(govspeak)
-    return [] if govspeak.blank?
-    # scan yields an array of capture groups for each match
-    # so "[Contact:1] is now [Contact:2]" => [["1"], ["2"]]
-    govspeak.scan(GovspeakHelper::EMBEDDED_CONTACT_REGEXP).map { |capture|
-      contact_id = capture.first
-      Contact.find_by(id: contact_id)
-    }.compact
   end
 
   class OrphanedHeadingError < StandardError
@@ -141,7 +132,7 @@ module GovspeakHelper
   def render_embedded_contacts(govspeak, heading_tag)
     return govspeak if govspeak.blank?
     heading_tag ||= 'h3'
-    govspeak.gsub(GovspeakHelper::EMBEDDED_CONTACT_REGEXP) do
+    govspeak.gsub(Govspeak::EMBEDDED_CONTACT_REGEXP) do
       if contact = Contact.find_by(id: $1)
         render(partial: 'contacts/contact', locals: { contact: contact, heading_tag: heading_tag }, formats: ["html"])
       else
