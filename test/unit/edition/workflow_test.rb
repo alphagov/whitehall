@@ -77,6 +77,18 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
+  [:publish, :force_publish].each do |event|
+    test "##{event} populates edition's dependencies" do
+      contacts = create_list(:contact, 2)
+      news_article = create(:submitted_news_article, body: "For more information, get in touch at:
+        [Contact:#{contacts[0].id}] or [Contact:#{contacts[1].id}]")
+
+      news_article.send(event)
+
+      assert_equal contacts, news_article.dependencies.contacts.map(&:dependable)
+    end
+  end
+
   test "should be able to change major_change_published_at and first_published_at when scheduled" do
     edition = create(:edition, :scheduled)
     edition.first_published_at = Time.zone.now

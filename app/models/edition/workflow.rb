@@ -67,11 +67,11 @@ module Edition::Workflow
         transitions from: :scheduled, to: :submitted
       end
 
-      event :publish do
+      event :publish, success: :populate_dependencies do
         transitions from: [:submitted, :scheduled], to: :published
       end
 
-      event :force_publish do
+      event :force_publish, success: :populate_dependencies do
         transitions from: [:draft, :submitted], to: :published
       end
 
@@ -112,5 +112,11 @@ module Edition::Workflow
     if existing_edition = document.non_published_edition
       errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
+  end
+
+private
+
+  def populate_dependencies
+    EditionDependenciesPopulator.new(self).populate!
   end
 end
