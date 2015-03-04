@@ -651,7 +651,15 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def government
+    Government.on_date(date_for_government) unless date_for_government.nil?
+  end
+
 private
+
+  def date_for_government
+    first_public_at.try(:to_date)
+  end
 
   def enforcer(user)
     Whitehall::Authority::Enforcer.new(user, self)

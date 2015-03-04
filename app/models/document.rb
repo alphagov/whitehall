@@ -1,6 +1,8 @@
 # All {Edition}s have one document, this model contains the slug and
 # handles the logic for slug regeneration.
 class Document < ActiveRecord::Base
+  extend DeprecatedColumns
+  deprecated_columns :government_id
 
   extend FriendlyId
 
@@ -10,8 +12,6 @@ class Document < ActiveRecord::Base
 
   has_many :editions, inverse_of: :document
   has_many :edition_relations, dependent: :destroy, inverse_of: :document
-
-  belongs_to :government
 
   has_one  :published_edition,
            -> { where(state: Edition::PUBLICLY_VISIBLE_STATES) },

@@ -355,4 +355,12 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_with_command_paper_outcome.outcome.stubs(:has_act_paper?).returns(true)
     assert_equal true, consultation_with_command_paper_outcome.search_index[:has_act_paper]
   end
+
+  test "#government returns the government active on the opening_at date" do
+    create(:current_government)
+    previous_government = create(:previous_government)
+    consultation = create(:consultation, opening_at: 4.years.ago)
+
+    assert_equal previous_government, consultation.government
+  end
 end

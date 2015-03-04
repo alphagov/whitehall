@@ -37,7 +37,6 @@ private
   def fire_transition!
     super
     supersede_previous_editions!
-    update_government!
   end
 
   def supersede_previous_editions!
@@ -52,9 +51,5 @@ private
   def scheduled_for_publication?
     # Just using edition.scheduled? misses submitted editions
     edition.scheduled_publication.present?
-  end
-
-  def update_government!
-    edition.document.update_attribute(:government, Government.on_date(edition.first_public_at))
   end
 end
