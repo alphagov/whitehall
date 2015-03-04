@@ -13,6 +13,8 @@ class Contact < ActiveRecord::Base
   validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
 
+  after_update :republish_dependant_editions
+
   include TranslatableModel
   translates :title, :comments, :recipient, :street_address, :locality,
              :region, :email, :contact_form_url
@@ -68,4 +70,11 @@ class Contact < ActiveRecord::Base
   def missing_translations
     super & contactable.non_english_translated_locales
   end
+
+private
+
+  def republish_dependant_editions
+    dependant_editions.each { |e| Whitehall::PublishingApi.republish(e) }
+  end
+
 end
