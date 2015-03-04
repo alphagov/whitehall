@@ -434,6 +434,7 @@ ActiveRecord::Schema.define(version: 20150223160728) do
     t.integer  "corporate_information_page_type_id"
     t.string   "need_ids"
     t.string   "primary_locale",                              default: "en",    null: false
+    t.boolean  "political",                                   default: false
   end
 
   add_index "editions", ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id", using: :btree
