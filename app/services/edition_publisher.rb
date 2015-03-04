@@ -55,7 +55,7 @@ private
   end
 
   def flag_if_political_content!
-    return if edition.previously_published
+    return if edition.document.published?
 
     edition.political = PoliticalContentIdentifier.political?(edition)
   end
