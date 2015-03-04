@@ -427,6 +427,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def is_associated_with_a_minister?
+    false
+  end
+
   # @!endgroup
 
   def create_draft(user)

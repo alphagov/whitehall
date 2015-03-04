@@ -20,6 +20,14 @@ FactoryGirl.define do
     trait(:with_alternative_format_contact_email) {
       sequence(:alternative_format_contact_email) { |n| "organisation-#{n}@example.com" }
     }
+
+    trait(:political) do
+      political true
+    end
+
+    trait(:non_political) do
+      political false
+    end
   end
 
   factory :closed_organisation, parent: :organisation, traits: [:closed]

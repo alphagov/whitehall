@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class EditionPublisherTest < ActiveSupport::TestCase
-
   test '#perform! with a valid submitted edition publishes the edition, setting the publishing timestamps and version' do
     edition   = create(:submitted_edition)
 
@@ -76,7 +75,7 @@ class EditionPublisherTest < ActiveSupport::TestCase
     assert published_edition.reload.superseded?, "expected previous edition to be superseded but it's #{published_edition.state}"
   end
 
-  test '#perform! does not choke if previoues editions are invalid' do
+  test '#perform! does not choke if previous editions are invalid' do
     published_edition = create(:published_edition)
     edition = published_edition.create_draft(create(:policy_writer))
     edition.minor_change = true
@@ -111,5 +110,64 @@ class EditionPublisherTest < ActiveSupport::TestCase
     edition = build(:submitted_edition, scheduled_publication: 1.day.from_now)
     publisher = EditionPublisher.new(edition)
     refute publisher.can_perform?
+  end
+
+  test '#perform! sets political flag for political content on first publish' do
+    edition = create(:submitted_edition)
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    assert edition.political?
+  end
+
+  test '#perform! does not set political flag for political content on subsequent publishes' do
+    published_edition = create(:published_edition)
+    edition = published_edition.create_draft(create(:policy_writer))
+    edition.minor_change = true
+    edition.submit!
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    refute edition.political?
+  end
+
+  test '#perform! does not set political flag for non-political content on first publish' do
+    edition = create(:submitted_edition)
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(false)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    refute edition.political?
+  end
+
+  test '#perform! sets a political flag on political content that has a first_published_at set' do
+    edition = create(:submitted_edition, first_published_at: 3.weeks.ago)
+
+    refute edition.political?
+
+    PoliticalContentIdentifier.stubs(:political?).with(edition).returns(true)
+
+    publisher = EditionPublisher.new(edition)
+
+    assert publisher.perform!
+    edition.reload
+    assert edition.political?
   end
 end

@@ -10,6 +10,10 @@ module Edition::Appointment
 
   end
 
+  def is_associated_with_a_minister?
+    role_appointment && role.is_a?(MinisterialRole)
+  end
+
   def person
     if person_override?
       person_override
