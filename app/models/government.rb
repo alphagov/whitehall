@@ -16,4 +16,8 @@ class Government < ActiveRecord::Base
 
     where('start_date <= ?', date).order(start_date: :desc).first
   end
+
+  def current?
+    self == Government.current
+  end
 end
