@@ -5,7 +5,7 @@ class CreateEditionDependencies < ActiveRecord::Migration
       t.references :dependable, polymorphic: true
     end
 
-    add_index :edition_dependencies, [:dependant_id, :dependable_id, :dependable_type],
-      unique: true, name: 'index_edition_dependencies_on_dependant_and_dependable'
+    add_index :edition_dependencies, [:dependable_id, :dependable_type, :dependant_id],
+      unique: true, name: 'index_edition_dependencies_on_dependable_and_dependant'
   end
 end
