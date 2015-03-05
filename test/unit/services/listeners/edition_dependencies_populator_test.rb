@@ -11,7 +11,7 @@ class ServiceListeners::EditionDependenciesPopulatorTest < ActiveSupport::TestCa
       stub_panopticon_registration(news_article)
 
       assert Whitehall.edition_services.send(service_name, news_article).perform!
-      assert_equal contacts, news_article.dependencies.contacts.map(&:dependable)
+      assert_same_elements contacts, news_article.contact_dependencies
     end
   end
 

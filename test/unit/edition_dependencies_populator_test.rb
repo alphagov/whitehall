@@ -8,15 +8,16 @@ class EditionDependenciesPopulatorTest < ActiveSupport::TestCase
 
     EditionDependenciesPopulator.new(news_article).populate!
 
-    assert_equal contacts, news_article.dependencies.contacts.map(&:dependable)
+    assert_same_elements contacts, news_article.contact_dependencies.reload
   end
 
   test "ignores duplicate dependencies" do
     contact = create(:contact)
     news_article = create(:news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
-    EditionDependency.create!(dependant: news_article, dependable: contact)
+    EditionDependency.create!(dependant: news_article, dependable: contact) # dependency is populated already
 
-    assert_nothing_raised { EditionDependenciesPopulator.new(news_article).populate! }
-    # would otherwise raise ActiveRecord::RecordNotUnique
+    EditionDependenciesPopulator.new(news_article).populate!
+
+    assert_same_elements [contact], news_article.contact_dependencies.reload
   end
 end
