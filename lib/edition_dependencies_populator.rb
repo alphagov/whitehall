@@ -1,11 +1,11 @@
 class EditionDependenciesPopulator
 
-  def initialize(dependant)
-    @dependant = dependant
+  def initialize(edition)
+    @edition = edition
   end
 
   def populate!
-    @dependant.contact_dependencies = Govspeak::ContactsExtractor.new(@dependant.body).contacts
+    @edition.contact_dependencies = Govspeak::ContactsExtractor.new(@edition.body).contacts
   end
 
 end

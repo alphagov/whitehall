@@ -14,7 +14,7 @@ class EditionDependenciesPopulatorTest < ActiveSupport::TestCase
   test "ignores duplicate dependencies" do
     contact = create(:contact)
     news_article = create(:news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
-    EditionDependency.create!(dependant: news_article, dependable: contact) # dependency is populated already
+    news_article.contact_dependencies << contact # dependency is populated already
 
     EditionDependenciesPopulator.new(news_article).populate!
 

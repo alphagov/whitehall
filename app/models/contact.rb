@@ -4,7 +4,7 @@ class Contact < ActiveRecord::Base
   belongs_to :contactable, polymorphic: true
   has_many   :contact_numbers, dependent: :destroy
   has_many   :edition_dependencies, as: :dependable, dependent: :destroy
-  has_many   :dependant_editions, through: :edition_dependencies, source: :dependant
+  has_many   :dependant_editions, through: :edition_dependencies, source: :edition
   belongs_to :country,
              -> { where("world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id) },
              class_name: "WorldLocation",

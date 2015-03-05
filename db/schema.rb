@@ -287,12 +287,12 @@ ActiveRecord::Schema.define(version: 20150303113958) do
   add_index "edition_authors", ["user_id"], name: "index_edition_authors_on_user_id", using: :btree
 
   create_table "edition_dependencies", force: true do |t|
-    t.integer "dependant_id"
+    t.integer "edition_id"
     t.integer "dependable_id"
     t.string  "dependable_type"
   end
 
-  add_index "edition_dependencies", ["dependant_id", "dependable_id", "dependable_type"], name: "index_edition_dependencies_on_dependant_and_dependable", unique: true, using: :btree
+  add_index "edition_dependencies", ["dependable_id", "dependable_type", "edition_id"], name: "index_edition_dependencies_on_dependable_and_edition", unique: true, using: :btree
 
   create_table "edition_mainstream_categories", force: true do |t|
     t.integer  "edition_id"
