@@ -130,6 +130,10 @@ class DocumentListExportPresenter
       when Time
         # YYYY-MM-DD hh:mm:ss, which seems to be best understood by spreadsheets.
         elem.to_formatted_s(:db)
+      when true
+        'yes'
+      when false
+        'no'
       else
         elem
       end
