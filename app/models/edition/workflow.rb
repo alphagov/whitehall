@@ -67,11 +67,11 @@ module Edition::Workflow
         transitions from: :scheduled, to: :submitted
       end
 
-      event :publish, success: :populate_dependencies do
+      event :publish do
         transitions from: [:submitted, :scheduled], to: :published
       end
 
-      event :force_publish, success: :populate_dependencies do
+      event :force_publish do
         transitions from: [:draft, :submitted], to: :published
       end
 
@@ -114,9 +114,4 @@ module Edition::Workflow
     end
   end
 
-private
-
-  def populate_dependencies
-    EditionDependenciesPopulator.new(self).populate!
-  end
 end
