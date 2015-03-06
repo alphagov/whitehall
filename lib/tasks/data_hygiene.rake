@@ -113,3 +113,11 @@ desc "Unarchive an edition (creates and publishes a draft with audit trail)"
 task :unarchive_edition, [:edition_id] => :environment do |t,args|
   DataHygiene::EditionUnarchiver.new(args[:edition_id], Logger.new(STDOUT)).unarchive
 end
+
+desc "Unpublish a statistics announcement and register a 410 GONE route for it"
+task :unpublish_statistics_announcement, [:slug] => :environment do |t, args|
+  DataHygiene::StatisticsAnnouncementUnpublisher.new(
+    announcement_slug: args[:slug],
+    logger: Logger.new(STDOUT),
+  ).call
+end
