@@ -921,4 +921,27 @@ class EditionTest < ActiveSupport::TestCase
     assert_nil edition.government
   end
 
+  test '#historic? is true when political and from a previous government' do
+    create(:current_government)
+    previous_government = create(:previous_government)
+
+    edition = create(:edition, political: true, first_published_at: previous_government.start_date)
+    assert edition.historic?
+  end
+
+  test '#historic? is false for when not political or from the current government' do
+    current_government = create(:current_government)
+
+    previous_government = create(:previous_government)
+
+    edition = create(:edition, political: false, first_published_at: previous_government.start_date)
+    refute edition.historic?
+
+    edition = create(:edition, political: false, first_published_at: current_government.start_date)
+    refute edition.historic?
+
+    edition = create(:edition, political: true, first_published_at: current_government.start_date)
+    refute edition.historic?
+  end
+
 end

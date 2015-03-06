@@ -77,4 +77,12 @@ class GovernmentOnDateTest < ActiveSupport::TestCase
   test "#on_date returns nil for future dates" do
     assert_nil Government.on_date(Date.tomorrow), "tomorrow"
   end
+
+  test '#current? is true for the current government' do
+    assert @current_government.current?
+  end
+
+  test '#current? is false for previous governments' do
+    refute @previous_government.current?
+  end
 end

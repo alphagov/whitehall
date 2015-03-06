@@ -659,6 +659,10 @@ class Edition < ActiveRecord::Base
     Government.on_date(date_for_government) unless date_for_government.nil?
   end
 
+  def historic?
+    political? && !government.current?
+  end
+
 private
 
   def date_for_government
