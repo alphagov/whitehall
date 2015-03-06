@@ -1,7 +1,7 @@
 require "test_helper"
 
 class EditionDependenciesPopulatorTest < ActiveSupport::TestCase
-  test "populates contacts extracted from dependant editions' govspeak" do
+  test "populates contacts extracted from dependent editions' govspeak" do
     contacts = create_list(:contact, 2)
     news_article = create(:news_article, body: "For more information, get in touch at:
       [Contact:#{contacts[0].id}] or [Contact:#{contacts[1].id}]")

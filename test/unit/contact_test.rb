@@ -111,7 +111,7 @@ class ContactTest < ActiveSupport::TestCase
     assert_equal expected_locales, contact.missing_translations
   end
 
-  test "republishes dependant editions after update" do
+  test "republishes dependent editions after update" do
     contact = create(:contact)
     news_article = create(:published_news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
     corp_info_page = create(:published_corporate_information_page, body: "For free advice, please visit our office: [Contact:#{contact.id}]")
