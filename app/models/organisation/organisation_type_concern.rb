@@ -21,7 +21,7 @@ module Organisation::OrganisationTypeConcern
     }
 
     scope :listable, -> {
-      excluding_govuk_status_closed.with_translations
+      excluding_govuk_status_closed.with_translations(I18n.locale)
     }
 
     scope :allowed_promotional, -> {
