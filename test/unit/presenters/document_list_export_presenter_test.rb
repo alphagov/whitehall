@@ -36,10 +36,10 @@ class DocumentListExportPresenterTest < PresenterTestCase
     assert_equal(['greenpaper.pdf', 'An HTML attachment', 'http://www.example.com'], pr.attachment_types)
   end
 
-  test '#format_elements formats arrays and dates but leaves strings alone' do
+  test '#format_elements formats arrays, dates and booleans but leaves strings alone' do
     pr = DocumentListExportPresenter.new('')
-    data = [%w(list of elements), Time.new(2014, 10, 5, 10, 15), 'normal string']
-    assert_equal(['list, of, elements', '2014-10-05 10:15:00', 'normal string'], pr.format_elements(data))
+    data = [%w(list of elements), Time.new(2014, 10, 5, 10, 15), 'normal string', true, false]
+    assert_equal(['list, of, elements', '2014-10-05 10:15:00', 'normal string', 'yes', 'no',], pr.format_elements(data))
   end
 
   test '#lead_organisations returns list of lead org names' do
