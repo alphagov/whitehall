@@ -110,4 +110,25 @@ class ContactTest < ActiveSupport::TestCase
     expected_locales = [:de, :fr].map { |l| Locale.new(l) }
     assert_equal expected_locales, contact.missing_translations
   end
+
+  test "republishes dependent editions after update" do
+    contact = create(:contact)
+    news_article = create(:published_news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
+    corp_info_page = create(:published_corporate_information_page, body: "For free advice, please visit our office: [Contact:#{contact.id}]")
+    EditionDependenciesPopulator.new(news_article).populate!
+    EditionDependenciesPopulator.new(corp_info_page).populate!
+
+    expect_republishing(news_article, corp_info_page)
+
+    contact.update_attributes(title: "Changed contact title")
+  end
+
+  def expect_republishing(*editions)
+    editions.each do |edition|
+      Whitehall.publishing_api_client.expects(:put_content_item)
+        .with(Whitehall.url_maker.public_document_path(edition),
+          has_entries(content_id: edition.content_id, update_type: 'republish'))
+    end
+  end
+
 end

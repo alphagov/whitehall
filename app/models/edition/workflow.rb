@@ -113,4 +113,5 @@ module Edition::Workflow
       errors.add(:base, "There is already an active #{existing_edition.state} edition for this document")
     end
   end
+
 end

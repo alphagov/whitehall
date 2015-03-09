@@ -1,6 +1,10 @@
 class Contact < ActiveRecord::Base
+  EMBEDDED_CONTACT_REGEXP = /\[Contact\:([0-9]+)\]/
+
   belongs_to :contactable, polymorphic: true
   has_many   :contact_numbers, dependent: :destroy
+  has_many   :edition_dependencies, as: :dependable, dependent: :destroy
+  has_many   :dependent_editions, through: :edition_dependencies, source: :edition
   belongs_to :country,
              -> { where("world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id) },
              class_name: "WorldLocation",
@@ -10,6 +14,8 @@ class Contact < ActiveRecord::Base
   validates :contact_form_url, uri: true, allow_blank: true
   validates :street_address, :country_id, presence: true, if: -> r { r.has_postal_address? }
   accepts_nested_attributes_for :contact_numbers, allow_destroy: true, reject_if: :all_blank
+
+  after_update :republish_dependent_editions
 
   include TranslatableModel
   translates :title, :comments, :recipient, :street_address, :locality,
@@ -66,4 +72,11 @@ class Contact < ActiveRecord::Base
   def missing_translations
     super & contactable.non_english_translated_locales
   end
+
+private
+
+  def republish_dependent_editions
+    dependent_editions.each { |e| Whitehall::PublishingApi.republish(e) }
+  end
+
 end

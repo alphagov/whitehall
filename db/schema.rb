@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223160728) do
+ActiveRecord::Schema.define(version: 20150303113958) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -285,6 +285,14 @@ ActiveRecord::Schema.define(version: 20150223160728) do
 
   add_index "edition_authors", ["edition_id"], name: "index_edition_authors_on_edition_id", using: :btree
   add_index "edition_authors", ["user_id"], name: "index_edition_authors_on_user_id", using: :btree
+
+  create_table "edition_dependencies", force: true do |t|
+    t.integer "edition_id"
+    t.integer "dependable_id"
+    t.string  "dependable_type"
+  end
+
+  add_index "edition_dependencies", ["dependable_id", "dependable_type", "edition_id"], name: "index_edition_dependencies_on_dependable_and_edition", unique: true, using: :btree
 
   create_table "edition_mainstream_categories", force: true do |t|
     t.integer  "edition_id"
