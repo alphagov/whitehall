@@ -8,16 +8,16 @@ class EditionDependenciesPopulatorTest < ActiveSupport::TestCase
 
     EditionDependenciesPopulator.new(news_article).populate!
 
-    assert_same_elements contacts, news_article.contact_dependencies.reload
+    assert_same_elements contacts, news_article.depended_upon_contacts.reload
   end
 
   test "ignores duplicate dependencies" do
     contact = create(:contact)
     news_article = create(:news_article, body: "For more information, get in touch at: [Contact:#{contact.id}]")
-    news_article.contact_dependencies << contact # dependency is populated already
+    news_article.depended_upon_contacts << contact # dependency is populated already
 
     EditionDependenciesPopulator.new(news_article).populate!
 
-    assert_same_elements [contact], news_article.contact_dependencies.reload
+    assert_same_elements [contact], news_article.depended_upon_contacts.reload
   end
 end

@@ -30,8 +30,8 @@ class Edition < ActiveRecord::Base
   has_many :classification_featurings, inverse_of: :edition
   has_many :links_reports, as: :link_reportable
 
-  has_many :dependencies, class_name: 'EditionDependency', dependent: :destroy
-  has_many :contact_dependencies, through: :dependencies, source: :dependable, source_type: 'Contact'
+  has_many :edition_dependencies, dependent: :destroy
+  has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: 'Contact'
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body

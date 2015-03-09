@@ -5,7 +5,7 @@ class EditionDependenciesPopulator
   end
 
   def populate!
-    @edition.contact_dependencies = Govspeak::ContactsExtractor.new(@edition.body).contacts
+    @edition.depended_upon_contacts = Govspeak::ContactsExtractor.new(@edition.body).contacts
   end
 
 end
