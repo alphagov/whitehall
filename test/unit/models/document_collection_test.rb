@@ -71,8 +71,7 @@ class DocumentCollectionTest < ActiveSupport::TestCase
     ])
 
     draft = original.create_draft(create(:gds_editor))
-
-    assert_not_equal original.groups, draft.groups
+    assert_not_equal original.groups, draft.reload.groups
 
     assert_collection_groups_are_the_same(original, draft)
 

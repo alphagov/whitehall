@@ -492,7 +492,8 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'destroy removes topic relationships' do
     organisation = create(:organisation)
-    topic = create(:topic, organisations: [organisation])
+    topic = create(:topic)
+    topic.organisations << organisation
     organisation.destroy
     assert_equal 0, OrganisationClassification.count
   end

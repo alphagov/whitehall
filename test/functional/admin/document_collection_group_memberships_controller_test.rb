@@ -15,7 +15,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
 
   test 'POST #create adds a document to a group and redirects' do
     document = create(:publication).document
-    assert_difference '@group.documents.size' do
+    assert_difference '@group.reload.documents.size' do
       post :create, id_params.merge(document_id: document.id)
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
@@ -43,7 +43,7 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
   view_test 'DELETE #destroy removes documents and redirects when Remove clicked' do
     documents = [create(:publication), create(:publication)].map(&:document)
     @group.documents << documents
-    assert_difference '@group.documents.size', -1 do
+    assert_difference '@group.reload.documents.size', -1 do
       delete :destroy, remove_params.merge(documents: [documents.first.id])
     end
     assert_redirected_to admin_document_collection_groups_path(@collection)
@@ -60,8 +60,8 @@ class Admin::DocumentCollectionGroupMembershipsControllerTest < ActionController
     @group.documents << documents
     new_group = build(:document_collection_group)
     @collection.groups << new_group
-    assert_difference 'new_group.documents.size', 1 do
-      assert_difference '@group.documents.size', -1 do
+    assert_difference 'new_group.reload.documents.size', 1 do
+      assert_difference '@group.reload.documents.size', -1 do
         delete :destroy, move_params.merge(
           documents: [documents.first.id],
           new_group_id: new_group.id

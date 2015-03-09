@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '4.0.13'
+gem 'rails', '4.1.9'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -73,7 +73,7 @@ gem 'uglifier'
 
 group :development, :test do
   gem 'parallel_tests'
-  gem 'test-queue'
+  gem 'test-queue', '0.2.11'
   gem 'ruby-prof'
   gem 'pry-byebug'
 end

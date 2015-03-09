@@ -1,11 +1,6 @@
-unless defined? Rails
-  lib = File.expand_path("../../../app/models", __FILE__)
-  $:.unshift lib unless $:.include?(lib)
-  require "minister_sorter"
-  require "minitest/autorun"
-end
+require 'test_helper'
 
-class MinisterSorterTest < MiniTest::Unit::TestCase
+class MinisterSorterTest < ActiveSupport::TestCase
   class MockRole < Struct.new(:name, :seniority, :cabinet_member, :current_people)
     def cabinet_member?
       self.cabinet_member

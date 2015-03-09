@@ -34,7 +34,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         first_public_at: case_study.first_public_at,
         change_note: nil,
         change_history: [
-          { public_timestamp: case_study.public_timestamp, note: 'change-note' }
+          { public_timestamp: case_study.public_timestamp, note: 'change-note' }.as_json
         ],
         tags: {
           browse_pages: [],
@@ -129,7 +129,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     expected_history = [
       { public_timestamp: new_timestamp, note: "More changes" },
       { public_timestamp: original_timestamp, note: "change-note" }
-    ]
+    ].as_json
     assert_equal expected_history, presented_history
   end
 

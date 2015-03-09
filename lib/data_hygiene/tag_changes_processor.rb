@@ -68,7 +68,7 @@ private
 
   def taggings
     document.editions.flat_map { |edition|
-      edition.specialist_sectors.where(tag: @source_topic_id).compact.uniq
+      edition.specialist_sectors.where(tag: @source_topic_id).uniq
     }
   end
 
