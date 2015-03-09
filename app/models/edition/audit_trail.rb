@@ -16,11 +16,10 @@ module Edition::AuditTrail
     has_many :versions, -> { order("created_at ASC, id ASC") }, as: :item
 
     has_one :most_recent_version,
-            -> { order('created_at DESC, id DESC') },
+            -> { order('versions.created_at DESC, versions.id DESC') },
             class_name: 'Version',
             as: :item
     has_one :last_author,
-            -> { order('versions.created_at DESC, versions.id DESC') },
             through: :most_recent_version,
             source: :user
 
