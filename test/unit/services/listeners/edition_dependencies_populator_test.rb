@@ -14,5 +14,18 @@ class ServiceListeners::EditionDependenciesPopulatorTest < ActiveSupport::TestCa
       assert_equal [contact], news_article.depended_upon_contacts
       assert_equal [speech], news_article.depended_upon_editions
     end
+
+    test "Whitehall.edition_services.#{service_name} cleans-up a dependable edition's dependency records" do
+      dependable_speech = create(:submitted_speech)
+      dependant_article = create(:published_news_article, major_change_published_at: Time.zone.now,
+        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+      dependant_article.depended_upon_editions << dependable_speech
+
+      stub_panopticon_registration(dependable_speech)
+      dependable_speech.major_change_published_at = Time.zone.now
+      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+
+      assert_empty dependable_speech.dependent_editions.reload
+    end
   end
 end
