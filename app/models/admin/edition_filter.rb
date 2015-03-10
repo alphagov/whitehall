@@ -114,8 +114,7 @@ module Admin
 
     def editions_with_translations(locale = nil)
       editions_without_translations = unpaginated_editions.
-                                        includes(:last_author, :unpublishing).
-                                        references(:versions).
+                                        includes(:unpublishing).
                                         order("editions.updated_at DESC")
 
       if locale
