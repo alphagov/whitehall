@@ -28,4 +28,18 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       assert_empty dependable_speech.dependent_editions.reload
     end
   end
+
+  test "unpublishing destroys edition's dependencies" do
+    edition = create(:published_news_article)
+    edition.depended_upon_contacts << create(:contact)
+    edition.depended_upon_editions << create(:speech)
+
+    stub_panopticon_registration(edition)
+    edition.unpublishing = create(:unpublishing)
+    assert Whitehall.edition_services.unpublisher(edition).perform!
+
+    assert_empty edition.depended_upon_contacts.reload
+    assert_empty edition.depended_upon_editions.reload
+  end
+
 end

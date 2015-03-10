@@ -10,5 +10,6 @@ Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |_, edition,
 Whitehall.edition_services.subscribe(/^(force_publish|publish)$/) { |_, edition, _| edition.republish_dependent_editions }
 Whitehall.edition_services.subscribe(/^(archive)$/) { |_, edition, _| Whitehall::PublishingApi.republish(edition) }
 Whitehall.edition_services.subscribe(/^(unpublish)$/) { |_, edition, _| Whitehall::PublishingApi.publish(edition.unpublishing) }
+Whitehall.edition_services.subscribe(/^(unpublish)$/) { |_, edition, _| edition.edition_dependencies.destroy_all }
 Whitehall.edition_services.subscribe(/^(force_schedule|schedule)$/) { |_, edition, _| Whitehall::PublishingApi.schedule(edition) }
 Whitehall.edition_services.subscribe("unschedule") { |_, edition, _| Whitehall::PublishingApi.unschedule(edition) }

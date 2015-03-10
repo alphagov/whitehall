@@ -184,4 +184,15 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     refute edition.save_as(create(:user))
   end
 
+  test "#supersede! destroys edition's dependencies" do
+    edition = create(:published_news_article)
+    edition.depended_upon_contacts << create(:contact)
+    edition.depended_upon_editions << create(:speech)
+
+    assert edition.supersede!
+
+    assert_empty edition.depended_upon_contacts.reload
+    assert_empty edition.depended_upon_editions.reload
+  end
+
 end
