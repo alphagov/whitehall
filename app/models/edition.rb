@@ -29,6 +29,7 @@ class Edition < ActiveRecord::Base
 
   has_many :edition_dependencies, dependent: :destroy
   has_many :depended_upon_contacts, through: :edition_dependencies, source: :dependable, source_type: 'Contact'
+  has_many :depended_upon_editions, through: :edition_dependencies, source: :dependable, source_type: 'Edition'
 
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :body
@@ -61,6 +62,7 @@ class Edition < ActiveRecord::Base
       .references(:document)
   }
 
+  scope :in_pre_publication_state,      -> { where(state: Edition::PRE_PUBLICATION_STATES) }
   scope :force_published,               -> { where(state: "published", force_published: true) }
   scope :not_published,                 -> { where(state: %w(draft submitted rejected)) }
 
