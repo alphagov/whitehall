@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ServiceListeners::EditionDependenciesPopulatorTest < ActiveSupport::TestCase
+class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
   [:publisher, :force_publisher].each do |service_name|
     test "Whitehall.edition_services.#{service_name} populates edition's dependencies" do
