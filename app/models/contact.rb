@@ -1,8 +1,8 @@
 class Contact < ActiveRecord::Base
+  include Dependable
+
   belongs_to :contactable, polymorphic: true
   has_many   :contact_numbers, dependent: :destroy
-  has_many   :edition_dependencies, as: :dependable, dependent: :destroy
-  has_many   :dependent_editions, through: :edition_dependencies, source: :edition
   belongs_to :country,
              -> { where("world_locations.world_location_type_id" => WorldLocationType::WorldLocation.id) },
              class_name: "WorldLocation",
@@ -69,12 +69,6 @@ class Contact < ActiveRecord::Base
 
   def missing_translations
     super & contactable.non_english_translated_locales
-  end
-
-private
-
-  def republish_dependent_editions
-    dependent_editions.each { |e| Whitehall::PublishingApi.republish(e) }
   end
 
 end
