@@ -38,4 +38,4 @@ logger = Logger.new(STDOUT)
 
 DataHygiene::DuplicateStatisticsAnnouncement.new(duplicate_announcement, logger, options[:noop]).destroy_and_redirect_to(authoritative_announcement)
 
-puts "For completeness, the above redirect should also be added to router-data/data/slug-changes.csv"
+puts "For completeness, the above redirect should also be added to router-data/data/statistics.csv"
