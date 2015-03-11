@@ -2,8 +2,10 @@ require "test_helper"
 
 class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
-  [:publisher, :force_publisher].each do |service_name|
-    test "Whitehall.edition_services.#{service_name} populates edition's dependencies" do
+  ['publish', 'force publish'].each do |transition|
+    service_name = transition.parameterize.underscore + 'er'
+
+    test "#{transition}ing an edition populates its dependencies" do
       contact, speech = create(:contact), create(:speech)
       news_article = create(:submitted_news_article, body: "For more information, get in touch at:
         [Contact:#{contact.id}] or read our [official statement](/government/admin/speeches/#{speech.id})", major_change_published_at: Time.zone.now)
@@ -15,7 +17,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       assert_equal [speech], news_article.depended_upon_editions
     end
 
-    test "Whitehall.edition_services.#{service_name} cleans-up a dependable edition's dependency records" do
+    test "#{transition}ing a depended-upon edition removes it as a dependency" do
       dependable_speech = create(:submitted_speech)
       dependant_article = create(:published_news_article, major_change_published_at: Time.zone.now,
         body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
