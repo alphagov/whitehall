@@ -1,5 +1,5 @@
 module Govspeak
-  class EditionsExtractor
+  class DependableEditionsExtractor
     include EmbeddedContentPatterns
 
     def initialize(govspeak)
