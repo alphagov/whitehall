@@ -672,13 +672,6 @@ class Edition < ActiveRecord::Base
     political? && !government.current?
   end
 
-  def republish_dependent_editions
-    super
-    # once a draft edition gets published, dependent editions are no longer
-    # affected by future changes to that edition, so no longer remain dependent.
-    dependency_records.destroy_all
-  end
-
 private
 
   def date_for_government
