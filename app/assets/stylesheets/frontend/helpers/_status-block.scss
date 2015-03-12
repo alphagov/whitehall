@@ -25,10 +25,15 @@
 
 .history-status-block {
   clear: both;
-  margin: $gutter-half;
+  margin: $gutter-half 0;
+  padding: $gutter-half;
+
+  color: $white;
+  background: $govuk-blue;
 
   @include media(desktop) {
-    margin-bottom: $gutter;
+    margin: $gutter $gutter-half;
+    padding: $gutter-two-thirds $gutter;
   }
 
   h2 {
