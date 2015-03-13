@@ -20,3 +20,7 @@ When(/^I edit the government called "(.*?)" to have dates "(.*?)" and "(.*?)"$/)
     end_date: end_date
   })
 end
+
+Given(/^there is a current government$/) do
+  FactoryGirl.create(:current_government)
+end
