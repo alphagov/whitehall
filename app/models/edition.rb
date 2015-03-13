@@ -663,6 +663,8 @@ class Edition < ActiveRecord::Base
   end
 
   def historic?
+    return false unless government
+
     political? && !government.current?
   end
 
