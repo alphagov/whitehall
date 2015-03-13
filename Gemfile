@@ -40,7 +40,6 @@ gem 'pdf-reader', '1.3.3'
 gem 'typhoeus', '0.6.9'
 gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
-gem 'json-schema', '2.5.0'
 gem 'rails_translation_manager', '0.0.1'
 gem 'rails-observers'
 gem 'sprockets', '3.0.0.beta.8'
@@ -97,6 +96,7 @@ group :test do
   gem 'database_cleaner', '1.4.0'
   gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
+  gem 'govuk-content-schema-test-helpers', '1.0.1'
 end
 
 group :test_coverage do
