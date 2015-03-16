@@ -2,7 +2,6 @@ require "test_helper"
 
 class ApplicationControllerAnalyticsTest < ActionController::TestCase
   class TestController < ApplicationController
-    def test_proposition; render text: "ok"; end
 
     class Organisation < Struct.new(:analytics_identifier); end
 
@@ -19,16 +18,6 @@ class ApplicationControllerAnalyticsTest < ActionController::TestCase
   end
 
   tests TestController
-
-  test "sets google analytics proposition to government for all actions" do
-    with_routing do |map|
-      map.draw do
-        get '/test_proposition', to: 'application_controller_analytics_test/test#test_proposition'
-      end
-      get :test_proposition
-    end
-    assert_equal "government", response.headers["X-Slimmer-Proposition"]
-  end
 
   test "sets google analytics organisation header to the passed in org list" do
 

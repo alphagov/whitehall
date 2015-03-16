@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_slimmer_proposition
   before_filter :set_slimmer_application_name
   before_filter :set_audit_trail_whodunnit
 
@@ -34,10 +33,6 @@ class ApplicationController < ActionController::Base
 
   def set_slimmer_application_name
     set_slimmer_headers(application_name: 'inside_government')
-  end
-
-  def set_slimmer_proposition
-    set_slimmer_headers(proposition: "government")
   end
 
   def set_slimmer_organisations_header(organisations)

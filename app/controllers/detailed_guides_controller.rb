@@ -19,10 +19,6 @@ private
     :detailed_guidance
   end
 
-  def set_slimmer_proposition
-    set_slimmer_headers(proposition: "specialist")
-  end
-
   def set_breadcrumb_trail
     breadcrumb_trail = BreadcrumbTrail.for(@document)
     set_slimmer_artefact breadcrumb_trail if breadcrumb_trail.valid?
