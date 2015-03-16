@@ -1,11 +1,7 @@
 namespace :content_register do
-  desc "registers all organisations with the content register"
-  task :organisations => :environment do
-    ContentRegisterer.new(Organisation.all, Logger.new(STDOUT)).register!
-  end
-
-  desc "register all people with the content register"
-  task :people => :environment do
-    ContentRegisterer.new(Person.all, Logger.new(STDOUT)).register!
+  desc "registers all instances of `model_class` with the content register"
+  task :register, [:model_class] => :environment do |_, args|
+    klass = args[:model_class].constantize
+    ContentRegisterer.new(klass.all, Logger.new(STDOUT)).register!
   end
 end
