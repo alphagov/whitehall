@@ -944,4 +944,12 @@ class EditionTest < ActiveSupport::TestCase
     refute edition.historic?
   end
 
+  test '#historic? is false when the document has no government' do
+    edition = create(:edition, political: true, first_published_at: nil)
+    refute edition.historic?
+
+    edition = create(:edition, political: false, first_published_at: nil)
+    refute edition.historic?
+  end
+
 end

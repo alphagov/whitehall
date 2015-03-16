@@ -24,3 +24,8 @@
                                  topics: topics,
                                  primary_mainstream_category: primary_mainstream_category,
                                  specialist_tag_finder: specialist_tag_finder %>
+
+<% if document.historic? %>
+<%= render('documents/history_notice', type: document.format_name,
+                                       government_name: document.government.try(:name)) %>
+<% end %>

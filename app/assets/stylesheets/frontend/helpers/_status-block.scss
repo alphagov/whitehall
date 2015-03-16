@@ -22,3 +22,26 @@
     padding: $gutter-two-thirds;
   }
 }
+
+.history-status-block {
+  clear: both;
+  margin: $gutter-half 0;
+  padding: $gutter-half;
+
+  color: $white;
+  background: $govuk-blue;
+
+  @include media(desktop) {
+    margin: $gutter $gutter-half;
+    padding: $gutter-two-thirds $gutter;
+  }
+
+  h2 {
+    @include heading-24;
+    font-weight: bold;
+  }
+
+  p {
+    @include heading-24;
+  }
+}
