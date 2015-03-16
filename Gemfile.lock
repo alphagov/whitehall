@@ -45,7 +45,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.6)
+    addressable (2.3.7)
     afm (0.2.0)
     airbrake (4.1.0)
       builder
@@ -148,6 +148,8 @@ GEM
       kramdown (~> 1.4.1)
       nokogiri (~> 1.5.10)
       sanitize (~> 2.1.0)
+    govuk-content-schema-test-helpers (1.0.1)
+      json-schema (~> 2.5.1)
     govuk_frontend_toolkit (3.1.0)
       rails (>= 3.1.0)
       sass (>= 3.2.0)
@@ -169,8 +171,8 @@ GEM
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.2)
-    json-schema (2.5.0)
-      addressable (~> 2.3)
+    json-schema (2.5.1)
+      addressable (~> 2.3.7)
     jwt (1.0.0)
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
@@ -415,13 +417,13 @@ DEPENDENCIES
   gds-sso (~> 10.0)
   globalize!
   govspeak (~> 3.2.0)
+  govuk-content-schema-test-helpers (= 1.0.1)
   govuk_frontend_toolkit (= 3.1.0)
   invalid_utf8_rejector (~> 0.0.1)
   isbn_validation
   jbuilder
   jquery-rails
   jquery-ui-rails
-  json-schema (= 2.5.0)
   kaminari (= 0.15.1)
   launchy (~> 2.4.3)
   link_header

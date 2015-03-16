@@ -15,10 +15,16 @@ require 'factories'
 require 'webmock/minitest'
 require 'whitehall/not_quite_as_fake_search'
 require 'sidekiq/testing/inline'
+require 'govuk-content-schema-test-helpers/test_unit'
 
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
+
+GovukContentSchemaTestHelpers.configure do |config|
+  config.schema_type = 'publisher'
+  config.project_root = Rails.root
+end
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
@@ -28,6 +34,7 @@ class ActiveSupport::TestCase
   include I18nHelpers
   include PanopticonTestHelpers
   include PublishingApiTestHelpers
+  include GovukContentSchemaTestHelpers::TestUnit
   extend GovspeakValidationTestHelper
 
   setup do
@@ -52,11 +59,6 @@ class ActiveSupport::TestCase
 
   def assert_select_from(text, *args, &block)
     assert_select HTML::Document.new(text).root, *args, &block
-  end
-
-  def assert_valid_against_schema(content_item_hash, format)
-    validator = GovukContentSchema::Validator.new(format, content_item_hash.to_json)
-    assert validator.valid?, "JSON not valid against #{format} schema: #{validator.errors.to_s}"
   end
 
   def count_queries
