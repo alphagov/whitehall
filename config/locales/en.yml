@@ -489,7 +489,7 @@ en:
         %{email}.
         Please tell us what format you need. It will help us if you say what assistive technology you use.
     opendocument:
-      help_html: This file is in an <a rel="external" href="http://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
+      help_html: This file is in an <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a> format
     see_more: See more information about this %{document_type}
   detailed_guidance:
     back_to_contents: Back to contents

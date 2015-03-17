@@ -33,7 +33,7 @@ class HtmlAttachment < Attachment
     false
   end
 
-  # Is in OpenDocument format? (see http://en.wikipedia.org/wiki/OpenDocument)
+  # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
   def opendocument?
     false
   end

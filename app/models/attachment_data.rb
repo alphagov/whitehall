@@ -43,7 +43,7 @@ class AttachmentData < ActiveRecord::Base
     file_extension == "csv"
   end
 
-  # Is in OpenDocument format? (see http://en.wikipedia.org/wiki/OpenDocument)
+  # Is in OpenDocument format? (see https://en.wikipedia.org/wiki/OpenDocument)
   def opendocument?
     OPENDOCUMENT_EXTENSIONS.include? file_extension.upcase
   end
