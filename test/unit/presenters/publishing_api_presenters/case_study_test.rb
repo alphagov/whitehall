@@ -80,6 +80,21 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equal expected_hash, presented_hash[:details][:image]
   end
 
+  test "returns case study image caption as nil (not false) when it is blank" do
+    image = build(:image, alt_text: 'Image alt text', caption: '')
+    case_study = create(:published_case_study, images: [image])
+
+    expected_hash = {
+      url: (Whitehall.asset_root + image.url(:s300)),
+      alt_text: image.alt_text,
+      caption: nil
+    }
+    presented_hash = present(case_study)
+
+    assert_valid_against_schema(presented_hash, 'case_study')
+    assert_equal expected_hash, presented_hash[:details][:image]
+  end
+
   test "falls back to the organisation's default news image when there is no image" do
     organisation_image = DefaultNewsOrganisationImageData.new(file: image_fixture_file)
     organisation = create(:organisation, default_news_image: organisation_image)
