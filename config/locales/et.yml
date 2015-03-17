@@ -366,7 +366,7 @@ et:
       unnumbered_command_paper:
       unnumbered_hoc_paper: Nummerdamata eelnõu dokument
     opendocument:
-      help_html: See fail on <a rel="external" href="http://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
+      help_html: See fail on <a rel="external" href="https://en.wikipedia.org/wiki/OpenDocument_software">OpenDocument</a>
         formaadis
     see_more: 'Loe lähemalt: %{document_type}'
   change_notes:
