@@ -7,6 +7,12 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert PoliticalContentIdentifier.political?(edition)
   end
 
+  test '#political?(edition) is true if content is tagged to one or more ministers' do
+    edition = create(:news_article, role_appointments: [create(:ministerial_role_appointment)])
+
+    assert PoliticalContentIdentifier.political?(edition)
+  end
+
   test '#political?(edition) is true if content is from a political org and is a political format' do
     political_organisation = create(:organisation, :political)
     edition = create(:consultation, lead_organisations: [political_organisation])
