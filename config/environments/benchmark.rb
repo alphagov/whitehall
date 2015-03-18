@@ -25,7 +25,8 @@ Whitehall::Application.configure do
   config.logstasher.logger = Logger.new("#{Rails.root}/log/#{Rails.env}.json.log")
   config.logstasher.suppress_app_log = true
 
-  # Defaults to Rails.root.join("public/assets")
+  # Defaults to a file named manifest-<random>.json in the config.assets.prefix
+  # directory within the public folder.
   # config.assets.manifest = YOUR_PATH
 
   # Specifies the header that your server uses for sending files
