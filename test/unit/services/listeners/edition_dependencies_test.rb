@@ -18,10 +18,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     end
 
     test "#{transition}ing a depended-upon edition removes it as a dependency" do
-      dependable_speech = create(:submitted_speech)
-      dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
-      dependent_article.depended_upon_editions << dependable_speech
+      dependable_speech, dependent_article = create_article_dependent_on_speech
 
       stub_panopticon_registration(dependable_speech)
       dependable_speech.major_change_published_at = Time.zone.now
@@ -31,10 +28,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     end
 
     test "#{transition}ing a depended-upon edition republishes the dependent edition" do
-      dependable_speech = create(:submitted_speech)
-      dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
-      dependent_article.depended_upon_editions << dependable_speech
+      dependable_speech, dependent_article = create_article_dependent_on_speech
 
       expect_publishing(dependable_speech)
       expect_republishing(dependent_article)
@@ -45,10 +39,7 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     end
 
     test "#{transition}ing a depended-upon edition's subsequent edition doesn't republish the dependent edition" do
-      dependable_speech = create(:submitted_speech)
-      dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
-        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
-      dependent_article.depended_upon_editions << dependable_speech
+      dependable_speech, dependent_article = create_article_dependent_on_speech
 
       stub_panopticon_registration(dependable_speech)
       dependable_speech.major_change_published_at = Time.zone.now
@@ -77,6 +68,15 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     assert_empty edition.depended_upon_contacts.reload
     assert_empty edition.depended_upon_editions.reload
+  end
+
+  def create_article_dependent_on_speech
+    dependable_speech = create(:submitted_speech)
+    dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
+      body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+    dependent_article.depended_upon_editions << dependable_speech
+
+    [dependable_speech, dependent_article]
   end
 
 end
