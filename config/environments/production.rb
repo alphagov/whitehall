@@ -32,7 +32,7 @@ Whitehall::Application.configure do
   config.logstasher.suppress_app_log = true
 
   # Defaults to Rails.root.join("public/assets")
-  # config.assets.manifest = YOUR_PATH
+  config.assets.manifest = Rails.root.join("public/government/assets/assets-manifest.json")
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
