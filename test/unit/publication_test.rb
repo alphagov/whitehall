@@ -208,4 +208,16 @@ class PublicationsInTopicsTest < ActiveSupport::TestCase
 
     assert_equal publication, statistics_announcement.reload.publication
   end
+
+  test 'statistics publications are never political' do
+    PublicationType.statistical.each do |type|
+      refute build(:publication, publication_type_id: type.id, political: true).political?
+      refute build(:publication, publication_type_id: type.id, political: false).political?
+    end
+
+    PublicationType.non_statistical.each do |type|
+      assert build(:publication, publication_type_id: type.id, political: true).political?
+      refute build(:publication, publication_type_id: type.id, political: false).political?
+    end
+  end
 end
