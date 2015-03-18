@@ -19,15 +19,50 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     test "#{transition}ing a depended-upon edition removes it as a dependency" do
       dependable_speech = create(:submitted_speech)
-      dependant_article = create(:published_news_article, major_change_published_at: Time.zone.now,
+      dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
         body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
-      dependant_article.depended_upon_editions << dependable_speech
+      dependent_article.depended_upon_editions << dependable_speech
 
       stub_panopticon_registration(dependable_speech)
       dependable_speech.major_change_published_at = Time.zone.now
       assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
 
       assert_empty dependable_speech.dependent_editions.reload
+    end
+
+    test "#{transition}ing a depended-upon edition republishes the dependent edition" do
+      dependable_speech = create(:submitted_speech)
+      dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
+        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+      dependent_article.depended_upon_editions << dependable_speech
+
+      expect_publishing(dependable_speech)
+      expect_republishing(dependent_article)
+
+      stub_panopticon_registration(dependable_speech)
+      dependable_speech.major_change_published_at = Time.zone.now
+      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+    end
+
+    test "#{transition}ing a depended-upon edition's subsequent edition doesn't republish the dependent edition" do
+      dependable_speech = create(:submitted_speech)
+      dependent_article = create(:published_news_article, major_change_published_at: Time.zone.now,
+        body: "Read our [official statement](/government/admin/speeches/#{dependable_speech.id})")
+      dependent_article.depended_upon_editions << dependable_speech
+
+      stub_panopticon_registration(dependable_speech)
+      dependable_speech.major_change_published_at = Time.zone.now
+      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+
+      subsequent_edition_of_dependable_speech = dependable_speech.create_draft(create(:departmental_editor))
+      subsequent_edition_of_dependable_speech.change_note = "change-note"
+      subsequent_edition_of_dependable_speech.submit!
+
+      stub_panopticon_registration(subsequent_edition_of_dependable_speech)
+      expect_publishing(subsequent_edition_of_dependable_speech)
+      expect_no_republishing(dependent_article)
+
+      assert Whitehall.edition_services.send(service_name, subsequent_edition_of_dependable_speech).perform!
     end
   end
 
