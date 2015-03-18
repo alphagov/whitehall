@@ -23,7 +23,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       public_updated_at: case_study.public_timestamp,
       update_type: 'major',
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: 'government-frontend',
       routes: [
         { path: public_path, type: 'exact' }
       ],

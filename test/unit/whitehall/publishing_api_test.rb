@@ -163,8 +163,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
       assert_equal [french_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
 
-      assert_equal [english_path, timestamp, 'en'], PublishingApiComingSoonWorker.jobs[0]['args']
-      assert_equal [french_path, timestamp, 'fr'], PublishingApiComingSoonWorker.jobs[1]['args']
+      assert_equal [edition.id, 'en'], PublishingApiComingSoonWorker.jobs[0]['args']
+      assert_equal [edition.id, 'fr'], PublishingApiComingSoonWorker.jobs[1]['args']
     end
   end
 

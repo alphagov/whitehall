@@ -19,6 +19,10 @@ class RegisterableEdition
     panopticon_slug
   end
 
+  def rendering_app
+    edition.rendering_app
+  end
+
   def paths
     if kind == "detailed_guide"
       detailed_guide_paths

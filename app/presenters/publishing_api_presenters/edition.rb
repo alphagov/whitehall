@@ -26,6 +26,8 @@ module PublishingApiPresenters
         public_updated_at: edition.public_timestamp,
         update_type: update_type,
         publishing_app: "whitehall",
+        # We're not using edition.rendering_app because we're defaulting to a
+        # placeholder and placeholders only exist because they are rendered by whitehall
         rendering_app: "whitehall-frontend",
         routes: [ { path: base_path, type: "exact" } ],
         redirects: [],

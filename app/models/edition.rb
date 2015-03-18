@@ -548,6 +548,10 @@ class Edition < ActiveRecord::Base
     end
   end
 
+  def rendering_app
+    "whitehall-frontend"
+  end
+
   def format_name
     self.class.format_name
   end

@@ -11,6 +11,10 @@ class CaseStudy < Edition
 
   validates :first_published_at, presence: true, if: -> e { e.trying_to_convert_to_draft == true }
 
+  def rendering_app
+    "government-frontend"
+  end
+
   def display_type_key
     "case_study"
   end
