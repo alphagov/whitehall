@@ -1,60 +1,66 @@
 require 'test_helper'
 
 class PoliticalContentIdentifierTest < ActiveSupport::TestCase
-  test '#political?(edition) is true if content is tagged to a minister' do
+  test 'editions tagged to a minister are political' do
     edition = create(:speech, role_appointment: create(:ministerial_role_appointment))
 
-    assert PoliticalContentIdentifier.political?(edition)
+    assert political?(edition)
   end
 
-  test '#political?(edition) is true if content is tagged to one or more ministers' do
+  test 'editions of a political format associated with one or more ministers is political' do
     edition = create(:news_article, role_appointments: [create(:ministerial_role_appointment)])
 
     assert PoliticalContentIdentifier.political?(edition)
   end
 
-  test '#political?(edition) is true if content is from a political org and is a political format' do
+  test 'editions of a political format associated with a political orgs are political' do
     political_organisation = create(:organisation, :political)
     edition = create(:consultation, lead_organisations: [political_organisation])
 
-    assert PoliticalContentIdentifier.political?(edition)
+    assert political?(edition)
   end
 
-  test '#political?(edition) is true if content is from a political org and is a political subformat' do
+  test 'publications that are of a political sub-type associated with political orgs are political' do
     political_organisation = create(:organisation, :political)
     edition = create(:publication, :policy_paper, lead_organisations: [political_organisation])
 
-    assert PoliticalContentIdentifier.political?(edition)
+    assert political?(edition)
   end
 
-  test '#political?(edition) is false if content is from a political org but not a political format' do
+  test 'editions of a non-political format associated with political orgs are not political' do
     political_organisation = create(:organisation, :political)
     edition = create(:detailed_guide, lead_organisations: [political_organisation])
 
-    refute PoliticalContentIdentifier.political?(edition)
+    refute political?(edition)
   end
 
-  test '#political?(edition) is false if content is from a political org but not a political subformat' do
+  test 'publications of a non-political sub-type not associated with political orgs are not political' do
     political_organisation = create(:organisation, :political)
     edition = create(:publication, :statistics, lead_organisations: [political_organisation])
 
-    refute PoliticalContentIdentifier.political?(edition)
+    refute political?(edition)
   end
 
-  test '#political?(edition) is true if content is not from a political org, is a non-political Publication type, but is associated with a minister' do
+  test 'editions associated with a minister are political, even if not from a political organisation and not of a political format' do
     non_political_organisation = create(:organisation, :non_political)
     edition = create(:publication, :statistics,
       lead_organisations: [non_political_organisation],
       ministerial_roles: [create(:ministerial_role)]
     )
 
-    assert PoliticalContentIdentifier.political?(edition)
+    assert political?(edition)
   end
 
-  test '#political?(edition) is false if content is a political format but not from a political org' do
+  test 'editions of a political format not associated with political orgs are not political' do
     non_political_organisation = create(:organisation, :non_political)
     edition = create(:consultation, lead_organisations: [non_political_organisation])
 
-    refute PoliticalContentIdentifier.political?(edition)
+    refute political?(edition)
+  end
+
+private
+
+  def political?(edition)
+    PoliticalContentIdentifier.political?(edition)
   end
 end
