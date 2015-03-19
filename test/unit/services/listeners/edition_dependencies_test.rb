@@ -9,7 +9,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       contact, speech = create(:contact), create(:speech)
       news_article = create(:submitted_news_article, body: "For more information, get in touch at:
         [Contact:#{contact.id}] or read our [official statement](/government/admin/speeches/#{speech.id})", major_change_published_at: Time.zone.now)
-
       stub_panopticon_registration(news_article)
 
       assert Whitehall.edition_services.send(service_name, news_article).perform!
@@ -19,19 +18,19 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     test "#{transition}ing a depended-upon edition republishes the dependent edition" do
       dependable_speech, dependent_article = create_article_dependent_on_speech
+      stub_panopticon_registration(dependable_speech)
 
       expect_publishing(dependable_speech)
       expect_republishing(dependent_article)
 
-      stub_panopticon_registration(dependable_speech)
       dependable_speech.major_change_published_at = Time.zone.now
       assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
     end
 
     test "#{transition}ing a depended-upon edition's subsequent edition doesn't republish the dependent edition" do
       dependable_speech, dependent_article = create_article_dependent_on_speech
-
       stub_panopticon_registration(dependable_speech)
+
       dependable_speech.major_change_published_at = Time.zone.now
       assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
 
@@ -71,7 +70,8 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     end
   end
 
-  test "unpublishing destroys edition's dependencies" do
+  # no need to republish an unpublished edition when it's dependencies change, so
+  test "unpublishing a depended-upon edition destroys links with it's dependencies" do
     edition = create(:published_news_article)
     edition.depended_upon_contacts << create(:contact)
     edition.depended_upon_editions << create(:speech)
@@ -82,17 +82,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     assert_empty edition.depended_upon_contacts.reload
     assert_empty edition.depended_upon_editions.reload
-  end
-
-  test "superseeding a depended-upon edition destroys links with its dependants" do
-    dependable_speech, dependent_article = create_article_dependent_on_speech
-    stub_panopticon_registration(dependable_speech)
-
-    dependable_speech.major_change_published_at = Time.zone.now
-    assert Whitehall.edition_services.publisher(dependable_speech).perform!
-    dependable_speech.supersede!
-
-    assert_empty dependable_speech.dependent_editions.reload
   end
 
   def create_article_dependent_on_speech
