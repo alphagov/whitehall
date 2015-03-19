@@ -67,6 +67,10 @@ class PublicationType
     [Statistics, NationalStatistics]
   end
 
+  def self.non_statistical
+    all - statistical
+  end
+
   def slug
     plural_name.downcase.gsub(/[^a-z]+/, "-")
   end

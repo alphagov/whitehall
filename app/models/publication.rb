@@ -128,6 +128,10 @@ class Publication < Publicationesque
     end
   end
 
+  def political?
+    !statistics? && super
+  end
+
   private
 
   def attachment_required_before_moving_out_of_draft
