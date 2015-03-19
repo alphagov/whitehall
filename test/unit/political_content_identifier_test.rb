@@ -1,12 +1,6 @@
 require 'test_helper'
 
 class PoliticalContentIdentifierTest < ActiveSupport::TestCase
-  test 'editions tagged to a minister are political' do
-    edition = create(:speech, role_appointment: create(:ministerial_role_appointment))
-
-    assert political?(edition)
-  end
-
   test 'editions of a political format associated with one or more ministers is political' do
     edition = create(:news_article, role_appointments: [create(:ministerial_role_appointment)])
 
