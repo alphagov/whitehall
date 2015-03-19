@@ -31,8 +31,9 @@ Whitehall::Application.configure do
   config.logstasher.logger = Logger.new("#{Rails.root}/log/#{Rails.env}.json.log")
   config.logstasher.suppress_app_log = true
 
-  # Defaults to Rails.root.join("public/assets")
-  # config.assets.manifest = YOUR_PATH
+  # Defaults to a file named manifest-<random>.json in the config.assets.prefix
+  # directory within the public folder.
+  config.assets.manifest = Rails.root.join("public/government/assets/assets-manifest.json")
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
