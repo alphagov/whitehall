@@ -79,7 +79,7 @@ module Edition::Workflow
         transitions from: :published, to: :draft
       end
 
-      event :supersede, success: :destroy_edition_dependencies do
+      event :supersede, success: :destroy_associations_with_edition_dependencies_and_dependants do
         transitions from: :published, to: :superseded
       end
 
@@ -116,7 +116,8 @@ module Edition::Workflow
 
 private
 
-  def destroy_edition_dependencies
+  def destroy_associations_with_edition_dependencies_and_dependants
     edition_dependencies.destroy_all
+    records_of_dependent_editions.destroy_all
   end
 end

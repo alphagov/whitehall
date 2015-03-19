@@ -17,16 +17,6 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
       assert_equal [speech], news_article.depended_upon_editions
     end
 
-    test "#{transition}ing a depended-upon edition removes it as a dependency" do
-      dependable_speech, dependent_article = create_article_dependent_on_speech
-
-      stub_panopticon_registration(dependable_speech)
-      dependable_speech.major_change_published_at = Time.zone.now
-      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
-
-      assert_empty dependable_speech.dependent_editions.reload
-    end
-
     test "#{transition}ing a depended-upon edition republishes the dependent edition" do
       dependable_speech, dependent_article = create_article_dependent_on_speech
 
@@ -55,6 +45,30 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
       assert Whitehall.edition_services.send(service_name, subsequent_edition_of_dependable_speech).perform!
     end
+
+    # given a depended-upon edition is published, then unpublished.
+    # its title is updated and it's published, causing an updated slug.
+    # we need to republish the dependent edition to reflect the updated slug.
+    # NOTE: this doesn't cover the case where a subsequent edition of the depended-upon
+    # edition changes the title/slug, leaving an outdated slug in the dependent edition.
+    test "unpublishing a depended-upon edition and #{transition}ing it again should cause dependent editions to be republished" do
+      dependable_speech, dependent_article = create_article_dependent_on_speech
+      stub_panopticon_registration(dependable_speech)
+
+      expect_publishing(dependable_speech)
+      expect_republishing(dependent_article)
+      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+
+      dependable_speech.unpublishing = create(:unpublishing)
+      assert Whitehall.edition_services.unpublisher(dependable_speech).perform!
+
+      dependable_speech.title = "New speech title"
+      dependable_speech.submit!
+
+      expect_publishing(dependable_speech)
+      expect_republishing(dependent_article)
+      assert Whitehall.edition_services.send(service_name, dependable_speech).perform!
+    end
   end
 
   test "unpublishing destroys edition's dependencies" do
@@ -68,6 +82,17 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
 
     assert_empty edition.depended_upon_contacts.reload
     assert_empty edition.depended_upon_editions.reload
+  end
+
+  test "superseeding a depended-upon edition destroys links with its dependants" do
+    dependable_speech, dependent_article = create_article_dependent_on_speech
+    stub_panopticon_registration(dependable_speech)
+
+    dependable_speech.major_change_published_at = Time.zone.now
+    assert Whitehall.edition_services.publisher(dependable_speech).perform!
+    dependable_speech.supersede!
+
+    assert_empty dependable_speech.dependent_editions.reload
   end
 
   def create_article_dependent_on_speech

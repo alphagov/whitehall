@@ -19,6 +19,5 @@ Whitehall.edition_services.tap do |es|
   # handling edition's dependency on other content
   es.subscribe(/^(force_publish|publish)$/) { |_, edition, _| EditionDependenciesPopulator.new(edition).populate! }
   es.subscribe(/^(force_publish|publish)$/) { |_, edition, _| edition.republish_dependent_editions }
-  es.subscribe(/^(force_publish|publish)$/) { |_, edition, _| edition.destroy_records_of_dependent_editions }
   es.subscribe("unpublish")                 { |_, edition, _| edition.edition_dependencies.destroy_all }
 end
