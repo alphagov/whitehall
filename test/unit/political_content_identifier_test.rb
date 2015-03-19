@@ -14,11 +14,11 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     assert political?(edition)
   end
 
-  test 'publications that are of a political sub-type associated with political orgs are political' do
-    political_organisation = create(:organisation, :political)
-    edition = create(:publication, :policy_paper, lead_organisations: [political_organisation])
+  test 'editions of a political format not associated with political orgs are not political' do
+    non_political_organisation = create(:organisation, :non_political)
+    edition = create(:consultation, lead_organisations: [non_political_organisation])
 
-    assert political?(edition)
+    refute political?(edition)
   end
 
   test 'editions of a non-political format associated with political orgs are not political' do
@@ -26,6 +26,13 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     edition = create(:detailed_guide, lead_organisations: [political_organisation])
 
     refute political?(edition)
+  end
+
+  test 'publications that are of a political sub-type associated with political orgs are political' do
+    political_organisation = create(:organisation, :political)
+    edition = create(:publication, :policy_paper, lead_organisations: [political_organisation])
+
+    assert political?(edition)
   end
 
   test 'publications of a non-political sub-type not associated with political orgs are not political' do
@@ -43,13 +50,6 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     )
 
     assert political?(edition)
-  end
-
-  test 'editions of a political format not associated with political orgs are not political' do
-    non_political_organisation = create(:organisation, :non_political)
-    edition = create(:consultation, lead_organisations: [non_political_organisation])
-
-    refute political?(edition)
   end
 
 private
