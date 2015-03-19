@@ -21,11 +21,11 @@ module DataHygiene
     end
 
     def perform
-      logger.info "Pushing #{scope.count} #{scope.model_name} instances to the Publishing API"
+      logger.info "Queuing #{scope.count} #{scope.model_name} instances for republishing to the Publishing API"
 
       scope.find_each { |instance| republish(instance) }
 
-      logger.info("Republished #{republished} instances")
+      logger.info("Queued #{republished} instances for repulishing")
     end
 
   private
