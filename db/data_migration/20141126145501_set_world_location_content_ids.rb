@@ -1,1 +1,3 @@
-ActiveRecord::Base.connection.execute 'UPDATE world_locations SET content_id=UUID() where content_id IS NULL'
+WorldLocations.where(content_id: nil).find_each do |world_location|
+  world_location.update_attribute(:content_id, SecureRandom.uuid)
+end

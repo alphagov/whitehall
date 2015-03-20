@@ -1,1 +1,3 @@
-ActiveRecord::Base.connection.execute 'UPDATE people SET content_id=UUID() where content_id IS NULL'
+People.where(content_id: nil).find_each do |people|
+  people.update_attribute(:content_id, SecureRandom.uuid)
+end
