@@ -23,6 +23,7 @@
     <%= stylesheet_link_tag "frontend/print.css", media: "print" %>
     <%= csrf_meta_tags %>
     <%= atom_discovery_link_tag %>
+    <%= political_state_analytics_tag(@document) if @document %>
   </head>
   <body class="website government<%= " #{local_assigns[:extra_body_class]}" if local_assigns[:extra_body_class] %>">
     <% unless local_assigns[:show_breadcrumbs] %><div class="header-context group"><!-- deliberately empty --></div><% end %>

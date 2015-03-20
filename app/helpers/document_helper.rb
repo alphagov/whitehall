@@ -285,4 +285,15 @@ Please tell us:
 
     from
   end
+
+  def political_state_analytics_tag(edition)
+    tag :meta,
+      name: 'govuk:political-status',
+      content: political_state_analytics_value(edition)
+  end
+
+  def political_state_analytics_value(edition)
+    return 'non-political' unless edition.political?
+    edition.historic? ? 'historic' : 'political'
+  end
 end
