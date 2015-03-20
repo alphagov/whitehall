@@ -2,10 +2,7 @@ require 'data_hygiene/govspeak_link_validator'
 
 module Govspeak
   class AdminLinkReplacer
-    ADMIN_EDITION_PATH = %r{/admin/(?:#{Whitehall.edition_route_path_segments.join('|')})/(\d+)$}
-    ADMIN_SUPPORTING_PAGE_PATH  = %r{/admin/editions/(\d+)/supporting-pages/([\w-]+)$}
-    ADMIN_ORGANISATION_CIP_PATH = %r{/admin/organisations/([\w-]+)/corporate_information_pages/(\d+)$}
-    ADMIN_WORLDWIDE_ORGANISATION_CIP_PATH = %r{/admin/worldwide_organisations/([\w-]+)/corporate_information_pages/(\d+)$}
+    include EmbeddedContentPatterns
 
     def initialize(nokogiri_fragment)
       @nokogiri_fragment = nokogiri_fragment

@@ -122,13 +122,4 @@ class ContactTest < ActiveSupport::TestCase
 
     contact.update_attributes(title: "Changed contact title")
   end
-
-  def expect_republishing(*editions)
-    editions.each do |edition|
-      Whitehall.publishing_api_client.expects(:put_content_item)
-        .with(Whitehall.url_maker.public_document_path(edition),
-          has_entries(content_id: edition.content_id, update_type: 'republish'))
-    end
-  end
-
 end
