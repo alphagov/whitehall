@@ -665,26 +665,29 @@ class PublicationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test '#show has political state for historic documents' do
+  view_test '#show has political state and government for historic documents' do
     current_government = create(:current_government)
     previous_government = create(:previous_government)
     edition = create(:published_publication, political: true, first_published_at: previous_government.start_date)
     get :show, id: edition.document
     assert_has_meta_tag 'govuk:political-status', 'historic'
+    assert_has_meta_tag 'govuk:publishing-government', previous_government.slug
   end
 
-  view_test '#show has political state for political documents' do
+  view_test '#show has political state and government for political documents' do
     previous_government = create(:previous_government)
     edition = create(:published_publication, political: true, first_published_at: previous_government.start_date)
     get :show, id: edition.document
     assert_has_meta_tag 'govuk:political-status', 'political'
+    assert_has_meta_tag 'govuk:publishing-government', previous_government.slug
   end
 
-  view_test '#show has political state for non-political documents' do
+  view_test '#show has political state and government for non-political documents' do
     current_government = create(:current_government)
     edition = create(:published_publication, political: false, first_published_at: current_government.start_date)
     get :show, id: edition.document
     assert_has_meta_tag 'govuk:political-status', 'non-political'
+    assert_has_meta_tag 'govuk:publishing-government', current_government.slug
   end
 
   view_test "should show links to other available translations of the edition" do
