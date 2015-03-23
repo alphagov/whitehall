@@ -192,7 +192,7 @@ GEM
       mime-types (>= 1.16, < 3)
     metaclass (0.0.4)
     method_source (0.8.2)
-    mime-types (2.4.3)
+    mime-types (1.25.1)
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     minitest (5.5.1)
@@ -427,6 +427,7 @@ DEPENDENCIES
   launchy (~> 2.4.3)
   link_header
   logstasher (= 0.6.2)
+  mime-types (= 1.25.1)
   mini_magick
   mocha (= 1.1.0)
   mysql2
