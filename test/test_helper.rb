@@ -159,6 +159,7 @@ class ActionController::TestCase
   include AtomTestHelpers
   include CacheControlTestHelpers
   include ViewRendering
+  include ContentRegisterHelpers
 
   include PublicDocumentRoutesHelper
   include Admin::EditionRoutesHelper
@@ -167,6 +168,7 @@ class ActionController::TestCase
 
   setup do
     request.env['warden'] = stub(authenticate!: false, authenticated?: false, user: nil)
+    stub_content_register
   end
 
   def login_as(role_or_user)

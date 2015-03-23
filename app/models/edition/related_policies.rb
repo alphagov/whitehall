@@ -6,6 +6,7 @@ module Edition::RelatedPolicies
   included do
     has_many :related_policies, through: :related_documents, source: :latest_edition, class_name: 'Policy'
     has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
+    has_many :edition_policies, foreign_key: :edition_id
   end
 
   # Ensure that when we set policy ids we don't remove other types of edition from the array
@@ -20,6 +21,16 @@ module Edition::RelatedPolicies
     related_documents.
       find_all {|d| d.document_type == Policy.name }.
       map {|d| d.latest_edition.try(:id) }.compact
+  end
+
+  def policy_content_ids
+    edition_policies.pluck(:policy_content_id)
+  end
+
+  def policy_content_ids=(content_ids)
+    self.edition_policies = content_ids.map do |content_id|
+      EditionPolicy.new(policy_content_id: content_id)
+    end
   end
 
   def can_be_related_to_policies?

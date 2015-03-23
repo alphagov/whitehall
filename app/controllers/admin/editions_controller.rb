@@ -199,6 +199,7 @@ class Admin::EditionsController < Admin::BaseController
       worldwide_organisation_ids: [],
       worldwide_priority_ids: [],
       related_policy_ids: [],
+      policy_content_ids: [],
       other_mainstream_category_ids: [],
       topic_ids: [],
       topical_event_ids: [],
@@ -333,6 +334,7 @@ class Admin::EditionsController < Admin::BaseController
   def clean_edition_parameters
     params[:edition][:title].strip! if params[:edition] && params[:edition][:title]
     params[:edition].delete(:primary_locale) if params[:edition] && params[:edition][:primary_locale].blank?
+    params[:edition][:policy_content_ids].reject!(&:blank?) if params[:edition] && params[:edition][:policy_content_ids]
   end
 
   def clear_scheduled_publication_if_not_activated

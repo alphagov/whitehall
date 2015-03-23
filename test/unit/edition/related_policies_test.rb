@@ -1,6 +1,9 @@
 require "test_helper"
+require 'gds_api/test_helpers/content_register'
 
 class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::ContentRegister
+
   test "#destroy should also remove the relationship to existing policies" do
     edition = create(:draft_consultation, related_editions: [create(:draft_policy)])
     relation = edition.outbound_edition_relations.first
@@ -55,5 +58,25 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     edition = create(:news_article, related_documents: [policy.document])
 
     assert_equal [], edition.related_policy_ids
+  end
+
+  test 'can assign, save and read content_ids for related policies' do
+    content_id = SecureRandom.uuid
+    edition = create(:news_article)
+    edition.policy_content_ids = [content_id]
+
+    assert_equal [content_id], edition.reload.policy_content_ids
+  end
+
+  test 're-assigning already-assigned content_ids does not create duplicates' do
+    content_id_1 = SecureRandom.uuid
+    content_id_2 = SecureRandom.uuid
+    edition = create(:news_article, policy_content_ids: [content_id_1])
+
+    assert_equal [content_id_1], edition.policy_content_ids
+
+    edition.policy_content_ids = [content_id_1, content_id_2]
+
+    assert_equal [content_id_1, content_id_2], edition.reload.policy_content_ids
   end
 end

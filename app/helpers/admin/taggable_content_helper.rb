@@ -2,6 +2,15 @@
 # content, e.g. topics, organisations, etc.
 module Admin::TaggableContentHelper
 
+  # Returns an Array that represents the curret set of taggable (new-world)
+  # policies. Each element of the array consists of two values: the name and
+  # the content id of the policy
+  def taggable_policy_content_ids_container
+    Whitehall.content_register.
+      entries('policy').
+      map { |policy| [policy['title'], policy['content_id']]}
+  end
+
   # Returns an Array that represents the current set of taggable topics.
   # Each element of the array consists of two values: the name and ID of the
   # topic.
