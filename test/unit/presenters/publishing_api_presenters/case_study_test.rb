@@ -45,6 +45,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
         lead_organisations: [case_study.lead_organisations.first.content_id],
         related_policies: [],
         supporting_organisations: [],
+        document_collections: [],
         world_locations: [],
         worldwide_organisations: [],
         worldwide_priorities: [],
@@ -124,6 +125,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       lead_organisations: [lead_org_1.content_id, lead_org_2.content_id],
       related_policies: [],
       supporting_organisations: [supporting_org.content_id],
+      document_collections: [],
       world_locations: [],
       worldwide_organisations: [],
       worldwide_priorities: [],
@@ -184,6 +186,20 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_valid_against_schema(presented_hash, 'case_study')
     assert_equal [priority.content_id], presented_hash[:links][:worldwide_priorities]
+  end
+
+  test "links hash includes document collections that the case study is part of" do
+    case_study = create(:published_case_study)
+    document_collections = [
+      create(:published_document_collection, groups: [ build(:document_collection_group, documents: [case_study.document]) ]),
+      create(:published_document_collection, groups: [ build(:document_collection_group, documents: [case_study.document]) ])
+    ]
+
+    case_study.document_collections.reload
+    presented_hash = present(case_study)
+
+    assert_valid_against_schema(presented_hash, 'case_study')
+    assert_same_elements document_collections.map(&:content_id), presented_hash[:links][:document_collections]
   end
 
   test "an archived case study includes details of the archive notice" do
