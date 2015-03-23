@@ -7,33 +7,70 @@ class SpecialistSectorCleanup
     taggings.any?
   end
 
-  def any_published_taggings?
-    taggings.map(&:edition).any? do |edition|
-      edition.document.ever_published_editions.any?
-    end
-  end
-
-  def remove_taggings(add_note: true)
+  def remove_taggings
     taggings.each do |tagging|
       edition = tagging.edition
 
-      puts "Removing tagging to edition ##{edition.id}"
+      if edition
+        puts "Removing tagging to edition ##{edition.id}"
+      else
+        puts "Removing tagging where edition was nil"
+      end
 
       tagging.destroy
 
-      if add_note
-        puts "Adding an editorial note from the GDS user"
+      if edition.nil?
+        puts "no edition (probably deleted)"
+      else
+        add_remark(edition)
 
-        gds_user = User.find_by(email: "govuk-whitehall@digital.cabinet-office.gov.uk")
-        edition.editorial_remarks.create!(
-          author: gds_user,
-          body: "Automatically untagged from old sector '#{@slug}'"
-        )
+        if edition.state == 'published'
+          register_edition(edition)
+        end
       end
     end
   end
 
 private
+
+  def add_remark(edition)
+    if Edition::FROZEN_STATES.include?(edition.state)
+      puts "edition is frozen; not adding editorial remark"
+    else
+      puts "adding an editorial remark"
+
+      edition.editorial_remarks.create!(
+        author: gds_user,
+        body: "Automatically untagged from old sector '#{@slug}'"
+      )
+    end
+  end
+
+  def register_edition(edition)
+    puts "registering '#{edition.slug}' (id #{edition.id})"
+    edition.reload
+    register_with_panopticon(edition)
+    register_with_publishing_api(edition)
+    register_with_search(edition)
+  end
+
+  def register_with_panopticon(edition)
+    registerable_edition = RegisterableEdition.new(edition)
+    registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
+    registerer.register(registerable_edition)
+  end
+
+  def register_with_publishing_api(edition)
+    Whitehall::PublishingApi.republish(edition)
+  end
+
+  def register_with_search(edition)
+    edition.update_in_search_index
+  end
+
+  def gds_user
+    @gds_user ||= User.find_by(email: "govuk-whitehall@digital.cabinet-office.gov.uk")
+  end
 
   def taggings
     SpecialistSector.where(tag: @slug)
