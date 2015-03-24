@@ -9,9 +9,7 @@ class PoliticalContentIdentifier
   POLITICAL_PUBLICATION_TYPES = [
     PublicationType::CorporateReport,
     PublicationType::ImpactAssessment,
-    PublicationType::InternationalTreaty,
     PublicationType::PolicyPaper,
-    PublicationType::ResearchAndAnalysis,
   ].freeze
 
   attr_reader :edition
