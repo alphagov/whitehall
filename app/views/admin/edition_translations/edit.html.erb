@@ -5,7 +5,7 @@
 <div class="row-fluid">
   <div class="span8">
     <section>
-      <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition), method: :put do |form| %>
+      <%= form_for @translated_edition, as: :edition, url: admin_edition_translation_path(@translated_edition, translation_locale), method: :put do |form| %>
         <%= form.errors %>
 
         <%= form.translated_text_field :title unless @translated_edition.is_a? CorporateInformationPage %>
