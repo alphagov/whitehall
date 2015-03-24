@@ -8,9 +8,10 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
   end
 
   view_test "displays the political checkbox for privileged users " do
+    government = create(:current_government)
     login_as :managing_editor
-    published_edition = create(:published_news_article)
-    new_draft = create(:news_article, document: published_edition.document)
+    published_edition = create(:published_news_article, first_published_at: 2.days.ago)
+    new_draft = create(:news_article, document: published_edition.document, first_published_at: 2.days.ago)
     get :edit, id: new_draft
     assert_select '.political-status', count: 1
   end
