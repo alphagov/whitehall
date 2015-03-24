@@ -444,7 +444,8 @@ class EditionTest < ActiveSupport::TestCase
   end
 
   test "should return search index suitable for Rummageable" do
-    policy = create(:published_policy, title: "policy-title")
+    government = create(:current_government)
+    policy = create(:published_policy, title: "policy-title", political: true, first_published_at: government.start_date)
     slug = policy.document.slug
     summary = policy.summary
 
@@ -453,6 +454,9 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal policy.body, policy.search_index["indexable_content"]
     assert_equal "policy", policy.search_index["format"]
     assert_equal summary, policy.search_index["description"]
+    assert_equal policy.political?, policy.search_index["is_political"]
+    assert_equal policy.historic?, policy.search_index["is_historic"]
+    assert_equal government.name, policy.search_index["government"]
   end
 
   test 'search_format_types tags the edtion as an edition' do
