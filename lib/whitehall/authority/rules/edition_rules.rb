@@ -149,7 +149,7 @@ module Whitehall::Authority::Rules
     def managing_editor_can?(action)
       case action
       when :mark_political
-        false
+        true
       else
         departmental_editor_can?(action)
       end
