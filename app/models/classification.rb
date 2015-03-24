@@ -48,7 +48,6 @@ class Classification < ActiveRecord::Base
   has_many :offsite_links, as: :parent
 
   scope :alphabetical, -> { order("name ASC") }
-  scope :randomized,   -> { order('RAND()') }
 
   mount_uploader :logo, ImageUploader, mount_on: :carrierwave_image
 
