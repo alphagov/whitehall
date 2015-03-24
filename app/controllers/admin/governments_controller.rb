@@ -1,6 +1,6 @@
 class Admin::GovernmentsController < Admin::BaseController
   before_filter :enforce_create_permissions!, only: [:new, :create]
-  before_filter :enforce_edit_permissions!, only: [:edit, :update]
+  before_filter :enforce_edit_permissions!, only: [:edit, :update, :prepare_to_close, :close]
 
   def index
     @governments = Government.order(start_date: :desc)
@@ -30,6 +30,22 @@ class Admin::GovernmentsController < Admin::BaseController
     end
   end
 
+  def prepare_to_close
+    @government = Government.find(params[:id])
+  end
+
+  def close
+    government = Government.find(params[:id])
+
+    government.update_attribute(:end_date, Date.today)
+
+    current_active_ministerial_appointments.each do |appointment|
+      appointment.update_attribute(:ended_at, Time.zone.now)
+    end
+
+    redirect_to edit_admin_government_path(government)
+  end
+
 private
 
   def government_params
@@ -43,4 +59,9 @@ private
   def enforce_edit_permissions!
     enforce_permission!(:create, Government.find(params[:id]))
   end
+
+  def current_active_ministerial_appointments
+    RoleAppointment.current.for_ministerial_roles
+  end
+  helper_method :current_active_ministerial_appointments
 end

@@ -373,7 +373,12 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :governments, except: [:destroy]
+        resources :governments, except: [:destroy] do
+          member do
+            get :prepare_to_close, path: "prepare-to-close"
+            post :close
+          end
+        end
 
         post "preview" => "preview#preview"
 
