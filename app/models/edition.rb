@@ -298,6 +298,9 @@ class Edition < ActiveRecord::Base
     operational_field: nil,
     specialist_sectors: :live_specialist_sector_tags,
     latest_change_note: :most_recent_change_note,
+    is_political: :political?,
+    is_historic: :historic?,
+    government: :search_government_name
   )
 
   def search_title
@@ -664,6 +667,10 @@ class Edition < ActiveRecord::Base
 
   def government
     Government.on_date(date_for_government) unless date_for_government.nil?
+  end
+
+  def search_government_name
+    government.name if government
   end
 
   def historic?
