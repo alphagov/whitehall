@@ -1,7 +1,7 @@
 <% page_title "Governments" %>
 <h1>Governments</h1>
 
-<% if can?(:create, Government) %>
+<% if can?(:manage, Government) %>
   <p>
     <%= link_to "Create a government", new_admin_government_path %>
   </p>
@@ -20,7 +20,7 @@
     <% @governments.each do |government| %>
       <%= content_tag_for(:tr, government) do %>
         <td>
-          <% if can?(:edit, government) %>
+          <% if can?(:manage, Government) %>
             <%= link_to government.name, edit_admin_government_path(government) %>
           <% else %>
             <%= government.name %>

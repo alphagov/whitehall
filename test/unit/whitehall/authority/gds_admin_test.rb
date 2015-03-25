@@ -23,13 +23,11 @@ class GDSAdminTest < ActiveSupport::TestCase
     assert enforcer_for(gds_admin, Edition).can?(:export)
   end
 
-  test 'can create and edit governments' do
+  test 'can manage governments' do
     government = Government.new
-    assert enforcer_for(gds_admin, government).can?(:edit)
-    assert enforcer_for(gds_admin, Government).can?(:create)
+    assert enforcer_for(gds_admin, Government).can?(:manage)
 
-    refute enforcer_for(non_gds_admin, government).can?(:edit)
-    refute enforcer_for(non_gds_admin, Government).can?(:create)
+    refute enforcer_for(non_gds_admin, Government).can?(:manage)
   end
 
   test 'can mark editions as political' do

@@ -7,7 +7,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  [:new, :edit].each do |action_method|
+  [:new, :edit, :prepare_to_close].each do |action_method|
     test "GDS admin permission required to access #{action_method}" do
       login_as :gds_editor
       get action_method, id: @government.id
@@ -15,7 +15,7 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
     end
   end
 
-  [:create, :update].each do |action_method|
+  [:create, :update, :close].each do |action_method|
     test "GDS admin permission required to access #{action_method}" do
       login_as :gds_editor
       post action_method, id: @government.id

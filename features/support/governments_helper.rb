@@ -34,6 +34,19 @@ module GovernmentsHelper
       assert page.has_content?(end_date) if end_date
     end
   end
+
+  def close_government(name:)
+    visit admin_governments_path
+
+    click_on name
+
+    click_on "Prepare to close this government"
+    click_on "Yes, close this government"
+  end
+
+  def count_active_ministerial_role_appointments
+    RoleAppointment.current.for_ministerial_roles.count
+  end
 end
 
 World(GovernmentsHelper)
