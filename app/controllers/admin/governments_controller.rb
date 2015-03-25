@@ -1,6 +1,5 @@
 class Admin::GovernmentsController < Admin::BaseController
-  before_filter :enforce_create_permissions!, only: [:new, :create]
-  before_filter :enforce_edit_permissions!, only: [:edit, :update, :prepare_to_close, :close]
+  before_filter :enforce_permissions!, except: :index
 
   def index
     @governments = Government.order(start_date: :desc)
@@ -52,12 +51,8 @@ private
     params.require(:government).permit(:name, :start_date, :end_date)
   end
 
-  def enforce_create_permissions!
-    enforce_permission!(:create, Government)
-  end
-
-  def enforce_edit_permissions!
-    enforce_permission!(:create, Government.find(params[:id]))
+  def enforce_permissions!
+    enforce_permission!(:manage, Government)
   end
 
   def current_active_ministerial_appointments
