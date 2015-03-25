@@ -6,7 +6,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition)
     request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
-    Whitehall::PublishingApi.publish(edition)
+    Whitehall::PublishingApi.publish_async(edition)
 
     assert_requested request
   end
@@ -17,7 +17,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(organisation)
     request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
-    Whitehall::PublishingApi.publish(organisation)
+    Whitehall::PublishingApi.publish_async(organisation)
 
     assert_requested request
   end
@@ -27,7 +27,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')
     request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
-    Whitehall::PublishingApi.republish(edition)
+    Whitehall::PublishingApi.republish_async(edition)
 
     assert_requested request
   end
@@ -45,7 +45,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
     english_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
-    Whitehall::PublishingApi.publish(organisation)
+    Whitehall::PublishingApi.publish_async(organisation)
 
     assert_requested @french_request
     assert_requested english_request
@@ -64,7 +64,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
     english_request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
 
-    Whitehall::PublishingApi.republish(organisation)
+    Whitehall::PublishingApi.republish_async(organisation)
 
     assert_requested @french_request
     assert_requested english_request
@@ -83,10 +83,10 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     published_request = stub_publishing_api_put_item(published.search_link, published_payload)
     archived_request  = stub_publishing_api_put_item(archived.search_link, archived_payload)
 
-    Whitehall::PublishingApi.republish(published)
-    Whitehall::PublishingApi.republish(archived)
+    Whitehall::PublishingApi.republish_async(published)
+    Whitehall::PublishingApi.republish_async(archived)
     assert_raise Whitehall::UnpublishableInstanceError do
-      Whitehall::PublishingApi.republish(draft)
+      Whitehall::PublishingApi.republish_async(draft)
     end
 
     assert_requested published_request
@@ -99,7 +99,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
     request      = stub_publishing_api_put_item(unpublishing.document_path, payload)
 
-    Whitehall::PublishingApi.republish(unpublishing)
+    Whitehall::PublishingApi.republish_async(unpublishing)
     assert_requested request
   end
 
@@ -108,7 +108,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     payload      = PublishingApiPresenters::Unpublishing.new(unpublishing, update_type: "republish").as_json
     request      = stub_publishing_api_put_item(unpublishing.document_path, payload)
 
-    Whitehall::PublishingApi.republish(unpublishing)
+    Whitehall::PublishingApi.republish_async(unpublishing)
     assert_requested request
   end
 
@@ -127,7 +127,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
       german_request = stub_publishing_api_put_item(unpublishing.document_path, german_payload)
     end
 
-    Whitehall::PublishingApi.publish(unpublishing)
+    Whitehall::PublishingApi.publish_async(unpublishing)
 
     assert_requested english_request
     assert_requested german_request
@@ -138,7 +138,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition   = create(:draft_edition, scheduled_publication: timestamp)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.schedule(edition)
+      Whitehall::PublishingApi.schedule_async(edition)
 
       assert_empty PublishingApiScheduleWorker.jobs
       assert_empty PublishingApiComingSoonWorker.jobs
@@ -158,7 +158,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     french_path  = Whitehall.url_maker.public_document_path(edition, locale: :fr)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.schedule(edition)
+      Whitehall::PublishingApi.schedule_async(edition)
 
       assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
       assert_equal [french_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
@@ -182,7 +182,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     spanish_path = Whitehall.url_maker.public_document_path(updated_edition, locale: :es)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.schedule(updated_edition)
+      Whitehall::PublishingApi.schedule_async(updated_edition)
 
       assert_equal [english_path, timestamp], PublishingApiScheduleWorker.jobs[0]['args']
       assert_equal [spanish_path, timestamp], PublishingApiScheduleWorker.jobs[1]['args']
@@ -195,7 +195,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     edition = create(:scheduled_edition)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule(edition)
+      Whitehall::PublishingApi.unschedule_async(edition)
 
       assert_empty PublishingApiUnscheduleWorker.jobs
       assert_empty PublishingApiGoneWorker.jobs
@@ -214,7 +214,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     german_path = Whitehall.url_maker.public_document_path(edition, locale: :de)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule(edition)
+      Whitehall::PublishingApi.unschedule_async(edition)
 
       assert_equal [german_path], PublishingApiUnscheduleWorker.jobs[0]['args']
       assert_equal [english_path], PublishingApiUnscheduleWorker.jobs[1]['args']
@@ -237,7 +237,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     german_path = Whitehall.url_maker.public_document_path(updated_edition, locale: :de)
 
     Sidekiq::Testing.fake! do
-      Whitehall::PublishingApi.unschedule(updated_edition)
+      Whitehall::PublishingApi.unschedule_async(updated_edition)
 
       assert_equal [german_path], PublishingApiUnscheduleWorker.jobs[0]['args']
       assert_equal [english_path], PublishingApiUnscheduleWorker.jobs[1]['args']

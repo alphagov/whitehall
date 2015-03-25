@@ -7,6 +7,6 @@ module Dependable
   end
 
   def republish_dependent_editions
-    dependent_editions.each { |e| Whitehall::PublishingApi.republish(e) }
+    dependent_editions.each { |e| Whitehall::PublishingApi.republish_async(e) }
   end
 end
