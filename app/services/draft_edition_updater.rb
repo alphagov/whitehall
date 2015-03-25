@@ -13,4 +13,7 @@ class DraftEditionUpdater < EditionService
     end
   end
 
+  def verb
+    'update_draft'
+  end
 end
