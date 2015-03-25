@@ -42,7 +42,7 @@ class Admin::GovernmentsController < Admin::BaseController
       appointment.update_attribute(:ended_at, Time.zone.now)
     end
 
-    redirect_to edit_admin_government_path(government)
+    redirect_to edit_admin_government_path(government), notice: "Government closed"
   end
 
 private
