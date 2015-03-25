@@ -71,6 +71,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def create
     if @edition.save
+      updater.perform!
       redirect_to show_or_edit_path, saved_confirmation_notice
     else
       flash.now[:alert] = "There are some problems with the document"
@@ -88,6 +89,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def update
     if @edition.edit_as(current_user, edition_params)
+      updater.perform!
 
       if @edition.links_reports.last
         LinksReport.queue_for!(@edition)
@@ -350,6 +352,10 @@ class Admin::EditionsController < Admin::BaseController
     if params[:controller] == 'admin/editions'
       redirect_to admin_edition_path(@edition)
     end
+  end
+
+  def updater
+    @updater ||= Whitehall.edition_services.draft_updater(@edition)
   end
 
   def publisher
