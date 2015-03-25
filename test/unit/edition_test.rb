@@ -456,7 +456,7 @@ class EditionTest < ActiveSupport::TestCase
     assert_equal summary, policy.search_index["description"]
     assert_equal policy.political?, policy.search_index["is_political"]
     assert_equal policy.historic?, policy.search_index["is_historic"]
-    assert_equal government.name, policy.search_index["government"]
+    assert_equal government.name, policy.search_index["government_name"]
   end
 
   test 'search_format_types tags the edtion as an edition' do

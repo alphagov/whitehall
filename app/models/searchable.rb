@@ -12,7 +12,7 @@ module Searchable
     :attachments, :operational_field, :organisation_state,
     :release_timestamp, :metadata, :specialist_sectors,
     :statistics_announcement_state, :latest_change_note,
-    :is_political, :is_historic, :government
+    :is_political, :is_historic, :government_name
   ]
 
   included do
