@@ -143,20 +143,11 @@ class PoliciesControllerTest < ActionController::TestCase
   view_test "should link to ministers related to the policy" do
     role = create(:ministerial_role)
     appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
-    edition = create(:published_policy, ministerial_roles: [appointment.role])
+    edition = create(:published_policy, role_appointments: [appointment])
 
     get :show, id: edition.document
 
     assert_select "a", text: "minister-name"
-  end
-
-  view_test "should use role name if no minister is in role related to the policy" do
-    role = create(:ministerial_role)
-    edition = create(:published_policy, ministerial_roles: [role])
-
-    get :show, id: edition.document
-
-    assert_select ".meta a", text: role.name
   end
 
   view_test "shows link to each policy section in the markdown" do

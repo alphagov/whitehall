@@ -1,13 +1,30 @@
 class RoleAppointment < ActiveRecord::Base
   CURRENT_CONDITION = {ended_at: nil}
 
-  has_many :speeches
   has_many :edition_role_appointments
   has_many :editions, through: :edition_role_appointments
+
+  # All this nonsense is because of all the intermediary associations
+  has_many :policies,
+            ->  { where("editions.type" => Policy) },
+            through: :edition_role_appointments,
+            source: :edition
+  has_many :consultations,
+            ->  { where("editions.type" => Consultation) },
+            through: :edition_role_appointments,
+            source: :edition
+  has_many :publications,
+            ->  { where("editions.type" => Publication) },
+            through: :edition_role_appointments,
+            source: :edition
   has_many :news_articles,
-           ->  { where("editions.type" => NewsArticle) },
-           through: :edition_role_appointments,
-           source: :edition
+            ->  { where("editions.type" => NewsArticle) },
+            through: :edition_role_appointments,
+            source: :edition
+
+  # Speeches do not need the above nonsense because they have a singualar
+  # association in the `editions` table
+  has_many :speeches
 
   belongs_to :role
   belongs_to :person

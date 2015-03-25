@@ -862,55 +862,6 @@ module AdminEditionControllerTestHelpers
       end
     end
 
-    def should_allow_ministerial_roles_for(edition_type)
-      edition_class = class_for(edition_type)
-
-      view_test "new should display edition ministerial roles field" do
-        get :new
-
-        assert_select "form#new_edition" do
-          assert_select "select[name*='edition[ministerial_role_ids]']"
-        end
-      end
-
-      test "create should associate ministerial roles with edition" do
-        first_minister = create(:ministerial_role)
-        second_minister = create(:ministerial_role)
-        attributes = controller_attributes_for(edition_type)
-
-        post :create, edition: attributes.merge(
-          ministerial_role_ids: [first_minister.id, second_minister.id]
-        )
-
-        edition = edition_class.last
-        assert_equal [first_minister, second_minister], edition.ministerial_roles
-      end
-
-      view_test "edit should display edition ministerial roles field" do
-        edition = create(edition_type)
-
-        get :edit, id: edition
-
-        assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[ministerial_role_ids]']"
-        end
-      end
-
-      test "update should associate ministerial roles with editions" do
-        first_minister = create(:ministerial_role)
-        second_minister = create(:ministerial_role)
-
-        edition = create(edition_type, ministerial_roles: [first_minister])
-
-        put :update, id: edition, edition: {
-          ministerial_role_ids: [second_minister.id]
-        }
-
-        edition.reload
-        assert_equal [second_minister], edition.ministerial_roles
-      end
-    end
-
     def should_prevent_modification_of_unmodifiable(edition_type)
       (Edition::UNMODIFIABLE_STATES - %w(deleted)).each do |state|
         test "edit not allowed for #{state} #{edition_type}" do

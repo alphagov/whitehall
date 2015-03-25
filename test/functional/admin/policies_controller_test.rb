@@ -11,7 +11,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
   should_allow_editing_of :policy
 
   should_allow_organisations_for :policy
-  should_allow_ministerial_roles_for :policy
   should_allow_association_between_world_locations_and :policy
   should_allow_association_with_topics :policy
   should_allow_attached_images_for :policy

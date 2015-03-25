@@ -254,10 +254,6 @@ Please tell us:
     end
 
     if !(document.respond_to?(:statistics?) && document.statistics?)
-      if document.respond_to?(:ministerial_roles) && document.ministerial_roles.any?
-        from += array_of_links_to_ministers(document.ministerial_roles)
-      end
-
       if document.respond_to?(:delivered_by_minister?)
         if document.person_override?
           from << document.person_override if not links_only

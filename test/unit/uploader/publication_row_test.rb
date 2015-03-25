@@ -93,19 +93,6 @@ module Whitehall::Uploader
       assert_equal 'HTML body', row_with_html_attachment.attributes[:html_attachment_attributes][:govspeak_content_attributes][:body]
     end
 
-    test "finds ministers specified by slug in minister 1 and minister 2 columns" do
-      minister_1 = create(:person)
-      minister_2 = create(:person)
-      role_1 = create(:ministerial_role)
-      role_2 = create(:ministerial_role)
-      create(:role_appointment, role: role_1, person: minister_1)
-      create(:role_appointment, role: role_2, person: minister_2)
-      row = new_publication_row({ "minister_1" => minister_1.slug,
-                                  "minister_2" => minister_2.slug,
-                                  "publication_date" => "16-Nov-2011" })
-      assert_equal [role_1, role_2], row.attributes[:ministerial_roles]
-    end
-
     test "finds policies specified by slug in columns policy_1, policy_2, policy_3, etc" do
       policy_1  = create(:published_policy, title: "Policy 1")
       policy_2  = create(:published_policy, title: "Policy 2")

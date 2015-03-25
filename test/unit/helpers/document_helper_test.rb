@@ -241,28 +241,6 @@ class DocumentHelperTest < ActionView::TestCase
                               text: org.name
   end
 
-  test "from_metadata generates ministerial role metadata" do
-    role = create(:ministerial_role)
-    edition = create(:policy, ministerial_roles: [role])
-
-    metadata_links = from_metadata(edition).join(' ')
-    assert_select_within_html metadata_links,
-                              "a[href=?]",
-                              ministerial_role_path(role),
-                              text: role.name
-  end
-
-  test "from_metadata doesn't generate ministerial role for statistics metadata" do
-    role = create(:ministerial_role)
-    edition = create(:published_national_statistics, ministerial_roles: [role])
-
-    metadata_links = from_metadata(edition).join(' ')
-    refute_select_within_html metadata_links,
-                              "a[href=?]",
-                              ministerial_role_path(role),
-                              text: role.name
-  end
-
   test "from_metadata generates speech delivered by minister metadata" do
     person = create(:person)
     ministerial_role = create(:ministerial_role)

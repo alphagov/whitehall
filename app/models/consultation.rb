@@ -1,7 +1,7 @@
 class Consultation < Publicationesque
   include Edition::Images
   include Edition::NationalApplicability
-  include Edition::Ministers
+  include Edition::RoleAppointments
   include Edition::FactCheckable
   include Edition::AlternativeFormatProvider
   include Edition::CanApplyToLocalGovernmentThroughRelatedPolicies

@@ -11,7 +11,7 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
 
   test 'statistics publications are never political, even when associated with a minister' do
     statistics_publication = create(:publication, :statistics,
-      ministerial_roles: [create(:ministerial_role)]
+      role_appointments: [create(:ministerial_role_appointment)]
     )
 
     refute political?(statistics_publication)
