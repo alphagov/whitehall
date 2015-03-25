@@ -23,18 +23,6 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     @csv_file.unlink
   end
 
-  # Replace the `log` method on a TopicTagger with one that appends the logged
-  # messages to an array.  Return the array.
-  def stub_logging(processor)
-    def processor.log(message)
-      @logs ||= []
-      @logs << message
-    end
-    def processor.logs
-      @logs
-    end
-  end
-
   def stub_registration(edition, sectors)
     registerable = RegisterableEdition.new(edition)
     stub_artefact_registration(
@@ -75,7 +63,6 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
 
     processor = TagChangesProcessor.new(@csv_file.path)
 
-    stub_logging(processor)
     processor.process
 
     assert_requested panopticon_published_edition
@@ -84,26 +71,5 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     assert_requested panopticon_draft_edition2
 
     assert_edition_retagging([@published_edition, @published_edition2, @draft_edition, @draft_edition2])
-
-    expected_logs = [
-      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
-      %{tagging '#{@published_edition.title}' edition #{@published_edition.id}},
-      %{ - adding editorial remark},
-      %{registering '#{@published_edition.title}'},
-      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
-      %{tagging '#{@draft_edition.title}' edition #{@draft_edition.id}},
-      %{ - adding editorial remark},
-      %{registering '#{@draft_edition.title}'},
-      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
-      %{tagging '#{@published_edition2.title}' edition #{@published_edition2.id}},
-      %{ - adding editorial remark},
-      %{registering '#{@published_edition2.title}'},
-      %{Updating 1 taggings to change #{@old_tag} to #{@new_tag}},
-      %{tagging '#{@draft_edition2.title}' edition #{@draft_edition2.id}},
-      %{ - adding editorial remark},
-      %{registering '#{@draft_edition2.title}'},
-    ]
-    assert processor.logs == expected_logs
   end
-
 end

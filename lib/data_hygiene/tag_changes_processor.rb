@@ -1,7 +1,8 @@
 class TagChangesProcessor
 
-  def initialize(csv_location)
+  def initialize(csv_location, logger: Logger.new(nil))
     @csv_location = csv_location
+    @logger = logger
   end
 
   def process
@@ -113,6 +114,6 @@ private
   end
 
   def log(message)
-    puts message
+    @logger.info message
   end
 end

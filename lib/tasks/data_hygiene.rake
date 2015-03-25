@@ -106,7 +106,7 @@ task process_topic_retagging_csv: :environment do
     exit 1
   end
 
-  TagChangesProcessor.new(csv_location).process
+  TagChangesProcessor.new(csv_location, logger: Logger.new(STDOUT)).process
 end
 
 desc "Unarchive an edition (creates and publishes a draft with audit trail)"
