@@ -18,13 +18,13 @@ Given /^a person called "([^"]*)" exists in the role of "([^"]*)"$/ do |name, ro
 end
 
 Given /^"([^"]*)" is a minister with a history$/ do |name|
-  person = create_person(name)
+  person = create_person(name, biography: "This is the first paragraph of the biography.\n\nThis is the second paragraph.")
   role = create(:ministerial_role)
   create(:ministerial_department, ministerial_roles: [role])
   create(:role_appointment, role: role, person: person, started_at: 2.years.ago, ended_at: 1.year.ago)
   role = create(:ministerial_role)
   create(:ministerial_department, ministerial_roles: [role])
-  create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: nil)
+  create(:role_appointment, role: role, person: person, started_at: 1.year.ago, ended_at: 6.months.ago)
 end
 
 When /^I visit the person page for "([^"]*)"$/ do |name|
@@ -113,4 +113,11 @@ Then /^I should see that "([^"]*)" is listed under "([^"]*)"$/ do |name, letter|
   within("#people_#{letter}") do
     assert page.has_content?(name)
   end
+end
+
+Then(/^I should see limited information about the person "(.*?)"$/) do |name|
+  assert page.has_css?('.biography', text: "This is the first paragraph of the biography."), "Biography wasn't present"
+  assert page.has_no_content?("This is the second paragraph.")
+  assert page.has_no_css?('a[href="#current-roles"]')
+  assert page.has_no_css?('figure.img')
 end

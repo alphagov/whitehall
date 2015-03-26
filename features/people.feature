@@ -66,3 +66,8 @@ Scenario: Images are virus-checked before publication
   Then the image will be quarantined for virus checking
   When the image has been virus-checked
   Then the virus checked image will be available for viewing
+
+Scenario: Viewing a person that previously had a role
+  Given "Dale Cooper" is a minister with a history
+  When I visit the person page for "Dale Cooper"
+  Then I should see limited information about the person "Dale Cooper"
