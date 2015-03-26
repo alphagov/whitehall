@@ -33,7 +33,24 @@ module Edition::RelatedPolicies
     end
   end
 
+  def search_index
+    super.merge(policies: policy_slugs)
+  end
+
   def can_be_related_to_policies?
     true
+  end
+
+private
+
+  def policy_slugs
+    policy_content_ids.map do |content_id|
+      match = Whitehall.content_register.entries("policy").find { |p| p["content_id"] == content_id }
+      match ? extract_slug_from_path(match["base_path"]) : nil
+    end.compact
+  end
+
+  def extract_slug_from_path(path)
+    path.split('/').last
   end
 end

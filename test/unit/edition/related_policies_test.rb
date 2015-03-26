@@ -3,6 +3,7 @@ require 'gds_api/test_helpers/content_register'
 
 class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::ContentRegister
+  include ContentRegisterHelpers
 
   test "#destroy should also remove the relationship to existing policies" do
     edition = create(:draft_consultation, related_editions: [create(:draft_policy)])
@@ -78,5 +79,22 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     edition.policy_content_ids = [content_id_1, content_id_2]
 
     assert_equal [content_id_1, content_id_2], edition.reload.policy_content_ids
+  end
+
+  test 'includes linked policies in search index data' do
+    stub_content_register
+
+    edition = create(:news_article)
+    assert_equal [], edition.search_index[:policies]
+
+    edition.policy_content_ids = [policy_1['content_id']]
+    assert_equal ['policy-1'], edition.search_index[:policies]
+  end
+
+  test 'ignores non-existant content_ids' do
+    stub_content_register
+
+    edition = create(:news_article, policy_content_ids: [SecureRandom.uuid, policy_2['content_id']])
+    assert_equal ['policy-2'], edition.search_index[:policies]
   end
 end
