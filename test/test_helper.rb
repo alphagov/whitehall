@@ -43,6 +43,7 @@ class ActiveSupport::TestCase
     VirusScanHelpers.erase_test_files
     Sidekiq::Worker.clear_all
     stub_default_publishing_api_put
+    stub_default_publishing_api_put_draft
   end
 
   teardown do
