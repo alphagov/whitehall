@@ -42,7 +42,11 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def biography
-    context.govspeak_to_html model.biography
+    if in_current_role?
+      context.govspeak_to_html model.biography
+    else
+      context.govspeak_to_html truncated_biography if model.biography
+    end
   end
 
   def link(options = {})
@@ -63,5 +67,11 @@ class PersonPresenter < Whitehall::Decorators::Decorator
 
   def in_current_role?
     current_role_appointments.any?
+  end
+
+private
+
+  def truncated_biography
+    model.biography.split(/\n/).first
   end
 end

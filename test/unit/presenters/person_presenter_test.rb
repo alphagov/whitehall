@@ -31,6 +31,12 @@ class PersonPresenterTest < ActionView::TestCase
     assert_select_from @presenter.biography, '.govspeak h2', text: 'Hello'
   end
 
+  test 'biography is truncated for people without a current role' do
+    @person.stubs(:biography).returns("This is the first paragraph.\r\n\r\nThis is the second paragraph")
+    @presenter.stubs(:in_current_role?).returns(false)
+    assert_no_match /This is the second paragraph./, @presenter.biography
+  end
+
   test "#announcements returns decorated published speeches and news articles available in the current locale in descending date" do
     speech_1 = build(:published_speech, first_published_at: 1.day.ago)
     speech_2 = build(:published_speech, first_published_at: 30.days.ago, translated_into: :cy)
