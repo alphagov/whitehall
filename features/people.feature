@@ -13,8 +13,8 @@ Scenario: Viewing all people
   Then I should see that "Johnny Macaroon" is listed under "m"
   And I should see that "Fred Bloggs" is listed under "b"
 
-Scenario: Viewing the person page for a minister
-  Given "Benjamin Disraeli" is a minister with a history
+Scenario: Viewing the person page for a person
+  Given a person called "Benjamin Disraeli"
   When I visit the person page for "Benjamin Disraeli"
   Then I should see information about the person "Benjamin Disraeli"
 
