@@ -300,7 +300,7 @@ class Edition < ActiveRecord::Base
     latest_change_note: :most_recent_change_note,
     is_political: :political?,
     is_historic: :historic?,
-    government: :search_government_name
+    government_name: :search_government_name
   )
 
   def search_title
