@@ -37,11 +37,13 @@
   }
 
   h2 {
-    @include heading-24;
+    @include heading-36;
     font-weight: bold;
-  }
 
-  p {
-    @include heading-24;
+    @include media(desktop) {
+      .government {
+        display: block;
+      }
+    }
   }
 }
