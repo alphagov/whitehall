@@ -246,12 +246,12 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     end
   end
 
-  test "#publish_draft publishes a draft edition" do
+  test "#publish_draft_async publishes a draft edition" do
     draft_edition = create(:draft_case_study)
     presenter = PublishingApiPresenters.presenter_for(draft_edition)
     request = stub_publishing_api_put_draft_item(presenter.base_path, presenter.as_json)
 
-    Whitehall::PublishingApi.publish_draft(draft_edition)
+    Whitehall::PublishingApi.publish_draft_async(draft_edition)
 
     assert_requested request
   end
