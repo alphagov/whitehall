@@ -10,15 +10,15 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    def self.publish(model_instance, update_type_override=nil)
+    def self.publish_async(model_instance, update_type_override=nil)
       do_action(model_instance, update_type_override)
     end
 
-    def self.republish(model_instance)
+    def self.republish_async(model_instance)
       do_action(model_instance, 'republish')
     end
 
-    def self.schedule(edition)
+    def self.schedule_async(edition)
       return unless served_from_content_store?(edition)
       publish_timestamp = edition.scheduled_publication.as_json
       locales_for(edition).each do |locale|
@@ -30,7 +30,7 @@ module Whitehall
       end
     end
 
-    def self.unschedule(edition)
+    def self.unschedule_async(edition)
       return unless served_from_content_store?(edition)
       locales_for(edition).each do |locale|
         base_path = Whitehall.url_maker.public_document_path(edition, locale: locale)

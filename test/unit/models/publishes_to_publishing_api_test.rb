@@ -24,13 +24,13 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
 
   test "create publishes to Publishing API" do
     organisation = build(:organisation)
-    Whitehall::PublishingApi.expects(:publish).with(organisation)
+    Whitehall::PublishingApi.expects(:publish_async).with(organisation)
     organisation.save
   end
 
   test "update publishes to Publishing API" do
     organisation = create(:organisation)
-    Whitehall::PublishingApi.expects(:publish).with(organisation)
+    Whitehall::PublishingApi.expects(:publish_async).with(organisation)
     organisation.update_attribute(:name, 'Edited org')
   end
 end

@@ -138,7 +138,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublishing = create(:unpublishing, unpublishing_reason_id: UnpublishingReason::Archived.id, explanation: 'Needs more work.')
 
     new_explanation = 'This publication will be ready for publishing next week.'
-    Whitehall::PublishingApi.expects(:publish).with(responds_with(:explanation, new_explanation), 'minor').once
+    Whitehall::PublishingApi.expects(:publish_async).with(responds_with(:explanation, new_explanation), 'minor').once
 
     unpublishing.update_attribute(:explanation, new_explanation)
   end

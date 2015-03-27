@@ -31,7 +31,7 @@ module DataHygiene
   private
 
     def republish(instance)
-      Whitehall::PublishingApi.republish(instance)
+      Whitehall::PublishingApi.republish_async(instance)
       logger << '.'
       @republished +=1
     end

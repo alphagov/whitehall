@@ -88,7 +88,7 @@ private
   end
 
   def register_with_publishing_api(edition)
-    Whitehall::PublishingApi.republish(edition)
+    Whitehall::PublishingApi.republish_async(edition)
   end
 
   def register_with_search(edition)
