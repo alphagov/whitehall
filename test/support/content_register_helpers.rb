@@ -3,7 +3,7 @@ require 'gds_api/test_helpers/content_register'
 module ContentRegisterHelpers
   include GdsApi::TestHelpers::ContentRegister
 
-  def stub_content_register
+  def stub_content_register_policies
     stub_content_register_entries("policy", [policy_1, policy_2])
   end
 

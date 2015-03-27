@@ -82,7 +82,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
   end
 
   test 'includes linked policies in search index data' do
-    stub_content_register
+    stub_content_register_policies
 
     edition = create(:news_article)
     assert_equal [], edition.search_index[:policies]
@@ -92,7 +92,7 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
   end
 
   test 'ignores non-existant content_ids' do
-    stub_content_register
+    stub_content_register_policies
 
     edition = create(:news_article, policy_content_ids: [SecureRandom.uuid, policy_2['content_id']])
     assert_equal ['policy-2'], edition.search_index[:policies]
