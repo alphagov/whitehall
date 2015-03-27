@@ -71,10 +71,10 @@ class RolePresenterTest < ActionView::TestCase
   end
 
   test '#published_policies returns decorated published policies available in the current locale' do
-    role = create(:ministerial_role)
-    english_policy = create(:published_policy, ministerial_roles: [role])
-    welsh_policy   = create(:published_policy, ministerial_roles: [role], translated_into: 'cy')
-    presenter = RolePresenter.new(role, @view_content)
+    appointment = create(:ministerial_role_appointment)
+    english_policy = create(:published_policy, role_appointments: [appointment])
+    welsh_policy   = create(:published_policy, role_appointments: [appointment], translated_into: 'cy')
+    presenter = RolePresenter.new(appointment.role, @view_content)
 
     assert_equal [PolicyPresenter.new(welsh_policy), PolicyPresenter.new(english_policy)], presenter.published_policies
 

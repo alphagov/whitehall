@@ -37,17 +37,6 @@ class PeopleControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "#show lists policies associated with the person's ministerial role" do
-    appointment = create(:ministerial_role_appointment, person: @person)
-    policy = create(:published_policy, ministerial_roles: [appointment.role])
-
-    get :show, id: @person
-
-    assert_select "#policy" do
-      assert_select_object policy
-    end
-  end
-
   view_test "index displays a rudimentary index of people (for url hackers)" do
     people = [@person, stub_translatable_record(:person), stub_translatable_record(:person)]
     Person.stubs(:all).returns(people)

@@ -4,7 +4,6 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   include FeedHelper
 
   should_be_a_public_facing_controller
-  should_show_published_documents_associated_with :ministerial_role, :policies
 
   test "shows cabinet roles in correct order" do
     nick_clegg = create(:person, forename: 'Nick', surname: 'Clegg')

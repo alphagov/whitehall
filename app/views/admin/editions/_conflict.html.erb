@@ -44,17 +44,6 @@
     </section>
   <% end %>
 
-  <% if edition.can_be_associated_with_ministers? %>
-    <section>
-      <h1>Ministers</h1>
-      <% if edition.ministerial_roles.any? %>
-        <%= render partial: "ministerial_roles/list", locals: {ministerial_roles: edition.ministerial_roles} %>
-      <% else %>
-        <p>This document isn't assigned to any ministers.</p>
-      <% end %>
-    </section>
-  <% end %>
-
   <% if edition.can_be_associated_with_world_locations? %>
     <section>
       <h1>World locations</h1>

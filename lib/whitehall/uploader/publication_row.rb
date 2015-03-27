@@ -32,10 +32,6 @@ module Whitehall::Uploader
       fields(1..4, 'document_collection_#').compact.reject(&:blank?)
     end
 
-    def ministerial_roles
-      Finders::MinisterialRolesFinder.find(first_published_at, row['minister_1'], row['minister_2'], @logger, @line_number)
-    end
-
     def attachments
       if @attachments.nil?
         @attachments = attachments_from_columns + attachments_from_json
@@ -74,7 +70,6 @@ module Whitehall::Uploader
         :first_published_at,
         :html_attachment_attributes,
         :lead_organisations,
-        :ministerial_roles,
         :publication_type,
         :related_editions,
         :topics,

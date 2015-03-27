@@ -64,9 +64,9 @@ Given /^a published (publication|policy|news article|consultation|speech) "([^"]
     person = find_or_create_person(row["Person"])
     ministerial_role = find_or_create_ministerial_role(row["Ministerial Role"])
     unless RoleAppointment.for_role(ministerial_role).for_person(person).exists?
-      create(:role_appointment, role: ministerial_role, person: person)
+      role_appointment = create(:role_appointment, role: ministerial_role, person: person)
     end
-    edition.ministerial_roles << ministerial_role
+    edition.role_appointments << role_appointment
   end
 end
 

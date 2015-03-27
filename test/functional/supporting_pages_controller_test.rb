@@ -151,9 +151,8 @@ class SupportingPagesControllerTest < ActionController::TestCase
   end
 
   view_test "should link to ministers from within the metadata navigation" do
-    role = create(:ministerial_role)
-    appointment = create(:role_appointment, person: create(:person, forename: "minister-name"), role: role)
-    policy = create(:published_policy, ministerial_roles: [appointment.role])
+    appointment = create(:ministerial_role_appointment, person: create(:person, forename: "minister-name"))
+    policy = create(:published_policy, role_appointments: [appointment])
     supporting_page = create(:published_supporting_page, related_policies: [policy])
 
     get :show, policy_id: policy.document, id: supporting_page.document

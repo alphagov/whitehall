@@ -3,7 +3,7 @@ class Policy < Edition
   include Edition::NationalApplicability
   include Edition::Topics
   include Edition::TopicalEvents
-  include Edition::Ministers
+  include Edition::RoleAppointments
   include Edition::FactCheckable
   include Edition::Organisations
   include Edition::SupportingPages

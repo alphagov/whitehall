@@ -14,27 +14,28 @@ class MinisterialRoleTest < ActiveSupport::TestCase
 
   test "should be able to get policies associated with a role" do
     editions = [create(:published_policy), create(:published_news_article)]
-    ministerial_role = create(:ministerial_role, editions: editions)
-    assert_equal editions[0..0], ministerial_role.policies
+    ministerial_role_appointment = create(:ministerial_role_appointment, editions: editions)
+    assert_equal editions[0..0], ministerial_role_appointment.role.policies
   end
 
   test "should be able to get published policies associated with a role" do
     editions = [create(:published_policy), create(:draft_policy), create(:superseded_policy)]
-    ministerial_role = create(:ministerial_role, editions: editions)
+    ministerial_role = create(:ministerial_role)
+    create(:role_appointment, role: ministerial_role, editions: editions)
     assert_equal editions[0..0], ministerial_role.published_policies
   end
 
   test "should be able to get news_articles associated with a role" do
     editions = [create(:published_policy), create(:published_news_article)]
     ministerial_role = create(:ministerial_role)
-    appointment = create(:role_appointment, role: ministerial_role, editions: editions)
+    create(:role_appointment, role: ministerial_role, editions: editions)
     assert_equal editions[1..1], ministerial_role.news_articles
   end
 
   test "should be able to get published news_articles associated with the role" do
     editions = [create(:draft_news_article), create(:published_news_article)]
     ministerial_role = create(:ministerial_role)
-    appointment = create(:role_appointment, role: ministerial_role, editions: editions)
+    create(:role_appointment, role: ministerial_role, editions: editions)
     assert_equal editions[1..1], ministerial_role.published_news_articles
   end
 
@@ -67,13 +68,14 @@ class MinisterialRoleTest < ActiveSupport::TestCase
   end
 
   test "should not be destroyable when it is responsible for editions" do
-    ministerial_role = create(:ministerial_role, editions: [create(:edition)])
+    ministerial_role = create(:ministerial_role)
+    create(:role_appointment, role: ministerial_role, editions: [create(:edition)])
     refute ministerial_role.destroyable?
     assert_equal false, ministerial_role.destroy
   end
 
   test "should be destroyable when it has no appointments, organisations or editions" do
-    ministerial_role = create(:ministerial_role_without_organisation, role_appointments: [], organisations: [], editions: [])
+    ministerial_role = create(:ministerial_role_without_organisation, role_appointments: [], organisations: [])
     assert ministerial_role.destroyable?
     assert ministerial_role.destroy
   end

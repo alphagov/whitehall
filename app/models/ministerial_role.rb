@@ -2,16 +2,11 @@ class MinisterialRole < Role
   include Searchable
   include PublishesToPublishingApi
 
-  has_many :edition_ministerial_roles
-  has_many :editions, through: :edition_ministerial_roles
+  has_many :editions, -> { uniq }, through: :role_appointments
+  has_many :consultations, -> { where("editions.type" => Policy).uniq }, through: :role_appointments
+  has_many :policies, -> { where("editions.type" => Policy).uniq }, through: :role_appointments
+  has_many :news_articles, -> { where("editions.type" => NewsArticle).uniq }, through: :role_appointments
   has_many :speeches, through: :role_appointments
-  has_many :policies,
-           -> { where("editions.type" => Policy) },
-           through: :edition_ministerial_roles,
-           source: :edition
-  has_many :news_articles,
-           -> { where("editions.type" => NewsArticle).uniq },
-           through: :role_appointments
 
   def published_policies(options = {})
     policies
