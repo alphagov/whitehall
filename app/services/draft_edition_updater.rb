@@ -8,7 +8,9 @@ class DraftEditionUpdater < EditionService
   end
 
   def failure_reason
-    if !edition.valid?
+    if !edition.draft?
+      "This edition is not draft."
+    elsif !edition.valid?
       "This edition is invalid: #{edition.errors.full_messages.to_sentence}"
     end
   end

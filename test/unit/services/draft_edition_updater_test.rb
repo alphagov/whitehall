@@ -10,4 +10,20 @@ class DraftEditionUpdaterTest < ActiveSupport::TestCase
 
     updater.perform!
   end
+
+  test "cannot perform if edition is invalid" do
+    edition = Edition.new
+    updater = DraftEditionUpdater.new(edition)
+    updater.expects(:notify!).never
+
+    updater.perform!
+  end
+
+  test "cannot perform if edition is not draft" do
+    edition = create(:published_edition)
+    updater = DraftEditionUpdater.new(edition)
+    updater.expects(:notify!).never
+
+    updater.perform!
+  end
 end
