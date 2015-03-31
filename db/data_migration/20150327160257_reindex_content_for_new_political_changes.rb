@@ -29,9 +29,7 @@ edition_scope = Edition.where(state: PUBLISHED_AND_PUBLISHABLE_STATES)
 edition_count = edition_scope.count
 
 edition_scope.find_each do |edition|
-  if PoliticalContentIdentifier.political?(edition)
-    edition.update_column(:political, true)
-  end
+  edition.update_column(:political, PoliticalContentIdentifier.political?(edition))
 
   index += 1
 
