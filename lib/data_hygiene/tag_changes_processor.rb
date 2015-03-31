@@ -76,15 +76,9 @@ private
   def register_edition(edition)
     log "registering '#{edition.slug}'"
     edition.reload
-    register_with_panopticon(edition)
+    Whitehall.register_edition_with_panopticon(edition)
     register_with_publishing_api(edition)
     register_with_search(edition)
-  end
-
-  def register_with_panopticon(edition)
-    registerable_edition = RegisterableEdition.new(edition)
-    registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
-    registerer.register(registerable_edition)
   end
 
   def register_with_publishing_api(edition)

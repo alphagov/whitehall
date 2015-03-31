@@ -8,9 +8,7 @@ class PanopticonRegisterArtefactWorker < WorkerBase
     edition = Edition.find(edition_id)
 
     if edition.present?
-      registerable_edition = RegisterableEdition.new(edition)
-      registerer           = Whitehall.panopticon_registerer_for(registerable_edition)
-      registerer.register(registerable_edition)
+      Whitehall.register_edition_with_panopticon(edition)
     end
   end
 end

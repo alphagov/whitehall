@@ -1,3 +1,5 @@
+require 'gds_api/panopticon'
+
 module Whitehall
   autoload :Random, 'whitehall/random'
   autoload :RandomKey, 'whitehall/random_key'
@@ -219,8 +221,10 @@ module Whitehall
     @edition_actions ||= EditionServiceCoordinator.new
   end
 
-  def self.panopticon_registerer_for(registerable_edition)
-    GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: registerable_edition.rendering_app, kind: registerable_edition.kind)
+  def self.register_edition_with_panopticon(edition)
+    registerable_edition = RegisterableEdition.new(edition)
+    registerer = GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: registerable_edition.rendering_app, kind: registerable_edition.kind)
+    registerer.register(registerable_edition)
   end
 
   def self.load_secrets
