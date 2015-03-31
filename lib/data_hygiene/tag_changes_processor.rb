@@ -1,3 +1,5 @@
+require 'data_hygiene/edition_reregisterer'
+
 class TagChangesProcessor
 
   def initialize(csv_location, logger: Logger.new(nil))
@@ -74,19 +76,7 @@ private
   end
 
   def register_edition(edition)
-    log "registering '#{edition.slug}'"
-    edition.reload
-    Whitehall.register_edition_with_panopticon(edition)
-    register_with_publishing_api(edition)
-    register_with_search(edition)
-  end
-
-  def register_with_publishing_api(edition)
-    Whitehall::PublishingApi.republish_async(edition)
-  end
-
-  def register_with_search(edition)
-    ServiceListeners::SearchIndexer.new(edition).index!
+    DataHygiene::EditionReregisterer.new(edition).call
   end
 
   def add_editorial_remark(edition, message)
