@@ -27,7 +27,6 @@ end
 
 total_count = counts_by_class.values.inject(&:+)
 
-GC.disable
 start = Time.zone.now
 done = 0
 classes_to_index.each do |klass|
@@ -54,9 +53,6 @@ classes_to_index.each do |klass|
     puts s.to_json
     if i > 0 and i % 1000 == 0
       logger.info " .. #{i}"
-      GC.enable
-      GC.start
-      GC.disable
     end
     done += 1
     i += 1
