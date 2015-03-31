@@ -13,8 +13,8 @@ Scenario: Viewing all people
   Then I should see that "Johnny Macaroon" is listed under "m"
   And I should see that "Fred Bloggs" is listed under "b"
 
-Scenario: Viewing the person page for a minister
-  Given "Benjamin Disraeli" is a minister with a history
+Scenario: Viewing the person page for a person
+  Given a person called "Benjamin Disraeli"
   When I visit the person page for "Benjamin Disraeli"
   Then I should see information about the person "Benjamin Disraeli"
 
@@ -66,3 +66,8 @@ Scenario: Images are virus-checked before publication
   Then the image will be quarantined for virus checking
   When the image has been virus-checked
   Then the virus checked image will be available for viewing
+
+Scenario: Viewing a person that previously had a role
+  Given "Dale Cooper" is a minister with a history
+  When I visit the person page for "Dale Cooper"
+  Then I should see limited information about the person "Dale Cooper"
