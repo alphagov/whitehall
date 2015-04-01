@@ -21,6 +21,17 @@ class Admin::RoleAppointmentsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "new should display a form for creating new an appoint, with started_at set to today, if make_current is set" do
+    role = create(:role)
+    get :new, role_id: role.id, make_current: true
+    assert_select 'form[action=?]', admin_role_role_appointments_path(role) do
+      assert_select "input[name='role_appointment[make_current]']"
+      assert_select "select[name='role_appointment[started_at(1i)]'] option[value='#{Date.today.year}'][selected='selected']"
+      assert_select "select[name='role_appointment[started_at(2i)]'] option[value='#{Date.today.month}'][selected='selected']"
+      assert_select "select[name='role_appointment[started_at(3i)]'] option[value='#{Date.today.day}'][selected='selected']"
+    end
+  end
+
   view_test "new should display a form for creating a historical appointment if make_current is not set" do
     role = create(:role)
     get :new, role_id: role.id

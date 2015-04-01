@@ -6,7 +6,7 @@ class Admin::GovernmentsController < Admin::BaseController
   end
 
   def new
-    @government = Government.new
+    @government = Government.new(start_date: Date.today)
   end
 
   def edit
