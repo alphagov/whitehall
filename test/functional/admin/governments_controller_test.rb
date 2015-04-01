@@ -22,4 +22,10 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
       assert_response 403
     end
   end
+
+  view_test "new should have the default start date of today" do
+    login_as :gds_admin
+    get :new
+    assert_select "input[name='government[start_date]'][value='#{Date.today}']"
+  end
 end
