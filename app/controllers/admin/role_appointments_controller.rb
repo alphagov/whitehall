@@ -3,7 +3,7 @@ class Admin::RoleAppointmentsController < Admin::BaseController
 
   def new
     role = Role.find(params[:role_id])
-    @role_appointment = role.role_appointments.build
+    @role_appointment = role.role_appointments.build(started_at: Date.today)
   end
 
   def create
