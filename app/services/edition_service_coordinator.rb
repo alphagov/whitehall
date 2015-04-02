@@ -15,6 +15,10 @@ class EditionServiceCoordinator
     ::EditionForcePublisher.new(edition, options.merge(notifier: self))
   end
 
+  def draft_updater(edition, options = {})
+    ::DraftEditionUpdater.new(edition, options.merge(notifier: self))
+  end
+
   def scheduler(edition, options = {})
     ::EditionScheduler.new(edition, options.merge(notifier: self))
   end

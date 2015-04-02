@@ -70,7 +70,7 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested english_request
   end
 
-  test "raises error for editions that are not publicly visible" do
+  test "#republish raises error for editions that are not publicly visible" do
     draft     = create(:draft_edition)
     published = create(:published_edition)
     archived  = create(:published_edition, state: 'archived')
@@ -244,5 +244,15 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
       assert_equal [], PublishingApiGoneWorker.jobs
     end
+  end
+
+  test "#publish_draft_async publishes a draft edition" do
+    draft_edition = create(:draft_case_study)
+    presenter = PublishingApiPresenters.presenter_for(draft_edition)
+    request = stub_publishing_api_put_draft_item(presenter.base_path, presenter.as_json)
+
+    Whitehall::PublishingApi.publish_draft_async(draft_edition)
+
+    assert_requested request
   end
 end
