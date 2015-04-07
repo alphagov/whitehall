@@ -41,24 +41,4 @@ class EditionDependenciesPopulatorTest < ActiveSupport::TestCase
 
     assert_same_elements [speech], news_article.depended_upon_editions.reload
   end
-
-  test "ignores duplicate contact dependencies" do
-    contact = create(:contact)
-    news_article = create(:news_article, body: "For more information, get in touch at: [Contact:#{contact.id}].
-                                                  I repeat, [Contact:#{contact.id}].")
-
-    EditionDependenciesPopulator.new(news_article).populate!
-
-    assert_same_elements [contact], news_article.depended_upon_contacts.reload
-  end
-
-  test "ignores duplicate edition dependencies" do
-    speech = create(:speech)
-    news_article = create(:news_article, body: "Governor's [new speech](/government/admin/speeches/#{speech.id})
-                                                  is same as the [old speech](/government/admin/speeches/#{speech.id})")
-
-    EditionDependenciesPopulator.new(news_article).populate!
-
-    assert_same_elements [speech], news_article.depended_upon_editions.reload
-  end
 end

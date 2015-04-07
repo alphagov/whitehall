@@ -13,14 +13,14 @@ class ContactsExtractorTest < ActiveSupport::TestCase
     assert_equal [contact_2, contact_1], embedded_contacts
   end
 
-  test 'will not remove duplicate contacts' do
+  test 'will remove duplicate contacts' do
     contact_1 = build(:contact)
     Contact.stubs(:find_by).with(id: '1').returns(contact_1)
 
     input = 'Our office at [Contact:1] is brilliant, you should come for a cup of tea. Remeber the address is [Contact:1]'
 
     embedded_contacts = Govspeak::ContactsExtractor.new(input).contacts
-    assert_equal [contact_1, contact_1], embedded_contacts
+    assert_equal [contact_1], embedded_contacts
   end
 
   test 'will silently remove contact references that do not resolve to a Contact' do
