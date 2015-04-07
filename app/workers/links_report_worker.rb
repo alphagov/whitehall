@@ -1,5 +1,4 @@
-class LinksReportWorker
-  include Sidekiq::Worker
+class LinksReportWorker < WorkerBase
 
   def perform(id)
     links_report = LinksReport.find(id)

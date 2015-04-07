@@ -1,5 +1,4 @@
-class SearchIndexAddWorker
-  include Sidekiq::Worker
+class SearchIndexAddWorker < WorkerBase
 
   attr_reader :id, :class_name
 

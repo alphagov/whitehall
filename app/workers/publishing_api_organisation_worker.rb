@@ -1,6 +1,5 @@
 # FIXME: This will be redundant once the existing jobs have been worked off
-class PublishingApiOrganisationWorker
-  include Sidekiq::Worker
+class PublishingApiOrganisationWorker < WorkerBase
 
   def perform(organisation_id, options = {})
     organisation = Organisation.find(organisation_id)

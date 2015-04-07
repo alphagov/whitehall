@@ -1,5 +1,4 @@
-class PublishingApiComingSoonWorker
-  include Sidekiq::Worker
+class PublishingApiComingSoonWorker < WorkerBase
 
   def perform(base_path, publish_timestamp, locale)
     coming_soon = PublishingApiPresenters::ComingSoon.new(base_path, publish_timestamp, locale)

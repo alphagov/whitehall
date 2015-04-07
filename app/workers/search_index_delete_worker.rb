@@ -1,5 +1,4 @@
-class SearchIndexDeleteWorker
-  include Sidekiq::Worker
+class SearchIndexDeleteWorker < WorkerBase
 
   attr_reader :link, :index
 

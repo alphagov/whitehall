@@ -1,8 +1,7 @@
 require 'plek'
 require 'gds_api/panopticon'
 
-class PanopticonRegisterArtefactWorker
-  include Sidekiq::Worker
+class PanopticonRegisterArtefactWorker < WorkerBase
   sidekiq_options queue: :panopticon
 
   def perform(edition_id, options = {})

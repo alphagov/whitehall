@@ -1,5 +1,4 @@
-class PublishingApiWorker
-  include Sidekiq::Worker
+class PublishingApiWorker < WorkerBase
 
   def perform(model_name, id, update_type = nil, locale=I18n.default_locale.to_s)
     return unless model = class_for(model_name).find_by(id: id)
