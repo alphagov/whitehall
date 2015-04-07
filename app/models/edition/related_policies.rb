@@ -3,10 +3,17 @@ module Edition::RelatedPolicies
 
   include Edition::RelatedDocuments
 
+  class Trait < Edition::Traits::Trait
+    def process_associations_after_save(edition)
+      edition.policy_content_ids = @edition.policy_content_ids
+    end
+  end
+
   included do
     has_many :related_policies, through: :related_documents, source: :latest_edition, class_name: 'Policy'
     has_many :published_related_policies, through: :related_documents, source: :published_edition, class_name: 'Policy'
     has_many :edition_policies, foreign_key: :edition_id
+    add_trait Trait
   end
 
   # Ensure that when we set policy ids we don't remove other types of edition from the array

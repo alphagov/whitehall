@@ -97,4 +97,14 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     edition = create(:news_article, policy_content_ids: [SecureRandom.uuid, policy_2['content_id']])
     assert_equal ['policy-2'], edition.search_index[:policies]
   end
+
+  test 're-editioned documents maintain related policies' do
+    stub_content_register_policies
+
+    content_id = SecureRandom.uuid
+    edition = create(:published_news_article, policy_content_ids: [content_id])
+    new_edition = edition.create_draft(create(:policy_writer))
+
+    assert_equal [content_id], new_edition.policy_content_ids
+  end
 end
