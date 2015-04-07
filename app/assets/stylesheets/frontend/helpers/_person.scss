@@ -19,7 +19,35 @@
     @extend %contain-floats;
   }
 
-  .image-holder {
+  .blank-person {
+    width: $one-third;
+    float: left;
+    @include right-to-left {
+      float: right;
+    }
+    @include media(tablet) {
+      width: $full-width;
+      float: none;
+    }
+    .blank-person-inner {
+      display: block;
+      padding: 0 $gutter-half 0 0;
+      @include right-to-left {
+        padding: 0 0 0 $gutter-half;
+      }
+      @include media(tablet) {
+        padding: 0;
+      }
+      &:after {
+        content: '';
+        display: block;
+        padding-top: 64.81%; // This percentage allows the .blank-person-inner to have an aspect ratio like an image
+        padding-bottom: $gutter-half;
+      }
+    }
+  }
+
+  .image-holder  {
     width: $one-third;
     float: left;
     @include right-to-left {

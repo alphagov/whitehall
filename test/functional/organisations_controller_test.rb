@@ -573,13 +573,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "img[src*=minister-of-funk.960x640.jpg]"
   end
 
-  view_test "should display a generic image if the minister doesn't have their own picture" do
+  view_test "should display an empty space if the minister doesn't have their own picture" do
     ministerial_role = create(:ministerial_role)
     person = create(:person)
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
-    assert_select "img[src*=blank-person.png]"
+    assert_select "div.blank-person div.blank-person-inner"
   end
 
   view_test "shows management team members with links to person pages" do
