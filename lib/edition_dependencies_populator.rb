@@ -5,8 +5,11 @@ class EditionDependenciesPopulator
   end
 
   def populate!
-    @edition.depended_upon_contacts = Govspeak::ContactsExtractor.new(@edition.body).contacts
-    @edition.depended_upon_editions = Govspeak::DependableEditionsExtractor.new(@edition.body).editions
+    # ensure that another process doesn't simultaneously modify the association
+    Edition.transaction do
+      @edition.depended_upon_contacts = Govspeak::ContactsExtractor.new(@edition.body).contacts
+      @edition.depended_upon_editions = Govspeak::DependableEditionsExtractor.new(@edition.body).editions
+    end
   end
 
 end

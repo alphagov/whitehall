@@ -18,7 +18,7 @@ module Govspeak
           editions << Edition.in_pre_publication_state.find_by(id: capture[capture_index])
         end
       end
-      editions.compact
+      editions.compact.uniq
     end
   end
 end

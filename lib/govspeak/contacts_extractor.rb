@@ -11,7 +11,7 @@ module Govspeak
       @govspeak.scan(EmbeddedContentPatterns::CONTACT).map { |capture|
         contact_id = capture.first
         Contact.find_by(id: contact_id)
-      }.compact
+      }.compact.uniq
     end
   end
 end

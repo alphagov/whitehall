@@ -49,4 +49,12 @@ class Govspeak::DependableEditionsExtractorTest < ActiveSupport::TestCase
 
     assert_empty Govspeak::DependableEditionsExtractor.new(govspeak).editions
   end
+
+  test "will remove duplicate dependable editions" do
+    speech = create(:speech)
+    govspeak = "[old speech](/government/admin/speeches/#{speech.id})
+                  [same speech](/government/admin/speeches/#{speech.id})"
+
+    assert_equal [speech], Govspeak::DependableEditionsExtractor.new(govspeak).editions
+  end
 end
