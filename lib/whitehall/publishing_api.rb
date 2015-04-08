@@ -11,18 +11,18 @@ module Whitehall
 
   class PublishingApi
     def self.publish_async(model_instance, update_type_override=nil)
-      do_action(model_instance, update_type_override)
+      push_live(model_instance, update_type_override)
     end
 
     def self.publish_draft_async(model_instance, update_type_override=nil, queue_override=nil)
-      return unless should_publish?(model_instance)
+      return if skip_sending_to_content_store?(model_instance)
       locales_for(model_instance).each do |locale|
         PublishingApiDraftWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
       end
     end
 
     def self.republish_async(model_instance)
-      do_action(model_instance, 'republish')
+      push_live(model_instance, 'republish')
     end
 
     def self.schedule_async(edition)
@@ -55,8 +55,8 @@ module Whitehall
       model_instance.translated_locales
     end
 
-    def self.do_action(model_instance, update_type_override=nil)
-      return unless should_publish?(model_instance)
+    def self.push_live(model_instance, update_type_override=nil)
+      return if skip_sending_to_content_store?(model_instance)
       self.assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
         PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, update_type_override, locale)
@@ -67,12 +67,19 @@ module Whitehall
       edition.kind_of?(CaseStudy)
     end
 
-    def self.should_publish?(instance)
-      if instance.kind_of?(Unpublishing)
-        served_from_content_store?(instance.edition)
-      else
-        true
-      end
+    # We want to avoid sending unpublishings for content types which are not
+    # managed by the content store at present. Background is here:
+    # http://github.com/alphagov/whitehall/commit/6affc9da0d8ca93
+    def self.skip_sending_to_content_store?(instance)
+      unpublishing_not_served_from_content_store?(instance) || policy?(instance)
+    end
+
+    def self.unpublishing_not_served_from_content_store?(instance)
+      instance.kind_of?(Unpublishing) && !served_from_content_store?(instance.edition)
+    end
+
+    def self.policy?(instance)
+      instance.kind_of?(Policy)
     end
 
     def self.assert_public_edition!(instance)

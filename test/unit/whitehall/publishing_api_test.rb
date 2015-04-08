@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class Whitehall::PublishingApiTest < ActiveSupport::TestCase
+  setup do
+    # Disable any predefined webmock stubs, we want a clean slate
+    # TODO: investigate removing stubbing of publishing api calls from standard test setup
+    WebMock.reset!
+  end
+
   test "#publish publishes an Edition with the Publishing API" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition)
@@ -20,6 +26,42 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.publish_async(organisation)
 
     assert_requested request
+  end
+
+  test "#publish sends unpublishing for case studies to the content store" do
+    edition = create(:draft_case_study)
+    unpublishing = create(:unpublishing, edition: edition)
+
+    payload = PublishingApiPresenters::Unpublishing.new(unpublishing).as_json
+    request = stub_publishing_api_put_item(unpublishing.document_path, payload)
+
+    Whitehall::PublishingApi.publish_async(unpublishing)
+
+    assert_requested request
+  end
+
+  test "#publish skips sending unpublishings for formats other than case study" do
+    edition = create(:draft_publication)
+    unpublishing = create(:unpublishing, edition: edition)
+
+    Whitehall::PublishingApi.publish_async(unpublishing)
+  end
+
+  test "#publish sends case studies to the content store" do
+    edition = create(:published_case_study)
+
+    presenter = PublishingApiPresenters.presenter_for(edition)
+    request = stub_publishing_api_put_item(presenter.base_path, presenter.as_json)
+
+    Whitehall::PublishingApi.publish_async(edition)
+
+    assert_requested request
+  end
+
+  test "#publish skips sending policies to content store" do
+    policy = create(:published_policy)
+
+    Whitehall::PublishingApi.publish_async(policy)
   end
 
   test "#republish publishes to the Publishing API as a 'republish' update_type" do

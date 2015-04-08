@@ -9,6 +9,7 @@ module PublishingApiPresenters
     presenter_class_for(model).new(model, options)
   end
 
+private
   def self.presenter_class_for(model)
     if model.is_a?(::Edition)
       presenter_class_for_edition(model)
