@@ -310,4 +310,8 @@ module Admin::EditionsHelper
   def show_similar_slugs_warning?(edition)
     !edition.document.published? && edition.document.similar_slug_exists?
   end
+
+  def future_policies_enabled?
+    ENV["ENABLE_FUTURE_POLICIES"]
+  end
 end
