@@ -8,7 +8,9 @@ module EditionPresenterHelper
       url: url,
       organisations: display_organisations.html_safe,
       display_date_microformat: display_date_microformat,
-      public_timestamp: model.public_timestamp
+      public_timestamp: model.public_timestamp,
+      historic?: model.historic?,
+      government_name: model.search_government_name,
     }
   end
 

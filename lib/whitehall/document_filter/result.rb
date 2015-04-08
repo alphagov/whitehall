@@ -17,6 +17,14 @@ module Whitehall::DocumentFilter
       format
     end
 
+    def search_government_name
+      @doc['government_name']
+    end
+
+    def historic?
+      @doc['is_historic']
+    end
+
     def public_timestamp
       Time.zone.parse(@doc['public_timestamp'])
     end

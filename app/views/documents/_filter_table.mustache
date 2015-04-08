@@ -17,6 +17,13 @@
             <li class="document-collections">{{{publication_collections}}}</li>
           {{/publication_collections}}
         </ul>
+        {{#historic?}}
+          {{#government_name}}
+            <p class="historic">
+            First published during the {{government_name}}
+            </p>
+          {{/government_name}}
+        {{/historic?}}
       </li>
     {{/results}}
   </ol>
