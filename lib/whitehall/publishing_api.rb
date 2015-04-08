@@ -14,10 +14,10 @@ module Whitehall
       do_action(model_instance, update_type_override)
     end
 
-    def self.publish_draft_async(model_instance, update_type_override=nil)
+    def self.publish_draft_async(model_instance, update_type_override=nil, queue_override=nil)
       return unless should_publish?(model_instance)
       locales_for(model_instance).each do |locale|
-        PublishingApiDraftWorker.perform_async(model_instance.class.name, model_instance.id, update_type_override, locale)
+        PublishingApiDraftWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
       end
     end
 

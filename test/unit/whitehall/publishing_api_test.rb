@@ -255,4 +255,17 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     assert_requested request
   end
+
+  test "#publish_draft_async propagates update_type and queue overrides to worker" do
+    queue_name = "bang"
+    update_type = "whizzo"
+
+    draft_edition = create(:draft_case_study)
+
+    PublishingApiDraftWorker.expects(:perform_async_in_queue)
+      .with(queue_name, draft_edition.class.name, draft_edition.id,
+            update_type, draft_edition.primary_locale.to_sym)
+
+    Whitehall::PublishingApi.publish_draft_async(draft_edition, update_type, queue_name)
+  end
 end
