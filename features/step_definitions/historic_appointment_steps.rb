@@ -23,7 +23,6 @@ Then /^I should see the previous prime ministers listed according the century in
   within '#modern-appointments' do
     @modern_previous_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert has_css?("img[alt='#{appointment.person.name}']")
         assert has_link?(appointment.person.name)
       end
     end
@@ -32,7 +31,6 @@ Then /^I should see the previous prime ministers listed according the century in
   within '#nineteenth-century-appointments' do
     @nineteenth_century_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert has_css?("img[alt='#{appointment.person.name}']")
         assert has_content?(appointment.person.name)
       end
     end
@@ -41,7 +39,6 @@ Then /^I should see the previous prime ministers listed according the century in
   within '#eighteenth-century-appointments' do
     @eighteenth_century_pm_appointments.each do |appointment|
       within record_css_selector(appointment) do
-        assert has_css?("img[alt='#{appointment.person.name}']")
         assert has_content?(appointment.person.name)
       end
     end

@@ -162,21 +162,21 @@ Then /^the "([^"]*)" should be shown as the main office on the public website$/ 
   end
 end
 
-Then /^I should see his picture on the worldwide organisation page$/ do
+Then /^I should see his name on the worldwide organisation page$/ do
   visit worldwide_organisation_path(WorldwideOrganisation.last)
   person = Person.last
 
   within record_css_selector(person) do
-    assert page.has_css?('img')
+    assert page.has_text?(person.name)
   end
 end
 
-Then /^I should not see his picture on the worldwide organisation page$/ do
+Then /^I should not see his name on the worldwide organisation page$/ do
   visit worldwide_organisation_path(WorldwideOrganisation.last)
   person = Person.last
 
   within record_css_selector(person) do
-    assert page.has_no_css?('img')
+    assert page.has_no_text?(person.name)
   end
 end
 
