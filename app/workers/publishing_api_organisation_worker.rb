@@ -1,5 +1,6 @@
 # FIXME: This will be redundant once the existing jobs have been worked off
 class PublishingApiOrganisationWorker < WorkerBase
+  sidekiq_options queue: "publishing_api"
 
   def perform(organisation_id, options = {})
     organisation = Organisation.find(organisation_id)

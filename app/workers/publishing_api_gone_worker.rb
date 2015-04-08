@@ -1,4 +1,5 @@
 class PublishingApiGoneWorker < WorkerBase
+  sidekiq_options queue: "publishing_api"
 
   def perform(base_path)
     Whitehall.publishing_api_client.put_content_item(base_path, gone_item_for(base_path))

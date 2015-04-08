@@ -1,4 +1,5 @@
 class PublishingApiComingSoonWorker < WorkerBase
+  sidekiq_options queue: "publishing_api"
 
   def perform(base_path, publish_timestamp, locale)
     coming_soon = PublishingApiPresenters::ComingSoon.new(base_path, publish_timestamp, locale)
