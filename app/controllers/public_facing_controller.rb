@@ -3,6 +3,7 @@ class PublicFacingController < ApplicationController
 
   before_filter :set_cache_control_headers
   before_filter :restrict_request_formats
+  before_filter :set_x_frame_options
 
   around_filter :set_locale
 
@@ -103,5 +104,9 @@ class PublicFacingController < ApplicationController
 
   def load_reshuffle_setting
     SitewideSetting.find_by(key: :minister_reshuffle_mode)
+  end
+
+  def set_x_frame_options
+    response.headers['X-Frame-Options'] = 'ALLOWALL'
   end
 end
