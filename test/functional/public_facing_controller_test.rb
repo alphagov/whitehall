@@ -180,6 +180,13 @@ class PublicFacingControllerTest < ActionController::TestCase
     end
   end
 
+  test "public facing controllers explicitly set X-FRAME-OPTIONS header" do
+    with_routing_for_test_controller do
+      get :test
+      assert response.headers["X-Frame-Options"] == 'ALLOWALL'
+    end
+  end
+
   def with_routing_for_test_controller(&block)
     with_routing do |map|
       map.draw do
