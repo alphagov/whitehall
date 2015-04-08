@@ -31,7 +31,7 @@ module Edition::RelatedPolicies
   end
 
   def policy_content_ids
-    edition_policies.pluck(:policy_content_id)
+    edition_policies.map(&:policy_content_id)
   end
 
   def policy_content_ids=(content_ids)

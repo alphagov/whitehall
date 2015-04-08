@@ -98,6 +98,13 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal ['policy-2'], edition.search_index[:policies]
   end
 
+  test '#policy_content_ids returns content_ids on an unsaved instance' do
+    stub_content_register_policies
+
+    edition = NewsArticle.new(policy_content_ids: [policy_2['content_id']])
+    assert_equal [policy_2['content_id']], edition.policy_content_ids
+  end
+
   test 're-editioned documents maintain related policies' do
     stub_content_register_policies
 
