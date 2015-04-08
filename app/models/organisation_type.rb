@@ -14,6 +14,7 @@ class OrganisationType
     sub_organisation:            { name: "Sub-organisation",                       analytics_prefix: "OT", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
     other:                       { name: "Other",                                  analytics_prefix: "OT", agency_or_public_body: true,  non_departmental_public_body: false, allowed_promotional: false },
     civil_service:               { name: "Civil Service",                          analytics_prefix: "CS", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: true },
+    court:                       { name: "Court",                                  analytics_prefix: "CO", agency_or_public_body: false, non_departmental_public_body: false, allowed_promotional: false },
   }
 
   LISTING_ORDER = [
@@ -31,6 +32,7 @@ class OrganisationType
     :sub_organisation,
     :other,
     :civil_service,
+    :court,
   ]
 
   @@instances = {}
@@ -99,6 +101,9 @@ class OrganisationType
   end
   def self.civil_service
     get :civil_service
+  end
+  def self.court
+    get :court
   end
   def self.agencies_and_public_bodies
     DATA.select { |k, v| v[:agency_or_public_body] }
@@ -178,5 +183,9 @@ class OrganisationType
 
   def civil_service?
     key == :civil_service
+  end
+
+  def court?
+    key == :court
   end
 end

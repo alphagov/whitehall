@@ -72,6 +72,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
       :sub_organisation,
       :other,
       :civil_service,
+      :court,
     ], OrganisationType.in_listing_order.map(&:key)
   end
 
