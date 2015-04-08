@@ -27,6 +27,10 @@ module Organisation::OrganisationTypeConcern
     scope :allowed_promotional, -> {
       where(organisation_type_key: OrganisationType.allowed_promotional_keys)
     }
+
+    scope :excluding_courts, -> {
+      where.not(organisation_type_key: :court)
+    }
   end
 
   def organisation_type_key

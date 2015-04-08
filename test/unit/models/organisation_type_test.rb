@@ -80,4 +80,8 @@ class OrganisationTypeTest < ActiveSupport::TestCase
     assert_equal 1, OrganisationType.get(:ministerial_department).listing_position
     assert_equal 5, OrganisationType.get(:advisory_ndpb).listing_position
   end
+
+  test "non_governmental_types returns an array of non-governmental types" do
+    assert_equal [:court], OrganisationType.non_governmental_types
+  end
 end

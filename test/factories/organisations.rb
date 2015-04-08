@@ -57,4 +57,8 @@ FactoryGirl.define do
     organisation_type_key :devolved_administration
     govuk_status 'exempt'
   end
+
+  factory :court, parent: :organisation do
+    organisation_type_key :court
+  end
 end
