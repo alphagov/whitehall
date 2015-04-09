@@ -13,7 +13,7 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
 
     expected_hash = {
       publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      rendering_app: Whitehall.case_study_publishing_api_rendering_app,
       format: 'coming_soon',
       title: 'Coming soon',
       locale: locale,

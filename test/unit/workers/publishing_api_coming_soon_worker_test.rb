@@ -13,7 +13,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
 
     expected_payload = {
       publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      rendering_app: Whitehall.case_study_publishing_api_rendering_app,
       format: 'coming_soon',
       title: 'Coming soon',
       locale: locale,

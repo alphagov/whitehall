@@ -23,7 +23,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
       public_updated_at: case_study.public_timestamp,
       update_type: 'major',
       publishing_app: 'whitehall',
-      rendering_app: 'government-frontend',
+      rendering_app: 'whitehall-frontend',
       routes: [
         { path: public_path, type: 'exact' }
       ],
@@ -65,6 +65,19 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
 
     assert_equal expected_hash[:details], presented_hash[:details]
   end
+
+
+  test "uses value of case_study_publishing_api_rendering_app to set rendering_app" do
+    Whitehall.stubs(:case_study_publishing_api_rendering_app).returns('government-frontend')
+    case_study = create(:published_case_study,
+                    title: 'Case study title',
+                    summary: 'The summary',
+                    body: 'Some content')
+    presented_hash = present(case_study)
+
+    assert_equal 'government-frontend', presented_hash[:rendering_app]
+  end
+
 
   test "includes details of the case study image if present" do
     image = build(:image, alt_text: 'Image alt text', caption: 'A caption')
