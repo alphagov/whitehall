@@ -13,24 +13,28 @@
 # Note this format becomes redundant once the caching infrasture is able to
 # honour caching headers on upstream 404 responses.
 class PublishingApiPresenters::ComingSoon
-  attr_reader :base_path, :publishing_timestamp, :locale
+  attr_reader :edition, :locale
 
-  def initialize(base_path, publishing_timestamp, locale)
-    @base_path = base_path
-    @publishing_timestamp = publishing_timestamp
+  def initialize(edition, locale)
+    @edition = edition
     @locale = locale
   end
 
   def as_json
     {
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: edition.rendering_app,
       format: 'coming_soon',
       title: 'Coming soon',
       locale: locale,
       update_type: 'major',
-      details: { publish_time: publishing_timestamp },
+      details: { publish_time: edition.scheduled_publication.as_json },
       routes: [ { path: base_path, type: "exact" } ]
     }
+  end
+
+private
+  def base_path
+    Whitehall.url_maker.public_document_path(edition, locale: locale)
   end
 end

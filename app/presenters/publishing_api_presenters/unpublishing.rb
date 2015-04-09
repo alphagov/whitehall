@@ -42,7 +42,7 @@ private
       public_updated_at: edition.public_timestamp,
       update_type: update_type,
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: edition.rendering_app,
       routes: [ { path: base_path, type: 'exact' } ],
       redirects: [],
       details: details,

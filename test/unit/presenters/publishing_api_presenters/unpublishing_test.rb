@@ -14,7 +14,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       locale: 'en',
       need_ids: [],
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: Whitehall.case_study_publishing_api_rendering_app,
       public_updated_at: edition.public_timestamp,
       update_type: 'major',
       routes: [
@@ -107,7 +107,7 @@ class PublishingApiPresenters::UnpublishingTest < ActiveSupport::TestCase
       locale: 'en',
       need_ids: [],
       publishing_app: 'whitehall',
-      rendering_app: 'whitehall-frontend',
+      rendering_app: Whitehall.case_study_publishing_api_rendering_app,
       public_updated_at: edition.public_timestamp,
       update_type: 'major',
       routes: [

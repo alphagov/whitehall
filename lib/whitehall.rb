@@ -23,6 +23,7 @@ module Whitehall
   mattr_accessor :document_collections_cache_max_age
   mattr_accessor :organisations_transition_visualisation_feature_enabled
   mattr_accessor :unified_search_client
+  mattr_accessor :case_study_publishing_api_rendering_app
 
   revision_file = "#{Rails.root}/REVISION"
   if File.exists?(revision_file)
@@ -216,7 +217,7 @@ module Whitehall
   end
 
   def self.panopticon_registerer_for(registerable_edition)
-    GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind)
+    GdsApi::Panopticon::Registerer.new(owning_app: 'whitehall', rendering_app: registerable_edition.rendering_app, kind: registerable_edition.kind)
   end
 
   def self.load_secrets
