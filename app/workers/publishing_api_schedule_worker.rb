@@ -1,5 +1,5 @@
-class PublishingApiScheduleWorker
-  include Sidekiq::Worker
+class PublishingApiScheduleWorker < WorkerBase
+  sidekiq_options queue: "publishing_api"
 
   def perform(base_path, publish_timestamp)
     publish_intent = build_publish_intent(base_path, publish_timestamp)

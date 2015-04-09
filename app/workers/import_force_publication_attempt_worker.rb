@@ -1,5 +1,4 @@
-class ImportForcePublicationAttemptWorker
-  include Sidekiq::Worker
+class ImportForcePublicationAttemptWorker < WorkerBase
   sidekiq_options queue: :imports
 
   attr_reader :id

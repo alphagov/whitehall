@@ -1,5 +1,4 @@
-class DocumentListExportWorker
-  include Sidekiq::Worker
+class DocumentListExportWorker < WorkerBase
 
   def perform(filter_options, user_id)
     user = User.find(user_id)

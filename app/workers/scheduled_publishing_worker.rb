@@ -1,9 +1,8 @@
 require 'sidekiq/api'
 
-class ScheduledPublishingWorker
+class ScheduledPublishingWorker < WorkerBase
   class ScheduledPublishingFailure < StandardError; end
 
-  include Sidekiq::Worker
   sidekiq_options queue: :scheduled_publishing
 
   def self.queue(edition)
