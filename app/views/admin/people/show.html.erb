@@ -15,7 +15,9 @@
 
         <article class="person">
 
-          <%= image_tag @person.image.url(:s300) || 'blank-person.png' %>
+          <% if @person.image %>
+            <%= image_tag @person.image.url(:s300) %>
+          <% end %>
 
           <div class="roles">
             <h2><%= @person.current_role_appointments.collect(&:role_name).to_sentence %></h2>
