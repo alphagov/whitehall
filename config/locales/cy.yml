@@ -378,6 +378,13 @@ cy:
         few:
         many:
         other:
+      Court:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       Devolved administration:
         zero:
         one: Gweinyddiaeth ddatganoledig

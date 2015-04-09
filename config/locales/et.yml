@@ -178,6 +178,9 @@ et:
       Civil Service:
         one: Riigiamet
         other: Riigiametid
+      Court:
+        one:
+        other:
       Devolved administration:
         one:
         other:
