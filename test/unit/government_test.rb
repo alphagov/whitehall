@@ -48,6 +48,37 @@ class GovernmentTest < ActiveSupport::TestCase
 
     refute labour_government_duplicating_original_name.valid?
   end
+
+  test "prevents overlapping governments" do
+    existing_government = create(:government,
+      start_date: "2011-01-01",
+      end_date: "2012-01-01"
+    )
+
+    government_overlapping_start = build(:government,
+      start_date: "2010-06-01",
+      end_date: "2011-06-01"
+    )
+    government_overlapping_end = build(:government,
+      start_date: "2011-06-01",
+      end_date: "2012-06-01"
+    )
+
+    government_before = build(:government,
+      start_date: "2009-06-01",
+      end_date: "2010-06-01"
+    )
+    government_after = build(:government,
+      start_date: "2012-06-01",
+      end_date: "2013-06-01"
+    )
+
+    refute government_overlapping_start.valid?
+    refute government_overlapping_end.valid?
+
+    assert government_before.valid?
+    assert government_after.valid?
+  end
 end
 
 class GovernmentOnDateTest < ActiveSupport::TestCase
@@ -56,7 +87,7 @@ class GovernmentOnDateTest < ActiveSupport::TestCase
     @previous_government = create(:previous_government)
     @even_earlier_government = create(:government,
                                 start_date: @previous_government.start_date - 4.years,
-                                end_date: @previous_government.end_date - 1.day)
+                                end_date: @previous_government.start_date - 1.day)
   end
 
   test "knows the correct current government" do
