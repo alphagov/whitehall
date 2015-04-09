@@ -233,10 +233,10 @@ pl:
         many:
         other: Dane o transparentności
       worldwide_priority:
-        one: Światowy priorytet
+        one: "Światowy priorytet"
         few:
         many:
-        other: Światowe priorytety
+        other: "Światowe priorytety"
       written_statement:
         one: Pisemne oświadczenie przed parlamentem
         few:
@@ -362,7 +362,7 @@ pl:
       our_services: Nasze usługi
       our_statistics: Nasze statystyki
       our_topics: Zajmujemy się tymi tematami
-      plus_others: ' + inne'
+      plus_others: " + inne"
       special_representatives: Specjalni wysłannicy
       traffic_commissioners: Komisarze z wydziałów ruchu drogowego
       what_we_do: Czym się zajmujemy
@@ -527,8 +527,8 @@ pl:
       welsh_language_scheme: Schemat języka walijskiego
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -566,7 +566,7 @@ pl:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Polityki
     view_all:
@@ -627,7 +627,7 @@ pl:
       last_word_connector: i
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

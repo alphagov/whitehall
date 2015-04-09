@@ -223,7 +223,7 @@ de:
     foi_exemption_html:
     headings:
       chief_professional_officers: Unsere leitenden Mitarbeiter
-      contact: '%{name} kontaktieren'
+      contact: "%{name} kontaktieren"
       corporate_information: Administrative Informationen
       corporate_reports: Berichte
       documents:
@@ -240,7 +240,7 @@ de:
       our_services: Unsere Dienstleistungen
       our_statistics: Unsere Statistiken
       our_topics: Unsere Arbeitsgebiete
-      plus_others: ' + andere'
+      plus_others: " + andere"
       special_representatives: Sonderbeauftragte
       traffic_commissioners: Verkehrsbeauftragte
       what_we_do: Was wir tun
@@ -285,7 +285,7 @@ de:
       priorities: Prioritäten
       publications: Unsere Veröffentlichungen
       quick_links: Quicklinks
-      related_policies: Ähnliche Sachgebiete
+      related_policies: "Ähnliche Sachgebiete"
       statistics: Unsere Statistiken
   activerecord:
     attributes:
@@ -396,8 +396,8 @@ de:
       welsh_language_scheme: Walisisches Sprachprogramm
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -435,7 +435,7 @@ de:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Politik
     view_all:
@@ -496,7 +496,7 @@ de:
       last_word_connector: und
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
@@ -509,7 +509,7 @@ de:
         in %{link}
     find_out_more: Vollständiges Profil und alle Kontaktdaten
     headings:
-      about_us: Über uns
+      about_us: "Über uns"
       contact_us: Schreiben Sie uns
       corporate_information: Administrative Informationen
       follow_us: Folgen Sie uns

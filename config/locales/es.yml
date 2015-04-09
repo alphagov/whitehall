@@ -8,7 +8,7 @@ es:
         one:
         other:
       applies_to_nations: Sirve para
-      field_of_operation: Ãmbito de actuación
+      field_of_operation: "Ãmbito de actuación"
       from:
       location:
       part_of:
@@ -240,7 +240,7 @@ es:
       our_services: Nuestros servicios
       our_statistics: Estadísticas
       our_topics: Trabajamos en estos temas
-      plus_others: ' + otros'
+      plus_others: " + otros"
       special_representatives: Representantes especiales
       traffic_commissioners: Inspector de tráfico
       what_we_do: Qué hacemos
@@ -396,8 +396,8 @@ es:
       welsh_language_scheme: Esquema de gales
   date:
     formats:
-      default: '%e %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -434,7 +434,7 @@ es:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Politicas
     view_all:
@@ -495,7 +495,7 @@ es:
       last_word_connector: y
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

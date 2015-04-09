@@ -19,7 +19,7 @@ ja:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
       detailed_guide:
-        primary_mainstream_category: 主要説明カテゴリー
+        primary_mainstream_category: "主要説明カテゴリー"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -56,18 +56,18 @@ ja:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: ニュース
+    heading: "ニュース"
     view_all:
   attachment:
     accessibility:
       full_help_html: この文書の点字版、音声版、その他のフォーマットをリクエストするには、%{email}に、ご住所、お電話番号、文書のタイトル
         ("%{title}")%{references}.をお送り下さい。
-      heading: このファイルは支援技術のユーザーには利用できない場合があります
-      request_a_different_format: 異なるフォーマットを要求
+      heading: "このファイルは支援技術のユーザーには利用できない場合があります"
+      request_a_different_format: "異なるフォーマットを要求"
     headings:
-      order_a_copy: コピーを注文
-      order_a_copy_full: コピーを注文
-      published: 掲載日
+      order_a_copy: "コピーを注文"
+      order_a_copy_full: "コピーを注文"
+      published: "掲載日"
       reference: Ref
       unnumbered_command_paper:
       unnumbered_hoc_paper:
@@ -80,7 +80,7 @@ ja:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: 連絡フォーム
+    contact_form: "連絡フォーム"
     email: Email
   corporate_information_page:
     type:
@@ -93,21 +93,21 @@ ja:
       membership:
       our_energy_use:
       our_governance:
-      personal_information_charter: 個人情報保護法
+      personal_information_charter: "個人情報保護法"
       petitions_and_campaigns:
       procurement:
-      publication_scheme: 情報公開法
+      publication_scheme: "情報公開法"
       recruitment:
       research:
-      social_media_use: ソーシャルメディア
+      social_media_use: "ソーシャルメディア"
       staff_update:
       statistics:
       terms_of_reference:
-      welsh_language_scheme: ウェールズ語スキーム
+      welsh_language_scheme: "ウェールズ語スキーム"
   date:
     formats:
-      default: '%Y %B %d'
-      long_ordinal: '%e %B %Y'
+      default: "%Y %B %d"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -125,239 +125,239 @@ ja:
       published:
       updated:
     headings:
-      applies_to_nations: 対象国
+      applies_to_nations: "対象国"
       attachments:
-        one: お知らせ
-        other: お知らせ
-      field_of_operation: 担当分野
+        one: "お知らせ"
+        other: "お知らせ"
+      field_of_operation: "担当分野"
       from:
       location:
       part_of:
       policies:
         one:
         other:
-    published: 掲載日
-    read: '%{title} の記事を読む'
+    published: "掲載日"
+    read: "%{title} の記事を読む"
     speech:
       author_title:
-        minister: 大臣
-        speaker: ライター
-      delivered_on: 場所
+        minister: "大臣"
+        speaker: "ライター"
+      delivered_on: "場所"
       delivery_title:
-        minister: 大臣
-        speaker: スピーカー
+        minister: "大臣"
+        speaker: "スピーカー"
       written_on:
     type:
       announcement:
-        one: ニュース
-        other: ニュース
+        one: "ニュース"
+        other: "ニュース"
       authored_article:
         one: Authored article
         other: Authored articles
       case_study:
-        one: ケーススタディ
-        other: ケーススタディ
+        one: "ケーススタディ"
+        other: "ケーススタディ"
       closed_consultation:
-        one: 非公開協議
-        other: 非公開協議
+        one: "非公開協議"
+        other: "非公開協議"
       consultation:
-        one: 協議
-        other: 協議
+        one: "協議"
+        other: "協議"
       consultation_outcome:
-        one: 協議結果
-        other: 協議結果
+        one: "協議結果"
+        other: "協議結果"
       corporate_report:
-        one: 事業報告
-        other: 事業報告
+        one: "事業報告"
+        other: "事業報告"
       correspondence:
-        one: 通信文書
-        other: 通信文書
+        one: "通信文書"
+        other: "通信文書"
       decision:
         one:
         other:
       detailed_guidance:
-        one: 詳細説明
-        other: 詳細説明
+        one: "詳細説明"
+        other: "詳細説明"
       document_collection:
-        one: シリーズ
+        one: "シリーズ"
         other:
       draft_text:
-        one: 草稿
-        other: 草稿
+        one: "草稿"
+        other: "草稿"
       fatality_notice:
-        one: 死亡告示
-        other: 死亡告示
+        one: "死亡告示"
+        other: "死亡告示"
       foi_release:
-        one: 情報公開に関するニュース
-        other: 情報公開に関するニュース
+        one: "情報公開に関するニュース"
+        other: "情報公開に関するニュース"
       form:
-        one: フォーム
-        other: フォーム
+        one: "フォーム"
+        other: "フォーム"
       government_response:
-        one: レスポンス
-        other: レスポンス
+        one: "レスポンス"
+        other: "レスポンス"
       guidance:
-        one: ガイダンス
-        other: ガイダンス
+        one: "ガイダンス"
+        other: "ガイダンス"
       impact_assessment:
-        one: 影響評価
-        other: 影響評価
+        one: "影響評価"
+        other: "影響評価"
       imported:
-        one: 確認中
-        other: 確認中
+        one: "確認中"
+        other: "確認中"
       independent_report:
-        one: 第三者機関によるレポート
-        other: 第三者機関によるレポート
+        one: "第三者機関によるレポート"
+        other: "第三者機関によるレポート"
       international_treaty:
         one:
         other:
       map:
-        one: 地図
-        other: 地図
+        one: "地図"
+        other: "地図"
       national_statistics:
-        one: 国家統計
-        other: 国家統計
+        one: "国家統計"
+        other: "国家統計"
       news_article:
-        one: ニュース
-        other: ニュース
+        one: "ニュース"
+        other: "ニュース"
       news_story:
-        one: ニュース
-        other: ニュース
+        one: "ニュース"
+        other: "ニュース"
       notice:
         one:
         other:
       open_consultation:
-        one: 公開協議
-        other: 公開協議
+        one: "公開協議"
+        other: "公開協議"
       oral_statement:
-        one: 議会に対する口頭陳述
-        other: 議会に対する口頭陳述
+        one: "議会に対する口頭陳述"
+        other: "議会に対する口頭陳述"
       policy:
-        one: 政策
-        other: 政策
+        one: "政策"
+        other: "政策"
       policy_paper:
-        one: 政策文書
-        other: 政策文書
+        one: "政策文書"
+        other: "政策文書"
       press_release:
-        one: 新聞発表
-        other: 新聞発表
+        one: "新聞発表"
+        other: "新聞発表"
       promotional:
-        one: 宣伝資料
-        other: 宣伝資料
+        one: "宣伝資料"
+        other: "宣伝資料"
       publication:
-        one: 出版物
-        other: 出版物
+        one: "出版物"
+        other: "出版物"
       regulation:
         one:
         other:
       research:
-        one: 調査と分析
-        other: 調査と分析
+        one: "調査と分析"
+        other: "調査と分析"
       speaking_notes:
-        one: キーポイント
-        other: キーポイント
+        one: "キーポイント"
+        other: "キーポイント"
       speech:
-        one: スピーチ
-        other: スピーチ
+        one: "スピーチ"
+        other: "スピーチ"
       statement_to_parliament:
-        one: 閣僚声明
-        other: 閣僚声明
+        one: "閣僚声明"
+        other: "閣僚声明"
       statistical_data_set:
-        one: 統計データセット
-        other: 統計データセット
+        one: "統計データセット"
+        other: "統計データセット"
       statistics:
-        one: 統計
-        other: 統計
+        one: "統計"
+        other: "統計"
       statutory_guidance:
         one:
         other:
       transcript:
-        one: スピーチ全文
-        other: スピーチ全文
+        one: "スピーチ全文"
+        other: "スピーチ全文"
       transparency:
-        one: 透明性データ
-        other: 透明性データ
+        one: "透明性データ"
+        other: "透明性データ"
       worldwide_priority:
-        one: 優先事項
-        other: 優先事項
+        one: "優先事項"
+        other: "優先事項"
       written_statement:
-        one: 閣僚声明文
-        other: 閣僚声明文
-    updated: 更新
-    view: '%{title}'' を見る'
+        one: "閣僚声明文"
+        other: "閣僚声明文"
+    updated: "更新"
+    view: "%{title}' を見る"
   document_filters:
-    description: 検索精度を上げるために、各種フィルターをご利用下さい
+    description: "検索精度を上げるために、各種フィルターをご利用下さい"
     no_results:
-      description: 検索内容を変更して再度検索下さい
-      title: 該当するページはありません
+      description: "検索内容を変更して再度検索下さい"
+      title: "該当するページはありません"
       tna_heading:
       tna_link:
     world_locations:
-      all: 全ての地域
-      label: 地域
+      all: "全ての地域"
+      label: "地域"
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: 最新情報
+    latest_activity: "最新情報"
   i18n:
     direction: ltr
   language_names:
-    ja: 日本語
+    ja: "日本語"
   latest_feed:
-    no_updates: 更新情報はありません
+    no_updates: "更新情報はありません"
     title: Latest
   national_statistics:
     heading:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   organisation:
     about:
-      read_more: 続き
+      read_more: "続き"
     corporate_information:
-      access_our_info: 情報開示
-      foi_how_to: 情報開示請求
-      foi_releases: 情報公開関連
-      jobs_and_contacts: 求人と調達
+      access_our_info: "情報開示"
+      foi_how_to: "情報開示請求"
+      foi_releases: "情報公開関連"
+      jobs_and_contacts: "求人と調達"
       organisation_chart:
-      transparency: データ開示
+      transparency: "データ開示"
     foi_exemption_html:
     headings:
-      chief_professional_officers: チーフ・プロフェッショナル・オフィサー
-      contact: 連絡先
-      corporate_information: 各種情報
-      corporate_reports: 各種レポート
+      chief_professional_officers: "チーフ・プロフェッショナル・オフィサー"
+      contact: "連絡先"
+      corporate_information: "各種情報"
+      corporate_reports: "各種レポート"
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: ニュース
+      our_announcements: "ニュース"
       our_consultations:
       our_mainstream_categories:
-      our_management: 幹部職員
-      our_ministers: 大臣
-      our_policies: 政策
-      our_publications: 出版物
-      our_senior_military_officials: 武官
-      our_services: 業務案内
-      our_statistics: 統計
-      our_topics: トピックス
-      plus_others: + その他
-      special_representatives: 特別代表
-      traffic_commissioners: 交通担当コミッショナー
-      what_we_do: 業務案内
+      our_management: "幹部職員"
+      our_ministers: "大臣"
+      our_policies: "政策"
+      our_publications: "出版物"
+      our_senior_military_officials: "武官"
+      our_services: "業務案内"
+      our_statistics: "統計"
+      our_topics: "トピックス"
+      plus_others: "+ その他"
+      special_representatives: "特別代表"
+      traffic_commissioners: "交通担当コミッショナー"
+      what_we_do: "業務案内"
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
     type:
       Ad-hoc advisory group:
-        one: 臨時諮問グループ
-        other: 臨時諮問グループ
+        one: "臨時諮問グループ"
+        other: "臨時諮問グループ"
       Advisory non-departmental public body:
-        one: 非省庁公的諮問機関
-        other: 非省庁公的諮問機関
+        one: "非省庁公的諮問機関"
+        other: "非省庁公的諮問機関"
       Civil Service:
         one:
         other:
@@ -365,35 +365,35 @@ ja:
         one:
         other:
       Executive agency:
-        one: エグゼクティブ・エージェンシー
-        other: エグゼクティブ・エージェンシー
+        one: "エグゼクティブ・エージェンシー"
+        other: "エグゼクティブ・エージェンシー"
       Executive non-departmental public body:
-        one: 非省庁公的機関
-        other: 非省庁公的機関
+        one: "非省庁公的機関"
+        other: "非省庁公的機関"
       Executive office:
-        one: エグゼクティブ・オフィス
-        other: エグゼクティブ・オフィス
+        one: "エグゼクティブ・オフィス"
+        other: "エグゼクティブ・オフィス"
       Independent monitoring body:
-        one: 第三者評価機関
-        other: 第三者評価機関
+        one: "第三者評価機関"
+        other: "第三者評価機関"
       Ministerial department:
-        one: 省庁
-        other: 省庁
+        one: "省庁"
+        other: "省庁"
       Non-ministerial department:
-        one: 非省庁
-        other: 非省庁
+        one: "非省庁"
+        other: "非省庁"
       Other:
-        one: その他
-        other: その他
+        one: "その他"
+        other: "その他"
       Public corporation:
-        one: 公的企業
-        other: 公的企業
+        one: "公的企業"
+        other: "公的企業"
       Sub-organisation:
-        one: 下部組織
-        other: 下部組織
+        one: "下部組織"
+        other: "下部組織"
       Tribunal non-departmental public body:
-        one: 非政府法務・調停公的機関
-        other: 非政府法務・調停公的機関
+        one: "非政府法務・調停公的機関"
+        other: "非政府法務・調停公的機関"
   people:
     biography:
     heading:
@@ -403,13 +403,13 @@ ja:
     previous_roles_in_government:
     read_more:
   policies:
-    heading: 政策
+    heading: "政策"
     view_all:
   publications:
-    heading: 出版物
+    heading: "出版物"
     headings:
-      detail: 詳細
-  read_more: 続き
+      detail: "詳細"
+  read_more: "続き"
   roles:
     heading:
       one:
@@ -423,50 +423,50 @@ ja:
     previous_holders:
     read_more:
   see_all:
-    announcement: ニュース を全て見る
+    announcement: "ニュース を全て見る"
     authored_article: authored articles を全て見る
-    case_study: ケーススタディ を全て見る
-    closed_consultation: 非公開協議 を全て見る
-    consultation: 協議 を全て見る
-    consultation_outcome: 協議結果 を全て見る
-    corporate_report: 事業報告 を全て見る
-    correspondence: 通信文書 を全て見る
+    case_study: "ケーススタディ を全て見る"
+    closed_consultation: "非公開協議 を全て見る"
+    consultation: "協議 を全て見る"
+    consultation_outcome: "協議結果 を全て見る"
+    corporate_report: "事業報告 を全て見る"
+    correspondence: "通信文書 を全て見る"
     decision:
-    detailed_guidance: 詳細説明 を全て見る
+    detailed_guidance: "詳細説明 を全て見る"
     document_collection:
-    draft_text: 草稿 を全て見る
-    fatality_notice: 死亡告示 を全て見る
-    foi_release: 情報公開に関するニュース を全て見る
-    form: フォーム を全て見る
-    government_response: レスポンス を全て見る
-    guidance: ガイダンス を全て見る
-    impact_assessment: 影響評価 を全て見る
-    imported: 確認中 を全て見る
+    draft_text: "草稿 を全て見る"
+    fatality_notice: "死亡告示 を全て見る"
+    foi_release: "情報公開に関するニュース を全て見る"
+    form: "フォーム を全て見る"
+    government_response: "レスポンス を全て見る"
+    guidance: "ガイダンス を全て見る"
+    impact_assessment: "影響評価 を全て見る"
+    imported: "確認中 を全て見る"
     international_treaty:
-    map: 地図 を全て見る
-    national_statistics: 国家統計 を全て見る
-    news_article: ニュース を全て見る
-    news_story: ニュース を全て見る
+    map: "地図 を全て見る"
+    national_statistics: "国家統計 を全て見る"
+    news_article: "ニュース を全て見る"
+    news_story: "ニュース を全て見る"
     notice:
-    open_consultation: 公開協議 を全て見る
-    oral_statement: 議会に対する口頭陳述 を全て見る
-    policy: 政策 を全て見る
-    policy_paper: 政策文書 を全て見る
-    press_release: 新聞発表 を全て見る
-    promotional: 宣伝資料 を全て見る
-    publication: 出版物 を全て見る
+    open_consultation: "公開協議 を全て見る"
+    oral_statement: "議会に対する口頭陳述 を全て見る"
+    policy: "政策 を全て見る"
+    policy_paper: "政策文書 を全て見る"
+    press_release: "新聞発表 を全て見る"
+    promotional: "宣伝資料 を全て見る"
+    publication: "出版物 を全て見る"
     regulation:
-    research: 調査と分析 を全て見る
-    speaking_notes: キーポイント を全て見る
-    speech: スピーチ を全て見る
-    statement_to_parliament: 閣僚声明 を全て見る
-    statistical_data_set: 統計データセット を全て見る
-    statistics: 統計 を全て見る
+    research: "調査と分析 を全て見る"
+    speaking_notes: "キーポイント を全て見る"
+    speech: "スピーチ を全て見る"
+    statement_to_parliament: "閣僚声明 を全て見る"
+    statistical_data_set: "統計データセット を全て見る"
+    statistics: "統計 を全て見る"
     statutory_guidance:
-    transcript: スピーチ全文 を全て見る
-    transparency: 透明性データ を全て見る
-    worldwide_priority: 優先事項 を全て見る
-    written_statement: 閣僚声明文 を全て見る
+    transcript: "スピーチ全文 を全て見る"
+    transparency: "透明性データ を全て見る"
+    worldwide_priority: "優先事項 を全て見る"
+    written_statement: "閣僚声明文 を全て見る"
   social_media:
     follow_us:
   support:
@@ -474,40 +474,40 @@ ja:
       last_word_connector: and
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
-      announcements: 発表
-      country: 国名
-      documents: お知らせ
-      mission: 役割
-      organisations: 組織
-      priorities: 優先事項
-      publications: 出版物
+      announcements: "発表"
+      country: "国名"
+      documents: "お知らせ"
+      mission: "役割"
+      organisations: "組織"
+      priorities: "優先事項"
+      publications: "出版物"
       quick_links: Quick links
-      related_policies: 関連政策
-      statistics: 統計
+      related_policies: "関連政策"
+      statistics: "統計"
     type:
       international_delegation:
-        one: 海外代表団
-        other: 海外代表団
+        one: "海外代表団"
+        other: "海外代表団"
       world_location:
-        one: 地域
-        other: 地域
+        one: "地域"
+        other: "地域"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: 個人情報の取り扱いについては %{link} をご覧下さい
-      publication_scheme_html: 情報公開の種類については %{link} をご覧下さい
-      social_media_use_html: '%{link}に関する政策を読む'
-      welsh_language_scheme_html: 情報公開の詳細については %{link} をご覧下さい
-    find_out_more: 業務案内と連絡先を見る
+      personal_information_charter_html: "個人情報の取り扱いについては %{link} をご覧下さい"
+      publication_scheme_html: "情報公開の種類については %{link} をご覧下さい"
+      social_media_use_html: "%{link}に関する政策を読む"
+      welsh_language_scheme_html: "情報公開の詳細については %{link} をご覧下さい"
+    find_out_more: "業務案内と連絡先を見る"
     headings:
-      about_us: 大使館について
-      contact_us: 連絡先
-      corporate_information: 組織情報
+      about_us: "大使館について"
+      contact_us: "連絡先"
+      corporate_information: "組織情報"
       follow_us: Follow us
-      our_people: 主な職員
-      our_services: 業務内容
-    location: アクセス
-    part_of: 所属
+      our_people: "主な職員"
+      our_services: "業務内容"
+    location: "アクセス"
+    part_of: "所属"

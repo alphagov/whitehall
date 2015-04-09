@@ -223,7 +223,7 @@ uz:
     foi_exemption_html:
     headings:
       chief_professional_officers: Bizning asosiy mutaxassislar
-      contact: '%{name} bog''laning'
+      contact: "%{name} bog'laning"
       corporate_information: Korporativ ma'lumot
       corporate_reports: Korporativ hisobotlar
       documents:
@@ -240,7 +240,7 @@ uz:
       our_services: Bizning xizmatlat
       our_statistics: Bizning statistika
       our_topics: Bu yonalishlar bo'yicha ishlaymiz
-      plus_others: ' + boshqalar'
+      plus_others: " + boshqalar"
       special_representatives: Maxsus vakil
       traffic_commissioners: Traffik va transport savollari bo'yicha komissar 
       what_we_do: Bizning faoliyatimiz
@@ -395,8 +395,8 @@ uz:
       welsh_language_scheme: Uels tili rejasi
   date:
     formats:
-      default: '%e %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -434,7 +434,7 @@ uz:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Dasturlar
     view_all:
@@ -495,17 +495,17 @@ uz:
       last_word_connector: va
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
       personal_information_charter_html: Bizning %{link} qanday qilib shaxsiy ma'lumot
         bilan ishlashimiz haqida sizga ma'lumot beradi 
-      publication_scheme_html: '%{link} Biz doimiy tarzda nashr etayotgan ma''lumot
-        haqida o''qing'
-      social_media_use_html: '%{link} Bizning dasturimiz haqida batafsil ma''lumot'
-      welsh_language_scheme_html: '%{link} Nashr etish uchun biz olib borayotgan faoliyatimiz
-        haqida o''qing'
+      publication_scheme_html: "%{link} Biz doimiy tarzda nashr etayotgan ma'lumot
+        haqida o'qing"
+      social_media_use_html: "%{link} Bizning dasturimiz haqida batafsil ma'lumot"
+      welsh_language_scheme_html: "%{link} Nashr etish uchun biz olib borayotgan faoliyatimiz
+        haqida o'qing"
     find_out_more: To'liq profil va bog'lanish uchun ma'lumotni ko'ring
     headings:
       about_us: Biz haqimizda

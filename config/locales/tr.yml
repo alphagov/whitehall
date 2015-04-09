@@ -81,7 +81,7 @@ tr:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: İletişim Formu
+    contact_form: "İletişim Formu"
     email: E-posta
   corporate_information_page:
     type:
@@ -107,8 +107,8 @@ tr:
       welsh_language_scheme: Galler dili Programı
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -138,7 +138,7 @@ tr:
         one:
         other:
     published: Yayında
-    read: '%{title} makalesini okuyunuz'
+    read: "%{title} makalesini okuyunuz"
     speech:
       author_title:
         minister: Bakan
@@ -156,8 +156,8 @@ tr:
         one: Yazılan makale
         other: Yazılan makaleler
       case_study:
-        one: Örnek Olay
-        other: Örnek Olaylar
+        one: "Örnek Olay"
+        other: "Örnek Olaylar"
       closed_consultation:
         one: Sona eren çalışmalar
         other: Sona eren çalışmalar
@@ -186,8 +186,8 @@ tr:
         one: Taslak metin
         other: Taslak metinler
       fatality_notice:
-        one: Ölüm ilanı
-        other: Ölüm ilanları
+        one: "Ölüm ilanı"
+        other: "Ölüm ilanları"
       foi_release:
         one: Bilgi edinme hakkı raporu
         other: Bilgi edinme hakkı raporları
@@ -216,8 +216,8 @@ tr:
         one: Harita
         other: Haritalar
       national_statistics:
-        one: İstatistikler - ulusal istatistikler
-        other: İstatistikler - ulusal istatistikler
+        one: "İstatistikler - ulusal istatistikler"
+        other: "İstatistikler - ulusal istatistikler"
       news_article:
         one: Makale
         other: Makaleler
@@ -264,11 +264,11 @@ tr:
         one: Parlamento'ya yapılan açıklama
         other: Parlamento'ya yapılan açıklamalar
       statistical_data_set:
-        one: İstatiksel veri setleri
-        other: İstatiksel veri setleri
+        one: "İstatiksel veri setleri"
+        other: "İstatiksel veri setleri"
       statistics:
-        one: İstatistikler
-        other: İstatistikler
+        one: "İstatistikler"
+        other: "İstatistikler"
       statutory_guidance:
         one:
         other:
@@ -279,8 +279,8 @@ tr:
         one: Veri saydamlığı
         other: Veri saydamlığı
       worldwide_priority:
-        one: Öncelik
-        other: Öncelikler
+        one: "Öncelik"
+        other: "Öncelikler"
       written_statement:
         one: Parlamento'ya yapılan yazılı açıklama
         other: Parlamento'ya yapılan yazılı açıklamalar
@@ -295,7 +295,7 @@ tr:
       tna_link:
     world_locations:
       all: Tüm yerler
-      label: Ülkeler
+      label: "Ülkeler"
   feeds:
     email:
     feed:
@@ -313,7 +313,7 @@ tr:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   organisation:
     about:
       read_more: Hakkımızda daha fazla bilgi için
@@ -321,13 +321,13 @@ tr:
       access_our_info: Bilgilere erişim
       foi_how_to: Bilgi Edinme Hakkı nasıl kullanılır
       foi_releases: Bilgi Edinme Hakkı Raporu
-      jobs_and_contacts: İş ve sözleşmeler
+      jobs_and_contacts: "İş ve sözleşmeler"
       organisation_chart:
       transparency: Veri saydamlığı
     foi_exemption_html:
     headings:
-      chief_professional_officers: 'Üst düzey uzman '
-      contact: İletişim %{name}
+      chief_professional_officers: "Üst düzey uzman "
+      contact: "İletişim %{name}"
       corporate_information: Kurumsal bilgi
       corporate_reports: Kurumsal raporlar
       documents:
@@ -342,10 +342,10 @@ tr:
       our_publications: Yayınlarımız
       our_senior_military_officials: Kıdemli askeri görevli
       our_services: Hizmetlerimiz
-      our_statistics: İstatistikler
+      our_statistics: "İstatistikler"
       our_topics: Bu konular üzerine çalışıyoruz
-      plus_others: ' + diğerleri'
-      special_representatives: Özel temsilciler
+      plus_others: " + diğerleri"
+      special_representatives: "Özel temsilciler"
       traffic_commissioners: Trafik Şube Müdürü
       what_we_do: 'Hakkımızda '
     making_foi_requests:
@@ -475,26 +475,26 @@ tr:
       last_word_connector: ve
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
       announcements: Duyurularımız
-      country: Ülke
+      country: "Ülke"
       documents: Belgeler
       mission: Misyonumuz
       organisations: Organizasyon
-      priorities: Öncelikler
+      priorities: "Öncelikler"
       publications: Yayınlarımız
       quick_links: Kısa Yollar
-      related_policies: İlgili politikalar
-      statistics: İstatistiklerimiz
+      related_policies: "İlgili politikalar"
+      statistics: "İstatistiklerimiz"
     type:
       international_delegation:
         one: Uluslararası heyet
         other: Uluslararası heyetler
       world_location:
-        one: 'Ülke '
-        other: Ülkeler
+        one: "Ülke "
+        other: "Ülkeler"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

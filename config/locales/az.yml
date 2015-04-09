@@ -79,7 +79,7 @@ az:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: Əlaqə vasitəsi
+    contact_form: "Əlaqə vasitəsi"
     email: elektron poçt
   corporate_information_page:
     type:
@@ -92,10 +92,10 @@ az:
       membership:
       our_energy_use:
       our_governance:
-      personal_information_charter: şəxsi məlumatlar bölümü
+      personal_information_charter: "şəxsi məlumatlar bölümü"
       petitions_and_campaigns:
       procurement:
-      publication_scheme: çap sxemi
+      publication_scheme: "çap sxemi"
       recruitment:
       research:
       social_media_use:
@@ -128,7 +128,7 @@ az:
       attachments:
         one:
         other:
-      field_of_operation: əməliyyat sahəsi
+      field_of_operation: "əməliyyat sahəsi"
       from:
       location:
       part_of:
@@ -141,7 +141,7 @@ az:
       author_title:
         minister:
         speaker:
-      delivered_on: çatdırılıb
+      delivered_on: "çatdırılıb"
       delivery_title:
         minister: Nazir
         speaker: Spiker
@@ -154,8 +154,8 @@ az:
         one:
         other:
       case_study:
-        one: Öyrənilib
-        other: Öyrənilib
+        one: "Öyrənilib"
+        other: "Öyrənilib"
       closed_consultation:
         one: Bağlı məslətləşmə
         other: Bağlı məslətləşmələr
@@ -175,8 +175,8 @@ az:
         one:
         other:
       detailed_guidance:
-        one: ətraflı məlumat
-        other: ətraflı məlumat
+        one: "ətraflı məlumat"
+        other: "ətraflı məlumat"
       document_collection:
         one: növlər
         other:
@@ -196,8 +196,8 @@ az:
         one:
         other:
       guidance:
-        one: İnstruksiya
-        other: İnstruksiya
+        one: "İnstruksiya"
+        other: "İnstruksiya"
       impact_assessment:
         one: Dəyərləndirmə
         other: Dəyərləndirmə
@@ -253,11 +253,11 @@ az:
         one: Tətqiqat və analiz
         other: Tətqiqat və analiz
       speaking_notes:
-        one: Çıxış üçün  qeydləri
-        other: Çıxış üçün  qeydləri
+        one: "Çıxış üçün  qeydləri"
+        other: "Çıxış üçün  qeydləri"
       speech:
-        one: çıxış
-        other: Çıxışlar
+        one: "çıxış"
+        other: "Çıxışlar"
       statement_to_parliament:
         one: Parlamentə bəyanat
         other: Parlamentə bəyanatlar
@@ -274,8 +274,8 @@ az:
         one: Transkripsiya
         other: Transkripsiyalar
       transparency:
-        one: Şəffaf məlumat
-        other: Şəffaf məlumat
+        one: "Şəffaf məlumat"
+        other: "Şəffaf məlumat"
       worldwide_priority:
         one: dünya üzrə prioritet
         other: dünya üzrə prioritetlər
@@ -305,7 +305,7 @@ az:
     az: Azərbaycanca
   latest_feed:
     no_updates: yeni məlumat yoxdur
-    title: Ən sonuncu
+    title: "Ən sonuncu"
   national_statistics:
     heading:
   number:
@@ -355,8 +355,8 @@ az:
         one: Məsləhətçi qrup
         other: Məsləhətçi qruplar
       Advisory non-departmental public body:
-        one: İctimai qrum
-        other: İctimai qrumlar
+        one: "İctimai qrum"
+        other: "İctimai qrumlar"
       Civil Service:
         one:
         other:
@@ -364,11 +364,11 @@ az:
         one:
         other:
       Executive agency:
-        one: İcraedici orqan
-        other: İcraedici orqanlar
+        one: "İcraedici orqan"
+        other: "İcraedici orqanlar"
       Executive non-departmental public body:
-        one: İcraedici ictimai qrumlar
-        other: İcraedici ictimai qrumlar
+        one: "İcraedici ictimai qrumlar"
+        other: "İcraedici ictimai qrumlar"
       Executive office:
         one:
         other:
@@ -385,14 +385,14 @@ az:
         one: Digər
         other: Digərləri
       Public corporation:
-        one: İctimai korporasiya
-        other: İctimai korporasiyalar
+        one: "İctimai korporasiya"
+        other: "İctimai korporasiyalar"
       Sub-organisation:
         one: Təşkilatlar
         other: Təşkilatlar
       Tribunal non-departmental public body:
-        one: İcraedici ictimai qrumlar
-        other: İcraedici ictimai qrumlar
+        one: "İcraedici ictimai qrumlar"
+        other: "İcraedici ictimai qrumlar"
   people:
     biography:
     heading:
@@ -408,7 +408,7 @@ az:
     heading: Nəşrlər
     headings:
       detail:
-  read_more: Ətraflı oxu
+  read_more: "Ətraflı oxu"
   roles:
     heading:
       one:
@@ -477,7 +477,7 @@ az:
   world_location:
     headings:
       announcements: Bizim elanlar
-      country: Ölkə
+      country: "Ölkə"
       documents: Sənədlər
       mission: Bizim missiyamız
       organisations: Təşkilatlar
@@ -503,7 +503,7 @@ az:
     find_out_more: Bütün profilə və əlaqə nömrələrinə bax
     headings:
       about_us: Barəmizdə
-      contact_us: Əlaqə vasitəsi
+      contact_us: "Əlaqə vasitəsi"
       corporate_information: Məlumatlar
       follow_us: Bizi izlə
       our_people: Bizim adamlar

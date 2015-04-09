@@ -191,8 +191,8 @@ pt:
         one: Escritório executivo
         other: Escritórios executivos
       Independent monitoring body:
-        one: Órgão de Monitoramento Independente
-        other: Órgãos de Monitoramento Independente
+        one: "Órgão de Monitoramento Independente"
+        other: "Órgãos de Monitoramento Independente"
       Ministerial department:
         one: Ministério
         other: Ministérios
@@ -240,7 +240,7 @@ pt:
       our_services: Nossos serviços
       our_statistics: Nossas estatísticas
       our_topics: Nós trabalhamos com estes assuntos
-      plus_others: + outros
+      plus_others: "+ outros"
       special_representatives: Representantes especiais
       traffic_commissioners: Comissonários de Tráfego
       what_we_do: O que fazemos
@@ -395,8 +395,8 @@ pt:
       welsh_language_scheme: 'Programa de língua galesa '
   date:
     formats:
-      default: '%e %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%e %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -421,20 +421,20 @@ pt:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: Últimas atividades
+    latest_activity: "Últimas atividades"
   i18n:
     direction: Itr
   language_names:
     pt: Português
   latest_feed:
     no_updates: Ainda não há atualizações
-    title: Últimas
+    title: "Últimas"
   national_statistics:
     heading:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Políticas
     view_all:
@@ -495,7 +495,7 @@ pt:
       last_word_connector: e
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

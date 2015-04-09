@@ -19,7 +19,7 @@ zh:
       corporate_information_page/corporate_information_page_attachments/attachment/attachment_data:
         file:
       detailed_guide:
-        primary_mainstream_category: 首要详细指导类别
+        primary_mainstream_category: "首要详细指导类别"
       policy_group/policy_group_attachments/attachment/attachment_data:
         file:
       response/consultation_response_attachments/attachment:
@@ -56,17 +56,17 @@ zh:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: 公告
+    heading: "公告"
     view_all:
   attachment:
     accessibility:
       full_help_html: 申请本文件的其它格式，如盲文、音频或者不同的文件类型，请发送邮件%{email}并写明您的地址、电话号码以及此报告的标题("%{title}")%{references}。
-      heading: 此文件可能对使用辅助技术的用户不适合。
-      request_a_different_format: 申请另一种格式。
+      heading: "此文件可能对使用辅助技术的用户不适合。"
+      request_a_different_format: "申请另一种格式。"
     headings:
-      order_a_copy: 订阅副本
-      order_a_copy_full: 订阅报告副本
-      published: 已发布
+      order_a_copy: "订阅副本"
+      order_a_copy_full: "订阅报告副本"
+      published: "已发布"
       reference: Ref
       unnumbered_command_paper:
       unnumbered_hoc_paper:
@@ -79,8 +79,8 @@ zh:
     see_all_updates:
     updated_at:
   contact:
-    contact_form: 联系表格
-    email: 邮件
+    contact_form: "联系表格"
+    email: "邮件"
   corporate_information_page:
     type:
       about:
@@ -92,21 +92,21 @@ zh:
       membership:
       our_energy_use:
       our_governance:
-      personal_information_charter: 个人信息资料
+      personal_information_charter: "个人信息资料"
       petitions_and_campaigns:
       procurement:
-      publication_scheme: 报告发布计划
+      publication_scheme: "报告发布计划"
       recruitment:
       research:
-      social_media_use: 社交媒体使用
+      social_media_use: "社交媒体使用"
       staff_update:
       statistics:
       terms_of_reference:
-      welsh_language_scheme: 威尔士语言计划
+      welsh_language_scheme: "威尔士语言计划"
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -124,239 +124,239 @@ zh:
       published:
       updated:
     headings:
-      applies_to_nations: 适用于
+      applies_to_nations: "适用于"
       attachments:
-        one: 文件
-        other: 文件
-      field_of_operation: 操作区域
+        one: "文件"
+        other: "文件"
+      field_of_operation: "操作区域"
       from:
       location:
       part_of:
       policies:
         one:
         other:
-    published: 已发布
-    read: 阅读%{title}文章
+    published: "已发布"
+    read: "阅读%{title}文章"
     speech:
       author_title:
-        minister: 首相/大臣/秘书
-        speaker: 作者
-      delivered_on: 发表于：
+        minister: "首相/大臣/秘书"
+        speaker: "作者"
+      delivered_on: "发表于："
       delivery_title:
-        minister: 首相/大臣/秘书
-        speaker: 演讲者
-      written_on: 撰写于：
+        minister: "首相/大臣/秘书"
+        speaker: "演讲者"
+      written_on: "撰写于："
     type:
       announcement:
-        one: 公告
-        other: 公告
+        one: "公告"
+        other: "公告"
       authored_article:
-        one: 撰写的文章
-        other: 撰写的文章
+        one: "撰写的文章"
+        other: "撰写的文章"
       case_study:
-        one: 实例研究
-        other: 实例研究
+        one: "实例研究"
+        other: "实例研究"
       closed_consultation:
-        one: 已办结的咨询
-        other: 已办结的咨询
+        one: "已办结的咨询"
+        other: "已办结的咨询"
       consultation:
-        one: 咨询
-        other: 咨询
+        one: "咨询"
+        other: "咨询"
       consultation_outcome:
-        one: 咨询结果
-        other: 咨询结果
+        one: "咨询结果"
+        other: "咨询结果"
       corporate_report:
-        one: 政府报告
-        other: 政府报告
+        one: "政府报告"
+        other: "政府报告"
       correspondence:
-        one: 交流
-        other: 交流
+        one: "交流"
+        other: "交流"
       decision:
         one:
         other:
       detailed_guidance:
-        one: 详细指导
-        other: 详细指导
+        one: "详细指导"
+        other: "详细指导"
       document_collection:
-        one: 系列
+        one: "系列"
         other:
       draft_text:
-        one: 草拟稿件
-        other: 草拟稿件
+        one: "草拟稿件"
+        other: "草拟稿件"
       fatality_notice:
-        one: 死亡通告
-        other: 死亡通告
+        one: "死亡通告"
+        other: "死亡通告"
       foi_release:
-        one: 资讯自由(FOI)信息发布
-        other: 资讯自由(FOI)信息发布
+        one: "资讯自由(FOI)信息发布"
+        other: "资讯自由(FOI)信息发布"
       form:
-        one: 表格
-        other: 表格
+        one: "表格"
+        other: "表格"
       government_response:
-        one: 政府反应
-        other: 政府反应
+        one: "政府反应"
+        other: "政府反应"
       guidance:
-        one: 指导
-        other: 指导
+        one: "指导"
+        other: "指导"
       impact_assessment:
-        one: 影响评估
-        other: 影响评估
+        one: "影响评估"
+        other: "影响评估"
       imported:
-        one: 导入 - 正在等待的类型
-        other: 导入 - 正在等待的类型
+        one: "导入 - 正在等待的类型"
+        other: "导入 - 正在等待的类型"
       independent_report:
-        one: 独立报告
-        other: 独立报告
+        one: "独立报告"
+        other: "独立报告"
       international_treaty:
         one:
         other:
       map:
-        one: 地图
-        other: 地图
+        one: "地图"
+        other: "地图"
       national_statistics:
-        one: 统计数据 - 国家数据
-        other: 统计数据 - 国家数据
+        one: "统计数据 - 国家数据"
+        other: "统计数据 - 国家数据"
       news_article:
-        one: 新闻文章
-        other: 新闻文章
+        one: "新闻文章"
+        other: "新闻文章"
       news_story:
-        one: 新闻报道
-        other: 新闻报道
+        one: "新闻报道"
+        other: "新闻报道"
       notice:
         one:
         other:
       open_consultation:
-        one: 公开咨询
-        other: 公开咨询
+        one: "公开咨询"
+        other: "公开咨询"
       oral_statement:
-        one: 对议会的口头声明
-        other: 对议会的口头声明
+        one: "对议会的口头声明"
+        other: "对议会的口头声明"
       policy:
-        one: 政策
-        other: 政策
+        one: "政策"
+        other: "政策"
       policy_paper:
-        one: 政策文件
-        other: 政策文件
+        one: "政策文件"
+        other: "政策文件"
       press_release:
-        one: 新闻稿
-        other: 新闻稿
+        one: "新闻稿"
+        other: "新闻稿"
       promotional:
-        one: 宣传材料
-        other: 宣传材料
+        one: "宣传材料"
+        other: "宣传材料"
       publication:
-        one: 发布的报告
-        other: 发布的报告
+        one: "发布的报告"
+        other: "发布的报告"
       regulation:
         one:
         other:
       research:
-        one: 研究及分析
-        other: 研究及分析
+        one: "研究及分析"
+        other: "研究及分析"
       speaking_notes:
-        one: 演讲稿
-        other: 演讲稿
+        one: "演讲稿"
+        other: "演讲稿"
       speech:
-        one: 演讲
-        other: 演讲
+        one: "演讲"
+        other: "演讲"
       statement_to_parliament:
-        one: 对议会的声明
-        other: 对议会的声明
+        one: "对议会的声明"
+        other: "对议会的声明"
       statistical_data_set:
-        one: 统计数据集
-        other: 统计数据集
+        one: "统计数据集"
+        other: "统计数据集"
       statistics:
-        one: 统计数据
-        other: 统计数据
+        one: "统计数据"
+        other: "统计数据"
       statutory_guidance:
         one:
         other:
       transcript:
-        one: 副本
-        other: 副本
+        one: "副本"
+        other: "副本"
       transparency:
-        one: 透明化数据
-        other: 透明化数据
+        one: "透明化数据"
+        other: "透明化数据"
       worldwide_priority:
-        one: 世界范围内的工作重点
-        other: 世界范围内的工作重点
+        one: "世界范围内的工作重点"
+        other: "世界范围内的工作重点"
       written_statement:
-        one: 对议会的书面声明
-        other: 对议会的书面声明
-    updated: 已更新
-    view: 阅读'%{title}'
+        one: "对议会的书面声明"
+        other: "对议会的书面声明"
+    updated: "已更新"
+    view: "阅读'%{title}'"
   document_filters:
-    description: 您可以使用过滤功能显示只符合您需要的结果。
+    description: "您可以使用过滤功能显示只符合您需要的结果。"
     no_results:
-      description: 尝试扩大您的搜索范围并再次搜索。
-      title: 没有符合的文件。
+      description: "尝试扩大您的搜索范围并再次搜索。"
+      title: "没有符合的文件。"
       tna_heading:
       tna_link:
     world_locations:
-      all: 所有地区位置
-      label: 世界地区位置
+      all: "所有地区位置"
+      label: "世界地区位置"
   feeds:
     email:
     feed:
     get_updates_to_this_list:
-    latest_activity: 最新活动
+    latest_activity: "最新活动"
   i18n:
     direction: ltr
   language_names:
-    zh: 中文
+    zh: "中文"
   latest_feed:
-    no_updates: 目前暂无更新。
-    title: 最新消息
+    no_updates: "目前暂无更新。"
+    title: "最新消息"
   national_statistics:
     heading:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   organisation:
     about:
-      read_more: 阅读更多关于我们的工作
+      read_more: "阅读更多关于我们的工作"
     corporate_information:
-      access_our_info: 阅读我们的信息
-      foi_how_to: 如何进行资讯自由（FOI）申请
-      foi_releases: 资讯自由(FOI)信息发布
-      jobs_and_contacts: 职位及联系方式
+      access_our_info: "阅读我们的信息"
+      foi_how_to: "如何进行资讯自由（FOI）申请"
+      foi_releases: "资讯自由(FOI)信息发布"
+      jobs_and_contacts: "职位及联系方式"
       organisation_chart:
-      transparency: 透明化数据
+      transparency: "透明化数据"
     foi_exemption_html:
     headings:
-      chief_professional_officers: 我们的首席专业官员
-      contact: 联系%{name}
-      corporate_information: 政府信息
-      corporate_reports: 政府报告
+      chief_professional_officers: "我们的首席专业官员"
+      contact: "联系%{name}"
+      corporate_information: "政府信息"
+      corporate_reports: "政府报告"
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: 我们的公告
+      our_announcements: "我们的公告"
       our_consultations:
       our_mainstream_categories:
-      our_management: 我们的管理层
-      our_ministers: 我们的首相/大臣/秘书
-      our_policies: 我们的政策
-      our_publications: 我们的报告
-      our_senior_military_officials: 我们的高级军事官员
-      our_services: 我们的服务
-      our_statistics: 我们的数据
-      our_topics: 我们围绕这些主题进行工作
-      plus_others: ' + 其他'
-      special_representatives: 特别代表
-      traffic_commissioners: 交通事务专员
-      what_we_do: 我们的工作
+      our_management: "我们的管理层"
+      our_ministers: "我们的首相/大臣/秘书"
+      our_policies: "我们的政策"
+      our_publications: "我们的报告"
+      our_senior_military_officials: "我们的高级军事官员"
+      our_services: "我们的服务"
+      our_statistics: "我们的数据"
+      our_topics: "我们围绕这些主题进行工作"
+      plus_others: " + 其他"
+      special_representatives: "特别代表"
+      traffic_commissioners: "交通事务专员"
+      what_we_do: "我们的工作"
     making_foi_requests:
       step1_html:
       step2_html:
       step3_html:
     type:
       Ad-hoc advisory group:
-        one: 特别咨询小组
-        other: 特别咨询小组
+        one: "特别咨询小组"
+        other: "特别咨询小组"
       Advisory non-departmental public body:
-        one: 非政府公共咨询机构
-        other: 非政府公共咨询机构
+        one: "非政府公共咨询机构"
+        other: "非政府公共咨询机构"
       Civil Service:
         one:
         other:
@@ -364,35 +364,35 @@ zh:
         one:
         other:
       Executive agency:
-        one: 执行机构
-        other: 执行机构
+        one: "执行机构"
+        other: "执行机构"
       Executive non-departmental public body:
-        one: 非政府公共执行机构
-        other: 非政府公共执行机构
+        one: "非政府公共执行机构"
+        other: "非政府公共执行机构"
       Executive office:
-        one: 执行办公室
-        other: 执行办公室
+        one: "执行办公室"
+        other: "执行办公室"
       Independent monitoring body:
-        one: 独立监督机构
-        other: 独立监督机构
+        one: "独立监督机构"
+        other: "独立监督机构"
       Ministerial department:
-        one: 部级部门
-        other: 部级部门
+        one: "部级部门"
+        other: "部级部门"
       Non-ministerial department:
-        one: 非部级部门
-        other: 非部级部门
+        one: "非部级部门"
+        other: "非部级部门"
       Other:
-        one: 其他
-        other: 其他
+        one: "其他"
+        other: "其他"
       Public corporation:
-        one: 公共团体
-        other: 公共团体
+        one: "公共团体"
+        other: "公共团体"
       Sub-organisation:
-        one: 二级机构
-        other: 二级机构
+        one: "二级机构"
+        other: "二级机构"
       Tribunal non-departmental public body:
-        one: 非政府公共特别法庭
-        other: 非政府公共特别法庭
+        one: "非政府公共特别法庭"
+        other: "非政府公共特别法庭"
   people:
     biography:
     heading:
@@ -402,13 +402,13 @@ zh:
     previous_roles_in_government:
     read_more:
   policies:
-    heading: 政策
+    heading: "政策"
     view_all:
   publications:
-    heading: 发布的报告
+    heading: "发布的报告"
     headings:
-      detail: 详情
-  read_more: 阅读更多
+      detail: "详情"
+  read_more: "阅读更多"
   roles:
     heading:
       one:
@@ -422,91 +422,91 @@ zh:
     previous_holders:
     read_more:
   see_all:
-    announcement: 查阅我们所有的公告
-    authored_article: 查阅我们所有的撰写的文章
-    case_study: 查阅我们所有的实例研究
-    closed_consultation: 查阅我们所有的已办结的咨询
-    consultation: 查阅我们所有的咨询
-    consultation_outcome: 查阅我们所有的咨询结果
-    corporate_report: 查阅我们所有的政府报告
-    correspondence: 查阅我们所有的交流
+    announcement: "查阅我们所有的公告"
+    authored_article: "查阅我们所有的撰写的文章"
+    case_study: "查阅我们所有的实例研究"
+    closed_consultation: "查阅我们所有的已办结的咨询"
+    consultation: "查阅我们所有的咨询"
+    consultation_outcome: "查阅我们所有的咨询结果"
+    corporate_report: "查阅我们所有的政府报告"
+    correspondence: "查阅我们所有的交流"
     decision:
-    detailed_guidance: 查阅我们所有的详细指导
+    detailed_guidance: "查阅我们所有的详细指导"
     document_collection:
-    draft_text: 查阅我们所有的草拟稿件
-    fatality_notice: 查阅我们所有的死亡通告
-    foi_release: 查阅我们所有的资讯自由(foi)信息发布
-    form: 查阅我们所有的表格
-    government_response: 查阅我们所有的政府反应
-    guidance: 查阅我们所有的指导
-    impact_assessment: 查阅我们所有的影响评估
-    imported: 查阅我们所有的导入 - 正在等待的类型
+    draft_text: "查阅我们所有的草拟稿件"
+    fatality_notice: "查阅我们所有的死亡通告"
+    foi_release: "查阅我们所有的资讯自由(foi)信息发布"
+    form: "查阅我们所有的表格"
+    government_response: "查阅我们所有的政府反应"
+    guidance: "查阅我们所有的指导"
+    impact_assessment: "查阅我们所有的影响评估"
+    imported: "查阅我们所有的导入 - 正在等待的类型"
     international_treaty:
-    map: 查阅我们所有的地图
-    national_statistics: 查阅我们所有的统计数据 - 国家数据
-    news_article: 查阅我们所有的新闻文章
-    news_story: 查阅我们所有的新闻报道
+    map: "查阅我们所有的地图"
+    national_statistics: "查阅我们所有的统计数据 - 国家数据"
+    news_article: "查阅我们所有的新闻文章"
+    news_story: "查阅我们所有的新闻报道"
     notice:
-    open_consultation: 查阅我们所有的公开咨询
-    oral_statement: 查阅我们所有的对议会的口头声明
-    policy: 查阅我们所有的政策
-    policy_paper: 查阅我们所有的政策文件
-    press_release: 查阅我们所有的新闻稿
-    promotional: 查阅我们所有的宣传材料
-    publication: 查阅我们所有的发布的报告
+    open_consultation: "查阅我们所有的公开咨询"
+    oral_statement: "查阅我们所有的对议会的口头声明"
+    policy: "查阅我们所有的政策"
+    policy_paper: "查阅我们所有的政策文件"
+    press_release: "查阅我们所有的新闻稿"
+    promotional: "查阅我们所有的宣传材料"
+    publication: "查阅我们所有的发布的报告"
     regulation:
-    research: 查阅我们所有的研究及分析
-    speaking_notes: 查阅我们所有的演讲稿
-    speech: 查阅我们所有的演讲
-    statement_to_parliament: 查阅我们所有的对议会的声明
-    statistical_data_set: 查阅我们所有的统计数据集
-    statistics: 查阅我们所有的统计数据
+    research: "查阅我们所有的研究及分析"
+    speaking_notes: "查阅我们所有的演讲稿"
+    speech: "查阅我们所有的演讲"
+    statement_to_parliament: "查阅我们所有的对议会的声明"
+    statistical_data_set: "查阅我们所有的统计数据集"
+    statistics: "查阅我们所有的统计数据"
     statutory_guidance:
-    transcript: 查阅我们所有的副本
-    transparency: 查阅我们所有的透明化数据
-    worldwide_priority: 查阅我们所有的世界范围内的工作重点
-    written_statement: 查阅我们所有的对议会的书面声明
+    transcript: "查阅我们所有的副本"
+    transparency: "查阅我们所有的透明化数据"
+    worldwide_priority: "查阅我们所有的世界范围内的工作重点"
+    written_statement: "查阅我们所有的对议会的书面声明"
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: 和
+      last_word_connector: "和"
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
-      announcements: 我们的公告
-      country: 国家
-      documents: 文件
-      mission: 我们的任务
-      organisations: 机构
-      priorities: 工作重点
-      publications: 我们的报告
-      quick_links: 快速链接
-      related_policies: 相关政策
-      statistics: 我们的数据
+      announcements: "我们的公告"
+      country: "国家"
+      documents: "文件"
+      mission: "我们的任务"
+      organisations: "机构"
+      priorities: "工作重点"
+      publications: "我们的报告"
+      quick_links: "快速链接"
+      related_policies: "相关政策"
+      statistics: "我们的数据"
     type:
       international_delegation:
-        one: 国际代表
-        other: 国际代表
+        one: "国际代表"
+        other: "国际代表"
       world_location:
-        one: 世界地区位置
-        other: 世界地区位置
+        one: "世界地区位置"
+        other: "世界地区位置"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: 我们的%{link}解释了我们如何对待您的个人信息。
-      publication_scheme_html: 阅读我们在%{link}定期发布的信息。
-      social_media_use_html: 阅读我们在%{link}的政策
-      welsh_language_scheme_html: 查阅我们在%{link}发布的信息。
-    find_out_more: 查阅全部内容和联系方式
+      personal_information_charter_html: "我们的%{link}解释了我们如何对待您的个人信息。"
+      publication_scheme_html: "阅读我们在%{link}定期发布的信息。"
+      social_media_use_html: "阅读我们在%{link}的政策"
+      welsh_language_scheme_html: "查阅我们在%{link}发布的信息。"
+    find_out_more: "查阅全部内容和联系方式"
     headings:
-      about_us: 关于我们
-      contact_us: 联系我们
-      corporate_information: 政府信息
-      follow_us: 关注我们
-      our_people: 我们的人员
-      our_services: 我们的服务
-    location: 位置
-    part_of: 隶属于
+      about_us: "关于我们"
+      contact_us: "联系我们"
+      corporate_information: "政府信息"
+      follow_us: "关注我们"
+      our_people: "我们的人员"
+      our_services: "我们的服务"
+    location: "位置"
+    part_of: "隶属于"

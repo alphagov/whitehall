@@ -394,7 +394,7 @@ bn:
   date:
     formats:
       default:
-      long_ordinal: '%e %B %Y'
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -422,7 +422,7 @@ bn:
   i18n:
     direction: ltr
   language_names:
-    bn: বাংলা
+    bn: "বাংলা"
   latest_feed:
     no_updates:
     title:

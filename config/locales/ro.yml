@@ -16,9 +16,9 @@ ro:
       part_of:
     type:
       announcement:
-        one: Știre
+        one: "Știre"
         few:
-        other: Știri
+        other: "Știri"
       authored_article:
         one: 'Articol '
         few:
@@ -108,13 +108,13 @@ ro:
         few:
         other: Statistici - statistici naționale
       news_article:
-        one: Știre
+        one: "Știre"
         few:
-        other: Știri
+        other: "Știri"
       news_story:
-        one: Știre
+        one: "Știre"
         few:
-        other: Știri
+        other: "Știri"
       notice:
         one:
         few:
@@ -136,9 +136,9 @@ ro:
         few:
         other:
       press_release:
-        one: Știre
+        one: "Știre"
         few:
-        other: Știri
+        other: "Știri"
       promotional:
         one: Material promoțional
         few:
@@ -291,7 +291,7 @@ ro:
       documents:
       freedom_of_information_act:
       making_foi_requests:
-      our_announcements: 'Știri '
+      our_announcements: "Știri "
       our_consultations:
       our_mainstream_categories:
       our_management: 'Echipa ambasadei '
@@ -302,7 +302,7 @@ ro:
       our_services: 'Servicii '
       our_statistics: Statistici
       our_topics: 'Ce domenii acoperim '
-      plus_others: ' + altele'
+      plus_others: " + altele"
       special_representatives: 'Reprezentanți speciali '
       traffic_commissioners: 'Monitorizarea traficului '
       what_we_do: Activitatea noastră
@@ -343,8 +343,8 @@ ro:
         few:
         other: Localizare
     headings:
-      announcements: Știri
-      country: Țară
+      announcements: "Știri"
+      country: "Țară"
       documents: Documente
       mission: Obiectiv
       organisations: Organizații
@@ -410,7 +410,7 @@ ro:
       unique_reference:
       unnumbered_hoc_paper:
   announcements:
-    heading: Știri
+    heading: "Știri"
     view_all:
   attachment:
     accessibility:
@@ -557,7 +557,7 @@ ro:
     follow_us:
   support:
     array:
-      last_word_connector: și
+      last_word_connector: "și"
   time:
     formats:
       long_ordinal:
@@ -579,5 +579,5 @@ ro:
       follow_us: Ne găsești și pe
       our_people: Echipa noastră
       our_services: 'Servicii '
-    location: Țară
+    location: "Țară"
     part_of: Parte din

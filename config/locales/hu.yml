@@ -108,8 +108,8 @@ hu:
       welsh_language_scheme: Welsh language scheme
   date:
     formats:
-      default: '%Y %B %d'
-      long_ordinal: '%Y %B %e'
+      default: "%Y %B %d"
+      long_ordinal: "%Y %B %e"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -193,14 +193,14 @@ hu:
         one: Információhoz való joggal kapcsolatos közlemény
         other: Információhoz való joggal kapcsolatos közlemények
       form:
-        one: Űrlap
-        other: Űrlapok
+        one: "Űrlap"
+        other: "Űrlapok"
       government_response:
         one: Kormányválasz
         other: Kormányválaszok
       guidance:
-        one: Útmutató
-        other: Útmutató
+        one: "Útmutató"
+        other: "Útmutató"
       impact_assessment:
         one: Hatásvizsgálat
         other: Hatásvizsgálatok
@@ -274,17 +274,17 @@ hu:
         one:
         other:
       transcript:
-        one: Átirat
-        other: Átiratok
+        one: "Átirat"
+        other: "Átiratok"
       transparency:
-        one: Átláthatósági adatok
-        other: Átláthatósági adatok
+        one: "Átláthatósági adatok"
+        other: "Átláthatósági adatok"
       worldwide_priority:
         one: Globális prioritás
         other: Globális prioritások
       written_statement:
-        one: Írásbeli parlamenti nyilatkozat
-        other: Írásbeli parlamenti nyilatkozatok
+        one: "Írásbeli parlamenti nyilatkozat"
+        other: "Írásbeli parlamenti nyilatkozatok"
     updated: 'Utolsó frissítés:'
     view: Tekintse meg a következő dokumentumot '%{title}'
   document_filters:
@@ -315,7 +315,7 @@ hu:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   organisation:
     about:
       read_more: További információk a tevékenységünkről
@@ -323,9 +323,9 @@ hu:
       access_our_info: Hozzáférés információinkhoz
       foi_how_to: Az információigénylés menete
       foi_releases: Információhoz való joggal kapcsolatos közlemények
-      jobs_and_contacts: Állások
+      jobs_and_contacts: "Állások"
       organisation_chart:
-      transparency: Átláthatósági adatok
+      transparency: "Átláthatósági adatok"
     foi_exemption_html:
     headings:
       chief_professional_officers: Szakmai vezetőink
@@ -346,7 +346,7 @@ hu:
       our_services: Szolgáltatásaink
       our_statistics: Statisztikák
       our_topics: Ezeken a témákon dolgozunk
-      plus_others: + egyéb
+      plus_others: "+ egyéb"
       special_representatives: Különleges képviselők
       traffic_commissioners: Forgalmi biztosok
       what_we_do: Feladatunk
@@ -389,8 +389,8 @@ hu:
         one: Egyéb
         other: Egyéb szervezetek
       Public corporation:
-        one: Állami szervezet
-        other: Állami szervezetek
+        one: "Állami szervezet"
+        other: "Állami szervezetek"
       Sub-organisation:
         one: Alszervezet
         other: Alszervezetek
@@ -426,58 +426,58 @@ hu:
     previous_holders:
     read_more:
   see_all:
-    announcement: ' bejelentések - mindegyik megtekintése'
-    authored_article: ' publicisztikák - mindegyik megtekintése'
-    case_study: ' esettanulmányok - mindegyik megtekintése'
-    closed_consultation: ' lezárt konzultációk - mindegyik megtekintése'
-    consultation: ' konzultációk - mindegyik megtekintése'
-    consultation_outcome: ' konzultációs eredmények - mindegyik megtekintése'
-    corporate_report: ' testületi beszámolók - mindegyik megtekintése'
-    correspondence: ' levelezések - mindegyik megtekintése'
+    announcement: " bejelentések - mindegyik megtekintése"
+    authored_article: " publicisztikák - mindegyik megtekintése"
+    case_study: " esettanulmányok - mindegyik megtekintése"
+    closed_consultation: " lezárt konzultációk - mindegyik megtekintése"
+    consultation: " konzultációk - mindegyik megtekintése"
+    consultation_outcome: " konzultációs eredmények - mindegyik megtekintése"
+    corporate_report: " testületi beszámolók - mindegyik megtekintése"
+    correspondence: " levelezések - mindegyik megtekintése"
     decision:
-    detailed_guidance: ' részletes útmutató - mindegyik megtekintése'
+    detailed_guidance: " részletes útmutató - mindegyik megtekintése"
     document_collection:
-    draft_text: ' szövegtervezetek - mindegyik megtekintése'
-    fatality_notice: ' halálesettel kapcsolatos értesítések - mindegyik megtekintése'
-    foi_release: ' információhoz való joggal kapcsolatos közlemények - mindegyik megtekintése'
-    form: ' Űrlapok - mindegyik megtekintése'
-    government_response: ' kormányválaszok - mindegyik megtekintése'
-    guidance: ' Útmutató - mindegyik megtekintése'
-    impact_assessment: ' hatásvizsgálatok - mindegyik megtekintése'
-    imported: ' importálva - mindegyik megtekintése'
+    draft_text: " szövegtervezetek - mindegyik megtekintése"
+    fatality_notice: " halálesettel kapcsolatos értesítések - mindegyik megtekintése"
+    foi_release: " információhoz való joggal kapcsolatos közlemények - mindegyik megtekintése"
+    form: " Űrlapok - mindegyik megtekintése"
+    government_response: " kormányválaszok - mindegyik megtekintése"
+    guidance: " Útmutató - mindegyik megtekintése"
+    impact_assessment: " hatásvizsgálatok - mindegyik megtekintése"
+    imported: " importálva - mindegyik megtekintése"
     international_treaty:
-    map: ' térképek - mindegyik megtekintése'
-    national_statistics: ' statisztikák - nemzeti adatok - mindegyik megtekintése'
-    news_article: ' cikkek - mindegyik megtekintése'
-    news_story: ' hírek - mindegyik megtekintése'
+    map: " térképek - mindegyik megtekintése"
+    national_statistics: " statisztikák - nemzeti adatok - mindegyik megtekintése"
+    news_article: " cikkek - mindegyik megtekintése"
+    news_story: " hírek - mindegyik megtekintése"
     notice:
-    open_consultation: ' nyílt konzultációk - mindegyik megtekintése'
-    oral_statement: ' parlamenti felszólalások - mindegyik megtekintése'
-    policy: ' szakpolitikák - mindegyik megtekintése'
-    policy_paper: ' szakpolitikai dokumentumok - mindegyik megtekintése'
-    press_release: ' sajtóközlemények - mindegyik megtekintése'
-    promotional: ' promóciós anyagok - mindegyik megtekintése'
-    publication: ' kiadványok - mindegyik megtekintése'
+    open_consultation: " nyílt konzultációk - mindegyik megtekintése"
+    oral_statement: " parlamenti felszólalások - mindegyik megtekintése"
+    policy: " szakpolitikák - mindegyik megtekintése"
+    policy_paper: " szakpolitikai dokumentumok - mindegyik megtekintése"
+    press_release: " sajtóközlemények - mindegyik megtekintése"
+    promotional: " promóciós anyagok - mindegyik megtekintése"
+    publication: " kiadványok - mindegyik megtekintése"
     regulation:
-    research: ' kutatás és elemzés - mindegyik megtekintése'
-    speaking_notes: ' feljegyzések - mindegyik megtekintése'
-    speech: ' beszédek - mindegyik megtekintése'
-    statement_to_parliament: ' parlamenti nyilatkozatok - mindegyik megtekintése'
-    statistical_data_set: ' statisztikai adatcsoportok - mindegyik megtekintése'
-    statistics: ' statisztikák - mindegyik megtekintése'
+    research: " kutatás és elemzés - mindegyik megtekintése"
+    speaking_notes: " feljegyzések - mindegyik megtekintése"
+    speech: " beszédek - mindegyik megtekintése"
+    statement_to_parliament: " parlamenti nyilatkozatok - mindegyik megtekintése"
+    statistical_data_set: " statisztikai adatcsoportok - mindegyik megtekintése"
+    statistics: " statisztikák - mindegyik megtekintése"
     statutory_guidance:
-    transcript: ' Átiratok - mindegyik megtekintése'
-    transparency: ' Átláthatósági adatok - mindegyik megtekintése'
-    worldwide_priority: ' globális prioritások - mindegyik megtekintése'
-    written_statement: ' Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése'
+    transcript: " Átiratok - mindegyik megtekintése"
+    transparency: " Átláthatósági adatok - mindegyik megtekintése"
+    worldwide_priority: " globális prioritások - mindegyik megtekintése"
+    written_statement: " Írásbeli parlamenti nyilatkozatok - mindegyik megtekintése"
   social_media:
     follow_us:
   support:
     array:
-      last_word_connector: és
+      last_word_connector: "és"
   time:
     formats:
-      long_ordinal: '%Y %B %e %H:%M'
+      long_ordinal: "%Y %B %e %H:%M"
   world_location:
     headings:
       announcements: Híreink

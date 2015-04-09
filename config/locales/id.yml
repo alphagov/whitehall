@@ -107,8 +107,8 @@ id:
       welsh_language_scheme: Skema bahasa Wales
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -314,7 +314,7 @@ id:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   organisation:
     about:
       read_more: Baca lebih lanjut mengenai kerja kami
@@ -345,7 +345,7 @@ id:
       our_services: Pelayanan-pelayanan kami
       our_statistics: Statistik-statistik kami
       our_topics: Kami bekerja pada bidang-bidang ini
-      plus_others: ' + lainnya'
+      plus_others: " + lainnya"
       special_representatives: Perwakilan khusus
       traffic_commissioners: Komisioner lalu lintas
       what_we_do: Kerja kami
@@ -476,7 +476,7 @@ id:
       last_word_connector: dan
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   world_location:
     headings:
       announcements: Pengumuman kami
@@ -499,8 +499,8 @@ id:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: '%{link} menjelaskan tentang bagaimana kami
-        memperlakukan informasi pribadi Anda'
+      personal_information_charter_html: "%{link} menjelaskan tentang bagaimana kami
+        memperlakukan informasi pribadi Anda"
       publication_scheme_html: Baca jenis-jenis informasi yang secara rutin kami muat
         di %{link}
       social_media_use_html: Baca kebijakan kami di %{link}

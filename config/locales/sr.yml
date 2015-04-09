@@ -362,7 +362,7 @@ sr:
       our_services: Naše usluge
       our_statistics: Naša statistika
       our_topics: Radimo na ovim temama
-      plus_others: ' + drugi'
+      plus_others: " + drugi"
       special_representatives: specijalni predstavnici
       traffic_commissioners: poverenik za saobraćaj
       what_we_do: Radimo na
@@ -527,7 +527,7 @@ sr:
   date:
     formats:
       default:
-      long_ordinal: '%e %B %Y'
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -631,10 +631,10 @@ sr:
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: '%{link} daje informacije o tome kako obrađujemo
-        vaše lične podatke. '
-      publication_scheme_html: Čitajte o tipovima informacija koje redovno objavljujemo
-        u  %{link}.
+      personal_information_charter_html: "%{link} daje informacije o tome kako obrađujemo
+        vaše lične podatke. "
+      publication_scheme_html: "Čitajte o tipovima informacija koje redovno objavljujemo
+        u  %{link}."
       social_media_use_html: Pročitajte o našoj politici prema  %{link}.
       welsh_language_scheme_html: Saznajte naš stav o objavljivanju u %{link}.
     find_out_more: 'Pogledajte pun profil i sve kontakt detalje '
