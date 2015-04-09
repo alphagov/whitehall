@@ -143,8 +143,8 @@ et:
         one: Läbipaistvusteave
         other: Läbipaistvusteave
       worldwide_priority:
-        one: Üleilmne prioriteet
-        other: Üleilmsed prioriteedid
+        one: "Üleilmne prioriteet"
+        other: "Üleilmsed prioriteedid"
       written_statement:
         one: Kirjalik avaldus parlamendile
         other: Kirjalikud avaldused parlamendile
@@ -262,8 +262,8 @@ et:
     read_more: Temast lähemalt
   roles:
     heading:
-      one: Ülesanne
-      other: Ülesanded
+      one: "Ülesanne"
+      other: "Ülesanded"
     headings:
       current_holder: Praegu sellel ametikohal
       previous_holders: Eelmised ametikoha täitjad
@@ -405,7 +405,7 @@ et:
       long_ordinal:
   detailed_guidance:
     back_to_contents: Tagasi sisukorda
-    categories: Üksikasjaline tervikjuhend
+    categories: "Üksikasjaline tervikjuhend"
     contents: Sisukord
     more: Rohkem sarnaseid valikuid
     part_of_published_collection: See on osa sarjast
@@ -450,7 +450,7 @@ et:
   publications:
     heading: Publikatsioonid
     headings:
-      detail: Üksikasjad
+      detail: "Üksikasjad"
   read_more: 'Lugege lähemalt '
   see_all:
     announcement: Vaadake kõiki meie teadaandeid

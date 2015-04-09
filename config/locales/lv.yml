@@ -197,8 +197,8 @@ lv:
         one: Valdības departaments
         other: Valdības departamenti
       Non-ministerial department:
-        one: Ārpus ministra uzraudzības esoša iestāde
-        other: Ārpus ministra uzraudzības esošas iestādes
+        one: "Ārpus ministra uzraudzības esoša iestāde"
+        other: "Ārpus ministra uzraudzības esošas iestādes"
       Other:
         one: Cits
         other: Citi
@@ -240,8 +240,8 @@ lv:
       our_services: Mūsu pakalpojumi
       our_statistics: Statistika
       our_topics: Mēs strādājam ar šiem jautājumiem
-      plus_others: ' + citi'
-      special_representatives: Īpašie pārstāvji
+      plus_others: " + citi"
+      special_representatives: "Īpašie pārstāvji"
       traffic_commissioners: Satiksmes komisāri
       what_we_do: Par mums
     making_foi_requests:
@@ -284,7 +284,7 @@ lv:
       organisations: Organizācijas
       priorities: Prioritātes
       publications: Publikācijas
-      quick_links: Ātrās saites
+      quick_links: "Ātrās saites"
       related_policies: Saistītās politikas jomas
       statistics: Statistikas dati
   activerecord:
@@ -395,8 +395,8 @@ lv:
       welsh_language_scheme: Velsiešu valodas shēma
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -433,7 +433,7 @@ lv:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Politika
     view_all:
@@ -494,12 +494,12 @@ lv:
       last_word_connector: un
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Šeit %{link} izskaidrots, kā tiks apstrādāta
-        Jūsu sniegtā personīgā informācija
+      personal_information_charter_html: "Šeit %{link} izskaidrots, kā tiks apstrādāta
+        Jūsu sniegtā personīgā informācija"
       publication_scheme_html: Iepazīsties ar informāciju, kāda parasti tiek publicēta
         mūsu %{link}
       social_media_use_html: Iepazīsties ar mūsu nostāju par %{link}.

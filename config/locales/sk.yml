@@ -459,7 +459,7 @@ sk:
   date:
     formats:
       default:
-      long_ordinal: '%e %B %Y'
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:

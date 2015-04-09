@@ -240,7 +240,7 @@ so:
       our_services: Adeegyadeenna
       our_statistics: Istaatistikadeenna
       our_topics: Waxaan ka shaqeynaa mawduucyadan
-      plus_others: + Kuwo kale
+      plus_others: "+ Kuwo kale"
       special_representatives: Wakiil gaar ah
       traffic_commissioners: Madaxa Taraafikada
       what_we_do: Waxa aan qabanno
@@ -397,8 +397,8 @@ so:
       welsh_language_scheme: Nidaamka luqadda Welsh-ka
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -436,7 +436,7 @@ so:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Siyaasado
     view_all:
@@ -497,12 +497,12 @@ so:
       last_word_connector: iyo
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: '%{link} ayaa sharxaya sida aan ula tacaamulno
-        macluumaadkaaga shakhsiga ah'
+      personal_information_charter_html: "%{link} ayaa sharxaya sida aan ula tacaamulno
+        macluumaadkaaga shakhsiga ah"
       publication_scheme_html: Akhri noocyada macluumaadka aan caadi ahaan ku daabacno/nashrinno
         %{link} aan soo saarno.
       social_media_use_html: Akhri siyaasaddeenna ku saabsan %{link}.

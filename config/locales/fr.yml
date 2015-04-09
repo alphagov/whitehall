@@ -240,7 +240,7 @@ fr:
       our_services: 'Nos services '
       our_statistics: Nos statistiques
       our_topics: Nos axes de travail
-      plus_others: ' + autres'
+      plus_others: " + autres"
       special_representatives: Représentants spéciaux
       traffic_commissioners: Commissaires du trafic
       what_we_do: Nos activités
@@ -396,8 +396,8 @@ fr:
       welsh_language_scheme: Système de la langue galloise
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%B %d, %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%B %d, %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -435,7 +435,7 @@ fr:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Politiques
     view_all:
@@ -496,7 +496,7 @@ fr:
       last_word_connector: et
   time:
     formats:
-      long_ordinal: '%B %d, %Y %H:%M'
+      long_ordinal: "%B %d, %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:

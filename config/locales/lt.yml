@@ -100,9 +100,9 @@ lt:
         few:
         other:
       map:
-        one: Žemėlapis
+        one: "Žemėlapis"
         few:
-        other: Žemėlapiai
+        other: "Žemėlapiai"
       national_statistics:
         one: 'Statistika - nacionalinė statistika '
         few:
@@ -124,9 +124,9 @@ lt:
         few:
         other: 'Atviros konsultacijos '
       oral_statement:
-        one: Žodinis kreipimasis į parlamentą
+        one: "Žodinis kreipimasis į parlamentą"
         few:
-        other: Žodiniai kreipimaisi į parlamentą
+        other: "Žodiniai kreipimaisi į parlamentą"
       policy:
         one: Strategija
         few:
@@ -213,7 +213,7 @@ lt:
         speaker: Pranešėjas
       written_on: Parašyta
     updated: atnaujinta
-    view: Žiūrėkite '%{title}'
+    view: "Žiūrėkite '%{title}'"
   organisation:
     type:
       Ad-hoc advisory group:
@@ -301,7 +301,7 @@ lt:
       our_services: Mūsų paslaugos
       our_statistics: Mūsų statistika
       our_topics: Mes dirbame šiose srityse
-      plus_others: + kiti
+      plus_others: "+ kiti"
       special_representatives: Specialieji atstovai
       traffic_commissioners: Eismo komisarai
       what_we_do: Ką mes darome
@@ -343,7 +343,7 @@ lt:
         other: Geografinės vietos
     headings:
       announcements: Mūsų skelbimai
-      country: Šalis
+      country: "Šalis"
       documents: Dokumentai
       mission: Mūsų misija
       organisations: Organizacijos
@@ -416,7 +416,7 @@ lt:
       full_help_html: Jei norėtumėte gauti šį dokumentą kitokiu formatu (brailio,
         audio ar pan.), siųskite el. paštą %{email}, parašydami savo adresą, telefoną
         bei leidinio pavadinimą ("%{title}")%{references}.
-      heading: Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas.
+      heading: "Šis failas gali būti netinkamas, naudojantiems pagalbines technologijas."
       request_a_different_format: Paprašykite kito formato
     headings:
       order_a_copy: Užsisakykite leidinį
@@ -460,8 +460,8 @@ lt:
       welsh_language_scheme: Valų kalbos schema
   date:
     formats:
-      default: '%Y %B %d'
-      long_ordinal: '%Y %B %e'
+      default: "%Y %B %d"
+      long_ordinal: "%Y %B %e"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -499,7 +499,7 @@ lt:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Strategijos
     view_all:
@@ -560,12 +560,12 @@ lt:
       last_word_connector: ir
   time:
     formats:
-      long_ordinal: '%Y %B %e %H:%M'
+      long_ordinal: "%Y %B %e %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html:
-      personal_information_charter_html: Čia %{link} rasite paaiškinimą, kaip tvarkoma
-        Jūsų asmeninė informacija
+      personal_information_charter_html: "Čia %{link} rasite paaiškinimą, kaip tvarkoma
+        Jūsų asmeninė informacija"
       publication_scheme_html: Sužinokite, kokią informaciją mes pastoviai pateikiame
         puslapyje %{link}.
       social_media_use_html: Perskaitykite mūsų strategiją %{link}.

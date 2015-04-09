@@ -658,8 +658,8 @@ cy:
       welsh_language_scheme: Cynllun iaith Gymraeg
   date:
     formats:
-      default: '%d %B %Y'
-      long_ordinal: '%e %B %Y'
+      default: "%d %B %Y"
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents: Yn ôl i'r cynnwys
     categories: Pob arweiniad manwl am Cynnwys
@@ -699,7 +699,7 @@ cy:
   number:
     human:
       storage_units:
-        format: '%n%u'
+        format: "%n%u"
   policies:
     heading: Polisïau
     view_all: Gwelir holl polisiau
@@ -760,7 +760,7 @@ cy:
       last_word_connector: a
   time:
     formats:
-      long_ordinal: '%e %B %Y %H:%M'
+      long_ordinal: "%e %B %Y %H:%M"
   worldwide_organisation:
     corporate_information:
       about_our_services_html: Canfod %{link}

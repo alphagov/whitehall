@@ -106,7 +106,7 @@ ka:
   date:
     formats:
       default:
-      long_ordinal: '%e %B %Y'
+      long_ordinal: "%e %B %Y"
   detailed_guidance:
     back_to_contents:
     categories:
@@ -302,7 +302,7 @@ ka:
   i18n:
     direction: ltr
   language_names:
-    ka: ქართული
+    ka: "ქართული"
   latest_feed:
     no_updates:
     title:
