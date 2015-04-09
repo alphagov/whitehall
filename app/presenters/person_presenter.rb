@@ -61,8 +61,9 @@ class PersonPresenter < Whitehall::Decorators::Decorator
   end
 
   def image
-    img = image_url(:s216) || 'blank-person.png'
-    context.image_tag img, alt: name
+    if img = image_url(:s216)
+     context.image_tag img, alt: name
+   end
   end
 
   def in_current_role?

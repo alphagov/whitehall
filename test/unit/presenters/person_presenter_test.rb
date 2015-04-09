@@ -21,9 +21,9 @@ class PersonPresenterTest < ActionView::TestCase
     assert_select_from @presenter.image, 'img[src="/link/to/image.jpg"]'
   end
 
-  test 'image links to blank-person.png if person has no associated image' do
+  test 'image is nil if person has no associated image' do
     @person.stubs(:image_url).returns(nil)
-    assert_select_from @presenter.image, 'img[src="/government/assets/blank-person.png"]'
+    assert_equal @presenter.image, nil
   end
 
   test 'biography generates html from the original govspeak' do

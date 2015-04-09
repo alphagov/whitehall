@@ -9,9 +9,16 @@
   <%= content_tag_for(wrapping_element, person, prefix, class: "person-excerpt #{extra_class}") do %>
     <div class="inner">
       <% unless hide_image %>
-        <div class="image-holder">
-          <%= link_to person.image, person, class: "img" %>
-        </div>
+        <% if person.image %>
+          <div class="image-holder">
+            <%= link_to person.image, person, class: "img" %>
+          </div>
+        <% else %>
+          <div class="blank-person">
+            <div class="blank-person-inner">
+            </div>
+          </div>
+        <% end %>
       <% end %>
       <div class="text">
         <<%= hlevel %> class="current-appointee"><%= person.link %></<%= hlevel %>>
