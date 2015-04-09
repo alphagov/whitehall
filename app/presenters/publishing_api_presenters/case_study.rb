@@ -1,6 +1,10 @@
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
   def as_json
-    super.merge(format: "case_study", links: links)
+    super.merge(
+      format: "case_study",
+      rendering_app: Whitehall.case_study_publishing_api_rendering_app,
+      links: links
+    )
   end
 
 private
