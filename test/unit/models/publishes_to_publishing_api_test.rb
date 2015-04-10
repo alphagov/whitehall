@@ -22,15 +22,29 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     assert_equal organisation.content_id, "a random UUID"
   end
 
-  test "create publishes to Publishing API" do
+  test "create publishes to Publishing API if not disallowed" do
     organisation = build(:organisation)
     Whitehall::PublishingApi.expects(:publish_async).with(organisation)
     organisation.save
   end
 
-  test "update publishes to Publishing API" do
+  test "update publishes to Publishing API if not disallowed" do
     organisation = create(:organisation)
     Whitehall::PublishingApi.expects(:publish_async).with(organisation)
+    organisation.update_attribute(:name, 'Edited org')
+  end
+
+  test "create does not publish to Publishing API if disallowed" do
+    organisation = build(:organisation)
+    organisation.stubs(:can_publish_to_publishing_api?).returns(false)
+    Whitehall::PublishingApi.expects(:publish_async).never
+    organisation.save
+  end
+
+  test "update does not publish to Publishing API if disallowed" do
+    organisation = create(:organisation)
+    organisation.stubs(:can_publish_to_publishing_api?).returns(false)
+    Whitehall::PublishingApi.expects(:publish_async).never
     organisation.update_attribute(:name, 'Edited org')
   end
 end
