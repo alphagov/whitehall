@@ -380,6 +380,12 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.save
   end
 
+  test 'should not add courts to index on creating' do
+    court = build(:court)
+    Whitehall::SearchIndex.expects(:add).never
+    court.save
+  end
+
   test 'should add organisation to search index on updating' do
     organisation = create(:organisation)
 
@@ -389,10 +395,23 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.save
   end
 
+  test 'should not add courts to index on updating' do
+    court = create(:court)
+    Whitehall::SearchIndex.expects(:add).never
+    court.name = "Junk Appeals Court"
+    court.save
+  end
+
   test 'should remove organisation from search index on destroying' do
     organisation = create(:organisation)
     Whitehall::SearchIndex.expects(:delete).with(organisation)
     organisation.destroy
+  end
+
+  test 'should try to remove courts from index on destroying' do
+    court = create(:court)
+    Whitehall::SearchIndex.expects(:delete).with(court)
+    court.destroy
   end
 
   test 'should return search index data for all organisations' do

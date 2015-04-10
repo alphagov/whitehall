@@ -104,4 +104,14 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     sub_organisation = create(:sub_organisation, parent_organisations: [parent])
     assert_equal [sub_organisation], parent.sub_organisations
   end
+
+  test "should index Organisations" do
+    organisation = create(:organisation)
+    assert organisation.can_index_in_search?
+  end
+
+  test "should not index Courts" do
+    court = create(:court)
+    refute court.can_index_in_search?
+  end
 end
