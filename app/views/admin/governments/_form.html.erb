@@ -2,10 +2,9 @@
   <%= government_form.errors %>
   <p><%= government_form.text_field :name, {placeholder: "eg 2005 to 2010 Labour government"} %></p>
   <p><%= government_form.text_field :start_date, {placeholder: "eg 2005-05-06"} %></p>
+  <p><%= government_form.text_field :end_date, {placeholder: "eg 2010-05-11"} %></p>
 
-  <% if government.end_date.present? %>
-    <p><%= government_form.text_field :end_date, {placeholder: "eg 2010-05-11"} %></p>
-  <% elsif government.persisted? %>
+  <% if government.persisted? %>
     <p>
       <%= link_to "Prepare to close this government", prepare_to_close_admin_government_path(government) %>
     </p>
