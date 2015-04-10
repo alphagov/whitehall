@@ -27,6 +27,10 @@ module Organisation::OrganisationTypeConcern
     scope :allowed_promotional, -> {
       where(organisation_type_key: OrganisationType.allowed_promotional_keys)
     }
+
+    scope :excluding_courts, -> {
+      where.not(organisation_type_key: :court)
+    }
   end
 
   def organisation_type_key
@@ -51,5 +55,13 @@ module Organisation::OrganisationTypeConcern
   def active_child_organisations_excluding_sub_organisations_grouped_by_type
     @active_child_organisations_excluding_sub_organisations_grouped_by_type ||=
       active_child_organisations_excluding_sub_organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
+  end
+
+  def can_index_in_search?
+    super && !organisation_type.court?
+  end
+
+  def can_publish_to_publishing_api?
+    super && !organisation_type.court?
   end
 end

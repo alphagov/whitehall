@@ -390,6 +390,9 @@ en:
       Civil Service:
         one: Civil Service
         other: Civil Services
+      Court:
+        one: Court
+        other: Courts
     headings:
       plus_others: + others
       what_we_do: What we do
