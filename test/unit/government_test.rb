@@ -79,6 +79,29 @@ class GovernmentTest < ActiveSupport::TestCase
     assert government_before.valid?
     assert government_after.valid?
   end
+
+  test "prevents new open governments when one is already open" do
+    current_open_government = create(:government,
+      start_date: "2011-01-01",
+      end_date: nil
+    )
+
+    historic_government = build(:government,
+      start_date: "2008-01-01",
+      end_date: "2010-01-01"
+    )
+
+    new_open_government = build(:government,
+      start_date: "2015-01-01",
+      end_date: nil
+    )
+
+    assert historic_government.valid?
+
+    refute new_open_government.valid?
+    current_open_government.update_attribute(:end_date, "2014-01-01")
+    assert new_open_government.valid?
+  end
 end
 
 class GovernmentOnDateTest < ActiveSupport::TestCase
