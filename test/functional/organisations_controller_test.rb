@@ -671,6 +671,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
   end
 
+  test "should not show Courts" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      court = create(:court)
+      get :show, id: court
+    end
+  end
+
   private
 
   def assert_disclaimer_present(organisation)
