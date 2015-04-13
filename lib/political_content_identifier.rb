@@ -1,10 +1,13 @@
 class PoliticalContentIdentifier
-  POLITICAL_FORMATS = [
+  DEPENDENT_POLITICAL_FORMATS = [
     Consultation,
     Speech,
     NewsArticle,
-    WorldLocationNewsArticle,
   ].freeze
+
+  ALWAYS_POLITICAL_FORMATS = [
+    WorldLocationNewsArticle,
+  ]
 
   POLITICAL_PUBLICATION_TYPES = [
     PublicationType::CorporateReport,
@@ -22,10 +25,10 @@ class PoliticalContentIdentifier
   end
 
   def political?
-    if can_be_political?
+    if political_format_or_type?
       is_associated_with_a_minister? || has_political_org?
     else
-      false
+      always_political_format? || false
     end
   end
 
@@ -40,8 +43,8 @@ private
       edition.organisations.where(political: true).any?
   end
 
-  def can_be_political?
-    political_publication_type? || political_format?
+  def political_format_or_type?
+    political_publication_type? || dependent_political_format?
   end
 
   def political_publication_type?
@@ -50,7 +53,11 @@ private
       POLITICAL_PUBLICATION_TYPES.include?(edition.publication_type)
   end
 
-  def political_format?
-    POLITICAL_FORMATS.include?(edition.class)
+  def dependent_political_format?
+    DEPENDENT_POLITICAL_FORMATS.include?(edition.class)
+  end
+
+  def always_political_format?
+    ALWAYS_POLITICAL_FORMATS.include?(edition.class)
   end
 end
