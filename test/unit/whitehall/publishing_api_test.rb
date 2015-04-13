@@ -45,6 +45,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     unpublishing = create(:unpublishing, edition: edition)
 
     Whitehall::PublishingApi.publish_async(unpublishing)
+
+    assert_not_requested :put, %r{/content/}
   end
 
   test "#publish sends case studies to the content store" do
@@ -62,6 +64,8 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     policy = create(:published_policy)
 
     Whitehall::PublishingApi.publish_async(policy)
+
+    assert_not_requested :put, %r{/content/}
   end
 
   test "#republish publishes to the Publishing API as a 'republish' update_type" do
