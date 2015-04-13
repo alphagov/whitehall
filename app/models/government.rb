@@ -1,6 +1,4 @@
 class Government < ActiveRecord::Base
-  DISTANT_FUTURE = Date.today + 100.years
-
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
   validates :start_date, presence: true
@@ -44,15 +42,15 @@ private
   end
 
   def ends_before?(other)
-    (end_date || DISTANT_FUTURE) < other.start_date
+    (end_date || distant_future) < other.start_date
   end
 
   def starts_after?(other)
-    start_date > (other.end_date || DISTANT_FUTURE)
+    start_date > (other.end_date || distant_future)
   end
 
   def ends_after?(other)
-    (end_date || DISTANT_FUTURE) > (other.end_date || DISTANT_FUTURE)
+    (end_date || distant_future) > (other.end_date || distant_future)
   end
 
   def not_overlapping?
@@ -61,10 +59,14 @@ private
 
       if self.overlaps?(existing_government)
         errors.add(:base, "overlaps #{existing_government.name}:
-          This government: #{self.start_date} -> #{self.end_date || DISTANT_FUTURE},
-          existing government: #{existing_government.start_date} -> #{existing_government.end_date || DISTANT_FUTURE}
+          This government: #{self.start_date} -> #{self.end_date || distant_future},
+          existing government: #{existing_government.start_date} -> #{existing_government.end_date || distant_future}
         ")
       end
     end
+  end
+
+  def distant_future
+    @distant_future ||= Date.today + 100.years
   end
 end
