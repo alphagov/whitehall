@@ -1,7 +1,41 @@
 .html-publications-show {
+
+  .publication-header {
+    .headings {
+      p {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      h1 {
+        margin: 0;
+        padding-top: 0;
+      }
+    }
+  }
+
   nav.in-page-navigation {
     display: block!important;
+
+    h2 {
+      margin-top: $gutter-one-third;
+    }
+    ol {
+      margin-top: 0;
+      li {
+        padding: 0;
+      }
+    }
   }
+
+  .govspeak {
+    h2 {
+      padding-top: $gutter-one-third;
+    }
+    h2 + h3 {
+      margin-top: $gutter-one-third;
+    }
+  }
+
   .unnumbered {
     list-style: none;
     li {
@@ -16,6 +50,7 @@
   ul {
     li {
       margin-left: $gutter-two-thirds;
+      padding: 0;
     } 
   }
 }
