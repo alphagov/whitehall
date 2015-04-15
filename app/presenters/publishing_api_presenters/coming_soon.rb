@@ -29,7 +29,9 @@ class PublishingApiPresenters::ComingSoon
       locale: locale,
       update_type: 'major',
       details: { publish_time: edition.scheduled_publication.as_json },
-      routes: [ { path: base_path, type: "exact" } ]
+      routes: [ { path: base_path, type: "exact" } ],
+      # We don't store when the coming_soon was created, so use the last time the record was updated
+      public_updated_at: edition.updated_at,
     }
   end
 
