@@ -19,6 +19,10 @@ module Whitehall
         logger.info "Finished."
       end
 
+      def self.edition_scope
+        raise "abstract method not implemented"
+      end
+
       def self.default_items
         Enumerator.new do |yielder|
           edition_scope.find_each do |edition|
