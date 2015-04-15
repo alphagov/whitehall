@@ -65,13 +65,13 @@ end
 gds_user = User.find_by!(name: "GDS Inside Government Team")
 url_maker = UrlMaker.new
 
-Policy.published.each do |policy|
+Policy.published.with_translations.each do |policy|
   puts %{Creating policy paper from policy ##{policy.id}}
 
   title = "2010 to 2015 Conservative and Liberal Democrat coalition policy: #{policy.title}"
   short_title = "2010 to 2015 coalition policy: #{policy.title}"
 
-  supporting_pages = policy.supporting_pages.published
+  supporting_pages = policy.supporting_pages.published.with_translations
 
   alternative_format_provider = policy.lead_organisations.first
 
