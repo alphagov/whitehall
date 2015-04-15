@@ -62,4 +62,8 @@ module Edition::LimitedAccess
       self.access_limited = self.access_limited_by_default?
     end
   end
+
+  def can_be_access_limited?
+    true
+  end
 end

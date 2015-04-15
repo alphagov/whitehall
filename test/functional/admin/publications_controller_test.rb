@@ -29,6 +29,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     assert_select "form#new_edition" do
       assert_select "select[name*='edition[first_published_at']", count: 5
       assert_select "select[name='edition[publication_type_id]']"
+      assert_select "input[name='edition[access_limited]']"
     end
   end
 
