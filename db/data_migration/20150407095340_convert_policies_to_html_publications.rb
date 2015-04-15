@@ -3,8 +3,8 @@ module PolicyMigrationHelpers
     callout = %|
 $CTA
 This is a copy of a document that stated a policy of the 2010 to 2015 Conservative and Liberal Democrat coalition government.
-The previous URL of this page was [#{url_maker.public_document_url(policy)}](#{url_maker.public_document_path(policy)})
-Current policies can be found at the GOV.UK [policies list](/government/policies).
+The previous URL of this page was [#{url_maker.public_document_url(policy)}](#{url_maker.public_document_url(policy)})
+Current policies can be found at the GOV.UK [policies list](#{url_maker.policies_url}).
 $CTA
 
 |
@@ -86,7 +86,7 @@ Policy.published.with_translations.each do |policy|
 
   policy_paper_body = "This policy paper shows the policy of the 2010 to 2015 Conservative and Liberal Democrat coalition government.
 
-Find out about the [current government’s policies](/government/policies)."
+Find out about the [current government’s policies](#{url_maker.policies_url})."
 
   policy_paper = Publication.new(
     title: title,
