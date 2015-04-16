@@ -24,16 +24,16 @@ class Government < ActiveRecord::Base
   end
 
   def overlaps?(other)
-    !(is_before?(other) || is_after?(other))
+    !before?(other) && !after?(other)
   end
 
 private
 
-  def is_before?(other)
+  def before?(other)
     starts_before?(other) && ends_before?(other)
   end
 
-  def is_after?(other)
+  def after?(other)
     starts_after?(other) && ends_after?(other)
   end
 
