@@ -21,3 +21,10 @@ Scenario: editing a government's start and end dates
   And I am a GDS admin
   When I edit the government called "2005 to 2010 Labour government" to have dates "06/05/2005" and "11/05/2010"
   Then there should be a government called "2005 to 2010 Labour government" between dates "2005-05-06" and "2010-05-11"
+
+Scenario: changing government after an election
+  Given there is a current government
+  And I am a GDS admin
+  When I close the current government
+  And I create a government called "Robo-alien Overlords"
+  Then the current government should be "Robo-alien Overlords"

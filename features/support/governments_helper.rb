@@ -1,11 +1,11 @@
 module GovernmentsHelper
-  def create_government(name:, start_date:, end_date: nil)
+  def create_government(name:, start_date: nil, end_date: nil)
     visit admin_governments_path
 
     click_on "Create a government"
 
     fill_in "Name", with: name
-    fill_in "Start date", with: start_date
+    fill_in "Start date", with: start_date if start_date
     fill_in "End date", with: end_date if end_date
 
     click_on "Save"
@@ -23,7 +23,7 @@ module GovernmentsHelper
     click_on "Save"
   end
 
-  def check_for_government(name:, start_date:, end_date: nil)
+  def check_for_government(name:, start_date:nil, end_date: nil, current: false)
     visit admin_governments_path
 
     government = Government.find_by_name(name)
@@ -33,6 +33,10 @@ module GovernmentsHelper
       assert page.has_content?(start_date)
       assert page.has_content?(end_date) if end_date
     end
+  end
+
+  def check_for_current_government(name:)
+    assert Government.find_by_name(name).current?
   end
 
   def close_government(name:)
