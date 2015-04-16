@@ -74,7 +74,6 @@ CSV.open(Rails.root+"tmp/#{Time.zone.now.strftime('%F-%H-%M-%S')}-policy_paper_c
     puts %{Creating policy paper from policy ##{policy.id}}
 
     title = "2010 to 2015 Conservative and Liberal Democrat coalition policy: #{policy.title}"
-    short_title = "2010 to 2015 coalition policy: #{policy.title}"
 
     supporting_pages = policy.supporting_pages.published.with_translations
 
@@ -91,7 +90,7 @@ CSV.open(Rails.root+"tmp/#{Time.zone.now.strftime('%F-%H-%M-%S')}-policy_paper_c
 
     policy_paper_body = "This policy paper shows the policy of the 2010 to 2015 Conservative and Liberal Democrat coalition government.
 
-  Find out about the [current government’s policies](#{url_maker.policies_url})."
+Find out about the [current government’s policies](#{url_maker.policies_url})."
 
     policy_paper = Publication.new(
       title: title,
@@ -102,16 +101,11 @@ CSV.open(Rails.root+"tmp/#{Time.zone.now.strftime('%F-%H-%M-%S')}-policy_paper_c
       political: true,
       creator: gds_user,
       alternative_format_provider: alternative_format_provider,
-      document: Document.new(
-        sluggable_string: short_title,
-        content_id: SecureRandom.uuid
-      ),
     )
 
     PolicyMigrationHelpers.copy_associations!(policy, policy_paper)
 
     if policy_paper.save
-
       policy_paper.attachments << html_attachment
       supporting_pages.map(&:attachments).flatten.uniq.each_with_index do |attachment, index|
         puts %{-- Adding attachment "#{attachment.html? ? 'HTML' : attachment.filename}"}
