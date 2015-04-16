@@ -42,11 +42,11 @@ private
   end
 
   def ends_before?(other)
-    (end_date || distant_future) < other.start_date
+    (end_date || distant_future) <= other.start_date
   end
 
   def starts_after?(other)
-    start_date > (other.end_date || distant_future)
+    start_date >= (other.end_date || distant_future)
   end
 
   def ends_after?(other)

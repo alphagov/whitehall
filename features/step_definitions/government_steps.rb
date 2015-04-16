@@ -2,6 +2,14 @@ When(/^I create a government called "(.*?)" starting on "(.*?)"$/) do |governmen
   create_government(name: government_name, start_date: start_date)
 end
 
+When(/^I create a government called "([^"]+)"$/) do |government_name|
+  create_government(name: government_name)
+end
+
+Then(/^the current government should be "(.*?)"$/) do |government_name|
+  check_for_current_government(name: government_name)
+end
+
 Then(/^there should be a government called "(.*?)" starting on "(.*?)"$/) do |government_name, start_date|
   check_for_government(name: government_name, start_date: start_date)
 end

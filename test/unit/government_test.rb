@@ -73,11 +73,17 @@ class GovernmentTest < ActiveSupport::TestCase
       end_date: "2013-06-01"
     )
 
+    government_starting_immediately = build(:government,
+      start_date: existing_government.end_date,
+    )
+
     refute government_overlapping_start.valid?
     refute government_overlapping_end.valid?
 
     assert government_before.valid?
     assert government_after.valid?
+
+    assert government_starting_immediately.valid?
   end
 
   test "prevents new open governments when one is already open" do
