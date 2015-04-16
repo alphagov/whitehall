@@ -85,7 +85,6 @@ class Role < ActiveRecord::Base
     @role_type = role_type
     unless role_type.blank?
       role_attributes = RoleTypePresenter.role_attributes_from(role_type)
-      self.type = role_attributes[:type]
       self.attributes = role_attributes.except(:type)
     end
   end
