@@ -52,8 +52,10 @@ $CTA
 #{supporting_page.body.gsub(/^(\s*[#]{2,})/, '\1#')}
 |
 
-    sp_body.gsub(/\[InlineAttachment:([0-9]+)\]/) do
-      if attachment = supporting_page.attachments[$1.to_i - 1]
+    sp_body.gsub(/(?:^!@([0-9]+)|\[InlineAttachment:([0-9]+)\])/) do
+      attachment_index = $1 || $2
+
+      if attachment_index && attachment = supporting_page.attachments[$1.to_i - 1]
         "[#{attachment.title}](#{attachment.url})"
       else
         ""
