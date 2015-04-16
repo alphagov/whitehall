@@ -73,7 +73,7 @@ CSV.open(Rails.root+"tmp/#{Time.zone.now.strftime('%F-%H-%M-%S')}-policy_paper_c
   Policy.publicly_visible.with_translations.each do |policy|
     puts %{Creating policy paper from policy ##{policy.id}}
 
-    title = "2010 to 2015 Conservative and Liberal Democrat coalition policy: #{policy.title}"
+    title = "2010 to 2015 government policy: #{policy.title}"
 
     supporting_pages = policy.supporting_pages.published.with_translations
 
