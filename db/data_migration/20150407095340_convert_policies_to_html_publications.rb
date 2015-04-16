@@ -63,7 +63,7 @@ $CTA
 end
 
 gds_user = User.find_by!(name: "GDS Inside Government Team")
-url_maker = UrlMaker.new
+url_maker = Whitehall.url_maker
 
 Policy.published.with_translations.each do |policy|
   puts %{Creating policy paper from policy ##{policy.id}}
