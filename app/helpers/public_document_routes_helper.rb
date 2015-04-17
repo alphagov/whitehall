@@ -28,6 +28,8 @@ module PublicDocumentRoutesHelper
       build_url_for_corporate_information_page(edition, options)
     when SupportingPage
       build_url_for_supporting_page(edition, options)
+    when Future::Policy
+      edition.base_path
     else
       path_name = if edition.is_a?(Publication) && edition.statistics?
                     "statistic"
