@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
+  include GovukContentSchemaTestHelpers::TestUnit
 
   def present(edition, options={})
     PublishingApiPresenters::Edition.new(edition, options).as_json
@@ -39,7 +40,9 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
       },
     }
 
-    assert_equal expected_hash, present(edition)
+    presented_hash = present(edition)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
   test 'includes the most recent change note even when the edition is only a minor change' do
