@@ -52,6 +52,14 @@ module Edition::RelatedPolicies
     end
   end
 
+  def related_policies
+    if ENV["ENABLE_FUTURE_POLICIES"]
+      policies
+    else
+      super
+    end
+  end
+
   def search_index
     super.merge(policies: policies.map(&:slug))
   end
