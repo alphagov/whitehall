@@ -59,6 +59,23 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal expected_results, assigns(:ministers_by_organisation)
   end
 
+  test "doesn't list closed organisations in the ministers by organisation list" do
+    organisation_1 = create(:ministerial_department)
+    person_1 = create(:person, forename: 'Tony', surname: 'Blair')
+    role_1 = create(:ministerial_role, name: 'Prime Minister', cabinet_member: true, organisations: [organisation_1], seniority: 0)
+    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+
+    organisation_2 = create(:ministerial_department, :closed)
+    person_2 = create(:person, forename: 'Frank', surname: 'Underwood')
+    role_2 = create(:ministerial_role, name: 'President', cabinet_member: true, organisations: [organisation_2], seniority: 0)
+    appointment = create(:ministerial_role_appointment, role: role_2, person: person_2)
+
+    get :index
+
+    expected_results = [[organisation_1, RolesPresenter.new([role_1], @controller.view_context)]]
+    assert_equal expected_results, assigns(:ministers_by_organisation)
+  end
+
   test "shows ministers who also attend cabinet separately" do
     organisation = create(:ministerial_department)
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')

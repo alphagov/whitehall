@@ -35,6 +35,7 @@ private
 
   def ministers_by_organisation
     Organisation.ministerial_departments.
+                 excluding_govuk_status_closed.
                  with_translations.
                  with_translations_for(:ministerial_roles).
                  includes(ministerial_roles: [:current_people]).
