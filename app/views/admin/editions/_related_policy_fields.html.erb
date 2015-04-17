@@ -1,13 +1,3 @@
-<fieldset>
-  <%= form.label :related_policy_ids, 'Related policies' %>
-  <%= form.select :related_policy_ids,
-                  options_for_select(taggable_policies_container, edition.related_policy_ids),
-                  { include_blank: true },
-                  multiple: true,
-                  class: 'chzn-select',
-                  data: { placeholder: "Choose related policies..."} %>
-</fieldset>
-
 <% if future_policies_enabled? %>
   <fieldset>
     <%= form.label :policy_content_ids, "Policies" %>
@@ -17,8 +7,15 @@
                     multiple: true,
                     class: 'chzn-select',
                     data: { placeholder: "Choose policies..."} %>
-    <p class="help-block"><em>
-      Note: This new policy field is experimental. Please do not use it unless requested.
-    </em></p>
+  </fieldset>
+<% else %>
+  <fieldset>
+    <%= form.label :related_policy_ids, 'Related policies' %>
+    <%= form.select :related_policy_ids,
+                    options_for_select(taggable_policies_container, edition.related_policy_ids),
+                    { include_blank: true },
+                    multiple: true,
+                    class: 'chzn-select',
+                    data: { placeholder: "Choose related policies..."} %>
   </fieldset>
 <% end %>
