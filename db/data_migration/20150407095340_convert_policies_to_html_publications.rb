@@ -84,7 +84,7 @@ CSV.open(Rails.root+"tmp/#{Time.zone.now.strftime('%F-%H-%M-%S')}-policy_paper_c
       ordering: 0,
       govspeak_content: GovspeakContent.new(
         body: PolicyMigrationHelpers.build_html_attachment_body(policy, url_maker, alternative_format_provider),
-        manually_numbered_headings: false,
+        manually_numbered_headings: true,
       ),
     )
 
