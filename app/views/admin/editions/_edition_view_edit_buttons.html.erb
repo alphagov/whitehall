@@ -6,7 +6,7 @@
                 button_text: 'Preview on website',
                 links: translation_preview_links(@edition) %>
   <% else %>
-    <%= link_to "Preview on website", preview_document_path(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
+    <%= link_to "Preview on website", preview_document_url(@edition), class: 'btn btn-large btn-primary preview_version', target: '_blank' %>
   <% end %>
 
   <% if @edition.editable? %>

@@ -43,11 +43,11 @@ module PublicDocumentRoutesHelper
   end
 
   def preview_document_url(edition, options = {})
-    query = {
-      preview: edition.latest_edition.id,
-      cachebust: Time.zone.now.getutc.to_i
-    }
-    document_url(edition, options.merge(query))
+    case_study_preview_host = edition.is_a?(CaseStudy) && Whitehall.case_study_preview_host
+    options.merge!(host: case_study_preview_host || request.host)
+    options.merge!(preview: edition.latest_edition.id, cachebust: Time.zone.now.getutc.to_i)
+
+    document_url(edition, options)
   end
 
   private
