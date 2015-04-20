@@ -23,14 +23,6 @@ module Future
       end.compact
     end
 
-    def non_english_edition?
-      false
-    end
-
-    def translatable?
-      false
-    end
-
   private
     def extract_slug
       base_path.split('/').last
