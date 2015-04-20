@@ -23,6 +23,10 @@ module Future
       end.compact
     end
 
+    def topics
+      []
+    end
+
   private
     def extract_slug
       base_path.split('/').last
