@@ -1,7 +1,7 @@
 # Turn on temporary feature-flag for future-policies feature during selected tests
 Around("@future-policies") do |scenario, block|
-  current_future_policy_env = ENV['ENABLE_FUTURE_POLICIES']
-  ENV['ENABLE_FUTURE_POLICIES'] = "true"
+  future_policies_setting = Whitehall.future_policies_enabled
+  Whitehall.future_policies_enabled = true
   block.call
-  ENV['ENABLE_FUTURE_POLICIES'] = current_future_policy_env
+  Whitehall.future_policies_enabled = future_policies_setting
 end

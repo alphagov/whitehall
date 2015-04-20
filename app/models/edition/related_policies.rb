@@ -45,7 +45,7 @@ module Edition::RelatedPolicies
   end
 
   def published_related_policies
-    if ENV["ENABLE_FUTURE_POLICIES"]
+    if Whitehall.future_policies_enabled?
       policies
     else
       super
@@ -53,7 +53,7 @@ module Edition::RelatedPolicies
   end
 
   def related_policies
-    if ENV["ENABLE_FUTURE_POLICIES"]
+    if Whitehall.future_policies_enabled?
       policies
     else
       super
