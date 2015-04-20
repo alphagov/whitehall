@@ -174,7 +174,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     end
   end
 
-  test "create should create a new ministerial role" do
+  test "create should create a new ministerial role with a content_id" do
     org_one, org_two = create(:organisation), create(:organisation)
 
     post :create, role: attributes_for(:ministerial_role,
@@ -186,6 +186,7 @@ class Admin::RolesControllerTest < ActionController::TestCase
     assert role = MinisterialRole.last
     assert_equal "role-name", role.name
     assert_equal [org_one, org_two], role.organisations
+    refute_nil role.content_id
   end
 
   test "create should create a new board level manager role" do
