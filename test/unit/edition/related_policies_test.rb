@@ -114,4 +114,26 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
 
     assert_equal [content_id], new_edition.policy_content_ids
   end
+
+  test "#published_related_policies returns future policies if set" do
+    old_world_policy = create(:published_policy)
+    edition = create(:published_news_article, related_documents: [old_world_policy.document])
+
+    stub_content_register_policies
+    edition.policy_content_ids = [policy_1["content_id"]]
+    edition.save
+    edition.reload
+
+    future_policies_setting = Whitehall.future_policies_enabled
+
+    Whitehall.future_policies_enabled = false
+    assert_equal 1, edition.published_related_policies.count
+    assert_equal old_world_policy, edition.published_related_policies.first
+
+    Whitehall.future_policies_enabled = true
+    assert_equal 1, edition.published_related_policies.count
+    assert edition.published_related_policies.first.is_a?(Future::Policy)
+
+    Whitehall.future_policies_enabled = future_policies_setting
+  end
 end

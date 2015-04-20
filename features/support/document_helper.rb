@@ -87,7 +87,6 @@ module DocumentHelper
     policy = create(:policy)
     begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
     fill_in_publication_fields(options)
-    select policy.title, from: "Related policies"
   end
 
   def begin_drafting_statistical_data_set(options)
