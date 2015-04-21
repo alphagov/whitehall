@@ -366,10 +366,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def search_link
-    # This should be organisation_path(self), but we can't use that because friendly_id's #to_param returns
-    # the old value of the slug (e.g. nil for a new record) if the record is dirty, and apparently the record
-    # is still marked as dirty during after_save callbacks.
-    Whitehall.url_maker.organisation_path(slug)
+    Whitehall.url_maker.organisation_path(self)
   end
 
   def published_speeches
