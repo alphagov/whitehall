@@ -34,15 +34,13 @@
                                   block_id:           'non-ministerial-departments',
                                   include_works_with: true,
                                   list_item_partial:  'index_item_plain',
-                                  show_govuk_status:  !Whitehall::organisations_transition_visualisation_feature_enabled,
-                                  show_transition_state: Whitehall::organisations_transition_visualisation_feature_enabled %>
+                                  show_govuk_status:  !Whitehall::organisations_transition_visualisation_feature_enabled %>
 
       <%= render 'index_section', organisations:      @organisations.agencies_and_government_bodies,
                                   header_text:        'Agencies and other public bodies',
                                   block_id:           'agencies-and-government-bodies',
                                   list_item_partial:  'index_item_plain',
-                                  show_govuk_status:  false,
-                                  show_transition_state: Whitehall::organisations_transition_visualisation_feature_enabled %>
+                                  show_govuk_status:  false %>
 
       <%= render 'index_section', organisations:      @organisations.high_profile_groups,
                                   header_text:        'High profile groups',
