@@ -29,18 +29,6 @@ class OrganisationsIndexPresenter < Array
     self.class.new(grouped_organisations[:high_profile_group] || [])
   end
 
-  def live_count
-    @live_count ||= count(&:live?)
-  end
-
-  def exempt_count
-    @exempt_count ||= count(&:exempt?)
-  end
-
-  def potentially_live_count
-    length - exempt_count
-  end
-
   private
 
   def grouped_organisations
