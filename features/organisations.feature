@@ -143,12 +143,12 @@ Scenario: Viewing the organisations index and seeing organisations grouped into 
   And I should see the devolved administrations listed with count
   And I should see the high profile groups listed with count
 
-Scenario: Viewing the organisations index and seeing a visualisation of the number of agencies and public bodies live on govuk
+Scenario: Viewing the organisations index and seeing the status of agencies and public bodies live on govuk
   Given 1 live, 1 transitioning and 1 exempt executive agencies
   When I visit the organisations page
   Then I should see metadata in the agency list indicating the status of each organisation which is not live
 
-Scenario: Viewing the organisations index and seeing a visualisation of the number of non ministerial departments
+Scenario: Viewing the organisations index and seeing the status of non ministerial departments
   Given 1 live, 1 transitioning and 1 exempt non ministerial departments
   When I visit the organisations page
   Then I should see metadata in the non ministerial department list indicating the status of each organisation which is not live
