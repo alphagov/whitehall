@@ -8,8 +8,8 @@ Scenario: Unpublished editions can be previewed
 
 Scenario: Unpublished editions link to preview
   Given I am an editor
-  When I draft a new policy "Test policy"
-  Then I should see a link to the preview version of the policy "Test policy"
+  When I draft a new publication "Test publication"
+  Then I should see a link to the preview version of the publication "Test publication"
 
 @use_real_sso
 Scenario: Unpublished editions are protected from visitors

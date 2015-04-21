@@ -93,8 +93,7 @@ module Admin::EditionActionsHelper
       'aria-labelledby' => 'new-document-label'
     ) do
       [Consultation, Publication, NewsArticle,
-        Speech, DetailedGuide, DocumentCollection,
-        Policy, SupportingPage, FatalityNotice,
+        Speech, DetailedGuide, DocumentCollection, FatalityNotice,
         WorldwidePriority, CaseStudy, StatisticalDataSet,
         WorldLocationNewsArticle].map do |edition_type|
         content_tag(:li, class: 'masthead-menu-item') do
