@@ -16,4 +16,9 @@ namespace :reporting  do
   task :attachments_report => :environment do
     AttachmentDataReporter.new(opts_from_environment).report
   end
+
+  desc "A report of collection statistics by organisation as CSV"
+  task :collections_report => :environment do
+    CollectionDataReporter.new(ENV.fetch('OUTPUT_DIR', './tmp')).report
+  end
 end
