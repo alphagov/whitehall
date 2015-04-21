@@ -24,6 +24,7 @@ module Whitehall
   mattr_accessor :organisations_transition_visualisation_feature_enabled
   mattr_accessor :unified_search_client
   mattr_accessor :case_study_publishing_api_rendering_app
+  mattr_accessor :case_study_preview_host
   mattr_accessor :future_policies_enabled
 
   def self.future_policies_enabled?
