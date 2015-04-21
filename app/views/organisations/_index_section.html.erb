@@ -16,7 +16,6 @@
   <% end %>
 
   <div class="content">
-    <%= render "transition_state_visualisation", organisations: organisations if show_transition_state %>
     <ol>
       <% organisations.each do |organisation| %>
         <%= render list_item_partial, organisation: organisation,
