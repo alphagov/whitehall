@@ -13,7 +13,7 @@
         margin-bottom: $gutter-half;
       }
     }
-    &#elsewhere-on-the-web, &#related-polices {
+    &#elsewhere-on-the-web {
       margin-top: $gutter*1.5;
     }
   }
@@ -222,17 +222,10 @@
         }
       }
 
-      &.policies {
-        .head-section .content {
-          padding-top: $gutter-one-third;
-        }
-      }
-
       .see-all {
         font-weight: bold;
         margin: $gutter-one-third 0 $gutter;
       }
-    
     }
 
     .article-clear {
