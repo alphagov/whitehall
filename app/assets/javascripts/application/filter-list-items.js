@@ -31,7 +31,6 @@
       $(document).trigger('govuk.hideDepartmentChildren.hideAll');
       filter.$filterItems.hide();
       $(itemsToShow).show();
-      filter.hideTransitionStateVisualisations(search);
       filter.hideEmptyBlocks(itemsToShow);
       filter.track(search);
     },
@@ -95,15 +94,6 @@
       }
 
       return filter._terms
-    },
-    hideTransitionStateVisualisations: function(search){
-      if(search === ""){
-        // show visualisations
-        $(".transition-state-visualisation").show();
-      } else {
-        // hide visualisations
-        $(".transition-state-visualisation").hide();
-      }
     }
   };
 

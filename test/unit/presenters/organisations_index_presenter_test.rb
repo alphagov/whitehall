@@ -78,23 +78,4 @@ class OrganisationsIndexPresenterTest < ActiveSupport::TestCase
 
     assert subject.high_profile_groups.is_a?(OrganisationsIndexPresenter)
   end
-
-  def status_variety_pack
-    [build(:organisation, govuk_status: 'live'),
-      build(:organisation, govuk_status: 'live'),
-      build(:organisation, govuk_status: 'exempt'),
-      build(:organisation, govuk_status: 'transitioning')]
-  end
-
-  test "#live_count should return the number of live ones" do
-    assert_equal 2, OrganisationsIndexPresenter.new(status_variety_pack).live_count
-  end
-
-  test "#exempt_count should return the number of exempt ones" do
-    assert_equal 1, OrganisationsIndexPresenter.new(status_variety_pack).exempt_count
-  end
-
-  test "#potentially_live_count should return the number of exempt ones" do
-    assert_equal 3, OrganisationsIndexPresenter.new(status_variety_pack).potentially_live_count
-  end
 end

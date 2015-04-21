@@ -21,6 +21,8 @@ module Whitehall
   mattr_accessor :default_cache_max_age
   mattr_accessor :uploads_cache_max_age
   mattr_accessor :document_collections_cache_max_age
+
+  # TODO: Remove visualisation feature flag when no longer being set by alphagov-deployment
   mattr_accessor :organisations_transition_visualisation_feature_enabled
   mattr_accessor :unified_search_client
   mattr_accessor :case_study_publishing_api_rendering_app

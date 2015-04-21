@@ -94,25 +94,6 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_select '.js-filter-count', text: '2'
   end
 
-  test 'organisation_count_paragraph includes the number of orgs live on govuk in a container' do
-    orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'joining')]
-    render text: organisation_count_paragraph(orgs)
-    assert_select '.on-govuk'
-    assert_select '.on-govuk', text: '1 live on GOV.UK'
-  end
-
-  test 'organisation_count_paragraph includes "all" instead of a number, if all supplied orgs are live on govuk in a container' do
-    orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'live')]
-    render text: organisation_count_paragraph(orgs)
-    assert_select '.on-govuk', text: 'All live on GOV.UK'
-  end
-
-  test 'organisation_count_paragraph won\'t include the live on govuk container if you ask it not to' do
-    orgs = [build(:organisation, govuk_status: 'live'), build(:organisation, govuk_status: 'live')]
-    render text: organisation_count_paragraph(orgs, with_live_on_govuk: false)
-    assert_select '.on-govuk', count: 0
-  end
-
   test '#organisation_govuk_status_description describes an organisation that no longer exists' do
     organisation = build(:closed_organisation, name: 'Beard Ministry')
 

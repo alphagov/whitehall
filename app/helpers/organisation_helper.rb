@@ -240,17 +240,8 @@ module OrganisationHelper
     end
   end
 
-  def organisation_count_paragraph(org_array, opts = {})
-    opts = {with_live_on_govuk: true}.merge(opts)
+  def organisation_count_paragraph(org_array)
     contents = content_tag(:span, org_array.length, class: 'count js-filter-count')
-
-    if opts[:with_live_on_govuk]
-      organisations_that_are_live = org_array.select { |org| org.live? }.length
-      organisations_that_are_live = 'All' if organisations_that_are_live >= org_array.length
-
-      contents += content_tag(:span, "#{organisations_that_are_live} live on GOV.UK", class: 'on-govuk')
-    end
-
     content_tag(:p, contents.html_safe)
   end
 end
