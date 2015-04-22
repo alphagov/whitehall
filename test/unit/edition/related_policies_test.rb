@@ -124,16 +124,17 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     edition.save
     edition.reload
 
-    future_policies_setting = Whitehall.future_policies_enabled
+    future_policies_setting = FeatureFlag.enabled?('future_policies')
+    FeatureFlag.find_or_create_by(key: 'future_policies')
 
-    Whitehall.future_policies_enabled = false
+    FeatureFlag.set('future_policies', false)
     assert_equal 1, edition.published_related_policies.count
     assert_equal old_world_policy, edition.published_related_policies.first
 
-    Whitehall.future_policies_enabled = true
+    FeatureFlag.set('future_policies', true)
     assert_equal 1, edition.published_related_policies.count
     assert edition.published_related_policies.first.is_a?(Future::Policy)
 
-    Whitehall.future_policies_enabled = future_policies_setting
+    FeatureFlag.set('future_policies', future_policies_setting)
   end
 end
