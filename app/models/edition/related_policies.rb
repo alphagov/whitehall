@@ -45,7 +45,7 @@ module Edition::RelatedPolicies
   end
 
   def published_related_policies
-    if Whitehall.future_policies_enabled?
+    if SitewideSetting.on?('future_policies')
       policies
     else
       super
@@ -53,7 +53,7 @@ module Edition::RelatedPolicies
   end
 
   def related_policies
-    if Whitehall.future_policies_enabled?
+    if SitewideSetting.on?('future_policies')
       policies
     else
       super
