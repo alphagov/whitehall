@@ -21,7 +21,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       update_type: "major",
     }
 
-    assert_equal expected_hash, present(ministerial_role)
+    presented_hash = present(ministerial_role)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
   test 'presents an Organisation ready for adding to the publishing API' do
@@ -40,7 +42,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       update_type: "major",
     }
 
-    assert_equal expected_hash, present(organisation)
+    presented_hash = present(organisation)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
   test 'presents a Person ready for adding to the publishing API' do
@@ -59,7 +63,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       update_type: "major",
     }
 
-    assert_equal expected_hash, present(person)
+    presented_hash = present(person)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
   test 'presents a Worldwide Organisation ready for adding to the publishing API' do
@@ -78,7 +84,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       update_type: "major",
     }
 
-    assert_equal expected_hash, present(worldwide_org)
+    presented_hash = present(worldwide_org)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
   test 'presents a World Location ready for adding to the publishing API' do
@@ -97,7 +105,9 @@ class PublishingApiPresenters::PlaceholderTest < ActiveSupport::TestCase
       update_type: "major",
     }
 
-    assert_equal expected_hash, present(world_location)
+    presented_hash = present(world_location)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
   test 'update type can be overridden by passing an update_type option' do
