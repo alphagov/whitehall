@@ -1,3 +1,9 @@
+# Used during the election period of 2015 to migrate the policy taggings on
+# editions such that they map to the new policies being managed by
+# policy-publisher.
+#
+# Note: Can be removed after the migration to new policies has been complete.
+#
 module DataHygiene
   class FuturePolicyTaggingMigrator
     def initialize(scope, logger=NullLogger.instance)
