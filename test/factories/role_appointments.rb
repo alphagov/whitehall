@@ -32,4 +32,8 @@ FactoryGirl.define do
   factory :historic_role_appointment, parent: :role_appointment do
     association :role, factory: :historic_role
   end
+
+  factory :judge_role_appointment, parent: :role_appointment do
+    association :role, factory: :judge_role
+  end
 end

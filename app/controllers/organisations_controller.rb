@@ -50,6 +50,7 @@ class OrganisationsController < PublicFacingController
             @traffic_commissioners = traffic_commissioners
             @chief_professional_officers = chief_professional_officers
             @special_representatives = special_representatives
+            @judges = judges
             @sub_organisations = @organisation.sub_organisations
             @foi_contacts = @organisation.foi_contacts
           end
@@ -102,6 +103,11 @@ private
   def special_representatives
     @special_representative_roles ||= roles_presenter_for(@organisation, :special_representative)
     @special_representative_roles.with_unique_people
+  end
+
+  def judges
+    @judge_roles ||= roles_presenter_for(@organisation, :judge)
+    @judge_roles.with_unique_people
   end
 
   def filled_roles_presenter_for(organisation, association)

@@ -188,7 +188,8 @@ module OrganisationHelper
       @important_board_members.any? ||
       @military_personnel.any? ||
       @chief_professional_officers.any? ||
-      @traffic_commissioners.any?
+      @traffic_commissioners.any? ||
+      @judges.any?
   end
 
   def organisations_grouped_by_type(organisations)

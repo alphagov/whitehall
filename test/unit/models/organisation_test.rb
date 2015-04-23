@@ -278,6 +278,13 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [chief_professional_officer], organisation.chief_professional_officer_roles
   end
 
+  test '#judge_roles includes only judges' do
+    judge = create(:judge_role)
+    chief_professional_officer = create(:chief_professional_officer_role)
+    organisation = create(:organisation, roles:  [chief_professional_officer, judge])
+    assert_equal [judge], organisation.judge_roles
+  end
+
   test 'should be creatable with featured link data' do
     params = {
       featured_links_attributes: [

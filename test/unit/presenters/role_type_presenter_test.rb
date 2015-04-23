@@ -28,6 +28,9 @@ class RoleTypePresenterTest < PresenterTestCase
         ["Deputy head of mission", "deputy_head_of_mission"],
         ["Worldwide office staff", "worldwide_office_staff"]
       ]],
+      ["MOJ only", [
+        ["Judge", "judge"],
+      ]],
       ["Ministerial", [
         ["Cabinet minister", "cabinet_minister"],
         ["Minister", "minister"]
