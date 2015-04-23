@@ -32,7 +32,7 @@ class OrganisationsController < PublicFacingController
             @promotional_features = PromotionalFeaturesPresenter.new(@organisation.promotional_features, view_context)
             render 'show-promotional'
           else
-            @policies = policies
+            @policies = policy_results
             @topics = @organisation.topics
             @mainstream_categories = @organisation.mainstream_categories
             @ministers = ministers
@@ -57,13 +57,11 @@ class OrganisationsController < PublicFacingController
 
 private
 
-  def policies
-    rummager_results = Whitehall.unified_search_client.unified_search(
+  def policy_results
+    Whitehall.unified_search_client.unified_search(
       filter_organisations: [@organisation.slug],
       filter_format: "policy"
     ).results
-
-    Future::Policy.from_rummager(rummager_results[0...3])
   end
 
   def ministers

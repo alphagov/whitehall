@@ -1,8 +1,8 @@
 <ol class="policies document-list">
   <% policies.each do |policy| %>
-    <%= content_tag_for(:li, policy, class: "document-row") do %>
-      <h2><%= link_to policy.title, policy.base_path %></h2>
-      <p class="summary"><%= policy.summary %></p>
+    <%= content_tag(:li, class: "document-row") do %>
+      <h2><%= link_to policy.title, policy.link %></h2>
+      <p class="summary"><%= policy.description %></p>
     <% end %>
   <% end %>
 </ol>
