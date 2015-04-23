@@ -25,7 +25,7 @@ module DataHygiene
 
       scope.find_each { |instance| republish(instance) }
 
-      logger.info("Queued #{republished} instances for repulishing")
+      logger.info("Queued #{republished} instances for republishing")
     end
 
   private
