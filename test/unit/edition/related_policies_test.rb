@@ -1,8 +1,6 @@
 require "test_helper"
-require 'gds_api/test_helpers/content_register'
 
 class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
-  include GdsApi::TestHelpers::ContentRegister
   include ContentRegisterHelpers
 
   test "#destroy should also remove the relationship to existing policies" do
