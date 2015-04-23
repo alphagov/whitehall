@@ -21,12 +21,73 @@ class OrganisationsControllerTest < ActionController::TestCase
     OrganisationsIndexPresenter.expects(:new).with(:some_listable_ordered_orgs).returns(:some_presented_organisations)
     get :index
     assert_equal :some_presented_organisations, assigns(:organisations)
+    assert_template :index
+  end
+
+  test "index from the courts route renders the court index" do
+    organisation = create(:organisation)
+    court = create(:court)
+    hmcts_tribunal = create(:hmcts_tribunal)
+
+    get :index, courts_only: true
+
+    assert_template :courts_index
+    assert_nil assigns(:organisations)
+    assert_equal [court], assigns(:courts)
+    assert_equal [hmcts_tribunal], assigns(:hmcts_tribunals)
   end
 
   view_test "should include a rel='alternate' link to JSON representation of organisations" do
     get :index
 
     assert_select "link[rel=alternate][type=application/json][href=#{api_organisations_url}]"
+  end
+
+  view_test "links to the correct path for organisations" do
+    organisation = create(:organisation)
+
+    get :index
+
+    assert_select "a[href=/government/organisations/#{organisation.slug}]", text: organisation.name
+  end
+
+  view_test "links to the correct paths for courts and tribunals" do
+    court = create(:court)
+    hmcts_tribunal = create(:hmcts_tribunal)
+
+    get :index, courts_only: true
+
+    assert_select "a[href=/courts-tribunals/#{court.slug}]", text: court.name
+    assert_select "a[href=/courts-tribunals/#{hmcts_tribunal.slug}]", text: hmcts_tribunal.name
+  end
+
+  view_test "shows a count of organisations" do
+    2.times { create(:organisation) }
+
+    get :index
+
+    assert_select "span.count.js-filter-count", text: 2
+  end
+
+  view_test "does not show a count of organisations for courts and tribunals" do
+    court = create(:court)
+    hmcts_tribunal = create(:hmcts_tribunal)
+
+    get :index, courts_only: true
+
+    refute_select "span.count.js-filter-count"
+  end
+
+  view_test "does not show a beta banner on organisations index" do
+    get :index
+
+    refute_select "test-govuk-component[data-template=govuk_component-beta_label]"
+  end
+
+  view_test "shows a beta banner on courts index" do
+    get :index, courts_only: true
+
+    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
   end
 
   ### Describing :show ###
@@ -711,10 +772,24 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
   end
 
-  test "should not show Courts" do
+  test "should not show Courts from the organisations namespace" do
     assert_raises(ActiveRecord::RecordNotFound) do
       court = create(:court)
       get :show, id: court
+    end
+  end
+
+  test "should not show Tribunals from the organisations namespace" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      hmcts_tribunal = create(:hmcts_tribunal)
+      get :show, id: hmcts_tribunal
+    end
+  end
+
+  test "should not show Organisations from the courts-and-tribunals namespace" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      organisation = create(:organisation)
+      get :show, id: organisation, courts_only: true
     end
   end
 

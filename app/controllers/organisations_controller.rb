@@ -8,7 +8,15 @@ class OrganisationsController < PublicFacingController
   before_filter :set_cache_max_age, only: [:show]
 
   def index
-    @organisations = OrganisationsIndexPresenter.new(Organisation.excluding_courts.listable.ordered_by_name_ignoring_prefix)
+    if params[:courts_only]
+      @courts = Organisation.courts.listable.ordered_by_name_ignoring_prefix
+      @hmcts_tribunals = Organisation.hmcts_tribunals.listable.ordered_by_name_ignoring_prefix
+      render :courts_index
+    else
+      @organisations = OrganisationsIndexPresenter.new(
+        Organisation.excluding_courts_and_tribunals.listable.ordered_by_name_ignoring_prefix)
+      render :index
+    end
   end
 
   def show
@@ -111,7 +119,12 @@ private
   end
 
   def load_organisation
-    @organisation = Organisation.excluding_courts.with_translations(I18n.locale).find(params[:id])
+    @organisation = Organisation.with_translations(I18n.locale).find(params[:id])
+    if params[:courts_only]
+      raise ActiveRecord::RecordNotFound if !@organisation.court_or_hmcts_tribunal?
+    else
+      raise ActiveRecord::RecordNotFound if @organisation.court_or_hmcts_tribunal?
+    end
   end
 
   def set_cache_max_age

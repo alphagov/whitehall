@@ -77,6 +77,48 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     refute Organisation.allowed_promotional.include?(non_promotional_org)
   end
 
+  class HMCTSOrganisationTests < ActiveSupport::TestCase
+    def setup
+      @other_org = create(:organisation)
+      @copyright_tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb,
+        name: "Copyright Tribunal")
+      @court = create(:court)
+      @hmcts_tribunal = create(:hmcts_tribunal)
+    end
+
+    test "hmcts_tribunals selects Tribunals that are administrered by HMCTS" do
+      result = Organisation.hmcts_tribunals.listable
+      refute_includes result, @other_org
+      refute_includes result, @copyright_tribunal
+      refute_includes result, @court
+      assert_includes result, @hmcts_tribunal
+    end
+
+    test "excluding_hmcts_tribunals excludes Tribunals that are administrered by HMCTS" do
+      result = Organisation.excluding_hmcts_tribunals.listable
+      assert_includes result, @other_org
+      assert_includes result, @copyright_tribunal
+      assert_includes result, @court
+      refute_includes result, @hmcts_tribunal
+    end
+
+    test "excluding_courts_and_tribunals scopes to exclude courts and HMCTS tribunals" do
+      result = Organisation.excluding_courts_and_tribunals.listable
+      assert_includes result, @other_org
+      assert_includes result, @copyright_tribunal
+      refute_includes result, @court
+      refute_includes result, @hmcts_tribunal
+    end
+
+    test "excluding_courts scopes to exclude courts tribunals" do
+      result = Organisation.excluding_courts.listable
+      assert_includes result, @other_org
+      assert_includes result, @copyright_tribunal
+      refute_includes result, @court
+      assert_includes result, @hmcts_tribunal
+    end
+  end
+
   test "active_child_organisations_excluding_sub_organisations should live up to it's name and in alphabetical order" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
@@ -123,5 +165,16 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
   test "should not publish Courts to Publishing API" do
     court = create(:court)
     refute court.can_publish_to_publishing_api?
+  end
+
+  test "#hmcts_tribunal? should be true if it's an HMCTS tribunal only" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb)
+    hmcts_child = create(:organisation,
+      parent_organisations: [Organisation.find_by(slug: "hm-courts-and-tribunals-service")])
+
+    assert hmcts_tribunal.hmcts_tribunal?
+    refute tribunal.hmcts_tribunal?
+    refute hmcts_child.hmcts_tribunal?
   end
 end

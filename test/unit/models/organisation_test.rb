@@ -818,12 +818,6 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
   end
 
-  test "excluding_courts scopes to non-court organisation types" do
-    court = create(:court)
-    other_org = create(:organisation)
-    assert_equal [other_org], Organisation.excluding_courts
-  end
-
   test "#has_services_and_information_link? returns true if slug is in the whitelist" do
     org = create(:organisation)
 

@@ -221,7 +221,11 @@ module ApplicationHelper
     when "ministerial_roles"
       ministerial_roles_path
     when "organisations", "groups", "services_and_information", "email_signup_information"
-      organisations_path
+      if parameters[:courts_only]
+        courts_path
+      else
+        organisations_path
+      end
     when "corporate_information_pages"
       if parameters.has_key?(:worldwide_organisation_id)
         world_locations_path

@@ -19,6 +19,7 @@ namespace :router do
   desc "Register the government prefix with the router"
   task :register_routes => :router_environment do
     @router_api.add_route("/government", "prefix", @application_id)
+    @router_api.add_route("/courts-tribunals", "prefix", @application_id)
   end
 
   desc "Register all detailed guidance categories with the router"

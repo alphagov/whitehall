@@ -244,4 +244,12 @@ module OrganisationHelper
     contents = content_tag(:span, org_array.length, class: 'count js-filter-count')
     content_tag(:p, contents.html_safe)
   end
+
+  def organisation_or_court_path(organisation_or_court)
+    if organisation_or_court.court_or_hmcts_tribunal?
+      court_path(organisation_or_court)
+    else
+      organisation_path(organisation_or_court)
+    end
+  end
 end
