@@ -18,6 +18,15 @@
           }.to_sentence.html_safe
         %>
       </p>
+    <% elsif organisation.court_or_hmcts_tribunal? %>
+      <p class="parent-organisations">
+        Administered by
+        <%=
+          organisation.parent_organisations.map { |parent_org|
+            link_to parent_org.name, organisation_path(parent_org)
+          }.to_sentence.html_safe
+        %>
+      </p>
     <% end %>
   </div>
 
