@@ -111,6 +111,8 @@ GEM
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    domain_name (0.5.24)
+      unf (>= 0.0.5, < 1.0.0)
     equivalent-xml (0.5.1)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
@@ -125,13 +127,13 @@ GEM
     ffi (1.9.6)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    gds-api-adapters (18.2.0)
+    gds-api-adapters (18.5.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
       plek
       rack-cache
-      rest-client (~> 1.7.3)
+      rest-client (~> 1.8.0)
     gds-sso (10.0.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
@@ -157,6 +159,8 @@ GEM
     hashie (3.2.0)
     hitimes (1.2.2)
     htmlentities (4.3.2)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
     invalid_utf8_rejector (0.0.1)
       rack (~> 1.0)
@@ -198,7 +202,7 @@ GEM
     minitest (5.5.1)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     multi_test (0.1.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -290,7 +294,8 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     request_store (1.1.0)
-    rest-client (1.7.3)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rubocop (0.28.0)
@@ -371,6 +376,9 @@ GEM
     uglifier (2.6.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
     unicorn (4.6.2)
       kgio (~> 2.6)
       rack
@@ -411,7 +419,7 @@ DEPENDENCIES
   equivalent-xml (= 0.5.1)
   factory_girl
   friendly_id (= 5.0.4)
-  gds-api-adapters (= 18.2.0)
+  gds-api-adapters (= 18.5.0)
   gds-sso (~> 10.0)
   globalize!
   govspeak (~> 3.2.0)

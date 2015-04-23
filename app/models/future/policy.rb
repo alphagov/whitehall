@@ -2,12 +2,17 @@
 # and stored in the content-store.
 module Future
   class Policy
-    attr_reader :base_path, :content_id, :slug, :title
+    include ActiveModel::Model
+
+    attr_reader :base_path, :content_id, :slug, :title, :summary
 
     def initialize(attributes)
+      attributes = attributes.with_indifferent_access
+
       @base_path = attributes["base_path"]
       @content_id = attributes["content_id"]
       @title = attributes["title"]
+      @summary = attributes["summary"]
       @slug = extract_slug
     end
 
@@ -21,6 +26,18 @@ module Future
           new(match)
         end
       end.compact
+    end
+
+    def self.from_rummager(rummager_results)
+      rummager_results.map do |rummager_policy|
+        rummager_policy = rummager_policy.marshal_dump
+
+        new(
+          base_path: rummager_policy[:link],
+          title: rummager_policy[:title],
+          summary: rummager_policy[:description]
+        )
+      end
     end
 
     def topics

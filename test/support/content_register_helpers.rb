@@ -24,4 +24,22 @@ module ContentRegisterHelpers
         "base_path" => "/government/policies/policy-2",
       }
   end
+
+  def policy_3
+    @policy_3 ||= {
+        "content_id" => SecureRandom.uuid,
+        "format" => "policy",
+        "title" => "Policy 3",
+        "base_path" => "/government/policies/policy-3",
+      }
+  end
+
+  def policy_4
+    @policy_4 ||= {
+        "content_id" => SecureRandom.uuid,
+        "format" => "policy",
+        "title" => "Policy 4",
+        "base_path" => "/government/policies/policy-4",
+      }
+  end
 end

@@ -1,13 +1,19 @@
 require "test_helper"
+require "gds_api/test_helpers/rummager"
 
 class OrganisationsControllerTest < ActionController::TestCase
   include FeedHelper
   include FilterRoutesHelper
   include OrganisationControllerTestHelpers
+  include GdsApi::TestHelpers::Rummager
 
   should_be_a_public_facing_controller
   should_display_organisation_page_elements_for(:organisation)
   should_display_organisation_page_elements_for(:executive_office)
+
+  setup do
+    rummager_has_no_policies_for_any_organisation
+  end
 
   ### Describing :index ###
   test "index should instantiate an OrganisationsIndexPresenter with all organisations which are listable ordered by name" do
@@ -45,6 +51,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:organisation_role, organisation: organisation, role: role)
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
+
+    rummager_has_four_old_policies_for_every_organisation
 
     get :show, id: organisation
 
@@ -260,40 +268,87 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select "#parent_organisations"
   end
 
-  view_test "should display link to policies filter if there are many policies" do
-    organisation = create(:organisation)
-    create(:published_policy, organisations: [organisation])
-    create(:published_policy, organisations: [organisation])
-    create(:published_policy, organisations: [organisation])
-    create(:published_policy, organisations: [organisation])
-
-    get :show, id: organisation
-
-    assert_select '#policies' do
-      assert_select "a[href='#{policies_filter_path(organisation)}']"
-    end
-  end
-
+  ###############
+  ## OLD POLICIES
   view_test "should display the organisation's policies with content" do
     organisation = create(:organisation)
-    policy = create(:published_policy, organisations: [organisation], summary: "policy-summary")
+    rummager_has_four_old_policies_for_every_organisation
+
     get :show, id: organisation
+
+    sample_policy = Future::Policy.new(
+      title: "Employment",
+      summary: "How the government is getting Britain working and helping people break the cycle of benefit dependency.",
+      base_path: "/government/policies/helping-people-to-find-and-stay-in-work",
+    )
+
     assert_select "#policies" do
-      assert_select_object policy do
-        assert_select '.summary', text: "policy-summary"
+      assert_select_object sample_policy do
+        assert_select 'h2', text: sample_policy.title
+        assert_select '.summary', text: sample_policy.summary
       end
+
+      assert_select "a[href='#{policies_filter_path(organisation)}']"
     end
   end
 
   test "should display organisation's latest three policies" do
     organisation = create(:organisation)
-    policy_2 = create(:published_policy, organisations: [organisation], first_published_at: 2.days.ago)
-    policy_4 = create(:published_policy, organisations: [organisation], first_published_at: 4.days.ago)
-    policy_3 = create(:published_policy, organisations: [organisation], first_published_at: 3.days.ago)
-    policy_1 = create(:published_policy, organisations: [organisation], first_published_at: 1.day.ago)
+    rummager_has_four_old_policies_for_every_organisation
+
     get :show, id: organisation
-    assert_equal [policy_1, policy_2, policy_3], assigns[:policies].object
+
+    first_three_policy_titles = [
+      "Employment",
+      "Household energy",
+      "Poverty and social justice",
+    ]
+
+    assert_equal first_three_policy_titles, assigns[:policies].map(&:title)
   end
+  ## OLD POLICIES
+  ###############
+
+  ###############
+  ## NEW POLICIES
+  view_test "should display the organisation's future policies with content" do
+    organisation = create(:organisation)
+    rummager_has_four_new_policies_for_every_organisation
+
+    sample_policy = Future::Policy.new(
+      title: "Welfare reform",
+      summary: "The governments policy on welfare reform",
+      base_path: "/government/policies/welfare-reform",
+    )
+
+    get :show, id: organisation
+
+    assert_select "#policies" do
+      assert_select_object sample_policy do
+        assert_select 'h2', text: sample_policy.title
+        assert_select '.summary', text: sample_policy.summary
+      end
+
+      assert_select "a[href='#{policies_filter_path(organisation)}']"
+    end
+  end
+
+  test "should display organisation's latest three future policies" do
+    organisation = create(:organisation)
+    rummager_has_four_new_policies_for_every_organisation
+
+    get :show, id: organisation
+
+    first_three_policy_titles = [
+      "Welfare reform",
+      "State Pension simplification",
+      "State Pension age",
+    ]
+
+    assert_equal first_three_policy_titles, assigns[:policies].map(&:title)
+  end
+  ## NEW POLICIES
+  ###############
 
   test "should display 2 announcements in reverse chronological order" do
     organisation = create(:organisation)

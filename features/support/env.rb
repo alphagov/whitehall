@@ -54,4 +54,5 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Before do
   create(:world_location, name: "United Kingdom", iso2: "GB")
+  rummager_has_no_policies_for_any_organisation
 end
