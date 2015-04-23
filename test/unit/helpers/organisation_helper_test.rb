@@ -233,6 +233,40 @@ class OrganisationHelperTest < ActionView::TestCase
     assert_nil govuk_status_meta_data_for(build(:organisation, govuk_status: 'live'))
     assert_nil govuk_status_meta_data_for(build(:organisation, govuk_status: 'closed'))
   end
+
+  test "#show_corporate_information_pages? for organisations that are not live should be false" do
+    organisation = create(:organisation, :closed)
+
+    refute show_corporate_information_pages?(organisation)
+  end
+
+  test "#show_corporate_information_pages? for live organisations should be true" do
+    organisation = create(:organisation)
+
+    assert show_corporate_information_pages?(organisation)
+  end
+
+  test "#show_corporate_information_pages? for live courts with published corporate information pages should be true" do
+    organisation = create(:court)
+    create(:published_corporate_information_page, organisation: organisation)
+
+    assert show_corporate_information_pages?(organisation)
+  end
+
+  test "#show_corporate_information_pages? for live courts with only a published about_us page should be false" do
+    organisation = create(:court)
+    create(:about_corporate_information_page, organisation: organisation)
+
+    refute show_corporate_information_pages?(organisation)
+  end
+
+  test "#show_corporate_information_pages? for live courts with published about_us and other corporate information pages should be true" do
+    organisation = create(:court)
+    create(:published_corporate_information_page, organisation: organisation)
+    create(:about_corporate_information_page, organisation: organisation)
+
+    assert show_corporate_information_pages?(organisation)
+  end
 end
 
 class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::TestCase

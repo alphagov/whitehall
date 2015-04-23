@@ -898,6 +898,24 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "organisations shows the default Jobs link" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select "a", text: "Jobs"
+  end
+
+  view_test "courts don't show a Jobs link" do
+    court = create(:court)
+    get :show, id: court, courts_only: true
+    refute_select "a", text: "Jobs"
+  end
+
+  view_test "HMCTS tribunals don't show a Jobs link" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    get :show, id: hmcts_tribunal, courts_only: true
+    refute_select "a", text: "Jobs"
+  end
+
   private
 
   def assert_disclaimer_present(organisation)

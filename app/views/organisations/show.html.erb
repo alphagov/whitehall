@@ -302,7 +302,7 @@
         <% end %>
       </div>
 
-      <% if @organisation.live? %>
+      <% if show_corporate_information_pages? @organisation %>
         <%= render partial: 'corporate_information',
                    locals: { organisation: @organisation,
                              show_corporate_reports: true } %>

@@ -253,4 +253,9 @@ module OrganisationHelper
       organisation_path(organisation_or_court)
     end
   end
+
+  def show_corporate_information_pages?(organisation)
+    organisation.live? && (!organisation.court_or_hmcts_tribunal? ||
+      organisation.corporate_information_pages.published.reject { |cip| cip.slug == "about" }.any?)
+  end
 end
