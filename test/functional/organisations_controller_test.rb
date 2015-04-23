@@ -886,6 +886,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
+  view_test "auto-links comments in contacts" do
+    organisation = create(:organisation)
+    contact = create(:contact, comments: "This is a link: http://www.example.com")
+    organisation.add_contact_to_home_page!(contact)
+
+    get :show, id: organisation
+
+    assert_select ".comments", text: "This is a link: http://www.example.com" do
+      assert_select "a[href=http://www.example.com]", text: "http://www.example.com"
+    end
+  end
+
   private
 
   def assert_disclaimer_present(organisation)

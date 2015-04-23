@@ -41,7 +41,7 @@
       <% end %>
 
       <% if contact.comments.present? %>
-        <p class="comments"><%= format_with_html_line_breaks(h(contact.comments)) %></p>
+        <p class="comments"><%= auto_link(format_with_html_line_breaks(h(contact.comments))) %></p>
       <% end %>
 
       <% if contact.is_a?(WorldwideOffice) && contact.access_and_opening_times_body.present? %>
