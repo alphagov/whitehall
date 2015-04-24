@@ -6,7 +6,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
   include FeedHelper
 
   should_be_a_public_facing_controller
-  should_show_published_documents_associated_with :world_location, :policies
   should_show_published_documents_associated_with :world_location, :worldwide_priorities
 
   def assert_featured_editions(editions)
@@ -275,7 +274,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
 
     assert_select ".type", "Localisation"
     assert_select "#worldwide-priorities", /Priorités/
-    assert_select "#policies .see-all a", /Voir toutes nos priorités politiques/
     assert_select "#publications .see-all a", /Voir toutes nos publications/
   end
 
@@ -321,17 +319,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
     get :show, id: world_location, locale: 'fr'
 
     assert_equal [translated_statistics], assigns(:statistics_publications).object
-  end
-
-  test "should only display translated policies when requested for a locale" do
-    world_location = create(:world_location, translated_into: [:fr])
-
-    translated_policy = create(:published_policy, world_locations: [world_location], translated_into: [:fr])
-    untranslated_policy = create(:published_policy, world_locations: [world_location])
-
-    get :show, id: world_location, locale: 'fr'
-
-    assert_equal [translated_policy], assigns(:policies).object
   end
 
   test "should only display translated recently updated editions when requested for a locale" do

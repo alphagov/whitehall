@@ -6,10 +6,11 @@ Given /^a topic called "([^"]*)" with description "([^"]*)"$/ do |name, descript
   create(:topic, name: name, description: description)
 end
 
-Given /^the topic "([^"]*)" contains some policies$/ do |topic_name|
-  @topic = create(:topic, name: topic_name)
-  5.times do create(:published_policy, topics: [@topic]); end
-  2.times do create(:draft_policy,     topics: [@topic]); end
+Given(/^the publication "(.*?)" is associated with the topic "(.*?)"$/) do |publication_name, topic_name|
+  publication = Publication.find_by!(title: publication_name)
+  topic = Topic.find_by!(name: topic_name)
+
+  publication.topics << topic
 end
 
 Given /^the topic "([^"]*)" is associated with organisation "([^"]*)"$/ do |topic_name, organisation_name|
@@ -152,13 +153,6 @@ Then /^I should see the following organisations for the "([^"]*)" topic:$/ do |t
   expected_table.diff!(table)
 end
 
-Then /^I should see published policies belonging to the "([^"]*)" topic$/ do |name|
-  topic = Topic.find_by!(name: name)
-  actual_editions = records_from_elements(Edition, page.all(".policy")).sort_by(&:id)
-  expected_editions = topic.published_policies.sort_by(&:id)
-  assert_equal expected_editions, actual_editions
-end
-
 Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, second_topic_name|
   first_topic = Topic.find_by!(name: first_topic_name)
   second_topic = Topic.find_by!(name: second_topic_name)
@@ -178,12 +172,14 @@ Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   assert page.has_css?(".related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
 end
 
-When(/^I feature one of the policies on the topic$/) do
-  @policy = @topic.published_policies.last
-  visit admin_topic_path(@topic)
+When(/^I feature the publication "([^"]*)" on the topic "([^"]*)"$/) do |publication_name, topic_name|
+  publication = Publication.find_by!(title: publication_name)
+  topic = Topic.find_by!(name: topic_name)
+
+  visit admin_topic_path(topic)
   click_on 'Features'
 
-  within record_css_selector(@policy) do
+  within record_css_selector(publication) do
     click_link "Feature"
   end
   attach_file "Select a 960px wide and 640px tall image to be shown when featuring", jpg_image
@@ -214,10 +210,14 @@ When(/^I feature the offsite link "(.*?)" for topic "(.*?)" with image "(.*?)"$/
   click_button "Save"
 end
 
-Then(/^I should see the policy featured on the public topic page$/) do
-  visit topic_path(@topic)
+Then(/^I should see the publication "([^"]*)" featured on the public topic page for "([^"]*)"$/) do |publication_name, topic_name|
+  publication = Publication.find_by!(title: publication_name)
+  topic = Topic.find_by!(name: topic_name)
+
+  visit topic_path(topic)
+
   within('section.featured-news') do
-    assert page.has_content?(@policy.title)
+    assert page.has_content?(publication.title)
   end
 end
 

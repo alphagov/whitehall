@@ -70,20 +70,6 @@
 
   <div class="documents-grid <%= topic_grid_size_class(@policies, @publications, @consultations, @announcements, @detailed_guides, @related_classifications) %>">
     <div class="inner-block">
-      <% if @policies.any? %>
-        <section id="policies" class="policies document-block documents-<%= document_block_counter %>">
-          <h1 class="label">Policies</h1>
-          <div class="content">
-            <%= render partial: "policies/list_description", locals: { policies: @policies.limit(5) } %>
-            <% if @policies.count > 5 %>
-              <p class="see-all">
-                <%= link_to "See all #{@policies.count} policies", policies_filter_path(@classification) %>
-              </p>
-            <% end %>
-          </div>
-        </section>
-      <% end %>
-
       <%= render(partial: 'document_list', locals: { documents: @publications, type: :publications }) if @publications.any? %>
       <%= render(partial: 'document_list', locals: { documents: @consultations, type: :consultations }) if @consultations.any? %>
       <%= render(partial: 'document_list', locals: { documents: @announcements, type: :announcements }) if @announcements.any? %>

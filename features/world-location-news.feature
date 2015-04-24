@@ -44,7 +44,7 @@ Feature: World location news for people local to countries
     Then I should be able to associate "Spanish News" with the worldwide organisation "Spanish Department"
     When I force publish the world location news article "Spanish News"
     Then the worldwide organisation "Spanish Department" is listed as a producing org on the world location news article "Spanish News"
-    
+
   Scenario: Associate a world location news article with a topical event
     Given the topical event "French Topical Event" exists
     When I draft a valid world location news article "French News"
@@ -76,12 +76,6 @@ Feature: World location news for people local to countries
     When I view the world location "British Antarctic Territory"
     Then I should see the news article "Larsen ice sheet disintegrates"
 
-  Scenario: View policies relating to a world location
-    Given a world location "British Antarctic Territory" exists
-    And a published policy "Icebergs of the World, Unite!" exists relating to the world location "British Antarctic Territory"
-    When I view the world location "British Antarctic Territory"
-    Then I should see the policy "Icebergs of the World, Unite!"
-
   Scenario: The publication is about a world location
     Given a world location "British Antarctic Territory" exists
     And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
@@ -109,4 +103,3 @@ Feature: World location news for people local to countries
 
     When I view the world location "United Nations"
     Then I should see that it is an international delegation
-
