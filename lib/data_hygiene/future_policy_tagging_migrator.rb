@@ -26,7 +26,11 @@ module DataHygiene
     attr_accessor :logger, :scope
 
     def tag_to_new_policies(edition)
-      edition.policy_content_ids = edition.related_policies.map(&:content_id)
+      # Cannot use the #related_policies method directly because it either
+      # returns new policies or old depending on the state of the feature-flag
+      # see the Edition::RelatedPolicies module.
+      content_ids = edition.related_policy_ids.map {|id| Edition.find(id).content_id }
+      edition.policy_content_ids = content_ids
     end
   end
 end
