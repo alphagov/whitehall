@@ -52,7 +52,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:corporate_information_page, organisation: organisation)
     organisation.add_contact_to_home_page!(contact)
 
-    rummager_has_four_old_policies_for_every_organisation
+    rummager_has_old_policies_for_every_organisation
 
     get :show, id: organisation
 
@@ -272,21 +272,14 @@ class OrganisationsControllerTest < ActionController::TestCase
   ## OLD POLICIES
   view_test "should display the organisation's policies with content" do
     organisation = create(:organisation)
-    rummager_has_four_old_policies_for_every_organisation
+    rummager_has_old_policies_for_every_organisation
 
     get :show, id: organisation
 
-    sample_policy = Future::Policy.new(
-      title: "Employment",
-      summary: "How the government is getting Britain working and helping people break the cycle of benefit dependency.",
-      base_path: "/government/policies/helping-people-to-find-and-stay-in-work",
-    )
-
     assert_select "#policies" do
-      assert_select_object sample_policy do
-        assert_select 'h2', text: sample_policy.title
-        assert_select '.summary', text: sample_policy.summary
-      end
+      assert_select "a[href='/government/policies/helping-people-to-find-and-stay-in-work']",
+                    text: "Employment"
+      assert_select ".summary", text: "How the government is getting Britain working and helping people break the cycle of benefit dependency."
 
       assert_select "a[href='#{policies_filter_path(organisation)}']"
     end
@@ -294,7 +287,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display organisation's latest three policies" do
     organisation = create(:organisation)
-    rummager_has_four_old_policies_for_every_organisation
+    rummager_has_old_policies_for_every_organisation(count: 3)
 
     get :show, id: organisation
 
@@ -313,21 +306,13 @@ class OrganisationsControllerTest < ActionController::TestCase
   ## NEW POLICIES
   view_test "should display the organisation's future policies with content" do
     organisation = create(:organisation)
-    rummager_has_four_new_policies_for_every_organisation
-
-    sample_policy = Future::Policy.new(
-      title: "Welfare reform",
-      summary: "The governments policy on welfare reform",
-      base_path: "/government/policies/welfare-reform",
-    )
+    rummager_has_new_policies_for_every_organisation
 
     get :show, id: organisation
 
     assert_select "#policies" do
-      assert_select_object sample_policy do
-        assert_select 'h2', text: sample_policy.title
-        assert_select '.summary', text: sample_policy.summary
-      end
+      assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
+      assert_select ".summary", text: "The governments policy on welfare reform"
 
       assert_select "a[href='#{policies_filter_path(organisation)}']"
     end
@@ -335,7 +320,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display organisation's latest three future policies" do
     organisation = create(:organisation)
-    rummager_has_four_new_policies_for_every_organisation
+    rummager_has_new_policies_for_every_organisation(count: 3)
 
     get :show, id: organisation
 

@@ -60,7 +60,8 @@ private
   def policy_results
     Whitehall.unified_search_client.unified_search(
       filter_organisations: [@organisation.slug],
-      filter_format: "policy"
+      filter_format: "policy",
+      count: "3",
     ).results
   end
 

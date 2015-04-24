@@ -127,7 +127,7 @@ GEM
     ffi (1.9.6)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
-    gds-api-adapters (18.5.0)
+    gds-api-adapters (18.6.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -419,7 +419,7 @@ DEPENDENCIES
   equivalent-xml (= 0.5.1)
   factory_girl
   friendly_id (= 5.0.4)
-  gds-api-adapters (= 18.5.0)
+  gds-api-adapters (= 18.6.0)
   gds-sso (~> 10.0)
   globalize!
   govspeak (~> 3.2.0)
