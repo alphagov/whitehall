@@ -54,9 +54,11 @@ module Whitehall
         end
 
         def log(item)
-          if @type != item.class
-            logger.info "Exporting items of class '#{item.class.name}'..."
-            @type = item.class
+          new_class = item.class
+          new_class = new_class.base_class if new_class.method_exists?(:base_class)
+          if @type != new_class
+            @type = new_class
+            logger.info "Exporting items of class '#{@type}'..."
           end
 
           @i += 1

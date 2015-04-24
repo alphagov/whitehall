@@ -21,6 +21,17 @@ module Whitehall
 
         Populator.new(items: items, sender: ->(_) {}, logger: logger).call
       end
+
+      test "logs a new header when base class changes" do
+        items = [build(:case_study), build(:publication), build(:news_article)]
+        items << build(:organisation)
+        logger = stub("logger")
+        logger.expects(:info).with("Exporting items of class 'Edition'...")
+        logger.expects(:info).with("Exporting items of class 'Organisation'...")
+        logger.expects(:info).with("Finished.")
+
+        Populator.new(items: items, sender: ->(_) {}, logger: logger).call
+      end
     end
   end
 end
