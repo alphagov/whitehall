@@ -14,7 +14,7 @@ private
   def forbid_access_to_non_admins!
     unless can?(:modify, SupportingPage)
       redirect_to admin_supporting_page_path(@edition),
-        alert: "Policies are no longer changed via Whitehall, please see the Policies Publisher"
+        alert: "Policies are no longer changed via Whitehall, please contact GDS"
     end
   end
 end

@@ -21,7 +21,7 @@ class Admin::PoliciesController < Admin::EditionsController
   def forbid_access_to_non_admins!
     unless can?(:modify, Policy)
       redirect_to admin_policy_path(@edition),
-        alert: "Policies are no longer changed via Whitehall, please see the Policies Publisher"
+        alert: "Policies are no longer changed via Whitehall, please see contact GDS"
     end
   end
 end
