@@ -2,7 +2,7 @@ module Whitehall::Authority::Rules
   class EditionRules
     def self.actions
       [
-        :see, :update, :create, :delete,
+        :see, :update, :create, :delete, :modify,
         :approve, :publish, :force_publish,
         :reject, :make_fact_check, :review_fact_check,
         :make_editorial_remark, :review_editorial_remark,
@@ -108,10 +108,19 @@ module Whitehall::Authority::Rules
     end
 
     def can_with_a_class?(action)
-      if [:export, :confirm_export].include? action
+      case action
+      when :modify
+        if [Policy, SupportingPage].include?(@subject)
+          actor.gds_admin?
+        else
+          true
+        end
+      when :export, :confirm_export
         actor.gds_admin? || actor.gds_editor? || actor.managing_editor? || actor.departmental_editor?
+      when :create, :see
+        true
       else
-        [:create, :see].include? action
+        false
       end
     end
 

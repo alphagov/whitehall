@@ -1,5 +1,5 @@
 class Admin::SupportingPagesController < Admin::EditionsController
-  before_filter :forbid_access!, except: [:index, :show]
+  before_filter :forbid_access_to_non_admins!, except: [:index, :show]
 
 private
 
@@ -11,8 +11,10 @@ private
     false
   end
 
-  def forbid_access!
-    redirect_to admin_supporting_page_path(@edition),
-      alert: "Policies are no longer changed via Whitehall, please see the Policies Publisher"
+  def forbid_access_to_non_admins!
+    unless can?(:modify, SupportingPage)
+      redirect_to admin_supporting_page_path(@edition),
+        alert: "Policies are no longer changed via Whitehall, please see the Policies Publisher"
+    end
   end
 end

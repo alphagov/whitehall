@@ -66,6 +66,18 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     assert_equal topics.second.name, json_response['topics'].second['name']
   end
 
+  view_test "allows policy editing for GDS admins" do
+    policy = create(:draft_policy)
+
+    login_as :gds_editor
+    get :edit, id: policy
+    assert_response 302
+
+    login_as :gds_admin
+    get :edit, id: policy
+    assert_response :success
+  end
+
   private
 
   def controller_attributes_for(edition_type, attributes = {})

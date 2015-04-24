@@ -1,5 +1,5 @@
 class Admin::PoliciesController < Admin::EditionsController
-  before_filter :forbid_access!, except: [:index, :show, :topics]
+  before_filter :forbid_access_to_non_admins!, except: [:index, :show, :topics]
 
   def topics
     respond_to do |format|
@@ -18,8 +18,10 @@ class Admin::PoliciesController < Admin::EditionsController
     false
   end
 
-  def forbid_access!
-    redirect_to admin_policy_path(@edition),
-      alert: "Policies are no longer changed via Whitehall, please see the Policies Publisher"
+  def forbid_access_to_non_admins!
+    unless can?(:modify, Policy)
+      redirect_to admin_policy_path(@edition),
+        alert: "Policies are no longer changed via Whitehall, please see the Policies Publisher"
+    end
   end
 end
