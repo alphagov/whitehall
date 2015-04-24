@@ -24,20 +24,6 @@ class TopicsControllerTest < ActionController::TestCase
     assert_select "a[href=?]", organisation_path(organisation_2)
   end
 
-  view_test "GET :show lists the published policies and their summaries" do
-    published_policy = create(:published_policy, title: "policy-title", summary: "policy-summary")
-    topic = create(:topic, editions: [published_policy])
-
-    get :show, id: topic
-
-    assert_select "#policies" do
-      assert_select_object(published_policy) do
-        assert_select "h2", text: "policy-title"
-        assert_select ".summary", text: /policy-summary/
-      end
-    end
-  end
-
   view_test "GET :show lists published publications and links to more" do
     topic = create(:topic)
     published = []

@@ -24,21 +24,6 @@ Scenario: Deleting a topic
   Given a topic called "No more beards" with description "No more hairy-faced men"
   Then I should be able to delete the topic "No more beards"
 
-Scenario: Ordering policies within a topic
-  Given a topic called "Facial Hair" with description "Against All Follicles"
-  And a published policy "Outlaw Moustaches" exists in the "Facial Hair" topic
-  And a published policy "No more beards" exists in the "Facial Hair" topic
-  And a published policy "Free monobrow treatment" exists in the "Facial Hair" topic
-  When I set the order of the policies in the "Facial Hair" topic to:
-    |Topic|
-    |No more beards|
-    |Outlaw Moustaches|
-    |Free monobrow treatment|
-  Then I should see the order of the policies in the "Facial Hair" topic is:
-    |No more beards|
-    |Outlaw Moustaches|
-    |Free monobrow treatment|
-
 Scenario: Choosing and ordering lead organisations within a topic
   Given a topic called "Facial Hair" with description "Against All Follicles"
   And the topic "Facial Hair" has "Ministry of Grooming" as a lead organisation
@@ -58,22 +43,24 @@ Scenario: Choosing and ordering lead organisations within a topic
     |Ministry of War|
 
 Scenario: Viewing the list of topics
-  Given the topic "Higher Education" contains some policies
-  And the topic "Science and Innovation" contains some policies
+  Given a topic called "Higher Education" exists
+  And a topic called "Science and Innovation" exists
   When I visit the list of topics
   Then I should see the topics "Higher Education" and "Science and Innovation"
 
 Scenario: Visiting a topic page
-  Given the topic "Higher Education" contains some policies
+  Given a topic called "Higher Education" exists
+  And a topic called "Science and Innovation" exists
   And the topic "Higher Education" is related to the topic "Scientific Research"
   When I visit the "Higher Education" topic
-  Then I should see published policies belonging to the "Higher Education" topic
-  And I should see a link to the related topic "Scientific Research"
+  Then I should see a link to the related topic "Scientific Research"
 
 Scenario: Featuring content on a topic page
-  Given the topic "Higher Education" contains some policies
-  When I feature one of the policies on the topic
-  Then I should see the policy featured on the public topic page
+  Given a published publication "Cold fusion" with a PDF attachment
+  And a topic called "Science and Innovation" exists
+  And the publication "Cold fusion" is associated with the topic "Science and Innovation"
+  When I feature the publication "Cold fusion" on the topic "Science and Innovation"
+  Then I should see the publication "Cold fusion" featured on the public topic page for "Science and Innovation"
 
 Scenario: Creating offsite content on a topic page
   Given a topic called "Excellent Topic" exists

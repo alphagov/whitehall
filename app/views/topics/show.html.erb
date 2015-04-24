@@ -59,28 +59,6 @@
     </div>
   <% end %>
 
-  <div class="block block-4 heading-block">
-    <div class="inner-block">
-      <% if @policies.any? %>
-        <section id="policies" class="policies">
-          <div class="head-section">
-            <h1 class="label">Policies
-              <span class="count"><%= @policies.count %></span>
-            </h1>
-          </div>
-          <div class="content">
-            <%= render partial: "policies/list_description", locals: { policies: @policies.limit(5) } %>
-            <% if @policies.count > 5 %>
-              <p class="see-all">
-                <%= link_to "See all #{@policies.count} policies", policies_filter_path(@classification) %>
-              </p>
-            <% end %>
-          </div>
-        </section>
-      <% end %>
-    </div>
-  </div>
-
   <div class="documents-grid <%= topic_grid_size_class(@announcements, @consultations, @publications, @statistics) %>">
     <div class="inner-block">
       <%= render(partial: 'document_list', locals: { documents: @announcements, type: :announcements }) if @announcements.any? %>

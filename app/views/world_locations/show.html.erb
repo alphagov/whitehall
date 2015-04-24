@@ -72,23 +72,6 @@
     </section>
   <% end %>
 
-  <% if @policies.any? %>
-    <div class="block-5 heading-block">
-      <div class="inner-block">
-        <section id="policies">
-          <div class="head-section">
-            <h1 class="label"><%= t('world_location.headings.related_policies') %></h1>
-          </div>
-          <div class="content">
-            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
-            <p class="see-all">
-              <%= link_to t_see_all_our(:policy), policies_filter_path(@world_location) %>
-            </p>
-          </div>
-        </section>
-      </div>
-    </div>
-  <% end %>
   <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
     <div class="block documents-grid">
       <div class="inner-block">
