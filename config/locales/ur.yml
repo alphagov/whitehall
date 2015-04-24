@@ -234,6 +234,7 @@ ur:
       making_foi_requests:
       our_announcements: "ہمارے اعلانات"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "ہماری انتظامیہ"
       our_ministers: "ہمارے وزرا"
@@ -247,6 +248,7 @@ ur:
       special_representatives: "خصوصی نمائندے"
       traffic_commissioners: "ٹریفک کمشنرز"
       what_we_do: "ہمارے فرائض"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

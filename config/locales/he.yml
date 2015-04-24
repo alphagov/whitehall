@@ -358,6 +358,7 @@ he:
       making_foi_requests:
       our_announcements: "ההודעות שלנו"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "ההנהלה שלנו"
       our_ministers: "השרים שלנו"
@@ -371,6 +372,7 @@ he:
       special_representatives: "נציגים מיוחדים"
       traffic_commissioners: "ממונים על תעבורה"
       what_we_do: "מה אנחנו עושים"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

@@ -234,6 +234,7 @@ dr:
       making_foi_requests:
       our_announcements: "اعلانات ما"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "اداره ما"
       our_ministers: "وزرای ما"
@@ -247,6 +248,7 @@ dr:
       special_representatives: "نماینده های خاص"
       traffic_commissioners: "کمشنران ترافیک"
       what_we_do: "ما روی چه کار میکنیم"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

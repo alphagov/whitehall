@@ -358,6 +358,7 @@ be:
       making_foi_requests:
       our_announcements: "Нашы абвесткі"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "Наша кіраўніцтва"
       our_ministers: "Нашы міністры"
@@ -371,6 +372,7 @@ be:
       special_representatives: "Спецыяльныя прадстаўнікі"
       traffic_commissioners: "Транспартны суд"
       what_we_do: "Што мы робім"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

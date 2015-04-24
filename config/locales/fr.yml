@@ -234,6 +234,7 @@ fr:
       making_foi_requests:
       our_announcements: Nos actualités
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Notre direction
       our_ministers: Nos ministres
@@ -247,6 +248,7 @@ fr:
       special_representatives: Représentants spéciaux
       traffic_commissioners: Commissaires du trafic
       what_we_do: Nos activités
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

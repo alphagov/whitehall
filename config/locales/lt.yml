@@ -296,6 +296,7 @@ lt:
       making_foi_requests:
       our_announcements: Mūsų skelbimai
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Mūsų vadovybė
       our_ministers: Mūsų ministrai
@@ -309,6 +310,7 @@ lt:
       special_representatives: Specialieji atstovai
       traffic_commissioners: Eismo komisarai
       what_we_do: Ką mes darome
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

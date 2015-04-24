@@ -334,6 +334,7 @@ ko:
       making_foi_requests:
       our_announcements: "뉴스"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "조직"
       our_ministers: "장관급"
@@ -347,6 +348,7 @@ ko:
       special_representatives: "특별 대사"
       traffic_commissioners: "트래픽 커미셔너"
       what_we_do: "업무 내용"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

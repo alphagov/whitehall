@@ -358,6 +358,7 @@ uk:
       making_foi_requests:
       our_announcements: "Наші оголошення"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "Наше керівництво"
       our_ministers: "Наші міністри"
@@ -371,6 +372,7 @@ uk:
       special_representatives: "Спеціальні представники"
       traffic_commissioners: "Уповноважені з питань транспорту"
       what_we_do: "Що ми робимо"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

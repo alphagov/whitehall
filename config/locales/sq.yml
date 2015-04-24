@@ -234,6 +234,7 @@ sq:
       making_foi_requests:
       our_announcements: Njoftimet tona
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Manaxhimi yne
       our_ministers: Ministrat tane
@@ -247,6 +248,7 @@ sq:
       special_representatives: Perfaqesues speciale
       traffic_commissioners: Komisionere te trafikut
       what_we_do: Cfare bejme ne
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

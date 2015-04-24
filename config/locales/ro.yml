@@ -297,6 +297,7 @@ ro:
       making_foi_requests:
       our_announcements: "Știri "
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: 'Echipa ambasadei '
       our_ministers: 'Miniștrii '
@@ -310,6 +311,7 @@ ro:
       special_representatives: 'Reprezentanți speciali '
       traffic_commissioners: 'Monitorizarea traficului '
       what_we_do: Activitatea noastră
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

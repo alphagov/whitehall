@@ -296,6 +296,7 @@ cs:
       making_foi_requests:
       our_announcements: Naše prohlášení
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Naše vedení
       our_ministers: Naši ministři
@@ -309,6 +310,7 @@ cs:
       special_representatives: Zvláštní reprezentanti
       traffic_commissioners: Dopravní komisaři
       what_we_do: Co děláme
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

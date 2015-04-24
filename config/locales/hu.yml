@@ -337,6 +337,7 @@ hu:
       making_foi_requests:
       our_announcements: Híreink
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Vezetőségünk
       our_ministers: Minisztereink
@@ -350,6 +351,7 @@ hu:
       special_representatives: Különleges képviselők
       traffic_commissioners: Forgalmi biztosok
       what_we_do: Feladatunk
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

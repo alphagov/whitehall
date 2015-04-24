@@ -235,6 +235,7 @@ si:
       making_foi_requests:
       our_announcements: "අපේ නිවේදන"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "අපේ කළමනාකරණය"
       our_ministers: "අපේ ඇමතිවරුන්"
@@ -248,6 +249,7 @@ si:
       special_representatives: "විශේෂ නියෝජිතයන්"
       traffic_commissioners: "රථ වාහන කොමසාරිස්වරු"
       what_we_do: "අපි කරන්නේ මොනවද"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

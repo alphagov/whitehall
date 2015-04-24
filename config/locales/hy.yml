@@ -234,6 +234,7 @@ hy:
       making_foi_requests:
       our_announcements: "Մեր հայտարարությունները"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "Մեր ղեկավարումը"
       our_ministers: "Մեր նաքարարներ"
@@ -247,6 +248,7 @@ hy:
       special_representatives: "Հատուկ ներկայացուցիչներ"
       traffic_commissioners: "Երթևեկության հանձնաժողով"
       what_we_do: "Ինչ ենք մենք անում"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

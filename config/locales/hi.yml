@@ -234,6 +234,7 @@ hi:
       making_foi_requests:
       our_announcements: "हमारी घोषणाएं"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "हमारा प्रबंधन"
       our_ministers: "हमारे मंत्री"
@@ -247,6 +248,7 @@ hi:
       special_representatives: "विशेष प्रतिनिधि"
       traffic_commissioners: "यातायात आयुक्त"
       what_we_do: "हम क्या करते हैं"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

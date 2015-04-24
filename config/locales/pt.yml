@@ -234,6 +234,7 @@ pt:
       making_foi_requests:
       our_announcements: Nossos anúncios
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Nossa administração
       our_ministers: Nossos ministros
@@ -247,6 +248,7 @@ pt:
       special_representatives: Representantes especiais
       traffic_commissioners: Comissonários de Tráfego
       what_we_do: O que fazemos
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
