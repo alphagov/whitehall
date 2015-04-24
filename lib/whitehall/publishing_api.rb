@@ -10,8 +10,8 @@ module Whitehall
   class UnpublishableInstanceError < StandardError; end
 
   class PublishingApi
-    def self.publish_async(model_instance, update_type_override=nil)
-      push_live(model_instance, update_type_override)
+    def self.publish_async(model_instance, update_type_override=nil, queue_override=nil)
+      push_live(model_instance, update_type_override, queue_override)
     end
 
     def self.publish_draft_async(model_instance, update_type_override=nil, queue_override=nil)
@@ -56,11 +56,11 @@ module Whitehall
       model_instance.translated_locales
     end
 
-    def self.push_live(model_instance, update_type_override=nil)
+    def self.push_live(model_instance, update_type_override=nil, queue_override=nil)
       return if skip_sending_to_content_store?(model_instance)
       self.assert_public_edition!(model_instance)
       locales_for(model_instance).each do |locale|
-        PublishingApiWorker.perform_async(model_instance.class.name, model_instance.id, update_type_override, locale)
+        PublishingApiWorker.perform_async_in_queue(queue_override, model_instance.class.name, model_instance.id, update_type_override, locale)
       end
     end
 
