@@ -62,6 +62,7 @@ private
       filter_organisations: [@organisation.slug],
       filter_format: "policy",
       count: "3",
+      order: "-public_timestamp"
     ).results
   end
 
