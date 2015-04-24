@@ -7,18 +7,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   should_be_an_admin_controller
 
-  should_allow_creating_of :policy
-  should_allow_editing_of :policy
-
-  should_allow_organisations_for :policy
-  should_allow_association_between_world_locations_and :policy
-  should_allow_association_with_topics :policy
-  should_allow_attached_images_for :policy
-  should_prevent_modification_of_unmodifiable :policy
-  should_allow_scheduled_publication_of :policy
-  should_allow_access_limiting_of :policy
-  should_allow_relevance_to_local_government_of :policy
-
   view_test "show the 'add supporting page' button for an unpublished edition" do
     draft_policy = create(:draft_policy)
 
@@ -62,25 +50,6 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     refute_select policy_group_selector
   end
 
-  view_test "new should display policy group field" do
-    get :new
-
-    assert_select "form#new_edition" do
-      assert_select "select[name='edition[policy_group_ids][]']"
-    end
-  end
-
-  test "updating should retain associations to related editions" do
-    policy = create(:draft_policy)
-    publication = create(:draft_publication, related_editions: [policy])
-    assert policy.related_editions.include?(publication), "policy and publication should be related"
-
-    put :update, id: policy, edition: {title: "another title"}
-
-    policy.reload
-    assert policy.related_editions.include?(publication), "polcy and publication should still be related"
-  end
-
   view_test "show does not display image for edition types that do not allow one" do
     policy = create(:policy)
 
@@ -95,6 +64,18 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
     get :topics, id: policy, format: :json
     assert_equal topics.first.name, json_response['topics'].first['name']
     assert_equal topics.second.name, json_response['topics'].second['name']
+  end
+
+  view_test "allows policy editing for GDS admins" do
+    policy = create(:draft_policy)
+
+    login_as :gds_editor
+    get :edit, id: policy
+    assert_response 302
+
+    login_as :gds_admin
+    get :edit, id: policy
+    assert_response :success
   end
 
   private

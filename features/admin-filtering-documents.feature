@@ -14,13 +14,13 @@ Scenario: Viewing only publications written by me
   Given I am a writer
   And there is a user called "Janice"
   And "Janice" drafts a new publication "Janice's Publication"
-  And I draft a new policy "My Policy"
+  And I draft a new consultation "My Consultation"
   And I visit the list of draft documents
 
   When I filter by author "Janice"
   And I select the "Publications" edition filter
   Then I should see the publication "Janice's Publication"
-  And I should not see the policy "My Policy"
+  And I should not see the consultation "My Consultation"
 
 Scenario: Viewing only documents related to my department
   Given two organisations "Department of Thumbtacks" and "Ministry of Post-it Notes" exist

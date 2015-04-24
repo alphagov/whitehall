@@ -3,16 +3,18 @@ Given /^a policy group "([^"]*)" exists$/ do |group_name|
 end
 
 When /^I associate the policy group "([^"]*)" with the policy "([^"]*)"$/ do |group_name, policy_title|
-  begin_editing_document policy_title
-  select group_name, from: "Groups"
-  click_button "Save"
+  policy = Policy.where(title: policy_title).first
+  policy_group = PolicyGroup.where(name: group_name).first
+
+  policy.policy_groups << policy_group
 end
 
 When /^I associate the policy groups "([^"]*)" and "([^"]+)" with the policy "([^"]*)"$/ do |group_name, group_2, policy_title|
-  begin_editing_document policy_title
-  select group_name, from: "Groups"
-  select group_2, from: "Groups"
-  click_button "Save"
+  policy = Policy.where(title: policy_title).first
+
+  PolicyGroup.where(name: [group_name, group_2]).each do |policy_group|
+    policy.policy_groups << policy_group
+  end
 end
 
 Then /^I should see the policy group "([^"]*)"$/ do |group_name|

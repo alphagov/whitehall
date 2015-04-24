@@ -256,10 +256,10 @@ Then /^I should see a link to the public version of the policy "([^"]*)"$/ do |p
   assert_match public_document_path(policy), find("a.public_version")[:href]
 end
 
-Then /^I should see a link to the preview version of the policy "([^"]*)"$/ do |policy_title|
-  policy = Policy.find_by!(title: policy_title)
-  visit admin_edition_path(policy)
-  preview_path_regexp = Regexp.new(Regexp.escape(preview_document_path(policy)).gsub(/cachebust=[0-9]+/, 'cachebust=[0-9]+'))
+Then /^I should see a link to the preview version of the publication "([^"]*)"$/ do |publication_title|
+  publication = Publication.find_by!(title: publication_title)
+  visit admin_edition_path(publication)
+  preview_path_regexp = Regexp.new(Regexp.escape(preview_document_path(publication)).gsub(/cachebust=[0-9]+/, 'cachebust=[0-9]+'))
   assert_match preview_path_regexp, find("a.preview_version")[:href]
 end
 

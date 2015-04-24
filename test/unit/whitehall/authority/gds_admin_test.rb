@@ -33,4 +33,12 @@ class GDSAdminTest < ActiveSupport::TestCase
   test 'can mark editions as political' do
     assert enforcer_for(gds_admin, normal_edition).can?(:mark_political)
   end
+
+  test "GDS admin can modify policies" do
+    assert enforcer_for(gds_admin, Policy).can?(:modify)
+  end
+
+  test "Non GDS-admin cannot modify policies" do
+    refute enforcer_for(non_gds_admin, Policy).can?(:modify)
+  end
 end
