@@ -75,11 +75,11 @@ module Organisation::OrganisationTypeConcern
   end
 
   def can_index_in_search?
-    super && !organisation_type.court?
+    super && !court_or_hmcts_tribunal?
   end
 
   def can_publish_to_publishing_api?
-    super && !organisation_type.court?
+    super && !court_or_hmcts_tribunal?
   end
 
   def hmcts_tribunal?

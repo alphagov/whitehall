@@ -389,8 +389,16 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should not add courts to index on creating' do
     court = build(:court)
-    Whitehall::SearchIndex.expects(:add).never
+    Whitehall::SearchIndex.expects(:add).once
+    Whitehall::SearchIndex.expects(:add).with(court).never
     court.save
+  end
+
+  test 'should not add HMCTS tribunals to index on creating' do
+    hmcts_tribunal = build(:hmcts_tribunal)
+    Whitehall::SearchIndex.expects(:add).once
+    Whitehall::SearchIndex.expects(:add).with(hmcts_tribunal).never
+    hmcts_tribunal.save
   end
 
   test 'should add organisation to search index on updating' do
