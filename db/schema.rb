@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323155555) do
+ActiveRecord::Schema.define(version: 20150422083934) do
 
   create_table "about_pages", force: true do |t|
     t.integer  "topical_event_id"
@@ -502,6 +502,11 @@ ActiveRecord::Schema.define(version: 20150323155555) do
     t.text    "personal_details"
   end
 
+  create_table "feature_flags", force: true do |t|
+    t.string  "key"
+    t.boolean "enabled"
+  end
+
   create_table "feature_lists", force: true do |t|
     t.integer  "featurable_id"
     t.string   "featurable_type"
@@ -592,8 +597,8 @@ ActiveRecord::Schema.define(version: 20150323155555) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "governments", ["end_date"], name: "index_governments_on_end_date", using: :btree
