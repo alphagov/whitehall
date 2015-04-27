@@ -42,27 +42,25 @@ module PublishingApiPresenters
 
   private
 
-    # An incomplete and temporary details hash that only currently includes
-    # specialist topics. This is to enable the email alerts service to generate
-    # email alerts based on taggings to topics.
-    #
-    # Note that we are referencing tags using the temporary `tags` hash here in
-    # `details` instead of the top-level `links` hash because topics are not yet
-    # being registered in the content store. Once they are available in the
-    # content store, the `links` hash should be used instead.
-    #
-    # Note also that the `browse_pages` key is here as a marker for a future
-    # feature where email alerts will be generated based on taggings to browse
-    # pages. Again, this should be moved to the `links` hash at the earliest
-    # possible time.
     def details
       {
         change_note: edition.most_recent_change_note,
+        # These tags are used downstream for sending email alerts.
+        # For more details please see https://gov-uk.atlassian.net/wiki/display/TECH/Email+alerts+2.0
         tags: {
           browse_pages: [],
+          policies: policies,
           topics: specialist_sectors,
         }
       }
+    end
+
+    def policies
+      if FeatureFlag.enabled?('future_policies')
+        edition.policies.map(&:slug)
+      else
+        []
+      end
     end
 
     def default_update_type
