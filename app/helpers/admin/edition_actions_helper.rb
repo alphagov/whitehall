@@ -94,7 +94,7 @@ module Admin::EditionActionsHelper
     ) do
       [Consultation, Publication, NewsArticle,
         Speech, DetailedGuide, DocumentCollection, FatalityNotice,
-        WorldwidePriority, CaseStudy, StatisticalDataSet,
+        CaseStudy, StatisticalDataSet,
         WorldLocationNewsArticle].map do |edition_type|
         content_tag(:li, class: 'masthead-menu-item') do
           link_to(edition_type.model_name.human,
