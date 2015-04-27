@@ -45,6 +45,44 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     assert_valid_against_schema(presented_hash, 'placeholder')
   end
 
+  test 'can present a draft Edition for the publishing API' do
+    edition = create(:publication,
+                title: 'The title',
+                summary: 'The summary',
+                primary_specialist_sector_tag: 'oil-and-gas/taxation',
+                secondary_specialist_sector_tags: ['oil-and-gas/licensing'])
+
+    public_path = Whitehall.url_maker.public_document_path(edition)
+
+    expected_hash = {
+      content_id: edition.document.content_id,
+      title: 'The title',
+      description: 'The summary',
+      format: 'placeholder',
+      locale: 'en',
+      need_ids: [],
+      public_updated_at: edition.updated_at,
+      update_type: 'major',
+      publishing_app: 'whitehall',
+      rendering_app: 'whitehall-frontend',
+      routes: [
+        { path: public_path, type: 'exact' }
+      ],
+      redirects: [],
+      details: {
+        change_note: nil,
+        tags: {
+          browse_pages: [],
+          topics: ['oil-and-gas/taxation', 'oil-and-gas/licensing']
+        }
+      },
+    }
+
+    presented_hash = present(edition)
+    assert_equal expected_hash, presented_hash
+    assert_valid_against_schema(presented_hash, 'placeholder')
+  end
+
   test 'includes the most recent change note even when the edition is only a minor change' do
     user  = create(:gds_editor)
     first = create(:published_edition)
