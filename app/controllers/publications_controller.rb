@@ -24,7 +24,7 @@ class PublicationsController < DocumentsController
   end
 
   def show
-    @related_policies = @document.published_related_policies
+    @related_policies = document_related_policies
     set_meta_description(@document.summary)
   end
 

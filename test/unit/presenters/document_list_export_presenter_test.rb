@@ -1,6 +1,7 @@
 require "test_helper"
 
-class DocumentListExportPresenterTest < PresenterTestCase
+class DocumentListExportPresenterTest < ActiveSupport::TestCase
+  include ContentRegisterHelpers
 
   test '#sub_content_type returns the correct subtype for news articles' do
     article = build(:news_article, news_article_type: NewsArticleType::PressRelease)
@@ -58,4 +59,20 @@ class DocumentListExportPresenterTest < PresenterTestCase
     assert_equal('Org 1', pr.lead_organisations)
   end
 
+  test '#policies returns a list of the related policies' do
+    policy = create(:policy)
+    news   = create(:news_article, related_documents: [policy.document])
+    pr = DocumentListExportPresenter.new(news)
+    assert_equal [policy.title], pr.policies
+  end
+
+  test '#policies returns policy titles with future-policies flag on' do
+    stub_content_register_policies
+    FeatureFlag.find_or_create_by(key: 'future_policies')
+    FeatureFlag.set('future_policies', true)
+
+    news = create(:news_article, policy_content_ids: [policy_1["content_id"]])
+    pr = DocumentListExportPresenter.new(news)
+    assert_equal [policy_1["title"]], pr.policies
+  end
 end

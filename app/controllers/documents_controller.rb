@@ -49,6 +49,16 @@ private
     end
   end
 
+  # Returns either classic whitehall policies or the new future-policies, based
+  # on the feature-flag/
+  def document_related_policies
+    if FeatureFlag.enabled?('future_policies')
+      @document.policies
+    else
+      @document.published_related_policies
+    end
+  end
+
   def find_unpublishing
     Unpublishing.from_slug(params[:id], document_class)
   end

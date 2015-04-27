@@ -99,7 +99,13 @@ class DocumentListExportPresenter
   end
 
   def policies
-    edition.related_policies.map(&:title) if edition.respond_to? :related_policies
+    if edition.respond_to? :related_policies
+      if FeatureFlag.enabled?('future_policies')
+        edition.policies.map(&:title)
+      else
+        edition.related_policies.map(&:title)
+      end
+    end
   end
 
   def specialist_sectors
