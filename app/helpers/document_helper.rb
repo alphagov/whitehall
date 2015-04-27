@@ -235,10 +235,6 @@ Please tell us:
       part_of += array_of_links_to_topics(topics)
     end
 
-    if document.respond_to?(:worldwide_priorities) && document.worldwide_priorities.any?
-      part_of += document.worldwide_priorities.map {|priority| link_to priority.title, public_document_path(priority), class: 'worldwide-priority-link' }
-    end
-
     if document.respond_to?(:world_locations) && document.world_locations.any?
       part_of += array_of_links_to_world_locations(document.world_locations)
     end
