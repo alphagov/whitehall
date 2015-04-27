@@ -15,6 +15,11 @@ module PublishingApiPresenters
       Whitehall.url_maker.public_document_path(edition)
     end
 
+    def public_updated_at
+      # If there is no public_timestamp, the edition should be a draft
+      edition.public_timestamp || edition.updated_at
+    end
+
     def as_json
       {
         content_id: edition.content_id,
@@ -23,7 +28,7 @@ module PublishingApiPresenters
         format: "placeholder",
         locale: I18n.locale.to_s,
         need_ids: edition.need_ids,
-        public_updated_at: edition.public_timestamp,
+        public_updated_at: public_updated_at,
         update_type: update_type,
         publishing_app: "whitehall",
         # We're not using edition.rendering_app because we're defaulting to a
