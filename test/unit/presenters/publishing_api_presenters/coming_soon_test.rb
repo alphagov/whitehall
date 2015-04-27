@@ -19,7 +19,8 @@ class PublishingApiPresenters::ComingSoonTest < ActiveSupport::TestCase
       locale: locale,
       update_type: 'major',
       details: { publish_time: publish_timestamp },
-      routes: [ { path: '/government/case-studies/case-study-title', type: 'exact' } ]
+      routes: [ { path: '/government/case-studies/case-study-title', type: 'exact' } ],
+      public_updated_at: edition.updated_at,
     }
 
     presenter = PublishingApiPresenters::ComingSoon.new(edition, locale)

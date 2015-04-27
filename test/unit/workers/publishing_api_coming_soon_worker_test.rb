@@ -19,7 +19,8 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
       locale: locale,
       update_type: 'major',
       details: { publish_time: publish_time },
-      routes: [ { path: base_path, type: 'exact' } ]
+      routes: [ { path: base_path, type: 'exact' } ],
+      public_updated_at: edition.updated_at,
     }
 
     expected_request = stub_publishing_api_put_item(base_path, expected_payload)
