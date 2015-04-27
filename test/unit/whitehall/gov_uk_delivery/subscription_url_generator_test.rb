@@ -410,4 +410,38 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
       "feed?departments%5B%5D=#{organisation.slug}"
     )
   end
+
+  test "#subscription_urls excludes policy activity feeds if new policies enabled" do
+    policy = create(:published_policy)
+    @edition = create(:news_article, related_policy_ids: [policy])
+
+    FeatureFlag.find_or_create_by(key: 'future_policies')
+    FeatureFlag.set('future_policies', true)
+
+    refute urls_for(@edition).any? { |feed_url| feed_url =~ /policies/ }
+  end
+
+  test '#subscription_urls excludes relevant_to_local_government variations if new policies enabled' do
+    role_appointment = create(:ministerial_role_appointment)
+    role = role_appointment.role
+    person = role_appointment.person
+    topic = create(:topic)
+    topical_event = create(:topical_event)
+    world_location = create(:world_location)
+    policy = create(:published_policy, relevant_to_local_government: true)
+
+    @edition = create(:news_article,
+      role_appointments: [role_appointment],
+      related_documents: [policy.document],
+      topics: [topic],
+      topical_events: [topical_event],
+      world_locations: [world_location]
+    )
+
+    FeatureFlag.find_or_create_by(key: 'future_policies')
+    FeatureFlag.set('future_policies', true)
+
+    refute urls_for(@edition).any? { |feed_url| feed_url =~ /policies/ }
+    refute urls_for(@edition).any? { |feed_url| feed_url =~ /relevant_to_local_government/ }
+  end
 end
