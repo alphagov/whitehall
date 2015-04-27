@@ -14,8 +14,6 @@ class WorldLocationsController < PublicFacingController
     respond_to do |format|
       format.html do
         @recently_updated = recently_updated_source.limit(3)
-        priorities = WorldwidePriority.with_translations(I18n.locale).published.in_world_location(@world_location).in_reverse_chronological_order
-        @worldwide_priorities = decorate_collection(priorities, WorldwidePriorityPresenter)
         @policies = latest_presenters(Policy.published.in_world_location(@world_location), translated: true)
         publications = Publication.published.in_world_location(@world_location)
         @non_statistics_publications = latest_presenters(publications.not_statistics, translated: true, count: 2)

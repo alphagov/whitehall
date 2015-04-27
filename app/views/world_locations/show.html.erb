@@ -53,25 +53,6 @@
     </div>
   </div>
 
-  <% if @worldwide_priorities.any? %>
-    <section id="worldwide-priorities" class="block">
-      <div class="inner-block floated-children">
-        <h1 class="keyline-header"><%= t('world_location.headings.priorities') %></h1>
-        <% @worldwide_priorities.each.with_index do |priority, i| %>
-          <%= content_tag_for(:article, priority, ({class: 'clear-priority'} if i % 2 == 0)) do %>
-            <div class="content">
-              <h2><%= link_to priority.title, public_document_path(priority) %></h2>
-              <p>
-                <%= priority.summary %>
-                <%= link_to t('read_more'), public_document_path(priority) %>.
-              </p>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-    </section>
-  <% end %>
-
   <% if (@non_statistics_publications + @announcements + @statistics_publications).any? %>
     <div class="block documents-grid">
       <div class="inner-block">
