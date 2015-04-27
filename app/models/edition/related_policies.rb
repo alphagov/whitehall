@@ -44,22 +44,6 @@ module Edition::RelatedPolicies
     Future::Policy.from_content_ids(policy_content_ids)
   end
 
-  def published_related_policies
-    if FeatureFlag.enabled?('future_policies')
-      policies
-    else
-      super
-    end
-  end
-
-  def related_policies
-    if FeatureFlag.enabled?('future_policies')
-      policies
-    else
-      super
-    end
-  end
-
   def search_index
     super.merge(policies: policies.map(&:slug))
   end
