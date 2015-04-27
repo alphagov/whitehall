@@ -192,7 +192,6 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_equal [policy_1["content_id"]], presented_hash[:links][:related_policies]
   end
 
-
   test "links hash includes worldwide priorities" do
     priority = create(:worldwide_priority)
     case_study = create(:published_case_study)
