@@ -12,7 +12,7 @@ private
   def links
     {
       lead_organisations: edition.lead_organisations.map(&:content_id),
-      related_policies: edition.related_policies.map(&:content_id),
+      related_policies: policy_content_ids,
       supporting_organisations: edition.supporting_organisations.map(&:content_id),
       document_collections: edition.published_document_collections.map(&:content_id),
       world_locations: edition.world_locations.map(&:content_id),
@@ -66,5 +66,13 @@ private
 
   def presented_case_study
     CaseStudyPresenter.new(edition)
+  end
+
+  def policy_content_ids
+    if FeatureFlag.enabled?('future_policies')
+      edition.policy_content_ids
+    else
+      edition.related_policies.map(&:content_id)
+    end
   end
 end
