@@ -24,13 +24,6 @@ Scenario: Creating a speech related to multiple policies
   When I draft a new speech "Fishy Business" relating it to the policies "Against All Cods" and "O For Tuna"
   Then I should see in the preview that "Fishy Business" should related to "Against All Cods" and "O For Tuna" policies
 
-Scenario: Creating a speech related to multiple worldwide prioirites
-  Given I am a writer
-  And a published worldwide priority "Fish Exchange Programme" exists
-  And a published worldwide priority "Supporting British Fish Abroad" exists
-  When I draft a new speech "Fishy Business" relating it to the worldwide_priorities "Fish Exchange Programme" and "Supporting British Fish Abroad"
-  Then I should see in the preview that "Fishy Business" should related to "Fish Exchange Programme" and "Supporting British Fish Abroad" worldwide priorities
-
 Scenario: Trying to save a speech that has been changed by another user
   Given I am a writer
   And a draft speech "Outlaw Moustaches" exists

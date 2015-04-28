@@ -82,12 +82,6 @@ Feature: World location news for people local to countries
     When I view the world location "British Antarctic Territory"
     Then I should see the publication "Penguins have rights too"
 
-  Scenario: View priorities for an international delegation
-    Given an international delegation "United Nations" exists
-    And a published worldwide priority "Oil field exploitation" exists relating to the international delegation "United Nations"
-    When I view the international delegation "United Nations"
-    Then I should see the worldwide priority "Oil field exploitation"
-
   Scenario: Inactive world locations are listed but not linked
     Given the world location "Democratic People's Republic of South London" is inactive
     When I visit the world locations page
