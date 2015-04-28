@@ -252,3 +252,7 @@ Then(/^I should see the edit offsite link "(.*?)" on the "(.*?)" topic page$/) d
   visit admin_topic_path(topic)
   page.has_link?(title, href: edit_admin_topic_offsite_link_path(topic.id, offsite_link.id))
 end
+
+When(/^I start creating a topic$/) do
+  start_creating_topic
+end

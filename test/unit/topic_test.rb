@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
+  include ContentRegisterHelpers
+
+  setup do
+    stub_content_register_policies
+  end
+
   test "should set a slug from the topic name" do
     topic = create(:topic, name: 'Love all the people')
     assert_equal 'love-all-the-people', topic.slug
@@ -17,31 +23,12 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 'bobs-bike', topic.slug
   end
 
-  test "policies can be ordered" do
-    topic = create(:topic)
-    first_policy = create(:published_policy, topics: [topic])
-    second_policy = create(:published_policy, topics: [topic])
-    first_association = topic.classification_memberships.find_by(edition_id: first_policy.id)
-    second_association = topic.classification_memberships.find_by(edition_id: second_policy.id)
-
-    topic.update_attributes(classification_memberships_attributes: {
-      first_association.id => {id: first_association.id, edition_id: first_policy.id, ordering: "2"},
-      second_association.id => {id: second_association.id, edition_id: second_policy.id, ordering: "1"}
-    })
-
-    assert_equal [second_policy, first_policy], topic.reload.policies
-    assert_equal [second_policy, first_policy], topic.reload.published_policies
-  end
-
-  test "should be deletable if all the associated policies are superseded" do
-    topic = create(:topic, editions: [create(:superseded_policy)])
+  test "should not be deletable if there are associated policies" do
+    topic = create(:topic, policy_content_ids: [])
     assert topic.destroyable?
-    topic.delete!
-    assert topic.deleted?
-  end
 
-  test "should not be deletable if there are non-superseded associated policies" do
-    topic = create(:topic, editions: [create(:policy)])
+    topic.update(policy_content_ids: [policy_1["content_id"]])
+
     refute topic.destroyable?
     topic.delete!
     refute topic.deleted?

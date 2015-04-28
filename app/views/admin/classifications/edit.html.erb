@@ -20,8 +20,8 @@
       <div class="policies_preventing_destruction">
         <p>This topic can't be deleted as it has associated policies:</p>
         <ul>
-          <% policies_preventing_destruction(@classification).each do |policy| %>
-            <li><%= policy %></li>
+          <% @classification.policies.each do |policy| %>
+            <li><%= link_to(policy.title, future_policy_path(policy)) %></li>
           <% end %>
         </ul>
       </div>

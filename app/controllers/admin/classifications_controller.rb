@@ -3,6 +3,7 @@ class Admin::ClassificationsController < Admin::BaseController
 
   before_filter :build_object, only: [:new]
   before_filter :load_object, only: [:show, :edit]
+  before_filter :remove_blank_parameters, only: [:create, :update]
 
   def index
     @classifications = model_class.includes(:related_classifications).order(:name)
@@ -64,6 +65,7 @@ class Admin::ClassificationsController < Admin::BaseController
     params.require(model_name).permit(
       :name, :description, :logo, :logo_alt_text, :logo_cache, :remove_logo,
       :start_date, :end_date,
+      policy_content_ids: [],
       related_classification_ids: [],
       classification_memberships_attributes: [:id, :ordering],
       social_media_accounts_attributes: [
@@ -72,5 +74,10 @@ class Admin::ClassificationsController < Admin::BaseController
       featured_links_attributes: [:title, :url, :_destroy, :id],
       organisation_classifications_attributes: [:id, :lead, :lead_ordering]
     )
+  end
+
+  def remove_blank_parameters
+    return if params[model_name][:policy_content_ids].blank?
+    params[model_name][:policy_content_ids].reject!(&:blank?)
   end
 end

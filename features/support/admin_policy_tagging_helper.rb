@@ -6,10 +6,16 @@ module AdminPolicyTaggingHelper
     end
   end
 
-  def check_edition_is_tagged_to_policies(edition:, policies:)
+  def check_edition_is_tagged_to_policies(edition:, policies: [])
     assert_path admin_publication_path(edition)
     policy_content_ids = policies.map {|policy| policy["content_id"] }
     assert_equal policy_content_ids, edition.policy_content_ids
+  end
+
+  def check_topic_is_tagged_to_policies(topic:, policies: [])
+    assert_path admin_topic_path(topic)
+    policy_content_ids = policies.map {|policy| policy["content_id"] }
+    assert_equal policy_content_ids, topic.policy_content_ids
   end
 end
 
