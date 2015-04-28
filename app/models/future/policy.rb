@@ -2,13 +2,12 @@
 # and stored in the content-store.
 module Future
   class Policy
-    attr_reader :base_path, :content_id, :slug, :title
+    attr_reader :base_path, :content_id, :title
 
     def initialize(attributes)
       @base_path = attributes["base_path"]
       @content_id = attributes["content_id"]
       @title = attributes["title"]
-      @slug = extract_slug
     end
 
     def self.all
@@ -27,9 +26,8 @@ module Future
       []
     end
 
-  private
-    def extract_slug
-      base_path.split('/').last
+    def slug
+      @slug ||= base_path.split('/').last
     end
   end
 end

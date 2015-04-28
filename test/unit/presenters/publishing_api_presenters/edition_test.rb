@@ -2,6 +2,8 @@ require 'test_helper'
 
 class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
   include GovukContentSchemaTestHelpers::TestUnit
+  include ContentRegisterHelpers
+
 
   def present(edition, options={})
     PublishingApiPresenters::Edition.new(edition, options).as_json
@@ -35,6 +37,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
         change_note: nil,
         tags: {
           browse_pages: [],
+          policies: [],
           topics: ['oil-and-gas/taxation', 'oil-and-gas/licensing']
         }
       },
@@ -73,6 +76,7 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
         change_note: nil,
         tags: {
           browse_pages: [],
+          policies: [],
           topics: ['oil-and-gas/taxation', 'oil-and-gas/licensing']
         }
       },
@@ -124,5 +128,20 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
         presented_hash[:routes].first[:path]
 
     end
+  end
+
+  test "includes new policy associations if enabled" do
+    stub_content_register_policies
+    edition = create(:publication, :published,
+      policy_content_ids: [policy_1["content_id"]]
+    )
+
+    FeatureFlag.find_or_create_by(key: 'future_policies')
+
+    FeatureFlag.set('future_policies', false)
+    assert_equal [], present(edition)[:details][:tags][:policies]
+
+    FeatureFlag.set('future_policies', true)
+    assert_equal ["policy-1"], present(edition)[:details][:tags][:policies]
   end
 end

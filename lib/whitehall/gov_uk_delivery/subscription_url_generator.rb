@@ -27,6 +27,8 @@ module Whitehall
       end
 
       def relevant_to_local_government?
+        return false if FeatureFlag.enabled?('future_policies')
+
         edition.relevant_to_local_government?
       end
 
@@ -134,6 +136,8 @@ module Whitehall
       end
 
       def policy_urls
+        return [] if FeatureFlag.enabled?('future_policies')
+
         if edition.can_be_related_to_policies?
           generate_urls(url_maker.method(:activity_policy_url), edition.published_related_policies.map(&:document))
         else
