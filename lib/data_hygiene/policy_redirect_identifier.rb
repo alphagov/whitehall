@@ -1,3 +1,5 @@
+require 'data_hygiene/policy_to_paper_mapper'
+
 module DataHygiene
     # Used to identify the appropriate redirect URL for a whitehall policy.
     #
