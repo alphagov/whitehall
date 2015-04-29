@@ -1,5 +1,5 @@
 class StatisticsController < DocumentsController
-  enable_request_formats index: [:json]
+  enable_request_formats index: [:json, :atom]
   before_filter :inject_statistics_publication_filter_option_param, only: :index
   before_filter :expire_cache_when_next_publication_published
 
@@ -13,6 +13,11 @@ class StatisticsController < DocumentsController
       end
       format.json do
         render json: StatisticsFilterJsonPresenter.new(@filter, view_context, PublicationesquePresenter)
+      end
+      format.atom do
+        documents = Publicationesque.published_with_eager_loading(@filter.documents.map(&:id))
+        @statistics = Whitehall::Decorators::CollectionDecorator.new(
+          documents.sort_by(&:public_timestamp).reverse, PublicationesquePresenter, view_context)
       end
     end
   end
