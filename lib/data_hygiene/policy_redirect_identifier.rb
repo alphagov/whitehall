@@ -1,7 +1,7 @@
 require 'data_hygiene/policy_to_paper_mapper'
 
 module DataHygiene
-    # Used to identify the appropriate redirect URL for a whitehall policy.
+    # Used to identify the appropriate redirect path for a whitehall policy.
     #
     # Note: Can be removed after the migration to new policies has been complete.
   class PolicyRedirectIdentifier
@@ -10,11 +10,11 @@ module DataHygiene
       @policy = policy
     end
 
-    def redirect_url
+    def redirect_path
       if corresponding_future_policy.present?
-        corresponding_future_policy_url
+        corresponding_future_policy_path
       else
-        corresponding_policy_publication_url
+        corresponding_policy_publication_path
       end
     end
 
@@ -25,13 +25,13 @@ module DataHygiene
       @future_policy ||= Future::Policy.find(policy.content_id)
     end
 
-    def corresponding_future_policy_url
-      Whitehall.public_root + corresponding_future_policy.base_path
+    def corresponding_future_policy_path
+      corresponding_future_policy.base_path
     end
 
-    def corresponding_policy_publication_url
+    def corresponding_policy_publication_path
       corresponding_policy_publication = PolicyToPaperMapper.new.publication_for(policy)
-      Whitehall.url_maker.document_url(corresponding_policy_publication)
+      Whitehall.url_maker.document_path(corresponding_policy_publication)
     end
   end
 end

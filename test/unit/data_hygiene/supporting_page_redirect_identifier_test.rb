@@ -9,21 +9,21 @@ module DataHygiene
       first_supporting_page = create(:published_supporting_page, title: 'Some supporting page', related_policies: [policy])
       second_supporting_page = create(:published_supporting_page, title: 'Another supporting page', related_policies: [policy])
 
-      first_expected_url = Whitehall.url_maker.publication_html_attachment_url(
+      first_expected_path = Whitehall.url_maker.publication_html_attachment_path(
                       replacement_publication.document,
                       html_attchment,
                       anchor: 'appendix-1-some-supporting-page')
 
-      second_expected_url = Whitehall.url_maker.publication_html_attachment_url(
+      second_expected_path = Whitehall.url_maker.publication_html_attachment_path(
                       replacement_publication.document,
                       html_attchment,
                       anchor: 'appendix-2-another-supporting-page')
 
-      assert_equal first_expected_url,
-        SupportingPageRedirectIdentifier.new(first_supporting_page, policy).redirect_url
+      assert_equal first_expected_path,
+        SupportingPageRedirectIdentifier.new(first_supporting_page, policy).redirect_path
 
-      assert_equal second_expected_url,
-        SupportingPageRedirectIdentifier.new(second_supporting_page, policy).redirect_url
+      assert_equal second_expected_path,
+        SupportingPageRedirectIdentifier.new(second_supporting_page, policy).redirect_path
     end
   end
 end

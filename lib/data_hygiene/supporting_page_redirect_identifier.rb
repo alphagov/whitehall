@@ -1,5 +1,5 @@
 module DataHygiene
-  # Used to identify the appropriate redirect URL for a policy supporting page.
+  # Used to identify the appropriate redirect path for a policy supporting page.
   #
   # Supporting pages are to be redirected to the corresponding heading in the
   # HTML publication that was generated to archive the policy.
@@ -12,8 +12,8 @@ module DataHygiene
       @policy = policy
     end
 
-    def redirect_url
-      Whitehall.url_maker.publication_html_attachment_url(
+    def redirect_path
+      Whitehall.url_maker.publication_html_attachment_path(
         publication.document,
         html_attchment,
         anchor: supporting_page_anchor)
