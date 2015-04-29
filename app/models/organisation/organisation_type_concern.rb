@@ -74,14 +74,6 @@ module Organisation::OrganisationTypeConcern
       active_child_organisations_excluding_sub_organisations.group_by(&:organisation_type).sort_by { |type, department| type.listing_position }
   end
 
-  def can_index_in_search?
-    super && !court_or_hmcts_tribunal?
-  end
-
-  def can_publish_to_publishing_api?
-    super && !court_or_hmcts_tribunal?
-  end
-
   def hmcts_tribunal?
     organisation_type_key == :tribunal_ndpb &&
       parent_organisations.pluck(:slug).include?("hm-courts-and-tribunals-service")

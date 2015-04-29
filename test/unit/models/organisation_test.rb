@@ -387,17 +387,19 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.save
   end
 
-  test 'should not add courts to index on creating' do
-    court = build(:court)
-    Whitehall::SearchIndex.expects(:add).once
-    Whitehall::SearchIndex.expects(:add).with(court).never
+  test 'should add courts to index on creating' do
+    hmcts = create(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")
+
+    court = build(:court, parent_organisations: [hmcts])
+    Whitehall::SearchIndex.expects(:add).once.with(court)
     court.save
   end
 
-  test 'should not add HMCTS tribunals to index on creating' do
-    hmcts_tribunal = build(:hmcts_tribunal)
-    Whitehall::SearchIndex.expects(:add).once
-    Whitehall::SearchIndex.expects(:add).with(hmcts_tribunal).never
+  test 'should add HMCTS tribunals to index on creating' do
+    hmcts = create(:organisation, slug: "hm-courts-and-tribunals-service", name: "HMCTS")
+
+    hmcts_tribunal = build(:hmcts_tribunal, parent_organisations: [hmcts])
+    Whitehall::SearchIndex.expects(:add).once.with(hmcts_tribunal)
     hmcts_tribunal.save
   end
 
@@ -410,9 +412,9 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.save
   end
 
-  test 'should not add courts to index on updating' do
+  test 'should add courts to index on updating' do
     court = create(:court)
-    Whitehall::SearchIndex.expects(:add).never
+    Whitehall::SearchIndex.expects(:add).with(court)
     court.name = "Junk Appeals Court"
     court.save
   end
@@ -423,7 +425,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation.destroy
   end
 
-  test 'should try to remove courts from index on destroying' do
+  test 'should remove courts from index on destroying' do
     court = create(:court)
     Whitehall::SearchIndex.expects(:delete).with(court)
     court.destroy

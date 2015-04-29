@@ -158,9 +158,9 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert organisation.can_index_in_search?
   end
 
-  test "should not index Courts" do
+  test "should index Courts" do
     court = create(:court)
-    refute court.can_index_in_search?
+    assert court.can_index_in_search?
   end
 
   test "should publish Organisations to Publishing API" do
@@ -168,9 +168,9 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert organisation.can_publish_to_publishing_api?
   end
 
-  test "should not publish Courts to Publishing API" do
+  test "should publish Courts to Publishing API" do
     court = create(:court)
-    refute court.can_publish_to_publishing_api?
+    assert court.can_publish_to_publishing_api?
   end
 
   test "#hmcts_tribunal? should be true if it's an HMCTS tribunal only" do
