@@ -60,6 +60,10 @@ module ActiveRecordLikeInterface
     id && id.to_s
   end
 
+  def model_name
+    self.class.model_name
+  end
+
   def self.included(into)
     into.extend ClassMethods
   end
