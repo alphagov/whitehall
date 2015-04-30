@@ -9,7 +9,7 @@ module TranslationsForAssociations
   #   ActiveRecord::ConfigurationError: Association named 'translations' was not found; perhaps you misspelled it?
   # so we do everything that scope (from globalize3) does, but by hand
   def with_translations_for(association, *locales)
-    association_class = reflections[association].klass
+    association_class = reflections[association.to_s].klass
     translation_class = association_class.translation_class
     locales = translation_class.translated_locales if locales.empty?
     includes(association => :translations).
