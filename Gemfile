@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -43,7 +43,7 @@ gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
 gem 'rails_translation_manager', '0.0.1'
 gem 'rails-observers'
-gem 'sprockets', '3.0.0.beta.8'
+gem 'sprockets', '~> 3.0'
 gem 'rinku', require: 'rails_rinku'
 gem 'parallel', '1.4.1'
 
