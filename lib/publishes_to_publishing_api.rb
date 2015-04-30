@@ -18,5 +18,8 @@ module PublishesToPublishingApi
 
   def publish_to_publishing_api
     Whitehall::PublishingApi.publish_async(self)
+  rescue => e
+    # Default behaviour by Rails < 4.2 was to catch all errors and log them
+    Airbrake.notify_or_ignore(e)
   end
 end

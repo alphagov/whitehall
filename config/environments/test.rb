@@ -16,7 +16,7 @@ Whitehall::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching
@@ -54,6 +54,8 @@ Whitehall::Application.configure do
   # them here means we don't have to explicitly set them just ro run tests.
   ENV['GOVUK_APP_DOMAIN'] ||= 'test.alphagov.co.uk'
   ENV['GOVUK_ASSET_ROOT'] ||= 'http://static.test.alphagov.co.uk'
+
+  config.active_support.test_order = :random
 end
 
 require Rails.root.join("test/support/skip_slimmer")
