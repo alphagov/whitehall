@@ -358,6 +358,7 @@ sr:
       making_foi_requests:
       our_announcements: Naše objave
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Naše rukovodstvo
       our_ministers: Naši ministri
@@ -371,6 +372,7 @@ sr:
       special_representatives: specijalni predstavnici
       traffic_commissioners: poverenik za saobraćaj
       what_we_do: Radimo na
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

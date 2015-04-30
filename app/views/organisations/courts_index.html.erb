@@ -1,0 +1,32 @@
+<% page_title "Courts and Tribunals" %>
+<% page_class "index-list-page" %>
+
+<div class="organisations-index">
+  <div class="block-1">
+    <div class="inner-block">
+      <%= render partial: 'govuk_component/beta_label' , locals: {
+        message: 'This part of GOV.UK is still being built – you can access information <a href="http://www.justice.gov.uk/">on the Justice website</a> in the meantime'} %>
+      <header class="page-header">
+        <h1 class="title">Courts and Tribunals</h1>
+      </header>
+    </div>
+  </div>
+
+  <div class="block-2">
+    <div class="inner-block">
+      <%= render 'organisations/index_section', organisations:      @courts,
+                                  header_text:        'Courts',
+                                  block_id:           'courts',
+                                  list_item_partial:  'organisations/index_item_plain',
+                                  show_govuk_status:  false,
+                                  hide_organisation_count_paragraph: true %>
+      <%= render 'organisations/index_section', organisations:      @hmcts_tribunals,
+                                  header_text:        'Tribunals',
+                                  block_id:           'tribunals',
+                                  list_item_partial:  'organisations/index_item_plain',
+                                  show_govuk_status:  false,
+                                  hide_organisation_count_paragraph: true %>
+    </div>
+  </div>
+</div>
+

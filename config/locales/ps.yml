@@ -236,6 +236,7 @@ ps:
       making_foi_requests:
       our_announcements: "زمونږه اعلانات"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "زمونږه اداره"
       our_ministers: "زموږه وزیران"
@@ -249,6 +250,7 @@ ps:
       special_representatives: "خصوصی نمایندګان"
       traffic_commissioners: "د ترافیکو کمشنران"
       what_we_do: "موږڅه کوو"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

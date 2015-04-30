@@ -21,12 +21,73 @@ class OrganisationsControllerTest < ActionController::TestCase
     OrganisationsIndexPresenter.expects(:new).with(:some_listable_ordered_orgs).returns(:some_presented_organisations)
     get :index
     assert_equal :some_presented_organisations, assigns(:organisations)
+    assert_template :index
+  end
+
+  test "index from the courts route renders the court index" do
+    organisation = create(:organisation)
+    court = create(:court)
+    hmcts_tribunal = create(:hmcts_tribunal)
+
+    get :index, courts_only: true
+
+    assert_template :courts_index
+    assert_nil assigns(:organisations)
+    assert_equal [court], assigns(:courts)
+    assert_equal [hmcts_tribunal], assigns(:hmcts_tribunals)
   end
 
   view_test "should include a rel='alternate' link to JSON representation of organisations" do
     get :index
 
     assert_select "link[rel=alternate][type=application/json][href=#{api_organisations_url}]"
+  end
+
+  view_test "links to the correct path for organisations" do
+    organisation = create(:organisation)
+
+    get :index
+
+    assert_select "a[href=/government/organisations/#{organisation.slug}]", text: organisation.name
+  end
+
+  view_test "links to the correct paths for courts and tribunals" do
+    court = create(:court)
+    hmcts_tribunal = create(:hmcts_tribunal)
+
+    get :index, courts_only: true
+
+    assert_select "a[href=/courts-tribunals/#{court.slug}]", text: court.name
+    assert_select "a[href=/courts-tribunals/#{hmcts_tribunal.slug}]", text: hmcts_tribunal.name
+  end
+
+  view_test "shows a count of organisations" do
+    2.times { create(:organisation) }
+
+    get :index
+
+    assert_select "span.count.js-filter-count", text: 2
+  end
+
+  view_test "does not show a count of organisations for courts and tribunals" do
+    court = create(:court)
+    hmcts_tribunal = create(:hmcts_tribunal)
+
+    get :index, courts_only: true
+
+    refute_select "span.count.js-filter-count"
+  end
+
+  view_test "does not show a beta banner on organisations index" do
+    get :index
+
+    refute_select "test-govuk-component[data-template=govuk_component-beta_label]"
+  end
+
+  view_test "shows a beta banner on courts index" do
+    get :index, courts_only: true
+
+    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
   end
 
   ### Describing :show ###
@@ -266,6 +327,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     organisation = create(:organisation)
     get :show, id: organisation
     refute_select "#parent_organisations"
+  end
+
+  view_test "shows that courts are 'administered by' their parent organisation" do
+    court = create(:court)
+    get :show, id: court, courts_only: true
+    assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
+  end
+
+  view_test "shows that HMCTS tribunals are 'administered by' HMCTS" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    get :show, id: hmcts_tribunal, courts_only: true
+    assert_select "p.parent-organisations", text: /Administered by\s+HMCTS/m
   end
 
   ###############
@@ -544,7 +617,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_equal [senior_role, junior_role], assigns(:traffic_commissioner_roles).collect(&:model)
   end
 
-  test "shows traffic chief professional officer roles in the specified order" do
+  test "shows chief professional officer roles in the specified order" do
     junior_role = create(:chief_professional_officer_role, role_appointments: [create(:role_appointment)])
     senior_role = create(:chief_professional_officer_role, role_appointments: [create(:role_appointment)])
     organisation = create(:organisation)
@@ -554,6 +627,18 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_equal [senior_role, junior_role], assigns(:chief_professional_officer_roles).collect(&:model)
+  end
+
+  test "shows judge roles in the specified order" do
+    junior_role = create(:judge_role, role_appointments: [create(:role_appointment)])
+    senior_role = create(:judge_role, role_appointments: [create(:role_appointment)])
+    organisation = create(:organisation)
+    create(:organisation_role, organisation: organisation, role: junior_role, ordering: 2)
+    create(:organisation_role, organisation: organisation, role: senior_role, ordering: 1)
+
+    get :show, id: organisation
+
+    assert_equal [senior_role, junior_role], assigns(:judge_roles).collect(&:model)
   end
 
   test "shows military roles in the specified order" do
@@ -711,11 +796,124 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select '#freedom-of-information', /not covered by the Freedom of Information Act/
   end
 
-  test "should not show Courts" do
+  view_test "should not show FOI for courts" do
+    court = create(:court)
+    get :show, id: court, courts_only: true
+    refute_select '#freedom-of-information'
+  end
+
+  view_test "should not show FOI for HMCTS tribunals" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    get :show, id: hmcts_tribunal, courts_only: true
+    refute_select '#freedom-of-information'
+  end
+
+  test "should not show Courts from the organisations namespace" do
     assert_raises(ActiveRecord::RecordNotFound) do
       court = create(:court)
       get :show, id: court
     end
+  end
+
+  test "should not show Tribunals from the organisations namespace" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      hmcts_tribunal = create(:hmcts_tribunal)
+      get :show, id: hmcts_tribunal
+    end
+  end
+
+  test "should not show Organisations from the courts-and-tribunals namespace" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      organisation = create(:organisation)
+      get :show, id: organisation, courts_only: true
+    end
+  end
+
+  view_test "shows a beta banner for courts" do
+    court = create(:court)
+    get :show, id: court, courts_only: true
+    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
+  end
+
+  view_test "shows a beta banner for HMCTS tribunals" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    get :show, id: hmcts_tribunal, courts_only: true
+    assert_select "test-govuk-component[data-template=govuk_component-beta_label]"
+  end
+
+  view_test "does not show a beta banner for organisations" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    refute_select "test-govuk-component[data-template=govuk_component-beta_label]"
+  end
+
+  view_test "organisations show the 'About Us' summary and link to page under 'What we do'" do
+    organisation = create(:organisation, parent_organisations: [create(:organisation)])
+    create(:about_corporate_information_page, organisation: organisation, summary: "This is *what* we do")
+    get :show, id: organisation
+
+    assert_select "#what-we-do" do
+      assert_select "h1", text: "What we do"
+      assert_select ".overview", text: /This is \*what\* we do/
+      assert_select ".overview a", text: /Read more about what we do/
+      assert_select ".parent_organisations", text: /works with the/
+    end
+  end
+
+  view_test "courts show the 'About Us' body as govspeak under 'Who we are', with no link to the page" do
+    court = create(:court)
+    create(:about_corporate_information_page, organisation: court, body: "This is *who* we are")
+    get :show, id: court, courts_only: true
+
+    assert_select "#who-we-are" do
+      assert_select "h1", text: "Who we are"
+      assert_select ".overview", text: /This is who we are/
+      refute_select ".overview a", text: /Read more about what we do/
+      refute_select ".parent_organisations"
+    end
+  end
+
+  view_test "HMCTS tribunals show the 'About Us' body as govspeak under 'Who we are', with no link to the page" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    create(:about_corporate_information_page, organisation: hmcts_tribunal, body: "This is *who* we are")
+    get :show, id: hmcts_tribunal, courts_only: true
+
+    assert_select "#who-we-are" do
+      assert_select "h1", text: "Who we are"
+      assert_select ".overview", text: /This is who we are/
+      refute_select ".overview a", text: /Read more about what we do/
+      refute_select ".parent_organisations"
+    end
+  end
+
+  view_test "auto-links comments in contacts" do
+    organisation = create(:organisation)
+    contact = create(:contact, comments: "This is a link: http://www.example.com")
+    organisation.add_contact_to_home_page!(contact)
+
+    get :show, id: organisation
+
+    assert_select ".comments", text: "This is a link: http://www.example.com" do
+      assert_select "a[href=http://www.example.com]", text: "http://www.example.com"
+    end
+  end
+
+  view_test "organisations shows the default Jobs link" do
+    organisation = create(:organisation)
+    get :show, id: organisation
+    assert_select "a", text: "Jobs"
+  end
+
+  view_test "courts don't show a Jobs link" do
+    court = create(:court)
+    get :show, id: court, courts_only: true
+    refute_select "a", text: "Jobs"
+  end
+
+  view_test "HMCTS tribunals don't show a Jobs link" do
+    hmcts_tribunal = create(:hmcts_tribunal)
+    get :show, id: hmcts_tribunal, courts_only: true
+    refute_select "a", text: "Jobs"
   end
 
   private

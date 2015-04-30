@@ -188,7 +188,8 @@ module OrganisationHelper
       @important_board_members.any? ||
       @military_personnel.any? ||
       @chief_professional_officers.any? ||
-      @traffic_commissioners.any?
+      @traffic_commissioners.any? ||
+      @judges.any?
   end
 
   def organisations_grouped_by_type(organisations)
@@ -243,5 +244,22 @@ module OrganisationHelper
   def organisation_count_paragraph(org_array)
     contents = content_tag(:span, org_array.length, class: 'count js-filter-count')
     content_tag(:p, contents.html_safe)
+  end
+
+  def organisation_or_court_path(organisation_or_court)
+    if organisation_or_court.court_or_hmcts_tribunal?
+      court_path(organisation_or_court)
+    else
+      organisation_path(organisation_or_court)
+    end
+  end
+
+  def show_corporate_information_pages?(organisation)
+    organisation.live? && (!organisation.court_or_hmcts_tribunal? ||
+      organisation.corporate_information_pages.published.reject { |cip| cip.slug == "about" }.any?)
+  end
+
+  def organisation_body_heading_key(organisation)
+    organisation.court_or_hmcts_tribunal? ? 'who_we_are' : 'what_we_do'
   end
 end

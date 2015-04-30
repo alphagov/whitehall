@@ -234,6 +234,7 @@ lv:
       making_foi_requests:
       our_announcements: Mūsu paziņojumi
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Mūsu vadība
       our_ministers: Mūsu ministri
@@ -247,6 +248,7 @@ lv:
       special_representatives: "Īpašie pārstāvji"
       traffic_commissioners: Satiksmes komisāri
       what_we_do: Par mums
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

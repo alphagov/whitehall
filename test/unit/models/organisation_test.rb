@@ -278,6 +278,13 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal [chief_professional_officer], organisation.chief_professional_officer_roles
   end
 
+  test '#judge_roles includes only judges' do
+    judge = create(:judge_role)
+    chief_professional_officer = create(:chief_professional_officer_role)
+    organisation = create(:organisation, roles:  [chief_professional_officer, judge])
+    assert_equal [judge], organisation.judge_roles
+  end
+
   test 'should be creatable with featured link data' do
     params = {
       featured_links_attributes: [
@@ -382,8 +389,16 @@ class OrganisationTest < ActiveSupport::TestCase
 
   test 'should not add courts to index on creating' do
     court = build(:court)
-    Whitehall::SearchIndex.expects(:add).never
+    Whitehall::SearchIndex.expects(:add).once
+    Whitehall::SearchIndex.expects(:add).with(court).never
     court.save
+  end
+
+  test 'should not add HMCTS tribunals to index on creating' do
+    hmcts_tribunal = build(:hmcts_tribunal)
+    Whitehall::SearchIndex.expects(:add).once
+    Whitehall::SearchIndex.expects(:add).with(hmcts_tribunal).never
+    hmcts_tribunal.save
   end
 
   test 'should add organisation to search index on updating' do
@@ -816,12 +831,6 @@ class OrganisationTest < ActiveSupport::TestCase
     create(:statistics_announcement, organisation_ids: [org_with_announcement.id])
     org_without_announcement = create(:organisation)
     assert_equal [org_with_announcement], Organisation.with_statistics_announcements
-  end
-
-  test "excluding_courts scopes to non-court organisation types" do
-    court = create(:court)
-    other_org = create(:organisation)
-    assert_equal [other_org], Organisation.excluding_courts
   end
 
   test "#has_services_and_information_link? returns true if slug is in the whitelist" do

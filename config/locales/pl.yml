@@ -358,6 +358,7 @@ pl:
       making_foi_requests:
       our_announcements: Nasze ogłoszenia
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Nasze kierownictwo
       our_ministers: Nasi ministrowie
@@ -371,6 +372,7 @@ pl:
       special_representatives: Specjalni wysłannicy
       traffic_commissioners: Komisarze z wydziałów ruchu drogowego
       what_we_do: Czym się zajmujemy
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

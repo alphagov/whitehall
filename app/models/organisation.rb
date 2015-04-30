@@ -67,6 +67,10 @@ class Organisation < ActiveRecord::Base
             class_name: 'RoleAppointment',
             through: :ministerial_whip_roles,
             source: :role_appointments
+  has_many :judge_roles,
+           class_name: 'JudgeRole',
+           through: :organisation_roles,
+           source: :role
 
   has_many :people, through: :roles
 

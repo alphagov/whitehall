@@ -334,6 +334,7 @@ ja:
       making_foi_requests:
       our_announcements: "ニュース"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "幹部職員"
       our_ministers: "大臣"
@@ -347,6 +348,7 @@ ja:
       special_representatives: "特別代表"
       traffic_commissioners: "交通担当コミッショナー"
       what_we_do: "業務案内"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

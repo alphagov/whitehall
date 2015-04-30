@@ -335,6 +335,7 @@ tr:
       making_foi_requests:
       our_announcements: 'Duyurular '
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Yönetim
       our_ministers: Bakanlarımız
@@ -348,6 +349,7 @@ tr:
       special_representatives: "Özel temsilciler"
       traffic_commissioners: Trafik Şube Müdürü
       what_we_do: 'Hakkımızda '
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

@@ -334,6 +334,7 @@ th:
       making_foi_requests:
       our_announcements: "ข่าวสารของเรา"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "การบริหารจัดการของเรา"
       our_ministers: "รัฐมนตรีของเรา"
@@ -347,6 +348,7 @@ th:
       special_representatives: "ผู้แทนพิเศษ"
       traffic_commissioners: "ผู้บัญชาการจราจร"
       what_we_do: "สิ่งที่เราทำ"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

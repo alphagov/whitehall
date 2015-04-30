@@ -482,6 +482,7 @@ ar:
       making_foi_requests:
       our_announcements: "إعلاناتنا"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "إدارتنا"
       our_ministers: "وزراؤنا"
@@ -495,6 +496,7 @@ ar:
       special_representatives: "الممثلون الخاصون"
       traffic_commissioners: "مفوضو المرور"
       what_we_do: "عملنا"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

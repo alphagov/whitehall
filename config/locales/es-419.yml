@@ -234,6 +234,7 @@ es-419:
       making_foi_requests:
       our_announcements: Nuestras novedades
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Nuestra administración
       our_ministers: Nuestros ministros
@@ -247,6 +248,7 @@ es-419:
       special_representatives: Representantes especiales
       traffic_commissioners: Comisionados de tráfico
       what_we_do: Qué hacemos
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

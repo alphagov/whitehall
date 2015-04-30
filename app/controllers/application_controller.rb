@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   include Slimmer::Headers
   include Slimmer::Template
+  include Slimmer::SharedTemplates
 
   protect_from_forgery
 

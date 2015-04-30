@@ -235,6 +235,7 @@ et:
       making_foi_requests: Esita FOI päring
       our_announcements: Meie teadaanded
       our_consultations: Meie konsultatsioonid
+      our_judges:
       our_mainstream_categories: 'Me väljastame detailseid juhendeid alljärgnevates
         kategooriates:'
       our_management: Meie juhtkond
@@ -249,6 +250,7 @@ et:
       special_representatives: Eriesindajad
       traffic_commissioners: Liiklusvolinikud
       what_we_do: Millega me tegeleme
+      who_we_are:
     making_foi_requests:
       step1_html: Lugege lähemalt Teabevabaduse seadusest (FOI) ja <a href="%{how_to_path}">kuidas
         esitada päringut</a>

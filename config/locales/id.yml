@@ -336,6 +336,7 @@ id:
       making_foi_requests:
       our_announcements: Pengumuman-pengumuman kami
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Manajemen kami
       our_ministers: Menteri-menteri kami
@@ -349,6 +350,7 @@ id:
       special_representatives: Perwakilan khusus
       traffic_commissioners: Komisioner lalu lintas
       what_we_do: Kerja kami
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

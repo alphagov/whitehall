@@ -643,7 +643,7 @@
       @include core-19;
       font-weight: bold;
     }
-    
+
     p.comments {
       clear: both;
     }
@@ -812,15 +812,23 @@
   #traffic_commissioners h1,
   #chief_professional_officers h1,
   #special_representatives h1,
+  #judges h1,
   #org-contacts h2,
-  #what-we-do h1 {
+  #what-we-do h1, #who-we-are h1 {
     border-bottom-width: 5px;
     border-bottom-style: solid;
+  }
+  #who-we-are .overview h1 {
+    border-bottom: 0px;
   }
   @include organisation-brand-colour("h1", border-color);
   @include organisation-brand-colour("h2", border-color);
   @include organisation-brand-colour(".social-media-link .connect", background-color, $websafe: true);
   @include organisation-brand-colour("a", color, $websafe: true);
+
+  .govuk-beta-label {
+    margin: 0px 30px;
+  }
 }
 .organisations-external {
   @include media(desktop) {
@@ -976,7 +984,7 @@
     }
 
     #featured-topics-and-policies,
-    #what-we-do {
+    #what-we-do, #who-we-are {
       @include media(tablet) {
         width: $two-thirds;
         float: left;
@@ -1318,5 +1326,3 @@
     }
   }
 }
-
-

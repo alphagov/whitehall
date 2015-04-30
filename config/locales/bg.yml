@@ -235,6 +235,7 @@ bg:
       making_foi_requests:
       our_announcements: "Съобщенията ни"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "Нашето ръководство"
       our_ministers: "Нашите министи"
@@ -248,6 +249,7 @@ bg:
       special_representatives: "Специални представители"
       traffic_commissioners: "Комисари по трафика"
       what_we_do: "Нашата дейност"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

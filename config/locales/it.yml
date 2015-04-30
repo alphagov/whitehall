@@ -234,6 +234,7 @@ it:
       making_foi_requests:
       our_announcements: I nostri annunci
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: Il nostro corpo direttivo
       our_ministers: I nostri ministri
@@ -247,6 +248,7 @@ it:
       special_representatives: Rappresentanti speciali
       traffic_commissioners: Commissari per le attività commerciali
       what_we_do: Cosa facciamo
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

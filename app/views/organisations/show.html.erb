@@ -4,6 +4,10 @@
 <%= api_link_tag api_organisation_url(@organisation) %>
 
 <%= organisation_wrapper(@organisation) do %>
+<% if @organisation.court_or_hmcts_tribunal? %>
+  <%= render partial: 'govuk_component/beta_label' , locals: {
+    message: 'This part of GOV.UK is still being built – you can access information <a href="http://www.justice.gov.uk/">on the Justice website</a> in the meantime'} %>
+<% end %>
 
   <div class="block-1 headings-block<%= " service-priority" if @organisation.service_priority_homepage? %>">
     <div class="inner-block">
@@ -17,17 +21,23 @@
                 locals: { feature_list: @feature_list,
                           recently_updated: @recently_updated,
                           organisation: @organisation } %>
-      <section id="what-we-do" class="what-we-do">
+      <section id="<%= @organisation.court_or_hmcts_tribunal? ? 'who-we-are' : 'what-we-do'
+        %>" class="what-we-do">
         <div class="content">
-          <h1 class="label"><%= t('organisation.headings.what_we_do') %></h1>
+          <h1 class="label"><%= t("organisation.headings.#{organisation_body_heading_key(@organisation)}") %></h1>
           <div class="overview">
-            <p class="description"><%= @organisation.summary %></p>
-            <% if @organisation.parent_organisations.any? || @organisation.active_child_organisations_excluding_sub_organisations.any? %>
+            <% if @organisation.court_or_hmcts_tribunal? && @organisation.about_us %>
+              <%= govspeak_to_html @organisation.about_us.body %>
+            <% else %>
+              <p class="description"><%= @organisation.summary %></p>
+            <% end %>
+            <% if !@organisation.court_or_hmcts_tribunal? &&
+              (@organisation.parent_organisations.any? || @organisation.active_child_organisations_excluding_sub_organisations.any?) %>
               <p class="parent_organisations">
                 <%= organisation_display_name_including_parental_and_child_relationships(@organisation) %>
               </p>
             <% end %>
-            <p><%= link_to t('organisation.about.read_more'), polymorphic_path([@organisation, CorporateInformationPage]), id: 'read_more_link' %></p>
+            <p><%= link_to t('organisation.about.read_more'), polymorphic_path([@organisation, CorporateInformationPage]), id: 'read_more_link' unless @organisation.court_or_hmcts_tribunal? %></p>
             <% if @organisation.slug === 'department-for-international-development' %>
               <div class="uk-aid">
                 <h2><a href="https://www.gov.uk/government/publications/uk-aid-standards-for-using-the-logo">UK aid from the British people</a></h2>
@@ -202,6 +212,24 @@
               </ul>
             </section>
           <% end %>
+
+          <% if @judges.any? %>
+            <section id="judges">
+              <h1 class="label"><%= t('organisation.headings.judges') %></h1>
+              <ul>
+                <% @judges.each_with_index do |role, i| %>
+                  <%= render partial: "people/person",
+                             locals: {
+                               person: role.current_person,
+                               roles: @judge_roles.roles_for(role.current_person),
+                               hlevel: "h3",
+                               hide_image: false,
+                               extra_class: (i % 4 == 0) ? 'clear-person' : ''
+                             } %>
+                <% end %>
+              </ul>
+            </section>
+          <% end %>
         </section>
       </div>
     </div>
@@ -231,30 +259,32 @@
           </div>
         <% end %>
 
-        <section id="freedom-of-information">
-          <% if @organisation.foi_exempt? %>
-            <h1 class='label'><%= t('organisation.headings.freedom_of_information_act') %></h1>
+        <% unless @organisation.court_or_hmcts_tribunal? %>
+          <section id="freedom-of-information">
+            <% if @organisation.foi_exempt? %>
+              <h1 class='label'><%= t('organisation.headings.freedom_of_information_act') %></h1>
 
-            <p class="see-legislation"><%= t('organisation.foi_exemption_html', foi_url: 'http://www.legislation.gov.uk/ukpga/2000/36/schedule/1') %></p>
-          <% else %>
-            <h1 class="label"><%= t('organisation.headings.making_foi_requests') %></h1>
-            <ol class="steps">
-              <li><%= t('organisation.making_foi_requests.step1_html', how_to_path: 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act') %></li>
-              <li><%= t('organisation.making_foi_requests.step2_html', our_releases_path: publications_filter_path(@organisation, publication_type: 'foi-releases')) %></li>
+              <p class="see-legislation"><%= t('organisation.foi_exemption_html', foi_url: 'http://www.legislation.gov.uk/ukpga/2000/36/schedule/1') %></p>
+            <% else %>
+              <h1 class="label"><%= t('organisation.headings.making_foi_requests') %></h1>
+              <ol class="steps">
+                <li><%= t('organisation.making_foi_requests.step1_html', how_to_path: 'https://www.gov.uk/make-a-freedom-of-information-request/the-freedom-of-information-act') %></li>
+                <li><%= t('organisation.making_foi_requests.step2_html', our_releases_path: publications_filter_path(@organisation, publication_type: 'foi-releases')) %></li>
+                <% if @foi_contacts.any? %>
+                  <li><%= t('organisation.making_foi_requests.step3_html') %></li>
+                <% end %>
+              </ol>
+
               <% if @foi_contacts.any? %>
-                <li><%= t('organisation.making_foi_requests.step3_html') %></li>
-              <% end %>
-            </ol>
-
-            <% if @foi_contacts.any? %>
-              <div class="org-contacts">
-                <div class="addresses js-hide-extra-contacts">
-                  <%= render partial: 'contacts/contact', collection: @foi_contacts %>
+                <div class="org-contacts">
+                  <div class="addresses js-hide-extra-contacts">
+                    <%= render partial: 'contacts/contact', collection: @foi_contacts %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
-          <% end %>
-        </section>
+          </section>
+        <% end %>
 
         <% if @sub_organisations.any? %>
           <section id="high-profile-units">
@@ -272,7 +302,7 @@
         <% end %>
       </div>
 
-      <% if @organisation.live? %>
+      <% if show_corporate_information_pages? @organisation %>
         <%= render partial: 'corporate_information',
                    locals: { organisation: @organisation,
                              show_corporate_reports: true } %>

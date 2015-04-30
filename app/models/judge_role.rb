@@ -1,0 +1,2 @@
+class JudgeRole < Role
+end

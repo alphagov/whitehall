@@ -336,6 +336,7 @@ fa:
       making_foi_requests:
       our_announcements: "اطلاعیه های ما"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "مدیریت ما"
       our_ministers: "معاونین وزیر ما"
@@ -349,6 +350,7 @@ fa:
       special_representatives: "نمایندگان ویژه"
       traffic_commissioners: "ماموران ترافیک"
       what_we_do: "فعالیت ما"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:

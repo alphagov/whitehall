@@ -333,6 +333,7 @@ zh-hk:
       making_foi_requests:
       our_announcements: "我們的公告"
       our_consultations:
+      our_judges:
       our_mainstream_categories:
       our_management: "我們的管理層"
       our_ministers: "我們的大臣"
@@ -346,6 +347,7 @@ zh-hk:
       special_representatives: "特別代表"
       traffic_commissioners: "交通事務專員"
       what_we_do: "我們的工作"
+      who_we_are:
     making_foi_requests:
       step1_html:
       step2_html:
