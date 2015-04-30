@@ -24,7 +24,7 @@
       <section id="<%= @organisation.court_or_hmcts_tribunal? ? 'who-we-are' : 'what-we-do'
         %>" class="what-we-do">
         <div class="content">
-          <h1 class="label"><%= t("organisation.headings.#{@organisation.court_or_hmcts_tribunal? ? 'who_we_are' : 'what_we_do'}") %></h1>
+          <h1 class="label"><%= t("organisation.headings.#{organisation_body_heading_key(@organisation)}") %></h1>
           <div class="overview">
             <% if @organisation.court_or_hmcts_tribunal? && @organisation.about_us %>
               <%= govspeak_to_html @organisation.about_us.body %>
