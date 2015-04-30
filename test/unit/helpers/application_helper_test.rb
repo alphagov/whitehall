@@ -73,15 +73,15 @@ class ApplicationHelperTest < ActionView::TestCase
   test "should render a list of ministerial roles" do
     roles = [build(:ministerial_role, name: "Jack"), build(:ministerial_role,  name: "Jill")]
     html = render_list_of_ministerial_roles(roles) { |ministerial_role| "<p>#{ministerial_role.name}</p>" }
-    assert_select_in_html(html, 'ul li p', text: "Jack")
-    assert_select_in_html(html, 'ul li p', text: "Jill")
+    assert_select_within_html(html, 'ul li p', text: "Jack")
+    assert_select_within_html(html, 'ul li p', text: "Jill")
   end
 
   test "should render a object's datetime using the datetime microformat" do
     created_at = Time.zone.now
     object = stub(created_at: created_at)
     html = render_datetime_microformat(object, :created_at) { "human-friendly" }
-    assert_select_in_html(html, "abbr.created_at[title='#{created_at.iso8601}']", text: "human-friendly")
+    assert_select_within_html(html, "abbr.created_at[title='#{created_at.iso8601}']", text: "human-friendly")
   end
 
   test "home page should be related to home main navigation" do

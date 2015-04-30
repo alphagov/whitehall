@@ -13,12 +13,12 @@ class PersonPresenterTest < ActionView::TestCase
 
   test 'link links name to path' do
     @presenter.stubs(:path).returns('http://example.com/person/a-person')
-    assert_select_from @presenter.link, 'a[href="http://example.com/person/a-person"]', text: @person.name
+    assert_select_within_html @presenter.link, 'a[href="http://example.com/person/a-person"]', text: @person.name
   end
 
   test 'image returns an img tag' do
     @person.stubs(:image_url).returns('/link/to/image.jpg')
-    assert_select_from @presenter.image, 'img[src="/link/to/image.jpg"]'
+    assert_select_within_html @presenter.image, 'img[src="/link/to/image.jpg"]'
   end
 
   test 'image is nil if person has no associated image' do
@@ -28,7 +28,7 @@ class PersonPresenterTest < ActionView::TestCase
 
   test 'biography generates html from the original govspeak' do
     @person.stubs(:biography).returns("## Hello")
-    assert_select_from @presenter.biography, '.govspeak h2', text: 'Hello'
+    assert_select_within_html @presenter.biography, '.govspeak h2', text: 'Hello'
   end
 
   test 'biography is truncated for people without a current role' do

@@ -2,7 +2,7 @@ require 'support/css_selectors'
 require 'equivalent-xml'
 
 module HtmlAssertions
-  include ActionDispatch::Assertions::SelectorAssertions
+  include Rails::Dom::Testing::Assertions::SelectorAssertions
   include CssSelectors
 
   def refute_select(selector, *args)
@@ -30,12 +30,12 @@ module HtmlAssertions
   end
 
   def assert_select_within_html(html, *args, &block)
-    node = ::HTML::Document.new(CGI.unescape(html)).root
+    node = Nokogiri::HTML(html)
     assert_select(node, *args, &block)
   end
 
   def refute_select_within_html(html, *args)
-    node = ::HTML::Document.new(CGI.unescape(html)).root
+    node = Nokogiri::HTML(html)
     refute_select(node, *args)
   end
 

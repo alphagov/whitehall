@@ -20,7 +20,7 @@ class RolePresenterTest < ActionView::TestCase
   test 'link links name to path if path available' do
     @presenter.stubs(:path).returns('http://example.com/ministers/minister-of-funk')
     @role.stubs(:name).returns('The Minister of Funk')
-    assert_select_from @presenter.link, 'a[href="http://example.com/ministers/minister-of-funk"]', text: 'The Minister of Funk'
+    assert_select_within_html @presenter.link, 'a[href="http://example.com/ministers/minister-of-funk"]', text: 'The Minister of Funk'
   end
 
   test 'link returns just name if path unavailable' do
@@ -41,7 +41,7 @@ class RolePresenterTest < ActionView::TestCase
 
   test 'responsibilities generates html from the original govspeak' do
     @role.stubs(:responsibilities).returns("## Hello")
-    assert_select_from @presenter.responsibilities, '.govspeak h2', text: 'Hello'
+    assert_select_within_html @presenter.responsibilities, '.govspeak h2', text: 'Hello'
   end
 
   test "#announcements returns 10 published speeches and news articles sorted by descending date" do
