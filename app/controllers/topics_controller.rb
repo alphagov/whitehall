@@ -6,7 +6,6 @@ class TopicsController < ClassificationsController
 
     respond_to do |format|
       format.html do
-        @policies = @classification.published_policies.includes(:translations, :document)
         @consultations = latest_presenters(@classification.published_consultations)
         @publications = latest_presenters(@classification.published_non_statistics_publications)
         @statistics = latest_presenters(@classification.published_statistics_publications)

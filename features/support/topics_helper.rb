@@ -1,5 +1,10 @@
 module TopicsHelper
   def create_topic(options = {})
+    start_creating_topic(options)
+    save_document
+  end
+
+  def start_creating_topic(options = {})
     visit admin_root_path
     click_link "Topics"
     click_link "Create topic"
@@ -8,7 +13,6 @@ module TopicsHelper
     (options[:related_classifications] || []).each do |related_name|
       select related_name, from: "Related topics"
     end
-    click_button "Save"
   end
 end
 

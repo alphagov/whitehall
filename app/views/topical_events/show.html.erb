@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div class="documents-grid <%= topic_grid_size_class(@policies, @publications, @consultations, @announcements, @detailed_guides, @related_classifications) %>">
+  <div class="documents-grid <%= topic_grid_size_class(@publications, @consultations, @announcements) %>">
     <div class="inner-block">
       <%= render(partial: 'document_list', locals: { documents: @publications, type: :publications }) if @publications.any? %>
       <%= render(partial: 'document_list', locals: { documents: @consultations, type: :consultations }) if @consultations.any? %>

@@ -35,6 +35,8 @@ class Classification < ActiveRecord::Base
             through: :classification_featurings,
             source: :edition
 
+  has_many :classification_policies
+
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
@@ -63,10 +65,6 @@ class Classification < ActiveRecord::Base
     end
   end
 
-  def policies
-    editions.policies.order('classification_memberships.ordering ASC')
-  end
-
   def published_editions
     editions.published
   end
@@ -85,10 +83,6 @@ class Classification < ActiveRecord::Base
 
   def published_detailed_guides
     published_editions.detailed_guides
-  end
-
-  def published_policies
-    policies.published
   end
 
   def published_non_statistics_publications
@@ -112,7 +106,7 @@ class Classification < ActiveRecord::Base
   end
 
   def destroyable?
-    (policies - policies.superseded).empty?
+    policies.empty?
   end
 
   def search_link
@@ -147,6 +141,20 @@ class Classification < ActiveRecord::Base
 
   def to_s
     name
+  end
+
+  def policy_content_ids
+    classification_policies.map(&:policy_content_id)
+  end
+
+  def policy_content_ids=(content_ids)
+    self.classification_policies = content_ids.map do |content_id|
+      ClassificationPolicy.new(policy_content_id: content_id)
+    end
+  end
+
+  def policies
+    Future::Policy.from_content_ids(policy_content_ids)
   end
 
 private
