@@ -50,7 +50,7 @@ class OrganisationsController < PublicFacingController
             @traffic_commissioners = traffic_commissioners
             @chief_professional_officers = chief_professional_officers
             @special_representatives = special_representatives
-            @judges = judges
+            @judges = params[:courts_only] ? [] : judges
             @sub_organisations = @organisation.sub_organisations
             @foi_contacts = @organisation.foi_contacts
           end
