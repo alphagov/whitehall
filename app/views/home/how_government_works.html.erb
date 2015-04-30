@@ -1,6 +1,6 @@
 <% page_title "How government works" %>
 <% page_class "inside_gov_how-gov-works" %>
-
+      
 <div id="how-government-works">
   <header class="block headings-block">
     <div class="inner-block floated-children">
@@ -17,19 +17,19 @@
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
-            <%= image_tag 'how-gov-works/PM_01.jpg', alt: 'The Prime Minister' %>
+            <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
           </div>
         </div>
         <div class="one-half">
           <div class="inner-block">
             <h3>The Prime Minister</h3>
-            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. He is ultimately responsible for all policy and decisions. He:</p>
+            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. They are ultimately responsible for all policy and decisions. They:</p>
             <ul>
               <li>oversees the operation of the Civil Service and government agencies</li>
               <li>appoints members of the government</li>
               <li>is the principal government figure in the House of Commons</li>
             </ul>
-            <p>The Prime Minister is <a href="/government/people/david-cameron">David Cameron</a> and he is based at Number 10 Downing Street in London.</p>
+            <p>The Prime Minister is based at Number 10 Downing Street in London.</p>
             <p><a href="/government/organisations/prime-ministers-office-10-downing-street">Read more about the Prime Minister's Office, 10 Downing Street</a></p>
           </div>
         </div>
@@ -37,61 +37,38 @@
 
       <hr class="keyline">
 
-      <div class="thirds-width-section dep-prime-minister">
-        <div class="two-thirds">
+      <div class="halves-width-section cabinet">
+        <div class="one-half">
           <div class="inner-block">
-            <h3>The Deputy Prime Minister</h3>
-            <p><a href="/government/ministers/deputy-prime-minister">The Deputy Prime Minister</a>, <a href="/government/people/nick-clegg">Nick Clegg</a>, is the deputy head of government. He is the leader of the Liberal Democrats and was appointed Deputy Prime Minister when the coalition government was formed following the 2010 general election.</p>
-            <p>His office is part of the Cabinet Office at 70 Whitehall.</p>
-            <p><a href="/government/organisations/deputy-prime-ministers-office">Read more about the Deputy Prime Minister's Office</a></p>
+            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
           </div>
         </div>
-        <div class="one-third">
-          <div class="inner-block">
-            <%= image_tag 'how-gov-works/DPM_01.jpg', alt: 'The Deputy Prime Minister' %>
-          </div>
-        </div>
-      </div>
-
-      <div class="thirds-width-section cabinet">
-        <div class="two-thirds">
+        <div class="one-half">
           <div class="inner-block">
             <h3>The Cabinet</h3>
-            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
-            <p>The Cabinet is made up of the senior members of government.
-            Every Tuesday during Parliament, members of the Cabinet
-            (Secretaries of State from all departments and some other
-            ministers) meet to discuss what are the most important issues for
-            the government.</p>
+            <p>The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
             <p><a href="/government/ministers">See who is in the Cabinet</a></p>
           </div>
         </div>
-        <div class="one-third coalition">
+      </div>
+      
+      <hr class="keyline">
+
+      <div class="halves-width-section ministers">
+        <div class="one-half">
           <div class="inner-block">
-            <h3>The coalition</h3>
-            <%= image_tag 'how-gov-works/Coalition_01.jpg', alt: 'The Coalition' %>
-            <p>The Conservative/Liberal Democrat coalition government was
-            formed on 10 May 2010. The coalition agreement sets out a joint
-            programme for government  to "rebuild the economy, unlock social
-            mobility, mend the political system and give people the power to
-            call the shots over the decisions that affect their lives".</p>
-            <p>Read the <a href="http://www.number10.gov.uk/the-coalition/programme-for-government/" rel="external">programme for government</a> and the <a href="http://midtermreview.cabinetoffice.gov.uk/" rel="external">mid&ndash;term review</a></p>
+            <%= image_tag 'how-gov-works/Houses_of_Parliament.jpg', alt: 'The Houses of Parliament' %>
+          </div>
+        </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <h3>Ministers</h3>
+            <p>Ministers are chosen by the Prime Minister. They are responsible for the actions, successes and failures of their departments.</p>
+            <p><a href="/government/ministers">See full list of ministers</a></p>
           </div>
         </div>
       </div>
-
-      <div class="full-width-section ministers">
-          <h3>Ministers</h3>
-          <% if !@is_during_reshuffle %>
-            <div class="feature-ministers">
-              <p>
-                <span class="circle prime-minister"><span class="count"><a href="/government/ministers/prime-minister">01</a></span> <span class="caption">Prime Minister</span></span> + <span class="circle cabinet-ministers"><span class="count"><a href="/government/ministers#cabinet-ministers"><%= @cabinet_minister_count %></a></span> <span class="caption">Cabinet ministers</span></span> + <span class="circle other-ministers"><span class="count"><a href="/government/ministers#ministers-by-department"><%= @other_minister_count %></a></span> <span class="caption">Other ministers</span></span> = <span class="circle invert all-ministers"><span class="count"><a href="/government/ministers"><%= @all_ministers_count %></a></span> <span class="caption">Total ministers</span></span>
-              </p>
-            </div>
-          <% end %>
-          <p class="caption">Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords. They are responsible for the actions, successes and failures of their departments.</p>
-          <p><%= link_to "See full list of ministers", ministerial_roles_path %></p>
-      </div>
+      
      <h2 id="how-government-is-run">How government is run</h2>
       <div class="thirds-width-section depts">
         <div class="one-third">
