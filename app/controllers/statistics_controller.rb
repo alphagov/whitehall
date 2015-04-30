@@ -17,7 +17,10 @@ class StatisticsController < DocumentsController
       format.atom do
         documents = Publicationesque.published_with_eager_loading(@filter.documents.map(&:id))
         @statistics = Whitehall::Decorators::CollectionDecorator.new(
-          documents.sort_by(&:public_timestamp).reverse, PublicationesquePresenter, view_context)
+          documents.sort_by(&:public_timestamp).reverse,
+          PublicationesquePresenter,
+          view_context,
+        )
       end
     end
   end

@@ -16,7 +16,10 @@ class AnnouncementsController < DocumentsController
       format.atom do
         documents = Announcement.published_with_eager_loading(@filter.documents.map(&:id))
         @announcements = Whitehall::Decorators::CollectionDecorator.new(
-          documents.sort_by(&:public_timestamp).reverse, AnnouncementPresenter, view_context)
+          documents.sort_by(&:public_timestamp).reverse,
+          AnnouncementPresenter,
+          view_context,
+        )
       end
     end
   end
