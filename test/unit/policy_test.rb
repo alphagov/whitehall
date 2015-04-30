@@ -120,4 +120,20 @@ class PolicyTest < ActiveSupport::TestCase
   test 'can be associated with worldwide priorities' do
     assert Policy.new.can_be_associated_with_worldwide_priorities?
   end
+
+  test "is not indexable with future_policies flag enabled" do
+    policy = create(:published_policy)
+    assert policy.can_index_in_search?
+
+    FeatureFlag.create(key: 'future_policies', enabled: true)
+    refute policy.can_index_in_search?
+  end
+
+  test "Policy.searchable_instances returns an empty set with future_policies flab enabled" do
+    policy = create(:published_policy)
+    assert_equal [policy], Policy.searchable_instances
+
+    FeatureFlag.create(key: 'future_policies', enabled: true)
+    assert Policy.searchable_instances.empty?
+  end
 end

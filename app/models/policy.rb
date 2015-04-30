@@ -56,6 +56,22 @@ class Policy < Edition
 
   after_destroy :remove_edition_relations
 
+  def self.searchable_instances
+    if FeatureFlag.enabled?('future_policies')
+      none
+    else
+      super
+    end
+  end
+
+  def can_index_in_search?
+    if FeatureFlag.enabled?('future_policies')
+      false
+    else
+      super
+    end
+  end
+
   def search_format_types
     super + ['policy']
   end
