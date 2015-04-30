@@ -87,6 +87,7 @@ group :development do
   gem 'thin', '1.6.3'
   gem 'newrelic_rpm'
   gem 'quiet_assets'
+  gem 'spring'
 end
 
 group :test do
