@@ -48,7 +48,7 @@ module AdminEditionControllerTestHelpers
 
       view_test "new form has cancel link which takes the user to the list of drafts" do
         get :new
-        assert_select "a[href=#{admin_editions_path}]", text: /cancel/i
+        assert_select "a[href='#{admin_editions_path}']", text: /cancel/i
       end
 
       test "create should create a new edition" do
@@ -126,7 +126,7 @@ module AdminEditionControllerTestHelpers
         get :edit, id: draft_edition
 
         admin_edition_path = send("admin_#{edition_type}_path", draft_edition)
-        assert_select "a[href=#{admin_edition_path}]", text: /cancel/i
+        assert_select "a[href='#{admin_edition_path}']", text: /cancel/i
       end
 
       test "update should save modified edition attributes" do

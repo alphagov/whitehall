@@ -70,27 +70,27 @@ module CssSelectors
   end
 
   def publish_form_selector(document)
-    "form[action=#{CGI::escapeHTML(publish_admin_edition_path(document, lock_version: document.lock_version))}]"
+    "form[action='#{publish_admin_edition_path(document, lock_version: document.lock_version)}']"
   end
 
   def force_publish_button_selector(document)
-    "a[href='#{CGI::escapeHTML(confirm_force_publish_admin_edition_path(document, lock_version: document.lock_version))}']"
+    "a[href='#{confirm_force_publish_admin_edition_path(document, lock_version: document.lock_version)}']"
   end
 
   def reject_button_selector(document)
-    "form[action=#{CGI::escapeHTML(reject_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Reject]"
+    "form[action='#{reject_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Reject]"
   end
 
   def schedule_button_selector(document)
-    "form[action=#{CGI::escapeHTML(schedule_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Schedule]"
+    "form[action='#{schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Schedule]"
   end
 
   def unschedule_button_selector(document)
-    "form[action=#{CGI::escapeHTML(unschedule_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value=Unschedule]"
+    "form[action='#{unschedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value=Unschedule]"
   end
 
   def force_schedule_button_selector(document)
-    "form[action=#{CGI::escapeHTML(force_schedule_admin_edition_path(document, lock_version: document.lock_version))}] input[type=submit][value='Force schedule']"
+    "form[action='#{force_schedule_admin_edition_path(document, lock_version: document.lock_version)}'] input[type=submit][value='Force schedule']"
   end
 
   def link_to_public_version_selector

@@ -209,7 +209,7 @@ class GovspeakHelperTest < ActionView::TestCase
     edition = build(:published_news_article, body: "!!1")
     edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
     html = govspeak_edition_to_html(edition)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
   test "does not prefix embedded attachment urls with asset host so that access to them can be authenticated when previewing draft documents" do
