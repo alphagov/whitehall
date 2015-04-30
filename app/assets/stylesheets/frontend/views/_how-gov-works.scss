@@ -367,7 +367,6 @@
     }
   }
 
-  .depts-cont,
   .gov-types {
     h3 {
       @include ig-core-19;
@@ -441,7 +440,6 @@
       }
     }
 
-    .depts-cont,
     .legislation,
     .access-information {
       .one-third {
@@ -454,7 +452,6 @@
       }
     }
 
-    .depts-cont .one-third:nth-child(2),
     .legislation .one-third:nth-child(4),
     .access-information .one-third:nth-child(2) {
       margin-bottom: $gutter-half;
@@ -468,7 +465,6 @@
   }
 
   @include media(tablet) {
-    .depts-cont,
     .legislation,
     .access-information {
       .one-third {

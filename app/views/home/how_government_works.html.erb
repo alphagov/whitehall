@@ -1,13 +1,13 @@
 <% page_title "How government works" %>
 <% page_class "inside_gov_how-gov-works" %>
-
+      
 <div id="how-government-works">
   <header class="block headings-block">
     <div class="inner-block floated-children">
       <%= render partial: 'shared/heading',
                 locals: { big: true,
                           heading: "How government works" } %>
-      <p class="intro-paragraph">In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out <a href="#who-runs-government">who runs government</a> and <a href="#how-governement-is-run">how government is run</a>, as well as learning about the <a href="#history-uk-government">history of government</a>.</p>
+      <p class="intro-paragraph">In the UK, the Prime Minister leads the government with the support of the Cabinet and ministers. You can find out <a href="#who-runs-government">who runs government</a> and <a href="#how-government-is-run">how government is run</a>, as well as learning about the <a href="#history-uk-government">history of government</a>.</p>
     </div>
   </header>
 
@@ -17,19 +17,19 @@
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
-            <%= image_tag 'how-gov-works/PM_01.jpg', alt: 'The Prime Minister' %>
+            <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
           </div>
         </div>
         <div class="one-half">
           <div class="inner-block">
             <h3>The Prime Minister</h3>
-            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. He is ultimately responsible for all policy and decisions. He:</p>
+            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. They are ultimately responsible for all policy and decisions. They:</p>
             <ul>
               <li>oversees the operation of the Civil Service and government agencies</li>
               <li>appoints members of the government</li>
               <li>is the principal government figure in the House of Commons</li>
             </ul>
-            <p>The Prime Minister is <a href="/government/people/david-cameron">David Cameron</a> and he is based at Number 10 Downing Street in London.</p>
+            <p>The Prime Minister is based at Number 10 Downing Street in London.</p>
             <p><a href="/government/organisations/prime-ministers-office-10-downing-street">Read more about the Prime Minister's Office, 10 Downing Street</a></p>
           </div>
         </div>
@@ -37,62 +37,39 @@
 
       <hr class="keyline">
 
-      <div class="thirds-width-section dep-prime-minister">
-        <div class="two-thirds">
+      <div class="halves-width-section cabinet">
+        <div class="one-half">
           <div class="inner-block">
-            <h3>The Deputy Prime Minister</h3>
-            <p><a href="/government/ministers/deputy-prime-minister">The Deputy Prime Minister</a>, <a href="/government/people/nick-clegg">Nick Clegg</a>, is the deputy head of government. He is the leader of the Liberal Democrats and was appointed Deputy Prime Minister when the coalition government was formed following the 2010 general election.</p>
-            <p>His office is part of the Cabinet Office at 70 Whitehall.</p>
-            <p><a href="/government/organisations/deputy-prime-ministers-office">Read more about the Deputy Prime Minister's Office</a></p>
+            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
           </div>
         </div>
-        <div class="one-third">
-          <div class="inner-block">
-            <%= image_tag 'how-gov-works/DPM_01.jpg', alt: 'The Deputy Prime Minister' %>
-          </div>
-        </div>
-      </div>
-
-      <div class="thirds-width-section cabinet">
-        <div class="two-thirds">
+        <div class="one-half">
           <div class="inner-block">
             <h3>The Cabinet</h3>
-            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
-            <p>The Cabinet is made up of the senior members of government.
-            Every Tuesday during Parliament, members of the Cabinet
-            (Secretaries of State from all departments and some other
-            ministers) meet to discuss what are the most important issues for
-            the government.</p>
+            <p>The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
             <p><a href="/government/ministers">See who is in the Cabinet</a></p>
           </div>
         </div>
-        <div class="one-third coalition">
+      </div>
+      
+      <hr class="keyline">
+
+      <div class="halves-width-section ministers">
+        <div class="one-half">
           <div class="inner-block">
-            <h3>The coalition</h3>
-            <%= image_tag 'how-gov-works/Coalition_01.jpg', alt: 'The Coalition' %>
-            <p>The Conservative/Liberal Democrat coalition government was
-            formed on 10 May 2010. The coalition agreement sets out a joint
-            programme for government  to "rebuild the economy, unlock social
-            mobility, mend the political system and give people the power to
-            call the shots over the decisions that affect their lives".</p>
-            <p>Read the <a href="http://www.number10.gov.uk/the-coalition/programme-for-government/" rel="external">programme for government</a> and the <a href="http://midtermreview.cabinetoffice.gov.uk/" rel="external">mid&ndash;term review</a></p>
+            <%= image_tag 'how-gov-works/Houses_of_Parliament.jpg', alt: 'The Houses of Parliament' %>
+          </div>
+        </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <h3>Ministers</h3>
+            <p>Ministers are chosen by the Prime Minister. They are responsible for the actions, successes and failures of their departments.</p>
+            <p><a href="/government/ministers">See full list of ministers</a></p>
           </div>
         </div>
       </div>
+      <h2 id="how-government-is-run">How government is run</h2>
 
-      <div class="full-width-section ministers">
-          <h3>Ministers</h3>
-          <% if !@is_during_reshuffle %>
-            <div class="feature-ministers">
-              <p>
-                <span class="circle prime-minister"><span class="count"><a href="/government/ministers/prime-minister">01</a></span> <span class="caption">Prime Minister</span></span> + <span class="circle cabinet-ministers"><span class="count"><a href="/government/ministers#cabinet-ministers"><%= @cabinet_minister_count %></a></span> <span class="caption">Cabinet ministers</span></span> + <span class="circle other-ministers"><span class="count"><a href="/government/ministers#ministers-by-department"><%= @other_minister_count %></a></span> <span class="caption">Other ministers</span></span> = <span class="circle invert all-ministers"><span class="count"><a href="/government/ministers"><%= @all_ministers_count %></a></span> <span class="caption">Total ministers</span></span>
-              </p>
-            </div>
-          <% end %>
-          <p class="caption">Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords. They are responsible for the actions, successes and failures of their departments.</p>
-          <p><%= link_to "See full list of ministers", ministerial_roles_path %></p>
-      </div>
-     <h2 id="how-governement-is-run">How government is run</h2>
       <div class="thirds-width-section depts">
         <div class="one-third">
           <div class="inner-block">
@@ -104,54 +81,32 @@
             <p>Departments and their agencies are responsible for putting government policy into practice.</p>
           </div>
         </div>
-      </div>
-
-      <div class="thirds-width-section depts-cont">
+        
         <div class="one-third">
           <div class="inner-block">
-            <p><span class="feature-value"><%= link_to @ministerial_department_count, organisations_path(anchor: 'departments') %></span>
-              <span class="feature-caption">Ministerial departments</span>
-              <span class="feature-value"><a href="/government/organisations#non-ministerial-departments"><%= @non_ministerial_department_count %></a></span>
-              <span class="feature-caption">Non-ministerial departments</span>
-              <span class="feature-value"><a href="/government/organisations#agencies-and-public-bodies">300+</a></span>
-              <span class="feature-caption">Agencies &amp; other public bodies</span></p>
-          </div>
-        </div>
-        <div class="one-third">
-          <div class="inner-block">
-            <h3>Government departments</h3>
+            <h4>Government departments</h4>
             <p>Some departments, like the <a href="/government/organisations/ministry-of-defence">Ministry of Defence</a>, cover the  whole UK. Others don’t – the <a href="/government/organisations/department-for-work-pensions">Department for Work and Pensions</a> doesn't cover Northern Ireland. This is because some aspects of government are devolved to Scotland, Wales and Northern Ireland.</p>
-
-            <p><a href="/government/organisations#non-ministerial-departments">Non-ministerial departments</a> are headed by senior civil servants and not ministers. They usually have a regulatory or inspection function like the Charity Commission.</p>
-
-            <h3 class="with-gutter">Executive agencies</h3>
+            <p><a href="/government/organisations#non-ministerial-departments">Non-ministerial departments</a> are headed by senior civil servants and not ministers. They usually have a regulatory or inspection function like the <a href="/government/organisations/charity-commission">Charity Commission</a>.</p>
+            <h4 class="with-gutter">Executive agencies</h4>
             <p>These are part of government departments and usually provide government services rather than decide policy - which is done by the department that oversees the agency.</p>
-
             <p>An example is the <a href="/government/organisations/driver-and-vehicle-licensing-agency">Driver and Vehicle Licensing Agency</a> (overseen by the <a href="/government/organisations/department-for-transport">Department for Transport</a>).</p>
-
           </div>
         </div>
+
         <div class="one-third">
           <div class="inner-block">
-            <h3>Other public bodies</h3>
+            <h4>Other public bodies</h4>
             <p>These have varying degrees of independence but are directly accountable to ministers. There are 4 types of non-departmental public bodies (NDPBs).</p>
-
-            <p>Executive NDPBs do work for the government in specific areas - for example, the Environment Agency.</p>
-
-            <p>Advisory NDPBs provide independent, expert advice to ministers - for example, the Committee on Standards in Public Life.</p>
-
-            <p>Tribunal NDPBs are part of the justice system and have jurisdiction over a specific area of law - for example, the Competition Appeal Tribunal.</p>
-
-            <p>Independent monitoring boards are responsible for the running of prisons and treatment of prisoners - for example, Her Majesty's Inspectorate of Prisons.</p>
+            <p>Executive NDPBs do work for the government in specific areas - for example, the <a href="/government/organisations/environment-agency">Environment Agency</a>.</p>
+            <p>Advisory NDPBs provide independent, expert advice to ministers - for example, the <a href="/government/organisations/committee-on-standards-in-public-life">Committee on Standards in Public Life</a>.</p>
+            <p>Tribunal NDPBs are part of the justice system and have jurisdiction over a specific area of law - for example, the <a href="/government/organisations/competition-appeal-tribunal">Competition Appeal Tribunal</a>.</p>
+            <p>Independent monitoring boards are responsible for the running of prisons and treatment of prisoners - for example, <a href="/government/organisations/hm-inspectorate-of-prisons">Her Majesty's Inspectorate of Prisons</a>.</p>
           </div>
         </div>
       </div>
 
-
-
-
-
-
+      <hr class="keyline">
+      
       <div class="full-width-section civil-service">
          <h3>Civil Service</h3>
       </div>
