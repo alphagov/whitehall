@@ -7,8 +7,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
   view_test "show responds with JSON representation of found world location" do
     worldwide_organisation = stub_record(:worldwide_organisation, slug: 'woo')
     worldwide_organisation.stubs(:to_param).returns('woo')
-    WorldwideOrganisation.stubs(:find_by).with(slug: worldwide_organisation.slug).returns(worldwide_organisation)
-
+    friendly = stub
+    WorldwideOrganisation.stubs(:friendly).returns(friendly)
+    friendly.stubs(:find).with(worldwide_organisation.slug).returns(worldwide_organisation)
     presenter = Api::WorldwideOrganisationPresenter.new(worldwide_organisation, controller.view_context)
     presenter.stubs(:as_json).returns(worldwide_organisation: :representation)
     Api::WorldwideOrganisationPresenter.stubs(:new).with(worldwide_organisation, anything).returns(presenter)
@@ -20,7 +21,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
   view_test "show includes _response_info in response" do
     worldwide_organisation = stub_record(:worldwide_organisation, slug: 'woo')
     worldwide_organisation.stubs(:to_param).returns('woo')
-    WorldwideOrganisation.stubs(:find_by).with(slug: worldwide_organisation.slug).returns(worldwide_organisation)
+    friendly = stub
+    WorldwideOrganisation.stubs(:friendly).returns(friendly)
+    friendly.stubs(:find).with(worldwide_organisation.slug).returns(worldwide_organisation)
 
     presenter = Api::WorldwideOrganisationPresenter.new(worldwide_organisation, controller.view_context)
     presenter.stubs(:as_json).returns(worldwide_organisation: :representation)
@@ -31,7 +34,9 @@ class Api::WorldwideOrganisationsControllerTest < ActionController::TestCase
   end
 
   view_test "show responds with 404 if org is not found" do
-    WorldwideOrganisation.stubs(:find_by).with(slug: 'unknown').returns nil
+    friendly = stub
+    WorldwideOrganisation.stubs(:friendly).returns(friendly)
+    friendly.stubs(:find).with('unknown').returns(nil)
 
     get :show, id: 'unknown', format: 'json'
     assert_response :not_found

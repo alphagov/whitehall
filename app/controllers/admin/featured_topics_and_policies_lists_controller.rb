@@ -27,7 +27,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   end
 
   def load_organisation
-    @organisation = Organisation.find(params[:organisation_id])
+    @organisation = Organisation.friendly.find(params[:organisation_id])
   end
 
   def fetch_featured_topics_and_policies_list

@@ -52,7 +52,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   private
 
   def find_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.find(params[:id])
+    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
   end
 
   def worldwide_organisation_params

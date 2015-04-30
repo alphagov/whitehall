@@ -28,9 +28,9 @@ class Admin::AccessAndOpeningTimesController < Admin::BaseController
   private
 
   def load_accessible
-    @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
     if params[:worldwide_office_id]
-      @accessible = @worldwide_organisation.offices.find(params[:worldwide_office_id])
+      @accessible = @worldwide_organisation.offices.friendly.find(params[:worldwide_office_id])
       @accessible_name = @accessible.title
     else
       @accessible = @worldwide_organisation

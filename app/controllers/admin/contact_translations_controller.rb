@@ -16,7 +16,7 @@ private
   end
 
   def load_translatable_item
-    @contactable = Organisation.find(params[:organisation_id])
+    @contactable = Organisation.friendly.find(params[:organisation_id])
     @contact = @contactable.contacts.find(params[:contact_id])
   end
 

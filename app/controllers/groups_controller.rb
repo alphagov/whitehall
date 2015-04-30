@@ -1,6 +1,6 @@
 class GroupsController < PublicFacingController
   def show
-    @organisation = Organisation.find(params[:organisation_id])
+    @organisation = Organisation.friendly.find(params[:organisation_id])
     @group = @organisation.groups.find_by!(slug: params[:id])
     @group_members = @group.members.map do |p|
       [

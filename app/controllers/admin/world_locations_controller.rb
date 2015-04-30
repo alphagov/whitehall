@@ -39,7 +39,7 @@ class Admin::WorldLocationsController < Admin::BaseController
   end
 
   def load_world_location
-    @world_location = WorldLocation.find(params[:id] || params[:world_location_id])
+    @world_location = WorldLocation.friendly.find(params[:id] || params[:world_location_id])
   end
 
   def world_location_params

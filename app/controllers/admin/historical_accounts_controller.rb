@@ -38,7 +38,7 @@ class Admin::HistoricalAccountsController < Admin::BaseController
   private
 
   def load_person
-    @person = Person.find(params[:person_id])
+    @person = Person.friendly.find(params[:person_id])
   end
 
   def load_historical_account

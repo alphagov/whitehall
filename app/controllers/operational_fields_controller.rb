@@ -4,7 +4,7 @@ class OperationalFieldsController < PublicFacingController
   end
 
   def show
-    @operational_field = OperationalField.find(params[:id])
+    @operational_field = OperationalField.friendly.find(params[:id])
     @organisation = Organisation.where(handles_fatalities: true).first
     set_slimmer_organisations_header([@organisation])
     set_slimmer_page_owner_header(@organisation)

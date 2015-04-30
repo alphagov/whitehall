@@ -13,7 +13,7 @@ class EmailSignupInformationController < PublicFacingController
 
 private
   def organisation
-    Organisation.find(organisation_slug)
+    Organisation.friendly.find(organisation_slug)
   end
 
   def organisation_slug

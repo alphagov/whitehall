@@ -13,7 +13,7 @@ class Api::OrganisationsController < PublicFacingController
   end
 
   def show
-    @organisation = Organisation.find_by(slug: params[:id])
+    @organisation = Organisation.friendly.find(params[:id])
     if @organisation
       respond_with Api::OrganisationPresenter.new(@organisation, view_context)
     else

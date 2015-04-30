@@ -8,6 +8,6 @@ class WorldwideOfficesController < PublicFacingController
   private
 
   def load_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.find(params[:worldwide_organisation_id])
+    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:worldwide_organisation_id])
   end
 end
