@@ -10,6 +10,10 @@ module Whitehall
       assert_equal feed_url("announcements.atom"), FeedUrlBuilder.new(document_type: 'announcements').url
     end
 
+    test "with :document_type as statistics it generates the announcements feed url" do
+      assert_equal feed_url("statistics.atom"), FeedUrlBuilder.new(document_type: 'statistics').url
+    end
+
     test "with :document_type as publications and other params it generate a publications atom feed url with the given params as query string" do
       filter_params = {
         document_type: 'publications',

@@ -52,6 +52,21 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     assert_equal "announcements related to The Cabinet Office, Arts and culture and Afghanistan", validator.description
   end
 
+  test 'validates and describes a statistics filter feed url with filter options' do
+    create(:topic, slug: 'arts-and-culture', name: 'Arts and culture')
+    create(:ministerial_department, :with_published_edition, name: 'The Cabinet Office')
+
+    feed_url = feed_url_for(
+      document_type: "statistics",
+      topics: ["arts-and-culture"],
+      departments: ["the-cabinet-office"]
+    )
+    validator = FeedUrlValidator.new(feed_url)
+
+    assert validator.valid?
+    assert_equal "statistics related to The Cabinet Office and Arts and culture", validator.description
+  end
+
   test 'uses the announcement_filter_option when given' do
     feed_url = feed_url_for(document_type: "announcements", announcement_filter_option: "fatality-notices")
     validator = FeedUrlValidator.new(feed_url)
