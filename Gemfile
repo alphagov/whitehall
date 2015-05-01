@@ -99,7 +99,7 @@ group :test do
   gem 'database_cleaner', '1.4.0'
   gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
-  gem 'govuk-content-schema-test-helpers', '1.0.1'
+  gem 'govuk-content-schema-test-helpers', '1.3.0'
 end
 
 group :test_coverage do
