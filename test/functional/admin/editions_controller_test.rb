@@ -199,7 +199,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     assert_select "tr.force_published"
   end
 
-  test "should not display the featured column when viewing all active editions" do
+  view_test "should not display the featured column when viewing all active editions" do
     create(:published_news_article)
 
     get :index, state: :active, type: 'news_article'
