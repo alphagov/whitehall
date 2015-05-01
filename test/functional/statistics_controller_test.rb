@@ -182,9 +182,15 @@ class StatisticsControllerTest < ActionController::TestCase
     org2 = create(:organisation, name: "other-org")
     statistics_publication = create(:published_statistics, title: "statistics-title",
                                                            organisations: [org, org2],
-                                                           first_published_at: Date.parse("2012-03-14"))
+                                                           first_published_at: Date.parse("2015-03-14"))
 
     get :index, format: :atom, departments: [org.to_param]
+
+    # So, this works (ie 'publication' in the slug)
+    assert_match 'https://www.test.alphagov.co.uk/government/publications/statistics-title', response.body
+
+    # But this doesn't work (ie 'statistics')
+    assert_match 'https://www.test.alphagov.co.uk/government/statistics/statistics-title', response.body
 
     assert_select_atom_feed do
       assert_select_atom_entries([statistics_publication])
