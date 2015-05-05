@@ -57,9 +57,20 @@ def export_classes(classes_to_index, id_groups, &block)
 end
 
 def output_es_line(obj, output)
-  s = obj.search_index
-  output.puts %Q[{"index": {"_type": "edition", "_id": "#{s['link']}"}}]
-  output.puts s.to_json
+  max_retry_count = 5
+  begin
+    search_index = obj.search_index
+  rescue
+    max_retry_count -= 1
+    if max_retry_count <= 0
+      raise
+    else
+      retry
+    end
+  end
+
+  output.puts %Q[{"index": {"_type": "edition", "_id": "#{search_index['link']}"}}]
+  output.puts search_index.to_json
 end
 
 export_classes(classes_to_index, id_groups) do |klass, output, id_group|
