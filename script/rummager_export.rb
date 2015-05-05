@@ -65,6 +65,7 @@ def output_es_line(obj, output)
     if max_retry_count <= 0
       raise
     else
+      logger.warn("Export of #{obj.class.name}##{obj.id} failed, #{max_retry_count} retries left")
       retry
     end
   end
