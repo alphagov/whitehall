@@ -24,7 +24,7 @@ class RedirectGenerator
         csv << policy_activity_redirect_row(policy)
         csv << policy_activity_atom_redirect_row(policy)
       end
-      policy.published_supporting_pages.each do |supporting_page|
+      policy.supporting_pages.publicly_visible.each do |supporting_page|
         csv << supporting_page_redirect_row(supporting_page, policy)
       end
     end

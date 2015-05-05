@@ -38,7 +38,7 @@ module DataHygiene
     end
 
     def appendix_index
-      policy.published_supporting_pages.index(supporting_page) + 1
+      policy.supporting_pages.publicly_visible.index(supporting_page) + 1
     end
 
     def anchor_text
