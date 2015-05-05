@@ -25,4 +25,9 @@ class PolicyPaperPublisherTest < ActiveSupport::TestCase
   test "it sets the major change timestamp to match the first published timestamp" do
     assert_equal @policy_paper.first_published_at, @policy_paper.major_change_published_at
   end
+
+  test "doesn't explode if given a published publication" do
+    policy_paper = create(:published_policy_paper)
+    Election::PolicyPaperPublisher.new([policy_paper.id]).run!
+  end
 end
