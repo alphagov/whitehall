@@ -6,7 +6,7 @@ module DataHygiene
   #
   # Note: Can be removed after the migration to new policies has been complete.
   class PolicyToPaperMapper
-    CSV_PATH = Rails.root.join('lib/data_hygiene/policy_to_paper_mappings.csv')
+    CSV_PATH = Rails.root.join('lib/tasks/election/2015-04-20-13-42-38-policy_paper_creation_output.csv')
 
     def initialize
       @id_mapping = generate_mapping_hash
