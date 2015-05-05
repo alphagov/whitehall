@@ -20,7 +20,7 @@ class HtmlAttachmentsControllerTest < ActionController::TestCase
     assert_select 'header h1', attachment.title
 
     expected_type_heading = I18n.t("document.type.#{publication.display_type_key}.one", locale: 'fr')
-    assert_select 'header .document-type', ERB::Util.h(expected_type_heading)
+    assert_select 'header .document-type', expected_type_heading
   end
 
   view_test '#show renders the HTML attachment of a published consultation' do

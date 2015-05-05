@@ -62,7 +62,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     post :create, statistics_announcement: { title: '', summary: 'Summary text' }
 
     assert_response :success
-    assert_select "ul.errors li", text: "Title can&#39;t be blank"
+    assert_select "ul.errors li", text: "Title can't be blank"
     refute StatisticsAnnouncement.any?
   end
 
@@ -95,7 +95,7 @@ class Admin::StatisticsAnnouncementsControllerTest < ActionController::TestCase
     put :update, id: announcement.id, statistics_announcement: { title: '' }
 
     assert_response :success
-    assert_select "ul.errors li", text: "Title can&#39;t be blank"
+    assert_select "ul.errors li", text: "Title can't be blank"
   end
 
   test "POST :publish_cancellation cancels the announcement" do

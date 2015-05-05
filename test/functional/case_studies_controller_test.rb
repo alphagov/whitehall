@@ -17,10 +17,10 @@ class CaseStudiesControllerTest < ActionController::TestCase
   end
 
   view_test "renders the summary from plain text" do
-    case_study = create(:published_case_study, summary: 'plain text & so on')
+    case_study = create(:published_case_study, summary: 'plain *text* & so on')
     get :show, id: case_study.document
 
-    assert_select ".summary", text: "plain text &amp; so on"
+    assert_select ".summary", text: "plain *text* & so on"
   end
 
   view_test "renders the body using govspeak" do

@@ -14,10 +14,10 @@ class FatalityNoticesControllerTest < ActionController::TestCase
   end
 
   view_test "renders the fatality notice summary from plain text" do
-    fatality_notice = create(:published_fatality_notice, summary: 'plain text & so on')
+    fatality_notice = create(:published_fatality_notice, summary: 'plain *text* & so on')
     get :show, id: fatality_notice.document
 
-    assert_select ".summary", text: "plain text &amp; so on"
+    assert_select ".summary", text: "plain *text* & so on"
   end
 
   view_test "renders the fatality notice body using govspeak" do

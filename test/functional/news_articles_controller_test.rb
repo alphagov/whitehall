@@ -16,10 +16,10 @@ class NewsArticlesControllerTest < ActionController::TestCase
   end
 
   view_test "renders the news article summary from plain text" do
-    news_article = create(:published_news_article, summary: 'plain text & so on')
+    news_article = create(:published_news_article, summary: 'plain *text* & so on')
     get :show, id: news_article.document
 
-    assert_select ".summary", text: "plain text &amp; so on"
+    assert_select ".summary", text: "plain *text* & so on"
   end
 
   view_test "renders the news article body using govspeak" do

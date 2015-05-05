@@ -6,7 +6,7 @@ module AtomTestHelpers
   end
 
   def assert_select_autodiscovery_link(url)
-    assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', ERB::Util.html_escape(url)
+    assert_select 'head > link[rel=?][type=?][href=?]', 'alternate', 'application/atom+xml', url
   end
 
   def assert_select_atom_entries(documents, govdelivery_version = false)
