@@ -112,4 +112,14 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
 
     assert_equal [content_id], new_edition.policy_content_ids
   end
+
+  test "#policies returns future-policies, ignoring those that do not exist" do
+    stub_content_register_policies
+
+    future_policy = Future::Policy.new(policy_1)
+    edition = create(:news_article, policy_content_ids: [future_policy.content_id, 'bogus-id'])
+
+    assert_equal 1, edition.policies.size
+    assert_equal future_policy.title, edition.policies[0].title
+  end
 end

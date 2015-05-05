@@ -29,6 +29,31 @@ namespace :election do
     Election::PolicyPaperPublisher.new(policy_paper_ids).run!
   end
 
+  desc "Will register redirects for all policies and remove them from rummager based on the information in data/policy_redirects.csv"
+  task :redirect_policies do
+    require 'gds_api/router'
+    require 'csv'
+
+    router = GdsApi::Router.new(Plek.find('router-api'))
+    rummager_index = Rummageable::Index.new(Plek.find('search'), '/government', logger: Rails.logger)
+
+    CSV.foreach(Rails.root.join('data/policy_redirects.csv'), headers: true) do |row|
+      source, destination = row['source'], row['destination']
+
+      if destination.blank?
+        puts "GONE route for #{source}"
+        router.add_gone_route(source, :exact)
+      else
+        puts "Redirecting #{source} to #{destination}"
+        router.add_redirect_route(source, :exact, destination)
+      end
+
+      rummager_index.delete(source)
+    end
+
+    router.commit_routes
+  end
+
 private
 
   def editable_edition_states
