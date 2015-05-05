@@ -441,6 +441,10 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def statistics?
+    false
+  end
+
   # @!endgroup
 
   def create_draft(user)
