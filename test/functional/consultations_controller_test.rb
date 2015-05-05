@@ -109,7 +109,7 @@ London N123}
     get :show, id: published_consultation.document
 
     assert_select ".participation" do
-      assert_select ".postal-address", html: "123 Example Street<br />London N123"
+      assert_select ".postal-address", html: "123 Example Street<br>London N123"
     end
   end
 end

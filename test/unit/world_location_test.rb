@@ -112,7 +112,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal english, location.feature_list_for_locale(:en)
     assert_equal french, location.feature_list_for_locale(:fr)
     arabic = location.feature_list_for_locale(:ar)
-    assert_equal :ar, arabic.locale
+    assert_equal "ar", arabic.locale
     assert_equal location, arabic.featurable
     refute arabic.persisted?
   end
