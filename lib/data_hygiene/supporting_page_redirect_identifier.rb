@@ -15,7 +15,7 @@ module DataHygiene
     def redirect_path
       Whitehall.url_maker.publication_html_attachment_path(
         publication.document,
-        html_attchment,
+        html_attachment,
         anchor: supporting_page_anchor)
     end
 
@@ -26,7 +26,7 @@ module DataHygiene
       @publication ||= PolicyToPaperMapper.new.publication_for(policy)
     end
 
-    def html_attchment
+    def html_attachment
       publication.html_attachments.first
     end
 

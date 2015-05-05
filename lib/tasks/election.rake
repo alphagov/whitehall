@@ -29,7 +29,7 @@ namespace :election do
     Election::PolicyPaperPublisher.new(policy_paper_ids).run!
   end
 
-  desc "Will register redirects for all policies and remove them from rummager based on the information in data/policy_redircts.csv"
+  desc "Will register redirects for all policies and remove them from rummager based on the information in data/policy_redirects.csv"
   task :redirect_policies do
     require 'gds_api/router'
     require 'csv'
