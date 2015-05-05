@@ -11,7 +11,7 @@ class Edition::WorldwideOrganisationsTest < ActiveSupport::TestCase
     edition = create(:draft_worldwide_priority, worldwide_organisations: [organisation])
     edition.destroy
     refute edition.edition_worldwide_organisations.any?
-    assert WorldwideOrganisation.exists?(organisation)
+    assert WorldwideOrganisation.exists?(organisation.id)
   end
 
   test "new editions carry over worldwide organisations" do

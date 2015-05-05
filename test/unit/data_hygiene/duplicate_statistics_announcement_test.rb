@@ -19,8 +19,8 @@ module DataHygiene
       assert_requested(registration_request)
       assert_requested(commit_request)
 
-      refute StatisticsAnnouncement.exists?(duplicate)
-      assert StatisticsAnnouncement.exists?(announcement)
+      refute StatisticsAnnouncement.exists?(duplicate.id)
+      assert StatisticsAnnouncement.exists?(announcement.id)
     end
   end
 end

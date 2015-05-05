@@ -99,7 +99,7 @@ class Admin::DocumentCollectionsControllerTest < ActionController::TestCase
     document_collection = create(:document_collection)
     delete :destroy, id: document_collection
 
-    refute DocumentCollection.exists?(document_collection)
+    refute DocumentCollection.exists?(document_collection.id)
     assert_response :redirect
   end
 

@@ -31,7 +31,7 @@ module DataHygiene
 
       unpublisher.call
 
-      refute StatisticsAnnouncement.exists?(@announcement)
+      refute StatisticsAnnouncement.exists?(@announcement.id)
 
       assert_requested(register_request)
       assert_requested(commit_request)

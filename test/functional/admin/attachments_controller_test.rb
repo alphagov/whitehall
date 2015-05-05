@@ -78,7 +78,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
       delete :destroy, param_name => attachable.id, id: attachment.id
 
       assert_response :redirect
-      refute Attachment.exists?(attachment), 'attachment should have been deleted'
+      refute Attachment.exists?(attachment.id), 'attachment should have been deleted'
     end
   end
 
@@ -124,7 +124,7 @@ class Admin::AttachmentsControllerTest < ActionController::TestCase
     delete :destroy, edition_id: @edition, id: attachment.id
 
     assert_response :redirect
-    refute Attachment.exists?(attachment), 'attachment should have been deleted'
+    refute Attachment.exists?(attachment.id), 'attachment should have been deleted'
   end
 
   view_test 'GET :index shows external attachments' do

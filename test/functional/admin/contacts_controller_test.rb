@@ -185,7 +185,7 @@ class Admin::ContactsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_organisation_contacts_url(organisation)
     assert_equal %{"#{contact.title}" deleted successfully}, flash[:notice]
-    refute Contact.exists?(contact)
+    refute Contact.exists?(contact.id)
   end
 
   test "POST on :remove_from_home_page removes contact from the home page of the organisation" do

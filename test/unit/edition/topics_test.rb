@@ -13,7 +13,7 @@ class Edition::TopicsTest < ActiveSupport::TestCase
     edition = create(:draft_policy, topics: [@topic])
     relation = edition.classification_memberships.first
     edition.destroy
-    refute ClassificationMembership.exists?(relation)
+    refute ClassificationMembership.exists?(relation.id)
   end
 
   test "new edition of document that is a member of a topic should remain a member of that topic" do

@@ -5,7 +5,7 @@ class Edition::OrganisationsTest < ActiveSupport::TestCase
     edition = create(:draft_policy, organisations: [create(:organisation)])
     relation = edition.edition_organisations.first
     edition.destroy
-    refute EditionOrganisation.exists?(relation)
+    refute EditionOrganisation.exists?(relation.id)
   end
 
   test "new edition of document will retain lead and supporting organisations and their orderings" do

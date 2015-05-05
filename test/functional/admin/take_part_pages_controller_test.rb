@@ -84,7 +84,7 @@ class Admin::TakePartPagesControllerTest < ActionController::TestCase
 
     delete :destroy, id: page
 
-    refute TakePartPage.exists?(page)
+    refute TakePartPage.exists?(page.id)
     assert_redirected_to admin_take_part_pages_path
   end
 
