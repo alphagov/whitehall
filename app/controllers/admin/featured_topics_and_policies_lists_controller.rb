@@ -61,7 +61,7 @@ class Admin::FeaturedTopicsAndPoliciesListsController < Admin::BaseController
   end
 
   def prepare_feature_item_params(feature_list_params)
-    feature_list_params.fetch('featured_items_attributes', {}).each do |_, attrs|
+    (feature_list_params[:featured_items_attributes] || {}).each do |_, attrs|
       prepare_item_id_param(attrs)
       prepare_ended_at_param(attrs)
     end
