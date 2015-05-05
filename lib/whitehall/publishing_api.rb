@@ -47,6 +47,10 @@ module Whitehall
       end
     end
 
+    def self.publish_redirect(redirect)
+      Whitehall.publishing_api_client.put_content_item(redirect.base_path, redirect.as_json)
+    end
+
   private
 
     # Note: this method does not account for non-translatable models, e.g.
