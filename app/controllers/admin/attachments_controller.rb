@@ -36,7 +36,7 @@ class Admin::AttachmentsController < Admin::BaseController
     errors = {}
     params[:attachments].each do |id, attributes|
       attachment = attachable.attachments.find(id)
-      if !attachment.update_attributes(attributes.slice(:title))
+      if !attachment.update_attributes(attributes.permit(:title))
         errors[id] = attachment.errors.full_messages
       end
     end
