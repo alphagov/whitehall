@@ -10,7 +10,7 @@ module ResourceTestHelpers
         thing_path = send("#{type}_path", thing.document)
         assert_select "##{plural}" do
           assert_select_object thing do
-            assert_select "a[href=#{thing_path}]"
+            assert_select "a[href=?]", thing_path
             assert_select ".title", text: "#{type}-title"
           end
         end

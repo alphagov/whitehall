@@ -125,9 +125,9 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][link_url]']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][email]']"
       assert_select "textarea[name='edition[consultation_participation_attributes][postal_address]']"
-      assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value=?]", response_form.id
+      assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][id]'][value='#{response_form.id}']"
       assert_select "input[type='text'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][title]']"
-      assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][id]'][value=?]", response_form.consultation_response_form_data.id
+      assert_select "input[type='hidden'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][id]'][value='#{response_form.consultation_response_form_data.id}']"
       assert_select "input[type='file'][name='edition[consultation_participation_attributes][consultation_response_form_attributes][consultation_response_form_data_attributes][file]']"
     end
   end

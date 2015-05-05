@@ -40,7 +40,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   view_test "should include a rel='alternate' link to JSON representation of organisations" do
     get :index
 
-    assert_select "link[rel=alternate][type=application/json][href=#{api_organisations_url}]"
+    assert_select "link[rel=alternate][type='application/json'][href=?]", api_organisations_url
   end
 
   view_test "links to the correct path for organisations" do
@@ -48,7 +48,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select "a[href=/government/organisations/#{organisation.slug}]", text: organisation.name
+    assert_select "a[href='/government/organisations/#{organisation.slug}']", text: organisation.name
   end
 
   view_test "links to the correct paths for courts and tribunals" do
@@ -57,8 +57,8 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :index, courts_only: true
 
-    assert_select "a[href=/courts-tribunals/#{court.slug}]", text: court.name
-    assert_select "a[href=/courts-tribunals/#{hmcts_tribunal.slug}]", text: hmcts_tribunal.name
+    assert_select "a[href='/courts-tribunals/#{court.slug}']", text: court.name
+    assert_select "a[href='/courts-tribunals/#{hmcts_tribunal.slug}']", text: hmcts_tribunal.name
   end
 
   view_test "shows a count of organisations" do
@@ -66,7 +66,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_select "span.count.js-filter-count", text: 2
+    assert_select "#agencies-and-government-bodies span.count.js-filter-count", text: "2"
   end
 
   view_test "does not show a count of organisations for courts and tribunals" do
@@ -213,7 +213,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select ".page-header" do
       assert_select "h1", text: sub_organisation.name
       assert_select ".parent-organisations" do
-        assert_select "a[href=#{organisation_path(organisation)}]", text: organisation.name
+        assert_select "a[href=?]", organisation_path(organisation), text: organisation.name
       end
     end
   end
@@ -475,7 +475,7 @@ class OrganisationsControllerTest < ActionController::TestCase
         assert_select '.document-type', "Closed consultation"
       end
       refute_select_object consultation_3
-      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'consultations').gsub('&', '&amp;')}']"
+      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'consultations')}']"
     end
   end
 
@@ -536,7 +536,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       end
       assert_select_object publication_2
       refute_select_object publication_3
-      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'statistics').gsub('&', '&amp;')}']"
+      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'statistics')}']"
     end
   end
 
@@ -578,7 +578,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     get :show, id: organisation
 
-    assert_select "link[rel=alternate][type=application/json][href=#{api_organisation_url(organisation)}]"
+    assert_select "link[rel=alternate][type='application/json'][href=?]", api_organisation_url(organisation)
   end
 
   test "shows ministerial roles in the specified order" do
@@ -679,12 +679,12 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select_object(person_1) do
-      assert_select ".current-appointee a[href=#{person_path(person_1)}]", "Fred"
-      assert_select "a[href=#{ministerial_role_path(ministerial_role_1)}]", text: "Secretary of State"
+      assert_select ".current-appointee a[href=?]", person_path(person_1), "Fred"
+      assert_select "a[href=?]", ministerial_role_path(ministerial_role_1), text: "Secretary of State"
     end
     assert_select_object(person_2) do
-      assert_select ".current-appointee a[href=#{person_path(person_2)}]", "Bob"
-      assert_select "a[href=#{ministerial_role_path(ministerial_role_2)}]", text: "Minister of State"
+      assert_select ".current-appointee a[href=?]", person_path(person_2), "Bob"
+      assert_select "a[href=?]", ministerial_role_path(ministerial_role_2), text: "Minister of State"
     end
     refute_select_object(minister_in_another_organisation)
   end
@@ -695,7 +695,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:role_appointment, person: person, role: ministerial_role)
     organisation = create(:organisation, ministerial_roles: [ministerial_role])
     get :show, id: organisation
-    assert_select "img[src*=minister-of-funk.960x640.jpg]"
+    assert_select "img[src*='minister-of-funk.960x640.jpg']"
   end
 
   view_test "should display an empty space if the minister doesn't have their own picture" do
@@ -894,7 +894,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select ".comments", text: "This is a link: http://www.example.com" do
-      assert_select "a[href=http://www.example.com]", text: "http://www.example.com"
+      assert_select "a[href='http://www.example.com']", text: "http://www.example.com"
     end
   end
 

@@ -6,7 +6,7 @@ class AttachableEditionTest < ActionController::TestCase
   setup { login_as :policy_writer }
 
   def assert_tab(link_text, path)
-    assert_select "ul.nav-tabs li a[href*=#{path}]", link_text
+    assert_select "ul.nav-tabs li a[href*=?]", path, link_text
   end
 
   view_test 'GET :new displays a "Document" tab' do

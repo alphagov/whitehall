@@ -84,7 +84,7 @@ class OperationalFieldsControllerTest < ActionController::TestCase
     assert_select ".fields-of-operation" do
       fields.each do |field|
         assert_select_object field do
-          assert_select "a[href=#{operational_field_path(field)}]"
+          assert_select "a[href=?]", operational_field_path(field)
         end
       end
     end

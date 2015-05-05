@@ -17,7 +17,7 @@ class Admin::GenericEditionsController::TranslationTest < ActionController::Test
 
     get :show, id: edition
 
-    assert_select "form[action=#{admin_edition_translations_path(edition)}]" do
+    assert_select "form[action=?]", admin_edition_translations_path(edition) do
       assert_select "select[name=translation_locale]"
       assert_select "input[type=submit]"
     end

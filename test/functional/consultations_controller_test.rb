@@ -40,15 +40,15 @@ class ConsultationsControllerTest < ActionController::TestCase
     published_consultation = create(:published_consultation, opening_at: opening_at, closing_at: closing_at)
     get :show, id: published_consultation.document
 
-    assert_select ".opening-at[title=#{opening_at.iso8601}]"
-    assert_select ".closing-at[title=#{closing_at.iso8601}]"
+    assert_select ".opening-at[title='#{opening_at.iso8601}']"
+    assert_select ".closing-at[title='#{closing_at.iso8601}']"
   end
 
   view_test 'show displays consultation closing date on open consultation' do
     closing_at = Time.zone.now + 2.days
     published_consultation = create(:published_consultation, opening_at: DateTime.new(2010, 1, 1), closing_at: closing_at)
     get :show, id: published_consultation.document
-    assert_select ".closing-at[title=#{closing_at.iso8601}]"
+    assert_select ".closing-at[title='#{closing_at.iso8601}']"
   end
 
   view_test "should not explicitly say that consultation applies to the whole of the UK" do

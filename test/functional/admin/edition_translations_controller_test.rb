@@ -34,7 +34,7 @@ class Admin::EditionTranslationsControllerTest < ActionController::TestCase
       assert_select "textarea[name='edition[body]']", 'french-body'
 
       assert_select "input[type=submit][value=Save]"
-      assert_select "a[href=#{admin_edition_path(edition)}]", text: 'cancel'
+      assert_select "a[href=?]", admin_edition_path(edition), text: 'cancel'
     end
   end
 

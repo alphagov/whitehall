@@ -17,7 +17,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     get :index, role_id: @role
 
     translations_path = admin_role_translations_path(@role)
-    assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
+    assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
         assert_select "option[value=fr]", text: 'Français (French)'
         assert_select "option[value=es]", text: 'Español (Spanish)'
@@ -51,14 +51,14 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     get :index, role_id: role
 
     edit_translation_path = edit_admin_role_translation_path(role, 'fr')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
+    assert_select "a[href=?]", edit_translation_path, text: 'Français'
   end
 
   view_test 'index does not list the english translation' do
     get :index, role_id: @role
 
     edit_translation_path = edit_admin_role_translation_path(@role, 'en')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
+    assert_select "a[href=?]", edit_translation_path, text: 'en', count: 0
   end
 
   view_test 'index displays delete button for a translation' do
@@ -91,7 +91,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     get :edit, role_id: role, id: 'fr'
 
     translation_path = admin_role_translation_path(role, 'fr')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "input[type=text][name='role[name]'][value=?]", 'nom de rôle'
       assert_select "textarea[name='role[responsibilities]']", text: 'responsabilités'
       assert_select "input[type=submit][value=Save]"
@@ -106,7 +106,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     get :edit, role_id: role, id: 'ar'
 
     translation_path = admin_role_translation_path(role, 'ar')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "fieldset[class='right-to-left']" do
         assert_select "input[type=text][name='role[name]'][dir='rtl'][value=?]", 'دور اسم'
         assert_select "textarea[name='role[responsibilities]'][dir='rtl']", text: 'المسؤوليات'
@@ -134,7 +134,7 @@ class Admin::RoleTranslationsControllerTest < ActionController::TestCase
     }
 
     translation_path = admin_role_translation_path(@role, 'fr')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]",  translation_path do
       assert_select '.form-errors'
       assert_select "input[type=text][name='role[name]'][value=?]", ''
       assert_select "textarea[name='role[responsibilities]']", text: 'responsabilités'

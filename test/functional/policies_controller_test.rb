@@ -41,7 +41,7 @@ class PoliciesControllerTest < ActionController::TestCase
 
     get :show, id: policy.document
 
-    assert_select ".date[title=#{policy.public_timestamp.iso8601}]"
+    assert_select ".date[title='#{policy.public_timestamp.iso8601}']"
   end
 
   view_test "should not explicitly say that policy applies to the whole of the UK" do
@@ -185,7 +185,7 @@ That's all
 
     get :activity, id: policy.document
 
-    assert_select ".published-at[title=#{policy.public_timestamp.iso8601}]"
+    assert_select ".published-at[title='#{policy.public_timestamp.iso8601}']"
   end
 
   view_test "activity includes the main policy navigation" do

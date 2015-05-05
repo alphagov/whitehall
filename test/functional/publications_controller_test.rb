@@ -197,8 +197,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index displays date filter" do
     get :index, from_date: "01/01/2011", to_date: "01/02/2012"
 
-    assert_select "input#from_date[name='from_date'][value=01/01/2011]"
-    assert_select "input#to_date[name='to_date'][value=01/02/2012]"
+    assert_select "input#from_date[name='from_date'][value='01/01/2011']"
+    assert_select "input#to_date[name='to_date'][value='01/02/2012']"
   end
 
   view_test "#index orders publications by publication date by default" do
