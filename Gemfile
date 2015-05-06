@@ -102,6 +102,7 @@ group :test do
   gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
   gem 'govuk-content-schema-test-helpers', '1.3.0'
+  gem 'rails-perftest'
 end
 
 group :test_coverage do
