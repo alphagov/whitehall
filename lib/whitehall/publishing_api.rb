@@ -53,7 +53,11 @@ module Whitehall
     # PolicyGroup. Once we are pushing those to the Publishing API, this method
     # will need updating to return just the English locale for those models.
     def self.locales_for(model_instance)
-      model_instance.translated_locales
+      if (locales = model_instance.translated_locales).empty?
+        [:en]
+      else
+        locales
+      end
     end
 
     def self.push_live(model_instance, update_type_override=nil, queue_override=nil)
