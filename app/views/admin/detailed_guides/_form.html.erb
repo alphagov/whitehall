@@ -7,7 +7,7 @@
 
     <fieldset>
       <legend>Associations</legend>
-      <%= render partial: 'related_policy_fields', locals: { form: form, edition: edition } %>
+      <%= render 'admin/shared/policy_fields', form: form %>
       <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
 
       <%= form.label :primary_mainstream_category_id, 'Primary detailed guidance category' %>
