@@ -48,7 +48,11 @@ module Whitehall
         when Announcement
           url_helpers_for_announcements
         when Publicationesque
-          url_helpers_for_publications
+          if edition.included_in_statistics_feed?
+            url_helpers_for_statistics
+          else
+            url_helpers_for_publications
+          end
         else
           []
         end
@@ -60,6 +64,10 @@ module Whitehall
 
       def url_helpers_for_announcements
         [url_maker.method(:announcements_url)]
+      end
+
+      def url_helpers_for_statistics
+        url_helpers_for_publications + [url_maker.method(:statistics_url)]
       end
 
       def url_helpers_for_publications
