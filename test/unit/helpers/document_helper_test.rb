@@ -176,7 +176,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "part_of_metadata generates policy metadata" do
     policy = create(:published_policy)
-    edition = create(:news_article, related_policy_ids: [policy])
+    edition = create(:news_article, related_policy_ids: [policy.id])
 
     metadata_links = part_of_metadata(edition, [policy]).join(' ')
     assert_select_within_html metadata_links,
