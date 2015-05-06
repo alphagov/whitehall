@@ -69,10 +69,6 @@ private
   end
 
   def policy_content_ids
-    if FeatureFlag.enabled?('future_policies')
-      edition.policy_content_ids
-    else
-      edition.related_policies.map(&:content_id)
-    end
+    edition.policy_content_ids
   end
 end

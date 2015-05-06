@@ -100,11 +100,7 @@ class DocumentListExportPresenter
 
   def policies
     if edition.respond_to? :related_policies
-      if FeatureFlag.enabled?('future_policies')
-        edition.policies.map(&:title)
-      else
-        edition.related_policies.map(&:title)
-      end
+      edition.policies.map(&:title)
     end
   end
 

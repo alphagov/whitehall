@@ -56,7 +56,7 @@ module PublishingApiPresenters
     end
 
     def policies
-      if FeatureFlag.enabled?('future_policies')
+      if edition.can_be_related_to_policies?
         edition.policies.map(&:slug)
       else
         []
