@@ -16,6 +16,9 @@ module Election
 
             Edition::AuditTrail.acting_as(gds_user) do
               EditionForcePublisher.new(policy_paper).perform!
+              ServiceListeners::PanopticonRegistrar.new(policy_paper).register!
+              ServiceListeners::SearchIndexer.new(policy_paper).index!
+              Whitehall::PublishingApi.publish_async(policy_paper)
             end
 
             policy_paper.update_column(:public_timestamp, 1.day.ago)
