@@ -14,6 +14,28 @@
   <div class="block">
     <div class="inner-block">
       <h2 class="coalition" id="who-runs-government">Who runs government</h2>
+    <% if @is_new_gov %>
+       <div class="halves-width-section prime-minister">
+        <div class="one-half">
+          <div class="inner-block">
+            <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
+          </div>
+        </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <h3>The Prime Minister</h3>
+            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. They are ultimately responsible for all policy and decisions. They:</p>
+            <ul>
+              <li>oversee the operation of the Civil Service and government agencies</li>
+              <li>appoint members of the government</li>
+              <li>are the principal government figure in the House of Commons</li>
+            </ul>
+            <p>The Prime Minister is based at Number 10 Downing Street in London.</p>
+            <p><a href="/government/organisations/prime-ministers-office-10-downing-street">Read more about the Prime Minister's Office, 10 Downing Street</a></p>
+          </div>
+        </div>
+      </div>
+    <% else %>
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
@@ -52,7 +74,24 @@
           </div>
         </div>
       </div>
+    <% end %>
 
+    <% if @is_new_gov %>
+        <div class="halves-width-section cabinet">
+        <div class="one-half">
+          <div class="inner-block">
+            <%= image_tag 'how-gov-works/Cabinet_01.jpg', alt: 'The Cabinet' %>
+          </div>
+        </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <h3>The Cabinet</h3>
+            <p>The Cabinet is made up of the senior members of government. Every week during Parliament, members of the Cabinet (Secretaries of State from all departments and some other ministers) meet to discuss the most important issues for the government.</p>
+            <p><a href="/government/ministers">See who is in the Cabinet</a></p>
+          </div>
+        </div>
+      </div>
+    <% else %>
       <div class="thirds-width-section cabinet">
         <div class="two-thirds">
           <div class="inner-block">
@@ -79,7 +118,24 @@
           </div>
         </div>
       </div>
+    <% end %>
 
+    <% if @is_new_gov %>
+      <div class="halves-width-section ministers">
+        <div class="one-half">
+          <div class="inner-block">
+            <%= image_tag 'how-gov-works/Houses_of_Parliament.jpg', alt: 'The Houses of Parliament' %>
+          </div>
+        </div>
+        <div class="one-half">
+          <div class="inner-block">
+            <h3>Ministers</h3>
+            <p>Ministers are chosen by the Prime Minister. They are responsible for the actions, successes and failures of their departments.</p>
+            <p><a href="/government/ministers">See full list of ministers</a></p>
+          </div>
+        </div>
+      </div>
+    <% else %>
       <div class="full-width-section ministers">
           <h3>Ministers</h3>
           <% if !@is_during_reshuffle %>
@@ -92,6 +148,8 @@
           <p class="caption">Ministers are chosen by the Prime Minister from the members of the House of Commons and House of Lords. They are responsible for the actions, successes and failures of their departments.</p>
           <p><%= link_to "See full list of ministers", ministerial_roles_path %></p>
       </div>
+    <% end %>
+
      <h2 id="how-government-is-run">How government is run</h2>
       <div class="thirds-width-section depts">
         <div class="one-third">
@@ -107,6 +165,11 @@
       </div>
 
       <div class="thirds-width-section depts-cont">
+      <% if @is_new_gov %>
+        <div class="one-third">
+          <div class="inner-block"></div>
+        </div>
+      <% else %>
         <div class="one-third">
           <div class="inner-block">
             <p><span class="feature-value"><%= link_to @ministerial_department_count, organisations_path(anchor: 'departments') %></span>
@@ -117,6 +180,8 @@
               <span class="feature-caption">Agencies &amp; other public bodies</span></p>
           </div>
         </div>
+      <% end %>
+
         <div class="one-third">
           <div class="inner-block">
             <h3>Government departments</h3>
@@ -187,6 +252,7 @@
         </div>
       </div>
 
+    <% unless @is_new_gov %>
       <hr class="keyline">
 
       <div class="thirds-width-section policy">
@@ -205,6 +271,7 @@
           </div>
         </div>
       </div>
+    <% end %>
 
       <hr class="keyline">
 
