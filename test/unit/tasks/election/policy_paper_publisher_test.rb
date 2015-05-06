@@ -30,4 +30,8 @@ class PolicyPaperPublisherTest < ActiveSupport::TestCase
     policy_paper = create(:published_policy_paper)
     Election::PolicyPaperPublisher.new([policy_paper.id]).run!
   end
+
+  test "it sets the public_timestamp to 24 hours ago" do
+    assert_equal Time.zone.now - 1.day, @policy_paper.public_timestamp
+  end
 end

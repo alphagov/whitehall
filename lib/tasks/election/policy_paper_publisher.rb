@@ -14,6 +14,7 @@ module Election
             policy_paper.minor_change = true
             policy_paper.major_change_published_at = policy_paper.first_published_at
             policy_paper.force_publish!
+            policy_paper.update_column(:public_timestamp, 1.day.ago)
           end
         else
           Rails.logger.warn("WARNING: Couldn't find policy paper ##{policy_paper_id}")
