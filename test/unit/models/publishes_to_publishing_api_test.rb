@@ -47,4 +47,15 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     Whitehall::PublishingApi.expects(:publish_async).never
     organisation.update_attribute(:name, 'Edited org')
   end
+
+  test "update publishes to Publishing API using :en locale when no translated fields are set" do
+    person = create(:person, attributes_for(:person).except(:biography))
+
+    content_item = PublishingApiPresenters.presenter_for(person).as_json
+    expected_publish_request = stub_publishing_api_put_item(person.search_link, content_item)
+
+    person.update_attribute(:forename, 'Edited person')
+
+    assert_requested expected_publish_request
+  end
 end
