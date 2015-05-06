@@ -532,38 +532,28 @@ module AdminEditionControllerTestHelpers
       edition_class = class_for(document_type)
 
       view_test "new displays document form with related policies field" do
-        draft_policy = create(:draft_policy)
-        submitted_policy = create(:submitted_policy)
-        rejected_policy = create(:rejected_policy)
-        published_policy = create(:published_policy)
-        superseded_policy = create(:superseded_policy)
-        deleted_policy = create(:deleted_policy)
+        stub_content_register_policies
 
         get :new
 
         assert_select "form#new_edition" do
-          assert_select "select[name*='edition[related_policy_ids]']" do
-            assert_select "option[value='#{draft_policy.id}']"
-            assert_select "option[value='#{submitted_policy.id}']"
-            assert_select "option[value='#{rejected_policy.id}']"
-            assert_select "option[value='#{published_policy.id}']"
-            refute_select "option[value='#{superseded_policy.id}']"
-            refute_select "option[value='#{deleted_policy.id}']"
+          assert_select "select[name*='edition[policy_content_ids]']" do
+            assert_select "option[value='#{policy_1['content_id']}']"
+            assert_select "option[value='#{policy_2['content_id']}']"
           end
         end
       end
 
       test "creating should create a new document with related policies" do
-        first_policy = create(:policy)
-        second_policy = create(:policy)
+        stub_content_register_policies
         attributes = controller_attributes_for(document_type)
 
         post :create, edition: attributes.merge(
-          related_policy_ids: [first_policy.id, second_policy.id]
+          policy_content_ids: [policy_1['content_id'], policy_2['content_id']]
         )
 
         assert document = edition_class.last
-        assert_equal [first_policy, second_policy], document.related_policies
+        assert_equal [policy_1['content_id'], policy_2['content_id']], document.policy_content_ids
       end
 
       view_test "edit displays document form with related policies field" do
@@ -573,18 +563,18 @@ module AdminEditionControllerTestHelpers
         get :edit, id: document
 
         assert_select "form#edit_edition" do
-          assert_select "select[name*='edition[related_policy_ids]']"
+          assert_select "select[name*='edition[policy_content_ids]']"
         end
       end
 
       test "updating should save modified edition attributes with related policies" do
-        first_policy = create(:policy)
-        second_policy = create(:policy)
-        edition = create(document_type, related_editions: [first_policy])
+        stub_content_register_policies
 
-        put :update, id: edition, edition: {related_policy_ids: [second_policy.id]}
+        edition = create(document_type, policy_content_ids: [policy_1['content_id']])
 
-        assert_equal [second_policy], edition.reload.related_policies
+        put :update, id: edition, edition: {policy_content_ids: [policy_2['content_id']]}
+
+        assert_equal [policy_2['content_id']], edition.reload.policy_content_ids
       end
 
       view_test "updating a stale edition should render edit page with conflicting edition and its related policies" do
@@ -595,7 +585,7 @@ module AdminEditionControllerTestHelpers
 
         put :update, id: edition, edition: {
           lock_version: lock_version,
-          related_policy_ids: edition.related_policy_ids
+          policy_content_ids: edition.related_policy_ids
         }
 
         assert_select ".document.conflict" do

@@ -146,10 +146,10 @@ module DocumentControllerTestHelpers
 
     def should_show_related_policies_for(document_type)
       view_test "show displays related published policies for #{document_type}" do
-        published_policy = create(:published_policy)
-        edition = create("published_#{document_type}", related_editions: [published_policy])
+        stub_content_register_policies
+        edition = create("published_#{document_type}", policy_content_ids: [policy_1['content_id'], policy_2['content_id']])
         get :show, id: edition.document
-        assert_select '.meta a', text: published_policy.title
+        assert_select '.meta a', text: "Policy 1"
       end
 
       view_test "show doesn't display related unpublished policies for #{document_type}" do
