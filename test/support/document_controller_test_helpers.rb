@@ -173,9 +173,6 @@ module DocumentControllerTestHelpers
       end
 
       view_test "should render related future policies on #{document_type} pages" do
-        FeatureFlag.find_or_create_by(key: 'future_policies')
-        FeatureFlag.set('future_policies', true)
-
         edition = create("published_#{document_type}", policy_content_ids: [policy_1["content_id"]])
         get :show, id: edition.document
         assert_select ".meta a", text: policy_1["title"]
