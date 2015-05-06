@@ -35,6 +35,11 @@ class PolicyPaperPublisherTest < ActiveSupport::TestCase
     assert_equal Time.zone.now - 1.day, @policy_paper.public_timestamp
   end
 
+  test "it creates a change note marking the historical nature of the policy paper" do
+    assert_equal "Policy document from the 2010 to 2015 government preserved in a different format for reference",
+                 @policy_paper.change_note
+  end
+
   test "it publishes as the GDS user" do
     assert_equal @gds_user, @policy_paper.versions.where(state: "published").last.user
   end

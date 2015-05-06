@@ -12,6 +12,7 @@ module Election
           else
             Rails.logger.info("Force publishing policy paper ##{policy_paper_id} as a major change without email alerts")
             policy_paper.minor_change = false
+            policy_paper.change_note = historical_change_note
 
             Edition::AuditTrail.acting_as(gds_user) do
               EditionForcePublisher.new(policy_paper).perform!
@@ -26,6 +27,10 @@ module Election
     end
 
   private
+
+    def historical_change_note
+      "Policy document from the 2010 to 2015 government preserved in a different format for reference"
+    end
 
     def gds_user
       @gds_user ||= User.find_by(email: "govuk-whitehall@digital.cabinet-office.gov.uk")
