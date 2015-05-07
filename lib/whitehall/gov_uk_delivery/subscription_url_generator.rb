@@ -27,8 +27,6 @@ module Whitehall
       end
 
       def relevant_to_local_government?
-        return false if FeatureFlag.enabled?('future_policies')
-
         edition.relevant_to_local_government?
       end
 

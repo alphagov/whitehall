@@ -11,7 +11,7 @@ module Future
     test "#all returns all policy entries" do
       future_policies = Future::Policy.all
 
-      assert_equal 2, future_policies.size
+      assert_equal 3, future_policies.size
       assert_equal policy_1["content_id"], future_policies[0].content_id
       assert_equal policy_2["content_id"], future_policies[1].content_id
     end
