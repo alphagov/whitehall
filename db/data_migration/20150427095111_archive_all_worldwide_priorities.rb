@@ -6,6 +6,6 @@ WorldwidePriority.where(state: "published").each do |wp|
   edition.build_unpublishing(explanation: reason, unpublishing_reason_id: UnpublishingReason::Archived.id)
   archiver = Whitehall.edition_services.archiver(edition)
   unless archiver.perform!
-    puts "Could not archive edition: #{archiver.failure_reason}"
+    puts "Could not archive edition (#{edition.id}): #{archiver.failure_reason}"
   end
 end
