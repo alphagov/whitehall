@@ -81,90 +81,6 @@
     }
   }
 
-  .civil-service{
-    margin-top:$gutter;
-
-    @include media(tablet) {
-      .two-thirds{
-        margin-top:-$gutter*2;
-      }
-    }
-
-    table {
-      width: $full-width;
-      margin-bottom:$gutter-half;
-      margin-top:$gutter-half;
-      tr{
-        border-bottom:1px solid $border-colour;
-        td{
-          padding-right:$gutter;
-        }
-        @include media(tablet) {
-          &.others {
-            vertical-align: top;
-
-            td + td {
-              line-height: 1;
-              padding-top: 3px;
-            }
-          }
-        }
-      }
-      strong {
-        border-left: 1.3em solid #eee;
-        padding-left: $gutter-one-third;
-      }
-      .dwp strong {
-        border-color: #00beb7;
-      }
-      .hmrc strong {
-        border-color: #008080;
-      }
-      .moj strong {
-        border-color: #231f20;
-      }
-      .mod strong {
-        border-color: #7A5F71;
-      }
-      .others strong {
-        border-color: #c8c8c8;
-      }
-    }
-    .caption {
-      @include ig-core-16;
-    }
-  }
-  .civil-pie {
-    font-size: 16px;
-    display:block;
-    height: 190px;
-    max-width: 250px;
-    margin: 0 auto;
-    padding-top: 100px;
-    background-color: $white;
-    vertical-align:middle;
-    text-align:center;
-    background-image: image-url("how-gov-works/Civil_Service_Info.png");
-    background-repeat:no-repeat;
-    background-size: $full-width auto;
-
-    @media all and (-webkit-min-device-pixel-ratio: 2) {
-      background-image: image-url("how-gov-works/Civil_Service_Infox2.png");
-      background-size: $full-width auto;
-    }
-
-    margin: 0 auto;
-    @include media(tablet) {
-      @include core-16;
-      padding-top: 40%;
-      margin: 0;
-    }
-    @include media(desktop) {
-      @include core-19;
-      padding-top: 95px;
-    }
-  }
-
   .feature-value{
     font-size:5em;
     padding-bottom:0;
@@ -376,7 +292,7 @@
     }
   }
 
-  .gov-types, .ministers, .cabinet, .coalition, .civil-service{
+  .gov-types, .ministers, .cabinet, .coalition {
     h3{
       border-top:1px solid $border-colour;
       padding-top:$gutter - $gutter-one-sixth;
