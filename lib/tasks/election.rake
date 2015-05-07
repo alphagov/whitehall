@@ -13,6 +13,7 @@ namespace :election do
     edition_scope = Edition.
                       where(type: policy_taggable_edition_classes).
                       where(state: editable_edition_states).
+                      where("updated_at > '2015-05-05'").
                       includes(related_policies: :related_documents)
 
     DataHygiene::FuturePolicyTaggingMigrator.new(edition_scope, Logger.new(STDOUT)).migrate!
