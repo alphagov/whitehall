@@ -3,6 +3,7 @@ class Locale < Struct.new(:code)
   ENGLISH_LOCALE_CODE = :en
 
   extend ActiveModel::Naming
+  include ActiveModel::Conversion
 
   def initialize(code)
     super(code.to_sym)
@@ -71,5 +72,9 @@ class Locale < Struct.new(:code)
 
   def to_param
     code.to_s
+  end
+
+  def persisted?
+    true
   end
 end
