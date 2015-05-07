@@ -7,6 +7,20 @@ module ContentRegisterHelpers
     stub_content_register_entries("policy", [policy_1, policy_2, policy_relevant_to_local_government])
   end
 
+  def content_register_has_policies(policy_titles)
+    policies = policy_titles.map { |title|
+      {
+        "content_id" => SecureRandom.uuid,
+        "format" => "policy",
+        "title" => title,
+        "base_path" => "/government/policies/#{title.parameterize}",
+      }
+    }
+
+    stub_content_register_entries("policy", policies)
+    policies
+  end
+
   def policy_1
     @policy_1 ||= {
         "content_id" => SecureRandom.uuid,
