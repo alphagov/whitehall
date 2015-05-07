@@ -126,7 +126,7 @@ class GovernmentOnDateTest < ActiveSupport::TestCase
   test "knows the active government at a date" do
     assert_equal @current_government, Government.on_date(Date.today)
     assert_equal @previous_government, Government.on_date(4.years.ago)
-    assert_equal @previous_government, Government.on_date(@previous_government.end_date)
+    assert_equal @previous_government, Government.on_date(@previous_government.end_date - 1.day)
     assert_equal @current_government, Government.on_date(@current_government.start_date)
   end
 
