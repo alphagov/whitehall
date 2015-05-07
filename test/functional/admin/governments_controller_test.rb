@@ -28,4 +28,19 @@ class Admin::GovernmentsControllerTest < ActionController::TestCase
     get :new
     assert_select "input[name='government[start_date]'][value='#{Date.today}']"
   end
+
+  test "#close sets the end date to today" do
+    login_as :gds_admin
+    post :close, id: @government.id
+    @government.reload
+    assert_equal Date.today, @government.end_date
+  end
+
+  test "#close doesn't overwrite an end date if there is one" do
+    login_as :gds_admin
+    @government.update(end_date: 10.days.ago.to_date)
+    post :close, id: @government.id
+    @government.reload
+    assert_equal 10.days.ago.to_date, @government.end_date
+  end
 end
