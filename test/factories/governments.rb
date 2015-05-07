@@ -5,7 +5,7 @@ FactoryGirl.define do
   end
 
   factory :current_government, parent: :government do
-    start_date { 2.years.ago + 1.day }
+    start_date { 2.years.ago }
   end
 
   factory :previous_government, parent: :government do

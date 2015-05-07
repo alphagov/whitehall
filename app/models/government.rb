@@ -16,7 +16,7 @@ class Government < ActiveRecord::Base
   def self.on_date(date)
     return if date.to_date > Date.today
 
-    where('start_date <= ?', date).order(start_date: :desc).first
+    where('start_date <= ?', date).order(start_date: :asc).last
   end
 
   def current?
