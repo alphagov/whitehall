@@ -181,5 +181,5 @@ Then /^I should be able to delete the topical event "([^"]*)"$/ do |name|
   visit admin_topical_event_path(topical_event)
   click_on 'Edit'
   click_button 'Delete'
-  refute TopicalEvent.exists?(topical_event)
+  refute TopicalEvent.exists?(topical_event.id)
 end
