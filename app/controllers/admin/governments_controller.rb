@@ -43,7 +43,7 @@ class Admin::GovernmentsController < Admin::BaseController
     government.update_attribute(:end_date, Date.today) unless government.end_date
 
     current_active_ministerial_appointments.each do |appointment|
-      appointment.update_attribute(:ended_at, Time.zone.now)
+      appointment.update_attribute(:ended_at, government.end_date)
     end
 
     redirect_to edit_admin_government_path(government), notice: "Government closed"
