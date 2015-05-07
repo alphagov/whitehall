@@ -68,6 +68,25 @@ When /^I add a new "([^"]*)" translation to the role "([^"]*)" with:$/ do |local
   click_on "Save"
 end
 
+When(/^I appoint "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
+  visit admin_roles_path
+  role = Role.find_by(name: role_name)
+  click_on role.name
+  click_on "New appointment"
+  select person_name, from: "Person"
+  click_on "Save"
+end
+
+Then(/^I should be able to create a news article associated with "(.*?)" as the "(.*?)"$/) do |person_name, role_name|
+  begin_drafting_news_article title: "New #{role_name}!"
+  select "#{person_name}, #{role_name}", from: "Ministers"
+
+  click_button "Save"
+
+  assert news = NewsArticle.find_by(title: "New #{role_name}!")
+  assert_equal person_name, news.role_appointments.first.person.name
+end
+
 Then /^I should be able to appoint "([^"]*)" to the new role$/ do |person_name|
   role = Role.last
   click_on role.name

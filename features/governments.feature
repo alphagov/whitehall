@@ -28,3 +28,13 @@ Scenario: changing government after an election
   When I close the current government
   And I create a government called "Robo-alien Overlords"
   Then the current government should be "Robo-alien Overlords"
+
+Scenario: appointing a minister to the new government
+  Given I am a GDS admin
+  And a person called "Fred Fancy"
+  And "Johnny Macaroon" is the "Minister of Crazy" for the "Department of Woah"
+  And there is a current government
+  When I close the current government
+  And I create a government called "Robo-alien Overlords"
+  And I appoint "Fred Fancy" as the "Minister of Crazy"
+  Then I should be able to create a news article associated with "Fred Fancy" as the "Minister of Crazy"
