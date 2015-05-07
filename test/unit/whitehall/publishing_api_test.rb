@@ -331,4 +331,16 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
 
     Whitehall::PublishingApi.publish_draft_async(draft_edition, update_type, queue_name)
   end
+
+  test "#publish_redirect publishes a redirect to the Publishing API" do
+    base_path = "/government/people/milly-vanilly"
+    redirects = [
+      { path: base_path, type: "exact", destination: "/government/poeple/milli-vanilli"}
+    ]
+    redirect = Whitehall::PublishingApi::Redirect.new(base_path, redirects)
+    expected_request = stub_publishing_api_put_item(redirect.base_path, redirect.as_json)
+    Whitehall::PublishingApi.publish_redirect(redirect)
+
+    assert_requested expected_request
+  end
 end
