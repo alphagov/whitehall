@@ -40,7 +40,7 @@ class Admin::GovernmentsController < Admin::BaseController
   def close
     government = Government.find(params[:id])
 
-    government.update_attribute(:end_date, Date.today)
+    government.update_attribute(:end_date, Date.today) unless government.end_date
 
     current_active_ministerial_appointments.each do |appointment|
       appointment.update_attribute(:ended_at, Time.zone.now)
