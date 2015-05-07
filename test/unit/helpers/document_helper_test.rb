@@ -8,7 +8,8 @@ class DocumentHelperTest < ActionView::TestCase
   include OrganisationHelper
 
   test "#edition_organisation_class returns the slug of the first organisation of the edition" do
-    organisations = [create(:organisation), create(:organisation)]
+    organisations = [create(:organisation, name: "An Organisation"),
+                     create(:organisation, name: "Better Organisation")]
     edition = create(:publication, organisations: organisations)
     assert_equal organisations.first.slug, edition_organisation_class(edition)
   end
