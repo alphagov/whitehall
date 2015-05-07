@@ -4,7 +4,7 @@ module ContentRegisterHelpers
   include GdsApi::TestHelpers::ContentRegister
 
   def stub_content_register_policies
-    stub_content_register_entries("policy", [policy_1, policy_2])
+    stub_content_register_entries("policy", [policy_1, policy_2, policy_relevant_to_local_government])
   end
 
   def policy_1
@@ -41,5 +41,14 @@ module ContentRegisterHelpers
         "title" => "Policy 4",
         "base_path" => "/government/policies/policy-4",
       }
+  end
+
+  def policy_relevant_to_local_government
+    @policy_relevant_to_local_government ||= {
+      "content_id" => "5d37821b-7631-11e4-a3cb-005056011aef",
+      "format" => "policy",
+      "title" => "2012 olympic and paralympic legacy",
+      "base_path" => "/government/policies/2012-olympic-and-paralympic-legacy",
+    }
   end
 end
