@@ -52,8 +52,8 @@ end
 
 When /^I draft a new publication "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_publication(title)
-  select first_policy, from: "Related policies"
-  select second_policy, from: "Related policies"
+  select first_policy, from: "Policies"
+  select second_policy, from: "Policies"
   click_button "Save"
 end
 

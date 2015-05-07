@@ -21,9 +21,9 @@ Given /^a published speech exists$/ do
 end
 
 Given /^a published speech "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |speech_title, policy_title_1, policy_title_2|
-  policy_1 = create(:published_policy, title: policy_title_1)
-  policy_2 = create(:published_policy, title: policy_title_2)
-  create(:published_speech, title: speech_title, related_editions: [policy_1, policy_2])
+  policies = content_register_has_policies([policy_title_1, policy_title_2])
+
+  create(:published_speech, title: speech_title, policy_content_ids: policies.map {|p| p['content_id']})
 end
 
 When /^I edit the speech "([^"]*)" changing the title to "([^"]*)"$/ do |original_title, new_title|
@@ -61,8 +61,8 @@ end
 
 When /^I draft a new speech "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
   begin_drafting_speech title: title
-  select first_policy, from: "Related policies"
-  select second_policy, from: "Related policies"
+  select first_policy, from: "Policies"
+  select second_policy, from: "Policies"
   click_button "Save"
 end
 

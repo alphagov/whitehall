@@ -37,8 +37,7 @@ Given /^I start editing the policy "([^"]*)" changing the title to "([^"]*)"$/ d
 end
 
 Given /^two published policies "([^"]*)" and "([^"]*)" exist$/ do |policy_title_1, policy_title_2|
-  create(:published_policy, title: policy_title_1)
-  create(:published_policy, title: policy_title_2)
+  content_register_has_policies([policy_title_1, policy_title_2])
 end
 
 Given /^an editor named "([^"]*)" has rejected the policy titled "([^"]*)"$/ do |editor_name, policy_title|
