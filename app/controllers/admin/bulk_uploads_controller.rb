@@ -22,7 +22,7 @@ class Admin::BulkUploadsController < Admin::BaseController
 
   def create
     @bulk_upload = BulkUpload.new(@edition)
-    @bulk_upload.attachments_attributes = create_params[:bulk_upload][:attachments_attributes]
+    @bulk_upload.attachments_attributes = create_params[:attachments_attributes]
     if @bulk_upload.save_attachments
       redirect_to admin_edition_attachments_path(@edition)
     else
@@ -41,7 +41,20 @@ class Admin::BulkUploadsController < Admin::BaseController
   end
 
   def create_params
-    params.permit(:edition_id, bulk_upload: {attachments_attributes:
-      [:title, {attachment_data_attributes: :file_cache}]})
+    params.require(:bulk_upload).permit(attachments_attributes: [
+      {attachment_data_attributes: [:file_cache, :to_replace_id]},
+      :id,
+      :title,
+      :locale,
+      :isbn,
+      :unique_reference,
+      :command_paper_number,
+      :unnumbered_command_paper,
+      :order_url,
+      :price,
+      :hoc_paper_number,
+      :unnumbered_hoc_paper,
+      :parliamentary_session,
+    ])
   end
 end
