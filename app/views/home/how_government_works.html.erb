@@ -14,28 +14,6 @@
   <div class="block">
     <div class="inner-block">
       <h2 class="coalition" id="who-runs-government">Who runs government</h2>
-    <% if @is_new_gov %>
-       <div class="halves-width-section prime-minister">
-        <div class="one-half">
-          <div class="inner-block">
-            <%= image_tag 'how-gov-works/10_Downing_Street.jpg', alt: 'Number 10, Downing Street' %>
-          </div>
-        </div>
-        <div class="one-half">
-          <div class="inner-block">
-            <h3>The Prime Minister</h3>
-            <p>The <a href="/government/ministers/prime-minister">Prime Minister</a> is head of the UK government. They are ultimately responsible for all policy and decisions. They:</p>
-            <ul>
-              <li>oversee the operation of the Civil Service and government agencies</li>
-              <li>appoint members of the government</li>
-              <li>are the principal government figure in the House of Commons</li>
-            </ul>
-            <p>The Prime Minister is based at Number 10 Downing Street in London.</p>
-            <p><a href="/government/organisations/prime-ministers-office-10-downing-street">Read more about the Prime Minister's Office, 10 Downing Street</a></p>
-          </div>
-        </div>
-      </div>
-    <% else %>
       <div class="halves-width-section prime-minister">
         <div class="one-half">
           <div class="inner-block">
@@ -56,25 +34,6 @@
           </div>
         </div>
       </div>
-
-      <hr class="keyline">
-
-      <div class="thirds-width-section dep-prime-minister">
-        <div class="two-thirds">
-          <div class="inner-block">
-            <h3>The Deputy Prime Minister</h3>
-            <p><a href="/government/ministers/deputy-prime-minister">The Deputy Prime Minister</a>, <a href="/government/people/nick-clegg">Nick Clegg</a>, is the deputy head of government. He is the leader of the Liberal Democrats and was appointed Deputy Prime Minister when the coalition government was formed following the 2010 general election.</p>
-            <p>His office is part of the Cabinet Office at 70 Whitehall.</p>
-            <p><a href="/government/organisations/deputy-prime-ministers-office">Read more about the Deputy Prime Minister's Office</a></p>
-          </div>
-        </div>
-        <div class="one-third">
-          <div class="inner-block">
-            <%= image_tag 'how-gov-works/DPM_01.jpg', alt: 'The Deputy Prime Minister' %>
-          </div>
-        </div>
-      </div>
-    <% end %>
 
     <% if @is_new_gov %>
         <div class="halves-width-section cabinet">
