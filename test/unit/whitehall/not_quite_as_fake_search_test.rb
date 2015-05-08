@@ -76,21 +76,21 @@ module Whitehall
 
       test "advanced search can select documents using a boolean filter" do
         documents = build_documents(*%w{Foo Bar})
-        documents[0]['relevant_to_local_government'] = true
+        documents[0]['has_official_document'] = true
         @index.add_batch(documents)
-        assert_search_returns_documents %w{Foo}, relevant_to_local_government: "true"
-        assert_search_returns_documents %w{Foo}, relevant_to_local_government: "1"
-        assert_search_returns_documents %w{Bar}, relevant_to_local_government: "false"
-        assert_search_returns_documents %w{Bar}, relevant_to_local_government: "0"
+        assert_search_returns_documents %w{Foo}, has_official_document: "true"
+        assert_search_returns_documents %w{Foo}, has_official_document: "1"
+        assert_search_returns_documents %w{Bar}, has_official_document: "false"
+        assert_search_returns_documents %w{Bar}, has_official_document: "0"
       end
 
       test "advanced search raises if boolean filter is not a boolean-ish value" do
-        assert_invalid_search(relevant_to_local_government: "hello")
-        assert_invalid_search(relevant_to_local_government: "")
-        assert_invalid_search(relevant_to_local_government: "yes")
-        assert_invalid_search(relevant_to_local_government: "no")
-        assert_invalid_search(relevant_to_local_government: "false evidence")
-        assert_invalid_search(relevant_to_local_government: "true facts")
+        assert_invalid_search(has_official_document: "hello")
+        assert_invalid_search(has_official_document: "")
+        assert_invalid_search(has_official_document: "yes")
+        assert_invalid_search(has_official_document: "no")
+        assert_invalid_search(has_official_document: "false evidence")
+        assert_invalid_search(has_official_document: "true facts")
       end
 
       test "advanced search raises if date filter is not a pure date" do
@@ -176,7 +176,7 @@ module Whitehall
             "description" => "#{title}-description",
             "indexable_content" => "#{title}-indexable_content",
             topics: ["#{title}-topic1", "#{title}-topic2"],
-            "relevant_to_local_government" => false,
+            "has_official_document" => false,
             "public_timestamp" => Time.zone.parse("2011-01-01 00:00:00")
           }
         end

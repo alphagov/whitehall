@@ -17,6 +17,6 @@ class EmailSignupsController < PublicFacingController
 private
 
   def email_signup_params
-    params.require(:email_signup).permit(:feed, :local_government)
+    params.require(:email_signup).permit(:feed)
   end
 end

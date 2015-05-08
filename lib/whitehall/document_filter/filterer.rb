@@ -15,7 +15,6 @@ module Whitehall::DocumentFilter
       @keywords        = params[:keywords]
       @locale          = params[:locale]
 
-      @relevant_to_local_government = params[:relevant_to_local_government]
       @include_world_location_news  = params[:include_world_location_news]
 
       @topics          = Array(@params[:topics])
@@ -81,10 +80,6 @@ module Whitehall::DocumentFilter
       else
         []
       end
-    end
-
-    def relevant_to_local_government
-      @relevant_to_local_government.to_s == '1'
     end
 
     def include_world_location_news

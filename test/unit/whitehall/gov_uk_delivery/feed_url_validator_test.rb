@@ -189,22 +189,6 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     assert_nil FeedUrlValidator.new('http://bad/feed').description
   end
 
-  test 'appends "which are relevant to local government" when relevant_to_local_government is truthy' do
-    feed_url  = feed_url_for(document_type: "publications", relevant_to_local_government: '1')
-    validator = FeedUrlValidator.new(feed_url)
-
-    assert validator.valid?
-    assert_equal "publications which are relevant to local government", validator.description
-  end
-
-  test 'appends "which are command papers and are relevant to local government" when relevant_to_local_government is truthy and official_document_status is present' do
-    feed_url = feed_url_for(document_type: "publications", official_document_status: "command_papers_only", relevant_to_local_government: '1')
-    validator = FeedUrlValidator.new(feed_url)
-
-    assert validator.valid?
-    assert_equal "publications which are command papers and are relevant to local government", validator.description
-  end
-
 private
 
   def feed_url_for(params)

@@ -9,7 +9,6 @@ module Whitehall::DocumentFilter
                                          to_date
                                          keywords
                                          locale
-                                         relevant_to_local_government
                                          include_world_location_news
                                          official_document_status
                                          publication_type

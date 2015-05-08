@@ -15,7 +15,7 @@ module Whitehall
 
       def description
         if valid?
-          [leading_fragment, parameter_fragments, command_and_act_fragment, relevant_to_local_government_fragment].compact.join " "
+          [leading_fragment, parameter_fragments, command_and_act_fragment].compact.join " "
         end
       end
 
@@ -67,7 +67,7 @@ module Whitehall
         if filtered_documents_feed?
           filter_param_keys_valid? && filter_param_resources_exist?
         else
-          feed_params.except('relevant_to_local_government').none?
+          feed_params.none?
         end
       end
 
@@ -129,7 +129,7 @@ module Whitehall
       end
 
       def resource_filter_params
-        feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status relevant_to_local_government))
+        feed_params.except(*%w(publication_filter_option announcement_filter_option official_document_status))
       end
 
       def parameter_fragments
@@ -152,17 +152,6 @@ module Whitehall
           when "act_papers_only"
             "which are act papers"
           end
-        end
-      end
-
-      def relevant_to_local_government_fragment
-        relevant_to_local_government = feed_params['relevant_to_local_government'] && feed_params['relevant_to_local_government'] != "0"
-        if relevant_to_local_government && feed_params['official_document_status'].present?
-          "and are relevant to local government"
-        elsif relevant_to_local_government
-          "which are relevant to local government"
-        else
-          nil
         end
       end
 

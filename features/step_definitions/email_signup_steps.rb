@@ -12,15 +12,6 @@ When(/^I sign up for emails$/) do
   click_on 'Create subscription'
 end
 
-When(/^I sign up for emails, checking the relevant to local government box$/) do
-  within '.feeds' do
-    click_on 'email'
-  end
-
-  check 'Only include results relevant to local government'
-  click_on 'Create subscription'
-end
-
 Then(/^I should be signed up for the all publications mailing list$/) do
   assert_signed_up_to_mailing_list("/government/publications.atom", "publications")
 end
@@ -35,10 +26,6 @@ end
 
 Then(/^I should be signed up for the news stories mailing list$/) do
   assert_signed_up_to_mailing_list("/government/announcements.atom?announcement_filter_option=news-stories", "news stories")
-end
-
-Then(/^I should be signed up for the local government news stories mailing list$/) do
-  assert_signed_up_to_mailing_list("/government/announcements.atom?announcement_filter_option=news-stories&relevant_to_local_government=1", "news stories which are relevant to local government")
 end
 
 Then(/^I should be signed up for the "(.*?)" organisation mailing list$/) do |org_name|
