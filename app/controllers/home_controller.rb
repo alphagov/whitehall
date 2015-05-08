@@ -8,8 +8,7 @@ class HomeController < PublicFacingController
   end
 
   def how_government_works
-    # Brief hack to automatically change parts of the how-gov-works page once
-    # a new government has formed (at any point after polling day)
+    # Brief hack to automatically change parts of the how-gov-works
     # @TODO: Remove once new government in place and this page is updated properly
     @is_new_gov = new_gov?
 
@@ -42,8 +41,6 @@ class HomeController < PublicFacingController
 private
 
   def new_gov?
-    current_gov = Government.current
-    polling_day = Date.new(2015, 05, 07)
-    current_gov && current_gov.start_date >= polling_day
+    FeatureFlag.enabled?('how_government_works')
   end
 end
