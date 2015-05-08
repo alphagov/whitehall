@@ -15,12 +15,6 @@ Scenario: Creating a new draft publication related to multiple policies
   When I draft a new publication "Healthy Eating" relating it to the policies "Totally Tangy Tofu" and "Awakened Tastebuds"
   Then I should see in the preview that "Healthy Eating" should related to "Totally Tangy Tofu" and "Awakened Tastebuds" policies
 
-Scenario: Creating a publication related to multiple worldwide prioirites
-  Given a published worldwide priority "Fish Exchange Programme" exists
-  And a published worldwide priority "Supporting British Fish Abroad" exists
-  When I draft a new publication "Fishy Business" relating it to the worldwide_priorities "Fish Exchange Programme" and "Supporting British Fish Abroad"
-  Then I should see in the preview that "Fishy Business" should related to "Fish Exchange Programme" and "Supporting British Fish Abroad" worldwide priorities
-
 Scenario: Creating a new draft publication that applies to multiple nations
   Given I draft a new publication "Standard Beard Lengths" that does not apply to the nations:
     | Scotland | Wales |
@@ -94,4 +88,3 @@ Scenario: The publication is about a country
   And a published publication "Penguins have rights too" exists that is about "British Antarctic Territory"
   When I visit the publication "Penguins have rights too"
   Then I should see that the publication is about "British Antarctic Territory"
-

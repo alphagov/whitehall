@@ -1,10 +1,3 @@
-# encoding: utf-8
-
-When /^I draft a new worldwide priority "([^"]*)"$/ do |title|
-  begin_drafting_document type: "worldwide_priority", title: title
-  click_button "Save"
-end
-
 Given /^a published worldwide priority "([^"]*)" exists$/ do |title|
   create(:published_worldwide_priority, title: title)
 end

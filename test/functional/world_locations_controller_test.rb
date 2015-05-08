@@ -6,7 +6,6 @@ class WorldLocationsControllerTest < ActionController::TestCase
   include FeedHelper
 
   should_be_a_public_facing_controller
-  should_show_published_documents_associated_with :world_location, :worldwide_priorities
 
   def assert_featured_editions(editions)
     assert_equal editions, assigns(:feature_list).current_featured.map(&:edition)
@@ -266,26 +265,13 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "should display translated page labels when requested in a different locale" do
     world_location = create(:world_location, translated_into: [:fr])
 
-    create(:published_worldwide_priority, world_locations: [world_location], translated_into: [:fr])
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
     create(:published_policy, world_locations: [world_location], translated_into: [:fr])
 
     get :show, id: world_location, locale: 'fr'
 
     assert_select ".type", "Localisation"
-    assert_select "#worldwide-priorities", /Priorités/
     assert_select "#publications .see-all a", /Voir toutes nos publications/
-  end
-
-  test "should only display translated priorities when requested for a locale" do
-    world_location = create(:world_location, translated_into: [:fr])
-
-    translated_priority = create(:published_worldwide_priority, world_locations: [world_location], translated_into: [:fr])
-    untranslated_priority = create(:published_worldwide_priority, world_locations: [world_location])
-
-    get :show, id: world_location, locale: 'fr'
-
-    assert_equal [translated_priority], assigns(:worldwide_priorities).object
   end
 
   test "should only display translated announcements when requested for a locale" do

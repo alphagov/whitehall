@@ -125,12 +125,12 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "#link_to_translation should generate a link based on the current controller action with the given locale" do
     controller.stubs(:url_options).returns({
-      action: "activity",
-      controller: "worldwide_priorities",
+      action: "show",
+      controller: "world_locations",
       locale: "it",
-      id: "a-worldwide-priority"
+      id: "a-world-location"
     })
-    assert_dom_equal %Q(<a href="#{activity_worldwide_priority_path("a-worldwide-priority", :de)}">Deutsch</a>),
+    assert_dom_equal %Q(<a href="#{world_location_path("a-world-location", :de)}">Deutsch</a>),
       link_to_translation(:de)
   end
 
@@ -205,18 +205,6 @@ class DocumentHelperTest < ActionView::TestCase
                               "a[href=?]",
                               topic_path(topic),
                               text: topic.name
-  end
-
-  test 'part_of_metadata generates worldwdide priorities' do
-    priority = create(:published_worldwide_priority)
-    edition = create(:published_consultation)
-    priority.document.edition_relations.create!(edition: edition)
-
-    metadata_links = part_of_metadata(edition).join(' ')
-    assert_select_within_html metadata_links,
-                              "a[href=?]",
-                              public_document_path(priority),
-                              text: priority.title
   end
 
   test "part_of_metadata generates world_locations metadata" do
