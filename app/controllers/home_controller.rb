@@ -8,10 +8,6 @@ class HomeController < PublicFacingController
   end
 
   def how_government_works
-    # Brief hack to automatically change parts of the how-gov-works
-    # @TODO: Remove once new government in place and this page is updated properly
-    @is_new_gov = new_gov?
-
     sitewide_setting = load_reshuffle_setting
     @is_during_reshuffle = sitewide_setting.on if sitewide_setting
     @policy_count = Policy.published.count
@@ -36,11 +32,5 @@ class HomeController < PublicFacingController
   end
 
   def history_lancaster_house
-  end
-
-private
-
-  def new_gov?
-    FeatureFlag.enabled?('how_government_works')
   end
 end
