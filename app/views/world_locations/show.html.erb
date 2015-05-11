@@ -47,7 +47,7 @@
       <section class="article-section">
         <h1 class="keyline-header"><%= t('world_location.headings.mission') %></h1>
         <p>
-          <span class="mission_statement"><%= format_with_html_line_breaks(@world_location.mission_statement) %></span>
+          <span class="mission_statement"><%= govspeak_to_html(@world_location.mission_statement) %></span>
         </p>
       </section>
     </div>

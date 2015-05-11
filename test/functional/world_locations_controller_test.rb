@@ -38,12 +38,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
     assert_select ".mission_statement", text: "country-mission-statement"
   end
 
-  view_test "should use html line breaks when displaying the mission_statement" do
-    world_location = create(:world_location, mission_statement: "Line 1\nLine 2")
+  view_test "should use govspeak when displaying the mission_statement" do
+    world_location = create(:world_location, mission_statement: "Line 1\n\nLine 2")
     get :show, id: world_location
-    assert_select ".mission_statement", /Line 1/
-    assert_select ".mission_statement", /Line 2/
-    assert_select ".mission_statement br", count: 1
+    assert_select ".mission_statement p", /Line 1/
+    assert_select ".mission_statement p", /Line 2/
+    assert_select ".mission_statement p", count: 2
   end
 
   test "show responds with not found if appropriate translation doesn't exist" do
