@@ -99,6 +99,7 @@ group :test do
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
   gem 'govuk-content-schema-test-helpers', '1.3.0'
   gem 'rails-perftest'
+  gem 'minitest-fail-fast'
 end
 
 group :test_coverage do
