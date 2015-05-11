@@ -475,7 +475,7 @@ class OrganisationsControllerTest < ActionController::TestCase
         assert_select '.document-type', "Closed consultation"
       end
       refute_select_object consultation_3
-      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'consultations')}']"
+      assert_select "a[href=?]", publications_filter_path(organisation, publication_filter_option: 'consultations')
     end
   end
 
@@ -508,7 +508,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       end
       assert_select_object publication_3
       refute_select_object publication_1
-      assert_select "a[href='#{publications_filter_path(organisation)}']"
+      assert_select "a[href=?]", publications_filter_path(organisation)
     end
   end
 
@@ -536,7 +536,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       end
       assert_select_object publication_2
       refute_select_object publication_3
-      assert_select "a[href='#{publications_filter_path(organisation, publication_filter_option: 'statistics')}']"
+      assert_select "a[href=?]", publications_filter_path(organisation, publication_filter_option: 'statistics')
     end
   end
 
@@ -720,10 +720,10 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select management_selector do
       assert_select_object(senior_person) do
-        assert_select "a[href='#{person_path(senior_person)}']"
+        assert_select "a[href=?]", person_path(senior_person)
       end
       assert_select_object(junior_person) do
-        assert_select "a[href='#{person_path(junior_person)}']"
+        assert_select "a[href=?]", person_path(junior_person)
       end
     end
   end
@@ -747,7 +747,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select special_representative_selector do
       assert_select_object(representative) do
-        assert_select "a[href='#{person_path(representative)}']"
+        assert_select "a[href=?]", person_path(representative)
       end
     end
   end
@@ -773,7 +773,7 @@ class OrganisationsControllerTest < ActionController::TestCase
     get :show, id: organisation
 
     assert_select '.featured-links' do
-      assert_select "a[href='#{featured_link.url}']", text: featured_link.title
+      assert_select "a[href=?]", featured_link.url, text: featured_link.title
     end
   end
 
@@ -920,7 +920,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   def assert_disclaimer_present(organisation)
     assert_select "#organisation_disclaimer" do
-      assert_select "a[href='#{organisation.url}']"
+      assert_select "a[href=?]", organisation.url
     end
   end
 end
