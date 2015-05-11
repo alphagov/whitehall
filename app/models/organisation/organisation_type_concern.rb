@@ -37,7 +37,7 @@ module Organisation::OrganisationTypeConcern
 
     scope :excluding_hmcts_tribunals, -> {
       hmcts_id = Organisation.where(slug: "hm-courts-and-tribunals-service").ids.first
-      joins("LEFT JOIN organisational_relationships parent_organisational_relationships
+      distinct.joins("LEFT JOIN organisational_relationships parent_organisational_relationships
         ON parent_organisational_relationships.child_organisation_id = organisations.id").
       where("NOT (parent_organisational_relationships.parent_organisation_id = ? AND
               organisations.organisation_type_key = ?) OR
