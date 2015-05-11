@@ -1,5 +1,5 @@
 class PoliticalContentIdentifier
-  DEPENDENT_POLITICAL_FORMATS = [
+  POTENTIALLY_POLITICAL_FORMATS = [
     Consultation,
     Speech,
     NewsArticle,
@@ -25,16 +25,20 @@ class PoliticalContentIdentifier
   end
 
   def political?
-    if political_format_or_type?
-      is_associated_with_a_minister? || has_political_org?
-    else
-      always_political_format? || false
-    end
+    return false if never_political_format?
+
+    associated_with_a_minister? ||
+      always_political_format? ||
+      (potentially_political_format? && has_political_org?)
   end
 
 private
 
-  def is_associated_with_a_minister?
+  def stats_publication?
+    (edition.is_a?(Publication) && edition.statistics?)
+  end
+
+  def associated_with_a_minister?
     edition.is_associated_with_a_minister?
   end
 
@@ -43,21 +47,23 @@ private
       edition.organisations.where(political: true).any?
   end
 
-  def political_format_or_type?
-    political_publication_type? || dependent_political_format?
+  def potentially_political_format?
+    potentially_political_publication? || POTENTIALLY_POLITICAL_FORMATS.include?(edition.class)
+  end
+
+  def potentially_political_publication?
+    edition.is_a?(Publication) && political_publication_type?
   end
 
   def political_publication_type?
-    edition.is_a?(Publication) &&
-      !edition.statistics? &&
-      POLITICAL_PUBLICATION_TYPES.include?(edition.publication_type)
-  end
-
-  def dependent_political_format?
-    DEPENDENT_POLITICAL_FORMATS.include?(edition.class)
+    POLITICAL_PUBLICATION_TYPES.include?(edition.publication_type)
   end
 
   def always_political_format?
     ALWAYS_POLITICAL_FORMATS.include?(edition.class)
+  end
+
+  def never_political_format?
+    edition.is_a?(FatalityNotice) || stats_publication?
   end
 end

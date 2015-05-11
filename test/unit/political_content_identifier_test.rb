@@ -58,7 +58,14 @@ class PoliticalContentIdentifierTest < ActiveSupport::TestCase
     refute political?(edition)
   end
 
-  test 'political formats associated with ministerial role appointments are political' do
+  test 'publications of a non-political sub-type associated with ministers are political' do
+    political_organisation = create(:organisation, :political)
+    edition = create(:publication, publication_type_id: PublicationType::Correspondence.id, role_appointments: [create(:ministerial_role_appointment)])
+
+    assert political?(edition)
+  end
+
+  test 'political formats associated with ministers are political' do
     edition = create(:news_article, role_appointments: [create(:ministerial_role_appointment)])
 
     assert political?(edition)
