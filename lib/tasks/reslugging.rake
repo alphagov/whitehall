@@ -19,4 +19,21 @@ namespace :reslug do
 
     DataHygiene::PersonReslugger.new(person, new_slug).run!
   end
+
+  desc "Change a role slug (DANGER!).\n
+
+  This rake task changes a roles's slug in whitehall.
+
+  It performs the following steps:
+  - changes the role's slug
+  - reindexes the role for search
+  - republishes the role to Publishing API
+  - publishes a redirect content item to Publishing API"
+  task :role, [:old_slug, :new_slug] => :environment do |_task, args|
+    old_slug = args[:old_slug]
+    new_slug = args[:new_slug]
+    role = Role.find_by!(slug: old_slug)
+
+    DataHygiene::RoleReslugger.new(role, new_slug).run!
+  end
 end
