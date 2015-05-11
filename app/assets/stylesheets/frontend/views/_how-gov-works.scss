@@ -204,55 +204,6 @@
     max-width: 26em;
   }
 
-  .policy-count {
-    text-align: center;
-    p {
-      @include ig-core-16;
-    }
-
-    p.circle{
-      background-color:transparent;
-      border:4px solid $inside-gov-secondary;
-      width:200px;
-      height:200px;
-      -moz-border-radius: 105px;
-      -webkit-border-radius: 105px;
-      border-radius: 105px;
-      display:block;
-      margin: $gutter-one-sixth auto 0;
-      text-align:center;
-      padding:0;
-      margin-bottom: $gutter-half;
-      vertical-align: middle;
-
-      &:hover {
-        background-color: darken($inside-gov-secondary,10%);
-        border-color: darken($inside-gov-secondary,10%);
-      }
-
-      a {
-        text-decoration: none;
-        color: $black;
-        &:hover,
-        &:focus {
-          text-decoration: none;
-        }
-      }
-
-      .count{
-        position: relative;
-        top: $gutter-one-third;
-        font-size:95px;
-        padding-top:0.45em;
-        padding-bottom:0;
-        margin:0;
-        font-weight: bold;
-        display:block;
-        line-height:1em;
-      }
-    }
-  }
-
   h2 {
     @include ig-core-36;
     padding-bottom: 1px;

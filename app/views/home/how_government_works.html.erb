@@ -72,7 +72,7 @@
         </div>
         <div class="two-thirds">
           <div class="inner-block">
-            <p>Departments and their agencies are responsible for putting government policy into practice.</p>
+            <p>Departments and their agencies are responsible for putting government <%= link_to "policy", policies_path %> into practice.</p>
           </div>
         </div>
       </div>
@@ -155,25 +155,6 @@
           <div class="inner-block">
             <h4>Work with us</h4>
             <p><a href="https://www.gov.uk/contracts-finder">Search Contracts Finder</a> for any government contract over £10,000 and get details of all previous tenders.</p>
-          </div>
-        </div>
-      </div>
-
-      <hr class="keyline">
-
-      <div class="thirds-width-section policy">
-        <div class="two-thirds">
-          <div class="inner-block">
-            <h3>What is a policy?</h3>
-            <p>A policy is a statement of what the government is trying to achieve and why. Government policy is the sum of all the individual policies – as a whole they help to define where the government stands on broad political issues.</p>
-            <p>On GOV.UK you can see all our policies and find out exactly what we are doing, who’s involved, who we’re working with (partner organisations) and who we’ve asked (consultations).</p>
-            <p>See a list of all <%= link_to "policies", policies_path %> or browse by <%= link_to "topics", topics_path %></p>
-          </div>
-        </div>
-        <div class="one-third policy-count">
-          <div class="inner-block">
-            <p class="circle"><span class="count"><a href="/government/policies"><%= @policy_count %></a></span> <span class="caption">Policies</span></p>
-            <p>There are currently <%= @policy_count %> policies on <br>GOV.UK</p>
           </div>
         </div>
       </div>

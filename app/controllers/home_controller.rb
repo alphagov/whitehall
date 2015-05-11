@@ -10,7 +10,6 @@ class HomeController < PublicFacingController
   def how_government_works
     sitewide_setting = load_reshuffle_setting
     @is_during_reshuffle = sitewide_setting.on if sitewide_setting
-    @policy_count = Policy.published.count
     sorter = MinisterSorter.new
     @cabinet_minister_count = sorter.cabinet_ministers.count - 1 # subtract one to discount PM
     @other_minister_count = sorter.other_ministers.count
