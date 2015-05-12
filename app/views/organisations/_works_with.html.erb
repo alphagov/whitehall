@@ -20,7 +20,7 @@
       <% end %>
       <ol>
         <% departments.each do |department| %>
-          <%= content_tag_for :li, department do %>
+          <%= content_tag_for :li, department, "#{dom_id(organisation)}_works_with" do %>
             <%= link_to department.name, organisation_path(department) %>
           <% end %>
         <% end %>
