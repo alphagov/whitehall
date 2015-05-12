@@ -465,6 +465,7 @@ ActiveRecord::Schema.define(version: 20150514093737) do
     t.string   "need_ids",                                    limit: 255
     t.string   "primary_locale",                              limit: 255,   default: "en",    null: false
     t.boolean  "political",                                   limit: 1,     default: false
+    t.string   "logo_url"
   end
 
   add_index "editions", ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id", using: :btree
