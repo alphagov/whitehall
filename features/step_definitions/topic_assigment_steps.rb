@@ -16,12 +16,12 @@ end
 Given(/^an announcement that can be assigned to policies and topics$/) do
   @edition = create(:draft_news_article)
   @topic = create(:topic)
-  @policy = create(:policy, topics: [@topic])
+  stub_content_register_policies
 end
 
 When(/^I assign the announcement to a policy with topics$/) do
   visit edit_admin_news_article_path(@edition)
-  select @policy.title, from: 'edition_related_policy_ids'
+  select "Policy 1", from: 'edition_policy_content_ids'
 end
 
 Then(/^the policy's topics will be copied from the policy to the announcement$/) do

@@ -7,13 +7,11 @@ Feature: Tagging content with policies
   are created and managed in policy-publisher and stored in the content store.
   These policies will eventually replace the Policy format here in whitehall.
 
-  @future-policies
   Scenario: a writer can tag a document to a policy
     Given I am a writer
     When I start editing a draft document
     Then I can tag the edition to some policies
 
-  @future-policies
   Scenario: a writer can tag a topic to a policy
     Given I am a writer
     When I start creating a topic

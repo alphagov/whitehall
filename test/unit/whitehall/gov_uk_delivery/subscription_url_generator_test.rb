@@ -23,12 +23,6 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     assert_subscription_urls_for_edition_include("feed")
   end
 
-  test '#subscription_urls for a relevant to local government policy does not put the relevant to local param on the "all" feed url' do
-    @edition = build(:policy, relevant_to_local_government: true)
-
-    refute urls_for(@edition).include? feed_url("feed?relevant_to_local_government=1")
-  end
-
   test '#subscription_urls includes both a document specific and an "all" variant of the same params' do
     topic = create(:topic)
     organisation = create(:ministerial_department)
@@ -86,30 +80,6 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     @edition = create(:policy, topics: [topic], organisations: [organisation])
 
     assert_subscription_urls_for_edition_include("policies.atom")
-  end
-
-  test '#subscription_urls for a relevant to local government policy puts the relevant to local param on some policies.atom urls' do
-    topic = create(:topic)
-    organisation = create(:ministerial_department)
-    @edition = create(:policy, topics: [topic], organisations: [organisation], relevant_to_local_government: true)
-
-    assert_subscription_urls_for_edition_include(
-      "policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "policies.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1",
-      "policies.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "policies.atom?relevant_to_local_government=1",
-      "policies.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
-      "policies.atom?departments%5B%5D=#{organisation.slug}",
-      "policies.atom?topics%5B%5D=#{topic.slug}",
-      "policies.atom"
-    )
-  end
-
-  test "#subscription_urls includes policy activity feeds" do
-    policy = create(:published_policy)
-    @edition = create(:news_article, related_policy_ids: [policy])
-
-    assert_subscription_urls_for_edition_include("policies/#{policy.slug}/activity.atom")
   end
 
   test '#subscription_urls for a publication returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
@@ -182,34 +152,6 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     @edition.stubs(:topics).returns [topic]
 
     refute urls_for(@edition).any? { |feed_url| feed_url =~ /publication_filter_option\=/ }
-  end
-
-  test '#subscription_urls for a relevant to local government publication puts the relevant to local param on some publications.atom urls' do
-    topic = create(:topic)
-    organisation = create(:ministerial_department)
-    @edition = create(:publication, organisations: [organisation], publication_type: PublicationType::CorporateReport)
-    @edition.stubs(:topics).returns [topic]
-    # This value is inferred through parent policy in the full stack
-    @edition.stubs(:relevant_to_local_government?).returns true
-
-    assert_subscription_urls_for_edition_include(
-      "publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "publications.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1",
-      "publications.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "publications.atom?relevant_to_local_government=1",
-      "publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&relevant_to_local_government=1",
-      "publications.atom?publication_filter_option=corporate-reports&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "publications.atom?publication_filter_option=corporate-reports&relevant_to_local_government=1",
-      "publications.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
-      "publications.atom?departments%5B%5D=#{organisation.slug}",
-      "publications.atom?topics%5B%5D=#{topic.slug}",
-      "publications.atom",
-      "publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}",
-      "publications.atom?departments%5B%5D=#{organisation.slug}&publication_filter_option=corporate-reports",
-      "publications.atom?publication_filter_option=corporate-reports&topics%5B%5D=#{topic.slug}",
-      "publications.atom?publication_filter_option=corporate-reports"
-    )
   end
 
   test '#subscription_urls for an announcement returns an atom feed url for the organisation and a topic (with and without the publication_filter_option param)' do
@@ -285,34 +227,6 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     refute urls_for(@edition).any? { |feed_url| feed_url =~ /announcement_filter_option\=/ }
   end
 
-  test '#subscription_urls for a relevant to local government announcement puts the relevant to local param on some publications.atom urls' do
-    topic = create(:topic)
-    organisation = create(:ministerial_department)
-    @edition = create(:news_article, organisations: [organisation], news_article_type: NewsArticleType::PressRelease)
-    @edition.stubs(:topics).returns [topic]
-    # This value is inferred through parent policy in the full stack
-    @edition.stubs(:relevant_to_local_government?).returns true
-
-    assert_subscription_urls_for_edition_include(
-      "announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1",
-      "announcements.atom?relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?relevant_to_local_government=1",
-      "announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&relevant_to_local_government=1",
-      "announcements.atom?announcement_filter_option=press-releases&relevant_to_local_government=1&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?announcement_filter_option=press-releases&relevant_to_local_government=1",
-      "announcements.atom?departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?departments%5B%5D=#{organisation.slug}",
-      "announcements.atom?topics%5B%5D=#{topic.slug}",
-      "announcements.atom",
-      "announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?announcement_filter_option=press-releases&departments%5B%5D=#{organisation.slug}",
-      "announcements.atom?announcement_filter_option=press-releases&topics%5B%5D=#{topic.slug}",
-      "announcements.atom?announcement_filter_option=press-releases"
-    )
-  end
-
   test '#subscription_urls for an announcement includes the atom feed for the associated role and person' do
     appointment1 = create(:ministerial_role_appointment)
     appointment2 = create(:ministerial_role_appointment)
@@ -331,39 +245,6 @@ class Whitehall::GovUkDelivery::SubscriptionUrlGeneratorTest < ActiveSupport::Te
     @edition = create(:speech, role_appointment: nil, person_override: 'The Queen')
 
     assert_subscription_urls_for_edition_include('announcements.atom')
-  end
-
-  test '#subscription_urls includes relevant_to_local_government variations' do
-    role_appointment = create(:ministerial_role_appointment)
-    role = role_appointment.role
-    person = role_appointment.person
-    topic = create(:topic)
-    topical_event = create(:topical_event)
-    world_location = create(:world_location)
-    policy = create(:published_policy, relevant_to_local_government: true)
-
-    @edition = create(:news_article,
-      role_appointments: [role_appointment],
-      related_documents: [policy.document],
-      topics: [topic],
-      topical_events: [topical_event],
-      world_locations: [world_location]
-    )
-
-    assert_subscription_urls_for_edition_include(
-      "policies/#{policy.slug}/activity.atom?relevant_to_local_government=1",
-      "policies/#{policy.slug}/activity.atom",
-      "organisations/#{@edition.organisations.first.slug}.atom?relevant_to_local_government=1",
-      "organisations/#{@edition.organisations.first.slug}.atom",
-      "topics/#{topic.slug}.atom?relevant_to_local_government=1",
-      "topics/#{topic.slug}.atom",
-      "world/#{world_location.slug}.atom?relevant_to_local_government=1",
-      "world/#{world_location.slug}.atom",
-      "people/#{person.slug}.atom?relevant_to_local_government=1",
-      "people/#{person.slug}.atom",
-      "ministers/#{role.slug}.atom?relevant_to_local_government=1",
-      "ministers/#{role.slug}.atom"
-    )
   end
 
   test '#subscription_urls for a speech includes the atom feed for the associated role and person' do

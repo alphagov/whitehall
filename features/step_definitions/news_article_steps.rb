@@ -1,7 +1,7 @@
 Given /^a published news article "([^"]*)" with related published policies "([^"]*)" and "([^"]*)"$/ do |news_article_title, policy_title_1, policy_title_2|
-  policy_1 = create(:published_policy, title: policy_title_1)
-  policy_2 = create(:published_policy, title: policy_title_2)
-  create(:published_news_article, title: news_article_title, related_editions: [policy_1, policy_2])
+  policies = content_register_has_policies([policy_title_1, policy_title_2])
+
+  create(:published_news_article, title: news_article_title, policy_content_ids: policies.map {|p| p['content_id']})
 end
 
 Given /^a published news article "([^"]*)" associated with "([^"]*)"$/ do |title, appointee|
@@ -29,9 +29,11 @@ When /^I draft a new news article "([^"]*)"$/ do |title|
 end
 
 When /^I draft a new news article "([^"]*)" relating it to the policies "([^"]*)" and "([^"]*)"$/ do |title, first_policy, second_policy|
+  content_register_has_policies([first_policy, second_policy])
+
   begin_drafting_news_article title: title
-  select first_policy, from: "Related policies"
-  select second_policy, from: "Related policies"
+  select first_policy, from: "Policies"
+  select second_policy, from: "Policies"
   click_button "Save"
 end
 
@@ -65,9 +67,10 @@ When /^I publish a news article "([^"]*)" associated with the (topic|topical eve
 end
 
 When(/^I publish a news article "(.*?)" associated with the policy "(.*?)"$/) do |title, policy_name|
+  content_register_has_policies([policy_name])
   begin_drafting_news_article title: title
   fill_in_news_article_fields(first_published: Date.today.to_s)
-  select policy_name, from: "Related policies"
+  select policy_name, from: "Policies"
   click_button "Save"
   publish(force: true)
 end

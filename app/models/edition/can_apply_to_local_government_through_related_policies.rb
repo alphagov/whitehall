@@ -6,12 +6,7 @@ module Edition::CanApplyToLocalGovernmentThroughRelatedPolicies
   end
 
   def relevant_to_local_government?
-    if FeatureFlag.enabled?('future_policies')
-      (policy_content_ids & LEGACY_POLICIES_RELEVANT_TO_LOCAL_GOVERNMENT).any?
-    else
-      published_related_policies.any?(&:relevant_to_local_government?)
-    end
-
+    (policy_content_ids & LEGACY_POLICIES_RELEVANT_TO_LOCAL_GOVERNMENT).any?
   end
 
   def self.edition_types

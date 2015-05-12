@@ -30,12 +30,6 @@ Feature: Filtering Documents
 
     - c.f. world-location-news.feature
 
-
-  Scenario: Filtering policies
-    Given there are some published policies
-    When I look at the policies index page
-    Then I should be able to filter policies by topic, department and keyword
-
   Scenario: Filtering publications
     Given there are some published publications
     When I visit the publications index page

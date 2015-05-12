@@ -3,7 +3,8 @@ Given(/^a closed consultation exists$/) do
 end
 
 When /^I draft a new consultation "([^"]*)"$/ do |title|
-  policy = create(:policy)
+  content_register_has_policies([title])
+
   begin_drafting_document type: 'consultation', title: title, summary: 'consultation-summary', alternative_format_provider: create(:alternative_format_provider)
   fill_in "Link URL", with: "http://participate.com"
   fill_in "Email", with: "participate@gov.uk"
@@ -15,7 +16,7 @@ When /^I draft a new consultation "([^"]*)"$/ do |title|
     fill_in "Alternative url", with: "http://www.visitwales.co.uk/"
   end
   check "Scotland"
-  select policy.title, from: "Related policies"
+  select title, from: "Policies"
   click_button "Save"
 end
 

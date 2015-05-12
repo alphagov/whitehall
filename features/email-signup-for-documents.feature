@@ -35,12 +35,3 @@ Feature: Email signup for documents
 
     When I publish a new news article of the type "News story" called "Example News Story"
     Then a govuk_delivery notification should have been sent to the mailing list I signed up for
-
-  Scenario: Signing up for a feed which is relevant to local governments
-    Given a published policy "Re-introduce feudalism to Cornwall" relevant to local government
-    When I filter the announcements list by "News stories"
-    When I sign up for emails, checking the relevant to local government box
-    Then I should be signed up for the local government news stories mailing list
-
-    When I publish a news article "Serfdom is prooving to be an unpopular lifestyle choice, says the mayor of Penzance" associated with the policy "Re-introduce feudalism to Cornwall"
-    Then a govuk_delivery notification should have been sent to the mailing list I signed up for

@@ -130,18 +130,12 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     end
   end
 
-  test "includes new policy associations if enabled" do
+  test "includes new policy associations" do
     stub_content_register_policies
     edition = create(:publication, :published,
       policy_content_ids: [policy_1["content_id"]]
     )
 
-    FeatureFlag.find_or_create_by(key: 'future_policies')
-
-    FeatureFlag.set('future_policies', false)
-    assert_equal [], present(edition)[:details][:tags][:policies]
-
-    FeatureFlag.set('future_policies', true)
     assert_equal ["policy-1"], present(edition)[:details][:tags][:policies]
   end
 end
