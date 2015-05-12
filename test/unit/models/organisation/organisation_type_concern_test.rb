@@ -82,6 +82,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
       @other_org = create(:organisation)
       @copyright_tribunal = create(:organisation, organisation_type_key: :tribunal_ndpb,
         name: "Copyright Tribunal")
+      @multiple_parent_child_org = create(:organisation, parent_organisations: [@other_org, @copyright_tribunal])
       @court = create(:court)
       @hmcts_tribunal = create(:hmcts_tribunal)
     end
@@ -116,6 +117,11 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
       assert_includes result, @copyright_tribunal
       refute_includes result, @court
       assert_includes result, @hmcts_tribunal
+    end
+
+    test "excluding_hmcts_tribunals deduplicates organisations" do
+      result = Organisation.excluding_hmcts_tribunals.listable.map(&:id)
+      assert_equal result, result.uniq
     end
   end
 
