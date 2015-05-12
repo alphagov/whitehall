@@ -271,36 +271,6 @@ module Whitehall::DocumentFilter
       assert filter.documents.include?(world_news)
     end
 
-    test 'will include all editions, including local government unless told otherwise' do
-      policy_1 = create(:published_policy, :with_document, relevant_to_local_government: true)
-      policy_2 = create(:published_policy, :with_document, relevant_to_local_government: false)
-      publication_1 = create(:published_publication, related_policy_ids: [policy_1.id])
-      publication_2 = create(:published_publication, related_policy_ids: [policy_2.id])
-      unfiltered = Edition.published
-
-      filter = create_filter(unfiltered, {})
-
-      assert filter.documents.include?(policy_1)
-      assert filter.documents.include?(policy_2)
-      assert filter.documents.include?(publication_1)
-      assert filter.documents.include?(publication_2)
-    end
-
-    test 'will reject all non-local government editions if asked to' do
-      policy_1 = create(:published_policy, :with_document, relevant_to_local_government: true)
-      policy_2 = create(:published_policy, :with_document, relevant_to_local_government: false)
-      publication_1 = create(:published_publication, related_policy_ids: [policy_1.id])
-      publication_2 = create(:published_publication, related_policy_ids: [policy_2.id])
-      unfiltered = Edition.published
-
-      filter = create_filter(unfiltered, relevant_to_local_government: '1')
-
-      assert filter.documents.include?(policy_1)
-      refute filter.documents.include?(policy_2)
-      assert filter.documents.include?(publication_1)
-      refute filter.documents.include?(publication_2)
-    end
-
   private
 
     def create_filter(document_set, args)
@@ -329,7 +299,6 @@ module Whitehall::DocumentFilter
       document_scope.stubs(:published_in_topic).returns(document_scope)
       document_scope.stubs(:in_organisation).returns(document_scope)
       document_scope.stubs(:where).with(has_entry(:publication_type_id, anything)).returns(document_scope)
-      document_scope.stubs(:where).with(has_entry(:relevant_to_local_government, anything)).returns(document_scope)
       document_scope.stubs(:per).returns(document_scope)
       document_scope.stubs(:page).returns(document_scope)
       document_scope

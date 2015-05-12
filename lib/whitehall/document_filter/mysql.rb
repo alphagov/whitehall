@@ -27,7 +27,6 @@ module Whitehall::DocumentFilter
       filter_by_date!
       filter_by_publication_filter_option!
       filter_by_announcement_filter_option!
-      filter_by_relevant_to_local_government_option!
       filter_by_include_world_location_news_option!
       filter_by_location!
       apply_sort_direction!
@@ -95,12 +94,6 @@ module Whitehall::DocumentFilter
             @documents.arel_table[:news_article_type_id].in(
               selected_announcement_filter_option.news_article_types.map(&:id)))
         end
-      end
-    end
-
-    def filter_by_relevant_to_local_government_option!
-      if relevant_to_local_government
-        @documents = @documents.relevant_to_local_government(relevant_to_local_government)
       end
     end
 

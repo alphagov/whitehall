@@ -28,7 +28,6 @@ module Whitehall::DocumentFilter
     def standard_filter_args
       default_filter_args
         .merge(filter_by_keywords)
-        .merge(filter_by_relevance_to_local_government)
         .merge(filter_by_people)
         .merge(filter_by_topics)
         .merge(filter_by_organisations)
@@ -40,14 +39,6 @@ module Whitehall::DocumentFilter
     def filter_by_keywords
       if @keywords.present?
         {keywords: @keywords.to_s}
-      else
-        {}
-      end
-    end
-
-    def filter_by_relevance_to_local_government
-      if relevant_to_local_government
-        {relevant_to_local_government: "1"}
       else
         {}
       end
