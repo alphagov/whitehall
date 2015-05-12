@@ -57,16 +57,6 @@ class HomeControllerTest < ActionController::TestCase
     assert_select ".header-context"
   end
 
-  view_test "how government works page shows a count of published policies" do
-    create(:published_policy)
-    create(:draft_policy)
-
-    get :how_government_works
-
-    assert_equal 1, assigns[:policy_count]
-    assert_select ".policy-count .count", "1"
-  end
-
   view_test "how government works page shows a count of cabinet ministers, other ministers and total ministers" do
     david_cameron = create(:person, forename: 'David', surname: 'Cameron')
     philip_hammond = create(:person, forename: 'Philip', surname: 'Hammond')

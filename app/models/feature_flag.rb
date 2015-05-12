@@ -11,4 +11,10 @@ class FeatureFlag < ActiveRecord::Base
       false
     end
   end
+
+  def self.destroy(key)
+    if flag = find_by(key: key)
+      flag.destroy
+    end
+  end
 end
