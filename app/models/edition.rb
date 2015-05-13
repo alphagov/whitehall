@@ -441,6 +441,14 @@ class Edition < ActiveRecord::Base
     false
   end
 
+  def statistics?
+    false
+  end
+
+  def included_in_statistics_feed?
+    search_format_types.include?("publicationesque-statistics")
+  end
+
   # @!endgroup
 
   def create_draft(user)

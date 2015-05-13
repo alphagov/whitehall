@@ -177,6 +177,20 @@ class StatisticsControllerTest < ActionController::TestCase
     assert_equal %Q{Part of a collection: #{link}}, result['publication_collections']
   end
 
+  view_test "index generates an atom feed with entries for statistics matching the current filter" do
+    org = create(:organisation, name: "org-name")
+    org2 = create(:organisation, name: "other-org")
+    statistics_publication = create(:published_statistics, title: "statistics-title",
+                                                           organisations: [org, org2],
+                                                           first_published_at: Date.parse("2012-03-14"))
+
+    get :index, format: :atom, departments: [org.to_param]
+
+    assert_select_atom_feed do
+      assert_select_atom_entries([statistics_publication])
+    end
+  end
+
   view_test "#show displays a badge when the publication is national statistics" do
     publication = create(:published_publication, publication_type_id: PublicationType::NationalStatistics.id)
     get :show, id: publication.document

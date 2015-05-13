@@ -29,7 +29,7 @@ module PublicDocumentRoutesHelper
     when SupportingPage
       build_url_for_supporting_page(edition, options)
     else
-      path_name = if edition.is_a?(Publication) && edition.statistics?
+      path_name = if edition.statistics?
                     "statistic"
                   else
                     edition.to_model.class.name.underscore

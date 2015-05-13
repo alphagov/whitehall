@@ -12,6 +12,8 @@ module Whitehall
         Whitehall.url_maker.publications_url(url_params)
       when 'announcements'
         Whitehall.url_maker.announcements_url(url_params)
+      when 'statistics'
+        Whitehall.url_maker.statistics_url(url_params)
       end
     end
 

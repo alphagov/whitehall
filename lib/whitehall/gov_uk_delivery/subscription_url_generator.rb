@@ -37,17 +37,45 @@ module Whitehall
         end
       end
 
-      def edition_url(args = {})
-        url_params = args.merge(format: :atom)
+      def url_helpers
+        url_helpers_for_edition_type + url_helpers_for_global_feed
+      end
 
+      def url_helpers_for_edition_type
         case edition
         when Policy
-          url_maker.policies_url(url_params)
+          url_helpers_for_policies
         when Announcement
-          url_maker.announcements_url(url_params)
+          url_helpers_for_announcements
         when Publicationesque
-          url_maker.publications_url(url_params)
+          if edition.included_in_statistics_feed?
+            url_helpers_for_statistics
+          else
+            url_helpers_for_publications
+          end
+        else
+          []
         end
+      end
+
+      def url_helpers_for_policies
+        [url_maker.method(:policies_url)]
+      end
+
+      def url_helpers_for_announcements
+        [url_maker.method(:announcements_url)]
+      end
+
+      def url_helpers_for_statistics
+        url_helpers_for_publications + [url_maker.method(:statistics_url)]
+      end
+
+      def url_helpers_for_publications
+        [url_maker.method(:publications_url)]
+      end
+
+      def url_helpers_for_global_feed
+        [url_maker.method(:atom_feed_url)]
       end
 
       def filter_option
@@ -125,10 +153,8 @@ module Whitehall
           combinatorial_args << { relevant_to_local_government: 1 } if relevant_to_local_government?
 
           all_combinations_of_args(combinatorial_args).map do |combined_args|
-            [
-              edition_url(combined_args),
-              url_maker.atom_feed_url(combined_args.merge(format: :atom))
-            ]
+            url_args = combined_args.merge(format: :atom)
+            url_helpers.map { |helper| helper.call(url_args) }
           end
         end
       end

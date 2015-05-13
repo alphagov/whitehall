@@ -32,7 +32,7 @@ module Whitehall
       end
 
       def filtered_documents_feed?
-        %w(publications announcements).include?(feed_type)
+        %w(publications announcements statistics).include?(feed_type)
       end
 
     protected
@@ -92,6 +92,8 @@ module Whitehall
           @feed_type = 'publications'
         elsif uri.path == url_maker.announcements_path
           @feed_type = 'announcements'
+        elsif uri.path == url_maker.statistics_path
+          @feed_type = 'statistics'
         else
           path_root_fragment = uri.path.split('/')[2];
           @feed_object_slug = uri.path.match(/([^\/]*)\.atom$/)[1]
@@ -121,7 +123,7 @@ module Whitehall
           fragment_for_filter_option('publication_filter_option').downcase
         elsif feed_params['announcement_filter_option'].present?
           fragment_for_filter_option('announcement_filter_option').downcase
-        elsif ['publications', 'announcements'].include? feed_type
+        elsif ['publications', 'announcements', 'statistics'].include? feed_type
           feed_type
         else
           label_for_resource
