@@ -40,8 +40,7 @@ class Person < ActiveRecord::Base
   searchable title: :name,
              link: :search_link,
              content: :biography_without_markup,
-             slug: :slug,
-             only: :without_a_current_ministerial_role #Already covered by MinisterialRole
+             slug: :slug
 
   extend FriendlyId
   friendly_id :slug_name
@@ -60,12 +59,6 @@ class Person < ActiveRecord::Base
 
   def biography_without_markup
     Govspeak::Document.new(biography).to_text
-  end
-
-  def self.without_a_current_ministerial_role
-    includes(:current_roles)
-      .where("(#{RoleAppointment.arel_table[:id].eq(nil).to_sql}) OR (#{Role.arel_table[:type].not_eq("MinisterialRole").to_sql})")
-      .references(:role_appointments)
   end
 
   def ministerial_roles_at(date)
