@@ -19,6 +19,9 @@
 <div class="heading-extra">
   <div class="inner-heading">
     <%= render partial: 'shared/available_languages', locals: {object: document} %>
+    <% if @document.respond_to?(:logo_url) && @document.logo_url %>
+      <%= image_tag @document.logo_url, id: "logo-image" %>
+    <% end %>
     <%= national_statistics_logo(document) %>
   </div>
 </div>
