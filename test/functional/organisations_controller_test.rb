@@ -12,7 +12,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   should_display_organisation_page_elements_for(:executive_office)
 
   setup do
-    rummager_has_no_policies_for_any_organisation
+    rummager_has_no_policies_for_any_type
   end
 
   ### Describing :index ###
@@ -379,7 +379,7 @@ class OrganisationsControllerTest < ActionController::TestCase
   ## NEW POLICIES
   view_test "should display the organisation's future policies with content" do
     organisation = create(:organisation)
-    rummager_has_new_policies_for_every_organisation
+    rummager_has_new_policies_for_every_type
 
     get :show, id: organisation
 
@@ -393,7 +393,7 @@ class OrganisationsControllerTest < ActionController::TestCase
 
   test "should display organisation's latest three future policies" do
     organisation = create(:organisation)
-    rummager_has_new_policies_for_every_organisation(count: 3)
+    rummager_has_new_policies_for_every_type(count: 3)
 
     get :show, id: organisation
 
