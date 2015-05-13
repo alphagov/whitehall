@@ -154,4 +154,12 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
       assert_equal 'spanish-body', draft_priority.body
     end
   end
+
+  test "should copy logo url when creating draft " do
+    published_edition = create(:published_edition, logo_url: 'logos/flag.jpeg')
+    draft_edition = published_edition.create_draft(create(:policy_writer))
+
+    assert_equal 'logos/flag.jpeg', draft_edition.logo_url
+  end
+
 end
