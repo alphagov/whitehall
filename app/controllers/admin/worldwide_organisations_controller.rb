@@ -41,7 +41,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
     if @worldwide_organisation.update_attributes(org_params)
       flash[:notice] = "Main office updated successfully"
     end
-    respond_with [:admin, @worldwide_organisation, WorldwideOffice]
+    respond_with :admin, @worldwide_organisation, WorldwideOffice
   end
 
   def destroy
@@ -52,7 +52,7 @@ class Admin::WorldwideOrganisationsController < Admin::BaseController
   private
 
   def find_worldwide_organisation
-    @worldwide_organisation = WorldwideOrganisation.find(params[:id])
+    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
   end
 
   def worldwide_organisation_params

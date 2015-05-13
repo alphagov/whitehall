@@ -71,8 +71,8 @@ class DocumentTest < ActiveSupport::TestCase
     deleted_edition = create(:deleted_edition, document: document)
 
     document.destroy
-    refute Edition.unscoped.exists?(original_edition)
-    refute Edition.unscoped.exists?(deleted_edition)
+    refute Edition.unscoped.exists?(original_edition.id)
+    refute Edition.unscoped.exists?(deleted_edition.id)
   end
 
   test "#destroy also destroys relations to other editions" do

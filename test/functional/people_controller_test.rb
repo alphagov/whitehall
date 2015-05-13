@@ -29,10 +29,10 @@ class PeopleControllerTest < ActionController::TestCase
 
     assert_select ".current-roles" do
       assert_select_object first_appointment do
-        assert_select "a[href=#{ministerial_role_path(first_appointment.role)}]"
+        assert_select "a[href=?]", ministerial_role_path(first_appointment.role)
       end
       assert_select_object second_appointment do
-        assert_select "a[href=#{ministerial_role_path(second_appointment.role)}]"
+        assert_select "a[href=?]", ministerial_role_path(second_appointment.role)
       end
     end
   end
@@ -46,7 +46,7 @@ class PeopleControllerTest < ActionController::TestCase
     assert_select ".people" do
       people.each do |person|
         assert_select_object person do
-          assert_select "a[href=#{person_path(person)}]"
+          assert_select "a[href=?]", person_path(person)
         end
       end
     end

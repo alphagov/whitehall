@@ -74,7 +74,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
 
     assert_select ".import_error" do
       assert_select ".row_number", "2"
-      assert_select ".message", "Policy &#39;blah&#39; does not exist"
+      assert_select ".message", "Policy 'blah' does not exist"
     end
   end
 
@@ -85,7 +85,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
       import_enqueued_at: Time.zone.now,
       import_started_at: Time.zone.parse("2011-01-01 12:13:14"),
       import_finished_at: Time.zone.now)
-    import.import_errors.create(row_number: 2, message: "Policy &#39;blah&#39; does not exist")
+    import.import_errors.create(row_number: 2, message: "Policy 'blah' does not exist")
 
     get :annotated, id: import
 
@@ -95,7 +95,7 @@ class Admin::ImportsControllerTest < ActionController::TestCase
     parsed_response = CSV.parse(response.body)
     assert_equal original_upload.size, parsed_response.size
     assert_equal ["Errors"] + original_upload[0].map(&:downcase), parsed_response[0]
-    assert_equal ["Policy &#39;blah&#39; does not exist"] + original_upload[1], parsed_response[1]
+    assert_equal ["Policy 'blah' does not exist"] + original_upload[1], parsed_response[1]
   end
 
   test 'asks the import to force_publish! if it is force_publishable?, and sends the user on their way with a message' do

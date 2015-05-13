@@ -537,7 +537,7 @@ class OrganisationTest < ActiveSupport::TestCase
     mainstream_category = create(:mainstream_category)
     relationship =  create(:organisation_mainstream_category, organisation: organisation, mainstream_category: mainstream_category)
     organisation.destroy
-    refute OrganisationMainstreamCategory.exists?(relationship)
+    refute OrganisationMainstreamCategory.exists?(relationship.id)
   end
 
   test 'destroy unsets user organisation' do
@@ -789,7 +789,7 @@ class OrganisationTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     h = organisation.__send__(:home_page_contacts_list)
     organisation.destroy
-    refute HomePageList.exists?(h)
+    refute HomePageList.exists?(h.id)
   end
 
   test 'Organisation.with_published_editions returns organisations with published editions' do

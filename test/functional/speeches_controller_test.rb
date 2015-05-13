@@ -70,7 +70,7 @@ class SpeechesControllerTest < ActionController::TestCase
     published_speech = create(:published_speech, speech_type: speech_type)
 
     get :show, id: published_speech.document
-    assert_select ".explanation", "(Speaker&#39;s notes, may differ from delivered version)"
+    assert_select ".explanation", "(Speaker's notes, may differ from delivered version)"
     assert_select ".type", "Speech"
   end
 

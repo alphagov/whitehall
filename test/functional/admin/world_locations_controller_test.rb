@@ -77,6 +77,6 @@ class Admin::WorldLocationsControllerTest < ActionController::TestCase
       }}
     }
 
-    refute FeaturedLink.exists?(featured_link)
+    refute FeaturedLink.exists?(featured_link.id)
   end
 end

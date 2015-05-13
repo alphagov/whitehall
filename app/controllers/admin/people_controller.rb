@@ -42,7 +42,7 @@ class Admin::PeopleController < Admin::BaseController
   private
 
   def load_person
-    @person = Person.find(params[:id])
+    @person = Person.friendly.find(params[:id])
   end
 
   def person_params

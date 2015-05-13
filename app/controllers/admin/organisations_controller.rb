@@ -156,6 +156,6 @@ class Admin::OrganisationsController < Admin::BaseController
   end
 
   def load_organisation
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.friendly.find(params[:id])
   end
 end

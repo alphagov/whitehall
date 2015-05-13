@@ -19,7 +19,7 @@ task :generate_broken_link_reports, [:reports_dir, :email_address] => [:environm
     system "zip #{report_zip_path} #{reports_dir}/*_broken_links.csv --junk-paths"
 
     logger.info("Reports zipped. Emailing to #{email_address}")
-    Notifications.broken_link_reports(report_zip_path, email_address).deliver
+    Notifications.broken_link_reports(report_zip_path, email_address).deliver_now
     logger.info("Email sent.")
   rescue => e
     Airbrake.notify_or_ignore(e,

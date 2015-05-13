@@ -36,7 +36,7 @@ class Admin::AttachmentsController < Admin::BaseController
     errors = {}
     params[:attachments].each do |id, attributes|
       attachment = attachable.attachments.find(id)
-      if !attachment.update_attributes(attributes.slice(:title))
+      if !attachment.update_attributes(attributes.permit(:title))
         errors[id] = attachment.errors.full_messages
       end
     end
@@ -144,8 +144,12 @@ private
     params[attachable_param]
   end
 
+  def attachable_scope
+    attachable_class.respond_to?(:friendly) ? attachable_class.friendly : attachable_class
+  end
+
   def attachable
-    @attachable ||= attachable_class.find(attachable_id)
+    @attachable ||= attachable_scope.find(attachable_id)
   end
   helper_method :attachable
 

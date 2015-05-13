@@ -5,7 +5,7 @@ class Api::WorldwideOrganisationsController < PublicFacingController
   self.responder = Api::Responder
 
   def show
-    @worldwide_organisation = WorldwideOrganisation.find_by(slug: params[:id])
+    @worldwide_organisation = WorldwideOrganisation.friendly.find(params[:id])
     if @worldwide_organisation
       respond_with Api::WorldwideOrganisationPresenter.new(@worldwide_organisation, view_context)
     else

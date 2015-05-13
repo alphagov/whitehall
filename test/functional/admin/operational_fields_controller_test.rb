@@ -37,7 +37,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
   view_test "new should display operational field form" do
     get :new
 
-    assert_select "form[action=#{admin_operational_fields_path}]" do
+    assert_select "form[action=?]", admin_operational_fields_path do
       assert_select "input[name='operational_field[name]']"
     end
   end
@@ -71,7 +71,7 @@ class Admin::OperationalFieldsControllerTest < ActionController::TestCase
 
     get :edit, id: operational_field
 
-    assert_select "form[action=#{admin_operational_field_path(operational_field)}]" do
+    assert_select "form[action=?]", admin_operational_field_path(operational_field) do
       assert_select "input[name='operational_field[name]'][value='field-a']"
       assert_select "textarea[name='operational_field[description]']", "description of field"
     end

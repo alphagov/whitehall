@@ -20,7 +20,7 @@
               <%= attachment_fields.fields_for :attachment_data, attachment_fields.object.attachment_data, include_id: false do |attachment_data_fields| %>
                 <%= attachment_data_fields.hidden_field :file_cache %>
                 <% if attachment_data_fields.object.to_replace_id %>
-                  <%= form.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
+                  <%= attachment_data_fields.hidden_field(:to_replace_id, value: attachment_data_fields.object.to_replace_id) %>
                 <% end %>
               <% end %>
             </li>

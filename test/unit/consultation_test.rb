@@ -152,7 +152,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:consultation, consultation_participation: consultation_participation)
     consultation.destroy
-    refute ConsultationParticipation.exists?(consultation_participation)
+    refute ConsultationParticipation.exists?(consultation_participation.id)
   end
 
   test "should destroy the consultation outcome when the consultation is destroyed" do
@@ -161,7 +161,7 @@ class ConsultationTest < ActiveSupport::TestCase
 
     consultation.destroy
 
-    refute ConsultationOutcome.exists?(outcome)
+    refute ConsultationOutcome.exists?(outcome.id)
   end
 
   test "should copy the outcome summary and link to the original attachments when creating a new draft" do

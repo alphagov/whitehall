@@ -12,7 +12,7 @@ class HistoricAppointmentsController < PublicFacingController
   end
 
   def show
-    @person = PersonPresenter.new(Person.find(params[:person_id]), view_context)
+    @person = PersonPresenter.new(Person.friendly.find(params[:person_id]), view_context)
     @historical_account = @person.historical_accounts.for_role(@role).first
     raise(ActiveRecord::RecordNotFound, "Couldn't find HistoricalAccount for #{@person.inspect}  and #{@role.inspect}") unless @historical_account
   end
@@ -20,7 +20,7 @@ class HistoricAppointmentsController < PublicFacingController
   private
 
   def load_role
-    @role = Role.find(role_id)
+    @role = Role.friendly.find(role_id)
   end
 
   def role_id

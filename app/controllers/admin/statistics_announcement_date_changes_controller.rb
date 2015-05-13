@@ -23,7 +23,7 @@ private
   end
 
   def find_statistics_announcement
-    @statistics_announcement = StatisticsAnnouncement.find(params[:statistics_announcement_id])
+    @statistics_announcement = StatisticsAnnouncement.friendly.find(params[:statistics_announcement_id])
   end
 
   def build_date_change(attributes = {})

@@ -53,7 +53,7 @@ class Admin::ContactsController < Admin::BaseController
 private
 
   def find_contactable
-    @contactable = Organisation.find(params[:organisation_id])
+    @contactable = Organisation.friendly.find(params[:organisation_id])
   end
 
   def find_contact

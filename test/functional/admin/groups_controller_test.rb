@@ -103,11 +103,11 @@ class Admin::GroupsControllerTest < ActionController::TestCase
     get :edit, organisation_id: @organisation.id, id: group
 
     assert_select "form#edit_#{dom_id(group)}" do
-      assert_select "input[type='hidden'][name='group[group_memberships_attributes][0][id]'][value=?]", group.group_memberships.first.id
+      assert_select "input[type='hidden'][name='group[group_memberships_attributes][0][id]'][value='#{group.group_memberships.first.id}']"
       assert_select "select[name='group[group_memberships_attributes][0][person_id]']" do
-        assert_select "option[selected='selected'][value=?]", person.id
+        assert_select "option[selected='selected'][value='#{person.id}']"
       end
-      assert_select "input[type='checkbox'][name='group[group_memberships_attributes][0][_destroy]'][value=1]"
+      assert_select "input[type='checkbox'][name='group[group_memberships_attributes][0][_destroy]'][value='1']"
     end
   end
 

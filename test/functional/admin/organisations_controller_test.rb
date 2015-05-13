@@ -147,32 +147,32 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
     get :people, id: organisation
 
-    assert_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
-    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
-    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
-    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
+    assert_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
+    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
+    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
+    refute_select "#minister_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
 
-    assert_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
-    assert_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
-    refute_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
-    refute_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
+    assert_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
+    assert_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
+    refute_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
+    refute_select "#board_member_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
 
-    assert_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
-    refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
-    refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
-    refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
+    assert_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
+    refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
+    refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
+    refute_select "#traffic_commissioner_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
 
-    assert_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_military_role.id}]"
-    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
-    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
-    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
-    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
+    assert_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_military_role.id}']"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
+    refute_select "#military_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
 
-    assert_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_chief_professional_officer_role.id}]"
-    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_ministerial_role.id}]"
-    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_board_member_role.id}]"
-    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_traffic_commissioner_role.id}]"
-    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value=#{organisation_scientific_role.id}]"
+    assert_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_chief_professional_officer_role.id}']"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_ministerial_role.id}']"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_board_member_role.id}']"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_traffic_commissioner_role.id}']"
+    refute_select "#chief_professional_officer_ordering input[name^='organisation[organisation_roles_attributes]'][value='#{organisation_scientific_role.id}']"
   end
 
   view_test "GET on :people shows ministerial role and current person's name" do

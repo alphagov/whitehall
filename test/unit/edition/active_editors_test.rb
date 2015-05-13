@@ -36,9 +36,9 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
     user = create(:policy_writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
-    Timecop.travel 2.hours.from_now
+    Timecop.travel (1.hour + 59.minutes).from_now
     assert_equal [user], edition.active_edition_openings.map(&:editor)
-    Timecop.travel 1.second.from_now
+    Timecop.travel (1.minute + 1.second).from_now
     assert_equal [], edition.active_edition_openings
   end
 

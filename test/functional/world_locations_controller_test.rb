@@ -258,7 +258,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
       end
       assert_select_object publication_2
       refute_select_object publication_3
-      assert_select "a[href='#{publications_filter_path(world_location, publication_filter_option: 'statistics').gsub('&', '&amp;')}']"
+      assert_select "a[href=?]", publications_filter_path(world_location, publication_filter_option: 'statistics')
     end
   end
 

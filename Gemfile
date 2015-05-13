@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '4.1.10'
+gem 'rails', '4.2.1'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
 gem 'jquery-rails'
@@ -43,24 +43,21 @@ gem 'bootstrap-sass', '2.3.2.2'
 gem 'dalli'
 gem 'rails_translation_manager', '0.0.1'
 gem 'rails-observers'
-gem 'sprockets', '3.0.0.beta.8'
+gem 'sprockets', '~> 3.0'
 gem 'rinku', require: 'rails_rinku'
 gem 'parallel', '1.4.1'
+gem 'responders', '~> 2.0'
 
 if ENV['GLOBALIZE_DEV']
   gem 'globalize', path: '../globalize'
 else
-  # Note: a fix for the issue that necessitates this fork has been merged into
-  # globalize master, but that version is only compatible with ActiveRecord 4.2
-  # and above. Once Whitehall is running on Rails 4.2, we can switch to using
-  # the main fork of globalize.
-  gem 'globalize', github: 'tekin/globalize', ref: 'transalted-model-touch-issue'
+  gem 'globalize', '~> 5.0.0'
 end
 
 if ENV['GOVSPEAK_DEV']
   gem 'govspeak', path: '../govspeak'
 else
-  gem 'govspeak', '~> 3.2.0'
+  gem 'govspeak', '~> 3.3.0'
 end
 
 if ENV['FRONTEND_TOOLKIT_DEV']
@@ -87,6 +84,7 @@ group :development do
   gem 'thin', '1.6.3'
   gem 'newrelic_rpm'
   gem 'quiet_assets'
+  gem 'spring'
 end
 
 group :test do
@@ -100,6 +98,8 @@ group :test do
   gem 'equivalent-xml', '0.5.1', require: false
   gem 'test_track', '~> 0.1.0', github: 'alphagov/test_track'
   gem 'govuk-content-schema-test-helpers', '1.3.0'
+  gem 'rails-perftest'
+  gem 'minitest-fail-fast'
 end
 
 group :test_coverage do

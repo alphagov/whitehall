@@ -25,7 +25,7 @@ class PublishingApiComingSoonWorkerTest < ActiveSupport::TestCase
 
     expected_request = stub_publishing_api_put_item(base_path, expected_payload)
 
-    PublishingApiComingSoonWorker.new.perform(edition, locale)
+    PublishingApiComingSoonWorker.new.perform(edition.id, locale)
 
     assert_requested expected_request
   end

@@ -49,7 +49,7 @@ class Admin::StatisticsAnnouncementsController < Admin::BaseController
 private
 
   def find_statistics_announcement
-    @statistics_announcement = StatisticsAnnouncement.find(params[:id])
+    @statistics_announcement = StatisticsAnnouncement.friendly.find(params[:id])
   end
 
   def redirect_to_show_if_cancelled

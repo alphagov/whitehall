@@ -19,11 +19,11 @@ class Admin::OperationalFieldsController < Admin::BaseController
   end
 
   def edit
-    @operational_field = OperationalField.find(params[:id])
+    @operational_field = OperationalField.friendly.find(params[:id])
   end
 
   def update
-    @operational_field = OperationalField.find(params[:id])
+    @operational_field = OperationalField.friendly.find(params[:id])
     if @operational_field.update_attributes(operational_field_params)
       redirect_to admin_operational_fields_path, notice: %{"#{@operational_field.name}" saved.}
     else

@@ -62,7 +62,7 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     worldwide_organisation = create(:worldwide_organisation)
     office_access_info = create(:access_and_opening_times, accessible: worldwide_organisation)
     worldwide_organisation.destroy
-    refute AccessAndOpeningTimes.exists?(office_access_info)
+    refute AccessAndOpeningTimes.exists?(office_access_info.id)
   end
 
   test 'destroys associated corporate information page documents and editions' do
@@ -296,6 +296,6 @@ class WorldwideOrganisationTest < ActiveSupport::TestCase
     world_organisation = create(:worldwide_organisation)
     h = world_organisation.__send__(:home_page_offices_list)
     world_organisation.destroy
-    refute HomePageList.exists?(h)
+    refute HomePageList.exists?(h.id)
   end
 end

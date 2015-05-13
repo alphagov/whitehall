@@ -16,7 +16,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
   view_test 'index shows a form to create missing translations' do
     get :index, world_location_id: @location
     translations_path = admin_world_location_translations_path(@location)
-    assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
+    assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
         assert_select "option[value=fr]", text: 'Français (French)'
         assert_select "option[value=es]", text: 'Español (Spanish)'
@@ -45,14 +45,14 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
     get :index, world_location_id: location
     edit_translation_path = edit_admin_world_location_translation_path(location, 'fr')
     view_location_path = world_location_path(location, locale: 'fr')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
-    assert_select "a[href=#{CGI::escapeHTML(view_location_path)}]", text: 'view'
+    assert_select "a[href=?]", edit_translation_path, text: 'Français'
+    assert_select "a[href=?]", view_location_path, text: 'view'
   end
 
   view_test 'index does not list the english translation' do
     get :index, world_location_id: @location
     edit_translation_path = edit_admin_world_location_translation_path(@location, 'en')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
+    assert_select "a[href=?]", edit_translation_path, text: 'en', count: 0
   end
 
   view_test 'index displays delete button for a translation' do
@@ -81,7 +81,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     translation_path = admin_world_location_translation_path(location, 'fr')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "input[type=text][name='world_location[name]'][value='Afrolasie']"
       assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'
       assert_select "input[type=submit][value=Save]"
@@ -95,7 +95,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     translation_path = admin_world_location_translation_path(location, 'ar')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "fieldset[class='right-to-left']" do
         assert_select "input[type=text][name='world_location[name]'][dir='rtl'][value='الناس']"
       end
@@ -130,7 +130,7 @@ class Admin::WorldLocationTranslationsControllerTest < ActionController::TestCas
 
     translation_path = admin_world_location_translation_path(@location, 'fr')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "textarea[name='world_location[mission_statement]']", text: 'Enseigner aux gens comment infuser le thé'
     end
   end

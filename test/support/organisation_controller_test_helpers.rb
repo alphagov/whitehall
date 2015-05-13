@@ -79,7 +79,7 @@ module OrganisationControllerTestHelpers
             assert_select ".type", "Email"
           end
           assert_select ".contact_form_url" do
-            assert_select "a[href=http://pomp.gov.uk/contact]"
+            assert_select "a[href='http://pomp.gov.uk/contact']"
           end
         end
       end

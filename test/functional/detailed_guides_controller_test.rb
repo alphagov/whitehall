@@ -23,7 +23,7 @@ class DetailedGuidesControllerTest < ActionController::TestCase
 
     get :show, id: guide.document
 
-    assert_select "a[href=#{organisation_path(organisation)}]", text: 'The Organisation'
+    assert_select "a[href=?]", organisation_path(organisation), text: 'The Organisation'
   end
 
   view_test "shows link to each section in the document navigation" do

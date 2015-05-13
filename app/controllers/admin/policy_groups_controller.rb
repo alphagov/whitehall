@@ -19,11 +19,11 @@ class Admin::PolicyGroupsController < Admin::BaseController
   end
 
   def edit
-    @policy_group = PolicyGroup.find(params[:id])
+    @policy_group = PolicyGroup.friendly.find(params[:id])
   end
 
   def update
-    @policy_group = PolicyGroup.find(params[:id])
+    @policy_group = PolicyGroup.friendly.find(params[:id])
     if @policy_group.update_attributes(policy_group_params)
       redirect_to admin_policy_groups_path, notice: %{"#{@policy_group.name}" saved.}
     else
@@ -32,7 +32,7 @@ class Admin::PolicyGroupsController < Admin::BaseController
   end
 
   def destroy
-    policy_group = PolicyGroup.find(params[:id])
+    policy_group = PolicyGroup.friendly.find(params[:id])
     name = policy_group.name
     policy_group.destroy
     redirect_to admin_policy_groups_path, notice: %{"#{name}" deleted.}

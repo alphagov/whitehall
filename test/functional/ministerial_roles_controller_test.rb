@@ -249,10 +249,10 @@ class MinisterialRolesControllerTest < ActionController::TestCase
 
     assert_select ".previous-roles" do
       assert_select_object first_appointment do
-        assert_select "a[href=#{person_path(first_appointment.person)}]", text: first_appointment.person.name
+        assert_select "a[href=?]", person_path(first_appointment.person), text: first_appointment.person.name
       end
       assert_select_object second_appointment do
-        assert_select "a[href=#{person_path(second_appointment.person)}]", text: second_appointment.person.name
+        assert_select "a[href=?]", person_path(second_appointment.person), text: second_appointment.person.name
       end
     end
   end
@@ -262,7 +262,7 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     get :show, id: historic_role
 
     assert_select ".previous-roles" do
-      assert_select "a[href=#{historic_appointments_path('past-prime-ministers')}]", text: "past #{historic_role.name.pluralize}"
+      assert_select "a[href=?]", historic_appointments_path('past-prime-ministers'), text: "past #{historic_role.name.pluralize}"
     end
   end
 

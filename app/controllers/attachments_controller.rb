@@ -60,7 +60,7 @@ private
   end
 
   def file_with_extensions
-    [params[:file], params[:extension]].join('.')
+    [params[:file], params[:extension], params[:format]].compact.join('.')
   end
 
   def path_to_attachment_or_thumbnail

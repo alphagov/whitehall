@@ -23,7 +23,7 @@ class Admin::PublicationsController < Admin::EditionsController
 
   def statistics_announcement
     if params[:statistics_announcement_id]
-      @statistics_announcement ||= StatisticsAnnouncement.find(params[:statistics_announcement_id])
+      @statistics_announcement ||= StatisticsAnnouncement.friendly.find(params[:statistics_announcement_id])
     end
   end
 end

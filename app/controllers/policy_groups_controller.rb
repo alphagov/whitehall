@@ -4,7 +4,7 @@ class PolicyGroupsController < PublicFacingController
   end
 
   def show
-    @policy_group = PolicyGroup.find(params[:id])
+    @policy_group = PolicyGroup.friendly.find(params[:id])
     @policies = @policy_group.policies.published.in_reverse_chronological_order
 
     set_meta_description(@policy_group.summary)

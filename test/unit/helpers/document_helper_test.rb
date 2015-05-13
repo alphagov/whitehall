@@ -8,7 +8,8 @@ class DocumentHelperTest < ActionView::TestCase
   include OrganisationHelper
 
   test "#edition_organisation_class returns the slug of the first organisation of the edition" do
-    organisations = [create(:organisation), create(:organisation)]
+    organisations = [create(:organisation, name: "An Organisation"),
+                     create(:organisation, name: "Better Organisation")]
     edition = create(:publication, organisations: organisations)
     assert_equal organisations.first.slug, edition_organisation_class(edition)
   end
@@ -176,7 +177,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test "part_of_metadata generates policy metadata" do
     policy = create(:published_policy)
-    edition = create(:news_article, related_policy_ids: [policy])
+    edition = create(:news_article, related_policy_ids: [policy.id])
 
     metadata_links = part_of_metadata(edition, [policy]).join(' ')
     assert_select_within_html metadata_links,

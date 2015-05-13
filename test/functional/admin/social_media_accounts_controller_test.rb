@@ -69,6 +69,6 @@ class Admin::SocialMediaAccountsControllerTest < ActionController::TestCase
 
     assert_redirected_to admin_worldwide_organisation_social_media_accounts_url(organisation)
     assert_equal "#{social_media_account.service_name} account deleted successfully", flash[:notice]
-    refute SocialMediaAccount.exists?(social_media_account)
+    refute SocialMediaAccount.exists?(social_media_account.id)
   end
 end

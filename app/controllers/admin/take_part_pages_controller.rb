@@ -22,11 +22,11 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
   def edit
-    @take_part_page = TakePartPage.find(params[:id])
+    @take_part_page = TakePartPage.friendly.find(params[:id])
   end
 
   def update
-    @take_part_page = TakePartPage.find(params[:id])
+    @take_part_page = TakePartPage.friendly.find(params[:id])
     if @take_part_page.update_attributes(take_part_page_params)
       redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" updated!}
     else
@@ -35,7 +35,7 @@ class Admin::TakePartPagesController < Admin::BaseController
   end
 
   def destroy
-    @take_part_page = TakePartPage.find(params[:id])
+    @take_part_page = TakePartPage.friendly.find(params[:id])
     @take_part_page.destroy
     redirect_to [:admin, TakePartPage], notice: %Q{Take part page "#{@take_part_page.title}" deleted!}
   end

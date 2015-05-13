@@ -28,13 +28,13 @@ module Edition::AuditTrail
   end
 
   def record_create
-    versions.create event: 'create', whodunnit: Edition::AuditTrail.whodunnit, state: state
+    versions.create event: 'create', user: Edition::AuditTrail.whodunnit, state: state
   end
   private :record_create
 
   def record_update
     if changed.any?
-      versions.build event: 'update', whodunnit: Edition::AuditTrail.whodunnit, state: state
+      versions.build event: 'update', user: Edition::AuditTrail.whodunnit, state: state
     end
   end
   private :record_update

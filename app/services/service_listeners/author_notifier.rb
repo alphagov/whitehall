@@ -9,7 +9,7 @@ module ServiceListeners
 
     def notify!
       authors_to_notify.each do |author|
-        Notifications.edition_published(author, edition, edition_admin_url, public_document_url).deliver
+        Notifications.edition_published(author, edition, edition_admin_url, public_document_url).deliver_now
       end
     end
 

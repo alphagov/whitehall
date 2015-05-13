@@ -11,7 +11,7 @@ class Admin::FinancialReportsControllerTest < ActionController::TestCase
   view_test "GET :index lists the organisation's reports" do
     report = create(:financial_report, funding: 20000)
     get :index, organisation_id: report.organisation
-    assert_select 'td', text: report.year
+    assert_select 'td', text: report.year.to_s
     assert_select 'td', /20,000/
   end
 

@@ -23,7 +23,7 @@ class SupportingPagesControllerTest < ActionController::TestCase
 
     get :show, policy_id: policy.document, id: supporting_page.document
 
-    assert_select ".date[title=#{policy.public_timestamp.iso8601}]"
+    assert_select ".date[title='#{policy.public_timestamp.iso8601}']"
   end
 
   view_test "show includes the main policy navigation" do

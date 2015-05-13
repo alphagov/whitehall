@@ -14,7 +14,7 @@ class GovspeakHelperTest < ActionView::TestCase
 
   test "should not alter invalid urls" do
     html = govspeak_to_html("no [change](not a valid url)")
-    assert_select_within_html html, "a[href=?]", "not a valid url", text: "change"
+    assert_select_within_html html, "a[href=?]", "not%20a%20valid%20url", text: "change"
   end
 
   test "should not alter partial urls" do
@@ -209,7 +209,7 @@ class GovspeakHelperTest < ActionView::TestCase
     edition = build(:published_news_article, body: "!!1")
     edition.stubs(:images).returns([OpenStruct.new(alt_text: "My Alt", url: "/image.jpg")])
     html = govspeak_edition_to_html(edition)
-    assert_select_within_html html, ".govspeak figure.image.embedded img[src=https://some.cdn.com/image.jpg]"
+    assert_select_within_html html, ".govspeak figure.image.embedded img[src='https://some.cdn.com/image.jpg']"
   end
 
   test "does not prefix embedded attachment urls with asset host so that access to them can be authenticated when previewing draft documents" do
@@ -356,23 +356,23 @@ class GovspeakHelperTest < ActionView::TestCase
   test 'will create bespoke fractions' do
     input = "Some text [Fraction:1/72] and some text"
     html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > sup", text: 1
-    assert_select_within_html html, "span.fraction > sub", text: 72
+    assert_select_within_html html, "span.fraction > sup", text: '1'
+    assert_select_within_html html, "span.fraction > sub", text: '72'
   end
 
   test 'will create fractions using images for a known set' do
     input = "Some text [Fraction:1/4] and some text"
     html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt=1/4]"
+    assert_select_within_html html, "span.fraction > img[alt='1/4']"
   end
 
   test 'will create algebraic and trigonometric fractions using images for a known set' do
     input = "Some text [Fraction:c/sinC] and some text"
     html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt=c/sinC]"
+    assert_select_within_html html, "span.fraction > img[alt='c/sinC']"
 
     input = "Some text [Fraction:1/x] and some text"
     html = govspeak_to_html(input)
-    assert_select_within_html html, "span.fraction > img[alt=1/x]"
+    assert_select_within_html html, "span.fraction > img[alt='1/x']"
   end
 end

@@ -19,7 +19,7 @@ class EmailSignup
   end
 
   def local_government
-    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(@attributes[:local_government])
+    ActiveRecord::Type::Boolean.new.type_cast_from_database(@attributes[:local_government])
   end
 
   def ensure_govdelivery_topic_exists

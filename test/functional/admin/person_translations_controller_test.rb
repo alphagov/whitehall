@@ -17,7 +17,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     get :index, person_id: @person
 
     translations_path = admin_person_translations_path(@person)
-    assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
+    assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
         assert_select "option[value=fr]", text: 'Français (French)'
         assert_select "option[value=es]", text: 'Español (Spanish)'
@@ -68,15 +68,15 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
 
     edit_translation_path = edit_admin_person_translation_path(person, 'fr')
     view_person_path = person_path(person, locale: 'fr')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
-    assert_select "a[href=#{CGI::escapeHTML(view_person_path)}]", text: 'view'
+    assert_select "a[href=?]", edit_translation_path, text: 'Français'
+    assert_select "a[href=?]", view_person_path, text: 'view'
   end
 
   view_test 'index does not list the english translation' do
     get :index, person_id: @person
 
     edit_translation_path = edit_admin_person_translation_path(@person, 'en')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
+    assert_select "a[href=?]", edit_translation_path, text: 'en', count: 0
   end
 
   view_test 'index displays delete button for a translation' do
@@ -114,7 +114,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     get :edit, person_id: person, id: 'fr'
 
     translation_path = admin_person_translation_path(person, 'fr')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "textarea[name='person[biography]']", text: 'Elle est née. Elle a vécu. Elle est morte.'
       assert_select "input[type=submit][value=Save]"
     end
@@ -128,7 +128,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
     get :edit, person_id: person, id: 'ar'
 
     translation_path = admin_person_translation_path(person, 'ar')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "fieldset[class='right-to-left']" do
         assert_select "textarea[name='person[biography]'][dir='rtl']", text: 'ولدت. عاشت. توفيت.'
       end

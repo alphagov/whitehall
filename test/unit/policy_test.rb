@@ -94,7 +94,7 @@ class PolicyTest < ActiveSupport::TestCase
     edition = create(:draft_policy)
     relationship = create(:edition_relation, document: edition.document)
     edition.destroy
-    refute EditionRelation.exists?(relationship)
+    refute EditionRelation.exists?(relationship.id)
   end
 
   test "should be able to fetch case studies" do

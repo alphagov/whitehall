@@ -42,7 +42,7 @@ class Admin::GenericEditionsController::RejectingDocumentsTest < ActionControlle
     assert_select ".editorial_remark" do
       assert_select ".body", text: /editorial-remark-body/
       assert_select ".actor", text: current_user.name
-      assert_select "abbr.created_at[title=#{remark.created_at.iso8601}]"
+      assert_select "abbr.created_at[title='#{remark.created_at.iso8601}']"
     end
   end
 end

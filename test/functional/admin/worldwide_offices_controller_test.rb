@@ -252,7 +252,7 @@ class Admin::WorldwideOfficesControllerTest < ActionController::TestCase
       id: office,
       worldwide_organisation_id: worldwide_organisation
 
-    refute ContactNumber.exists?(contact_number)
+    refute ContactNumber.exists?(contact_number.id)
   end
 
   test "POST on :remove_from_home_page removes office from the home page of the worldwide organisation" do

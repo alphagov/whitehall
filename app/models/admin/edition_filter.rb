@@ -203,7 +203,7 @@ module Admin
     end
 
     def organisation
-      Organisation.find(options[:organisation]) if options[:organisation].present?
+      Organisation.friendly.find(options[:organisation]) if options[:organisation].present?
     end
 
     def author
@@ -216,7 +216,7 @@ module Admin
 
     def location_matches
       if selected_world_locations.any?
-        sentence = selected_world_locations.map { |l| WorldLocation.find(l).name }.to_sentence
+        sentence = selected_world_locations.map { |l| WorldLocation.friendly.find(l).name }.to_sentence
         " about #{sentence}"
       end
     end

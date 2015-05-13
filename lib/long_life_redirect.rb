@@ -14,7 +14,7 @@ class LongLifeRedirect
   def call(env)
     req = ActionDispatch::Request.new(env)
 
-    params = req.symbolized_path_parameters
+    params = req.path_parameters
     path_and_filename = [params[:path], params[:extension]].join(".")
 
     uri = URI.parse(@root_path + path_and_filename)

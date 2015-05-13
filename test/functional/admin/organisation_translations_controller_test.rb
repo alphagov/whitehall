@@ -16,7 +16,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
   view_test 'index shows a form to create missing translations' do
     get :index, organisation_id: @organisation
     translations_path = admin_organisation_translations_path(@organisation)
-    assert_select "form[action=#{CGI::escapeHTML(translations_path)}]" do
+    assert_select "form[action=?]", translations_path do
       assert_select "select[name=translation_locale]" do
         assert_select "option[value=fr]", text: 'Français (French)'
         assert_select "option[value=es]", text: 'Español (Spanish)'
@@ -45,14 +45,14 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
     get :index, organisation_id: organisation
     edit_translation_path = edit_admin_organisation_translation_path(organisation, 'fr')
     view_organisation_path = organisation_path(organisation, locale: 'fr')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'Français'
-    assert_select "a[href=#{CGI::escapeHTML(view_organisation_path)}]", text: 'view'
+    assert_select "a[href=?]", edit_translation_path, text: 'Français'
+    assert_select "a[href=?]", view_organisation_path, text: 'view'
   end
 
   view_test 'index does not list the english translation' do
     get :index, organisation_id: @organisation
     edit_translation_path = edit_admin_organisation_translation_path(@organisation, 'en')
-    assert_select "a[href=#{CGI::escapeHTML(edit_translation_path)}]", text: 'en', count: 0
+    assert_select "a[href=?]", edit_translation_path, text: 'en', count: 0
   end
 
   view_test 'index displays delete button for a translation' do
@@ -86,7 +86,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
     translation_path = admin_organisation_translation_path(organisation, 'fr')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "input[type=text][name='organisation[name]'][value='Afrolasie']"
       assert_select "input[type=text][name='organisation[acronym]'][value='AFRO']"
       assert_select "textarea[name='organisation[logo_formatted_name]']", text: 'Afrolasie'
@@ -101,7 +101,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
     translation_path = admin_organisation_translation_path(organisation, 'ar')
 
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]" do
+    assert_select "form[action=?]", translation_path do
       assert_select "fieldset[class='right-to-left']" do
         assert_select "input[type=text][name='organisation[name]'][dir='rtl'][value='الناس']"
       end
@@ -137,7 +137,7 @@ class Admin::OrganisationTranslationsControllerTest < ActionController::TestCase
 
     refute @organisation.available_in_locale?('fr')
     translation_path = admin_organisation_translation_path(@organisation, 'fr')
-    assert_select "form[action=#{CGI::escapeHTML(translation_path)}]"
+    assert_select "form[action=?]", translation_path
   end
 
   test 'destroy removes translation and redirects to list of translations' do

@@ -55,7 +55,7 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
     delete :destroy, id: group
 
     assert_response :forbidden
-    assert PolicyGroup.exists?(group)
+    assert PolicyGroup.exists?(group.id)
   end
 
   test "DELETE :destroy works for GDS editors" do
@@ -66,6 +66,6 @@ class Admin::PolicyGroupsControllerTest < ActionController::TestCase
 
     assert_response :redirect
     assert_redirected_to admin_policy_groups_path
-    refute PolicyGroup.exists?(group)
+    refute PolicyGroup.exists?(group.id)
   end
 end

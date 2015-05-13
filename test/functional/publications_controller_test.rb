@@ -33,10 +33,10 @@ class PublicationsControllerTest < ActionController::TestCase
   end
 
   view_test "renders the publication summary from plain text" do
-    publication = create(:published_publication, summary: 'plain text & so on')
+    publication = create(:published_publication, summary: 'plain *text* & so on')
     get :show, id: publication.document
 
-    assert_select ".document-page .summary", text: "plain text &amp; so on"
+    assert_select ".document-page .summary", text: "plain *text* & so on"
   end
 
   view_test "#show renders the publication body using govspeak" do
@@ -197,8 +197,8 @@ class PublicationsControllerTest < ActionController::TestCase
   view_test "#index displays date filter" do
     get :index, from_date: "01/01/2011", to_date: "01/02/2012"
 
-    assert_select "input#from_date[name='from_date'][value=01/01/2011]"
-    assert_select "input#to_date[name='to_date'][value=01/02/2012]"
+    assert_select "input#from_date[name='from_date'][value='01/01/2011']"
+    assert_select "input#to_date[name='to_date'][value='01/02/2012']"
   end
 
   view_test "#index orders publications by publication date by default" do
@@ -428,7 +428,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, topics: [topic], departments: [organisation]
 
-    feed_url = ERB::Util.html_escape(publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol))
+    feed_url = publications_url(format: "atom", topics: [topic], departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
   end
 
@@ -437,7 +437,7 @@ class PublicationsControllerTest < ActionController::TestCase
 
     get :index, from_date: "2012-01-01", departments: [organisation]
 
-    feed_url = ERB::Util.html_escape(publications_url(format: "atom", departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol))
+    feed_url = publications_url(format: "atom", departments: [organisation], host: Whitehall.public_host, protocol: Whitehall.public_protocol)
     assert_select "a.feed[href=?]", feed_url
   end
 

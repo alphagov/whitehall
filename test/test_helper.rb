@@ -44,9 +44,14 @@ class ActiveSupport::TestCase
     Sidekiq::Worker.clear_all
     stub_default_publishing_api_put
     stub_default_publishing_api_put_draft
+    fake_whodunnit = FactoryGirl.build(:user)
+    fake_whodunnit.stubs(:id).returns(1000)
+    fake_whodunnit.stubs(:persisted?).returns(true)
+    Edition::AuditTrail.whodunnit = fake_whodunnit
   end
 
   teardown do
+    Edition::AuditTrail.whodunnit = nil
     Timecop.return
   end
 
@@ -56,10 +61,6 @@ class ActiveSupport::TestCase
 
   def assert_same_elements(array1, array2)
     assert_equal array1.to_set, array2.to_set, "Different elements in #{array1.inspect} and #{array2}.inspect"
-  end
-
-  def assert_select_from(text, *args, &block)
-    assert_select HTML::Document.new(text).root, *args, &block
   end
 
   def count_queries
@@ -219,10 +220,6 @@ class ActionMailer::TestCase
 end
 
 class ActionView::TestCase
-  def assert_select_in_html(text, *args, &block)
-    assert_select HTML::Document.new(text).root, *args, &block
-  end
-
   def setup_view_context
     @view_context = @controller.view_context
   end

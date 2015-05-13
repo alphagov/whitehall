@@ -26,7 +26,7 @@ class AttachmentDataTest < ActiveSupport::TestCase
   test 'is still valid whilst file is being virus-scanned' do
     attachment_data = create(:attachment_data)
     assert_equal :pending, attachment_data.reload.virus_status
-    assert AttachmentData.find(attachment_data).valid?
+    assert AttachmentData.find(attachment_data.id).valid?
   end
 
   test 'should return filename even after reloading' do
