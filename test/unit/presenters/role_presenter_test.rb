@@ -69,17 +69,4 @@ class RolePresenterTest < ActionView::TestCase
       stub("all news_articles", limit: ten_published_news_articles))
     assert_equal two_published_speeches[0..0] + ten_published_news_articles[0..8], @presenter.announcements.map(&:model)
   end
-
-  test '#published_policies returns decorated published policies available in the current locale' do
-    appointment = create(:ministerial_role_appointment)
-    english_policy = create(:published_policy, role_appointments: [appointment])
-    welsh_policy   = create(:published_policy, role_appointments: [appointment], translated_into: 'cy')
-    presenter = RolePresenter.new(appointment.role, @view_content)
-
-    assert_equal [PolicyPresenter.new(welsh_policy), PolicyPresenter.new(english_policy)], presenter.published_policies
-
-    I18n.with_locale(:cy) do
-      assert_equal [PolicyPresenter.new(welsh_policy)], presenter.published_policies
-    end
-  end
 end

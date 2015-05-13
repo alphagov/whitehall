@@ -94,18 +94,15 @@
       <% end %>
 
       <% if @person.has_policy_responsibilities? %>
-        <div id="policy">
-          <% @person.current_ministerial_roles.each do |role| %>
-            <% if role.published_policies.any? %>
-              <section class="policy">
-                <h1><%= t('policies.heading') %></h1>
+        <section id="policy">
+          <h1><%= t('policies.heading') %></h1>
 
-                <%= render partial: 'ministerial_roles/policies',
-                           locals: { role: role } %>
-              </section>
-            <% end %>
-          <% end %>
-        </div>
+          <%= render 'policies/list_description', policies: @person.published_policies %>
+
+          <div class="read-more">
+            <%= link_to t('policies.view_all'), :policies %>
+          </div>
+        </section>
       <% end %>
 
       <%= render 'shared/announcement_list', announcer: @person %>

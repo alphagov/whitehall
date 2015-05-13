@@ -1,6 +1,9 @@
 require 'test_helper'
+require "gds_api/test_helpers/rummager"
 
 class PersonTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::Rummager
+
   should_protect_against_xss_and_content_attacks_on :biography
 
   test "#columns excludes biography so that we can safely it from editions in a future migration" do
@@ -242,5 +245,18 @@ class PersonTest < ActiveSupport::TestCase
 
       assert_equal Time.zone.now, role_appointment.reload.updated_at
     end
+  end
+
+  test "#published_policies should return the latest three policies" do
+    person = create(:person)
+    rummager_has_new_policies_for_every_type(count: 3)
+
+    first_three_policy_titles = [
+      "Welfare reform",
+      "State Pension simplification",
+      "State Pension age",
+    ]
+
+    assert_equal first_three_policy_titles, person.published_policies.map(&:title)
   end
 end
