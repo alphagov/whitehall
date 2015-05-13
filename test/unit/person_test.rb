@@ -247,16 +247,23 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
-  test "#published_policies should return the latest three policies" do
+  test "#published_policies should return the all policies" do
     person = create(:person)
-    rummager_has_new_policies_for_every_type(count: 3)
+    rummager_has_new_policies_for_every_type
 
-    first_three_policy_titles = [
+    all_policy_titles = [
       "Welfare reform",
       "State Pension simplification",
       "State Pension age",
+      "Poverty and social justice",
+      "Older people",
+      "Household energy",
+      "Health and safety reform",
+      "European funds",
+      "Employment",
+      "Child maintenance reform",
     ]
 
-    assert_equal first_three_policy_titles, person.published_policies.map(&:title)
+    assert_equal all_policy_titles, person.published_policies.map(&:title)
   end
 end

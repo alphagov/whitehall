@@ -57,7 +57,6 @@ class Person < ActiveRecord::Base
     Whitehall.unified_search_client.unified_search(
       filter_people: [slug],
       filter_format: "policy",
-      count: "3",
       order: "-public_timestamp"
     ).results
   end
