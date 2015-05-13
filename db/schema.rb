@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430084915) do
+ActiveRecord::Schema.define(version: 20150513095510) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -850,7 +850,7 @@ ActiveRecord::Schema.define(version: 20150430084915) do
     t.integer  "role_id",         limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ordering",        limit: 4
+    t.integer  "ordering",        limit: 4, default: 99
   end
 
   add_index "organisation_roles", ["organisation_id"], name: "index_organisation_roles_on_organisation_id", using: :btree
