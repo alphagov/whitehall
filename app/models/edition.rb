@@ -353,10 +353,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def can_be_associated_with_ministers?
-    false
-  end
-
   def can_be_associated_with_role_appointments?
     false
   end
