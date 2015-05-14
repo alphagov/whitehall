@@ -15,10 +15,6 @@ module FilterRoutesHelper
     statistical_data_sets_path(path_arguments(objects))
   end
 
-  def policies_filter_path(*objects)
-    policies_path(path_arguments(objects))
-  end
-
   def filter_atom_feed_url
     Whitehall::FeedUrlBuilder.new({document_type: params[:controller].to_s}.merge(params)).url
   end
