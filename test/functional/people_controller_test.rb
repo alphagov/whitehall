@@ -1,7 +1,9 @@
 require 'test_helper'
+require "gds_api/test_helpers/rummager"
 
 class PeopleControllerTest < ActionController::TestCase
   include FeedHelper
+  include GdsApi::TestHelpers::Rummager
 
   should_be_a_public_facing_controller
 
@@ -17,6 +19,7 @@ class PeopleControllerTest < ActionController::TestCase
 
   setup do
     @person = create(:person)
+    rummager_has_no_policies_for_any_type
   end
 
   view_test "#show displays the details of the person and their roles" do
@@ -83,6 +86,18 @@ class PeopleControllerTest < ActionController::TestCase
 
     assert_select_atom_feed do
       assert_select_atom_entries(expected_entries)
+    end
+  end
+
+  view_test "should display the person's policies with content" do
+    create(:ministerial_role_appointment, person: @person)
+    rummager_has_new_policies_for_every_type
+
+    get :show, id: @person
+
+    assert_select "#policy" do
+      assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
+      assert_select ".summary", text: "The governments policy on welfare reform"
     end
   end
 end

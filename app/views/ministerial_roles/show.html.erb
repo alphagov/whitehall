@@ -99,8 +99,7 @@
         <section class="policy" id="policies">
           <h1><%= t('policies.heading') %></h1>
 
-          <%= render 'ministerial_roles/policies', role: @ministerial_role %>
-
+          <%= render 'policies/list_description', policies: @ministerial_role.published_policies %>
         </section>
       <% end %>
 

@@ -12,19 +12,6 @@ class MinisterialRoleTest < ActiveSupport::TestCase
     assert_equal 'prime-minister-cabinet-office', role.slug
   end
 
-  test "should be able to get policies associated with a role" do
-    editions = [create(:published_policy), create(:published_news_article)]
-    ministerial_role_appointment = create(:ministerial_role_appointment, editions: editions)
-    assert_equal editions[0..0], ministerial_role_appointment.role.policies
-  end
-
-  test "should be able to get published policies associated with a role" do
-    editions = [create(:published_policy), create(:draft_policy), create(:superseded_policy)]
-    ministerial_role = create(:ministerial_role)
-    create(:role_appointment, role: ministerial_role, editions: editions)
-    assert_equal editions[0..0], ministerial_role.published_policies
-  end
-
   test "should be able to get news_articles associated with a role" do
     editions = [create(:published_policy), create(:published_news_article)]
     ministerial_role = create(:ministerial_role)

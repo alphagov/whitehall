@@ -8,11 +8,12 @@ class MinisterialRole < Role
   has_many :news_articles, -> { where("editions.type" => NewsArticle).uniq }, through: :role_appointments
   has_many :speeches, through: :role_appointments
 
-  def published_policies(options = {})
-    policies
-      .latest_published_edition
-      .in_reverse_chronological_order
-      .limit(options[:limit])
+  def published_policies
+    if current_person
+      current_person.published_policies
+    else
+      []
+    end
   end
 
   def published_speeches(options = {})

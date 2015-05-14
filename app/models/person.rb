@@ -53,6 +53,14 @@ class Person < ActiveRecord::Base
   before_destroy :prevent_destruction_if_appointed
   after_update :touch_role_appointments
 
+  def published_policies
+    Whitehall.unified_search_client.unified_search(
+      filter_people: [slug],
+      filter_format: "policy",
+      order: "-public_timestamp"
+    ).results
+  end
+
   def search_link
     Whitehall.url_maker.person_path(slug)
   end
