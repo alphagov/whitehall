@@ -98,10 +98,8 @@
       <% if @ministerial_role.published_policies.any? %>
         <section class="policy" id="policies">
           <h1><%= t('policies.heading') %></h1>
+
           <%= render 'policies/list_description', policies: @ministerial_role.published_policies %>
-          <div class="read-more">
-            <%= link_to t('policies.view_all'), :policies %>
-          </div>
         </section>
       <% end %>
 
