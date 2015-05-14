@@ -24,7 +24,11 @@ module FriendlyId
     end
 
     def last_sequence_number
-      slug_conflicts.last.split("#{slug}#{sequence_separator}").last.to_i
+      if slug_conflicts.size > 1
+        slug_conflicts.last.split("#{slug}#{sequence_separator}").last.to_i
+      else
+        0
+      end
     end
 
     def slug_conflicts
