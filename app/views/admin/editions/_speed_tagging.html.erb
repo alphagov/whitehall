@@ -55,19 +55,6 @@
       </div>
     <% end %>
 
-    <% if @edition.can_be_associated_with_ministers? && (ministerial_roles = @edition.organisations.flat_map(&:ministerial_roles)).any? %>
-      <div class="row-fluid">
-        <h3>Ministers</h3>
-        <% ministerial_roles.each do |role| %>
-          <label class="checkbox">
-            <%= check_box_tag 'edition[ministerial_role_ids][]', role.id, @edition.ministerial_roles.include?(role) %>
-            <%= RolePresenter.new(role, self).current_person.name %>
-            <span class="muted"><%= RolePresenter.new(role, self).name %></span>
-          </label>
-        <% end %>
-      </div>
-    <% end %>
-
     <% if @edition.can_be_related_to_policies? %>
       <div class="row-fluid">
         <h3>Related policies</h3>

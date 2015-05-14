@@ -193,7 +193,6 @@ class Admin::EditionsController < Admin::BaseController
       :corporate_information_page_type_id,
       :political,
       secondary_specialist_sector_tags: [],
-      ministerial_role_ids: [],
       lead_organisation_ids: [],
       supporting_organisation_ids: [],
       organisation_ids: [],

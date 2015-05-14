@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430084915) do
+ActiveRecord::Schema.define(version: 20150514093737) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -325,16 +325,6 @@ ActiveRecord::Schema.define(version: 20150430084915) do
 
   add_index "edition_mainstream_categories", ["edition_id"], name: "index_edition_mainstream_categories_on_edition_id", using: :btree
   add_index "edition_mainstream_categories", ["mainstream_category_id"], name: "index_edition_mainstream_categories_on_mainstream_category_id", using: :btree
-
-  create_table "edition_ministerial_roles", force: :cascade do |t|
-    t.integer  "edition_id",          limit: 4
-    t.integer  "ministerial_role_id", limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "edition_ministerial_roles", ["edition_id"], name: "index_edition_ministerial_roles_on_edition_id", using: :btree
-  add_index "edition_ministerial_roles", ["ministerial_role_id"], name: "index_edition_ministerial_roles_on_ministerial_role_id", using: :btree
 
   create_table "edition_organisations", force: :cascade do |t|
     t.integer  "edition_id",      limit: 4
