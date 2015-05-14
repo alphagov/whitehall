@@ -67,7 +67,7 @@ BlockNesting:
   Max: 3
 
 # Supports --auto-correct
-Blocks:
+BlockDelimiters:
   Description: Avoid using {...} for multi-line blocks (multiline chaining is always
     ugly). Prefer {...} over do...end for single-line blocks.
   Enabled: false
@@ -163,11 +163,6 @@ EmptyInterpolation:
 
 EmptyLinesAroundAccessModifier:
   Description: Keep blank lines around access modifiers.
-  Enabled: false
-
-# Supports --auto-correct
-EmptyLinesAroundBody:
-  Description: Keeps track of empty lines around expression bodies.
   Enabled: false
 
 # Supports --auto-correct
@@ -436,10 +431,8 @@ RedundantSelf:
   Enabled: false
 
 RegexpLiteral:
-  Description: Use %r for regular expressions matching more than `MaxSlashes` '/' characters.
-    Use %r only for regular expressions matching more than `MaxSlashes` '/' character.
+  Description: Use / or %r around regular expressions
   Enabled: false
-  MaxSlashes: 1
 
 # Supports --auto-correct
 RescueException:
@@ -555,11 +548,6 @@ UnlessElse:
 
 UnneededCapitalW:
   Description: Checks for %W when interpolation is not needed.
-  Enabled: false
-
-# Supports --auto-correct
-UnneededPercentX:
-  Description: Checks for %x when `` would do.
   Enabled: false
 
 Validation:
