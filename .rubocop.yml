@@ -1,6 +1,10 @@
 inherit_from:
   - .disabled-rubocop.yml
 
+AllCops:
+  DisplayStyleGuide: true
+  StyleGuideCopsOnly: true
+
 # Type 'Style' (133):
 # Supports --auto-correct
 AccessModifierIndentation:
