@@ -16,18 +16,12 @@ module FriendlyId
   private
 
     def next_sequence_number
-      if last_sequence_number == 0
-        2
-      else
-        last_sequence_number + 1
-      end
+      last_sequence_number ? last_sequence_number + 1 : 2
     end
 
     def last_sequence_number
-      if slug_conflicts.size > 1
-        slug_conflicts.last.split("#{slug}#{sequence_separator}").last.to_i
-      else
-        0
+      if match = /#{slug}#{sequence_separator}(\d+)/.match(slug_conflicts.last)
+        match[1].to_i
       end
     end
 
