@@ -283,6 +283,16 @@ class OrganisationsControllerTest < ActionController::TestCase
     refute_select ".url_link"
   end
 
+  view_test "showing a transitioning court or tribunal does not render the parent_organisations or the url" do
+    organisation = create(:hmcts_tribunal, govuk_status: 'transitioning')
+
+    get :show, id: organisation, courts_only: true
+
+    assert_template 'not_live'
+    refute_select ".parent_organisations"
+    refute_select ".url_link"
+  end
+
   view_test "doesn't show a thumbnail if the organisation has no url" do
     organisation = create(:organisation, govuk_status: 'exempt', url: '')
     create(:published_corporate_information_page, organisation: organisation)
