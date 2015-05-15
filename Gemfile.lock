@@ -267,7 +267,7 @@ GEM
       pry (~> 0.10)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.0)
+    rack (1.6.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-cache (1.2)
@@ -472,6 +472,7 @@ DEPENDENCIES
   poltergeist (~> 1.5.1)
   pry-byebug
   quiet_assets
+  rack (~> 1.6.1)
   rack-test (~> 0.6.3)
   rack_strip_client_ip (= 0.0.1)
   rails (= 4.2.1)
