@@ -391,7 +391,7 @@ class OrganisationHelperDisplayNameWithParentalRelationshipTest < ActionView::Te
 
   test 'organisations of type other with no relationships are described correctly' do
     organisation = create(:organisation, organisation_type_key: "other", acronym: "OON", name: "Other Organisation Name")
-    organisation.stubs(:active_child_organisations_excluding_sub_organisations).returns([])
+    organisation.stubs(:supporting_bodies).returns([])
 
     description = organisation_display_name_including_parental_and_child_relationships(organisation)
     assert description.include? 'Other Organisation Name'
