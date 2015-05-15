@@ -68,6 +68,7 @@ end
 
 gem 'sass', '3.4.9'
 gem 'sass-rails'
+gem 'sassc-rails', github: 'bolandrm/sassc-rails', branch: 'master'
 gem 'uglifier'
 
 group :development, :test do

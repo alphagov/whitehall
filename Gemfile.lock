@@ -5,6 +5,18 @@ GIT
     test_track (0.1.0)
       rails (>= 3.1.0)
 
+GIT
+  remote: git://github.com/bolandrm/sassc-rails.git
+  revision: cac614328c2830646dc9d1ee218caf6204b8e0c8
+  branch: master
+  specs:
+    sassc-rails (0.0.9)
+      rails (>= 4.0.0)
+      sass
+      sassc (~> 1.2.0)
+      sprockets (> 2.11)
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -344,6 +356,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    sassc (1.2.0)
+      bundler
+      ffi (~> 1.9.6)
     shared_mustache (0.2.0)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
@@ -488,6 +503,7 @@ DEPENDENCIES
   rummageable (= 1.2.0)
   sass (= 3.4.9)
   sass-rails
+  sassc-rails!
   shared_mustache (~> 0.2.0)
   sidekiq (~> 3.3.0)
   sidekiq-logging-json (= 0.0.14)
