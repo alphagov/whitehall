@@ -36,6 +36,21 @@ class RoleTest < ActiveSupport::TestCase
     assert_equal "Treasury secretary", role.to_s
   end
 
+  test "the ordering on organisation roles defaults to the end of the list" do
+    organisation_1 = create(:organisation)
+    organisation_2 = create(:organisation)
+    role_1 = create(:role, organisations: [organisation_1, organisation_2])
+    role_2 = create(:role, organisations: [organisation_2])
+    role_3 = create(:role, organisations: [organisation_1])
+    role_4 = create(:role, organisations: [organisation_1])
+
+    assert_equal [role_1, role_3, role_4], organisation_1.roles
+    assert_equal [role_1, role_2], organisation_2.roles
+
+    assert_equal [0, 1, 2], organisation_1.organisation_roles.pluck(:ordering)
+    assert_equal [0, 1], organisation_2.organisation_roles.pluck(:ordering)
+  end
+
   test "should be able to get the current person" do
     bob = create(:person, forename: "Bob")
     role = create(:role)
