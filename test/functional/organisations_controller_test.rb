@@ -2,6 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/rummager"
 
 class OrganisationsControllerTest < ActionController::TestCase
+  include ApplicationHelper
   include FeedHelper
   include FilterRoutesHelper
   include OrganisationControllerTestHelpers
@@ -354,7 +355,7 @@ class OrganisationsControllerTest < ActionController::TestCase
                     text: "Employment"
       assert_select ".summary", text: "How the government is getting Britain working and helping people break the cycle of benefit dependency."
 
-      assert_select "a[href='#{policies_filter_path(organisation)}']"
+      assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end
   end
 
@@ -387,7 +388,7 @@ class OrganisationsControllerTest < ActionController::TestCase
       assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
       assert_select ".summary", text: "The governments policy on welfare reform"
 
-      assert_select "a[href='#{policies_filter_path(organisation)}']"
+      assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end
   end
 

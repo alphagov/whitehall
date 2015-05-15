@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def policies_finder_path(query_params)
+    "/government/policies?#{query_params.to_query}"
+  end
+
   def page_title(*title_parts)
     if title_parts.any?
       title_parts.push("Admin") if params[:controller] =~ /^admin\//
