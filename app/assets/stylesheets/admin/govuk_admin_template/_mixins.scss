@@ -4,35 +4,35 @@
 }
 
 @mixin add-top-margin($important: "") {
-  margin-top: $default-vertical-margin #{$important};
+  margin-top: $default-vertical-margin unquote($important);
 }
 
 @mixin remove-top-margin($important: "") {
-  margin-top: 0 #{$important};
+  margin-top: 0 unquote($important);
 }
 
 @mixin add-bottom-margin($important: "") {
-  margin-bottom: $default-vertical-margin #{$important};
+  margin-bottom: $default-vertical-margin unquote($important);
 }
 
 @mixin remove-bottom-margin($important: "") {
-  margin-bottom: 0 #{$important};
+  margin-bottom: 0 unquote($important);
 }
 
 @mixin add-right-margin($important: "") {
-  margin-right: $default-horizontal-margin #{$important};
+  margin-right: $default-horizontal-margin unquote($important);
 }
 
 @mixin add-left-margin($important: "") {
-  margin-left: $default-horizontal-margin #{$important};
+  margin-left: $default-horizontal-margin unquote($important);
 }
 
 @mixin add-right-gutter($important: "") {
-  margin-right: $default-horizontal-margin * 2 #{$important};
+  margin-right: $default-horizontal-margin * 2 unquote($important);
 }
 
 @mixin add-left-gutter($important: "") {
-  margin-left: $default-horizontal-margin * 2 #{$important};
+  margin-left: $default-horizontal-margin * 2 unquote($important);
 }
 
 @mixin add-label-margin {
@@ -45,9 +45,9 @@
 }
 
 @mixin add-top-padding($important: "") {
-  padding-top: $default-vertical-padding #{$important};
+  padding-top: $default-vertical-padding unquote($important);
 }
 
 @mixin add-bottom-padding($important: "") {
-  padding-bottom: $default-vertical-padding #{$important};
+  padding-bottom: $default-vertical-padding unquote($important);
 }
