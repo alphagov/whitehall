@@ -54,8 +54,6 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     content_item = PublishingApiPresenters.presenter_for(person).as_json
     expected_publish_request = stub_publishing_api_put_item(person.search_link, content_item)
 
-    person.update_attribute(:forename, 'Edited person')
-
     assert_requested expected_publish_request
   end
 end
