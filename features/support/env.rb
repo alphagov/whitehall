@@ -7,7 +7,6 @@ Bundler.require(:cucumber)
 # files.
 
 require 'cucumber/rails'
-require 'sidekiq/testing/inline'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -51,7 +50,3 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
-
-Before do
-  rummager_has_no_policies_for_any_type
-end
