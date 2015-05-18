@@ -8,7 +8,7 @@ GIT
 GIT
   remote: git://github.com/bolandrm/sassc-rails.git
   revision: cac614328c2830646dc9d1ee218caf6204b8e0c8
-  branch: master
+  ref: cac614328c2830646dc9d1ee218caf6204b8e0c8
   specs:
     sassc-rails (0.0.9)
       rails (>= 4.0.0)
