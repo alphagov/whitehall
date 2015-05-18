@@ -17,6 +17,7 @@ Feature: Administering worldwide organisation
 
   Background:
     Given I am a GDS editor
+    And a world location "United Kingdom" exists
 
   Scenario: Creating worldwide organisation
     Given the organisation "Department of Beards" exists

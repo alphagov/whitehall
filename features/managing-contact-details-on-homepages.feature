@@ -11,6 +11,7 @@ Feature: managing contact details on home pages
 
   Background:
     Given I am a GDS editor
+    And a world location "United Kingdom" exists
 
   Scenario: Arranging contacts for an organisation
     Given there is an organisation with some contacts on its home page
