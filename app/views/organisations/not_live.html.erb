@@ -23,7 +23,7 @@
       <div class="description">
         <%= govspeak_to_html @organisation.summary %>
         <% unless @organisation.closed? %>
-          <% if @organisation.parent_organisations.any? || @organisation.active_child_organisations_excluding_sub_organisations.any? %>
+          <% if @organisation.parent_organisations.any? || @organisation.supporting_bodies.any? %>
             <p class="parent_organisations">
               <%= organisation_display_name_including_parental_and_child_relationships(@organisation) %>
             </p>

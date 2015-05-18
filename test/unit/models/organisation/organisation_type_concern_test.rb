@@ -125,18 +125,19 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     end
   end
 
-  test "active_child_organisations_excluding_sub_organisations should live up to it's name and in alphabetical order" do
+  test "supporting_bodies should exclude closed orgs, sub orgs, and courts and tribunals and be in alphabetical order" do
     parent_org_1 = create(:organisation)
     parent_org_2 = create(:organisation)
     child_org_1 = create(:organisation, parent_organisations: [parent_org_1], name: "b second")
     child_org_2 = create(:sub_organisation, parent_organisations: [parent_org_1])
     child_org_3 = create(:organisation, parent_organisations: [parent_org_1], name: "a first")
     child_org_4 = create(:closed_organisation, parent_organisations: [parent_org_1])
+    child_org_5 = create(:court, parent_organisations: [parent_org_1])
 
-    assert_equal [child_org_3, child_org_1], parent_org_1.active_child_organisations_excluding_sub_organisations
+    assert_equal [child_org_3, child_org_1], parent_org_1.supporting_bodies
   end
 
-  test "active_child_organisations_excluding_sub_organisations_grouped_by_type should return a 2D array with each 1st level member being a OrganisationType and a collection of organisations" do
+  test "supporting_bodies_grouped_by_type should return a 2D array with each 1st level member being a OrganisationType and a collection of organisations" do
     parent_org = create(:organisation)
     child_org_1 = create(:organisation, parent_organisations: [parent_org], organisation_type_key: :executive_agency)
     child_org_2 = create(:sub_organisation, parent_organisations: [parent_org], organisation_type_key: :advisory_ndpb)
@@ -144,7 +145,7 @@ class OrganisationTypeConcernTest < ActiveSupport::TestCase
     assert_equal [
       [OrganisationType.executive_agency, [child_org_1]],
       [OrganisationType.advisory_ndpb,    [child_org_2]]
-    ], parent_org.active_child_organisations_excluding_sub_organisations_grouped_by_type
+    ], parent_org.supporting_bodies_grouped_by_type
   end
 
   test 'can list its sub-organisations' do

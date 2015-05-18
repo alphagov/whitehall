@@ -32,7 +32,7 @@
               <p class="description"><%= @organisation.summary %></p>
             <% end %>
             <% if !@organisation.court_or_hmcts_tribunal? &&
-              (@organisation.parent_organisations.any? || @organisation.active_child_organisations_excluding_sub_organisations.any?) %>
+              (@organisation.parent_organisations.any? || @organisation.supporting_bodies.any?) %>
               <p class="parent_organisations">
                 <%= organisation_display_name_including_parental_and_child_relationships(@organisation) %>
               </p>

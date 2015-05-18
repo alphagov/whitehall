@@ -116,7 +116,7 @@ module OrganisationHelper
 
   def organisation_display_name_including_parental_and_child_relationships(organisation)
     organisation_name = organisation_display_name_and_parental_relationship(organisation)
-    child_organisations = organisation.active_child_organisations_excluding_sub_organisations
+    child_organisations = organisation.supporting_bodies
 
     if child_organisations.any?
       organisation_name.chomp!('.')
