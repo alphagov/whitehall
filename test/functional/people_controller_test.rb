@@ -97,7 +97,6 @@ class PeopleControllerTest < ActionController::TestCase
 
     assert_select "#policy" do
       assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
-      assert_select ".summary", text: "The governments policy on welfare reform"
     end
   end
 end

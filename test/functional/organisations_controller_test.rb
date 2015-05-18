@@ -353,7 +353,6 @@ class OrganisationsControllerTest < ActionController::TestCase
     assert_select "#policies" do
       assert_select "a[href='/government/policies/helping-people-to-find-and-stay-in-work']",
                     text: "Employment"
-      assert_select ".summary", text: "How the government is getting Britain working and helping people break the cycle of benefit dependency."
 
       assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end
@@ -386,7 +385,6 @@ class OrganisationsControllerTest < ActionController::TestCase
 
     assert_select "#policies" do
       assert_select "a[href='/government/policies/welfare-reform']", text: "Welfare reform"
-      assert_select ".summary", text: "The governments policy on welfare reform"
 
       assert_select "a[href='#{policies_finder_path(organisations: [organisation])}']"
     end
