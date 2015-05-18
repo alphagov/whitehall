@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514093737) do
+ActiveRecord::Schema.define(version: 20150518121912) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -947,6 +947,7 @@ ActiveRecord::Schema.define(version: 20150514093737) do
     t.text     "description", limit: 65535
     t.text     "summary",     limit: 65535
     t.string   "slug",        limit: 255
+    t.string   "content_id",  limit: 255,   null: false
   end
 
   add_index "policy_groups", ["slug"], name: "index_policy_groups_on_slug", using: :btree

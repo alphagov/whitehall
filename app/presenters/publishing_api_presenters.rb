@@ -11,17 +11,21 @@ module PublishingApiPresenters
 
 private
   def self.presenter_class_for(model)
-    if model.is_a?(::Edition)
+    case model
+    when ::Edition
       presenter_class_for_edition(model)
-    elsif model.is_a?(::Unpublishing)
+    when ::Unpublishing
       PublishingApiPresenters::Unpublishing
+    when PolicyGroup
+      PublishingApiPresenters::WorkingGroup
     else
       PublishingApiPresenters::Placeholder
     end
   end
 
   def self.presenter_class_for_edition(edition)
-    if edition.is_a?(::CaseStudy)
+    case edition
+    when ::CaseStudy
       PublishingApiPresenters::CaseStudy
     else
       PublishingApiPresenters::Edition
