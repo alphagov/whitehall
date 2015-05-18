@@ -54,7 +54,14 @@ class PublishesToPublishingApiTest < ActiveSupport::TestCase
     content_item = PublishingApiPresenters.presenter_for(person).as_json
     expected_publish_request = stub_publishing_api_put_item(person.search_link, content_item)
 
-    person.update_attribute(:forename, 'Edited person')
+    assert_requested expected_publish_request
+  end
+
+  test "update publishes to Publishing API using :en locale when the object is not translatable" do
+    policy_group = create(:policy_group)
+
+    content_item = PublishingApiPresenters.presenter_for(policy_group).as_json
+    expected_publish_request = stub_publishing_api_put_item(policy_group.search_link, content_item)
 
     assert_requested expected_publish_request
   end

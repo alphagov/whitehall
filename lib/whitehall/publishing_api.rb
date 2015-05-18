@@ -53,14 +53,11 @@ module Whitehall
 
   private
 
-    # Note: this method does not account for non-translatable models, e.g.
-    # PolicyGroup. Once we are pushing those to the Publishing API, this method
-    # will need updating to return just the English locale for those models.
     def self.locales_for(model_instance)
-      if (locales = model_instance.translated_locales).empty?
-        [:en]
-      else
+      if model_instance.respond_to?(:translated_locales) && (locales = model_instance.translated_locales).any?
         locales
+      else
+        [:en]
       end
     end
 
