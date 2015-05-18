@@ -39,6 +39,10 @@ module Whitehall
       :corporate_information_page_search_index_observer
     ]
 
+    # Opt in to new transaction callback error handling behaviour to get rid of
+    # deprecation warnings.
+    #
+    # See http://guides.rubyonrails.org/upgrading_ruby_on_rails.html#error-handling-in-transaction-callbacks
     config.active_record.raise_in_transactional_callbacks = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
