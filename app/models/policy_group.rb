@@ -1,6 +1,7 @@
 class PolicyGroup < ActiveRecord::Base
   include Searchable
   include ::Attachable
+  include PublishesToPublishingApi
 
   validates :email, email_format: true, allow_blank: true
   validates :name, presence: true

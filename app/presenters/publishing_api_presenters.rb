@@ -16,6 +16,8 @@ private
       presenter_class_for_edition(model)
     when ::Unpublishing
       PublishingApiPresenters::Unpublishing
+    when PolicyGroup
+      PublishingApiPresenters::WorkingGroup
     else
       PublishingApiPresenters::Placeholder
     end

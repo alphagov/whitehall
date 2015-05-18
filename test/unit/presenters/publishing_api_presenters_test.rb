@@ -39,4 +39,11 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     assert_equal PublishingApiPresenters::Placeholder, presenter.class
     assert_equal world_location, presenter.item
   end
+
+  test ".presenter_for returns a WorkingGroup presenter for a policy group" do
+    policy_group = PolicyGroup.new
+    presenter = PublishingApiPresenters.presenter_for(policy_group)
+
+    assert_equal PublishingApiPresenters::WorkingGroup, presenter.class
+  end
 end
