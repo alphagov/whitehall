@@ -255,7 +255,17 @@
   }
 
   .heading-extra {
-    padding-top: 45px;
+    margin-top: 0;
+
+    #logo-image{
+      max-width: 70%;
+      @include media(tablet) {
+        max-width: 100%;
+      }
+    }
+    @include media(tablet) {
+      padding-top: 45px;
+    }
   }
 
 
