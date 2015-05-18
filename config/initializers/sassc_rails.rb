@@ -1,3 +1,4 @@
+# As recommended in https://github.com/bolandrm/sassc-rails/issues/6#issuecomment-100949872
 require "sprockets/engines"
 
 module Extensions
