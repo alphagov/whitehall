@@ -22,7 +22,7 @@
     <div class="inner-block">
       <div class="description">
         <%= govspeak_to_html @organisation.summary %>
-        <% unless @organisation.closed? %>
+        <% unless @organisation.closed? || @organisation.court_or_hmcts_tribunal? %>
           <% if @organisation.parent_organisations.any? || @organisation.supporting_bodies.any? %>
             <p class="parent_organisations">
               <%= organisation_display_name_including_parental_and_child_relationships(@organisation) %>
