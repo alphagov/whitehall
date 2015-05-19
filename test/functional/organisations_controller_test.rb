@@ -871,13 +871,13 @@ class OrganisationsControllerTest < ActionController::TestCase
     end
   end
 
-  view_test "courts show the 'About Us' body as govspeak under 'Who we are', with no link to the page" do
+  view_test "courts show the 'About Us' body as govspeak under 'What we do', with no link to the page" do
     court = create(:court)
     create(:about_corporate_information_page, organisation: court, body: "This is *who* we are")
     get :show, id: court, courts_only: true
 
-    assert_select "#who-we-are" do
-      assert_select "h1", text: "Who we are"
+    assert_select "#what-we-do" do
+      assert_select "h1", text: "What we do"
       assert_select ".overview", text: /This is who we are/
       refute_select ".overview a", text: /Read more about what we do/
       refute_select ".parent_organisations"
@@ -889,8 +889,8 @@ class OrganisationsControllerTest < ActionController::TestCase
     create(:about_corporate_information_page, organisation: hmcts_tribunal, body: "This is *who* we are")
     get :show, id: hmcts_tribunal, courts_only: true
 
-    assert_select "#who-we-are" do
-      assert_select "h1", text: "Who we are"
+    assert_select "#what-we-do" do
+      assert_select "h1", text: "What we do"
       assert_select ".overview", text: /This is who we are/
       refute_select ".overview a", text: /Read more about what we do/
       refute_select ".parent_organisations"

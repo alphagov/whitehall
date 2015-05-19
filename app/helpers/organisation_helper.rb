@@ -258,8 +258,4 @@ module OrganisationHelper
     organisation.live? && (!organisation.court_or_hmcts_tribunal? ||
       organisation.corporate_information_pages.published.reject { |cip| cip.slug == "about" }.any?)
   end
-
-  def organisation_body_heading_key(organisation)
-    organisation.court_or_hmcts_tribunal? ? 'who_we_are' : 'what_we_do'
-  end
 end
