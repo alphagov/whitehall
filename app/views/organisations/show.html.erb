@@ -79,7 +79,7 @@
             <h1 class="label"><%= t('organisation.headings.our_policies') %></h1>
           </div>
           <div class="content">
-            <%= render partial: "policies/list_description", locals: {policies: @policies} %>
+            <%= render partial: "policies/document_list", locals: {policies: @policies} %>
             <p class="see-all">
               <%= link_to t_see_all_our(:policy), policies_finder_path(organisations: [@organisation]) %>
             </p>
