@@ -359,7 +359,7 @@ GEM
     sassc (1.2.0)
       bundler
       ffi (~> 1.9.6)
-    shared_mustache (0.2.0)
+    shared_mustache (0.2.1)
       execjs (>= 1.2.4)
       mustache (~> 0.99.4)
     sidekiq (3.3.0)
@@ -505,7 +505,7 @@ DEPENDENCIES
   sass (= 3.4.9)
   sass-rails
   sassc-rails!
-  shared_mustache (~> 0.2.0)
+  shared_mustache (~> 0.2.1)
   sidekiq (~> 3.3.0)
   sidekiq-logging-json (= 0.0.14)
   simplecov

@@ -26,7 +26,7 @@ gem 'gds-api-adapters', '18.7.0'
 gem 'mime-types', '1.25.1'
 gem 'whenever', '0.9.4', require: false
 gem 'mini_magick'
-gem 'shared_mustache', '~> 0.2.0'
+gem 'shared_mustache', '~> 0.2.1'
 gem 'rails-i18n'
 gem 'link_header'
 gem 'logstasher', '0.6.2'
