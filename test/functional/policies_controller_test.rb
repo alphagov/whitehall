@@ -100,25 +100,6 @@ class PoliciesControllerTest < ActionController::TestCase
     assert_equal published_edition, assigns(:document)
   end
 
-  view_test "should link to topics related to the policy" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    edition = create(:published_policy, topics: [first_topic, second_topic])
-
-    get :show, id: edition.document
-
-    assert_select "a", text: first_topic.name
-    assert_select "a", text: second_topic.name
-  end
-
-  view_test "should not show topics where none exist" do
-    edition = create(:published_policy, topics: [])
-
-    get :show, id: edition.document
-
-    assert_select ".topics", count: 0
-  end
-
   view_test "should link to organisations related to the policy" do
     first_org = create(:ministerial_department)
     second_org = create(:sub_organisation)
@@ -200,16 +181,6 @@ That's all
       assert_select "a[href='#{policy_supporting_pages_path(policy.document)}']"
       assert_select "a[href='#{activity_policy_path(policy.document)}']"
     end
-  end
-
-  view_test "activity displays the policy's topics" do
-    topic = create(:topic)
-    policy = create(:published_policy, topics: [topic])
-    publication = create(:published_publication, related_editions: [policy])
-
-    get :activity, id: policy.document
-
-    assert_select '.meta a', text: topic.name
   end
 
   view_test "activity adds the current class to the activity link in the policy navigation" do
