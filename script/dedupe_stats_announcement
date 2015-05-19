@@ -32,8 +32,8 @@ puts "Performing operation as NOOP" if options[:noop]
 require File.expand_path('../../config/application',  __FILE__)
 Rails.application.require_environment!
 
-duplicate_announcement = StatisticsAnnouncement.find(duplicate_slug)
-authoritative_announcement = StatisticsAnnouncement.find(authoritative_slug)
+duplicate_announcement = StatisticsAnnouncement.friendly.find(duplicate_slug)
+authoritative_announcement = StatisticsAnnouncement.friendly.find(authoritative_slug)
 logger = Logger.new(STDOUT)
 
 DataHygiene::DuplicateStatisticsAnnouncement.new(duplicate_announcement, logger, options[:noop]).destroy_and_redirect_to(authoritative_announcement)
