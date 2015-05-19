@@ -41,9 +41,8 @@ begin
       ::CodeStatistics::TEST_TYPES << "Cucumber features" if File.exist?('features')
     end
   end
-
   desc 'Alias for cucumber:ok'
-  task :cucumber => ['cucumber:ok']
+  task :cucumber => 'cucumber:ok'
 
   task :default => :cucumber
 

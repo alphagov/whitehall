@@ -110,7 +110,7 @@ group :test_coverage do
 end
 
 group :cucumber do
-  gem 'cucumber-rails', '~> 1.4', require: false
+  gem 'cucumber-rails', '~> 1.4.2', require: false
   gem 'launchy', '~> 2.4.3'
   gem 'capybara', '~> 2.4.4'
   gem 'poltergeist', '~> 1.5.1'

@@ -104,12 +104,12 @@ GEM
     connection_pool (2.1.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
-    cucumber (1.3.18)
+    cucumber (1.3.19)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
       gherkin (~> 2.12)
       multi_json (>= 1.7.5, < 2.0)
-      multi_test (>= 0.1.1)
+      multi_test (>= 0.1.2)
     cucumber-rails (1.4.2)
       capybara (>= 1.1.2, < 3)
       cucumber (>= 1.3.8, < 2)
@@ -207,7 +207,7 @@ GEM
     logstasher (0.6.2)
       logstash-event (~> 1.1.0)
       request_store
-    loofah (2.0.1)
+    loofah (2.0.2)
       nokogiri (>= 1.5.9)
     lrucache (0.1.4)
       PriorityQueue (~> 0.1.2)
@@ -225,7 +225,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.11.0)
-    multi_test (0.1.1)
+    multi_test (0.1.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     mustache (0.99.8)
@@ -387,9 +387,9 @@ GEM
       rest-client
     slop (3.6.0)
     spring (1.1.3)
-    sprockets (3.0.3)
+    sprockets (3.1.0)
       rack (~> 1.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -452,7 +452,7 @@ DEPENDENCIES
   carrierwave (= 0.9.0)
   chronic
   ci_reporter
-  cucumber-rails (~> 1.4)
+  cucumber-rails (~> 1.4.2)
   dalli
   database_cleaner (= 1.4.0)
   equivalent-xml (= 0.5.1)
