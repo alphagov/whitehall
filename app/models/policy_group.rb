@@ -9,8 +9,13 @@ class PolicyGroup < ActiveRecord::Base
   validates_with SafeHtmlValidator
   validates_with NoFootnotesInGovspeakValidator, attribute: :description
 
-  has_many :edition_policy_groups
-  has_many :policies, through: :edition_policy_groups, source: :edition
+  def published_policies
+    Whitehall.unified_search_client.unified_search(
+      filter_policy_groups: [slug],
+      filter_format: "policy",
+      order: "-public_timestamp"
+    ).results
+  end
 
   def has_summary?
     true

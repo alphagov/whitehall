@@ -59,19 +59,6 @@ class PolicyTest < ActiveSupport::TestCase
     assert draft_policy.related_editions.include?(second_draft)
   end
 
-  test "should build a draft copy with policy groups" do
-    published_policy = create(:published_policy)
-    policy_group = create(:policy_group, policies: [published_policy])
-
-    assert published_policy.policy_groups.include?(policy_group)
-
-    draft_policy = published_policy.create_draft(create(:policy_writer))
-    draft_policy.change_note = 'change-note'
-    assert draft_policy.valid?
-
-    assert draft_policy.policy_groups.include?(policy_group)
-  end
-
   test "can belong to multiple topics" do
     topic_1 = create(:topic)
     topic_2 = create(:topic)

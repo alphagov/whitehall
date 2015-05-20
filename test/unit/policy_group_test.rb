@@ -1,6 +1,9 @@
 require "test_helper"
+require "gds_api/test_helpers/rummager"
 
 class PolicyGroupTest < ActiveSupport::TestCase
+  include GdsApi::TestHelpers::Rummager
+
   test "should be invalid without a name" do
     policy_group = build(:policy_group, name: '')
     refute policy_group.valid?
@@ -33,5 +36,25 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group = create(:policy_group)
     Whitehall::PublishingApi.expects(:publish_async).with(policy_group).once
     policy_group.publish_to_publishing_api
+  end
+
+  test "#published_policies should return the all policies" do
+    policy_group = create(:policy_group)
+    rummager_has_new_policies_for_every_type
+
+    all_policy_titles = [
+      "Welfare reform",
+      "State Pension simplification",
+      "State Pension age",
+      "Poverty and social justice",
+      "Older people",
+      "Household energy",
+      "Health and safety reform",
+      "European funds",
+      "Employment",
+      "Child maintenance reform",
+    ]
+
+    assert_equal all_policy_titles, policy_group.published_policies.map(&:title)
   end
 end
