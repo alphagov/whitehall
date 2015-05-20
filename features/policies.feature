@@ -8,11 +8,6 @@ A member of the public Should be able to view policies
 Background:
   Given I am a writer
 
-Scenario: Viewing a policy that appears in multiple topics
-  Given a published policy "Policy" that appears in the "Education" and "Work and pensions" topics
-  When I visit the policy "Policy"
-  Then I should see links to the "Education" and "Work and pensions" topics
-
 Scenario: Viewing a policy that has multiple responsible ministers
   Given a published policy "Policy" that's the responsibility of:
     | Ministerial Role  | Person          |

@@ -126,18 +126,6 @@ class SupportingPagesControllerTest < ActionController::TestCase
     assert_equal supporting_page, assigns(:document)
   end
 
-  view_test "should link to topics" do
-    first_topic = create(:topic)
-    second_topic = create(:topic)
-    policy = create(:published_policy, topics: [first_topic, second_topic])
-    supporting_page = create(:published_supporting_page, related_policies: [policy])
-
-    get :show, policy_id: policy.document, id: supporting_page.document
-
-    assert_select "a", text: first_topic.name
-    assert_select "a", text: second_topic.name
-  end
-
   view_test "should link to organisations from within the metadata navigation" do
     first_org = create(:organisation)
     second_org = create(:organisation)

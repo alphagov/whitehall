@@ -1,6 +1,5 @@
 <%
   policies ||= []
-  topics ||= []
   history = document.change_history
 %>
 <div class="document-footer-meta js-footer">
@@ -40,7 +39,7 @@
         <% end %>
       <% end %>
 
-      <% if (part_of = part_of_metadata(document, policies, topics)).any? %>
+      <% if (part_of = part_of_metadata(document, policies)).any? %>
         <dt><%= t('document.headings.part_of') %>:</dt>
         <% part_of.each do |link| %>
           <dd class="part-of"><%= link %></dd>

@@ -190,22 +190,11 @@ class DocumentHelperTest < ActionView::TestCase
     mainstream_category = create(:mainstream_category)
     guide = create(:news_article)
 
-    metadata_links = part_of_metadata(guide, [], [], nil, mainstream_category).join(' ')
+    metadata_links = part_of_metadata(guide, [], nil, mainstream_category).join(' ')
     assert_select_within_html metadata_links,
                               "a[href=?]",
                               mainstream_category_path(mainstream_category),
                               text: mainstream_category.title
-  end
-
-  test "part_of_metadata generates topic metadata" do
-    topic = create(:topic)
-    edition = create(:news_article, topics: [topic])
-
-    metadata_links = part_of_metadata(edition, [], [topic]).join(' ')
-    assert_select_within_html metadata_links,
-                              "a[href=?]",
-                              topic_path(topic),
-                              text: topic.name
   end
 
   test "part_of_metadata generates world_locations metadata" do

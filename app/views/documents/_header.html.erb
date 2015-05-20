@@ -5,7 +5,6 @@
 <%
   header_title ||= ""
   policies ||= nil
-  topics ||= []
   primary_mainstream_category ||= nil
   specialist_tag_finder = SpecialistTagFinder.new(@document)
 %>
@@ -28,7 +27,6 @@
 <%= render 'documents/metadata', document: document,
                                  footer_meta: (defined?(footer_meta) ? footer_meta : false),
                                  policies: policies,
-                                 topics: topics,
                                  primary_mainstream_category: primary_mainstream_category,
                                  specialist_tag_finder: specialist_tag_finder %>
 

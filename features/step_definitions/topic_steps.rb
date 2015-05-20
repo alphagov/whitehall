@@ -160,13 +160,6 @@ Then /^I should see the topics "([^"]*)" and "([^"]*)"$/ do |first_topic_name, s
   assert page.has_css?(record_css_selector(second_topic), text: second_topic_name)
 end
 
-Then /^I should see links to the "([^"]*)" and "([^"]*)" topics$/ do |topic_1_name, topic_2_name|
-  topic_1 = Topic.find_by!(name: topic_1_name)
-  topic_2 = Topic.find_by!(name: topic_2_name)
-  assert page.has_css?("a[href='#{topic_path(topic_1)}']", text: topic_1_name)
-  assert page.has_css?("a[href='#{topic_path(topic_2)}']", text: topic_2_name)
-end
-
 Then /^I should see a link to the related topic "([^"]*)"$/ do |related_name|
   related_topic = Topic.find_by(name: related_name)
   assert page.has_css?(".related-topics a[href='#{topic_path(related_topic)}']", text: related_name)
