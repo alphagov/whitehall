@@ -222,6 +222,16 @@ class Admin::TaggableContentHelperTest < ActionView::TestCase
     ], taggable_worldwide_organisations_container
   end
 
+  test '#taggable_worldwide_organisations_container only returns worldwide organisations once even if they have more than one translation' do
+    world_org_1 = create(:worldwide_organisation, name: 'World Org 1', translated_into: [:fr, :es])
+    world_org_2 = create(:worldwide_organisation, name: 'World Org 2')
+
+    assert_equal [
+      ["World Org 1", world_org_1.id],
+      ["World Org 2", world_org_2.id],
+    ], taggable_worldwide_organisations_container
+  end
+
   test '#taggable_ministerial_role_appointments_cache_digest changes when a role appointment is updated' do
     role_appointment = Timecop.travel 1.year.ago do
       create(:ministerial_role_appointment, started_at: 1.day.ago)
