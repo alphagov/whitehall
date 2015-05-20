@@ -50,6 +50,32 @@ module PublicDocumentRoutesHelper
     document_url(edition, options)
   end
 
+  def organisation_url(slug_or_organisation, options = {})
+    organisation_or_court = case slug_or_organisation
+                            when String
+                              Organisation.find_by(slug: slug_or_organisation)
+                            when Organisation
+                              organisation_or_court = slug_or_organisation
+                            else
+                              raise ArgumentError.new("Must provide a slug or Organisation")
+                            end
+
+    if organisation_or_court.nil?
+      logger.warn "Generating a URL for a missing organisation: #{slug_or_organisation}"
+      return super(slug_or_organisation, options)
+    end
+
+    if organisation_or_court.court_or_hmcts_tribunal?
+      court_url(organisation_or_court, options)
+    else
+      super(organisation_or_court, options)
+    end
+  end
+
+  def organisation_path(organisation_or_court_or_slug, options = {})
+    organisation_url(organisation_or_court_or_slug, options.merge(only_path: true))
+  end
+
   private
 
   def build_url_for_corporate_information_page(edition, options)

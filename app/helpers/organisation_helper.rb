@@ -246,14 +246,6 @@ module OrganisationHelper
     content_tag(:p, contents.html_safe)
   end
 
-  def organisation_or_court_path(organisation_or_court)
-    if organisation_or_court.court_or_hmcts_tribunal?
-      court_path(organisation_or_court)
-    else
-      organisation_path(organisation_or_court)
-    end
-  end
-
   def show_corporate_information_pages?(organisation)
     organisation.live? && (!organisation.court_or_hmcts_tribunal? ||
       organisation.corporate_information_pages.published.reject { |cip| cip.slug == "about" }.any?)

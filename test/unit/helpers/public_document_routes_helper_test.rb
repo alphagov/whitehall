@@ -118,4 +118,38 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
       assert public_document_url(non_english_edition, locale: 'de').include? ".fr"
     end
   end
+
+  test "organisations have the correct path generated" do
+    org = create(:organisation)
+
+    assert_equal "/government/organisations/#{org.slug}", organisation_path(org)
+    assert_equal "http://test.host/government/organisations/#{org.slug}", organisation_url(org)
+  end
+
+  test "courts have the correct path generated" do
+    court = create(:court)
+
+    assert_equal "/courts-tribunals/#{court.slug}", organisation_path(court)
+    assert_equal "http://test.host/courts-tribunals/#{court.slug}", organisation_url(court)
+  end
+
+  test "HMCTS tribunals have the correct path generated" do
+    tribunal = create(:hmcts_tribunal)
+
+    assert_equal "/courts-tribunals/#{tribunal.slug}", organisation_path(tribunal)
+    assert_equal "http://test.host/courts-tribunals/#{tribunal.slug}", organisation_url(tribunal)
+  end
+
+  test "organisation_path still works with slugs" do
+    court = create(:court)
+    org = create(:organisation)
+
+    assert_equal "/courts-tribunals/#{court.slug}", organisation_path(court.slug)
+    assert_equal "/government/organisations/#{org.slug}", organisation_path(org.slug)
+  end
+
+  test "organisation_path naively uses the slug in the path if the organisation is missing" do
+    assert_equal "/government/organisations/foobar", organisation_path("foobar")
+    assert_equal "http://test.host/government/organisations/foobar", organisation_url("foobar")
+  end
 end
