@@ -4,6 +4,7 @@
   width: $full-width;
   margin: 0 ($gutter * -1 + 2px);
   padding: 0 ($gutter - 2px);
+  @include box-sizing(border-box);
 
   li {
     list-style: none;
