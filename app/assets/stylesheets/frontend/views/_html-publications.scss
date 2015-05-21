@@ -280,6 +280,10 @@
           ol+p {
             margin-top: $gutter-one-third;
           }
+
+          a[rel="external"] {
+            @include external-link-14;
+          }
         }
       }
       .contact {
