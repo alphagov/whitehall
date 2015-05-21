@@ -106,7 +106,7 @@
           &.numbered {
             margin-left: $gutter-two-thirds;
             @include media(desktop) {
-              margin-left: $gutter;              
+              margin-left: $gutter;
             }
             a {
               .heading-number {
@@ -279,6 +279,10 @@
           ul+p, ul+ol,
           ol+p {
             margin-top: $gutter-one-third;
+          }
+
+          a[rel="external"] {
+            @include external-link-14;
           }
         }
       }
