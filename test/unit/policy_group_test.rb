@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PolicyGroupTest < ActiveSupport::TestCase
+  include PolicyTaggingHelpers
+
   test "should be invalid without a name" do
     policy_group = build(:policy_group, name: '')
     refute policy_group.valid?
@@ -33,5 +35,10 @@ class PolicyGroupTest < ActiveSupport::TestCase
     policy_group = create(:policy_group)
     Whitehall::PublishingApi.expects(:publish_async).with(policy_group).once
     policy_group.publish_to_publishing_api
+  end
+
+  test "#published_policies should return all tagged policies" do
+    policy_group = create(:policy_group)
+    assert_published_policies_returns_all_tagged_policies(policy_group)
   end
 end

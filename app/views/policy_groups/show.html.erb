@@ -51,13 +51,7 @@
       <% end %>
       <% if @policies.any? %>
         <h2 class="label" id="policies">Policies</h2>
-        <ul class="policies">
-          <% @policies.each do |policy| %>
-            <%= content_tag_for :li, policy do %>
-              <% link_to policy.title, public_document_path(policy) %>
-            <% end %>
-          <% end %>
-        </ul>
+        <%= render 'policies/document_list', policies: @policies %>
       <% end %>
       <% if @policy_group.email.present? %>
         <h2 class="label" id="contact-details">Contact details</h2>
