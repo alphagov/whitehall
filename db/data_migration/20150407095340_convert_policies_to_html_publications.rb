@@ -55,7 +55,7 @@ $CTA
     sp_body.gsub(/(?:^!@([0-9]+)|\[InlineAttachment:([0-9]+)\])/) do
       attachment_index = $1 || $2
 
-      if attachment_index && attachment = supporting_page.attachments[$1.to_i - 1]
+      if attachment_index && attachment = supporting_page.attachments[attachment_index.to_i - 1]
         "[#{attachment.title}](#{attachment.url})"
       else
         ""
