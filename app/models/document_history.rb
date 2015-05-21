@@ -83,7 +83,7 @@ class DocumentHistory
 
   def unique_supporting_pages_changes
     supporting_pages_changes.reject do |sub_change|
-      document_changes.any? { |main_change| main_change.public_timestamp.to_i == sub_change.public_timestamp.to_i }
+      document_changes.any? { |main_change| sub_change.public_timestamp.to_i <= main_change.public_timestamp.to_i }
     end
   end
 end
