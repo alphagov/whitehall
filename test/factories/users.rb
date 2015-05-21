@@ -59,4 +59,15 @@ FactoryGirl.define do
   factory :world_writer, parent: :user do
     permissions { [User::Permissions::SIGNIN, User::Permissions::WORLD_WRITER] }
   end
+
+  factory :gds_team_user, parent: :user do
+    name "GDS Inside Government Team"
+    email 'govuk-whitehall@digital.cabinet-office.gov.uk'
+    permissions { [
+                    User::Permissions::SIGNIN,
+                    User::Permissions::DEPARTMENTAL_EDITOR,
+                    User::Permissions::GDS_EDITOR,
+                    User::Permissions::FORCE_PUBLISH_ANYTHING,
+                  ] }
+  end
 end

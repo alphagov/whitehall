@@ -2,7 +2,7 @@ require "test_helper"
 
 class ForcePublicationAttemptTest < ActiveSupport::TestCase
   setup do
-    @gds_team = create(:gds_editor, name: "GDS Inside Government Team")
+    @gds_team = create(:gds_team_user)
   end
 
   test "reports the start time and total number of documents to be force published" do

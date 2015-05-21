@@ -16,7 +16,7 @@ class TopicChangesProcessorTest < ActiveSupport::TestCase
     @draft_edition2 = create(:draft_publication)
     @old_tag = 'oil-and-gas/offshore'
     @new_tag = 'oil-and-gas/really-far-out'
-    @gds_user = create(:user, email: 'govuk-whitehall@digital.cabinet-office.gov.uk')
+    @gds_user = create(:gds_team_user)
   end
 
   def tear_down
