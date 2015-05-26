@@ -7,7 +7,7 @@ class SpecialistSectorCleanupTest < ActiveSupport::TestCase
   setup do
     @published_edition = create(:published_edition)
     @draft_edition = create(:draft_edition)
-    @gds_user = create(:user, email: 'govuk-whitehall@digital.cabinet-office.gov.uk')
+    @gds_user = create(:gds_team_user)
   end
 
   test "#any_taggings? is true if any content is tagged to the sector" do

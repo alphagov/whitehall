@@ -7,7 +7,7 @@ class PolicyPaperPublisherTest < ActiveSupport::TestCase
       first_published_at: 1.year.ago
     )
 
-    @gds_user = FactoryGirl.create(:user, email: "govuk-whitehall@digital.cabinet-office.gov.uk")
+    @gds_user = create(:gds_team_user)
 
     Whitehall::GovUkDelivery::Worker.stubs(:notify!)
     Whitehall::SearchIndex.stubs(:add)
