@@ -25,4 +25,16 @@ class WhitehallTest < ActiveSupport::TestCase
       ENV['TEST_ENV_NUMBER'] = before
     end
   end
+
+  test "Whitehall.register_edition_with_panopticon sends a registerable edition to the Panopticon registerer client" do
+    edition = stub("edition")
+    registerable_edition = stub("registerable_edition", kind: "publication_policy_paper")
+    registerer = stub("GdsApi::Panopticon::Registerer")
+    registerer.expects(:register).with(registerable_edition)
+
+    RegisterableEdition.expects(:new).with(edition).returns(registerable_edition)
+    GdsApi::Panopticon::Registerer.expects(:new).with(owning_app: 'whitehall', rendering_app: 'whitehall-frontend', kind: registerable_edition.kind).returns(registerer)
+
+    Whitehall.register_edition_with_panopticon(edition)
+  end
 end
