@@ -40,6 +40,27 @@ require 'test_helper'
         publication.reload.change_history.changes.map(&:to_a)
     end
 
+    test "handles archived publications" do
+      archive_the_publication
+
+      history_writer = PolicyPublicationHistoryWriter.new(publication, policy)
+      history_writer.rewrite_history!
+
+      expected_history = [
+        [4.days.ago, 'Policy document... preserved in a different format'],
+        [8.months.ago, 'More changes were made.'],
+        [9.months.ago, 'Some changes were made.'],
+        [1.year.ago, 'First published.']
+      ]
+
+      latest_edition = publication.document.latest_edition
+      assert latest_edition.archived?
+      assert unpublishing = latest_edition.unpublishing
+      assert_equal 'Published by mistake', unpublishing.explanation
+      assert_equal expected_history,
+        publication.reload.change_history.changes.map(&:to_a)
+    end
+
   private
     attr_reader :policy, :publication
 
@@ -102,6 +123,14 @@ require 'test_helper'
         edition = minor_change.create_draft(user)
         edition.minor_change = true
         force_publish(edition)
+      end
+    end
+
+    def archive_the_publication
+      Timecop.travel 2.days.ago do
+        publication.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id,
+                                       explanation: "Published by mistake")
+        publication.archive!
       end
     end
   end

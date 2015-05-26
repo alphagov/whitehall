@@ -10,8 +10,10 @@ module DataHygiene
       Edition::AuditTrail.acting_as(gds_user) do
         logger.info "Backfilling history for: (#{publication.id}) #{publication.title}"
         store_publication_history_and_reset_first_edition
+        store_and_reset_archiving
         re_edition_for_major_policy_changes
         replay_publication_history
+        re_archive_if_required
         publication.document.reload.change_history.changes.each do |change|
           logger.info "\t(#{change.public_timestamp.to_date.to_s(:uk_short)}) #{change.note}"
         end
@@ -24,6 +26,20 @@ module DataHygiene
     def store_publication_history_and_reset_first_edition
       @publication_history = publication.change_history
       publication.update_column(:change_note, nil)
+    end
+
+    def store_and_reset_archiving
+      if latest_edition.archived?
+        @unpublishing = latest_edition.unpublishing
+        latest_edition.update_column(:state, :published)
+      end
+    end
+
+    def re_archive_if_required
+      if @unpublishing
+        latest_edition.unpublishing = @unpublishing
+        latest_edition.update_column(:state, :archived)
+      end
     end
 
     def replay_publication_history
@@ -71,7 +87,7 @@ module DataHygiene
     end
 
     def latest_edition
-      publication.document.latest_edition
+      publication.document.reload.latest_edition
     end
 
     def gds_user
