@@ -14,6 +14,7 @@ module DataHygiene
         re_edition_for_major_policy_changes
         replay_publication_history
         re_archive_if_required
+        add_an_editorial_remark
         publication.document.reload.change_history.changes.each do |change|
           logger.info "\t(#{change.public_timestamp.to_date.to_s(:uk_short)}) #{change.note}"
         end
@@ -33,6 +34,10 @@ module DataHygiene
         @unpublishing = latest_edition.unpublishing
         latest_edition.update_column(:state, :published)
       end
+    end
+
+    def add_an_editorial_remark
+      latest_edition.editorial_remarks.create(body: "Rewrote document history to match original publication", author: gds_user)
     end
 
     def re_archive_if_required
