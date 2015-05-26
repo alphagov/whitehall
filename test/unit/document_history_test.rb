@@ -110,6 +110,22 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     assert_history_equal expected, history
   end
 
+  test '#changes exclude supporting pages that were published prior to the policy, i.e. those adopted from previously published policy' do
+    other_policy    = Timecop.travel(5.days.ago) { create(:policy, :published, first_published_at: Time.zone.now, change_note: nil) }
+    policy          = Timecop.travel(4.days.ago) { create(:policy, :superseded, first_published_at: Time.zone.now, change_note: nil) }
+    shared_page     = Timecop.travel(5.days.ago) { create(:supporting_page, :published, title: 'Adopted supporting page', first_published_at: Time.zone.now, change_note: nil, related_policies: [other_policy, policy]) }
+    supporting_page = Timecop.travel(3.days.ago) { create(:supporting_page, :published,  title: 'New supporting page', first_published_at: Time.zone.now, change_note: nil, related_policies: [policy]) }
+
+    history = DocumentHistory.new(policy.document)
+
+    expected = [
+      [3.days.ago, "Detail added: #{supporting_page.title}"],
+      [4.days.ago, "First published."]
+    ]
+
+    assert_history_equal expected, history
+  end
+
   test "the first historic edition is always included, even if it is a minor change (i.e. broken data)" do
     edition  = create(:published_edition, minor_change: true, change_note: nil)
     history  = DocumentHistory.new(edition.document)
