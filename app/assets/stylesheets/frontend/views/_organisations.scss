@@ -257,7 +257,6 @@
     }
 
     &.service-priority {
-      @extend %grid-row;
       .logo {
         @include grid-column( 1/3 );
 
