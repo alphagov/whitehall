@@ -36,7 +36,7 @@ When(/^I edit the public explanation for archiving$/) do
   visit admin_edition_path(policy)
   click_on 'Edit withdrawal explanation'
   fill_in 'Public explanation', with: "We believe people should shave, but the government need not enforce a policy for that"
-  click_button 'Update archiving explanation'
+  click_button 'Update withdrawal explanation'
 end
 
 Then(/^I should see the updated explanation on the public site$/) do

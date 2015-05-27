@@ -279,7 +279,7 @@ module Admin::EditionsHelper
     end
   end
 
-  def archiving_or_unpublishing(edition)
+  def withdrawal_or_unpublishing(edition)
     edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Archived.id ? 'withdrawal' : 'unpublishing'
   end
 
