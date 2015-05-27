@@ -208,7 +208,7 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
   test "an archived case study includes details of the archive notice" do
     case_study = create(:published_case_study, :archived)
     case_study.build_unpublishing(
-      unpublishing_reason_id: UnpublishingReason::Archived.id,
+      unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
       explanation: 'No longer relevant')
 
     case_study.unpublishing.save!

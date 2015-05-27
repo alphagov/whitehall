@@ -4,13 +4,13 @@ class EditionArchiverTest < ActiveSupport::TestCase
 
   test '#perform! with a published edition that has a valid Unpublishing transitinos the edition to an "archived" state' do
     edition = create(:published_edition)
-    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Archived.id)
+    edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
     unpublisher = EditionArchiver.new(edition)
 
     assert unpublisher.perform!
     assert_equal :archived, edition.reload.current_state
     assert_equal 'Old policy', edition.unpublishing.explanation
-    assert_equal UnpublishingReason::Archived, edition.unpublishing.unpublishing_reason
+    assert_equal UnpublishingReason::Withdrawn, edition.unpublishing.unpublishing_reason
     assert_equal '1.0', edition.published_version
   end
 

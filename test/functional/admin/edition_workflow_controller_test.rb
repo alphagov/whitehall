@@ -242,7 +242,7 @@ class Admin::EditionWorkflowControllerTest < ActionController::TestCase
   test '#unpublish when the edition is being archived sets an appropriate flash message for the user' do
     login_as create(:managing_editor)
     unpublish_params = {
-        unpublishing_reason_id: UnpublishingReason::Archived.id,
+        unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
         explanation: 'No longer government policy'
       }
     stub_panopticon_registration(published_edition)

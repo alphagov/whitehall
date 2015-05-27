@@ -9,7 +9,7 @@ WorldwidePriority.where(state: "published").each do |edition|
   end
 
   puts "Archiving #{edition.title} - edition #{edition.id}"
-  edition.build_unpublishing(explanation: reason, unpublishing_reason_id: UnpublishingReason::Archived.id)
+  edition.build_unpublishing(explanation: reason, unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
   archiver = Whitehall.edition_services.archiver(edition)
   unless archiver.perform!
     puts "Could not archive edition (#{edition.id}): #{archiver.failure_reason}"

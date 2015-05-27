@@ -8,7 +8,7 @@ class ArchivingTest < ActiveSupport::TestCase
     edition   = create(:published_case_study)
     presenter = PublishingApiPresenters.presenter_for(edition)
     edition.build_unpublishing(explanation: 'Old information',
-      unpublishing_reason_id: UnpublishingReason::Archived.id)
+      unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
     stub_panopticon_registration(edition)
     perform_archiving(edition)

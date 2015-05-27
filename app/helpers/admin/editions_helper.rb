@@ -280,7 +280,7 @@ module Admin::EditionsHelper
   end
 
   def withdrawal_or_unpublishing(edition)
-    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Archived.id ? 'withdrawal' : 'unpublishing'
+    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id ? 'withdrawal' : 'unpublishing'
   end
 
   def specialist_sector_options_for_select(sectors)

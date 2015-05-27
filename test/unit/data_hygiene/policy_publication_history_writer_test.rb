@@ -145,7 +145,7 @@ require 'test_helper'
 
     def archive_the_publication
       Timecop.travel 2.days.ago do
-        publication.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id,
+        publication.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
                                        explanation: "Published by mistake")
         publication.archive!
       end

@@ -22,7 +22,7 @@ class Unpublishing < ActiveRecord::Base
   end
 
   def archived?
-    unpublishing_reason == UnpublishingReason::Archived
+    unpublishing_reason == UnpublishingReason::Withdrawn
   end
 
   def unpublishing_reason

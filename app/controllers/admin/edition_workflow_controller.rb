@@ -81,7 +81,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def confirm_unpublish
-    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Archived.id)
+    @unpublishing = @edition.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
   end
 
   def unpublish
@@ -173,7 +173,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def archiving?
-    unpublishing_params[:unpublishing_reason_id] == UnpublishingReason::Archived.id.to_s
+    unpublishing_params[:unpublishing_reason_id] == UnpublishingReason::Withdrawn.id.to_s
   end
 
   def users_to_notify(edition)
