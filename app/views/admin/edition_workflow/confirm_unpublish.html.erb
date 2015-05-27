@@ -1,7 +1,7 @@
 <% page_title "Unpublish: #{@edition.title}"  %>
 <% page_class "edition-unpublish" %>
 <%
-  initialise_script "GOVUK.adminEditionWorkflowConfirmUnpublish", unpublish_reason_ids: { Archived: UnpublishingReason::Withdrawn.id,
+  initialise_script "GOVUK.adminEditionWorkflowConfirmUnpublish", unpublish_reason_ids: { Withdrawn: UnpublishingReason::Withdrawn.id,
                                                                                           PublishedInError: UnpublishingReason::PublishedInError.id,
                                                                                           Consolidated: UnpublishingReason::Consolidated.id }
 %>
@@ -36,14 +36,14 @@
       <%= form_for  @unpublishing,
                     url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
                     html: {
-                      id: 'js-archive-form',
+                      id: 'js-withdraw-form',
                       class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn)
                     } do |form| %>
 
         <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Withdrawn.id %>
         <fieldset>
-            <%= label_tag 'archived_explanation', '<strong>Public explanation</strong> (this is shown on the live site) <span>*</span>'.html_safe, class: 'required' %>
-            <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'archived_explanation'  %>
+            <%= label_tag 'withdrawal_explanation', '<strong>Public explanation</strong> (this is shown on the live site) <span>*</span>'.html_safe, class: 'required' %>
+            <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'withdrawal_explanation'  %>
         </fieldset>
         <fieldset>
           <%= form.submit 'Withdraw', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>

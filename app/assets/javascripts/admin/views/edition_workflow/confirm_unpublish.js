@@ -16,18 +16,18 @@
     revealCorrectForm: function() {
       var selectedReasonId = $("input[name='unpublishing_reason_id']:checked").val()-0;
       switch(selectedReasonId) {
-        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Archived:
-          $('#js-archive-form').show();
+        case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Withdrawn:
+          $('#js-withdraw-form').show();
           $('#js-published-in-error-form').hide();
           $('#js-consolidated-form').hide();
           break;
         case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.PublishedInError:
-          $('#js-archive-form').hide();
+          $('#js-withdraw-form').hide();
           $('#js-published-in-error-form').show();
           $('#js-consolidated-form').hide();
           break;
         case adminEditionWorkflowConfirmUnpublish.unpublishReasonIds.Consolidated:
-          $('#js-archive-form').hide();
+          $('#js-withdraw-form').hide();
           $('#js-published-in-error-form').hide();
           $('#js-consolidated-form').show();
           break;
