@@ -54,7 +54,7 @@ require 'test_helper'
       ]
 
       latest_edition = publication.document.latest_edition
-      assert latest_edition.archived?
+      assert latest_edition.withdrawn?
       assert unpublishing = latest_edition.unpublishing
       assert_equal 'Published by mistake', unpublishing.explanation
       assert_equal expected_history,

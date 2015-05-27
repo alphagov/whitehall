@@ -94,6 +94,10 @@ module Edition::Workflow
     validate :edition_has_no_unpublished_editions, on: :create
   end
 
+  def withdrawn?
+    archived?
+  end
+
   def pre_publication?
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end

@@ -6,7 +6,7 @@ module DataHygiene
 
     def initialize(edition_id, logger=Rails.logger)
       @edition = Edition.find(edition_id)
-      raise "Cannot unarchive an edition with state '#{@edition.state}'" unless @edition.archived?
+      raise "Cannot unarchive an edition with state '#{@edition.state}'" unless @edition.withdrawn?
       @user = User.find(GDS_INSIDE_GOV_USER_ID)
       @logger = logger
     end

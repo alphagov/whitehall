@@ -34,7 +34,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
 
     assert unpublisher.can_perform?
     assert unpublisher.perform!
-    assert edition.reload.archived?
+    assert edition.reload.withdrawn?
   end
 
   test 'cannot archive a published editions if a newer draft exists' do

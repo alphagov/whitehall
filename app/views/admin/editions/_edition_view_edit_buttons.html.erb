@@ -1,5 +1,5 @@
 <section class="edition-view-edit-buttons">
-  <% if @edition.published? || @edition.archived? %>
+  <% if @edition.publicly_visible? %>
     <%= link_to "View on website", public_document_url(@edition), class: 'btn btn-large btn-primary public_version', target: '_blank' %>
   <% elsif @edition.translatable? && @edition.available_in_multiple_languages? %>
     <%= render 'admin/shared/bootstrap/button_dropdown',
