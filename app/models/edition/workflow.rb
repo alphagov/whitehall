@@ -13,6 +13,11 @@ module Edition::Workflow
     def valid_state?(state)
       %w(active imported draft submitted rejected published scheduled force_published archived not_published).include?(state)
     end
+
+    # Temporary scope until "archived" can be migrated to a "withdrawn" state.
+    def withdrawn
+      where(state: 'archived')
+    end
   end
 
   included do
