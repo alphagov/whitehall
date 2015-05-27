@@ -69,7 +69,7 @@ module Admin::EditionsHelper
       ["Scheduled", 'scheduled'],
       ["Published", 'published'],
       ["Force published (not reviewed)", 'force_published'],
-      ['Archived', 'archived']
+      ['Withdrawn', 'archived']
     ]
   end
 
@@ -280,7 +280,7 @@ module Admin::EditionsHelper
   end
 
   def archiving_or_unpublishing(edition)
-    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Archived.id ? 'archiving' : 'unpublishing'
+    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Archived.id ? 'withdrawal' : 'unpublishing'
   end
 
   def specialist_sector_options_for_select(sectors)

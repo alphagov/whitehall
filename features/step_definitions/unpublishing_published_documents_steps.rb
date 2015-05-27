@@ -11,7 +11,7 @@ end
 
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
   visit admin_edition_path(@duplicate_edition)
-  click_on 'Archive or unpublish'
+  click_on 'Withdraw or unpublish'
   choose 'Unpublish: consolidated into another GOV.UK page'
 
   within '#js-consolidated-form' do
@@ -23,10 +23,10 @@ end
 When(/^I archive the policy because it is no longer government policy$/) do
   @policy = Policy.last
   visit admin_edition_path(@policy)
-  click_on 'Archive or unpublish'
-  choose 'Archive: no longer current government policy/activity'
+  click_on 'Withdraw or unpublish'
+  choose 'Withdraw: no longer current government policy/activity'
   fill_in 'Public explanation (this is shown on the live site) *', with: 'We no longer believe people should shave'
-  click_button 'Archive'
+  click_button 'Withdraw'
 
   assert_equal :archived, @policy.reload.current_state
 end
@@ -34,7 +34,7 @@ end
 When(/^I edit the public explanation for archiving$/) do
   policy = Policy.last
   visit admin_edition_path(policy)
-  click_on 'Edit archiving explanation'
+  click_on 'Edit withdrawal explanation'
   fill_in 'Public explanation', with: "We believe people should shave, but the government need not enforce a policy for that"
   click_button 'Update archiving explanation'
 end

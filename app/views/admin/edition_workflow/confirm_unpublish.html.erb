@@ -11,17 +11,17 @@
       <h1><%= @edition.title %></h1>
 
 
-      <h2>Do you want to archive or unpublish this document?</h2>
+      <h2>Do you want to withdraw or unpublish this document?</h2>
 
       <p>
-        Learn more about archiving and unpublishing content on our
+        Learn more about withdrawing and unpublishing content on our
         <%= link_to 'publishing guide', 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving', target: '_blank' %>.
       </p>
 
       <div class="js-unpublishing-reason">
         <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Archived.id}" do %>
           <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Archived.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Archived) %>
-          <strong>Archive:</strong> no longer current government policy/activity
+          <strong>Withdraw:</strong> no longer current government policy/activity
         <% end %>
         <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}" do %>
           <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::PublishedInError.id, (@unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError) %>
@@ -46,7 +46,7 @@
             <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'archived_explanation'  %>
         </fieldset>
         <fieldset>
-          <%= form.submit 'Archive', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
+          <%= form.submit 'Withdraw', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
         </fieldset>
       <% end %>
 

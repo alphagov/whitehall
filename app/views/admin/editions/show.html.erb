@@ -37,7 +37,7 @@
         delete_edition_button(@edition) if @edition.can_delete? && @edition.unpublishing.nil? %>
       <% if can?(:unpublish, @edition) %>
         <% if @edition.can_unpublish? %>
-          <%= link_to 'Archive or unpublish', confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
+          <%= link_to 'Withdraw or unpublish', confirm_unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version), class: "btn btn-danger" %>
         <% elsif @edition.unpublishing.present? && @edition.unpublishing.explanation.present? %>
           <%= link_to "Edit #{archiving_or_unpublishing(@edition)} explanation", edit_admin_edition_unpublishing_path(@edition), class: "btn btn-primary" %>
         <% end %>
