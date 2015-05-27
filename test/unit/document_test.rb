@@ -121,7 +121,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal publication, document.scheduled_edition
   end
 
-  test "#ever_published_editions returns all editions that have ever been published or archived" do
+  test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
     superseded = create(:superseded_edition, document: document)
     current = create(:published_edition, document: document)

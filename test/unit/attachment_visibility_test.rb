@@ -37,7 +37,7 @@ class AttachmentVisibilityTest < ActiveSupport::TestCase
   end
 
   test '#visible_edition returns a withdrawn edition that the attachment is assigned to' do
-    edition = create(:publication, :archived, :with_file_attachment)
+    edition = create(:publication, :withdrawn, :with_file_attachment)
     attachment_data = edition.attachments.first.attachment_data
     attachment_visibility = AttachmentVisibility.new(attachment_data, nil)
 

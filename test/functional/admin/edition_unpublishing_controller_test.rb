@@ -6,7 +6,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
   def setup
     login_as(create(:managing_editor))
-    @edition = create(:archived_edition)
+    @edition = create(:withdrawn_edition)
   end
 
   test "#edit loads the unpublishing and renders the unpublish edit template" do

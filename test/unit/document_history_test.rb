@@ -161,7 +161,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
   end
 
   test 'withdrawn documents still get a history' do
-    document = create(:archived_edition, first_published_at: 2.days.ago).document
+    document = create(:withdrawn_edition, first_published_at: 2.days.ago).document
     history = DocumentHistory.new(document)
 
     assert_history_equal [[2.days.ago, 'change-note']], history

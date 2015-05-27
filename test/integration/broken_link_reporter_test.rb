@@ -22,7 +22,7 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
                             body: "[A broken page](https://www.gov.uk/bad-link)\n[A good link](https://www.gov.uk/another-good-link)")
 
     news_article   = create(:world_location_news_article,
-                            :archived,
+                            :withdrawn,
                             worldwide_organisations: [embassy_paris],
                             body: "[Good link](https://www.gov.uk/good-link)\n[Missing page](https://www.gov.uk/missing-link)")
 

@@ -76,8 +76,8 @@ class RegisterableEditionTest < ActiveSupport::TestCase
     assert_equal "draft", registerable_edition.state
   end
 
-  test "sets the state to archived if the edition has been archived" do
-    edition = create(:archived_edition)
+  test "sets the state to archived if the edition has been withdrawn" do
+    edition = create(:withdrawn_edition)
     registerable_edition = RegisterableEdition.new(edition)
 
     assert_equal "archived", registerable_edition.state

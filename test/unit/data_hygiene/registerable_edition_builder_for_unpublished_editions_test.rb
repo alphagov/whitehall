@@ -7,11 +7,11 @@ class RegisterableEditionBuilderForUnpublishedEditionsTest < ActiveSupport::Test
     control_edition_2 = create(:draft_edition)
   end
 
-  test "builds a set that includes editions that are unpublished and archived" do
-    archived_edition = create(:edition, :unpublished, :archived)
+  test "builds a set that includes editions that are unpublished and withdrawn" do
+    withdrawn_edition = create(:edition, :unpublished, :withdrawn)
 
     registerable_editions = RegisterableEditionBuilderForUnpublishedEditions.build
-    expected_registerable_edition = RegisterableEdition.new(archived_edition)
+    expected_registerable_edition = RegisterableEdition.new(withdrawn_edition)
 
     assert_equal [expected_registerable_edition], registerable_editions
     assert_equal "archived", registerable_editions.last.state

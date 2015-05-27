@@ -14,8 +14,8 @@ class Admin::Api::SearchControllerTest < ActionController::TestCase
     @irrelevant_editions = [
       # Correct tag, but draft
       FactoryGirl.create(:publication, :draft, primary_specialist_sector_tag: 'oil-and-gas/licensing'),
-      # Correct tag, but archived
-      FactoryGirl.create(:publication, :archived, primary_specialist_sector_tag: 'oil-and-gas/licensing'),
+      # Correct tag, but withdrawn
+      FactoryGirl.create(:publication, :withdrawn, primary_specialist_sector_tag: 'oil-and-gas/licensing'),
       # Published, but incorrect tag
       FactoryGirl.create(:publication, :published, secondary_specialist_sector_tags: ['environmental-management/boating']),
       # Published, but no tag

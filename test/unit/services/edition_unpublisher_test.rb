@@ -33,7 +33,7 @@ class EditionUnpublisherTest < ActiveSupport::TestCase
 
   test 'only "published" editions can be unpublished' do
     (Edition.available_states - [:published]).each do |state|
-      edition = create(:"#{state}_edition")
+      edition = create(:edition, state: state)
       unpublisher = EditionUnpublisher.new(edition, unpublishing: unpublishing_params)
 
       refute unpublisher.perform!

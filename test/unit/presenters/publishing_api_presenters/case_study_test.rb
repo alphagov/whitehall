@@ -205,8 +205,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     assert_same_elements document_collections.map(&:content_id), presented_hash[:links][:document_collections]
   end
 
-  test "an archived case study includes details of the archive notice" do
-    case_study = create(:published_case_study, :archived)
+  test "a withdrawn case study includes details of the archive notice" do
+    case_study = create(:published_case_study, :withdrawn)
     case_study.build_unpublishing(
       unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
       explanation: 'No longer relevant')
