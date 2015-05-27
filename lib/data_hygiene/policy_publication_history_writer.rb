@@ -11,6 +11,7 @@ module DataHygiene
         logger.info "Backfilling history for: (#{publication.id}) #{publication.title}"
         store_publication_history_and_reset_first_edition
         store_and_reset_archiving
+        reset_first_published_at_to_match_policy
         re_edition_for_major_policy_changes
         replay_publication_history
         re_archive_if_required
@@ -37,7 +38,7 @@ module DataHygiene
     end
 
     def add_an_editorial_remark
-      latest_edition.editorial_remarks.create(body: "Rewrote document history to match original publication", author: gds_user)
+      latest_edition.editorial_remarks.create(body: "Rewrote document history to match original policy", author: gds_user)
     end
 
     def re_archive_if_required
@@ -45,6 +46,10 @@ module DataHygiene
         latest_edition.unpublishing = @unpublishing
         latest_edition.update_column(:state, :archived)
       end
+    end
+
+    def reset_first_published_at_to_match_policy
+      latest_edition.update_column(:first_published_at, policy.first_published_at)
     end
 
     def replay_publication_history

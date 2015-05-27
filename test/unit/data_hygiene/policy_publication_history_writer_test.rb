@@ -61,6 +61,23 @@ require 'test_helper'
         publication.reload.change_history.changes.map(&:to_a)
     end
 
+    test "resets first_published_at to match the original policy" do
+      change_first_published_at
+
+      history_writer = PolicyPublicationHistoryWriter.new(publication, policy)
+      history_writer.rewrite_history!
+
+      expected_history = [
+        [4.days.ago, 'Policy document... preserved in a different format'],
+        [8.months.ago, 'More changes were made.'],
+        [9.months.ago, 'Some changes were made.'],
+        [1.year.ago, 'First published.']
+      ]
+
+      assert_equal expected_history,
+        publication.reload.change_history.changes.map(&:to_a)
+    end
+
   private
     attr_reader :policy, :publication
 
@@ -132,6 +149,11 @@ require 'test_helper'
                                        explanation: "Published by mistake")
         publication.archive!
       end
+    end
+
+    def change_first_published_at
+      make_minor_changes_to_publication
+      publication.document.latest_edition.update_column(:first_published_at, 1.week.ago)
     end
   end
 end
