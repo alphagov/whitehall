@@ -2,7 +2,7 @@ class Unpublishing < ActiveRecord::Base
   belongs_to :edition
 
   validates :edition, :unpublishing_reason, :document_type, :slug, presence: true
-  validates :explanation, presence: { message: "must be provided when archiving", if: :archived? }
+  validates :explanation, presence: { message: "must be provided when withdrawing", if: :withdrawn? }
   validates :alternative_url, presence: { message: "must be provided to redirect the document", if: :redirect? }
   validates :alternative_url, uri: true, allow_blank: true
   validates_format_of :alternative_url,
@@ -21,7 +21,7 @@ class Unpublishing < ActiveRecord::Base
     redirect || unpublishing_reason == UnpublishingReason::Consolidated
   end
 
-  def archived?
+  def withdrawn?
     unpublishing_reason == UnpublishingReason::Withdrawn
   end
 
