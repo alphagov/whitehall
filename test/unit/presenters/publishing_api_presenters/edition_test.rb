@@ -138,4 +138,22 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
 
     assert_equal ["policy-1"], present(edition)[:details][:tags][:policies]
   end
+
+  test "includes new policy associations with their policy areas" do
+    stub_content_register_policies_with_policy_areas
+    edition = create(:publication, :published,
+      policy_content_ids: [policy_1["content_id"]]
+    )
+
+    assert_equal ["policy-area-1", "policy-1"], present(edition)[:details][:tags][:policies]
+  end
+
+  test "includes new policy associations with their multiple policy areas" do
+    stub_content_register_policies_with_policy_areas
+    edition = create(:publication, :published,
+      policy_content_ids: [policy_2["content_id"]]
+    )
+
+    assert_equal ["policy-area-1", "policy-area-2", "policy-2"], present(edition)[:details][:tags][:policies]
+  end
 end
