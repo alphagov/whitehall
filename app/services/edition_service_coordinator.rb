@@ -39,8 +39,8 @@ class EditionServiceCoordinator
     ::EditionUnpublisher.new(edition, options.merge(notifier: self))
   end
 
-  def archiver(edition, options = {})
-    ::EditionArchiver.new(edition, options.merge(notifier: self))
+  def withdrawer(edition, options = {})
+    ::EditionWithdrawer.new(edition, options.merge(notifier: self))
   end
 
   def deleter(edition, options = {})

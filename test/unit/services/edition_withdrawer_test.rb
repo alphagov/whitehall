@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class EditionArchiverTest < ActiveSupport::TestCase
+class EditionWithdrawerTest < ActiveSupport::TestCase
 
   test '#perform! with a published edition that has a valid Unpublishing transitinos the edition to an "archived" state' do
     edition = create(:published_edition)
     edition.build_unpublishing(explanation: 'Old policy', unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
-    unpublisher = EditionArchiver.new(edition)
+    unpublisher = EditionWithdrawer.new(edition)
 
     assert unpublisher.perform!
     assert_equal :archived, edition.reload.current_state
@@ -18,11 +18,11 @@ class EditionArchiverTest < ActiveSupport::TestCase
     (Edition.available_states - [:published]).each do |state|
       edition = create(:"#{state}_edition")
       edition.build_unpublishing(unpublishing_params)
-      unpublisher = EditionArchiver.new(edition)
+      unpublisher = EditionWithdrawer.new(edition)
 
       refute unpublisher.perform!
       assert_equal state, edition.current_state
-      assert_equal "An edition that is #{state} cannot be archived", unpublisher.failure_reason
+      assert_equal "An edition that is #{state} cannot be withdrawn", unpublisher.failure_reason
     end
   end
 
@@ -30,7 +30,7 @@ class EditionArchiverTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     edition.build_unpublishing(unpublishing_params)
     edition.summary = nil
-    unpublisher = EditionArchiver.new(edition)
+    unpublisher = EditionWithdrawer.new(edition)
 
     assert unpublisher.can_perform?
     assert unpublisher.perform!
@@ -40,16 +40,16 @@ class EditionArchiverTest < ActiveSupport::TestCase
   test 'cannot archive a published editions if a newer draft exists' do
     edition = create(:published_edition)
     edition.create_draft(create(:policy_writer))
-    unpublisher = EditionArchiver.new(edition)
+    unpublisher = EditionWithdrawer.new(edition)
 
     refute unpublisher.can_perform?
-    assert_equal 'There is already a draft edition of this document. You must discard it before you can archive this edition.',
+    assert_equal 'There is already a draft edition of this document. You must discard it before you can withdraw this edition.',
       unpublisher.failure_reason
   end
 
   test 'cannot archive without an Unpublishing prepared on the edition' do
     edition = create(:published_edition)
-    unpublisher = EditionArchiver.new(edition)
+    unpublisher = EditionWithdrawer.new(edition)
 
     refute unpublisher.can_perform?
     assert_equal 'The reason for unpublishing must be present', unpublisher.failure_reason
@@ -59,7 +59,7 @@ class EditionArchiverTest < ActiveSupport::TestCase
     edition = create(:published_edition)
     edition.build_unpublishing(unpublishing_params.merge(redirect: true))
 
-    unpublisher = EditionArchiver.new(edition)
+    unpublisher = EditionWithdrawer.new(edition)
 
     refute unpublisher.can_perform?
     assert_equal 'Alternative url must be provided to redirect the document', unpublisher.failure_reason

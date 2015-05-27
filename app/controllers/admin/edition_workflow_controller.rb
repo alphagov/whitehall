@@ -85,7 +85,7 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def unpublish
-    @service_object = archiver_or_unpublisher_for(@edition)
+    @service_object = withdrawer_or_unpublisher_for(@edition)
 
     if @service_object.perform!
      redirect_to admin_edition_path(@edition), notice: unpublish_success_notice
@@ -150,9 +150,9 @@ class Admin::EditionWorkflowController < Admin::BaseController
     end
   end
 
-  def archiver_or_unpublisher_for(edition)
+  def withdrawer_or_unpublisher_for(edition)
     if archiving?
-      Whitehall.edition_services.archiver(@edition, user: current_user, remark: "Archived", unpublishing: unpublishing_params)
+      Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Archived", unpublishing: unpublishing_params)
     else
       Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft", unpublishing: unpublishing_params)
     end

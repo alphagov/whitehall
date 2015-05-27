@@ -86,6 +86,9 @@ module Edition::Workflow
       event :archive do
         transitions from: :published, to: :archived
       end
+      event :withdraw do
+        transitions from: :published, to: :archived
+      end
     end
 
     validate :edition_has_no_unpublished_editions, on: :create
