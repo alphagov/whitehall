@@ -16,7 +16,7 @@ def with_publications_and_policies(&block)
   end
 end
 
-logger.info 'Checking for publications with open editions on them...'
+logger.info '# Checking for publications with open editions on them...'
 with_publications_and_policies do |publication, _|
   document = publication.document
   if document.published_edition != document.latest_edition
@@ -26,7 +26,7 @@ with_publications_and_policies do |publication, _|
 end
 abort('Cannot proceed with open editions on publications') if @cannot_proceed
 
-logger.info 'Checking for publications with suspect first_published_at dates...'
+logger.info '# Checking for publications with suspect first_published_at dates...'
 with_publications_and_policies do |publication, policy|
   latest_edition = publication.document.latest_edition
   if latest_edition.first_published_at.to_date > policy.first_published_at.to_date
@@ -34,9 +34,14 @@ with_publications_and_policies do |publication, policy|
   end
 end
 
-logger.info 'Back-filling publication histories...'
+logger.info '# Back-filling publication histories...'
 ActiveRecord::Base.transaction do
   with_publications_and_policies do |publication, policy|
     DataHygiene::PolicyPublicationHistoryWriter.new(publication, policy, logger).rewrite_history!
   end
+end
+
+logger.info '# Queueing jobs to re-index publications in search'
+with_publications_and_policies do |publication, policy|
+  publication.document.published_edition.update_in_search_index
 end
