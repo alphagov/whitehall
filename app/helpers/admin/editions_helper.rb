@@ -69,7 +69,7 @@ module Admin::EditionsHelper
       ["Scheduled", 'scheduled'],
       ["Published", 'published'],
       ["Force published (not reviewed)", 'force_published'],
-      ['Withdrawn', 'archived']
+      ['Withdrawn', 'withdrawn']
     ]
   end
 
