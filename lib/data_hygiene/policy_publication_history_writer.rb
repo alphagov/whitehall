@@ -38,7 +38,7 @@ module DataHygiene
     end
 
     def add_an_editorial_remark
-      latest_edition.editorial_remarks.create(body: "Rewrote document history to match original publication", author: gds_user)
+      latest_edition.editorial_remarks.create(body: "Rewrote document history to match original policy", author: gds_user)
     end
 
     def re_archive_if_required

@@ -30,7 +30,7 @@ logger.info '# Checking for publications with suspect first_published_at dates..
 with_publications_and_policies do |publication, policy|
   latest_edition = publication.document.latest_edition
   if latest_edition.first_published_at.to_date > policy.first_published_at.to_date
-    logger.warn "Publication #{publication.id} to be repaired: Frst published is #{latest_edition.first_published_at}; policy has #{policy.first_published_at}"
+    logger.warn "Publication #{publication.id} to be repaired: First published is #{latest_edition.first_published_at}; policy has #{policy.first_published_at}"
   end
 end
 
