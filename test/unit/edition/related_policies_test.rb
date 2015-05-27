@@ -89,6 +89,26 @@ class Edition::RelatedPoliciesTest < ActiveSupport::TestCase
     assert_equal ['policy-1'], edition.search_index[:policies]
   end
 
+  test 'includes linked policies with policy areas in search index data' do
+    stub_content_register_policies_with_policy_areas
+
+    edition = create(:news_article)
+    assert_equal [], edition.search_index[:policies]
+
+    edition.policy_content_ids = [policy_1['content_id']]
+    assert_equal ['policy-area-1', 'policy-1'], edition.search_index[:policies]
+  end
+
+  test 'includes linked policies with multiple parents in search index data' do
+    stub_content_register_policies_with_policy_areas
+
+    edition = create(:news_article)
+    assert_equal [], edition.search_index[:policies]
+
+    edition.policy_content_ids = [policy_2['content_id']]
+    assert_equal ['policy-area-1', 'policy-area-2', 'policy-2'], edition.search_index[:policies]
+  end
+
   test 'ignores non-existant content_ids' do
     stub_content_register_policies
 
