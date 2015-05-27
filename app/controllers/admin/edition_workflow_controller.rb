@@ -151,8 +151,8 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def withdrawer_or_unpublisher_for(edition)
-    if archiving?
-      Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Archived", unpublishing: unpublishing_params)
+    if withdrawing?
+      Whitehall.edition_services.withdrawer(@edition, user: current_user, remark: "Withdrawn", unpublishing: unpublishing_params)
     else
       Whitehall.edition_services.unpublisher(@edition, user: current_user, remark: "Reset to draft", unpublishing: unpublishing_params)
     end
@@ -165,14 +165,14 @@ class Admin::EditionWorkflowController < Admin::BaseController
   end
 
   def unpublish_success_notice
-    if archiving?
-      "This document has been marked as archived"
+    if withdrawing?
+      "This document has been marked as withdrawn"
     else
       "This document has been unpublished and will no longer appear on the public website"
     end
   end
 
-  def archiving?
+  def withdrawing?
     unpublishing_params[:unpublishing_reason_id] == UnpublishingReason::Withdrawn.id.to_s
   end
 
