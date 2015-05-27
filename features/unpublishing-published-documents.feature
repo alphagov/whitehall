@@ -36,16 +36,16 @@ Feature: Unpublishing published documents
     When I unpublish the duplicate, marking it as consolidated into the other page
     Then I should be redirected to the other page when I view the document on the public site
 
-  Scenario: Archive a document that is no longer current
+  Scenario: Withdraw a document that is no longer current
     Given I am a managing editor
     And a published policy "Shaving kits for all" exists
-    When I archive the policy because it is no longer government policy
-    Then there should be an editorial remark recording the fact that the document was archived
-    And the policy should be marked as archived on the public site
+    When I withdraw the policy because it is no longer government policy
+    Then there should be an editorial remark recording the fact that the document was withdrawn
+    And the policy should be marked as withdrawn on the public site
 
   Scenario: Change the public explanation for archiving a document
     Given I am a managing editor
     And a published policy "Shaving kits for all" exists
-    And I archive the policy because it is no longer government policy
-    When I edit the public explanation for archiving
+    And I withdraw the policy because it is no longer government policy
+    When I edit the public explanation for withdrawal
     Then I should see the updated explanation on the public site

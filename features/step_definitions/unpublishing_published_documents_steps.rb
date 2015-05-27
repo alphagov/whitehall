@@ -20,7 +20,7 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   end
 end
 
-When(/^I archive the policy because it is no longer government policy$/) do
+When(/^I withdraw the policy because it is no longer government policy$/) do
   @policy = Policy.last
   visit admin_edition_path(@policy)
   click_on 'Withdraw or unpublish'
@@ -31,7 +31,7 @@ When(/^I archive the policy because it is no longer government policy$/) do
   assert_equal :archived, @policy.reload.current_state
 end
 
-When(/^I edit the public explanation for archiving$/) do
+When(/^I edit the public explanation for withdrawal$/) do
   policy = Policy.last
   visit admin_edition_path(policy)
   click_on 'Edit withdrawal explanation'
@@ -40,10 +40,10 @@ When(/^I edit the public explanation for archiving$/) do
 end
 
 Then(/^I should see the updated explanation on the public site$/) do
-  step %{the policy should be marked as archived on the public site}
+  step %{the policy should be marked as withdrawn on the public site}
 end
 
-Then(/^the policy should be marked as archived on the public site$/) do
+Then(/^the policy should be marked as withdrawn on the public site$/) do
   policy = Policy.last
   visit public_document_path(policy)
   assert page.has_content?(policy.title)
@@ -65,9 +65,9 @@ Then(/^there should be an editorial remark recording the fact that the document 
   assert_equal 'Reset to draft', edition.editorial_remarks.last.body
 end
 
-Then(/^there should be an editorial remark recording the fact that the document was archived$/) do
+Then(/^there should be an editorial remark recording the fact that the document was withdrawn$/) do
   edition = Edition.last
-  assert_equal 'Archived', edition.editorial_remarks.last.body
+  assert_equal 'Withdrawn', edition.editorial_remarks.last.body
 end
 
 Then /^I should see that the document was published in error on the public site$/ do

@@ -160,7 +160,7 @@ class DocumentHistoryTest < ActiveSupport::TestCase
     refute DocumentHistory.new(document).newly_published?
   end
 
-  test 'Archived documents still get a history' do
+  test 'withdrawn documents still get a history' do
     document = create(:archived_edition, first_published_at: 2.days.ago).document
     history = DocumentHistory.new(document)
 

@@ -95,7 +95,7 @@ module Whitehall
       assert_csv_does_not_contain "#{Whitehall.public_root}/government/publications/#{publication.slug}"
     end
 
-    test "includes archived documents" do
+    test "includes withdrawn documents" do
       # Rationale: we should still redirect to things that were
       # published and then removed
       publication = publication_with_source(:archived)

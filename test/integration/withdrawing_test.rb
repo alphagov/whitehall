@@ -22,7 +22,7 @@ private
 
   def perform_withdrawal(edition)
     withdrawer = Whitehall.edition_services.withdrawer(edition)
-    raise "Could not archive edition #{withdrawer.failure_reason}" unless withdrawer.perform!
+    raise "Could not withdraw edition #{withdrawer.failure_reason}" unless withdrawer.perform!
   end
 
   def archived_payload?(json)

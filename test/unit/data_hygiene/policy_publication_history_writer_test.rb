@@ -40,8 +40,8 @@ require 'test_helper'
         publication.reload.change_history.changes.map(&:to_a)
     end
 
-    test "handles archived publications" do
-      archive_the_publication
+    test "handles withdrawn publications" do
+      withdraw_the_publication
 
       history_writer = PolicyPublicationHistoryWriter.new(publication, policy)
       history_writer.rewrite_history!
@@ -143,7 +143,7 @@ require 'test_helper'
       end
     end
 
-    def archive_the_publication
+    def withdraw_the_publication
       Timecop.travel 2.days.ago do
         publication.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
                                        explanation: "Published by mistake")
