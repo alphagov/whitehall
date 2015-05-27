@@ -5,8 +5,16 @@ module Admin::TaggableContentHelper
   # Returns an Array that represents the curret set of taggable (new-world)
   # policies. Each element of the array consists of two values: the name and
   # the content id of the policy
+  #
+  # If the Policy is part of a Policy Area, its name will be displayed as:
+  # Policy Area 1; Policy Area 2 -> Policy
   def taggable_policy_content_ids_container
-    Future::Policy.all.map { |policy| [policy.title, policy.content_id]}
+    Future::Policy.all.map { |policy|
+      [
+        taggable_policy_title(policy),
+        policy.content_id,
+      ]
+    }
   end
 
   # Returns an Array that represents the current set of taggable topics.
@@ -279,5 +287,12 @@ private
     end
 
     [person, role, organisations].join(', ')
+  end
+
+  def taggable_policy_title(policy)
+    [
+      policy.policy_area_titles.join('; ').presence,
+      policy.title,
+    ].compact.join(' -> ')
   end
 end
