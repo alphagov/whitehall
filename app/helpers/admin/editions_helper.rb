@@ -73,6 +73,10 @@ module Admin::EditionsHelper
     ]
   end
 
+  def admin_edition_state_text(edition)
+    edition.archived? ? 'Withdrawn' : edition.state.humanize
+  end
+
   def admin_world_location_filter_options(current_user)
     options = [["All locations", ""]]
     if current_user.world_locations.any?
