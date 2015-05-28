@@ -389,7 +389,7 @@ class EditionTest < ActiveSupport::TestCase
     assert article.valid?
   end
 
-  test "should still be archivable if alt text validation would normally fail" do
+  test "should still be supersedeable if alt text validation would normally fail" do
     article = create(:published_news_article, images: [build(:image)])
     article.images.first.update_column(:alt_text, nil)
     NewsArticle.find(article.id).supersede!
