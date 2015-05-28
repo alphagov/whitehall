@@ -82,7 +82,7 @@
                   person: PersonPresenter.new(role.current_person, self),
                   roles: ministers.roles_for(role.current_person),
                   hlevel: "h4",
-                  prefix: 'by-organisation',
+                  prefix: "by-organisation-#{organisation.slug}",
                   hide_image: true,
                   extra_class: (i % 3 == 0) ? 'clear-person' : ''
                 } %>
