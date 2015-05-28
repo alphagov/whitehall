@@ -18,6 +18,11 @@ class AttachmentsController < PublicUploadsController
     render layout: 'html_attachments'
   end
 
+  def show
+    super
+    link_rel_headers
+  end
+
 private
 
   def attachment_visible?
@@ -32,6 +37,12 @@ private
       redirect_to replacement.url, status: 301
     else
       super
+    end
+  end
+
+  def link_rel_headers
+    if edition = attachment_visibility.visible_edition
+      response.headers['Link'] = "<#{public_document_url(edition)}>; rel=\"up\""
     end
   end
 
