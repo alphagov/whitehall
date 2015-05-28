@@ -109,9 +109,9 @@ task process_topic_retagging_csv: :environment do
   TagChangesProcessor.new(csv_location, logger: Logger.new(STDOUT)).process
 end
 
-desc "Unarchive an edition (creates and publishes a draft with audit trail)"
-task :unarchive_edition, [:edition_id] => :environment do |t,args|
-  DataHygiene::EditionUnarchiver.new(args[:edition_id], Logger.new(STDOUT)).unarchive
+desc "Unwithdraw an edition (creates and publishes a draft with audit trail)"
+task :unwithdraw_edition, [:edition_id] => :environment do |t,args|
+  DataHygiene::EditionUnwithdrawer.new(args[:edition_id], Logger.new(STDOUT)).unwithdraw!
 end
 
 desc "Unpublish a statistics announcement and register a 410 GONE route for it"
