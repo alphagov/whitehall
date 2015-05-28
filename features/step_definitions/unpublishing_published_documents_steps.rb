@@ -47,7 +47,7 @@ Then(/^the policy should be marked as archived on the public site$/) do
   policy = Policy.last
   visit public_document_path(policy)
   assert page.has_content?(policy.title)
-  assert page.has_content?('This policy was archived')
+  assert page.has_content?('This policy was withdrawn')
   assert page.has_content?(policy.unpublishing.explanation)
 end
 

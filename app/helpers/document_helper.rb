@@ -10,7 +10,7 @@ module DocumentHelper
   include TranslationHelper
 
   def edition_page_title(edition)
-    edition.archived? ? "[Archived] #{edition.title}" : edition.title
+    edition.archived? ? "[Withdrawn] #{edition.title}" : edition.title
   end
 
   def document_block_counter
