@@ -124,23 +124,28 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     draft     = create(:draft_edition)
     published = create(:published_edition)
     archived  = create(:published_edition, state: 'archived')
+    withdrawn = create(:published_edition, state: 'withdrawn')
 
     draft_payload     = PublishingApiPresenters.presenter_for(draft, update_type: "republish").as_json
     published_payload = PublishingApiPresenters.presenter_for(published, update_type: "republish").as_json
     archived_payload  = PublishingApiPresenters.presenter_for(archived, update_type: "republish").as_json
+    withdrawn_payload = PublishingApiPresenters.presenter_for(withdrawn, update_type: "republish").as_json
 
     draft_request     = stub_publishing_api_put_item(draft.search_link, draft_payload)
     published_request = stub_publishing_api_put_item(published.search_link, published_payload)
     archived_request  = stub_publishing_api_put_item(archived.search_link, archived_payload)
+    withdrawn_request = stub_publishing_api_put_item(withdrawn.search_link, withdrawn_payload)
 
     Whitehall::PublishingApi.republish_async(published)
     Whitehall::PublishingApi.republish_async(archived)
+    Whitehall::PublishingApi.republish_async(withdrawn)
     assert_raise Whitehall::UnpublishableInstanceError do
       Whitehall::PublishingApi.republish_async(draft)
     end
 
     assert_requested published_request
     assert_requested archived_request
+    assert_requested withdrawn_request
     assert_not_requested draft_request
   end
 

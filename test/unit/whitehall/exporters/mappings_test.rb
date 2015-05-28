@@ -100,7 +100,7 @@ module Whitehall
       # published and then removed
       publication = publication_with_source(:withdrawn)
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl/withdrawn,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},archived
+        http://oldurl/withdrawn,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},withdrawn
       EOT
     end
 

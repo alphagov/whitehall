@@ -17,7 +17,7 @@ module Edition::SupportingPages
   end
 
   def withdrawn_supporting_pages
-    supporting_pages.withdrawn
+    supporting_pages.withdrawn_or_archived
   end
 
   def allows_supporting_pages?

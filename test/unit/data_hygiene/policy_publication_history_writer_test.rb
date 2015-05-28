@@ -147,7 +147,7 @@ require 'test_helper'
       Timecop.travel 2.days.ago do
         publication.build_unpublishing(unpublishing_reason_id: UnpublishingReason::Withdrawn.id,
                                        explanation: "Published by mistake")
-        publication.archive!
+        publication.withdraw!
       end
     end
 

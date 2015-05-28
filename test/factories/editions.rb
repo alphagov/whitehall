@@ -85,7 +85,7 @@ FactoryGirl.define do
       state "superseded"
     }
     trait(:withdrawn) {
-      state "archived"
+      state "withdrawn"
     }
     trait(:featured) { featured true }
     trait(:scheduled) {

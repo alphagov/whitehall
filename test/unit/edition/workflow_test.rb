@@ -11,7 +11,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
 
     assert_equal [:imported, :draft, :submitted, :rejected, :scheduled], pre
-    assert_equal [:published, :superseded , :deleted, :archived], post
+    assert_equal [:published, :superseded , :deleted, :archived, :withdrawn], post
   end
 
   test "rejecting a submitted edition transitions it into the rejected state" do
@@ -20,7 +20,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert submitted_edition.rejected?
   end
 
-  [:draft, :scheduled, :published, :superseded, :deleted].each do |state|
+  [:draft, :scheduled, :published, :superseded, :deleted, :withdrawn].each do |state|
     test "should prevent a #{state} edition being rejected" do
       edition = create("#{state}_edition")
       edition.reject! rescue nil
@@ -36,7 +36,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:scheduled, :published, :superseded, :deleted].each do |state|
+  [:scheduled, :published, :superseded, :deleted, :withdrawn].each do |state|
     test "should prevent a #{state} edition being submitted" do
       edition = create("#{state}_edition")
       edition.submit! rescue nil
@@ -44,7 +44,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     end
   end
 
-  [:draft, :submitted, :scheduled, :rejected, :deleted].each do |state|
+  [:draft, :submitted, :scheduled, :rejected, :deleted, :withdrawn].each do |state|
     test "should prevent a #{state} edition being superseded" do
       edition = create("#{state}_edition")
       edition.supersede! rescue nil

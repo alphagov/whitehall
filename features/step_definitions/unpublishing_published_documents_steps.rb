@@ -28,7 +28,7 @@ When(/^I withdraw the policy because it is no longer government policy$/) do
   fill_in 'Public explanation (this is shown on the live site) *', with: 'We no longer believe people should shave'
   click_button 'Withdraw'
 
-  assert_equal :archived, @policy.reload.current_state
+  assert_equal :withdrawn, @policy.reload.current_state
 end
 
 When(/^I edit the public explanation for withdrawal$/) do

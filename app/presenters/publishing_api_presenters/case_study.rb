@@ -29,7 +29,7 @@ private
       change_history: edition.change_history.as_json,
     }).tap do |json|
       json[:image] = image_details if image_available?
-      json[:archive_notice] = archive_notice if edition.withdrawn?
+      json[:archive_notice] = archive_notice if edition.withdrawn_or_archived?
     end
   end
 

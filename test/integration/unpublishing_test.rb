@@ -28,7 +28,7 @@ class UnpublishingTest < ActiveSupport::TestCase
     unpublish(@published_edition, unpublishing_params)
   end
 
-  test "When unpublishing an edition, its state is updated in Panopticon" do
+  test "When unpublishing an edition, its state is updated in Panopticon as 'archived'" do
     unpublish(@published_edition, unpublishing_params)
 
     assert_requested @request

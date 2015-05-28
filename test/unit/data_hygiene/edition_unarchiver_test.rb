@@ -3,8 +3,7 @@ require 'test_helper'
 module DataHygiene
   class EditionUnarchiverTest < ActiveSupport::TestCase
     setup do
-      @edition = FactoryGirl.create(:published_edition)
-      @edition.archive!
+      @edition = FactoryGirl.create(:published_edition, state: 'archived')
       @user = FactoryGirl.create(:user, id: 406)
     end
 
