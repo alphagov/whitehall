@@ -5,7 +5,7 @@ class CollectionDataReporter
     'Admin URL',
     'Documents',
     'History-mode Documents',
-    'Archived Documents'
+    'Withdrawn Documents'
   ].freeze
 
   def initialize(output_dir)
@@ -27,7 +27,7 @@ class CollectionDataReporter
             admin_link(admin_path_for_collection(collection)),
             collection.editions.publicly_visible.size,
             collection.num_political,
-            collection.num_archived,
+            collection.num_withdrawn,
           ]
         end
       end
@@ -47,13 +47,13 @@ private
       select(
           'editions.*',
           'COUNT(editions_editions.political = 1 OR NULL) AS num_political',
-          'COUNT(editions_editions.state = "archived" OR NULL) AS num_archived').
+          'COUNT(editions_editions.state = "archived" OR editions_editions.state = "withdrawn" OR NULL) AS num_withdrawn').
       in_default_locale.
       includes(:document).
       joins(:editions).
       where(:organisations => {id: organisation.id}).
       where('editions_editions.state IN (?)', Edition::PUBLICLY_VISIBLE_STATES).
-      having('num_archived > 0 OR num_political > 0').
+      having('num_withdrawn > 0 OR num_political > 0').
       group(:id)
   end
 
