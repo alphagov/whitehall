@@ -24,7 +24,7 @@ class PromotionalFeaturePresenterTest < ActionView::TestCase
     assert_equal 1000, feature.position
   end
 
-  test "returns it's position based on the passed in option value" do
+  test "returns its position based on the passed in option value" do
     assert_equal 123, feature_presenter([], 123).position
     assert_equal 321, feature_presenter([], 321).position
   end

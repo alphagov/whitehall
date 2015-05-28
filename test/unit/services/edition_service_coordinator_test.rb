@@ -5,7 +5,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     @service_coordinator = EditionServiceCoordinator.new
   end
 
-  test "prepares an EditionPublisher with it's notifier" do
+  test "prepares an EditionPublisher with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     publisher = @service_coordinator.publisher(edition, options)
@@ -16,7 +16,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, publisher.notifier
   end
 
-  test "prepares an EditionForcePublisher with it's notifier" do
+  test "prepares an EditionForcePublisher with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     publisher = @service_coordinator.force_publisher(edition, options)
@@ -27,7 +27,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, publisher.notifier
   end
 
-  test "prepares an EditionScheduler with it's notifier" do
+  test "prepares an EditionScheduler with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     scheduler = @service_coordinator.scheduler(edition, options)
@@ -38,7 +38,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, scheduler.notifier
   end
 
-  test "prepares an EditionForceScheduler with it's notifier" do
+  test "prepares an EditionForceScheduler with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     force_scheduler = @service_coordinator.force_scheduler(edition, options)
@@ -49,7 +49,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, force_scheduler.notifier
   end
 
-  test "prepares an EditionUnscheduler with it's notifier" do
+  test "prepares an EditionUnscheduler with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     unscheduler = @service_coordinator.unscheduler(edition, options)
@@ -60,7 +60,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, unscheduler.notifier
   end
 
-  test "prepares an EditionUnpublisher with it's notifier" do
+  test "prepares an EditionUnpublisher with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     publisher = @service_coordinator.unpublisher(edition, options)
@@ -71,7 +71,7 @@ class EditionServiceCoordinatorTest < ActiveSupport::TestCase
     assert_equal @service_coordinator, publisher.notifier
   end
 
-  test "prepares an EditionWithdrawer with it's notifier" do
+  test "prepares an EditionWithdrawer with its notifier" do
     edition = stub(:edition)
     options = { one: 1, two: 2 }
     publisher = @service_coordinator.withdrawer(edition, options)

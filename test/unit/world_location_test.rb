@@ -34,7 +34,7 @@ class WorldLocationTest < ActiveSupport::TestCase
     assert_equal 'WL' + world_location.id.to_s, world_location.analytics_identifier
   end
 
-  test "has name of it's world location type as display type" do
+  test "has name of its world location type as display type" do
     world_location_type = WorldLocationType::WorldLocation
     world_location_type.stubs(:name).returns('The Moon')
     world_location = build(:world_location, world_location_type: world_location_type)
