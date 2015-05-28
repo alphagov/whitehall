@@ -5,11 +5,11 @@ class Frontend::StatisticsAnnouncementsFilterTest < ActiveSupport::TestCase
     Frontend::StatisticsAnnouncementsFilter.new(attrs)
   end
 
-  test "to_date= casts into Date, taking the latest possible date in it's assumptions" do
+  test "to_date= casts into Date, taking the latest possible date in its assumptions" do
     assert_equal Date.new(2010, 01, 31), build(to_date: "Jan 2010").to_date
   end
 
-  test "from_date= casts into Date, taking the earliest possible date in it's assumptions" do
+  test "from_date= casts into Date, taking the earliest possible date in its assumptions" do
     assert_equal Date.new(2010, 01, 01), build(from_date: "Jan 2010").from_date
   end
 

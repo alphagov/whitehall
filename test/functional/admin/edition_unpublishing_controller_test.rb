@@ -6,7 +6,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
   def setup
     login_as(create(:managing_editor))
-    @edition = create(:archived_edition)
+    @edition = create(:withdrawn_edition)
   end
 
   test "#edit loads the unpublishing and renders the unpublish edit template" do
@@ -31,7 +31,7 @@ class Admin::EditionUnpublishingControllerTest < ActionController::TestCase
 
   test "#update shows form with error if the update was not possible" do
     unpublishing = create(:unpublishing, edition: @edition, explanation: "Content is mislidding",
-      unpublishing_reason_id: UnpublishingReason::Archived.id)
+      unpublishing_reason_id: UnpublishingReason::Withdrawn.id)
 
     put :update, edition_id: @edition, unpublishing: { explanation: nil }
 

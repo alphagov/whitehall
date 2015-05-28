@@ -1,10 +1,10 @@
-class EditionArchiver < EditionUnpublisher
+class EditionWithdrawer < EditionUnpublisher
   def verb
-    'archive'
+    'withdraw'
   end
 
   def past_participle
-    'archived'
+    'withdrawn'
   end
 
 private

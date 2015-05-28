@@ -58,7 +58,7 @@ namespace :election do
 private
 
   def editable_edition_states
-    Edition.state_machine.states.map(&:name) - [:superseded, :deleted, :archived]
+    Edition.state_machine.states.map(&:name) - [:superseded, :deleted, :archived, :withdrawn]
   end
 
   def policy_taggable_edition_classes

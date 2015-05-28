@@ -31,7 +31,7 @@ module DataHygiene
     end
 
     def store_and_reset_archiving
-      if latest_edition.archived?
+      if latest_edition.withdrawn_or_archived?
         @unpublishing = latest_edition.unpublishing
         latest_edition.update_column(:state, :published)
       end
@@ -44,7 +44,7 @@ module DataHygiene
     def re_archive_if_required
       if @unpublishing
         latest_edition.unpublishing = @unpublishing
-        latest_edition.update_column(:state, :archived)
+        latest_edition.update_column(:state, :withdrawn)
       end
     end
 

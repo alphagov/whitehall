@@ -95,12 +95,12 @@ module Whitehall
       assert_csv_does_not_contain "#{Whitehall.public_root}/government/publications/#{publication.slug}"
     end
 
-    test "includes archived documents" do
+    test "includes withdrawn documents" do
       # Rationale: we should still redirect to things that were
       # published and then removed
-      publication = publication_with_source(:archived)
+      publication = publication_with_source(:withdrawn)
       assert_csv_contains <<-EOT.strip_heredoc
-        http://oldurl/archived,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},archived
+        http://oldurl/withdrawn,#{Whitehall.public_root}/government/publications/#{publication.slug},#{Whitehall.admin_root}/government/admin/publications/#{publication.id},withdrawn
       EOT
     end
 

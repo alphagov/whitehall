@@ -80,7 +80,7 @@
           <td class="author"><%= linked_author(edition.last_author) %></td>
           <td class="updated"><span title="<%= edition.updated_at %>"><%= time_ago_in_words edition.updated_at %> ago</span></td>
           <% if viewing_all_active_editions? %>
-            <td class="state"><%= edition.state.humanize %></td>
+            <td class="state"><%= admin_edition_state_text(edition) %></td>
           <% end %>
         <% end %>
       <% end %>

@@ -215,7 +215,7 @@ class OrganisationTest < ActiveSupport::TestCase
     refute child_org.has_child_organisation?(parent_org)
   end
 
-  test "considers itself as superseded_by_devolved_administration if it's devolved and any of it's superseding organisations are devolved administrations" do
+  test "considers itself as superseded_by_devolved_administration if it's devolved and any of its superseding organisations are devolved administrations" do
     devolved_administration = build :devolved_administration
     other_organisation = build :organisation
 
@@ -875,14 +875,14 @@ class OrganisationTest < ActiveSupport::TestCase
     assert_equal organisation.statistics_announcements, StatisticsAnnouncementOrganisation.all.map(&:statistics_announcement)
   end
 
-  test "#service_priority_homepage? should be true if it's homepage type is service" do
+  test "#service_priority_homepage? should be true if its homepage type is service" do
     organisation = build(:organisation, homepage_type: 'service')
 
     assert organisation.service_priority_homepage?
     refute organisation.news_priority_homepage?
   end
 
-  test "#news_priority_homepage? should be true if it's homepage type is news" do
+  test "#news_priority_homepage? should be true if its homepage type is news" do
     organisation = build(:organisation, homepage_type: 'news')
 
     assert organisation.news_priority_homepage?

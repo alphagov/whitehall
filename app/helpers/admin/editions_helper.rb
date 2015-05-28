@@ -69,8 +69,12 @@ module Admin::EditionsHelper
       ["Scheduled", 'scheduled'],
       ["Published", 'published'],
       ["Force published (not reviewed)", 'force_published'],
-      ['Archived', 'archived']
+      ['Withdrawn', 'withdrawn_or_archived']
     ]
+  end
+
+  def admin_edition_state_text(edition)
+    edition.archived? ? 'Withdrawn' : edition.state.humanize
   end
 
   def admin_world_location_filter_options(current_user)
@@ -279,8 +283,8 @@ module Admin::EditionsHelper
     end
   end
 
-  def archiving_or_unpublishing(edition)
-    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Archived.id ? 'archiving' : 'unpublishing'
+  def withdrawal_or_unpublishing(edition)
+    edition.unpublishing.unpublishing_reason_id == UnpublishingReason::Withdrawn.id ? 'withdrawal' : 'unpublishing'
   end
 
   def specialist_sector_options_for_select(sectors)

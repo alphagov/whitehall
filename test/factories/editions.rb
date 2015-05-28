@@ -84,8 +84,8 @@ FactoryGirl.define do
     trait(:superseded) {
       state "superseded"
     }
-    trait(:archived) {
-      state "archived"
+    trait(:withdrawn) {
+      state "withdrawn"
     }
     trait(:featured) { featured true }
     trait(:scheduled) {
@@ -136,7 +136,7 @@ FactoryGirl.define do
   factory :superseded_edition, parent: :edition, traits: [:superseded]
   factory :scheduled_edition, parent: :edition, traits: [:scheduled]
   factory :unpublished_edition, parent: :edition, traits: [:draft, :unpublished]
-  factory :archived_edition, parent: :edition, traits: [:archived]
+  factory :withdrawn_edition, parent: :edition, traits: [:withdrawn]
   factory :protected_edition, parent: :edition, traits: [:access_limited]
   factory :edition_with_organisations, parent: :edition, traits: [:with_organisations]
 end

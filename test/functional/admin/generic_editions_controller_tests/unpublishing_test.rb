@@ -9,7 +9,7 @@ class Admin::GenericEditionsController::UnpublishingTest < ActionController::Tes
     edition = create(:published_edition)
     get :show, id: edition
 
-    assert_select "a", text: "Archive or unpublish"
+    assert_select "a", text: "Withdraw or unpublish"
   end
 
   view_test "does not display unpublish button if edition is not unpublishable" do
@@ -17,6 +17,6 @@ class Admin::GenericEditionsController::UnpublishingTest < ActionController::Tes
     edition = create(:draft_edition)
     get :show, id: edition
 
-    refute_select "a", text: "Archive or unpublish"
+    refute_select "a", text: "Withdraw or unpublish"
   end
 end

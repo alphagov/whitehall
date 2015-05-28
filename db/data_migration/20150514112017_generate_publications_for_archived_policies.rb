@@ -20,7 +20,7 @@ POLICY_TO_PUBLICATION_MAPPINGS.each_pair do |policy_id, publication_id|
   }
 
   puts "Archiving publication \"#{publication.title}\""
-  archiver = EditionArchiver.new(
+  archiver = EditionWithdrawer.new(
     publication,
     user: gds_user,
     remark: "Archived",

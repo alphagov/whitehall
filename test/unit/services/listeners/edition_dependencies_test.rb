@@ -70,8 +70,8 @@ class ServiceListeners::EditionDependenciesTest < ActiveSupport::TestCase
     end
   end
 
-  # no need to republish an unpublished edition when it's dependencies change, so
-  test "unpublishing a depended-upon edition destroys links with it's dependencies" do
+  # no need to republish an unpublished edition when its dependencies change, so
+  test "unpublishing a depended-upon edition destroys links with its dependencies" do
     edition = create(:published_news_article)
     edition.depended_upon_contacts << create(:contact)
     edition.depended_upon_editions << create(:speech)

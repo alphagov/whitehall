@@ -32,7 +32,7 @@ class Frontend::StatisticsAnnouncementTest < ActiveSupport::TestCase
     assert_equal "March 12 2015 (cancelled)", announcement.display_date_with_status
   end
 
-  test "it identifies by it's slug" do
+  test "it identifies by its slug" do
     assert_equal 'a-slug', build_announcement(slug: 'a-slug').to_param
   end
 

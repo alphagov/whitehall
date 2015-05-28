@@ -1,14 +1,14 @@
 <% edition = @unpublishing.edition
-   archiving_or_unpublishing = archiving_or_unpublishing(@unpublishing.edition)
+   withdrawal_or_unpublishing = withdrawal_or_unpublishing(@unpublishing.edition)
 %>
 
-<% page_title "Edit public explanation for #{archiving_or_unpublishing}"  %>
+<% page_title "Edit public explanation for #{withdrawal_or_unpublishing}"  %>
 
 <div class="span10 edit-unpublishing-form">
   <section>
     <h1><%= edition.title %></h1>
-    <h2>Edit public explanation for <%= archiving_or_unpublishing %></h2>
-    <p>Reason for <%= archiving_or_unpublishing %>: <%= @unpublishing.unpublishing_reason.as_sentence %></p>
+    <h2>Edit public explanation for <%= withdrawal_or_unpublishing %></h2>
+    <p>Reason for <%= withdrawal_or_unpublishing %>: <%= @unpublishing.unpublishing_reason.as_sentence %></p>
 
     <%= form_for @unpublishing, url: admin_edition_unpublishing_path(edition) do |f| %>
       <fieldset>
@@ -16,7 +16,7 @@
           label_text: %{<strong>Public explanation</strong> (this is shown on the live site)}.html_safe %>
       </fieldset>
       <fieldset>
-        <%= f.submit "Update #{archiving_or_unpublishing} explanation", class: "btn btn-primary" %>
+        <%= f.submit "Update #{withdrawal_or_unpublishing} explanation", class: "btn btn-primary" %>
         <span class="or_cancel"> or <%= link_to 'cancel', [:admin, edition] %></span>
       </fieldset>
     <% end %>

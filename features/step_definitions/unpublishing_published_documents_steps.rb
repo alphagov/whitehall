@@ -11,7 +11,7 @@ end
 
 When(/^I unpublish the duplicate, marking it as consolidated into the other page$/) do
   visit admin_edition_path(@duplicate_edition)
-  click_on 'Archive or unpublish'
+  click_on 'Withdraw or unpublish'
   choose 'Unpublish: consolidated into another GOV.UK page'
 
   within '#js-consolidated-form' do
@@ -20,30 +20,30 @@ When(/^I unpublish the duplicate, marking it as consolidated into the other page
   end
 end
 
-When(/^I archive the policy because it is no longer government policy$/) do
+When(/^I withdraw the policy because it is no longer government policy$/) do
   @policy = Policy.last
   visit admin_edition_path(@policy)
-  click_on 'Archive or unpublish'
-  choose 'Archive: no longer current government policy/activity'
+  click_on 'Withdraw or unpublish'
+  choose 'Withdraw: no longer current government policy/activity'
   fill_in 'Public explanation (this is shown on the live site) *', with: 'We no longer believe people should shave'
-  click_button 'Archive'
+  click_button 'Withdraw'
 
-  assert_equal :archived, @policy.reload.current_state
+  assert_equal :withdrawn, @policy.reload.current_state
 end
 
-When(/^I edit the public explanation for archiving$/) do
+When(/^I edit the public explanation for withdrawal$/) do
   policy = Policy.last
   visit admin_edition_path(policy)
-  click_on 'Edit archiving explanation'
+  click_on 'Edit withdrawal explanation'
   fill_in 'Public explanation', with: "We believe people should shave, but the government need not enforce a policy for that"
-  click_button 'Update archiving explanation'
+  click_button 'Update withdrawal explanation'
 end
 
 Then(/^I should see the updated explanation on the public site$/) do
-  step %{the policy should be marked as archived on the public site}
+  step %{the policy should be marked as withdrawn on the public site}
 end
 
-Then(/^the policy should be marked as archived on the public site$/) do
+Then(/^the policy should be marked as withdrawn on the public site$/) do
   policy = Policy.last
   visit public_document_path(policy)
   assert page.has_content?(policy.title)
@@ -65,9 +65,9 @@ Then(/^there should be an editorial remark recording the fact that the document 
   assert_equal 'Reset to draft', edition.editorial_remarks.last.body
 end
 
-Then(/^there should be an editorial remark recording the fact that the document was archived$/) do
+Then(/^there should be an editorial remark recording the fact that the document was withdrawn$/) do
   edition = Edition.last
-  assert_equal 'Archived', edition.editorial_remarks.last.body
+  assert_equal 'Withdrawn', edition.editorial_remarks.last.body
 end
 
 Then /^I should see that the document was published in error on the public site$/ do

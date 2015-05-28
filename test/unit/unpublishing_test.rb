@@ -93,10 +93,10 @@ class UnpublishingTest < ActiveSupport::TestCase
     assert unpublishing.redirect?
   end
 
-  test 'explanation is required if the reason is Archived' do
-    unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Archived.id, explanation: nil)
+  test 'explanation is required if the reason is Withdrawn' do
+    unpublishing = build(:unpublishing, unpublishing_reason_id: UnpublishingReason::Withdrawn.id, explanation: nil)
     refute unpublishing.valid?
-    assert_equal ['must be provided when archiving'], unpublishing.errors[:explanation]
+    assert_equal ['must be provided when withdrawing'], unpublishing.errors[:explanation]
   end
 
   test '#document_path returns the URL for the unpublished edition' do
@@ -135,7 +135,7 @@ class UnpublishingTest < ActiveSupport::TestCase
   end
 
   test 'updates are propogated to publishing API as a minor update' do
-    unpublishing = create(:unpublishing, unpublishing_reason_id: UnpublishingReason::Archived.id, explanation: 'Needs more work.')
+    unpublishing = create(:unpublishing, unpublishing_reason_id: UnpublishingReason::Withdrawn.id, explanation: 'Needs more work.')
 
     new_explanation = 'This publication will be ready for publishing next week.'
     Whitehall::PublishingApi.expects(:publish_async).with(responds_with(:explanation, new_explanation), 'minor').once

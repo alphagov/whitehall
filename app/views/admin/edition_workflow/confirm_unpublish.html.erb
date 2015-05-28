@@ -1,7 +1,7 @@
 <% page_title "Unpublish: #{@edition.title}"  %>
 <% page_class "edition-unpublish" %>
 <%
-  initialise_script "GOVUK.adminEditionWorkflowConfirmUnpublish", unpublish_reason_ids: { Archived: UnpublishingReason::Archived.id,
+  initialise_script "GOVUK.adminEditionWorkflowConfirmUnpublish", unpublish_reason_ids: { Withdrawn: UnpublishingReason::Withdrawn.id,
                                                                                           PublishedInError: UnpublishingReason::PublishedInError.id,
                                                                                           Consolidated: UnpublishingReason::Consolidated.id }
 %>
@@ -11,17 +11,17 @@
       <h1><%= @edition.title %></h1>
 
 
-      <h2>Do you want to archive or unpublish this document?</h2>
+      <h2>Do you want to withdraw or unpublish this document?</h2>
 
       <p>
-        Learn more about archiving and unpublishing content on our
+        Learn more about withdrawing and unpublishing content on our
         <%= link_to 'publishing guide', 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving', target: '_blank' %>.
       </p>
 
       <div class="js-unpublishing-reason">
-        <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Archived.id}" do %>
-          <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Archived.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Archived) %>
-          <strong>Archive:</strong> no longer current government policy/activity
+        <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Withdrawn.id}" do %>
+          <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Withdrawn.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn) %>
+          <strong>Withdraw:</strong> no longer current government policy/activity
         <% end %>
         <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}" do %>
           <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::PublishedInError.id, (@unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError) %>
@@ -36,17 +36,17 @@
       <%= form_for  @unpublishing,
                     url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
                     html: {
-                      id: 'js-archive-form',
-                      class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Archived)
+                      id: 'js-withdraw-form',
+                      class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn)
                     } do |form| %>
 
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Archived.id %>
+        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Withdrawn.id %>
         <fieldset>
-            <%= label_tag 'archived_explanation', '<strong>Public explanation</strong> (this is shown on the live site) <span>*</span>'.html_safe, class: 'required' %>
-            <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'archived_explanation'  %>
+            <%= label_tag 'withdrawal_explanation', '<strong>Public explanation</strong> (this is shown on the live site) <span>*</span>'.html_safe, class: 'required' %>
+            <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'withdrawal_explanation'  %>
         </fieldset>
         <fieldset>
-          <%= form.submit 'Archive', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
+          <%= form.submit 'Withdraw', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
         </fieldset>
       <% end %>
 

@@ -1,8 +1,8 @@
 Whitehall.edition_services.tap do |es|
   es.subscribe(/^(force_publish|publish)$/)                   { |event, edition, options| ServiceListeners::AuthorNotifier.new(edition, options[:user]).notify! }
-  es.subscribe(/^(force_publish|publish|unpublish|archive)$/) { |event, edition, options| ServiceListeners::EditorialRemarker.new(edition, options[:user], options[:remark]).save_remark! }
+  es.subscribe(/^(force_publish|publish|unpublish|withdraw)$/) { |event, edition, options| ServiceListeners::EditorialRemarker.new(edition, options[:user], options[:remark]).save_remark! }
   es.subscribe(/^(force_publish|publish)$/)                   { |event, edition, options| Whitehall::GovUkDelivery::Notifier.new(edition).edition_published! }
-  es.subscribe(/^(force_publish|publish|unpublish|archive)$/) { |_, edition, _| ServiceListeners::PanopticonRegistrar.new(edition).register! }
+  es.subscribe(/^(force_publish|publish|unpublish|withdraw)$/) { |_, edition, _| ServiceListeners::PanopticonRegistrar.new(edition).register! }
   es.subscribe(/^(force_publish|publish)$/)                   { |_, edition, _| ServiceListeners::AnnouncementClearer.new(edition).clear! }
 
   # search
@@ -12,7 +12,7 @@ Whitehall.edition_services.tap do |es|
   # publishing API
   es.subscribe(/^(force_publish|publish)$/)   { |_, edition, _| Whitehall::PublishingApi.publish_async(edition) }
   es.subscribe("update_draft")                { |_, edition, _| Whitehall::PublishingApi.publish_draft_async(edition) }
-  es.subscribe("archive")                     { |_, edition, _| Whitehall::PublishingApi.republish_async(edition) }
+  es.subscribe("withdraw")                     { |_, edition, _| Whitehall::PublishingApi.republish_async(edition) }
   es.subscribe("unpublish")                   { |_, edition, _| Whitehall::PublishingApi.publish_async(edition.unpublishing) }
   es.subscribe(/^(force_schedule|schedule)$/) { |_, edition, _| Whitehall::PublishingApi.schedule_async(edition) }
   es.subscribe("unschedule")                  { |_, edition, _| Whitehall::PublishingApi.unschedule_async(edition) }
