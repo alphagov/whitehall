@@ -38,7 +38,24 @@ class MinisterialRolesControllerTest < ActionController::TestCase
     assert_equal [prime_minister, deputy_prime_minister, first_sec_of_state, defence_minister, culture_minister], assigns(:cabinet_ministerial_roles).map { |person, role| role.first.model }
   end
 
-  test "shows ministers by organisation in the cms-defined order" do
+  test "shows ministers by organisation with the organisations in the cms-defined order" do
+    organisation_1 = create(:ministerial_department, ministerial_ordering: 1)
+    organisation_2 = create(:ministerial_department, ministerial_ordering: 0)
+
+    person_1 = create(:person)
+    role_1 = create(:ministerial_role, cabinet_member: true, organisations: [organisation_1], seniority: 0)
+    appointment_1 = create(:ministerial_role_appointment, role: role_1, person: person_1)
+
+    person_2 = create(:person)
+    role_2 = create(:ministerial_role, cabinet_member: true, organisations: [organisation_2], seniority: 0)
+    appointment_2 = create(:ministerial_role_appointment, role: role_2, person: person_2)
+
+    get :index
+
+    assert_equal [organisation_2, organisation_1], assigns(:ministers_by_organisation).map(&:first)
+  end
+
+  test "shows ministers by organisation with the ministers in the cms-defined order" do
     organisation = create(:ministerial_department)
     person_2 = create(:person, forename: 'Jeremy', surname: 'Hunt')
     person_1 = create(:person, forename: 'Nick', surname: 'Clegg')
@@ -169,13 +186,14 @@ class MinisterialRolesControllerTest < ActionController::TestCase
   end
 
   view_test "shows the non-cabinet minister's name and role" do
+    org = create(:ministerial_department)
     person = create(:person, forename: "John", surname: "Doe")
-    ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: false)
+    ministerial_role = create(:ministerial_role, name: "Prime Minister", cabinet_member: false, organisations: [org])
     create(:role_appointment, person: person, role: ministerial_role)
 
     get :index
 
-    assert_select_prefix_object(person, 'by-organisation') do
+    assert_select_prefix_object(person, "by-organisation-#{org.slug}") do
       assert_select "a[href=?]", person_path(person), text: "John Doe"
       assert_minister_role_links_to_their_role(ministerial_role)
     end

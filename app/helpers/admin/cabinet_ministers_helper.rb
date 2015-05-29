@@ -11,4 +11,17 @@ module Admin::CabinetMinistersHelper
       )
     end.join.html_safe
   end
+
+  def organisation_ordering_fields(organisations)
+    organisations.map do |org|
+      label = org.name
+      content_tag(:div,
+        [
+          label_tag("organisation[#{org.id}][ordering]", org.name),
+          text_field_tag("organisation[#{org.id}][ordering]", org.ministerial_ordering, class: "ordering")
+        ].join.html_safe,
+        class: "well"
+      )
+    end.join.html_safe
+  end
 end

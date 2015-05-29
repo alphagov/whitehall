@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518121912) do
+ActiveRecord::Schema.define(version: 20150527084520) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -906,6 +906,7 @@ ActiveRecord::Schema.define(version: 20150518121912) do
     t.string   "content_id",                              limit: 255
     t.string   "homepage_type",                           limit: 255, default: "news"
     t.boolean  "political",                               limit: 1,   default: false
+    t.integer  "ministerial_ordering",                    limit: 4
   end
 
   add_index "organisations", ["content_id"], name: "index_organisations_on_content_id", unique: true, using: :btree

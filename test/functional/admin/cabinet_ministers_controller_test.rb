@@ -47,4 +47,26 @@ class Admin::CabinetMinistersControllerTest < ActionController::TestCase
     assert_equal MinisterialRole.whip.order(:seniority).to_a, [role_2, role_1]
     assert_equal MinisterialRole.whip.order(:whip_ordering).to_a, [role_1, role_2]
   end
+
+  test 'should list ministerial organisations in ministerial order' do
+    org_1 = create(:ministerial_department, ministerial_ordering: 0)
+    org_2 = create(:ministerial_department, ministerial_ordering: 2)
+    org_3 = create(:ministerial_department, ministerial_ordering: 1)
+
+    get :show
+
+    assert_equal assigns(:organisations).to_a, [org_1, org_3, org_2]
+  end
+
+  test 'should reorder ministerial organisations' do
+    org_2 = create(:organisation)
+    org_1 = create(:organisation)
+
+    put :update, organisation: {
+      "#{org_1.id}" => {ordering: 0},
+      "#{org_2.id}" => {ordering: 1},
+    }
+
+    assert_equal Organisation.order(:ministerial_ordering), [org_1, org_2]
+  end
 end
