@@ -45,6 +45,16 @@ class AttachmentsControllerTest < ActionController::TestCase
     assert_match attachment_data.filename, response.headers['Content-Disposition']
   end
 
+  test 'document attachments that are visible are sent with a Link: header' do
+    visible_edition = create(:published_publication, :with_file_attachment)
+    attachment_data = visible_edition.attachments.first.attachment_data
+
+    VirusScanHelpers.simulate_virus_scan(attachment_data.file)
+    get_show attachment_data
+
+    assert_match response.headers['Link'], "<#{public_document_url(visible_edition)}>; rel=\"up\""
+  end
+
   test 'attachments on policy groups are always visible' do
     attachment = create(:file_attachment, attachable: create(:policy_group))
     attachment_data = attachment.attachment_data
