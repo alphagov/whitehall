@@ -49,14 +49,11 @@ module DataHygiene
   private
     def find
       editions_with_orphaned_attachments = []
-      [SupportingPage, StatisticalDataSet, CorporateInformationPage, DetailedGuide].each do |klass|
+      [StatisticalDataSet, CorporateInformationPage, DetailedGuide].each do |klass|
         klass.includes(:attachments).each do |edition|
           if edition.respond_to?(:published?) && edition.respond_to?(:is_latest_edition?)
             next unless edition.published? || edition.is_latest_edition?
             state = edition.state
-          elsif edition.respond_to?(:edition)
-            next if edition.edition.nil? # skip supporting pages with no edition
-            state = edition.edition.state
           else
             state = "published"
           end
@@ -82,8 +79,6 @@ module DataHygiene
       case thing
       when CorporateInformationPage
         Whitehall.url_maker.admin_organisation_corporate_information_page_url(thing.organisation, thing)
-      when SupportingPage
-        Whitehall.url_maker.admin_supporting_page_url(thing)
       when StatisticalDataSet, DetailedGuide
         Whitehall.url_maker.admin_edition_url(thing)
       end

@@ -58,11 +58,6 @@ class Admin::AdminGovspeakHelperTest < ActionView::TestCase
     assert_select_within_html html, "del", text: "that"
   end
 
-  test "should rewrite link to destroyed supporting page in admin preview" do
-    html = govspeak_to_admin_html("this and [that](#{admin_supporting_page_path("doesnt-exist", "missing-id")})")
-    assert_select_within_html html, "del", text: "that"
-  end
-
   test "should rewrite link to published edition in admin preview" do
     publication = create(:published_publication)
     html = govspeak_to_admin_html("this and [that](#{admin_publication_path(publication)})")

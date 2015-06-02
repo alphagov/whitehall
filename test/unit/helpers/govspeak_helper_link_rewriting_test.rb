@@ -12,12 +12,6 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
     end
   end
 
-  test "should rewrite absolute path to an admin page for a published supporting page as link to its public page" do
-    supporting_page = create(:published_supporting_page)
-    policy = supporting_page.related_policies.first
-    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_document_url(supporting_page))
-  end
-
   test "should not raise exception when link to an admin page for an organisation is present" do
     organisation = create(:organisation)
     path = admin_organisation_url(organisation)
@@ -73,12 +67,6 @@ class GovspeakHelperLinkRewritingTest < ActionView::TestCase
   test "should rewrite absolute path to an admin page for a speech as a link to its public page" do
     speech = create(:published_speech)
     assert_rewrites_link(from: admin_speech_path(speech), to: public_document_url(speech))
-  end
-
-  test "should rewrite absolute path to an admin page for a supporting page as a link to its public page" do
-    supporting_page = create(:published_supporting_page)
-    policy = supporting_page.related_policies.first
-    assert_rewrites_link(from: admin_supporting_page_path(supporting_page), to: public_document_url(supporting_page))
   end
 
   test "should not link to draft editions with no published edition" do

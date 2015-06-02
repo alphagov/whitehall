@@ -26,8 +26,6 @@ module PublicDocumentRoutesHelper
     case edition
     when CorporateInformationPage
       build_url_for_corporate_information_page(edition, options)
-    when SupportingPage
-      build_url_for_supporting_page(edition, options, builder_options)
     else
       path_name = if edition.statistics?
                     "statistic"
@@ -95,20 +93,6 @@ module PublicDocumentRoutesHelper
     else
       polymorphic_url([org, 'corporate_information_page'], options.merge(id: edition.slug))
     end
-  end
-
-  def build_url_for_supporting_page(edition, options, builder_options)
-    options = options.merge(id: edition.document)
-
-    if policy = edition.related_policies.first
-      options[:policy_id] ||= policy.document
-    elsif builder_options[:include_deleted_documents]
-      options[:policy_id] ||= Edition.unscoped do
-        edition.related_policies.first.try(:document)
-      end
-    end
-
-    polymorphic_url('policy_supporting_page', options) unless options[:policy_id].blank?
   end
 
   def best_locale_for_edition(edition)

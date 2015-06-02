@@ -24,12 +24,6 @@ class Admin::EditionRoutesHelperTest < ActionView::TestCase
     assert_equal "/government/admin/priority/#{w.id}/edit", edit_admin_edition_path(w)
   end
 
-  test 'generates supporting_pages path helper for each edition subtype' do
-    Admin::EditionRoutesHelper::EDITION_TYPES.each do |edition_type|
-      assert Admin::EditionRoutesHelper.instance_methods(false).include?(:"admin_#{edition_type.name.underscore}_supporting_pages_path"), "expected admin_#{edition_type.name.underscore}_supporting_pages_path to be a method on Admin::EditionRoutesHelper, but it's not"
-    end
-  end
-
   test 'generates editorial_remarks path helpers for each edition subtype' do
     Admin::EditionRoutesHelper::EDITION_TYPES.each do |edition_type|
       assert Admin::EditionRoutesHelper.instance_methods(false).include?(:"admin_#{edition_type.name.underscore}_editorial_remarks_path"), "expected admin_#{edition_type.name.underscore}_editorial_remarks_path to be a method on Admin::EditionRoutesHelper, but it's not"

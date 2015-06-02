@@ -13,7 +13,7 @@ class DocumentHistory
     @document = document
 
     if first_public_edition.present?
-      @changes = (document_changes + unique_supporting_pages_changes).sort_by {|c| -c.public_timestamp.to_i }
+      @changes = document_changes
     else
       @changes = []
     end
@@ -69,21 +69,5 @@ class DocumentHistory
 
   def all_published_editions_in_creation_order
     document.ever_published_editions.order('created_at')
-  end
-
-  def supporting_pages
-    latest_public_edition.respond_to?(:published_supporting_pages) ? latest_public_edition.published_supporting_pages : []
-  end
-
-  def supporting_pages_changes
-    supporting_pages.flat_map do |supporting_page|
-      DocumentHistory.new(supporting_page.document, "Detail added: #{supporting_page.title}").changes
-    end
-  end
-
-  def unique_supporting_pages_changes
-    supporting_pages_changes.reject do |sub_change|
-      document_changes.any? { |main_change| sub_change.public_timestamp.to_i <= main_change.public_timestamp.to_i }
-    end
   end
 end

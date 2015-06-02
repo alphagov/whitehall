@@ -8,14 +8,6 @@ class Govspeak::DependableEditionsExtractorTest < ActiveSupport::TestCase
     assert_equal [speech], Govspeak::DependableEditionsExtractor.new(govspeak).editions
   end
 
-  test "extracts legacy references to draft supporting pages" do
-    policy = create(:published_policy)
-    supporting_page = create(:supporting_page, related_policies: [policy])
-    govspeak = "Few more [supporting pages](/government/admin/editions/#{policy.id}/supporting-pages/#{supporting_page.id})."
-
-    assert_equal [supporting_page], Govspeak::DependableEditionsExtractor.new(govspeak).editions
-  end
-
   test "extracts references to organisation corporate information pages in draft" do
     cip = create(:corporate_information_page)
     govspeak = "[CIP](/government/admin/organisations/organisation-5/corporate_information_pages/#{cip.id})"

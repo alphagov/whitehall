@@ -81,10 +81,6 @@ en:
         <<: *nested_attachment_field_names
       response/consultation_response_attachments/attachment/attachment_data:
         <<: *nested_attachment_data_field_names
-      supporting_page/supporting_page_attachments/attachment:
-        <<: *nested_attachment_field_names
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
-        <<: *nested_attachment_data_field_names
       detailed_guide:
         primary_mainstream_category: Primary detailed guidance category
   date:

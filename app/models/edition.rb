@@ -406,10 +406,6 @@ class Edition < ActiveRecord::Base
     false
   end
 
-  def allows_supporting_pages?
-    false
-  end
-
   def can_be_grouped_in_collections?
     false
   end

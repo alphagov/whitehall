@@ -41,17 +41,4 @@ class RegisterableEditionBuilderForUnpublishedEditionsTest < ActiveSupport::Test
     assert_equal [expected_registerable_edition], registerable_editions
     assert_equal "live", registerable_editions.last.state
   end
-
-  test "builds a set that excludes editions without related documents" do
-    policy = create(:policy, :unpublished)
-    supporting_page = create(:supporting_page, :unpublished, related_policies: [policy])
-    supporting_page.delete!
-    policy.delete!
-
-    registerable_editions = RegisterableEditionBuilderForUnpublishedEditions.build
-    expected_registerable_edition = RegisterableEdition.new(supporting_page)
-
-    assert_equal [], supporting_page.related_policies
-    refute_includes registerable_editions, expected_registerable_edition
-  end
 end

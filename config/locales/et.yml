@@ -240,17 +240,6 @@ et:
         unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
       response/consultation_response_attachments/attachment/attachment_data:
         file: Manus
-      supporting_page/supporting_page_attachments/attachment:
-        command_paper_number:
-        hoc_paper_number: Parlamendi Alamkoja dokumendi number
-        isbn: 'Manuse ISBN '
-        order_url: Manuse tellimise link
-        price: Manuse hind
-        title: Manuse pealkiri
-        unique_reference: Manuse unikaalne viide
-        unnumbered_hoc_paper: Nummerdamata Parlamendi alamkoja dokument
-      supporting_page/supporting_page_attachments/attachment/attachment_data:
-        file: Manus
     nested_attachment_data_field_names:
       file: Manus
     nested_attachment_field_names:

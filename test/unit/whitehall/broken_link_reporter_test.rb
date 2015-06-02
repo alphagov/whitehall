@@ -42,13 +42,6 @@ class BrokenLinkReporterTest < ActiveSupport::TestCase
       assert_equal organisation, checker.organisation
     end
 
-    test '#organisation returns the first organisation for a supporting page' do
-      supporting_page = create(:supporting_page)
-      checker = Whitehall::BrokenLinkReporter::EditionChecker.new(supporting_page)
-
-      assert_equal supporting_page.organisations.first, checker.organisation
-    end
-
     test '#organisation returns the owning organisation for a corporate information page' do
       corporate_information_page = create(:corporate_information_page)
       checker = Whitehall::BrokenLinkReporter::EditionChecker.new(corporate_information_page)

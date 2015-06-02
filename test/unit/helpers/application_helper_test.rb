@@ -154,14 +154,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal world_locations_path(locale: :en), current_main_navigation_path(controller: "world_locations", action: "index", locale: :dk)
   end
 
-  test "policy pages should be related to policy main navigation" do
-    assert_equal policies_path, current_main_navigation_path(controller: "policies", action: "index")
-    assert_equal policies_path, current_main_navigation_path(controller: "policies", action: "show")
-    assert_equal policies_path, current_main_navigation_path(controller: "policies", action: "activity")
-    assert_equal policies_path, current_main_navigation_path(controller: "supporting_pages", action: "index")
-    assert_equal policies_path, current_main_navigation_path(controller: "supporting_pages", action: "show")
-  end
-
   test "search result pages should not be related to main navigation" do
     assert_nil current_main_navigation_path(controller: "search", action: "index")
   end

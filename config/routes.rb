@@ -73,12 +73,6 @@ Whitehall::Application.routes.draw do
     get '/tour' => redirect("/tour", prefix: "")
 
     resources :announcements, only: [:index], path: 'announcements', localised: true
-    resources :policies, only: [:index, :show], localised: true do
-      member do
-        get :activity
-      end
-      resources :supporting_pages, path: "supporting-pages", only: [:index, :show]
-    end
     resources :news_articles, path: 'news', only: [:show], localised: true
     resources :fatality_notices, path: 'fatalities', only: [:show]
     get "/news" => redirect("/announcements"), as: 'news_articles'
@@ -292,10 +286,6 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        # Ensure that supporting page routes are just ids in admin
-        get "/editions/:edition_id/supporting-pages/:id" => "supporting_pages#show", constraints: {id: /[0-9]+/}
-        get '/editions/:policy_id/supporting-pages/new', constraints: {id: /(\d+)/}, to: redirect("/admin/supporting-pages/new?edition[related_policy_ids][]=%{policy_id}"), as: 'new_policy_supporting_page'
-
         get "/editions/:id" => "editions#show"
 
         resources :statistics_announcements, except: [:destroy] do
@@ -314,7 +304,6 @@ Whitehall::Application.routes.draw do
         resources :policies, except: [:index] do
           get :topics
         end
-        resources :supporting_pages, path: "supporting-pages", except: [:index]
         resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :world_location_news_articles, path: 'world-location-news', except: [:index]

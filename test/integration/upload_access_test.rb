@@ -137,41 +137,6 @@ class UploadAccessTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test 'allows everyone access to attachments of published supporting pages' do
-    create(:published_supporting_page, attachments: [
-      attachment = build(:file_attachment)
-    ])
-    VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
-
-    get_via_nginx attachment.url
-
-    assert_sent_public_upload attachment.url, Mime::PDF
-  end
-
-  test 'blocks general access to attachments of unpublished supporting pages' do
-    build(:draft_supporting_page, attachments: [
-      attachment = build(:file_attachment)
-    ])
-    VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
-
-    get_via_nginx attachment.url
-
-    assert_response :not_found
-  end
-
-  test 'allows authenticated users access to attachments of unpublished supporting pages' do
-    create(:draft_supporting_page, attachments: [
-      attachment = build(:file_attachment)
-    ])
-    VirusScanHelpers.simulate_virus_scan(attachment.attachment_data.file)
-
-    AttachmentsController.any_instance.stubs(:current_user).returns(create(:user))
-
-    get_via_nginx attachment.url
-
-    assert_sent_private_upload attachment.url, Mime::PDF
-  end
-
   test 'allows authenticated users access to attachments of unpublished editions' do
     create(:draft_publication,
       alternative_format_provider: create(:organisation_with_alternative_format_contact_email),

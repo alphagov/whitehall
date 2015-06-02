@@ -1,6 +1,6 @@
 class RegisterableEditionBuilderForUnpublishedEditions
   def self.build
-    set_to_register.map do |edition|
+    edition_set.map do |edition|
       RegisterableEdition.new(edition)
     end
   end
@@ -18,12 +18,6 @@ private
   def self.edition_set
     document_ids.map do |document_id|
       Edition.unscoped.where(document_id: document_id).order(:id).last
-    end
-  end
-
-  def self.set_to_register
-    edition_set.delete_if do |edition|
-      edition.is_a?(SupportingPage) && edition.related_policies.empty?
     end
   end
 end

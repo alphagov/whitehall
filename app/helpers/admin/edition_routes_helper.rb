@@ -1,7 +1,7 @@
 module Admin::EditionRoutesHelper
   include ActionDispatch::Routing::PolymorphicRoutes
 
-  EDITION_TYPES = [Policy, Publication, NewsArticle, Consultation, Speech,
+  EDITION_TYPES = [Publication, NewsArticle, Consultation, Speech,
                    WorldwidePriority, DetailedGuide, CaseStudy,
                    StatisticalDataSet, FatalityNotice, WorldLocationNewsArticle,
                    CorporateInformationPage]
@@ -17,7 +17,6 @@ module Admin::EditionRoutesHelper
     end
   end
 
-  edition_instance_route :admin_edition_supporting_pages_path
   edition_instance_route :admin_edition_editorial_remarks_path
   edition_instance_route :admin_edition_fact_check_requests_path
 

@@ -157,11 +157,9 @@ module Whitehall
       DocumentCollection,
       FatalityNotice,
       NewsArticle,
-      Policy,
       Publication,
       Speech,
       StatisticalDataSet,
-      SupportingPage,
       WorldLocationNewsArticle,
       WorldwidePriority,
     ]
