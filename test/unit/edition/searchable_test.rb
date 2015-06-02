@@ -72,7 +72,7 @@ class Edition::SearchableTest < ActiveSupport::TestCase
 
     Whitehall::SearchIndex.expects(:delete).with(edition).never
 
-    new_edition = edition.create_draft(create(:policy_writer))
+    new_edition = edition.create_draft(create(:writer))
     new_edition.change_note = "change-note"
     force_publish(new_edition)
   end

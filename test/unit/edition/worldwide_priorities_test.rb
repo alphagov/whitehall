@@ -56,29 +56,4 @@ class Edition::WorldwidePrioritiesTest < ActiveSupport::TestCase
     force_publish(new_priority)
     assert @edition.published_worldwide_priorities.include?(new_priority)
   end
-
-  test "worldwide priorities doesn't show up in related policies" do
-    published = create :published_world_location_news_article, related_editions: priorities
-    assert_equal 0, published.related_policies.count
-    assert_equal 2, published.worldwide_priorities.count
-  end
-
-  test "related policies don't show up as worldwide priorities" do
-    published = create :published_world_location_news_article, related_editions: [create(:policy)]
-    assert_equal 1, published.related_policies.count
-    assert_equal 0, published.worldwide_priorities.count
-  end
-
-  test "can set the priorities without removing the other documents" do
-    edition = create(:world_location_news_article)
-    worldwide_priority = create(:worldwide_priority)
-    old_policy = create(:policy)
-    edition.related_editions = [worldwide_priority, old_policy]
-
-    new_priority = create(:worldwide_priority)
-    edition.worldwide_priority_ids = [new_priority.id]
-    assert_equal [new_priority], edition.worldwide_priorities
-    assert_equal [old_policy], edition.related_policies
-  end
-
 end

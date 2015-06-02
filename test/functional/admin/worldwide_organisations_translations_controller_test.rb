@@ -3,7 +3,7 @@ require "test_helper"
 
 class Admin::WorldwideOrganisationsTranslationsControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
     @worldwide_organisation = create(:worldwide_organisation)
 
     Locale.stubs(:non_english).returns([

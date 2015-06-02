@@ -22,19 +22,19 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
   end
 
   test "GET on :new denied if not a gds admin" do
-    login_as :policy_writer
+    login_as :writer
     get :new
     assert_response :forbidden
   end
 
   test "POST on :create denied if not a gds admin" do
-    login_as :policy_writer
+    login_as :writer
     post :create, organisation: {}
     assert_response :forbidden
   end
 
   view_test "Link to create organisation does not show if not a gds admin" do
-    login_as :policy_writer
+    login_as :writer
     get :index
     refute_select ".btn", text: "Create organisation"
   end
@@ -373,8 +373,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "Prevents unauthorized management of homepage priority" do
     organisation = create(:organisation)
-    policy_writer = create(:policy_writer, organisation: organisation)
-    login_as(policy_writer)
+    writer = create(:writer, organisation: organisation)
+    login_as(writer)
 
     get :edit, id: organisation
     refute_select ".homepage-priority"
@@ -422,8 +422,8 @@ class Admin::OrganisationsControllerTest < ActionController::TestCase
 
   view_test "GDS Editors can set political status" do
     organisation = create(:organisation)
-    policy_writer = create(:policy_writer, organisation: organisation)
-    login_as(policy_writer)
+    writer = create(:writer, organisation: organisation)
+    login_as(writer)
 
     get :edit, id: organisation
     refute_select ".political-status"

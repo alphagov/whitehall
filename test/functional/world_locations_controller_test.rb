@@ -78,12 +78,12 @@ class WorldLocationsControllerTest < ActionController::TestCase
   view_test "show generates an atom feed with entries for latest activity" do
     world_location = create(:world_location)
     pub = create(:published_publication, world_locations: [world_location], first_published_at: 1.week.ago.to_date)
-    pol = create(:published_policy, world_locations: [world_location], first_published_at: 1.day.ago)
+    news = create(:published_news_article, world_locations: [world_location], first_published_at: 1.day.ago)
 
     get :show, id: world_location, format: :atom
 
     assert_select_atom_feed do
-      assert_select_atom_entries([pol, pub])
+      assert_select_atom_entries([news, pub])
     end
   end
 
@@ -266,7 +266,7 @@ class WorldLocationsControllerTest < ActionController::TestCase
     world_location = create(:world_location, translated_into: [:fr])
 
     create(:published_publication, world_locations: [world_location], translated_into: [:fr])
-    create(:published_policy, world_locations: [world_location], translated_into: [:fr])
+    create(:published_news_article, world_locations: [world_location], translated_into: [:fr])
 
     get :show, id: world_location, locale: 'fr'
 

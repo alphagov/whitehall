@@ -4,7 +4,7 @@ class Admin::DocumentSearchesControllerTest < ActionController::TestCase
   should_be_an_admin_controller
 
   setup do
-    login_as create(:policy_writer)
+    login_as create(:writer)
   end
 
   def json_response

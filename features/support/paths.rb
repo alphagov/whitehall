@@ -51,8 +51,6 @@ module NavigationHelpers
       visit announcements_path
     when Consultation
       visit consultations_path
-    when Policy
-      visit policies_path
     when DetailedGuide
       visit detailed_guide_path(edition.document)
     when WorldwidePriority

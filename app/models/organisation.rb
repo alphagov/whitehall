@@ -106,10 +106,6 @@ class Organisation < ActiveRecord::Base
   has_and_belongs_to_many :superseding_organisations, class_name: "Organisation", foreign_key: :superseded_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseding_organisation_id
   has_and_belongs_to_many :superseded_organisations, class_name: "Organisation", foreign_key: :superseding_organisation_id, join_table: :organisation_supersedings, association_foreign_key: :superseded_organisation_id
 
-  has_one :featured_topics_and_policies_list
-  def featured_topics_and_policies_list_summary
-    featured_topics_and_policies_list.try(:summary)
-  end
   has_many :offsite_links, as: :parent
 
   # I'm trying to use a domain centric design rather than a persistence
@@ -395,10 +391,6 @@ class Organisation < ActiveRecord::Base
 
   def published_detailed_guides
     published_editions.detailed_guides
-  end
-
-  def published_policies
-    published_editions.policies
   end
 
   def published_non_statistics_publications

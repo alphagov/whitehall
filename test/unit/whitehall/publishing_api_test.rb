@@ -64,14 +64,6 @@ class Whitehall::PublishingApiTest < ActiveSupport::TestCase
     assert_requested request
   end
 
-  test "#publish skips sending policies to content store" do
-    policy = create(:published_policy)
-
-    Whitehall::PublishingApi.publish_async(policy)
-
-    assert_not_requested :put, %r{/content/}
-  end
-
   test "#republish publishes to the Publishing API as a 'republish' update_type" do
     edition = create(:published_publication)
     presenter = PublishingApiPresenters.presenter_for(edition, update_type: 'republish')

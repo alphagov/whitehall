@@ -19,7 +19,6 @@ module Whitehall::Uploader
     def basic_headings
       %w{
         old_url title summary body opening_date closing_date
-        policy_1 policy_2 policy_3 policy_4
         organisation consultation_ISBN consultation_URN
         response_date response_summary
       }
@@ -77,13 +76,6 @@ module Whitehall::Uploader
       assert_nil row.closing_at
     end
 
-    test "finds related policies using the policy finder" do
-      policies = 5.times.map { stub('policy') }
-      Finders::EditionFinder.any_instance.stubs(:find).with("first", "second", "third", "fourth").returns(policies)
-      row = consultation_row("policy_1" => "first", "policy_2" => "second", "policy_3" => "third", "policy_4" => "fourth")
-      assert_equal policies, row.related_editions
-    end
-
     test "builds up to 50 attachments from columns attachment_1_title, attachment_1_url..." do
       attachments = (1..50).map {|i| stub_everything("attachment-#{i}") }
 
@@ -124,7 +116,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new consultation record" do
       row = consultation_row({})
-      attribute_keys = [:title, :summary, :body, :opening_at, :closing_at, :lead_organisations, :related_editions, :attachments, :alternative_format_provider, :outcome, :topics]
+      attribute_keys = [:title, :summary, :body, :opening_at, :closing_at, :lead_organisations, :attachments, :alternative_format_provider, :outcome, :topics]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

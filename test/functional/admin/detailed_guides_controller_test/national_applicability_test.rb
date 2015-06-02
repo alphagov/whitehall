@@ -5,7 +5,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     tests Admin::DetailedGuidesController
 
     setup do
-      login_as create(:policy_writer, organisation: create(:organisation))
+      login_as create(:writer, organisation: create(:organisation))
     end
 
     include TestsForNationalApplicability

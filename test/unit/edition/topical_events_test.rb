@@ -13,7 +13,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     topical_event = create(:topical_event)
     edition = create(:published_news_article, topical_events: [topical_event])
 
-    new_edition = edition.create_draft(create(:policy_writer))
+    new_edition = edition.create_draft(create(:writer))
     new_edition.change_note = 'change-note'
     force_publish(new_edition)
 
@@ -35,7 +35,7 @@ class Edition::TopicalEventsTest < ActiveSupport::TestCase
     edition = create(:published_news_article)
     topical_event.feature(edition_id: edition.id, image: featured_image, alt_text: "alt-text", ordering: 12)
 
-    new_edition = edition.create_draft(create(:policy_writer))
+    new_edition = edition.create_draft(create(:writer))
     new_edition.change_note = 'change-note'
     force_publish(new_edition)
 

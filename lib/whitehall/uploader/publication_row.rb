@@ -2,7 +2,6 @@ module Whitehall::Uploader
   class PublicationRow < Row
     def self.validator
       super
-        .multiple("policy_#", 0..20)
         .multiple("document_collection_#", 0..4)
         .required(%w{publication_type publication_date})
         .optional(%w{order_url price isbn urn command_paper_number}) # First attachment
@@ -22,10 +21,6 @@ module Whitehall::Uploader
 
     def publication_type
       Finders::PublicationTypeFinder.find(row['publication_type'], @logger, @line_number)
-    end
-
-    def related_editions
-      Finders::EditionFinder.new(Policy, @logger, @line_number).find(*policy_slugs)
     end
 
     def document_collections
@@ -71,17 +66,12 @@ module Whitehall::Uploader
         :html_attachment_attributes,
         :lead_organisations,
         :publication_type,
-        :related_editions,
         :topics,
         :world_locations
       ]
     end
 
   private
-
-    def policy_slugs
-      row.to_hash.select {|k, v| k =~ /^policy_\d+$/ }.values
-    end
 
     def attachments_from_json
       if row["json_attachments"]

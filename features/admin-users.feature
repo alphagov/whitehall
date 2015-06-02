@@ -9,7 +9,7 @@ Feature: User administration
 
 Scenario: Logged in writers should see their role
   Given I am a writer
-  Then I should see that I am logged in as a "Policy Writer"
+  Then I should see that I am logged in as a "Writer"
 
 Scenario: Logged in editors should see their role
   Given I am an editor

@@ -15,7 +15,6 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
     creator = create(:user, name: "Automatic Data Importer")
     create(:document_collection, title: "Highways orders inspectors reports and decision letters")
     organisation = create(:organisation_with_alternative_format_contact_email, name: "department-for-transport")
-    policy = create(:policy, title: "managing-improving-and-investing-in-the-road-network")
     stub_request(:get, "http://assets.dft.gov.uk/publications/a5m1-dunstable-norther-bypass/inspector-report.pdf").to_return(body: "attachment-content")
 
     filename = Rails.root.join("test/fixtures/dft_publication_import_with_json_test.csv")
@@ -32,7 +31,6 @@ class DftPublicationWithJsonImportTest < ActiveSupport::TestCase
 
     assert_equal creator, publication.creator
     assert_equal [organisation], publication.organisations
-    assert_equal [policy], publication.related_policies
     assert_equal Date.new(2012, 10, 19), publication.first_published_at.to_date
 
     assert_equal 1, publication.attachments.size

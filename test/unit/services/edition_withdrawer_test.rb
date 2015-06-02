@@ -39,7 +39,7 @@ class EditionWithdrawerTest < ActiveSupport::TestCase
 
   test 'cannot withdraw a published editions if a newer draft exists' do
     edition = create(:published_edition)
-    edition.create_draft(create(:policy_writer))
+    edition.create_draft(create(:writer))
     unpublisher = EditionWithdrawer.new(edition)
 
     refute unpublisher.can_perform?

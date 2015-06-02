@@ -29,6 +29,7 @@ class Edition::CanApplyToLocalGovernmentThroughRelatedPoliciesTest < ActiveSuppo
 
   test "database value for relevant_to_local_government is ignored" do
     irrelevant_publication = build(:published_publication, relevant_to_local_government: true)
+    irrelevant_publication.policy_content_ids = []
 
     refute irrelevant_publication.relevant_to_local_government?
   end

@@ -25,7 +25,7 @@ module Whitehall
       end
 
       def edition_type_is_deliverable?
-        [Announcement, Policy, Publicationesque].any? {|klass| edition.is_a?(klass) }
+        [Announcement, Publicationesque].any? {|klass| edition.is_a?(klass) }
       end
 
       def major_change?

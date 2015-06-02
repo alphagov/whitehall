@@ -13,11 +13,6 @@ module Whitehall::DocumentFilter
       @results = Whitehall.government_search_client.advanced_search(filter_args)
     end
 
-    def policies_search
-      filter_args = standard_filter_args.merge(search_format_types: [Policy.search_format_type])
-      @results = Whitehall.government_search_client.advanced_search(filter_args)
-    end
-
     def default_filter_args
       @default = {
         page: @page.to_s,

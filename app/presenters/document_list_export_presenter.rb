@@ -97,7 +97,7 @@ class DocumentListExportPresenter
   end
 
   def policies
-    if edition.respond_to? :related_policies
+    if edition.can_be_related_to_policies?
       edition.policies.map(&:title)
     end
   end

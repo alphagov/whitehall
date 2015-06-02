@@ -106,17 +106,6 @@ module Admin::TaggableContentHelper
     end
   end
 
-  # Returns an Array that represents the taggable policies. Each element of the
-  # array consists of two values: the policy title (including topics) and its
-  # ID.
-  def taggable_policies_container
-    Rails.cache.fetch(taggable_policies_cache_digest, expires_in: 1.day) do
-      Policy.latest_edition.with_translations.includes(:topics).active.map do |policy|
-        [policy.title_with_topics, policy.id]
-      end
-    end
-  end
-
   # Returns an Array that represents the taggable world locations. Each element
   # of the array consists of two values: the location name and its ID
   def taggable_world_locations_container

@@ -84,15 +84,6 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
     assert_equal organisation.name, validator.description
   end
 
-  test 'validates and describes a policy feed url' do
-    policy    = create(:published_policy)
-    feed_url  = atom_feed_maker.activity_policy_url(policy.slug)
-    validator = FeedUrlValidator.new(feed_url)
-
-    assert validator.valid?
-    assert_equal policy.title, validator.description
-  end
-
   test 'validates and describes a topic feed url' do
     topic     = create(:topic)
     feed_url  = atom_feed_maker.topic_url(topic)
@@ -156,18 +147,6 @@ class Whitehall::GovUkDelivery::FeedUrlValidatorTest < ActiveSupport::TestCase
 
   test 'does not validate a feed url when the resource does not exist' do
     feed_url = atom_feed_maker.topic_url('non-existant-slug')
-
-    refute FeedUrlValidator.new(feed_url).valid?
-  end
-
-  test 'does not validate a feed url when the policy does not exist' do
-    feed_url = atom_feed_maker.activity_policy_url('non-existant-slug')
-
-    refute FeedUrlValidator.new(feed_url).valid?
-  end
-
-  test 'does not validate a feed url for an unpublished policy' do
-    feed_url = atom_feed_maker.activity_policy_url(create(:draft_policy).slug)
 
     refute FeedUrlValidator.new(feed_url).valid?
   end

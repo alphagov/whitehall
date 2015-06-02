@@ -4,7 +4,7 @@ class Admin::GenericEditionsController::DeletingDocumentsTest < ActionController
   tests Admin::GenericEditionsController
 
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   view_test "show displays the delete button for draft editions" do

@@ -487,36 +487,36 @@ class ImportTest < ActiveSupport::TestCase
 
   def translated_news_article_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
-    http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,es,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
+    old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+    http://example.com/1,Title,Summary,Body,,,14-Dec-2011,,,es,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
     EOF
   end
 
   def translated_news_article_with_missing_locale_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
-    http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
+    old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+    http://example.com/1,Title,Summary,Body,,,14-Dec-2011,,,,http://example.com/1.es,Spanish Title,Spanish Summary,Spanish Body
     EOF
   end
 
   def incomplete_translated_news_article_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,organisation,policy_1,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
-    http://example.com/1,Title,Summary,Body,,,,14-Dec-2011,,,es,http://example.com/1.es,,Spanish Summary,Spanish Body
+    old_url,title,summary,body,organisation,minister_1,first_published,country_1,news_article_type,locale,translation_url,title_translation,summary_translation,body_translation
+    http://example.com/1,Title,Summary,Body,,,14-Dec-2011,,,es,http://example.com/1.es,,Spanish Summary,Spanish Body
     EOF
   end
 
   def publication_with_collection_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,publication_type,policy_1,policy_2,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
-    http://example.com/3,Title,Summary,Body,correspondence,,,collection-name,,19-Oct-2012,2012-10-19,,,,175
+    old_url,title,summary,body,publication_type,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,collection-name,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 
   def publication_with_dud_collection_csv
     <<-EOF.strip_heredoc
-    old_url,title,summary,body,publication_type,policy_1,policy_2,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
-    http://example.com/3,Title,Summary,Body,correspondence,,,collection-name-dud,,19-Oct-2012,2012-10-19,,,,175
+    old_url,title,summary,body,publication_type,document_collection_1,organisation,publication_date,ignore_date,isbn,urn,command_paper_number,ignore_i
+    http://example.com/3,Title,Summary,Body,correspondence,collection-name-dud,,19-Oct-2012,2012-10-19,,,,175
     EOF
   end
 end

@@ -733,17 +733,12 @@ class PublicationsControllerTest < ActionController::TestCase
 
   def given_two_documents_in_two_topics
     @topic_1, @topic_2 = create(:topic), create(:topic)
-    policy_1 = create(:published_policy, topics: [@topic_1])
-    create(:published_publication, related_editions: [policy_1])
-    policy_2 = create(:published_policy, topics: [@topic_2])
-    create(:published_consultation, related_editions: [policy_2])
+    create(:published_publication, topics: [@topic_1])
+    create(:published_consultation, topics: [@topic_2])
   end
 
   def create_publications_in(*topics)
-    topics.map do |topic|
-      policy = create(:published_policy, topics: [topic])
-      create(:published_publication, related_editions: [policy])
-    end
+    create(:published_publication, topics: [topics])
   end
 
 end

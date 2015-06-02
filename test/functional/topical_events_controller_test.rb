@@ -13,13 +13,13 @@ class TopicalEventsControllerTest < ActionController::TestCase
   test "#show displays primary featured editions in ordering defined by association" do
     topical_event = create(:topical_event)
     news_article = create(:published_news_article)
-    policy = create(:published_policy)
+    publication = create(:published_publication)
     news_article_featuring = create(:classification_featuring, classification: topical_event, edition: news_article, ordering: 0)
-    policy_featuring = create(:classification_featuring, classification: topical_event, edition: policy, ordering: 1)
+    publication_featuring = create(:classification_featuring, classification: topical_event, edition: publication, ordering: 1)
 
     get :show, id: topical_event
 
-    assert_equal [news_article_featuring, policy_featuring], assigns(:featurings)
+    assert_equal [news_article_featuring, publication_featuring], assigns(:featurings)
   end
 
   view_test "#show displays a maximum of 5 featured editions" do
@@ -93,7 +93,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
 
   view_test 'GET :show renders an atom feed' do
     topical_event = create(:topical_event)
-    policy = create(:published_policy, topical_events: [topical_event])
+    publication = create(:published_publication, topical_events: [topical_event])
 
     get :show, id: topical_event, format: :atom
 
@@ -105,7 +105,7 @@ class TopicalEventsControllerTest < ActionController::TestCase
       assert_select 'feed > link[rel=?][type=?][href=?]', 'self', 'application/atom+xml', topical_event_url(topical_event, format: 'atom'), 1
       assert_select 'feed > link[rel=?][type=?][href=?]', 'alternate', 'text/html', topical_event_url(topical_event), 1
 
-      assert_select_atom_entries([policy])
+      assert_select_atom_entries([publication])
     end
   end
 end

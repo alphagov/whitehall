@@ -182,13 +182,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert classes.include?("class-2")
   end
 
-  test "#policies_for_editions_organisations returns all active policies that map to an organisation the edition is in" do
-    publication = create(:imported_publication)
-    policy = create(:published_policy, organisations: [publication.organisations.first])
-    another = create(:published_policy)
-    assert_equal [policy], policies_for_editions_organisations(publication)
-  end
-
   test "skips asset host for image paths if user signed in and image in uploads" do
     view = TestView.new
     view.stubs(:user_signed_in?).returns(true)

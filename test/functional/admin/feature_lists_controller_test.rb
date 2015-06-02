@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::FeatureListsControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   test "get show redirects to the featurable features page" do

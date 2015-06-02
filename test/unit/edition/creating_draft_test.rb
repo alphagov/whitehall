@@ -3,7 +3,7 @@ require "test_helper"
 class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should build a draft copy of the existing edition with the supplied creator" do
     published_edition = create(:published_edition)
-    new_creator = create(:policy_writer)
+    new_creator = create(:writer)
     draft_edition = published_edition.create_draft(new_creator)
 
     refute draft_edition.published?
@@ -15,14 +15,14 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should raise an exception when attempting to build a draft copy of an draft edition" do
     draft_edition = create(:draft_edition)
-    new_creator = create(:policy_writer)
+    new_creator = create(:writer)
     e = assert_raise(RuntimeError) { draft_edition.create_draft(new_creator) }
     assert_equal "Cannot create new edition based on edition in the draft state", e.message
   end
 
   test "should raise an exception when attempting to build a draft copy of an superseded edition" do
     superseded_edition = create(:superseded_edition)
-    new_creator = create(:policy_writer)
+    new_creator = create(:writer)
     e = assert_raise(RuntimeError) { superseded_edition.create_draft(new_creator) }
     assert_equal "Cannot create new edition based on edition in the superseded state", e.message
   end
@@ -30,7 +30,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should not copy create and update time when creating draft" do
     published_edition = create(:published_edition)
     Timecop.travel 1.minute.from_now
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     refute_equal published_edition.created_at, draft_edition.created_at
     refute_equal published_edition.updated_at, draft_edition.updated_at
@@ -38,28 +38,28 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should not copy change note when creating draft" do
     published_edition = create(:published_edition, change_note: "change-note")
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     assert draft_edition.change_note.nil?
   end
 
   test "should not copy minor change flag when creating draft" do
     published_edition = create(:published_edition, minor_change: true)
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     assert_equal false, draft_edition.minor_change
   end
 
   test "should not copy force published flag when creating draft" do
     published_edition = create(:published_edition, force_published: true)
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     refute draft_edition.force_published
   end
 
   test "should not copy scheduled_publication date when creating draft" do
     published_edition = create(:published_edition, scheduled_publication: 1.day.from_now)
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     assert draft_edition.scheduled_publication.nil?
   end
@@ -67,7 +67,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   test "should copy time of first publication when creating draft" do
     published_edition = create(:published_edition, first_published_at: 1.week.ago)
     Timecop.travel 1.hour.from_now
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     assert_equal published_edition.first_published_at, draft_edition.first_published_at
   end
@@ -77,19 +77,19 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     organisation = create(:organisation)
     country = create(:world_location)
 
-    published_policy = create(:published_policy, topics: [topic], organisations: [organisation], world_locations: [country])
+    published_publication = create(:published_publication, topics: [topic], organisations: [organisation], world_locations: [country])
 
-    draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_publication = published_publication.create_draft(create(:writer))
 
-    assert_equal [topic], draft_policy.topics
-    assert_equal [organisation], draft_policy.organisations
-    assert_equal [country], draft_policy.world_locations
+    assert_equal [topic], draft_publication.topics
+    assert_equal [organisation], draft_publication.organisations
+    assert_equal [country], draft_publication.world_locations
   end
 
   test "should build a draft copy with copies of consultation participation" do
     consultation_participation = create(:consultation_participation, link_url: "http://link.com")
     published_consultation = create(:published_consultation, consultation_participation: consultation_participation)
-    draft_consultation = published_consultation.create_draft(create(:policy_writer))
+    draft_consultation = published_consultation.create_draft(create(:writer))
     draft_consultation.change_note = 'change-note'
 
     assert draft_consultation.valid?
@@ -99,37 +99,24 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     assert_equal consultation_participation.link_url, new_consultation_participation.link_url
   end
 
-  test "should build a draft copy with references to related policies" do
-    policy_1 = create(:published_policy)
-    policy_2 = create(:published_policy)
-    publication = create(:published_publication, related_editions: [policy_1, policy_2])
-
-    draft = publication.create_draft(create(:policy_writer))
-    draft.change_note = 'change-note'
-    assert draft.valid?
-
-    assert draft.related_policies.include?(policy_1)
-    assert draft.related_policies.include?(policy_2)
-  end
-
   test "should build a draft copy preserving ordering with topic" do
     topic = create(:topic)
-    published_policy = create(:published_policy, topics: [topic])
-    association = topic.classification_memberships.where(edition_id: published_policy.id).first
+    published_publication = create(:published_publication, topics: [topic])
+    association = topic.classification_memberships.where(edition_id: published_publication.id).first
     association.update_attributes(ordering: 31)
 
-    draft_policy = published_policy.create_draft(create(:policy_writer))
+    draft_publication = published_publication.create_draft(create(:writer))
 
-    new_association = topic.classification_memberships.where(edition_id: draft_policy.id).first
+    new_association = topic.classification_memberships.where(edition_id: draft_publication.id).first
     assert_equal 31, new_association.ordering
   end
 
   test "should build a draft copy even if parent is invalid" do
-    published_policy = create(:published_policy)
-    published_policy.update_attributes(title: nil)
-    refute published_policy.valid?
-    draft_policy = published_policy.create_draft(create(:policy_writer))
-    assert draft_policy.persisted?
+    published_publication = create(:published_publication)
+    published_publication.update_attributes(title: nil)
+    refute published_publication.valid?
+    draft_publication = published_publication.create_draft(create(:writer))
+    assert draft_publication.persisted?
   end
 
   test "should build a draft copy with copies of translations" do
@@ -157,7 +144,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "should copy logo url when creating draft " do
     published_edition = create(:published_edition, logo_url: 'logos/flag.jpeg')
-    draft_edition = published_edition.create_draft(create(:policy_writer))
+    draft_edition = published_edition.create_draft(create(:writer))
 
     assert_equal 'logos/flag.jpeg', draft_edition.logo_url
   end

@@ -2,8 +2,8 @@ Given(/^there is a topic with published documents$/) do
   @topic = create(:topic, name: "A Topic")
   department = create(:ministerial_department, name: "A Department")
 
-  create(:published_policy, title: "Policy #1", topics: [@topic])
-  create(:published_policy, title: "Policy #2", topics: [@topic], organisations: [department])
+  create(:published_publication, title: "Publication #1", topics: [@topic])
+  create(:published_publication, title: "Publication #2", topics: [@topic], organisations: [department])
   create(:published_news_article, title: "News #1", topics: [@topic])
 
   @news = create(:published_news_article, title: "News #2", topics: [@topic])
@@ -15,7 +15,7 @@ When(/^I view featured documents for that topic$/) do
 end
 
 When(/^I filter by title$/) do
-  page.fill_in "Title or slug", with: "policy"
+  page.fill_in "Title or slug", with: "publication"
   page.click_on "Search"
 end
 
@@ -35,8 +35,8 @@ When(/^I filter by document type$/) do
 end
 
 Then(/^I see documents with that title$/) do
-  assert page.has_content?("Policy #1")
-  assert page.has_content?("Policy #2")
+  assert page.has_content?("Publication #1")
+  assert page.has_content?("Publication #2")
 
   assert page.has_no_content?("News #1")
   assert page.has_no_content?("News #2")
@@ -45,15 +45,15 @@ end
 Then(/^I see documents by that author$/) do
   assert page.has_content?("News #2")
 
-  assert page.has_no_content?("Policy #1")
-  assert page.has_no_content?("Policy #2")
+  assert page.has_no_content?("Publication #1")
+  assert page.has_no_content?("Publication #2")
   assert page.has_no_content?("News #1")
 end
 
 Then(/^I see documents with that organisation$/) do
-  assert page.has_content?("Policy #2")
+  assert page.has_content?("Publication #2")
 
-  assert page.has_no_content?("Policy #1")
+  assert page.has_no_content?("Publication #1")
   assert page.has_no_content?("News #1")
   assert page.has_no_content?("News #2")
 end
@@ -62,6 +62,6 @@ Then(/^I see documents with that document type$/) do
   assert page.has_content?("News #1")
   assert page.has_content?("News #2")
 
-  assert page.has_no_content?("Policy #1")
-  assert page.has_no_content?("Policy #2")
+  assert page.has_no_content?("Publication #1")
+  assert page.has_no_content?("Publication #2")
 end

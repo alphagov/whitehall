@@ -14,7 +14,6 @@ class WorldLocationsController < PublicFacingController
     respond_to do |format|
       format.html do
         @recently_updated = recently_updated_source.limit(3)
-        @policies = latest_presenters(Policy.published.in_world_location(@world_location), translated: true)
         publications = Publication.published.in_world_location(@world_location)
         @non_statistics_publications = latest_presenters(publications.not_statistics, translated: true, count: 2)
         @statistics_publications = latest_presenters(publications.statistics, translated: true, count: 2)

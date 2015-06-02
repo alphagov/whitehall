@@ -54,10 +54,6 @@ module DocumentHelper
     end
   end
 
-  def begin_drafting_policy(options)
-    begin_drafting_document(options.merge(type: "policy", summary: options[:summary] || "Policy summary"))
-  end
-
   def begin_editing_document(title)
     visit_edition_admin title
     click_link "Edit draft"
@@ -84,7 +80,6 @@ module DocumentHelper
   end
 
   def begin_drafting_publication(title, options = {})
-    policy = create(:policy)
     begin_drafting_document type: 'publication', title: title, summary: "Some summary of the content", alternative_format_provider: create(:alternative_format_provider)
     fill_in_publication_fields(options)
   end

@@ -44,9 +44,8 @@ Scenario: Publishing a submitted news article
 
 Scenario: Creating a news article related to multiple policies
   Given I am a writer
-  And two published policies "Totally Tangy Tofu" and "Awakened Tastebuds" exist
-  When I draft a new news article "Healthy Eating" relating it to the policies "Totally Tangy Tofu" and "Awakened Tastebuds"
-  Then I should see in the preview that "Healthy Eating" should related to "Totally Tangy Tofu" and "Awakened Tastebuds" policies
+  When I draft a new news article "Healthy Eating" relating it to the policies "Policy 1" and "Policy 3"
+  Then I should see in the preview that "Healthy Eating" should related to "Policy 1" and "Policy 3" policies
 
 Scenario: Viewing a published news article with related policies
   Given a published news article "News 1" with related published policies "Policy 1" and "Policy 2"

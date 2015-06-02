@@ -21,7 +21,6 @@ module Admin::OrganisationHelper
       "Contacts" => admin_organisation_contacts_path(organisation)
     }
     if organisation.type.allowed_promotional?
-      tabs["Featured topics and policies"] = admin_organisation_featured_topics_and_policies_list_path(organisation)
       tabs["Promotional features"] = admin_organisation_promotional_features_path(organisation)
     end
 

@@ -3,7 +3,7 @@ require 'test_helper'
 class Admin::PublicationsControllerTest < ActionController::TestCase
   setup do
     @organisation = create(:organisation)
-    @user = create(:policy_writer, organisation: @organisation)
+    @user = create(:writer, organisation: @organisation)
     login_as @user
   end
 

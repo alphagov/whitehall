@@ -8,7 +8,6 @@ module Whitehall
       def subscription_urls
         [
           filter_urls,
-          policy_urls,
           people_and_role_urls,
           topic_urls,
           topical_event_urls,
@@ -43,8 +42,6 @@ module Whitehall
 
       def url_helpers_for_edition_type
         case edition
-        when Policy
-          url_helpers_for_policies
         when Announcement
           url_helpers_for_announcements
         when Publicationesque
@@ -56,10 +53,6 @@ module Whitehall
         else
           []
         end
-      end
-
-      def url_helpers_for_policies
-        [url_maker.method(:policies_url)]
       end
 
       def url_helpers_for_announcements
@@ -80,8 +73,6 @@ module Whitehall
 
       def filter_option
         case edition
-        when Policy
-          nil
         when Announcement
           announcement_filter_options
         when Publicationesque
@@ -157,10 +148,6 @@ module Whitehall
             url_helpers.map { |helper| helper.call(url_args) }
           end
         end
-      end
-
-      def policy_urls
-        []
       end
 
       def people_and_role_urls

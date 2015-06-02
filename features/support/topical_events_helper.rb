@@ -20,10 +20,9 @@ module TopicalEventsHelper
   end
 
   def sample_document_types_and_titles
-    documents = {
+    {
       policy_paper: 'Policy on Topicals',
       consultation: 'Examination of Events',
-      policy: 'Keeping the UK Topical',
       news_story: 'PM attends summit on topical events',
       statistics: 'Weekly topical event prices'
     }

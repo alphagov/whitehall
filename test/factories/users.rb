@@ -22,7 +22,7 @@ FactoryGirl.define do
     disabled true
   end
 
-  factory :policy_writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
+  factory :writer, parent: :user, aliases: [:author, :creator, :fact_check_requestor] do
   end
 
   factory :departmental_editor, parent: :user do

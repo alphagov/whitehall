@@ -93,11 +93,11 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
 
   test "creating a new draft of a published edition records an edition action" do
     published_edition = create(:published_edition)
-    policy_writer = create(:policy_writer)
-    Edition::AuditTrail.whodunnit = policy_writer
-    draft_edition = published_edition.create_draft(policy_writer)
+    writer = create(:writer)
+    Edition::AuditTrail.whodunnit = writer
+    draft_edition = published_edition.create_draft(writer)
     assert_equal "editioned", draft_edition.document_audit_trail.last.action
-    assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
+    assert_equal writer, draft_edition.document_audit_trail.last.actor
   end
 
   test "after creating a new draft, audit events from previous editions still available" do
@@ -109,23 +109,23 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
 
   test "can request audit trail for one edition" do
     published_edition = create(:published_edition)
-    policy_writer = create(:policy_writer)
-    Edition::AuditTrail.whodunnit = policy_writer
-    draft_edition = published_edition.create_draft(policy_writer)
+    writer = create(:writer)
+    Edition::AuditTrail.whodunnit = writer
+    draft_edition = published_edition.create_draft(writer)
     assert_equal 1, published_edition.edition_audit_trail.size
     assert_equal "editioned", draft_edition.document_audit_trail.last.action
-    assert_equal policy_writer, draft_edition.document_audit_trail.last.actor
+    assert_equal writer, draft_edition.document_audit_trail.last.actor
   end
 
   test "can request version only trail or remark only trail" do
     published_edition = create(:published_edition)
-    policy_writer = create(:policy_writer)
-    Edition::AuditTrail.whodunnit = policy_writer
-    policy_writer = create(:policy_writer)
+    writer = create(:writer)
+    Edition::AuditTrail.whodunnit = writer
+    writer = create(:writer)
     editorial_remark_body = "blah"
     Timecop.freeze(Time.zone.now + 1.day)
-    published_edition.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
-    draft_edition = published_edition.create_draft(policy_writer)
+    published_edition.editorial_remarks.create!(body: editorial_remark_body, author: writer)
+    draft_edition = published_edition.create_draft(writer)
     refute draft_edition.document_version_trail.map(&:object).map(&:class).include? EditorialRemark
     refute draft_edition.document_remarks_trail.map(&:object).map(&:class).include? Version
   end
@@ -133,10 +133,10 @@ class Edition::AuditTrailTest < ActiveSupport::TestCase
   test "editorial remark appears as an audit action" do
     Timecop.freeze(Time.zone.now - 2.days)
     edition = create(:draft_edition)
-    policy_writer = create(:policy_writer)
+    writer = create(:writer)
     editorial_remark_body = "blah"
     Timecop.freeze(Time.zone.now + 1.day)
-    edition.editorial_remarks.create!(body: editorial_remark_body, author: policy_writer)
+    edition.editorial_remarks.create!(body: editorial_remark_body, author: writer)
     assert_equal %w{created editorial_remark}, edition.document_audit_trail.map(&:action)
     assert_equal editorial_remark_body, edition.document_audit_trail.last.message
   end

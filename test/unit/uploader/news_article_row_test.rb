@@ -13,7 +13,7 @@ module Whitehall::Uploader
     end
 
     def basic_headings
-      %w{old_url news_article_type title summary body first_published policy_1 policy_2 policy_3 policy_4 minister_1 minister_2 organisation country_1 country_2 country_3 country_4}
+      %w{old_url news_article_type title summary body first_published minister_1 minister_2 organisation country_1 country_2 country_3 country_4}
     end
 
     test "validates row headings" do
@@ -42,13 +42,6 @@ module Whitehall::Uploader
       assert_nil row.first_published_at
     end
 
-    test "finds related policies using the policy finder" do
-      policies = 5.times.map { stub('policy') }
-      Finders::EditionFinder.any_instance.stubs(:find).with("first", "second", "third", "fourth").returns(policies)
-      row = news_article_row("policy_1" => "first", "policy_2" => "second", "policy_3" => "third", "policy_4" => "fourth")
-      assert_equal policies, row.related_editions
-    end
-
     test "finds the roles ministers in minister_1 and minister_2 columns held on the publication date" do
       appointments = 2.times.map { stub('appointment') }
       first_published_at = stub('first-published-at')
@@ -60,7 +53,7 @@ module Whitehall::Uploader
 
     test "supplies an attribute list for the new news article record" do
       row = news_article_row({})
-      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :related_editions, :role_appointments, :world_locations, :attachments, :topics]
+      attribute_keys = [:title, :summary, :body, :news_article_type, :lead_organisations, :first_published_at, :role_appointments, :world_locations, :attachments, :topics]
       attribute_keys.each do |key|
         row.stubs(key).returns(key.to_s)
       end

@@ -135,7 +135,7 @@ class AttachmentsControllerTest < ActionController::TestCase
     attachment_data = attachment.attachment_data
     VirusScanHelpers.simulate_virus_scan(attachment_data.file)
 
-    login_as(:policy_writer)
+    login_as(:writer)
     get :show, id: attachment_data.to_param, file: basename(attachment_data), extension: attachment_data.file_extension
 
     assert_response :success

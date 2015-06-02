@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::WorldLocationNewsArticlesControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
     @world_location = create(:world_location)
     @worldwide_organisation = create(:worldwide_organisation)
   end

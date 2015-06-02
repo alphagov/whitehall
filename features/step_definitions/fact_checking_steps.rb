@@ -1,29 +1,29 @@
-Given /^a fact checker has commented "([^"]*)" on the draft policy "([^"]*)"$/ do |comment, title|
-  edition = create(:draft_policy, title: title)
+Given /^a fact checker has commented "([^"]*)" on the draft publication "([^"]*)"$/ do |comment, title|
+  edition = create(:draft_publication, title: title)
   create(:fact_check_request, edition: edition, comments: comment)
 end
 
-Given /^"([^"]*)" has received an email requesting they fact check a draft policy "([^"]*)"$/ do |email, title|
-  policy = create(:draft_policy, title: title)
-  fact_check_request = create(:fact_check_request, edition: policy, email_address: email)
+Given /^"([^"]*)" has received an email requesting they fact check a draft publication "([^"]*)"$/ do |email, title|
+  publication = create(:draft_publication, title: title)
+  fact_check_request = create(:fact_check_request, edition: publication, email_address: email)
   Notifications.fact_check_request(fact_check_request, host: "example.com").deliver_now
 end
 
-Given /^"([^"]*)" has asked "([^"]*)" for feedback on the draft policy "([^"]*)"$/ do |requestor_email, fact_checker_email, title|
+Given /^"([^"]*)" has asked "([^"]*)" for feedback on the draft publication "([^"]*)"$/ do |requestor_email, fact_checker_email, title|
   requestor = create(:user, email: requestor_email)
-  edition = create(:draft_policy, title: title)
+  edition = create(:draft_publication, title: title)
   create(:fact_check_request, requestor: requestor, edition: edition, email_address: fact_checker_email)
 end
 
-Given /^a published policy called "([^"]*)" with feedback "([^"]*)" exists$/ do |title, comments|
-  policy = create(:published_policy, title: title)
+Given /^a published publication called "([^"]*)" with feedback "([^"]*)" exists$/ do |title, comments|
+  publication = create(:published_publication, title: title)
   fact_check_request = create(:fact_check_request,
-                              edition: policy,
+                              edition: publication,
                               email_address: "user@example.com",
                               comments: comments)
 end
 
-When /^"([^"]*)" clicks the email link to the draft policy$/ do |email_address|
+When /^"([^"]*)" clicks the email link to the draft publication$/ do |email_address|
   email = unread_emails_for(email_address).last
   links = URI.extract(email.body.to_s, ["http", "https"])
   visit links.first

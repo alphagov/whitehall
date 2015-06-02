@@ -154,12 +154,6 @@ Scenario: Viewing the organisations index and seeing the status of non ministeri
   When I visit the organisations page
   Then I should see metadata in the non ministerial department list indicating the status of each organisation which is not live
 
-Scenario: Organisation page should show policies
-  Given the organisation "Attorney General's Office" contains some policies
-  And other organisations also have policies
-  When I visit the "Attorney General's Office" organisation
-  Then I should only see published policies belonging to the "Attorney General's Office" organisation
-
 Scenario: Organisation page should show consultations
   Given the organisation "Attorney General's Office" is associated with consultations "More tea vicar?" and "Cake or biscuit?"
   When I visit the "Attorney General's Office" organisation

@@ -3,7 +3,7 @@ require "test_helper"
 
 class Admin::RoleTranslationsControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
     @role = create(:ambassador_role, responsibilities: "responsibilities")
 
     Locale.stubs(:non_english).returns([

@@ -70,7 +70,7 @@ class ConsultationTest < ActiveSupport::TestCase
       create(:nation_inapplicability, nation_id: Nation.scotland.id, alternative_url: "http://scot.gov.uk")]
     )
 
-    draft_consultation = published_consultation.create_draft(create(:policy_writer))
+    draft_consultation = published_consultation.create_draft(create(:writer))
 
     assert_equal published_consultation.inapplicable_nations, draft_consultation.inapplicable_nations
     assert_equal "http://wales.gov.uk", draft_consultation.nation_inapplicabilities.find_by(nation_id: Nation.wales.id).alternative_url
@@ -143,7 +143,7 @@ class ConsultationTest < ActiveSupport::TestCase
     consultation_participation = create(:consultation_participation, link_url: "http://example.com")
     consultation = create(:published_consultation, consultation_participation: consultation_participation)
 
-    new_draft = consultation.create_draft(create(:policy_writer))
+    new_draft = consultation.create_draft(create(:writer))
 
     assert_equal new_draft.consultation_participation.link_url, consultation_participation.link_url, "link attribute should be copied"
   end

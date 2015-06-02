@@ -1,8 +1,8 @@
 require "test_helper"
 
 class SearchIndexTest < ActiveSupport::TestCase
-  test "Whitehall.government_search_index includes policies, publications, consultations, news articles, speeches, case studies" do
-    edition_types = [Policy, Publication, Consultation, NewsArticle, Speech, CaseStudy]
+  test "Whitehall.government_search_index includes publications, consultations, news articles, speeches, case studies" do
+    edition_types = [Publication, Consultation, NewsArticle, Speech, CaseStudy]
     edition_types.each {|t| t.stubs(:search_index).returns([t.name.to_sym])}
     search_index = Whitehall.government_search_index
     edition_types.each {|t| assert search_index.include?(t.name.to_sym)}

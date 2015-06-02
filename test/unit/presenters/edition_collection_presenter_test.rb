@@ -8,11 +8,6 @@ class EditionCollectionPresenterTest < PresenterTestCase
     assert_kind_of PublicationesquePresenter, collection[2]
   end
 
-  test "should wrap policies in a policy presenter" do
-    collection = EditionCollectionPresenter.new([Policy.new], @view_context)
-    assert_kind_of PolicyPresenter, collection.first
-  end
-
   test "should wrap speeches in a speech presenter" do
     collection = EditionCollectionPresenter.new([Speech.new], @view_context)
     assert_kind_of SpeechPresenter, collection.first
@@ -49,12 +44,12 @@ class EditionCollectionPresenterTest < PresenterTestCase
   end
 
   test "should wrap instances within methods that return arrays" do
-    collection = EditionCollectionPresenter.new([DetailedGuide.new, Policy.new], @view_context)
-    assert_kind_of PolicyPresenter, collection[1, 1].first
+    collection = EditionCollectionPresenter.new([DetailedGuide.new, NewsArticle.new], @view_context)
+    assert_kind_of NewsArticlePresenter, collection[1, 1].first
   end
 
   test "should not wrap anything that doesn't return an array" do
-    collection = EditionCollectionPresenter.new([DetailedGuide.new, Policy.new], @view_context)
+    collection = EditionCollectionPresenter.new([DetailedGuide.new, NewsArticle.new], @view_context)
     assert_equal 2, collection.length
     assert collection.any?
     refute collection.empty?

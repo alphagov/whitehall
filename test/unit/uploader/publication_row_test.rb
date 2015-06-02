@@ -14,10 +14,6 @@ module Whitehall::Uploader
 
     def basic_headings
       %w{old_url  title summary body  publication_type
-        policy_1   policy_2   policy_3   policy_4   policy_5
-        policy_6   policy_7   policy_8   policy_9   policy_10
-        policy_11  policy_12  policy_13  policy_14  policy_15
-        policy_16  policy_17  policy_18  policy_19  policy_20
         organisation  document_collection_1 document_collection_2
         document_collection_3 document_collection_4 publication_date
         order_url price ISBN  URN command_paper_number
@@ -91,21 +87,6 @@ module Whitehall::Uploader
       row_with_html_attachment = new_publication_row({'html_title' => 'HTML title', 'html_body' => 'HTML body'})
       assert_equal 'HTML title', row_with_html_attachment.attributes[:html_attachment_attributes][:title]
       assert_equal 'HTML body', row_with_html_attachment.attributes[:html_attachment_attributes][:govspeak_content_attributes][:body]
-    end
-
-    test "finds policies specified by slug in columns policy_1, policy_2, policy_3, etc" do
-      policy_1  = create(:published_policy, title: "Policy 1")
-      policy_2  = create(:published_policy, title: "Policy 2")
-      policy_3  = create(:published_policy, title: "Policy 3")
-      policy_4  = create(:published_policy, title: "Policy 4")
-      policy_5  = create(:published_policy, title: "Policy 5")
-      row = new_publication_row({ "policy_1" => policy_1.slug,
-                                  "policy_2" => policy_2.slug,
-                                  "policy_3" => policy_3.slug,
-                                  "policy_4" => policy_4.slug,
-                                  "policy_5" => policy_5.slug })
-
-      assert_equal [policy_1, policy_2, policy_3, policy_4, policy_5], row.attributes[:related_editions]
     end
 
     test "uses the organisation as the alternative format provider" do

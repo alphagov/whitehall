@@ -14,11 +14,6 @@ module Whitehall::DocumentFilter
       apply_filters
     end
 
-    def policies_search
-      @documents = Policy.published.includes(:document)
-      apply_filters
-    end
-
     def apply_filters
       filter_by_locale!
       filter_by_topics!

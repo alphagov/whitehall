@@ -28,45 +28,6 @@ When(/^I (?:also )?filter by (only )?published date$/) do |only|
   page.click_on "Refresh results"
 end
 
-### Policies
-
-Given(/^there are some published policies$/) do
-  topic = create(:topic, name: "A Topic")
-  department = create(:ministerial_department, name: "A Department")
-
-  create(:published_policy, title: "A policy with the topic", topics: [topic])
-  create(:published_policy, title: "A policy with the department", organisations: [department])
-  create(:published_policy, title: "A policy with both the topic and the department", topics: [topic], organisations: [department])
-  create(:published_policy, title: "A keyword one", topics: [topic], organisations: [department])
-end
-
-When(/^I look at the policies index page$/) do
-  visit policies_path
-end
-
-Then(/^I should be able to filter policies by topic, department and keyword$/) do
-  select_filter "Topic", "A Topic"
-
-  assert_listed_document_count 3
-  assert page.has_content? "A policy with the topic"
-  assert page.has_content? "A policy with both the topic and the department"
-  assert page.has_content? "A keyword one"
-  assert page.text.match /3 policies about A Topic ./
-
-  select_filter "Department", "A Department"
-
-  assert_listed_document_count 2
-  assert page.has_content? "A policy with both the topic and the department"
-  assert page.has_content? "A keyword one"
-  assert page.text.match /2 policies about A Topic . by A Department ./
-
-  fill_in_filter "Contains", "keyword"
-
-  assert_listed_document_count 1
-  assert page.has_content? "A keyword one"
-  assert page.text.match /1 policy about A Topic . by A Department . containing keyword ./
-end
-
 ### Publications
 
 Given(/^there are some published publications$/) do

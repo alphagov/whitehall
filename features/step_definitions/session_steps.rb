@@ -1,7 +1,7 @@
 Given /^I am (?:a|an) (writer|editor|admin|GDS editor|GDS admin|importer|managing editor)(?: called "([^"]*)")?$/ do |role, name|
   @user = case role
   when "writer"
-    create(:policy_writer, name: (name || "Wally Writer"))
+    create(:writer, name: (name || "Wally Writer"))
   when "editor"
     create(:departmental_editor, name: (name || "Eddie Depteditor"))
   when "admin"
@@ -24,7 +24,7 @@ Given /^I am (?:an?) (admin|writer|editor|GDS editor) in the organisation "([^"]
   when "admin"
     create(:user, organisation: organisation)
   when "writer"
-    create(:policy_writer, name: "Wally Writer", organisation: organisation)
+    create(:writer, name: "Wally Writer", organisation: organisation)
   when "editor"
     create(:departmental_editor, name: "Eddie Depteditor", organisation: organisation)
   when "GDS editor"

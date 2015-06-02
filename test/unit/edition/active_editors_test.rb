@@ -3,7 +3,7 @@ require "test_helper"
 class Edition::ActiveEditorsTest < ActiveSupport::TestCase
 
   test "can record editing intent" do
-    user = create(:policy_writer)
+    user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
@@ -11,7 +11,7 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
   end
 
   test "recording editing intent for a user who's already editing just updates the timestamp" do
-    user = create(:policy_writer)
+    user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
@@ -23,17 +23,17 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
   end
 
   test "can check exclude a given editor from the list of recent edition openings" do
-    user = create(:policy_writer)
+    user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
     Timecop.travel 1.minute.from_now
-    user2 = create(:policy_writer)
+    user2 = create(:writer)
     edition.open_for_editing_as(user2)
     assert_equal [user], edition.recent_edition_openings.except_editor(user2).map(&:editor)
   end
 
   test "editors considered active for up to 2 hours" do
-    user = create(:policy_writer)
+    user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
     Timecop.travel (1.hour + 59.minutes).from_now
@@ -43,7 +43,7 @@ class Edition::ActiveEditorsTest < ActiveSupport::TestCase
   end
 
   test "#save_as removes all RecentEditionOpenings for the specified editor" do
-    user = create(:policy_writer)
+    user = create(:writer)
     edition = create(:edition)
     edition.open_for_editing_as(user)
     assert_difference "edition.recent_edition_openings.count", -1 do

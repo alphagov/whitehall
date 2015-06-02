@@ -5,7 +5,7 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
   include GdsApi::TestHelpers::NeedApi
 
   setup do
-    login_as create(:policy_writer, organisation: create(:organisation))
+    login_as create(:writer, organisation: create(:organisation))
   end
 
   should_be_an_admin_controller
@@ -111,19 +111,6 @@ class Admin::DetailedGuidesControllerTest < ActionController::TestCase
     post :create, edition: attributes
 
     assert_equal [soul], DetailedGuide.first.other_mainstream_categories
-  end
-
-  test "#create associates detailed guides to edition without stomping on other related documents" do
-    policy        = create(:policy)
-    related_guide = create(:published_detailed_guide)
-    attributes    = controller_attributes_for(:detailed_guide,
-                                              related_policy_ids: [policy.id],
-                                              related_detailed_guide_ids: [related_guide.id])
-
-    post :create, edition: attributes
-
-    assert new_guide = DetailedGuide.last
-    assert_same_elements [policy.document, related_guide.document], new_guide.related_documents
   end
 
   private

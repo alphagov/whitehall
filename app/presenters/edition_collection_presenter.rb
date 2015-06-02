@@ -32,8 +32,6 @@ class EditionCollectionPresenter
     case edition
     when Publicationesque
       PublicationesquePresenter
-    when Policy
-      PolicyPresenter
     when Speech
       SpeechPresenter
     when NewsArticle

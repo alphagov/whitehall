@@ -196,7 +196,6 @@ Whitehall::Application.routes.draw do
             get :features, localised: true
             get :people
           end
-          resource :featured_topics_and_policies_list, path: 'featured-topics-and-policies', only: [:show, :update]
           resources :financial_reports, except: [:show]
           resources :offsite_links
         end
@@ -301,9 +300,6 @@ Whitehall::Application.routes.draw do
 
         resources :publications, except: [:index]
 
-        resources :policies, except: [:index] do
-          get :topics
-        end
         resources :worldwide_priorities, path: "priority", except: [:index]
         resources :news_articles, path: 'news', except: [:index]
         resources :world_location_news_articles, path: 'world-location-news', except: [:index]

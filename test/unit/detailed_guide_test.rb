@@ -6,17 +6,6 @@ class DetailedGuideTest < ActiveSupport::TestCase
   should_allow_inline_attachments
   should_protect_against_xss_and_content_attacks_on :title, :body, :summary, :change_note
 
-  test "relating to detailed guides does not stomp on other related documents" do
-    policy        = create(:policy)
-    guide         = create(:detailed_guide, related_policy_ids: [policy.id])
-    related_guide = create(:detailed_guide)
-
-    guide.update_attributes(related_detailed_guide_ids: [related_guide.id])
-
-    assert_equal [policy], guide.related_policies
-    assert_same_elements [policy.document, related_guide.document], guide.related_documents
-  end
-
   test "should be able to relate to topics" do
     article = build(:detailed_guide)
     assert article.can_be_associated_with_topics?
@@ -38,7 +27,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
   test "#published_related_detailed_guides returns latest published editions of related documents" do
     published_guide = create(:published_detailed_guide)
     related_guide = create(:published_detailed_guide)
-    related_guide.create_draft(create(:policy_writer))
+    related_guide.create_draft(create(:writer))
     create(:edition_relation, edition_id: published_guide.id, document: related_guide.document)
 
     assert_equal [related_guide], published_guide.reload.published_related_detailed_guides
@@ -65,7 +54,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
     related_guide = create(:published_detailed_guide)
     guide.related_documents << related_guide.document
 
-    new_edition = guide.create_draft(create(:policy_writer))
+    new_edition = guide.create_draft(create(:writer))
     new_edition.related_document_ids = []
     new_edition.minor_change = true
     force_publish(new_edition)
@@ -101,7 +90,7 @@ class DetailedGuideTest < ActiveSupport::TestCase
                              primary_mainstream_category: primary_mainstream_category,
                              other_mainstream_categories: [other_mainstream_category])
 
-    draft_guide = published_guide.create_draft(create(:policy_writer))
+    draft_guide = published_guide.create_draft(create(:writer))
 
     assert_equal published_guide.mainstream_categories, draft_guide.mainstream_categories
   end

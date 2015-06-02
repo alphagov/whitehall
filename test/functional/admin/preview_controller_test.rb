@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::PreviewControllerTest < ActionController::TestCase
   setup do
-    login_as :policy_writer
+    login_as :writer
   end
 
   should_be_an_admin_controller
@@ -13,7 +13,7 @@ class Admin::PreviewControllerTest < ActionController::TestCase
   end
 
   view_test "renders attached images if image_ids provided" do
-    edition = create(:policy, body: '!!1')
+    edition = create(:publication, body: '!!1')
     image = create(:image, edition: edition)
 
     post :preview, body: edition.body, image_ids: edition.images.map(&:id)

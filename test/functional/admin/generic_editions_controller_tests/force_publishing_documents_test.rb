@@ -18,14 +18,14 @@ class Admin::GenericEditionsController::ForcePublishingDocumentsTest < ActionCon
   end
 
   view_test "should not display the force publish form if edition is neither publishable nor force-publishable" do
-    login_as :policy_writer
+    login_as :writer
     edition = create(:draft_edition)
     get :show, id: edition
     refute_select force_publish_button_selector(edition)
   end
 
   view_test "show should indicate a force-published document" do
-    login_as :policy_writer
+    login_as :writer
     edition = create(:published_edition, force_published: true)
     get :show, id: edition
     assert_select ".force_published"

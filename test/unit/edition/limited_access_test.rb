@@ -39,7 +39,7 @@ class Edition::LimitedAccessTest < ActiveSupport::TestCase
     my_organisation, other_organisation = create(:organisation), create(:organisation)
     user = create(:user, organisation: my_organisation)
     accessible = [
-      create(:draft_policy),
+      create(:draft_news_article),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [my_organisation]),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: true, organisations: [other_organisation], authors: [user]),
       create(:draft_publication, publication_type: PublicationType::NationalStatistics, access_limited: false, organisations: [other_organisation])

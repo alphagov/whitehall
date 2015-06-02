@@ -10,7 +10,7 @@ Feature: Unpublishing published documents
     When I unpublish the document because it was published in error
     Then there should be an editorial remark recording the fact that the document was unpublished
     And I should see that the document was published in error on the public site
-    And the policy "Published by accident" should no longer be listed on the public site
+    And the publication "Published by accident" should no longer be listed on the public site
 
   Scenario: Unpublishing a document that has had a title change
     Given I am a managing editor
@@ -38,14 +38,14 @@ Feature: Unpublishing published documents
 
   Scenario: Withdraw a document that is no longer current
     Given I am a managing editor
-    And a published policy "Shaving kits for all" exists
-    When I withdraw the policy because it is no longer government policy
+    And a published publication "Shaving kits for all" exists
+    When I withdraw the publication because it is no longer government publication
     Then there should be an editorial remark recording the fact that the document was withdrawn
-    And the policy should be marked as withdrawn on the public site
+    And the publication should be marked as withdrawn on the public site
 
   Scenario: Change the public explanation for archiving a document
     Given I am a managing editor
-    And a published policy "Shaving kits for all" exists
-    And I withdraw the policy because it is no longer government policy
+    And a published publication "Shaving kits for all" exists
+    And I withdraw the publication because it is no longer government publication
     When I edit the public explanation for withdrawal
     Then I should see the updated explanation on the public site

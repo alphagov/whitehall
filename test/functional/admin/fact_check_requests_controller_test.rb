@@ -18,17 +18,17 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
   end
 
   view_test "should not display the edition if it has been deleted" do
-    edition = create(:deleted_edition, title: "deleted-policy-title", body: "deleted-policy-body")
+    edition = create(:deleted_edition, title: "deleted-publication-title", body: "deleted-publication-body")
     fact_check_request = create(:fact_check_request, edition: edition)
 
     get :show, id: fact_check_request
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
-    refute_select ".title", text: "deleted-policy-title"
-    refute_select ".body", text: "deleted-policy-body"
+    refute_select ".title", text: "deleted-publication-title"
+    refute_select ".body", text: "deleted-publication-body"
   end
 
-  test "users with a valid.to_param should be able to access the policy" do
+  test "users with a valid.to_param should be able to access the publication" do
     fact_check_request = create(:fact_check_request)
 
     get :edit, id: fact_check_request
@@ -37,21 +37,21 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     assert_template "admin/fact_check_requests/edit"
   end
 
-  test "users with invalid token should not be able to access the policy" do
+  test "users with invalid token should not be able to access the publication" do
     get :edit, id: "invalid-token"
 
     assert_response :not_found
   end
 
   view_test "it should not be possible to fact check a deleted edition" do
-    edition = create(:deleted_edition, title: "deleted-policy-title", body: "deleted-policy-body")
+    edition = create(:deleted_edition, title: "deleted-publication-title", body: "deleted-publication-body")
     fact_check_request = create(:fact_check_request, edition: edition)
 
     get :edit, id: fact_check_request
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."
-    refute_select ".document .title", text: "deleted-policy-title"
-    refute_select ".document .body", text: "deleted-policy-body"
+    refute_select ".document .title", text: "deleted-publication-title"
+    refute_select ".document .body", text: "deleted-publication-body"
   end
 
   view_test "turn govspeak into nice markup when editing" do
@@ -62,15 +62,6 @@ class Admin::FactCheckRequestsControllerTest < ActionController::TestCase
     end
 
     assert_select ".body", text: "body-in-html"
-  end
-
-  test "adding comments to a policy" do
-    policy = create(:policy)
-    fact_check_request = create(:fact_check_request, edition: policy)
-
-    get :edit, id: fact_check_request
-
-    assert_response :success
   end
 
   test "adding comments to a publication" do
@@ -155,8 +146,8 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
 
   setup do
     @attributes = attributes_for(:fact_check_request)
-    @edition = create(:draft_policy)
-    @requestor = login_as(:policy_writer)
+    @edition = create(:draft_publication)
+    @requestor = login_as(:writer)
     ActionMailer::Base.deliveries.clear
   end
 
@@ -218,7 +209,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   test "redirect back to the edition preview when a fact check has been requested" do
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
-    assert_redirected_to admin_policy_path(@edition)
+    assert_redirected_to admin_publication_path(@edition)
   end
 
   test "should not send an email if the fact checker's email address is missing" do
@@ -239,7 +230,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
     @attributes.merge!(email_address: "")
     post :create, edition_id: @edition.id, fact_check_request: @attributes
 
-    assert_redirected_to admin_policy_path(@edition)
+    assert_redirected_to admin_publication_path(@edition)
   end
 
   test "should reject invalid email addresses" do
@@ -250,7 +241,7 @@ class Admin::CreatingFactCheckRequestsControllerTest < ActionController::TestCas
   end
 
   view_test "should display an apology if requesting a fact check for an edition that has been deleted" do
-    edition = create(:deleted_policy)
+    edition = create(:deleted_publication)
     post :create, edition_id: edition.id, fact_check_request: @attributes
 
     assert_select ".fact_check_request .apology", text: "We're sorry, but this document is no longer available for fact checking."

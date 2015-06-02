@@ -6,52 +6,52 @@ class Whitehall::Uploader::Finders::EditionFinderTest < ActiveSupport::TestCase
     @log_buffer = StringIO.new
     @log = ImporterTestLogger.new(@log_buffer)
     @line_number = 1
-    @policy_finder = Whitehall::Uploader::Finders::EditionFinder.new(Policy, @log, @line_number)
+    @publication_finder = Whitehall::Uploader::Finders::EditionFinder.new(Publication, @log, @line_number)
   end
 
   test "returns the published edition of all policies found by the supplied slugs" do
-    policy_1 = create(:published_policy, title: "Policy 1")
-    policy_2 = create(:published_policy, title: "Policy 2")
-    assert_equal [policy_1, policy_2], @policy_finder.find(policy_1.slug, policy_2.slug)
+    publication_1 = create(:published_publication, title: "Publication 1")
+    publication_2 = create(:published_publication, title: "Publication 2")
+    assert_equal [publication_1, publication_2], @publication_finder.find(publication_1.slug, publication_2.slug)
   end
 
   test "returns the draft edition of any policies found by the supplied slugs which have no published editions" do
-    policy_1 = create(:published_policy, title: "Policy 1")
-    policy_2 = create(:draft_policy, title: "Policy 2")
-    assert_equal [policy_1, policy_2], @policy_finder.find(policy_1.slug, policy_2.slug)
+    publication_1 = create(:published_publication, title: "Publication 1")
+    publication_2 = create(:draft_publication, title: "Publication 2")
+    assert_equal [publication_1, publication_2], @publication_finder.find(publication_1.slug, publication_2.slug)
   end
 
   test "returns the published edition even if a draft edition exists" do
-    policy_1 = create(:published_policy, title: "Policy 1")
-    policy_1_draft = policy_1.create_draft(create(:user))
-    assert_equal [policy_1], @policy_finder.find(policy_1.slug)
+    publication_1 = create(:published_publication, title: "Publication 1")
+    publication_1_draft = publication_1.create_draft(create(:user))
+    assert_equal [publication_1], @publication_finder.find(publication_1.slug)
   end
 
   test "does not find other edition types which have the same slug" do
-    news_article = create(:published_news_article, title: "Policy 1")
-    assert_equal [], @policy_finder.find(news_article.slug)
-    assert_match %r{Unable to find Policy with slug '#{news_article.slug}'}, @log_buffer.string
+    news_article = create(:published_news_article, title: "Publication 1")
+    assert_equal [], @publication_finder.find(news_article.slug)
+    assert_match %r{Unable to find Publication with slug '#{news_article.slug}'}, @log_buffer.string
   end
 
   test "ignores blank slugs" do
-    assert_equal [], @policy_finder.find('', '')
+    assert_equal [], @publication_finder.find('', '')
   end
 
-  test "returns an empty array if a policy can't be found for the given slug" do
-    assert_equal [], @policy_finder.find('made-up-policy-slug')
+  test "returns an empty array if a publication can't be found for the given slug" do
+    assert_equal [], @publication_finder.find('made-up-publication-slug')
   end
 
-  test "logs a warning if a policy can't be found for the given slug" do
-    @policy_finder.find('made-up-policy-slug')
-    assert_match /Unable to find Policy with slug 'made-up-policy-slug'/, @log_buffer.string
+  test "logs a warning if a publication can't be found for the given slug" do
+    @publication_finder.find('made-up-publication-slug')
+    assert_match /Unable to find Publication with slug 'made-up-publication-slug'/, @log_buffer.string
   end
 
-  test "returns an empty array if the policy for the given slug that cannot be found" do
-    assert_equal [], @policy_finder.find('made-up-policy-slug')
+  test "returns an empty array if the publication for the given slug that cannot be found" do
+    assert_equal [], @publication_finder.find('made-up-publication-slug')
   end
 
   test "ignores duplicate related policies" do
-    policy_1 = create(:published_policy, title: "Policy 1")
-    assert_equal [policy_1], @policy_finder.find(policy_1.slug, policy_1.slug)
+    publication_1 = create(:published_publication, title: "Publication 1")
+    assert_equal [publication_1], @publication_finder.find(publication_1.slug, publication_1.slug)
   end
 end

@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
     when managing_editor? then "Managing Editor"
     when world_editor? then 'World Editor'
     when world_writer? then 'World Writer'
-    else "Policy Writer"
+    else "Writer"
     end
   end
 

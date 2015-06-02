@@ -10,7 +10,7 @@ FactoryGirl.define do
     organisations { FactoryGirl.build_list :organisation, 1 }
 
     topics { FactoryGirl.build_list :topic, 1 }
-    association :creator, factory: :policy_writer
+    association :creator, factory: :writer
     association :current_release_date, factory: :statistics_announcement_date
 
     after :build do |announcement, evaluator|

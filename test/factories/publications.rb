@@ -54,7 +54,7 @@ FactoryGirl.define do
 
     after(:build) do |object, evaluator|
       if evaluator.relevant_to_local_government
-        object.related_policy_ids = [FactoryGirl.create(:published_policy, relevant_to_local_government: true)].map(&:id)
+        object.policy_content_ids = ["5d37821b-7631-11e4-a3cb-005056011aef"]
       end
     end
   end

@@ -202,7 +202,7 @@ class AttachableTest < ActiveSupport::TestCase
     publication = create(:published_publication, :with_alternative_format_provider,
                     attachments: [file_attachment, html_attachment])
 
-    draft = publication.create_draft(create(:policy_writer))
+    draft = publication.create_draft(create(:writer))
 
     assert_equal 2, draft.attachments.size
 

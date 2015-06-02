@@ -11,9 +11,8 @@ Scenario: Creating a new draft publication
   Then I should see the publication "Standard Beard Lengths" in the list of draft documents
 
 Scenario: Creating a new draft publication related to multiple policies
-  Given two published policies "Totally Tangy Tofu" and "Awakened Tastebuds" exist
-  When I draft a new publication "Healthy Eating" relating it to the policies "Totally Tangy Tofu" and "Awakened Tastebuds"
-  Then I should see in the preview that "Healthy Eating" should related to "Totally Tangy Tofu" and "Awakened Tastebuds" policies
+  When I draft a new publication "Healthy Eating" relating it to the policies "Policy 1" and "Policy 2"
+  Then I should see in the preview that "Healthy Eating" should related to "Policy 1" and "Policy 2" policies
 
 Scenario: Creating a new draft publication that applies to multiple nations
   Given I draft a new publication "Standard Beard Lengths" that does not apply to the nations:

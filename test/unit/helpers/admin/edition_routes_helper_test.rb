@@ -3,8 +3,8 @@ require 'test_helper'
 class Admin::EditionRoutesHelperTest < ActionView::TestCase
 
   test 'admin_edition_path take an edition instance and uses polymorphic routes to generate the correct path' do
-    p = FactoryGirl.create(:policy)
-    assert_equal "/government/admin/policies/#{p.id}", admin_edition_path(p)
+    p = FactoryGirl.create(:publication)
+    assert_equal "/government/admin/publications/#{p.id}", admin_edition_path(p)
   end
 
   test 'admin_edition_url takes an edition instance and uses polymorphic routes to generate the correct whitehall-admin url by default' do

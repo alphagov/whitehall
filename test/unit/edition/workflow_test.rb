@@ -86,13 +86,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
 
   test "#edit_as updates the edition" do
     attributes = stub(:attributes)
-    edition = create(:policy)
+    edition = create(:publication)
     edition.edit_as(create(:user), title: 'new-title')
     assert_equal 'new-title', edition.reload.title
   end
 
   test "#edit_as records new creator if edit succeeds" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(true)
     user = create(:user)
     edition.edit_as(user, {})
@@ -101,13 +101,13 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "#edit_as returns true if edit succeeds" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(true)
     assert edition.edit_as(create(:user), {})
   end
 
   test "#edit_as does not record new creator if edit fails" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(false)
     user = create(:user)
     edition.edit_as(user, {})
@@ -115,19 +115,19 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "#edit_as returns false if edit fails" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(false)
     refute edition.edit_as(create(:user), {})
   end
 
   test "#save_as saves the edition" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.expects(:save)
     edition.save_as(create(:user))
   end
 
   test "#save_as records the new creator if save succeeds" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(true)
     user = create(:user)
     edition.save_as(user)
@@ -136,7 +136,7 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "#save_as does not record new creator if save fails" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(true)
     user = create(:user)
     edition.save_as(user)
@@ -145,25 +145,25 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
   end
 
   test "#save_as returns true if save succeeds" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(true)
     assert edition.save_as(create(:user))
   end
 
   test "#save_as updates the document slug if this is the first draft" do
-    edition = create(:submitted_policy, title: "First Title")
+    edition = create(:submitted_publication, title: "First Title")
     edition.save_as(user = create(:user))
 
     edition.title = "Second Title"
     edition.save_as(user)
     publish(edition)
 
-    assert_nil Policy.published_as("first-title")
-    assert_equal edition, Policy.published_as("second-title")
+    assert_nil Publication.published_as("first-title")
+    assert_equal edition, Publication.published_as("second-title")
   end
 
   test "#save_as does not alter the slug if this edition has previously been published" do
-    edition = create(:submitted_policy, title: "First Title")
+    edition = create(:submitted_publication, title: "First Title")
     edition.save_as(user = create(:user))
     publish(edition)
 
@@ -174,12 +174,12 @@ class Edition::WorkflowTest < ActiveSupport::TestCase
     new_draft.submit!
     publish(new_draft)
 
-    assert_equal new_draft, Policy.published_as("first-title")
-    assert_nil Policy.published_as("second-title")
+    assert_equal new_draft, Publication.published_as("first-title")
+    assert_nil Publication.published_as("second-title")
   end
 
   test "#save_as returns false if save fails" do
-    edition = create(:policy)
+    edition = create(:publication)
     edition.stubs(:save).returns(false)
     refute edition.save_as(create(:user))
   end

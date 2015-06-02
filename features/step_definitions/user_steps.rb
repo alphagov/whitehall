@@ -1,9 +1,9 @@
 Given /^there is a user called "([^"]*)"$/ do |name|
-  @user = create(:policy_writer, name: name)
+  @user = create(:writer, name: name)
 end
 
 Given /^there is a user called "([^"]*)" with email address "([^"]*)"$/ do |name, email|
-  @user = create(:policy_writer, name: name, email: email)
+  @user = create(:writer, name: name, email: email)
 end
 
 When /^I view my own user record$/ do

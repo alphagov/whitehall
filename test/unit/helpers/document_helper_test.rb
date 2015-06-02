@@ -175,17 +175,6 @@ class DocumentHelperTest < ActionView::TestCase
                               text: topical_event.name
   end
 
-  test "part_of_metadata generates policy metadata" do
-    policy = create(:published_policy)
-    edition = create(:news_article, related_policy_ids: [policy.id])
-
-    metadata_links = part_of_metadata(edition, [policy]).join(' ')
-    assert_select_within_html metadata_links,
-                              "a[href=?]",
-                              public_document_path(policy),
-                              text: policy.title
-  end
-
   test "part_of_metadata generates primary mainstream categories metadata" do
     mainstream_category = create(:mainstream_category)
     guide = create(:news_article)
@@ -254,17 +243,6 @@ class DocumentHelperTest < ActionView::TestCase
                               "a[href=?]",
                               worldwide_organisation_path(organisation),
                               text: organisation.name
-  end
-
-  test "from_metadata generates policy_groups metadata" do
-    policy_group = create(:policy_group)
-    edition = create(:policy, policy_groups: [policy_group])
-
-    metadata_links = from_metadata(edition).join(' ')
-    assert_select_within_html metadata_links,
-                              "a[href=?]",
-                              policy_group_path(policy_group),
-                              text: policy_group.name
   end
 
   test "from_metadata generates supporting_organisations metadata" do
