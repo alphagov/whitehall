@@ -25,8 +25,9 @@ module Admin::EditionRoutesHelper
     polymorphic_path([:admin, edition], *args)
   end
 
-  def admin_edition_url(edition, *args)
-    polymorphic_url([:admin, edition], *args)
+  def admin_edition_url(edition, options = {})
+    default_options = {host: Whitehall.admin_host}
+    polymorphic_url([:admin, edition], default_options.merge(options))
   end
 
   def edit_admin_edition_path(edition, *args)

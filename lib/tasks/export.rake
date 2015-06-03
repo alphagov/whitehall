@@ -77,7 +77,7 @@ namespace :export do
             edition.id,
             edition.title,
             edition.state,
-            routes_helper.admin_edition_url(edition, host: Whitehall.admin_host),
+            routes_helper.admin_edition_url(edition),
             *edition.authors.uniq.map(&:name)
           ]
         end
@@ -118,7 +118,7 @@ namespace :export do
           csv << [
             org.display_name,
             routes_helper.public_document_url(edition),
-            routes_helper.admin_edition_url(edition, host: Whitehall.admin_host),
+            routes_helper.admin_edition_url(edition),
             edition.title,
             edition.display_type,
             edition.public_timestamp,

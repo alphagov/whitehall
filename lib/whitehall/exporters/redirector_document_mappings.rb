@@ -21,7 +21,7 @@ class Whitehall::Exporters::RedirectorDocumentMappings
       public_url,
       http_status(edition),
       slug,
-      url_maker.admin_edition_url(edition, host: Whitehall.admin_host),
+      url_maker.admin_edition_url(edition),
       edition.state]
   rescue => e
     Rails.logger.error("Whitehall::Exporters::RedirectorDocumentMappings: when exporting #{edition} - #{e} - #{e.backtrace.join("\n")}")
