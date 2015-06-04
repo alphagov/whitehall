@@ -2,9 +2,11 @@ class Admin::PoliciesController < Admin::EditionsController
   before_filter :forbid_access_to_non_admins!, except: [:index, :show, :topics]
 
   def topics
+    topics = ClassificationPolicy.where(policy_content_id: params[:policy_id])
+    topics = topics.map(&:classification_id)
+
     respond_to do |format|
-      presenters = @edition.topics.map { |topic| TopicPresenter.new(topic) }
-      format.json { render json: { topics: presenters } }
+      format.json { render json: { topics: topics } }
     end
   end
 

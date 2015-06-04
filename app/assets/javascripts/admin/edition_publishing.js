@@ -167,11 +167,11 @@ jQuery(function($) {
 (function($) {
   var SetTopicsFromPolicy = {
     init: function() {
-      this.$policies = $('select#edition_related_policy_ids');
+      this.$policies = $('select#edition_policy_content_ids');
       this.$topics = $('select#edition_topic_ids');
       if (this.$policies.length > 0 && this.$topics.length > 0) {
         this.updateTopicsWhenPolicySelected();
-        label = $('label[for=edition_related_policy_ids]');
+        label = $('label[for=edition_policy_content_ids]');
         label.text(label.text() + ' (choosing policies will suggest some topics)');
       }
     },
@@ -200,7 +200,7 @@ jQuery(function($) {
 
     selectTopics: function(data, textStatus, jqXHR) {
       $.each(data['topics'], function(i, topic) {
-        SetTopicsFromPolicy.$topics.find('option[value=' + topic.id + ']').prop('selected', true);
+        SetTopicsFromPolicy.$topics.find('option[value=' + topic + ']').prop('selected', true);
         SetTopicsFromPolicy.$topics.trigger('chosen:updated.chosen');
       });
     },

@@ -3,7 +3,7 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :build_array_out_of_need_ids_string, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :topics]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
@@ -18,9 +18,9 @@ class Admin::EditionsController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when 'index'
+    when 'index', 'topics'
       enforce_permission!(:see, edition_class || Edition)
-    when 'show', 'topics'
+    when 'show'
       enforce_permission!(:see, @edition)
     when 'new'
       enforce_permission!(:create, edition_class || Edition)

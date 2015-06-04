@@ -312,7 +312,7 @@ Whitehall::Application.routes.draw do
         resources :publications, except: [:index]
 
         resources :policies, except: [:index] do
-          member { get :topics }
+          get :topics
         end
         resources :supporting_pages, path: "supporting-pages", except: [:index]
         resources :worldwide_priorities, path: "priority", except: [:index]

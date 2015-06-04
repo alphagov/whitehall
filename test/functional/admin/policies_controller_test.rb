@@ -60,10 +60,13 @@ class Admin::PoliciesControllerTest < ActionController::TestCase
 
   view_test "topics returns list of the policy's topics when JSON requested" do
     topics = [create(:topic), create(:topic)]
-    policy = create(:policy, topics: topics)
-    get :topics, id: policy, format: :json
-    assert_equal topics.first.name, json_response['topics'].first['name']
-    assert_equal topics.second.name, json_response['topics'].second['name']
+    policy_content_id = 'asfd-asdf-asdf-asdf'
+    create(:classification_policy, policy_content_id: policy_content_id, classification: topics.first)
+    create(:classification_policy, policy_content_id: policy_content_id, classification: topics.second)
+
+    get :topics, policy_id: policy_content_id, format: :json
+    assert_equal topics.first.id, json_response['topics'].first
+    assert_equal topics.second.id, json_response['topics'].second
   end
 
   view_test "allows policy editing for GDS admins" do
