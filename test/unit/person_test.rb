@@ -80,6 +80,13 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [], person.previous_role_appointments
   end
 
+  test '#previous_role_appointments is in reverse chronological order' do
+    person = create(:person)
+    older_appointment = create(:ministerial_role_appointment, person: person, started_at: 2.year.ago, ended_at: 1.year.ago)
+    newer_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: 1.day.ago)
+    assert_equal [newer_appointment, older_appointment], person.previous_role_appointments
+  end
+
   test '#organisations includes organisations linked through current ministerial roles' do
     person = create(:person)
     role_appointment = create(:ministerial_role_appointment, person: person, started_at: 1.year.ago, ended_at: nil)

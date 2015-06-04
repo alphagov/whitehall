@@ -101,7 +101,7 @@ class Person < ActiveRecord::Base
   end
 
   def previous_role_appointments
-    role_appointments - current_role_appointments
+    (role_appointments - current_role_appointments).sort_by(&:started_at).reverse
   end
 
   def sort_key
