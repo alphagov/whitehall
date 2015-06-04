@@ -44,8 +44,17 @@ module Edition::RelatedPolicies
     Future::Policy.from_content_ids(policy_content_ids)
   end
 
+  def policy_areas
+    policies.flat_map(&:policy_areas).uniq
+  end
+
   def search_index
-    super.merge(policies: policies.map(&:slug))
+    super.merge(
+      policies: [
+        policy_areas.map(&:slug),
+        policies.map(&:slug),
+      ].flatten.uniq
+    )
   end
 
   def can_be_related_to_policies?

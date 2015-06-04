@@ -57,7 +57,10 @@ module PublishingApiPresenters
 
     def policies
       if edition.can_be_related_to_policies?
-        edition.policies.map(&:slug)
+        [
+          edition.policy_areas.map(&:slug),
+          edition.policies.map(&:slug),
+        ].flatten.uniq
       else
         []
       end
