@@ -74,7 +74,7 @@ module Admin::EditionsHelper
   end
 
   def admin_edition_state_text(edition)
-    edition.archived? ? 'Withdrawn' : edition.state.humanize
+    edition.withdrawn_or_archived? ? 'Withdrawn' : edition.state.humanize
   end
 
   def admin_world_location_filter_options(current_user)
