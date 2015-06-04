@@ -176,4 +176,9 @@ class GDSEditorTest < ActiveSupport::TestCase
   test 'can mark editions as political' do
     assert enforcer_for(gds_editor, normal_edition).can?(:mark_political)
   end
+
+  test 'can modify historic editions' do
+    assert enforcer_for(gds_editor, historic_edition).can?(:modify)
+  end
+
 end

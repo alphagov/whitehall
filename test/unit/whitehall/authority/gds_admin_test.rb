@@ -41,4 +41,8 @@ class GDSAdminTest < ActiveSupport::TestCase
   test "Non GDS-admin cannot modify policies" do
     refute enforcer_for(non_gds_admin, Policy).can?(:modify)
   end
+
+  test 'can modify historic editions' do
+    assert enforcer_for(gds_admin, historic_edition).can?(:modify)
+  end
 end

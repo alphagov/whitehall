@@ -39,6 +39,8 @@ module Whitehall::Authority::Rules
         return false
       elsif action == :unpublish && actor.managing_editor?
         return true
+      elsif action == :modify && @subject.historic?
+        return actor.gds_editor? || actor.gds_admin?
       else
         if actor.gds_admin?
           gds_admin_can?(action)

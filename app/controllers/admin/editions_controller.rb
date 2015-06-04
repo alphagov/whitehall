@@ -15,6 +15,14 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :redirect_to_controller_for_type, only: [:show]
   before_filter :deduplicate_specialist_sectors, only: [:create, :update]
   before_filter :trigger_previously_published_validations, only: [:create], if: :document_can_be_previously_published
+  before_filter :forbid_editing_of_historic_content!, only: [:create, :edit, :update, :submit, :destory, :revise]
+
+  def forbid_editing_of_historic_content!
+    unless can?(:modify, @edition)
+      redirect_to [:admin, @edition],
+        alert: %{This document is in <a href="https://www.gov.uk/guidance/how-to-publish-on-gov-uk/creating-and-updating-pages#history-mode">history mode</a>. Please <a href="https://support.production.alphagov.co.uk/content_change_request/new">contact GDS</a> if you need to change it.}
+    end
+  end
 
   def enforce_permissions!
     case action_name
