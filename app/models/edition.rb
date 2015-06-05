@@ -46,8 +46,8 @@ class Edition < ActiveRecord::Base
   UNMODIFIABLE_STATES = %w(scheduled published superseded deleted).freeze
   FROZEN_STATES = %w(superseded deleted).freeze
   PRE_PUBLICATION_STATES = %w(imported draft submitted rejected scheduled).freeze
-  POST_PUBLICATION_STATES = %w(published superseded archived withdrawn).freeze
-  PUBLICLY_VISIBLE_STATES = %w(published archived withdrawn).freeze
+  POST_PUBLICATION_STATES = %w(published superseded withdrawn).freeze
+  PUBLICLY_VISIBLE_STATES = %w(published withdrawn).freeze
 
   scope :with_title_or_summary_containing, -> *keywords {
     pattern = "(#{keywords.map { |k| Regexp.escape(k) }.join('|')})"
@@ -106,7 +106,7 @@ class Edition < ActiveRecord::Base
     end
 
     def being_unpublished?(previous_state, current_state)
-      previous_state == 'published' && %w(draft archived withdrawn).include?(current_state)
+      previous_state == 'published' && %w(draft withdrawn).include?(current_state)
     end
   end
 

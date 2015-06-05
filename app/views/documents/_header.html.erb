@@ -13,7 +13,7 @@
                     heading: document.title,
                     extra: true } %>
 
-<%= render('documents/withdrawn_notice', document: document, type: document.format_name) if document.withdrawn_or_archived? %>
+<%= render('documents/withdrawn_notice', document: document, type: document.format_name) if document.withdrawn? %>
 
 <div class="heading-extra">
   <div class="inner-heading">

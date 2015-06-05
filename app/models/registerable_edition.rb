@@ -81,7 +81,7 @@ class RegisterableEdition
 private
 
   def no_longer_published?
-    %w(archived deleted withdrawn).include?(edition.state) || edition.unpublishing != nil
+    %w(deleted withdrawn).include?(edition.state) || edition.unpublishing != nil
   end
 
   def published?

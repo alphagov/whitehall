@@ -27,14 +27,6 @@ class Admin::EditionFilterTest < ActiveSupport::TestCase
     assert_equal [draft_edition], Admin::EditionFilter.new(Edition, @current_user, state: 'draft').editions
   end
 
-  test 'handles both legacy "archived" and "withdrawn" states when filtering' do
-    legacy_archived = create(:news_article, state: 'archived')
-    withdrawn       = create(:news_article, :withdrawn)
-    draft           = create(:draft_news_article)
-
-    assert_equal [legacy_archived, withdrawn], Admin::EditionFilter.new(Edition, @current_user, state: 'withdrawn_or_archived').editions
-  end
-
   test "should filter by edition author" do
     author = create(:user)
     edition = create(:policy, authors: [author])

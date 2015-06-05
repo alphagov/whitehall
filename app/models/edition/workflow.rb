@@ -11,11 +11,7 @@ module Edition::Workflow
     end
 
     def valid_state?(state)
-      %w(active imported draft submitted rejected published scheduled force_published archived withdrawn_or_archived not_published).include?(state)
-    end
-
-    def withdrawn_or_archived
-      where(state: %w(archived withdrawn))
+      %w(active imported draft submitted rejected published scheduled force_published withdrawn not_published).include?(state)
     end
   end
 
@@ -33,7 +29,6 @@ module Edition::Workflow
       state :published
       state :superseded
       state :deleted
-      state :archived
       state :withdrawn
 
       event :try_draft do
@@ -94,10 +89,6 @@ module Edition::Workflow
     end
 
     validate :edition_has_no_unpublished_editions, on: :create
-  end
-
-  def withdrawn_or_archived?
-    archived? || withdrawn?
   end
 
   def pre_publication?

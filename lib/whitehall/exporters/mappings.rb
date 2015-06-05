@@ -1,5 +1,5 @@
 class Whitehall::Exporters::Mappings
-  STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + %w(published archived withdrawn)
+  STATES_TO_INCLUDE = Edition::PRE_PUBLICATION_STATES + %w(published withdrawn)
 
   def export(target)
     target << ['Old URL', 'New URL', 'Admin URL', 'State']
