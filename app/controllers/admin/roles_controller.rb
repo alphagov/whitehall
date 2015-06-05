@@ -13,7 +13,7 @@ class Admin::RolesController < Admin::BaseController
   def create
     @role = Role.new(role_params)
     if @role.save
-      redirect_to admin_roles_path, notice: %{"#{@role.name}" created.}
+      redirect_to index_or_edit_path, notice: %{"#{@role.name}" created.}
     else
       render action: "new"
     end
@@ -25,7 +25,7 @@ class Admin::RolesController < Admin::BaseController
 
   def update
     if @role.update_attributes(role_params)
-      redirect_to admin_roles_path, notice: %{"#{@role.name}" updated.}
+      redirect_to index_or_edit_path, notice: %{"#{@role.name}" updated.}
     else
       render action: "edit"
     end
@@ -42,6 +42,14 @@ class Admin::RolesController < Admin::BaseController
   end
 
   private
+
+  def index_or_edit_path
+    if params[:save_and_continue].present?
+      edit_admin_role_path(@role)
+    else
+      admin_roles_path
+    end
+  end
 
   def load_role
     @role = Role.find(params[:id])
