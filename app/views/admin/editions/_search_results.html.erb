@@ -7,11 +7,11 @@
     No documents found
   </div>
 <% else %>
-  <div class="row-fluid">
-    <div class="span7">
-      <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
+  <div class="row">
+    <div class="col-md-7">
+      <%= paginate @filter.editions, theme: 'twitter-bootstrap-3' %>
     </div>
-    <div class="span5">
+    <div class="col-md-5">
       <div class="publishing-stats">
         <% if @filter.show_stats %>
           <div class="stat">
@@ -76,11 +76,11 @@
       <% end %>
     </tbody>
   </table>
-  <div class="row-fluid">
-    <div class="span7">
-      <%= paginate @filter.editions, theme: 'twitter-bootstrap' %>
+  <div class="row">
+    <div class="col-md-7">
+      <%= paginate @filter.editions, theme: 'twitter-bootstrap-3' %>
     </div>
-    <div class="span5">
+    <div class="col-md-5">
       <% if show_export && can?(:export, Edition) %>
         <div class="publishing-stats">
           <%= link_to "Export as CSV", "#{confirm_export_admin_editions_path}?#{@filter.options.to_param}" %>

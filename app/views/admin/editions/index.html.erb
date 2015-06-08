@@ -1,10 +1,11 @@
 <% page_title @filter.page_title %>
+<% content_for :full_width, true %>
 <section class="editions-index">
-  <div class="row-fluid">
-    <div class="span3">
+  <div class="row">
+    <div class="col-md-3">
       <%= render partial: 'filter_options', locals: {filter_action: admin_editions_path} %>
     </div>
-    <div class="span9" id="search_results">
+    <div class="col-md-9" id="search_results">
       <%= render partial: 'search_results', locals: { show_export: true } %>
     </div>
   </div>
