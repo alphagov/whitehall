@@ -155,7 +155,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
 
   test "index should redirect to remembered filtered options if available" do
     organisation = create(:organisation)
-    get :index, state: :draft, organisation: organisation, state: :submitted
+    get :index, organisation: organisation, state: :submitted
 
     get :index
     assert_redirected_to admin_editions_path(state: :submitted, organisation: organisation)
