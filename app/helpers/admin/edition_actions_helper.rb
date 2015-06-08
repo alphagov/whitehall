@@ -87,7 +87,7 @@ module Admin::EditionActionsHelper
   # If adding new models also update filter_options_for_edition
   def document_creation_dropdown
     content_tag(:ul,
-      class: "masthead-menu unstyled js-hidden",
+      class: "masthead-menu list-unstyled js-hidden",
       id: 'new-document-menu',
       role: 'menu',
       'aria-labelledby' => 'new-document-label'
