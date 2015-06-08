@@ -1,21 +1,20 @@
 <% page_title "Edit " + @classification.name %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Edit <%= human_friendly_model_name.downcase %></h1>
     <p class="warning">Warning: changes to <%= human_friendly_model_name.downcase %>s appear instantly on the live site.</p>
     <%= render partial: "form", locals: {classification: @classification, show_instantly_live_warning: true} %>
   </section>
-</div>
 
-<div class="sidebar span4">
-  <section class="display_heading">
+  <section class="sidebar col-md-4 display_heading">
     <h1>Delete <%= human_friendly_model_name.downcase %></h1>
     <% if @classification.destroyable? %>
       <%= button_to 'Delete',
             [:admin, @classification],
             method: :delete,
-            data: { confirm: "Are you sure you want to delete: #{@classification} ?", class: 'btn btn-danger' } %>
+            class: 'btn btn-danger',
+            data: { confirm: "Are you sure you want to delete: #{@classification} ?" } %>
     <% else %>
       <div class="policies_preventing_destruction">
         <p>This topic can't be deleted as it has associated policies:</p>

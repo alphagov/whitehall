@@ -1,7 +1,7 @@
 <% page_title @classification.name %>
 
 <% content_for :current_tab do %>
-  <table class="<%= model_name %> table">
+  <table class="<%= model_name %> table table-bordered add-top-margin">
     <tr>
       <th>Description</th>
       <td class="description"><%= @classification.description %></td>

@@ -135,7 +135,7 @@ When /^I add a new organisation called "([^"]*)"$/ do |organisation_name|
   select 'Jazzy Bizzle', from: 'organisation_mainstream_category_ids_0'
   within '.featured-links' do
     fill_in 'Title', with: 'Top task 1'
-    fill_in 'Url', with: 'http://mainstream.co.uk'
+    fill_in 'URL', with: 'http://mainstream.co.uk'
   end
   click_button 'Save'
 end
@@ -417,7 +417,7 @@ When /^I add some featured links to the organisation "([^"]*)" via the admin$/ d
   visit admin_organisation_path(organisation)
   click_link "Edit"
   within ".featured-links" do
-    fill_in "Url", with: "https://www.gov.uk/mainstream/tool-alpha"
+    fill_in "URL", with: "https://www.gov.uk/mainstream/tool-alpha"
     fill_in "Title", with: "Tool Alpha"
   end
   click_button "Save"
@@ -435,7 +435,7 @@ When /^I add some featured services and guidance to the organisation "([^"]*)" v
   visit admin_organisation_path(organisation)
   click_link "Edit"
   within ".featured-links" do
-    fill_in "Url", with: "https://www.gov.uk/example/service"
+    fill_in "URL", with: "https://www.gov.uk/example/service"
     fill_in "Title", with: "Example Service"
   end
   choose 'organisation_homepage_type_service'

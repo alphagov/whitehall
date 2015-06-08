@@ -27,7 +27,7 @@
       <div id="organisation_sortable">
         <%= classification_form.fields_for :organisation_classifications, classification.organisation_classifications.where(lead: false) do |organisation_form| %>
           <% organisation = organisation_form.object.organisation %>
-          <div id="<%= dom_id(organisation) %>" class="well">
+          <div id="<%= dom_id(organisation) %>" class="well remove-bottom-padding">
             <%= organisation_form.text_field :lead_ordering, label_text: link_to(organisation.name, admin_organisation_path(organisation)), class: "ordering" %>
             <%= organisation_form.text_field :lead, label_text: "#{organisation.name} is lead?", class: "lead" %>
           </div>
