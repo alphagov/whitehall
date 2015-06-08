@@ -69,7 +69,7 @@ end
 
 gem 'sass', '3.4.9'
 gem 'sass-rails' # required by bootstrap-sass, but not listed as a dependency of it
-gem 'sassc-rails', github: 'bolandrm/sassc-rails', ref: 'cac614328c2830646dc9d1ee218caf6204b8e0c8'
+gem 'sassc-rails', '0.1.0'
 gem 'uglifier'
 
 group :development, :test do
