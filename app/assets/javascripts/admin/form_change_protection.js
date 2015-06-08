@@ -15,7 +15,8 @@
     },
 
     serialisedFormValues: function () {
-      var formdata = this.$form.serialize();
+      var formdata = this.$form.find("*").
+        not('input[name=authenticity_token]').serialize();
 
       this.$form.find('input[type=file]').each(function () {
         formdata = formdata + $(this).val();
