@@ -64,7 +64,7 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-kaminari-views (0.0.2)
+    bootstrap-kaminari-views (0.0.5)
       kaminari (>= 0.13)
       rails (>= 3.1)
     bootstrap-sass (3.3.5)
@@ -447,7 +447,7 @@ DEPENDENCIES
   babosa
   better_errors
   binding_of_caller
-  bootstrap-kaminari-views
+  bootstrap-kaminari-views (= 0.0.5)
   capybara (~> 2.4.4)
   carrierwave (= 0.9.0)
   chronic
