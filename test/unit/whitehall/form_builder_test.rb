@@ -64,12 +64,10 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test 'Whitehall::FormBuilder#upload renders a horizontal version' do
-    expected_html = '<div class="control-group">' +
-                      '<label class="control-label" for="promotional_feature_item_image">Image</label>' +
-                      '<div class="controls">' +
-                        '<input id="promotional_feature_item_image" name="promotional_feature_item[image]"  type="file" />' +
-                        hidden_image_cache_field +
-                      '</div>' +
+    expected_html = '<label class="control-label" for="promotional_feature_item_image">Image</label>' +
+                    '<div class="col-sm-10">' +
+                      '<input id="promotional_feature_item_image" name="promotional_feature_item[image]"  type="file" />' +
+                      hidden_image_cache_field +
                     '</div>'
 
     assert_dom_equal expected_html, @builder.upload(:image, horizontal: true)
@@ -77,28 +75,26 @@ class FormBuilderTest < ActionView::TestCase
 
   test 'Whitehall::FormBuilder#upload renders a horizontal version with cache fields' do
     @object.image = image_fixture_file
-    expected_html = '<div class="control-group">' +
-                      '<label for="promotional_feature_item_image" class="control-label">Image</label>' +
-                      '<div class="controls">' +
-                        '<input id="promotional_feature_item_image" name="promotional_feature_item[image]"   type="file" />' +
-                        "<span class='already_uploaded'>#{File.basename(image_fixture_file)} already uploaded</span>" +
-                        "<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' value='#{@object.image_cache}' />" +
-                      '</div>' +
+    expected_html = '<label for="promotional_feature_item_image" class="control-label">Image</label>' +
+                    '<div class="col-sm-10">' +
+                      '<input id="promotional_feature_item_image" name="promotional_feature_item[image]"   type="file" />' +
+                      "<span class='already_uploaded'>#{File.basename(image_fixture_file)} already uploaded</span>" +
+                      "<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' value='#{@object.image_cache}' />" +
                     '</div>'
+
     assert_dom_equal expected_html, @builder.upload(:image, horizontal: true)
   end
 
   test 'Whitehall::FormBuilder#upload renders a horizontal version with a removal checkbox, if asked to' do
     @object.image = image_fixture_file
-    expected_html = '<div class="control-group">' +
-                      '<label for="promotional_feature_item_image" class="control-label">Image</label>' +
-                      '<div class="controls">' +
-                        '<input id="promotional_feature_item_image" name="promotional_feature_item[image]"  type="file" />' +
-                        "<span class='already_uploaded'>#{File.basename(image_fixture_file)} already uploaded</span>" +
-                        "<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' value='#{@object.image_cache}' />" +
-                        removal_check_box +
-                      '</div>' +
+    expected_html = '<label for="promotional_feature_item_image" class="control-label">Image</label>' +
+                    '<div class="col-sm-10">' +
+                      '<input id="promotional_feature_item_image" name="promotional_feature_item[image]"  type="file" />' +
+                      "<span class='already_uploaded'>#{File.basename(image_fixture_file)} already uploaded</span>" +
+                      "<input id='promotional_feature_item_image_cache' name='promotional_feature_item[image_cache]' type='hidden' value='#{@object.image_cache}' />" +
+                      removal_check_box +
                     '</div>'
+
     assert_dom_equal expected_html, @builder.upload(:image, horizontal: true, allow_removal: true)
   end
 end

@@ -4,9 +4,7 @@ module Whitehall
     def label(method, text = nil, options = {}, &block)
       if calculate_required(method, options)
         unless !options[:required].nil? && options[:required] == false
-          options[:class] ||= ""
-          class_override = options[:class] << " required"
-          options.merge!(class: class_override.strip)
+          add_class_to_options(options, 'required')
           text_override = text ? text : method.to_s.humanize
           text = "#{text_override}<span>*</span>".html_safe
         end
@@ -69,27 +67,35 @@ module Whitehall
     end
 
     def text_field(method, options = {})
+      add_class_to_options(options, 'form-control')
       horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), super(method, options), options)
-      else
-        label(method, label_text, label_options) + super(method, options)
+
+      @template.content_tag(:div, class: 'form-group') do
+        if horizontal
+          label_options[:class] = 'control-label col-sm-2'
+          horizontal_group(label(method, label_text, label_options), super(method, options), options)
+        else
+          label(method, label_text, label_options) + super(method, options)
+        end
       end
     end
 
     def text_area(method, *args)
       options = (args.last || {})
+      add_class_to_options(options, 'form-control')
       horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), super, options)
-      else
-        label(method, label_text, label_options) + super
+
+      @template.content_tag(:div, class: 'form-group') do
+        if horizontal
+          label_options[:class] = 'control-label col-sm-2'
+          horizontal_group(label(method, label_text, label_options), super, options)
+        else
+          label(method, label_text, label_options) + super
+        end
       end
     end
 
@@ -143,6 +149,12 @@ module Whitehall
     end
 
     private
+
+    def add_class_to_options(options, name)
+      options[:class] ||= ""
+      class_override = options[:class] << " #{name}"
+      options.merge!(class: class_override.strip)
+    end
 
     def has_validators?(method)
       @has_validators ||= method && object.class.respond_to?(:validators_on)
@@ -211,13 +223,11 @@ module Whitehall
     end
 
     def horizontal_group(label_tag, content_tag, options = {})
-      @template.content_tag(:div, class: "control-group") do
-        label_tag +
-        @template.content_tag(:div, class: "controls") do
-          content_tag +
-            (options[:help_block] ? @template.content_tag(:span, options[:help_block], class: "help-block") : "") +
-            (options[:help_inline] ? @template.content_tag(:span, options[:help_inline], class: "help-inline") : "")
-        end
+      label_tag +
+      @template.content_tag(:div, class: "col-sm-10") do
+        content_tag +
+          (options[:help_block] ? @template.content_tag(:span, options[:help_block], class: "help-block") : "") +
+          (options[:help_inline] ? @template.content_tag(:span, options[:help_inline], class: "help-inline") : "")
       end
     end
 
