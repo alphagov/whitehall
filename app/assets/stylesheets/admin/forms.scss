@@ -13,9 +13,6 @@ form {
   }
 
   fieldset {
-    margin-top: 3em;
-    min-width: 0;
-    max-width: 100%;
 
     .role_appointment,
     .speech-type {
@@ -42,8 +39,6 @@ form {
     }
 
     > fieldset {
-      margin-top: 0;
-
       legend {
         font-size: 130%;
         line-height: 350%;
@@ -62,10 +57,6 @@ form {
     .chosen-container-multi input {
       direction: ltr;
     }
-  }
-
-  textarea, input {
-    width: 97%;
   }
 
   select {
