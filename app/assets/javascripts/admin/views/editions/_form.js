@@ -48,7 +48,7 @@
 
         var adviceText = formatAdviceMap[$field.val()];
         if (adviceText) {
-          var adviceHTML = '<div class="subtype-format-advice"><strong>Use this subformat for…</strong> '+adviceText+'</div>';
+          var adviceHTML = '<div class="subtype-format-advice add-label-margin"><strong>Use this subformat for…</strong> '+adviceText+'</div>';
           $container.append(adviceHTML);
         }
       }).change();
