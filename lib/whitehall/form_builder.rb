@@ -16,10 +16,13 @@ module Whitehall
     def labelled_radio_button(label_text, *radio_button_args)
       # 2nd arg is either all the args for the radio_button, or an options
       # hash for the label, then all the args for the radio_button.
-      label_opts = {class: 'radio inline'}
+      label_opts = {}
       label_opts = label_opts.merge(radio_button_args.shift) if radio_button_args.first.is_a?(Hash)
-      @template.label_tag(nil, label_opts) do
-        radio_button(*radio_button_args) + label_text
+
+      @template.content_tag(:div, 'class' => 'radio') do
+        @template.label_tag(nil, label_opts) do
+          radio_button(*radio_button_args) + label_text
+        end
       end
     end
 
@@ -116,11 +119,14 @@ module Whitehall
       horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text) || method.to_s.humanize
+
+      wrapper_class = "checkbox"
       if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), super, options)
-      else
-        label(method, label_text, label_options.merge(class: "checkbox")) { super + label_text }
+        wrapper_class = "#{wrapper_class} col-sm-offset-2 col-sm-10"
+      end
+
+      @template.content_tag(:div, class: wrapper_class) do
+        label(method, label_text, label_options) { super + label_text }
       end
     end
 
