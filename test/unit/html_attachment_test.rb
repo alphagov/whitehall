@@ -59,6 +59,12 @@ class HtmlAttachmentTest < ActiveSupport::TestCase
     assert_equal "a-new-title", attachment.slug
   end
 
+  test "does not blow up with a nil title" do
+    attachment = HtmlAttachment.new
+    refute attachment.valid?
+    assert_nil attachment.slug
+  end
+
   test "slug is not updated when the title is changed if edition is published" do
     edition = create(:published_publication, attachments: [
       build(:html_attachment, title: "an-html-attachment")

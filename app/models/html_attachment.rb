@@ -1,6 +1,6 @@
 class HtmlAttachment < Attachment
   extend FriendlyId
-  friendly_id :title, use: :scoped, scope: :attachable
+  friendly_id :sluggable_string, use: :scoped, scope: :attachable
 
   has_one :govspeak_content,
     autosave: true, inverse_of: :html_attachment, dependent: :destroy
@@ -67,7 +67,7 @@ class HtmlAttachment < Attachment
   end
 
   def should_generate_new_friendly_id?
-    return false unless sluggable_locale?
+    return false unless sluggable_locale? && sluggable_string.present?
     slug.nil? || attachable.nil? || !attachable.document.published?
   end
 
