@@ -32,8 +32,8 @@ module Admin::AuditTrailHelper
       end
     end
     if other_edition_remarks.any?
-      out << content_tag(:h2, 'On previous editions')
-      out << content_tag(:ul) do
+      out << content_tag(:h2, 'On previous editions', class: 'add-top-margin')
+      out << content_tag(:ul, class: 'list-unstyled') do
         render partial: "admin/editions/audit_trail_entry", collection: other_edition_remarks
       end
     end

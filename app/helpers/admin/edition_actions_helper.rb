@@ -1,10 +1,10 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit draft', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-large"
+    link_to 'Edit draft', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-default btn-large add-left-margin"
   end
 
   def redraft_edition_button(edition)
-    button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-large"
+    button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-default btn-large"
   end
 
   def approve_retrospectively_edition_button(edition)
@@ -43,7 +43,7 @@ module Admin::EditionActionsHelper
               confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
               data: { confirm: "Are you sure you want to force publish this document?" },
               title: button_title,
-              class: "btn force-publish",
+              class: "btn btn-default force-publish",
               "data-toggle" => "modal",
               "data-target" => "#forcePublishModal")
     else

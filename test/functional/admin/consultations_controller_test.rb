@@ -108,7 +108,7 @@ class Admin::ConsultationsControllerTest < ActionController::TestCase
   view_test "show renders the summary" do
     draft_consultation = create(:draft_consultation, summary: "a-simple-summary")
     get :show, id: draft_consultation
-    assert_select ".summary", text: "a-simple-summary"
+    assert_select ".page-header .lead", text: "a-simple-summary"
   end
 
   view_test "edit displays consultation fields" do

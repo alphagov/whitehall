@@ -1,5 +1,5 @@
 <% if edition.force_published? %>
-  <div class="alert alert-error force_published">
+  <div class="alert alert-danger force_published">
     <p><strong>Warning</strong> This edition was force published and has not yet been reviewed by a second pair of eyes.</p>
 
     <% if can?(:approve, edition) %>
@@ -39,4 +39,3 @@
         body. You may want to edit it and add some.</p>
   </div>
 <% end %>
-

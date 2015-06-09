@@ -37,7 +37,7 @@ class Admin::NewsArticlesControllerTest < ActionController::TestCase
 
     get :show, id: draft_news_article
 
-    assert_select ".summary", text: "a-simple-summary"
+    assert_select ".page-header .lead", text: "a-simple-summary"
   end
 
   private

@@ -163,7 +163,7 @@ module ApplicationHelper
   end
 
   def absolute_time(time, options = {})
-    content_tag(:abbr, l(time, format: :long_ordinal),
+    content_tag(:time, l(time, format: :long_ordinal),
                 class: [options[:class], "datetime"].compact.join(" "),
                 title: time.iso8601) if time
   end

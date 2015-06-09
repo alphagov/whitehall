@@ -2,12 +2,12 @@
 <% page_class "edition-show" %>
 <% initialise_script "GOVUK.adminEditionShow" %>
 
-<div class="row-fluid">
-  <div class="<%= @edition.imported? ? "span6" : "span8" %> edition-metadata">
+<div class="row">
+  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-8" %> edition-metadata">
     <%= render partial: 'show_metadata' %>
   </div>
 
-  <div class="<%= @edition.imported? ? "span6" : "span4" %> edition-sidebar">
+  <div class="<%= @edition.imported? ? "col-md-6" : "col-md-4" %> edition-sidebar">
     <section>
       <% if @edition.imported? %>
         <%= convert_to_draft_edition_form(@edition) %>
@@ -48,13 +48,13 @@
 
     <% if @edition.scheduled_publication %>
       <% if force_scheduler.can_transition? && !force_scheduler.can_perform? %>
-        <section class='alert'>
+        <section class='alert alert-danger'>
           <p>This edition cannot be scheduled because: <%= force_scheduler.failure_reason %></p>
         </section>
       <% end %>
     <% else %>
       <% if force_publisher.can_transition? && !force_publisher.can_perform? %>
-        <section class='alert'>
+        <section class='alert alert-danger'>
           <p>This edition cannot be force-published because:</p>
           <ul>
             <% force_publisher.failure_reasons.each do |reason| %>
@@ -74,7 +74,7 @@
       <%= sidebar_tabs edition_tabs(@edition, remarks_count: @edition_remarks.length, history_count: @edition_history.total_count), class: 'remarks-history' do |tabs| %>
         <%= tabs.pane class: "audit-trail", id: "notes" do %>
           <h1>Notes</h1>
-          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn add-remark" %>
+          <%= link_to "Add new remark", new_admin_edition_editorial_remark_path(@edition), class: "btn btn-default add-remark" %>
           <%= render_editorial_remarks_in_sidebar(@edition_remarks, @edition) %>
         <% end %>
 
@@ -82,7 +82,7 @@
           <div class="audit-trail-page">
             <h1>Activity</h1>
             <%= paginate @edition_history, theme: 'audit_trail' %>
-            <ul>
+            <ul class="list-unstyled">
               <%= render partial: "audit_trail_entry", collection: @edition_history %>
             </ul>
             <%= paginate @edition_history, theme: 'audit_trail' %>
@@ -98,7 +98,7 @@
               <%= form_for [:admin, @edition, FactCheckRequest.new] do |f| %>
                 <%= f.text_field :email_address %>
                 <%= f.text_area :instructions, cols: nil, rows: nil, label_text: "Extra instructions" %>
-                <%= f.submit 'Send request', class: "btn" %>
+                <%= f.submit 'Send request', class: "btn btn-default" %>
               <% end %>
             </section>
           <% end %>
@@ -107,4 +107,3 @@
     <% end %>
   </div>
 </div>
-
