@@ -674,7 +674,7 @@ class Edition < ActiveRecord::Base
   end
 
   def government
-    Government.on_date(date_for_government) unless date_for_government.nil?
+    @government ||= Government.on_date(date_for_government) unless date_for_government.nil?
   end
 
   def search_government_name

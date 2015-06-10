@@ -44,6 +44,11 @@ module AuthorityTestHelper
       fse.stubs(:scheduled_by).returns(user)
       fse
     end
+    define_method("historic_#{edition_type}") do
+      he = FactoryGirl.build(:"published_#{edition_type}", force_published: true)
+      he.stubs(:historic?).returns(true)
+      he
+    end
   end
 
   define_edition_factory_methods :edition

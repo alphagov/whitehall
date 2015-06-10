@@ -28,4 +28,32 @@ class Admin::GenericEditionsController::PolticalDocumentsTest < ActionController
     get :new
     assert_select '.political-status', count: 0
   end
+
+  view_test "doesn't let non-gds users edit historic documents" do
+    old_government = create(:previous_government, name: 'old')
+    new_government = create(:current_government, name: 'new')
+
+    login_as :managing_editor
+
+    published_edition = create(:published_news_article, first_published_at: 3.years.ago)
+    new_draft = create(:news_article, political: true, first_published_at: 3.years.ago, document: published_edition.document)
+
+    get :edit, id: new_draft
+
+    assert_response :redirect
+  end
+
+  view_test "lets gds users edit historic documents" do
+    old_government = create(:previous_government, name: 'old')
+    new_government = create(:current_government, name: 'new')
+
+    login_as :gds_editor
+
+    published_edition = create(:published_news_article)
+    new_draft = create(:news_article, political: true, first_published_at: 3.years.ago, document: published_edition.document)
+
+    get :edit, id: new_draft
+
+    assert_response :success
+  end
 end

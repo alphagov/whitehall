@@ -142,4 +142,8 @@ class DepartmentWriterTest < ActiveSupport::TestCase
   test 'cannot mark editions as political' do
     refute enforcer_for(department_writer, normal_edition).can?(:mark_political)
   end
+
+  test 'cannot modify historic editions' do
+    refute enforcer_for(department_writer, historic_edition).can?(:modify)
+  end
 end
