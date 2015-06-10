@@ -4,7 +4,7 @@ require "gds_api/test_helpers/publishing_api"
 class WithdrawingTest < ActiveSupport::TestCase
   include GdsApi::TestHelpers::PublishingApi
 
-  test "When an edition is withdrawn, it gets republished to the Publishing API with an archive notice" do
+  test "When an edition is withdrawn, it gets republished to the Publishing API with an withdrawn notice" do
     edition   = create(:published_case_study)
     presenter = PublishingApiPresenters.presenter_for(edition)
     edition.build_unpublishing(explanation: 'Old information',
@@ -28,6 +28,6 @@ private
   def archived_payload?(json)
     payload = JSON.parse(json)
     payload['update_type'] == 'republish' &&
-      payload['details']['archive_notice'].is_a?(Hash)
+      payload['details']['withdrawn_notice'].is_a?(Hash)
   end
 end

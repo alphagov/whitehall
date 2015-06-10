@@ -29,7 +29,7 @@ private
       change_history: edition.change_history.as_json,
     }).tap do |json|
       json[:image] = image_details if image_available?
-      json[:archive_notice] = archive_notice if edition.withdrawn_or_archived?
+      json[:withdrawn_notice] = withdrawn_notice if edition.withdrawn_or_archived?
     end
   end
 
@@ -41,10 +41,10 @@ private
     }
   end
 
-  def archive_notice
+  def withdrawn_notice
     {
       explanation: unpublishing_explanation,
-      archived_at: edition.updated_at
+      withdrawn_at: edition.updated_at
     }
   end
 

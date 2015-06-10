@@ -219,8 +219,8 @@ class PublishingApiPresenters::CaseStudyTest < ActiveSupport::TestCase
     }
 
     assert_valid_against_schema(present(case_study), 'case_study')
-    assert_equal archive_notice[:archived_at], present(case_study)[:details][:archive_notice][:archived_at]
+    assert_equal archive_notice[:archived_at], present(case_study)[:details][:withdrawn_notice][:withdrawn_at]
     assert_equivalent_html archive_notice[:explanation],
-      present(case_study)[:details][:archive_notice][:explanation]
+      present(case_study)[:details][:withdrawn_notice][:explanation]
   end
 end
