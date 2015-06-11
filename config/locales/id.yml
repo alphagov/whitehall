@@ -123,9 +123,6 @@ id:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: Diterbitkan
     read: Baca artikel %{title}
     speech:
@@ -222,9 +219,6 @@ id:
       oral_statement:
         one: Pernyataan langsung kepada parlemen
         other: Pernyataan-pernyataan langsung kepada parlemen
-      policy:
-        one: Kebijakan
-        other: Kebijakan-kebijakan
       policy_paper:
         one: Laporan kebijakan
         other: Laporan-laporan kebijakan

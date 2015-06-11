@@ -106,9 +106,6 @@ en:
       attachments:
         one: Document
         other: Documents
-      policies:
-        one: Policy
-        other: Policies
     type:
       announcement:
         one: Announcement
@@ -194,9 +191,6 @@ en:
       oral_statement:
         one: Oral statement to Parliament
         other: Oral statements to Parliament
-      policy:
-        one: Policy
-        other: Policies
       policy_paper:
         one: Policy paper
         other: Policy papers

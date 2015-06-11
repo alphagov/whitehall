@@ -4,9 +4,6 @@ ta:
       attachments:
         one: " ஆவணம்"
         other: "ஆவணங்கள்"
-      policies:
-        one:
-        other:
       applies_to_nations: "பிரயோகமாகிறது"
       field_of_operation: "செயற்பாட்டுத் துறை"
       from:
@@ -97,9 +94,6 @@ ta:
       oral_statement:
         one: "பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கை"
         other: "பாராளுமன்றத்துக்கு வாய் மூலமான அறிக்கைகள்"
-      policy:
-        one: "கொள்கை"
-        other: "கொள்கைகள்"
       policy_paper:
         one: "கொள்கைப் பத்திரம்"
         other: "கொள்கைப் பத்திரங்கள்"

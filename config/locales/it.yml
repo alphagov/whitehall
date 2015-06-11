@@ -4,9 +4,6 @@ it:
       attachments:
         one: Documento
         other: Documenti
-      policies:
-        one:
-        other:
       applies_to_nations: Valido per
       field_of_operation: Settore di lavoro
       from:
@@ -97,9 +94,6 @@ it:
       oral_statement:
         one: Dichiarazione in parlamento
         other: Dichiarazioni in parlamento
-      policy:
-        one: Politica
-        other: Politiche
       policy_paper:
         one: Politica
         other: Politiche

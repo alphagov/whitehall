@@ -6,11 +6,6 @@ pl:
         few:
         many:
         other: Dokumenty
-      policies:
-        one:
-        few:
-        many:
-        other:
       applies_to_nations: Dotyczy
       field_of_operation: Obszar działania
       from:
@@ -157,11 +152,6 @@ pl:
         few:
         many:
         other: Ustne oświadczenia przed parlamentem
-      policy:
-        one: Polityka
-        few:
-        many:
-        other: Polityki
       policy_paper:
         one: Dokument programowy
         few:

@@ -5,10 +5,6 @@ ro:
         one: Document
         few:
         other: Documente
-      policies:
-        one:
-        few:
-        other:
       applies_to_nations: Se adresează
       field_of_operation: Domeniu de activitate
       from:
@@ -127,10 +123,6 @@ ro:
         one: 'Declarație verbală în fața Parlamentului '
         few:
         other: 'Declarații verbale în fața Parlamentului '
-      policy:
-        one: Obiectiv strategic
-        few:
-        other: Obiective strategic
       policy_paper:
         one:
         few:

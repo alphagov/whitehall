@@ -122,9 +122,6 @@ th:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "ตีพิมพ์"
     read: "อ่าน%{title}บทความ"
     speech:
@@ -221,9 +218,6 @@ th:
       oral_statement:
         one: "แถลงการณ์ด้วยวาจาต่อรัฐสภา"
         other: "แถลงการณ์ด้วยวาจาต่อรัฐสภา"
-      policy:
-        one: "นโยบาย"
-        other: "นโยบาย"
       policy_paper:
         one: "เอกสารนโยบาย"
         other: "เอกสารนโยบาย"

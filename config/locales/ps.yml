@@ -4,9 +4,6 @@ ps:
       attachments:
         one: "سند"
         other: "سندونه"
-      policies:
-        one:
-        other:
       applies_to_nations: "پورې اړه لری"
       field_of_operation: "د کړنو څانګه"
       from:
@@ -97,9 +94,6 @@ ps:
       oral_statement:
         one: "پارلمان ته شفاهی اعلامیه"
         other: "پارلمان ته شفاهی اعلامیی"
-      policy:
-        one: "پالیسی"
-        other: "پالیسی ګانی"
       policy_paper:
         one: "د پالیسۍ سند"
         other: "د پالیسې سندونه"

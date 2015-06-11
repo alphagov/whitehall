@@ -4,9 +4,6 @@ ur:
       attachments:
         one: "دستاویز"
         other: "دستاویزات"
-      policies:
-        one:
-        other:
       applies_to_nations: "اطلاق ہوتا ہے"
       field_of_operation: "کارروائی کا میدان"
       from:
@@ -97,9 +94,6 @@ ur:
       oral_statement:
         one: "پارلیمنٹ میں زبانی بیان"
         other: "پارلیمنٹ میں زبانی بیانات"
-      policy:
-        one: "پالیسی"
-        other: "پالیسیاں"
       policy_paper:
         one: "پالیسی پیپر"
         other: "پالیسی پیپرز"

@@ -4,9 +4,6 @@ es-419:
       attachments:
         one: Documento
         other: Documentos
-      policies:
-        one:
-        other:
       applies_to_nations: Se aplica a
       field_of_operation: Terreno de operaciones
       from:
@@ -97,9 +94,6 @@ es-419:
       oral_statement:
         one: Declaración oral al Parlamento
         other: Declaraciones orales al Parlamento
-      policy:
-        one: Política
-        other: Políticas
       policy_paper:
         one: Informe sobre políticas gubernamentales
         other: Informes sobre políticas gubernamentales

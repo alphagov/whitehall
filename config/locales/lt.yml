@@ -5,10 +5,6 @@ lt:
         one: Dokumentas
         few:
         other: Dokumentai
-      policies:
-        one:
-        few:
-        other:
       applies_to_nations: Susiję su
       field_of_operation: Veiklos laukas
       from:
@@ -127,10 +123,6 @@ lt:
         one: "Žodinis kreipimasis į parlamentą"
         few:
         other: "Žodiniai kreipimaisi į parlamentą"
-      policy:
-        one: Strategija
-        few:
-        other: Strategija
       policy_paper:
         one: Strategijos dokumentas
         few:

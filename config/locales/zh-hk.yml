@@ -121,9 +121,6 @@ zh-hk:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "已發布"
     read: "閱讀%{title}文章"
     speech:
@@ -220,9 +217,6 @@ zh-hk:
       oral_statement:
         one: "提交國會的口頭聲明"
         other: "提交國會的其他口頭聲明"
-      policy:
-        one: "政策"
-        other: "其他政策"
       policy_paper:
         one: "政策文件"
         other: "其他政策文件"

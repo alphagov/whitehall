@@ -4,9 +4,6 @@ uz:
       attachments:
         one: Hujjat
         other: Hujjatlar
-      policies:
-        one:
-        other:
       applies_to_nations: 'Tegishli '
       field_of_operation: Faoliyat sohasi
       from:
@@ -97,9 +94,6 @@ uz:
       oral_statement:
         one: Parlament uchun og'zaki bayonot
         other: Parlament uchun og'zaki bayonotlar
-      policy:
-        one: Dastur
-        other: Dasturlar
       policy_paper:
         one: Dasturga oid hujjat
         other: Dasturga oid hujjatlar

@@ -6,11 +6,6 @@ sr:
         few:
         many:
         other: Dokumenti
-      policies:
-        one:
-        few:
-        many:
-        other:
       applies_to_nations: Odnosi se na
       field_of_operation: polje delovanja
       from:
@@ -157,11 +152,6 @@ sr:
         few:
         many:
         other: usmena obraćanja Parlamentu
-      policy:
-        one: politika
-        few:
-        many:
-        other: politike
       policy_paper:
         one: predlog politike
         few:

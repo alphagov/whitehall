@@ -5,10 +5,6 @@ cs:
         one: Dokument
         few:
         other: Dokumenty
-      policies:
-        one:
-        few:
-        other:
       applies_to_nations: Týká se
       field_of_operation: Oblast působnosti
       from:
@@ -127,10 +123,6 @@ cs:
         one: Vystoupení v  parlamentu
         few:
         other: Vystoupení v parlamentu
-      policy:
-        one: Politika
-        few:
-        other: Politiky
       policy_paper:
         one: Dokument
         few:

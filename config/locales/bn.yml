@@ -4,9 +4,6 @@ bn:
       attachments:
         one:
         other:
-      policies:
-        one:
-        other:
       applies_to_nations:
       field_of_operation:
       from:
@@ -95,9 +92,6 @@ bn:
         one:
         other:
       oral_statement:
-        one:
-        other:
-      policy:
         one:
         other:
       policy_paper:

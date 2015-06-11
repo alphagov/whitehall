@@ -4,9 +4,6 @@ et:
       attachments:
         one: Dokument
         other: Dokumendid
-      policies:
-        one: Poliitika
-        other: Poliitikad
       applies_to_nations: Seondub
       field_of_operation: Tegevusvaldkond
       from: Kellelt
@@ -97,9 +94,6 @@ et:
       oral_statement:
         one: Suuline avaldus parlamedis
         other: Suulised avaldused parlamendis
-      policy:
-        one: Poliitika
-        other: Poliitikad
       policy_paper:
         one: Poliitikadokument
         other: Poliitikadokumendid

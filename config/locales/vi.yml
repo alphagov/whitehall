@@ -123,9 +123,6 @@ vi:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "Đã xuất bản"
     read: "Đọc bài có  %{title}"
     speech:
@@ -222,9 +219,6 @@ vi:
       oral_statement:
         one: Tuyên bố bằng lời nói tới quốc hội
         other: Tuyên bố bằng lời nói tới quốc hội
-      policy:
-        one: Chính sách
-        other: Các chính sách
       policy_paper:
         one: Tài liệu chính sách
         other: Tài liệu chính sách

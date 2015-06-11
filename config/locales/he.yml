@@ -6,11 +6,6 @@ he:
         two:
         many:
         other: "מסמכים"
-      policies:
-        one:
-        two:
-        many:
-        other:
       applies_to_nations: "מתייחס ל"
       field_of_operation: "שדה פעולה"
       from:
@@ -157,11 +152,6 @@ he:
         two:
         many:
         other: "הצהרות בעל פה לפרלמנט"
-      policy:
-        one: "מדיניות"
-        two:
-        many:
-        other: "מדיניות"
       policy_paper:
         one: "נייר מדיניות"
         two:

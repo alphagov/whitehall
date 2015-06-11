@@ -4,9 +4,6 @@ lv:
       attachments:
         one: Dokuments
         other: Dokumenti
-      policies:
-        one:
-        other:
       applies_to_nations: Attiecas uz
       field_of_operation: Darbības lauks
       from:
@@ -97,9 +94,6 @@ lv:
       oral_statement:
         one: Mutisks paziņojums parlamentam
         other: Mutiski paziņojumi parlamentam
-      policy:
-        one: Darbības joma
-        other: Darbības jomas
       policy_paper:
         one: Politikas dokuments
         other: Politikas dokumenti

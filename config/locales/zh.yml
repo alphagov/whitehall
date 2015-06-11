@@ -121,9 +121,6 @@ zh:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "已发布"
     read: "阅读%{title}文章"
     speech:
@@ -220,9 +217,6 @@ zh:
       oral_statement:
         one: "对议会的口头声明"
         other: "对议会的口头声明"
-      policy:
-        one: "政策"
-        other: "政策"
       policy_paper:
         one: "政策文件"
         other: "政策文件"

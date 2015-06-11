@@ -4,9 +4,6 @@ es:
       attachments:
         one: Documento
         other: Documentos
-      policies:
-        one:
-        other:
       applies_to_nations: Sirve para
       field_of_operation: "Ãmbito de actuación"
       from:
@@ -97,9 +94,6 @@ es:
       oral_statement:
         one: Declaración formulada oralmente
         other: Declaraciones formuladas oralmente
-      policy:
-        one: Política
-        other: Políticas
       policy_paper:
         one: Informe sobre políticas gubernamentales
         other: Informes sobre políticas gubernamentales

@@ -6,11 +6,6 @@ be:
         few:
         many:
         other: "Дакументы"
-      policies:
-        one:
-        few:
-        many:
-        other:
       applies_to_nations: "У адносінах да"
       field_of_operation: "Сфера дзейнасці"
       from:
@@ -157,11 +152,6 @@ be:
         few:
         many:
         other: "Вусныя даклады ў парламенце"
-      policy:
-        one: "Напрамак дзейнасці"
-        few:
-        many:
-        other: "Напрамкі дзейнасці"
       policy_paper:
         one: "Праграмны дакумент"
         few:

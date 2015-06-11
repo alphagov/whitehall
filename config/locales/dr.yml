@@ -4,9 +4,6 @@ dr:
       attachments:
         one: "سند"
         other: "اسناد"
-      policies:
-        one:
-        other:
       applies_to_nations: "اطلاق میشود به"
       field_of_operation: "بخش عملیاتی"
       from:
@@ -97,9 +94,6 @@ dr:
       oral_statement:
         one: "بیانیه شفایی به پارلمان"
         other: "بیانیه های شفایی به پارلمان"
-      policy:
-        one: "پالیسی"
-        other: "پالیسی ها"
       policy_paper:
         one: "سند پالیسی"
         other: "سندهای پالیسی"

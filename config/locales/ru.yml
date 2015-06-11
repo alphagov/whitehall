@@ -6,11 +6,6 @@ ru:
         few:
         many:
         other: "Документы"
-      policies:
-        one:
-        few:
-        many:
-        other:
       applies_to_nations: "Применимо к"
       field_of_operation: "Сфера деятельности"
       from:
@@ -157,11 +152,6 @@ ru:
         few:
         many:
         other: "Устные заявления парламенту"
-      policy:
-        one: "Политика"
-        few:
-        many:
-        other: "Политика"
       policy_paper:
         one: "Директивный документ"
         few:

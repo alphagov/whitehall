@@ -4,9 +4,6 @@ pt:
       attachments:
         one: Documento
         other: Documentos
-      policies:
-        one:
-        other:
       applies_to_nations: Aplica-se a
       field_of_operation: Campo de Operação
       from:
@@ -97,9 +94,6 @@ pt:
       oral_statement:
         one: Declaração verbal ao Parlamento
         other: Declarações verbais ao Parlamento
-      policy:
-        one: Política
-        other: Políticas
       policy_paper:
         one: Relatório sobre políticas
         other: Relatórios sobre políticas

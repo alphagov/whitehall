@@ -123,9 +123,6 @@ tr:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: Yayında
     read: "%{title} makalesini okuyunuz"
     speech:
@@ -222,9 +219,6 @@ tr:
       oral_statement:
         one: Parlamento'ya sözlü açıklama
         other: Parlamento'ya sözlü açıklamalar
-      policy:
-        one: Politika
-        other: Politikalar
       policy_paper:
         one: Politika belgesi
         other: Politika belgeleri

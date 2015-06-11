@@ -4,9 +4,6 @@ sq:
       attachments:
         one: Dokument
         other: Dokumente
-      policies:
-        one:
-        other:
       applies_to_nations: Zbatohet mbi
       field_of_operation: Fusha e veprimit
       from:
@@ -97,9 +94,6 @@ sq:
       oral_statement:
         one: Deklarate per Parliamentin
         other: Deklarata per Parlamentin
-      policy:
-        one: Politike
-        other: Politika
       policy_paper:
         one: dokument politikash
         other: dokumente politikash

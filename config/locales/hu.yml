@@ -124,9 +124,6 @@ hu:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: közzététel dátuma
     read: 'Olvassa el a következő cikket: %{title}'
     speech:
@@ -223,9 +220,6 @@ hu:
       oral_statement:
         one: Parlamenti felszólalás
         other: Parlamenti felszólalások
-      policy:
-        one: Szakpolitika
-        other: Szakpolitikák
       policy_paper:
         one: Szakpolitikai dokumentum
         other: Szakpolitikai dokumentumok

@@ -4,9 +4,6 @@ hy:
       attachments:
         one: "Փաստաթուղթ"
         other: "Փաստաթղթեր"
-      policies:
-        one:
-        other:
       applies_to_nations: "Վերաբերվում է"
       field_of_operation: "Գործունեության ոլորտ"
       from:
@@ -97,9 +94,6 @@ hy:
       oral_statement:
         one: "Բանավոր դիմում խորհրդարան"
         other: "Բանավոր դիմումներ խորհրդարան"
-      policy:
-        one: "Քաղաքականություն"
-        other: "Քաղաքականություններ"
       policy_paper:
         one: "Ծրագրային փաստաթուղթ"
         other: "Ծրագրային փաստաթղթեր"

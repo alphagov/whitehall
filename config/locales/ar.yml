@@ -8,13 +8,6 @@ ar:
         few:
         many:
         other: "وثائق"
-      policies:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
       applies_to_nations: "ينطبق على"
       field_of_operation: "مجال العمل"
       from:
@@ -217,13 +210,6 @@ ar:
         few:
         many:
         other: "تصريحات شفهية للبرلمان"
-      policy:
-        zero:
-        one: "سياسة"
-        two:
-        few:
-        many:
-        other: "سياسات"
       policy_paper:
         zero:
         one: "ورقة عن السياسة"

@@ -4,9 +4,6 @@ de:
       attachments:
         one: Dokument
         other: Dokumente
-      policies:
-        one:
-        other:
       applies_to_nations: Gilt für
       field_of_operation: Einsatzbereich
       from:
@@ -97,9 +94,6 @@ de:
       oral_statement:
         one: Mündliche Erklärung vor dem Parlament
         other: Mündliche Erklärungen vor dem Parlament
-      policy:
-        one: Politik
-        other: Politik
       policy_paper:
         one: Grundsatzpapier
         other: Grundsatzpapiere

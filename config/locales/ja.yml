@@ -122,9 +122,6 @@ ja:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "掲載日"
     read: "%{title} の記事を読む"
     speech:
@@ -221,9 +218,6 @@ ja:
       oral_statement:
         one: "議会に対する口頭陳述"
         other: "議会に対する口頭陳述"
-      policy:
-        one: "政策"
-        other: "政策"
       policy_paper:
         one: "政策文書"
         other: "政策文書"

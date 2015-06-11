@@ -5,10 +5,6 @@ sk:
         one:
         few:
         other:
-      policies:
-        one:
-        few:
-        other:
       applies_to_nations:
       field_of_operation:
       from:
@@ -124,10 +120,6 @@ sk:
         few:
         other:
       oral_statement:
-        one:
-        few:
-        other:
-      policy:
         one:
         few:
         other:

@@ -4,9 +4,6 @@ fr:
       attachments:
         one: Document
         other: Documents
-      policies:
-        one:
-        other:
       applies_to_nations: s'appliquant à
       field_of_operation: Domaine d'activité
       from:
@@ -97,9 +94,6 @@ fr:
       oral_statement:
         one: Déclaration orale au Parlement
         other: Déclarations orales au Parlement
-      policy:
-        one: Priorité politique
-        other: Priorités politiques
       policy_paper:
         one: Document d'orientation
         other: Documents d'orientation

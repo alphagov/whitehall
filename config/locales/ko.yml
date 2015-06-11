@@ -122,9 +122,6 @@ ko:
       from:
       location:
       part_of:
-      policies:
-        one:
-        other:
     published: "발행"
     read: "%{title} 기사를 확인하세요"
     speech:
@@ -221,9 +218,6 @@ ko:
       oral_statement:
         one: "의회로 구두 성명"
         other: "의회로 구두 성명"
-      policy:
-        one: "정책"
-        other: "정책"
       policy_paper:
         one: "정책 논문"
         other: "정책 논문"

@@ -4,9 +4,6 @@ si:
       attachments:
         one: "ලේඛණය"
         other: "ලේඛණ"
-      policies:
-        one:
-        other:
       applies_to_nations: "අදාළ වන්නේ"
       field_of_operation: "ක්‍රියාත්මකවන ක්ෂස්ත්‍රය"
       from:
@@ -97,9 +94,6 @@ si:
       oral_statement:
         one: " පාර්ලිමේන්තුවේ වාචික ප්රුකාශය"
         other: "පාර්ලිමේන්තුවේ වාචික ප්රේකාශ"
-      policy:
-        one: "ප්රතතිපත්තිය"
-        other: "ප්‍රතිපත්තීන්"
       policy_paper:
         one: "ප්‍රතිපත්ති  ලිපිය"
         other: "ප්‍රතිපත්ති  ලිපි"

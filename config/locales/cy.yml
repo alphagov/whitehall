@@ -8,13 +8,6 @@ cy:
         few:
         many:
         other: Dogfennau
-      policies:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
       applies_to_nations: Yn berthnasol i
       field_of_operation: Maes gweithredu
       from: O
@@ -217,13 +210,6 @@ cy:
         few:
         many:
         other: Datganiadau llafar i'r senedd
-      policy:
-        zero:
-        one: Polisi
-        two:
-        few:
-        many:
-        other: Polisïau
       policy_paper:
         zero:
         one: Papur polisi
