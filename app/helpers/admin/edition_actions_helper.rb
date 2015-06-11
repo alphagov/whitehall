@@ -41,10 +41,9 @@ module Admin::EditionActionsHelper
     if options[:force]
       link_to("Force publish",
               confirm_force_publish_admin_edition_path(edition, lock_version: edition.lock_version),
-              data: { confirm: "Are you sure you want to force publish this document?" },
               title: button_title,
               class: "btn btn-default force-publish",
-              "data-toggle" => "modal",
+              "data-module" => "linked-modal",
               "data-target" => "#forcePublishModal")
     else
       button_to("Publish",

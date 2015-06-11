@@ -16,7 +16,7 @@ class Admin::EditionActionsHelperTest < ActionView::TestCase
     html = publish_edition_form(edition, force: true)
     fragment = Nokogiri::HTML.fragment(html)
     assert_equal "Force publish", (fragment / "a").first.text
-    assert_equal "modal", (fragment / "a").first["data-toggle"]
+    assert_equal "linked-modal", (fragment / "a").first["data-module"]
     assert_equal "#forcePublishModal", (fragment / "a").first["data-target"]
   end
 end
