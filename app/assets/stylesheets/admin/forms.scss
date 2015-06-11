@@ -119,26 +119,10 @@ fieldset.contact_number {
 }
 
 .first-published-date {
-  .extra-label {
-    margin-top: 13px;
-    font-weight: bold;
-  }
-  label.radio {
-    margin-top: 13px;
-  }
-  .edit, .explanation {
-    .js-enabled & {
-      display: none;
-    }
-  }
-  &.form-errors label {
-    font-weight: bold;
-  }
   .show-first-published {
     margin-left: 20px;
   }
 }
-
 
 .contacts-admin {
   max-width: 600px;
