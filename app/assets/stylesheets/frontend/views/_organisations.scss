@@ -396,59 +396,6 @@
     }
   }
 
-  .featured-topics-and-policies {
-    clear: both;
-    float: left;
-    display: inline;
-    width: $full-width;
-    @include media(desktop) {
-      width: $two-thirds;
-    }
-    @include media(tablet) {
-      margin-bottom: $gutter;
-    }
-    .content {
-      padding: $gutter-half $gutter-half 0;
-      @include media(tablet) {
-        padding-top: $gutter*1.5;
-      }
-      p {
-        @include ig-core-19;
-        padding-right: $gutter-half;
-      }
-    }
-
-    h1 {
-      @include core-27;
-      font-weight: bold;
-      border-top-width: $gutter-one-sixth;
-      border-top-style: solid;
-      padding-top: $gutter-two-thirds;
-      padding-bottom: 1px;
-      margin-bottom: $gutter-two-thirds;
-    }
-
-    .featured-items {
-      @include ig-core-19;
-      list-style: none;
-      margin-bottom: $gutter-one-third;
-      @include media(tablet) {
-        margin-bottom: 0;
-      }
-
-      li {
-        @include media(tablet) {
-          clear: both;
-          margin-bottom: $gutter-two-thirds;
-          padding-bottom: $gutter-one-third;
-          border-bottom: 1px solid $border-colour;
-        }
-      }
-
-    }
-
-  }
-
   .social-media {
     @include media(tablet) {
       float: left;
@@ -982,7 +929,6 @@
       }
     }
 
-    #featured-topics-and-policies,
     #what-we-do, #who-we-are {
       @include media(tablet) {
         width: $two-thirds;
