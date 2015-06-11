@@ -286,6 +286,7 @@ class Edition < ActiveRecord::Base
     organisations: nil,
     people: nil,
     display_type: :display_type,
+    detailed_format: -> d { d.display_type.parameterize },
     public_timestamp: :public_timestamp,
     relevant_to_local_government: :relevant_to_local_government?,
     world_locations: nil,
