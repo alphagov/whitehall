@@ -6,91 +6,92 @@
                                                                                           Consolidated: UnpublishingReason::Consolidated.id }
 %>
 
-  <div class="span10">
-    <section>
-      <h1><%= @edition.title %></h1>
+<h1><%= @edition.title %></h1>
 
+<section class="well add-top-margin">
+  <h2 class="remove-top-margin">Withdraw or unpublish?</h2>
 
-      <h2>Do you want to withdraw or unpublish this document?</h2>
+  <p>
+    Learn more about withdrawing and unpublishing content on our
+    <%= link_to 'publishing guide', 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving', target: '_blank' %>.
+  </p>
 
-      <p>
-        Learn more about withdrawing and unpublishing content on our
-        <%= link_to 'publishing guide', 'https://www.gov.uk/guidance/how-to-publish-on-gov-uk/unpublishing-and-archiving', target: '_blank' %>.
-      </p>
-
-      <div class="js-unpublishing-reason">
-        <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Withdrawn.id}" do %>
-          <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Withdrawn.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn) %>
-          <strong>Withdraw:</strong> no longer current government policy/activity
-        <% end %>
-        <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}" do %>
-          <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::PublishedInError.id, (@unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError) %>
-          <strong>Unpublish:</strong> published in error
-        <% end %>
-        <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}" do %>
-          <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Consolidated.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Consolidated) %>
-          <strong>Unpublish:</strong> consolidated into another GOV.UK page
-        <% end %>
-      </div>
-
-      <%= form_for  @unpublishing,
-                    url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
-                    html: {
-                      id: 'js-withdraw-form',
-                      class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn)
-                    } do |form| %>
-
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Withdrawn.id %>
-        <fieldset>
-            <%= label_tag 'withdrawal_explanation', '<strong>Public explanation</strong> (this is shown on the live site) <span>*</span>'.html_safe, class: 'required' %>
-            <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'withdrawal_explanation'  %>
-        </fieldset>
-        <fieldset>
-          <%= form.submit 'Withdraw', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
-        </fieldset>
+  <div class="js-unpublishing-reason">
+    <div class="radio">
+      <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Withdrawn.id}" do %>
+        <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Withdrawn.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn) %>
+        <strong>Withdraw:</strong> no longer current government policy/activity
       <% end %>
-
-
-      <%= form_for  @unpublishing,
-                    url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
-                    html: {
-                      id: 'js-published-in-error-form',
-                      class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError)
-                    } do |form| %>
-
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::PublishedInError.id %>
-        <fieldset>
-          <%= form.text_field :alternative_url, label_text: '<strong>Alternative URL</strong>'.html_safe, id: 'published_in_error_alternative_url' %>
-          <%= form.check_box :redirect, label_text: 'Redirect to URL automatically?' %>
-        </fieldset>
-
-        <fieldset>
-            <%= label_tag 'published_in_error_explanation', '<strong>Public explanation</strong> (this is shown on the live site)'.html_safe %>
-            <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable", id: 'published_in_error_explanation'  %>
-        </fieldset>
-
-        <fieldset>
-          <%= form.submit 'Unpublish', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
-        </fieldset>
+    </div>
+    <div class="radio">
+      <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::PublishedInError.id}" do %>
+        <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::PublishedInError.id, (@unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError) %>
+        <strong>Unpublish:</strong> published in error
       <% end %>
-
-
-      <%= form_for  @unpublishing,
-                    url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
-                    html: {
-                      id: 'js-consolidated-form',
-                      class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Consolidated )
-                    } do |form| %>
-
-        <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Consolidated.id %>
-        <fieldset>
-          <%= form.text_field :alternative_url, label_text: '<strong>Alternative URL</strong>'.html_safe, required: true, id: 'consolidated_alternative_url' %>
-          <span class="auto_redirect">This will be automatically redirected</span>
-        </fieldset>
-
-        <fieldset>
-          <%= form.submit 'Unpublish', class: "btn btn-danger" %> <span class="or_cancel"> or <%= link_to 'cancel', [:admin, @edition] %></span>
-        </fieldset>
+    </div>
+    <div class="radio">
+      <%= label_tag "unpublishing_reason_id_#{UnpublishingReason::Consolidated.id}" do %>
+        <%= radio_button_tag :unpublishing_reason_id, UnpublishingReason::Consolidated.id, (@unpublishing.unpublishing_reason == UnpublishingReason::Consolidated) %>
+        <strong>Unpublish:</strong> consolidated into another GOV.UK page
       <% end %>
-    </section>
+    </div>
   </div>
+
+  <%= form_for  @unpublishing,
+                url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
+                html: {
+                  id: 'js-withdraw-form',
+                  class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Withdrawn)
+                } do |form| %>
+
+    <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Withdrawn.id %>
+    <fieldset>
+        <%= label_tag 'withdrawal_explanation', 'Public explanation (this is shown on the live site) <span>*</span>'.html_safe, class: 'required' %>
+        <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable form-control input-md-8", id: 'withdrawal_explanation'  %>
+    </fieldset>
+    <fieldset>
+      <%= form.submit 'Withdraw', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
+    </fieldset>
+  <% end %>
+
+  <%= form_for  @unpublishing,
+                url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
+                html: {
+                  id: 'js-published-in-error-form',
+                  class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::PublishedInError)
+                } do |form| %>
+
+    <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::PublishedInError.id %>
+    <fieldset>
+      <%= form.text_field :alternative_url, label_text: 'Alternative URL'.html_safe, id: 'published_in_error_alternative_url', class: 'input-md-8' %>
+      <%= form.check_box :redirect, label_text: 'Redirect to URL automatically?' %>
+    </fieldset>
+
+    <fieldset>
+        <%= label_tag 'published_in_error_explanation', 'Public explanation (this is shown on the live site)'.html_safe %>
+        <%= text_area_tag 'unpublishing[explanation]', @unpublishing.explanation, rows: 5, class: "previewable form-control input-md-8", id: 'published_in_error_explanation'  %>
+    </fieldset>
+
+    <fieldset>
+      <%= form.submit 'Unpublish', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
+    </fieldset>
+  <% end %>
+
+  <%= form_for  @unpublishing,
+                url: unpublish_admin_edition_path(@edition, lock_version: @edition.lock_version),
+                html: {
+                  id: 'js-consolidated-form',
+                  class: ('js-hidden' unless @unpublishing.unpublishing_reason == UnpublishingReason::Consolidated )
+                } do |form| %>
+
+    <%= hidden_field_tag 'unpublishing[unpublishing_reason_id]', UnpublishingReason::Consolidated.id %>
+    <fieldset>
+      <%= form.text_field :alternative_url, label_text: 'Alternative URL', required: true, id: 'consolidated_alternative_url', class: 'input-md-8' %>
+      <span class="auto_redirect">This will be automatically redirected</span>
+    </fieldset>
+
+    <fieldset>
+      <%= form.submit 'Unpublish', class: "btn btn-danger" %> <%= link_to 'Cancel', [:admin, @edition], class: 'btn btn-default add-left-margin' %>
+    </fieldset>
+  <% end %>
+</section>
