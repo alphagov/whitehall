@@ -60,7 +60,7 @@ module Whitehall
         options[:buttons].each do |name, value|
           @template.concat submit(value, name: name, class: "btn btn-large btn-primary")
         end
-        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-large add-left-gutter')
+        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-default btn-large add-left-margin')
       }
     end
 

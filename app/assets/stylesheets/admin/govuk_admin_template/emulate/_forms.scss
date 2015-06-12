@@ -9,10 +9,8 @@
   padding: $default-vertical-margin 20px $default-vertical-margin 45px;
   position: relative;
   margin-top: 10px;
-
-  .form-large & {
-    font-weight: normal;
-  }
+  display: block;
+  font-weight: normal;
 
   input {
     position: absolute;

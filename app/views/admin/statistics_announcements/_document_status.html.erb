@@ -1,7 +1,7 @@
 <% if publication = statistics_announcement.publication %>
 
   <div class="stats-linked-document">
-    <h3>
+    <h3 class="remove-top-margin">
       <span class="stats-small-heading">
         Announcement connected to <%= publication.current_state %> document
       </span>
@@ -21,8 +21,8 @@
     <%= render "document_linker", statistics_announcement: statistics_announcement %>
   </div>
 <% else %>
-  <div class="alert add-vertical-margins">
-    <h3>
+  <div class="alert alert-warning add-vertical-margins">
+    <h3 class="remove-top-margin">
       Connect a draft publication to this announcement
     </h3>
     <p>When the connected document is published this announcement will redirect to it.</p>
