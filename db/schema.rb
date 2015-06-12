@@ -81,18 +81,6 @@ ActiveRecord::Schema.define(version: 20150623074259) do
   add_index "attachments", ["attachment_data_id"], name: "index_attachments_on_attachment_data_id", using: :btree
   add_index "attachments", ["ordering"], name: "index_attachments_on_ordering", using: :btree
 
-  create_table "checksum", id: false, force: :cascade do |t|
-    t.string   "db",         limit: 64,  null: false
-    t.string   "tbl",        limit: 64,  null: false
-    t.integer  "chunk",      limit: 4,   null: false
-    t.string   "boundaries", limit: 100, null: false
-    t.string   "this_crc",   limit: 40,  null: false
-    t.integer  "this_cnt",   limit: 4,   null: false
-    t.string   "master_crc", limit: 40
-    t.integer  "master_cnt", limit: 4
-    t.datetime "ts",                     null: false
-  end
-
   create_table "classification_featuring_image_data", force: :cascade do |t|
     t.string   "carrierwave_image", limit: 255
     t.datetime "created_at"
@@ -451,7 +439,8 @@ ActiveRecord::Schema.define(version: 20150623074259) do
     t.string   "need_ids",                                    limit: 255
     t.string   "primary_locale",                              limit: 255,   default: "en",    null: false
     t.boolean  "political",                                   limit: 1,     default: false
-    t.string   "logo_url"
+    t.string   "logo_url",                                    limit: 255
+    t.boolean  "important",                                   limit: 1,     default: false
   end
 
   add_index "editions", ["alternative_format_provider_id"], name: "index_editions_on_alternative_format_provider_id", using: :btree
