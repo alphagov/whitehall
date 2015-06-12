@@ -146,11 +146,13 @@ module Whitehall
         fields += check_box(:"remove_#{method}", label_text: allow_removal_label_text)
       end
 
-      if horizontal
-        label_options[:class] = "control-label"
-        horizontal_group(label(method, label_text, label_options), fields, options)
-      else
-        label(method, label_text, label_options) + fields
+      @template.content_tag(:div, class: 'form-group') do
+        if horizontal
+          label_options[:class] = "control-label"
+          horizontal_group(label(method, label_text, label_options), fields, options)
+        else
+          label(method, label_text, label_options) + fields
+        end
       end
     end
 
