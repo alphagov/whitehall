@@ -6,4 +6,10 @@
                   multiple: true,
                   class: 'chzn-select',
                   data: { placeholder: "Choose policies..."} %>
+  <% if form.object.respond_to?(:important) %>
+    <div id="important">
+      <%= form.check_box :important, label_text: "Is this an important document?" %>
+    </div>
+  <% end %>
+  <br/>
 </fieldset>

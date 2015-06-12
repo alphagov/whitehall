@@ -268,7 +268,7 @@ class Edition < ActiveRecord::Base
     is_political: :political?,
     is_historic: :historic?,
     government_name: :search_government_name,
-    important: :important?,
+    important_to_policy: :important?,
   )
 
   def search_title
