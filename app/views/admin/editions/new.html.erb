@@ -1,13 +1,12 @@
 <% page_title "New " + @edition.type.titleize %>
-<div class="span8">
-  <section>
-    <h1>Create <%= @edition.type.underscore.humanize.downcase %></h1>
 
+<div class="row">
+  <section class="col-md-8">
+    <h1>Create <%= @edition.type.underscore.humanize.downcase %></h1>
     <%= render partial: "form", locals: {edition: @edition} %>
   </section>
-</div>
-
-<div class="span4">
-  <%= simple_formatting_sidebar hide_inline_attachments_help: !@edition.allows_inline_attachments?,
-                                show_attachments_tab_help: true %>
+  <div class="col-md-4">
+    <%= simple_formatting_sidebar hide_inline_attachments_help: !@edition.allows_inline_attachments?,
+                                  show_attachments_tab_help: true %>
+  </div>
 </div>

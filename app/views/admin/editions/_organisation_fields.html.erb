@@ -1,8 +1,8 @@
 <% if edition.can_be_related_to_organisations? %>
   <fieldset class="named">
-    <div class="row-fluid">
+    <div class="row">
 
-      <fieldset class="named span4 lead-organisations">
+      <fieldset class="named col-md-6 lead-organisations">
         <legend>Lead organisations</legend>
 
         <% 0.upto(3) do |index| %>
@@ -23,7 +23,7 @@
         <% end %>
       </fieldset>
 
-      <fieldset class="named span4 supporting-organisations">
+      <fieldset class="named col-md-6 supporting-organisations">
         <legend>Supporting organisations</legend>
 
         <% 0.upto(5) do |index| %>
