@@ -72,15 +72,6 @@ form {
     }
   }
 
-  .checkbox {
-    input {
-      @include ie(6){
-        width: auto;
-        float: left;
-      }
-    }
-  }
-
   .original-translation {
     font-style: italic;
   }
