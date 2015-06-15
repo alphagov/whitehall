@@ -4,7 +4,7 @@
   <%= form.text_field :name, placeholder: "Name of board, committee, etc. e.g. Defence Council" %>
   <%= form.text_area :description, rows: 20, class: "previewable" %>
 
-  <fieldset>
+  <fieldset class="add-bottom-margin">
     <legend>Members</legend>
     <%= form.fields_for :group_memberships do |membership_fields| %>
       <fieldset>
