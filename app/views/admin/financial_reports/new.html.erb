@@ -1,18 +1,20 @@
 <% page_title @organisation.name + " financial reports" %>
-<div class="row-fluid organisation-header">
-  <div class="span8">
-    <h1><%= @organisation.name %></h1>
-    <%= link_to "View on website", @organisation%>
-  </div>
+<div class="organisation-header">
+  <h1><%= @organisation.name %></h1>
+  <%= link_to "View on website", @organisation%>
 </div>
 
 <%= tab_navigation_for(@organisation) do %>
-  <h2>Creating a Financial Report for <%= @organisation.name %></h2>
+  <h2 class="add-bottom-margin">Creating a Financial Report for <%= @organisation.name %></h2>
 
-  <%= form_for @financial_report, url: {action: "create"} do |f| %>
-    <%= f.text_field :year %>
-    <%= f.text_field :funding %>
-    <%= f.text_field :spending %>
-    <%= f.save_or_cancel cancel: admin_organisation_financial_reports_path(@organisation) %>
-  <% end %>
+  <div class="row">
+    <div class="col-md-8">
+      <%= form_for @financial_report, url: {action: "create"}, html: {class: 'well'} do |f| %>
+        <%= f.text_field :year %>
+        <%= f.text_field :funding %>
+        <%= f.text_field :spending %>
+        <%= f.save_or_cancel cancel: admin_organisation_financial_reports_path(@organisation) %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
