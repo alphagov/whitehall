@@ -103,7 +103,7 @@ class Admin::PersonTranslationsControllerTest < ActionController::TestCase
   view_test 'edit indicates which language is being translated to' do
     person = create(:person, translated_into: [:fr])
     get :edit, person_id: @person, id: 'fr'
-    assert_select "h1", text: /Edit 'Français \(French\)' translation/
+    assert_select "h1", text: /Edit ‘Français \(French\)’ translation/
   end
 
   view_test 'edit presents a form to update an existing translation' do

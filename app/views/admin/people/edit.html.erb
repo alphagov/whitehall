@@ -1,13 +1,12 @@
 <% page_title "Edit " + @person.name %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Edit person</h1>
     <p class="warning">Warning: changes to people appear instantly on the live site.</p>
     <%= render partial: "form", locals: {person: @person, show_instantly_live_warning: true} %>
   </section>
-</div>
-
-<div class="span4">
-  <%= simple_formatting_sidebar %>
+  <div class="col-md-4">
+    <%= simple_formatting_sidebar %>
+  </div>
 </div>

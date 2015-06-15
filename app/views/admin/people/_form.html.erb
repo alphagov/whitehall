@@ -18,7 +18,9 @@
     <% if person.image %>
       <%= image_tag person.image_url %>
     <% end %>
-    <%= person_form.file_field :image %>
+    <div class="form-group">
+      <%= person_form.file_field :image %>
+    </div>
   </fieldset>
   <fieldset>
     <%= person_form.text_area :biography, rows: 20, class: "previewable" %>
