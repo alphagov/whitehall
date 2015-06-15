@@ -2,7 +2,7 @@
 <h1>Organisations</h1>
 
 <% if can?(:create, Organisation) %>
-  <%= link_to "Create organisation", new_admin_organisation_path, class: "btn new_resource add-top-margin", title: "Create an organisation" %>
+  <%= link_to "Create organisation", new_admin_organisation_path, class: "btn btn-default new_resource add-top-margin", title: "Create an organisation" %>
 <% end %>
 
 <table class="organisations table table-striped table-bordered add-top-margin">

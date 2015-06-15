@@ -49,10 +49,14 @@
       <%= organisation_form.label :superseding_organisation_ids, "Superseded by" %>
       <%= organisation_form.select :superseding_organisation_ids, options_from_collection_for_select(Organisation.with_translations(:en) - [organisation_form.object], 'id', 'select_name', organisation.superseding_organisation_ids), {}, multiple: true, class: 'chzn-select', data: { placeholder: "Choose which organisation(s) this organisation has been superseded by..." } %>
     </p>
-    <p class="js-closed-organisation-field">
-      <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
-      <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date" } %>
-    </p>
+    <div class="js-closed-organisation-field">
+      <div class="form-group">
+        <%= organisation_form.label :closed_at, {class: "check-date-valid"} %>
+        <div class="form-inline">
+          <%= organisation_form.date_select :closed_at, { end_year: Date.today.year, include_blank: true, default: nil }, { class: "date form-control" } %>
+        </div>
+      </div>
+    </div>
     <p>
       <%= organisation_form.text_field :organisation_chart_url %>
     </p>
@@ -60,9 +64,9 @@
       <%= organisation_form.text_field :custom_jobs_url  %>
     </p>
     <% if current_user.gds_editor? %>
-      <label class="checkbox political-status">
+      <div class="political-status">
         <%= organisation_form.check_box :political, label_text: "Organisation publishes content associated with the current government" %>
-      </label>
+      </div>
     <% end %>
   </fieldset>
   <fieldset>
@@ -102,14 +106,18 @@
     <fieldset class="homepage-priority">
       <legend>Position of featured links on organisation homepage</legend>
 
-      <%= organisation_form.label :homepage_type_news, class: 'radio news' do %>
-        <%= organisation_form.radio_button(:homepage_type, :news) %>
-        <span>News priority (up to 5 links)</span>
-      <% end %>
-      <%= organisation_form.label :homepage_type_service, class: 'radio service' do %>
-        <%= organisation_form.radio_button(:homepage_type, :service) %>
-        <span>Service priority (up to 10 links)</span>
-      <% end %>
+      <div class="radio">
+        <%= organisation_form.label :homepage_type_news, class: 'news' do %>
+          <%= organisation_form.radio_button(:homepage_type, :news) %>
+          <span>News priority (up to 5 links)</span>
+        <% end %>
+      </div>
+      <div class="radio">
+        <%= organisation_form.label :homepage_type_service, class: 'service' do %>
+          <%= organisation_form.radio_button(:homepage_type, :service) %>
+          <span>Service priority (up to 10 links)</span>
+        <% end %>
+      </div>
     </fieldset>
 
     <%= render 'admin/shared/featured_link_fields', form: organisation_form %>
@@ -117,10 +125,10 @@
 
   <% if current_user.gds_editor? && @organisation.management_roles.any? %>
     <fieldset>
-      <p>
+      <div class="form-group">
         <%= organisation_form.label :important_board_members, 'Number of important members of the management team' %>
-        <%= organisation_form.select :important_board_members, (1..@organisation.management_roles.count) %>
-      </p>
+        <%= organisation_form.select :important_board_members, (1..@organisation.management_roles.count), {}, {class: 'form-control input-md-1'} %>
+      </div>
     </fieldset>
   <% end %>
 
@@ -148,10 +156,7 @@
 
   <fieldset>
     <legend>Freedom of Information</legend>
-
-    <label class="checkbox">
-      <%= organisation_form.check_box :foi_exempt, label_text: 'Exempt from Freedom of Information requests' %>
-    </label>
+    <%= organisation_form.check_box :foi_exempt, label_text: 'Exempt from Freedom of Information requests' %>
   </fieldset>
 
   <p class="warning">
