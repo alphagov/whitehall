@@ -1,12 +1,16 @@
 <% page_title "Edit translation for: #{@english_role.name}" %>
 
-<h1>Edit '<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)' translation for: <%= @english_role.name %></h1>
+<h1>Edit ‘<%= @translation_locale.native_language_name %> (<%= @translation_locale.english_language_name %>)’ translation for: <%= @english_role.name %></h1>
 
-<%= form_for @translated_role, as: :role, url: admin_role_translation_path(@translated_role, translation_locale), method: :put do |form| %>
-  <%= form.errors %>
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for @translated_role, as: :role, url: admin_role_translation_path(@translated_role, translation_locale), method: :put, html: {class: 'well'} do |form| %>
+      <%= form.errors %>
 
-  <%= form.translated_text_field :name %>
-  <%= form.translated_text_area :responsibilities, rows: 20 %>
+      <%= form.translated_text_field :name %>
+      <%= form.translated_text_area :responsibilities, rows: 20 %>
 
-  <%= form.save_or_cancel cancel: admin_role_translations_path(@translated_role) %>
-<% end %>
+      <%= form.save_or_cancel cancel: admin_role_translations_path(@translated_role) %>
+    <% end %>
+  </div>
+</div>

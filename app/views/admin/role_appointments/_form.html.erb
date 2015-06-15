@@ -12,12 +12,20 @@
   <p>Once an appointment has been created the person cannot be changed. This preserves a person’s relationship to associated speeches.</p>
 <% end %>
 
-<%= form.label :started_at %>
-<%= form.date_select :started_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date" } %>
+<div class="form-group">
+  <%= form.label :started_at %>
+  <div class="form-inline">
+    <%= form.date_select :started_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date form-control" } %>
+  </div>
+</div>
 
 <% if params[:make_current].blank? %>
-  <%= form.label :ended_at %>
-  <%= form.date_select :ended_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date" } %>
+  <div class="form-group">
+    <%= form.label :ended_at %>
+    <div class="form-inline">
+      <%= form.date_select :ended_at, { include_blank: true, start_year: Date.today.year, end_year: 1700 }, { :class => "date form-control" } %>
+    </div>
+  </div>
 <% end %>
 
 <% if params[:make_current] %>
