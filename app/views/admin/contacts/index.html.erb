@@ -1,9 +1,7 @@
 <% page_title @contactable.name %>
-<div class="row-fluid organisation-header">
-  <div class="span8">
-    <h1><%= @contactable.name %></h1>
-    <%= link_to "View on website", @contactable %>
-  </div>
+<div class="organisation-header">
+  <h1><%= @contactable.name %></h1>
+  <%= link_to "View on website", @contactable %>
 </div>
 
 <%= tab_navigation_for(@contactable) do %>
@@ -14,7 +12,7 @@
         <li class="active"><a href="#manage-all" data-toggle="tab">All</a></li>
         <li><a href="#on-home-page" data-toggle="tab">Order on home page</a></li>
       </ul>
-      <div class="tab-content">
+      <div class="tab-content add-top-margin">
         <div class="tab-pane active" id="manage-all">
   <% end %>
   <%= render(@contactable.contacts, contactable: @contactable) || content_tag(:p, 'No contacts') %>

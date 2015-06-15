@@ -1,5 +1,5 @@
 <%= content_tag_for(:div, contact, class: 'well contacts-admin') do %>
-  <h3><%= contact.title %></h3>
+  <h3 class="remove-top-margin"><%= contact.title %></h3>
 
   <div class="vcard">
     <%= render_hcard_address(contact) %>
@@ -29,18 +29,18 @@
         method: "delete",
         class: "btn btn-small btn-danger",
         data: { confirm: "Delete contact '#{contact.title}' from #{contactable.class.name.underscore.humanize.downcase} '#{contactable.name}'?" } %>
-  <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn btn-small" %>
+  <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact]), class: "btn btn-default btn-small" %>
   <% if contactable.respond_to? :home_page_contacts %>
     <% unless contact.foi? %>
       <% if contactable.contact_shown_on_home_page?(contact) %>
-        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, contactable, contact], class: 'btn btn-small' %>
+        <%= button_to "Remove from home page", [:remove_from_home_page, :admin, contactable, contact], class: 'btn btn-default btn-small' %>
       <% else %>
-        <%= button_to "Add to home page", [:add_to_home_page, :admin, contactable, contact], class: 'btn btn-small' %>
+        <%= button_to "Add to home page", [:add_to_home_page, :admin, contactable, contact], class: 'btn btn-default btn-small' %>
       <% end %>
     <% end %>
   <% end %>
   <% if contact.missing_translations.any? %>
-    <a href="#add-translation-modal-<%= contact.id %>" class="btn btn-small" data-toggle="modal"><i class="icon-plus-sign"></i> Add translation</a>
+    <a href="#add-translation-modal-<%= contact.id %>" class="btn btn-default" data-toggle="modal"><i class="glyphicon glyphicon-plus-sign"></i> Add translation</a>
     <%= render partial: 'admin/shared/translation_modal', locals: { id: "add-translation-modal-#{contact.id}", form_path: [:admin, contactable, contact, :translations], locales: contact.missing_translations } %>
   <% end %>
 
@@ -49,7 +49,7 @@
     <h3><small><%= translated_contact.translation_locale.native_and_english_language_name %> translation</small></h3>
 
     <%= content_tag(:div, class: contact_translation_css_class(translated_contact)) do %>
-      <h3><%= translated_contact.title %></h3>
+      <h3 class="remove-top-margin"><%= translated_contact.title %></h3>
 
       <div class="vcard">
         <%= render_hcard_address(translated_contact) %>
@@ -68,8 +68,8 @@
     <%= button_to "Delete",
           [:admin, contactable, contact, translated_contact.translation_locale],
           method: "delete",
-          class: "btn btn-small btn-danger",
+          class: "btn btn-sm btn-danger",
           data: { confirm: "Delete '#{translated_contact.translation_locale.native_and_english_language_name}' translation from contact '#{contact.title}'?" } %>
-    <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]), class: "btn btn-small" %>
+    <%= link_to icon("Edit"), edit_polymorphic_path([:admin, contactable, contact, translated_contact.translation_locale]), class: "btn btn-default btn-sm" %>
   <% end %>
 <% end %>
