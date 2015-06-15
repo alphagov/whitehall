@@ -21,7 +21,7 @@ module DataHygiene
       assert_equal @user, EditionUnwithdrawer.new(@edition.id).user
     end
 
-    test "initialize raises an error unless the edition is archived or withdrawn" do
+    test "initialize raises an error unless the edition is withdrawn" do
       @edition.update_attribute(:state, "published")
       assert_raises RuntimeError do
         EditionUnwithdrawer.new(@edition.id)
@@ -45,7 +45,7 @@ module DataHygiene
       assert_equal "superseded", @edition.state
     end
 
-    test "unwithdraw publishes a draft of the archived edition" do
+    test "unwithdraw publishes a draft of the withdrawn edition" do
       unwithdrawen_edition = EditionUnwithdrawer.new(@edition.id).unwithdraw!
       assert unwithdrawen_edition.published?
       assert unwithdrawen_edition.minor_change
@@ -54,8 +54,8 @@ module DataHygiene
       assert_equal "Unwithdrawn", unwithdrawen_edition.editorial_remarks.first.body
     end
 
-    test "unwithdraw handles legacy archived editions" do
-      edition = FactoryGirl.create(:published_edition, state: 'archived')
+    test "unwithdraw handles legacy withdrawn editions" do
+      edition = FactoryGirl.create(:published_edition, state: 'withdrawn')
       unwithdrawen_edition = EditionUnwithdrawer.new(edition.id).unwithdraw!
       assert unwithdrawen_edition.published?
       assert unwithdrawen_edition.minor_change

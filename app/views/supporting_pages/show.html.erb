@@ -31,7 +31,7 @@
     <h2>Supporting detail:</h2>
       <h1 class="supporting-page-title"><%= @document.title %></h1>
 
-      <%= render 'documents/withdrawn_notice', document: @document, type: '' if @document.withdrawn_or_archived? %>
+      <%= render 'documents/withdrawn_notice', document: @document, type: '' if @document.withdrawn? %>
 
       <%= render "document_content" %>
     </div>

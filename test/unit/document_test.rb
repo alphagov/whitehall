@@ -121,16 +121,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal publication, document.scheduled_edition
   end
 
-  test "#ever_published_editions returns all editions that have ever been published, archived or withdrawn" do
+  test "#ever_published_editions returns all editions that have ever been published or withdrawn" do
     document = create(:document)
     superseded = create(:superseded_edition, document: document)
-    legacy_archived = create(:edition, state: 'archived', document: document)
+    withdrawn = create(:edition, state: 'withdrawn', document: document)
     current = create(:published_edition, document: document)
 
-    assert_equal [superseded, legacy_archived, current], document.ever_published_editions
+    assert_equal [superseded, withdrawn, current], document.ever_published_editions
 
     current.withdraw!
-    assert_equal [superseded, legacy_archived, current], document.reload.ever_published_editions
+    assert_equal [superseded, withdrawn, current], document.reload.ever_published_editions
   end
 
   test "#humanized_document_type should return document type in a user friendly format" do

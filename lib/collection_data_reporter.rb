@@ -47,7 +47,7 @@ private
       select(
           'editions.*',
           'COUNT(editions_editions.political = 1 OR NULL) AS num_political',
-          'COUNT(editions_editions.state = "archived" OR editions_editions.state = "withdrawn" OR NULL) AS num_withdrawn').
+          'COUNT(editions_editions.state = "withdrawn" OR NULL) AS num_withdrawn').
       in_default_locale.
       includes(:document).
       joins(:editions).

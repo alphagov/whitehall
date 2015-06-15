@@ -69,12 +69,12 @@ module Admin::EditionsHelper
       ["Scheduled", 'scheduled'],
       ["Published", 'published'],
       ["Force published (not reviewed)", 'force_published'],
-      ['Withdrawn', 'withdrawn_or_archived']
+      ['Withdrawn', 'withdrawn']
     ]
   end
 
   def admin_edition_state_text(edition)
-    edition.withdrawn_or_archived? ? 'Withdrawn' : edition.state.humanize
+    edition.withdrawn? ? 'Withdrawn' : edition.state.humanize
   end
 
   def admin_world_location_filter_options(current_user)
