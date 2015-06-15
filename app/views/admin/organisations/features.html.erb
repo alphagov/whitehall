@@ -1,18 +1,10 @@
 <% page_title @organisation.name %>
-<div class="row-fluid organisation-header">
-  <div class="span8">
-    <h1><%= @organisation.name %></h1>
-    <%= link_to "View on website", organisation_path(@organisation) %>
-  </div>
+<div class="organisation-header">
+  <h1><%= @organisation.name %></h1>
+  <%= link_to "View on website", organisation_path(@organisation) %>
 </div>
-
-<div class="row-fluid">
-  <div class="span12 organisation-details">
-    <section>
-      <%= tab_navigation_for(@organisation) do %>
-        <%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
-        <%= link_to "Create an offsite link", new_admin_organisation_offsite_link_path(@organisation), class: "btn" %>
-      <% end %>
-    </section>
-  </div>
-</div>
+<section class="organisation-details">
+  <%= tab_navigation_for(@organisation) do %>
+    <%= render @feature_list, filter_by: [:title, :type, :author, :organisation] %>
+  <% end %>
+</section>

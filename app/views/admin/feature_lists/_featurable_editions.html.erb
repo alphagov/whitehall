@@ -6,7 +6,6 @@
         <th>Title</th>
         <th>Published</th>
         <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +17,7 @@
           <td><%= link_to edition.title, admin_edition_path(edition) %></td>
           <td><%=localize edition.major_change_published_at.to_date %></td>
           <td>
-            <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: edition), class: 'btn') %>
+            <%= link_to("Feature", polymorphic_url([:new, :admin, @feature_list, :feature], edition_id: edition), class: 'btn btn-default') %>
           </td>
         <% end %>
       <% end %>

@@ -2,31 +2,30 @@
 
 <hr />
 <h2 class="add-bottom-margin feature-title">Feature new documents</h2>
-<div class="row-fluid">
-  <div class="span3">
+<div class="row">
+  <div class="col-md-3">
     <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
-  <div class="span9" id="search_results">
+  <div class="col-md-9" id="search_results">
     <%= render partial: "admin/feature_lists/search_results", locals: {feature_list: feature_list} %>
   </div>
 </div>
 
-<div class="feature-column">
-  <% if @featurable_topical_events.any? %>
-    <h2 class="feature-title">Feature new topical events</h2>
-    <div class="row-fluid">
+<div class="row">
+  <div class="col-md-6">
+    <% if @featurable_topical_events.any? %>
+      <h2 class="add-bottom-margin">Feature new topical events</h2>
       <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 
-<div class="feature-column">
-  <h2 class="feature-title">Feature new offsite link</h2>
-  <% if @featurable_offsite_links.any? %>
-    <div class="row-fluid">
+  <div class="col-md-6">
+    <h2 class="add-bottom-margin">Feature new offsite link</h2>
+    <% if @featurable_offsite_links.any? %>
       <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>
-    </div>
-  <% else %>
-    <p>There are currently no offsite links.</p>
-  <% end %>
+    <% else %>
+      <p class="no-content no-content-bordered">There are currently no offsite links.</p>
+    <% end %>
+    <%= link_to "Create an offsite link", new_admin_organisation_offsite_link_path(@organisation), class: "btn btn-default" %>
+  </div>
 </div>

@@ -3,7 +3,7 @@
     $(this).each(function() {
       var fieldset = $(this);
       var order_label_finder = fieldset.data('orderingLabelSelector') || 'label';
-      var list = $("<ul></ul>");
+      var list = $('<ul class="list-unstyled"></ul>');
       fieldset.find("input.ordering").hide();
       fieldset.children("div").each(function(i, item) {
         var li = $('<li class="sort_item"></li>');
