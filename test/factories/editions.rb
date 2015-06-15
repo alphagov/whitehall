@@ -8,6 +8,7 @@ FactoryGirl.define do
     change_note "change-note"
     summary 'edition-summary'
     previously_published false
+    important false
 
     after :build do |edition, evaluator|
       edition.skip_virus_status_check = true
