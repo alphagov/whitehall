@@ -1,14 +1,14 @@
 <% page_title "Add #{attachment.readable_type} attachment to: #{attachment.attachable_model_name}" %>
-<div class="span8">
-  <section>
+
+<div class="row">
+  <section class="col-md-8">
     <h1>Add <%= attachment.readable_type %>  attachment to <%= attachment.attachable_model_name %></h1>
 
     <%= render 'form', attachable: attachable %>
   </section>
+  <% if attachment.html? %>
+    <div class="col-md-4">
+      <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_footnote_help: true %>
+    </div>
+  <% end %>
 </div>
-
-<% if attachment.html? %>
-  <div class="span4">
-    <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_footnote_help: true %>
-  </div>
-<% end %>
