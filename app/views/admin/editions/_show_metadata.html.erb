@@ -74,7 +74,7 @@
               <td><%= translation.title %></td>
               <td>
                 <% if @edition.editable? %>
-                  <%= link_to "Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "btn btn-small" %>
+                  <%= link_to "Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "btn btn-default btn-small" %>
                 <% end %>
                 <% if @edition.can_delete? %>
                   <%= button_to "Delete",
