@@ -2,9 +2,9 @@
 
 <h1>Sitewide settings</h1>
 
-<table class="table table-striped">
+<table class="table table-bordered table-striped add-top-margin">
   <thead>
-    <tr>
+    <tr class="table-header">
       <th>Name</th>
       <th>On/Off</th>
       <th>Edit</th>
@@ -20,7 +20,7 @@
           <%= sitewide_setting.human_status %>
         </td>
         <td>
-          <%= link_to icon("Edit"), edit_admin_sitewide_setting_path(sitewide_setting), title: "Edit #{sitewide_setting.name}", class: "btn btn-small" %>
+          <%= link_to icon("Edit"), edit_admin_sitewide_setting_path(sitewide_setting), title: "Edit #{sitewide_setting.name}", class: "btn btn-sm btn-default" %>
         </td>
       <% end %>
     <% end %>
