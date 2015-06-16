@@ -17,7 +17,7 @@
   <% end %>
   <%= render(@contactable.contacts, contactable: @contactable) || content_tag(:p, 'No contacts') %>
   <div class="form-actions">
-    <%= link_to icon("Add"), new_polymorphic_path([:admin, @contactable, Contact.new]), class: "btn btn-large btn-primary"%>
+    <%= link_to icon("Add"), new_polymorphic_path([:admin, @contactable, Contact.new]), class: "btn btn-lg btn-primary"%>
   </div>
   <% if @contactable.respond_to?(:home_page_contacts) %>
         </div>

@@ -16,7 +16,7 @@
       <label for="title">Add</label>
       <div class="document-finder-fields">
         <%= search_field_tag :title, '', placeholder: 'Title or slug&hellip;'.html_safe, results: 5, autosave: 'unique', autofocus: true %>
-        <%= button_tag 'Find', type: 'button', id: 'find-documents', class: 'btn btn-mini' %>
+        <%= button_tag 'Find', type: 'button', id: 'find-documents', class: 'btn btn-xs' %>
         <%= image_tag 'loading-666666.gif', class: 'js-loader' %>
         <p class="tip">
           Only the first 10 results are returned - be as specific as you can
@@ -58,13 +58,13 @@
                   <%= check_box_tag :select_all, group.id, false, id: nil, class: 'checkbox' %>
                 </li>
                 <li class="remove">
-                  <%= submit_tag 'Remove', class: 'btn btn-mini btn-info' %>
+                  <%= submit_tag 'Remove', class: 'btn btn-xs btn-info' %>
                 </li>
                 <% if other_groups(group).size > 0 %>
                   <li class="move">
                     Move selected to
                     <%= select_tag :new_group_id, options_from_collection_for_select(other_groups(group), :id, :heading) %>
-                    <%= submit_tag 'Move', class: 'btn btn-mini btn-info' %>
+                    <%= submit_tag 'Move', class: 'btn btn-xs btn-info' %>
                   </li>
                 <% end %>
               </ul>

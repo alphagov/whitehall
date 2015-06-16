@@ -42,7 +42,7 @@ module Whitehall
     def form_actions(options = {})
       @template.content_tag(:div, "class" => "form-actions") {
         options[:buttons].each do |name, value|
-          @template.concat submit(value, name: name, class: "btn btn-primary btn-large")
+          @template.concat submit(value, name: name, class: "btn btn-primary btn-lg")
         end
         @template.concat @template.content_tag(:span, "class" => "or_cancel") {
           @template.concat %{ or }
@@ -58,9 +58,9 @@ module Whitehall
     def save_or_cancel_buttons(options = {})
       @template.content_tag(:div, "class" => "form-actions") {
         options[:buttons].each do |name, value|
-          @template.concat submit(value, name: name, class: "btn btn-large btn-primary")
+          @template.concat submit(value, name: name, class: "btn btn-lg btn-primary")
         end
-        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-default btn-large add-left-margin')
+        @template.concat @template.link_to('Cancel', cancel_path(options[:cancel]), class: 'btn btn-default btn-lg add-left-margin')
       }
     end
 

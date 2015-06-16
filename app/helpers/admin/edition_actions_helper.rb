@@ -1,10 +1,10 @@
 module Admin::EditionActionsHelper
   def edit_edition_button(edition)
-    link_to 'Edit draft', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-default btn-large add-left-margin"
+    link_to 'Edit draft', edit_admin_edition_path(edition), title: "Edit #{edition.title}", class: "btn btn-default btn-lg add-left-margin"
   end
 
   def redraft_edition_button(edition)
-    button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-default btn-large"
+    button_to 'Create new edition to edit', revise_admin_edition_path(edition), title: "Create new edition to edit", class: "btn btn-default btn-lg"
   end
 
   def approve_retrospectively_edition_button(edition)

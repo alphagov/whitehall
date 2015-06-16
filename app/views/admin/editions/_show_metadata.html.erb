@@ -74,13 +74,13 @@
               <td><%= translation.title %></td>
               <td>
                 <% if @edition.editable? %>
-                  <%= link_to "Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "btn btn-default btn-small" %>
+                  <%= link_to "Edit", edit_admin_edition_translation_path(@edition, translation.locale), class: "btn btn-default btn-sm" %>
                 <% end %>
                 <% if @edition.can_delete? %>
                   <%= button_to "Delete",
                         admin_edition_translation_path(@edition, translation.locale),
                         method: :delete,
-                        class: "btn btn-small btn-danger",
+                        class: "btn btn-sm btn-danger",
                         data: { confirm: "Are you sure you want to delete this translation?" } %>
                 <% end %>
               </td>

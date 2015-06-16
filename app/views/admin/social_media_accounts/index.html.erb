@@ -9,7 +9,7 @@
     <%= render(@social_media_accounts, { socialable: @socialable }) || content_tag(:p, 'No social media accounts') %>
 
     <div class="form-actions">
-      <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-large btn-primary"%>
+      <%= link_to "Add", new_polymorphic_path([:admin, @socialable, SocialMediaAccount]), class: "btn btn-lg btn-primary"%>
     </div>
   <% end %>
 </section>
