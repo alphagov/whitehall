@@ -61,7 +61,7 @@
               unpublished <%= time_ago_in_words(edition.unpublishing.created_at) %> ago
             <% end %>
             <% if edition.force_published? %>
-              <span class="force_published label label-important">not reviewed</span>
+              <span class="force_published label label-danger">not reviewed</span>
             <% end %>
             <% if edition.access_limited? %>
               <span class="access_limited label label-important">limited access</span>
