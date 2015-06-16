@@ -261,122 +261,6 @@ uk:
       written_on: "Написано"
     updated: "оновлено"
     view: "Переглянути"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "Тимчасова дорадча група"
-        few:
-        many:
-        other: "Тимчасові дорадчі групи"
-      Advisory non-departmental public body:
-        one: "Державний позавідомчий дорадчий орган"
-        few:
-        many:
-        other: "Державні позавідомчі дорадчі органи"
-      Civil Service:
-        one:
-        few:
-        many:
-        other:
-      Court:
-        one:
-        few:
-        many:
-        other:
-      Devolved administration:
-        one:
-        few:
-        many:
-        other:
-      Executive agency:
-        one: "Орган виконавчої влади"
-        few:
-        many:
-        other: "Органи виконавчої влади"
-      Executive non-departmental public body:
-        one: "Державний позавідомчий виконавчий орган"
-        few:
-        many:
-        other: "Державні позавідомчі виконавчі органи"
-      Executive office:
-        one: "Виконавчий комітет"
-        few:
-        many:
-        other: "Виконавчі комітети"
-      Independent monitoring body:
-        one: "Незалежний моніторинговий орган"
-        few:
-        many:
-        other: "Незалежні моніторингові органи"
-      Ministerial department:
-        one: "Підрозділ міністерства"
-        few:
-        many:
-        other: "Підрозділи міністерства"
-      Non-ministerial department:
-        one: "Неміністерський департамент"
-        few:
-        many:
-        other: "Неміністерські департаменти"
-      Other:
-        one: "Інше"
-        few:
-        many:
-        other: "Інші"
-      Public corporation:
-        one: "Публічна корпорація"
-        few:
-        many:
-        other: "Публічні корпорації"
-      Sub-organisation:
-        one: "Підрядна організація"
-        few:
-        many:
-        other: "Підрядні організації"
-      Tribunal non-departmental public body:
-        one: "Державна позавідомча судова інстанція"
-        few:
-        many:
-        other: "Державні позавідомчі судові інстанції"
-    about:
-      read_more: "Читати далі про нашу діяльність"
-    corporate_information:
-      access_our_info: "Доступ до нашої інформації"
-      foi_how_to: "Як зробити інформаційний запит"
-      foi_releases: "Відповіді на інформаційні запити "
-      jobs_and_contacts: "Вакансії та контракти"
-      organisation_chart:
-      transparency: "Прозорість інформації"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "Наші головні спеціалісти"
-      contact: "Контактна особа  %{name}"
-      corporate_information: "Корпоративна інформація"
-      corporate_reports: "Корпоративні звіти"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "Наші оголошення"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "Наше керівництво"
-      our_ministers: "Наші міністри"
-      our_policies: "Наша політика"
-      our_publications: "Наші публікації"
-      our_senior_military_officials: "Наші старші військові керівники"
-      our_services: "Наші послуги"
-      our_statistics: "Наша статистика"
-      our_topics: "Ми працюємо над цими темами"
-      plus_others: "ІМ'Я"
-      special_representatives: "Спеціальні представники"
-      traffic_commissioners: "Уповноважені з питань транспорту"
-      what_we_do: "Що ми робимо"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -572,6 +456,45 @@ uk:
     human:
       storage_units:
         format:
+  organisation:
+    about:
+      read_more: "Читати далі про нашу діяльність"
+    corporate_information:
+      access_our_info: "Доступ до нашої інформації"
+      foi_how_to: "Як зробити інформаційний запит"
+      foi_releases: "Відповіді на інформаційні запити "
+      jobs_and_contacts: "Вакансії та контракти"
+      organisation_chart:
+      transparency: "Прозорість інформації"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "Наші головні спеціалісти"
+      contact: "Контактна особа  %{name}"
+      corporate_information: "Корпоративна інформація"
+      corporate_reports: "Корпоративні звіти"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "Наші оголошення"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "Наше керівництво"
+      our_ministers: "Наші міністри"
+      our_policies: "Наша політика"
+      our_publications: "Наші публікації"
+      our_senior_military_officials: "Наші старші військові керівники"
+      our_services: "Наші послуги"
+      our_statistics: "Наша статистика"
+      our_topics: "Ми працюємо над цими темами"
+      special_representatives: "Спеціальні представники"
+      traffic_commissioners: "Уповноважені з питань транспорту"
+      what_we_do: "Що ми робимо"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "Політика"
     view_all:

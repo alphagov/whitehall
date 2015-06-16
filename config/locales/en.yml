@@ -347,54 +347,7 @@ en:
     see_all_updates: see all updates
     updated_at: Last updated
   organisation:
-    type:
-      Ministerial department:
-        one: Ministerial department
-        other: Ministerial departments
-      Non-ministerial department:
-        one: Non-ministerial department
-        other: Non-ministerial departments
-      Executive agency:
-        one: Executive agency
-        other: Executive agencies
-      Executive non-departmental public body:
-        one: Executive non-departmental public body
-        other: Executive non-departmental public bodies
-      Advisory non-departmental public body:
-        one: Advisory non-departmental public body
-        other: Advisory non-departmental public bodies
-      Tribunal non-departmental public body:
-        one: Tribunal non-departmental public body
-        other: Tribunal non-departmental public bodies
-      Public corporation:
-        one: Public corporation
-        other: Public corporations
-      Independent monitoring body:
-        one: Independent monitoring body
-        other: Independent monitoring bodies
-      Ad-hoc advisory group:
-        one: Ad-hoc advisory group
-        other: Ad-hoc advisory groups
-      Sub-organisation:
-        one: Sub-organisation
-        other: Sub-organisations
-      Devolved administration:
-        one: Devolved administration
-        other: Devolved administrations
-      Other:
-        one: Other
-        other: Others
-      Executive office:
-        one: Executive office
-        other: Executive offices
-      Civil Service:
-        one: Civil Service
-        other: Civil Services
-      Court:
-        one: Court
-        other: Courts
     headings:
-      plus_others: + others
       what_we_do: What we do
       who_we_are: Who we are
       our_topics: We work on these topics

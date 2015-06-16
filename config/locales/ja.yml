@@ -344,7 +344,6 @@ ja:
       our_services: "業務案内"
       our_statistics: "統計"
       our_topics: "トピックス"
-      plus_others: "+ その他"
       special_representatives: "特別代表"
       traffic_commissioners: "交通担当コミッショナー"
       what_we_do: "業務案内"
@@ -353,52 +352,6 @@ ja:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: "臨時諮問グループ"
-        other: "臨時諮問グループ"
-      Advisory non-departmental public body:
-        one: "非省庁公的諮問機関"
-        other: "非省庁公的諮問機関"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "エグゼクティブ・エージェンシー"
-        other: "エグゼクティブ・エージェンシー"
-      Executive non-departmental public body:
-        one: "非省庁公的機関"
-        other: "非省庁公的機関"
-      Executive office:
-        one: "エグゼクティブ・オフィス"
-        other: "エグゼクティブ・オフィス"
-      Independent monitoring body:
-        one: "第三者評価機関"
-        other: "第三者評価機関"
-      Ministerial department:
-        one: "省庁"
-        other: "省庁"
-      Non-ministerial department:
-        one: "非省庁"
-        other: "非省庁"
-      Other:
-        one: "その他"
-        other: "その他"
-      Public corporation:
-        one: "公的企業"
-        other: "公的企業"
-      Sub-organisation:
-        one: "下部組織"
-        other: "下部組織"
-      Tribunal non-departmental public body:
-        one: "非政府法務・調停公的機関"
-        other: "非政府法務・調停公的機関"
   people:
     biography:
     heading:

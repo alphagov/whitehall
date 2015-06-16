@@ -343,7 +343,6 @@ ka:
       our_services:
       our_statistics:
       our_topics:
-      plus_others:
       special_representatives:
       traffic_commissioners:
       what_we_do:
@@ -352,52 +351,6 @@ ka:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one:
-        other:
-      Advisory non-departmental public body:
-        one:
-        other:
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one:
-        other:
-      Executive non-departmental public body:
-        one:
-        other:
-      Executive office:
-        one:
-        other:
-      Independent monitoring body:
-        one:
-        other:
-      Ministerial department:
-        one:
-        other:
-      Non-ministerial department:
-        one:
-        other:
-      Other:
-        one:
-        other:
-      Public corporation:
-        one:
-        other:
-      Sub-organisation:
-        one:
-        other:
-      Tribunal non-departmental public body:
-        one:
-        other:
   people:
     biography:
     heading:

@@ -346,7 +346,6 @@ fa:
       our_services: "خدمات ما"
       our_statistics: "آمار ما"
       our_topics: "ما در خصوص این موضوعات فعالیت می کنیم"
-      plus_others: "دیگران +"
       special_representatives: "نمایندگان ویژه"
       traffic_commissioners: "ماموران ترافیک"
       what_we_do: "فعالیت ما"
@@ -355,52 +354,6 @@ fa:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: "گروه مشورتی موقت"
-        other: "گروه های مشورتی موقت"
-      Advisory non-departmental public body:
-        one: "بدنه عمومی غیر دپارتمانی مشاوره ای"
-        other: "بدنه های عمومی غیر دپارتمانی مشاوره ای"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "سازمان اجرایی"
-        other: "سازمان های اجرایی"
-      Executive non-departmental public body:
-        one: "بدنه عمومی غیر دپارتمانی اجرایی"
-        other: "بدنه های عمومی غیر دپارتمانی اجرایی"
-      Executive office:
-        one: "دفتر اجرایی"
-        other: "دفاتر اجرایی"
-      Independent monitoring body:
-        one: "بدنه نظارتی مستقل"
-        other: "بدنه های نظارتی مستقل"
-      Ministerial department:
-        one: "دپارتمان وزارتی"
-        other: "دپارتمان های وزارتی"
-      Non-ministerial department:
-        one: "دپارتمان غیر وزارتی"
-        other: "دپارتمان های غیر وزارتی"
-      Other:
-        one: "غیره"
-        other: "غیره"
-      Public corporation:
-        one: "شرکت دولتی"
-        other: "شرکت های دولتی"
-      Sub-organisation:
-        one: "سازمان زیر مجموعه"
-        other: "سازمان های زیر مجموعه"
-      Tribunal non-departmental public body:
-        one: "بدنه عمومی غیر دپارتمانی دادگاه"
-        other: "بدنه های عمومی غیر دپارتمانی دادگاه"
   people:
     biography:
     heading:

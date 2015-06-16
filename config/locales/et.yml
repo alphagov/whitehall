@@ -167,96 +167,6 @@ et:
       written_on: 'Kirjutatud:'
     updated: Täiendatud
     view: 'Vaadake: ''%{title}'''
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Erakorraline nõukogu
-        other: Erakorralised nõukogud
-      Advisory non-departmental public body:
-        one: Nõuandev mitteametkondlik avaliku sektori kogu
-        other: Nõuandvad mitteametkondlikud avaliku sektori kogud
-      Civil Service:
-        one: Riigiamet
-        other: Riigiametid
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Täidesaatev amet
-        other: Täidesaatvad ametid
-      Executive non-departmental public body:
-        one: Täidesaatev mitteametkondlik avaliku sektori kogu
-        other: Täidesaatvad mitteametkondlikud avaliku sektori kogud
-      Executive office:
-        one: Täidesaatev amet
-        other: Täidesaatvad ametid
-      Independent monitoring body:
-        one: Sõltumatu monitooringuorgan
-        other: Sõltumatud monitooringuorganid
-      Ministerial department:
-        one: Ministeeriumi osakond
-        other: Ministeeriumi osakonnad
-      Non-ministerial department:
-        one: Ministeeriumiväline ametkond
-        other: Ministeeriumivälised ametkonnad
-      Other:
-        one: Muu
-        other: Muud
-      Public corporation:
-        one: Riiklik korporatsioon
-        other: Riiklikud korporatsioonid
-      Sub-organisation:
-        one: Allorganisatsioon
-        other: Allorganisatsioonid
-      Tribunal non-departmental public body:
-        one: Mitteametkondlik avaliku sektori vahekohtu organ
-        other: Mitteametkondlikud avaliku sektori vahekohtu organid
-    about:
-      read_more: Lugege lisaks meie tegevuse kohta
-    corporate_information:
-      access_our_info: Ligipääs meie teabele
-      foi_how_to: Kuidas teha FOI päringut
-      foi_releases: FOI päringud
-      jobs_and_contacts: Töötajad ja kontaktid
-      organisation_chart: Meie organisatsioon
-      transparency: Läbipaistvusteave
-    foi_exemption_html: |
-      See organisatsioon ei kuulu Teabevabaduse seaduse (FOI) alla. Et vaadata, missugused organisatsioonid kuuluvad, vaadake: <a href="%{foi_url}">the legislation</a>.
-    headings:
-      chief_professional_officers: Meie juhtivad ametnikud
-      contact: 'Võtke ühendust: %{name}'
-      corporate_information: Korporatiivne info
-      corporate_reports: Korporatiivsed raportid
-      documents: Dokumendid
-      freedom_of_information_act: Teabevabaduse seadus (FOI)
-      making_foi_requests: Esita FOI päring
-      our_announcements: Meie teadaanded
-      our_consultations: Meie konsultatsioonid
-      our_judges:
-      our_mainstream_categories: 'Me väljastame detailseid juhendeid alljärgnevates
-        kategooriates:'
-      our_management: Meie juhtkond
-      our_ministers: Meie ministrid
-      our_policies: Meie poliitikad
-      our_publications: Meie publikatsioonid
-      our_senior_military_officials: Meie kaitseväe juhtkond
-      our_services: Meie teenused
-      our_statistics: Meie statistika
-      our_topics: Me töötame järgmiste teemadega
-      plus_others:
-      special_representatives: Eriesindajad
-      traffic_commissioners: Liiklusvolinikud
-      what_we_do: Millega me tegeleme
-      who_we_are:
-    making_foi_requests:
-      step1_html: Lugege lähemalt Teabevabaduse seadusest (FOI) ja <a href="%{how_to_path}">kuidas
-        esitada päringut</a>
-      step2_html: Vaadake <a href="%{our_releases_path}">meie eelnevaid teateid</a>
-        et näha, kas Teie küsimusele on juba vastatud
-      step3_html: 'Esitage uus päring, kontakteerudes meiega:'
   people:
     heading:
       one: Isik
@@ -449,6 +359,49 @@ et:
     human:
       storage_units:
         format:
+  organisation:
+    about:
+      read_more: Lugege lisaks meie tegevuse kohta
+    corporate_information:
+      access_our_info: Ligipääs meie teabele
+      foi_how_to: Kuidas teha FOI päringut
+      foi_releases: FOI päringud
+      jobs_and_contacts: Töötajad ja kontaktid
+      organisation_chart: Meie organisatsioon
+      transparency: Läbipaistvusteave
+    foi_exemption_html: |
+      See organisatsioon ei kuulu Teabevabaduse seaduse (FOI) alla. Et vaadata, missugused organisatsioonid kuuluvad, vaadake: <a href="%{foi_url}">the legislation</a>.
+    headings:
+      chief_professional_officers: Meie juhtivad ametnikud
+      contact: 'Võtke ühendust: %{name}'
+      corporate_information: Korporatiivne info
+      corporate_reports: Korporatiivsed raportid
+      documents: Dokumendid
+      freedom_of_information_act: Teabevabaduse seadus (FOI)
+      making_foi_requests: Esita FOI päring
+      our_announcements: Meie teadaanded
+      our_consultations: Meie konsultatsioonid
+      our_judges:
+      our_mainstream_categories: 'Me väljastame detailseid juhendeid alljärgnevates
+        kategooriates:'
+      our_management: Meie juhtkond
+      our_ministers: Meie ministrid
+      our_policies: Meie poliitikad
+      our_publications: Meie publikatsioonid
+      our_senior_military_officials: Meie kaitseväe juhtkond
+      our_services: Meie teenused
+      our_statistics: Meie statistika
+      our_topics: Me töötame järgmiste teemadega
+      special_representatives: Eriesindajad
+      traffic_commissioners: Liiklusvolinikud
+      what_we_do: Millega me tegeleme
+      who_we_are:
+    making_foi_requests:
+      step1_html: Lugege lähemalt Teabevabaduse seadusest (FOI) ja <a href="%{how_to_path}">kuidas
+        esitada päringut</a>
+      step2_html: Vaadake <a href="%{our_releases_path}">meie eelnevaid teateid</a>
+        et näha, kas Teie küsimusele on juba vastatud
+      step3_html: 'Esitage uus päring, kontakteerudes meiega:'
   policies:
     heading: Poliitikad
     view_all: Vaadake kõiki poliitikaid

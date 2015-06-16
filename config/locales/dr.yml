@@ -167,92 +167,6 @@ dr:
       written_on: "نوشته شد به"
     updated: "به روز شده"
     view: "ببینید'%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "گروپ مشورتی حسب ضرورت"
-        other: "گروپ های مشورتی حسب ضرورت"
-      Advisory non-departmental public body:
-        one: "نهاد عامه مشورتی غیر تشکیلاتی"
-        other: "نهاد های عامه مشورتی غیر تشکیلاتی"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "اداره اجرائیوی"
-        other: "ادارات اجرائیوی"
-      Executive non-departmental public body:
-        one: "نهاد عامه مشورتی غیر تشکیلاتی"
-        other: "نهاد های عامه مشورتی غیر تشکیلاتی"
-      Executive office:
-        one: "دفتر اجرائیوی"
-        other: "دفاتر اجرائیوی"
-      Independent monitoring body:
-        one: "نهاد مستقل بازرسی"
-        other: "نهاد های مستقل بازرسی"
-      Ministerial department:
-        one: "ریاست وزارتی"
-        other: "ریاست های وزراتی"
-      Non-ministerial department:
-        one: "ریاست غیر وزارتی"
-        other: "ریاست های غیر وزارتی"
-      Other:
-        one: "دیگر"
-        other: "دیگران"
-      Public corporation:
-        one: "شرکت عامه"
-        other: "شرکت های عامه"
-      Sub-organisation:
-        one: "سازمان فرعی"
-        other: "سازمان های فرعی"
-      Tribunal non-departmental public body:
-        one: "نهاد عامه محاکماتی غیر تشکیلاتی"
-        other: "نهاد های عامه محاکماتی غیر تشکیلاتی"
-    about:
-      read_more: "جهت معلومات بیشتر در مورد فعالیت های ما بخوانید"
-    corporate_information:
-      access_our_info: "دسترسی به معلومات"
-      foi_how_to: "شیوه درخواست کردن آزادی بیان"
-      foi_releases: "نشریه های آزادی بیان"
-      jobs_and_contacts: "وظایف و قرارداد ها"
-      organisation_chart:
-      transparency: "معلومات شفافیت"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "مدیران مسلکی ارشد ما"
-      contact: "تماس %{name}"
-      corporate_information: "معلومات یکی شده"
-      corporate_reports: "گزارش های یکی شده"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "اعلانات ما"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "اداره ما"
-      our_ministers: "وزرای ما"
-      our_policies: "پالیسی های ما"
-      our_publications: "نشریات ما"
-      our_senior_military_officials: "اراکین ارشد نظامی"
-      our_services: "خدمات ما"
-      our_statistics: "احصائیه های ما"
-      our_topics: "ما روی این موضوعات کار میکنیم"
-      plus_others: "دیگران +"
-      special_representatives: "نماینده های خاص"
-      traffic_commissioners: "کمشنران ترافیک"
-      what_we_do: "ما روی چه کار میکنیم"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -440,6 +354,45 @@ dr:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "جهت معلومات بیشتر در مورد فعالیت های ما بخوانید"
+    corporate_information:
+      access_our_info: "دسترسی به معلومات"
+      foi_how_to: "شیوه درخواست کردن آزادی بیان"
+      foi_releases: "نشریه های آزادی بیان"
+      jobs_and_contacts: "وظایف و قرارداد ها"
+      organisation_chart:
+      transparency: "معلومات شفافیت"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "مدیران مسلکی ارشد ما"
+      contact: "تماس %{name}"
+      corporate_information: "معلومات یکی شده"
+      corporate_reports: "گزارش های یکی شده"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "اعلانات ما"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "اداره ما"
+      our_ministers: "وزرای ما"
+      our_policies: "پالیسی های ما"
+      our_publications: "نشریات ما"
+      our_senior_military_officials: "اراکین ارشد نظامی"
+      our_services: "خدمات ما"
+      our_statistics: "احصائیه های ما"
+      our_topics: "ما روی این موضوعات کار میکنیم"
+      special_representatives: "نماینده های خاص"
+      traffic_commissioners: "کمشنران ترافیک"
+      what_we_do: "ما روی چه کار میکنیم"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "پالیسی ها"
     view_all:

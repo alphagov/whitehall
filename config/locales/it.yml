@@ -167,92 +167,6 @@ it:
       written_on: 'Scritto su:'
     updated: aggiornato
     view: Visualizza '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Gruppo di consulenza ad-hoc
-        other: Gruppi di consulenza ad-hoc
-      Advisory non-departmental public body:
-        one: Ente pubblico di consulenza non ministeriale
-        other: Enti pubblici di consulenza non ministeriali
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Agenzia esecutiva
-        other: Agenzie esecutive
-      Executive non-departmental public body:
-        one: Ente pubblico direttivo non ministeriale
-        other: Enti pubblici esecutivi non ministeriali
-      Executive office:
-        one: Ufficio direttivo
-        other: Uffici direttivi
-      Independent monitoring body:
-        one: Ente di controllo autonomo
-        other: Enti di controllo autonomi
-      Ministerial department:
-        one: Dipartimento ministeriale
-        other: Dipartimenti ministeriali
-      Non-ministerial department:
-        one: Dipartimento non ministeriale
-        other: Dipartimenti non ministeriali
-      Other:
-        one: Altro
-        other: Altri
-      Public corporation:
-        one: Società pubblica
-        other: Società pubbliche
-      Sub-organisation:
-        one: Filiale
-        other: Filiali
-      Tribunal non-departmental public body:
-        one: Ente pubblico giudiziario non ministeriale
-        other: Enti pubblici giudiziari non ministeriali
-    about:
-      read_more: Scopri di più su cosa facciamo
-    corporate_information:
-      access_our_info: Accedi alle nostre informazioni
-      foi_how_to: Come inoltrare una richiesta di accesso agli atti (FOI)
-      foi_releases: Comunicato FOI (accesso agli atti)
-      jobs_and_contacts: Posizioni lavorative e contratti
-      organisation_chart:
-      transparency: Dati sulla trasparenza
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: I nostri dirigenti
-      contact: Contatta %{name}
-      corporate_information: Informazioni aziendali
-      corporate_reports: Relazioni aziendali
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: I nostri annunci
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Il nostro corpo direttivo
-      our_ministers: I nostri ministri
-      our_policies: Le nostre politiche
-      our_publications: Le nostre pubblicazioni
-      our_senior_military_officials: I nostri alti ufficiali militari
-      our_services: I nostri servizi
-      our_statistics: Le nostre statistiche
-      our_topics: Di cosa ci occupiamo
-      plus_others: " + altro"
-      special_representatives: Rappresentanti speciali
-      traffic_commissioners: Commissari per le attività commerciali
-      what_we_do: Cosa facciamo
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -440,6 +354,45 @@ it:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Scopri di più su cosa facciamo
+    corporate_information:
+      access_our_info: Accedi alle nostre informazioni
+      foi_how_to: Come inoltrare una richiesta di accesso agli atti (FOI)
+      foi_releases: Comunicato FOI (accesso agli atti)
+      jobs_and_contacts: Posizioni lavorative e contratti
+      organisation_chart:
+      transparency: Dati sulla trasparenza
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: I nostri dirigenti
+      contact: Contatta %{name}
+      corporate_information: Informazioni aziendali
+      corporate_reports: Relazioni aziendali
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: I nostri annunci
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Il nostro corpo direttivo
+      our_ministers: I nostri ministri
+      our_policies: Le nostre politiche
+      our_publications: Le nostre pubblicazioni
+      our_senior_military_officials: I nostri alti ufficiali militari
+      our_services: I nostri servizi
+      our_statistics: Le nostre statistiche
+      our_topics: Di cosa ci occupiamo
+      special_representatives: Rappresentanti speciali
+      traffic_commissioners: Commissari per le attività commerciali
+      what_we_do: Cosa facciamo
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Politiche
     view_all:

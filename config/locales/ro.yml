@@ -214,108 +214,6 @@ ro:
       written_on: 'Publicat pe: '
     updated: Actualizat
     view: Vizualizare '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Comitet consultativ ad-hoc
-        few:
-        other: Comitete consultative ad-hoc
-      Advisory non-departmental public body:
-        one: 'Instituție publică non - guvernamentală cu rol consultativ '
-        few:
-        other: 'Instituții publice non - guvernamentale cu rol consultativ '
-      Civil Service:
-        one:
-        few:
-        other:
-      Court:
-        one:
-        few:
-        other:
-      Devolved administration:
-        one:
-        few:
-        other:
-      Executive agency:
-        one: 'Agenție '
-        few:
-        other: 'Agenții '
-      Executive non-departmental public body:
-        one: 'Instituție publică non-guvernamentală cu rol executiv '
-        few:
-        other: 'Instituții publice non-guvernamentale cu rol executiv '
-      Executive office:
-        one: 'Birou executiv '
-        few:
-        other: 'Birouri executive '
-      Independent monitoring body:
-        one: 'Instituție independentă de monitorizare  '
-        few:
-        other: 'Instituții independente de monitorizare  '
-      Ministerial department:
-        one: 'Departament ministerial '
-        few:
-        other: 'Departamente ministeriale '
-      Non-ministerial department:
-        one: 'Departament non-guvernamental  '
-        few:
-        other: Departamente non-guvernamentale
-      Other:
-        one: Altele
-        few:
-        other: Altele
-      Public corporation:
-        one: 'Companie publică '
-        few:
-        other: 'Companii publice '
-      Sub-organisation:
-        one: Organizație din componență
-        few:
-        other: Organizații din componență
-      Tribunal non-departmental public body:
-        one: 'Instanță de judecată '
-        few:
-        other: 'Instanțe de judecată '
-    about:
-      read_more: 'Mai multe despre activitatea noastră '
-    corporate_information:
-      access_our_info: 'Accesul la informații publice '
-      foi_how_to: 'Cum  se face o cerere pentru accesul la informațiile cu caracter
-        public '
-      foi_releases: 'Informații cu caracter public '
-      jobs_and_contacts: 'Oportunități de angajare '
-      organisation_chart:
-      transparency:
-    foi_exemption_html:
-    headings:
-      chief_professional_officers:
-      contact: Contactează-ne  %{name}
-      corporate_information: Informaţii despre ambasadă
-      corporate_reports: 'Rapoarte de management '
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "Știri "
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: 'Echipa ambasadei '
-      our_ministers: 'Miniștrii '
-      our_policies: 'Obiective strategice '
-      our_publications: 'Publicații '
-      our_senior_military_officials: 'Oficiali militari de rang înalt '
-      our_services: 'Servicii '
-      our_statistics: Statistici
-      our_topics: 'Ce domenii acoperim '
-      plus_others: " + altele"
-      special_representatives: 'Reprezentanți speciali '
-      traffic_commissioners: 'Monitorizarea traficului '
-      what_we_do: Activitatea noastră
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -506,6 +404,46 @@ ro:
     human:
       storage_units:
         format:
+  organisation:
+    about:
+      read_more: 'Mai multe despre activitatea noastră '
+    corporate_information:
+      access_our_info: 'Accesul la informații publice '
+      foi_how_to: 'Cum  se face o cerere pentru accesul la informațiile cu caracter
+        public '
+      foi_releases: 'Informații cu caracter public '
+      jobs_and_contacts: 'Oportunități de angajare '
+      organisation_chart:
+      transparency:
+    foi_exemption_html:
+    headings:
+      chief_professional_officers:
+      contact: Contactează-ne  %{name}
+      corporate_information: Informaţii despre ambasadă
+      corporate_reports: 'Rapoarte de management '
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "Știri "
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: 'Echipa ambasadei '
+      our_ministers: 'Miniștrii '
+      our_policies: 'Obiective strategice '
+      our_publications: 'Publicații '
+      our_senior_military_officials: 'Oficiali militari de rang înalt '
+      our_services: 'Servicii '
+      our_statistics: Statistici
+      our_topics: 'Ce domenii acoperim '
+      special_representatives: 'Reprezentanți speciali '
+      traffic_commissioners: 'Monitorizarea traficului '
+      what_we_do: Activitatea noastră
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Obiectiv strategic
     view_all:

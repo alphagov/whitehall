@@ -344,7 +344,6 @@ th:
       our_services: "บริการของเรา"
       our_statistics: "สถิติของเรา"
       our_topics: "เราทำงานในห้วข้อเหล่านี้"
-      plus_others: "#ชื่อ?"
       special_representatives: "ผู้แทนพิเศษ"
       traffic_commissioners: "ผู้บัญชาการจราจร"
       what_we_do: "สิ่งที่เราทำ"
@@ -353,52 +352,6 @@ th:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: "กลุ่มให้คำปรึกษาเฉพาะกิจ"
-        other: "กลุ่มให้คำปรึกษาเฉพาะกิจ"
-      Advisory non-departmental public body:
-        one: "กลุ่มให้คำปรึกษาองค์กรอิสระ"
-        other: "กลุ่มให้คำปรึกษาองค์กรอิสระ"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "หน่วยงานบริหาร"
-        other: "หน่วยงานบริหาร"
-      Executive non-departmental public body:
-        one: "องค์กรบริหาร"
-        other: "องค์กรบริหาร"
-      Executive office:
-        one: "สำนักงานบริหาร"
-        other: "สำนักงานบริหาร"
-      Independent monitoring body:
-        one: "หน่วยงานตรวจสอบอิสระ"
-        other: "หน่วยงานตรวจสอบอิสระ"
-      Ministerial department:
-        one: "หน่วยงานที่อยู่ในกำกับของรัฐมนตรี"
-        other: "หน่วยงานที่อยู่ในกำกับของรัฐมนตรี"
-      Non-ministerial department:
-        one: "หน่วยงานที่ไม่อยู่ในกำกับของรัฐมนตรี"
-        other: "หน่วยงานที่ไม่อยู่ในกำกับของรัฐมนตรี"
-      Other:
-        one: "อื่นๆ"
-        other: "อื่นๆ "
-      Public corporation:
-        one: "บริษัทมหาชน"
-        other: "บริษัทมหาชน"
-      Sub-organisation:
-        one: "องค์กรย่อย"
-        other: "องค์กรย่อย"
-      Tribunal non-departmental public body:
-        one: "ศาลปกครอง"
-        other: "ศาลปกครอง"
   people:
     biography:
     heading:

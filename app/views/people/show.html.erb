@@ -58,20 +58,20 @@
       <div class="current-roles" id="current-roles">
         <% @person.current_role_appointments.each do |appointment| %>
           <%= content_tag_for :section, appointment, class: "role" do %>
-            <% if appointment.role.worldwide? %>
-              <%= render partial: 'worldwide_organisations/logo_list', locals: { worldwide_organisations: appointment.role.worldwide_organisations } %>
-            <% else %>
-              <%= render  partial: 'organisations/organisations_logo_list', locals: { organisations: appointment.role.organisations } %>
-            <% end %>
-
             <h1 id="<%= appointment.role.name.parameterize%>"><%= appointment.role.name %></h1>
-
             <%= appointment.role.responsibilities %>
-            <% if appointment.role.ministerial? %>
-              <div class="read-more">
+            <div class="read-more">
+              <% if appointment.role.ministerial? %>
                 <%= link_to t('roles.read_more'), appointment.role %>
-              </div>
-            <% end %>
+              <% end %>
+              <% if appointment.role.worldwide? %>
+                <%= render partial: 'organisations/organisations_name_list',
+                           locals: { organisations: appointment.role.worldwide_organisations } %>
+              <% else %>
+                <%= render  partial: 'organisations/organisations_name_list',
+                            locals: { organisations: appointment.role.organisations } %>
+              <% end %>
+            </div>
           <% end %>
         <% end %>
       </div>

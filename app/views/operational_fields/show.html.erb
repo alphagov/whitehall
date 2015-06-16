@@ -9,8 +9,14 @@
                         big: true, extra: true } %>
     <div class="heading-extra">
       <div class="inner-heading">
-        <%= render partial: 'organisations/organisations_logo_list',
-                  locals: { organisations: [@organisation] } %>
+        <div class="organisations-icon-list">
+          <%= content_tag_for(:div, @organisation, class: organisation_brand_colour_class(@organisation)) do %>
+            <%= link_to @organisation,
+                        class: logo_classes(organisation: @organisation, stacked: true, use_identity: true) do %>
+              <span><%= organisation_logo_name(@organisation) %></span>
+            <% end %>
+          <% end %>
+       </div>
       </div>
     </div>
   </div>

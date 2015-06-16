@@ -168,92 +168,6 @@ bg:
         Написана на:
     updated: "обновено"
     view: "Вижте '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "Временна консултативна група"
-        other: "Временни консултативни групи"
-      Advisory non-departmental public body:
-        one: "Консултативен неведомствен публичен орган"
-        other: "Консултативни неведомствени публични органи"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "Изпълнителна агенция"
-        other: "Изпълнителни агенции"
-      Executive non-departmental public body:
-        one: "Изпълнителен неведомствен публичен орган"
-        other: "Изпълнителни неведомствени публични органи"
-      Executive office:
-        one: "Изпълнително бюро"
-        other: "Изпълнителни бюра"
-      Independent monitoring body:
-        one: "Независим мониторингов орган"
-        other: "Независими мониторингови органи"
-      Ministerial department:
-        one: "Министерска секция"
-        other: "Министерски секции"
-      Non-ministerial department:
-        one: "Неправителствена секция"
-        other: "Неправителствени секции"
-      Other:
-        one: "Друго"
-        other: "Други"
-      Public corporation:
-        one: "Обществена корпорация"
-        other: "Обществени корпорации"
-      Sub-organisation:
-        one: "Под-организация"
-        other: "Под-организации"
-      Tribunal non-departmental public body:
-        one: "Трибунален неведомствен обществен орган"
-        other: "Трибунални неведомствени обществени органи"
-    about:
-      read_more: "Прочетете повече за нашата дейност"
-    corporate_information:
-      access_our_info: "Получете достъп до информацията ни"
-      foi_how_to: "Как да направите запитване по закона за достъпа до информация"
-      foi_releases: "Съобщения по закона за достъп до информация"
-      jobs_and_contacts: "Работни места и договори"
-      organisation_chart:
-      transparency: "Данни за прозрачността"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "Нашите служители"
-      contact: "Свържете се с %{name}"
-      corporate_information: "Корпоративна информация"
-      corporate_reports: "Корпоративни доклади"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "Съобщенията ни"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "Нашето ръководство"
-      our_ministers: "Нашите министи"
-      our_policies: "Нашите политики"
-      our_publications: "Нашите публикации"
-      our_senior_military_officials: "Нашите висши военни служители"
-      our_services: "Услуги, които извършваме"
-      our_statistics: "Нашата статистика"
-      our_topics: "Работим по тези теми"
-      plus_others: "и други"
-      special_representatives: "Специални представители"
-      traffic_commissioners: "Комисари по трафика"
-      what_we_do: "Нашата дейност"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -444,6 +358,45 @@ bg:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "Прочетете повече за нашата дейност"
+    corporate_information:
+      access_our_info: "Получете достъп до информацията ни"
+      foi_how_to: "Как да направите запитване по закона за достъпа до информация"
+      foi_releases: "Съобщения по закона за достъп до информация"
+      jobs_and_contacts: "Работни места и договори"
+      organisation_chart:
+      transparency: "Данни за прозрачността"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "Нашите служители"
+      contact: "Свържете се с %{name}"
+      corporate_information: "Корпоративна информация"
+      corporate_reports: "Корпоративни доклади"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "Съобщенията ни"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "Нашето ръководство"
+      our_ministers: "Нашите министи"
+      our_policies: "Нашите политики"
+      our_publications: "Нашите публикации"
+      our_senior_military_officials: "Нашите висши военни служители"
+      our_services: "Услуги, които извършваме"
+      our_statistics: "Нашата статистика"
+      our_topics: "Работим по тези теми"
+      special_representatives: "Специални представители"
+      traffic_commissioners: "Комисари по трафика"
+      what_we_do: "Нашата дейност"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "Политики"
     view_all:

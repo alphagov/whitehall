@@ -346,7 +346,6 @@ id:
       our_services: Pelayanan-pelayanan kami
       our_statistics: Statistik-statistik kami
       our_topics: Kami bekerja pada bidang-bidang ini
-      plus_others: " + lainnya"
       special_representatives: Perwakilan khusus
       traffic_commissioners: Komisioner lalu lintas
       what_we_do: Kerja kami
@@ -355,52 +354,6 @@ id:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: Kelompok penasehat ad-hoc
-        other: Kelompok-kelompok penasehat ad-hoc
-      Advisory non-departmental public body:
-        one: Badan penasehat non-departemen umum
-        other: Badan-badan penasehat non-departemen umum
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Badan eksekutif
-        other: Badan-badan eksekutif
-      Executive non-departmental public body:
-        one: Badan eksekutif non-departmen
-        other: Badan-badan eksekutif non-departemen
-      Executive office:
-        one: Kantor eksekutif
-        other: Kantor-kantor eksekutif
-      Independent monitoring body:
-        one: Badan pengawas independen
-        other: Badan-badan pengawas independen
-      Ministerial department:
-        one: Departemen Kementerian
-        other: Departemen-departemen Kementerian
-      Non-ministerial department:
-        one: Departemen non-kementerian
-        other: Departemen-departemen non-kementerian
-      Other:
-        one: Lainnya
-        other: Lainnya
-      Public corporation:
-        one: Kerja sama publik
-        other: Kerja sama publik
-      Sub-organisation:
-        one: Sub-organisasi
-        other: Sub-sub organisasi
-      Tribunal non-departmental public body:
-        one: Badan hukum non-departemen umum
-        other: Badan-badan hukum non-departemen umum
   people:
     biography:
     heading:

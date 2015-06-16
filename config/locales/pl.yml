@@ -261,122 +261,6 @@ pl:
       written_on: Napisany w dniu
     updated: Zaktualizowany
     view: Zobacz '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Doraźna grupa doradcza
-        few:
-        many:
-        other: Doraźne grupy doradcze
-      Advisory non-departmental public body:
-        one: Nieministerialny publiczny organ doradczy
-        few:
-        many:
-        other: Nieministerialne publiczne organy doradczy
-      Civil Service:
-        one:
-        few:
-        many:
-        other:
-      Court:
-        one:
-        few:
-        many:
-        other:
-      Devolved administration:
-        one:
-        few:
-        many:
-        other:
-      Executive agency:
-        one: Agencja wykonawcza
-        few:
-        many:
-        other: Agencje wykonawcze
-      Executive non-departmental public body:
-        one: Nieministerialny publiczny organ wykonawczy
-        few:
-        many:
-        other: Nieministerialne publiczne organy wykonawcze
-      Executive office:
-        one: Biuro wykonawcze
-        few:
-        many:
-        other: Biura wykonawcze
-      Independent monitoring body:
-        one: Niezależny organ monitorujący
-        few:
-        many:
-        other: Niezależne organy monitorujące
-      Ministerial department:
-        one: Departament ministerialny
-        few:
-        many:
-        other: Departamenty ministerialne
-      Non-ministerial department:
-        one: Departament nieministerialny
-        few:
-        many:
-        other: Departamenty nieministerialne
-      Other:
-        one: Inne
-        few:
-        many:
-        other: Inne
-      Public corporation:
-        one: Korporacja publiczna
-        few:
-        many:
-        other: Korporacje publiczne
-      Sub-organisation:
-        one: Podorganizacja
-        few:
-        many:
-        other: Podorganizacje
-      Tribunal non-departmental public body:
-        one: Trybunalny nieministerialny organ publiczny
-        few:
-        many:
-        other: Trybunalne nieministerialne organy publiczne
-    about:
-      read_more: Przeczytaj więcej o tym, czym się zajmujemy
-    corporate_information:
-      access_our_info: Uzyskaj dostęp do naszych informacji
-      foi_how_to: Jak poprosić o informację z zgodnie z ustawą o wolności informacji
-      foi_releases: Ujawnienie informacji zgodnie z ustawą o wolności informacji
-      jobs_and_contacts: Stanowiska pracy i kontrakty
-      organisation_chart:
-      transparency: Dane o transparentności
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: 'Nasi naczelni specjaliści '
-      contact: Skontaktuj się z %{name}
-      corporate_information: Informacje korporacyjne
-      corporate_reports: Raporty korporacyjne
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Nasze ogłoszenia
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Nasze kierownictwo
-      our_ministers: Nasi ministrowie
-      our_policies: Nasza polityka
-      our_publications: Nasze publikacje
-      our_senior_military_officials: Nasi wysocy rangą oficerowie
-      our_services: Nasze usługi
-      our_statistics: Nasze statystyki
-      our_topics: Zajmujemy się tymi tematami
-      plus_others: " + inne"
-      special_representatives: Specjalni wysłannicy
-      traffic_commissioners: Komisarze z wydziałów ruchu drogowego
-      what_we_do: Czym się zajmujemy
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -574,6 +458,45 @@ pl:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Przeczytaj więcej o tym, czym się zajmujemy
+    corporate_information:
+      access_our_info: Uzyskaj dostęp do naszych informacji
+      foi_how_to: Jak poprosić o informację z zgodnie z ustawą o wolności informacji
+      foi_releases: Ujawnienie informacji zgodnie z ustawą o wolności informacji
+      jobs_and_contacts: Stanowiska pracy i kontrakty
+      organisation_chart:
+      transparency: Dane o transparentności
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: 'Nasi naczelni specjaliści '
+      contact: Skontaktuj się z %{name}
+      corporate_information: Informacje korporacyjne
+      corporate_reports: Raporty korporacyjne
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Nasze ogłoszenia
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Nasze kierownictwo
+      our_ministers: Nasi ministrowie
+      our_policies: Nasza polityka
+      our_publications: Nasze publikacje
+      our_senior_military_officials: Nasi wysocy rangą oficerowie
+      our_services: Nasze usługi
+      our_statistics: Nasze statystyki
+      our_topics: Zajmujemy się tymi tematami
+      special_representatives: Specjalni wysłannicy
+      traffic_commissioners: Komisarze z wydziałów ruchu drogowego
+      what_we_do: Czym się zajmujemy
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Polityki
     view_all:

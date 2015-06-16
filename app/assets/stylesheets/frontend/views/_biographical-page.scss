@@ -16,9 +16,6 @@
         margin-bottom: 0;
       }
     }
-    ul.logo-icon-list {
-      margin: 0;
-    }
     figure.img {
       margin: 0;
       width: $full-width;
@@ -52,18 +49,6 @@
 
       .read-more {
         @include ig-core-19;
-      }
-    }
-
-    .logo-icon-list {
-      margin: 12px 0 $gutter $gutter-half;
-      float: right;
-      min-width: $one-third;
-
-      li {
-        margin-left: $gutter-half;
-        margin-bottom:  $gutter-one-third;
-        list-style: none;
       }
     }
   }

@@ -214,107 +214,6 @@ lt:
       written_on: Parašyta
     updated: atnaujinta
     view: "Žiūrėkite '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Specialioji patariamoji grupė
-        few:
-        other: Specialiosios patariamosios grupės
-      Advisory non-departmental public body:
-        one: Patariamoji nevyriausybinė organizacija
-        few:
-        other: Patariamosios nevyriausybinės organizacijos
-      Civil Service:
-        one:
-        few:
-        other:
-      Court:
-        one:
-        few:
-        other:
-      Devolved administration:
-        one:
-        few:
-        other:
-      Executive agency:
-        one: Vykdomoji agentūra
-        few:
-        other: Vykdomosios agentūros
-      Executive non-departmental public body:
-        one: Vykdomoji nevyriausybinė organizacija
-        few:
-        other: Vykdomosios nevyriausybinės organizacijos
-      Executive office:
-        one: Vykdomoji agentūra
-        few:
-        other: Vykdomosios agentūros
-      Independent monitoring body:
-        one: Nepriklausoma stebėsenos institucija
-        few:
-        other: Nepriklausomos stebėsenos institucijos
-      Ministerial department:
-        one: Ministerijos  departamentas
-        few:
-        other: Ministerijų departamentai
-      Non-ministerial department:
-        one: Neministerinis departamentas
-        few:
-        other: Neministeriniai vyriausybės departamentai
-      Other:
-        one: Kita
-        few:
-        other: Kiti
-      Public corporation:
-        one: Valstybinė įmonė
-        few:
-        other: Valstybinės įmonės
-      Sub-organisation:
-        one: Organizacijos padalinys
-        few:
-        other: Organizacijos padaliniai
-      Tribunal non-departmental public body:
-        one: Nedepartinis viešasis tribunolas
-        few:
-        other: Nedepartiniai viešieji tribunolai
-    about:
-      read_more: Skaitykite daugiau apie mūsų veiklą
-    corporate_information:
-      access_our_info: Prieiga prie mūsų informacijos
-      foi_how_to: Kaip pateikti užklausymą informacijai gauti
-      foi_releases: 'Informacijos laisvė: pranešimai'
-      jobs_and_contacts: Darbai ir sutartys
-      organisation_chart:
-      transparency: Skaidrumo informacija
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: Mūsų vyriausieji pareigūnai
-      contact: Susisiekite su %{name}
-      corporate_information: Korporatyvinė informacija
-      corporate_reports: Korporatyvinės ataskaitos
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Mūsų skelbimai
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Mūsų vadovybė
-      our_ministers: Mūsų ministrai
-      our_policies: Mūsų strategijos
-      our_publications: Mūsų leidiniai
-      our_senior_military_officials: Mūsų vyriausieji kariuomenės pareigūnai
-      our_services: Mūsų paslaugos
-      our_statistics: Mūsų statistika
-      our_topics: Mes dirbame šiose srityse
-      plus_others: "+ kiti"
-      special_representatives: Specialieji atstovai
-      traffic_commissioners: Eismo komisarai
-      what_we_do: Ką mes darome
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -506,6 +405,45 @@ lt:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Skaitykite daugiau apie mūsų veiklą
+    corporate_information:
+      access_our_info: Prieiga prie mūsų informacijos
+      foi_how_to: Kaip pateikti užklausymą informacijai gauti
+      foi_releases: 'Informacijos laisvė: pranešimai'
+      jobs_and_contacts: Darbai ir sutartys
+      organisation_chart:
+      transparency: Skaidrumo informacija
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: Mūsų vyriausieji pareigūnai
+      contact: Susisiekite su %{name}
+      corporate_information: Korporatyvinė informacija
+      corporate_reports: Korporatyvinės ataskaitos
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Mūsų skelbimai
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Mūsų vadovybė
+      our_ministers: Mūsų ministrai
+      our_policies: Mūsų strategijos
+      our_publications: Mūsų leidiniai
+      our_senior_military_officials: Mūsų vyriausieji kariuomenės pareigūnai
+      our_services: Mūsų paslaugos
+      our_statistics: Mūsų statistika
+      our_topics: Mes dirbame šiose srityse
+      special_representatives: Specialieji atstovai
+      traffic_commissioners: Eismo komisarai
+      what_we_do: Ką mes darome
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Strategijos
     view_all:

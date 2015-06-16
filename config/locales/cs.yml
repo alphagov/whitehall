@@ -214,107 +214,6 @@ cs:
       written_on: Napsáno
     updated: Aktualizováno
     view: Náhled '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Ad-hoc poradní skupina
-        few:
-        other: Ad-hoc poradní skupiny
-      Advisory non-departmental public body:
-        one: Poradní nevládní organizace
-        few:
-        other: Poradní nevládní organizace
-      Civil Service:
-        one:
-        few:
-        other:
-      Court:
-        one:
-        few:
-        other:
-      Devolved administration:
-        one:
-        few:
-        other:
-      Executive agency:
-        one: Výkonná agentura
-        few:
-        other: Výkonné agentury
-      Executive non-departmental public body:
-        one: Výkonná nevládní agentura
-        few:
-        other: Výkonné nevládní agentury
-      Executive office:
-        one: Kancelář
-        few:
-        other: Kanceláře
-      Independent monitoring body:
-        one: Nezavislý monitorovací orgán
-        few:
-        other: Nezávislé monitorovaní orgány
-      Ministerial department:
-        one: Ministerstvo
-        few:
-        other: Ministerstva
-      Non-ministerial department:
-        one: Nevládní organizace
-        few:
-        other: Nevládní organizace
-      Other:
-        one: Ostatní
-        few:
-        other: Ostatní
-      Public corporation:
-        one: Veřejné společnosti
-        few:
-        other: Veřejné společnosti
-      Sub-organisation:
-        one: Dílčí organizace
-        few:
-        other: Dílčí organizace
-      Tribunal non-departmental public body:
-        one: Soudy - nevládní organizace
-        few:
-        other: Soudy - nevládní organizace
-    about:
-      read_more: Více o tom, co děláme
-    corporate_information:
-      access_our_info: Přístup k našim informacím
-      foi_how_to: Jak zažádat o informace
-      foi_releases: Svoboda přístupu k informacím
-      jobs_and_contacts: Pracovní příležitosti
-      organisation_chart:
-      transparency: 'Data '
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: Naše vedení
-      contact: Kontakt %{name}
-      corporate_information: Korporátní informace
-      corporate_reports: Korporátní zprávy
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Naše prohlášení
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Naše vedení
-      our_ministers: Naši ministři
-      our_policies: Naše politiky
-      our_publications: Naše publikace
-      our_senior_military_officials: Naši vojenští velitelé
-      our_services: Neše služby
-      our_statistics: Naše statistiky
-      our_topics: Pracujeme na těchto tématech
-      plus_others: další
-      special_representatives: Zvláštní reprezentanti
-      traffic_commissioners: Dopravní komisaři
-      what_we_do: Co děláme
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -507,6 +406,45 @@ cs:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Více o tom, co děláme
+    corporate_information:
+      access_our_info: Přístup k našim informacím
+      foi_how_to: Jak zažádat o informace
+      foi_releases: Svoboda přístupu k informacím
+      jobs_and_contacts: Pracovní příležitosti
+      organisation_chart:
+      transparency: 'Data '
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: Naše vedení
+      contact: Kontakt %{name}
+      corporate_information: Korporátní informace
+      corporate_reports: Korporátní zprávy
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Naše prohlášení
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Naše vedení
+      our_ministers: Naši ministři
+      our_policies: Naše politiky
+      our_publications: Naše publikace
+      our_senior_military_officials: Naši vojenští velitelé
+      our_services: Neše služby
+      our_statistics: Naše statistiky
+      our_topics: Pracujeme na těchto tématech
+      special_representatives: Zvláštní reprezentanti
+      traffic_commissioners: Dopravní komisaři
+      what_we_do: Co děláme
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Politiky
     view_all:

@@ -343,7 +343,6 @@ az:
       our_services:
       our_statistics:
       our_topics:
-      plus_others:
       special_representatives:
       traffic_commissioners:
       what_we_do:
@@ -352,52 +351,6 @@ az:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: Məsləhətçi qrup
-        other: Məsləhətçi qruplar
-      Advisory non-departmental public body:
-        one: "İctimai qrum"
-        other: "İctimai qrumlar"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "İcraedici orqan"
-        other: "İcraedici orqanlar"
-      Executive non-departmental public body:
-        one: "İcraedici ictimai qrumlar"
-        other: "İcraedici ictimai qrumlar"
-      Executive office:
-        one:
-        other:
-      Independent monitoring body:
-        one: Müstəqil monitorinq qrupu
-        other: Müstəqil monitorinq qrupları
-      Ministerial department:
-        one: Nazirlərin departamentləri
-        other: Nazirlərin departamentləri
-      Non-ministerial department:
-        one: Digər deparamentlər
-        other: Digər deparamentlər
-      Other:
-        one: Digər
-        other: Digərləri
-      Public corporation:
-        one: "İctimai korporasiya"
-        other: "İctimai korporasiyalar"
-      Sub-organisation:
-        one: Təşkilatlar
-        other: Təşkilatlar
-      Tribunal non-departmental public body:
-        one: "İcraedici ictimai qrumlar"
-        other: "İcraedici ictimai qrumlar"
   people:
     biography:
     heading:

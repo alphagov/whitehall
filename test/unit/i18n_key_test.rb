@@ -52,15 +52,6 @@ class I18nKeyTest < ActiveSupport::TestCase
     assert_translation CaseStudy.new, "document.type"
   end
 
-  test "translations for organisation types are present" do
-    OrganisationType.all.each do |organisation_type|
-      assert_nothing_raised("No translation for #{organisation_type.name})") do
-        I18n.t("organisation.type.#{organisation_type.name}", count: 1)
-        I18n.t("organisation.type.#{organisation_type.name}", count: 2)
-      end
-    end
-  end
-
   private
 
   def assert_translations(type_class, translation_prefix)

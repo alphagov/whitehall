@@ -167,92 +167,6 @@ hy:
       written_on: "Գրված է՝"
     updated: "Թարմացված"
     view: "Տես '%{title}'-ը"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "Հատուկ խորհրդատվական մարմին"
-        other: "Հատուկ խորհրդատվական մարմիններ"
-      Advisory non-departmental public body:
-        one: "Ոչ գերատեսչական խորհրդատվական հանրային մարմին"
-        other: "Ոչ գերատեսչական խորհրդատվական հանրային մարմիններ"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "Գլխավոր գործակալություն"
-        other: "Գլխավոր գործակալություններ"
-      Executive non-departmental public body:
-        one: "Գլխավոր ոչ գերատեսչական հանրայի մարմին"
-        other: "Գլխավոր ոչ գերատեսչական հանրային մարմիններ"
-      Executive office:
-        one: "Գլխավոր գրասենյակ"
-        other: "Գլխավոր գրասենյակններ"
-      Independent monitoring body:
-        one: "Անկախ մոնիտորինգի մարմին"
-        other: "Անկախ մոնիտորինգի մարմիններ"
-      Ministerial department:
-        one: "Նախարարական բաժին"
-        other: "Նախարարական բաժիններ"
-      Non-ministerial department:
-        one: "Ոչ նախարարական բաժին"
-        other: "Ոչ նախարարական բաժիններ"
-      Other:
-        one: "Այլ"
-        other: "Այլք"
-      Public corporation:
-        one: "Հանրային համագործակցություն"
-        other: "Հանրային համագործակցություններ"
-      Sub-organisation:
-        one: "Ենթա-կազմակերպություն"
-        other: "Ենթա-կազմակերպություններ"
-      Tribunal non-departmental public body:
-        one: "Տրիբունալ ոչ գերատեսչական պետական ​​մարմին"
-        other: "Տրիբունալ ոչ գերատեսչական պետական ​​մարմիններ"
-    about:
-      read_more: "Կարդալ ավելին մեր գործունեության մասին"
-    corporate_information:
-      access_our_info: "Տեղեկատվություն մեր մասին"
-      foi_how_to: "Ինչպես կատարել տեղեկատվության հարցում"
-      foi_releases: "Տեղեկատվության հարցում"
-      jobs_and_contacts: "Աշխատանք և պայմանագրեր"
-      organisation_chart:
-      transparency: "Թափանցիկ տեղեկատվությ"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "Մեր գլխավոր մասնագետները"
-      contact: "Տվյալ %{name}"
-      corporate_information: "Կորպորատիվ տեղեկատվություն"
-      corporate_reports: "Կորպորատիվ հաշվետվություններ"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "Մեր հայտարարությունները"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "Մեր ղեկավարումը"
-      our_ministers: "Մեր նաքարարներ"
-      our_policies: "Մեր քաղաքականությույնը"
-      our_publications: "Մեր հրատարակումները"
-      our_senior_military_officials: "Մեր ավագ զինվորական գծով ղեկավարները"
-      our_services: "Մեր ծառայությունները"
-      our_statistics: "Մեր ցուցանիշները"
-      our_topics: "Մենք աշքատում ենք տյալ թեմայի շուրջ"
-      plus_others: " + այլք"
-      special_representatives: "Հատուկ ներկայացուցիչներ"
-      traffic_commissioners: "Երթևեկության հանձնաժողով"
-      what_we_do: "Ինչ ենք մենք անում"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -441,6 +355,45 @@ hy:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "Կարդալ ավելին մեր գործունեության մասին"
+    corporate_information:
+      access_our_info: "Տեղեկատվություն մեր մասին"
+      foi_how_to: "Ինչպես կատարել տեղեկատվության հարցում"
+      foi_releases: "Տեղեկատվության հարցում"
+      jobs_and_contacts: "Աշխատանք և պայմանագրեր"
+      organisation_chart:
+      transparency: "Թափանցիկ տեղեկատվությ"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "Մեր գլխավոր մասնագետները"
+      contact: "Տվյալ %{name}"
+      corporate_information: "Կորպորատիվ տեղեկատվություն"
+      corporate_reports: "Կորպորատիվ հաշվետվություններ"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "Մեր հայտարարությունները"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "Մեր ղեկավարումը"
+      our_ministers: "Մեր նաքարարներ"
+      our_policies: "Մեր քաղաքականությույնը"
+      our_publications: "Մեր հրատարակումները"
+      our_senior_military_officials: "Մեր ավագ զինվորական գծով ղեկավարները"
+      our_services: "Մեր ծառայությունները"
+      our_statistics: "Մեր ցուցանիշները"
+      our_topics: "Մենք աշքատում ենք տյալ թեմայի շուրջ"
+      special_representatives: "Հատուկ ներկայացուցիչներ"
+      traffic_commissioners: "Երթևեկության հանձնաժողով"
+      what_we_do: "Ինչ ենք մենք անում"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "Քաղաքականություն"
     view_all:
