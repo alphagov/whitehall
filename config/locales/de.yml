@@ -167,91 +167,6 @@ de:
       written_on: Geschrieben am
     updated: Aktualisiert
     view: Schauen Sie sich '%{title}' an
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Ad-hoc-Beratergruppe
-        other: Ad-hoc-Beratergruppen
-      Advisory non-departmental public body:
-        one: Keinem Ministerium unterstelltes öffentliches Beratungsorgan
-        other: Keinem Ministerium unterstellte öffentliche Beratungsorgane
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Exekutivagentur
-        other: Exekutivagenturen
-      Executive non-departmental public body:
-        one: Keinem Ministerium unterstelltes öffentliches Exekutivorgan
-        other: Keinem Ministerium unterstellte öffentliche Exekutivorgane
-      Executive office:
-        one: Exekutivbüro
-        other: Exekutivbüros
-      Independent monitoring body:
-        one: Unabhängiges Kontrollorgan
-        other: Unabhängige Kontrollorgane
-      Ministerial department:
-        one: Ministerium
-        other: Ministerien
-      Non-ministerial department:
-        one: Nichtministerelle Regierungsstelle
-        other: Nichtministerelle Regierungsstellen
-      Other:
-        one: Andere
-        other: Andere
-      Public corporation:
-        one: Körperschaft des öffentlichen Rechts
-        other: Körperschaften des öffentlichen Rechts
-      Sub-organisation:
-        one: Unterorganisation
-        other: Unterorganisationen
-      Tribunal non-departmental public body:
-        one: Dem Ministerium nicht unterstelltes öffentliches Gerichtsorgan
-        other: Dem Ministerium nicht unterstellte öffentliche Gerichtsorgane
-    about:
-      read_more: Mehr
-    corporate_information:
-      access_our_info: Information ansehen
-      foi_how_to: Wie Sie eine Anfrage nach dem Freedom of Information Act stellen
-      foi_releases: Veröffentlichungen nach dem Freedom of Information Act
-      jobs_and_contacts: Stellenanzeigen
-      organisation_chart:
-      transparency: Transparenzdaten
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: Unsere leitenden Mitarbeiter
-      contact: "%{name} kontaktieren"
-      corporate_information: Administrative Informationen
-      corporate_reports: Berichte
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Unsere Meldungen
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Unser Management
-      our_ministers: Unsere Minister
-      our_policies: Unsere Politik
-      our_publications: Unsere Veröffentlichungen
-      our_senior_military_officials: Unser militärisches Personal
-      our_services: Unsere Dienstleistungen
-      our_statistics: Unsere Statistiken
-      our_topics: Unsere Arbeitsgebiete
-      special_representatives: Sonderbeauftragte
-      traffic_commissioners: Verkehrsbeauftragte
-      what_we_do: Was wir tun
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -440,6 +355,45 @@ de:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Mehr
+    corporate_information:
+      access_our_info: Information ansehen
+      foi_how_to: Wie Sie eine Anfrage nach dem Freedom of Information Act stellen
+      foi_releases: Veröffentlichungen nach dem Freedom of Information Act
+      jobs_and_contacts: Stellenanzeigen
+      organisation_chart:
+      transparency: Transparenzdaten
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: Unsere leitenden Mitarbeiter
+      contact: "%{name} kontaktieren"
+      corporate_information: Administrative Informationen
+      corporate_reports: Berichte
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Unsere Meldungen
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Unser Management
+      our_ministers: Unsere Minister
+      our_policies: Unsere Politik
+      our_publications: Unsere Veröffentlichungen
+      our_senior_military_officials: Unser militärisches Personal
+      our_services: Unsere Dienstleistungen
+      our_statistics: Unsere Statistiken
+      our_topics: Unsere Arbeitsgebiete
+      special_representatives: Sonderbeauftragte
+      traffic_commissioners: Verkehrsbeauftragte
+      what_we_do: Was wir tun
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Politik
     view_all:

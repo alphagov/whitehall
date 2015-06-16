@@ -167,91 +167,6 @@ ta:
       written_on: "அன்று எழுதப்பட்டது:"
     updated: "இற்றைப்படுத்தப்பட்டது"
     view: "பார்வையிடுக '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "குறிப்பிட்ட ஒரு பணிக்காக அமைக்கப்பட்ட ஆலோசனைக் குழு"
-        other: " குறிப்பிட்ட ஒரு பணிக்காக அமைக்கப்பட்ட ஆலோசனைக் குழுக்கள்"
-      Advisory non-departmental public body:
-        one: "ஆலோசனை திணைக்களமல்லாத அரச அமைப்பு"
-        other: "ஆலோசனை திணைக்களமல்லாத அரச அமைப்புகள்"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "நிறைவேற்று முகவரமைப்பு"
-        other: "நிறைவேற்று முகவரமைப்புகள்"
-      Executive non-departmental public body:
-        one: "நிறைவேற்று அதிகாரம் கொண்ட திணைக்களமல்லாத அரச அமைப்பு"
-        other: "நிறைவேற்றுதல் அதிகாரம் கொண்ட திணைக்களமல்லாத அரச அமைப்புகள்"
-      Executive office:
-        one: "நிறைவேற்று அலுவலகம்"
-        other: "நிறைவேற்று அலுவலகங்கள்"
-      Independent monitoring body:
-        one: "சுயாதீன கண்காணிப்பு அமைப்பு"
-        other: "சுயாதீன கண்காணிப்பு அமைப்புகள்"
-      Ministerial department:
-        one: "அமைச்சரவைத் திணைக்களம்"
-        other: "அமைச்சரவைத் திணைக்களங்கள்"
-      Non-ministerial department:
-        one: "அமைச்சல்லாத திணைக்களம்"
-        other: "அமைச்சல்லாத திணைக்களங்கள்"
-      Other:
-        one: "ஏனையவை"
-        other: "ஏனையவைகள்"
-      Public corporation:
-        one: "பொதுக் கூட்டுத்தாபனம்"
-        other: "பொதுக் கூட்டுத்தாபனங்கள்"
-      Sub-organisation:
-        one: "துணை ஸ்தாபனம்"
-        other: "துணை ஸ்தாபனங்கள்"
-      Tribunal non-departmental public body:
-        one: "நியாயசபை திணைக்களமல்லாத அரச அமைப்பு"
-        other: "நியாயசபை திணைக்களமல்லாத அரச அமைப்புகள்"
-    about:
-      read_more: "நாங்கள் என்ன  செய்கிறோம் என்பது பற்றி கூடுதலாக வாசிக்கவும்"
-    corporate_information:
-      access_our_info: "எங்களது தகவல்களை மதிப்பிடவும்"
-      foi_how_to: "தகவல் சுதந்திரத்துக்கான வேண்டுகோளை எப்படி மேற்கொள்வது"
-      foi_releases: "தகவல் சுதந்திர  வெளியிடுதல்கள்"
-      jobs_and_contacts: "வேலைகள் மற்றும் ஒப்பந்தங்கள்"
-      organisation_chart:
-      transparency: "வெளிப்படையான தரவு"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "எங்களது பிரதம தொழில்சார் தகைமை அதிகாரிகள்"
-      contact: "தொடர்பு %{name}"
-      corporate_information: "கூட்டாண்மைத் தகவல்"
-      corporate_reports: "கூட்டாண்மை அறிக்கைகள்"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "எங்களது அறிவிப்புகள்"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "எங்களது முகாமைத்துவம்"
-      our_ministers: "எங்களது அமைச்சர்கள்"
-      our_policies: "எங்களது கொள்கைகள்"
-      our_publications: "எங்களது  வெளியீடுகள்"
-      our_senior_military_officials: "எங்களது சிரேஷ்ட இராணுவ அதிகாரிகள்"
-      our_services: "எங்களது  சேவைகள்"
-      our_statistics: "எங்களது புள்ளிவிபரம்"
-      our_topics: "இந்த விடயங்கள் மீது நாங்கள் செயலாற்றுகிறோம்"
-      special_representatives: "விசேட பிரதிநிதிகள்"
-      traffic_commissioners: "போக்குவரத்து ஆணையாளர்கள்"
-      what_we_do: "நாங்கள் செய்வது என்ன"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -441,6 +356,45 @@ ta:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "நாங்கள் என்ன  செய்கிறோம் என்பது பற்றி கூடுதலாக வாசிக்கவும்"
+    corporate_information:
+      access_our_info: "எங்களது தகவல்களை மதிப்பிடவும்"
+      foi_how_to: "தகவல் சுதந்திரத்துக்கான வேண்டுகோளை எப்படி மேற்கொள்வது"
+      foi_releases: "தகவல் சுதந்திர  வெளியிடுதல்கள்"
+      jobs_and_contacts: "வேலைகள் மற்றும் ஒப்பந்தங்கள்"
+      organisation_chart:
+      transparency: "வெளிப்படையான தரவு"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "எங்களது பிரதம தொழில்சார் தகைமை அதிகாரிகள்"
+      contact: "தொடர்பு %{name}"
+      corporate_information: "கூட்டாண்மைத் தகவல்"
+      corporate_reports: "கூட்டாண்மை அறிக்கைகள்"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "எங்களது அறிவிப்புகள்"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "எங்களது முகாமைத்துவம்"
+      our_ministers: "எங்களது அமைச்சர்கள்"
+      our_policies: "எங்களது கொள்கைகள்"
+      our_publications: "எங்களது  வெளியீடுகள்"
+      our_senior_military_officials: "எங்களது சிரேஷ்ட இராணுவ அதிகாரிகள்"
+      our_services: "எங்களது  சேவைகள்"
+      our_statistics: "எங்களது புள்ளிவிபரம்"
+      our_topics: "இந்த விடயங்கள் மீது நாங்கள் செயலாற்றுகிறோம்"
+      special_representatives: "விசேட பிரதிநிதிகள்"
+      traffic_commissioners: "போக்குவரத்து ஆணையாளர்கள்"
+      what_we_do: "நாங்கள் செய்வது என்ன"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "கொள்கைகள்"
     view_all:

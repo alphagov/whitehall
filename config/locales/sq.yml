@@ -167,91 +167,6 @@ sq:
       written_on: 'Shkruar më:'
     updated: rifreskuar
     view: Shiko '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Grup keshilluese i posaçem
-        other: Grupe keshillues te posaçem
-      Advisory non-departmental public body:
-        one: Organ keshillues publik jo-dikasterial
-        other: Organe keshillues publik jo-dikasterial
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Agjensi Ekzekutive
-        other: Agjensi Ekzekutive
-      Executive non-departmental public body:
-        one: Organ Ekzekutiv publik jo-dikasterial
-        other: Organe Ekzekutive publike jo-dikasteriale
-      Executive office:
-        one: Zyre Ekzekutive
-        other: Zyra Ekzekutive
-      Independent monitoring body:
-        one: Organ Monitorues publik
-        other: Organe monitoruese publike
-      Ministerial department:
-        one: Dikaster
-        other: Dikastere
-      Non-ministerial department:
-        one: Departament jo-ministror
-        other: Departamente jo-ministrore
-      Other:
-        one: Tjeter
-        other: Te tjere
-      Public corporation:
-        one: Korporate publike
-        other: Korporata publike
-      Sub-organisation:
-        one: Nen-organizate
-        other: Nen-organizata
-      Tribunal non-departmental public body:
-        one: Gjykate jo-dikasteriale publike
-        other: Gjykata jo-dikasteriale publike
-    about:
-      read_more: Lexo me shume se cfare bejme ne
-    corporate_information:
-      access_our_info: Shiko informacionin tone
-      foi_how_to: Si te besh nje kerkese FOI
-      foi_releases: Njoftime FOI
-      jobs_and_contacts: Vende pune dhe kontrata
-      organisation_chart:
-      transparency: Te dhena transparence
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: 'Zyrtaret tane kryesore profesioniste '
-      contact: Kontakt %{name}
-      corporate_information: Informacion korporate
-      corporate_reports: Raporte korporate
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Njoftimet tona
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Manaxhimi yne
-      our_ministers: Ministrat tane
-      our_policies: Politikat tona
-      our_publications: Publikimet tona
-      our_senior_military_officials: Zyrtaret kryesore ushtarake
-      our_services: Sherbimet tona
-      our_statistics: Statistikat tona
-      our_topics: Ne punojme ne keto tema
-      special_representatives: Perfaqesues speciale
-      traffic_commissioners: Komisionere te trafikut
-      what_we_do: Cfare bejme ne
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -440,6 +355,45 @@ sq:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Lexo me shume se cfare bejme ne
+    corporate_information:
+      access_our_info: Shiko informacionin tone
+      foi_how_to: Si te besh nje kerkese FOI
+      foi_releases: Njoftime FOI
+      jobs_and_contacts: Vende pune dhe kontrata
+      organisation_chart:
+      transparency: Te dhena transparence
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: 'Zyrtaret tane kryesore profesioniste '
+      contact: Kontakt %{name}
+      corporate_information: Informacion korporate
+      corporate_reports: Raporte korporate
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Njoftimet tona
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Manaxhimi yne
+      our_ministers: Ministrat tane
+      our_policies: Politikat tona
+      our_publications: Publikimet tona
+      our_senior_military_officials: Zyrtaret kryesore ushtarake
+      our_services: Sherbimet tona
+      our_statistics: Statistikat tona
+      our_topics: Ne punojme ne keto tema
+      special_representatives: Perfaqesues speciale
+      traffic_commissioners: Komisionere te trafikut
+      what_we_do: Cfare bejme ne
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Politikat
     view_all:

@@ -355,151 +355,6 @@ ar:
       written_on: "كتبت في:"
     updated: "تحديث"
     view: "اطلع على ’%{title}‘"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        zero:
-        one: "فريق استشاري مخصص"
-        two:
-        few:
-        many:
-        other: "فرق استشارية مخصصة"
-      Advisory non-departmental public body:
-        zero:
-        one: "هيئة استشارية عامة غير حكومية"
-        two:
-        few:
-        many:
-        other: "هيئات استشارية عامة غير حكومية"
-      Civil Service:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      Court:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      Devolved administration:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      Executive agency:
-        zero:
-        one: "جهاز تنفيذي"
-        two:
-        few:
-        many:
-        other: "أجهزة تنفيذية"
-      Executive non-departmental public body:
-        zero:
-        one: "هيئة تنفيذية عامة غير حكومية"
-        two:
-        few:
-        many:
-        other: "هيئات تنفيذية عامة غير حكومية"
-      Executive office:
-        zero:
-        one: "مكتب تنفيذي"
-        two:
-        few:
-        many:
-        other: "مكاتب تنفيذية"
-      Independent monitoring body:
-        zero:
-        one: "جهاز رقابي مستقل"
-        two:
-        few:
-        many:
-        other: "أجهزة رقابية مستقلة"
-      Ministerial department:
-        zero:
-        one: "إدارة وزارية"
-        two:
-        few:
-        many:
-        other: "إدارات وزارية"
-      Non-ministerial department:
-        zero:
-        one: "إدارة غير وزارية"
-        two:
-        few:
-        many:
-        other: "إدارات غير وزارية"
-      Other:
-        zero:
-        one: "إدارة أخرى"
-        two:
-        few:
-        many:
-        other: "إدارات أخرى"
-      Public corporation:
-        zero:
-        one: "مؤسسة عامة"
-        two:
-        few:
-        many:
-        other: "مؤسسات عامة"
-      Sub-organisation:
-        zero:
-        one: "هيئة فرعية"
-        two:
-        few:
-        many:
-        other: "هيئات فرعية"
-      Tribunal non-departmental public body:
-        zero:
-        one: "هيئة قضائية عامة غير حكومية"
-        two:
-        few:
-        many:
-        other: "هيئات قضائية عامة غير حكومية"
-    about:
-      read_more: "اقرأ المزيد عن عملنا"
-    corporate_information:
-      access_our_info: "اطلع على معلوماتنا"
-      foi_how_to: "كيفية تقديم طلب حرية الحصول على المعلومات"
-      foi_releases: "إصدارات حرية الحصول على المعلومات"
-      jobs_and_contacts: "الوظائف والعقود"
-      organisation_chart:
-      transparency: "بيانات تتعلق بالشفافية"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "كبار المسؤولين المحترفين لدينا"
-      contact: "اتصل بـ%{name}"
-      corporate_information: "معلومات عن الوزارة"
-      corporate_reports: "تقارير الوزارة"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "إعلاناتنا"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "إدارتنا"
-      our_ministers: "وزراؤنا"
-      our_policies: "سياساتنا"
-      our_publications: "مطبوعاتنا"
-      our_senior_military_officials: "كبار المسؤولين العسكريين"
-      our_services: "خدماتنا"
-      our_statistics: "إحصائياتنا"
-      our_topics: "عملينا بشأن هذه المواضيع"
-      special_representatives: "الممثلون الخاصون"
-      traffic_commissioners: "مفوضو المرور"
-      what_we_do: "عملنا"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       zero:
@@ -703,6 +558,45 @@ ar:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "اقرأ المزيد عن عملنا"
+    corporate_information:
+      access_our_info: "اطلع على معلوماتنا"
+      foi_how_to: "كيفية تقديم طلب حرية الحصول على المعلومات"
+      foi_releases: "إصدارات حرية الحصول على المعلومات"
+      jobs_and_contacts: "الوظائف والعقود"
+      organisation_chart:
+      transparency: "بيانات تتعلق بالشفافية"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "كبار المسؤولين المحترفين لدينا"
+      contact: "اتصل بـ%{name}"
+      corporate_information: "معلومات عن الوزارة"
+      corporate_reports: "تقارير الوزارة"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "إعلاناتنا"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "إدارتنا"
+      our_ministers: "وزراؤنا"
+      our_policies: "سياساتنا"
+      our_publications: "مطبوعاتنا"
+      our_senior_military_officials: "كبار المسؤولين العسكريين"
+      our_services: "خدماتنا"
+      our_statistics: "إحصائياتنا"
+      our_topics: "عملينا بشأن هذه المواضيع"
+      special_representatives: "الممثلون الخاصون"
+      traffic_commissioners: "مفوضو المرور"
+      what_we_do: "عملنا"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "سياسات"
     view_all:

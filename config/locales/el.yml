@@ -167,92 +167,6 @@ el:
       written_on: "Γραφτηκε τη: "
     updated: "ανανεωμένο "
     view: "Δείτε '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "Ειδικό συμβουλευτικό όργανο"
-        other: "Ειδικά συμβουλευτικά όργανα"
-      Advisory non-departmental public body:
-        one: "Δημόσιο μη-κυβερνητικό συμβουλευτικό όργανο"
-        other: "Δημόσια μη-κυβερνητικά συμβουλευτικά όργανα"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "Εκτελεστική αρχή"
-        other: "Εκτελεστικές αρχές"
-      Executive non-departmental public body:
-        one: "Δημόσιο μη-κυβερνητικό εκτελεστικό όργανο"
-        other: "Δημόσια μη-κυβερνητικά εκτελεστικά όργανα"
-      Executive office:
-        one: "Διοικητικό γραφείο"
-        other: "Διοικητικά γραφεία"
-      Independent monitoring body:
-        one: "Ανεξάρτητο ελεγκτικό σώμα"
-        other: "Ανεξάρτητα ελεγκτικά σώματα"
-      Ministerial department:
-        one: "Υπουργικό τμήμα"
-        other: "Υπουργικά τμήματα"
-      Non-ministerial department:
-        one: "Ανεξάρτητο τμήμα"
-        other: "Ανεξάρτητα τμήματα"
-      Other:
-        one: "Άλλο"
-        other: "Άλλα"
-      Public corporation:
-        one: "Δημόσια επιχείρηση"
-        other: "Δημόσιες επιχειρήσεις"
-      Sub-organisation:
-        one: "Θυγατρικός οργανισμός"
-        other: "Θυγατρικοί οργανισμοί"
-      Tribunal non-departmental public body:
-        one: "Αυτόνομο εξωκυβερνητικό όργανο"
-        other: "Αυτόνομα εξωκυβερνητικά οργανα"
-    about:
-      read_more: "Περισσότερα για τις δράσεις μας"
-    corporate_information:
-      access_our_info: "Πρόσβαση στις πληροφορίες μας"
-      foi_how_to: "Διαδικάσία αιτήματος για πρόσβαση στις πληροφορίες μας βάσει της
-        νομοθεσίας για ελεύθερη πρόσβαση σεμ διοικητικά έγγραφα"
-      foi_releases: "Ελεύθερη πρόσβαση σε διοικητικά έγγραφα"
-      jobs_and_contacts: "Θέσεις εργασίας και συμβάσεις"
-      organisation_chart:
-      transparency: "Στοιχεία διαφάνειας"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "Τα ανώτερα στελέχη της υπηρεσίας μας"
-      contact: "Επικοινωνήστε%{name}"
-      corporate_information: "Πληροφορίες για τον Οργανισμό"
-      corporate_reports: "Εκθέσεις Οργανισμού"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "Οι ανακοινώσεις μας"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "Η ηγεσία μας"
-      our_ministers: "Οι υπουργοί μας"
-      our_policies: "Οι πολιτικές μας"
-      our_publications: "Οι εκδόσεις μας"
-      our_senior_military_officials: "Η στρατιωτική ηγεσία"
-      our_services: "Οι υπηρεσίες μας"
-      our_statistics: "Τα στατιστικά μας"
-      our_topics: "Εργαζόμαστε στους παρακάτω τομείς"
-      special_representatives: "Ειδικοί αντιπρόσωποι"
-      traffic_commissioners: "Ομάδα ρύθμισης μεταφορών "
-      what_we_do: "Οι δράσεις μας"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -441,6 +355,46 @@ el:
     human:
       storage_units:
         format:
+  organisation:
+    about:
+      read_more: "Περισσότερα για τις δράσεις μας"
+    corporate_information:
+      access_our_info: "Πρόσβαση στις πληροφορίες μας"
+      foi_how_to: "Διαδικάσία αιτήματος για πρόσβαση στις πληροφορίες μας βάσει της
+        νομοθεσίας για ελεύθερη πρόσβαση σεμ διοικητικά έγγραφα"
+      foi_releases: "Ελεύθερη πρόσβαση σε διοικητικά έγγραφα"
+      jobs_and_contacts: "Θέσεις εργασίας και συμβάσεις"
+      organisation_chart:
+      transparency: "Στοιχεία διαφάνειας"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "Τα ανώτερα στελέχη της υπηρεσίας μας"
+      contact: "Επικοινωνήστε%{name}"
+      corporate_information: "Πληροφορίες για τον Οργανισμό"
+      corporate_reports: "Εκθέσεις Οργανισμού"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "Οι ανακοινώσεις μας"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "Η ηγεσία μας"
+      our_ministers: "Οι υπουργοί μας"
+      our_policies: "Οι πολιτικές μας"
+      our_publications: "Οι εκδόσεις μας"
+      our_senior_military_officials: "Η στρατιωτική ηγεσία"
+      our_services: "Οι υπηρεσίες μας"
+      our_statistics: "Τα στατιστικά μας"
+      our_topics: "Εργαζόμαστε στους παρακάτω τομείς"
+      special_representatives: "Ειδικοί αντιπρόσωποι"
+      traffic_commissioners: "Ομάδα ρύθμισης μεταφορών "
+      what_we_do: "Οι δράσεις μας"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "Πολιτικές"
     view_all:

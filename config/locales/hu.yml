@@ -355,52 +355,6 @@ hu:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: Ad-hoc tanácsadó testület
-        other: Ad-hoc tanácsadó testületek
-      Advisory non-departmental public body:
-        one: Nem kormányzati szervként működő tanácsadó testület
-        other: Nem kormányzati szervként működő tanácsadó testületek
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Végrehajtó testület
-        other: Végrehajtó testületek
-      Executive non-departmental public body:
-        one: Nem kormányzati szervként működő végrehajtó szervet
-        other: Nem kormányzati szervként működő végrehajtó szervetek
-      Executive office:
-        one: Végrehajtó hivatal
-        other: Végrehajtó hivatalok
-      Independent monitoring body:
-        one: Független ellenőrző szervezet
-        other: Független ellenőrző szervezetek
-      Ministerial department:
-        one: Minisztériumi osztály
-        other: Minisztériumi osztályok
-      Non-ministerial department:
-        one: Nem minisztériumi osztály
-        other: Nem minisztériumi osztályok
-      Other:
-        one: Egyéb
-        other: Egyéb szervezetek
-      Public corporation:
-        one: "Állami szervezet"
-        other: "Állami szervezetek"
-      Sub-organisation:
-        one: Alszervezet
-        other: Alszervezetek
-      Tribunal non-departmental public body:
-        one: Nem minisztériumi bírósági szervezet
-        other: Nem minisztériumi bírósági szervezetek
   people:
     biography:
     heading:

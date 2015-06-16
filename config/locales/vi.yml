@@ -354,52 +354,6 @@ vi:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: Nhóm tham vấn đặc biệt
-        other: Các nhóm tham vấn đặc biệt
-      Advisory non-departmental public body:
-        one: Nhóm tham vấn không thuộc cơ chế công
-        other: Các nhóm tham vấn không thuộc cơ chế công
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Văn phòng chuyên trách
-        other: Các văn phòng chuyên trách
-      Executive non-departmental public body:
-        one: Phòng chuyên trách không thuộc cơ chế công
-        other: Các phòng chuyên trách không thuộc cơ chế công
-      Executive office:
-        one: Văn phòng chuyên trách
-        other: Các văn phòng chuyên trách
-      Independent monitoring body:
-        one: Cơ chế giám sát độc lập
-        other: Các cơ chế giám sát độc lập
-      Ministerial department:
-        one: Cơ quan thuộc bộ
-        other: Các cơ quan thuộc bộ
-      Non-ministerial department:
-        one: Cơ quan không thuộc bộ
-        other: Các cơ quan không thuộc bộ
-      Other:
-        one: Khác
-        other: Các tổ chức khác
-      Public corporation:
-        one: Hợp tác công
-        other: Hợp tác công
-      Sub-organisation:
-        one: Tổ chức phụ
-        other: Các tổ chức phụ
-      Tribunal non-departmental public body:
-        one: Cơ quan xét xử không thuộc cơ chế công
-        other: Các cơ quan xét xử không thuộc cơ chế công
   people:
     biography:
     heading:

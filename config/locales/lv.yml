@@ -167,91 +167,6 @@ lv:
       written_on: 'Sarakstīts:'
     updated: atjaunināts
     view: Skatīt '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Konsultatīvā ad hoc kolēģija
-        other: Konsultatīvās ad hoc kolēģijas
-      Advisory non-departmental public body:
-        one: Konsultatīva kvazi autonoma sabiedriska organizācija
-        other: Konsultatīvas kvazi autonomas sabiedriskas organizācijas
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Izpildaģentūra
-        other: Izpildaģentūras
-      Executive non-departmental public body:
-        one: Kvazi autonoma nevalstiska izpildorganizācija
-        other: Kvazi autonomas nevalstiskas izpildorganizācijas
-      Executive office:
-        one: Izpildiestāde
-        other: Izpildiestādes
-      Independent monitoring body:
-        one: Neatkarīga uzraudzības iestāde
-        other: Neatkarīgas uzraudzības iestādes
-      Ministerial department:
-        one: Valdības departaments
-        other: Valdības departamenti
-      Non-ministerial department:
-        one: "Ārpus ministra uzraudzības esoša iestāde"
-        other: "Ārpus ministra uzraudzības esošas iestādes"
-      Other:
-        one: Cits
-        other: Citi
-      Public corporation:
-        one: Valsts komercsabiedrība
-        other: Valsts komercsabiedrības
-      Sub-organisation:
-        one: Padotības iestāde
-        other: Padotības iestādes
-      Tribunal non-departmental public body:
-        one: Ar tiesu saistīta kvazi autonoma nevalstiskā organizācija
-        other: Ar tiesu saistītas kvazi autonomas nevalstiskās organizācijas
-    about:
-      read_more: Uzzināt vairāk
-    corporate_information:
-      access_our_info: Piekļūt informācijai
-      foi_how_to: Kā iesniegt informācijas pieprasījumu (FOI)
-      foi_releases: Informācijas atklātības (FOI) paziņojumi
-      jobs_and_contacts: Darbs un līgumi
-      organisation_chart:
-      transparency: Atklātība
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: Mūsu atbildīgie speciālisti
-      contact: Sazināties %{name}
-      corporate_information: Korporatīva informācija
-      corporate_reports: Korporatīvi ziņojumi
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Mūsu paziņojumi
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Mūsu vadība
-      our_ministers: Mūsu ministri
-      our_policies: Mūsu darbības jomas
-      our_publications: Mūsu publikācijas
-      our_senior_military_officials: Augstākās militārās amatpersonas
-      our_services: Mūsu pakalpojumi
-      our_statistics: Statistika
-      our_topics: Mēs strādājam ar šiem jautājumiem
-      special_representatives: "Īpašie pārstāvji"
-      traffic_commissioners: Satiksmes komisāri
-      what_we_do: Par mums
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -438,6 +353,45 @@ lv:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Uzzināt vairāk
+    corporate_information:
+      access_our_info: Piekļūt informācijai
+      foi_how_to: Kā iesniegt informācijas pieprasījumu (FOI)
+      foi_releases: Informācijas atklātības (FOI) paziņojumi
+      jobs_and_contacts: Darbs un līgumi
+      organisation_chart:
+      transparency: Atklātība
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: Mūsu atbildīgie speciālisti
+      contact: Sazināties %{name}
+      corporate_information: Korporatīva informācija
+      corporate_reports: Korporatīvi ziņojumi
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Mūsu paziņojumi
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Mūsu vadība
+      our_ministers: Mūsu ministri
+      our_policies: Mūsu darbības jomas
+      our_publications: Mūsu publikācijas
+      our_senior_military_officials: Augstākās militārās amatpersonas
+      our_services: Mūsu pakalpojumi
+      our_statistics: Statistika
+      our_topics: Mēs strādājam ar šiem jautājumiem
+      special_representatives: "Īpašie pārstāvji"
+      traffic_commissioners: Satiksmes komisāri
+      what_we_do: Par mums
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Politika
     view_all:

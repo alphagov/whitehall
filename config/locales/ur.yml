@@ -167,91 +167,6 @@ ur:
       written_on: "تحریر کی  تاریخ:"
     updated: "تجدید شدہ"
     view: "'%{title}' دیکھئیے"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "عارضی مشاورتی گروپ"
-        other: "عارضی مشاورتی گروپس"
-      Advisory non-departmental public body:
-        one: "مشاورتی غیر شعبہ جاتی عوامی ادارہ"
-        other: "مشاورتی غیر شعبہ جاتی عوامی ادارے"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "انتظامی ایجنسی"
-        other: "انتظامی ایجنسیاں"
-      Executive non-departmental public body:
-        one: "انتظامی غیر شعبہ جاتی عوامی ادارہ"
-        other: "انتظامی غیر شعبہ جاتی عوامی ادارے"
-      Executive office:
-        one: "انتظامی دفتر"
-        other: "انتظامی دفاتر"
-      Independent monitoring body:
-        one: "غیر جانبدار نگراں ادارہ"
-        other: "غیر جانبدار نگراں ادارے"
-      Ministerial department:
-        one: "وزارتی محکمہ"
-        other: "وزارتی محکمہ جات"
-      Non-ministerial department:
-        one: "غیروزارتی محکمہ"
-        other: "غیروزارتی محکمہ جات"
-      Other:
-        one: "دیگر"
-        other: "دیگر"
-      Public corporation:
-        one: "عوامی کارپوریشن"
-        other: "عوامی کارپوریشنز"
-      Sub-organisation:
-        one: "ذیلی تنظیم"
-        other: "ذیلی تنظیمیں"
-      Tribunal non-departmental public body:
-        one: "ٹریبونل غیرشعبہ جاتی عوامی ادارہ"
-        other: "ٹریبونل غیرشعبہ جاتی عوامی ادارے"
-    about:
-      read_more: "ہمارے کام کے بارے میں مزید پڑھئیے"
-    corporate_information:
-      access_our_info: "ہماری معلومات تک رسائی حاصل کیجئیے"
-      foi_how_to: "آزادئی معلومات کی درخواست کیسے کی جائے"
-      foi_releases: "آزادئی معلومات کی اشاعتیں"
-      jobs_and_contacts: "ملازمتیں اورکنٹریکٹس"
-      organisation_chart:
-      transparency: "ٹرانسپیرنسی ڈیٹا"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "ہمارے چیف پروفیشنل افسران"
-      contact: "رابطہ %{name}"
-      corporate_information: "کارپوریٹ معلومات"
-      corporate_reports: "کارپوریٹ رپورٹس"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "ہمارے اعلانات"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "ہماری انتظامیہ"
-      our_ministers: "ہمارے وزرا"
-      our_policies: "ہماری پالیسیاں"
-      our_publications: "ہماری اشاعتیں"
-      our_senior_military_officials: "ہمارے سینئیر فوجی اہلکار"
-      our_services: "ہماری خدمات"
-      our_statistics: "ہمارے اعدادو شمار"
-      our_topics: "ہم ان موضوعات پر کام کرتے ہیں"
-      special_representatives: "خصوصی نمائندے"
-      traffic_commissioners: "ٹریفک کمشنرز"
-      what_we_do: "ہمارے فرائض"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -440,6 +355,45 @@ ur:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "ہمارے کام کے بارے میں مزید پڑھئیے"
+    corporate_information:
+      access_our_info: "ہماری معلومات تک رسائی حاصل کیجئیے"
+      foi_how_to: "آزادئی معلومات کی درخواست کیسے کی جائے"
+      foi_releases: "آزادئی معلومات کی اشاعتیں"
+      jobs_and_contacts: "ملازمتیں اورکنٹریکٹس"
+      organisation_chart:
+      transparency: "ٹرانسپیرنسی ڈیٹا"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "ہمارے چیف پروفیشنل افسران"
+      contact: "رابطہ %{name}"
+      corporate_information: "کارپوریٹ معلومات"
+      corporate_reports: "کارپوریٹ رپورٹس"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "ہمارے اعلانات"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "ہماری انتظامیہ"
+      our_ministers: "ہمارے وزرا"
+      our_policies: "ہماری پالیسیاں"
+      our_publications: "ہماری اشاعتیں"
+      our_senior_military_officials: "ہمارے سینئیر فوجی اہلکار"
+      our_services: "ہماری خدمات"
+      our_statistics: "ہمارے اعدادو شمار"
+      our_topics: "ہم ان موضوعات پر کام کرتے ہیں"
+      special_representatives: "خصوصی نمائندے"
+      traffic_commissioners: "ٹریفک کمشنرز"
+      what_we_do: "ہمارے فرائض"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "پالیسیاں"
     view_all:

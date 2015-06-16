@@ -353,52 +353,6 @@ tr:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: Olağanüstü Danışma Grubu
-        other: Olağanüstü Danışma Grupları
-      Advisory non-departmental public body:
-        one: Bakanlık dışı bağımsız kamu danışma kurumu
-        other: Bakanlık dışı bağımsız kamu danışma kurumları
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Yürütme organı
-        other: Yürütme organları
-      Executive non-departmental public body:
-        one: Bakanlık dışı bağımsız kamu yönetim kurumu
-        other: Bakanlık dışı bağımsız kamu yönetim kurumları
-      Executive office:
-        one: Yönetim Ofisi
-        other: Yönetim Ofisleri
-      Independent monitoring body:
-        one: Bağımsız izleme organı
-        other: Bağımsız izleme organları
-      Ministerial department:
-        one: Bakanlık birimi
-        other: Bakanlık birimleri
-      Non-ministerial department:
-        one: Bağımsız kurum
-        other: Bağımsız kurumlar
-      Other:
-        one: Diğer
-        other: Diğerleri
-      Public corporation:
-        one: Kamu kuruluşu
-        other: Kamu kuruluşları
-      Sub-organisation:
-        one: Alt kuruluş
-        other: Alt kuruluşlar
-      Tribunal non-departmental public body:
-        one: Bakanlık dışı adli kamu kurumu
-        other: Bakanlık dışı adli kamu kurumları
   people:
     biography:
     heading:

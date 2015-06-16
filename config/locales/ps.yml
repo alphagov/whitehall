@@ -167,93 +167,6 @@ ps:
       written_on: "لیکلی دی په"
     updated: "تازه شوي"
     view: "لید '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "اړ مشورتی ګروپ"
-        other: "اړ مشورتی ګروپونه"
-      Advisory non-departmental public body:
-        one: "غیر تشکیلاتی عامه اداره"
-        other: "غیر تشکیلاتی عامه ادارې"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "اجرائیوی اداره"
-        other: "اجرائیوی ادارې"
-      Executive non-departmental public body:
-        one: "غیر تشکیلاتی عامه اجرائیوی اداره"
-        other: |-
-          غیر تشکیلاتی عامه
-          اجرائیوی اداری
-      Executive office:
-        one: "اجرائیوی دفتر"
-        other: "اجرائیوی دفترونه"
-      Independent monitoring body:
-        one: "خپلواک څارونکی اداره"
-        other: "خپلواک څارونکی ادارې"
-      Ministerial department:
-        one: "وزارتی څانګه"
-        other: "وزارتی څانګی"
-      Non-ministerial department:
-        one: "غیروزارتی څانګه"
-        other: "غیر وزارتی څانګی"
-      Other:
-        one: "نور"
-        other: "نور"
-      Public corporation:
-        one: "عامه اتحادیه"
-        other: "عامه اتحادیی"
-      Sub-organisation:
-        one: "فرعی دفتر"
-        other: "فرعی دفترونه"
-      Tribunal non-departmental public body:
-        one: "غیر تشکیلاتی ټول ګته اداره"
-        other: "غیر تشکیلاتی ټول ګتې ادارې"
-    about:
-      read_more: "زمونږ د فعالیتونو په اړه نور معلومات ووایاست"
-    corporate_information:
-      access_our_info: "زمونږمعلوماتو ته لاس رسی پیدا کړی"
-      foi_how_to: "څنګه کولای شی چی د بیان د آزادی درخواست جوړ کړی"
-      foi_releases: "د بیان د آزادی خپرونی"
-      jobs_and_contacts: "دندی او تړونونه"
-      organisation_chart:
-      transparency: "د شفافیت معلومات"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "زمونږه لوړپوړي مسلکی مدیران"
-      contact: "تماس  %{name}"
-      corporate_information: "متحد معلومات"
-      corporate_reports: "متحد راپورونه"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "زمونږه اعلانات"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "زمونږه اداره"
-      our_ministers: "زموږه وزیران"
-      our_policies: "زموږه پالیسی ګانی"
-      our_publications: "زموږه نشریات"
-      our_senior_military_officials: "زموږه لوړپوړي نظامی اراکین"
-      our_services: "زموږه خدمتونه"
-      our_statistics: "زموږه احصائی"
-      our_topics: "موږ په دغه موضوعاتو کار کوو"
-      special_representatives: "خصوصی نمایندګان"
-      traffic_commissioners: "د ترافیکو کمشنران"
-      what_we_do: "موږڅه کوو"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -441,6 +354,45 @@ ps:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "زمونږ د فعالیتونو په اړه نور معلومات ووایاست"
+    corporate_information:
+      access_our_info: "زمونږمعلوماتو ته لاس رسی پیدا کړی"
+      foi_how_to: "څنګه کولای شی چی د بیان د آزادی درخواست جوړ کړی"
+      foi_releases: "د بیان د آزادی خپرونی"
+      jobs_and_contacts: "دندی او تړونونه"
+      organisation_chart:
+      transparency: "د شفافیت معلومات"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "زمونږه لوړپوړي مسلکی مدیران"
+      contact: "تماس  %{name}"
+      corporate_information: "متحد معلومات"
+      corporate_reports: "متحد راپورونه"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "زمونږه اعلانات"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "زمونږه اداره"
+      our_ministers: "زموږه وزیران"
+      our_policies: "زموږه پالیسی ګانی"
+      our_publications: "زموږه نشریات"
+      our_senior_military_officials: "زموږه لوړپوړي نظامی اراکین"
+      our_services: "زموږه خدمتونه"
+      our_statistics: "زموږه احصائی"
+      our_topics: "موږ په دغه موضوعاتو کار کوو"
+      special_representatives: "خصوصی نمایندګان"
+      traffic_commissioners: "د ترافیکو کمشنران"
+      what_we_do: "موږڅه کوو"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "پالیسی ګانی"
     view_all:

@@ -261,121 +261,6 @@ sr:
       written_on: 'Napisano na:'
     updated: ažurirano
     view: Pogledajte '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: ad hoc savetodavna grupa
-        few:
-        many:
-        other: ad hoc savetodavne grupe
-      Advisory non-departmental public body:
-        one: savetodavno nevladino javno telo
-        few:
-        many:
-        other: savetodavna nevladina javna tela
-      Civil Service:
-        one:
-        few:
-        many:
-        other:
-      Court:
-        one:
-        few:
-        many:
-        other:
-      Devolved administration:
-        one:
-        few:
-        many:
-        other:
-      Executive agency:
-        one: izvršna agencija
-        few:
-        many:
-        other: izvršne agencije
-      Executive non-departmental public body:
-        one: izvršno nevladino javno telo
-        few:
-        many:
-        other: izvršna nevladina javna tela
-      Executive office:
-        one: Kabinet
-        few:
-        many:
-        other: Kabineti
-      Independent monitoring body:
-        one: nezavisno nadzorno telo
-        few:
-        many:
-        other: nezavisna nadzorna tela
-      Ministerial department:
-        one: ministarstvo
-        few:
-        many:
-        other: ministarstva
-      Non-ministerial department:
-        one:
-        few:
-        many:
-        other:
-      Other:
-        one: Drugo
-        few:
-        many:
-        other: Drugi
-      Public corporation:
-        one: javno preduzeće
-        few:
-        many:
-        other: javna preduzeća
-      Sub-organisation:
-        one: pod-organizacija
-        few:
-        many:
-        other: pod-organizacije
-      Tribunal non-departmental public body:
-        one:
-        few:
-        many:
-        other:
-    about:
-      read_more: Pročitajte više o našem radu
-    corporate_information:
-      access_our_info: Pritupite našim informacijama
-      foi_how_to: Kako podneti zahtev za pristup informacijama od javnog značaja?
-      foi_releases: Odgovori na zahteve za pristup informacijama od javnog značaja
-      jobs_and_contacts: Poslovi i ugovori
-      organisation_chart:
-      transparency: podaci o transparentnosti
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: Naši nadležni službenici
-      contact: Kontaktirajte %{name}
-      corporate_information: Informacije o organizaciji
-      corporate_reports: Izveštaji
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Naše objave
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Naše rukovodstvo
-      our_ministers: Naši ministri
-      our_policies: Naše politike
-      our_publications: Naše publikacije
-      our_senior_military_officials: Naši visoki vojni zvaničnici
-      our_services: Naše usluge
-      our_statistics: Naša statistika
-      our_topics: Radimo na ovim temama
-      special_representatives: specijalni predstavnici
-      traffic_commissioners: poverenik za saobraćaj
-      what_we_do: Radimo na
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -572,6 +457,45 @@ sr:
     human:
       storage_units:
         format:
+  organisation:
+    about:
+      read_more: Pročitajte više o našem radu
+    corporate_information:
+      access_our_info: Pritupite našim informacijama
+      foi_how_to: Kako podneti zahtev za pristup informacijama od javnog značaja?
+      foi_releases: Odgovori na zahteve za pristup informacijama od javnog značaja
+      jobs_and_contacts: Poslovi i ugovori
+      organisation_chart:
+      transparency: podaci o transparentnosti
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: Naši nadležni službenici
+      contact: Kontaktirajte %{name}
+      corporate_information: Informacije o organizaciji
+      corporate_reports: Izveštaji
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Naše objave
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Naše rukovodstvo
+      our_ministers: Naši ministri
+      our_policies: Naše politike
+      our_publications: Naše publikacije
+      our_senior_military_officials: Naši visoki vojni zvaničnici
+      our_services: Naše usluge
+      our_statistics: Naša statistika
+      our_topics: Radimo na ovim temama
+      special_representatives: specijalni predstavnici
+      traffic_commissioners: poverenik za saobraćaj
+      what_we_do: Radimo na
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Politike
     view_all:

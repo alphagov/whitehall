@@ -167,91 +167,6 @@ so:
       written_on: 'Waxaa la qorey:'
     updated: Wax lagu kordhiyey
     view: Eeg '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: Koox la-talineed degdeg loo dhiso
-        other: Kooxo la-talineed oo degdeg loo dhis
-      Advisory non-departmental public body:
-        one: Hay'ad la-talin dowladeed oo aan waax gaar ahayn
-        other: Hay'ado la-talin dowladeed oo aan waax gaar ahayn
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: Hay'ad fulineed
-        other: Hay'ado fulineed
-      Executive non-departmental public body:
-        one: Hay'ad fulineed dowladeed oo aan waax gaar ahayn
-        other: Hay'ado fulineed dowladeed oo aan waax gaar ahayn
-      Executive office:
-        one: Xafiis fulineed
-        other: Xafiisyo fulineed
-      Independent monitoring body:
-        one: Hay'ad kormeer oo madax bannaan
-        other: Hay'ado kormeer oo madax bannaan
-      Ministerial department:
-        one: Waax wasaaradeed
-        other: Waaxo wasaaradeed
-      Non-ministerial department:
-        one: Waax aan wasaarad ka tirsaneyn
-        other: Waaxo aan wasaarad ka tirsaneyn
-      Other:
-        one: Mid kale
-        other: Kuwo kale
-      Public corporation:
-        one: Sharikad dowladeed
-        other: Sharikado dowladeed
-      Sub-organisation:
-        one: Urur-hoosaad
-        other: Ururro-hoosaadyo
-      Tribunal non-departmental public body:
-        one: Hay'ad gaar ah oo garsoor oo aan waax ka tirsaneyn
-        other: Hay'ado gaar ah oo garsoor oo aan waax ka tirsaneyn
-    about:
-      read_more: Sii akhri qoraal ku saabsan waxa aan qabanno
-    corporate_information:
-      access_our_info: Halkaan ka gal macluumaadkeenna
-      foi_how_to: Sida loo sameeyo codsiga FOI
-      foi_releases: FOI la sii daayey
-      jobs_and_contacts: Shaqaayin iyo qandaraasyo
-      organisation_chart:
-      transparency: Xog daahfurnaan
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: Saraakiisheena xirfadlayaasha ah ee ugu waaweyn
-      contact: La soo xiriir %{name}
-      corporate_information: Macluumaad ku saabsan hay'ad
-      corporate_reports: Warbixinno ku saabsan hay'ad
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: Ogeysiisyadeenna
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: Maareeyeyaasheenna
-      our_ministers: Wasiirradeenna
-      our_policies: Siyaasadaheenna
-      our_publications: Daabacaadaheenna
-      our_senior_military_officials: Saraakiisha sarsare ee mileteri
-      our_services: Adeegyadeenna
-      our_statistics: Istaatistikadeenna
-      our_topics: Waxaan ka shaqeynaa mawduucyadan
-      special_representatives: Wakiil gaar ah
-      traffic_commissioners: Madaxa Taraafikada
-      what_we_do: Waxa aan qabanno
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -441,6 +356,45 @@ so:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Sii akhri qoraal ku saabsan waxa aan qabanno
+    corporate_information:
+      access_our_info: Halkaan ka gal macluumaadkeenna
+      foi_how_to: Sida loo sameeyo codsiga FOI
+      foi_releases: FOI la sii daayey
+      jobs_and_contacts: Shaqaayin iyo qandaraasyo
+      organisation_chart:
+      transparency: Xog daahfurnaan
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: Saraakiisheena xirfadlayaasha ah ee ugu waaweyn
+      contact: La soo xiriir %{name}
+      corporate_information: Macluumaad ku saabsan hay'ad
+      corporate_reports: Warbixinno ku saabsan hay'ad
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: Ogeysiisyadeenna
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: Maareeyeyaasheenna
+      our_ministers: Wasiirradeenna
+      our_policies: Siyaasadaheenna
+      our_publications: Daabacaadaheenna
+      our_senior_military_officials: Saraakiisha sarsare ee mileteri
+      our_services: Adeegyadeenna
+      our_statistics: Istaatistikadeenna
+      our_topics: Waxaan ka shaqeynaa mawduucyadan
+      special_representatives: Wakiil gaar ah
+      traffic_commissioners: Madaxa Taraafikada
+      what_we_do: Waxa aan qabanno
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: Siyaasado
     view_all:

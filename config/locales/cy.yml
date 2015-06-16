@@ -355,153 +355,6 @@ cy:
       written_on:
     updated: diweddarwyd
     view: Gweld '%{title}'
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        zero:
-        one: Grŵp cynghori ad-hoc
-        two:
-        few:
-        many:
-        other: Grwpiau cynghori ad-hoc
-      Advisory non-departmental public body:
-        zero:
-        one: Corff cyhoeddus anadrannol sy'n cynghori
-        two:
-        few:
-        many:
-        other: Cyrff cyhoeddus anadrannol sy'n cynghori
-      Civil Service:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      Court:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      Devolved administration:
-        zero:
-        one: Gweinyddiaeth ddatganoledig
-        two:
-        few:
-        many:
-        other: Gweinyddiaethau datganoledig
-      Executive agency:
-        zero:
-        one: Asiantaeth weithredol
-        two:
-        few:
-        many:
-        other: Asiantaethau gweithredol
-      Executive non-departmental public body:
-        zero:
-        one: Corff cyhoeddus anadrannol gweithredol
-        two:
-        few:
-        many:
-        other: Cyrff cyhoeddus anadrannol gweithredol
-      Executive office:
-        zero:
-        one:
-        two:
-        few:
-        many:
-        other:
-      Independent monitoring body:
-        zero:
-        one: Corff monitro annibynnol
-        two:
-        few:
-        many:
-        other: Cyrff monitro annibynnol
-      Ministerial department:
-        zero:
-        one: Adran weinidogol
-        two:
-        few:
-        many:
-        other: Adrannau gweinidogol
-      Non-ministerial department:
-        zero:
-        one: Adran anweinidogol
-        two:
-        few:
-        many:
-        other: Adrannau anweinidogol
-      Other:
-        zero:
-        one: Arall
-        two:
-        few:
-        many:
-        other: Eraill
-      Public corporation:
-        zero:
-        one: Corfforaeth gyhoeddus
-        two:
-        few:
-        many:
-        other: Corfforaethau cyhoeddus
-      Sub-organisation:
-        zero:
-        one: Is-sefydliad
-        two:
-        few:
-        many:
-        other: Is-sefydliadau
-      Tribunal non-departmental public body:
-        zero:
-        one: Corff cyhoeddus anadrannol tribiwnlys
-        two:
-        few:
-        many:
-        other: Cyrff cyhoeddus anadrannol tribiwnlys
-    about:
-      read_more: Darllen mwy am yr hyn rydyn ni'n ei wneud
-    corporate_information:
-      access_our_info: Cael gweld ein gwybodaeth
-      foi_how_to: Sut mae gwneud cais Rhyddid Gwybodaeth
-      foi_releases: Datganiadau Rhyddid Gwybodaeth
-      jobs_and_contacts: Swyddi a chontractau
-      organisation_chart:
-      transparency: Data tryloywder
-    foi_exemption_html:
-    headings:
-      chief_professional_officers:
-      contact: Cyswllt %{name}
-      corporate_information: Gwybodaeth gorfforaethol
-      corporate_reports: Adroddiadau corfforaethol
-      documents: Dogfennau
-      freedom_of_information_act:
-      making_foi_requests: Gwneud cais DRhG
-      our_announcements: Ein cyhoeddiadau
-      our_consultations: Ein ymgynghoriadau
-      our_judges:
-      our_mainstream_categories:
-      our_management: Ein rheolaeth
-      our_ministers: Ein gweinidogion
-      our_policies: Ein polisïau
-      our_publications: Ein cyhoeddiadau
-      our_senior_military_officials: Ein huwch swyddogion milwrol
-      our_services: Ein gwasanaethau
-      our_statistics: Ein hystadegau
-      our_topics: Rydym ni'n gweithio ar y pynciau hyn
-      special_representatives: Cynrychiolwyr arbennig
-      traffic_commissioners: Comisiynwyr traffig
-      what_we_do: Yr hyn rydym ni'n ei wneud
-      who_we_are:
-    making_foi_requests:
-      step1_html: Darllenwch am y Ddeddf Rhyddid Gwybodaeth (DRhG) a <a href="%{how_to_path}">sut
-        i wneud cais</a>
-      step2_html: Ymchwiliwch <a href="%{our_releases_path}">ein datganiadau blaenorol</a>
-        i weld os ydym eisioes wedi ateb eich cwestiwn
-      step3_html: 'Gwnewch cais newydd drwy gysylltu a ni ar:'
   people:
     heading:
       zero:
@@ -708,6 +561,47 @@ cy:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: Darllen mwy am yr hyn rydyn ni'n ei wneud
+    corporate_information:
+      access_our_info: Cael gweld ein gwybodaeth
+      foi_how_to: Sut mae gwneud cais Rhyddid Gwybodaeth
+      foi_releases: Datganiadau Rhyddid Gwybodaeth
+      jobs_and_contacts: Swyddi a chontractau
+      organisation_chart:
+      transparency: Data tryloywder
+    foi_exemption_html:
+    headings:
+      chief_professional_officers:
+      contact: Cyswllt %{name}
+      corporate_information: Gwybodaeth gorfforaethol
+      corporate_reports: Adroddiadau corfforaethol
+      documents: Dogfennau
+      freedom_of_information_act:
+      making_foi_requests: Gwneud cais DRhG
+      our_announcements: Ein cyhoeddiadau
+      our_consultations: Ein ymgynghoriadau
+      our_judges:
+      our_mainstream_categories:
+      our_management: Ein rheolaeth
+      our_ministers: Ein gweinidogion
+      our_policies: Ein polisïau
+      our_publications: Ein cyhoeddiadau
+      our_senior_military_officials: Ein huwch swyddogion milwrol
+      our_services: Ein gwasanaethau
+      our_statistics: Ein hystadegau
+      our_topics: Rydym ni'n gweithio ar y pynciau hyn
+      special_representatives: Cynrychiolwyr arbennig
+      traffic_commissioners: Comisiynwyr traffig
+      what_we_do: Yr hyn rydym ni'n ei wneud
+      who_we_are:
+    making_foi_requests:
+      step1_html: Darllenwch am y Ddeddf Rhyddid Gwybodaeth (DRhG) a <a href="%{how_to_path}">sut
+        i wneud cais</a>
+      step2_html: Ymchwiliwch <a href="%{our_releases_path}">ein datganiadau blaenorol</a>
+        i weld os ydym eisioes wedi ateb eich cwestiwn
+      step3_html: 'Gwnewch cais newydd drwy gysylltu a ni ar:'
   policies:
     heading: Polisïau
     view_all: Gwelir holl polisiau

@@ -167,91 +167,6 @@ sw:
       written_on:
     updated:
     view:
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one:
-        other:
-      Advisory non-departmental public body:
-        one:
-        other:
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one:
-        other:
-      Executive non-departmental public body:
-        one:
-        other:
-      Executive office:
-        one:
-        other:
-      Independent monitoring body:
-        one:
-        other:
-      Ministerial department:
-        one:
-        other:
-      Non-ministerial department:
-        one:
-        other:
-      Other:
-        one:
-        other:
-      Public corporation:
-        one:
-        other:
-      Sub-organisation:
-        one:
-        other:
-      Tribunal non-departmental public body:
-        one:
-        other:
-    about:
-      read_more:
-    corporate_information:
-      access_our_info:
-      foi_how_to:
-      foi_releases:
-      jobs_and_contacts:
-      organisation_chart:
-      transparency:
-    foi_exemption_html:
-    headings:
-      chief_professional_officers:
-      contact:
-      corporate_information:
-      corporate_reports:
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements:
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management:
-      our_ministers:
-      our_policies:
-      our_publications:
-      our_senior_military_officials:
-      our_services:
-      our_statistics:
-      our_topics:
-      special_representatives:
-      traffic_commissioners:
-      what_we_do:
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -436,6 +351,45 @@ sw:
     human:
       storage_units:
         format:
+  organisation:
+    about:
+      read_more:
+    corporate_information:
+      access_our_info:
+      foi_how_to:
+      foi_releases:
+      jobs_and_contacts:
+      organisation_chart:
+      transparency:
+    foi_exemption_html:
+    headings:
+      chief_professional_officers:
+      contact:
+      corporate_information:
+      corporate_reports:
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements:
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management:
+      our_ministers:
+      our_policies:
+      our_publications:
+      our_senior_military_officials:
+      our_services:
+      our_statistics:
+      our_topics:
+      special_representatives:
+      traffic_commissioners:
+      what_we_do:
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading:
     view_all:

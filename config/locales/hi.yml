@@ -167,91 +167,6 @@ hi:
       written_on: "लिखा गया"
     updated: "अद्यतन"
     view: "देखें '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "तदर्थ सलाहकार समूह"
-        other: "तदर्थ सलाहकार समूह"
-      Advisory non-departmental public body:
-        one: "परामर्शी गैर-विभागीय सार्वजनिक निकाय"
-        other: "परामर्शी गैर-विभागीय सार्वजनिक निकाय"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "कार्यकारी एजेंसी"
-        other: "कार्यकारी एजेंसियां"
-      Executive non-departmental public body:
-        one: "कार्यकारी गैर-विभागीय सार्वजनिक निकाय"
-        other: "कार्यकारी गैर-विभागीय सार्वजनिक निकाय"
-      Executive office:
-        one: "अधिशासी कार्यालय"
-        other: "अधिशासी कार्यालय"
-      Independent monitoring body:
-        one: "स्वतंत्र पर्यवेक्षण निकाय"
-        other: "स्वतंत्र पर्यवेक्षण निकाय"
-      Ministerial department:
-        one: "मंत्रालय विभाग"
-        other: "मंत्रालय विभाग"
-      Non-ministerial department:
-        one: "गैर-मंत्रालय विभाग"
-        other: "गैर-मंत्रालय विभाग"
-      Other:
-        one: "अन्य"
-        other: "अन्य"
-      Public corporation:
-        one: "सार्वजनिक निगम"
-        other: "सार्वजनिक निगम"
-      Sub-organisation:
-        one: "उप-संगठन"
-        other: "उप-संगठन"
-      Tribunal non-departmental public body:
-        one: "न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय"
-        other: "न्यायाधिकरण गैर-विभागीय सार्वजनिक निकाय"
-    about:
-      read_more: "पढ़ें हम और क्या करते हैं"
-    corporate_information:
-      access_our_info: "हमारी  सूचना तक पहुंचें"
-      foi_how_to: "एफओआई निवेदन कैसे करें"
-      foi_releases: "एफओआई की विज्ञप्तियां"
-      jobs_and_contacts: "नौकरी एवं अनुबंध"
-      organisation_chart:
-      transparency: "पारदर्शिता आंकड़े"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "हमारे मुख्य पेशेवर अधिकारी"
-      contact: "संपर्क %{name}"
-      corporate_information: "निकाय सूचना"
-      corporate_reports: "कम्पनी रपट"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "हमारी घोषणाएं"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "हमारा प्रबंधन"
-      our_ministers: "हमारे मंत्री"
-      our_policies: "हमारी नीतियां"
-      our_publications: "हमारे प्रकाशन"
-      our_senior_military_officials: "हमारे वरिष्ठ सैन्य अधिकारी"
-      our_services: "हमारी सेवाएं"
-      our_statistics: "हमारे आंकड़े"
-      our_topics: "हम इन विषयों पर काम करतें हैं"
-      special_representatives: "विशेष प्रतिनिधि"
-      traffic_commissioners: "यातायात आयुक्त"
-      what_we_do: "हम क्या करते हैं"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -440,6 +355,45 @@ hi:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "पढ़ें हम और क्या करते हैं"
+    corporate_information:
+      access_our_info: "हमारी  सूचना तक पहुंचें"
+      foi_how_to: "एफओआई निवेदन कैसे करें"
+      foi_releases: "एफओआई की विज्ञप्तियां"
+      jobs_and_contacts: "नौकरी एवं अनुबंध"
+      organisation_chart:
+      transparency: "पारदर्शिता आंकड़े"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "हमारे मुख्य पेशेवर अधिकारी"
+      contact: "संपर्क %{name}"
+      corporate_information: "निकाय सूचना"
+      corporate_reports: "कम्पनी रपट"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "हमारी घोषणाएं"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "हमारा प्रबंधन"
+      our_ministers: "हमारे मंत्री"
+      our_policies: "हमारी नीतियां"
+      our_publications: "हमारे प्रकाशन"
+      our_senior_military_officials: "हमारे वरिष्ठ सैन्य अधिकारी"
+      our_services: "हमारी सेवाएं"
+      our_statistics: "हमारे आंकड़े"
+      our_topics: "हम इन विषयों पर काम करतें हैं"
+      special_representatives: "विशेष प्रतिनिधि"
+      traffic_commissioners: "यातायात आयुक्त"
+      what_we_do: "हम क्या करते हैं"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "नीतियां"
     view_all:

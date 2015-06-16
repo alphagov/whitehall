@@ -351,52 +351,6 @@ zh-hk:
       step1_html:
       step2_html:
       step3_html:
-    type:
-      Ad-hoc advisory group:
-        one: "特別諮詢小組"
-        other: "其他特別諮詢小組"
-      Advisory non-departmental public body:
-        one: "非政府諮詢公共機構"
-        other: "其他非政府諮詢公共機構"
-      Civil Service:
-        one:
-        other:
-      Court:
-        one:
-        other:
-      Devolved administration:
-        one:
-        other:
-      Executive agency:
-        one: "執行機構"
-        other: "其他執行機構"
-      Executive non-departmental public body:
-        one: "非政府執行公共機構"
-        other: "其他非政府執行公共機構"
-      Executive office:
-        one: "執行辦公室"
-        other: "其他執行辦公室"
-      Independent monitoring body:
-        one: "獨立監察機構"
-        other: "其他獨立監察機構"
-      Ministerial department:
-        one: "部長級部門"
-        other: "其他部長級部門"
-      Non-ministerial department:
-        one: "非部長級部門"
-        other: "其他非部級部門"
-      Other:
-        one: "其他"
-        other: "其他"
-      Public corporation:
-        one: "公共團體"
-        other: "其他公共團體"
-      Sub-organisation:
-        one: "次級組織"
-        other: "其他次級組織"
-      Tribunal non-departmental public body:
-        one: "非政府特別法庭公共機構"
-        other: "其他非政府特別法庭公共機構"
   people:
     biography:
     heading:

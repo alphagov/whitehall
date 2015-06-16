@@ -261,121 +261,6 @@ be:
       written_on: "Напісана"
     updated: "Адноўлена"
     view: "Паглядзець '%{title}'"
-  organisation:
-    type:
-      Ad-hoc advisory group:
-        one: "Спецыяльная кансультатыўная група"
-        few:
-        many:
-        other: "Спецыяльныя кансультатыўныя групы"
-      Advisory non-departmental public body:
-        one: "Пазаведамасны кансультатыўны дзяржаўны орган "
-        few:
-        many:
-        other: "Пазаведамасныя кансультатыўныя дзяржаўныя органы "
-      Civil Service:
-        one:
-        few:
-        many:
-        other:
-      Court:
-        one:
-        few:
-        many:
-        other:
-      Devolved administration:
-        one:
-        few:
-        many:
-        other:
-      Executive agency:
-        one: "Выканаўчая ўстанова"
-        few:
-        many:
-        other: "Выканаўчыя ўстановы"
-      Executive non-departmental public body:
-        one: "Пазаведамасны выканаўчы дзяржаўны орган"
-        few:
-        many:
-        other: "Пазаведамасныя выканаўчыя дзяржаўныя органы"
-      Executive office:
-        one: "Выканаўчая ўстанова"
-        few:
-        many:
-        other: "Выканаўчыя ўстановы"
-      Independent monitoring body:
-        one: "Незалежны орган кантролю"
-        few:
-        many:
-        other: "Незалежныя органы кантролю"
-      Ministerial department:
-        one: "Міністэрскае ведамства"
-        few:
-        many:
-        other: "Міністэрскія ведамствы"
-      Non-ministerial department:
-        one: "Не міністэрскае ведамства"
-        few:
-        many:
-        other: "Не міністэрскія ведамствы"
-      Other:
-        one: "Іншае"
-        few:
-        many:
-        other: "Іншыя"
-      Public corporation:
-        one: "Дзяржаўная карпарацыя"
-        few:
-        many:
-        other: "Дзяржаўныя карпарацыі"
-      Sub-organisation:
-        one: "Падпарадкаваная арганізацыя"
-        few:
-        many:
-        other: "Падпарадкаваныя арганізацыі"
-      Tribunal non-departmental public body:
-        one: "Трыбунал пазаведамаснага дзяржаўнага органу"
-        few:
-        many:
-        other: "Трыбунал пазаведамасных дзяржаўных органаў"
-    about:
-      read_more: "Прачытайце больш пра нашу працу"
-    corporate_information:
-      access_our_info: "Доступ да нашай інфармацыі"
-      foi_how_to: "Як зрабіць замову ў межах Закона аб свабодзе інфармацыі"
-      foi_releases: "Рэлізы ў межах Закона аб свабодзе інфармацыі"
-      jobs_and_contacts: "Праца і кантакты"
-      organisation_chart:
-      transparency: "Адкрытыя дадзеныя"
-    foi_exemption_html:
-    headings:
-      chief_professional_officers: "Нашы галоўныя прафесійныя афіцэры"
-      contact: "Звязацца з %{name}"
-      corporate_information: "Карпаратыўная інфармацыя"
-      corporate_reports: "Карпаратыўныя справаздачы"
-      documents:
-      freedom_of_information_act:
-      making_foi_requests:
-      our_announcements: "Нашы абвесткі"
-      our_consultations:
-      our_judges:
-      our_mainstream_categories:
-      our_management: "Наша кіраўніцтва"
-      our_ministers: "Нашы міністры"
-      our_policies: "Наша палітыка"
-      our_publications: "Нашы публікацыі"
-      our_senior_military_officials: "Нашы вышэйшыя ваенныя службоўцы"
-      our_services: "Нашы паслугі"
-      our_statistics: "Наша статыстыка"
-      our_topics: "Мы працуем па гэтым тэмам"
-      special_representatives: "Спецыяльныя прадстаўнікі"
-      traffic_commissioners: "Транспартны суд"
-      what_we_do: "Што мы робім"
-      who_we_are:
-    making_foi_requests:
-      step1_html:
-      step2_html:
-      step3_html:
   people:
     heading:
       one:
@@ -572,6 +457,45 @@ be:
     human:
       storage_units:
         format: "%n%u"
+  organisation:
+    about:
+      read_more: "Прачытайце больш пра нашу працу"
+    corporate_information:
+      access_our_info: "Доступ да нашай інфармацыі"
+      foi_how_to: "Як зрабіць замову ў межах Закона аб свабодзе інфармацыі"
+      foi_releases: "Рэлізы ў межах Закона аб свабодзе інфармацыі"
+      jobs_and_contacts: "Праца і кантакты"
+      organisation_chart:
+      transparency: "Адкрытыя дадзеныя"
+    foi_exemption_html:
+    headings:
+      chief_professional_officers: "Нашы галоўныя прафесійныя афіцэры"
+      contact: "Звязацца з %{name}"
+      corporate_information: "Карпаратыўная інфармацыя"
+      corporate_reports: "Карпаратыўныя справаздачы"
+      documents:
+      freedom_of_information_act:
+      making_foi_requests:
+      our_announcements: "Нашы абвесткі"
+      our_consultations:
+      our_judges:
+      our_mainstream_categories:
+      our_management: "Наша кіраўніцтва"
+      our_ministers: "Нашы міністры"
+      our_policies: "Наша палітыка"
+      our_publications: "Нашы публікацыі"
+      our_senior_military_officials: "Нашы вышэйшыя ваенныя службоўцы"
+      our_services: "Нашы паслугі"
+      our_statistics: "Наша статыстыка"
+      our_topics: "Мы працуем па гэтым тэмам"
+      special_representatives: "Спецыяльныя прадстаўнікі"
+      traffic_commissioners: "Транспартны суд"
+      what_we_do: "Што мы робім"
+      who_we_are:
+    making_foi_requests:
+      step1_html:
+      step2_html:
+      step3_html:
   policies:
     heading: "Напрамкі дзейнасці"
     view_all:
