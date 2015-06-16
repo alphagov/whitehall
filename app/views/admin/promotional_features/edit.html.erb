@@ -5,7 +5,7 @@
   <%= form.errors %>
 
   <fieldset>
-    <%= form.text_field :title, horizontal: true, label_text: 'Feature title' %>
+    <%= form.text_field :title, label_text: 'Feature title' %>
   </fieldset>
 
   <%= form.save_or_cancel(cancel: [:admin, @promotional_feature.organisation, PromotionalFeature]) %>

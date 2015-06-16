@@ -2,7 +2,7 @@
       url:  promotional_feature_item.persisted? ?
             admin_organisation_promotional_feature_item_path(organisation, promotional_feature, promotional_feature_item) :
             admin_organisation_promotional_feature_items_path(organisation, promotional_feature),
-      html: {class: "form-horizontal promotional_feature_item"}  do |form| %>
+      html: {class: "well promotional_feature_item"}  do |form| %>
   <%= form.errors %>
 
   <fieldset>
