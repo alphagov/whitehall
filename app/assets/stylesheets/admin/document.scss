@@ -70,17 +70,6 @@ p.prompt {
   margin: $gutter-one-third 0 $gutter;
 }
 
-// Tidy up spacing at top of document editing pages
-div.span8 > section {
-  & > h1:first-child {
-    margin-bottom: $gutter-half;
-  }
-
-  form > div:first-child + fieldset {
-    margin-top: 0;
-  }
-}
-
 div.paper-number {
   div.field_with_errors:first-child {
     float: none

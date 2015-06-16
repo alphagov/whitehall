@@ -1,7 +1,7 @@
 <% page_title "Bulk upload for: #{@edition.title}" %>
 
-<div class="span8">
-  <section>
+<div class="row">
+  <section class="col-md-8">
     <h1>Set titles for your attachments</h1>
     <%= form_for @bulk_upload, url: admin_edition_bulk_uploads_path(@edition) do |form| %>
       <%= form.errors %>

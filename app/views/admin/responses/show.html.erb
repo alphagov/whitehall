@@ -1,9 +1,9 @@
 <% page_title "#{@response.friendly_name.capitalize} for: #{@edition.title}" %>
 <% page_class "response" %>
 
-<div class="span8">
-  <section>
-      <h1><%= @response.friendly_name.capitalize %> for consultation</h1>
+<div class="row">
+  <section class="col-md-8">
+    <h1><%= @response.friendly_name.capitalize %> for consultation</h1>
 
     <%= consultation_editing_tabs(@edition) do %>
 
@@ -33,11 +33,10 @@
       <% end %>
     <% end %>
   </section>
+  <% unless @response.persisted? %>
+    <div class="col-md-4">
+      <%= render partial: "admin/editions/govspeak_help",
+      locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
+    </div>
+  <% end %>
 </div>
-
-<% unless @response.persisted? %>
-  <div class="span4">
-    <%= render partial: "admin/editions/govspeak_help", 
-    locals: { hide_inline_attachments_help: !@edition.allows_inline_attachments?, show_attachments_tab_help: true } %>
-  </div>
-<% end %>
