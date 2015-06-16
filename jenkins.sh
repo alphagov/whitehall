@@ -51,11 +51,12 @@ time bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
 
 # Lint changes introduced in this branch, but not for master
 if [[ ${GIT_BRANCH} != "origin/master" ]]; then
-  bundle exec rubocop \
-    --require ./lib/rubocop_diff \
+  bundle exec govuk-lint-ruby \
+    --diff \
+    --cached \
     --format html --out rubocop-${GIT_COMMIT}.html \
     --format clang \
-    app test lib -- --cached
+    app test lib
 fi
 
 RAILS_ENV=test bundle exec rake db:drop db:create db:schema:load
