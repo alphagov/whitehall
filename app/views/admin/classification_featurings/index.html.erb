@@ -14,40 +14,35 @@
       <fieldset class="sortable">
         <%= render @classification_featurings %>
       </fieldset>
-      <%= submit_tag "Save ordering", class: "btn" %>
+      <%= submit_tag "Save ordering", class: "btn btn-default" %>
     <% end %>
 
   <% elsif @classification_featurings.any? %>
     <%= render @classification_featurings %>
 
   <% else %>
-    <p>Nothing has been featured yet.</p>
-
+    <p class="no-content no-content-bordered">Nothing currently featured.</p>
   <% end %>
 
   <hr />
   <h2 class="feature-title add-bottom-margin">Feature new documents tagged with ‘<%= @classification.name %>’</h2>
 
-  <div class="row-fluid">
-    <div class="span3">
+  <div class="row">
+    <div class="col-md-3">
       <%= render partial: 'admin/editions/filter_options', locals: { filter_by: [:title, :type, :author, :organisation], filter_action: admin_topic_classification_featurings_url(@classification) } %>
     </div>
-    <div class="span9" id="search_results">
+    <div class="col-md-9" id="search_results">
       <%= render partial: 'admin/classification_featurings/featured_documents' %>
     </div>
   </div>
 
-  <div class="row-fluid">
-    <h2 class="feature-title">Feature new offsite link</h2>
-    <% if @featurable_offsite_links.any? %>
-      <div class="row-fluid">
-        <%= render partial: 'admin/classification_featurings/featurable_offsite_links', locals: { classification_featurings: @classification_featurings, featurable_offsite_links: @featurable_offsite_links } %>
-      </div>
-    <% else %>
-      <p>There are currently no offsite links.</p>
-    <% end %>
-    <%= link_to "Create an offsite link", polymorphic_path([:new, :admin, @classification, :offsite_link]), class: "btn" %>
-  </div>
+  <h2 class="feature-title">Feature new offsite link</h2>
+  <% if @featurable_offsite_links.any? %>
+    <%= render partial: 'admin/classification_featurings/featurable_offsite_links', locals: { classification_featurings: @classification_featurings, featurable_offsite_links: @featurable_offsite_links } %>
+  <% else %>
+    <p class="no-content no-content-bordered">There are currently no offsite links.</p>
+  <% end %>
+  <%= link_to "Create an offsite link", polymorphic_path([:new, :admin, @classification, :offsite_link]), class: "btn btn-default" %>
 <% end %>
 
 <%= render partial: "admin/classifications/tab_wrapper", locals: { model: @classification } %>
