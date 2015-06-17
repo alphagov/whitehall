@@ -71,34 +71,22 @@ module Whitehall
 
     def text_field(method, options = {})
       add_class_to_options(options, 'form-control')
-      horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
 
       @template.content_tag(:div, class: 'form-group') do
-        if horizontal
-          label_options[:class] = 'control-label col-sm-2'
-          horizontal_group(label(method, label_text, label_options), super(method, options), options)
-        else
-          label(method, label_text, label_options) + super(method, options)
-        end
+        label(method, label_text, label_options) + super(method, options)
       end
     end
 
     def text_area(method, *args)
       options = (args.last || {})
       add_class_to_options(options, 'form-control')
-      horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
 
       @template.content_tag(:div, class: 'form-group') do
-        if horizontal
-          label_options[:class] = 'control-label col-sm-2'
-          horizontal_group(label(method, label_text, label_options), super, options)
-        else
           label(method, label_text, label_options) + super
-        end
       end
     end
 
@@ -116,22 +104,15 @@ module Whitehall
     end
 
     def check_box(method, options = {}, *args)
-      horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text) || method.to_s.humanize
 
-      wrapper_class = "checkbox"
-      if horizontal
-        wrapper_class = "#{wrapper_class} col-sm-offset-2 col-sm-10"
-      end
-
-      @template.content_tag(:div, class: wrapper_class) do
+      @template.content_tag(:div, class: 'checkbox') do
         label(method, label_text, label_options) { super + label_text }
       end
     end
 
     def upload(method, options = {})
-      horizontal = options.delete(:horizontal)
       label_options = { required: options.delete(:required) }
       label_text = options.delete(:label_text)
       allow_removal = options.delete(:allow_removal) || false
@@ -147,12 +128,7 @@ module Whitehall
       end
 
       @template.content_tag(:div, class: 'form-group') do
-        if horizontal
-          label_options[:class] = "control-label"
-          horizontal_group(label(method, label_text, label_options), fields, options)
-        else
-          label(method, label_text, label_options) + fields
-        end
+        label(method, label_text, label_options) + fields
       end
     end
 
@@ -227,15 +203,6 @@ module Whitehall
         options.merge(dir: 'rtl')
       else
         options
-      end
-    end
-
-    def horizontal_group(label_tag, content_tag, options = {})
-      label_tag +
-      @template.content_tag(:div, class: "col-sm-10") do
-        content_tag +
-          (options[:help_block] ? @template.content_tag(:span, options[:help_block], class: "help-block") : "") +
-          (options[:help_inline] ? @template.content_tag(:span, options[:help_inline], class: "help-inline") : "")
       end
     end
 
