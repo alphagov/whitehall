@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rake', '10.1.0'
-gem 'rails', '4.2.1'
-gem 'rack', '~> 1.6.1'  # Bug in Rack 1.6.0 prevents large forms being uploaded in Multipart mode
+gem 'rails', '4.2.2'
+gem 'rack', '~> 1.6.2'
 gem 'statsd-ruby', '~> 1.2.1', require: 'statsd'
 gem 'mysql2'
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 3.1.3'
 gem 'jquery-ui-rails'
 gem 'transitions', require: ['transitions', 'active_record/transitions']
 gem 'carrierwave', '0.9.0'
