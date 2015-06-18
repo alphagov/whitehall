@@ -12,7 +12,7 @@
       <li><%= main_navigation_link_to "Announcements", announcements_path %></li>
     </ul>
   </nav>
-  <main id="content" role="main" class="whitehall-content">
+  <main id="content" role="main" class="whitehall-content" lang="<%= I18n.locale %>">
     <div id="page" class="<%= content_for?(:page_class) ? yield(:page_class) : '' %>" >
       <%= yield %>
       <%= render_mustache_templates if Rails.env.development? %>
