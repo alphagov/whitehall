@@ -72,6 +72,20 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
     assert_correct_replacement_url(edition)
   end
 
+  test "replaces links when supporting pages have been superseded" do
+    edition = create(:publication, body: %{
+      [sp link](/government/admin/editions/#{@policy.id}/supporting-pages/#{@supporting_page.id})
+      [sp link](/government/admin/supporting-pages/#{@supporting_page.id})
+    })
+
+    @supporting_page.supersede!
+
+    PolicyAdminURLReplacer.replace_in!(Edition.all)
+
+    assert_all_admin_links_replaced(edition)
+    assert_correct_replacement_url(edition)
+  end
+
   test "retains title text" do
     edition = create(:publication, body: %{
       [policy link](/government/admin/policies/#{@policy.id} "Policy title text")
@@ -96,6 +110,42 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
     PolicyAdminURLReplacer.replace_in!(Edition.all)
 
     assert_all_admin_links_erased(edition)
+  end
+
+  test "deals with long form direct admin links outside of markdown wrappers" do
+    edition = create(:publication, body: %{
+      Pre-Work Programme schemes [give Jobcentre Plus choice over what support to offer to claimants](https://www.gov.uk/government/policies/helping-people-to-find-and-stay-in-work/supporting-pages/introducing-measures-to-give-jobcentre-plus-flexibility-in-helping-people-back-to-work) in their area based on claimant and local labour market characteristics.
+      Some of these schemes are mandatory.
+      <a class="some-class" href="https://whitehall-admin.production.alphagov.co.uk/government/admin/editions/#{@policy.id}/supporting-pages/#{@supporting_page.id}">Work Programme</a>
+      On 27 June 2013
+      we published [Work Programme – Programme costs to 31 March 2013 – Financial information on Work Programme costs](/government/admin/publications/209240) to provide additional context for the official statistics.
+    })
+
+    PolicyAdminURLReplacer.replace_in!(Edition.all)
+
+    edition.reload
+
+    assert edition.body.include?("Some of these schemes are mandatory.")
+    assert_correct_replacement_url(edition)
+  end
+
+  test "deals with short form direct admin links outside of markdown wrappers" do
+    edition = create(:publication, body: %{
+      Pre-Work Programme schemes [give Jobcentre Plus choice over what support to offer to claimants](https://www.gov.uk/government/policies/helping-people-to-find-and-stay-in-work/supporting-pages/introducing-measures-to-give-jobcentre-plus-flexibility-in-helping-people-back-to-work) in their area based on claimant and local labour market characteristics.
+      Some of these schemes are mandatory.
+      <a class="some-class" href="https://whitehall-admin.production.alphagov.co.uk/government/admin/editions/#{@policy.id}">Work Programme</a>
+      <a href="https://whitehall-admin.production.alphagov.co.uk/government/admin/supporting-pages/#{@supporting_page.id}" id="some-id">Work Programme</a>
+      On 27 June 2013
+      we published [Work Programme – Programme costs to 31 March 2013 – Financial information on Work Programme costs](/government/admin/publications/209240) to provide additional context for the official statistics.
+    })
+
+    PolicyAdminURLReplacer.replace_in!(Edition.all)
+
+    edition.reload
+
+    assert edition.body.include?("Some of these schemes are mandatory.")
+    assert edition.body.include?("policies/#{@policy.slug}\">")
+    assert edition.body.include?("policies/#{@policy.slug}/supporting-pages/#{@supporting_page.slug}")
   end
 
   def assert_all_admin_links_replaced(edition)
