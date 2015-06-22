@@ -20,7 +20,7 @@ id_to_url_mapping = policies_and_supporting_pages.inject({}) {|hash, edition|
 
 edition_ids = Edition.where(state: Edition::PUBLICLY_VISIBLE_STATES + Edition::PRE_PUBLICATION_STATES).pluck(:id)
 
-edition_ids.each_slice(50).with_index do |ids, index|
+edition_ids.each_slice(1000).with_index do |ids, index|
   puts "Starting batch #{index}"
 
   pid = fork do
