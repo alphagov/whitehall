@@ -1,11 +1,13 @@
 # This can be deleted once db/data_migration/20150615092751_replace_policy_admin_links.rb is done with.
 class PolicyAdminURLReplacer
-  def self.replace_in!(edition_scope)
-    self.new.replace_in!(edition_scope)
+  def initialize(id_to_url_mapping)
+    @id_to_url_mapping = id_to_url_mapping
   end
 
+  attr_reader :id_to_url_mapping
+
   def replace_in!(edition_scope)
-    edition_scope.find_each(batch_size: 50) do |edition|
+    edition_scope.each do |edition|
       edition.body = replace_short_form(edition.body, edition.id)
       edition.body = replace_long_form(edition.body, edition.id)
       edition.body = replace_long_form_direct_links(edition.body, edition.id)
@@ -120,22 +122,5 @@ private
 
     puts "Edition #{edition_id}: #{original} -> #{replacement}"
     return replacement
-  end
-
-  def id_to_url_mapping
-    return @id_to_url_mapping if @id_to_url_mapping
-
-    puts "Building ID/slug to URL mapping"
-
-    policies_and_supporting_pages = Edition.unscoped.where(type: ["Policy", "SupportingPage"])
-
-    @id_to_url_mapping = policies_and_supporting_pages.inject({}) {|hash, edition|
-      url = Whitehall.url_maker.public_document_url(edition, {}, include_deleted_documents: true)
-
-      hash.merge(
-        edition.id.to_s => url,
-        edition.slug => url,
-      )
-    }
   end
 end

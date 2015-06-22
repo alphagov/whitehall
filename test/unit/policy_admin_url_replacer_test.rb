@@ -37,7 +37,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
       [sp link](/government/admin/editions/#{@policy.id}/supporting-pages/#{@supporting_page.id})
     })
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     assert_all_admin_links_replaced(edition)
     assert_correct_replacement_url(edition)
@@ -52,7 +52,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
     @policy.unpublish
     @policy.delete!
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     assert_all_admin_links_replaced(edition)
     assert_correct_replacement_url(edition)
@@ -66,7 +66,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
     @supporting_page.unpublish
     @supporting_page.delete!
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     assert_all_admin_links_replaced(edition)
     assert_correct_replacement_url(edition)
@@ -80,7 +80,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
 
     @supporting_page.supersede!
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     assert_all_admin_links_replaced(edition)
     assert_correct_replacement_url(edition)
@@ -92,7 +92,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
       [sp link](/government/admin/policies/#{@policy.id}/supporting-pages/#{@supporting_page.id} "Supporting page title text")
     })
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     assert_all_admin_links_replaced(edition)
     assert edition.body.include?(%{ "Policy title text"})
@@ -107,7 +107,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
 
     Policy.connection.delete("DELETE FROM editions WHERE id = #{@policy.id}")
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     assert_all_admin_links_erased(edition)
   end
@@ -121,7 +121,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
       we published [Work Programme – Programme costs to 31 March 2013 – Financial information on Work Programme costs](/government/admin/publications/209240) to provide additional context for the official statistics.
     })
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     edition.reload
 
@@ -139,7 +139,7 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
       we published [Work Programme – Programme costs to 31 March 2013 – Financial information on Work Programme costs](/government/admin/publications/209240) to provide additional context for the official statistics.
     })
 
-    PolicyAdminURLReplacer.replace_in!(Edition.all)
+    PolicyAdminURLReplacer.new(id_to_url_mapping).replace_in!(Edition.all)
 
     edition.reload
 
@@ -164,5 +164,22 @@ class PolicyAdminURLReplacerTest < ActiveSupport::TestCase
 
   def assert_correct_replacement_url(edition)
     assert edition.body.include?("policies/#{@policy.slug}/supporting-pages/#{@supporting_page.slug}")
+  end
+
+  def id_to_url_mapping
+    policies_and_supporting_pages = Edition.unscoped.where(type: ["Policy", "SupportingPage"])
+    policies_and_supporting_pages.inject({}) {|hash, edition|
+      url = Whitehall.url_maker.public_document_url(edition, {}, include_deleted_documents: true)
+
+      id = edition.id.to_s
+      slug = edition.slug
+
+      edition = nil
+
+      hash.merge(
+        id => url,
+        slug => url,
+      )
+    }
   end
 end
