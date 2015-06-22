@@ -1,15 +1,11 @@
 .govspeak_help {
-  .collapse {
-    height: auto;
+  .no-js .collapse {
+    display: block;
   }
 
   h3 {
     margin: 0;
     font-size: 18px;
     line-height: 27px;
-  }
-
-  .js & .collapse {
-    height: 0;
   }
 }
