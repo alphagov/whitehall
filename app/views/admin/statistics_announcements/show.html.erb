@@ -14,7 +14,7 @@
     <%= link_to "View announcement on GOV.UK", @statistics_announcement %>
 
     <% if @statistics_announcement.cancelled? %>
-      <div class="alert alert-error add-top-margin">
+      <div class="alert alert-danger add-top-margin">
         <h2>Statistics release cancelled</h2>
         <p><%= @statistics_announcement.cancellation_reason %></p>
       </div>
