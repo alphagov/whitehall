@@ -1,15 +1,15 @@
 .document-collection-groups {
   &.index {
 
-    div.reorder-buttons {
+    .reorder-buttons {
       position: absolute;
-      right: 0px;
+      right: 20px;
       button {
         display: none;
       }
     }
 
-    div.ui-sortable {
+    .ui-sortable {
       .js-group-header {
         border-bottom: 1px solid #bfc1c3;
         padding: 10px 0 10px;
@@ -28,7 +28,7 @@
     section.group {
       $doc-group-base: #333;
 
-      hgroup {
+      header {
         position: relative;
       }
 
@@ -110,6 +110,8 @@
         li.document-row {
           position: relative;
           padding-top: $gutter-one-third;
+          margin-bottom: 10px;
+          border-top: 1px solid #ccc;
           cursor: move;
 
           .loading-spinner {
@@ -133,21 +135,15 @@
         }
 
         ul.metadata {
-          clear: left;
 
           li {
-            display: inline;
-            margin: 0;
             padding: 0;
-
-            color: lighten($doc-group-base, 25%);
 
             &:after {
               content: '/';
               margin: 0 0.4em;
-
-              color: lighten($doc-group-base, 60%);
             }
+
             &:last-child:after {
               content: '';
               margin: 0;

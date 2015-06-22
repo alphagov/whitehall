@@ -4,7 +4,7 @@
     <%= edition.title %>
   </label>
   (<%= link_to 'view page', admin_edition_path(edition) %>)
-  <ul class="metadata">
+  <ul class="metadata list-inline text-muted">
     <li>
       Last changed: <%= public_time_for_edition(edition) %>
     </li>

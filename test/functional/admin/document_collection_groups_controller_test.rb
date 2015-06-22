@@ -19,7 +19,7 @@ class Admin::DocumentCollectionGroupsControllerTest < ActionController::TestCase
 
   view_test "GET #index shows helpful message when a group is empty" do
     get :index, document_collection_id: @collection
-    assert_select 'section.group .alert', /doesn't have any documents/
+    assert_select 'section.group .no-content', /No documents in this group/
   end
 
   view_test 'GET #index lets you move docs to another group' do
